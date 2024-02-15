@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EE398569E3
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 17:48:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681949.1060961 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA17F856A36
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 17:55:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681955.1060970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raetv-0004VK-1E; Thu, 15 Feb 2024 16:47:55 +0000
+	id 1raf0D-0006Xj-MC; Thu, 15 Feb 2024 16:54:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681949.1060961; Thu, 15 Feb 2024 16:47:55 +0000
+Received: by outflank-mailman (output) from mailman id 681955.1060970; Thu, 15 Feb 2024 16:54:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raetu-0004S8-UB; Thu, 15 Feb 2024 16:47:54 +0000
-Received: by outflank-mailman (input) for mailman id 681949;
- Thu, 15 Feb 2024 16:47:53 +0000
+	id 1raf0D-0006Ur-JA; Thu, 15 Feb 2024 16:54:25 +0000
+Received: by outflank-mailman (input) for mailman id 681955;
+ Thu, 15 Feb 2024 16:54:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wY2D=JY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1raett-0004Rj-3z
- for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 16:47:53 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
+ <SRS0=G1Z8=JY=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1raf0C-0006Ul-6o
+ for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 16:54:24 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f49632b7-cc21-11ee-98f5-efadbce2ee36;
- Thu, 15 Feb 2024 17:47:50 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2d180d6bd32so14188001fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 08:47:51 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- bg38-20020a05600c3ca600b0040f0219c371sm2638382wmb.19.2024.02.15.08.47.49
+ id dd9d31a6-cc22-11ee-98f5-efadbce2ee36;
+ Thu, 15 Feb 2024 17:54:21 +0100 (CET)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2d0d95e8133so13784941fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 08:54:22 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ r16-20020a2eb610000000b002d0a84eb8c3sm355843ljn.73.2024.02.15.08.54.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Feb 2024 08:47:49 -0800 (PST)
+ Thu, 15 Feb 2024 08:54:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,250 +45,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f49632b7-cc21-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: dd9d31a6-cc22-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708015670; x=1708620470; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=xSzGKUbvTBsdZuAtSzwneLv26whzlKaeewJgB2jp/94=;
-        b=hrHcT5XPoMvA3u5OKPUn4l3w3JbwCgr63zEDWE8Uw5l3kFvNkoNX+oDxefefWN7Q/c
-         hZ/4L7wzhiAWmRo94DYaZ12mRqWuWU7nu7WasyPXVccyhTtv81oZdXrATKBJ4LHtC4ak
-         7qMVIX7SSrUw1PwWMYM/yDJe/OZ6Qrk31L0ro=
+        d=gmail.com; s=20230601; t=1708016061; x=1708620861; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=0AuLDYjI6N2/l1F0oTuaUxW/JzdP/wpTtUClGyEDJ0Y=;
+        b=GyUbmooWLQSeg/OkLizL+FQATXdIV+xMGT5JDyZbxXumY+0JwlhKVUvdvfbgr7OLEu
+         LP6flY55kXW7WZjVoqKTb3b+VRsgkrpCxjKqQ3oOuC5XVG9i1MqgPXqXawzd6wpUiT6i
+         DVn7mEcV1UQTI/CMX8rgIHtxbx5j13Qb4l+0HAd442hcKb17C8otbC4+mQBVC5+HFHaX
+         0QRr1T8HfjUiThg2AnDYK3/ZgCfS62kYWJTDtd37AI2XFuJ5qEDDSDjsl75mbTP1vMsY
+         oHiGb3beuR5yQokc+CiQHT2bzqu2myh0YrcelQtjr+N8So1tn4OhlPT2/5N++UoO+HHY
+         KWTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708015670; x=1708620470;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xSzGKUbvTBsdZuAtSzwneLv26whzlKaeewJgB2jp/94=;
-        b=WRl70vYutmck7Y0mJIxB4iPTqa2sRGdwvx4N8P1fIv5+IsmnVTMDZBYpnPwcsBdBGw
-         2H5YIq0qVLhg+GB+NxVEOcg2nCwugJZfliWbNdGmCT7v6edkukNMgpQOpm/CupiKPuEh
-         m4n80NkJdKlTrSUP0DxwS2GxzlOnkWLShEEcKsuHxUFeDhgI4smUpFsf4AZr2pd4Nwgk
-         fVyLgMfDndjgXV5CswVALFcTk6IwCZl5EQHXREWOZ9B/ZsP8+JMzwotZeD7zDOC9Czoh
-         ZIhL1VKsWYtsgYQ+9G63IMPHkhSJpaQZAeQovUOFf400QD5tXdVhQOG1l0ZyCDp12OWI
-         Jvqg==
-X-Gm-Message-State: AOJu0Yy2nY1wwfKiUrVVGWdf/UY+J21awnEyZnhxiOL9kBGXaGkBosNK
-	M1D4VIgmv6lgoxVnnvLpbX17tffrSHI0yLrVLDEQnP9Bn5xONU+xTjby0ugixpvxR3DwnXLF9ti
-	Z
-X-Google-Smtp-Source: AGHT+IE3hBMqk8WEqty7E9FUs9rDel5zITU7RK4j3j9/wvow2YcUTc4U6xj9B59iHnWJuA31EWt+Pw==
-X-Received: by 2002:a05:651c:1a0c:b0:2d2:a9d:e315 with SMTP id by12-20020a05651c1a0c00b002d20a9de315mr1760900ljb.52.1708015669770;
-        Thu, 15 Feb 2024 08:47:49 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v3] x86/vmx: add support for virtualize SPEC_CTRL
-Date: Thu, 15 Feb 2024 17:46:53 +0100
-Message-ID: <20240215164653.27210-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20230601; t=1708016061; x=1708620861;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0AuLDYjI6N2/l1F0oTuaUxW/JzdP/wpTtUClGyEDJ0Y=;
+        b=INxy5m1cxdaWCJCA1FEXIaYRvYkg/Se5GT9usKzb2W2but4/VNR/XYwb19MTjoPjis
+         wrY0VW+kWykylpcwVqjTCRYnEp1vV7Jv65G1Vc3YDzPlpXFtwhSgUQzIKqBQMzPuYBFE
+         /Ddd391nYHREHns/fL0WC1erqEmwuJLx46NNQjZuK7uD7xfJs9b9c8qx9FVdRMmsXp8z
+         Q/FwtkdxBKdnH0wKWSLaAH331k5RwTLjjHL8vU5XX2/hJ5l1v5tdA7mdxMvcMlpDPn0q
+         Mc+hU8vNdR2LQSDtBW6SD9zRegrCmso/dNDLcj5aypKaselfLu4R5oTqstPGjNUOJI4k
+         MWFA==
+X-Forwarded-Encrypted: i=1; AJvYcCWQUABJAplLowMi1Xer59lAdf1B1mpvhqEqRUYcGb99f2wIWWSELL4e1FgyiNzxHbAABFSHtTUHXSsn7aI8zmONbh9/bs5GnT8mnMC4v8k=
+X-Gm-Message-State: AOJu0YxiE1rlIwuEwLAoj2XVDHvk3Y7W72hTih/ZZpzDWVWZ1uDmX4pj
+	tFN6NcV3yImtfFraGNOD4blmjOt6vY6V5lN5W4jFT60AUlGD0n91
+X-Google-Smtp-Source: AGHT+IE65womX88jkCVy4Ex0k9LBizKCSsmKGRjUgJ+FsKuN8W4wCGUquGStJuIozslJvkf3VrOF6w==
+X-Received: by 2002:a2e:9d97:0:b0:2d0:e1fc:9ca0 with SMTP id c23-20020a2e9d97000000b002d0e1fc9ca0mr1728400ljj.29.1708016061250;
+        Thu, 15 Feb 2024 08:54:21 -0800 (PST)
+Message-ID: <9fe0221a4c093fb5935ff3a519f2ef7180e569e1.camel@gmail.com>
+Subject: Re: [PATCH v8 5/7] xen/asm-generic: introduce generic device.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Date: Thu, 15 Feb 2024 17:54:20 +0100
+In-Reply-To: <3171ef24-bcb3-4387-ba32-f1c4d6c7220a@xen.org>
+References: <cover.1707499278.git.oleksii.kurochko@gmail.com>
+	 <4ecb5e5f4a1dbf585ac7a9ebe40b5fd8e4709182.1707499278.git.oleksii.kurochko@gmail.com>
+	 <319dcf7a-88cd-488e-ae51-6c20c19d8f22@xen.org>
+	 <9d4f3093de6f95b09e44bc66fe9a9d4b0009dc43.camel@gmail.com>
+	 <3171ef24-bcb3-4387-ba32-f1c4d6c7220a@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-The feature is defined in the tertiary exec control, and is available starting
-from Sapphire Rapids and Alder Lake CPUs.
+>=20
+> On 14/02/2024 09:32, Oleksii wrote:
+> > On Tue, 2024-02-13 at 18:09 +0000, Julien Grall wrote:
+> > > > +#ifdef CONFIG_HAS_PASSTHROUGH
+> > > > +=C2=A0=C2=A0=C2=A0 struct iommu_fwspec *iommu_fwspec; /* per-devic=
+e IOMMU
+> > > > instance data */
+> > > > +#endif
+> > > > +};
+> > > > +
+> > > > +typedef struct device device_t;
+> > > > +
+> > > > +#ifdef CONFIG_HAS_DEVICE_TREE
+> > > > +
+> > > > +#include <xen/device_tree.h>
+> > > > +
+> > > > +#define dev_is_dt(dev)=C2=A0 ((dev)->type =3D=3D DEV_DT)
+> > > > +
+> > > > +/**
+> > > > + *=C2=A0 device_init - Initialize a device
+> > > > + *=C2=A0 @dev: device to initialize
+> > > > + *=C2=A0 @class: class of the device (serial, network...)
+> > > > + *=C2=A0 @data: specific data for initializing the device
+> > > > + *
+> > > > + *=C2=A0 Return 0 on success.
+> > > > + */
+> > > > +int device_init(struct dt_device_node *dev, enum device_class
+> > > > class,
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 const void *data);
+> > > > +
+> > > > +/**
+> > > > + * device_get_type - Get the type of the device
+> > > > + * @dev: device to match
+> > > > + *
+> > > > + * Return the device type on success or DEVICE_ANY on failure
+> > > > + */
+> > > > +enum device_class device_get_class(const struct dt_device_node
+> > > > *dev);
+> > > > +
+> > > > +#define DT_DEVICE_START(name_, namestr_, class_)=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > > > +static const struct device_desc __dev_desc_##name_ __used=C2=A0=C2=
+=A0 \
+> > > > +__section(".dev.info") =3D {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 \
+> > > > +=C2=A0=C2=A0=C2=A0 .name =3D namestr_,=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > > > +=C2=A0=C2=A0=C2=A0 .class =3D class_,
+> > > > +
+> > > > +#define DT_DEVICE_END=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > > > +};
+> > > > +
+> > > > +#else /* !CONFIG_HAS_DEVICE_TREE */
+> > > > +#define dev_is_dt(dev) ((void)(dev), false)
+> > > > +#endif /* CONFIG_HAS_DEVICE_TREE */
+> > > > +
+> > > > +#define dev_is_pci(dev) ((dev)->type =3D=3D DEV_PCI)
+> > > > +
+> > > > +struct device_desc {
+> > > > +=C2=A0=C2=A0=C2=A0 /* Device name */
+> > > > +=C2=A0=C2=A0=C2=A0 const char *name;
+> > > > +=C2=A0=C2=A0=C2=A0 /* Device class */
+> > > > +=C2=A0=C2=A0=C2=A0 enum device_class class;
+> > > > +
+> > > > +#ifdef CONFIG_HAS_DEVICE_TREE
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 /* List of devices supported by this driver */
+> > > > +=C2=A0=C2=A0=C2=A0 const struct dt_device_match *dt_match;
+> > > > +=C2=A0=C2=A0=C2=A0 /*
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * Device initialization.
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * -EAGAIN is used to indicate that device=
+ probing is
+> > > > deferred.
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > > > +=C2=A0=C2=A0=C2=A0 int (*init)(struct dt_device_node *dev, const v=
+oid *data);
+> > > > +
+> > > > +#endif
+> > > > +};
+> > > I am not sure I fully understand why "device_desc" is not
+> > > protected
+> > > by
+> > > CONFIG_HAS_DEVICE_TREE. The structure doesn't mean much when the
+> > > config
+> > > is disabled. Can you clarify?
+> > I thought that one day struct device_desc and acpi_device_desc will
+> > be
+> > "merged", and so decided just to #ifdef only DEVICE_TREE specific
+> > fields.
+>=20
+> It might be possible to merge the two if we were using an union for
+> the=20
+> ACPI/DT specific part. However the majority of the parsing code needs
+> to=20
+> differ. So I am not convinced there would be any value to merge the
+> two=20
+> structures.
+In this case, let's have two separate structures.
 
-When enabled, two extra VMCS fields are used: SPEC_CTRL mask and shadow.  Bits
-set in mask are not allowed to be toggled by the guest (either set or clear)
-and the value in the shadow field is the value the guest expects to be in the
-SPEC_CTRL register.
+This is not the current situation, and I don't have a specific example.
+It appears that all architectures will use Device Tree or ACPI.
+However, does it make sense to keep 'struct device_desc' more generic
+to accommodate non-DT or non-ACPI cases?
 
-By using it the hypervisor can force the value of SPEC_CTRL bits behind the
-guest back without having to trap all accesses to SPEC_CTRL, note that no bits
-are forced into the guest as part of this patch.  It also allows getting rid of
-SPEC_CTRL in the guest MSR load list, since the value in the shadow field will
-be loaded by the hardware on vmentry.
+I am okay with making the following change, but I am just curious if
+what I mentioned above makes sense at all:
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v2:
- - Adjust comments.
- - Unconditionally set SPEC_CTRL_MASK in the VMCS if present.
+#ifdef CONFIG_HAS_DEVICE_TREE
+struct device_desc {
+    /* Device name */
+    const char *name;
+    /* Device class */
+    enum device_class class;
 
-Changes since v1:
- - Expand commit message and code comments.
- - Prefix the output of the VMCS dump with '0x'.
----
- xen/arch/x86/hvm/vmx/vmcs.c             | 10 +++++-
- xen/arch/x86/hvm/vmx/vmx.c              | 41 ++++++++++++++++++++-----
- xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  5 +++
- xen/arch/x86/include/asm/msr.h          |  9 ++++--
- 4 files changed, 55 insertions(+), 10 deletions(-)
+    /* List of devices supported by this driver */
+    const struct dt_device_match *dt_match;
+    /*
+     * Device initialization.
+     *
+     * -EAGAIN is used to indicate that device probing is deferred.
+     */
+    int (*init)(struct dt_device_node *dev, const void *data);
+};
+#endif /* CONFIG_HAS_DEVICE_TREE */=20
 
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index 9e016634ab5c..1d1e4a8fdd03 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -202,6 +202,7 @@ static void __init vmx_display_features(void)
-     P(cpu_has_vmx_tsc_scaling, "TSC Scaling");
-     P(cpu_has_vmx_bus_lock_detection, "Bus Lock Detection");
-     P(cpu_has_vmx_notify_vm_exiting, "Notify VM Exit");
-+    P(cpu_has_vmx_virt_spec_ctrl, "Virtualize SPEC_CTRL");
- #undef P
- 
-     if ( !printed )
-@@ -365,7 +366,7 @@ static int vmx_init_vmcs_config(bool bsp)
- 
-     if ( _vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_TERTIARY_CONTROLS )
-     {
--        uint64_t opt = 0;
-+        uint64_t opt = TERTIARY_EXEC_VIRT_SPEC_CTRL;
- 
-         _vmx_tertiary_exec_control = adjust_vmx_controls2(
-             "Tertiary Exec Control", 0, opt,
-@@ -1378,6 +1379,10 @@ static int construct_vmcs(struct vcpu *v)
-         rc = vmx_add_msr(v, MSR_PRED_CMD, PRED_CMD_IBPB,
-                          VMX_MSR_HOST);
- 
-+    /* Set any bits we don't allow toggling in the mask field. */
-+    if ( cpu_has_vmx_virt_spec_ctrl )
-+        __vmwrite(SPEC_CTRL_MASK, v->arch.msrs->spec_ctrl.raw);
-+
-  out:
-     vmx_vmcs_exit(v);
- 
-@@ -2086,6 +2091,9 @@ void vmcs_dump_vcpu(struct vcpu *v)
-     if ( v->arch.hvm.vmx.secondary_exec_control &
-          SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY )
-         printk("InterruptStatus = %04x\n", vmr16(GUEST_INTR_STATUS));
-+    if ( cpu_has_vmx_virt_spec_ctrl )
-+        printk("SPEC_CTRL mask = 0x%016lx  shadow = 0x%016lx\n",
-+               vmr(SPEC_CTRL_MASK), vmr(SPEC_CTRL_SHADOW));
- 
-     printk("*** Host State ***\n");
-     printk("RIP = 0x%016lx (%ps)  RSP = 0x%016lx\n",
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 48376cc32751..4ce248fe1276 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -823,18 +823,29 @@ static void cf_check vmx_cpuid_policy_changed(struct vcpu *v)
-     {
-         vmx_clear_msr_intercept(v, MSR_SPEC_CTRL, VMX_MSR_RW);
- 
--        rc = vmx_add_guest_msr(v, MSR_SPEC_CTRL, 0);
--        if ( rc )
--            goto out;
-+        if ( !cpu_has_vmx_virt_spec_ctrl )
-+        {
-+            rc = vmx_add_guest_msr(v, MSR_SPEC_CTRL, 0);
-+            if ( rc )
-+                goto out;
-+        }
-     }
-     else
-     {
-         vmx_set_msr_intercept(v, MSR_SPEC_CTRL, VMX_MSR_RW);
- 
--        rc = vmx_del_msr(v, MSR_SPEC_CTRL, VMX_MSR_GUEST);
--        if ( rc && rc != -ESRCH )
--            goto out;
--        rc = 0; /* Tolerate -ESRCH */
-+        /*
-+         * NB: there's no need to clear the virtualize SPEC_CTRL control, as
-+         * the MSR intercept takes precedence.  The SPEC_CTRL shadow and mask
-+         * VMCS fields don't take effect if the intercept is set.
-+         */
-+        if ( !cpu_has_vmx_virt_spec_ctrl )
-+        {
-+            rc = vmx_del_msr(v, MSR_SPEC_CTRL, VMX_MSR_GUEST);
-+            if ( rc && rc != -ESRCH )
-+                goto out;
-+            rc = 0; /* Tolerate -ESRCH */
-+        }
-     }
- 
-     /* MSR_PRED_CMD is safe to pass through if the guest knows about it. */
-@@ -2629,6 +2640,9 @@ static uint64_t cf_check vmx_get_reg(struct vcpu *v, unsigned int reg)
-     switch ( reg )
-     {
-     case MSR_SPEC_CTRL:
-+        if ( cpu_has_vmx_virt_spec_ctrl )
-+            /* Requires remote VMCS loaded - fetched below. */
-+            break;
-         rc = vmx_read_guest_msr(v, reg, &val);
-         if ( rc )
-         {
-@@ -2652,6 +2666,11 @@ static uint64_t cf_check vmx_get_reg(struct vcpu *v, unsigned int reg)
-     vmx_vmcs_enter(v);
-     switch ( reg )
-     {
-+    case MSR_SPEC_CTRL:
-+        ASSERT(cpu_has_vmx_virt_spec_ctrl);
-+        __vmread(SPEC_CTRL_SHADOW, &val);
-+        break;
-+
-     case MSR_IA32_BNDCFGS:
-         __vmread(GUEST_BNDCFGS, &val);
-         break;
-@@ -2678,6 +2697,9 @@ static void cf_check vmx_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
-     switch ( reg )
-     {
-     case MSR_SPEC_CTRL:
-+        if ( cpu_has_vmx_virt_spec_ctrl )
-+            /* Requires remote VMCS loaded - set below. */
-+            break;
-         rc = vmx_write_guest_msr(v, reg, val);
-         if ( rc )
-         {
-@@ -2698,6 +2720,11 @@ static void cf_check vmx_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
-     vmx_vmcs_enter(v);
-     switch ( reg )
-     {
-+    case MSR_SPEC_CTRL:
-+        ASSERT(cpu_has_vmx_virt_spec_ctrl);
-+        __vmwrite(SPEC_CTRL_SHADOW, val);
-+        break;
-+
-     case MSR_IA32_BNDCFGS:
-         __vmwrite(GUEST_BNDCFGS, val);
-         break;
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-index a7dd2eeffcad..58140af69153 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -270,6 +270,9 @@ extern u32 vmx_secondary_exec_control;
- #define TERTIARY_EXEC_VIRT_SPEC_CTRL            BIT(7, UL)
- extern uint64_t vmx_tertiary_exec_control;
- 
-+#define cpu_has_vmx_virt_spec_ctrl \
-+     (vmx_tertiary_exec_control & TERTIARY_EXEC_VIRT_SPEC_CTRL)
-+
- #define VMX_EPT_EXEC_ONLY_SUPPORTED                         0x00000001
- #define VMX_EPT_WALK_LENGTH_4_SUPPORTED                     0x00000040
- #define VMX_EPT_MEMORY_TYPE_UC                              0x00000100
-@@ -436,6 +439,8 @@ enum vmcs_field {
-     XSS_EXIT_BITMAP                 = 0x0000202c,
-     TSC_MULTIPLIER                  = 0x00002032,
-     TERTIARY_VM_EXEC_CONTROL        = 0x00002034,
-+    SPEC_CTRL_MASK                  = 0x0000204a,
-+    SPEC_CTRL_SHADOW                = 0x0000204c,
-     GUEST_PHYSICAL_ADDRESS          = 0x00002400,
-     VMCS_LINK_POINTER               = 0x00002800,
-     GUEST_IA32_DEBUGCTL             = 0x00002802,
-diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
-index 1d8ea9f26faa..eed7b36cd992 100644
---- a/xen/arch/x86/include/asm/msr.h
-+++ b/xen/arch/x86/include/asm/msr.h
-@@ -302,8 +302,13 @@ struct vcpu_msrs
-      * For PV guests, this holds the guest kernel value.  It is accessed on
-      * every entry/exit path.
-      *
--     * For VT-x guests, the guest value is held in the MSR guest load/save
--     * list.
-+     * For VT-x guests, the guest value is held in the MSR guest load/save list
-+     * if there's no support for virtualized SPEC_CTRL. If virtualized
-+     * SPEC_CTRL is enabled the value here signals which bits in SPEC_CTRL the
-+     * guest is not able to modify.  Note that the value for those bits used in
-+     * Xen context is also used in the guest context.  Setting a bit here
-+     * doesn't force such bit to set in the guest context unless also set in
-+     * Xen selection of SPEC_CTRL.
-      *
-      * For SVM, the guest value lives in the VMCB, and hardware saves/restores
-      * the host value automatically.  However, guests run with the OR of the
--- 
-2.43.0
+>=20
+> > Another one reason it is if to protect fully struct device_desc
+> > then it
+> > would be needed more #ifdef in arm/device.c ( for example,
+> > device_init() should be all protected then ) what will require to
+> > ifdef
+> > all calls of device_init(). As an option device_init can can be
+> > defined
+> > in case when !CONFIG_HAS_DEVICE_TREE as:
+> > =C2=A0=C2=A0=C2=A0 int __init device_init(struct dt_device_node *dev, e=
+num
+> > device_class
+> > =C2=A0=C2=A0=C2=A0 class,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 const void *data)
+> > =C2=A0=C2=A0=C2=A0 {
+> > =C2=A0=C2=A0=C2=A0=C2=A0 return -EBADF;
+> > =C2=A0=C2=A0=C2=A0 }
+> > =C2=A0=C2=A0=C2=A0=20
+> > The similar thing will be needed for device_get_class() in Arm's
+> > device.c.
+>=20
+> I agree that in theory device_init() & co should be protected with=20
+> CONFIG_HAS_DEVICE_TREE. However, it is not possible to compile Xen on
+> Arm without the Device-Tree part today. So I don't view adding the=20
+> #ifdef or any extra stub as necessary today.
+>=20
+> This may be useful in the future though. Note this is not a request
+> to=20
+> modify the patch more than...
+>=20
+> >=20
+> > Would it be better to ifdef full struct device_desc ?
+> .. moving structure within the #ifdef.
+Well, I'll update the commit message of the next patch that it is not
+possible to compile Xen without CONFIG_HAS_DEVICE_TREE, so
+device_init() and Co won't be protected by CONFIG_HAS_DEVICE_TREE.
 
+~ Oleksii
 
