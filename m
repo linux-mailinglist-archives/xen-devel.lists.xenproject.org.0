@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4920855EF6
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 11:16:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681497.1060306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 650E0855EFB
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 11:16:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681501.1060315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raYmt-0002QF-Rc; Thu, 15 Feb 2024 10:16:15 +0000
+	id 1raYnF-0002u8-2M; Thu, 15 Feb 2024 10:16:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681497.1060306; Thu, 15 Feb 2024 10:16:15 +0000
+Received: by outflank-mailman (output) from mailman id 681501.1060315; Thu, 15 Feb 2024 10:16:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raYmt-0002Nf-OD; Thu, 15 Feb 2024 10:16:15 +0000
-Received: by outflank-mailman (input) for mailman id 681497;
- Thu, 15 Feb 2024 10:16:13 +0000
+	id 1raYnE-0002sH-VP; Thu, 15 Feb 2024 10:16:36 +0000
+Received: by outflank-mailman (input) for mailman id 681501;
+ Thu, 15 Feb 2024 10:16:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4dJ3=JY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1raYmr-0001ZT-CG
- for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 10:16:13 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
+ id 1raYnD-0001ZT-Rs
+ for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 10:16:35 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3eb48278-cbeb-11ee-8a4d-1f161083a0e0;
- Thu, 15 Feb 2024 11:16:12 +0100 (CET)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2d0d95e8133so8328621fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 02:16:12 -0800 (PST)
+ id 4c127b56-cbeb-11ee-8a4d-1f161083a0e0;
+ Thu, 15 Feb 2024 11:16:35 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-33b4e6972f6so277487f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 02:16:35 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bs3-20020a056000070300b0033b45bdb2a1sm1361072wrb.4.2024.02.15.02.16.11
+ bs3-20020a056000070300b0033b45bdb2a1sm1361072wrb.4.2024.02.15.02.16.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Feb 2024 02:16:11 -0800 (PST)
+ Thu, 15 Feb 2024 02:16:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3eb48278-cbeb-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: 4c127b56-cbeb-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707992172; x=1708596972; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707992194; x=1708596994; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pvYCja/S6ezysFDR56QyJhiQ4LakZ7EGAU+IRQcHkow=;
-        b=E8F7ztVqfJzJ4XvJ5Ep2pMkHhXV/cb7Po+L6EML++7dr1c0HpG4Jqn+KkDnkQgtR6P
-         4aUMYMNfDBn0bgUq2TvpSp/s7vZf+CkOVccOuR4p4KV7cSrh2yH+CBQBmiRa6P273hPF
-         Td7yflXf89uoGWsir1x4zEMQe7W5udHa9SpQn6Mw+lL31W/ptNzwZ/3rHqbzk/tdfXLy
-         UDA3hm7BshaHpUZ6MOzua0NdpLAWmcHBUxVd9nxu6T7FsuEK1jJii01lEPGKwjSjT8p7
-         pyWc+FDR/c8C3jRKyXXT49YMSSt5uNQ5MywfsE6stm/OZpNDjL8m9Jf6u6JU8RuJmljY
-         Pu2g==
+        bh=XNeK3bYqgsZfsvAYZefEQLICnz9K9i5e8fWmt9YKjrw=;
+        b=FAAFF1AcP2IY3bkknHl7wbK8GpMFJf2q1TRCaw7K1nvQcsoqWESng/m023h/HW+uU2
+         dQ0B9JDHjNXoFVCS639eLWlj7v3w4sWTLTzyqLTbQlhHW7r/aUKP8x/uxFFcVMqvtkAL
+         faCK0mdlou7aVzYxpGuPLLki3AzcWPLSIbK+JOuSIXaNNX7hdGBKuzaMmrB54kPC7lcQ
+         HKGf14iar+ATuyfQJKdxlGlkqpE1XnchjvtjNA5XW8dRWna0D2Zb7E4UxCjSkfLyyDex
+         1ZtmsyRwEt9WvsvmMpdqzmRbWMScVEANTB3N2lIEOFW7j62UOHxgSllR43rey7VeYZ+I
+         Mo3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707992172; x=1708596972;
+        d=1e100.net; s=20230601; t=1707992194; x=1708596994;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=pvYCja/S6ezysFDR56QyJhiQ4LakZ7EGAU+IRQcHkow=;
-        b=Qrhfw8gk1TbGXJGEVVnYHX9fei6L7WS/2KmhPyDKa5rhAEVlpjNt9NbJ+B8IFlk+uc
-         AJy9Rxaph6v56NLVYGg+t3p9uyDe7aLtU0ObSb2Dgh0CHXhTa9cFmsSVJg7IVUGFCdly
-         y0kqATwHsx+8RgNioL1pW0dQ6D6VIGUsSIgNsbGUjTt+LkHGruXDu95Z6B1b8+DcQldi
-         2uEDCLBmeifGluEeLa10QLgmHqS+VavdlNa0KDAGNUedqEM1xCnK/wJwZY6ztRxZ4Py7
-         rYe12OdGCuFHp4sUER1SivF0z/DJITflIN7+KL91jK2UFfGW3poR3BB+hdt7zJKyZZ+5
-         M7+w==
-X-Gm-Message-State: AOJu0YyhunNqMy3wITLvUAMzumBu9SnK4WYXFeFFxLcm4oJfcrxVKx8y
-	rfPqjlXsSw3xlSSf8h351P3sNDYvPGrapOjmtpGkSuVMl9TnuWY/jqX83SN2EGO4rZ5YHD7ZgHI
+        bh=XNeK3bYqgsZfsvAYZefEQLICnz9K9i5e8fWmt9YKjrw=;
+        b=tK3WkF4J0zxfoAWVzOG/hpVt/eM51oHjtY2g4/SPxLqx74wcsFpgo631e0kxDiI9UX
+         EfRF/JbXpIoVG/d18iYoWLuKRW2fIeMADCWRRLC9eNLdQJP9XH0y8mLHPBdIADcZr66H
+         tQS7VgwwdLvpIetrBeJloFJwTH2bCFWPA5/Y6j91Uocnh5enbg4etBxddpWvHPIGaTET
+         bS+3+RqRWMB29cozqN3jisgFI+ope9Fcdd1RxwEC/oei0wPprTOAh7dtwX5rh1BYEycJ
+         rfsmukQ7gj1Y9QwWQ16DoTdeu2miK1/bxjJJAqBjNQ1OyvN5tnvKrqfZgi3RQUvj6xUZ
+         XOFA==
+X-Gm-Message-State: AOJu0YzjP0SS6aNUWENzMoAP2YCiETQHMIT15kKwKTTQJ4DOL475wuk3
+	zE9mEVVl9Q1NvXLQlmMOMfM8FqyIgWQ6qh0LTOC+hGXEiTgzoe/9qR2D5CWRniK8HU2DuePBeT4
 	=
-X-Google-Smtp-Source: AGHT+IHaNfJ1XoIWuOA4FB8Cfvo2/hwJaB1FIeDk2PiK1bwBIgOwZw0rqaqNJdskZ8Y97NbZ1KnyeA==
-X-Received: by 2002:a2e:a171:0:b0:2d0:a90b:e4e3 with SMTP id u17-20020a2ea171000000b002d0a90be4e3mr844303ljl.27.1707992172169;
-        Thu, 15 Feb 2024 02:16:12 -0800 (PST)
-Message-ID: <e98daa41-c6b6-4f4e-b41d-84006011068d@suse.com>
-Date: Thu, 15 Feb 2024 11:16:11 +0100
+X-Google-Smtp-Source: AGHT+IEBToj/5jt4OtESG6EbViirEv991GlvJtBi+TFX2uxp33Hn+F84evlIFXdE+Q/+B48v8GDU0A==
+X-Received: by 2002:a5d:6882:0:b0:33b:6d5e:7645 with SMTP id h2-20020a5d6882000000b0033b6d5e7645mr759086wru.38.1707992194487;
+        Thu, 15 Feb 2024 02:16:34 -0800 (PST)
+Message-ID: <bbb0e7cd-b5c9-4227-8f56-0d3e159ff7b2@suse.com>
+Date: Thu, 15 Feb 2024 11:16:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 06/12] VT-d: respect ACPI SATC's ATC_REQUIRED flag
+Subject: [PATCH v2 07/12] VT-d: replace find_ats_dev_drhd()
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -113,155 +113,246 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-When the flag is set, permit Dom0 to control the device (no worse than
-what we had before and in line with other "best effort" behavior we use
-when it comes to Dom0), but suppress passing through to DomU-s unless
-ATS can actually be enabled for such devices (and was explicitly enabled
-on the command line).
+All callers only care about boolean outcome. For this there's no point
+in allocating a duplicate of the respective DRHD structure; a simple
+boolean suffices (which eventually may want to become a count, such that
+the "any ATS devices assigned state" can also clear again). With that
+boolean, remove respective parameters from internal helper functions
+right away, as those have access to the flag through another parameter.
+(While the corresponding hook can have the parameter dropped too then,
+leave this for a separate change, to limit scope here.)
+
+No functional effect intended.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 v2: Re-base over new earlier patches.
 
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -225,7 +225,11 @@ exceptions (watchdog NMIs and unexpected
- > Default: `false`
+--- a/xen/drivers/passthrough/vtd/extern.h
++++ b/xen/drivers/passthrough/vtd/extern.h
+@@ -65,8 +65,6 @@ struct acpi_drhd_unit *ioapic_to_drhd(un
+ struct acpi_drhd_unit *hpet_to_drhd(unsigned int hpet_id);
+ struct acpi_rhsa_unit *drhd_to_rhsa(const struct acpi_drhd_unit *drhd);
  
- Permits Xen to set up and use PCI Address Translation Services.  This is a
--performance optimisation for PCI Passthrough.
-+performance optimisation for PCI Passthrough.  Note that firmware may indicate
-+that certain devices need to have ATS enabled for proper operation. For such
-+devices ATS will be enabled by default, unless the option is used in its
-+negative form.  Such devices will still not be eligible for passing through to
-+guests, unless the option is used in its positive form.
+-struct acpi_drhd_unit *find_ats_dev_drhd(struct vtd_iommu *iommu);
+-
+ int ats_device(const struct pci_dev *, const struct acpi_drhd_unit *);
  
- **WARNING: Xen cannot currently safely use ATS because of its synchronous wait
- loops for Queued Invalidation completions.**
---- a/xen/drivers/passthrough/vtd/dmar.c
-+++ b/xen/drivers/passthrough/vtd/dmar.c
-@@ -253,6 +253,24 @@ struct acpi_atsr_unit *acpi_find_matched
-     return all_ports;
- }
- 
-+const struct acpi_satc_unit *acpi_find_matched_satc_unit(
-+    const struct pci_dev *pdev)
-+{
-+    const struct acpi_satc_unit *satc;
-+
-+    list_for_each_entry ( satc, &acpi_satc_units, list )
-+    {
-+        if ( satc->segment != pdev->seg )
-+            continue;
-+
-+        for ( unsigned int i = 0; i < satc->scope.devices_cnt; ++i )
-+            if ( satc->scope.devices[i] == pdev->sbdf.bdf )
-+                return satc;
-+    }
-+
-+    return NULL;
-+}
-+
- struct acpi_rhsa_unit *drhd_to_rhsa(const struct acpi_drhd_unit *drhd)
- {
-     struct acpi_rhsa_unit *rhsa;
---- a/xen/drivers/passthrough/vtd/dmar.h
-+++ b/xen/drivers/passthrough/vtd/dmar.h
-@@ -112,6 +112,8 @@ struct acpi_satc_unit {
- 
- struct acpi_drhd_unit *acpi_find_matched_drhd_unit(const struct pci_dev *);
- struct acpi_atsr_unit *acpi_find_matched_atsr_unit(const struct pci_dev *);
-+const struct acpi_satc_unit *acpi_find_matched_satc_unit(
-+    const struct pci_dev *pdev);
- 
- #define DMAR_TYPE 1
- #define RMRR_TYPE 2
+ int dev_invalidate_iotlb(struct vtd_iommu *iommu, u16 did,
 --- a/xen/drivers/passthrough/vtd/iommu.c
 +++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -2364,6 +2364,26 @@ static int cf_check intel_iommu_add_devi
-     if ( ret )
-         dprintk(XENLOG_ERR VTDPREFIX, "%pd: context mapping failed\n",
-                 pdev->domain);
-+    else if ( !pdev->broken )
-+    {
-+        const struct acpi_drhd_unit *drhd = acpi_find_matched_drhd_unit(pdev);
-+        const struct acpi_satc_unit *satc = acpi_find_matched_satc_unit(pdev);
-+
-+        /*
-+         * Prevent the device from getting assigned to an unprivileged domain
-+         * when firmware indicates ATS is required, but ATS could not be enabled
-+         * or was not explicitly enabled via command line option.
-+         */
-+        if ( satc && satc->atc_required &&
-+             (!drhd || ats_device(pdev, drhd) <= 0 ||
-+              !pci_ats_enabled(pdev->seg, pdev->bus, pdev->devfn) ||
-+              opt_ats < 0) )
-+        {
-+            printk(XENLOG_WARNING "ATS: %pp is not eligible for pass-through\n",
-+                   &pdev->sbdf);
-+            pdev->broken = true;
-+        }
-+    }
- 
-     return ret;
- }
-@@ -2375,12 +2395,26 @@ static int cf_check intel_iommu_enable_d
- 
-     pci_vtd_quirk(pdev);
- 
--    if ( ret <= 0 )
--        return ret;
-+    if ( ret <= 0 ||
-+         (ret = enable_ats_device(pdev, &drhd->iommu->ats_devices)) < 0 ||
-+         opt_ats < 0 )
-+    {
-+        const struct acpi_satc_unit *satc = acpi_find_matched_satc_unit(pdev);
-+
-+        /*
-+         * Besides in error cases also prevent the device from getting assigned
-+         * to an unprivileged domain when firmware indicates ATS is required,
-+         * but ATS use was not explicitly enabled via command line option.
-+         */
-+        if ( satc && satc->atc_required && !pdev->broken )
-+        {
-+            printk(XENLOG_WARNING "ATS: %pp is not eligible for pass-through\n",
-+                   &pdev->sbdf);
-+            pdev->broken = true;
-+        }
-+    }
- 
--    ret = enable_ats_device(pdev, &drhd->iommu->ats_devices);
--
--    return ret >= 0 ? 0 : ret;
-+    return ret <= 0 ? ret : 0;
+@@ -624,8 +624,7 @@ int cf_check vtd_flush_iotlb_reg(
  }
  
- static int cf_check intel_iommu_remove_device(u8 devfn, struct pci_dev *pdev)
+ static int __must_check iommu_flush_iotlb_global(struct vtd_iommu *iommu,
+-                                                 bool flush_non_present_entry,
+-                                                 bool flush_dev_iotlb)
++                                                 bool flush_non_present_entry)
+ {
+     int status;
+ 
+@@ -633,7 +632,7 @@ static int __must_check iommu_flush_iotl
+     vtd_ops_preamble_quirk(iommu);
+ 
+     status = iommu->flush.iotlb(iommu, 0, 0, 0, DMA_TLB_GLOBAL_FLUSH,
+-                                flush_non_present_entry, flush_dev_iotlb);
++                                flush_non_present_entry, iommu->flush_dev_iotlb);
+ 
+     /* undo platform specific errata workarounds */
+     vtd_ops_postamble_quirk(iommu);
+@@ -642,8 +641,7 @@ static int __must_check iommu_flush_iotl
+ }
+ 
+ static int __must_check iommu_flush_iotlb_dsi(struct vtd_iommu *iommu, u16 did,
+-                                              bool flush_non_present_entry,
+-                                              bool flush_dev_iotlb)
++                                              bool flush_non_present_entry)
+ {
+     int status;
+ 
+@@ -651,7 +649,7 @@ static int __must_check iommu_flush_iotl
+     vtd_ops_preamble_quirk(iommu);
+ 
+     status = iommu->flush.iotlb(iommu, did, 0, 0, DMA_TLB_DSI_FLUSH,
+-                                flush_non_present_entry, flush_dev_iotlb);
++                                flush_non_present_entry, iommu->flush_dev_iotlb);
+ 
+     /* undo platform specific errata workarounds */
+     vtd_ops_postamble_quirk(iommu);
+@@ -661,26 +659,23 @@ static int __must_check iommu_flush_iotl
+ 
+ static int __must_check iommu_flush_iotlb_psi(struct vtd_iommu *iommu, u16 did,
+                                               u64 addr, unsigned int order,
+-                                              bool flush_non_present_entry,
+-                                              bool flush_dev_iotlb)
++                                              bool flush_non_present_entry)
+ {
+     int status;
+ 
+     /* Fallback to domain selective flush if no PSI support */
+     if ( !cap_pgsel_inv(iommu->cap) )
+-        return iommu_flush_iotlb_dsi(iommu, did, flush_non_present_entry,
+-                                     flush_dev_iotlb);
++        return iommu_flush_iotlb_dsi(iommu, did, flush_non_present_entry);
+ 
+     /* Fallback to domain selective flush if size is too big */
+     if ( order > cap_max_amask_val(iommu->cap) )
+-        return iommu_flush_iotlb_dsi(iommu, did, flush_non_present_entry,
+-                                     flush_dev_iotlb);
++        return iommu_flush_iotlb_dsi(iommu, did, flush_non_present_entry);
+ 
+     /* apply platform specific errata workarounds */
+     vtd_ops_preamble_quirk(iommu);
+ 
+     status = iommu->flush.iotlb(iommu, did, addr, order, DMA_TLB_PSI_FLUSH,
+-                                flush_non_present_entry, flush_dev_iotlb);
++                                flush_non_present_entry, iommu->flush_dev_iotlb);
+ 
+     /* undo platform specific errata workarounds */
+     vtd_ops_postamble_quirk(iommu);
+@@ -692,7 +687,6 @@ static int __must_check iommu_flush_all(
+ {
+     struct acpi_drhd_unit *drhd;
+     struct vtd_iommu *iommu;
+-    bool flush_dev_iotlb;
+     int rc = 0;
+ 
+     flush_local(FLUSH_CACHE);
+@@ -703,8 +697,7 @@ static int __must_check iommu_flush_all(
+ 
+         iommu = drhd->iommu;
+         context_rc = iommu_flush_context_global(iommu, 0);
+-        flush_dev_iotlb = !!find_ats_dev_drhd(iommu);
+-        iotlb_rc = iommu_flush_iotlb_global(iommu, 0, flush_dev_iotlb);
++        iotlb_rc = iommu_flush_iotlb_global(iommu, 0);
+ 
+         /*
+          * The current logic for returns:
+@@ -734,7 +727,6 @@ static int __must_check cf_check iommu_f
+     struct domain_iommu *hd = dom_iommu(d);
+     struct acpi_drhd_unit *drhd;
+     struct vtd_iommu *iommu;
+-    bool flush_dev_iotlb;
+     int iommu_domid;
+     int ret = 0;
+ 
+@@ -762,21 +754,18 @@ static int __must_check cf_check iommu_f
+         if ( !test_bit(iommu->index, hd->arch.vtd.iommu_bitmap) )
+             continue;
+ 
+-        flush_dev_iotlb = !!find_ats_dev_drhd(iommu);
+         iommu_domid = get_iommu_did(d->domain_id, iommu, !d->is_dying);
+         if ( iommu_domid == -1 )
+             continue;
+ 
+         if ( !page_count || (page_count & (page_count - 1)) ||
+              dfn_eq(dfn, INVALID_DFN) || !IS_ALIGNED(dfn_x(dfn), page_count) )
+-            rc = iommu_flush_iotlb_dsi(iommu, iommu_domid,
+-                                       0, flush_dev_iotlb);
++            rc = iommu_flush_iotlb_dsi(iommu, iommu_domid, 0);
+         else
+             rc = iommu_flush_iotlb_psi(iommu, iommu_domid,
+                                        dfn_to_daddr(dfn),
+                                        get_order_from_pages(page_count),
+-                                       !(flush_flags & IOMMU_FLUSHF_modified),
+-                                       flush_dev_iotlb);
++                                       !(flush_flags & IOMMU_FLUSHF_modified));
+ 
+         if ( rc > 0 )
+             iommu_flush_write_buffer(iommu);
+@@ -1488,7 +1477,6 @@ int domain_context_mapping_one(
+     uint16_t seg = iommu->drhd->segment, prev_did = 0;
+     struct domain *prev_dom = NULL;
+     int rc, ret;
+-    bool flush_dev_iotlb;
+ 
+     if ( QUARANTINE_SKIP(domain, pgd_maddr) )
+         return 0;
+@@ -1637,8 +1625,7 @@ int domain_context_mapping_one(
+ 
+     rc = iommu_flush_context_device(iommu, prev_did, PCI_BDF(bus, devfn),
+                                     DMA_CCMD_MASK_NOBIT, !prev_dom);
+-    flush_dev_iotlb = !!find_ats_dev_drhd(iommu);
+-    ret = iommu_flush_iotlb_dsi(iommu, prev_did, !prev_dom, flush_dev_iotlb);
++    ret = iommu_flush_iotlb_dsi(iommu, prev_did, !prev_dom);
+ 
+     /*
+      * The current logic for returns:
+@@ -1882,7 +1869,6 @@ int domain_context_unmap_one(
+     struct context_entry *context, *context_entries;
+     u64 maddr;
+     int iommu_domid, rc, ret;
+-    bool flush_dev_iotlb;
+ 
+     ASSERT(pcidevs_locked());
+     spin_lock(&iommu->lock);
+@@ -1908,8 +1894,7 @@ int domain_context_unmap_one(
+                                     PCI_BDF(bus, devfn),
+                                     DMA_CCMD_MASK_NOBIT, 0);
+ 
+-    flush_dev_iotlb = !!find_ats_dev_drhd(iommu);
+-    ret = iommu_flush_iotlb_dsi(iommu, iommu_domid, 0, flush_dev_iotlb);
++    ret = iommu_flush_iotlb_dsi(iommu, iommu_domid, 0);
+ 
+     /*
+      * The current logic for returns:
+--- a/xen/drivers/passthrough/vtd/iommu.h
++++ b/xen/drivers/passthrough/vtd/iommu.h
+@@ -484,6 +484,7 @@ struct vtd_iommu {
+     spinlock_t register_lock; /* protect iommu register handling */
+     u64 root_maddr; /* root entry machine address */
+     nodeid_t node;
++    bool flush_dev_iotlb;
+     struct msi_desc msi;
+     struct acpi_drhd_unit *drhd;
+ 
 --- a/xen/drivers/passthrough/vtd/x86/ats.c
 +++ b/xen/drivers/passthrough/vtd/x86/ats.c
-@@ -45,8 +45,9 @@ int ats_device(const struct pci_dev *pde
+@@ -28,22 +28,8 @@
+ #include "../extern.h"
+ #include "../../ats.h"
+ 
+-static LIST_HEAD(ats_dev_drhd_units);
+-
+-struct acpi_drhd_unit *find_ats_dev_drhd(struct vtd_iommu *iommu)
+-{
+-    struct acpi_drhd_unit *drhd;
+-    list_for_each_entry ( drhd, &ats_dev_drhd_units, list )
+-    {
+-        if ( drhd->iommu == iommu )
+-            return drhd;
+-    }
+-    return NULL;
+-}
+-
+ int ats_device(const struct pci_dev *pdev, const struct acpi_drhd_unit *drhd)
  {
-     struct acpi_drhd_unit *ats_drhd;
+-    struct acpi_drhd_unit *ats_drhd;
      unsigned int pos, expfl = 0;
-+    const struct acpi_satc_unit *satc;
+     const struct acpi_satc_unit *satc;
  
--    if ( opt_ats <= 0 || !iommu_qinval )
-+    if ( !opt_ats || !iommu_qinval )
+@@ -66,17 +52,10 @@ int ats_device(const struct pci_dev *pde
+     if ( opt_ats < 0 && (!satc || !satc->atc_required) )
          return 0;
  
-     if ( !ecap_queued_inval(drhd->iommu->ecap) ||
-@@ -61,6 +62,10 @@ int ats_device(const struct pci_dev *pde
-          !acpi_find_matched_atsr_unit(pdev) )
-         return 0;
- 
-+    satc = acpi_find_matched_satc_unit(pdev);
-+    if ( opt_ats < 0 && (!satc || !satc->atc_required) )
-+        return 0;
-+
-     ats_drhd = find_ats_dev_drhd(drhd->iommu);
+-    ats_drhd = find_ats_dev_drhd(drhd->iommu);
      pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_ATS);
++    if ( pos )
++        drhd->iommu->flush_dev_iotlb = true;
+ 
+-    if ( pos && (ats_drhd == NULL) )
+-    {
+-        ats_drhd = xmalloc(struct acpi_drhd_unit);
+-        if ( !ats_drhd )
+-            return -ENOMEM;
+-        *ats_drhd = *drhd;
+-        list_add_tail(&ats_drhd->list, &ats_dev_drhd_units);
+-    }
+     return pos;
+ }
  
 
 
