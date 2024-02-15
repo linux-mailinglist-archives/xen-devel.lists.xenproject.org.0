@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 315F2855F02
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 11:19:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681521.1060355 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95BB2855F06
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 11:20:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681532.1060365 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raYpV-00055Z-60; Thu, 15 Feb 2024 10:18:57 +0000
+	id 1raYqM-00065P-Gc; Thu, 15 Feb 2024 10:19:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681521.1060355; Thu, 15 Feb 2024 10:18:57 +0000
+Received: by outflank-mailman (output) from mailman id 681532.1060365; Thu, 15 Feb 2024 10:19:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raYpV-00053L-1l; Thu, 15 Feb 2024 10:18:57 +0000
-Received: by outflank-mailman (input) for mailman id 681521;
- Thu, 15 Feb 2024 10:18:55 +0000
+	id 1raYqM-00062s-Dp; Thu, 15 Feb 2024 10:19:50 +0000
+Received: by outflank-mailman (input) for mailman id 681532;
+ Thu, 15 Feb 2024 10:19:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4dJ3=JY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1raYpT-0003nv-A1
- for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 10:18:55 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1raYqL-00062N-DJ
+ for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 10:19:49 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9e90d39c-cbeb-11ee-98f5-efadbce2ee36;
- Thu, 15 Feb 2024 11:18:53 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-40fd72f7125so5788495e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 02:18:53 -0800 (PST)
+ id becc0f8a-cbeb-11ee-98f5-efadbce2ee36;
+ Thu, 15 Feb 2024 11:19:47 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-33d10936af1so63996f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 02:19:47 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bs3-20020a056000070300b0033b45bdb2a1sm1361072wrb.4.2024.02.15.02.18.52
+ bs3-20020a056000070300b0033b45bdb2a1sm1361072wrb.4.2024.02.15.02.19.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Feb 2024 02:18:52 -0800 (PST)
+ Thu, 15 Feb 2024 02:19:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e90d39c-cbeb-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: becc0f8a-cbeb-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707992333; x=1708597133; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707992387; x=1708597187; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9Q/98Bd60cvr5LoSwMJPfl73bySzka3cm2CynrCQTbw=;
-        b=OBZAwYdd0Ifor+dYnfJXkpiymKgVy7HAny6JjBEg8G6ehLRaj2Llv5D420fvzrdmDo
-         xMwcjn5zs3OcrOtTI9qS8jcUsOQvf/fBC3Gc4mxlpD76zk06AYYHCHHrchvbUsnGXrLM
-         U8eGUEn0fDpvUl0PXB70eOoy2DI7nwDg8IriT6/ktpkKh9bYmmIQk879uWFsGi9sQ5uG
-         AYuDFmIE4htCpRz+ZLvIZjBPQEZieOb27cRLT7mzbo1S6wio4OYj4rKdkImgkIfjyrF1
-         YMMVVbB9y50tTCXkFtdnxjAEMfvIX6o3GpF40xaWz6uGWyI5PQB5iBLvmxkCn8OZ+ZDB
-         DgdQ==
+        bh=n1vU3iIA9oaJ5u3mwUz26PW+j70BjJveVatCei2osX4=;
+        b=A7AkwQ4YMd9dftW5esA3vyDOBmmJNEgTY2RgxZs5rdusj6OxC5sZZxqMBu/1T6RCkQ
+         DOQOnlj9TELtJGKRIZl6uu17GNCZ3KVhmYQ5AmvA6TStwwhhVhK82WjHk/QvRb6VXh9m
+         XqJKV/WzL3JwXvyMQflF+fvMW7Ak68V4e2QBLGq//xlA0Xr6nxxxgUe20Z4GY+rYT8FZ
+         IBMWd7iG8vw+YzEXndb357jaBt9PkIxjGz2e7UG5zcOo3xzi6/Te8rU3gT+PnxkTqzt4
+         yGPybe31O+456ngkHhXaSXRQdNT2I9ikeFli8BvwhJlYzRw2t7w9ben9ApIX+z20l/Wn
+         d4Fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707992333; x=1708597133;
+        d=1e100.net; s=20230601; t=1707992387; x=1708597187;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=9Q/98Bd60cvr5LoSwMJPfl73bySzka3cm2CynrCQTbw=;
-        b=nXMCHCgwQhiPDnmOW31QKj26XtbnHKu1KUeIgawr3o39HDK305YGtAQcRgPcXxBpuy
-         1wWfRwfwdIikPwC8HdrQ8auAHXx4SPHBPzrt7sjCydhDp++4KbspiCRE7XU2ZKgLnW19
-         Z5GzuNamlpvc59qnhLDCCHmXLom3ccQoZdvVUzlI7a873pXcTIlpeTv6bF6CZKiEDp0p
-         MFbBATAOtieuFoOxMETyIdQSR24WSNBp/buTS9N0/QN5eyR29IPfDbPd8b/f83989vMC
-         d0z0NWALjoOHxI6PQWU/liQ9sFkNAOLfIe5H9rETZMl3KGvktZo/DglhOXpXb5Wky7mR
-         f/ew==
-X-Gm-Message-State: AOJu0Ywp/PGOAg3josftSm+LoCffIb1f37hVsDjAPHejKpKLD6uf1+0G
-	S7zG5vbsao9VtqYXWRVaqxA7CazJmK3HM5gCTxwjpp+fldDoupmVatttWnXdAO7tgt4P/4tDsXo
+        bh=n1vU3iIA9oaJ5u3mwUz26PW+j70BjJveVatCei2osX4=;
+        b=XD7fxLOft60MqoC9ZwYhspOrqBI2n7QYZC82DE4TnxQsqkfhy8w4AwNwvHqVRBDpqp
+         SAaHeUY1pDZT/a+BC19+Pm7RfAbZkgFQja+pBt7KnCxGujiCkaEIUxlJT56b/BW1AxcR
+         +fEhYWMeip+fxuHB9ksJBiWWY1ghuWcmutKvcHHzuRE3mPos5fhWReFmINfCKvRGGlFM
+         WXpSEPOr9oNMGMcEw7PJhdQpfWpXf5gpGQ8LF9p91D8ng7btm+TCVZp0ZMv5C7IAiYZY
+         nLr0GRUf9Qiq1VnlHg6Oh85mn2zjzT08kbxZNJ0h06SZHbC4HnXdrJc8FtQKQ7E+q7mN
+         HJ9Q==
+X-Gm-Message-State: AOJu0YwlIlh2ky1u/9A4gNcQRJiAtCbD03eiBy2lJ+rYRc3oCNTG9sms
+	HiEORAsAfpODYuS+zEk9Fp/5J5aory7beKlJnm2fV7rDpjxUX+LLiKBgnLqdBn17QAcm/zmFV4E
 	=
-X-Google-Smtp-Source: AGHT+IETeTFl4XumyccwXgmsgDQE0YKt+uSSmDRwDjhG+soVHGC3zw23pHuAHdnqMQ5jXb+tByKWvg==
-X-Received: by 2002:adf:f682:0:b0:33d:fb3:9021 with SMTP id v2-20020adff682000000b0033d0fb39021mr290463wrp.54.1707992332965;
-        Thu, 15 Feb 2024 02:18:52 -0800 (PST)
-Message-ID: <d63065bd-517b-4b6a-a554-7991bdabc3c2@suse.com>
-Date: Thu, 15 Feb 2024 11:18:52 +0100
+X-Google-Smtp-Source: AGHT+IGIfIj8HOKsHO7ITuiOtJqVOoRtnWdu7rLwJYHY0y3h/emNo2LUPfyhohPAdb/ytCC6Nmdofg==
+X-Received: by 2002:a5d:644b:0:b0:33b:68c0:8e2f with SMTP id d11-20020a5d644b000000b0033b68c08e2fmr1001767wrw.46.1707992386941;
+        Thu, 15 Feb 2024 02:19:46 -0800 (PST)
+Message-ID: <edec0260-e338-49aa-a21f-c507ef9e35cb@suse.com>
+Date: Thu, 15 Feb 2024 11:19:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 11/12] VT-d: drop flush_dev_iotlb parameter from IOTLB
- flush hook
+Subject: [PATCH v2 12/12] PCI/ATS: tidy {en,dis}able_ats_device() a little
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -116,105 +115,56 @@ In-Reply-To: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-All call sites pass it using the flag from the IOMMU which they also
-pass.
+Use appropriate types for the control register value as well as the
+capability position. Constify a pointer. Use "else" in favor of encoding
+the opposite condition of the earlier if().
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
 v2: New.
 
---- a/xen/drivers/passthrough/vtd/extern.h
-+++ b/xen/drivers/passthrough/vtd/extern.h
-@@ -57,8 +57,7 @@ int __must_check cf_check vtd_flush_cont
-     uint8_t function_mask, uint64_t type, bool flush_non_present_entry);
- int __must_check cf_check vtd_flush_iotlb_reg(
-     struct vtd_iommu *iommu, uint16_t did, uint64_t addr,
--    unsigned int size_order, uint64_t type, bool flush_non_present_entry,
--    bool flush_dev_iotlb);
-+    unsigned int size_order, uint64_t type, bool flush_non_present_entry);
+--- a/xen/drivers/passthrough/ats.c
++++ b/xen/drivers/passthrough/ats.c
+@@ -23,10 +23,9 @@ boolean_param("ats", opt_ats);
  
- struct vtd_iommu *ioapic_to_iommu(unsigned int apic_id);
- struct vtd_iommu *hpet_to_iommu(unsigned int hpet_id);
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -566,8 +566,7 @@ static int __must_check iommu_flush_cont
- /* return value determine if we need a write buffer flush */
- int cf_check vtd_flush_iotlb_reg(
-     struct vtd_iommu *iommu, uint16_t did, uint64_t addr,
--    unsigned int size_order, uint64_t type, bool flush_non_present_entry,
--    bool flush_dev_iotlb)
-+    unsigned int size_order, uint64_t type, bool flush_non_present_entry)
+ int enable_ats_device(struct pci_dev *pdev, struct list_head *ats_list)
  {
-     int tlb_offset = ecap_iotlb_offset(iommu->ecap);
-     uint64_t val = type | DMA_TLB_IVT;
-@@ -632,7 +631,7 @@ static int __must_check iommu_flush_iotl
-     vtd_ops_preamble_quirk(iommu);
+-    u32 value;
+-    int pos;
++    uint16_t value;
++    unsigned int pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_ATS);
  
-     status = iommu->flush.iotlb(iommu, 0, 0, 0, DMA_TLB_GLOBAL_FLUSH,
--                                flush_non_present_entry, iommu->flush_dev_iotlb);
-+                                flush_non_present_entry);
+-    pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_ATS);
+     BUG_ON(!pos);
  
-     /* undo platform specific errata workarounds */
-     vtd_ops_postamble_quirk(iommu);
-@@ -649,7 +648,7 @@ static int __must_check iommu_flush_iotl
-     vtd_ops_preamble_quirk(iommu);
- 
-     status = iommu->flush.iotlb(iommu, did, 0, 0, DMA_TLB_DSI_FLUSH,
--                                flush_non_present_entry, iommu->flush_dev_iotlb);
-+                                flush_non_present_entry);
- 
-     /* undo platform specific errata workarounds */
-     vtd_ops_postamble_quirk(iommu);
-@@ -675,7 +674,7 @@ static int __must_check iommu_flush_iotl
-     vtd_ops_preamble_quirk(iommu);
- 
-     status = iommu->flush.iotlb(iommu, did, addr, order, DMA_TLB_PSI_FLUSH,
--                                flush_non_present_entry, iommu->flush_dev_iotlb);
-+                                flush_non_present_entry);
- 
-     /* undo platform specific errata workarounds */
-     vtd_ops_postamble_quirk(iommu);
---- a/xen/drivers/passthrough/vtd/iommu.h
-+++ b/xen/drivers/passthrough/vtd/iommu.h
-@@ -502,8 +502,7 @@ struct vtd_iommu {
-                                     bool non_present_entry_flush);
-         int __must_check (*iotlb)(struct vtd_iommu *iommu, u16 did, u64 addr,
-                                   unsigned int size_order, u64 type,
--                                  bool flush_non_present_entry,
--                                  bool flush_dev_iotlb);
-+                                  bool flush_non_present_entry);
-     } flush;
- 
-     struct list_head ats_devices;
---- a/xen/drivers/passthrough/vtd/qinval.c
-+++ b/xen/drivers/passthrough/vtd/qinval.c
-@@ -452,7 +452,7 @@ static int __must_check cf_check flush_c
- 
- static int __must_check cf_check flush_iotlb_qi(
-     struct vtd_iommu *iommu, u16 did, u64 addr, unsigned int size_order,
--    u64 type, bool flush_non_present_entry, bool flush_dev_iotlb)
-+    u64 type, bool flush_non_present_entry)
- {
-     u8 dr = 0, dw = 0;
-     int ret = 0, rc;
-@@ -478,7 +478,7 @@ static int __must_check cf_check flush_i
-     if ( !ret )
-         ret = rc;
- 
--    if ( flush_dev_iotlb )
-+    if ( iommu->flush_dev_iotlb )
+     if ( iommu_verbose )
+@@ -35,7 +34,7 @@ int enable_ats_device(struct pci_dev *pd
+     value = pci_conf_read16(pdev->sbdf, pos + ATS_REG_CTL);
+     if ( value & ATS_ENABLE )
      {
-         rc = dev_invalidate_iotlb(iommu, did, addr, size_order, type);
-         if ( !ret )
-@@ -573,8 +573,7 @@ static int cf_check vtd_flush_context_no
+-        struct pci_dev *other;
++        const struct pci_dev *other;
  
- static int cf_check vtd_flush_iotlb_noop(
-     struct vtd_iommu *iommu, uint16_t did, uint64_t addr,
--    unsigned int size_order, uint64_t type, bool flush_non_present_entry,
--    bool flush_dev_iotlb)
-+    unsigned int size_order, uint64_t type, bool flush_non_present_entry)
+         list_for_each_entry ( other, ats_list, ats.list )
+             if ( other == pdev )
+@@ -44,8 +43,7 @@ int enable_ats_device(struct pci_dev *pd
+                 break;
+             }
+     }
+-
+-    if ( !(value & ATS_ENABLE) )
++    else
+     {
+         value |= ATS_ENABLE;
+         pci_conf_write16(pdev->sbdf, pos + ATS_REG_CTL, value);
+@@ -69,7 +67,7 @@ int enable_ats_device(struct pci_dev *pd
+ 
+ void disable_ats_device(struct pci_dev *pdev)
  {
-     WARN();
-     return -EIO;
+-    u32 value;
++    uint16_t value;
+ 
+     BUG_ON(!pdev->ats.cap_pos);
+ 
 
 
