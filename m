@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3440C855EEE
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 11:14:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681481.1060275 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 331BB855EEF
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 11:15:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681488.1060285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raYlH-0000mf-0O; Thu, 15 Feb 2024 10:14:35 +0000
+	id 1raYlx-0001Im-83; Thu, 15 Feb 2024 10:15:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681481.1060275; Thu, 15 Feb 2024 10:14:34 +0000
+Received: by outflank-mailman (output) from mailman id 681488.1060285; Thu, 15 Feb 2024 10:15:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raYlG-0000kJ-Th; Thu, 15 Feb 2024 10:14:34 +0000
-Received: by outflank-mailman (input) for mailman id 681481;
- Thu, 15 Feb 2024 10:14:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1raYlx-0001HI-5F; Thu, 15 Feb 2024 10:15:17 +0000
+Received: by outflank-mailman (input) for mailman id 681488;
+ Thu, 15 Feb 2024 10:15:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4dJ3=JY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1raYlF-0000Sx-JE
- for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 10:14:33 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0329edfd-cbeb-11ee-8a4d-1f161083a0e0;
- Thu, 15 Feb 2024 11:14:32 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-41205e19660so4893155e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 02:14:32 -0800 (PST)
+ id 1raYlv-0001H1-GX
+ for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 10:15:15 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1b66a041-cbeb-11ee-98f5-efadbce2ee36;
+ Thu, 15 Feb 2024 11:15:13 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-33cf7812777so360866f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 02:15:13 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bs3-20020a056000070300b0033b45bdb2a1sm1361072wrb.4.2024.02.15.02.14.31
+ bs3-20020a056000070300b0033b45bdb2a1sm1361072wrb.4.2024.02.15.02.15.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Feb 2024 02:14:32 -0800 (PST)
+ Thu, 15 Feb 2024 02:15:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0329edfd-cbeb-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: 1b66a041-cbeb-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707992072; x=1708596872; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707992113; x=1708596913; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fj8qUorQgdMO+SEeflpHtiiMwgxTjCex7pYcfIyVQuE=;
-        b=e8tdgsXF24xURiNWHJri0h8BL3XuKB77vTGJOPmBLlJoW+thPghgJRRx3kEwBLr1R/
-         FZmIw03rDpYS7WNPa6hY/CFsC9ioUNb6K6MsF9OQA9GHj2b4HIJ3wEaQHaAGHOGgrpF/
-         4DTlysSVws1n7xcZyMoAFvZ/Qoh4/dmv6/pFqfqfYL/e/pNU1OmyVHEBl975sbhIT5Je
-         hM3vR6VWI7WHvn+v9KXekTslM0nSpR0gyUJWWjJSkwJ2fkoyGGRbHgGIOUiIcKn/DMx4
-         6oYjQ5fPOOIWwr2Bv58uCsvr3EC49j7NSupJVpRx72cHSFn+tM/5xEG+B5bDhTMEPOci
-         EihA==
+        bh=0wmyC+dd48xUA9r3hY+U4fMTTXevckC3qoc0ZYZfRhM=;
+        b=USz6MfuGjH/VMGz2zKdeerjYyC7kDh6JwBzQ8044JHn24DXU7ohqZOKuvoza72pRKK
+         3chya4b/n7xptNoAKF/z4kUG8xFmOaAlplD4YAfoJKC6BFOCRYJcgbo2o272oSZnhbQr
+         qS0gDHtiu/pHHMO+APqHLEKFZH71ItpC5qvE7BpK7B44ZvxwvDW1WRwXMvYAV2KfKBHg
+         wpdrlLWDSP9T2xPhFsYyyPCHEmCEt8Q7u5vmInI2WRN5SqUdYImGaZThgJsDXNR5XXLa
+         1AuzbQ9cJ6K+PGv57YjikhDCzWqHueERg+mIOI/rWLkKqDOGMCYWuqyby4jEjjoVZf4F
+         rsgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707992072; x=1708596872;
+        d=1e100.net; s=20230601; t=1707992113; x=1708596913;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=fj8qUorQgdMO+SEeflpHtiiMwgxTjCex7pYcfIyVQuE=;
-        b=kgbzVEAOoNzsu/7ETPu7ksmEwjD6sQ1TRLgmjF+/zafCkMHhYMxzXJvBGEWYMbyPtr
-         btRP0CNSEtEd/MFb5zBQUNThH7vJUdlYJ1tUhWuNMFVtLYiFd8RtmdNiisN3W9QAP2Je
-         HYqeONnuk/4PnyPCwVYtSCNy5qk54GZ/hCo6p3R/hIMYdMvGBY0hOShNX7y9DNoI2JJn
-         3f7gHkBtX30DjHZxVQIb31aPebdKepNDLX29ZUlBw/PzljvSwJxB/eI8975KQTRYnQSl
-         p964f7uKutSrTekG8h1l8wgqZnw2tjcSvYp+MP5dtdkm69k/TC0hO+4wDErNR+TZVA3p
-         KvTA==
-X-Gm-Message-State: AOJu0YxrzXSvlIV9/TNOE6OEgck+eZZomH/JeK5oczLVmsLHzbx5Ixg0
-	fdLtgKrtehIfn8GAAsGGBqANEeptpB/vYM4sAhfwB5GWcOHDWlyMVUx2FURVwDcXtd1s+ATlPP4
+        bh=0wmyC+dd48xUA9r3hY+U4fMTTXevckC3qoc0ZYZfRhM=;
+        b=dqyULo5DNb3HClvNF64EoSsWJAhpWf32uAShRYag+7JpzdOxdsZ0vEQQC3uPWIPgNM
+         CbpElsY7l63JcsVdYu3+oREOB+0flFrEJXDo84BB6mheWTYtAOy3gRCiqELoSQGAKCJ1
+         7ovLXb3bUV9K8TEEOcrF2b8Y0qGck4VE6N5jWPTv7Ng0C23nS+Eyi7CIBN1vFGEtDxCq
+         gHiKTpEp/Ux+uoNNOZS7hbmyyqoDu1KThtPSvLbDqSaikvEwMSlJQhreu8VHLqXyvzPY
+         FnmSqqy6pb+bJQboCNBLaRhozx8wKE2IRLO2YcRmx2jDRnT7iH4CWGwomhGA32z/12be
+         bOOQ==
+X-Gm-Message-State: AOJu0Yxm4mFGcrrFcNWRFHuNZw7Xnia1V5Fj3CpJfRI5TKxa6/dJuLzj
+	LhrvrrguA4xeAfqmYD+62uZtX42CvS6ciqpmQoS++irJde8VArTk48YJLCTfCTOgw81gzgyuL7M
 	=
-X-Google-Smtp-Source: AGHT+IGFGMj7EAeEq5MHaPpPZFlgUlUywi+V2oHpegmyE6iJJ0Ys0Olf4VeGGL4VOtkXN+7+isl0vQ==
-X-Received: by 2002:adf:ec82:0:b0:33b:1a39:e501 with SMTP id z2-20020adfec82000000b0033b1a39e501mr874165wrn.28.1707992072274;
-        Thu, 15 Feb 2024 02:14:32 -0800 (PST)
-Message-ID: <c70b250d-2ec4-4254-89cf-d3241dac0d35@suse.com>
-Date: Thu, 15 Feb 2024 11:14:31 +0100
+X-Google-Smtp-Source: AGHT+IGyu8WOKpuuNtyzo0ztbULmjaz0cTNntwvaxaHRhmZlM8/A6Elcft8I2B1XFnN9DAfe5SK+/Q==
+X-Received: by 2002:a5d:4a4f:0:b0:33b:5087:c913 with SMTP id v15-20020a5d4a4f000000b0033b5087c913mr1055855wrs.54.1707992112857;
+        Thu, 15 Feb 2024 02:15:12 -0800 (PST)
+Message-ID: <bd89275f-915a-4925-afbb-494133bb6e65@suse.com>
+Date: Thu, 15 Feb 2024 11:15:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 03/12] VT-d: parse ACPI "SoC Integrated Address Translation
- Cache Reporting Structure"s
+Subject: [PATCH v2 04/12] AMD/IOMMU: add helper to check whether ATS is to be
+ used for a device
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Kevin Tian <kevin.tian@intel.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Paul Durrant <paul@xen.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 References: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,204 +114,85 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-This is a prereq to us, in particular, respecting the "ATC required"
-flag.
+The same set of conditions is used in three places, requiring to be kept
+in sync. Introduce a helper to centralize these checks.
 
-Note that ACPI_SATC_ATC_REQUIRED has its #define put in dmar.h, as we
-try to keep actbl*.h in sync what Linux (who in turn inherit from ACPI
-CA) has.
+To allow all parameters of the new helper be pointer-to-const,
+iommu_has_cap() also needs its 1st parameter to be constified. Beyond
+that further "modernize" that function.
 
+Requested-by: Roger Pau Monné <roger.pau@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Lovely: On the SPR system with the SATC I tried passing "ats" (the
-"required" flag is clear there), just to then hit "IOMMU#4: QI dev wait
-descriptor taking too long" while setting up Dom0. The 2nd message there
-doesn't ever appear, so the request never completes. Not sure whether
-that's us doing something wrong or the hardware acting up. In the former
-case I'd generally expect an IOMMU fault to be raised, though. FTR same
-on 4.18 with just "VT-d: correct ATS checking for root complex
-integrated devices" backported there.
+v2: New.
 
-Should we check scope entries for appropriate types? (If so, then also
-for e.g. ATSR.)
----
-v2: Move error case freeing to acpi_parse_one_satc(). Introduce #define
-    for the flag bit. Style.
-
---- a/xen/drivers/passthrough/vtd/dmar.c
-+++ b/xen/drivers/passthrough/vtd/dmar.c
-@@ -47,6 +47,7 @@ LIST_HEAD_READ_MOSTLY(acpi_drhd_units);
- LIST_HEAD_READ_MOSTLY(acpi_rmrr_units);
- static LIST_HEAD_READ_MOSTLY(acpi_atsr_units);
- static LIST_HEAD_READ_MOSTLY(acpi_rhsa_units);
-+static LIST_HEAD_READ_MOSTLY(acpi_satc_units);
- 
- static struct acpi_table_header *__read_mostly dmar_table;
- static int __read_mostly dmar_flags;
-@@ -750,6 +751,93 @@ acpi_parse_one_rhsa(struct acpi_dmar_hea
-     return ret;
+--- a/xen/drivers/passthrough/amd/iommu.h
++++ b/xen/drivers/passthrough/amd/iommu.h
+@@ -404,9 +404,9 @@ static inline void __free_amd_iommu_tabl
+     free_xenheap_pages(table, order);
  }
  
-+static int __init register_one_satc(struct acpi_satc_unit *satcu)
-+{
-+    bool ignore = false;
-+    unsigned int i = 0;
-+    int ret = 0;
-+
-+    /* Skip checking if segment is not accessible yet. */
-+    if ( !pci_known_segment(satcu->segment) )
-+        i = UINT_MAX;
-+
-+    for ( ; i < satcu->scope.devices_cnt; i++ )
-+    {
-+        uint8_t b = PCI_BUS(satcu->scope.devices[i]);
-+        uint8_t d = PCI_SLOT(satcu->scope.devices[i]);
-+        uint8_t f = PCI_FUNC(satcu->scope.devices[i]);
-+
-+        if ( !pci_device_detect(satcu->segment, b, d, f) )
-+        {
-+            dprintk(XENLOG_WARNING VTDPREFIX,
-+                    " Non-existent device (%pp) is reported in SATC scope!\n",
-+                    &PCI_SBDF(satcu->segment, b, d, f));
-+            ignore = true;
-+        }
-+        else
-+        {
-+            ignore = false;
-+            break;
-+        }
-+    }
-+
-+    if ( ignore )
-+    {
-+        dprintk(XENLOG_WARNING VTDPREFIX,
-+                " Ignore SATC for seg %04x as no device under its scope is PCI discoverable\n",
-+                satcu->segment);
-+        return 1;
-+    }
-+
-+    if ( iommu_verbose )
-+        printk(VTDPREFIX " ATC required: %d\n", satcu->atc_required);
-+
-+    list_add(&satcu->list, &acpi_satc_units);
-+
-+    return ret;
-+}
-+
-+static int __init
-+acpi_parse_one_satc(const struct acpi_dmar_header *header)
-+{
-+    const struct acpi_dmar_satc *satc =
-+        container_of(header, const struct acpi_dmar_satc, header);
-+    struct acpi_satc_unit *satcu;
-+    const void *dev_scope_start, *dev_scope_end;
-+    int ret = acpi_dmar_check_length(header, sizeof(*satc));
-+
-+    if ( ret )
-+        return ret;
-+
-+    satcu = xzalloc(struct acpi_satc_unit);
-+    if ( !satcu )
-+        return -ENOMEM;
-+
-+    satcu->segment = satc->segment;
-+    satcu->atc_required = satc->flags & ACPI_SATC_ATC_REQUIRED;
-+
-+    dev_scope_start = (const void *)(satc + 1);
-+    dev_scope_end   = (const void *)satc + header->length;
-+    ret = acpi_parse_dev_scope(dev_scope_start, dev_scope_end,
-+                               &satcu->scope, SATC_TYPE, satc->segment);
-+
-+    if ( !ret && satcu->scope.devices_cnt )
-+        ret = register_one_satc(satcu);
-+
-+    if ( ret )
-+    {
-+        scope_devices_free(&satcu->scope);
-+        xfree(satcu);
-+    }
-+
-+    /*
-+     * register_one_satc() returns greater than 0 when a specified PCIe
-+     * device cannot be detected. To prevent VT-d from being disabled in
-+     * such cases, make the return value 0 here.
-+     */
-+    return ret > 0 ? 0 : ret;
-+}
-+
- static int __init cf_check acpi_parse_dmar(struct acpi_table_header *table)
+-static inline int iommu_has_cap(struct amd_iommu *iommu, uint32_t bit)
++static inline bool iommu_has_cap(const struct amd_iommu *iommu, unsigned int bit)
  {
-     struct acpi_table_dmar *dmar;
-@@ -803,6 +891,13 @@ static int __init cf_check acpi_parse_dm
-                 printk(VTDPREFIX "found ACPI_DMAR_RHSA:\n");
-             ret = acpi_parse_one_rhsa(entry_header);
-             break;
-+
-+        case ACPI_DMAR_TYPE_SATC:
-+            if ( iommu_verbose )
-+                printk(VTDPREFIX "found ACPI_DMAR_SATC:\n");
-+            ret = acpi_parse_one_satc(entry_header);
-+            break;
-+
-         default:
-             dprintk(XENLOG_WARNING VTDPREFIX,
-                     "Ignore unknown DMAR structure type (%#x)\n",
---- a/xen/drivers/passthrough/vtd/dmar.h
-+++ b/xen/drivers/passthrough/vtd/dmar.h
-@@ -91,6 +91,16 @@ struct acpi_rhsa_unit {
-     u32    proximity_domain;
- };
+-    return !!(iommu->cap.header & (1u << bit));
++    return iommu->cap.header & (1u << bit);
+ }
  
-+struct acpi_satc_unit {
-+    struct dmar_scope scope;
-+    struct list_head list;
-+    uint16_t segment;
-+    bool atc_required:1;
-+};
+ /* access device id field from iommu cmd */
+--- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
++++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+@@ -114,6 +114,16 @@ static bool any_pdev_behind_iommu(const
+     return false;
+ }
+ 
++static bool use_ats(
++    const struct pci_dev *pdev,
++    const struct amd_iommu *iommu,
++    const struct ivrs_mappings *ivrs_dev)
++{
++    return !ivrs_dev->block_ats &&
++           iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) &&
++           pci_ats_device(iommu->seg, pdev->bus, pdev->devfn);
++}
 +
-+/* In lieu of a definition in actbl2.h. */
-+#define ACPI_SATC_ATC_REQUIRED (1U << 0)
-+
- #define for_each_drhd_unit(drhd) \
-     list_for_each_entry(drhd, &acpi_drhd_units, list)
+ static int __must_check amd_iommu_setup_domain_device(
+     struct domain *domain, struct amd_iommu *iommu,
+     uint8_t devfn, struct pci_dev *pdev)
+@@ -185,9 +195,7 @@ static int __must_check amd_iommu_setup_
+         dte->ex = ivrs_dev->dte_allow_exclusion;
+         dte->sys_mgt = MASK_EXTR(ivrs_dev->device_flags, ACPI_IVHD_SYSTEM_MGMT);
  
-@@ -106,6 +116,7 @@ struct acpi_atsr_unit *acpi_find_matched
- #define DMAR_TYPE 1
- #define RMRR_TYPE 2
- #define ATSR_TYPE 3
-+#define SATC_TYPE 4
+-        if ( pci_ats_device(iommu->seg, bus, pdev->devfn) &&
+-             !ivrs_dev->block_ats &&
+-             iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) )
++        if ( use_ats(pdev, iommu, ivrs_dev) )
+             dte->i = ats_enabled;
  
- #define DMAR_OPERATION_TIMEOUT MILLISECS(1000)
+         spin_unlock_irqrestore(&iommu->lock, flags);
+@@ -248,9 +256,7 @@ static int __must_check amd_iommu_setup_
+         ASSERT(dte->sys_mgt == MASK_EXTR(ivrs_dev->device_flags,
+                                          ACPI_IVHD_SYSTEM_MGMT));
  
---- a/xen/include/acpi/actbl2.h
-+++ b/xen/include/acpi/actbl2.h
-@@ -345,7 +345,8 @@ enum acpi_dmar_type {
- 	ACPI_DMAR_TYPE_RESERVED_MEMORY = 1,
- 	ACPI_DMAR_TYPE_ATSR = 2,
- 	ACPI_DMAR_HARDWARE_AFFINITY = 3,
--	ACPI_DMAR_TYPE_RESERVED = 4	/* 4 and greater are reserved */
-+	ACPI_DMAR_TYPE_SATC = 5,
-+	ACPI_DMAR_TYPE_RESERVED = 7	/* 7 and greater are reserved */
- };
+-        if ( pci_ats_device(iommu->seg, bus, pdev->devfn) &&
+-             !ivrs_dev->block_ats &&
+-             iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) )
++        if ( use_ats(pdev, iommu, ivrs_dev) )
+             ASSERT(dte->i == ats_enabled);
  
- /* DMAR Device Scope structure */
-@@ -427,6 +428,15 @@ struct acpi_dmar_rhsa {
- 	u32 proximity_domain;
- };
+         spin_unlock_irqrestore(&iommu->lock, flags);
+@@ -268,9 +274,7 @@ static int __must_check amd_iommu_setup_
  
-+/* 5: SOC Integrated Address Translation Cache Reporting Structure */
-+
-+struct acpi_dmar_satc {
-+	struct acpi_dmar_header header;
-+	uint8_t flags;
-+	uint8_t reserved;
-+	uint16_t segment;
-+};
-+
- /*******************************************************************************
-  *
-  * HPET - High Precision Event Timer table
+     ASSERT(pcidevs_locked());
+ 
+-    if ( pci_ats_device(iommu->seg, bus, pdev->devfn) &&
+-         !ivrs_dev->block_ats &&
+-         iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) &&
++    if ( use_ats(pdev, iommu, ivrs_dev) &&
+          !pci_ats_enabled(iommu->seg, bus, pdev->devfn) )
+     {
+         if ( devfn == pdev->devfn )
 
 
