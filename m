@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A28C3855F00
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 11:18:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681514.1060335 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11F30855F01
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 11:18:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681518.1060346 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raYop-00045Y-Lx; Thu, 15 Feb 2024 10:18:15 +0000
+	id 1raYpB-0004d6-Tj; Thu, 15 Feb 2024 10:18:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681514.1060335; Thu, 15 Feb 2024 10:18:15 +0000
+Received: by outflank-mailman (output) from mailman id 681518.1060346; Thu, 15 Feb 2024 10:18:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raYop-00044q-IZ; Thu, 15 Feb 2024 10:18:15 +0000
-Received: by outflank-mailman (input) for mailman id 681514;
- Thu, 15 Feb 2024 10:18:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1raYpB-0004aq-Qe; Thu, 15 Feb 2024 10:18:37 +0000
+Received: by outflank-mailman (input) for mailman id 681518;
+ Thu, 15 Feb 2024 10:18:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4dJ3=JY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1raYoo-00043N-E2
- for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 10:18:14 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 869c8619-cbeb-11ee-8a4d-1f161083a0e0;
- Thu, 15 Feb 2024 11:18:13 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-41211acfcfcso4294975e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 02:18:13 -0800 (PST)
+ id 1raYpA-0003nv-4z
+ for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 10:18:36 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9333dd1a-cbeb-11ee-98f5-efadbce2ee36;
+ Thu, 15 Feb 2024 11:18:34 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4121b1aad00so2221515e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 02:18:34 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bs3-20020a056000070300b0033b45bdb2a1sm1361072wrb.4.2024.02.15.02.18.12
+ bs3-20020a056000070300b0033b45bdb2a1sm1361072wrb.4.2024.02.15.02.18.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Feb 2024 02:18:12 -0800 (PST)
+ Thu, 15 Feb 2024 02:18:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 869c8619-cbeb-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: 9333dd1a-cbeb-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707992293; x=1708597093; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707992314; x=1708597114; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HZHY6xKr+5lB7TS1xmNKRfrrhDk5jvTKT8Lq2YpKq9o=;
-        b=UrRsqRjpmqJ24SYijvyf46Qbb3svUkWFF4Opwt6JZ4+1Lj6+t0wSKy1ENUUO9M6SG4
-         /QY2GTG97GbXlEUmhzyAHZe6g7lTGjnsuTDoYOvxmDPhMw9q2QmdtaIyNVP0wl2/uN5J
-         J2b3HNt6/gAFbTBUwv6vJ1yNH7uGToqhmTQhozQIVytcZKKw4QjYuRPRKrjYttaiYkvC
-         TsTm4zJHNh7mO9A/5r0Sk3y0+a/ZcRgeLCKe+yCURHnScxuMlQCSvwCUcd9nRbpj8xNF
-         jWrH3Od1g2W8fMIlsxsGxJmLry/bOAJh52vgLLzRH1NUVYjwxZwrnHAunfdNZB6rekBR
-         jszg==
+        bh=lLmg0pi++GhJOs1eVe+G5sBQYtePLzeMwHyGVwgdUjw=;
+        b=ZiLqlKtiGeUelRY/XUEBDvqooZJV6xXkOPpklK6R+KtUO3PnhqzDxBOQGNdRykytRZ
+         aAY/nqKgZV+qjngS14xYePUeDLGJFaQGm7NxesniwOqJ61Zc63HVECJQgSAcLajeXjph
+         Iy4XzhwbAA2AOQX0XE+iBp+x6Bf/eMmUsVdiFPiTIBYxxnhQ5qpUtTesjVE5WxPe4lRe
+         2gCMqXN7U02hvL6JxQevA3fiohY5EelVK29pGNpPqZCqWCLz0bwqlj3SMRACqYtGvOqV
+         wV5/IttYZ0RY0ejbUHnodIx0bsf2rDXnqowOke5ni2k0s0iLxmpHMteKzZ/nQmJIuSXo
+         5ekQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707992293; x=1708597093;
+        d=1e100.net; s=20230601; t=1707992314; x=1708597114;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=HZHY6xKr+5lB7TS1xmNKRfrrhDk5jvTKT8Lq2YpKq9o=;
-        b=RRo97C1moMrKyf9/Xy1ks1ftUhS4kieUweW+5kSg1K3/G1kTJmyWzGFWA9Y43T8CdT
-         zeVwkiP4Uvy5ublexZIsBLD95Zcx06JZmHYNTCgTmzTOyoMDEXxUjJIq6g5rDgY/Jxue
-         DNQLUEMgykY3+rozwqxS7KbZcgJwjtPjnLMWl2UJkesPYFT6e3WbLVOOtOQ0C2TC195n
-         L/ZW4N6L7suW/TeH8K+6k2nUbVzdeDlnQNwve+o3XBK2owe6UIv/tHR9cTMUAGU3j6NO
-         EhzA19LXHZWc9wuGoAqYL3svRR5fkmpMXrZNN2Fuu1XVFY9azr/qGMu/fmZLDiJqfSq/
-         wOvQ==
-X-Gm-Message-State: AOJu0YwvmeMLMJvKxCzaOzntnUF/oOKeLuB68qU3+blxBeOCi6SRHlh3
-	wdJGEqBeYxBi8dJriHCQYWEXpOJISCxptWsvA2/o8Uy5RWlLvRRA1pjxb19iOe2gW9hufNAm2U8
+        bh=lLmg0pi++GhJOs1eVe+G5sBQYtePLzeMwHyGVwgdUjw=;
+        b=gdbOziBznxE2lZhiftc4i4piCBvkhbhijfiPmKLIupnM8X13PxXjWM57Sc2tSFJOmU
+         ijqEJzZ5GfN6eD99ne7XNrl5oPHtMA5fbDWFVjpH0HReJvvbHCdyo2XUCwvq/DHLm1wY
+         nly7di4gcQHI0YCn8VPySz1cGSrz7PiPsvtkTdRAADr8yZD2qCOk9x73pIHaAvPDW2bC
+         tqGLRBdD0gNi2S881/DM3s7tflQV90B3R6UdLUMvYUNjZU2FTzJXIa8W4DWcskwXr6l+
+         SZ5CysQ0Ukm0QE2pYE6VlmZlUuavuKwpLubtGl3aPip1eLETbqKveMruTdxp2ZMY/aUh
+         QTOQ==
+X-Gm-Message-State: AOJu0YxtpAmDiDJMw6L4Yhv2R3+oO+DbWcwYLQgRXj9ehfyze/LK8KC0
+	jUy2a+GU7afoUZuyPZ6Rkj2fq5ZECQWqsXa5udhwn+Yui4aFdJpf2HL8Es674bT2i79pT4vuuao
 	=
-X-Google-Smtp-Source: AGHT+IHu/29TZZKNZ6L7qX+8fg//66hhzuIgaQn81jdnlckinsaiscRFqx1rMrhGjUnySpqPZTP6kw==
-X-Received: by 2002:a05:600c:35d2:b0:410:8ab6:8c72 with SMTP id r18-20020a05600c35d200b004108ab68c72mr934767wmq.31.1707992292681;
-        Thu, 15 Feb 2024 02:18:12 -0800 (PST)
-Message-ID: <0af1d658-c43b-46f9-b290-22447ebfd0be@suse.com>
-Date: Thu, 15 Feb 2024 11:18:11 +0100
+X-Google-Smtp-Source: AGHT+IE2IMDkOamlYVi9ilGu+LX74qvQUe0kA2NJiX3civPx6gq8DwGohV9AMUXH4tiR9vyAQr20cQ==
+X-Received: by 2002:a5d:51ce:0:b0:33c:eb37:470e with SMTP id n14-20020a5d51ce000000b0033ceb37470emr985627wrv.44.1707992313772;
+        Thu, 15 Feb 2024 02:18:33 -0800 (PST)
+Message-ID: <67bfa370-f4be-4f93-aa63-cbca7636a49c@suse.com>
+Date: Thu, 15 Feb 2024 11:18:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 09/12] VT-d: move dev_invalidate_iotlb() to the sole file
- it's used from
+Subject: [PATCH v2 10/12] VT-d: move {,un}map_vtd_domain_page()
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -116,163 +115,83 @@ In-Reply-To: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-..., thus allowing it and qinval_device_iotlb_sync() to become static.
-There's nothing x86-specific about the function anyway. While moving,
-adjust types to better match ./CODING_STYLE (albeit use of fixed-width
-types for parameters is retained to limit the effective change).
+..., thus allowing them to become static. There's nothing x86-specific
+about these functions anyway.
 
-Append a UL to a constant while moving, to please Misra. Also insert
-blank lines in the switch(), between non-fall-through case blocks.
+Since only the "iommu_inclusive_mapping" parameter declaration would be
+left in the file, move that as well. There's nothing VT-d specific about
+it (anymore?): "dom0-iommu=map-inclusive" is similarly generic, and
+documentation also doesn't say anything.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-v2: Cosmetics.
+v2: doc adjustment.
 
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -1633,7 +1633,7 @@ Specify the timeout of the device IOTLB
+ By default, the timeout is 1000 ms. When you see error 'Queue invalidate
+ wait descriptor timed out', try increasing this value.
+ 
+-### iommu_inclusive_mapping
++### iommu_inclusive_mapping (x86)
+ > `= <boolean>`
+ 
+ **WARNING: This command line option is deprecated, and superseded by
+--- a/xen/drivers/passthrough/vtd/Makefile
++++ b/xen/drivers/passthrough/vtd/Makefile
+@@ -1,5 +1,3 @@
+-obj-$(CONFIG_X86) += x86/
+-
+ obj-y += iommu.o
+ obj-y += dmar.o
+ obj-y += utils.o
 --- a/xen/drivers/passthrough/vtd/extern.h
 +++ b/xen/drivers/passthrough/vtd/extern.h
-@@ -65,13 +65,6 @@ struct acpi_drhd_unit *ioapic_to_drhd(un
- struct acpi_drhd_unit *hpet_to_drhd(unsigned int hpet_id);
- struct acpi_rhsa_unit *drhd_to_rhsa(const struct acpi_drhd_unit *drhd);
+@@ -21,6 +21,7 @@
+ #define _VTD_EXTERN_H_
  
--int dev_invalidate_iotlb(struct vtd_iommu *iommu, u16 did,
--                         u64 addr, unsigned int size_order, u64 type);
--
--int __must_check qinval_device_iotlb_sync(struct vtd_iommu *iommu,
--                                          struct pci_dev *pdev,
--                                          u16 did, u16 size, u64 addr);
--
+ #include "dmar.h"
++#include <xen/domain_page.h>
+ #include <xen/keyhandler.h>
+ 
+ #define VTDPREFIX "[VT-D]"
+@@ -67,8 +68,6 @@ struct acpi_rhsa_unit *drhd_to_rhsa(cons
+ 
  uint64_t alloc_pgtable_maddr(unsigned long npages, nodeid_t node);
  void free_pgtable_maddr(u64 maddr);
- void *map_vtd_domain_page(u64 maddr);
---- a/xen/drivers/passthrough/vtd/qinval.c
-+++ b/xen/drivers/passthrough/vtd/qinval.c
-@@ -251,8 +251,9 @@ static int __must_check dev_invalidate_s
-     return rc;
- }
+-void *map_vtd_domain_page(u64 maddr);
+-void unmap_vtd_domain_page(const void *va);
+ int domain_context_mapping_one(struct domain *domain, struct vtd_iommu *iommu,
+                                uint8_t bus, uint8_t devfn,
+                                const struct pci_dev *pdev, domid_t domid,
+@@ -78,6 +77,16 @@ int domain_context_unmap_one(struct doma
+ int cf_check intel_iommu_get_reserved_device_memory(
+     iommu_grdm_t *func, void *ctxt);
  
--int qinval_device_iotlb_sync(struct vtd_iommu *iommu, struct pci_dev *pdev,
--                             u16 did, u16 size, u64 addr)
-+static int qinval_device_iotlb_sync(struct vtd_iommu *iommu,
-+                                    struct pci_dev *pdev, uint16_t did,
-+                                    uint16_t size, paddr_t addr)
- {
-     unsigned long flags;
-     unsigned int index;
-@@ -282,6 +283,103 @@ int qinval_device_iotlb_sync(struct vtd_
-     return dev_invalidate_sync(iommu, pdev, did);
- }
- 
-+static bool device_in_domain(const struct vtd_iommu *iommu,
-+                             const struct pci_dev *pdev, uint16_t did)
++static inline void *map_vtd_domain_page(paddr_t maddr)
 +{
-+    struct root_entry *root_entry;
-+    struct context_entry *ctxt_entry = NULL;
-+    unsigned int tt;
-+    bool found = false;
-+
-+    if ( unlikely(!iommu->root_maddr) )
-+    {
-+        ASSERT_UNREACHABLE();
-+        return false;
-+    }
-+
-+    root_entry = map_vtd_domain_page(iommu->root_maddr);
-+    if ( !root_present(root_entry[pdev->bus]) )
-+        goto out;
-+
-+    ctxt_entry = map_vtd_domain_page(root_entry[pdev->bus].val);
-+    if ( context_domain_id(ctxt_entry[pdev->devfn]) != did )
-+        goto out;
-+
-+    tt = context_translation_type(ctxt_entry[pdev->devfn]);
-+    if ( tt != CONTEXT_TT_DEV_IOTLB )
-+        goto out;
-+
-+    found = true;
-+ out:
-+    if ( root_entry )
-+        unmap_vtd_domain_page(root_entry);
-+
-+    if ( ctxt_entry )
-+        unmap_vtd_domain_page(ctxt_entry);
-+
-+    return found;
++    return map_domain_page(_mfn(paddr_to_pfn(maddr)));
 +}
 +
-+static int dev_invalidate_iotlb(struct vtd_iommu *iommu, uint16_t did,
-+                                paddr_t addr, unsigned int size_order,
-+                                uint64_t type)
++static inline void unmap_vtd_domain_page(const void *va)
 +{
-+    struct pci_dev *pdev, *temp;
-+    int ret = 0;
-+
-+    if ( !ecap_dev_iotlb(iommu->ecap) )
-+        return ret;
-+
-+    list_for_each_entry_safe ( pdev, temp, &iommu->ats_devices, ats.list )
-+    {
-+        bool sbit;
-+        int rc = 0;
-+
-+        switch ( type )
-+        {
-+        case DMA_TLB_DSI_FLUSH:
-+            if ( !device_in_domain(iommu, pdev, did) )
-+                break;
-+            /* fall through if DSI condition met */
-+        case DMA_TLB_GLOBAL_FLUSH:
-+            /* invalidate all translations: sbit=1,bit_63=0,bit[62:12]=1 */
-+            sbit = 1;
-+            addr = (~0UL << PAGE_SHIFT_4K) & 0x7FFFFFFFFFFFFFFFUL;
-+            rc = qinval_device_iotlb_sync(iommu, pdev, did, sbit, addr);
-+            break;
-+
-+        case DMA_TLB_PSI_FLUSH:
-+            if ( !device_in_domain(iommu, pdev, did) )
-+                break;
-+
-+            /* if size <= 4K, set sbit = 0, else set sbit = 1 */
-+            sbit = size_order ? 1 : 0;
-+
-+            /* clear lower bits */
-+            addr &= ~0UL << PAGE_SHIFT_4K;
-+
-+            /* if sbit == 1, zero out size_order bit and set lower bits to 1 */
-+            if ( sbit )
-+            {
-+                addr &= ~((u64)PAGE_SIZE_4K << (size_order - 1));
-+                addr |= (((u64)1 << (size_order - 1)) - 1) << PAGE_SHIFT_4K;
-+            }
-+
-+            rc = qinval_device_iotlb_sync(iommu, pdev, did, sbit, addr);
-+            break;
-+
-+        default:
-+            dprintk(XENLOG_WARNING VTDPREFIX, "invalid vt-d flush type\n");
-+            return -EOPNOTSUPP;
-+        }
-+
-+        if ( !ret )
-+            ret = rc;
-+    }
-+
-+    return ret;
++    unmap_domain_page(va);
 +}
 +
- static int __must_check queue_invalidate_iec_sync(struct vtd_iommu *iommu,
-                                                   u8 granu, u8 im, u16 iidx)
- {
+ unsigned int cf_check io_apic_read_remap_rte(
+     unsigned int apic, unsigned int reg);
+ void cf_check io_apic_write_remap_rte(
 --- a/xen/drivers/passthrough/vtd/x86/Makefile
-+++ b/xen/drivers/passthrough/vtd/x86/Makefile
-@@ -1,2 +1 @@
--obj-y += ats.o
- obj-y += vtd.o
---- a/xen/drivers/passthrough/vtd/x86/ats.c
 +++ /dev/null
-@@ -1,123 +0,0 @@
+@@ -1 +0,0 @@
+-obj-y += vtd.o
+--- a/xen/drivers/passthrough/vtd/x86/vtd.c
++++ /dev/null
+@@ -1,48 +0,0 @@
 -/*
-- * Copyright (c) 2006, Intel Corporation.
+- * Copyright (c) 2008, Intel Corporation.
 - *
 - * This program is free software; you can redistribute it and/or modify it
 - * under the terms and conditions of the GNU General Public License,
@@ -286,113 +205,61 @@ v2: Cosmetics.
 - * You should have received a copy of the GNU General Public License along with
 - * this program; If not, see <http://www.gnu.org/licenses/>.
 - *
-- * Author: Allen Kay <allen.m.kay@intel.com>
+- * Copyright (C) Allen Kay <allen.m.kay@intel.com>
+- * Copyright (C) Weidong Han <weidong.han@intel.com>
 - */
 -
+-#include <xen/param.h>
 -#include <xen/sched.h>
+-#include <xen/softirq.h>
+-#include <xen/domain_page.h>
+-#include <asm/paging.h>
 -#include <xen/iommu.h>
--#include <xen/time.h>
--#include <xen/pci.h>
--#include <xen/pci_regs.h>
--#include <asm/msi.h>
+-#include <xen/irq.h>
+-#include <xen/numa.h>
+-#include <asm/fixmap.h>
 -#include "../iommu.h"
 -#include "../dmar.h"
 -#include "../vtd.h"
 -#include "../extern.h"
--#include "../../ats.h"
 -
--static bool device_in_domain(const struct vtd_iommu *iommu,
--                             const struct pci_dev *pdev, uint16_t did)
+-/*
+- * iommu_inclusive_mapping: when set, all memory below 4GB is included in dom0
+- * 1:1 iommu mappings except xen and unusable regions.
+- */
+-boolean_param("iommu_inclusive_mapping", iommu_hwdom_inclusive);
+-
+-void *map_vtd_domain_page(u64 maddr)
 -{
--    struct root_entry *root_entry;
--    struct context_entry *ctxt_entry = NULL;
--    unsigned int tt;
--    bool found = false;
--
--    if ( unlikely(!iommu->root_maddr) )
--    {
--        ASSERT_UNREACHABLE();
--        return false;
--    }
--
--    root_entry = map_vtd_domain_page(iommu->root_maddr);
--    if ( !root_present(root_entry[pdev->bus]) )
--        goto out;
--
--    ctxt_entry = map_vtd_domain_page(root_entry[pdev->bus].val);
--    if ( context_domain_id(ctxt_entry[pdev->devfn]) != did )
--        goto out;
--
--    tt = context_translation_type(ctxt_entry[pdev->devfn]);
--    if ( tt != CONTEXT_TT_DEV_IOTLB )
--        goto out;
--
--    found = true;
--out:
--    if ( root_entry )
--        unmap_vtd_domain_page(root_entry);
--
--    if ( ctxt_entry )
--        unmap_vtd_domain_page(ctxt_entry);
--
--    return found;
+-    return map_domain_page(_mfn(paddr_to_pfn(maddr)));
 -}
 -
--int dev_invalidate_iotlb(struct vtd_iommu *iommu, u16 did,
--    u64 addr, unsigned int size_order, u64 type)
+-void unmap_vtd_domain_page(const void *va)
 -{
--    struct pci_dev *pdev, *temp;
--    int ret = 0;
--
--    if ( !ecap_dev_iotlb(iommu->ecap) )
--        return ret;
--
--    list_for_each_entry_safe( pdev, temp, &iommu->ats_devices, ats.list )
--    {
--        bool sbit;
--        int rc = 0;
--
--        switch ( type )
--        {
--        case DMA_TLB_DSI_FLUSH:
--            if ( !device_in_domain(iommu, pdev, did) )
--                break;
--            /* fall through if DSI condition met */
--        case DMA_TLB_GLOBAL_FLUSH:
--            /* invalidate all translations: sbit=1,bit_63=0,bit[62:12]=1 */
--            sbit = 1;
--            addr = (~0UL << PAGE_SHIFT_4K) & 0x7FFFFFFFFFFFFFFF;
--            rc = qinval_device_iotlb_sync(iommu, pdev, did, sbit, addr);
--            break;
--        case DMA_TLB_PSI_FLUSH:
--            if ( !device_in_domain(iommu, pdev, did) )
--                break;
--
--            /* if size <= 4K, set sbit = 0, else set sbit = 1 */
--            sbit = size_order ? 1 : 0;
--
--            /* clear lower bits */
--            addr &= ~0UL << PAGE_SHIFT_4K;
--
--            /* if sbit == 1, zero out size_order bit and set lower bits to 1 */
--            if ( sbit )
--            {
--                addr &= ~((u64)PAGE_SIZE_4K << (size_order - 1));
--                addr |= (((u64)1 << (size_order - 1)) - 1) << PAGE_SHIFT_4K;
--            }
--
--            rc = qinval_device_iotlb_sync(iommu, pdev, did, sbit, addr);
--            break;
--        default:
--            dprintk(XENLOG_WARNING VTDPREFIX, "invalid vt-d flush type\n");
--            return -EOPNOTSUPP;
--        }
--
--        if ( !ret )
--            ret = rc;
--    }
--
--    return ret;
+-    unmap_domain_page(va);
 -}
+--- a/xen/drivers/passthrough/x86/iommu.c
++++ b/xen/drivers/passthrough/x86/iommu.c
+@@ -19,6 +19,7 @@
+ #include <xen/paging.h>
+ #include <xen/guest_access.h>
+ #include <xen/event.h>
++#include <xen/param.h>
+ #include <xen/softirq.h>
+ #include <xen/vm_event.h>
+ #include <xsm/xsm.h>
+@@ -36,6 +37,12 @@ bool __initdata iommu_superpages = true;
+ 
+ enum iommu_intremap __read_mostly iommu_intremap = iommu_intremap_full;
+ 
++/*
++ * iommu_inclusive_mapping: When set, all memory below 4GB is included in dom0
++ * 1:1 iommu mappings except xen and unusable regions.
++ */
++boolean_param("iommu_inclusive_mapping", iommu_hwdom_inclusive);
++
+ #ifdef CONFIG_PV
+ /* Possible unfiltered LAPIC/MSI messages from untrusted sources? */
+ bool __read_mostly untrusted_msi;
 
 
