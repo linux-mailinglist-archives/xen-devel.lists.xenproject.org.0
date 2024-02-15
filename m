@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 412498563F0
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 14:04:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681676.1060530 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 651F98563F6
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 14:05:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681679.1060540 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rabO3-0002EU-Pg; Thu, 15 Feb 2024 13:02:47 +0000
+	id 1rabQS-0002lT-5y; Thu, 15 Feb 2024 13:05:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681676.1060530; Thu, 15 Feb 2024 13:02:47 +0000
+Received: by outflank-mailman (output) from mailman id 681679.1060540; Thu, 15 Feb 2024 13:05:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rabO3-0002Br-MZ; Thu, 15 Feb 2024 13:02:47 +0000
-Received: by outflank-mailman (input) for mailman id 681676;
- Thu, 15 Feb 2024 13:02:46 +0000
+	id 1rabQS-0002jD-2c; Thu, 15 Feb 2024 13:05:16 +0000
+Received: by outflank-mailman (input) for mailman id 681679;
+ Thu, 15 Feb 2024 13:05:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4dJ3=JY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rabO2-0002Bl-EC
- for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 13:02:46 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ (envelope-from <SRS0=4buu=JY=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rabQQ-0002j3-Qz
+ for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 13:05:14 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81f265cf-cc02-11ee-98f5-efadbce2ee36;
- Thu, 15 Feb 2024 14:02:43 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-411dd149c97so6329585e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 05:02:43 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h17-20020a05600c315100b004122b7a680dsm481815wmo.21.2024.02.15.05.02.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Feb 2024 05:02:42 -0800 (PST)
+ id da937ad5-cc02-11ee-98f5-efadbce2ee36;
+ Thu, 15 Feb 2024 14:05:12 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 99B641F8A4;
+ Thu, 15 Feb 2024 13:05:11 +0000 (UTC)
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B599139D0;
+ Thu, 15 Feb 2024 13:05:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap2.dmz-prg2.suse.org with ESMTPSA id IPCmEAcMzmVtFQAAn2gu4w
+ (envelope-from <jgross@suse.com>); Thu, 15 Feb 2024 13:05:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,164 +52,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81f265cf-cc02-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708002163; x=1708606963; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8FhGuYE9Pg1G7/QKIdhUEz9mCVcvgJbOBO6LH5n9n0U=;
-        b=VNVlfrpdf2jkBahAo/9TdalGIXN4xU3yPuepX3WMyNpB9On78NrwS4IWBXHyXaiAAp
-         POc31pFCweDIj5KkpRdvzrtdpjwLJcZRDs5VCrs21lWAcDTUeQ29athAj5ZkCvi6osee
-         Iihw+EdsdiYnMucMY7yElfrWSf6vyjeG2UE+pRdO0wJwyoKl+jdw69ClEawkJ5j/zdTF
-         JAJLTdrVdPkMNB9njEs1Gkd2S7+vyZrCNZxRKwIjKSj2+nBrraQihL0MNjZBWdV3/eRI
-         GY4jS2TDMIR7M+BdQhBtQnogu9KUADgG7ZlT3hmOLzzM2YX9P/OWSix8X1P1LQmuxO5d
-         UkzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708002163; x=1708606963;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8FhGuYE9Pg1G7/QKIdhUEz9mCVcvgJbOBO6LH5n9n0U=;
-        b=Gar6gguImhaIFjHo9u/I+4gg0Jrlmx97crbfdRygWUQU3axW+PLW+SCBVjW7Vc6msu
-         1Xw6KwtfO5A6+GVEjMP+j+x5rMcdO+Sxi1WsX8bix/wYES9I4UVuuEmv5cdygCUbPqA4
-         K7a5uWNeqbSkMcotF1Q+Fna/FfverDw1x/J/Rn2D6JuBjqsug5A/thN/2YexJAlC23Qt
-         f3LHYrVhlUQJrsZ8IMZy5xwOqd6ZRvrI6h1Vvq+KFiZNkl7+hdPCFUmioJu3DlRQQs38
-         UjAEyqC9NMCNdpacYgUWCEzzPdwj4HN+/kOK/6NXXglpCfDDc1YpTR0HD+IBrkCGs5dx
-         FxNA==
-X-Forwarded-Encrypted: i=1; AJvYcCVtG+60WRc9G/irnZguXsyJfV+LO1A3VJGwFxDGUJtcKyHfJ6x0i0hKjV1HxUUtvjMlZk9TXibzs6FLYrYe9aGCKPnv6PqbVJJNOqMnQrc=
-X-Gm-Message-State: AOJu0YzF1uYorMvL7aAdEJtXuuabp6GxPpgj/gLYhSMWDxWCMz7fo5BG
-	8KeJQBGLnuXj/STauXGvUoLaW9ru64qHiLgBgkbgZrILNVym8SgLFD/Inkrl4Q==
-X-Google-Smtp-Source: AGHT+IFl2yJn3y/xU7xvdrW0G1tUMl3Yzlxjne8iCZr3QgVDUaaW2PTI1fyr/f13hsaimAHDXUOKDA==
-X-Received: by 2002:a05:600c:2203:b0:411:e634:8377 with SMTP id z3-20020a05600c220300b00411e6348377mr1444539wml.38.1708002163308;
-        Thu, 15 Feb 2024 05:02:43 -0800 (PST)
-Message-ID: <a48cbad6-701d-4077-9044-4205b932a7f3@suse.com>
-Date: Thu, 15 Feb 2024 14:02:41 +0100
+X-Inumbo-ID: da937ad5-cc02-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1708002311; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=Jtnp1ZrZVXiTiMpPlXn2mSwZvvrc43azN9NF1bRjhmk=;
+	b=e1t2Ko2Id8/8l+WisNjTgHvAJWf/KGrOtIllfQXTmlfxTwt9bYRRipIyOOMpnLQYJ4YJNQ
+	os5dHboI7+g4nUIeonU3eEI7P4y0GjqZdpZzOmAeErei31jzxaaH/YGABDxEEw4Sudfp9S
+	I2Jn/flUcRBq4a51cpqLxF6JIPLDDeE=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1708002311; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=Jtnp1ZrZVXiTiMpPlXn2mSwZvvrc43azN9NF1bRjhmk=;
+	b=e1t2Ko2Id8/8l+WisNjTgHvAJWf/KGrOtIllfQXTmlfxTwt9bYRRipIyOOMpnLQYJ4YJNQ
+	os5dHboI7+g4nUIeonU3eEI7P4y0GjqZdpZzOmAeErei31jzxaaH/YGABDxEEw4Sudfp9S
+	I2Jn/flUcRBq4a51cpqLxF6JIPLDDeE=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Nick Rosbrook <rosbrookn@gmail.com>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Julien Grall <julien@xen.org>
+Subject: [PATCH v7 00/21] tools: enable xenstore-stubdom to use 9pfs
+Date: Thu, 15 Feb 2024 14:04:48 +0100
+Message-Id: <20240215130509.24008-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] build/xen: fail to rebuild if Kconfig fails
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony Perard <anthony.perard@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20240215093002.23527-1-roger.pau@citrix.com>
- <a2edb04f-c343-4baf-9f15-d96c4d014f05@suse.com> <Zc3nXpUOlnIHEfsl@macbook>
- <54678829-4bcf-4d83-8134-1ab386f299b6@suse.com> <Zc3v20RKMssbaDsl@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zc3v20RKMssbaDsl@macbook>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=e1t2Ko2I
+X-Spamd-Result: default: False [1.69 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:98:from];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 R_MISSING_CHARSET(2.50)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 BROKEN_CONTENT_TYPE(1.50)[];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 DKIM_TRACE(0.00)[suse.com:+];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_SEVEN(0.00)[8];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 FREEMAIL_CC(0.00)[suse.com,xen.org,citrix.com,gmail.com,ens-lyon.org];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-3.00)[100.00%]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Score: 1.69
+X-Rspamd-Queue-Id: 99B641F8A4
+X-Spam-Level: *
+X-Spam-Flag: NO
+X-Spamd-Bar: +
 
-On 15.02.2024 12:04, Roger Pau Monné wrote:
-> On Thu, Feb 15, 2024 at 11:43:02AM +0100, Jan Beulich wrote:
->> On 15.02.2024 11:28, Roger Pau Monné wrote:
->>> On Thu, Feb 15, 2024 at 10:49:31AM +0100, Jan Beulich wrote:
->>>> On 15.02.2024 10:30, Roger Pau Monne wrote:
->>>>> --- a/xen/Makefile
->>>>> +++ b/xen/Makefile
->>>>> @@ -358,10 +358,10 @@ config: tools_fixdep outputmakefile FORCE
->>>>>  else # !config-build
->>>>>  
->>>>>  ifeq ($(need-config),y)
->>>>> --include include/config/auto.conf
->>>>>  # Read in dependencies to all Kconfig* files, make sure to run syncconfig if
->>>>>  # changes are detected.
->>>>>  -include include/config/auto.conf.cmd
->>>>> +include include/config/auto.conf
->>>>
->>>> With the - dropped, ...
->>>>
->>>>> @@ -375,6 +375,7 @@ $(KCONFIG_CONFIG): tools_fixdep
->>>>>  # This exploits the 'multi-target pattern rule' trick.
->>>>>  # The syncconfig should be executed only once to make all the targets.
->>>>>  include/config/%.conf include/config/%.conf.cmd: $(KCONFIG_CONFIG)
->>>>> +	rm -rf include/config/$*.conf
->>>>>  	$(Q)$(MAKE) $(build)=tools/kconfig syncconfig
->>>>
->>>> ... is this really necessary? The error status from the sub-make is ignored
->>>> only because of the -, isn't it?
->>>
->>> Without the `rm` the include/config/auto.conf is not removed by
->>> Kconfig on error, so the include will still succeed but use the stale
->>> auto.conf file.
->>>
->>> Keep in mind on rebuilds include/config/auto.conf is already present,
->>> so the rule is only executed for the include/config/auto.conf.cmd
->>> target.
->>
->> But the sub-make ought to return failure, which ought to then stop the
->> build process?
-> 
-> For some reason it doesn't, not at least with GNU Make 4.3.
-> 
-> It stops the build if the '-' is dropped from the include of
-> include/config/auto.conf.cmd.  But that will always fail as
-> include/config/auto.conf.cmd is never created.
-> 
-> Maybe there's something weird with our makefile, I certainly don't
-> know that much, but as noted in the commit message,
-> include/config/auto.conf.cmd failing doesn't cause the build to
-> stop.
+This series is adding 9pfs support to Xenstore-stubdom, enabling it
+to do logging to a dom0 directory.
 
-How about the below as an alternative? I'm not overly happy with the
-double ifneq, but I also don't see a good other option.
+This is a prerequisite for the final goal to add live update support
+to Xenstore-stubdom, as it enables the stubdom to store its state in
+a dom0 file.
 
-This way the missing auto.conf is detected slightly later, but this
-may well be good enough. Then again I might be overlooking yet
-something else that this breaks ...
+The 9pfs backend is a new daemon written from scratch. Using a
+dedicated 9pfs daemon has several advantages:
 
-Jan
+- it is using much less resources than a full blown qemu process
+- it can serve multiple guests (the idea is to use it for other
+  infrastructure domains, like qemu-stubdom or driver domains, too)
+- it is designed to support several security enhancements, like
+  limiting the number of files for a guest, or limiting the allocated
+  file system space
+- it doesn't support file links (neither hard nor soft links) or
+  referencing parent directories via "..", minimizing the risk that
+  a guest can "escape" from its home directory
 
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -375,6 +375,7 @@ $(KCONFIG_CONFIG): tools_fixdep
- # This exploits the 'multi-target pattern rule' trick.
- # The syncconfig should be executed only once to make all the targets.
- include/config/%.conf include/config/%.conf.cmd: $(KCONFIG_CONFIG)
-+	$(Q)rm -f include/config/$*.conf
- 	$(Q)$(MAKE) $(build)=tools/kconfig syncconfig
- 
- ifeq ($(CONFIG_DEBUG),y)
---- a/xen/Rules.mk
-+++ b/xen/Rules.mk
-@@ -15,7 +15,11 @@ srcdir := $(srctree)/$(src)
- PHONY := __build
- __build:
- 
---include $(objtree)/include/config/auto.conf
-+ifneq ($(obj),tools)
-+ifneq ($(obj),tools/kconfig)
-+include $(objtree)/include/config/auto.conf
-+endif
-+endif
- 
- include $(XEN_ROOT)/Config.mk
- include $(srctree)/scripts/Kbuild.include
+Note that for now the daemon only contains the minimal needed
+functionality to do logging from Xenstore-stubdom. I didn't want to
+add all the 9pfs commands and security add-ons in the beginning, in
+order to avoid needless efforts in case the idea of the daemon is
+being rejected.
+
+Please note that the pending patch for updating the Mini-OS commit
+in Config.mk needs to be applied for patch "stubdom: extend xenstore
+stubdom configs" and the following ones.
+
+Changes in V7:
+- fixed V6 bugs
+
+Changes in V6:
+- patch 1 of V5 has been applied
+- rebase
+- addressed comments
+
+Changes in V5:
+- 10 patches have been applied already
+- rename source directory to tools/9pfsd
+- addressed comments
+
+Changes in V4:
+- patch 2 of V3 was applied
+- added support of reading directories
+- addressed review comments
+
+Changes in V3:
+- new patches 1, 23-25
+- addressed review comments
+
+Changes in V2:
+- support of multiple rings per device
+- xenlogd->xen-9pfsd rename
+- addressed review comments
+- fixed some bugs
+
+Juergen Gross (21):
+  tools: add a new xen 9pfs daemon
+  tools/xen-9pfsd: connect to frontend
+  tools/xen-9pfsd: add transport layer
+  tools/xen-9pfsd: add 9pfs response generation support
+  tools/xen-9pfsd: add 9pfs version request support
+  tools/xen-9pfsd: add 9pfs attach request support
+  tools/xen-9pfsd: add 9pfs walk request support
+  tools/xen-9pfsd: add 9pfs open request support
+  tools/xen-9pfsd: add 9pfs clunk request support
+  tools/xen-9pfsd: add 9pfs create request support
+  tools/xen-9pfsd: add 9pfs stat request support
+  tools/xen-9pfsd: add 9pfs write request support
+  tools/xen-9pfsd: add 9pfs read request support
+  tools/libs/light: add backend type for 9pfs PV devices
+  tools/xl: support new 9pfs backend xen_9pfsd
+  stubdom: extend xenstore stubdom configs
+  tools: add 9pfs device to xenstore-stubdom
+  tools/xenstored: mount 9pfs device in stubdom
+  tools/xenstored: add helpers for filename handling
+  tools/xenstored: support complete log capabilities in stubdom
+  tools/xenstored: have a single do_control_memreport()
+
+ docs/man/xl.cfg.5.pod.in                      |   36 +-
+ stubdom/xenstore-minios.cfg                   |    2 +-
+ stubdom/xenstorepvh-minios.cfg                |    2 +-
+ tools/9pfsd/.gitignore                        |    1 +
+ tools/9pfsd/Makefile                          |   38 +
+ tools/9pfsd/io.c                              | 1511 +++++++++++++++++
+ tools/9pfsd/xen-9pfsd.c                       |  800 +++++++++
+ tools/9pfsd/xen-9pfsd.h                       |   99 ++
+ tools/Makefile                                |    1 +
+ tools/golang/xenlight/helpers.gen.go          |   10 +
+ tools/golang/xenlight/types.gen.go            |   12 +
+ tools/helpers/init-xenstore-domain.c          |    7 +
+ .../Linux/init.d/sysconfig.xencommons.in      |    1 -
+ tools/hotplug/Linux/launch-xenstore.in        |    1 +
+ tools/include/libxl.h                         |   22 +
+ tools/libs/light/libxl_9pfs.c                 |  191 ++-
+ tools/libs/light/libxl_create.c               |    4 +-
+ tools/libs/light/libxl_dm.c                   |    2 +-
+ tools/libs/light/libxl_types.idl              |   11 +
+ tools/libs/light/libxl_types_internal.idl     |    1 +
+ tools/xenstored/control.c                     |   29 +-
+ tools/xenstored/core.c                        |   15 +-
+ tools/xenstored/core.h                        |   11 +-
+ tools/xenstored/domain.c                      |    2 +
+ tools/xenstored/lu_daemon.c                   |    4 +-
+ tools/xenstored/minios.c                      |   62 +
+ tools/xenstored/posix.c                       |    8 +-
+ tools/xl/xl_parse.c                           |   23 +-
+ 28 files changed, 2864 insertions(+), 42 deletions(-)
+ create mode 100644 tools/9pfsd/.gitignore
+ create mode 100644 tools/9pfsd/Makefile
+ create mode 100644 tools/9pfsd/io.c
+ create mode 100644 tools/9pfsd/xen-9pfsd.c
+ create mode 100644 tools/9pfsd/xen-9pfsd.h
+
+-- 
+2.35.3
 
 
