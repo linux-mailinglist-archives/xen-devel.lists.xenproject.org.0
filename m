@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B890857CD0
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Feb 2024 13:40:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682192.1061331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BF26857CD4
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Feb 2024 13:40:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682193.1061339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raxV9-0008EZ-A1; Fri, 16 Feb 2024 12:39:35 +0000
+	id 1raxV9-0008QP-Vp; Fri, 16 Feb 2024 12:39:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682192.1061331; Fri, 16 Feb 2024 12:39:35 +0000
+Received: by outflank-mailman (output) from mailman id 682193.1061339; Fri, 16 Feb 2024 12:39:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raxV9-00088H-4D; Fri, 16 Feb 2024 12:39:35 +0000
-Received: by outflank-mailman (input) for mailman id 682192;
- Fri, 16 Feb 2024 12:39:33 +0000
+	id 1raxV9-0008LA-Or; Fri, 16 Feb 2024 12:39:35 +0000
+Received: by outflank-mailman (input) for mailman id 682193;
+ Fri, 16 Feb 2024 12:39:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=acXU=JZ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1raxV7-0006oJ-3a
- for xen-devel@lists.xenproject.org; Fri, 16 Feb 2024 12:39:33 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1raxV8-0006oJ-4G
+ for xen-devel@lists.xenproject.org; Fri, 16 Feb 2024 12:39:34 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6f1d6ee9-ccc8-11ee-8a4f-1f161083a0e0;
- Fri, 16 Feb 2024 13:39:32 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a2a17f3217aso254729366b.2
- for <xen-devel@lists.xenproject.org>; Fri, 16 Feb 2024 04:39:32 -0800 (PST)
+ id 6fb2ce04-ccc8-11ee-8a4f-1f161083a0e0;
+ Fri, 16 Feb 2024 13:39:33 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a3de25186fbso65365166b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 16 Feb 2024 04:39:33 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- lj8-20020a170907188800b00a3db1734b92sm1121608ejc.43.2024.02.16.04.39.30
+ lj8-20020a170907188800b00a3db1734b92sm1121608ejc.43.2024.02.16.04.39.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Feb 2024 04:39:30 -0800 (PST)
+ Fri, 16 Feb 2024 04:39:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,133 +44,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f1d6ee9-ccc8-11ee-8a4f-1f161083a0e0
+X-Inumbo-ID: 6fb2ce04-ccc8-11ee-8a4f-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1708087171; x=1708691971; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1708087173; x=1708691973; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1zM8XpDaj0bwgFuwnlMqun0OZXmeuznnNGSwY8Hidtw=;
-        b=k/X+f+qT3NDcd79wTBrBlAKnwTOjXC249j9A3vqWWUR3StHY9kogDBwzrOcol/kWYd
-         1I910uUeXJBUMXr7ijlbH0/051FPHS3fKZTwMt6RK+pHFb/rIefknv/zRl5gKyDUdWia
-         bHDLKAZ62ymi9JC2AA54CIO5Jfg91MNX+uej19+pb+0E8SvMtXHOQsf50KueKFZI3+rI
-         c2Q452PSu/Xc2bkWdSQq9pFMvNrrGU9s89yd4tjOGKF+C0R49A4/JIGchru8BoBysFlz
-         j4u36+5sTi4AvflAWRUEuVk/xD8WWa3NyO9/0+36LAJxLi7Ji/cRBhFmpVhhqQ5uwhVI
-         Qrhg==
+        bh=ELu7fx1uXcKKvX0ev7mgwIEsa2oKN1zApZ0Pg4TKtMg=;
+        b=F4lUmyvMz8kbw4SheeKxEHi3aPn2hPDs1dxqLCGmvTbk3ZlpAx7gnLjkfZLsYGzZip
+         oTB7SIII9/LFQrjD2XnxzuP5ndlSfCouU5VGY30lD3QCSpwhVnQOAhNKIxY4IMSzp8MH
+         gn2AZBHWmxrQRqp+vJLupOWdzHiQbN5g3lnaDVjmYeOxGqlH9BbK4Yl/rxyyouH+qiXM
+         /xWZp50YOFZrm0d066BhP1nJIMPpSz+yseZnLFEOQRSKYveaHtzelJEP9QILgamhhA3i
+         YlLNFO5IM0RAYB7vRP2oTsRBJ/CktKH7KvuV7GxCVsPPH9G9AyQGgQ+BqmrRMzB5LSV/
+         YwlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708087171; x=1708691971;
+        d=1e100.net; s=20230601; t=1708087173; x=1708691973;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=1zM8XpDaj0bwgFuwnlMqun0OZXmeuznnNGSwY8Hidtw=;
-        b=absOU9t54rQ2FpriOtqcTw+VSg25hXH7LIQ7gfunFjfao4Yn9n66w5OLEuJpspS/F2
-         b021vKBjkGkKDqr2ut858jhyMC9RsNjwFLANgqIdFwGqPKttjec4Cb6dWGf5m8NuCm5w
-         upYiU3CvZBh6wqRYBHVg+i8MD7j/7sN3/k1yFmv4WImFySAKKItosP26Rmi9HrtLHFYN
-         vlYj95vFQeGAbPFXH5YeKtm9IBP80FXgj8lL1gV1HAQIZyHvSP8tXnoO2kRBErtCw/Jj
-         kFz7EGQZWn85zav1wlE65+TJ2l/HXDgdE+8nMVXg4wmoBslmxakXuPTQVl1JipJYEQH3
-         P2pw==
-X-Gm-Message-State: AOJu0YyNkSm4/x9Vvf5NBcPMtgnG4tlMYLCs0UXvWQ6BGrDRehVL4tUH
-	HYzwONoY4ND3bxSEHmHGs+I5slZVUK24RkUpfP8kHoTs4b5/O3jCnJneHFvx
-X-Google-Smtp-Source: AGHT+IF+iDaRaUHdatlA0i3c5lu7YparT93bpBVp2gnoxYvBLfVtPC1KMpjFtLaILr0DpwOngQTlgA==
-X-Received: by 2002:a17:906:254e:b0:a3d:ab64:7524 with SMTP id j14-20020a170906254e00b00a3dab647524mr2778795ejb.36.1708087171378;
-        Fri, 16 Feb 2024 04:39:31 -0800 (PST)
+        bh=ELu7fx1uXcKKvX0ev7mgwIEsa2oKN1zApZ0Pg4TKtMg=;
+        b=ci6L/IjbJ7sslt/lekD6edSF9BNr7Yn0bODpxWMcxPFnUDCVX1zx9IbHLIDo48654R
+         Tfn5ik2xKICNJRfXXvgLCQMiV9IH46Fts/mts0G0BWgyrus0B0ssYNV3BMnShjeAfCWt
+         U9ugpP4ZLIKh7HtBhJGq/Z/+7YQ9Cvlxwh6JypvNNDgi2vd+YGzuY+Z7EYMQJfdqLPD7
+         v+a7qMoZYyLaHc/kpQ/RKI95oC5cokTGibkHmxiSGTqPChvrjj7Z/Dy6UZP92uk24WTP
+         04OSEkuy/jNnt1b+ctGVUYWVlhqfUH4nSgTNvbRRXAIamxWjLYHEG+YzOvkUk6W2AH5S
+         Hwyw==
+X-Gm-Message-State: AOJu0YwZ9UeC8gpbwo6FTIyyDgdOHqSZlLplXxdBDtdxWZspscMVNL7w
+	Q6pAqX7LR5kSzaOL85SAYjtAnxHny17JikhQKBcuSd0UFpUxEV3RNirjmsG5
+X-Google-Smtp-Source: AGHT+IEgSArJ2RWktN+cBbDdUCZOEWFMz/h00WcEFOPs7dnjimSk0EQ6RWUaUr/nb0pDUpMPvqyhwQ==
+X-Received: by 2002:a17:906:451:b0:a3d:9962:f05f with SMTP id e17-20020a170906045100b00a3d9962f05fmr2952460eja.74.1708087172839;
+        Fri, 16 Feb 2024 04:39:32 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH v9 6/7] xen/ppc: switch PPC to use asm-generic/device.h
-Date: Fri, 16 Feb 2024 13:39:18 +0100
-Message-ID: <222ae66639312712e145bd04d5dd1ebd2c511d43.1708086092.git.oleksii.kurochko@gmail.com>
+	Julien Grall <julien@xen.org>,
+	Rahul Singh <rahul.singh@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v9 7/7] xen/asm-generic: fold struct devarch into struct dev
+Date: Fri, 16 Feb 2024 13:39:19 +0100
+Message-ID: <3a5bf394a9d95a28cecac996f6e0decb788c19fd.1708086092.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1708086091.git.oleksii.kurochko@gmail.com>
 References: <cover.1708086091.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+The current patch is a follow-up to the patch titled:
+    xen/asm-generic: introduce generic device.h
+Also, a prerequisite for this patch is, without which a compilation
+error will occur:
+    xen/arm: switch Arm to use asm-generic/device.h
+
+The 'struct dev_archdata' is exclusively used within 'struct device',
+so it could be merged into 'struct device.'
+
+After the merger, it is necessary to update the 'dev_archdata()'
+macros and the comments above 'struct arm_smmu_xen_device' in
+drivers/passthrough/arm/smmu.c.
+Additionally, it is required to update instances of
+"dev->archdata->iommu" to "dev->iommu".
+
+Suggested-by: Julien Grall <julien@xen.org>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Changed in V8:
- - nothing changed. only rebase.
+  This patch can be merged with patches 4 and 5 of this patch series.
 ---
-Changes in V7:
- - newly introduced patch which is based on the previous version of the patch:
-     [PATCH v6 9/9] xen/asm-generic: introduce generic device.h
+Changes in V9:
+ - newly introduced patch.
 ---
- xen/arch/ppc/include/asm/Makefile |  1 +
- xen/arch/ppc/include/asm/device.h | 53 -------------------------------
- 2 files changed, 1 insertion(+), 53 deletions(-)
- delete mode 100644 xen/arch/ppc/include/asm/device.h
+ xen/drivers/passthrough/arm/smmu.c | 12 ++++++------
+ xen/include/asm-generic/device.h   |  8 +-------
+ 2 files changed, 7 insertions(+), 13 deletions(-)
 
-diff --git a/xen/arch/ppc/include/asm/Makefile b/xen/arch/ppc/include/asm/Makefile
-index 3fd893f3e0..ced02e26ed 100644
---- a/xen/arch/ppc/include/asm/Makefile
-+++ b/xen/arch/ppc/include/asm/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
- generic-y += altp2m.h
-+generic-y += device.h
- generic-y += div64.h
- generic-y += hardirq.h
- generic-y += hypercall.h
-diff --git a/xen/arch/ppc/include/asm/device.h b/xen/arch/ppc/include/asm/device.h
-deleted file mode 100644
-index 8253e61d51..0000000000
---- a/xen/arch/ppc/include/asm/device.h
-+++ /dev/null
-@@ -1,53 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--#ifndef __ASM_PPC_DEVICE_H__
--#define __ASM_PPC_DEVICE_H__
--
--enum device_type
--{
--    DEV_DT,
--    DEV_PCI,
--};
--
--struct device {
--    enum device_type type;
--#ifdef CONFIG_HAS_DEVICE_TREE
--    struct dt_device_node *of_node; /* Used by drivers imported from Linux */
+diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+index 32e2ff279b..4a272c8779 100644
+--- a/xen/drivers/passthrough/arm/smmu.c
++++ b/xen/drivers/passthrough/arm/smmu.c
+@@ -227,9 +227,9 @@ struct arm_smmu_xen_domain {
+ };
+ 
+ /*
+- * Xen: Information about each device stored in dev->archdata.iommu
++ * Xen: Information about each device stored in dev->iommu
+  *
+- * Initially dev->archdata.iommu only stores the iommu_domain (runtime
++ * Initially dev->iommu only stores the iommu_domain (runtime
+  * configuration of the SMMU) but, on Xen, we also have to store the
+  * iommu_group (list of streamIDs associated to the device).
+  *
+@@ -242,7 +242,7 @@ struct arm_smmu_xen_device {
+ 	struct iommu_group *group;
+ };
+ 
+-#define dev_archdata(dev) ((struct arm_smmu_xen_device *)dev->archdata.iommu)
++#define dev_archdata(dev) ((struct arm_smmu_xen_device *)dev->iommu)
+ #define dev_iommu_domain(dev) (dev_archdata(dev)->domain)
+ #define dev_iommu_group(dev) (dev_archdata(dev)->group)
+ 
+@@ -2777,9 +2777,9 @@ static int arm_smmu_assign_dev(struct domain *d, u8 devfn,
+ 
+ 	xen_domain = dom_iommu(d)->arch.priv;
+ 
+-	if (!dev->archdata.iommu) {
+-		dev->archdata.iommu = xzalloc(struct arm_smmu_xen_device);
+-		if (!dev->archdata.iommu)
++	if (!dev->iommu) {
++		dev->iommu = xzalloc(struct arm_smmu_xen_device);
++		if (!dev->iommu)
+ 			return -ENOMEM;
+ 	}
+ 
+diff --git a/xen/include/asm-generic/device.h b/xen/include/asm-generic/device.h
+index f91bb7f771..1acd1ba1d8 100644
+--- a/xen/include/asm-generic/device.h
++++ b/xen/include/asm-generic/device.h
+@@ -22,12 +22,6 @@ enum device_class
+     DEVICE_UNKNOWN,
+ };
+ 
+-struct dev_archdata {
+-#ifdef CONFIG_HAS_PASSTHROUGH
+-    void *iommu;    /* IOMMU private data */
 -#endif
 -};
 -
--enum device_class
--{
--    DEVICE_SERIAL,
--    DEVICE_IOMMU,
--    DEVICE_PCI_HOSTBRIDGE,
--    /* Use for error */
--    DEVICE_UNKNOWN,
--};
--
--struct device_desc {
--    /* Device name */
--    const char *name;
--    /* Device class */
--    enum device_class class;
--    /* List of devices supported by this driver */
--    const struct dt_device_match *dt_match;
--    /*
--     * Device initialization.
--     *
--     * -EAGAIN is used to indicate that device probing is deferred.
--     */
--    int (*init)(struct dt_device_node *dev, const void *data);
--};
--
--typedef struct device device_t;
--
--#define DT_DEVICE_START(name_, namestr_, class_)                    \
--static const struct device_desc __dev_desc_##name_ __used           \
--__section(".dev.info") = {                                          \
--    .name = namestr_,                                               \
--    .class = class_,                                                \
--
--#define DT_DEVICE_END                                               \
--};
--
--#endif /* __ASM_PPC_DEVICE_H__ */
+ /* struct device - The basic device structure */
+ struct device
+ {
+@@ -35,8 +29,8 @@ struct device
+ #ifdef CONFIG_HAS_DEVICE_TREE
+     struct dt_device_node *of_node; /* Used by drivers imported from Linux */
+ #endif
+-    struct dev_archdata archdata;
+ #ifdef CONFIG_HAS_PASSTHROUGH
++    void *iommu; /* IOMMU private data */;
+     struct iommu_fwspec *iommu_fwspec; /* per-device IOMMU instance data */
+ #endif
+ };
 -- 
 2.43.0
 
