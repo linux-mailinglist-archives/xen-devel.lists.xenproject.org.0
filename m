@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA54857897
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Feb 2024 10:12:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682055.1061106 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58CA18579DF
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Feb 2024 11:05:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682093.1061132 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rauG3-00072P-Ps; Fri, 16 Feb 2024 09:11:47 +0000
+	id 1rav5R-0006PR-0k; Fri, 16 Feb 2024 10:04:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682055.1061106; Fri, 16 Feb 2024 09:11:47 +0000
+Received: by outflank-mailman (output) from mailman id 682093.1061132; Fri, 16 Feb 2024 10:04:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rauG3-000704-Mo; Fri, 16 Feb 2024 09:11:47 +0000
-Received: by outflank-mailman (input) for mailman id 682055;
- Fri, 16 Feb 2024 09:11:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dcAy=JZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rauG3-0006zy-4C
- for xen-devel@lists.xenproject.org; Fri, 16 Feb 2024 09:11:47 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 685f0bbd-ccab-11ee-8a4f-1f161083a0e0;
- Fri, 16 Feb 2024 10:11:45 +0100 (CET)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2d109e7bed2so23203341fa.2
- for <xen-devel@lists.xenproject.org>; Fri, 16 Feb 2024 01:11:45 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- p13-20020a05620a22ad00b0078565ed2bc6sm1336749qkh.124.2024.02.16.01.11.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Feb 2024 01:11:44 -0800 (PST)
+	id 1rav5Q-0006Mv-UG; Fri, 16 Feb 2024 10:04:52 +0000
+Received: by outflank-mailman (input) for mailman id 682093;
+ Fri, 16 Feb 2024 10:04:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=x+xa=JZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rav5P-0006Mp-6M
+ for xen-devel@lists.xenproject.org; Fri, 16 Feb 2024 10:04:51 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d1211488-ccb2-11ee-98f5-efadbce2ee36;
+ Fri, 16 Feb 2024 11:04:48 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4125296400cso904935e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 16 Feb 2024 02:04:48 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ co3-20020a0560000a0300b0033cf9e35b13sm1796564wrb.72.2024.02.16.02.04.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 Feb 2024 02:04:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,150 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 685f0bbd-ccab-11ee-8a4f-1f161083a0e0
+X-Inumbo-ID: d1211488-ccb2-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708074705; x=1708679505; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=UhNCxLnq2Bh/M+Qg1rjlgZSPcWfjNiUbNdNc86SOifE=;
-        b=cpgV194Hv0ED1EfVBvj8lIHvVJeM9w0Ilgc+GPZE40ANDlF99xWdLQTGr8EDmLPFA1
-         3/Gd4VfHSuh3p+rdBS+w+40q4ISpAMvKz5ZKaxpG98cHJhZngwKPR7Y71tIwTJSSpEwF
-         Wnw5Fu4Jw2LU64LKZPHorCLovoqUGMb/f5IwA=
+        d=suse.com; s=google; t=1708077887; x=1708682687; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=lVt+Hm/7gTEmh+6OtNrEJ1A9UUR0Y+pgKDaSGK2e/jk=;
+        b=abyAyoO643nUvVphHepI9wx5Zt+4B6KjSkEf+5FWSyUJ7Tzn9nQGdcRUvyPfOzhfLt
+         N662dp7+wmKjxqasluGi+bio8QSyX+yG4mm8j8QPJZ7C5ud0JQkif2wYGacbcSZb4Uf3
+         aPpzXrR4QwVPeFqZxXLmAYy+XFf9tJ0LUZf8yL23EiifnZMGJFAqOUyB2aNkqaEBmEpk
+         IFhVM4rJcpypy68++PuT44xyC5OBxmbqC3FOUnZ4oAtg/W4fQnq3tZj3S1cPnaIKeI5q
+         8wZQBfuLB0uYvceOfNAZJLx5BFzuoMeq4KBj50P7iAz+fhpQe3L+rsZHcYudvvmx9fH5
+         MMYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708074705; x=1708679505;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UhNCxLnq2Bh/M+Qg1rjlgZSPcWfjNiUbNdNc86SOifE=;
-        b=FLvIcE/wG/9H5ydUtawoUPOxQal3bAs7XkQIvrWV+XS/o1wU2qwBZnUeUUeUuQLHau
-         dpUoWBSVveNhXamEwz5mRTYJ2rkXiqwiGK54WuAobn1YvwS8Swi6d+aqjHU4ObFyRQiJ
-         1dHLRI6CvMHk4aVpJzgUnB17BfQui1ESwRrv9FTTgB7R7TYZ/LhXjkmZf/whfVbNbWlR
-         bKN/OBIXMk13ekr44H3KdE4q6V48r5HXiu02TdSfDI3bC8GlCnG+yO3y4dSWPA2KiVmI
-         WeGaolenndhER0hzHD5/0H7IN9HKHTkCoMGjGNUgU57g4cqIBTUesiBSyFA1eQz/hMky
-         KcOg==
-X-Gm-Message-State: AOJu0Yw2Q3F1Qonp/1ijChPTQXLalDc2UQO1QQqibp6QtbaIzOOfa77n
-	KqTYiMbsL0Fp7NcEObR+0alwE0TsKf4OAG+e2kM8dMo/z1muAln5UWeTKp3D8C8=
-X-Google-Smtp-Source: AGHT+IG36kIwA9kRzfLhRc+OotuuzAsRXdzaJfGfrqRkDL2NBMY4AZZUvinOAkKdOKI7V46jQI1wLQ==
-X-Received: by 2002:a2e:b707:0:b0:2d2:1c15:dc0b with SMTP id j7-20020a2eb707000000b002d21c15dc0bmr462761ljo.40.1708074705285;
-        Fri, 16 Feb 2024 01:11:45 -0800 (PST)
-Date: Fri, 16 Feb 2024 10:11:42 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v2] x86: amend 'n' debug-key output with SMI count
-Message-ID: <Zc8mzlzLTJNwBJup@macbook>
-References: <549909b7-e34c-4a5c-aa21-9892a1724042@suse.com>
+        d=1e100.net; s=20230601; t=1708077887; x=1708682687;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=lVt+Hm/7gTEmh+6OtNrEJ1A9UUR0Y+pgKDaSGK2e/jk=;
+        b=OeVfz1a0YtH/XzMBui/Hj7Rp0/YJd4YyvB03njrgKAL063Fxjlvs6AfXfLkqHyL9lg
+         Gn6p1dAEogWBkchr/+vzQ3NFwtlrkuyu/DFf8GN3W/7EoRfSmH8TtcgiHTx8FhcrHrqL
+         9ZBRGetDo0zG7A+sWzpHPeNftsaAJ3zL+UQuC3WOkPLs3NoXy7gLJxfKfcEG6tYSdfv0
+         9VxJy/q5oQFyUQs2S2WpqVBI1FKGOmPA0nuNYxN4882Ln4646lpYnT7o3X3vpS5THJ1U
+         1J/1OZ6uBExMIVicy7DTnQuK7UF6PxcfydrTRiKrH/vll+d3p9fKBk4f3VWiyJPrz7hc
+         tQTw==
+X-Forwarded-Encrypted: i=1; AJvYcCXA7ZHrgNkmsQdg5870oFHFZZU0J8gpCYFFyKsgMbnJRIgysxOFq7Vdzg+3UDlAJjQe3Xo4hnptaWThm4us8DRBktetCVg5XIn5XrpFxQI=
+X-Gm-Message-State: AOJu0YyRhYRUKKXzbz+qJbeeX7gb9pv+EXrdnmFCaqfgNh4wRCPKt8XV
+	oQkYybml9wsw0LyurxbzTUFnuIT8sphEpHIZV2eF87+UG+Lqyalr/6DuCADTYA==
+X-Google-Smtp-Source: AGHT+IE1RtzZeRnmQNQ05C0/fYx//I2rkKKD7tKUfXSnr4QqZDsujzG5wQivJXZhKZ/WseW/RHjukg==
+X-Received: by 2002:a05:600c:5006:b0:412:1ccd:d7a4 with SMTP id n6-20020a05600c500600b004121ccdd7a4mr2841196wmr.14.1708077887613;
+        Fri, 16 Feb 2024 02:04:47 -0800 (PST)
+Message-ID: <2fe68b26-87c3-43bf-ba11-f261c81c6373@suse.com>
+Date: Fri, 16 Feb 2024 11:04:46 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <549909b7-e34c-4a5c-aa21-9892a1724042@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] build/xen: fail to rebuild if Kconfig fails
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Anthony Perard <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20240215093002.23527-1-roger.pau@citrix.com>
+ <a2edb04f-c343-4baf-9f15-d96c4d014f05@suse.com> <Zc3nXpUOlnIHEfsl@macbook>
+ <54678829-4bcf-4d83-8134-1ab386f299b6@suse.com> <Zc3v20RKMssbaDsl@macbook>
+ <a48cbad6-701d-4077-9044-4205b932a7f3@suse.com> <Zc428VMDoYnPw1zo@macbook>
+ <d545cc6c-d213-43da-af31-1768af32aba0@suse.com> <Zc5Io3dkAlGSt3on@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <Zc5Io3dkAlGSt3on@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Feb 14, 2024 at 11:15:51AM +0100, Jan Beulich wrote:
-> ... if available only, of course.
+On 15.02.2024 18:23, Roger Pau Monné wrote:
+> On Thu, Feb 15, 2024 at 05:22:00PM +0100, Jan Beulich wrote:
+>> On 15.02.2024 17:08, Roger Pau Monné wrote:
+>>> On Thu, Feb 15, 2024 at 02:02:41PM +0100, Jan Beulich wrote:
+>>>> --- a/xen/Rules.mk
+>>>> +++ b/xen/Rules.mk
+>>>> @@ -15,7 +15,11 @@ srcdir := $(srctree)/$(src)
+>>>>  PHONY := __build
+>>>>  __build:
+>>>>  
+>>>> --include $(objtree)/include/config/auto.conf
+>>>> +ifneq ($(obj),tools)
+>>>> +ifneq ($(obj),tools/kconfig)
+>>>> +include $(objtree)/include/config/auto.conf
+>>>> +endif
+>>>> +endif
+>>>
+>>> Trying to understand this, I assume it's to avoid an infinite
+>>> dependency loop that generating include/config/auto.conf requires some
+>>> tools that are build using xen/Rules.mk?
+>>
+>> The file has dependencies only in xen/Makefile. This is about the
+>> file simply not being there when initially building. Perhaps the
+>> patch description helps that I've written in the meantime:
+>>
+>> "Because of using "-include", failure to (re)build auto.conf (with
+>>  auto.conf.cmd produced as a secondary target) won't stop make from
+>>  continuing the build. Arrange for it being possible to drop the - from
+>>  Rules.mk, requiring that the include be skipped for tools-only targets.
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> I don't really like issuing an IPI (and having another cf_check
-> function) here, yet then again this is issued only when the debug key
-> is actually used, and given how simple the handling function is
-> (including that it doesn't use its parameter) it also looks difficult
-> to abuse.
-> ---
-> v2: Actually read each CPU's SMI count in do_nmi_stats().
-> 
-> --- a/xen/arch/x86/cpu/common.c
-> +++ b/xen/arch/x86/cpu/common.c
-> @@ -407,9 +407,15 @@ void __init early_cpu_init(bool verbose)
->  		paddr_bits -= (ebx >> 6) & 0x3f;
->  	}
->  
-> -	if (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)))
-> +	if (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON))) {
-> +		uint64_t smi_count;
-> +
->  		park_offline_cpus = opt_mce;
->  
-> +		if (!verbose && !rdmsr_safe(MSR_SMI_COUNT, smi_count))
-> +			setup_force_cpu_cap(X86_FEATURE_SMI_COUNT);
+> Wouldn't it be more reliable if we skipped the include for any paths
+> in $(obj) that start with 'tools', rather than hardcoding 'tools' and
+> 'tools/kconfig'?
 
-Why make it dependent on !verbose?  The call with !verbose is tied to
-part of the ucode loading being half-functional (for example
-MCU_CONTROL_DIS_MCU_LOAD not being set) but I don't see that as a
-signal that SMI count shouldn't be used.
+I was first meaning to do so, but the expression would end up more
+complex than I'd like (for it needing to be an exact match of "tools"
+and a prefix match of "tools/"). Thinking of it,
 
-does it need to be part of the early cpu initialization instead of
-being in the (later) Intel specific init code part of the
-identify_cpu()?
+ifneq ($(obj),tools)
+ifneq ($(patsubst tools/%,$(obj)),)
 
-> +	}
-> +
->  	initialize_cpu_data(0);
->  }
->  
-> --- a/xen/arch/x86/include/asm/cpufeatures.h
-> +++ b/xen/arch/x86/include/asm/cpufeatures.h
-> @@ -24,7 +24,7 @@ XEN_CPUFEATURE(APERFMPERF,        X86_SY
->  XEN_CPUFEATURE(MFENCE_RDTSC,      X86_SYNTH( 9)) /* MFENCE synchronizes RDTSC */
->  XEN_CPUFEATURE(XEN_SMEP,          X86_SYNTH(10)) /* SMEP gets used by Xen itself */
->  XEN_CPUFEATURE(XEN_SMAP,          X86_SYNTH(11)) /* SMAP gets used by Xen itself */
-> -/* Bit 12 unused. */
-> +XEN_CPUFEATURE(SMI_COUNT,         X86_SYNTH(12)) /* MSR_SMI_COUNT exists */
->  XEN_CPUFEATURE(IND_THUNK_LFENCE,  X86_SYNTH(13)) /* Use IND_THUNK_LFENCE */
->  XEN_CPUFEATURE(IND_THUNK_JMP,     X86_SYNTH(14)) /* Use IND_THUNK_JMP */
->  XEN_CPUFEATURE(SC_NO_BRANCH_HARDEN, X86_SYNTH(15)) /* (Disable) Conditional branch hardening */
-> --- a/xen/arch/x86/include/asm/msr-index.h
-> +++ b/xen/arch/x86/include/asm/msr-index.h
-> @@ -28,6 +28,8 @@
->  #define  TEST_CTRL_SPLITLOCK_DETECT         (_AC(1, ULL) << 29)
->  #define  TEST_CTRL_SPLITLOCK_DISABLE        (_AC(1, ULL) << 31)
->  
-> +#define MSR_SMI_COUNT                       0x00000034
-> +
->  #define MSR_INTEL_CORE_THREAD_COUNT         0x00000035
->  #define  MSR_CTC_THREAD_MASK                0x0000ffff
->  #define  MSR_CTC_CORE_MASK                  _AC(0xffff0000, U)
-> --- a/xen/arch/x86/nmi.c
-> +++ b/xen/arch/x86/nmi.c
-> @@ -585,15 +585,34 @@ static void cf_check do_nmi_trigger(unsi
->      self_nmi();
->  }
->  
-> +static DEFINE_PER_CPU(unsigned int, smi_count);
-> +
-> +static void cf_check read_smi_count(void *unused)
-> +{
-> +    unsigned int dummy;
-> +
-> +    rdmsr(MSR_SMI_COUNT, this_cpu(smi_count), dummy);
-> +}
-> +
->  static void cf_check do_nmi_stats(unsigned char key)
->  {
->      const struct vcpu *v;
->      unsigned int cpu;
->      bool pend, mask;
->  
-> -    printk("CPU\tNMI\n");
-> +    printk("CPU\tNMI%s\n", boot_cpu_has(X86_FEATURE_SMI_COUNT) ? "\tSMI" : "");
-> +
-> +    if ( boot_cpu_has(X86_FEATURE_SMI_COUNT) )
-> +        on_each_cpu(read_smi_count, NULL, 1);
-> +
->      for_each_online_cpu ( cpu )
-> -        printk("%3u\t%3u\n", cpu, per_cpu(nmi_count, cpu));
-> +    {
-> +        printk("%3u\t%3u", cpu, per_cpu(nmi_count, cpu));
-> +        if ( boot_cpu_has(X86_FEATURE_SMI_COUNT) )
-> +            printk("\t%3u\n", per_cpu(smi_count, cpu));
-> +        else
-> +            printk("\n");
-> +    }
->  
->      if ( !hardware_domain || !(v = domain_vcpu(hardware_domain, 0)) )
->          return;
+might do (and not be as complex as I first thought, when intending to
+put all in a single "if").
 
-Could you also amend the debug-key help text to mention SMI?
+Yet then it's not entirely impossible that we might gain a build tool
+which is actually to be built after .config was (re)generated, i.e.
+in the know of the target configuration. Thoughts?
 
-Thanks, Roger.
+Jan
 
