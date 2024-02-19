@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FEDA85A741
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 16:21:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682978.1062263 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAD4F85A74A
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 16:22:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682982.1062273 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc5Rz-0004Xl-QT; Mon, 19 Feb 2024 15:20:59 +0000
+	id 1rc5Ta-0005Kv-49; Mon, 19 Feb 2024 15:22:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682978.1062263; Mon, 19 Feb 2024 15:20:59 +0000
+Received: by outflank-mailman (output) from mailman id 682982.1062273; Mon, 19 Feb 2024 15:22:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc5Rz-0004Vc-N2; Mon, 19 Feb 2024 15:20:59 +0000
-Received: by outflank-mailman (input) for mailman id 682978;
- Mon, 19 Feb 2024 15:20:59 +0000
+	id 1rc5Ta-0005JM-11; Mon, 19 Feb 2024 15:22:38 +0000
+Received: by outflank-mailman (input) for mailman id 682982;
+ Mon, 19 Feb 2024 15:22:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pKiv=J4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rc5Ry-0004VQ-Tv
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 15:20:58 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=SL20=J4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rc5TZ-0005J8-64
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 15:22:37 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7b3c43cf-cf3a-11ee-8a52-1f161083a0e0;
- Mon, 19 Feb 2024 16:20:58 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5648d92919dso1117338a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 07:20:57 -0800 (PST)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- f21-20020a056402195500b0056413012fa8sm2745641edz.62.2024.02.19.07.20.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Feb 2024 07:20:56 -0800 (PST)
+ id b5b04338-cf3a-11ee-8a52-1f161083a0e0;
+ Mon, 19 Feb 2024 16:22:35 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2d22b8801b9so30802591fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 07:22:35 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ p11-20020a05600c1d8b00b004126a0dfd11sm1403795wms.29.2024.02.19.07.22.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 Feb 2024 07:22:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,194 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b3c43cf-cf3a-11ee-8a52-1f161083a0e0
+X-Inumbo-ID: b5b04338-cf3a-11ee-8a52-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1708356057; x=1708960857; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=CCRznYB5/GGkzm3SxrgrZSve2RalzmlGK5ybpDuAZCE=;
-        b=JTUfAiipxskLu87nxar9AAvRaLsOOPYsJ/5ryeZMZ6yALD0qOdwwWc4yD6KwRG3JK/
-         CgMj0WaMjEfDNsgT5J47TGDksmTh2vbRAOKIqqhKmhGTbdvfb5YHK6b0P/Pw5zSubT5f
-         TrqSONjl8oJ0l4SE6cbP+/lXznmKZA0V1whb19MXDEW9+xfjF72o2pdvW0QbL6vfdakV
-         +WdUcOusqP5DWK0vxTQcnoP/kvpGHXxzIMnBn7OXuebGrlN6BzF76L4nK2giKmI22wS3
-         5R4nww7KZ1ZSkCSsu8iR79L17wUcvj9L/UvzybZQCboe60+HXiK5onvE0AFKiGTHmPYx
-         j0QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708356057; x=1708960857;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1708356155; x=1708960955; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=CCRznYB5/GGkzm3SxrgrZSve2RalzmlGK5ybpDuAZCE=;
-        b=rPGfYusO2CB1wusJVom4N4M047RiKc1WmIWUgG0eif7EgBnnXPo2EbP9Yfu9SH6ah3
-         Q0mVe3C5jHhe46c6AC7cAGn3Jfrl2cLA+L2Dd1/3UBEGYDypAVi//7ATlcdRDqssRdVk
-         A84TASpc5SHtrsGUotkH9RHVd5O76XOLjDMNTqgR/d20ugJaCfJ+3cP8ikA+kFrggdac
-         P7UJFF7OHQZlkTWMoXc12mlrcBTlH4pKH/YUeEYWaeH3MXdfqW6Wq2z7lex9td8OxReZ
-         CLnIZBR8lFZ2UfeejTNHBdfxMjWxCM/tOQD3KtE+PTOXjsU+nNkjAbMWPdMuODFp0L6i
-         wweA==
-X-Forwarded-Encrypted: i=1; AJvYcCXVvHhYM2AjU5UIW0oV+8ykYB0+YVIXaKty1tf/lZ8Ql2aGXJAjI1dt51bpxk2urzzN1Wi22m7zjHh813pMZBlf3j7vtfmhSB1ac6IbBng=
-X-Gm-Message-State: AOJu0Yzczfd2+Of7gY4I6CtYEIgg0/YoWWCJloWjAcvc1RDYmC+82MkW
-	7zmXKOt9jyY149xe8M+2oS1ZINJPly4b/k8rPXDMWVc3p2iLaYKe
-X-Google-Smtp-Source: AGHT+IEnBxSV1nwoR4bEVd00+EsZoRD3Ifu3dDI4Jx42o3y+bCtbWr7mc8wAut4clxXg17V7cOOWUQ==
-X-Received: by 2002:a05:6402:31fb:b0:564:acde:d135 with SMTP id dy27-20020a05640231fb00b00564acded135mr347480edb.29.1708356057249;
-        Mon, 19 Feb 2024 07:20:57 -0800 (PST)
-Message-ID: <f057507271070bc17e85a7637a9edd4c16b171c5.camel@gmail.com>
-Subject: Re: [PATCH v4 12/30] xen/riscv: introduce cmpxchg.h
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>, 
- xen-devel@lists.xenproject.org
-Date: Mon, 19 Feb 2024 16:20:55 +0100
-In-Reply-To: <73b4654a-cdf2-48dc-b802-a7890c3fe426@suse.com>
-References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
-	 <25315ca95baffc9b222fb0ae89375a94b01a9b46.1707146506.git.oleksii.kurochko@gmail.com>
-	 <491937fd-2459-416f-944b-0c63f7c12473@xen.org>
-	 <1ebdc064665b396d1978ac188594682f08601dbc.camel@gmail.com>
-	 <73b4654a-cdf2-48dc-b802-a7890c3fe426@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+        bh=/7B2JK78uOtI+4WAcrTSjeehT4XmVYOqJPVysWYKQlo=;
+        b=RH4zOJsMczDOG4p8wo3Cud0OKaIXHrst9r90CnLriyKKsyvjjUDMsfs344tgdSez+u
+         hifEzUuBZh5qTP0dzD/fjceBrg8AG4b7C2L2Syx4wjUBxEA8FOhJLqTbSdOq1domM9E9
+         1Rn+T0XOrppfWKJ+9DGyuoF5syLeu35jJ65pFKmdXMUqamWExMw0WKdGsgjD7/MyWkB2
+         FE/hDSC7E3903K2kNrARe3s42awf314Z7ZSipJmXZ7gk+koXJft9peUQYyTzmKN6pDdb
+         m3nM/LLIZ2pOSCdofs6W44PhqJ/2y5LjFNtAN7+TQ35KmiobOSMOb3ARK5muZzUT7Yro
+         K3ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708356155; x=1708960955;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/7B2JK78uOtI+4WAcrTSjeehT4XmVYOqJPVysWYKQlo=;
+        b=PI+Pn7ZzVj/B2nupG1jYgswj/pLUn8Wpa87Bs3CCz1HkuthzME3KA+S2ZK9NJUb5TQ
+         eQmz1N1DbtHPVocDJwd4ZfPBPzk4wgsp9Qt7qDRz5vX4QPuQntrJhMY5vrh6tHUh8M0y
+         Lpqj0/ZCjaHZnCIe+FSLGhY9G+oZu3URB4D6IuOklZbDYuC4koGHQL0xMD0F2eJqTd6x
+         +Zy3Q+yqALycWVwpajFN7vd07rBO2VdKHu/Drc1yHVUrF3VPc4FfmEeE3Vbel1XhAZHS
+         HV2nyYvLVXhMb9lnLnUlNd/222+T+qbKopRAhsR+MBZgzrWNbiYWpt43rHisUECd8ZyJ
+         q9Tw==
+X-Forwarded-Encrypted: i=1; AJvYcCXrLBhbUZcSLddj/rcfs01sGovrMFlnFQxPa5FM+mNMPvTe8Lm70J8jW9WGuWwhZzUD9Jzv9WKxxobp/OycEVEakCuLeZPb02+wBcxxVJQ=
+X-Gm-Message-State: AOJu0YySyNvFOZn6tvj1qJF7rReBmUyZRzj2+Mfw0BBMny9dRuJXvUiG
+	lRLq96CCo4lDupFas2puNVfvXd353Jfu45cjACeOGX987iwghytxT4Zk/F0L5g==
+X-Google-Smtp-Source: AGHT+IESt0eAT5Jk8d7blPsJb0QGmq/ImUQ6hs8DzyaCF7bmiJNy50g5ZIVjh/XRX7ATqiB+pyaO9g==
+X-Received: by 2002:a2e:b8c8:0:b0:2d2:bd9:f100 with SMTP id s8-20020a2eb8c8000000b002d20bd9f100mr9444976ljp.20.1708356155452;
+        Mon, 19 Feb 2024 07:22:35 -0800 (PST)
+Message-ID: <c5f3a78c-4a2b-499b-93bb-11f60b0afcc0@suse.com>
+Date: Mon, 19 Feb 2024 16:22:34 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] nestedsvm: Disable TscRateMSR
+Content-Language: en-US
+To: George Dunlap <george.dunlap@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20240206012051.3564035-1-george.dunlap@cloud.com>
+ <20240206012051.3564035-5-george.dunlap@cloud.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240206012051.3564035-5-george.dunlap@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2024-02-19 at 15:12 +0100, Jan Beulich wrote:
-> On 19.02.2024 15:00, Oleksii wrote:
-> > On Sun, 2024-02-18 at 19:00 +0000, Julien Grall wrote:
-> > > On 05/02/2024 15:32, Oleksii Kurochko wrote:
-> > > > --- /dev/null
-> > > > +++ b/xen/arch/riscv/include/asm/cmpxchg.h
-> > > > @@ -0,0 +1,237 @@
-> > > > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > > > +/* Copyright (C) 2014 Regents of the University of California
-> > > > */
-> > > > +
-> > > > +#ifndef _ASM_RISCV_CMPXCHG_H
-> > > > +#define _ASM_RISCV_CMPXCHG_H
-> > > > +
-> > > > +#include <xen/compiler.h>
-> > > > +#include <xen/lib.h>
-> > > > +
-> > > > +#include <asm/fence.h>
-> > > > +#include <asm/io.h>
-> > > > +#include <asm/system.h>
-> > > > +
-> > > > +#define ALIGN_DOWN(addr, size)=C2=A0 ((addr) & (~((size) - 1)))
-> > > > +
-> > > > +#define __amoswap_generic(ptr, new, ret, sfx, release_barrier,
-> > > > acquire_barrier) \
-> > > > +({ \
-> > > > +=C2=A0=C2=A0=C2=A0 asm volatile( \
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 release_barrier \
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 " amoswap" sfx " %0, %2=
-, %1\n" \
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 acquire_barrier \
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "=3Dr" (ret), "+A" (*=
-ptr) \
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "r" (new) \
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "memory" ); \
-> > > > +})
-> > > > +
-> > > > +#define emulate_xchg_1_2(ptr, new, ret, release_barrier,
-> > > > acquire_barrier) \
-> > > > +({ \
-> > > > +=C2=A0=C2=A0=C2=A0 uint32_t *ptr_32b_aligned =3D (uint32_t
-> > > > *)ALIGN_DOWN((unsigned
-> > > > long)ptr, 4); \
-> > > > +=C2=A0=C2=A0=C2=A0 uint8_t mask_l =3D ((unsigned long)(ptr) & (0x8=
- -
-> > > > sizeof(*ptr)))
-> > > > * BITS_PER_BYTE; \
-> > > > +=C2=A0=C2=A0=C2=A0 uint8_t mask_size =3D sizeof(*ptr) * BITS_PER_B=
-YTE; \
-> > > > +=C2=A0=C2=A0=C2=A0 uint8_t mask_h =3D mask_l + mask_size - 1; \
-> > > > +=C2=A0=C2=A0=C2=A0 unsigned long mask =3D GENMASK(mask_h, mask_l);=
- \
-> > > > +=C2=A0=C2=A0=C2=A0 unsigned long new_ =3D (unsigned long)(new) << =
-mask_l; \
-> > > > +=C2=A0=C2=A0=C2=A0 unsigned long ret_; \
-> > > > +=C2=A0=C2=A0=C2=A0 unsigned long rc; \
-> > > > +=C2=A0=C2=A0=C2=A0 \
-> > > > +=C2=A0=C2=A0=C2=A0 asm volatile( \
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 release_barrier \
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "0: lr.d %0, %2\n" \
-> > >=20
-> > > I was going to ask why this is lr.d rather than lr.w. But I see
-> > > Jan=20
-> > > already asked. I agree with him that it should probably be a lr.w
-> > > and
-> > > ...
-> > >=20
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "=C2=A0=C2=A0 and=C2=A0=
- %1, %0, %z4\n" \
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "=C2=A0=C2=A0 or=C2=A0=
-=C2=A0 %1, %1, %z3\n" \
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "=C2=A0=C2=A0 sc.d %1, =
-%1, %2\n" \
-> > >=20
-> > > ... respectively sc.w. The same applies for cmpxchg.
-> >=20
-> > I agree that it would be better, and my initial attempt was to
-> > handle
-> > 4-byte or 8-byte boundary crossing during 2-byte access:
-> >=20
-> > 0 1 2 3 4 5 6 7 8
-> > X X X 1 1 X X X X
-> >=20
-> > In this case, if I align address 3 to address 0 and then read 4
-> > bytes
-> > instead of 8 bytes, I will not process the byte at address 4. This
-> > was
-> > the reason why I started to read 8 bytes.
-> >=20
-> > I also acknowledge that there could be an issue in the following
-> > case:
-> >=20
-> > X=C2=A0 4094 4095 4096
-> > X=C2=A0=C2=A0=C2=A0 1=C2=A0=C2=A0 1=C2=A0=C2=A0=C2=A0 X
-> > In this situation, when I read 8 bytes, there could be an issue
-> > where
-> > the new page (which starts at 4096) will not be mapped. It seems
-> > correct in this case to check that variable is within one page and
-> > read
-> > 4 bytes instead of 8.
-> >=20
-> > One more thing I am uncertain about is if we change everything to
-> > read
-> > 4 bytes with 4-byte alignment, what should be done with the first
-> > case?
-> > Should we panic? (I am not sure if this is an option.)
->=20
-> Counter question (raised elsewhere already): What if a 4-byte access
-> crosses a word / cache line / page boundary? Ideally exactly the
-> same would happen for a 2-byte access crossing a respective boundary.
-> (Which you can achieve relatively easily by masking off only address
-> bit 1, keeping address bit 0 unaltered.)
-But if we align down on a 4-byte boundary and then access 4 bytes, we
-can't cross a boundary. I agree that the algorithm is not correct, as
-it can ignore some values in certain situations. For example:
-0 1 2 3 4 5 6 7 8
-X X X 1 1 X X X X
-In this case, the value at address 4 won't be updated.
+On 06.02.2024 02:20, George Dunlap wrote:
+> For now, just disable the functionality entirely until we can
+> implement it properly:
+> 
+> - Don't set TSCRATEMSR in the host CPUID policy
 
-I agree that introducing a new macro to check if a variable crosses a
-boundary is necessary or as an option we can check that addr is 2-byte
-aligned:
+This goes too far: This way you would (in principle) also affect guests
+with nesting disabled. According to the earlier parts of the description
+there's also no issue with it in that case. What you want to make sure
+it that in the HVM policy the bit isn't set.
 
-#define CHECK_BOUNDARY_CROSSING(start, end, boundary_size)
-ASSERT((start / boundary_size) !=3D (end / boundary_size))
+While presently resolving to cpu_has_svm_feature(), I think
+cpu_has_tsc_ratio really ought to resolve to the host policy field.
+Of course then requiring the host policy to reflect reality rather than
+having what is "always emulated". IOW ...
 
-Then, it is necessary to check:
+> --- a/xen/arch/x86/cpu-policy.c
+> +++ b/xen/arch/x86/cpu-policy.c
+> @@ -407,8 +407,7 @@ static void __init calculate_host_policy(void)
+>                                 (1u << SVM_FEATURE_PAUSEFILTER) |
+>                                 (1u << SVM_FEATURE_DECODEASSISTS));
+>          /* Enable features which are always emulated. */
+> -        p->extd.raw[0xa].d |= ((1u << SVM_FEATURE_VMCBCLEAN) |
+> -                               (1u << SVM_FEATURE_TSCRATEMSR));
+> +        p->extd.raw[0xa].d |= (1u << SVM_FEATURE_VMCBCLEAN);
 
-CHECK_BOUNDARY_CROSSING(start, end, 4)
-CHECK_BOUNDARY_CROSSING(start, end, PAGE_SIZE)
+... this likely wants replacing altogether by not overriding what we
+found in hardware, which would apparently mean moving the two bit
+masks to the earlier "clamping" expression.
 
-But why do we need to check the cache line boundary? In the case of the
-cache, the question will only be about performance, but it should still
-work, shouldn't it?
+But then of course Andrew may know of reasons why all of this is done
+in calculate_host_policy() in the first place, rather than in HVM
+policy calculation.
 
-~ Oleksii
-
+Jan
 
