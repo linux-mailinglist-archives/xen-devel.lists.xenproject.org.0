@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1341C859DCD
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 09:07:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682679.1061771 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A125859DCE
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 09:07:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682684.1061781 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rbyfJ-0002Oa-Ek; Mon, 19 Feb 2024 08:06:17 +0000
+	id 1rbygN-0002uo-Rd; Mon, 19 Feb 2024 08:07:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682679.1061771; Mon, 19 Feb 2024 08:06:17 +0000
+Received: by outflank-mailman (output) from mailman id 682684.1061781; Mon, 19 Feb 2024 08:07:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rbyfJ-0002M3-Be; Mon, 19 Feb 2024 08:06:17 +0000
-Received: by outflank-mailman (input) for mailman id 682679;
- Mon, 19 Feb 2024 08:06:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rbygN-0002tE-Nj; Mon, 19 Feb 2024 08:07:23 +0000
+Received: by outflank-mailman (input) for mailman id 682684;
+ Mon, 19 Feb 2024 08:07:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SL20=J4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rbyfH-0002Lx-Tn
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 08:06:15 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bf405c03-cefd-11ee-98f5-efadbce2ee36;
- Mon, 19 Feb 2024 09:06:12 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40fd72f7125so33469855e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 00:06:13 -0800 (PST)
+ id 1rbygM-0002t8-EH
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 08:07:22 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e851d994-cefd-11ee-8a52-1f161083a0e0;
+ Mon, 19 Feb 2024 09:07:21 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-5129e5b8cecso2258253e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 00:07:21 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- dn23-20020a05600c655700b0040fafd84095sm10449766wmb.41.2024.02.19.00.06.12
+ dn23-20020a05600c655700b0040fafd84095sm10449766wmb.41.2024.02.19.00.07.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Feb 2024 00:06:12 -0800 (PST)
+ Mon, 19 Feb 2024 00:07:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf405c03-cefd-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: e851d994-cefd-11ee-8a52-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708329972; x=1708934772; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708330041; x=1708934841; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=k12lEr+9sd7cL8zwVGAmNia+gVMdZzPb0lgTIHsA8ls=;
-        b=LLJ4v3MRotltNlpvmgMy+GyV4PWL/mDoExrA/HhFam5VjICRvZkwLSU5xDgcku1K7L
-         9QpIvHKzYplpqmmsyu43JKdiRzZ9A5YQPgocxu7p+H3UI1ILWsr55nsWPZCKp3LOREaL
-         zuDnC0V3DevV+hkg0o0/oyPrqfzbaCEE0fcoIMrgI2xitrMI3aXqfrEkxjsXIyJfLN0e
-         1Fjifdu1ZgTWVcvTda+yIAE+JIC5mufHGoRJyH7H+6QEeRSCxmWmi3kllVhZdVTzOgKQ
-         oNAY9c+Un2uShAsQSnJ4FaVjtO7dI0ytiu0p7uiElpWiNSfah+bH3dqAFWID+XgoFhL+
-         k9bw==
+        bh=cbHN8iehOY44UGITfjPuxpNYlsb4ToDDW5BrYCEfMmg=;
+        b=AxPuYZr0PY94eW+aPjq3dxSmdnwn7NU2obos+mAuHD38e/Im1619DnzJOS9be7JCAo
+         IF1P0imq4QsO0Mez5XS2g2RD2rC0+IS1iOgFRGYb+dLlsn4r6RQZCk0V1FW0oKlj0577
+         x5bXAeer8978IyTmLUFDOb7olk01cHYMuGQ/aqP92wS5G1kA2ZJ3Yi903rpU16UVj662
+         h5l/N/SQPXEFk9DNJJ4AMIw7RkonjcuYsH+2avhx2hXfCeCcY8IWrKPNw0BQlvFOOPb+
+         SxaftNf6Cv7II+b76IIJCUy3icNEOp8k9tV52nPtMxuy/HRKswnLCQtUJ/w85Y54faTR
+         YnbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708329972; x=1708934772;
+        d=1e100.net; s=20230601; t=1708330041; x=1708934841;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=k12lEr+9sd7cL8zwVGAmNia+gVMdZzPb0lgTIHsA8ls=;
-        b=wKcwFNFMuJZT0pJSVmt5TXt19X4TxJIafjxEjWwARi9Z/aVURXqXHAl919OIcNoQe/
-         TXg0ykWnLQ36O19pVaiQM4jx0TaWFtBwyK6JxLJFAte9M7Xj8SAp9uvhidUJAXXlSgFA
-         Q/C8P5nMUB/c8Sd7N/oVOpwKYcZSfpYTIlldHMRJ3cH/P8fI4D6e+VJ/ToXVuKHT580q
-         ZZXdoCHP0Qw1gtXdfXKqy0JcTItwyCtQbhemv3h5VczAOwLJoi2peEaFqGUZSIlV2ZaP
-         DAQ/4ufXkkKWEtinR1o3PYXU7rkfN7Tu+mi3fs5ltPPWfIi3Bal8OgHIk3ivZ5hN0YWA
-         s6Dg==
-X-Forwarded-Encrypted: i=1; AJvYcCVKEp0RIA/xOkK2IlP1Tw+fr5tf6VZTgECqneNBkAaV8/L2v9e1oINdPBLgs1zQee3+/ox9AeHwB1ROHqf5nXw/afPpNwLKQoV50B/XUDA=
-X-Gm-Message-State: AOJu0YypYqcqtFD3YyraAkH10FKZJ7WGEZYGmqQZvGedd28GIuV1F22w
-	Lx59XRWnNUL8idYhbl5t+PyCtAJRQf6mmdTfJuw78nUE8bmoHKStMXLKZ3wPTg==
-X-Google-Smtp-Source: AGHT+IFL1vAGJHdMrbZuvYW54iJj+EGbU3OLIGgm4eSYQaJ86l9WrCtHKLbO4y0ABgBEuqgEXCeqwQ==
-X-Received: by 2002:a05:600c:3ba5:b0:40f:f069:8d13 with SMTP id n37-20020a05600c3ba500b0040ff0698d13mr8136392wms.9.1708329972651;
-        Mon, 19 Feb 2024 00:06:12 -0800 (PST)
-Message-ID: <5de8f721-461c-4a0e-a11d-63aa7c93a742@suse.com>
-Date: Mon, 19 Feb 2024 09:06:13 +0100
+        bh=cbHN8iehOY44UGITfjPuxpNYlsb4ToDDW5BrYCEfMmg=;
+        b=JXxiJzWUfHgYt0MJVzQXeS1c+8i7kXOCoq09nWW7wh0PCq7/otEs+nk+D7f7wmZY6H
+         v6WouzMT0YrEpWQYqZOO+MSCUDn3Ks/42rS7T50pNUTZrhmvN3AK4rlAowMPfNkVzVKu
+         BkjBQL8OGo0gUy6opbWX57N3mrBF38J9+mTT0JCzZDXSReBcdF9FuK1P/tEu12/DhJad
+         X0H31aT6n5SkwVtz8czK7x6zpHiSvb7Gcyy4n15pccpJxoq8EuHYYux+g+ElfA6YkxEl
+         j/cisiuBqjAw74tRCCHPT2+6fXh7B4J/fB0aJXN9mb0NUuemMI+Qap84JMkzeptkTCW6
+         Zaeg==
+X-Forwarded-Encrypted: i=1; AJvYcCWZLOdPvRVbsSb6sM5Lawl7kQBJqoGZH/1B7ALfwT3tI9j8JhAiBNpTnVX/ccA3J0ixI5rZj/m2PYj6A5eLP8UAHdIO+dThflmX1ejMrJQ=
+X-Gm-Message-State: AOJu0YxGMRNbRrZrfoK/xAhx+kPNFg84cE2/OZ3+NcvwKhVNq5l9sSEg
+	nconTody1kKqZg7ozHAV5G0IriCiHM7m8u8PDGSPSbyl/S7K6j8NKal7LT7blg==
+X-Google-Smtp-Source: AGHT+IFp6Ls6InEyqnx8mGNRGtMKeRWnj/TuRq9D92L9hV/ztymQXfckf+FeyFe+NNrjwO1QVBClZQ==
+X-Received: by 2002:a05:6512:234c:b0:512:a8e1:abd1 with SMTP id p12-20020a056512234c00b00512a8e1abd1mr3805101lfu.23.1708330041029;
+        Mon, 19 Feb 2024 00:07:21 -0800 (PST)
+Message-ID: <a6ee0e99-0df0-40d0-84df-ab62a8dab8a6@suse.com>
+Date: Mon, 19 Feb 2024 09:07:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 25/30] xen/riscv: add minimal stuff to processor.h to
- build full Xen
+Subject: Re: [PATCH v4 26/30] xen/riscv: add minimal stuff to mm.h to build
+ full Xen
 Content-Language: en-US
 To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org
 References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
- <9efbc232f64b6192cf83f865b8987846fe082720.1707146506.git.oleksii.kurochko@gmail.com>
- <6be5102a-624c-463a-9821-c618d110ce7a@suse.com>
- <095b8031eaaa5324cdae9fee75f9521a795feb46.camel@gmail.com>
- <2f1e4d2d-5b33-47ff-912b-c4693744d0e9@suse.com>
- <0bafef389b30251bc9898bb61604aa3efaabe48c.camel@gmail.com>
+ <369fe9e80d11c5e499810a6819fc1c282ce60628.1707146506.git.oleksii.kurochko@gmail.com>
+ <6f5e7e21-067e-4323-88bc-f9b5975e95c5@suse.com>
+ <6339742ea1a26c9808b108a1282e521dcf0fc9d0.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,50 +118,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0bafef389b30251bc9898bb61604aa3efaabe48c.camel@gmail.com>
+In-Reply-To: <6339742ea1a26c9808b108a1282e521dcf0fc9d0.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 16.02.2024 12:16, Oleksii wrote:
-> On Thu, 2024-02-15 at 17:43 +0100, Jan Beulich wrote:
->> On 15.02.2024 17:38, Oleksii wrote:
->>> On Tue, 2024-02-13 at 14:33 +0100, Jan Beulich wrote:
->>>> On 05.02.2024 16:32, Oleksii Kurochko wrote:
->>>>> +	depends on LLD_VERSION >= 150000 || LD_VERSION >=
->>>>> 23600
->>>>
->>>> What's the linker dependency here? Depending on the answer I
->>>> might
->>>> further
->>>> ask why "TOOLCHAIN" when elsewhere we use CC_HAS_ or HAS_CC_ or
->>>> HAS_AS_.
->>> I missed to introduce {L}LLD_VERSION config. It should output from
->>> the
->>> command:
->>>   riscv64-linux-gnu-ld --version
+On 16.02.2024 12:03, Oleksii wrote:
 >>
->> Doesn't answer my question though where the linker version matters
->> here.
-> Then I misinterpreted your initial question.
-> Could you please provide further clarification or rephrase it for
-> better understanding?
+>>> +        } free;
+>>> +    } u;
+>>> +
+>>> +    union {
+>>> +        /* Page is in use, but not as a shadow. */
+>>
+>> I'm also pretty sure I asked before what shadow this comment alludes
+>> to.
+> I missed your request about 'shadow' before.
 > 
-> Probably, your question was about why linker dependency is needed here,
-> then
-> it is not sufficient to check if a toolchain supports a particular  
-> extension without checking if the linker supports that extension   
-> too.
-> For example, Clang 15 supports Zihintpause but GNU bintutils
-> 2.35.2 does not, leading build errors like so:
->     
->    riscv64-linux-gnu-ld: -march=rv64i_zihintpause2p0: Invalid or
->    unknown z ISA extension: 'zihintpause'
+> The comment arrived from Arm.
+> 
+> I tried to find out the answer by investigation how 'inuse' is used,
+> and, unfortunately, I couldn't find an answer what 'shadow' alludes to.
 
-Hmm, that's certainly "interesting" behavior of the RISC-V linker. Yet
-isn't the linker capability expected to be tied to that of gas? I would
-find it far more natural if a gas dependency existed here. If such a
-connection cannot be taken for granted, I'm pretty sure you'd need to
-probe both then anyway.
+That's from x86'es shadow paging, where a page can serve as a "shadow" of
+a guest page table page.
 
 Jan
 
