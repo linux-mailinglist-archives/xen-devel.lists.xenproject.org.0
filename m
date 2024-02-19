@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BE4085A121
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 11:39:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682760.1061903 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 094F285A1B5
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 12:14:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682767.1061913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc136-0002rZ-Dv; Mon, 19 Feb 2024 10:39:00 +0000
+	id 1rc1aY-00084Q-0K; Mon, 19 Feb 2024 11:13:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682760.1061903; Mon, 19 Feb 2024 10:39:00 +0000
+Received: by outflank-mailman (output) from mailman id 682767.1061913; Mon, 19 Feb 2024 11:13:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc136-0002oW-BK; Mon, 19 Feb 2024 10:39:00 +0000
-Received: by outflank-mailman (input) for mailman id 682760;
- Mon, 19 Feb 2024 10:38:58 +0000
+	id 1rc1aX-00082B-Tl; Mon, 19 Feb 2024 11:13:33 +0000
+Received: by outflank-mailman (input) for mailman id 682767;
+ Mon, 19 Feb 2024 11:13:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SL20=J4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rc134-0002oO-U5
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 10:38:58 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=DP9f=J4=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1rc1aW-000825-Bn
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 11:13:32 +0000
+Received: from wfhigh1-smtp.messagingengine.com
+ (wfhigh1-smtp.messagingengine.com [64.147.123.152])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 14be030e-cf13-11ee-98f5-efadbce2ee36;
- Mon, 19 Feb 2024 11:38:55 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4125df8f347so11433875e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 02:38:55 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- f9-20020a05600c44c900b00411e3cc0e0asm10708999wmo.44.2024.02.19.02.38.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Feb 2024 02:38:53 -0800 (PST)
+ id e7e1e7ee-cf17-11ee-98f5-efadbce2ee36;
+ Mon, 19 Feb 2024 12:13:29 +0100 (CET)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailfhigh.west.internal (Postfix) with ESMTP id DD1B0180006E;
+ Mon, 19 Feb 2024 06:13:25 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Mon, 19 Feb 2024 06:13:26 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Feb 2024 06:13:23 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +44,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14be030e-cf13-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708339135; x=1708943935; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=dJ+9saTvcizSh/kaxEm9YiT1T8GFT4Ezz+YzRbfjCkE=;
-        b=f1gau9XTEvd71GfCYoSuGz8kM4HqTrprdoCh6WuGgTNAhfT5frUyGfYVHuZsYi3Go4
-         pgQCbU1WUtrctYl5Npuw+MbCpwZH8bjW4+NnM1gYr/4jRxOvmys5HdveIOZPWZlHJTyr
-         p+MWNgmXvxqavJXYcB/57tHwCW5TXr5tYd9+1aaq4clqiSHCqTko0bn15wjPtqqfEEBm
-         8OAtQAayTV2o9f831DJTx/0nmuQ0QywuV69htkcKXcFiaHm7jn2yl5j9H72oXP2fEL10
-         7ePMlE4sQf8QrFTK4QTjKrWQFyVEx5HhL4xE9EkEbM3ZSnQSdZIU6AoCF5gnnjylpJvB
-         kLuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708339135; x=1708943935;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dJ+9saTvcizSh/kaxEm9YiT1T8GFT4Ezz+YzRbfjCkE=;
-        b=LX80c48WR1ROrlrJCgHou+CaposoR01SyAUIsX3/GjVU1GCfZydcu+Ux7UJaxMZnfQ
-         9xLuzLocMvtdf5p6zomteq3wMdsAPTPSU+gSjTz91TEAKsdss7kIedGL2vbfG1hnkHuQ
-         W8ObQNg7F8B8PuADcu5r8sgsU37nxsQtx9/qKwaoSkw7hXZ2QOAbulKA+n/MedU8fxWD
-         IH4k658y4LJ6DYiGiFfzoPDsmtNHHkrjR+F/XznE8eEL+hBdLpGBUt++D/fEGCl68HNI
-         9wHf5CKT8+mqTs50qDKsmTaQciggTVkkwdgquucqs+q7ZSyeleV3AGmWklQS969cJOYg
-         0jPw==
-X-Gm-Message-State: AOJu0Yy/etomE6Vxq+DXEWV9LYv+cuTmqTjbCQGDDNhkn9Z4cD+9GEwI
-	kjEdi8uzH/eHDLxysFmrvCgCrgA+SsKJKOg+ITYC3kBl3DqYay/0/2B1uDt7GA==
-X-Google-Smtp-Source: AGHT+IH/7fw7xnboIqUa2Iw8Ff9KwcgTv0f2jT3SH94o252EFByXjlyUUxNJPpganmGldbORipTg4Q==
-X-Received: by 2002:a05:600c:4ece:b0:412:6101:915c with SMTP id g14-20020a05600c4ece00b004126101915cmr2398725wmq.19.1708339135126;
-        Mon, 19 Feb 2024 02:38:55 -0800 (PST)
-Message-ID: <36229344-e2e2-46e1-839b-b7b3b0843f23@suse.com>
-Date: Mon, 19 Feb 2024 11:38:54 +0100
+X-Inumbo-ID: e7e1e7ee-cf17-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1708341205;
+	 x=1708427605; bh=YV1OZ/13ji+yvYE/2Z7Ylqtj9sAs1WitQLDbBMED/jc=; b=
+	T76nZuRRrrLBk5GwrS9nHrpk3Z+GX11Rj5ip+cqxbCz65TTMguJ+XZFTz2Hg2t1f
+	xlRZjjCPfbd+IUb5fbodnUOMy13Nby+hhsu5YlndTl2ljs99JgD9YN+KXaUvfi6C
+	kftCUxxkBxdZV6oC8w65Vj4V9VLzG6TI/Zie8+xKsdKzgIVZ/crEU68Jfsxg7p8Q
+	bQkAt8u+dsKKumjDYhWXOJikjmd27xFBELgzqE/B+ULuHIS7z94Woi51pkWpQ7v8
+	sYRz3Cr8st5xEOCJz/RA1pravLtOVP+CG/xsFu+jD8U76u+PQwg+SQTgyMNeIGlk
+	jokBmHwJbjlPqCHNEG+vag==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1708341205; x=1708427605; bh=YV1OZ/13ji+yvYE/2Z7Ylqtj9sAs
+	1WitQLDbBMED/jc=; b=e3QvTleVRNgoEpioasp20JUmRu7xZ5baMwCYgER9ulvU
+	2dOvNlo/A9n2Jwr7DZBA69D7LFqxuKA66ZsfyrjvIjWR8uUomGlnI2lZFZDCR43c
+	Yd8l2LVNrVws4vNNsJZu6CPc4wCd6hgT5EhWowbKEdzpb/0IV/g7BmXZqfHTzS8j
+	lpeazkxCHu08jgsiX6OM/QcxNjTxl3r0lfN3GIUwQ1s4WFQQM8lGw4WkJ2zZ0lCt
+	01fG2eRk6bLCo6YnqVCmCilF7yFTzPYR86k0YRWQnehHuA/MkfGVZoAW+oOUDybP
+	oVXrPFEka7NELZmnmDuoZfccOFIlzVOxIaqzy5XpxA==
+X-ME-Sender: <xms:1DfTZVsV5_eQKjlK17znjzB4f8iFrf7gyG7do3O-YZ8qRZk2Y-SddA>
+    <xme:1DfTZef1bQwIoH4pMj4IGofSneXZdomHs463ugyUfFcgSF6P1aBW62WdGnDtUopIv
+    PiRvOHM24DU7g>
+X-ME-Received: <xmr:1DfTZYyVExCKXNJcioXWBpfGHeg-_zlILLwWWpva1TzizmSioyy06r88FBE6CHTCrLtBDnS2m1nq59LMKk0tFHM36GzwRyYxdg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrvdekgddvgecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
+    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:1TfTZcPgpfqVkxlW2XqcD7dEdS1vXsy0Nt8lMuifrwDz8Jlh-gkyUw>
+    <xmx:1TfTZV-pl0pWvQOnYY6lxehr70qCG5XSrLDZdWyoyEFnncMM83xBDA>
+    <xmx:1TfTZcUTOQu4bg-duyJmhnishJvNRZT4M50FYaIQoltzB1nczHw7-g>
+    <xmx:1TfTZVyHgDh0L9Uefr5YtdbONhNb0PKUrYFNt_6rbQSzmR6NLWdbycCa5iE>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 19 Feb 2024 12:13:18 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] ns16550: add Asix AX99100 serial card
+Message-ID: <ZdM30PNnmlkwW2ZG@mail-itl>
+References: <20240218013431.274451-1-marmarek@invisiblethingslab.com>
+ <7b60cf83-4d08-46ef-a937-911e42fd9e5d@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Stats on Xen tarball downloads
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, committers@xenproject.org,
- Kelly Choi <kelly.choi@cloud.com>
-References: <CA+zSX=aEdcF-D3PUQN=1V2puz0AEMiLn4-uQFGrLWf7EYSZ7WA@mail.gmail.com>
- <ZdMt88BSNMYtq39n@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZdMt88BSNMYtq39n@macbook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Q6sRfocV+a/6R/xc"
+Content-Disposition: inline
+In-Reply-To: <7b60cf83-4d08-46ef-a937-911e42fd9e5d@suse.com>
 
-On 19.02.2024 11:31, Roger Pau Monné wrote:
-> On Mon, Feb 19, 2024 at 06:01:54PM +0800, George Dunlap wrote:
->> One of the questions we had with respect to changing our release
->> practice (for instance, making the process more light-weight so that
->> we could do a point release after every XSA) was, "How many people are
->> actually using the tarballs?"
-> 
-> What would this more lightweight process involve from a downstream
-> PoV?  IOW: in what would the contents of the tarball change compared
-> to the current releases?
 
-From all prior discussion my conclusion was "no tarball at all".
+--Q6sRfocV+a/6R/xc
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Feb 2024 12:13:18 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] ns16550: add Asix AX99100 serial card
 
-Jan
+On Mon, Feb 19, 2024 at 09:57:49AM +0100, Jan Beulich wrote:
+> On 18.02.2024 02:34, Marek Marczykowski-G=C3=B3recki wrote:
+> > @@ -1170,6 +1177,11 @@ static const struct ns16550_config __initconst u=
+art_config[] =3D
+> >          .dev_id =3D 0x7adc,
+> >          .param =3D param_intel_lpss
+> >      },
+> > +    {
+> > +        .vendor_id =3D PCI_VENDOR_ID_ASIX,
+> > +        .dev_id =3D 9100,
+>=20
+> As per Linux this is 0x9100.
+
+Right... but then, maybe the patch isn't needed at all, as it does work
+for me. Maybe what's needed instead is some other patch already in
+staging. Initial attempt that did not work was with 4.17.something.
+I guess setting the fifo size isn't that important.
+
+> > +        .param =3D param_asix_ax99100
+> > +    },
+> >  };
+> > =20
+> >  static int __init
+> > diff --git a/xen/include/xen/pci_ids.h b/xen/include/xen/pci_ids.h
+> > index e798477a7e23..2a19f4ab7872 100644
+> > --- a/xen/include/xen/pci_ids.h
+> > +++ b/xen/include/xen/pci_ids.h
+> > @@ -11,3 +11,5 @@
+> >  #define PCI_VENDOR_ID_BROADCOM           0x14e4
+> > =20
+> >  #define PCI_VENDOR_ID_INTEL              0x8086
+> > +
+> > +#define PCI_VENDOR_ID_ASIX               0x125b
+>=20
+> Please insert such that numeric sorting is retained.
+>=20
+> Jan
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--Q6sRfocV+a/6R/xc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmXTN9AACgkQ24/THMrX
+1yx19Qf+Pm0vIbG+tD/SXB+dhZBoJ3xa4DDVrUtP/qy7gztFY6G3Kw+ugkVQvON2
+5qdQf14HzPiaLJyTTGTnw9NYx4KoxT3VIGNhdx2qCMCgz25jGoNVXSTjsVibweJM
+vQPT1iTdJbnrUEUAFBTtAhpmUvSF1XZmKI3q6wPg7uvQbNWOSGE1HY9PGUlPrExP
+a1Al2UsmWxNyeXypgcLZkEZh/8bJqOdBtkRrpLatLTN8/STy4+pSzYdlP6hAf8GT
+/rrYt/6mZruhXW+pIIftN+qO6LOGekMdqZ1EOFXZrWSZWEGBtsjSZuoZXeKbtz8P
+vVHwCUyPKM+YIrbtbgPPQG/kQ6x1WQ==
+=9bWI
+-----END PGP SIGNATURE-----
+
+--Q6sRfocV+a/6R/xc--
 
