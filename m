@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D72D1859EC7
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 09:50:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682711.1061831 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98D26859EEF
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 09:58:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682719.1061841 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rbzMG-000393-12; Mon, 19 Feb 2024 08:50:40 +0000
+	id 1rbzTE-0003la-Nf; Mon, 19 Feb 2024 08:57:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682711.1061831; Mon, 19 Feb 2024 08:50:40 +0000
+Received: by outflank-mailman (output) from mailman id 682719.1061841; Mon, 19 Feb 2024 08:57:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rbzMF-00036u-Tx; Mon, 19 Feb 2024 08:50:39 +0000
-Received: by outflank-mailman (input) for mailman id 682711;
- Mon, 19 Feb 2024 08:50:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rbzTE-0003iz-Ka; Mon, 19 Feb 2024 08:57:52 +0000
+Received: by outflank-mailman (input) for mailman id 682719;
+ Mon, 19 Feb 2024 08:57:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SL20=J4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rbzMF-00036m-3r
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 08:50:39 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f3f49ec0-cf03-11ee-8a52-1f161083a0e0;
- Mon, 19 Feb 2024 09:50:38 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4126126f4f4so8019355e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 00:50:38 -0800 (PST)
+ id 1rbzTC-0003ib-Uf
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 08:57:50 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f4c197e1-cf04-11ee-98f5-efadbce2ee36;
+ Mon, 19 Feb 2024 09:57:49 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-33d118a181fso1903019f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 00:57:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k10-20020a7bc40a000000b004101f27737asm10590519wmi.29.2024.02.19.00.50.37
+ x11-20020a5d444b000000b0033b7ce8b496sm9769110wrr.108.2024.02.19.00.57.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Feb 2024 00:50:37 -0800 (PST)
+ Mon, 19 Feb 2024 00:57:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3f49ec0-cf03-11ee-8a52-1f161083a0e0
+X-Inumbo-ID: f4c197e1-cf04-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708332637; x=1708937437; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708333068; x=1708937868; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=0zywQZWYhohz8TBjhUWm/mnYAf+BD4wOyOCATdZphKw=;
-        b=fb3lziAfUqX+SzHhxnpAPG4UK+Lq+VcGrRAdvU8NiQ+DkXvn9abnLpZuyACa8xwBWP
-         4mT/fCv4B3dzaMvQ2vT8yoUAzacQwdqmEekQ/mQ4XIBhHQVVXVtJBRtnN8G4Rk8+88si
-         +k+abehnaZiT1UBrlS6F4y5NrNJlLWNRHhFFkNPm/iK/k5q14Hi2/kRscb5LuA137GId
-         6VLcf0xCfWZ6vYcBXV6Nzq6LdiA+81sAHkR5fK7VqLAzCOdkmNjN+ZkaKn4/FsN6bQmB
-         lbRkqzd7p90dKLg3eTkVwynLajSebcbfNTATYqa/qKIpxsKVm7lAk0fQdnozG/tv3q87
-         7REA==
+        bh=4yn4H6aPiMGY16QdrMOmZtVckBaVP2SonOO8ojF14Kc=;
+        b=UrdygiqG5HIU9z1kSIOhp6l2xSWr0mZb6U2HtJO5ZxuK05EODAJgZuYR6PweCPmK7y
+         y6nCduRmrYgyXoupOfEhgxq4KAxwHH5niWHM6QRcNJjoLnRlw5lRCM7S5oVjRehJt1ha
+         pI5OJ7N850PKCKeujeoPZnkSUumesGVvOp8efWY1oPxaFHMgxPMKSk30aYoVmwb4sy42
+         tLbG8yuiS96knkKPFKk10LHmN2QOD7LxRZl2bGOx4QEXeeRDxEWSCUYgFehD9+FxnXkW
+         14VsCYZNbYskASmx6RvnW97+fpEMC946IzjES7tJTJgdr81ArJWTKcuqn2CR5jdO18Wf
+         tLxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708332637; x=1708937437;
+        d=1e100.net; s=20230601; t=1708333068; x=1708937868;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0zywQZWYhohz8TBjhUWm/mnYAf+BD4wOyOCATdZphKw=;
-        b=WuvIXVkA3FuTjuQfEPKFLjP4+xM372002FWT4mCOcm+A5k3EO91ZptB0LQ2s0N7XXC
-         Mka3+9BP/0kDUG8P4jMJeDqb7Hd70ZExlfe7F0j9pbBJVUtrErS2KpxMjXDaljHBSkdQ
-         N42i8iMEv3//7tIcAkteHjP+Hfzeyvp5Xt+gYgR7Q18IKvMYHKkea4Hmy3FUXAeOKCtu
-         LMzQ73JUPXCtc4idinZeX8/lMj5VyiiP+4a11ZG69vbmMGz5mDkTzzBfxK8qrdHk0xIA
-         sCxPfmgwYsxfNqd9n77MAQmAEW0e0JcBhvmjdOvQglR5Lhrvfpqo2J3FvEgAmLpm5KR3
-         r41Q==
-X-Gm-Message-State: AOJu0YyNpp5Apc1GyMEbEng1bL5ac0uWgU5iSDYIK4ADRh/A4pOYUjCH
-	kr3LCX2X5F27FeEgpwPN1HCnmuaLnfsqGhW9qgDspGS8Ay9Lm2To4N7+ZHiupA==
-X-Google-Smtp-Source: AGHT+IEmMOeDgwSZj3suCYP5BYaJn1fgNrLyKZwvdcVEUtmPcYKi4Jt8ZKX/mDZ1BamIkXU0xYYoyA==
-X-Received: by 2002:a05:600c:4fc3:b0:411:a70e:3d20 with SMTP id o3-20020a05600c4fc300b00411a70e3d20mr8674827wmq.1.1708332637641;
-        Mon, 19 Feb 2024 00:50:37 -0800 (PST)
-Message-ID: <9710b68e-80e2-4cac-9f6e-d52a777fb9a1@suse.com>
-Date: Mon, 19 Feb 2024 09:50:38 +0100
+        bh=4yn4H6aPiMGY16QdrMOmZtVckBaVP2SonOO8ojF14Kc=;
+        b=Xp9Bszqm/j7uKDdVjjdOv++1abaF9YzW9wScrLI5gjeMTDfy6Wq3G5VSPcENXi+z0P
+         zKj5pW1p37XDsHxe09kQ2qlXaQPmeknq8HxIob2vi1WA8Rq7aWtvo2Pim2ZL43H8C67C
+         +4qQ2PYoopI3P34y5le8XA2RYSu0J4+tLd4y+zhHjB47oIoDrrv/zri8BJv1leXNitBw
+         f4rXTOqXf0wl2dk6YhS04FlTyUpk8oavurmene7IQaivaaTWTFqVJ0utGzl172BE7ijM
+         VB+9A5CPkVYjCL00SOq5gZZJXBTflXa6UFVmg7uotNU+Harj9k1IrQ9r9pQNOsKgLnJK
+         JTTQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVEOqCeybw5v4dg57n0cdyAS1+RZVAQAZcjLIBzkWpCBAvkHRFs8VEmjXya7r334kTH+PUULfUFA5e+dfIUqjKkOmFl4WCmknCY9r4GDu8=
+X-Gm-Message-State: AOJu0YwbibfNtvs99SE3uOj9IZgNdHxXiveC+MoBJBjt3lXS8yx4GyP/
+	ORBUE5+euAryyYmSC4Mj0Z19iWBpZILsmYHvvg359g6uQFENR+oFdoB3nogUuA==
+X-Google-Smtp-Source: AGHT+IF8w6LgX6xYXh59rplpnMBlDS2InNxXbob7pjajh4m8/rFu/4FjSZINiW/vryNEAdSwCzrutw==
+X-Received: by 2002:a5d:5608:0:b0:33d:513a:c7b2 with SMTP id l8-20020a5d5608000000b0033d513ac7b2mr955667wrv.47.1708333068493;
+        Mon, 19 Feb 2024 00:57:48 -0800 (PST)
+Message-ID: <7b60cf83-4d08-46ef-a937-911e42fd9e5d@suse.com>
+Date: Mon, 19 Feb 2024 09:57:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] mm: add the __must_check attribute to {gfn,mfn}_add()
+Subject: Re: [PATCH] ns16550: add Asix AX99100 serial card
 Content-Language: en-US
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Roger Pau Monne <roger.pau@citrix.com>
-References: <20240214103741.16189-1-roger.pau@citrix.com>
- <20240214103741.16189-6-roger.pau@citrix.com>
- <CA+zSX=ZZBFnsnc+wtrcB3vC3dMHQS=ZG8zjUdiPeCdFZJ12E4w@mail.gmail.com>
+ xen-devel@lists.xenproject.org
+References: <20240218013431.274451-1-marmarek@invisiblethingslab.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,34 +113,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CA+zSX=ZZBFnsnc+wtrcB3vC3dMHQS=ZG8zjUdiPeCdFZJ12E4w@mail.gmail.com>
+In-Reply-To: <20240218013431.274451-1-marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19.02.2024 06:07, George Dunlap wrote:
-> On Wed, Feb 14, 2024 at 7:42 PM Roger Pau Monne <roger.pau@citrix.com> wrote:
->>
->> It's not obvious from the function itself whether the incremented value will be
->> stored in the parameter, or returned to the caller.  That has leads to bugs in
->> the past as callers assume the incremented value is stored in the parameter.
->>
->> Add the __must_check attribute to the function to easily spot callers that
->> don't consume the returned value, which signals an error in the caller logic.
->>
->> No functional change intended.
-> 
-> Just thinking out loud here... I wonder if "mfn_plus()" would be less
-> likely to be misunderstood.  Catching this during compile is def
-> better than catching it w/ Coverity or Eclair, but even better to help
-> people not make the mistake in the first place.
+On 18.02.2024 02:34, Marek Marczykowski-Górecki wrote:
+> @@ -1170,6 +1177,11 @@ static const struct ns16550_config __initconst uart_config[] =
+>          .dev_id = 0x7adc,
+>          .param = param_intel_lpss
+>      },
+> +    {
+> +        .vendor_id = PCI_VENDOR_ID_ASIX,
+> +        .dev_id = 9100,
 
-To me while mfn_plus() would indeed be somewhat less likely to cause this
-kind of confusion, I don't think that naming would entirely eliminate the
-risk.
+As per Linux this is 0x9100.
 
-I was actually considering to add mfn_inc() for the common case of
-incrementing by 1, yet I can't see an alternative name avoiding the issue
-there.
+> +        .param = param_asix_ax99100
+> +    },
+>  };
+>  
+>  static int __init
+> diff --git a/xen/include/xen/pci_ids.h b/xen/include/xen/pci_ids.h
+> index e798477a7e23..2a19f4ab7872 100644
+> --- a/xen/include/xen/pci_ids.h
+> +++ b/xen/include/xen/pci_ids.h
+> @@ -11,3 +11,5 @@
+>  #define PCI_VENDOR_ID_BROADCOM           0x14e4
+>  
+>  #define PCI_VENDOR_ID_INTEL              0x8086
+> +
+> +#define PCI_VENDOR_ID_ASIX               0x125b
+
+Please insert such that numeric sorting is retained.
 
 Jan
 
