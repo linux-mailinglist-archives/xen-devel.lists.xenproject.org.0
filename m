@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C320585A209
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 12:35:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682784.1061944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D91E85A3CE
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 13:50:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682789.1062029 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc1ur-0003wH-9Z; Mon, 19 Feb 2024 11:34:33 +0000
+	id 1rc35x-0002a6-PT; Mon, 19 Feb 2024 12:50:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682784.1061944; Mon, 19 Feb 2024 11:34:33 +0000
+Received: by outflank-mailman (output) from mailman id 682789.1062029; Mon, 19 Feb 2024 12:50:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc1ur-0003tF-6Q; Mon, 19 Feb 2024 11:34:33 +0000
-Received: by outflank-mailman (input) for mailman id 682784;
- Mon, 19 Feb 2024 11:34:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rc35x-0002WA-MA; Mon, 19 Feb 2024 12:50:05 +0000
+Received: by outflank-mailman (input) for mailman id 682789;
+ Mon, 19 Feb 2024 11:41:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EdXM=J4=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1rc1uq-0003t9-F1
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 11:34:32 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d91a7079-cf1a-11ee-8a52-1f161083a0e0;
- Mon, 19 Feb 2024 12:34:31 +0100 (CET)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-5129cdae3c6so2515426e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 03:34:31 -0800 (PST)
-Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- i23-20020a05640200d700b005648745b23bsm567412edu.90.2024.02.19.03.34.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Feb 2024 03:34:30 -0800 (PST)
+ <SRS0=TU0m=J4=gmail.com=guixiongwei@srs-se1.protection.inumbo.net>)
+ id 1rc21X-0005nR-17
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 11:41:27 +0000
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [2607:f8b0:4864:20::544])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cdf719d4-cf1b-11ee-98f5-efadbce2ee36;
+ Mon, 19 Feb 2024 12:41:23 +0100 (CET)
+Received: by mail-pg1-x544.google.com with SMTP id
+ 41be03b00d2f7-5cedfc32250so3451510a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 03:41:23 -0800 (PST)
+Received: from [10.4.72.30] ([139.177.225.242])
+ by smtp.gmail.com with ESMTPSA id
+ w3-20020a17090a528300b002990d91d31dsm4956437pjh.15.2024.02.19.03.41.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 Feb 2024 03:41:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,315 +45,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d91a7079-cf1a-11ee-8a52-1f161083a0e0
+X-Inumbo-ID: cdf719d4-cf1b-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1708342470; x=1708947270; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=zuFdWH4GCSkQ1e+xmjUr9ZfgaI6pfJr2DHBQlULfx2w=;
-        b=V0uAc++GCSwHPKGF5ef/vBDKcl4eZo4E6JXnPx6nJSnMES8sCMU+z3Dgvh6VfFrAQ1
-         YR54+K3AdrZ0cViSzo9x8RMz9q9UWamsSeDnOgOw3CxFXBj16wL78KgrLNtYVRQMg9zi
-         wdPiKNSzHZTjVGmi/V6/qHHU2ZSW/9IOGiyBY=
+        d=gmail.com; s=20230601; t=1708342881; x=1708947681; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DseBf/8i17+ETW7/Dma7xksfJzr0mR0ZxNxdl75ecBo=;
+        b=N6lEOHHdxvDxzBeKYmSbMgK2LT7CcyqkuRoxLtyIEJNFgmvsePUAwP3VqL6QsVBWpL
+         8+yY4N5i16Hx+5uAuoiPtb9xvHakEWxT893pY4Rq3bZ7OFWuSeEktS5ofiZCk89mc7ER
+         cd4FHphVZJCvjdxQLcEvoih309u+wRvUu6Tt2SMjgkhDjng4d1CzrIsqZ09i6usEINWb
+         khP8fnZJLgO8yUzTzIEZSowu/9BMLJ1iM+Ep+KFkb/ynVoEXvb8CDEuVzSP+tSvrMDKB
+         mrkqOMXuiXFnAbkpkZCM/es2huylxiMhuv6IMyScwcTLYpF53N5yaFS5RZ9PbxCkkrkr
+         3VPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708342470; x=1708947270;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zuFdWH4GCSkQ1e+xmjUr9ZfgaI6pfJr2DHBQlULfx2w=;
-        b=P2mmpAIj12YoTcuPyLhdefykALvAkZCuz66mngQ287nZ52KzTsXOgvLaVLc5IizPhy
-         CFNkw6E6dlaZYYRjfu9DRvXPc1FUNraWRQqva8Ijl3PCAl4f5B4U4PCQoExvwpREaXhG
-         dqqepzfzL7OoZZPJEss88AQqJbMKn2dbnOb1H0jxkigp6ZY7tecSMT0v5NNdbbNBQpur
-         NwRpsGxeDdc6xnsgoXH0mgBOhpqQjWp9zJyAI1Ripnpp7M1LIid9/N+6hr8dppXRu2Xe
-         I+ISP7ZHGyYpW3nLTTsL/plvXLTvMiBjA64g2om69wnkoAwqlE8ttjfxBlZflNHFsGuM
-         BRhQ==
-X-Gm-Message-State: AOJu0Yw7cvWYMaZeANVBfLDS7nLdHdMWFnmb/zptclnjBb+tdV2cCEdq
-	71cdB5hxxCQbeBq3OtuQRM3rjdqglvwfqzoSb7TzOrs65DgnSbYu74prQChJq4n6KAgFnGqOPIt
-	v9Ug=
-X-Google-Smtp-Source: AGHT+IHuumVYhHP5Ydeb8lviwRaB+4jWX8EqYpu+eD4O2eYJUrhz2LHSDjOONQlrHzrcY63Og9Clqg==
-X-Received: by 2002:ac2:55a7:0:b0:512:ac0c:2f81 with SMTP id y7-20020ac255a7000000b00512ac0c2f81mr2194870lfg.40.1708342470555;
-        Mon, 19 Feb 2024 03:34:30 -0800 (PST)
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v4] Reduce assembly code size of entry points
-Date: Mon, 19 Feb 2024 11:34:12 +0000
-Message-Id: <20240219113412.18445-1-frediano.ziglio@cloud.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20230601; t=1708342881; x=1708947681;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=DseBf/8i17+ETW7/Dma7xksfJzr0mR0ZxNxdl75ecBo=;
+        b=MPNM00Rjg+Q8SJdL3pzeOYQeZ+og8QwC3uPW+nrdQZ8gWxd42SX9GdOgKVvwI03ytI
+         wLL7Uu+ClIqjaraaHQt84pKE3jLdIkoGxIpdZqzNAy0eOfEk1+Rnof0ZPchNfKimPEgZ
+         9dGfKsWwWv2WlcpdaY0xwi54JRKj9ne1bxRymnlFxUwWUO6pzymxlr8uVecnAEmRl5p7
+         rQ/x/DjCQZjmOlr901gr1Bq5WW5tj4LiB6OMp8NzvYcg9KalMXUeDcOsHLCYSJcFB0Wt
+         V+a+NAw7h8nN8ppkCYZVs5hLg7jFYzBDRYpsB68L2D1oLK2wazfOn7Bz2XteOHJk80bT
+         VjWQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWNRI0aE+eYM+u3J1UH9dL213VwOGzjETuJJWL4YNPjiHo7bgpYUf830JwVV2aZZWUZQBjPyT5Iwq+FUnuPRuz2oCW0OuX1OZ0g3vvur6U=
+X-Gm-Message-State: AOJu0YwCeIiVlau8Ae7BWko9EikfQyFxUYKj9ctXTZl08IPYCPM+Aiqx
+	WDEnUbSkrz/WhyCYFbamkavzGNvEfjvjnO0rKQin38l+FaXSvg49
+X-Google-Smtp-Source: AGHT+IHt9rUtlOsN4joDJDaLQ46HZsx+ssQX5mNojSpy9mOPjyyNMVV/S4A0DycY+IBGc04fyk0DsA==
+X-Received: by 2002:a17:90a:134f:b0:299:11c0:13c4 with SMTP id y15-20020a17090a134f00b0029911c013c4mr7631636pjf.24.1708342881478;
+        Mon, 19 Feb 2024 03:41:21 -0800 (PST)
+Message-ID: <7a1c2bf7-df85-431a-ae21-82eeb171f1c4@gmail.com>
+Date: Mon, 19 Feb 2024 19:41:13 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND RFC] kernel/ksysfs.c: restrict /sys/kernel/notes to root
+ access
+To: Kees Cook <keescook@chromium.org>, Greg KH <gregkh@linuxfoundation.org>
+Cc: linux-hardening@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Guixiong Wei <weiguixiong@bytedance.com>, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+References: <20240218073501.54555-1-guixiongwei@gmail.com>
+ <2024021825-skiing-trustee-a56a@gregkh> <202402180028.6DB512C50@keescook>
+From: Guixiong Wei <guixiongwei@gmail.com>
+In-Reply-To: <202402180028.6DB512C50@keescook>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On many entries we push 8-bytes zero and exception constants are
-small so we can just write a single byte saving 3 bytes for
-instruction.
-With ENDBR64 this reduces the size of many entry points from 32 to
-16 bytes (due to alignment).
-The push and the mov are overlapping stores either way.  Swapping
-between movl and movb will make no difference at all on performance.
-Similar code is already used in autogen_stubs.
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
---
-v4:
-- minor space adjustments;
-- quoted possible error message;
-- update commit subject removing "exception";
-- added "Reviewed-by", I hope to got everything asked for.
-
-v3:
-- add other missing entries;
-- reduce code when TRAP_syscall is used;
-- improved commit message.
-
-v2:
-- added missing entry points;
-- add mention to autogen_stubs code, as suggested.
----
- xen/arch/x86/x86_64/entry.S | 66 ++++++++++++++++++++++---------------
- 1 file changed, 40 insertions(+), 26 deletions(-)
-
-diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index ecdd6e5b47..a7bd8f0ca5 100644
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -22,6 +22,14 @@
- #endif
- .endm
- 
-+.macro BUILD_BUG_ON condstr cond:vararg
-+        .if \cond
-+        .error "Condition \"\condstr\" not satisfied"
-+        .endif
-+.endm
-+/* preprocessor macro to make error message more user friendly */
-+#define BUILD_BUG_ON(cond) BUILD_BUG_ON #cond cond
-+
- #ifdef CONFIG_PV
- /* %rbx: struct vcpu */
- FUNC_LOCAL(switch_to_kernel)
-@@ -187,7 +195,8 @@ FUNC_LOCAL(restore_all_guest)
-         SPEC_CTRL_EXIT_TO_PV    /* Req: a=spec_ctrl %rsp=regs/cpuinfo, Clob: cd */
- 
-         RESTORE_ALL
--        testw $TRAP_syscall,4(%rsp)
-+        BUILD_BUG_ON(TRAP_syscall & 0xff)
-+        testb $TRAP_syscall >> 8, 4+1(%rsp)
-         jz    iret_exit_to_guest
- 
-         movq  24(%rsp),%r11           # RFLAGS
-@@ -254,7 +263,8 @@ FUNC(lstar_enter)
-         pushq $FLAT_KERNEL_CS64
-         pushq %rcx
-         pushq $0
--        movl  $TRAP_syscall, 4(%rsp)
-+        BUILD_BUG_ON(TRAP_syscall & 0xff)
-+        movb  $TRAP_syscall >> 8, 4+1(%rsp)
-         SAVE_ALL
- 
-         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
-@@ -292,7 +302,8 @@ FUNC(cstar_enter)
-         pushq $FLAT_USER_CS32
-         pushq %rcx
-         pushq $0
--        movl  $TRAP_syscall, 4(%rsp)
-+        BUILD_BUG_ON(TRAP_syscall & 0xff)
-+        movb  $TRAP_syscall >> 8, 4+1(%rsp)
-         SAVE_ALL
- 
-         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
-@@ -334,7 +345,8 @@ LABEL(sysenter_eflags_saved, 0)
-         pushq $3 /* ring 3 null cs */
-         pushq $0 /* null rip */
-         pushq $0
--        movl  $TRAP_syscall, 4(%rsp)
-+        BUILD_BUG_ON(TRAP_syscall & 0xff)
-+        movb  $TRAP_syscall >> 8, 4+1(%rsp)
-         SAVE_ALL
- 
-         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
-@@ -389,7 +401,7 @@ FUNC(entry_int80)
-         ENDBR64
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
-         pushq $0
--        movl  $0x80, 4(%rsp)
-+        movb  $0x80, 4(%rsp)
-         SAVE_ALL
- 
-         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
-@@ -561,7 +573,8 @@ __UNLIKELY_END(create_bounce_frame_bad_sp)
-         /* Rewrite our stack frame and return to guest-OS mode. */
-         /* IA32 Ref. Vol. 3: TF, VM, RF and NT flags are cleared on trap. */
-         /* Also clear AC: alignment checks shouldn't trigger in kernel mode. */
--        orl   $TRAP_syscall,UREGS_entry_vector+8(%rsp)
-+        BUILD_BUG_ON(TRAP_syscall & 0xff)
-+        orb   $TRAP_syscall >> 8, UREGS_entry_vector+8+1(%rsp)
-         andl  $~(X86_EFLAGS_AC|X86_EFLAGS_VM|X86_EFLAGS_RF|\
-                  X86_EFLAGS_NT|X86_EFLAGS_TF),UREGS_eflags+8(%rsp)
-         movq  $FLAT_KERNEL_SS,UREGS_ss+8(%rsp)
-@@ -653,7 +666,7 @@ END(ret_from_intr)
-         .section .init.text, "ax", @progbits
- FUNC(early_page_fault)
-         ENDBR64
--        movl  $X86_EXC_PF, 4(%rsp)
-+        movb  $X86_EXC_PF, 4(%rsp)
-         SAVE_ALL
-         movq  %rsp, %rdi
-         call  do_early_page_fault
-@@ -722,7 +735,7 @@ END(common_interrupt)
- 
- FUNC(entry_PF)
-         ENDBR64
--        movl  $X86_EXC_PF, 4(%rsp)
-+        movb  $X86_EXC_PF, 4(%rsp)
- END(entry_PF)
- /* No special register assumptions. */
- FUNC(handle_exception, 0)
-@@ -898,105 +911,106 @@ END(handle_exception)
- FUNC(entry_DE)
-         ENDBR64
-         pushq $0
--        movl  $X86_EXC_DE, 4(%rsp)
-+        /* no need to update exception type, already 0 */
-+        BUILD_BUG_ON(X86_EXC_DE)
-         jmp   handle_exception
- END(entry_DE)
- 
- FUNC(entry_MF)
-         ENDBR64
-         pushq $0
--        movl  $X86_EXC_MF, 4(%rsp)
-+        movb  $X86_EXC_MF, 4(%rsp)
-         jmp   handle_exception
- END(entry_MF)
- 
- FUNC(entry_XM)
-         ENDBR64
-         pushq $0
--        movl  $X86_EXC_XM, 4(%rsp)
-+        movb  $X86_EXC_XM, 4(%rsp)
-         jmp   handle_exception
- END(entry_XM)
- 
- FUNC(entry_NM)
-         ENDBR64
-         pushq $0
--        movl  $X86_EXC_NM, 4(%rsp)
-+        movb  $X86_EXC_NM, 4(%rsp)
-         jmp   handle_exception
- END(entry_NM)
- 
- FUNC(entry_DB)
-         ENDBR64
-         pushq $0
--        movl  $X86_EXC_DB, 4(%rsp)
-+        movb  $X86_EXC_DB, 4(%rsp)
-         jmp   handle_ist_exception
- END(entry_DB)
- 
- FUNC(entry_BP)
-         ENDBR64
-         pushq $0
--        movl  $X86_EXC_BP, 4(%rsp)
-+        movb  $X86_EXC_BP, 4(%rsp)
-         jmp   handle_exception
- END(entry_BP)
- 
- FUNC(entry_OF)
-         ENDBR64
-         pushq $0
--        movl  $X86_EXC_OF, 4(%rsp)
-+        movb  $X86_EXC_OF, 4(%rsp)
-         jmp   handle_exception
- END(entry_OF)
- 
- FUNC(entry_BR)
-         ENDBR64
-         pushq $0
--        movl  $X86_EXC_BR, 4(%rsp)
-+        movb  $X86_EXC_BR, 4(%rsp)
-         jmp   handle_exception
- END(entry_BR)
- 
- FUNC(entry_UD)
-         ENDBR64
-         pushq $0
--        movl  $X86_EXC_UD, 4(%rsp)
-+        movb  $X86_EXC_UD, 4(%rsp)
-         jmp   handle_exception
- END(entry_UD)
- 
- FUNC(entry_TS)
-         ENDBR64
--        movl  $X86_EXC_TS, 4(%rsp)
-+        movb  $X86_EXC_TS, 4(%rsp)
-         jmp   handle_exception
- END(entry_TS)
- 
- FUNC(entry_NP)
-         ENDBR64
--        movl  $X86_EXC_NP, 4(%rsp)
-+        movb  $X86_EXC_NP, 4(%rsp)
-         jmp   handle_exception
- END(entry_NP)
- 
- FUNC(entry_SS)
-         ENDBR64
--        movl  $X86_EXC_SS, 4(%rsp)
-+        movb  $X86_EXC_SS, 4(%rsp)
-         jmp   handle_exception
- END(entry_SS)
- 
- FUNC(entry_GP)
-         ENDBR64
--        movl  $X86_EXC_GP, 4(%rsp)
-+        movb  $X86_EXC_GP, 4(%rsp)
-         jmp   handle_exception
- END(entry_GP)
- 
- FUNC(entry_AC)
-         ENDBR64
--        movl  $X86_EXC_AC, 4(%rsp)
-+        movb  $X86_EXC_AC, 4(%rsp)
-         jmp   handle_exception
- END(entry_AC)
- 
- FUNC(entry_CP)
-         ENDBR64
--        movl  $X86_EXC_CP, 4(%rsp)
-+        movb  $X86_EXC_CP, 4(%rsp)
-         jmp   handle_exception
- END(entry_CP)
- 
- FUNC(entry_DF)
-         ENDBR64
--        movl  $X86_EXC_DF, 4(%rsp)
-+        movb  $X86_EXC_DF, 4(%rsp)
-         /* Set AC to reduce chance of further SMAP faults */
-         ALTERNATIVE "", stac, X86_FEATURE_XEN_SMAP
-         SAVE_ALL
-@@ -1022,7 +1036,7 @@ END(entry_DF)
- FUNC(entry_NMI)
-         ENDBR64
-         pushq $0
--        movl  $X86_EXC_NMI, 4(%rsp)
-+        movb  $X86_EXC_NMI, 4(%rsp)
- END(entry_NMI)
- 
- FUNC(handle_ist_exception)
-@@ -1158,7 +1172,7 @@ END(handle_ist_exception)
- FUNC(entry_MC)
-         ENDBR64
-         pushq $0
--        movl  $X86_EXC_MC, 4(%rsp)
-+        movb  $X86_EXC_MC, 4(%rsp)
-         jmp   handle_ist_exception
- END(entry_MC)
- 
--- 
-2.34.1
-
+On 2024/2/18 17:04, Kees Cook wrote:
+> On Sun, Feb 18, 2024 at 08:47:03AM +0100, Greg KH wrote:
+>> On Sun, Feb 18, 2024 at 03:35:01PM +0800, Guixiong Wei wrote:
+>>> From: Guixiong Wei <weiguixiong@bytedance.com>
+>>>
+>>> Restrict non-privileged user access to /sys/kernel/notes to
+>>> avoid security attack.
+>>>
+>>> The non-privileged users have read access to notes. The notes
+>>> expose the load address of startup_xen. This address could be
+>>> used to bypass KASLR.
+>> How can it be used to bypass it?
+>>
+>> KASLR is, for local users, pretty much not an issue, as that's not what
+>> it protects from, only remote ones.
+>>
+>>> For example, the startup_xen is built at 0xffffffff82465180 and
+>>> commit_creds is built at 0xffffffff810ad570 which could read from
+>>> the /boot/System.map. And the loaded address of startup_xen is
+>>> 0xffffffffbc265180 which read from /sys/kernel/notes. So the loaded
+>>> address of commit_creds is 0xffffffffbc265180 - (0xffffffff82465180
+>>>   - 0xffffffff810ad570) = 0xffffffffbaead570.
+>> I've cc: the hardening list on this, I'm sure the developers there have
+>> opinions about this.
+> Oh eww, why is Xen spewing addresses into the notes section? (This must
+> be how it finds its entry point? But that would be before relocations
+> happen...)
+>
+> But yes, I can confirm that relocations are done against the .notes
+> section at boot, so the addresses exposed in .notes is an immediate
+> KASLR offset exposure.
+>
+> In /sys/kernel/notes (are there any tools to read this? I wrote my own...)
+>
+> 	type: 1
+> 	name: Xen
+> 	desc: 0xb4a711c0 0xffffffff
+>
+> which matches a privileged read of /proc/kallsysms:
+>
+> 	ffffffffb4a711c0 T startup_xen
+>
+> (and the hypercall_page too)
+>
+> There are all coming from arch/x86/xen/xen-head.S:
+>
+>          ELFNOTE(Xen, XEN_ELFNOTE_GUEST_OS,       .asciz "linux")
+>          ELFNOTE(Xen, XEN_ELFNOTE_GUEST_VERSION,  .asciz "2.6")
+>          ELFNOTE(Xen, XEN_ELFNOTE_XEN_VERSION,    .asciz "xen-3.0")
+> #ifdef CONFIG_XEN_PV
+>          ELFNOTE(Xen, XEN_ELFNOTE_VIRT_BASE,      _ASM_PTR __START_KERNEL_map)
+>          /* Map the p2m table to a 512GB-aligned user address. */
+>          ELFNOTE(Xen, XEN_ELFNOTE_INIT_P2M,       .quad (PUD_SIZE * PTRS_PER_PUD))
+>          ELFNOTE(Xen, XEN_ELFNOTE_ENTRY,          _ASM_PTR startup_xen)
+> ...
+>
+> Introduced in commit 5ead97c84fa7 ("xen: Core Xen implementation")
+>
+> Exposed in commit da1a679cde9b ("Add /sys/kernel/notes")
+>
+> Amazingly these both went in on the same release (v2.6.23, 2007). This
+> has been exposed for longer than KASLR has been upstream. :P
+>
+>>> Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+>>> ---
+>>>   kernel/ksysfs.c | 2 +-
+>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/kernel/ksysfs.c b/kernel/ksysfs.c
+>>> index b1292a57c2a5..09bc0730239b 100644
+>>> --- a/kernel/ksysfs.c
+>>> +++ b/kernel/ksysfs.c
+>>> @@ -199,7 +199,7 @@ static ssize_t notes_read(struct file *filp, struct kobject *kobj,
+>>>   static struct bin_attribute notes_attr __ro_after_init  = {
+>>>   	.attr = {
+>>>   		.name = "notes",
+>>> -		.mode = S_IRUGO,
+>>> +		.mode = S_IRUSR,
+>>>   	},
+>>>   	.read = &notes_read,
+>>>   };
+> Yes please.
+>
+> Reviewed-by: Kees Cook <keescook@chromium.org>
+>
+> I wonder if we should also remove relocations that are aimed at the
+> .notes section for good measure? If that had already been true, this
+> would have just given the same info as System.map.
+That's a good idea, but it depends on whether the user space tool can 
+accept the remove relocation address.
+>> No objection from me, but what userspace tool requires access to this
+>> file today?  Will it break if permissions are changed on it?
+ From the exposed content, it seems that the main users are Xen-related 
+tools. I add Xen list, developers should be able to provide some 
+information.
+>> And what about the module notes files?  If you change one, shouldn't you
+>> change all?
+ From what I currently know, the module note files do not expose any 
+kernel symbol address, so there is no need for modification.
+> Luckily all of _those_ contain what I'd expect: the Linux and
+> GNU.build-id notes, which are harmless. But if we're going to suddenly
+> have things appearing in here, let's make those root-only too.
+Yes, but I also not sure whether the user space tools using this file 
+can accept this permission modification.
 
