@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00B7685A1E9
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 12:26:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682778.1061934 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C320585A209
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 12:35:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682784.1061944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc1mx-00022Y-GC; Mon, 19 Feb 2024 11:26:23 +0000
+	id 1rc1ur-0003wH-9Z; Mon, 19 Feb 2024 11:34:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682778.1061934; Mon, 19 Feb 2024 11:26:23 +0000
+Received: by outflank-mailman (output) from mailman id 682784.1061944; Mon, 19 Feb 2024 11:34:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc1mx-0001zT-DC; Mon, 19 Feb 2024 11:26:23 +0000
-Received: by outflank-mailman (input) for mailman id 682778;
- Mon, 19 Feb 2024 11:26:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SL20=J4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rc1mv-0001zN-Av
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 11:26:21 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b3b26fc7-cf19-11ee-98f5-efadbce2ee36;
- Mon, 19 Feb 2024 12:26:19 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-41264195d5cso8134765e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 03:26:19 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- i13-20020a5d55cd000000b0033b198efbedsm10022628wrw.15.2024.02.19.03.26.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Feb 2024 03:26:18 -0800 (PST)
+	id 1rc1ur-0003tF-6Q; Mon, 19 Feb 2024 11:34:33 +0000
+Received: by outflank-mailman (input) for mailman id 682784;
+ Mon, 19 Feb 2024 11:34:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EdXM=J4=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1rc1uq-0003t9-F1
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 11:34:32 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d91a7079-cf1a-11ee-8a52-1f161083a0e0;
+ Mon, 19 Feb 2024 12:34:31 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-5129cdae3c6so2515426e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 03:34:31 -0800 (PST)
+Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ i23-20020a05640200d700b005648745b23bsm567412edu.90.2024.02.19.03.34.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Feb 2024 03:34:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +45,315 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3b26fc7-cf19-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: d91a7079-cf1a-11ee-8a52-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708341979; x=1708946779; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=afWW+G268VY4M/2GXCAHh58cIFj4BYx0rMtuKRAIJTE=;
-        b=EBOdzrTjKf7HrFVNnzNp0GeYmM8R9ZrY6ycBUxKaWl1gG4f2eU8AfI4AHKsVMF5sSJ
-         +QREBCT7NTzYUxR3Lb0EyeGpyiyxWhmBuPk7ZaOIC9KB/ij/b/sJdm/8aV55FORxmMEa
-         Lc5L22C20wT+rXExLrQo7CrajqegZW+aFY/RxuqnG924aKwAOdtqECK8b4LXoRneOjqv
-         MtEAVw2QP22aDD31YppZcyNNeqgBuVHRpRiyygruWzg2DnpECodCC+J0cXiOd2ncYDH3
-         0yjrD/culpMr1U8G7YDMtNmRNR/qqPuMcsomDFqKa29+SN95hUbYza38eE4bShjCmVUN
-         wgWQ==
+        d=cloud.com; s=cloud; t=1708342470; x=1708947270; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=zuFdWH4GCSkQ1e+xmjUr9ZfgaI6pfJr2DHBQlULfx2w=;
+        b=V0uAc++GCSwHPKGF5ef/vBDKcl4eZo4E6JXnPx6nJSnMES8sCMU+z3Dgvh6VfFrAQ1
+         YR54+K3AdrZ0cViSzo9x8RMz9q9UWamsSeDnOgOw3CxFXBj16wL78KgrLNtYVRQMg9zi
+         wdPiKNSzHZTjVGmi/V6/qHHU2ZSW/9IOGiyBY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708341979; x=1708946779;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=afWW+G268VY4M/2GXCAHh58cIFj4BYx0rMtuKRAIJTE=;
-        b=qmSQBAd1wBPly7/ZSGnmTYYCGRn5aNOAFBEIzbOLGL9Q4qhZVUc/fi9Ip2onfgDTFK
-         KLe4FnaepFSZEeHb5udfY0wMaeKZ0/na83Indxy6UWt+lL9uGsgVIXlY3PirW+MoXhV0
-         c/OSwD6MoVm8k+OBhdOJeyQCfU5OqwO38zeVAqz0n+cE9DF2AtfD2r7Kxg0v39/h1+4C
-         1yfpdEKUevaMqJnESmLumcHsY3RS6cdRG2bfjKOqXZbq+YsZXgsThEWxbOA6EuPCLoCI
-         fOAVESsWC1hrJG755tZFpk744CZLY4kQMGLKrXfRfhARRihaQ0pEsDgAtorRYcnGpt0M
-         ZNfA==
-X-Forwarded-Encrypted: i=1; AJvYcCX0ypyYhdauMfAOSUlLzV/YkBCgbYn1tD4KpEBOT5vsFKRMhMKTDbnV+n4TpvfOoepXCZYJDZlcOix9HZHNRS4SS7XWXByGPNk+BnePlmA=
-X-Gm-Message-State: AOJu0YyTogZS4rhFNC1U56axajOQJpTTqTfye12iX+vvHNFwmEmBHj3m
-	gUAF4F93ecyBowo9nn+H325b6L7Kf7TJJcJYAlEfATkSO+/OHAZ80RXPmXxztQ==
-X-Google-Smtp-Source: AGHT+IGmbzwBQSm2AobfSUWydgb5CevYYiTMc1MHKJwTsR4fTmgldtEitVyXlXKc65FuR05e+Bv48A==
-X-Received: by 2002:a5d:6e65:0:b0:33d:30af:4623 with SMTP id j37-20020a5d6e65000000b0033d30af4623mr3475850wrz.51.1708341978713;
-        Mon, 19 Feb 2024 03:26:18 -0800 (PST)
-Message-ID: <92e7c679-fbf5-4f2e-9b0d-ba61a198832c@suse.com>
-Date: Mon, 19 Feb 2024 12:26:19 +0100
+        d=1e100.net; s=20230601; t=1708342470; x=1708947270;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zuFdWH4GCSkQ1e+xmjUr9ZfgaI6pfJr2DHBQlULfx2w=;
+        b=P2mmpAIj12YoTcuPyLhdefykALvAkZCuz66mngQ287nZ52KzTsXOgvLaVLc5IizPhy
+         CFNkw6E6dlaZYYRjfu9DRvXPc1FUNraWRQqva8Ijl3PCAl4f5B4U4PCQoExvwpREaXhG
+         dqqepzfzL7OoZZPJEss88AQqJbMKn2dbnOb1H0jxkigp6ZY7tecSMT0v5NNdbbNBQpur
+         NwRpsGxeDdc6xnsgoXH0mgBOhpqQjWp9zJyAI1Ripnpp7M1LIid9/N+6hr8dppXRu2Xe
+         I+ISP7ZHGyYpW3nLTTsL/plvXLTvMiBjA64g2om69wnkoAwqlE8ttjfxBlZflNHFsGuM
+         BRhQ==
+X-Gm-Message-State: AOJu0Yw7cvWYMaZeANVBfLDS7nLdHdMWFnmb/zptclnjBb+tdV2cCEdq
+	71cdB5hxxCQbeBq3OtuQRM3rjdqglvwfqzoSb7TzOrs65DgnSbYu74prQChJq4n6KAgFnGqOPIt
+	v9Ug=
+X-Google-Smtp-Source: AGHT+IHuumVYhHP5Ydeb8lviwRaB+4jWX8EqYpu+eD4O2eYJUrhz2LHSDjOONQlrHzrcY63Og9Clqg==
+X-Received: by 2002:ac2:55a7:0:b0:512:ac0c:2f81 with SMTP id y7-20020ac255a7000000b00512ac0c2f81mr2194870lfg.40.1708342470555;
+        Mon, 19 Feb 2024 03:34:30 -0800 (PST)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v4] Reduce assembly code size of entry points
+Date: Mon, 19 Feb 2024 11:34:12 +0000
+Message-Id: <20240219113412.18445-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 7/7] xen/asm-generic: fold struct devarch into struct
- dev
-Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Julien Grall <julien@xen.org>, Rahul Singh <rahul.singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1708086091.git.oleksii.kurochko@gmail.com>
- <3a5bf394a9d95a28cecac996f6e0decb788c19fd.1708086092.git.oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3a5bf394a9d95a28cecac996f6e0decb788c19fd.1708086092.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16.02.2024 13:39, Oleksii Kurochko wrote:
-> The current patch is a follow-up to the patch titled:
->     xen/asm-generic: introduce generic device.h
-> Also, a prerequisite for this patch is, without which a compilation
-> error will occur:
->     xen/arm: switch Arm to use asm-generic/device.h
-> 
-> The 'struct dev_archdata' is exclusively used within 'struct device',
-> so it could be merged into 'struct device.'
-> 
-> After the merger, it is necessary to update the 'dev_archdata()'
-> macros and the comments above 'struct arm_smmu_xen_device' in
-> drivers/passthrough/arm/smmu.c.
-> Additionally, it is required to update instances of
-> "dev->archdata->iommu" to "dev->iommu".
-> 
-> Suggested-by: Julien Grall <julien@xen.org>
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
->   This patch can be merged with patches 4 and 5 of this patch series.
-> ---
-> Changes in V9:
->  - newly introduced patch.
-> ---
->  xen/drivers/passthrough/arm/smmu.c | 12 ++++++------
->  xen/include/asm-generic/device.h   |  8 +-------
->  2 files changed, 7 insertions(+), 13 deletions(-)
-> 
-> diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-> index 32e2ff279b..4a272c8779 100644
-> --- a/xen/drivers/passthrough/arm/smmu.c
-> +++ b/xen/drivers/passthrough/arm/smmu.c
-> @@ -227,9 +227,9 @@ struct arm_smmu_xen_domain {
->  };
->  
->  /*
-> - * Xen: Information about each device stored in dev->archdata.iommu
-> + * Xen: Information about each device stored in dev->iommu
->   *
-> - * Initially dev->archdata.iommu only stores the iommu_domain (runtime
-> + * Initially dev->iommu only stores the iommu_domain (runtime
->   * configuration of the SMMU) but, on Xen, we also have to store the
->   * iommu_group (list of streamIDs associated to the device).
->   *
-> @@ -242,7 +242,7 @@ struct arm_smmu_xen_device {
->  	struct iommu_group *group;
->  };
->  
-> -#define dev_archdata(dev) ((struct arm_smmu_xen_device *)dev->archdata.iommu)
-> +#define dev_archdata(dev) ((struct arm_smmu_xen_device *)dev->iommu)
+On many entries we push 8-bytes zero and exception constants are
+small so we can just write a single byte saving 3 bytes for
+instruction.
+With ENDBR64 this reduces the size of many entry points from 32 to
+16 bytes (due to alignment).
+The push and the mov are overlapping stores either way.  Swapping
+between movl and movb will make no difference at all on performance.
+Similar code is already used in autogen_stubs.
 
-I find in particular the naming here odd. But I'll let Julien judge whether
-this really is along the lines of what he suggested.
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+--
+v4:
+- minor space adjustments;
+- quoted possible error message;
+- update commit subject removing "exception";
+- added "Reviewed-by", I hope to got everything asked for.
 
-Jan
+v3:
+- add other missing entries;
+- reduce code when TRAP_syscall is used;
+- improved commit message.
+
+v2:
+- added missing entry points;
+- add mention to autogen_stubs code, as suggested.
+---
+ xen/arch/x86/x86_64/entry.S | 66 ++++++++++++++++++++++---------------
+ 1 file changed, 40 insertions(+), 26 deletions(-)
+
+diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
+index ecdd6e5b47..a7bd8f0ca5 100644
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -22,6 +22,14 @@
+ #endif
+ .endm
+ 
++.macro BUILD_BUG_ON condstr cond:vararg
++        .if \cond
++        .error "Condition \"\condstr\" not satisfied"
++        .endif
++.endm
++/* preprocessor macro to make error message more user friendly */
++#define BUILD_BUG_ON(cond) BUILD_BUG_ON #cond cond
++
+ #ifdef CONFIG_PV
+ /* %rbx: struct vcpu */
+ FUNC_LOCAL(switch_to_kernel)
+@@ -187,7 +195,8 @@ FUNC_LOCAL(restore_all_guest)
+         SPEC_CTRL_EXIT_TO_PV    /* Req: a=spec_ctrl %rsp=regs/cpuinfo, Clob: cd */
+ 
+         RESTORE_ALL
+-        testw $TRAP_syscall,4(%rsp)
++        BUILD_BUG_ON(TRAP_syscall & 0xff)
++        testb $TRAP_syscall >> 8, 4+1(%rsp)
+         jz    iret_exit_to_guest
+ 
+         movq  24(%rsp),%r11           # RFLAGS
+@@ -254,7 +263,8 @@ FUNC(lstar_enter)
+         pushq $FLAT_KERNEL_CS64
+         pushq %rcx
+         pushq $0
+-        movl  $TRAP_syscall, 4(%rsp)
++        BUILD_BUG_ON(TRAP_syscall & 0xff)
++        movb  $TRAP_syscall >> 8, 4+1(%rsp)
+         SAVE_ALL
+ 
+         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
+@@ -292,7 +302,8 @@ FUNC(cstar_enter)
+         pushq $FLAT_USER_CS32
+         pushq %rcx
+         pushq $0
+-        movl  $TRAP_syscall, 4(%rsp)
++        BUILD_BUG_ON(TRAP_syscall & 0xff)
++        movb  $TRAP_syscall >> 8, 4+1(%rsp)
+         SAVE_ALL
+ 
+         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
+@@ -334,7 +345,8 @@ LABEL(sysenter_eflags_saved, 0)
+         pushq $3 /* ring 3 null cs */
+         pushq $0 /* null rip */
+         pushq $0
+-        movl  $TRAP_syscall, 4(%rsp)
++        BUILD_BUG_ON(TRAP_syscall & 0xff)
++        movb  $TRAP_syscall >> 8, 4+1(%rsp)
+         SAVE_ALL
+ 
+         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
+@@ -389,7 +401,7 @@ FUNC(entry_int80)
+         ENDBR64
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+         pushq $0
+-        movl  $0x80, 4(%rsp)
++        movb  $0x80, 4(%rsp)
+         SAVE_ALL
+ 
+         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
+@@ -561,7 +573,8 @@ __UNLIKELY_END(create_bounce_frame_bad_sp)
+         /* Rewrite our stack frame and return to guest-OS mode. */
+         /* IA32 Ref. Vol. 3: TF, VM, RF and NT flags are cleared on trap. */
+         /* Also clear AC: alignment checks shouldn't trigger in kernel mode. */
+-        orl   $TRAP_syscall,UREGS_entry_vector+8(%rsp)
++        BUILD_BUG_ON(TRAP_syscall & 0xff)
++        orb   $TRAP_syscall >> 8, UREGS_entry_vector+8+1(%rsp)
+         andl  $~(X86_EFLAGS_AC|X86_EFLAGS_VM|X86_EFLAGS_RF|\
+                  X86_EFLAGS_NT|X86_EFLAGS_TF),UREGS_eflags+8(%rsp)
+         movq  $FLAT_KERNEL_SS,UREGS_ss+8(%rsp)
+@@ -653,7 +666,7 @@ END(ret_from_intr)
+         .section .init.text, "ax", @progbits
+ FUNC(early_page_fault)
+         ENDBR64
+-        movl  $X86_EXC_PF, 4(%rsp)
++        movb  $X86_EXC_PF, 4(%rsp)
+         SAVE_ALL
+         movq  %rsp, %rdi
+         call  do_early_page_fault
+@@ -722,7 +735,7 @@ END(common_interrupt)
+ 
+ FUNC(entry_PF)
+         ENDBR64
+-        movl  $X86_EXC_PF, 4(%rsp)
++        movb  $X86_EXC_PF, 4(%rsp)
+ END(entry_PF)
+ /* No special register assumptions. */
+ FUNC(handle_exception, 0)
+@@ -898,105 +911,106 @@ END(handle_exception)
+ FUNC(entry_DE)
+         ENDBR64
+         pushq $0
+-        movl  $X86_EXC_DE, 4(%rsp)
++        /* no need to update exception type, already 0 */
++        BUILD_BUG_ON(X86_EXC_DE)
+         jmp   handle_exception
+ END(entry_DE)
+ 
+ FUNC(entry_MF)
+         ENDBR64
+         pushq $0
+-        movl  $X86_EXC_MF, 4(%rsp)
++        movb  $X86_EXC_MF, 4(%rsp)
+         jmp   handle_exception
+ END(entry_MF)
+ 
+ FUNC(entry_XM)
+         ENDBR64
+         pushq $0
+-        movl  $X86_EXC_XM, 4(%rsp)
++        movb  $X86_EXC_XM, 4(%rsp)
+         jmp   handle_exception
+ END(entry_XM)
+ 
+ FUNC(entry_NM)
+         ENDBR64
+         pushq $0
+-        movl  $X86_EXC_NM, 4(%rsp)
++        movb  $X86_EXC_NM, 4(%rsp)
+         jmp   handle_exception
+ END(entry_NM)
+ 
+ FUNC(entry_DB)
+         ENDBR64
+         pushq $0
+-        movl  $X86_EXC_DB, 4(%rsp)
++        movb  $X86_EXC_DB, 4(%rsp)
+         jmp   handle_ist_exception
+ END(entry_DB)
+ 
+ FUNC(entry_BP)
+         ENDBR64
+         pushq $0
+-        movl  $X86_EXC_BP, 4(%rsp)
++        movb  $X86_EXC_BP, 4(%rsp)
+         jmp   handle_exception
+ END(entry_BP)
+ 
+ FUNC(entry_OF)
+         ENDBR64
+         pushq $0
+-        movl  $X86_EXC_OF, 4(%rsp)
++        movb  $X86_EXC_OF, 4(%rsp)
+         jmp   handle_exception
+ END(entry_OF)
+ 
+ FUNC(entry_BR)
+         ENDBR64
+         pushq $0
+-        movl  $X86_EXC_BR, 4(%rsp)
++        movb  $X86_EXC_BR, 4(%rsp)
+         jmp   handle_exception
+ END(entry_BR)
+ 
+ FUNC(entry_UD)
+         ENDBR64
+         pushq $0
+-        movl  $X86_EXC_UD, 4(%rsp)
++        movb  $X86_EXC_UD, 4(%rsp)
+         jmp   handle_exception
+ END(entry_UD)
+ 
+ FUNC(entry_TS)
+         ENDBR64
+-        movl  $X86_EXC_TS, 4(%rsp)
++        movb  $X86_EXC_TS, 4(%rsp)
+         jmp   handle_exception
+ END(entry_TS)
+ 
+ FUNC(entry_NP)
+         ENDBR64
+-        movl  $X86_EXC_NP, 4(%rsp)
++        movb  $X86_EXC_NP, 4(%rsp)
+         jmp   handle_exception
+ END(entry_NP)
+ 
+ FUNC(entry_SS)
+         ENDBR64
+-        movl  $X86_EXC_SS, 4(%rsp)
++        movb  $X86_EXC_SS, 4(%rsp)
+         jmp   handle_exception
+ END(entry_SS)
+ 
+ FUNC(entry_GP)
+         ENDBR64
+-        movl  $X86_EXC_GP, 4(%rsp)
++        movb  $X86_EXC_GP, 4(%rsp)
+         jmp   handle_exception
+ END(entry_GP)
+ 
+ FUNC(entry_AC)
+         ENDBR64
+-        movl  $X86_EXC_AC, 4(%rsp)
++        movb  $X86_EXC_AC, 4(%rsp)
+         jmp   handle_exception
+ END(entry_AC)
+ 
+ FUNC(entry_CP)
+         ENDBR64
+-        movl  $X86_EXC_CP, 4(%rsp)
++        movb  $X86_EXC_CP, 4(%rsp)
+         jmp   handle_exception
+ END(entry_CP)
+ 
+ FUNC(entry_DF)
+         ENDBR64
+-        movl  $X86_EXC_DF, 4(%rsp)
++        movb  $X86_EXC_DF, 4(%rsp)
+         /* Set AC to reduce chance of further SMAP faults */
+         ALTERNATIVE "", stac, X86_FEATURE_XEN_SMAP
+         SAVE_ALL
+@@ -1022,7 +1036,7 @@ END(entry_DF)
+ FUNC(entry_NMI)
+         ENDBR64
+         pushq $0
+-        movl  $X86_EXC_NMI, 4(%rsp)
++        movb  $X86_EXC_NMI, 4(%rsp)
+ END(entry_NMI)
+ 
+ FUNC(handle_ist_exception)
+@@ -1158,7 +1172,7 @@ END(handle_ist_exception)
+ FUNC(entry_MC)
+         ENDBR64
+         pushq $0
+-        movl  $X86_EXC_MC, 4(%rsp)
++        movb  $X86_EXC_MC, 4(%rsp)
+         jmp   handle_ist_exception
+ END(entry_MC)
+ 
+-- 
+2.34.1
+
 
