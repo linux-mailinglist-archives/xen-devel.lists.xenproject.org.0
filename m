@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3EAA85A1D7
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 12:22:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682773.1061923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00B7685A1E9
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 12:26:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682778.1061934 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc1jI-0001Nx-Sh; Mon, 19 Feb 2024 11:22:36 +0000
+	id 1rc1mx-00022Y-GC; Mon, 19 Feb 2024 11:26:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682773.1061923; Mon, 19 Feb 2024 11:22:36 +0000
+Received: by outflank-mailman (output) from mailman id 682778.1061934; Mon, 19 Feb 2024 11:26:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc1jI-0001M2-Pn; Mon, 19 Feb 2024 11:22:36 +0000
-Received: by outflank-mailman (input) for mailman id 682773;
- Mon, 19 Feb 2024 11:22:35 +0000
+	id 1rc1mx-0001zT-DC; Mon, 19 Feb 2024 11:26:23 +0000
+Received: by outflank-mailman (input) for mailman id 682778;
+ Mon, 19 Feb 2024 11:26:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SL20=J4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rc1jH-0001Lv-AD
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 11:22:35 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
+ id 1rc1mv-0001zN-Av
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 11:26:21 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ccd4605-cf19-11ee-98f5-efadbce2ee36;
- Mon, 19 Feb 2024 12:22:32 +0100 (CET)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2d23114b19dso15200591fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 03:22:32 -0800 (PST)
+ id b3b26fc7-cf19-11ee-98f5-efadbce2ee36;
+ Mon, 19 Feb 2024 12:26:19 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-41264195d5cso8134765e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 03:26:19 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- t18-20020a05600c451200b0040fd1629443sm11197016wmo.18.2024.02.19.03.22.31
+ i13-20020a5d55cd000000b0033b198efbedsm10022628wrw.15.2024.02.19.03.26.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Feb 2024 03:22:32 -0800 (PST)
+ Mon, 19 Feb 2024 03:26:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ccd4605-cf19-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: b3b26fc7-cf19-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708341752; x=1708946552; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708341979; x=1708946779; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=pfPxolcSGvkU83gfDkTy6gFgXMHnooKhqzLG+gYAG5I=;
-        b=HNV8kr/6LondVT2fR0zqHIMC8kPjj4pJDWUQh9F3UL4cof3rMtbseC0lEkylnR0P7o
-         vDxLHtEgh9GXTt2tYQLBt0LpcpNNL64wmBrK+lfjmby9HM+aYedxTQioKfWPB1v0tMl1
-         0C1IMCOoj5wEAbe/HxrVVB8xqu7BvPU/CQycwt/8FA1RgFgJJNUfny+SretsI/OHzMSk
-         jLoSnRBt4hv9/3iwMyQ+IpxsQ+bJlOR9z2sUoXM7t6b5rbHiMYS7JRdS5mxZg9qRlKIf
-         gLa27dFkHxv1uvhoxjxONFaATFqXrJDEOeHcBKCH9p9G4R9YAva6WwET7e+IrPjwHrJ8
-         4OYQ==
+        bh=afWW+G268VY4M/2GXCAHh58cIFj4BYx0rMtuKRAIJTE=;
+        b=EBOdzrTjKf7HrFVNnzNp0GeYmM8R9ZrY6ycBUxKaWl1gG4f2eU8AfI4AHKsVMF5sSJ
+         +QREBCT7NTzYUxR3Lb0EyeGpyiyxWhmBuPk7ZaOIC9KB/ij/b/sJdm/8aV55FORxmMEa
+         Lc5L22C20wT+rXExLrQo7CrajqegZW+aFY/RxuqnG924aKwAOdtqECK8b4LXoRneOjqv
+         MtEAVw2QP22aDD31YppZcyNNeqgBuVHRpRiyygruWzg2DnpECodCC+J0cXiOd2ncYDH3
+         0yjrD/culpMr1U8G7YDMtNmRNR/qqPuMcsomDFqKa29+SN95hUbYza38eE4bShjCmVUN
+         wgWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708341752; x=1708946552;
+        d=1e100.net; s=20230601; t=1708341979; x=1708946779;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pfPxolcSGvkU83gfDkTy6gFgXMHnooKhqzLG+gYAG5I=;
-        b=IoEsJOngJ2pjs0QUNObfNH6jRaohGR+V7OzDFai6k7NlRkiabF275+MMBm3eQ7d04X
-         Ro5Puwl79M8gG1s/fLa/VMEaF3jAQOvG4TH2F8XvNeHP6PlF0fj6tfsjsS3ckjh8wUsK
-         1zlkkGLwhRPXCc+YJi1GrcgHFywM77dJ4T0MLA26eSuNNVlOcWbeQezVK+K3kUPxUmOS
-         bOISo5xzozbmqQvaCaq032j/eNhHFJWRgL37XnpBuwFlg2PSQgYFHeOg1VoxKf59C397
-         NNg59XPg74LqygadtuQNp6CVHQ4vvDo5X8k0S+DlAZ1fXN4BGVkvYZNKieeEWjbgPmvv
-         e/qA==
-X-Forwarded-Encrypted: i=1; AJvYcCVN4EM6uvFD663F08wc7AlYfmldiOgTkHePiWTQlRotC3/rigs4fafA9qU2cljtxck/i74/uyMs70qZCKU4w0HhTx2x+Kh6kLCTydXrvlQ=
-X-Gm-Message-State: AOJu0YwL9sSngoK4Sr6UP4ML7ummIwTXmJvQSmjDNRx9xutvzIzScyS+
-	SdIJ/qyk7vAOWjbZSrchhMvn+uGh586F4BGidBhXtwCoqFPL0VQt4+t8PMTIvRtgUto+3Pl+hLQ
-	=
-X-Google-Smtp-Source: AGHT+IHIOEQx3O40dIDP9N8/4SnuFyNe/i6UTB+Wa0fe974lV2YMo3ukMB7PFAmDfR+Ih4HNMCu5Zg==
-X-Received: by 2002:a05:651c:626:b0:2d2:21d8:bd6a with SMTP id k38-20020a05651c062600b002d221d8bd6amr4710890lje.44.1708341752297;
-        Mon, 19 Feb 2024 03:22:32 -0800 (PST)
-Message-ID: <554a43e8-7d8d-45c4-936d-36f02c207531@suse.com>
-Date: Mon, 19 Feb 2024 12:22:32 +0100
+        bh=afWW+G268VY4M/2GXCAHh58cIFj4BYx0rMtuKRAIJTE=;
+        b=qmSQBAd1wBPly7/ZSGnmTYYCGRn5aNOAFBEIzbOLGL9Q4qhZVUc/fi9Ip2onfgDTFK
+         KLe4FnaepFSZEeHb5udfY0wMaeKZ0/na83Indxy6UWt+lL9uGsgVIXlY3PirW+MoXhV0
+         c/OSwD6MoVm8k+OBhdOJeyQCfU5OqwO38zeVAqz0n+cE9DF2AtfD2r7Kxg0v39/h1+4C
+         1yfpdEKUevaMqJnESmLumcHsY3RS6cdRG2bfjKOqXZbq+YsZXgsThEWxbOA6EuPCLoCI
+         fOAVESsWC1hrJG755tZFpk744CZLY4kQMGLKrXfRfhARRihaQ0pEsDgAtorRYcnGpt0M
+         ZNfA==
+X-Forwarded-Encrypted: i=1; AJvYcCX0ypyYhdauMfAOSUlLzV/YkBCgbYn1tD4KpEBOT5vsFKRMhMKTDbnV+n4TpvfOoepXCZYJDZlcOix9HZHNRS4SS7XWXByGPNk+BnePlmA=
+X-Gm-Message-State: AOJu0YyTogZS4rhFNC1U56axajOQJpTTqTfye12iX+vvHNFwmEmBHj3m
+	gUAF4F93ecyBowo9nn+H325b6L7Kf7TJJcJYAlEfATkSO+/OHAZ80RXPmXxztQ==
+X-Google-Smtp-Source: AGHT+IGmbzwBQSm2AobfSUWydgb5CevYYiTMc1MHKJwTsR4fTmgldtEitVyXlXKc65FuR05e+Bv48A==
+X-Received: by 2002:a5d:6e65:0:b0:33d:30af:4623 with SMTP id j37-20020a5d6e65000000b0033d30af4623mr3475850wrz.51.1708341978713;
+        Mon, 19 Feb 2024 03:26:18 -0800 (PST)
+Message-ID: <92e7c679-fbf5-4f2e-9b0d-ba61a198832c@suse.com>
+Date: Mon, 19 Feb 2024 12:26:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/30] xen/riscv: introduce cmpxchg.h
+Subject: Re: [PATCH v9 7/7] xen/asm-generic: fold struct devarch into struct
+ dev
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Julien Grall <julien@xen.org>, Rahul Singh <rahul.singh@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
-References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
- <25315ca95baffc9b222fb0ae89375a94b01a9b46.1707146506.git.oleksii.kurochko@gmail.com>
- <9e50ef30-8dc6-4380-aa65-724e5a376c10@suse.com>
- <28844fdfcf5eea515497fb7b5fd8ea6fb1c5ebaa.camel@gmail.com>
+References: <cover.1708086091.git.oleksii.kurochko@gmail.com>
+ <3a5bf394a9d95a28cecac996f6e0decb788c19fd.1708086092.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,252 +118,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <28844fdfcf5eea515497fb7b5fd8ea6fb1c5ebaa.camel@gmail.com>
+In-Reply-To: <3a5bf394a9d95a28cecac996f6e0decb788c19fd.1708086092.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.02.2024 14:41, Oleksii wrote:
->>> +        : "=r" (ret), "+A" (*ptr) \
->>> +        : "r" (new) \
->>> +        : "memory" ); \
->>> +})
->>> +
->>> +#define emulate_xchg_1_2(ptr, new, ret, release_barrier,
->>> acquire_barrier) \
->>> +({ \
->>> +    uint32_t *ptr_32b_aligned = (uint32_t *)ALIGN_DOWN((unsigned
->>> long)ptr, 4); \
->>
->> You now appear to assume that this macro is only used with inputs not
->> crossing word boundaries. That's okay as long as suitably guaranteed
->> at the use sites, but imo wants saying in a comment.
->>
->>> +    uint8_t mask_l = ((unsigned long)(ptr) & (0x8 - sizeof(*ptr)))
->>> * BITS_PER_BYTE; \
->>
->> Why 0x8 (i.e. spanning 64 bits), not 4 (matching the uint32_t use
->> above)?
-> The idea to read 8 bytes was to deal with crossing word boundary. So if
-> our address is 0x3 and we have to xchg() 2 bytes, what will cross 4
-> byte boundary. Instead we align add 0x3, so it will become 0x0 and then
-> just always work with 8 bytes.
-
-Then what if my 2-byte access crosses a dword boundary? A cache line
-one? A page one?
-
->>> +    unsigned long new_ = (unsigned long)(new) << mask_l; \
->>> +    unsigned long ret_; \
->>> +    unsigned long rc; \
->>
->> Similarly, why unsigned long here?
-> sizeof(unsigned long) is 8 bytes and it was chosen as we are working
-> with lc/sc.d which are working with 8 bytes.
+On 16.02.2024 13:39, Oleksii Kurochko wrote:
+> The current patch is a follow-up to the patch titled:
+>     xen/asm-generic: introduce generic device.h
+> Also, a prerequisite for this patch is, without which a compilation
+> error will occur:
+>     xen/arm: switch Arm to use asm-generic/device.h
 > 
->>
->> I also wonder about the mix of underscore suffixed (or not) variable
->> names here.
-> If the question about ret_, then the same as before size of ret
-> argument of the macros will be 1 or 2, but {lc/sc}.d expected to work
-> with 8 bytes.
-
-Then what's the uint32_t * about?
-
->>> +        release_barrier \
->>> +        "0: lr.d %0, %2\n" \
->>
->> Even here it's an 8-byte access. Even if - didn't check - the insn
->> was
->> okay to use with just a 4-byte aligned pointer, wouldn't it make
->> sense
->> then to 8-byte align it, and be consistent throughout this macro wrt
->> the base unit acted upon? Alternatively, why not use lr.w here, thus
->> reducing possible collisions between multiple CPUs accessing the same
->> cache line?
-> According to the docs:
-> LR and SC operate on naturally-aligned 64-bit (RV64 only) or 32-bit
-> words in memory. Misaligned
-> addresses will generate misaligned address exceptions.
+> The 'struct dev_archdata' is exclusively used within 'struct device',
+> so it could be merged into 'struct device.'
 > 
-> My intention was to deal with 4-byte crossing boundary. so if ptr is 4-
-> byte aligned then by reading 8-bytes we shouldn't care about boundary
-> crossing, if I am not missing something.
-
-If a ptr is 4-byte aligned, there's no point reading more than 4 bytes.
-
->>> +        "   and  %1, %0, %z4\n" \
->>> +        "   or   %1, %1, %z3\n" \
->>> +        "   sc.d %1, %1, %2\n" \
->>> +        "   bnez %1, 0b\n" \
->>> +        acquire_barrier \
->>> +        : "=&r" (ret_), "=&r" (rc), "+A" (*ptr_32b_aligned) \
->>> +        : "rJ" (new_), "rJ" (~mask) \
->>
->> I think that as soon as there are more than 2 or maybe 3 operands,
->> legibility is vastly improved by using named asm() operands.
-> Just to clarify you mean that it would be better to use instead of %0
-> use names?
-
-Yes. Just like you have it in one of the other patches that I looked at
-later.
-
->>> +        : "memory"); \
->>
->> Nit: Missing blank before closing parenthesis.
->>
->>> +    \
->>> +    ret = (__typeof__(*(ptr)))((ret_ & mask) >> mask_l); \
->>> +})
->>
->> Why does "ret" need to be a macro argument? If you had only the
->> expression here, not the the assigment, ...
->>
->>> +#define __xchg_generic(ptr, new, size, sfx, release_barrier,
->>> acquire_barrier) \
->>> +({ \
->>> +    __typeof__(ptr) ptr__ = (ptr); \
->>
->> Is this local variable really needed? Can't you use "ptr" directly
->> in the three macro invocations?
->>
->>> +    __typeof__(*(ptr)) new__ = (new); \
->>> +    __typeof__(*(ptr)) ret__; \
->>> +    switch (size) \
->>> +    { \
->>> +    case 1: \
->>> +    case 2: \
->>> +        emulate_xchg_1_2(ptr__, new__, ret__, release_barrier,
->>> acquire_barrier); \
->>
->> ... this would become
->>
->>         ret__ = emulate_xchg_1_2(ptr__, new__, release_barrier,
->> acquire_barrier); \
->>
->> But, unlike assumed above, there's no enforcement here that a 2-byte
->> quantity won't cross a word, double-word, cache line, or even page
->> boundary. That might be okay if then the code would simply crash
->> (like
->> the AMO insns emitted further down would), but aiui silent
->> misbehavior
->> would result.
-> As I mentioned above with 4-byte alignment and then reading and working
-> with 8-byte then crossing a word or double-word boundary shouldn't be
-> an issue.
+> After the merger, it is necessary to update the 'dev_archdata()'
+> macros and the comments above 'struct arm_smmu_xen_device' in
+> drivers/passthrough/arm/smmu.c.
+> Additionally, it is required to update instances of
+> "dev->archdata->iommu" to "dev->iommu".
 > 
-> I am not sure that I know how to check that we are crossing cache line
-> boundary.
+> Suggested-by: Julien Grall <julien@xen.org>
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+>   This patch can be merged with patches 4 and 5 of this patch series.
+> ---
+> Changes in V9:
+>  - newly introduced patch.
+> ---
+>  xen/drivers/passthrough/arm/smmu.c | 12 ++++++------
+>  xen/include/asm-generic/device.h   |  8 +-------
+>  2 files changed, 7 insertions(+), 13 deletions(-)
 > 
-> Regarding page boundary, if the next page is mapped then all should
-> work fine, otherwise it will be an exception.
+> diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+> index 32e2ff279b..4a272c8779 100644
+> --- a/xen/drivers/passthrough/arm/smmu.c
+> +++ b/xen/drivers/passthrough/arm/smmu.c
+> @@ -227,9 +227,9 @@ struct arm_smmu_xen_domain {
+>  };
+>  
+>  /*
+> - * Xen: Information about each device stored in dev->archdata.iommu
+> + * Xen: Information about each device stored in dev->iommu
+>   *
+> - * Initially dev->archdata.iommu only stores the iommu_domain (runtime
+> + * Initially dev->iommu only stores the iommu_domain (runtime
+>   * configuration of the SMMU) but, on Xen, we also have to store the
+>   * iommu_group (list of streamIDs associated to the device).
+>   *
+> @@ -242,7 +242,7 @@ struct arm_smmu_xen_device {
+>  	struct iommu_group *group;
+>  };
+>  
+> -#define dev_archdata(dev) ((struct arm_smmu_xen_device *)dev->archdata.iommu)
+> +#define dev_archdata(dev) ((struct arm_smmu_xen_device *)dev->iommu)
 
-Are you sure lr.d / sc.d are happy to access across such a boundary,
-when both pages are mapped?
-
-To me it seems pretty clear that for atomic accesses you want to
-demand natural alignment, i.e. 2-byte alignment for 2-byte accesses.
-This way you can be sure no potentially problematic boundaries will
-be crossed.
-
->>> +        break; \
->>> +    case 4: \
->>> +        __amoswap_generic(ptr__, new__, ret__,\
->>> +                          ".w" sfx,  release_barrier,
->>> acquire_barrier); \
->>> +        break; \
->>> +    case 8: \
->>> +        __amoswap_generic(ptr__, new__, ret__,\
->>> +                          ".d" sfx,  release_barrier,
->>> acquire_barrier); \
->>> +        break; \
->>> +    default: \
->>> +        STATIC_ASSERT_UNREACHABLE(); \
->>> +    } \
->>> +    ret__; \
->>> +})
->>> +
->>> +#define xchg_relaxed(ptr, x) \
->>> +({ \
->>> +    __typeof__(*(ptr)) x_ = (x); \
->>> +    (__typeof__(*(ptr)))__xchg_generic(ptr, x_, sizeof(*(ptr)),
->>> "", "", ""); \
->>> +})
->>> +
->>> +#define xchg_acquire(ptr, x) \
->>> +({ \
->>> +    __typeof__(*(ptr)) x_ = (x); \
->>> +    (__typeof__(*(ptr)))__xchg_generic(ptr, x_, sizeof(*(ptr)), \
->>> +                                       "", "",
->>> RISCV_ACQUIRE_BARRIER); \
->>> +})
->>> +
->>> +#define xchg_release(ptr, x) \
->>> +({ \
->>> +    __typeof__(*(ptr)) x_ = (x); \
->>> +    (__typeof__(*(ptr)))__xchg_generic(ptr, x_, sizeof(*(ptr)),\
->>> +                                       "", RISCV_RELEASE_BARRIER,
->>> ""); \
->>> +})
->>> +
->>> +#define xchg(ptr,x) \
->>> +({ \
->>> +    __typeof__(*(ptr)) ret__; \
->>> +    ret__ = (__typeof__(*(ptr))) \
->>> +            __xchg_generic(ptr, (unsigned long)(x),
->>> sizeof(*(ptr)), \
->>> +                           ".aqrl", "", ""); \
->>
->> The .aqrl doesn't look to affect the (emulated) 1- and 2-byte cases.
->>
->> Further, amoswap also exists in release-only and acquire-only forms.
->> Why do you prefer explicit barrier insns over those? (Looks to
->> similarly apply to the emulation path as well as to the cmpxchg
->> machinery then, as both lr and sc also come in all four possible
->> acquire/release forms. Perhaps for the emulation path using
->> explicit barriers is better, in case the acquire/release forms of
->> lr/sc - being used inside the loop - might perform worse.)
-> As 1- and 2-byte cases are emulated I decided that is not to provide
-> sfx argument for emulation macros as it will not have to much affect on
-> emulated types and just consume more performance on acquire and release
-> version of sc/ld instructions.
-
-Question is whether the common case (4- and 8-byte accesses) shouldn't
-be valued higher, with 1- and 2-byte emulation being there just to
-allow things to not break altogether.
-
->> No RISCV_..._BARRIER for use here and ...
->>
->>> +    ret__; \
->>> +})
->>> +
->>> +#define __cmpxchg(ptr, o, n, s) \
->>> +({ \
->>> +    __typeof__(*(ptr)) ret__; \
->>> +    ret__ = (__typeof__(*(ptr))) \
->>> +            __cmpxchg_generic(ptr, (unsigned long)(o), (unsigned
->>> long)(n), \
->>> +                              s, ".rl", "", " fence rw, rw\n"); \
->>
->> ... here? And anyway, wouldn't it make sense to have
->>
->> #define cmpxchg(ptr, o, n) __cmpxchg(ptr, o, n, sizeof(*(ptr))
->>
->> to limit redundancy?
->>
->> Plus wouldn't
->>
->> #define __cmpxchg(ptr, o, n, s) \
->>     ((__typeof__(*(ptr))) \
->>      __cmpxchg_generic(ptr, (unsigned long)(o), (unsigned long)(n), \
->>                        s, ".rl", "", " fence rw, rw\n"))
->>
->> be shorter and thus easier to follow as well? As I notice only now,
->> this would apparently apply further up as well.
-> I understand your point about "#define cmpxchg(ptr, o, n) __cmpxchg(",
-> but I can't undestand how the definition of __cmxchng should be done
-> shorter. Could you please clarify that?
-
-You did notice that in my form there's no local variable, and hence
-also no macro-wide scope ( ({ ... }) )?
+I find in particular the naming here odd. But I'll let Julien judge whether
+this really is along the lines of what he suggested.
 
 Jan
 
