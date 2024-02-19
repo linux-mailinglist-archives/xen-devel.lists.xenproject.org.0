@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C60985A4E0
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 14:37:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682858.1062062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C799385A50A
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 14:43:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682865.1062072 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc3p7-0001dn-MJ; Mon, 19 Feb 2024 13:36:45 +0000
+	id 1rc3vb-0003YV-Fl; Mon, 19 Feb 2024 13:43:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682858.1062062; Mon, 19 Feb 2024 13:36:45 +0000
+Received: by outflank-mailman (output) from mailman id 682865.1062072; Mon, 19 Feb 2024 13:43:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc3p7-0001bD-JB; Mon, 19 Feb 2024 13:36:45 +0000
-Received: by outflank-mailman (input) for mailman id 682858;
- Mon, 19 Feb 2024 13:36:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rc3vb-0003WA-Cv; Mon, 19 Feb 2024 13:43:27 +0000
+Received: by outflank-mailman (input) for mailman id 682865;
+ Mon, 19 Feb 2024 13:43:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SL20=J4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rc3p6-0001b7-0V
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 13:36:44 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea4cc532-cf2b-11ee-98f5-efadbce2ee36;
- Mon, 19 Feb 2024 14:36:41 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4126aee00b2so1786715e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 05:36:41 -0800 (PST)
+ id 1rc3vZ-0003W1-2E
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 13:43:25 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id da0af486-cf2c-11ee-8a52-1f161083a0e0;
+ Mon, 19 Feb 2024 14:43:24 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-41264195d5cso9253545e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 05:43:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l20-20020a05600c1d1400b0041256ab5becsm8564093wms.26.2024.02.19.05.36.40
+ p8-20020a5d68c8000000b0033b2799815csm10408696wrw.86.2024.02.19.05.43.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Feb 2024 05:36:41 -0800 (PST)
+ Mon, 19 Feb 2024 05:43:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea4cc532-cf2b-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: da0af486-cf2c-11ee-8a52-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708349801; x=1708954601; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708350203; x=1708955003; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=jrKlw3n1B33BnCvjbfAiqSOmbtplbXt1ex1CFFaeOvM=;
-        b=FLlhg+IVoeYNQt7WpJq8X0I7e5Bgz7ZupohKAofsRKHX1QCnw1RCMs4xP1Fg/5nvBf
-         AakCw/Pf/DT5/wqsRtnH/1J73tVcs708CtLnXNZnWTq4CqjR+4egqG11bX7MzKTO1jqm
-         EISACTLo5m6U+xfpdpkf45I+Vd5pvC5ACw5ugW9vzUTsKxdOktYznYtjCZEc2SC7+S9R
-         65rtTZUBCORIIxxKn7stxGMqqsCs4OfmoLJv006boSNUUUm6z6RbOcK86rqTOVBi1Vof
-         VpkmEUeU90fXBDKcKk9UFCtS9aX2pp15dFB1PfaRJULvBeRoCK7cEkTYNzDvI2Y5IRx+
-         zTKA==
+        bh=vrPLVACfRMC6xDUdFgYvzOFYlNcALVZD/fl5SsiDjhM=;
+        b=WY6vP9c/b72HNFaLlKZLB4I9jG93NQo2JTEBeAbu7ylUUTyyMvteyayLXFU6pM1fE0
+         Z3aj7o1IcfhWVSE72f/4W4oVUbm7PkZjC4CGgQbxaoSDk3hvgG4uEYfXAe4oAqLToyvz
+         +o4IL0wRwPjRg76qCucZOydgTUKYcYpLoR30V779sTi8XByW91ko44MHSnGPUiefAJJe
+         JyWWwxl68q/aBIaMOuuxLeqmZyg7bpiVnU9ozsQtPAagHoXRwyBBFLQTo2whJJ3505UU
+         gjkoUxK1ip7udOLt0l9xtm8eDU45+h2dCyh1jERPvLrHgJOFU+GWvZhYesFX49WQq2ET
+         MM3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708349801; x=1708954601;
+        d=1e100.net; s=20230601; t=1708350203; x=1708955003;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jrKlw3n1B33BnCvjbfAiqSOmbtplbXt1ex1CFFaeOvM=;
-        b=F7hFHv1vXpqknI5iiYS8cKllpd1grtudKrher/VMvjhTlB2+Ix9m2Z/Nh490zyp5H0
-         beo8MWJ8CBXv1iMzyAsEgKJiTpKyYBoyViqpWfCRyehp/N/OIZ0EZJlpNWZadEHUCa+G
-         GH4Atv3c2PHCEiH2wYmZTzDXGtZV02KdhyLo6GdxbBiXdxglLzH5vjcrFYKZ1bmRCDyp
-         pkF4mJPqL0ZHDl/G1+8F6M6DpXhhjQ7idK7/ocu55h1PvADTeJ+Ap30r4ZhlH5sj6sxO
-         KpwoFwcoG6DE88jFynhRUQ/zaNKRWw+YipWA8euw3eaML8yf8knwk/DOJckIeFrDi4Fg
-         Ltkg==
-X-Forwarded-Encrypted: i=1; AJvYcCU6QzX3TkjeqAVyuqZtqPwBHGonbnmYkf0HMFcXjEpDJN7ePj3uCCvzqHlVnGj0wyB8jn5oGKyZvkK+qDY9Oq6APeXjqnHfLwuliE3mzIY=
-X-Gm-Message-State: AOJu0YxnI1v4l6YYuhoXeUdiOZuJEDXUjHE14y5RIeVBL4+UpYj2T+XQ
-	Fv+1OlHKncq9XBP32PS5Wc8itA0K+rg86vz/8S/oMpiapfO6US9BgJ3RqoSiKQ==
-X-Google-Smtp-Source: AGHT+IEz8jMnj3jbA0NmGdJf8EHben7mw302yJEQWn+Atx9WKClUZhrR/jOPkF4EjahffmrmQuIUZw==
-X-Received: by 2002:a05:600c:4713:b0:412:6101:9158 with SMTP id v19-20020a05600c471300b0041261019158mr3224184wmo.29.1708349801285;
-        Mon, 19 Feb 2024 05:36:41 -0800 (PST)
-Message-ID: <66962dfc-db89-40bc-8411-9b92f9458b16@suse.com>
-Date: Mon, 19 Feb 2024 14:36:40 +0100
+        bh=vrPLVACfRMC6xDUdFgYvzOFYlNcALVZD/fl5SsiDjhM=;
+        b=Q77hl55G/SRpSKYK4sB0Zi1NaVmwXsaip6eKy4ikesw7HLZbh36jSrJLxc8wpo5z15
+         oST2S8B4FMi2sd+ZLcv51UV9QwDqLO8CfvmRrMaUtfh3ZWZubXhe5Ah73o4UsTvGI3Mm
+         pkpvFYXc+HZnSe9iD/Iw0Z4vv52vk/ZiOyt/B4oE+79PcWN/J4SwmW4e/i1cGUQqeNlE
+         IBD81ToOSWxQOk2HZ8TG6Xwm7OJpkH+gDmOIYw20gRPgdzgxQie8XWqEczZ0srMHZvhi
+         55D3qtLq4JnmQBBIN1EgRpUGnnctJH+04BwAKrl6WD85kOIxAxObbMWJFbo0nad9bEoM
+         5qiw==
+X-Forwarded-Encrypted: i=1; AJvYcCVC8jNtwTrOQUt8pzF0wx+/2FKXE037gZtkq2U+VyMZc5TuC5N6zSPGAXNwaLA5339kfJbCOhuS1LEpYaiiwat7EOaa/puFgXVw6BHBDL8=
+X-Gm-Message-State: AOJu0YznM0hUx3vWXmz5uYvYpmQbPHDABFz3aE8h4ai+ImB97dzbwHXz
+	X4foTChwhgqf4n1NZkvpbZcIhKbchOox922py79bcLcR9ww27dDiW2dk+ltLXg==
+X-Google-Smtp-Source: AGHT+IF2lK8c7rkP6Aiqra5R6gB8ALiWIYO28aXg+KW4O17lox/081/7gX8uH3BrFn9LjncW69ZmOw==
+X-Received: by 2002:adf:e504:0:b0:33c:f35c:a395 with SMTP id j4-20020adfe504000000b0033cf35ca395mr8147693wrm.52.1708350203500;
+        Mon, 19 Feb 2024 05:43:23 -0800 (PST)
+Message-ID: <a6e8bd32-cc32-4084-907d-e2cd6d46e3e6@suse.com>
+Date: Mon, 19 Feb 2024 14:43:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] xen/hvm: Convert hap_capabilities into a bitfield
+Subject: Re: [XEN PATCH] automation/eclair: add deviation for MISRA C:2012
+ Rule 16.3
 Content-Language: en-US
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
-References: <20240206012051.3564035-1-george.dunlap@cloud.com>
- <20240206012051.3564035-2-george.dunlap@cloud.com>
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <b1d2b64c8117d61ea42cf4e9feae128541eb0b61.1708348799.git.federico.serafini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,71 +115,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240206012051.3564035-2-george.dunlap@cloud.com>
+In-Reply-To: <b1d2b64c8117d61ea42cf4e9feae128541eb0b61.1708348799.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06.02.2024 02:20, George Dunlap wrote:
-> hvm_function_table is an internal structure; rather than manually
-> |-ing and &-ing bits, just make it a boolean bitfield and let the
-> compiler do all the work.  This makes everything easier to read, and
-> presumably allows the compiler more flexibility in producing efficient
-> code.
+On 19.02.2024 14:24, Federico Serafini wrote:
+> Update ECLAIR configuration to consider safe switch clauses ending
+> with __{get,put}_user_bad().
 > 
-> No functional change intended.
+> Update docs/misra/deviations.rst accordingly.
 > 
-> Signed-off-by: George Dunlap <george.dunlap@cloud.com>
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+As mentioned I'm not happy with this, not the least because of it being
+unclear why these two would be deviated, when there's no sign of a
+similar deviation for, say, __bad_atomic_size(). Imo this approach
+doesn't scale, and that's already leaving aside that the purpose of
+identically named (pseudo-)helpers could differ between architectures,
+thus putting under question ...
 
-> ---
-> Questions:
-> 
-> * Should hap_superpage_2m really be set unconditionally, or should we
->   condition it on cpu_has_svm_npt?
-
-That's HAP capabilities; there's not going to be any use of HAP when
-there's no NPT (on an AMD system). IOW - all is fine as is, imo.
-
-> * Do we really need to "!!cpu_has_svm_npt"?  If so, wouldn't it be
->   better to put the "!!"  in the #define, rather than requiring the
->   user to know that it's needed?
-
-Considering that hap_supported is bool now, the !! can simply be
-dropped. We've been doing so as code was touched anyway, not in a
-concerted effort.
-
-> --- a/xen/arch/x86/hvm/vmx/vmcs.c
-> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-> @@ -113,8 +113,8 @@ static int cf_check parse_ept_param_runtime(const char *s)
->      int val;
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -368,6 +368,10 @@ safe."
+>  -config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/BUG\\(\\);/))))"}
+>  -doc_end
 >  
->      if ( !cpu_has_vmx_ept || !hvm_funcs.hap_supported ||
-> -         !(hvm_funcs.hap_capabilities &
-> -           (HVM_HAP_SUPERPAGE_2MB | HVM_HAP_SUPERPAGE_1GB)) )
-> +         !(hvm_funcs.caps.hap_superpage_2mb ||
-> +           hvm_funcs.caps.hap_superpage_1gb) )
->      {
->          printk("VMX: EPT not available, or not in use - ignoring\n");
+> +-doc_begin="Switch clauses ending with constructs \"__get_user_bad()\" and \"__put_user_bad()\" are safe: they denote an unreachable program point."
+> +-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/__(put|get)_user_bad\\(\\);/))))"}
+> +-doc_end
 
-Just to mention it: The conditional and the log message don't really
-fit together. (I was first wondering what the 2mb/1gb checks had to
-do here at all, but that's immediately clear when seeing that the
-only sub-option here is "exec-sp".)
-
-> @@ -104,8 +96,11 @@ struct hvm_function_table {
->      /* Hardware virtual interrupt delivery enable? */
->      bool virtual_intr_delivery_enabled;
->  
-> -    /* Indicate HAP capabilities. */
-> -    unsigned int hap_capabilities;
-> +    struct {
-> +        /* Indicate HAP capabilities. */
-> +        bool hap_superpage_1gb:1,
-> +            hap_superpage_2mb:1;
-
-Nit: Would be nice imo if the two identifiers aligned vertically with
-one another.
+... the global scope of such a deviation. While it may not be a good idea,
+even within an arch such (pseudo-)helpers could be used for multiple
+distinct purposes.
 
 Jan
 
