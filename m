@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 620C8859F21
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 10:05:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682724.1061851 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A11A859F7D
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 10:19:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682730.1061861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rbza6-0005gv-Dw; Mon, 19 Feb 2024 09:04:58 +0000
+	id 1rbznS-0007fE-JC; Mon, 19 Feb 2024 09:18:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682724.1061851; Mon, 19 Feb 2024 09:04:58 +0000
+Received: by outflank-mailman (output) from mailman id 682730.1061861; Mon, 19 Feb 2024 09:18:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rbza6-0005f6-Am; Mon, 19 Feb 2024 09:04:58 +0000
-Received: by outflank-mailman (input) for mailman id 682724;
- Mon, 19 Feb 2024 09:04:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rbznS-0007dM-GJ; Mon, 19 Feb 2024 09:18:46 +0000
+Received: by outflank-mailman (input) for mailman id 682730;
+ Mon, 19 Feb 2024 09:18:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SL20=J4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rbza4-0005f0-EQ
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 09:04:56 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f2e3d09a-cf05-11ee-8a52-1f161083a0e0;
- Mon, 19 Feb 2024 10:04:55 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-512b13bf764so862010e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 01:04:55 -0800 (PST)
+ id 1rbznQ-0007dG-SM
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 09:18:44 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id df48d019-cf07-11ee-98f5-efadbce2ee36;
+ Mon, 19 Feb 2024 10:18:41 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-41266ef4bc3so3728315e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 01:18:41 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m8-20020a05600c4f4800b00411fb769583sm10793802wmq.27.2024.02.19.01.04.54
+ r17-20020a05600c459100b004124907f43fsm10086350wmo.12.2024.02.19.01.18.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Feb 2024 01:04:54 -0800 (PST)
+ Mon, 19 Feb 2024 01:18:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2e3d09a-cf05-11ee-8a52-1f161083a0e0
+X-Inumbo-ID: df48d019-cf07-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708333495; x=1708938295; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708334321; x=1708939121; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=QHf+Vm3ybdBP7o7l3iGkjjLO2k//up9DJktTuwI94xM=;
-        b=aqo/w9QD+SJBKpw2Jkh/yLZgf0kETT89XVoUDvUvWo1XNVVsujYpX8WOmTyAHXD3pN
-         uS53Tp40xRcbFsnTxIheWqo0aa7rPfrOF/1sWHLhP1jaXof/4OiJNo8TUuCX42fcIkH+
-         Esbvg2+tLG+vFARFM0gV46IC0ED8A+E3iG2mHxi8p2Konl6hhDEAYLQPOUGFcoeNKvC4
-         t0QilX5qZ6mh4Ij6W8Wmtvp5/o5l4RlMowakFq+XKYpBhSd482Ttsndd+qT+yfWXKfan
-         BQkLkMq89hYmXu5rvDXvsmf3u3Tb3UnwNCxjY0aD2Q5o8gz4OlFYTQq61QdXp4DsMgyF
-         LUuQ==
+        bh=iDwWtX23r2V8KSj03hLJqOS1zFTYx+OKrB2vX8bbu0Y=;
+        b=UQ/UfG0h47EV4AKVNJ9jreMMnfGAGQThQ/6dsu+32ruwezdeL9FR5s6nuT9mDhIf31
+         KLCEEvdAzD2zsZO753r7Fnxg2KpoO1gBrEafGKqkM3t0+DJjoFifOHaCHQzg9QU9H27b
+         Sy3WViBDhdQQgnxGpgwWnuxIjwm//LUnXRJ8CUfQwQs4DhJOy3z6WgNh3EHggH0nA8F/
+         3CZRUYdxPhvEGVAxhRRiap7cyVsn2wWe7NHJG1b6x3EgVrCMUmsvbtYXar60jVUc2v7Q
+         AOsp8kWlrc6O8r3amG39zxlGg2p7as7u9kw4cJ+UNWutRBNiYeBg+RD6upGl+4+j90z+
+         2Qdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708333495; x=1708938295;
+        d=1e100.net; s=20230601; t=1708334321; x=1708939121;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QHf+Vm3ybdBP7o7l3iGkjjLO2k//up9DJktTuwI94xM=;
-        b=QvIYKZ8IRx1d2J/P7mtMUyGFM1rli7LIaHDRGsP6i4+395YOSkAPREDDbzzMKoWLLZ
-         P4d49VlH1BLzFPJrTyuT6sSO72O5sIf+BwrF5QZrqpOSRq5TQTcY+l/4k+wW8+pk90Db
-         Kj4AtK5n4J2pXpus5493RZvCo5Hhk3+APvXxTn0BlZ5KufperTp3WCbL2SFYPl8oxJz2
-         Lt2zJc6TT5Qtk0gG++nC52KQ5NeswA6PUA9GJCysyIbDX6joWlYTinclbkxcutPd1f6I
-         MTivqQ00q5/zU9f0ngWPqzgGSlX0D2uwvM4iyEUlsX7K1EN/ybsqd1Jvuz3e5KrgQ3bj
-         tOHQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWd2r0lP9syPgLNjLjZlu/eKonQDEL1Qu35wQqPPH/G2l8dGCwWWiShKmGqD0NYXBdnzmPkS/UDmze18sfOaNM6mRjzi8D6jWDR8S8BgDc=
-X-Gm-Message-State: AOJu0YzFPo+7Gw3OCjPfPMrXK1O3MQoBmTuqQoTOTrzqjx2SHzmCg1OE
-	8ANA0YDXO+AKkpeK/nX3yROA3gH8eA8qZ+F/NSnVHopZMexbdr5PnNMge0glGg==
-X-Google-Smtp-Source: AGHT+IGV0Xc8478b3yoQVK5bYdF55An23GHPjzwZgLvbJP1ZCll3fDS81HijftNJ3+/VnwaErbudtg==
-X-Received: by 2002:a05:6512:200e:b0:512:8dad:2918 with SMTP id a14-20020a056512200e00b005128dad2918mr6849934lfb.53.1708333494820;
-        Mon, 19 Feb 2024 01:04:54 -0800 (PST)
-Message-ID: <d6b6ed42-312b-4b74-9b8e-5e7a04627eee@suse.com>
-Date: Mon, 19 Feb 2024 10:04:55 +0100
+        bh=iDwWtX23r2V8KSj03hLJqOS1zFTYx+OKrB2vX8bbu0Y=;
+        b=q8dbzN6hLbDxHLKwEyk1ljiC8ECKwmUYeIg6a5EXl9OX8gPz4EUW95NDUXgFHlVSGO
+         +NJOdwUq94ShH7yag4eUGKHy51pbZ8YZwHFW99iIBDFqylYEQEct+Ayqb5n9o/+L3TI8
+         T2DaHrkFt6NdLsPiEWDMzSYn6/MaGUPZmXl8NIZN1v+CbOcCbXJjH88dznUxY1LdwCyL
+         fu85CluAfux7cwYQhhYlhIZBvm3KrTKc9/BLNqNBj9bQTo3pppCjYMaUdof1J2tsMhU9
+         obn7q1juM5DD4XF4aw/mXH/LFtV4GCZVe5tH+zSmSh7WWCEOgTiJNciwUTp3BYfGNJJZ
+         PaUA==
+X-Forwarded-Encrypted: i=1; AJvYcCUCP+UJzYV/N1JPHgPpfEAASJiXoMiKJYZCmum4PQcC/qtUv3PjZAtVv4AXjU8WcGWIg3tdwv0VpgyPgwHAEtM743x4pc59dwdTj4OOx54=
+X-Gm-Message-State: AOJu0YwgYWkyloV4yZrICaGBkAOybPRd0dU+tkCtkGnrBhXNXy55q0MB
+	s/mz46EPSOaBSdkVtm4W0G0Jt3RNuaqiv2mE0TfLAbMs38XKPPqgwzHjqcUvLg==
+X-Google-Smtp-Source: AGHT+IFEHc4IH0UcRO+ZtLpyzJ7eO9bxp8hT5gfZO4XBj6RsD/vDDoadPcjxIAec9YxltcSL9Grvgw==
+X-Received: by 2002:a05:600c:35d0:b0:40e:f693:94dc with SMTP id r16-20020a05600c35d000b0040ef69394dcmr8189355wmq.11.1708334320974;
+        Mon, 19 Feb 2024 01:18:40 -0800 (PST)
+Message-ID: <998a0511-b47b-49c8-8db4-9c2adb3b3d9b@suse.com>
+Date: Mon, 19 Feb 2024 10:18:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86/vmx: add support for virtualize SPEC_CTRL
+Subject: Re: [PATCH v3] Reduce assembly code size of exception entry points
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20240215164653.27210-1-roger.pau@citrix.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20240216105028.9517-1-frediano.ziglio@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,28 +111,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240215164653.27210-1-roger.pau@citrix.com>
+In-Reply-To: <20240216105028.9517-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.02.2024 17:46, Roger Pau Monne wrote:
-> The feature is defined in the tertiary exec control, and is available starting
-> from Sapphire Rapids and Alder Lake CPUs.
-> 
-> When enabled, two extra VMCS fields are used: SPEC_CTRL mask and shadow.  Bits
-> set in mask are not allowed to be toggled by the guest (either set or clear)
-> and the value in the shadow field is the value the guest expects to be in the
-> SPEC_CTRL register.
-> 
-> By using it the hypervisor can force the value of SPEC_CTRL bits behind the
-> guest back without having to trap all accesses to SPEC_CTRL, note that no bits
-> are forced into the guest as part of this patch.  It also allows getting rid of
-> SPEC_CTRL in the guest MSR load list, since the value in the shadow field will
-> be loaded by the hardware on vmentry.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 16.02.2024 11:50, Frediano Ziglio wrote:
+> --- a/xen/arch/x86/x86_64/entry.S
+> +++ b/xen/arch/x86/x86_64/entry.S
+> @@ -22,6 +22,14 @@
+>  #endif
+>  .endm
+>  
+> +.macro BUILD_BUG_ON condstr cond:vararg
+> +        .if \cond
+> +        .error "Condition \condstr not satisfied"
 
+Maybe
+
+        .error "Condition \"\condstr\" not satisfied"
+
+?
+
+> @@ -187,7 +195,8 @@ FUNC_LOCAL(restore_all_guest)
+>          SPEC_CTRL_EXIT_TO_PV    /* Req: a=spec_ctrl %rsp=regs/cpuinfo, Clob: cd */
+>  
+>          RESTORE_ALL
+> -        testw $TRAP_syscall,4(%rsp)
+> +        BUILD_BUG_ON(TRAP_syscall & 0xff)
+> +        testb $TRAP_syscall >> 8,4+1(%rsp)
+>          jz    iret_exit_to_guest
+
+Nit: Blank after comma please (and again elsewhere).
+
+Preferably with both adjustments (which I'd be okay making while
+committing, so long as you agree specifically on the former)
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
+That said, especially with this not being an entry point path, and
+neither this nor ...
 
+> @@ -254,7 +263,8 @@ FUNC(lstar_enter)
+>          pushq $FLAT_KERNEL_CS64
+>          pushq %rcx
+>          pushq $0
+> -        movl  $TRAP_syscall, 4(%rsp)
+> +        BUILD_BUG_ON(TRAP_syscall & 0xff)
+> +        movb  $TRAP_syscall >> 8, 4+1(%rsp)
+>          SAVE_ALL
+>  
+>          SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
+> @@ -292,7 +302,8 @@ FUNC(cstar_enter)
+>          pushq $FLAT_USER_CS32
+>          pushq %rcx
+>          pushq $0
+> -        movl  $TRAP_syscall, 4(%rsp)
+> +        BUILD_BUG_ON(TRAP_syscall & 0xff)
+> +        movb  $TRAP_syscall >> 8, 4+1(%rsp)
+>          SAVE_ALL
+>  
+>          SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
+> @@ -334,7 +345,8 @@ LABEL(sysenter_eflags_saved, 0)
+>          pushq $3 /* ring 3 null cs */
+>          pushq $0 /* null rip */
+>          pushq $0
+> -        movl  $TRAP_syscall, 4(%rsp)
+> +        BUILD_BUG_ON(TRAP_syscall & 0xff)
+> +        movb  $TRAP_syscall >> 8, 4+1(%rsp)
+>          SAVE_ALL
+
+... any of these being exception entry point paths (and hence none of
+these changes being related to the subject), it would likely have been
+a good idea to split this into two patches.
+
+Jan
 
