@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98D26859EEF
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 09:58:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682719.1061841 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 620C8859F21
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 10:05:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682724.1061851 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rbzTE-0003la-Nf; Mon, 19 Feb 2024 08:57:52 +0000
+	id 1rbza6-0005gv-Dw; Mon, 19 Feb 2024 09:04:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682719.1061841; Mon, 19 Feb 2024 08:57:52 +0000
+Received: by outflank-mailman (output) from mailman id 682724.1061851; Mon, 19 Feb 2024 09:04:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rbzTE-0003iz-Ka; Mon, 19 Feb 2024 08:57:52 +0000
-Received: by outflank-mailman (input) for mailman id 682719;
- Mon, 19 Feb 2024 08:57:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rbza6-0005f6-Am; Mon, 19 Feb 2024 09:04:58 +0000
+Received: by outflank-mailman (input) for mailman id 682724;
+ Mon, 19 Feb 2024 09:04:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SL20=J4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rbzTC-0003ib-Uf
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 08:57:50 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4c197e1-cf04-11ee-98f5-efadbce2ee36;
- Mon, 19 Feb 2024 09:57:49 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-33d118a181fso1903019f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 00:57:49 -0800 (PST)
+ id 1rbza4-0005f0-EQ
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 09:04:56 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f2e3d09a-cf05-11ee-8a52-1f161083a0e0;
+ Mon, 19 Feb 2024 10:04:55 +0100 (CET)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-512b13bf764so862010e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 01:04:55 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x11-20020a5d444b000000b0033b7ce8b496sm9769110wrr.108.2024.02.19.00.57.47
+ m8-20020a05600c4f4800b00411fb769583sm10793802wmq.27.2024.02.19.01.04.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Feb 2024 00:57:48 -0800 (PST)
+ Mon, 19 Feb 2024 01:04:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4c197e1-cf04-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: f2e3d09a-cf05-11ee-8a52-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708333068; x=1708937868; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708333495; x=1708938295; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=4yn4H6aPiMGY16QdrMOmZtVckBaVP2SonOO8ojF14Kc=;
-        b=UrdygiqG5HIU9z1kSIOhp6l2xSWr0mZb6U2HtJO5ZxuK05EODAJgZuYR6PweCPmK7y
-         y6nCduRmrYgyXoupOfEhgxq4KAxwHH5niWHM6QRcNJjoLnRlw5lRCM7S5oVjRehJt1ha
-         pI5OJ7N850PKCKeujeoPZnkSUumesGVvOp8efWY1oPxaFHMgxPMKSk30aYoVmwb4sy42
-         tLbG8yuiS96knkKPFKk10LHmN2QOD7LxRZl2bGOx4QEXeeRDxEWSCUYgFehD9+FxnXkW
-         14VsCYZNbYskASmx6RvnW97+fpEMC946IzjES7tJTJgdr81ArJWTKcuqn2CR5jdO18Wf
-         tLxw==
+        bh=QHf+Vm3ybdBP7o7l3iGkjjLO2k//up9DJktTuwI94xM=;
+        b=aqo/w9QD+SJBKpw2Jkh/yLZgf0kETT89XVoUDvUvWo1XNVVsujYpX8WOmTyAHXD3pN
+         uS53Tp40xRcbFsnTxIheWqo0aa7rPfrOF/1sWHLhP1jaXof/4OiJNo8TUuCX42fcIkH+
+         Esbvg2+tLG+vFARFM0gV46IC0ED8A+E3iG2mHxi8p2Konl6hhDEAYLQPOUGFcoeNKvC4
+         t0QilX5qZ6mh4Ij6W8Wmtvp5/o5l4RlMowakFq+XKYpBhSd482Ttsndd+qT+yfWXKfan
+         BQkLkMq89hYmXu5rvDXvsmf3u3Tb3UnwNCxjY0aD2Q5o8gz4OlFYTQq61QdXp4DsMgyF
+         LUuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708333068; x=1708937868;
+        d=1e100.net; s=20230601; t=1708333495; x=1708938295;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4yn4H6aPiMGY16QdrMOmZtVckBaVP2SonOO8ojF14Kc=;
-        b=Xp9Bszqm/j7uKDdVjjdOv++1abaF9YzW9wScrLI5gjeMTDfy6Wq3G5VSPcENXi+z0P
-         zKj5pW1p37XDsHxe09kQ2qlXaQPmeknq8HxIob2vi1WA8Rq7aWtvo2Pim2ZL43H8C67C
-         +4qQ2PYoopI3P34y5le8XA2RYSu0J4+tLd4y+zhHjB47oIoDrrv/zri8BJv1leXNitBw
-         f4rXTOqXf0wl2dk6YhS04FlTyUpk8oavurmene7IQaivaaTWTFqVJ0utGzl172BE7ijM
-         VB+9A5CPkVYjCL00SOq5gZZJXBTflXa6UFVmg7uotNU+Harj9k1IrQ9r9pQNOsKgLnJK
-         JTTQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVEOqCeybw5v4dg57n0cdyAS1+RZVAQAZcjLIBzkWpCBAvkHRFs8VEmjXya7r334kTH+PUULfUFA5e+dfIUqjKkOmFl4WCmknCY9r4GDu8=
-X-Gm-Message-State: AOJu0YwbibfNtvs99SE3uOj9IZgNdHxXiveC+MoBJBjt3lXS8yx4GyP/
-	ORBUE5+euAryyYmSC4Mj0Z19iWBpZILsmYHvvg359g6uQFENR+oFdoB3nogUuA==
-X-Google-Smtp-Source: AGHT+IF8w6LgX6xYXh59rplpnMBlDS2InNxXbob7pjajh4m8/rFu/4FjSZINiW/vryNEAdSwCzrutw==
-X-Received: by 2002:a5d:5608:0:b0:33d:513a:c7b2 with SMTP id l8-20020a5d5608000000b0033d513ac7b2mr955667wrv.47.1708333068493;
-        Mon, 19 Feb 2024 00:57:48 -0800 (PST)
-Message-ID: <7b60cf83-4d08-46ef-a937-911e42fd9e5d@suse.com>
-Date: Mon, 19 Feb 2024 09:57:49 +0100
+        bh=QHf+Vm3ybdBP7o7l3iGkjjLO2k//up9DJktTuwI94xM=;
+        b=QvIYKZ8IRx1d2J/P7mtMUyGFM1rli7LIaHDRGsP6i4+395YOSkAPREDDbzzMKoWLLZ
+         P4d49VlH1BLzFPJrTyuT6sSO72O5sIf+BwrF5QZrqpOSRq5TQTcY+l/4k+wW8+pk90Db
+         Kj4AtK5n4J2pXpus5493RZvCo5Hhk3+APvXxTn0BlZ5KufperTp3WCbL2SFYPl8oxJz2
+         Lt2zJc6TT5Qtk0gG++nC52KQ5NeswA6PUA9GJCysyIbDX6joWlYTinclbkxcutPd1f6I
+         MTivqQ00q5/zU9f0ngWPqzgGSlX0D2uwvM4iyEUlsX7K1EN/ybsqd1Jvuz3e5KrgQ3bj
+         tOHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWd2r0lP9syPgLNjLjZlu/eKonQDEL1Qu35wQqPPH/G2l8dGCwWWiShKmGqD0NYXBdnzmPkS/UDmze18sfOaNM6mRjzi8D6jWDR8S8BgDc=
+X-Gm-Message-State: AOJu0YzFPo+7Gw3OCjPfPMrXK1O3MQoBmTuqQoTOTrzqjx2SHzmCg1OE
+	8ANA0YDXO+AKkpeK/nX3yROA3gH8eA8qZ+F/NSnVHopZMexbdr5PnNMge0glGg==
+X-Google-Smtp-Source: AGHT+IGV0Xc8478b3yoQVK5bYdF55An23GHPjzwZgLvbJP1ZCll3fDS81HijftNJ3+/VnwaErbudtg==
+X-Received: by 2002:a05:6512:200e:b0:512:8dad:2918 with SMTP id a14-20020a056512200e00b005128dad2918mr6849934lfb.53.1708333494820;
+        Mon, 19 Feb 2024 01:04:54 -0800 (PST)
+Message-ID: <d6b6ed42-312b-4b74-9b8e-5e7a04627eee@suse.com>
+Date: Mon, 19 Feb 2024 10:04:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ns16550: add Asix AX99100 serial card
+Subject: Re: [PATCH v3] x86/vmx: add support for virtualize SPEC_CTRL
 Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
-References: <20240218013431.274451-1-marmarek@invisiblethingslab.com>
+References: <20240215164653.27210-1-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,38 +111,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240218013431.274451-1-marmarek@invisiblethingslab.com>
+In-Reply-To: <20240215164653.27210-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 18.02.2024 02:34, Marek Marczykowski-Górecki wrote:
-> @@ -1170,6 +1177,11 @@ static const struct ns16550_config __initconst uart_config[] =
->          .dev_id = 0x7adc,
->          .param = param_intel_lpss
->      },
-> +    {
-> +        .vendor_id = PCI_VENDOR_ID_ASIX,
-> +        .dev_id = 9100,
+On 15.02.2024 17:46, Roger Pau Monne wrote:
+> The feature is defined in the tertiary exec control, and is available starting
+> from Sapphire Rapids and Alder Lake CPUs.
+> 
+> When enabled, two extra VMCS fields are used: SPEC_CTRL mask and shadow.  Bits
+> set in mask are not allowed to be toggled by the guest (either set or clear)
+> and the value in the shadow field is the value the guest expects to be in the
+> SPEC_CTRL register.
+> 
+> By using it the hypervisor can force the value of SPEC_CTRL bits behind the
+> guest back without having to trap all accesses to SPEC_CTRL, note that no bits
+> are forced into the guest as part of this patch.  It also allows getting rid of
+> SPEC_CTRL in the guest MSR load list, since the value in the shadow field will
+> be loaded by the hardware on vmentry.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-As per Linux this is 0x9100.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> +        .param = param_asix_ax99100
-> +    },
->  };
->  
->  static int __init
-> diff --git a/xen/include/xen/pci_ids.h b/xen/include/xen/pci_ids.h
-> index e798477a7e23..2a19f4ab7872 100644
-> --- a/xen/include/xen/pci_ids.h
-> +++ b/xen/include/xen/pci_ids.h
-> @@ -11,3 +11,5 @@
->  #define PCI_VENDOR_ID_BROADCOM           0x14e4
->  
->  #define PCI_VENDOR_ID_INTEL              0x8086
-> +
-> +#define PCI_VENDOR_ID_ASIX               0x125b
 
-Please insert such that numeric sorting is retained.
-
-Jan
 
