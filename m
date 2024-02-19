@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D19E585A6E1
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 16:07:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.682965.1062242 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE21085A72B
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 16:15:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.682972.1062253 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc5E9-0008Hg-9b; Mon, 19 Feb 2024 15:06:41 +0000
+	id 1rc5MW-0002Kl-3z; Mon, 19 Feb 2024 15:15:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 682965.1062242; Mon, 19 Feb 2024 15:06:41 +0000
+Received: by outflank-mailman (output) from mailman id 682972.1062253; Mon, 19 Feb 2024 15:15:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc5E9-0008G3-6w; Mon, 19 Feb 2024 15:06:41 +0000
-Received: by outflank-mailman (input) for mailman id 682965;
- Mon, 19 Feb 2024 15:06:40 +0000
+	id 1rc5MW-0002J8-0V; Mon, 19 Feb 2024 15:15:20 +0000
+Received: by outflank-mailman (input) for mailman id 682972;
+ Mon, 19 Feb 2024 15:15:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SL20=J4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rc5E8-0008Fu-03
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 15:06:40 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3Bhz=J4=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rc5MV-0002Iz-3M
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 15:15:19 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7b3d7905-cf38-11ee-8a52-1f161083a0e0;
- Mon, 19 Feb 2024 16:06:39 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-33d5ec64351so324878f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 07:06:39 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bt21-20020a056000081500b0033d1f25b798sm10322896wrb.82.2024.02.19.07.06.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Feb 2024 07:06:37 -0800 (PST)
+ id afc02101-cf39-11ee-8a52-1f161083a0e0;
+ Mon, 19 Feb 2024 16:15:18 +0100 (CET)
+Received: from nico.bugseng.com (unknown [147.123.100.131])
+ by support.bugseng.com (Postfix) with ESMTPSA id 7A6884EE073A;
+ Mon, 19 Feb 2024 16:15:14 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +39,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b3d7905-cf38-11ee-8a52-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708355198; x=1708959998; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=D36QrkvcP0hG+KI2ygjRzaJwbdaS9gH77TGdUvrLq28=;
-        b=cnXX9PQbJr/rC+xFVxWkvHrizb+Veycloet5r2cFvgGy23qSktc8EBTOZ9F9dLP2I0
-         lIdPPQ4qYmMOF6v4AyxUYyjIePRefxXxecWsonYiwgoQ45hKBjLGa/cnAGx9jB64J4U7
-         l48XZcXvaGxDGy0nAHpbEZ22k6YlqouP9bfp7R/HBzDuUzPgomSiq+2rAb3XxxZDjcAv
-         PFlJxXxW8tav8VkgdroG0QprQ+MBp/p6IbuuPsENj2IOX4hL/plXHH6cPUlbDE02IoLO
-         EnK5zs4/O2uOKv+/K5Hl1fi97QRDnpY/av78s5iiQaCAsM1tv60rd9dvVvqTrQR7Ut8i
-         mXxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708355198; x=1708959998;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=D36QrkvcP0hG+KI2ygjRzaJwbdaS9gH77TGdUvrLq28=;
-        b=LqhYEzP29PxOJyPwzGuepk1E90UzsIpADcpKQpaTg7drIbBJJbljQw1RjC01MaYAoj
-         XqgfyNgL7lqPY6C+AATuhy9Sym1mJE1VsHIj3BRnb+0Zc7Lpf4kbgUFlKRC8KN7bhN4k
-         NKwmR6mgjZbWfvjEwIbf4oD4tIPHyIFtFqJPOO1NfNnnwulELMGdwAnRzOQhI5VyXiIp
-         ktVuNdR9nC7PLROPkeiVW8wKlcAn3kDt0z/BbOTJNI/J6ySStBFUOEsIZE8cC+OmWXlg
-         R9F0CnGVFnEl9rZwc9sQhAm9CZ4iGUQOPg9j4P/EO4JyETWLdSazANWU5yzTjT6YEkbk
-         9Fmw==
-X-Forwarded-Encrypted: i=1; AJvYcCU09G9Atza6+++CQVqJ8/JGe4j0zZgYc3HfhZ8ChBRB1eF+Wjx+nkKjGjynx8Tij7NftOV2jeIzKKsGXvRl7m5bjJLr+WLRwQkawvJGJVw=
-X-Gm-Message-State: AOJu0YzP/0/zuwplxjbM4Bw5jY9ws+HGYeTmrbiM3LUTQyZhrFnB+0NS
-	KemgWafI5j/QULU/YTWkzz6Q7xkNLhLvBSZuVrTfIAxxoBdStg0EUQ7HmdTcOA==
-X-Google-Smtp-Source: AGHT+IHHWw9BowhEJnek4kopE4MGu37ZQlbkOR8Ls49s+4kE4iJMw6fYUxjtKd6/DivPuRHKNdYmGA==
-X-Received: by 2002:adf:e80a:0:b0:33d:20ea:7a3a with SMTP id o10-20020adfe80a000000b0033d20ea7a3amr5199552wrm.27.1708355198263;
-        Mon, 19 Feb 2024 07:06:38 -0800 (PST)
-Message-ID: <4d2c5a69-4807-4af3-84c2-128d16ee2b43@suse.com>
-Date: Mon, 19 Feb 2024 16:06:37 +0100
+X-Inumbo-ID: afc02101-cf39-11ee-8a52-1f161083a0e0
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	jbeulich@suse.com,
+	andrew.cooper3@citrix.com,
+	roger.pau@citrix.com,
+	bertrand.marquis@arm.com,
+	julien@xen.org,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH] xen: cache clearing and invalidation helpers refactoring
+Date: Mon, 19 Feb 2024 16:14:52 +0100
+Message-Id: <cc6bf44701c808645c69bacaf4463295e2cb0fba.1708354388.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] automation/eclair: add deviation for MISRA C:2012
- Rule 16.3
-Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <b1d2b64c8117d61ea42cf4e9feae128541eb0b61.1708348799.git.federico.serafini@bugseng.com>
- <a6e8bd32-cc32-4084-907d-e2cd6d46e3e6@suse.com>
- <f28aed5e-0983-48fa-828f-b2133ca35086@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f28aed5e-0983-48fa-828f-b2133ca35086@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19.02.2024 15:59, Federico Serafini wrote:
-> On 19/02/24 14:43, Jan Beulich wrote:
->> On 19.02.2024 14:24, Federico Serafini wrote:
->>> Update ECLAIR configuration to consider safe switch clauses ending
->>> with __{get,put}_user_bad().
->>>
->>> Update docs/misra/deviations.rst accordingly.
->>>
->>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>
->> As mentioned I'm not happy with this, not the least because of it being
->> unclear why these two would be deviated, when there's no sign of a
->> similar deviation for, say, __bad_atomic_size(). Imo this approach
->> doesn't scale, and that's already leaving aside that the purpose of
->> identically named (pseudo-)helpers could differ between architectures,
->> thus putting under question ...
->>
->>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> @@ -368,6 +368,10 @@ safe."
->>>   -config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/BUG\\(\\);/))))"}
->>>   -doc_end
->>>   
->>> +-doc_begin="Switch clauses ending with constructs \"__get_user_bad()\" and \"__put_user_bad()\" are safe: they denote an unreachable program point."
->>> +-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/__(put|get)_user_bad\\(\\);/))))"}
->>> +-doc_end
->>
->> ... the global scope of such a deviation. While it may not be a good idea,
->> even within an arch such (pseudo-)helpers could be used for multiple
->> distinct purposes.
-> 
-> Would you agree with adding the missing break statement after
-> the uses of __{put,get}_user_bad() (as it is already happening for
-> uses of __bad_atomic_size())?
+The cache clearing and invalidation helpers in x86 and Arm didn't
+comply with MISRA C Rule 17.7: "The value returned by a function
+having non-void return type shall be used". On Arm they
+were always returning 0, while some in x86 returned -EOPNOTSUPP
+and in common/grant_table the return value is saved.
 
-I probably wouldn't mind that (despite being a little pointless).
-Perhaps declaring them as noreturn would also help?
+As a consequence, a common helper arch_grant_cache_flush that returns
+an integer is introduced, so that each architecture can choose whether to
+return an error value on certain conditions, and the helpers have either
+been changed to return void (on Arm) or deleted entirely (on x86).
 
-Jan
+Signed-off-by: Julien Grall <julien@xen.org>
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+The original refactor idea came from Julien Grall in [1]; I edited that proposal
+to fix build errors.
+
+I did introduce a cast to void for the call to flush_area_local on x86, because
+even before this patch the return value of that function wasn't checked in all
+but one use in x86/smp.c, and in this context the helper (perhaps incidentally)
+ignored the return value of flush_area_local.
+
+[1] https://lore.kernel.org/xen-devel/09589e8f-77b6-47f7-b5bd-cf485e4b60f1@xen.org/
+---
+ xen/arch/arm/include/asm/page.h     | 33 ++++++++++++++++++-----------
+ xen/arch/x86/include/asm/flushtlb.h | 23 ++++++++++----------
+ xen/common/grant_table.c            |  9 +-------
+ 3 files changed, 34 insertions(+), 31 deletions(-)
+
+diff --git a/xen/arch/arm/include/asm/page.h b/xen/arch/arm/include/asm/page.h
+index 69f817d1e68a..e90c9de3616e 100644
+--- a/xen/arch/arm/include/asm/page.h
++++ b/xen/arch/arm/include/asm/page.h
+@@ -123,6 +123,7 @@
+ 
+ #ifndef __ASSEMBLY__
+ 
++#include <public/grant_table.h>
+ #include <xen/errno.h>
+ #include <xen/types.h>
+ #include <xen/lib.h>
+@@ -159,13 +160,13 @@ static inline size_t read_dcache_line_bytes(void)
+  * if 'range' is large enough we might want to use model-specific
+  * full-cache flushes. */
+ 
+-static inline int invalidate_dcache_va_range(const void *p, unsigned long size)
++static inline void invalidate_dcache_va_range(const void *p, unsigned long size)
+ {
+     size_t cacheline_mask = dcache_line_bytes - 1;
+     unsigned long idx = 0;
+ 
+     if ( !size )
+-        return 0;
++        return;
+ 
+     /* Passing a region that wraps around is illegal */
+     ASSERT(((uintptr_t)p + size - 1) >= (uintptr_t)p);
+@@ -188,17 +189,15 @@ static inline int invalidate_dcache_va_range(const void *p, unsigned long size)
+         asm volatile (__clean_and_invalidate_dcache_one(0) : : "r" (p + idx));
+ 
+     dsb(sy);           /* So we know the flushes happen before continuing */
+-
+-    return 0;
+ }
+ 
+-static inline int clean_dcache_va_range(const void *p, unsigned long size)
++static inline void clean_dcache_va_range(const void *p, unsigned long size)
+ {
+     size_t cacheline_mask = dcache_line_bytes - 1;
+     unsigned long idx = 0;
+ 
+     if ( !size )
+-        return 0;
++        return;
+ 
+     /* Passing a region that wraps around is illegal */
+     ASSERT(((uintptr_t)p + size - 1) >= (uintptr_t)p);
+@@ -211,18 +210,16 @@ static inline int clean_dcache_va_range(const void *p, unsigned long size)
+             idx += dcache_line_bytes, size -= dcache_line_bytes )
+         asm volatile (__clean_dcache_one(0) : : "r" (p + idx));
+     dsb(sy);           /* So we know the flushes happen before continuing */
+-    /* ARM callers assume that dcache_* functions cannot fail. */
+-    return 0;
+ }
+ 
+-static inline int clean_and_invalidate_dcache_va_range
++static inline void clean_and_invalidate_dcache_va_range
+     (const void *p, unsigned long size)
+ {
+     size_t cacheline_mask = dcache_line_bytes - 1;
+     unsigned long idx = 0;
+ 
+     if ( !size )
+-        return 0;
++        return;
+ 
+     /* Passing a region that wraps around is illegal */
+     ASSERT(((uintptr_t)p + size - 1) >= (uintptr_t)p);
+@@ -235,8 +232,6 @@ static inline int clean_and_invalidate_dcache_va_range
+             idx += dcache_line_bytes, size -= dcache_line_bytes )
+         asm volatile (__clean_and_invalidate_dcache_one(0) : : "r" (p + idx));
+     dsb(sy);         /* So we know the flushes happen before continuing */
+-    /* ARM callers assume that dcache_* functions cannot fail. */
+-    return 0;
+ }
+ 
+ /* Macros for flushing a single small item.  The predicate is always
+@@ -266,6 +261,20 @@ static inline int clean_and_invalidate_dcache_va_range
+             : : "r" (_p), "m" (*_p));                                   \
+ } while (0)
+ 
++static inline int arch_grant_cache_flush(unsigned int op, const void *p,
++                                         unsigned long size)
++{
++    if ( (op & GNTTAB_CACHE_INVAL) && (op & GNTTAB_CACHE_CLEAN) )
++        clean_and_invalidate_dcache_va_range(p, size);
++    else if ( op & GNTTAB_CACHE_INVAL )
++        invalidate_dcache_va_range(p, size);
++    else if ( op & GNTTAB_CACHE_CLEAN )
++        clean_dcache_va_range(p, size);
++
++    /* ARM callers assume that dcache_* functions cannot fail. */
++    return 0;
++}
++
+ /*
+  * Write a pagetable entry.
+  *
+diff --git a/xen/arch/x86/include/asm/flushtlb.h b/xen/arch/x86/include/asm/flushtlb.h
+index bb0ad58db49b..c37bf4455714 100644
+--- a/xen/arch/x86/include/asm/flushtlb.h
++++ b/xen/arch/x86/include/asm/flushtlb.h
+@@ -10,6 +10,7 @@
+ #ifndef __FLUSHTLB_H__
+ #define __FLUSHTLB_H__
+ 
++#include <public/grant_table.h>
+ #include <xen/mm.h>
+ #include <xen/percpu.h>
+ #include <xen/smp.h>
+@@ -182,21 +183,21 @@ void flush_area_mask(const cpumask_t *mask, const void *va,
+ }
+ 
+ static inline void flush_page_to_ram(unsigned long mfn, bool sync_icache) {}
+-static inline int invalidate_dcache_va_range(const void *p,
+-                                             unsigned long size)
+-{ return -EOPNOTSUPP; }
+-static inline int clean_and_invalidate_dcache_va_range(const void *p,
+-                                                       unsigned long size)
++
++static inline int arch_grant_cache_flush(unsigned int op, const void *p,
++                                     unsigned long size)
+ {
+-    unsigned int order = get_order_from_bytes(size);
++    unsigned int order;
++
++    if ( !(op & GNTTAB_CACHE_CLEAN) )
++        return -EOPNOTSUPP;
++
++    order = get_order_from_bytes(size);
+     /* sub-page granularity support needs to be added if necessary */
+-    flush_area_local(p, FLUSH_CACHE|FLUSH_ORDER(order));
++    (void) flush_area_local(p, FLUSH_CACHE|FLUSH_ORDER(order));
++
+     return 0;
+ }
+-static inline int clean_dcache_va_range(const void *p, unsigned long size)
+-{
+-    return clean_and_invalidate_dcache_va_range(p, size);
+-}
+ 
+ unsigned int guest_flush_tlb_flags(const struct domain *d);
+ void guest_flush_tlb_mask(const struct domain *d, const cpumask_t *mask);
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index 5721eab22561..8615ea144bb3 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -3572,14 +3572,7 @@ static int _cache_flush(const gnttab_cache_flush_t *cflush, grant_ref_t *cur_ref
+     v = map_domain_page(mfn);
+     v += cflush->offset;
+ 
+-    if ( (cflush->op & GNTTAB_CACHE_INVAL) && (cflush->op & GNTTAB_CACHE_CLEAN) )
+-        ret = clean_and_invalidate_dcache_va_range(v, cflush->length);
+-    else if ( cflush->op & GNTTAB_CACHE_INVAL )
+-        ret = invalidate_dcache_va_range(v, cflush->length);
+-    else if ( cflush->op & GNTTAB_CACHE_CLEAN )
+-        ret = clean_dcache_va_range(v, cflush->length);
+-    else
+-        ret = 0;
++    ret = arch_grant_cache_flush(cflush->op, v, cflush->length);
+ 
+     if ( d != owner )
+     {
+-- 
+2.34.1
 
