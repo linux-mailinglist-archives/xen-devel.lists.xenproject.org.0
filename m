@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA82085A7EB
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 16:56:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683014.1062323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 114AD85A840
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 17:09:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683019.1062332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc60T-0005eG-II; Mon, 19 Feb 2024 15:56:37 +0000
+	id 1rc6Bv-0000CW-IV; Mon, 19 Feb 2024 16:08:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683014.1062323; Mon, 19 Feb 2024 15:56:37 +0000
+Received: by outflank-mailman (output) from mailman id 683019.1062332; Mon, 19 Feb 2024 16:08:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc60T-0005ck-F4; Mon, 19 Feb 2024 15:56:37 +0000
-Received: by outflank-mailman (input) for mailman id 683014;
- Mon, 19 Feb 2024 15:56:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rc6Bv-0000AH-Ff; Mon, 19 Feb 2024 16:08:27 +0000
+Received: by outflank-mailman (input) for mailman id 683019;
+ Mon, 19 Feb 2024 16:08:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SL20=J4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rc60S-0005ce-9x
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 15:56:36 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 74915824-cf3f-11ee-98f5-efadbce2ee36;
- Mon, 19 Feb 2024 16:56:34 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-33d146737e6so2690509f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 07:56:34 -0800 (PST)
+ id 1rc6Bu-0000AB-8m
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 16:08:26 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1c4f5b7b-cf41-11ee-8a52-1f161083a0e0;
+ Mon, 19 Feb 2024 17:08:25 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-33d375993f4so900309f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 08:08:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n6-20020a05600c3b8600b004126a6ee498sm1200844wms.12.2024.02.19.07.56.32
+ bt21-20020a056000081500b0033d1f25b798sm10491777wrb.82.2024.02.19.08.08.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Feb 2024 07:56:33 -0800 (PST)
+ Mon, 19 Feb 2024 08:08:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74915824-cf3f-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 1c4f5b7b-cf41-11ee-8a52-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708358193; x=1708962993; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
+        d=suse.com; s=google; t=1708358904; x=1708963704; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=HhzIvAJMiSakWdcNe2qM/9a4+obUP4RnoEcDydP1UWE=;
-        b=XlXxTiWHrkftE8QBcTsoqqA4prCH5ivFQFExEkRXkRnhhGFOeFCV4QwlI7pX1AjY1N
-         yLr44TC7QowFGwRQouIQAOIjQX8tJR9VQAdB+LnZ1v+vHsgfmoyaJ+KO1WrZ7hJz4THh
-         vFW7fXr3qoCZqru9hLngwszQhMLaTkmkBmPtvQUBeOk5AUahcrHSVGMLd7Krqz6MrJPn
-         XvRE7YDOngmJN6bZL+rqLG/5TkThi/jA3T2n/wPwPWtGOiPqW2MriKbRKsYBZE2MzZeK
-         Sks0zT4oJj0Gc5bji4aYGWoSKN35klQd8xRkAMzTjVOzPpRf11ATyiMLlwG7FYZlWBzd
-         qhBw==
+        bh=eGyhoNCsN0VjJKCpVFi0p3s4cXPK1xeHiJyUBzBdSZ8=;
+        b=eI3rfWnveYKHX51rnQ2aNNvOZC+XIJzW9XZEvVoPomzS5r4I63Nx8OIPXOu2D7gZxf
+         sELVsj2Wk+6MM9GH506aaoNplNjKIbR8kKQHSjVyym4/9ls5g6avZlFAkWZGUbwCOTW2
+         tPMk4Ia68jUfnNNVZX8aa8xidgN1Wkh8RjfEnnF4yeD+NZxWjQK+cil3zmtovYnnc0Xa
+         K/FYNjFdeA5ONbKw2FxM2eWBBPockcjB+PYMkjeSDiu/5YLxPPdr33NjU6jYbxpWJ3tU
+         p0yq/gpJ1+snBeat3YzLo/b7KawedmDSfeLAAHIajzfT0sAkqxh2ncPGRbmtgZIQHu0+
+         h8mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708358193; x=1708962993;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
+        d=1e100.net; s=20230601; t=1708358904; x=1708963704;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HhzIvAJMiSakWdcNe2qM/9a4+obUP4RnoEcDydP1UWE=;
-        b=DSx1LUTlnVVBk+uZ811g4ehynQ8UsB1sEeTIMf/bBrWo8AKHKnQWdS0SO0AGOmeoqS
-         dAVF29ST8BEPOLB18rWt1sBIN92Fio0rNAKw8W2PwwQ0GGl1vDabZB2SwBuMHgt2Oses
-         9vZXT00Htfd67MRCYnOebl0jtcdzsxRkQeiNw5ZHOonH+fdsQuW6YupWOYoB6WvWYjiD
-         g+Dx3b0yhGQZ92syrLBqXOi4GqNcBEHcJENQJtzk3BRhIsKVBuKyfDt0eu02MxTYtEml
-         dgkldlxNRfaCk7KLIiLJY7OCRh7rZhBAQfCNMciGzk4NR3x/DERs1BMZCcR1JleQEEtO
-         5rkw==
-X-Gm-Message-State: AOJu0Ywfl0WiZ8z1ug85Fdac3btYHYvWyAJ2oE5M5LuSJ1V1h7reQK6q
-	7xplTwQH6oCKQ4l6P+rPYyX2d2NSXgrCOp9Wul3XltxFxgY/ePrJj1hwalVHIA==
-X-Google-Smtp-Source: AGHT+IEKwQIuUouN3taz5um1itvhh1DN42BegZ52gZdb9Jmilkn2XmJUJtBdcdW21wMtIlw/ESms5Q==
-X-Received: by 2002:adf:ec02:0:b0:33d:2b23:5c4f with SMTP id x2-20020adfec02000000b0033d2b235c4fmr5537380wrn.66.1708358193676;
-        Mon, 19 Feb 2024 07:56:33 -0800 (PST)
-Message-ID: <801618fe-73fe-4d15-8e17-dd02e115cdf8@suse.com>
-Date: Mon, 19 Feb 2024 16:56:32 +0100
+        bh=eGyhoNCsN0VjJKCpVFi0p3s4cXPK1xeHiJyUBzBdSZ8=;
+        b=v17IvzQj7sPGzkz4Rk+tRwTt4y2muKbqwDo40qvhM5RwSB66Y+RfM7l4MLyBsN3p/0
+         1f5HO76Dm+9/MX0y4kEoPK6Z3mO5nwZp0oK7HauAiBlxLuEJ4zlgYjO1CKCheh1O+ZtV
+         8DruWJXRMzXSlsaTOyfhuAloI6xMwTpHpn3Unde7dHJxIedx/bIC7TDZncgHFjG2Mg3o
+         NE/3hTHM8piTAKNRanQLOZ8l2hsGboh6ufkvSuBUzGUvkCblM9gICnabMdhmScBHl06y
+         qrzsJbHOydnLmOkcqenya/gkZvp/nlkGdqx0eCUIROsbQg1CVpjhgoHa3plhJItcptnr
+         V1zg==
+X-Forwarded-Encrypted: i=1; AJvYcCXVxcK1igEHYh7RtaAhZDg1/KXWN4NjFImSXpACLYHsK7745qfUSUa7oKLZ9xyp9Qyfln4fdnMypM35oYH57bfhvLCCBeZaVsvUULUhnVs=
+X-Gm-Message-State: AOJu0YxGZO4vYElowLzpk+obwCLkxM7GKzBUI6qkQc2lwypkpEL77s5a
+	i0pqiDqJlYSo9tkHp/1/i04l2M4J6qyloH2Yor4OdQleblyY3+F7K6VCKzCWLw==
+X-Google-Smtp-Source: AGHT+IFbKdqg15TUi8M6wCUX9+ImM6WyX0HUV+RhP43wcofJ7nild58zo9bHMVUw0VLN+ZkAfGGcUg==
+X-Received: by 2002:a05:6000:1e86:b0:33d:34a9:902f with SMTP id dd6-20020a0560001e8600b0033d34a9902fmr3955786wrb.36.1708358904618;
+        Mon, 19 Feb 2024 08:08:24 -0800 (PST)
+Message-ID: <046575d2-bc39-4b0e-a656-c501ee1ae4e6@suse.com>
+Date: Mon, 19 Feb 2024 17:08:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] nestedsvm: Remove bogus debug message from
- nestedsvm_check_intercepts
+Subject: Re: [PATCH 3/6] xen/hvm: Move other hvm_function_table booleans into
+ the caps bitfield
 Content-Language: en-US
 To: George Dunlap <george.dunlap@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
 References: <20240206012051.3564035-1-george.dunlap@cloud.com>
- <20240206012051.3564035-6-george.dunlap@cloud.com>
-Cc: xen-devel@lists.xenproject.org
+ <20240206012051.3564035-4-george.dunlap@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,29 +114,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240206012051.3564035-6-george.dunlap@cloud.com>
+In-Reply-To: <20240206012051.3564035-4-george.dunlap@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 06.02.2024 02:20, George Dunlap wrote:
-> Changeset ef3e8db8068 ("x86/hvm: Corrections and improvements to
-> unhandled vmexit logging") introduced a printk to the default path of
-> the switch statement in nestedsvm_check_intercepts(), complaining of
-> an unknown exit reason.
-> 
-> Unfortunately, the "core" switch statement which is meant to handle
-> all vmexit reasons is in nsvm_vmcb_guest_intercepts_exitcode(); the
-> switch statement in nestedsvm_check_intercepts() is only meant to
-> superimpose on top of that some special-casing for how to interaction
-> between L1 and L0 vmexits.
-> 
-> Remove the printk, and add a comment to prevent future confusion.
-> 
-> Signed-off-by: George Dunlap <george.dunlap@cloud.com>
+> --- a/xen/arch/x86/include/asm/hvm/hvm.h
+> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
+> @@ -86,20 +86,19 @@ struct hvm_vcpu_nonreg_state {
+>  struct hvm_function_table {
+>      const char *name;
+>  
+> -    /* Support Hardware-Assisted Paging? */
+> -    bool hap_supported;
+> -
+> -    /* Necessary hardware support for alternate p2m's? */
+> -    bool altp2m_supported;
+> -    bool singlestep_supported;
+> -
+> -    /* Hardware virtual interrupt delivery enable? */
+> -    bool virtual_intr_delivery_enabled;
+> -
+>      struct {
+>          /* Indicate HAP capabilities. */
+> -        bool hap_superpage_1gb:1,
+> -            hap_superpage_2mb:1;
+> +        bool hap:1,
+> +             hap_superpage_1gb:1,
+> +             hap_superpage_2mb:1,
+> +
+> +            /* Altp2m capabilities */
+> +            altp2m:1,
+> +            singlestep:1,
+> +            
+> +            /* Hardware virtual interrupt delivery enable? */
+> +            virtual_intr_delivery;
+> +
+>      } caps;
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-I wonder if a Fixes: tag is warranted here.
+Nit (spotted only while looking at patch 6): You're adding a stray blank
+line at the end of the structure. Further I expect virtual_intr_delivery
+would also want to be just a single bit?
 
 Jan
 
