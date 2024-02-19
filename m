@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8FF985A8E1
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 17:26:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683026.1062342 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A303A85AA66
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Feb 2024 18:53:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683039.1062358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc6SY-0003tW-2f; Mon, 19 Feb 2024 16:25:38 +0000
+	id 1rc7oN-0007Rx-6m; Mon, 19 Feb 2024 17:52:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683026.1062342; Mon, 19 Feb 2024 16:25:38 +0000
+Received: by outflank-mailman (output) from mailman id 683039.1062358; Mon, 19 Feb 2024 17:52:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rc6SY-0003rD-04; Mon, 19 Feb 2024 16:25:38 +0000
-Received: by outflank-mailman (input) for mailman id 683026;
- Mon, 19 Feb 2024 16:25:36 +0000
+	id 1rc7oN-0007Q7-3z; Mon, 19 Feb 2024 17:52:15 +0000
+Received: by outflank-mailman (input) for mailman id 683039;
+ Mon, 19 Feb 2024 17:52:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SL20=J4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rc6SW-0003r7-K8
- for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 16:25:36 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 82452733-cf43-11ee-8a52-1f161083a0e0;
- Mon, 19 Feb 2024 17:25:35 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4125cf71eecso14527265e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 19 Feb 2024 08:25:35 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- y21-20020a05600c20d500b0041044e130bfsm11613758wmm.33.2024.02.19.08.25.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Feb 2024 08:25:34 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NWwU=J4=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1rc7oL-0007Q1-Ba
+ for xen-devel@lists.xenproject.org; Mon, 19 Feb 2024 17:52:13 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9aa8d64f-cf4f-11ee-8a52-1f161083a0e0;
+ Mon, 19 Feb 2024 18:52:11 +0100 (CET)
+Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1708365125938180.04530272200873;
+ Mon, 19 Feb 2024 09:52:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,192 +40,320 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82452733-cf43-11ee-8a52-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708359934; x=1708964734; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=+KyLwGj6vFDAiGJSuAGHwa4trOZDeOAdto4sZpeY4CE=;
-        b=F0Rm3OZJBDned01k9hZNv9nWCV/xot8KZ1VQBAVqRdSeY+YfWnw9TDMX+oKdfr+XFH
-         t8H/TcuOs6Ncm8x5+h38QgGGB7v2byzACmkGCnC6L1g/7waWDM1RQ89VRHr/APnWHAcF
-         l3DYvlG4gzhFecCIPOua+M+GJP7mnk+gZCp9T8gNApZDR5oPgPOr7Auwm4ooTD0Kpeup
-         yDIhRRRjBLRCu+991CfsOak6YKmNkP5HObtL3gfTfMbi03+f0woOLjI8Wqwi4D/NFatQ
-         F9xAEWZhMkYLA0pcS/EcXpJqGMXI6B43zi/ZRgZryoju+Z1M50vy9QiwdeFjEh8XOCgw
-         YDgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708359934; x=1708964734;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+KyLwGj6vFDAiGJSuAGHwa4trOZDeOAdto4sZpeY4CE=;
-        b=CV2DxcfWHUMPAbPksQYDWBbMLK7sjNxp7xm+je8j8M940MNn9Xn9oStZOL73/rPsdM
-         7tGkl7Z0yJsfK0IKnrilKw/HD5MBGGF90M6dILFV5owzpbxW4cf4jaFgwc4vu04qHpQW
-         eEhZziod5iZtCTYHFpujde5QdnUfu9R2Z2xax2kPD3VkAOCMSaCh21d5OpvwsYhmKrve
-         BGB+2bvh67ZWtD+K5XhcWV1w23zC9+8yi0z7P5SLng89oZGfvc3qnQl2Ld56cDWbATBM
-         nMs8Kg9tqUPDSgViAFMqMH8+KilM4pmGRFVCj5BqM3lK7pM/E03AmuBUmZmCbxbornw9
-         /Umg==
-X-Forwarded-Encrypted: i=1; AJvYcCWuR6qYHbhI6nqI4I790iNlCcX03oNmfXbjCwyWuq8PWLI2cdsYWqB5vnzfiLj0sUOxkJZNKJwbrgmFcXepmxHo4HKJP7B4thcOLlWyHLY=
-X-Gm-Message-State: AOJu0YwFDSUKVH6ktQUnzFPR5s+LxkVwq+g0QrbVw053os8Qrxj4Pfxe
-	mOhpE7E64kqpi7p4CCx1nPtjrJK4/xMiYZn8I9WZSbrA3kS8FX7oJ9HQ+X4SAQ==
-X-Google-Smtp-Source: AGHT+IGzRA0VBYAkCzGHilQZlODScbSJu0Gt9LaysinnC4MnlqMGhkXyrllUcjGk/8usWkIynsJu2g==
-X-Received: by 2002:a05:600c:4588:b0:411:e0f0:7a71 with SMTP id r8-20020a05600c458800b00411e0f07a71mr9902390wmo.33.1708359934636;
-        Mon, 19 Feb 2024 08:25:34 -0800 (PST)
-Message-ID: <8ee35193-9715-4c4b-a1cb-11af04c4dab9@suse.com>
-Date: Mon, 19 Feb 2024 17:25:33 +0100
+X-Inumbo-ID: 9aa8d64f-cf4f-11ee-8a52-1f161083a0e0
+ARC-Seal: i=1; a=rsa-sha256; t=1708365127; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Zt2wcJXe+Uv2oiS/Iifc1MUwJwR1StTVZ+TbSqX+G9xrgqNtWuVr744AIty7y32SvFy/at5Fy9Va9YRYJgSCxq1iHlRb8xGH10RBofDb6NMzpThSbIK7JrteB7b8CHvNgxkoa8EG4vFEkXO42MYiqnwgssxhmRhYAOJ6lnYWCKo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1708365127; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=TNQCLfA9htVpZRkeHZ4Mx7K1oaIJNW/iB3pExkroJRY=; 
+	b=HRjVfZApxr8sa+U/svyywHMuwEaQwBaKdFa6risaXSIzTN7bOh0Q5coBjm4lOAjYRtzGMo1eva6bJMhWZ/eKukIzGLuQBYFWXCvhezrQRhk4yBFvYfOkCPoxW1Nzi4AGMqK/4AuScK5k2AAcgCUNlxTGmSpVhx4YKBWFLUsRqho=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1708365127;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Content-Type:Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Message-Id:Reply-To;
+	bh=TNQCLfA9htVpZRkeHZ4Mx7K1oaIJNW/iB3pExkroJRY=;
+	b=FbSPP8GyIpQO0ZnpcWjSs7Eo2bJwmNMboPij0I+co++OpDNk8Yr33pPRBi08M/Gw
+	87dzIhJd9DG8Z8liY9SjAACt2x8g1RnVG9BxRdGfw7Klz5JzqpaXaEEnqu6tpJKqA5K
+	k5eqfWvDlG/72Pjj3QIyy5w9ag+44vbmPda1/McM=
+Content-Type: multipart/alternative;
+ boundary="------------Ho0E0BJPwP6Bi1nFFQEaejQ2"
+Message-ID: <b6bf7430-80d6-4d02-a032-ed08a5ee1b10@apertussolutions.com>
+Date: Mon, 19 Feb 2024 12:52:03 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] svm/nestedvm: Introduce nested capabilities bit
+Subject: Re: [PATCH v2] Constify some parameters
 Content-Language: en-US
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+To: Frediano Ziglio <frediano.ziglio@cloud.com>,
  xen-devel@lists.xenproject.org
-References: <20240206012051.3564035-1-george.dunlap@cloud.com>
- <20240206012051.3564035-7-george.dunlap@cloud.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240206012051.3564035-7-george.dunlap@cloud.com>
-Content-Type: text/plain; charset=UTF-8
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>
+References: <20240214094734.13533-1-frediano.ziglio@cloud.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ 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
+In-Reply-To: <20240214094734.13533-1-frediano.ziglio@cloud.com>
+X-ZohoMailClient: External
+
+This is a multi-part message in MIME format.
+--------------Ho0E0BJPwP6Bi1nFFQEaejQ2
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 06.02.2024 02:20, George Dunlap wrote:
-> --- /dev/null
-> +++ b/docs/designs/nested-svm-cpu-features.md
-> @@ -0,0 +1,110 @@
-> +# Nested SVM (AMD) CPUID requirements
-> +
-> +The first step in making nested SVM production-ready is to make sure
-> +that all features are implemented and well-tested.  To make this
-> +tractable, we will initially be limiting the "supported" range of
-> +nested virt to a specific subset of host and guest features.  This
-> +document describes the criteria for deciding on features, and the
-> +rationale behind each feature.
-> +
-> +For AMD, all virtualization-related features can be found in CPUID
-> +leaf 8000000A:edx
-> +
-> +# Criteria
-> +
-> +- Processor support: At a minimum we want to support processors from
-> +  the last 5 years.  All things being equal, older processors are
-> +  better.
+For XSM changes,
 
-Nit: Perhaps missing "covering"? Generally I hope newer processors are
-"better".
+Ack-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
->  Bits 0:7 were available in the very earliest processors;
-> +  and even through bit 15 we should be pretty good support-wise.
-> +
-> +- Faithfulness to hardware: We need the behavior of the "virtual cpu"
-> +  from the L1 hypervisor's perspective to be as close as possible to
-> +  the original hardware.  In particular, the behavior of the hardware
-> +  on error paths 1) is not easy to understand or test, 2) can be the
-> +  source of surprising vulnerabiliies.  (See XSA-7 for an example of a
-> +  case where subtle error-handling differences can open up a privilege
-> +  escalation.)  We should avoid emulating any bit of the hardware with
-> +  complex error paths if we can at all help it.
-> +
-> +- Cost of implementation: We want to minimize the cost of
-> +  implementation (where this includes bringing an existing sub-par
-> +  implementation up to speed).  All things being equal, we'll favor a
-> +  configuration which does not require any new implementation.
-> +
-> +- Performance: All things being equal, we'd prefer to choose a set of
-> +  L0 / L1 CPUID bits that are faster than slower.
-> +
-> +
-> +# Bits
-> +
-> +- 0 `NP` *Nested Paging*: Required both for L0 and L1.
-> +
-> +  Based primarily on faithfulness and performance, as well as
-> +  potential cost of implementation.  Available on earliest hardware,
-> +  so no compatibility issues.
-> +
-> +- 1 `LbrVirt` *LBR / debugging virtualization*: Require for L0 and L1.
-> +
-> +  For L0 this is required for performance: There's no way to tell the
-> +  guests not to use the LBR-related registers; and if the guest does,
-> +  then you have to save and restore all LBR-related registers on
-> +  context switch, which is prohibitive.
+V/r,
+Daniel P. Smith
+Apertus Solutions, LLC
 
-"prohibitive" is too strong imo; maybe "undesirable"?
+On 2/14/24 04:47, Frediano Ziglio wrote:
+> Make clear they are not changed in the functions.
+>
+> Signed-off-by: Frediano Ziglio<frediano.ziglio@cloud.com>
+> Reviewed-by: Jan Beulich<jbeulich@suse.com>
+> --
+> v2:
+> - fixed typo in commit message.
+> ---
+>   xen/arch/x86/pv/callback.c | 4 ++--
+>   xen/common/sched/compat.c  | 2 +-
+>   xen/common/sched/core.c    | 2 +-
+>   xen/xsm/flask/flask_op.c   | 8 ++++----
+>   4 files changed, 8 insertions(+), 8 deletions(-)
+>
+> diff --git a/xen/arch/x86/pv/callback.c b/xen/arch/x86/pv/callback.c
+> index 17829304fe..caec4fb16f 100644
+> --- a/xen/arch/x86/pv/callback.c
+> +++ b/xen/arch/x86/pv/callback.c
+> @@ -48,7 +48,7 @@ static void unregister_guest_nmi_callback(void)
+>       memset(t, 0, sizeof(*t));
+>   }
+>   
+> -static long register_guest_callback(struct callback_register *reg)
+> +static long register_guest_callback(const struct callback_register *reg)
+>   {
+>       long ret = 0;
+>       struct vcpu *curr = current;
+> @@ -102,7 +102,7 @@ static long register_guest_callback(struct callback_register *reg)
+>       return ret;
+>   }
+>   
+> -static long unregister_guest_callback(struct callback_unregister *unreg)
+> +static long unregister_guest_callback(const struct callback_unregister *unreg)
+>   {
+>       long ret;
+>   
+> diff --git a/xen/common/sched/compat.c b/xen/common/sched/compat.c
+> index dd97593630..a02204ec9a 100644
+> --- a/xen/common/sched/compat.c
+> +++ b/xen/common/sched/compat.c
+> @@ -26,7 +26,7 @@ CHECK_sched_shutdown;
+>   CHECK_sched_remote_shutdown;
+>   #undef xen_sched_remote_shutdown
+>   
+> -static int compat_poll(struct compat_sched_poll *compat)
+> +static int compat_poll(const struct compat_sched_poll *compat)
+>   {
+>       struct sched_poll native;
+>   
+> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+> index d177c675c8..c5db373972 100644
+> --- a/xen/common/sched/core.c
+> +++ b/xen/common/sched/core.c
+> @@ -1431,7 +1431,7 @@ static void vcpu_block_enable_events(void)
+>       vcpu_block();
+>   }
+>   
+> -static long do_poll(struct sched_poll *sched_poll)
+> +static long do_poll(const struct sched_poll *sched_poll)
+>   {
+>       struct vcpu   *v = current;
+>       struct domain *d = v->domain;
+> diff --git a/xen/xsm/flask/flask_op.c b/xen/xsm/flask/flask_op.c
+> index b866e8d05f..ea7dd10dc8 100644
+> --- a/xen/xsm/flask/flask_op.c
+> +++ b/xen/xsm/flask/flask_op.c
+> @@ -469,7 +469,7 @@ static int flask_security_load(struct xen_flask_load *load)
+>       return ret;
+>   }
+>   
+> -static int flask_devicetree_label(struct xen_flask_devicetree_label *arg)
+> +static int flask_devicetree_label(const struct xen_flask_devicetree_label *arg)
+>   {
+>       int rv;
+>       char *buf;
+> @@ -492,7 +492,7 @@ static int flask_devicetree_label(struct xen_flask_devicetree_label *arg)
+>   
+>   #ifndef COMPAT
+>   
+> -static int flask_ocontext_del(struct xen_flask_ocontext *arg)
+> +static int flask_ocontext_del(const struct xen_flask_ocontext *arg)
+>   {
+>       int rv;
+>   
+> @@ -506,7 +506,7 @@ static int flask_ocontext_del(struct xen_flask_ocontext *arg)
+>       return security_ocontext_del(arg->ocon, arg->low, arg->high);
+>   }
+>   
+> -static int flask_ocontext_add(struct xen_flask_ocontext *arg)
+> +static int flask_ocontext_add(const struct xen_flask_ocontext *arg)
+>   {
+>       int rv;
+>   
+> @@ -550,7 +550,7 @@ static int flask_get_peer_sid(struct xen_flask_peersid *arg)
+>       return rv;
+>   }
+>   
+> -static int flask_relabel_domain(struct xen_flask_relabel *arg)
+> +static int flask_relabel_domain(const struct xen_flask_relabel *arg)
+>   {
+>       int rc;
+>       struct domain *d;
+--------------Ho0E0BJPwP6Bi1nFFQEaejQ2
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> --- a/xen/arch/x86/hvm/svm/nestedhvm.h
-> +++ b/xen/arch/x86/hvm/svm/nestedhvm.h
-> @@ -35,6 +35,7 @@ enum nestedhvm_vmexits
->  nestedsvm_check_intercepts(struct vcpu *v, struct cpu_user_regs *regs,
->      uint64_t exitcode);
->  void svm_nested_features_on_efer_update(struct vcpu *v);
-> +void __init start_nested_svm(struct hvm_function_table *svm_function_table);
+<!DOCTYPE html>
+<html data-lt-installed="true">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>For XSM changes,<br>
+      <br>
+      Ack-by: Daniel P. Smith <a class="moz-txt-link-rfc2396E" href="mailto:dpsmith@apertussolutions.com">&lt;dpsmith@apertussolutions.com&gt;</a><br>
+    </p>
+    <pre class="moz-signature" cols="72">V/r,
+Daniel P. Smith
+Apertus Solutions, LLC</pre>
+    <div class="moz-cite-prefix">On 2/14/24 04:47, Frediano Ziglio
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20240214094734.13533-1-frediano.ziglio@cloud.com">
+      <pre class="moz-quote-pre" wrap="">Make clear they are not changed in the functions.
 
-No section placement attributes on declarations, please.
+Signed-off-by: Frediano Ziglio <a class="moz-txt-link-rfc2396E" href="mailto:frediano.ziglio@cloud.com">&lt;frediano.ziglio@cloud.com&gt;</a>
+Reviewed-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+--
+v2:
+- fixed typo in commit message.
+---
+ xen/arch/x86/pv/callback.c | 4 ++--
+ xen/common/sched/compat.c  | 2 +-
+ xen/common/sched/core.c    | 2 +-
+ xen/xsm/flask/flask_op.c   | 8 ++++----
+ 4 files changed, 8 insertions(+), 8 deletions(-)
 
-> --- a/xen/arch/x86/hvm/svm/nestedsvm.c
-> +++ b/xen/arch/x86/hvm/svm/nestedsvm.c
-> @@ -1666,3 +1666,17 @@ void svm_nested_features_on_efer_update(struct vcpu *v)
->          }
->      }
->  }
-> +
-> +void __init start_nested_svm(struct hvm_function_table *svm_function_table)
-> +{
-> +    /* 
-> +     * Required host functionality to support nested virt.  See
-> +     * docs/designs/nested-svm-cpu-features.md for rationale.
-> +     */
-> +    svm_function_table->caps.nested_virt =
-> +        cpu_has_svm_nrips &&
-> +        cpu_has_svm_lbrv &&
-> +        cpu_has_svm_nrips &&
+diff --git a/xen/arch/x86/pv/callback.c b/xen/arch/x86/pv/callback.c
+index 17829304fe..caec4fb16f 100644
+--- a/xen/arch/x86/pv/callback.c
++++ b/xen/arch/x86/pv/callback.c
+@@ -48,7 +48,7 @@ static void unregister_guest_nmi_callback(void)
+     memset(t, 0, sizeof(*t));
+ }
+ 
+-static long register_guest_callback(struct callback_register *reg)
++static long register_guest_callback(const struct callback_register *reg)
+ {
+     long ret = 0;
+     struct vcpu *curr = current;
+@@ -102,7 +102,7 @@ static long register_guest_callback(struct callback_register *reg)
+     return ret;
+ }
+ 
+-static long unregister_guest_callback(struct callback_unregister *unreg)
++static long unregister_guest_callback(const struct callback_unregister *unreg)
+ {
+     long ret;
+ 
+diff --git a/xen/common/sched/compat.c b/xen/common/sched/compat.c
+index dd97593630..a02204ec9a 100644
+--- a/xen/common/sched/compat.c
++++ b/xen/common/sched/compat.c
+@@ -26,7 +26,7 @@ CHECK_sched_shutdown;
+ CHECK_sched_remote_shutdown;
+ #undef xen_sched_remote_shutdown
+ 
+-static int compat_poll(struct compat_sched_poll *compat)
++static int compat_poll(const struct compat_sched_poll *compat)
+ {
+     struct sched_poll native;
+ 
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index d177c675c8..c5db373972 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -1431,7 +1431,7 @@ static void vcpu_block_enable_events(void)
+     vcpu_block();
+ }
+ 
+-static long do_poll(struct sched_poll *sched_poll)
++static long do_poll(const struct sched_poll *sched_poll)
+ {
+     struct vcpu   *v = current;
+     struct domain *d = v-&gt;domain;
+diff --git a/xen/xsm/flask/flask_op.c b/xen/xsm/flask/flask_op.c
+index b866e8d05f..ea7dd10dc8 100644
+--- a/xen/xsm/flask/flask_op.c
++++ b/xen/xsm/flask/flask_op.c
+@@ -469,7 +469,7 @@ static int flask_security_load(struct xen_flask_load *load)
+     return ret;
+ }
+ 
+-static int flask_devicetree_label(struct xen_flask_devicetree_label *arg)
++static int flask_devicetree_label(const struct xen_flask_devicetree_label *arg)
+ {
+     int rv;
+     char *buf;
+@@ -492,7 +492,7 @@ static int flask_devicetree_label(struct xen_flask_devicetree_label *arg)
+ 
+ #ifndef COMPAT
+ 
+-static int flask_ocontext_del(struct xen_flask_ocontext *arg)
++static int flask_ocontext_del(const struct xen_flask_ocontext *arg)
+ {
+     int rv;
+ 
+@@ -506,7 +506,7 @@ static int flask_ocontext_del(struct xen_flask_ocontext *arg)
+     return security_ocontext_del(arg-&gt;ocon, arg-&gt;low, arg-&gt;high);
+ }
+ 
+-static int flask_ocontext_add(struct xen_flask_ocontext *arg)
++static int flask_ocontext_add(const struct xen_flask_ocontext *arg)
+ {
+     int rv;
+ 
+@@ -550,7 +550,7 @@ static int flask_get_peer_sid(struct xen_flask_peersid *arg)
+     return rv;
+ }
+ 
+-static int flask_relabel_domain(struct xen_flask_relabel *arg)
++static int flask_relabel_domain(const struct xen_flask_relabel *arg)
+ {
+     int rc;
+     struct domain *d;
+</pre>
+    </blockquote>
+  </body>
+  <lt-container></lt-container>
+</html>
 
-nrips twice? Was the earlier one meant to be npt?
-
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -3021,6 +3021,9 @@ const struct hvm_function_table * __init start_vmx(void)
->      if ( cpu_has_vmx_tsc_scaling )
->          vmx_function_table.tsc_scaling.ratio_frac_bits = 48;
->  
-> +    /* TODO: Require hardware support before enabling nested virt */
-> +    vmx_function_table.caps.nested_virt = vmx_function_table.caps.hap;
-
-This won't have the intended effect if hap_supported() ends up clearing
-the bit (used as input here) due to a command line option override. I
-wonder if instead this wants doing e.g. in a new hook to be called from
-nestedhvm_setup(). On the SVM side the hook function would then be the
-start_nested_svm() that you already introduce, with a caps.hap check
-added.
-
-Since you leave the other nested-related if() in place in
-arch_sanitise_domain_config(), all ought to be well, but I think that
-other if() really wants replacing by the one you presently add.
-
-Jan
+--------------Ho0E0BJPwP6Bi1nFFQEaejQ2--
 
