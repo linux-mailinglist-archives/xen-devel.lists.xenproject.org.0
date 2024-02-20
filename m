@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5872785B620
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 09:56:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683290.1062760 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11EF785B62D
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 09:56:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683305.1062770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcLuy-0005Xg-Ob; Tue, 20 Feb 2024 08:56:00 +0000
+	id 1rcLvS-000660-3N; Tue, 20 Feb 2024 08:56:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683290.1062760; Tue, 20 Feb 2024 08:56:00 +0000
+Received: by outflank-mailman (output) from mailman id 683305.1062770; Tue, 20 Feb 2024 08:56:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcLuy-0005Ut-Kk; Tue, 20 Feb 2024 08:56:00 +0000
-Received: by outflank-mailman (input) for mailman id 683290;
- Tue, 20 Feb 2024 08:55:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rcLvS-00064S-0e; Tue, 20 Feb 2024 08:56:30 +0000
+Received: by outflank-mailman (input) for mailman id 683305;
+ Tue, 20 Feb 2024 08:56:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YSgb=J5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rcLuw-0005Lw-Fu
- for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 08:55:58 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dc286481-cfcd-11ee-98f5-efadbce2ee36;
- Tue, 20 Feb 2024 09:55:56 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-33d26da3e15so1862341f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 00:55:56 -0800 (PST)
+ id 1rcLvR-0005pz-97
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 08:56:29 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ef22c0a5-cfcd-11ee-8a52-1f161083a0e0;
+ Tue, 20 Feb 2024 09:56:28 +0100 (CET)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2d247c31e1aso5044261fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 00:56:28 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- w14-20020adfcd0e000000b0033d14c96ec1sm12607957wrm.45.2024.02.20.00.55.55
+ w14-20020adfcd0e000000b0033d14c96ec1sm12607957wrm.45.2024.02.20.00.56.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Feb 2024 00:55:55 -0800 (PST)
+ Tue, 20 Feb 2024 00:56:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc286481-cfcd-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: ef22c0a5-cfcd-11ee-8a52-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708419356; x=1709024156; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708419388; x=1709024188; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vY7h+x/uY/tx4SThVUK3+EyH+28fbreju2/f4B+vk7s=;
-        b=TgP4aljbe6DfV4p0ep0ppvmPhxn1dZI8yfesFfFAuzJY7l58BNSXm8YsPp4onKU9xH
-         OYGtr05GquwA3P4XMq5a2Rt0VGBroX2/Wttx4lQ/EluiqH4pYRgg8ktuhEWcCT9pgM3c
-         6h7ZSAEeaTzRIlxDUZ1KgqHsbSBgACz+s1gKbhXNc+U+6Hb6O+KOyz+z9lEdkDPUg1Z/
-         reuDmfYHWJ2Wz9pEB5kXL+vaONiIBxfDMKaNmaLSrpUXBQSZhDtkGqpUf9hRydoagcW5
-         CWqhgIjZS0b8sqz25tzUMXZTv3V2/OUPR9MRzmJZhijDw/kdfzW5JgFfagqDX0zDZ09s
-         eakw==
+        bh=UDhUrA6tM7xm4y+MMtOUTP3hYExqNaG8GAdW+v0Ujq4=;
+        b=bqbyqfPzkmlEAMEMfFq7iuZMpyQVhgIkQz2bT2TbguG9hCjXBC/BIrXFrUCYLiMYjZ
+         KQE0MxieGFyVxZVianpSNDqhA7KFK98d7OUcH7t5eEIC+tnxL0MRccthFQcwedDyHNz7
+         vW5fG/QTRIFTgnjU4XdrXrdH8TLjNHCODFLrH/ITyg1ECk7fMdE3lbaCsCdg7kFWzMfD
+         c+Q+2I3UZ4Z9zgvc9x5SfROb0weIQ/PB63yLziHZ4iD60FJT0hw6dnbDdMt4c4M5ed3m
+         eltGbuhVGdBekDipxih3dyWzgb1l2mXJ4nSwY9Y4xr9520jo7x2MYXqIF/Y/r1oRkLpK
+         PFeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708419356; x=1709024156;
+        d=1e100.net; s=20230601; t=1708419388; x=1709024188;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=vY7h+x/uY/tx4SThVUK3+EyH+28fbreju2/f4B+vk7s=;
-        b=cbYcWVoCFohYSIEnymwoINrssjSa3ZO9ROWCLdEfo1yEF8TIHzpxU1Rm8uwuU/gxTf
-         xUsvX//yumZhSuN3EoQGtno5VSxnMyKsR8hfJAuiKJZ+x9Q7GhgqHifKKDhdrmq/T0Wp
-         gwzVoiMpqpdBQGHfIS/ycJbPApOmD+xMUfLqAkg9M1A0bRL8bbozdlqu1YAajGeCinLp
-         58cNT1SSmJQPNQoxB8p7jjbZ1Ul0RVUElkg1TZiWNalLzgIGKI1iJhXlMS3e1tEIj9OS
-         HvPTKw0B9L8ALMwc/rsGyyoSdHQu+lqX2XNuiEYpx0tKigDpHTR9NzOfAMBqq6OS9hTc
-         rgsA==
-X-Gm-Message-State: AOJu0YxiH3HccmOk/ZG+Jj4FswptzZESgtjJwngVHGDEsWUd8gyyclCR
-	Lcd6atobzxLXIKIW8xCJzeeBBpq1CViZCUmlGI4Q3AlIVuBWqBhsRmTSH7X4bwQH3AFxpchMZEk
+        bh=UDhUrA6tM7xm4y+MMtOUTP3hYExqNaG8GAdW+v0Ujq4=;
+        b=oWAlPuU8ujHHBImbaCzUlTXYJ2vm+GS0uYI4DH9kTab+UZ/eBD430kE6Ibr9WC6FVD
+         0fT9ygmvEwy6O7XUKMlmyncFyvolYgJmK7NI2zO4ISxF38BWZovJ5eXZ66X6vOjMbBjH
+         65V3kE3VQtX6tQ7xqVjvvmSArnOj6fe4er2oE3J2VRGn95bhDZhSrM9x4nqmyr2t6Eju
+         1mCY8u+q7nPAxdROsd+2oZbDjJVZ2MHhNf9eEFhK7kD39jFgDtDIaPw7mGOjYkm4jTNe
+         NpQQ9FK5KDbLJSXJxkObGpr9aiTpJYnKvlfHGMfzPgrsf1gGihKKNEUrddnPtRD+F3OJ
+         3UfA==
+X-Gm-Message-State: AOJu0Yxm/OquBhVDCRLVV8olqcnEAV650vITpQypFJJ1GEJxJq2DD8/D
+	+5UNmMpLZVmRHcXBu23s8aM/pmRCxvYb7byt42lDaea9u1YRqSRmtHZwinCUwdG0SAE+xtPrYfE
 	=
-X-Google-Smtp-Source: AGHT+IGHn4367SFgbvnMktpZZ1dQ1rWBIxFaDsWpXzI8tbcOjs3bL2NkuZwGgf/P4Aurp9SWp8nsLA==
-X-Received: by 2002:a5d:5345:0:b0:33d:1bd1:8ae2 with SMTP id t5-20020a5d5345000000b0033d1bd18ae2mr9444079wrv.19.1708419355920;
-        Tue, 20 Feb 2024 00:55:55 -0800 (PST)
-Message-ID: <74a35cb6-9211-46ae-85cf-c83ad49d0786@suse.com>
-Date: Tue, 20 Feb 2024 09:55:55 +0100
+X-Google-Smtp-Source: AGHT+IHuJs0sbdMFsDfsnlWZQ85DshqCj5umcoFkvdkaMWTKP5kDN7x4qkZSjrcF5Eipjhvdn4z/0w==
+X-Received: by 2002:a05:651c:118d:b0:2d2:34d5:63f5 with SMTP id w13-20020a05651c118d00b002d234d563f5mr3365975ljo.52.1708419387794;
+        Tue, 20 Feb 2024 00:56:27 -0800 (PST)
+Message-ID: <8c9abefd-2871-42e6-b857-6a450f5b833a@suse.com>
+Date: Tue, 20 Feb 2024 09:56:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v4 6/8] IRQ: drop regs parameter from handler functions
+Subject: [PATCH v4 7/8] x86/APIC: drop regs parameter from direct vector
+ handler functions
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <e5f62a45-5b68-404d-908e-909f84f87b44@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,354 +117,203 @@ In-Reply-To: <e5f62a45-5b68-404d-908e-909f84f87b44@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-It's simply not needed anymore. Note how Linux made this change many
-years ago already, in 2.6.19 (late 2006, see [1]).
+The only place it was needed is in the spurious handler, and there we
+can use get_irq_regs() instead.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Acked-by: Julien Grall <jgrall@amazon.com>
 
-[1] https://git.kernel.org/torvalds/c/7d12e780e003f93433d49ce78cfedf4b4c52adc5
----
-v2: Arm build fixes.
-
---- a/xen/arch/arm/gic.c
-+++ b/xen/arch/arm/gic.c
-@@ -397,7 +397,7 @@ void gic_interrupt(struct cpu_user_regs
-     } while (1);
+--- a/xen/arch/x86/apic.c
++++ b/xen/arch/x86/apic.c
+@@ -1322,7 +1322,7 @@ int reprogram_timer(s_time_t timeout)
+     return apic_tmict || !timeout;
  }
  
--static void maintenance_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
-+static void maintenance_interrupt(int irq, void *dev_id)
+-static void cf_check apic_timer_interrupt(struct cpu_user_regs *regs)
++static void cf_check apic_timer_interrupt(void)
+ {
+     ack_APIC_irq();
+     perfc_incr(apic_timer);
+@@ -1341,7 +1341,7 @@ void smp_send_state_dump(unsigned int cp
+ /*
+  * Spurious interrupts should _never_ happen with our APIC/SMP architecture.
+  */
+-static void cf_check spurious_interrupt(struct cpu_user_regs *regs)
++static void cf_check spurious_interrupt(void)
  {
      /*
-      * This is a dummy interrupt handler.
---- a/xen/arch/arm/irq.c
-+++ b/xen/arch/arm/irq.c
-@@ -182,8 +182,7 @@ void irq_set_affinity(struct irq_desc *d
+      * Check if this is a vectored interrupt (most likely, as this is probably
+@@ -1355,7 +1355,7 @@ static void cf_check spurious_interrupt(
+         is_spurious = !nmi_check_continuation();
+         if (this_cpu(state_dump_pending)) {
+             this_cpu(state_dump_pending) = false;
+-            dump_execstate(regs);
++            dump_execstate(get_irq_regs());
+             is_spurious = false;
+         }
+ 
+@@ -1372,7 +1372,7 @@ static void cf_check spurious_interrupt(
+  * This interrupt should never happen with our APIC/SMP architecture
+  */
+ 
+-static void cf_check error_interrupt(struct cpu_user_regs *regs)
++static void cf_check error_interrupt(void)
+ {
+     static const char *const esr_fields[] = {
+         ", Send CS error",
+@@ -1407,7 +1407,7 @@ static void cf_check error_interrupt(str
+  * This interrupt handles performance counters interrupt
+  */
+ 
+-static void cf_check pmu_interrupt(struct cpu_user_regs *regs)
++static void cf_check pmu_interrupt(void)
+ {
+     ack_APIC_irq();
+     vpmu_do_interrupt();
+--- a/xen/arch/x86/cpu/mcheck/mce_intel.c
++++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
+@@ -58,7 +58,7 @@ bool __read_mostly lmce_support;
+ #define MCE_RING                0x1
+ static DEFINE_PER_CPU(int, last_state);
+ 
+-static void cf_check intel_thermal_interrupt(struct cpu_user_regs *regs)
++static void cf_check intel_thermal_interrupt(void)
+ {
+     uint64_t msr_content;
+     unsigned int cpu = smp_processor_id();
+@@ -642,7 +642,7 @@ static void cpu_mcheck_disable(void)
+         clear_cmci();
  }
  
- int request_irq(unsigned int irq, unsigned int irqflags,
--                void (*handler)(int irq, void *dev_id,
--                                struct cpu_user_regs *regs),
-+                void (*handler)(int irq, void *dev_id),
-                 const char *devname, void *dev_id)
+-static void cf_check cmci_interrupt(struct cpu_user_regs *regs)
++static void cf_check cmci_interrupt(void)
  {
-     struct irqaction *action;
-@@ -276,7 +275,7 @@ void do_IRQ(struct cpu_user_regs *regs,
- 
-     do
-     {
--        action->handler(irq, action->dev_id, regs);
-+        action->handler(irq, action->dev_id);
-         action = action->next;
-     } while ( action );
- 
---- a/xen/arch/arm/time.c
-+++ b/xen/arch/arm/time.c
-@@ -241,7 +241,7 @@ int reprogram_timer(s_time_t timeout)
- }
- 
- /* Handle the firing timer */
--static void htimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
-+static void htimer_interrupt(int irq, void *dev_id)
- {
-     if ( unlikely(!(READ_SYSREG(CNTHP_CTL_EL2) & CNTx_CTL_PENDING)) )
-         return;
-@@ -255,7 +255,7 @@ static void htimer_interrupt(int irq, vo
-     WRITE_SYSREG(0, CNTHP_CTL_EL2);
- }
- 
--static void vtimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
-+static void vtimer_interrupt(int irq, void *dev_id)
- {
-     /*
-      * Edge-triggered interrupts can be used for the virtual timer. Even
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -962,7 +962,7 @@ static int __init cf_check irq_ratelimit
- __initcall(irq_ratelimit_init);
- 
- int __init request_irq(unsigned int irq, unsigned int irqflags,
--        void (*handler)(int irq, void *dev_id, struct cpu_user_regs *regs),
-+        void (*handler)(int irq, void *dev_id),
-         const char * devname, void *dev_id)
- {
-     struct irqaction * action;
-@@ -2009,7 +2009,7 @@ void do_IRQ(struct cpu_user_regs *regs)
-         spin_unlock_irq(&desc->lock);
- 
-         tsc_in = tb_init_done ? get_cycles() : 0;
--        action->handler(irq, action->dev_id, regs);
-+        action->handler(irq, action->dev_id);
-         TRACE_3D(TRC_HW_IRQ_HANDLED, irq, tsc_in, get_cycles());
- 
-         spin_lock_irq(&desc->lock);
---- a/xen/arch/x86/hpet.c
-+++ b/xen/arch/x86/hpet.c
-@@ -237,8 +237,7 @@ again:
+     mctelem_cookie_t mctc;
+     struct mca_summary bs;
+--- a/xen/arch/x86/guest/xen/xen.c
++++ b/xen/arch/x86/guest/xen/xen.c
+@@ -158,7 +158,7 @@ static void __init init_memmap(void)
      }
  }
  
--static void cf_check hpet_interrupt_handler(
--    int irq, void *data, struct cpu_user_regs *regs)
-+static void cf_check hpet_interrupt_handler(int irq, void *data)
+-static void cf_check xen_evtchn_upcall(struct cpu_user_regs *regs)
++static void cf_check xen_evtchn_upcall(void)
  {
-     struct hpet_event_channel *ch = data;
- 
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -198,8 +198,7 @@ static void smp_send_timer_broadcast_ipi
-     }
- }
- 
--static void cf_check timer_interrupt(
--    int irq, void *dev_id, struct cpu_user_regs *regs)
-+static void cf_check timer_interrupt(int irq, void *dev_id)
- {
-     ASSERT(local_irq_is_enabled());
- 
---- a/xen/common/irq.c
-+++ b/xen/common/irq.c
-@@ -29,7 +29,7 @@ int init_one_irq_desc(struct irq_desc *d
-     return err;
- }
- 
--void cf_check no_action(int cpl, void *dev_id, struct cpu_user_regs *regs)
-+void cf_check no_action(int cpl, void *dev_id)
- {
- }
- 
---- a/xen/drivers/char/cadence-uart.c
-+++ b/xen/drivers/char/cadence-uart.c
-@@ -40,7 +40,7 @@ static struct cuart {
- #define cuart_read(uart, off)           readl((uart)->regs + (off))
- #define cuart_write(uart, off,val)      writel((val), (uart)->regs + (off))
- 
--static void cuart_interrupt(int irq, void *data, struct cpu_user_regs *regs)
-+static void cuart_interrupt(int irq, void *data)
- {
-     struct serial_port *port = data;
-     struct cuart *uart = port->uart;
---- a/xen/drivers/char/exynos4210-uart.c
-+++ b/xen/drivers/char/exynos4210-uart.c
-@@ -45,7 +45,7 @@ static struct exynos4210_uart {
- #define exynos4210_read(uart, off)          readl((uart)->regs + off)
- #define exynos4210_write(uart, off, val)    writel(val, (uart->regs) + off)
- 
--static void exynos4210_uart_interrupt(int irq, void *data, struct cpu_user_regs *regs)
-+static void exynos4210_uart_interrupt(int irq, void *data)
- {
-     struct serial_port *port = data;
-     struct exynos4210_uart *uart = port->uart;
---- a/xen/drivers/char/imx-lpuart.c
-+++ b/xen/drivers/char/imx-lpuart.c
-@@ -37,8 +37,7 @@ static struct imx_lpuart {
-     struct vuart_info vuart;
- } imx8_com;
- 
--static void imx_lpuart_interrupt(int irq, void *data,
--                                 struct cpu_user_regs *regs)
-+static void imx_lpuart_interrupt(int irq, void *data)
- {
-     struct serial_port *port = data;
-     struct imx_lpuart *uart = port->uart;
---- a/xen/drivers/char/meson-uart.c
-+++ b/xen/drivers/char/meson-uart.c
-@@ -61,8 +61,7 @@ static struct meson_uart {
-     struct vuart_info vuart;
- } meson_com;
- 
--static void meson_uart_interrupt(int irq, void *data,
--                                 struct cpu_user_regs *regs)
-+static void meson_uart_interrupt(int irq, void *data)
- {
-     struct serial_port *port = data;
-     struct meson_uart *uart = port->uart;
---- a/xen/drivers/char/mvebu-uart.c
-+++ b/xen/drivers/char/mvebu-uart.c
-@@ -67,8 +67,7 @@ static struct mvebu3700_uart {
- #define mvebu3700_read(uart, off)           readl((uart)->regs + (off))
- #define mvebu3700_write(uart, off, val)     writel(val, (uart)->regs + (off))
- 
--static void mvebu3700_uart_interrupt(int irq, void *data,
--                                     struct cpu_user_regs *regs)
-+static void mvebu3700_uart_interrupt(int irq, void *data)
- {
-     struct serial_port *port = data;
-     struct mvebu3700_uart *uart = port->uart;
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -175,8 +175,7 @@ static void handle_dw_usr_busy_quirk(str
-     }
- }
- 
--static void cf_check ns16550_interrupt(
--    int irq, void *dev_id, struct cpu_user_regs *regs)
-+static void cf_check ns16550_interrupt(int irq, void *dev_id)
- {
-     struct serial_port *port = dev_id;
-     struct ns16550 *uart = port->uart;
---- a/xen/drivers/char/omap-uart.c
-+++ b/xen/drivers/char/omap-uart.c
-@@ -59,7 +59,7 @@ static struct omap_uart {
-     struct vuart_info vuart;
- } omap_com = {0};
- 
--static void omap_uart_interrupt(int irq, void *data, struct cpu_user_regs *regs)
-+static void omap_uart_interrupt(int irq, void *data)
- {
-     struct serial_port *port = data;
-     struct omap_uart *uart = port->uart;
---- a/xen/drivers/char/pl011.c
-+++ b/xen/drivers/char/pl011.c
-@@ -82,7 +82,7 @@ static unsigned int pl011_intr_status(st
-     return (pl011_read(uart, RIS) & pl011_read(uart, IMSC));
- }
- 
--static void pl011_interrupt(int irq, void *data, struct cpu_user_regs *regs)
-+static void pl011_interrupt(int irq, void *data)
- {
-     struct serial_port *port = data;
-     struct pl011 *uart = port->uart;
---- a/xen/drivers/char/scif-uart.c
-+++ b/xen/drivers/char/scif-uart.c
-@@ -102,7 +102,7 @@ static const struct port_params port_par
-     },
+     struct vcpu_info *vcpu_info = this_cpu(vcpu_info);
+     unsigned long pending;
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -2782,7 +2782,7 @@ static struct hvm_function_table __initd
  };
  
--static void scif_uart_interrupt(int irq, void *data, struct cpu_user_regs *regs)
-+static void scif_uart_interrupt(int irq, void *data)
+ /* Handle VT-d posted-interrupt when VCPU is blocked. */
+-static void cf_check pi_wakeup_interrupt(struct cpu_user_regs *regs)
++static void cf_check pi_wakeup_interrupt(void)
  {
-     struct serial_port *port = data;
-     struct scif_uart *uart = port->uart;
---- a/xen/drivers/passthrough/amd/iommu_init.c
-+++ b/xen/drivers/passthrough/amd/iommu_init.c
-@@ -718,8 +718,7 @@ static void cf_check do_amd_iommu_irq(vo
- 
- static DECLARE_SOFTIRQ_TASKLET(amd_iommu_irq_tasklet, do_amd_iommu_irq, NULL);
- 
--static void cf_check iommu_interrupt_handler(
--    int irq, void *dev_id, struct cpu_user_regs *regs)
-+static void cf_check iommu_interrupt_handler(int irq, void *dev_id)
- {
-     unsigned long flags;
-     struct amd_iommu *iommu = dev_id;
---- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-+++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-@@ -642,7 +642,7 @@ static void ipmmu_domain_irq(struct ipmm
-                         domain->d, status, iova);
+     struct vmx_vcpu *vmx, *tmp;
+     spinlock_t *lock = &per_cpu(vmx_pi_blocking, smp_processor_id()).lock;
+@@ -2814,7 +2814,7 @@ static void cf_check pi_wakeup_interrupt
  }
  
--static void ipmmu_irq(int irq, void *dev, struct cpu_user_regs *regs)
-+static void ipmmu_irq(int irq, void *dev)
+ /* Handle VT-d posted-interrupt when VCPU is running. */
+-static void cf_check pi_notification_interrupt(struct cpu_user_regs *regs)
++static void cf_check pi_notification_interrupt(void)
  {
-     struct ipmmu_vmsa_device *mmu = dev;
-     unsigned int i;
---- a/xen/drivers/passthrough/arm/smmu.c
-+++ b/xen/drivers/passthrough/arm/smmu.c
-@@ -1097,16 +1097,14 @@ static irqreturn_t arm_smmu_global_fault
+     ack_APIC_irq();
+     this_cpu(irq_count)++;
+--- a/xen/arch/x86/include/asm/irq.h
++++ b/xen/arch/x86/include/asm/irq.h
+@@ -72,17 +72,15 @@ extern int opt_irq_vector_map;
+ 
+ #define platform_legacy_irq(irq)	((irq) < 16)
+ 
+-void cf_check event_check_interrupt(struct cpu_user_regs *regs);
+-void cf_check invalidate_interrupt(struct cpu_user_regs *regs);
+-void cf_check call_function_interrupt(struct cpu_user_regs *regs);
+-void cf_check irq_move_cleanup_interrupt(struct cpu_user_regs *regs);
++void cf_check event_check_interrupt(void);
++void cf_check invalidate_interrupt(void);
++void cf_check call_function_interrupt(void);
++void cf_check irq_move_cleanup_interrupt(void);
+ 
+ uint8_t alloc_hipriority_vector(void);
+ 
+-void set_direct_apic_vector(
+-    uint8_t vector, void (*handler)(struct cpu_user_regs *regs));
+-void alloc_direct_apic_vector(
+-    uint8_t *vector, void (*handler)(struct cpu_user_regs *regs));
++void set_direct_apic_vector(uint8_t vector, void (*handler)(void));
++void alloc_direct_apic_vector(uint8_t *vector, void (*handler)(void));
+ 
+ void do_IRQ(struct cpu_user_regs *regs);
+ 
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -743,7 +743,7 @@ void move_native_irq(struct irq_desc *de
+     desc->handler->enable(desc);
  }
  
- /* Xen: Interrupt handlers wrapper */
--static void arm_smmu_context_fault_xen(int irq, void *dev,
--				       struct cpu_user_regs *regs)
-+static void arm_smmu_context_fault_xen(int irq, void *dev)
+-void cf_check irq_move_cleanup_interrupt(struct cpu_user_regs *regs)
++void cf_check irq_move_cleanup_interrupt(void)
  {
- 	arm_smmu_context_fault(irq, dev);
+     unsigned vector, me;
+ 
+@@ -913,16 +913,14 @@ uint8_t alloc_hipriority_vector(void)
+     return next++;
  }
  
- #define arm_smmu_context_fault arm_smmu_context_fault_xen
- 
--static void arm_smmu_global_fault_xen(int irq, void *dev,
--				      struct cpu_user_regs *regs)
-+static void arm_smmu_global_fault_xen(int irq, void *dev)
+-static void (*direct_apic_vector[X86_NR_VECTORS])(struct cpu_user_regs *regs);
+-void set_direct_apic_vector(
+-    uint8_t vector, void (*handler)(struct cpu_user_regs *regs))
++static void (*direct_apic_vector[X86_NR_VECTORS])(void);
++void set_direct_apic_vector(uint8_t vector, void (*handler)(void))
  {
- 	arm_smmu_global_fault(irq, dev);
- }
---- a/xen/drivers/passthrough/arm/smmu-v3.c
-+++ b/xen/drivers/passthrough/arm/smmu-v3.c
-@@ -880,8 +880,7 @@ static void arm_smmu_priq_tasklet(void *
- 
- static int arm_smmu_device_disable(struct arm_smmu_device *smmu);
- 
--static void arm_smmu_gerror_handler(int irq, void *dev,
--				struct cpu_user_regs *regs)
-+static void arm_smmu_gerror_handler(int irq, void *dev)
- {
- 	u32 gerror, gerrorn, active;
- 	struct arm_smmu_device *smmu = dev;
-@@ -926,12 +925,11 @@ static void arm_smmu_gerror_handler(int
- 	writel(gerror, smmu->base + ARM_SMMU_GERRORN);
+     BUG_ON(direct_apic_vector[vector] != NULL);
+     direct_apic_vector[vector] = handler;
  }
  
--static void arm_smmu_combined_irq_handler(int irq, void *dev,
--				struct cpu_user_regs *regs)
-+static void arm_smmu_combined_irq_handler(int irq, void *dev)
+-void alloc_direct_apic_vector(
+-    uint8_t *vector, void (*handler)(struct cpu_user_regs *regs))
++void alloc_direct_apic_vector(uint8_t *vector, void (*handler)(void))
  {
- 	struct arm_smmu_device *smmu = dev;
+     static DEFINE_SPINLOCK(lock);
  
--	arm_smmu_gerror_handler(irq, dev, regs);
-+	arm_smmu_gerror_handler(irq, dev);
+@@ -1907,7 +1905,7 @@ void do_IRQ(struct cpu_user_regs *regs)
+     if ( irq < 0 )
+     {
+         if ( direct_apic_vector[vector] )
+-            direct_apic_vector[vector](regs);
++            direct_apic_vector[vector]();
+         else
+         {
+             const char *kind = ", LAPIC";
+--- a/xen/arch/x86/smp.c
++++ b/xen/arch/x86/smp.c
+@@ -245,7 +245,7 @@ static cpumask_t flush_cpumask;
+ static const void *flush_va;
+ static unsigned int flush_flags;
  
- 	tasklet_schedule(&(smmu->combined_irq_tasklet));
- }
-@@ -945,16 +943,14 @@ static void arm_smmu_combined_irq_taskle
- 		arm_smmu_priq_tasklet(dev);
- }
- 
--static void arm_smmu_evtq_irq_tasklet(int irq, void *dev,
--				struct cpu_user_regs *regs)
-+static void arm_smmu_evtq_irq_tasklet(int irq, void *dev)
+-void cf_check invalidate_interrupt(struct cpu_user_regs *regs)
++void cf_check invalidate_interrupt(void)
  {
- 	struct arm_smmu_device *smmu = dev;
- 
- 	tasklet_schedule(&(smmu->evtq_irq_tasklet));
- }
- 
--static void arm_smmu_priq_irq_tasklet(int irq, void *dev,
--				struct cpu_user_regs *regs)
-+static void arm_smmu_priq_irq_tasklet(int irq, void *dev)
- {
- 	struct arm_smmu_device *smmu = dev;
- 
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -1117,8 +1117,7 @@ static void cf_check do_iommu_page_fault
-         __do_iommu_page_fault(drhd->iommu);
+     unsigned int flags = flush_flags;
+     ack_APIC_irq();
+@@ -387,14 +387,14 @@ void smp_send_nmi_allbutself(void)
+     send_IPI_mask(&cpu_online_map, APIC_DM_NMI);
  }
  
--static void cf_check iommu_page_fault(
--    int irq, void *dev_id, struct cpu_user_regs *regs)
-+static void cf_check iommu_page_fault(int irq, void *dev_id)
+-void cf_check event_check_interrupt(struct cpu_user_regs *regs)
++void cf_check event_check_interrupt(void)
  {
-     /*
-      * Just flag the tasklet as runnable. This is fine, according to VT-d
---- a/xen/include/xen/irq.h
-+++ b/xen/include/xen/irq.h
-@@ -18,7 +18,7 @@
-     ASSERT(!in_irq() && (local_irq_is_enabled() || num_online_cpus() <= 1))
+     ack_APIC_irq();
+     perfc_incr(ipis);
+     this_cpu(irq_count)++;
+ }
  
- struct irqaction {
--    void (*handler)(int irq, void *dev_id, struct cpu_user_regs *regs);
-+    void (*handler)(int irq, void *dev_id);
-     const char *name;
-     void *dev_id;
-     bool free_on_release;
-@@ -119,12 +119,11 @@ extern int setup_irq(unsigned int irq, u
-                      struct irqaction *new);
- extern void release_irq(unsigned int irq, const void *dev_id);
- extern int request_irq(unsigned int irq, unsigned int irqflags,
--               void (*handler)(int irq, void *dev_id,
--                     struct cpu_user_regs *regs),
-+               void (*handler)(int irq, void *dev_id),
-                const char *devname, void *dev_id);
- 
- extern hw_irq_controller no_irq_type;
--void cf_check no_action(int cpl, void *dev_id, struct cpu_user_regs *regs);
-+void cf_check no_action(int cpl, void *dev_id);
- unsigned int cf_check irq_startup_none(struct irq_desc *desc);
- void cf_check irq_actor_none(struct irq_desc *desc);
- #define irq_shutdown_none irq_actor_none
+-void cf_check call_function_interrupt(struct cpu_user_regs *regs)
++void cf_check call_function_interrupt(void)
+ {
+     ack_APIC_irq();
+     perfc_incr(ipis);
 
 
