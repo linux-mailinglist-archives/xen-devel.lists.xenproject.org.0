@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D98085BEC0
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 15:28:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683546.1063115 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D454C85BF2D
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 15:55:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683558.1063126 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcR6B-00010K-Cb; Tue, 20 Feb 2024 14:27:55 +0000
+	id 1rcRVW-0004f8-E9; Tue, 20 Feb 2024 14:54:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683546.1063115; Tue, 20 Feb 2024 14:27:55 +0000
+Received: by outflank-mailman (output) from mailman id 683558.1063126; Tue, 20 Feb 2024 14:54:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcR6B-0000xJ-9t; Tue, 20 Feb 2024 14:27:55 +0000
-Received: by outflank-mailman (input) for mailman id 683546;
- Tue, 20 Feb 2024 14:27:54 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rcR6A-0000x9-1N; Tue, 20 Feb 2024 14:27:54 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rcR69-0003tt-S3; Tue, 20 Feb 2024 14:27:53 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rcR68-0007OL-TG; Tue, 20 Feb 2024 14:27:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rcR68-0002oa-St; Tue, 20 Feb 2024 14:27:52 +0000
+	id 1rcRVW-0004dS-Am; Tue, 20 Feb 2024 14:54:06 +0000
+Received: by outflank-mailman (input) for mailman id 683558;
+ Tue, 20 Feb 2024 14:54:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5vNk=J5=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rcRVV-0004dM-82
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 14:54:05 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e393cb32-cfff-11ee-8a52-1f161083a0e0;
+ Tue, 20 Feb 2024 15:54:03 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-33d6cc6d2fcso374273f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 06:54:04 -0800 (PST)
+Received: from localhost.localdomain
+ (cpc92320-cmbg19-2-0-cust35.5-4.cable.virginm.net. [82.13.64.36])
+ by smtp.gmail.com with ESMTPSA id
+ 14-20020a056000154e00b0033d10bd6612sm14050711wry.81.2024.02.20.06.54.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Feb 2024 06:54:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +46,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=74J2FmXwh18KMz1vg5t8C7pMhQGw+bU5cEzswbC3L6E=; b=tEU+oC8S9LyCpBO7HYf+g7JnUX
-	EDHukXwY/V1VaxvVVXwyqkxlTto/57JI08et0siUMLX+TFcG9R56BhPRsG4GVtsu8BDIrjmExThAl
-	p3nVLGIqO1BDidsh+0Q6zWehRcEcDSwZ10guIfWse2saUCjFsaBA3tteKUox9GUoWkt8=;
+X-Inumbo-ID: e393cb32-cfff-11ee-8a52-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1708440843; x=1709045643; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=poJh6RFQdroxhR+KU74eDDRDn7U0Xmv5gjyyB0XXq3k=;
+        b=ka0fcQUjyXFUbpVM0MfxPY2tLT+26osae8jkNJXHLbbicuq4dBSEosrpYKRxvLOAE4
+         nVkrD3paJ6Lx6rhHRv9p2ftDt5r1Y0m7Uq5IrLEPXGqJ1mcAUFZZFWSH1jwI1TFY1EYw
+         0n3L5z7HcxIjthZ6m665Mfo6m43kwOxTMrDoU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708440843; x=1709045643;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=poJh6RFQdroxhR+KU74eDDRDn7U0Xmv5gjyyB0XXq3k=;
+        b=Jm5tHuXAK7+O4mZ84LCByhod1nfuOwhTCiS2HpCTgNzBALwNxUiSAoYu/c3PnFjsmJ
+         yI256LKeF7lPaqpUbKdcdn8ZyXXJv+GhmiZDX2fhFaXPc4YZQdoxiVR4zZUQHNMzaCmo
+         iSgM7kmS3gjTX9K7f4sR5A1Xzo3N9HVfxF/btlZKrDyMQjwmrWyw+GzGKEM/+YqFtSqo
+         9URFke5vfxTzF2UxdKudSV4wZryknhpPAgKUggrTfLucCllX6olHLXTXqr/rkUo/QbFI
+         uHMXGotb0dB/9ePOBhWLxGuKkJZ4F4mbAlp5F15OZl4clZTc7jNBCRCgRkqsDri+f6Ha
+         36cg==
+X-Gm-Message-State: AOJu0Yy1HAfpw+89VBAp5VGJ1YfRuHmSapF2aD2mZfsb/kdJ7fsfgP75
+	SKJkUDEfqbN9nTSF9Y2ilgs1H3n+y4UuF6Qv5miYyq++SvwpWfC0R6bv0nexMFP5GBMtV7HWqGT
+	/
+X-Google-Smtp-Source: AGHT+IGrKLRi6pW1r/jgiBNLV+BFOpYI2xCfLoWEsSsup3/ZaqvK9juW8XlYASDtrVpphu/WR6sUSg==
+X-Received: by 2002:a5d:408e:0:b0:33d:1585:b51c with SMTP id o14-20020a5d408e000000b0033d1585b51cmr8930119wrp.46.1708440843055;
+        Tue, 20 Feb 2024 06:54:03 -0800 (PST)
+From: Anthony PERARD <anthony.perard@citrix.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184711-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [OSSTEST PATCH] ap-common: Switch to Linux 6.1 by default on Arm
+Date: Tue, 20 Feb 2024 14:53:52 +0000
+Message-Id: <20240220145352.26264-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 184711: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=981f722efa876e3f1766629f444d10e8806adc93
-X-Osstest-Versions-That:
-    xen=c144b9e32427ba37e0e0443a0d3fa53e9fb878b6
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 20 Feb 2024 14:27:52 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 184711 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184711/
+The "linux-arm-xen" tree currently point to Linux 5.4.17 + 3 commits:
+  69117aaf07f7 ("xen/privcmd: replace kcalloc() by kvcalloc() when allocating empty pages")
+  bca5bc0229a6 ("xen/privcmd: fix error handling in mmap-resource processing")
+  f0f0e602f7c9 ("xen/privcmd: drop "pages" parameter from xen_remap_pfn()")
 
-Failures :-/ but no regressions.
+This stable version is old and doesn't build on Debian Bookworm.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+The 3 extra commits are present in at least Linux 5.15, so there's
+currently no reason to have a separate tree when we could use a stable
+tree that osstest can update regulary.
 
-version targeted for testing:
- xen                  981f722efa876e3f1766629f444d10e8806adc93
-baseline version:
- xen                  c144b9e32427ba37e0e0443a0d3fa53e9fb878b6
+So switch to 6.1. This will change the default Linux tree for all Arm
+jobs that aren't on "linux-*" osstest branches.
 
-Last test of basis   184701  2024-02-19 12:03:49 Z    1 days
-Testing same since   184711  2024-02-20 12:02:07 Z    0 days    1 attempts
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Notes:
+    I plan to also change to use Linux 6.1 on X86 a bit later.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+ ap-common | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/ap-common b/ap-common
+index 292553ed..48a95a22 100644
+--- a/ap-common
++++ b/ap-common
+@@ -60,7 +60,7 @@
+ : ${PUSH_TREE_LINUX:=$XENBITS:/home/xen/git/linux-pvops.git}
+ : ${BASE_TREE_LINUX:=git://xenbits.xen.org/linux-pvops.git}
+ : ${BASE_TAG_LINUX:=tested/linux-4.19}
+-: ${BASE_TAG_LINUX_ARM:=tested/linux-arm-xen}
++: ${BASE_TAG_LINUX_ARM:=tested/linux-6.1}
+ 
+ if [ "x${TREE_LINUX}" = x ]; then
+ 	: ${TREE_LINUX:=${BASE_TREE_LINUX}}
+-- 
+Anthony PERARD
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   c144b9e324..981f722efa  981f722efa876e3f1766629f444d10e8806adc93 -> smoke
 
