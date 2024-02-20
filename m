@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 439B485B507
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 09:26:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683207.1062600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1FFA85B548
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 09:32:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683212.1062610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcLS5-0001gl-SG; Tue, 20 Feb 2024 08:26:09 +0000
+	id 1rcLXk-0003LL-EZ; Tue, 20 Feb 2024 08:32:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683207.1062600; Tue, 20 Feb 2024 08:26:09 +0000
+Received: by outflank-mailman (output) from mailman id 683212.1062610; Tue, 20 Feb 2024 08:32:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcLS5-0001eH-Ok; Tue, 20 Feb 2024 08:26:09 +0000
-Received: by outflank-mailman (input) for mailman id 683207;
- Tue, 20 Feb 2024 08:26:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rcLXk-0003JF-Bm; Tue, 20 Feb 2024 08:32:00 +0000
+Received: by outflank-mailman (input) for mailman id 683212;
+ Tue, 20 Feb 2024 08:31:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YSgb=J5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rcLS4-0001eB-MV
- for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 08:26:08 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1bb5665-cfc9-11ee-8a52-1f161083a0e0;
- Tue, 20 Feb 2024 09:26:07 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-4127086bb8aso621215e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 00:26:07 -0800 (PST)
+ id 1rcLXi-0003J9-RP
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 08:31:58 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 809f9139-cfca-11ee-98f5-efadbce2ee36;
+ Tue, 20 Feb 2024 09:31:54 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4126dd40a54so3960985e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 00:31:54 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- co3-20020a0560000a0300b0033d70dd0e04sm162106wrb.8.2024.02.20.00.26.06
+ l20-20020a1c7914000000b00412706c3ddasm476310wme.18.2024.02.20.00.31.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Feb 2024 00:26:06 -0800 (PST)
+ Tue, 20 Feb 2024 00:31:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1bb5665-cfc9-11ee-8a52-1f161083a0e0
+X-Inumbo-ID: 809f9139-cfca-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708417567; x=1709022367; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708417914; x=1709022714; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=OePRDQOjkk3bAla0m7Qr0etARY5N6IYAZwBZ2aPacag=;
-        b=BVsJWvkwdAkiKmItkmzEzgSmRrNOylDjL3dOk1QKquycptia0FFVRs4rHFHFfQnuan
-         iimBOG5NyjPF0hz/AzUSLOFTgSpjOnnV59K8T7FMER3XbEd+346kjv3rkMwYJUBN/j9R
-         QJIL1WHbqbfiVIxg6ad69gvMPugkGINPgcpcketjMretB9vxAh39qzRjfzloW39P67cl
-         mSAj6d+Z2NSWO1YtG3P3037n12SNhOUJ0j3jFVYgBhV4uO8BflDHk/WIxaUzqt4zSaH+
-         04Oj5MJNjWkeWdpsM4FNxK7JMJSyMfhnaVt2swLI9YLYqPP9kxCijseXu2ZpxClOAKi7
-         NuOg==
+        bh=2gsXVGDdG5g7JNoY2F7zo2dgWLlODMgbep354kVe0Xs=;
+        b=fk8JKO09S63Q8a8H0MBR5sME5iQQCsWQGRCSmt2c8+kGhhr7XJVtpjU5dfauC6cV7P
+         3fHDcrAZZCkhV2wlGWzL56ZkUMKPj3e5NkYk36LwaCDiixkLiYGvc4/4AzsLt3HzL1pA
+         wCVa89aUWye4eEmFdx546fiVk7NufA5O+NYt4oRJHX6abV43Hn773FE5QABWYV9gEzGL
+         uHQtCrxP/oVtcY+dhMuUyVPIjmLCpG4Ueoxfh4htunntyaJRRRbgqXgskJHcu+jMQG0A
+         yHzBIZDbVAT/rq6QYb9qAI0exoNSB/StEg4qce5bWz6SyKgDgUCYZOrkxWSCzHSg7ptl
+         /t9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708417567; x=1709022367;
+        d=1e100.net; s=20230601; t=1708417914; x=1709022714;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OePRDQOjkk3bAla0m7Qr0etARY5N6IYAZwBZ2aPacag=;
-        b=jOF3ImA/pAV4KZ4U42dgRUkTG3QkYZyLpvggjX1hm1/oj+UC0fPAcvr8EJyGBY8mms
-         +0KpPWg1MiX8Jme2u8aq1LAEqBuei/kRF+sGrWntMIvXIWUx+bo26BOJZqzv5veOcS1v
-         +GXQLm0NeHmgANipoA1Y+QYWqToc8EDWoqja1Ileoza7vw505bj5S/c1VtWWp/6IR4hC
-         5E82+rk3L/rDx7Kej84T5eeTzcdG7E61mLwJZJM/Qcj1u9+PLE07kNd/2tdtmrrgQdNA
-         nUdM6S9N26ZlTnx6Mh6InVnTIhyAglNaTn3GKci9HRzujCdjQVQedXcQ+A7GyRU0wnD+
-         Cz6w==
-X-Forwarded-Encrypted: i=1; AJvYcCW14rjQSxs4SDmWiNTiHqTfSydnSnbyrMbgFncVa2fR0jNaNyscsUJhHWSuvjqIWXjcSxE+0eOjA+jimwCunMfsniCT9QM3wK4dTA4e568=
-X-Gm-Message-State: AOJu0YzWqEcGjjy2QqFj0gTS9w57UbLWgWL1CV0OtXwb+O0/xdQd7lA0
-	e7shE09i9RMQRmwLlsvuWrv4QLlhG+vebCrP2zgsSlrV1EsDHaEoVjyUNqyiqg==
-X-Google-Smtp-Source: AGHT+IFA5neEU9WAepo8LQ4i3BIraJ2gPDzQw/P5tVjxgFdV/ILvvHl3xV1RJqT9S2QvLY2PBjrveg==
-X-Received: by 2002:a5d:6652:0:b0:33d:15c1:cfcb with SMTP id f18-20020a5d6652000000b0033d15c1cfcbmr9121464wrw.40.1708417566820;
-        Tue, 20 Feb 2024 00:26:06 -0800 (PST)
-Message-ID: <6466155e-9883-4743-a897-ef565f14fdf0@suse.com>
-Date: Tue, 20 Feb 2024 09:26:05 +0100
+        bh=2gsXVGDdG5g7JNoY2F7zo2dgWLlODMgbep354kVe0Xs=;
+        b=rsvAKVyCijHqIQAfNi9T9nrbG54oAwD7K+jomtOsf6GEuduQx0rQGZhH/3xYoTxvi0
+         jC7ZHLZ336VxKqVLvTGhq6RKQHiwebARd/ePFcmSBGpJRTNYnQFBD2ujgxs7g5V+aaA1
+         99/RVoyRXM2n7t55zfm50t4ewpGlw+mDWnNq+QjcAAiadbnclMvaFouON1bHdpSTXy9v
+         0Gugi9SzN4GdCCnRj+y+OsmeIUHb6kRNgv7SAsjHMNECZzYd3CL9lxye4p5eupEuXsI3
+         HxIHtjBya7RRC43cSbUK18rWV1XUrz6CB2QRxWkng6YEcT1PBrjASCoQZyzBtQq54pPH
+         IWWw==
+X-Forwarded-Encrypted: i=1; AJvYcCV8x4Imt5KOhUPSzbexi0GCgtLvchU8EAYyTr6YXQ4k0Boe3zxrWtb8Agc5A1MZsPF04fNtMB7WZ25ueut1R6ZE1Qug57lDzlZuO8aqPak=
+X-Gm-Message-State: AOJu0YwHEZBDEKeJe80gPCpTAWlq2T1g2kHSQJVFPYqol00Uc00eXYBl
+	GRh7cb26YCG3LHF+Zn0gsAxbQf7ywssLvVnTJQYsp20M3colZE9ghEAlz6IO5g==
+X-Google-Smtp-Source: AGHT+IETFDBDCNgCgbw240+OkC+8iXImSaZrM4wEy0CqUYorEKTHJTc1LMybVmXFVydrg01c7o30ug==
+X-Received: by 2002:a05:600c:4f45:b0:412:5dfc:238d with SMTP id m5-20020a05600c4f4500b004125dfc238dmr8011150wmq.14.1708417913847;
+        Tue, 20 Feb 2024 00:31:53 -0800 (PST)
+Message-ID: <4924e95e-0806-4939-90f3-2f4216fada63@suse.com>
+Date: Tue, 20 Feb 2024 09:31:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] almost fully ignore zero-size flush requests
+Subject: Re: [XEN PATCH] automation/eclair: add deviation for MISRA C:2012
+ Rule 16.3
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <a0a7fa35-4615-4a9b-9887-569353f05e33@suse.com>
- <26ff8f42-2a76-4f8d-9af6-5830b0aae739@suse.com>
- <7dd78c97-b82f-4ae1-a257-98f612c6bad2@xen.org>
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <b1d2b64c8117d61ea42cf4e9feae128541eb0b61.1708348799.git.federico.serafini@bugseng.com>
+ <a6e8bd32-cc32-4084-907d-e2cd6d46e3e6@suse.com>
+ <f28aed5e-0983-48fa-828f-b2133ca35086@bugseng.com>
+ <4d2c5a69-4807-4af3-84c2-128d16ee2b43@suse.com>
+ <1f1fdfd8-1a34-411e-a0f2-d9bcb5b050fd@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,81 +119,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7dd78c97-b82f-4ae1-a257-98f612c6bad2@xen.org>
+In-Reply-To: <1f1fdfd8-1a34-411e-a0f2-d9bcb5b050fd@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.02.2024 23:22, Julien Grall wrote:
-> Title: I would add 'gnttab:' to clarify which subsystem you are modifying.
-
-That's how I actually have it here; it's not clear to me why I lost the
-prefix when sending.
-
-> On 05/02/2024 11:03, Jan Beulich wrote:
->> Along the line with observations in the context of XSA-448, besides
->> "op" no field is relevant when the range to be flushed is empty, much
->> like e.g. the pointers passed to memcpy() are irrelevant (and would
->> never be "validated") when the passed length is zero. Split the existing
->> condition validating "op", "offset", and "length", leaving only the "op"
->> part ahead of the check for length being zero (or no flushing to be
->> performed).
-> 
-> I am probably missing something here. I understand the theory behind 
-> reducing the number of checks when len == 0. But an OS cannot rely on it:
->    1) older hypervisor would still return an error if the check doesn't 
-> pass)
-
-Right, but that's no reason to keep the bogus earlier behavior.
-
->    2) it does feel odd to allow "invalid" offset when len == 0 (at least.
-
-I'm puzzled: You've given R-b for patch 1 (thanks), where exactly the
-same reasoning is used, i.e. similarly referring to memcpy() to
-justify the (new / supposed) behavior.
-
->> In the course of splitting also simplify the moved part of the condition
->> from 3 to 2 conditionals, potentially (depending on the architecture)
->> requiring one less (conditional) branch.
+On 20.02.2024 09:16, Federico Serafini wrote:
+> On 19/02/24 16:06, Jan Beulich wrote:
+>> On 19.02.2024 15:59, Federico Serafini wrote:
+>>> On 19/02/24 14:43, Jan Beulich wrote:
+>>>> On 19.02.2024 14:24, Federico Serafini wrote:
+>>>>> Update ECLAIR configuration to consider safe switch clauses ending
+>>>>> with __{get,put}_user_bad().
+>>>>>
+>>>>> Update docs/misra/deviations.rst accordingly.
+>>>>>
+>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>>
+>>>> As mentioned I'm not happy with this, not the least because of it being
+>>>> unclear why these two would be deviated, when there's no sign of a
+>>>> similar deviation for, say, __bad_atomic_size(). Imo this approach
+>>>> doesn't scale, and that's already leaving aside that the purpose of
+>>>> identically named (pseudo-)helpers could differ between architectures,
+>>>> thus putting under question ...
+>>>>
+>>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> @@ -368,6 +368,10 @@ safe."
+>>>>>    -config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/BUG\\(\\);/))))"}
+>>>>>    -doc_end
+>>>>>    
+>>>>> +-doc_begin="Switch clauses ending with constructs \"__get_user_bad()\" and \"__put_user_bad()\" are safe: they denote an unreachable program point."
+>>>>> +-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/__(put|get)_user_bad\\(\\);/))))"}
+>>>>> +-doc_end
+>>>>
+>>>> ... the global scope of such a deviation. While it may not be a good idea,
+>>>> even within an arch such (pseudo-)helpers could be used for multiple
+>>>> distinct purposes.
+>>>
+>>> Would you agree with adding the missing break statement after
+>>> the uses of __{put,get}_user_bad() (as it is already happening for
+>>> uses of __bad_atomic_size())?
 >>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
->> --- a/xen/common/grant_table.c
->> +++ b/xen/common/grant_table.c
->> @@ -3528,15 +3528,16 @@ static int _cache_flush(const gnttab_cac
->>       void *v;
->>       int ret;
->>   
->> -    if ( (cflush->offset >= PAGE_SIZE) ||
->> -         (cflush->length > PAGE_SIZE) ||
->> -         (cflush->offset + cflush->length > PAGE_SIZE) ||
->> -         (cflush->op & ~(GNTTAB_CACHE_INVAL | GNTTAB_CACHE_CLEAN)) )
->> +    if ( cflush->op & ~(GNTTAB_CACHE_INVAL | GNTTAB_CACHE_CLEAN) )
->>           return -EINVAL;
->>   
->>       if ( cflush->length == 0 || cflush->op == 0 )
->>           return !*cur_ref ? 0 : -EILSEQ;
->>   
->> +    if ( (cflush->offset | cflush->length) > PAGE_SIZE ||
+>> I probably wouldn't mind that (despite being a little pointless).
+>> Perhaps declaring them as noreturn would also help?
 > 
-> This is confusing. I understand you are trying to force the compiler to 
-> optimize. But is it really worth it? After all, the rest of operation 
-> will outweight this check (cache flush are quite expensive).
+> Yes, it will help.
+> Is there any reason to have long as __get_user_bad()'s return value?
+> It would be nicer to declare it as a void function and then add the
+> noreturn attribute.
 
-From purely a performance point of view it may not be worth it. From
-code size angle (taken globally) I already view this differently.
-Plus I think that we ought to aim at avoiding undesirable patterns,
-just because people tend to clone existing code when they can. Thing
-is that (as per below) the two of us apparently disagree on what
-"undesirable" is in cases like this one.
-
-> We probably should take a more generic decision (and encode in our 
-> policy) because you seem to like this pattern and I dislike it :). Not 
-> sure what the others think.
-
-Perhaps. If the folding alone was the problem, I'd accept to split (or
-even undo) that part. But the earlier aspect you raised also needs
-sorting before I can decide whether to adjust or whether to consider
-the patch rejected.
+That's a historical leftover, which can be changed. Xen originally
+derived quite a bit of code from Linux. If you go look at Linux 2.6.16,
+you'll find why it was declared that way.
 
 Jan
 
