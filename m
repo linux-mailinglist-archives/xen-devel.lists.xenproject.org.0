@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 153BB85C063
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 16:54:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683615.1063216 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E902085C2CB
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 18:36:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683633.1063231 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcSRD-0000v9-QY; Tue, 20 Feb 2024 15:53:43 +0000
+	id 1rcU24-0005B5-2d; Tue, 20 Feb 2024 17:35:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683615.1063216; Tue, 20 Feb 2024 15:53:43 +0000
+Received: by outflank-mailman (output) from mailman id 683633.1063231; Tue, 20 Feb 2024 17:35:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcSRD-0000sR-Ns; Tue, 20 Feb 2024 15:53:43 +0000
-Received: by outflank-mailman (input) for mailman id 683615;
- Tue, 20 Feb 2024 15:53:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rcU23-00058e-VK; Tue, 20 Feb 2024 17:35:51 +0000
+Received: by outflank-mailman (input) for mailman id 683633;
+ Tue, 20 Feb 2024 17:35:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vPn8=J5=lst.de=hch@srs-se1.protection.inumbo.net>)
- id 1rcSRB-0000sE-T8
- for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 15:53:41 +0000
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36dfb430-d008-11ee-98f5-efadbce2ee36;
- Tue, 20 Feb 2024 16:53:39 +0100 (CET)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id B777D68D07; Tue, 20 Feb 2024 16:53:36 +0100 (CET)
+ (envelope-from <SRS0=YWH4=J5=tls.msk.ru=mjt@srs-se1.protection.inumbo.net>)
+ id 1rcU23-00058Y-Ad
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 17:35:51 +0000
+Received: from isrv.corpit.ru (isrv.corpit.ru [86.62.121.231])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7cb9c66c-d016-11ee-8a52-1f161083a0e0;
+ Tue, 20 Feb 2024 18:35:49 +0100 (CET)
+Received: from tsrv.corpit.ru (tsrv.tls.msk.ru [192.168.177.2])
+ by isrv.corpit.ru (Postfix) with ESMTP id F2C214F090;
+ Tue, 20 Feb 2024 20:36:07 +0300 (MSK)
+Received: from [192.168.177.130] (mjt.wg.tls.msk.ru [192.168.177.130])
+ by tsrv.corpit.ru (Postfix) with ESMTP id C310F85499;
+ Tue, 20 Feb 2024 20:35:47 +0300 (MSK)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,58 +42,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36dfb430-d008-11ee-98f5-efadbce2ee36
-Date: Tue, 20 Feb 2024 16:53:36 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: Christoph Hellwig <hch@lst.de>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org,
-	linux-block@vger.kernel.org
-Subject: Re: [PATCH 4/4] xen-blkfront: atomically update queue limits
-Message-ID: <20240220155336.GB17393@lst.de>
-References: <20240220084935.3282351-1-hch@lst.de> <20240220084935.3282351-5-hch@lst.de> <ZdScey8AJvBykWa8@macbook>
+X-Inumbo-ID: 7cb9c66c-d016-11ee-8a52-1f161083a0e0
+Message-ID: <0049ecc3-f3f9-4668-a13f-11120a7e8627@tls.msk.ru>
+Date: Tue, 20 Feb 2024 20:35:47 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 03/21] Xen headers: correct typos
+Content-Language: en-US
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ qemu-trivial@nongnu.org
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1708419115.git.manos.pitsidianakis@linaro.org>
+ <dca380ada7f7eabfb473828eccafc2902b1985b7.1708419115.git.manos.pitsidianakis@linaro.org>
+From: Michael Tokarev <mjt@tls.msk.ru>
+Autocrypt: addr=mjt@tls.msk.ru; keydata=
+ xsBLBETIiwkBCADh3cFB56BQYPjtMZCfK6PSLR8lw8EB20rsrPeJtd91IoNZlnCjSoxd9Th1
+ bLUR8YlpRJ2rjc6O1Bc04VghqUOHgS/tYt8vLjcGWixzdhSLJgPDK3QQZPAvBjMbCt1B6euC
+ WuD87Pv5Udlpnzf4aMwxkgfTusx+ynae/o+T5r7tXD+isccbC3SiGhmAPxFyY3zGcFk4+Rxc
+ 0tP8YY2FWE/baHu+lBDTUN79efWAkHhex1XzVZsV7ZD16rzDbXFK5m6ApvGJWlr5YDEEydTF
+ WwmvwBfr4OINVxzEG/ujNiG4fpMf2NsnFGyB9aSbFjXZevB4qWkduYYW+xpK1EryszHtAAYp
+ zSBNaWNoYWVsIFRva2FyZXYgPG1qdEB0bHMubXNrLnJ1PsLAlgQTAQoAQAIbAwYLCQgHAwIE
+ FQIIAwQWAgMBAh4BAheAAhkBFiEEbuGV0Yhuj/uBDUMkRXzgoIBEZcUFAmBbcjwFCS5e6jMA
+ CgkQRXzgoIBEZcUTIQgA1hPsOF82pXxbcJXBMc4zB9OQu4AlnZvERoGyw7I2222QzaN3RFuj
+ Fia//mapXzpIQNF08l/AA6cx+CKPeGnXwyZfF9fLa4RfifmdNKME8C00XlqnoJDZBGzq8yMy
+ LAKDxl9OQWFcDwDxV+irg5U3fbtNVhvV0kLbS2TyQ0aU5w60ERS2NcyDWplOo7AOzZWChcA4
+ UFf78oVdZdCW8YDtU0uQFhA9moNnrePy1HSFqduxnlFHEI+fDj/TiOm2ci48b8SBBJOIJFjl
+ SBgH8+SfT9ZqkzhN9vh3YJ49831NwASVm0x1rDHcIwWD32VFZViZ3NjehogRNH9br0PSUYOC
+ 3s7ATQRX2BjLAQgAnak3m0imYOkv2tO/olULFa686tlwuvl5kL0NWCdGQeXv2uMxy36szcrh
+ K1uYhpiQv4r2qNd8BJtYlnYIK16N8GBdkplaDIHcBMbU4t+6bQzEIJIaWoq1hzakmHHngE2a
+ pNMnUf/01GFvCRPlv3imkujE/5ILbagjtdyJaHF0wGOSlTnNT4W8j+zPJ/XK0I5EVQwtbmoc
+ GY62LKxxz2pID6sPZV4zQVY4JdUQaFvOz1emnBxakkt0cq3Qnnqso1tjiy7vyH9CAwPR/48W
+ fpK6dew4Fk+STYtBeixOTfSUS8qRS/wfpUeNa5RnEdTtFQ9IcjpQ/nPrvJJsu9FqwlpjMwAR
+ AQABwsBlBBgBCAAPBQJX2BjLAhsMBQkSzAMAAAoJEEV84KCARGXFUKcH/jqKETECkbyPktdP
+ cWVqw2ZIsmGxMkIdnZTbPwhORseGXMHadQODayhU9GWfCDdSPkWDWzMamD+qStfl9MhlVT60
+ HTbo6wu1W/ogUS70qQPTY9IfsvAj6f8TlSlK0eLMa3s2UxL2oe5FkNs2CnVeRlr4Yqvp/ZQV
+ 6LXtew4GPRrmplUT/Cre9QIUqR4pxYCQaMoOXQQw3Y0csBwoDYUQujn3slbDJRIweHoppBzT
+ rM6ZG5ldWQN3n3d71pVuv80guylX8+TSB8Mvkqwb5I36/NAFKl0CbGbTuQli7SmNiTAKilXc
+ Y5Uh9PIrmixt0JrmGVRzke6+11mTjVlio/J5dCM=
+In-Reply-To: <dca380ada7f7eabfb473828eccafc2902b1985b7.1708419115.git.manos.pitsidianakis@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZdScey8AJvBykWa8@macbook>
-User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Tue, Feb 20, 2024 at 01:35:07PM +0100, Roger Pau Monn� wrote:
-> On Tue, Feb 20, 2024 at 09:49:35AM +0100, Christoph Hellwig wrote:
-> > Pass the initial queue limits to blk_mq_alloc_disk and use the
-> > blkif_set_queue_limits API to update the limits on reconnect.
+20.02.2024 11:52, Manos Pitsidianakis пишет:
+> Correct typos automatically found with the `typos` tool
+> <https://crates.io/crates/typos>
 > 
-> Allocating queue_limits on the stack might be a bit risky, as I fear
-> this struct is likely to grow?
+> Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+> ---
+>   include/hw/xen/interface/arch-x86/xen-x86_64.h | 2 +-
+>   include/hw/xen/interface/arch-x86/xen.h        | 2 +-
+>   include/hw/xen/interface/event_channel.h       | 2 +-
+>   include/hw/xen/interface/grant_table.h         | 2 +-
+>   include/hw/xen/interface/hvm/hvm_op.h          | 2 +-
+>   include/hw/xen/interface/io/blkif.h            | 4 ++--
+>   include/hw/xen/interface/io/fbif.h             | 2 +-
+>   include/hw/xen/interface/io/kbdif.h            | 2 +-
+>   include/hw/xen/interface/io/ring.h             | 2 +-
+>   include/hw/xen/interface/memory.h              | 2 +-
+>   include/hw/xen/interface/physdev.h             | 4 ++--
+>   include/hw/xen/interface/xen.h                 | 4 ++--
+>   12 files changed, 15 insertions(+), 15 deletions(-)
 
-It might grow a little bit, but it's not actually that large, epecially
-in a simple probe context that isn't in memory reclaim or similar.
+include/hw/xen/ is imported from xen, IIRC it should not be edited
+directly in qemu.
 
-> > Signed-off-by: Christoph Hellwig <hch@lst.de>
-> 
-> Acked-by: Roger Pau Monn� <roger.pau@citrix.com>
-> 
-> Just one addition while you are already modifying a line.
-> 
-> > ---
-> >  drivers/block/xen-blkfront.c | 41 ++++++++++++++++++++----------------
-> >  1 file changed, 23 insertions(+), 18 deletions(-)
-> > 
-> > diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-> > index 7664638a0abbfa..b77707ca2c5aa6 100644
-> > --- a/drivers/block/xen-blkfront.c
-> > +++ b/drivers/block/xen-blkfront.c
-> > @@ -941,37 +941,35 @@ static const struct blk_mq_ops blkfront_mq_ops = {
-> >  	.complete = blkif_complete_rq,
-> >  };
-> >  
-> > -static void blkif_set_queue_limits(struct blkfront_info *info)
-> > +static void blkif_set_queue_limits(struct blkfront_info *info,
-> 
-> While there, could you also constify info?
-
-Sure.
+/mjt
 
