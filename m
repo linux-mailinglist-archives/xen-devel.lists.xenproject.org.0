@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2783985B9BE
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 11:59:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683410.1062909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29A6285BA1A
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 12:14:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683418.1062920 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcNq7-0000Ep-VV; Tue, 20 Feb 2024 10:59:07 +0000
+	id 1rcO4p-0004FI-AB; Tue, 20 Feb 2024 11:14:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683410.1062909; Tue, 20 Feb 2024 10:59:07 +0000
+Received: by outflank-mailman (output) from mailman id 683418.1062920; Tue, 20 Feb 2024 11:14:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcNq7-0000Ca-Sj; Tue, 20 Feb 2024 10:59:07 +0000
-Received: by outflank-mailman (input) for mailman id 683410;
- Tue, 20 Feb 2024 10:59:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rcO4p-0004CV-74; Tue, 20 Feb 2024 11:14:19 +0000
+Received: by outflank-mailman (input) for mailman id 683418;
+ Tue, 20 Feb 2024 11:14:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rcNq6-0000CQ-FW; Tue, 20 Feb 2024 10:59:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rcNq6-0008Tn-3m; Tue, 20 Feb 2024 10:59:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rcNq5-0002L2-Pp; Tue, 20 Feb 2024 10:59:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rcNq5-0004Wt-PO; Tue, 20 Feb 2024 10:59:05 +0000
+ (envelope-from <SRS0=YSgb=J5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rcO4o-0004CP-6V
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 11:14:18 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2efa3004-cfe1-11ee-98f5-efadbce2ee36;
+ Tue, 20 Feb 2024 12:14:15 +0100 (CET)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-512b700c8ebso2377811e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 03:14:15 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ g8-20020a05600c310800b004126ec2f541sm1659435wmo.0.2024.02.20.03.14.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 Feb 2024 03:14:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,150 +45,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=m5lFFOb0utTMfiTTZOv4lPn4UZOX/j7jhhTI+Nk1mGI=; b=QhZ6l3VZ4Of176wzjP+fzQDXnc
-	f2p3ja87eeSPFSniDfPI20Ip9GgC32F05fyJlkq486wZvp4iA3UHtoV1Dr2qVDv/Ui9GTAboGR9V3
-	PVjRCUa1PirtIijFiulJml2jkS38m2vPAG8/4Gi8sUi37+6RKQuMDJ2zeDwQwv0l1QsI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184708-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 2efa3004-cfe1-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1708427655; x=1709032455; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0fu04UrW6KIZ54U/Q1q80D52Btmv1ea4nslaOFbkl/g=;
+        b=FjG80fYBk7Buz2NLQYdy0skaD+HsPayoB845cnjqSYyI5RgRpVgpLMqqOJK5ZrfGi5
+         KisHdm6zcUlv4VKnDuPXlVzk+UE+6WJLNJx9TY8JB5rHeZelcFput9hbwOs8NK6bgy3e
+         iS5jAGdJVqx7E2TJ3T9rfC8S+CRT6WIAAO/q7wSSjz5NJIobRy7F6f8pZg/web+BshPK
+         05UdQ0dEtvju/p/wk/XNzwd11hNfWMLdKKy1j5qwDMBmeuQVje5X+1tPsezP936DTfH2
+         CnC1SoYzzY1p00OebG6OSZRb0LRmJ2KEXCEVhz+M/42dRqRXM7Z4MxzwWvbmu0FELcMe
+         O/3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708427655; x=1709032455;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0fu04UrW6KIZ54U/Q1q80D52Btmv1ea4nslaOFbkl/g=;
+        b=ZC6i9qOZLyvNdtwxtsVo2y4M75RfmIcg+Wln6aC0tPA4iJCLQ9twECefPZLIuYg/sr
+         Mtb4+u8eU31MoroNv84A12v6ZJiq1qixs+iycuT0dV7b39zb5MjqfzbT780cvIxYIymY
+         xMg5kg0+bEY3Wqe/lqyW7H7Y+AH110JTySYbW7BP85uztISwHDTHeYCsMSjJeJ9p0M1Q
+         ewwvwimuvnNj3BMeZg+X15zKXFXKUbJ2G1SZgH7E3nRxsrg56AoVjMMet1GD4jKEvGOm
+         QI0TiWMl1gIBdnjd3d6D97C3MTzEUoKJEABDgpQHKSs5sNyM3r2xwsaReiHdZbgpb8LH
+         c2Eg==
+X-Forwarded-Encrypted: i=1; AJvYcCX6e6jrmJwl9ckUVqwOirzNmfRedGyMOzsY3mQQr6N5fx0+ZBcEC+AHoecyCtm+hmdIPP4LmnajOJzY9zur8jWInzI6bc5SmWoj38oyyX0=
+X-Gm-Message-State: AOJu0YzKLoGpyVsHct0QoPahjPnGYYaKhWgxTm9zp2AXSwiWr1Ugx0zq
+	+wvQpRY5kUNiGiyMPHVXU9hnq2Peo75ZZzVdFau+iIS448Z3WoOwCNPa0pq92w==
+X-Google-Smtp-Source: AGHT+IHgC3z+xH5eaKqRnifHT+sdO2QvDpPieF5X5R2FmW1NPUuYd/oHQ7DpBTG6NilLo16OpEWxoA==
+X-Received: by 2002:a19:f610:0:b0:512:b915:95d4 with SMTP id x16-20020a19f610000000b00512b91595d4mr2977384lfe.61.1708427655294;
+        Tue, 20 Feb 2024 03:14:15 -0800 (PST)
+Message-ID: <18795bde-bfd5-41ab-bef5-f74819bae956@suse.com>
+Date: Tue, 20 Feb 2024 12:14:13 +0100
 MIME-Version: 1.0
-Subject: [libvirt test] 184708: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt-qcow2:guest-start/debian.repeat:fail:heisenbug
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=c8ca9d0118ec21dbff07147e0bbffcd19fb196b7
-X-Osstest-Versions-That:
-    libvirt=8d9e1f771834f924b41c4dd93f1fde327aef18ff
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 20 Feb 2024 10:59:05 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 (resend) 13/27] x86: Add a boot option to enable and
+ disable the direct map
+Content-Language: en-US
+To: Elias El Yandouzi <eliasely@amazon.com>
+Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
+ Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
+References: <20240116192611.41112-1-eliasely@amazon.com>
+ <20240116192611.41112-14-eliasely@amazon.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240116192611.41112-14-eliasely@amazon.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 184708 libvirt real [real]
-flight 184710 libvirt real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184708/
-http://logs.test-lab.xenproject.org/osstest/logs/184710/
+On 16.01.2024 20:25, Elias El Yandouzi wrote:
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -799,6 +799,18 @@ that enabling this option cannot guarantee anything beyond what underlying
+>  hardware guarantees (with, where available and known to Xen, respective
+>  tweaks applied).
+>  
+> +### directmap (x86)
+> +> `= <boolean>`
+> +
+> +> Default: `true`
+> +
+> +Enable or disable the direct map region in Xen.
+> +
+> +By default, Xen creates the direct map region which maps physical memory
+> +in that region. Setting this to no will remove the direct map, blocking
+> +exploits that leak secrets via speculative memory access in the direct
+> +map.
 
-Failures :-/ but no regressions.
+I think this wants wording such that the full truth is conveyed: The directmap
+doesn't disappear. It's merely only sparsely populated then.
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-libvirt-qcow2 17 guest-start/debian.repeat fail pass in 184710-retest
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -29,6 +29,7 @@ config X86
+>  	select HAS_UBSAN
+>  	select HAS_VPCI if HVM
+>  	select NEEDS_LIBELF
+> +	select HAS_SECRET_HIDING
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184689
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184689
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184689
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+Please respect alphabetic sorting. As to "secret hiding" - personally I
+consider this too generic a term. This is about limiting the direct map. Why
+not name the option then accordingly?
 
-version targeted for testing:
- libvirt              c8ca9d0118ec21dbff07147e0bbffcd19fb196b7
-baseline version:
- libvirt              8d9e1f771834f924b41c4dd93f1fde327aef18ff
+> --- a/xen/arch/x86/include/asm/mm.h
+> +++ b/xen/arch/x86/include/asm/mm.h
+> @@ -620,10 +620,18 @@ void write_32bit_pse_identmap(uint32_t *l2);
+>  /*
+>   * x86 maps part of physical memory via the directmap region.
+>   * Return whether the range of MFN falls in the directmap region.
+> + *
+> + * When boot command line sets directmap=no, we will not have a direct map at
+> + * all so this will always return false.
+>   */
 
-Last test of basis   184689  2024-02-17 04:20:47 Z    3 days
-Testing same since   184708  2024-02-20 04:18:53 Z    0 days    1 attempts
+As with the command line doc, please state the full truth.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Martin Kletzander <mkletzan@redhat.com>
+>  static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
+>  {
+> -    unsigned long eva = min(DIRECTMAP_VIRT_END, HYPERVISOR_VIRT_END);
+> +    unsigned long eva;
+> +
+> +    if ( !has_directmap() )
+> +        return false;
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
+Hmm. The sole user of this function is init_node_heap(). Would it perhaps make
+sense to simply map the indicated number of pages then? init_node_heap() would
+fall back to xmalloc(), so the data will be in what's left of the directmap
+anyway.
 
+> +    eva = min(DIRECTMAP_VIRT_END, HYPERVISOR_VIRT_END);
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Irrespective I don't see a need to replace the initializer by an assignment.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -83,6 +83,23 @@ config HAS_UBSAN
+>  config MEM_ACCESS_ALWAYS_ON
+>  	bool
+>  
+> +config HAS_SECRET_HIDING
+> +	bool
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+This again wants placing suitably among the other HAS_*.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> +config SECRET_HIDING
+> +    bool "Secret hiding"
+> +    depends on HAS_SECRET_HIDING
+> +    ---help---
+> +    The directmap contains mapping for most of the RAM which makes domain
+> +    memory easily accessible. While making the performance better, it also makes
+> +    the hypervisor more vulnerable to speculation attacks.
+> +
+> +    Enabling this feature will allow the user to decide whether the memory
+> +    is always mapped at boot or mapped only on demand (see the command line
+> +    option "directmap").
+> +
+> +    If unsure, say N.
 
+Nit: Indentation and no ---help--- anymore (just help) please in new Kconfig
+entries.
 
-Pushing revision :
+Also as an alternative did you consider making this new setting merely
+control the default of opt_directmap? Otherwise the variable shouldn't exist
+at all when the Kconfig option is off, but rather be #define-d to "true" in
+that case.
 
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   8d9e1f7718..c8ca9d0118  c8ca9d0118ec21dbff07147e0bbffcd19fb196b7 -> xen-tested-master
+> --- a/xen/include/xen/mm.h
+> +++ b/xen/include/xen/mm.h
+> @@ -165,6 +165,13 @@ extern unsigned long max_page;
+>  extern unsigned long total_pages;
+>  extern paddr_t mem_hotplug;
+>  
+> +extern bool opt_directmap;
+> +
+> +static inline bool has_directmap(void)
+> +{
+> +    return opt_directmap;
+> +}
+
+If opt_directmap isn't static, I see little point in having such a wrapper.
+If there are reasons, I think they want stating in the description.
+
+On the whole: Is the placement of this patch in the series an indication
+that as of here all directmap uses have gone away? If so, what's the rest of
+the series about? Alternatively isn't use of this option still problematic
+at this point of the series? Whichever way it is - this wants clarifying in
+the description.
+
+Jan
 
