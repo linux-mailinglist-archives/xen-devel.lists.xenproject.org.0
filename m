@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9CFE85BBBA
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 13:18:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683467.1063011 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0341F85BBCA
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 13:19:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683475.1063022 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcP4a-0000xh-SW; Tue, 20 Feb 2024 12:18:08 +0000
+	id 1rcP5k-0001qi-7f; Tue, 20 Feb 2024 12:19:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683467.1063011; Tue, 20 Feb 2024 12:18:08 +0000
+Received: by outflank-mailman (output) from mailman id 683475.1063022; Tue, 20 Feb 2024 12:19:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcP4a-0000vL-P5; Tue, 20 Feb 2024 12:18:08 +0000
-Received: by outflank-mailman (input) for mailman id 683467;
- Tue, 20 Feb 2024 12:18:07 +0000
+	id 1rcP5k-0001my-4C; Tue, 20 Feb 2024 12:19:20 +0000
+Received: by outflank-mailman (input) for mailman id 683475;
+ Tue, 20 Feb 2024 12:19:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J7zC=J5=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1rcP4Z-0000eL-6q
- for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 12:18:07 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060d.outbound.protection.outlook.com
- [2a01:111:f400:7e88::60d])
+ id 1rcP5i-0001mj-Vm
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 12:19:18 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2412::601])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 19998b1e-cfea-11ee-8a52-1f161083a0e0;
- Tue, 20 Feb 2024 13:18:06 +0100 (CET)
-Received: from DS7PR05CA0018.namprd05.prod.outlook.com (2603:10b6:5:3b9::23)
- by DS0PR12MB8815.namprd12.prod.outlook.com (2603:10b6:8:14f::16) with
+ id 43c8ef3f-cfea-11ee-8a52-1f161083a0e0;
+ Tue, 20 Feb 2024 13:19:17 +0100 (CET)
+Received: from DS7PR05CA0022.namprd05.prod.outlook.com (2603:10b6:5:3b9::27)
+ by BL0PR12MB4916.namprd12.prod.outlook.com (2603:10b6:208:1ce::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.19; Tue, 20 Feb
- 2024 12:18:03 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.20; Tue, 20 Feb
+ 2024 12:19:13 +0000
 Received: from CY4PEPF0000EDD5.namprd03.prod.outlook.com
- (2603:10b6:5:3b9:cafe::65) by DS7PR05CA0018.outlook.office365.com
- (2603:10b6:5:3b9::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.32 via Frontend
- Transport; Tue, 20 Feb 2024 12:18:03 +0000
+ (2603:10b6:5:3b9:cafe::d1) by DS7PR05CA0022.outlook.office365.com
+ (2603:10b6:5:3b9::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.15 via Frontend
+ Transport; Tue, 20 Feb 2024 12:19:13 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000EDD5.mail.protection.outlook.com (10.167.241.209) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Tue, 20 Feb 2024 12:18:02 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ 15.20.7292.25 via Frontend Transport; Tue, 20 Feb 2024 12:19:13 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 20 Feb
- 2024 06:18:01 -0600
+ 2024 06:19:12 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 20 Feb
+ 2024 06:19:12 -0600
 Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via
- Frontend Transport; Tue, 20 Feb 2024 06:18:00 -0600
+ Frontend Transport; Tue, 20 Feb 2024 06:19:11 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,22 +63,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19998b1e-cfea-11ee-8a52-1f161083a0e0
+X-Inumbo-ID: 43c8ef3f-cfea-11ee-8a52-1f161083a0e0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dT6qtKa1jn2HtlsPJY3QrZixOO6HpPIQOk9L/HFzls2TfJaMb2DZfs161H6Wgy5j3zlGG1SprKm7mdGOknqmEqj06bulb3PrGP88FLLBspvT55UKRZzFz/zyX+IAYJ+nJBsD103qlx9V7thUPl4YwhkVS0QZW/ewXVtjc2BP24OuX6xSi3Mm/aNdqdzhSrbNjcKhEl3OeT4NDunJWSYygh3ZVPjtMCx8XbZ/MDpRJEMfKipLjpOCXM2WK84jAREvJN0AVoEu3WFpIzke2Jaedl4DXphlJT8MGRk/xigDUmQLGKmvVY7nH35q1PKCmi/k9gHVDGTiiWe/Fmjfa9pCbg==
+ b=f0lV63jXy2bt9vgQdON2yGMcaTkCgTFgDhzL+NRNgozQvyh/vsnhHr57xwc1AdvE09XilBHieknXYSTj+FAZpHfdcWPerWlN3LeQGeK4bNd++GeJwQ4eAm78ZWlCukguqmWY0Y+rNgWJA37iFkdQ8EpWseYm0ilwmnOBZiDU8KJZpPOHZMpH59Qq36B3HRzBo9wnLCijG+UgA/lT7MVgqejK00yHcfANKRDSw0P9343UHWvWq+ZVwMrGo0laJMa9vd5UjlYWyA32QV8+AcTSSYEHTAKQ5ldAaLDC0geA3NPU9KTUxMFPKEAkHg7hOIifJ0ta1LxInR1ElODo00X3wA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EETal9k4inYY30L6I7esCkTiZAi5uczUE8BepjuzslE=;
- b=HlzR6PCqALmq8oAtDX1J8PnEaKCMTMm5P8nZzioJnTtvzd0N9yqEUVwcWQhINxhaphs9Fv96MCfF3frwCcyQ57mkPJ1FgCJ4nW7kWDxued/e5rOPD8up/NuVk5iSUboCLB8W7Xdea+L+/wiBXX0AKDyHoXGDv1uDJd812/nVehYq4xT/YSu1vVEioVmE/mbZkAANxibpv1X8DbClv3QYerspBjyrRBD4X0EC5d370Tgd5nCLHWVzDgmwuDuzGfb1jmGUNsECaopaMGhUNk04ogUhRxI78R2a/pkeqyKRhjI10zjumohPLOgI2Pqjw/snKRSH4IKsbu0aFq8Q+bn7Vw==
+ bh=TyheUcKZClDVXN1YlPjAzeLmxnokNyXGDiz7llZyvHQ=;
+ b=aUVSLx/hw8NBtHcbgMvjHzeO0ev8HOs9mDverkKEjxz58La/G95x2IbT4v6d30q7tmO/z11WcRxRUPdJtxAjpMxVKCjPlUCpI68pMvNeG0WPrHD6uVmxTcZ3sHgOfQIkwk3H436gasMEalpJvK6JyLgihW+CLm2XXqGyl3mJgTsGouuWJDXdHTW3Y8qWZiuehdZWd9tiYq2/WT+Ike1wKpZtCv2SweAXAHx/6SlyLicZpHwG5jhJYHv/wFywlOR8KH32z1SM8HYV35HWsSGJHClAFpMUbdCYwkmuLKEs1htTDBjEsYTsTEWt0bEdF6ZxbU3RfInB8o/RAK6jR9rcgg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EETal9k4inYY30L6I7esCkTiZAi5uczUE8BepjuzslE=;
- b=HDAL8Gh49RH+c1UjsiJT07FgZYCz32mIHvGEEIn0Z0SSt+bZcLQOTf+b78kG4gS6R3aeoKvEJQUwhW/yqDI1G2DcevHQde+1c+DpoLBUI/hBQDG+CklbKBSNON2WhYUSbvr+FUs9fmN12GpPwfJgG+G16gmJeycUt6AVpkJitH4=
+ bh=TyheUcKZClDVXN1YlPjAzeLmxnokNyXGDiz7llZyvHQ=;
+ b=ALLVrMhhNMJfoDkrNLePd/ehOGV6H5/hD46zPfrUDkpfAfHpwlUbir2BD63eQNXZmMPo8CzIas9dvK1Y0aeliYIMQpcN/LMo7EN6azns1f5T8JFtVHnlJkV8wS6hPq69uJX064+CMFxPwbqa832lZnzSa1yUVzzQmRDwF8ChRlM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -86,9 +90,9 @@ To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
 	<michal.orzel@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Subject: [XEN v5 1/3] xen/arm: Introduce CONFIG_PARTIAL_EMULATION and "partial-emulation" cmd option
-Date: Tue, 20 Feb 2024 12:17:41 +0000
-Message-ID: <20240220121743.3680715-2-ayan.kumar.halder@amd.com>
+Subject: [XEN v5 2/3] xen/arm: arm64: Add emulation of Debug Data Transfer Registers
+Date: Tue, 20 Feb 2024 12:17:42 +0000
+Message-ID: <20240220121743.3680715-3-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240220121743.3680715-1-ayan.kumar.halder@amd.com>
 References: <20240220121743.3680715-1-ayan.kumar.halder@amd.com>
@@ -97,188 +101,198 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD5:EE_|DS0PR12MB8815:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1916796-d8fe-4ce8-20a5-08dc320dfc6b
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD5:EE_|BL0PR12MB4916:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4deb2e0-a812-42fc-e205-08dc320e266b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	we1UyW+4gi0X5d2+VXFcmabEEwPPHq/c+XQR4xwMzGsQjS4YrTIX7x+AjlHo2KmlwtstXGhgi7hONjEr63kyFoaHiGt2eA9ornWm0dGVCVOP3XdZtpd/IL3Bt9toTx8j9cUaHuXu4f1rtCVnEMJQ9tLoKWfzYq8avZR4uPdVzOZnAIhQgtftrNnRF+euIf3WshI3b9OCKhGAtg10sBZdCGQeh91B0pSw7z9hD2x0fJXEEBmU3qt7ja/4WAqn0LBMSniXXyhmN9AKFuR84dl0iXZy0OYIdu9DVLs2sdbBGZiy1+KOC8MCkwMECAxzvGoHMCzzgYgqfF2kB+xL6tBKqj4iUYVJySa58ncZdkryVO/WLes21BnBn1CipsW9bPMy4O/9purFbzqlo4cCe4owhC9GRPsrEhZQ9Bb8XMYmvIxAwAogbbowFZeguSqtwYk3NUxX/sALvXlyesYrlNULaabaMz1CyFXAfNv4+hkM47c1M+Cjps1F2bRINcJ8dGME78z/Ug6b4EMUhiK019OU1jSLpek5NdXNXHley9nQma5d8C5jc3ciI3i5eHZE6gqwqJVLGn74dL4ha+komapbFIaPLfbP2retrQBwCTnTmSRzRZHj2Ikq+O6Hg2BMSLojKEjOmeas6pY6EJhCaxNn/iCsQXuaYQDoGMFfF+Yxo7k=
+	fgErVotxVtLU/1F9k57JNye2xARh6V9xIOKCdK0h76Uy5Rk5ZlogZ9O46ecKNY+xhC2OmLA6kEavoytjnGonYjnPA4Qh8fxfpEs/g+VGCTKxkppcrkCn57NGECnX9qPVEHL4Q5jeBLYE5y5alCozw7hccMsssk7rrLYqA7br4N0o7dlLwpU4Z7JxMeHOk92RyW0ev/3T9zn1ZRReZV/2uV1/6trR1aWpjNlWewgzI48tmCcmgDPxHpnyrvkv6n2ElrB0Q4yzyecoMtbBZkA7+2wrxj9FPshhuV8gwjDWOcHcQEmvIJ7TauPF0yPCHy0BWS2S7Ax6NdHTMgPI616ZWQrpoLAeEE4bdFUITVncMh+UOM7kR3bUWfVk6+LEbC17G/Up78/duzw1gyv31ksX27Mp6dnwzMjeObQYdiMA2Hg0b6ybHcf4DpVTZOwf/T+cV7CtwEZ1X/AbcpuGOsJyvO5PNNCbFp0uHs3/TYeEfXRYlffByJvIzadE80RDSiuRt5O0XQdYd+LR/xsBal1nVLdYpbtWII9MMbfF5+0keQqQKxbTIn07f+E7uxMv6UDK4lHEcfXSYxBpSz6Fb5gi8Hru93+/c1Bxy7ktA6zCtp/CakzbNi9vXlHoMfO4PXf/Ia/2jfrrA9F6cybK8qDUG4m1RZ/znZZlY/SuqcB9hfM=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(230273577357003)(36860700004)(46966006)(40470700004);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(40470700004)(46966006);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2024 12:18:02.9673
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2024 12:19:13.4209
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1916796-d8fe-4ce8-20a5-08dc320dfc6b
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4deb2e0-a812-42fc-e205-08dc320e266b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	CY4PEPF0000EDD5.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8815
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4916
 
-There can be situations when the registers cannot be emulated to their full
-functionality. This can be due to the complexity involved. In such cases, one
-can emulate those registers as RAZ/WI for example. We call them as partial
-emulation.
+From: Michal Orzel <michal.orzel@amd.com>
 
-Some registers are non-optional and as such there is nothing preventing an OS
-from accessing them.
-Instead of injecting undefined exception (thus crashing a guest), one may want
-to prefer a partial emulation to let the guest running (in some cases accepting
-the fact that it might result in unwanted behavior).
+Currently, if user enables HVC_DCC config option in Linux, it invokes access
+to debug data transfer registers (i.e. DBGDTRTX_EL0 on arm64, DBGDTRTXINT on
+arm32). As these registers are not emulated, Xen injects an undefined
+exception to the guest and Linux crashes.
 
-A suitable example of this (as seen in subsequent patches) is emulation of
-DBGDTRTX_EL0 (on Arm64) and DBGDTRTXINT(on Arm32). These non-optional
-registers can be emulated as RAZ/WI and they can be enclosed within
-CONFIG_PARTIAL_EMULATION.
+To prevent this crash, introduce a partial emulation of DBGDTR[TR]X_EL0
+(these registers share the same encoding) as RAZ/WI and MDCCSR_EL0 as TXfull.
 
-Further, "partial-emulation" command line option allows us to
-enable/disable partial emulation at run time. While CONFIG_PARTIAL_EMULATION
-enables support for partial emulation at compile time (i.e. adds code for
-partial emulation), this option may be enabled or disabled by Yocto or other
-build systems. However if the build system turns this option on, users
-can use scripts like Imagebuilder to generate uboot-script which will append
-"partial-emulation=true" to xen command line to turn on the partial emulation.
-Thus, it helps to avoid rebuilding xen.
+Refer ARM DDI 0487J.a ID042523, D19.3.8, DBGDTRTX_EL0
+"If TXfull is set to 1, set DTRRX and DTRTX to UNKNOWN".
 
-By default, "CONFIG_PARTIAL_EMULATION=y" and "partial-emulation=false".
-This is done so that Xen supports partial emulation. However, customers are
-fully aware when they enable partial emulation. It's important to note that
-enabling such support might result in unwanted/non-spec compliant behavior.
+Thus, any OS is expected to read MDCCSR_EL0 and check for TXfull before
+using DBGDTRTX_EL0. Linux does it via hvc_dcc_init() ---> hvc_dcc_check(),
+and returns -ENODEV in case TXfull bit is still set after writing a test
+character. This way we prevent the guest from making use of HVC DCC as a
+console.
 
-Added a note in SUPPORT.md to clarify the security support for partial
-emulation.
-
-Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 ---
+Changes from
 
-Changes from v1 :-
-1. New patch introduced in v2.
+v1 :- 1. DBGDTR_EL0 does not emulate RXfull. This is to avoid giving the OS any
+indication that the RX buffer is full and is waiting to be read.
 
-v2 :-
-1. Reordered the patches so that the config and command line option is
-introduced in the first patch.
+2. In Arm32, DBGOSLSR is emulated. Also DBGDTRTXINT is emulated at EL0 only.
 
-v3 :-
-1. Defined a macro 'partial_emulation' to reduce if-defs.
-2. Fixed style issues.
+3. Fixed the commit message and inline code comments.
 
-v4 :-
-1. Added a note in SUPPORT.md.
+v2 :- 1. Split the patch into two (separate patches for arm64 and arm32).
+2. Removed the "fail" label.
+3. Fixed the commit message.
 
- SUPPORT.md                        | 12 ++++++++++++
- docs/misc/xen-command-line.pandoc | 11 +++++++++++
- xen/arch/arm/Kconfig              |  9 +++++++++
- xen/arch/arm/include/asm/traps.h  |  6 ++++++
- xen/arch/arm/traps.c              |  9 +++++++++
- 5 files changed, 47 insertions(+)
+v3 :- 1. "HSR_SYSREG_MDCCSR_EL0" emulation differs based on whether 
+partial_emulation_enabled is true or not.
 
-diff --git a/SUPPORT.md b/SUPPORT.md
-index a90d1108c9..037578b10c 100644
---- a/SUPPORT.md
-+++ b/SUPPORT.md
-@@ -101,6 +101,18 @@ Extension to the GICv3 interrupt controller to support MSI.
+2. If partial_emulation_enabled is false, then access to HSR_SYSREG_DBGDTR_EL0,
+HSR_SYSREG_DBGDTRTX_EL0 would lead to undefined exception. 
+
+v4 :- 1. Invoked "goto fail" from "default:" to ensure compliance with
+MISRA 15.3.
+
+ xen/arch/arm/arm64/vsysreg.c         | 68 +++++++++++++++++++---------
+ xen/arch/arm/include/asm/arm64/hsr.h |  3 ++
+ 2 files changed, 50 insertions(+), 21 deletions(-)
+
+diff --git a/xen/arch/arm/arm64/vsysreg.c b/xen/arch/arm/arm64/vsysreg.c
+index b5d54c569b..80918bc799 100644
+--- a/xen/arch/arm/arm64/vsysreg.c
++++ b/xen/arch/arm/arm64/vsysreg.c
+@@ -82,6 +82,7 @@ TVM_REG(CONTEXTIDR_EL1)
+ void do_sysreg(struct cpu_user_regs *regs,
+                const union hsr hsr)
+ {
++    const struct hsr_sysreg sysreg = hsr.sysreg;
+     int regidx = hsr.sysreg.reg;
+     struct vcpu *v = current;
  
-     Status: Experimental
+@@ -159,9 +160,6 @@ void do_sysreg(struct cpu_user_regs *regs,
+      *
+      * Unhandled:
+      *    MDCCINT_EL1
+-     *    DBGDTR_EL0
+-     *    DBGDTRRX_EL0
+-     *    DBGDTRTX_EL0
+      *    OSDTRRX_EL1
+      *    OSDTRTX_EL1
+      *    OSECCR_EL1
+@@ -171,12 +169,42 @@ void do_sysreg(struct cpu_user_regs *regs,
+      */
+     case HSR_SYSREG_MDSCR_EL1:
+         return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 1);
++
++    /*
++     * Xen doesn't expose a real (or emulated) Debug Communications Channel
++     * (DCC) to a domain. Yet the Arm ARM implies this is not an optional
++     * feature. So some domains may start to probe it. For instance, the
++     * HVC_DCC driver in Linux (since f377775dc083 and at least up to v6.7),
++     * will try to write some characters and check if the transmit buffer
++     * has emptied.
++     */
+     case HSR_SYSREG_MDCCSR_EL0:
+         /*
++         * By setting TX status bit (only if partial emulation is enabled) to
++         * indicate the transmit buffer is full, we would hint the OS that the
++         * DCC is probably not working.
++         *
++         * Bit 29: TX full
++         *
+          * Accessible at EL0 only if MDSCR_EL1.TDCC is set to 0. We emulate that
+          * register as RAZ/WI above. So RO at both EL0 and EL1.
+          */
+-        return handle_ro_raz(regs, regidx, hsr.sysreg.read, hsr, 0);
++        return handle_ro_read_val(regs, regidx, hsr.sysreg.read, hsr, 0,
++                                  partial_emulation ? (1U << 29) : 0);
++
++    case HSR_SYSREG_DBGDTR_EL0:
++    /* DBGDTR[TR]X_EL0 share the same encoding */
++    case HSR_SYSREG_DBGDTRTX_EL0:
++        /*
++         * Emulate as RAZ/WI (only if partial emulation is enabled) to prevent
++         * injecting undefined exception.
++         * Accessible at EL0 only if MDSCR_EL1.TDCC is set to 0. We emulate that
++         * register as RAZ/WI.
++         */
++        if ( !partial_emulation )
++            goto fail;
++        return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 0);
++
+     HSR_SYSREG_DBG_CASES(DBGBVR):
+     HSR_SYSREG_DBG_CASES(DBGBCR):
+     HSR_SYSREG_DBG_CASES(DBGWVR):
+@@ -394,26 +422,24 @@ void do_sysreg(struct cpu_user_regs *regs,
+      * And all other unknown registers.
+      */
+     default:
+-        {
+-            const struct hsr_sysreg sysreg = hsr.sysreg;
+-
+-            gdprintk(XENLOG_ERR,
+-                     "%s %d, %d, c%d, c%d, %d %s x%d @ 0x%"PRIregister"\n",
+-                     sysreg.read ? "mrs" : "msr",
+-                     sysreg.op0, sysreg.op1,
+-                     sysreg.crn, sysreg.crm,
+-                     sysreg.op2,
+-                     sysreg.read ? "=>" : "<=",
+-                     sysreg.reg, regs->pc);
+-            gdprintk(XENLOG_ERR,
+-                     "unhandled 64-bit sysreg access %#"PRIregister"\n",
+-                     hsr.bits & HSR_SYSREG_REGS_MASK);
+-            inject_undef_exception(regs, hsr);
+-            return;
+-        }
++        goto fail;
+     }
  
-+### ARM/Partial Emulation
+     regs->pc += 4;
++    return;
 +
-+Enable partial emulation of registers, otherwise considered unimplemented,
-+that would normally trigger a fault injection.
++ fail:
 +
-+    Status: Supported, with caveats
-+
-+Bugs allowing the userspace to attack the guest OS will not be considered
-+security vulnerabilities.
-+
-+Bugs that could compromise Xen will be considered security vulnerabilities.
-+
- ### ARM Scalable Vector Extension (SVE/SVE2)
++    gdprintk(XENLOG_ERR,
++             "%s %d, %d, c%d, c%d, %d %s x%d @ 0x%"PRIregister"\n",
++             sysreg.read ? "mrs" : "msr", sysreg.op0, sysreg.op1, sysreg.crn,
++             sysreg.crm, sysreg.op2, sysreg.read ? "=>" : "<=", sysreg.reg,
++             regs->pc);
++    gdprintk(XENLOG_ERR,
++             "unhandled 64-bit sysreg access %#"PRIregister"\n",
++             hsr.bits & HSR_SYSREG_REGS_MASK);
++    inject_undef_exception(regs, hsr);
++    return;
+ }
  
- Arm64 domains can use Scalable Vector Extension (SVE/SVE2).
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index be76be8d53..0cac601066 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -1942,6 +1942,17 @@ This option is ignored in **pv-shim** mode.
- 
- > Default: `on`
- 
-+### partial-emulation (arm)
-+> `= <boolean>`
-+
-+> Default: `false`
-+
-+Flag to enable or disable partial emulation of system/coprocessor registers.
-+Only effective if CONFIG_PARTIAL_EMULATION is enabled.
-+
-+**WARNING: Enabling this option might result in unwanted/non-spec compliant
-+behavior.**
-+
- ### pci
-     = List of [ serr=<bool>, perr=<bool> ]
- 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 50e9bfae1a..dc243f4124 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -225,6 +225,15 @@ config STATIC_EVTCHN
- 	  This option enables establishing static event channel communication
- 	  between domains on a dom0less system (domU-domU as well as domU-dom0).
- 
-+config PARTIAL_EMULATION
-+	bool "Enable partial emulation of system/coprocessor registers"
-+	default y
-+	help
-+	  This option enables partial emulation of registers to prevent guests
-+	  crashing when accessing registers which are not optional but have not been
-+	  emulated to their complete functionality. Enabling this might result in
-+	  unwanted/non-spec compliant behavior.
-+
- endmenu
- 
- menu "ARM errata workaround via the alternative framework"
-diff --git a/xen/arch/arm/include/asm/traps.h b/xen/arch/arm/include/asm/traps.h
-index 883dae368e..9a60dbf70e 100644
---- a/xen/arch/arm/include/asm/traps.h
-+++ b/xen/arch/arm/include/asm/traps.h
-@@ -10,6 +10,12 @@
- # include <asm/arm64/traps.h>
- #endif
- 
-+#ifdef CONFIG_PARTIAL_EMULATION
-+extern bool partial_emulation;
-+#else
-+#define partial_emulation false
-+#endif
-+
  /*
-  * GUEST_BUG_ON is intended for checking that the guest state has not been
-  * corrupted in hardware and/or that the hardware behaves as we
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index 9c10e8f78c..d1c7a6c516 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -42,6 +42,15 @@
- #include <asm/vgic.h>
- #include <asm/vtimer.h>
+diff --git a/xen/arch/arm/include/asm/arm64/hsr.h b/xen/arch/arm/include/asm/arm64/hsr.h
+index e691d41c17..1495ccddea 100644
+--- a/xen/arch/arm/include/asm/arm64/hsr.h
++++ b/xen/arch/arm/include/asm/arm64/hsr.h
+@@ -47,6 +47,9 @@
+ #define HSR_SYSREG_OSDLR_EL1      HSR_SYSREG(2,0,c1,c3,4)
+ #define HSR_SYSREG_DBGPRCR_EL1    HSR_SYSREG(2,0,c1,c4,4)
+ #define HSR_SYSREG_MDCCSR_EL0     HSR_SYSREG(2,3,c0,c1,0)
++#define HSR_SYSREG_DBGDTR_EL0     HSR_SYSREG(2,3,c0,c4,0)
++#define HSR_SYSREG_DBGDTRTX_EL0   HSR_SYSREG(2,3,c0,c5,0)
++#define HSR_SYSREG_DBGDTRRX_EL0   HSR_SYSREG(2,3,c0,c5,0)
  
-+/*
-+ * partial_emulation: If true, partial emulation for system/coprocessor
-+ * registers will be enabled.
-+ */
-+#ifdef CONFIG_PARTIAL_EMULATION
-+bool __ro_after_init partial_emulation = false;
-+boolean_param("partial-emulation", partial_emulation);
-+#endif
-+
- /* The base of the stack must always be double-word aligned, which means
-  * that both the kernel half of struct cpu_user_regs (which is pushed in
-  * entry.S) and struct cpu_info (which lives at the bottom of a Xen
+ #define HSR_SYSREG_DBGBVRn_EL1(n) HSR_SYSREG(2,0,c0,c##n,4)
+ #define HSR_SYSREG_DBGBCRn_EL1(n) HSR_SYSREG(2,0,c0,c##n,5)
 -- 
 2.25.1
 
