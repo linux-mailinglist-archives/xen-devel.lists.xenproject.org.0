@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F69485BFAF
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 16:18:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683578.1063166 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D35F285BFBC
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 16:20:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683585.1063175 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcRt7-0000Rq-4k; Tue, 20 Feb 2024 15:18:29 +0000
+	id 1rcRuh-0002GF-H4; Tue, 20 Feb 2024 15:20:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683578.1063166; Tue, 20 Feb 2024 15:18:29 +0000
+Received: by outflank-mailman (output) from mailman id 683585.1063175; Tue, 20 Feb 2024 15:20:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcRt7-0000Pj-0I; Tue, 20 Feb 2024 15:18:29 +0000
-Received: by outflank-mailman (input) for mailman id 683578;
- Tue, 20 Feb 2024 15:18:27 +0000
+	id 1rcRuh-0002Ek-EI; Tue, 20 Feb 2024 15:20:07 +0000
+Received: by outflank-mailman (input) for mailman id 683585;
+ Tue, 20 Feb 2024 15:20:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nvC9=J5=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rcRt5-0000Oq-EK
- for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 15:18:27 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
+ id 1rcRuf-0001xY-A1
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 15:20:05 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4b03358f-d003-11ee-8a52-1f161083a0e0;
- Tue, 20 Feb 2024 16:18:26 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2d244b28b95so14496431fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 07:18:25 -0800 (PST)
+ id 85afd66b-d003-11ee-8a52-1f161083a0e0;
+ Tue, 20 Feb 2024 16:20:04 +0100 (CET)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-512b4388dafso2734076e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 07:20:04 -0800 (PST)
 Received: from [192.168.206.239] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- f34-20020a0565123b2200b00512aa52a37esm1090390lfv.51.2024.02.20.07.18.23
+ t5-20020ac243a5000000b00512c9bf8f89sm187037lfl.99.2024.02.20.07.20.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Feb 2024 07:18:24 -0800 (PST)
+ Tue, 20 Feb 2024 07:20:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,600 +45,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b03358f-d003-11ee-8a52-1f161083a0e0
+X-Inumbo-ID: 85afd66b-d003-11ee-8a52-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1708442304; x=1709047104; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1708442403; x=1709047203; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=gkavrmItIQeqPwKMSOFu6cj3eEHdZbxS4SZMMZneueo=;
-        b=eJKEKgyAJdXAPuT5dMvjlIrwhNbQJxp0qvT7/r4OUEo67aRsjulmCdS9jdcrEaPh+M
-         aP6eQsgtuuj7E4JM8QXx+JA/2nUsdgFI9FhaS58bJpMTWZOh1ENeupk42gkVN9pFaeVN
-         8X9KUf0WqitIGcfBcqaavIyQnniuvMS+McNTBQ1cPd8VqF/UBIruAOR31OqcNeumWabh
-         XeU/fHVG2F9aW4ALjBggEbWoE0sowOwQ2VD+/u7Fq3spCVaIYJpBPrJrhjLJyVtkJJ5j
-         pNZ3x9JdiL2rHY4+058MJYPP8aW9pRuRUUv2UcvBzAtN+724euppSro7kvcuaRgJHewK
-         9FWQ==
+        bh=99gK8LGzCfvguh8HVJdGJvMrvrsSm5+rJoS5zjH7FTA=;
+        b=gmtVr3pCSBpDsL0VEVccratj+s2lryPxR+tpwASIF9YILISVJbfzXUQxHRk7/9ytkT
+         Tml1W9cKuNp+j/5zdmwSbcNuLddW+zHToaGDvCk3T/uQ/vC+3zF94r7E6V/DgRMPEeKw
+         oP93QvPhwoyalWy46VyNLAh8rFciU6fMdFRyI0ddsDBbjOfmycz7D0OqCyTKndBcgFBb
+         kL2YrusOaKTn8civeQHt75RbbdINWigIUiKDbjhKwBXumX2R5zJBQqG4LgGAAGvnOUmd
+         sKVftjLm0sdFUmltuCRNsTsQDUKoP3hYDCUbuuLzxQBjzJFC4l/ACFch6fQL3caTZiN5
+         8IsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708442304; x=1709047104;
+        d=1e100.net; s=20230601; t=1708442403; x=1709047203;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=gkavrmItIQeqPwKMSOFu6cj3eEHdZbxS4SZMMZneueo=;
-        b=ZzHjTDBCqL3pkV8CDt+FFYFahndcdAZU6pa1ei1maywXlIrbodHpxhN3KdNePxJk5g
-         fOiOVcrhflnlWtXp0TEZXdSoAyNnSf9jNjtP7OLVG8CaAkkP2aVnnD9kp6UfUQNuhHZS
-         KnMbPZbHN0ekGTLX4YZ/W4/fpOA2Rr8TQ5EgyLMJiXvX2Arf/OugaaLbKf83kYQ2Was3
-         hJfrHUV6tfoUn3jWos6sGIdKU6MpJgiTxm1MlO+a/ybEEqL1kCG0pJXY1tCWVC+zchZX
-         lSbop7EpV0LhQJAM6XTfNzSGfWGlbDSxnVXoJo61fo6DPG1UXvnuL+sLRISDTVxaI0i7
-         Hg7w==
-X-Gm-Message-State: AOJu0YykySO2hAx/B65hbzHoUEqtJoURvSbjrWiXCUpNiL6bjvCQdpFg
-	u/77W+F0QRBJJ9TpJkpbITUFbmil5SQWhERVlBbMHFtYCH75jdefsJr0mPaM
-X-Google-Smtp-Source: AGHT+IEOWcKv59Z3JJNpBcpFd4rE0ewvVsYjebTuSFUDcCHmUOhM2dCheuwfR8QKBWZgBA+/aUL3YQ==
-X-Received: by 2002:a05:6512:2342:b0:512:c1ba:9115 with SMTP id p2-20020a056512234200b00512c1ba9115mr2058064lfu.57.1708442304311;
-        Tue, 20 Feb 2024 07:18:24 -0800 (PST)
-Message-ID: <ee34f7eb61a1f09c18e3d5ed915e189087135a9a.camel@gmail.com>
-Subject: Re: [PATCH] xen: move BUG_ON(), WARN_ON(), ASSERT(),
- ASSERT_UNREACHABLE() to xen/bug.h
+        bh=99gK8LGzCfvguh8HVJdGJvMrvrsSm5+rJoS5zjH7FTA=;
+        b=B0L4GQSdWiLtztsrJDhlV1CzVH3TSFKHndosXoy4TkMc//TmBNtKBMe2v/Kt8pmVq5
+         RE6rBJ5Mjre2Q33C7OOVEqwrPz5zeiBXB3Sfm0LcJSPuMzSc7mYVqjTgz8U+Zxeqf1J0
+         j3iGUfDgVF9PwGa5v11QXGsvLqUV1gYeM/kryztD50FxWRNBM1Cd2iRaaZwuTw22rpD1
+         6SRhYqusmD4OxWcM62xZQ9oeG7BaGsEUf9NbXfR1ZntpNbobSmCfxeTBGmyKUPHQu7aZ
+         Zggxd8OgU0n0Hu8NIQmRn6vGhoRFGX6LPOOU2Kb1LXWE3kqTOe+j4r8Y8fw3XLUJ/ifY
+         yW2Q==
+X-Gm-Message-State: AOJu0YzfC85pctMOp1YSAYCiGZtvg0aVxRopxHedAeQ1LhBJRd4PZnqJ
+	5n2P6ebSODwsiNgy9C/kHdeKs0fz1xYEFpymE/1OiP8lmo1mWkmsyJfhT/iG
+X-Google-Smtp-Source: AGHT+IE+0fQT+kpQQuc+qaH9lNES1SYFsCx0tU2bsSfI2Eh1Qn5Dbx905RUQP0mV+W+ppfvjme8WEg==
+X-Received: by 2002:a05:6512:691:b0:512:ccd2:5cb0 with SMTP id t17-20020a056512069100b00512ccd25cb0mr444998lfe.29.1708442403124;
+        Tue, 20 Feb 2024 07:20:03 -0800 (PST)
+Message-ID: <0d10bc590e3b6574eea35f72f324c509b4824d69.camel@gmail.com>
+Subject: Re: [PATCH v2] xen/lib: introduce generic find next bit operations
 From: Oleksii <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org, Shawn Anastasio
 	 <sanastasio@raptorengineering.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>,  Bertrand Marquis <bertrand.marquis@arm.com>, Michal
- Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
- <roger.pau@citrix.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>, "Daniel P. Smith"
- <dpsmith@apertussolutions.com>
-Date: Tue, 20 Feb 2024 16:18:23 +0100
-In-Reply-To: <4887b2d91a4bf2e8b4b66f03964259651981403b.1706897023.git.oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	 <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	 <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	 <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	 <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Date: Tue, 20 Feb 2024 16:20:02 +0100
+In-Reply-To: <fea2e65768457adcfedbfcc294004b1d5c2e86ea.1707495704.git.oleksii.kurochko@gmail.com>
 References: 
-	<4887b2d91a4bf2e8b4b66f03964259651981403b.1706897023.git.oleksii.kurochko@gmail.com>
+	<fea2e65768457adcfedbfcc294004b1d5c2e86ea.1707495704.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
 
-Hello Shawn,
-
-Could you please take a look at the patch and PPC-related changes in
-xen/arch/ppc/include/asm/time.h ?
-
-Thanks in advance.
-
-~ Oleksii
-
-On Fri, 2024-02-02 at 20:03 +0200, Oleksii Kurochko wrote:
-> Move the macros mentioned in the commit subject to their appropriate
-> locations.
-> Additionally, eliminate the dependency of xen/lib.h from xen/bug.h
-> and
-> include "xen/bug.h" in files where xen/bug.h macros are utilized.
->=20
-> Most of the changes were made because a file requires macros from
-> xen/bug.h,
-> except for some files for Arm which require definitions of
-> BUG_OPCODE,
-> BUG_INSTR, BUG_FN_REG.
->=20
-> xen/lib.h was added to list-sort.c ( otherwise compilation errors
-> related
-> to {d}printk occur during compilation of list-sort.c. ) as xen/lib.h
-> was
-> removed from xen/list.h. Since nothing in xen/list.h depends on
-> xen/lib.h
-> functionality and only xen/bug.h is needed.
->=20
-> cpufeature.h requires the inclusion of <xen/cache.h>;
-> otherwise, the following error will occur:
-> ld:
-> common/monitor.o:/build/xen/./arch/x86/include/asm/cpufeature.h:41:
-> multiple definitions of `__cacheline_aligned';
->=20
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> =C2=A0xen/arch/arm/arm32/insn.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
-> =C2=A0xen/arch/arm/arm64/cpufeature.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0xen/arch/arm/arm64/insn.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0xen/arch/arm/cpufeature.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0xen/arch/arm/include/asm/arm32/cmpxchg.h |=C2=A0 1 +
-> =C2=A0xen/arch/arm/include/asm/arm64/cmpxchg.h |=C2=A0 2 ++
-> =C2=A0xen/arch/arm/include/asm/regs.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> =C2=A0xen/arch/arm/include/asm/vgic.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0xen/arch/ppc/include/asm/time.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> =C2=A0xen/arch/x86/bitops.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 2 +-
-> =C2=A0xen/arch/x86/include/asm/cpufeature.h=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0xen/arch/x86/include/asm/system.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 2 +-
-> =C2=A0xen/arch/x86/include/asm/x86_64/page.h=C2=A0=C2=A0 |=C2=A0 2 ++
-> =C2=A0xen/arch/x86/x86_emulate/private.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 1 +
-> =C2=A0xen/common/efi/common-stub.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> =C2=A0xen/common/version.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0 1 +
-> =C2=A0xen/include/public/hvm/save.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> =C2=A0xen/include/xen/bug.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 19 =
-+++++++++++++++++++
-> =C2=A0xen/include/xen/cpumask.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0xen/include/xen/device_tree.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0xen/include/xen/lib.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 19 =
--------------------
-> =C2=A0xen/include/xen/list.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +=
--
-> =C2=A0xen/include/xen/livepatch.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 ++
-> =C2=A0xen/include/xen/mm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0 1 +
-> =C2=A0xen/include/xen/param.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0xen/lib/list-sort.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 1 +
-> =C2=A0xen/xsm/flask/ss/ebitmap.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A027 files changed, 48 insertions(+), 27 deletions(-)
->=20
-> diff --git a/xen/arch/arm/arm32/insn.c b/xen/arch/arm/arm32/insn.c
-> index 49953a042a..2a62bb9cce 100644
-> --- a/xen/arch/arm/arm32/insn.c
-> +++ b/xen/arch/arm/arm32/insn.c
-> @@ -13,8 +13,9 @@
-> =C2=A0=C2=A0 * You should have received a copy of the GNU General Public
-> License
-> =C2=A0=C2=A0 * along with this program.=C2=A0 If not, see
-> <http://www.gnu.org/licenses/>.
-> =C2=A0=C2=A0 */
-> -#include <xen/lib.h>
-> =C2=A0#include <xen/bitops.h>
-> +#include <xen/bug.h>
-> +#include <xen/lib.h>
-> =C2=A0#include <xen/sizes.h>
-> =C2=A0#include <asm/insn.h>
-> =C2=A0
-> diff --git a/xen/arch/arm/arm64/cpufeature.c
-> b/xen/arch/arm/arm64/cpufeature.c
-> index b4656ff4d8..864413d9cc 100644
-> --- a/xen/arch/arm/arm64/cpufeature.c
-> +++ b/xen/arch/arm/arm64/cpufeature.c
-> @@ -69,6 +69,7 @@
-> =C2=A0 *=C2=A0=C2=A0 KVM guests.
-> =C2=A0 */
-> =C2=A0
-> +#include <xen/bug.h>
-> =C2=A0#include <xen/types.h>
-> =C2=A0#include <xen/kernel.h>
-> =C2=A0#include <asm/sysregs.h>
-> diff --git a/xen/arch/arm/arm64/insn.c b/xen/arch/arm/arm64/insn.c
-> index 22f2bdebd5..773c3749d1 100644
-> --- a/xen/arch/arm/arm64/insn.c
-> +++ b/xen/arch/arm/arm64/insn.c
-> @@ -18,6 +18,7 @@
-> =C2=A0 * You should have received a copy of the GNU General Public Licens=
-e
-> =C2=A0 * along with this program.=C2=A0 If not, see
-> <http://www.gnu.org/licenses/>.
-> =C2=A0 */
-> +#include <xen/bug.h>
-> =C2=A0#include <xen/types.h>
-> =C2=A0#include <xen/lib.h>
-> =C2=A0#include <xen/errno.h>
-> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
-> index f43d5cb338..ef77473bf8 100644
-> --- a/xen/arch/arm/cpufeature.c
-> +++ b/xen/arch/arm/cpufeature.c
-> @@ -5,6 +5,7 @@
-> =C2=A0 * Copyright (C) 2015 ARM Ltd.
-> =C2=A0 */
-> =C2=A0
-> +#include <xen/bug.h>
-> =C2=A0#include <xen/types.h>
-> =C2=A0#include <xen/init.h>
-> =C2=A0#include <xen/smp.h>
-> diff --git a/xen/arch/arm/include/asm/arm32/cmpxchg.h
-> b/xen/arch/arm/include/asm/arm32/cmpxchg.h
-> index 37b2d64eb6..8455eb7cc3 100644
-> --- a/xen/arch/arm/include/asm/arm32/cmpxchg.h
-> +++ b/xen/arch/arm/include/asm/arm32/cmpxchg.h
-> @@ -1,6 +1,7 @@
-> =C2=A0#ifndef __ASM_ARM32_CMPXCHG_H
-> =C2=A0#define __ASM_ARM32_CMPXCHG_H
-> =C2=A0
-> +#include <xen/bug.h>
-> =C2=A0#include <xen/prefetch.h>
-> =C2=A0
-> =C2=A0extern void __bad_xchg(volatile void *ptr, int size);
-> diff --git a/xen/arch/arm/include/asm/arm64/cmpxchg.h
-> b/xen/arch/arm/include/asm/arm64/cmpxchg.h
-> index 031fa6d92a..f160e8e7bc 100644
-> --- a/xen/arch/arm/include/asm/arm64/cmpxchg.h
-> +++ b/xen/arch/arm/include/asm/arm64/cmpxchg.h
-> @@ -1,6 +1,8 @@
-> =C2=A0#ifndef __ASM_ARM64_CMPXCHG_H
-> =C2=A0#define __ASM_ARM64_CMPXCHG_H
-> =C2=A0
-> +#include <xen/bug.h>
-> +
-> =C2=A0extern void __bad_xchg(volatile void *ptr, int size);
-> =C2=A0
-> =C2=A0static inline unsigned long __xchg(unsigned long x, volatile void
-> *ptr, int size)
-> diff --git a/xen/arch/arm/include/asm/regs.h
-> b/xen/arch/arm/include/asm/regs.h
-> index f998aedff5..0d9f239a77 100644
-> --- a/xen/arch/arm/include/asm/regs.h
-> +++ b/xen/arch/arm/include/asm/regs.h
-> @@ -5,7 +5,7 @@
-> =C2=A0
-> =C2=A0#ifndef __ASSEMBLY__
-> =C2=A0
-> -#include <xen/lib.h>
-> +#include <xen/bug.h>
-> =C2=A0#include <xen/types.h>
-> =C2=A0#include <public/xen.h>
-> =C2=A0#include <asm/current.h>
-> diff --git a/xen/arch/arm/include/asm/vgic.h
-> b/xen/arch/arm/include/asm/vgic.h
-> index 922779ce14..79b73a0dbb 100644
-> --- a/xen/arch/arm/include/asm/vgic.h
-> +++ b/xen/arch/arm/include/asm/vgic.h
-> @@ -22,6 +22,7 @@
-> =C2=A0#include <asm/new_vgic.h>
-> =C2=A0#else
-> =C2=A0
-> +#include <xen/bug.h>
-> =C2=A0#include <xen/radix-tree.h>
-> =C2=A0#include <xen/rbtree.h>
-> =C2=A0
-> diff --git a/xen/arch/ppc/include/asm/time.h
-> b/xen/arch/ppc/include/asm/time.h
-> index aa9dda82a3..f23eec173e 100644
-> --- a/xen/arch/ppc/include/asm/time.h
-> +++ b/xen/arch/ppc/include/asm/time.h
-> @@ -2,7 +2,7 @@
-> =C2=A0#ifndef __ASM_PPC_TIME_H__
-> =C2=A0#define __ASM_PPC_TIME_H__
-> =C2=A0
-> -#include <xen/lib.h>
-> +#include <xen/bug.h>
-> =C2=A0#include <asm/processor.h>
-> =C2=A0#include <asm/regs.h>
-> =C2=A0
-> diff --git a/xen/arch/x86/bitops.c b/xen/arch/x86/bitops.c
-> index f6ee71512c..720ab32362 100644
-> --- a/xen/arch/x86/bitops.c
-> +++ b/xen/arch/x86/bitops.c
-> @@ -1,6 +1,6 @@
-> =C2=A0
-> =C2=A0#include <xen/bitops.h>
-> -#include <xen/lib.h>
-> +#include <xen/bug.h>
-> =C2=A0
-> =C2=A0unsigned int __find_first_bit(
-> =C2=A0=C2=A0=C2=A0=C2=A0 const unsigned long *addr, unsigned int size)
-> diff --git a/xen/arch/x86/include/asm/cpufeature.h
-> b/xen/arch/x86/include/asm/cpufeature.h
-> index 896483a900..be16492c68 100644
-> --- a/xen/arch/x86/include/asm/cpufeature.h
-> +++ b/xen/arch/x86/include/asm/cpufeature.h
-> @@ -6,6 +6,7 @@
-> =C2=A0#ifndef __ASM_I386_CPUFEATURE_H
-> =C2=A0#define __ASM_I386_CPUFEATURE_H
-> =C2=A0
-> +#include <xen/cache.h>
-> =C2=A0#include <xen/const.h>
-> =C2=A0#include <asm/cpuid.h>
-> =C2=A0
-> diff --git a/xen/arch/x86/include/asm/system.h
-> b/xen/arch/x86/include/asm/system.h
-> index 6e40a03cb3..debf6bfa17 100644
-> --- a/xen/arch/x86/include/asm/system.h
-> +++ b/xen/arch/x86/include/asm/system.h
-> @@ -1,8 +1,8 @@
-> =C2=A0#ifndef __ASM_SYSTEM_H
-> =C2=A0#define __ASM_SYSTEM_H
-> =C2=A0
-> -#include <xen/lib.h>
-> =C2=A0#include <xen/bitops.h>
-> +#include <xen/bug.h>
-> =C2=A0#include <asm/cpufeature.h>
-> =C2=A0#include <asm/x86-defns.h>
-> =C2=A0
-> diff --git a/xen/arch/x86/include/asm/x86_64/page.h
-> b/xen/arch/x86/include/asm/x86_64/page.h
-> index f49e10475f..19ca64d792 100644
-> --- a/xen/arch/x86/include/asm/x86_64/page.h
-> +++ b/xen/arch/x86/include/asm/x86_64/page.h
-> @@ -19,6 +19,8 @@ static inline unsigned long
-> canonicalise_addr(unsigned long addr)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return addr & ~CANONICAL=
-_MASK;
-> =C2=A0}
-> =C2=A0
-> +#include <xen/bug.h>
-> +
-> =C2=A0#include <xen/types.h>
-> =C2=A0
-> =C2=A0#include <xen/pdx.h>
-> diff --git a/xen/arch/x86/x86_emulate/private.h
-> b/xen/arch/x86/x86_emulate/private.h
-> index 33f2870508..0fa26ba00a 100644
-> --- a/xen/arch/x86/x86_emulate/private.h
-> +++ b/xen/arch/x86/x86_emulate/private.h
-> @@ -8,6 +8,7 @@
-> =C2=A0
-> =C2=A0#ifdef __XEN__
-> =C2=A0
-> +# include <xen/bug.h>
-> =C2=A0# include <xen/kernel.h>
-> =C2=A0# include <asm/endbr.h>
-> =C2=A0# include <asm/msr-index.h>
-> diff --git a/xen/common/efi/common-stub.c b/xen/common/efi/common-
-> stub.c
-> index 5a91fe28cc..77f138a6c5 100644
-> --- a/xen/common/efi/common-stub.c
-> +++ b/xen/common/efi/common-stub.c
-> @@ -1,6 +1,6 @@
-> +#include <xen/bug.h>
-> =C2=A0#include <xen/efi.h>
-> =C2=A0#include <xen/errno.h>
-> -#include <xen/lib.h>
-> =C2=A0
-> =C2=A0bool efi_enabled(unsigned int feature)
-> =C2=A0{
-> diff --git a/xen/common/version.c b/xen/common/version.c
-> index e807ef4de0..80869430fc 100644
-> --- a/xen/common/version.c
-> +++ b/xen/common/version.c
-> @@ -1,3 +1,4 @@
-> +#include <xen/bug.h>
-> =C2=A0#include <xen/compile.h>
-> =C2=A0#include <xen/init.h>
-> =C2=A0#include <xen/errno.h>
-> diff --git a/xen/include/public/hvm/save.h
-> b/xen/include/public/hvm/save.h
-> index ff0048e5f8..5561495b27 100644
-> --- a/xen/include/public/hvm/save.h
-> +++ b/xen/include/public/hvm/save.h
-> @@ -51,7 +51,7 @@ struct hvm_save_descriptor {
-> =C2=A0=C2=A0=C2=A0=C2=A0 struct __HVM_SAVE_TYPE_##_x { _type t; char c[_c=
-ode]; char
-> cpt[2];};=C2=A0 \
-> =C2=A0=C2=A0=C2=A0=C2=A0 struct __HVM_SAVE_TYPE_COMPAT_##_x { _ctype t; }
-> =C2=A0
-> -# include <xen/lib.h> /* BUG() */
-> +# include <xen/bug.h> /* BUG() */
-> =C2=A0# define DECLARE_HVM_SAVE_TYPE(_x, _code,
-> _type)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 \
-> =C2=A0=C2=A0=C2=A0=C2=A0 static inline int __HVM_SAVE_FIX_COMPAT_##_x(voi=
-d *h, uint32_t
-> size) \
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { BUG(); return -1;
-> }=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> diff --git a/xen/include/xen/bug.h b/xen/include/xen/bug.h
-> index 4bd0be5088..7c150b7032 100644
-> --- a/xen/include/xen/bug.h
-> +++ b/xen/include/xen/bug.h
-> @@ -16,6 +16,7 @@
-> =C2=A0
-> =C2=A0#ifndef __ASSEMBLY__
-> =C2=A0
-> +#include <xen/compiler.h>
-> =C2=A0#include <xen/macros.h>
-> =C2=A0#include <xen/types.h>
-> =C2=A0
-> @@ -127,6 +128,24 @@ static void always_inline
-> run_in_exception_handler(
-> =C2=A0} while ( false )
-> =C2=A0#endif
-> =C2=A0
-> +#define BUG_ON(p)=C2=A0 do { if (unlikely(p)) BUG();=C2=A0 } while (0)
-> +#define WARN_ON(p)=C2=A0 ({=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> +=C2=A0=C2=A0=C2=A0 bool ret_warn_on_ =3D (p);=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 \
-> +=C2=A0=C2=A0=C2=A0 if ( unlikely(ret_warn_on_) )=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 \
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WARN();=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> +=C2=A0=C2=A0=C2=A0 unlikely(ret_warn_on_);=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> +})
-> +
-> +#ifndef NDEBUG
-> +#define ASSERT(p) \
-> +=C2=A0=C2=A0=C2=A0 do { if ( unlikely(!(p)) ) assert_failed(#p); } while=
- (0)
-> +#define ASSERT_UNREACHABLE() assert_failed("unreachable")
-> +#else
-> +#define ASSERT(p) do { if ( 0 && (p) ) {} } while (0)
-> +#define ASSERT_UNREACHABLE() do { } while (0)
-> +#endif
-> +
-> =C2=A0#ifdef CONFIG_GENERIC_BUG_FRAME
-> =C2=A0
-> =C2=A0/*
-> diff --git a/xen/include/xen/cpumask.h b/xen/include/xen/cpumask.h
-> index 145e140481..46e75d54ba 100644
-> --- a/xen/include/xen/cpumask.h
-> +++ b/xen/include/xen/cpumask.h
-> @@ -55,6 +55,7 @@
-> =C2=A0 * for_each_present_cpu(cpu)		for-loop cpu over
-> cpu_present_map
-> =C2=A0 */
-> =C2=A0
-> +#include <xen/bug.h>
-> =C2=A0#include <xen/bitmap.h>
-> =C2=A0#include <xen/kernel.h>
-> =C2=A0#include <xen/random.h>
-> diff --git a/xen/include/xen/device_tree.h
-> b/xen/include/xen/device_tree.h
-> index 94a836cb4e..6fe2fa8b21 100644
-> --- a/xen/include/xen/device_tree.h
-> +++ b/xen/include/xen/device_tree.h
-> @@ -14,6 +14,7 @@
-> =C2=A0#include <asm/device.h>
-> =C2=A0#include <public/xen.h>
-> =C2=A0#include <public/device_tree_defs.h>
-> +#include <xen/bug.h>
-> =C2=A0#include <xen/kernel.h>
-> =C2=A0#include <xen/string.h>
-> =C2=A0#include <xen/types.h>
-> diff --git a/xen/include/xen/lib.h b/xen/include/xen/lib.h
-> index 1793be5b6b..4c755cc275 100644
-> --- a/xen/include/xen/lib.h
-> +++ b/xen/include/xen/lib.h
-> @@ -5,31 +5,12 @@
-> =C2=A0
-> =C2=A0#ifndef __ASSEMBLY__
-> =C2=A0
-> -#include <xen/bug.h>
-> =C2=A0#include <xen/inttypes.h>
-> =C2=A0#include <xen/stdarg.h>
-> =C2=A0#include <xen/types.h>
-> =C2=A0#include <xen/xmalloc.h>
-> =C2=A0#include <xen/string.h>
-> =C2=A0
-> -#define BUG_ON(p)=C2=A0 do { if (unlikely(p)) BUG();=C2=A0 } while (0)
-> -#define WARN_ON(p)=C2=A0 ({=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> -=C2=A0=C2=A0=C2=A0 bool ret_warn_on_ =3D (p);=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 \
-> -=C2=A0=C2=A0=C2=A0 if ( unlikely(ret_warn_on_) )=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 \
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WARN();=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> -=C2=A0=C2=A0=C2=A0 unlikely(ret_warn_on_);=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> -})
-> -
-> -#ifndef NDEBUG
-> -#define ASSERT(p) \
-> -=C2=A0=C2=A0=C2=A0 do { if ( unlikely(!(p)) ) assert_failed(#p); } while=
- (0)
-> -#define ASSERT_UNREACHABLE() assert_failed("unreachable")
-> -#else
-> -#define ASSERT(p) do { if ( 0 && (p) ) {} } while (0)
-> -#define ASSERT_UNREACHABLE() do { } while (0)
-> -#endif
-> -
-> =C2=A0#define __ACCESS_ONCE(x) ({=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-(void)(typeof(x))0; /* Scalar typecheck. */ \
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-(volatile typeof(x) *)&(x); })
-> diff --git a/xen/include/xen/list.h b/xen/include/xen/list.h
-> index dc5a8c461b..b5eab3a1eb 100644
-> --- a/xen/include/xen/list.h
-> +++ b/xen/include/xen/list.h
-> @@ -7,7 +7,7 @@
-> =C2=A0#ifndef __XEN_LIST_H__
-> =C2=A0#define __XEN_LIST_H__
-> =C2=A0
-> -#include <xen/lib.h>
-> +#include <xen/bug.h>
-> =C2=A0#include <asm/system.h>
-> =C2=A0
-> =C2=A0/*
-> diff --git a/xen/include/xen/livepatch.h
-> b/xen/include/xen/livepatch.h
-> index 45df4bba4f..ad0eae28bd 100644
-> --- a/xen/include/xen/livepatch.h
-> +++ b/xen/include/xen/livepatch.h
-> @@ -18,6 +18,8 @@ struct xen_sysctl_livepatch_op;
-> =C2=A0
-> =C2=A0#ifdef CONFIG_LIVEPATCH
-> =C2=A0
-> +#include <xen/lib.h>
-> +
-> =C2=A0/*
-> =C2=A0 * We use alternative and exception table code - which by default
-> are __init
-> =C2=A0 * only, however we need them during runtime. These macros allows u=
-s
-> to build
-> diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> index 3d9b2d05a5..bb29b352ec 100644
-> --- a/xen/include/xen/mm.h
-> +++ b/xen/include/xen/mm.h
-> @@ -61,6 +61,7 @@
-> =C2=A0#ifndef __XEN_MM_H__
-> =C2=A0#define __XEN_MM_H__
-> =C2=A0
-> +#include <xen/bug.h>
-> =C2=A0#include <xen/compiler.h>
-> =C2=A0#include <xen/mm-frame.h>
-> =C2=A0#include <xen/types.h>
-> diff --git a/xen/include/xen/param.h b/xen/include/xen/param.h
-> index 9170455cde..d8471ffe18 100644
-> --- a/xen/include/xen/param.h
-> +++ b/xen/include/xen/param.h
-> @@ -1,6 +1,7 @@
-> =C2=A0#ifndef _XEN_PARAM_H
-> =C2=A0#define _XEN_PARAM_H
-> =C2=A0
-> +#include <xen/bug.h>
-> =C2=A0#include <xen/hypfs.h>
-> =C2=A0#include <xen/init.h>
-> =C2=A0#include <xen/lib.h>
-> diff --git a/xen/lib/list-sort.c b/xen/lib/list-sort.c
-> index de1af2ef8b..251764804c 100644
-> --- a/xen/lib/list-sort.c
-> +++ b/xen/lib/list-sort.c
-> @@ -15,6 +15,7 @@
-> =C2=A0 * this program; If not, see <http://www.gnu.org/licenses/>.
-> =C2=A0 */
-> =C2=A0
-> +#include <xen/lib.h>
-> =C2=A0#include <xen/list.h>
-> =C2=A0#include <xen/list_sort.h>
-> =C2=A0
-> diff --git a/xen/xsm/flask/ss/ebitmap.h b/xen/xsm/flask/ss/ebitmap.h
-> index bb43de891d..7b2da8179a 100644
-> --- a/xen/xsm/flask/ss/ebitmap.h
-> +++ b/xen/xsm/flask/ss/ebitmap.h
-> @@ -15,6 +15,7 @@
-> =C2=A0#define _SS_EBITMAP_H_
-> =C2=A0
-> =C2=A0#include <xen/bitmap.h>
-> +#include <xen/bug.h>
-> =C2=A0
-> =C2=A0#define EBITMAP_UNIT_NUMS	((32 - sizeof(void *) -
-> sizeof(u32))	\
-> =C2=A0					/ sizeof(unsigned long))
+SGkgU2hhd24sCgpDb3VsZCB5b3UgcGxlYXNlIHRha2UgYSBsb29rIGF0IHRoZSBwYXRjaCBhbmQg
+UFBDLXJlbGF0ZWQgY2hhbmdlcyAoCnhlbi9hcmNoL3BwYy9pbmNsdWRlL2FzbS9iaXRvcHMuaCAp
+PwoKVGhhbmtzIGluIGFkdmFuY2UuCgp+IE9sZWtzaWkKCk9uIEZyaSwgMjAyNC0wMi0wOSBhdCAx
+ODo1OCArMDEwMCwgT2xla3NpaSBLdXJvY2hrbyB3cm90ZToKPiBmaW5kLW5leHQtYml0LmMgaXMg
+Y29tbW9uIGZvciBBcm02NCwgUFBDIGFuZCBSSVNDVjY0LAo+IHNvIGl0IGlzIG1vdmVkIHRvIHhl
+bi9saWIuCj4gCj4gUFBDIGhhcyBiZWVuIHRyYW5zaXRpb25lZCB0byBnZW5lcmljIGZ1bmN0aW9u
+cyBmcm9tIGZpbmQtbmV4dC1iaXQuYwo+IHNpbmNlIGl0IG5vdyBzaGFyZXMgdGhlIHNhbWUgaW1w
+bGVtZW50YXRpb24gYXMgdGhlIFBQQy1zcGVjaWZpYyBjb2RlLgo+IAo+IFRoZSBNSVNSQSBleGNs
+dWRlIGxpc3QgaGFzIGJlZW4gdXBkYXRlZCB0byB2ZXJpZnkKPiBsaWIvZmluZC1uZXh0LWJpdC5j
+IGluc3RlYWQgb2YgQXJtJ3MgZmluZF9uZXh0X2JpdC5jLAo+IGFzIEFybSdzIGZpbmRfbmV4dF9i
+aXQuYyBoYXMgYmVlbiByZWxvY2F0ZWQgdG8geGVuL2xpYi8uCj4gCj4gRGVzcGl0ZSBDT05GSUdf
+R0VORVJJQ19GSU5EX0ZJUlNUX0JJVCBub3QgY3VycmVudGx5IGJlaW5nIHVzZWQgaW4KPiBYZW4g
+YW5kIGJlaW5nIHJlbW92ZWQgZnJvbSB0aGUgTGludXgga2VybmVsIFsxXSwgaXQgY291bGQKPiB0
+aGVvcmV0aWNhbGx5Cj4gcHJvdmUgdXNlZnVsIGZvciBYZW4uIFRoaXMgaXMgYmVjYXVzZSB0aGUg
+TGludXgga2VybmVsIHRyYW5zaXRpb25lZAo+IEFybSB0byB0aGUgZ2VuZXJpYyB2ZXJzaW9uIG9m
+IGZpbmRfZmlyc3RfYml0KCkgYW5kCj4gZmluZF9maXJzdF96ZXJvX2JpdCgpIGR1ZSB0byBpbXBy
+b3ZlbWVudHMgWzFdIGluIGJvdGggcGVyZm9ybWFuY2UKPiBhbmQgLnRleHQgc2l6ZS4KPiBJdCB3
+b3VsZCBiZSBwcnVkZW50IHRvIGludmVzdGlnYXRlIHdoZXRoZXIgWzFdIGlzIGFwcGxpY2FibGUg
+dG8gWGVuCj4gYXMgd2VsbCBhbmQsIGlmIHNvLCBpbXBsZW1lbnQgdGhlIG5lY2Vzc2FyeSBjaGFu
+Z2VzIGluIGEgc2VwYXJhdGUKPiBwYXRjaC4KPiAKPiBbMV0KPiBodHRwczovL2xvcmUua2VybmVs
+Lm9yZy9saW51eC1hcmNoLzIwMjExMDA1MDU0MDU5LjQ3NTYzNC01LXl1cnkubm9yb3ZAZ21haWwu
+Y29tLwo+IAo+IFN1Z2dlc3RlZC1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgo+
+IFNpZ25lZC1vZmYtYnk6IE9sZWtzaWkgS3Vyb2Noa28gPG9sZWtzaWkua3Vyb2Noa29AZ21haWwu
+Y29tPgo+IC0tLQo+IMKgZG9jcy9taXNyYS9leGNsdWRlLWxpc3QuanNvbsKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqAgOCArLQo+IMKgeGVuL2FyY2gvYXJtL2FybTY0L2xp
+Yi9NYWtlZmlsZcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqAgMiArLQo+IMKgeGVu
+L2FyY2gvYXJtL2luY2x1ZGUvYXNtL2FybTY0L2JpdG9wcy5owqDCoMKgwqDCoMKgIHzCoCA0NiAr
+LS0tLS0tCj4gwqB4ZW4vYXJjaC9wcGMvaW5jbHVkZS9hc20vYml0b3BzLmjCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgfCAxMTUgLS0tLS0tLS0tLS0tLS0tLQo+IC0tCj4gwqB4ZW4vaW5jbHVkZS94
+ZW4vYml0b3BzLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKg
+IDQ4ICsrKysrKysrCj4gwqB4ZW4vbGliL01ha2VmaWxlwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCAxICsKPiDCoC4uLi9maW5k
+X25leHRfYml0LmMgPT4gbGliL2ZpbmQtbmV4dC1iaXQuY33CoMKgIHzCoMKgIDAKPiDCoDcgZmls
+ZXMgY2hhbmdlZCwgNTUgaW5zZXJ0aW9ucygrKSwgMTY1IGRlbGV0aW9ucygtKQo+IMKgcmVuYW1l
+IHhlbi97YXJjaC9hcm0vYXJtNjQvbGliL2ZpbmRfbmV4dF9iaXQuYyA9PiBsaWIvZmluZC1uZXh0
+LQo+IGJpdC5jfSAoMTAwJSkKPiAKPiBkaWZmIC0tZ2l0IGEvZG9jcy9taXNyYS9leGNsdWRlLWxp
+c3QuanNvbiBiL2RvY3MvbWlzcmEvZXhjbHVkZS0KPiBsaXN0Lmpzb24KPiBpbmRleCA3OTcxZDBl
+NzBmLi5iMjgxNzRkMGViIDEwMDY0NAo+IC0tLSBhL2RvY3MvbWlzcmEvZXhjbHVkZS1saXN0Lmpz
+b24KPiArKysgYi9kb2NzL21pc3JhL2V4Y2x1ZGUtbGlzdC5qc29uCj4gQEAgLTEzLDEwICsxMyw2
+IEBACj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJyZWxfcGF0aCI6ICJhcmNoL2FybS9hcm02
+NC9pbnNuLmMiLAo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAiY29tbWVudCI6ICJJbXBvcnRl
+ZCBvbiBMaW51eCwgaWdub3JlIGZvciBub3ciCj4gwqDCoMKgwqDCoMKgwqDCoCB9LAo+IC3CoMKg
+wqDCoMKgwqDCoCB7Cj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgInJlbF9wYXRoIjogImFyY2gv
+YXJtL2FybTY0L2xpYi9maW5kX25leHRfYml0LmMiLAo+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+ICJjb21tZW50IjogIkltcG9ydGVkIGZyb20gTGludXgsIGlnbm9yZSBmb3Igbm93Igo+IC3CoMKg
+wqDCoMKgwqDCoCB9LAo+IMKgwqDCoMKgwqDCoMKgwqAgewo+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCAicmVsX3BhdGgiOiAiYXJjaC94ODYvYWNwaS9ib290LmMiLAo+IMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCAiY29tbWVudCI6ICJJbXBvcnRlZCBmcm9tIExpbnV4LCBpZ25vcmUgZm9yIG5v
+dyIKPiBAQCAtMjIxLDYgKzIxNywxMCBAQAo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAicmVs
+X3BhdGgiOiAiaW5jbHVkZS94ZW4vZGVjb21wcmVzcy5oIiwKPiDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgImNvbW1lbnQiOiAiSW1wb3J0ZWQgZnJvbSBMaW51eCwgaWdub3JlIGZvciBub3ciCj4g
+wqDCoMKgwqDCoMKgwqDCoCB9LAo+ICvCoMKgwqDCoMKgwqDCoCB7Cj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgInJlbF9wYXRoIjogImxpYi9maW5kLW5leHQtYml0LmMiLAo+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgICJjb21tZW50IjogIkltcG9ydGVkIGZyb20gTGludXgsIGlnbm9yZSBmb3Ig
+bm93Igo+ICvCoMKgwqDCoMKgwqDCoCB9LAo+IMKgwqDCoMKgwqDCoMKgwqAgewo+IMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCAicmVsX3BhdGgiOiAibGliL2xpc3Qtc29ydC5jIiwKPiDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgImNvbW1lbnQiOiAiSW1wb3J0ZWQgZnJvbSBMaW51eCwgaWdub3Jl
+IGZvciBub3ciCj4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL2FybS9hcm02NC9saWIvTWFrZWZpbGUK
+PiBiL3hlbi9hcmNoL2FybS9hcm02NC9saWIvTWFrZWZpbGUKPiBpbmRleCAxYjljN2E5NWU2Li42
+NmNmYWM0MzVhIDEwMDY0NAo+IC0tLSBhL3hlbi9hcmNoL2FybS9hcm02NC9saWIvTWFrZWZpbGUK
+PiArKysgYi94ZW4vYXJjaC9hcm0vYXJtNjQvbGliL01ha2VmaWxlCj4gQEAgLTEsNCArMSw0IEBA
+Cj4gwqBvYmoteSArPSBtZW1jcHkubyBtZW1jbXAubyBtZW1tb3ZlLm8gbWVtc2V0Lm8gbWVtY2hy
+Lm8KPiDCoG9iai15ICs9IGNsZWFyX3BhZ2Uubwo+IC1vYmoteSArPSBiaXRvcHMubyBmaW5kX25l
+eHRfYml0Lm8KPiArb2JqLXkgKz0gYml0b3BzLm8KPiDCoG9iai15ICs9IHN0cmNoci5vIHN0cmNt
+cC5vIHN0cmxlbi5vIHN0cm5jbXAubyBzdHJubGVuLm8gc3RycmNoci5vCj4gZGlmZiAtLWdpdCBh
+L3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9hcm02NC9iaXRvcHMuaAo+IGIveGVuL2FyY2gvYXJt
+L2luY2x1ZGUvYXNtL2FybTY0L2JpdG9wcy5oCj4gaW5kZXggZDg1YTQ5YmNhNC4uMGVmZGUyOTA2
+OCAxMDA2NDQKPiAtLS0gYS94ZW4vYXJjaC9hcm0vaW5jbHVkZS9hc20vYXJtNjQvYml0b3BzLmgK
+PiArKysgYi94ZW4vYXJjaC9hcm0vaW5jbHVkZS9hc20vYXJtNjQvYml0b3BzLmgKPiBAQCAtMzYs
+NTcgKzM2LDEzIEBAIHN0YXRpYyBpbmxpbmUgaW50IGZsc2wodW5zaWduZWQgbG9uZyB4KQo+IMKg
+Cj4gwqAvKiBCYXNlZCBvbiBsaW51eC9pbmNsdWRlL2FzbS1nZW5lcmljL2JpdG9wcy9maW5kLmgg
+Ki8KPiDCoAo+IC0jaWZuZGVmIGZpbmRfbmV4dF9iaXQKPiAtLyoqCj4gLSAqIGZpbmRfbmV4dF9i
+aXQgLSBmaW5kIHRoZSBuZXh0IHNldCBiaXQgaW4gYSBtZW1vcnkgcmVnaW9uCj4gLSAqIEBhZGRy
+OiBUaGUgYWRkcmVzcyB0byBiYXNlIHRoZSBzZWFyY2ggb24KPiAtICogQG9mZnNldDogVGhlIGJp
+dG51bWJlciB0byBzdGFydCBzZWFyY2hpbmcgYXQKPiAtICogQHNpemU6IFRoZSBiaXRtYXAgc2l6
+ZSBpbiBiaXRzCj4gLSAqLwo+IC1leHRlcm4gdW5zaWduZWQgbG9uZyBmaW5kX25leHRfYml0KGNv
+bnN0IHVuc2lnbmVkIGxvbmcgKmFkZHIsCj4gdW5zaWduZWQgbG9uZwo+IC0JCXNpemUsIHVuc2ln
+bmVkIGxvbmcgb2Zmc2V0KTsKPiAtI2VuZGlmCj4gLQo+IC0jaWZuZGVmIGZpbmRfbmV4dF96ZXJv
+X2JpdAo+IC0vKioKPiAtICogZmluZF9uZXh0X3plcm9fYml0IC0gZmluZCB0aGUgbmV4dCBjbGVh
+cmVkIGJpdCBpbiBhIG1lbW9yeSByZWdpb24KPiAtICogQGFkZHI6IFRoZSBhZGRyZXNzIHRvIGJh
+c2UgdGhlIHNlYXJjaCBvbgo+IC0gKiBAb2Zmc2V0OiBUaGUgYml0bnVtYmVyIHRvIHN0YXJ0IHNl
+YXJjaGluZyBhdAo+IC0gKiBAc2l6ZTogVGhlIGJpdG1hcCBzaXplIGluIGJpdHMKPiAtICovCj4g
+LWV4dGVybiB1bnNpZ25lZCBsb25nIGZpbmRfbmV4dF96ZXJvX2JpdChjb25zdCB1bnNpZ25lZCBs
+b25nICphZGRyLAo+IHVuc2lnbmVkCj4gLQkJbG9uZyBzaXplLCB1bnNpZ25lZCBsb25nIG9mZnNl
+dCk7Cj4gLSNlbmRpZgo+IC0KPiAtI2lmZGVmIENPTkZJR19HRU5FUklDX0ZJTkRfRklSU1RfQklU
+Cj4gLQo+IC0vKioKPiAtICogZmluZF9maXJzdF9iaXQgLSBmaW5kIHRoZSBmaXJzdCBzZXQgYml0
+IGluIGEgbWVtb3J5IHJlZ2lvbgo+IC0gKiBAYWRkcjogVGhlIGFkZHJlc3MgdG8gc3RhcnQgdGhl
+IHNlYXJjaCBhdAo+IC0gKiBAc2l6ZTogVGhlIG1heGltdW0gc2l6ZSB0byBzZWFyY2gKPiAtICoK
+PiAtICogUmV0dXJucyB0aGUgYml0IG51bWJlciBvZiB0aGUgZmlyc3Qgc2V0IGJpdC4KPiAtICov
+Cj4gLWV4dGVybiB1bnNpZ25lZCBsb25nIGZpbmRfZmlyc3RfYml0KGNvbnN0IHVuc2lnbmVkIGxv
+bmcgKmFkZHIsCj4gLQkJCQnCoMKgwqAgdW5zaWduZWQgbG9uZyBzaXplKTsKPiAtCj4gLS8qKgo+
+IC0gKiBmaW5kX2ZpcnN0X3plcm9fYml0IC0gZmluZCB0aGUgZmlyc3QgY2xlYXJlZCBiaXQgaW4g
+YSBtZW1vcnkKPiByZWdpb24KPiAtICogQGFkZHI6IFRoZSBhZGRyZXNzIHRvIHN0YXJ0IHRoZSBz
+ZWFyY2ggYXQKPiAtICogQHNpemU6IFRoZSBtYXhpbXVtIHNpemUgdG8gc2VhcmNoCj4gLSAqCj4g
+LSAqIFJldHVybnMgdGhlIGJpdCBudW1iZXIgb2YgdGhlIGZpcnN0IGNsZWFyZWQgYml0Lgo+IC0g
+Ki8KPiAtZXh0ZXJuIHVuc2lnbmVkIGxvbmcgZmluZF9maXJzdF96ZXJvX2JpdChjb25zdCB1bnNp
+Z25lZCBsb25nICphZGRyLAo+IC0JCQkJCSB1bnNpZ25lZCBsb25nIHNpemUpOwo+IC0jZWxzZSAv
+KiBDT05GSUdfR0VORVJJQ19GSU5EX0ZJUlNUX0JJVCAqLwo+ICsjaWZuZGVmIENPTkZJR19HRU5F
+UklDX0ZJTkRfRklSU1RfQklUCj4gwqAKPiDCoCNkZWZpbmUgZmluZF9maXJzdF9iaXQoYWRkciwg
+c2l6ZSkgZmluZF9uZXh0X2JpdCgoYWRkciksIChzaXplKSwgMCkKPiDCoCNkZWZpbmUgZmluZF9m
+aXJzdF96ZXJvX2JpdChhZGRyLCBzaXplKSBmaW5kX25leHRfemVyb19iaXQoKGFkZHIpLAo+IChz
+aXplKSwgMCkKPiDCoAo+IMKgI2VuZGlmIC8qIENPTkZJR19HRU5FUklDX0ZJTkRfRklSU1RfQklU
+ICovCj4gwqAKPiAtCj4gwqAjZW5kaWYgLyogX0FSTV9BUk02NF9CSVRPUFNfSCAqLwo+IMKgLyoK
+PiDCoCAqIExvY2FsIHZhcmlhYmxlczoKPiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gvcHBjL2luY2x1
+ZGUvYXNtL2JpdG9wcy5oCj4gYi94ZW4vYXJjaC9wcGMvaW5jbHVkZS9hc20vYml0b3BzLmgKPiBp
+bmRleCA1ZTdmMzZjMjFkLi41ODIwYjljZTdiIDEwMDY0NAo+IC0tLSBhL3hlbi9hcmNoL3BwYy9p
+bmNsdWRlL2FzbS9iaXRvcHMuaAo+ICsrKyBiL3hlbi9hcmNoL3BwYy9pbmNsdWRlL2FzbS9iaXRv
+cHMuaAo+IEBAIC0yMTcsMTE5ICsyMTcsNCBAQCBzdGF0aWMgYWx3YXlzX2lubGluZSB1bnNpZ25l
+ZCBsb25nCj4gX19mZnModW5zaWduZWQgbG9uZyB3b3JkKQo+IMKgICovCj4gwqAjZGVmaW5lIGZp
+bmRfZmlyc3Rfc2V0X2JpdCh4KSAoZmZzbCh4KSAtIDEpCj4gwqAKPiAtLyoKPiAtICogRmluZCB0
+aGUgZmlyc3Qgc2V0IGJpdCBpbiBhIG1lbW9yeSByZWdpb24uCj4gLSAqLwo+IC1zdGF0aWMgaW5s
+aW5lIHVuc2lnbmVkIGxvbmcgZmluZF9maXJzdF9iaXQoY29uc3QgdW5zaWduZWQgbG9uZwo+ICph
+ZGRyLAo+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgbG9uZyBzaXplKQo+
+IC17Cj4gLcKgwqDCoCBjb25zdCB1bnNpZ25lZCBsb25nICpwID0gYWRkcjsKPiAtwqDCoMKgIHVu
+c2lnbmVkIGxvbmcgcmVzdWx0ID0gMDsKPiAtwqDCoMKgIHVuc2lnbmVkIGxvbmcgdG1wOwo+IC0K
+PiAtwqDCoMKgIHdoaWxlICggc2l6ZSAmIH4oQklUU19QRVJfTE9ORyAtIDEpICkKPiAtwqDCoMKg
+IHsKPiAtwqDCoMKgwqDCoMKgwqAgaWYgKCAodG1wID0gKihwKyspKSApCj4gLcKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgZ290byBmb3VuZDsKPiAtwqDCoMKgwqDCoMKgwqAgcmVzdWx0ICs9IEJJVFNf
+UEVSX0xPTkc7Cj4gLcKgwqDCoMKgwqDCoMKgIHNpemUgLT0gQklUU19QRVJfTE9ORzsKPiAtwqDC
+oMKgIH0KPiAtwqDCoMKgIGlmICggIXNpemUgKQo+IC3CoMKgwqDCoMKgwqDCoCByZXR1cm4gcmVz
+dWx0Owo+IC0KPiAtwqDCoMKgIHRtcCA9ICgqcCkgJiAofjBVTCA+PiAoQklUU19QRVJfTE9ORyAt
+IHNpemUpKTsKPiAtwqDCoMKgIGlmICggdG1wID09IDBVTCApwqDCoMKgwqDCoMKgwqDCoCAvKiBB
+cmUgYW55IGJpdHMgc2V0PyAqLwo+IC3CoMKgwqDCoMKgwqDCoCByZXR1cm4gcmVzdWx0ICsgc2l6
+ZTsgLyogTm9wZS4gKi8KPiAtIGZvdW5kOgo+IC3CoMKgwqAgcmV0dXJuIHJlc3VsdCArIF9fZmZz
+KHRtcCk7Cj4gLX0KPiAtCj4gLXN0YXRpYyBpbmxpbmUgdW5zaWduZWQgbG9uZyBmaW5kX25leHRf
+Yml0KGNvbnN0IHVuc2lnbmVkIGxvbmcgKmFkZHIsCj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgdW5zaWduZWQgbG9uZyBzaXplLAo+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2ln
+bmVkIGxvbmcgb2Zmc2V0KQo+IC17Cj4gLcKgwqDCoCBjb25zdCB1bnNpZ25lZCBsb25nICpwID0g
+YWRkciArIEJJVE9QX1dPUkQob2Zmc2V0KTsKPiAtwqDCoMKgIHVuc2lnbmVkIGxvbmcgcmVzdWx0
+ID0gb2Zmc2V0ICYgfihCSVRTX1BFUl9MT05HIC0gMSk7Cj4gLcKgwqDCoCB1bnNpZ25lZCBsb25n
+IHRtcDsKPiAtCj4gLcKgwqDCoCBpZiAoIG9mZnNldCA+PSBzaXplICkKPiAtwqDCoMKgwqDCoMKg
+wqAgcmV0dXJuIHNpemU7Cj4gLcKgwqDCoCBzaXplIC09IHJlc3VsdDsKPiAtwqDCoMKgIG9mZnNl
+dCAlPSBCSVRTX1BFUl9MT05HOwo+IC3CoMKgwqAgaWYgKCBvZmZzZXQgKQo+IC3CoMKgwqAgewo+
+IC3CoMKgwqDCoMKgwqDCoCB0bXAgPSAqKHArKyk7Cj4gLcKgwqDCoMKgwqDCoMKgIHRtcCAmPSAo
+fjBVTCA8PCBvZmZzZXQpOwo+IC3CoMKgwqDCoMKgwqDCoCBpZiAoIHNpemUgPCBCSVRTX1BFUl9M
+T05HICkKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGZvdW5kX2ZpcnN0Owo+IC3CoMKg
+wqDCoMKgwqDCoCBpZiAoIHRtcCApCj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBmb3Vu
+ZF9taWRkbGU7Cj4gLcKgwqDCoMKgwqDCoMKgIHNpemUgLT0gQklUU19QRVJfTE9ORzsKPiAtwqDC
+oMKgwqDCoMKgwqAgcmVzdWx0ICs9IEJJVFNfUEVSX0xPTkc7Cj4gLcKgwqDCoCB9Cj4gLcKgwqDC
+oCB3aGlsZSAoIHNpemUgJiB+KEJJVFNfUEVSX0xPTkcgLSAxKSApCj4gLcKgwqDCoCB7Cj4gLcKg
+wqDCoMKgwqDCoMKgIGlmICggKHRtcCA9ICoocCsrKSkgKQo+IC3CoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGdvdG8gZm91bmRfbWlkZGxlOwo+IC3CoMKgwqDCoMKgwqDCoCByZXN1bHQgKz0gQklUU19Q
+RVJfTE9ORzsKPiAtwqDCoMKgwqDCoMKgwqAgc2l6ZSAtPSBCSVRTX1BFUl9MT05HOwo+IC3CoMKg
+wqAgfQo+IC3CoMKgwqAgaWYgKCAhc2l6ZSApCj4gLcKgwqDCoMKgwqDCoMKgIHJldHVybiByZXN1
+bHQ7Cj4gLcKgwqDCoCB0bXAgPSAqcDsKPiAtCj4gLSBmb3VuZF9maXJzdDoKPiAtwqDCoMKgIHRt
+cCAmPSAofjBVTCA+PiAoQklUU19QRVJfTE9ORyAtIHNpemUpKTsKPiAtwqDCoMKgIGlmICggdG1w
+ID09IDBVTCApwqDCoMKgwqDCoMKgwqDCoCAvKiBBcmUgYW55IGJpdHMgc2V0PyAqLwo+IC3CoMKg
+wqDCoMKgwqDCoCByZXR1cm4gcmVzdWx0ICsgc2l6ZTsgLyogTm9wZS4gKi8KPiAtIGZvdW5kX21p
+ZGRsZToKPiAtwqDCoMKgIHJldHVybiByZXN1bHQgKyBfX2Zmcyh0bXApOwo+IC19Cj4gLQo+IC0v
+Kgo+IC0gKiBUaGlzIGltcGxlbWVudGF0aW9uIG9mIGZpbmRfe2ZpcnN0LG5leHR9X3plcm9fYml0
+IHdhcyBzdG9sZW4gZnJvbQo+IC0gKiBMaW51cycgYXNtLWFscGhhL2JpdG9wcy5oLgo+IC0gKi8K
+PiAtc3RhdGljIGlubGluZSB1bnNpZ25lZCBsb25nIGZpbmRfbmV4dF96ZXJvX2JpdChjb25zdCB1
+bnNpZ25lZCBsb25nCj4gKmFkZHIsCj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIHVuc2lnbmVkIGxvbmcgc2l6ZSwKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgdW5zaWduZWQgbG9uZyBvZmZzZXQpCj4gLXsKPiAtwqDCoMKgIGNvbnN0IHVuc2lnbmVk
+IGxvbmcgKnAgPSBhZGRyICsgQklUT1BfV09SRChvZmZzZXQpOwo+IC3CoMKgwqAgdW5zaWduZWQg
+bG9uZyByZXN1bHQgPSBvZmZzZXQgJiB+KEJJVFNfUEVSX0xPTkcgLSAxKTsKPiAtwqDCoMKgIHVu
+c2lnbmVkIGxvbmcgdG1wOwo+IC0KPiAtwqDCoMKgIGlmICggb2Zmc2V0ID49IHNpemUgKQo+IC3C
+oMKgwqDCoMKgwqDCoCByZXR1cm4gc2l6ZTsKPiAtwqDCoMKgIHNpemUgLT0gcmVzdWx0Owo+IC3C
+oMKgwqAgb2Zmc2V0ICU9IEJJVFNfUEVSX0xPTkc7Cj4gLcKgwqDCoCBpZiAoIG9mZnNldCApCj4g
+LcKgwqDCoCB7Cj4gLcKgwqDCoMKgwqDCoMKgIHRtcCA9ICoocCsrKTsKPiAtwqDCoMKgwqDCoMKg
+wqAgdG1wIHw9IH4wVUwgPj4gKEJJVFNfUEVSX0xPTkcgLSBvZmZzZXQpOwo+IC3CoMKgwqDCoMKg
+wqDCoCBpZiAoIHNpemUgPCBCSVRTX1BFUl9MT05HICkKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBnb3RvIGZvdW5kX2ZpcnN0Owo+IC3CoMKgwqDCoMKgwqDCoCBpZiAoIH50bXAgKQo+IC3CoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZm91bmRfbWlkZGxlOwo+IC3CoMKgwqDCoMKgwqDCoCBz
+aXplIC09IEJJVFNfUEVSX0xPTkc7Cj4gLcKgwqDCoMKgwqDCoMKgIHJlc3VsdCArPSBCSVRTX1BF
+Ul9MT05HOwo+IC3CoMKgwqAgfQo+IC3CoMKgwqAgd2hpbGUgKCBzaXplICYgfihCSVRTX1BFUl9M
+T05HIC0gMSkgKQo+IC3CoMKgwqAgewo+IC3CoMKgwqDCoMKgwqDCoCBpZiAoIH4odG1wID0gKihw
+KyspKSApCj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBmb3VuZF9taWRkbGU7Cj4gLcKg
+wqDCoMKgwqDCoMKgIHJlc3VsdCArPSBCSVRTX1BFUl9MT05HOwo+IC3CoMKgwqDCoMKgwqDCoCBz
+aXplIC09IEJJVFNfUEVSX0xPTkc7Cj4gLcKgwqDCoCB9Cj4gLcKgwqDCoCBpZiAoICFzaXplICkK
+PiAtwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJlc3VsdDsKPiAtwqDCoMKgIHRtcCA9ICpwOwo+IC0K
+PiAtIGZvdW5kX2ZpcnN0Ogo+IC3CoMKgwqAgdG1wIHw9IH4wVUwgPDwgc2l6ZTsKPiAtwqDCoMKg
+IGlmICggdG1wID09IH4wVUwgKcKgwqDCoMKgwqDCoMKgIC8qIEFyZSBhbnkgYml0cyB6ZXJvPyAq
+Lwo+IC3CoMKgwqDCoMKgwqDCoCByZXR1cm4gcmVzdWx0ICsgc2l6ZTsgLyogTm9wZS4gKi8KPiAt
+IGZvdW5kX21pZGRsZToKPiAtwqDCoMKgIHJldHVybiByZXN1bHQgKyBmZnoodG1wKTsKPiAtfQo+
+IC0KPiDCoCNlbmRpZiAvKiBfQVNNX1BQQ19CSVRPUFNfSCAqLwo+IGRpZmYgLS1naXQgYS94ZW4v
+aW5jbHVkZS94ZW4vYml0b3BzLmggYi94ZW4vaW5jbHVkZS94ZW4vYml0b3BzLmgKPiBpbmRleCAy
+Y2I3ODkyYmNjLi5lM2M1YTRjY2YzIDEwMDY0NAo+IC0tLSBhL3hlbi9pbmNsdWRlL3hlbi9iaXRv
+cHMuaAo+ICsrKyBiL3hlbi9pbmNsdWRlL3hlbi9iaXRvcHMuaAo+IEBAIC0xMDUsNiArMTA1LDU0
+IEBAIHN0YXRpYyBpbmxpbmUgaW50IGdlbmVyaWNfZmxzbCh1bnNpZ25lZCBsb25nIHgpCj4gwqAg
+Ki8KPiDCoCNpbmNsdWRlIDxhc20vYml0b3BzLmg+Cj4gwqAKPiArI2lmbmRlZiBmaW5kX25leHRf
+Yml0Cj4gKy8qKgo+ICsgKiBmaW5kX25leHRfYml0IC0gZmluZCB0aGUgbmV4dCBzZXQgYml0IGlu
+IGEgbWVtb3J5IHJlZ2lvbgo+ICsgKiBAYWRkcjogVGhlIGFkZHJlc3MgdG8gYmFzZSB0aGUgc2Vh
+cmNoIG9uCj4gKyAqIEBvZmZzZXQ6IFRoZSBiaXRudW1iZXIgdG8gc3RhcnQgc2VhcmNoaW5nIGF0
+Cj4gKyAqIEBzaXplOiBUaGUgYml0bWFwIHNpemUgaW4gYml0cwo+ICsgKi8KPiArZXh0ZXJuIHVu
+c2lnbmVkIGxvbmcgZmluZF9uZXh0X2JpdChjb25zdCB1bnNpZ25lZCBsb25nICphZGRyLAo+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCB1bnNpZ25lZCBsb25nIHNpemUsCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxv
+bmcgb2Zmc2V0KTsKPiArI2VuZGlmCj4gKwo+ICsjaWZuZGVmIGZpbmRfbmV4dF96ZXJvX2JpdAo+
+ICsvKioKPiArICogZmluZF9uZXh0X3plcm9fYml0IC0gZmluZCB0aGUgbmV4dCBjbGVhcmVkIGJp
+dCBpbiBhIG1lbW9yeSByZWdpb24KPiArICogQGFkZHI6IFRoZSBhZGRyZXNzIHRvIGJhc2UgdGhl
+IHNlYXJjaCBvbgo+ICsgKiBAb2Zmc2V0OiBUaGUgYml0bnVtYmVyIHRvIHN0YXJ0IHNlYXJjaGlu
+ZyBhdAo+ICsgKiBAc2l6ZTogVGhlIGJpdG1hcCBzaXplIGluIGJpdHMKPiArICovCj4gK2V4dGVy
+biB1bnNpZ25lZCBsb25nIGZpbmRfbmV4dF96ZXJvX2JpdChjb25zdCB1bnNpZ25lZCBsb25nICph
+ZGRyLAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgbG9uZyBzaXplLAo+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgbG9uZyBvZmZzZXQpOwo+ICsjZW5kaWYKPiArCj4g
+KyNpZm5kZWYgZmluZF9maXJzdF9iaXQKPiArLyoqCj4gKyAqIGZpbmRfZmlyc3RfYml0IC0gZmlu
+ZCB0aGUgZmlyc3Qgc2V0IGJpdCBpbiBhIG1lbW9yeSByZWdpb24KPiArICogQGFkZHI6IFRoZSBh
+ZGRyZXNzIHRvIHN0YXJ0IHRoZSBzZWFyY2ggYXQKPiArICogQHNpemU6IFRoZSBtYXhpbXVtIHNp
+emUgdG8gc2VhcmNoCj4gKyAqCj4gKyAqIFJldHVybnMgdGhlIGJpdCBudW1iZXIgb2YgdGhlIGZp
+cnN0IHNldCBiaXQuCj4gKyAqLwo+ICtleHRlcm4gdW5zaWduZWQgbG9uZyBmaW5kX2ZpcnN0X2Jp
+dChjb25zdCB1bnNpZ25lZCBsb25nICphZGRyLAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxv
+bmcgc2l6ZSk7Cj4gKyNlbmRpZgo+ICsKPiArI2lmbmRlZiBmaW5kX2ZpcnN0X3plcm9fYml0Cj4g
+Ky8qKgo+ICsgKiBmaW5kX2ZpcnN0X3plcm9fYml0IC0gZmluZCB0aGUgZmlyc3QgY2xlYXJlZCBi
+aXQgaW4gYSBtZW1vcnkKPiByZWdpb24KPiArICogQGFkZHI6IFRoZSBhZGRyZXNzIHRvIHN0YXJ0
+IHRoZSBzZWFyY2ggYXQKPiArICogQHNpemU6IFRoZSBtYXhpbXVtIHNpemUgdG8gc2VhcmNoCj4g
+KyAqCj4gKyAqIFJldHVybnMgdGhlIGJpdCBudW1iZXIgb2YgdGhlIGZpcnN0IGNsZWFyZWQgYml0
+Lgo+ICsgKi8KPiArZXh0ZXJuIHVuc2lnbmVkIGxvbmcgZmluZF9maXJzdF96ZXJvX2JpdChjb25z
+dCB1bnNpZ25lZCBsb25nICphZGRyLAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25l
+ZCBsb25nIHNpemUpOwo+ICsjZW5kaWYKPiArCj4gwqAjaWYgQklUU19QRVJfTE9ORyA9PSA2NAo+
+IMKgIyBkZWZpbmUgZmxzNjQgZmxzbAo+IMKgIyBkZWZpbmUgZmZzNjQgZmZzbAo+IGRpZmYgLS1n
+aXQgYS94ZW4vbGliL01ha2VmaWxlIGIveGVuL2xpYi9NYWtlZmlsZQo+IGluZGV4IDJkOWViYjk0
+NWYuLmU2Mzc5OGUxZDQgMTAwNjQ0Cj4gLS0tIGEveGVuL2xpYi9NYWtlZmlsZQo+ICsrKyBiL3hl
+bi9saWIvTWFrZWZpbGUKPiBAQCAtMyw2ICszLDcgQEAgb2JqLSQoQ09ORklHX1g4NikgKz0geDg2
+Lwo+IMKgbGliLXkgKz0gYnNlYXJjaC5vCj4gwqBsaWIteSArPSBjdG9ycy5vCj4gwqBsaWIteSAr
+PSBjdHlwZS5vCj4gK2xpYi15ICs9IGZpbmQtbmV4dC1iaXQubwo+IMKgbGliLXkgKz0gbGlzdC1z
+b3J0Lm8KPiDCoGxpYi15ICs9IG1lbWNoci5vCj4gwqBsaWIteSArPSBtZW1jaHJfaW52Lm8KPiBk
+aWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL2FybTY0L2xpYi9maW5kX25leHRfYml0LmMgYi94ZW4v
+bGliL2ZpbmQtCj4gbmV4dC1iaXQuYwo+IHNpbWlsYXJpdHkgaW5kZXggMTAwJQo+IHJlbmFtZSBm
+cm9tIHhlbi9hcmNoL2FybS9hcm02NC9saWIvZmluZF9uZXh0X2JpdC5jCj4gcmVuYW1lIHRvIHhl
+bi9saWIvZmluZC1uZXh0LWJpdC5jCgo=
 
 
