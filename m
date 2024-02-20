@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1FFA85B548
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 09:32:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683212.1062610 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6201485B5B3
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 09:44:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683219.1062619 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcLXk-0003LL-EZ; Tue, 20 Feb 2024 08:32:00 +0000
+	id 1rcLjO-0005Bd-DY; Tue, 20 Feb 2024 08:44:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683212.1062610; Tue, 20 Feb 2024 08:32:00 +0000
+Received: by outflank-mailman (output) from mailman id 683219.1062619; Tue, 20 Feb 2024 08:44:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcLXk-0003JF-Bm; Tue, 20 Feb 2024 08:32:00 +0000
-Received: by outflank-mailman (input) for mailman id 683212;
- Tue, 20 Feb 2024 08:31:58 +0000
+	id 1rcLjO-00059B-Ay; Tue, 20 Feb 2024 08:44:02 +0000
+Received: by outflank-mailman (input) for mailman id 683219;
+ Tue, 20 Feb 2024 08:44:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YSgb=J5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rcLXi-0003J9-RP
- for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 08:31:58 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1rcLjM-000595-QI
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 08:44:00 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 809f9139-cfca-11ee-98f5-efadbce2ee36;
- Tue, 20 Feb 2024 09:31:54 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4126dd40a54so3960985e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 00:31:54 -0800 (PST)
+ id 302d2b1c-cfcc-11ee-98f5-efadbce2ee36;
+ Tue, 20 Feb 2024 09:43:58 +0100 (CET)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2d22b8c6e0dso35155281fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 00:43:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l20-20020a1c7914000000b00412706c3ddasm476310wme.18.2024.02.20.00.31.53
+ e4-20020adfe384000000b0033cfa00e497sm12625060wrm.64.2024.02.20.00.43.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Feb 2024 00:31:53 -0800 (PST)
+ Tue, 20 Feb 2024 00:43:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 809f9139-cfca-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 302d2b1c-cfcc-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708417914; x=1709022714; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=2gsXVGDdG5g7JNoY2F7zo2dgWLlODMgbep354kVe0Xs=;
-        b=fk8JKO09S63Q8a8H0MBR5sME5iQQCsWQGRCSmt2c8+kGhhr7XJVtpjU5dfauC6cV7P
-         3fHDcrAZZCkhV2wlGWzL56ZkUMKPj3e5NkYk36LwaCDiixkLiYGvc4/4AzsLt3HzL1pA
-         wCVa89aUWye4eEmFdx546fiVk7NufA5O+NYt4oRJHX6abV43Hn773FE5QABWYV9gEzGL
-         uHQtCrxP/oVtcY+dhMuUyVPIjmLCpG4Ueoxfh4htunntyaJRRRbgqXgskJHcu+jMQG0A
-         yHzBIZDbVAT/rq6QYb9qAI0exoNSB/StEg4qce5bWz6SyKgDgUCYZOrkxWSCzHSg7ptl
-         /t9g==
+        d=suse.com; s=google; t=1708418638; x=1709023438; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=kOgTjEhG2Rt/NwiHYCsYDA5Wdy3noyY+yuNPEFFsPzg=;
+        b=O7KtQojJn7TnyfS0OmV0h1QbhMZmJQABGHUu+KSzb6Xzwd17HKUOTFjUlMox1N6hEd
+         8GzqIQmu9y8uEI2l1i13zMtfwRSEF/T78v5wkzkXCPBIk7Rq7rKIHRCy2qd1bOEPKv+e
+         ITuy9ijBpmG5nE/YO9peOJKhPbUzP+e3m2gi7kbxyFDJFXS83QBzt6c58kXfsjQZs7SQ
+         tr00fwdyRLyn5bZh/DvGIccfAf4psFjtX8DO4UzFyBgV1KgRDNlh2QQqXHBYn4Q3hS0g
+         3hxO7zf8BXMsBssEEI6uhR8OrtllCBf09ELel1PmlFkUIHbm+K83HrJC0zhfHc4pBusu
+         m72A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708417914; x=1709022714;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1708418638; x=1709023438;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2gsXVGDdG5g7JNoY2F7zo2dgWLlODMgbep354kVe0Xs=;
-        b=rsvAKVyCijHqIQAfNi9T9nrbG54oAwD7K+jomtOsf6GEuduQx0rQGZhH/3xYoTxvi0
-         jC7ZHLZ336VxKqVLvTGhq6RKQHiwebARd/ePFcmSBGpJRTNYnQFBD2ujgxs7g5V+aaA1
-         99/RVoyRXM2n7t55zfm50t4ewpGlw+mDWnNq+QjcAAiadbnclMvaFouON1bHdpSTXy9v
-         0Gugi9SzN4GdCCnRj+y+OsmeIUHb6kRNgv7SAsjHMNECZzYd3CL9lxye4p5eupEuXsI3
-         HxIHtjBya7RRC43cSbUK18rWV1XUrz6CB2QRxWkng6YEcT1PBrjASCoQZyzBtQq54pPH
-         IWWw==
-X-Forwarded-Encrypted: i=1; AJvYcCV8x4Imt5KOhUPSzbexi0GCgtLvchU8EAYyTr6YXQ4k0Boe3zxrWtb8Agc5A1MZsPF04fNtMB7WZ25ueut1R6ZE1Qug57lDzlZuO8aqPak=
-X-Gm-Message-State: AOJu0YwHEZBDEKeJe80gPCpTAWlq2T1g2kHSQJVFPYqol00Uc00eXYBl
-	GRh7cb26YCG3LHF+Zn0gsAxbQf7ywssLvVnTJQYsp20M3colZE9ghEAlz6IO5g==
-X-Google-Smtp-Source: AGHT+IETFDBDCNgCgbw240+OkC+8iXImSaZrM4wEy0CqUYorEKTHJTc1LMybVmXFVydrg01c7o30ug==
-X-Received: by 2002:a05:600c:4f45:b0:412:5dfc:238d with SMTP id m5-20020a05600c4f4500b004125dfc238dmr8011150wmq.14.1708417913847;
-        Tue, 20 Feb 2024 00:31:53 -0800 (PST)
-Message-ID: <4924e95e-0806-4939-90f3-2f4216fada63@suse.com>
-Date: Tue, 20 Feb 2024 09:31:52 +0100
+        bh=kOgTjEhG2Rt/NwiHYCsYDA5Wdy3noyY+yuNPEFFsPzg=;
+        b=hrsMUif5xoqzPEHZNtMumJqXPl30eH58JjBMusZE/S14NYyga/dnX5OYfIYlPXzzuW
+         jTSgmT2B3VdJfb+wAO3FF6709jB8/7PH7RADxdQkQ76eDM3FiDhivf9j2VpvaZJEwd6a
+         zamKTForFBku2dDYAFBGF99EdB/uBfgzreXqzMXMxVxsthuO0f0v7xlSz0c3FoP5rjYt
+         W5+mWQRw6Hb4wprQI0gPiVX6UFAfhEMVXiFDaI2W8hn93sR/WnzURDlJkQ4McRjuNQjJ
+         x+/DHnVQ57G1DhXY/HyIKExgx5TYSlryhYB1W4vteOyMjzK5XRMrl1igOwg+kgZHXb9K
+         /OCw==
+X-Gm-Message-State: AOJu0YxCFlfg69FCEN7sIWLv4/fPI4WyFMHEGVJUWJcHNV79OXUr7ox+
+	IoqaCzTqZLO2P3IcD1W5z20X/T0sZG6zUARBA0jsfZL+XahfLxSHKghFd8ifpn5HXhP6TFrxqPQ
+	=
+X-Google-Smtp-Source: AGHT+IH+V5abe8WkFg6AOmptl7bUoXVIyt0//P4+uEvxo1d/fUMC9mqKG0K8DRD0ExxEfTDfM6i+aA==
+X-Received: by 2002:a2e:6e08:0:b0:2d0:aa06:f496 with SMTP id j8-20020a2e6e08000000b002d0aa06f496mr9653761ljc.40.1708418637886;
+        Tue, 20 Feb 2024 00:43:57 -0800 (PST)
+Message-ID: <55c3a781-17f8-47f2-9629-515e1aea77aa@suse.com>
+Date: Tue, 20 Feb 2024 09:43:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] automation/eclair: add deviation for MISRA C:2012
- Rule 16.3
 Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <b1d2b64c8117d61ea42cf4e9feae128541eb0b61.1708348799.git.federico.serafini@bugseng.com>
- <a6e8bd32-cc32-4084-907d-e2cd6d46e3e6@suse.com>
- <f28aed5e-0983-48fa-828f-b2133ca35086@bugseng.com>
- <4d2c5a69-4807-4af3-84c2-128d16ee2b43@suse.com>
- <1f1fdfd8-1a34-411e-a0f2-d9bcb5b050fd@bugseng.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony Perard <anthony.perard@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] build: make sure build fails when running kconfig fails
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -119,58 +112,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1f1fdfd8-1a34-411e-a0f2-d9bcb5b050fd@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20.02.2024 09:16, Federico Serafini wrote:
-> On 19/02/24 16:06, Jan Beulich wrote:
->> On 19.02.2024 15:59, Federico Serafini wrote:
->>> On 19/02/24 14:43, Jan Beulich wrote:
->>>> On 19.02.2024 14:24, Federico Serafini wrote:
->>>>> Update ECLAIR configuration to consider safe switch clauses ending
->>>>> with __{get,put}_user_bad().
->>>>>
->>>>> Update docs/misra/deviations.rst accordingly.
->>>>>
->>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>>>
->>>> As mentioned I'm not happy with this, not the least because of it being
->>>> unclear why these two would be deviated, when there's no sign of a
->>>> similar deviation for, say, __bad_atomic_size(). Imo this approach
->>>> doesn't scale, and that's already leaving aside that the purpose of
->>>> identically named (pseudo-)helpers could differ between architectures,
->>>> thus putting under question ...
->>>>
->>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>> @@ -368,6 +368,10 @@ safe."
->>>>>    -config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/BUG\\(\\);/))))"}
->>>>>    -doc_end
->>>>>    
->>>>> +-doc_begin="Switch clauses ending with constructs \"__get_user_bad()\" and \"__put_user_bad()\" are safe: they denote an unreachable program point."
->>>>> +-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/__(put|get)_user_bad\\(\\);/))))"}
->>>>> +-doc_end
->>>>
->>>> ... the global scope of such a deviation. While it may not be a good idea,
->>>> even within an arch such (pseudo-)helpers could be used for multiple
->>>> distinct purposes.
->>>
->>> Would you agree with adding the missing break statement after
->>> the uses of __{put,get}_user_bad() (as it is already happening for
->>> uses of __bad_atomic_size())?
->>
->> I probably wouldn't mind that (despite being a little pointless).
->> Perhaps declaring them as noreturn would also help?
-> 
-> Yes, it will help.
-> Is there any reason to have long as __get_user_bad()'s return value?
-> It would be nicer to declare it as a void function and then add the
-> noreturn attribute.
+Because of using "-include", failure to (re)build auto.conf (with
+auto.conf.cmd produced as a secondary target) won't stop make from
+continuing the build. Arrange for it being possible to drop the - from
+Rules.mk, requiring that the include be skipped for tools-only targets.
+Note that relying on the inclusion in those cases wouldn't be correct
+anyway, as it might be a stale file (yet to be rebuilt) which would be
+included, while during initial build, the file would be absent
+altogether.
 
-That's a historical leftover, which can be changed. Xen originally
-derived quite a bit of code from Linux. If you go look at Linux 2.6.16,
-you'll find why it was declared that way.
+Fixes: 8d4c17a90b0a ("xen/build: silence make warnings about missing auto.conf*")
+Reported-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+An alternative to the %.conf rule adjustment would be to remove the file
+only when the sub-make there failed.
 
-Jan
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -375,6 +375,7 @@ $(KCONFIG_CONFIG): tools_fixdep
+ # This exploits the 'multi-target pattern rule' trick.
+ # The syncconfig should be executed only once to make all the targets.
+ include/config/%.conf include/config/%.conf.cmd: $(KCONFIG_CONFIG)
++	$(Q)rm -f include/config/$*.conf
+ 	$(Q)$(MAKE) $(build)=tools/kconfig syncconfig
+ 
+ ifeq ($(CONFIG_DEBUG),y)
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -15,7 +15,9 @@ srcdir := $(srctree)/$(src)
+ PHONY := __build
+ __build:
+ 
+--include $(objtree)/include/config/auto.conf
++ifneq ($(firstword $(subst /, ,$(obj))),tools)
++include $(objtree)/include/config/auto.conf
++endif
+ 
+ include $(XEN_ROOT)/Config.mk
+ include $(srctree)/scripts/Kbuild.include
 
