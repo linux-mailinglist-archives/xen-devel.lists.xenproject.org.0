@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0686585C338
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 19:00:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683645.1063250 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E922485C421
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 19:58:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683711.1063282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcUPG-0008RC-6Z; Tue, 20 Feb 2024 17:59:50 +0000
+	id 1rcVJD-0000UP-NR; Tue, 20 Feb 2024 18:57:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683645.1063250; Tue, 20 Feb 2024 17:59:50 +0000
+Received: by outflank-mailman (output) from mailman id 683711.1063282; Tue, 20 Feb 2024 18:57:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcUPG-0008PQ-40; Tue, 20 Feb 2024 17:59:50 +0000
-Received: by outflank-mailman (input) for mailman id 683645;
- Tue, 20 Feb 2024 17:59:49 +0000
+	id 1rcVJD-0000S2-J9; Tue, 20 Feb 2024 18:57:39 +0000
+Received: by outflank-mailman (input) for mailman id 683711;
+ Tue, 20 Feb 2024 18:57:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bzUj=J5=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1rcUPE-0008PK-WE
- for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 17:59:49 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ <SRS0=nvC9=J5=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rcVJC-0000Rw-Fk
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 18:57:38 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d61bbf68-d019-11ee-8a52-1f161083a0e0;
- Tue, 20 Feb 2024 18:59:48 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a3e91993d73so365980366b.3
- for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 09:59:48 -0800 (PST)
+ id ea16af28-d021-11ee-8a52-1f161083a0e0;
+ Tue, 20 Feb 2024 19:57:37 +0100 (CET)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5129e5b8cecso4777371e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 10:57:37 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ ep14-20020a056512484e00b00511740efdd1sm1359588lfb.39.2024.02.20.10.57.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Feb 2024 10:57:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,123 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d61bbf68-d019-11ee-8a52-1f161083a0e0
+X-Inumbo-ID: ea16af28-d021-11ee-8a52-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1708451987; x=1709056787; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+        d=gmail.com; s=20230601; t=1708455457; x=1709060257; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=j5a+NGR/JG/kXWxFoWSe7UwRlrGp+vtqbaGZKpx+uOY=;
-        b=HFOGVp75bYG6B6j5hiJZnxrrc1pn8yIoISA9sdpkJYNgJc2FjNHPSkrrVLne2sVPF6
-         PVWwueBSMZ5btzZ6GGGMP+LAzF6FU/0LZ0oFM9j53QAInDA5zOpAhk3YlxPC3X6NAah/
-         she/Wt94Zavmu0fZu48ehA8D7sZYmID5OQchw=
+        bh=HWDibD0Fx2KzEZtfYZhxa0gkumK9CdCgWsdGtaVvLts=;
+        b=ZmN10KgvnMrrbdSurRo/Jx8Ic6VKyJKX7wl14U5SJ0DQYd+m3EST2HvFW9FeVtB9oo
+         WBby/Az1kSrH4/ysSYcbRc2WHanUBnHXyIiw+5Q4bTnTs5pAi3MKxlPRmdYejpGKo1vX
+         6JT5w30C4UXMx9pQlQXRJ9pLG90OcC1Ux7f0ziPfbviFNGW/74F6ZpmvMXIVRz7I8GGk
+         3nr7RhJHGspQJ8LhPEZed2Git/eN12pazMrK+anKPjwKJQ+BnrA8o4BgRMgLyYEkvCzA
+         rcILmrPjTNB3C8cagrH9eHCnRGbnRO4l7QImU44aesFeo8BmRD+vD9N1lmf/vYAKBX2O
+         CS+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708451987; x=1709056787;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+        d=1e100.net; s=20230601; t=1708455457; x=1709060257;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=j5a+NGR/JG/kXWxFoWSe7UwRlrGp+vtqbaGZKpx+uOY=;
-        b=NAYApUqU/6lrlcoIcj9/CaC7FeoTTJNwsl9j3tjjnmj1dXk0zYRmLQjIYccLbIlWVf
-         mp0ujMpMOFyDztOH9bFcMdUDEhJhuOW56o97SyX3tqNfKNVT7okO1BcWrD/EK/Ghljvq
-         /7AzOMBfgepGXonv4fhWBbw/suYUpvvipulUA8p5GtcHY3FPJ6tX5RdWvQogAQEQSdg1
-         t0ywqv+3xluAY64MtDQjZWGZwQauHd5G4XTdI+Jmn7waHzxsHquiOudgNHaGFDBgysdQ
-         SXjg8QvotdeSY7ru5w4yf0mvLIqFd87Goh+EOxL52kx5ux1NlRDNMSI/VeiKQJK7oVd6
-         Fm4A==
-X-Gm-Message-State: AOJu0YwZf48JV405MrBY3gp10XrSPXfR+sLIpPKbqF7nhXiyjTIzQI0v
-	9Jo5GZ48+EpBwVf5rSRLtcryivaT/Z2lB32bEsL3GFPot60KJTwJqJCuv1ez7snpp9vnOBEenUZ
-	OgPt4L4DKp9yk+kyn+cd/4pTxFy1nlJClXTlo+LfWPpwDotqCppZFMg==
-X-Google-Smtp-Source: AGHT+IHQSZn5aaQ5eQ/FxjNfqR3eGv+Z5c06xzYKrW0ziAWdcJxsF1IXMqXwFR70eIexjF9BypBbGuU9tOtt07D1pzQ=
-X-Received: by 2002:a17:906:c7c4:b0:a3f:1192:723b with SMTP id
- dc4-20020a170906c7c400b00a3f1192723bmr1281268ejb.70.1708451987052; Tue, 20
- Feb 2024 09:59:47 -0800 (PST)
-MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Tue, 20 Feb 2024 17:59:11 +0000
-Message-ID: <CAO-mL=wkWuin=yy-TUfs86sD8x55v5wb-ttgB1os_Xo=UYbp=w@mail.gmail.com>
-Subject: XEN SOCIAL TOMORROW (21st Feb 2024)!
-To: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000cdfb090611d3f942"
-
---000000000000cdfb090611d3f942
+        bh=HWDibD0Fx2KzEZtfYZhxa0gkumK9CdCgWsdGtaVvLts=;
+        b=g7TZ9Su1gruhsPPnOSDUDv1YTOZRET9ox1s+l2CjxeMkWpm1ugi6RktE+ZzuCOtlP2
+         RQNP7+6QFtoskgofTUsvZ86xWf+Kprx4U77vGUcp7bZ598zl9GVjLFlvhUlecOFrUnsM
+         KXwGqus+UNqQGDt9+kc2A+LQ8mBLdl4VmzdYmfes2qPwanDCRevA+F3VN8x4+Ww07R04
+         r3t+mVH9lnvKJ+k7F75BwMBpckLx69xkqFubCZhK5ioGzxvCsQ5rpoMPz1pxdnknTygr
+         b8yKtD2rje1qa99hKKhBb1udfaxyzEdpMfoVZfJrpm7h8qWyTEUphWnCWybjAlYn1D6j
+         2Sbg==
+X-Forwarded-Encrypted: i=1; AJvYcCUTxRXido6gpA0cYQAcNqVR7U8zLNJNZOlM8Wl5zkeeBF2uihHsv9qZ4x+4fvF6pbTS4hkSu09nwabSBnQenf2b5r52nfWnfNtIIk9Dv7E=
+X-Gm-Message-State: AOJu0YyV37n8FaOJE2raYtLCrzi1TucBE9cb4WpIBCVgRTkMwLgbqwJP
+	8y2m8Or7Y+ZIO8y3qNPKk41SU1fnher2+N1zgwILN8beBKdgU0hY
+X-Google-Smtp-Source: AGHT+IGwH/Ldxke2P1hxqOEqYmORolFTk35OPOUwEzazEcurI1VcyKvFnRtxyTQHSfdW8VUPKxo+5g==
+X-Received: by 2002:a05:6512:1024:b0:511:87b7:6d88 with SMTP id r4-20020a056512102400b0051187b76d88mr10469147lfr.32.1708455456771;
+        Tue, 20 Feb 2024 10:57:36 -0800 (PST)
+Message-ID: <35641c47eda255e74cf79a66d2e3d04020be261f.camel@gmail.com>
+Subject: Re: [PATCH v4 02/30] xen/riscv: use some asm-generic headers
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+ xen-devel@lists.xenproject.org
+Date: Tue, 20 Feb 2024 19:57:35 +0100
+In-Reply-To: <5b8d6ff3-508c-49aa-8b25-3624d165eae1@suse.com>
+References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
+	 <a721f0c092306b589fae5f44bdaafcd94c60ed14.1707146506.git.oleksii.kurochko@gmail.com>
+	 <16baca98-44fe-42ba-b61d-ff1945e0d2b5@suse.com>
+	 <d2cc798462de9e0d7a89777ea0743fe6dce4d061.camel@gmail.com>
+	 <5b8d6ff3-508c-49aa-8b25-3624d165eae1@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-
-A reminder our Xen Project social is tomorrow!
-
-Connect with the community and your fellow peers - Food and drinks will be
-provided.
-
-*If you haven't already, please reply to me directly if you're interested
-in attending to anticipate food orders.*
-
-*Location:*
-The Portland Arms
-129 Chesterton Rd Cambridge
-www.theportlandarms.co.uk
-<https://www.google.com/url?q=http%3A%2F%2Fwww.theportlandarms.co.uk%2F&sa=D&ust=1708179900000000&usg=AOvVaw39V5Gc5y-9wOaDF__Bwsv5>
-T: 01223 357268
-
-*Getting to the venue (more information here
-<https://www.google.com/url?q=https%3A%2F%2Ftheportlandarms.co.uk%2Fwp%2Faccess-info%2F&sa=D&ust=1708179900000000&usg=AOvVaw2OZgE_3TLKdcLGYks6qbUW>):*
-There are pay and display spaces (free after 5pm) on Milton Road to the
-East of us or opposite on Chesterton Road. The nearest bus stops are:
-Chesterton Road, opposite the pub outside Hing Hung restaurant, and on
-Milton Road, near Westbrook centre, Citi 1, 9, X9 and The Busway. Cambridge
-North rail station is 2.3 miles away and Cambridge Central station is 2.4
-miles.
-
-Many thanks,
-Kelly Choi
-
-Community Manager
-Xen Project
-
---000000000000cdfb090611d3f942
-Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+MIME-Version: 1.0
 
-<div dir=3D"ltr">A reminder our Xen Project social is tomorrow!=C2=A0<div><=
-br><div><div>Connect with the community and your fellow peers - Food and dr=
-inks will be provided.<br></div><div><b><font color=3D"#000000"><br></font>=
-</b></div><div><b><font color=3D"#000000">If you haven&#39;t already, pleas=
-e reply to me directly if you&#39;re interested in attending to=C2=A0antici=
-pate=C2=A0food orders.</font></b></div><div><br></div><div><span style=3D"c=
-olor:rgb(60,64,67);font-family:Roboto,sans-serif;font-size:14px;letter-spac=
-ing:0.2px"><b>Location:</b></span><br style=3D"color:rgb(60,64,67);font-fam=
-ily:Roboto,sans-serif;font-size:14px;letter-spacing:0.2px"><span style=3D"c=
-olor:rgb(60,64,67);font-family:Roboto,sans-serif;font-size:14px;letter-spac=
-ing:0.2px">The Portland Arms</span><br style=3D"color:rgb(60,64,67);font-fa=
-mily:Roboto,sans-serif;font-size:14px;letter-spacing:0.2px"><span style=3D"=
-color:rgb(60,64,67);font-family:Roboto,sans-serif;font-size:14px;letter-spa=
-cing:0.2px">129 Chesterton Rd Cambridge</span><br style=3D"color:rgb(60,64,=
-67);font-family:Roboto,sans-serif;font-size:14px;letter-spacing:0.2px"><a h=
-ref=3D"https://www.google.com/url?q=3Dhttp%3A%2F%2Fwww.theportlandarms.co.u=
-k%2F&amp;sa=3DD&amp;ust=3D1708179900000000&amp;usg=3DAOvVaw39V5Gc5y-9wOaDF_=
-_Bwsv5" target=3D"_blank" style=3D"font-family:Roboto,sans-serif;font-size:=
-14px;letter-spacing:0.2px">www.theportlandarms.co.uk</a><br style=3D"color:=
-rgb(60,64,67);font-family:Roboto,sans-serif;font-size:14px;letter-spacing:0=
-.2px"><span style=3D"color:rgb(60,64,67);font-family:Roboto,sans-serif;font=
--size:14px;letter-spacing:0.2px">T: 01223 357268</span><br style=3D"color:r=
-gb(60,64,67);font-family:Roboto,sans-serif;font-size:14px;letter-spacing:0.=
-2px"><br style=3D"color:rgb(60,64,67);font-family:Roboto,sans-serif;font-si=
-ze:14px;letter-spacing:0.2px"><b><span style=3D"color:rgb(60,64,67);font-fa=
-mily:Roboto,sans-serif;font-size:14px;letter-spacing:0.2px">Getting to the =
-venue (</span><a href=3D"https://www.google.com/url?q=3Dhttps%3A%2F%2Fthepo=
-rtlandarms.co.uk%2Fwp%2Faccess-info%2F&amp;sa=3DD&amp;ust=3D170817990000000=
-0&amp;usg=3DAOvVaw2OZgE_3TLKdcLGYks6qbUW" target=3D"_blank" style=3D"font-f=
-amily:Roboto,sans-serif;font-size:14px;letter-spacing:0.2px">more informati=
-on here</a><span style=3D"color:rgb(60,64,67);font-family:Roboto,sans-serif=
-;font-size:14px;letter-spacing:0.2px">):</span></b><br style=3D"color:rgb(6=
-0,64,67);font-family:Roboto,sans-serif;font-size:14px;letter-spacing:0.2px"=
-><span style=3D"color:rgb(60,64,67);font-family:Roboto,sans-serif;font-size=
-:14px;letter-spacing:0.2px">There are pay and display spaces (free after 5p=
-m) on Milton Road to the East of us or opposite on Chesterton Road. The nea=
-rest bus stops are: Chesterton Road, opposite the pub outside Hing Hung res=
-taurant, and on Milton Road, near Westbrook centre, Citi 1, 9, X9 and The B=
-usway. Cambridge North rail station is 2.3 miles away and Cambridge Central=
- station is 2.4 miles.</span><br></div><div><br></div><div><div dir=3D"ltr"=
- class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"l=
-tr"><div>Many thanks,</div><div>Kelly Choi</div><div><br></div><div><div st=
-yle=3D"color:rgb(136,136,136)">Community Manager</div><div style=3D"color:r=
-gb(136,136,136)">Xen Project=C2=A0<br></div></div></div></div></div></div><=
-/div></div>
+On Wed, 2024-02-14 at 11:03 +0100, Jan Beulich wrote:
+> On 14.02.2024 10:54, Oleksii wrote:
+> > On Mon, 2024-02-12 at 16:03 +0100, Jan Beulich wrote:
+> > > On 05.02.2024 16:32, Oleksii Kurochko wrote:
+> > > > =C2=A0As [PATCH v6 0/9] Introduce generic headers
+> > > > =C2=A0(
+> > > > https://lore.kernel.org/xen-devel/cover.1703072575.git.oleksii.kuro=
+chko@gmail.com
+> > > > /)
+> > > > =C2=A0is not stable, the list in asm/Makefile can be changed, but
+> > > > the
+> > > > changes will
+> > > > =C2=A0be easy.
+> > >=20
+> > > Or wait - doesn't this mean the change here can't be committed
+> > > yet? I
+> > > know the cover letter specifies dependencies, yet I think we need
+> > > to
+> > > come
+> > > to a point where this large series won't need re-posting again
+> > > and
+> > > again.
+> > We can't committed it now because asm-generic version of device.h,
+> > which is not commited yet.
+> >=20
+> > We can drop the change " generic-y +=3D device.h ", and commit the
+> > current one patch, but it sill will require to create a new patch
+> > for
+> > using of asm-generic/device.h. Or as an option, I can merge
+> > "generic-y
+> > +=3D device.h" into PATCH 29/30 xen/riscv: enable full Xen build.
+> >=20
+> > I don't expect that the of asm-generic headers will changed in
+> > riscv/include/asm/Makefile, but it looks to me that it is better to
+> > wait until asm-generic/device.h will be in staging branch.
+> >=20
+> >=20
+> > If you have better ideas, please share it with me.
+>=20
+> My main point was that the interdependencies here have grown too far,
+> imo. The more that while having dependencies stated in the cover
+> letter
+> is useful, while committing (and also reviewing) I for one would
+> typically only look at the individual patches.
+>=20
+> For this patch alone, maybe it would be more obvious that said
+> dependency exists if it was last on the asm-generic series, rather
+> than part of the series here (which depends on that other series
+> anyway). That series now looks to be making some progress, and it
+> being
+> a prereq for here it may be prudent to focus on getting that one in,
+> before re-posting here.
+I'll be more specific next time regarding dependencies and specify what
+a prereq changes are.
 
---000000000000cdfb090611d3f942--
+Considering that asm-generic/device.h was merged to staging branch. It
+seems to me that there are no more additional prereqs for this patch.
+
+~ Oleksii
 
