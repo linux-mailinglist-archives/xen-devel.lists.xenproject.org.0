@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FE1C85B908
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 11:29:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683372.1062850 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39FB885B934
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 11:38:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683378.1062860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcNMc-0000k0-K3; Tue, 20 Feb 2024 10:28:38 +0000
+	id 1rcNVa-0002jZ-Ep; Tue, 20 Feb 2024 10:37:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683372.1062850; Tue, 20 Feb 2024 10:28:38 +0000
+Received: by outflank-mailman (output) from mailman id 683378.1062860; Tue, 20 Feb 2024 10:37:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcNMc-0000gz-Gg; Tue, 20 Feb 2024 10:28:38 +0000
-Received: by outflank-mailman (input) for mailman id 683372;
- Tue, 20 Feb 2024 10:28:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rcNVa-0002ht-Bg; Tue, 20 Feb 2024 10:37:54 +0000
+Received: by outflank-mailman (input) for mailman id 683378;
+ Tue, 20 Feb 2024 10:37:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YSgb=J5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rcNMa-0000gt-VW
- for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 10:28:36 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cd153205-cfda-11ee-98f5-efadbce2ee36;
- Tue, 20 Feb 2024 11:28:34 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-512b29f82d1so2839925e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 02:28:34 -0800 (PST)
+ id 1rcNVY-0002hn-Sj
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 10:37:52 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 190fa229-cfdc-11ee-8a52-1f161083a0e0;
+ Tue, 20 Feb 2024 11:37:51 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-412698ac6f9so8473265e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 02:37:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- w3-20020a05600c014300b0040fccf7e8easm13989864wmm.36.2024.02.20.02.28.33
+ fs14-20020a05600c3f8e00b00411a595d56bsm14037286wmb.14.2024.02.20.02.37.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Feb 2024 02:28:33 -0800 (PST)
+ Tue, 20 Feb 2024 02:37:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd153205-cfda-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 190fa229-cfdc-11ee-8a52-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708424914; x=1709029714; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708425471; x=1709030271; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=feBmHTk5QqT0alfBhak8qeu8UsMRRHWdWJtG8l7EVRc=;
-        b=AjKtysfHRRoer1u25vOu0lU/US0HHnYVFu3gQuHCz5ImmA7Xyyi597xAt7WYCMpuCj
-         B0IYV9x5VtSlPxSD0RJLdI+ilyhz3UbSLgginzmg3kaRFmj96ky4b9bjy5HXRg0eYkSP
-         LgZq0mILs1l6vFMmpcbKYCFQGRZjj01QWtZwV5vyfR8OMGZK2wzSd/NVxd811Cfgq3ur
-         i4wuUI6IYo3y6oJG93qPOQem2pbUl0kx62MV/v1712f3gOoUIKQV73YyOkmUcjN5Eoy4
-         raOSAyHtFeowGWk+bTKTAzi9YmpLrQJdiJxY0ny18/238J0XYpenPuhEsBNbHqF7qXUS
-         chuw==
+        bh=6015tbHyN3AB4j82IiQ32hpH7Mru6U9Dq/uVwr4WFAI=;
+        b=ClfA8PykBHXP7Z7AqjH0HHDbGLo6Mhl6ffyXIpJYdZWy21rHhB6Xv+eRVTLAEpOIRa
+         udbdIvNqK13swXMAmBlc9E6LdyRn+PPrD41tFrcltb0yv6s+poLkhPxh405PzJqVM0gC
+         K45r9PaU79gpiPtHyME8+hbVAPTJiY/yGAOfhqaOp/6Hmg41Y5XHqmbPl3txZ1nLkoWL
+         zdDN0CW/lCvoR25ZCryj+A58+6lJPxYSg/wxkorZnIsDjXzYavTpvXZUVfMrkjbK44L2
+         a/uZQfhwV93FuY2wdVv48fkqT6guWHsOzgin5itqqSoI3Z0HbhHryrXb1evz3V++s7Oe
+         MbZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708424914; x=1709029714;
+        d=1e100.net; s=20230601; t=1708425471; x=1709030271;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=feBmHTk5QqT0alfBhak8qeu8UsMRRHWdWJtG8l7EVRc=;
-        b=aEUXEKQI5mo2AykyboPk7geqqR4eI82D4e98AcQgnFGhjOPI+cb1CDsxK2sF+yyB5j
-         w5ymXZ3krPI4N7f/36j2Cavsd5BJhy7XShtclxZvnhal6CzhkeW5tJANvX3f1VAve6gS
-         jh3tya23cuWPvd1Vam9EXVfanAO3Sp0FZieo3gTZUdqiHB92K3kjIb8MVB4qpFEdVu17
-         uRVP9/5CwnJZDdGubhdSKjFgm+0VnmVq15gt0ERofHsHYq0ttAzqqAIC6U97rm9X6ZKR
-         8sMdCanKstZ2yUdOyVhMwRLqKK+SF5y3PAUI4J9CaS346e5FNLA2z1YbP53ktFneRj4y
-         eiOA==
-X-Forwarded-Encrypted: i=1; AJvYcCWwpLfF4sxdImVYdU8uVm/VzS0pWjS65WFOwEiVyiWQPZ+me3TJ4Oi+F9xWaAv2/zTPtDlBhk2aPi0YH0CgJTyKcrycKuqHH0jGG65eP3g=
-X-Gm-Message-State: AOJu0YxxYEzuL870dCgrfWXUsise0HEqtPJztMJlGGo3wxvubr8cBIYK
-	N9YnPDpGs0zNgtCSYzKK0ilVFGlk7qClv7dK1J4b5z8N6BhEreEsYnqBcsbAZQ==
-X-Google-Smtp-Source: AGHT+IEKN6E3c/PKBoceaZsKS7pqEcQjszBO2aJk6zzkeYI9YSsAesCCIlc6pEXEsrrCNKNTcHg+yw==
-X-Received: by 2002:a05:6512:3d04:b0:512:bf82:139f with SMTP id d4-20020a0565123d0400b00512bf82139fmr1801336lfv.25.1708424914148;
-        Tue, 20 Feb 2024 02:28:34 -0800 (PST)
-Message-ID: <7031861b-f925-479c-b236-8b1809996ede@suse.com>
-Date: Tue, 20 Feb 2024 11:28:32 +0100
+        bh=6015tbHyN3AB4j82IiQ32hpH7Mru6U9Dq/uVwr4WFAI=;
+        b=Uib8ih7PViuoNCqNPQLQ9pEbSsVih/ww5O+2kzWFKbYRYo31WlFhp380lVHsXablL2
+         wse2++/Bidc6c+lioD7zRINHKMC5MWLQ4jUEU9tJ4hBasHVa2+t12+tF7Z9KrIMWLcWE
+         Q73PrsknowpT0ch8R6bRYwCl4s6q7fKzsUUVvh8+bgbdAgVapzIy7kn89oG2LYm9N8Li
+         0ItDwXwrw3i9K/aCVFTPU/gOxl8ESDd6aumNZjIXTYOZQwqB85VJvAG7yA4FX0zYBmC9
+         2RzbzltyJvPJZfNIfDtDyRyLPSV64Ay4pLZmsU00/WoW9ZH6E8CEti803uq3gM8K410n
+         X+7A==
+X-Forwarded-Encrypted: i=1; AJvYcCVlRZx6ke5o3Wioe8zq5QSuu7M6Qe9om2GkoxV/MbFvTt+ScnOzfgS1TZfO56bK6ORcXS+dz1Pho4NHkZfFYgI9QLVq2hMuor2bXI+3gjo=
+X-Gm-Message-State: AOJu0Ywos8497vCDE5JnJntWLVxjelfUlRsn71KJMe/OEB5jMYWXhcNK
+	xjvmEEGQf0Rwpr/4pZ/G5j8YR9mC8zbYlpq5jzckwPz1G6PQEpUBy63da9zlZw==
+X-Google-Smtp-Source: AGHT+IG8VCj6Q5ze/WUvaTpnbNapcrqoS+4gjGEYB7cL3AUIDz7jOn4wRaRCZsnmWfgPEAav3Tg2ng==
+X-Received: by 2002:a05:600c:4f43:b0:411:e86d:85a3 with SMTP id m3-20020a05600c4f4300b00411e86d85a3mr16253163wmq.16.1708425471215;
+        Tue, 20 Feb 2024 02:37:51 -0800 (PST)
+Message-ID: <3fdbe1b6-59d0-4a33-8e7e-fb3f31a94fbf@suse.com>
+Date: Tue, 20 Feb 2024 11:37:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 (resend) 09/27] x86/pv: Rewrite how building PV dom0
- handles domheap mappings
+Subject: Re: [PATCH v2 (resend) 10/27] x86/pv: Map L4 page table for shim
+ domain
 Content-Language: en-US
 To: Elias El Yandouzi <eliasely@amazon.com>
 Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
  Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
  <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <20240116192611.41112-1-eliasely@amazon.com>
- <20240116192611.41112-10-eliasely@amazon.com>
+ <20240116192611.41112-11-eliasely@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,97 +114,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240116192611.41112-10-eliasely@amazon.com>
+In-Reply-To: <20240116192611.41112-11-eliasely@amazon.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 16.01.2024 20:25, Elias El Yandouzi wrote:
+> From: Hongyan Xia <hongyxia@amazon.com>
+> 
+> The root page table is allocated from the domheap and isn't
+> mapped by default. Map it on demand to build pv shim domain.
+> 
+> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
+> Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
+
+The patch looks correct as is, so
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Still I would have wished that ...
+
 > --- a/xen/arch/x86/pv/dom0_build.c
 > +++ b/xen/arch/x86/pv/dom0_build.c
-> @@ -382,6 +382,10 @@ int __init dom0_construct_pv(struct domain *d,
->      l3_pgentry_t *l3tab = NULL, *l3start = NULL;
->      l2_pgentry_t *l2tab = NULL, *l2start = NULL;
->      l1_pgentry_t *l1tab = NULL, *l1start = NULL;
-> +    mfn_t l4start_mfn = INVALID_MFN;
-> +    mfn_t l3start_mfn = INVALID_MFN;
-> +    mfn_t l2start_mfn = INVALID_MFN;
-> +    mfn_t l1start_mfn = INVALID_MFN;
+> @@ -991,8 +991,12 @@ do {                                                    \
+>       * !CONFIG_VIDEO case so the logic here can be simplified.
+>       */
+>      if ( pv_shim )
+> +    {
+> +        l4start = map_domain_page(l4start_mfn);
+>          pv_shim_setup_dom(d, l4start, v_start, vxenstore_start, vconsole_start,
+>                            vphysmap_start, si);
+> +        UNMAP_DOMAIN_PAGE(l4start);
+> +    }
 
-The reason initializers are needed here is, aiui, the overly large scope
-of these variables. For example ...
+... the function wide "l4start" wasn't clobbered like this.
 
-> @@ -708,22 +712,32 @@ int __init dom0_construct_pv(struct domain *d,
->          v->arch.pv.event_callback_cs    = FLAT_COMPAT_KERNEL_CS;
->      }
->  
-> +#define UNMAP_MAP_AND_ADVANCE(mfn_var, virt_var, maddr) \
-> +do {                                                    \
-> +    unmap_domain_page(virt_var);                        \
-> +    mfn_var = maddr_to_mfn(maddr);                      \
-> +    maddr += PAGE_SIZE;                                 \
-> +    virt_var = map_domain_page(mfn_var);                \
-> +} while ( false )
-> +
->      if ( !compat )
->      {
->          maddr_to_page(mpt_alloc)->u.inuse.type_info = PGT_l4_page_table;
-> -        l4start = l4tab = __va(mpt_alloc); mpt_alloc += PAGE_SIZE;
-> +        UNMAP_MAP_AND_ADVANCE(l4start_mfn, l4start, mpt_alloc);
-> +        l4tab = l4start;
->          clear_page(l4tab);
-> -        init_xen_l4_slots(l4tab, _mfn(virt_to_mfn(l4start)),
-> -                          d, INVALID_MFN, true);
-> -        v->arch.guest_table = pagetable_from_paddr(__pa(l4start));
-> +        init_xen_l4_slots(l4tab, l4start_mfn, d, INVALID_MFN, true);
-> +        v->arch.guest_table = pagetable_from_mfn(l4start_mfn);
-
-... looks to be required only here, while ...
-
->      }
->      else
->      {
->          /* Monitor table already created by switch_compat(). */
-> -        l4start = l4tab = __va(pagetable_get_paddr(v->arch.guest_table));
-> +        l4start_mfn = pagetable_get_mfn(v->arch.guest_table);
-> +        l4start = l4tab = map_domain_page(l4start_mfn);
-
-... in principle the use of the variable could be avoided here. Below
-from here there's no further use of it.
-
-> @@ -781,30 +797,34 @@ int __init dom0_construct_pv(struct domain *d,
->  
->      if ( compat )
->      {
-> -        l2_pgentry_t *l2t;
-> -
->          /* Ensure the first four L3 entries are all populated. */
->          for ( i = 0, l3tab = l3start; i < 4; ++i, ++l3tab )
->          {
->              if ( !l3e_get_intpte(*l3tab) )
->              {
->                  maddr_to_page(mpt_alloc)->u.inuse.type_info = PGT_l2_page_table;
-> -                l2tab = __va(mpt_alloc); mpt_alloc += PAGE_SIZE;
-> -                clear_page(l2tab);
-> -                *l3tab = l3e_from_paddr(__pa(l2tab), L3_PROT);
-> +                UNMAP_MAP_AND_ADVANCE(l2start_mfn, l2start, mpt_alloc);
-> +                clear_page(l2start);
-> +                *l3tab = l3e_from_mfn(l2start_mfn, L3_PROT);
->              }
-
-The updating of l2start is only conditional here, yet ...
-
->              if ( i == 3 )
->                  l3e_get_page(*l3tab)->u.inuse.type_info |= PGT_pae_xen_l2;
->          }
->  
-> -        l2t = map_l2t_from_l3e(l3start[3]);
-> -        init_xen_pae_l2_slots(l2t, d);
-> -        unmap_domain_page(l2t);
-> +        init_xen_pae_l2_slots(l2start, d);
-
-... here you assume it points at the page referenced by the 3rd L3 entry.
-Question is why the original code is being replaced here in the first
-place: It was already suitably mapping the page in question.
+In fact I think this patch needs either folding into the earlier one,
+or moving ahead: The respective UNMAP_DOMAIN_PAGE() added there breaks
+the use of l4start here. Yet then why not simply move that
+UNMAP_DOMAIN_PAGE() below here, eliminating the need for this patch.
 
 Jan
 
