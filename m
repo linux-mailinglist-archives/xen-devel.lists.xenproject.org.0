@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE72985C4D1
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 20:29:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683720.1063292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAB1585C5CF
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 21:31:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683728.1063301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcVnD-0004iT-TG; Tue, 20 Feb 2024 19:28:39 +0000
+	id 1rcWl2-0004MW-Ai; Tue, 20 Feb 2024 20:30:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683720.1063292; Tue, 20 Feb 2024 19:28:39 +0000
+Received: by outflank-mailman (output) from mailman id 683728.1063301; Tue, 20 Feb 2024 20:30:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcVnD-0004gr-Q5; Tue, 20 Feb 2024 19:28:39 +0000
-Received: by outflank-mailman (input) for mailman id 683720;
- Tue, 20 Feb 2024 19:28:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rcVnC-0004gh-Ep; Tue, 20 Feb 2024 19:28:38 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rcVnC-0000y0-8v; Tue, 20 Feb 2024 19:28:38 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rcVnC-0004RV-0s; Tue, 20 Feb 2024 19:28:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rcVnB-0001AF-UW; Tue, 20 Feb 2024 19:28:37 +0000
+	id 1rcWl2-0004Kd-7z; Tue, 20 Feb 2024 20:30:28 +0000
+Received: by outflank-mailman (input) for mailman id 683728;
+ Tue, 20 Feb 2024 20:30:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nvC9=J5=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rcWl1-0004KX-08
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 20:30:27 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e0485907-d02e-11ee-98f5-efadbce2ee36;
+ Tue, 20 Feb 2024 21:30:24 +0100 (CET)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-5129e5b8cecso4898286e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 12:30:24 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ y2-20020a199142000000b00511570bf1desm1450031lfj.240.2024.02.20.12.30.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Feb 2024 12:30:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=wVtYBgi8cYClyI8mGDqFIO1VuyBWZY3g2QhM3mLtgA4=; b=S+nA2PHwBM2mQku+xDsUC+tO8L
-	Ot+o86e3gyrAhrETqSX76oPFDVvQeQVjLH/Re0vHGTxFHVvjQma+iPy6hXSB57jlfkEeptcqkNaVW
-	ZfW39OM1LSsWUj8FWK3HtCY4aDZYrv9bSSIIHxClnm00QYoS9ZmQ1PcFXz7hdxTVDngg=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184713-mainreport@xen.org>
+X-Inumbo-ID: e0485907-d02e-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1708461024; x=1709065824; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Lbwkuduf+qdvroYy9Nltc2Q0VqNnF6JVyR/T8bbpGHo=;
+        b=IMl7wcS4dxV2939dNJwJOrmOvoJvcDW8nBpTErKtG6FyR9zKXN2dmenZMOqAvWrbRD
+         ao8kTMLymBte7sZV6IJUl45ujrsjrTBzIkVfX7HJorKXYWaohXhT3c0bjsdMRNPRRo04
+         UQvm5klz7BAVDj8uqIHDZQJX/7bNldo+poFMicyE16X8mXWBpbvnuKQo/1XTh8h1jIBR
+         iboncJX2G4piNAE6K+EVBH0qKRKZGC2iYtrF7zpDYnyaKzc/c/91SHDslK0MJLqc8k2K
+         jFYRLEOZ8vpssL06w1M1S6Z48BGP2QQcnQSOkek+raJ1mUwHYjkN8N0QNwl+VxB3ebGr
+         Hajg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708461024; x=1709065824;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Lbwkuduf+qdvroYy9Nltc2Q0VqNnF6JVyR/T8bbpGHo=;
+        b=CJeohzYOCudWkdPUwiCRpjt3RyisSGl33a2u3C/B5hGsBQx9ZGqwmYG0oRzXx0cYFa
+         i0kia1VbbQ4SuzPv6aGEDv2I+jRD/L76W8ro0AViuYCqZXZSryEEo7m8yQ7ZA4h0Thcx
+         rNCcYR1YvtifnhHQnRFsStCIfXvRGFV1IijcR8KRX0MxOj8P9yeDpbLByxRTqaFitVb3
+         QsHlXluvfyWBNGWM9gZBkVBLa2ndFwLnsrPoW8zJROmijRG22Vz4IagYRB/i6An7ZLvS
+         AZI6B7pjQHO5PQph4M3jdkoubbCJxwbFKjWqocidVPINquy8ugi5jTO4JHcaLvAp+a9w
+         RBAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVjChxPZ9T4pogzjwNlPKrrjzpaSF4l6qChISqS9Fqjo2Fme2Nv1L5IawadpUlYsZUueZ5nPLB1M5IUfMV3tAjQRJ9rovy8zMS5GaiWsGs=
+X-Gm-Message-State: AOJu0Yx2HKGHh3uYdmrtWOOj8T58pZqSNSNtkwTjQJLZC449FXJvVc9k
+	e4Zwo8/FdL+hN482gQIpWUPVUirGYLQx9YDploMqTMaSS9cTdgHv
+X-Google-Smtp-Source: AGHT+IG42Y7mHPXbC+/kWmdTEpgcWa/OVZJ2SqxHd1CNTvHiBtxAw9LRQu2P+poXm5oKVU6q58F3Jg==
+X-Received: by 2002:ac2:4a68:0:b0:512:a37a:bde2 with SMTP id q8-20020ac24a68000000b00512a37abde2mr6506385lfp.67.1708461023724;
+        Tue, 20 Feb 2024 12:30:23 -0800 (PST)
+Message-ID: <ab040f3c8ee35f49fffac385053b55053c52da8c.camel@gmail.com>
+Subject: Re: [PATCH v4 07/30] xen/asm-generic: introdure nospec.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Wei
+ Liu <wl@xen.org>, Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,  Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Julien
+ Grall <julien@xen.org>,  xen-devel@lists.xenproject.org
+Date: Tue, 20 Feb 2024 21:30:22 +0100
+In-Reply-To: <aaf86d31-7ae0-4e33-8386-dda4bd21496a@suse.com>
+References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
+	 <5889d7a5fa81722472f95cc1448af0be8f359a7d.1707146506.git.oleksii.kurochko@gmail.com>
+	 <510d74ca-5cce-48f8-93f6-407cd727cf7b@xen.org>
+	 <8a09e386b709f780f193af39af63b6aeb75c868e.camel@gmail.com>
+	 <aaf86d31-7ae0-4e33-8386-dda4bd21496a@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 184713: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=f8791d0fd3adbda3701e7eb9db63a9351b478365
-X-Osstest-Versions-That:
-    xen=981f722efa876e3f1766629f444d10e8806adc93
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 20 Feb 2024 19:28:37 +0000
 
-flight 184713 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184713/
+On Mon, 2024-02-19 at 13:18 +0100, Jan Beulich wrote:
+> On 19.02.2024 12:59, Oleksii wrote:
+> > Hi Julien,
+> >=20
+> > On Sun, 2024-02-18 at 18:30 +0000, Julien Grall wrote:
+> > > Hi Oleksii,
+> > >=20
+> > > Title: Typo s/introdure/introduce/
+> > >=20
+> > > On 05/02/2024 15:32, Oleksii Kurochko wrote:
+> > > > The <asm/nospec.h> header is similar between Arm, PPC, and
+> > > > RISC-V,
+> > > > so it has been moved to asm-generic.
+> > >=20
+> > > I am not 100% convinced that moving this header to asm-generic is
+> > > a
+> > > good=20
+> > > idea. At least for Arm, those helpers ought to be non-empty, what
+> > > about=20
+> > > RISC-V?
+> > For Arm, they are not taking any action, are they? There are no
+> > specific fences or other mechanisms inside
+> > evaluate_nospec()/block_speculation() to address speculation.
+>=20
+> The question isn't the status quo, but how things should be looking
+> like
+> if everything was in place that's (in principle) needed.
+>=20
+> > For RISC-V, it can be implemented in a similar manner, at least for
+> > now. Since these functions are only used in the grant tables code (
+> > for
+> > Arm and so for RISC-V ), which is not supported by RISC-V.
+>=20
+> Same here - the question is whether long term, when gnttab is also
+> supported, RISC-V would get away without doing anything. Still ...
+>=20
+> > > If the answer is they should be non-empty. Then I would consider
+> > > to
+> > > keep=20
+> > > the duplication to make clear that each architecture should take
+> > > their=20
+> > > own decision in term of security.
+> > >=20
+> > > The alternative, is to have a generic implementation that is safe
+> > > by=20
+> > > default (if that's even possible).
+> > I am not certain that we can have a generic implementation, as each
+> > architecture may have specific speculation issues.
+>=20
+> ... it's theoretically possible that there'd be an arch with no
+> speculation issues, maybe simply because of not speculating.
 
-Failures :-/ but no regressions.
+I am not sure that understand your and Julien point.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+For example, modern CPU uses speculative execution to reduce the cost
+of conditional branch instructions using schemes that predict the
+execution path of a program based on the history of branch executions.
 
-version targeted for testing:
- xen                  f8791d0fd3adbda3701e7eb9db63a9351b478365
-baseline version:
- xen                  981f722efa876e3f1766629f444d10e8806adc93
+Arm CPUs are vulnerable for speculative execution, but if to look at
+the code of evaluate_nospec()/block_speculation() functions they are
+doing nothing for Arm.
 
-Last test of basis   184711  2024-02-20 12:02:07 Z    0 days
-Testing same since   184713  2024-02-20 15:00:29 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Julien Grall <jgrall@amazon.com>
-  Luca Fancellu <luca.fancellu@arm.com>
-  Michal Orzel <michal.orzel@amd.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   981f722efa..f8791d0fd3  f8791d0fd3adbda3701e7eb9db63a9351b478365 -> smoke
+~ Oleksii
 
