@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F9F185B5B7
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 09:45:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683223.1062629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63FB585B5CA
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 09:50:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683232.1062640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcLkc-0005gm-N6; Tue, 20 Feb 2024 08:45:18 +0000
+	id 1rcLom-0006W9-Bk; Tue, 20 Feb 2024 08:49:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683223.1062629; Tue, 20 Feb 2024 08:45:18 +0000
+Received: by outflank-mailman (output) from mailman id 683232.1062640; Tue, 20 Feb 2024 08:49:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcLkc-0005eh-K4; Tue, 20 Feb 2024 08:45:18 +0000
-Received: by outflank-mailman (input) for mailman id 683223;
- Tue, 20 Feb 2024 08:45:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rcLom-0006Ty-82; Tue, 20 Feb 2024 08:49:36 +0000
+Received: by outflank-mailman (input) for mailman id 683232;
+ Tue, 20 Feb 2024 08:49:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/fGf=J5=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1rcLka-0005eV-LS
- for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 08:45:16 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5e10bc10-cfcc-11ee-8a52-1f161083a0e0;
- Tue, 20 Feb 2024 09:45:15 +0100 (CET)
-Received: from [192.168.1.229] (93-36-216-194.ip62.fastwebnet.it
- [93.36.216.194])
- by support.bugseng.com (Postfix) with ESMTPSA id B1A4C4EE073A;
- Tue, 20 Feb 2024 09:45:14 +0100 (CET)
+ <SRS0=JDQo=J5=bombadil.srs.infradead.org=BATV+d5dc426667c65ded4f96+7485+infradead.org+hch@srs-se1.protection.inumbo.net>)
+ id 1rcLok-0006Sb-Oz
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 08:49:35 +0000
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [2607:7c80:54:3::133])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f6b1af53-cfcc-11ee-98f5-efadbce2ee36;
+ Tue, 20 Feb 2024 09:49:32 +0100 (CET)
+Received: from
+ 2a02-8389-2341-5b80-39d3-4735-9a3c-88d8.cable.dynamic.v6.surfer.at
+ ([2a02:8389:2341:5b80:39d3:4735:9a3c:88d8] helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
+ id 1rcLof-0000000DnT3-1reG; Tue, 20 Feb 2024 08:49:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,87 +42,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e10bc10-cfcc-11ee-8a52-1f161083a0e0
-Message-ID: <beff6113-0260-4dc3-998f-d1ea93088fe7@bugseng.com>
-Date: Tue, 20 Feb 2024 09:45:14 +0100
+X-Inumbo-ID: f6b1af53-cfcc-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-Id:Date:Subject:To:From:Sender:Reply-To:Cc:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=6SfuAW972KnH6xK9mYEnu2XAsI1rZD/avgu8EQxehHo=; b=Y5mx2woS3KFrn6CgZJLKOsBj+J
+	Xwmwlm0FH7ap7OXCaFYehCJOmmEicnpNRO0Hl3KlNxFgwMkGAcfCcb0mKdslDzLJpaVi4ICjcyc2c
+	2+xuChxrG3o/ecPy0dwxKDLLgMNm5N9L8aU5j/RpV+HRRJkL7kKPPU0kE8n7Oce1Twm26S3iaZz7k
+	VpaSnYugMXaMxnipTxpMcb/zio2et/Glx3VsFtRm+9HJSkhCDwV064YHupdN+U8f34/63JREO8GmQ
+	6Dhn8HBm4NPhr8Bbn6+Sloc6MXlIcauVH5Q+rF4utCQfPY0VwG042LTNq2Yg3ICoUch7V/3Tl27hS
+	ivNp54AQ==;
+From: Christoph Hellwig <hch@lst.de>
+To: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org
+Subject: convert xen-blkfront to atomic queue limit updates
+Date: Tue, 20 Feb 2024 09:49:31 +0100
+Message-Id: <20240220084935.3282351-1-hch@lst.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] automation/eclair: add deviation for MISRA C:2012
- Rule 16.3
-Content-Language: en-US, it
-To: Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <b1d2b64c8117d61ea42cf4e9feae128541eb0b61.1708348799.git.federico.serafini@bugseng.com>
- <a6e8bd32-cc32-4084-907d-e2cd6d46e3e6@suse.com>
- <f28aed5e-0983-48fa-828f-b2133ca35086@bugseng.com>
- <4d2c5a69-4807-4af3-84c2-128d16ee2b43@suse.com>
- <1f1fdfd8-1a34-411e-a0f2-d9bcb5b050fd@bugseng.com>
- <4924e95e-0806-4939-90f3-2f4216fada63@suse.com>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <4924e95e-0806-4939-90f3-2f4216fada63@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On 20/02/24 09:31, Jan Beulich wrote:
-> On 20.02.2024 09:16, Federico Serafini wrote:
->> On 19/02/24 16:06, Jan Beulich wrote:
->>> On 19.02.2024 15:59, Federico Serafini wrote:
->>>> On 19/02/24 14:43, Jan Beulich wrote:
->>>>> On 19.02.2024 14:24, Federico Serafini wrote:
->>>>>> Update ECLAIR configuration to consider safe switch clauses ending
->>>>>> with __{get,put}_user_bad().
->>>>>>
->>>>>> Update docs/misra/deviations.rst accordingly.
->>>>>>
->>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>>>>
->>>>> As mentioned I'm not happy with this, not the least because of it being
->>>>> unclear why these two would be deviated, when there's no sign of a
->>>>> similar deviation for, say, __bad_atomic_size(). Imo this approach
->>>>> doesn't scale, and that's already leaving aside that the purpose of
->>>>> identically named (pseudo-)helpers could differ between architectures,
->>>>> thus putting under question ...
->>>>>
->>>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>>> @@ -368,6 +368,10 @@ safe."
->>>>>>     -config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/BUG\\(\\);/))))"}
->>>>>>     -doc_end
->>>>>>     
->>>>>> +-doc_begin="Switch clauses ending with constructs \"__get_user_bad()\" and \"__put_user_bad()\" are safe: they denote an unreachable program point."
->>>>>> +-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/__(put|get)_user_bad\\(\\);/))))"}
->>>>>> +-doc_end
->>>>>
->>>>> ... the global scope of such a deviation. While it may not be a good idea,
->>>>> even within an arch such (pseudo-)helpers could be used for multiple
->>>>> distinct purposes.
->>>>
->>>> Would you agree with adding the missing break statement after
->>>> the uses of __{put,get}_user_bad() (as it is already happening for
->>>> uses of __bad_atomic_size())?
->>>
->>> I probably wouldn't mind that (despite being a little pointless).
->>> Perhaps declaring them as noreturn would also help?
->>
->> Yes, it will help.
->> Is there any reason to have long as __get_user_bad()'s return value?
->> It would be nicer to declare it as a void function and then add the
->> noreturn attribute.
-> 
-> That's a historical leftover, which can be changed. Xen originally
-> derived quite a bit of code from Linux. If you go look at Linux 2.6.16,
-> you'll find why it was declared that way.
+Hi all,
 
-Thank you, I'll send a v2.
+this series converts xen-blkfront to the new atomic queue limits update
+API in the block tree.  I don't have a Xen setup so this is compile
+tested only.
 
--- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
+Diffstat:
+ xen-blkfront.c |   53 +++++++++++++++++++++++++++--------------------------
+ 1 file changed, 27 insertions(+), 26 deletions(-)
 
