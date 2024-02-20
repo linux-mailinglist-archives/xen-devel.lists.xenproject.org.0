@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6109B85BA2B
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 12:18:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683423.1062930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 112E585BA85
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 12:27:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683432.1062940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcO8y-0004p7-Qf; Tue, 20 Feb 2024 11:18:36 +0000
+	id 1rcOGQ-0006te-IW; Tue, 20 Feb 2024 11:26:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683423.1062930; Tue, 20 Feb 2024 11:18:36 +0000
+Received: by outflank-mailman (output) from mailman id 683432.1062940; Tue, 20 Feb 2024 11:26:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcO8y-0004mK-Nb; Tue, 20 Feb 2024 11:18:36 +0000
-Received: by outflank-mailman (input) for mailman id 683423;
- Tue, 20 Feb 2024 11:18:35 +0000
+	id 1rcOGQ-0006rS-Fl; Tue, 20 Feb 2024 11:26:18 +0000
+Received: by outflank-mailman (input) for mailman id 683432;
+ Tue, 20 Feb 2024 11:26:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5vNk=J5=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rcO8x-0004mE-6t
- for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 11:18:35 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YSgb=J5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rcOGO-0006rM-M4
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 11:26:16 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c826ed33-cfe1-11ee-98f5-efadbce2ee36;
- Tue, 20 Feb 2024 12:18:33 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40fb3b5893eso29571785e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 03:18:33 -0800 (PST)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- c5-20020a5d4f05000000b0033b684d6d5csm13206583wru.20.2024.02.20.03.18.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Feb 2024 03:18:32 -0800 (PST)
+ id db229a04-cfe2-11ee-98f5-efadbce2ee36;
+ Tue, 20 Feb 2024 12:26:14 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a3e5d82ad86so301506366b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 03:26:14 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ss1-20020a170907c00100b00a3e0c07c1a0sm3744849ejc.23.2024.02.20.03.26.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 Feb 2024 03:26:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,89 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c826ed33-cfe1-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: db229a04-cfe2-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1708427912; x=1709032712; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=XQWief9wkdRpDTRDFY5HHvLHLfu6vYANbFCesfEoTaI=;
-        b=eT3FJZyIb7AsbKTkMaVq8PjZ3I25GCTFSGf2ZYmI/RhjNPr+ibzYo2n9S8gufsQGVl
-         zoe6V3rj2/TXkBEqJDPV6FKhPC298qKwtbQKp//Oc3aQusOUXJ7xB+GqbWp8U18lPV6D
-         nlUN9TJbo1XPZ+LDUKSfsLLJMUlIndPBmzEJU=
+        d=suse.com; s=google; t=1708428374; x=1709033174; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=83H65JBn/OBpg4tMqx6OXYsljmCtU8NTWb2zbPb1FwU=;
+        b=QuBTKTbWULyjYz75xHO20H3CXa0oS8RC9roQi+WdnXVQxQILGUuTdaI7jBW/PgEYrd
+         VW0iJC7mQzboEEtW7g2/KluNiMsGHsRge5BcZFpxnLedwei7A83hY3DxsuwaYYSKgBL3
+         SqrZqQXjM54QOcYLpiCOf/hFofLwMD0hOT2opH9F4HPqW3HzIXo7cqni+IF+FsOJh4C8
+         XKkH3LHyjTu7qvcbKo1y7EqynhuYpH5iuU72eriezUPkcXZKajg8sknJXN0qxuOMeEYo
+         v4y323AQygobCPeFHV3TCAL5Dj8q6uTu9x3qTNX1/amcCE5wKZcJ7DzNB3At4VTjbgv2
+         48JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708427912; x=1709032712;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1708428374; x=1709033174;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=XQWief9wkdRpDTRDFY5HHvLHLfu6vYANbFCesfEoTaI=;
-        b=RIbneO4X/tXxqYYH8yWDnAiangbNJiO2kc/B1VmaW2OtwQHsCfuj2BKTviPXwTzMMJ
-         Yc4HEtoDn08rz7FJq6R5qJu/E1yNRydS7Kj5awEH6RfGf4oppR7/zfNpThXBIH4kixsn
-         bHmgYZBpHAeglCvMVLtFD2XXUYjCyVz2TBLy9lpKHjsIOg600Lw4NTG/nQRhI58U84Nj
-         GBJHPJtQPfcfTrvI5V0k0lGri2Amfe+oHy02JweEz1WBJcC1pYkHTQVvgIGtcu9nj8ZA
-         SOtZvJaf6KtFsfA6NSltQB2xEfJMDMXanAgw35LNVe8C/AqpVXlfFtgyK4J25wg10LUb
-         Ry6A==
-X-Gm-Message-State: AOJu0Ywfjz9PafUw5dGRJ8Zqtk2L6BHjKl7P0gBQv9TrkzKA3/YEDDu7
-	gmOj61smhLloTdcxZK32ss9sLvCNnN82JrUvjaK7SCEU6m1e4yiWu5NWl/PjNpQ=
-X-Google-Smtp-Source: AGHT+IFJuoE7Ny2aPZu+noNSiySkulsQ5z5YltJbJG4fRmbptWgxkdCh4rtXGehG1jHiaLMwz35KDw==
-X-Received: by 2002:a5d:530f:0:b0:33d:20d3:b876 with SMTP id e15-20020a5d530f000000b0033d20d3b876mr6914057wrv.34.1708427912398;
-        Tue, 20 Feb 2024 03:18:32 -0800 (PST)
-Date: Tue, 20 Feb 2024 11:18:31 +0000
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH] build: make sure build fails when running kconfig fails
-Message-ID: <b7c22718-ec6c-470e-be72-e613b2af3c54@perard>
-References: <55c3a781-17f8-47f2-9629-515e1aea77aa@suse.com>
+        bh=83H65JBn/OBpg4tMqx6OXYsljmCtU8NTWb2zbPb1FwU=;
+        b=Jdq98MAOC9xxDreoaTBtHk1E0XGZA7JfcH9woL3erETbVt/YDpvyY0JSST98Qu6jIz
+         ivWAslgjFb6WTQhOy9GCbfNCH7inQov1amo/WJ1GjpbDPVv3OWM9HtamchHjaf3f9yll
+         5c2UbMF9diJmoG1Cq73NLbw6gP9IO5Tk5T86OEkKZTwYcnvjv55E8oENS4ur2YD+dhJ7
+         eeRfBRxAkVVd9/cH7ALoqwoSREHzQxECHeJcAtDcQvs7phQziG0PYYmM1288jCfv2a9i
+         PapWq0MktuCb9kUFw43UVzrhBMT2HQS2ijtQymqEDRoaRyZqJfKSCGyfL2XyjrB0vH0M
+         0WuA==
+X-Forwarded-Encrypted: i=1; AJvYcCWSmc4aVNiYNUcZUN/hpX6KLnLmmLdBzaQmgSu0yRC3/+8D5zD2dseJKn92DqngUJGi+KtabUzzAm35bqWgvWPHv5myn3UtOhSxg0AmAJA=
+X-Gm-Message-State: AOJu0Yx7EFJAhGTJl0dFwTg3RPq2cFw5xYcgq2HFVjGdqDMNoJjEavbb
+	/alQmxFI1GyLiXYWqCJvaWdINwRqp4lsgWMy6PYVz9CofDrBHNysEvkEzfYOEw==
+X-Google-Smtp-Source: AGHT+IEJLVOBLUPgvXtZEOn/8NHcVgQez3FHKSRORA/I40EAwtjFl9wMuz0SpFRwfaMyH98/dPh+Dg==
+X-Received: by 2002:a17:906:344c:b0:a3f:cfb:9464 with SMTP id d12-20020a170906344c00b00a3f0cfb9464mr787774ejb.21.1708428373740;
+        Tue, 20 Feb 2024 03:26:13 -0800 (PST)
+Message-ID: <d70ff55d-e3fd-4c76-a053-617f42036295@suse.com>
+Date: Tue, 20 Feb 2024 12:26:12 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <55c3a781-17f8-47f2-9629-515e1aea77aa@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 7/7] xen/asm-generic: fold struct devarch into struct
+ dev
+Content-Language: en-US
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Julien Grall <julien@xen.org>, Rahul Singh <rahul.singh@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1708086091.git.oleksii.kurochko@gmail.com>
+ <3a5bf394a9d95a28cecac996f6e0decb788c19fd.1708086092.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <3a5bf394a9d95a28cecac996f6e0decb788c19fd.1708086092.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Feb 20, 2024 at 09:43:56AM +0100, Jan Beulich wrote:
-> Because of using "-include", failure to (re)build auto.conf (with
-> auto.conf.cmd produced as a secondary target) won't stop make from
-> continuing the build. Arrange for it being possible to drop the - from
-> Rules.mk, requiring that the include be skipped for tools-only targets.
-> Note that relying on the inclusion in those cases wouldn't be correct
-> anyway, as it might be a stale file (yet to be rebuilt) which would be
-> included, while during initial build, the file would be absent
-> altogether.
+On 16.02.2024 13:39, Oleksii Kurochko wrote:
+> The current patch is a follow-up to the patch titled:
+>     xen/asm-generic: introduce generic device.h
+> Also, a prerequisite for this patch is, without which a compilation
+> error will occur:
+>     xen/arm: switch Arm to use asm-generic/device.h
+
+I've dropped this while committing; it belongs ...
+
+> The 'struct dev_archdata' is exclusively used within 'struct device',
+> so it could be merged into 'struct device.'
 > 
-> Fixes: 8d4c17a90b0a ("xen/build: silence make warnings about missing auto.conf*")
-> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> After the merger, it is necessary to update the 'dev_archdata()'
+> macros and the comments above 'struct arm_smmu_xen_device' in
+> drivers/passthrough/arm/smmu.c.
+> Additionally, it is required to update instances of
+> "dev->archdata->iommu" to "dev->iommu".
+> 
+> Suggested-by: Julien Grall <julien@xen.org>
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+>   This patch can be merged with patches 4 and 5 of this patch series.
 
-Just to make sure, this patch is a workaround to a harmless bug in older
-version of GNU Make which print spurious error messages, and said bug as
-been fixed in GNU Make 4.2, right? Bug report:
+... somewhere here.
 
-    bug #102: Make prints an incorrect error for missing includes
-    https://savannah.gnu.org/bugs/?func=detailitem&item_id=102
+I didn't touch patch 5's subject, but I think the duplicate "Arm" in
+there would better have been avoided.
 
-> --- a/xen/Makefile
-> +++ b/xen/Makefile
-> @@ -375,6 +375,7 @@ $(KCONFIG_CONFIG): tools_fixdep
->  # This exploits the 'multi-target pattern rule' trick.
->  # The syncconfig should be executed only once to make all the targets.
->  include/config/%.conf include/config/%.conf.cmd: $(KCONFIG_CONFIG)
-> +	$(Q)rm -f include/config/$*.conf
-
-Maybe this should say "include/config/auto.conf" instead of using "$*".
-"syncconfig" is going to generate "auto.conf" and not "$*.conf". And it
-would make easier to find the "rm" command via "grep".
-
->  	$(Q)$(MAKE) $(build)=tools/kconfig syncconfig
->  
-
-Thanks,
-
--- 
-Anthony PERARD
+Jan
 
