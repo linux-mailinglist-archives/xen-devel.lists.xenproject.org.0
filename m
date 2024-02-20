@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0C9585BBD1
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 13:20:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683485.1063043 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76A1085BBFC
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 13:25:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683500.1063051 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcP6i-0004JR-Rq; Tue, 20 Feb 2024 12:20:20 +0000
+	id 1rcPBL-000524-Bj; Tue, 20 Feb 2024 12:25:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683485.1063043; Tue, 20 Feb 2024 12:20:20 +0000
+Received: by outflank-mailman (output) from mailman id 683500.1063051; Tue, 20 Feb 2024 12:25:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcP6i-0004GZ-OR; Tue, 20 Feb 2024 12:20:20 +0000
-Received: by outflank-mailman (input) for mailman id 683485;
- Tue, 20 Feb 2024 12:20:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rcPBL-00050K-91; Tue, 20 Feb 2024 12:25:07 +0000
+Received: by outflank-mailman (input) for mailman id 683500;
+ Tue, 20 Feb 2024 12:25:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YSgb=J5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rcP6h-0004GE-SK
- for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 12:20:19 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 68ef44ce-cfea-11ee-8a52-1f161083a0e0;
- Tue, 20 Feb 2024 13:20:18 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-410e820a4feso36042615e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 04:20:18 -0800 (PST)
+ id 1rcPBJ-00050E-Rf
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 12:25:05 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 12d960cb-cfeb-11ee-98f5-efadbce2ee36;
+ Tue, 20 Feb 2024 13:25:03 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4126f48411dso3126465e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 04:25:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h7-20020a056000000700b0033ce214a97csm13294488wrx.17.2024.02.20.04.20.17
+ z3-20020a1c4c03000000b004120675e057sm7044964wmf.0.2024.02.20.04.25.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Feb 2024 04:20:17 -0800 (PST)
+ Tue, 20 Feb 2024 04:25:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68ef44ce-cfea-11ee-8a52-1f161083a0e0
+X-Inumbo-ID: 12d960cb-cfeb-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708431618; x=1709036418; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708431903; x=1709036703; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=gGpH+jB7t66iuiZhxtwTK7HRXVSiLbcivuzs1lr+EUs=;
-        b=Z90UEnNIBnt0Iq+C0n+kW+7uFiCaJypTOuIxNanLmkWzET7SIT97rFoe5+3hBzDY14
-         AsqdWxztquncWs2uUs8cfk+B/5RNIKqjoVp8YFTyn21i1r7+5cnP0KsZLorCKjOg1CGf
-         k2iNlKwbKjXqj4GFQnCaq6OLuYD18yBS2amRUSf2A5IjzvYfaihcINT6E99dkBInkLQd
-         0zvUJIwSMrX1rksgc7grcmk5ibTXHyXrdUaE+JhhMFUbcAkaWeELHhIoVdC6EnKi3NPz
-         NXtYkFai9e2gYeVoCBN1xYHq7+JeI3ldrIRNYWnEZiUD55m4sKu8i9csWb6b0ShVN/Id
-         A/ZQ==
+        bh=kE3Vbeq3mNcgQGuLeKzL4FwS7l8YmoQTCMH5OEiHNzI=;
+        b=GgHcvDU+MOi9V+YZxSd5eM77B418DNHnxODU5TBOd8pYqyNuBOLcZ9/Yj2YCWwatO+
+         1mgsnsXHNzeD2wflrjyxf2NxEQQDKJLiumQpjgKyCAwuF9Siz9sUiUj/ld70ObGMhe1K
+         hIdeMewbT1//B8cA+lA/sP9ztEc5N0NWb2Rfa+/Qb9A31syCIUkMVgcKQC+hIhFHh+Tk
+         yWohDn1N0cqOhS7HWW5v73Vfjr59tXz0BLL2R/4ewGGi2r2hZIJvTwEn1Tp54KQ/h6o2
+         q7WDkv3lJE5qMlMGjNvqh2CDlmbrgLADXlBewg5qHlRhINhf3FOMf6s1296RNEjjggdK
+         A+Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708431618; x=1709036418;
+        d=1e100.net; s=20230601; t=1708431903; x=1709036703;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gGpH+jB7t66iuiZhxtwTK7HRXVSiLbcivuzs1lr+EUs=;
-        b=N/92FlGOYvfvRB+01Y2MdDXLGXVlrGDT3em764Mi7l6M2vAmWsKM0JApJOKqzLPvs6
-         UBqwK2ImlrgUMECtdlYL+FVh+CFz6Eh8cydRDtgcx4CWESOtUCqtiGveDDCylyZTroZg
-         HTgqJSUJrxQ4BTLJp6HD1f7AItLPikTkEBuSXd6edrWrywSBf8BabNeoN8dQ+5uuxJB1
-         N0vZtmy8zyNp5RISEJvoBp4pjVyfWyJiTEaZydmrRjMjhjKy7POVzpMwi+dpcQKT9SVn
-         VWTFyk8nRxrOI67jF42nTa48trCHzY8P6P3c+pU5hf3QIZSDQNqo8dxKmMB+uea1dOHM
-         0doQ==
-X-Gm-Message-State: AOJu0Yy+83NYzMQpt3wAUVvmTsV8B0rsw/jzkBjoeTFf2mhP1PCVzC3+
-	b6rxK/+6Fyq9O/GOO4/IU0NoGgBcsrtr9rLHHZgqwUOm2QPZ3t+peNDJHvuTrg==
-X-Google-Smtp-Source: AGHT+IEp6LZtjnmzI9LcyMMXQ4nn/eBJ+wKlP3BB1yg2+nIueMrhvUp644KGaxtuvfWYkkVUgjcQcQ==
-X-Received: by 2002:a5d:42ca:0:b0:33d:4e39:1c45 with SMTP id t10-20020a5d42ca000000b0033d4e391c45mr5576998wrr.6.1708431618024;
-        Tue, 20 Feb 2024 04:20:18 -0800 (PST)
-Message-ID: <abbae372-5e3e-4013-a2a3-45892ec96c89@suse.com>
-Date: Tue, 20 Feb 2024 13:20:16 +0100
+        bh=kE3Vbeq3mNcgQGuLeKzL4FwS7l8YmoQTCMH5OEiHNzI=;
+        b=miHNZ7QQqwa+hKvYBB21vPNkmLfxFhUKp3c/B3U7Wc8WWWgEVZ0MW8vi+9/D9vbrNO
+         Z84GnNv6afeokriMYZPcmNkr9lfg0TU0QLUFB8sQtv5TEKpcIIfAE0e32HIGsW6NVdCg
+         9vmB4x3B/2KanfOdZQH5CykUcWsLGTk09TNuOhzEX6RaWMj2HbCWLmYx9QVC1XDXVQz0
+         2E4DuR4hptHCluiGHehPVZg193GFY5wDTdBGqOetUFZ9jhOxFO32TWg552+1LKdwFsst
+         DM642kp2VENo/FwDLmA9WwdnT2lrQQspmBQFnEvfe3lwvxjLinK6rcxVR3XqlWX8It8r
+         4uwQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUiR0LCoqnQ5o8e7aieegCKs6ZaAu/ZvcG1oz9H9FBVI9y/4hADLfr0Ta/k4zu5PATi+pqxHEvZwlxu2eEOubw3PQoGyWHe7rbm4ZLsgFk=
+X-Gm-Message-State: AOJu0YyN+3q5hnRmrv/WK1KIQceEK0ppduxppEntwOwGZQx9oam6Xq0S
+	vB1IsXedfxpv6F/dmlTdKX7DVQ3+jqonLVq3dd4qdMxrdkVnmWkMosoypu/bJQ==
+X-Google-Smtp-Source: AGHT+IF1DKRZCgdB4ZuJfx7XTV6jtnBi3OKyPYlX9Ye7ndXpCrK9PsIiu1cBrmL4iCT5gf9hgIkfAg==
+X-Received: by 2002:a05:600c:358b:b0:412:6e83:b89d with SMTP id p11-20020a05600c358b00b004126e83b89dmr1527115wmq.8.1708431903199;
+        Tue, 20 Feb 2024 04:25:03 -0800 (PST)
+Message-ID: <d0090122-c013-4dbf-97a2-3003352433a1@suse.com>
+Date: Tue, 20 Feb 2024 13:25:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] build: make sure build fails when running kconfig fails
+Subject: Re: [PATCH 2/2] almost fully ignore zero-size flush requests
 Content-Language: en-US
-To: Anthony PERARD <anthony.perard@cloud.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <55c3a781-17f8-47f2-9629-515e1aea77aa@suse.com>
- <b7c22718-ec6c-470e-be72-e613b2af3c54@perard>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <a0a7fa35-4615-4a9b-9887-569353f05e33@suse.com>
+ <26ff8f42-2a76-4f8d-9af6-5830b0aae739@suse.com>
+ <7dd78c97-b82f-4ae1-a257-98f612c6bad2@xen.org>
+ <6466155e-9883-4743-a897-ef565f14fdf0@suse.com>
+ <a2348c5f-39ce-42f3-ad2a-a5edf88352e9@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,51 +116,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b7c22718-ec6c-470e-be72-e613b2af3c54@perard>
+In-Reply-To: <a2348c5f-39ce-42f3-ad2a-a5edf88352e9@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 20.02.2024 12:18, Anthony PERARD wrote:
-> On Tue, Feb 20, 2024 at 09:43:56AM +0100, Jan Beulich wrote:
->> Because of using "-include", failure to (re)build auto.conf (with
->> auto.conf.cmd produced as a secondary target) won't stop make from
->> continuing the build. Arrange for it being possible to drop the - from
->> Rules.mk, requiring that the include be skipped for tools-only targets.
->> Note that relying on the inclusion in those cases wouldn't be correct
->> anyway, as it might be a stale file (yet to be rebuilt) which would be
->> included, while during initial build, the file would be absent
->> altogether.
+On 20.02.2024 12:52, Julien Grall wrote:
+> Hi Jan,
+> 
+> On 20/02/2024 08:26, Jan Beulich wrote:
+>> On 19.02.2024 23:22, Julien Grall wrote:
+>>> Title: I would add 'gnttab:' to clarify which subsystem you are modifying.
 >>
->> Fixes: 8d4c17a90b0a ("xen/build: silence make warnings about missing auto.conf*")
->> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> That's how I actually have it here; it's not clear to me why I lost the
+>> prefix when sending.
+>>
+>>> On 05/02/2024 11:03, Jan Beulich wrote:
+>>>> Along the line with observations in the context of XSA-448, besides
+>>>> "op" no field is relevant when the range to be flushed is empty, much
+>>>> like e.g. the pointers passed to memcpy() are irrelevant (and would
+>>>> never be "validated") when the passed length is zero. Split the existing
+>>>> condition validating "op", "offset", and "length", leaving only the "op"
+>>>> part ahead of the check for length being zero (or no flushing to be
+>>>> performed).
+>>>
+>>> I am probably missing something here. I understand the theory behind
+>>> reducing the number of checks when len == 0. But an OS cannot rely on it:
+>>>     1) older hypervisor would still return an error if the check doesn't
+>>> pass)
+>>
+>> Right, but that's no reason to keep the bogus earlier behavior.
 > 
-> Just to make sure, this patch is a workaround to a harmless bug in older
-> version of GNU Make which print spurious error messages, and said bug as
-> been fixed in GNU Make 4.2, right? Bug report:
+> Hmmm... I am not sure why you say the behavior is bogus. From the commit 
+> message, it seems this is just an optimization that have side effect 
+> (ignoring the other fields).
+
+I don't view this as primarily an optimization; I'm in particular after
+not raising errors for cases where there is no error to be raised.
+Hence the comparison to memcpy(), which you can pass "bogus" pointers
+so long as you pass zero size.
+
+>>>     2) it does feel odd to allow "invalid" offset when len == 0 (at least.
+>>
+>> I'm puzzled: You've given R-b for patch 1 (thanks), where exactly the
+>> same reasoning is used, i.e. similarly referring to memcpy() to
+>> justify the (new / supposed) behavior.
 > 
->     bug #102: Make prints an incorrect error for missing includes
->     https://savannah.gnu.org/bugs/?func=detailitem&item_id=102
-
-Assuming you mean the change referenced in Fixes: - yes, that's my
-understanding. (Whether the referenced make bug is the one I can't tell,
-though. But it looks like it is.)
-
->> --- a/xen/Makefile
->> +++ b/xen/Makefile
->> @@ -375,6 +375,7 @@ $(KCONFIG_CONFIG): tools_fixdep
->>  # This exploits the 'multi-target pattern rule' trick.
->>  # The syncconfig should be executed only once to make all the targets.
->>  include/config/%.conf include/config/%.conf.cmd: $(KCONFIG_CONFIG)
->> +	$(Q)rm -f include/config/$*.conf
+> I realize it. But I viewed it slightly different as you are adding the 
+> check. I think it is a good idea to add the check and ideally it should 
+> be after.
 > 
-> Maybe this should say "include/config/auto.conf" instead of using "$*".
-> "syncconfig" is going to generate "auto.conf" and not "$*.conf". And it
-> would make easier to find the "rm" command via "grep".
+> Here you don't seem to add any check and only re-order it. Hence why I 
+> treated it differently.
 
-Generally I advocate for using $* wherever possible in pattern rules. If,
-however, replacing that is the only way to get an ack for this change, then
-I would (hesitantly) do so.
+Right, there already was a zero-length check here. Just that zero
+length requests still could have an error returned for no reason. So
+the "optimization" part that you're talking about above was already
+there, but as said, that's secondary to me.
 
 Jan
 
