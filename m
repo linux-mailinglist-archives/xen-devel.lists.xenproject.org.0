@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11EF785B62D
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 09:56:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683305.1062770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B80B185B635
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Feb 2024 09:57:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683310.1062780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcLvS-000660-3N; Tue, 20 Feb 2024 08:56:30 +0000
+	id 1rcLwJ-0006eX-Cw; Tue, 20 Feb 2024 08:57:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683305.1062770; Tue, 20 Feb 2024 08:56:30 +0000
+Received: by outflank-mailman (output) from mailman id 683310.1062780; Tue, 20 Feb 2024 08:57:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcLvS-00064S-0e; Tue, 20 Feb 2024 08:56:30 +0000
-Received: by outflank-mailman (input) for mailman id 683305;
- Tue, 20 Feb 2024 08:56:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rcLwJ-0006cC-9M; Tue, 20 Feb 2024 08:57:23 +0000
+Received: by outflank-mailman (input) for mailman id 683310;
+ Tue, 20 Feb 2024 08:57:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YSgb=J5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rcLvR-0005pz-97
- for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 08:56:29 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ef22c0a5-cfcd-11ee-8a52-1f161083a0e0;
- Tue, 20 Feb 2024 09:56:28 +0100 (CET)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2d247c31e1aso5044261fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 00:56:28 -0800 (PST)
+ id 1rcLwI-0006c0-Hh
+ for xen-devel@lists.xenproject.org; Tue, 20 Feb 2024 08:57:22 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0e1759d4-cfce-11ee-98f5-efadbce2ee36;
+ Tue, 20 Feb 2024 09:57:20 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-33aeb088324so2737124f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Feb 2024 00:57:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- w14-20020adfcd0e000000b0033d14c96ec1sm12607957wrm.45.2024.02.20.00.56.27
+ w14-20020adfcd0e000000b0033d14c96ec1sm12607957wrm.45.2024.02.20.00.57.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Feb 2024 00:56:27 -0800 (PST)
+ Tue, 20 Feb 2024 00:57:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef22c0a5-cfcd-11ee-8a52-1f161083a0e0
+X-Inumbo-ID: 0e1759d4-cfce-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708419388; x=1709024188; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708419440; x=1709024240; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UDhUrA6tM7xm4y+MMtOUTP3hYExqNaG8GAdW+v0Ujq4=;
-        b=bqbyqfPzkmlEAMEMfFq7iuZMpyQVhgIkQz2bT2TbguG9hCjXBC/BIrXFrUCYLiMYjZ
-         KQE0MxieGFyVxZVianpSNDqhA7KFK98d7OUcH7t5eEIC+tnxL0MRccthFQcwedDyHNz7
-         vW5fG/QTRIFTgnjU4XdrXrdH8TLjNHCODFLrH/ITyg1ECk7fMdE3lbaCsCdg7kFWzMfD
-         c+Q+2I3UZ4Z9zgvc9x5SfROb0weIQ/PB63yLziHZ4iD60FJT0hw6dnbDdMt4c4M5ed3m
-         eltGbuhVGdBekDipxih3dyWzgb1l2mXJ4nSwY9Y4xr9520jo7x2MYXqIF/Y/r1oRkLpK
-         PFeQ==
+        bh=jWqlogxB928KUsvmRqerAeKEQfMENuclb4BguYyVDTk=;
+        b=SF4ohpnW9D7Fm8wjP4cqrFRtqujcxVdbqmbJMquRcWyW5AWDFuV7UQuDdLITV/X3gM
+         WaKTpjZqkZTbK0VqmXIniVFYzTk0Gto5X5pPk21WaDEH3fUdlIU2U2J3xqDYwL1WQRLS
+         8xts3rTU4P4pszUvofiFJGnwrIArfiDD0SRQ5+Uq/YF42I7d225xM0hya+CyA+c41ciu
+         01vLMEvCVIcZFEe0Tp8FH90xeg9JbOaiXx3wdd/ddbV81sen35miUNfhgN4C69ytGN1w
+         921LKuQPrPo801kxHxMhETLeZ/pKDQiJ40Q/JAuDE2jOM0oZu/SpyOckVZ/YgEtiA3kd
+         0zKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708419388; x=1709024188;
+        d=1e100.net; s=20230601; t=1708419440; x=1709024240;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=UDhUrA6tM7xm4y+MMtOUTP3hYExqNaG8GAdW+v0Ujq4=;
-        b=oWAlPuU8ujHHBImbaCzUlTXYJ2vm+GS0uYI4DH9kTab+UZ/eBD430kE6Ibr9WC6FVD
-         0fT9ygmvEwy6O7XUKMlmyncFyvolYgJmK7NI2zO4ISxF38BWZovJ5eXZ66X6vOjMbBjH
-         65V3kE3VQtX6tQ7xqVjvvmSArnOj6fe4er2oE3J2VRGn95bhDZhSrM9x4nqmyr2t6Eju
-         1mCY8u+q7nPAxdROsd+2oZbDjJVZ2MHhNf9eEFhK7kD39jFgDtDIaPw7mGOjYkm4jTNe
-         NpQQ9FK5KDbLJSXJxkObGpr9aiTpJYnKvlfHGMfzPgrsf1gGihKKNEUrddnPtRD+F3OJ
-         3UfA==
-X-Gm-Message-State: AOJu0Yxm/OquBhVDCRLVV8olqcnEAV650vITpQypFJJ1GEJxJq2DD8/D
-	+5UNmMpLZVmRHcXBu23s8aM/pmRCxvYb7byt42lDaea9u1YRqSRmtHZwinCUwdG0SAE+xtPrYfE
+        bh=jWqlogxB928KUsvmRqerAeKEQfMENuclb4BguYyVDTk=;
+        b=uBavmlinFU38OUmEH3VxxHOTG9mVMwPWhTRTCh/IKD9zmWuVcIOGXARl2o8evvvMRu
+         SSzx7zq14qvhtbiUneIoy1oZX+YFvKLqF06RzVeAe+eyh0HdvXo8hgBLYl+co75xDG1j
+         6oT9HJWhWb/REW73fz5gmLTN7hnsLTJGQ0Hpv0w8mUoWSce048gXXOMtPs1koTWMzCNy
+         lzHKgJDl3C8O0jCY/pWhFAdQRvqYCmATCOur089p9ejbMywAzHEASgghu8l3bT7EPRpm
+         Yr13KnLbwenYk5hN8eBHTnmfAA4aLvI815clDEqlKXQdLSDs5ieP3Jtq6JTWj9C700Hc
+         B9Wg==
+X-Gm-Message-State: AOJu0Yw07t83kOI6Pl7MNLrb4uDTVgcuNh1cIkkrH4q72GrBmQPGTjpk
+	3umwezMEe3wpFlWzGzcewFMoSnLjsL+0zAiRpWmc3Zow6iVRTcTVKytUyL7CHqoGTPygpq/8lgI
 	=
-X-Google-Smtp-Source: AGHT+IHuJs0sbdMFsDfsnlWZQ85DshqCj5umcoFkvdkaMWTKP5kDN7x4qkZSjrcF5Eipjhvdn4z/0w==
-X-Received: by 2002:a05:651c:118d:b0:2d2:34d5:63f5 with SMTP id w13-20020a05651c118d00b002d234d563f5mr3365975ljo.52.1708419387794;
-        Tue, 20 Feb 2024 00:56:27 -0800 (PST)
-Message-ID: <8c9abefd-2871-42e6-b857-6a450f5b833a@suse.com>
-Date: Tue, 20 Feb 2024 09:56:27 +0100
+X-Google-Smtp-Source: AGHT+IGimlpP3q+zJai3qTgVg7wBX5QVYnZUsKu23U7JIy9kYANwGKOm8T5rfmhwGcF89Jp2y2Ei3A==
+X-Received: by 2002:a5d:47ac:0:b0:33d:38cf:aa73 with SMTP id 12-20020a5d47ac000000b0033d38cfaa73mr5898159wrb.47.1708419439684;
+        Tue, 20 Feb 2024 00:57:19 -0800 (PST)
+Message-ID: <aab24f1f-ed29-4098-b430-152c16965e90@suse.com>
+Date: Tue, 20 Feb 2024 09:57:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v4 7/8] x86/APIC: drop regs parameter from direct vector
- handler functions
+Subject: [PATCH v4 8/8] consolidate do_bug_frame() / bug_fn_t
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 References: <e5f62a45-5b68-404d-908e-909f84f87b44@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,203 +120,245 @@ In-Reply-To: <e5f62a45-5b68-404d-908e-909f84f87b44@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The only place it was needed is in the spurious handler, and there we
-can use get_irq_regs() instead.
+The type not being used in do_bug_frame() is suspicious. Apparently
+that's solely because the type uses a pointer-to-const parameter,
+when so far run_in_exception_handler() wanted functions taking pointer-
+to-non-const. Expand use of const, in turn requiring common code's
+do_bug_frame() as well as [gs]et_irq_regs() to also gain const. This
+then brings the former function also closer to the common one, with
+Arm's use of vaddr_t remaining as a difference.
+
+While there also replace the bogus use of hard tabs in [gs]et_irq_regs()
+(I clearly didn't mean to put it in like this).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Acked-by: Julien Grall <jgrall@amazon.com>
+---
+This is an alternative proposal to
+https://lists.xen.org/archives/html/xen-devel/2023-12/msg01385.html.
+---
+v4: Re-base over changes earlier in the series (drop xhci-dbc.c change).
+v3: Retain / extend use of const. Make part of series.
+v2: [skipped]
 
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -1322,7 +1322,7 @@ int reprogram_timer(s_time_t timeout)
-     return apic_tmict || !timeout;
- }
- 
--static void cf_check apic_timer_interrupt(struct cpu_user_regs *regs)
-+static void cf_check apic_timer_interrupt(void)
+--- a/xen/arch/arm/irq.c
++++ b/xen/arch/arm/irq.c
+@@ -220,7 +220,7 @@ void do_IRQ(struct cpu_user_regs *regs,
  {
-     ack_APIC_irq();
-     perfc_incr(apic_timer);
-@@ -1341,7 +1341,7 @@ void smp_send_state_dump(unsigned int cp
- /*
-  * Spurious interrupts should _never_ happen with our APIC/SMP architecture.
-  */
--static void cf_check spurious_interrupt(struct cpu_user_regs *regs)
-+static void cf_check spurious_interrupt(void)
- {
-     /*
-      * Check if this is a vectored interrupt (most likely, as this is probably
-@@ -1355,7 +1355,7 @@ static void cf_check spurious_interrupt(
-         is_spurious = !nmi_check_continuation();
-         if (this_cpu(state_dump_pending)) {
-             this_cpu(state_dump_pending) = false;
--            dump_execstate(regs);
-+            dump_execstate(get_irq_regs());
-             is_spurious = false;
-         }
+     struct irq_desc *desc = irq_to_desc(irq);
+     struct irqaction *action;
+-    struct cpu_user_regs *old_regs = set_irq_regs(regs);
++    const struct cpu_user_regs *old_regs = set_irq_regs(regs);
  
-@@ -1372,7 +1372,7 @@ static void cf_check spurious_interrupt(
-  * This interrupt should never happen with our APIC/SMP architecture
-  */
+     perfc_incr(irqs);
  
--static void cf_check error_interrupt(struct cpu_user_regs *regs)
-+static void cf_check error_interrupt(void)
- {
-     static const char *const esr_fields[] = {
-         ", Send CS error",
-@@ -1407,7 +1407,7 @@ static void cf_check error_interrupt(str
-  * This interrupt handles performance counters interrupt
-  */
- 
--static void cf_check pmu_interrupt(struct cpu_user_regs *regs)
-+static void cf_check pmu_interrupt(void)
- {
-     ack_APIC_irq();
-     vpmu_do_interrupt();
---- a/xen/arch/x86/cpu/mcheck/mce_intel.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
-@@ -58,7 +58,7 @@ bool __read_mostly lmce_support;
- #define MCE_RING                0x1
- static DEFINE_PER_CPU(int, last_state);
- 
--static void cf_check intel_thermal_interrupt(struct cpu_user_regs *regs)
-+static void cf_check intel_thermal_interrupt(void)
- {
-     uint64_t msr_content;
-     unsigned int cpu = smp_processor_id();
-@@ -642,7 +642,7 @@ static void cpu_mcheck_disable(void)
-         clear_cmci();
- }
- 
--static void cf_check cmci_interrupt(struct cpu_user_regs *regs)
-+static void cf_check cmci_interrupt(void)
- {
-     mctelem_cookie_t mctc;
-     struct mca_summary bs;
---- a/xen/arch/x86/guest/xen/xen.c
-+++ b/xen/arch/x86/guest/xen/xen.c
-@@ -158,7 +158,7 @@ static void __init init_memmap(void)
-     }
- }
- 
--static void cf_check xen_evtchn_upcall(struct cpu_user_regs *regs)
-+static void cf_check xen_evtchn_upcall(void)
- {
-     struct vcpu_info *vcpu_info = this_cpu(vcpu_info);
-     unsigned long pending;
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -2782,7 +2782,7 @@ static struct hvm_function_table __initd
- };
- 
- /* Handle VT-d posted-interrupt when VCPU is blocked. */
--static void cf_check pi_wakeup_interrupt(struct cpu_user_regs *regs)
-+static void cf_check pi_wakeup_interrupt(void)
- {
-     struct vmx_vcpu *vmx, *tmp;
-     spinlock_t *lock = &per_cpu(vmx_pi_blocking, smp_processor_id()).lock;
-@@ -2814,7 +2814,7 @@ static void cf_check pi_wakeup_interrupt
- }
- 
- /* Handle VT-d posted-interrupt when VCPU is running. */
--static void cf_check pi_notification_interrupt(struct cpu_user_regs *regs)
-+static void cf_check pi_notification_interrupt(void)
- {
-     ack_APIC_irq();
-     this_cpu(irq_count)++;
---- a/xen/arch/x86/include/asm/irq.h
-+++ b/xen/arch/x86/include/asm/irq.h
-@@ -72,17 +72,15 @@ extern int opt_irq_vector_map;
- 
- #define platform_legacy_irq(irq)	((irq) < 16)
- 
--void cf_check event_check_interrupt(struct cpu_user_regs *regs);
--void cf_check invalidate_interrupt(struct cpu_user_regs *regs);
--void cf_check call_function_interrupt(struct cpu_user_regs *regs);
--void cf_check irq_move_cleanup_interrupt(struct cpu_user_regs *regs);
-+void cf_check event_check_interrupt(void);
-+void cf_check invalidate_interrupt(void);
-+void cf_check call_function_interrupt(void);
-+void cf_check irq_move_cleanup_interrupt(void);
- 
- uint8_t alloc_hipriority_vector(void);
- 
--void set_direct_apic_vector(
--    uint8_t vector, void (*handler)(struct cpu_user_regs *regs));
--void alloc_direct_apic_vector(
--    uint8_t *vector, void (*handler)(struct cpu_user_regs *regs));
-+void set_direct_apic_vector(uint8_t vector, void (*handler)(void));
-+void alloc_direct_apic_vector(uint8_t *vector, void (*handler)(void));
- 
- void do_IRQ(struct cpu_user_regs *regs);
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -409,8 +409,7 @@ static always_inline void rep_nop(void)
+ void show_code(const struct cpu_user_regs *regs);
+ void show_stack_overflow(unsigned int cpu, const struct cpu_user_regs *regs);
+ void show_registers(const struct cpu_user_regs *regs);
+-#define dump_execution_state() \
+-    run_in_exception_handler(show_execution_state_nonconst)
++#define dump_execution_state() run_in_exception_handler(show_execution_state)
+ void show_page_walk(unsigned long addr);
+ void noreturn fatal_trap(const struct cpu_user_regs *regs, bool show_remote);
  
 --- a/xen/arch/x86/irq.c
 +++ b/xen/arch/x86/irq.c
-@@ -743,7 +743,7 @@ void move_native_irq(struct irq_desc *de
-     desc->handler->enable(desc);
- }
+@@ -1896,7 +1896,7 @@ void do_IRQ(struct cpu_user_regs *regs)
+     struct irq_desc  *desc;
+     unsigned int      vector = (uint8_t)regs->entry_vector;
+     int               irq = this_cpu(vector_irq)[vector];
+-    struct cpu_user_regs *old_regs = set_irq_regs(regs);
++    const struct cpu_user_regs *old_regs = set_irq_regs(regs);
  
--void cf_check irq_move_cleanup_interrupt(struct cpu_user_regs *regs)
-+void cf_check irq_move_cleanup_interrupt(void)
- {
-     unsigned vector, me;
- 
-@@ -913,16 +913,14 @@ uint8_t alloc_hipriority_vector(void)
-     return next++;
- }
- 
--static void (*direct_apic_vector[X86_NR_VECTORS])(struct cpu_user_regs *regs);
--void set_direct_apic_vector(
--    uint8_t vector, void (*handler)(struct cpu_user_regs *regs))
-+static void (*direct_apic_vector[X86_NR_VECTORS])(void);
-+void set_direct_apic_vector(uint8_t vector, void (*handler)(void))
- {
-     BUG_ON(direct_apic_vector[vector] != NULL);
-     direct_apic_vector[vector] = handler;
- }
- 
--void alloc_direct_apic_vector(
--    uint8_t *vector, void (*handler)(struct cpu_user_regs *regs))
-+void alloc_direct_apic_vector(uint8_t *vector, void (*handler)(void))
- {
-     static DEFINE_SPINLOCK(lock);
- 
-@@ -1907,7 +1905,7 @@ void do_IRQ(struct cpu_user_regs *regs)
-     if ( irq < 0 )
-     {
-         if ( direct_apic_vector[vector] )
--            direct_apic_vector[vector](regs);
-+            direct_apic_vector[vector]();
-         else
-         {
-             const char *kind = ", LAPIC";
---- a/xen/arch/x86/smp.c
-+++ b/xen/arch/x86/smp.c
-@@ -245,7 +245,7 @@ static cpumask_t flush_cpumask;
- static const void *flush_va;
- static unsigned int flush_flags;
- 
--void cf_check invalidate_interrupt(struct cpu_user_regs *regs)
-+void cf_check invalidate_interrupt(void)
- {
-     unsigned int flags = flush_flags;
-     ack_APIC_irq();
-@@ -387,14 +387,14 @@ void smp_send_nmi_allbutself(void)
-     send_IPI_mask(&cpu_online_map, APIC_DM_NMI);
- }
- 
--void cf_check event_check_interrupt(struct cpu_user_regs *regs)
-+void cf_check event_check_interrupt(void)
- {
-     ack_APIC_irq();
-     perfc_incr(ipis);
+     perfc_incr(irqs);
      this_cpu(irq_count)++;
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -643,7 +643,7 @@ void show_stack_overflow(unsigned int cp
+     printk("\n");
  }
  
--void cf_check call_function_interrupt(struct cpu_user_regs *regs)
-+void cf_check call_function_interrupt(void)
+-void show_execution_state(const struct cpu_user_regs *regs)
++void cf_check show_execution_state(const struct cpu_user_regs *regs)
  {
-     ack_APIC_irq();
-     perfc_incr(ipis);
+     /* Prevent interleaving of output. */
+     unsigned long flags = console_lock_recursive_irqsave();
+@@ -655,11 +655,6 @@ void show_execution_state(const struct c
+     console_unlock_recursive_irqrestore(flags);
+ }
+ 
+-void cf_check show_execution_state_nonconst(struct cpu_user_regs *regs)
+-{
+-    show_execution_state(regs);
+-}
+-
+ void vcpu_show_execution_state(struct vcpu *v)
+ {
+     unsigned long flags = 0;
+--- a/xen/common/bug.c
++++ b/xen/common/bug.c
+@@ -10,7 +10,7 @@
+  * Returns a negative value in case of an error otherwise
+  * BUGFRAME_{run_fn, warn, bug, assert}
+  */
+-int do_bug_frame(struct cpu_user_regs *regs, unsigned long pc)
++int do_bug_frame(const struct cpu_user_regs *regs, unsigned long pc)
+ {
+     const struct bug_frame *bug = NULL;
+     const struct virtual_region *region;
+@@ -44,14 +44,10 @@ int do_bug_frame(struct cpu_user_regs *r
+ 
+     if ( id == BUGFRAME_run_fn )
+     {
+-        void (*fn)(struct cpu_user_regs *) = bug_ptr(bug);
++        bug_fn_t *fn = bug_ptr(bug);
+ 
+         fn(regs);
+ 
+-        /* Re-enforce consistent types, because of the casts involved. */
+-        if ( false )
+-            run_in_exception_handler(fn);
+-
+         return id;
+     }
+ 
+--- a/xen/common/irq.c
++++ b/xen/common/irq.c
+@@ -1,7 +1,7 @@
+ #include <xen/irq.h>
+ #include <xen/errno.h>
+ 
+-DEFINE_PER_CPU(struct cpu_user_regs *, irq_regs);
++DEFINE_PER_CPU(const struct cpu_user_regs *, irq_regs);
+ 
+ int init_one_irq_desc(struct irq_desc *desc)
+ {
+--- a/xen/common/keyhandler.c
++++ b/xen/common/keyhandler.c
+@@ -135,7 +135,7 @@ static void cf_check show_handlers(unsig
+ 
+ static cpumask_t dump_execstate_mask;
+ 
+-void cf_check dump_execstate(struct cpu_user_regs *regs)
++void cf_check dump_execstate(const struct cpu_user_regs *regs)
+ {
+     unsigned int cpu = smp_processor_id();
+ 
+--- a/xen/drivers/char/ehci-dbgp.c
++++ b/xen/drivers/char/ehci-dbgp.c
+@@ -1246,14 +1246,14 @@ static int cf_check ehci_dbgp_getc(struc
+ /* Safe: ehci_dbgp_poll() runs as timer handler, so not reentrant. */
+ static struct serial_port *poll_port;
+ 
+-static void cf_check _ehci_dbgp_poll(struct cpu_user_regs *regs)
++static void cf_check _ehci_dbgp_poll(const struct cpu_user_regs *regs)
+ {
+     struct serial_port *port = poll_port;
+     struct ehci_dbgp *dbgp = port->uart;
+     unsigned long flags;
+     unsigned int timeout = MICROSECS(DBGP_CHECK_INTERVAL);
+     bool empty = false;
+-    struct cpu_user_regs *old_regs;
++    const struct cpu_user_regs *old_regs;
+ 
+     if ( !dbgp->ehci_debug )
+         return;
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -206,11 +206,11 @@ static void cf_check ns16550_interrupt(i
+ /* Safe: ns16550_poll() runs as softirq so not reentrant on a given CPU. */
+ static DEFINE_PER_CPU(struct serial_port *, poll_port);
+ 
+-static void cf_check __ns16550_poll(struct cpu_user_regs *regs)
++static void cf_check __ns16550_poll(const struct cpu_user_regs *regs)
+ {
+     struct serial_port *port = this_cpu(poll_port);
+     struct ns16550 *uart = port->uart;
+-    struct cpu_user_regs *old_regs;
++    const struct cpu_user_regs *old_regs;
+ 
+     if ( uart->intr_works )
+         return; /* Interrupts work - no more polling */
+--- a/xen/include/xen/bug.h
++++ b/xen/include/xen/bug.h
+@@ -101,8 +101,7 @@ typedef void bug_fn_t(const struct cpu_u
+ 
+ #ifndef run_in_exception_handler
+ 
+-static void always_inline run_in_exception_handler(
+-    void (*fn)(struct cpu_user_regs *regs))
++static void always_inline run_in_exception_handler(bug_fn_t *fn)
+ {
+     BUG_FRAME(BUGFRAME_run_fn, 0, fn, 0, NULL);
+ }
+@@ -133,7 +132,7 @@ static void always_inline run_in_excepti
+  * Returns a negative value in case of an error otherwise
+  * BUGFRAME_{run_fn, warn, bug, assert}
+  */
+-int do_bug_frame(struct cpu_user_regs *regs, unsigned long pc);
++int do_bug_frame(const struct cpu_user_regs *regs, unsigned long pc);
+ 
+ #endif /* CONFIG_GENERIC_BUG_FRAME */
+ 
+--- a/xen/include/xen/irq.h
++++ b/xen/include/xen/irq.h
+@@ -134,21 +134,22 @@ void cf_check irq_actor_none(struct irq_
+  * Per-cpu interrupted context register state - the inner-most interrupt frame
+  * on the stack.
+  */
+-DECLARE_PER_CPU(struct cpu_user_regs *, irq_regs);
++DECLARE_PER_CPU(const struct cpu_user_regs *, irq_regs);
+ 
+-static inline struct cpu_user_regs *get_irq_regs(void)
++static inline const struct cpu_user_regs *get_irq_regs(void)
+ {
+-	return this_cpu(irq_regs);
++    return this_cpu(irq_regs);
+ }
+ 
+-static inline struct cpu_user_regs *set_irq_regs(struct cpu_user_regs *new_regs)
++static inline const struct cpu_user_regs *set_irq_regs(
++    const struct cpu_user_regs *new_regs)
+ {
+-	struct cpu_user_regs *old_regs, **pp_regs = &this_cpu(irq_regs);
++    const struct cpu_user_regs *old_regs, **pp_regs = &this_cpu(irq_regs);
+ 
+-	old_regs = *pp_regs;
+-	*pp_regs = new_regs;
++    old_regs = *pp_regs;
++    *pp_regs = new_regs;
+ 
+-	return old_regs;
++    return old_regs;
+ }
+ 
+ struct domain;
+--- a/xen/include/xen/kernel.h
++++ b/xen/include/xen/kernel.h
+@@ -110,8 +110,7 @@ extern const unsigned int xen_config_dat
+ struct cpu_user_regs;
+ struct vcpu;
+ 
+-void show_execution_state(const struct cpu_user_regs *regs);
+-void cf_check show_execution_state_nonconst(struct cpu_user_regs *regs);
++void cf_check show_execution_state(const struct cpu_user_regs *regs);
+ void vcpu_show_execution_state(struct vcpu *v);
+ 
+ #endif /* _LINUX_KERNEL_H */
+--- a/xen/include/xen/lib.h
++++ b/xen/include/xen/lib.h
+@@ -173,7 +173,7 @@ extern char *print_tainted(char *str);
+ extern void add_taint(unsigned int taint);
+ 
+ struct cpu_user_regs;
+-void cf_check dump_execstate(struct cpu_user_regs *regs);
++void cf_check dump_execstate(const struct cpu_user_regs *regs);
+ 
+ void init_constructors(void);
+ 
 
 
