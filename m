@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C2A685D645
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 12:01:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683964.1063599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4CDC85D70D
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 12:34:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683974.1063607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rckLE-0006i1-O3; Wed, 21 Feb 2024 11:00:44 +0000
+	id 1rckr1-00034L-A2; Wed, 21 Feb 2024 11:33:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683964.1063599; Wed, 21 Feb 2024 11:00:44 +0000
+Received: by outflank-mailman (output) from mailman id 683974.1063607; Wed, 21 Feb 2024 11:33:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rckLE-0006ep-Kw; Wed, 21 Feb 2024 11:00:44 +0000
-Received: by outflank-mailman (input) for mailman id 683964;
- Wed, 21 Feb 2024 11:00:42 +0000
+	id 1rckr1-000323-6c; Wed, 21 Feb 2024 11:33:35 +0000
+Received: by outflank-mailman (input) for mailman id 683974;
+ Wed, 21 Feb 2024 11:33:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TA2L=J6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rckLC-0006ei-HC
- for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 11:00:42 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=i+Ye=J6=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1rckqz-00031v-RM
+ for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 11:33:33 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2418::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 73520f18-d0a8-11ee-98f5-efadbce2ee36;
- Wed, 21 Feb 2024 12:00:40 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a3f4464c48dso50047366b.3
- for <xen-devel@lists.xenproject.org>; Wed, 21 Feb 2024 03:00:40 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- w8-20020a1709067c8800b00a3e9ea30a95sm2806625ejo.5.2024.02.21.03.00.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Feb 2024 03:00:39 -0800 (PST)
+ id 09ae7f58-d0ad-11ee-98f5-efadbce2ee36;
+ Wed, 21 Feb 2024 12:33:31 +0100 (CET)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by MN6PR12MB8490.namprd12.prod.outlook.com (2603:10b6:208:470::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.17; Wed, 21 Feb
+ 2024 11:33:27 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::22eb:b0b:62c0:f3e5]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::22eb:b0b:62c0:f3e5%6]) with mapi id 15.20.7316.018; Wed, 21 Feb 2024
+ 11:33:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,158 +47,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73520f18-d0a8-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708513240; x=1709118040; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=k9wBkQspzqmzlIJCcBa4X8dSTnv3wOlrmhWnq465fmQ=;
-        b=L3SeMVM/lode/aLwqbLIpuIUBUoDkG4X94dSPoUd+jrw2WrJ3eoI54Stoon5yGa1+T
-         EWpyvfz4BlQKHIqZY9BOzFRynLGfoYxAmuzzvA02US8xsRM1OziZaOeG99IUFupUSmHp
-         5Ne4QpNNfYdchZqxKCO823y1/F9TrXY5pWIeeyCKNppXmuTjMu8XKq5QreITt/Djrz6l
-         Rom+XAnoL4W+Q4IzyU1Mr9jChPPJM0ckknwcqn+u+wiUCheUsfn2OgpjJPgbcLRSLDfI
-         /QDfkZAJZswiqySB2FHprGaohP/Y1W1yW/pXiJWmyIVjZs+71Prc3h5Yyrv//iDjzBfa
-         KXNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708513240; x=1709118040;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=k9wBkQspzqmzlIJCcBa4X8dSTnv3wOlrmhWnq465fmQ=;
-        b=k6LEeyIOPJppl64kE8Sj3vhlPLaVRiMkIifjn8X0DNOpmMJo8Z6MIEIRzP3F7w0iBn
-         sY0KOfkDCVw+IFXhMSjQjNTcou/E3R+ztBxy0hQErBhb+xicIRZSTzJr7zERV/mNHiqV
-         0kax4btwRiM7oLrhvPtpkMPfpoCm1rrNm4FdDwbfbZLbmcVCQHB1qPGAMzzhOtaJK35a
-         cizTx1BGpb4t1BOipSIJnlgOmdKjioLzNkhzYiCsW594OMByRo8nIWaROhHz9sJf6qTO
-         R7NLPbN5kqCkykCL7FUHSO0PCvWXbo+BSKW5dodyhd8Psc1AZRgVn8K28O5VRRivtu4m
-         kRBg==
-X-Forwarded-Encrypted: i=1; AJvYcCWrp/uHfJKc9cMZLUwasBSWwlJKKO/NUpfm1mK7+uZ9JWNyl8IEGv54ijE2K4eyJOU8pmZTqFAH2ztv9CMPp75PzaDTG60bZj007QHFyi8=
-X-Gm-Message-State: AOJu0YyaNYUvBmL6ZYq2If1CszDW3oZkODUTA4xyvZzG7cqhBoEQLnBy
-	+4th7g9cMXiAWsHsQ5lIdNmx2ecwlB49ZOQeOJd/h+lgM/D438WXxf+38noHCA==
-X-Google-Smtp-Source: AGHT+IFMpZZn29jRiyCr9qtxWDYgM4DPbZMmmtYKB36ZhzPLJcWyP3RyWcveKJemYCcmquBpQksakQ==
-X-Received: by 2002:a17:906:488c:b0:a3f:7bc:7278 with SMTP id v12-20020a170906488c00b00a3f07bc7278mr3368845ejq.31.1708513239887;
-        Wed, 21 Feb 2024 03:00:39 -0800 (PST)
-Message-ID: <a6394d8a-63d0-42bf-8ed7-a7722cb7e71c@suse.com>
-Date: Wed, 21 Feb 2024 12:00:38 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: 09ae7f58-d0ad-11ee-98f5-efadbce2ee36
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZxRhdwy5Xq2euSxVx5Vt4ANXCB9HPfAAJl7ymv9dRR/mkZWuAcPgAKYVdQvw1EiBHMdZ94bwPJZC+fuXI/ynz30TEmmhLtQjLIUWqd4YgdpYB/RazFA9yWQwKTqhEXkboNz4+mSZP1/qQmJJCZE4c1ezKhPkJ7+FKg+fc0RBWQLsg++ZevOiYJCZ1O53KRJCbsS70MPmtuHX7TzsFgAVustaML/atXKQn9W03/5klHC+y3SRR9neDviRlDaIGcUolXnSp59mXhPa49Q4qJIawJRAXn6YqpkrxkYnmgX5osY5GOQqnJntXvLHqa8lhDRlJcjXYkSNUCQTYR4FyyWweA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yuYUIaR3PwI91XYPj4p6fO0tb69+oRj4kDID5JeBdm8=;
+ b=K55rtfeVmWpY6wMuRvXHitKZdoALUG+rBEQpFMAIhmBe+ZIz0ELl3/i0KJiacSHlT97UYfCfTfgMGgPmMu+N96VGTiYoQpLN3AJNYSjgHr2Pl64ja42bLWEvoAL/heeZPBqG6a6aRtgOPTLOpsGzuk6ExMgk1BWPaFTB6Dq4KPrRCJReipWncM7+0lc0DXxGxd16Jq2jHxCdPK49BQ+NU4yIn9+ykcjaUncg9asSzVkKdrUK3Oje9XjXHuow0KoHbTlEp9XUjsdURMdnicQ3pfNLJ2INIClgaO3atCEUnX4e1EE18w5sxpzvy45f9IDSMmvwRE77+qd7BQCttZqLtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yuYUIaR3PwI91XYPj4p6fO0tb69+oRj4kDID5JeBdm8=;
+ b=11G34yo+/OyVOoZPuh+IG0SVVhgKBsFepByMxNTpr2O3CiujT1me8OMttAnwqqjjXZ07I9coSYpgN62+DhcnZMsZs+ks+Q2fE5icNcY5CmQrCQHzR+R+7lomVvoDW8Ohx7KYTzcwDPShav/ScoAfOsEEpShCahu6k8hHODlg9W4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <62e047c5-a913-410d-9b24-e9a26d555d78@amd.com>
+Date: Wed, 21 Feb 2024 11:33:22 +0000
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/30] xen/asm-generic: introdure nospec.h
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [XEN v5 1/3] xen/arm: Introduce CONFIG_PARTIAL_EMULATION and
+ "partial-emulation" cmd option
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: sstabellini@kernel.org, stefano.stabellini@amd.com, julien@xen.org,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com, michal.orzel@amd.com,
  xen-devel@lists.xenproject.org
-References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
- <5889d7a5fa81722472f95cc1448af0be8f359a7d.1707146506.git.oleksii.kurochko@gmail.com>
- <510d74ca-5cce-48f8-93f6-407cd727cf7b@xen.org>
- <8a09e386b709f780f193af39af63b6aeb75c868e.camel@gmail.com>
- <aaf86d31-7ae0-4e33-8386-dda4bd21496a@suse.com>
- <ab040f3c8ee35f49fffac385053b55053c52da8c.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ab040f3c8ee35f49fffac385053b55053c52da8c.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20240220121743.3680715-1-ayan.kumar.halder@amd.com>
+ <20240220121743.3680715-2-ayan.kumar.halder@amd.com>
+ <e3a8ce5d-841e-4ff1-8d23-48de822972ef@suse.com>
+ <5f526deb-7376-4c34-85d1-d22b1b14d90e@amd.com>
+ <e7c4b08f-724a-4419-977a-caa1342c47eb@suse.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <e7c4b08f-724a-4419-977a-caa1342c47eb@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0118.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c6::8) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|MN6PR12MB8490:EE_
+X-MS-Office365-Filtering-Correlation-Id: ddb76728-7105-42d0-33a5-08dc32d0ebdc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	oLfY/29pcIMIM+C3ZwbH1FyB55im6uUFB4HLhSO7CUwJ+t2dKLBCJ1IQ3Cpxx7+KeFZFcww4e7sxo4hYi1Nv/FM/45DFzR3Ynu8ucGdLKN/5dckEgFhIoszub00BjT1fD7N1/CAkqnNgaAXmNPfGwxmB3EatGZze20j3qFj8KV35gjw+b+DFcf5dyqlz3v/8UeyV7ZcWccQ60znjDCrIxdyw+aGWLwVS5hpxsI57iNz61nyCV8UVjIcMeV6ZqErzPbSEY+ypEzskKfOD/CNZ1174gu//F7mswoLAvMjotfEAa0MdvYznvmu0txswDFjBOjaw5UjQ4ykMRHZVzgc21Djj1axC++x9Ub6qzu1POnmhfmNmsJMNGfi7kSsY76bctGzv2UUohQsFpMdo1iob9UfXX7GZYQVH6TJfALUAtPZDM7/keSAEwdZiTeEgueH9lnFIPnwzxctkz2A+Aj/wnUgKujIywn7hRIbGsiocAFGsse+4bviI+9gIbL+VgE09JMivBBiycpwFtmTYdVnvblcA9gthlExna/36hZmskyU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OWVNODZSbXZQbU5Qa3Bld3E3SnlGVHhzM2YvRWxvbExaN3JNTW5ncVVNamRk?=
+ =?utf-8?B?aTdqWEZHQ3JnYmxkRVVyditmVU1JNlVEQXNPWE1FeVBoMURSRzVKc3VGUFdr?=
+ =?utf-8?B?YTFOekRZa3QvbjZ3bU15K29ueUlqUjgwUW9JdlZqTkRLU1NIMDd0QWF2emNh?=
+ =?utf-8?B?bTB6WlZwbE1BemVzUDBCVFBXbUlGaWh1NFR2QVE0clh2RTRFZ28xcWFwYmpk?=
+ =?utf-8?B?NFpHV3MwRk1HQm1lVHRCVHZuTFdGdTBGWCtpdjNMN09sbzF6Mm1ua01WQ1pr?=
+ =?utf-8?B?K2FOMHpaQXIrYS9YTENDWTNrMnRBbzV0VHU1emNzUXV0OExOY3h5S0ZRZGNK?=
+ =?utf-8?B?OUFJeXQ0QzFkUVNHQWxXRjVjVWFCSGZCd01DbkNCVGNKRlZCUkRDckROTDN5?=
+ =?utf-8?B?WHBUem50akFSN2tpUDI2aldmYzJkbEh3eTYrZjlSa0pjcThEK1piWG1YL0lt?=
+ =?utf-8?B?c3FEWUdPZDlvUHBRZUFqM0syRFNSTXZTWHJSL3dLT1BvV0J0VEZCaUk0VW1S?=
+ =?utf-8?B?dDJWTE5TWDJoMUpUMlJKQ3lFby91MXpXU2E3SkQ5NUFxMmlPZVlyUHc2bkFy?=
+ =?utf-8?B?NEdSS1FiU2pMOE5vbHUvaFZZbUEvbkIxYlNsUWMvQTNaV3E0ekE5NFRUbEpp?=
+ =?utf-8?B?cTZFNDkvQ0dKN2hjdnViUGZIODBDNVY5YUExYTErU3JXVWtDbG9USUg4ZS84?=
+ =?utf-8?B?Ym1yL2Z3MzFoRUJNVWdsbTFmUitkY2pLaVBVOU85NTkzMlkwZjBLUmZDaGJp?=
+ =?utf-8?B?RWtnT0xRQ2hraUpPQlc1ckdJaUppaUEwbnBhL0puTnQ0ajVUZG51UU1RM1No?=
+ =?utf-8?B?eFdPSCt2UFY5cEkyTTN6eG9JdmpaamdYaUxSZXg2Q1dOVDg4Z3RTMDM2OXZ2?=
+ =?utf-8?B?R1h1alhGNFdDdWVVSjVBWUVPZGM3M3lqaVBaazZCQWFvNDZjWCtVb0RvT2R0?=
+ =?utf-8?B?Rmd0dHBDMHB0TVRMR0YxTWhXV0NxNmJhbEdFa0xCcUVqSnhPZmtvcFVjSDdV?=
+ =?utf-8?B?Y2E5bm9PejlWMzZVUVhIdi94SE9WVHAxV0J1aXpiTmIwU2k3NitWcVJnamhI?=
+ =?utf-8?B?RXhlMW16K1l4dmpRMldNejVRamQ2WGt2YXhyNWo5ZHhNS1BESlNvSmR4Smdt?=
+ =?utf-8?B?MWJ6aDFFTkU4dnlkRmRMUmUrU3dsckRpVEpBd0hFdG8rOVVBbXpTelF6Znpr?=
+ =?utf-8?B?UThrUGdGaVlEVUJKMUV4K0tIUzhnSXowcXRlWVJxNklzdWhhdGlmZWZyTW5i?=
+ =?utf-8?B?OG93UGxxb05pZ1JtaU80RXFoRDhmc2puQU5iNTY1RVRuNElXaHB3ZXEveG5H?=
+ =?utf-8?B?UW9Ta2ZGdWVJaVdtd1BVaVBmZzJXOEI4R2xjK05Xbldtdy9ibjZQTzQ3d3pH?=
+ =?utf-8?B?T3U2dzRwYzNyUVM1MnBtaHArUUZYdjFCTWJ2NDV0Y1pidm5yemd5cmxtS2lK?=
+ =?utf-8?B?QTdOdEx2WFhOaC8vRTJjTTQvekd3a08zWGJxb3JCTFBFWGx1OFNicS9YVnU1?=
+ =?utf-8?B?QkpLbFQzczNUSm1JYXU4Q1E1cGpvbS9qUHIzQ1VKbU1VbFRpc3EvdER4M0JX?=
+ =?utf-8?B?T0wxVzcrNTlzTlVkNDJnUHFCZ0FDdFJGQUFEdk4wNGlEdnQ3VythSTVlOWFT?=
+ =?utf-8?B?d1E3anBhZGlQc1pjM3F2NHY2WWFIZlFOQjJ0V3o0ZSt6U01WSU9SMnRvZFVK?=
+ =?utf-8?B?R1F5TDQ3K0w0OEx3ZExUU1gxcUxqV2lycDdRUW9UdXVzRm8wUTFDbWxVeWR3?=
+ =?utf-8?B?bEd0VlJGMVpvalAxb3J4RnZ2RUdCd2FLTjNKYkNmaVlwSW9BQTRQaGdjdHJ4?=
+ =?utf-8?B?Wi9zYzJ3TmpaMWFWd1ErZ0tha2xZUUpFc0c4OEtmUjBlTnhlNVo0ejBxR0Q4?=
+ =?utf-8?B?QWllMGdmYzgrTGE5YmtCT2c0TGwwdmJ6Zk5NaGtzR1c2RDB1RnNOYzVjZVkw?=
+ =?utf-8?B?cGFhNjRBdmltaFFpV3ZUUU91bkoraWUrT01RZHJjanA3RnZ0Nm1zbHRsTE9m?=
+ =?utf-8?B?NTQ5MEFJQStjOXBYbzNTTFFUNWJjcmhPSWlJd2VGS201bjRNd2xpOE96RmVS?=
+ =?utf-8?B?UWFxSWEyOHR3VkRuSzlTTTBMTyt2OE01aDFhcTJJZkVoNUFEdmhXdU55emQ3?=
+ =?utf-8?Q?FleBc7yqzNcfAZT5b52tCHCr5?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddb76728-7105-42d0-33a5-08dc32d0ebdc
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2024 11:33:27.4003
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: s852zYdR57eO/k1YQhSjxGS8d9fk2Yl8DUhg7jnfpJwY4pKFk5vvBPiI1iYfMMd1AWqcYcKCeRGWJo4HRgDUFg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8490
 
-On 20.02.2024 21:30, Oleksii wrote:
-> On Mon, 2024-02-19 at 13:18 +0100, Jan Beulich wrote:
->> On 19.02.2024 12:59, Oleksii wrote:
->>> Hi Julien,
->>>
->>> On Sun, 2024-02-18 at 18:30 +0000, Julien Grall wrote:
->>>> Hi Oleksii,
->>>>
->>>> Title: Typo s/introdure/introduce/
->>>>
->>>> On 05/02/2024 15:32, Oleksii Kurochko wrote:
->>>>> The <asm/nospec.h> header is similar between Arm, PPC, and
->>>>> RISC-V,
->>>>> so it has been moved to asm-generic.
->>>>
->>>> I am not 100% convinced that moving this header to asm-generic is
->>>> a
->>>> good 
->>>> idea. At least for Arm, those helpers ought to be non-empty, what
->>>> about 
->>>> RISC-V?
->>> For Arm, they are not taking any action, are they? There are no
->>> specific fences or other mechanisms inside
->>> evaluate_nospec()/block_speculation() to address speculation.
->>
->> The question isn't the status quo, but how things should be looking
->> like
->> if everything was in place that's (in principle) needed.
->>
->>> For RISC-V, it can be implemented in a similar manner, at least for
->>> now. Since these functions are only used in the grant tables code (
->>> for
->>> Arm and so for RISC-V ), which is not supported by RISC-V.
->>
->> Same here - the question is whether long term, when gnttab is also
->> supported, RISC-V would get away without doing anything. Still ...
->>
->>>> If the answer is they should be non-empty. Then I would consider
->>>> to
->>>> keep 
->>>> the duplication to make clear that each architecture should take
->>>> their 
->>>> own decision in term of security.
->>>>
->>>> The alternative, is to have a generic implementation that is safe
->>>> by 
->>>> default (if that's even possible).
->>> I am not certain that we can have a generic implementation, as each
->>> architecture may have specific speculation issues.
->>
->> ... it's theoretically possible that there'd be an arch with no
->> speculation issues, maybe simply because of not speculating.
-> 
-> I am not sure that understand your and Julien point.
-> 
-> For example, modern CPU uses speculative execution to reduce the cost
-> of conditional branch instructions using schemes that predict the
-> execution path of a program based on the history of branch executions.
-> 
-> Arm CPUs are vulnerable for speculative execution, but if to look at
-> the code of evaluate_nospec()/block_speculation() functions they are
-> doing nothing for Arm.
+Hi Jan,
 
-Which, as I understood Julien say, likely isn't correct. In which case
-this header shouldn't be dropped, using the generic one instead. The
-generic headers, as pointed out several times before, should imo be used
-only if their use results in correct behavior. What is acceptable is if
-their use results in sub-optimal behavior (e.g. reduced performance or
-lack of a certain feature that another architecture maybe implements).
+On 21/02/2024 07:09, Jan Beulich wrote:
+> On 20.02.2024 16:22, Ayan Kumar Halder wrote:
+>> On 20/02/2024 12:33, Jan Beulich wrote:
+>>> On 20.02.2024 13:17, Ayan Kumar Halder wrote:
+>>>> --- a/SUPPORT.md
+>>>> +++ b/SUPPORT.md
+>>>> @@ -101,6 +101,18 @@ Extension to the GICv3 interrupt controller to support MSI.
+>>>>    
+>>>>        Status: Experimental
+>>>>    
+>>>> +### ARM/Partial Emulation
+>>>> +
+>>>> +Enable partial emulation of registers, otherwise considered unimplemented,
+>>>> +that would normally trigger a fault injection.
+>>>> +
+>>>> +    Status: Supported, with caveats
+>>>> +
+>>>> +Bugs allowing the userspace to attack the guest OS will not be considered
+>>>> +security vulnerabilities.
+>>>> +
+>>>> +Bugs that could compromise Xen will be considered security vulnerabilities.
+>>> ... the odd statement regarding in-guest vulnerabilities that might be
+>>> introduced. I see only two ways of treating this as supported: Either
+>>> you simply refuse emulation when the access is from user space,
+>> I am wondering how do we enforce that.
+>>
+>> Let me try to understand this with the current implementation of partial
+>> emulation for system registers.
+>>
+>> 1. DBGDTRTX_EL0 :- I understand that EL0 access to this register will
+>> cause a trap to EL2. The reason being MDCR_EL2.TDA == 1.
+>>
+>> In that case, if we refuse emulation then an undef exception is injected
+>> to the guest (this is the behavior as of today even without this patch).
+>>
+>> So, are you saying that the undef exception is to be injected to the
+>> user space process. This may be possible for Arm64 guests
+>> (inject_undef64_exception() needs to be changed).
+> No, injection is always to the guest, not to a specific entity within the
+> guest. That ought to be the same on bare hardware: An exception when
+> raised has an architecturally defined entry point for handling. That'll
+> typically be kernel code. The handler then figures out whether the source
+> of the exception was in user or kernel mode. For user mode code, the
+> kernel may or may not try to handle the exception and then continue the
+> user mode process. If it can't or doesn't want to handle it, it'll raise
+> (in UNIX terms) a signal to the process. That signal, in turn, may or may
+> not be fatal to the process. But such an exception from user mode should
+> never be fatal to the guest as a whole.
+Thanks for explaining it so well.
+>
+>> However for Arm32 guests, this may not be possible as the mode changes
+>> to PSR_MODE_UND.
+> I'm afraid my Arm foo isn't good enough to understand this. On the surface
+> it looks to violate above outlined principle.
+>
+>> Let me know if I understood you correctly.
+>>
+>>> or you
+>>> support that mode of emulation as much as that of kernel space accesses.
+>> Do you mean we support partial emulation only for traps from EL1 mode ?
+> Possibly.
 
-Jan
+Now, I understand you. We will allow partial_emulation only from kernel 
+mode.
+
+So we need to do sth :-
+
+if ( 'partial_emulation == true' && '!regs_mode_is_user(regs)' )
+
+{
+
+      /* partial_emulation logic */
+
+}
+
+I am ok with this.
+
+And the updates message will be
+
+### ARM/Partial Emulation
+
+Enable partial emulation of registers, otherwise considered unimplemented,
+that would normally trigger a fault injection.
+
+     Status: Supported, with caveats
+
+Partial emulation for traps from userspace is not allowed.
+
+Bugs that could compromise Xen will be considered security vulnerabilities.
+
+Also, want @Julien, @Michal to comment on this.
+
+- Ayan
+
+>
+> Jan
 
