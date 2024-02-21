@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABABF85E065
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 15:59:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684067.1063739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F0EE85E072
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 16:03:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684072.1063749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rco3M-0001AA-M7; Wed, 21 Feb 2024 14:58:32 +0000
+	id 1rco7q-0002nx-6N; Wed, 21 Feb 2024 15:03:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684067.1063739; Wed, 21 Feb 2024 14:58:32 +0000
+Received: by outflank-mailman (output) from mailman id 684072.1063749; Wed, 21 Feb 2024 15:03:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rco3M-000180-JJ; Wed, 21 Feb 2024 14:58:32 +0000
-Received: by outflank-mailman (input) for mailman id 684067;
- Wed, 21 Feb 2024 14:58:30 +0000
+	id 1rco7q-0002m3-3f; Wed, 21 Feb 2024 15:03:10 +0000
+Received: by outflank-mailman (input) for mailman id 684072;
+ Wed, 21 Feb 2024 15:03:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TA2L=J6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rco3K-00017u-ID
- for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 14:58:30 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=c6My=J6=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rco7o-0002lx-Fr
+ for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 15:03:08 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aa40ee7d-d0c9-11ee-98f5-efadbce2ee36;
- Wed, 21 Feb 2024 15:58:28 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a28a6cef709so820813766b.1
- for <xen-devel@lists.xenproject.org>; Wed, 21 Feb 2024 06:58:26 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ts7-20020a170907c5c700b00a3f4bb02bc8sm486131ejc.42.2024.02.21.06.58.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Feb 2024 06:58:25 -0800 (PST)
+ id 514c7ce0-d0ca-11ee-98f5-efadbce2ee36;
+ Wed, 21 Feb 2024 16:03:06 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-33d2710f3acso3165235f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Feb 2024 07:03:06 -0800 (PST)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ f2-20020adfe902000000b0033cf24700e5sm17073229wrm.39.2024.02.21.07.03.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Feb 2024 07:03:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +45,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa40ee7d-d0c9-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 514c7ce0-d0ca-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708527505; x=1709132305; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=G/p1pS4DzE5YyDMUJcVgfeMjgWT7V9bvuL4NGd3j3LQ=;
-        b=AfGbJyeHGYksO/D6bb/o0wzlb/AXV56MynckxgxdbMWLKlSLzwDrASBBMGf2lWhltk
-         38Tn0Ez7deIrYfxokdZfr79cxARCQipCHo8pzq9zuntDnTDRgXkVt+DhoPjEZsnOA+s2
-         jG3xkyd7G8O036vOqBoxQJpLIOTjmG1l6M3/UW0YAQs7UnrKH3Iy6Ts7R6hVUAYcJEq8
-         IV2Xusz7EVHpZ1zOBQoNfhCkVCDTU9fEzDAZbX4HMY929dKH4Pe086+e7CZmVkpc3ZTk
-         iNsCJwcjqofJC+2mpj2bNSVS68Yiy68uOPjr6hLaOuYI79jWfBNX2wmAQf9omawL3OZd
-         oMoQ==
+        d=cloud.com; s=cloud; t=1708527786; x=1709132586; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=t0lmC0kXh+qRlgHgi5grcPHTJtMDtOQOJnj+ljZmAjw=;
+        b=L2GYW2dPSGqWheK36CgnVbnod5LX4HRiLeizprMLpdkHJO+E6xFuWUmCyENWXavSw1
+         MiIoju7KY9v42DcUD1r7gS30cFPgJq70x76fNfFMq4JpAqFivmz4MaqQQImPOMY6pnP2
+         pETnuCs6eTpcN5UYAnrYIdOziWcLKt2JW6fBA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708527505; x=1709132305;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=G/p1pS4DzE5YyDMUJcVgfeMjgWT7V9bvuL4NGd3j3LQ=;
-        b=jNZvtAqViJsl7sv9/Q3T9fz+QeMMMcdBqvfBlJxQMhvRQlyTCgal2RQJA7+F8b8oWW
-         o+ovK2YiRHClsgR+uSdPMiRdRaPppuDMuysXs+VAj/qcSfa1y79lQ68kcap3i2OUGJm2
-         Kf+srJsf5+loEong/PQ9dyHchPLe3BNjdhR69ppyB780V7y3HC+MyJG0WVQfa0/iERSQ
-         5zMStkXNClKnK+H/E0IDtmEYmV2BYflbCg+Nauyg8moGGQf3p355VI3Z6qsooIAqJRas
-         zp0X94eJdAAd+wphJMP2U+z9psPWoBUJK53+Iq04lMNK1ZqeqF+iOFnLBFL5mXvCNWHt
-         Owjw==
-X-Forwarded-Encrypted: i=1; AJvYcCVoWSTN+yNAwKuQYaqop3c7tl3Aq9wayXqohap0A5Pyt9c98X5bW4OAUv0aucbGkwXqSF3AxzFrTP/lVE8zv0MkqPfv3Q8OrFjulX3u/U4=
-X-Gm-Message-State: AOJu0YyRlvIJEVh9iDzUJ5uFCYx2hPCKLgz4gMiZpnRjzNSi9omXpOaE
-	wGnc2IpCs3mE5g6SxerG2cMTHRo4tTOfvfaF8qoMCQN2AUJIWksBQZGghEP8vg==
-X-Google-Smtp-Source: AGHT+IHd3SEnXzBwjccwyim0c94d45naHaXVQjzgG/i4PVGFKqZfqn+sH7HwH+3n5VtdBMnKOFpI0A==
-X-Received: by 2002:a17:907:1044:b0:a3e:590f:6348 with SMTP id oy4-20020a170907104400b00a3e590f6348mr7681451ejb.41.1708527505509;
-        Wed, 21 Feb 2024 06:58:25 -0800 (PST)
-Message-ID: <dfcfcab7-50b4-45b2-a25a-8898b74054a9@suse.com>
-Date: Wed, 21 Feb 2024 15:58:23 +0100
+        d=1e100.net; s=20230601; t=1708527786; x=1709132586;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=t0lmC0kXh+qRlgHgi5grcPHTJtMDtOQOJnj+ljZmAjw=;
+        b=LSZapRPbPpS1a97FhnTyKa0+AZ+w4xxwZ0SRBGvKW9Cmg8mHGCZYkswPTrORAkbnj/
+         SJrv7/lBmGVIWbm898naPVEElgTh+7AoJkC3HK2F+zz+v+jR1K6t+CQWCipC7PLnFquN
+         wmuvRy4433sMJ6YZKHzFcFLPNwSoqPbGmtFLnfC5xVSQ53nagdQxuWMvYlRsywTQNEp2
+         9rhwgAMufK0N6Q8psnbWTqbLxbetkTPrW0wa9wXbT7MUCBaypvnW2ockfT59/g+IZoVP
+         nXFDqp5pQ1yPDt3H3Wwa7g2RIR5Ws6Uy8Q73GweV3D0qucrUWgd6EASPYWqVTwJhdAUF
+         dh2Q==
+X-Gm-Message-State: AOJu0YyUnME9npBSYCWssGArY7EmXcWRjlpW1atZ5kAv35Ne7tedJgo9
+	i++Ua8z9fKGE+jks7IcCzzs85a3likA7k061+pgNuGbv0IbwJs388COAgNF1PjY=
+X-Google-Smtp-Source: AGHT+IH+UwhX1wSEGNJtpA8AZncuYndy8Qb1tQLKki7gTlFDMwq/oKN9wZ+VOIdTiJW/bMsAwzv6Mw==
+X-Received: by 2002:a5d:4404:0:b0:33d:e27:f053 with SMTP id z4-20020a5d4404000000b0033d0e27f053mr14120345wrq.6.1708527785596;
+        Wed, 21 Feb 2024 07:03:05 -0800 (PST)
+Date: Wed, 21 Feb 2024 15:03:04 +0000
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+	Huang Rui <Ray.Huang@amd.com>
+Subject: Re: [RFC XEN PATCH v5 5/5] domctl: Add XEN_DOMCTL_gsi_permission to
+ grant gsi
+Message-ID: <09290ba4-6915-4f0d-8e16-3e14713d02ba@perard>
+References: <20240112061317.418658-1-Jiqian.Chen@amd.com>
+ <20240112061317.418658-6-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/30] xen/asm-generic: introdure nospec.h
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, xen-devel@lists.xenproject.org,
- Julien Grall <julien@xen.org>
-References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
- <5889d7a5fa81722472f95cc1448af0be8f359a7d.1707146506.git.oleksii.kurochko@gmail.com>
- <510d74ca-5cce-48f8-93f6-407cd727cf7b@xen.org>
- <8a09e386b709f780f193af39af63b6aeb75c868e.camel@gmail.com>
- <aaf86d31-7ae0-4e33-8386-dda4bd21496a@suse.com>
- <ab040f3c8ee35f49fffac385053b55053c52da8c.camel@gmail.com>
- <a6394d8a-63d0-42bf-8ed7-a7722cb7e71c@suse.com>
- <3e0c83fd0e3dc424059575cf9da9d57a87d90736.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3e0c83fd0e3dc424059575cf9da9d57a87d90736.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240112061317.418658-6-Jiqian.Chen@amd.com>
 
-On 21.02.2024 13:47, Oleksii wrote:
-> As I understand it, evaluate_nospec()/block_speculation() were
-> introduced for x86 to address the L1TF vulnerability specific to x86
-> CPUs.
+On Fri, Jan 12, 2024 at 02:13:17PM +0800, Jiqian Chen wrote:
+> diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
+> index f2d9d14b4d9f..448ba2c59ae1 100644
+> --- a/tools/libs/ctrl/xc_domain.c
+> +++ b/tools/libs/ctrl/xc_domain.c
+> @@ -1394,6 +1394,21 @@ int xc_domain_irq_permission(xc_interface *xch,
+>      return do_domctl(xch, &domctl);
+>  }
+>  
+> +int xc_domain_gsi_permission(xc_interface *xch,
+> +                             uint32_t domid,
+> +                             uint32_t gsi,
+> +                             bool allow_access)
+> +{
+> +    struct xen_domctl domctl = {};
+> +
+> +    domctl.cmd = XEN_DOMCTL_gsi_permission;
+> +    domctl.domain = domid;
+> +    domctl.u.gsi_permission.gsi = gsi;
+> +    domctl.u.gsi_permission.allow_access = allow_access;
 
-Well, if you look at one of the later commits altering x86'es variant,
-you'll find that this wasn't really correct.
+This could be written as:
+    struct xen_domctl domctl = {
+        .cmd = XEN_DOMCTL_gsi_permission,
+        .domain = domid,
+        .u.gsi_permission.gsi = gsi,
+        .u.gsi_permission.allow_access = allow_access,
+    };
 
-> This vulnerability is exclusive to x86 architectures [1], which
-> explains why evaluate_nospec()/block_speculation() are left empty for
-> Arm, RISC-V, and PPC.
-> 
-> It is unclear whether these functions should be utilized to mitigate
-> other speculation vulnerabilities. If they should, then, based on the
-> current implementation, the Arm platform seems to accept having
-> speculative vulnerabilities.
-> 
-> The question arises: why can't other architectures make their own
-> decisions regarding security? By default, if an architecture leaves the
-> mentioned functions empty, it implies an agreement to potentially have
-> speculative vulnerabilities. Subsequently, if an architecture needs to
-> address such vulnerabilities, they can develop arch-specific nospec.h
-> to implement the required code.
+but your change is fine too.
 
-You can't take different perspectives on security. There is some
-hardening which one architecture may go farther with than another,
-but e.g. information leaks are information leaks and hence need
-addressing. Of course if an arch knew it had no (known) issues, then
-using a generic form of this header would be okay (until such time
-where an issue would be found).
 
-And btw, looking at how xen/nospec.h came about, it looks pretty clear
-to me that array_index_mask_nospec() should move from system.h to
-nospec.h. That would make Arm's form immediately different from what
-a generic one might have, and quite likely an inline assembly variant
-could also do better on RISC-V (unless, as said, RISC-V simply has no
-such issues). Then again I notice Arm64 has no override here ...
+> +
+> +    return do_domctl(xch, &domctl);
+> +}
+> +
+>  int xc_domain_iomem_permission(xc_interface *xch,
+>                                 uint32_t domid,
+>                                 unsigned long first_mfn,
+> diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
+> index a1c6e82631e9..4136a860a048 100644
+> --- a/tools/libs/light/libxl_pci.c
+> +++ b/tools/libs/light/libxl_pci.c
+> @@ -1421,6 +1421,8 @@ static void pci_add_dm_done(libxl__egc *egc,
+>      uint32_t flag = XEN_DOMCTL_DEV_RDM_RELAXED;
+>      uint32_t domainid = domid;
+>      bool isstubdom = libxl_is_stubdom(ctx, domid, &domainid);
+> +    int gsi;
+> +    bool has_gsi = true;
 
-Jan
+Why is this function has "gsi" variable, and "gsi = irq" but the next
+function pci_remove_detached() does only have "irq" variable?
+
+So, gsi can only be positive integer, right? Could we forgo `has_gsi` and
+just set "gsi = -1" when there's no gsi?
+
+>      /* Convenience aliases */
+>      bool starting = pas->starting;
+> @@ -1482,6 +1484,7 @@ static void pci_add_dm_done(libxl__egc *egc,
+>                                  pci->bus, pci->dev, pci->func);
+>  
+>      if ( access(sysfs_path, F_OK) != 0 ) {
+> +        has_gsi = false;
+>          if ( errno == ENOENT )
+>              sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
+>                                  pci->bus, pci->dev, pci->func);
+> @@ -1497,6 +1500,7 @@ static void pci_add_dm_done(libxl__egc *egc,
+>          goto out_no_irq;
+>      }
+>      if ((fscanf(f, "%u", &irq) == 1) && irq) {
+> +        gsi = irq;
+
+Why do you do this, that that mean that `gsi` and `irq` are the same? Or
+does `irq` happen to sometime contain a `gsi` value?
+
+>          r = xc_physdev_map_pirq(ctx->xch, domid, irq, &irq);
+>          if (r < 0) {
+>              LOGED(ERROR, domainid, "xc_physdev_map_pirq irq=%d (error=%d)",
+> @@ -1505,7 +1509,10 @@ static void pci_add_dm_done(libxl__egc *egc,
+>              rc = ERROR_FAIL;
+>              goto out;
+>          }
+> -        r = xc_domain_irq_permission(ctx->xch, domid, irq, 1);
+> +        if ( has_gsi )
+> +            r = xc_domain_gsi_permission(ctx->xch, domid, gsi, 1);
+> +        if ( !has_gsi || r == -EOPNOTSUPP )
+> +            r = xc_domain_irq_permission(ctx->xch, domid, irq, 1);
+>          if (r < 0) {
+>              LOGED(ERROR, domainid,
+>                    "xc_domain_irq_permission irq=%d (error=%d)", irq, r);
+
+Looks like this error message could be wrong, I think we want to know if
+which call between xc_domain_irq_permission() and
+xc_domain_gsi_permission() has failed.
+
+> @@ -2185,6 +2192,7 @@ static void pci_remove_detached(libxl__egc *egc,
+>      FILE *f;
+>      uint32_t domainid = prs->domid;
+>      bool isstubdom;
+> +    bool has_gsi = true;
+>  
+>      /* Convenience aliases */
+>      libxl_device_pci *const pci = &prs->pci;
+> @@ -2244,6 +2252,7 @@ skip_bar:
+>                             pci->bus, pci->dev, pci->func);
+>  
+>      if ( access(sysfs_path, F_OK) != 0 ) {
+> +        has_gsi = false;
+>          if ( errno == ENOENT )
+>              sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
+>                                  pci->bus, pci->dev, pci->func);
+> @@ -2270,7 +2279,10 @@ skip_bar:
+>               */
+>              LOGED(ERROR, domid, "xc_physdev_unmap_pirq irq=%d", irq);
+>          }
+> -        rc = xc_domain_irq_permission(ctx->xch, domid, irq, 0);
+> +        if ( has_gsi )
+> +            rc = xc_domain_gsi_permission(ctx->xch, domid, irq, 0);
+
+Why do you use the xc_domain_gsi_permission() with "irq" here, but not
+in pci_add_dm_done() ?
+
+> +        if ( !has_gsi || rc == -EOPNOTSUPP )
+> +            rc = xc_domain_irq_permission(ctx->xch, domid, irq, 0);
+>          if (rc < 0) {
+>              LOGED(ERROR, domid, "xc_domain_irq_permission irq=%d", irq);
+>          }
+
+
+These changes to libxl are quite confusing, there's a mixed up between
+"gsi" and "irq", it's hard to follow.
+
+Thanks,
+
+-- 
+Anthony PERARD
 
