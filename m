@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B832F85E3CC
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 17:56:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684117.1063820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA8F185E3F0
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 18:04:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684124.1063830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcpsp-0003JK-Ij; Wed, 21 Feb 2024 16:55:47 +0000
+	id 1rcq0X-00055j-B5; Wed, 21 Feb 2024 17:03:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684117.1063820; Wed, 21 Feb 2024 16:55:47 +0000
+Received: by outflank-mailman (output) from mailman id 684124.1063830; Wed, 21 Feb 2024 17:03:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcpsp-0003Hn-G0; Wed, 21 Feb 2024 16:55:47 +0000
-Received: by outflank-mailman (input) for mailman id 684117;
- Wed, 21 Feb 2024 16:55:46 +0000
+	id 1rcq0X-00053b-7q; Wed, 21 Feb 2024 17:03:45 +0000
+Received: by outflank-mailman (input) for mailman id 684124;
+ Wed, 21 Feb 2024 17:03:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c6My=J6=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rcpso-0003Hh-Nz
- for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 16:55:46 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ <SRS0=8C+a=J6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rcq0W-00053V-5G
+ for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 17:03:44 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0cfff80a-d0da-11ee-98f5-efadbce2ee36;
- Wed, 21 Feb 2024 17:55:43 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4127190ad83so12119805e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 21 Feb 2024 08:55:43 -0800 (PST)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- l15-20020a1c790f000000b0040fe308ff25sm3022782wme.24.2024.02.21.08.55.42
+ id 2a2d4c01-d0db-11ee-98f5-efadbce2ee36;
+ Wed, 21 Feb 2024 18:03:42 +0100 (CET)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2d0cdbd67f0so95483661fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Feb 2024 09:03:42 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ p10-20020a05620a056a00b00785d9e3b744sm4465716qkp.108.2024.02.21.09.03.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Feb 2024 08:55:42 -0800 (PST)
+ Wed, 21 Feb 2024 09:03:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,96 +44,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cfff80a-d0da-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 2a2d4c01-d0db-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1708534543; x=1709139343; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=KwUFUpoW5hHVQuEktH7p0pFcmfkKAd6VvCgn5VWIBq8=;
-        b=ELe4qwHwT5qp0VIQCWnfRQh5WUXM2A2bXX3YQ3MUVMsqdaQkmUX290EXj5EluAoLfI
-         taqeXj1duddWdDM9eLrvqboUI7jy4lKl4edAz41+FI++yB6rcrdNAwBmIDTXTUb6+U4K
-         Nij98QWLO2DZebtCtTen1Bmjm/IWFVzaHL3L4=
+        d=citrix.com; s=google; t=1708535021; x=1709139821; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vP4gMZWRt3kH7TAC3U/8MIPnSOHiEExJGIwVsdIZ4b0=;
+        b=dBDPsVWC1bT52aZCo785iFYPTYDgY4qjzeZrxejlRvyH94c/ubU2SS3i021MntkU5v
+         CcEy5qOAg8+LNNMalktdVyxISdGdoQLr2ylY3SFgEEuSbq86CrA9e/mILgsRKZD4PeMF
+         ziu0c+oxeTCJW2LlE5GinPqt0gLkgjaddn8GU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708534543; x=1709139343;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KwUFUpoW5hHVQuEktH7p0pFcmfkKAd6VvCgn5VWIBq8=;
-        b=H0oZcYQSuYdl50ZiXM+UzJ8UgEid6djdmUq2MFVe0vXCdks+50F69+8wpzCdA9YOFz
-         lFt3/8dc1j0qThCap/US8QJYtZSyfpzI9+8DTpPLpqNZV6evK5MXPn/F268LS2Zm+0bF
-         3njiKyn5z3mpm/X9zNcgJw+wWLCwrUccnzw7fqHHzBE3g41IkiqxLjscYqUbmr/GxmT2
-         Xwc8yy6MieVEVCmC0r/YNXUWWdHSzjbNaLQHYTaLILE6iUjsYbFo0Lw9yARHb682XddJ
-         4PqEZ/QWo4sHbxj3udv8mD82MuRb6T1VGVFqNOcko8Xted8IwCb1KbvR+cqYDioX0YDb
-         fxKQ==
-X-Gm-Message-State: AOJu0YxZTTHhzwH3BvWuIN29nVS6izDDIdttIl/g++5SBmOdCKdHmT7p
-	WbAPAj/7l9BK5k/Lhduc6VInX7QSCaFtga8VW7iC+Kqyy9AEhWDRpCuDYCHOtlI=
-X-Google-Smtp-Source: AGHT+IGnkfV7PLqsPGHrgrCeBxbJAklnA9H4oNODwrkUkGyxHGxiLDvgJLOBi56XP4A1vXSm/fEgDw==
-X-Received: by 2002:a05:600c:4747:b0:412:71af:8af5 with SMTP id w7-20020a05600c474700b0041271af8af5mr3207487wmo.16.1708534543122;
-        Wed, 21 Feb 2024 08:55:43 -0800 (PST)
-Date: Wed, 21 Feb 2024 16:55:42 +0000
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] libxl: Use vkb=[] for HVMs
-Message-ID: <6e22cbfa-84db-4556-b8cf-2563810ab558@perard>
-References: <20240109171631.40071-1-jandryuk@gmail.com>
+        d=1e100.net; s=20230601; t=1708535021; x=1709139821;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vP4gMZWRt3kH7TAC3U/8MIPnSOHiEExJGIwVsdIZ4b0=;
+        b=iUmObAP/y70yJxR669iOLitdNRTEjSSFyBSOvU9wiQfDmlfcr5ZGSQQ+GYmamo1tQ7
+         ZX6t58icY358n577o3GiMbrXOLvxK3uvv6freCKzEwQwqQojQiBHp1ero3x22VGb0rq1
+         rGbZihPaZQOqWcwgeYGyxY38L7T7n1G1U8htQOljJdD7Ig8FruFdfCR3mG2PAApf9cGA
+         z3r3cJcvTzdG0RFubXLZQ8LdOLt6qodNGIcsN4d7knCffV9mxZidl79mHyrgSbJ6FhQA
+         sh4DX8RkO/MhzIrQ/WhM4VEQuH+FR9gqhmAbsJoRuiSXjQR0BHE326Mm6HMSqMRd0qRa
+         sGZQ==
+X-Gm-Message-State: AOJu0YyVJLCk/CVW18LiMD9turuhURoOUHIpPFEDf4p2ybRlcQfpUR45
+	O+XLPwlR8SbbTC9hWpgFTe44tHHNbdkQ2FnU/tUhkwQ37BkrzHzG4+jv2qMWVodOQkP2zOGDDFU
+	9
+X-Google-Smtp-Source: AGHT+IH5j3kGz37N+2rV3nlptBNUSFLzJus9O05ZAevSgc1+blIeBsAlCf2EbPFkdjAOP3Cjm6bcGw==
+X-Received: by 2002:a05:651c:1988:b0:2d2:2fb7:b30f with SMTP id bx8-20020a05651c198800b002d22fb7b30fmr9457535ljb.7.1708535020648;
+        Wed, 21 Feb 2024 09:03:40 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/altcall: use an union as register type for function parameters
+Date: Wed, 21 Feb 2024 18:03:31 +0100
+Message-ID: <20240221170331.60605-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240109171631.40071-1-jandryuk@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jan 09, 2024 at 12:16:31PM -0500, Jason Andryuk wrote:
-> xl/libxl only applies vkb=[] to PV & PVH guests.  HVM gets only a single
-> vkb by default, but that can be disabled by the vkb_device boolean.
-> Notably the HVM vkb cannot be configured, so feature-abs-pointer or the
-> backend-type cannot be specified.
-> 
-> Re-arrange the logic so that vkb=[] is handled regardless of domain
-> type.  If vkb is empty or unspecified, follow the vkb_device boolean for
-> HVMs.  Nothing changes for PVH & PV.  HVMs can now get a configured vkb
-> instead of just the default one.
-> 
-> The chance for regression is an HVM config with
-> vkb=["$something"]
-> vkb_device=false
-> 
-> Which would now get a vkb.
-> 
-> This is useful for vGlass which provides a VKB to HVMs.  vGlass wants to
-> specify feature-abs-pointer, but that is racily written by vGlass
-> instead of coming through the xl.cfg.  Unhelpfully, Linux xen-kbdfront
-> reads the backend nodes without checking that the backend is in
-> InitWait.
-> 
-> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+The current code for alternative calls uses the caller parameter types as the
+types for the register variables that serve as function parameters:
 
-I guess we would want an entry in the CHANGELOG about "vkb=[]" been
-available on HVM guests.
+uint8_t foo;
+[...]
+alternative_call(myfunc, foo);
 
+Would expand roughly into:
 
-> diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-> index ce1d431103..39c50b3711 100644
-> --- a/tools/libs/light/libxl_create.c
-> +++ b/tools/libs/light/libxl_create.c
-> @@ -1771,24 +1771,31 @@ static void domcreate_launch_dm(libxl__egc *egc, libxl__multidev *multidev,
->          libxl__device_add(gc, domid, &libxl__virtio_devtype,
->                            &d_config->virtios[i]);
->  
-> +    if (d_config->num_vkbs) {
-> +        for (i = 0; i < d_config->num_vkbs; i++) {
-> +            libxl__device_add(gc, domid, &libxl__vkb_devtype,
-> +                              &d_config->vkbs[i]);
+register unint8_t a1_ asm("rdi") = foo;
+register unsigned long a2_ asm("rsi");
+[...]
+asm volatile ("call *%c[addr](%%rip)"...);
 
-While there, could you check the return value of that function? That
-would be having:
-    ret = libxl__device_add();
-    if (ret) goto error_out;
+However under certain circumstances clang >= 16.0.0 with -O2 can generate
+incorrect code, given the following example:
 
-With that: Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+unsigned int func(uint8_t t)
+{
+    return t;
+}
 
-Thanks,
+static void bar(uint8_t b)
+{
+    int ret_;
+    register uint8_t di asm("rdi") = b;
+    register unsigned long si asm("rsi");
+    register unsigned long dx asm("rdx");
+    register unsigned long cx asm("rcx");
+    register unsigned long r8 asm("r8");
+    register unsigned long r9 asm("r9");
+    register unsigned long r10 asm("r10");
+    register unsigned long r11 asm("r11");
 
+    asm volatile ( "call %c[addr]"
+                   : "+r" (di), "=r" (si), "=r" (dx),
+                     "=r" (cx), "=r" (r8), "=r" (r9),
+                     "=r" (r10), "=r" (r11), "=a" (ret_)
+                   : [addr] "i" (&(func)), "g" (func)
+                   : "memory" );
+}
+
+void foo(unsigned int a)
+{
+    bar(a);
+}
+
+Clang generates the following code:
+
+func:                                   # @func
+        movl    %edi, %eax
+        retq
+foo:                                    # @foo
+        callq   func
+        retq
+
+Note the truncation of the unsigned int parameter 'a' of foo() to uint8_t when
+passed into bar() is lost.
+
+The above can be worked around by using an union when defining the register
+variables, so that `di` becomes:
+
+register union {
+    uint8_t e;
+    unsigned long r;
+} di asm("rdi") = { .e = b };
+
+Which results in following code generated for `foo()`:
+
+foo:                                    # @foo
+        movzbl  %dil, %edi
+        callq   func
+        retq
+
+So the truncation is not longer lost.
+
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Seems like all gitlab build tests are OK with this approach.
+---
+ xen/arch/x86/include/asm/alternative.h | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/xen/arch/x86/include/asm/alternative.h b/xen/arch/x86/include/asm/alternative.h
+index a1cd6a9fe5b8..837dfd953d2f 100644
+--- a/xen/arch/x86/include/asm/alternative.h
++++ b/xen/arch/x86/include/asm/alternative.h
+@@ -167,9 +167,18 @@ extern void alternative_branches(void);
+ #define ALT_CALL_arg5 "r8"
+ #define ALT_CALL_arg6 "r9"
+ 
+-#define ALT_CALL_ARG(arg, n) \
+-    register typeof(arg) a ## n ## _ asm ( ALT_CALL_arg ## n ) = \
+-        ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })
++/*
++ * Use an union with an unsigned long in order to prevent clang >= 16.0.0 from
++ * skipping a possible truncation of the value.  By using the union any
++ * truncation is carried before the call instruction.
++ */
++#define ALT_CALL_ARG(arg, n)                                            \
++    register union {                                                    \
++        typeof(arg) e;                                                  \
++        unsigned long r;                                                \
++    } a ## n ## _ asm ( ALT_CALL_arg ## n ) = {                         \
++        .e = ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })   \
++    }
+ #define ALT_CALL_NO_ARG(n) \
+     register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n )
+ 
 -- 
-Anthony PERARD
+2.43.0
+
 
