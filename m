@@ -2,52 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9611785DCE6
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 14:59:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684050.1063710 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 799EC85DDA8
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 15:08:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684057.1063722 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcn7N-0001AV-3V; Wed, 21 Feb 2024 13:58:37 +0000
+	id 1rcnGd-00030G-Ts; Wed, 21 Feb 2024 14:08:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684050.1063710; Wed, 21 Feb 2024 13:58:37 +0000
+Received: by outflank-mailman (output) from mailman id 684057.1063722; Wed, 21 Feb 2024 14:08:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcn7N-00017k-0j; Wed, 21 Feb 2024 13:58:37 +0000
-Received: by outflank-mailman (input) for mailman id 684050;
- Wed, 21 Feb 2024 13:58:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WOnV=J6=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rcn7L-00017e-8o
- for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 13:58:35 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20601.outbound.protection.outlook.com
- [2a01:111:f403:2416::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4beb73af-d0c1-11ee-8a53-1f161083a0e0;
- Wed, 21 Feb 2024 14:58:33 +0100 (CET)
-Received: from BN9PR03CA0711.namprd03.prod.outlook.com (2603:10b6:408:ef::26)
- by SA0PR12MB4446.namprd12.prod.outlook.com (2603:10b6:806:71::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.21; Wed, 21 Feb
- 2024 13:58:29 +0000
-Received: from BN3PEPF0000B072.namprd04.prod.outlook.com
- (2603:10b6:408:ef:cafe::41) by BN9PR03CA0711.outlook.office365.com
- (2603:10b6:408:ef::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.41 via Frontend
- Transport; Wed, 21 Feb 2024 13:58:28 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN3PEPF0000B072.mail.protection.outlook.com (10.167.243.117) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Wed, 21 Feb 2024 13:58:28 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 21 Feb
- 2024 07:58:27 -0600
-Received: from [10.71.193.58] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 21 Feb 2024 07:58:26 -0600
+	id 1rcnGd-0002x6-Qw; Wed, 21 Feb 2024 14:08:11 +0000
+Received: by outflank-mailman (input) for mailman id 684057;
+ Wed, 21 Feb 2024 14:08:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rcnGc-0002x0-2z
+ for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 14:08:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rcnGT-0005BU-RU; Wed, 21 Feb 2024 14:08:01 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.14.101]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rcnGT-0002qM-9O; Wed, 21 Feb 2024 14:08:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,215 +39,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4beb73af-d0c1-11ee-8a53-1f161083a0e0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bAF9PYEi0uN3wGf2YI5U+isAWoDhpDIm+VM+W6fPQLNMSf53ldXUTUqD93Kfd5XykYjtA0EvlXIIxZzdunrpYqmczJQBUqIQqVld2IwB/ExRI4EoARCTnd+l0qrJUxkPDIgLjbxhoZS0+czavWcABjlJlARGs2HJy4YuIvPWcFRP6sevCZAxvF1dD/t0IJ8choJPQNMCRXu/fTyAZY2YDK6fzozJ5EgTe8R1Hohc0OGpf9bwjFEjWjrIZ6VMVrqsdCRsfMdntc624lxKhicDZtZi5Wavyx9DoksSMBS/qvTj9UYkmGwYFxkWwlcYOT3Vo2ZZ+d4tiDsdY7V2T/KrdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RgWEbqC/1v7O6VAUqDSFOH2ByYy2Epr0gQSCvExcFtU=;
- b=MWSXsHtOZmmRRSisUMfV2nAWiHDmIgJUVvvu3+PJ4tz8Jv0x8JZinTibg8sBfElM+5Ij9SFGUvFqQShdqHRluOM7pHFXmYX0TZyEKcUKVFYpEWvDtp/6i8KAWQlC8GJXDauPu2gPcIWGT6JUpeVau8CAkaVxL7GG0f3lwev+ACCMr8xJu9qXupdonM1OOIiiCt2ZMij5cDrnR/hjRvae32AA4S4ySWElKCpd+lor6N9Uaq8P/vvQ9B1efatE3QyQ8uIdDIhVg+ULRnwOZF94FIKQQhK8hHymlFPb+HQh5TYcg5HKS+I8PtNQyWIshlShU6FN9vr9VF8SVvFP8xIg0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RgWEbqC/1v7O6VAUqDSFOH2ByYy2Epr0gQSCvExcFtU=;
- b=u1M+N2p1EsHw7ouclZrGwRHEvHu5yOpXs7d+D1wxe3gSv14fPWFwTUdVrVNdZN0s/LimfM8YpM1MBvEaZK2BY0bxPy+njbDYxHQdLexpu6L8JX3ust6vnyKscjIh25V8I8H9YudyEkGhI8WmwfCEYNvo1EPQRf+DQJgAcwsG5+M=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <32d9736e-965a-451f-9227-f774c20df215@amd.com>
-Date: Wed, 21 Feb 2024 14:58:25 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=tqftxFxC3TX3Acmbj0snE5eMI1bwehitJaMwlEaMN9o=; b=dG0gBKp9+sl5m48GfzDQOtv6/0
+	VvvlKaQCnwRX33e93gWeBsvnXg6O0O0LJsciNcKoMlpxcQ+rCEvH36ibXVyz5OCEN2tQaKqsE/z7D
+	HwCh/TyJe63raPhunYZR8gf5Kds9tJchiTbNWFBs80VOjo6oSG7AQKx97JxWmGJJNn+4=;
+Message-ID: <eeb48ddf-6925-4394-8d5a-288ba23e55d3@xen.org>
+Date: Wed, 21 Feb 2024 14:07:57 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN v5 1/3] xen/arm: Introduce CONFIG_PARTIAL_EMULATION and
- "partial-emulation" cmd option
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Ayan Kumar Halder <ayankuma@amd.com>, "Jan
- Beulich" <jbeulich@suse.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
-	<xen-devel@lists.xenproject.org>
-References: <20240220121743.3680715-1-ayan.kumar.halder@amd.com>
- <20240220121743.3680715-2-ayan.kumar.halder@amd.com>
- <e3a8ce5d-841e-4ff1-8d23-48de822972ef@suse.com>
- <5f526deb-7376-4c34-85d1-d22b1b14d90e@amd.com>
- <e7c4b08f-724a-4419-977a-caa1342c47eb@suse.com>
- <62e047c5-a913-410d-9b24-e9a26d555d78@amd.com>
- <10e8a485-61b7-4c9d-930f-975e25e8ec45@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <10e8a485-61b7-4c9d-930f-975e25e8ec45@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH v4 07/30] xen/asm-generic: introdure nospec.h
+Content-Language: en-GB
+To: Oleksii <oleksii.kurochko@gmail.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
+ <5889d7a5fa81722472f95cc1448af0be8f359a7d.1707146506.git.oleksii.kurochko@gmail.com>
+ <510d74ca-5cce-48f8-93f6-407cd727cf7b@xen.org>
+ <8a09e386b709f780f193af39af63b6aeb75c868e.camel@gmail.com>
+ <aaf86d31-7ae0-4e33-8386-dda4bd21496a@suse.com>
+ <ab040f3c8ee35f49fffac385053b55053c52da8c.camel@gmail.com>
+ <a6394d8a-63d0-42bf-8ed7-a7722cb7e71c@suse.com>
+ <3e0c83fd0e3dc424059575cf9da9d57a87d90736.camel@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <3e0c83fd0e3dc424059575cf9da9d57a87d90736.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B072:EE_|SA0PR12MB4446:EE_
-X-MS-Office365-Filtering-Correlation-Id: 420bcb25-32b7-4c8d-3fa7-08dc32e52e39
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	XcRAhjFb1GTzwhVdx4E4uIGXy0EtBzzo0qE+JMcsktBjJBn+6aezMC/Qgam9DTTvnHVnP3YsxC+PyP9ZRaPvD+rW3fG4WJR6mFb2hQHOjKXR+r4F+Xel+PkTwoaYT3q4RH7d/THe6R66PGxIrj0gOxQWB8OQ+i2sR3rcM5mQ6SLbtiZ9bL3mhiuVC9OyDp2Gt8+purUnSjx0eB3T9fLLBWZIG3w8m/PPwdFBa9RQCIuhNJgJBRkkd3okmJQ95qy9zNxDrp+BXEkHHwWFbK5XMcvbR876NaaBBwOachfIythNNhapHtIhsK2B4L9cgocEpIr34ktiec4NMvq0UUb02jIFFzoLlqpwmgrhS+x2BPwON7GOm+5fCP9Eha6Wg72MbJcMgIU9+RJ8z3Uo1+cSoCG6kHzcbQRO0BzWM+0eYrOgqbk69lTyBqCWxVdhtoy+8pB7ID0TRQaII35odPOb33Kp3OFyRGBkGXgum+kN2K4npl5KPG1+kggopV6F9qNR0eGx+ahyuYT+v5xFLkaatZ5OVguLWOLpqPTjyJB7pX+19nsJ2MfUV1i3NCRv/kD/JQOXdo1JJYYBmAtq4ejzrhcGC5XYVWfSvwWY0znjPC4xsgjcf9iMNxS28PGYLIq0ChD45QsSdwVQ5NjNLLpzcQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(40470700004)(46966006);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2024 13:58:28.3702
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 420bcb25-32b7-4c8d-3fa7-08dc32e52e39
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B072.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4446
 
+Hi Oleksii,
 
-
-On 21/02/2024 13:20, Julien Grall wrote:
-> 
-> 
-> On 21/02/2024 11:33, Ayan Kumar Halder wrote:
->> Hi Jan,
->>
->> On 21/02/2024 07:09, Jan Beulich wrote:
->>> On 20.02.2024 16:22, Ayan Kumar Halder wrote:
->>>> On 20/02/2024 12:33, Jan Beulich wrote:
->>>>> On 20.02.2024 13:17, Ayan Kumar Halder wrote:
->>>>>> --- a/SUPPORT.md
->>>>>> +++ b/SUPPORT.md
->>>>>> @@ -101,6 +101,18 @@ Extension to the GICv3 interrupt controller to
->>>>>> support MSI.
->>>>>>        Status: Experimental
->>>>>> +### ARM/Partial Emulation
->>>>>> +
->>>>>> +Enable partial emulation of registers, otherwise considered
->>>>>> unimplemented,
->>>>>> +that would normally trigger a fault injection.
->>>>>> +
->>>>>> +    Status: Supported, with caveats
->>>>>> +
->>>>>> +Bugs allowing the userspace to attack the guest OS will not be
->>>>>> considered
->>>>>> +security vulnerabilities.
->>>>>> +
->>>>>> +Bugs that could compromise Xen will be considered security
->>>>>> vulnerabilities.
->>>>> ... the odd statement regarding in-guest vulnerabilities that might be
->>>>> introduced. I see only two ways of treating this as supported: Either
->>>>> you simply refuse emulation when the access is from user space,
->>>> I am wondering how do we enforce that.
+On 21/02/2024 12:47, Oleksii wrote:
+> On Wed, 2024-02-21 at 12:00 +0100, Jan Beulich wrote:
+>> On 20.02.2024 21:30, Oleksii wrote:
+>>> On Mon, 2024-02-19 at 13:18 +0100, Jan Beulich wrote:
+>>>> On 19.02.2024 12:59, Oleksii wrote:
+>>>>> Hi Julien,
+>>>>>
+>>>>> On Sun, 2024-02-18 at 18:30 +0000, Julien Grall wrote:
+>>>>>> Hi Oleksii,
+>>>>>>
+>>>>>> Title: Typo s/introdure/introduce/
+>>>>>>
+>>>>>> On 05/02/2024 15:32, Oleksii Kurochko wrote:
+>>>>>>> The <asm/nospec.h> header is similar between Arm, PPC, and
+>>>>>>> RISC-V,
+>>>>>>> so it has been moved to asm-generic.
+>>>>>>
+>>>>>> I am not 100% convinced that moving this header to asm-
+>>>>>> generic is
+>>>>>> a
+>>>>>> good
+>>>>>> idea. At least for Arm, those helpers ought to be non-empty,
+>>>>>> what
+>>>>>> about
+>>>>>> RISC-V?
+>>>>> For Arm, they are not taking any action, are they? There are no
+>>>>> specific fences or other mechanisms inside
+>>>>> evaluate_nospec()/block_speculation() to address speculation.
 >>>>
->>>> Let me try to understand this with the current implementation of partial
->>>> emulation for system registers.
+>>>> The question isn't the status quo, but how things should be
+>>>> looking
+>>>> like
+>>>> if everything was in place that's (in principle) needed.
 >>>>
->>>> 1. DBGDTRTX_EL0 :- I understand that EL0 access to this register will
->>>> cause a trap to EL2. The reason being MDCR_EL2.TDA == 1.
+>>>>> For RISC-V, it can be implemented in a similar manner, at least
+>>>>> for
+>>>>> now. Since these functions are only used in the grant tables
+>>>>> code (
+>>>>> for
+>>>>> Arm and so for RISC-V ), which is not supported by RISC-V.
 >>>>
->>>> In that case, if we refuse emulation then an undef exception is injected
->>>> to the guest (this is the behavior as of today even without this patch).
+>>>> Same here - the question is whether long term, when gnttab is
+>>>> also
+>>>> supported, RISC-V would get away without doing anything. Still
+>>>> ...
 >>>>
->>>> So, are you saying that the undef exception is to be injected to the
->>>> user space process. This may be possible for Arm64 guests
->>>> (inject_undef64_exception() needs to be changed).
->>> No, injection is always to the guest, not to a specific entity within the
->>> guest. That ought to be the same on bare hardware: An exception when
->>> raised has an architecturally defined entry point for handling. That'll
->>> typically be kernel code. The handler then figures out whether the source
->>> of the exception was in user or kernel mode. For user mode code, the
->>> kernel may or may not try to handle the exception and then continue the
->>> user mode process. If it can't or doesn't want to handle it, it'll raise
->>> (in UNIX terms) a signal to the process. That signal, in turn, may or may
->>> not be fatal to the process. But such an exception from user mode should
->>> never be fatal to the guest as a whole.
->> Thanks for explaining it so well.
+>>>>>> If the answer is they should be non-empty. Then I would
+>>>>>> consider
+>>>>>> to
+>>>>>> keep
+>>>>>> the duplication to make clear that each architecture should
+>>>>>> take
+>>>>>> their
+>>>>>> own decision in term of security.
+>>>>>>
+>>>>>> The alternative, is to have a generic implementation that is
+>>>>>> safe
+>>>>>> by
+>>>>>> default (if that's even possible).
+>>>>> I am not certain that we can have a generic implementation, as
+>>>>> each
+>>>>> architecture may have specific speculation issues.
+>>>>
+>>>> ... it's theoretically possible that there'd be an arch with no
+>>>> speculation issues, maybe simply because of not speculating.
 >>>
->>>> However for Arm32 guests, this may not be possible as the mode changes
->>>> to PSR_MODE_UND.
->>> I'm afraid my Arm foo isn't good enough to understand this. On the
->>> surface
->>> it looks to violate above outlined principle.
+>>> I am not sure that understand your and Julien point.
 >>>
->>>> Let me know if I understood you correctly.
->>>>
->>>>> or you
->>>>> support that mode of emulation as much as that of kernel space
->>>>> accesses.
->>>> Do you mean we support partial emulation only for traps from EL1 mode ?
->>> Possibly.
+>>> For example, modern CPU uses speculative execution to reduce the
+>>> cost
+>>> of conditional branch instructions using schemes that predict the
+>>> execution path of a program based on the history of branch
+>>> executions.
+>>>
+>>> Arm CPUs are vulnerable for speculative execution, but if to look
+>>> at
+>>> the code of evaluate_nospec()/block_speculation() functions they
+>>> are
+>>> doing nothing for Arm.
 >>
->> Now, I understand you. We will allow partial_emulation only from kernel
->> mode.
->>
->> So we need to do sth :-
->>
->> if ( 'partial_emulation == true' && '!regs_mode_is_user(regs)' )
->>
->> {
->>
->>       /* partial_emulation logic */
->>
->> }
->>
->> I am ok with this.
+>> Which, as I understood Julien say, likely isn't correct. In which
+>> case
+>> this header shouldn't be dropped, using the generic one instead. The
+>> generic headers, as pointed out several times before, should imo be
+>> used
+>> only if their use results in correct behavior. What is acceptable is
+>> if
+>> their use results in sub-optimal behavior (e.g. reduced performance
+>> or
+>> lack of a certain feature that another architecture maybe
+>> implements).
 > 
-> The helpers take a min_el. So you can have simpler code and set the
-> value to 1 (rather than 0 today).
+> As I understand it, evaluate_nospec()/block_speculation() were
+> introduced for x86 to address the L1TF vulnerability specific to x86
+> CPUs. This vulnerability is exclusive to x86 architectures [1], which
+> explains why evaluate_nospec()/block_speculation() are left empty for
+> Arm, RISC-V, and PPC.
 > 
->>
->> And the updates message will be
->>
->> ### ARM/Partial Emulation
->>
->> Enable partial emulation of registers, otherwise considered unimplemented,
->> that would normally trigger a fault injection.
->>
->>      Status: Supported, with caveats
->>
->> Partial emulation for traps from userspace is not allowed.
-> 
-> I am not sure how this helps...
->>
->> Bugs that could compromise Xen will be considered security vulnerabilities.
-> 
-> ... you are still implying that any userland breaching the kernel will
-> not be supported because of a bug.
-> 
-> But, I don't see how preventing the userland to access a register will
-> help. In theory you could have a register that can only be accessed by
-> EL1 but has an impact to EL0.
-> 
-> By definition, it means that we don't faithfully follow the Arm Arm and
-> anything can happen. Which is why I wanted to exclude security support
-> from userland and kernel.
-> 
-> I think the current registers are low risk. But I am under the
-> impression that you may wan to add more partial emulation. So we need to
-> make some sort of statement that doesn't put any burden to the security
-> team for future registers.
-> 
-> An option would be to explicitly list the registers in SUPPORT.md. As I
-> mentioned above, I think the registers you currently emulate are
-> low-risk to introduce a security bug. So I would be ok to fully security
-> support them. This would need to be re-assessed for new registers.
-> 
-> I am open to other suggestions.
-+1. Providing partial emulation support only for kernel mode where the Arm ARM allows for user mode
-access is confusing and would require excessive number of comments to back up the implementation.
-While it might be ok for DCC, imposing such limit on all the future use cases sounds too severe.
+> It is unclear whether these functions should be utilized to mitigate
+> other speculation vulnerabilities. 
 
-I think the following would be ok:
+The name is generic enough that someone may want to use it for other 
+speculations. If we think this is only related to L1TF, then the 
+functions names should reflect it. But see below.
 
-Status: Supported, with caveats
+> If they should, then, based on the
+> current implementation, the Arm platform seems to accept having
+> speculative vulnerabilities.
 
-Only the following system registers are security supported:
- - ...
+Looking at some of the use in common code (such as the grant-table 
+code), it is unclear to me why it is empty on Arm. I think we need a 
+speculation barrier.
 
-~Michal
+I would raise the same question for RISC-V/PPC.
 
+> 
+> The question arises: why can't other architectures make their own
+> decisions regarding security? 
+
+Each architecture can make there own decision. I am not trying to 
+prevent that. What I am trying to prevent is a developper including the 
+asm-generic without realizing that the header doesn't provide a safe 
+version.
+
+> By default, if an architecture leaves the
+> mentioned functions empty, it implies an agreement to potentially have
+> speculative vulnerabilities. 
+
+See above. That agreement is somewhat implicit. It would be better if 
+this is explicit.
+
+So overall, I would prefer if that header is not part of asm-generic.
+
+Cheers,
+
+-- 
+Julien Grall
 
