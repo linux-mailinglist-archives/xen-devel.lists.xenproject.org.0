@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 799EC85DDA8
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 15:08:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684057.1063722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABABF85E065
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 15:59:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684067.1063739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcnGd-00030G-Ts; Wed, 21 Feb 2024 14:08:11 +0000
+	id 1rco3M-0001AA-M7; Wed, 21 Feb 2024 14:58:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684057.1063722; Wed, 21 Feb 2024 14:08:11 +0000
+Received: by outflank-mailman (output) from mailman id 684067.1063739; Wed, 21 Feb 2024 14:58:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rcnGd-0002x6-Qw; Wed, 21 Feb 2024 14:08:11 +0000
-Received: by outflank-mailman (input) for mailman id 684057;
- Wed, 21 Feb 2024 14:08:10 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rco3M-000180-JJ; Wed, 21 Feb 2024 14:58:32 +0000
+Received: by outflank-mailman (input) for mailman id 684067;
+ Wed, 21 Feb 2024 14:58:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rcnGc-0002x0-2z
- for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 14:08:10 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rcnGT-0005BU-RU; Wed, 21 Feb 2024 14:08:01 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=[192.168.14.101]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rcnGT-0002qM-9O; Wed, 21 Feb 2024 14:08:01 +0000
+ (envelope-from <SRS0=TA2L=J6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rco3K-00017u-ID
+ for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 14:58:30 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aa40ee7d-d0c9-11ee-98f5-efadbce2ee36;
+ Wed, 21 Feb 2024 15:58:28 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a28a6cef709so820813766b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Feb 2024 06:58:26 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ts7-20020a170907c5c700b00a3f4bb02bc8sm486131ejc.42.2024.02.21.06.58.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Feb 2024 06:58:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,19 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=tqftxFxC3TX3Acmbj0snE5eMI1bwehitJaMwlEaMN9o=; b=dG0gBKp9+sl5m48GfzDQOtv6/0
-	VvvlKaQCnwRX33e93gWeBsvnXg6O0O0LJsciNcKoMlpxcQ+rCEvH36ibXVyz5OCEN2tQaKqsE/z7D
-	HwCh/TyJe63raPhunYZR8gf5Kds9tJchiTbNWFBs80VOjo6oSG7AQKx97JxWmGJJNn+4=;
-Message-ID: <eeb48ddf-6925-4394-8d5a-288ba23e55d3@xen.org>
-Date: Wed, 21 Feb 2024 14:07:57 +0000
+X-Inumbo-ID: aa40ee7d-d0c9-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1708527505; x=1709132305; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=G/p1pS4DzE5YyDMUJcVgfeMjgWT7V9bvuL4NGd3j3LQ=;
+        b=AfGbJyeHGYksO/D6bb/o0wzlb/AXV56MynckxgxdbMWLKlSLzwDrASBBMGf2lWhltk
+         38Tn0Ez7deIrYfxokdZfr79cxARCQipCHo8pzq9zuntDnTDRgXkVt+DhoPjEZsnOA+s2
+         jG3xkyd7G8O036vOqBoxQJpLIOTjmG1l6M3/UW0YAQs7UnrKH3Iy6Ts7R6hVUAYcJEq8
+         IV2Xusz7EVHpZ1zOBQoNfhCkVCDTU9fEzDAZbX4HMY929dKH4Pe086+e7CZmVkpc3ZTk
+         iNsCJwcjqofJC+2mpj2bNSVS68Yiy68uOPjr6hLaOuYI79jWfBNX2wmAQf9omawL3OZd
+         oMoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708527505; x=1709132305;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=G/p1pS4DzE5YyDMUJcVgfeMjgWT7V9bvuL4NGd3j3LQ=;
+        b=jNZvtAqViJsl7sv9/Q3T9fz+QeMMMcdBqvfBlJxQMhvRQlyTCgal2RQJA7+F8b8oWW
+         o+ovK2YiRHClsgR+uSdPMiRdRaPppuDMuysXs+VAj/qcSfa1y79lQ68kcap3i2OUGJm2
+         Kf+srJsf5+loEong/PQ9dyHchPLe3BNjdhR69ppyB780V7y3HC+MyJG0WVQfa0/iERSQ
+         5zMStkXNClKnK+H/E0IDtmEYmV2BYflbCg+Nauyg8moGGQf3p355VI3Z6qsooIAqJRas
+         zp0X94eJdAAd+wphJMP2U+z9psPWoBUJK53+Iq04lMNK1ZqeqF+iOFnLBFL5mXvCNWHt
+         Owjw==
+X-Forwarded-Encrypted: i=1; AJvYcCVoWSTN+yNAwKuQYaqop3c7tl3Aq9wayXqohap0A5Pyt9c98X5bW4OAUv0aucbGkwXqSF3AxzFrTP/lVE8zv0MkqPfv3Q8OrFjulX3u/U4=
+X-Gm-Message-State: AOJu0YyRlvIJEVh9iDzUJ5uFCYx2hPCKLgz4gMiZpnRjzNSi9omXpOaE
+	wGnc2IpCs3mE5g6SxerG2cMTHRo4tTOfvfaF8qoMCQN2AUJIWksBQZGghEP8vg==
+X-Google-Smtp-Source: AGHT+IHd3SEnXzBwjccwyim0c94d45naHaXVQjzgG/i4PVGFKqZfqn+sH7HwH+3n5VtdBMnKOFpI0A==
+X-Received: by 2002:a17:907:1044:b0:a3e:590f:6348 with SMTP id oy4-20020a170907104400b00a3e590f6348mr7681451ejb.41.1708527505509;
+        Wed, 21 Feb 2024 06:58:25 -0800 (PST)
+Message-ID: <dfcfcab7-50b4-45b2-a25a-8898b74054a9@suse.com>
+Date: Wed, 21 Feb 2024 15:58:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 07/30] xen/asm-generic: introdure nospec.h
-Content-Language: en-GB
-To: Oleksii <oleksii.kurochko@gmail.com>, Jan Beulich <jbeulich@suse.com>
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
@@ -61,7 +92,8 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Shawn Anastasio <sanastasio@raptorengineering.com>,
  Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org,
+ Julien Grall <julien@xen.org>
 References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
  <5889d7a5fa81722472f95cc1448af0be8f359a7d.1707146506.git.oleksii.kurochko@gmail.com>
  <510d74ca-5cce-48f8-93f6-407cd727cf7b@xen.org>
@@ -70,148 +102,71 @@ References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
  <ab040f3c8ee35f49fffac385053b55053c52da8c.camel@gmail.com>
  <a6394d8a-63d0-42bf-8ed7-a7722cb7e71c@suse.com>
  <3e0c83fd0e3dc424059575cf9da9d57a87d90736.camel@gmail.com>
-From: Julien Grall <julien@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <3e0c83fd0e3dc424059575cf9da9d57a87d90736.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Oleksii,
-
-On 21/02/2024 12:47, Oleksii wrote:
-> On Wed, 2024-02-21 at 12:00 +0100, Jan Beulich wrote:
->> On 20.02.2024 21:30, Oleksii wrote:
->>> On Mon, 2024-02-19 at 13:18 +0100, Jan Beulich wrote:
->>>> On 19.02.2024 12:59, Oleksii wrote:
->>>>> Hi Julien,
->>>>>
->>>>> On Sun, 2024-02-18 at 18:30 +0000, Julien Grall wrote:
->>>>>> Hi Oleksii,
->>>>>>
->>>>>> Title: Typo s/introdure/introduce/
->>>>>>
->>>>>> On 05/02/2024 15:32, Oleksii Kurochko wrote:
->>>>>>> The <asm/nospec.h> header is similar between Arm, PPC, and
->>>>>>> RISC-V,
->>>>>>> so it has been moved to asm-generic.
->>>>>>
->>>>>> I am not 100% convinced that moving this header to asm-
->>>>>> generic is
->>>>>> a
->>>>>> good
->>>>>> idea. At least for Arm, those helpers ought to be non-empty,
->>>>>> what
->>>>>> about
->>>>>> RISC-V?
->>>>> For Arm, they are not taking any action, are they? There are no
->>>>> specific fences or other mechanisms inside
->>>>> evaluate_nospec()/block_speculation() to address speculation.
->>>>
->>>> The question isn't the status quo, but how things should be
->>>> looking
->>>> like
->>>> if everything was in place that's (in principle) needed.
->>>>
->>>>> For RISC-V, it can be implemented in a similar manner, at least
->>>>> for
->>>>> now. Since these functions are only used in the grant tables
->>>>> code (
->>>>> for
->>>>> Arm and so for RISC-V ), which is not supported by RISC-V.
->>>>
->>>> Same here - the question is whether long term, when gnttab is
->>>> also
->>>> supported, RISC-V would get away without doing anything. Still
->>>> ...
->>>>
->>>>>> If the answer is they should be non-empty. Then I would
->>>>>> consider
->>>>>> to
->>>>>> keep
->>>>>> the duplication to make clear that each architecture should
->>>>>> take
->>>>>> their
->>>>>> own decision in term of security.
->>>>>>
->>>>>> The alternative, is to have a generic implementation that is
->>>>>> safe
->>>>>> by
->>>>>> default (if that's even possible).
->>>>> I am not certain that we can have a generic implementation, as
->>>>> each
->>>>> architecture may have specific speculation issues.
->>>>
->>>> ... it's theoretically possible that there'd be an arch with no
->>>> speculation issues, maybe simply because of not speculating.
->>>
->>> I am not sure that understand your and Julien point.
->>>
->>> For example, modern CPU uses speculative execution to reduce the
->>> cost
->>> of conditional branch instructions using schemes that predict the
->>> execution path of a program based on the history of branch
->>> executions.
->>>
->>> Arm CPUs are vulnerable for speculative execution, but if to look
->>> at
->>> the code of evaluate_nospec()/block_speculation() functions they
->>> are
->>> doing nothing for Arm.
->>
->> Which, as I understood Julien say, likely isn't correct. In which
->> case
->> this header shouldn't be dropped, using the generic one instead. The
->> generic headers, as pointed out several times before, should imo be
->> used
->> only if their use results in correct behavior. What is acceptable is
->> if
->> their use results in sub-optimal behavior (e.g. reduced performance
->> or
->> lack of a certain feature that another architecture maybe
->> implements).
-> 
+On 21.02.2024 13:47, Oleksii wrote:
 > As I understand it, evaluate_nospec()/block_speculation() were
 > introduced for x86 to address the L1TF vulnerability specific to x86
-> CPUs. This vulnerability is exclusive to x86 architectures [1], which
+> CPUs.
+
+Well, if you look at one of the later commits altering x86'es variant,
+you'll find that this wasn't really correct.
+
+> This vulnerability is exclusive to x86 architectures [1], which
 > explains why evaluate_nospec()/block_speculation() are left empty for
 > Arm, RISC-V, and PPC.
 > 
 > It is unclear whether these functions should be utilized to mitigate
-> other speculation vulnerabilities. 
-
-The name is generic enough that someone may want to use it for other 
-speculations. If we think this is only related to L1TF, then the 
-functions names should reflect it. But see below.
-
-> If they should, then, based on the
+> other speculation vulnerabilities. If they should, then, based on the
 > current implementation, the Arm platform seems to accept having
 > speculative vulnerabilities.
-
-Looking at some of the use in common code (such as the grant-table 
-code), it is unclear to me why it is empty on Arm. I think we need a 
-speculation barrier.
-
-I would raise the same question for RISC-V/PPC.
-
 > 
 > The question arises: why can't other architectures make their own
-> decisions regarding security? 
-
-Each architecture can make there own decision. I am not trying to 
-prevent that. What I am trying to prevent is a developper including the 
-asm-generic without realizing that the header doesn't provide a safe 
-version.
-
-> By default, if an architecture leaves the
+> decisions regarding security? By default, if an architecture leaves the
 > mentioned functions empty, it implies an agreement to potentially have
-> speculative vulnerabilities. 
+> speculative vulnerabilities. Subsequently, if an architecture needs to
+> address such vulnerabilities, they can develop arch-specific nospec.h
+> to implement the required code.
 
-See above. That agreement is somewhat implicit. It would be better if 
-this is explicit.
+You can't take different perspectives on security. There is some
+hardening which one architecture may go farther with than another,
+but e.g. information leaks are information leaks and hence need
+addressing. Of course if an arch knew it had no (known) issues, then
+using a generic form of this header would be okay (until such time
+where an issue would be found).
 
-So overall, I would prefer if that header is not part of asm-generic.
+And btw, looking at how xen/nospec.h came about, it looks pretty clear
+to me that array_index_mask_nospec() should move from system.h to
+nospec.h. That would make Arm's form immediately different from what
+a generic one might have, and quite likely an inline assembly variant
+could also do better on RISC-V (unless, as said, RISC-V simply has no
+such issues). Then again I notice Arm64 has no override here ...
 
-Cheers,
-
--- 
-Julien Grall
+Jan
 
