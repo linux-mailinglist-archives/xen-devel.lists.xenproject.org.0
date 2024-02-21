@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 538E885D7B2
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 13:09:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683993.1063620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA56685D7D7
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 13:21:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683999.1063630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rclPC-00088G-8n; Wed, 21 Feb 2024 12:08:54 +0000
+	id 1rclac-0002aN-9H; Wed, 21 Feb 2024 12:20:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683993.1063620; Wed, 21 Feb 2024 12:08:54 +0000
+Received: by outflank-mailman (output) from mailman id 683999.1063630; Wed, 21 Feb 2024 12:20:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rclPC-00085r-6D; Wed, 21 Feb 2024 12:08:54 +0000
-Received: by outflank-mailman (input) for mailman id 683993;
- Wed, 21 Feb 2024 12:08:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QV5I=J6=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rclPB-00085l-1q
- for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 12:08:53 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f9f33532-d0b1-11ee-8a53-1f161083a0e0;
- Wed, 21 Feb 2024 13:08:51 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 5BBD94EE0737;
- Wed, 21 Feb 2024 13:08:51 +0100 (CET)
+	id 1rclac-0002Xw-6M; Wed, 21 Feb 2024 12:20:42 +0000
+Received: by outflank-mailman (input) for mailman id 683999;
+ Wed, 21 Feb 2024 12:20:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rclaa-0002Xq-Im
+ for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 12:20:40 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rclaW-00030k-N0; Wed, 21 Feb 2024 12:20:36 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.14.101]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rclaW-00058t-GT; Wed, 21 Feb 2024 12:20:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,104 +39,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9f33532-d0b1-11ee-8a53-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=hcj4fMldxUZ/Ct5Kb6EqPXji4TnklCL+6XMbONF2EBk=; b=K+2AmZVbTNzYs+KWiz2TWLD9+5
+	gJFtDFqxSkTD0VFox+CmZ62QkjuUfgxzBhJEEobFSzwwvaBAqqkgQ0sBPXvsKBhxKaMLOXeN+UWbJ
+	yZvLORplNiyDXBDbvalrB++1PXH3EImaGkm5qdZXPvqOh4AzJkwakFW2Jmi8oian4CqY=;
+Message-ID: <10e8a485-61b7-4c9d-930f-975e25e8ec45@xen.org>
+Date: Wed, 21 Feb 2024 12:20:34 +0000
 MIME-Version: 1.0
-Date: Wed, 21 Feb 2024 13:08:51 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper3
- <andrew.cooper3@citrix.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- julien@xen.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, George
- Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN v5 1/3] xen/arm: Introduce CONFIG_PARTIAL_EMULATION and
+ "partial-emulation" cmd option
+Content-Language: en-GB
+To: Ayan Kumar Halder <ayankuma@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com, michal.orzel@amd.com,
  xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH] xen: cache clearing and invalidation helpers
- refactoring
-In-Reply-To: <45509cb67ecee3f690b5784489b5ccb4@bugseng.com>
-References: <cc6bf44701c808645c69bacaf4463295e2cb0fba.1708354388.git.nicola.vetrini@bugseng.com>
- <d90d98b6-508b-4a2a-ab6a-74a9828a5b94@suse.com>
- <45509cb67ecee3f690b5784489b5ccb4@bugseng.com>
-Message-ID: <1743b4248d30a4e8b68a150c25724caa@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20240220121743.3680715-1-ayan.kumar.halder@amd.com>
+ <20240220121743.3680715-2-ayan.kumar.halder@amd.com>
+ <e3a8ce5d-841e-4ff1-8d23-48de822972ef@suse.com>
+ <5f526deb-7376-4c34-85d1-d22b1b14d90e@amd.com>
+ <e7c4b08f-724a-4419-977a-caa1342c47eb@suse.com>
+ <62e047c5-a913-410d-9b24-e9a26d555d78@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <62e047c5-a913-410d-9b24-e9a26d555d78@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 2024-02-20 09:14, Nicola Vetrini wrote:
-> On 2024-02-20 08:45, Jan Beulich wrote:
->> On 19.02.2024 16:14, Nicola Vetrini wrote:
->>> The cache clearing and invalidation helpers in x86 and Arm didn't
->>> comply with MISRA C Rule 17.7: "The value returned by a function
->>> having non-void return type shall be used". On Arm they
->>> were always returning 0, while some in x86 returned -EOPNOTSUPP
->>> and in common/grant_table the return value is saved.
->>> 
->>> As a consequence, a common helper arch_grant_cache_flush that returns
->>> an integer is introduced, so that each architecture can choose 
->>> whether to
->>> return an error value on certain conditions, and the helpers have 
->>> either
->>> been changed to return void (on Arm) or deleted entirely (on x86).
->>> 
->>> Signed-off-by: Julien Grall <julien@xen.org>
->>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>> ---
->>> The original refactor idea came from Julien Grall in [1]; I edited 
->>> that proposal
->>> to fix build errors.
->>> 
->>> I did introduce a cast to void for the call to flush_area_local on 
->>> x86, because
->>> even before this patch the return value of that function wasn't 
->>> checked in all
->>> but one use in x86/smp.c, and in this context the helper (perhaps 
->>> incidentally)
->>> ignored the return value of flush_area_local.
->> 
->> I object to such casting to void, at least until there's an overriding
->> decision that for Misra purposes such casts may be needed.
->> 
-> 
-> There are three choices here:
-> 1. cast to void
-> 2. deviation for flush_area_local, which for the case of the cache 
-> helpers is what led to this patch; it may still be a viable option, if 
-> other maintainers agree
-> 3. refactor of flush_area_local; this is not viable here because the 
-> return value is actually used and useful, as far as I can tell, in 
-> smp.c
-> 
->>> --- a/xen/arch/arm/include/asm/page.h
->>> +++ b/xen/arch/arm/include/asm/page.h
->>> @@ -123,6 +123,7 @@
->>> 
->>>  #ifndef __ASSEMBLY__
->>> 
->>> +#include <public/grant_table.h>
->> 
->> This is a no-go, imo (also on x86): Adding this include here 
->> effectively
->> means that nearly every CU will have a dependency on that header, no
->> matter that most are entirely agnostic of grants. Each arch has a
->> grant_table.h - is there any reason the new, grant-specific helper 
->> can't
->> be put there?
->> 
-> 
-> I would have to test, but I think that can be done
-> 
 
-The only blocker so far is that this triggers a build error due to a 
-circular dependency between xen/mm.h and asm/flushtlb.h on x86. Also 
-found some earlier evidence [1] that there are some oddities around 
-asm/flushtlb's inclusion.
 
-[1] 
-https://lore.kernel.org/xen-devel/20200318210540.5602-1-andrew.cooper3@citrix.com/
+On 21/02/2024 11:33, Ayan Kumar Halder wrote:
+> Hi Jan,
+> 
+> On 21/02/2024 07:09, Jan Beulich wrote:
+>> On 20.02.2024 16:22, Ayan Kumar Halder wrote:
+>>> On 20/02/2024 12:33, Jan Beulich wrote:
+>>>> On 20.02.2024 13:17, Ayan Kumar Halder wrote:
+>>>>> --- a/SUPPORT.md
+>>>>> +++ b/SUPPORT.md
+>>>>> @@ -101,6 +101,18 @@ Extension to the GICv3 interrupt controller to 
+>>>>> support MSI.
+>>>>>        Status: Experimental
+>>>>> +### ARM/Partial Emulation
+>>>>> +
+>>>>> +Enable partial emulation of registers, otherwise considered 
+>>>>> unimplemented,
+>>>>> +that would normally trigger a fault injection.
+>>>>> +
+>>>>> +    Status: Supported, with caveats
+>>>>> +
+>>>>> +Bugs allowing the userspace to attack the guest OS will not be 
+>>>>> considered
+>>>>> +security vulnerabilities.
+>>>>> +
+>>>>> +Bugs that could compromise Xen will be considered security 
+>>>>> vulnerabilities.
+>>>> ... the odd statement regarding in-guest vulnerabilities that might be
+>>>> introduced. I see only two ways of treating this as supported: Either
+>>>> you simply refuse emulation when the access is from user space,
+>>> I am wondering how do we enforce that.
+>>>
+>>> Let me try to understand this with the current implementation of partial
+>>> emulation for system registers.
+>>>
+>>> 1. DBGDTRTX_EL0 :- I understand that EL0 access to this register will
+>>> cause a trap to EL2. The reason being MDCR_EL2.TDA == 1.
+>>>
+>>> In that case, if we refuse emulation then an undef exception is injected
+>>> to the guest (this is the behavior as of today even without this patch).
+>>>
+>>> So, are you saying that the undef exception is to be injected to the
+>>> user space process. This may be possible for Arm64 guests
+>>> (inject_undef64_exception() needs to be changed).
+>> No, injection is always to the guest, not to a specific entity within the
+>> guest. That ought to be the same on bare hardware: An exception when
+>> raised has an architecturally defined entry point for handling. That'll
+>> typically be kernel code. The handler then figures out whether the source
+>> of the exception was in user or kernel mode. For user mode code, the
+>> kernel may or may not try to handle the exception and then continue the
+>> user mode process. If it can't or doesn't want to handle it, it'll raise
+>> (in UNIX terms) a signal to the process. That signal, in turn, may or may
+>> not be fatal to the process. But such an exception from user mode should
+>> never be fatal to the guest as a whole.
+> Thanks for explaining it so well.
+>>
+>>> However for Arm32 guests, this may not be possible as the mode changes
+>>> to PSR_MODE_UND.
+>> I'm afraid my Arm foo isn't good enough to understand this. On the 
+>> surface
+>> it looks to violate above outlined principle.
+>>
+>>> Let me know if I understood you correctly.
+>>>
+>>>> or you
+>>>> support that mode of emulation as much as that of kernel space 
+>>>> accesses.
+>>> Do you mean we support partial emulation only for traps from EL1 mode ?
+>> Possibly.
+> 
+> Now, I understand you. We will allow partial_emulation only from kernel 
+> mode.
+> 
+> So we need to do sth :-
+> 
+> if ( 'partial_emulation == true' && '!regs_mode_is_user(regs)' )
+> 
+> {
+> 
+>       /* partial_emulation logic */
+> 
+> }
+> 
+> I am ok with this.
+
+The helpers take a min_el. So you can have simpler code and set the 
+value to 1 (rather than 0 today).
+
+> 
+> And the updates message will be
+> 
+> ### ARM/Partial Emulation
+> 
+> Enable partial emulation of registers, otherwise considered unimplemented,
+> that would normally trigger a fault injection.
+> 
+>      Status: Supported, with caveats
+> 
+> Partial emulation for traps from userspace is not allowed.
+
+I am not sure how this helps...
+> 
+> Bugs that could compromise Xen will be considered security vulnerabilities.
+
+... you are still implying that any userland breaching the kernel will 
+not be supported because of a bug.
+
+But, I don't see how preventing the userland to access a register will 
+help. In theory you could have a register that can only be accessed by 
+EL1 but has an impact to EL0.
+
+By definition, it means that we don't faithfully follow the Arm Arm and 
+anything can happen. Which is why I wanted to exclude security support 
+from userland and kernel.
+
+I think the current registers are low risk. But I am under the 
+impression that you may wan to add more partial emulation. So we need to 
+make some sort of statement that doesn't put any burden to the security 
+team for future registers.
+
+An option would be to explicitly list the registers in SUPPORT.md. As I 
+mentioned above, I think the registers you currently emulate are 
+low-risk to introduce a security bug. So I would be ok to fully security 
+support them. This would need to be re-assessed for new registers.
+
+I am open to other suggestions.
+
+Cheers,
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Julien Grall
 
