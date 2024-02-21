@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 986F985D614
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 11:52:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.683957.1063588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C2A685D645
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Feb 2024 12:01:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.683964.1063599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rckCx-0004mD-Uo; Wed, 21 Feb 2024 10:52:11 +0000
+	id 1rckLE-0006i1-O3; Wed, 21 Feb 2024 11:00:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 683957.1063588; Wed, 21 Feb 2024 10:52:11 +0000
+Received: by outflank-mailman (output) from mailman id 683964.1063599; Wed, 21 Feb 2024 11:00:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rckCx-0004jl-Qi; Wed, 21 Feb 2024 10:52:11 +0000
-Received: by outflank-mailman (input) for mailman id 683957;
- Wed, 21 Feb 2024 10:52:10 +0000
+	id 1rckLE-0006ep-Kw; Wed, 21 Feb 2024 11:00:44 +0000
+Received: by outflank-mailman (input) for mailman id 683964;
+ Wed, 21 Feb 2024 11:00:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TA2L=J6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rckCw-0004jd-RI
- for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 10:52:10 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1rckLC-0006ei-HC
+ for xen-devel@lists.xenproject.org; Wed, 21 Feb 2024 11:00:42 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4248a7d6-d0a7-11ee-98f5-efadbce2ee36;
- Wed, 21 Feb 2024 11:52:08 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a3e75e30d36so592009866b.1
- for <xen-devel@lists.xenproject.org>; Wed, 21 Feb 2024 02:52:08 -0800 (PST)
+ id 73520f18-d0a8-11ee-98f5-efadbce2ee36;
+ Wed, 21 Feb 2024 12:00:40 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a3f4464c48dso50047366b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Feb 2024 03:00:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s8-20020a170906168800b00a3e7a2d9ac4sm3339978ejd.6.2024.02.21.02.52.07
+ w8-20020a1709067c8800b00a3e9ea30a95sm2806625ejo.5.2024.02.21.03.00.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Feb 2024 02:52:07 -0800 (PST)
+ Wed, 21 Feb 2024 03:00:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4248a7d6-d0a7-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 73520f18-d0a8-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708512728; x=1709117528; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708513240; x=1709118040; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ydcPULZ+yw3cK2VhFEG/Cg908Xb9yky5xkBswdzDVWI=;
-        b=TaXzlcYrtbJdT5Yld7h/4voKjE19lvd/L4Jq7wbsICaSJS7dLtmxV3ISdAXkctbdKJ
-         qPeJe9rgxBCv1NnBoaIFCSDiErb6yqA6VBbTz1SQRND6MT8nOgHVnQ1+OR5vVJgbFVe3
-         aV1giqZbHkHn1EceZupD7hE5rkZ1M/K0hdW5/B8pC16Q05EbhBvap/1LSjbKIrSzpEvk
-         mDC5BnERPufPGqCOo8rrc9C7X5OsZc80AvChBiHndFJlvuT0UFyUj9jOHeAIEISDf55I
-         DCk26FY0POlOx5UY+cT7jBbVA6a3jCnEhzGGrNWBTAExuzU5qOEjRLhl2XSgqhvUelDX
-         7gmQ==
+        bh=k9wBkQspzqmzlIJCcBa4X8dSTnv3wOlrmhWnq465fmQ=;
+        b=L3SeMVM/lode/aLwqbLIpuIUBUoDkG4X94dSPoUd+jrw2WrJ3eoI54Stoon5yGa1+T
+         EWpyvfz4BlQKHIqZY9BOzFRynLGfoYxAmuzzvA02US8xsRM1OziZaOeG99IUFupUSmHp
+         5Ne4QpNNfYdchZqxKCO823y1/F9TrXY5pWIeeyCKNppXmuTjMu8XKq5QreITt/Djrz6l
+         Rom+XAnoL4W+Q4IzyU1Mr9jChPPJM0ckknwcqn+u+wiUCheUsfn2OgpjJPgbcLRSLDfI
+         /QDfkZAJZswiqySB2FHprGaohP/Y1W1yW/pXiJWmyIVjZs+71Prc3h5Yyrv//iDjzBfa
+         KXNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708512728; x=1709117528;
+        d=1e100.net; s=20230601; t=1708513240; x=1709118040;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ydcPULZ+yw3cK2VhFEG/Cg908Xb9yky5xkBswdzDVWI=;
-        b=m0EK43qWIW23VoYknyjGEXiwpSM5IVQ+sNfqM6hG0ynKcASTAi3bBKvD8dWmILaT4W
-         79gaUaq6yc4b3bGI1GrgQhChla0PFOVf2ySwIMCJN2iqWpE/DnF/jB1WyQMwdfQLKbui
-         Sj8lC8oB/b+VN7zDSUfcgtBAA1OOisH3h9OZpmAZci4C87/3ef+0x8IqEj/KnpSL8fLo
-         fxUW4Ia2sORxk/3TweW9djr80mxdG/BpMcSXcVGv4FcSTmT8CHlcmbouDYrOuDaDt/j+
-         XGy7rOTxpbwbSi35rHBT/vkBXQp0jeqKzZiWAYZKNQE2BmRMzSE7KT+qymMvagqK56Zy
-         ZuRA==
-X-Forwarded-Encrypted: i=1; AJvYcCUpmzbeOgr+NMEuAS7TTlRBL1zYsjrc1SS6pIOIuNkSNDyea5A3BDU7qL+6aFzHP+rXvB+qbcujf/aBBy+/LS+9BrlMpjWTpDHDZOS91h4=
-X-Gm-Message-State: AOJu0Yzi6b52DyMPMpoE7644EFx7I2mxwopUIkBQDKTWEGF2kVbnwqb7
-	BTXxbcaPfF3vKpkxYskxHlBQcxY/Bg2WGJzD3WE0PAv+Na0dXW8xJ+L3bO3ihA==
-X-Google-Smtp-Source: AGHT+IFgmhIdfe3tQDzSuE6lmF0tET3TzlCpKxgBN+msncAH6UpUi2V6dQGkh4HQ3QguSnaSLie6iw==
-X-Received: by 2002:a17:906:7f18:b0:a3e:7d76:6559 with SMTP id d24-20020a1709067f1800b00a3e7d766559mr9532780ejr.33.1708512728119;
-        Wed, 21 Feb 2024 02:52:08 -0800 (PST)
-Message-ID: <74ef7b2b-b105-4060-afaa-73ec272a7449@suse.com>
-Date: Wed, 21 Feb 2024 11:52:06 +0100
+        bh=k9wBkQspzqmzlIJCcBa4X8dSTnv3wOlrmhWnq465fmQ=;
+        b=k6LEeyIOPJppl64kE8Sj3vhlPLaVRiMkIifjn8X0DNOpmMJo8Z6MIEIRzP3F7w0iBn
+         sY0KOfkDCVw+IFXhMSjQjNTcou/E3R+ztBxy0hQErBhb+xicIRZSTzJr7zERV/mNHiqV
+         0kax4btwRiM7oLrhvPtpkMPfpoCm1rrNm4FdDwbfbZLbmcVCQHB1qPGAMzzhOtaJK35a
+         cizTx1BGpb4t1BOipSIJnlgOmdKjioLzNkhzYiCsW594OMByRo8nIWaROhHz9sJf6qTO
+         R7NLPbN5kqCkykCL7FUHSO0PCvWXbo+BSKW5dodyhd8Psc1AZRgVn8K28O5VRRivtu4m
+         kRBg==
+X-Forwarded-Encrypted: i=1; AJvYcCWrp/uHfJKc9cMZLUwasBSWwlJKKO/NUpfm1mK7+uZ9JWNyl8IEGv54ijE2K4eyJOU8pmZTqFAH2ztv9CMPp75PzaDTG60bZj007QHFyi8=
+X-Gm-Message-State: AOJu0YyaNYUvBmL6ZYq2If1CszDW3oZkODUTA4xyvZzG7cqhBoEQLnBy
+	+4th7g9cMXiAWsHsQ5lIdNmx2ecwlB49ZOQeOJd/h+lgM/D438WXxf+38noHCA==
+X-Google-Smtp-Source: AGHT+IFMpZZn29jRiyCr9qtxWDYgM4DPbZMmmtYKB36ZhzPLJcWyP3RyWcveKJemYCcmquBpQksakQ==
+X-Received: by 2002:a17:906:488c:b0:a3f:7bc:7278 with SMTP id v12-20020a170906488c00b00a3f07bc7278mr3368845ejq.31.1708513239887;
+        Wed, 21 Feb 2024 03:00:39 -0800 (PST)
+Message-ID: <a6394d8a-63d0-42bf-8ed7-a7722cb7e71c@suse.com>
+Date: Wed, 21 Feb 2024 12:00:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] nestedsvm: Disable TscRateMSR
+Subject: Re: [PATCH v4 07/30] xen/asm-generic: introdure nospec.h
 Content-Language: en-US
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20240206012051.3564035-1-george.dunlap@cloud.com>
- <20240206012051.3564035-5-george.dunlap@cloud.com>
- <c5f3a78c-4a2b-499b-93bb-11f60b0afcc0@suse.com>
- <CA+zSX=acH-4B01=vUBstAbsNBMVgcRe_A5v0eXn66BdsuPtgiA@mail.gmail.com>
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
+ <5889d7a5fa81722472f95cc1448af0be8f359a7d.1707146506.git.oleksii.kurochko@gmail.com>
+ <510d74ca-5cce-48f8-93f6-407cd727cf7b@xen.org>
+ <8a09e386b709f780f193af39af63b6aeb75c868e.camel@gmail.com>
+ <aaf86d31-7ae0-4e33-8386-dda4bd21496a@suse.com>
+ <ab040f3c8ee35f49fffac385053b55053c52da8c.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,84 +124,79 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CA+zSX=acH-4B01=vUBstAbsNBMVgcRe_A5v0eXn66BdsuPtgiA@mail.gmail.com>
+In-Reply-To: <ab040f3c8ee35f49fffac385053b55053c52da8c.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 21.02.2024 09:48, George Dunlap wrote:
-> On Mon, Feb 19, 2024 at 11:22 PM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 06.02.2024 02:20, George Dunlap wrote:
->>> For now, just disable the functionality entirely until we can
->>> implement it properly:
+On 20.02.2024 21:30, Oleksii wrote:
+> On Mon, 2024-02-19 at 13:18 +0100, Jan Beulich wrote:
+>> On 19.02.2024 12:59, Oleksii wrote:
+>>> Hi Julien,
 >>>
->>> - Don't set TSCRATEMSR in the host CPUID policy
+>>> On Sun, 2024-02-18 at 18:30 +0000, Julien Grall wrote:
+>>>> Hi Oleksii,
+>>>>
+>>>> Title: Typo s/introdure/introduce/
+>>>>
+>>>> On 05/02/2024 15:32, Oleksii Kurochko wrote:
+>>>>> The <asm/nospec.h> header is similar between Arm, PPC, and
+>>>>> RISC-V,
+>>>>> so it has been moved to asm-generic.
+>>>>
+>>>> I am not 100% convinced that moving this header to asm-generic is
+>>>> a
+>>>> good 
+>>>> idea. At least for Arm, those helpers ought to be non-empty, what
+>>>> about 
+>>>> RISC-V?
+>>> For Arm, they are not taking any action, are they? There are no
+>>> specific fences or other mechanisms inside
+>>> evaluate_nospec()/block_speculation() to address speculation.
 >>
->> This goes too far: This way you would (in principle) also affect guests
->> with nesting disabled. According to the earlier parts of the description
->> there's also no issue with it in that case. What you want to make sure
->> it that in the HVM policy the bit isn't set.
+>> The question isn't the status quo, but how things should be looking
+>> like
+>> if everything was in place that's (in principle) needed.
 >>
->> While presently resolving to cpu_has_svm_feature(), I think
->> cpu_has_tsc_ratio really ought to resolve to the host policy field.
->> Of course then requiring the host policy to reflect reality rather than
->> having what is "always emulated". IOW ...
+>>> For RISC-V, it can be implemented in a similar manner, at least for
+>>> now. Since these functions are only used in the grant tables code (
+>>> for
+>>> Arm and so for RISC-V ), which is not supported by RISC-V.
 >>
->>> --- a/xen/arch/x86/cpu-policy.c
->>> +++ b/xen/arch/x86/cpu-policy.c
->>> @@ -407,8 +407,7 @@ static void __init calculate_host_policy(void)
->>>                                 (1u << SVM_FEATURE_PAUSEFILTER) |
->>>                                 (1u << SVM_FEATURE_DECODEASSISTS));
->>>          /* Enable features which are always emulated. */
->>> -        p->extd.raw[0xa].d |= ((1u << SVM_FEATURE_VMCBCLEAN) |
->>> -                               (1u << SVM_FEATURE_TSCRATEMSR));
->>> +        p->extd.raw[0xa].d |= (1u << SVM_FEATURE_VMCBCLEAN);
+>> Same here - the question is whether long term, when gnttab is also
+>> supported, RISC-V would get away without doing anything. Still ...
 >>
->> ... this likely wants replacing altogether by not overriding what we
->> found in hardware, which would apparently mean moving the two bit
->> masks to the earlier "clamping" expression.
+>>>> If the answer is they should be non-empty. Then I would consider
+>>>> to
+>>>> keep 
+>>>> the duplication to make clear that each architecture should take
+>>>> their 
+>>>> own decision in term of security.
+>>>>
+>>>> The alternative, is to have a generic implementation that is safe
+>>>> by 
+>>>> default (if that's even possible).
+>>> I am not certain that we can have a generic implementation, as each
+>>> architecture may have specific speculation issues.
 >>
->> But then of course Andrew may know of reasons why all of this is done
->> in calculate_host_policy() in the first place, rather than in HVM
->> policy calculation.
+>> ... it's theoretically possible that there'd be an arch with no
+>> speculation issues, maybe simply because of not speculating.
 > 
-> It sounds like maybe you're confusing host_policy with
-> x86_capabilities?  From what I can tell:
+> I am not sure that understand your and Julien point.
 > 
-> *  the "basic" cpu_has_X macros resolve to boot_cpu_has(), which
-> resolves to cpu_has(&boot_cpu_data, ...), which is completely
-> independent of the cpu-policy.c:host_cpu_policy
+> For example, modern CPU uses speculative execution to reduce the cost
+> of conditional branch instructions using schemes that predict the
+> execution path of a program based on the history of branch executions.
 > 
-> * cpu-policy.c:host_cpu_policy only affects what is advertised to
-> guests, via {pv,hvm}_cpu_policy and featureset bits.  Most notably a
-> quick skim doesn't show any mechanism by which host_cpu_policy could
-> affect what features Xen itself decides to use.
+> Arm CPUs are vulnerable for speculative execution, but if to look at
+> the code of evaluate_nospec()/block_speculation() functions they are
+> doing nothing for Arm.
 
-I'm not mixing the two, no; the two are still insufficiently disentangled.
-There's really no reason (long term) to have both host policy and
-x86_capabilities. Therefore I'd prefer if new code (including a basically
-fundamental re-write as is going to be needed for nested) to avoid
-needlessly further extending x86_capabilities. Unless of course there's
-something fundamentally wrong with eliminating the redundancy, which
-likely Andrew would be in the best position to point out.
-
-> Not sure exactly why the nested virt stuff is done at the
-> host_cpu_policy level rather than the hvm_cpu_policy level, but since
-> that's where it is, that's where we need to change it.
-> 
-> FWIW, as I said in response to your comment on 2/6, it would be nicer
-> if we moved svm_feature_flags into the "capabilities" section; but
-> that's a different set of work.
-
-Can as well reply here then, rather than there: If the movement from
-host to HVM policy was done first, the patch here could more sanely go
-on top, and patch 2 could then also go on top, converting the separate
-variable to host policy accesses, quite possibly introducing a similar
-wrapper as you introduce there right now.
-
-But no, I'm not meaning to make this a requirement; this would merely be
-an imo better approach. My ack there stands, in case you want to keep
-(and commit) the change as is.
+Which, as I understood Julien say, likely isn't correct. In which case
+this header shouldn't be dropped, using the generic one instead. The
+generic headers, as pointed out several times before, should imo be used
+only if their use results in correct behavior. What is acceptable is if
+their use results in sub-optimal behavior (e.g. reduced performance or
+lack of a certain feature that another architecture maybe implements).
 
 Jan
 
