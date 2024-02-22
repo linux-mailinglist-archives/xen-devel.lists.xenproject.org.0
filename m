@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2B4385F655
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 11:59:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684333.1064113 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E46385F662
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 12:01:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684345.1064149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rd6nl-0004hp-Az; Thu, 22 Feb 2024 10:59:41 +0000
+	id 1rd6p3-0006fk-2O; Thu, 22 Feb 2024 11:01:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684333.1064113; Thu, 22 Feb 2024 10:59:41 +0000
+Received: by outflank-mailman (output) from mailman id 684345.1064149; Thu, 22 Feb 2024 11:01:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rd6nl-0004fs-6N; Thu, 22 Feb 2024 10:59:41 +0000
-Received: by outflank-mailman (input) for mailman id 684333;
- Thu, 22 Feb 2024 10:59:39 +0000
+	id 1rd6p2-0006br-Vu; Thu, 22 Feb 2024 11:01:00 +0000
+Received: by outflank-mailman (input) for mailman id 684345;
+ Thu, 22 Feb 2024 11:00:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1gXq=J7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rd6nj-0004St-HS
- for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 10:59:39 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=aBgv=J7=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1rd6p1-0006bc-Il
+ for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 11:00:59 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 786b1307-d171-11ee-98f5-efadbce2ee36;
- Thu, 22 Feb 2024 11:59:37 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a28a6cef709so962711766b.1
- for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 02:59:37 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- hu17-20020a170907a09100b00a3e6c6f2140sm4446117ejc.117.2024.02.22.02.59.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Feb 2024 02:59:37 -0800 (PST)
+ id a7daf1a0-d171-11ee-98f5-efadbce2ee36;
+ Thu, 22 Feb 2024 12:00:57 +0100 (CET)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-512b4388dafso5216944e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 03:00:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,121 +40,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 786b1307-d171-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: a7daf1a0-d171-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708599577; x=1709204377; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=PdpM/T7oirETjJPsD87ga5uMfssPawpKdYm3AcDRhag=;
-        b=WgAuoFBpoe17YpWQaXs+gZyxD4xo8uktVXVpGSfNhauiu0nHRUGFaNfzJ5jnSHlReV
-         antnshXbTjHC6yaB+EdVIa3KSpIy5yRKR+rMmRh6ptPs/ew6QptZZBns0u5txWZXoydK
-         6IVXaeQVNwubKiQkiIKhoGk9vtUiXr1NPAe7FBBGUL/mJS4qnGCI6Ne5pnDMq5xOIM4s
-         aix4/pKAxaTWXW0NUHB3H1hNRXFRAgbwsv2wfMXY+48TD02XQEw2LYd7Oevy598BukLF
-         vN0x6DnxFk+Nl52WRXjyjv2VdeI8atp9j7jCAa9zT1rPFbVuYA7T7dovNiQjaq6MNbN1
-         NTBg==
+        d=cloud.com; s=cloud; t=1708599657; x=1709204457; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XBhBSYJB3FxNbdMA+DfG7SOVbzaBlWRh1j33ezEklCE=;
+        b=UrFxk6U4hVxLpqFgyBSLHpu0Pm+HROI/8dZ3q5Aj08NkAvPXpjrtyQcYO+oC8Q1z06
+         EvNpWUfq0oSMFzIaUjd5N48w2VtBM5mXsW6LhE8MF6C99VhEe0o4KzLIN7A1MqP6IlT0
+         mYbc/P6khondKuntd0Ny10+G02OcFYXUKYwXk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708599577; x=1709204377;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PdpM/T7oirETjJPsD87ga5uMfssPawpKdYm3AcDRhag=;
-        b=rVOnLw1Rm4QTqgUeUeppNq7yJsCRLxVUJiuXSyfuV4G7e/r0uC6RPi1R/CwEHn4Y4G
-         LqMGjFWWWJe2fPWbAIWIAw3U49ZtbfdcQnt9Bqu3W6GGHeF1jksmMMthuEAl+nhYGHsJ
-         5Kjc2nA3crV8FVP9Nirw9Ts56shIb358QzI4Ycp+qp/A2CG8VqGk81O+32onqreX6+PP
-         uGFADpkLTV6Q6Wl+c83/H3cum45DKc1a+CZ85+IuA3wA6XP7V3vCC2zsaiy9pIkd2dqc
-         vBfa+KLLRRyEWmgDWR+0T/SBZ5GtxZ1NusC6pH6Mu13uIgvhOWGT+yK0eQusICZQEHr6
-         /QhQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW9qTQ5yf/+R1MkSZbygG5CTOY9+C9lGXzlrINGW17LaKGaEeB8xY/aNw/OGHuNYQA073JgUfwqbyFJiYWeVxJ/sfOHz1oLzQ4jDYvcfQk=
-X-Gm-Message-State: AOJu0YwahhyV8oMuv31hOFKX/kUPOpxATK0MgcD+U6ZmZgcrIpVk4Dwo
-	3PuYb0EcbbrAKrK1ieEkRwaIS6MU7NuQxyzr/1TYbPkfKJ+JGG4VWz2xnP9X6Q==
-X-Google-Smtp-Source: AGHT+IHw5W6RYLXt0djKTEwzsfBZdmZU5AEmZup3/2gfVvFwbekEq8RZOJX2uTjR/NZGIYCvHS/sgQ==
-X-Received: by 2002:a17:906:a86:b0:a3f:97cf:c41e with SMTP id y6-20020a1709060a8600b00a3f97cfc41emr560844ejf.20.1708599577281;
-        Thu, 22 Feb 2024 02:59:37 -0800 (PST)
-Message-ID: <6af07ce2-7987-4ac0-a5d5-14004146aa08@suse.com>
-Date: Thu, 22 Feb 2024 11:59:35 +0100
+        d=1e100.net; s=20230601; t=1708599657; x=1709204457;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=XBhBSYJB3FxNbdMA+DfG7SOVbzaBlWRh1j33ezEklCE=;
+        b=NSsT6qx6gkg6DKwe/hGsZnu9VgckqOTt89790wOR45gpAtmhC2z4NEKsCCPPos+i2d
+         zn3Ce+z/aVI6SG3MObDfl5rCOnye9hHFvGD36VSgXRDuf3m8v7Dsjg2ufvPLRYPFBQqa
+         u8K27TZs/qRBpLORjoSPWdxPtkQTIkJkO8IxLsboDE3FaKHs2egV39C2XEmZ+HMhGOzx
+         RaX59AZjhlTZVvn8z6ZNS2fDramySYQi/+E942+tO0wfxG0NIQRocPa0YavITL5QaQwv
+         roDPJ1Q8mRiSQwtTPMiirhkWQKtEuAAiCq2WioaGlOxRGPLKYNf4Mtpj8dP9+udhsbck
+         1M1w==
+X-Forwarded-Encrypted: i=1; AJvYcCXu73wLB6c/Q0+plBKw0rGDa12MOcgxcKx+/pgLruu3JS+Zls561PoagEeIUaIJgPjPu/ysFcLu9sz1+3sMxYbKgxZMA8LoxK86VlfIbO8=
+X-Gm-Message-State: AOJu0YzjzyrV/gCQd7DN4FOQMdR/xyF9NPQVF1BRXItZnj+idPsRzm8s
+	HxVoez222CVAyi100RmIEJgY0c6nydziOQstZdAvGL4TQVafQcxhU6haTspYsfwVeVzlBbIMTgM
+	V2etRcUTK8pCFUGXhvPXQXR4JKOhAChJweQsoDw==
+X-Google-Smtp-Source: AGHT+IGVsDMheNxhedNH/tUJBtlpHFkfEiCXyTglLSRUGfUkzlYbN3hTQzo5FdCvS/qUZFypSwjWGpKBZcELwshHPSM=
+X-Received: by 2002:a05:6512:308d:b0:512:a8bd:4bee with SMTP id
+ z13-20020a056512308d00b00512a8bd4beemr9818068lfd.45.1708599656725; Thu, 22
+ Feb 2024 03:00:56 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/altcall: use an union as register type for function
- parameters
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20240221170331.60605-1-roger.pau@citrix.com>
- <c236f02c-241b-4f1d-b037-1d66a8f87d5a@suse.com> <Zdcm6CrINxGeKU1M@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zdcm6CrINxGeKU1M@macbook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20240206012051.3564035-1-george.dunlap@cloud.com>
+ <20240206012051.3564035-5-george.dunlap@cloud.com> <c5f3a78c-4a2b-499b-93bb-11f60b0afcc0@suse.com>
+ <CA+zSX=acH-4B01=vUBstAbsNBMVgcRe_A5v0eXn66BdsuPtgiA@mail.gmail.com>
+ <74ef7b2b-b105-4060-afaa-73ec272a7449@suse.com> <CA+zSX=ZPKScDQO6XXGOp6gv1arEs4-iWTgX8NSezYo4LGqkoLA@mail.gmail.com>
+ <40ff2158-78aa-478b-b591-02bbcb1bf88f@suse.com>
+In-Reply-To: <40ff2158-78aa-478b-b591-02bbcb1bf88f@suse.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Thu, 22 Feb 2024 19:00:45 +0800
+Message-ID: <CA+zSX=b4DKJ1_s9E8N9EGu09=zzQC+NPVMHeF-C1gHxT5RgSog@mail.gmail.com>
+Subject: Re: [PATCH 4/6] nestedsvm: Disable TscRateMSR
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 22.02.2024 11:50, Roger Pau Monné wrote:
-> On Thu, Feb 22, 2024 at 11:32:14AM +0100, Jan Beulich wrote:
->> On 21.02.2024 18:03, Roger Pau Monne wrote:
->>> The above can be worked around by using an union when defining the register
->>> variables, so that `di` becomes:
->>>
->>> register union {
->>>     uint8_t e;
->>>     unsigned long r;
->>> } di asm("rdi") = { .e = b };
->>>
->>> Which results in following code generated for `foo()`:
->>>
->>> foo:                                    # @foo
->>>         movzbl  %dil, %edi
->>>         callq   func
->>>         retq
->>>
->>> So the truncation is not longer lost.
->>
->> But how do you explain this behavior? I see absolutely no reason why filling
->> the one union field should lead to zero-extension. If I'm not mistaken the
->> language allows the rest of the union to retain undefined contents. So to me
->> this looks like you're converting something that failed to build due to a
->> (presumed) bug in Clang to something that any compiler would be permitted to
->> translate to other than what we want.
-> 
-> Oh, right, I was expecting the compiler to zero extend it, confabulating
-> how unmentioned fields are initialized in structs.
-> 
-> However, if as mentioned in the psABI thread, the callee is required
-> to do any zero extension as necessary, using the union shouldn't cause
-> issues for compilers that implement the ABI properly.
-> 
-> IOW: I don't think the proposed workaround would cause issues for gcc.
+On Thu, Feb 22, 2024 at 5:50=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 22.02.2024 10:30, George Dunlap wrote:
+> > On Wed, Feb 21, 2024 at 6:52=E2=80=AFPM Jan Beulich <jbeulich@suse.com>=
+ wrote:
+> >>>> But then of course Andrew may know of reasons why all of this is don=
+e
+> >>>> in calculate_host_policy() in the first place, rather than in HVM
+> >>>> policy calculation.
+> >>>
+> >>> It sounds like maybe you're confusing host_policy with
+> >>> x86_capabilities?  From what I can tell:
+> >>>
+> >>> *  the "basic" cpu_has_X macros resolve to boot_cpu_has(), which
+> >>> resolves to cpu_has(&boot_cpu_data, ...), which is completely
+> >>> independent of the cpu-policy.c:host_cpu_policy
+> >>>
+> >>> * cpu-policy.c:host_cpu_policy only affects what is advertised to
+> >>> guests, via {pv,hvm}_cpu_policy and featureset bits.  Most notably a
+> >>> quick skim doesn't show any mechanism by which host_cpu_policy could
+> >>> affect what features Xen itself decides to use.
+> >>
+> >> I'm not mixing the two, no; the two are still insufficiently disentang=
+led.
+> >> There's really no reason (long term) to have both host policy and
+> >> x86_capabilities. Therefore I'd prefer if new code (including a basica=
+lly
+> >> fundamental re-write as is going to be needed for nested) to avoid
+> >> needlessly further extending x86_capabilities. Unless of course there'=
+s
+> >> something fundamentally wrong with eliminating the redundancy, which
+> >> likely Andrew would be in the best position to point out.
+> >
+> > So I don't know the history of how things got to be the way they are,
+> > nor really much about the code but what I've gathered from skimming
+> > through while creating this patch series.  But from that impression,
+> > the only issue I really see with the current code is the confusing
+> > naming.  The cpufeature.h code has this nice infrastructure to allow
+> > you to, for instance, enable or disable certain bits on the
+> > command-line; and the interface for querying all the different bits of
+> > functionality is all nicely put in one place.  Moving the
+> > svm_feature_flags into x86_capabilities would immediately allow SVM to
+> > take advantage of this infrastructure; it's not clear to me how this
+> > would be "needless".
+> >
+> > Furthermore, it looks to me like host_cpu_policy is used as a starting
+> > point for generating pv_cpu_policy and hvm_cpu_policy, both of which
+> > are only used for guest cpuid generation.  Given that the format of
+> > those policies is fixed, and there's a lot of "copy this bit from the
+> > host policy wholesale", it seems like no matter what, you'd want a
+> > host_cpu_policy.
+> >
+> > And in any case -- all that is kind of moot.  *Right now*,
+> > host_cpu_policy is only used for guest cpuid policy creation; *right
+> > now*, the nested virt features of AMD are handled in the
+> > host_cpu_policy; *right now*, we're advertising to guests bits which
+> > are not properly virtualized; *right now* these bits are actually set
+> > unconditionally, regardless of whether they're even available on the
+> > hardware; *right now*, Xen uses svm_feature_flags to determine its own
+> > use of TscRateMSR; so *right now*, removing this bit from
+> > host_cpu_policy won't prevent Xen from using TscRateMSR itself.
+> >
+> > (Unless my understanding of the code is wrong, in which case I'd
+> > appreciate a correction.)
+>
+> There's nothing wrong afaics, just missing at least one aspect: Did you
+> see all the featureset <-> policy conversions in cpu-policy.c? That (to
+> me at least) clearly is a sign of unnecessary duplication of the same
+> data. This goes as far as seeding the host policy from the raw one, just
+> to then immediately run x86_cpu_featureset_to_policy(), thus overwriting
+> a fair part of what was first taken from the raw policy. That's necessary
+> right now, because setup_{force,clear}_cpu_cap() act on
+> boot_cpu_data.x86_capability[], not the host policy.
+>
+> As to the "needless" further up, it's only as far as moving those bits
+> into x86_capability[] would further duplicate information, rather than
+> (for that piece at least) putting them into the policies right away. But
+> yes, if the goal is to have setup_{force,clear}_cpu_cap() be able to
+> control those bits as well, then going the intermediate step would be
+> unavoidable at this point in time.
 
-Well, that's making a lot of assumptions then. There may indeed be little
-reason for the compiler to emit different code, but it is absolutely free
-to do so. I continue to think that we want to limit this workaround to as
-narrow a set of compilers as possible. Clearly for Clang the code is
-better than without the workaround, so there's no reason to take this as
-an improvement even if in some obscure case it would still cause an issue.
-But for a compiler that produces correct code without this workaround, we
-shouldn't chance the workaround breaking some case somewhere.
+I'm still not sure of what needs to happen to move this forward.
 
-Jan
+As I said, I'm not opposed to doing some prep work; but I don't want
+to randomly guess as to what kinds of clean-up needs to be done, only
+to be told it was wrong (either by you when I post it or by Andy
+sometime after it's checked in).
+
+I could certainly move svm_feature_flags into host_cpu_policy, and
+have cpu_svm_feature_* reference host_cpu_policy instead (after moving
+the nested virt "guest policy" tweaks into hvm_cpu_policy); but as far
+as I can tell, that would be the *very first* instance of Xen using
+host_cpu_policy in that manner.  I'd like more clarity that this is
+the long-term direction that things are going before then.
+
+If you (plural) don't have time now to refresh your memory / make an
+informed decision about what you want to happen, then please consider
+just taking the patch as it is; it doesn't make future changes any
+harder.
+
+ -George
 
