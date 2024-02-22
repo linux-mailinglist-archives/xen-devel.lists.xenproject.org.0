@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF0AB85F2BC
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 09:22:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684227.1063940 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 305E785F2E5
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 09:28:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684236.1063950 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rd4Kk-0000YE-9M; Thu, 22 Feb 2024 08:21:34 +0000
+	id 1rd4RB-0001G2-2n; Thu, 22 Feb 2024 08:28:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684227.1063940; Thu, 22 Feb 2024 08:21:34 +0000
+Received: by outflank-mailman (output) from mailman id 684236.1063950; Thu, 22 Feb 2024 08:28:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rd4Kk-0000V9-5d; Thu, 22 Feb 2024 08:21:34 +0000
-Received: by outflank-mailman (input) for mailman id 684227;
- Thu, 22 Feb 2024 08:21:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rd4RA-0001De-VW; Thu, 22 Feb 2024 08:28:12 +0000
+Received: by outflank-mailman (input) for mailman id 684236;
+ Thu, 22 Feb 2024 08:28:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rd4Kj-0000Uz-2J; Thu, 22 Feb 2024 08:21:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rd4Ki-0001kB-Ox; Thu, 22 Feb 2024 08:21:32 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rd4Ki-0000Co-BL; Thu, 22 Feb 2024 08:21:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rd4Ki-0007XO-Aw; Thu, 22 Feb 2024 08:21:32 +0000
+ (envelope-from <SRS0=MkW+=J7=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rd4R9-0001DY-Eq
+ for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 08:28:11 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4f1da88b-d15c-11ee-98f5-efadbce2ee36;
+ Thu, 22 Feb 2024 09:28:09 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A6C1F1F44E;
+ Thu, 22 Feb 2024 08:28:08 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8BD01133DC;
+ Thu, 22 Feb 2024 08:28:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id /+0RIJgF12XZbwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 22 Feb 2024 08:28:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,546 +51,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=pmhR7Bcpi4UvJeXGZhDz7JEWQ/aBFmJkYdjWyedS8wE=; b=HKCPT9pbn7cUFUp7XOELgDTp2v
-	wlPOmNxLyVfSZkiBlezX8VsRrt6zgtofSEvr9H2ED56RBhc7MVphae4U1sT4u2K0dr6YGLafEQYoV
-	GPp0Trvmh4chOg4YnP8n2GIvyy2YYtulg6cnVh/ofCcNYcGFAo0fBPVSfoGW7UtIw9So=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184722-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4f1da88b-d15c-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1708590488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=5m00YemeUG0BUhaAa1PF536kpt34ewP3xHc930PyLHk=;
+	b=jzbutF+O89hZi+JHWmN5kEZiBQsbPLObixLymDupoUsQ1woNQQtaI9yMHUgBf/LYwmd3sG
+	+9a2qp8vUhviFkADtRyYXyp0IFvMw2rXVBFMKiayco/RC6X8llTYtdkhKqffZnieidPFyH
+	zPrztDt1aB7wi6M6zaPa4hTM/Fc0KJA=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1708590488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=5m00YemeUG0BUhaAa1PF536kpt34ewP3xHc930PyLHk=;
+	b=jzbutF+O89hZi+JHWmN5kEZiBQsbPLObixLymDupoUsQ1woNQQtaI9yMHUgBf/LYwmd3sG
+	+9a2qp8vUhviFkADtRyYXyp0IFvMw2rXVBFMKiayco/RC6X8llTYtdkhKqffZnieidPFyH
+	zPrztDt1aB7wi6M6zaPa4hTM/Fc0KJA=
+Message-ID: <6d6646ce-be79-4d7c-bca6-0d44262d30b5@suse.com>
+Date: Thu, 22 Feb 2024 09:28:07 +0100
 MIME-Version: 1.0
-Subject: [linux-linus test] 184722: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:build-arm64-pvops:kernel-build:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit1:guest-start/debian.repeat:fail:heisenbug
-    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=39133352cbed6626956d38ed72012f49b0421e7b
-X-Osstest-Versions-That:
-    linux=9fc1ccccfd8d53dc7936fe6d633f2373fc9f62e8
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 22 Feb 2024 08:21:32 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [linux-linus test] 184722: regressions - FAIL
+To: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org
+References: <osstest-184722-mainreport@xen.org>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <osstest-184722-mainreport@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------VQhtSiN7qj71Z0n6VxUBhTrg"
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spamd-Result: default: False [-0.99 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 XM_UA_NO_VERSION(0.01)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	 HAS_ATTACHMENT(0.00)[];
+	 MIME_BASE64_TEXT_BOGUS(1.00)[];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 MIME_BASE64_TEXT(0.10)[];
+	 RCPT_COUNT_TWO(0.00)[2];
+	 SIGNED_PGP(-2.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	 RCVD_TLS_ALL(0.00)[];
+	 MID_RHS_MATCH_FROM(0.00)[];
+	 MIME_UNKNOWN(0.10)[application/pgp-keys]
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spam-Score: -0.99
 
-flight 184722 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184722/
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------VQhtSiN7qj71Z0n6VxUBhTrg
+Content-Type: multipart/mixed; boundary="------------frDl0zaZjc9wTRC5UQpqIKin";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org
+Message-ID: <6d6646ce-be79-4d7c-bca6-0d44262d30b5@suse.com>
+Subject: Re: [linux-linus test] 184722: regressions - FAIL
+References: <osstest-184722-mainreport@xen.org>
+In-Reply-To: <osstest-184722-mainreport@xen.org>
 
-Regressions :-(
+--------------frDl0zaZjc9wTRC5UQpqIKin
+Content-Type: multipart/mixed; boundary="------------GXwV9dSDNUFd10c9i3iNi0es"
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-pvops             6 kernel-build   fail in 184721 REGR. vs. 184719
+--------------GXwV9dSDNUFd10c9i3iNi0es
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-credit1  22 guest-start/debian.repeat  fail pass in 184721
+T24gMjIuMDIuMjQgMDk6MjEsIG9zc3Rlc3Qgc2VydmljZSBvd25lciB3cm90ZToNCj4gZmxp
+Z2h0IDE4NDcyMiBsaW51eC1saW51cyByZWFsIFtyZWFsXQ0KPiBodHRwOi8vbG9ncy50ZXN0
+LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MvMTg0NzIyLw0KPiANCj4gUmVncmVz
+c2lvbnMgOi0oDQo+IA0KPiBUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQgYW5kIGFyZSBi
+bG9ja2luZywNCj4gaW5jbHVkaW5nIHRlc3RzIHdoaWNoIGNvdWxkIG5vdCBiZSBydW46DQo+
+ICAgYnVpbGQtYXJtNjQtcHZvcHMgICAgICAgICAgICAgNiBrZXJuZWwtYnVpbGQgICBmYWls
+IGluIDE4NDcyMSBSRUdSLiB2cy4gMTg0NzE5DQoNCkxvZyBzYXlzOg0KDQpnY2M6IGludGVy
+bmFsIGNvbXBpbGVyIGVycm9yOiBTZWdtZW50YXRpb24gZmF1bHQgc2lnbmFsIHRlcm1pbmF0
+ZWQgcHJvZ3JhbSBjYzENClBsZWFzZSBzdWJtaXQgYSBmdWxsIGJ1ZyByZXBvcnQsDQp3aXRo
+IHByZXByb2Nlc3NlZCBzb3VyY2UgaWYgYXBwcm9wcmlhdGUuDQpTZWUgPGZpbGU6Ly8vdXNy
+L3NoYXJlL2RvYy9nY2MtOC9SRUFETUUuQnVncz4gZm9yIGluc3RydWN0aW9ucy4NCm1ha2Vb
+NV06ICoqKiBbc2NyaXB0cy9NYWtlZmlsZS5idWlsZDoyNDM6IGRyaXZlcnMvaWlvL2FkYy9t
+YXg5NjExLm9dIEVycm9yIDQNCm1ha2VbNV06ICoqKiBXYWl0aW5nIGZvciB1bmZpbmlzaGVk
+IGpvYnMuLi4uDQoNCg0KSnVlcmdlbg0K
+--------------GXwV9dSDNUFd10c9i3iNi0es
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-credit1   1 build-check(1)           blocked in 184721 n/a
- test-arm64-arm64-xl-vhd       1 build-check(1)           blocked in 184721 n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)           blocked in 184721 n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)           blocked in 184721 n/a
- test-arm64-arm64-examine      1 build-check(1)           blocked in 184721 n/a
- test-arm64-arm64-xl-credit2   1 build-check(1)           blocked in 184721 n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)           blocked in 184721 n/a
- test-arm64-arm64-xl-thunderx  1 build-check(1)           blocked in 184721 n/a
- test-arm64-arm64-xl           1 build-check(1)           blocked in 184721 n/a
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 184719
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184719
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184719
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184719
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184719
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 184719
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184719
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184719
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-version targeted for testing:
- linux                39133352cbed6626956d38ed72012f49b0421e7b
-baseline version:
- linux                9fc1ccccfd8d53dc7936fe6d633f2373fc9f62e8
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-Last test of basis   184719  2024-02-21 06:34:23 Z    1 days
-Testing same since   184721  2024-02-21 17:43:51 Z    0 days    2 attempts
+--------------GXwV9dSDNUFd10c9i3iNi0es--
 
-------------------------------------------------------------
-People who touched revisions under test:
-  David Sterba <dsterba@suse.com>
-  Herbert Xu <herbert@gondor.apana.org.au>
-  Jason Wang <jasowang@redhat.com>
-  Josef Bacik <josef@toxicpanda.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Marc Zyngier <maz@kernel.org>
-  Michael S. Tsirkin <mst@redhat.com>
-  Nathan Chancellor <nathan@kernel.org> # build
-  Oliver Upton <oliver.upton@linux.dev>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Qu Wenruo <wqu@suse.com>
-  zhenwei pi <pizhenwei@bytedance.com>
+--------------frDl0zaZjc9wTRC5UQpqIKin--
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  fail    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
+--------------VQhtSiN7qj71Z0n6VxUBhTrg
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmXXBZgFAwAAAAAACgkQsN6d1ii/Ey9h
+egf/ctsZum7AwVLuB7fvRsQcFyvi9pt5ievxGKNx03krBUbA2yw/BiLnBt+27rP0xugN+grlf0A1
+BRKhZxRd4989UMo2jt7lKRaHueceswjYwJdtPDl9yF27zJF+HzKQ8UMkyhn51N5JpxlynHPpr/vO
+WJqq4b/g3t/mP2ba0qEp/I6VqnWKm10TvraQ7LFWZY0A/LNWZjDeAL30KKs2OOuf0d5kQ3GKshFE
+2+gLcy1wBhu+3gYNrqcHg3msbOy6E2mD1fYskCHeW3AcYjUB4PnPv2eUBhybJLa3ggA0A/PJUWlV
+LoGrvTnuWQxLJNLfTlB9Tx3uSBodzXwSGBkQUJBgfA==
+=8wyI
+-----END PGP SIGNATURE-----
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 39133352cbed6626956d38ed72012f49b0421e7b
-Merge: 8da8d88455eb c48617fbbe83
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Wed Feb 21 09:13:27 2024 -0800
-
-    Merge tag 'for-linus' of git://git.kernel.org/pub/scm/virt/kvm/kvm
-    
-    Pull kvm fixes from Paolo Bonzini:
-     "Two fixes for ARM ITS emulation. Unmapped interrupts were used instead
-      of ignored, causing NULL pointer dereferences"
-    
-    * tag 'for-linus' of git://git.kernel.org/pub/scm/virt/kvm/kvm:
-      KVM: arm64: vgic-its: Test for valid IRQ in MOVALL handler
-      KVM: arm64: vgic-its: Test for valid IRQ in its_sync_lpi_pending_table()
-
-commit 8da8d88455ebbb4e05423cf60cff985e92d43754
-Merge: d8be5a55b8e3 b0ad381fa769
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Wed Feb 21 08:45:07 2024 -0800
-
-    Merge tag 'for-6.8-rc5-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux
-    
-    Pull btrfs fixes from David Sterba:
-    
-     - Fix a deadlock in fiemap.
-    
-       There was a big lock around the whole operation that can interfere
-       with a page fault and mkwrite.
-    
-       Reducing the lock scope can also speed up fiemap
-    
-     - Fix range condition for extent defragmentation which could lead to
-       worse layout in some cases
-    
-    * tag 'for-6.8-rc5-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux:
-      btrfs: fix deadlock with fiemap and extent locking
-      btrfs: defrag: avoid unnecessary defrag caused by incorrect extent size
-
-commit d8be5a55b8e3f7eab8f36ceed2512f457f914318
-Merge: 9fc1ccccfd8d c0ec2a712daf
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Wed Feb 21 08:37:49 2024 -0800
-
-    Merge tag 'v6.8-p4' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6
-    
-    Pull crypto fix from Herbert Xu:
-     "Fix a stack overflow in virtio"
-    
-    * tag 'v6.8-p4' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6:
-      crypto: virtio/akcipher - Fix stack overflow on memcpy
-
-commit c48617fbbe831d4c80fe84056033f17b70a31136
-Merge: 9895ceeb5cd6 85a71ee9a070
-Author: Paolo Bonzini <pbonzini@redhat.com>
-Date:   Wed Feb 21 05:18:56 2024 -0500
-
-    Merge tag 'kvmarm-fixes-6.8-3' of git://git.kernel.org/pub/scm/linux/kernel/git/kvmarm/kvmarm into HEAD
-    
-    KVM/arm64 fixes for 6.8, take #3
-    
-    - Check for the validity of interrupts handled by a MOVALL
-      command
-    
-    - Check for the validity of interrupts while reading the
-      pending state on enabling LPIs.
-
-commit 85a71ee9a0700f6c18862ef3b0011ed9dad99aca
-Author: Oliver Upton <oliver.upton@linux.dev>
-Date:   Wed Feb 21 09:27:32 2024 +0000
-
-    KVM: arm64: vgic-its: Test for valid IRQ in MOVALL handler
-    
-    It is possible that an LPI mapped in a different ITS gets unmapped while
-    handling the MOVALL command. If that is the case, there is no state that
-    can be migrated to the destination. Silently ignore it and continue
-    migrating other LPIs.
-    
-    Cc: stable@vger.kernel.org
-    Fixes: ff9c114394aa ("KVM: arm/arm64: GICv4: Handle MOVALL applied to a vPE")
-    Signed-off-by: Oliver Upton <oliver.upton@linux.dev>
-    Link: https://lore.kernel.org/r/20240221092732.4126848-3-oliver.upton@linux.dev
-    Signed-off-by: Marc Zyngier <maz@kernel.org>
-
-commit 8d3a7dfb801d157ac423261d7cd62c33e95375f8
-Author: Oliver Upton <oliver.upton@linux.dev>
-Date:   Wed Feb 21 09:27:31 2024 +0000
-
-    KVM: arm64: vgic-its: Test for valid IRQ in its_sync_lpi_pending_table()
-    
-    vgic_get_irq() may not return a valid descriptor if there is no ITS that
-    holds a valid translation for the specified INTID. If that is the case,
-    it is safe to silently ignore it and continue processing the LPI pending
-    table.
-    
-    Cc: stable@vger.kernel.org
-    Fixes: 33d3bc9556a7 ("KVM: arm64: vgic-its: Read initial LPI pending table")
-    Signed-off-by: Oliver Upton <oliver.upton@linux.dev>
-    Link: https://lore.kernel.org/r/20240221092732.4126848-2-oliver.upton@linux.dev
-    Signed-off-by: Marc Zyngier <maz@kernel.org>
-
-commit b0ad381fa7690244802aed119b478b4bdafc31dd
-Author: Josef Bacik <josef@toxicpanda.com>
-Date:   Mon Feb 12 11:56:02 2024 -0500
-
-    btrfs: fix deadlock with fiemap and extent locking
-    
-    While working on the patchset to remove extent locking I got a lockdep
-    splat with fiemap and pagefaulting with my new extent lock replacement
-    lock.
-    
-    This deadlock exists with our normal code, we just don't have lockdep
-    annotations with the extent locking so we've never noticed it.
-    
-    Since we're copying the fiemap extent to user space on every iteration
-    we have the chance of pagefaulting.  Because we hold the extent lock for
-    the entire range we could mkwrite into a range in the file that we have
-    mmap'ed.  This would deadlock with the following stack trace
-    
-    [<0>] lock_extent+0x28d/0x2f0
-    [<0>] btrfs_page_mkwrite+0x273/0x8a0
-    [<0>] do_page_mkwrite+0x50/0xb0
-    [<0>] do_fault+0xc1/0x7b0
-    [<0>] __handle_mm_fault+0x2fa/0x460
-    [<0>] handle_mm_fault+0xa4/0x330
-    [<0>] do_user_addr_fault+0x1f4/0x800
-    [<0>] exc_page_fault+0x7c/0x1e0
-    [<0>] asm_exc_page_fault+0x26/0x30
-    [<0>] rep_movs_alternative+0x33/0x70
-    [<0>] _copy_to_user+0x49/0x70
-    [<0>] fiemap_fill_next_extent+0xc8/0x120
-    [<0>] emit_fiemap_extent+0x4d/0xa0
-    [<0>] extent_fiemap+0x7f8/0xad0
-    [<0>] btrfs_fiemap+0x49/0x80
-    [<0>] __x64_sys_ioctl+0x3e1/0xb50
-    [<0>] do_syscall_64+0x94/0x1a0
-    [<0>] entry_SYSCALL_64_after_hwframe+0x6e/0x76
-    
-    I wrote an fstest to reproduce this deadlock without my replacement lock
-    and verified that the deadlock exists with our existing locking.
-    
-    To fix this simply don't take the extent lock for the entire duration of
-    the fiemap.  This is safe in general because we keep track of where we
-    are when we're searching the tree, so if an ordered extent updates in
-    the middle of our fiemap call we'll still emit the correct extents
-    because we know what offset we were on before.
-    
-    The only place we maintain the lock is searching delalloc.  Since the
-    delalloc stuff can change during writeback we want to lock the extent
-    range so we have a consistent view of delalloc at the time we're
-    checking to see if we need to set the delalloc flag.
-    
-    With this patch applied we no longer deadlock with my testcase.
-    
-    CC: stable@vger.kernel.org # 6.1+
-    Reviewed-by: Filipe Manana <fdmanana@suse.com>
-    Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-    Reviewed-by: David Sterba <dsterba@suse.com>
-    Signed-off-by: David Sterba <dsterba@suse.com>
-
-commit e42b9d8b9ea2672811285e6a7654887ff64d23f3
-Author: Qu Wenruo <wqu@suse.com>
-Date:   Wed Feb 7 10:00:42 2024 +1030
-
-    btrfs: defrag: avoid unnecessary defrag caused by incorrect extent size
-    
-    [BUG]
-    With the following file extent layout, defrag would do unnecessary IO
-    and result more on-disk space usage.
-    
-      # mkfs.btrfs -f $dev
-      # mount $dev $mnt
-      # xfs_io -f -c "pwrite 0 40m" $mnt/foobar
-      # sync
-      # xfs_io -f -c "pwrite 40m 16k" $mnt/foobar
-      # sync
-    
-    Above command would lead to the following file extent layout:
-    
-            item 6 key (257 EXTENT_DATA 0) itemoff 15816 itemsize 53
-                    generation 7 type 1 (regular)
-                    extent data disk byte 298844160 nr 41943040
-                    extent data offset 0 nr 41943040 ram 41943040
-                    extent compression 0 (none)
-            item 7 key (257 EXTENT_DATA 41943040) itemoff 15763 itemsize 53
-                    generation 8 type 1 (regular)
-                    extent data disk byte 13631488 nr 16384
-                    extent data offset 0 nr 16384 ram 16384
-                    extent compression 0 (none)
-    
-    Which is mostly fine. We can allow the final 16K to be merged with the
-    previous 40M, but it's upon the end users' preference.
-    
-    But if we defrag the file using the default parameters, it would result
-    worse file layout:
-    
-     # btrfs filesystem defrag $mnt/foobar
-     # sync
-    
-            item 6 key (257 EXTENT_DATA 0) itemoff 15816 itemsize 53
-                    generation 7 type 1 (regular)
-                    extent data disk byte 298844160 nr 41943040
-                    extent data offset 0 nr 8650752 ram 41943040
-                    extent compression 0 (none)
-            item 7 key (257 EXTENT_DATA 8650752) itemoff 15763 itemsize 53
-                    generation 9 type 1 (regular)
-                    extent data disk byte 340787200 nr 33292288
-                    extent data offset 0 nr 33292288 ram 33292288
-                    extent compression 0 (none)
-            item 8 key (257 EXTENT_DATA 41943040) itemoff 15710 itemsize 53
-                    generation 8 type 1 (regular)
-                    extent data disk byte 13631488 nr 16384
-                    extent data offset 0 nr 16384 ram 16384
-                    extent compression 0 (none)
-    
-    Note the original 40M extent is still there, but a new 32M extent is
-    created for no benefit at all.
-    
-    [CAUSE]
-    There is an existing check to make sure we won't defrag a large enough
-    extent (the threshold is by default 32M).
-    
-    But the check is using the length to the end of the extent:
-    
-            range_len = em->len - (cur - em->start);
-    
-            /* Skip too large extent */
-            if (range_len >= extent_thresh)
-                    goto next;
-    
-    This means, for the first 8MiB of the extent, the range_len is always
-    smaller than the default threshold, and would not be defragged.
-    But after the first 8MiB, the remaining part would fit the requirement,
-    and be defragged.
-    
-    Such different behavior inside the same extent caused the above problem,
-    and we should avoid different defrag decision inside the same extent.
-    
-    [FIX]
-    Instead of using @range_len, just use @em->len, so that we have a
-    consistent decision among the same file extent.
-    
-    Now with this fix, we won't touch the extent, thus not making it any
-    worse.
-    
-    Reported-by: Filipe Manana <fdmanana@suse.com>
-    Fixes: 0cb5950f3f3b ("btrfs: fix deadlock when reserving space during defrag")
-    CC: stable@vger.kernel.org # 6.1+
-    Reviewed-by: Boris Burkov <boris@bur.io>
-    Reviewed-by: Filipe Manana <fdmanana@suse.com>
-    Signed-off-by: Qu Wenruo <wqu@suse.com>
-    Signed-off-by: David Sterba <dsterba@suse.com>
-
-commit c0ec2a712daf133d9996a8a1b7ee2d4996080363
-Author: zhenwei pi <pizhenwei@bytedance.com>
-Date:   Tue Jan 30 19:27:40 2024 +0800
-
-    crypto: virtio/akcipher - Fix stack overflow on memcpy
-    
-    sizeof(struct virtio_crypto_akcipher_session_para) is less than
-    sizeof(struct virtio_crypto_op_ctrl_req::u), copying more bytes from
-    stack variable leads stack overflow. Clang reports this issue by
-    commands:
-    make -j CC=clang-14 mrproper >/dev/null 2>&1
-    make -j O=/tmp/crypto-build CC=clang-14 allmodconfig >/dev/null 2>&1
-    make -j O=/tmp/crypto-build W=1 CC=clang-14 drivers/crypto/virtio/
-      virtio_crypto_akcipher_algs.o
-    
-    Fixes: 59ca6c93387d ("virtio-crypto: implement RSA algorithm")
-    Link: https://lore.kernel.org/all/0a194a79-e3a3-45e7-be98-83abd3e1cb7e@roeck-us.net/
-    Cc: <stable@vger.kernel.org>
-    Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
-    Tested-by: Nathan Chancellor <nathan@kernel.org> # build
-    Acked-by: Michael S. Tsirkin <mst@redhat.com>
-    Acked-by: Jason Wang <jasowang@redhat.com>
-    Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+--------------VQhtSiN7qj71Z0n6VxUBhTrg--
 
