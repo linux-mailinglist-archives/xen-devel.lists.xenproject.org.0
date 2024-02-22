@@ -2,35 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0487485FE36
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 17:39:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684490.1064375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 736B185FE40
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 17:42:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684495.1064385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdC6E-0000hm-SM; Thu, 22 Feb 2024 16:39:06 +0000
+	id 1rdC9R-0002Hy-Dv; Thu, 22 Feb 2024 16:42:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684490.1064375; Thu, 22 Feb 2024 16:39:06 +0000
+Received: by outflank-mailman (output) from mailman id 684495.1064385; Thu, 22 Feb 2024 16:42:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdC6E-0000fN-PX; Thu, 22 Feb 2024 16:39:06 +0000
-Received: by outflank-mailman (input) for mailman id 684490;
- Thu, 22 Feb 2024 16:39:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rdC6D-0000f9-8s; Thu, 22 Feb 2024 16:39:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rdC6D-0002d9-6p; Thu, 22 Feb 2024 16:39:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rdC6C-0007wN-Nu; Thu, 22 Feb 2024 16:39:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rdC6C-0002zg-NV; Thu, 22 Feb 2024 16:39:04 +0000
+	id 1rdC9R-0002Ff-Aa; Thu, 22 Feb 2024 16:42:25 +0000
+Received: by outflank-mailman (input) for mailman id 684495;
+ Thu, 22 Feb 2024 16:42:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qXTC=J7=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
+ id 1rdC9Q-0002FW-69
+ for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 16:42:24 +0000
+Received: from sonata.ens-lyon.org (sonata.ens-lyon.org [140.77.166.138])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 59162a93-d1a1-11ee-98f5-efadbce2ee36;
+ Thu, 22 Feb 2024 17:42:21 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by sonata.ens-lyon.org (Postfix) with ESMTP id B1336A019C;
+ Thu, 22 Feb 2024 17:42:20 +0100 (CET)
+Received: from sonata.ens-lyon.org ([127.0.0.1])
+ by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id bZ7SmCzCoOcV; Thu, 22 Feb 2024 17:42:20 +0100 (CET)
+Received: from begin (nat-inria-interne-52-gw-01-bso.bordeaux.inria.fr
+ [194.199.1.52])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by sonata.ens-lyon.org (Postfix) with ESMTPSA id 75767A017F;
+ Thu, 22 Feb 2024 17:42:20 +0100 (CET)
+Received: from samy by begin with local (Exim 4.97)
+ (envelope-from <samuel.thibault@ens-lyon.org>)
+ id 1rdC9L-0000000Harf-3wSW; Thu, 22 Feb 2024 17:42:19 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +52,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=PWgyZ1nFYavzLkkpFrLAuq0OBliGrgzM5Mfl5lrIhdA=; b=StcCo00gRp11/YJnEwcqvIULhg
-	zp6K2QGv5Q33FqJV3j2FzMEik+8GBavKRLKS8Lt+FVVFoTbrb8v143PTHzCaObt4JUdcrkNyVHqKm
-	0sfp2trUHLdcG4i9wkEsQnAPWImtDXe8qUpM7BkKbgWPLFr1kIv+Piw43CabX1ec3+Ao=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184728-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 59162a93-d1a1-11ee-98f5-efadbce2ee36
+Date: Thu, 22 Feb 2024 17:42:19 +0100
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>
+Subject: Re: [PATCH v8 3/8] stubdom: extend xenstore stubdom configs
+Message-ID: <20240222164219.rmeybzido2rhpjkb@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+	Jason Andryuk <jandryuk@gmail.com>
+References: <20240216163139.9093-1-jgross@suse.com>
+ <20240216163139.9093-4-jgross@suse.com>
+ <a12f113b-bd97-4807-97c9-b66b55e247f8@suse.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 184728: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=8c5e4ce14509ca85b3f5faa298a766b8ffdd4f85
-X-Osstest-Versions-That:
-    xen=9ee7dc877b8754ce2fc82500feea52c04d4e6409
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 22 Feb 2024 16:39:04 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a12f113b-bd97-4807-97c9-b66b55e247f8@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
 
-flight 184728 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184728/
+Juergen Gross, le jeu. 22 févr. 2024 17:06:09 +0100, a ecrit:
+> On 16.02.24 17:31, Juergen Gross wrote:
+> > Extend the config files of the Xenstore stubdoms to include XENBUS
+> > and 9PFRONT items in order to support file based logging.
+> > 
+> > Signed-off-by: Juergen Gross <jgross@suse.com>
+> > Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+> 
+> Samuel, are you fine with this patch?
 
-Failures :-/ but no regressions.
+Yes!
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+Acked-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
-version targeted for testing:
- xen                  8c5e4ce14509ca85b3f5faa298a766b8ffdd4f85
-baseline version:
- xen                  9ee7dc877b8754ce2fc82500feea52c04d4e6409
+Samuel
 
-Last test of basis   184727  2024-02-22 11:00:37 Z    0 days
-Testing same since   184728  2024-02-22 14:04:05 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   9ee7dc877b..8c5e4ce145  8c5e4ce14509ca85b3f5faa298a766b8ffdd4f85 -> smoke
+> 
+> 
+> Juergen
+> 
+> > ---
+> >   stubdom/xenstore-minios.cfg    | 2 +-
+> >   stubdom/xenstorepvh-minios.cfg | 2 +-
+> >   2 files changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/stubdom/xenstore-minios.cfg b/stubdom/xenstore-minios.cfg
+> > index a41704bb6b..239da519b9 100644
+> > --- a/stubdom/xenstore-minios.cfg
+> > +++ b/stubdom/xenstore-minios.cfg
+> > @@ -3,7 +3,7 @@ CONFIG_NETFRONT=n
+> >   CONFIG_FBFRONT=n
+> >   CONFIG_KBDFRONT=n
+> >   CONFIG_CONSFRONT=n
+> > -CONFIG_XENBUS=n
+> >   CONFIG_LWIP=n
+> > +CONFIG_9PFRONT=y
+> >   CONFIG_BALLOON=y
+> >   XEN_INTERFACE_VERSION=__XEN_LATEST_INTERFACE_VERSION__
+> > diff --git a/stubdom/xenstorepvh-minios.cfg b/stubdom/xenstorepvh-minios.cfg
+> > index 6af51f5753..752b90d7d3 100644
+> > --- a/stubdom/xenstorepvh-minios.cfg
+> > +++ b/stubdom/xenstorepvh-minios.cfg
+> > @@ -4,7 +4,7 @@ CONFIG_NETFRONT=n
+> >   CONFIG_FBFRONT=n
+> >   CONFIG_KBDFRONT=n
+> >   CONFIG_CONSFRONT=n
+> > -CONFIG_XENBUS=n
+> >   CONFIG_LWIP=n
+> > +CONFIG_9PFRONT=y
+> >   CONFIG_BALLOON=y
+> >   XEN_INTERFACE_VERSION=__XEN_LATEST_INTERFACE_VERSION__
+> 
 
