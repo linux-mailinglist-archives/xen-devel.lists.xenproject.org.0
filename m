@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2110285FBD7
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 16:06:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684461.1064323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7241185FBDF
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 16:08:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684466.1064333 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdAdW-0003GJ-Kn; Thu, 22 Feb 2024 15:05:22 +0000
+	id 1rdAfr-0003r0-2d; Thu, 22 Feb 2024 15:07:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684461.1064323; Thu, 22 Feb 2024 15:05:22 +0000
+Received: by outflank-mailman (output) from mailman id 684466.1064333; Thu, 22 Feb 2024 15:07:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdAdW-0003E3-HH; Thu, 22 Feb 2024 15:05:22 +0000
-Received: by outflank-mailman (input) for mailman id 684461;
- Thu, 22 Feb 2024 15:05:20 +0000
+	id 1rdAfq-0003pM-Vq; Thu, 22 Feb 2024 15:07:46 +0000
+Received: by outflank-mailman (input) for mailman id 684466;
+ Thu, 22 Feb 2024 15:07:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1gXq=J7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rdAdU-0003Dx-9U
- for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 15:05:20 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1rdAfq-0003pE-Bc
+ for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 15:07:46 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c9d780f6-d193-11ee-98f5-efadbce2ee36;
- Thu, 22 Feb 2024 16:05:18 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-56454c695e6so1806877a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 07:05:17 -0800 (PST)
+ id 217aa545-d194-11ee-98f5-efadbce2ee36;
+ Thu, 22 Feb 2024 16:07:44 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a3ed9cae56fso194634966b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 07:07:44 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- em8-20020a056402364800b005652389a8b9sm922226edb.11.2024.02.22.07.05.16
+ hu20-20020a170907a09400b00a3fa3411416sm226522ejc.64.2024.02.22.07.07.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Feb 2024 07:05:16 -0800 (PST)
+ Thu, 22 Feb 2024 07:07:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9d780f6-d193-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 217aa545-d194-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708614317; x=1709219117; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708614464; x=1709219264; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=VC908Y92RI65RPaybLWx5sFvrvu8aEfhnIPjrp0p2/k=;
-        b=TA1djCiimKt1IMHd+46h1tOSkOvgZeiY18TOh5eOQ9T7SQZ/4Jisgx0cyGeVHqbCYh
-         ODEl/FIvB78Ry9oKgnLrFkPcIOLgUBhp9pf+TQmev89kDmUu/gdV4SniAJg+BHdslSuw
-         jeqTOMGFdedrhzoUxFSWFwQ9Mo1Z8VAa/g2elg3oI0C/xXKQQUN/nDxDLJChllf9ecSC
-         ErNwPw127ThwT59gjeWkVKVwNPwAZKE2AHBLRe0kADCuCKshZUkYWhpxarbnerglvC9t
-         /WVmaNITcpQVON4z5qvh+5+2gNTDjY+qOFK1siqKFjTNTtvIg/TnyUtcnEYbUcOd+lBf
-         xdyA==
+        bh=pi53rr+pvqYkR7hrdATKlyfk1Nk3hEqdGpA+XlwjUfU=;
+        b=STgB73I/vG5QObMSnnhcsMOQa9ik07PpXtPu6C2wyqi8SHn6dIVbq6UlD/+O2AOQFN
+         +Rbk2/7Y7uUHqtpbabZ5QT++b+FcbyEXxXmreseZ/42x3ggFbU6BSml8u6duzh3LBIOe
+         wvQafitlL6A3B55RATYjPlgsNvKt4j04EkREqdYLA3vHX8tctBL8KdyinHMKMgghL9bM
+         bpq/upqyQD1AtUL44InHYnGYrHfezxUyouES3zsCtkGHXoGX03jIoBQDt2+gWtdiNUdf
+         yO18AAKOB/La5CWll+CisobZe0wKhCGEpXev8iJJcZ+repkOmae8ug43nXHCugpNdZGW
+         kqWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708614317; x=1709219117;
+        d=1e100.net; s=20230601; t=1708614464; x=1709219264;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VC908Y92RI65RPaybLWx5sFvrvu8aEfhnIPjrp0p2/k=;
-        b=eaduam4+8Qhc/WU0O1+OUdOMTe5YnMUl/Q3hRO36QkdEnlOmeQzc6obAg5wjpMlUgv
-         HzhtBJe8MBtQ5HGw1gh0kNS9tz707EBa/rceyIudQgbhCb7kvZfqMuZeothd7f0ctdXB
-         dReOVWr2cK3XvuX2a1k/Q0JMRVXLiQD80NuV8UlKWb4ol/BpaqhNt6MorALl+DQHwsxe
-         wachJyal7RCjTkbBDBCUHbBidgQ4NavHGmXR5b9Wv2qIZWW91a0ubt3yrdTrMh6Bk8sV
-         YWAb70kZ3oIAHnVzCLqryln5exLuGt/WNicijwogJeyH0zmjfGth94qeI/IG7HTpIY4n
-         EgKQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXTSiUZ6B/6x8tZGp61Tz1GrjGEMeMEsf6fNyOqbGQcrkBeW+TjV6xV/mFlLA6RcfR01ZfV8ObUVPqpwQn3m4Kyi7HSwzkrEkvQUDEFMGc=
-X-Gm-Message-State: AOJu0YzBoEoQ3HrCQYZxu6xTv1mbcdZO2rZVuXwdruFmoI7OV/pEp+Ha
-	PhKFDByHyeQRPT4m99eFscmPNNAwN61zYgxy8p56qJyT7e0AkSTZW+POIEEzcA==
-X-Google-Smtp-Source: AGHT+IGdWqQol7qeXwuwWvkMLmgV48dZ227GYIX1gCB7P2039NhGRafa922tP8YA38wAm1jFQVY6mg==
-X-Received: by 2002:a05:6402:d4f:b0:565:32ec:204b with SMTP id ec15-20020a0564020d4f00b0056532ec204bmr1845137edb.2.1708614316755;
-        Thu, 22 Feb 2024 07:05:16 -0800 (PST)
-Message-ID: <34c2c2a9-85e9-4caf-a936-b574ac710ee5@suse.com>
-Date: Thu, 22 Feb 2024 16:05:15 +0100
+        bh=pi53rr+pvqYkR7hrdATKlyfk1Nk3hEqdGpA+XlwjUfU=;
+        b=fgfE0iTJx7XvxkJ/MPVofGpQvpSQdrJf8NnMKdKRMWN0hQl8Xqmj/sa4FyQWg6btKV
+         /WQd7vVDFOXUWvHXjoj2MMVvJNsVaZRzUTKpnM7F5K5NbhEAZoxFhPGbErrNLJABmmsX
+         zdaCl0tXKloNrURtppEsM5ys24ajEs0o5K91E2KzgCaair805pQpH76MmjYl4lcmkzzn
+         fLjrpzWdOKQV1PgMX5I2oeI+1EIzNk0i/CILJAPOTkxKm8mMYrNMQFxyQEYU2d5SBmVP
+         597xx/PG78yJjcxR3yJrnsJ6NHbcBMjR6C1rREdOcXc6N4uaRB1F8UfllziI5wigHMxn
+         VwXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWlOuVqAol0BeKqxnjaAcjFg7s4ZCOFr4BWfLQs4Uxb06D/2RqO2sp1L+b1Q3jD1xWmFc2eRBMoGUKi272uIQViHoa/87Wdk7yEfM1cnbQ=
+X-Gm-Message-State: AOJu0YzSGCjn1SylRayJ+9gLoLLUdM9ok9retVCgzXE6pl2sEFdsS1kJ
+	Qkx8WmA85gpo7Ey/YRSH5EHBTxnnGnSThUKCv4EeKUwCFhMl5ohxtRevKgkmIg==
+X-Google-Smtp-Source: AGHT+IHNDodOaxePkkFBzLSd1iIJqD0urWy7U9x0QlyKI6dTx0wCe/KRDswxBXRJUyIi63mA0XL9pQ==
+X-Received: by 2002:a17:906:1316:b0:a3f:2ffd:c67e with SMTP id w22-20020a170906131600b00a3f2ffdc67emr2349133ejb.15.1708614463730;
+        Thu, 22 Feb 2024 07:07:43 -0800 (PST)
+Message-ID: <c376a5e2-c9ae-4df5-ae2c-23b9bf299903@suse.com>
+Date: Thu, 22 Feb 2024 16:07:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] svm/nestedvm: Introduce nested capabilities bit
+Subject: Re: [XEN PATCH] xen: cache clearing and invalidation helpers
+ refactoring
 Content-Language: en-US
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- xen-devel@lists.xenproject.org
-References: <20240206012051.3564035-1-george.dunlap@cloud.com>
- <20240206012051.3564035-7-george.dunlap@cloud.com>
- <8ee35193-9715-4c4b-a1cb-11af04c4dab9@suse.com>
- <CA+zSX=YuLmZRz=1wwV=svOrhfQ66E-CZ9TEtqNCVM++JVQ5CzQ@mail.gmail.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, roger.pau@citrix.com,
+ bertrand.marquis@arm.com, julien@xen.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <cc6bf44701c808645c69bacaf4463295e2cb0fba.1708354388.git.nicola.vetrini@bugseng.com>
+ <d90d98b6-508b-4a2a-ab6a-74a9828a5b94@suse.com>
+ <45509cb67ecee3f690b5784489b5ccb4@bugseng.com>
+ <1743b4248d30a4e8b68a150c25724caa@bugseng.com>
+ <2ff52df443fc080875fd05614d89764d@bugseng.com>
+ <4b121e48-9541-4b53-8352-939c904f4f1c@suse.com>
+ <be36b86a08f7573b93edc4c03aff93ef@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,43 +121,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CA+zSX=YuLmZRz=1wwV=svOrhfQ66E-CZ9TEtqNCVM++JVQ5CzQ@mail.gmail.com>
+In-Reply-To: <be36b86a08f7573b93edc4c03aff93ef@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.02.2024 15:33, George Dunlap wrote:
-> On Tue, Feb 20, 2024 at 12:25 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 06.02.2024 02:20, George Dunlap wrote:
->>> --- a/xen/arch/x86/hvm/vmx/vmx.c
->>> +++ b/xen/arch/x86/hvm/vmx/vmx.c
->>> @@ -3021,6 +3021,9 @@ const struct hvm_function_table * __init start_vmx(void)
->>>      if ( cpu_has_vmx_tsc_scaling )
->>>          vmx_function_table.tsc_scaling.ratio_frac_bits = 48;
->>>
->>> +    /* TODO: Require hardware support before enabling nested virt */
->>> +    vmx_function_table.caps.nested_virt = vmx_function_table.caps.hap;
+On 22.02.2024 15:43, Nicola Vetrini wrote:
+>>> In passing it should be noted that the header ordering in
+>>> x86/alternative.c is not the one usually prescribed, so that may be
+>>> taken care of as well.
 >>
->> This won't have the intended effect if hap_supported() ends up clearing
->> the bit (used as input here) due to a command line option override. I
->> wonder if instead this wants doing e.g. in a new hook to be called from
->> nestedhvm_setup(). On the SVM side the hook function would then be the
->> start_nested_svm() that you already introduce, with a caps.hap check
->> added.
+>> I'm afraid I don't understand this remark.
+>>
 > 
-> I take it presmp_initcall()'s are guaranteed to run before __initcall()'s?
-
-Yes - the former happen ahead of AP bringup, the latter after.
-
->> Since you leave the other nested-related if() in place in
->> arch_sanitise_domain_config(), all ought to be well, but I think that
->> other if() really wants replacing by the one you presently add.
+> I just meant to say that this
 > 
-> Ack.
+> #include <xen/delay.h>
+> #include <xen/types.h>
+> #include <asm/apic.h>
+> #include <asm/endbr.h>
+> #include <asm/processor.h>
+> #include <asm/alternative.h>
+> #include <xen/init.h>
+> #include <asm/setup.h>
+> #include <asm/system.h>
+> #include <asm/traps.h>
+> #include <asm/nmi.h>
+> #include <asm/nops.h>
+> #include <xen/livepatch.h>
 > 
-> I'll probably check in patches 1,2,3, and 5, and resend the other two,
-> unless you'd like to see all the changes again...
+> is not the usual order of xen/*.h then asm/*.h and there is no comment 
+> justifying that ordering.
 
-No need imo to re-post anything that was agreed upon.
+Well, you'll find such in many other places. It hasn't been for that long
+that we've been trying to get #include-s into a more predictable shape.
+
+> So in the process of including asm/flushtlb.h 
+> here the inclusion order can be tidied up (or also indipendently), 
+> unless there is some reason I'm missing that disallows it.
+
+Independently, if at all possible, would be better. Unless of course you
+need to touch almost all of that block anyway.
 
 Jan
 
