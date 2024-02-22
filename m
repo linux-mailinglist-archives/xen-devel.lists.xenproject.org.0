@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C02285F556
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 11:11:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684305.1064062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2561D85F591
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 11:23:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684311.1064073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rd62c-0004Bk-PF; Thu, 22 Feb 2024 10:10:58 +0000
+	id 1rd6Dx-0006TG-Rn; Thu, 22 Feb 2024 10:22:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684305.1064062; Thu, 22 Feb 2024 10:10:58 +0000
+Received: by outflank-mailman (output) from mailman id 684311.1064073; Thu, 22 Feb 2024 10:22:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rd62c-0004A8-LV; Thu, 22 Feb 2024 10:10:58 +0000
-Received: by outflank-mailman (input) for mailman id 684305;
- Thu, 22 Feb 2024 10:10:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1gXq=J7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rd62b-0004A2-Do
- for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 10:10:57 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ab3218bf-d16a-11ee-8a55-1f161083a0e0;
- Thu, 22 Feb 2024 11:10:56 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a3e550ef31cso165303366b.3
- for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 02:10:56 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m12-20020a170906160c00b00a3d0a094574sm5776908ejd.66.2024.02.22.02.10.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Feb 2024 02:10:55 -0800 (PST)
+	id 1rd6Dx-0006Rk-P2; Thu, 22 Feb 2024 10:22:41 +0000
+Received: by outflank-mailman (input) for mailman id 684311;
+ Thu, 22 Feb 2024 10:22:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=E4eK=J7=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rd6Dw-0006Re-TL
+ for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 10:22:40 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4dd335ab-d16c-11ee-98f5-efadbce2ee36;
+ Thu, 22 Feb 2024 11:22:38 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2d180d6bd32so88656451fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 02:22:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +40,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab3218bf-d16a-11ee-8a55-1f161083a0e0
+X-Inumbo-ID: 4dd335ab-d16c-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708596656; x=1709201456; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=nqfegFgQFplvZynzmmWeCSQTM2EV90XkHsxyRQ1eDf0=;
-        b=TkRGuabBYq0zUVPOziQhkmz6VBpUu849Yh8+cmq999F2DeKxcYGTwB/pflIEmXFH6X
-         1LV55TbICWuv8F4hcncTyurRE4+xR2RkPNm/xCp/xa6BYCflDdfIzFG8IzVZ4VgpKmkI
-         /HoNGn9z48+7cmUtHxSofR5rQ5po4o+tKeJr0bUhBbGlt3Pz685Y7ZI0nUfLbNtLasMo
-         5d0iggW23lVtH8dvC6UYkWzHYB0Rtg/ChzHdyMj+Hhvb9axUlUhS48ZGQvqAhD/IaZwj
-         l6LUg2eE4COaxEbQfO6RsOGUkCvQBMPJYhGSfmuXfYN+0nJ1b1z0iM2ZqWvfH6EmKTDO
-         Od8g==
+        d=cloud.com; s=cloud; t=1708597358; x=1709202158; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nPki2FRl4cYglDmI6UvFuJHMZb7WqNcD7CgJmC/747Q=;
+        b=ajMxWy0/nAdJ5MwEK/lrxmmB04334eDKMtWvuglVogCReqDKAVax5qhCel2HT1Knvx
+         TPb8hjFaTXsmKVZ0oa5Jbrwr5irpWR1jlqq0gb+rynPeGkfwZFausUqYTFIqtdAin7CG
+         voHP8AMzjsJYjuoFp1Lh3E0sIY//1sJf8XcmQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708596656; x=1709201456;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nqfegFgQFplvZynzmmWeCSQTM2EV90XkHsxyRQ1eDf0=;
-        b=GtR8uV8H64BLjoVFpelvWvE83qGPt7q3oIsa1PjuYsBElfJ6COLMphVFblzza2nBGw
-         wBGlx2tE0wKrkWcfjqs1+W7NcrJvzc12UbCT7TmkV5Q5Ml72zJwnIC+C2l++tNqyVUld
-         auMU9BqsEkATZBoYNmN4/bmsfcrfuIJ4bWh3CPxgDgE311Q41nG5ATwzjM3jzf7t/Izi
-         vcZhEWB8Kw37NE3KHy+I6BCsuydfz3EozFGRNOHJafBN8JoAT4jaB0nb4PyxJ2wzGpyV
-         Gf16Rlh7UnmBlQT8fctujJVYyUuX8MUckPzZmFvzhueNuLLX8PZWQ8CaWhevQEfZ9cCB
-         zO2A==
-X-Forwarded-Encrypted: i=1; AJvYcCV1JMB/PE2v97TxcdiXWKpqZ/j7z2mtOtN/j7AtNqgz5Vvyfosi2tlpiQLsC2XL+xpTs7AnvC+t3L2Hs4z/v9qcXP5evx9WnaNocZg8ekw=
-X-Gm-Message-State: AOJu0Yz2R8vFwLVOoUv+kIpiNsRm3JCgyJkXzVb8WRUTTD/gCD96GUKy
-	+Y9yF3+B8jrgsk4PrySb0tYtXPv8G2pyjJM9h89YINSemtY5m0VZZcdO0FJWzg==
-X-Google-Smtp-Source: AGHT+IFYPi2B9ry2vTe6Wv7cu8R4GmHVtb7g/vMCNahOOCm26CiN6dbX+LS62/w/Z3ZQ+GeixxcI5g==
-X-Received: by 2002:a17:906:46ce:b0:a3e:42cf:f6ae with SMTP id k14-20020a17090646ce00b00a3e42cff6aemr7289413ejs.19.1708596656056;
-        Thu, 22 Feb 2024 02:10:56 -0800 (PST)
-Message-ID: <d37335f7-ae3c-4dc8-854a-625df275f5da@suse.com>
-Date: Thu, 22 Feb 2024 11:10:54 +0100
+        d=1e100.net; s=20230601; t=1708597358; x=1709202158;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nPki2FRl4cYglDmI6UvFuJHMZb7WqNcD7CgJmC/747Q=;
+        b=pZjM4PoFMInrhhQvMBPf++CAYlyl6abVGzLA6Ngb+hIOfyakWGgihVxFD2yb+m/AOk
+         G9nmV3C0/p6yWBtod9PuD4iGwSLSjTr6j/ge3U2TeG5RrhamCO1PD+aJ6vtTrpct9gN1
+         SbbjPAmEPvXGeIygkIA2YkAIKublmpIfR0QhqGkkhgu1y5AKXWwpJClVbjIGDdyAEFrD
+         uUPFQAAXkJb22I0j5OZrjdmLARXsX7yYGzd1vifl6YBYVB+juaNXqg0t+bQ3OsZvWosp
+         es8ZQFwBOOoCXsKCE9nzfqP4f/McSh+5qz36vwZyvU6oex5jOVRWqkMJhapPJGr3Kujo
+         A1MQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVbitw97yhuQrVlyiEjlQX9Gzk6bn/WhQea2G1q/bLzKdrHnqfJmXLU5tg2PqV4Uz8eFyyji7xlZFp8v2YJO0awtGdmHk8T5AqlDxAE1sg=
+X-Gm-Message-State: AOJu0YxateENTBxNBtUgzMaDpMmaMxhdvliRrHC50/w+8qmoSycwp6gR
+	gRLa9yepBYfSNMylT3TRKs5vR+xdl43X0/k1wnh4+SbWlg68qjsR0QGtOiIeIO1cod5dOb6ZouW
+	Y/SdOip8R+p1wcZPdeHuLF2E4KLE26uoxMe5r8mU6BzckhxCR
+X-Google-Smtp-Source: AGHT+IHu9b79I7PtKnmK849UopJkbaTTyB6PvraeFfpanfMU6TlvwcJR/7+mqaHZmK7LgiEkgV5LmkKlMliFbxgWkC8=
+X-Received: by 2002:a2e:b70e:0:b0:2d2:3e9c:18db with SMTP id
+ j14-20020a2eb70e000000b002d23e9c18dbmr6999960ljo.14.1708597358331; Thu, 22
+ Feb 2024 02:22:38 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/hpet: use an atomic add instead of a cmpxchg loop
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20240222090530.62530-1-roger.pau@citrix.com>
- <20240222090530.62530-3-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240222090530.62530-3-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <osstest-184722-mainreport@xen.org> <6d6646ce-be79-4d7c-bca6-0d44262d30b5@suse.com>
+In-Reply-To: <6d6646ce-be79-4d7c-bca6-0d44262d30b5@suse.com>
+From: Anthony PERARD <anthony.perard@cloud.com>
+Date: Thu, 22 Feb 2024 10:22:27 +0000
+Message-ID: <CAKoJhMRdZ1mJucuHOdBfM1VvpaQFjcEEtEBZzfjUXaD6Hcv0YQ@mail.gmail.com>
+Subject: Re: [linux-linus test] 184722: regressions - FAIL
+To: Juergen Gross <jgross@suse.com>
+Cc: osstest service owner <osstest-admin@xenproject.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 22.02.2024 10:05, Roger Pau Monne wrote:
-> The usage of a cmpxchg loop in hpet_get_channel() is unnecessary, as the same
-> can be achieved with an atomic increment, which is both simpler to read, and
-> avoid any need for a loop.
-> 
-> Note there can be a small divergence in the channel returned if next_channel
-> overflows, but returned channel will always be in the [0, num_hpets_used)
-> range, and that's fine for the purpose of balancing HPET channels across CPUs.
-> This is also theoretical, as there's no system currently with 2^32 CPUs (as
-> long as next_channel is 32bit width).
+On Thu, Feb 22, 2024 at 8:28=E2=80=AFAM Juergen Gross <jgross@suse.com> wro=
+te:
+> > Tests which did not succeed and are blocking,
+> > including tests which could not be run:
+> >   build-arm64-pvops             6 kernel-build   fail in 184721 REGR. v=
+s. 184719
+>
+> Log says:
+>
+> gcc: internal compiler error: Segmentation fault signal terminated progra=
+m cc1
+> Please submit a full bug report,
+> with preprocessed source if appropriate.
+> See <file:///usr/share/doc/gcc-8/README.Bugs> for instructions.
+> make[5]: *** [scripts/Makefile.build:243: drivers/iio/adc/max9611.o] Erro=
+r 4
+> make[5]: *** Waiting for unfinished jobs....
 
-The code change looks good to me, but I fail to see the connection to
-2^32 CPUs. So it feels like I'm missing something, in which case I'd
-rather not offer any R-b.
+Yeah, that happens from time to time. My plan to fix this is to
+upgrade to a newer version of Debian, it just takes time.
 
-Jan
+Cheers,
 
-> Signed-of-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  xen/arch/x86/hpet.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
-> 
-> diff --git a/xen/arch/x86/hpet.c b/xen/arch/x86/hpet.c
-> index d982b0f6b2c9..4777dc859d96 100644
-> --- a/xen/arch/x86/hpet.c
-> +++ b/xen/arch/x86/hpet.c
-> @@ -458,11 +458,7 @@ static struct hpet_event_channel *hpet_get_channel(unsigned int cpu)
->      if ( num_hpets_used >= nr_cpu_ids )
->          return &hpet_events[cpu];
->  
-> -    do {
-> -        next = next_channel;
-> -        if ( (i = next + 1) == num_hpets_used )
-> -            i = 0;
-> -    } while ( cmpxchg(&next_channel, next, i) != next );
-> +    next = arch_fetch_and_add(&next_channel, 1) % num_hpets_used;
->  
->      /* try unused channel first */
->      for ( i = next; i < next + num_hpets_used; i++ )
-
+--=20
+Anthony PERARD
 
