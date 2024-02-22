@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14FA385FB4D
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 15:33:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684443.1064294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29A9185FB6B
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 15:38:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684448.1064303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdA8f-00067S-Pg; Thu, 22 Feb 2024 14:33:29 +0000
+	id 1rdACr-0006hM-AT; Thu, 22 Feb 2024 14:37:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684443.1064294; Thu, 22 Feb 2024 14:33:29 +0000
+Received: by outflank-mailman (output) from mailman id 684448.1064303; Thu, 22 Feb 2024 14:37:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdA8f-00065e-N2; Thu, 22 Feb 2024 14:33:29 +0000
-Received: by outflank-mailman (input) for mailman id 684443;
- Thu, 22 Feb 2024 14:33:28 +0000
+	id 1rdACr-0006eT-7Q; Thu, 22 Feb 2024 14:37:49 +0000
+Received: by outflank-mailman (input) for mailman id 684448;
+ Thu, 22 Feb 2024 14:37:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aBgv=J7=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rdA8e-00065Y-JU
- for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 14:33:28 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
+ <SRS0=DiTz=J7=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1rdACq-0006eN-1u
+ for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 14:37:48 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2412::600])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 577c7514-d18f-11ee-8a55-1f161083a0e0;
- Thu, 22 Feb 2024 15:33:27 +0100 (CET)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-512b13bf764so5827964e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 06:33:27 -0800 (PST)
+ id f0f3068c-d18f-11ee-8a55-1f161083a0e0;
+ Thu, 22 Feb 2024 15:37:46 +0100 (CET)
+Received: from SJ0PR03CA0079.namprd03.prod.outlook.com (2603:10b6:a03:331::24)
+ by MN2PR12MB4502.namprd12.prod.outlook.com (2603:10b6:208:263::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.24; Thu, 22 Feb
+ 2024 14:37:41 +0000
+Received: from SJ5PEPF000001D0.namprd05.prod.outlook.com
+ (2603:10b6:a03:331:cafe::82) by SJ0PR03CA0079.outlook.office365.com
+ (2603:10b6:a03:331::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.43 via Frontend
+ Transport; Thu, 22 Feb 2024 14:37:40 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ5PEPF000001D0.mail.protection.outlook.com (10.167.242.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Thu, 22 Feb 2024 14:37:39 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 22 Feb
+ 2024 08:37:38 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 22 Feb
+ 2024 08:37:38 -0600
+Received: from [172.30.63.250] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 22 Feb 2024 08:37:37 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,175 +63,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 577c7514-d18f-11ee-8a55-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1708612407; x=1709217207; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iWO4O0D1YfqyoCsIR6LchQGI1Au4b7dSpCaMRlBeBaM=;
-        b=KM/FROad2G20+ed4DwEcNFa9wO2vzU6LhZmU2XxoeXf8gNtKjbuN2eMGkf0MeS5XyP
-         wP38yywrUwzcdoik9yO9+9rGC3RPAMTHPoZmVZoasAZUW8Bf1u8q4Lmp2a3XlxVGN6ff
-         /zrhkTH2a3HjM2DcQMmsvgCXf1LHzMuRIE77A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708612407; x=1709217207;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=iWO4O0D1YfqyoCsIR6LchQGI1Au4b7dSpCaMRlBeBaM=;
-        b=bRCTCzQQ80r0e6xDEDgFaVCixMj6TroS8DcH29gZM2Mcbm6lEWJ2vTzx2UfqEclJdH
-         g8N1BQ6U1IUsMZqSXaTq+IL20HS3b5mQP3rCzkNjpacd7JyLFAubcW4DWMijJtjM355q
-         arIxLaP/OV2rBtHsjtJ+zHQV+8C0J3jGqMV2+z0zrIouMUY/DI+5lgchn29PTxG+K16w
-         xWLeuV1nuhYAp8zjZYXGWtuK82shJsgsV2S5ONIpw1zqIU+uTYULE9oQSsH2qPGCeqNt
-         TwF+kqvA5VvJ6+z4d9aW2Q1ah4q491LjoW8z1AtQubJVEZEOdJnIbON9Or483rS6Dyfs
-         qB/g==
-X-Forwarded-Encrypted: i=1; AJvYcCUdEL8M5ElFJ7GArimeDHGdPCDMPAua5pzYAoE+trYi3d7fQkSoyb2sKULnV46Ev3e7lpMjQks1eWBLHk6c5rTDLnrGe5aE/dNMA6khz0g=
-X-Gm-Message-State: AOJu0YzaqyuMJt9Lma7wGXI/RksBqysdrrpSTtwMZtUR9Ba/YsZ0OhTb
-	lbAXLd2SyKpgBvE8c+0KgdBqco6hIV4bHAQvv8uRNiHCy6TYT0hLiMhLmwZAqi9RbOM+ie2Kw6J
-	ICDxAv6HNC55+K2Bv30YrnTRKFzL5epnhPMP8sQ==
-X-Google-Smtp-Source: AGHT+IFS17Htyjz+pfob5P7AjVa74GpQ4vlmDCG+qdnfsml0zv30QdGqOt+wc3EaC4FRCBsiXMoQ07G/6TPszxz8WeQ=
-X-Received: by 2002:a05:6512:2313:b0:512:cb9f:b279 with SMTP id
- o19-20020a056512231300b00512cb9fb279mr6169771lfu.66.1708612406838; Thu, 22
- Feb 2024 06:33:26 -0800 (PST)
+X-Inumbo-ID: f0f3068c-d18f-11ee-8a55-1f161083a0e0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Y0PXmEDdcmKPjQ8np0+yfFpqyDkZ0J5garsEBqTk9xXn/g30UfRaE4VWqv98+tjORO35oQ/N8UPpsL1cYbUPN9xFDZBVbuiYdiHDyt0F2IO/7yplOxFi4B2pyEzYp+25jduZ6avVtnpNGDTbAoptD3OPj3rf9n38TGoQYEQgsYv/DxWhozT8GKr8V9K3ywG63Sw8rjCTu6m44w0RStnbhWYHqluen1Wf3SsGDDB/i/iaT18vEkzQeN2OeUTOdUUG6pATZMPiHkhpd7hcPJ3rqMz5KMAeWCnjBUwrxdGt/YY8/eRTWdsbF+5sb8CO9JD8iUZeQ1fklQj1jeErd1C0Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JL/sZFRb6nwZUYNapXnnprE+amw5XNd3uGcjchCdbqo=;
+ b=IioYlcoRCLeMni+/InoQdXWfrecvdDCyv8DR22H/eSau+ILHDCHqg89taE42SJYuX9AyEVbL4+4+RyzUwNscPnQOJkMfVshoydQK+KNEHDXz2BuBQwR4x0sAEnQ9RmHcCGnTOnOC5fHBqWsyfaPZX19VlOgUMhNqDAiriD9/PTosWsPwylYyehHUed4c0erGkVYe71KF3AuMErq21YGF+BIKlozXPLYqn4c+e/e4HC4mHvV2v3+qrV96b1xVIeXBgn/Md61IgwDQZNjzYaLRRQRgN4aHZYJkC4TQnYRoBX2OB1glWTNt1BUEHehrwatWSn6h8Wv5QHPYDcFhaem1cA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JL/sZFRb6nwZUYNapXnnprE+amw5XNd3uGcjchCdbqo=;
+ b=AqNgnSCBJ23yWuIwwgraVqW+OkrVeWKQR6qWdPbkCTRJW+91FNmjiPBaMcWohAAeSBu45zS62AB2zVAX4+QEC06D4oMMGaeqiHIU/Yb9J1nnS2APJNed7d4ETrf2JfoVwHokc/eNEVzRxZ+ZhW8ozLUN8xU/F9TlI4qv1sLv3eg=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <a159e7ec-18b7-4898-8274-e02dc4810d54@amd.com>
+Date: Thu, 22 Feb 2024 09:37:31 -0500
 MIME-Version: 1.0
-References: <20240206012051.3564035-1-george.dunlap@cloud.com>
- <20240206012051.3564035-7-george.dunlap@cloud.com> <8ee35193-9715-4c4b-a1cb-11af04c4dab9@suse.com>
-In-Reply-To: <8ee35193-9715-4c4b-a1cb-11af04c4dab9@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Thu, 22 Feb 2024 22:33:15 +0800
-Message-ID: <CA+zSX=YuLmZRz=1wwV=svOrhfQ66E-CZ9TEtqNCVM++JVQ5CzQ@mail.gmail.com>
-Subject: Re: [PATCH 6/6] svm/nestedvm: Introduce nested capabilities bit
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
-	xen-devel@lists.xenproject.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC XEN PATCH v5 1/5] xen/vpci: Clear all vpci status of device
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Anthony PERARD <anthony.perard@citrix.com>, Juergen
+ Gross <jgross@suse.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>
+References: <20240112061317.418658-1-Jiqian.Chen@amd.com>
+ <20240112061317.418658-2-Jiqian.Chen@amd.com>
+ <9b4ce4c7-6f4e-47ec-b3a4-0b417cd2660c@amd.com>
+ <BL1PR12MB58493E40588F4A7BF351B596E7562@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <BL1PR12MB58493E40588F4A7BF351B596E7562@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D0:EE_|MN2PR12MB4502:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18eca679-62dc-49f8-bbe5-08dc33b3d261
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	CsNu8k/ybg0UvVhj9PEU0rhTKXvOiK/l9MK0LWOxa2NZ0xC6/M72vPXBJy9XBpbOyjsY8xzZpiBKRipoRio+DlGBzTIcNd7dl5btSo2mijZofF810C+hMmsoCMWihWjvqmXLBVMK/5llXa6/k+DF2/+fbiKxXlM62DfBfj6EKUPNLsagidQz1tKD6shUOoyce1oDH+rsfjSmHoglKQvWbKxPL5sZsr2u/IhnGDlz3/mczUXO3Mwhu4dgMTkd83ixuZrl13fTMgJDWxfDX7IDtJlgkSQLrD2N+fZzcaJ0wDSonLDi+FH5ya9nQf5/IP9zL5U/LUBLgfEr6dch9tpg+xyPkbQectjZLh2rTmdruikw5qdLXxuMCCxi2fIB7GtiWrlpTStS95OjwYUgznygyk1OUq9X7bvrbLLtJxrZsUVsp3J/R+hESEGCb8KkD8SKCYM8n62Vo+APkqErfG5Kazk30RZiBVOj9FGLkTnIwwZhUFubUK7cC+bMVqC+P3z9UY6kIMlF40Nsmk6EocKpAz4/MjJyg3nZnVcu1EMHi+cCSu5erXZm1ggdNAnHlQUB3XjfYpT8XTMNHjjpbpkMMJIBfA6szdC3YEWKCxycHD+J8mtGAA9IkvAoCwEC9VL9S5Sn6k9FV7wx9WbmEkjARw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(46966006)(40470700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2024 14:37:39.9519
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18eca679-62dc-49f8-bbe5-08dc33b3d261
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001D0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4502
 
-On Tue, Feb 20, 2024 at 12:25=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
-ote:
->
-> On 06.02.2024 02:20, George Dunlap wrote:
-> > --- /dev/null
-> > +++ b/docs/designs/nested-svm-cpu-features.md
-> > @@ -0,0 +1,110 @@
-> > +# Nested SVM (AMD) CPUID requirements
-> > +
-> > +The first step in making nested SVM production-ready is to make sure
-> > +that all features are implemented and well-tested.  To make this
-> > +tractable, we will initially be limiting the "supported" range of
-> > +nested virt to a specific subset of host and guest features.  This
-> > +document describes the criteria for deciding on features, and the
-> > +rationale behind each feature.
-> > +
-> > +For AMD, all virtualization-related features can be found in CPUID
-> > +leaf 8000000A:edx
-> > +
-> > +# Criteria
-> > +
-> > +- Processor support: At a minimum we want to support processors from
-> > +  the last 5 years.  All things being equal, older processors are
-> > +  better.
->
-> Nit: Perhaps missing "covering"? Generally I hope newer processors are
-> "better".
+On 2/22/24 01:22, Chen, Jiqian wrote:
+> Hi Stewart,
+> 
+> On 2024/2/10 02:02, Stewart Hildebrand wrote:
+>> On 1/12/24 01:13, Jiqian Chen wrote:
+>>> When a device has been reset on dom0 side, the vpci on Xen
+>>> side won't get notification, so the cached state in vpci is
+>>> all out of date compare with the real device state.
+>>> To solve that problem, add a new hypercall to clear all vpci
+>>> device state. When the state of device is reset on dom0 side,
+>>> dom0 can call this hypercall to notify vpci.
+>>>
+>>> Co-developed-by: Huang Rui <ray.huang@amd.com>
+>>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+>>
+>> Reviewed-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Thanks, I will add in next version.
+> 
+>>
+>> If you send another version, the RFC tag may be dropped.
+> Does only this one patch, or all patches of this series, need to drop RFC tag?
 
-I've reworded it.
+In my opinion at least patches 1, 2, and 3. If you decide to retain the
+RFC tag on e.g. patches 4 and/or 5, you may want to include after the
+commit description a scissors line --- followed by a brief explanation
+for the RFC tag. For example:
 
-> > +  For L0 this is required for performance: There's no way to tell the
-> > +  guests not to use the LBR-related registers; and if the guest does,
-> > +  then you have to save and restore all LBR-related registers on
-> > +  context switch, which is prohibitive.
->
-> "prohibitive" is too strong imo; maybe "undesirable"?
+---
+RFC: discussions ongoing on the Linux side where/how to expose the gsi
 
-Prohibitive sounds strong, but I don't think it really is; here's the
-dictionary definition:
+>>
+>> One thing to keep an eye out for below (not requesting any changes).
+> Thanks for reminding me, I will always keep rebasing my code from latest staging branch before sending new version.
+> 
+>>
+>>> ---
+>>> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+>>> index 72ef277c4f8e..c6df2c6a9561 100644
+>>> --- a/xen/drivers/vpci/vpci.c
+>>> +++ b/xen/drivers/vpci/vpci.c
+>>> @@ -107,6 +107,16 @@ int vpci_add_handlers(struct pci_dev *pdev)
+>>>  
+>>>      return rc;
+>>>  }
+>>> +
+>>> +int vpci_reset_device_state(struct pci_dev *pdev)
+>>> +{
+>>> +    ASSERT(pcidevs_locked());
+>>> +    ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
+>>> +
+>>> +    vpci_remove_device(pdev);
+>>> +    return vpci_add_handlers(pdev);
+>>
+>> Note that these two functions may be renamed soon by the patch at [1].
+>> Whichever patch goes in later will need to be rebased to account for the
+>> rename.
+>>
+>> [1] https://lists.xenproject.org/archives/html/xen-devel/2024-02/msg00134.html
+>>
+>>> +}
+>>> +
+>>>  #endif /* __XEN__ */
+>>>  
+>>>  static int vpci_register_cmp(const struct vpci_register *r1,
+>>
+> 
 
-"(of a price or charge) so high as to prevent something being done or bough=
-t."
-
-The cost of saving the registers on every context switch is so high as
-to prevent us from wanting to do it.
-
-I could change it to "too expensive".
-
-> > --- a/xen/arch/x86/hvm/svm/nestedhvm.h
-> > +++ b/xen/arch/x86/hvm/svm/nestedhvm.h
-> > @@ -35,6 +35,7 @@ enum nestedhvm_vmexits
-> >  nestedsvm_check_intercepts(struct vcpu *v, struct cpu_user_regs *regs,
-> >      uint64_t exitcode);
-> >  void svm_nested_features_on_efer_update(struct vcpu *v);
-> > +void __init start_nested_svm(struct hvm_function_table *svm_function_t=
-able);
->
-> No section placement attributes on declarations, please.
-
-Ack.
-
-> > --- a/xen/arch/x86/hvm/svm/nestedsvm.c
-> > +++ b/xen/arch/x86/hvm/svm/nestedsvm.c
-> > @@ -1666,3 +1666,17 @@ void svm_nested_features_on_efer_update(struct v=
-cpu *v)
-> >          }
-> >      }
-> >  }
-> > +
-> > +void __init start_nested_svm(struct hvm_function_table *svm_function_t=
-able)
-> > +{
-> > +    /*
-> > +     * Required host functionality to support nested virt.  See
-> > +     * docs/designs/nested-svm-cpu-features.md for rationale.
-> > +     */
-> > +    svm_function_table->caps.nested_virt =3D
-> > +        cpu_has_svm_nrips &&
-> > +        cpu_has_svm_lbrv &&
-> > +        cpu_has_svm_nrips &&
->
-> nrips twice? Was the earlier one meant to be npt?
-
-Er, yes exactly.
-
-
-
-> > --- a/xen/arch/x86/hvm/vmx/vmx.c
-> > +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> > @@ -3021,6 +3021,9 @@ const struct hvm_function_table * __init start_vm=
-x(void)
-> >      if ( cpu_has_vmx_tsc_scaling )
-> >          vmx_function_table.tsc_scaling.ratio_frac_bits =3D 48;
-> >
-> > +    /* TODO: Require hardware support before enabling nested virt */
-> > +    vmx_function_table.caps.nested_virt =3D vmx_function_table.caps.ha=
-p;
->
-> This won't have the intended effect if hap_supported() ends up clearing
-> the bit (used as input here) due to a command line option override. I
-> wonder if instead this wants doing e.g. in a new hook to be called from
-> nestedhvm_setup(). On the SVM side the hook function would then be the
-> start_nested_svm() that you already introduce, with a caps.hap check
-> added.
-
-I take it presmp_initcall()'s are guaranteed to run before __initcall()'s?
-
-If so that's probably a good idea.
-
-> Since you leave the other nested-related if() in place in
-> arch_sanitise_domain_config(), all ought to be well, but I think that
-> other if() really wants replacing by the one you presently add.
-
-Ack.
-
-I'll probably check in patches 1,2,3, and 5, and resend the other two,
-unless you'd like to see all the changes again...
-
- -George
-
-
-
-
- -George
 
