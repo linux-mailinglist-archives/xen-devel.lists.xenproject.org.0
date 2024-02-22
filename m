@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0D5A85F463
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 10:31:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684277.1064013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D14D85F4FF
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 10:50:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684283.1064023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rd5Pf-0004jt-Pv; Thu, 22 Feb 2024 09:30:43 +0000
+	id 1rd5hq-0006l9-9u; Thu, 22 Feb 2024 09:49:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684277.1064013; Thu, 22 Feb 2024 09:30:43 +0000
+Received: by outflank-mailman (output) from mailman id 684283.1064023; Thu, 22 Feb 2024 09:49:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rd5Pf-0004iN-N6; Thu, 22 Feb 2024 09:30:43 +0000
-Received: by outflank-mailman (input) for mailman id 684277;
- Thu, 22 Feb 2024 09:30:42 +0000
+	id 1rd5hq-0006jD-6r; Thu, 22 Feb 2024 09:49:30 +0000
+Received: by outflank-mailman (input) for mailman id 684283;
+ Thu, 22 Feb 2024 09:49:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aBgv=J7=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rd5Pd-0004iF-St
- for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 09:30:41 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ <SRS0=+gCR=J7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rd5hn-0006gW-UX
+ for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 09:49:27 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ab2d89d-d165-11ee-98f5-efadbce2ee36;
- Thu, 22 Feb 2024 10:30:39 +0100 (CET)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2d2533089f6so21373371fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 01:30:39 -0800 (PST)
+ id a9b028b0-d167-11ee-98f5-efadbce2ee36;
+ Thu, 22 Feb 2024 10:49:25 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-33aeb088324so4200846f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 01:49:25 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ i3-20020a05600011c300b0033cf453f2bbsm19735292wrx.35.2024.02.22.01.49.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Feb 2024 01:49:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,145 +44,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ab2d89d-d165-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: a9b028b0-d167-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1708594239; x=1709199039; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0XHkumgOBcmnyxht3ocEmnFXRRBS8/vHQ1R5Cq89CQU=;
-        b=PYxHzwiOvQKV/UJRy3p0qa1YOl7ts54LaCXpWuAoRzH0L1+gsZ2PSNqxCjB7QvmxMY
-         4Gne2GAlaqYFZLSetXus1l43jS2j3DUQHYabmfZdTh0urAVtAaiYBB606rwKBoT5tmuG
-         z69SnCwpt5fbN1QG3pE3VQ0hjt/Gb94g6dlBk=
+        d=citrix.com; s=google; t=1708595365; x=1709200165; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=eH/louA0em6mnyS2A46pkXSaK/sHzRF1mM8GXmk5/nQ=;
+        b=iqe8He3WEZNZ6TaLVUVY1Fp5WGjqXlBeVPpseA6WGY/Sw/E7naRIFK9gOp7o6vFpAf
+         1T8F/PWPC4ZeCUKH+TdQRiPKjfXEru5zNd1UQZ9ytqjZnOmt2Q6NZEY/jWNLRmKOO7SG
+         ToYhKiZAK2wjdnUAT9iL3DTL033yfyRRu52Ok=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708594239; x=1709199039;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0XHkumgOBcmnyxht3ocEmnFXRRBS8/vHQ1R5Cq89CQU=;
-        b=c5+xnDf4k8os5iJffFGTvbmMKigatuwNNuaBPL8rDRFcEPSvCO48WfGBHLGrOTdpWL
-         qJ/TbRAyWPcdw30D8ixyOHRJr6IBhYjOJMnGjjMqoT/OC5Aevh23ni9KZ8/zYfPw9ukF
-         cIKuIVTCc5QpNLAqElzzPU13fUsyBqnDH2vlFWWp9quv+TtawwshzZ61Tfxnmtrom8fJ
-         v3riwD4m4aniQlhKA4Dv6V+q1ppeD+IbLbDjCavjmtsgaBOuF/tndt/eEI6AzPXNvN5F
-         izgBgAk9AQKR1tWuRrwjWd1lZNNdnZ7KatQIy4Hy5GQnVf6FJdQQnJWTNqQDMOan2KHd
-         ZdXw==
-X-Forwarded-Encrypted: i=1; AJvYcCWD85fPKG20rrYVKKK4hageyQHAXuozjgo/aQq5f6YDGkEftBnLF0/MFiUUynNSlZzelakY2lZSQ9UkBfer3e75UBCiA/hh3cKhrRYba3Y=
-X-Gm-Message-State: AOJu0Yw6aCzojdsd3haSGpkyUP/KcIrLaxd3+GreIYyiRaHbvQzMLRj6
-	oHTvpFe//IsryNlNDj+U4vNEbjxhMhVIgUQgxlIYDgbpTHAlQuN//aWHA+uTS/Nj/nagOcXqQXt
-	IlkIfem4Dw0ts0lbuyB30Nl8mqYxyNQFWOn8wzENBeIaAmXul
-X-Google-Smtp-Source: AGHT+IFbbM2DkbxE03rn5dvwqrjCkCSxxcaSjPRknWnrKeg4Un0/apsfbwFV28nZiZJA0pOObIciFiXL3LFqV+BWRYs=
-X-Received: by 2002:a05:651c:2227:b0:2d2:20ad:a51 with SMTP id
- y39-20020a05651c222700b002d220ad0a51mr12896111ljq.0.1708594239310; Thu, 22
- Feb 2024 01:30:39 -0800 (PST)
+        d=1e100.net; s=20230601; t=1708595365; x=1709200165;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=eH/louA0em6mnyS2A46pkXSaK/sHzRF1mM8GXmk5/nQ=;
+        b=ufacysC/cUS50gOcUpN6OduO3MEFmuIob0AIcL4nKfxJjLa0CjgcFPKbtBQGON6aBh
+         KEgneNRsoiPZOAsYvFIYYDlw/RSBPh0cnVTuDN3N+ldk6E1rBMGnKN6nEyThwIWeupJN
+         Y4Q41DqGDtamo82qbclsPdoEG3HxIeTJQb7znMVune2jNyEN5ue1v+ONJkl3jYJOegyZ
+         Bqjt1C8lT+5f/q/qQR3k3HcNveEUX4oARo9QYBE1bvD23Cc4NZvshCnq+azJmFr6OT27
+         ssA33nMHU0zjsWIAh5pQ4md2rfR+KG6NhuHOzqRCwhEZWe29L7Y4b86W2Yf+U2U/cfkO
+         2+pA==
+X-Forwarded-Encrypted: i=1; AJvYcCUeEeh1r8Rk6jeOL9F1Qa/2x6CbtHv/6lU/pEsib9x71TYou7Ug3qxwwoTe/F2TClBia/zMFC1TO/x3rHTn581H/snebzcMA/dM+M4/Zyk=
+X-Gm-Message-State: AOJu0YyYIHiaOqHNcInuRpu4LMwMVKzaFpDkRaDy8V52sVy+E11NiRBS
+	XJ783WX0YEtNQi4Cw93RpH0HUkVj3r8fRVlcLc3P+uqnRWkFO6qjv4D/71IQzP4=
+X-Google-Smtp-Source: AGHT+IH7yDrRgNTIQqNr563gE6DXDJt+4EmmOyyu4t1w6EF4Q9Ah/RDyPD1RVHBC2W1cTeeWbtQK1g==
+X-Received: by 2002:a05:6000:1543:b0:33d:6ede:249a with SMTP id 3-20020a056000154300b0033d6ede249amr5816964wry.69.1708595365100;
+        Thu, 22 Feb 2024 01:49:25 -0800 (PST)
+Date: Thu, 22 Feb 2024 10:49:23 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Julien Grall <julien@xen.org>
+Cc: George Dunlap <george.dunlap@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>,
+	committers@xenproject.org, Kelly Choi <kelly.choi@cloud.com>
+Subject: Re: Stats on Xen tarball downloads
+Message-ID: <ZdcYo3sGHVYaP6kM@macbook>
+References: <CA+zSX=aEdcF-D3PUQN=1V2puz0AEMiLn4-uQFGrLWf7EYSZ7WA@mail.gmail.com>
+ <ZdMt88BSNMYtq39n@macbook>
+ <36229344-e2e2-46e1-839b-b7b3b0843f23@suse.com>
+ <CA+zSX=YvTgEMC0S5OqSFvxfVDeruiO=FphyVx5fv75oT-QW01A@mail.gmail.com>
+ <0936a6c5-bac2-4de2-9155-1722d3bb28ca@xen.org>
 MIME-Version: 1.0
-References: <20240206012051.3564035-1-george.dunlap@cloud.com>
- <20240206012051.3564035-5-george.dunlap@cloud.com> <c5f3a78c-4a2b-499b-93bb-11f60b0afcc0@suse.com>
- <CA+zSX=acH-4B01=vUBstAbsNBMVgcRe_A5v0eXn66BdsuPtgiA@mail.gmail.com> <74ef7b2b-b105-4060-afaa-73ec272a7449@suse.com>
-In-Reply-To: <74ef7b2b-b105-4060-afaa-73ec272a7449@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Thu, 22 Feb 2024 17:30:27 +0800
-Message-ID: <CA+zSX=ZPKScDQO6XXGOp6gv1arEs4-iWTgX8NSezYo4LGqkoLA@mail.gmail.com>
-Subject: Re: [PATCH 4/6] nestedsvm: Disable TscRateMSR
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0936a6c5-bac2-4de2-9155-1722d3bb28ca@xen.org>
 
-On Wed, Feb 21, 2024 at 6:52=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
-> >> But then of course Andrew may know of reasons why all of this is done
-> >> in calculate_host_policy() in the first place, rather than in HVM
-> >> policy calculation.
-> >
-> > It sounds like maybe you're confusing host_policy with
-> > x86_capabilities?  From what I can tell:
-> >
-> > *  the "basic" cpu_has_X macros resolve to boot_cpu_has(), which
-> > resolves to cpu_has(&boot_cpu_data, ...), which is completely
-> > independent of the cpu-policy.c:host_cpu_policy
-> >
-> > * cpu-policy.c:host_cpu_policy only affects what is advertised to
-> > guests, via {pv,hvm}_cpu_policy and featureset bits.  Most notably a
-> > quick skim doesn't show any mechanism by which host_cpu_policy could
-> > affect what features Xen itself decides to use.
->
-> I'm not mixing the two, no; the two are still insufficiently disentangled=
-.
-> There's really no reason (long term) to have both host policy and
-> x86_capabilities. Therefore I'd prefer if new code (including a basically
-> fundamental re-write as is going to be needed for nested) to avoid
-> needlessly further extending x86_capabilities. Unless of course there's
-> something fundamentally wrong with eliminating the redundancy, which
-> likely Andrew would be in the best position to point out.
+On Wed, Feb 21, 2024 at 10:53:49PM +0000, Julien Grall wrote:
+> Hi George,
+> 
+> On 21/02/2024 02:55, George Dunlap wrote:
+> > On Mon, Feb 19, 2024 at 6:38 PM Jan Beulich <jbeulich@suse.com> wrote:
+> > > 
+> > > On 19.02.2024 11:31, Roger Pau Monné wrote:
+> > > > On Mon, Feb 19, 2024 at 06:01:54PM +0800, George Dunlap wrote:
+> > > > > One of the questions we had with respect to changing our release
+> > > > > practice (for instance, making the process more light-weight so that
+> > > > > we could do a point release after every XSA) was, "How many people are
+> > > > > actually using the tarballs?"
+> > > > 
+> > > > What would this more lightweight process involve from a downstream
+> > > > PoV?  IOW: in what would the contents of the tarball change compared
+> > > > to the current releases?
+> > > 
+> > >  From all prior discussion my conclusion was "no tarball at all".
+> > 
+> > Or at very least, the tarball would be a simple `git archive` of a
+> > release tag.   Right now the tarball creation has a number of
+> > annoyingly manual parts about it.
+> At the moment we have the following steps:
+> 
+> 1) Checkout tag
+> 2) Create the tarball
+> 3) Check the source tarball can build
+> 4) Sign the tarball
+> 5) Upload it
+> 
+> I managed to script it so I have only two commands to execute (mostly
+> because I build and sign on a different host).
+> 
+> AFAIU, your command 'git archive' will only replace 2. Am I correct? If so,
+> it is not entirely clear how your proposal is going to make it better.
 
-So I don't know the history of how things got to be the way they are,
-nor really much about the code but what I've gathered from skimming
-through while creating this patch series.  But from that impression,
-the only issue I really see with the current code is the confusing
-naming.  The cpufeature.h code has this nice infrastructure to allow
-you to, for instance, enable or disable certain bits on the
-command-line; and the interface for querying all the different bits of
-functionality is all nicely put in one place.  Moving the
-svm_feature_flags into x86_capabilities would immediately allow SVM to
-take advantage of this infrastructure; it's not clear to me how this
-would be "needless".
+IMO building for release tarballs is easier than from a git checkout
+(or archive).  It's a bit annoying to have to pre-download the
+external project sources, now even more as QEMU is using git
+submodules.
 
-Furthermore, it looks to me like host_cpu_policy is used as a starting
-point for generating pv_cpu_policy and hvm_cpu_policy, both of which
-are only used for guest cpuid generation.  Given that the format of
-those policies is fixed, and there's a lot of "copy this bit from the
-host policy wholesale", it seems like no matter what, you'd want a
-host_cpu_policy.
+Most distro binary builders have infrastructure to deal with all this,
+but requires a bit more logic in the recipe than a plain just fetch a
+tarball and build from it.
 
-And in any case -- all that is kind of moot.  *Right now*,
-host_cpu_policy is only used for guest cpuid policy creation; *right
-now*, the nested virt features of AMD are handled in the
-host_cpu_policy; *right now*, we're advertising to guests bits which
-are not properly virtualized; *right now* these bits are actually set
-unconditionally, regardless of whether they're even available on the
-hardware; *right now*, Xen uses svm_feature_flags to determine its own
-use of TscRateMSR; so *right now*, removing this bit from
-host_cpu_policy won't prevent Xen from using TscRateMSR itself.
-
-(Unless my understanding of the code is wrong, in which case I'd
-appreciate a correction.)
-
-If at some point in the future x86_capabilities and host_cpu_policy
-were merged somehow, whoever did the merging would have to untangle
-the twiddling of these bits anyway.  What I'm changing in this patch
-wouldn't make that any harder.
-
-> > Not sure exactly why the nested virt stuff is done at the
-> > host_cpu_policy level rather than the hvm_cpu_policy level, but since
-> > that's where it is, that's where we need to change it.
-> >
-> > FWIW, as I said in response to your comment on 2/6, it would be nicer
-> > if we moved svm_feature_flags into the "capabilities" section; but
-> > that's a different set of work.
->
-> Can as well reply here then, rather than there: If the movement from
-> host to HVM policy was done first, the patch here could more sanely go
-> on top, and patch 2 could then also go on top, converting the separate
-> variable to host policy accesses, quite possibly introducing a similar
-> wrapper as you introduce there right now.
->
-> But no, I'm not meaning to make this a requirement; this would merely be
-> an imo better approach. My ack there stands, in case you want to keep
-> (and commit) the change as is.
-
-I mean, I don't mind doing a bit more prep work, if I know that's the
-direction we want to go in.  "Actually, since you're doing a bit of
-clean-up anyway -- right now host_cpu_policy is only used to calculate
-guest policy, but we'd like to move over to being the Source of Truth
-for the host instead of x86_capabilities.  While you're here, would
-you mind moving the nested virt policy stuff into hvm_cpu_policy
-instead?"
-
-I certainly wouldn't want to move svm_feature_flags into
-host_cpu_policy while it's still got random other "guest-only" policy
-bits in it; and auditing it for such policy bits is out of the scope
-of this work.
-
- -George
+Thanks, Roger.
 
