@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A61E185F54D
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 11:07:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684299.1064053 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C02285F556
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 11:11:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684305.1064062 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rd5yd-0002Vf-9N; Thu, 22 Feb 2024 10:06:51 +0000
+	id 1rd62c-0004Bk-PF; Thu, 22 Feb 2024 10:10:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684299.1064053; Thu, 22 Feb 2024 10:06:51 +0000
+Received: by outflank-mailman (output) from mailman id 684305.1064062; Thu, 22 Feb 2024 10:10:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rd5yd-0002Td-5r; Thu, 22 Feb 2024 10:06:51 +0000
-Received: by outflank-mailman (input) for mailman id 684299;
- Thu, 22 Feb 2024 10:06:49 +0000
+	id 1rd62c-0004A8-LV; Thu, 22 Feb 2024 10:10:58 +0000
+Received: by outflank-mailman (input) for mailman id 684305;
+ Thu, 22 Feb 2024 10:10:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1gXq=J7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rd5yb-0002TV-Kq
- for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 10:06:49 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ id 1rd62b-0004A2-Do
+ for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 10:10:57 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1747582f-d16a-11ee-8a55-1f161083a0e0;
- Thu, 22 Feb 2024 11:06:48 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-55f279dca99so2004147a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 02:06:48 -0800 (PST)
+ id ab3218bf-d16a-11ee-8a55-1f161083a0e0;
+ Thu, 22 Feb 2024 11:10:56 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a3e550ef31cso165303366b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 02:10:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x3-20020aa7d383000000b005646c7b9712sm3887432edq.16.2024.02.22.02.06.47
+ m12-20020a170906160c00b00a3d0a094574sm5776908ejd.66.2024.02.22.02.10.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Feb 2024 02:06:47 -0800 (PST)
+ Thu, 22 Feb 2024 02:10:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1747582f-d16a-11ee-8a55-1f161083a0e0
+X-Inumbo-ID: ab3218bf-d16a-11ee-8a55-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708596408; x=1709201208; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708596656; x=1709201456; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=jr6cF09++WzpyKRiizw7qNFbitKB6CkyWilkhKAB7Lw=;
-        b=gxCX6N+k+Ty7qj6lsBrYcEMqLYK73cLMVfJeo5lufpjL6ujGSYHL8INXjYEi0NyU9u
-         CVYSv3a43KNvN0jWEj9oNKz2LcYJ0ffnbnVYTlhu5dWzcJA9dchL7QEq1Ofr4tWIFCCH
-         Ku/fTuLE2Im7T0N/06ehlsphXzLzPUnjOrER2IQoxCJXIK5c2txNlBfgSGzAFhvVKLRh
-         Ae5ht7kW40ZC619kI7+A/senPN3B1i0Jl/xo7yZQezFPcPuK6cf8MbcYKNxWAKgAjrGz
-         zUTbQk+jZdU4093Q9ddX2u6YssgpZ+bxXsZG/whpTsg9wss5oO3nd//Ggm4Bzrs9YDQW
-         k4/w==
+        bh=nqfegFgQFplvZynzmmWeCSQTM2EV90XkHsxyRQ1eDf0=;
+        b=TkRGuabBYq0zUVPOziQhkmz6VBpUu849Yh8+cmq999F2DeKxcYGTwB/pflIEmXFH6X
+         1LV55TbICWuv8F4hcncTyurRE4+xR2RkPNm/xCp/xa6BYCflDdfIzFG8IzVZ4VgpKmkI
+         /HoNGn9z48+7cmUtHxSofR5rQ5po4o+tKeJr0bUhBbGlt3Pz685Y7ZI0nUfLbNtLasMo
+         5d0iggW23lVtH8dvC6UYkWzHYB0Rtg/ChzHdyMj+Hhvb9axUlUhS48ZGQvqAhD/IaZwj
+         l6LUg2eE4COaxEbQfO6RsOGUkCvQBMPJYhGSfmuXfYN+0nJ1b1z0iM2ZqWvfH6EmKTDO
+         Od8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708596408; x=1709201208;
+        d=1e100.net; s=20230601; t=1708596656; x=1709201456;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jr6cF09++WzpyKRiizw7qNFbitKB6CkyWilkhKAB7Lw=;
-        b=xJccG/E9bheQ2YFPd/oLApLUtBFhh7DZ3rQOBAxuulA/lUXyN6y+4tM8k5R10NzS27
-         jrwbdILIHK2H5MWiNqbEaq9UgaWJu6cY92VMjtGqu/TC53cBRaXEVTY4qAdbg3Wegydo
-         NkH2bOYL7qyvSrW3RcJmH+KUwBB2FdXpxHT6aORT1qpxvxfIjIzODUuxEUv/UjUnyGyX
-         vRcPM1hmLuqRZA1TjiJQs9M/EQ5U92XuVaPafKSkIhv35xeMH0HjgvdPithvK2rfR8v0
-         9L4j2AHVn71NDHJjUzNUUZdmT7s3lV3TJGjYcmfuxXOQQkLVnjVX4efTlMjs+KEakwiU
-         3a8A==
-X-Forwarded-Encrypted: i=1; AJvYcCXaLrXNvcUqfWkSMrH7B+QPRfjA3PZijkldi02ytJXaQ6gWJYI/t20srZumhlXFUtPnpH1tUitk+Pdh+7bPcGghBqMIWSBnvcdsVu0WUNY=
-X-Gm-Message-State: AOJu0YwuLiej+R+L4pxDenf+H3K08kcOW5vmJG+RgcXnTorG3MGnWocs
-	7+BeDOI/nEFJLDZY8Q1UjCzaNXovpl9p7eXfv0S6P5Xdsq0gSW5Ey/k27hgUiw==
-X-Google-Smtp-Source: AGHT+IFRc9oXLanoTt8ZFK0yLdYL9uWAYn76sOlvgQ8KvQ5NpLqhlldSAgaxKw3iLtSwObZDPYUD6g==
-X-Received: by 2002:a05:6402:351:b0:565:1a91:94ad with SMTP id r17-20020a056402035100b005651a9194admr1928130edw.22.1708596407833;
-        Thu, 22 Feb 2024 02:06:47 -0800 (PST)
-Message-ID: <d8939069-a1cb-4794-a6aa-75a3e4d97884@suse.com>
-Date: Thu, 22 Feb 2024 11:06:46 +0100
+        bh=nqfegFgQFplvZynzmmWeCSQTM2EV90XkHsxyRQ1eDf0=;
+        b=GtR8uV8H64BLjoVFpelvWvE83qGPt7q3oIsa1PjuYsBElfJ6COLMphVFblzza2nBGw
+         wBGlx2tE0wKrkWcfjqs1+W7NcrJvzc12UbCT7TmkV5Q5Ml72zJwnIC+C2l++tNqyVUld
+         auMU9BqsEkATZBoYNmN4/bmsfcrfuIJ4bWh3CPxgDgE311Q41nG5ATwzjM3jzf7t/Izi
+         vcZhEWB8Kw37NE3KHy+I6BCsuydfz3EozFGRNOHJafBN8JoAT4jaB0nb4PyxJ2wzGpyV
+         Gf16Rlh7UnmBlQT8fctujJVYyUuX8MUckPzZmFvzhueNuLLX8PZWQ8CaWhevQEfZ9cCB
+         zO2A==
+X-Forwarded-Encrypted: i=1; AJvYcCV1JMB/PE2v97TxcdiXWKpqZ/j7z2mtOtN/j7AtNqgz5Vvyfosi2tlpiQLsC2XL+xpTs7AnvC+t3L2Hs4z/v9qcXP5evx9WnaNocZg8ekw=
+X-Gm-Message-State: AOJu0Yz2R8vFwLVOoUv+kIpiNsRm3JCgyJkXzVb8WRUTTD/gCD96GUKy
+	+Y9yF3+B8jrgsk4PrySb0tYtXPv8G2pyjJM9h89YINSemtY5m0VZZcdO0FJWzg==
+X-Google-Smtp-Source: AGHT+IFYPi2B9ry2vTe6Wv7cu8R4GmHVtb7g/vMCNahOOCm26CiN6dbX+LS62/w/Z3ZQ+GeixxcI5g==
+X-Received: by 2002:a17:906:46ce:b0:a3e:42cf:f6ae with SMTP id k14-20020a17090646ce00b00a3e42cff6aemr7289413ejs.19.1708596656056;
+        Thu, 22 Feb 2024 02:10:56 -0800 (PST)
+Message-ID: <d37335f7-ae3c-4dc8-854a-625df275f5da@suse.com>
+Date: Thu, 22 Feb 2024 11:10:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/memsharing: use an atomic add instead of a
- cmpxchg loop
+Subject: Re: [PATCH 2/2] x86/hpet: use an atomic add instead of a cmpxchg loop
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <20240222090530.62530-1-roger.pau@citrix.com>
- <20240222090530.62530-2-roger.pau@citrix.com>
+ <20240222090530.62530-3-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,45 +111,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240222090530.62530-2-roger.pau@citrix.com>
+In-Reply-To: <20240222090530.62530-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 22.02.2024 10:05, Roger Pau Monne wrote:
-> The usage of a cmpxchg loop in get_next_handle() is unnecessary, as the same
+> The usage of a cmpxchg loop in hpet_get_channel() is unnecessary, as the same
 > can be achieved with an atomic increment, which is both simpler to read, and
 > avoid any need for a loop.
 > 
-> The cmpxchg usage is likely a remnant of 32bit support, which didn't have an
-> instruction to do an atomic 64bit add, and instead a cmpxchg had to be used.
-> 
-> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-of-by: Roger Pau Monné <roger.pau@citrix.com>
+> Note there can be a small divergence in the channel returned if next_channel
+> overflows, but returned channel will always be in the [0, num_hpets_used)
+> range, and that's fine for the purpose of balancing HPET channels across CPUs.
+> This is also theoretical, as there's no system currently with 2^32 CPUs (as
+> long as next_channel is 32bit width).
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-albeit ...
-
-> --- a/xen/arch/x86/mm/mem_sharing.c
-> +++ b/xen/arch/x86/mm/mem_sharing.c
-> @@ -179,13 +179,7 @@ static void mem_sharing_page_unlock(struct page_info *pg)
->  
->  static shr_handle_t get_next_handle(void)
->  {
-> -    /* Get the next handle get_page style */
-> -    uint64_t x, y = next_handle;
-> -    do {
-> -        x = y;
-> -    }
-> -    while ( (y = cmpxchg(&next_handle, x, x + 1)) != x );
-> -    return x + 1;
-> +    return arch_fetch_and_add(&next_handle, 1) + 1;
->  }
-
-... the adding of 1 here is a little odd when taken together with
-next_handle's initializer. Tamas, you've not written that code, but do
-you have any thoughts towards the possible removal of either the
-initializer or the adding here? Plus that variable of course could
-very well do with moving into this function.
+The code change looks good to me, but I fail to see the connection to
+2^32 CPUs. So it feels like I'm missing something, in which case I'd
+rather not offer any R-b.
 
 Jan
+
+> Signed-of-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/hpet.c | 6 +-----
+>  1 file changed, 1 insertion(+), 5 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hpet.c b/xen/arch/x86/hpet.c
+> index d982b0f6b2c9..4777dc859d96 100644
+> --- a/xen/arch/x86/hpet.c
+> +++ b/xen/arch/x86/hpet.c
+> @@ -458,11 +458,7 @@ static struct hpet_event_channel *hpet_get_channel(unsigned int cpu)
+>      if ( num_hpets_used >= nr_cpu_ids )
+>          return &hpet_events[cpu];
+>  
+> -    do {
+> -        next = next_channel;
+> -        if ( (i = next + 1) == num_hpets_used )
+> -            i = 0;
+> -    } while ( cmpxchg(&next_channel, next, i) != next );
+> +    next = arch_fetch_and_add(&next_channel, 1) % num_hpets_used;
+>  
+>      /* try unused channel first */
+>      for ( i = next; i < next + num_hpets_used; i++ )
+
 
