@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8434185F33C
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 09:42:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684246.1063969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73C2685F3F3
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Feb 2024 10:07:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684257.1063983 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rd4eg-0004gy-Co; Thu, 22 Feb 2024 08:42:10 +0000
+	id 1rd52a-0007gG-CR; Thu, 22 Feb 2024 09:06:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684246.1063969; Thu, 22 Feb 2024 08:42:10 +0000
+Received: by outflank-mailman (output) from mailman id 684257.1063983; Thu, 22 Feb 2024 09:06:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rd4eg-0004en-A3; Thu, 22 Feb 2024 08:42:10 +0000
-Received: by outflank-mailman (input) for mailman id 684246;
- Thu, 22 Feb 2024 08:42:08 +0000
+	id 1rd52a-0007eg-93; Thu, 22 Feb 2024 09:06:52 +0000
+Received: by outflank-mailman (input) for mailman id 684257;
+ Thu, 22 Feb 2024 09:06:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6628=J7=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rd4ee-0004ef-TM
- for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 08:42:08 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=+gCR=J7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rd52Y-0007eV-KV
+ for xen-devel@lists.xenproject.org; Thu, 22 Feb 2024 09:06:50 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 42a51df9-d15e-11ee-8a55-1f161083a0e0;
- Thu, 22 Feb 2024 09:42:07 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id A0E8D4EE0737;
- Thu, 22 Feb 2024 09:42:06 +0100 (CET)
+ id b66e2838-d161-11ee-8a55-1f161083a0e0;
+ Thu, 22 Feb 2024 10:06:49 +0100 (CET)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2d23a22233fso49256691fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 01:06:49 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ ch19-20020a5d5d13000000b0033d817eddd3sm4414473wrb.13.2024.02.22.01.06.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Feb 2024 01:06:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,52 +44,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42a51df9-d15e-11ee-8a55-1f161083a0e0
-MIME-Version: 1.0
-Date: Thu, 22 Feb 2024 09:42:06 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+X-Inumbo-ID: b66e2838-d161-11ee-8a55-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1708592808; x=1709197608; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=fXk63syKH0DiHAkRMGb27p2YfWstaLmmfAzDV6w563M=;
+        b=cyY/k7EUt/NzYPmsYzD2wXMMh22YOngpoGuwQ3Nil/hfeyS7IQU/soukRf6n+BP7d2
+         o11Q3VFW2becoV8H0NngZ8WHKeoL8+/WT+X9ii/Uv4rqhRvwvvOsX86s2paGH5My1UAd
+         7GRk6WqDf2c0qZP9tXTfcb8z7Qy2OUMi5QvcM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708592808; x=1709197608;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fXk63syKH0DiHAkRMGb27p2YfWstaLmmfAzDV6w563M=;
+        b=GDsmp61BihovjdQTUFiX+KsJkHDApsDDstBQG6NxgD0WFbPMaCgLuTR5LA3YiBl5le
+         fCKGaYWeQq+mhwiB3GHrzXdWaBLrD3NpF3qyVjH9NcKofdALtdEh9uU5OvtLllDupGdF
+         u5fgAta14Rb6iWBOrvRZ96TcFN+TtmElC7IzKIp0TSe1TuGSxaf+uPBqqDJpLAWFTFJz
+         D5B7+vXoELNEmA/4SBsfCNX8fa2e7tEl3QoMYrZ719KlYosibd7RloABipzCAYjdLHPp
+         qbJn8ycpQowOCIwH1GviPcLuzpayr089dmnzglWJGvAzrKI2QAyAO5U82mQUUtJjOfTW
+         r+Ng==
+X-Gm-Message-State: AOJu0Yz9dB7o9yRVY1qipXqt1ctJBADh4yAMzvPMljlxL4TTQ/OgJiXd
+	Ic+NKRbqaLP1FZ0jpuvb51YprSCHU5mEGnszT8xJypEBc/Z9rlpBHLpM/6L4zLs3Gj4NT4vo5ro
+	P
+X-Google-Smtp-Source: AGHT+IEdpaCEOWZ2GcD0LzLeBwXq+tsb4ah3z17bTN9fnrvDf2wCOma5A5FTrXnzls7Y9z7/MtSVlw==
+X-Received: by 2002:a2e:8ec9:0:b0:2d2:500a:1dd with SMTP id e9-20020a2e8ec9000000b002d2500a01ddmr3639377ljl.23.1708592808612;
+        Thu, 22 Feb 2024 01:06:48 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- julien@xen.org, Simone Ballarin <simone.ballarin@bugseng.com>, Doug
- Goldstein <cardoe@cardoe.com>, George Dunlap <george.dunlap@citrix.com>, Wei
- Liu <wl@xen.org>
-Subject: Re: [XEN PATCH v2] automation/eclair_analysis: deviate certain macros
- for Rule 20.12
-In-Reply-To: <7bc72f6ccd858e0405d62d49c32449e3b5abd790.1707996317.git.nicola.vetrini@bugseng.com>
-References: <7bc72f6ccd858e0405d62d49c32449e3b5abd790.1707996317.git.nicola.vetrini@bugseng.com>
-Message-ID: <d31f6e4cb46de29898f8869991d3cbad@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH 0/2] xen/x86: cmpxchg cleanup
+Date: Thu, 22 Feb 2024 10:05:28 +0100
+Message-ID: <20240222090530.62530-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2024-02-15 14:06, Nicola Vetrini wrote:
-> Certain macros are allowed to violate the Rule, since their meaning and
-> intended use is well-known to all Xen developers.
-> 
-> Variadic macros that rely on the GCC extension for removing a trailing
-> comma when token pasting the variable argument are similarly
-> well-understood and therefore allowed.
-> 
-> No functional change.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
-> Changes in v2:
-> - Restrict deviation for GENERATE_CASE to vcpreg.c.
-> - Improve deviation justifications.
-> ---
->  .../eclair_analysis/ECLAIR/deviations.ecl     | 20 +++++++++++++++++
->  docs/misra/deviations.rst                     | 22 +++++++++++++++++++
->  2 files changed, 42 insertions(+)
-> 
+Hello,
 
-Ping?
+Following series replace a couple of cmpxchg loops with an atomic inc.
+The usage of such loops probably dates back to 32bit support, which
+didn't have an instruction to do an atomic 64bit addition.
+
+Thanks, Roger.
+
+Roger Pau Monne (2):
+  x86/memsharing: use an atomic add instead of a cmpxchg loop
+  x86/hpet: use an atomic add instead of a cmpxchg loop
+
+ xen/arch/x86/hpet.c           | 6 +-----
+ xen/arch/x86/mm/mem_sharing.c | 8 +-------
+ 2 files changed, 2 insertions(+), 12 deletions(-)
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+2.43.0
+
 
