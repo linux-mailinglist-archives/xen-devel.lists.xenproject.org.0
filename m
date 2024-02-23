@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FA4D86102B
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 12:14:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684798.1064925 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E903186107D
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 12:36:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684809.1064934 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdTV6-0006YA-BQ; Fri, 23 Feb 2024 11:13:56 +0000
+	id 1rdTqW-0001rH-1q; Fri, 23 Feb 2024 11:36:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684798.1064925; Fri, 23 Feb 2024 11:13:56 +0000
+Received: by outflank-mailman (output) from mailman id 684809.1064934; Fri, 23 Feb 2024 11:36:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdTV6-0006W3-88; Fri, 23 Feb 2024 11:13:56 +0000
-Received: by outflank-mailman (input) for mailman id 684798;
- Fri, 23 Feb 2024 11:13:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rdTqV-0001o8-Ux; Fri, 23 Feb 2024 11:36:03 +0000
+Received: by outflank-mailman (input) for mailman id 684809;
+ Fri, 23 Feb 2024 11:36:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0yaO=KA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rdTV4-0006Ve-Ru
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 11:13:54 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a04e007e-d23c-11ee-98f5-efadbce2ee36;
- Fri, 23 Feb 2024 12:13:52 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-512bde3d197so170186e87.0
- for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 03:13:52 -0800 (PST)
-Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- e11-20020a05620a12cb00b00787b6750619sm304075qkl.130.2024.02.23.03.13.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Feb 2024 03:13:51 -0800 (PST)
+ <SRS0=BhOy=KA=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
+ id 1rdTqT-0001o0-Ml
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 11:36:01 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b7b4c1a3-d23f-11ee-8a57-1f161083a0e0;
+ Fri, 23 Feb 2024 12:36:00 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a3566c0309fso37876266b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 03:36:00 -0800 (PST)
+Received: from smtpclient.apple ([217.156.233.157])
+ by smtp.gmail.com with ESMTPSA id
+ vk7-20020a170907cbc700b00a3f29591dcdsm2679381ejc.95.2024.02.23.03.35.59
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 23 Feb 2024 03:35:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,157 +45,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a04e007e-d23c-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: b7b4c1a3-d23f-11ee-8a57-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708686832; x=1709291632; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KGKWwxph69B4iBv+6rJEvJhMpAG8cYrWDwfcQGnn0OM=;
-        b=qCDzR65ldPq41oBbxJS9cEjVqbZM6fRLqjkJI4Z8LwnGbu/2l4FqWFp0wKRyFa8CWh
-         xD89cM0mpyQX0Xkq6+k8pZHOXgbI7JgRpLwgIqwHHXxBz6nY1/BoFxKzpPRrJoS/a6RY
-         0GKm2jLCf/pREKtK2KkSM+r14y9dP5mZLPvvk=
+        d=cloud.com; s=cloud; t=1708688160; x=1709292960; darn=lists.xenproject.org;
+        h=references:to:cc:in-reply-to:date:subject:mime-version:message-id
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=JyQ6xbFYJAJFa0prrCGrknfBke4TIhg5l9pGph2tG5s=;
+        b=Pnx4UxO2XpTXPwA6i2zNhnyP2fwEvQTe6RwrRQ0HJShPqWL0rFQWabDJIC+78gjgzI
+         yLV062Pfl6ovPTT2sDwHRFVlfWocpzPt+decQ91ti8ovEiOi20cfbG+3UXsprpDF8VfP
+         RA5zZ3eAX7hzGiE6xS6qwzSJ/Z3xBbRm/HCLg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708686832; x=1709291632;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KGKWwxph69B4iBv+6rJEvJhMpAG8cYrWDwfcQGnn0OM=;
-        b=phft936HYVk7iUUUsn0BSEC6Tw+6K9eHUKkjxTOG7xlLaNY7BE4E3R6ffEMFhYdTv0
-         4c8EYjcVUGHoOSjxZMLezWY6fa7e8a+KjdHHw2qYCfxPI422zPe+Mn+atNdHrHbwMo14
-         b6LfNmngMjSjEWZlLJJJ+TIAnjtp0LhsFf8UQ8CYx8ev7gcmdi0AdAECTcx37orioH5g
-         kGABJ68IrwaZfDHpCSElpBMvds26lLuv6GsLyXSr+o5lKklkZcOouO187NHNG0jTswQ4
-         GPmlD9LpvNbKujKiFZRlmxzGypl3McTvmlza0WzZwFrqznmlwlPfQ1weC8nNF4r2ds6B
-         7HPg==
-X-Gm-Message-State: AOJu0YzmE2Zkkc13OcTwxyXDgMZaVFPrBKfuQctaH4zr1bIumjeG02JJ
-	Iep+XPAUvASBZhtvUbih1PHIpPz16Srh0tni8/xw4qT2FvLqbF9lcrQ4U5bScSk=
-X-Google-Smtp-Source: AGHT+IE/5cZk5AWk5a7xzqUN850yzLQTtt1/weVUf1dWbhJkHnGCWF9EoUAzPJ3NJRrF2UVAiN8CUg==
-X-Received: by 2002:a05:6512:3b89:b0:512:e506:1c6c with SMTP id g9-20020a0565123b8900b00512e5061c6cmr1459678lfv.34.1708686832039;
-        Fri, 23 Feb 2024 03:13:52 -0800 (PST)
-Message-ID: <6bd41e23-e7c9-4cfc-8227-b508b0d4ed13@citrix.com>
-Date: Fri, 23 Feb 2024 11:13:49 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/spec: fix BRANCH_HARDEN option to only be set when
- build-enabled
-Content-Language: en-GB
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20240223094215.71889-1-roger.pau@citrix.com>
- <b5696664-0e85-414b-8360-242349a87a7e@citrix.com> <Zdhwve9-YQekWb0B@macbook>
- <cf60c604-5a4a-46be-badf-1f55a760e421@citrix.com> <Zdh9b4vNHfJnFXPR@macbook>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <Zdh9b4vNHfJnFXPR@macbook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20230601; t=1708688160; x=1709292960;
+        h=references:to:cc:in-reply-to:date:subject:mime-version:message-id
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=JyQ6xbFYJAJFa0prrCGrknfBke4TIhg5l9pGph2tG5s=;
+        b=AiE2puRd4jQA6WttTqfguJkK5r+6hxddTydEtqQCNyOzMkDugz7hKDL8aVwujMZb7P
+         ia2atehpexgBpwnrAY40yvH83F3i8qGQh3nmm2IHur2bzGPx+edJuBTMxMxRJnwNyt14
+         aj4ufOJ9DVuoveNY0g9qFtcIqj1/ahxIXEDJuHDk+5EzrhmbBwV75knKrzqB8O3wjAz9
+         I9XkiMUeUjIg4VXPim2jO9nAS8389/4vUAndcq7GEoNocXSsfU5VlLU46wNxs9YdOf7D
+         n/iKKJzgeSGKN597lGRd5qkVTeI1YgUiSF/1DDsyJSDn+ED4By4e51Jf9Uq9EJupzCVG
+         V8sA==
+X-Gm-Message-State: AOJu0YysdgYbdZRH9qtN2H+R2O1L1aeRlafc+/e9lATErQAwdK69rVQC
+	LJ+rlh7HLlG33obboKLiQU2svL7P/n/cVjRtFhvV+4GFERbhr3Gf2TalOe5FaK4=
+X-Google-Smtp-Source: AGHT+IESfYKAQD1tPOcq9XL6vnw7Y2EnMg7oFDUe40QIQR5Lr+u5T9Ai//+Uel3YngrKBtLdVvC8Qw==
+X-Received: by 2002:a17:906:f24e:b0:a3e:fce7:9393 with SMTP id gy14-20020a170906f24e00b00a3efce79393mr1063956ejb.10.1708688159760;
+        Fri, 23 Feb 2024 03:35:59 -0800 (PST)
+From: Edwin Torok <edwin.torok@cloud.com>
+Message-Id: <9301CE74-1D0D-4264-9987-D52AA21F525B@cloud.com>
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_1105AA12-93D6-4804-BE20-A928B5937E54"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.400.31\))
+Subject: Re: [PATCH v1 2/2] oxenstored: make Quota.t pure
+Date: Fri, 23 Feb 2024 11:35:48 +0000
+In-Reply-To: <400C98F1-A3C6-4E14-90DE-91E314C48697@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>,
+ Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+To: Christian Lindig <christian.lindig@cloud.com>
+References: <cover.1706697858.git.edwin.torok@cloud.com>
+ <f98edc633527b6d9a6855af0aff4fb77970454cc.1706697858.git.edwin.torok@cloud.com>
+ <5879EE8F-6FAB-4026-BEDB-1AEEA7BF23DB@cloud.com>
+ <400C98F1-A3C6-4E14-90DE-91E314C48697@cloud.com>
+X-Mailer: Apple Mail (2.3774.400.31)
 
-On 23/02/2024 11:11 am, Roger Pau Monné wrote:
-> On Fri, Feb 23, 2024 at 10:26:15AM +0000, Andrew Cooper wrote:
->> On 23/02/2024 10:17 am, Roger Pau Monné wrote:
->>> On Fri, Feb 23, 2024 at 09:46:27AM +0000, Andrew Cooper wrote:
->>>> On 23/02/2024 9:42 am, Roger Pau Monne wrote:
->>>>> The current logic to handle the BRANCH_HARDEN option will report it as enabled
->>>>> even when build-time disabled. Fix this by only allowing the option to be set
->>>>> when support for it is built into Xen.
->>>>>
->>>>> Fixes: 2d6f36daa086 ('x86/nospec: Introduce CONFIG_SPECULATIVE_HARDEN_BRANCH')
->>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>> ---
->>>>>  xen/arch/x86/spec_ctrl.c | 6 ++++--
->>>>>  1 file changed, 4 insertions(+), 2 deletions(-)
->>>>>
->>>>> diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
->>>>> index 421fe3f640df..e634c6b559b4 100644
->>>>> --- a/xen/arch/x86/spec_ctrl.c
->>>>> +++ b/xen/arch/x86/spec_ctrl.c
->>>>> @@ -50,7 +50,8 @@ static int8_t __initdata opt_psfd = -1;
->>>>>  int8_t __ro_after_init opt_ibpb_ctxt_switch = -1;
->>>>>  int8_t __read_mostly opt_eager_fpu = -1;
->>>>>  int8_t __read_mostly opt_l1d_flush = -1;
->>>>> -static bool __initdata opt_branch_harden = true;
->>>>> +static bool __initdata opt_branch_harden =
->>>>> +    IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH);
->>>>>  
->>>>>  bool __initdata bsp_delay_spec_ctrl;
->>>>>  uint8_t __read_mostly default_xen_spec_ctrl;
->>>>> @@ -267,7 +268,8 @@ static int __init cf_check parse_spec_ctrl(const char *s)
->>>>>              opt_eager_fpu = val;
->>>>>          else if ( (val = parse_boolean("l1d-flush", s, ss)) >= 0 )
->>>>>              opt_l1d_flush = val;
->>>>> -        else if ( (val = parse_boolean("branch-harden", s, ss)) >= 0 )
->>>>> +        else if ( IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH) &&
->>>>> +                  (val = parse_boolean("branch-harden", s, ss)) >= 0 )
->>>>>              opt_branch_harden = val;
->>>> Yeah, we should definitely fix this, but could we use no_config_param()
->>>> here for the compiled-out case ?
->>>>
->>>> See cet= for an example.  If we're going to ignore what the user asks,
->>>> we should tell them why.
->>> Maybe I'm missing something: I've looked into using no_config_param(),
->>> but there's no difference really, because cmdline_parse() is called
->>> before the console is initialized, so those messages seem to be
->>> lost.
->> Look at `xl dmesg` rather than the console.  They also do appear on vga
->> in some configurations.
-> Oh, my internal buffer was too small on those also got truncated, had
-> to bump it.
 
-Yeah - the default buffer size in Xen is too small.  It has been for
-more than a decade, which is how long the adjustment in XenServer has
-been around.
+--Apple-Mail=_1105AA12-93D6-4804-BE20-A928B5937E54
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
->
->> There's a separate todo to get these out in a slightly nicer way, but
->> they at least exist in logs.
-> I've created:
->
-> https://gitlab.com/xen-project/xen/-/issues/184
 
-Thanks.
 
-~Andrew
+> On 31 Jan 2024, at 16:27, Edwin Torok <edwin.torok@cloud.com> wrote:
+>=20
+>=20
+>=20
+>> On 31 Jan 2024, at 11:17, Christian Lindig =
+<christian.lindig@cloud.com> wrote:
+>>=20
+>>=20
+>>=20
+>>> On 31 Jan 2024, at 10:52, Edwin T=C3=B6r=C3=B6k =
+<edwin.torok@cloud.com> wrote:
+>>>=20
+>>> Now that we no longer have a hashtable inside we can make Quota.t =
+pure,
+>>> and push the mutable update to its callers.
+>>> Store.t already had a mutable Quota.t field.
+>>>=20
+>>> No functional change.
+>>=20
+>> Acked-by: Christian Lindig <christian.lindig@cloud.com>
+>>=20
+>> This is shifting copying working to GC work, at least potentially. I =
+would agree that this is a good trade-off and the code looks correct to =
+me. But I think we should see more testing and benchmarking before =
+merging this unless we are fine merging speculative improvements.
+>>=20
+>> =E2=80=94 C
+>>=20
+>>=20
+>=20
+>=20
+> I=E2=80=99ve written this [1] microbenchmark which creates ~300_000 =
+entries in xenstore, assigns quota to 1000 domains and then measure how =
+long it takes to list xenstore
+> (It doesn=E2=80=99t matter whether these domains exist or not).
+> It shows a measurable improvement with this patch, once I=E2=80=99ve =
+run a more realistic test on the original machine with 1000 real VMs =
+I=E2=80=99ll post those results too:
+
+The machine that can run this test is offline now due to a lab move, but =
+I managed to get this data before it went away, and I think this patch =
+series is ready to be committed.
+
+Flamegraph without my changes, where Hashtbl.copy takes up a significant =
+amount of oxenstored time: =
+https://cdn.jsdelivr.net/gh/edwintorok/xen@oxenstored-coverletter/docs/ori=
+ginal.svg?x=3D153.0&y=3D1269
+Flamegraph with this patch series, where Hashtbl.copy does not show up =
+at all: =
+https://cdn.jsdelivr.net/gh/edwintorok/xen@oxenstored-coverletter/docs/oxe=
+nstored_no_hashtbl_copy.svg?x=3D294.3&y=3D1301
+(There are of course still hashtbl in the flame graph, due to the =
+well-known inefficient poll_select implementation, and we see hashtbl =
+iteration as a parent caller, which is fine)
+
+IMHO this means the patch series is a worthwhile improvement: it removes =
+a codepath that was previously a hotspot completely from oxenstored.
+
+The timings on the test also show improvements with this patch:
+
+Booting 575 VMs:
+* without this patch series: 1099s
+* with this patch series: 604s
+
+Booting 626 VMs:
+* without this patch series: 4027s
+* with this patch series: 2115s
+
+Booting 627 VMs:
+* without this patch series: 4038s
+* with this patch series: 4120s
+
+This shows that *with* the patch series the system scales better until =
+it hits a breaking point around 627 VMs where everything is ~equally =
+slow
+
+Not everything is ideal, there is also a slowdown around the 789 booted =
+VM mark:
+* without this patch series: 168s
+* with this patch series: 394s
+I wouldn=E2=80=99t worry about this result, because by this point some =
+VMs have already crashed, and I=E2=80=99d consider the test to have =
+failed by this point. What results you get at this point depends on how =
+much CPU oxenstored gets compared to the qemus ioreq handler that is =
+spinning handling the crash on the serial port.
+To actually reach 1000 VMs it will require more fixes outsides of =
+oxenstored (e.g. wrt to using correct groups with tapdisk, qemu, etc., =
+or making qemu better cope with flooding on serial port from the guest), =
+and probably some fixes to the poll_select in oxenstored that I may =
+address in a future patch series.
+
+
+
+Best regards,
+=E2=80=94Edwin
+
+>=20
+> On an Intel Xeon Gold 6354 @ 3.0 Ghz:
+> * without my patch: 12.756 +- 0.152 seconds time elapsed  ( +-  1.19% =
+)
+> * with my patch: 5.6051 +- 0.0467 seconds time elapsed  ( +-  0.83% )
+>=20
+> [1]
+> # cat >create.py <<EOF
+> #!/usr/bin/env python3
+> from xen.lowlevel.xs import xs
+>=20
+> xenstore =3D xs()
+>=20
+> for i in range(1,1000):
+>   txn =3D xenstore.transaction_start()
+>   for j in range(1,10):
+>     for k in range(1,30):
+>         path=3Df"/quotatest/{i}/{j}/{k}/x"
+>         xenstore.write(txn, path, "val")
+>         # assign quota to domid i
+>         xenstore.set_permissions(txn, path, [{"dom": i}])
+>   xenstore.transaction_end(txn)
+> EOF
+> # python3 create.py
+> # perf stat -r 10 sh -c 'xenstore-ls $(for i in $(seq 1 100); do echo =
+"/quotatest/$i"; done) >/dev/null=E2=80=99
+>=20
+> Best regards,
+> =E2=80=94Edwin
+
+
+--Apple-Mail=_1105AA12-93D6-4804-BE20-A928B5937E54
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"overflow-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;"><br =
+id=3D"lineBreakAtBeginningOfMessage"><div><br><blockquote =
+type=3D"cite"><div>On 31 Jan 2024, at 16:27, Edwin Torok =
+&lt;edwin.torok@cloud.com&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div><meta http-equiv=3D"content-type"=
+ content=3D"text/html; charset=3Dutf-8"><div style=3D"overflow-wrap: =
+break-word; -webkit-nbsp-mode: space; line-break: =
+after-white-space;"><br =
+id=3D"lineBreakAtBeginningOfMessage"><div><br><blockquote =
+type=3D"cite"><div>On 31 Jan 2024, at 11:17, Christian Lindig =
+&lt;christian.lindig@cloud.com&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div><div><br><br><blockquote =
+type=3D"cite">On 31 Jan 2024, at 10:52, Edwin T=C3=B6r=C3=B6k =
+&lt;edwin.torok@cloud.com&gt; wrote:<br><br>Now that we no longer have a =
+hashtable inside we can make Quota.t pure,<br>and push the mutable =
+update to its callers.<br>Store.t already had a mutable Quota.t =
+field.<br><br>No functional change.<br></blockquote><br>Acked-by: =
+Christian Lindig &lt;christian.lindig@cloud.com&gt;<br><br>This is =
+shifting copying working to GC work, at least potentially. I would agree =
+that this is a good trade-off and the code looks correct to me. But I =
+think we should see more testing and benchmarking before merging this =
+unless we are fine merging speculative improvements.<br><br>=E2=80=94 =
+C<br><br><br></div></div></blockquote></div><br><div><br></div><div>I=E2=80=
+=99ve written this [1] microbenchmark which creates ~300_000 entries in =
+xenstore, assigns quota to 1000 domains and then measure how long it =
+takes to list xenstore</div><div>(It doesn=E2=80=99t matter whether =
+these domains exist or not).</div><div>It shows a measurable improvement =
+with this patch, once I=E2=80=99ve run a more realistic test on the =
+original machine with 1000 real VMs I=E2=80=99ll post those results =
+too:</div></div></div></blockquote><div><br></div><div>The machine that =
+can run this test is offline now due to a lab move, but I managed to get =
+this data before it went away, and I think this patch series is ready to =
+be committed.</div><div><br></div><div>Flamegraph without my changes, =
+where Hashtbl.copy takes up a significant amount of oxenstored =
+time:&nbsp;<a =
+href=3D"https://cdn.jsdelivr.net/gh/edwintorok/xen@oxenstored-coverletter/=
+docs/original.svg?x=3D153.0&amp;y=3D1269">https://cdn.jsdelivr.net/gh/edwi=
+ntorok/xen@oxenstored-coverletter/docs/original.svg?x=3D153.0&amp;y=3D1269=
+</a></div><div>Flamegraph with this patch series, where Hashtbl.copy =
+does not show up at all:&nbsp;<a =
+href=3D"https://cdn.jsdelivr.net/gh/edwintorok/xen@oxenstored-coverletter/=
+docs/oxenstored_no_hashtbl_copy.svg?x=3D294.3&amp;y=3D1301">https://cdn.js=
+delivr.net/gh/edwintorok/xen@oxenstored-coverletter/docs/oxenstored_no_has=
+htbl_copy.svg?x=3D294.3&amp;y=3D1301</a></div><div>(There are of course =
+still hashtbl in the flame graph, due to the well-known inefficient =
+poll_select implementation, and we see hashtbl iteration as a parent =
+caller, which is fine)</div><div><br></div><div>IMHO this means the =
+patch series is a worthwhile improvement: it removes a codepath that was =
+previously a hotspot completely from =
+oxenstored.</div><div><br></div><div>The timings on the test also show =
+improvements with this patch:</div><div><br></div><div>Booting 575 =
+VMs:</div><div>* without this patch series: 1099s</div><div>* with this =
+patch series: 604s</div><div><br></div><div>Booting 626 VMs:</div><div>* =
+without this patch series:&nbsp;<span style=3D"caret-color: rgb(0, 0, =
+0); color: rgb(0, 0, 0);">4027s</span></div><div>* with this patch =
+series: 2115s</div><div><br></div><div>Booting 627 VMs:</div><div>* =
+without this patch series: 4038s</div><div>* with this patch series: =
+4120s</div><div><br></div><div>This shows that *with* the patch series =
+the system scales better until it hits a breaking point around 627 VMs =
+where everything is ~equally slow</div><div><br></div><div>Not =
+everything is ideal, there is also a slowdown around the 789 booted VM =
+mark:</div><div>* without this patch series: 168s</div><div>* with this =
+patch series: 394s</div><div>I wouldn=E2=80=99t worry about this result, =
+because by this point some VMs have already crashed, and I=E2=80=99d =
+consider the test to have failed by this point. What results you get at =
+this point depends on how much CPU oxenstored gets compared to the qemus =
+ioreq handler that is spinning handling the crash on the serial =
+port.</div><div>To actually reach 1000 VMs it will require more fixes =
+outsides of oxenstored (e.g. wrt to using correct groups with tapdisk, =
+qemu, etc., or making qemu better cope with flooding on serial port from =
+the guest), and probably some fixes to the poll_select in oxenstored =
+that I may address in a future patch =
+series.</div><div><br></div><div><br></div><div><br></div><div>Best =
+regards,</div><div>=E2=80=94Edwin</div><br><blockquote =
+type=3D"cite"><div><div style=3D"overflow-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: =
+after-white-space;"><div><br></div><div>On an Intel Xeon Gold 6354 @ 3.0 =
+Ghz:</div><div>* without my patch:&nbsp;12.756 +- 0.152 seconds time =
+elapsed &nbsp;( +- &nbsp;1.19% )</div><div>* with my patch:&nbsp;5.6051 =
++- 0.0467 seconds time elapsed &nbsp;( +- &nbsp;0.83% =
+)</div><div><br></div><div>[1]</div><div># cat &gt;create.py =
+&lt;&lt;EOF</div><div><div>#!/usr/bin/env python3</div><div>from =
+xen.lowlevel.xs import xs</div><div><br></div><div>xenstore =3D =
+xs()</div><div><br></div><div>for i in range(1,1000):</div><div>&nbsp; =
+txn =3D xenstore.transaction_start()</div><div>&nbsp; for j in =
+range(1,10):</div><div>&nbsp; &nbsp; for k in =
+range(1,30):</div><div>&nbsp; &nbsp; &nbsp; &nbsp; =
+path=3Df"/quotatest/{i}/{j}/{k}/x"</div><div>&nbsp; &nbsp; &nbsp; &nbsp; =
+xenstore.write(txn, path, "val")</div><div>&nbsp; &nbsp; &nbsp; &nbsp; # =
+assign quota to domid i</div><div>&nbsp; &nbsp; &nbsp; &nbsp; =
+xenstore.set_permissions(txn, path, [{"dom": i}])</div><div>&nbsp; =
+xenstore.transaction_end(txn)</div></div><div>EOF</div><div># python3 =
+create.py</div><div>#&nbsp;<span style=3D"caret-color: rgb(0, 0, =
+0);">perf stat -r 10 sh -c 'xenstore-ls $(for i in $(seq 1 100); do echo =
+"/quotatest/$i"; done) &gt;/dev/null</span><font><span =
+style=3D"caret-color: rgb(0, 0, 0);">=E2=80=99</span></font></div><div><sp=
+an style=3D"caret-color: rgb(0, 0, 0);"><br></span></div><div><span =
+style=3D"caret-color: rgb(0, 0, 0);">Best =
+regards,</span></div><div><font><span style=3D"caret-color: rgb(0, 0, =
+0);">=E2=80=94Edwin</span></font></div></div></div></blockquote></div><br>=
+</body></html>=
+
+--Apple-Mail=_1105AA12-93D6-4804-BE20-A928B5937E54--
 
