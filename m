@@ -2,38 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29F798618A8
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 18:01:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684916.1065149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E8C7861F31
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 22:43:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684939.1065210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdYub-0003NY-8S; Fri, 23 Feb 2024 17:00:37 +0000
+	id 1rddJH-00085u-6F; Fri, 23 Feb 2024 21:42:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684916.1065149; Fri, 23 Feb 2024 17:00:37 +0000
+Received: by outflank-mailman (output) from mailman id 684939.1065210; Fri, 23 Feb 2024 21:42:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdYub-0003Lz-5D; Fri, 23 Feb 2024 17:00:37 +0000
-Received: by outflank-mailman (input) for mailman id 684916;
- Fri, 23 Feb 2024 17:00:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rddJH-00084N-3R; Fri, 23 Feb 2024 21:42:23 +0000
+Received: by outflank-mailman (input) for mailman id 684939;
+ Fri, 23 Feb 2024 21:42:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X/z8=KA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rdYuY-0003Ls-VW
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 17:00:35 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0e3322de-d26d-11ee-8a57-1f161083a0e0;
- Fri, 23 Feb 2024 18:00:34 +0100 (CET)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2d269b2ff48so6745101fa.3
- for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 09:00:32 -0800 (PST)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- q14-20020a2e914e000000b002d0a8143f31sm2667879ljg.50.2024.02.23.09.00.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Feb 2024 09:00:31 -0800 (PST)
+ <SRS0=nQMd=KA=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
+ id 1rddJF-00084H-JD
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 21:42:21 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2415::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 696cbbfa-d294-11ee-98f5-efadbce2ee36;
+ Fri, 23 Feb 2024 22:42:17 +0100 (CET)
+Received: from BN9PR03CA0278.namprd03.prod.outlook.com (2603:10b6:408:f5::13)
+ by BY5PR12MB4276.namprd12.prod.outlook.com (2603:10b6:a03:20f::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.24; Fri, 23 Feb
+ 2024 21:42:13 +0000
+Received: from BN3PEPF0000B071.namprd04.prod.outlook.com
+ (2603:10b6:408:f5:cafe::1b) by BN9PR03CA0278.outlook.office365.com
+ (2603:10b6:408:f5::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.43 via Frontend
+ Transport; Fri, 23 Feb 2024 21:42:12 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN3PEPF0000B071.mail.protection.outlook.com (10.167.243.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Fri, 23 Feb 2024 21:42:12 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 23 Feb
+ 2024 15:42:12 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 23 Feb
+ 2024 15:42:11 -0600
+Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Fri, 23 Feb 2024 15:42:11 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +64,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e3322de-d26d-11ee-8a57-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1708707632; x=1709312432; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=xfcegJCkN+4l/qAbHquimEKw/cizmOVIAMbbX7WIHZw=;
-        b=l+UAa1z0yHGaFNvbn7EFTdC+D5U7prJAlfdXRv2GYjRHDWo+PJfW33I/BmkpcWZe0Z
-         DuZ0sOk83nXKErSL2IQUCtUQmOa4KJ1CCtcJe1DrpYuUTiHqvOjwOKRksdqnDXIutaLW
-         E1u66G6Cc7dfOmG5zaiR8BI7Ao/iR+g7GxFp4CYHC5YfisSaMfIyOaujBoFf/6w43OIc
-         h1nmL9pFpl6CgOeY4QvWOkFSwrFq8afa7fPeK+7tCV0ES09WMliJukjHeHIdIF/LWWqU
-         v4Kvob2W90+NFl4XZmQZyvpxlWKtR5FTivVMqSK64Qis/GMroJ6WHnowRmkeIo3q1KO+
-         5uww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708707632; x=1709312432;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xfcegJCkN+4l/qAbHquimEKw/cizmOVIAMbbX7WIHZw=;
-        b=tuYPi4jnfqhdT3IUeNa3FDEZwlnhEJz8/WMusw6qfMxzn1bMdlu+57tbDyMMm+QPfV
-         RqdXxLiq1k5E3VzL6bG4S4NPAtG0gkqTKUGMys2dw2HxhAv+7FwFNLACg7zG4bj6650h
-         sKef5a7i2srRSGJlm9JiRerkWdMKKYVmcos6EEdKa2CD93QQ/mBg5vZ4zmXmF18/qbW/
-         QNxopdafy934uo5VsVp0GBboy1P60OOSpCAm0dvlR72B81jrrpaetlOHRvtfKb/S/zGX
-         KwywdUXpunnqC7G0Zl4K5eUalcM+6Lx8uo8QnUFTvo4D0fOvQ04SdxilxE0OBcF+ZFGu
-         JxzA==
-X-Forwarded-Encrypted: i=1; AJvYcCU8pIvmsOB0pKYekDFreN7VJ0en9Uqm/rE5l3F2DgDfVxfxEjumO5GEGyC/JJfRlegBh/wWlXYTMLhFRdmT4XiSN7GwKzfYLpN7LixMHZU=
-X-Gm-Message-State: AOJu0Yzk0S7s830Oqgz09HUbDE3UlJFVL4+/rwPkyESMuOsIUuh+4uXa
-	A4ZzFm0FNJvtLbdRSIjr+i4bfBxNaiMMKs/TWnWTphvIWk38boLK
-X-Google-Smtp-Source: AGHT+IEgTk+NxAELDXdrspIgiDNNJxy45Rj71Fb2P360WbueqQJxKy8e2bYfXC4ZUHpofIPjCB0crQ==
-X-Received: by 2002:a2e:6a0d:0:b0:2d2:7580:e220 with SMTP id f13-20020a2e6a0d000000b002d27580e220mr251065ljc.15.1708707631792;
-        Fri, 23 Feb 2024 09:00:31 -0800 (PST)
-Message-ID: <6cd4d415ccf2163d9fdf690f29d898d61b077472.camel@gmail.com>
-Subject: Re: [PATCH v4 25/30] xen/riscv: add minimal stuff to processor.h to
- build full Xen
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Alistair Francis
- <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Connor
- Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-Date: Fri, 23 Feb 2024 18:00:30 +0100
-In-Reply-To: <5de8f721-461c-4a0e-a11d-63aa7c93a742@suse.com>
-References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
-	 <9efbc232f64b6192cf83f865b8987846fe082720.1707146506.git.oleksii.kurochko@gmail.com>
-	 <6be5102a-624c-463a-9821-c618d110ce7a@suse.com>
-	 <095b8031eaaa5324cdae9fee75f9521a795feb46.camel@gmail.com>
-	 <2f1e4d2d-5b33-47ff-912b-c4693744d0e9@suse.com>
-	 <0bafef389b30251bc9898bb61604aa3efaabe48c.camel@gmail.com>
-	 <5de8f721-461c-4a0e-a11d-63aa7c93a742@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+X-Inumbo-ID: 696cbbfa-d294-11ee-98f5-efadbce2ee36
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eS3C1nnct3mCy8hPMmX3wP0s1xMLiiSyYqjCBLByd6gqLvQvDg+V0eJfiuCo2SLxBLclhnz611obQduXayW+EmE4yJCmX0YwJN7BsCmGlxyiKseC7WvF2OjKwsC/tW57RPpVsAWV/uu3y+vsiI7XEknjYujLpMUu34KThKmnxaBeak/MpwexXTjlLm3VkfpnPE8ZT+qYhI57i4suHI3uu0tTPK270EUscoNVe9Sh+g18UQbENG/eZQS4KJ+nUcOzbSmoqv+D8f15+lAz+Gas4vnuhJp//J73+mxn3ZlGE00xLphARHdNtVL4FTwd/8brI/WDhNf7qja3Al1OxNGKeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=brzpYEEybsreMV1sY2Ki8Ly4xbWrIx5anpAufpPOS70=;
+ b=hz5hSs4Fc+w4dkQ1bQG58729PRwycpd+d5IgzPSHS2c/rwXYnnwZoMdnDDsf79HiFPhW8E/UDkIQpTPtjHzGSY7dtGWgLFvT0fxLxI88kPrWh5VQaIzkIMtIlp9HBJO0kCtRufrfdzv5250aNCgP86uJ/pzZdSJkwrhlW84o6WoDrMgegomPVHt0CRr+gVSpgOB7hZEyxZJFo+5JKyANNZA1qfwNHt7S0RpiaDjsqr69Ua13LgC0CyH78r8cudMcHIQEL6xvo+JS4eaTmgmh/weZhH/o9XuMPRfwcfLE4rE/HD/BdTnsLcIewxUSJGwNflSD9Linq83STl9DoxLEfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=nxp.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=brzpYEEybsreMV1sY2Ki8Ly4xbWrIx5anpAufpPOS70=;
+ b=G7sYzAF1EgEbPw2om+LQznZPBkgksvx32rhOeLP4efnHKtPTPMGcfxLvvEx23hUADRWbRNJOGr00GX4GNjUrKQFoNTknwmPw3SIu97NBYAgwMKnCvgc83EXm7bggjRFE+pJZrdkY3bt3ql3e+AC3HyFqBuhPEdQgV6iOaQWYHMs=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Date: Fri, 23 Feb 2024 13:42:10 -0800
+From: Stefano Stabellini <stefano.stabellini@amd.com>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Peng Fan <peng.fan@nxp.com>
+CC: "stefano.stabellini@amd.com" <stefano.stabellini@amd.com>, Julien Grall
+	<julien@xen.org>, "vikram.garhwal@amd.com" <vikram.garhwal@amd.com>,
+	"oleksandr_tyshchenko@epam.com" <oleksandr_tyshchenko@epam.com>, Leo Yan
+	<leo.yan@linaro.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+	"stewart.hildebrand@amd.com" <stewart.hildebrand@amd.com>,
+	"sgarzare@redhat.com" <sgarzare@redhat.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: Re: question about virtio-vsock on xen
+In-Reply-To: <DU0PR04MB941734DA793D87B7FF3A491488552@DU0PR04MB9417.eurprd04.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2402231332580.754277@ubuntu-linux-20-04-desktop>
+References: <DU0PR04MB941734DA793D87B7FF3A491488552@DU0PR04MB9417.eurprd04.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
+Content-Type: text/plain; charset="US-ASCII"
+Received-SPF: None (SATLEXMB05.amd.com: stefano.stabellini@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B071:EE_|BY5PR12MB4276:EE_
+X-MS-Office365-Filtering-Correlation-Id: 157e3131-6f19-4f45-9ace-08dc34b84b7f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	kO+V4s9OdN91nn/QK39thiS8VYDf5mwOL4PA6U9vPHwLaYOmY+HNZlD3jSHddezGEyNKtQ+oZAqlOIidwiYr5asAKWG0wgYI6/XzzrNhVVYC3pfPknYMBrsw/Q4LPKnU+gH07wM7g/ozryMn47d9bhgt0V4RgNKkYbjk6eboMza88cvxmv0Y8ngr5eUV8HfZmbu2Pl294O9uuAM4r98aYxDvF/tY9ecezsW4CkVCEZ9aoMWvaoxgTQc8d80qMbWnGakjGF8T10BkPtiGBt7eGcny9ZUNwYu7nLya7RFvWi+Gw8n9wDBgdgO22ZNp7UJY2FFc3XT+dWgiOoujatmovkuAU50e2UGK1sfTkSeAk4w8AazwYqq6uwhPw1UeK6ItfI1qVCgZME74XknXZSodCNnzGfbmkm6IxhBtDyMaYAvE2kG+UnDgL0m1rmviWHIhENm7lBpBP27xd2qwwUonBL34C74f9KQOnzn2J7UoMNv4/aU6pssIphI/sxkc3Zc4b1k6/53SbxyQ8CJkGKIkbpEqDpAuoW9Kc2fDO9LBl5viWMH+LooT6gGw6x/bUZcUQdf+zZnZ5vMZyYMxafomBcFWO2rp/Vr9mgQ9e5SNqGgWgv2Zdo38tpylS5u/8P4AvMlHJLBVHT2qwAqDv8ygKQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(40470700004)(46966006);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2024 21:42:12.4736
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 157e3131-6f19-4f45-9ace-08dc34b84b7f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B071.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4276
 
-On Mon, 2024-02-19 at 09:06 +0100, Jan Beulich wrote:
-> On 16.02.2024 12:16, Oleksii wrote:
-> > On Thu, 2024-02-15 at 17:43 +0100, Jan Beulich wrote:
-> > > On 15.02.2024 17:38, Oleksii wrote:
-> > > > On Tue, 2024-02-13 at 14:33 +0100, Jan Beulich wrote:
-> > > > > On 05.02.2024 16:32, Oleksii Kurochko wrote:
-> > > > > > +	depends on LLD_VERSION >=3D 150000 || LD_VERSION >=3D
-> > > > > > 23600
-> > > > >=20
-> > > > > What's the linker dependency here? Depending on the answer I
-> > > > > might
-> > > > > further
-> > > > > ask why "TOOLCHAIN" when elsewhere we use CC_HAS_ or HAS_CC_
-> > > > > or
-> > > > > HAS_AS_.
-> > > > I missed to introduce {L}LLD_VERSION config. It should output
-> > > > from
-> > > > the
-> > > > command:
-> > > > =C2=A0 riscv64-linux-gnu-ld --version
-> > >=20
-> > > Doesn't answer my question though where the linker version
-> > > matters
-> > > here.
-> > Then I misinterpreted your initial question.
-> > Could you please provide further clarification or rephrase it for
-> > better understanding?
-> >=20
-> > Probably, your question was about why linker dependency is needed
-> > here,
-> > then
-> > it is not sufficient to check if a toolchain supports a particular=C2=
-=A0
-> > extension without checking if the linker supports that extension=C2=A0=
-=C2=A0=20
-> > too.
-> > For example, Clang 15 supports Zihintpause but GNU bintutils
-> > 2.35.2 does not, leading build errors like so:
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0 riscv64-linux-gnu-ld: -march=3Drv64i_zihintpause2p0: Inval=
-id or
-> > =C2=A0=C2=A0 unknown z ISA extension: 'zihintpause'
->=20
-> Hmm, that's certainly "interesting" behavior of the RISC-V linker.
-> Yet
-> isn't the linker capability expected to be tied to that of gas? I
-> would
-> find it far more natural if a gas dependency existed here. If such a
-> connection cannot be taken for granted, I'm pretty sure you'd need to
-> probe both then anyway.
+Hi Peng,
 
-Wouldn't it be enough in this case instead of introducing of new
-configs and etc, just to do the following:
-   +ifeq ($(CONFIG_RISCV_64),y)
-   +has_zihintpause =3D $(call as-insn,$(CC) -mabi=3Dlp64 -
-   march=3Drv64i_zihintpause, "pause",_zihintpause,)
-   +else
-   +has_zihintpause =3D $(call as-insn,$(CC) -mabi=3Dilp32 -
-   march=3Drv32i_zihintpause, "pause",_zihintpause,)
-   +endif
-   +
-    riscv-march-$(CONFIG_RISCV_ISA_RV64G) :=3D rv64g
-    riscv-march-$(CONFIG_RISCV_ISA_C)       :=3D $(riscv-march-y)c
-   -riscv-march-$(CONFIG_TOOLCHAIN_HAS_ZIHINTPAUSE) :=3D $(riscv-march-
-   y)_zihintpause
-   =20
-    # Note that -mcmodel=3Dmedany is used so that Xen can be mapped
-    # into the upper half _or_ the lower half of the address space.
-    # -mcmodel=3Dmedlow would force Xen into the lower half.
-   =20
-   -CFLAGS +=3D -march=3D$(riscv-march-y) -mstrict-align -mcmodel=3Dmedany
-   +CFLAGS +=3D -march=3D$(riscv-march-y)$(has_zihintpause) -mstrict-align
-   -
-   mcmodel=3Dmedany
+We haven't tried to setup virtio-vsock yet.
 
-Probably, it would be better:
-   ...
-   +CFLAGS +=3D -march=3D$(riscv-march-y)$(call or,$(has_zihintpause)) -
-   mstrict-align -
-   mcmodel=3Dmedany
+In general, I am very supportive of using QEMU for virtio backends. We
+use QEMU to provide virtio-net, virtio-block, virtio-console and more.
+
+However, typically virtio-vsock comes into play for VM-to-VM
+communication, which is different. Going via QEMU in Dom0 just to have 1
+VM communicate with another VM is not an ideal design: it adds latency
+and uses resources in Dom0 when actually we could do without it.
+
+A better model for VM-to-VM communication would be to have the VM talk
+to each other directly via grant table or pre-shared memory (see the
+static shared memory feature) or via Xen hypercalls (see Argo.)
+
+For a good Xen design, I think the virtio-vsock backend would need to be
+in Xen itself (the hypervisor).
+
+Of course that is more work and it doesn't help you with the specific
+question you had below :-)
+
+For that, I don't have a pointer to help you but maybe others in CC
+have.
+
+Cheers,
+
+Stefano
 
 
-~ Oleksii
+On Fri, 23 Feb 2024, Peng Fan wrote:
+> Hi All,
+> 
+> Has anyone make virtio-vsock on xen work? My dm args as below:
+> 
+> virtio = [
+> 'backend=0,type=virtio,device,transport=pci,bdf=05:00.0,backend_type=qemu,grant_usage=true'
+> ]
+> device_model_args = [
+> '-D', '/home/root/qemu_log.txt',
+> '-d', 'trace:*vsock*,trace:*vhost*,trace:*virtio*,trace:*pci_update*,trace:*pci_route*,trace:*handle_ioreq*,trace:*xen*',
+> '-device', 'vhost-vsock-pci,iommu_platform=false,id=vhost-vsock-pci0,bus=pcie.0,addr=5.0,guest-cid=3']
+> 
+> During my test, it always return failure in dom0 kernel in below code:
+> 
+> vhost_transport_do_send_pkt {
+> ...
+>                nbytes = copy_to_iter(hdr, sizeof(*hdr), &iov_iter);                                
+>                 if (nbytes != sizeof(*hdr)) {                                                       
+>                         vq_err(vq, "Faulted on copying pkt hdr %x %x %x %px\n", nbytes, sizeof(*hdr),                        
+> __builtin_object_size(hdr, 0), &iov_iter);
+>                         kfree_skb(skb);                                                             
+>                         break;                                                                      
+>                 }  
+> }
+> 
+> I checked copy_to_iter, it is copy data to __user addr, but it never pass, 
+> the copy to __user addr always return 0 bytes copied.
+> 
+> The asm code "sttr x7, [x6]" will trigger data abort, the kernel will run
+> into do_page_fault, but lock_mm_and_find_vma report it is VM_FAULT_BADMAP,
+> that means the __user addr is not mapped, no vma has this addr.
+> 
+> I am not sure what may cause this. Appreciate if any comments.
+> 
+> BTW: I tested blk pci, it works, so the virtio pci should work on my setup.
+> 
+> Thanks,
+> Peng.
+> 
 
