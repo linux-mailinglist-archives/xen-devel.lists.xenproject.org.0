@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE2758607C3
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 01:42:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684578.1064506 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 181EE8607CE
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 01:44:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684581.1064515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdJcq-0001zl-DR; Fri, 23 Feb 2024 00:41:16 +0000
+	id 1rdJfp-0002X8-QW; Fri, 23 Feb 2024 00:44:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684578.1064506; Fri, 23 Feb 2024 00:41:16 +0000
+Received: by outflank-mailman (output) from mailman id 684581.1064515; Fri, 23 Feb 2024 00:44:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdJcq-0001wg-AQ; Fri, 23 Feb 2024 00:41:16 +0000
-Received: by outflank-mailman (input) for mailman id 684578;
- Fri, 23 Feb 2024 00:41:14 +0000
+	id 1rdJfp-0002Vc-Nv; Fri, 23 Feb 2024 00:44:21 +0000
+Received: by outflank-mailman (input) for mailman id 684581;
+ Fri, 23 Feb 2024 00:44:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OEAM=KA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rdJco-0001wa-Eo
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 00:41:14 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ id 1rdJfo-0002VW-C6
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 00:44:20 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3d19c244-d1e4-11ee-98f5-efadbce2ee36;
- Fri, 23 Feb 2024 01:41:12 +0100 (CET)
+ id aca63fbf-d1e4-11ee-98f5-efadbce2ee36;
+ Fri, 23 Feb 2024 01:44:18 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 389DECE28A9;
- Fri, 23 Feb 2024 00:41:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3119C433F1;
- Fri, 23 Feb 2024 00:40:59 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 10CA663340;
+ Fri, 23 Feb 2024 00:44:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECE2AC433C7;
+ Fri, 23 Feb 2024 00:44:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d19c244-d1e4-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: aca63fbf-d1e4-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1708648867;
-	bh=2eAFc96uRl3Ua7F+T8Syhw9JISW3nl4V1PqSlH0ngOY=;
+	s=k20201202; t=1708649056;
+	bh=VSsnso58d5B5E6qzjFbJgzNWT1xjYoXRuyFXxmOrLxA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VN1OQdFD4fM0xXIULwFJs9e8yo/38jscI4CxtSNXZx8nWFYrNNsdXuPgJR8umTVDH
-	 mJncfrIIr4+wLYK0I1soVekD0xsHIg+B965iWEXa3U0xfvjhp0GHgzeY8fgLMXFx0C
-	 Q1+vVpSX8Dq6WkDLibm7gTW8euUTh37pa/ZeeUusi67h2nZe0Ro3pd8ud35MaCs0yh
-	 EdOD4veViQ8tAwC7DXiMTPWXZDLwQIX/QAEzx+D8mIPaxrX8V5hcQdYuYMP71AyRJO
-	 Gc8CSYB6eCJXRqf06Dx8NlHHmjMTmxtgHoCvZ63pr88l278ebA8NS5uewSBtIle5XO
-	 L9P6D/NomF6ow==
-Date: Thu, 22 Feb 2024 16:40:58 -0800 (PST)
+	b=J5cgbiTTxLqPDVKVOttl443bP4SazqAHIpIk+iZ+XsTE9bXDnQ7ZcTUuUax9jnoMf
+	 aVHuvrUehfROqpCGdNJMCR++JWFmgi8dZlexaQLlktBAII8Pg4faPE4XZq2N3OKrMP
+	 JHLpcQSbkb84Jt52MMkgg6mUPlYZ832AhbDPQdU9LHJ4w8ozeauLDuoF2gSpC8kUjq
+	 MG5SGcMwRPGVTp1vMgiGAARZIAUIdO4wJugByR0zBWUSqOs5027ciOECBRkCe0mhrd
+	 VbgksYhZd9E1yzEL3M35e1F4M4xevgUqCzqGhyVRfQHJZVf3+/Am6JEajm4gHudfI1
+	 EtHN0YnbMVeNw==
+Date: Thu, 22 Feb 2024 16:44:13 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jiqian Chen <Jiqian.Chen@amd.com>
@@ -66,114 +66,54 @@ cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
     "Daniel P . Smith" <dpsmith@apertussolutions.com>, 
     Stewart Hildebrand <Stewart.Hildebrand@amd.com>, 
     Huang Rui <Ray.Huang@amd.com>, Huang Rui <ray.huang@amd.com>
-Subject: Re: [RFC XEN PATCH v5 2/5] x86/pvh: Allow (un)map_pirq when dom0 is
- PVH
-In-Reply-To: <20240112061317.418658-3-Jiqian.Chen@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2402221632170.754277@ubuntu-linux-20-04-desktop>
-References: <20240112061317.418658-1-Jiqian.Chen@amd.com> <20240112061317.418658-3-Jiqian.Chen@amd.com>
+Subject: Re: [RFC XEN PATCH v5 3/5] x86/pvh: Add PHYSDEVOP_setup_gsi for PVH
+ dom0
+In-Reply-To: <20240112061317.418658-4-Jiqian.Chen@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2402221642530.754277@ubuntu-linux-20-04-desktop>
+References: <20240112061317.418658-1-Jiqian.Chen@amd.com> <20240112061317.418658-4-Jiqian.Chen@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Fri, 12 Jan 2024, Jiqian Chen wrote:
-> If run Xen with PVH dom0 and hvm domU, hvm will map a pirq for
-> a passthrough device by using gsi, see
-> xen_pt_realize->xc_physdev_map_pirq and
-> pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq
-> will call into Xen, but in hvm_physdev_op, PHYSDEVOP_map_pirq
-> is not allowed because currd is PVH dom0 and PVH has no
-> X86_EMU_USE_PIRQ flag, it will fail at has_pirq check.
-> 
-> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
-> PHYSDEVOP_unmap_pirq for the failed path to unmap pirq. And
-> add a new check to prevent self map when caller has no PIRQ
-> flag.
+> On PVH dom0, the gsis don't get registered, but
+> the gsi of a passthrough device must be configured for it to
+> be able to be mapped into a hvm domU.
+> On Linux kernel side, it calles PHYSDEVOP_setup_gsi for
+> passthrough devices to register gsi when dom0 is PVH.
+> So, add PHYSDEVOP_setup_gsi for above purpose.
 > 
 > Co-developed-by: Huang Rui <ray.huang@amd.com>
 > Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 > ---
->  xen/arch/x86/hvm/hypercall.c |  2 ++
->  xen/arch/x86/physdev.c       | 22 ++++++++++++++++++++++
->  2 files changed, 24 insertions(+)
+>  xen/arch/x86/hvm/hypercall.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
 > diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
-> index 6ad5b4d5f11f..493998b42ec5 100644
+> index 493998b42ec5..46f51ee459f6 100644
 > --- a/xen/arch/x86/hvm/hypercall.c
 > +++ b/xen/arch/x86/hvm/hypercall.c
-> @@ -74,6 +74,8 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->      {
->      case PHYSDEVOP_map_pirq:
+> @@ -76,6 +76,12 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
 >      case PHYSDEVOP_unmap_pirq:
+>          break;
+>  
+> +    case PHYSDEVOP_setup_gsi:
+> +        if ( !is_hardware_domain(currd) )
+> +            return -EOPNOTSUPP;
+> +        ASSERT(!has_pirq(currd));
+
+Do we really need this assert? I understand that the use case right now
+is for !has_pirq(currd) but in general it doesn't seem to me that
+PHYSDEVOP_setup_gsi and !has_pirq should be tied together.
+
+Aside from that, it looks fine.
+
+
 > +        break;
 > +
 >      case PHYSDEVOP_eoi:
 >      case PHYSDEVOP_irq_status_query:
 >      case PHYSDEVOP_get_free_pirq:
-> diff --git a/xen/arch/x86/physdev.c b/xen/arch/x86/physdev.c
-> index 47c4da0af7e1..7f2422c2a483 100644
-> --- a/xen/arch/x86/physdev.c
-> +++ b/xen/arch/x86/physdev.c
-> @@ -303,11 +303,22 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->      case PHYSDEVOP_map_pirq: {
->          physdev_map_pirq_t map;
->          struct msi_info msi;
-> +        struct domain *d;
->  
->          ret = -EFAULT;
->          if ( copy_from_guest(&map, arg, 1) != 0 )
->              break;
->  
-> +        d = rcu_lock_domain_by_any_id(map.domid);
-> +        if ( d == NULL )
-> +            return -ESRCH;
-> +        if ( !is_pv_domain(d) && !has_pirq(d) )
-
-I think this could just be:
-
-    if ( !has_pirq(d) )
-
-Right?
-
-
-> +        {
-> +            rcu_unlock_domain(d);
-> +            return -EOPNOTSUPP;
-> +        }
-> +        rcu_unlock_domain(d);
-> +
->          switch ( map.type )
->          {
->          case MAP_PIRQ_TYPE_MSI_SEG:
-> @@ -341,11 +352,22 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->  
->      case PHYSDEVOP_unmap_pirq: {
->          struct physdev_unmap_pirq unmap;
-> +        struct domain *d;
->  
->          ret = -EFAULT;
->          if ( copy_from_guest(&unmap, arg, 1) != 0 )
->              break;
->  
-> +        d = rcu_lock_domain_by_any_id(unmap.domid);
-> +        if ( d == NULL )
-> +            return -ESRCH;
-> +        if ( !is_pv_domain(d) && !has_pirq(d) )
-
-same here
-
-
-Other than that, everything looks fine to me
-
-
-> +        {
-> +            rcu_unlock_domain(d);
-> +            return -EOPNOTSUPP;
-> +        }
-> +        rcu_unlock_domain(d);
-> +
->          ret = physdev_unmap_pirq(unmap.domid, unmap.pirq);
->          break;
->      }
 > -- 
 > 2.34.1
 > 
