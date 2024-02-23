@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8822686218B
-	for <lists+xen-devel@lfdr.de>; Sat, 24 Feb 2024 02:10:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684999.1065351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF559862188
+	for <lists+xen-devel@lfdr.de>; Sat, 24 Feb 2024 02:10:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685002.1065359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdgYO-00060I-Hp; Sat, 24 Feb 2024 01:10:12 +0000
+	id 1rdgYO-0006A4-V9; Sat, 24 Feb 2024 01:10:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684999.1065351; Sat, 24 Feb 2024 01:10:12 +0000
+Received: by outflank-mailman (output) from mailman id 685002.1065359; Sat, 24 Feb 2024 01:10:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdgYO-0005pG-Cc; Sat, 24 Feb 2024 01:10:12 +0000
-Received: by outflank-mailman (input) for mailman id 684999;
- Fri, 23 Feb 2024 23:57:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rdgYO-0005zc-OW; Sat, 24 Feb 2024 01:10:12 +0000
+Received: by outflank-mailman (input) for mailman id 685002;
+ Fri, 23 Feb 2024 23:57:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nFrk=KA=gmail.com=alexei.starovoitov@srs-se1.protection.inumbo.net>)
- id 1rdfQE-0005yy-GZ
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 23:57:42 +0000
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [2607:f8b0:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5433a7fd-d2a7-11ee-8a57-1f161083a0e0;
- Sat, 24 Feb 2024 00:57:42 +0100 (CET)
-Received: by mail-pl1-x635.google.com with SMTP id
- d9443c01a7336-1dc418fa351so5821525ad.1
- for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 15:57:41 -0800 (PST)
+ id 1rdfQJ-0005zS-Gf
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 23:57:47 +0000
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [2607:f8b0:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 567fba97-d2a7-11ee-98f5-efadbce2ee36;
+ Sat, 24 Feb 2024 00:57:45 +0100 (CET)
+Received: by mail-pl1-x636.google.com with SMTP id
+ d9443c01a7336-1dc0d11d1b7so8497715ad.2
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 15:57:45 -0800 (PST)
 Received: from localhost.localdomain ([2620:10d:c090:400::4:45de])
  by smtp.gmail.com with ESMTPSA id
- bc7-20020a170902930700b001dc486f0cb2sm3796745plb.208.2024.02.23.15.57.38
+ d11-20020a170902728b00b001dc23e877c1sm6175189pll.265.2024.02.23.15.57.42
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 23 Feb 2024 15:57:39 -0800 (PST)
+ Fri, 23 Feb 2024 15:57:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,37 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5433a7fd-d2a7-11ee-8a57-1f161083a0e0
+X-Inumbo-ID: 567fba97-d2a7-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1708732660; x=1709337460; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1708732664; x=1709337464; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Wgy7UuZvicma9Y2PX48aaJ5ZDCArBODZAL7mSlN3pk0=;
-        b=YELVKYQWjyHrpXdKoo1gSdbC5UAdJBNpVzVnBN2J70KHFCWih4VpBXw7WQEgl3nmT2
-         nduA1il6SF2NcgUXhTVhGhn/v81Rkbei1qlP/fG9aMJcOmUiqbYulE5aceVqzvtBGrIj
-         4dNeVJ7NQXEzoh/qX1a5uGP+J/pdpXXNtIM4i0bNatk62/E2D+BAWwjC9JS+UNAP+S42
-         tTjrfGSVLHluiVNOANYb+wUCaNe/2WDiOKgao2MwEqahk7RsAORibYqRuhkDu8zBX1/+
-         NN+CVmW+DJZdy256fPVtU2I8/2mbKGtk8ohPdFd/DQFlc54LLdEiBJsOh+Rcr8MzxXCd
-         OM3A==
+        bh=4T/JxyeGclar7cIIHLQMvHUD6oGOKffCuXl9nke3dJg=;
+        b=PVL2fwFX95asjvNqbgQ4wubZN/VAg0zoG27fW6SMbPx1rcE70rz2V+qpivYsSlXEyA
+         xY8KU3Q3i1kPlkuFNf+3C4vjS/lm+AErX/bOzj2Fe6eIDYBGJl36vixok6HxomnqQ+r0
+         t5ZFdwcgwDVt+82A+HvZJWgRdGxV3ADiQv728xmmNCG9jUb+ADloHUaKpBH6Q/4PDjDh
+         RmSrsCW674acpRIjmQljvipaswO2ZUm1f8w7n/3ptc7QKrPdzHZuyvRoT0/XZV9ZD/4t
+         mB/nMU01mll89/elTukKrvud1za2bhIhgNyypTKmMFS8CKGVn05Yyb1fhuxCUnHBODhT
+         nXPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708732660; x=1709337460;
+        d=1e100.net; s=20230601; t=1708732664; x=1709337464;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Wgy7UuZvicma9Y2PX48aaJ5ZDCArBODZAL7mSlN3pk0=;
-        b=of7Bl1ruXvOlC7p3+naVW5h3FtUgqb49JWrmXbpCvFfG0lW7pPsJigG5/QT1ehdrqc
-         k0P5UXqPCOrU7PD+DyET44/WVow8g8BjPE2wqvbfarJvu9xjyrjHIDGFs6AaMADROtLt
-         ucwSppxY6TTOyMecVR1TnjyOvjd7tUuztBR8xqHko9sEqD4SGdX9PZgoPG1d0eNvrZW6
-         PNgKKfBwFd61fHl1/NrSyDSAJCjpBMYRbaWRng7pgNNWCLISF/EMviAdHnik+g9W5+DD
-         HZi2C2wx1fysftAe8N9q/3M0IUi1bU8349XLSiiFmgwxHjfkYGvCCS0vuIDbngSOb3he
-         3czQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVmGqN0hB8yCtdvlji6npZkn1nPECxHPVo0gHLxMyeRZogWcw6Qws1tWsHyl+ojZVvS/ylr80kZS0k6F5y0L2iQTV9XA6WTm4JZen4OOOk=
-X-Gm-Message-State: AOJu0YwMC6sMS/exdGpw5zXGrMAI1oUlytFV3fNP2rHnQC9/JeHswaOx
-	xMt176HU8jFkPx+bvDbbRj1peBfzYpAoiGzd+pypoI/aUaGBHKh6
-X-Google-Smtp-Source: AGHT+IGELhXnvr3n524zH97gDxBoJwFKXzefQUh+8dOBuQvkiJz95RKjpkB2JqjALLNdOQ3Mm4DyFA==
-X-Received: by 2002:a17:902:f645:b0:1dc:b64:13cd with SMTP id m5-20020a170902f64500b001dc0b6413cdmr1551144plg.27.1708732660213;
-        Fri, 23 Feb 2024 15:57:40 -0800 (PST)
+        bh=4T/JxyeGclar7cIIHLQMvHUD6oGOKffCuXl9nke3dJg=;
+        b=OAWPTBHY4dKwq7YvW76b0RE/ga+bjyHeutKw6IDziRrBL40jmElMaSgQ5OwA0Dex39
+         7f/CeR2o5oOyNKy1+6a/ku+e8cUm5oI+V2Vbycc64IVw4zk9uNlmagYXHL2A3ICTSgTr
+         5dldtCFpSGhaTnXPwssip8QP1CHXb1lvAVnAK5qAn12oMyXZ+jsZ6yiXZk4tGBCslj8B
+         S2TesUcIHKjn7Cu0GS/LnCTgppZwjEHj9eEDEDnIY3hBDvNZ4ZQdFrBOhMX/Zm2nQZOM
+         EoIyDdF1+qnpn+p86XsHu5Gqfz7V0n0Ji2W8wzk0iqr7TUIlpoOyEOVKWsnCw04eirqi
+         XoWA==
+X-Forwarded-Encrypted: i=1; AJvYcCVXjDdd5hQYBGin0C7nUSCWsggiSGKps3jy+PLOM5xVCk0OqIfszD9a7MxxbtZbLVedn2NHD9z5DF5XlNLNIonQcNGRAv//ynPA6KRKcbs=
+X-Gm-Message-State: AOJu0YyaSoqO9tCiMwaXg3RDKjZW2pu+lK+a8cjCk9+a6UN+J2VBkHGk
+	Zq37xYs0njE1unJweFf/6TyKKosJZj1vprzXD189vTU9BbPkYGQQ8w+sK1wQ
+X-Google-Smtp-Source: AGHT+IGrC0E10ADJh+Q28iXnJRIwpr5YwuUUqZaBfkmopbBhR99u1mcgLWatOYemqm7CQuFVwzUw8A==
+X-Received: by 2002:a17:902:c40d:b0:1d9:d341:b150 with SMTP id k13-20020a170902c40d00b001d9d341b150mr1582992plk.40.1708732664121;
+        Fri, 23 Feb 2024 15:57:44 -0800 (PST)
 From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
 To: bpf@vger.kernel.org
 Cc: daniel@iogearbox.net,
@@ -93,9 +93,9 @@ Cc: daniel@iogearbox.net,
 	linux-mm@kvack.org,
 	xen-devel@lists.xenproject.org,
 	kernel-team@fb.com
-Subject: [PATCH v2 bpf-next 2/3] mm, xen: Separate xen use cases from ioremap.
-Date: Fri, 23 Feb 2024 15:57:27 -0800
-Message-Id: <20240223235728.13981-3-alexei.starovoitov@gmail.com>
+Subject: [PATCH v2 bpf-next 3/3] mm: Introduce VM_SPARSE kind and vm_area_[un]map_pages().
+Date: Fri, 23 Feb 2024 15:57:28 -0800
+Message-Id: <20240223235728.13981-4-alexei.starovoitov@gmail.com>
 X-Mailer: git-send-email 2.39.3 (Apple Git-145)
 In-Reply-To: <20240223235728.13981-1-alexei.starovoitov@gmail.com>
 References: <20240223235728.13981-1-alexei.starovoitov@gmail.com>
@@ -104,79 +104,140 @@ Content-Transfer-Encoding: 8bit
 
 From: Alexei Starovoitov <ast@kernel.org>
 
-xen grant table and xenbus ring are not ioremap the way arch specific code is using it,
-so let's add VM_XEN flag to separate them from VM_IOREMAP users.
-xen will not and should not be calling ioremap_page_range() on that range.
-/proc/vmallocinfo will print such region as "xen" instead of "ioremap" as well.
+vmap/vmalloc APIs are used to map a set of pages into contiguous kernel virtual space.
+
+get_vm_area() with appropriate flag is used to request an area of kernel address range.
+It'se used for vmalloc, vmap, ioremap, xen use cases.
+- vmalloc use case dominates the usage. Such vm areas have VM_ALLOC flag.
+- the areas created by vmap() function should be tagged with VM_MAP.
+- ioremap areas are tagged with VM_IOREMAP.
+- xen use cases are VM_XEN.
+
+BPF would like to extend the vmap API to implement a lazily-populated
+sparse, yet contiguous kernel virtual space.
+Introduce VM_SPARSE vm_area flag and
+vm_area_map_pages(area, start_addr, count, pages) API to map a set
+of pages within a given area.
+It has the same sanity checks as vmap() does.
+It also checks that get_vm_area() was created with VM_SPARSE flag
+which identifies such areas in /proc/vmallocinfo
+and returns zero pages on read through /proc/kcore.
+
+The next commits will introduce bpf_arena which is a sparsely populated shared
+memory region between bpf program and user space process. It will map
+privately-managed pages into a sparse vm area with the following steps:
+
+  area = get_vm_area(area_size, VM_SPARSE);  // at bpf prog verification time
+  vm_area_map_pages(area, kaddr, 1, page);   // on demand
+                    // it will return an error if kaddr is out of range
+  vm_area_unmap_pages(area, kaddr, 1);
+  free_vm_area(area);                        // after bpf prog is unloaded
 
 Signed-off-by: Alexei Starovoitov <ast@kernel.org>
 ---
- arch/x86/xen/grant-table.c         | 2 +-
- drivers/xen/xenbus/xenbus_client.c | 2 +-
- include/linux/vmalloc.h            | 1 +
- mm/vmalloc.c                       | 7 +++++--
- 4 files changed, 8 insertions(+), 4 deletions(-)
+ include/linux/vmalloc.h |  4 +++
+ mm/vmalloc.c            | 55 +++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 57 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/xen/grant-table.c b/arch/x86/xen/grant-table.c
-index 1e681bf62561..b816db0349c4 100644
---- a/arch/x86/xen/grant-table.c
-+++ b/arch/x86/xen/grant-table.c
-@@ -104,7 +104,7 @@ static int arch_gnttab_valloc(struct gnttab_vm_area *area, unsigned nr_frames)
- 	area->ptes = kmalloc_array(nr_frames, sizeof(*area->ptes), GFP_KERNEL);
- 	if (area->ptes == NULL)
- 		return -ENOMEM;
--	area->area = get_vm_area(PAGE_SIZE * nr_frames, VM_IOREMAP);
-+	area->area = get_vm_area(PAGE_SIZE * nr_frames, VM_XEN);
- 	if (!area->area)
- 		goto out_free_ptes;
- 	if (apply_to_page_range(&init_mm, (unsigned long)area->area->addr,
-diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
-index 32835b4b9bc5..b9c81a2d578b 100644
---- a/drivers/xen/xenbus/xenbus_client.c
-+++ b/drivers/xen/xenbus/xenbus_client.c
-@@ -758,7 +758,7 @@ static int xenbus_map_ring_pv(struct xenbus_device *dev,
- 	bool leaked = false;
- 	int err = -ENOMEM;
- 
--	area = get_vm_area(XEN_PAGE_SIZE * nr_grefs, VM_IOREMAP);
-+	area = get_vm_area(XEN_PAGE_SIZE * nr_grefs, VM_XEN);
- 	if (!area)
- 		return -ENOMEM;
- 	if (apply_to_page_range(&init_mm, (unsigned long)area->addr,
 diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
-index c720be70c8dd..223e51c243bc 100644
+index 223e51c243bc..416bc7b0b4db 100644
 --- a/include/linux/vmalloc.h
 +++ b/include/linux/vmalloc.h
-@@ -28,6 +28,7 @@ struct iov_iter;		/* in uio.h */
- #define VM_FLUSH_RESET_PERMS	0x00000100	/* reset direct map and flush TLB on unmap, can't be freed in atomic context */
+@@ -29,6 +29,7 @@ struct iov_iter;		/* in uio.h */
  #define VM_MAP_PUT_PAGES	0x00000200	/* put pages and free array in vfree */
  #define VM_ALLOW_HUGE_VMAP	0x00000400      /* Allow for huge pages on archs with HAVE_ARCH_HUGE_VMALLOC */
-+#define VM_XEN			0x00000800	/* xen use cases */
+ #define VM_XEN			0x00000800	/* xen use cases */
++#define VM_SPARSE		0x00001000	/* sparse vm_area. not all pages are present. */
  
  #if (defined(CONFIG_KASAN_GENERIC) || defined(CONFIG_KASAN_SW_TAGS)) && \
  	!defined(CONFIG_KASAN_VMALLOC)
+@@ -233,6 +234,9 @@ static inline bool is_vm_area_hugepages(const void *addr)
+ }
+ 
+ #ifdef CONFIG_MMU
++int vm_area_map_pages(struct vm_struct *area, unsigned long addr, unsigned int count,
++		      struct page **pages);
++int vm_area_unmap_pages(struct vm_struct *area, unsigned long addr, unsigned int count);
+ void vunmap_range(unsigned long addr, unsigned long end);
+ static inline void set_vm_flush_reset_perms(void *addr)
+ {
 diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index f42f98a127d5..d769a65bddad 100644
+index d769a65bddad..a05dfbbacb78 100644
 --- a/mm/vmalloc.c
 +++ b/mm/vmalloc.c
-@@ -3822,9 +3822,9 @@ long vread_iter(struct iov_iter *iter, const char *addr, size_t count)
+@@ -648,6 +648,54 @@ static int vmap_pages_range(unsigned long addr, unsigned long end,
+ 	return err;
+ }
+ 
++/**
++ * vm_area_map_pages - map pages inside given vm_area
++ * @area: vm_area
++ * @addr: start address inside vm_area
++ * @count: number of pages
++ * @pages: pages to map (always PAGE_SIZE pages)
++ */
++int vm_area_map_pages(struct vm_struct *area, unsigned long addr, unsigned int count,
++		      struct page **pages)
++{
++	unsigned long size = ((unsigned long)count) * PAGE_SIZE;
++	unsigned long end = addr + size;
++
++	might_sleep();
++	if (WARN_ON_ONCE(area->flags & VM_FLUSH_RESET_PERMS))
++		return -EINVAL;
++	if (WARN_ON_ONCE(area->flags & VM_NO_GUARD))
++		return -EINVAL;
++	if (WARN_ON_ONCE(!(area->flags & VM_SPARSE)))
++		return -EINVAL;
++	if (count > totalram_pages())
++		return -E2BIG;
++	if (addr < (unsigned long)area->addr || (void *)end > area->addr + area->size)
++		return -ERANGE;
++
++	return vmap_pages_range(addr, end, PAGE_KERNEL, pages, PAGE_SHIFT);
++}
++
++/**
++ * vm_area_unmap_pages - unmap pages inside given vm_area
++ * @area: vm_area
++ * @addr: start address inside vm_area
++ * @count: number of pages to unmap
++ */
++int vm_area_unmap_pages(struct vm_struct *area, unsigned long addr, unsigned int count)
++{
++	unsigned long size = ((unsigned long)count) * PAGE_SIZE;
++	unsigned long end = addr + size;
++
++	if (WARN_ON_ONCE(!(area->flags & VM_SPARSE)))
++		return -EINVAL;
++	if (addr < (unsigned long)area->addr || (void *)end > area->addr + area->size)
++		return -ERANGE;
++
++	vunmap_range(addr, end);
++	return 0;
++}
++
+ int is_vmalloc_or_module_addr(const void *x)
+ {
+ 	/*
+@@ -3822,9 +3870,9 @@ long vread_iter(struct iov_iter *iter, const char *addr, size_t count)
  
  		if (flags & VMAP_RAM)
  			copied = vmap_ram_vread_iter(iter, addr, n, flags);
--		else if (!(vm && (vm->flags & VM_IOREMAP)))
-+		else if (!(vm && (vm->flags & (VM_IOREMAP | VM_XEN))))
+-		else if (!(vm && (vm->flags & (VM_IOREMAP | VM_XEN))))
++		else if (!(vm && (vm->flags & (VM_IOREMAP | VM_XEN | VM_SPARSE))))
  			copied = aligned_vread_iter(iter, addr, n);
--		else /* IOREMAP area is treated as memory hole */
-+		else /* IOREMAP|XEN area is treated as memory hole */
+-		else /* IOREMAP|XEN area is treated as memory hole */
++		else /* IOREMAP|XEN|SPARSE area is treated as memory hole */
  			copied = zero_iter(iter, n);
  
  		addr += copied;
-@@ -4415,6 +4415,9 @@ static int s_show(struct seq_file *m, void *p)
- 	if (v->flags & VM_IOREMAP)
- 		seq_puts(m, " ioremap");
+@@ -4418,6 +4466,9 @@ static int s_show(struct seq_file *m, void *p)
+ 	if (v->flags & VM_XEN)
+ 		seq_puts(m, " xen");
  
-+	if (v->flags & VM_XEN)
-+		seq_puts(m, " xen");
++	if (v->flags & VM_SPARSE)
++		seq_puts(m, " sparse");
 +
  	if (v->flags & VM_ALLOC)
  		seq_puts(m, " vmalloc");
