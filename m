@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80C06860B6F
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 08:43:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684653.1064654 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B6BF860BA7
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 08:59:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684657.1064665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdQDR-0005OF-SO; Fri, 23 Feb 2024 07:43:29 +0000
+	id 1rdQS5-0007AK-4B; Fri, 23 Feb 2024 07:58:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684653.1064654; Fri, 23 Feb 2024 07:43:29 +0000
+Received: by outflank-mailman (output) from mailman id 684657.1064665; Fri, 23 Feb 2024 07:58:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdQDR-0005LY-Pi; Fri, 23 Feb 2024 07:43:29 +0000
-Received: by outflank-mailman (input) for mailman id 684653;
- Fri, 23 Feb 2024 07:43:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6083=KA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rdQDQ-0005LS-BJ
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 07:43:28 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a6b21c9-d21f-11ee-98f5-efadbce2ee36;
- Fri, 23 Feb 2024 08:43:26 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-563b7b3e3ecso572754a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 22 Feb 2024 23:43:26 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- da16-20020a056402177000b00564e4debe29sm2517408edb.78.2024.02.22.23.43.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Feb 2024 23:43:25 -0800 (PST)
+	id 1rdQS5-00078E-19; Fri, 23 Feb 2024 07:58:37 +0000
+Received: by outflank-mailman (input) for mailman id 684657;
+ Fri, 23 Feb 2024 07:58:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hL0v=KA=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rdQS2-000788-TY
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 07:58:34 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 57272a4e-d221-11ee-8a57-1f161083a0e0;
+ Fri, 23 Feb 2024 08:58:33 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id CB65A4EE073D;
+ Fri, 23 Feb 2024 08:58:32 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +39,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a6b21c9-d21f-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708674205; x=1709279005; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=j7HsQO81s/fhD77QVQwHTCJVNUl5T8w6MyX423vUmDg=;
-        b=cuvwuLzABNJmxEyEYrBO395PhshU/qetcYVtdkorRnfQUF+7LZe6m3d2xs+cxv8MMp
-         MdWv6r5LwYG+J8XtHfnUGrzFn4zFqBW4lCLMOHFNNVBQiRuMJITW82AEBlUd4JQMFhKS
-         gWsZJu8nsg/CWE2Z+j7m9ENPjnHZvJHAa9/hmbkpZlsx23nXvq6UzXif1bspXlFizW1K
-         sDgJhlxxJOnMF2LGr9NZMnKm++U82cGTwxK2CooIyjGUvA0bCa3iyHu3YaHjhTCLMj+t
-         pvtrvA8XXqnZ6Pbl91rTEhvIY3W+fwBbbJdTcd+lGPySl+BTlGc7Po/L1K1fuInDapeu
-         f+5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708674205; x=1709279005;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j7HsQO81s/fhD77QVQwHTCJVNUl5T8w6MyX423vUmDg=;
-        b=suUDMaAx7WFuFfsEGqT/q7URE1N+IZLixYgHSExj7j4YsNc1E9bNcquj2rgxkoXhKW
-         iJ3U2ia+gcW/xqsyQsKN131a6DOY1myCxHVNWkAs8O4LzJ7zde1CyDTRZ3myrVcZ+IaV
-         wjW5ViW9ixYSz9xfqxl7+/7P6ICPGYq07HIG1WzGY//NI4/wDMTnNArJJHUoj403hFJZ
-         OghvZg9oH04SySe2Eu1kS2rVk1RIC2T11/bm8znpXmnLiTvN6AXvn4FidTx1ExcFTaLm
-         aTM58opY2Ci7NNVwn2Ah0zmP8US81c8PqkiQgU077ndEPHpMC0q+NWppXFF1B/DFa6Gd
-         ZbpA==
-X-Forwarded-Encrypted: i=1; AJvYcCVWCVEURBDmRampV2kSlsa1LR102VYFG6dpAjDrj4j6XYPVcVT371fLG2/UqFigGaOXEATiE/CZTlQ0FM0/xe420qy/CviRptLsoS70P+c=
-X-Gm-Message-State: AOJu0Yy63GDDaxdTiRizTtNXJRplBiAYisnJfVNiQtj/Chvf84WH6aah
-	upI+HPNqAptaLn5i5X84+zTH6DJW+YjXNfRJM9TRT1Hwtw0erQVmz+DpO4DO2w==
-X-Google-Smtp-Source: AGHT+IHfBWxBo4rWvgTMPqfQ6qvGftE8tA46rGuCuKHtT4T9sFBA31ibVrLSST45Q6VBuvvkwEPyxw==
-X-Received: by 2002:aa7:d50a:0:b0:564:b822:9204 with SMTP id y10-20020aa7d50a000000b00564b8229204mr613516edq.17.1708674205655;
-        Thu, 22 Feb 2024 23:43:25 -0800 (PST)
-Message-ID: <2f68276d-0b10-4cec-8636-5456314c194e@suse.com>
-Date: Fri, 23 Feb 2024 08:43:24 +0100
+X-Inumbo-ID: 57272a4e-d221-11ee-8a57-1f161083a0e0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/memsharing: use an atomic add instead of a
- cmpxchg loop
-Content-Language: en-US
-To: Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20240222090530.62530-1-roger.pau@citrix.com>
- <20240222090530.62530-2-roger.pau@citrix.com>
- <d8939069-a1cb-4794-a6aa-75a3e4d97884@suse.com>
- <CABfawhkhH7Pakkq+RgjfmW-f60CbOKxr6wWxvBSr2AkN+m1OdQ@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CABfawhkhH7Pakkq+RgjfmW-f60CbOKxr6wWxvBSr2AkN+m1OdQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Fri, 23 Feb 2024 08:58:32 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
+ julien@xen.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, George
+ Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH] xen: cache clearing and invalidation helpers
+ refactoring
+In-Reply-To: <cc6bf44701c808645c69bacaf4463295e2cb0fba.1708354388.git.nicola.vetrini@bugseng.com>
+References: <cc6bf44701c808645c69bacaf4463295e2cb0fba.1708354388.git.nicola.vetrini@bugseng.com>
+Message-ID: <4f3b3d52a3ba20b05ecfa068b916b804@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 22.02.2024 19:03, Tamas K Lengyel wrote:
-> On Thu, Feb 22, 2024 at 5:06 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 22.02.2024 10:05, Roger Pau Monne wrote:
->>> The usage of a cmpxchg loop in get_next_handle() is unnecessary, as the same
->>> can be achieved with an atomic increment, which is both simpler to read, and
->>> avoid any need for a loop.
->>>
->>> The cmpxchg usage is likely a remnant of 32bit support, which didn't have an
->>> instruction to do an atomic 64bit add, and instead a cmpxchg had to be used.
->>>
->>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Signed-of-by: Roger Pau Monné <roger.pau@citrix.com>
->>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->> albeit ...
->>
->>> --- a/xen/arch/x86/mm/mem_sharing.c
->>> +++ b/xen/arch/x86/mm/mem_sharing.c
->>> @@ -179,13 +179,7 @@ static void mem_sharing_page_unlock(struct page_info *pg)
->>>
->>>  static shr_handle_t get_next_handle(void)
->>>  {
->>> -    /* Get the next handle get_page style */
->>> -    uint64_t x, y = next_handle;
->>> -    do {
->>> -        x = y;
->>> -    }
->>> -    while ( (y = cmpxchg(&next_handle, x, x + 1)) != x );
->>> -    return x + 1;
->>> +    return arch_fetch_and_add(&next_handle, 1) + 1;
->>>  }
->>
->> ... the adding of 1 here is a little odd when taken together with
->> next_handle's initializer. Tamas, you've not written that code, but do
->> you have any thoughts towards the possible removal of either the
->> initializer or the adding here? Plus that variable of course could
->> very well do with moving into this function.
+On 2024-02-19 16:14, Nicola Vetrini wrote:
+> The cache clearing and invalidation helpers in x86 and Arm didn't
+> comply with MISRA C Rule 17.7: "The value returned by a function
+> having non-void return type shall be used". On Arm they
+> were always returning 0, while some in x86 returned -EOPNOTSUPP
+> and in common/grant_table the return value is saved.
 > 
-> I have to say I find the existing logic here hard to parse but by the
-> looks I don't think we need the + 1 once we switch to
-> arch_fetch_and_add. Also could go without initializing next_handle to
-> 1. Moving it into the function would not really accomplish anything
-> other than style AFAICT?
+> As a consequence, a common helper arch_grant_cache_flush that returns
+> an integer is introduced, so that each architecture can choose whether 
+> to
+> return an error value on certain conditions, and the helpers have 
+> either
+> been changed to return void (on Arm) or deleted entirely (on x86).
+> 
+> Signed-off-by: Julien Grall <julien@xen.org>
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+> The original refactor idea came from Julien Grall in [1]; I edited that 
+> proposal
+> to fix build errors.
+> 
+> I did introduce a cast to void for the call to flush_area_local on x86, 
+> because
+> even before this patch the return value of that function wasn't checked 
+> in all
+> but one use in x86/smp.c, and in this context the helper (perhaps 
+> incidentally)
+> ignored the return value of flush_area_local.
+> 
+> [1] 
+> https://lore.kernel.org/xen-devel/09589e8f-77b6-47f7-b5bd-cf485e4b60f1@xen.org/
+> ---
+>  xen/arch/arm/include/asm/page.h     | 33 ++++++++++++++++++-----------
+>  xen/arch/x86/include/asm/flushtlb.h | 23 ++++++++++----------
+>  xen/common/grant_table.c            |  9 +-------
+>  3 files changed, 34 insertions(+), 31 deletions(-)
+> 
 
-Well, limiting scope of things can be viewed as purely style, but I
-think it's more than that: It makes intentions more clear and reduces
-the chance of abuse (deliberate or unintentional).
+I'll put this patch in the backlog at the moment: too many intricacies 
+while trying to untangle xen/flushtlb from xen/mm.h, and there are 
+easier cases that can be done faster. If someone is interested I can 
+post the partial work I've done so far, even though it doesn't
+build on x86.
 
-Jan
+> diff --git a/xen/arch/arm/include/asm/page.h 
+> b/xen/arch/arm/include/asm/page.h
+> index 69f817d1e68a..e90c9de3616e 100644
+> --- a/xen/arch/arm/include/asm/page.h
+> +++ b/xen/arch/arm/include/asm/page.h
+> @@ -123,6 +123,7 @@
+> 
+>  #ifndef __ASSEMBLY__
+> 
+> +#include <public/grant_table.h>
+>  #include <xen/errno.h>
+>  #include <xen/types.h>
+>  #include <xen/lib.h>
+> @@ -159,13 +160,13 @@ static inline size_t read_dcache_line_bytes(void)
+>   * if 'range' is large enough we might want to use model-specific
+>   * full-cache flushes. */
+> 
+> -static inline int invalidate_dcache_va_range(const void *p, unsigned 
+> long size)
+> +static inline void invalidate_dcache_va_range(const void *p, unsigned 
+> long size)
+>  {
+>      size_t cacheline_mask = dcache_line_bytes - 1;
+>      unsigned long idx = 0;
+> 
+>      if ( !size )
+> -        return 0;
+> +        return;
+> 
+>      /* Passing a region that wraps around is illegal */
+>      ASSERT(((uintptr_t)p + size - 1) >= (uintptr_t)p);
+> @@ -188,17 +189,15 @@ static inline int 
+> invalidate_dcache_va_range(const void *p, unsigned long size)
+>          asm volatile (__clean_and_invalidate_dcache_one(0) : : "r" (p 
+> + idx));
+> 
+>      dsb(sy);           /* So we know the flushes happen before 
+> continuing */
+> -
+> -    return 0;
+>  }
+> 
+> -static inline int clean_dcache_va_range(const void *p, unsigned long 
+> size)
+> +static inline void clean_dcache_va_range(const void *p, unsigned long 
+> size)
+>  {
+>      size_t cacheline_mask = dcache_line_bytes - 1;
+>      unsigned long idx = 0;
+> 
+>      if ( !size )
+> -        return 0;
+> +        return;
+> 
+>      /* Passing a region that wraps around is illegal */
+>      ASSERT(((uintptr_t)p + size - 1) >= (uintptr_t)p);
+> @@ -211,18 +210,16 @@ static inline int clean_dcache_va_range(const 
+> void *p, unsigned long size)
+>              idx += dcache_line_bytes, size -= dcache_line_bytes )
+>          asm volatile (__clean_dcache_one(0) : : "r" (p + idx));
+>      dsb(sy);           /* So we know the flushes happen before 
+> continuing */
+> -    /* ARM callers assume that dcache_* functions cannot fail. */
+> -    return 0;
+>  }
+> 
+> -static inline int clean_and_invalidate_dcache_va_range
+> +static inline void clean_and_invalidate_dcache_va_range
+>      (const void *p, unsigned long size)
+>  {
+>      size_t cacheline_mask = dcache_line_bytes - 1;
+>      unsigned long idx = 0;
+> 
+>      if ( !size )
+> -        return 0;
+> +        return;
+> 
+>      /* Passing a region that wraps around is illegal */
+>      ASSERT(((uintptr_t)p + size - 1) >= (uintptr_t)p);
+> @@ -235,8 +232,6 @@ static inline int 
+> clean_and_invalidate_dcache_va_range
+>              idx += dcache_line_bytes, size -= dcache_line_bytes )
+>          asm volatile (__clean_and_invalidate_dcache_one(0) : : "r" (p 
+> + idx));
+>      dsb(sy);         /* So we know the flushes happen before 
+> continuing */
+> -    /* ARM callers assume that dcache_* functions cannot fail. */
+> -    return 0;
+>  }
+> 
+>  /* Macros for flushing a single small item.  The predicate is always
+> @@ -266,6 +261,20 @@ static inline int 
+> clean_and_invalidate_dcache_va_range
+>              : : "r" (_p), "m" (*_p));                                  
+>  \
+>  } while (0)
+> 
+> +static inline int arch_grant_cache_flush(unsigned int op, const void 
+> *p,
+> +                                         unsigned long size)
+> +{
+> +    if ( (op & GNTTAB_CACHE_INVAL) && (op & GNTTAB_CACHE_CLEAN) )
+> +        clean_and_invalidate_dcache_va_range(p, size);
+> +    else if ( op & GNTTAB_CACHE_INVAL )
+> +        invalidate_dcache_va_range(p, size);
+> +    else if ( op & GNTTAB_CACHE_CLEAN )
+> +        clean_dcache_va_range(p, size);
+> +
+> +    /* ARM callers assume that dcache_* functions cannot fail. */
+> +    return 0;
+> +}
+> +
+>  /*
+>   * Write a pagetable entry.
+>   *
+> diff --git a/xen/arch/x86/include/asm/flushtlb.h 
+> b/xen/arch/x86/include/asm/flushtlb.h
+> index bb0ad58db49b..c37bf4455714 100644
+> --- a/xen/arch/x86/include/asm/flushtlb.h
+> +++ b/xen/arch/x86/include/asm/flushtlb.h
+> @@ -10,6 +10,7 @@
+>  #ifndef __FLUSHTLB_H__
+>  #define __FLUSHTLB_H__
+> 
+> +#include <public/grant_table.h>
+>  #include <xen/mm.h>
+>  #include <xen/percpu.h>
+>  #include <xen/smp.h>
+> @@ -182,21 +183,21 @@ void flush_area_mask(const cpumask_t *mask, const 
+> void *va,
+>  }
+> 
+>  static inline void flush_page_to_ram(unsigned long mfn, bool 
+> sync_icache) {}
+> -static inline int invalidate_dcache_va_range(const void *p,
+> -                                             unsigned long size)
+> -{ return -EOPNOTSUPP; }
+> -static inline int clean_and_invalidate_dcache_va_range(const void *p,
+> -                                                       unsigned long 
+> size)
+> +
+> +static inline int arch_grant_cache_flush(unsigned int op, const void 
+> *p,
+> +                                     unsigned long size)
+>  {
+> -    unsigned int order = get_order_from_bytes(size);
+> +    unsigned int order;
+> +
+> +    if ( !(op & GNTTAB_CACHE_CLEAN) )
+> +        return -EOPNOTSUPP;
+> +
+> +    order = get_order_from_bytes(size);
+>      /* sub-page granularity support needs to be added if necessary */
+> -    flush_area_local(p, FLUSH_CACHE|FLUSH_ORDER(order));
+> +    (void) flush_area_local(p, FLUSH_CACHE|FLUSH_ORDER(order));
+> +
+>      return 0;
+>  }
+> -static inline int clean_dcache_va_range(const void *p, unsigned long 
+> size)
+> -{
+> -    return clean_and_invalidate_dcache_va_range(p, size);
+> -}
+> 
+>  unsigned int guest_flush_tlb_flags(const struct domain *d);
+>  void guest_flush_tlb_mask(const struct domain *d, const cpumask_t 
+> *mask);
+> diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+> index 5721eab22561..8615ea144bb3 100644
+> --- a/xen/common/grant_table.c
+> +++ b/xen/common/grant_table.c
+> @@ -3572,14 +3572,7 @@ static int _cache_flush(const 
+> gnttab_cache_flush_t *cflush, grant_ref_t *cur_ref
+>      v = map_domain_page(mfn);
+>      v += cflush->offset;
+> 
+> -    if ( (cflush->op & GNTTAB_CACHE_INVAL) && (cflush->op & 
+> GNTTAB_CACHE_CLEAN) )
+> -        ret = clean_and_invalidate_dcache_va_range(v, cflush->length);
+> -    else if ( cflush->op & GNTTAB_CACHE_INVAL )
+> -        ret = invalidate_dcache_va_range(v, cflush->length);
+> -    else if ( cflush->op & GNTTAB_CACHE_CLEAN )
+> -        ret = clean_dcache_va_range(v, cflush->length);
+> -    else
+> -        ret = 0;
+> +    ret = arch_grant_cache_flush(cflush->op, v, cflush->length);
+> 
+>      if ( d != owner )
+>      {
+
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
