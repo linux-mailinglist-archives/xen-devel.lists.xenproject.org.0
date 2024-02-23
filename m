@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA22A86201B
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 23:54:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684962.1065260 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BBA486201E
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 23:57:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684966.1065271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdeQw-0001wN-Qo; Fri, 23 Feb 2024 22:54:22 +0000
+	id 1rdeTM-0002XB-7E; Fri, 23 Feb 2024 22:56:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684962.1065260; Fri, 23 Feb 2024 22:54:22 +0000
+Received: by outflank-mailman (output) from mailman id 684966.1065271; Fri, 23 Feb 2024 22:56:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdeQw-0001u5-Ne; Fri, 23 Feb 2024 22:54:22 +0000
-Received: by outflank-mailman (input) for mailman id 684962;
- Fri, 23 Feb 2024 22:54:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rdeTM-0002Ur-4S; Fri, 23 Feb 2024 22:56:52 +0000
+Received: by outflank-mailman (input) for mailman id 684966;
+ Fri, 23 Feb 2024 22:56:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OEAM=KA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rdeQv-0001sk-8u
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 22:54:21 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7a22bd2e-d29e-11ee-8a57-1f161083a0e0;
- Fri, 23 Feb 2024 23:54:20 +0100 (CET)
+ id 1rdeTK-0002Ue-M8
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 22:56:50 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d1e5ca62-d29e-11ee-98f5-efadbce2ee36;
+ Fri, 23 Feb 2024 23:56:48 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C684C61408;
- Fri, 23 Feb 2024 22:54:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADC4BC433F1;
- Fri, 23 Feb 2024 22:54:17 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 5946DCE286D;
+ Fri, 23 Feb 2024 22:56:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 639C9C433F1;
+ Fri, 23 Feb 2024 22:56:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,79 +41,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a22bd2e-d29e-11ee-8a57-1f161083a0e0
+X-Inumbo-ID: d1e5ca62-d29e-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1708728858;
-	bh=lf3iFOIl9mvNIQh9fRC8B7vVoC3x2fksP2YI5SZZc2I=;
+	s=k20201202; t=1708729004;
+	bh=8tFUB0YujzU0UFzQ+rQJCSmQzCxHBhbk3AZvnWwBN9c=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=nsIrGW5D5sHD91RnjlAIEO1/BwqNTqgbH24dztjHy83lzBw+FhyiLi88ETt/FoKb8
-	 iRXotBaLPOV6WGTf3jo6BdPmD/7f8Dv5RDdEzGhQKyqTnrz6flBl7KkIVJu76Q3gwT
-	 xlV8os0vdDlj/35ZwSDnaJhJYkNvy7fzPzwb1xvwHbvgDNWCdNcaJ5eCbvU8RC47dp
-	 bS8z7nCD1j1M61ZrgpWEmSg8mlPorKZe07i2pdvXlA1qKowJU0tGqwm2MJw/iS+9QH
-	 N/EucOUeEO2Fwy2v1HByhEFTOeiIsEBMbSrq6fyJjVjG7pwZims6B7vEaIG0A21sKD
-	 iXASdASskLPKQ==
-Date: Fri, 23 Feb 2024 14:54:16 -0800 (PST)
+	b=qK42QPUpJGP9IZWf4210kWO/VboKmV82Esq7856ZDrRoMo3WtWtekUVGVBmvvWwJ9
+	 KLB/q7QQZsmKes+nj49fXBbFbNz7TiyVypHI2P9h3/dk6+M48H4h1GMyk58EZg24h7
+	 s2U1PxVuTXe3Z0c8FjZr6cnIkEfhloQs2LjvAT6UUpjUvyvYYRGpAbDAfluMEqMn+F
+	 RFQNDQkQntSB+fqoZZiejroSYCe3VVz8+ir3uo/0gPQ/vAEWKvgxRnASdMz4RoMwNx
+	 7hEAw4wlxOo1/dvFmRCY4am8nrSrJ3mUferJW6XBdFkh3Q/yAa67wGN6DbkZ9+44iT
+	 kvKw64zLIvaJQ==
+Date: Fri, 23 Feb 2024 14:56:41 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Federico Serafini <federico.serafini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH 1/2] automation/eclair: fully deviate MISRA C:2012
- Rules 5.7 and 18.7
-In-Reply-To: <1fee04ad07b03c13c44f66a20c4ee70737069650.1708677243.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2402231453490.754277@ubuntu-linux-20-04-desktop>
-References: <cover.1708677243.git.federico.serafini@bugseng.com> <1fee04ad07b03c13c44f66a20c4ee70737069650.1708677243.git.federico.serafini@bugseng.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH 1/2] xen/console: drop return value from
+ consoled_guest_rx/tx
+In-Reply-To: <4998ec735bd7e5a50a229507e2b92ae56ec1ba4b.1708680104.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2402231456350.754277@ubuntu-linux-20-04-desktop>
+References: <cover.1708680104.git.nicola.vetrini@bugseng.com> <4998ec735bd7e5a50a229507e2b92ae56ec1ba4b.1708680104.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 23 Feb 2024, Federico Serafini wrote:
-> Update ECLAIR configuration to fully deviate Rules 5.7 and 18.7
-> as agreed during MISRA meeetings.
+On Fri, 23 Feb 2024, Nicola Vetrini wrote:
+> These functions never saw a usage of their return value since
+> they were introduced, so it can be dropped since their usages
+> violate MISRA C Rule 17.7:
+> "The value returned by a function having non-void return type shall be used".
 > 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  automation/eclair_analysis/ECLAIR/deviations.ecl | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
+>  xen/drivers/char/consoled.c | 17 +++++------------
+>  xen/include/xen/consoled.h  |  4 ++--
+>  2 files changed, 7 insertions(+), 14 deletions(-)
 > 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index fd32ff8a9c..02eae39786 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -107,6 +107,11 @@ number of guest paging levels."
->  -config=MC3R1.R5.6,reports+={deliberate,"any_area(any_loc(file(adopted_r5_6)))"}
->  -doc_end
+> diff --git a/xen/drivers/char/consoled.c b/xen/drivers/char/consoled.c
+> index 222e01844271..b415b632cecc 100644
+> --- a/xen/drivers/char/consoled.c
+> +++ b/xen/drivers/char/consoled.c
+> @@ -43,13 +43,13 @@ struct xencons_interface *consoled_get_ring_addr(void)
+>  static char buf[BUF_SZ + 1];
 >  
-> +-doc_begin="The project intentionally reuses tag names in order to have identifiers matching the applicable external specifications as well as established internal conventions.
-> +As there is little possibility for developer confusion not resulting into compilation errors, the risk of renaming outweighs the potential advantages of compliance."
-> +-config=MC3R1.R5.7,reports+={deliberate,"any()"}
-> +-doc_end
-> +
->  #
->  # Series 7.
->  #
-> @@ -373,6 +378,15 @@ explicit comment indicating the fallthrough intention is present."
->  -config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through.? \\*/.*$,0..1))))"}
->  -doc_end
+>  /* Receives characters from a domain's PV console */
+> -size_t consoled_guest_rx(void)
+> +void consoled_guest_rx(void)
+>  {
+> -    size_t recv = 0, idx = 0;
+> +    size_t idx = 0;
+>      XENCONS_RING_IDX cons, prod;
 >  
-> +#
-> +# Series 18.
-> +#
-> +
-> +-doc_begin="Flexible array members are deliberately used and XEN developers are aware of the dangers related to them:
-> +unexpected result when the structure is given as argument to a sizeof() operator and the truncation in assignment between structures."
-> +-config=MC3R1.R18.7,reports+={deliberate, "any()"}
-> +-doc_end
-> +
->  #
->  # Series 20.
->  #
+>      if ( !cons_ring )
+> -        return 0;
+> +        return;
+>  
+>      spin_lock(&rx_lock);
+>  
+> @@ -73,7 +73,6 @@ size_t consoled_guest_rx(void)
+>          char c = cons_ring->out[MASK_XENCONS_IDX(cons++, cons_ring->out)];
+>  
+>          buf[idx++] = c;
+> -        recv++;
+>  
+>          if ( idx >= BUF_SZ )
+>          {
+> @@ -92,18 +91,15 @@ size_t consoled_guest_rx(void)
+>  
+>   out:
+>      spin_unlock(&rx_lock);
+> -
+> -    return recv;
+>  }
+>  
+>  /* Sends a character into a domain's PV console */
+> -size_t consoled_guest_tx(char c)
+> +void consoled_guest_tx(char c)
+>  {
+> -    size_t sent = 0;
+>      XENCONS_RING_IDX cons, prod;
+>  
+>      if ( !cons_ring )
+> -        return 0;
+> +        return;
+>  
+>      cons = ACCESS_ONCE(cons_ring->in_cons);
+>      prod = cons_ring->in_prod;
+> @@ -121,7 +117,6 @@ size_t consoled_guest_tx(char c)
+>          goto notify;
+>  
+>      cons_ring->in[MASK_XENCONS_IDX(prod++, cons_ring->in)] = c;
+> -    sent++;
+>  
+>      /* Write to the ring before updating the pointer */
+>      smp_wmb();
+> @@ -130,8 +125,6 @@ size_t consoled_guest_tx(char c)
+>   notify:
+>      /* Always notify the guest: prevents receive path from getting stuck. */
+>      pv_shim_inject_evtchn(pv_console_evtchn());
+> -
+> -    return sent;
+>  }
+>  
+>  /*
+> diff --git a/xen/include/xen/consoled.h b/xen/include/xen/consoled.h
+> index 2b30516b3a0a..bd7ab6329ee8 100644
+> --- a/xen/include/xen/consoled.h
+> +++ b/xen/include/xen/consoled.h
+> @@ -5,8 +5,8 @@
+>  
+>  void consoled_set_ring_addr(struct xencons_interface *ring);
+>  struct xencons_interface *consoled_get_ring_addr(void);
+> -size_t consoled_guest_rx(void);
+> -size_t consoled_guest_tx(char c);
+> +void consoled_guest_rx(void);
+> +void consoled_guest_tx(char c);
+>  
+>  #endif /* __XEN_CONSOLED_H__ */
+>  /*
 > -- 
 > 2.34.1
 > 
