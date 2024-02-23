@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5FAE860825
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 02:16:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684593.1064539 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 648BC86083B
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 02:28:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684598.1064550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdKAl-0006Ty-G7; Fri, 23 Feb 2024 01:16:19 +0000
+	id 1rdKMI-00008m-Hz; Fri, 23 Feb 2024 01:28:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684593.1064539; Fri, 23 Feb 2024 01:16:19 +0000
+Received: by outflank-mailman (output) from mailman id 684598.1064550; Fri, 23 Feb 2024 01:28:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdKAl-0006Rx-Cg; Fri, 23 Feb 2024 01:16:19 +0000
-Received: by outflank-mailman (input) for mailman id 684593;
- Fri, 23 Feb 2024 01:16:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rdKMI-00005M-FG; Fri, 23 Feb 2024 01:28:14 +0000
+Received: by outflank-mailman (input) for mailman id 684598;
+ Fri, 23 Feb 2024 01:28:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OEAM=KA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rdKAj-0006Rp-MU
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 01:16:17 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22e1a803-d1e9-11ee-98f5-efadbce2ee36;
- Fri, 23 Feb 2024 02:16:14 +0100 (CET)
+ id 1rdKMH-00005G-1J
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 01:28:13 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ce073b2a-d1ea-11ee-8a55-1f161083a0e0;
+ Fri, 23 Feb 2024 02:28:11 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 17DBD6333E;
- Fri, 23 Feb 2024 01:16:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D81F6C433C7;
- Fri, 23 Feb 2024 01:16:10 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 63BF7CE28EA;
+ Fri, 23 Feb 2024 01:28:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22A4C433C7;
+ Fri, 23 Feb 2024 01:28:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,379 +42,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22e1a803-d1e9-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: ce073b2a-d1ea-11ee-8a55-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1708650972;
-	bh=bt0v5yeGHnD4YYUl0ZoLlEH5P5CVzY1MYew/SO2Ese0=;
+	s=k20201202; t=1708651686;
+	bh=46goDBKRAJzr8WceLOh1hdvsIDopHFd3Eu4bfTNcDb0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=glBwmgDH1ptQVJ4b0DpxjYfcyEXDrD7YlmTYcmiliqnUHiPOkfEqi/vv/iobUoqcC
-	 pBELv3sz4jxMjv0VGzP5fU12dzptwCKlXpWQAbLvrNpzbuKNlVKUzwH4/sIhbtOjIL
-	 ZPpnlR9D+Owg82HbufKpIfUuVdoxWH2+uJnuTjQ5vsRXYufwjWluxjq/HVyD3fWt/N
-	 DmuHSkE0lFvXyyk3l9qFNBFTs4PA3hPoUR6jJ8Vkq4qoYPogk1r2Lt+MISUjp6m+wD
-	 UisZaeGQcVq57Ti3lt9aqu+s5CVQL0QaZxZPDahQToIObQWKSfP+7uzeJmiEGQw7zA
-	 agxHTPjf1HzQQ==
-Date: Thu, 22 Feb 2024 17:16:09 -0800 (PST)
+	b=QKZRClp7rQQWEYKGiCIk+EupIbY/kt+Ccrp16QgSV3gw7yOr0y7RUTYLr44pbpFrZ
+	 BlpyaMg/jPEQIjaliY/+/GbmhYztDMtZRxtnf4KLgi38GcblrV3x8JACVkt/kVnqMk
+	 iYc6jqToNm5lNC4KsNn3YM0S/cRynhSpyepZRchafJbhtn1OcDD2+IypfHc25WvTpf
+	 JpdfNOMDQG4XHqMuHuRgr9MUBTjKwwzOx7xDPYGa2RgYRDUPveacpsMLqZrltcgsnG
+	 V0k18OTFUJDf9K30mG7FqwMD3kz4v7lvk1pw4eIK6KBb+q1PrWbICUgqR20SMhs/uY
+	 a42LJLdfHN95A==
+Date: Thu, 22 Feb 2024 17:28:02 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Roger Pau Monne <roger.pau@citrix.com>
-cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
-    Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
-    x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    linux-kernel@vger.kernel.org, Jan Beulich <jbeulich@suse.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH RFC] x86/xen: attempt to inflate the memory balloon on
- PVH
-In-Reply-To: <20240220174341.56131-1-roger.pau@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2402221701190.754277@ubuntu-linux-20-04-desktop>
-References: <20240220174341.56131-1-roger.pau@citrix.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
+    roger.pau@citrix.com, bertrand.marquis@arm.com, julien@xen.org, 
+    Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH v2] automation/eclair_analysis: deviate certain macros
+ for Rule 20.12
+In-Reply-To: <7bc72f6ccd858e0405d62d49c32449e3b5abd790.1707996317.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2402221727370.754277@ubuntu-linux-20-04-desktop>
+References: <7bc72f6ccd858e0405d62d49c32449e3b5abd790.1707996317.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1734207608-1708650207=:754277"
-Content-ID: <alpine.DEB.2.22.394.2402221703300.754277@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1734207608-1708650207=:754277
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2402221703301.754277@ubuntu-linux-20-04-desktop>
-
-On Tue, 20 Feb 2024, Roger Pau Monne wrote:
-> When running as PVH or HVM Linux will use holes in the memory map as scratch
-> space to map grants, foreign domain pages and possibly miscellaneous other
-> stuff.  However the usage of such memory map holes for Xen purposes can be
-> problematic.  The request of holesby Xen happen quite early in the kernel boot
-> process (grant table setup already uses scratch map space), and it's possible
-> that by then not all devices have reclaimed their MMIO space.  It's not
-> unlikely for chunks of Xen scratch map space to end up using PCI bridge MMIO
-> window memory, which (as expected) causes quite a lot of issues in the system.
-
-Am I understanding correctly that XEN_BALLOON_MEMORY_HOTPLUG doesn't
-help because it becomes available too late in the PVH boot sequence? 
-
-
-
-> At least for PVH dom0 we have the possibility of using regions marked as
-> UNUSABLE in the e820 memory map.  Either if the region is UNUSABLE in the
-> native memory map, or it has been converted into UNUSABLE in order to hide RAM
-> regions from dom0, the second stage translation page-tables can populate those
-> areas without issues.
+On Thu, 15 Feb 2024, Nicola Vetrini wrote:
+> Certain macros are allowed to violate the Rule, since their meaning and
+> intended use is well-known to all Xen developers.
 > 
-> PV already has this kind of logic, where the balloon driver is inflated at
-> boot.  Re-use the current logic in order to also inflate it when running as
-> PVH.  onvert UNUSABLE regions up to the ratio specified in EXTRA_MEM_RATIO to
-> RAM, while reserving them using xen_add_extra_mem() (which is also moved so
-> it's no longer tied to CONFIG_PV).
+> Variadic macros that rely on the GCC extension for removing a trailing
+> comma when token pasting the variable argument are similarly
+> well-understood and therefore allowed.
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+
 > ---
-> RFC reasons:
-> 
->  * Note that it would be preferred for the hypervisor to provide an explicit
->    range to be used as scratch mapping space, but that requires changes to Xen,
->    and it's not fully clear whether Xen can figure out the position of all MMIO
->    regions at boot in order to suggest a scratch mapping region for dom0.
-> 
->  * Should the whole set of xen_{add,del,chk,inv}_extra_mem() functions be moved
->    to a different file?  For the purposes of PVH only xen_add_extra_mem() is
->    moved and the chk and inv ones are PV specific and might not want moving to
->    a separate file just to guard them with CONFIG_PV.
+> Changes in v2:
+> - Restrict deviation for GENERATE_CASE to vcpreg.c.
+> - Improve deviation justifications.
 > ---
->  arch/x86/include/asm/xen/hypervisor.h |  1 +
->  arch/x86/platform/pvh/enlighten.c     |  3 ++
->  arch/x86/xen/enlighten.c              | 32 +++++++++++++
->  arch/x86/xen/enlighten_pvh.c          | 68 +++++++++++++++++++++++++++
->  arch/x86/xen/setup.c                  | 44 -----------------
->  arch/x86/xen/xen-ops.h                | 14 ++++++
->  drivers/xen/balloon.c                 |  2 -
->  7 files changed, 118 insertions(+), 46 deletions(-)
+>  .../eclair_analysis/ECLAIR/deviations.ecl     | 20 +++++++++++++++++
+>  docs/misra/deviations.rst                     | 22 +++++++++++++++++++
+>  2 files changed, 42 insertions(+)
 > 
-> diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
-> index a9088250770f..31e2bf8d5db7 100644
-> --- a/arch/x86/include/asm/xen/hypervisor.h
-> +++ b/arch/x86/include/asm/xen/hypervisor.h
-> @@ -62,6 +62,7 @@ void xen_arch_unregister_cpu(int num);
->  #ifdef CONFIG_PVH
->  void __init xen_pvh_init(struct boot_params *boot_params);
->  void __init mem_map_via_hcall(struct boot_params *boot_params_p);
-> +void __init xen_reserve_extra_memory(struct boot_params *bootp);
->  #endif
+> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> index fd32ff8a9cae..04cb41e16a50 100644
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -387,6 +387,26 @@ in assignments."
+>  {safe, "left_right(^[(,\\[]$,^[),\\]]$)"}
+>  -doc_end
 >  
->  /* Lazy mode for batching updates / context switch */
-> diff --git a/arch/x86/platform/pvh/enlighten.c b/arch/x86/platform/pvh/enlighten.c
-> index 00a92cb2c814..a12117f3d4de 100644
-> --- a/arch/x86/platform/pvh/enlighten.c
-> +++ b/arch/x86/platform/pvh/enlighten.c
-> @@ -74,6 +74,9 @@ static void __init init_pvh_bootparams(bool xen_guest)
->  	} else
->  		xen_raw_printk("Warning: Can fit ISA range into e820\n");
+> +-doc_begin="Uses of variadic macros that have one of their arguments defined as
+> +a macro and used within the body for both ordinary parameter expansion and as an
+> +operand to the # or ## operators have a behavior that is well-understood and
+> +deliberate."
+> +-config=MC3R1.R20.12,macros+={deliberate, "variadic()"}
+> +-doc_end
+> +
+> +-doc_begin="Uses of a macro parameter for ordinary expansion and as an operand
+> +to the # or ## operators within the following macros are deliberate, to provide
+> +useful diagnostic messages to the user."
+> +-config=MC3R1.R20.12,macros+={deliberate, "name(ASSERT||BUILD_BUG_ON||BUILD_BUG_ON_ZERO)"}
+> +-doc_end
+> +
+> +-doc_begin="The helper macro GENERATE_CASE may use a macro parameter for ordinary
+> +expansion and token pasting to improve readability. Only instances where this
+> +leads to a violation of the Rule are deviated."
+> +-file_tag+={deliberate_generate_case, "^xen/arch/arm/vcpreg\\.c$"}
+> +-config=MC3R1.R20.12,macros+={deliberate, "name(GENERATE_CASE)&&loc(file(deliberate_generate_case))"}
+> +-doc_end
+> +
+>  #
+>  # General
+>  #
+> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+> index 123c78e20a01..84da637ef888 100644
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -330,6 +330,28 @@ Deviations related to MISRA C:2012 Rules:
+>         (4) as lhs in assignments.
+>       - Tagged as `safe` for ECLAIR.
 >  
-> +	if (xen_guest)
-> +		xen_reserve_extra_memory(&pvh_bootparams);
+> +   * - R20.12
+> +     - Variadic macros that use token pasting often employ the gcc extension
+> +       `ext_paste_comma`, as detailed in `C-language-toolchain.rst`, which is
+> +       not easily replaceable; macros that in addition perform regular argument
+> +       expansion on the same argument subject to the # or ## operators violate
+> +       the Rule if the argument is a macro. 
+> +     - Tagged as `deliberate` for ECLAIR.
 > +
->  	pvh_bootparams.hdr.cmd_line_ptr =
->  		pvh_start_info.cmdline_paddr;
+> +   * - R20.12
+> +     - Macros that are used for runtime or build-time assertions contain
+> +       deliberate uses of an argument as both a regular argument and a
+> +       stringification token, to provide useful diagnostic messages.
+> +     - Tagged as `deliberate` for ECLAIR.
+> +
+> +   * - R20.12
+> +     - GENERATE_CASE is a local helper macro that allows some selected switch
+> +       statements to be more compact and readable. As such, the risk of
+> +       developer confusion in using such macro is deemed negligible. This
+> +       construct is deviated only in Translation Units that present a violation
+> +       of the Rule due to uses of this macro.
+> +     - Tagged as `deliberate` for ECLAIR.
+> +
+>  Other deviations:
+>  -----------------
 >  
-> diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
-> index 3c61bb98c10e..a01ca255b0c6 100644
-> --- a/arch/x86/xen/enlighten.c
-> +++ b/arch/x86/xen/enlighten.c
-> @@ -6,6 +6,7 @@
->  #include <linux/console.h>
->  #include <linux/cpu.h>
->  #include <linux/kexec.h>
-> +#include <linux/memblock.h>
->  #include <linux/slab.h>
->  #include <linux/panic_notifier.h>
->  
-> @@ -350,3 +351,34 @@ void xen_arch_unregister_cpu(int num)
->  }
->  EXPORT_SYMBOL(xen_arch_unregister_cpu);
->  #endif
-> +
-> +/* Amount of extra memory space we add to the e820 ranges */
-> +struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
-> +
-> +void __init xen_add_extra_mem(unsigned long start_pfn, unsigned long n_pfns)
-> +{
-> +	unsigned int i;
-> +
-> +	/*
-> +	 * No need to check for zero size, should happen rarely and will only
-> +	 * write a new entry regarded to be unused due to zero size.
-> +	 */
-> +	for (i = 0; i < XEN_EXTRA_MEM_MAX_REGIONS; i++) {
-> +		/* Add new region. */
-> +		if (xen_extra_mem[i].n_pfns == 0) {
-> +			xen_extra_mem[i].start_pfn = start_pfn;
-> +			xen_extra_mem[i].n_pfns = n_pfns;
-> +			break;
-> +		}
-> +		/* Append to existing region. */
-> +		if (xen_extra_mem[i].start_pfn + xen_extra_mem[i].n_pfns ==
-> +		    start_pfn) {
-> +			xen_extra_mem[i].n_pfns += n_pfns;
-> +			break;
-> +		}
-> +	}
-> +	if (i == XEN_EXTRA_MEM_MAX_REGIONS)
-> +		printk(KERN_WARNING "Warning: not enough extra memory regions\n");
-> +
-> +	memblock_reserve(PFN_PHYS(start_pfn), PFN_PHYS(n_pfns));
-> +}
-> diff --git a/arch/x86/xen/enlighten_pvh.c b/arch/x86/xen/enlighten_pvh.c
-> index ada3868c02c2..c28f073c1df5 100644
-> --- a/arch/x86/xen/enlighten_pvh.c
-> +++ b/arch/x86/xen/enlighten_pvh.c
-> @@ -1,6 +1,7 @@
->  // SPDX-License-Identifier: GPL-2.0
->  #include <linux/acpi.h>
->  #include <linux/export.h>
-> +#include <linux/mm.h>
->  
->  #include <xen/hvc-console.h>
->  
-> @@ -72,3 +73,70 @@ void __init mem_map_via_hcall(struct boot_params *boot_params_p)
->  	}
->  	boot_params_p->e820_entries = memmap.nr_entries;
->  }
-> +
-> +/*
-> + * Reserve e820 UNUSABLE regions to inflate the memory balloon.
-> + *
-> + * On PVH dom0 the host memory map is used, RAM regions available to dom0 are
-> + * located as the same place as in the native memory map, but since dom0 gets
-> + * less memory than the total amount of host RAM the ranges that can't be
-> + * populated are converted from RAM -> UNUSABLE.  Use such regions (up to the
-> + * ratio signaled in EXTRA_MEM_RATIO) in order to inflate the balloon driver at
-> + * boot.  Doing so prevents the guest (even if just temporary) from using holes
-> + * in the memory map in order to map grants or foreign addresses, and
-> + * hopefully limits the risk of a clash with a device MMIO region.  Ideally the
-> + * hypervisor should notify us which memory ranges are suitable for creating
-> + * foreign mappings, but that's not yet implemented.
-> + */
-> +void __init xen_reserve_extra_memory(struct boot_params *bootp)
-> +{
-> +	unsigned int i, ram_pages = 0, extra_pages;
-> +
-> +	for (i = 0; i < bootp->e820_entries; i++) {
-> +		struct boot_e820_entry *e = &bootp->e820_table[i];
-> +
-> +		if (e->type != E820_TYPE_RAM)
-> +			continue;
-> +		ram_pages += PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr);
-> +	}
-> +
-> +	/* Max amount of extra memory. */
-> +	extra_pages = EXTRA_MEM_RATIO * ram_pages;
-> +
-> +	/*
-> +	 * Convert UNUSABLE ranges to RAM and reserve them for foreign mapping
-> +	 * purposes.
-> +	 */
-> +	for (i = 0; i < bootp->e820_entries && extra_pages; i++) {
-> +		struct boot_e820_entry *e = &bootp->e820_table[i];
-> +		unsigned long pages;
-> +
-> +		if (e->type != E820_TYPE_UNUSABLE)
-> +			continue;
-> +
-> +		pages = min(extra_pages,
-> +			PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr));
-> +
-> +		if (pages != (PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr))) {
-> +			struct boot_e820_entry *next;
-> +
-> +			if (bootp->e820_entries ==
-> +			    ARRAY_SIZE(bootp->e820_table))
-> +				/* No space left to split - skip region. */
-> +				continue;
-> +
-> +			/* Split entry. */
-> +			next = e + 1;
-> +			memmove(next, e,
-> +				(bootp->e820_entries - i) * sizeof(*e));
-> +			bootp->e820_entries++;
-> +			next->addr = PAGE_ALIGN(e->addr) + PFN_PHYS(pages);
-> +			e->size = next->addr - e->addr;
-> +			next->size -= e->size;
-
-Is this really worth doing? Can we just skip this range and continue or
-simply break out and call it a day? Or even add the whole range instead?
-
-The reason I am asking is that I am expecting E820_TYPE_UNUSABLE regions
-not to be huge. Splitting one just to cover the few remaining pages out
-of extra_pages doesn't seem worth it?
-
-Everything else looks OK to me.
-
-
-> +		}
-> +		e->type = E820_TYPE_RAM;
-> +		extra_pages -= pages;
-> +
-> +		xen_add_extra_mem(PFN_UP(e->addr), pages);
-> +	}
-> +}
-> diff --git a/arch/x86/xen/setup.c b/arch/x86/xen/setup.c
-> index b3e37961065a..380591028cb8 100644
-> --- a/arch/x86/xen/setup.c
-> +++ b/arch/x86/xen/setup.c
-> @@ -38,9 +38,6 @@
->  
->  #define GB(x) ((uint64_t)(x) * 1024 * 1024 * 1024)
->  
-> -/* Amount of extra memory space we add to the e820 ranges */
-> -struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
-> -
->  /* Number of pages released from the initial allocation. */
->  unsigned long xen_released_pages;
->  
-> @@ -64,18 +61,6 @@ static struct {
->  } xen_remap_buf __initdata __aligned(PAGE_SIZE);
->  static unsigned long xen_remap_mfn __initdata = INVALID_P2M_ENTRY;
->  
-> -/*
-> - * The maximum amount of extra memory compared to the base size.  The
-> - * main scaling factor is the size of struct page.  At extreme ratios
-> - * of base:extra, all the base memory can be filled with page
-> - * structures for the extra memory, leaving no space for anything
-> - * else.
-> - *
-> - * 10x seems like a reasonable balance between scaling flexibility and
-> - * leaving a practically usable system.
-> - */
-> -#define EXTRA_MEM_RATIO		(10)
-> -
->  static bool xen_512gb_limit __initdata = IS_ENABLED(CONFIG_XEN_512GB);
->  
->  static void __init xen_parse_512gb(void)
-> @@ -96,35 +81,6 @@ static void __init xen_parse_512gb(void)
->  	xen_512gb_limit = val;
->  }
->  
-> -static void __init xen_add_extra_mem(unsigned long start_pfn,
-> -				     unsigned long n_pfns)
-> -{
-> -	int i;
-> -
-> -	/*
-> -	 * No need to check for zero size, should happen rarely and will only
-> -	 * write a new entry regarded to be unused due to zero size.
-> -	 */
-> -	for (i = 0; i < XEN_EXTRA_MEM_MAX_REGIONS; i++) {
-> -		/* Add new region. */
-> -		if (xen_extra_mem[i].n_pfns == 0) {
-> -			xen_extra_mem[i].start_pfn = start_pfn;
-> -			xen_extra_mem[i].n_pfns = n_pfns;
-> -			break;
-> -		}
-> -		/* Append to existing region. */
-> -		if (xen_extra_mem[i].start_pfn + xen_extra_mem[i].n_pfns ==
-> -		    start_pfn) {
-> -			xen_extra_mem[i].n_pfns += n_pfns;
-> -			break;
-> -		}
-> -	}
-> -	if (i == XEN_EXTRA_MEM_MAX_REGIONS)
-> -		printk(KERN_WARNING "Warning: not enough extra memory regions\n");
-> -
-> -	memblock_reserve(PFN_PHYS(start_pfn), PFN_PHYS(n_pfns));
-> -}
-> -
->  static void __init xen_del_extra_mem(unsigned long start_pfn,
->  				     unsigned long n_pfns)
->  {
-> diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
-> index a87ab36889e7..79cf93f2c92f 100644
-> --- a/arch/x86/xen/xen-ops.h
-> +++ b/arch/x86/xen/xen-ops.h
-> @@ -163,4 +163,18 @@ void xen_hvm_post_suspend(int suspend_cancelled);
->  static inline void xen_hvm_post_suspend(int suspend_cancelled) {}
->  #endif
->  
-> +/*
-> + * The maximum amount of extra memory compared to the base size.  The
-> + * main scaling factor is the size of struct page.  At extreme ratios
-> + * of base:extra, all the base memory can be filled with page
-> + * structures for the extra memory, leaving no space for anything
-> + * else.
-> + *
-> + * 10x seems like a reasonable balance between scaling flexibility and
-> + * leaving a practically usable system.
-> + */
-> +#define EXTRA_MEM_RATIO		(10)
-> +
-> +void xen_add_extra_mem(unsigned long start_pfn, unsigned long n_pfns);
-> +
->  #endif /* XEN_OPS_H */
-> diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-> index 976c6cdf9ee6..aaf2514fcfa4 100644
-> --- a/drivers/xen/balloon.c
-> +++ b/drivers/xen/balloon.c
-> @@ -672,7 +672,6 @@ EXPORT_SYMBOL(xen_free_ballooned_pages);
->  
->  static void __init balloon_add_regions(void)
->  {
-> -#if defined(CONFIG_XEN_PV)
->  	unsigned long start_pfn, pages;
->  	unsigned long pfn, extra_pfn_end;
->  	unsigned int i;
-> @@ -696,7 +695,6 @@ static void __init balloon_add_regions(void)
->  
->  		balloon_stats.total_pages += extra_pfn_end - start_pfn;
->  	}
-> -#endif
->  }
->  
->  static int __init balloon_init(void)
 > -- 
-> 2.43.0
+> 2.34.1
 > 
---8323329-1734207608-1708650207=:754277--
 
