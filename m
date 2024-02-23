@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CD9F861237
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 14:05:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684862.1065045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF87C8614F0
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 15:57:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684870.1065055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdVE9-0004sW-SC; Fri, 23 Feb 2024 13:04:33 +0000
+	id 1rdWy3-00021t-Od; Fri, 23 Feb 2024 14:56:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684862.1065045; Fri, 23 Feb 2024 13:04:33 +0000
+Received: by outflank-mailman (output) from mailman id 684870.1065055; Fri, 23 Feb 2024 14:56:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdVE9-0004qZ-PQ; Fri, 23 Feb 2024 13:04:33 +0000
-Received: by outflank-mailman (input) for mailman id 684862;
- Fri, 23 Feb 2024 13:04:33 +0000
+	id 1rdWy3-0001yi-Ll; Fri, 23 Feb 2024 14:56:03 +0000
+Received: by outflank-mailman (input) for mailman id 684870;
+ Fri, 23 Feb 2024 14:56:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lysb=KA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rdVE9-0004qT-6F
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 13:04:33 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
+ id 1rdWy2-0001yc-AH
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 14:56:02 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 15eaccdd-d24c-11ee-8a57-1f161083a0e0;
- Fri, 23 Feb 2024 14:04:32 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-512cca90f38so921229e87.2
- for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 05:04:32 -0800 (PST)
+ id a8db7696-d25b-11ee-8a57-1f161083a0e0;
+ Fri, 23 Feb 2024 15:56:01 +0100 (CET)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2d0a4e1789cso11754261fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 06:56:01 -0800 (PST)
 Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- r19-20020ac84253000000b0042e30153d7csm3115670qtm.2.2024.02.23.05.04.20
+ bi9-20020a05620a318900b00787af8b5c02sm881863qkb.39.2024.02.23.06.55.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Feb 2024 05:04:22 -0800 (PST)
+ Fri, 23 Feb 2024 06:56:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,183 +44,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15eaccdd-d24c-11ee-8a57-1f161083a0e0
+X-Inumbo-ID: a8db7696-d25b-11ee-8a57-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708693471; x=1709298271; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9i4075X9PLnoKVpgo6Uj90eLDaJ7j9BjLkIR0nRpAH0=;
-        b=V8fXwPYTUBOKWFemTyuBiUNbxCddOkBGhNNO6GjtpOskKQFA8bXfOyYDkQ41UyEbj1
-         zEKJ+ZrQhxvlv+OHXUYPVN0uZEY/XB7EZbsd5K0YOG9VK9i+KIqRcnW3+KpxQTuzOZ9j
-         Bf2Yt+7xQaI+ehI4+OezjKETWZWEhJYdvv554=
+        d=citrix.com; s=google; t=1708700161; x=1709304961; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=eZS4hr9rfgbLObhuwrrnLB/QJjAbInDizKuJeP1mGJo=;
+        b=NEfWTrv7zjugtuoFIBx2penBjVSBGO02uEebsJWqf5hiWTYLTgCdUe3qRCQOGDtzaF
+         WR3+lmXLIM6en4rU5MWeeMPHDEEhYjMed5/X3MxmvYnpr5aatxHYUQmXThQwOgGbNzPE
+         dQzf/WlrveaVhW53ZOidfxeM0Ts1mEc5zFT7w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708693471; x=1709298271;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9i4075X9PLnoKVpgo6Uj90eLDaJ7j9BjLkIR0nRpAH0=;
-        b=epuHDKyO9tv17N7M1y1+kLZgK+LQuyn+1/zvnvVYF8vuRAWlUwgoOIqTCFq4rqaovd
-         scg44dYmwXjMs6VsePV8gogtWHx2tyUM+zI6p4GNHdw2ZR//yynMYW3rQDkpeLPEhLNv
-         mnnZwtzm7XZZKJt+34ezLN4DoKA9SQeW5coMe4af+zHTFWlvFCED4d1M9qVb36c4f7Ul
-         rzPhk2mAFnXBbnrAf9MTyXXGndnArGHKF46dlPlFuv36o4+A0HYc5whEaH7WXhB2M3++
-         tGAK3gh1+0AjgJD76mZ/LlTvlQ9vnmpWGos1+/oGD7cvmB3v8ywgaUqAgtUaiYMKFrYi
-         3gZA==
-X-Gm-Message-State: AOJu0YwOMMekln+i0xDy9JWe7omumn8cssNJ88N0Gu7DX80RBaxfudRN
-	TkqCM3o35DUfJV4KSQE8tqMbQwl/l2SZu2awnBQYw1+NtBZhG5O1VjurmTeqUWvko0NzuN3pPwJ
-	2
-X-Google-Smtp-Source: AGHT+IECUZ0RXhIwP4VagDHxPgB4V67aKSns1JCI1uE9dRzz8mQ/h0v3rWTvi+g0md61K3QbgD/GXQ==
-X-Received: by 2002:ac2:4d03:0:b0:512:b24c:dba with SMTP id r3-20020ac24d03000000b00512b24c0dbamr1184494lfi.60.1708693470944;
-        Fri, 23 Feb 2024 05:04:30 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
+        d=1e100.net; s=20230601; t=1708700161; x=1709304961;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=eZS4hr9rfgbLObhuwrrnLB/QJjAbInDizKuJeP1mGJo=;
+        b=XOrivJj1dm1O5p6m5zyl5DKweVFmH3fNE7g6ISRuMbt3XcxJdyzIzmsUgpp4cZvMDG
+         KGlgYCPYGJ/mutYD8Kg49qtM4aeVJOhuMb1ZrHX75i+oEtXKpg7k+A/1MXFd4NTq6ZDB
+         HaP7WwwhU0pmKK/SENjdQe/8iu5ISrN/egP1cssmpDYyANiyTAIYHStfojufbYMhI/Fq
+         32esm7QAQq9jHnM+/pDrc3Rx8iNs9R+Y0eQFt1c/wK5Jg7Yo1eN5LjVx9iVJPlTv/V6l
+         SSgj6QLcjD54OyxcplhttKelKdRGWi4TDyjRXmrTfqpHcSOWsuMpmaFquDtYECRqRhRu
+         JjOA==
+X-Gm-Message-State: AOJu0YwNFO9MabobRwQmG1/lWgnNLyqoFvLsKI/c/sNB3v6Fdm3UmijQ
+	gBHN/ErrQu7GL0kEGZzRxJkuGG8QNEAUGw3QwEKl7LxWCmri+U6bFc/AqPML5sQ=
+X-Google-Smtp-Source: AGHT+IHEm3daiiwXU0yFlknywEAOBblajlB571JAVqKO5xxWi0iOK2dyC+4t7C+MNa3oDhOeXk++iA==
+X-Received: by 2002:a2e:9d0a:0:b0:2d2:4ce4:bf4a with SMTP id t10-20020a2e9d0a000000b002d24ce4bf4amr37564lji.39.1708700160744;
+        Fri, 23 Feb 2024 06:56:00 -0800 (PST)
+Date: Fri, 23 Feb 2024 15:55:58 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Ross Lagerwall <ross.lagerwall@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Matthew Grooms <mgrooms@shrew.net>
-Subject: [PATCH v3] x86/altcall: use an union as register type for function parameters on clang
-Date: Fri, 23 Feb 2024 14:03:54 +0100
-Message-ID: <20240223130354.73936-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.43.0
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 1/5] xen/livepatch: register livepatch regions when loaded
+Message-ID: <Zdix_iZFYnvweQuR@macbook>
+References: <20231130142944.46322-1-roger.pau@citrix.com>
+ <20231130142944.46322-2-roger.pau@citrix.com>
+ <CAG7k0Eq+G7w8M2JFTnikv10SNocfCBGwvbEwz-pbR9v99uStGg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAG7k0Eq+G7w8M2JFTnikv10SNocfCBGwvbEwz-pbR9v99uStGg@mail.gmail.com>
 
-The current code for alternative calls uses the caller parameter types as the
-types for the register variables that serve as function parameters:
+On Fri, Feb 23, 2024 at 09:45:15AM +0000, Ross Lagerwall wrote:
+> On Thu, Nov 30, 2023 at 2:30 PM Roger Pau Monne <roger.pau@citrix.com> wrote:
+> >
+> > Currently livepatch regions are registered as virtual regions only after the
+> > livepatch has been applied.
+> >
+> > This can lead to issues when using the pre-apply or post-revert hooks, as at
+> > the point the livepatch is not in the virtual regions list.  If a livepatch
+> > pre-apply hook contains a WARN() it would trigger an hypervisor crash, as the
+> > code to handle the bug frame won't be able to find the instruction pointer that
+> > triggered the #UD in any of the registered virtual regions, and hence crash.
+> >
+> > Fix this by adding the livepatch payloads as virtual regions as soon as loaded,
+> > and only remove them once the payload is unloaded.  This requires some changes
+> > to the virtual regions code, as the removal of the virtual regions is no longer
+> > done in stop machine context, and hence an RCU barrier is added in order to
+> > make sure there are no users of the virtual region after it's been removed from
+> > the list.
+> >
+> > Fixes: 8313c864fa95 ('livepatch: Implement pre-|post- apply|revert hooks')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> >  xen/common/livepatch.c      |  5 +++--
+> >  xen/common/virtual_region.c | 40 +++++++++++--------------------------
+> >  2 files changed, 15 insertions(+), 30 deletions(-)
+> >
+> > diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
+> > index 1209fea2566c..3199432f11f5 100644
+> > --- a/xen/common/livepatch.c
+> > +++ b/xen/common/livepatch.c
+> > @@ -942,6 +942,8 @@ static int prepare_payload(struct payload *payload,
+> >          }
+> >      }
+> >
+> > +    register_virtual_region(region);
+> > +
+> >      return 0;
+> >  }
+> >
+> 
+> The region is registered in prepare_payload() but if e.g. the build id
+> check in load_payload_data() fails, it won't unregister the region
+> since the failure path calls free_payload_data(), not free_payload().
+> Perhaps the call to register_virtual_region() could be done as the last
+> thing in load_payload_data()?
 
-uint8_t foo;
-[...]
-alternative_call(myfunc, foo);
+I've moved it to livepatch_upload(), as I think it's more natural to
+be done together with the addition to the list of livepatches.  Thanks
+for spotting it, I guess I got confused between free_payload_data()
+free_payload().
 
-Would expand roughly into:
-
-register unint8_t a1_ asm("rdi") = foo;
-register unsigned long a2_ asm("rsi");
-[...]
-asm volatile ("call *%c[addr](%%rip)"...);
-
-However with -O2 clang will generate incorrect code, given the following
-example:
-
-unsigned int func(uint8_t t)
-{
-    return t;
-}
-
-static void bar(uint8_t b)
-{
-    int ret_;
-    register uint8_t di asm("rdi") = b;
-    register unsigned long si asm("rsi");
-    register unsigned long dx asm("rdx");
-    register unsigned long cx asm("rcx");
-    register unsigned long r8 asm("r8");
-    register unsigned long r9 asm("r9");
-    register unsigned long r10 asm("r10");
-    register unsigned long r11 asm("r11");
-
-    asm volatile ( "call %c[addr]"
-                   : "+r" (di), "=r" (si), "=r" (dx),
-                     "=r" (cx), "=r" (r8), "=r" (r9),
-                     "=r" (r10), "=r" (r11), "=a" (ret_)
-                   : [addr] "i" (&(func)), "g" (func)
-                   : "memory" );
-}
-
-void foo(unsigned int a)
-{
-    bar(a);
-}
-
-Clang generates the following assembly code:
-
-func:                                   # @func
-        movl    %edi, %eax
-        retq
-foo:                                    # @foo
-        callq   func
-        retq
-
-Note the truncation of the unsigned int parameter 'a' of foo() to uint8_t when
-passed into bar() is lost.  clang doesn't zero extend the parameters in the
-callee when required, as the psABI mandates.
-
-The above can be worked around by using an union when defining the register
-variables, so that `di` becomes:
-
-register union {
-    uint8_t e;
-    unsigned long r;
-} di asm("rdi") = { .e = b };
-
-Which results in following code generated for `foo()`:
-
-foo:                                    # @foo
-        movzbl  %dil, %edi
-        callq   func
-        retq
-
-So the truncation is not longer lost.  Apply such workaround only when built
-with clang.
-
-Reported-by: Matthew Grooms <mgrooms@shrew.net>
-Link: https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=277200
-Link: https://github.com/llvm/llvm-project/issues/12579
-Link: https://github.com/llvm/llvm-project/issues/82598
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v2:
- - Expand the code comment.
-
-Changes since v1:
- - Only apply the union workaround with clang.
-
-Seems like all gitlab build tests are OK with this approach.
----
- xen/arch/x86/include/asm/alternative.h | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/xen/arch/x86/include/asm/alternative.h b/xen/arch/x86/include/asm/alternative.h
-index a1cd6a9fe5b8..3c14db5078ba 100644
---- a/xen/arch/x86/include/asm/alternative.h
-+++ b/xen/arch/x86/include/asm/alternative.h
-@@ -167,9 +167,34 @@ extern void alternative_branches(void);
- #define ALT_CALL_arg5 "r8"
- #define ALT_CALL_arg6 "r9"
- 
-+#ifdef CONFIG_CC_IS_CLANG
-+/*
-+ * Use a union with an unsigned long in order to prevent clang from
-+ * skipping a possible truncation of the value.  By using the union any
-+ * truncation is carried before the call instruction, in turn covering
-+ * for ABI-non-compliance in that the necessary clipping / extension of
-+ * the value is supposed to be carried out in the callee.
-+ *
-+ * Note this behavior is not mandated by the standard, and hence could
-+ * stop being a viable workaround, or worse, could cause a different set
-+ * of code-generation issues in future clang versions.
-+ *
-+ * This has been reported upstream:
-+ * https://github.com/llvm/llvm-project/issues/12579
-+ * https://github.com/llvm/llvm-project/issues/82598
-+ */
-+#define ALT_CALL_ARG(arg, n)                                            \
-+    register union {                                                    \
-+        typeof(arg) e;                                                  \
-+        unsigned long r;                                                \
-+    } a ## n ## _ asm ( ALT_CALL_arg ## n ) = {                         \
-+        .e = ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })   \
-+    }
-+#else
- #define ALT_CALL_ARG(arg, n) \
-     register typeof(arg) a ## n ## _ asm ( ALT_CALL_arg ## n ) = \
-         ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })
-+#endif
- #define ALT_CALL_NO_ARG(n) \
-     register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n )
- 
--- 
-2.43.0
-
+Roger.
 
