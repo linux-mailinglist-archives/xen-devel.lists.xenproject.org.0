@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27E34860A9F
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 07:08:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684634.1064625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 990C3860ADC
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 07:37:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684641.1064636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdOjL-000163-Nl; Fri, 23 Feb 2024 06:08:19 +0000
+	id 1rdPA8-000512-Vw; Fri, 23 Feb 2024 06:36:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684634.1064625; Fri, 23 Feb 2024 06:08:19 +0000
+Received: by outflank-mailman (output) from mailman id 684641.1064636; Fri, 23 Feb 2024 06:36:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdOjL-00012z-Kq; Fri, 23 Feb 2024 06:08:19 +0000
-Received: by outflank-mailman (input) for mailman id 684634;
- Fri, 23 Feb 2024 06:08:17 +0000
+	id 1rdPA8-0004xp-RI; Fri, 23 Feb 2024 06:36:00 +0000
+Received: by outflank-mailman (input) for mailman id 684641;
+ Fri, 23 Feb 2024 06:35:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SdR/=KA=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1rdOjJ-00012t-JH
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 06:08:17 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20600.outbound.protection.outlook.com
- [2a01:111:f403:2009::600])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=oqZf=KA=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
+ id 1rdPA7-0004xj-3D
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 06:35:59 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20600.outbound.protection.outlook.com
+ [2a01:111:f403:240a::600])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id edcb6cb7-d211-11ee-98f5-efadbce2ee36;
- Fri, 23 Feb 2024 07:08:15 +0100 (CET)
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18)
- by SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ id cb37161b-d215-11ee-98f5-efadbce2ee36;
+ Fri, 23 Feb 2024 07:35:55 +0100 (CET)
+Received: from SJ2PR12MB8690.namprd12.prod.outlook.com (2603:10b6:a03:540::10)
+ by BY5PR12MB4066.namprd12.prod.outlook.com (2603:10b6:a03:207::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.22; Fri, 23 Feb
- 2024 06:08:08 +0000
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::debf:178c:f5df:5efa]) by BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::debf:178c:f5df:5efa%5]) with mapi id 15.20.7316.018; Fri, 23 Feb 2024
- 06:08:08 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.26; Fri, 23 Feb
+ 2024 06:35:50 +0000
+Received: from SJ2PR12MB8690.namprd12.prod.outlook.com
+ ([fe80::e7a:5022:4b7d:ade1]) by SJ2PR12MB8690.namprd12.prod.outlook.com
+ ([fe80::e7a:5022:4b7d:ade1%6]) with mapi id 15.20.7316.023; Fri, 23 Feb 2024
+ 06:35:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,233 +47,550 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: edcb6cb7-d211-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: cb37161b-d215-11ee-98f5-efadbce2ee36
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oY59rj+7x5HW36sWPw/J3xYxeYQloT0GzS84344OmSVws9YG8vKeudJGnrc6E6BwB7l/5xGN0hShNqSVRKSV33Q3pIqZ4nSmQf0CProBlgMC2ZyECiTWVfSazWBC/jw9ntgnZbsS6u+sAWo1htpGknFiMAULBnnEWRXayGdk+YBGqV3G6qC+axHNxS8XIATwjUYTVe9gKX5YwIKMho56Ny9oOyQ77lIWZDLc3isL1wb2k70IXQ1WexQ4eJIpcO6tmONBEHn8WG6Pj6wljbZbu3a/sMi+A8/rDx/gWmC6t6D++UnLQ8hM3M5weZumzKgqjXZt1nqoOI/lHckr+HvoMA==
+ b=iCkWhrwx0s8oFhENfvUQwM3f7GfVMPhx5KiwNiRSLHTczlRgzwGE2fRf6gGR8OIn51RfN9iTbg47LBo8cnoftJW5YaQqJXAfavGEWy24M8fUrxnRczdeppIxomN09hXqwzIxr0MhNWXCi1M6M4DneEvyICBdofGrfPq0pqvBNb53L5TRNrl+jriU85FYpz4MSV8zQZOuZOgeqbIFe/zWeXiUnawJ7oHzDX9C06q1V8I3WFIBHPENzaF7BiIF6ose0Uogsxqk8PRnEa3aV4dzA1tdAtLe/7wxyyfzfwh3OZICkujekvauOkgd4LE1wGFxZMur3UJ4uAftwsQ1oX7J6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cSFXgVI8MFKZIpnZrwxrAEdKHoKZxwuw+/OdAizMT1s=;
- b=aXixU3jO30f2RWfZCIn15FNHmqOia2J0mOtlMRyXIGXPw8ZISnp249Qiy7zcEjwQE0IFHKWLbJWWm8gB9ize5uojNowvBcenLvAyY5zN6qv3q9DsOs5+sTAwfEWW/NRy0x4wuF2oCzcQIVXDeFFcFUOofMU6rsvrUv13D/t/s4e1uV8orqBSFaYA9Urn6KE6riS2BUCKvFvKJ5KeXwzRgmrcunY+ys9aRavmD9tWVXmlD6TzQKH9BeFSKmMsdmnOcl4aZ3YX2/2376g650yXPudc4Djoxn+jB9eXUJafpTFoZ10hfxRkgf8w2I3GasJk01G+BDPo9R3lwxosty2dFw==
+ bh=MhACpc4kiVFwEdFtg6pExw1NBrA0ebSBvcu4VULNahc=;
+ b=bssT6RMFhd+vVMYOxekW7wsGUdxP7Hqu34yVwm9KShlsT8jI8EltuHIsfbj8faJnOd6ZPvysdloXPqYC4AG96rDz5t5QJnpfQi00UJXpHPYvodNN6KqVvH1qfsk4RR6ByxNsYiNM+zDNReEO2JYejmAN23W5FNDl12TMbs8vBkVE750CZTEuvCUBi44oFLupEdXADZ1tUL6TZvJqrERewI26KAfHRqk/qLGmfBF3f2HPXZaQ4gicCDF64fHyRp334XvGwvfHhRf/joIHEKaScKH4mQpUbJt3VJMfPTC8l5rMGibqxKJbqDjdHQ8CLCE93cxQViYL2KkZxONJAtaHwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cSFXgVI8MFKZIpnZrwxrAEdKHoKZxwuw+/OdAizMT1s=;
- b=wS1vEOBZNMzUX7EHxoJsFmtS0OfzlVAZv7vPj+i10LH08B+4+7kIqrgtdpp7K0NOVI9zcApp2y2+iqD7Ja0QjUUPmz1d7TsDtncx4pI3dP4JvODI8s6y6ODb0JorhzNZkU7a7UOM4JxvHMhSDOWmjXZQBRKz1Ou1NXi+gEyqi4A=
-From: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: Juergen Gross <jgross@suse.com>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, Boris Ostrovsky
-	<boris.ostrovsky@oracle.com>, Bjorn Helgaas <bhelgaas@google.com>, "Rafael J
- . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, "Hildebrand,
- Stewart" <Stewart.Hildebrand@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>,
-	"Chen, Jiqian" <Jiqian.Chen@amd.com>
-Subject: Re: [RFC KERNEL PATCH v4 2/3] xen/pvh: Setup gsi for passthrough
- device
-Thread-Topic: [RFC KERNEL PATCH v4 2/3] xen/pvh: Setup gsi for passthrough
- device
-Thread-Index: AQHaP5+cDtnYXqI88Ey+AFMsAvIGlrEXXeWAgADmGoA=
-Date: Fri, 23 Feb 2024 06:08:08 +0000
-Message-ID:
- <BL1PR12MB58492E9C5247A711D3C26AFAE7552@BL1PR12MB5849.namprd12.prod.outlook.com>
-References: <20240105062217.349645-1-Jiqian.Chen@amd.com>
- <20240105062217.349645-3-Jiqian.Chen@amd.com>
- <alpine.DEB.2.22.394.2402221622000.754277@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2402221622000.754277@ubuntu-linux-20-04-desktop>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-imapappendstamp: MN0PR12MB6150.namprd12.prod.outlook.com
- (15.20.7292.000)
-authentication-results: dkim=none (message not signed)
+ bh=MhACpc4kiVFwEdFtg6pExw1NBrA0ebSBvcu4VULNahc=;
+ b=YJfJ5NmQOGkkHVjw7ubUzGNdyWHxpNdG6uBietYTfMe9/+rQnYJV9WbW6anM2o87TyE2hGmHmTGmbBXQ3hqr+j8WE9I1XgGB41eCSIi3d9Ift1YFvxgzTtIoV/2j19ql1e9oFvgQiepGMlrYSKmN11h9gxgk9ngzhmJhsLxR8BQ=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5849:EE_|SJ2PR12MB9161:EE_
-x-ms-office365-filtering-correlation-id: 47e91f7c-7d66-45e2-cb69-08dc3435ceaa
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- ETwzAr0X4aGYjLqDF8XV8DW6480QDADpDxXXGrfwzpKexkDGCsBW5MDMCbTnFFdUYuTKBcJfO1IBtVrum14nAiGscOTNpPz1QRqugL/3967VQbyly2MPJF2+as0LGCu5ljByL648B3CTuDjDi6FEFI4UZYX/avNsxNc1KL8XMqrRW5PfcLSPkO/eGQnjScSHodBGxdq66G0BuDObbYxakbx0o4xGOJTmQ3IUctTdrdzGSO8V32TJRMLMaTJS6cs6Bj6Q9yVHIeypV+RqZlmTUDqWfob/24u6W119+CSXNC5nhflMaENRc6cTdEWycD1QurWSstTFkHzNnldZHigSF1AF9QN+5RhZFay7hPc8NFqiOdqQPJceZDTgZYnGsG8dvpiQGZuuPaiNRN4olNUDs6tXpE+TbpGhDVHzlUsxoyz57TYm7zCQWkdUeCSWcvGjXEhCapY9aG4Sjh5YaclPSIasV4ClImFOG9MXZVbIcPEL22tzvD6sqXGq+TaZR5btJgeTd34T7G7eZo1trvZJTStjLtaN3Rxh+7kPtw4Pd538+ru8od/FXjCUE47J4O0RgAlQKs/XLjjl7odRAG3VeuV4BSERauhxbpM0T20BOM7kTzsS6hns+9jlTziNY4oc
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5849.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(38070700009);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?NytmeTBhS0FYc3FIQlNseTlUdHVXRGhYbUtWZVplVEk4dy83RlZaZHpRakNT?=
- =?utf-8?B?OC9rRGwyZlVJSkhlL3RPd2JERlRjMGkwVzV0NjVGOXM3dTJYWGFYdGZkV1Jq?=
- =?utf-8?B?enRDKzBRNGFFYVdQUUpaS0JaeEtNNkdJeHpYQ0RwTDZMaWtQNTRtb3BaUURH?=
- =?utf-8?B?ZzZjR1VyNEFwK0xsZlhGUVN5UEpyK295a3o0Z3NpK2oxSlBWd25kMk9KVk5Y?=
- =?utf-8?B?SnhQY1Y4bkp3aXR3dUNxVSsxVGhESHVyZEd1RzBZQjNTcDUxZTQ3a2VNb1JQ?=
- =?utf-8?B?TFRFb3ZQVEd3RGkxZFV0akRBdFVRRXplblZkd09RMzRxS0dSMTAxYjdjTjgz?=
- =?utf-8?B?bjdKazk3VW83Z0hvSEUyTTVSYW45azh2aHRWWHMyeWpEYkZQWmxrZlpDTWxC?=
- =?utf-8?B?Ukdmd3Y1Y2k5N04wNDNuMUxKSlRxZDlGMnpHanArOGszTlNiM1ZBbXQvNm5r?=
- =?utf-8?B?eUVuR1J3ZWVlYjduZVQxalZ0d2ZSM2R5d1NUa1ZaTDdRQWJBcy84K2hndms1?=
- =?utf-8?B?QlVFZG5ib1dibFlHTURmbTBZR3pMbitoVTBSMkFlVzVmR0hHQzhsSTBFWjhF?=
- =?utf-8?B?aEVVaXdaaXRZS0NWZ0VKVEZzdlJFWUhPdllVb1M1elJFK2RWMUtTYXlCWndF?=
- =?utf-8?B?eElHOEFxV0o3ODc4aWtEVVhtNzRLODNPZi9tRHFnUWhrczZsOFdCMHRkaEpT?=
- =?utf-8?B?d3Nhb2xJV2NGMmlZb3JsOWc3M0IxSXZQNS9LbEJ3Z0JzZVAxQS80YWJMSUl4?=
- =?utf-8?B?WkJSUGpMdUJYdGk4TUlrZERoaHZMWXhFNy9CeW1ORTU0VDVQTk5aZDNycjZi?=
- =?utf-8?B?dWtNbDZHbmRDYkNnTWhLNkFBZ25La200Qk5FQkpGbC8zSVJnTGx5Q2lmZmVX?=
- =?utf-8?B?Yk0xM0NISFhpNmM4RnNLWnFFTDRBQUxsNXNBSjBFV3hTSElkQ1hGcE5scGxB?=
- =?utf-8?B?U0xCQWV4c2NrWm9qZXU2bmF6SFQzajFMNUxFVVdBS0RlbHgvbVZnYXhUNENI?=
- =?utf-8?B?K1RacnFHWDRHaVNBd2txeUdFK2JRdUlUWE1jM25yMVhLUVN2cUdoNlJ0REFj?=
- =?utf-8?B?eUYzVXdvOEsxM0d4Y0FnK1B6YnNzL25wcGh0bTJFY04xNThvbVNzT3I4T2Qw?=
- =?utf-8?B?ZG54RllhSjQ2N2JqSk0xOEorcUdoeENySzFzZFhibk5FZDdLT2x0VE9uSjdL?=
- =?utf-8?B?UEFUdFc2OEJnR3V1VEhSS2pFS2lUd0kzdUI1bGJwYTNVd2UrOEhDMllzb0tD?=
- =?utf-8?B?N1V2L05xQ1RJSUg1WEhwd2J1dkwxSW1xdW5hNlZlMUZLM1VrT2lZaWlKVmxp?=
- =?utf-8?B?ZG9HNDRlbkJtM0FXb05WbFRuTXBQbnVub1BtaTRwRHVpdk1iRE0vWFZvK1lz?=
- =?utf-8?B?cG9xMmFEcjUrQmdacWk2Z2czNmJ4MzhlYlNnZm1sZ3FQeE9zcmVoU0FLNWhL?=
- =?utf-8?B?TEpHTWExT0hPeU1Zd2pXUGFjRER4REo1VlZpZDdKaVo3c1NZcTdNbG4wajRN?=
- =?utf-8?B?dlJoY2xhTmlFVERWenQrdTJ5eG1CaGpuM2Z2TTBzdFBqejZZVS9rNi9vSG9j?=
- =?utf-8?B?SG8yK0tubWxFdVNmZnNoRnd5cytHTEtiNXcyTHF0MGhMcEVKWEtVZUlNTXZN?=
- =?utf-8?B?emlUSVpaQ1IxVkhSdUNHcWM3SW9vTmJnTFJRSjlMU29KN0xiSzdZUWVGNHpa?=
- =?utf-8?B?TzIyWGpSNm56ZnJGZnZGbHAyaHdWVk85b2U0VEwwRVl2Qm1hWWZIRWpTQzdz?=
- =?utf-8?B?MVEvUTlISGVvWmVwejZNTnNReHFQaVQ5UXcreW95RzRxcEM1Y2swM0pZYUtn?=
- =?utf-8?B?c01BckdHb28rYnVtdVJxcGRNL2dNajVwZUtrNGVLRzJTRXBHdEZaR1BwNUZy?=
- =?utf-8?B?TUVwWEI3SmRwVXZBVGYxTHJzVjM5b0VBeWg3QjBRcGtSM2ZMWVNxVkxvTUcr?=
- =?utf-8?B?ZTVxUDdQcytieEJacVRGU1pkcWlYSzgxWE8wM1ZEWVEzQkswQkxNSEg5VVR6?=
- =?utf-8?B?SVdadE5PaUNmS3NPY0RUVzJTd0p4QWIvQmNmQXBQWHBtc3ZBbWRZbCt1V01R?=
- =?utf-8?B?MmlRTStLL3lEbFc2cnZEN3BQVTQyR2NKeUlkeW1qMEI5THdpaFQyMG1UZXda?=
- =?utf-8?Q?UjGQ=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <10FED9D7D2B42544B6FEAC7926674405@amdcloud.onmicrosoft.com>
-Content-Transfer-Encoding: base64
+Date: Fri, 23 Feb 2024 14:34:53 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+Cc: Akihiko Odaki <akihiko.odaki@daynix.com>,
+	=?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@gmail.com>,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Antonio Caggiano <quic_acaggian@quicinc.com>,
+	"Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+	Robert Beckett <bob.beckett@collabora.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Gert Wollny <gert.wollny@collabora.com>,
+	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	"ernunes@redhat.com" <ernunes@redhat.com>,
+	Alyssa Ross <hi@alyssa.is>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	"Deucher, Alexander" <Alexander.Deucher@amd.com>,
+	"Stabellini, Stefano" <stefano.stabellini@amd.com>,
+	"Koenig, Christian" <Christian.Koenig@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
+	"Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>,
+	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
+	"Zhang, Julia" <Julia.Zhang@amd.com>,
+	"Chen, Jiqian" <Jiqian.Chen@amd.com>,
+	Antonio Caggiano <antonio.caggiano@collabora.com>
+Subject: Re: [PATCH v6 07/11] virtio-gpu: Handle resource blob commands
+Message-ID: <Zdg8jYYI1e3+xyJi@amd.com>
+References: <20231219075320.165227-1-ray.huang@amd.com>
+ <20231219075320.165227-8-ray.huang@amd.com>
+ <ccc34ce0-44af-425e-8634-6f7a0583ee12@damsy.net>
+ <c986f552-60b8-471a-a439-a8714936fa47@damsy.net>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c986f552-60b8-471a-a439-a8714936fa47@damsy.net>
+X-ClientProxiedBy: SI2PR04CA0007.apcprd04.prod.outlook.com
+ (2603:1096:4:197::19) To SJ2PR12MB8690.namprd12.prod.outlook.com
+ (2603:10b6:a03:540::10)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8690:EE_|BY5PR12MB4066:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce0c9367-f83f-4423-586b-08dc3439ad03
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	kect6Fcjm+yRcHAebXQQQHvGmmeDzRRYh16DT8bDiI7rf+9pBYeEyQnR1FK9zDhA+IxgdcvdOrS4iWcz7O9Bb1fkuQWUS6qORSxAo+GipgNc41jwADFM0S21/k42Z5MUGULnqA+hPEcNNWEVbwo9NWq0hVP7IyWhNXxWxPHL8HNCVDlAKFUff1Q92eTCp+Dj3HAOcJ1aanbamKGmYydn6Ap2Z+EW1vFGXg7iJOGiFovjB9BhsSSLEQegTHYSFw7gFFH2cE0TL86MUVZwMoORAe1RMttWzvSA4D+FCMRpjmQyryhwR5vYuVnMVw+L7h94mNMj+AvF6EbWCpqA9YWck+zzfV4XlWG67mGcPwQucvbRxtA/Lkoo0piajRVea/3f+26yla1qUXiKQd4WjqPWKFlDK6Lq+RH5AvXFbniJrpeHuhkIksqY/Z+nTdln+9C0rHz86ImZq4SnKQIvCGj4CI7qD3w6H5oimQCcxqqax/vh4xvl1VPlZS2MQwSgGgnmEa2TnyFNHVRFYRZoszlTLaA9thXQl5kwucqEjSYLm4k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8690.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?oYPm5RAVwy/29ce+1TAKFZLEOna8JbXsEfylnSw20zVudHIEo8SebfQX3x?=
+ =?iso-8859-1?Q?ZdVQ7Fw9EHiOLJDm7CBLXowJAKIjqVwdO8zUqh5pYT6H8UhVRUdMvL9y7H?=
+ =?iso-8859-1?Q?GFAPDlCNf2lEm6eBTb++lIIt/Mc0tJ/Si3KoI0GbIywjZsfKQJGyjqsRem?=
+ =?iso-8859-1?Q?yz8KbbPvK0scY/FSkzzOnd5AXarmaK0cVzLsnYjY+i2BQhuKYaCXI1pFkw?=
+ =?iso-8859-1?Q?iVREN90xYbQFrds9pmSNwF+wgto6CoiUvr0yk722YjFs4tA1X1kmNfukN2?=
+ =?iso-8859-1?Q?eR71IfdiwdRTykhMzko5jhEDvTciU2FkgLv7DMW+RnEAjX6o1txo6BNpVF?=
+ =?iso-8859-1?Q?4wOTV8zMamFw4SErhqiiKz5gG6qpGdfSWo9W6f++/KUgcTL5W30WiPFW0T?=
+ =?iso-8859-1?Q?E+9MZpzeglUjeAFSrRTeooY/idn8sUchE1LgZ2Ko7LE3kQvGuPATYg2/r8?=
+ =?iso-8859-1?Q?KJHuPB1iXHgmfVy9lK7pyrf8LolXYrGbYz19c9BT8wX/eh0RA6ooSTjp67?=
+ =?iso-8859-1?Q?Gn7dmxfiJLV01ixcy0s/wsquCyURUbTb48LQ66HixyG5thz7UtdPa7Y216?=
+ =?iso-8859-1?Q?mfo0/eAm/oJJe0bXrmShBjkZC361TssFHRs2ptpk400ErQSgyanyTuT8sU?=
+ =?iso-8859-1?Q?F7+wSDY5aIsa6qeYQC6L9woPCUwkW1qRJ6hiUG4OmUcHa7x+wb62O+SO6h?=
+ =?iso-8859-1?Q?QZKugQM+F5VNydmaqzDNQphGJcsU31yXE3LTwu/FIMyf/9noUAaUBDTauH?=
+ =?iso-8859-1?Q?661WUagOANxQdOmh+tTLNyYliz2BlVK6+MmjDjyHfMUuqwtl7gUPOz8L/3?=
+ =?iso-8859-1?Q?yU70BLpa2wvF76p6Y05lWUTmnZl9p4b6i260DDs8W/3khZ1yriYZRnt46N?=
+ =?iso-8859-1?Q?GJNSUKxYHBBoL8HRJSdiVWXfTLBACWJAgJDb0kaERGRUdrEJFdcOrlJUQE?=
+ =?iso-8859-1?Q?C9TtJ/rrVYBVD38CB3/5DfcVJ2StIZIUJBEEbfNSAB3uTHpudNeF/Yed1v?=
+ =?iso-8859-1?Q?Tt3dKnQOZNjVlMPD82N5jQKEH4SWzTD7u281Z/bvHtF6+InASiJqKZjbJO?=
+ =?iso-8859-1?Q?O7/zUwLefsU/njDvHLr3oAPrudhOPN2VnE/4Iad8hL1wPNH8ryK7YwZk5j?=
+ =?iso-8859-1?Q?7WT9mv9IGgQYTTdpq5le0J1pYOj8upcsekQvdWqoIcBUYQFtCamWBpHTEt?=
+ =?iso-8859-1?Q?nAv8P7XNoaZBHIYB0REqD281zgs99go3znUT1wHVgR/0gH+MwfWQpvF7dl?=
+ =?iso-8859-1?Q?QvM5K3+dDlT1o09qRavL3xIgCY05NtFzesG9+s6BjaMm6pNmzHa/2NQN1b?=
+ =?iso-8859-1?Q?mOXppNU1oCNHFeyTLT/9epwiU9M8xBJE/plN63PSlS4CNe+DhAXPHx0pSj?=
+ =?iso-8859-1?Q?GtwKwMLwnbdrhW3HvsPWvBGrQOqgyf+YViQQSq4puqEe/GCr5rL33nhDSe?=
+ =?iso-8859-1?Q?FlkGZCtynNsZXPGvRnhRLUJp66LTP8OXpmSBsbKRfyZNGMDQyz24ADNJPN?=
+ =?iso-8859-1?Q?klEZTfe9WpjK2QxAPgzRqqPUXgRC1izqonrCk91gVvRT23+mBVH9Kvz8kJ?=
+ =?iso-8859-1?Q?GnOeNaT9f9O0f93r+N1Xs6NxWKCHwHPWgiWPRgxTLE36AyTiRV2r7nMgXG?=
+ =?iso-8859-1?Q?sq/zW84mkUDJg/hfIlM8leENyWGcG0q90w?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce0c9367-f83f-4423-586b-08dc3439ad03
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8690.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5849.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47e91f7c-7d66-45e2-cb69-08dc3435ceaa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Feb 2024 06:08:08.4794
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2024 06:35:50.3883
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aJ004It+mnhP++1uIsPAcgwIRrsM3NR0yl0px3q0vvSGydPduBWFb1FJJdp8MUkmjtTK+u9foZQ60TNuMpjx+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9161
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uWlO1D35SxwrtwgiIpy08JL/O/34S56jTfjPffcRww0m5di7qnZTfzpIAxDt6F1ELzZG3gocVeJJZ10aoxpm5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4066
 
-T24gMjAyNC8yLzIzIDA4OjIzLCBTdGVmYW5vIFN0YWJlbGxpbmkgd3JvdGU6DQo+IE9uIEZyaSwg
-NSBKYW4gMjAyNCwgSmlxaWFuIENoZW4gd3JvdGU6DQo+PiBJbiBQVkggZG9tMCwgdGhlIGdzaXMg
-ZG9uJ3QgZ2V0IHJlZ2lzdGVyZWQsIGJ1dCB0aGUgZ3NpIG9mDQo+PiBhIHBhc3N0aHJvdWdoIGRl
-dmljZSBtdXN0IGJlIGNvbmZpZ3VyZWQgZm9yIGl0IHRvIGJlIGFibGUgdG8gYmUNCj4+IG1hcHBl
-ZCBpbnRvIGEgZG9tVS4NCj4+DQo+PiBXaGVuIGFzc2lnbiBhIGRldmljZSB0byBwYXNzdGhyb3Vn
-aCwgcHJvYWN0aXZlbHkgc2V0dXAgdGhlIGdzaQ0KPj4gb2YgdGhlIGRldmljZSBkdXJpbmcgdGhh
-dCBwcm9jZXNzLg0KPj4NCj4+IENvLWRldmVsb3BlZC1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdA
-YW1kLmNvbT4NCj4+IFNpZ25lZC1vZmYtYnk6IEppcWlhbiBDaGVuIDxKaXFpYW4uQ2hlbkBhbWQu
-Y29tPg0KPj4gLS0tDQo+PiAgYXJjaC94ODYveGVuL2VubGlnaHRlbl9wdmguYyAgICAgICB8IDkw
-ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKw0KPj4gIGRyaXZlcnMvYWNwaS9wY2lfaXJx
-LmMgICAgICAgICAgICAgfCAgMiArLQ0KPj4gIGRyaXZlcnMveGVuL3hlbi1wY2liYWNrL3BjaV9z
-dHViLmMgfCAgOCArKysNCj4+ICBpbmNsdWRlL2xpbnV4L2FjcGkuaCAgICAgICAgICAgICAgIHwg
-IDEgKw0KPj4gIGluY2x1ZGUveGVuL2FjcGkuaCAgICAgICAgICAgICAgICAgfCAgNiArKw0KPj4g
-IDUgZmlsZXMgY2hhbmdlZCwgMTA2IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4+DQo+
-PiBkaWZmIC0tZ2l0IGEvYXJjaC94ODYveGVuL2VubGlnaHRlbl9wdmguYyBiL2FyY2gveDg2L3hl
-bi9lbmxpZ2h0ZW5fcHZoLmMNCj4+IGluZGV4IGFkYTM4NjhjMDJjMi4uZWNhZGQ5NjZjNjg0IDEw
-MDY0NA0KPj4gLS0tIGEvYXJjaC94ODYveGVuL2VubGlnaHRlbl9wdmguYw0KPj4gKysrIGIvYXJj
-aC94ODYveGVuL2VubGlnaHRlbl9wdmguYw0KPj4gQEAgLTEsNiArMSw3IEBADQo+PiAgLy8gU1BE
-WC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjANCj4+ICAjaW5jbHVkZSA8bGludXgvYWNwaS5o
-Pg0KPj4gICNpbmNsdWRlIDxsaW51eC9leHBvcnQuaD4NCj4+ICsjaW5jbHVkZSA8bGludXgvcGNp
-Lmg+DQo+PiAgDQo+PiAgI2luY2x1ZGUgPHhlbi9odmMtY29uc29sZS5oPg0KPj4gIA0KPj4gQEAg
-LTI1LDYgKzI2LDk1IEBADQo+PiAgYm9vbCBfX3JvX2FmdGVyX2luaXQgeGVuX3B2aDsNCj4+ICBF
-WFBPUlRfU1lNQk9MX0dQTCh4ZW5fcHZoKTsNCj4+ICANCj4+ICt0eXBlZGVmIHN0cnVjdCBnc2lf
-aW5mbyB7DQo+PiArCWludCBnc2k7DQo+PiArCWludCB0cmlnZ2VyOw0KPj4gKwlpbnQgcG9sYXJp
-dHk7DQo+PiArfSBnc2lfaW5mb190Ow0KPj4gKw0KPj4gK3N0cnVjdCBhY3BpX3BydF9lbnRyeSB7
-DQo+PiArCXN0cnVjdCBhY3BpX3BjaV9pZAlpZDsNCj4+ICsJdTgJCQlwaW47DQo+PiArCWFjcGlf
-aGFuZGxlCQlsaW5rOw0KPj4gKwl1MzIJCQlpbmRleDsJCS8qIEdTSSwgb3IgbGluayBfQ1JTIGlu
-ZGV4ICovDQo+PiArfTsNCj4+ICsNCj4+ICtzdGF0aWMgaW50IHhlbl9wdmhfZ2V0X2dzaV9pbmZv
-KHN0cnVjdCBwY2lfZGV2ICpkZXYsDQo+PiArCQkJCQkJCQlnc2lfaW5mb190ICpnc2lfaW5mbykN
-Cj4+ICt7DQo+PiArCWludCBnc2k7DQo+PiArCXU4IHBpbiA9IDA7DQo+PiArCXN0cnVjdCBhY3Bp
-X3BydF9lbnRyeSAqZW50cnk7DQo+PiArCWludCB0cmlnZ2VyID0gQUNQSV9MRVZFTF9TRU5TSVRJ
-VkU7DQo+PiArCWludCBwb2xhcml0eSA9IGFjcGlfaXJxX21vZGVsID09IEFDUElfSVJRX01PREVM
-X0dJQyA/DQo+PiArCQkJCSAgICAgIEFDUElfQUNUSVZFX0hJR0ggOiBBQ1BJX0FDVElWRV9MT1c7
-DQo+PiArDQo+PiArCWlmIChkZXYpDQo+PiArCQlwaW4gPSBkZXYtPnBpbjsNCj4gDQo+IFRoaXMg
-aXMgbWlub3IsIGJ1dCB5b3UgY2FuIGp1c3QgbW92ZSB0aGUgcGluID0gZGV2LT5waW4gYWZ0ZXIg
-dGhlICFkZXYNCj4gY2hlY2sgYmVsb3cuDQpXaWxsIGNoYW5nZSBpbiBuZXh0IHZlcnNpb24uDQoN
-Cj4gDQo+IFdpdGggdGhhdCBjaGFuZ2UsIGFuZCBhc3N1bWluZyB0aGUgWGVuLXNpZGUgYW5kIFFF
-TVUtc2lkZSBwYXRjaGVzIGFyZQ0KPiBhY2NlcHRlZDoNCj4gDQo+IFJldmlld2VkLWJ5OiBTdGVm
-YW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+DQpUaGFuayB5b3UgdmVyeSBt
-dWNoIQ0KDQo+IA0KPiANCj4gDQo+IA0KPj4gKwlpZiAoIWRldiB8fCAhcGluIHx8ICFnc2lfaW5m
-bykNCj4+ICsJCXJldHVybiAtRUlOVkFMOw0KPj4gKw0KPj4gKwllbnRyeSA9IGFjcGlfcGNpX2ly
-cV9sb29rdXAoZGV2LCBwaW4pOw0KPj4gKwlpZiAoZW50cnkpIHsNCj4+ICsJCWlmIChlbnRyeS0+
-bGluaykNCj4+ICsJCQlnc2kgPSBhY3BpX3BjaV9saW5rX2FsbG9jYXRlX2lycShlbnRyeS0+bGlu
-aywNCj4+ICsJCQkJCQkJIGVudHJ5LT5pbmRleCwNCj4+ICsJCQkJCQkJICZ0cmlnZ2VyLCAmcG9s
-YXJpdHksDQo+PiArCQkJCQkJCSBOVUxMKTsNCj4+ICsJCWVsc2UNCj4+ICsJCQlnc2kgPSBlbnRy
-eS0+aW5kZXg7DQo+PiArCX0gZWxzZQ0KPj4gKwkJZ3NpID0gLTE7DQo+PiArDQo+PiArCWlmIChn
-c2kgPCAwKQ0KPj4gKwkJcmV0dXJuIC1FSU5WQUw7DQo+PiArDQo+PiArCWdzaV9pbmZvLT5nc2kg
-PSBnc2k7DQo+PiArCWdzaV9pbmZvLT50cmlnZ2VyID0gdHJpZ2dlcjsNCj4+ICsJZ3NpX2luZm8t
-PnBvbGFyaXR5ID0gcG9sYXJpdHk7DQo+PiArDQo+PiArCXJldHVybiAwOw0KPj4gK30NCj4+ICsN
-Cj4+ICtzdGF0aWMgaW50IHhlbl9wdmhfc2V0dXBfZ3NpKGdzaV9pbmZvX3QgKmdzaV9pbmZvKQ0K
-Pj4gK3sNCj4+ICsJc3RydWN0IHBoeXNkZXZfc2V0dXBfZ3NpIHNldHVwX2dzaTsNCj4+ICsNCj4+
-ICsJaWYgKCFnc2lfaW5mbykNCj4+ICsJCXJldHVybiAtRUlOVkFMOw0KPj4gKw0KPj4gKwlzZXR1
-cF9nc2kuZ3NpID0gZ3NpX2luZm8tPmdzaTsNCj4+ICsJc2V0dXBfZ3NpLnRyaWdnZXJpbmcgPSAo
-Z3NpX2luZm8tPnRyaWdnZXIgPT0gQUNQSV9FREdFX1NFTlNJVElWRSA/IDAgOiAxKTsNCj4+ICsJ
-c2V0dXBfZ3NpLnBvbGFyaXR5ID0gKGdzaV9pbmZvLT5wb2xhcml0eSA9PSBBQ1BJX0FDVElWRV9I
-SUdIID8gMCA6IDEpOw0KPj4gKw0KPj4gKwlyZXR1cm4gSFlQRVJWSVNPUl9waHlzZGV2X29wKFBI
-WVNERVZPUF9zZXR1cF9nc2ksICZzZXR1cF9nc2kpOw0KPj4gK30NCj4+ICsNCj4+ICtpbnQgeGVu
-X3B2aF9wYXNzdGhyb3VnaF9nc2koc3RydWN0IHBjaV9kZXYgKmRldikNCj4+ICt7DQo+PiArCWlu
-dCByZXQ7DQo+PiArCWdzaV9pbmZvX3QgZ3NpX2luZm87DQo+PiArDQo+PiArCWlmICghZGV2KQ0K
-Pj4gKwkJcmV0dXJuIC1FSU5WQUw7DQo+PiArDQo+PiArCXJldCA9IHhlbl9wdmhfZ2V0X2dzaV9p
-bmZvKGRldiwgJmdzaV9pbmZvKTsNCj4+ICsJaWYgKHJldCkgew0KPj4gKwkJeGVuX3Jhd19wcmlu
-dGsoIkZhaWwgdG8gZ2V0IGdzaSBpbmZvIVxuIik7DQo+PiArCQlyZXR1cm4gcmV0Ow0KPj4gKwl9
-DQo+PiArDQo+PiArCXJldCA9IHhlbl9wdmhfc2V0dXBfZ3NpKCZnc2lfaW5mbyk7DQo+PiArCWlm
-IChyZXQgPT0gLUVFWElTVCkgew0KPj4gKwkJeGVuX3Jhd19wcmludGsoIkFscmVhZHkgc2V0dXAg
-dGhlIEdTSSA6JWRcbiIsIGdzaV9pbmZvLmdzaSk7DQo+PiArCQlyZXQgPSAwOw0KPj4gKwl9IGVs
-c2UgaWYgKHJldCkNCj4+ICsJCXhlbl9yYXdfcHJpbnRrKCJGYWlsIHRvIHNldHVwIEdTSSAoJWQp
-IVxuIiwgZ3NpX2luZm8uZ3NpKTsNCj4+ICsNCj4+ICsJcmV0dXJuIHJldDsNCj4+ICt9DQo+PiAr
-RVhQT1JUX1NZTUJPTF9HUEwoeGVuX3B2aF9wYXNzdGhyb3VnaF9nc2kpOw0KPj4gKw0KPj4gIHZv
-aWQgX19pbml0IHhlbl9wdmhfaW5pdChzdHJ1Y3QgYm9vdF9wYXJhbXMgKmJvb3RfcGFyYW1zKQ0K
-Pj4gIHsNCj4+ICAJdTMyIG1zcjsNCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2FjcGkvcGNpX2ly
-cS5jIGIvZHJpdmVycy9hY3BpL3BjaV9pcnEuYw0KPj4gaW5kZXggZmYzMGNlY2EyMjAzLi42MzBm
-ZTBhMzRiYzYgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2FjcGkvcGNpX2lycS5jDQo+PiArKysg
-Yi9kcml2ZXJzL2FjcGkvcGNpX2lycS5jDQo+PiBAQCAtMjg4LDcgKzI4OCw3IEBAIHN0YXRpYyBp
-bnQgYWNwaV9yZXJvdXRlX2Jvb3RfaW50ZXJydXB0KHN0cnVjdCBwY2lfZGV2ICpkZXYsDQo+PiAg
-fQ0KPj4gICNlbmRpZiAvKiBDT05GSUdfWDg2X0lPX0FQSUMgKi8NCj4+ICANCj4+IC1zdGF0aWMg
-c3RydWN0IGFjcGlfcHJ0X2VudHJ5ICphY3BpX3BjaV9pcnFfbG9va3VwKHN0cnVjdCBwY2lfZGV2
-ICpkZXYsIGludCBwaW4pDQo+PiArc3RydWN0IGFjcGlfcHJ0X2VudHJ5ICphY3BpX3BjaV9pcnFf
-bG9va3VwKHN0cnVjdCBwY2lfZGV2ICpkZXYsIGludCBwaW4pDQo+PiAgew0KPj4gIAlzdHJ1Y3Qg
-YWNwaV9wcnRfZW50cnkgKmVudHJ5ID0gTlVMTDsNCj4+ICAJc3RydWN0IHBjaV9kZXYgKmJyaWRn
-ZTsNCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9wY2lfc3R1Yi5jIGIv
-ZHJpdmVycy94ZW4veGVuLXBjaWJhY2svcGNpX3N0dWIuYw0KPj4gaW5kZXggNDZjNDBlYzhhMThl
-Li4yMmQ0MzgwZDJiMDQgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9w
-Y2lfc3R1Yi5jDQo+PiArKysgYi9kcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9wY2lfc3R1Yi5jDQo+
-PiBAQCAtMjAsNiArMjAsNyBAQA0KPj4gICNpbmNsdWRlIDxsaW51eC9hdG9taWMuaD4NCj4+ICAj
-aW5jbHVkZSA8eGVuL2V2ZW50cy5oPg0KPj4gICNpbmNsdWRlIDx4ZW4vcGNpLmg+DQo+PiArI2lu
-Y2x1ZGUgPHhlbi9hY3BpLmg+DQo+PiAgI2luY2x1ZGUgPHhlbi94ZW4uaD4NCj4+ICAjaW5jbHVk
-ZSA8YXNtL3hlbi9oeXBlcnZpc29yLmg+DQo+PiAgI2luY2x1ZGUgPHhlbi9pbnRlcmZhY2UvcGh5
-c2Rldi5oPg0KPj4gQEAgLTQzNSw2ICs0MzYsMTMgQEAgc3RhdGljIGludCBwY2lzdHViX2luaXRf
-ZGV2aWNlKHN0cnVjdCBwY2lfZGV2ICpkZXYpDQo+PiAgCQkJZ290byBjb25maWdfcmVsZWFzZTsN
-Cj4+ICAJCXBjaV9yZXN0b3JlX3N0YXRlKGRldik7DQo+PiAgCX0NCj4+ICsNCj4+ICsJaWYgKHhl
-bl9pbml0aWFsX2RvbWFpbigpICYmIHhlbl9wdmhfZG9tYWluKCkpIHsNCj4+ICsJCWVyciA9IHhl
-bl9wdmhfcGFzc3Rocm91Z2hfZ3NpKGRldik7DQo+PiArCQlpZiAoZXJyKQ0KPj4gKwkJCWdvdG8g
-Y29uZmlnX3JlbGVhc2U7DQo+PiArCX0NCj4+ICsNCj4+ICAJLyogTm93IGRpc2FibGUgdGhlIGRl
-dmljZSAodGhpcyBhbHNvIGVuc3VyZXMgc29tZSBwcml2YXRlIGRldmljZQ0KPj4gIAkgKiBkYXRh
-IGlzIHNldHVwIGJlZm9yZSB3ZSBleHBvcnQpDQo+PiAgCSAqLw0KPj4gZGlmZiAtLWdpdCBhL2lu
-Y2x1ZGUvbGludXgvYWNwaS5oIGIvaW5jbHVkZS9saW51eC9hY3BpLmgNCj4+IGluZGV4IDRkYjU0
-ZTkyOGIzNi4uN2VhM2JlOTgxY2MzIDEwMDY0NA0KPj4gLS0tIGEvaW5jbHVkZS9saW51eC9hY3Bp
-LmgNCj4+ICsrKyBiL2luY2x1ZGUvbGludXgvYWNwaS5oDQo+PiBAQCAtMzYwLDYgKzM2MCw3IEBA
-IHZvaWQgYWNwaV91bnJlZ2lzdGVyX2dzaSAodTMyIGdzaSk7DQo+PiAgDQo+PiAgc3RydWN0IHBj
-aV9kZXY7DQo+PiAgDQo+PiArc3RydWN0IGFjcGlfcHJ0X2VudHJ5ICphY3BpX3BjaV9pcnFfbG9v
-a3VwKHN0cnVjdCBwY2lfZGV2ICpkZXYsIGludCBwaW4pOw0KPj4gIGludCBhY3BpX3BjaV9pcnFf
-ZW5hYmxlIChzdHJ1Y3QgcGNpX2RldiAqZGV2KTsNCj4+ICB2b2lkIGFjcGlfcGVuYWxpemVfaXNh
-X2lycShpbnQgaXJxLCBpbnQgYWN0aXZlKTsNCj4+ICBib29sIGFjcGlfaXNhX2lycV9hdmFpbGFi
-bGUoaW50IGlycSk7DQo+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS94ZW4vYWNwaS5oIGIvaW5jbHVk
-ZS94ZW4vYWNwaS5oDQo+PiBpbmRleCBiMWUxMTg2MzE0NGQuLjE3YzRkMzdmMWU2MCAxMDA2NDQN
-Cj4+IC0tLSBhL2luY2x1ZGUveGVuL2FjcGkuaA0KPj4gKysrIGIvaW5jbHVkZS94ZW4vYWNwaS5o
-DQo+PiBAQCAtNjcsMTAgKzY3LDE2IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCB4ZW5fYWNwaV9zbGVl
-cF9yZWdpc3Rlcih2b2lkKQ0KPj4gIAkJYWNwaV9zdXNwZW5kX2xvd2xldmVsID0geGVuX2FjcGlf
-c3VzcGVuZF9sb3dsZXZlbDsNCj4+ICAJfQ0KPj4gIH0NCj4+ICtpbnQgeGVuX3B2aF9wYXNzdGhy
-b3VnaF9nc2koc3RydWN0IHBjaV9kZXYgKmRldik7DQo+PiAgI2Vsc2UNCj4+ICBzdGF0aWMgaW5s
-aW5lIHZvaWQgeGVuX2FjcGlfc2xlZXBfcmVnaXN0ZXIodm9pZCkNCj4+ICB7DQo+PiAgfQ0KPj4g
-Kw0KPj4gK3N0YXRpYyBpbmxpbmUgaW50IHhlbl9wdmhfcGFzc3Rocm91Z2hfZ3NpKHN0cnVjdCBw
-Y2lfZGV2ICpkZXYpDQo+PiArew0KPj4gKwlyZXR1cm4gLTE7DQo+PiArfQ0KPj4gICNlbmRpZg0K
-Pj4gIA0KPj4gICNlbmRpZgkvKiBfWEVOX0FDUElfSCAqLw0KPj4gLS0gDQo+PiAyLjM0LjENCj4+
-DQoNCi0tIA0KQmVzdCByZWdhcmRzLA0KSmlxaWFuIENoZW4uDQo=
+On Wed, Jan 10, 2024 at 04:51:31PM +0800, Pierre-Eric Pelloux-Prayer wrote:
+> 
+> 
+> Le 09/01/2024 à 17:50, Pierre-Eric Pelloux-Prayer a écrit :
+> > 
+> > 
+> > Le 19/12/2023 à 08:53, Huang Rui a écrit :
+> >> From: Antonio Caggiano <antonio.caggiano@collabora.com>
+> >>
+> >> Support BLOB resources creation, mapping and unmapping by calling the
+> >> new stable virglrenderer 0.10 interface. Only enabled when available and
+> >> via the blob config. E.g. -device virtio-vga-gl,blob=true
+> >>
+> >> Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
+> >> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> >> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+> >> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> >> ---
+> >>
+> >> Changes in v6:
+> >> - Use new struct virgl_gpu_resource.
+> >> - Unmap, unref and destroy the resource only after the memory region
+> >>    has been completely removed.
+> >> - In unref check whether the resource is still mapped.
+> >> - In unmap_blob check whether the resource has been already unmapped.
+> >> - Fix coding style
+> >>
+> >>   hw/display/virtio-gpu-virgl.c | 274 +++++++++++++++++++++++++++++++++-
+> >>   hw/display/virtio-gpu.c       |   4 +-
+> >>   meson.build                   |   4 +
+> >>   3 files changed, 276 insertions(+), 6 deletions(-)
+> >>
+> >> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
+> >> index faab374336..5a3a292f79 100644
+> >> --- a/hw/display/virtio-gpu-virgl.c
+> >> +++ b/hw/display/virtio-gpu-virgl.c
+> >> @@ -17,6 +17,7 @@
+> >>   #include "trace.h"
+> >>   #include "hw/virtio/virtio.h"
+> >>   #include "hw/virtio/virtio-gpu.h"
+> >> +#include "hw/virtio/virtio-gpu-bswap.h"
+> >>   #include "ui/egl-helpers.h"
+> >> @@ -24,8 +25,62 @@
+> >>   struct virgl_gpu_resource {
+> >>       struct virtio_gpu_simple_resource res;
+> >> +    uint32_t ref;
+> >> +    VirtIOGPU *g;
+> >> +
+> >> +#ifdef HAVE_VIRGL_RESOURCE_BLOB
+> >> +    /* only blob resource needs this region to be mapped as guest mmio */
+> >> +    MemoryRegion *region;
+> >> +#endif
+> >>   };
+> >> +static void vres_get_ref(struct virgl_gpu_resource *vres)
+> >> +{
+> >> +    uint32_t ref;
+> >> +
+> >> +    ref = qatomic_fetch_inc(&vres->ref);
+> >> +    g_assert(ref < INT_MAX);
+> >> +}
+> >> +
+> >> +static void virgl_resource_destroy(struct virgl_gpu_resource *vres)
+> >> +{
+> >> +    struct virtio_gpu_simple_resource *res;
+> >> +    VirtIOGPU *g;
+> >> +
+> >> +    if (!vres) {
+> >> +        return;
+> >> +    }
+> >> +
+> >> +    g = vres->g;
+> >> +    res = &vres->res;
+> >> +    QTAILQ_REMOVE(&g->reslist, res, next);
+> >> +    virtio_gpu_cleanup_mapping(g, res);
+> >> +    g_free(vres);
+> >> +}
+> >> +
+> >> +static void virgl_resource_unref(struct virgl_gpu_resource *vres)
+> >> +{
+> >> +    struct virtio_gpu_simple_resource *res;
+> >> +
+> >> +    if (!vres) {
+> >> +        return;
+> >> +    }
+> >> +
+> >> +    res = &vres->res;
+> >> +    virgl_renderer_resource_detach_iov(res->resource_id, NULL, NULL);
+> >> +    virgl_renderer_resource_unref(res->resource_id);
+> >> +}
+> >> +
+> >> +static void vres_put_ref(struct virgl_gpu_resource *vres)
+> >> +{
+> >> +    g_assert(vres->ref > 0);
+> >> +
+> >> +    if (qatomic_fetch_dec(&vres->ref) == 1) {
+> >> +        virgl_resource_unref(vres);
+> >> +        virgl_resource_destroy(vres);
+> >> +    }
+> >> +}
+> >> +
+> >>   static struct virgl_gpu_resource *
+> >>   virgl_gpu_find_resource(VirtIOGPU *g, uint32_t resource_id)
+> >>   {
+> >> @@ -59,6 +114,8 @@ static void virgl_cmd_create_resource_2d(VirtIOGPU *g,
+> >>                                          c2d.width, c2d.height);
+> >>       vres = g_new0(struct virgl_gpu_resource, 1);
+> >> +    vres_get_ref(vres);
+> >> +    vres->g = g;
+> >>       vres->res.width = c2d.width;
+> >>       vres->res.height = c2d.height;
+> >>       vres->res.format = c2d.format;
+> >> @@ -91,6 +148,8 @@ static void virgl_cmd_create_resource_3d(VirtIOGPU *g,
+> >>                                          c3d.width, c3d.height, c3d.depth);
+> >>       vres = g_new0(struct virgl_gpu_resource, 1);
+> >> +    vres_get_ref(vres);
+> >> +    vres->g = g;
+> >>       vres->res.width = c3d.width;
+> >>       vres->res.height = c3d.height;
+> >>       vres->res.format = c3d.format;
+> >> @@ -126,12 +185,21 @@ static void virgl_cmd_resource_unref(VirtIOGPU *g,
+> >>           return;
+> >>       }
+> >> -    virgl_renderer_resource_detach_iov(unref.resource_id, NULL, NULL);
+> >> -    virgl_renderer_resource_unref(unref.resource_id);
+> >> +#ifdef HAVE_VIRGL_RESOURCE_BLOB
+> >> +    if (vres->region) {
+> >> +        VirtIOGPUBase *b = VIRTIO_GPU_BASE(g);
+> >> +        MemoryRegion *mr = vres->region;
+> >> +
+> >> +        warn_report("%s: blob resource %d not unmapped",
+> >> +                    __func__, unref.resource_id);
+> >> +        vres->region = NULL;
+> > 
+> > Shouldn't there be a call to memory_region_unref(mr)?
+> > 
+> >> +        memory_region_set_enabled(mr, false);
+> >> +        memory_region_del_subregion(&b->hostmem, mr);
+> >> +        object_unparent(OBJECT(mr));
+> >> +    }
+> >> +#endif /* HAVE_VIRGL_RESOURCE_BLOB */
+> >> -    QTAILQ_REMOVE(&g->reslist, &vres->res, next);
+> >> -    virtio_gpu_cleanup_mapping(g, &vres->res);
+> >> -    g_free(vres);
+> >> +    vres_put_ref(vres);
+> >>   }
+> >>   static void virgl_cmd_context_create(VirtIOGPU *g,
+> >> @@ -470,6 +538,191 @@ static void virgl_cmd_get_capset(VirtIOGPU *g,
+> >>       g_free(resp);
+> >>   }
+> >> +#ifdef HAVE_VIRGL_RESOURCE_BLOB
+> >> +
+> >> +static void virgl_resource_unmap(struct virgl_gpu_resource *vres)
+> >> +{
+> >> +    if (!vres) {
+> >> +        return;
+> >> +    }
+> >> +
+> >> +    virgl_renderer_resource_unmap(vres->res.resource_id);
+> >> +
+> >> +    vres_put_ref(vres);
+> >> +}
+> >> +
+> >> +static void virgl_resource_blob_async_unmap(void *obj)
+> >> +{
+> >> +    MemoryRegion *mr = MEMORY_REGION(obj);
+> >> +    struct virgl_gpu_resource *vres = mr->opaque;
+> >> +
+> >> +    virgl_resource_unmap(vres);
+> >> +
+> >> +    g_free(obj);
+> >> +}
+> >> +
+> >> +static void virgl_cmd_resource_create_blob(VirtIOGPU *g,
+> >> +                                           struct virtio_gpu_ctrl_command *cmd)
+> >> +{
+> >> +    struct virgl_gpu_resource *vres;
+> >> +    struct virtio_gpu_resource_create_blob cblob;
+> >> +    struct virgl_renderer_resource_create_blob_args virgl_args = { 0 };
+> >> +    int ret;
+> >> +
+> >> +    VIRTIO_GPU_FILL_CMD(cblob);
+> >> +    virtio_gpu_create_blob_bswap(&cblob);
+> >> +    trace_virtio_gpu_cmd_res_create_blob(cblob.resource_id, cblob.size);
+> >> +
+> >> +    if (cblob.resource_id == 0) {
+> >> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource id 0 is not allowed\n",
+> >> +                      __func__);
+> >> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> >> +        return;
+> >> +    }
+> >> +
+> >> +    vres = virgl_gpu_find_resource(g, cblob.resource_id);
+> >> +    if (vres) {
+> >> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource already exists %d\n",
+> >> +                      __func__, cblob.resource_id);
+> >> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> >> +        return;
+> >> +    }
+> >> +
+> >> +    vres = g_new0(struct virgl_gpu_resource, 1);
+> >> +    vres_get_ref(vres);
+> >> +    vres->g = g;
+> >> +    vres->res.resource_id = cblob.resource_id;
+> >> +    vres->res.blob_size = cblob.size;
+> >> +
+> >> +    if (cblob.blob_mem != VIRTIO_GPU_BLOB_MEM_HOST3D) {
+> >> +        ret = virtio_gpu_create_mapping_iov(g, cblob.nr_entries, sizeof(cblob),
+> >> +                                            cmd, &vres->res.addrs,
+> >> +                                            &vres->res.iov, &vres->res.iov_cnt);
+> >> +        if (!ret) {
+> >> +            g_free(vres);
+> >> +            cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+> >> +            return;
+> >> +        }
+> >> +    }
+> >> +
+> >> +    QTAILQ_INSERT_HEAD(&g->reslist, &vres->res, next);
+> >> +
+> >> +    virgl_args.res_handle = cblob.resource_id;
+> >> +    virgl_args.ctx_id = cblob.hdr.ctx_id;
+> >> +    virgl_args.blob_mem = cblob.blob_mem;
+> >> +    virgl_args.blob_id = cblob.blob_id;
+> >> +    virgl_args.blob_flags = cblob.blob_flags;
+> >> +    virgl_args.size = cblob.size;
+> >> +    virgl_args.iovecs = vres->res.iov;
+> >> +    virgl_args.num_iovs = vres->res.iov_cnt;
+> >> +
+> >> +    ret = virgl_renderer_resource_create_blob(&virgl_args);
+> >> +    if (ret) {
+> >> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: virgl blob create error: %s\n",
+> >> +                      __func__, strerror(-ret));
+> >> +        cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+> >> +    }
+> >> +}
+> >> +
+> >> +static void virgl_cmd_resource_map_blob(VirtIOGPU *g,
+> >> +                                        struct virtio_gpu_ctrl_command *cmd)
+> >> +{
+> >> +    struct virgl_gpu_resource *vres;
+> >> +    struct virtio_gpu_resource_map_blob mblob;
+> >> +    int ret;
+> >> +    void *data;
+> >> +    uint64_t size;
+> >> +    struct virtio_gpu_resp_map_info resp;
+> >> +    VirtIOGPUBase *b = VIRTIO_GPU_BASE(g);
+> >> +
+> >> +    VIRTIO_GPU_FILL_CMD(mblob);
+> >> +    virtio_gpu_map_blob_bswap(&mblob);
+> >> +
+> >> +    if (mblob.resource_id == 0) {
+> >> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource id 0 is not allowed\n",
+> >> +                      __func__);
+> >> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> >> +        return;
+> >> +    }
+> >> +
+> >> +    vres = virgl_gpu_find_resource(g, mblob.resource_id);
+> >> +    if (!vres) {
+> >> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource does not exist %d\n",
+> >> +                      __func__, mblob.resource_id);
+> >> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> >> +        return;
+> >> +    }
+> >> +    if (vres->region) {
+> >> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource already mapped %d\n",
+> >> +                      __func__, mblob.resource_id);
+> >> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> >> +        return;
+> >> +    }
+> >> +
+> >> +    ret = virgl_renderer_resource_map(vres->res.resource_id, &data, &size);
+> >> +    if (ret) {
+> >> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource map error: %s\n",
+> >> +                      __func__, strerror(-ret));
+> >> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> >> +        return;
+> >> +    }
+> >> +
+> >> +    vres_get_ref(vres);
+> > 
+> > Why is this needed? And if it is, shouldn't virgl_cmd_resource_unmap_blob
+> > call "vres_put_ref(vres)" ?
+> > 
+> >> +    vres->region = g_new0(MemoryRegion, 1);
+> >> +    memory_region_init_ram_ptr(vres->region, OBJECT(g), NULL, size, data);
+> >> +    vres->region->opaque = vres;
+> >> +    OBJECT(vres->region)->free = virgl_resource_blob_async_unmap;
+> >> +    memory_region_add_subregion(&b->hostmem, mblob.offset, vres->region);
+> >> +    memory_region_set_enabled(vres->region, true);
+> >> +
+> >> +    memset(&resp, 0, sizeof(resp));
+> >> +    resp.hdr.type = VIRTIO_GPU_RESP_OK_MAP_INFO;
+> >> +    virgl_renderer_resource_get_map_info(mblob.resource_id, &resp.map_info);
+> >> +    virtio_gpu_ctrl_response(g, cmd, &resp.hdr, sizeof(resp));
+> >> +}
+> >> +
+> >> +static void virgl_cmd_resource_unmap_blob(VirtIOGPU *g,
+> >> +                                          struct virtio_gpu_ctrl_command *cmd)
+> >> +{
+> >> +    struct virgl_gpu_resource *vres;
+> >> +    struct virtio_gpu_resource_unmap_blob ublob;
+> >> +    VirtIOGPUBase *b = VIRTIO_GPU_BASE(g);
+> >> +    MemoryRegion *mr;
+> >> +
+> >> +    VIRTIO_GPU_FILL_CMD(ublob);
+> >> +    virtio_gpu_unmap_blob_bswap(&ublob);
+> >> +
+> >> +    if (ublob.resource_id == 0) {
+> >> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource id 0 is not allowed\n",
+> >> +                      __func__);
+> >> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> >> +        return;
+> >> +    }
+> >> +
+> >> +    vres = virgl_gpu_find_resource(g, ublob.resource_id);
+> >> +    if (!vres) {
+> >> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource does not exist %d\n",
+> >> +                      __func__, ublob.resource_id);
+> >> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> >> +        return;
+> >> +    }
+> >> +
+> >> +    if (!vres->region) {
+> >> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource already unmapped %d\n",
+> >> +                      __func__, ublob.resource_id);
+> >> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> >> +        return;
+> >> +    }
+> >> +
+> >> +    mr = vres->region;
+> >> +    vres->region = NULL;
+> > 
+> > memory_region_unref(mr)?
+> > 
+> > Note that AFAICT without the added memory_region_unref() calls virgl_resource_unmap()
+> > was never called.
+> 
+> 
+> Xenia and I figured out the refcounting issue: this code is written based on the
+> assumption that:
+>   
+>     object_unparent(OBJECT(mr));
+> 
+> 
+> Will decrement the refcount. But this assumption is only true if mr->parent_obj.parent
+> is non-NULL.
+> 
+> The map_blob function uses the following arguments:
+> 
+>     memory_region_init_ram_ptr(vres->region, OBJECT(g), NULL, size, data);
+> 
+> Since name is NULL, mr won't be added as a child of 'g' and thus object_unparent()
+> does nothing.
+> 
+> I'd suggest 2 changes:
+>     * use a name ("blob_memory"?) to so mr can be a child of g
+>     * increment mr's refcount when setting vres->region and decrement it when clearing it.
+>       This change is not needed technically but when a variable is refcounted it seems
+>       clearer to increment/decrement the refcount in these situations.
+> 
+
+Yes, issue is caused by NULL in name field, I will update according to your
+suggestions in V7.
+
+Thanks,
+Ray
+
+> 
+> Pierre-Eric
+> 
+> 
+> > 
+> >> +    memory_region_set_enabled(mr, false);
+> >> +    memory_region_del_subregion(&b->hostmem, mr);
+> >> +    object_unparent(OBJECT(mr));
+> >> +}
+> >> +
+> >> +#endif /* HAVE_VIRGL_RESOURCE_BLOB */
+> >> +
+> >>   void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+> >>                                         struct virtio_gpu_ctrl_command *cmd)
+> >>   {
+> >> @@ -536,6 +789,17 @@ void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+> >>       case VIRTIO_GPU_CMD_GET_EDID:
+> >>           virtio_gpu_get_edid(g, cmd);
+> >>           break;
+> >> +#ifdef HAVE_VIRGL_RESOURCE_BLOB
+> >> +    case VIRTIO_GPU_CMD_RESOURCE_CREATE_BLOB:
+> >> +        virgl_cmd_resource_create_blob(g, cmd);
+> >> +        break;
+> >> +    case VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB:
+> >> +        virgl_cmd_resource_map_blob(g, cmd);
+> >> +        break;
+> >> +    case VIRTIO_GPU_CMD_RESOURCE_UNMAP_BLOB:
+> >> +        virgl_cmd_resource_unmap_blob(g, cmd);
+> >> +        break;
+> >> +#endif /* HAVE_VIRGL_RESOURCE_BLOB */
+> >>       default:
+> >>           cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+> >>           break;
+> >> diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
+> >> index 4c3ec9d0ea..8189c392dc 100644
+> >> --- a/hw/display/virtio-gpu.c
+> >> +++ b/hw/display/virtio-gpu.c
+> >> @@ -1449,10 +1449,12 @@ void virtio_gpu_device_realize(DeviceState *qdev, Error **errp)
+> >>               return;
+> >>           }
+> >> +#ifndef HAVE_VIRGL_RESOURCE_BLOB
+> >>           if (virtio_gpu_virgl_enabled(g->parent_obj.conf)) {
+> >> -            error_setg(errp, "blobs and virgl are not compatible (yet)");
+> >> +            error_setg(errp, "Linked virglrenderer does not support blob resources");
+> >>               return;
+> >>           }
+> >> +#endif
+> >>       }
+> >>       if (!virtio_gpu_base_device_realize(qdev,
+> >> diff --git a/meson.build b/meson.build
+> >> index ea52ef1b9c..629407128e 100644
+> >> --- a/meson.build
+> >> +++ b/meson.build
+> >> @@ -1054,6 +1054,10 @@ if not get_option('virglrenderer').auto() or have_system or have_vhost_user_gpu
+> >>                            cc.has_function('virgl_renderer_context_create_with_flags',
+> >>                                            prefix: '#include <virglrenderer.h>',
+> >>                                            dependencies: virgl))
+> >> +    config_host_data.set('HAVE_VIRGL_RESOURCE_BLOB',
+> >> +                         cc.has_function('virgl_renderer_resource_create_blob',
+> >> +                                         prefix: '#include <virglrenderer.h>',
+> >> +                                         dependencies: virgl))
+> >>     endif
+> >>   endif
+> >>   rutabaga = not_found
+> > 
 
