@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FD58860FC6
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 11:46:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684778.1064895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82812860FCD
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 11:48:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684784.1064906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdT4G-0008IP-JY; Fri, 23 Feb 2024 10:46:12 +0000
+	id 1rdT6E-0000Pd-W9; Fri, 23 Feb 2024 10:48:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684778.1064895; Fri, 23 Feb 2024 10:46:12 +0000
+Received: by outflank-mailman (output) from mailman id 684784.1064906; Fri, 23 Feb 2024 10:48:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdT4G-0008Fx-Fx; Fri, 23 Feb 2024 10:46:12 +0000
-Received: by outflank-mailman (input) for mailman id 684778;
- Fri, 23 Feb 2024 10:46:11 +0000
+	id 1rdT6E-0000MN-T0; Fri, 23 Feb 2024 10:48:14 +0000
+Received: by outflank-mailman (input) for mailman id 684784;
+ Fri, 23 Feb 2024 10:48:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lysb=KA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rdT4F-0008Fr-Fj
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 10:46:11 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6083=KA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rdT6E-0000MH-4R
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 10:48:14 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0932f3b-d238-11ee-98f5-efadbce2ee36;
- Fri, 23 Feb 2024 11:46:08 +0100 (CET)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-512a65cd2c7so1049149e87.0
- for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 02:46:08 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- mw6-20020a05621433c600b0068fda3873b6sm429509qvb.110.2024.02.23.02.46.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Feb 2024 02:46:07 -0800 (PST)
+ id 0a16dfa9-d239-11ee-98f5-efadbce2ee36;
+ Fri, 23 Feb 2024 11:48:12 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a3122b70439so35972766b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 02:48:12 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ cu11-20020a170906ba8b00b00a3ee5c19ee5sm3702290ejd.109.2024.02.23.02.48.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 23 Feb 2024 02:48:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,66 +45,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0932f3b-d238-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 0a16dfa9-d239-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708685168; x=1709289968; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=43f4rOlcrZts1hyjm0iyNDxb3Fodzfg94cEQ/eHhvSc=;
-        b=rmXx+f+nRFKsNKSD6JFOPQKx6N0qgxVcjVVIMt0G6GShVG9JLThndECBK4FL/MPFvP
-         cjNmBN55hY4yflYaRl2DwGvuSpMlhgKjWCj2mQJR+znyHi0q2rzf4imOTiabqPSoNkBL
-         53lDDSuL3LltwBP5Fb2PHrAYsRm2bTI5eUBpI=
+        d=suse.com; s=google; t=1708685291; x=1709290091; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PTF254Ui2YukHBaZx1UjzeAVwpyYnHmdjc0m2ICWVMY=;
+        b=Wc8btW/PktMf1FEzU927BJY668Zdt69qZqpuNVvZZC65FOiQtWdVgywciNktyQHat4
+         vcdOJFOL/xZum51GRSioNMwV5eYaEx1n5ESafoNaf5Yw/W71VSPx7UyeNsEtMJkj039e
+         s/1nlQSlyyp69gg3J3nFimc8yspuM4NVmVu4NWfNXxK780TAtt6Ke+O91QL9M/tE0ir2
+         85sJGfma8mltswIF+o0nUS29m1J2WNlCQmMo26ZNJ/Jcs7jEwARZ+Zqv9tNyUp8XCKAb
+         aIBzLnY2Eh+Kow3+0K8KXyKrP3uKOi8MTWWJAKERoHEzEfvUnz/GNBRIj0m5O936Bs6B
+         v/3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708685168; x=1709289968;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1708685291; x=1709290091;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=43f4rOlcrZts1hyjm0iyNDxb3Fodzfg94cEQ/eHhvSc=;
-        b=TKcSo18xGC/DXSf0qHnzvMLtdWgXXUOrzvoHbsvdYg+6Le/MsClr+6LtBmIJScTgNj
-         J8m3S9C82E8knuKzrwl2hu050qNQN88du5/EehzEZTDSdMi8ZJBxkmjlEDG7ZDQPDFVx
-         SpQkImgHKgy5dz2OHVChKH4rMTkWw+qvZGU0Wi92toVMNm4PNe4KduTKkpj9Rn0ChDeQ
-         g1yVNxXUhjxHxjozswLywCmxlzcT9hbylfFzzeGQfPjkXh3xp6CwjF9ImZLBrp7vMqyg
-         0CdMWW92HfgjtCJ7eE3IBIqHvz9FjK22S4tge1rLwTHic0toLu/LERaOB90k0/vVN2sJ
-         b2KQ==
-X-Gm-Message-State: AOJu0YwhnHfR3VRxshuVmE8geqFFV5eem9kcGXV3mdatNpkO+rKqnDwA
-	zdf3SHfrrrK13pIs7uU4zvCd+LS0BIPQaje0ZenRCIOm1bODwXuTjlHAk4h9Fbr3kkw4x5gr7A2
-	t
-X-Google-Smtp-Source: AGHT+IHiWfMgBNi5VxsY+XJjtihpkobcAUtpnUTpml2CY5MU8SmW/hhEPNqh0zJu7KbzhyH3P3GotA==
-X-Received: by 2002:a05:6512:505:b0:512:b0c4:71c8 with SMTP id o5-20020a056512050500b00512b0c471c8mr1200597lfb.29.1708685168237;
-        Fri, 23 Feb 2024 02:46:08 -0800 (PST)
-Date: Fri, 23 Feb 2024 11:46:05 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: Re: [PATCH LIVEPATCH] Fix inclusion of new object files
-Message-ID: <Zdh3bfjS1vqbnEdC@macbook>
-References: <20240223103550.299992-1-andrew.cooper3@citrix.com>
+        bh=PTF254Ui2YukHBaZx1UjzeAVwpyYnHmdjc0m2ICWVMY=;
+        b=ROKGYaB80WOOhjCx+rRU6Ei028QJEqwRT44IG1TCcHeu4L4pkY+wR2eoDDIzUCa4ft
+         FqmjyqU3zn/ZrM2cgUTBAq41zGU1mbN6nXsONg9/WD75pvdEasJcAMUvSYMqoOr0b/ej
+         aD3bmMFgcaJdwP3fzUdKA5WQg+vHqdeYepnD1IY0UR0PBazer7a1Ww6j0/RQD79L1uhG
+         2gz9lrB21Z1VLnbxk/cSzj1DPC0wsvV+1MCL0Wv2ZlFMc/nfUU2k7N7f6Ht45ebuYQzX
+         u4WXMoz+uURJOwpFqGuXGYir5P74kBxh/19A6L3XfGCoj8zCVh7H7tJfxIBVSoUNEGaq
+         9q9w==
+X-Forwarded-Encrypted: i=1; AJvYcCUrr4Ux9W9McRY2ZtFzVUc4qwHeOcTc7FP2BWgwlONRmnWin4+Kk8WJzNl3aosEYXhmEYRXDe/mwaEbcJOOCZXmxrt+sWn2AYC0Q0Cc5UM=
+X-Gm-Message-State: AOJu0YxzWDlGN4+PF2MzfgRSrgIGt4qTVwNAvI7OFRlyL4qOsm+w0rCe
+	Ki+CnpSy6+GLFJGZ3FX0Vx48/pd930cDEF5m8U9ASS0KlHHYVwWlAvRMrhEG0w==
+X-Google-Smtp-Source: AGHT+IFekVhUB2r/pkY53WQNPv3Wa1VtthywsZqroK0m/ZbwdV+zXEzaP0H9T8AcQYIzK8rlwD2NQA==
+X-Received: by 2002:a17:906:3e01:b0:a3e:7cd8:3db7 with SMTP id k1-20020a1709063e0100b00a3e7cd83db7mr923779eji.68.1708685291561;
+        Fri, 23 Feb 2024 02:48:11 -0800 (PST)
+Message-ID: <6143d253-1d5c-48c8-81b9-3652b21dd9c0@suse.com>
+Date: Fri, 23 Feb 2024 11:48:10 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240223103550.299992-1-andrew.cooper3@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] xen/livepatch: fixes for the pre-apply / post-revert
+ hooks
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20231130142944.46322-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20231130142944.46322-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Feb 23, 2024 at 10:35:50AM +0000, Andrew Cooper wrote:
-> Right now, there's a mixup over the xen/ part of the path for new files.
+On 30.11.2023 15:29, Roger Pau Monne wrote:
+> Hello,
 > 
->   + NEW_FILES=./arch/x86/lp-hooks.o
->   + for i in '$NEW_FILES'
->   ++ dirname ./arch/x86/lp-hooks.o
->   + mkdir -p output/./arch/x86
->   + cp patched/./arch/x86/lp-hooks.o output/./arch/x86/lp-hooks.o
->   cp: cannot stat 'patched/./arch/x86/lp-hooks.o': No such file or directory
+> The follow series contain a misc of fixes mostly related to the usage of
+> the pre-apply / post-revert hooks.  The norevert test is also fixed to
+> work as I think was expected.  Finally both the no{apply,revert}
+> tests are fixed to build properly, as the files where previously
+> unhooked from the build system completely.
 > 
-> Alter the `cd` and `find` runes to use paths relative to the root of the
-> different source trees.
+> I'm unsure how useful the apply and revert hooks really are, as without
+> calling the internal apply/revert functions the state of the payload
+> structure is quite likely inconsistent with the code expectations.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Thanks, Roger.
+> 
+> Roger Pau Monne (5):
+>   xen/livepatch: register livepatch regions when loaded
+>   xen/livepatch: search for symbols in all loaded payloads
+>   xen/livepatch: fix norevert test attempt to open-code revert
+>   xen/livepatch: fix norevert test hook setup typo
+>   xen/livepatch: properly build the noapply and norevert tests
 
-Hm, this never worked AFAICT.
+With the R-b-s that have arrived, could you clarify in how far these
+can be committed out of order?
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Thanks, Roger.
+Jan
 
