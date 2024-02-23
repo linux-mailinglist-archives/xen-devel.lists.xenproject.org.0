@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3586486201F
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 23:57:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684967.1065280 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3689862024
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 23:59:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684977.1065290 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdeTU-0002pg-K2; Fri, 23 Feb 2024 22:57:00 +0000
+	id 1rdeVV-0003f6-UB; Fri, 23 Feb 2024 22:59:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684967.1065280; Fri, 23 Feb 2024 22:57:00 +0000
+Received: by outflank-mailman (output) from mailman id 684977.1065290; Fri, 23 Feb 2024 22:59:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdeTU-0002n4-Gc; Fri, 23 Feb 2024 22:57:00 +0000
-Received: by outflank-mailman (input) for mailman id 684967;
- Fri, 23 Feb 2024 22:56:58 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rdeTS-0002m9-Nz; Fri, 23 Feb 2024 22:56:58 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rdeTS-00068Q-MC; Fri, 23 Feb 2024 22:56:58 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rdeTS-0008Rk-C9; Fri, 23 Feb 2024 22:56:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rdeTS-0004YO-Bl; Fri, 23 Feb 2024 22:56:58 +0000
+	id 1rdeVV-0003dl-Rb; Fri, 23 Feb 2024 22:59:05 +0000
+Received: by outflank-mailman (input) for mailman id 684977;
+ Fri, 23 Feb 2024 22:59:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OEAM=KA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rdeVU-0003db-7y
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 22:59:04 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 222f9d44-d29f-11ee-8a57-1f161083a0e0;
+ Fri, 23 Feb 2024 23:59:02 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 208C0CE2F51;
+ Fri, 23 Feb 2024 22:59:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 345ADC43390;
+ Fri, 23 Feb 2024 22:58:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,94 +41,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=IktdaiOBHhc26/mQrXqv1NOE3cu7yoFbVy7R26MpJcM=; b=C30ihgACwD5fGut3duHcI0Lo0L
-	DPMr5BzhZyYvxDYhFOXlkUJnHX4ZgiqV+AeQeMrALdsLwCAmNYkkX8ieuldNpxQxvQFfbEAL6l+Km
-	pjOg7M7NdAr8762uW9yg/Hm00E8cuzegZfSzbfTCT7tqhpNpDQhAFw81oSo0y65FuPOU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184739-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 222f9d44-d29f-11ee-8a57-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1708729139;
+	bh=8AkDEPaYhqFxix1alBDBCdbW/wA1+l01GSxZ2Uy6Ma0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=IAVyJKYuQhLf7YFRskANhVzJCBF3odrUwSDVwL6gXJhcqJqMRDICH6n+vsJ1QIyd/
+	 Bj8vHirz2s+Ec7yZcZxioNRyHlhB4rbubmzq9x2N17kJ4wkCA3LVCPTN1ruWS0huM2
+	 gTB2dnVNc13elVyp02pzBCfxdHavJlJsLNfN8ApqxLHssLR5DwR4ut8fSMoOuhSmpd
+	 Frldmq3tgbQgtqbesqiPgOKZPo6eW9vml90eJKu484Ywip5f5ATRbNBHZbzacEm7eZ
+	 UMFw4oau60EYyMPWQDJmFTPS16dqJo8+4UH3cVkEeO6f7YV2X9nNygtIXZOu1vpk2v
+	 LwOqMUQZ/3qCw==
+Date: Fri, 23 Feb 2024 14:58:48 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH 2/2] xen/cpu: address MISRA C Rule 17.7
+In-Reply-To: <dd4ac0e670a2ad7ecb5eb435e5e3b4b313b1e0b6.1708680104.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2402231458400.754277@ubuntu-linux-20-04-desktop>
+References: <cover.1708680104.git.nicola.vetrini@bugseng.com> <dd4ac0e670a2ad7ecb5eb435e5e3b4b313b1e0b6.1708680104.git.nicola.vetrini@bugseng.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 184739: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=f5e1c527d0a0d09ca0cb1dcd8d4ab4a1a5261e91
-X-Osstest-Versions-That:
-    xen=812bdc99f4c5d05d20b6fac03b90920c0dbf9a2b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 23 Feb 2024 22:56:58 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 184739 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184739/
+On Fri, 23 Feb 2024, Nicola Vetrini wrote:
+> Refactor cpu_notifier_call_chain into two functions:
+> - the variant that is allowed to fail loses the nofail flag
+> - the variant that shouldn't fail is encapsulated in a call
+>   to the failing variant, with an additional check.
+> 
+> This prevents uses of the function that are not supposed to
+> fail from ignoring the return value, thus violating Rule 17.7:
+> "The value returned by a function having non-void return type shall
+> be used".
+> 
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  f5e1c527d0a0d09ca0cb1dcd8d4ab4a1a5261e91
-baseline version:
- xen                  812bdc99f4c5d05d20b6fac03b90920c0dbf9a2b
-
-Last test of basis   184730  2024-02-22 17:02:09 Z    1 days
-Testing same since   184739  2024-02-23 18:00:28 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Christian Lindig <christian.lindig@cloud.com>
-  Edwin Török <edwin.torok@cloud.com>
-  George Dunlap <george.dunlap@cloud.com> # Golang bits
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Petr Beneš <w1benny@gmail.com>
-  Samuel Thibault <samuel.thibault@ens-lyon.org>
-  Shawn Anastasio <sanastasio@raptorengineering.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   812bdc99f4..f5e1c527d0  f5e1c527d0a0d09ca0cb1dcd8d4ab4a1a5261e91 -> smoke
+> ---
+>  xen/common/cpu.c | 31 +++++++++++++++++++------------
+>  1 file changed, 19 insertions(+), 12 deletions(-)
+> 
+> diff --git a/xen/common/cpu.c b/xen/common/cpu.c
+> index 8709db4d2957..0b7cf54c4264 100644
+> --- a/xen/common/cpu.c
+> +++ b/xen/common/cpu.c
+> @@ -78,20 +78,27 @@ void __init register_cpu_notifier(struct notifier_block *nb)
+>  }
+>  
+>  static int cpu_notifier_call_chain(unsigned int cpu, unsigned long action,
+> -                                   struct notifier_block **nb, bool nofail)
+> +                                   struct notifier_block **nb)
+>  {
+>      void *hcpu = (void *)(long)cpu;
+>      int notifier_rc = notifier_call_chain(&cpu_chain, action, hcpu, nb);
+>      int ret =  notifier_to_errno(notifier_rc);
+>  
+> -    BUG_ON(ret && nofail);
+> -
+>      return ret;
+>  }
+>  
+> +static void cpu_notifier_call_chain_nofail(unsigned int cpu,
+> +                                           unsigned long action,
+> +                                           struct notifier_block **nb)
+> +{
+> +    int ret = cpu_notifier_call_chain(cpu, action, nb);
+> +
+> +    BUG_ON(ret);
+> +}
+> +
+>  static void cf_check _take_cpu_down(void *unused)
+>  {
+> -    cpu_notifier_call_chain(smp_processor_id(), CPU_DYING, NULL, true);
+> +    cpu_notifier_call_chain_nofail(smp_processor_id(), CPU_DYING, NULL);
+>      __cpu_disable();
+>  }
+>  
+> @@ -116,7 +123,7 @@ int cpu_down(unsigned int cpu)
+>      if ( !cpu_online(cpu) )
+>          goto out;
+>  
+> -    err = cpu_notifier_call_chain(cpu, CPU_DOWN_PREPARE, &nb, false);
+> +    err = cpu_notifier_call_chain(cpu, CPU_DOWN_PREPARE, &nb);
+>      if ( err )
+>          goto fail;
+>  
+> @@ -129,14 +136,14 @@ int cpu_down(unsigned int cpu)
+>      err = cpu_online(cpu);
+>      BUG_ON(err);
+>  
+> -    cpu_notifier_call_chain(cpu, CPU_DEAD, NULL, true);
+> +    cpu_notifier_call_chain_nofail(cpu, CPU_DEAD, NULL);
+>  
+>      send_global_virq(VIRQ_PCPU_STATE);
+>      cpu_hotplug_done();
+>      return 0;
+>  
+>   fail:
+> -    cpu_notifier_call_chain(cpu, CPU_DOWN_FAILED, &nb, true);
+> +    cpu_notifier_call_chain_nofail(cpu, CPU_DOWN_FAILED, &nb);
+>   out:
+>      cpu_hotplug_done();
+>      return err;
+> @@ -157,7 +164,7 @@ int cpu_up(unsigned int cpu)
+>      if ( cpu_online(cpu) )
+>          goto out;
+>  
+> -    err = cpu_notifier_call_chain(cpu, CPU_UP_PREPARE, &nb, false);
+> +    err = cpu_notifier_call_chain(cpu, CPU_UP_PREPARE, &nb);
+>      if ( err )
+>          goto fail;
+>  
+> @@ -165,7 +172,7 @@ int cpu_up(unsigned int cpu)
+>      if ( err < 0 )
+>          goto fail;
+>  
+> -    cpu_notifier_call_chain(cpu, CPU_ONLINE, NULL, true);
+> +    cpu_notifier_call_chain_nofail(cpu, CPU_ONLINE, NULL);
+>  
+>      send_global_virq(VIRQ_PCPU_STATE);
+>  
+> @@ -173,7 +180,7 @@ int cpu_up(unsigned int cpu)
+>      return 0;
+>  
+>   fail:
+> -    cpu_notifier_call_chain(cpu, CPU_UP_CANCELED, &nb, true);
+> +    cpu_notifier_call_chain_nofail(cpu, CPU_UP_CANCELED, &nb);
+>   out:
+>      cpu_hotplug_done();
+>      return err;
+> @@ -181,7 +188,7 @@ int cpu_up(unsigned int cpu)
+>  
+>  void notify_cpu_starting(unsigned int cpu)
+>  {
+> -    cpu_notifier_call_chain(cpu, CPU_STARTING, NULL, true);
+> +    cpu_notifier_call_chain_nofail(cpu, CPU_STARTING, NULL);
+>  }
+>  
+>  static cpumask_t frozen_cpus;
+> @@ -237,7 +244,7 @@ void enable_nonboot_cpus(void)
+>      }
+>  
+>      for_each_cpu ( cpu, &frozen_cpus )
+> -        cpu_notifier_call_chain(cpu, CPU_RESUME_FAILED, NULL, true);
+> +        cpu_notifier_call_chain_nofail(cpu, CPU_RESUME_FAILED, NULL);
+>  
+>      cpumask_clear(&frozen_cpus);
+>  }
+> -- 
+> 2.34.1
+> 
 
