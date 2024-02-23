@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 827EB860E16
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 10:36:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684707.1064755 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E86AE860E61
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 10:43:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684717.1064765 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdRyD-0006US-F9; Fri, 23 Feb 2024 09:35:53 +0000
+	id 1rdS53-0000NI-7q; Fri, 23 Feb 2024 09:42:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684707.1064755; Fri, 23 Feb 2024 09:35:53 +0000
+Received: by outflank-mailman (output) from mailman id 684717.1064765; Fri, 23 Feb 2024 09:42:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdRyD-0006RL-Bl; Fri, 23 Feb 2024 09:35:53 +0000
-Received: by outflank-mailman (input) for mailman id 684707;
- Fri, 23 Feb 2024 09:35:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rdS53-0000Kx-4a; Fri, 23 Feb 2024 09:42:57 +0000
+Received: by outflank-mailman (input) for mailman id 684717;
+ Fri, 23 Feb 2024 09:42:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hL0v=KA=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rdRyC-0006BX-2n
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 09:35:52 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eeee753b-d22e-11ee-8a57-1f161083a0e0;
- Fri, 23 Feb 2024 10:35:51 +0100 (CET)
-Received: from nico.bugseng.com (unknown [46.228.253.196])
- by support.bugseng.com (Postfix) with ESMTPSA id 4FDB34EE0C8A;
- Fri, 23 Feb 2024 10:35:50 +0100 (CET)
+ <SRS0=lysb=KA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rdS51-0000Kr-V2
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 09:42:55 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eaba9a08-d22f-11ee-98f5-efadbce2ee36;
+ Fri, 23 Feb 2024 10:42:54 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3394b892691so364032f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 01:42:54 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ pv18-20020ad45492000000b0068f2ea5c678sm4670047qvb.118.2024.02.23.01.42.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Feb 2024 01:42:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,151 +44,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eeee753b-d22e-11ee-8a57-1f161083a0e0
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: nicola.vetrini@bugseng.com,
-	xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	consulting@bugseng.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
+X-Inumbo-ID: eaba9a08-d22f-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1708681373; x=1709286173; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=BXPA50Xn8D6xZzjKg4dTG6GJFYvuP5BIsnkJUOBPMQE=;
+        b=SVbxGN4+u2D+A3dXaM//KrjrtHc9X6VBypTB5w6w1d2SNvFiz1iOwZnHM6IVUaxkNs
+         ihlzONy02Wd1aG0LOGyICowETVxYTB7fVwHWGclOkRkI2rNheZoJSVHSEcCZsz6fkoQ1
+         Tks+GjKRFqC36E64NyngkgUFWkUkZt3JrvQWg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708681373; x=1709286173;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BXPA50Xn8D6xZzjKg4dTG6GJFYvuP5BIsnkJUOBPMQE=;
+        b=FSTKVslM3AVzMmKDvKuYbNBQav3XB/20EdNBLlnkeF/5ebE7zzKOCstKky7VHlnIIC
+         6RHE4B0YG8esqzOiB7kkbaGOZ+UPtCLzV76xCY+Stn0HTRoYT2ffYaTO80XBYp5rLYQr
+         wOrcaueUzwar/hfM14aou2wTeZr9wRDuCB232fPrpnOHnEogvPo153XXUEwCc4Wtms2F
+         mJ1mCrB59Stxk/V9C24keybGozYaSkHRJz+lZ+CsX79tOny83TeowB99lxGMADQzNG3/
+         RWwNtnQxvLdvf1i1YBL7bw67YgKwcRvHOBsrrC/84KvM6/Clft0j+97p4bUoJM96Euiz
+         b6cA==
+X-Gm-Message-State: AOJu0Yz3uDtc04XO8czVvqt6XUIeOTO3HXVQA/YcDJ0epZ9Ehhjj/Moz
+	pPwyWYH4YPWt/5xBpjwj+BLNcl1l22PBpPD7K29uOA8CDFP6IOdkO1MotPGtZq9lZdKk8kZtwnn
+	2
+X-Google-Smtp-Source: AGHT+IG4tu8jAfWiGsF9LamOkjO6IxRmmwB883d58ervno1AesmGmmyXLGVU5LTzlzMWDzh+ntWzxw==
+X-Received: by 2002:adf:cf04:0:b0:33d:90c2:c7f4 with SMTP id o4-20020adfcf04000000b0033d90c2c7f4mr3584212wrj.14.1708681373223;
+        Fri, 23 Feb 2024 01:42:53 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH 2/2] xen/cpu: address MISRA C Rule 17.7
-Date: Fri, 23 Feb 2024 10:35:37 +0100
-Message-Id: <dd4ac0e670a2ad7ecb5eb435e5e3b4b313b1e0b6.1708680104.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1708680104.git.nicola.vetrini@bugseng.com>
-References: <cover.1708680104.git.nicola.vetrini@bugseng.com>
+Subject: [PATCH] x86/spec: fix BRANCH_HARDEN option to only be set when build-enabled
+Date: Fri, 23 Feb 2024 10:42:15 +0100
+Message-ID: <20240223094215.71889-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Refactor cpu_notifier_call_chain into two functions:
-- the variant that is allowed to fail loses the nofail flag
-- the variant that shouldn't fail is encapsulated in a call
-  to the failing variant, with an additional check.
+The current logic to handle the BRANCH_HARDEN option will report it as enabled
+even when build-time disabled. Fix this by only allowing the option to be set
+when support for it is built into Xen.
 
-This prevents uses of the function that are not supposed to
-fail from ignoring the return value, thus violating Rule 17.7:
-"The value returned by a function having non-void return type shall
-be used".
-
-No functional change.
-
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Fixes: 2d6f36daa086 ('x86/nospec: Introduce CONFIG_SPECULATIVE_HARDEN_BRANCH')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/common/cpu.c | 31 +++++++++++++++++++------------
- 1 file changed, 19 insertions(+), 12 deletions(-)
+ xen/arch/x86/spec_ctrl.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/xen/common/cpu.c b/xen/common/cpu.c
-index 8709db4d2957..0b7cf54c4264 100644
---- a/xen/common/cpu.c
-+++ b/xen/common/cpu.c
-@@ -78,20 +78,27 @@ void __init register_cpu_notifier(struct notifier_block *nb)
- }
+diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
+index 421fe3f640df..e634c6b559b4 100644
+--- a/xen/arch/x86/spec_ctrl.c
++++ b/xen/arch/x86/spec_ctrl.c
+@@ -50,7 +50,8 @@ static int8_t __initdata opt_psfd = -1;
+ int8_t __ro_after_init opt_ibpb_ctxt_switch = -1;
+ int8_t __read_mostly opt_eager_fpu = -1;
+ int8_t __read_mostly opt_l1d_flush = -1;
+-static bool __initdata opt_branch_harden = true;
++static bool __initdata opt_branch_harden =
++    IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH);
  
- static int cpu_notifier_call_chain(unsigned int cpu, unsigned long action,
--                                   struct notifier_block **nb, bool nofail)
-+                                   struct notifier_block **nb)
- {
-     void *hcpu = (void *)(long)cpu;
-     int notifier_rc = notifier_call_chain(&cpu_chain, action, hcpu, nb);
-     int ret =  notifier_to_errno(notifier_rc);
- 
--    BUG_ON(ret && nofail);
--
-     return ret;
- }
- 
-+static void cpu_notifier_call_chain_nofail(unsigned int cpu,
-+                                           unsigned long action,
-+                                           struct notifier_block **nb)
-+{
-+    int ret = cpu_notifier_call_chain(cpu, action, nb);
-+
-+    BUG_ON(ret);
-+}
-+
- static void cf_check _take_cpu_down(void *unused)
- {
--    cpu_notifier_call_chain(smp_processor_id(), CPU_DYING, NULL, true);
-+    cpu_notifier_call_chain_nofail(smp_processor_id(), CPU_DYING, NULL);
-     __cpu_disable();
- }
- 
-@@ -116,7 +123,7 @@ int cpu_down(unsigned int cpu)
-     if ( !cpu_online(cpu) )
-         goto out;
- 
--    err = cpu_notifier_call_chain(cpu, CPU_DOWN_PREPARE, &nb, false);
-+    err = cpu_notifier_call_chain(cpu, CPU_DOWN_PREPARE, &nb);
-     if ( err )
-         goto fail;
- 
-@@ -129,14 +136,14 @@ int cpu_down(unsigned int cpu)
-     err = cpu_online(cpu);
-     BUG_ON(err);
- 
--    cpu_notifier_call_chain(cpu, CPU_DEAD, NULL, true);
-+    cpu_notifier_call_chain_nofail(cpu, CPU_DEAD, NULL);
- 
-     send_global_virq(VIRQ_PCPU_STATE);
-     cpu_hotplug_done();
-     return 0;
- 
-  fail:
--    cpu_notifier_call_chain(cpu, CPU_DOWN_FAILED, &nb, true);
-+    cpu_notifier_call_chain_nofail(cpu, CPU_DOWN_FAILED, &nb);
-  out:
-     cpu_hotplug_done();
-     return err;
-@@ -157,7 +164,7 @@ int cpu_up(unsigned int cpu)
-     if ( cpu_online(cpu) )
-         goto out;
- 
--    err = cpu_notifier_call_chain(cpu, CPU_UP_PREPARE, &nb, false);
-+    err = cpu_notifier_call_chain(cpu, CPU_UP_PREPARE, &nb);
-     if ( err )
-         goto fail;
- 
-@@ -165,7 +172,7 @@ int cpu_up(unsigned int cpu)
-     if ( err < 0 )
-         goto fail;
- 
--    cpu_notifier_call_chain(cpu, CPU_ONLINE, NULL, true);
-+    cpu_notifier_call_chain_nofail(cpu, CPU_ONLINE, NULL);
- 
-     send_global_virq(VIRQ_PCPU_STATE);
- 
-@@ -173,7 +180,7 @@ int cpu_up(unsigned int cpu)
-     return 0;
- 
-  fail:
--    cpu_notifier_call_chain(cpu, CPU_UP_CANCELED, &nb, true);
-+    cpu_notifier_call_chain_nofail(cpu, CPU_UP_CANCELED, &nb);
-  out:
-     cpu_hotplug_done();
-     return err;
-@@ -181,7 +188,7 @@ int cpu_up(unsigned int cpu)
- 
- void notify_cpu_starting(unsigned int cpu)
- {
--    cpu_notifier_call_chain(cpu, CPU_STARTING, NULL, true);
-+    cpu_notifier_call_chain_nofail(cpu, CPU_STARTING, NULL);
- }
- 
- static cpumask_t frozen_cpus;
-@@ -237,7 +244,7 @@ void enable_nonboot_cpus(void)
-     }
- 
-     for_each_cpu ( cpu, &frozen_cpus )
--        cpu_notifier_call_chain(cpu, CPU_RESUME_FAILED, NULL, true);
-+        cpu_notifier_call_chain_nofail(cpu, CPU_RESUME_FAILED, NULL);
- 
-     cpumask_clear(&frozen_cpus);
- }
+ bool __initdata bsp_delay_spec_ctrl;
+ uint8_t __read_mostly default_xen_spec_ctrl;
+@@ -267,7 +268,8 @@ static int __init cf_check parse_spec_ctrl(const char *s)
+             opt_eager_fpu = val;
+         else if ( (val = parse_boolean("l1d-flush", s, ss)) >= 0 )
+             opt_l1d_flush = val;
+-        else if ( (val = parse_boolean("branch-harden", s, ss)) >= 0 )
++        else if ( IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH) &&
++                  (val = parse_boolean("branch-harden", s, ss)) >= 0 )
+             opt_branch_harden = val;
+         else if ( (val = parse_boolean("srb-lock", s, ss)) >= 0 )
+             opt_srb_lock = val;
 -- 
-2.34.1
+2.43.0
 
 
