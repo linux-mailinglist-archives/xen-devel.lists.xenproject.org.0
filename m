@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46100860EF5
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 11:12:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684742.1064815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 990BC860EF9
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 11:14:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684747.1064825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdSXH-0007O7-F7; Fri, 23 Feb 2024 10:12:07 +0000
+	id 1rdSZ4-0007xz-QZ; Fri, 23 Feb 2024 10:13:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684742.1064815; Fri, 23 Feb 2024 10:12:07 +0000
+Received: by outflank-mailman (output) from mailman id 684747.1064825; Fri, 23 Feb 2024 10:13:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdSXH-0007Kx-CT; Fri, 23 Feb 2024 10:12:07 +0000
-Received: by outflank-mailman (input) for mailman id 684742;
- Fri, 23 Feb 2024 10:12:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rdSZ4-0007v1-NV; Fri, 23 Feb 2024 10:13:58 +0000
+Received: by outflank-mailman (input) for mailman id 684747;
+ Fri, 23 Feb 2024 10:13:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jp8H=KA=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1rdSXG-0007Ki-92
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 10:12:06 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id feeca44a-d233-11ee-8a57-1f161083a0e0;
- Fri, 23 Feb 2024 11:12:05 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4128cfb6c1aso4170955e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 02:12:05 -0800 (PST)
+ id 1rdSZ2-0007ut-Pj
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 10:13:56 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3fd2ae7a-d234-11ee-98f5-efadbce2ee36;
+ Fri, 23 Feb 2024 11:13:54 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-41294136c27so2080565e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 02:13:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,67 +40,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: feeca44a-d233-11ee-8a57-1f161083a0e0
+X-Inumbo-ID: 3fd2ae7a-d234-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708683125; x=1709287925; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1708683234; x=1709288034; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tud49X6dABoy6o/VSHh9Xymi32eP9RvcgR36vgY0Oyw=;
-        b=Z4bbhH4JeJGoyghkedVIHHq+sfrbMWtGxbk5OLh5XEeNzBscD4P8hUA+bQe2Ie1a5C
-         X0PCJeC7ld1U3zIb4CA8/vwP4nBfTMjkPmUTY8sPGdit7caIZ5cm+KhVIMPdEQBwl59V
-         91vreLWd37oRi5Zz/MiA9MghYvmudi3hNNRNE=
+        bh=sYx/i9GrfI+eJBfQvx0CCnnCR908o5f36pXd3cbpKyA=;
+        b=INL/6K6LjkIUR2mlE1/A3n3O0GoNVEWt8cZCu2l2Um9L/EzBgaNHJdoB1E1DCQ9lZG
+         aqu0lDblNSI5zoGqZg8tFrfq0InwU7IzgL+iAjR42hmys9gwpZB3eJZSk2H8UVocN2zq
+         5E6f11jBppILulbtWZRr/RoboyF0D9aniHCEE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708683125; x=1709287925;
+        d=1e100.net; s=20230601; t=1708683234; x=1709288034;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=tud49X6dABoy6o/VSHh9Xymi32eP9RvcgR36vgY0Oyw=;
-        b=b4/67KfNtzjAXLrUHjcls65+3V22zJlbjse4tARp4X4tsIFFM7+MA53jTBfQVUTvdC
-         P+3D2DIk8ni8/UFW8/YSI7ROTcDURZ9lw7UqYHhgdDYwOJsSgIApI1jYE5prOlj4Bcmz
-         6Dqukyvl2vAZrUYasVvP9aphaVN5NX1otql2QgKYFU0+BGGJFS0w+s/QLCNwBODzYJCu
-         Rccx3au1APb/O0B27DkffDv0sPM7IxuYvbTBXmD7jmPF1vjP1p8XFUL4AHzhgnLG8p+W
-         RbKZzPShBfbJgzn+rbY6hzGa9XkJEXJdRbAJY6GLpv+6BsAC1EwN4xYyaeOiUyngUJrL
-         rWFA==
-X-Gm-Message-State: AOJu0Yx6mdWT6Rt96Casfr4WSgmOODEYCnLeBILsyXlXXabY8H25X4ht
-	qKYtNNgl7wXSOUWb8ld6QAqJJ1Rkam9onJ1Pz1LxqZIqViSfgDAKp/UuHwvf1vJ0GnHloQpwAPn
-	pG+kg04lAnZ4L25atteHnkdIAPb9lHanUQzUN
-X-Google-Smtp-Source: AGHT+IF+KpkcUfbRCrtj0JvxarGhXAeaGdOZ/RSFgUOG5AiGhlzz98xeRMDmmwzG9GntKY3PsIGG1a8KOf074jZ/k4w=
-X-Received: by 2002:a05:600c:358a:b0:412:73f5:3aa5 with SMTP id
- p10-20020a05600c358a00b0041273f53aa5mr4675737wmq.16.1708683125315; Fri, 23
- Feb 2024 02:12:05 -0800 (PST)
+        bh=sYx/i9GrfI+eJBfQvx0CCnnCR908o5f36pXd3cbpKyA=;
+        b=r+1boFtagkk6jvCsf26t5u/uEDjJrl1TmNc3oYfJpd0/nxSSvcliQcIpqdDjWQvpso
+         JP/mVy9pzkjRdfjvMB3oGtW5L3OShSjOMnXOnZN83QqvgPe1H7z5e6gju4Z47fKuf6hY
+         V+1j/l/wzeYt6YvkX5RIFN4wYYnkzHREqQdgtWZXhxA/rRyFZkzY9KRX9wDpO3RnGFEa
+         5KWtaGiJQ7iRJPF3kpGvl3bOf07PeJQ21OdKZ4COeUaG8OwelGgFB55ytt/ACyFsN6Ne
+         3tX9uWntM7Rnem4HQAGx9OcuPoIHPuBPEbxtSHkGBOACWEuQPWPtEGjCtyING0t9rz4X
+         JGVA==
+X-Gm-Message-State: AOJu0YyIvRezktUt2y+1oqP0FDqA1v8LEWICMWhvrNy3MQHK1RuklNXL
+	VeR/8JkxK4Jtyc7N0OzpbFU6gquQEXl4pm3FcFiI8HPURoCcpgjDbkEF8Vz2owkN/Rh+kQL1DTI
+	e5OeZsAin2+QXIrnZFNgs6jji8ZKGAYQ/kOluMlqFpXBnZ0mGA3Tm
+X-Google-Smtp-Source: AGHT+IF8ULCnUOBOfC87fhhptkF1WEfmbUh5b+9+pjyiUNGEXy7rRztjkyMx8yd6nnoQ1bzMK61SCnQgfG0jlXufxFA=
+X-Received: by 2002:a05:600c:524f:b0:412:8fef:7f with SMTP id
+ fc15-20020a05600c524f00b004128fef007fmr938713wmb.1.1708683234388; Fri, 23 Feb
+ 2024 02:13:54 -0800 (PST)
 MIME-Version: 1.0
-References: <20231130142944.46322-1-roger.pau@citrix.com> <20231130142944.46322-3-roger.pau@citrix.com>
-In-Reply-To: <20231130142944.46322-3-roger.pau@citrix.com>
+References: <20231130142944.46322-1-roger.pau@citrix.com> <20231130142944.46322-5-roger.pau@citrix.com>
+In-Reply-To: <20231130142944.46322-5-roger.pau@citrix.com>
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Fri, 23 Feb 2024 10:11:54 +0000
-Message-ID: <CAG7k0EphLJwEoR5cx7hBTHhB+dRGtBuKFPxf+f4scWopKMrj7g@mail.gmail.com>
-Subject: Re: [PATCH 2/5] xen/livepatch: search for symbols in all loaded payloads
+Date: Fri, 23 Feb 2024 10:13:43 +0000
+Message-ID: <CAG7k0EpTaMiZthxdGGRm6mgxCKFw+g7JaAtCmRM3z+PzAQyKyQ@mail.gmail.com>
+Subject: Re: [PATCH 4/5] xen/livepatch: fix norevert test hook setup typo
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: xen-devel@lists.xenproject.org, 
 	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 30, 2023 at 2:30=E2=80=AFPM Roger Pau Monne <roger.pau@citrix.c=
+On Thu, Nov 30, 2023 at 2:31=E2=80=AFPM Roger Pau Monne <roger.pau@citrix.c=
 om> wrote:
 >
-> When checking if an address belongs to a patch, or when resolving a symbo=
-l,
-> take into account all loaded livepatch payloads, even if not applied.
+> The test code has a typo in using LIVEPATCH_APPLY_HOOK() instead of
+> LIVEPATCH_REVERT_HOOK().
 >
-> This is required in order for the pre-apply and post-revert hooks to work
-> properly, or else Xen won't detect the intruction pointer belonging to th=
-ose
-> hooks as being part of the currently active text.
->
-> Move the RCU handling to be used for payload_list instead of applied_list=
-, as
-> now the calls from trap code will iterate over the payload_list.
->
-> Fixes: 8313c864fa95 ('livepatch: Implement pre-|post- apply|revert hooks'=
-)
+> Fixes: 6047104c3ccc ('livepatch: Add per-function applied/reverted state =
+tracking marker')
 > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> ---
+>  xen/test/livepatch/xen_action_hooks_norevert.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/xen/test/livepatch/xen_action_hooks_norevert.c b/xen/test/li=
+vepatch/xen_action_hooks_norevert.c
+> index 074f8e1d56ce..cdfff156cede 100644
+> --- a/xen/test/livepatch/xen_action_hooks_norevert.c
+> +++ b/xen/test/livepatch/xen_action_hooks_norevert.c
+> @@ -108,7 +108,7 @@ static void post_revert_hook(livepatch_payload_t *pay=
+load)
+>      printk(KERN_DEBUG "%s: Hook done.\n", __func__);
+>  }
+>
+> -LIVEPATCH_APPLY_HOOK(revert_hook);
+> +LIVEPATCH_REVERT_HOOK(revert_hook);
+>
+>  LIVEPATCH_PREAPPLY_HOOK(pre_apply_hook);
+>  LIVEPATCH_POSTAPPLY_HOOK(post_apply_hook);
+> --
 
 Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 
