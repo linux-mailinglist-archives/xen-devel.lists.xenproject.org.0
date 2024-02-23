@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3776F8607E3
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 01:58:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684587.1064528 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5FAE860825
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 02:16:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684593.1064539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdJt6-0004ap-Tr; Fri, 23 Feb 2024 00:58:04 +0000
+	id 1rdKAl-0006Ty-G7; Fri, 23 Feb 2024 01:16:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684587.1064528; Fri, 23 Feb 2024 00:58:04 +0000
+Received: by outflank-mailman (output) from mailman id 684593.1064539; Fri, 23 Feb 2024 01:16:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdJt6-0004Yc-Qz; Fri, 23 Feb 2024 00:58:04 +0000
-Received: by outflank-mailman (input) for mailman id 684587;
- Fri, 23 Feb 2024 00:58:03 +0000
+	id 1rdKAl-0006Rx-Cg; Fri, 23 Feb 2024 01:16:19 +0000
+Received: by outflank-mailman (input) for mailman id 684593;
+ Fri, 23 Feb 2024 01:16:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OEAM=KA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rdJt5-0004YW-6l
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 00:58:03 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ id 1rdKAj-0006Rp-MU
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 01:16:17 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9501a8fa-d1e6-11ee-98f5-efadbce2ee36;
- Fri, 23 Feb 2024 01:57:58 +0100 (CET)
+ id 22e1a803-d1e9-11ee-98f5-efadbce2ee36;
+ Fri, 23 Feb 2024 02:16:14 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id AAD2BCE2999;
- Fri, 23 Feb 2024 00:57:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51BD6C433C7;
- Fri, 23 Feb 2024 00:57:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 17DBD6333E;
+ Fri, 23 Feb 2024 01:16:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D81F6C433C7;
+ Fri, 23 Feb 2024 01:16:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,200 +41,379 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9501a8fa-d1e6-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 22e1a803-d1e9-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1708649874;
-	bh=njJxp1qIWrm69elf9jtOs1FBORbdgE+hleoAV17yg98=;
+	s=k20201202; t=1708650972;
+	bh=bt0v5yeGHnD4YYUl0ZoLlEH5P5CVzY1MYew/SO2Ese0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DTSLI0ZbO6TWYGW72vmkAdITmO8kFz5yGeoDg7N4RgjXJG5T4DA+bf4j/B73SCVbD
-	 nz8KTv1c4HOmy7ZVyZszEUI4d1prKmBBpLLhg5Ajsvt+CW2RmsExZ2pV9SSAsKexny
-	 XVPalUTb6h+lEJ5SXzh/ICAFhYmY+FGh2Yvw+bgzn+6eWxpHJ0f0VrwLZT14iAaEyw
-	 +FFEdftUsQT05T28klerAFwaG1ewLQUnxOPbfXD2kJPPFllRo9SueM/Lx+wYbZCKVE
-	 APC5bCxmhrW2CZaQg9bBouujhPNUw8VsIfVJsCBcgkq99xVMFaepgPkW9T6BV+ss9B
-	 09sb3E6+CcBqw==
-Date: Thu, 22 Feb 2024 16:57:52 -0800 (PST)
+	b=glBwmgDH1ptQVJ4b0DpxjYfcyEXDrD7YlmTYcmiliqnUHiPOkfEqi/vv/iobUoqcC
+	 pBELv3sz4jxMjv0VGzP5fU12dzptwCKlXpWQAbLvrNpzbuKNlVKUzwH4/sIhbtOjIL
+	 ZPpnlR9D+Owg82HbufKpIfUuVdoxWH2+uJnuTjQ5vsRXYufwjWluxjq/HVyD3fWt/N
+	 DmuHSkE0lFvXyyk3l9qFNBFTs4PA3hPoUR6jJ8Vkq4qoYPogk1r2Lt+MISUjp6m+wD
+	 UisZaeGQcVq57Ti3lt9aqu+s5CVQL0QaZxZPDahQToIObQWKSfP+7uzeJmiEGQw7zA
+	 agxHTPjf1HzQQ==
+Date: Thu, 22 Feb 2024 17:16:09 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Anthony PERARD <anthony.perard@citrix.com>
-cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH] automation: Rework "build-each-commit-gcc" test
-In-Reply-To: <20240220140733.40980-1-anthony.perard@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2402221656150.754277@ubuntu-linux-20-04-desktop>
-References: <20240220140733.40980-1-anthony.perard@citrix.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
+    Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+    x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    linux-kernel@vger.kernel.org, Jan Beulich <jbeulich@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH RFC] x86/xen: attempt to inflate the memory balloon on
+ PVH
+In-Reply-To: <20240220174341.56131-1-roger.pau@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2402221701190.754277@ubuntu-linux-20-04-desktop>
+References: <20240220174341.56131-1-roger.pau@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-1734207608-1708650207=:754277"
+Content-ID: <alpine.DEB.2.22.394.2402221703300.754277@ubuntu-linux-20-04-desktop>
 
-On Tue, 20 Feb 2024, Anthony PERARD wrote:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-> Current issues with this test are:
-> - when the job timeout, the log file is lost as there is no chance to
->   run the `mv` command.
-> - GitLab job log is limited in size, so one usually have to download
->   the artifacts, which may be missing.
-> 
-> Use $GITLAB_CI to detect when the script is run as part of a GitLab
-> pipeline. GitLab will add "GITLAB_CI=true" in the environment
-> variables.
-> 
-> When run as part of $GITLAB_CI, ignore "dirty" worktree to allow to
-> write "build-each-commit-gcc.log", which can then be grabbed as
-> artifacts, even when the job timeout. The `git clean` command is
-> changed to keep those build logs.
-> 
-> When run as part of $GITLAB_CI, we will also store the build output in
-> a log file instead of writing it to stdout, because GitLab's job log
-> is limited. But we will write the log to stdout in case of error, so
-> we can find out more quickly why there's been an error.
-> 
-> This patch also make use of a GitLab feature, "log sections", which we
-> will collapse by default. One section per commit been built.
-> 
-> There's a bit of colour added to the logs.
-> 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+--8323329-1734207608-1708650207=:754277
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2402221703301.754277@ubuntu-linux-20-04-desktop>
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+On Tue, 20 Feb 2024, Roger Pau Monne wrote:
+> When running as PVH or HVM Linux will use holes in the memory map as scratch
+> space to map grants, foreign domain pages and possibly miscellaneous other
+> stuff.  However the usage of such memory map holes for Xen purposes can be
+> problematic.  The request of holesby Xen happen quite early in the kernel boot
+> process (grant table setup already uses scratch map space), and it's possible
+> that by then not all devices have reclaimed their MMIO space.  It's not
+> unlikely for chunks of Xen scratch map space to end up using PCI bridge MMIO
+> window memory, which (as expected) causes quite a lot of issues in the system.
+
+Am I understanding correctly that XEN_BALLOON_MEMORY_HOTPLUG doesn't
+help because it becomes available too late in the PVH boot sequence? 
 
 
+
+> At least for PVH dom0 we have the possibility of using regions marked as
+> UNUSABLE in the e820 memory map.  Either if the region is UNUSABLE in the
+> native memory map, or it has been converted into UNUSABLE in order to hide RAM
+> regions from dom0, the second stage translation page-tables can populate those
+> areas without issues.
+> 
+> PV already has this kind of logic, where the balloon driver is inflated at
+> boot.  Re-use the current logic in order to also inflate it when running as
+> PVH.  onvert UNUSABLE regions up to the ratio specified in EXTRA_MEM_RATIO to
+> RAM, while reserving them using xen_add_extra_mem() (which is also moved so
+> it's no longer tied to CONFIG_PV).
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > ---
+> RFC reasons:
 > 
-> Notes:
->     Examples:
->     - on success:
->       https://gitlab.com/xen-project/people/anthonyper/xen/-/jobs/6212972041
->     - on failure:
->       https://gitlab.com/xen-project/people/anthonyper/xen/-/jobs/6212993231
+>  * Note that it would be preferred for the hypervisor to provide an explicit
+>    range to be used as scratch mapping space, but that requires changes to Xen,
+>    and it's not fully clear whether Xen can figure out the position of all MMIO
+>    regions at boot in order to suggest a scratch mapping region for dom0.
 > 
->  automation/gitlab-ci/build-each-commit.sh |  2 +-
->  automation/gitlab-ci/test.yaml            |  4 +-
->  automation/scripts/build-test.sh          | 55 ++++++++++++++++++++---
->  3 files changed, 50 insertions(+), 11 deletions(-)
+>  * Should the whole set of xen_{add,del,chk,inv}_extra_mem() functions be moved
+>    to a different file?  For the purposes of PVH only xen_add_extra_mem() is
+>    moved and the chk and inv ones are PV specific and might not want moving to
+>    a separate file just to guard them with CONFIG_PV.
+> ---
+>  arch/x86/include/asm/xen/hypervisor.h |  1 +
+>  arch/x86/platform/pvh/enlighten.c     |  3 ++
+>  arch/x86/xen/enlighten.c              | 32 +++++++++++++
+>  arch/x86/xen/enlighten_pvh.c          | 68 +++++++++++++++++++++++++++
+>  arch/x86/xen/setup.c                  | 44 -----------------
+>  arch/x86/xen/xen-ops.h                | 14 ++++++
+>  drivers/xen/balloon.c                 |  2 -
+>  7 files changed, 118 insertions(+), 46 deletions(-)
 > 
-> diff --git a/automation/gitlab-ci/build-each-commit.sh b/automation/gitlab-ci/build-each-commit.sh
-> index 19e337b468..08fddecbbe 100755
-> --- a/automation/gitlab-ci/build-each-commit.sh
-> +++ b/automation/gitlab-ci/build-each-commit.sh
-> @@ -15,4 +15,4 @@ fi
->  echo "Building ${BASE}..${TIP}"
+> diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
+> index a9088250770f..31e2bf8d5db7 100644
+> --- a/arch/x86/include/asm/xen/hypervisor.h
+> +++ b/arch/x86/include/asm/xen/hypervisor.h
+> @@ -62,6 +62,7 @@ void xen_arch_unregister_cpu(int num);
+>  #ifdef CONFIG_PVH
+>  void __init xen_pvh_init(struct boot_params *boot_params);
+>  void __init mem_map_via_hcall(struct boot_params *boot_params_p);
+> +void __init xen_reserve_extra_memory(struct boot_params *bootp);
+>  #endif
 >  
->  NON_SYMBOLIC_REF=1 ./automation/scripts/build-test.sh ${BASE} ${TIP} \
-> -    bash -c "git clean -ffdx && ./automation/scripts/build"
-> +    bash -c "git clean -ffdx -e '/build-*.log' && ./automation/scripts/build"
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 3b27cc9f41..50056c1372 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -136,9 +136,7 @@ build-each-commit-gcc:
->      XEN_TARGET_ARCH: x86_64
->      CC: gcc
->    script:
-> -    - BASE=${BASE_SHA:-${CI_COMMIT_BEFORE_SHA}} TIP=${TIP_SHA:-${CI_COMMIT_SHA}} ./automation/gitlab-ci/build-each-commit.sh 2>&1 | tee ../build-each-commit-gcc.log
-> -  after_script:
-> -    - mv ../build-each-commit-gcc.log .
-> +    - BASE=${BASE_SHA:-${CI_COMMIT_BEFORE_SHA}} TIP=${TIP_SHA:-${CI_COMMIT_SHA}} ./automation/gitlab-ci/build-each-commit.sh 2>&1 | tee build-each-commit-gcc.log
->    artifacts:
->      paths:
->        - '*.log'
-> diff --git a/automation/scripts/build-test.sh b/automation/scripts/build-test.sh
-> index da643adc01..355d4bf7f6 100755
-> --- a/automation/scripts/build-test.sh
-> +++ b/automation/scripts/build-test.sh
-> @@ -9,6 +9,37 @@
->  # Set NON_SYMBOLIC_REF=1 if you want to use this script in detached HEAD state.
->  # This is currently used by automated test system.
+>  /* Lazy mode for batching updates / context switch */
+> diff --git a/arch/x86/platform/pvh/enlighten.c b/arch/x86/platform/pvh/enlighten.c
+> index 00a92cb2c814..a12117f3d4de 100644
+> --- a/arch/x86/platform/pvh/enlighten.c
+> +++ b/arch/x86/platform/pvh/enlighten.c
+> @@ -74,6 +74,9 @@ static void __init init_pvh_bootparams(bool xen_guest)
+>  	} else
+>  		xen_raw_printk("Warning: Can fit ISA range into e820\n");
 >  
-> +# Colors with ANSI escape sequences
-> +txt_info='[32m'
-> +txt_err='[31m'
-> +txt_clr='[0m'
+> +	if (xen_guest)
+> +		xen_reserve_extra_memory(&pvh_bootparams);
 > +
-> +# $GITLAB_CI should be "true" or "false".
-> +if [ "$GITLAB_CI" != true ]; then
-> +    GITLAB_CI=false
-> +fi
+>  	pvh_bootparams.hdr.cmd_line_ptr =
+>  		pvh_start_info.cmdline_paddr;
+>  
+> diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
+> index 3c61bb98c10e..a01ca255b0c6 100644
+> --- a/arch/x86/xen/enlighten.c
+> +++ b/arch/x86/xen/enlighten.c
+> @@ -6,6 +6,7 @@
+>  #include <linux/console.h>
+>  #include <linux/cpu.h>
+>  #include <linux/kexec.h>
+> +#include <linux/memblock.h>
+>  #include <linux/slab.h>
+>  #include <linux/panic_notifier.h>
+>  
+> @@ -350,3 +351,34 @@ void xen_arch_unregister_cpu(int num)
+>  }
+>  EXPORT_SYMBOL(xen_arch_unregister_cpu);
+>  #endif
 > +
-> +gitlab_log_section() {
-> +    if $GITLAB_CI; then
-> +        echo -n "[0Ksection_$1:$(date +%s):$2[0K"
-> +    fi
-> +    if [ $# -ge 3 ]; then
-> +        echo "$3"
-> +    fi
+> +/* Amount of extra memory space we add to the e820 ranges */
+> +struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
+> +
+> +void __init xen_add_extra_mem(unsigned long start_pfn, unsigned long n_pfns)
+> +{
+> +	unsigned int i;
+> +
+> +	/*
+> +	 * No need to check for zero size, should happen rarely and will only
+> +	 * write a new entry regarded to be unused due to zero size.
+> +	 */
+> +	for (i = 0; i < XEN_EXTRA_MEM_MAX_REGIONS; i++) {
+> +		/* Add new region. */
+> +		if (xen_extra_mem[i].n_pfns == 0) {
+> +			xen_extra_mem[i].start_pfn = start_pfn;
+> +			xen_extra_mem[i].n_pfns = n_pfns;
+> +			break;
+> +		}
+> +		/* Append to existing region. */
+> +		if (xen_extra_mem[i].start_pfn + xen_extra_mem[i].n_pfns ==
+> +		    start_pfn) {
+> +			xen_extra_mem[i].n_pfns += n_pfns;
+> +			break;
+> +		}
+> +	}
+> +	if (i == XEN_EXTRA_MEM_MAX_REGIONS)
+> +		printk(KERN_WARNING "Warning: not enough extra memory regions\n");
+> +
+> +	memblock_reserve(PFN_PHYS(start_pfn), PFN_PHYS(n_pfns));
 > +}
-> +log_section_last=
-> +log_section_start() {
-> +    log_section_last="${1%\[collapsed=true\]}"
-> +    gitlab_log_section 'start' "$1" "${txt_info}$2${txt_clr}"
-> +}
-> +log_section_end() {
-> +    if [ "$log_section_last" ]; then
-> +        gitlab_log_section 'end' "$log_section_last"
-> +        log_section_last=
-> +    fi
-> +}
+> diff --git a/arch/x86/xen/enlighten_pvh.c b/arch/x86/xen/enlighten_pvh.c
+> index ada3868c02c2..c28f073c1df5 100644
+> --- a/arch/x86/xen/enlighten_pvh.c
+> +++ b/arch/x86/xen/enlighten_pvh.c
+> @@ -1,6 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0
+>  #include <linux/acpi.h>
+>  #include <linux/export.h>
+> +#include <linux/mm.h>
+>  
+>  #include <xen/hvc-console.h>
+>  
+> @@ -72,3 +73,70 @@ void __init mem_map_via_hcall(struct boot_params *boot_params_p)
+>  	}
+>  	boot_params_p->e820_entries = memmap.nr_entries;
+>  }
 > +
+> +/*
+> + * Reserve e820 UNUSABLE regions to inflate the memory balloon.
+> + *
+> + * On PVH dom0 the host memory map is used, RAM regions available to dom0 are
+> + * located as the same place as in the native memory map, but since dom0 gets
+> + * less memory than the total amount of host RAM the ranges that can't be
+> + * populated are converted from RAM -> UNUSABLE.  Use such regions (up to the
+> + * ratio signaled in EXTRA_MEM_RATIO) in order to inflate the balloon driver at
+> + * boot.  Doing so prevents the guest (even if just temporary) from using holes
+> + * in the memory map in order to map grants or foreign addresses, and
+> + * hopefully limits the risk of a clash with a device MMIO region.  Ideally the
+> + * hypervisor should notify us which memory ranges are suitable for creating
+> + * foreign mappings, but that's not yet implemented.
+> + */
+> +void __init xen_reserve_extra_memory(struct boot_params *bootp)
+> +{
+> +	unsigned int i, ram_pages = 0, extra_pages;
 > +
->  if test $# -lt 2 ; then
->      echo "Usage:"
->      echo " $0 <BASE> <TIP> [CMD]"
-> @@ -19,10 +50,12 @@ fi
+> +	for (i = 0; i < bootp->e820_entries; i++) {
+> +		struct boot_e820_entry *e = &bootp->e820_table[i];
+> +
+> +		if (e->type != E820_TYPE_RAM)
+> +			continue;
+> +		ram_pages += PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr);
+> +	}
+> +
+> +	/* Max amount of extra memory. */
+> +	extra_pages = EXTRA_MEM_RATIO * ram_pages;
+> +
+> +	/*
+> +	 * Convert UNUSABLE ranges to RAM and reserve them for foreign mapping
+> +	 * purposes.
+> +	 */
+> +	for (i = 0; i < bootp->e820_entries && extra_pages; i++) {
+> +		struct boot_e820_entry *e = &bootp->e820_table[i];
+> +		unsigned long pages;
+> +
+> +		if (e->type != E820_TYPE_UNUSABLE)
+> +			continue;
+> +
+> +		pages = min(extra_pages,
+> +			PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr));
+> +
+> +		if (pages != (PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr))) {
+> +			struct boot_e820_entry *next;
+> +
+> +			if (bootp->e820_entries ==
+> +			    ARRAY_SIZE(bootp->e820_table))
+> +				/* No space left to split - skip region. */
+> +				continue;
+> +
+> +			/* Split entry. */
+> +			next = e + 1;
+> +			memmove(next, e,
+> +				(bootp->e820_entries - i) * sizeof(*e));
+> +			bootp->e820_entries++;
+> +			next->addr = PAGE_ALIGN(e->addr) + PFN_PHYS(pages);
+> +			e->size = next->addr - e->addr;
+> +			next->size -= e->size;
+
+Is this really worth doing? Can we just skip this range and continue or
+simply break out and call it a day? Or even add the whole range instead?
+
+The reason I am asking is that I am expecting E820_TYPE_UNUSABLE regions
+not to be huge. Splitting one just to cover the few remaining pages out
+of extra_pages doesn't seem worth it?
+
+Everything else looks OK to me.
+
+
+> +		}
+> +		e->type = E820_TYPE_RAM;
+> +		extra_pages -= pages;
+> +
+> +		xen_add_extra_mem(PFN_UP(e->addr), pages);
+> +	}
+> +}
+> diff --git a/arch/x86/xen/setup.c b/arch/x86/xen/setup.c
+> index b3e37961065a..380591028cb8 100644
+> --- a/arch/x86/xen/setup.c
+> +++ b/arch/x86/xen/setup.c
+> @@ -38,9 +38,6 @@
 >  
->  pushd `git rev-parse --show-toplevel`
+>  #define GB(x) ((uint64_t)(x) * 1024 * 1024 * 1024)
 >  
-> -status=`git status -s`
-> -if test -n "$status"; then
-> -    echo "Tree is dirty, aborted"
-> -    exit 1
-> +if ! $GITLAB_CI; then
-> +    status=`git status -s`
-> +    if test -n "$status"; then
-> +        echo "Tree is dirty, aborted"
-> +        exit 1
-> +    fi
->  fi
+> -/* Amount of extra memory space we add to the e820 ranges */
+> -struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
+> -
+>  /* Number of pages released from the initial allocation. */
+>  unsigned long xen_released_pages;
 >  
->  BASE=$1; shift
-> @@ -40,26 +73,34 @@ fi
+> @@ -64,18 +61,6 @@ static struct {
+>  } xen_remap_buf __initdata __aligned(PAGE_SIZE);
+>  static unsigned long xen_remap_mfn __initdata = INVALID_P2M_ENTRY;
 >  
->  ret=1
->  while read num rev; do
-> -    echo "Testing $num $rev"
-> +    log_section_start "commit_$rev[collapsed=true]" "Testing #$num $(git log -1 --abbrev=12 --format=tformat:'%h ("%s")' $rev)"
+> -/*
+> - * The maximum amount of extra memory compared to the base size.  The
+> - * main scaling factor is the size of struct page.  At extreme ratios
+> - * of base:extra, all the base memory can be filled with page
+> - * structures for the extra memory, leaving no space for anything
+> - * else.
+> - *
+> - * 10x seems like a reasonable balance between scaling flexibility and
+> - * leaving a practically usable system.
+> - */
+> -#define EXTRA_MEM_RATIO		(10)
+> -
+>  static bool xen_512gb_limit __initdata = IS_ENABLED(CONFIG_XEN_512GB);
 >  
->      git checkout $rev
->      ret=$?
->      if test $ret -ne 0; then
-> -        echo "Failed to checkout $num $rev with $ret"
-> +        log_section_end
-> +        echo "${txt_err}Failed to checkout $num $rev with $ret${txt_clr}"
->          break
->      fi
+>  static void __init xen_parse_512gb(void)
+> @@ -96,35 +81,6 @@ static void __init xen_parse_512gb(void)
+>  	xen_512gb_limit = val;
+>  }
 >  
->      if test $# -eq 0 ; then
->          git clean -fdx && ./configure && make -j4
-> +    elif $GITLAB_CI; then
-> +        "$@" > "build-$num.log" 2>&1
->      else
->          "$@"
->      fi
->      ret=$?
->      if test $ret -ne 0; then
-> -        echo "Failed at $num $rev with $ret"
-> +        if $GITLAB_CI; then
-> +            cat "build-$num.log"
-> +        fi
-> +        log_section_end
-> +        echo "${txt_err}Failed at $num $rev with $ret${txt_clr}"
->          break
->      fi
->      echo
-> +    log_section_end
->  done < <(git rev-list $BASE..$TIP | nl -ba | tac)
+> -static void __init xen_add_extra_mem(unsigned long start_pfn,
+> -				     unsigned long n_pfns)
+> -{
+> -	int i;
+> -
+> -	/*
+> -	 * No need to check for zero size, should happen rarely and will only
+> -	 * write a new entry regarded to be unused due to zero size.
+> -	 */
+> -	for (i = 0; i < XEN_EXTRA_MEM_MAX_REGIONS; i++) {
+> -		/* Add new region. */
+> -		if (xen_extra_mem[i].n_pfns == 0) {
+> -			xen_extra_mem[i].start_pfn = start_pfn;
+> -			xen_extra_mem[i].n_pfns = n_pfns;
+> -			break;
+> -		}
+> -		/* Append to existing region. */
+> -		if (xen_extra_mem[i].start_pfn + xen_extra_mem[i].n_pfns ==
+> -		    start_pfn) {
+> -			xen_extra_mem[i].n_pfns += n_pfns;
+> -			break;
+> -		}
+> -	}
+> -	if (i == XEN_EXTRA_MEM_MAX_REGIONS)
+> -		printk(KERN_WARNING "Warning: not enough extra memory regions\n");
+> -
+> -	memblock_reserve(PFN_PHYS(start_pfn), PFN_PHYS(n_pfns));
+> -}
+> -
+>  static void __init xen_del_extra_mem(unsigned long start_pfn,
+>  				     unsigned long n_pfns)
+>  {
+> diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
+> index a87ab36889e7..79cf93f2c92f 100644
+> --- a/arch/x86/xen/xen-ops.h
+> +++ b/arch/x86/xen/xen-ops.h
+> @@ -163,4 +163,18 @@ void xen_hvm_post_suspend(int suspend_cancelled);
+>  static inline void xen_hvm_post_suspend(int suspend_cancelled) {}
+>  #endif
 >  
->  echo "Restoring original HEAD"
+> +/*
+> + * The maximum amount of extra memory compared to the base size.  The
+> + * main scaling factor is the size of struct page.  At extreme ratios
+> + * of base:extra, all the base memory can be filled with page
+> + * structures for the extra memory, leaving no space for anything
+> + * else.
+> + *
+> + * 10x seems like a reasonable balance between scaling flexibility and
+> + * leaving a practically usable system.
+> + */
+> +#define EXTRA_MEM_RATIO		(10)
+> +
+> +void xen_add_extra_mem(unsigned long start_pfn, unsigned long n_pfns);
+> +
+>  #endif /* XEN_OPS_H */
+> diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
+> index 976c6cdf9ee6..aaf2514fcfa4 100644
+> --- a/drivers/xen/balloon.c
+> +++ b/drivers/xen/balloon.c
+> @@ -672,7 +672,6 @@ EXPORT_SYMBOL(xen_free_ballooned_pages);
+>  
+>  static void __init balloon_add_regions(void)
+>  {
+> -#if defined(CONFIG_XEN_PV)
+>  	unsigned long start_pfn, pages;
+>  	unsigned long pfn, extra_pfn_end;
+>  	unsigned int i;
+> @@ -696,7 +695,6 @@ static void __init balloon_add_regions(void)
+>  
+>  		balloon_stats.total_pages += extra_pfn_end - start_pfn;
+>  	}
+> -#endif
+>  }
+>  
+>  static int __init balloon_init(void)
 > -- 
-> Anthony PERARD
+> 2.43.0
 > 
+--8323329-1734207608-1708650207=:754277--
 
