@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D249860E7E
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 10:46:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.684725.1064785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EDE0860EC6
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Feb 2024 10:58:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.684730.1064794 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdS8W-0001RT-TF; Fri, 23 Feb 2024 09:46:32 +0000
+	id 1rdSJg-0003S7-Ru; Fri, 23 Feb 2024 09:58:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 684725.1064785; Fri, 23 Feb 2024 09:46:32 +0000
+Received: by outflank-mailman (output) from mailman id 684730.1064794; Fri, 23 Feb 2024 09:58:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rdS8W-0001PV-Py; Fri, 23 Feb 2024 09:46:32 +0000
-Received: by outflank-mailman (input) for mailman id 684725;
- Fri, 23 Feb 2024 09:46:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rdSJg-0003Py-PF; Fri, 23 Feb 2024 09:58:04 +0000
+Received: by outflank-mailman (input) for mailman id 684730;
+ Fri, 23 Feb 2024 09:58:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0yaO=KA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rdS8U-0001P9-Tr
- for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 09:46:30 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6aebb05e-d230-11ee-98f5-efadbce2ee36;
- Fri, 23 Feb 2024 10:46:29 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-412949fd224so928155e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 01:46:29 -0800 (PST)
-Received: from [192.168.1.10] (host-92-3-248-192.as13285.net. [92.3.248.192])
- by smtp.gmail.com with ESMTPSA id
- m6-20020a7bce06000000b00410bca333b7sm1683825wmc.27.2024.02.23.01.46.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Feb 2024 01:46:28 -0800 (PST)
+ <SRS0=lysb=KA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rdSJe-0003Ps-SC
+ for xen-devel@lists.xenproject.org; Fri, 23 Feb 2024 09:58:02 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 078fbf7f-d232-11ee-8a57-1f161083a0e0;
+ Fri, 23 Feb 2024 10:58:01 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-41241f64c6bso5191355e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Feb 2024 01:58:01 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ fc19-20020a05600c525300b0041285ffec13sm1743787wmb.41.2024.02.23.01.58.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Feb 2024 01:58:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,135 +44,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6aebb05e-d230-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 078fbf7f-d232-11ee-8a57-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708681588; x=1709286388; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=GMLGYht9EikJPYSB8/VdWj+YkiECcKdadrFo+N57dhc=;
-        b=Hw5I04Cw+RkbMLYM6em8TbPpEqvwHBn2XRFVSfRtHYoJur+68o5sTHqpd1bQdQksQq
-         7hqw5RTqwx+Nrbx89LWyM9sKpOQEEcSTmJqLdxrf9tueM819LqRaZA92z52ALtQ5Mcw6
-         1cZ1RDuv5Z87jkLVu6TST9Bs0+LeVrCi7Xu3s=
+        d=citrix.com; s=google; t=1708682281; x=1709287081; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Yz4otW/pwgozuw7DlysuN7mX+Rcs2WUAXHt11rHZ1hY=;
+        b=GtB3a0pGY1XLVSy5sG+n/LHY/Q+iUua7gnsJ7gCtVsKH9//DFKV9+RWEhX/d4CKSDm
+         lYYIjQBEhit6YLe8gHhdb5Y0bhZrZrIstKFmNrdBm+ZqMnxEtkpfmdXGVA5Ro/NKrvSx
+         Xl5l4kPt0cGWtX9hBmCagqPBiD4uX+QVg5Uxg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708681588; x=1709286388;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1708682281; x=1709287081;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GMLGYht9EikJPYSB8/VdWj+YkiECcKdadrFo+N57dhc=;
-        b=Ce5xTeaPr7rpu9VJAWwGoQnsAW//tOh2UxBx/HuC7P8m6zIfRBBnDfeiX43Y1QAe8M
-         0IiHJfCd+irHXOL4S+rqBCX/OG1va4A367jJUKLVi76qNpLX5bIu7gzBEytm0xnz/4CK
-         oaVbhhZDYmDbXmWZbx3ovQ/K0mwLtujZN9NRuT2v97K7c2G9x0IrusL5hk5+AEePSvkb
-         VhgPSHwnOPbOBpV8ctNT6aCz4yL0g7IZHNWILUdGQrFUFJxsbS30eZTbvz5NPbJajdns
-         nVzN33D+UmO1NFSOQ+D6z3zBYLLuJLyxmQmcLfev6LR04y0lqg7RzWi6dn9sbrrBjhFJ
-         AhZA==
-X-Forwarded-Encrypted: i=1; AJvYcCW2OPgQNLR8MDXRkvINEPCmFRT41zZLA0DJKmp7tbRV2yUCvfFTTG86uvN59tKeeb7rO0yyi0bIxtbSdDPzeI6osr0F9hv+lC6NtMXQvSo=
-X-Gm-Message-State: AOJu0Yz8Dkg14f1jtrD2iVU73VzMzcqPTOGiyk65c5nI+El6SOVcvEyt
-	Me1hkEb6DBXUlpt9mLeK5HmPk61XCaN9y+7ruEIHYX0+KEcuM9xrBpwaR1GmuSZDrNvFw+BPoQY
-	b
-X-Google-Smtp-Source: AGHT+IGy2IXZKTAwHpAaT1uAZiPYWeCGA30GvOYCOsSCN3kTAk/uEIgbbKbtG1WLmY5IXObDLHRVog==
-X-Received: by 2002:adf:f5c4:0:b0:33d:3631:f78d with SMTP id k4-20020adff5c4000000b0033d3631f78dmr4666718wrp.18.1708681588504;
-        Fri, 23 Feb 2024 01:46:28 -0800 (PST)
-Message-ID: <b5696664-0e85-414b-8360-242349a87a7e@citrix.com>
-Date: Fri, 23 Feb 2024 09:46:27 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+        bh=Yz4otW/pwgozuw7DlysuN7mX+Rcs2WUAXHt11rHZ1hY=;
+        b=Lz2Y4ld3VeeAt440ARR3FPBNqPVCoc0G6lS4fvU7g0epGqSOOrNbJPaInEGWTb69hp
+         UYJ8fyRDBJaC3CN3AwJHr4idjM7Z4XZ3lTAxQz/NO6pqIQHwX9aON4uiFZm/ZsiIYosH
+         czTsd2/WyXiDCoWi6Ayg3vF5gZ1TB4Zx+iMf0vqeP590SAQUgvPUnW5RCzLsUFjm64UP
+         924Pk8W1swxw+obh+yuq0WUtyvFlSLfjOzzw6mqXsiAML4gyPidmaytrykMUEbtkEKWY
+         QQhjCyGz+IV27Bixw3+qcWu0WBFQecxH9mHXWS/Sgvu3SFScRCbLldGdTSahZ6KNgi2n
+         T6kA==
+X-Gm-Message-State: AOJu0Yy+JR+P2m1kTRXVjITe/fDamDRTwzs8hugy6roxa5x10dB7Wkf+
+	9Yl4/p945b2xbMNMaqmg4HFX6sEx6Kj+DSRaj0JQksPFxtveonasC4psa/p0OIY=
+X-Google-Smtp-Source: AGHT+IGTsa/MHcy6FouYaoChNreOOYgQdrChkSch3kqq2XqKsHrEtd1hEcRbvjatSIMZNkAo4m67Yw==
+X-Received: by 2002:a05:600c:154a:b0:412:96f2:2df9 with SMTP id f10-20020a05600c154a00b0041296f22df9mr172170wmg.26.1708682280792;
+        Fri, 23 Feb 2024 01:58:00 -0800 (PST)
+Date: Fri, 23 Feb 2024 10:57:59 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
 Subject: Re: [PATCH] x86/spec: fix BRANCH_HARDEN option to only be set when
  build-enabled
-Content-Language: en-GB
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+Message-ID: <ZdhsJ3dWbLuSsoCu@macbook>
 References: <20240223094215.71889-1-roger.pau@citrix.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240223094215.71889-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+ <b5696664-0e85-414b-8360-242349a87a7e@citrix.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <b5696664-0e85-414b-8360-242349a87a7e@citrix.com>
 
-On 23/02/2024 9:42 am, Roger Pau Monne wrote:
-> The current logic to handle the BRANCH_HARDEN option will report it as enabled
-> even when build-time disabled. Fix this by only allowing the option to be set
-> when support for it is built into Xen.
->
-> Fixes: 2d6f36daa086 ('x86/nospec: Introduce CONFIG_SPECULATIVE_HARDEN_BRANCH')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  xen/arch/x86/spec_ctrl.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-> index 421fe3f640df..e634c6b559b4 100644
-> --- a/xen/arch/x86/spec_ctrl.c
-> +++ b/xen/arch/x86/spec_ctrl.c
-> @@ -50,7 +50,8 @@ static int8_t __initdata opt_psfd = -1;
->  int8_t __ro_after_init opt_ibpb_ctxt_switch = -1;
->  int8_t __read_mostly opt_eager_fpu = -1;
->  int8_t __read_mostly opt_l1d_flush = -1;
-> -static bool __initdata opt_branch_harden = true;
-> +static bool __initdata opt_branch_harden =
-> +    IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH);
->  
->  bool __initdata bsp_delay_spec_ctrl;
->  uint8_t __read_mostly default_xen_spec_ctrl;
-> @@ -267,7 +268,8 @@ static int __init cf_check parse_spec_ctrl(const char *s)
->              opt_eager_fpu = val;
->          else if ( (val = parse_boolean("l1d-flush", s, ss)) >= 0 )
->              opt_l1d_flush = val;
-> -        else if ( (val = parse_boolean("branch-harden", s, ss)) >= 0 )
-> +        else if ( IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH) &&
-> +                  (val = parse_boolean("branch-harden", s, ss)) >= 0 )
->              opt_branch_harden = val;
+On Fri, Feb 23, 2024 at 09:46:27AM +0000, Andrew Cooper wrote:
+> On 23/02/2024 9:42 am, Roger Pau Monne wrote:
+> > The current logic to handle the BRANCH_HARDEN option will report it as enabled
+> > even when build-time disabled. Fix this by only allowing the option to be set
+> > when support for it is built into Xen.
+> >
+> > Fixes: 2d6f36daa086 ('x86/nospec: Introduce CONFIG_SPECULATIVE_HARDEN_BRANCH')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> >  xen/arch/x86/spec_ctrl.c | 6 ++++--
+> >  1 file changed, 4 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
+> > index 421fe3f640df..e634c6b559b4 100644
+> > --- a/xen/arch/x86/spec_ctrl.c
+> > +++ b/xen/arch/x86/spec_ctrl.c
+> > @@ -50,7 +50,8 @@ static int8_t __initdata opt_psfd = -1;
+> >  int8_t __ro_after_init opt_ibpb_ctxt_switch = -1;
+> >  int8_t __read_mostly opt_eager_fpu = -1;
+> >  int8_t __read_mostly opt_l1d_flush = -1;
+> > -static bool __initdata opt_branch_harden = true;
+> > +static bool __initdata opt_branch_harden =
+> > +    IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH);
+> >  
+> >  bool __initdata bsp_delay_spec_ctrl;
+> >  uint8_t __read_mostly default_xen_spec_ctrl;
+> > @@ -267,7 +268,8 @@ static int __init cf_check parse_spec_ctrl(const char *s)
+> >              opt_eager_fpu = val;
+> >          else if ( (val = parse_boolean("l1d-flush", s, ss)) >= 0 )
+> >              opt_l1d_flush = val;
+> > -        else if ( (val = parse_boolean("branch-harden", s, ss)) >= 0 )
+> > +        else if ( IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH) &&
+> > +                  (val = parse_boolean("branch-harden", s, ss)) >= 0 )
+> >              opt_branch_harden = val;
+> 
+> Yeah, we should definitely fix this, but could we use no_config_param()
+> here for the compiled-out case ?
 
-Yeah, we should definitely fix this, but could we use no_config_param()
-here for the compiled-out case ?
+Oh, didn't know that helper existed.
 
-See cet= for an example.  If we're going to ignore what the user asks,
-we should tell them why.
+> See cet= for an example.  If we're going to ignore what the user asks,
+> we should tell them why.
+> 
+> And given this as an example, shouldn't we do the same with
+> CONFIG_INDIRECT_THUNK and bti=thunk= too ?
 
-And given this as an example, shouldn't we do the same with
-CONFIG_INDIRECT_THUNK and bti=thunk= too ?
+Checked for SPECULATIVE_HARDEN_ARRAY and
+SPECULATIVE_HARDEN_GUEST_ACCESS, but not the thunk, will add it as a
+followup patch.
 
-~Andrew
+Thanks, Roger.
 
