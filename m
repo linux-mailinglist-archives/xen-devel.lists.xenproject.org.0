@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C582862A49
-	for <lists+xen-devel@lfdr.de>; Sun, 25 Feb 2024 13:21:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685194.1065584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 903C3862B66
+	for <lists+xen-devel@lfdr.de>; Sun, 25 Feb 2024 17:01:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685201.1065595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reDU3-0003UG-1H; Sun, 25 Feb 2024 12:19:55 +0000
+	id 1reGvF-0003AE-AX; Sun, 25 Feb 2024 16:00:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685194.1065584; Sun, 25 Feb 2024 12:19:55 +0000
+Received: by outflank-mailman (output) from mailman id 685201.1065595; Sun, 25 Feb 2024 16:00:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reDU2-0003RK-Sb; Sun, 25 Feb 2024 12:19:54 +0000
-Received: by outflank-mailman (input) for mailman id 685194;
- Sun, 25 Feb 2024 12:19:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J/ns=KC=gmail.com=rob.townley@srs-se1.protection.inumbo.net>)
- id 1reDU1-0003RE-BF
- for xen-devel@lists.xenproject.org; Sun, 25 Feb 2024 12:19:53 +0000
-Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
- [2607:f8b0:4864:20::b2e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2b212630-d3d8-11ee-98f5-efadbce2ee36;
- Sun, 25 Feb 2024 13:19:49 +0100 (CET)
-Received: by mail-yb1-xb2e.google.com with SMTP id
- 3f1490d57ef6-dcbcea9c261so2294958276.3
- for <xen-devel@lists.xenproject.org>; Sun, 25 Feb 2024 04:19:49 -0800 (PST)
+	id 1reGvF-00039J-7B; Sun, 25 Feb 2024 16:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 685201;
+ Sun, 25 Feb 2024 16:00:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1reGvE-000399-AD; Sun, 25 Feb 2024 16:00:12 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1reGvE-0003cH-5D; Sun, 25 Feb 2024 16:00:12 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1reGvD-0006zR-O7; Sun, 25 Feb 2024 16:00:11 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1reGvD-0006UK-NT; Sun, 25 Feb 2024 16:00:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,343 +42,360 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b212630-d3d8-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1708863588; x=1709468388; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=W2E0Tttmj/DoPM7LRU51gbJvIjSSBzxFpbiR1OJL1cw=;
-        b=aUdruPgnUd1JQuTeD5R3yKKoao6k4dMN/ke8+SvUgsl/cjYjq6gl9jkqBImSd31o4t
-         uRE8MHIwpLYbNuwa4dN251BjzkOo6OoxLzDahEugDbGhdSKjGA+u0mzilgqnb0em5mUZ
-         axya7Pm2s2Lig0cKnV7XQnklMDQlwLdFHfuN1mY9exGPNvIlCABCesA1nxfaJYlWjbAV
-         sMzkTRBOMDybm3VBrhw6HqDY86f0zJ8gJ+tbqChMAGyANwpD9smrE2xCtqmI/kquWJva
-         9vNGyq8dp/Z3/wrNIPam9DTsYIYkkuCqmuWVJOW4dSKVT9ZrVPHN5f/PqEZCzfECef4h
-         I8SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708863588; x=1709468388;
-        h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=W2E0Tttmj/DoPM7LRU51gbJvIjSSBzxFpbiR1OJL1cw=;
-        b=O1hz3rxbC7IKC25GM63f4+YFfDufoFljcPVlQUy7MpuluN/4vQyL6VkysqkyIqJKTR
-         SagJ1XKZZwNpBy3EQZxHcIdbnRRpnEev84gRuxPMvnopwndUvKLSh2EzkV3IUw7RZvFP
-         eKp6ir5WLkylA/GYXa9/4D73kT9rYwIGv5N0qB2/Yg7KrUD4TWwNiPZxxAmSapp8l2HR
-         dd7GQInIRICp43ztMaljAxEdp/SjAchQIJ9WMi25Tnqvb4uQe1Xatgo6vQPRpQF7dp3X
-         umvYJw5KiN7PlHx2mrUdCRNBncG6ppAyk6LndVO1xrSDCYNxm5NK2Jjtjm9qd/vRHOKS
-         CV0g==
-X-Forwarded-Encrypted: i=1; AJvYcCUHM1vyZtlxohCN/am2GjtPiX2VnkPhhNN9szNXJNQNrfqiQP7K8GF/QMUxUd6anchkiBXIb5RBR0mUF2J2k2VZkVKAOJ6H52nd8dvY1yw=
-X-Gm-Message-State: AOJu0YxrWCKpgaUv/ucSsF3akEWrpx1ytQo3TRPoXfmvVCl2F5uUK1A3
-	HqW6hyiJErbKDLspwIBSsgSFlQhucDKLRyk+nIGYHILNcX4Nzw3YJDg0QBbRpjuS8hfNO0U8sZd
-	Aa3ob9RY8xdPu24RRa5jlKL4Wi+8=
-X-Google-Smtp-Source: AGHT+IHBpdMueIx32lg1q5sCYr6wtPcOb4aIxsc4Qzt1tdi1kX6fWxBdf8TuGsBcYwQFcJP8bJtT0Nhj9RZhFAmQoVI=
-X-Received: by 2002:a25:26c5:0:b0:dc6:18d0:95b0 with SMTP id
- m188-20020a2526c5000000b00dc618d095b0mr2306857ybm.8.1708863587972; Sun, 25
- Feb 2024 04:19:47 -0800 (PST)
-MIME-Version: 1.0
-References: <d2de4ae9ecb34efc962dea7f8b4e7cbd@thalesgroup.com> <bb2485e5-7818-435b-8d9c-dda88100979f@xen.org>
-In-Reply-To: <bb2485e5-7818-435b-8d9c-dda88100979f@xen.org>
-Reply-To: Rob.Townley@gmail.com
-From: Rob Townley <rob.townley@gmail.com>
-Date: Sun, 25 Feb 2024 06:19:37 -0600
-Message-ID: <CA+VdTb8razTDCZdAssAf=HHbDhV+w8+k-XO+n6msv31izUfQEw@mail.gmail.com>
-Subject: Re: IMPORTANT - : Need help on USB port virtualization with Xen hypervisor
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
-	GOURLOT Francois <francois.gourlot@thalesgroup.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, Kelly Choi <kelly.choi@cloud.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="000000000000217d27061233cfe1"
-
---000000000000217d27061233cfe1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=nn0W7/PSYloL3uEPVru4FdVxIXsYUniFCdxalDqR3wk=; b=B2Rk/+qfA4+qv4AK8EZY95axP6
+	qedejNB0hB+H9K8XHDesGZMLyFtJ+hbPWcv0QhxgRFNDP5AgaCRagSxFPwQeec03kh3kREsIeXqFp
+	LDKeNAINNEDF8qExhL/o50Cd629uY7hN2ZkcT0HMTWfLxQ1uRYN8YxmmGrQD+pfNvMF0=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184757-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 184757: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-libvirt-raw:guest-start:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=ab0a97cffa0bb3b529ca08b0caea772ddb3e0b5c
+X-Osstest-Versions-That:
+    linux=b6d69282db550689ab5980e06eedd23b64584a73
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 25 Feb 2024 16:00:11 +0000
 
-In short, purchase an addon PCIe USB card to isolate traffic.  USB is a
-shared medium and is rooted in the cheapest electronics.   It was never
-considered enterprise grade hardware for most all of history.    The letter
-B in  USB  stands for BUS which actually means a shared roadway that other
-USB devices can and do impede traffic.   We experienced interfering traffic
-on inexpensive laptops running  XEN based Qubes-OS.  Turned out the WiFi
-card was actually wired onto the USB bus.   Unplugging all external USB
-electronics reduced inexplicable WiFi disconnects and reliably improved
-throughput.    However, there was no way to remove the keyboard, touchpad,
-and touchscreen which all used the USB roadway.
+flight 184757 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184757/
 
-Those were cheap laptops, but even enterprise class hardware such as HPE
- and Dell Servers running XCP-NG did not have great speeds.   But in this
-scenario, we could simplify the problem and  isolate the issue by purchasin=
-g
-a  new add-on PCIe card with USB ports and then assign the entire PCIe card
-to the VM.   The VM would then have entire control of the PCIe card and
-isolate traffic to devices plugged into that card.
+Failures :-/ but no regressions.
 
-I did not know until later that Wireshark has plugins for sniffing USB
-traffic, but my name is  not Heisenberg and not sure if that traffic
-monitoring does not also slow down other devices.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-raw 13 guest-start             fail blocked in 184738
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 184738
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184738
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184738
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184738
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 184738
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184738
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184738
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
 
-On Sat, Feb 24, 2024 at 8:39 AM Julien Grall <julien@xen.org> wrote:
+version targeted for testing:
+ linux                ab0a97cffa0bb3b529ca08b0caea772ddb3e0b5c
+baseline version:
+ linux                b6d69282db550689ab5980e06eedd23b64584a73
 
-> Hi Dominique and Francois,
->
-> Thank you for the report. I am CCing some person who I think could help.
->
-> I also have some questions (see below).
->
-> On 23/02/2024 16:00, GOURLOT Francois wrote:
-> > Dear All,
-> >
-> > We send you a message few days ago.
-> >
-> > We have major performance with XEN USB Drivers. We use your driver to
-> > load data in a device and we need USB3 High Speed USB protocole
-> >
-> > Do you have a new issue of the HCI and NEC USB Xen Driver ?
-> p
-> [...]
->
-> > *De :*LARRIEU Dominique <dominique.larrieu@thalesgroup.com>
-> > *Envoy=C3=A9 :* jeudi 22 f=C3=A9vrier 2024 13:58
-> > *=C3=80 :* xen-devel@lists.xenproject.org
-> > *Cc :* WILLEMS Louis <louis.willems@thalesgroup.com>; GRUO Nicolas
-> > <nicolas-n.gruo@thalesgroup.com>; GOURLOT Francois
-> > <francois.gourlot@thalesgroup.com>; Kelly Choi <kelly.choi@cloud.com>
-> > *Objet :* Need help on USB port virtualization with Xen hypervisor
-> > *Crit=C3=A8re de diffusion :* Confidentiel
-> >
-> >     Dear all,
-> >
-> >     We are detectingseveral issues with USB port virtualization with th=
-e
-> >     Xen hypervisor.
->
-> Just to clarify, you are assigning the PCI USB bus (rather than just the
-> USB device) to the guest. Is that correct?
->
-> If so...
->
->  >
->  > Do you have a new issue of the HCI and NEC USB Xen Driver ?
->
-> ... I am not sure what Xen driver you are talking about. If the USB bus
-> is assigned to the guest, then I would expect no specific Xen driver are
-> required. Do you have any pointer to the existing one?
->
-> >     - We cannot do PCI passthrough of the PCI usb bus on a Windows 10
-> >     1607 64-bit virtual machine. The bad result is a Windows blue scree=
-n.
-> >
-> >     - When we use the passthrough functionality on a Windows 21H2
-> >     virtual machine, we notice thatthe speed of the USB port is not hig=
-h
-> >     speed but full speed on a USB 3.0 port
-> >
-> >     - We notice instabilities when using the nec-usb-xhci driver,  USB
-> >     2.0 keys are not recognized by the Windows virtual machine
-> >     (incorrect descriptor)
->
-> Do you have any logs you could share from the guest OS? Also, would you
-> be able to share more details on how you configure the guest? (e.g. xl
-> configuration, libvirt...)?
->
-> >
-> >     We needyour helpto find a solution for these problems.
-> >
-> >     The Software used are :
->
-> Can you share some details of the HW you are using?
->
-> >
-> >     -Debian 11 version5.10.0-20
-> >
-> >     -Xen version4.14
->
-> Are minor version of Xen 4.14 are you using? Any patches on top?
->
-> Xen 4.14 has also been out of support for a few months now. If that's
-> possible, I would recommend to try a new Xen version (the last stable is
-> 4.18) just in case your issue as been fixed in newer release.
->
-> >
-> >     -Windows 10 1607 and 21H2 for virtual machines. Virtual Machine HVM
->
-> Cheers,
->
-> --
-> Julien Grall
->
->
+Last test of basis   184738  2024-02-23 17:42:09 Z    1 days
+Failing since        184749  2024-02-24 10:36:24 Z    1 days    3 attempts
+Testing same since   184757  2024-02-25 02:59:57 Z    0 days    1 attempts
 
---000000000000217d27061233cfe1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+------------------------------------------------------------
+People who touched revisions under test:
+  Alex Deucher <alexander.deucher@amd.com>
+  Alexander Gordeev <agordeev@linux.ibm.com>
+  Alexander Stein <alexander.stein@ew.tq-group.com>
+  Alexander Sverdlin <alexander.sverdlin@gmail.com>
+  Alison Schofield <alison.schofield@intel.com>
+  Amit Machhiwal <amachhiw@linux.ibm.com>
+  Andi Shyti <andi.shyti@kernel.org>
+  Andrew Manley <andrew.manley@sealingtech.com>
+  Andrew Morton <akpm@linux-foundation.org>
+  Andrzej Kacprowski <Andrzej.Kacprowski@intel.com>
+  Andy Yan <andyshrk@163.com>
+  Anshuman Khandual <anshuman.khandual@arm.com>
+  Armin Wolf <W_Armin@gmx.de>
+  Arnd Bergmann <arnd@arndb.de>
+  Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+  Ashutosh Dixit <ashutosh.dixit@intel.com>
+  Benjamin Gray <bgray@linux.ibm.com>
+  Chanho Min <chanho.min@lge.com>
+  Chengming Zhou <zhouchengming@bytedance.com>
+  Chris Li <chrisl@kernel.org>
+  Chris Morgan <macromorgan@hotmail.com>
+  Christian König <christian.koenig@amd.com>
+  Colin Ian King <colin.i.king@gmail.com>
+  Conor Dooley <conor.dooley@microchip.com>
+  Corey Minyard <minyard@acm.org>
+  Dan Carpenter <dan.carpenter@linaro.org>
+  Dan Williams <dan.j.williams@intel.com>
+  Daniel Wheeler <daniel.wheeler@amd.com>
+  Danilo Krummrich <dakr@redhat.com>
+  Dave Airlie <airlied@redhat.com>
+  Dave Hansen <dave.hansen@linux.intel.com>
+  Dave Jiang <dave.jiang@intel.com>
+  David Hildenbrand <david@redhat.com>
+  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+  Don Brace <don.brace@microchip.com>
+  Erik Kurzinger <ekurzinger@nvidia.com>
+  Fabio Estevam <festevam@denx.de>
+  Florian Fainelli <florian.fainelli@broadcom.com> #Broadcom
+  Gaurav Batra <gbatra@linux.ibm.com>
+  Geert Uytterhoeven <geert+renesas@glider.be>
+  Guenter Roeck <linux@roeck-us.net>
+  Heiko Carstens <hca@linux.ibm.com>
+  Heiko Stuebner <heiko.stuebner@cherry.de>
+  Heiko Stuebner <heiko@sntech.de>
+  Helge Deller <deller@gmx.de>
+  Hojin Nam <hj96.nam@samsung.com>
+  Huacai Chen <chenhuacai@loongson.cn>
+  Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>
+  Jason Gunthorpe <jgg@nvidia.com>
+  Javier Martinez Canillas <javierm@redhat.com>
+  Joerg Roedel <jroedel@suse.de>
+  Johan Jonker <jbx6244@gmail.com>
+  Johannes Weiner <hannes@cmpxchg.org>
+  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+  José Roberto de Souza <jose.souza@intel.com>
+  Julian Sikorski <belegdol@gmail.com>
+  Kairui Song <kasong@tencent.com>
+  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+  Lewis Huang <lewis.huang@amd.com>
+  Li Ming <ming4.li@intel.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Lu Baolu <baolu.lu@linux.intel.com>
+  Lucas Stach <l.stach@pengutronix.de>
+  Ma Jun <Jun.Ma2@amd.com>
+  Marek Vasut <marex@denx.de>
+  Mark Brown <broonie@kernel.org>
+  Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+  Martin K. Petersen <martin.petersen@oracle.com>
+  Matthew Auld <matthew.auld@intel.com>
+  Matthew Brost <matthew.brost@intel.com>
+  Max Kellermann <max.kellermann@ionos.com>
+  Maxime Ripard <mripard@kernel.org>
+  Maxime Ripard <mripard@redhat.com>
+  Melissa Wen <mwen@igalia.com>
+  Michael Ellerman <mpe@ellerman.id.au>
+  Michal Hocko <mhocko@suse.com>
+  Mike Rapoport (IBM) <rppt@kernel.org>
+  Mike Snitzer <snitzer@kernel.org>
+  Mikulas Patocka <mpatocka@redhat.com>
+  Naohiro Aota <naohiro.aota@wdc.com>
+  Neil Armstrong <neil.armstrong@linaro.org>
+  Nhat Pham <nphamcs@gmail.com>
+  Nikita Shubin <nikita.shubin@maquefel.me>
+  Niklas Schnelle <schnelle@linux.ibm.com>
+  Oreoluwa Babatunde <quic_obabatun@quicinc.com>
+  Peter Oberparleiter <oberpar@linux.ibm.com>
+  Randy Dunlap <rdunlap@infradead.org>
+  Rob Herring <robh@kernel.org>
+  Robert Richter <rrichter@amd.com>
+  Robin Murphy <robin.murphy@arm.com>
+  Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+  Rodrigo Vivi <rodrigo.vivi@intel.com>
+  Samasth Norway Ananda <samasth.norway.ananda@oracle.com>
+  Sebastian Reichel <sebastian.reichel@collabora.com>
+  SeongJae Park <sj@kernel.org>
+  Shakeel Butt <shakeel.butt@linux.dev>
+  Shakeel Butt <shakeelb@google.com>
+  Shawn Guo <shawnguo@kernel.org>
+  Simon Ser <contact@emersion.fr>
+  Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+  Steve Morvai <stevemorvai@hotmail.com>
+  Swapnil Patel <swapnil.patel@amd.com>
+  Tasos Sahanidis <tasos@tasossah.com>
+  Terry Tritton <terry.tritton@linaro.org>
+  Thierry Reding <treding@nvidia.com>
+  Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
+  Thomas Hellström <thomas.hellstrom@linux.intel.com>
+  Thomas Zimmermann <tzimmermann@suse.de>
+  Thorsten Winkler <twinkler@linux.ibm.com>
+  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+  WANG Xuerui <git@xen0n.name>
+  Wayne Lin <wayne.lin@amd.com>
+  Will Deacon <will@kernel.org>
+  Wolfram Sang <wsa+renesas@sang-engineering.com>
+  Wonjae Lee <wj28.lee@samsung.com>
+  Yi Liu <yi.l.liu@intel.com>
+  Yi Sun <yi.y.sun@linux.intel.com>
+  Yogesh Chandra Pandey <YogeshChandra.Pandey@microchip.com>
+  Yosry Ahmed <yosryahmed@google.com>
+  Yu Zhao <yuzhao@google.com>
+  Zhangfei Gao <zhangfei.gao@linaro.org>
 
-<div dir=3D"auto"><div><div dir=3D"auto" style=3D"font-family:-apple-system=
-,helveticaneue;font-size:18px;font-style:normal;font-weight:400;letter-spac=
-ing:normal;text-indent:0px;text-transform:none;white-space:normal;word-spac=
-ing:0px;text-decoration:none;background-color:rgba(0,0,0,0);border-color:rg=
-b(0,0,0);color:rgb(0,0,0)"><span style=3D"font-family:-apple-system,helveti=
-caneue;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);color:rgb(0,0=
-,0)"><div style=3D"font-family:-apple-system,helveticaneue" dir=3D"auto"><s=
-pan style=3D"font-family:-apple-system,helveticaneue;font-size:18px;font-st=
-yle:normal;font-weight:400;letter-spacing:normal;text-indent:0px;text-trans=
-form:none;white-space:normal;word-spacing:0px;text-decoration:none;float:no=
-ne;display:inline!important;background-color:rgba(0,0,0,0);border-color:rgb=
-(0,0,0);color:rgb(0,0,0)">In short, purchase an addon PCIe USB card to isol=
-ate traffic.=C2=A0 USB is a shared medium and is rooted in the cheapest ele=
-ctronics. =C2=A0 It was never considered enterprise grade hardware for most=
- all of history. =C2=A0 =C2=A0</span><span style=3D"font-family:-apple-syst=
-em,helveticaneue;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);col=
-or:rgb(0,0,0)">The letter B in =C2=A0USB =C2=A0stands for BUS which actuall=
-y means a shared roadway that other USB devices can and do impede traffic. =
-=C2=A0 We experienced interfering traffic on inexpensive laptops running =
-=C2=A0XEN based Qubes-OS.=C2=A0 Turned out the WiFi card was actually wired=
- onto the USB bus. =C2=A0 Unplugging all external USB electronics reduced i=
-nexplicable WiFi disconnects and reliably improved throughput. =C2=A0 =C2=
-=A0However, there was no way to remove the keyboard, touchpad, and touchscr=
-een which all used the USB roadway. =C2=A0=C2=A0</span></div><div style=3D"=
-font-family:-apple-system,helveticaneue" dir=3D"auto"><span style=3D"font-f=
-amily:-apple-system,helveticaneue;background-color:rgba(0,0,0,0);border-col=
-or:rgb(0,0,0);color:rgb(0,0,0)"><br></span></div><div style=3D"font-family:=
--apple-system,helveticaneue" dir=3D"auto"><span style=3D"font-family:-apple=
--system,helveticaneue;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0=
-);color:rgb(0,0,0)">Those were cheap laptops, but even=C2=A0</span><span st=
-yle=3D"font-family:-apple-system,helveticaneue;background-color:rgba(0,0,0,=
-0);border-color:rgb(0,0,0);color:rgb(0,0,0)">enterprise class hardware such=
- as HPE =C2=A0and Dell Servers running XCP-NG did not have great speeds. =
-=C2=A0 But in this scenario, we could simplify the problem and =C2=A0isolat=
-e the issue by=C2=A0</span><span>purchasing a =C2=A0new add-on=C2=A0</span>=
-<span style=3D"font-family:-apple-system,helveticaneue;background-color:rgb=
-a(0,0,0,0);border-color:rgb(0,0,0);color:rgb(0,0,0)">PCIe card with USB por=
-ts and then assign the entire PCIe card to the VM. =C2=A0 The VM would then=
- have entire control of the PCIe card and isolate traffic to devices plugge=
-d into that card. =C2=A0</span></div><div style=3D"font-family:-apple-syste=
-m,helveticaneue" dir=3D"auto"><span style=3D"font-family:-apple-system,helv=
-eticaneue;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);color:rgb(=
-0,0,0)"><br></span></div><div style=3D"font-family:-apple-system,helvetican=
-eue" dir=3D"auto"><span style=3D"font-family:-apple-system,helveticaneue;ba=
-ckground-color:rgba(0,0,0,0);border-color:rgb(0,0,0);color:rgb(0,0,0)">I di=
-d not know until later that Wireshark has plugins for sniffing USB traffic,=
- but my name is =C2=A0not Heisenberg and not sure if that traffic monitorin=
-g does not also slow down other devices. =C2=A0</span><br></div></span></di=
-v></div></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
-"gmail_attr">On Sat, Feb 24, 2024 at 8:39 AM Julien Grall &lt;<a href=3D"ma=
-ilto:julien@xen.org">julien@xen.org</a>&gt; wrote:<br></div><blockquote cla=
-ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;=
-border-left-style:solid;padding-left:1ex;border-left-color:rgb(204,204,204)=
-" dir=3D"auto">Hi Dominique and Francois,<br>
-<br>
-Thank you for the report. I am CCing some person who I think could help.<br=
->
-<br>
-I also have some questions (see below).<br>
-<br>
-On 23/02/2024 16:00, GOURLOT Francois wrote:<br>
-&gt; Dear All,<br>
-&gt; <br>
-&gt; We send you a message few days ago.<br>
-&gt; <br>
-&gt; We have major performance with XEN USB Drivers. We use your driver to =
-<br>
-&gt; load data in a device and we need USB3 High Speed USB protocole<br>
-&gt; <br>
-&gt; Do you have a new issue of the HCI and NEC USB Xen Driver ?<br>
-p<br>
-[...]<br>
-<br>
-&gt; *De=C2=A0:*LARRIEU Dominique &lt;<a href=3D"mailto:dominique.larrieu@t=
-halesgroup.com" target=3D"_blank">dominique.larrieu@thalesgroup.com</a>&gt;=
-<br>
-&gt; *Envoy=C3=A9=C2=A0:* jeudi 22 f=C3=A9vrier 2024 13:58<br>
-&gt; *=C3=80=C2=A0:* <a href=3D"mailto:xen-devel@lists.xenproject.org" targ=
-et=3D"_blank">xen-devel@lists.xenproject.org</a><br>
-&gt; *Cc=C2=A0:* WILLEMS Louis &lt;<a href=3D"mailto:louis.willems@thalesgr=
-oup.com" target=3D"_blank">louis.willems@thalesgroup.com</a>&gt;; GRUO Nico=
-las <br>
-&gt; &lt;<a href=3D"mailto:nicolas-n.gruo@thalesgroup.com" target=3D"_blank=
-">nicolas-n.gruo@thalesgroup.com</a>&gt;; GOURLOT Francois <br>
-&gt; &lt;<a href=3D"mailto:francois.gourlot@thalesgroup.com" target=3D"_bla=
-nk">francois.gourlot@thalesgroup.com</a>&gt;; Kelly Choi &lt;<a href=3D"mai=
-lto:kelly.choi@cloud.com" target=3D"_blank">kelly.choi@cloud.com</a>&gt;<br=
->
-&gt; *Objet=C2=A0:* Need help on USB port virtualization with Xen hyperviso=
-r<br>
-&gt; *Crit=C3=A8re de diffusion=C2=A0:* Confidentiel<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Dear all,<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0We are detectingseveral issues with USB port virtua=
-lization with the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Xen hypervisor.<br>
-<br>
-Just to clarify, you are assigning the PCI USB bus (rather than just the <b=
-r>
-USB device) to the guest. Is that correct?<br>
-<br>
-If so...<br>
-<br>
-=C2=A0&gt;<br>
-=C2=A0&gt; Do you have a new issue of the HCI and NEC USB Xen Driver ?<br>
-<br>
-... I am not sure what Xen driver you are talking about. If the USB bus <br=
->
-is assigned to the guest, then I would expect no specific Xen driver are <b=
-r>
-required. Do you have any pointer to the existing one?<br>
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0- We cannot do PCI passthrough of the PCI usb bus o=
-n a Windows 10<br>
-&gt;=C2=A0 =C2=A0 =C2=A01607 64-bit virtual machine. The bad result is a Wi=
-ndows blue screen.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0- When we use the passthrough functionality on a Wi=
-ndows 21H2<br>
-&gt;=C2=A0 =C2=A0 =C2=A0virtual machine, we notice thatthe speed of the USB=
- port is not high<br>
-&gt;=C2=A0 =C2=A0 =C2=A0speed but full speed on a USB 3.0 port<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0- We notice instabilities when using the nec-usb-xh=
-ci driver, =C2=A0USB<br>
-&gt;=C2=A0 =C2=A0 =C2=A02.0 keys are not recognized by the Windows virtual =
-machine<br>
-&gt;=C2=A0 =C2=A0 =C2=A0(incorrect descriptor)<br>
-<br>
-Do you have any logs you could share from the guest OS? Also, would you <br=
->
-be able to share more details on how you configure the guest? (e.g. xl <br>
-configuration, libvirt...)?<br>
-<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0We needyour helpto find a solution for these proble=
-ms.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0The Software used are :<br>
-<br>
-Can you share some details of the HW you are using?<br>
-<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0-Debian 11 version5.10.0-20<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0-Xen version4.14<br>
-<br>
-Are minor version of Xen 4.14 are you using? Any patches on top?<br>
-<br>
-Xen 4.14 has also been out of support for a few months now. If that&#39;s <=
-br>
-possible, I would recommend to try a new Xen version (the last stable is <b=
-r>
-4.18) just in case your issue as been fixed in newer release.<br>
-<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0-Windows 10 1607 and 21H2 for virtual machines. Vir=
-tual Machine HVM<br>
-<br>
-Cheers,<br>
-<br>
--- <br>
-Julien Grall<br>
-<br>
-</blockquote></div></div>
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
---000000000000217d27061233cfe1--
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   b6d69282db550..ab0a97cffa0bb  ab0a97cffa0bb3b529ca08b0caea772ddb3e0b5c -> tested/linux-linus
 
