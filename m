@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B67D867995
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 16:10:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685604.1066590 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30A35867A9A
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 16:45:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685620.1066616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reccW-0006Pq-Jh; Mon, 26 Feb 2024 15:10:20 +0000
+	id 1red9N-0004aL-I7; Mon, 26 Feb 2024 15:44:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685604.1066590; Mon, 26 Feb 2024 15:10:20 +0000
+Received: by outflank-mailman (output) from mailman id 685620.1066616; Mon, 26 Feb 2024 15:44:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reccW-0006NH-Go; Mon, 26 Feb 2024 15:10:20 +0000
-Received: by outflank-mailman (input) for mailman id 685604;
- Mon, 26 Feb 2024 15:10:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1reccV-0006NB-L8
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 15:10:19 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 260aa71b-d4b9-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 16:10:16 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-512f54c81d2so1667876e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 07:10:16 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- tk6-20020a170907c28600b00a4306ac4c77sm2027637ejc.197.2024.02.26.07.10.15
+	id 1red9N-0004YI-E7; Mon, 26 Feb 2024 15:44:17 +0000
+Received: by outflank-mailman (input) for mailman id 685620;
+ Mon, 26 Feb 2024 15:44:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FdVt=KD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1red9M-0004YC-3W
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 15:44:16 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e41ad3c8-d4bd-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 16:44:13 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-33d90dfe73cso2214126f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 07:44:13 -0800 (PST)
+Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ b12-20020a05620a0f8c00b00787c1102df8sm2564765qkn.127.2024.02.26.07.44.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 07:10:16 -0800 (PST)
+ Mon, 26 Feb 2024 07:44:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 260aa71b-d4b9-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: e41ad3c8-d4bd-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708960216; x=1709565016; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1708962253; x=1709567053; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=8tIbkpeNLAozugUEmgofrslaIe2aW51Xk6gGsC1waq4=;
-        b=EBlxBlghvPN38b4dxtcpqYcFLLAu5DpQGXeK4PZSQt5ONcv3olrkDLHHiUdvjIPhOE
-         G5zOowU8z7uNS5NKhy5Iic14NfLUpDfzBvLYJS7tWZCPf6Wbg7VaCmpKMvWP9Yv77T6U
-         m4AspVvgz6XPa3WGZ2NL/mzAvE4qUXQKK6W06rpXuuxEW4vQ/EpVOgIC2Ho0h6u8njJY
-         HEb3eutbBxlMVDSEuTuz0M/fbJBalINzN4Iwv4BDrj8OLYwyp6ipOL0cW+eWKQl69tWK
-         fW3IpVim6GEPMlKcDdy2AC8inv1ikjTWqOBWDUjh/IJ17iDWrvfML4C3yFHqYFs91/Eb
-         qWPQ==
+        bh=rbeISk6CLsumn+4LZjMFLRI8cm8qCnRIEsEzsFsiCgE=;
+        b=QIJpKoSaund8E/11tsNdY3tI41fd+nv8ylpuJ2ogJPUTebtOCmHKvA/obIIgP3Thsz
+         pIPw/N1TF4XQYTVp5s7z5K/Ny28hs22xULVpFqiiKpxBPSPlb5m1T/or08dJCc61XAIW
+         /UikGA+PwyB73tkCOzbtNITAHGhtzPfjbmMTY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708960216; x=1709565016;
+        d=1e100.net; s=20230601; t=1708962253; x=1709567053;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8tIbkpeNLAozugUEmgofrslaIe2aW51Xk6gGsC1waq4=;
-        b=tyY5K2yG7HZwTzGpfHz10PsFfJpfWUBztFAhfPtDuYvxVndT2FS+OcApTesRtN+SQc
-         QOxHC+Xjp3wFcbN/f3aM10cQs3t5CTNwvTTOaVxxZbqqaL7vEwcVd5/NkLRlzuZvGYxa
-         IwMWubfGl9oa3XaYlUQi3ygNfJxL78cTDVryqboM0nIpisicFNs0roEFEuZpUiyivOyi
-         YrXuH3mShLk7zRQB3+Amd/nESPgnSG3W0PLpiKBKJhQlfz0jCu3S7WITEXrnn1nPtA3g
-         zR2EAd0duk0U8W0bica63OoxKAcNw5HoXJSAGbPKnD83xrU2Lq1VhauRl7qLrUtQxzBi
-         U+SQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVIrx7wJ8jq4HYvSGEaW6Hd92yWUdutTRTw8eSCgNGuuNjs6JrKviUZ/r8aE2jorzqfVzczh+ysA7XRwAN0LllHKbpozaYz+b9bubZEyUs=
-X-Gm-Message-State: AOJu0Yw2G2aKcoNhH7hPDhzD1UhzDdbr/u6clsAKz3HIc3Q2kpOfNCu+
-	rejR5sU+imX9cje5BYZy6SFuZVcxrUgODwMY8vN9ozhBXHIHW9qUexUnHEc5rA==
-X-Google-Smtp-Source: AGHT+IE1qjn6qMl56PMhj+xQ/Y4Us0rvHI3X4iHVV2yuGB85Sa9OZtm+uCYZjZnNXSS65QQfd6REcg==
-X-Received: by 2002:a05:6512:3da8:b0:512:f5b9:2e23 with SMTP id k40-20020a0565123da800b00512f5b92e23mr4368043lfv.11.1708960216359;
-        Mon, 26 Feb 2024 07:10:16 -0800 (PST)
-Message-ID: <38edbe43-307a-4f70-a099-d31e155df076@suse.com>
-Date: Mon, 26 Feb 2024 16:10:15 +0100
+        bh=rbeISk6CLsumn+4LZjMFLRI8cm8qCnRIEsEzsFsiCgE=;
+        b=EiRmsX9tb+U4Vc3d2M0QrGFpWJrBOR/tiKi2vkYLweDAWTfBqaGQ87foKwTdGOLPxg
+         IJ2toNP1fbSYHjzBcoES4pHifdkG6Kuyw2a4ZVzMhJ+IQZdK1PmgM7BPqEO0Y5A2dY9q
+         sRvM2SjxD7plNFU+lO0Uhow3tPpxE6dzcpA0rRqn6k4oS/NMM8MykK5v5cJuzkKB3Dcu
+         LUg4VkoDQX3Ay4GUa6dLE9/fqDkcRwY0xjWaQhR0AvBIyGTz2Uoe1N7e7copACe/Oqyj
+         yEVYge40GEeFGm6U3Q1hvwEtESOsstEyQChYVhTUc7dyj9yteF3XtVIyZfUMU5AblbF6
+         uAhw==
+X-Forwarded-Encrypted: i=1; AJvYcCWjThjH+YtqkOhjtcDxKtND2Tn9DW6ZghxDpzwv/Ghnt7GTJJpCk37gXfJmOHo6sjJ0RPEZ4IKzFU1n1iybSWqArEKY2RY6Bz9KIS64abo=
+X-Gm-Message-State: AOJu0YyBQRFkV2OXJS+Qt2Q+FRWwR36kVQyshbVTT2N4JgMq1p+nHfLb
+	rUOOPX8QHywoW3MITrCUGOEIyE/T/PY6ynGEog7syAe4Oss2w4PPGZbofGl0698=
+X-Google-Smtp-Source: AGHT+IG3ZgjP3oZEayxVy0ehnFNfIOUuZH9SltyvnNEikbNzr6Rx+ioIyftMziF1va9DEMToaZlgsQ==
+X-Received: by 2002:a5d:58e5:0:b0:33d:9d76:2f82 with SMTP id f5-20020a5d58e5000000b0033d9d762f82mr6753723wrd.26.1708962253179;
+        Mon, 26 Feb 2024 07:44:13 -0800 (PST)
+Message-ID: <b549f8f3-b21d-4ca5-9ef8-e1c39856d691@citrix.com>
+Date: Mon, 26 Feb 2024 15:44:10 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] automation: Rework "build-each-commit-gcc" test
-Content-Language: en-US
-To: Anthony PERARD <anthony.perard@cloud.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240220140733.40980-1-anthony.perard@citrix.com>
- <e48c4fce-e7f3-4bce-bf7b-2cfcc0659426@suse.com>
- <d2cef00e-019d-44d6-9c12-a628455aea88@perard>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d2cef00e-019d-44d6-9c12-a628455aea88@perard>
+Subject: [REGRESSION] Re: [XEN PATCH v4 4/4] eclair: move function and macro
+ properties outside ECLAIR
+Content-Language: en-GB
+To: Simone Ballarin <simone.ballarin@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, sstabellini@kernel.org,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, George Dunlap
+ <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+References: <cover.1706886631.git.simone.ballarin@bugseng.com>
+ <387b160ae93c221c4bc2426605b96b432b26224e.1706886631.git.simone.ballarin@bugseng.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <387b160ae93c221c4bc2426605b96b432b26224e.1706886631.git.simone.ballarin@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26.02.2024 15:49, Anthony PERARD wrote:
-> On Mon, Feb 26, 2024 at 10:23:37AM +0100, Jan Beulich wrote:
->> On 20.02.2024 15:07, Anthony PERARD wrote:
->>> --- a/automation/scripts/build-test.sh
->>> +++ b/automation/scripts/build-test.sh
->>> @@ -9,6 +9,37 @@
->>>  # Set NON_SYMBOLIC_REF=1 if you want to use this script in detached HEAD state.
->>>  # This is currently used by automated test system.
->>>  
->>> +# Colors with ANSI escape sequences
->>> +txt_info='[32m'
->>> +txt_err='[31m'
->>> +txt_clr='[0m'
->>> +
->>> +# $GITLAB_CI should be "true" or "false".
->>> +if [ "$GITLAB_CI" != true ]; then
->>> +    GITLAB_CI=false
->>> +fi
->>> +
->>> +gitlab_log_section() {
->>> +    if $GITLAB_CI; then
->>> +        echo -n "[0Ksection_$1:$(date +%s):$2
->>> [0K"
->>
->> ... there was either corruption on transmit here, or there's an embedded
->> newline that I don't know how to deal with.
-> 
-> No corruption here, there is a \r in this string. There's also \e a few
-> times. Most tools can deal with these characters just fine, so I didn't
-> even think there could be an issue.
+On 02/02/2024 3:16 pm, Simone Ballarin wrote:
+> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+>
+> Function and macro properties contained in ECLAIR/call_properties.ecl are of
+> general interest: this patch moves these annotations in a generaric JSON file
+> in docs. In this way, they can be exploited for other purposes (i.e. documentation,
+> other tools).
+>
+> Add rst file containing explanation on how to update function_macro_properties.json.
+> Add script to convert the JSON file in ECL configurations.
+> Remove ECLAIR/call_properties.ecl: the file is now automatically generated from
+> the JSON file.
+>
+> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
+>
+> ---
+> Changes in v4:
+> - add missing script for converting the JSON file in ECL configurations;
+> - improve commit message;
+> - remove call_properties.ecs.
+> ---
+>  .../eclair_analysis/ECLAIR/analysis.ecl       |   1 +
+>  .../ECLAIR/call_properties.ecl                | 128 ---
+>  automation/eclair_analysis/prepare.sh         |   2 +
+>  automation/eclair_analysis/propertyparser.py  |  37 +
+>  docs/function_macro_properties.json           | 841 ++++++++++++++++++
+>  docs/function_macro_properties.rst            |  58 ++
+>  6 files changed, 939 insertions(+), 128 deletions(-)
+>  delete mode 100644 automation/eclair_analysis/ECLAIR/call_properties.ecl
+>  create mode 100644 automation/eclair_analysis/propertyparser.py
+>  create mode 100644 docs/function_macro_properties.json
+>  create mode 100644 docs/function_macro_properties.rst
 
-Okay, in an entirely different 2nd attempt I got it committed fine (I
-hope). It's probably too old fashioned of me / my scripts that I
-demand for every patch to pass a "patch --dry-run" first.
+This breaks the Sphinx build.
 
-Jan
+checking consistency...
+/local/xen.git/docs/function_macro_properties.rst: WARNING: document
+isn't included in any toctree
 
-> If that byte is really an issue, I could rewrite the patch to use
-> printf, and I think it would read as:
-> 
->         printf "\e[0Ksection_$1:$(date +%s):$2\r\e[0K"
-> 
-> Thanks,
-> 
+Also, the top level of docs really isn't an appropriate place to put
+it.  Everything else is in docs/misra/.
 
+When you've moved the files, you'll need to edit docs/misra/index.rst to
+fix the build.
+
+~Andrew
 
