@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67752867874
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 15:29:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685572.1066500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 866C9867889
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 15:32:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685578.1066511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rebzB-0001YX-MT; Mon, 26 Feb 2024 14:29:41 +0000
+	id 1rec20-0003Q6-3C; Mon, 26 Feb 2024 14:32:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685572.1066500; Mon, 26 Feb 2024 14:29:41 +0000
+Received: by outflank-mailman (output) from mailman id 685578.1066511; Mon, 26 Feb 2024 14:32:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rebzB-0001X1-JY; Mon, 26 Feb 2024 14:29:41 +0000
-Received: by outflank-mailman (input) for mailman id 685572;
- Mon, 26 Feb 2024 14:29:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rec20-0003Oa-0O; Mon, 26 Feb 2024 14:32:36 +0000
+Received: by outflank-mailman (input) for mailman id 685578;
+ Mon, 26 Feb 2024 14:32:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rebz9-0000sF-O7
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 14:29:39 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 786cb726-d4b3-11ee-98f5-efadbce2ee36;
- Mon, 26 Feb 2024 15:29:38 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-512bce554a5so3938520e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 06:29:38 -0800 (PST)
+ id 1rec1y-0003OT-D2
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 14:32:34 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e0f23cc3-d4b3-11ee-8a58-1f161083a0e0;
+ Mon, 26 Feb 2024 15:32:33 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-55a035669d5so5582607a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 06:32:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l9-20020a170906078900b00a3d99dc3f3asm2448125ejc.67.2024.02.26.06.29.37
+ m13-20020a1709062b8d00b00a3d4dc76454sm2456220ejg.159.2024.02.26.06.32.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 06:29:37 -0800 (PST)
+ Mon, 26 Feb 2024 06:32:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 786cb726-d4b3-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: e0f23cc3-d4b3-11ee-8a58-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708957778; x=1709562578; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708957953; x=1709562753; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=BaaFxXwDVZJ2mUArreBYJzy2ZfGo1vhOiJJyArOICp8=;
-        b=f8rgxSqPw5+MLVImmlisQp5aZh987JxRuoz/G16/HHUPwHg6tKd/60c/Uh9suIAS3P
-         Ii2DzTEyLlKwILiXWOKwtkwmtg5UdnhbzKZqvgfBiI7NfZl4RtYNmI0moVVQ3cpq0Mm3
-         Um/i3hGgpe79KiXOdIbdOCFC8YIW23hcjTkCdIbTS0U2FzlsNhyaKfycZ17+OsLbK4ER
-         5Ac0xaTPMvd/ofykxvWmG1MumtWeA+Uit2eBQgBiTwh8mLMpizqDNPHm+r+NyzYAhB/M
-         ccYsOsLWvK/+Tr1YushMKKCVjQ51hP3SudYjOmPjCvDUBLHfsI1ooqx7v3HTtkK2FmfI
-         Heew==
+        bh=sq9Jn4HsxBCmv5YKEqHY9N3bvJT38sl32KjCdq1pe5M=;
+        b=NqtVvyWtn/8qn4vJNwfa8YSA7i85MRk6sN6BUT/1sXYb+nK5NV6k/w2BmKGpsB3wIf
+         A/4HqWMZ/eVpON6zFOL9un8D9Mcb4eZIBBdJGG+9iDRfZ/Hu42BtxrkwbAdBye4edBQK
+         ACAuyQ88is8H/qqu6JeF0yUsxhudtMqY72RFCRAXP9sSrHlj1xQ25fUJQunsUMNWtaL4
+         VNzhCmkoSKdxYHGLltMLymtY0Of14IAvbp2HuO0LQDuwHxLdhEwRfN8Z1Ao42NH0GZic
+         eVp4OJpctZbGAniVRJz1LPpv1ZVPlK6Wc0R0Ecojg37w2B5bJJ9ph+2LU89LwMibw6Rn
+         BoQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708957778; x=1709562578;
+        d=1e100.net; s=20230601; t=1708957953; x=1709562753;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BaaFxXwDVZJ2mUArreBYJzy2ZfGo1vhOiJJyArOICp8=;
-        b=olUQicDR6Lp5YW6zCMJBpGIOTkxqQSMZWynNOISyLxTYaoFPWF/fYvfJuEkDHAupL0
-         OXb0x0H0BJM5A2FYX6qlVxKSWqq4EuKUqeFeHpzcMIisnAcYr0iwM5NqblGqk14miMH/
-         aF7k2q/fIsSXsZLrd+lGi5e6YfKTKe7o/r/er1+1XJEm0NJbPLaSISKxbbvGu5aNQQy7
-         BpJYKPLzE9Ade31e6xg147wxjSBMvUBehbKWeqrz9YrnKbiTFfRLWBKSEpfp/e/qm/h/
-         a6vSwvfnhctGwEMXtjU5lOxNZ12fMuGkgecD223nPnJeWOg3Ji0Nyq4qnWUOh5XHqeN9
-         RBBQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV0S2Y26EaLroU3w3ooOl8qHa98OJzDrTKCfkD4GgG7KVwrHDgA19w9UjpshdWx9GHq+p1rTjKyULLbliOPgYUWQTs3jUJCoKvfMpSNcG4=
-X-Gm-Message-State: AOJu0Yxhq0R3gxlx0MdEl0tvqy4WIcWOvYNiCYwX6+BYz3Xcia5hnyDm
-	7DzQAuXQbZMTHIAUyJTyzuAyWthRSS1RI26SLW0iEBd+GELP76RRrEn7oaQaHA==
-X-Google-Smtp-Source: AGHT+IE3X4a5BHCW2jViG//VrdrAL9LZrocslKZgqFXV8XXHANZxZLiMnw/tSWyni8lI903g1vpyBw==
-X-Received: by 2002:ac2:5b1a:0:b0:512:eee2:d8d0 with SMTP id v26-20020ac25b1a000000b00512eee2d8d0mr4080251lfn.59.1708957777797;
-        Mon, 26 Feb 2024 06:29:37 -0800 (PST)
-Message-ID: <5f884442-df10-44eb-b748-c6b359b24910@suse.com>
-Date: Mon, 26 Feb 2024 15:29:37 +0100
+        bh=sq9Jn4HsxBCmv5YKEqHY9N3bvJT38sl32KjCdq1pe5M=;
+        b=DJc7gcvOQi/8/Gi4wOLgkFPC/vDHaZGmgvfp28YAaWTijzCDWwGVDSTJwMjv08goiq
+         tn3UBHt2tJ1aPiiuWIQT5Ur2uL+RJsDSl+txfSCSdF9QN8FGgRdQjNPfcgjCS+BAZFiY
+         lZDYRdNKpiwciarFe+hKRNspwz1G60g32Kd8EpPYHr3FNJ9T3DVseITOl1owNUOD+wja
+         0R1eu87evg7afU+ZvEycWa9gUInJCHrCsp41shtZz9lT1zIEfHymIAoq4eqr2V9/zPnT
+         hxFG+T3RIutn5HVMw/wiIbHJXmW3+kR/EwbB6bVFWb8jWYY19Hm0YBeTlTKAY89FWKqH
+         iR/w==
+X-Forwarded-Encrypted: i=1; AJvYcCWOVQuwQ9rJ2+pLNLT2eDsB5p4kUiMMJqMW/g4Z5RDUk0MmoPOLBXSqDjr6vt5nezHLWq5a0jAHUUPqXsCvtamOn4WMXG4NZdFGHErjkhQ=
+X-Gm-Message-State: AOJu0YzdZRJa7Wj70r97bPH2L57+TzzmPNj8nw6WyOBkc8eYBmFEGh4q
+	EU6iy4RxaHQH84CrZe/YvGGKIERQC4Jy9TNgNczjLesBrlMOkd3P0fX4YUiTOw==
+X-Google-Smtp-Source: AGHT+IFeKgNGcO6S2yEzxIzMYZqw0QWQ9Ua0xke47tGX+sNRMZS+75Hck7WKiEiB0Div5i5dbfESjQ==
+X-Received: by 2002:a17:906:d106:b0:a43:7ca4:a305 with SMTP id b6-20020a170906d10600b00a437ca4a305mr1018397ejz.43.1708957952983;
+        Mon, 26 Feb 2024 06:32:32 -0800 (PST)
+Message-ID: <01621599-7d1f-4cfb-9844-06fba32a62aa@suse.com>
+Date: Mon, 26 Feb 2024 15:32:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/entry: Simplify expressions in
- compat_restore_all_guest()
+Subject: Re: [PATCH 3/3] x86/entry: Introduce EFRAME_* constants
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240226125501.1233599-1-andrew.cooper3@citrix.com>
- <20240226125501.1233599-3-andrew.cooper3@citrix.com>
+ <20240226125501.1233599-4-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,20 +111,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240226125501.1233599-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20240226125501.1233599-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 26.02.2024 13:55, Andrew Cooper wrote:
-> compat_restore_all_guest() already has SPEC_CTRL_EXIT_TO_PV with a documented
-> requirement for %rsp to be both regs and cpuinfo.
+> restore_all_guest() does a lot of manipulation of the stack after popping the
+> GPRs, and uses raw %rsp displacements to do so.  Also, almost all entrypaths
+> use raw %rsp displacements prior to pushing GPRs.
 > 
-> Use the now-normal annotations and simplify the expressions which happen to be
-> a subtraction of 0.
+> Provide better mnemonics, to aid readability and reduce the chance of errors
+> when editing.
+> 
+> No functional change.  The resulting binary is identical.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with one small request:
 
+> --- a/xen/arch/x86/x86_64/asm-offsets.c
+> +++ b/xen/arch/x86/x86_64/asm-offsets.c
+> @@ -51,6 +51,23 @@ void __dummy__(void)
+>      OFFSET(UREGS_kernel_sizeof, struct cpu_user_regs, es);
+>      BLANK();
+>  
+> +    /*
+> +     * EFRAME_* is for the entry/exit logic where %rsp is pointing at
+> +     * UREGS_error_code and GPRs are still guest values.
+> +     */
 
+"still/already" or some such to match "entry/exit"?
+
+Jan
 
