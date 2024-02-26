@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F4DD867EDD
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A415867EDE
 	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 18:39:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685694.1066853 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.685695.1066859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reewi-0000ST-NM; Mon, 26 Feb 2024 17:39:20 +0000
+	id 1reewj-0000b2-5l; Mon, 26 Feb 2024 17:39:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685694.1066853; Mon, 26 Feb 2024 17:39:20 +0000
+Received: by outflank-mailman (output) from mailman id 685695.1066859; Mon, 26 Feb 2024 17:39:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reewi-0000Pg-In; Mon, 26 Feb 2024 17:39:20 +0000
-Received: by outflank-mailman (input) for mailman id 685694;
- Mon, 26 Feb 2024 17:39:18 +0000
+	id 1reewj-0000SY-0U; Mon, 26 Feb 2024 17:39:21 +0000
+Received: by outflank-mailman (input) for mailman id 685695;
+ Mon, 26 Feb 2024 17:39:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OiHA=KD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1reewg-0007o5-8k
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 17:39:18 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
+ id 1reewh-0007o5-8r
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 17:39:19 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f6a85ce2-d4cd-11ee-98f5-efadbce2ee36;
- Mon, 26 Feb 2024 18:39:16 +0100 (CET)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2d2505352e6so47244191fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 09:39:16 -0800 (PST)
+ id f71e570e-d4cd-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 18:39:17 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2d26227d508so37271881fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 09:39:17 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- z8-20020a2e8e88000000b002d0ae22ff6fsm920883ljk.60.2024.02.26.09.39.14
+ z8-20020a2e8e88000000b002d0ae22ff6fsm920883ljk.60.2024.02.26.09.39.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Feb 2024 09:39:14 -0800 (PST)
+ Mon, 26 Feb 2024 09:39:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6a85ce2-d4cd-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: f71e570e-d4cd-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1708969155; x=1709573955; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1708969157; x=1709573957; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5QXD9Bqte9tbBNNj19StZof4KTDsqaQLUFyEe8EONIE=;
-        b=RYnO8C25oJP4vaPalPUe0Gywg5Q41kMBYG3+C6a3V09TZUfmOClrNZFuOAXcuClcL7
-         nrn3webVJwDuIgPBD4EOAB8xloTxmHTfGx7ZUh2rxmRSmcxVUbiH05E4GGR4XV1hqgiO
-         Uu1mgqKJ9qHGDdLVOeYQyMMrbXy8WScrIs5Wkn8nZxC2a/M5ntb6/8bAqDnfQc6rJsRK
-         t0Ilh0CYxU4GPfYD6zByUlabdkZwG/SHfLdFbEtLJBff0Lr4mhePMiY/iVp90ntD08tX
-         zTokcHF7MQFi4tZ+oFisd7RQeR77N4w7eCjW5462DZvl+lV2AqgJoHLYRsFBz6u1F9Ew
-         AJvg==
+        bh=cZDHTEej6Jv3SYqhJWcdCnlmv5/Saryrf0OJ+2bCraY=;
+        b=f/BTuAOOL9lrH1hLeKUPooDvh2qzJ8i95BO0kUpxtORTrQW+t+1xPGBXirQuum6B8G
+         XJgntsVAix3Z5bMWIgJblP31oSvyiRyMQuQTkHt6BeXU6EgPIcr8SZ9I2tcAgwq3HyIx
+         chQBzR01FGqxnhiXX6OP2YSUJaXxm/l5OdE0sCw1K3e/7epV7oAPNeQ//JYpOq8ETPQZ
+         saK4ZsTzRyY0KG1p1P0TIz94zRt28Pri4vKEukhiSYIO+lWGi4NXfIu/wJ0MI3kJO1I5
+         Mzd4RwgNtEoz2Wd8PXO9q9aD4YOt8qJYXHbyiXi8wZC+qYcfi3LRmUvzlsRCSfbhID/L
+         30Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708969155; x=1709573955;
+        d=1e100.net; s=20230601; t=1708969157; x=1709573957;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=5QXD9Bqte9tbBNNj19StZof4KTDsqaQLUFyEe8EONIE=;
-        b=QhInZbf+dmUjPLWmLrdkE/p8HUQQIrNNBUdxJ0lA6YLR/JwJ1JTQyptQ2eTGN5j3eU
-         UkZHlnnCt8CGbd2Ve2Zkp44bI785zypTzSNLnbRyKCQxfqszavJxMW53NT+DKuyqkVPE
-         ZjfjxYZtJvh+aAwc8mE8fBAuywklj3EZqMgtkol/zwtxoQ7jzDHDXJvQSyA0uK0pKWM1
-         lBE8yR5YlxsWFQGleEkuKy0MPm6l3vZqXGhoiOeeZruzvSCeeUhBCisPjQrdY+TvAJmT
-         gCGzSUHx3WQGNmN4nhouDtjShDwrxCFXCz3OzkqxW5hbA/EgYaRapunj467+ScsJzZSx
-         HoFg==
-X-Gm-Message-State: AOJu0YwcLmRAR7fL0EI7OOCKUD5drTwmBRFMlUrjM1N1FaT08LPHHyJI
-	IOiZ//4VvyEAyxPTr/AoaTJXYfR1L4Qyg75rPA0cKFEU+YmjyLcJkX04QIr1
-X-Google-Smtp-Source: AGHT+IFvsPxhN4C3ThBll7DvHcWDkL9leZhN0tUsmEUehjtHp8dOS7FUThlx2z3fbjBdgSnh26b3Yg==
-X-Received: by 2002:a2e:be07:0:b0:2d2:86ca:c0d0 with SMTP id z7-20020a2ebe07000000b002d286cac0d0mr3368307ljq.16.1708969155350;
-        Mon, 26 Feb 2024 09:39:15 -0800 (PST)
+        bh=cZDHTEej6Jv3SYqhJWcdCnlmv5/Saryrf0OJ+2bCraY=;
+        b=j7p44ND+o0vi4ndD/kHTFYAOm+oEC/WVhJE7/Qmr9Jb0tj8Dr3m6a1jxYhtz+dS038
+         FSedbsSIw2LZviCgB3g8/9gYqgnlw+tRyvy+tYZkSUdLNZ5+uiz+qYYl20ZxTxPfse1V
+         15cxC91TL8SqGPLa8ADUTJbeuarOfw3KgdzetLZFkjNL5Xz1o4j1+sbCw+OwlOZsqiLH
+         Q8EaWh0NopXdA4qx/Zb4IE79yQ5H4HKhhaB841RsWxq8TJgcKlx6OQZjZlqFbS0y1B4H
+         2gaFNHpjP4VCftIyVMqqs7r1s0kHHBvFdk6a2Pl/7ME+W3gSyZ/b8LAV4G3m8hybrhcl
+         aTxw==
+X-Gm-Message-State: AOJu0YxzlJuf3WMo6o7rierF08/8j8jQHTnKQsujIcAz1wAjLIZ9vBKV
+	GOzfZZYX+97NKWTpCADuqRryS9dvzRGpMkSdkDNbDwiL5x+BE1LuSKca3WfX
+X-Google-Smtp-Source: AGHT+IHFR4+Ivxmy7gFlPOXPEnFVpLHuKhIHnvGtUwBdkWRa4mfpFeN/WIg0Q58ss7HZNSYz5/nM6Q==
+X-Received: by 2002:a2e:bc12:0:b0:2d2:607e:8121 with SMTP id b18-20020a2ebc12000000b002d2607e8121mr5407859ljf.43.1708969156635;
+        Mon, 26 Feb 2024 09:39:16 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -83,9 +83,9 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v5 04/23] xen/asm-generic: introduce generic fls() and flsl() functions
-Date: Mon, 26 Feb 2024 18:38:46 +0100
-Message-ID: <df7ab5055ef08fa595f913072302770a3f6a5c33.1708962629.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v5 05/23] xen/asm-generic: introduce generic find first set bit functions
+Date: Mon, 26 Feb 2024 18:38:47 +0100
+Message-ID: <f4fce2215f629f5fe76f79557e1fe7a55876014c.1708962629.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1708962629.git.oleksii.kurochko@gmail.com>
 References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
@@ -100,52 +100,129 @@ Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
  Changes in V5:
    - new patch
 ---
- xen/include/asm-generic/bitops/fls.h  | 18 ++++++++++++++++++
- xen/include/asm-generic/bitops/flsl.h | 10 ++++++++++
- 2 files changed, 28 insertions(+)
- create mode 100644 xen/include/asm-generic/bitops/fls.h
- create mode 100644 xen/include/asm-generic/bitops/flsl.h
+ xen/include/asm-generic/bitops/__ffs.h        | 47 +++++++++++++++++++
+ xen/include/asm-generic/bitops/ffs.h          |  9 ++++
+ xen/include/asm-generic/bitops/ffsl.h         | 16 +++++++
+ .../asm-generic/bitops/find-first-set-bit.h   | 17 +++++++
+ 4 files changed, 89 insertions(+)
+ create mode 100644 xen/include/asm-generic/bitops/__ffs.h
+ create mode 100644 xen/include/asm-generic/bitops/ffs.h
+ create mode 100644 xen/include/asm-generic/bitops/ffsl.h
+ create mode 100644 xen/include/asm-generic/bitops/find-first-set-bit.h
 
-diff --git a/xen/include/asm-generic/bitops/fls.h b/xen/include/asm-generic/bitops/fls.h
+diff --git a/xen/include/asm-generic/bitops/__ffs.h b/xen/include/asm-generic/bitops/__ffs.h
 new file mode 100644
-index 0000000000..369a4c790c
+index 0000000000..fecb4484d9
 --- /dev/null
-+++ b/xen/include/asm-generic/bitops/fls.h
-@@ -0,0 +1,18 @@
++++ b/xen/include/asm-generic/bitops/__ffs.h
+@@ -0,0 +1,47 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _ASM_GENERIC_BITOPS_FLS_H_
-+#define _ASM_GENERIC_BITOPS_FLS_H_
++#ifndef _ASM_GENERIC_BITOPS___FFS_H_
++#define _ASM_GENERIC_BITOPS___FFS_H_
 +
 +/**
-+ * fls - find last (most-significant) bit set
-+ * @x: the word to search
++ * ffs - find first bit in word.
++ * @word: The word to search
 + *
-+ * This is defined the same way as ffs.
-+ * Note fls(0) = 0, fls(1) = 1, fls(0x80000000) = 32.
++ * Returns 0 if no bit exists, otherwise returns 1-indexed bit location.
 + */
-+
-+static inline int fls(unsigned int x)
++static inline unsigned int __ffs(unsigned long word)
 +{
-+    return generic_fls(x);
++    unsigned int num = 0;
++
++#if BITS_PER_LONG == 64
++    if ( (word & 0xffffffff) == 0 )
++    {
++        num += 32;
++        word >>= 32;
++    }
++#endif
++    if ( (word & 0xffff) == 0 )
++    {
++        num += 16;
++        word >>= 16;
++    }
++    if ( (word & 0xff) == 0 )
++    {
++        num += 8;
++        word >>= 8;
++    }
++    if ( (word & 0xf) == 0 )
++    {
++        num += 4;
++        word >>= 4;
++    }
++    if ( (word & 0x3) == 0 )
++    {
++        num += 2;
++        word >>= 2;
++    }
++    if ( (word & 0x1) == 0 )
++        num += 1;
++    return num;
 +}
 +
-+#endif /* _ASM_GENERIC_BITOPS_FLS_H_ */
-diff --git a/xen/include/asm-generic/bitops/flsl.h b/xen/include/asm-generic/bitops/flsl.h
++#endif /* _ASM_GENERIC_BITOPS___FFS_H_ */
+diff --git a/xen/include/asm-generic/bitops/ffs.h b/xen/include/asm-generic/bitops/ffs.h
 new file mode 100644
-index 0000000000..d0a2e9c729
+index 0000000000..3f75fded14
 --- /dev/null
-+++ b/xen/include/asm-generic/bitops/flsl.h
-@@ -0,0 +1,10 @@
++++ b/xen/include/asm-generic/bitops/ffs.h
+@@ -0,0 +1,9 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _ASM_GENERIC_BITOPS_FLSL_H_
-+#define _ASM_GENERIC_BITOPS_FLSL_H_
++#ifndef _ASM_GENERIC_BITOPS_FFS_H_
++#define _ASM_GENERIC_BITOPS_FFS_H_
 +
-+static inline int flsl(unsigned long x)
++#include <xen/macros.h>
++
++#define ffs(x) ({ unsigned int t_ = (x); fls(ISOLATE_LSB(t_)); })
++
++#endif /* _ASM_GENERIC_BITOPS_FFS_H_ */
+diff --git a/xen/include/asm-generic/bitops/ffsl.h b/xen/include/asm-generic/bitops/ffsl.h
+new file mode 100644
+index 0000000000..d0996808f5
+--- /dev/null
++++ b/xen/include/asm-generic/bitops/ffsl.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _ASM_GENERIC_BITOPS_FFSL_H_
++#define _ASM_GENERIC_BITOPS_FFSL_H_
++
++/**
++ * ffsl - find first bit in long.
++ * @word: The word to search
++ *
++ * Returns 0 if no bit exists, otherwise returns 1-indexed bit location.
++ */
++static inline unsigned int ffsl(unsigned long word)
 +{
-+    return generic_flsl(x);
++    return generic_ffsl(word);
 +}
 +
-+#endif /* _ASM_GENERIC_BITOPS_FLSL_H_ */
++#endif /* _ASM_GENERIC_BITOPS_FFSL_H_ */
+diff --git a/xen/include/asm-generic/bitops/find-first-set-bit.h b/xen/include/asm-generic/bitops/find-first-set-bit.h
+new file mode 100644
+index 0000000000..7d28b8a89b
+--- /dev/null
++++ b/xen/include/asm-generic/bitops/find-first-set-bit.h
+@@ -0,0 +1,17 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _ASM_GENERIC_BITOPS_FIND_FIRST_SET_BIT_H_
++#define _ASM_GENERIC_BITOPS_FIND_FIRST_SET_BIT_H_
++
++/**
++ * find_first_set_bit - find the first set bit in @word
++ * @word: the word to search
++ *
++ * Returns the bit-number of the first set bit (first bit being 0).
++ * The input must *not* be zero.
++ */
++static inline unsigned int find_first_set_bit(unsigned long word)
++{
++        return ffsl(word) - 1;
++}
++
++#endif /* _ASM_GENERIC_BITOPS_FIND_FIRST_SET_BIT_H_ */
 -- 
 2.43.0
 
