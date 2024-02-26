@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DA57867C5A
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 17:45:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685655.1066742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A87CB867C76
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 17:49:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685675.1066783 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ree6C-0002Ru-Sd; Mon, 26 Feb 2024 16:45:04 +0000
+	id 1reeAW-00055b-6Y; Mon, 26 Feb 2024 16:49:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685655.1066742; Mon, 26 Feb 2024 16:45:04 +0000
+Received: by outflank-mailman (output) from mailman id 685675.1066783; Mon, 26 Feb 2024 16:49:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ree6C-0002Pr-Pw; Mon, 26 Feb 2024 16:45:04 +0000
-Received: by outflank-mailman (input) for mailman id 685655;
- Mon, 26 Feb 2024 16:45:03 +0000
+	id 1reeAW-00052P-3S; Mon, 26 Feb 2024 16:49:32 +0000
+Received: by outflank-mailman (input) for mailman id 685675;
+ Mon, 26 Feb 2024 16:49:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ree6B-0000BK-7r
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 16:45:03 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1ree6R-0000BK-U3
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 16:45:19 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 630a19a5-d4c6-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 17:45:02 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-55a8fd60af0so4313635a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 08:45:02 -0800 (PST)
+ id 6cfdc0e4-d4c6-11ee-8a58-1f161083a0e0;
+ Mon, 26 Feb 2024 17:45:19 +0100 (CET)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-512bd533be0so3923413e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 08:45:19 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d18-20020a056402401200b005640022af58sm2509237eda.83.2024.02.26.08.45.01
+ d18-20020a056402401200b005640022af58sm2509237eda.83.2024.02.26.08.45.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 08:45:01 -0800 (PST)
+ Mon, 26 Feb 2024 08:45:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 630a19a5-d4c6-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: 6cfdc0e4-d4c6-11ee-8a58-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708965902; x=1709570702; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708965919; x=1709570719; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qlvyaBxTJU8IjuZfhNaBPKvna3qwUHhOtqZ6G2oyic0=;
-        b=Y2w1x6CUqI9wE/GfptBvw1f/ZbhfcI/IyaqOnCX1nQAwwKv0wRZzNcJ8m3sWZu5Vgl
-         vOiNHprok6ftTbCBvJT1SxqhW1ALm0S2iPR12cIIJNuQWHRSf5f3CwqE7YVKE+9ohfP4
-         T+m8pgDO/MErGLu/XnEKbPoQ4T8zUnVFREoTI50KXWSdbPxNyoVMxD4BAnX6HUwYHDyu
-         zit1XrojLOLL+y6fQ5cuUUCe97h/rAd44CMMG2faPzILzckwGpsYVyoeKXE3bt7pJKGW
-         tMKs6kK4dP7u+U1iAAJoEGkyXq/9IOp4Xft9OhIAJV7UhyDe3EW6DExiHPItd1CPNqiY
-         PRLQ==
+        bh=XYZOa3J14PwMoF80jvxD0VhtxRYvyB0LOPQq6Y/apVY=;
+        b=RsKSjMVR+mNCv97sPMaKUUhTvDzU+HokmPK7Qg98ElUbHU2RLXdd372r4sEhM1SZgK
+         7uJsuvlvB/ePqvfF9QhaqFs2OkyJJBWLCajnagiAALsxnqPV/Nyb9j1dzGbP95Ym6aRh
+         ooAxiDaA2vNlj6PbyF+wZ2G/+bIOMlv2Yi5LoTFbjt276IHbOA4PP5oT3MZCdxg/v8C1
+         5G7kX1l6d3ZCxHHaKT+sqWMNv/pRL60Wzhu8V1EBV2udVpmb+YFn9Fsp8yn0u/EssWmC
+         /BlxvIhko5sKL90XBrLpPAzESYuINEzrPX/yG4yBesQSgtE9NBentBdZKu9UXdQMlYyj
+         mcVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708965902; x=1709570702;
+        d=1e100.net; s=20230601; t=1708965919; x=1709570719;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=qlvyaBxTJU8IjuZfhNaBPKvna3qwUHhOtqZ6G2oyic0=;
-        b=vGyXS1VCk1H69KgYsgKcF5iS6AHhzjAi4hbIeWm0NDG+lXlskgPRO9AGEk3X1xFsaV
-         T1YkC2LWoFuIseP7u3s0JdjL+QWPL7ior4bdi8mieTjM3CKfKBzoTK/2FZ/DcTBIX9Sw
-         Rz4t/BMjUqvommSc1rxSQV6eZXLMSPenxmq+IVnymn8HHGxquAsOnpCJQ9h/Fu87MGGN
-         ljNG1rYR6RKcbpNfr3exlgJdN3IeLlXYmcfc7hsGSK3dn8t1gLmhZ92UusrX6sEytQhz
-         9WDk4tkiFe1vF3Q+QobE9xvEEauwRzRwWBW17SCcprlsz7Z3iadTOchYPtijC90pOGlW
-         ZywA==
-X-Gm-Message-State: AOJu0YydpZS3XVmrsi8A2uu/tzVuKN99dqubFdOXl7jIG2vjom8lUfSD
-	DqKd9JYidJr5LqNjiFbWaEqPp/3b4UFucND8rzijDPzXQ/nMaBToCoLEa4km7/B2I+3gzfGsSIM
+        bh=XYZOa3J14PwMoF80jvxD0VhtxRYvyB0LOPQq6Y/apVY=;
+        b=KMoSvHppyeC7uUCuX80xl2WNm+DmHUio/WzQHxwnVbJsvqeiRC2mpHZbhRf7n1eR1f
+         Mg0v6Xjfl9cpDGz3waigNW/gijNSiOUchsBiNu4dGRX7HkF37OPYN/0LoMJ1Dqzm9dvx
+         h1z8+O6TidLmatRk2eFckcjdjEWSD6CrSl5Uu29C21AchxJiBvctdZFjekEAyIDHejqp
+         Ayh6UQVO4yeXQNp66+qLc0CyZ4nrz+xLnzpP8llo3fm9vaKx3luiiVdlOWDDMZylEoAo
+         bXV72qD20QGhdc3BrD5BtwMYndaxtpT/tf1CFa3GQtU857GoxjBmE7CZbWbiXL2Q5YUA
+         ImFA==
+X-Gm-Message-State: AOJu0YwS30+2V3yknpPOPmmrgixh0K7XkFCO7f3pG6hhTOUwdyFQg/20
+	HZ+2Au9vY39W8RDRKmn2pJT2BpEGNB7tV2r92uPZiFb7scHqC0okqj904P1a5u9+f4D8KaPnJSk
 	=
-X-Google-Smtp-Source: AGHT+IGmLDwC13pcsL6fhS7ZmCc853YcZ4+1dBnx0uXrFWGkrq1vusQsnSjUr1bG8naqR66JU1KvCw==
-X-Received: by 2002:aa7:df93:0:b0:565:e294:5119 with SMTP id b19-20020aa7df93000000b00565e2945119mr2370985edy.18.1708965902142;
-        Mon, 26 Feb 2024 08:45:02 -0800 (PST)
-Message-ID: <6c273891-8232-4de3-97e1-8f39a174ba32@suse.com>
-Date: Mon, 26 Feb 2024 17:45:01 +0100
+X-Google-Smtp-Source: AGHT+IEJZL8vn/EMuwZRGM3/4zNNuLIusBD3O5kk1RqbEsr4YKFsolMj3+CB5jypecUGTBMBxffYIw==
+X-Received: by 2002:a05:6512:20c7:b0:512:f69f:fc45 with SMTP id u7-20020a05651220c700b00512f69ffc45mr2912115lfr.27.1708965918966;
+        Mon, 26 Feb 2024 08:45:18 -0800 (PST)
+Message-ID: <a4db4772-f6d5-42d9-8d5f-be451b5639ff@suse.com>
+Date: Mon, 26 Feb 2024 17:45:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 09/12] VMX: convert vmx_vmexit_control
+Subject: [PATCH v3 10/12] VMX: convert vmx_vmentry_control
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -128,98 +128,99 @@ v2: New.
  
  /* Dynamic (run-time adjusted) execution control flags. */
  struct vmx_caps __ro_after_init vmx_caps;
--u32 vmx_vmexit_control __read_mostly;
- u32 vmx_vmentry_control __read_mostly;
+-u32 vmx_vmentry_control __read_mostly;
  u64 vmx_ept_vpid_cap __read_mostly;
  static uint64_t __read_mostly vmx_vmfunc;
-@@ -260,7 +259,6 @@ static int vmx_init_vmcs_config(bool bsp
+ 
+@@ -259,7 +258,6 @@ static int vmx_init_vmcs_config(bool bsp
      struct vmx_caps caps = {};
      u64 _vmx_ept_vpid_cap = 0;
      u64 _vmx_misc_cap = 0;
--    u32 _vmx_vmexit_control;
-     u32 _vmx_vmentry_control;
+-    u32 _vmx_vmentry_control;
      u64 _vmx_vmfunc = 0;
      bool mismatch = false;
-@@ -442,7 +440,7 @@ static int vmx_init_vmcs_config(bool bsp
-     opt = (VM_EXIT_SAVE_GUEST_PAT | VM_EXIT_LOAD_HOST_PAT |
-            VM_EXIT_LOAD_HOST_EFER | VM_EXIT_CLEAR_BNDCFGS);
-     min |= VM_EXIT_IA32E_MODE;
--    _vmx_vmexit_control = adjust_vmx_controls(
-+    caps.vmexit_control = adjust_vmx_controls(
-         "VMExit Control", min, opt, MSR_IA32_VMX_EXIT_CTLS, &mismatch);
  
-     /*
-@@ -493,7 +491,6 @@ static int vmx_init_vmcs_config(bool bsp
+@@ -480,7 +478,7 @@ static int vmx_init_vmcs_config(bool bsp
+     min = 0;
+     opt = (VM_ENTRY_LOAD_GUEST_PAT | VM_ENTRY_LOAD_GUEST_EFER |
+            VM_ENTRY_LOAD_BNDCFGS);
+-    _vmx_vmentry_control = adjust_vmx_controls(
++    caps.vmentry_control = adjust_vmx_controls(
+         "VMEntry Control", min, opt, MSR_IA32_VMX_ENTRY_CTLS, &mismatch);
+ 
+     if ( mismatch )
+@@ -491,7 +489,6 @@ static int vmx_init_vmcs_config(bool bsp
          /* First time through. */
          vmx_caps = caps;
          vmx_ept_vpid_cap           = _vmx_ept_vpid_cap;
--        vmx_vmexit_control         = _vmx_vmexit_control;
-         vmx_vmentry_control        = _vmx_vmentry_control;
+-        vmx_vmentry_control        = _vmx_vmentry_control;
          vmx_caps.basic_msr = ((uint64_t)vmx_basic_msr_high << 32) |
                               vmx_basic_msr_low;
+         vmx_vmfunc                 = _vmx_vmfunc;
 @@ -531,7 +528,7 @@ static int vmx_init_vmcs_config(bool bsp
-             vmx_caps.tertiary_exec_control, caps.tertiary_exec_control);
-         mismatch |= cap_check(
-             "VMExit Control",
--            vmx_vmexit_control, _vmx_vmexit_control);
-+            vmx_caps.vmexit_control, caps.vmexit_control);
+             vmx_caps.vmexit_control, caps.vmexit_control);
          mismatch |= cap_check(
              "VMEntry Control",
-             vmx_vmentry_control, _vmx_vmentry_control);
-@@ -1093,7 +1090,7 @@ void nocall vmx_asm_vmexit_handler(void)
- static int construct_vmcs(struct vcpu *v)
+-            vmx_vmentry_control, _vmx_vmentry_control);
++            vmx_caps.vmentry_control, caps.vmentry_control);
+         mismatch |= cap_check(
+             "EPT and VPID Capability",
+             vmx_ept_vpid_cap, _vmx_ept_vpid_cap);
+@@ -1091,7 +1088,7 @@ static int construct_vmcs(struct vcpu *v
  {
      struct domain *d = v->domain;
--    u32 vmexit_ctl = vmx_vmexit_control;
-+    uint32_t vmexit_ctl = vmx_caps.vmexit_control;
-     u32 vmentry_ctl = vmx_vmentry_control;
+     uint32_t vmexit_ctl = vmx_caps.vmexit_control;
+-    u32 vmentry_ctl = vmx_vmentry_control;
++    u32 vmentry_ctl = vmx_caps.vmentry_control;
      int rc = 0;
  
-@@ -2205,7 +2202,6 @@ int __init vmx_vmcs_init(void)
+     vmx_vmcs_enter(v);
+@@ -2202,7 +2199,6 @@ int __init vmx_vmcs_init(void)
           * Make sure all dependent features are off as well.
           */
          memset(&vmx_caps, 0, sizeof(vmx_caps));
--        vmx_vmexit_control         = 0;
-         vmx_vmentry_control        = 0;
+-        vmx_vmentry_control        = 0;
          vmx_ept_vpid_cap           = 0;
          vmx_vmfunc                 = 0;
---- a/xen/arch/x86/hvm/vmx/vvmx.c
-+++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -1060,7 +1060,7 @@ static void load_shadow_control(struct v
-     nvmx_update_pin_control(v, vmx_caps.pin_based_exec_control);
-     vmx_update_cpu_exec_control(v);
-     vmx_update_secondary_exec_control(v);
--    nvmx_update_exit_control(v, vmx_vmexit_control);
-+    nvmx_update_exit_control(v, vmx_caps.vmexit_control);
-     nvmx_update_entry_control(v);
-     vmx_update_exception_bitmap(v);
-     nvmx_update_apic_access_address(v);
+     }
 --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
 +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -227,7 +227,6 @@ void vmx_vmcs_reload(struct vcpu *v);
- #define VM_EXIT_LOAD_HOST_EFER          0x00200000
- #define VM_EXIT_SAVE_PREEMPT_TIMER      0x00400000
- #define VM_EXIT_CLEAR_BNDCFGS           0x00800000
--extern u32 vmx_vmexit_control;
+@@ -235,7 +235,6 @@ void vmx_vmcs_reload(struct vcpu *v);
+ #define VM_ENTRY_LOAD_GUEST_PAT         0x00004000
+ #define VM_ENTRY_LOAD_GUEST_EFER        0x00008000
+ #define VM_ENTRY_LOAD_BNDCFGS           0x00010000
+-extern u32 vmx_vmentry_control;
  
- #define VM_ENTRY_IA32E_MODE             0x00000200
- #define VM_ENTRY_SMM                    0x00000400
+ #define SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES 0x00000001U
+ #define SECONDARY_EXEC_ENABLE_EPT               0x00000002U
 @@ -297,6 +296,7 @@ struct vmx_caps {
-     uint32_t cpu_based_exec_control;
      uint32_t secondary_exec_control;
      uint64_t tertiary_exec_control;
-+    uint32_t vmexit_control;
+     uint32_t vmexit_control;
++    uint32_t vmentry_control;
  };
  extern struct vmx_caps vmx_caps;
  
-@@ -354,7 +354,7 @@ extern struct vmx_caps vmx_caps;
- #define cpu_has_vmx_pml \
+@@ -325,9 +325,9 @@ extern struct vmx_caps vmx_caps;
+ #define cpu_has_monitor_trap_flag \
+     (vmx_caps.cpu_based_exec_control & CPU_BASED_MONITOR_TRAP_FLAG)
+ #define cpu_has_vmx_pat \
+-    (vmx_vmentry_control & VM_ENTRY_LOAD_GUEST_PAT)
++    (vmx_caps.vmentry_control & VM_ENTRY_LOAD_GUEST_PAT)
+ #define cpu_has_vmx_efer \
+-    (vmx_vmentry_control & VM_ENTRY_LOAD_GUEST_EFER)
++    (vmx_caps.vmentry_control & VM_ENTRY_LOAD_GUEST_EFER)
+ #define cpu_has_vmx_unrestricted_guest \
+     (vmx_caps.secondary_exec_control & SECONDARY_EXEC_UNRESTRICTED_GUEST)
+ #define vmx_unrestricted_guest(v)               \
+@@ -355,7 +355,7 @@ extern struct vmx_caps vmx_caps;
      (vmx_caps.secondary_exec_control & SECONDARY_EXEC_ENABLE_PML)
  #define cpu_has_vmx_mpx \
--    ((vmx_vmexit_control & VM_EXIT_CLEAR_BNDCFGS) && \
-+    ((vmx_caps.vmexit_control & VM_EXIT_CLEAR_BNDCFGS) && \
-      (vmx_vmentry_control & VM_ENTRY_LOAD_BNDCFGS))
+     ((vmx_caps.vmexit_control & VM_EXIT_CLEAR_BNDCFGS) && \
+-     (vmx_vmentry_control & VM_ENTRY_LOAD_BNDCFGS))
++     (vmx_caps.vmentry_control & VM_ENTRY_LOAD_BNDCFGS))
  #define cpu_has_vmx_xsaves \
      (vmx_caps.secondary_exec_control & SECONDARY_EXEC_XSAVES)
+ #define cpu_has_vmx_tsc_scaling \
 
 
