@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 597CB8676BE
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 14:38:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685551.1066442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D96D8677EF
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 15:13:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685557.1066450 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rebAg-0007NK-D3; Mon, 26 Feb 2024 13:37:30 +0000
+	id 1rebin-0005Uj-8H; Mon, 26 Feb 2024 14:12:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685551.1066442; Mon, 26 Feb 2024 13:37:30 +0000
+Received: by outflank-mailman (output) from mailman id 685557.1066450; Mon, 26 Feb 2024 14:12:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rebAg-0007L1-7u; Mon, 26 Feb 2024 13:37:30 +0000
-Received: by outflank-mailman (input) for mailman id 685551;
- Mon, 26 Feb 2024 13:37:28 +0000
+	id 1rebin-0005Su-4p; Mon, 26 Feb 2024 14:12:45 +0000
+Received: by outflank-mailman (input) for mailman id 685557;
+ Mon, 26 Feb 2024 14:12:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FdVt=KD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rebAe-0007Ki-Oz
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 13:37:28 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
+ <SRS0=w0W4=KD=cloud.com=fouad.hilly@srs-se1.protection.inumbo.net>)
+ id 1rebim-0005SV-7x
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 14:12:44 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2e7fcd71-d4ac-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 14:37:27 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-512f7332252so1915147e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 05:37:27 -0800 (PST)
-Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
+ id 1b757002-d4b1-11ee-8a58-1f161083a0e0;
+ Mon, 26 Feb 2024 15:12:43 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a3e75e30d36so601344766b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 06:12:43 -0800 (PST)
+Received: from fhilly.citrite.net (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- bq34-20020a05620a46a200b007873c82f0easm2429708qkb.113.2024.02.26.05.37.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 05:37:26 -0800 (PST)
+ k17-20020a17090666d100b00a3d8fb05c0csm2458644ejp.86.2024.02.26.06.12.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Feb 2024 06:12:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +45,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e7fcd71-d4ac-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: 1b757002-d4b1-11ee-8a58-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708954647; x=1709559447; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=6BIt+iE3foNAA53SQcPS2zvEaO/VpJHQbsJoTmUs+cI=;
-        b=EbJ7w+/JGgUu1KeOFCV6MvO2PnUoBUZyTgvaj0VbR9MaoTD16z5SR5AJYmBlRinLTt
-         zG5Nz4Kignzpwwx5WGFfvJidzjqVDKkMl1lexjs0DVyWHd273E/5axTAti8tWdE93QYs
-         0m6NfChAKnJB9BeFKN4s1gtcI/RGLFwuFxRdU=
+        d=cloud.com; s=cloud; t=1708956762; x=1709561562; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=b8c4sqpQaxoDgLK2yQU0ZamZW0iKh8LR8huRc0FX160=;
+        b=OL4fRUlpyYEIwPdFKnLnI61dxZtsoOMkpa7FejnhStv983tjos5/DSv1w10NcTIayt
+         ia9lmNyXXLuy5474icXDpsZl7/Y4gQ/p9cOD84n5kKED77vBJ5D8AMufhmEGWR8DQgsO
+         qvPYarMrVuqvQ9dfVLZapkhYu+kzVxhoE/caI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708954647; x=1709559447;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6BIt+iE3foNAA53SQcPS2zvEaO/VpJHQbsJoTmUs+cI=;
-        b=UVA392pgSI4e5ss1yQpjZQ3FPzh+KSyB/4UfRSeJNpydD/ZYQdLbmFoEFoIZ+Wa7+L
-         HXm1tufjlc0wVO6JGUDJ1JZJykgj7quEK7w40fw7AaxhW2qt2bAkfhMKP2aOpmC/5TJi
-         o3sRi+3v1lHmhv09Y8Md5U16HRZSG1k1i2bZ9TGWMHyF5jeNiqrXBX5a5m07F04wUgCF
-         2n+bvNZlEjhXt8TyQDKiPnE+V7Qkf2/kjeqlVYwV0B2dUIsWdmU0uY7RjAVzPp2tEKH4
-         6Aab1DYL1PIXjsRfl2f//SGTCX1UjWBQ1nFblonqJoXLRMAWE3yaKbvlGcRUG4vEcTi4
-         b3Lw==
-X-Forwarded-Encrypted: i=1; AJvYcCWOfySQ5/f9JEw5H7PqkDafvZlqainCLic83V7izvWCfpP2G5FiCt8z6ojjKXuHo0SxYJcNtIzQKOsvRk+GS6meT/XlQnVBqgClNKY9m2Y=
-X-Gm-Message-State: AOJu0YyAzJ8cLc0mAVGkFqq6EMd7jBxPzCK7tHhu03Kfy1bQmI2sQ1xd
-	PNoFpavAjaT34Sn3GlgY9IQV8I3K09qAE7JVyRMZAxoWAnnpXeY7NATYtVTexNw=
-X-Google-Smtp-Source: AGHT+IFVYvLjon0QcWoxdORvXWFxHItbU1kIdVY7q+EJlYbOo4Gmu/QrkdsAJgwdAhyCCLRFRJuk/Q==
-X-Received: by 2002:a05:6512:3e0c:b0:512:b0a7:2943 with SMTP id i12-20020a0565123e0c00b00512b0a72943mr5727371lfv.5.1708954647250;
-        Mon, 26 Feb 2024 05:37:27 -0800 (PST)
-Message-ID: <1d4b37b7-1afb-46ee-b845-af43b75ead61@citrix.com>
-Date: Mon, 26 Feb 2024 13:37:26 +0000
+        d=1e100.net; s=20230601; t=1708956762; x=1709561562;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=b8c4sqpQaxoDgLK2yQU0ZamZW0iKh8LR8huRc0FX160=;
+        b=A/cbqjWzNpQe4QjOwliaXtWBrOa4BroKDPi3b9skbUlrjjcbiXGsTP6cy9Hej38L0P
+         QA8/rfYGk3QblvZJCn4/c2XkDsjuxKygx3qHhOOS1hmYQBCwOydT1MXuq6F22DImx2G8
+         Z4+Vz/2KcLem6gyctTEeaKdUvlRSp24pKLA84EyUygkX/UjUWX2LDRxFQtHIU0tEugRb
+         rX2/M1d1OLTV3BlKMHbzmKDK/5c21uFW4ZJxSBs1XeeZ/t8GRzOLPaow6gezfMlrINd9
+         Y/DQ8WHaeGI9osDaMURgH275GDLtapDkGnDJ7J/z+0xDlsteVjRXy3SH2GWCJTN602LG
+         lyVw==
+X-Gm-Message-State: AOJu0YwR+E7SCbIJLnkDbPILwNpdYW5DJNs09SJ+SPVwY6dLyQSvw7d6
+	LaFV5E1QG3g59tOby/IYGnfThNgVbKVVjCWoWOP8i2fn1S0JPVBQDk3zFEv2ZUDHgtER3gNanah
+	8i8M=
+X-Google-Smtp-Source: AGHT+IGXjCUcJfbNVmjJ/5WG9SVvIEYk1LGKAQL/Ld2vUcAzRwRKuy5tBbixYXjQPZ5UVYNjeDYCiQ==
+X-Received: by 2002:a17:906:12d0:b0:a43:3066:ef13 with SMTP id l16-20020a17090612d000b00a433066ef13mr2834613ejb.37.1708956762411;
+        Mon, 26 Feb 2024 06:12:42 -0800 (PST)
+From: Fouad Hilly <fouad.hilly@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Fouad Hilly <fouad.hilly@cloud.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH] tools/xentop: Add VBD3 support to xentop
+Date: Mon, 26 Feb 2024 14:12:11 +0000
+Message-ID: <20240226141211.1416866-1-fouad.hilly@cloud.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/HVM: limit upcall vector related verbosity
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <89d77714-df09-4d0b-bc7d-7d773f8d4f4b@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <89d77714-df09-4d0b-bc7d-7d773f8d4f4b@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18/12/2023 7:26 am, Jan Beulich wrote:
-> Avoid logging all-identical messages for every vCPU, but make sure to
-> log unusual events like the vector differing from vCPU 0's (note that
-> the respective condition also makes sure vCPU 0 itself will have the
-> vector setting logged), or it changing after it was once set. (Arguably
-> a downside is that some vCPU not having its vector set would no longer
-> be recognizable from the logs. But I think that's tolerable as
-> sufficiently unlikely outside of people actively fiddling with related
-> code.)
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+From: Pritha Srivastava <pritha.srivastava@citrix.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+xl now knows how to drive tapdisk, so modified libxenstat to
+understand vbd3 statistics.
+
+Signed-off-by: Jorge Martin <jorge.martin@citrix.com>
+Signed-off-by: Pritha Srivastava <pritha.srivastava@citrix.com>
+Signed-off-by: Fouad Hilly <fouad.hilly@cloud.com>
+---
+CC: Wei Liu <wl@xen.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>
+CC: Juergen Gross <jgross@suse.com>
+---
+ tools/libs/stat/xenstat_linux.c | 69 ++++++++++++++++++++++++++++++++-
+ tools/libs/stat/xenstat_priv.h  | 16 ++++++++
+ tools/xentop/xentop.c           |  1 +
+ 3 files changed, 85 insertions(+), 1 deletion(-)
+
+diff --git a/tools/libs/stat/xenstat_linux.c b/tools/libs/stat/xenstat_linux.c
+index cbba54aa83ee..5a4a03634182 100644
+--- a/tools/libs/stat/xenstat_linux.c
++++ b/tools/libs/stat/xenstat_linux.c
+@@ -390,6 +390,39 @@ void xenstat_uninit_networks(xenstat_handle * handle)
+ 		fclose(priv->procnetdev);
+ }
+ 
++static int read_attributes_vbd3(char *vbd3_path, xenstat_vbd *vbd)
++{
++	FILE *fp;
++	struct vbd3_stats vbd3_stats;
++
++	fp = fopen(vbd3_path, "rb");
++
++	if (fp == NULL)
++	{
++		return -1;
++	}
++
++	if (fread(&vbd3_stats, sizeof(struct vbd3_stats), 1, fp) != 1) {
++		fclose(fp);
++		return -1;
++	}
++
++	if (vbd3_stats.version != 1) {
++		fclose(fp);
++		return -1;
++	}
++
++	vbd->oo_reqs = vbd3_stats.oo_reqs;
++	vbd->rd_reqs = vbd3_stats.read_reqs_submitted;
++	vbd->rd_sects = vbd3_stats.read_sectors;
++	vbd->wr_reqs = vbd3_stats.write_reqs_submitted;
++	vbd->wr_sects = vbd3_stats.write_sectors;
++
++	fclose(fp);
++
++	return 0;
++}
++
+ static int read_attributes_vbd(const char *vbd_directory, const char *what, char *ret, int cap)
+ {
+ 	static char file_name[80];
+@@ -438,7 +471,7 @@ int xenstat_collect_vbds(xenstat_node * node)
+ 		int ret;
+ 		char buf[256];
+ 
+-		ret = sscanf(dp->d_name, "%3s-%u-%u", buf, &domid, &vbd.dev);
++		ret = sscanf(dp->d_name, "%255[^-]-%u-%u", buf, &domid, &vbd.dev);
+ 		if (ret != 3)
+ 			continue;
+ 		if (!(strstr(buf, "vbd")) && !(strstr(buf, "tap")))
+@@ -448,6 +481,8 @@ int xenstat_collect_vbds(xenstat_node * node)
+ 			vbd.back_type = 1;
+ 		else if (strcmp(buf,"tap") == 0)
+ 			vbd.back_type = 2;
++		else if (strcmp(buf,"vbd3") == 0)
++			vbd.back_type = 3;
+ 		else
+ 			vbd.back_type = 0;
+ 
+@@ -479,6 +514,38 @@ int xenstat_collect_vbds(xenstat_node * node)
+ 				vbd.error = 1;
+ 			}
+ 		}
++		else if (vbd.back_type == 3)
++		{
++
++			char *td3_pid;
++			char *path;
++
++			vbd.back_type = 3;
++			vbd.error = 0;
++
++			if (asprintf(&path, "/local/domain/0/backend/vbd3/%u/%u/kthread-pid", domid, vbd.dev) < 0)
++				continue;
++
++			td3_pid = xs_read(node->handle->xshandle, XBT_NULL, path, NULL);
++
++			if (td3_pid == NULL) {
++				free(path);
++				continue;
++			}
++
++			free(path);
++
++			if (asprintf(&path, "/dev/shm/td3-%s/vbd-%u-%u", td3_pid, domid, vbd.dev) < 0) {
++				free(td3_pid);
++				continue;
++			}
++
++			if (read_attributes_vbd3(path, &vbd) < 0)
++				vbd.error = 1;
++
++			free(td3_pid);
++			free(path);
++		}
+ 		else
+ 		{
+ 			vbd.error = 1;
+diff --git a/tools/libs/stat/xenstat_priv.h b/tools/libs/stat/xenstat_priv.h
+index 4eb44a8ebb84..c3a9635240e9 100644
+--- a/tools/libs/stat/xenstat_priv.h
++++ b/tools/libs/stat/xenstat_priv.h
+@@ -98,6 +98,22 @@ struct xenstat_vbd {
+ 	unsigned long long wr_sects;
+ };
+ 
++struct vbd3_stats {
++	uint32_t version;
++	uint32_t __pad;
++	uint64_t oo_reqs;
++	uint64_t read_reqs_submitted;
++	uint64_t read_reqs_completed;
++	uint64_t read_sectors;
++	uint64_t read_total_ticks;
++	uint64_t write_reqs_submitted;
++	uint64_t write_reqs_completed;
++	uint64_t write_sectors;
++	uint64_t write_total_ticks;
++	uint64_t io_errors;
++	uint64_t flags;
++};
++
+ extern int xenstat_collect_networks(xenstat_node * node);
+ extern void xenstat_uninit_networks(xenstat_handle * handle);
+ extern int xenstat_collect_vbds(xenstat_node * node);
+diff --git a/tools/xentop/xentop.c b/tools/xentop/xentop.c
+index 0a2fab7f15a3..f5a456fd4dfd 100644
+--- a/tools/xentop/xentop.c
++++ b/tools/xentop/xentop.c
+@@ -1124,6 +1124,7 @@ void do_vbd(xenstat_domain *domain)
+ 		"Unidentified",           /* number 0 */
+ 		"BlkBack",           /* number 1 */
+ 		"BlkTap",            /* number 2 */
++		"Tapdisk3"           /* number 3 */
+ 	};
+ 
+ 	num_vbds = xenstat_domain_num_vbds(domain);
+-- 
+2.42.0
+
 
