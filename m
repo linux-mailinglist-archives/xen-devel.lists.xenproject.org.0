@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE5658671AB
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 11:43:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685430.1066126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13F5D8671BB
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 11:45:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685433.1066135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reYSV-0002TT-Ek; Mon, 26 Feb 2024 10:43:43 +0000
+	id 1reYTf-00039f-Mv; Mon, 26 Feb 2024 10:44:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685430.1066126; Mon, 26 Feb 2024 10:43:43 +0000
+Received: by outflank-mailman (output) from mailman id 685433.1066135; Mon, 26 Feb 2024 10:44:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reYSV-0002Qh-B4; Mon, 26 Feb 2024 10:43:43 +0000
-Received: by outflank-mailman (input) for mailman id 685430;
- Mon, 26 Feb 2024 10:43:42 +0000
+	id 1reYTf-000389-KE; Mon, 26 Feb 2024 10:44:55 +0000
+Received: by outflank-mailman (input) for mailman id 685433;
+ Mon, 26 Feb 2024 10:44:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1reYSU-00026v-5z
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 10:43:42 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1reYTd-00037z-L7
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 10:44:53 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e829e2ba-d493-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 11:43:41 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a28a6cef709so445091266b.1
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 02:43:41 -0800 (PST)
+ id 128ca2d5-d494-11ee-8a58-1f161083a0e0;
+ Mon, 26 Feb 2024 11:44:52 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-565a3910f86so2537903a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 02:44:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m14-20020a170906234e00b00a3d11feb32esm2278193eja.186.2024.02.26.02.43.40
+ d6-20020a50ea86000000b005661badcccesm44605edo.87.2024.02.26.02.44.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 02:43:41 -0800 (PST)
+ Mon, 26 Feb 2024 02:44:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e829e2ba-d493-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: 128ca2d5-d494-11ee-8a58-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708944221; x=1709549021; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=kkLFz815u90oFK+cyB0VCAdP704LGkuFGdIMHsiNoXk=;
-        b=HnF3ghsTCLc/UnYNpRaNlDP1RVdz1RtDR+24LVfYIoWsVaqQwTCU/ZEh1O991jOb3/
-         KiK6mGl5ojkIACwRuu5n2ldSTtU4DsLA8HvY2BDNVDXxYy7VcYIeCtAwpmVvPFSe192b
-         pp+qcXpkbhQ5t3yUObnm6+PcIuAGpUusiDdmb01z39dMcoQebaC5lUp6riidBvSryBMV
-         AckFzd++o7ljAtJsO8N4pIdmWGz6hdBkfPx9bC93YrX7fH86WD75wdTv3iLWA6D5VFkO
-         +FQUTRvkHfPOUdcAQ8H3B3vMD/1/EyyH/5Vj0nopQpyuSJzsmwbnFV4+f6r4+sgDVfBP
-         RwFw==
+        d=suse.com; s=google; t=1708944292; x=1709549092; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=SV4cvth6dNGeBZBn9gXoqeVvBbQTC9ZF63evmEgB9hA=;
+        b=MPudo0z3LnN5tgQ+S3EDj+RatihKperlWuF4FUli6GYzmzMz8nNkx/tSTIGU+JwIfk
+         mndYXrzpMxrWEl4Vx8oAdnFJT85yk09QATeMu7oQC8EIgQBAUc0s+aSLTr2nbFZPPfyJ
+         ymlusOEEAKlYS8e4YdWxnrSTSKhuUvQU9QGrutetmHB/YJhPIG8jtyJoTlXU0WSA+Wqr
+         JlErmgRcli03Gmf4X67I/Aq0xf79NtMiIkk/Aodvai1I5Rlh0iUmDAvhoetEmkfBoPPn
+         CtB21GpdmVEr6fPRsdoGeUh5h4SNQGOpzCFinxdPZdKd1YHtBvVljgRE56dQIp/adkJp
+         NTWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708944221; x=1709549021;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=kkLFz815u90oFK+cyB0VCAdP704LGkuFGdIMHsiNoXk=;
-        b=ZWAcS2G4PvVyEHKH9Q/qEB3B0Xv0X3PMihfyU6yjETQ8KkaQM6SzdfFK+LncmpOt94
-         Lpk6wcAKXYDBM1loHqf28lk/WStGTk1VBIqMF1Job6DcQBmYmvSTXWG0tT0lh2AaBVpE
-         Dr2c8YahpBvAt/6P+JIBEW2AiiA0irozLOmo9zgye0suoajqW5YNZT3dEJ+MRSdOzCEe
-         K9fokBhIt+iaqCmhJKmFwCS/zueh5cZMS/r+c9ToyW3n3yBO02tLxljocYxV3vm/0a71
-         VMeq/G7FD1cr6qgE8rD8NW++S8TAWWiUL7Eh4h4J6hanmgj+SJHx9fSewl/XUy/aupZ+
-         xqNw==
-X-Gm-Message-State: AOJu0Yw/W+JUpToq93dkcfxVC67PREDi227VfwqKQ5n+otiDTA1CbCN2
-	jtoGXx8r04dFXjimslL/7+vt1kOJqf6S2lwvRFmmDGwzW4WPsOsZQn75dk1pd7uMWYK1NjKT68Y
+        d=1e100.net; s=20230601; t=1708944292; x=1709549092;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SV4cvth6dNGeBZBn9gXoqeVvBbQTC9ZF63evmEgB9hA=;
+        b=UqijV1cg9muUu8DLGhAfSJNUAxTPRfEsjUDVN6fwxIVmVF5UV0DB7IKVUqtnFg8WQc
+         uP+3mjjIZ6sYJrqwQfQD874aoBHOLhTU88V5Jn2oRtlDgHoltD8rZCzbuoYowUWG5sT/
+         IJmIhQOp7X7h1ZTqyEilY4Xm/C4XjfHRH029WESS0jclP8zunqZHSZ/NO11Be1b4qK6S
+         hctMpNAN23JlRXf04009aTS2Std5oasMLJYuZPweLTlPT/7CZXOSK8B0mlP3qCnFWzLy
+         zrPuC8PPx54zi92Qy55tg9KCQSQqFMju7Npmcik8EqGmBH4n/N1VNYG8wE9moAsJqOTJ
+         3noQ==
+X-Gm-Message-State: AOJu0Ywdjbvgq0DbsIcdxAYYLQVZ7dbD13a9IlJBXslyAfDYKBfo8Poc
+	uYjJPJxFEw4/unToZhgJdEam2f4HLueNUe8LGvOT2RQIidMUy6uVdvVHNOYPQ1SrpJikLJ7REfc
 	=
-X-Google-Smtp-Source: AGHT+IHfbiA8xXwqgcMkUSmP5UyGdoPWknGwuDaATFEuuUAcGukTENPcOVenSG88zOwZmm7Wqi2ADA==
-X-Received: by 2002:a17:906:3659:b0:a3e:da6:85f8 with SMTP id r25-20020a170906365900b00a3e0da685f8mr4317975ejb.30.1708944221200;
-        Mon, 26 Feb 2024 02:43:41 -0800 (PST)
-Message-ID: <94418e0e-1805-4c30-a4a7-4e9cbfaf984e@suse.com>
-Date: Mon, 26 Feb 2024 11:43:42 +0100
+X-Google-Smtp-Source: AGHT+IH0I8RtAXffz31xuxeoGlz1JfuXlwAua+8YVei1OzZ4Frbb+0Qc59Er7I3BvpwBkyDcOhDJXg==
+X-Received: by 2002:aa7:c0da:0:b0:565:cbd9:af39 with SMTP id j26-20020aa7c0da000000b00565cbd9af39mr2643097edp.16.1708944292290;
+        Mon, 26 Feb 2024 02:44:52 -0800 (PST)
+Message-ID: <e160ebb3-b313-4856-b161-2ac1ab0b61ca@suse.com>
+Date: Mon, 26 Feb 2024 11:44:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: [PATCH v2 1/2] gnttab: almost fully ignore zero-size flush requests
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2 0/2] gnttab: hypervisor side XSA-448 follow-up
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <94418e0e-1805-4c30-a4a7-4e9cbfaf984e@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,11 +112,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <94418e0e-1805-4c30-a4a7-4e9cbfaf984e@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-1: almost fully ignore zero-size flush requests
-2: restrict GNTTABOP_cache_flush to Arm
+Along the line with observations in the context of XSA-448, besides
+"op" no field is relevant when the range to be flushed is empty, much
+like e.g. the pointers passed to memcpy() are irrelevant (and would
+never be "validated") when the passed length is zero. Split the existing
+condition validating "op", "offset", and "length", leaving only the "op"
+part ahead of the check for length being zero (or no flushing to be
+performed).
 
-Jan
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v2: Undo expression folding.
+
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -3528,15 +3528,17 @@ static int _cache_flush(const gnttab_cac
+     void *v;
+     int ret;
+ 
+-    if ( (cflush->offset >= PAGE_SIZE) ||
+-         (cflush->length > PAGE_SIZE) ||
+-         (cflush->offset + cflush->length > PAGE_SIZE) ||
+-         (cflush->op & ~(GNTTAB_CACHE_INVAL | GNTTAB_CACHE_CLEAN)) )
++    if ( cflush->op & ~(GNTTAB_CACHE_INVAL | GNTTAB_CACHE_CLEAN) )
+         return -EINVAL;
+ 
+     if ( cflush->length == 0 || cflush->op == 0 )
+         return !*cur_ref ? 0 : -EILSEQ;
+ 
++    if ( (cflush->offset >= PAGE_SIZE) ||
++         (cflush->length > PAGE_SIZE) ||
++         cflush->offset + cflush->length > PAGE_SIZE )
++        return -EINVAL;
++
+     /* currently unimplemented */
+     if ( cflush->op & GNTTAB_CACHE_SOURCE_GREF )
+         return -EOPNOTSUPP;
+
 
