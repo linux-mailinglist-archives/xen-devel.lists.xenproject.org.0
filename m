@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4355E8672A3
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F5BC8672A5
 	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 12:08:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685459.1066216 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.685460.1066226 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reYqC-0002oF-5t; Mon, 26 Feb 2024 11:08:12 +0000
+	id 1reYqK-00039E-EC; Mon, 26 Feb 2024 11:08:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685459.1066216; Mon, 26 Feb 2024 11:08:12 +0000
+Received: by outflank-mailman (output) from mailman id 685460.1066226; Mon, 26 Feb 2024 11:08:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reYqC-0002m8-2s; Mon, 26 Feb 2024 11:08:12 +0000
-Received: by outflank-mailman (input) for mailman id 685459;
- Mon, 26 Feb 2024 11:08:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1reYqK-00036c-9t; Mon, 26 Feb 2024 11:08:20 +0000
+Received: by outflank-mailman (input) for mailman id 685460;
+ Mon, 26 Feb 2024 11:08:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CwqN=KD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1reYqB-0002Xk-7v
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 11:08:11 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 530829cc-d497-11ee-98f5-efadbce2ee36;
- Mon, 26 Feb 2024 12:08:09 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-512aafb3ca8so2794424e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 03:08:09 -0800 (PST)
+ id 1reYqI-00035d-UT
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 11:08:18 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 583520df-d497-11ee-8a58-1f161083a0e0;
+ Mon, 26 Feb 2024 12:08:18 +0100 (CET)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5129cdae3c6so3760009e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 03:08:18 -0800 (PST)
 Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- ma6-20020a0562145b0600b0068fa5e5c245sm2789775qvb.84.2024.02.26.03.08.08
+ fu38-20020a05622a5da600b0042e09c6b82dsm2307513qtb.24.2024.02.26.03.08.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Feb 2024 03:08:08 -0800 (PST)
+ Mon, 26 Feb 2024 03:08:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,43 +44,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 530829cc-d497-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 583520df-d497-11ee-8a58-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708945689; x=1709550489; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1708945697; x=1709550497; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JwcqS4buxW/Jeygm8zvIbxwG10HttMJtYAWj5OZTXl0=;
-        b=ZziypYdtto2mnD9xS444oMHwY/08n7H+rCSLTqnKJ7dlehlZZ6+Rtvr7AVUEngYHRK
-         h5jElp6SQiyQqSioSZOST7oIiMO9yAXrbfU42ayN6Isoi+afYEaGqKKvtKMqHrdaNI+Q
-         bYDWuPLzGzqI+02WXicdtzBeJfdCWHfJOyamU=
+        bh=FaG0bjtk7lVLtBaV15USC2Ji0PDyjB7kZA+T0Bke/cE=;
+        b=GjQqKov/KDH+XwcOwCVE/7RKe2qdo3GOuUFaqPVBNajMNRN7nNnkT71ZCH722hGP85
+         e5B/sLGa7nGjqtlic5N3wkSNH7ISghBIwWe1vat0IUGDjA0qbAUD9Tntk2tipt6cAyuV
+         f8gjviYzs52kHkIYmsVk5FCfjcJEyZyeYqJeE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708945689; x=1709550489;
+        d=1e100.net; s=20230601; t=1708945697; x=1709550497;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=JwcqS4buxW/Jeygm8zvIbxwG10HttMJtYAWj5OZTXl0=;
-        b=YTan8m1+VGzodByfiwu1A9slrzg7QmqsRvKpCWH4u+bO+FJTljcYRAyqntIQZilDTI
-         Qk3SHMsM8WcIU7EP9L39faLR4QeQJVsYDdy0fc/MJivnZnj5oJSNpYImvVH5xmj62TLY
-         U6csZJDJcVAxoNbzlGhB0mvrscvHoVY02ZGvTSx5Key0x/N1nLp2/FIju4U61hsI26a1
-         5V+iBTJLlBNCtrkGYRubdjSy7oduodL9I9mSzu3fmrpr8eiEJEDBy7ZHKMItpesmMTaI
-         6RyX93zLRJUpagsPVNJ4b6BZNI+qqXhrID6758aYEtPSRsq7ypf8aiRSb4j4aPOc09SO
-         Oqiw==
-X-Gm-Message-State: AOJu0Yz4Pdv2YQB7YVuJb8DudW9QjMZS+1cszMH8KW2b1AiDOkScCwuE
-	wSIRMWJLFVIbU6CHzLMJvIWoaUENJC6sZbCoForJlAAa8zpeH0CMYZloBzkGacDt+7JPJnZtAu/
-	A
-X-Google-Smtp-Source: AGHT+IEckDKUWpABW+/YnVGbsKMeCnsqI4GOJxHp/u6i3Fib9QKC799WoK3U/L4+dpF6VaORefjJrw==
-X-Received: by 2002:a05:6512:3f04:b0:512:d5c7:60d9 with SMTP id y4-20020a0565123f0400b00512d5c760d9mr5437819lfa.3.1708945689250;
-        Mon, 26 Feb 2024 03:08:09 -0800 (PST)
+        bh=FaG0bjtk7lVLtBaV15USC2Ji0PDyjB7kZA+T0Bke/cE=;
+        b=QOslzMYtuyC95td2cPoltgsqdPkzPUKnwhccYw8Y4uf/pv+jpj0lZMp5Gd/3RIG03H
+         Ljta99vfh9lPjQguqW11XI7HuXRFI9F9a3bjkUFyOih6WEvk7x3acAN0BPF7NrvPlhy5
+         Obzs4YXUrd6LWXfs5QEKfNHiAxfsSeG3fq/Ra4OqENl1x7VH3ehwCbNY5Vk/aEf2cMMV
+         1sY6VJgO9i5q88Dj4RdRbkNH+qGfDYiqkv+w39X5ZGuWvMZ2eYorY29GhGFf5qPw0gBw
+         0eTOng33W47YMMSrMLkqSMnI2ngE1haXD547D+45mwW4aztdg3sPQ1c1Fblf+c+xl1E5
+         drhg==
+X-Gm-Message-State: AOJu0YzuQIOIZIFaEmbIKQ+KDp9kUC+8w5AtXmWNJXbRNqy+/fBlWG8v
+	MgHpu0cS2Ef27jsSIbeohPhU6TcnuvPxshMZnCqEyk5K++m4JNMgA9b0P2cFbG0Qm/qc8PRUkeK
+	z
+X-Google-Smtp-Source: AGHT+IFPk5TtQYJAUBadwwKI9KWtZ6T+v6n4ml3De9qHFqqBKDwnBmu3W5XhiQJ1B4vi/ShY2A3JTQ==
+X-Received: by 2002:ac2:4c49:0:b0:512:ec53:5915 with SMTP id o9-20020ac24c49000000b00512ec535915mr4959845lfk.15.1708945697370;
+        Mon, 26 Feb 2024 03:08:17 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 1/4] x86/spec: print the built-in SPECULATIVE_HARDEN_* options
-Date: Mon, 26 Feb 2024 12:07:45 +0100
-Message-ID: <20240226110748.80254-2-roger.pau@citrix.com>
+Subject: [PATCH v3 2/4] x86/spec: fix BRANCH_HARDEN option to only be set when build-enabled
+Date: Mon, 26 Feb 2024 12:07:46 +0100
+Message-ID: <20240226110748.80254-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240226110748.80254-1-roger.pau@citrix.com>
 References: <20240226110748.80254-1-roger.pau@citrix.com>
@@ -88,48 +88,54 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Just like it's done for INDIRECT_THUNK and SHADOW_PAGING.
+The current logic to handle the BRANCH_HARDEN option will report it as enabled
+even when build-time disabled. Fix this by only allowing the option to be set
+when support for it is built into Xen.
 
-Reported-by: Jan Beulich <jbeulich@suse.com>
+Fixes: 2d6f36daa086 ('x86/nospec: Introduce CONFIG_SPECULATIVE_HARDEN_BRANCH')
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v2:
- - New in this version.
+ - Use IS_ENABLED() in the parser.
+
+Changes since v1:
+ - Use no_config_param().
 ---
- xen/arch/x86/spec_ctrl.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ xen/arch/x86/spec_ctrl.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index 421fe3f640df..9f5ed8772533 100644
+index 9f5ed8772533..5fae80774519 100644
 --- a/xen/arch/x86/spec_ctrl.c
 +++ b/xen/arch/x86/spec_ctrl.c
-@@ -466,13 +466,25 @@ static void __init print_details(enum ind_thunk thunk)
-            (e21a & cpufeat_mask(X86_FEATURE_SBPB))           ? " SBPB"           : "");
+@@ -50,7 +50,8 @@ static int8_t __initdata opt_psfd = -1;
+ int8_t __ro_after_init opt_ibpb_ctxt_switch = -1;
+ int8_t __read_mostly opt_eager_fpu = -1;
+ int8_t __read_mostly opt_l1d_flush = -1;
+-static bool __initdata opt_branch_harden = true;
++static bool __initdata opt_branch_harden =
++    IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH);
  
-     /* Compiled-in support which pertains to mitigations. */
--    if ( IS_ENABLED(CONFIG_INDIRECT_THUNK) || IS_ENABLED(CONFIG_SHADOW_PAGING) )
-+    if ( IS_ENABLED(CONFIG_INDIRECT_THUNK) || IS_ENABLED(CONFIG_SHADOW_PAGING) ||
-+         IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_ARRAY) ||
-+         IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH) ||
-+         IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_GUEST_ACCESS) )
-         printk("  Compiled-in support:"
- #ifdef CONFIG_INDIRECT_THUNK
-                " INDIRECT_THUNK"
- #endif
- #ifdef CONFIG_SHADOW_PAGING
-                " SHADOW_PAGING"
-+#endif
-+#ifdef CONFIG_SPECULATIVE_HARDEN_ARRAY
-+               " SPECULATIVE_HARDEN_ARRAY"
-+#endif
-+#ifdef CONFIG_SPECULATIVE_HARDEN_BRANCH
-+               " SPECULATIVE_HARDEN_BRANCH"
-+#endif
-+#ifdef CONFIG_SPECULATIVE_HARDEN_GUEST_ACCESS
-+               " SPECULATIVE_HARDEN_GUEST_ACCESS"
- #endif
-                "\n");
- 
+ bool __initdata bsp_delay_spec_ctrl;
+ uint8_t __read_mostly default_xen_spec_ctrl;
+@@ -268,7 +269,16 @@ static int __init cf_check parse_spec_ctrl(const char *s)
+         else if ( (val = parse_boolean("l1d-flush", s, ss)) >= 0 )
+             opt_l1d_flush = val;
+         else if ( (val = parse_boolean("branch-harden", s, ss)) >= 0 )
+-            opt_branch_harden = val;
++        {
++            if ( IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH) )
++                opt_branch_harden = val;
++            else
++            {
++                no_config_param("SPECULATIVE_HARDEN_BRANCH", "spec-ctrl", s,
++                                ss);
++                rc = -EINVAL;
++            }
++        }
+         else if ( (val = parse_boolean("srb-lock", s, ss)) >= 0 )
+             opt_srb_lock = val;
+         else if ( (val = parse_boolean("unpriv-mmio", s, ss)) >= 0 )
 -- 
 2.43.0
 
