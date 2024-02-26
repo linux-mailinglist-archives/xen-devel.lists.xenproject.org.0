@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13F5D8671BB
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 11:45:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685433.1066135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6DB98671BE
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 11:45:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685435.1066146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reYTf-00039f-Mv; Mon, 26 Feb 2024 10:44:55 +0000
+	id 1reYUL-0003fF-Vq; Mon, 26 Feb 2024 10:45:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685433.1066135; Mon, 26 Feb 2024 10:44:55 +0000
+Received: by outflank-mailman (output) from mailman id 685435.1066146; Mon, 26 Feb 2024 10:45:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reYTf-000389-KE; Mon, 26 Feb 2024 10:44:55 +0000
-Received: by outflank-mailman (input) for mailman id 685433;
- Mon, 26 Feb 2024 10:44:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1reYUL-0003cz-Ry; Mon, 26 Feb 2024 10:45:37 +0000
+Received: by outflank-mailman (input) for mailman id 685435;
+ Mon, 26 Feb 2024 10:45:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1reYTd-00037z-L7
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 10:44:53 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 128ca2d5-d494-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 11:44:52 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-565a3910f86so2537903a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 02:44:52 -0800 (PST)
+ id 1reYUJ-0003ck-TC
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 10:45:35 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2acc6136-d494-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 11:45:33 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5643eccad0bso4514060a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 02:45:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d6-20020a50ea86000000b005661badcccesm44605edo.87.2024.02.26.02.44.51
+ d6-20020a50ea86000000b005661badcccesm44605edo.87.2024.02.26.02.45.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 02:44:52 -0800 (PST)
+ Mon, 26 Feb 2024 02:45:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 128ca2d5-d494-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: 2acc6136-d494-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708944292; x=1709549092; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
+        d=suse.com; s=google; t=1708944333; x=1709549133; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SV4cvth6dNGeBZBn9gXoqeVvBbQTC9ZF63evmEgB9hA=;
-        b=MPudo0z3LnN5tgQ+S3EDj+RatihKperlWuF4FUli6GYzmzMz8nNkx/tSTIGU+JwIfk
-         mndYXrzpMxrWEl4Vx8oAdnFJT85yk09QATeMu7oQC8EIgQBAUc0s+aSLTr2nbFZPPfyJ
-         ymlusOEEAKlYS8e4YdWxnrSTSKhuUvQU9QGrutetmHB/YJhPIG8jtyJoTlXU0WSA+Wqr
-         JlErmgRcli03Gmf4X67I/Aq0xf79NtMiIkk/Aodvai1I5Rlh0iUmDAvhoetEmkfBoPPn
-         CtB21GpdmVEr6fPRsdoGeUh5h4SNQGOpzCFinxdPZdKd1YHtBvVljgRE56dQIp/adkJp
-         NTWg==
+        bh=1KdKJYo5Q7bYuv+aHSBf3jqyyInf5NNlws7iGpvocd8=;
+        b=DHAAoJ0q/Yo1V4BNvkgI1/4fXDG8wpmuM6cQOEzWzEOVGomXKIIyLX//D7q+lpA2Io
+         Gwv//a5053j+8JEnhsmFeWPEZBrJ/Qzad7t4PC94MZ8dUPF2+lcB+7ZxXtvMiYVn0dAi
+         c5b0/obnqEc7tb9J68E+dN+U/pPYp0XQtFsUogaUcyEmjvFDnM8VsyYhNzRLdee6lEbp
+         dKldaMywSTzD++vU8aYiJ9fIR+BOFmzFHmeMQ5f16mmLnNBMKR2Zmnh96Ovzv5JZLFxP
+         8ff7dbpB4SJckYw39FutL4XtBIFvaaDBohrSWojxiEWMJtTQYVO1ReRJwIONlbxyv320
+         rJZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708944292; x=1709549092;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
+        d=1e100.net; s=20230601; t=1708944333; x=1709549133;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=SV4cvth6dNGeBZBn9gXoqeVvBbQTC9ZF63evmEgB9hA=;
-        b=UqijV1cg9muUu8DLGhAfSJNUAxTPRfEsjUDVN6fwxIVmVF5UV0DB7IKVUqtnFg8WQc
-         uP+3mjjIZ6sYJrqwQfQD874aoBHOLhTU88V5Jn2oRtlDgHoltD8rZCzbuoYowUWG5sT/
-         IJmIhQOp7X7h1ZTqyEilY4Xm/C4XjfHRH029WESS0jclP8zunqZHSZ/NO11Be1b4qK6S
-         hctMpNAN23JlRXf04009aTS2Std5oasMLJYuZPweLTlPT/7CZXOSK8B0mlP3qCnFWzLy
-         zrPuC8PPx54zi92Qy55tg9KCQSQqFMju7Npmcik8EqGmBH4n/N1VNYG8wE9moAsJqOTJ
-         3noQ==
-X-Gm-Message-State: AOJu0Ywdjbvgq0DbsIcdxAYYLQVZ7dbD13a9IlJBXslyAfDYKBfo8Poc
-	uYjJPJxFEw4/unToZhgJdEam2f4HLueNUe8LGvOT2RQIidMUy6uVdvVHNOYPQ1SrpJikLJ7REfc
+        bh=1KdKJYo5Q7bYuv+aHSBf3jqyyInf5NNlws7iGpvocd8=;
+        b=dsBtxpAD+EMdpocPwYVisXR9vJyB8YlczNS9kt4jXkc4IJEyr3EuiPQ5yBmQO/MX8k
+         sKy2W2QaTj3tpqVYnzbcguJTD8AOERHvb2F6vytI9RVQzJJPHgUridsDqX2b1EQBoZG5
+         LfJW+g4785TReWkV32Z6gwmiECnXNMtArKEyozHmcJAYQCOYm/4SVfb24st1q/uckARQ
+         1G383vZISP6gQPP6uThOxCYoKthfZvSe409hdwAVZA4XfKbchHxzOQhjKSjdsDrotBMS
+         IrdGoKEUclRbDcMKSG4LagdrP6khj6sxFaSdz0NAL40xRclGNblg/SdaB6HiWauMn06n
+         0orw==
+X-Gm-Message-State: AOJu0Yw1sNTTp8XD79RQzNFGvD1Dc0J8L8rNgDivBDeuQbbtlefqibAL
+	wdMCHe0+xc6/KFHViE1GNZx6ukALMWyNPQ1dtkdfziiRbgevpDMJlSDZ75cOeQ9ariYZgxoyKDI
 	=
-X-Google-Smtp-Source: AGHT+IH0I8RtAXffz31xuxeoGlz1JfuXlwAua+8YVei1OzZ4Frbb+0Qc59Er7I3BvpwBkyDcOhDJXg==
-X-Received: by 2002:aa7:c0da:0:b0:565:cbd9:af39 with SMTP id j26-20020aa7c0da000000b00565cbd9af39mr2643097edp.16.1708944292290;
-        Mon, 26 Feb 2024 02:44:52 -0800 (PST)
-Message-ID: <e160ebb3-b313-4856-b161-2ac1ab0b61ca@suse.com>
-Date: Mon, 26 Feb 2024 11:44:53 +0100
+X-Google-Smtp-Source: AGHT+IEHk7mKkhLGf0l55aNiymIDjGoQxhCcEYQLWbg+pKFgyX85fYEIa5wskm+8TG+wN6HFO0QYyg==
+X-Received: by 2002:aa7:d416:0:b0:564:39b6:fe9 with SMTP id z22-20020aa7d416000000b0056439b60fe9mr4530036edq.12.1708944333355;
+        Mon, 26 Feb 2024 02:45:33 -0800 (PST)
+Message-ID: <0c2e7ded-45c2-485f-9184-c71a58f56109@suse.com>
+Date: Mon, 26 Feb 2024 11:45:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 1/2] gnttab: almost fully ignore zero-size flush requests
+Subject: [PATCH v2 2/2] gnttab: restrict GNTTABOP_cache_flush to Arm
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <94418e0e-1805-4c30-a4a7-4e9cbfaf984e@suse.com>
-Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,41 +117,159 @@ In-Reply-To: <94418e0e-1805-4c30-a4a7-4e9cbfaf984e@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Along the line with observations in the context of XSA-448, besides
-"op" no field is relevant when the range to be flushed is empty, much
-like e.g. the pointers passed to memcpy() are irrelevant (and would
-never be "validated") when the passed length is zero. Split the existing
-condition validating "op", "offset", and "length", leaving only the "op"
-part ahead of the check for length being zero (or no flushing to be
-performed).
+This special purpose operation possibly shouldn't have been a grant
+table sub-op, but instead an arch-specific memory management one. No
+users are known or supposed to exist outside of Arm. Along with adding
+suitable #ifdef-s, move a helper function used solely here into the
+first of these new #ifdef-s.
+
+With the functionality restricted, questionable helper functions can
+then also be purged from x86.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2: Undo expression folding.
+v2: New.
 
+--- a/xen/arch/x86/include/asm/flushtlb.h
++++ b/xen/arch/x86/include/asm/flushtlb.h
+@@ -182,21 +182,6 @@ void flush_area_mask(const cpumask_t *ma
+ }
+ 
+ static inline void flush_page_to_ram(unsigned long mfn, bool sync_icache) {}
+-static inline int invalidate_dcache_va_range(const void *p,
+-                                             unsigned long size)
+-{ return -EOPNOTSUPP; }
+-static inline int clean_and_invalidate_dcache_va_range(const void *p,
+-                                                       unsigned long size)
+-{
+-    unsigned int order = get_order_from_bytes(size);
+-    /* sub-page granularity support needs to be added if necessary */
+-    flush_area_local(p, FLUSH_CACHE|FLUSH_ORDER(order));
+-    return 0;
+-}
+-static inline int clean_dcache_va_range(const void *p, unsigned long size)
+-{
+-    return clean_and_invalidate_dcache_va_range(p, size);
+-}
+ 
+ unsigned int guest_flush_tlb_flags(const struct domain *d);
+ void guest_flush_tlb_mask(const struct domain *d, const cpumask_t *mask);
 --- a/xen/common/grant_table.c
 +++ b/xen/common/grant_table.c
-@@ -3528,15 +3528,17 @@ static int _cache_flush(const gnttab_cac
-     void *v;
-     int ret;
+@@ -940,42 +940,6 @@ static void reduce_status_for_pin(struct
+         gnttab_clear_flags(rd, clear_flags, status);
+ }
  
--    if ( (cflush->offset >= PAGE_SIZE) ||
--         (cflush->length > PAGE_SIZE) ||
--         (cflush->offset + cflush->length > PAGE_SIZE) ||
--         (cflush->op & ~(GNTTAB_CACHE_INVAL | GNTTAB_CACHE_CLEAN)) )
-+    if ( cflush->op & ~(GNTTAB_CACHE_INVAL | GNTTAB_CACHE_CLEAN) )
-         return -EINVAL;
+-static struct active_grant_entry *grant_map_exists(const struct domain *ld,
+-                                                   struct grant_table *rgt,
+-                                                   mfn_t mfn,
+-                                                   grant_ref_t *cur_ref)
+-{
+-    grant_ref_t ref, max_iter;
+-
+-    /*
+-     * The remote grant table should be locked but the percpu rwlock
+-     * cannot be checked for read lock without race conditions or high
+-     * overhead so we cannot use an ASSERT
+-     *
+-     *   ASSERT(rw_is_locked(&rgt->lock));
+-     */
+-
+-    max_iter = min(*cur_ref + (1 << GNTTABOP_CONTINUATION_ARG_SHIFT),
+-                   nr_grant_entries(rgt));
+-    for ( ref = *cur_ref; ref < max_iter; ref++ )
+-    {
+-        struct active_grant_entry *act = active_entry_acquire(rgt, ref);
+-
+-        if ( act->pin && act->domid == ld->domain_id &&
+-             mfn_eq(act->mfn, mfn) )
+-            return act;
+-        active_entry_release(act);
+-    }
+-
+-    if ( ref < nr_grant_entries(rgt) )
+-    {
+-        *cur_ref = ref;
+-        return NULL;
+-    }
+-
+-    return ERR_PTR(-EINVAL);
+-}
+-
+ union maptrack_node {
+     struct {
+         /* Radix tree slot pointers use two of the bits. */
+@@ -3519,6 +3483,44 @@ gnttab_swap_grant_ref(XEN_GUEST_HANDLE_P
+     return 0;
+ }
  
-     if ( cflush->length == 0 || cflush->op == 0 )
-         return !*cur_ref ? 0 : -EILSEQ;
- 
-+    if ( (cflush->offset >= PAGE_SIZE) ||
-+         (cflush->length > PAGE_SIZE) ||
-+         cflush->offset + cflush->length > PAGE_SIZE )
-+        return -EINVAL;
++#ifdef CONFIG_ARM
 +
-     /* currently unimplemented */
-     if ( cflush->op & GNTTAB_CACHE_SOURCE_GREF )
-         return -EOPNOTSUPP;
++static struct active_grant_entry *grant_map_exists(const struct domain *ld,
++                                                   struct grant_table *rgt,
++                                                   mfn_t mfn,
++                                                   grant_ref_t *cur_ref)
++{
++    grant_ref_t ref, max_iter;
++
++    /*
++     * The remote grant table should be locked but the percpu rwlock
++     * cannot be checked for read lock without race conditions or high
++     * overhead so we cannot use an ASSERT
++     *
++     *   ASSERT(rw_is_locked(&rgt->lock));
++     */
++
++    max_iter = min(*cur_ref + (1 << GNTTABOP_CONTINUATION_ARG_SHIFT),
++                   nr_grant_entries(rgt));
++    for ( ref = *cur_ref; ref < max_iter; ref++ )
++    {
++        struct active_grant_entry *act = active_entry_acquire(rgt, ref);
++
++        if ( act->pin && act->domid == ld->domain_id &&
++             mfn_eq(act->mfn, mfn) )
++            return act;
++        active_entry_release(act);
++    }
++
++    if ( ref < nr_grant_entries(rgt) )
++    {
++        *cur_ref = ref;
++        return NULL;
++    }
++
++    return ERR_PTR(-EINVAL);
++}
++
+ static int _cache_flush(const gnttab_cache_flush_t *cflush, grant_ref_t *cur_ref)
+ {
+     struct domain *d, *owner;
+@@ -3633,6 +3635,8 @@ gnttab_cache_flush(XEN_GUEST_HANDLE_PARA
+     return 0;
+ }
+ 
++#endif /* CONFIG_ARM */
++
+ long do_grant_table_op(
+     unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) uop, unsigned int count)
+ {
+@@ -3776,6 +3780,7 @@ long (do_grant_table_op)(
+ 
+     case GNTTABOP_cache_flush:
+     {
++#ifdef CONFIG_ARM
+         XEN_GUEST_HANDLE_PARAM(gnttab_cache_flush_t) cflush =
+             guest_handle_cast(uop, gnttab_cache_flush_t);
+ 
+@@ -3788,6 +3793,9 @@ long (do_grant_table_op)(
+             uop = guest_handle_cast(cflush, void);
+             opaque_out = opaque_in;
+         }
++#else
++        rc = -EOPNOTSUPP;
++#endif
+         break;
+     }
+ 
 
 
