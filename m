@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A49558675CD
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 13:58:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685538.1066421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58AF88676BD
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 14:38:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685549.1066431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reaYf-0007tH-8B; Mon, 26 Feb 2024 12:58:13 +0000
+	id 1rebA9-0006v4-4L; Mon, 26 Feb 2024 13:36:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685538.1066421; Mon, 26 Feb 2024 12:58:13 +0000
+Received: by outflank-mailman (output) from mailman id 685549.1066431; Mon, 26 Feb 2024 13:36:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reaYf-0007qT-3z; Mon, 26 Feb 2024 12:58:13 +0000
-Received: by outflank-mailman (input) for mailman id 685538;
- Mon, 26 Feb 2024 12:58:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rebA9-0006sU-15; Mon, 26 Feb 2024 13:36:57 +0000
+Received: by outflank-mailman (input) for mailman id 685549;
+ Mon, 26 Feb 2024 13:36:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OiHA=KD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1reaYe-0007q5-0o
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 12:58:12 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1e9bbc5-d4a6-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 13:58:11 +0100 (CET)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-512f54fc2dbso1660493e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 04:58:11 -0800 (PST)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- dw18-20020a0565122c9200b00513006c81e6sm182331lfb.227.2024.02.26.04.58.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Feb 2024 04:58:09 -0800 (PST)
+ <SRS0=FdVt=KD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rebA7-0006sO-HF
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 13:36:55 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1a1ad0f5-d4ac-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 14:36:53 +0100 (CET)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-512f7332252so1914379e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 05:36:53 -0800 (PST)
+Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ bq34-20020a05620a46a200b007873c82f0easm2429708qkb.113.2024.02.26.05.36.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Feb 2024 05:36:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,317 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1e9bbc5-d4a6-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: 1a1ad0f5-d4ac-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1708952290; x=1709557090; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Ocrjv9MX/0j1ycgtaB2LxdkVc/truj/tAIo/gUlOhzk=;
-        b=HlTzpWhMSd7ru6/cTRMt2wZnRW3uY8VEM/8cZUDxent5WKdNM5XAThEgeaCzrWN5se
-         M7Os+P5LYtCM6T7HWdxxwyYFUYWXncVKrEo6dhHoILZcRbWk52KNvn5EffJa1RF375yN
-         4jZtllIy4ZEZd59drifkT/Zsee2Kbw70G59Q5bbJP0/pNdXo3cJ5IhmXqIX3PCFHnW0s
-         XlVoQHNLfA75Ppt8xxBYa3zU5ymhvpJIAhkC9ly8m/wpoOzjz4mPpj05ju5cMuPqYVoN
-         iwWj1yVTjNBtBdsqtAwK8DwF7TDA6twyjHOf379I16yd8UjPy5gO4T+0JzUeND/0zEOR
-         OuLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708952290; x=1709557090;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=citrix.com; s=google; t=1708954613; x=1709559413; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ocrjv9MX/0j1ycgtaB2LxdkVc/truj/tAIo/gUlOhzk=;
-        b=wiayfxm3NaCDiNuOrFBZe0xGO0cZnHLFsMJ52hwEghXdtXHNOzwQ5SA5t8xfZJ7QM2
-         fqlOsfVPquJKIN9ZbZaGLtQRyBD/Ae0sflfiFLMqbNZl3tulAeQuI+7qOb1/sbUl+fYm
-         DfhE3u0vZIhaPD+hHhMLGrVriTlrhHYLg5ZxBgecz+UZu3dMjBlZ9uU9/66UlpfnZg/g
-         FZNexa10wzbJJxm2TovNUqsq5F8/qmK5q+7saxCf5U5fumOgV3wDjifcmsr9UUaF6Aax
-         TRCc40lfdzbXcS84F//2eXNzUoVToWIRweGJXsASH2rSrOi5vEXRJ4G568fV9UMnPVea
-         gqwQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU4vmOqnPJj1FZx6OTFZ091dRgK9vykhOuijGqWJx5wteRe7Nmt+0dRMC46lenEaHoEv4yAKWUs0g4VWfDNm4zemNpk2nCkE0166/k8ZXk=
-X-Gm-Message-State: AOJu0Yyg6JyTEjLd2MIi/v7iO/3UcCPCKphGhIWhodDcjW+LzVhPWNrw
-	grEtJ+tzlY6HYacx2rdPFf39CVx0eXN9XdKujq9neXVAq40HsKih
-X-Google-Smtp-Source: AGHT+IGV/dNISZxrid+ksVXLd70QU18jT9jgSGTlEX46q5o4utWWVPfElJaDau67OLjNPvSBS4zWTw==
-X-Received: by 2002:a05:6512:110c:b0:512:f5b8:8912 with SMTP id l12-20020a056512110c00b00512f5b88912mr3721949lfg.16.1708952290141;
-        Mon, 26 Feb 2024 04:58:10 -0800 (PST)
-Message-ID: <4215fb9eb5be5898b3cc9c2977e55ac0e7270b4d.camel@gmail.com>
-Subject: Re: [PATCH v4 12/30] xen/riscv: introduce cmpxchg.h
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
- xen-devel@lists.xenproject.org
-Date: Mon, 26 Feb 2024 13:58:09 +0100
-In-Reply-To: <7cab68d1-9bdf-4ea1-b49a-cce1e4af4692@suse.com>
-References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
-	 <25315ca95baffc9b222fb0ae89375a94b01a9b46.1707146506.git.oleksii.kurochko@gmail.com>
-	 <9e50ef30-8dc6-4380-aa65-724e5a376c10@suse.com>
-	 <28844fdfcf5eea515497fb7b5fd8ea6fb1c5ebaa.camel@gmail.com>
-	 <554a43e8-7d8d-45c4-936d-36f02c207531@suse.com>
-	 <1c53b52ee39161a8f59209d28af69fe997479dbc.camel@gmail.com>
-	 <3b38fe82-ee0f-4666-93e1-bd78fe69c534@suse.com>
-	 <5d2d35fe014094c991363e42c3e2ad9ca2af3938.camel@gmail.com>
-	 <44fd5092-7838-4d28-804b-bbfebfd44886@suse.com>
-	 <56ae27d003b8763af34864ae56433691685c3661.camel@gmail.com>
-	 <7cab68d1-9bdf-4ea1-b49a-cce1e4af4692@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+        bh=J4LsyS/JwWxmKvnclXrztXMRGI7d4Hu8lSZ6qOUJFiQ=;
+        b=MymnbceQ/VKb/3KOL69KTmmT41ReD/Wu40XIpUFP0hosuKGkxc3x6HQLmcCRbo6RAM
+         tUvdJN0zy3SWjqIdiCCDJZ25LWAXLCqjKzyDWsl+7hfSdlMC+a4MzGCGk+a55EuzMPpu
+         MRM9rXDM2OWut2cuTemSo/0XIXOie5S+e4qok=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708954613; x=1709559413;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=J4LsyS/JwWxmKvnclXrztXMRGI7d4Hu8lSZ6qOUJFiQ=;
+        b=va2TQn6hukEYZRAeur239Tsc0LUj36WAKzcNCIBFaiLc/9PzcT778YW4WseqBN36ui
+         wLXAPG9tQxrZ55QIHAPE2QsI4UkhIBm/0fUoxnZG80ej+CHZI+wfFgPltLI96TFBlbc1
+         d9IR7oYUoMveau9Xc9iw/IVyG3jmglG/Gz9KaoeeU/UUFWqAn83+Av1du80V861+Xp4h
+         p4elBISDoYJ5DdcuH91MamAA/7p/mKdG0SV+1sjSvGnv14uHJmgpLrCv2A2BUJuqzKdr
+         EIDUgnIjJOReqCwlB+N1v53U8NzzG5t23p7ZwOLJ8XykHbNpBlYmQY371HQ/+S7v9KkT
+         6flQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWoO+Or0EJcPYin0QIF11fMn90zca8pXhAlXrNl6DboPZteFxCiDKywdBvkoQwJOLuDtKVloZ4UUpuWMITfGqaPn6It3lu/Wj0nPilPHIo=
+X-Gm-Message-State: AOJu0YwMg/tJMwBCHiMRZgR7zRbBQYJqAVZmSQ2IL/UJl6XHhAJk/BI4
+	bOvMeWb0Xtl2t//+HkrDn9FCbsUKoE+Fc8c2t5oNvlZS+KiPnFpESQsbZqC443A=
+X-Google-Smtp-Source: AGHT+IGVAt0/tqEIqvf2BcI4SdfVjb+Y0HIov/oEetP2L1LIQfMJSwrQ1he4LxCcf/ns/cm/YbCLnQ==
+X-Received: by 2002:ac2:5388:0:b0:512:e8eb:f978 with SMTP id g8-20020ac25388000000b00512e8ebf978mr4196530lfh.4.1708954612787;
+        Mon, 26 Feb 2024 05:36:52 -0800 (PST)
+Message-ID: <7365ac86-924c-4c9d-933f-87af6237de58@citrix.com>
+Date: Mon, 26 Feb 2024 13:36:50 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86: Dom0 "broken ELF" reporting adjustments
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <7edea456-81ba-4e83-9441-0e82333ce168@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <7edea456-81ba-4e83-9441-0e82333ce168@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2024-02-26 at 12:28 +0100, Jan Beulich wrote:
-> On 26.02.2024 12:18, Oleksii wrote:
-> > On Mon, 2024-02-26 at 10:45 +0100, Jan Beulich wrote:
-> > > On 23.02.2024 13:23, Oleksii wrote:
-> > > > >=20
-> > > > > > > > As 1- and 2-byte cases are emulated I decided that is
-> > > > > > > > not
-> > > > > > > > to
-> > > > > > > > provide
-> > > > > > > > sfx argument for emulation macros as it will not have
-> > > > > > > > to
-> > > > > > > > much
-> > > > > > > > affect on
-> > > > > > > > emulated types and just consume more performance on
-> > > > > > > > acquire
-> > > > > > > > and
-> > > > > > > > release
-> > > > > > > > version of sc/ld instructions.
-> > > > > > >=20
-> > > > > > > Question is whether the common case (4- and 8-byte
-> > > > > > > accesses)
-> > > > > > > shouldn't
-> > > > > > > be valued higher, with 1- and 2-byte emulation being
-> > > > > > > there
-> > > > > > > just
-> > > > > > > to
-> > > > > > > allow things to not break altogether.
-> > > > > > If I understand you correctly, it would make sense to add
-> > > > > > the
-> > > > > > 'sfx'
-> > > > > > argument for the 1/2-byte access case, ensuring that all
-> > > > > > options
-> > > > > > are
-> > > > > > available for 1/2-byte access case as well.
-> > > > >=20
-> > > > > That's one of the possibilities. As said, I'm not overly
-> > > > > worried
-> > > > > about
-> > > > > the emulated cases. For the initial implementation I'd
-> > > > > recommend
-> > > > > going
-> > > > > with what is easiest there, yielding the best possible result
-> > > > > for
-> > > > > the
-> > > > > 4- and 8-byte cases. If later it turns out repeated
-> > > > > acquire/release
-> > > > > accesses are a problem in the emulation loop, things can be
-> > > > > changed
-> > > > > to explicit barriers, without touching the 4- and 8-byte
-> > > > > cases.
-> > > > I am confused then a little bit if emulated case is not an
-> > > > issue.
-> > > >=20
-> > > > For 4- and 8-byte cases for xchg .aqrl is used, for relaxed and
-> > > > aqcuire
-> > > > version of xchg barries are used.
-> > > >=20
-> > > > The similar is done for cmpxchg.
-> > > >=20
-> > > > If something will be needed to change in emulation loop it
-> > > > won't
-> > > > require to change 4- and 8-byte cases.
-> > >=20
-> > > I'm afraid I don't understand your reply.
-> > IIUC, emulated cases it is implemented correctly in terms of usage
-> > barriers. And it also OK not to use sfx for lr/sc instructions and
-> > use
-> > only barriers.
-> >=20
-> > For 4- and 8-byte cases are used sfx + barrier depending on the
-> > specific case ( relaxed, acquire, release, generic xchg/cmpxchg ).
-> > What also looks to me correct. But you suggested to provide the
-> > best
-> > possible result for 4- and 8-byte cases.=C2=A0
-> >=20
-> > So I don't understand what the best possible result is as the
-> > current
-> > one usage of __{cmp}xchg_generic for each specific case=C2=A0 ( relaxed=
-,
-> > acquire, release, generic xchg/cmpxchg ) looks correct to me:
-> > xchg -> (..., ".aqrl", "", "") just suffix .aqrl suffix without
-> > barriers.
-> > xchg_release -> (..., "", RISCV_RELEASE_BARRIER, "" ) use only
-> > release
-> > barrier
-> > xchg_acquire -> (..., "", "", RISCV_ACQUIRE_BARRIER ), only acquire
-> > barrier
-> > xchg_relaxed ->=C2=A0 (..., "", "", "") - no barries, no sfx
->=20
-> So first: While explicit barriers are technically okay, I don't
-> follow why
-> you insist on using them when you can achieve the same by suitably
-> tagging
-> the actual insn doing the exchange. Then second: It's somewhat hard
-> for me
-> to see the final effect on the emulation paths without you actually
-> having
-> done the switch. Maybe no special handling is necessary there anymore
-> then. And as said, it may actually be acceptable for the emulation
-> paths
-> to "only" be correct, but not be ideal in terms of performance. After
-> all,
-> if you use the normal 4-byte primitive in there, more (non-explicit)
-> barriers than needed would occur if the involved loop has to take
-> more
-> than one iteration. Which could (but imo doesn't need to be) avoided
-> by
-> using a more relaxed 4-byte primitive there and an explicit barrier
-> outside of the loop.
+On 22/01/2024 1:41 pm, Jan Beulich wrote:
+> elf_load_binary() isn't the primary source of brokenness being
+> indicated. Therefore make the respective PVH log message there
+> conditional (much like PV has it), and add another instance when
+> elf_xen_parse() failed (again matching behavior in the PV case).
+>
+> Make the PV side match the (new) use of %pd here.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-According to the spec:
-Table A.5 ( part of the table only I copied here )
-
-Linux Construct          RVWMO Mapping
-atomic <op> relaxed           amo<op>.{w|d}
-atomic <op> acquire           amo<op>.{w|d}.aq
-atomic <op> release           amo<op>.{w|d}.rl
-atomic <op>                   amo<op>.{w|d}.aqrl
-
-Linux Construct          RVWMO LR/SC Mapping
-atomic <op> relaxed       loop: lr.{w|d}; <op>; sc.{w|d}; bnez loop
-atomic <op> acquire       loop: lr.{w|d}.aq; <op>; sc.{w|d}; bnez loop
-atomic <op> release       loop: lr.{w|d}; <op>; sc.{w|d}.aqrl=E2=88=97 ; bn=
-ez=20
-loop OR
-                          fence.tso; loop: lr.{w|d}; <op>; sc.{w|d}=E2=88=
-=97 ;
-bnez loop
-atomic <op>               loop: lr.{w|d}.aq; <op>; sc.{w|d}.aqrl; bnez
-loop
-
-The Linux mappings for release operations may seem stronger than
-necessary, but these mappings
-are needed to cover some cases in which Linux requires stronger
-orderings than the more intuitive
-mappings would provide. In particular, as of the time this text is
-being written, Linux is actively
-debating whether to require load-load, load-store, and store-store
-orderings between accesses in one
-critical section and accesses in a subsequent critical section in the
-same hart and protected by the
-same synchronization object. Not all combinations of FENCE RW,W/FENCE
-R,RW mappings
-with aq/rl mappings combine to provide such orderings. There are a few
-ways around this problem,
-including:
-1. Always use FENCE RW,W/FENCE R,RW, and never use aq/rl. This suffices
-but is undesir-
-able, as it defeats the purpose of the aq/rl modifiers.
-2. Always use aq/rl, and never use FENCE RW,W/FENCE R,RW. This does not
-currently work
-due to the lack of load and store opcodes with aq and rl modifiers.
-3. Strengthen the mappings of release operations such that they would
-enforce sufficient order-
-ings in the presence of either type of acquire mapping. This is the
-currently-recommended
-solution, and the one shown in Table A.5.
-
-
-Based on this it is enough in our case use only suffixed istructions
-(amo<op>.{w|d}{.aq, .rl, .aqrl, .aqrl }, lr.{w|d}.{.aq, .aqrl }.
-
-
-But as far as I understand in Linux atomics were strengthen with
-fences:
-    Atomics present the same issue with locking: release and acquire
-    variants need to be strengthened to meet the constraints defined
-    by the Linux-kernel memory consistency model [1].
-   =20
-    Atomics present a further issue: implementations of atomics such
-    as atomic_cmpxchg() and atomic_add_unless() rely on LR/SC pairs,
-    which do not give full-ordering with .aqrl; for example, current
-    implementations allow the "lr-sc-aqrl-pair-vs-full-barrier" test
-    below to end up with the state indicated in the "exists" clause.
-   =20
-    In order to "synchronize" LKMM and RISC-V's implementation, this
-    commit strengthens the implementations of the atomics operations
-    by replacing .rl and .aq with the use of ("lightweigth") fences,
-    and by replacing .aqrl LR/SC pairs in sequences such as:
-   =20
-      0:      lr.w.aqrl  %0, %addr
-              bne        %0, %old, 1f
-              ...
-              sc.w.aqrl  %1, %new, %addr
-              bnez       %1, 0b
-      1:
-   =20
-    with sequences of the form:
-   =20
-      0:      lr.w       %0, %addr
-              bne        %0, %old, 1f
-              ...
-              sc.w.rl    %1, %new, %addr   /* SC-release   */
-              bnez       %1, 0b
-              fence      rw, rw            /* "full" fence */
-      1:
-   =20
-    following Daniel's suggestion.
-   =20
-    These modifications were validated with simulation of the RISC-V
-    with sequences of the form:
-   =20
-      0:      lr.w       %0, %addr
-              bne        %0, %old, 1f
-              ...
-              sc.w.rl    %1, %new, %addr   /* SC-release   */
-              bnez       %1, 0b
-              fence      rw, rw            /* "full" fence */
-      1:
-   =20
-    following Daniel's suggestion.
-   =20
-    These modifications were validated with simulation of the RISC-V
-    memory consistency model.
-   =20
-    C lr-sc-aqrl-pair-vs-full-barrier
-   =20
-    {}
-   =20
-    P0(int *x, int *y, atomic_t *u)
-    {
-            int r0;
-            int r1;
-   =20
-            WRITE_ONCE(*x, 1);
-            r0 =3D atomic_cmpxchg(u, 0, 1);
-            r1 =3D READ_ONCE(*y);
-    }
-   =20
-    P1(int *x, int *y, atomic_t *v)
-    {
-            int r0;
-            int r1;
-   =20
-            WRITE_ONCE(*y, 1);
-            r0 =3D atomic_cmpxchg(v, 0, 1);
-            r1 =3D READ_ONCE(*x);
-    }
-   =20
-    exists (u=3D1 /\ v=3D1 /\ 0:r1=3D0 /\ 1:r1=3D0)
-   =20
-    [1] https://marc.info/?l=3Dlinux-kernel&m=3D151930201102853&w=3D2
-    =20
-https://groups.google.com/a/groups.riscv.org/forum/#!topic/isa-dev/hKywNHBk=
-AXM
-        https://marc.info/?l=3Dlinux-kernel&m=3D151633436614259&w=3D2
-
-
-Thereby Linux kernel implementation seems to me more safe and it is a
-reason why I want/wanted to be aligned with it.
-
-~ Oleksii
-
-
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
