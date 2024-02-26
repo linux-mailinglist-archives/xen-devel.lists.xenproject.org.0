@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20D81867BD8
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 17:26:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685631.1066642 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 853A6867C35
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 17:40:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685634.1066653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rednH-0003GN-T7; Mon, 26 Feb 2024 16:25:31 +0000
+	id 1ree1l-0006A4-4y; Mon, 26 Feb 2024 16:40:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685631.1066642; Mon, 26 Feb 2024 16:25:31 +0000
+Received: by outflank-mailman (output) from mailman id 685634.1066653; Mon, 26 Feb 2024 16:40:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rednH-0003DV-QA; Mon, 26 Feb 2024 16:25:31 +0000
-Received: by outflank-mailman (input) for mailman id 685631;
- Mon, 26 Feb 2024 16:25:30 +0000
+	id 1ree1l-00068C-22; Mon, 26 Feb 2024 16:40:29 +0000
+Received: by outflank-mailman (input) for mailman id 685634;
+ Mon, 26 Feb 2024 16:40:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FdVt=KD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rednG-0003DP-QA
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 16:25:30 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ree1k-000686-68
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 16:40:28 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a7b513b3-d4c3-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 17:25:29 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a3d01a9a9a2so339525566b.1
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 08:25:29 -0800 (PST)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- lg25-20020a170907181900b00a43903e7a7csm170636ejc.51.2024.02.26.08.25.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Feb 2024 08:25:28 -0800 (PST)
+ id bec5a5a9-d4c5-11ee-8a58-1f161083a0e0;
+ Mon, 26 Feb 2024 17:40:27 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-563c595f968so4331523a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 08:40:27 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ la22-20020a170906ad9600b00a3df13a4fe0sm2610636ejb.15.2024.02.26.08.40.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Feb 2024 08:40:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,180 +45,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7b513b3-d4c3-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: bec5a5a9-d4c5-11ee-8a58-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708964728; x=1709569528; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+tmouwWJuYSCzk6pXS8mGFw3qvx7hu9XnjEfJTFEA2A=;
-        b=GvcmF+5tXEsgfrOHgRi6vA0MTaxj3A9RVYrSK1FCno0C217aiod/QkmHGOKde00AKJ
-         ysCSq4serYSOnkRV52nVZKY1ui/k34Uvvm7unKOu9hFofZemJ++kESldVFIb9XuITfum
-         aR9qj8gRFor1bTYs5E8n6uLzmwjAJwW030I/g=
+        d=suse.com; s=google; t=1708965626; x=1709570426; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=mAHNRAuYB35r/tg8UzZgPMbCFo1xfBZxNT28rnMxLh4=;
+        b=MBwXxpTvKQdsecawDLdSJ2hmnz2gQFcsjy1V5YUdlYKz2ZDRof1y3gTOAnQxquYHf9
+         gMiXwYVfKU2dSIIwLwlTL31I5zWaaRVfHi9tcWqwmdm/hLP9AHCMZv+7jS6uBVGsogHG
+         b9bomRD9CnRNdMP67pJmQBMY1LBFlj6fw8Npf206GB95x1QMgBMM6brlRhZyQCs11Slr
+         fXymeL+TyReOZAEzR4zl+jPNgejrg7fFDNxPUoXw8cMEE+GARJ+kxvl6U8Q9Wpp0SIVW
+         njACv2Bq2jvKBYhoalwM9OyJZJmmBWXH0uAwKDoFxjqfkmpJMqn+O5C14X6lmLWIxBei
+         T/ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708964728; x=1709569528;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+tmouwWJuYSCzk6pXS8mGFw3qvx7hu9XnjEfJTFEA2A=;
-        b=HhsRD2DKT9jwjmIBP4jfHQ8+rz+UR/w5so/6t+hfthlGkcoBD0ws+9y3KfV8WHBEju
-         VWqAuHIExS8JJUa0xKhRU16UNRhbw+hglomj7CkWO/YDWdRo1blQbw0i3zI6hS732c5T
-         nPGCKhmioDnGenK16PXkN2nkPMe7mILTFdpcGLNuwYTTqz6Csuw9rzHtiw8YO00gOfxD
-         WeWe86ZssYt/WafpNRcUCa7ymoqHzEnELytDawDQOWnWMsM/Drv/ey55P3hCqj1OHeBX
-         9HKoeq+OLJ9s8SzWvGKJQVpW7xgmYa0m3Qg9mVPuB4Ome1gIaHfN4pb3T6RpvpkA+hAS
-         5jWQ==
-X-Gm-Message-State: AOJu0YxkHxbksQEbHbOp55RVJdfN6n3IirlJNkMggUi3Jpxk5E0jELg7
-	+QE/FPWjafzStvdEE83D9uHpoDLUiQxBa3uoabz2YRg3Q6dR2fIDXB5QW5bNuGR7vwc8CtXbH1v
-	9
-X-Google-Smtp-Source: AGHT+IHrm1Ok7e1tGMvLgtxKPn+GdKoxxK0rcGy5BpNkWAFsFVrJs1b0gEHgOo6/qf1GURM3PfmO9Q==
-X-Received: by 2002:a17:906:f15a:b0:a3e:66b5:d65f with SMTP id gw26-20020a170906f15a00b00a3e66b5d65fmr4726665ejb.67.1708964728313;
-        Mon, 26 Feb 2024 08:25:28 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <George.Dunlap@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Julien Grall <julien@xen.org>
-Subject: [PATCH] docs/sphinx: Start an FAQ, and add Kconfig/CET details
-Date: Mon, 26 Feb 2024 16:25:27 +0000
-Message-Id: <20240226162527.1247421-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+        d=1e100.net; s=20230601; t=1708965626; x=1709570426;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=mAHNRAuYB35r/tg8UzZgPMbCFo1xfBZxNT28rnMxLh4=;
+        b=qpP9TW3rIHRTWFmEwj5TdTicdgfVJgy+7j9ZK18hfoKnGdrJAJcDXSkQX6KQzymyOr
+         WbVRiPpy5qI0xMjVF1FVz+u2vib85DoJkqsNG1pbEEWczt/bhV8uoA2vex/4bWJgUOit
+         W+R2KmKclnV5NbnzBZrAYcF8S1YdEnrr2YqR7CtaN/TGdfkR1YYmEBGxFakAIp1wbudJ
+         WGV8mSvoBAmExyRczccHKlhADOEJcM2acxQGuSo4x6boXgcKPze7o3IFDtsCPR4toiyy
+         mBADVItLSlYBihmxyBtYnHpM4MRYi5LTVMqIhEy5vOMizz4IfctImehLiPYjertNLi4r
+         1DpQ==
+X-Gm-Message-State: AOJu0YxWC3ZBDzgiMXjWYdydZHy7d9RRStW3V5K7fttG38oKmzYtsaD9
+	HgjrqpfGVJhWfj2wzKQdb0ZLt0/wqm9XVy5tdCrnkh+ZJUdeoUUG0NOYTs9+Zjg2OmV2GTWYmEU
+	=
+X-Google-Smtp-Source: AGHT+IFzZTbfeA6/Gu2WGferDekLyB+goXbWrH3uPiwEeQgxxT0R26sUo5M6n6SjjzrYw9PUiHTYvw==
+X-Received: by 2002:a17:906:69b:b0:a42:f3a6:9f7f with SMTP id u27-20020a170906069b00b00a42f3a69f7fmr3873194ejb.13.1708965626402;
+        Mon, 26 Feb 2024 08:40:26 -0800 (PST)
+Message-ID: <293e5aef-8843-461c-bc96-709a605b2680@suse.com>
+Date: Mon, 26 Feb 2024 17:40:25 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v3 00/12] x86/HVM: misc tidying
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is long overdue, and we need to start somewhere.
+01: VMX: don't run with CR4.VMXE set when VMX could not be enabled
+02: x86/HVM: improve CET-IBT pruning of ENDBR
+03: VMX: drop vmcs_revision_id
+04: VMX: convert vmx_basic_msr
+05: VMX: convert vmx_pin_based_exec_control
+06: VMX: convert vmx_cpu_based_exec_control
+07: VMX: convert vmx_secondary_exec_control
+08: VMX: convert vmx_tertiary_exec_control
+09: VMX: convert vmx_vmexit_control
+10: VMX: convert vmx_vmentry_control
+11: VMX: convert vmx_ept_vpid_cap
+12: VMX: convert vmx_vmfunc
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: George Dunlap <George.Dunlap@citrix.com>
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Wei Liu <wl@xen.org>
-CC: Julien Grall <julien@xen.org>
----
- docs/faq.rst      | 71 +++++++++++++++++++++++++++++++++++++++++++++++
- docs/glossary.rst | 15 ++++++++++
- docs/index.rst    |  1 +
- 3 files changed, 87 insertions(+)
- create mode 100644 docs/faq.rst
-
-diff --git a/docs/faq.rst b/docs/faq.rst
-new file mode 100644
-index 000000000000..75cd70328a5c
---- /dev/null
-+++ b/docs/faq.rst
-@@ -0,0 +1,71 @@
-+.. SPDX-License-Identifier: CC-BY-4.0
-+
-+Frequently Asked Questions
-+==========================
-+
-+How do I...
-+-----------
-+
-+... check whether a Kconfig option is active?
-+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-+
-+  Kconfig is a build time configuration system, combining inherent knowledge,
-+  the capabilities of the toolchain, and explicit user choice to form a
-+  configuration of a build of Xen.
-+
-+  A file, by default ``.config``, is produced by the build identifying the
-+  configuration used.  Kconfig symbols all start with ``CONFIG_``, and come in
-+  a variety of types including strings, integers and booleans.  Booleans are
-+  the most common, and when active are expressed with ``...=y``.  e.g.::
-+
-+    xen.git/xen$ grep CONFIG_FOO .config
-+    CONFIG_FOO_BOOLEAN=y
-+    CONFIG_FOO_STRING="lorem ipsum"
-+    CONFIG_FOO_INTEGER=42
-+
-+  Symbols which are either absent, or expressed as ``... is not set`` are
-+  disabled.  e.g.::
-+
-+    xen.git/xen$ grep CONFIG_BAR .config
-+    # CONFIG_BAR is not set
-+
-+  Builds of Xen configured with ``CONFIG_HYPFS_CONFIG=y`` embed their own
-+  ``.config`` at build time, and can provide it to the :term:`control domain`
-+  upon requested.  e.g.::
-+
-+    [root@host ~]# xenhypfs cat /buildinfo/config | grep -e FOO -e BAR
-+    CONFIG_FOO=y
-+    # CONFIG_BAR is not set
-+
-+
-+... tell if CET is active?
-+^^^^^^^^^^^^^^^^^^^^^^^^^^
-+
-+  Control-flow Enforcement Technology support was added to Xen 4.14.  It is
-+  build time conditional, dependent on both having a new-enough toolchain and
-+  an explicit Kconfig option, and also requires capable hardware.  See
-+  :term:`CET`.
-+
-+  For CET-SS, Shadow Stacks, the minimum toolchain requirements are ``binutils
-+  >= 2.29`` or ``LLVM >= 6``.  No specific compiler support is required.
-+  Check for ``CONFIG_XEN_SHSTK`` being active.
-+
-+  For CET-IBT, Indirect Branch Tracking, the minimum toolchain requirements
-+  are ``GCC >= 9`` and ``binutils >= 2.29``.  Xen relies on a compiler feature
-+  which is specific to GCC at the time of writing.  Check for
-+  ``CONFIG_XEN_IBT`` being active.
-+
-+  If a capable Xen with booted on capable hardware, and CET is not disabled by
-+  command line option or errata, Xen will print some details early on boot
-+  about which CET facilities have been turned on::
-+
-+    ...
-+    (XEN) CPU Vendor: Intel, Family 6 (0x6), Model 143 (0x8f), Stepping 8 (raw 000806f8)
-+    (XEN) Enabling Supervisor Shadow Stacks
-+    (XEN) Enabling Indirect Branch Tracking
-+    (XEN)   - IBT disabled in UEFI Runtime Services
-+    (XEN) EFI RAM map:
-+    ...
-+
-+  This can be obtained from the control domain with ``xl dmesg``, but remember
-+  to confirm that the console ring hasn't wrapped.
-diff --git a/docs/glossary.rst b/docs/glossary.rst
-index 8ddbdab160a1..6adeec77e14c 100644
---- a/docs/glossary.rst
-+++ b/docs/glossary.rst
-@@ -28,6 +28,21 @@ Glossary
-      single instance of Xen, used as the identifier in various APIs, and is
-      typically allocated sequentially from 0.
- 
-+   CET
-+     Control-flow Enforcement Technology is a facility in x86 CPUs for
-+     defending against memory safety vulnerabilities.  It is formed of two
-+     independent features:
-+
-+     * CET-SS, Shadow Stacks, are designed to protect against Return Oriented
-+       Programming (ROP) attacks.
-+
-+     * CET-IBT, Indirect Branch Tracking, is designed to protect against Call
-+       or Jump Oriented Programming (COP/JOP) attacks.
-+
-+     Intel support CET-SS and CET-IBT from the Tiger Lake (Client, 2020) and
-+     Sapphire Rapids (Server, 2023) CPUs.  AMD support only CET-SS, starting
-+     with Zen3 (Both client and server, 2020) CPUs.
-+
-    guest
-      The term 'guest' has two different meanings, depending on context, and
-      should not be confused with :term:`domain`.
-diff --git a/docs/index.rst b/docs/index.rst
-index 22fdde80590c..ab051a0f3833 100644
---- a/docs/index.rst
-+++ b/docs/index.rst
-@@ -72,4 +72,5 @@ Miscellanea
- 
- .. toctree::
- 
-+   faq
-    glossary
-
-base-commit: 60e00f77a5cc671d30c5ef3318f5b8e9b74e4aa3
--- 
-2.30.2
-
+Jan
 
