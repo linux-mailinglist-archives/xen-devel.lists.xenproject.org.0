@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E45EA86730F
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 12:29:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685478.1066266 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15EBB867325
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 12:33:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685481.1066275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reZA6-0001l6-QP; Mon, 26 Feb 2024 11:28:46 +0000
+	id 1reZEG-0004A9-A5; Mon, 26 Feb 2024 11:33:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685478.1066266; Mon, 26 Feb 2024 11:28:46 +0000
+Received: by outflank-mailman (output) from mailman id 685481.1066275; Mon, 26 Feb 2024 11:33:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reZA6-0001ih-Mz; Mon, 26 Feb 2024 11:28:46 +0000
-Received: by outflank-mailman (input) for mailman id 685478;
- Mon, 26 Feb 2024 11:28:45 +0000
+	id 1reZEG-00047W-7V; Mon, 26 Feb 2024 11:33:04 +0000
+Received: by outflank-mailman (input) for mailman id 685481;
+ Mon, 26 Feb 2024 11:33:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1reZA5-0001ib-Gk
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 11:28:45 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CwqN=KD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1reZEF-00047Q-7K
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 11:33:03 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 327043c7-d49a-11ee-98f5-efadbce2ee36;
- Mon, 26 Feb 2024 12:28:43 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-564a53b8133so2121824a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 03:28:43 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- w14-20020a056402128e00b00563d03030e8sm2249831edv.55.2024.02.26.03.28.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 03:28:42 -0800 (PST)
+ id cc04036d-d49a-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 12:33:00 +0100 (CET)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-512d19e2cb8so4395793e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 03:33:00 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ f13-20020ac8464d000000b0042e5a324e6dsm2338354qto.76.2024.02.26.03.32.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Feb 2024 03:32:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,171 +44,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 327043c7-d49a-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: cc04036d-d49a-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708946923; x=1709551723; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LcAAXH9D0FYnXXIjBHNn8QUKLCPqYFEsIPKcPDxSGrA=;
-        b=QWsO0syq46AmxvRKLR51IVqc5Ky6jsTQHjbct0TCsb3rU/LwZ86xMmpbpOEvpo5UkE
-         ipv1oHTie7+G6vI/zkGsrS2e9/N9J9kKqIfTNAekor7nG8iIxPXPVMumqZM2MzRlni1u
-         GQcGkg0wbtno/rdrNwSzHMNepARS0KKcQz8i0qBBVB88L3RmiGi9lVl4m81QHk8ie4fa
-         xS6Iaxc1BmQY7JqIdlbqVIILxWDoou3kNE0sh8y9AzFVSpQyymIvxBFizhlMHM2Jr/78
-         1M+QKfvYxiB6PX71cJaSvk6/ggtzMTPKYSxouxgDm0sHXNI6gPw+Fy/xQrDBfqwfCWQf
-         7oSA==
+        d=citrix.com; s=google; t=1708947180; x=1709551980; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=qWRWxbqkGASpuBzi88vpArLnGKEm0KUJs7ZvZBR4hIs=;
+        b=tgemmWm999Yshwv6wXy23OuoY0ervubsT1LX5sXb0Y8DlHKHiJVnoEFrkyL+BflFOL
+         ieyxJiM0XG66OWJ/F5ao8oeCvVbfuEL9Szsm16K11F89ACkPwB/tjk3P4jJrCBpiKYMW
+         7/WFCJzeB+51ZSMvl5wRiuCgfxxiPlhWp1rUo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708946923; x=1709551723;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LcAAXH9D0FYnXXIjBHNn8QUKLCPqYFEsIPKcPDxSGrA=;
-        b=EEl4+rfTP4slBWD+EOLjhINqDO2oGCGAYPZXOgQ86B1Zo9S8kE57j9CdcTc4Vk4Wh8
-         hxKe1QV0MjZ52waShSGomyqW60a06iuom0SZFwFqMAtp3ngCy4F0vLdrnlGnPoc1ePBj
-         hsO3L9g3L0vu/eqRGo0T4ZDFlgn8PMwZV4gm1GFH94nEbIowVz6ch+0TiQrTBo0BvpdO
-         qlF6Pvbdy4+n53I+bpuGt4xMwuzKZinfv9sfHI1Up5+p0NTtTGGScAXxftMTv2OdMOis
-         BKAwJlkylZxM351bdpdWY/G4kd9WOPfIqmcoNAOZNNhLyOTDADCO0YkT/Qh0iSVUMK+c
-         dTsA==
-X-Forwarded-Encrypted: i=1; AJvYcCUup7osBBQOB0VTeqrFzVYD4uV5NFI/YEeXdfJvR7CvdeK/P2WxYqh801JXDJ3UwGQKylqYelH+OV3Gbvqi6HY/S5Kr4JdPIOKmxEn2Mag=
-X-Gm-Message-State: AOJu0Yz26z0HUI4AlghhZ4gv60YCE0ly0DtwAjSBhDVZhuYWHjbSRAEb
-	wwDV1RXVjLnzWTB7cHBMhM6t6EVmCrfih3P10eiQ2/wcGmoR8UYoReJ2RlfgMw==
-X-Google-Smtp-Source: AGHT+IHLJLAbt1wQWjYza/EgrHSAgA+wlVcyBkFLny/N+2t1f8xi4gMlVgzuXgcDUDgvzySR2WTzLw==
-X-Received: by 2002:a05:6402:1606:b0:565:ffa5:becd with SMTP id f6-20020a056402160600b00565ffa5becdmr1268102edv.37.1708946922791;
-        Mon, 26 Feb 2024 03:28:42 -0800 (PST)
-Message-ID: <7cab68d1-9bdf-4ea1-b49a-cce1e4af4692@suse.com>
-Date: Mon, 26 Feb 2024 12:28:44 +0100
+        d=1e100.net; s=20230601; t=1708947180; x=1709551980;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qWRWxbqkGASpuBzi88vpArLnGKEm0KUJs7ZvZBR4hIs=;
+        b=hV3EqXRttg46HWMphZRnZenp9vttyZDGZDNgUmkd+EDoiqhERoryYlt6S8eb+t2m6g
+         UR1AGQXz7MbQ0HYYP58mBU6dsJvEFyqN8uCDNwDzxKTcVluEzw6tOp/gpeJAIY16jWuT
+         chjQOVG8SfemBKaoU8B88rSvjiZQNCgJstVaRT2xmNyAXmgQGCZKhuwBmQk4Zph5zmNJ
+         bHL1D2scWxRUsZglCVv0ctFT9+VBNqQyhIZClpomIkEchIgt85+B9vGDuAmEb0oZRliO
+         6PUMmRJjhf7NyXsYe1VqGMuxtuKH6dPgHIZ0A2zqyzyBeLXizIj/HCAkq1DkSDFH/4Tr
+         d3OQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXfbjezsGvAw9RdqfYauWWGC2FXIYdZvmjl62xzBWfiGLWGZwE6UvKH45hPEIwDvDXTzIK4QhZp4AnsyIX7JuFlzwTmAMSL3y7QaxckZvw=
+X-Gm-Message-State: AOJu0YyZEHQ1PoaA8Sr+yS81nKuBNrMYAY6Bhl3/Kl1eeOLd4HUjSXGS
+	g8c1ex3oj3ev5Vx36jZMCkH1ZAgu6gHjA/cLUzPdFn/qFYD70r5xI9bVvj7sBOg=
+X-Google-Smtp-Source: AGHT+IFz6qRvVq98SDkqeNWpzQY5MFpFKG/zvl850ycjpBpYZQLdZCCHpLWusRd29QdXMQsHKIbXVg==
+X-Received: by 2002:a05:6512:3b85:b0:512:eeac:2463 with SMTP id g5-20020a0565123b8500b00512eeac2463mr4315162lfv.14.1708947180336;
+        Mon, 26 Feb 2024 03:33:00 -0800 (PST)
+Date: Mon, 26 Feb 2024 12:32:56 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 3/3] xen/livepatch: align functions to ensure minimal
+ distance between entry points
+Message-ID: <Zdx26DwTvcB2zcbw@macbook>
+References: <20240207145547.89689-1-roger.pau@citrix.com>
+ <20240207145547.89689-4-roger.pau@citrix.com>
+ <670e4a5e-4eec-4a2c-9ed1-fcc164b1d76c@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/30] xen/riscv: introduce cmpxchg.h
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
- <25315ca95baffc9b222fb0ae89375a94b01a9b46.1707146506.git.oleksii.kurochko@gmail.com>
- <9e50ef30-8dc6-4380-aa65-724e5a376c10@suse.com>
- <28844fdfcf5eea515497fb7b5fd8ea6fb1c5ebaa.camel@gmail.com>
- <554a43e8-7d8d-45c4-936d-36f02c207531@suse.com>
- <1c53b52ee39161a8f59209d28af69fe997479dbc.camel@gmail.com>
- <3b38fe82-ee0f-4666-93e1-bd78fe69c534@suse.com>
- <5d2d35fe014094c991363e42c3e2ad9ca2af3938.camel@gmail.com>
- <44fd5092-7838-4d28-804b-bbfebfd44886@suse.com>
- <56ae27d003b8763af34864ae56433691685c3661.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <56ae27d003b8763af34864ae56433691685c3661.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <670e4a5e-4eec-4a2c-9ed1-fcc164b1d76c@suse.com>
 
-On 26.02.2024 12:18, Oleksii wrote:
-> On Mon, 2024-02-26 at 10:45 +0100, Jan Beulich wrote:
->> On 23.02.2024 13:23, Oleksii wrote:
->>>>
->>>>>>> As 1- and 2-byte cases are emulated I decided that is not
->>>>>>> to
->>>>>>> provide
->>>>>>> sfx argument for emulation macros as it will not have to
->>>>>>> much
->>>>>>> affect on
->>>>>>> emulated types and just consume more performance on acquire
->>>>>>> and
->>>>>>> release
->>>>>>> version of sc/ld instructions.
->>>>>>
->>>>>> Question is whether the common case (4- and 8-byte accesses)
->>>>>> shouldn't
->>>>>> be valued higher, with 1- and 2-byte emulation being there
->>>>>> just
->>>>>> to
->>>>>> allow things to not break altogether.
->>>>> If I understand you correctly, it would make sense to add the
->>>>> 'sfx'
->>>>> argument for the 1/2-byte access case, ensuring that all
->>>>> options
->>>>> are
->>>>> available for 1/2-byte access case as well.
->>>>
->>>> That's one of the possibilities. As said, I'm not overly worried
->>>> about
->>>> the emulated cases. For the initial implementation I'd recommend
->>>> going
->>>> with what is easiest there, yielding the best possible result for
->>>> the
->>>> 4- and 8-byte cases. If later it turns out repeated
->>>> acquire/release
->>>> accesses are a problem in the emulation loop, things can be
->>>> changed
->>>> to explicit barriers, without touching the 4- and 8-byte cases.
->>> I am confused then a little bit if emulated case is not an issue.
->>>
->>> For 4- and 8-byte cases for xchg .aqrl is used, for relaxed and
->>> aqcuire
->>> version of xchg barries are used.
->>>
->>> The similar is done for cmpxchg.
->>>
->>> If something will be needed to change in emulation loop it won't
->>> require to change 4- and 8-byte cases.
->>
->> I'm afraid I don't understand your reply.
-> IIUC, emulated cases it is implemented correctly in terms of usage
-> barriers. And it also OK not to use sfx for lr/sc instructions and use
-> only barriers.
+On Tue, Feb 13, 2024 at 04:58:38PM +0100, Jan Beulich wrote:
+> On 07.02.2024 15:55, Roger Pau Monne wrote:
+> > The minimal function size requirements for an x86 livepatch are either 5 bytes
+> > (for jmp) or 9 bytes (for endbr + jmp), and always 4 bytes on Arm.  Ensure that
+> > distance between functions entry points is always at least of the minimal
+> > required size for livepatch instruction replacement to be successful.
+> > 
+> > Add an additional align directive to the linker scripts, in order to ensure that
+> > the next section placed after the .text.* (per-function sections) is also
+> > aligned to the required boundary, so that the distance of the last function
+> > entry point with the next symbol is also of minimal size.
 > 
-> For 4- and 8-byte cases are used sfx + barrier depending on the
-> specific case ( relaxed, acquire, release, generic xchg/cmpxchg ).
-> What also looks to me correct. But you suggested to provide the best
-> possible result for 4- and 8-byte cases. 
+> Perhaps "... minimal required size"?
+
+Yes.
+
+> > --- a/xen/common/Kconfig
+> > +++ b/xen/common/Kconfig
+> > @@ -395,8 +395,11 @@ config CRYPTO
+> >  config LIVEPATCH
+> >  	bool "Live patching support"
+> >  	default X86
+> > -	depends on "$(XEN_HAS_BUILD_ID)" = "y"
+> > +	depends on "$(XEN_HAS_BUILD_ID)" = "y" && CC_HAS_FUNCTION_ALIGNMENT
+> >  	select CC_SPLIT_SECTIONS
+> > +	select FUNCTION_ALIGNMENT_16B if XEN_IBT
+> > +	select FUNCTION_ALIGNMENT_8B  if X86
+> > +	select FUNCTION_ALIGNMENT_4B  if ARM
 > 
-> So I don't understand what the best possible result is as the current
-> one usage of __{cmp}xchg_generic for each specific case  ( relaxed,
-> acquire, release, generic xchg/cmpxchg ) looks correct to me:
-> xchg -> (..., ".aqrl", "", "") just suffix .aqrl suffix without
-> barriers.
-> xchg_release -> (..., "", RISCV_RELEASE_BARRIER, "" ) use only release
-> barrier
-> xchg_acquire -> (..., "", "", RISCV_ACQUIRE_BARRIER ), only acquire
-> barrier
-> xchg_relaxed ->  (..., "", "", "") - no barries, no sfx
+> This isn't strictly needed, is it? Would be nice to avoid re-selection
+> of what the default for an arch is anyway, as otherwise this will start
+> looking clumsy when a couple more architectures are added.
 
-So first: While explicit barriers are technically okay, I don't follow why
-you insist on using them when you can achieve the same by suitably tagging
-the actual insn doing the exchange. Then second: It's somewhat hard for me
-to see the final effect on the emulation paths without you actually having
-done the switch. Maybe no special handling is necessary there anymore
-then. And as said, it may actually be acceptable for the emulation paths
-to "only" be correct, but not be ideal in terms of performance. After all,
-if you use the normal 4-byte primitive in there, more (non-explicit)
-barriers than needed would occur if the involved loop has to take more
-than one iteration. Which could (but imo doesn't need to be) avoided by
-using a more relaxed 4-byte primitive there and an explicit barrier
-outside of the loop.
+My worry was that the default per-arch could change, ie: for example
+x86 moving from 16 to 8 and then it would hamper livepatch support if
+IBT is also enabled.  I however think it's very unlikely to reduce the
+default alignment, and in any case we would hit a build time assert if
+that ever happens.
 
-Jan
+So yes, I'm fine with dropping those.
+
+> Preferably
+> with that dropped (or it being clarified why it's still desirable to
+> have):
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Thanks, Roger.
 
