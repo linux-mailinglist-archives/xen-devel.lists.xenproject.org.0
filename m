@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD522866C16
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 09:26:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685305.1065799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EB36866C39
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 09:29:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685308.1065809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reWJD-0002A0-AB; Mon, 26 Feb 2024 08:25:59 +0000
+	id 1reWMC-0002pC-RW; Mon, 26 Feb 2024 08:29:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685305.1065799; Mon, 26 Feb 2024 08:25:59 +0000
+Received: by outflank-mailman (output) from mailman id 685308.1065809; Mon, 26 Feb 2024 08:29:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reWJD-00028U-7Y; Mon, 26 Feb 2024 08:25:59 +0000
-Received: by outflank-mailman (input) for mailman id 685305;
- Mon, 26 Feb 2024 08:25:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1reWMC-0002mS-Ol; Mon, 26 Feb 2024 08:29:04 +0000
+Received: by outflank-mailman (input) for mailman id 685308;
+ Mon, 26 Feb 2024 08:29:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1reWJC-00028K-8H
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 08:25:58 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a98e9f3f-d480-11ee-98f5-efadbce2ee36;
- Mon, 26 Feb 2024 09:25:56 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a3ed9cae56fso432353266b.1
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 00:25:56 -0800 (PST)
+ id 1reWMB-0002mM-4r
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 08:29:03 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 18350aae-d481-11ee-8a58-1f161083a0e0;
+ Mon, 26 Feb 2024 09:29:01 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-564fc495d83so3084520a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 00:29:01 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- i19-20020a17090639d300b00a3f81200425sm2166049eje.122.2024.02.26.00.25.54
+ tk6-20020a170907c28600b00a4306ac4c77sm1717747ejc.197.2024.02.26.00.29.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 00:25:55 -0800 (PST)
+ Mon, 26 Feb 2024 00:29:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a98e9f3f-d480-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 18350aae-d481-11ee-8a58-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708935956; x=1709540756; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708936141; x=1709540941; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=eUeYrdWPS0lIWnR9EDneERJUkpPmXqsRbAsuMqSX10c=;
-        b=T/J64ZbnBGqi2XZfnsELPtYymXPjIWdQLnArSUNRJAXdsdMm6hxmOaoif37kzvi5wO
-         /HOONfGxziMvn0flDE2UcZcq6v/ME+n8UtFZ+XQOOwKQfC0/i7FPi0mP+Sf8mMmcgCU3
-         XXxltb3m0ppZ0ilPTbm19d+/t1hq1a2CwujWJOq8mKbJdB10CoocZO8p1nO4VcY1DR+g
-         eWTi4iplfrE8IZVsmAaqdEBGbCobfP7Mt535Vak+PhrTdUeUWo6nOeWnbwGJM63PdscY
-         omNo/Is/f2bWaqVGIHs1BNTUlQnY0XyTjyjrkG6nP8uZNd1IAVKrQX015zuPIFX9qTPb
-         Hpfw==
+        bh=cjTSGymniHHGW5tzXzYlfaZlNi2W4NqR8URzivEqBDU=;
+        b=J/9U1/PGY/XvJnoOo5lmcIqZcxX3A+TPMqVHltDtCIuppVYNdHERRHoqYNBvpjad9k
+         iVp46MOWXnxOS49R1eXwNsi5kdO017w5U0kMKKt+AqdjfiHVpkONqA8uJw4crfiDraEf
+         V4vga8VfqXndP7QaV3S3qjnqFa0jI7ZWWVht8wgo5LCG1L2vWtJUwUnnYnvgQDuLfGFA
+         4DQLlWksWjpaVwgNSwhjj6vicRD0IN24cNSoNAK0zKrVUx1Fk1wCTwWZlf3FLqhRttdG
+         /J34Q58ClHxIoHW3x6GXQmj73e44b1IcFEuOH5oHS/lkXU7f1D57O7C4nz8mjdQH1lJV
+         aH0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708935956; x=1709540756;
+        d=1e100.net; s=20230601; t=1708936141; x=1709540941;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eUeYrdWPS0lIWnR9EDneERJUkpPmXqsRbAsuMqSX10c=;
-        b=NgZvlWIRWQ4yGwHZqXIhU79GAP5QjHAogoyX//Sdr/Rkz+gUe3FQWWEf00qT4ncm1H
-         GBpbyR1+bKaUzW7g/l1HGitBUlkTNj8xnQd5IBuicVGZwK1Pdt9Rqxa5InI1T/tAxdM6
-         /OGHxY2kF2JvcK8dW+mo3lvEvIjXPNHUWd7Z8X/CAamdv0I4s811Y2CHxg4I0oCj3XiA
-         /vTBOS+CnHpc3C6nYWH0A4M2wD+VkNqX9jkwEXc8gltNFbGNIyG6DdqtsfL87TzQjV9a
-         nC+l9RmKUYRJQVKPtXWq4cJc5Ft7DpYq6bg2QxFymyY4plFw6r8HBr8hrTB5EZXV4zI/
-         WEsA==
-X-Forwarded-Encrypted: i=1; AJvYcCX6UenN7Mj1NBoIKyMDUk3H8+y3InOVRnDZ/MUMN8FY2hA7AFj5rHcfuIy8G+FCql7zqPqxqdnN9SRC1AwZ02s/djHrJEB+S17TgGaV5iU=
-X-Gm-Message-State: AOJu0YyDlB4zI/H1itJtUL3yjH5olSKr/1bBv7ri1kGSwESfCYhUY/7+
-	MJqUaPnvgxAA62egQIUcUTM+XlUQpP7rLsVLxBmEuIHd6QvLH4v29dYYiqOmXw==
-X-Google-Smtp-Source: AGHT+IGqtR6wy19YcGHLZpETATECuDGQuxEVIsnI6MUKjSanaFGrayR4faxLNXT73ARQHZypG66wPg==
-X-Received: by 2002:a17:906:e298:b0:a42:f0b6:c2f1 with SMTP id gg24-20020a170906e29800b00a42f0b6c2f1mr4819760ejb.28.1708935955728;
-        Mon, 26 Feb 2024 00:25:55 -0800 (PST)
-Message-ID: <b41daccb-d402-4da8-bc88-933facd088a8@suse.com>
-Date: Mon, 26 Feb 2024 09:25:56 +0100
+        bh=cjTSGymniHHGW5tzXzYlfaZlNi2W4NqR8URzivEqBDU=;
+        b=gUT6J/X9dUPUve/qaFszRhhJZQg6rKRdOuRHZTINhhO0bdOH4HT6RrY7ummighS8Hc
+         GjB4f8MvvoTbrgYx7fmGy1wsUfUKIQgotkMlA4JP0jqrpOGziGsergzKmJ2MJXRyXfn4
+         uYgBMrYqNJJsljWL+TxO+QwFdaQCmWl2HDtTM9d8FJXN7sblq+BNo0HRlR3TpzdLGShY
+         GuQ5MoMNwkTc6pbAUydPdaR0dAoL6IqYubAR6f0Dbdu8IOWuiscumGLxGnUa+SQHHZGk
+         rVH1lHzh5P85oN3PVH8UPzfS9DyQMWeKyTJYBa1JvG2HGDqbzOn7UHehwpRv1iyWyb4i
+         hhxw==
+X-Forwarded-Encrypted: i=1; AJvYcCVyYe7smp6nrmcoFoKPRu6VqV4ju7i66J0rXDwzXrEMVaw9ySLJUP7T7oxElwRSQDiBEwMnDQWoJ+EvSkaC3+uxvZGd+gqAndd5Md5BG3I=
+X-Gm-Message-State: AOJu0YzHd2BJ/Bo3XQzTugWbYVQSpLi3fWpZg/2eWgRO4Z9UwTfWE72q
+	1qOi3l4+gITis1QRPr4lioGHJgYQ/jex1xmLFThw4iI+7GohXIumlNoFTpXB7w==
+X-Google-Smtp-Source: AGHT+IH+KPONZ8u/2vRpsLBDicr5yT50J7zxWwhmIYa8GWV0d2jdz7Md6SDJ/qJhn1nIadHbvrG4Rw==
+X-Received: by 2002:a17:906:fa07:b0:a3c:cbab:f3b with SMTP id lo7-20020a170906fa0700b00a3ccbab0f3bmr4925525ejb.23.1708936141400;
+        Mon, 26 Feb 2024 00:29:01 -0800 (PST)
+Message-ID: <3ed4e0e9-fec4-4e8b-a52d-fb4756ae50cd@suse.com>
+Date: Mon, 26 Feb 2024 09:29:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/common: Do not allocate magic pages 1:1 for direct
- mapped domains
+Subject: Re: [PATCH v2 1/3] xen/cmdline: fix printf format specifier in
+ no_config_param()
 Content-Language: en-US
-To: Henry Wang <xin.wang2@amd.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Alec Kwapis <alec.kwapis@medtronic.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
-References: <20240226011935.169462-1-xin.wang2@amd.com>
+References: <20240223120616.73503-1-roger.pau@citrix.com>
+ <20240223120616.73503-2-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -122,114 +114,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240226011935.169462-1-xin.wang2@amd.com>
+In-Reply-To: <20240223120616.73503-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26.02.2024 02:19, Henry Wang wrote:
-> --- a/xen/arch/arm/include/asm/mm.h
-> +++ b/xen/arch/arm/include/asm/mm.h
-> @@ -428,6 +428,19 @@ static inline void page_set_xenheap_gfn(struct page_info *p, gfn_t gfn)
->      } while ( (y = cmpxchg(&p->u.inuse.type_info, x, nx)) != x );
->  }
->  
-> +#define MAGIC_PAGE_N_GPFN(n)     ((GUEST_MAGIC_BASE >> PAGE_SHIFT) + n)
-> +static inline bool is_magic_gpfn(xen_pfn_t gpfn)
-> +{
-> +    unsigned int i;
-> +    for ( i = 0; i < NR_MAGIC_PAGES; i++ )
+On 23.02.2024 13:06, Roger Pau Monne wrote:
+> '*' sets the width field, which is the minimum number of characters to output,
+> but what we want in no_config_param() is the precision instead, which is '.*'
+> as it imposes a maximum limit on the output.
+> 
+> Fixes: 68d757df8dd2 ('x86/pv: Options to disable and/or compile out 32bit PV support')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Nit: Blank line please between declaration(s) and statement(s).
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/ppc/include/asm/mm.h
-> +++ b/xen/arch/ppc/include/asm/mm.h
-> @@ -256,4 +256,9 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
->      return true;
->  }
->  
-> +static inline bool is_magic_gpfn(xen_pfn_t gpfn)
-> +{
-> +    return false;
-> +}
-> +
->  #endif /* _ASM_PPC_MM_H */
-> --- a/xen/arch/riscv/include/asm/mm.h
-> +++ b/xen/arch/riscv/include/asm/mm.h
-> @@ -3,6 +3,7 @@
->  #ifndef _ASM_RISCV_MM_H
->  #define _ASM_RISCV_MM_H
->  
-> +#include <public/xen.h>
->  #include <asm/page-bits.h>
->  
->  #define pfn_to_paddr(pfn) ((paddr_t)(pfn) << PAGE_SHIFT)
-> @@ -20,4 +21,9 @@ unsigned long calc_phys_offset(void);
->  
->  void turn_on_mmu(unsigned long ra);
->  
-> +static inline bool is_magic_gpfn(xen_pfn_t gpfn)
-> +{
-> +    return false;
-> +}
-> +
->  #endif /* _ASM_RISCV_MM_H */
-> --- a/xen/arch/x86/include/asm/mm.h
-> +++ b/xen/arch/x86/include/asm/mm.h
-> @@ -628,4 +628,9 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
->      return (mfn + nr) <= (virt_to_mfn(eva - 1) + 1);
->  }
->  
-> +static inline bool is_magic_gpfn(xen_pfn_t gpfn)
-> +{
-> +    return false;
-> +}
 
-I don't think every arch should need to gain such a dummy function. Plus
-the function name doesn't clarify at all what kind of "magic" this is
-about. Plus I think the (being phased out) term "gpfn" would better not
-be used in new functions anymore. Instead type-safe gfn_t would likely
-better be used as parameter type.
-
-> --- a/xen/common/memory.c
-> +++ b/xen/common/memory.c
-> @@ -219,7 +219,7 @@ static void populate_physmap(struct memop_args *a)
->          }
->          else
->          {
-> -            if ( is_domain_direct_mapped(d) )
-> +            if ( is_domain_direct_mapped(d) && !is_magic_gpfn(gpfn) )
->              {
->                  mfn = _mfn(gpfn);
->  
-
-I wonder whether is_domain_direct_mapped() shouldn't either be cloned
-into e.g. is_gfn_direct_mapped(d, gfn), or be adjusted in-place to gain
-such a (then optional) 2nd parameter. (Of course there again shouldn't be
-a need for every domain to define a stub is_domain_direct_mapped() - if
-not defined by an arch header, the stub can be supplied in a single
-central place.)
-
-> --- a/xen/include/public/arch-arm.h
-> +++ b/xen/include/public/arch-arm.h
-> @@ -476,6 +476,12 @@ typedef uint64_t xen_callback_t;
->  #define GUEST_MAGIC_BASE  xen_mk_ullong(0x39000000)
->  #define GUEST_MAGIC_SIZE  xen_mk_ullong(0x01000000)
->  
-> +#define NR_MAGIC_PAGES 4
-> +#define CONSOLE_PFN_OFFSET 0
-> +#define XENSTORE_PFN_OFFSET 1
-> +#define MEMACCESS_PFN_OFFSET 2
-> +#define VUART_PFN_OFFSET 3
-> +
->  #define GUEST_RAM_BANKS   2
-
-Of these only NR_MAGIC_PAGES is really used in Xen, afaics.
-
-Also while this is added to a tools-only section, I'm also concerned of
-the ongoing additions here without suitable XEN_ prefixes. Any number
-of kinds of magic pages may exist for other reasons in a platform; which
-ones are meant would therefore better be sufficiently clear from the
-identifier used.
-
-Jan
 
