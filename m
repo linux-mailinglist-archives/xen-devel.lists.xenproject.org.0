@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C482866BED
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 09:17:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685298.1065769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E022F866C0A
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 09:23:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685301.1065780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reWAG-0007eX-1K; Mon, 26 Feb 2024 08:16:44 +0000
+	id 1reWGi-00017o-Ni; Mon, 26 Feb 2024 08:23:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685298.1065769; Mon, 26 Feb 2024 08:16:44 +0000
+Received: by outflank-mailman (output) from mailman id 685301.1065780; Mon, 26 Feb 2024 08:23:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reWAF-0007d4-Uo; Mon, 26 Feb 2024 08:16:43 +0000
-Received: by outflank-mailman (input) for mailman id 685298;
- Mon, 26 Feb 2024 08:16:42 +0000
+	id 1reWGi-00015i-KM; Mon, 26 Feb 2024 08:23:24 +0000
+Received: by outflank-mailman (input) for mailman id 685301;
+ Mon, 26 Feb 2024 08:23:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CwqN=KD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1reWAE-0007cy-Gl
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 08:16:42 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=4NSY=KD=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1reWGg-00015c-SG
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 08:23:22 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e430e56-d47f-11ee-98f5-efadbce2ee36;
- Mon, 26 Feb 2024 09:16:40 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-512a65cd2c7so3873876e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 00:16:40 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- a12-20020a0ce34c000000b0068fa7e73367sm2630439qvm.42.2024.02.26.00.16.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Feb 2024 00:16:39 -0800 (PST)
+ id 4cf8fc38-d480-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 09:23:20 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a3e4765c86eso322359366b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 00:23:20 -0800 (PST)
+Received: from [192.168.69.100] ([176.176.164.69])
+ by smtp.gmail.com with ESMTPSA id
+ fj8-20020a1709069c8800b00a42ec98b9afsm2127370ejc.158.2024.02.26.00.23.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Feb 2024 00:23:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,88 +45,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e430e56-d47f-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 4cf8fc38-d480-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708935400; x=1709540200; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Vs+kulZx0w00Y5wFeWg8vZZaaFGqzBJJwJkTF/Xc0/o=;
-        b=T0PgZNSt9+ZHiRff0gbqZXR6UDLJ1xALRv7giJE3Yo7255vMNHgZ+wgcFoFZsyoNhL
-         Db/HZgy6V2Y8LLSskdX+OqU8g2JpE60wPHwCjJcKEk8hAvV1M0I5gdfSkC2fXpi3ZMO6
-         qqd6BdAfmsKV8A1wDvJVOjr/MPi0WQOhO+f2s=
+        d=linaro.org; s=google; t=1708935800; x=1709540600; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=IHkkhH3shB94Aa6njH/RF4O9pI/05EhqdX+P2NTRny8=;
+        b=AfFyQewjQASx5azdB3zGaM7h0qgTHfvtQ2F/0gw7UlMsp3Pz+qYfY8Pwrb+5CHBgQq
+         O8m1k41Eykei1b/qBj1TKqdxEc/LCoJOGniRzSv7ISaLZD/D2mixQ4We0Yk+HpqOc+Lc
+         eJIYF4ciS6x4EXFIWM6glRTP5chuiEclzn2BGbYsgjV1GfcyPZgO3ByXAIecLTwd5oTn
+         fy4sDv8Q+Ni9IfWNgJWgRECwxPQA9aydGA2dsoDh5adDWsXkbHQlenX/EtY7JP9FBUwm
+         FeXSh3LOma6GvyK9C36uOpGDvriDutqVXvZCYSQd/sxtDDT4ZAzLrRXpMQ1giggTtuoO
+         SwGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708935400; x=1709540200;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1708935800; x=1709540600;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Vs+kulZx0w00Y5wFeWg8vZZaaFGqzBJJwJkTF/Xc0/o=;
-        b=WYk5Gz83DXr2gGZXnPXSEUkfasjVVfqU/+vP4N9jgbLa/j5N/MSsCJWFsMPteHr/rv
-         lQzKmKZMbc831YQPFUMoZPBVNMZ4P/I3SPapyeeb7qHc2BNlG0RSYv4vYQnn3qR/EdQz
-         dR09looIS4XA01VWE5LeIKX1h8W32ECY9nghcTTYtFB0U7J60K4AXPOXZ4ypFttoLs0G
-         HDCQ+dDJvpP6NnNM/J6PVO4nM2yfTrjsaAKaFizj3l+xriuFXrowNz5MOulcMUToABSp
-         iCm+FeuqgxX37FNQ8vN8Vp1acQkD5L/xLQTTE5v6FCKJtouKrWMo/em2blVYrytDQ/UQ
-         BLkA==
-X-Gm-Message-State: AOJu0YzKxop16jdyeQ8Y9OdlOsuG9+urQ18kB1uZN8vt/crd2dn+/1H5
-	dLbFRA6EBTyeXZ8a4A89okm9ZcEgiL6Pj7YvhNm615Fck+c1JbVzIZXDGEOlUCI=
-X-Google-Smtp-Source: AGHT+IGIJPy6uhZPQVjw/b+dE5KZwktCIodv3efAYz03UnPQ3OD2PgR9pgYE718A2NPYX4MkmJmBGQ==
-X-Received: by 2002:a05:6512:3dac:b0:512:ed33:c16 with SMTP id k44-20020a0565123dac00b00512ed330c16mr4932678lfv.8.1708935399824;
-        Mon, 26 Feb 2024 00:16:39 -0800 (PST)
-Date: Mon, 26 Feb 2024 09:16:31 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Subject: Re: [PATCH 3/5] xen/livepatch: fix norevert test attempt to
- open-code revert
-Message-ID: <ZdxI3z1LYUkk7WkY@macbook>
-References: <20231130142944.46322-1-roger.pau@citrix.com>
- <20231130142944.46322-4-roger.pau@citrix.com>
- <CAG7k0ErX0yydgTyZQM=CU+7ZgWnrvqJGXRGmUtM8=O9_UH=12A@mail.gmail.com>
+        bh=IHkkhH3shB94Aa6njH/RF4O9pI/05EhqdX+P2NTRny8=;
+        b=UKvvAzM9nVuLlis3dJO46qUyoOG7gSzC79r7BWL8U4jASswEN494jBMb/7b8lAjSIY
+         2W67XScVG5QDqxQ9ulz8WgSPD95BloXEYlMk9OuuE6TwVmztMTL5506GQLspeVYMANjh
+         JjHYLXztBF3+m4syIyNnW23iI6xpI9z51WbT0fk8T0ZPjtXwJ+2TJsQ5SZnErJwLuzfA
+         uSTFiGo++7Tm1t1RCRFRYerP+wo3yxGfcopWnmS/n/aKf5NmPwiraqJLPwP5XfyWJfXO
+         iH3iOwbCo65ud819rJE+52DTdmMH/BYfxY6V1/r6AiEgZnFlBl+naBpKUFjjTGRHeCN6
+         6Gyw==
+X-Forwarded-Encrypted: i=1; AJvYcCXgT5I8/bPGVc2H0MDe7M+Y8+YmYnb9z+0ScdSBBlBFgAyMGJGM0rySLozaCpGGBqbi1kKqHEzdmOkw2xe1aWMf0jJI8JQayQoLGJ+YD34=
+X-Gm-Message-State: AOJu0YyyVTYNWL0JNiIpARPSfs8VXx82Nbm5gCxXjEFFaKTt5+CHwq2p
+	PXDnXt+c15nBNzSxutCEdCUJH6OAvYQYHidfy+7iL+p7DA5QAnd7ih9DTeGm3jk=
+X-Google-Smtp-Source: AGHT+IHOnMGtNqT1/asAZtr5MYy0RSUUVEKYMToG1GqpcICWSSVYwVWbEB7USOctPs4WSxY3+ruo5g==
+X-Received: by 2002:a17:906:40d1:b0:a3e:93d0:3443 with SMTP id a17-20020a17090640d100b00a3e93d03443mr3955053ejk.34.1708935800385;
+        Mon, 26 Feb 2024 00:23:20 -0800 (PST)
+Message-ID: <601bae2e-4e42-4e88-aa97-e94bb4696ab8@linaro.org>
+Date: Mon, 26 Feb 2024 09:23:17 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] hw/xen: detect when running inside stubdomain
+Content-Language: en-US
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, qemu-devel@nongnu.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+References: <20240219181627.282097-1-marmarek@invisiblethingslab.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20240219181627.282097-1-marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAG7k0ErX0yydgTyZQM=CU+7ZgWnrvqJGXRGmUtM8=O9_UH=12A@mail.gmail.com>
 
-On Fri, Feb 23, 2024 at 10:10:38AM +0000, Ross Lagerwall wrote:
-> On Thu, Nov 30, 2023 at 2:30 PM Roger Pau Monne <roger.pau@citrix.com> wrote:
-> > diff --git a/xen/test/livepatch/xen_action_hooks_norevert.c b/xen/test/livepatch/xen_action_hooks_norevert.c
-> > index 3e21ade6abfc..074f8e1d56ce 100644
-> > --- a/xen/test/livepatch/xen_action_hooks_norevert.c
-> > +++ b/xen/test/livepatch/xen_action_hooks_norevert.c
-> > @@ -96,26 +96,14 @@ static int revert_hook(livepatch_payload_t *payload)
-> >
-> >  static void post_revert_hook(livepatch_payload_t *payload)
-> >  {
-> > -    int i;
-> > +    unsigned long flags;
-> >
-> >      printk(KERN_DEBUG "%s: Hook starting.\n", __func__);
-> >
-> > -    for (i = 0; i < payload->nfuncs; i++)
-> > -    {
-> > -        const struct livepatch_func *func = &payload->funcs[i];
-> > -        struct livepatch_fstate *fstate = &payload->fstate[i];
-> > -
-> > -        BUG_ON(revert_cnt != 1);
-> > -        BUG_ON(fstate->applied != LIVEPATCH_FUNC_APPLIED);
-> > -
-> > -        /* Outside of quiesce zone: MAY TRIGGER HOST CRASH/UNDEFINED BEHAVIOR */
-> > -        arch_livepatch_quiesce();
-> > -        common_livepatch_revert(payload);
-> > -        arch_livepatch_revive();
-> > -        BUG_ON(fstate->applied == LIVEPATCH_FUNC_APPLIED);
-> > -
-> > -        printk(KERN_DEBUG "%s: post reverted: %s\n", __func__, func->name);
-> > -    }
-> > +    local_irq_save(flags);
-> > +    revert_payload(payload);
+On 19/2/24 19:16, Marek Marczykowski-Górecki wrote:
+> Introduce global xen_is_stubdomain variable when qemu is running inside
+> a stubdomain instead of dom0. This will be relevant for subsequent
+> patches, as few things like accessing PCI config space need to be done
+> differently.
 > 
-> Should this check or assert the return value of revert_payload()?
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> ---
+>   hw/xen/xen-legacy-backend.c | 15 +++++++++++++++
+>   include/hw/xen/xen.h        |  1 +
+>   system/globals.c            |  1 +
+>   3 files changed, 17 insertions(+)
 
-Hm, yes, why not.  I will put this inside of a BUG_ON(), as
-post-revert hook doesn't return any value.
 
-Thanks, Roger.
+> +static bool xen_check_stubdomain(void)
+> +{
+> +    char *dm_path = g_strdup_printf("/local/domain/%d/image", xen_domid);
+> +    uint32_t dm_domid;
+> +    bool is_stubdom = false;
+> +
+> +    if (!xenstore_read_int(dm_path, "device-model-domid", &dm_domid))
+
+BTW missing braces for QEMU coding style: {
+
+> +        is_stubdom = dm_domid != 0;
+
+}
+
+> +
+> +    g_free(dm_path);
+> +    return is_stubdom;
+> +}
+
 
