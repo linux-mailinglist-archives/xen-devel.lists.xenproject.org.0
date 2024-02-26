@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EB36866C39
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 09:29:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685308.1065809 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CCDD866C58
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 09:33:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685314.1065820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reWMC-0002pC-RW; Mon, 26 Feb 2024 08:29:04 +0000
+	id 1reWQB-0004iI-BR; Mon, 26 Feb 2024 08:33:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685308.1065809; Mon, 26 Feb 2024 08:29:04 +0000
+Received: by outflank-mailman (output) from mailman id 685314.1065820; Mon, 26 Feb 2024 08:33:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reWMC-0002mS-Ol; Mon, 26 Feb 2024 08:29:04 +0000
-Received: by outflank-mailman (input) for mailman id 685308;
- Mon, 26 Feb 2024 08:29:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1reWQB-0004g2-8A; Mon, 26 Feb 2024 08:33:11 +0000
+Received: by outflank-mailman (input) for mailman id 685314;
+ Mon, 26 Feb 2024 08:33:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1reWMB-0002mM-4r
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 08:29:03 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 18350aae-d481-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 09:29:01 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-564fc495d83so3084520a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 00:29:01 -0800 (PST)
+ id 1reWQ9-0004fw-Bq
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 08:33:09 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aaa9de41-d481-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 09:33:07 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a26fa294e56so479056166b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 00:33:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- tk6-20020a170907c28600b00a4306ac4c77sm1717747ejc.197.2024.02.26.00.29.00
+ cw9-20020a170907160900b00a3fb7cafad8sm2204014ejd.39.2024.02.26.00.33.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 00:29:01 -0800 (PST)
+ Mon, 26 Feb 2024 00:33:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18350aae-d481-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: aaa9de41-d481-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708936141; x=1709540941; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708936387; x=1709541187; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=cjTSGymniHHGW5tzXzYlfaZlNi2W4NqR8URzivEqBDU=;
-        b=J/9U1/PGY/XvJnoOo5lmcIqZcxX3A+TPMqVHltDtCIuppVYNdHERRHoqYNBvpjad9k
-         iVp46MOWXnxOS49R1eXwNsi5kdO017w5U0kMKKt+AqdjfiHVpkONqA8uJw4crfiDraEf
-         V4vga8VfqXndP7QaV3S3qjnqFa0jI7ZWWVht8wgo5LCG1L2vWtJUwUnnYnvgQDuLfGFA
-         4DQLlWksWjpaVwgNSwhjj6vicRD0IN24cNSoNAK0zKrVUx1Fk1wCTwWZlf3FLqhRttdG
-         /J34Q58ClHxIoHW3x6GXQmj73e44b1IcFEuOH5oHS/lkXU7f1D57O7C4nz8mjdQH1lJV
-         aH0w==
+        bh=9AlK1QA3IkmQoJPu/OAS6Z5gNe9NMItGQZvQvtBNbik=;
+        b=bbLvutCaKKSCNtnmcTOtiUFM9spTpNk/gmqef8RScUx4md0HkEasTwfaJWjRGMURkP
+         E6fssPLDaLrGDhMxR4zV72M8GLIqvvKmeUGk099pS9yIsHevdr3RKwrYgNwKmVcmOqpV
+         XT0RiMWhPc/K1U3P9zIdxIAJ9RJGiBMRX5PO7Z/o668Z9FC25T91IlF/Fs0bNE+lJca6
+         GPzFLKxfhqAyxdmYs4aiAkpi7DAhtLVJBcXXPEeXbUib7jzUq8Utf162OmExaxdw2fsJ
+         iKdT6MCW2517evvGHj9Hjx9Fww/taT32mH7WblZYRbNFV9ilPjMYmqA8R25XXb9fuZKB
+         tH9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708936141; x=1709540941;
+        d=1e100.net; s=20230601; t=1708936387; x=1709541187;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cjTSGymniHHGW5tzXzYlfaZlNi2W4NqR8URzivEqBDU=;
-        b=gUT6J/X9dUPUve/qaFszRhhJZQg6rKRdOuRHZTINhhO0bdOH4HT6RrY7ummighS8Hc
-         GjB4f8MvvoTbrgYx7fmGy1wsUfUKIQgotkMlA4JP0jqrpOGziGsergzKmJ2MJXRyXfn4
-         uYgBMrYqNJJsljWL+TxO+QwFdaQCmWl2HDtTM9d8FJXN7sblq+BNo0HRlR3TpzdLGShY
-         GuQ5MoMNwkTc6pbAUydPdaR0dAoL6IqYubAR6f0Dbdu8IOWuiscumGLxGnUa+SQHHZGk
-         rVH1lHzh5P85oN3PVH8UPzfS9DyQMWeKyTJYBa1JvG2HGDqbzOn7UHehwpRv1iyWyb4i
-         hhxw==
-X-Forwarded-Encrypted: i=1; AJvYcCVyYe7smp6nrmcoFoKPRu6VqV4ju7i66J0rXDwzXrEMVaw9ySLJUP7T7oxElwRSQDiBEwMnDQWoJ+EvSkaC3+uxvZGd+gqAndd5Md5BG3I=
-X-Gm-Message-State: AOJu0YzHd2BJ/Bo3XQzTugWbYVQSpLi3fWpZg/2eWgRO4Z9UwTfWE72q
-	1qOi3l4+gITis1QRPr4lioGHJgYQ/jex1xmLFThw4iI+7GohXIumlNoFTpXB7w==
-X-Google-Smtp-Source: AGHT+IH+KPONZ8u/2vRpsLBDicr5yT50J7zxWwhmIYa8GWV0d2jdz7Md6SDJ/qJhn1nIadHbvrG4Rw==
-X-Received: by 2002:a17:906:fa07:b0:a3c:cbab:f3b with SMTP id lo7-20020a170906fa0700b00a3ccbab0f3bmr4925525ejb.23.1708936141400;
-        Mon, 26 Feb 2024 00:29:01 -0800 (PST)
-Message-ID: <3ed4e0e9-fec4-4e8b-a52d-fb4756ae50cd@suse.com>
-Date: Mon, 26 Feb 2024 09:29:02 +0100
+        bh=9AlK1QA3IkmQoJPu/OAS6Z5gNe9NMItGQZvQvtBNbik=;
+        b=FuX2sz3oZrjc0HhvtePmJfk7uLa6t2/2Da9nIQV7LHv2h4dwxpX8fssxFEbhcFWF8y
+         EhuZaf6E4UnF1iria9mkQcfUjvR1whnaSE4He0N4Et7WHeN8GG9V4chAd99NnnpXtvF1
+         q0RZHGQSkuAuEpA1JkLxpeb1ppPWqZmXG56ydkiiFyzv/dkxMDHA8iB0+e5bJbPuzioE
+         GkIFpljeSUzybueo4whejtyHdisCTRDlnRmONXtUSxOzX8AdOEeQUpYkik/wjhF/bB3X
+         z+lvNIaC302A1t2tym/FIJk+vaO4HD2fbGTfY/be4zcHJSkgm+poHaj9FPqtx6h/shRw
+         6CQw==
+X-Forwarded-Encrypted: i=1; AJvYcCWMrbkW0IfOcon1/9iAtq2x0bxGWttsQsx8ZghrKZOlqaL/yhjPe+L+w1NEOdLXSZjxjAvtqqi8to2tCnonDR2qtnmvGoeRKyxST1iqJ5U=
+X-Gm-Message-State: AOJu0YyYMt3gW/17uRyqjWOauNmLpszlozmgSJjzsDuhh3rbp5SUyUlR
+	oUlVh5vLVJtzpS6pjeYGJXWUWcFhhWNm8K6gWw1qElCfkatrMbhlBlQKAdEJWw==
+X-Google-Smtp-Source: AGHT+IGsbUSL3lcsTh5mxgyZYAPlYqCNucjER0qehHR/o5ygudRx9tXvAyELpwOLdpYLH2pSq77PUQ==
+X-Received: by 2002:a17:907:1707:b0:a42:f801:d664 with SMTP id le7-20020a170907170700b00a42f801d664mr3335006ejc.17.1708936387077;
+        Mon, 26 Feb 2024 00:33:07 -0800 (PST)
+Message-ID: <bf97563f-0354-43cc-9a3b-7e4a28afeceb@suse.com>
+Date: Mon, 26 Feb 2024 09:33:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] xen/cmdline: fix printf format specifier in
- no_config_param()
+Subject: Re: [PATCH v2 2/3] x86/spec: fix BRANCH_HARDEN option to only be set
+ when build-enabled
 Content-Language: en-US
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <20240223120616.73503-1-roger.pau@citrix.com>
- <20240223120616.73503-2-roger.pau@citrix.com>
+ <20240223120616.73503-3-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,19 +112,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240223120616.73503-2-roger.pau@citrix.com>
+In-Reply-To: <20240223120616.73503-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 23.02.2024 13:06, Roger Pau Monne wrote:
-> '*' sets the width field, which is the minimum number of characters to output,
-> but what we want in no_config_param() is the precision instead, which is '.*'
-> as it imposes a maximum limit on the output.
+> The current logic to handle the BRANCH_HARDEN option will report it as enabled
+> even when build-time disabled. Fix this by only allowing the option to be set
+> when support for it is built into Xen.
 > 
-> Fixes: 68d757df8dd2 ('x86/pv: Options to disable and/or compile out 32bit PV support')
+> Fixes: 2d6f36daa086 ('x86/nospec: Introduce CONFIG_SPECULATIVE_HARDEN_BRANCH')
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Changes since v1:
+>  - Use no_config_param().
+> ---
+>  xen/arch/x86/spec_ctrl.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
+> index 421fe3f640df..4ce8a7a0b8ef 100644
+> --- a/xen/arch/x86/spec_ctrl.c
+> +++ b/xen/arch/x86/spec_ctrl.c
+> @@ -50,7 +50,8 @@ static int8_t __initdata opt_psfd = -1;
+>  int8_t __ro_after_init opt_ibpb_ctxt_switch = -1;
+>  int8_t __read_mostly opt_eager_fpu = -1;
+>  int8_t __read_mostly opt_l1d_flush = -1;
+> -static bool __initdata opt_branch_harden = true;
+> +static bool __initdata opt_branch_harden =
+> +    IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH);
+>  
+>  bool __initdata bsp_delay_spec_ctrl;
+>  uint8_t __read_mostly default_xen_spec_ctrl;
+> @@ -268,7 +269,14 @@ static int __init cf_check parse_spec_ctrl(const char *s)
+>          else if ( (val = parse_boolean("l1d-flush", s, ss)) >= 0 )
+>              opt_l1d_flush = val;
+>          else if ( (val = parse_boolean("branch-harden", s, ss)) >= 0 )
+> +        {
+> +#ifdef CONFIG_SPECULATIVE_HARDEN_BRANCH
+>              opt_branch_harden = val;
+> +#else
+> +            no_config_param("SPECULATIVE_HARDEN_BRANCH", "spec-ctrl", s, ss);
+> +            rc = -EINVAL;
+> +#endif
+> +        }
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+If you use #ifdef (rather than IS_ENABLED()) here, the variable probably
+shouldn't exist at all when the Kconfig option is off (albeit yet, another
+#ifdef would then be needed higher up in the function). Question is - why
+don't you use IS_ENABLED() here as well?
 
-
+Jan
 
