@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23C2A867FDA
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 19:31:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685780.1067062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78C18868115
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 20:35:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685786.1067072 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1refk9-00038D-3J; Mon, 26 Feb 2024 18:30:25 +0000
+	id 1regjc-00005p-El; Mon, 26 Feb 2024 19:33:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685780.1067062; Mon, 26 Feb 2024 18:30:25 +0000
+Received: by outflank-mailman (output) from mailman id 685786.1067072; Mon, 26 Feb 2024 19:33:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1refk9-00036Q-0M; Mon, 26 Feb 2024 18:30:25 +0000
-Received: by outflank-mailman (input) for mailman id 685780;
- Mon, 26 Feb 2024 18:30:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1refk7-00036G-Py; Mon, 26 Feb 2024 18:30:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1refk7-0002jJ-MO; Mon, 26 Feb 2024 18:30:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1refk7-0000Fe-Ar; Mon, 26 Feb 2024 18:30:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1refk7-00064n-AM; Mon, 26 Feb 2024 18:30:23 +0000
+	id 1regjc-0008VK-C3; Mon, 26 Feb 2024 19:33:56 +0000
+Received: by outflank-mailman (input) for mailman id 685786;
+ Mon, 26 Feb 2024 19:33:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kdE/=KD=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1regja-0008VB-EU
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 19:33:54 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f6838935-d4dd-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 20:33:49 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id BBBBC8285534;
+ Mon, 26 Feb 2024 13:33:47 -0600 (CST)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id lBIrBmDgm9TK; Mon, 26 Feb 2024 13:33:46 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 69E7C82856C2;
+ Mon, 26 Feb 2024 13:33:46 -0600 (CST)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id UsSaXHAZACpY; Mon, 26 Feb 2024 13:33:46 -0600 (CST)
+Received: from [10.11.0.3] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id C18AB8285534;
+ Mon, 26 Feb 2024 13:33:45 -0600 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,89 +51,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=SkBsCW8g5FwsOhFye+k+bMrLpE1zM9QpkVHqv9uojgg=; b=wUu2QcNsbnibhx2Xg9ciZM1Skn
-	u5pTHogNnS3HhGozPKV2YInwMHt7S4VmAWY1kYyT+ZO3EGO7Ovc9ZsgRJra0+xSQgSv0eUYr7gvv2
-	7kiairuPzmV4rM9vdTQh9RFJ5BZwKiwI9LQ4zKg0MFgZRYbcSCbYpTUZzDYlATdpSHEo=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184769-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f6838935-d4dd-11ee-98f5-efadbce2ee36
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 69E7C82856C2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1708976026; bh=gynGyrftQROr1vQf3qgFIDI8jMyRF6PVZXguwa8Svi0=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=mTEy0A4KKW3QGVAnTvDkZUhcmWy1lyDDH8gl7elEGL2fGbHMarzvBDbdJmv4z15Y6
+	 slgvsCfpfsA+27swzJ2qZqN5JLA3gTBMe9VbdSU5WPEwfIzDy5sN/BTZsLOAy6pdg5
+	 04hv5dT2CzuRM2FpznZzgsWzv4zj18iTjyTF1GP0=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <95824bd5-63e5-4759-bd2f-c903543b450f@raptorengineering.com>
+Date: Mon, 26 Feb 2024 13:33:44 -0600
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 184769: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=03fb5f503cb5faa0556b23d594496719ced6a11b
-X-Osstest-Versions-That:
-    xen=8de3afc0b402bc17f65093a53e5870862707a8c7
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 26 Feb 2024 18:30:23 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] xen/ppc: address violations of MISRA C:2012 Rule
+ 11.8.
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Simone Ballarin <simone.ballarin@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+References: <cover.1702982442.git.maria.celeste.cesario@bugseng.com>
+ <9270a4fe1712cff6a99e60c7862de1c1b2dde3d6.1702982442.git.maria.celeste.cesario@bugseng.com>
+ <alpine.DEB.2.22.394.2402231518390.754277@ubuntu-linux-20-04-desktop>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <alpine.DEB.2.22.394.2402231518390.754277@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 184769 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184769/
+Hi Stefano,
 
-Failures :-/ but no regressions.
+Sorry for the delay on this.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+Acked-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-version targeted for testing:
- xen                  03fb5f503cb5faa0556b23d594496719ced6a11b
-baseline version:
- xen                  8de3afc0b402bc17f65093a53e5870862707a8c7
+Best,
+Shawn
 
-Last test of basis   184764  2024-02-26 10:02:04 Z    0 days
-Testing same since   184769  2024-02-26 16:00:26 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  George Dunlap <george.dunlap@cloud.com>
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   8de3afc0b4..03fb5f503c  03fb5f503cb5faa0556b23d594496719ced6a11b -> smoke
+On 2/23/24 5:19 PM, Stefano Stabellini wrote:
+> Shawn,
+> 
+> I am thinking of committing this, if you disagree please say something
+> in the next couple of days
+> 
+> 
+> On Tue, 19 Dec 2023, Simone Ballarin wrote:
+>> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+>>
+>> The xen sources contain violations of MISRA C:2012 Rule 11.8 whose
+>> headline states:
+>> "A conversion shall not remove any const, volatile or _Atomic qualification
+>> from the type pointed to by a pointer".
+>>
+>> Fix violation by adding missing const qualifier in cast.
+>>
+>> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+>> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
+>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>> ---
+>> Adaptation requested by the community to make the code more consistent.
+>> ---
+>>  xen/arch/ppc/include/asm/atomic.h | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/xen/arch/ppc/include/asm/atomic.h b/xen/arch/ppc/include/asm/atomic.h
+>> index 64168aa3f1..fe778579fb 100644
+>> --- a/xen/arch/ppc/include/asm/atomic.h
+>> +++ b/xen/arch/ppc/include/asm/atomic.h
+>> @@ -16,7 +16,7 @@
+>>  
+>>  static inline int atomic_read(const atomic_t *v)
+>>  {
+>> -    return *(volatile int *)&v->counter;
+>> +    return *(const volatile int *)&v->counter;
+>>  }
+>>  
+>>  static inline int _atomic_read(atomic_t v)
+>> -- 
+>> 2.40.0
+>>
 
