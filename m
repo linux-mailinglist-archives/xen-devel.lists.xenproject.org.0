@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDA6E866E3F
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 10:24:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685381.1065975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 342FE866E57
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 10:27:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685383.1065986 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reXD1-00048X-7i; Mon, 26 Feb 2024 09:23:39 +0000
+	id 1reXG3-0004hi-MB; Mon, 26 Feb 2024 09:26:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685381.1065975; Mon, 26 Feb 2024 09:23:39 +0000
+Received: by outflank-mailman (output) from mailman id 685383.1065986; Mon, 26 Feb 2024 09:26:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reXD1-00046S-4p; Mon, 26 Feb 2024 09:23:39 +0000
-Received: by outflank-mailman (input) for mailman id 685381;
- Mon, 26 Feb 2024 09:23:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1reXG3-0004fE-J4; Mon, 26 Feb 2024 09:26:47 +0000
+Received: by outflank-mailman (input) for mailman id 685383;
+ Mon, 26 Feb 2024 09:26:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1reXD0-000468-Hg
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 09:23:38 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b7de75b3-d488-11ee-98f5-efadbce2ee36;
- Mon, 26 Feb 2024 10:23:36 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a4348aaa705so86503266b.0
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 01:23:36 -0800 (PST)
+ id 1reXG2-0004f8-4q
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 09:26:46 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2858ee9c-d489-11ee-8a58-1f161083a0e0;
+ Mon, 26 Feb 2024 10:26:44 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-564fd9eea75so3394075a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 01:26:44 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- vo1-20020a170907a80100b00a42ea946917sm2213752ejc.130.2024.02.26.01.23.35
+ n9-20020a056402060900b0056200715130sm2181807edv.54.2024.02.26.01.26.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 01:23:35 -0800 (PST)
+ Mon, 26 Feb 2024 01:26:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7de75b3-d488-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 2858ee9c-d489-11ee-8a58-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708939415; x=1709544215; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1708939604; x=1709544404; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=/XhYtCShDR93lDUGaWIA4sRv0Pa4Hm9U6nYsk/8VuPY=;
-        b=GXNpM/h17BwPImWIcMM71tZwhZPhmP0Ur6wmd5XFPykOYgTG0qWiEj/lux8FFEJ6rC
-         jVGhvVxdr5i1MXwfUfHSweNYRkw9mnmaEWEsyaznAQatHN3e4mGCj1dW/y5rbYvTcKs1
-         GjZo6x2fmbihQNw8CQ4aR9v9+dJaTZOfu/njFXyuy0Xop5rPDKbPAnigEtdqMUDQ/4+T
-         hz3kY7cwQJ1Mgx60iBoN5l/hdoxGpNlge+KS2gG+nNo7nKOux+/udGsheMvZlIBsifKB
-         moAWUEi+PiqIWHveRL6eqj6ut/0eSWROkfWeFqOcwltjW96koahXAzITFiPGas+mSzj0
-         Kz2w==
+        bh=8GNOaXDjZBzAVrce0EwOuJ4HRtW79oEeKI7dXw8Ja/4=;
+        b=RV5F9IVc76QjMdRlZNOHtvTKJtu8zRANdTjaNBlt3GOYQwSEwnq+RGAYk/LDvu63H9
+         E9GoUFJsMLP2oxDe/GSdt+Dx9ngqdsPBOqNqhmAadFkkvrPHv3my9AfJEyTZRWYqjBSj
+         78NhYrIt0mlgRhOfNG13Oj3Txfwa0PJr95MUbDAvQyigArmIsdv47eF7hPDTsQDNYLNF
+         A0lVCMJURBUeWneHU7m0g9TUxQMTVM0dRL67SfTFaDeZshyOrxUUjnftR9tnCUcDLIPK
+         CSe5LuG8D7YC8a7hUCoruaLTM0QtKJNpzXrBNRpri1iBUMiTl0492TcO0ly0T1gQV6Ol
+         YNGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708939416; x=1709544216;
+        d=1e100.net; s=20230601; t=1708939604; x=1709544404;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/XhYtCShDR93lDUGaWIA4sRv0Pa4Hm9U6nYsk/8VuPY=;
-        b=OEvC8dp6q7j2nbhHpSNbpFShI4TEsggN6SsZL91GBWMaifAxpUSooBw7TZDoAC+mUM
-         CFunh/N/F5LQvd8iuf8epc4SzmExXO24cq5F+F5meoQ/ZD0he51zPwFOrFL5uiJYEV/8
-         kTj2mR7bhtm5k7M/EjRMzm3haG2RvD0edaExW384bFXuymT0PEudFFDlbInUX/Tc+mMR
-         9GHR5t5lDHJ2cUsBl5kWOhOZZQJzXHOGML02XDZQeZ5zjW01A4KASUE0NWoSsTnJqaga
-         mXiQblPCqjGIHSKclAgHwD1eMEGSSavwjFW9N/ULN+NlYmHt3ViviWP4NahoZJ7w51RQ
-         FatA==
-X-Forwarded-Encrypted: i=1; AJvYcCVtkZOg1e5vmZL9oSYZnQRSSr5XwNNo0vMXQLONd6ZoWsQRQA67uV6lRIdIkNoaXjxPyIjj0njlBo4X9FuseuZchOf0rqvoagblrixXSts=
-X-Gm-Message-State: AOJu0YzCWTA/VYq52Xu0wMLAmZ5g6hHKuDHXE5rFEIssFLgYvG56/4Ov
-	D835ZG0muH7sqgAV4R9xjVYPQRWwLrIuLj1C/ddricHfuw71UD3P6GqkEXcyJQ==
-X-Google-Smtp-Source: AGHT+IG1nahSdqZFD9/93euE3j9WPovmK3TPqq49DdnB3QeZtnSQRsuNgc82YteRoZznguXWzlqmJw==
-X-Received: by 2002:a17:906:254b:b0:a3f:f73:411f with SMTP id j11-20020a170906254b00b00a3f0f73411fmr4066862ejb.45.1708939415701;
-        Mon, 26 Feb 2024 01:23:35 -0800 (PST)
-Message-ID: <e48c4fce-e7f3-4bce-bf7b-2cfcc0659426@suse.com>
-Date: Mon, 26 Feb 2024 10:23:37 +0100
+        bh=8GNOaXDjZBzAVrce0EwOuJ4HRtW79oEeKI7dXw8Ja/4=;
+        b=IRSdN0+6OcXOpkj35/pqJryn/R9CnkJGs9j7UmWwis+83O9tT/DoBFYJnYfayJ8Lpk
+         13rjpYcE/+YNjim/Yn4mb913+URqCeh0IUiu14e54aUc5nwnfN38lB4LByRISaN4/Qeb
+         Z5KbEh5ftKOcNbkAWlxAy5fGhwvR8osSRI8gWQVRyt8ugPNs7oiAMNoNzE9OP5DIlFTw
+         pEunv5JmTTeAMVQB1dyGfkAyug/5zV9767wYQBNCLUDxAa3WChEPLBDTVn/TL6Jd/tT7
+         /HsyoTa1sCXuu4960GxoMFJjCVNERawlDe+k5POLaTMe2jsi8lCg8L77fSOUPrfst8u3
+         xXEA==
+X-Forwarded-Encrypted: i=1; AJvYcCUIgV5J+zmOJr82E1kqRgiznrsfcJ/1We3zpRBu+8+HCI0bguyJ+/0MNXPQ9E/2Yq1xxrtPlDVi5NMV/k6CDfxd8tv06SkmZeVnH///C6U=
+X-Gm-Message-State: AOJu0YyOfjxjDnhNHWgnxWWD5uZgpyCuo4S/09CM8RjQaqqxyezY+I5W
+	2fBtKvL2m3C7sv4THDWsyyUdgwyPvj3gZCrVnn+LD83q7LCqqvsce5iK5s3HDQ==
+X-Google-Smtp-Source: AGHT+IHxy+fJot7CzELNq79H1rPR0J93G+cewhckX4vNwrN2lmqJX6FHpx4uwW2PXy0r22ixyaZmdQ==
+X-Received: by 2002:a50:fc18:0:b0:563:d32f:5449 with SMTP id i24-20020a50fc18000000b00563d32f5449mr4231643edr.24.1708939604391;
+        Mon, 26 Feb 2024 01:26:44 -0800 (PST)
+Message-ID: <19742e01-bc8d-41ed-a12c-b7f7bf57f642@suse.com>
+Date: Mon, 26 Feb 2024 10:26:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] automation: Rework "build-each-commit-gcc" test
+Subject: Re: [PATCH 0/5] xen/livepatch: fixes for the pre-apply / post-revert
+ hooks
 Content-Language: en-US
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240220140733.40980-1-anthony.perard@citrix.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20231130142944.46322-1-roger.pau@citrix.com>
+ <6143d253-1d5c-48c8-81b9-3652b21dd9c0@suse.com> <ZdxOcc1O35lkTS4L@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,63 +116,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240220140733.40980-1-anthony.perard@citrix.com>
+In-Reply-To: <ZdxOcc1O35lkTS4L@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20.02.2024 15:07, Anthony PERARD wrote:
-> Current issues with this test are:
-> - when the job timeout, the log file is lost as there is no chance to
->   run the `mv` command.
-> - GitLab job log is limited in size, so one usually have to download
->   the artifacts, which may be missing.
+On 26.02.2024 09:40, Roger Pau Monné wrote:
+> On Fri, Feb 23, 2024 at 11:48:10AM +0100, Jan Beulich wrote:
+>> On 30.11.2023 15:29, Roger Pau Monne wrote:
+>>> Hello,
+>>>
+>>> The follow series contain a misc of fixes mostly related to the usage of
+>>> the pre-apply / post-revert hooks.  The norevert test is also fixed to
+>>> work as I think was expected.  Finally both the no{apply,revert}
+>>> tests are fixed to build properly, as the files where previously
+>>> unhooked from the build system completely.
+>>>
+>>> I'm unsure how useful the apply and revert hooks really are, as without
+>>> calling the internal apply/revert functions the state of the payload
+>>> structure is quite likely inconsistent with the code expectations.
+>>>
+>>> Thanks, Roger.
+>>>
+>>> Roger Pau Monne (5):
+>>>   xen/livepatch: register livepatch regions when loaded
+>>>   xen/livepatch: search for symbols in all loaded payloads
+>>>   xen/livepatch: fix norevert test attempt to open-code revert
+>>>   xen/livepatch: fix norevert test hook setup typo
+>>>   xen/livepatch: properly build the noapply and norevert tests
+>>
+>> With the R-b-s that have arrived, could you clarify in how far these
+>> can be committed out of order?
 > 
-> Use $GITLAB_CI to detect when the script is run as part of a GitLab
-> pipeline. GitLab will add "GITLAB_CI=true" in the environment
-> variables.
+> All can be applied out of order, except for the last one, that's
+> "xen/livepatch: properly build the noapply and norevert tests" as
+> applying that will enable the tests in osstest, and those will fail
+> without all the previous adjustments.
 > 
-> When run as part of $GITLAB_CI, ignore "dirty" worktree to allow to
-> write "build-each-commit-gcc.log", which can then be grabbed as
-> artifacts, even when the job timeout. The `git clean` command is
-> changed to keep those build logs.
-> 
-> When run as part of $GITLAB_CI, we will also store the build output in
-> a log file instead of writing it to stdout, because GitLab's job log
-> is limited. But we will write the log to stdout in case of error, so
-> we can find out more quickly why there's been an error.
-> 
-> This patch also make use of a GitLab feature, "log sections", which we
-> will collapse by default. One section per commit been built.
-> 
-> There's a bit of colour added to the logs.
-> 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> I was about to send v2 with the requested changes, but will wait for
+> you to commit 2/5 and 4/5.
 
-I was trying to commit this, but ...
-
-> --- a/automation/scripts/build-test.sh
-> +++ b/automation/scripts/build-test.sh
-> @@ -9,6 +9,37 @@
->  # Set NON_SYMBOLIC_REF=1 if you want to use this script in detached HEAD state.
->  # This is currently used by automated test system.
->  
-> +# Colors with ANSI escape sequences
-> +txt_info='[32m'
-> +txt_err='[31m'
-> +txt_clr='[0m'
-> +
-> +# $GITLAB_CI should be "true" or "false".
-> +if [ "$GITLAB_CI" != true ]; then
-> +    GITLAB_CI=false
-> +fi
-> +
-> +gitlab_log_section() {
-> +    if $GITLAB_CI; then
-> +        echo -n "[0Ksection_$1:$(date +%s):$2
-> [0K"
-
-... there was either corruption on transmit here, or there's an embedded
-newline that I don't know how to deal with.
+Except that patch 2 had 3 failing hunks, and not just fuzz in any of them.
+Which was too much for me to consider fixing up while committing.
 
 Jan
 
