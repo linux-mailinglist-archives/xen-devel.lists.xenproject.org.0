@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0E728678C2
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 15:38:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685580.1066521 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7A368678F1
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 15:47:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685591.1066550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rec78-000419-OD; Mon, 26 Feb 2024 14:37:54 +0000
+	id 1recGJ-0007Zk-3T; Mon, 26 Feb 2024 14:47:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685580.1066521; Mon, 26 Feb 2024 14:37:54 +0000
+Received: by outflank-mailman (output) from mailman id 685591.1066550; Mon, 26 Feb 2024 14:47:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rec78-0003yj-KN; Mon, 26 Feb 2024 14:37:54 +0000
-Received: by outflank-mailman (input) for mailman id 685580;
- Mon, 26 Feb 2024 14:37:53 +0000
+	id 1recGJ-0007Xx-0R; Mon, 26 Feb 2024 14:47:23 +0000
+Received: by outflank-mailman (input) for mailman id 685591;
+ Mon, 26 Feb 2024 14:47:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OiHA=KD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rec77-0003yd-5F
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 14:37:53 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1recGH-0007Xr-LL
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 14:47:21 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9e0f6f67-d4b4-11ee-98f5-efadbce2ee36;
- Mon, 26 Feb 2024 15:37:50 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-512a65cd2c7so4385621e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 06:37:50 -0800 (PST)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- s10-20020a056512202a00b00512ef0a8f3asm863037lfs.15.2024.02.26.06.37.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Feb 2024 06:37:49 -0800 (PST)
+ id f0e348d0-d4b5-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 15:47:19 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5640fef9fa6so4087958a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 06:47:19 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ g14-20020a056402320e00b00564e4debe29sm2423346eda.78.2024.02.26.06.47.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Feb 2024 06:47:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,448 +45,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e0f6f67-d4b4-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: f0e348d0-d4b5-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1708958270; x=1709563070; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=u1E0M73nbUP55/W60+PLeXgQRkWaZatj6ybuxc5UDrU=;
-        b=QU7W078A52yWqTZZL5+9xlwnyzTdnIqNbhIDDm70sdChgrZbrPr1sElyXpg7KZv2ys
-         Ce/MmiQp3MjcaoG8be88KqerDV5UOZGoQWap/apqBriIbOOJZO67y6yJt4JcJe8/lqXW
-         4oWRH7gZ4D+i6noLj8AdlyfpHtMnjM7NUK5kC9wbnW7DS/wgtktBnxXAE90wkbpIk20W
-         ShEWHViDLB+YvYw5OAoJx6aHBSDsVRNDzCCnAx64YTxmQw66skG05Monse2gX54JX5xa
-         X7HfjJwrAA6towSJSWlK/IGoPQ2MlF6U9NLIz5OqTB9GoBN+fjmjNnT8dVPxCS3ChhuC
-         5qjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708958270; x=1709563070;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1708958839; x=1709563639; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=u1E0M73nbUP55/W60+PLeXgQRkWaZatj6ybuxc5UDrU=;
-        b=tsJys11oNodzBTgXyd+mpRMI4FoLSVSObDPo3XZUUpOg3fURsTWYS2ws/bsBxhLhCb
-         SiZjUC/zcx8az24CQP++8IIF5LSkpVjSyx7+RJEJLC3+/eoGd6DaOSlUWY6/YX1kKpXB
-         nZpeOQsJBMJjnw11iec6IdYB4lueUfVHmhjkN6zSz2y9EKj+U6stQNpCl7XRpmSivZkD
-         z2xVUu/wZJbYw9EFKwjCaNkKPAVjB5RD/I+d13w1eKoA++PBIvyF3/9z2GdFF8oQAXPG
-         FJ5KHK6P79lcu0XqZQG5oMF41TgWOA0C/xbZbYLnIQzFUd6RIxbPMbbb1SUUpfOnckyw
-         v0EA==
-X-Forwarded-Encrypted: i=1; AJvYcCUxM99/ujsgljoN26KIfLX9RSGsx8UgaGR0Rsxr3+OyR8LCp5ICPtKQct/xudgS12BNdoeG6Q4oi9odyqbYPL5jXaXCBKg3rsyikAg4ST8=
-X-Gm-Message-State: AOJu0YzFdWA4+fcL+z5I/MfM7Lfi6slRz6VuiSitXabl9Hi0GN7aNHpx
-	gVRc4pYGXIdG+qOsfpR9cHQf3nqHpE9TqscEUizBtg3dWWAA353I
-X-Google-Smtp-Source: AGHT+IE0UOWJHNWn31KZ5iNnGSs+imdgvkHHDe+z5pd7bpRPXc4H+4LPs3eUeh7aPtGA7xzMK34Ddw==
-X-Received: by 2002:a05:6512:2820:b0:512:b915:606a with SMTP id cf32-20020a056512282000b00512b915606amr5652410lfb.12.1708958269773;
-        Mon, 26 Feb 2024 06:37:49 -0800 (PST)
-Message-ID: <a5e4c87720ca781ef113d7ee575a97656350a114.camel@gmail.com>
-Subject: Re: [PATCH v4 12/30] xen/riscv: introduce cmpxchg.h
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
- xen-devel@lists.xenproject.org
-Date: Mon, 26 Feb 2024 15:37:48 +0100
-In-Reply-To: <4f59127c-6a98-4672-9202-4d48817a1931@suse.com>
-References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
-	 <25315ca95baffc9b222fb0ae89375a94b01a9b46.1707146506.git.oleksii.kurochko@gmail.com>
-	 <9e50ef30-8dc6-4380-aa65-724e5a376c10@suse.com>
-	 <28844fdfcf5eea515497fb7b5fd8ea6fb1c5ebaa.camel@gmail.com>
-	 <554a43e8-7d8d-45c4-936d-36f02c207531@suse.com>
-	 <1c53b52ee39161a8f59209d28af69fe997479dbc.camel@gmail.com>
-	 <3b38fe82-ee0f-4666-93e1-bd78fe69c534@suse.com>
-	 <5d2d35fe014094c991363e42c3e2ad9ca2af3938.camel@gmail.com>
-	 <44fd5092-7838-4d28-804b-bbfebfd44886@suse.com>
-	 <56ae27d003b8763af34864ae56433691685c3661.camel@gmail.com>
-	 <7cab68d1-9bdf-4ea1-b49a-cce1e4af4692@suse.com>
-	 <4215fb9eb5be5898b3cc9c2977e55ac0e7270b4d.camel@gmail.com>
-	 <4f59127c-6a98-4672-9202-4d48817a1931@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+        bh=Z3XJgoMYHrTLdYZwssR39Cz6lXZjPT6Pt62MCOp6UDs=;
+        b=ADqIoZzAJ3SHZkxM06M1zbxWuyy2VI1HSvqcfQcGLXWsu14U1HFtVTYZ732I0H0ViN
+         wDXGhO28ahnE7nvruwUZQtF/1gKUrjSON6z4ON6Ws0OIgWiMjt4tdy5pYKtOE+yQbiTb
+         TB1QL2IO7EAs/TxZqGifmnpExVbAjFpQdWL4Q5ZppjrDyqizbmXWVGqPPDgzSGVZC47P
+         2vDVJfBjr1UxjcetkNG+bDfcsi7cnBUwo6LQlSyuS7k4MFPRkOLtNX47BdVPyfjA8wji
+         IUeA9OGceyW2rjsPbj0qzWonmskod6YQcQUpw7xbfcm6DjfoIr94z1zXDJb32/Ye/eke
+         emFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708958839; x=1709563639;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z3XJgoMYHrTLdYZwssR39Cz6lXZjPT6Pt62MCOp6UDs=;
+        b=A4vk4SsmR2Eap7kfWCRQNOEfWDUysJNBXtoS6xrJSIwVTMbW0ANpU1v9SA4RakFQ73
+         t11fra2oqWidUz0R3DsSyJF0Os223qngZh2zC5YW5JElmzfDReMii6Uzokx+4FtFkBbW
+         0rrDYuAA00FWJpb8eqbXcJchiB1Zp/R30Vc1ikxPragy6QW07cygiW/1+uv4C+t3E2i0
+         jWJIbfHE58m7GnUznm1OLlU+tBtcoo9bli/G4z4uSF3u6UdZkG2/CeoqBOY2k51s39Kd
+         kgEN3iwAoVRIX9wJ4LmXpXM9mYITkRcfv9I1/3fVQz8GTgsMGPhB5SHLHdIjTnr5jN67
+         Xfvg==
+X-Forwarded-Encrypted: i=1; AJvYcCXlTbY2fF+ab9eyxVrBgyWrwPq9vhzUjG03GK+qG4dVWJHrYEmzNryD2LGJKxCVOcact1ivTY4g4xwjsDPdIg78Hzso7lMrkVDc5ZDQe9I=
+X-Gm-Message-State: AOJu0Yx+I1faDd+RI39aOCPZGGsrBvR6b9Ii+TIZE6d+dwKzjgYRIzEl
+	p196jrXFawOI72gpmNqpBTC5kZEhMrZAJ8Ey39kwK1iIZE2mG0LQUmMPaOzULA==
+X-Google-Smtp-Source: AGHT+IEFZ7hgnAtH6j0a4SYKRjEADqXNEyuZQmLKR8RC1Q/hSqSQ2gc15lqkPXWwXjREi3cJJXW/7Q==
+X-Received: by 2002:a05:6402:5246:b0:565:e282:33d8 with SMTP id t6-20020a056402524600b00565e28233d8mr3121954edd.38.1708958838669;
+        Mon, 26 Feb 2024 06:47:18 -0800 (PST)
+Message-ID: <6024f2c9-90e6-4ce9-a421-c0ec7441a926@suse.com>
+Date: Mon, 26 Feb 2024 15:47:17 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13.3 01/14] vpci: use per-domain PCI lock to protect vpci
+ structure
+Content-Language: en-US
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Paul Durrant <paul@xen.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20240202213321.1920347-1-stewart.hildebrand@amd.com>
+ <20240202213321.1920347-2-stewart.hildebrand@amd.com>
+ <20240221024504.357840-1-stewart.hildebrand@amd.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240221024504.357840-1-stewart.hildebrand@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2024-02-26 at 15:20 +0100, Jan Beulich wrote:
-> On 26.02.2024 13:58, Oleksii wrote:
-> > On Mon, 2024-02-26 at 12:28 +0100, Jan Beulich wrote:
-> > > On 26.02.2024 12:18, Oleksii wrote:
-> > > > On Mon, 2024-02-26 at 10:45 +0100, Jan Beulich wrote:
-> > > > > On 23.02.2024 13:23, Oleksii wrote:
-> > > > > > >=20
-> > > > > > > > > > As 1- and 2-byte cases are emulated I decided that
-> > > > > > > > > > is
-> > > > > > > > > > not
-> > > > > > > > > > to
-> > > > > > > > > > provide
-> > > > > > > > > > sfx argument for emulation macros as it will not
-> > > > > > > > > > have
-> > > > > > > > > > to
-> > > > > > > > > > much
-> > > > > > > > > > affect on
-> > > > > > > > > > emulated types and just consume more performance on
-> > > > > > > > > > acquire
-> > > > > > > > > > and
-> > > > > > > > > > release
-> > > > > > > > > > version of sc/ld instructions.
-> > > > > > > > >=20
-> > > > > > > > > Question is whether the common case (4- and 8-byte
-> > > > > > > > > accesses)
-> > > > > > > > > shouldn't
-> > > > > > > > > be valued higher, with 1- and 2-byte emulation being
-> > > > > > > > > there
-> > > > > > > > > just
-> > > > > > > > > to
-> > > > > > > > > allow things to not break altogether.
-> > > > > > > > If I understand you correctly, it would make sense to
-> > > > > > > > add
-> > > > > > > > the
-> > > > > > > > 'sfx'
-> > > > > > > > argument for the 1/2-byte access case, ensuring that
-> > > > > > > > all
-> > > > > > > > options
-> > > > > > > > are
-> > > > > > > > available for 1/2-byte access case as well.
-> > > > > > >=20
-> > > > > > > That's one of the possibilities. As said, I'm not overly
-> > > > > > > worried
-> > > > > > > about
-> > > > > > > the emulated cases. For the initial implementation I'd
-> > > > > > > recommend
-> > > > > > > going
-> > > > > > > with what is easiest there, yielding the best possible
-> > > > > > > result
-> > > > > > > for
-> > > > > > > the
-> > > > > > > 4- and 8-byte cases. If later it turns out repeated
-> > > > > > > acquire/release
-> > > > > > > accesses are a problem in the emulation loop, things can
-> > > > > > > be
-> > > > > > > changed
-> > > > > > > to explicit barriers, without touching the 4- and 8-byte
-> > > > > > > cases.
-> > > > > > I am confused then a little bit if emulated case is not an
-> > > > > > issue.
-> > > > > >=20
-> > > > > > For 4- and 8-byte cases for xchg .aqrl is used, for relaxed
-> > > > > > and
-> > > > > > aqcuire
-> > > > > > version of xchg barries are used.
-> > > > > >=20
-> > > > > > The similar is done for cmpxchg.
-> > > > > >=20
-> > > > > > If something will be needed to change in emulation loop it
-> > > > > > won't
-> > > > > > require to change 4- and 8-byte cases.
-> > > > >=20
-> > > > > I'm afraid I don't understand your reply.
-> > > > IIUC, emulated cases it is implemented correctly in terms of
-> > > > usage
-> > > > barriers. And it also OK not to use sfx for lr/sc instructions
-> > > > and
-> > > > use
-> > > > only barriers.
-> > > >=20
-> > > > For 4- and 8-byte cases are used sfx + barrier depending on the
-> > > > specific case ( relaxed, acquire, release, generic xchg/cmpxchg
-> > > > ).
-> > > > What also looks to me correct. But you suggested to provide the
-> > > > best
-> > > > possible result for 4- and 8-byte cases.=C2=A0
-> > > >=20
-> > > > So I don't understand what the best possible result is as the
-> > > > current
-> > > > one usage of __{cmp}xchg_generic for each specific case=C2=A0 (
-> > > > relaxed,
-> > > > acquire, release, generic xchg/cmpxchg ) looks correct to me:
-> > > > xchg -> (..., ".aqrl", "", "") just suffix .aqrl suffix without
-> > > > barriers.
-> > > > xchg_release -> (..., "", RISCV_RELEASE_BARRIER, "" ) use only
-> > > > release
-> > > > barrier
-> > > > xchg_acquire -> (..., "", "", RISCV_ACQUIRE_BARRIER ), only
-> > > > acquire
-> > > > barrier
-> > > > xchg_relaxed ->=C2=A0 (..., "", "", "") - no barries, no sfx
-> > >=20
-> > > So first: While explicit barriers are technically okay, I don't
-> > > follow why
-> > > you insist on using them when you can achieve the same by
-> > > suitably
-> > > tagging
-> > > the actual insn doing the exchange. Then second: It's somewhat
-> > > hard
-> > > for me
-> > > to see the final effect on the emulation paths without you
-> > > actually
-> > > having
-> > > done the switch. Maybe no special handling is necessary there
-> > > anymore
-> > > then. And as said, it may actually be acceptable for the
-> > > emulation
-> > > paths
-> > > to "only" be correct, but not be ideal in terms of performance.
-> > > After
-> > > all,
-> > > if you use the normal 4-byte primitive in there, more (non-
-> > > explicit)
-> > > barriers than needed would occur if the involved loop has to take
-> > > more
-> > > than one iteration. Which could (but imo doesn't need to be)
-> > > avoided
-> > > by
-> > > using a more relaxed 4-byte primitive there and an explicit
-> > > barrier
-> > > outside of the loop.
-> >=20
-> > According to the spec:
-> > Table A.5 ( part of the table only I copied here )
-> >=20
-> > Linux Construct=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 R=
-VWMO Mapping
-> > atomic <op> relaxed=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 amo<op>.{w|d}
-> > atomic <op> acquire=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 amo<op>.{w|d}.aq
-> > atomic <op> release=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 amo<op>.{w|d}.rl
-> > atomic <op>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amo<op>.{w|d}.aqrl
-> >=20
-> > Linux Construct=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 R=
-VWMO LR/SC Mapping
-> > atomic <op> relaxed=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 loop: lr.{w|d};=
- <op>; sc.{w|d}; bnez loop
-> > atomic <op> acquire=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 loop: lr.{w|d}.=
-aq; <op>; sc.{w|d}; bnez
-> > loop
-> > atomic <op> release=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 loop: lr.{w|d};=
- <op>; sc.{w|d}.aqrl=E2=88=97 ;
-> > bnez=20
-> > loop OR
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 fence.tso; loop: lr.{w|d}; <op>;
-> > sc.{w|d}=E2=88=97 ;
-> > bnez loop
-> > atomic <op>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 loop: lr.{w|d}.aq; <op>; sc.{w|d}.aqrl;
-> > bnez
-> > loop
->=20
-> In your consideration what to implement you will want to limit
-> things to constructs we actually use. I can't find any use of the
-> relaxed, acquire, or release forms of atomics as mentioned above.
->=20
-> > The Linux mappings for release operations may seem stronger than
-> > necessary, but these mappings
-> > are needed to cover some cases in which Linux requires stronger
-> > orderings than the more intuitive
-> > mappings would provide. In particular, as of the time this text is
-> > being written, Linux is actively
-> > debating whether to require load-load, load-store, and store-store
-> > orderings between accesses in one
-> > critical section and accesses in a subsequent critical section in
-> > the
-> > same hart and protected by the
-> > same synchronization object. Not all combinations of FENCE
-> > RW,W/FENCE
-> > R,RW mappings
-> > with aq/rl mappings combine to provide such orderings. There are a
-> > few
-> > ways around this problem,
-> > including:
-> > 1. Always use FENCE RW,W/FENCE R,RW, and never use aq/rl. This
-> > suffices
-> > but is undesir-
-> > able, as it defeats the purpose of the aq/rl modifiers.
-> > 2. Always use aq/rl, and never use FENCE RW,W/FENCE R,RW. This does
-> > not
-> > currently work
-> > due to the lack of load and store opcodes with aq and rl modifiers.
->=20
-> I don't understand this point: Which specific load and/or store forms
-> are missing? According to my reading of the A extension spec all
-> combination of aq/rl exist with both lr and sc.
-I think this is not about lr and sc instructions.
-It is about l{b|h|w|d} and s{b|h|w|d}, which should be used with fence
-in case of acquire and seq_cst.
+On 21.02.2024 03:45, Stewart Hildebrand wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> Use the per-domain PCI read/write lock to protect the presence of the
+> pci device vpci field. This lock can be used (and in a few cases is used
+> right away) so that vpci removal can be performed while holding the lock
+> in write mode. Previously such removal could race with vpci_read for
+> example.
+> 
+> When taking both d->pci_lock and pdev->vpci->lock, they should be
+> taken in this exact order: d->pci_lock then pdev->vpci->lock to avoid
+> possible deadlock situations.
+> 
+> 1. Per-domain's pci_lock is used to protect pdev->vpci structure
+> from being removed.
+> 
+> 2. Writing the command register and ROM BAR register may trigger
+> modify_bars to run, which in turn may access multiple pdevs while
+> checking for the existing BAR's overlap. The overlapping check, if
+> done under the read lock, requires vpci->lock to be acquired on both
+> devices being compared, which may produce a deadlock. It is not
+> possible to upgrade read lock to write lock in such a case. So, in
+> order to prevent the deadlock, use d->pci_lock in write mode instead.
+> 
+> All other code, which doesn't lead to pdev->vpci destruction and does
+> not access multiple pdevs at the same time, can still use a
+> combination of the read lock and pdev->vpci->lock.
+> 
+> 3. Drop const qualifier where the new rwlock is used and this is
+> appropriate.
+> 
+> 4. Do not call process_pending_softirqs with any locks held. For that
+> unlock prior the call and re-acquire the locks after. After
+> re-acquiring the lock there is no need to check if pdev->vpci exists:
+>  - in apply_map because of the context it is called (no race condition
+>    possible)
+>  - for MSI/MSI-X debug code because it is called at the end of
+>    pdev->vpci access and no further access to pdev->vpci is made
+> 
+> 5. Use d->pci_lock around for_each_pdev and pci_get_pdev()
+> while accessing pdevs in vpci code.
+> 
+> 6. Switch vPCI functions to use per-domain pci_lock for ensuring pdevs
+> do not go away. The vPCI functions call several MSI-related functions
+> which already have existing non-vPCI callers. Change those MSI-related
+> functions to allow using either pcidevs_lock() or d->pci_lock for
+> ensuring pdevs do not go away. Holding d->pci_lock in read mode is
+> sufficient. Note that this pdev protection mechanism does not protect
+> other state or critical sections. These MSI-related functions already
+> have other race condition and state protection mechanims (e.g.
+> d->event_lock and msixtbl RCU), so we deduce that the use of the global
+> pcidevs_lock() is to ensure that pdevs do not go away.
+> 
+> 7. Introduce wrapper construct, pdev_list_is_read_locked(), for checking
+> that pdevs do not go away. The purpose of this wrapper is to aid
+> readability and document the intent of the pdev protection mechanism.
+> 
+> 8. When possible, the existing non-vPCI callers of these MSI-related
+> functions haven't been switched to use the newly introduced per-domain
+> pci_lock, and will continue to use the global pcidevs_lock(). This is
+> done to reduce the risk of the new locking scheme introducing
+> regressions. Those users will be adjusted in due time. One exception
+> is where the pcidevs_lock() in allocate_and_map_msi_pirq() is moved to
+> the caller, physdev_map_pirq(): this instance is switched to
+> read_lock(&d->pci_lock) right away.
+> 
+> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
->=20
-> > 3. Strengthen the mappings of release operations such that they
-> > would
-> > enforce sufficient order-
-> > ings in the presence of either type of acquire mapping. This is the
-> > currently-recommended
-> > solution, and the one shown in Table A.5.
-> >=20
-> >=20
-> > Based on this it is enough in our case use only suffixed
-> > istructions
-> > (amo<op>.{w|d}{.aq, .rl, .aqrl, .aqrl }, lr.{w|d}.{.aq, .aqrl }.
-> >=20
-> >=20
-> > But as far as I understand in Linux atomics were strengthen with
-> > fences:
-> > =C2=A0=C2=A0=C2=A0 Atomics present the same issue with locking: release=
- and
-> > acquire
-> > =C2=A0=C2=A0=C2=A0 variants need to be strengthened to meet the constra=
-ints
-> > defined
-> > =C2=A0=C2=A0=C2=A0 by the Linux-kernel memory consistency model [1].
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0 Atomics present a further issue: implementations of =
-atomics
-> > such
-> > =C2=A0=C2=A0=C2=A0 as atomic_cmpxchg() and atomic_add_unless() rely on =
-LR/SC
-> > pairs,
-> > =C2=A0=C2=A0=C2=A0 which do not give full-ordering with .aqrl; for exam=
-ple,
-> > current
-> > =C2=A0=C2=A0=C2=A0 implementations allow the "lr-sc-aqrl-pair-vs-full-b=
-arrier"
-> > test
-> > =C2=A0=C2=A0=C2=A0 below to end up with the state indicated in the "exi=
-sts"
-> > clause.
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0 In order to "synchronize" LKMM and RISC-V's implemen=
-tation,
-> > this
-> > =C2=A0=C2=A0=C2=A0 commit strengthens the implementations of the atomic=
-s
-> > operations
-> > =C2=A0=C2=A0=C2=A0 by replacing .rl and .aq with the use of ("lightweig=
-th")
-> > fences,
-> > =C2=A0=C2=A0=C2=A0 and by replacing .aqrl LR/SC pairs in sequences such=
- as:
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lr.w.aq=
-rl=C2=A0 %0, %addr
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 bne=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 %0, %old, 1f
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 ...
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 sc.w.aqrl=C2=A0 %1, %new, %addr
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 bnez=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 %1, 0b
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1:
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0 with sequences of the form:
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lr.w=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 %0, %addr
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 bne=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 %0, %old, 1f
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 ...
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 sc.w.rl=C2=A0=C2=A0=C2=A0 %1, %new, %addr=C2=A0=C2=A0 /* SC-relea=
-se=C2=A0=C2=A0 */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 bnez=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 %1, 0b
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 fence=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rw, rw=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* "full" fence */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1:
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0 following Daniel's suggestion.
->=20
-> I'm likely missing something, yet as it looks it does help that the
-> code fragment above appears to be ...
->=20
-> > =C2=A0=C2=A0=C2=A0 These modifications were validated with simulation o=
-f the RISC-
-> > V
-> > =C2=A0=C2=A0=C2=A0 with sequences of the form:
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lr.w=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 %0, %addr
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 bne=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 %0, %old, 1f
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 ...
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 sc.w.rl=C2=A0=C2=A0=C2=A0 %1, %new, %addr=C2=A0=C2=A0 /* SC-relea=
-se=C2=A0=C2=A0 */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 bnez=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 %1, 0b
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 fence=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rw, rw=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* "full" fence */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1:
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0 following Daniel's suggestion.
->=20
-> ... entirely the same as this one. Yet there's presumably a reason
-> for quoting it twice?
-I think it was done by accident
+Acked-by: Jan Beulich <jbeulich@suse.com>
+with two small remaining remarks (below) and on the assumption that an
+R-b from Roger in particular for the vPCI code is going to turn up
+eventually.
 
-~ Oleksii
->=20
-> > =C2=A0=C2=A0=C2=A0 These modifications were validated with simulation o=
-f the RISC-
-> > V
-> > =C2=A0=C2=A0=C2=A0 memory consistency model.
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0 C lr-sc-aqrl-pair-vs-full-barrier
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0 {}
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0 P0(int *x, int *y, atomic_t *u)
-> > =C2=A0=C2=A0=C2=A0 {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int =
-r0;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int =
-r1;
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WRIT=
-E_ONCE(*x, 1);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r0 =
-=3D atomic_cmpxchg(u, 0, 1);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r1 =
-=3D READ_ONCE(*y);
-> > =C2=A0=C2=A0=C2=A0 }
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0 P1(int *x, int *y, atomic_t *v)
-> > =C2=A0=C2=A0=C2=A0 {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int =
-r0;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int =
-r1;
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WRIT=
-E_ONCE(*y, 1);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r0 =
-=3D atomic_cmpxchg(v, 0, 1);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r1 =
-=3D READ_ONCE(*x);
-> > =C2=A0=C2=A0=C2=A0 }
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0 exists (u=3D1 /\ v=3D1 /\ 0:r1=3D0 /\ 1:r1=3D0)
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0 [1] https://marc.info/?l=3Dlinux-kernel&m=3D15193020=
-1102853&w=3D2
-> > =C2=A0=C2=A0=C2=A0=C2=A0=20
-> > https://groups.google.com/a/groups.riscv.org/forum/#!topic/isa-dev/hKyw=
-NHBkAXM
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 https://marc.info/?l=3Dlinux=
--kernel&m=3D151633436614259&w=3D2
-> >=20
-> >=20
-> > Thereby Linux kernel implementation seems to me more safe and it is
-> > a
-> > reason why I want/wanted to be aligned with it.
->=20
-> Which may end up being okay. I hope you realize though that there's a
-> lot more explanation needed in the respective commits then compared
-> to
-> what you've had so far. As a minimum, absolutely anything remotely
-> unexpected needs to be explained.
->=20
-> Jan
+> @@ -895,6 +891,15 @@ int vpci_msix_arch_print(const struct vpci_msix *msix)
+>  {
+>      unsigned int i;
+>  
+> +    /*
+> +     * Assert that pdev_list doesn't change. ASSERT_PDEV_LIST_IS_READ_LOCKED
+> +     * is not suitable here because it may allow either pcidevs_lock() or
+> +     * pci_lock to be held, but here we rely on pci_lock being held, not
+> +     * pcidevs_lock().
+> +     */
+> +    ASSERT(rw_is_locked(&msix->pdev->domain->pci_lock));
+> +    ASSERT(spin_is_locked(&msix->pdev->vpci->lock));
 
+As to the comment, I think it's not really "may". I also think referral to
+...
+
+> @@ -913,13 +918,23 @@ int vpci_msix_arch_print(const struct vpci_msix *msix)
+>              struct pci_dev *pdev = msix->pdev;
+>  
+>              spin_unlock(&msix->pdev->vpci->lock);
+> +            read_unlock(&pdev->domain->pci_lock);
+>              process_pending_softirqs();
+> +
+> +            if ( !read_trylock(&pdev->domain->pci_lock) )
+> +                return -EBUSY;
+> +
+>              /* NB: we assume that pdev cannot go away for an alive domain. */
+>              if ( !pdev->vpci || !spin_trylock(&pdev->vpci->lock) )
+> +            {
+> +                read_unlock(&pdev->domain->pci_lock);
+>                  return -EBUSY;
+> +            }
+> +
+>              if ( pdev->vpci->msix != msix )
+>              {
+>                  spin_unlock(&pdev->vpci->lock);
+> +                read_unlock(&pdev->domain->pci_lock);
+>                  return -EAGAIN;
+>              }
+>          }
+
+... this machinery would be quite helpful (and iirc you even had such in an
+earlier version).
+
+> @@ -313,17 +316,31 @@ void vpci_dump_msi(void)
+>                  {
+>                      /*
+>                       * On error vpci_msix_arch_print will always return without
+> -                     * holding the lock.
+> +                     * holding the locks.
+>                       */
+>                      printk("unable to print all MSI-X entries: %d\n", rc);
+> -                    process_pending_softirqs();
+> -                    continue;
+> +                    goto pdev_done;
+>                  }
+>              }
+>  
+> +            /*
+> +             * Unlock locks to process pending softirqs. This is
+> +             * potentially unsafe, as d->pdev_list can be changed in
+> +             * meantime.
+> +             */
+>              spin_unlock(&pdev->vpci->lock);
+> +            read_unlock(&d->pci_lock);
+> +        pdev_done:
+>              process_pending_softirqs();
+> +            if ( !read_trylock(&d->pci_lock) )
+> +            {
+> +                printk("unable to access other devices for the domain\n");
+> +                goto domain_done;
+> +            }
+>          }
+> +        read_unlock(&d->pci_lock);
+> +    domain_done:
+> +        ;
+
+I think a blank line ahead of this label and perhaps also ahead of
+"pdev_done" would be quite nice.
+
+I guess respective adjustments could be done while committing, provided
+there's not going to be any other reason for yet another revision.
+
+Jan
 
