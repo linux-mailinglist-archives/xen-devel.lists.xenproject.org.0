@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58AF88676BD
+	by mail.lfdr.de (Postfix) with ESMTPS id 597CB8676BE
 	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 14:38:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685549.1066431 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.685551.1066442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rebA9-0006v4-4L; Mon, 26 Feb 2024 13:36:57 +0000
+	id 1rebAg-0007NK-D3; Mon, 26 Feb 2024 13:37:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685549.1066431; Mon, 26 Feb 2024 13:36:57 +0000
+Received: by outflank-mailman (output) from mailman id 685551.1066442; Mon, 26 Feb 2024 13:37:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rebA9-0006sU-15; Mon, 26 Feb 2024 13:36:57 +0000
-Received: by outflank-mailman (input) for mailman id 685549;
- Mon, 26 Feb 2024 13:36:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rebAg-0007L1-7u; Mon, 26 Feb 2024 13:37:30 +0000
+Received: by outflank-mailman (input) for mailman id 685551;
+ Mon, 26 Feb 2024 13:37:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FdVt=KD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rebA7-0006sO-HF
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 13:36:55 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1a1ad0f5-d4ac-11ee-98f5-efadbce2ee36;
- Mon, 26 Feb 2024 14:36:53 +0100 (CET)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-512f7332252so1914379e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 05:36:53 -0800 (PST)
+ id 1rebAe-0007Ki-Oz
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 13:37:28 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2e7fcd71-d4ac-11ee-8a58-1f161083a0e0;
+ Mon, 26 Feb 2024 14:37:27 +0100 (CET)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-512f7332252so1915147e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 05:37:27 -0800 (PST)
 Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- bq34-20020a05620a46a200b007873c82f0easm2429708qkb.113.2024.02.26.05.36.51
+ bq34-20020a05620a46a200b007873c82f0easm2429708qkb.113.2024.02.26.05.37.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 05:36:52 -0800 (PST)
+ Mon, 26 Feb 2024 05:37:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a1ad0f5-d4ac-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 2e7fcd71-d4ac-11ee-8a58-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708954613; x=1709559413; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1708954647; x=1709559447; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=J4LsyS/JwWxmKvnclXrztXMRGI7d4Hu8lSZ6qOUJFiQ=;
-        b=MymnbceQ/VKb/3KOL69KTmmT41ReD/Wu40XIpUFP0hosuKGkxc3x6HQLmcCRbo6RAM
-         tUvdJN0zy3SWjqIdiCCDJZ25LWAXLCqjKzyDWsl+7hfSdlMC+a4MzGCGk+a55EuzMPpu
-         MRM9rXDM2OWut2cuTemSo/0XIXOie5S+e4qok=
+        bh=6BIt+iE3foNAA53SQcPS2zvEaO/VpJHQbsJoTmUs+cI=;
+        b=EbJ7w+/JGgUu1KeOFCV6MvO2PnUoBUZyTgvaj0VbR9MaoTD16z5SR5AJYmBlRinLTt
+         zG5Nz4Kignzpwwx5WGFfvJidzjqVDKkMl1lexjs0DVyWHd273E/5axTAti8tWdE93QYs
+         0m6NfChAKnJB9BeFKN4s1gtcI/RGLFwuFxRdU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708954613; x=1709559413;
+        d=1e100.net; s=20230601; t=1708954647; x=1709559447;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=J4LsyS/JwWxmKvnclXrztXMRGI7d4Hu8lSZ6qOUJFiQ=;
-        b=va2TQn6hukEYZRAeur239Tsc0LUj36WAKzcNCIBFaiLc/9PzcT778YW4WseqBN36ui
-         wLXAPG9tQxrZ55QIHAPE2QsI4UkhIBm/0fUoxnZG80ej+CHZI+wfFgPltLI96TFBlbc1
-         d9IR7oYUoMveau9Xc9iw/IVyG3jmglG/Gz9KaoeeU/UUFWqAn83+Av1du80V861+Xp4h
-         p4elBISDoYJ5DdcuH91MamAA/7p/mKdG0SV+1sjSvGnv14uHJmgpLrCv2A2BUJuqzKdr
-         EIDUgnIjJOReqCwlB+N1v53U8NzzG5t23p7ZwOLJ8XykHbNpBlYmQY371HQ/+S7v9KkT
-         6flQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWoO+Or0EJcPYin0QIF11fMn90zca8pXhAlXrNl6DboPZteFxCiDKywdBvkoQwJOLuDtKVloZ4UUpuWMITfGqaPn6It3lu/Wj0nPilPHIo=
-X-Gm-Message-State: AOJu0YwMg/tJMwBCHiMRZgR7zRbBQYJqAVZmSQ2IL/UJl6XHhAJk/BI4
-	bOvMeWb0Xtl2t//+HkrDn9FCbsUKoE+Fc8c2t5oNvlZS+KiPnFpESQsbZqC443A=
-X-Google-Smtp-Source: AGHT+IGVAt0/tqEIqvf2BcI4SdfVjb+Y0HIov/oEetP2L1LIQfMJSwrQ1he4LxCcf/ns/cm/YbCLnQ==
-X-Received: by 2002:ac2:5388:0:b0:512:e8eb:f978 with SMTP id g8-20020ac25388000000b00512e8ebf978mr4196530lfh.4.1708954612787;
-        Mon, 26 Feb 2024 05:36:52 -0800 (PST)
-Message-ID: <7365ac86-924c-4c9d-933f-87af6237de58@citrix.com>
-Date: Mon, 26 Feb 2024 13:36:50 +0000
+        bh=6BIt+iE3foNAA53SQcPS2zvEaO/VpJHQbsJoTmUs+cI=;
+        b=UVA392pgSI4e5ss1yQpjZQ3FPzh+KSyB/4UfRSeJNpydD/ZYQdLbmFoEFoIZ+Wa7+L
+         HXm1tufjlc0wVO6JGUDJ1JZJykgj7quEK7w40fw7AaxhW2qt2bAkfhMKP2aOpmC/5TJi
+         o3sRi+3v1lHmhv09Y8Md5U16HRZSG1k1i2bZ9TGWMHyF5jeNiqrXBX5a5m07F04wUgCF
+         2n+bvNZlEjhXt8TyQDKiPnE+V7Qkf2/kjeqlVYwV0B2dUIsWdmU0uY7RjAVzPp2tEKH4
+         6Aab1DYL1PIXjsRfl2f//SGTCX1UjWBQ1nFblonqJoXLRMAWE3yaKbvlGcRUG4vEcTi4
+         b3Lw==
+X-Forwarded-Encrypted: i=1; AJvYcCWOfySQ5/f9JEw5H7PqkDafvZlqainCLic83V7izvWCfpP2G5FiCt8z6ojjKXuHo0SxYJcNtIzQKOsvRk+GS6meT/XlQnVBqgClNKY9m2Y=
+X-Gm-Message-State: AOJu0YyAzJ8cLc0mAVGkFqq6EMd7jBxPzCK7tHhu03Kfy1bQmI2sQ1xd
+	PNoFpavAjaT34Sn3GlgY9IQV8I3K09qAE7JVyRMZAxoWAnnpXeY7NATYtVTexNw=
+X-Google-Smtp-Source: AGHT+IFVYvLjon0QcWoxdORvXWFxHItbU1kIdVY7q+EJlYbOo4Gmu/QrkdsAJgwdAhyCCLRFRJuk/Q==
+X-Received: by 2002:a05:6512:3e0c:b0:512:b0a7:2943 with SMTP id i12-20020a0565123e0c00b00512b0a72943mr5727371lfv.5.1708954647250;
+        Mon, 26 Feb 2024 05:37:27 -0800 (PST)
+Message-ID: <1d4b37b7-1afb-46ee-b845-af43b75ead61@citrix.com>
+Date: Mon, 26 Feb 2024 13:37:26 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86: Dom0 "broken ELF" reporting adjustments
+Subject: Re: [PATCH v2] x86/HVM: limit upcall vector related verbosity
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
-References: <7edea456-81ba-4e83-9441-0e82333ce168@suse.com>
+References: <89d77714-df09-4d0b-bc7d-7d773f8d4f4b@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -128,17 +128,19 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <7edea456-81ba-4e83-9441-0e82333ce168@suse.com>
+In-Reply-To: <89d77714-df09-4d0b-bc7d-7d773f8d4f4b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22/01/2024 1:41 pm, Jan Beulich wrote:
-> elf_load_binary() isn't the primary source of brokenness being
-> indicated. Therefore make the respective PVH log message there
-> conditional (much like PV has it), and add another instance when
-> elf_xen_parse() failed (again matching behavior in the PV case).
->
-> Make the PV side match the (new) use of %pd here.
+On 18/12/2023 7:26 am, Jan Beulich wrote:
+> Avoid logging all-identical messages for every vCPU, but make sure to
+> log unusual events like the vector differing from vCPU 0's (note that
+> the respective condition also makes sure vCPU 0 itself will have the
+> vector setting logged), or it changing after it was once set. (Arguably
+> a downside is that some vCPU not having its vector set would no longer
+> be recognizable from the logs. But I think that's tolerable as
+> sufficiently unlikely outside of people actively fiddling with related
+> code.)
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
