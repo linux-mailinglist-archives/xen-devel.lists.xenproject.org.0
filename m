@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0196C86793C
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 15:58:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685599.1066570 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36AB4867961
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 16:04:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685602.1066581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1recQx-0002EQ-BR; Mon, 26 Feb 2024 14:58:23 +0000
+	id 1recWD-0004N7-Uv; Mon, 26 Feb 2024 15:03:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685599.1066570; Mon, 26 Feb 2024 14:58:23 +0000
+Received: by outflank-mailman (output) from mailman id 685602.1066581; Mon, 26 Feb 2024 15:03:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1recQx-0002CF-8l; Mon, 26 Feb 2024 14:58:23 +0000
-Received: by outflank-mailman (input) for mailman id 685599;
- Mon, 26 Feb 2024 14:58:21 +0000
+	id 1recWD-0004Kz-S8; Mon, 26 Feb 2024 15:03:49 +0000
+Received: by outflank-mailman (input) for mailman id 685602;
+ Mon, 26 Feb 2024 15:03:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FdVt=KD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1recQv-0002C8-8e
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 14:58:21 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1recWC-0004Kt-Tm
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 15:03:48 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7a59f019-d4b7-11ee-98f5-efadbce2ee36;
- Mon, 26 Feb 2024 15:58:19 +0100 (CET)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2d27184197cso37617391fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 06:58:19 -0800 (PST)
+ id 3d85154d-d4b8-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 16:03:46 +0100 (CET)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-512ab55fde6so3980258e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 07:03:46 -0800 (PST)
 Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- de38-20020a05620a372600b0078749c88a19sm2533729qkb.0.2024.02.26.06.58.17
+ on33-20020a05621444a100b0068fcd643b9dsm2994029qvb.22.2024.02.26.07.03.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 06:58:18 -0800 (PST)
+ Mon, 26 Feb 2024 07:03:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a59f019-d4b7-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 3d85154d-d4b8-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1708959499; x=1709564299; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1708959826; x=1709564626; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=KuHciCMiUtxsCMKWCTP1a/IkFfjhZRlK6gsKtMae7oY=;
-        b=n6XYWJbraHviR0+108RVBAyw/dP7gVKly5Ear4vFWq6tDoOTPYAiLoR+2yxTfmKAx8
-         qQhb1O4wLiZi8qIdjjDObcBUI5apllXBSNZj96mZ3u0n+qb1DsCV0YrwbAp9dLEmbrU5
-         ImYX5M+r+uQEfCJjs1qfJqCiqcjURKnX2ScXI=
+        bh=rr6N2E4s3ZIVhqfK7Ixg4PBr82pi6VcdNcQD+020dwc=;
+        b=pzMFHpzOwBaIY0g2SvEJA//FI6kHyX4r33L+gqeJiuQYvwcTF6UbYBSjrDYXkFQRVN
+         YNf9/mIZE4KT+oqWqeXLDs01+mfh+S/05rXX44hz6OckmFnlGRirgL7gZTCmc1LUvHRJ
+         c3h04y7ISuCbUImaQtETGFy078974h6nF801c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708959499; x=1709564299;
+        d=1e100.net; s=20230601; t=1708959826; x=1709564626;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KuHciCMiUtxsCMKWCTP1a/IkFfjhZRlK6gsKtMae7oY=;
-        b=O3kJS1zOZ+ZHQqdhR/CegoA/JROPWNFav/s+QmrXeIQWaN6H0H7x8YzSUnM2e5TLTB
-         ZNR9vKw9lBUDoych3D5mYLgUfGwq/VScWQJEmcYnGOeHoFxMHQJ9KdNFixwyNWTK3odu
-         KIB3BG6M9/0xYCxcWUB/Kh638yLZTvxMJlw6JPq7ZowuG2w5iB+s7VDXsKR9WjRjct/c
-         3a+RK52WpnlYT2ijOtx6xRlOm4ux4OM+biVU4Up/n3Xqj1tYnbCRjJrjKkzOtVyxiymv
-         K6E4YV4HWtS7CCt3NLy8/83DHMS3DNxERILtVO3RF9uYmBB950I8o3F+OUUdE6D/Hop2
-         j4tA==
-X-Forwarded-Encrypted: i=1; AJvYcCUK2pv7DK2fFwoGOYkqKgPCkE5aH/iXJ1ZW+MSZA+OJx7pi8GX2bwOj5VfiQJygqkiUkT9tZ6kOXpc4eaj3bVcRA9a3nWfvf41SSoul8FQ=
-X-Gm-Message-State: AOJu0YxAUAnGtqp+/NimNcvOUCgDCWsofnDBgFXnYBPEF5IpT1EPjuE7
-	hoP/abAYf4di8Y+fWpzH5MoAsl11tXSK/ONvSvdYigp0ibKnWlVYEpuu5pzKeYM=
-X-Google-Smtp-Source: AGHT+IHazFue5sC/kKfus/eRWOoVcf0/70OTD4Imy1YQYFTHv0AgoTSCiPRy8I94aqraHVuZxtqX3g==
-X-Received: by 2002:a05:651c:211a:b0:2d2:8bbf:8fc2 with SMTP id a26-20020a05651c211a00b002d28bbf8fc2mr2205533ljq.34.1708959498811;
-        Mon, 26 Feb 2024 06:58:18 -0800 (PST)
-Message-ID: <7cc656d6-4bf0-4b53-ab95-5d49238cc876@citrix.com>
-Date: Mon, 26 Feb 2024 14:58:16 +0000
+        bh=rr6N2E4s3ZIVhqfK7Ixg4PBr82pi6VcdNcQD+020dwc=;
+        b=YTqrZugViGjeVNbEVdyDhQh7by3/A8ozWjqwtLWRUs3fhdkPtp59axl68ETvzNIbPC
+         XJ0YiJW8rlXCt732LNm4m2bq4q64nIBTymU/141xMBRITZ0dm+Ubu06JpX6gQJgDN0Bl
+         Xy+7qGsm+1SP1978k+oAtkB2RsZSRciE59G3ICc8pnNYmECcGCxgWW/EbK3x0UjaYmQh
+         CTI6qJLtvvLCnlqmiqgC3CRoR8xQkhYYetVPaREGHbO7Ib3cTiFvBZoUg5/mw9H80Lzp
+         UBGrLbYFuC2ZyCvMH8KVx+DbFbthcFNJnyrMfIzJwd+Tydxs28v1FBb6WsrLy+V8FwsE
+         aMuQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVzQQRFFt9mv4CN0Gva1UgWacdtP9Kb53K1euUxZq1XCNNmEoG2qcGC7+SbzNtiplPv1Ry4Kd/01mq5N6x1HDlQr8oxld4jZYIVent9j/M=
+X-Gm-Message-State: AOJu0YyHtLFgD2BRDsZHiFzoEa1lCwSFReg0luxeKscrRgAlUweXI8a5
+	+j73YcWZXRpNHwIaGxW5J26e9tWUHZXU42IsB2lTc9ym03xhXsfp+WRYNTQ1Qzc=
+X-Google-Smtp-Source: AGHT+IHwkr0QNg4jlzXKXVUfUBASM6OMQOqvDwoDG0womIbrldHOThD8JHiGEYhgR1re4xV3o4e9lA==
+X-Received: by 2002:a19:2d1d:0:b0:512:f73e:403b with SMTP id k29-20020a192d1d000000b00512f73e403bmr3000931lfj.19.1708959826323;
+        Mon, 26 Feb 2024 07:03:46 -0800 (PST)
+Message-ID: <e34cd78c-ce80-4a61-a1b9-8e3c9479df0f@citrix.com>
+Date: Mon, 26 Feb 2024 15:03:43 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] x86/entry: Introduce EFRAME_* constants
+Subject: Re: [PATCH] tools/xentop: Add VBD3 support to xentop
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240226125501.1233599-1-andrew.cooper3@citrix.com>
- <20240226125501.1233599-4-andrew.cooper3@citrix.com>
- <01621599-7d1f-4cfb-9844-06fba32a62aa@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, Fouad Hilly <fouad.hilly@cloud.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240226141211.1416866-1-fouad.hilly@cloud.com>
+ <9468ccd8-44c3-4b50-b200-5a4ae1cca8ff@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -129,41 +128,33 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <01621599-7d1f-4cfb-9844-06fba32a62aa@suse.com>
+In-Reply-To: <9468ccd8-44c3-4b50-b200-5a4ae1cca8ff@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26/02/2024 2:32 pm, Jan Beulich wrote:
-> On 26.02.2024 13:55, Andrew Cooper wrote:
->> restore_all_guest() does a lot of manipulation of the stack after popping the
->> GPRs, and uses raw %rsp displacements to do so.  Also, almost all entrypaths
->> use raw %rsp displacements prior to pushing GPRs.
+On 26/02/2024 2:22 pm, Jan Beulich wrote:
+> On 26.02.2024 15:12, Fouad Hilly wrote:
+>> From: Pritha Srivastava <pritha.srivastava@citrix.com>
 >>
->> Provide better mnemonics, to aid readability and reduce the chance of errors
->> when editing.
+>> xl now knows how to drive tapdisk, so modified libxenstat to
+>> understand vbd3 statistics.
 >>
->> No functional change.  The resulting binary is identical.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> Signed-off-by: Jorge Martin <jorge.martin@citrix.com>
+>> Signed-off-by: Pritha Srivastava <pritha.srivastava@citrix.com>
+> Just a formal question (I'm not really qualified to review this change):
+> With the above two S-o-b and the earlier From: - who is the original
+> author of this patch? The general expectation is for the 1st S-o-b to
+> be the author's.
 
-Thanks.
+This patch has been sat in the XenServer patchqueue for a decade. 
+Neither Pritha nor Jorge are with us any more.
 
-> with one small request:
->
->> --- a/xen/arch/x86/x86_64/asm-offsets.c
->> +++ b/xen/arch/x86/x86_64/asm-offsets.c
->> @@ -51,6 +51,23 @@ void __dummy__(void)
->>      OFFSET(UREGS_kernel_sizeof, struct cpu_user_regs, es);
->>      BLANK();
->>  
->> +    /*
->> +     * EFRAME_* is for the entry/exit logic where %rsp is pointing at
->> +     * UREGS_error_code and GPRs are still guest values.
->> +     */
-> "still/already" or some such to match "entry/exit"?
+Sadly the review system we used back then is also no longer with us. 
+From ticketing, I think it was co-developed at the same time.
 
-Ok.
+This is the form the patch has existed in the patchqueue for that time,
+so I'm tempted to say we reorder the SoB chain to make it match.  That's
+the best I can figure out.
 
 ~Andrew
 
