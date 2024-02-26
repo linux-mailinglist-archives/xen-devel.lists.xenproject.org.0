@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA77786677B
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 02:20:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685245.1065655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CBA8866875
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 04:03:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685249.1065664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rePes-0004Lp-IR; Mon, 26 Feb 2024 01:19:54 +0000
+	id 1reRFh-0008Lb-Kd; Mon, 26 Feb 2024 03:02:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685245.1065655; Mon, 26 Feb 2024 01:19:54 +0000
+Received: by outflank-mailman (output) from mailman id 685249.1065664; Mon, 26 Feb 2024 03:02:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rePes-0004J1-FO; Mon, 26 Feb 2024 01:19:54 +0000
-Received: by outflank-mailman (input) for mailman id 685245;
- Mon, 26 Feb 2024 01:19:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1reRFh-0008Jj-Hu; Mon, 26 Feb 2024 03:02:01 +0000
+Received: by outflank-mailman (input) for mailman id 685249;
+ Mon, 26 Feb 2024 03:01:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fECz=KD=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1rePer-0004Iv-S6
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 01:19:53 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on20618.outbound.protection.outlook.com
- [2a01:111:f400:7ea9::618])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 230c73b8-d445-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 02:19:52 +0100 (CET)
-Received: from DM6PR04CA0027.namprd04.prod.outlook.com (2603:10b6:5:334::32)
- by IA1PR12MB6092.namprd12.prod.outlook.com (2603:10b6:208:3ec::13) with
+ id 1reRFf-0008Jd-I9
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 03:01:59 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2417::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6622f974-d453-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 04:01:56 +0100 (CET)
+Received: from BYAPR21CA0029.namprd21.prod.outlook.com (2603:10b6:a03:114::39)
+ by DS0PR12MB7678.namprd12.prod.outlook.com (2603:10b6:8:135::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.34; Mon, 26 Feb
- 2024 01:19:47 +0000
-Received: from CY4PEPF0000FCBF.namprd03.prod.outlook.com
- (2603:10b6:5:334:cafe::4b) by DM6PR04CA0027.outlook.office365.com
- (2603:10b6:5:334::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.49 via Frontend
- Transport; Mon, 26 Feb 2024 01:19:47 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000FCBF.mail.protection.outlook.com (10.167.242.101) with Microsoft
+ 2024 03:01:53 +0000
+Received: from SJ5PEPF000001CC.namprd05.prod.outlook.com
+ (2603:10b6:a03:114:cafe::4b) by BYAPR21CA0029.outlook.office365.com
+ (2603:10b6:a03:114::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.22 via Frontend
+ Transport; Mon, 26 Feb 2024 03:01:53 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001CC.mail.protection.outlook.com (10.167.242.41) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Mon, 26 Feb 2024 01:19:46 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7292.25 via Frontend Transport; Mon, 26 Feb 2024 03:01:52 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sun, 25 Feb
- 2024 19:19:46 -0600
+ 2024 21:01:50 -0600
 Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Sun, 25 Feb 2024 19:19:42 -0600
+ Transport; Sun, 25 Feb 2024 21:01:48 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,235 +59,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 230c73b8-d445-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: 6622f974-d453-11ee-98f5-efadbce2ee36
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e7ClIod9/T+1uLPj74NWlg5VZUwLxUwK+i2tAteqpYaD+SQe46ClpeKIDuO7oeo25lenf8FfLriAzDywCYYt//icJRwjk17VUgtGcNigITM9VysKM//BoTB+4Z2bM+iTR1FeRhd2kR4YrWI/R/r5COt95j/KpP0EfJAvHM4GZI1obmwr59luL5rapDIw2H8yhtQZUsV/ODnySkClTMExDSQ1GYt8MfFC6riYHtS2rX0gBbGKypfpIWurEj9PnWVMkqTYeeEWtd16e+jUZ2tQFGYC4JXQg0NbEHWyI7Qr9OcRVaCNIqCY+/56u1kGgPt6V/eTO64rN/ltMkfabV6PsA==
+ b=fLGKUXYMu+28U4BGUOgJ67q9z2lePw+QZx4RmDiLCps4THboznNFCHg3gkJERS2yRdPL060RIKby4QbqgpNNDdA/wfz5kW2r1k0G9SQuxhIf3BVXeRJx57Bju1KjTwSv3orCLq6GQMm0Zmcv/z5YMreo07Alc45NJDS+XPRFWOvHnWPclr3uUX3nW/BSsI+B5pD6juEdjs+zS1Dncrt9hoeLtorNAyO6G3KJEfT266t7JkeMXevg8MKU4Ierx0ymSX4Tcqkcq8aNFt97AfO1MsEuxVbDnnUu4HSR8pNI0Ay7MulfoIXmkeUFwIxqzVWwxKbf/eD2Bm2v3alyS8s+/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SbHROJquyYqurmbhug7zXj703l2PSAlL8189exDZXOA=;
- b=BL24vCh8KL2RX8d0DTfksMMknxn3C+1MG4PyvAkHGhF7yX9F8uf1oDRfMp1gw3ftcx17gb5Qg9WiNQTdyCiGVYXTs7BoeQ+abB3YWFdSXplqKylD6ykUkZxze5GHT7WnF0o9zrOArBEA0MOLQxjPT1ohGUsZz47NItQhneCbmvK1LSRgUKtHAFK4/3g5FpAHdymd8LpvfIIRiOtRvTGNOr/b2gmqfSKbqJXw/nPJ+oa9pzmkAPOUXRlG0/4JRbr8/GWFiKOHM5gAmoa03T0lH2RxBUnllrMSEljR4P2KSNZGVxTF3q4p/ZVfIqCA0DsNcAN+/fr4bfbTusX0NaZwqg==
+ bh=Sb+v1j9xyb+ru/VnYV1pVUwgPOA04LuMrPTFdg1rbn4=;
+ b=Rw0wdxDknUavq/CDSAYI/tXLdpyd4cNJufEaDiaG3VaDtaw81kprJEY0eS0gnrYIxkp/6uEE8QdDruNqwkXBcNci32Uuu8PP6QoRG0NgFow7tbLhx3hCSYjXScw1bwwPeDz6Zb7l0aaw/yLX7IOVOsWea4cO9LzpJewVrH6ZPP1j+IQAkJQ5firhBmGCMUS1R8mVjgLyDTcgnVwlv4ifTYBLhBC4/Wpv5LCy9eq1r12HmGkR+0dOUQ/pXXQ1itfTbDYJiLXcFW2kLDNvhyLvS8x9zxy9SN0DbHDqrsSfiH5dvJcmAhsClvzr9BBmj/ah7mB2H5ltUZ6JAW1/zG7vhg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SbHROJquyYqurmbhug7zXj703l2PSAlL8189exDZXOA=;
- b=KNzUkG1FueEvtx1+jD24lm5xZ3SAUglMBqV8J4kD3GJQQJZbX2+Y8sKo3fL6UxgfuGnmAiOgUJ6aVRsBDdDUZ8qiyAMzzUN1nEdeAfOrzqjwPWW3CrB7T8kxhrI8jw+sc9eRFJtD5eT/Ag9OyAs5uthr4jLO89wUJVQmXNFKiDg=
+ bh=Sb+v1j9xyb+ru/VnYV1pVUwgPOA04LuMrPTFdg1rbn4=;
+ b=EadhCkETQXE065DGOvare7F3O/eoy0I5x82lTMUsNzTovLg97w1viyuqCbVXUy8+2aXoD/VHOa3rFNEJt9raxR8Gy8Lm0uinDBEwpadqsCxPMn1x0cee4SI6YevdKMTSMFQIAgs8OWbS5NvEyalyLBcXLrJRJKHqk3oS0Bm6d9Y=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Henry Wang <xin.wang2@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Henry Wang <xin.wang2@amd.com>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Bertrand Marquis
+CC: Henry Wang <xin.wang2@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Shawn Anastasio
-	<sanastasio@raptorengineering.com>, Alistair Francis
-	<alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, "Connor
- Davis" <connojdavis@gmail.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Alec Kwapis <alec.kwapis@medtronic.com>
-Subject: [PATCH] xen/common: Do not allocate magic pages 1:1 for direct mapped domains
-Date: Mon, 26 Feb 2024 09:19:35 +0800
-Message-ID: <20240226011935.169462-1-xin.wang2@amd.com>
+ Babchuk" <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm: Set correct per-cpu cpu_core_mask
+Date: Mon, 26 Feb 2024 11:01:46 +0800
+Message-ID: <20240226030146.179465-1-xin.wang2@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: xin.wang2@amd.com does not designate
+Received-SPF: None (SATLEXMB04.amd.com: xin.wang2@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBF:EE_|IA1PR12MB6092:EE_
-X-MS-Office365-Filtering-Correlation-Id: 391c704a-55fe-4af5-1076-08dc3669056e
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CC:EE_|DS0PR12MB7678:EE_
+X-MS-Office365-Filtering-Correlation-Id: 93a58300-57cd-4f5c-c4b6-08dc367748bd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	eyn99XQB/SQCOD1e7A2jwMzKjbEdV1qri+tm5VsMuP/YzgHHM6szpAVr1iaY1g3XcjhGCNUc0sB95ZtO0xVwhqTHhAgo4LhHahAxF8hUtDmVVgnz9gf41+PBoLxq9YFgwvSX+lDCDRMds3X841YIWgt7KivAgFLN253Mq+j4uzh+rbfcwj08hqCEG6Z2TlgXwkjYT433lGWXdevf66Ndn2eOwuQK3w6TJLA0YS6uidzzXKELlquCtNDuhfMDJ/UrDVTRs0R/XVa0Wd+7dSl4S5iC4AzT1cmhquTmwO5Or8iZdwvZPg9So4t1wZksDCydjbTNh4ulCRVnumitmwT3oN8nZWXyFgY+3ePMxg04RV+AKFnFPDnAt9H7MTxYe40Kmq5/o5MquP3zo2X1Bod0SWPPxK6/ih98D7Hm0q846r0rL1eCcudIYugQoa+0+w0wveXSdauxcygb3KTXlgcw9MgmEwtt2pwqcQsfEUr9g1fUnJAbDtK9/DJvcrLEbN9hA4Gf7X6UnG0godr6IrsB5k/mgld+RfPx+ghMjZm7FreHetlwkxoQ1Zfowcf4r159FmkXwx7pavn86lF/ds68G+ZCl8pos1InnQNSOTHC48EKD5MaTzoJqUkvqUNB7dRkuo1hyaWawXA0C7rv83tfj7qaJMN7sz+8yJEbM16sbua+1bygqGc9LLQohSLAYU5wCUtLVsyD4/sE8oOmt2AwhytzndPsGUhp5n0pxd1FvyhoRS8VpDTcJ0OwokgtZo8C
+	nxRUaZoVmBj4tGx+iH7zBh5CxNrWO2qDiEYg80ZgzTYWR1oAYHZV2VYuG19MlYvvb6jlE8Tm0y/v9rT85IKz//lfY/BTKSL89kK1LB7jkNnTKC6acKUNElztJbML2UtnYPE+V41YKNcwCQaZLcwdehlQJdLhK7G5qFIUJAyLZDnt9ReOMHgnn67oSKPjN30xn3yy8k61IMtzv1RxbPEL9y4X1OC7iBL+aRdQ+KHfTg5v5YW86ttOIi/DlDDgbVJcNt2a9iHT8Qa8Idpuf7e65Wbt+bD4iUCY7r2C2TTH0TiKu3PDN21nGSFSTS/uyPexkNkoGuRybK1PEbHTA1FXWCqFfl25lhyFxcPq+CYXSgTvqNFwXXz1SMuoZtETbr7KJo6nYJWsMTW7Br/bWT4opxKeYEjRCGD3Y9CzgQpMskUvHkxETl2QzFSK0TCS0lzY4sz74IxgdT0FXmOz2IXd+DRo/LkF7Lpnd7+KWSaMSkqrHj1OaglqPuCetCOCdjxjfMT0ibAn+wHJWdkZVNX3YaCyW61nrQB6ZkV8EY1V7yxc6s4uAYB/2SxPFfcyzt+9mRnFcn0y47N/lDHnkxfGLKDuaSAE8ihxz0t1jgJj3s6dVNFKaf/bnLA+pU7nRZHAnYUeLR4p3gsxIPSwgSZlcwEq9DBI2XfOlVu07/mceMQ90rnV+HQwwnCUas1jhiEnsrQrk0kfdgxu6ER+BluT+m0byfys+SC3VuZUj15A7Ls0njHCbzQDY8hoDXZUx3K2
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 01:19:46.9395
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 03:01:52.8078
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 391c704a-55fe-4af5-1076-08dc3669056e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93a58300-57cd-4f5c-c4b6-08dc367748bd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000FCBF.namprd03.prod.outlook.com
+	SJ5PEPF000001CC.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6092
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7678
 
-An error message can seen from the init-dom0less application on
-direct-mapped 1:1 domains:
-```
-Allocating magic pages
-memory.c:238:d0v0 mfn 0x39000 doesn't belong to d1
-Error on alloc magic pages
-```
+In the common sysctl command XEN_SYSCTL_physinfo, the value of
+cores_per_socket is calculated based on the cpu_core_mask of CPU0.
+Currently on Arm this is a fixed value 1 (can be checked via xl info),
+which is not correct. This is because during the Arm CPU online
+process at boot time, setup_cpu_sibling_map() only sets the per-cpu
+cpu_core_mask for itself.
 
-This is because populate_physmap() automatically assumes gfn == mfn
-for direct mapped domains. This cannot be true for the magic pages
-that are allocated later for Dom0less DomUs from the init-dom0less
-helper application executed in Dom0.
+cores_per_socket refers to the number of cores that belong to the same
+socket (NUMA node). Currently Xen on Arm does not support physical
+CPU hotplug and NUMA. Therefore if the MT bit (bit 24) in MPIDR_EL1
+is 0, cores_per_socket means all possible CPUs detected from the device
+tree. Setting the per-cpu cpu_core_mask in setup_cpu_sibling_map()
+accordingly. Drop the in-code comment which seems to be outdated.
 
-Force populate_physmap to take the "normal" memory allocation route for
-the magic pages even for 1:1 Dom0less DomUs. This should work as long
-as the 1:1 Dom0less DomU doesn't have anything else mapped at the same
-guest address as the magic pages:
-- gfn 0x39000 address 0x39000000
-- gfn 0x39001 address 0x39001000
-- gfn 0x39002 address 0x39002000
-- gfn 0x39003 address 0x39003000
-Create helper is_magic_gpfn() for Arm to assist this and stub helpers
-for non-Arm architectures to avoid #ifdef. Move the definition of the
-magic pages on Arm to a more common place.
-
-Note that the init-dom0less application of the diffenent Xen version
-may allocate all or part of four magic pages for each DomU.
-
-Reported-by: Alec Kwapis <alec.kwapis@medtronic.com>
-Signed-off-by: Stefano Stabellini <sstabellini@kernel.org>
 Signed-off-by: Henry Wang <xin.wang2@amd.com>
 ---
- tools/libs/guest/xg_dom_arm.c   |  6 ------
- xen/arch/arm/include/asm/mm.h   | 13 +++++++++++++
- xen/arch/ppc/include/asm/mm.h   |  5 +++++
- xen/arch/riscv/include/asm/mm.h |  6 ++++++
- xen/arch/x86/include/asm/mm.h   |  5 +++++
- xen/common/memory.c             |  2 +-
- xen/include/public/arch-arm.h   |  6 ++++++
- 7 files changed, 36 insertions(+), 7 deletions(-)
+ xen/arch/arm/smpboot.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/tools/libs/guest/xg_dom_arm.c b/tools/libs/guest/xg_dom_arm.c
-index 2fd8ee7ad4..8c579d7576 100644
---- a/tools/libs/guest/xg_dom_arm.c
-+++ b/tools/libs/guest/xg_dom_arm.c
-@@ -25,12 +25,6 @@
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+index a84e706d77..d616778655 100644
+--- a/xen/arch/arm/smpboot.c
++++ b/xen/arch/arm/smpboot.c
+@@ -66,7 +66,6 @@ static bool cpu_is_dead;
  
- #include "xg_private.h"
+ /* ID of the PCPU we're running on */
+ DEFINE_PER_CPU(unsigned int, cpu_id);
+-/* XXX these seem awfully x86ish... */
+ /* representing HT siblings of each logical CPU */
+ DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_sibling_mask);
+ /* representing HT and core siblings of each logical CPU */
+@@ -89,6 +88,11 @@ static int setup_cpu_sibling_map(int cpu)
+     cpumask_set_cpu(cpu, per_cpu(cpu_sibling_mask, cpu));
+     cpumask_set_cpu(cpu, per_cpu(cpu_core_mask, cpu));
  
--#define NR_MAGIC_PAGES 4
--#define CONSOLE_PFN_OFFSET 0
--#define XENSTORE_PFN_OFFSET 1
--#define MEMACCESS_PFN_OFFSET 2
--#define VUART_PFN_OFFSET 3
--
- #define LPAE_SHIFT 9
- 
- #define PFN_4K_SHIFT  (0)
-diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-index cbcf3bf147..17149b4635 100644
---- a/xen/arch/arm/include/asm/mm.h
-+++ b/xen/arch/arm/include/asm/mm.h
-@@ -428,6 +428,19 @@ static inline void page_set_xenheap_gfn(struct page_info *p, gfn_t gfn)
-     } while ( (y = cmpxchg(&p->u.inuse.type_info, x, nx)) != x );
++    /* PE not implemented using a multithreading type approach. */
++    if ( system_cpuinfo.mpidr.mt == 0 )
++        cpumask_or(per_cpu(cpu_core_mask, cpu),
++                   per_cpu(cpu_core_mask, cpu), &cpu_possible_map);
++
+     return 0;
  }
  
-+#define MAGIC_PAGE_N_GPFN(n)     ((GUEST_MAGIC_BASE >> PAGE_SHIFT) + n)
-+static inline bool is_magic_gpfn(xen_pfn_t gpfn)
-+{
-+    unsigned int i;
-+    for ( i = 0; i < NR_MAGIC_PAGES; i++ )
-+    {
-+        if ( gpfn == MAGIC_PAGE_N_GPFN(i) )
-+            return true;
-+    }
-+
-+    return false;
-+}
-+
- #endif /*  __ARCH_ARM_MM__ */
- /*
-  * Local variables:
-diff --git a/xen/arch/ppc/include/asm/mm.h b/xen/arch/ppc/include/asm/mm.h
-index a433936076..8ad81d9552 100644
---- a/xen/arch/ppc/include/asm/mm.h
-+++ b/xen/arch/ppc/include/asm/mm.h
-@@ -256,4 +256,9 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
-     return true;
- }
- 
-+static inline bool is_magic_gpfn(xen_pfn_t gpfn)
-+{
-+    return false;
-+}
-+
- #endif /* _ASM_PPC_MM_H */
-diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-index 07c7a0abba..a376a77e29 100644
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -3,6 +3,7 @@
- #ifndef _ASM_RISCV_MM_H
- #define _ASM_RISCV_MM_H
- 
-+#include <public/xen.h>
- #include <asm/page-bits.h>
- 
- #define pfn_to_paddr(pfn) ((paddr_t)(pfn) << PAGE_SHIFT)
-@@ -20,4 +21,9 @@ unsigned long calc_phys_offset(void);
- 
- void turn_on_mmu(unsigned long ra);
- 
-+static inline bool is_magic_gpfn(xen_pfn_t gpfn)
-+{
-+    return false;
-+}
-+
- #endif /* _ASM_RISCV_MM_H */
-diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
-index 7d26d9cd2f..f385f36d78 100644
---- a/xen/arch/x86/include/asm/mm.h
-+++ b/xen/arch/x86/include/asm/mm.h
-@@ -628,4 +628,9 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
-     return (mfn + nr) <= (virt_to_mfn(eva - 1) + 1);
- }
- 
-+static inline bool is_magic_gpfn(xen_pfn_t gpfn)
-+{
-+    return false;
-+}
-+
- #endif /* __ASM_X86_MM_H__ */
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index b3b05c2ec0..ab4bad79e2 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -219,7 +219,7 @@ static void populate_physmap(struct memop_args *a)
-         }
-         else
-         {
--            if ( is_domain_direct_mapped(d) )
-+            if ( is_domain_direct_mapped(d) && !is_magic_gpfn(gpfn) )
-             {
-                 mfn = _mfn(gpfn);
- 
-diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-index a25e87dbda..58aa6ff05b 100644
---- a/xen/include/public/arch-arm.h
-+++ b/xen/include/public/arch-arm.h
-@@ -476,6 +476,12 @@ typedef uint64_t xen_callback_t;
- #define GUEST_MAGIC_BASE  xen_mk_ullong(0x39000000)
- #define GUEST_MAGIC_SIZE  xen_mk_ullong(0x01000000)
- 
-+#define NR_MAGIC_PAGES 4
-+#define CONSOLE_PFN_OFFSET 0
-+#define XENSTORE_PFN_OFFSET 1
-+#define MEMACCESS_PFN_OFFSET 2
-+#define VUART_PFN_OFFSET 3
-+
- #define GUEST_RAM_BANKS   2
- 
- /*
 -- 
 2.34.1
 
