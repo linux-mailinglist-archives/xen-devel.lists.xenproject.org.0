@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88449867C5E
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 17:46:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685660.1066763 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34200867C6C
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 17:47:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685673.1066773 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ree7A-0003aB-Hz; Mon, 26 Feb 2024 16:46:04 +0000
+	id 1ree8l-0004HY-RN; Mon, 26 Feb 2024 16:47:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685660.1066763; Mon, 26 Feb 2024 16:46:04 +0000
+Received: by outflank-mailman (output) from mailman id 685673.1066773; Mon, 26 Feb 2024 16:47:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ree7A-0003Xi-DT; Mon, 26 Feb 2024 16:46:04 +0000
-Received: by outflank-mailman (input) for mailman id 685660;
- Mon, 26 Feb 2024 16:46:02 +0000
+	id 1ree8l-0004F8-No; Mon, 26 Feb 2024 16:47:43 +0000
+Received: by outflank-mailman (input) for mailman id 685673;
+ Mon, 26 Feb 2024 16:47:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ree78-0003OP-DE
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 16:46:02 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FdVt=KD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ree8k-0004Ey-S0
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 16:47:42 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 865f386b-d4c6-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 17:46:01 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-565b434f90aso2300408a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 08:46:01 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d18-20020a056402401200b005640022af58sm2509237eda.83.2024.02.26.08.46.01
+ id c21c1362-d4c6-11ee-8a58-1f161083a0e0;
+ Mon, 26 Feb 2024 17:47:42 +0100 (CET)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-512bce554a5so4193581e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 08:47:42 -0800 (PST)
+Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ k14-20020a05620a0b8e00b00787b7732c0csm2638433qkh.4.2024.02.26.08.47.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 08:46:01 -0800 (PST)
+ Mon, 26 Feb 2024 08:47:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,152 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 865f386b-d4c6-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: c21c1362-d4c6-11ee-8a58-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708965961; x=1709570761; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dDYzTd9wYxsVXEBeurRAELomc9weD9fuwjmladT865s=;
-        b=CUbO0BsfOIUCLnCKu9fQhKqjBKAtDo4QJZGwelMu14Z6cgPjCm3pFxv6DGqOpJRJsA
-         bkCe/y6ejFmvKEiJ5NI4lw05NbXy/OCr0hksUPslS6TEB1QquiIaGjTIO9E15OGqUIWL
-         CkrhLwic81YeZlQ40vOMzqZMGIx5n/3W7/06fGf+shv+8p+puN9oaqkWKz7sxmDvzzu0
-         i3szoA/FvHiZXo2U5NIhb9t8JKhd//LGVP/zg/PJdo+tVuyW30IxSnpNWqd5XbrUDTFT
-         QOhyiZL/v08MDIWDR9XqBIjPeXaLfrhhYshbP7jLEiH+V7+mD3jmXhyqFK28qdE0RRjD
-         E0jA==
+        d=citrix.com; s=google; t=1708966062; x=1709570862; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=FvRQNVsEjOsBL3aW6gixEzUas6FNPtLG7gqR3J12VzY=;
+        b=d37MJqr9ykhr4KlmFRJh0Gfv/wqQT8H6ANeu6kvcqD+GR/yD9Y3ZwRsQXvPPzDqI0Z
+         l6ZQpkv4uA1plvhpL6QtPUMZl8UNHpck2xj9XN6tnf2FxgSy0cpxbSKDx8wf9WsbxGZV
+         IT2hzb3hODxKbRTcV2dMnB5EIVJwn/DpvIK3Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708965961; x=1709570761;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dDYzTd9wYxsVXEBeurRAELomc9weD9fuwjmladT865s=;
-        b=cG6gff/dtVbA7mtQK1iK/pk7CcFkT8fhdPtNYssRTlMr72hEG3zmpfm3NSp63MgctF
-         E7xCSieNNV2jg6dWxt9t2eyuCphJRtQexUCTbY5GH60cWf0exbA/IKy0oxAN/MK4/TF3
-         SZVO5JgHonl8kiAtew/Gm+XZVVq9Gxc8t+xvK3sQ+BH70m02gzb4wKUYRqPjHDBwDSga
-         54DWrGO6m3y+DhgpQpzsDaGuECIpwvnbZTiirZcgvSs8jKd3C3LVD5+snNftev8Al8PG
-         V4fZHA7QP6ot6A/D4xJS/mUi8rEeueRF6A4ABny2gkXJvEhIndtPaLuUilZND82PDN6H
-         Rukw==
-X-Gm-Message-State: AOJu0YxIjZ2n7gSJbz/mRYRRakGHS0S3bzKiy9s9cRsOW0FXoVq1J5Ht
-	/rSEhsSjDwCC+9N54Vx9NbVOPOAXgAsONxNd2u0Ks8xeGhQbVDnXm6Qs9KMUUo0AqwMFfcCEiDA
-	=
-X-Google-Smtp-Source: AGHT+IEmtrBcVHu3UxTiqUGsoYFdIPDz0EMOfeYv3hTO8JhDlkEH7AAjpMwtSw/ojpcyq6wZQ/avBw==
-X-Received: by 2002:a50:fb0e:0:b0:565:cda7:4b88 with SMTP id d14-20020a50fb0e000000b00565cda74b88mr3236704edq.37.1708965961529;
-        Mon, 26 Feb 2024 08:46:01 -0800 (PST)
-Message-ID: <1c94855b-884e-4207-aa52-6398c5b9393a@suse.com>
-Date: Mon, 26 Feb 2024 17:46:01 +0100
+        d=1e100.net; s=20230601; t=1708966062; x=1709570862;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=FvRQNVsEjOsBL3aW6gixEzUas6FNPtLG7gqR3J12VzY=;
+        b=J/zUp0WPzXq4L26L2NwzeK5B7rr0BGv7vrFN3ZIqrzBWjUlMTskLz1haqm4x1jEsHq
+         6+0zLRFvHpuvv0cS+IbSCS2/zc0z0W8FYRW1ImITdIZ1Wcs6ReQHvh7sg0T5Mqfycp5k
+         VFi4HOHDhxKQf6hA9/8WU+/SMCqjF+RYPE42U685OFehmrTvT/tw1acOUK6SXzKjJiHQ
+         SX4FVp8TVEFQX3kTR+4rkK5HEajWGadtJr0N+Ym25Ykw5zp7bW/KD5DVY0UaXiOG9myN
+         CkKUfrGaHEXezImCU74xzXd/TQdXbdib4WJlstELPxttLdPP9dnCxSqCSKZ5Ourjzj9Y
+         swrw==
+X-Forwarded-Encrypted: i=1; AJvYcCWj3Da6dID2RZcwmkq6THlymQB8TxBbjpiJOrNbdk8/QplC+3+Z6o6e6XOi3TC4cGkaYGa2J+tW+5Q9aJIN9Mqvy/NDSNt4FczWwbpafeU=
+X-Gm-Message-State: AOJu0YzVEaT4Yfd8pm/D61tbuHk+ouGepsriz+m/2/TdgNXxAeVBgHJt
+	5s3w7vtlK+L1mohbofP3X8K/DjXvmUFE5DTM9RS7N+8dJKujeoKC8+9Ht8OxFzDo7/1+vDernu9
+	G
+X-Google-Smtp-Source: AGHT+IF4fH+d/i/9AlJkCMBGxjqnicK1Kp13C43gdEdQBpl5OfUaWvqqKZMxq168vPVv+dlEcNb/HA==
+X-Received: by 2002:a05:6512:3e9:b0:512:c9bd:2388 with SMTP id n9-20020a05651203e900b00512c9bd2388mr3913258lfq.67.1708966061668;
+        Mon, 26 Feb 2024 08:47:41 -0800 (PST)
+Message-ID: <03677752-2a39-4090-8d8b-12a82d82030d@citrix.com>
+Date: Mon, 26 Feb 2024 16:47:39 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 12/12] VMX: convert vmx_vmfunc
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
-References: <293e5aef-8843-461c-bc96-709a605b2680@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <293e5aef-8843-461c-bc96-709a605b2680@suse.com>
+Subject: Re: [PATCH 5/6] nestedsvm: Remove bogus debug message from
+ nestedsvm_check_intercepts
+Content-Language: en-GB
+To: George Dunlap <george.dunlap@cloud.com>, xen-devel@lists.xenproject.org
+References: <20240206012051.3564035-1-george.dunlap@cloud.com>
+ <20240206012051.3564035-6-george.dunlap@cloud.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240206012051.3564035-6-george.dunlap@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-... to a field in the capability/controls struct.
+On 06/02/2024 1:20 am, George Dunlap wrote:
+> Changeset ef3e8db8068 ("x86/hvm: Corrections and improvements to
+> unhandled vmexit logging") introduced a printk to the default path of
+> the switch statement in nestedsvm_check_intercepts(), complaining of
+> an unknown exit reason.
+>
+> Unfortunately, the "core" switch statement which is meant to handle
+> all vmexit reasons is in nsvm_vmcb_guest_intercepts_exitcode(); the
+> switch statement in nestedsvm_check_intercepts() is only meant to
+> superimpose on top of that some special-casing for how to interaction
+> between L1 and L0 vmexits.
+>
+> Remove the printk, and add a comment to prevent future confusion.
+>
+> Signed-off-by: George Dunlap <george.dunlap@cloud.com>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: New.
+Erm...   The addition of this printk was very deliberate, to point out
+where security fixes are needed.
 
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -162,7 +162,6 @@ static int cf_check parse_ept_param_runt
- 
- /* Dynamic (run-time adjusted) execution control flags. */
- struct vmx_caps __ro_after_init vmx_caps;
--static uint64_t __read_mostly vmx_vmfunc;
- 
- static DEFINE_PER_CPU_READ_MOSTLY(paddr_t, vmxon_region);
- static DEFINE_PER_CPU(paddr_t, current_vmcs);
-@@ -256,7 +255,6 @@ static int vmx_init_vmcs_config(bool bsp
-     u32 vmx_basic_msr_low, vmx_basic_msr_high, min, opt;
-     struct vmx_caps caps = {};
-     u64 _vmx_misc_cap = 0;
--    u64 _vmx_vmfunc = 0;
-     bool mismatch = false;
- 
-     rdmsr(MSR_IA32_VMX_BASIC, vmx_basic_msr_low, vmx_basic_msr_high);
-@@ -458,14 +456,14 @@ static int vmx_init_vmcs_config(bool bsp
-     /* The IA32_VMX_VMFUNC MSR exists only when VMFUNC is available */
-     if ( caps.secondary_exec_control & SECONDARY_EXEC_ENABLE_VM_FUNCTIONS )
-     {
--        rdmsrl(MSR_IA32_VMX_VMFUNC, _vmx_vmfunc);
-+        rdmsrl(MSR_IA32_VMX_VMFUNC, caps.vmfunc);
- 
-         /*
-          * VMFUNC leaf 0 (EPTP switching) must be supported.
-          *
-          * Or we just don't use VMFUNC.
-          */
--        if ( !(_vmx_vmfunc & VMX_VMFUNC_EPTP_SWITCHING) )
-+        if ( !(caps.vmfunc & VMX_VMFUNC_EPTP_SWITCHING) )
-             caps.secondary_exec_control &= ~SECONDARY_EXEC_ENABLE_VM_FUNCTIONS;
-     }
- 
-@@ -488,7 +486,6 @@ static int vmx_init_vmcs_config(bool bsp
-         vmx_caps = caps;
-         vmx_caps.basic_msr = ((uint64_t)vmx_basic_msr_high << 32) |
-                              vmx_basic_msr_low;
--        vmx_vmfunc                 = _vmx_vmfunc;
- 
-         vmx_display_features();
- 
-@@ -530,7 +527,7 @@ static int vmx_init_vmcs_config(bool bsp
-         mismatch |= cap_check("VPID Capability", vmx_caps.vpid, caps.vpid);
-         mismatch |= cap_check(
-             "VMFUNC Capability",
--            vmx_vmfunc, _vmx_vmfunc);
-+            vmx_caps.vmfunc, caps.vmfunc);
-         if ( cpu_has_vmx_ins_outs_instr_info !=
-              !!(vmx_basic_msr_high & (VMX_BASIC_INS_OUT_INFO >> 32)) )
-         {
-@@ -2195,7 +2192,6 @@ int __init vmx_vmcs_init(void)
-          * Make sure all dependent features are off as well.
-          */
-         memset(&vmx_caps, 0, sizeof(vmx_caps));
--        vmx_vmfunc                 = 0;
-     }
- 
-     return ret;
---- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -298,6 +298,7 @@ struct vmx_caps {
-     uint32_t vmentry_control;
-     uint32_t ept;
-     uint32_t vpid;
-+    uint64_t vmfunc;
- };
- extern struct vmx_caps vmx_caps;
- 
+It's not bogus in the slightest.  It is an error for exit reasons to not
+be inspected for safety in this path.
 
+Please revert this patch.
+
+~Andrew
 
