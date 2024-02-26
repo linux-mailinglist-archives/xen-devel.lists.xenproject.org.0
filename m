@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 866C9867889
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 15:32:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685578.1066511 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 096718678C3
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 15:38:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685582.1066531 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rec20-0003Q6-3C; Mon, 26 Feb 2024 14:32:36 +0000
+	id 1rec7U-0004PW-4A; Mon, 26 Feb 2024 14:38:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685578.1066511; Mon, 26 Feb 2024 14:32:36 +0000
+Received: by outflank-mailman (output) from mailman id 685582.1066531; Mon, 26 Feb 2024 14:38:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rec20-0003Oa-0O; Mon, 26 Feb 2024 14:32:36 +0000
-Received: by outflank-mailman (input) for mailman id 685578;
- Mon, 26 Feb 2024 14:32:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rec1y-0003OT-D2
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 14:32:34 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e0f23cc3-d4b3-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 15:32:33 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-55a035669d5so5582607a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 06:32:33 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m13-20020a1709062b8d00b00a3d4dc76454sm2456220ejg.159.2024.02.26.06.32.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 06:32:32 -0800 (PST)
+	id 1rec7T-0004Ng-Vi; Mon, 26 Feb 2024 14:38:15 +0000
+Received: by outflank-mailman (input) for mailman id 685582;
+ Mon, 26 Feb 2024 14:38:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vKMM=KD=gmail.com=jiangshanlai@srs-se1.protection.inumbo.net>)
+ id 1rec7S-0003yd-TM
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 14:38:14 +0000
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [2607:f8b0:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aad8289b-d4b4-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 15:38:13 +0100 (CET)
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-1dc49b00bdbso26417105ad.3
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 06:38:13 -0800 (PST)
+Received: from localhost ([198.11.176.14]) by smtp.gmail.com with ESMTPSA id
+ d3-20020a170903230300b001d9edac54b1sm4015055plh.171.2024.02.26.06.38.10
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 26 Feb 2024 06:38:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +44,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0f23cc3-d4b3-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: aad8289b-d4b4-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708957953; x=1709562753; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=sq9Jn4HsxBCmv5YKEqHY9N3bvJT38sl32KjCdq1pe5M=;
-        b=NqtVvyWtn/8qn4vJNwfa8YSA7i85MRk6sN6BUT/1sXYb+nK5NV6k/w2BmKGpsB3wIf
-         A/4HqWMZ/eVpON6zFOL9un8D9Mcb4eZIBBdJGG+9iDRfZ/Hu42BtxrkwbAdBye4edBQK
-         ACAuyQ88is8H/qqu6JeF0yUsxhudtMqY72RFCRAXP9sSrHlj1xQ25fUJQunsUMNWtaL4
-         VNzhCmkoSKdxYHGLltMLymtY0Of14IAvbp2HuO0LQDuwHxLdhEwRfN8Z1Ao42NH0GZic
-         eVp4OJpctZbGAniVRJz1LPpv1ZVPlK6Wc0R0Ecojg37w2B5bJJ9ph+2LU89LwMibw6Rn
-         BoQw==
+        d=gmail.com; s=20230601; t=1708958291; x=1709563091; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+gfvWhFbgTyzu48YJx+Ed8XWBq6XxX8rbNsTiG4trvc=;
+        b=NWr8iBgzMx6GwoNN1MlI7HCe9dO04ZwaAKjtznu6PrYRna7SSUs9pZTmNLB2Fgt4RO
+         O9iaQCEDRsWITgj5E99SzcSrc9HHIVCJ9b6NXkiXOvaCzseuRMzoLzb7CTKIWYvk+kbe
+         4f8pBvvOC4ocpt4A5a4WxzFvraDS1hPp/J591/cdv3NSL0YPlPUKhHN/SI/wOQvY1RzS
+         oqWAK9XNgp5mhrQpzYH6ng7it0KqQwV01/kPQ0GzZo9ia9y3tYd0Vl7eCxloBHI8oJXR
+         grUiPyDpcUV17JoOxSNF3DWKei5BA8iCr2C4fx9+OSL8kTsBb3Ro4EuqDdzKu0Od825m
+         OZTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708957953; x=1709562753;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sq9Jn4HsxBCmv5YKEqHY9N3bvJT38sl32KjCdq1pe5M=;
-        b=DJc7gcvOQi/8/Gi4wOLgkFPC/vDHaZGmgvfp28YAaWTijzCDWwGVDSTJwMjv08goiq
-         tn3UBHt2tJ1aPiiuWIQT5Ur2uL+RJsDSl+txfSCSdF9QN8FGgRdQjNPfcgjCS+BAZFiY
-         lZDYRdNKpiwciarFe+hKRNspwz1G60g32Kd8EpPYHr3FNJ9T3DVseITOl1owNUOD+wja
-         0R1eu87evg7afU+ZvEycWa9gUInJCHrCsp41shtZz9lT1zIEfHymIAoq4eqr2V9/zPnT
-         hxFG+T3RIutn5HVMw/wiIbHJXmW3+kR/EwbB6bVFWb8jWYY19Hm0YBeTlTKAY89FWKqH
-         iR/w==
-X-Forwarded-Encrypted: i=1; AJvYcCWOVQuwQ9rJ2+pLNLT2eDsB5p4kUiMMJqMW/g4Z5RDUk0MmoPOLBXSqDjr6vt5nezHLWq5a0jAHUUPqXsCvtamOn4WMXG4NZdFGHErjkhQ=
-X-Gm-Message-State: AOJu0YzdZRJa7Wj70r97bPH2L57+TzzmPNj8nw6WyOBkc8eYBmFEGh4q
-	EU6iy4RxaHQH84CrZe/YvGGKIERQC4Jy9TNgNczjLesBrlMOkd3P0fX4YUiTOw==
-X-Google-Smtp-Source: AGHT+IFeKgNGcO6S2yEzxIzMYZqw0QWQ9Ua0xke47tGX+sNRMZS+75Hck7WKiEiB0Div5i5dbfESjQ==
-X-Received: by 2002:a17:906:d106:b0:a43:7ca4:a305 with SMTP id b6-20020a170906d10600b00a437ca4a305mr1018397ejz.43.1708957952983;
-        Mon, 26 Feb 2024 06:32:32 -0800 (PST)
-Message-ID: <01621599-7d1f-4cfb-9844-06fba32a62aa@suse.com>
-Date: Mon, 26 Feb 2024 15:32:32 +0100
+        d=1e100.net; s=20230601; t=1708958291; x=1709563091;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=+gfvWhFbgTyzu48YJx+Ed8XWBq6XxX8rbNsTiG4trvc=;
+        b=VHpDVJaKsh1P4KYOuVEFEP1hnZJJ8DJwUu9AGd6nlJdu+gCNRXKfa+rl724Lien7x4
+         1v3qBHeYFPnrPb3WdzGOD9FSI3mpzLode6N4E96jq6faWW+KA+aeGE7mqjy0PkxDnahQ
+         227c9pyakRdzA/afb4w4Xb2MeCGbFQ03IGpOl8MYPhijtMcnedCNkKaLts5gyoCqL5GL
+         CJZIKhCJsYKjqbrYxeQHVs8GPNFPG9guChL6E4yIMjBZ5a8eyeMkZvyC+rlQm/KvJvVw
+         btzMR+xkkR5RArKoPdyaewRJGNLLSxfGioRC8yN1oQDbyJjcxqM7RpNFwoeNZ3ldnzYg
+         +pxg==
+X-Forwarded-Encrypted: i=1; AJvYcCU7DobnMkrjlGyfbPWBGkWbMNCV6JgIJt/uk5sQwS15DAE+/Qu7SGjd388ivxhuQtCTD7r6MMsOYHgYv8d3yROCimfHV+zWo6KAw1E1/O0=
+X-Gm-Message-State: AOJu0Ywa8iPQYTUYm9J4iN2E3FlTqkS81qcSyIAqaS/W9/vZ4KlXDUld
+	Hj/Bx+qE96xUs62tuAfdlhGwe8i2Y7DfTlyg2vNcNShaIceADXWj
+X-Google-Smtp-Source: AGHT+IEIutnYKn12v5tvNLy/G9rTRg1goq2sEiyOH6n7oCM/wCUKEcvtJKvKWrDR0plMg8cjveFEyw==
+X-Received: by 2002:a17:902:8349:b0:1dc:1fda:202e with SMTP id z9-20020a170902834900b001dc1fda202emr6685293pln.51.1708958291395;
+        Mon, 26 Feb 2024 06:38:11 -0800 (PST)
+From: Lai Jiangshan <jiangshanlai@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: Hou Wenlong <houwenlong.hwl@antgroup.com>,
+	Lai Jiangshan <jiangshan.ljs@antgroup.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Sean Christopherson <seanjc@google.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	kvm@vger.kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	x86@kernel.org,
+	Kees Cook <keescook@chromium.org>,
+	Juergen Gross <jgross@suse.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Darren Hart <dvhart@infradead.org>,
+	Andy Shevchenko <andy@infradead.org>,
+	xen-devel@lists.xenproject.org,
+	platform-driver-x86@vger.kernel.org
+Subject: [RFC PATCH 56/73] x86/pvm: Relocate kernel image early in PVH entry
+Date: Mon, 26 Feb 2024 22:36:13 +0800
+Message-Id: <20240226143630.33643-57-jiangshanlai@gmail.com>
+X-Mailer: git-send-email 2.19.1.6.gb485710b
+In-Reply-To: <20240226143630.33643-1-jiangshanlai@gmail.com>
+References: <20240226143630.33643-1-jiangshanlai@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] x86/entry: Introduce EFRAME_* constants
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240226125501.1233599-1-andrew.cooper3@citrix.com>
- <20240226125501.1233599-4-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240226125501.1233599-4-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26.02.2024 13:55, Andrew Cooper wrote:
-> restore_all_guest() does a lot of manipulation of the stack after popping the
-> GPRs, and uses raw %rsp displacements to do so.  Also, almost all entrypaths
-> use raw %rsp displacements prior to pushing GPRs.
-> 
-> Provide better mnemonics, to aid readability and reduce the chance of errors
-> when editing.
-> 
-> No functional change.  The resulting binary is identical.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+From: Hou Wenlong <houwenlong.hwl@antgroup.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with one small request:
+For a PIE kernel, it runs in a high virtual address in the PVH entry, so
+it needs to relocate the kernel image early in the PVH entry for the PVM
+guest.
 
-> --- a/xen/arch/x86/x86_64/asm-offsets.c
-> +++ b/xen/arch/x86/x86_64/asm-offsets.c
-> @@ -51,6 +51,23 @@ void __dummy__(void)
->      OFFSET(UREGS_kernel_sizeof, struct cpu_user_regs, es);
->      BLANK();
->  
-> +    /*
-> +     * EFRAME_* is for the entry/exit logic where %rsp is pointing at
-> +     * UREGS_error_code and GPRs are still guest values.
-> +     */
+Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+Signed-off-by: Lai Jiangshan <jiangshan.ljs@antgroup.com>
+---
+ arch/x86/include/asm/init.h       |  5 +++++
+ arch/x86/kernel/head64_identity.c |  5 -----
+ arch/x86/platform/pvh/enlighten.c | 22 ++++++++++++++++++++++
+ arch/x86/platform/pvh/head.S      |  4 ++++
+ 4 files changed, 31 insertions(+), 5 deletions(-)
 
-"still/already" or some such to match "entry/exit"?
+diff --git a/arch/x86/include/asm/init.h b/arch/x86/include/asm/init.h
+index cc9ccf61b6bd..f78edef60253 100644
+--- a/arch/x86/include/asm/init.h
++++ b/arch/x86/include/asm/init.h
+@@ -4,6 +4,11 @@
+ 
+ #define __head	__section(".head.text")
+ 
++#define SYM_ABS_VA(sym) ({					\
++	unsigned long __v;					\
++	asm("movabsq $" __stringify(sym) ", %0":"=r"(__v));	\
++	__v; })
++
+ struct x86_mapping_info {
+ 	void *(*alloc_pgt_page)(void *); /* allocate buf for page table */
+ 	void *context;			 /* context for alloc_pgt_page */
+diff --git a/arch/x86/kernel/head64_identity.c b/arch/x86/kernel/head64_identity.c
+index 4e6a073d9e6c..f69f9904003c 100644
+--- a/arch/x86/kernel/head64_identity.c
++++ b/arch/x86/kernel/head64_identity.c
+@@ -82,11 +82,6 @@ static void __head set_kernel_map_base(unsigned long text_base)
+ }
+ #endif
+ 
+-#define SYM_ABS_VA(sym) ({					\
+-	unsigned long __v;					\
+-	asm("movabsq $" __stringify(sym) ", %0":"=r"(__v));	\
+-	__v; })
+-
+ static unsigned long __head sme_postprocess_startup(struct boot_params *bp, pmdval_t *pmd)
+ {
+ 	unsigned long vaddr, vaddr_end;
+diff --git a/arch/x86/platform/pvh/enlighten.c b/arch/x86/platform/pvh/enlighten.c
+index 00a92cb2c814..8c64c31c971b 100644
+--- a/arch/x86/platform/pvh/enlighten.c
++++ b/arch/x86/platform/pvh/enlighten.c
+@@ -1,8 +1,10 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #include <linux/acpi.h>
++#include <linux/pgtable.h>
+ 
+ #include <xen/hvc-console.h>
+ 
++#include <asm/init.h>
+ #include <asm/io_apic.h>
+ #include <asm/hypervisor.h>
+ #include <asm/e820/api.h>
+@@ -113,6 +115,26 @@ static void __init hypervisor_specific_init(bool xen_guest)
+ 		xen_pvh_init(&pvh_bootparams);
+ }
+ 
++#ifdef CONFIG_PVM_GUEST
++void pvm_relocate_kernel(unsigned long physbase);
++
++void __init pvm_update_pgtable(unsigned long physbase)
++{
++	pgdval_t *pgd;
++	pudval_t *pud;
++	unsigned long base;
++
++	pvm_relocate_kernel(physbase);
++
++	pgd = (pgdval_t *)init_top_pgt;
++	base = SYM_ABS_VA(_text);
++	pgd[pgd_index(base)] = pgd[0];
++	pgd[pgd_index(page_offset_base)] = pgd[0];
++	pud = (pudval_t *)level3_ident_pgt;
++	pud[pud_index(base)] = (unsigned long)level2_ident_pgt + _KERNPG_TABLE_NOENC;
++}
++#endif
++
+ /*
+  * This routine (and those that it might call) should not use
+  * anything that lives in .bss since that segment will be cleared later.
+diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
+index baaa3fe34a00..127f297f7257 100644
+--- a/arch/x86/platform/pvh/head.S
++++ b/arch/x86/platform/pvh/head.S
+@@ -109,6 +109,10 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
+ 	wrmsr
+ 
+ #ifdef CONFIG_X86_PIE
++#ifdef CONFIG_PVM_GUEST
++	leaq	_text(%rip), %rdi
++	call	pvm_update_pgtable
++#endif
+ 	movabs  $2f, %rax
+ 	ANNOTATE_RETPOLINE_SAFE
+ 	jmp *%rax
+-- 
+2.19.1.6.gb485710b
 
-Jan
 
