@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53D4F8669E3
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 07:05:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685259.1065696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 054E8866AA6
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 08:27:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685264.1065704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reU61-00055i-Th; Mon, 26 Feb 2024 06:04:13 +0000
+	id 1reVNp-0005kr-J2; Mon, 26 Feb 2024 07:26:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685259.1065696; Mon, 26 Feb 2024 06:04:13 +0000
+Received: by outflank-mailman (output) from mailman id 685264.1065704; Mon, 26 Feb 2024 07:26:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reU61-00052W-Pt; Mon, 26 Feb 2024 06:04:13 +0000
-Received: by outflank-mailman (input) for mailman id 685259;
- Mon, 26 Feb 2024 06:04:12 +0000
+	id 1reVNp-0005js-FA; Mon, 26 Feb 2024 07:26:41 +0000
+Received: by outflank-mailman (input) for mailman id 685264;
+ Mon, 26 Feb 2024 07:26:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dckQ=KD=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1reU60-00052Q-0r
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 06:04:12 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20600.outbound.protection.outlook.com
- [2a01:111:f403:2409::600])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1reVNo-0005jR-85
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 07:26:40 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d9cb9d64-d46c-11ee-98f5-efadbce2ee36;
- Mon, 26 Feb 2024 07:04:08 +0100 (CET)
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18)
- by LV2PR12MB5917.namprd12.prod.outlook.com (2603:10b6:408:175::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.36; Mon, 26 Feb
- 2024 06:04:01 +0000
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::debf:178c:f5df:5efa]) by BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::debf:178c:f5df:5efa%5]) with mapi id 15.20.7316.032; Mon, 26 Feb 2024
- 06:04:01 +0000
+ id 607b8556-d478-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 08:26:37 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a4348aaa705so71435766b.0
+ for <xen-devel@lists.xenproject.org>; Sun, 25 Feb 2024 23:26:37 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ mj9-20020a170906af8900b00a3e94142018sm2130011ejb.132.2024.02.25.23.26.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 25 Feb 2024 23:26:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,144 +45,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9cb9d64-d46c-11ee-98f5-efadbce2ee36
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bBSrLIHo3R5UUwBkElMiUPVv1elX2nl8ALqF/lt1EZFEIEmAV6qRo/pbkUh/I+y7kiUlk1lzZK++XA/Oa/4QZEw1YihC/I4g7Vb03XhhJx8aveTPp8FI1Mlnq01reasF8TdlbcQ/LxY/8SDD8gn74j72tyS9rQcTSewxlC/RJNwH/Bd1wjsSZ9XJ7/w5La7GPSG2ZM9H9BFwdRpkHPPiPRS5VAaGsBQlQ1Do4NSyLASGr37AOrBop8eLIDiWTkkQbCjxGGL876tpe7xHXOUwUFsNj2aP2n3D7Z9w2TEBbGTlssSkVUe/Frv69bnMYafttnHxRj4gnAiS+AyxxLLpiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q1uDBRPAeRQ7Hl1rBOx0+UzHvS6fO69g6G8GdJbVNWs=;
- b=AKdHyI0S7zVpyYRt6KO4IyKo/MG93CUrarU1IIH0iLOig/gXxEAn/CWtY7oDcqRcCa73XL9E/SwscKhi9cX5eb1zRwIdBDBnhVyi+pyLAkOnrMWYIF1Z/RM+bbubydrChI1yuz4aaBqzsvPm0FGJ4BCMc398g0ekr4Rsd+dutfzEyFUiDxunKHLClxOOvNrSVYqS96DXaru9OUE5wlvNJyt/L5dt089QNoEvIkpNb2a1GLuF1/lpn7zgXS6r1YsWMeE/eN5adGOBQifbyKyZ8Kn33BAcSvG0WUTzXigAyVdFXcnwcrGBSODKIqmrqppjuXywBk53bh+eJR8TZMVYkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q1uDBRPAeRQ7Hl1rBOx0+UzHvS6fO69g6G8GdJbVNWs=;
- b=u6lD0LizyC5oGIYIGn0udNdDezlsIGOkCV+zZCAyVoC+UOBIT/TeIrsAoY7/BPN6N78Ncni+qlfbZyJpoDQ4AtHz7mMaTmhSbx/keG/LvvBiIDHdoaZguelcmw1vYrEoFc+Mwscw6dNKfLaQwl57sEj+i69R0wKwENlaX0XPfDQ=
-From: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Jan
- Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall
-	<julien@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross
-	<jgross@suse.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, "Huang, Ray"
-	<Ray.Huang@amd.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Subject: Re: [RFC XEN PATCH v5 3/5] x86/pvh: Add PHYSDEVOP_setup_gsi for PVH
- dom0
-Thread-Topic: [RFC XEN PATCH v5 3/5] x86/pvh: Add PHYSDEVOP_setup_gsi for PVH
- dom0
-Thread-Index: AQHaRR62LJvUheASc0e0D+dOwe/lNLEXWJqAgAWWDwA=
-Date: Mon, 26 Feb 2024 06:04:01 +0000
-Message-ID:
- <BL1PR12MB58498142AF67EB5CE27F72AEE75A2@BL1PR12MB5849.namprd12.prod.outlook.com>
-References: <20240112061317.418658-1-Jiqian.Chen@amd.com>
- <20240112061317.418658-4-Jiqian.Chen@amd.com>
- <alpine.DEB.2.22.394.2402221642530.754277@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2402221642530.754277@ubuntu-linux-20-04-desktop>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-imapappendstamp: MN0PR12MB6150.namprd12.prod.outlook.com
- (15.20.7292.000)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5849:EE_|LV2PR12MB5917:EE_
-x-ms-office365-filtering-correlation-id: 008e39a6-bbe2-402f-656d-08dc3690baa2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- nEknTQk3Xxi8YTQh13y6bjzD8CLeHgUvk+NqNifc3hXcsqNfsoTG+5fvMOTE5tiisG20GpITFjW3eIJ9qsc5nqeztY7hvJxXLKfMfvE+SJMpNOafodPoAUeMD2rHib+4cI75Eu/zKW4Hiyq9yRsznsF+V3P3i6QGN0SKFlAWUzmnk77rn0XepbpfrGKNrWk5ApUrffVtFxpbzub+fVaoRv1nlXMoFrUbW/a2VvxqcjOQTpN2+YbI/apOROJ5kEZGZn0H4Z/ENikj9hbVNtxOZdkCPIFPY4CGP4JbXsh5FL7/u2OEb+ckrSJEcQSxr18uIgPL8mrqE6D+7bYjp0gWBlzDBFDLRQ+hlO8chaiXh3McoV3GuHPeblbkk2TBbQTUV93xsZJrEUiV72UynqmA7056SBtpTVowpeScHOAT8aZQbv9cW5nkZVFCANMZgJXPotTkjkiZA1PdY6+R56avQneVOv5XR03CT3dIYiHNX0PGBGfk5Kg5o0UVcud9H9dSX7emAPjocj6JR2S/JYdl5xyhvuJPRLLkZxw93WnPOds/TN9jcK7sq8VWea8TGievipxvzVMHa/xH64VHd/oPo2YZ5jxWsixR5JZhHRjOUMZ4lUpbIl8jLMDa3+EXmL07YPVYCQDy331mCzlJ7/ms75BiA9TPCO0Kq2KsoL+tf3GijaCOC3jhEIZBoL/GW5jMAxoOSHOEUSbL26ORvnCvI/YSuHQwSdGoSA/Ea4Xc1sM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5849.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(38070700009);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?S0MyVGNka1Y3dzNJSkpTS05iYVNFanJTVFk0bGl6akRmaU9lNTlZOWVxWXJG?=
- =?utf-8?B?Z2pMQWhSbmU1SWFaSVplZUhRMXRiOUtWMmJOc00raEtNdnprS052bUlnRkFF?=
- =?utf-8?B?Yjc3ak5ISzNiUnd0eEJtK3N3SGkwWWQ5bXdjREc1WldHVGgveVUvM0NQTUlz?=
- =?utf-8?B?aVNTNUJaWncxdUJzQVFjZ3pDTzRlWjBRU0NIRHNXRTR5OWpHSzZva3ZHUFRB?=
- =?utf-8?B?UDdLZUtYZjZGeGNDeHZsVTdhSmJpUUxZSVliaVc0Snlqb2lXUHMrZ2RBWjQ0?=
- =?utf-8?B?Zzg2K1Z1MjdZMnZmdFB4Nk11NHFGcFJLa1k3SkdWU3oxTjZhMVlJUWVFSm80?=
- =?utf-8?B?clFJT0M2dUFhcTJBSDVmazZxb0V5WmtkN2dqQk00UU1JUncvMUZObHNEamhY?=
- =?utf-8?B?bWJIN1YrS3VqWlArbGkxZUR3NFhtNzQvLzZoeCsyMXFHT3dOZ2hTOXRGZHg0?=
- =?utf-8?B?UzN6ZjYwMSsxLzk4cW5JbkZhN1gvVFU3NThHSWI4QTg5VmhBckMxa0RnbVdh?=
- =?utf-8?B?Vy9kZ1RkUEQybDBmMHFFaGprbHBoNUZVd0JTYXJJYVZ2MFVEalhOWCtLcmNm?=
- =?utf-8?B?d1g5clMxQjc4bUliZnlsSlhlS05Gd2FiWmlvUGFKWk9IbHhQdmtrVlhpVEVW?=
- =?utf-8?B?UUhhV3dJMGlMWDhJRTlSYTJXTWZ6bDdPaHlVcWxqcEVJQlNoMDU0OXlBZmN1?=
- =?utf-8?B?OUpIUjNVNml5RWgrTmZ2dStMeitPcHZuMlhHekNYSWpBemxZWGZydjZXV1Zm?=
- =?utf-8?B?QzExU0MrT2F6MGRHOHRBeVpiL2Z6NXBZaGlvN2tQZDFQTnRSUGdTZ3NMUEdm?=
- =?utf-8?B?TWlqVzJKejZUb3JJMURGNUdGbVZZbXFhSGhwN2cvR21RUmdnZG9jNm9PNitn?=
- =?utf-8?B?YWJ1WDQvanUwWEVHaVF4aE9YamNPSXZUc2JLdUlFM21NWS9SbDN3cFgxT055?=
- =?utf-8?B?c2QvTDVXVnZCTXBuR1VlMGJSWUdOUWRGTDN2M2c0cU0vMlk3dTkvd1RkVzI1?=
- =?utf-8?B?SndtNllJRklGTEhqQ3MraTFPVDkvWHBoMlJuVUV1ZmRxTC9QNkJsdmhURWpW?=
- =?utf-8?B?Mm1iVDRleHdOZTJCVENFVUZ5bFdoKzZQV3A5WTh5MTYzbzZ1Z2NTaEJ5VERW?=
- =?utf-8?B?dnZHNGFrUWRWdUNncWlkRy9TNDE4ZHYxOUhHUTl6ZHBWZk9iYWZOODBpUUx1?=
- =?utf-8?B?bDBPU2wyelhhRFUyYitTYm1QNkhkblVHdU1XR29uck9Tb3c2S0JwNXFXKzlq?=
- =?utf-8?B?YVppWk1YQVBTbElKTFhvZzlvNGxKY2Nvck1Kd1llak9keWE1U1Uzc2FIQ3Rz?=
- =?utf-8?B?cTQwSHVRVTBkNnRxVlR5dmJTT095czREb1VBTlpuTGJ1V20zdXRSUFp0ZmhL?=
- =?utf-8?B?cFN4L1RhRXFQaUhXTU5BZmRMZ1U1WUlMYmllU3ZpTXYyd1NiWlZScGFuSld6?=
- =?utf-8?B?VVVHd0pXNFBRSHlYL1dDdm1paGVXcUx1TkNYN3d2L1BudXNsSFNkdkE4UHJE?=
- =?utf-8?B?WnYzdi8xTlpRbDhaSVFzblp2OVJPK3BtRUx6MTY4WEowTTRPSnpra3NKNDJq?=
- =?utf-8?B?TUtHRTZlUnlNQUwrKzFEc2h0dmtNbkxLdDM2eGM0TjRBajVuWTMzUXFPK1B6?=
- =?utf-8?B?anZTMElQeTdWcVZSUVlrTG5ST0NlVkQvWk91KzhXMEZLZ2crczc2TWZpK20w?=
- =?utf-8?B?emFObjZDaDY1Qk85ZlV0a0ZoVUNPOEpWNXFsa2owUXY1UG5LUzJhRVNRWWhp?=
- =?utf-8?B?eEdDNXFaWDV6UTZQQXlqaTkxajJjc1lSMXNkWGxJY1ZtZmY4ZHhrQTFBNnVK?=
- =?utf-8?B?cTBNdWtRanVoNUlOV3JBbmgyeVd2b25MR1FnVFBSb3lmRi9tNXJydFVEcHVH?=
- =?utf-8?B?bFBmOFhmZUo0WW0zbU0yaXI3cGVjK2E1eG9Fa1MvekpVRFJEM2Z1d2Q5SXZU?=
- =?utf-8?B?U2xpSnY2NkExZXRwWkhENm45SitJWXJLdFVmVzdEbHE2VDQyVEpISEJ2MnJL?=
- =?utf-8?B?QWZWRHBVV2pJMzVlSkJrQXd6cEkrY0l1dE8xbmVlaGVRQitSMVF0a2NsUHAz?=
- =?utf-8?B?TG91UUdodGFBdWdxb0s3TlFEWFVGMGtoMTF2Zz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <900B64BC21E6E44693ADC0C7128D7816@amdcloud.onmicrosoft.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 607b8556-d478-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1708932397; x=1709537197; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=cbE0HxKHF5m/mQDiNYWry/QZ2qCtnZ+KpgaeK35W+aE=;
+        b=M17zKsfLl6kZiTyvr8yIEA//Q900QLZzGmO/nXzUf6uxA67sFEUghKrPFcWRoKZWOW
+         hFheIlpZ0WerOMf52vTgW5QFHEOr1pQxEJlGNY5okvJpH5rWlBHRstG++zZZv0wj2Z5z
+         P2WNCsyYfH221Ic4CoD/piDNs+V3OHjMgIAqB3NMIefn0fQwtMxsmgmEjedcPAhELhIA
+         YXYWr38BqO6oc8gM+fmOiKNrJmUK6gUtN0/EiWYIDh/WSAXn40VE7K/SFvJ6ZqcyMud2
+         vB1LUNorwUh7pjVUhp+rigUU3yAiYyGPNqkGg7FCW7bVVtujV78ZfBrcgxuIvIXGyTZ4
+         zR9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708932397; x=1709537197;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=cbE0HxKHF5m/mQDiNYWry/QZ2qCtnZ+KpgaeK35W+aE=;
+        b=ixl3a40F+wYFgpqEs47Vvo1W+1KH3GFjbqRmEuLvogNTHu/kiwHepCraY+NkiTiaoI
+         XYlL2i0pRjz1iDShiFOPscVwSke8XchI9Y2G+l3KnG/KUz5+P2WMurnHjJhsiq5Ktnfr
+         wfrT3EN1A6SXwbxpAizN5dsBdlED0YGdyTz348mLqi2Sqjnd2oPWk56vt1DT1lNW3ZX4
+         oxZrnZ5UlFhOSBs1lNB8ItLBus8sSWA+HMKeMbJjOHbB3IATpSyFNrgkydF3xdc4DhuA
+         NclI6o7iHObWElByC4oiATiQS8XPzAqDYNsQA8vRyyckYVCTVsnsasy/6u6g3zX/qfBr
+         5OQw==
+X-Forwarded-Encrypted: i=1; AJvYcCVpo6XaA6iObI4L3dJWeRc0nojOfV5kNp3cl4nLQWK1ZG20LBwg87dKZHMNTfauUTHMzXeJTSJ6BvBOqK4uT8nl7Gh9+wjt5Y+Tr1r0p6E=
+X-Gm-Message-State: AOJu0YxcsAaXqu9fGRhi5Rlbq6pX51X3KpYmb+6f0iaRuNR8W+0mqKAM
+	QrKlTImk3iXDr2EaKjYSj/bBr9J5UxphsDK68F8IndWI0ZD/T/59QSQAWsrEZA==
+X-Google-Smtp-Source: AGHT+IF/pZBU9ErNsuF/xnt1bFkVHK+wYsQ4q1ooM5syOa0t1ozLF+y8SNN8p5X2G83i28e1IoecIA==
+X-Received: by 2002:a17:906:3659:b0:a3e:da6:85f8 with SMTP id r25-20020a170906365900b00a3e0da685f8mr3976031ejb.30.1708932397082;
+        Sun, 25 Feb 2024 23:26:37 -0800 (PST)
+Message-ID: <65c33a27-3c8d-4943-8ce7-4fe50ebb45d0@suse.com>
+Date: Mon, 26 Feb 2024 08:26:38 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5849.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 008e39a6-bbe2-402f-656d-08dc3690baa2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Feb 2024 06:04:01.3922
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EV0vYhUcyPT9+ZnMN3lMfzApd1iFesOrmXdoWoh+QxFYTU73vA6QCkWUUGMgi/qiINu13oVuB6volb4foAM/Nw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5917
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 25/30] xen/riscv: add minimal stuff to processor.h to
+ build full Xen
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
+ <9efbc232f64b6192cf83f865b8987846fe082720.1707146506.git.oleksii.kurochko@gmail.com>
+ <6be5102a-624c-463a-9821-c618d110ce7a@suse.com>
+ <095b8031eaaa5324cdae9fee75f9521a795feb46.camel@gmail.com>
+ <2f1e4d2d-5b33-47ff-912b-c4693744d0e9@suse.com>
+ <0bafef389b30251bc9898bb61604aa3efaabe48c.camel@gmail.com>
+ <5de8f721-461c-4a0e-a11d-63aa7c93a742@suse.com>
+ <6cd4d415ccf2163d9fdf690f29d898d61b077472.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6cd4d415ccf2163d9fdf690f29d898d61b077472.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-DQpPbiAyMDI0LzIvMjMgMDg6NDQsIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4gT24gRnJp
-LCAxMiBKYW4gMjAyNCwgSmlxaWFuIENoZW4gd3JvdGU6DQo+PiBPbiBQVkggZG9tMCwgdGhlIGdz
-aXMgZG9uJ3QgZ2V0IHJlZ2lzdGVyZWQsIGJ1dA0KPj4gdGhlIGdzaSBvZiBhIHBhc3N0aHJvdWdo
-IGRldmljZSBtdXN0IGJlIGNvbmZpZ3VyZWQgZm9yIGl0IHRvDQo+PiBiZSBhYmxlIHRvIGJlIG1h
-cHBlZCBpbnRvIGEgaHZtIGRvbVUuDQo+PiBPbiBMaW51eCBrZXJuZWwgc2lkZSwgaXQgY2FsbGVz
-IFBIWVNERVZPUF9zZXR1cF9nc2kgZm9yDQo+PiBwYXNzdGhyb3VnaCBkZXZpY2VzIHRvIHJlZ2lz
-dGVyIGdzaSB3aGVuIGRvbTAgaXMgUFZILg0KPj4gU28sIGFkZCBQSFlTREVWT1Bfc2V0dXBfZ3Np
-IGZvciBhYm92ZSBwdXJwb3NlLg0KPj4NCj4+IENvLWRldmVsb3BlZC1ieTogSHVhbmcgUnVpIDxy
-YXkuaHVhbmdAYW1kLmNvbT4NCj4+IFNpZ25lZC1vZmYtYnk6IEppcWlhbiBDaGVuIDxKaXFpYW4u
-Q2hlbkBhbWQuY29tPg0KPj4gLS0tDQo+PiAgeGVuL2FyY2gveDg2L2h2bS9oeXBlcmNhbGwuYyB8
-IDYgKysrKysrDQo+PiAgMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKQ0KPj4NCj4+IGRp
-ZmYgLS1naXQgYS94ZW4vYXJjaC94ODYvaHZtL2h5cGVyY2FsbC5jIGIveGVuL2FyY2gveDg2L2h2
-bS9oeXBlcmNhbGwuYw0KPj4gaW5kZXggNDkzOTk4YjQyZWM1Li40NmY1MWVlNDU5ZjYgMTAwNjQ0
-DQo+PiAtLS0gYS94ZW4vYXJjaC94ODYvaHZtL2h5cGVyY2FsbC5jDQo+PiArKysgYi94ZW4vYXJj
-aC94ODYvaHZtL2h5cGVyY2FsbC5jDQo+PiBAQCAtNzYsNiArNzYsMTIgQEAgbG9uZyBodm1fcGh5
-c2Rldl9vcChpbnQgY21kLCBYRU5fR1VFU1RfSEFORExFX1BBUkFNKHZvaWQpIGFyZykNCj4+ICAg
-ICAgY2FzZSBQSFlTREVWT1BfdW5tYXBfcGlycToNCj4+ICAgICAgICAgIGJyZWFrOw0KPj4gIA0K
-Pj4gKyAgICBjYXNlIFBIWVNERVZPUF9zZXR1cF9nc2k6DQo+PiArICAgICAgICBpZiAoICFpc19o
-YXJkd2FyZV9kb21haW4oY3VycmQpICkNCj4+ICsgICAgICAgICAgICByZXR1cm4gLUVPUE5PVFNV
-UFA7DQo+PiArICAgICAgICBBU1NFUlQoIWhhc19waXJxKGN1cnJkKSk7DQo+IA0KPiBEbyB3ZSBy
-ZWFsbHkgbmVlZCB0aGlzIGFzc2VydD8gSSB1bmRlcnN0YW5kIHRoYXQgdGhlIHVzZSBjYXNlIHJp
-Z2h0IG5vdw0KPiBpcyBmb3IgIWhhc19waXJxKGN1cnJkKSBidXQgaW4gZ2VuZXJhbCBpdCBkb2Vz
-bid0IHNlZW0gdG8gbWUgdGhhdA0KPiBQSFlTREVWT1Bfc2V0dXBfZ3NpIGFuZCAhaGFzX3BpcnEg
-c2hvdWxkIGJlIHRpZWQgdG9nZXRoZXIuDQpNYWtlIHNlbnNlLCB0aGFua3MgZm9yIGV4cGxhbmF0
-aW9uLCBJIHdpbGwgZGVsZXRlIHRoaXMgaW4gbmV4dCB2ZXJzaW9uLg0KDQo+IA0KPiBBc2lkZSBm
-cm9tIHRoYXQsIGl0IGxvb2tzIGZpbmUuDQo+IA0KPiANCj4+ICsgICAgICAgIGJyZWFrOw0KPj4g
-Kw0KPj4gICAgICBjYXNlIFBIWVNERVZPUF9lb2k6DQo+PiAgICAgIGNhc2UgUEhZU0RFVk9QX2ly
-cV9zdGF0dXNfcXVlcnk6DQo+PiAgICAgIGNhc2UgUEhZU0RFVk9QX2dldF9mcmVlX3BpcnE6DQo+
-PiAtLSANCj4+IDIuMzQuMQ0KPj4NCg0KLS0gDQpCZXN0IHJlZ2FyZHMsDQpKaXFpYW4gQ2hlbi4N
-Cg==
+On 23.02.2024 18:00, Oleksii wrote:
+> On Mon, 2024-02-19 at 09:06 +0100, Jan Beulich wrote:
+>> On 16.02.2024 12:16, Oleksii wrote:
+>>> On Thu, 2024-02-15 at 17:43 +0100, Jan Beulich wrote:
+>>>> On 15.02.2024 17:38, Oleksii wrote:
+>>>>> On Tue, 2024-02-13 at 14:33 +0100, Jan Beulich wrote:
+>>>>>> On 05.02.2024 16:32, Oleksii Kurochko wrote:
+>>>>>>> +	depends on LLD_VERSION >= 150000 || LD_VERSION >=
+>>>>>>> 23600
+>>>>>>
+>>>>>> What's the linker dependency here? Depending on the answer I
+>>>>>> might
+>>>>>> further
+>>>>>> ask why "TOOLCHAIN" when elsewhere we use CC_HAS_ or HAS_CC_
+>>>>>> or
+>>>>>> HAS_AS_.
+>>>>> I missed to introduce {L}LLD_VERSION config. It should output
+>>>>> from
+>>>>> the
+>>>>> command:
+>>>>>   riscv64-linux-gnu-ld --version
+>>>>
+>>>> Doesn't answer my question though where the linker version
+>>>> matters
+>>>> here.
+>>> Then I misinterpreted your initial question.
+>>> Could you please provide further clarification or rephrase it for
+>>> better understanding?
+>>>
+>>> Probably, your question was about why linker dependency is needed
+>>> here,
+>>> then
+>>> it is not sufficient to check if a toolchain supports a particular 
+>>> extension without checking if the linker supports that extension   
+>>> too.
+>>> For example, Clang 15 supports Zihintpause but GNU bintutils
+>>> 2.35.2 does not, leading build errors like so:
+>>>     
+>>>    riscv64-linux-gnu-ld: -march=rv64i_zihintpause2p0: Invalid or
+>>>    unknown z ISA extension: 'zihintpause'
+>>
+>> Hmm, that's certainly "interesting" behavior of the RISC-V linker.
+>> Yet
+>> isn't the linker capability expected to be tied to that of gas? I
+>> would
+>> find it far more natural if a gas dependency existed here. If such a
+>> connection cannot be taken for granted, I'm pretty sure you'd need to
+>> probe both then anyway.
+> 
+> Wouldn't it be enough in this case instead of introducing of new
+> configs and etc, just to do the following:
+>    +ifeq ($(CONFIG_RISCV_64),y)
+>    +has_zihintpause = $(call as-insn,$(CC) -mabi=lp64 -
+>    march=rv64i_zihintpause, "pause",_zihintpause,)
+>    +else
+>    +has_zihintpause = $(call as-insn,$(CC) -mabi=ilp32 -
+>    march=rv32i_zihintpause, "pause",_zihintpause,)
+>    +endif
+>    +
+>     riscv-march-$(CONFIG_RISCV_ISA_RV64G) := rv64g
+>     riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
+>    -riscv-march-$(CONFIG_TOOLCHAIN_HAS_ZIHINTPAUSE) := $(riscv-march-
+>    y)_zihintpause
+>     
+>     # Note that -mcmodel=medany is used so that Xen can be mapped
+>     # into the upper half _or_ the lower half of the address space.
+>     # -mcmodel=medlow would force Xen into the lower half.
+>     
+>    -CFLAGS += -march=$(riscv-march-y) -mstrict-align -mcmodel=medany
+>    +CFLAGS += -march=$(riscv-march-y)$(has_zihintpause) -mstrict-align
+>    -
+>    mcmodel=medany
+
+Yes, this is kind of what I'd expect.
+
+> Probably, it would be better:
+>    ...
+>    +CFLAGS += -march=$(riscv-march-y)$(call or,$(has_zihintpause)) -
+>    mstrict-align -
+>    mcmodel=medany
+
+Why the use of "or"? IOW right now I don't see what's "better" here.
+
+Jan
 
