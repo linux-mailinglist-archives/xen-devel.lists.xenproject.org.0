@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E5DF86755E
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 13:43:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685516.1066342 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8DF986759A
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 13:51:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685519.1066351 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reaJc-0002CI-N2; Mon, 26 Feb 2024 12:42:40 +0000
+	id 1reaRY-00047B-Ju; Mon, 26 Feb 2024 12:50:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685516.1066342; Mon, 26 Feb 2024 12:42:40 +0000
+Received: by outflank-mailman (output) from mailman id 685519.1066351; Mon, 26 Feb 2024 12:50:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reaJc-000296-JX; Mon, 26 Feb 2024 12:42:40 +0000
-Received: by outflank-mailman (input) for mailman id 685516;
- Mon, 26 Feb 2024 12:42:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1reaRY-00044J-GP; Mon, 26 Feb 2024 12:50:52 +0000
+Received: by outflank-mailman (input) for mailman id 685519;
+ Mon, 26 Feb 2024 12:50:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1reaJa-000290-FD
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 12:42:38 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85992e24-d4a4-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 13:42:37 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a3f893ad5f4so430379766b.2
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 04:42:37 -0800 (PST)
+ id 1reaRX-00044D-Ug
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 12:50:51 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a9e4cfda-d4a5-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 13:50:48 +0100 (CET)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-5101cd91017so4533679e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 04:50:48 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x8-20020a170906710800b00a4138c3f065sm2386071ejj.56.2024.02.26.04.42.36
+ un6-20020a170907cb8600b00a4386852da5sm178964ejc.83.2024.02.26.04.50.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 04:42:37 -0800 (PST)
+ Mon, 26 Feb 2024 04:50:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85992e24-d4a4-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: a9e4cfda-d4a5-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1708951357; x=1709556157; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zHplMMXsHba0zwdPMLcvoMdIb4TN6dCnVRyffeOQgUE=;
-        b=Js9asqG7LPdtlHhS1/oflT/hgA6+96v4o96WQuDQag5nqOAKtOaiVi5pNVlgNKr5S9
-         Z2SACrUPm33VYsDg01ROrE7ivAcK978S9NRmL51QlqEr3Gr9F0pDecz18y/Oa0OzbPTE
-         sngD6hl+0GW62dYneaQl4Zkt1+A++WhT1+R2TrqS1RzcpNVKxjiL00pvWqoRvFo5o6lX
-         kTghtx7RyAFDZTyoHIkZJ3FDv+MeD4P6ZmhDdv+MyFHRr3KOoHVVcUFAKo1hfY8xcdMr
-         sMoz5YFoqhVyYtt9k/izEcvuwUPhHNBGudR+VD1xAjteevcgSJBXPtPqXPcFXop7D6ga
-         7Dxw==
+        d=suse.com; s=google; t=1708951848; x=1709556648; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=mBTas/3RpNzz+26rSLwd9G+9VGB7QiBP7Uhl8rFm+kI=;
+        b=VKtialhinaMzqOuXI6bx2yaMS9i+pq1vu1S25WhqkEnkBCebmjPBNah3aYf6HpiR76
+         ncjyYWbkQZcI87fq7BrsC2g+p0CI8I4Egnf9Rd01jt3U/ECmNERQjv5hC781gf+b4DTZ
+         sD7LFzfb3NbTvR7wzsoZq/zuaWtqKaRhABZgz9eDiB7mBwn8L/qmNVAC3kDH1yf6pl2g
+         atKACOAspN0mvcAFUWf6nt0sKruuymeF1Dhos6iW+0obPmmKiawYsH3ok6LpD9pGQ14E
+         9KyYjunGXpsxv+qLh6lB/BZrSC4rY8CCx9rvju8ja9ZHhdWX+zLUVMajph+S3o57O1Sm
+         mYqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708951357; x=1709556157;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zHplMMXsHba0zwdPMLcvoMdIb4TN6dCnVRyffeOQgUE=;
-        b=sXrv/UhK2bJcSXbHhoZOAE4t0i+NljxjFwzXYNnltGfvveBZfBECD9kigj7/RVQk9I
-         zvYnmC5XuvHW0uv1i1HFjUfmGrJyc42tgxP/AsqzVsMBDR4GjLpBrLf90SpUTG3/mckY
-         BZpbxExOMFn1fsowTB/e0sjEZACROyleEXEGevM5e21OuY9O8I7zGrMZ9M2WcLPprDfI
-         X7tsfb51VjR1p1AQuJuk8RkumzDpD5UfJDOjcE5Uo8kUjQC0ZN1u5EYxMj/pK4WCJ7PN
-         TuQ7FSHyjjSVV3hRkK40v7n/SPNZ1NJfrTzgloOrxMwm7yWpH6GGVsQT0Py5kslrifLA
-         4SUg==
-X-Forwarded-Encrypted: i=1; AJvYcCXEXfVFBKkdqHk88EvAF6GOv5q++xw14XGyPKPjwOsfRzpy2YjICkI6i4zzZ7DwRpt1Td5Hk8cfNXjo1lMA1Rp2dFaNCzXvmi3ej/V7GLk=
-X-Gm-Message-State: AOJu0YxyY54nyRD0JUYv7T6vT+z8lSoi38Vw9VSO0G8QlpfPHa6ImEyw
-	hAhBoMlHfdda+FS/4IJKg/mWJCcRiMBpLXMkrxOYFH9nVEp8rYXtG/X2g3DqwQ==
-X-Google-Smtp-Source: AGHT+IFQlm8me7Nta3WJCYKA2l+2lxnWL7UbR1sJvAdtEi7EVeDvXahYBBJYXPZTccw2wTw5DVd7+A==
-X-Received: by 2002:a17:906:7c44:b0:a3e:90ec:2287 with SMTP id g4-20020a1709067c4400b00a3e90ec2287mr3965558ejp.26.1708951357283;
-        Mon, 26 Feb 2024 04:42:37 -0800 (PST)
-Message-ID: <767fbe0c-2c71-4f8b-a405-ae90a33e991b@suse.com>
-Date: Mon, 26 Feb 2024 13:42:36 +0100
+        d=1e100.net; s=20230601; t=1708951848; x=1709556648;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=mBTas/3RpNzz+26rSLwd9G+9VGB7QiBP7Uhl8rFm+kI=;
+        b=N9mGdCs44VqTP7PtKnpTq4Jaiu0QRKwerlT31wfcCPhSctz05gAnL0PnG+cCQ39v/E
+         ayS2U2X5PN/LAlHc51vgZRsa1/w4UQyGCHIN9BD7trjOON5iTXUO7MIBGslAee3rU1pN
+         1nHelK//DiklJhj7fwMtsSoSQ7GZMHASRu7NM0YzRhxiN/3JA/uNTCElIg1qL4YBp+WB
+         Ao1DT7aPgCm85ePLu/U/N4sUA/8sgIye5HJURW+OSRgCZYrVXNIaFHczg0dznckUPGZ0
+         kjFlLfdYmKWVcmFAn2JjmdcO9qIH807/aSCTQwif6SLfiUdmzLDgxBzK9wuMso+rnnX9
+         MOTw==
+X-Forwarded-Encrypted: i=1; AJvYcCXdAAXzTGtvarbW4DZksj5yLNXHPx646C+CiyzQV0F9YJsEUQ4bOnaT/NHxNagW+Hk5e9GggK8WrSYx3KDQJbuAX+SW/dZKM+rQe3mia0A=
+X-Gm-Message-State: AOJu0Yz4G72TwyivXUddLIvyKZ5o3ie8U821c2A251cZHGfNUayw/YhZ
+	K2Tv1+NqoI38a1iZhNhssOkz05qivVnEDO0qqbahbL6XpfnXTq4I1aDWi5K0Rg==
+X-Google-Smtp-Source: AGHT+IEbHhHtqh4/2TiRDB3MhcjqvVjDwBOa68IamUt1xVsH/8vQwazqYXB0+u3aCoYWxwkjS6p12Q==
+X-Received: by 2002:a05:6512:a91:b0:512:ed78:a840 with SMTP id m17-20020a0565120a9100b00512ed78a840mr5425944lfu.61.1708951847802;
+        Mon, 26 Feb 2024 04:50:47 -0800 (PST)
+Message-ID: <81e32609-37cd-4c2d-ae27-6caafc7dab33@suse.com>
+Date: Mon, 26 Feb 2024 13:50:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] x86/spec: fix BRANCH_HARDEN option to only be set
+Subject: Re: [PATCH v3 3/4] x86/spec: fix INDIRECT_THUNK option to only be set
  when build-enabled
+Content-Language: en-US
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <20240226110748.80254-1-roger.pau@citrix.com>
- <20240226110748.80254-3-roger.pau@citrix.com>
-Content-Language: en-US
+ <20240226110748.80254-4-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,19 +114,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240226110748.80254-3-roger.pau@citrix.com>
+In-Reply-To: <20240226110748.80254-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 26.02.2024 12:07, Roger Pau Monne wrote:
-> The current logic to handle the BRANCH_HARDEN option will report it as enabled
-> even when build-time disabled. Fix this by only allowing the option to be set
-> when support for it is built into Xen.
+> Attempt to provide a more helpful error message when the user attempts to set
+> spec-ctrl=bti-thunk option but the support is build-time disabled.
 > 
-> Fixes: 2d6f36daa086 ('x86/nospec: Introduce CONFIG_SPECULATIVE_HARDEN_BRANCH')
+> While there also adjust the command line documentation to mention
+> CONFIG_INDIRECT_THUNK instead of INDIRECT_THUNK.
+> 
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with one minor remark:
 
+> --- a/xen/arch/x86/spec_ctrl.c
+> +++ b/xen/arch/x86/spec_ctrl.c
+> @@ -241,7 +241,12 @@ static int __init cf_check parse_spec_ctrl(const char *s)
+>          {
+>              s += 10;
+>  
+> -            if ( !cmdline_strcmp(s, "retpoline") )
+> +            if ( !IS_ENABLED(CONFIG_INDIRECT_THUNK) )
+> +            {
+> +                no_config_param("INDIRECT_THUNK", "spec-ctrl=bti-thunk", s, ss);
+> +                rc = -EINVAL;
+> +            }
+> +            else if ( !cmdline_strcmp(s, "retpoline") )
+>                  opt_thunk = THUNK_RETPOLINE;
+>              else if ( !cmdline_strcmp(s, "lfence") )
+>                  opt_thunk = THUNK_LFENCE;
 
+How about
+
+            if ( !IS_ENABLED(CONFIG_INDIRECT_THUNK) )
+            {
+                no_config_param("INDIRECT_THUNK", "spec-ctrl", s - 10, ss);
+                rc = -EINVAL;
+            }
+            else if ( !cmdline_strcmp(s, "retpoline") )
+
+or (likely less liked by you and Andrew) "s += 10;" dropped and then
+
+            if ( !IS_ENABLED(CONFIG_INDIRECT_THUNK) )
+            {
+                no_config_param("INDIRECT_THUNK", "spec-ctrl", s, ss);
+                rc = -EINVAL;
+            }
+            else if ( !cmdline_strcmp(s += 10, "retpoline") )
+
+conserving a little on string literal space (sadly, despite the function
+being __init, string literals remain post-init due to living in .rodata)?
+
+Jan
 
