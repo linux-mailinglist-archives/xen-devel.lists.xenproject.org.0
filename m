@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D369B866EAE
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 10:36:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685395.1066026 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2027866F09
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 10:45:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685400.1066035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reXPM-0000Vk-B6; Mon, 26 Feb 2024 09:36:24 +0000
+	id 1reXY1-0003G3-5E; Mon, 26 Feb 2024 09:45:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685395.1066026; Mon, 26 Feb 2024 09:36:24 +0000
+Received: by outflank-mailman (output) from mailman id 685400.1066035; Mon, 26 Feb 2024 09:45:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1reXPM-0000TX-7P; Mon, 26 Feb 2024 09:36:24 +0000
-Received: by outflank-mailman (input) for mailman id 685395;
- Mon, 26 Feb 2024 09:36:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5KjY=KD=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1reXPL-0000TR-3T
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 09:36:23 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20629.outbound.protection.outlook.com
- [2a01:111:f400:7e88::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 801b2452-d48a-11ee-8a58-1f161083a0e0;
- Mon, 26 Feb 2024 10:36:21 +0100 (CET)
-Received: from DM5PR07CA0103.namprd07.prod.outlook.com (2603:10b6:4:ae::32) by
- CH3PR12MB8725.namprd12.prod.outlook.com (2603:10b6:610:170::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.34; Mon, 26 Feb
- 2024 09:36:18 +0000
-Received: from DS3PEPF000099E0.namprd04.prod.outlook.com
- (2603:10b6:4:ae:cafe::fb) by DM5PR07CA0103.outlook.office365.com
- (2603:10b6:4:ae::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.49 via Frontend
- Transport; Mon, 26 Feb 2024 09:36:18 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099E0.mail.protection.outlook.com (10.167.17.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Mon, 26 Feb 2024 09:36:18 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 26 Feb
- 2024 03:36:17 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 26 Feb
- 2024 03:36:17 -0600
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 26 Feb 2024 03:36:16 -0600
+	id 1reXY1-0003EW-2H; Mon, 26 Feb 2024 09:45:21 +0000
+Received: by outflank-mailman (input) for mailman id 685400;
+ Mon, 26 Feb 2024 09:45:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hPQ6=KD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1reXXz-0003EQ-Oh
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 09:45:19 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bf9b72d8-d48b-11ee-98f5-efadbce2ee36;
+ Mon, 26 Feb 2024 10:45:17 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a3ed9cae56fso445226866b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 01:45:17 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ bi7-20020a170907368700b00a3e9c4fa24esm2247064ejc.96.2024.02.26.01.45.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Feb 2024 01:45:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,111 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 801b2452-d48a-11ee-8a58-1f161083a0e0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jk00NATOWNnFmGXLhzoRlt3HkvcycrYCF7+ZGjHkkAaTrE/XwWVweVOo0m/OFZuNIyyXza+YlRUYtXIG51sYaEYSvEPHbXqXnPLbOJQkD/P2PKS7zbKkO1MnZHEsTEZBsoKIsiYTxkrLRJgaLHG5/7EHcF0R4gjMTG0QFp3C0l7W8v+U8m45ANLrWrtPPQRjuviriqLl86J9dQBweTyZMJmCvDFaCRKJG8Mf3UdftQ1nbSn9MF1kg9PIpq22susOZbWxCPZdRvjRko+3x2ih4taSxyIHIZqrBwsU3JHZYeYCxQtIWK+cqb7bxE5CVBNMOK7EAgqBoLKx5NS3hD6SaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=taLG4QqoH00++xQxst8hZ3E49YmE4cpGqdAFRdF/X78=;
- b=l3074/+6gJoipYfZrIDKyF+jWUk9CP+CKo+HW5SUPYbQqG5q1EzxtsoERxDGG91vJlMF5091nEBGOUgbcUC57crF96T2BVteCrF0r1dCofYfMCsy/V5ByBxNw/CsCmlRfAvhTpMAmBKHJv+1PhnReiK9/qZGwRJIYuxOq2vrCpd3WCVNwoZI3d9ElCAJPtvsO5VbwOILcE1qWin/s3vH4uI3/6PmBpV6rk29KLSR4wdw1fitCYtJMQfhenmVHECVaVkv7JViwRHyqAYZrI8EoNhUMT/0oDuqLJI7kwrHuXGCt0T8Ge+Y+ulHAXN1p/Bkt199QtHI0R+66btK46MyEw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=taLG4QqoH00++xQxst8hZ3E49YmE4cpGqdAFRdF/X78=;
- b=ysVuEukFCu+amSa4A+uqGjbTQY6Q460G2R16eCaQzRMmO1ykAsYrWUS/UZTudzLx/YHuX66235/EyEV4UDMQooclngJwAA/MABEfKtAqfj0emQKxxxOI+HSAYTdAR1/iYjexWR+QCqi0LqVVcY3r2zF26Tf3+BWJ2m2wnezxi+A=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <de4c6988-7051-4d44-9b44-e850ad4b4cc1@amd.com>
-Date: Mon, 26 Feb 2024 10:36:10 +0100
+X-Inumbo-ID: bf9b72d8-d48b-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1708940717; x=1709545517; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=WNtFkL+i/w+HtYgKZwh/iS0rpNu4sVr5A4aQuXUc1Ok=;
+        b=QPH+Sq0AdEd7yUr4sLEFdQCz8jLlvvSRyTQR01ASR6lpVoX9M5jGjkLYuFlIp7Qaxv
+         1tORZqB98qgpIYV49wWF8VHrbwOhrHApc+d/4qTz5wXPHM4KYqHrzEpzcwIFHkBCzZEn
+         BT/ds9ISGTQVbeLnRZnGjixVf3W0nwmm7eSkRnRgxf3kXy1xouEnSwOqkBfY99C5LY1/
+         gzP+tVF5HUbmV9DJ+f1HVIkmH+00M0/UP8idH8itbBRfezkFJYHkKraIQ9SdVMY7hkkh
+         oyinlhbrml73kMHBwTfhhFVDO+TvEnpRELGzTYaXWV6iXmJDvXVx1VOCBU+RJLB8gDHP
+         WqtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708940717; x=1709545517;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=WNtFkL+i/w+HtYgKZwh/iS0rpNu4sVr5A4aQuXUc1Ok=;
+        b=dQk7dm0x9o6C2IMo78DHrRDbzW3qvLzjLYXWQTtnOCy/fyrpIrTaTgP7hUVjoIVjx4
+         cWPbl5nDAbZvgqbY1eIue50wWKP5re51xf6Y5jZD33bS1EV67cF1/uB5UGTEk8OUMpXx
+         f8/WofcH3OVRn4AVwBpiZ9qBxwk2J3R0sjygVt+mKBgKRgF4uX4hROaGd2GvRzrq3Co6
+         RIRxJz8emfCkABCHv+kqS1//10h7pM9VZvDBGAvmXI8nf3DMGTXJ/6NFGfP+Kqe+ETzA
+         Snx3Dwu28ziS+pERf5mvCR44CjgxdYtnOdcTIqOXPdLkpBvXHYo0oxHC+AC1Coi6qKWS
+         sYNA==
+X-Forwarded-Encrypted: i=1; AJvYcCWmXhMa1fHERhH2VBt4oXvqefNZMaE9KWu4G6vJ0oOqPE9cXVYB7rqZoFgQKh5IivqfX/7WvAh53U0sGA5hP/nh/4pfVxZxgaEiqHABu3I=
+X-Gm-Message-State: AOJu0YxzRoZydSib+74KuFTk6Z9OR9pSFOVzlluhw8PYMrSdh/dq5MO8
+	t/9D8xbZyqtoWXfjUDGR8Khux4UD5+Xb8+mUFF2g+AwTybTGJoMXUvZnf34WlA==
+X-Google-Smtp-Source: AGHT+IEXwvInGz35zW91JP62kDLg8JPNPVqOXQEdoZhafel6KVZMnMFF2gBo1YRFpB3IeiFEAcvhLg==
+X-Received: by 2002:a17:906:57cf:b0:a3f:4fd8:53a4 with SMTP id u15-20020a17090657cf00b00a3f4fd853a4mr5351915ejr.9.1708940717081;
+        Mon, 26 Feb 2024 01:45:17 -0800 (PST)
+Message-ID: <44fd5092-7838-4d28-804b-bbfebfd44886@suse.com>
+Date: Mon, 26 Feb 2024 10:45:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: Set correct per-cpu cpu_core_mask
+Subject: Re: [PATCH v4 12/30] xen/riscv: introduce cmpxchg.h
 Content-Language: en-US
-To: Henry Wang <xin.wang2@amd.com>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
-References: <20240226030146.179465-1-xin.wang2@amd.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20240226030146.179465-1-xin.wang2@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
+ <25315ca95baffc9b222fb0ae89375a94b01a9b46.1707146506.git.oleksii.kurochko@gmail.com>
+ <9e50ef30-8dc6-4380-aa65-724e5a376c10@suse.com>
+ <28844fdfcf5eea515497fb7b5fd8ea6fb1c5ebaa.camel@gmail.com>
+ <554a43e8-7d8d-45c4-936d-36f02c207531@suse.com>
+ <1c53b52ee39161a8f59209d28af69fe997479dbc.camel@gmail.com>
+ <3b38fe82-ee0f-4666-93e1-bd78fe69c534@suse.com>
+ <5d2d35fe014094c991363e42c3e2ad9ca2af3938.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <5d2d35fe014094c991363e42c3e2ad9ca2af3938.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099E0:EE_|CH3PR12MB8725:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c8199e3-997e-4961-7238-08dc36ae6253
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	4JRKg8l5PnhvH0H37Fg9wevagcO3amLFsELLkfZQLwtiO1Qn0BjVjc10g9C5gxsh4QF1nucdiI0XCPW47aAUc4ZUTvbHnX8Kr2yxkTDY4jUfPaosetz+igepkEhUVaN0NDr28D/ZVEqjNj9271Y8mgKHioP8pbSsG9NwMJnYFZoMXUZew0Kbv9xLSRVeyrRPOE7GaV019dUEzuLCF8Ao+g34DoPBrrCsZFOWvLMwnoHa+HMZToESRrcPb2Qep1L3ZyGiC0aWkTGxsCw8u1mPD5AOYgTbXyMhP+LVYzP152LHRQ9mUOgtDiPpPujVnIRUixf8k06eQT8WfAEypUCU2io85iBWcVbjhAAQqSBYd5zmUNfW600NUmpflBjD3SNxI9nUKmaSBUtle6mzyXwoYLdSwSri3nFLJY1Y393vyptTQ34ri9f1HqpQCT247vilq2qEY3sTvnfHLLUXOiVUFcJ9XU//9WWFKSIZH5tQ26d7jR1WWA5eQr9DWzyzhnzqlttMF1oRUxF/rmeAWWyop0LwHMhk553FTLkDLx7dLxqH8jBDNaQAoEsW6QpNFOCpV+SZFsqYVDN8TgjYkuiaOyImT+j1C2EaNdasUd+vZLKXe9U6gjJLGwqIhRw+F27AsKrIx2BGtI9C5YKnjpRBS515iW5C/idnvhDua6vnMHuw7NdAcmtbaB/fuKDdISyyFC0Vp1mmDGJM+pb/RAFZvwB1sS9/YY3zIZAj31eGsws4nwUZ0DEApI89euiRkALb
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 09:36:18.0831
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c8199e3-997e-4961-7238-08dc36ae6253
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099E0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8725
 
-Hi Henry,
-
-On 26/02/2024 04:01, Henry Wang wrote:
-> In the common sysctl command XEN_SYSCTL_physinfo, the value of
-> cores_per_socket is calculated based on the cpu_core_mask of CPU0.
-> Currently on Arm this is a fixed value 1 (can be checked via xl info),
-> which is not correct. This is because during the Arm CPU online
-> process at boot time, setup_cpu_sibling_map() only sets the per-cpu
-> cpu_core_mask for itself.
+On 23.02.2024 13:23, Oleksii wrote:
+>>
+>>>>> As 1- and 2-byte cases are emulated I decided that is not to
+>>>>> provide
+>>>>> sfx argument for emulation macros as it will not have to much
+>>>>> affect on
+>>>>> emulated types and just consume more performance on acquire and
+>>>>> release
+>>>>> version of sc/ld instructions.
+>>>>
+>>>> Question is whether the common case (4- and 8-byte accesses)
+>>>> shouldn't
+>>>> be valued higher, with 1- and 2-byte emulation being there just
+>>>> to
+>>>> allow things to not break altogether.
+>>> If I understand you correctly, it would make sense to add the 'sfx'
+>>> argument for the 1/2-byte access case, ensuring that all options
+>>> are
+>>> available for 1/2-byte access case as well.
+>>
+>> That's one of the possibilities. As said, I'm not overly worried
+>> about
+>> the emulated cases. For the initial implementation I'd recommend
+>> going
+>> with what is easiest there, yielding the best possible result for the
+>> 4- and 8-byte cases. If later it turns out repeated acquire/release
+>> accesses are a problem in the emulation loop, things can be changed
+>> to explicit barriers, without touching the 4- and 8-byte cases.
+> I am confused then a little bit if emulated case is not an issue.
 > 
-> cores_per_socket refers to the number of cores that belong to the same
-> socket (NUMA node). Currently Xen on Arm does not support physical
-> CPU hotplug and NUMA. Therefore if the MT bit (bit 24) in MPIDR_EL1
-> is 0, cores_per_socket means all possible CPUs detected from the device
-> tree. Setting the per-cpu cpu_core_mask in setup_cpu_sibling_map()
-> accordingly. Drop the in-code comment which seems to be outdated.
+> For 4- and 8-byte cases for xchg .aqrl is used, for relaxed and aqcuire
+> version of xchg barries are used.
 > 
-> Signed-off-by: Henry Wang <xin.wang2@amd.com>
-NIT: You first sent this patch as part of NUMA series:
-https://lore.kernel.org/xen-devel/20231120025431.14845-16-Henry.Wang@arm.com/
-Shouldn't you retain the Arm's authorship?
-
-> ---
->  xen/arch/arm/smpboot.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+> The similar is done for cmpxchg.
 > 
-> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-> index a84e706d77..d616778655 100644
-> --- a/xen/arch/arm/smpboot.c
-> +++ b/xen/arch/arm/smpboot.c
-> @@ -66,7 +66,6 @@ static bool cpu_is_dead;
->  
->  /* ID of the PCPU we're running on */
->  DEFINE_PER_CPU(unsigned int, cpu_id);
-> -/* XXX these seem awfully x86ish... */
->  /* representing HT siblings of each logical CPU */
->  DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_sibling_mask);
->  /* representing HT and core siblings of each logical CPU */
-> @@ -89,6 +88,11 @@ static int setup_cpu_sibling_map(int cpu)
->      cpumask_set_cpu(cpu, per_cpu(cpu_sibling_mask, cpu));
->      cpumask_set_cpu(cpu, per_cpu(cpu_core_mask, cpu));
->  
-> +    /* PE not implemented using a multithreading type approach. */
-> +    if ( system_cpuinfo.mpidr.mt == 0 )
-Do we need this check? It mt was true, cpu_sibling_mask would be incorrect anyway (it would still be 1).
+> If something will be needed to change in emulation loop it won't
+> require to change 4- and 8-byte cases.
 
-~Michal
+I'm afraid I don't understand your reply.
+
+Jan
 
