@@ -2,46 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50CCC8681CD
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 21:17:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685792.1067093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6633E868370
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Feb 2024 23:02:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685800.1067118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rehOp-0007N0-OL; Mon, 26 Feb 2024 20:16:31 +0000
+	id 1rej26-0005AA-FR; Mon, 26 Feb 2024 22:01:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685792.1067093; Mon, 26 Feb 2024 20:16:31 +0000
+Received: by outflank-mailman (output) from mailman id 685800.1067118; Mon, 26 Feb 2024 22:01:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rehOp-0007LI-Ji; Mon, 26 Feb 2024 20:16:31 +0000
-Received: by outflank-mailman (input) for mailman id 685792;
- Mon, 26 Feb 2024 20:16:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rej26-00057q-CY; Mon, 26 Feb 2024 22:01:10 +0000
+Received: by outflank-mailman (input) for mailman id 685800;
+ Mon, 26 Feb 2024 22:01:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jmZe=KD=epam.com=prvs=8786cae52a=oleksandr_tyshchenko@srs-se1.protection.inumbo.net>)
- id 1rehOn-0007LB-A7
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 20:16:29 +0000
-Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea2d8211-d4e3-11ee-98f5-efadbce2ee36;
- Mon, 26 Feb 2024 21:16:26 +0100 (CET)
-Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41QGjnTo017029; Mon, 26 Feb 2024 20:16:21 GMT
-Received: from eur05-db8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2104.outbound.protection.outlook.com [104.47.17.104])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3wgq3r2ekj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 Feb 2024 20:16:20 +0000 (GMT)
-Received: from DB8PR03MB6108.eurprd03.prod.outlook.com (2603:10a6:10:ed::15)
- by AM9PR03MB7012.eurprd03.prod.outlook.com (2603:10a6:20b:2d4::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.34; Mon, 26 Feb
- 2024 20:16:16 +0000
-Received: from DB8PR03MB6108.eurprd03.prod.outlook.com
- ([fe80::82af:59a5:4446:9167]) by DB8PR03MB6108.eurprd03.prod.outlook.com
- ([fe80::82af:59a5:4446:9167%4]) with mapi id 15.20.7316.034; Mon, 26 Feb 2024
- 20:16:16 +0000
+ <SRS0=cwyd=KD=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
+ id 1rej24-00057j-VZ
+ for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 22:01:09 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2415::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 886ffd5b-d4f2-11ee-8a58-1f161083a0e0;
+ Mon, 26 Feb 2024 23:01:04 +0100 (CET)
+Received: from DS7PR03CA0211.namprd03.prod.outlook.com (2603:10b6:5:3ba::6) by
+ DM4PR12MB6110.namprd12.prod.outlook.com (2603:10b6:8:ad::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7316.34; Mon, 26 Feb 2024 22:01:00 +0000
+Received: from DS1PEPF0001708F.namprd03.prod.outlook.com
+ (2603:10b6:5:3ba:cafe::69) by DS7PR03CA0211.outlook.office365.com
+ (2603:10b6:5:3ba::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.49 via Frontend
+ Transport; Mon, 26 Feb 2024 22:01:00 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS1PEPF0001708F.mail.protection.outlook.com (10.167.17.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Mon, 26 Feb 2024 22:01:00 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 26 Feb
+ 2024 16:00:59 -0600
+Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Mon, 26 Feb 2024 16:00:59 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,149 +60,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea2d8211-d4e3-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 886ffd5b-d4f2-11ee-8a58-1f161083a0e0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZJardXiJnu5oc1atOU31Y0EEXVHIKGlTJPZJOY1vPds0iBghZkcWX6PFxOcHRIvxq6EnooUGIlehYlnS7rg8909PMhA8QrKsfQ4J6W6uXVysLfuacpQ8zV4rBntvtVgc9fkvJ0cNVz7tyHpUBfnVkkiVD1rMovYTMt06pabEd3XkevNxneyztobDYgo/+0TuWnP6TPJ+zJ2XhFxQSp4/dTPrDXGwtWCscL5ZSyv8O8p26iO2HT2jWBf0HbrVwVVP6myPNfWBgnRrerEqW3z97PAuhwwxG54jO6aMn/nDB7bbcjfFeR1z8ddUaPJsvLT3ttJ0DOqxDqDdIHRBw16j/g==
+ b=Dsjj/4A+NE80GSPot01tzEdEbDpPu+Ypnml1i6RBf3s7n3lPA507lJ0ev79u+CukmH5fFRqhS7QJdaTP+OBfC2eVDQX+ZFQ6FuxrqtICtVO/c7FwQxY3OVRtIcLFivXSwAbuND9v37d9Ts79eoXfEoZLljkNiyXRpB8s3YA3CkbAGOZXs3gqRfBDKGoPndTW/YzUun08j/hsu6hQKLESzr46Bb4uKgxkH5QAHLYOaDgFkkle55PDhiosptT/pmZcCglVfM7e5lHSUcjkljptbLZmuEWMwqacH9Pqw0Fl9UpSog3NDJXL7HVZC1OYlHVr+tPJ0c8ReeMGiDbxakOjmQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UMiuHiAdxoalaMQOpYHkmbGCocU+YMo5+uL0+5vZYMI=;
- b=Q9SdyKJJH+c1ekahQrudJlBCc2Ws23lQFOyYuoxTsXCb7T0zd/p1TC/xxh+/iLqRfbOr0Ao0zquvY7ao1/GsU3ZKzKzJYHOTV1SPyyZMm5YAOMN0aP1qTxTz64tNEQp58QWKpkTiYMdk1kVrnHXcAzGxQ9/n/Mp/rw+zK2s3RmAexbK2eK22HvJruzAqRrbhVwg93+ItClnhNwmTk4FFgDIXYbN5sCeDFRie+zWnBak3PswFAZgUKPOdsmKK02D5QPbZbmhpzE3RFHJbl2KbHA54PKmFhpgDLP0iamNxZlTGpw2MQ9Lj9naVw3QHcxFtKeFcS1/AKy3Y+ea/wAiyOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ bh=4/5bQQxxeS8lpi2svK66Drb1FT6L3WH3kQkmcgWzcsU=;
+ b=nIcHJsi9E+CFI8OFaQ0apwTiaC8abrTrTFdVrA9WFt/4S4WKOV056VQUHzZgHtkCXzkbIAYXEqhj6Rbnswr9uDE4q3H+q59drgyZro4UrkPQjnIEWvd4pg1FO108VPtZ9X6XxKZAuUiV/H52Lj7cxIJTDla3gPHniqGVwxprLgUiwFxp1s40566zbHejsygobGyNBO6ijA8PnBT28datSVCK5MepndGV4lW7FLVrXXCeSJsMaoDLG2IieoIfHYUCXmUJKr8sO+3tTsEzNb98Ga/RwAEP51ZtCZwpGUiM2i8Xo1kd4WNPvmTOIUYiCag/K+g+3ir4Qb1qR0X4yIh59Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=nxp.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UMiuHiAdxoalaMQOpYHkmbGCocU+YMo5+uL0+5vZYMI=;
- b=NGeiceIB4VBUep93d6J5h7vvZmEXD1q/yjfg2qDhoYalVFgmTLsMRhmzudNlIaSqZwQ3VySq/BSwrvFQsQzivfIxrr+SCtgL4qE9YYvFzOS/V9v0NTEff1VYH1Tfu9viKuUr0lehnWUYCtYj847C+ul+2r8FkhNgDtuCUvJ6FYPZag4P3N9vamfnFgIUDQFy2T8OzMKBGt4teUGiqUGNrLK4g3uGeckg7SfXkvMUTguNmEAkc+xRQnTFcnk1WgrAon/APQ9GDvviOPaXXBsNZey/hJoUBijAYisF5BjY58j9nfGZDRnOCDEka5LVit8ABvBf1zLwZg2/shrTQQYDGw==
-From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+ bh=4/5bQQxxeS8lpi2svK66Drb1FT6L3WH3kQkmcgWzcsU=;
+ b=yBf/rJn6iqoqMkQLqspR3so2V6ntkCtU/eRXp76gWYMHsU4spUcAA4a64iYuA5Uz3o+vpTbhudCjVIfV0gh140pBxIeboxxeo7hCq1BLD8D9i3WoP8dtQXCxd4aFtUF7/sRUml9sbl1xScDjrDUOMBNnyT3xr5g0opXfEWSItH8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Date: Mon, 26 Feb 2024 14:00:58 -0800
+From: Stefano Stabellini <stefano.stabellini@amd.com>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Peng Fan <peng.fan@nxp.com>
-CC: Julien Grall <julien@xen.org>,
-        "vikram.garhwal@amd.com"
-	<vikram.garhwal@amd.com>,
-        Leo Yan <leo.yan@linaro.org>, Viresh Kumar
-	<viresh.kumar@linaro.org>,
-        Stewart Hildebrand <stewart.hildebrand@amd.com>,
-        "sgarzare@redhat.com" <sgarzare@redhat.com>,
-        "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>,
-        Stefano Stabellini
-	<stefano.stabellini@amd.com>
-Subject: Re: question about virtio-vsock on xen
-Thread-Topic: question about virtio-vsock on xen
-Thread-Index: AdpmUSXKZvg8Aft6RRu9smUwoggtbwAUAHAAACuPlYAARFRfYAAj+0EA
-Date: Mon, 26 Feb 2024 20:16:16 +0000
-Message-ID: <e391b7fc-bf6f-4c3a-b444-5b320466294c@epam.com>
-References: 
- <DU0PR04MB941734DA793D87B7FF3A491488552@DU0PR04MB9417.eurprd04.prod.outlook.com>
- <alpine.DEB.2.22.394.2402231332580.754277@ubuntu-linux-20-04-desktop>
- <ee69684a-5aad-417a-8522-1cd1b5322bbe@epam.com>
- <DU0PR04MB94175684F8B7678A7B885559885A2@DU0PR04MB9417.eurprd04.prod.outlook.com>
-In-Reply-To: 
- <DU0PR04MB94175684F8B7678A7B885559885A2@DU0PR04MB9417.eurprd04.prod.outlook.com>
-Accept-Language: en-US, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB8PR03MB6108:EE_|AM9PR03MB7012:EE_
-x-ms-office365-filtering-correlation-id: a9308b06-fcc4-4eb2-15a2-08dc3707c989
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- X+nKJUQP5rK/GBOHDQyWT7mcZ/pO6XbwxFtZ+8PbC161/FgJ3IaDB3dT4ilul6fhwG9aBbwr4TSIPHttpWA99Dx1ACyAw2DkDrM2mIdAk+JjpAH2z+Fj68TtZrpIJP/pnoDuxVNTYOezyry1RPqd/AbR7Vrswxu4NBWeQQ27KpAM04vKjv2l7LhIJfI6Xe8qCOn5caed629AkewlELRLK3yJvysDNdi/2A1ROLXg1dl22S/rO0G4ztu1IiIfiHzu2bs2evxxd37wj/4iaSpCIklpPvd86NzuAQsbBhXyPYLBh6CHu6nzzbiMT8Gh2cDNWrkkPWPUqg0Ddw+t7pp9rgmngVJ7B9GMlNAywmu4HPx4dPeV/iLXyuM3g2xXyQoXyryTpkFUo8S6kzOsnmEK5YPxPRfIucIoiVb7GRCi9wTlLrhcSMIJ1fvcqOdvYfcCR3sA75ReuHHy2w//VQnQ9l/ekX3mFVQn0TUamhCKcZul0Wht5i6W1up8F7HNbmDtWG1tloiu9B1DxczQO3sf1Yi4/7e/tf/wev5KVr8vE//vWxeB1AexVFu/PC1vgk+p1srDk/ju61oaVZemzG+kZrNRDvNsGBQFrKEr4ZGyWMNAcq7r3tdvEi9kTRIH6xtDRt7ykvinHjJl9rfZ26LIeB4F9mXbMZ0ijaz/6msVy2GW4pIQnl4rGjSdLerS2E5rhVcGpTtimrmtN1vTEvcwGQ==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR03MB6108.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(38070700009);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?eEkwVDNoM1RFU21MRjFjNEFBVUozNkZtcld4ZTVBRXZmMU5IY3ZEbkdGUGVT?=
- =?utf-8?B?TVhONDlSaWFkSUNFTXFpcWdCR0s4cDVSK3hPd2kyWUxaWmRuRXFuVHBQN3Bp?=
- =?utf-8?B?QmlNRUd5MSs5bFZLSUlOYU9uYVdwKzlHUm51eXNXTDZUUzRWYy9NZjhTMGtS?=
- =?utf-8?B?eXp2TnZtVEo4T2Y5ZHZjNUhGZlhqOFZtUUJrQVhmTVlwOXlnRUQvZzJFNEZt?=
- =?utf-8?B?Y0tWTExnT2FtVGpJNTdMZERKTkpMSUtLZ3pPY0hGUklqbEw4UXBhRkdtOUxH?=
- =?utf-8?B?cVNrL2xTV2gxZk9palBKWkpoVjkvL0NHOHA0bUFibjE3R0VUeW4xYUVpbm1S?=
- =?utf-8?B?QXNnUGNWZ0Q3SCt3ZVo2VUZ1cDNlTnZkYkh6eFdoZzJQOXQyenVtOFd1b0Ra?=
- =?utf-8?B?clY0WVZoNU53U3JLQ1MxdXorY0hSTS9QYkp2aVJFUGtoUVp5YmtzdzNMNDIw?=
- =?utf-8?B?RlFSVllRT3Z3VG9BcTdkL2h1d1NVczBVVmEveWpwOThFNmxsTzRrRlV4M1E2?=
- =?utf-8?B?T2pYM1RrNmFqWEx5amZwRjk0a2xVYmR2amlydzFqSHpIUUNpanFQcXhEbExH?=
- =?utf-8?B?MElqWUFHVTRNazk2VEhtWHVRV0RqblY5MENaWWEyR3JHNVEyS3lwSkE5UGNC?=
- =?utf-8?B?UXgyb01rMThUL3NKZE5CQ1VXSkJ0bk5RdWhvOVVpeDJ3UXcyaEtrYnRpU2tl?=
- =?utf-8?B?Y0JjazhYZXFxUnRBQXFReHBMS0hKbk9lWTNsaWlRVnFXUm9WRG1ncjdobXVj?=
- =?utf-8?B?NlMzM2N6L1R0ZnJlcm5NTUNnS2NsZ21lM0gzVHl0d2VhbWhjZEJOUE95NHhk?=
- =?utf-8?B?OHQ0Q29ac1hJalBwSkRDNUlwbEJxQVlaS1ZVN0tFbmFEMTMvK0pDbmtwLzYr?=
- =?utf-8?B?WlFmUlIxZ2RIYXVydkptZEFXczBoeE15ZFU4Qml1WTcwSUhUMCtPbnRPOW1l?=
- =?utf-8?B?WUpaUDRVOUNOMzBxWWlKV29SZm0yUW5LYUVjYVlzMWo2TGx1cG1YV1lvbXF3?=
- =?utf-8?B?cDBvL2VCZGZFek9YMGZoejBCUlU0UE9oS2lpV012WXVuMjVBamhKRGd0TGZj?=
- =?utf-8?B?dVVCZ3JmTFdsOU90RzdQbHdTNko0MytkSGcxTHRSd0ZDVFdONnRuWGhBRlFJ?=
- =?utf-8?B?ZmtMaklTQmZ6U1J0Ykh2WkpCMEtuK1M5a1d3V3lCQVc0YkZQWUdHakFBeDNE?=
- =?utf-8?B?Wk42RGY4WkNUY1JKcDZiT3RHYk9zcFlTZW5HY3hDczM4SHFqOEE5bmhYTWhl?=
- =?utf-8?B?RmMzT3d2L011Yks4SUN1dnNGcnE4Mk10NXhPaThmS01YL1FSRFVRUzhhYm1P?=
- =?utf-8?B?Y0IveFE4MkZMcnFPcENtUFB0Y1crb3l1KzdvR1Eyb1hXOWI3OEZENkxYZWg0?=
- =?utf-8?B?WHZsY0w4bEUzV25JcktpaGxMbXZEQlhYVSszamdQZTZwYzk3RE1oSUR2TVZs?=
- =?utf-8?B?RzUvOEVpZncveGpBN0o0R3dwNEV4VEZvUzhGbnNhdGZjY010bjM4TDh5aDFw?=
- =?utf-8?B?U0JQUkwxWG5DeXJRWTh2THI2dks3b0xWWXZMOEdHcEd6SHJQSVlaUFRKS2tk?=
- =?utf-8?B?eEVhVElsQmNPQ3hBR292T1dQLzVLK2dqYTVEa1htSitCVmYrbjRxMGRKRHVY?=
- =?utf-8?B?THpQZk1FWUJ6bWlsY0sxaldvT2Zlalg4UE11V25IWEp2WThZSDV1SEpyZnBY?=
- =?utf-8?B?d2JzV2pTSGE2NHhDR2NLQlpibXhCdGJpaHVrbGVvVEN5b1hBWHh2cEVnQmhv?=
- =?utf-8?B?M1hkeC9EU1ZhNEpRT0hxQUI0SzlTeUdjdzNHYlFmRDU0WmI1RmR3MjBDQ2ZH?=
- =?utf-8?B?c1lrVngxSWlmbmx3STNxcWQwaFBhT2cvS3h5OUxuWE5YaVBIQzVGa3NSMkNY?=
- =?utf-8?B?QlZwdVZEOFVlOWxXamRPY21DckI4NzhqQk1Jc3ZsYnl6M3lsaVBEdStjUS9q?=
- =?utf-8?B?dUFINnVFVkQ0Wm5lNlJjOU10Y0xCcFM2U0tCMzZZNE1kc1FYNFdwbnFWK1VT?=
- =?utf-8?B?OVZNMVlCNDgwa3RtM3dpMWErV0Mzb1h5bnp3NGhxcEIvKzFsdERXMS9SQS9F?=
- =?utf-8?B?WjZFbmR2K0ZhR2dpdmtOWkR0cXM5QjZnMCswcFBwV01sWE81SXVNN3RKaWRx?=
- =?utf-8?B?bE5jd1l0YTZFNDI3bjNGWm0vaXFMdnY5S0kyRDZGSDBjREJnKzRVOTNCbEVC?=
- =?utf-8?Q?kb3rT+mnF2TX/t9zFzWoBoM=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <42A4B907A6A6B842BEC9107627589EFA@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+CC: Stefano Stabellini <stefano.stabellini@amd.com>, Julien Grall
+	<julien@xen.org>, "vikram.garhwal@amd.com" <vikram.garhwal@amd.com>,
+	"oleksandr_tyshchenko@epam.com" <oleksandr_tyshchenko@epam.com>, Leo Yan
+	<leo.yan@linaro.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+	"stewart.hildebrand@amd.com" <stewart.hildebrand@amd.com>,
+	"sgarzare@redhat.com" <sgarzare@redhat.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: RE: question about virtio-vsock on xen
+In-Reply-To: <DU0PR04MB941746B1F385B6A514704F2B885A2@DU0PR04MB9417.eurprd04.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2402261359280.247676@ubuntu-linux-20-04-desktop>
+References: <DU0PR04MB941734DA793D87B7FF3A491488552@DU0PR04MB9417.eurprd04.prod.outlook.com> <alpine.DEB.2.22.394.2402231332580.754277@ubuntu-linux-20-04-desktop> <DU0PR04MB941746B1F385B6A514704F2B885A2@DU0PR04MB9417.eurprd04.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR03MB6108.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9308b06-fcc4-4eb2-15a2-08dc3707c989
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Feb 2024 20:16:16.5046
+Content-Type: text/plain; charset="US-ASCII"
+Received-SPF: None (SATLEXMB03.amd.com: stefano.stabellini@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001708F:EE_|DM4PR12MB6110:EE_
+X-MS-Office365-Filtering-Correlation-Id: 24dee0e3-db02-4e59-e044-08dc37166b39
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	HnvfMCvHALZy7fJ2jNIzd67kEsPDgSb3uS9EZGZ4JKqAEpdrz7+AkKKc3wBtXXev+E9xujUDyZMtWYH+3qQhq4EdG2vtuAvv9zjH8CVhuSJYJKuZf97xS1rFlVmSTaCvK9IQlia56c/yos0qyx5xSorWxyH0q9a4TEdx774Rt3oRALcqAWJUDChfh3J0Vmu8yGBHreJuKaBDE2MUDH2Fdxv9rIbcBuRotsg2FvMJEHayM/9or1QzW7jtK94MQrmV2WaPuIwYvoTO9sTyWNGX/KLIXJFI885vMdNgbWSgTgghvJ8cgUZHTsglhkJ2RQl4Vjn/eyeYaCyrrY+5wJX22Rw81u6QD9cIlSPTrsMwQHRDWUxh5hlxuuq11f9pF7euD4B25UdVXOTCYspZx6RDhpNqYMImB5WZanHl/1xrzREwXE9/6+IdQhzyQZ5sjZzNC9Gp0vCwf6QhLGlcBN399Ifr2o1+8g55fpzvC3cgLat5dHPm3eggrie/M0jAqxTbYpUCuRUM+3vtQuJw080d/t46RsAmudh06jgfR4oUKrdB+Z2ko2NC79eaR/KTHuO/UHSJrcuETZmkTW1k5PW63NZ9GC2sluJEtcqzY7u2olpLhwWNjjzZaAUUeiSmmivz+9hY00RMHctoiprgOgZe6LQZoOv4+I4jNnTHhXlTzx8Fw0oR0z+6aNYbmPsQj1YcJSHooHEEAKcn5JYU3T6/htFKGxXFqJUFb0P3FEc2O29VU/PfBYwiFksvmDdQL9Jf
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 22:01:00.6749
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AqGVEsvIryxCkectFi1h2eGepB0RvpwDLzxMykB1hYX5bLRNCjgwemaelccAG+o/Jf+lKnmmA5b/mSjSZHKXy/SfOcN339iFHEmrOXOrxwY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7012
-X-Proofpoint-GUID: urlTz-QlCRM3X0TNka4jqFp0Pg3JWxpK
-X-Proofpoint-ORIG-GUID: urlTz-QlCRM3X0TNka4jqFp0Pg3JWxpK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-26_11,2024-02-26_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0 phishscore=0
- lowpriorityscore=0 clxscore=1015 spamscore=0 impostorscore=0
- malwarescore=0 mlxscore=0 adultscore=0 priorityscore=1501 mlxlogscore=934
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2402120000 definitions=main-2402260154
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24dee0e3-db02-4e59-e044-08dc37166b39
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0001708F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6110
 
-DQoNCk9uIDI2LjAyLjI0IDA1OjA5LCBQZW5nIEZhbiB3cm90ZToNCj4gSGkgT2xla3NhbmRyLA0K
-DQpIZWxsbyBQZW5nDQoNCg0KW3NuaXBdDQoNCj4+DQo+PiAgICAgLi4uIFBlbmcsIHdlIGhhdmUg
-dmhvc3QtdnNvY2sgKGFuZCB2aG9zdC1uZXQpIFhlbiBQb0MuIEFsdGhvdWdoIGl0IGlzIG5vbi0N
-Cj4+IHVwc3RyZWFtYWJsZSBpbiBpdHMgY3VycmVudCBzaGFwZSAoYmFzZWQgb24gb2xkIExpbnV4
-IHZlcnNpb24sIHJlcXVpcmVzIHNvbWUNCj4+IHJld29yayBhbmQgcHJvcGVyIGludGVncmF0aW9u
-LCBtb3N0IGxpa2VseSByZXF1aXJlcyBpbnZvbHZpbmcgUWVtdSBhbmQNCj4+IHByb3RvY29sIGNo
-YW5nZXMgdG8gcGFzcyBhbiBhZGRpdGlvbmFsIGluZm8gdG8gdmhvc3QpLCBpdCB3b3JrcyB3aXRo
-IExpbnV4DQo+PiB2NS4xMCArIHBhdGNoZWQgUWVtdSB2Ny4wLCBzbyB5b3UgY2FuIHJlZmVyIHRv
-IHRoZSBZb2N0byBtZXRhIGxheWVyIHdoaWNoDQo+PiBjb250YWlucyBrZXJuZWwgcGF0Y2hlcyBm
-b3IgdGhlIGRldGFpbHMgWzFdLg0KPiANCj4gVGhhbmtzIGZvciB0aGUgcG9pbnRlciwgSSBhbSBy
-ZWFkaW5nIHRoZSBjb2RlLg0KPiANCj4+DQo+PiBJbiBhIG51dHNoZWxsLCBiZWZvcmUgYWNjZXNz
-aW5nIHRoZSBndWVzdCBkYXRhIHRoZSBob3N0IG1vZHVsZSBuZWVkcyB0byBtYXANCj4+IGRlc2Ny
-aXB0b3JzIGluIHZpcnRpbyByaW5ncyB3aGljaCBjb250YWluIGVpdGhlciBndWVzdCBncmFudCBi
-YXNlZCBETUENCj4+IGFkZHJlc3NlcyAoYnkgdXNpbmcgWGVuIGdyYW50IG1hcHBpbmdzKSBvciBn
-dWVzdCBwc2V1ZG8tcGh5c2ljYWwgYWRkcmVzc2VzDQo+PiAoYnkgdXNpbmcgWGVuIGZvcmVpZ24g
-bWFwcGluZ3MpLiBBZnRlciBhY2Nlc3NpbmcgdGhlIGd1ZXN0IGRhdGEgdGhlIGhvc3QNCj4+IG1v
-ZHVsZSBuZWVkcyB0byB1bm1hcCB0aGVtLg0KPiANCj4gT2ssIEkgdGhvdWdodCAgdGhlIGN1cnJl
-bnQgeGVuIHZpcnRpbyBjb2RlIGFscmVhZHkgbWFwIGV2ZXJ5IHJlYWR5Lg0KPiANCg0KSXQgZG9l
-cywgYXMgeW91IHNhaWQgdGhlIHZpcnRpby1ibGstcGNpIHdvcmtlZCBpbiB5b3VyIGVudmlyb25t
-ZW50LiBCdXQgDQp2aG9zdCgtdnNvY2spIGlzIGEgc3BlY2lhbCBjYXNlLCB1bmxpa2UgZm9yIHZp
-cnRpby1ibGstcGNpIHdoZXJlIHRoZSANCndob2xlIGJhY2tlbmQgcmVzaWRlcyBpbiBRZW11LCBo
-ZXJlIHdlIGhhdmUgYSBzcGxpdCBtb2RlbC4gQXMgSSANCnVuZGVyc3RhbmQgdGhlIFFlbXUgcGVy
-Zm9ybXMgb25seSBpbml0aWFsIHNldHVwL2NvbmZpZ3VyYXRpb24gdGhlbiANCm9mZmxvYWRzIHRo
-ZSBJL08gcHJvY2Vzc2luZyB0byBhIHNlcGFyYXRlIGVudGl0eSB3aGljaCBpcyB0aGUgTGludXgg
-DQptb2R1bGUgaW4gdGhhdCBwYXJ0aWN1bGFyIGNhc2Uu
+On Mon, 26 Feb 2024, Peng Fan wrote:
+> Hi Stefano,
+> 
+> > Subject: Re: question about virtio-vsock on xen
+> > 
+> > Hi Peng,
+> > 
+> > We haven't tried to setup virtio-vsock yet.
+> > 
+> > In general, I am very supportive of using QEMU for virtio backends. We use
+> > QEMU to provide virtio-net, virtio-block, virtio-console and more.
+> 
+> Would you mind share how to setup virtio-console using qemu + xen?
+
+Vikram (CCed) has been working on it and should be able to share more
+details
+
+ 
+> > However, typically virtio-vsock comes into play for VM-to-VM
+> > communication, which is different. Going via QEMU in Dom0 just to have 1
+> > VM communicate with another VM is not an ideal design: it adds latency and
+> > uses resources in Dom0 when actually we could do without it.
+> > 
+> > A better model for VM-to-VM communication would be to have the VM talk
+> > to each other directly via grant table or pre-shared memory (see the static
+> > shared memory feature) or via Xen hypercalls (see Argo.)
+> 
+> The goal is to make android trout VM run with XEN + i.MX95, so need vsock.
+
+I am not familiar with the details of Android Trout... Where is vsock
+used? Just asking for my own understanding.
+
+
+> > For a good Xen design, I think the virtio-vsock backend would need to be in
+> > Xen itself (the hypervisor).
+> > 
+> > Of course that is more work and it doesn't help you with the specific question
+> > you had below :-)
+> > 
+> > For that, I don't have a pointer to help you but maybe others in CC have.
+> > 
+> > Cheers,
+> > 
+> > Stefano
+> > 
+> > 
+> > On Fri, 23 Feb 2024, Peng Fan wrote:
+> > > Hi All,
+> > >
+> > > Has anyone make virtio-vsock on xen work? My dm args as below:
+> > >
+> > > virtio = [
+> > >
+> > 'backend=0,type=virtio,device,transport=pci,bdf=05:00.0,backend_type=qem
+> > u,grant_usage=true'
+> > > ]
+> > > device_model_args = [
+> > > '-D', '/home/root/qemu_log.txt',
+> > > '-d',
+> > > 'trace:*vsock*,trace:*vhost*,trace:*virtio*,trace:*pci_update*,trace:*
+> > > pci_route*,trace:*handle_ioreq*,trace:*xen*',
+> > > '-device',
+> > > 'vhost-vsock-pci,iommu_platform=false,id=vhost-vsock-pci0,bus=pcie.0,a
+> > > ddr=5.0,guest-cid=3']
+> > >
+> > > During my test, it always return failure in dom0 kernel in below code:
+> > >
+> > > vhost_transport_do_send_pkt {
+> > > ...
+> > >                nbytes = copy_to_iter(hdr, sizeof(*hdr), &iov_iter);
+> > >                 if (nbytes != sizeof(*hdr)) {
+> > >                         vq_err(vq, "Faulted on copying pkt hdr %x %x %x %px\n",
+> > nbytes, sizeof(*hdr),
+> > > __builtin_object_size(hdr, 0), &iov_iter);
+> > >                         kfree_skb(skb);
+> > >                         break;
+> > >                 }
+> > > }
+> > >
+> > > I checked copy_to_iter, it is copy data to __user addr, but it never
+> > > pass, the copy to __user addr always return 0 bytes copied.
+> > >
+> > > The asm code "sttr x7, [x6]" will trigger data abort, the kernel will
+> > > run into do_page_fault, but lock_mm_and_find_vma report it is
+> > > VM_FAULT_BADMAP, that means the __user addr is not mapped, no vma
+> > has this addr.
+> > >
+> > > I am not sure what may cause this. Appreciate if any comments.
+> > >
+> > > BTW: I tested blk pci, it works, so the virtio pci should work on my setup.
+> > >
+> > > Thanks,
+> > > Peng.
+> > >
+> 
 
