@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D35DA868EBF
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Feb 2024 12:26:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686022.1067590 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6239868F78
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Feb 2024 12:53:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686041.1067599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1revar-0000Xp-1G; Tue, 27 Feb 2024 11:25:53 +0000
+	id 1rew12-0008LQ-2k; Tue, 27 Feb 2024 11:52:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686022.1067590; Tue, 27 Feb 2024 11:25:52 +0000
+Received: by outflank-mailman (output) from mailman id 686041.1067599; Tue, 27 Feb 2024 11:52:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1revaq-0000Tk-TM; Tue, 27 Feb 2024 11:25:52 +0000
-Received: by outflank-mailman (input) for mailman id 686022;
- Tue, 27 Feb 2024 11:25:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7gEZ=KE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1revap-0007WG-Kx
- for xen-devel@lists.xenproject.org; Tue, 27 Feb 2024 11:25:51 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f63b87b1-d562-11ee-afd6-a90da7624cb6;
- Tue, 27 Feb 2024 12:25:51 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-512be9194b7so4262243e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 27 Feb 2024 03:25:51 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- jv2-20020a05622aa08200b0042e2002ed12sm3470912qtb.57.2024.02.27.03.25.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Feb 2024 03:25:49 -0800 (PST)
+	id 1rew11-0008Iv-WA; Tue, 27 Feb 2024 11:52:55 +0000
+Received: by outflank-mailman (input) for mailman id 686041;
+ Tue, 27 Feb 2024 11:52:54 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rew10-0008In-KQ
+ for xen-devel@lists.xenproject.org; Tue, 27 Feb 2024 11:52:54 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rew0x-0007F8-A2; Tue, 27 Feb 2024 11:52:51 +0000
+Received: from [15.248.2.14] (helo=[10.45.19.66])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rew0x-0003ZW-1H; Tue, 27 Feb 2024 11:52:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,134 +39,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f63b87b1-d562-11ee-afd6-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709033150; x=1709637950; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xmVYxznNchZhLSEAgmjblx5ppkOHBquqKgG3mrrDbSE=;
-        b=dZI/PR5/KCLcfnBdWWtfQzqiaSa8azfG2+hkv8d4pMAggF+oqPbrdsyGO5rOkK80xY
-         xeJlNBGvO5ij2M8yGlhi2jWOTlsK3CVjZygfDw+psbGzC7tpowAdoeKRk2y5WcW6uNJ3
-         YUo/akddZIqh6vcifk4q9djZPXZff3mKDcbIY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709033150; x=1709637950;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xmVYxznNchZhLSEAgmjblx5ppkOHBquqKgG3mrrDbSE=;
-        b=gkB8amPkAedFVIiGKRVYzPFgESYmYUhSfnqbPjdGiebPxFaRUN+EObVkcpv7XZTLig
-         hKaMwDcNGEioEd6vAU25IpbzC9e5CPyxwTvsOD17YC36Q/5+K264zjhyKmPngCNkkXkX
-         gZGbuSapTU25Ke7THDfbvBkF+esq5lY/ivsdHJi2We0yw7AZ1MUj30ulJnB3nlSFm/6J
-         08vLaMWOYAnqIWBc7SMU7CVdumcTs3k1JxyDMwMVBx1z6wJ01NclZfCCpFn1WAft5zXL
-         ZXbarjwJNj2DEH3fMGRsMc3al8+7NyBUnzIol72MRkdH6lDkT6b3WuyW6VPKVibebrhK
-         VKzw==
-X-Gm-Message-State: AOJu0YyxALu1GPR35EdH3dNNrCKvdFBHNmi714DPdYp6d7Knk9cF+q4X
-	jWez9KlfP5Yc+28wOgMPNBrjUAn2m5xlw1IYT5CvrnpNMVabhLWfs9S9h6xJlnTJRqXS0WWWM/4
-	e
-X-Google-Smtp-Source: AGHT+IFqfmLFdna5wALovZCB6WfEyZOIy2tNf0bS6nbC4SyizxjX2j1beaVKH42Pb2NkuS8nqDeZMA==
-X-Received: by 2002:a05:6512:6d0:b0:512:fd8a:d0e1 with SMTP id u16-20020a05651206d000b00512fd8ad0e1mr4295594lff.45.1709033150026;
-        Tue, 27 Feb 2024 03:25:50 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: [PATCH v2 5/5] xen/livepatch: group and document payload hooks
-Date: Tue, 27 Feb 2024 12:25:28 +0100
-Message-ID: <20240227112528.4540-6-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240227112528.4540-1-roger.pau@citrix.com>
-References: <20240227112528.4540-1-roger.pau@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=kmabYmYV7w/DwdNxModdPKfiurpHr2ETQgn0Vl9O2rc=; b=Wj+TyPM/rwmzSKS191oBA9wFUG
+	NHmZKnQJAUHMuTmsKiY+Lsr0cxrPh0aM3KX02kagaorxhMSOoauW0CR7wV5z1J3tGF8eX3xw0v30Z
+	DBKDOoE1L/hqwkS8/kDfJzxEZdhspQg0fOJSimdU2rotOjy0jhl8jOvPY5QOeu8efvO8=;
+Message-ID: <7a8e610e-913e-4a56-8ce1-6dd6abd894f4@xen.org>
+Date: Tue, 27 Feb 2024 11:52:49 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 2/2] xen/cpu: address MISRA C Rule 17.7
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1708680104.git.nicola.vetrini@bugseng.com>
+ <dd4ac0e670a2ad7ecb5eb435e5e3b4b313b1e0b6.1708680104.git.nicola.vetrini@bugseng.com>
+ <33342a17-e71c-4752-a16f-da5c0ef77b51@suse.com>
+ <alpine.DEB.2.22.394.2402261619210.247676@ubuntu-linux-20-04-desktop>
+ <2178731a-ec81-4505-ba8a-2f945bf85133@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <2178731a-ec81-4505-ba8a-2f945bf85133@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Group the payload hooks between the pre/post handlers, and the apply/revert
-replacements.  Also attempt to comment the context in which the hooks are
-executed.
+Hi Jan,
 
-No functional change.
+On 27/02/2024 07:28, Jan Beulich wrote:
+> On 27.02.2024 01:26, Stefano Stabellini wrote:
+>> On Mon, 26 Feb 2024, Jan Beulich wrote:
+>>> On 23.02.2024 10:35, Nicola Vetrini wrote:
+>>>> Refactor cpu_notifier_call_chain into two functions:
+>>>> - the variant that is allowed to fail loses the nofail flag
+>>>> - the variant that shouldn't fail is encapsulated in a call
+>>>>    to the failing variant, with an additional check.
+>>>>
+>>>> This prevents uses of the function that are not supposed to
+>>>> fail from ignoring the return value, thus violating Rule 17.7:
+>>>> "The value returned by a function having non-void return type shall
+>>>> be used".
+>>>>
+>>>> No functional change.
+>>>>
+>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>
+>>> I'm afraid I disagree with this kind of bifurcation. No matter what
+>>> Misra thinks or says, it is normal for return values of functions to
+>>> not always be relevant to check.
+>>
+>> Hi Jan, I disagree.
+>>
+>> Regardless of MISRA, I really think return values need to be checked.
+>> Moreover, we decided as a group to honor MISRA Rule 17.7, which requires
+>> return values to be checked. This patch is a good step forward.
+> 
+> Yet splitting functions isn't the only way to deal with Misra's
+> requirements, I suppose. After all there are functions where the
+> return value is purely courtesy for perhaps just one of its callers.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - New in this version.
----
- xen/include/xen/livepatch_payload.h | 37 ++++++++++++++++++++++-------
- 1 file changed, 29 insertions(+), 8 deletions(-)
+You are right that we have some places where one caller care about the 
+return value. But the problem is how do you tell whether the return was 
+ignored on purpose or not?
 
-diff --git a/xen/include/xen/livepatch_payload.h b/xen/include/xen/livepatch_payload.h
-index b9cd4f209670..472d6a4a63c1 100644
---- a/xen/include/xen/livepatch_payload.h
-+++ b/xen/include/xen/livepatch_payload.h
-@@ -82,6 +82,8 @@ struct payload {
-  * collision.  Since multiple hooks can be registered, the
-  * .livepatch.hook.load section is a table of functions that will be
-  * executed in series by the livepatch infrastructure at patch load time.
-+ *
-+ * Note the load hook is executed in quiesced context.
-  */
- #define LIVEPATCH_LOAD_HOOK(_fn) \
-     livepatch_loadcall_t *__weak \
-@@ -96,14 +98,20 @@ struct payload {
-      livepatch_unloadcall_t *__weak \
-         const livepatch_unload_data_##_fn __section(".livepatch.hooks.unload") = _fn;
- 
-+/*
-+ * Pre/Post action hooks.
-+ *
-+ * This hooks are executed before or after the livepatch application. Pre hooks
-+ * can veto the application/revert of the livepatch.  They are not executed in
-+ * quiesced context.  All of pre and post hooks are considered vetoing, and
-+ * hence filling any of those will block the usage of the REPLACE action.
-+ *
-+ * Each of the hooks below can only be set once per livepatch payload.
-+ */
- #define LIVEPATCH_PREAPPLY_HOOK(_fn) \
-     livepatch_precall_t *__attribute__((weak, used)) \
-         const livepatch_preapply_data_##_fn __section(".livepatch.hooks.preapply") = _fn;
- 
--#define LIVEPATCH_APPLY_HOOK(_fn) \
--    livepatch_actioncall_t *__attribute__((weak, used)) \
--        const livepatch_apply_data_##_fn __section(".livepatch.hooks.apply") = _fn;
--
- #define LIVEPATCH_POSTAPPLY_HOOK(_fn) \
-     livepatch_postcall_t *__attribute__((weak, used)) \
-         const livepatch_postapply_data_##_fn __section(".livepatch.hooks.postapply") = _fn;
-@@ -112,14 +120,27 @@ struct payload {
-     livepatch_precall_t *__attribute__((weak, used)) \
-         const livepatch_prerevert_data_##_fn __section(".livepatch.hooks.prerevert") = _fn;
- 
--#define LIVEPATCH_REVERT_HOOK(_fn) \
--    livepatch_actioncall_t *__attribute__((weak, used)) \
--        const livepatch_revert_data_##_fn __section(".livepatch.hooks.revert") = _fn;
--
- #define LIVEPATCH_POSTREVERT_HOOK(_fn) \
-     livepatch_postcall_t *__attribute__((weak, used)) \
-         const livepatch_postrevert_data_##_fn __section(".livepatch.hooks.postrevert") = _fn;
- 
-+/*
-+ * Action replacement hooks.
-+ *
-+ * The following hooks replace the hypervisor implementation for the livepatch
-+ * application and revert routines.  When filling the hooks below the native
-+ * apply and revert routines will not be executed, so the provided hooks need
-+ * to make sure the state of the payload after apply or revert is as expected
-+ * by the livepatch logic.
-+ */
-+#define LIVEPATCH_APPLY_HOOK(_fn) \
-+    livepatch_actioncall_t *__attribute__((weak, used)) \
-+        const livepatch_apply_data_##_fn __section(".livepatch.hooks.apply") = _fn;
-+
-+#define LIVEPATCH_REVERT_HOOK(_fn) \
-+    livepatch_actioncall_t *__attribute__((weak, used)) \
-+        const livepatch_revert_data_##_fn __section(".livepatch.hooks.revert") = _fn;
-+
- #endif /* __XEN_LIVEPATCH_PAYLOAD_H__ */
- 
- /*
+We had at least one XSA because the return value of a function was not 
+checked (see XSA-222). We also had plenty of smaller patches to check 
+returns.
+
+So far, we added __must_check when we believed return values should be 
+checked. But usually at the point we notice, this is far too late.
+
+To me the goal should be that we enforce __must_check everywhere. We are 
+probably going to detect places where we forgot to check the return. For 
+thoses that are on purpose, we can document them.
+
+> 
+> Splitting simply doesn't scale very well, imo.
+
+Do you have another proposal? As Stefano said, we adopted the rule 17.7. 
+So we know need a solution to address it.
+
+> 
+>>> To deal with the Misra rule imo requires to first have an abstract
+>>> plan of how to handle such globally in the code base. Imo such a plan
+>>> can't be to introduce perhaps dozens of new wrapper functions like is
+>>> done here.
+>>
+>> This patch is following the right pattern, one we already follow with
+>> the _locked suffix.
+> 
+> Right, and - just to mention it - one which I similarly dislike, albeit
+> to a lesser degree.
+
+AFAIU, we are debating between having a boolean indicating if a function 
+doesn't fail or adding a wrapper.
+
+While I understand this requires to add more code, the advantage of the 
+suffix is this is more obvious for the reader (including the reviewer) 
+that the call is not supposed to fail. I agree this is a matter of taste 
+here...
+
+In this case, what would be your suggestion to address the problem?
+
+Cheers,
+
 -- 
-2.44.0
-
+Julien Grall
 
