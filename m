@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B33D98689CD
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Feb 2024 08:23:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685875.1067293 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41FA08689D9
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Feb 2024 08:29:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685880.1067303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rernt-0006VX-Bp; Tue, 27 Feb 2024 07:23:05 +0000
+	id 1rertR-00078n-U3; Tue, 27 Feb 2024 07:28:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685875.1067293; Tue, 27 Feb 2024 07:23:05 +0000
+Received: by outflank-mailman (output) from mailman id 685880.1067303; Tue, 27 Feb 2024 07:28:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rernt-0006U0-7b; Tue, 27 Feb 2024 07:23:05 +0000
-Received: by outflank-mailman (input) for mailman id 685875;
- Tue, 27 Feb 2024 07:23:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rertR-00076K-Qw; Tue, 27 Feb 2024 07:28:49 +0000
+Received: by outflank-mailman (input) for mailman id 685880;
+ Tue, 27 Feb 2024 07:28:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HnYt=KE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rerns-0006Tu-48
- for xen-devel@lists.xenproject.org; Tue, 27 Feb 2024 07:23:04 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0aac285b-d541-11ee-8a58-1f161083a0e0;
- Tue, 27 Feb 2024 08:23:02 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a3d01a9a9a2so395706166b.1
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 23:23:02 -0800 (PST)
+ id 1rertQ-000766-Sy
+ for xen-devel@lists.xenproject.org; Tue, 27 Feb 2024 07:28:48 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d7aad9da-d541-11ee-98f5-efadbce2ee36;
+ Tue, 27 Feb 2024 08:28:46 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a3e550ef31cso437771166b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 23:28:47 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h16-20020a170906261000b00a3ca56e9bcfsm469823ejc.187.2024.02.26.23.23.01
+ hg13-20020a170906f34d00b00a3d8fb05c0csm479038ejb.86.2024.02.26.23.28.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 23:23:01 -0800 (PST)
+ Mon, 26 Feb 2024 23:28:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0aac285b-d541-11ee-8a58-1f161083a0e0
+X-Inumbo-ID: d7aad9da-d541-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709018582; x=1709623382; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709018926; x=1709623726; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3rH9419YQ4l6iuXA5GaUW0ySnSMzOnuMS2xgFJL6omw=;
-        b=ST9PmWmxsp1IBWWBd3kEzesAbI/k0iPQlKE7aDfuYNHA1aJz2Angb9pdOJDZ/9YyeQ
-         BrhHUuaRPaAWXPj9OmKZscSve3J0MXcOJdlbMLmKclj1d+gmj1mKbOVv5MNWOhxQ3cu/
-         GUfts7EM1d6HeQgqJAsK+ikTX4puAuxMtCwm+xoEn7mxRqa+cVzCVIb5BJqu1Ow4k92e
-         Ta/rVdZASuqpFF9cGlmSCt+NL27bjJ+F9CcN2sdX4L/eLro2ONehHPRZgD908y3dArrv
-         gm266BUKjk20J23YJBQpCRcrVmQ/5w2ifXNgHv+kxaB/wKgyGmolNwBTbzP6RaUNTkcM
-         hNlQ==
+        bh=4yGTMfEzs3kic1uFPt1x3+Vtw5Q24sXPBBHyvwGV154=;
+        b=cWiUlF3FtkIBLOvpcd9r3ZIQrJ0mt8zBbPl7X0jGnDpYbU0P6rkKZht8SAvM2bFo6a
+         GjNnO9VRX435uPXtadj474Y75AMjVsXn1FRWgctHTb/xZzC6h08SLnRLLZMPJDf01JoC
+         c2Ma4VuJllAfdYOhvIq/i+zhd2FYq6IejUXwnXpBpY16a4i/U4zOeqSdvOfPqnsZuSw5
+         +BRzQlqf/ErJhEpC4L3JIj+mUk6xN8f++PKfC3Zf/u/AAiCguJaGb6G7NnXcWwQ7IkwU
+         1w/VjF2clj1Mp910ypd1x5zbbB606A7ri6/20vpIJ0iaUOBIwiengG1vvDnDtjf670Q5
+         u0jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709018582; x=1709623382;
+        d=1e100.net; s=20230601; t=1709018926; x=1709623726;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3rH9419YQ4l6iuXA5GaUW0ySnSMzOnuMS2xgFJL6omw=;
-        b=eZWerYZ/lqx1asl5Pgy6EcPitYp+7eQ84/ZrFH+6qc4yWhMU//dbkzsInxtJuZGPb6
-         VqibmgQXG/3Ztg2VchKGYFBqYg8NjpGvBwFfI398ExzUb3uruKuv8xAo75ymG7ogbY34
-         Z9QwoY1vB9cmkobazq/ycG2gwzME9fuShWVdH2vJXfz4Js7KUXKYKOTJB8vzmarI55si
-         nlSRtfFcbmQqCbny9y7y3P3baHoveVvGSzyxGtW5ZBEukxRlq4JW7B+4+zoCjyDGK8ES
-         CrMXwhkYK064dS4GzzuO7tLuIHzmYMTs7QjhFwDXTuJe99DzINgtQlc0SoTMiNx+XgKB
-         1JpA==
-X-Forwarded-Encrypted: i=1; AJvYcCWY20avm+Mb+Fq+1mRNX2bBMSjRoatu8veGGQDW3qC4iOapCY6sDCgLhQRNq5nNSsDVJH++8rTcAxeR+zBDGhFJLJz3k43ZIYcL9/JfKZs=
-X-Gm-Message-State: AOJu0Ywixs6HMOJnjTjJNHAa6dpmEH6tcZc1N92fwuD+LAxaYIP9ON/S
-	MxfXoj4c52bExBjmbG1lz8n/akfEYQIBmxOku0xoDbhSC1syutbeM2Dfrf6Obw==
-X-Google-Smtp-Source: AGHT+IHbxk67kUb80kjH6zAOo1nrkS1CiZXg7lgtWJ3NJqRqhvXTOM+3Zk/KB9RlNLtaFf+cQlJW5A==
-X-Received: by 2002:a17:906:150b:b0:a3f:20b9:2b68 with SMTP id b11-20020a170906150b00b00a3f20b92b68mr5717193ejd.10.1709018581919;
-        Mon, 26 Feb 2024 23:23:01 -0800 (PST)
-Message-ID: <4e3e949d-5714-4c3b-8514-50a3674c94d8@suse.com>
-Date: Tue, 27 Feb 2024 08:23:00 +0100
+        bh=4yGTMfEzs3kic1uFPt1x3+Vtw5Q24sXPBBHyvwGV154=;
+        b=bwuhd7vGplQgCPLkUqrKHgUtEUWoocsMWiBHT1ziHgzfO8WvLN0g0DSPoeyjdLLVPl
+         JR/x3bw8VNYVYsh9//nKAaNhjCynHb/70NOosXmH7erAZBoWxCvw6d5LRDJat2CxVSK7
+         mfpUnirTyE2JwhCEtK2pKW0UE976lkMDY+QPw7c1QD4X3GI9c0VbKelRiQesjVlcxN5U
+         xJCyB+Pu5Qlg2phRwqzk+R0yVRh03ZPgHLIkzNlUs0DEGCSNPjM8+cJDtaXEEmKpQUT5
+         Zqfo04xRvxE90BN/6Zrpf/NdlqzkSAiSrHigBJbM646bBgR/+IYeBK5mIiheu+CxXUqh
+         4wVg==
+X-Forwarded-Encrypted: i=1; AJvYcCUwA5RR1uAjclCyCvLosgGKlcCu2iqoTBGuoJ2CZsX3hmITu02g2ERV/f+3iG0sVtYTWXt6Ga9Gcjq67dA+ASrzjH5PejkInExrqz65V2w=
+X-Gm-Message-State: AOJu0YzBPEBzZz0UTFWIZirzyG0t7UpOI1YmshZcEFmHO2uS/IxTKsPp
+	BsRtBB3WSBT2/NhsUecESjiE/vJSeCFEFB1kHiXt7/c3iY95jWaZ01X6R5aOKg==
+X-Google-Smtp-Source: AGHT+IHvQ5mS/YyTT8P9i1C68SFs6y08ylywe3LRbqMvH8oMNTQZndrJ137GDorhL4agtpD2ptZtJw==
+X-Received: by 2002:a17:906:150b:b0:a3f:20b9:2b68 with SMTP id b11-20020a170906150b00b00a3f20b92b68mr5726365ejd.10.1709018926631;
+        Mon, 26 Feb 2024 23:28:46 -0800 (PST)
+Message-ID: <2178731a-ec81-4505-ba8a-2f945bf85133@suse.com>
+Date: Tue, 27 Feb 2024 08:28:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 3/4] xen/include: add pure and const attributes
+Subject: Re: [XEN PATCH 2/2] xen/cpu: address MISRA C Rule 17.7
 Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com,
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, consulting@bugseng.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1697638210.git.simone.ballarin@bugseng.com>
- <fd5421162a00aa782e0776324ff6497193c1e3d3.1697638210.git.simone.ballarin@bugseng.com>
- <89778285-5cba-8fb5-70bc-710b6dd30a10@suse.com>
- <0032186f-80c7-4dba-b46e-10d4a8e2a8cb@bugseng.com>
- <e8bf9817-fd54-9bf4-4302-dcee682f9172@suse.com>
- <alpine.DEB.2.22.394.2310231417260.3516@ubuntu-linux-20-04-desktop>
- <8f8141e2-c55c-2e58-a078-d5d8764a02df@suse.com>
- <alpine.DEB.2.22.394.2402221730270.754277@ubuntu-linux-20-04-desktop>
- <6eb4dc7c-c6a5-496a-a37f-125b00e9aaa3@suse.com>
- <alpine.DEB.2.22.394.2402231432090.754277@ubuntu-linux-20-04-desktop>
- <cb463469-51e1-4639-bf56-36fe9051d1b3@suse.com>
- <alpine.DEB.2.22.394.2402261511010.247676@ubuntu-linux-20-04-desktop>
+References: <cover.1708680104.git.nicola.vetrini@bugseng.com>
+ <dd4ac0e670a2ad7ecb5eb435e5e3b4b313b1e0b6.1708680104.git.nicola.vetrini@bugseng.com>
+ <33342a17-e71c-4752-a16f-da5c0ef77b51@suse.com>
+ <alpine.DEB.2.22.394.2402261619210.247676@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -123,216 +115,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2402261511010.247676@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2402261619210.247676@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27.02.2024 00:48, Stefano Stabellini wrote:
+On 27.02.2024 01:26, Stefano Stabellini wrote:
 > On Mon, 26 Feb 2024, Jan Beulich wrote:
->> On 23.02.2024 23:36, Stefano Stabellini wrote:
->>> On Fri, 23 Feb 2024, Jan Beulich wrote:
->>>> On 23.02.2024 02:32, Stefano Stabellini wrote:
->>>>> On Tue, 24 Oct 2023, Jan Beulich wrote:
->>>>>> On 24.10.2023 00:05, Stefano Stabellini wrote:
->>>>>>> On Mon, 23 Oct 2023, Jan Beulich wrote:
->>>>>>>> On 23.10.2023 17:23, Simone Ballarin wrote:
->>>>>>>>> On 23/10/23 15:34, Jan Beulich wrote:
->>>>>>>>>> On 18.10.2023 16:18, Simone Ballarin wrote:
->>>>>>>>>>> --- a/xen/include/xen/pdx.h
->>>>>>>>>>> +++ b/xen/include/xen/pdx.h
->>>>>>>>>>> @@ -164,7 +164,7 @@ static inline unsigned long pfn_to_pdx(unsigned long pfn)
->>>>>>>>>>>    * @param pdx Page index
->>>>>>>>>>>    * @return Obtained pfn after decompressing the pdx
->>>>>>>>>>>    */
->>>>>>>>>>> -static inline unsigned long pdx_to_pfn(unsigned long pdx)
->>>>>>>>>>> +static inline __attribute_pure__ unsigned long pdx_to_pfn(unsigned long pdx)
->>>>>>>>>>>   {
->>>>>>>>>>>       return (pdx & pfn_pdx_bottom_mask) |
->>>>>>>>>>>              ((pdx << pfn_pdx_hole_shift) & pfn_top_mask);
->>>>>>>>>>
->>>>>>>>>> Taking this as an example for what I've said above: The compiler can't
->>>>>>>>>> know that the globals used by the functions won't change value. Even
->>>>>>>>>> within Xen it is only by convention that these variables are assigned
->>>>>>>>>> their values during boot, and then aren't changed anymore. Which makes
->>>>>>>>>> me wonder: Did you check carefully that around the time the variables
->>>>>>>>>> have their values established, no calls to the functions exist (which
->>>>>>>>>> might then be subject to folding)?
->>>>>>>>>
->>>>>>>>> There is no need to check that, the GCC documentation explicitly says:
->>>>>>>>>
->>>>>>>>> However, functions declared with the pure attribute *can safely read any 
->>>>>>>>> non-volatile objects*, and modify the value of objects in a way that 
->>>>>>>>> does not affect their return value or the observable state of the program.
->>>>>>>>
->>>>>>>> I did quote this same text in response to what Andrew has said, but I also
->>>>>>>> did note there that this needs to be taken with a grain of salt: The
->>>>>>>> compiler generally assumes a single-threaded environment, i.e. no changes
->>>>>>>> to globals behind the back of the code it is processing.
->>>>>>>
->>>>>>> Let's start from the beginning. The reason for Simone to add
->>>>>>> __attribute_pure__ to pdx_to_pfn and other functions is for
->>>>>>> documentation purposes. It is OK if it doesn't serve any purpose other
->>>>>>> than documentation.
->>>>>>>
->>>>>>> Andrew, for sure we do not want to lie to the compiler and introduce
->>>>>>> undefined behavior. If we think there is a risk of it, we should not do
->>>>>>> it.
->>>>>>>
->>>>>>> So, what do we want to document? We want to document that the function
->>>>>>> does not have side effects according to MISRA's definition of it, which
->>>>>>> might subtly differ from GCC's definition.
->>>>>>>
->>>>>>> Looking at GCC's definition of __attribute_pure__, with the
->>>>>>> clarification statement copy/pasted above by both Simone and Jan, it
->>>>>>> seems that __attribute_pure__ matches MISRA's definition of a function
->>>>>>> without side effects. It also seems that pdx_to_pfn abides to that
->>>>>>> definition.
->>>>>>>
->>>>>>> Jan has a point that GCC might be making other assumptions
->>>>>>> (single-thread execution) that might not hold true in our case. Given
->>>>>>> the way the GCC statement is written I think this is low risk. But maybe
->>>>>>> not all GCC versions we want to support in the project might have the
->>>>>>> same definition of __attribute_pure__. So we could end up using
->>>>>>> __attribute_pure__ correctly for the GCC version used for safety (GCC
->>>>>>> 12.1, see docs/misra/C-language-toolchain.rst) but it might actually
->>>>>>> break an older GCC version.
->>>>>>>
->>>>>>>
->>>>>>> So Option#1 is to use __attribute_pure__ taking the risk that a GCC or
->>>>>>> Clang version might interpret __attribute_pure__ differently and
->>>>>>> potentially misbehave.
->>>>>>>
->>>>>>> Option#2 is to avoid this risk, by not using __attribute_pure__.
->>>>>>> Instead, we can use SAF-xx-safe or deviations.rst to document that
->>>>>>> pdx_to_pfn and other functions like it are without side effects
->>>>>>> according to MISRA's definition.
->>>>>>>
->>>>>>>
->>>>>>> Both options have pros and cons. To me the most important factor is how
->>>>>>> many GCC versions come with the statement "pure attribute can safely
->>>>>>> read any non-volatile objects, and modify the value of objects in a way
->>>>>>> that does not affect their return value or the observable state of the
->>>>>>> program".
->>>>>>>
->>>>>>> I checked and these are the results:
->>>>>>> - gcc 4.0.2: no statement
->>>>>>> - gcc 5.1.0: no statement
->>>>>>> - gcc 6.1.0: no statement
->>>>>>> - gcc 7.1.0: no statement
->>>>>>> - gcc 8.1.0: alternative statement "The pure attribute imposes similar
->>>>>>>   but looser restrictions on a function’s definition than the const
->>>>>>>   attribute: it allows the function to read global variables."
->>>>>>> - gcc 9.1.0: yes statement
->>>>>>>
->>>>>>>
->>>>>>> So based on the above, __attribute_pure__ comes with its current
->>>>>>> definition only from gcc 9 onward. I don't know if as a Xen community we
->>>>>>> clearly declare a range of supported compilers, but I would imagine we
->>>>>>> would still want to support gcc versions older than 9? (Not to mention
->>>>>>> clang, which I haven't checked.)
->>>>>>>
->>>>>>> It doesn't seem to me that __attribute_pure__ could be correctly used on
->>>>>>> pdx_to_pfn with GCC 7.1.0 for example.
->>>>>>
->>>>>> The absence of documentation doesn't mean the attribute had different
->>>>>> (or even undefined) meaning in earlier versions. Instead it means one
->>>>>> would need to consult other places (source code?) to figure out whether
->>>>>> there was any behavioral difference (I don't think there was).
->>>>>>
->>>>>> That said, ...
->>>>>>
->>>>>>> So in conclusion, I think it is better to avoid __attribute_pure__ and
->>>>>>> use SAF-xx-safe or an alternative approach instead.
->>>>>>
->>>>>> ... I agree here. We just don't want to take chances.
->>>>>
->>>>> Let me resurrect this thread.
->>>>>
->>>>> Could we use something like "pure" that we #define as we want?
->>>>>
->>>>> Depending on the compiler version or other options we could #define pure
->>>>> to __attribute_pure__ or to nothing.
->>>>
->>>> While we can do about anything, I don't think it's a good idea to overload
->>>> a well known term with something having somewhat different meaning. If a
->>>> differently named custom attribute helps, that might be a possible option.
+>> On 23.02.2024 10:35, Nicola Vetrini wrote:
+>>> Refactor cpu_notifier_call_chain into two functions:
+>>> - the variant that is allowed to fail loses the nofail flag
+>>> - the variant that shouldn't fail is encapsulated in a call
+>>>   to the failing variant, with an additional check.
 >>>
->>> It doesn't have a different meaning. If it had a different meaning I'd
->>> agree with you.
+>>> This prevents uses of the function that are not supposed to
+>>> fail from ignoring the return value, thus violating Rule 17.7:
+>>> "The value returned by a function having non-void return type shall
+>>> be used".
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 >>
->> Then we need to sort this aspect first: If there was no difference in
->> meaning, we ought to be using the real attribute, not a pseudo
->> surrogate. Yet the earlier discussion, according to my understanding,
->> has led to the understanding that for the given example the real
->> attribute cannot be applied entirely legitimately. Hence why the
->> thinking of alternatives actually started. What am I missing?
+>> I'm afraid I disagree with this kind of bifurcation. No matter what
+>> Misra thinks or says, it is normal for return values of functions to
+>> not always be relevant to check.
 > 
-> There are two different questions:
-> 1) using __attribute_pure__ in general when appropriate
-> 2) using __attribute_pure__ in pdx_to_pfn as this patch does
+> Hi Jan, I disagree.
 > 
-> 
-> I was talking about 1): as a general approach it looks like a good idea
-> to use __attribute_pure__ when possible and appropriate.
-> 
-> Now let's talk about 2). The latest definition of __attribute_pure__ is:
-> 
-> """
-> The pure attribute prohibits a function from modifying the state of the program that is observable by means other than inspecting the function’s return value. However, functions declared with the pure attribute can safely read any non-volatile objects, and modify the value of objects in a way that does not affect their return value or the observable state of the program.
-> """
-> 
-> So there are two interesting issues:
-> 
-> a) While this documentation explicitly allows for reading global vars,
-> older versions of the docs are less clear. What do we do about them?
-> 
-> b) Jan wrote that he interprets the statements above to be only valid in
-> a single-threaded environment
-> 
-> 
-> To be honest, I am not convinced by b). Jan, is there a statement in the
-> GCC docs that says that all the attributes (pure being one of them) only
-> apply to a single-thread environment?
+> Regardless of MISRA, I really think return values need to be checked.
+> Moreover, we decided as a group to honor MISRA Rule 17.7, which requires
+> return values to be checked. This patch is a good step forward.
 
-It would need to be the other way around, I'm afraid: C99 defines its
-abstract machine in a way not even considering possible parallel
-execution (except for other external agents, e.g. when "volatile" is
-necessary for memory accesses when that memory may also be modified
-by such an external agent, e.g. a device on the bus). Hence we'd need
-to find an explicit statement in gcc docs which relaxes that globally
-or for certain aspects.
+Yet splitting functions isn't the only way to deal with Misra's
+requirements, I suppose. After all there are functions where the
+return value is purely courtesy for perhaps just one of its callers.
 
-> That would be extremely limiting
-> for something like __attribute_pure__. I think we should take the
-> documentation of attribute pure at face value. To me, it clearly applies
-> to pdx_to_pfn. Roberto and the team at Bugseng came to the same
-> conclusion.
+Splitting simply doesn't scale very well, imo.
+
+>> To deal with the Misra rule imo requires to first have an abstract
+>> plan of how to handle such globally in the code base. Imo such a plan
+>> can't be to introduce perhaps dozens of new wrapper functions like is
+>> done here.
 > 
-> On the other end, I think a) is important. Older version of GCC don't
-> clarify the behavior toward global variables. From the documentation, I
-> would use __attribute_pure__ only with GCC 9 or later. Which is why we
-> need the #define.
+> This patch is following the right pattern, one we already follow with
+> the _locked suffix.
 
-Right, this is a position we can take. As said, I think we'd then limit
-ourselves more than necessary. Otoh the number of people using gcc8 or
-older to build up-to-date Xen should be constantly decreasing ...
+Right, and - just to mention it - one which I similarly dislike, albeit
+to a lesser degree.
 
 Jan
-
->>> The goal is for the #define to have exactly the same meaning as the gcc
->>> definition from gcc 9 onward. However, other versions of gcc or other
->>> compilers could have different semantics. Also we might not want to
->>> allow gcc to perform the optimizations that it might want to do if the
->>> attribute is passed.
->>>
->>> So the definition would be clear and 100% aligned with the modern gcc
->>> definition. However we would be able to control the behavior better.
->>
->> If we feared older gcc didn't implement "pure" suitably, we should
->> simply make __attribute_pure__ expand to nothing there. (Still use of
->> the attribute then would need limiting to cases where it can validly
->> be applied.)
-> 
-> That's fine by me
-
 
