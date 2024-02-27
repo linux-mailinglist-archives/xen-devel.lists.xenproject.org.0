@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB8A78689F8
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Feb 2024 08:38:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685888.1067322 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35442868A43
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Feb 2024 08:55:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685892.1067333 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1res2b-00016D-3N; Tue, 27 Feb 2024 07:38:17 +0000
+	id 1resIz-0004Kj-Fp; Tue, 27 Feb 2024 07:55:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685888.1067322; Tue, 27 Feb 2024 07:38:17 +0000
+Received: by outflank-mailman (output) from mailman id 685892.1067333; Tue, 27 Feb 2024 07:55:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1res2b-000149-0r; Tue, 27 Feb 2024 07:38:17 +0000
-Received: by outflank-mailman (input) for mailman id 685888;
- Tue, 27 Feb 2024 07:38:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1resIz-0004JB-Cp; Tue, 27 Feb 2024 07:55:13 +0000
+Received: by outflank-mailman (input) for mailman id 685892;
+ Tue, 27 Feb 2024 07:55:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HnYt=KE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1res2Z-00013E-OY
- for xen-devel@lists.xenproject.org; Tue, 27 Feb 2024 07:38:15 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 29401359-d543-11ee-98f5-efadbce2ee36;
- Tue, 27 Feb 2024 08:38:12 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a3e72ec566aso497415966b.2
- for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 23:38:13 -0800 (PST)
+ id 1resIx-0004J5-HE
+ for xen-devel@lists.xenproject.org; Tue, 27 Feb 2024 07:55:11 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 87c49ef1-d545-11ee-afd6-a90da7624cb6;
+ Tue, 27 Feb 2024 08:55:10 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5648d92919dso5152922a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Feb 2024 23:55:10 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- lu17-20020a170906fad100b00a3e45a18a5asm489474ejb.61.2024.02.26.23.38.12
+ s21-20020aa7cb15000000b005645961ad39sm506626edt.47.2024.02.26.23.55.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 23:38:13 -0800 (PST)
+ Mon, 26 Feb 2024 23:55:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 29401359-d543-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 87c49ef1-d545-11ee-afd6-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709019493; x=1709624293; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709020510; x=1709625310; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=t8rr3Yu1kppMh7d6qm1M4HurjPsU/I8DuPlwD+6HbtQ=;
-        b=Lrx235eoubCcjYFPKB9e4/tJUC0lhF3JHpaUGvnmHzXHjBniRehrljiRxiUC9HOxlx
-         6Yb8kMf4J8NP8w5jl6hnD0HPuIctlPBwUszYkfbKJfGPptVN2RhgSKwXNJUN7qM9QW3+
-         GO3YXweOSYAUFhoTlw7yHle4MbdFUbmgo9M1xI2b0eJiUC98lbekO38UBPJupDjbYmPQ
-         3bSvSrosD3admS97Q/a1e54O8jQI+sFPbbR7Th4USGuSVrI1iHwQnb63RynswEklLS/Y
-         Qx50B6fBpFatslbqd/Bo2DT+rn+m4jdq8h65/hvE3TcdsU+NpiAoRvcuV7W675W4Kryz
-         AmuQ==
+        bh=6N5s7n+fNWhEu6tGZmRmFlf3iWQVPeoCf9N7x/6a50k=;
+        b=AJ7b0b4TwaUHCYp6l9ssfS7U7QWrMXnfcce/kIpqqyarjD27omTu0OXT0VLRKxIIwL
+         vYy9nzXbkqLJqhEIffSaMIla7IVIGjI6fMaMKPbXK9Eg6kpjvABLhjdsvlwe9iF3S+3y
+         FwC5Nfaw+kitZ319E/J3AgveFwgqyk8Muvzpjy4ySO82a3xoPsZc6F20tM6L1y3N2QO2
+         iwIc7/cOQggoCcpjSAkheXOItjxtS8HI+dgC8dZdiMnTaL2vLWEp20ZbQ7Q9CHzcyOAP
+         OiKmPrNA0bCumihKol0jrueo6kbmtlpGxhA93LfUJhS9n5Z2hrwDVDc1WcMJMOjeq/Ue
+         6pEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709019493; x=1709624293;
+        d=1e100.net; s=20230601; t=1709020510; x=1709625310;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=t8rr3Yu1kppMh7d6qm1M4HurjPsU/I8DuPlwD+6HbtQ=;
-        b=do30untyf7a2aRnonkK43tPZEa5ktSGh2TyXhTEaemVU+dY1zOL8Tz31AzCPM7Qq7R
-         cYEpfPjCp/ikip++IiKk6vtZ2VDlu1UZTr9/HvU23kZ2vpViOmT5mFGHgdD5Yxk+Yz2x
-         MLHqV0ufaYql3NngxSpfkisbYtvpcVEBcRkacqOndOjaxU88xjiPC54uu7pRjwL2nq1G
-         qlVOfC2NuJQjT9YB61OFL6YPALwu0f7Dfv7/R9/Krv3IpPx3DT77QWMsZGczzgVRzqdk
-         lMfZxbJYHu3zomKXBvAvqIGhANcdsexaByvJ/GKG26Ae3USvAQ0OLLbTCyWUSMaG7j1s
-         MIFA==
-X-Forwarded-Encrypted: i=1; AJvYcCU0VTDIrgqIyMnfEVVkuDxNVZLa4qD8ZFEP2tspEl2a5StBwWrlBp1HurFmt5RrKQd8ad3I4MMV9MHOugTtWOWBruZG5QdZHXTcn7BnM9c=
-X-Gm-Message-State: AOJu0YxZVUfx6qrUF3zkdwDaJX+ws1KmGqRh/WZd7VGJQr+aJb3JtvU7
-	dTZJlQVPZlHoZ625FxBaNjLsBU+7JwGwAxO2dbeBRNbnPj2tQZqC3n+Iv5VD6A==
-X-Google-Smtp-Source: AGHT+IFCgvsCIJDrbcrG1XQKZuxdSNCmiqPMYqmqG6zl2wy4ypIH/5+a83IAd5W1O7yRyYVQiPBksg==
-X-Received: by 2002:a17:906:48c9:b0:a43:3f37:4d88 with SMTP id d9-20020a17090648c900b00a433f374d88mr3941008ejt.71.1709019493296;
-        Mon, 26 Feb 2024 23:38:13 -0800 (PST)
-Message-ID: <293c6236-1ad0-4a48-853f-afec419656e9@suse.com>
-Date: Tue, 27 Feb 2024 08:38:12 +0100
+        bh=6N5s7n+fNWhEu6tGZmRmFlf3iWQVPeoCf9N7x/6a50k=;
+        b=Cc3pVMpn6M9zF22lwFMaTwFwKfyTsELCszZ8zB89zx/VNOOE93ShWdCqYk2vOxkW3h
+         hfLLcapwd4EP/+GRkthZZtK3AjyK1vCfRiV5XaF4uaBFTAFtN4C6VWsw6dWgbwvBzi4X
+         Y3rMEh8aVqFzh4i/Ndxt5/ZDBvQT9YkePcqXHWTKyxnWBWqz7dyZP1i12vVh79x+oF/i
+         DK/hx4ZZadTytfZ8eew4zqNkDpsJVHX1vHweKX8sG1xiZFY6HEekNi9K6fMn2SlIDnOY
+         3BUz/JebDwNcBGRKmHvc69bJlf6SpwpueYWUsfGThJddP6MVNBw55CMu/bTu1kvMe0dc
+         Icpg==
+X-Forwarded-Encrypted: i=1; AJvYcCVZZfcTxEgaiacERwavyRxhwPwHw42H0OeJyDYQCJOEb8ryr6H8EktDp1iuNHGLS9faCDhCtylCA3mef2XDjhgPTSDD4cfvUrItz3hvEgk=
+X-Gm-Message-State: AOJu0YyYAEi06MkdKoqz79O2p1uGHKZkz+DDb8GCmVuihK3Q73NczcLM
+	UbLjeqqmGMLG3qNkPIxCwkxcNHLGMRyu6ccaHB867d2KdShyudew6ivkBoemUQ==
+X-Google-Smtp-Source: AGHT+IFKRVeK8SvrAhq3ASQZICmD3fh3JiyTBAXrcpr3+fhE8dX6gfEC/847gbL30z/nurq3f3gnTw==
+X-Received: by 2002:a05:6402:1646:b0:566:2ee3:4993 with SMTP id s6-20020a056402164600b005662ee34993mr936079edx.26.1709020509806;
+        Mon, 26 Feb 2024 23:55:09 -0800 (PST)
+Message-ID: <73a38d85-0798-4cfa-8625-0f8c9e05b2a3@suse.com>
+Date: Tue, 27 Feb 2024 08:55:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 03/23] xen/riscv: introduce nospec.h
+Subject: Re: [PATCH v5 23/23] xen/README: add compiler and binutils versions
+ for RISC-V64
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
- <16370492de5344ae8e1aab688261600491868f4e.1708962629.git.oleksii.kurochko@gmail.com>
+ <ebaa05ded3cfddb1e3f7c87cd806b866312878fb.1708962629.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,31 +114,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <16370492de5344ae8e1aab688261600491868f4e.1708962629.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <ebaa05ded3cfddb1e3f7c87cd806b866312878fb.1708962629.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.02.2024 18:38, Oleksii Kurochko wrote:
-> From the unpriviliged doc:
->   No standard hints are presently defined.
->   We anticipate standard hints to eventually include memory-system spatial
->   and temporal locality hints, branch prediction hints, thread-scheduling
->   hints, security tags, and instrumentation flags for simulation/emulation.
-> 
-> Also, there are no speculation execution barriers.
-> 
-> Therefore, functions evaluate_nospec() and block_speculation() should
-> remain empty until a specific platform has an extension to deal with
-> speculation execution.
+On 26.02.2024 18:39, Oleksii Kurochko wrote:
+> This patch doesn't represent a strict lower bound for GCC and
+> GNU Binutils; rather, these versions are specifically employed by
+> the Xen RISC-V container and are anticipated to undergo continuous
+> testing.
 
-What about array_index_mask_nospec(), though? No custom implementation,
-meaning the generic one will be used there? If that's the intention,
-then ...
+Up and until that container would be updated to a newer gcc. I'm
+afraid I view this as too weak a criteria, but I'm also not meaning to
+stand in the way if somebody else wants to ack this patch in this form;
+my bare minimum requirement is now met.
 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> --- a/README
+> +++ b/README
+> @@ -48,6 +48,15 @@ provided by your OS distributor:
+>        - For ARM 64-bit:
+>          - GCC 5.1 or later
+>          - GNU Binutils 2.24 or later
+> +      - For RISC-V 64-bit:
+> +        - GCC 12.2 or later
+> +        - GNU Binutils 2.39 or later
+> +        This doesn't represent a strict lower bound for GCC and GNU Binutils;
+> +        rather, these versions are specifically employed by the Xen RISC-V
+> +        container and are anticipated to undergo continuous testing.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+As per above, I think here it really needs saying "at the time of writing"
+or recording a concrete date. Furthermore I expect "these versions" relates
+to the specifically named versions and particularly _not_ to "or later":
+With the criteria you apply, using later versions (or in fact any version
+other than the very specific ones used in the container) would be similarly
+untested. Much like x86 and Arm don't have the full range of permitted
+tool chain versions continuously tested. Plus don't forget that distros may
+apply their own selection of patches on top of what they take from upstream
+(and they may also take random snapshots rather than released versions).
+
+IOW it is hard for me to see why RISC-V needs stronger restrictions here
+than other architectures. It ought to be possible to determine a baseline
+version. Even if taking the desire to have "pause" available as a
+requirement, gas (and presumably gld) 2.36.1 would already suffice.
 
 Jan
-
 
