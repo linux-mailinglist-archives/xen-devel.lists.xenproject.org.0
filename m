@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5620A8691B2
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Feb 2024 14:24:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686170.1067840 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2459A8691C9
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Feb 2024 14:29:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686181.1067869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rexRf-0001cx-2W; Tue, 27 Feb 2024 13:24:31 +0000
+	id 1rexWG-0003TO-3R; Tue, 27 Feb 2024 13:29:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686170.1067840; Tue, 27 Feb 2024 13:24:31 +0000
+Received: by outflank-mailman (output) from mailman id 686181.1067869; Tue, 27 Feb 2024 13:29:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rexRe-0001au-V9; Tue, 27 Feb 2024 13:24:30 +0000
-Received: by outflank-mailman (input) for mailman id 686170;
- Tue, 27 Feb 2024 13:24:29 +0000
+	id 1rexWG-0003QW-0c; Tue, 27 Feb 2024 13:29:16 +0000
+Received: by outflank-mailman (input) for mailman id 686181;
+ Tue, 27 Feb 2024 13:29:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fto1=KE=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1rexRd-0001aI-KX
- for xen-devel@lists.xenproject.org; Tue, 27 Feb 2024 13:24:29 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20601.outbound.protection.outlook.com
- [2a01:111:f403:2408::601])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rG8r=KE=cloud.com=fouad.hilly@srs-se1.protection.inumbo.net>)
+ id 1rexWE-0003ON-6T
+ for xen-devel@lists.xenproject.org; Tue, 27 Feb 2024 13:29:14 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 878b1bf5-d573-11ee-a1ee-f123f15fe8a2;
- Tue, 27 Feb 2024 14:24:27 +0100 (CET)
-Received: from BYAPR06CA0012.namprd06.prod.outlook.com (2603:10b6:a03:d4::25)
- by IA0PR12MB8304.namprd12.prod.outlook.com (2603:10b6:208:3dc::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.36; Tue, 27 Feb
- 2024 13:24:22 +0000
-Received: from SJ1PEPF00001CE9.namprd03.prod.outlook.com
- (2603:10b6:a03:d4:cafe::ce) by BYAPR06CA0012.outlook.office365.com
- (2603:10b6:a03:d4::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.49 via Frontend
- Transport; Tue, 27 Feb 2024 13:24:22 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ1PEPF00001CE9.mail.protection.outlook.com (10.167.242.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Tue, 27 Feb 2024 13:24:22 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 27 Feb
- 2024 07:24:21 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 27 Feb
- 2024 07:24:21 -0600
-Received: from [172.31.100.92] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 27 Feb 2024 07:24:18 -0600
+ id 31c49571-d574-11ee-a1ee-f123f15fe8a2;
+ Tue, 27 Feb 2024 14:29:12 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-55a5e7fa471so5747459a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Feb 2024 05:29:12 -0800 (PST)
+Received: from fhilly.citrite.net (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ f8-20020a056402194800b005648d0eebdbsm739946edz.96.2024.02.27.05.29.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Feb 2024 05:29:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,165 +45,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 878b1bf5-d573-11ee-a1ee-f123f15fe8a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jyLxjzTldQQEazV08EdsnjoNw4HzhX+HfsWhaavy281yB5GWgLU3ZqDqk3Vr38rAwZfjA4M9p+VjGjtRytRgKrFTZLxiYViaxGYS/YxA8t2UVotzyua6DsZuTvtR5qYc3XWD+fb/ieJBrzYYr2McS42tp7BrB1yuWd49X2qiW3wLAhfL8AR571z12dUvqFeqVkrosxtX1PBmlU8SV33Wd6VZ47LKYaUvqP7q4axhG0tQaW/Dekhfb61Bdzy2rhG282cE6g1AvEPSBw+dhE3XrteNJ0djJPxMHvX+IgcZS5qcYd29Qh3YzZxZnitujVc8sTk73AChEoij1fYO/zfWlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PrzLqgCioMChk63CLo+D5m7J1D016EnpPjTTKejBi8I=;
- b=ZEEk5+SXQh0GKSrPqwkpbGPlJjriquDUf89VusHnZe/1nEsUAVYmYNIo9idvC9eQIbX0MhB8xhvNzOzh4sJBPgfuPyeRZaEczwgURLHjyB8gOT3Z6YR1lBFBj88IpwKoCHGsx+9nVubvBGuRHuJKqD75CbQ6j8OglBUGJDdJYJUTvlQImtvVKDfGcBQgB0+kLaRDrjwUzEGgXBSlfOiMXn0CovJU5I0SZ6zLHOYQ/tOohVXG9CiSzno3L3Ad6zyjkVTDFmxomq42KURLkYhemOK9so+PZR4MP5ZOT3IGwq0IfX+c1OkoLYsrKeQNhu5Er0khQkaqdmPtfnA+C+kwYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PrzLqgCioMChk63CLo+D5m7J1D016EnpPjTTKejBi8I=;
- b=MZMGGWHzZWxNe9gkwbRHBlE7UwEkE0MwnZE1Vkj6wfsMxnQap5SNS+u7ZtFcRdW2w0b+ebXJNhksWBKOQNg9hVunCg36R6ybnVWAEP0Y0bv7qoE86PUjtmf4jOdHkMjxBkp1DXW2PEhnRgXd6SyY+FZ1jAI/bSebHLiQRdKckQI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <c3edf84d-3177-4125-bdd6-ba99190340a3@amd.com>
-Date: Tue, 27 Feb 2024 21:24:12 +0800
+X-Inumbo-ID: 31c49571-d574-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1709040551; x=1709645351; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=O8OPP4zUnBp0qZtUz97nx+VGwT/g+6InQ+dRne4geAI=;
+        b=cQA64swXFCmnMaXsAGqlVmEelAPV+1PFyN5xNK3QrSqrAURKVe/QoreIkfhzwVVT8k
+         A9L3qcPDgqviDFnuQcAxsloBILbNVAWaTlqNsYshp4E5jjn5/v40EpgY6stSNIgBMjgf
+         +MzLIwMTmZLY+U9/qFiyPiaOQzFSCLoVUG7bE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709040551; x=1709645351;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=O8OPP4zUnBp0qZtUz97nx+VGwT/g+6InQ+dRne4geAI=;
+        b=o1g8mzIjAyA6F0cBDdOVnYWM9wy8Mh6KC4Q1Z/swaRBP8HTm0jFNRIFqt61xd+s5HM
+         +mw7ZUVRsBNdn183EBFLHgmVP8BQn/wND+IRo3vZ4XVBH/EVnpFu5kfFZeTvPokOQDM1
+         v8qsG8+xnwOkrTIdRvV6p29LpyiPBJ1hHltqK534ycpvGrHEqnas9HXyajQH+8ib7Alw
+         hGpc7lfth3d4iCX41ybBDn9cOHcvk4PuDOqc7L/+jah+ggOxcVeGqicz1ULtaIesJMGi
+         v1xxYjA52kLrq/UsyS9w2KFuSnfaTu9fFlplaNP40T3qeDOLk98PBJtIxAY6E1ZsRNca
+         MUVw==
+X-Gm-Message-State: AOJu0YyO6rVwuMboUJcSrUUOVPkRhBNcloVIlgrw3htZVqXJXyDefE/3
+	7qvzYqP9iMbLpTjO8brY+49eEZPKwP4hYOJgBGaANMosjImnZK2pji36L8LoSkH/NxFmpFt4IOO
+	OYi4=
+X-Google-Smtp-Source: AGHT+IGMGnZx1EQaEb4du/db3axhqXjvwFvuH3yFWHOii2P0hvfLukl9yJ5Lq4s3jlKQ94tRWdea2w==
+X-Received: by 2002:a05:6402:612:b0:566:1fbd:22bb with SMTP id n18-20020a056402061200b005661fbd22bbmr2249049edv.9.1709040551191;
+        Tue, 27 Feb 2024 05:29:11 -0800 (PST)
+From: Fouad Hilly <fouad.hilly@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Fouad Hilly <fouad.hilly@cloud.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v2] tools/xentop: Add VBD3 support to xentop
+Date: Tue, 27 Feb 2024 13:26:28 +0000
+Message-ID: <20240227132628.2157031-1-fouad.hilly@cloud.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/common: Do not allocate magic pages 1:1 for direct
- mapped domains
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross
-	<jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal
- Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Alec Kwapis
-	<alec.kwapis@medtronic.com>, <xen-devel@lists.xenproject.org>
-References: <20240226011935.169462-1-xin.wang2@amd.com>
- <b41daccb-d402-4da8-bc88-933facd088a8@suse.com>
-From: Henry Wang <xin.wang2@amd.com>
-In-Reply-To: <b41daccb-d402-4da8-bc88-933facd088a8@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE9:EE_|IA0PR12MB8304:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13af9ca9-5b1c-4ced-2cd9-08dc3797691c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	bt6SAEwumedJDIynDD0jkCObIsEeoslWjm15FUz9Fz16UFhUlFqyrSaRMhmjrDp0AzATermYRyjOI+mXGmI5AE4CP4eKXYzpU39e6CHwo7RIzSToJsrzA0Nj5c3BOPfqNagFE/pRPrEs93ETGjU1YDeloRtuMCqPk1XSRRIhEGXkHm+uN3n1xXrbZvJ5lEEt/Y2/iGiEBpPw+obpVMtdkE+gcMe/EyecuVnd9rrH8+wMCIvk9jPdmP1o5uz0Gb6xYp7LOx+B735RPjHMtdQPRugSv/0EDf9UaT8mxNOjCMgWa3SQ77ezLNvTMfxxsmKMPdABOI+h9NRABBl88YOAEA9DbvZraQPw2TBReQrznh3PRVmXGqLjHGp6ajmf/6rRRhXzfvNCA9jg1sc7DkvBW/aDVQ9YCWWsAvad/nbMxRzvSUBST2lOaSrNav9f3USIhI9PkNFLnM8a6I8LjgrM8+R+YUL+7ZimeSnutyY7sR5Kmxhr/f5x4RYwuJ3VdyT1u0kJ0llvYiM8HgdvJhbPRZXwTIS7b92sMf9tcxknotHgneeOf4Z/tpTluFm0wrn+6eFDjRVnk6kK7Frk0uo0LEhzwbeketXxvu3tgpulypIomN1AElCADuZ/DSc2gpVcD8F1zHWrYKBn93PxsbJS12OiCZBjSLTpCteee9y1cQhAgtSNkPxd8tGR9C7tHriyfsyWLqE4cpVfxtfOvf9ka5SAOl1WskpgEIcXBz9mpQKKfvICD9wtWDXfZf7a/fmK
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2024 13:24:22.1561
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13af9ca9-5b1c-4ced-2cd9-08dc3797691c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CE9.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8304
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+From: Pritha Srivastava <pritha.srivastava@citrix.com>
 
-On 2/26/2024 4:25 PM, Jan Beulich wrote:
-> On 26.02.2024 02:19, Henry Wang wrote:
->> --- a/xen/arch/arm/include/asm/mm.h
->> +++ b/xen/arch/arm/include/asm/mm.h
->> @@ -428,6 +428,19 @@ static inline void page_set_xenheap_gfn(struct page_info *p, gfn_t gfn)
->>       } while ( (y = cmpxchg(&p->u.inuse.type_info, x, nx)) != x );
->>   }
->>   
->> +#define MAGIC_PAGE_N_GPFN(n)     ((GUEST_MAGIC_BASE >> PAGE_SHIFT) + n)
->> +static inline bool is_magic_gpfn(xen_pfn_t gpfn)
->> +{
->> +    unsigned int i;
->> +    for ( i = 0; i < NR_MAGIC_PAGES; i++ )
-> Nit: Blank line please between declaration(s) and statement(s).
+xl now knows how to drive tapdisk, so modify libxenstat to
+understand vbd3 statistics.
 
-Thanks, will correct in next version.
+Signed-off-by: Pritha Srivastava <pritha.srivastava@citrix.com>
+Signed-off-by: Jorge Martin <jorge.martin@citrix.com>
+Signed-off-by: Fouad Hilly <fouad.hilly@cloud.com>
+---
+CC: Wei Liu <wl@xen.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>
+CC: Juergen Gross <jgross@suse.com>
 
->> --- a/xen/arch/x86/include/asm/mm.h
->> +++ b/xen/arch/x86/include/asm/mm.h
->> @@ -628,4 +628,9 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
->>       return (mfn + nr) <= (virt_to_mfn(eva - 1) + 1);
->>   }
->>   
->> +static inline bool is_magic_gpfn(xen_pfn_t gpfn)
->> +{
->> +    return false;
->> +}
-> I don't think every arch should need to gain such a dummy function.
+v2:
+- Fix order of SoB
+- Fix Syntax
+- Re-order free(path)
+---
+ tools/libs/stat/xenstat_linux.c | 65 ++++++++++++++++++++++++++++++++-
+ tools/libs/stat/xenstat_priv.h  | 16 ++++++++
+ tools/xentop/xentop.c           |  1 +
+ 3 files changed, 81 insertions(+), 1 deletion(-)
 
-Thanks for raising the concern here and about the 
-is_domain_direct_mapped(), I will try to do some clean-ups if necessary 
-in next version.
-
-> Plus
-> the function name doesn't clarify at all what kind of "magic" this is
-> about. Plus I think the (being phased out) term "gpfn" would better not
-> be used in new functions anymore. Instead type-safe gfn_t would likely
-> better be used as parameter type.
-
-Sure, I will use gfn_t in the next version.
-
->> --- a/xen/common/memory.c
->> +++ b/xen/common/memory.c
->> @@ -219,7 +219,7 @@ static void populate_physmap(struct memop_args *a)
->>           }
->>           else
->>           {
->> -            if ( is_domain_direct_mapped(d) )
->> +            if ( is_domain_direct_mapped(d) && !is_magic_gpfn(gpfn) )
->>               {
->>                   mfn = _mfn(gpfn);
->>   
-> I wonder whether is_domain_direct_mapped() shouldn't either be cloned
-> into e.g. is_gfn_direct_mapped(d, gfn), or be adjusted in-place to gain
-> such a (then optional) 2nd parameter. (Of course there again shouldn't be
-> a need for every domain to define a stub is_domain_direct_mapped() - if
-> not defined by an arch header, the stub can be supplied in a single
-> central place.)
-
-Same here, it looks like you prefer the centralized 
-is_domain_direct_mapped() now, as we are having more archs. I can do the 
-clean-up when sending v2. Just out of curiosity, do you think it is a 
-good practice to place the is_domain_direct_mapped() implementation in 
-xen/domain.h with proper arch #ifdefs? If not do you have any better 
-ideas? Thanks!
-
->> --- a/xen/include/public/arch-arm.h
->> +++ b/xen/include/public/arch-arm.h
->> @@ -476,6 +476,12 @@ typedef uint64_t xen_callback_t;
->>   #define GUEST_MAGIC_BASE  xen_mk_ullong(0x39000000)
->>   #define GUEST_MAGIC_SIZE  xen_mk_ullong(0x01000000)
->>   
->> +#define NR_MAGIC_PAGES 4
->> +#define CONSOLE_PFN_OFFSET 0
->> +#define XENSTORE_PFN_OFFSET 1
->> +#define MEMACCESS_PFN_OFFSET 2
->> +#define VUART_PFN_OFFSET 3
->> +
->>   #define GUEST_RAM_BANKS   2
-> Of these only NR_MAGIC_PAGES is really used in Xen, afaics.
-> Also while this is added to a tools-only section, I'm also concerned of
-> the ongoing additions here without suitable XEN_ prefixes. Any number
-> of kinds of magic pages may exist for other reasons in a platform; which
-> ones are meant would therefore better be sufficiently clear from the
-> identifier used.
-
-Yes you are correct, like I replied in another thread, I will undo the 
-changes in next version.
-
-Kind regards,
-Henry
-> Jan
+diff --git a/tools/libs/stat/xenstat_linux.c b/tools/libs/stat/xenstat_linux.c
+index cbba54aa83ee..6d82e204aad4 100644
+--- a/tools/libs/stat/xenstat_linux.c
++++ b/tools/libs/stat/xenstat_linux.c
+@@ -390,6 +390,38 @@ void xenstat_uninit_networks(xenstat_handle * handle)
+ 		fclose(priv->procnetdev);
+ }
+ 
++static int read_attributes_vbd3(char *vbd3_path, xenstat_vbd *vbd)
++{
++	FILE *fp;
++	struct vbd3_stats vbd3_stats;
++
++	fp = fopen(vbd3_path, "rb");
++
++	if (fp == NULL) {
++		return -1;
++	}
++
++	if (fread(&vbd3_stats, sizeof(struct vbd3_stats), 1, fp) != 1) {
++		fclose(fp);
++		return -1;
++	}
++
++	if (vbd3_stats.version != 1) {
++		fclose(fp);
++		return -1;
++	}
++
++	vbd->oo_reqs = vbd3_stats.oo_reqs;
++	vbd->rd_reqs = vbd3_stats.read_reqs_submitted;
++	vbd->rd_sects = vbd3_stats.read_sectors;
++	vbd->wr_reqs = vbd3_stats.write_reqs_submitted;
++	vbd->wr_sects = vbd3_stats.write_sectors;
++
++	fclose(fp);
++
++	return 0;
++}
++
+ static int read_attributes_vbd(const char *vbd_directory, const char *what, char *ret, int cap)
+ {
+ 	static char file_name[80];
+@@ -438,7 +470,7 @@ int xenstat_collect_vbds(xenstat_node * node)
+ 		int ret;
+ 		char buf[256];
+ 
+-		ret = sscanf(dp->d_name, "%3s-%u-%u", buf, &domid, &vbd.dev);
++		ret = sscanf(dp->d_name, "%255[^-]-%u-%u", buf, &domid, &vbd.dev);
+ 		if (ret != 3)
+ 			continue;
+ 		if (!(strstr(buf, "vbd")) && !(strstr(buf, "tap")))
+@@ -448,6 +480,8 @@ int xenstat_collect_vbds(xenstat_node * node)
+ 			vbd.back_type = 1;
+ 		else if (strcmp(buf,"tap") == 0)
+ 			vbd.back_type = 2;
++		else if (strcmp(buf,"vbd3") == 0)
++			vbd.back_type = 3;
+ 		else
+ 			vbd.back_type = 0;
+ 
+@@ -479,6 +513,35 @@ int xenstat_collect_vbds(xenstat_node * node)
+ 				vbd.error = 1;
+ 			}
+ 		}
++		else if (vbd.back_type == 3)
++		{
++			char *td3_pid;
++			char *path;
++
++			vbd.back_type = 3;
++			vbd.error = 0;
++
++			if (asprintf(&path, "/local/domain/0/backend/vbd3/%u/%u/kthread-pid", domid, vbd.dev) < 0)
++				continue;
++
++			td3_pid = xs_read(node->handle->xshandle, XBT_NULL, path, NULL);
++
++			free(path);
++
++			if (td3_pid == NULL)
++				continue;
++
++			if (asprintf(&path, "/dev/shm/td3-%s/vbd-%u-%u", td3_pid, domid, vbd.dev) < 0) {
++				free(td3_pid);
++				continue;
++			}
++
++			if (read_attributes_vbd3(path, &vbd) < 0)
++				vbd.error = 1;
++
++			free(td3_pid);
++			free(path);
++		}
+ 		else
+ 		{
+ 			vbd.error = 1;
+diff --git a/tools/libs/stat/xenstat_priv.h b/tools/libs/stat/xenstat_priv.h
+index 4eb44a8ebb84..c3a9635240e9 100644
+--- a/tools/libs/stat/xenstat_priv.h
++++ b/tools/libs/stat/xenstat_priv.h
+@@ -98,6 +98,22 @@ struct xenstat_vbd {
+ 	unsigned long long wr_sects;
+ };
+ 
++struct vbd3_stats {
++	uint32_t version;
++	uint32_t __pad;
++	uint64_t oo_reqs;
++	uint64_t read_reqs_submitted;
++	uint64_t read_reqs_completed;
++	uint64_t read_sectors;
++	uint64_t read_total_ticks;
++	uint64_t write_reqs_submitted;
++	uint64_t write_reqs_completed;
++	uint64_t write_sectors;
++	uint64_t write_total_ticks;
++	uint64_t io_errors;
++	uint64_t flags;
++};
++
+ extern int xenstat_collect_networks(xenstat_node * node);
+ extern void xenstat_uninit_networks(xenstat_handle * handle);
+ extern int xenstat_collect_vbds(xenstat_node * node);
+diff --git a/tools/xentop/xentop.c b/tools/xentop/xentop.c
+index 0a2fab7f15a3..f5a456fd4dfd 100644
+--- a/tools/xentop/xentop.c
++++ b/tools/xentop/xentop.c
+@@ -1124,6 +1124,7 @@ void do_vbd(xenstat_domain *domain)
+ 		"Unidentified",           /* number 0 */
+ 		"BlkBack",           /* number 1 */
+ 		"BlkTap",            /* number 2 */
++		"Tapdisk3"           /* number 3 */
+ 	};
+ 
+ 	num_vbds = xenstat_domain_num_vbds(domain);
+-- 
+2.42.0
 
 
