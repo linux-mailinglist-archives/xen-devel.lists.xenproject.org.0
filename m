@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0972B8684C2
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Feb 2024 00:49:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.685832.1067192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AA298684D3
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Feb 2024 01:02:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.685835.1067203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rekib-0002UM-8S; Mon, 26 Feb 2024 23:49:09 +0000
+	id 1rekv0-0005gH-SJ; Tue, 27 Feb 2024 00:01:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 685832.1067192; Mon, 26 Feb 2024 23:49:09 +0000
+Received: by outflank-mailman (output) from mailman id 685835.1067203; Tue, 27 Feb 2024 00:01:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rekib-0002Rv-5l; Mon, 26 Feb 2024 23:49:09 +0000
-Received: by outflank-mailman (input) for mailman id 685832;
- Mon, 26 Feb 2024 23:49:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rekv0-0005d4-Og; Tue, 27 Feb 2024 00:01:58 +0000
+Received: by outflank-mailman (input) for mailman id 685835;
+ Tue, 27 Feb 2024 00:01:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gV/7=KD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rekiY-0002Rl-Uh
- for xen-devel@lists.xenproject.org; Mon, 26 Feb 2024 23:49:06 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9e006ce1-d501-11ee-98f5-efadbce2ee36;
- Tue, 27 Feb 2024 00:49:02 +0100 (CET)
+ <SRS0=15Q7=KE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rekuy-0005cy-Lv
+ for xen-devel@lists.xenproject.org; Tue, 27 Feb 2024 00:01:56 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6a3690d4-d503-11ee-8a58-1f161083a0e0;
+ Tue, 27 Feb 2024 01:01:54 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id EC2E061241;
- Mon, 26 Feb 2024 23:49:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57138C433F1;
- Mon, 26 Feb 2024 23:48:59 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 14D536136C;
+ Tue, 27 Feb 2024 00:01:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC7EFC433C7;
+ Tue, 27 Feb 2024 00:01:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,235 +42,304 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e006ce1-d501-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 6a3690d4-d503-11ee-8a58-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1708991340;
-	bh=PjO7PQQo3rEX1iWh2Ea74qiVJOGbFJIdkegOczGU+Ts=;
+	s=k20201202; t=1708992112;
+	bh=WHm2jyxlCXyjW+R4esnXtFh6rU+brq2dUnlQPZLjxg0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=JbuhtV30nPy3DGuY/NyGUWKIkDUTh2mymmgu9EpChSkfZEkit5MBphuM1ftmQkuAB
-	 A2djkv9QnzgqV+bgnucNnCJjVcv/3pyuT3V8HJWd8y+ru8bsqcJBJSIG3kQ2jktoJV
-	 Q+ZbvrM2vClEH3jHSyQr6+wPXK9PuH7s0ON5WSShexZCzDc5RRkkb2yZL+PSof/0As
-	 78iH0yuNOwwAPLOOw42cRPHoIKG+K+Dvo3qiARPHQ8LhLtrlDqt5VZ/LtjUhDXEWsR
-	 myu31qTL3ZOeuF3ZP0lMN2hQFq9hTsUgUuWVDmPCAkSWmMwujIiumMbXyJrBE6HRRN
-	 SQOehvyCtEnVw==
-Date: Mon, 26 Feb 2024 15:48:57 -0800 (PST)
+	b=gK5jRHNkSpsvb7pcLqCMKPMG9jVFhJg68gmgFHnCMWAPdnSoergDzLRWKA6ljO1DP
+	 ut5Gb+VXxDfyXCf22DBEn8zTbv63se4YJpDDWWj59Uxu3loUITwV79+drAMwcD8b6J
+	 faJ0scQTqKaNfXhfNDWGVcenIyNatSmRgviwYq7JvAf6J16+IEi/jJ2kVNkWBrK0Aa
+	 WWoeQmWjRIceOu7PfeZ6QVGm3Fd8ZfYv4G8WfvPzbDkgmfwBDG2GhHrYVwLGTpaBOf
+	 tFkzGHm+PsgFlNfHQK3RlKS/OpEIN0w1YOpZ+I71LXE8p5JVLjMtVx5Q1milJYKp/D
+	 pUkmnku5GArVA==
+Date: Mon, 26 Feb 2024 16:01:49 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 3/4] xen/include: add pure and const attributes
-In-Reply-To: <cb463469-51e1-4639-bf56-36fe9051d1b3@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2402261511010.247676@ubuntu-linux-20-04-desktop>
-References: <cover.1697638210.git.simone.ballarin@bugseng.com> <fd5421162a00aa782e0776324ff6497193c1e3d3.1697638210.git.simone.ballarin@bugseng.com> <89778285-5cba-8fb5-70bc-710b6dd30a10@suse.com> <0032186f-80c7-4dba-b46e-10d4a8e2a8cb@bugseng.com>
- <e8bf9817-fd54-9bf4-4302-dcee682f9172@suse.com> <alpine.DEB.2.22.394.2310231417260.3516@ubuntu-linux-20-04-desktop> <8f8141e2-c55c-2e58-a078-d5d8764a02df@suse.com> <alpine.DEB.2.22.394.2402221730270.754277@ubuntu-linux-20-04-desktop>
- <6eb4dc7c-c6a5-496a-a37f-125b00e9aaa3@suse.com> <alpine.DEB.2.22.394.2402231432090.754277@ubuntu-linux-20-04-desktop> <cb463469-51e1-4639-bf56-36fe9051d1b3@suse.com>
+    xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
+    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
+    roger.pau@citrix.com, bertrand.marquis@arm.com, julien@xen.org, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH] xen: cache clearing and invalidation helpers
+ refactoring
+In-Reply-To: <fb460b92d758891c1de42f7e588d5ffb@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2402261553140.247676@ubuntu-linux-20-04-desktop>
+References: <cc6bf44701c808645c69bacaf4463295e2cb0fba.1708354388.git.nicola.vetrini@bugseng.com> <4f3b3d52a3ba20b05ecfa068b916b804@bugseng.com> <alpine.DEB.2.22.394.2402231502540.754277@ubuntu-linux-20-04-desktop>
+ <fb460b92d758891c1de42f7e588d5ffb@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-329351275-1708989087=:247676"
-Content-ID: <alpine.DEB.2.22.394.2402261533040.247676@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-329351275-1708989087=:247676
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2402261533041.247676@ubuntu-linux-20-04-desktop>
-
-On Mon, 26 Feb 2024, Jan Beulich wrote:
-> On 23.02.2024 23:36, Stefano Stabellini wrote:
-> > On Fri, 23 Feb 2024, Jan Beulich wrote:
-> >> On 23.02.2024 02:32, Stefano Stabellini wrote:
-> >>> On Tue, 24 Oct 2023, Jan Beulich wrote:
-> >>>> On 24.10.2023 00:05, Stefano Stabellini wrote:
-> >>>>> On Mon, 23 Oct 2023, Jan Beulich wrote:
-> >>>>>> On 23.10.2023 17:23, Simone Ballarin wrote:
-> >>>>>>> On 23/10/23 15:34, Jan Beulich wrote:
-> >>>>>>>> On 18.10.2023 16:18, Simone Ballarin wrote:
-> >>>>>>>>> --- a/xen/include/xen/pdx.h
-> >>>>>>>>> +++ b/xen/include/xen/pdx.h
-> >>>>>>>>> @@ -164,7 +164,7 @@ static inline unsigned long pfn_to_pdx(unsigned long pfn)
-> >>>>>>>>>    * @param pdx Page index
-> >>>>>>>>>    * @return Obtained pfn after decompressing the pdx
-> >>>>>>>>>    */
-> >>>>>>>>> -static inline unsigned long pdx_to_pfn(unsigned long pdx)
-> >>>>>>>>> +static inline __attribute_pure__ unsigned long pdx_to_pfn(unsigned long pdx)
-> >>>>>>>>>   {
-> >>>>>>>>>       return (pdx & pfn_pdx_bottom_mask) |
-> >>>>>>>>>              ((pdx << pfn_pdx_hole_shift) & pfn_top_mask);
-> >>>>>>>>
-> >>>>>>>> Taking this as an example for what I've said above: The compiler can't
-> >>>>>>>> know that the globals used by the functions won't change value. Even
-> >>>>>>>> within Xen it is only by convention that these variables are assigned
-> >>>>>>>> their values during boot, and then aren't changed anymore. Which makes
-> >>>>>>>> me wonder: Did you check carefully that around the time the variables
-> >>>>>>>> have their values established, no calls to the functions exist (which
-> >>>>>>>> might then be subject to folding)?
-> >>>>>>>
-> >>>>>>> There is no need to check that, the GCC documentation explicitly says:
-> >>>>>>>
-> >>>>>>> However, functions declared with the pure attribute *can safely read any 
-> >>>>>>> non-volatile objects*, and modify the value of objects in a way that 
-> >>>>>>> does not affect their return value or the observable state of the program.
-> >>>>>>
-> >>>>>> I did quote this same text in response to what Andrew has said, but I also
-> >>>>>> did note there that this needs to be taken with a grain of salt: The
-> >>>>>> compiler generally assumes a single-threaded environment, i.e. no changes
-> >>>>>> to globals behind the back of the code it is processing.
-> >>>>>
-> >>>>> Let's start from the beginning. The reason for Simone to add
-> >>>>> __attribute_pure__ to pdx_to_pfn and other functions is for
-> >>>>> documentation purposes. It is OK if it doesn't serve any purpose other
-> >>>>> than documentation.
-> >>>>>
-> >>>>> Andrew, for sure we do not want to lie to the compiler and introduce
-> >>>>> undefined behavior. If we think there is a risk of it, we should not do
-> >>>>> it.
-> >>>>>
-> >>>>> So, what do we want to document? We want to document that the function
-> >>>>> does not have side effects according to MISRA's definition of it, which
-> >>>>> might subtly differ from GCC's definition.
-> >>>>>
-> >>>>> Looking at GCC's definition of __attribute_pure__, with the
-> >>>>> clarification statement copy/pasted above by both Simone and Jan, it
-> >>>>> seems that __attribute_pure__ matches MISRA's definition of a function
-> >>>>> without side effects. It also seems that pdx_to_pfn abides to that
-> >>>>> definition.
-> >>>>>
-> >>>>> Jan has a point that GCC might be making other assumptions
-> >>>>> (single-thread execution) that might not hold true in our case. Given
-> >>>>> the way the GCC statement is written I think this is low risk. But maybe
-> >>>>> not all GCC versions we want to support in the project might have the
-> >>>>> same definition of __attribute_pure__. So we could end up using
-> >>>>> __attribute_pure__ correctly for the GCC version used for safety (GCC
-> >>>>> 12.1, see docs/misra/C-language-toolchain.rst) but it might actually
-> >>>>> break an older GCC version.
-> >>>>>
-> >>>>>
-> >>>>> So Option#1 is to use __attribute_pure__ taking the risk that a GCC or
-> >>>>> Clang version might interpret __attribute_pure__ differently and
-> >>>>> potentially misbehave.
-> >>>>>
-> >>>>> Option#2 is to avoid this risk, by not using __attribute_pure__.
-> >>>>> Instead, we can use SAF-xx-safe or deviations.rst to document that
-> >>>>> pdx_to_pfn and other functions like it are without side effects
-> >>>>> according to MISRA's definition.
-> >>>>>
-> >>>>>
-> >>>>> Both options have pros and cons. To me the most important factor is how
-> >>>>> many GCC versions come with the statement "pure attribute can safely
-> >>>>> read any non-volatile objects, and modify the value of objects in a way
-> >>>>> that does not affect their return value or the observable state of the
-> >>>>> program".
-> >>>>>
-> >>>>> I checked and these are the results:
-> >>>>> - gcc 4.0.2: no statement
-> >>>>> - gcc 5.1.0: no statement
-> >>>>> - gcc 6.1.0: no statement
-> >>>>> - gcc 7.1.0: no statement
-> >>>>> - gcc 8.1.0: alternative statement "The pure attribute imposes similar
-> >>>>>   but looser restrictions on a function’s definition than the const
-> >>>>>   attribute: it allows the function to read global variables."
-> >>>>> - gcc 9.1.0: yes statement
-> >>>>>
-> >>>>>
-> >>>>> So based on the above, __attribute_pure__ comes with its current
-> >>>>> definition only from gcc 9 onward. I don't know if as a Xen community we
-> >>>>> clearly declare a range of supported compilers, but I would imagine we
-> >>>>> would still want to support gcc versions older than 9? (Not to mention
-> >>>>> clang, which I haven't checked.)
-> >>>>>
-> >>>>> It doesn't seem to me that __attribute_pure__ could be correctly used on
-> >>>>> pdx_to_pfn with GCC 7.1.0 for example.
-> >>>>
-> >>>> The absence of documentation doesn't mean the attribute had different
-> >>>> (or even undefined) meaning in earlier versions. Instead it means one
-> >>>> would need to consult other places (source code?) to figure out whether
-> >>>> there was any behavioral difference (I don't think there was).
-> >>>>
-> >>>> That said, ...
-> >>>>
-> >>>>> So in conclusion, I think it is better to avoid __attribute_pure__ and
-> >>>>> use SAF-xx-safe or an alternative approach instead.
-> >>>>
-> >>>> ... I agree here. We just don't want to take chances.
-> >>>
-> >>> Let me resurrect this thread.
-> >>>
-> >>> Could we use something like "pure" that we #define as we want?
-> >>>
-> >>> Depending on the compiler version or other options we could #define pure
-> >>> to __attribute_pure__ or to nothing.
-> >>
-> >> While we can do about anything, I don't think it's a good idea to overload
-> >> a well known term with something having somewhat different meaning. If a
-> >> differently named custom attribute helps, that might be a possible option.
-> > 
-> > It doesn't have a different meaning. If it had a different meaning I'd
-> > agree with you.
+On Sat, 24 Feb 2024, Nicola Vetrini wrote:
+> Hi Stefano,
 > 
-> Then we need to sort this aspect first: If there was no difference in
-> meaning, we ought to be using the real attribute, not a pseudo
-> surrogate. Yet the earlier discussion, according to my understanding,
-> has led to the understanding that for the given example the real
-> attribute cannot be applied entirely legitimately. Hence why the
-> thinking of alternatives actually started. What am I missing?
-
-There are two different questions:
-1) using __attribute_pure__ in general when appropriate
-2) using __attribute_pure__ in pdx_to_pfn as this patch does
-
-
-I was talking about 1): as a general approach it looks like a good idea
-to use __attribute_pure__ when possible and appropriate.
-
-Now let's talk about 2). The latest definition of __attribute_pure__ is:
-
-"""
-The pure attribute prohibits a function from modifying the state of the program that is observable by means other than inspecting the function’s return value. However, functions declared with the pure attribute can safely read any non-volatile objects, and modify the value of objects in a way that does not affect their return value or the observable state of the program.
-"""
-
-So there are two interesting issues:
-
-a) While this documentation explicitly allows for reading global vars,
-older versions of the docs are less clear. What do we do about them?
-
-b) Jan wrote that he interprets the statements above to be only valid in
-a single-threaded environment
-
-
-To be honest, I am not convinced by b). Jan, is there a statement in the
-GCC docs that says that all the attributes (pure being one of them) only
-apply to a single-thread environment? That would be extremely limiting
-for something like __attribute_pure__. I think we should take the
-documentation of attribute pure at face value. To me, it clearly applies
-to pdx_to_pfn. Roberto and the team at Bugseng came to the same
-conclusion.
-
-On the other end, I think a) is important. Older version of GCC don't
-clarify the behavior toward global variables. From the documentation, I
-would use __attribute_pure__ only with GCC 9 or later. Which is why we
-need the #define.
-
-
-> > The goal is for the #define to have exactly the same meaning as the gcc
-> > definition from gcc 9 onward. However, other versions of gcc or other
-> > compilers could have different semantics. Also we might not want to
-> > allow gcc to perform the optimizations that it might want to do if the
-> > attribute is passed.
+> On 2024-02-24 00:05, Stefano Stabellini wrote:
+> > On Fri, 23 Feb 2024, Nicola Vetrini wrote:
+> > > On 2024-02-19 16:14, Nicola Vetrini wrote:
+> > > > The cache clearing and invalidation helpers in x86 and Arm didn't
+> > > > comply with MISRA C Rule 17.7: "The value returned by a function
+> > > > having non-void return type shall be used". On Arm they
+> > > > were always returning 0, while some in x86 returned -EOPNOTSUPP
+> > > > and in common/grant_table the return value is saved.
+> > > >
+> > > > As a consequence, a common helper arch_grant_cache_flush that returns
+> > > > an integer is introduced, so that each architecture can choose whether
+> > > to
+> > > > return an error value on certain conditions, and the helpers have either
+> > > > been changed to return void (on Arm) or deleted entirely (on x86).
+> > > >
+> > > > Signed-off-by: Julien Grall <julien@xen.org>
+> > > > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> > > > ---
+> > > > The original refactor idea came from Julien Grall in [1]; I edited that
+> > > > proposal
+> > > > to fix build errors.
+> > > >
+> > > > I did introduce a cast to void for the call to flush_area_local on x86,
+> > > > because
+> > > > even before this patch the return value of that function wasn't checked
+> > > in
+> > > > all
+> > > > but one use in x86/smp.c, and in this context the helper (perhaps
+> > > > incidentally)
+> > > > ignored the return value of flush_area_local.
+> > > >
+> > > > [1]
+> > > >
+> > > https://lore.kernel.org/xen-devel/09589e8f-77b6-47f7-b5bd-cf485e4b60f1@xen.org/
+> > > > ---
+> > > >  xen/arch/arm/include/asm/page.h     | 33 ++++++++++++++++++-----------
+> > > >  xen/arch/x86/include/asm/flushtlb.h | 23 ++++++++++----------
+> > > >  xen/common/grant_table.c            |  9 +-------
+> > > >  3 files changed, 34 insertions(+), 31 deletions(-)
+> > > >
+> > > 
+> > > I'll put this patch in the backlog at the moment: too many intricacies
+> > > while
+> > > trying to untangle xen/flushtlb from xen/mm.h, and there are easier cases
+> > > that
+> > > can be done faster. If someone is interested I can post the partial work
+> > > I've
+> > > done so far, even though it doesn't
+> > > build on x86.
 > > 
-> > So the definition would be clear and 100% aligned with the modern gcc
-> > definition. However we would be able to control the behavior better.
+> > I understand that the blocker is:
+> > 
+> > diff --git a/xen/arch/arm/include/asm/page.h
+> > b/xen/arch/arm/include/asm/page.h
+> > index 69f817d1e6..e90c9de361 100644
+> > --- a/xen/arch/arm/include/asm/page.h
+> > +++ b/xen/arch/arm/include/asm/page.h
+> > @@ -123,6 +123,7 @@
+> > 
+> >  #ifndef __ASSEMBLY__
+> > 
+> > +#include <public/grant_table.h>
+> >  #include <xen/errno.h>
+> >  #include <xen/types.h>
+> >  #include <xen/lib.h>
+> > 
+> > 
+> > And the headers disentagling required to solve it, right?
+> > 
+> > 
+> > Let me ask a silly question. public/grant_table.h seems needed by
+> > arch_grant_cache_flush. Can we move arch_grant_cache_flush somewhere
+> > else? It is not like page.h is a perfect fit for it anyway.
+> > 
+> > For instance, can we move it to
+> > 
+> > xen/arch/arm/include/asm/grant_table.h
+> > 
+> > ?
 > 
-> If we feared older gcc didn't implement "pure" suitably, we should
-> simply make __attribute_pure__ expand to nothing there. (Still use of
-> the attribute then would need limiting to cases where it can validly
-> be applied.)
+> Yes, this is what was suggested and what I was trying to accomplish.
+> Basically my plan is:
+> 
+> 1. move the arch_grant_cache_flush helper to asm/grant_table.h for both
+> architectures
+> 2. pull out of xen/mm.h this hunk (note the inclusion of asm/flushtlb in the
+> middle of the file) because there is a build error on tlbflush_current_time()
+> induced in some .c file (don't remember which) by the earlier movement
 
-That's fine by me
---8323329-329351275-1708989087=:247676--
+It looks like it would be easier to resolve the build error on
+tlbflush_current_time() in another way. What's the build error exactly?
+Looking at the implementation of tlbflush_current_time on the various
+arches I couldn't find any potential issues.
+
+I just moved the implementation of arch_grant_cache_flush to arch
+specific headers and it seemed to have worked for me. See below. Maybe I
+am building with a different kconfig.
+
+
+diff --git a/xen/arch/arm/include/asm/grant_table.h b/xen/arch/arm/include/asm/grant_table.h
+index d3c518a926..2c5c07e061 100644
+--- a/xen/arch/arm/include/asm/grant_table.h
++++ b/xen/arch/arm/include/asm/grant_table.h
+@@ -76,6 +76,20 @@ int replace_grant_host_mapping(uint64_t gpaddr, mfn_t frame,
+ #define gnttab_need_iommu_mapping(d)                    \
+     (is_domain_direct_mapped(d) && is_iommu_enabled(d))
+ 
++static inline int arch_grant_cache_flush(unsigned int op, const void *p,
++                                         unsigned long size)
++{
++    if ( (op & GNTTAB_CACHE_INVAL) && (op & GNTTAB_CACHE_CLEAN) )
++        clean_and_invalidate_dcache_va_range(p, size);
++    else if ( op & GNTTAB_CACHE_INVAL )
++        invalidate_dcache_va_range(p, size);
++    else if ( op & GNTTAB_CACHE_CLEAN )
++        clean_dcache_va_range(p, size);
++
++    /* ARM callers assume that dcache_* functions cannot fail. */
++    return 0;
++}
++
+ #endif /* __ASM_GRANT_TABLE_H__ */
+ /*
+  * Local variables:
+diff --git a/xen/arch/arm/include/asm/page.h b/xen/arch/arm/include/asm/page.h
+index 69f817d1e6..aea692a24d 100644
+--- a/xen/arch/arm/include/asm/page.h
++++ b/xen/arch/arm/include/asm/page.h
+@@ -159,13 +159,13 @@ static inline size_t read_dcache_line_bytes(void)
+  * if 'range' is large enough we might want to use model-specific
+  * full-cache flushes. */
+ 
+-static inline int invalidate_dcache_va_range(const void *p, unsigned long size)
++static inline void invalidate_dcache_va_range(const void *p, unsigned long size)
+ {
+     size_t cacheline_mask = dcache_line_bytes - 1;
+     unsigned long idx = 0;
+ 
+     if ( !size )
+-        return 0;
++        return;
+ 
+     /* Passing a region that wraps around is illegal */
+     ASSERT(((uintptr_t)p + size - 1) >= (uintptr_t)p);
+@@ -188,17 +188,15 @@ static inline int invalidate_dcache_va_range(const void *p, unsigned long size)
+         asm volatile (__clean_and_invalidate_dcache_one(0) : : "r" (p + idx));
+ 
+     dsb(sy);           /* So we know the flushes happen before continuing */
+-
+-    return 0;
+ }
+ 
+-static inline int clean_dcache_va_range(const void *p, unsigned long size)
++static inline void clean_dcache_va_range(const void *p, unsigned long size)
+ {
+     size_t cacheline_mask = dcache_line_bytes - 1;
+     unsigned long idx = 0;
+ 
+     if ( !size )
+-        return 0;
++        return;
+ 
+     /* Passing a region that wraps around is illegal */
+     ASSERT(((uintptr_t)p + size - 1) >= (uintptr_t)p);
+@@ -211,18 +209,16 @@ static inline int clean_dcache_va_range(const void *p, unsigned long size)
+             idx += dcache_line_bytes, size -= dcache_line_bytes )
+         asm volatile (__clean_dcache_one(0) : : "r" (p + idx));
+     dsb(sy);           /* So we know the flushes happen before continuing */
+-    /* ARM callers assume that dcache_* functions cannot fail. */
+-    return 0;
+ }
+ 
+-static inline int clean_and_invalidate_dcache_va_range
++static inline void clean_and_invalidate_dcache_va_range
+     (const void *p, unsigned long size)
+ {
+     size_t cacheline_mask = dcache_line_bytes - 1;
+     unsigned long idx = 0;
+ 
+     if ( !size )
+-        return 0;
++        return;
+ 
+     /* Passing a region that wraps around is illegal */
+     ASSERT(((uintptr_t)p + size - 1) >= (uintptr_t)p);
+@@ -235,8 +231,6 @@ static inline int clean_and_invalidate_dcache_va_range
+             idx += dcache_line_bytes, size -= dcache_line_bytes )
+         asm volatile (__clean_and_invalidate_dcache_one(0) : : "r" (p + idx));
+     dsb(sy);         /* So we know the flushes happen before continuing */
+-    /* ARM callers assume that dcache_* functions cannot fail. */
+-    return 0;
+ }
+ 
+ /* Macros for flushing a single small item.  The predicate is always
+diff --git a/xen/arch/x86/include/asm/flushtlb.h b/xen/arch/x86/include/asm/flushtlb.h
+index bb0ad58db4..d0c9120b5f 100644
+--- a/xen/arch/x86/include/asm/flushtlb.h
++++ b/xen/arch/x86/include/asm/flushtlb.h
+@@ -182,21 +182,6 @@ void flush_area_mask(const cpumask_t *mask, const void *va,
+ }
+ 
+ static inline void flush_page_to_ram(unsigned long mfn, bool sync_icache) {}
+-static inline int invalidate_dcache_va_range(const void *p,
+-                                             unsigned long size)
+-{ return -EOPNOTSUPP; }
+-static inline int clean_and_invalidate_dcache_va_range(const void *p,
+-                                                       unsigned long size)
+-{
+-    unsigned int order = get_order_from_bytes(size);
+-    /* sub-page granularity support needs to be added if necessary */
+-    flush_area_local(p, FLUSH_CACHE|FLUSH_ORDER(order));
+-    return 0;
+-}
+-static inline int clean_dcache_va_range(const void *p, unsigned long size)
+-{
+-    return clean_and_invalidate_dcache_va_range(p, size);
+-}
+ 
+ unsigned int guest_flush_tlb_flags(const struct domain *d);
+ void guest_flush_tlb_mask(const struct domain *d, const cpumask_t *mask);
+diff --git a/xen/arch/x86/include/asm/grant_table.h b/xen/arch/x86/include/asm/grant_table.h
+index 5c23cec90c..60a6dbb231 100644
+--- a/xen/arch/x86/include/asm/grant_table.h
++++ b/xen/arch/x86/include/asm/grant_table.h
+@@ -72,4 +72,20 @@ static inline void gnttab_clear_flags(struct domain *d,
+ #define gnttab_need_iommu_mapping(d)                \
+     (!paging_mode_translate(d) && need_iommu_pt_sync(d))
+ 
++static inline int arch_grant_cache_flush(unsigned int op, const void *p,
++                                     unsigned long size)
++{
++    unsigned int order;
++
++    if ( !(op & GNTTAB_CACHE_CLEAN) )
++        return -EOPNOTSUPP;
++
++    order = get_order_from_bytes(size);
++    /* sub-page granularity support needs to be added if necessary */
++    (void) flush_area_local(p, FLUSH_CACHE|FLUSH_ORDER(order));
++
++    return 0;
++}
++
++
+ #endif /* __ASM_GRANT_TABLE_H__ */
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index 37b178a67b..0df663944f 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -3575,14 +3575,7 @@ static int _cache_flush(const gnttab_cache_flush_t *cflush, grant_ref_t *cur_ref
+     v = map_domain_page(mfn);
+     v += cflush->offset;
+ 
+-    if ( (cflush->op & GNTTAB_CACHE_INVAL) && (cflush->op & GNTTAB_CACHE_CLEAN) )
+-        ret = clean_and_invalidate_dcache_va_range(v, cflush->length);
+-    else if ( cflush->op & GNTTAB_CACHE_INVAL )
+-        ret = invalidate_dcache_va_range(v, cflush->length);
+-    else if ( cflush->op & GNTTAB_CACHE_CLEAN )
+-        ret = clean_dcache_va_range(v, cflush->length);
+-    else
+-        ret = 0;
++    ret = arch_grant_cache_flush(cflush->op, v, cflush->length);
+ 
+     if ( d != owner )
+     {
 
