@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBB188691C2
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Feb 2024 14:27:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686176.1067850 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3CB8691C3
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Feb 2024 14:27:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686179.1067860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rexUI-0002GM-Fd; Tue, 27 Feb 2024 13:27:14 +0000
+	id 1rexUh-0002kb-Pg; Tue, 27 Feb 2024 13:27:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686176.1067850; Tue, 27 Feb 2024 13:27:14 +0000
+Received: by outflank-mailman (output) from mailman id 686179.1067860; Tue, 27 Feb 2024 13:27:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rexUI-0002Dh-C7; Tue, 27 Feb 2024 13:27:14 +0000
-Received: by outflank-mailman (input) for mailman id 686176;
- Tue, 27 Feb 2024 13:27:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rexUh-0002iK-Ma; Tue, 27 Feb 2024 13:27:39 +0000
+Received: by outflank-mailman (input) for mailman id 686179;
+ Tue, 27 Feb 2024 13:27:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=HnYt=KE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rexUH-0002DZ-Sj
- for xen-devel@lists.xenproject.org; Tue, 27 Feb 2024 13:27:13 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e9f04651-d573-11ee-a1ee-f123f15fe8a2;
- Tue, 27 Feb 2024 14:27:11 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a43488745bcso326168766b.3
- for <xen-devel@lists.xenproject.org>; Tue, 27 Feb 2024 05:27:11 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- kf5-20020a17090776c500b00a438d594d3esm760275ejc.217.2024.02.27.05.27.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Feb 2024 05:27:11 -0800 (PST)
+ (envelope-from <SRS0=fto1=KE=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
+ id 1rexUg-0002bP-9N
+ for xen-devel@lists.xenproject.org; Tue, 27 Feb 2024 13:27:38 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2408::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f8b6cca6-d573-11ee-afd6-a90da7624cb6;
+ Tue, 27 Feb 2024 14:27:37 +0100 (CET)
+Received: from MW4P221CA0013.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::18)
+ by BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.39; Tue, 27 Feb
+ 2024 13:27:34 +0000
+Received: from MWH0EPF000989E7.namprd02.prod.outlook.com
+ (2603:10b6:303:8b:cafe::7b) by MW4P221CA0013.outlook.office365.com
+ (2603:10b6:303:8b::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.26 via Frontend
+ Transport; Tue, 27 Feb 2024 13:27:33 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000989E7.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Tue, 27 Feb 2024 13:27:33 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 27 Feb
+ 2024 07:27:31 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 27 Feb
+ 2024 07:27:31 -0600
+Received: from [172.31.100.92] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Tue, 27 Feb 2024 07:27:28 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +63,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9f04651-d573-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709040431; x=1709645231; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=1PP71nXAl22kstrYPkbKOLLUjfFtEG8yr+uCm8pr9jg=;
-        b=NNKXUPLQSgoWE2ZkgTHAwrz/W8+f/vxRGkHfpiklHuqZDK+57vRQQnDtYa8PbQm5qA
-         lbPTA3E+Bgb0VIy4hg5Y+DnAWvd8hm5Njodncp91CylvfsNij1OVsrbhVFmp8x9gSGnf
-         Lm4+q/hi0U4XtnwGvnhUrQCPPFD1+jireJrwV4REsCq9LeZzpKOPeQeLsNXWfklK2BSi
-         5qw2g3aCLrevrHVqaGQdtB3tyNsUSzU8xpNpnu2zK+yBX2Oa7Qt8fz6GPZ8xyZtZjNL9
-         kUuzP4ttZnlgtzIwfhy92bV4tJ6qmply6sD7Gqba9ZZ6AzDxAlXr2/3jqMLBMGc18ZFv
-         BAwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709040431; x=1709645231;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1PP71nXAl22kstrYPkbKOLLUjfFtEG8yr+uCm8pr9jg=;
-        b=NOIzKpbUcwMtLr78rKl3bRB6CTx8N/1h0Sq7AhZUzkGby5B7IzxTSmvLEmBht3T4YB
-         DpgtBsXIUb3nVnGXTdRWiqd8+M+xYwQRY2c1QQTv5rUs/sRGI+h8SmUd/bognbGrM38j
-         JU0G4qqH8HgRovvtaBtpX7cKu4G/kQJ5vWML+qdgk4tgUp/qo2J8L9AKojloEps3bkXk
-         OMGTAuEI6VbX54NU0b4fSEtHbdQUkmLssSuC+i5sXTKrDF+ML+nyvNC9uyA/meo/W1uy
-         0P/XaVQ6v7J4Z8c74/2+UjJu6NIuy3+ia6Llh2y5/Z9YXe7ESeYZ5pN0L2OcmyxlYzh+
-         GoDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUbU0/rkHWal62EAYYbkh1u/eFLamsBGHM4CFNKN9tUzl3+xwog3hcYFO1k81A9twgoC/SFCe23KMpdvqcBdqeFlmXnJhQ5GelPDgQqI04=
-X-Gm-Message-State: AOJu0Yw0k9slmqniEYv6/iKmGySuvc22UOIgjM8KjNn5DDM5uBbLDpVL
-	9JdyA4UO5MsqWDsAVTk1b9NoGAcqfpBrikbuAHRdehD2++jHdAbVDWqC1PVdQQ==
-X-Google-Smtp-Source: AGHT+IFAmF91kqqVuwaegLa4ryhgF0hkMr/LeUACD6mvMV7cBBgVve8H4LrMQTrRp6JxtJYFFl/F3Q==
-X-Received: by 2002:a17:906:80d4:b0:a43:10b6:40f6 with SMTP id a20-20020a17090680d400b00a4310b640f6mr4603307ejx.1.1709040431432;
-        Tue, 27 Feb 2024 05:27:11 -0800 (PST)
-Message-ID: <23dc102e-e827-4f1e-876d-76a7df4c4927@suse.com>
-Date: Tue, 27 Feb 2024 14:27:10 +0100
+X-Inumbo-ID: f8b6cca6-d573-11ee-afd6-a90da7624cb6
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ilBTWxFnGU2PV0RgxG/LfsGp3Gr7LHnLdMcXAI+abyI4Z/13deZjwvpmrrjSr7gGM6lEgi1kj53gjn9vgRnhqM6hnbycgVXJQEuOZVaXSlvYgfVALOM5Mo02s1iY+l2F2S1Zl+/mrIwEhwa8UAblFbMdAdMQINcDWWGGS1HRkjMYmYv5XtXQdVu40d7c7P4/YpNVfN1rSeoPa7MrZ0AMapwFCOpIZXRkc+UE58c+1Tte1oZjKvKLWnNCoyHSsP48wGEOyFPZZ8XVwpwuIYULn7i5ZRoXJKoXWzszeyMurFIZ+gASMLufPkR1V2NSN1NwQIuSWAfDS2cQbuplFFTPSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7fG32DN/8O+e4OkIL0FSBLZGXZRyL1cyzCIz9t1QoEI=;
+ b=cpqgITKuYRJKWCFU0MKAFUg4koIOkp7hU2Z1xfxG5GUyV+N51p20Hj24HNE8dtMXfvNufoHCzAURPQ884IThZ+3pP0gJAiWf0ND6ikg1Y2IffdqhU2P7PSy8PMMVZL2XkGUp8wNiJBo/hD2L7zClgFP2gD48/G+6MvKqYTy+xxpLowLf2+18wMNU0aN7g5a3O9T2GrNLfMsXkyPN/bzvwXD6+MzrKU9QVTKbgp7+M5DLpMQVET5yVDQIOdRnSR+VeesL0+5IZzJD9u6O5f9Fhj9/y8ZgNsIzDsfVPILZ9+DeLI7RfadPdzdVfjr8e409Rdwb5TbBwTSdjkczLHSfVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7fG32DN/8O+e4OkIL0FSBLZGXZRyL1cyzCIz9t1QoEI=;
+ b=P7gPVF5fy0s2VcjdKs/qONxdbbSpTJr2s8Ur6Va+cu+WRCmhdIhK/3JWZH6iVKbT+k4UL5IUuZJ5C1LzLUBA8YojO9PKpWxgxelGUF5Dm8/KbFmghynjcSIKTPet8gEPjN04pIc97j5VJzWhntmJDtjWyvi0oF1hAHj1XCJoLTo=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <f3ff21bc-55f9-465d-95a2-269101b3d71e@amd.com>
+Date: Tue, 27 Feb 2024 21:27:27 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] xen/common: Do not allocate magic pages 1:1 for direct
  mapped domains
 Content-Language: en-US
-To: Henry Wang <xin.wang2@amd.com>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alec Kwapis <alec.kwapis@medtronic.com>, xen-devel@lists.xenproject.org
+To: Michal Orzel <michal.orzel@amd.com>, <xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross
+	<jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Bertrand
+ Marquis" <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Alec Kwapis <alec.kwapis@medtronic.com>
 References: <20240226011935.169462-1-xin.wang2@amd.com>
- <b41daccb-d402-4da8-bc88-933facd088a8@suse.com>
- <c3edf84d-3177-4125-bdd6-ba99190340a3@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c3edf84d-3177-4125-bdd6-ba99190340a3@amd.com>
-Content-Type: text/plain; charset=UTF-8
+ <4c9bf719-7ad9-4739-9edc-eef06dcefb9f@amd.com>
+From: Henry Wang <xin.wang2@amd.com>
+In-Reply-To: <4c9bf719-7ad9-4739-9edc-eef06dcefb9f@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: xin.wang2@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E7:EE_|BL1PR12MB5126:EE_
+X-MS-Office365-Filtering-Correlation-Id: d31b6b61-7903-4b56-d62d-08dc3797db16
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	xa6KAPn2iQsh92daJHsl0ArZT3UqkL15Gc4AFfdG+n3BoYn2kWIH9VSAul+u7lRagmglkECd6kjcHCltcC1dDULuA/6dNKgTDNh9UtbD8NL3plrmPXr6nPnAeSoWATUyjLw686oYb3h0uuH7cXbtDyt2YNBLFEJA85TJ74pKfc6W69r+7TgOiElXEGcmwYA7muViB2YDG8pgDb2aghCAw/mXTVHRestDewgeekG6L/kUP6WlcQlooPEbepmASqY3bpKA3NpDqe7VzRM0Nczrz3Y70LUEhMcjbuEIstUzs5ys/WfgKoPSJNpJlVBB5sFeHiiT51LIE7gTZq8ffFmu/4FZOub81fUvV8pe7Pm9QeOsxF4saXElQE3qij9rRehh5qwqqkc724u+Qpxg348d3UzpZF1vb/eXyR6g6Ii2NXYD/8/i9NGbzqltA6e4d7kSQB1T9yyaPjA+L5Ou6DbH6QNfJw13GJJmq5L4yBof8RjpbqHTcYXC0QOeB3hM86oA6iov15+iWSXI/w1hkNoeDiBdCSvMulhTtjhP02+M9t7ngW+b8p1fRp9rez6IKxYnWYZuam3MgCZB84ImSLTXye9tQUvMsfjEqOUtIZeFtCW6y5kt/UOM/GaZK7aauQh1uou+PquaobcqT9sj1yNgMyYemytasmBCoorhRnWL10VEzbmx+8CAJGqo1q3NnFED6uKK7x/jqNivG8yvhyKhmgie9ky22axx/kGd6WjBvT7lhEnU4UrEKqgbgGfuSI6L
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2024 13:27:33.3345
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d31b6b61-7903-4b56-d62d-08dc3797db16
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000989E7.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5126
 
-On 27.02.2024 14:24, Henry Wang wrote:
-> On 2/26/2024 4:25 PM, Jan Beulich wrote:
->> On 26.02.2024 02:19, Henry Wang wrote:
->>> --- a/xen/common/memory.c
->>> +++ b/xen/common/memory.c
->>> @@ -219,7 +219,7 @@ static void populate_physmap(struct memop_args *a)
->>>           }
->>>           else
->>>           {
->>> -            if ( is_domain_direct_mapped(d) )
->>> +            if ( is_domain_direct_mapped(d) && !is_magic_gpfn(gpfn) )
->>>               {
->>>                   mfn = _mfn(gpfn);
->>>   
->> I wonder whether is_domain_direct_mapped() shouldn't either be cloned
->> into e.g. is_gfn_direct_mapped(d, gfn), or be adjusted in-place to gain
->> such a (then optional) 2nd parameter. (Of course there again shouldn't be
->> a need for every domain to define a stub is_domain_direct_mapped() - if
->> not defined by an arch header, the stub can be supplied in a single
->> central place.)
-> 
-> Same here, it looks like you prefer the centralized 
-> is_domain_direct_mapped() now, as we are having more archs. I can do the 
-> clean-up when sending v2. Just out of curiosity, do you think it is a 
-> good practice to place the is_domain_direct_mapped() implementation in 
-> xen/domain.h with proper arch #ifdefs?
+Hi Michal,
 
-arch #ifdefs? I'd like to avoid such, if at all possible. Generic fallbacks
-generally ought to key their conditionals to the very identifier not
-(already) being defined.
+On 2/26/2024 6:29 PM, Michal Orzel wrote:
+> Hi Henry,
+>
+> On 26/02/2024 02:19, Henry Wang wrote:
+>> An error message can seen from the init-dom0less application on
+>> direct-mapped 1:1 domains:
+>> ```
+>> Allocating magic pages
+>> memory.c:238:d0v0 mfn 0x39000 doesn't belong to d1
+>> Error on alloc magic pages
+>> ```
+>>
+>> This is because populate_physmap() automatically assumes gfn == mfn
+>> for direct mapped domains. This cannot be true for the magic pages
+>> that are allocated later for Dom0less DomUs from the init-dom0less
+>> helper application executed in Dom0.
+>>
+>> Force populate_physmap to take the "normal" memory allocation route for
+>> the magic pages even for 1:1 Dom0less DomUs. This should work as long
+>> as the 1:1 Dom0less DomU doesn't have anything else mapped at the same
+>> guest address as the magic pages:
+>> - gfn 0x39000 address 0x39000000
+>> - gfn 0x39001 address 0x39001000
+>> - gfn 0x39002 address 0x39002000
+>> - gfn 0x39003 address 0x39003000
+>> Create helper is_magic_gpfn() for Arm to assist this and stub helpers
+>> for non-Arm architectures to avoid #ifdef. Move the definition of the
+>> magic pages on Arm to a more common place.
+>>
+>> Note that the init-dom0less application of the diffenent Xen version
+>> may allocate all or part of four magic pages for each DomU.
+>>
+>> Reported-by: Alec Kwapis <alec.kwapis@medtronic.com>
+>> Signed-off-by: Stefano Stabellini <sstabellini@kernel.org>
+>> Signed-off-by: Henry Wang <xin.wang2@amd.com>
+> NIT: Generally, the first SOB is the same as author of the patch.
 
-Jan
+I will fix in the next version. Thanks.
+
+> [...]
+>> diff --git a/xen/common/memory.c b/xen/common/memory.c
+>> index b3b05c2ec0..ab4bad79e2 100644
+>> --- a/xen/common/memory.c
+>> +++ b/xen/common/memory.c
+>> @@ -219,7 +219,7 @@ static void populate_physmap(struct memop_args *a)
+>>           }
+>>           else
+>>           {
+>> -            if ( is_domain_direct_mapped(d) )
+>> +            if ( is_domain_direct_mapped(d) && !is_magic_gpfn(gpfn) )
+> I struggle to understand the goal of this patch and the proposed solution.
+> The problem with magic pages applies to static mem domUs in general.
+> A direct mapped domU is a static mem domU whose memory is 1:1 mapped.
+> Let's say we try to map a magic page for a direct mapped domU. That check will be false
+> and the execution will move to the next one i.e. is_domain_using_staticmem(d).
+> This check will be true and acquire_reserved_page() will fail instead (similar to the
+> static mem (no direct map) scenario). The only thing that has changed is the message.
+
+Yes you are definitely correct, I missed the check for static mem 
+domains. Will fix in v2 once the proposal in the other thread is agreed. 
+Thanks for spotting this issue!
+
+Kind regards,
+Henry
+
+> ~Michal
+
 
