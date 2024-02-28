@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 056E386AC65
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 11:54:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686467.1068548 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2546086AC94
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 12:07:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686470.1068558 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfHZK-0004UJ-Uy; Wed, 28 Feb 2024 10:53:46 +0000
+	id 1rfHlL-0006If-TQ; Wed, 28 Feb 2024 11:06:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686467.1068548; Wed, 28 Feb 2024 10:53:46 +0000
+Received: by outflank-mailman (output) from mailman id 686470.1068558; Wed, 28 Feb 2024 11:06:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfHZK-0004Sj-S9; Wed, 28 Feb 2024 10:53:46 +0000
-Received: by outflank-mailman (input) for mailman id 686467;
- Wed, 28 Feb 2024 10:53:45 +0000
+	id 1rfHlL-0006GU-PH; Wed, 28 Feb 2024 11:06:11 +0000
+Received: by outflank-mailman (input) for mailman id 686470;
+ Wed, 28 Feb 2024 11:06:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KqYS=KF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rfHZJ-0004Sb-Co
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 10:53:45 +0000
-Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
- [2607:f8b0:4864:20::82f])
+ <SRS0=+A+G=KF=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rfHlJ-0006GO-UY
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 11:06:09 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a3d461a8-d627-11ee-afd7-a90da7624cb6;
- Wed, 28 Feb 2024 11:53:44 +0100 (CET)
-Received: by mail-qt1-x82f.google.com with SMTP id
- d75a77b69052e-42e75559043so23467441cf.2
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 02:53:44 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- o6-20020ac85546000000b0042e637083b7sm4406140qtr.26.2024.02.28.02.53.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Feb 2024 02:53:42 -0800 (PST)
+ id 5f600c67-d629-11ee-afd7-a90da7624cb6;
+ Wed, 28 Feb 2024 12:06:08 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 641BD4EE0737;
+ Wed, 28 Feb 2024 12:06:07 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,107 +39,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3d461a8-d627-11ee-afd7-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709117623; x=1709722423; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=IELvhF5UbL2ab4kEVnUWT0FKk9lvIAUI7sawg12kAUI=;
-        b=qUB6m/S7rf0mTYki+XwBUzFrfhxRhzFsmS+M4aD7iFbwl8S8LP5v1LO84YwWeK9Ge3
-         84q7E9U05OcXXubUzoNzKD4LqoqJRK/CKii1jbwE1GCEJcFLrVMBtFDrqKBaqCr95SUI
-         FWMVt64X/hgK4wr6eqp/vGPunK+1E3HaaIUnw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709117623; x=1709722423;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IELvhF5UbL2ab4kEVnUWT0FKk9lvIAUI7sawg12kAUI=;
-        b=mKUGzSgCtf7UsO+Apo3WFqbhOHliPeozkujlVR5pnS3rUEUr2A0TX0TiH9pDrah3mC
-         e80Yh1APKFZ1D5OC0YftUlDPUKR7eo7mB5j6P5ETf+gbrdfjdHsKZPiFr1Kj/bk2GFEO
-         LAS/tPWCZ7K9QzRpHt75PXYDJShHltM8erakNzL5MmaB1SBJatNQZNbTPdgLblFvbMLl
-         h4n4++rWsBaPMvtT44VAe3HpUS+XNxRL2fiZ5U0GRwk33Bk/9mhDDY1WFGr4a3vT3Ggm
-         7kaqRbUhhiEOlUyzrvOiMyRYPe7j8ebvcBCCCqwZFky9BskbVxNkAlRSJXnqBKrBjUnS
-         MwIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXwVMK0zGFDFpnkyVMXu8h5x8FdCM9Y4QdHZ+LhM7yCOSs3zym6cZclY6fusRiiGSgtUh0ZYmnGK8i6vemU1zUuYCpOea0FDSMrM0VSA1A=
-X-Gm-Message-State: AOJu0YwAlj+fiI4d1XGeS0d824zQRVnE5voDp6oAgIlwAcSc4yDZqscG
-	rMqYb+E+nRR54wEL9tYeaRMh+iaiiC+ngeH57VuU3sGoy6yHjNGHLnz0xAgI11E=
-X-Google-Smtp-Source: AGHT+IHTCZPI5CFIphc/e97qp66O1hKmxtfW9gMoc6vkiYwH3cAhC427f812NDtWw3NCcnSLvnl6IQ==
-X-Received: by 2002:ac8:7490:0:b0:42e:7036:9bef with SMTP id v16-20020ac87490000000b0042e70369befmr11259645qtq.38.1709117622975;
-        Wed, 28 Feb 2024 02:53:42 -0800 (PST)
-Date: Wed, 28 Feb 2024 11:53:40 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 1/2] x86/memsharing: use an atomic add instead of a
- cmpxchg loop
-Message-ID: <Zd8QtCwp75Phjluc@macbook>
-References: <20240222090530.62530-1-roger.pau@citrix.com>
- <20240222090530.62530-2-roger.pau@citrix.com>
- <d8939069-a1cb-4794-a6aa-75a3e4d97884@suse.com>
- <CABfawhkhH7Pakkq+RgjfmW-f60CbOKxr6wWxvBSr2AkN+m1OdQ@mail.gmail.com>
- <2f68276d-0b10-4cec-8636-5456314c194e@suse.com>
+X-Inumbo-ID: 5f600c67-d629-11ee-afd7-a90da7624cb6
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2f68276d-0b10-4cec-8636-5456314c194e@suse.com>
+Date: Wed, 28 Feb 2024 12:06:07 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, consulting@bugseng.com, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Wei
+ Liu <wl@xen.org>, xen-devel@lists.xenproject.org, Stefano Stabellini
+ <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH 2/2] xen/cpu: address MISRA C Rule 17.7
+In-Reply-To: <4bee79ca-7a7e-4bcc-ac97-5a5a57ec2c91@suse.com>
+References: <cover.1708680104.git.nicola.vetrini@bugseng.com>
+ <dd4ac0e670a2ad7ecb5eb435e5e3b4b313b1e0b6.1708680104.git.nicola.vetrini@bugseng.com>
+ <33342a17-e71c-4752-a16f-da5c0ef77b51@suse.com>
+ <alpine.DEB.2.22.394.2402261619210.247676@ubuntu-linux-20-04-desktop>
+ <2178731a-ec81-4505-ba8a-2f945bf85133@suse.com>
+ <7a8e610e-913e-4a56-8ce1-6dd6abd894f4@xen.org>
+ <4bee79ca-7a7e-4bcc-ac97-5a5a57ec2c91@suse.com>
+Message-ID: <61bdcfc51c4d6ad81949f1f4d84593e1@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Feb 23, 2024 at 08:43:24AM +0100, Jan Beulich wrote:
-> On 22.02.2024 19:03, Tamas K Lengyel wrote:
-> > On Thu, Feb 22, 2024 at 5:06 AM Jan Beulich <jbeulich@suse.com> wrote:
-> >> On 22.02.2024 10:05, Roger Pau Monne wrote:
-> >>> The usage of a cmpxchg loop in get_next_handle() is unnecessary, as the same
-> >>> can be achieved with an atomic increment, which is both simpler to read, and
-> >>> avoid any need for a loop.
-> >>>
-> >>> The cmpxchg usage is likely a remnant of 32bit support, which didn't have an
-> >>> instruction to do an atomic 64bit add, and instead a cmpxchg had to be used.
-> >>>
-> >>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >>> Signed-of-by: Roger Pau Monné <roger.pau@citrix.com>
-> >>
-> >> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> >> albeit ...
-> >>
-> >>> --- a/xen/arch/x86/mm/mem_sharing.c
-> >>> +++ b/xen/arch/x86/mm/mem_sharing.c
-> >>> @@ -179,13 +179,7 @@ static void mem_sharing_page_unlock(struct page_info *pg)
-> >>>
-> >>>  static shr_handle_t get_next_handle(void)
-> >>>  {
-> >>> -    /* Get the next handle get_page style */
-> >>> -    uint64_t x, y = next_handle;
-> >>> -    do {
-> >>> -        x = y;
-> >>> -    }
-> >>> -    while ( (y = cmpxchg(&next_handle, x, x + 1)) != x );
-> >>> -    return x + 1;
-> >>> +    return arch_fetch_and_add(&next_handle, 1) + 1;
-> >>>  }
-> >>
-> >> ... the adding of 1 here is a little odd when taken together with
-> >> next_handle's initializer. Tamas, you've not written that code, but do
-> >> you have any thoughts towards the possible removal of either the
-> >> initializer or the adding here? Plus that variable of course could
-> >> very well do with moving into this function.
-> > 
-> > I have to say I find the existing logic here hard to parse but by the
-> > looks I don't think we need the + 1 once we switch to
-> > arch_fetch_and_add. Also could go without initializing next_handle to
-> > 1. Moving it into the function would not really accomplish anything
-> > other than style AFAICT?
+On 2024-02-27 13:47, Jan Beulich wrote:
+> On 27.02.2024 12:52, Julien Grall wrote:
+>> Hi Jan,
+>> 
+>> On 27/02/2024 07:28, Jan Beulich wrote:
+>>> On 27.02.2024 01:26, Stefano Stabellini wrote:
+>>>> On Mon, 26 Feb 2024, Jan Beulich wrote:
+>>>>> On 23.02.2024 10:35, Nicola Vetrini wrote:
+>>>>>> Refactor cpu_notifier_call_chain into two functions:
+>>>>>> - the variant that is allowed to fail loses the nofail flag
+>>>>>> - the variant that shouldn't fail is encapsulated in a call
+>>>>>>    to the failing variant, with an additional check.
+>>>>>> 
+>>>>>> This prevents uses of the function that are not supposed to
+>>>>>> fail from ignoring the return value, thus violating Rule 17.7:
+>>>>>> "The value returned by a function having non-void return type 
+>>>>>> shall
+>>>>>> be used".
+>>>>>> 
+>>>>>> No functional change.
+>>>>>> 
+>>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>> 
+>>>>> I'm afraid I disagree with this kind of bifurcation. No matter what
+>>>>> Misra thinks or says, it is normal for return values of functions 
+>>>>> to
+>>>>> not always be relevant to check.
+>>>> 
+>>>> Hi Jan, I disagree.
+>>>> 
+>>>> Regardless of MISRA, I really think return values need to be 
+>>>> checked.
+>>>> Moreover, we decided as a group to honor MISRA Rule 17.7, which 
+>>>> requires
+>>>> return values to be checked. This patch is a good step forward.
+>>> 
+>>> Yet splitting functions isn't the only way to deal with Misra's
+>>> requirements, I suppose. After all there are functions where the
+>>> return value is purely courtesy for perhaps just one of its callers.
+>> 
+>> You are right that we have some places where one caller care about the
+>> return value. But the problem is how do you tell whether the return 
+>> was
+>> ignored on purpose or not?
+>> 
+>> We had at least one XSA because the return value of a function was not
+>> checked (see XSA-222). We also had plenty of smaller patches to check
+>> returns.
+>> 
+>> So far, we added __must_check when we believed return values should be
+>> checked. But usually at the point we notice, this is far too late.
+>> 
+>> To me the goal should be that we enforce __must_check everywhere. We 
+>> are
+>> probably going to detect places where we forgot to check the return. 
+>> For
+>> thoses that are on purpose, we can document them.
+>> 
+>>> 
+>>> Splitting simply doesn't scale very well, imo.
+>> 
+
+Yes. I certainly don't plan to do much splitting either. I saw this one 
+as a low-hanging fruit.
+
+>> Do you have another proposal? As Stefano said, we adopted the rule 
+>> 17.7.
+>> So we know need a solution to address it.
 > 
-> Well, limiting scope of things can be viewed as purely style, but I
-> think it's more than that: It makes intentions more clear and reduces
-> the chance of abuse (deliberate or unintentional).
+> One possibility that was circulated while discussing was to add (void)
+> casts. I'm not a huge fan of those, but between the two options that
+> might be the lesser evil. We also use funny (should I say ugly)
+> workarounds in a few cases where we have __must_check but still want
+> to not really handle the return value in certain cases. Given there are
+> example in the code base, extending use of such constructs is certainly
+> also something that may want considering.
+> 
 
-I'm afraid that whatever is the outcome here, I will defer it to a
-further commit, since the purpose here is to be a non-functional
-change.
+Can you point out some of these constructs, just to get an idea of what 
+that might look like?
 
-Thanks, Roger.
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
