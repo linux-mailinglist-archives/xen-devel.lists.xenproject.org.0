@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51F9786B0C6
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 14:52:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686637.1068878 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A857186B0CE
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 14:52:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686639.1068887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfKLi-0000gv-N0; Wed, 28 Feb 2024 13:51:54 +0000
+	id 1rfKLz-00013M-UD; Wed, 28 Feb 2024 13:52:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686637.1068878; Wed, 28 Feb 2024 13:51:54 +0000
+Received: by outflank-mailman (output) from mailman id 686639.1068887; Wed, 28 Feb 2024 13:52:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfKLi-0000el-Ja; Wed, 28 Feb 2024 13:51:54 +0000
-Received: by outflank-mailman (input) for mailman id 686637;
- Wed, 28 Feb 2024 13:51:53 +0000
+	id 1rfKLz-00011m-RS; Wed, 28 Feb 2024 13:52:11 +0000
+Received: by outflank-mailman (input) for mailman id 686639;
+ Wed, 28 Feb 2024 13:52:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iHog=KF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfKLh-0000eZ-Iy
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 13:51:53 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1rfKLy-0000eZ-Ax
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 13:52:10 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8656b08a-d640-11ee-a1ee-f123f15fe8a2;
- Wed, 28 Feb 2024 14:51:51 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5640fef9fa6so7149996a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 05:51:51 -0800 (PST)
+ id 90714bbd-d640-11ee-a1ee-f123f15fe8a2;
+ Wed, 28 Feb 2024 14:52:08 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a26ed1e05c7so878413366b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 05:52:08 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s24-20020a170906bc5800b00a3efa4e033asm1870713ejv.151.2024.02.28.05.51.50
+ s24-20020a170906bc5800b00a3efa4e033asm1870713ejv.151.2024.02.28.05.52.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Feb 2024 05:51:50 -0800 (PST)
+ Wed, 28 Feb 2024 05:52:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8656b08a-d640-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 90714bbd-d640-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709128311; x=1709733111; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
+        d=suse.com; s=google; t=1709128328; x=1709733128; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=w+KEn+hcWSFN2S28B1lVdeEMQiVbpABucnYzaxqMQm8=;
-        b=Qux/xgWvGZjujzYDSY9JylKPOdCk9vfXcDbtCRNcu/qhlMpWSRfq/YKSiostT2hCqL
-         ENy3V6+6Xzot+bPS/zjeWFY+MqpUHaBwkkISI9qBZcdMo0SLjCOAhExVbYKs8x0BRu7u
-         B1/8Q2gv8+2ntl+CBI23f2cXMWbXHr6Q+Hzb2pgf3mlpaBTKVWHu/SUmh982igB9+uBo
-         +latjEivpfsyuZMqYROVfk+jKmUPbZi5oSTDMAyXYGsqTaslaG/izfx5Th52IemrIGOn
-         A6X/YSgK11Hg1TSPqKlAKlGR3BBZ2iQZGkjvkEym7KriRmBFed9wxi3B9Rstz1Z7QB1f
-         T/eg==
+        bh=gaX7a4NCHOeGdWCkg8kUSL8PRj5hzXXfo73pbxAntJ8=;
+        b=bwZLe610hPexq3V1s2hT6jb5Wkg6RJ3QLjqeyoR1QAVC3Wqd5Wm/IFnMS5QDEAFuNl
+         yG9t1lqEYfusKKMRT+RV8e3I0AVK0vUVjtFUCJUOBUdFVb9kJNqrpbD+vJMF8iBCS+z4
+         NKKwV15nWYLVfnbIsmE3EhHoJthM9ReuJA4hhlrttgu0tEwX2xzjnlKRSfeiDXuRxkAu
+         mO2vgO81Mj0o9M1TZOCs7HLcKyYLwLQie59Q323tJbmQEvC8kTmxjVj2iD7I7TJut/Ub
+         Jl3+47gHgBzqUtOSobDuiQQcdUrhWjHgvR+GMWMUYqNTMY9F54sFZjS1fem5QN5T3S1Z
+         te3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709128311; x=1709733111;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
+        d=1e100.net; s=20230601; t=1709128328; x=1709733128;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=w+KEn+hcWSFN2S28B1lVdeEMQiVbpABucnYzaxqMQm8=;
-        b=xClN4FF4yGscz0hTU+E0GgX9MEu8xab0dtU3VLJJtHXZ+Av4lUxkjCUA6dtp28Ojz0
-         4gt89nlgM/npsL+HKSY2xZ1rIFCRREavpeg+8i/DXgdMRLEqAWnVGIWs0Q/daoB546i0
-         4i8EcJWSqYabUQAVUZvqHBVDk5ISCjKn90o0W2qB+9JNg05oTsa+5isTs+Qj+adKGiZT
-         YaQM0mKmcCUQefDuJPfQFrD64L2ythphe/qBtl7ejPgn2mwWI2e3IEpNJDi8zJNkYk5e
-         uz7zKTx7N45IIVhNhzQDhMDoAal3gprc9aghyhqeLA1L21FKblUX7BZGwu4JzbR3gUch
-         Edig==
-X-Gm-Message-State: AOJu0YxC2X+kkMDIJmlauChEoMrqqaPhrBWQWVCFoVwPKjfsjlzkSw4E
-	TIfycmr6rZxzt8/MCEts6SJSIInDZlStu69Lsxb6DRe2Cw7JrAnuyQW3UU5p1uDANtpgjU1d2r8
+        bh=gaX7a4NCHOeGdWCkg8kUSL8PRj5hzXXfo73pbxAntJ8=;
+        b=JJIAvTxvRsMagmKhooOXwBP/QKIuprxgrijJO9tcWX0PbKdJ9PhnR57gTXg7nnSNmJ
+         0mDy5LQ9z7EjYmvxfP+7QI+LEbMx1k64LEd4OJjS7jffnVrnfvLoNAsKTo+fcU47pbsA
+         sd3EvJUWbuS42AZ3NnVdgwvBuVwZD6bIxiydjB9vgarnQzkiXKNtbY1vBbucarAFvfsy
+         uhobAyy0kB2qg5P8YO6s4B6NoOeNYlPqY96WJOK7Bhhdkv8dm4feu9tqz+EZIZJep6x3
+         ZMpyo2aPPcXUAF1Ogm9KjrYAvawk/Ia9ojY8+1GJuH76PWnlnYGaBR/HJLka5qQ+0RVb
+         bKgg==
+X-Gm-Message-State: AOJu0YwtlNmfkPuILH0lbhRLtKDcwMWT2BBr1lYY5cfhZ2fRsbQYF1tf
+	rpkFnxUMtqScaWl6qKDD6BXgO6ipPmgjYESCP+sknPqYxPryp3NlWFbhaNLdYxrjb3XX1FITZuM
 	=
-X-Google-Smtp-Source: AGHT+IGEAk3oZI5VJ2IkQIs92O6kgtOshVr0bXPkF4PYNTxa8IWW377FE7w/kvyHwVWECxGBjJJyOw==
-X-Received: by 2002:a17:907:bb99:b0:a44:15c3:c8e9 with SMTP id xo25-20020a170907bb9900b00a4415c3c8e9mr714367ejc.28.1709128311157;
-        Wed, 28 Feb 2024 05:51:51 -0800 (PST)
-Message-ID: <b1cde647-3319-4363-962e-35f716b5c03b@suse.com>
-Date: Wed, 28 Feb 2024 14:51:49 +0100
+X-Google-Smtp-Source: AGHT+IF962mt3eRDy21WIUNAu+Y3BfGUsdDO1T8wRDs+WGYmPyqGL5DdVNU2BOS3piXY0SkY/N1xRw==
+X-Received: by 2002:a17:906:70c:b0:a40:189d:c5bb with SMTP id y12-20020a170906070c00b00a40189dc5bbmr8228552ejb.0.1709128328039;
+        Wed, 28 Feb 2024 05:52:08 -0800 (PST)
+Message-ID: <0ad4543b-8eed-4147-b32d-b68d21fade98@suse.com>
+Date: Wed, 28 Feb 2024 14:52:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/4] x86: remove redundant XEN_SHSTK check from
- reinit_bsp_stack()
+Subject: [PATCH 2/4] x86: record SSP at non-guest entry points
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <33da6f8b-af22-48c8-acce-3aa55c0e0414@suse.com>
-Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,21 +115,181 @@ In-Reply-To: <33da6f8b-af22-48c8-acce-3aa55c0e0414@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-As of 72d51813d631 ("x86: amend cpu_has_xen_{ibt,shstk}") this has been
-integrated into cpu_has_xen_shstk.
+We will want to use that value for call trace generation, and likely
+also to eliminate the somewhat fragile shadow stack searching done in
+fixup_exception_return(). For those purposes, guest-only entry points do
+not need to record that value.
+
+To keep the saving code simple, record our own SSP that corresponds to
+an exception frame, pointing to the top of the shadow stack counterpart
+of what the CPU has saved on the regular stack. Consuming code can then
+work its way from there.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+To record the full 64-bit value, some of the unused bits in the %cs slot
+could be used. Sadly that slot has saved_upcall_mask in an unhelpful
+location, otherwise simply storing low and high 32 bits in those two
+separate half-slots would be a pretty obvious choice. As long as
+"entry_ssp" is used in non-guest-entry frames only, we could of course
+put half of it into a union with saved_upcall_mask ...
 
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -810,7 +810,7 @@ static void __init noreturn reinit_bsp_s
-     if ( rc )
-         panic("Error %d setting up PV root page table\n", rc);
- 
--    if ( IS_ENABLED(CONFIG_XEN_SHSTK) && cpu_has_xen_shstk )
-+    if ( cpu_has_xen_shstk )
+Else may want to put a BUILD_BUG_ON(VADDR_BITS > 48) somewhere, but I'm
+afraid I can't really identify a good place for such to live.
+
+Leveraging that the CPU stores zero in the upper bits of the selector
+register slots, the save sequence could also be
+
+        shl   $16, %rcx
+        or    %rcx, UREGS_entry_ssp-2(%rsp)
+
+That's shorter and avoids a 16-bit operation, but may be less desirable,
+for being a read-modify-write access.
+
+--- a/xen/arch/x86/domctl.c
++++ b/xen/arch/x86/domctl.c
+@@ -1354,6 +1354,7 @@ void arch_get_info_guest(struct vcpu *v,
+     if ( !compat )
      {
-         wrmsrl(MSR_PL0_SSP,
-                (unsigned long)stack + (PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8);
+         memcpy(&c.nat->user_regs, &v->arch.user_regs, sizeof(c.nat->user_regs));
++        c.nat->user_regs.entry_ssp = 0;
+         if ( is_pv_domain(d) )
+             memcpy(c.nat->trap_ctxt, v->arch.pv.trap_ctxt,
+                    sizeof(c.nat->trap_ctxt));
+--- a/xen/arch/x86/hvm/svm/entry.S
++++ b/xen/arch/x86/hvm/svm/entry.S
+@@ -94,7 +94,7 @@ __UNLIKELY_END(nsvm_hap)
+         sti
+         vmrun
+ 
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         GET_CURRENT(bx)
+ 
+--- a/xen/arch/x86/hvm/vmx/entry.S
++++ b/xen/arch/x86/hvm/vmx/entry.S
+@@ -25,7 +25,7 @@
+ #define VMLAUNCH     .byte 0x0f,0x01,0xc2
+ 
+ ENTRY(vmx_asm_vmexit_handler)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         mov  %cr2,%rax
+         GET_CURRENT(bx)
+@@ -119,7 +119,7 @@ UNLIKELY_END(realmode)
+ 
+ .Lvmx_vmentry_fail:
+         sti
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         /*
+          * SPEC_CTRL_ENTRY notes
+--- a/xen/arch/x86/include/asm/asm_defns.h
++++ b/xen/arch/x86/include/asm/asm_defns.h
+@@ -221,7 +221,7 @@ static always_inline void stac(void)
+ #endif
+ 
+ #ifdef __ASSEMBLY__
+-.macro SAVE_ALL compat=0
++.macro SAVE_ALL compat=0 ssp=IS_ENABLED(CONFIG_XEN_SHSTK)
+         addq  $-(UREGS_error_code-UREGS_r15), %rsp
+         cld
+         movq  %rdi,UREGS_rdi(%rsp)
+@@ -235,6 +235,9 @@ static always_inline void stac(void)
+         movq  %rax,UREGS_rax(%rsp)
+         xor   %eax, %eax
+ .if !\compat
++.if \ssp
++        rdsspq %rcx
++.endif
+         movq  %r8,UREGS_r8(%rsp)
+         movq  %r9,UREGS_r9(%rsp)
+         movq  %r10,UREGS_r10(%rsp)
+@@ -264,6 +267,11 @@ static always_inline void stac(void)
+         xor   %r13d, %r13d
+         xor   %r14d, %r14d
+         xor   %r15d, %r15d
++.if \ssp && !\compat
++        mov   %cx, UREGS_entry_ssp(%rsp)
++        shr   $16, %rcx
++        mov   %ecx, UREGS_entry_ssp+2(%rsp)
++.endif
+ .endm
+ 
+ #define LOAD_ONE_REG(reg, compat) \
+--- a/xen/arch/x86/x86_64/asm-offsets.c
++++ b/xen/arch/x86/x86_64/asm-offsets.c
+@@ -48,6 +48,7 @@ void __dummy__(void)
+     OFFSET(UREGS_eflags, struct cpu_user_regs, rflags);
+     OFFSET(UREGS_rsp, struct cpu_user_regs, rsp);
+     OFFSET(UREGS_ss, struct cpu_user_regs, ss);
++    OFFSET(UREGS_entry_ssp, struct cpu_user_regs, entry_ssp);
+     OFFSET(UREGS_kernel_sizeof, struct cpu_user_regs, es);
+     BLANK();
+ 
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -257,7 +257,7 @@ FUNC(lstar_enter)
+         pushq $0
+         BUILD_BUG_ON(TRAP_syscall & 0xff)
+         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
+         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
+@@ -296,7 +296,7 @@ FUNC(cstar_enter)
+         pushq $0
+         BUILD_BUG_ON(TRAP_syscall & 0xff)
+         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
+         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
+@@ -339,7 +339,7 @@ LABEL(sysenter_eflags_saved, 0)
+         pushq $0
+         BUILD_BUG_ON(TRAP_syscall & 0xff)
+         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
+         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
+@@ -394,7 +394,7 @@ FUNC(entry_int80)
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+         pushq $0
+         movb  $0x80, EFRAME_entry_vector(%rsp)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
+         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
+--- a/xen/include/public/arch-x86/xen-x86_64.h
++++ b/xen/include/public/arch-x86/xen-x86_64.h
+@@ -183,7 +183,19 @@ struct cpu_user_regs {
+     uint8_t  _pad1[3];
+     __DECL_REG_LO16(flags); /* rflags.IF == !saved_upcall_mask */
+     __DECL_REG_LO8(sp);
+-    uint16_t ss, _pad2[3];
++    uint16_t ss;
++#if !defined(__XEN__)
++    uint16_t _pad2[3];
++#elif defined(COMPILE_OFFSETS)
++    uint16_t entry_ssp[3];
++#else
++    /*
++     * This points _at_ the corresponding shadow stack frame; it is _not_ the
++     * outer context's SSP.  That, if the outer context has CET-SS enabled,
++     * is stored in the top slot of the pointed to shadow stack frame.
++     */
++    signed long entry_ssp:48;
++#endif
+     uint16_t es, _pad3[3];
+     uint16_t ds, _pad4[3];
+     uint16_t fs, _pad5[3];
 
 
