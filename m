@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 789A286BABF
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 23:28:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686804.1069291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2080D86BACB
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 23:38:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686807.1069301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfSOk-0003kW-A5; Wed, 28 Feb 2024 22:27:34 +0000
+	id 1rfSZ3-0005Ms-8p; Wed, 28 Feb 2024 22:38:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686804.1069291; Wed, 28 Feb 2024 22:27:34 +0000
+Received: by outflank-mailman (output) from mailman id 686807.1069301; Wed, 28 Feb 2024 22:38:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfSOk-0003hj-7S; Wed, 28 Feb 2024 22:27:34 +0000
-Received: by outflank-mailman (input) for mailman id 686804;
- Wed, 28 Feb 2024 22:27:33 +0000
+	id 1rfSZ3-0005Kc-65; Wed, 28 Feb 2024 22:38:13 +0000
+Received: by outflank-mailman (input) for mailman id 686807;
+ Wed, 28 Feb 2024 22:38:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=msSf=KF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rfSOj-0003hd-BS
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 22:27:33 +0000
+ id 1rfSZ1-0005KW-Kl
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 22:38:11 +0000
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d748a69-d688-11ee-a1ee-f123f15fe8a2;
- Wed, 28 Feb 2024 23:27:29 +0100 (CET)
+ id 0b1ed263-d68a-11ee-a1ee-f123f15fe8a2;
+ Wed, 28 Feb 2024 23:38:09 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 06884CE2267;
- Wed, 28 Feb 2024 22:27:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A210C433F1;
- Wed, 28 Feb 2024 22:27:24 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 5BC63CE1FD6;
+ Wed, 28 Feb 2024 22:38:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69594C433F1;
+ Wed, 28 Feb 2024 22:38:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,57 +41,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d748a69-d688-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 0b1ed263-d68a-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709159245;
-	bh=WQPApiHH6A9D93VDTMCaZkmgN6V7GL8Od7WxVYedFXY=;
+	s=k20201202; t=1709159883;
+	bh=5WaCi+6gVTyfUU0Op00ytWhMO9xw7BQScrZbELM1l1Q=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=kO/lmmJZijVTPHovlIo/QvNkCTUHJorrWPLhyHY0GMBd8dOPme1lNeh9AVjxMSPG5
-	 7E0MNj3BeqXxhuRJRkip9SueiqOk3Yw8lgqVq+jnbPTLuFtwqf/kKORBHntvBddtIH
-	 AjzzOdmcAjjZzZBH+qDfAzGUA2Ryi0p+waniHuiIVgjVr4CcQxaAMJ/s7pE+LnXVao
-	 9Wz4geqZ+kcjWPH8frwKuAlsUXkznEd0qMFaCNpWRNT6KbgVPxtOCU9IPNTxSeQEm2
-	 MC0HEUvzJefxiBIn9kdyWx44O53zHMsoZCPZXUtylMPmFPAnPZTYrOamSpz1CzOh5U
-	 gy6kZNg4QgZjg==
-Date: Wed, 28 Feb 2024 14:27:22 -0800 (PST)
+	b=bg8Ho0ICp8cDupFShhOwIsLfSkS7QOhJ/uVHZnNKL8wA2xoiYLFTqYGSRy04es9Ux
+	 1MvrpRmYQqMDvUhBbxN1rs6ZTbg8r2yw0IhLrk3JxV3hMDOEIGFHY7aJ1RmiJhjWNB
+	 TXJgjtkbaUsRCP03JR2hMTTrC8qODPHdhgoKGqK0MuW34+9mc7OPR4YHe1+PsOVsAE
+	 nIpmgY2h9UAamQsCWR3aRntrzWN/6Ak/e8rXzcxzG0GcJjAXjk3U/m9LZ9j5W2iFYr
+	 Ov7NC8Jk8LCadrSiPP1k54I02S3NqmdciY1TWzlb5aiVUfNDKZmwnH6PDFMdKxEJ1s
+	 ECaiLPzD27TQw==
+Date: Wed, 28 Feb 2024 14:38:00 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org, 
+To: Julien Grall <julien@xen.org>
+cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] xen/arm: Fix arm32 build failure when early printk is
- enabled
-In-Reply-To: <af11620a-ec16-4677-b968-d8e36c4555d2@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2402281425260.575685@ubuntu-linux-20-04-desktop>
-References: <20240228103555.172101-1-michal.orzel@amd.com> <9201bdc5-2e4c-48b7-8c92-f5063fde90b6@xen.org> <af11620a-ec16-4677-b968-d8e36c4555d2@amd.com>
+    Jan Beulich <jbeulich@suse.com>, consulting@bugseng.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH 2/2] xen/cpu: address MISRA C Rule 17.7
+In-Reply-To: <bcae31fb-856d-4737-b780-f41b3e24cfa7@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2402281437470.575685@ubuntu-linux-20-04-desktop>
+References: <cover.1708680104.git.nicola.vetrini@bugseng.com> <dd4ac0e670a2ad7ecb5eb435e5e3b4b313b1e0b6.1708680104.git.nicola.vetrini@bugseng.com> <33342a17-e71c-4752-a16f-da5c0ef77b51@suse.com> <alpine.DEB.2.22.394.2402261619210.247676@ubuntu-linux-20-04-desktop>
+ <2178731a-ec81-4505-ba8a-2f945bf85133@suse.com> <7a8e610e-913e-4a56-8ce1-6dd6abd894f4@xen.org> <4bee79ca-7a7e-4bcc-ac97-5a5a57ec2c91@suse.com> <alpine.DEB.2.22.394.2402271808410.575685@ubuntu-linux-20-04-desktop> <6af04933659178b3ccabc5caf646273c@bugseng.com>
+ <bcae31fb-856d-4737-b780-f41b3e24cfa7@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 28 Feb 2024, Michal Orzel wrote:
-> Hi Julien,
+On Wed, 28 Feb 2024, Julien Grall wrote:
+> Hi Nicola,
 > 
-> On 28/02/2024 12:42, Julien Grall wrote:
+> On 28/02/2024 11:09, Nicola Vetrini wrote:
+> > > I asked Roberto if void casts are an option for compliance.
+> > > 
 > > 
-> > 
-> > Hi Michal,
-> > 
-> > On 28/02/2024 10:35, Michal Orzel wrote:
-> >> Commit 0441c3acc7e9 forgot to rename FIXMAP_CONSOLE to FIX_CONSOLE in
-> >> TEMPORARY_EARLY_UART_VIRTUAL_ADDRESS macro. This results in a build
-> >> failure on arm32, when early printk is enabled:
-> >> arch/arm/arm32/mmu/head.S:311: Error: invalid operands (*UND* and *ABS* sections) for `*'
-> > 
-> > Good catch! Somewhat related I wonder whether we should add earlyprintk
-> > testing in gitlab?
-> I thought about adding this and I think we should at least have build jobs (hypervisor only, no toolstack)
-> selecting early printk. When it comes to testing if early printk works, I'm not sure. It'd be nice
-> but FWIR we have limited bandwidth.
+> > void casts are an option for sure. The rationale for the rule explicitly
+> > lists them as a compliance mechanism. An interesting aspect is what would be
+> > the consensus around void casts on functions whose return value is always
+> > ignored vs. functions whose return value is sometimes ignored.
 > 
-> @Stefano, what's your opinion?
+> If a return is always ignored, then the function should return void. For the
+> second case, I think it will be on the case by case basis.
 
-I think it would be a good and quick test to have. To save testing
-bandwidth I think we should reduce the amount of debug/non-debug
-variations of the same tests that we have.
++1
+
+ 
+> > > In any case, I don't think we should use void casts in the specific
+> > > cases this patch is dealing with. Void casts (if anything) should be a
+> > > last resort while this patch fixes the issue in a better way.
+> 
+> +1.
+
 
