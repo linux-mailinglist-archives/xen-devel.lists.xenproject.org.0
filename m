@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C83F86AFA2
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 13:58:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686594.1068792 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1DEA86AFCD
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 14:04:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686597.1068801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfJW0-0002pm-S7; Wed, 28 Feb 2024 12:58:28 +0000
+	id 1rfJbo-0004mj-GN; Wed, 28 Feb 2024 13:04:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686594.1068792; Wed, 28 Feb 2024 12:58:28 +0000
+Received: by outflank-mailman (output) from mailman id 686597.1068801; Wed, 28 Feb 2024 13:04:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfJW0-0002ma-PI; Wed, 28 Feb 2024 12:58:28 +0000
-Received: by outflank-mailman (input) for mailman id 686594;
- Wed, 28 Feb 2024 12:58:28 +0000
+	id 1rfJbo-0004l8-Ct; Wed, 28 Feb 2024 13:04:28 +0000
+Received: by outflank-mailman (input) for mailman id 686597;
+ Wed, 28 Feb 2024 13:04:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iHog=KF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfJW0-0002mR-0G
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 12:58:28 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1rfJbn-0004l2-Fz
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 13:04:27 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f78c292-d639-11ee-a1ee-f123f15fe8a2;
- Wed, 28 Feb 2024 13:58:25 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-56647babfe6so2314123a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 04:58:25 -0800 (PST)
+ id e5ddefb1-d639-11ee-a1ee-f123f15fe8a2;
+ Wed, 28 Feb 2024 14:04:25 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5655c7dd3b1so1590576a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 05:04:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ij13-20020a056402158d00b00565ba75a739sm1726443edb.95.2024.02.28.04.58.24
+ jx11-20020a170906ca4b00b00a3f480154a3sm1828200ejb.65.2024.02.28.05.04.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Feb 2024 04:58:25 -0800 (PST)
+ Wed, 28 Feb 2024 05:04:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f78c292-d639-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: e5ddefb1-d639-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709125105; x=1709729905; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=suse.com; s=google; t=1709125465; x=1709730265; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=5A/wWjF3vVLCALEoYlfcnrvEaYFldWBjh5ULoDsqBgA=;
-        b=AdphRkkmjky7+Ch94nalOgWjt6rz+FHlYruHRzMIz+TpEepoUmzAW1MxifpA6S0zd2
-         39Dy7K03dLkG/CbCH6Z2GruOu8kxQnuHY660A1TwNq0GK/sruZ7FZ0MgbfDSkCai0rM0
-         2QPA7xOjRMo/BTvp+zWhpCW9pR7dC7NQIkp5c1foSoAMH4XHZQi50kuLvm6r+4pj4zAC
-         b9RxI3PGgfykcHw7bZv1reDwS1PwKhXJNgJvBwio0yTqHzcW1gE59nOhS4twyhSmV3Ye
-         izu6x5q8sgQ0duUUoAHso/kirDwoKy4sAhwkilqvC7wpZJqlZ9F9/ejXDJ+dXUT1MQSw
-         I9og==
+        bh=F4c1l7EwRkTAAhcVJbRO5x9wRcKnN4wAaQmkchFWJoQ=;
+        b=IUWM8bN8myae8/2B1LLExvev0bgEpagLqxLr7HEAdUnhY4YpYX7+Ec2s808gnlFd/I
+         BOOU/NI19UtgYVc4r+K9MRnTHj/sOQ77YBs8QU3XNRKDCLtzLqhkUSxgffc05KkWNZ82
+         HVPViJfOrB/JnPaAijAogHtpgSlJrpgPzuesKJt4QdG5nYjk4jcjKAtqYP0pmnfvyMrD
+         sdP8N/bnGveihHwdW64af1LU5eAjHDKVjiDN3M5n0PEawCer12Zyv3BndAjAWghsr4CX
+         M7B8I3/RM1c8DtAsDROeXsw5kMUGQ1EVDPxKNYrBpyGzgo9bHUYgPAa5LNpjPoZ9X6S1
+         394Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709125105; x=1709729905;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=1e100.net; s=20230601; t=1709125465; x=1709730265;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5A/wWjF3vVLCALEoYlfcnrvEaYFldWBjh5ULoDsqBgA=;
-        b=PpL1Zx8JGBxranXIYcVVsB29P5uBN6tR0azYzBSlhLt0yfs1dY/tQascsSNm1Ss4JG
-         fnfO8KsCSbHsUkzXLJ7nuCC00bN1rHqQNPz91EtLjG2uqunnbEWJAIScxM+HeqY+Reiv
-         n4Z4QF1mUYc+M44oZl908QR8WM4CzqJ8xE7OEAV4U2YJI/zeStR0g+1euICgdTBTDHhp
-         nZ6pKu1595VdCOP3CTFFh1cEJhg6bME4S9H9qFOp0bjTGoJsO2KBpeyKMRyTONL3GMVo
-         Fo8LGSlu9mPf1gmVGePRx15XFXg93DYywNJg5+FL1bvCknSVRKE9TxsdRSMwqBa1Xrow
-         T5SQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUqIn3JIAhgdAiUj/xfP9QnfUIieMYJNq6NM7GyzB87oPNduja7yS7YIwrfdAHpU3CLlOAda2Tgx0+uph3at67VOWtt3YiYZMzq6FvX1Yc=
-X-Gm-Message-State: AOJu0YxfXeCWsEXpyD9NejOA3s3zoMagnBCqs7C1UkSsvhA8iFhAoGme
-	4bNVylyZsclCE2c7aqaoRNQ/N6Q6VCtc0sxB0aGtj5QdDz8sCVPZRx73F/H4Hw==
-X-Google-Smtp-Source: AGHT+IFMFeP6iaUs4q//IP3HDemMlPP+qy5KQbMyMvrtv40xQGp/eYwdFZAyYdIRDCARVyij+itmzA==
-X-Received: by 2002:a05:6402:1487:b0:565:7ce5:abd5 with SMTP id e7-20020a056402148700b005657ce5abd5mr8378817edv.18.1709125105251;
-        Wed, 28 Feb 2024 04:58:25 -0800 (PST)
-Message-ID: <5a4e8583-7747-4f24-94f0-d040dabb5b04@suse.com>
-Date: Wed, 28 Feb 2024 13:58:24 +0100
+        bh=F4c1l7EwRkTAAhcVJbRO5x9wRcKnN4wAaQmkchFWJoQ=;
+        b=WEEE3cHt1Ob8FSotDLGZ1hy7Kfb118NSeWxBaZ4XiTeMAs/yck4u8LVPEcuE3EHtJR
+         Ci/H1OzCVX4qXW7N5qKFrAcUU/aNDiYrUD4G+3g8fuRTudv2ngTNolATzTru+dry4bqV
+         X1kC8NW9P35OB85RoBZPTgkGSL8HDcPEZbBdjdwfUyhDOU6O0esb2u6KkGT/JQpTwoAr
+         gG0qxeofK1hIkE1XieHgxZnGeco7Ak0DMvUJ8iEyKYPuWJKUzIm/gku+4oh6ekTcL1Lq
+         tmkr+LcD1SE/EhOmKOv+WVJNc8rDKQupKY5pTQUz4ZVCMDMx1Ntozxh+4LSvzbog0g+V
+         ejig==
+X-Gm-Message-State: AOJu0YygD8TBpNxmSgYp71NbnMkkobMOdfnDIL3b/WvGO8B42KV0FiSi
+	rom9HYkxYJE+Awr6cBagKY+eR7jcfPxKdWhh7grHxD9a64g/nNEAVrZitzFSGQ==
+X-Google-Smtp-Source: AGHT+IFJ5qXRpw9LURj7SzE9CzWlF5Db2zX+HB/mIyRJvu85ptcaDkmOUAEoF5LAyypvRjqlQ4buBg==
+X-Received: by 2002:a17:906:a05a:b0:a3e:69ff:141f with SMTP id bg26-20020a170906a05a00b00a3e69ff141fmr2127953ejb.33.1709125464856;
+        Wed, 28 Feb 2024 05:04:24 -0800 (PST)
+Message-ID: <b174757c-8463-4561-ae95-a5791d33080b@suse.com>
+Date: Wed, 28 Feb 2024 14:04:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: preparations for 4.18.1
+Subject: Re: Fwd: New Defects reported by Coverity Scan for XenProject
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Cc: Wei Liu <wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>,
- Kelly Choi <kelly.choi@cloud.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <7dc621a0-924c-499c-86c1-c35ec1f34ec2@suse.com>
- <1f251f2e-91de-4f81-a93c-dcb95746d2e5@xen.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <65df054dd791_2895d52c84469bd9989838e@prd-scan-dashboard-0.mail>
+ <27fad7c4-905b-4181-9882-f383eb194032@citrix.com>
+ <d81f78a8-3e04-4fba-95fc-3b602ee3a740@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,22 +112,86 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1f251f2e-91de-4f81-a93c-dcb95746d2e5@xen.org>
+In-Reply-To: <d81f78a8-3e04-4fba-95fc-3b602ee3a740@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.02.2024 12:50, Julien Grall wrote:
-> On 27/02/2024 13:19, Jan Beulich wrote:
->> All,
->>
->> the release is due in two to three weeks. Please point out backports you find
->> missing from the respective staging branch, but which you consider relevant.
+On 28.02.2024 13:19, Andrew Cooper wrote:
+> Take 2, hopefully with Stewart's correct email address this time.
 > 
-> For Arm:
+> ~Andrew
 > 
-> e11f576650 ("xen/arm: Fix UBSAN failure in start_xen()")
+> On 28/02/2024 12:17 pm, Andrew Cooper wrote:
+>> Not sure how well this is going to be formatted, but there's one new and
+>> potentially interesting issue found by Coverity.
 
-Which I assume you or Stefano will take care of?
+To be honest I didn't consider this interesting at all, but instead a false
+positive due to limited insight that the tool has. But maybe I was wrong
+and you see something I didn't see? vpci_process_pending() is vCPU-local
+(run from the guest resume path), and hence there simply are no two threads
+who want to look at the field. Storing NULL into it is merely a kind of
+progress indicator, relevant to the given vCPU only.
 
 Jan
+
+>> ----8<----
+>>
+>> New defect(s) Reported-by: Coverity Scan
+>> Showing 1 of 1 defect(s)
+>>
+>>
+>> ** CID 1592633: (LOCK_EVASION)
+>> /xen/drivers/vpci/header.c: 229 in vpci_process_pending()
+>> /xen/drivers/vpci/header.c: 189 in vpci_process_pending()
+>> /xen/drivers/vpci/header.c: 239 in vpci_process_pending()
+>>
+>>
+>> ________________________________________________________________________________________________________
+>> *** CID 1592633: (LOCK_EVASION)
+>> /xen/drivers/vpci/header.c: 229 in vpci_process_pending()
+>> 223 224 /* Clean all the rangesets */
+>> 225 for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
+>> 226 if ( !rangeset_is_empty(header->bars[i].mem) )
+>> 227 rangeset_purge(header->bars[i].mem);
+>> 228
+>>>>> CID 1592633: (LOCK_EVASION)
+>>>>> Thread1 sets "pdev" to a new value. Now the two threads have an
+>>>>> inconsistent view of "pdev" and updates to fields of "pdev" or
+>>>>> fields correlated with "pdev" may be lost.
+>> 229 v->vpci.pdev = NULL;
+>> 230 231 read_unlock(&v->domain->pci_lock);
+>> 232 233 if ( !is_hardware_domain(v->domain) )
+>> 234 domain_crash(v->domain);
+>> /xen/drivers/vpci/header.c: 189 in vpci_process_pending()
+>> 183 return false;
+>> 184 185 read_lock(&v->domain->pci_lock);
+>> 186 187 if ( !pdev->vpci || (v->domain != pdev->domain) )
+>> 188 {
+>>>>> CID 1592633: (LOCK_EVASION)
+>>>>> Thread1 sets "pdev" to a new value. Now the two threads have an
+>>>>> inconsistent view of "pdev" and updates to fields of "pdev" or
+>>>>> fields correlated with "pdev" may be lost.
+>> 189 v->vpci.pdev = NULL;
+>> 190 read_unlock(&v->domain->pci_lock);
+>> 191 return false;
+>> 192 }
+>> 193 194 header = &pdev->vpci->header;
+>> /xen/drivers/vpci/header.c: 239 in vpci_process_pending()
+>> 233 if ( !is_hardware_domain(v->domain) )
+>> 234 domain_crash(v->domain);
+>> 235 236 return false;
+>> 237 }
+>> 238 }
+>>>>> CID 1592633: (LOCK_EVASION)
+>>>>> Thread1 sets "pdev" to a new value. Now the two threads have an
+>>>>> inconsistent view of "pdev" and updates to fields of "pdev" or
+>>>>> fields correlated with "pdev" may be lost.
+>> 239 v->vpci.pdev = NULL;
+>> 240 241 spin_lock(&pdev->vpci->lock);
+>> 242 modify_decoding(pdev, v->vpci.cmd, v->vpci.rom_only);
+>> 243 spin_unlock(&pdev->vpci->lock);
+>> 244
+>>
+> 
+
 
