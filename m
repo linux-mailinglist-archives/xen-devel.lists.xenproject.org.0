@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2482486B261
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 15:53:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686688.1069002 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8A7E86B284
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 15:59:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686690.1069012 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfLIk-0003c2-Rc; Wed, 28 Feb 2024 14:52:54 +0000
+	id 1rfLOy-0004LF-GR; Wed, 28 Feb 2024 14:59:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686688.1069002; Wed, 28 Feb 2024 14:52:54 +0000
+Received: by outflank-mailman (output) from mailman id 686690.1069012; Wed, 28 Feb 2024 14:59:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfLIk-0003ZK-Oc; Wed, 28 Feb 2024 14:52:54 +0000
-Received: by outflank-mailman (input) for mailman id 686688;
- Wed, 28 Feb 2024 14:52:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rfLOy-0004Ir-DV; Wed, 28 Feb 2024 14:59:20 +0000
+Received: by outflank-mailman (input) for mailman id 686690;
+ Wed, 28 Feb 2024 14:59:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iHog=KF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfLIi-0003ZE-Ko
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 14:52:52 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b58672b-d649-11ee-a1ee-f123f15fe8a2;
- Wed, 28 Feb 2024 15:52:50 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a440b1c445eso101594066b.1
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 06:52:50 -0800 (PST)
+ id 1rfLOx-0004Il-Le
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 14:59:19 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f237fd0c-d649-11ee-afd8-a90da7624cb6;
+ Wed, 28 Feb 2024 15:59:18 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a3ed9cae56fso183180966b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 06:59:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p4-20020a170906614400b00a3f4bafa6fbsm1903065ejl.168.2024.02.28.06.52.49
+ m2-20020a1709062b8200b00a3e72a6bf1csm1959326ejg.14.2024.02.28.06.59.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Feb 2024 06:52:50 -0800 (PST)
+ Wed, 28 Feb 2024 06:59:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b58672b-d649-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: f237fd0c-d649-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709131970; x=1709736770; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0cAx2wtEdscxtqJw6koZOCpPdjA45RO8nsZSMPNeIa4=;
-        b=Y4JDYgWjghHr8NPR0z+9GHFBo2I5wcNNLJUk9LnJQ4dSCzQZPC55h4Mdkpe0lReEC8
-         utvO5GKrXoLPSwcgdLMPQ85h4E/Xhd7tBerD3N+2EvSlyIxlZmOUYKSa+LJ89sYaPpjH
-         ECGSL1218xVli8NNaH3yAnudoMj9kvdgFMfkIEw4jitcDOyTHVLcn8kLScMl4WCOvf9P
-         DFlqHb8O0f5iLFJnMpXDkE4MfD297OETaCp2uTNz6BDFASSpVaFWKLc+jOi1+71eGFQO
-         iLW+Im683FoWw17Axmd04fwWo5PXoz+Jxbk2NTxvomsAMjPsK5lNClMXhOyqd0hyPkcH
-         3LaA==
+        d=suse.com; s=google; t=1709132358; x=1709737158; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=h1T+kpF3CbFMISAXr63wAGZxjagtLjgT6UxuFBQu/WU=;
+        b=UF6THkb5dcZX90Up7/Y2Z2TV9BYWbM9N6wfolqiwQofeuFNxD3ecipa4FNZaPtwkGU
+         9gZ7qyHJ32UF5+Soby6WGNvKZruIgi3CgYgfl+dIm7V89INfK0Wb5ZgXv5o73FOTsyz9
+         vHvdom3CbBGkWrGbUXO8YNb6SWrZDXOttrHO3OxYPQtSKg07744pU0RLeHmNlJe3W5HT
+         oQzWYcrxTq1dUBVAZn+FB+INhHumlD6APYnC68ymlCv0ETlk4rXy3l5lygs9eXhqFDD4
+         993qdb+ocqO2lrAp9VsfoDq0sFWSp7USUXXw+QOgR64OpbNtOA65lq5+jD3AECOfBLWb
+         tI5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709131970; x=1709736770;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0cAx2wtEdscxtqJw6koZOCpPdjA45RO8nsZSMPNeIa4=;
-        b=YGX8zvm3VW34GPhc9MLCRJjj5noJLQckGrYPCjWYhWfPbVF/IUA6g7QJa/zFsJLB+5
-         uvYHn+jpoYdd3S7wLKCr8y5LoHCrVW35jXnf/0tvkjDkokXpjl2gGdHApocTae1/nrya
-         hIEd15dE0595ztgRFeb/8KCoZ0SBIzM8YGqdCfDiHQAxCW+HMSwz/VzLbTwFREG5Si1L
-         3ziTY2gNPt0Rw07XacjqwlvETGuFvrcRO1EuCO4HSO8s0uvRhzNLz21DedYT+6IKBM9O
-         om9LFMqYfs/ML06T9laFzGybuxKXngFktOfOG2MGbmyEIkaC/PBsw5kZZTUlUGnX5o7y
-         OhrA==
-X-Forwarded-Encrypted: i=1; AJvYcCXmCPK9D7EmcY1FQk+NH9RGroIXcN9zYItBmUoXK2bjerw+Xb5AwA+eNDeQkzbMzcKk9tZqyuwoN8vyFgx6Z6UvGB/D/aGaGkcAzkeJsd0=
-X-Gm-Message-State: AOJu0YxyfTdyoZUImbnRG4DTWnHihMYRE0+VatIxktDcBLX/sY4tnEK8
-	krvNjeuTkDSpGF0i0ewxm5PriNQ+JeWyQsHIMc1owoNqS4H7oaqy5Jio9TrdDFemD0mt/8luZxg
-	=
-X-Google-Smtp-Source: AGHT+IHUQXZ+VeT9gde4R5AX9cm3TiU/uXgIrEDpepJ8GUJ86S29iSHWw8Xj7K8C6jydPVSgcgKxZg==
-X-Received: by 2002:a17:906:792:b0:a43:fec3:b648 with SMTP id l18-20020a170906079200b00a43fec3b648mr1736086ejc.24.1709131970236;
-        Wed, 28 Feb 2024 06:52:50 -0800 (PST)
-Message-ID: <271ae402-7400-4dc5-9222-88523b9a2922@suse.com>
-Date: Wed, 28 Feb 2024 15:52:48 +0100
+        d=1e100.net; s=20230601; t=1709132358; x=1709737158;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=h1T+kpF3CbFMISAXr63wAGZxjagtLjgT6UxuFBQu/WU=;
+        b=HvU4zim9BhPq84OVWx5cvlp5kNJt6RQGXhlL6VmCrzpG7Sy0N2/bTuvBnmyFAGLMwP
+         NSAo+x7+IFc1aeWdlEUfMfJ+/XEJb/wlN/bpiuwaT7MIyCF7bD2Ze3AkFPya9FtfjOBU
+         LNGLfJO5FfDjrkG246ZA5oTGEFwN3G4xlebX/+EoJULDlD5wyln1TmAPy6ba5Gkj3/TK
+         xwN6EiHCdn7NrMMpyrhBcOpJROGI0GX52X1hS4GRluirjjSGHjXpVR+QAMFVibA7rVk+
+         Zq5stk5BBfS11lb0CcB5tkSLtFd4i7ZAGLpscRoEm7aTtTqGUEjit7O1WXGvJcZGvY4K
+         5Vyg==
+X-Forwarded-Encrypted: i=1; AJvYcCX/1RqE5PaHYzNbz99orWaC6307grkjJRQfQpu3j8ONCYvqr3s6N+chtE2U5viEYN7kMJLRXu3LIdri8ejmtVN4XO7ReegzHpL8s7sjfQQ=
+X-Gm-Message-State: AOJu0Yw2zr1dqU4Se52WerECyeTqOhG3IEZVbaTPtCNKe3OuGHO2IzHi
+	yc/tmlnvgGlxaCcl/wg65iqsE3JayrkrdZllnFXdP956UkKbPAsbPTmAi/RYcA==
+X-Google-Smtp-Source: AGHT+IFjX2hJKYVcJCSl97VfJgRz81X5z73sZGIW9iPKstXm7X/S6N930FllUv9NApy7unvJpQU8DQ==
+X-Received: by 2002:a17:907:1b10:b0:a3e:57ed:8b93 with SMTP id mp16-20020a1709071b1000b00a3e57ed8b93mr3301857ejc.19.1709132357937;
+        Wed, 28 Feb 2024 06:59:17 -0800 (PST)
+Message-ID: <5175ecb0-e6d9-418c-a73c-266d325406a4@suse.com>
+Date: Wed, 28 Feb 2024 15:59:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Ping: [PATCH v2] Argo: don't obtain excess page references
-To: Christopher Clark <christopher.w.clark@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <79ed633d-b0bd-4a7d-a0c6-37a034e1ee96@suse.com>
- <0374516c-b5fa-4880-a07a-0b788f491e9a@xen.org>
+Subject: Re: [PATCH v4 04/12] xen/spinlock: rename recursive lock functions
 Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20231212094725.22184-1-jgross@suse.com>
+ <20231212094725.22184-5-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,24 +118,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0374516c-b5fa-4880-a07a-0b788f491e9a@xen.org>
+In-Reply-To: <20231212094725.22184-5-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.02.2024 19:01, Julien Grall wrote:
-> On 14/02/2024 10:12, Jan Beulich wrote:
->> find_ring_mfn() already holds a page reference when trying to obtain a
->> writable type reference. We shouldn't make assumptions on the general
->> reference count limit being effectively "infinity". Obtain merely a type
->> ref, re-using the general ref by only dropping the previously acquired
->> one in the case of an error.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 12.12.2023 10:47, Juergen Gross wrote:
+> Rename the recursive spin_lock() functions by replacing the trailing
+> "_recursive" with a leading "r".
 > 
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
+> Switch the parameter to be a pointer to rspinlock_t.
+> 
+> Remove the indirection through a macro, as it is adding only complexity
+> without any gain.
 
-I'll give it till the end of the week for an ack to arrive (or a substantial
-objection), and commit some time next week in the absence of any response.
+Considering we aren't aware of any leveraging of this, doing so is
+probably okay. Still I think it was done that way for a reason. Plus
+of course if we undo the indirection here, sooner or later we should
+also undo similar indirection elsewhere.
+
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
