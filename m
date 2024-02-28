@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BD5286B1E9
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 15:35:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686679.1068982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D271986B24B
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 15:48:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686684.1068992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfL1B-0006ju-25; Wed, 28 Feb 2024 14:34:45 +0000
+	id 1rfLEF-00016k-7P; Wed, 28 Feb 2024 14:48:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686679.1068982; Wed, 28 Feb 2024 14:34:45 +0000
+Received: by outflank-mailman (output) from mailman id 686684.1068992; Wed, 28 Feb 2024 14:48:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfL1A-0006hV-VA; Wed, 28 Feb 2024 14:34:44 +0000
-Received: by outflank-mailman (input) for mailman id 686679;
- Wed, 28 Feb 2024 14:34:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n4Dg=KF=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1rfL19-0006hL-U7
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 14:34:43 +0000
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [2607:f8b0:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81fa8732-d646-11ee-a1ee-f123f15fe8a2;
- Wed, 28 Feb 2024 15:34:42 +0100 (CET)
-Received: by mail-pf1-x429.google.com with SMTP id
- d2e1a72fcca58-6e56d594b31so219702b3a.1
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 06:34:42 -0800 (PST)
+	id 1rfLEF-00014u-3V; Wed, 28 Feb 2024 14:48:15 +0000
+Received: by outflank-mailman (input) for mailman id 686684;
+ Wed, 28 Feb 2024 14:48:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iHog=KF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rfLED-00014o-Ox
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 14:48:13 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 654e27e3-d648-11ee-afd8-a90da7624cb6;
+ Wed, 28 Feb 2024 15:48:12 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a3d484a58f6so791806466b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 06:48:12 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ lf7-20020a170907174700b00a4316384159sm1912315ejc.224.2024.02.28.06.48.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 Feb 2024 06:48:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,95 +45,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81fa8732-d646-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 654e27e3-d648-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709130880; x=1709735680; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ULSlAjwWXGhSHuHX6N2FXR6xOtwfEQECei5WCk+WRwc=;
-        b=PFszrlCbC1PvdFzYSVPlbJ+oRm/nBemKSIwuAsucUC/NgzSSbU1uOEmNn2eeTYiOSW
-         dh78zl6v4DHVnn2jfJCtwF/QUK0MnRXpprmRJRZHNh7bOWHtKCOjvOTD1IeuhxFY4YS6
-         PiRqQTLqQDrL40z6rd+a7hvKMvr68SD3pIjUg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709130880; x=1709735680;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=suse.com; s=google; t=1709131692; x=1709736492; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ULSlAjwWXGhSHuHX6N2FXR6xOtwfEQECei5WCk+WRwc=;
-        b=PYD1Xw/LCwKEpXmC3FrjK1K3CXhYzTlFzP1Xe5kGHflGJOKiNAH++W5tt41IAzXaim
-         1yP6WcmYhWSOzqgywLTRrK3nKQSoWoXuyG9Jy6WiJjkrYox8RrWYdyW65VFI80V9DuQH
-         c+Bx1XuFLlpOiuMvB/+g3ufk85HKK1u/41xWMc/l+KwZp22r0flNFSxNTQocWoz84nIg
-         0JvW8DiMzXw+nQQd3W9+IqyRAwo5w8wzUkf/BMpMMwhU1y4dBLxxAevgk+MQJROLhpRL
-         CQkGtEE/KD/E8YCKOwyychnTUEhE/lBzqxQHBpHMuaatwfCJjXro9oAfCGSNuhC1vOeV
-         8Jwg==
-X-Forwarded-Encrypted: i=1; AJvYcCV6Sh/9kalGGD95MuvSBKILPGD5qnkmp+TLH5EQt3mtFlBzvd4SgmYeYlkPXb9SYwId3VQ+XWr35Myxi74TzxC8T/7RDEQRo6tToZLTWPk=
-X-Gm-Message-State: AOJu0YyFRmyET8J1EJi0PLDHJriny9K4i6Tq7s89+w+pUm7OrA/90gNZ
-	anJhjsjtSQOjTvyF94sx3N2feEZBY01cimCjaoEgiGJLt9692SPJ/0adPxHHaJnJmWElpjKl2QC
-	blRE6PJRuqlzA2Srod+zv1T1Tx66Op9dkK93s2RFeoxYCRdxCIXRt
-X-Google-Smtp-Source: AGHT+IF1r0nIc/BifAyhN/P28DHFrRL6E2dBy5ugOhljUKrfcMZYVvHTIwO3zE8vsqmhBOTbll6cVVlYAZCa3u7pa1k=
-X-Received: by 2002:a17:90b:14a:b0:29a:6c13:f0a with SMTP id
- em10-20020a17090b014a00b0029a6c130f0amr10654397pjb.16.1709130880490; Wed, 28
- Feb 2024 06:34:40 -0800 (PST)
+        bh=8T6SqAr8zRjYU0xw/FLOnzZ8QZ6ZQnxq79TKnjkGfqk=;
+        b=YgWsPuF26+YbI64fTVyvvx/9Pe6LnYS23k80Qsow+zVmHxm05bduQ64tKZzBUWJkyp
+         7/qhXjYLbQO2kxjpe2pe716WGp9mWQhOqpSbodx8iIY+zAZuh/SxOH1RcIUiLc04B6+f
+         SSGFPhXX2WIU4msB0lkz6FngwD0fVMUVBMKqg/XUD8rhcpH7RWWrV69dpDGmknegQ44R
+         51kKb8xQES0nY9Mp/a/r2cvE/aLDcukFiyB09To6ORcBzijMaN3p6HME9FgF3yMHdZ60
+         0yTc0sPZp3J/TihWDB/MWvIQmQeWyJ4ruFMlINnIy6aTEkGgQXQsBP01QCvDzypJ89xi
+         S6Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709131692; x=1709736492;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=8T6SqAr8zRjYU0xw/FLOnzZ8QZ6ZQnxq79TKnjkGfqk=;
+        b=jBDqDTwW/7cCwlZd5GheFpKAVSsFUoUjg68U/uD/hK+RXwjWaNchPOqZ6PEMKpazbO
+         AGv1WwVQSWbRh7QCGHJsdGYfiETLRoDwQhIM+TEcjHPbE/iRrOzg7Is6/tqXBIFbUevN
+         Z5njAz1yAoV7aZ4+dPUqNRSPGT4baV+tMVzIijFIGat050RuXwQ1JQourRfi/Tv9XctY
+         ehm//29X+f0PndY8f+P+NzvMTN+ICyBBZTQyn3ZM1eXh30P1TnTLcCBM7wrobl9ha1zL
+         AC8k29IU9ftS5JqgPa7hB6HmQFQn3qlXpMYsCy1tHkwXfwGeW/XJLml+mSdDLTpXi8cW
+         irBQ==
+X-Gm-Message-State: AOJu0YwA/DdM2C/9u/mBORDyziuDclSGUtT/7vgJTP7wgLMbZklOsoR/
+	kj1/b7K6Vdtql7kCDM9RT1NRS08wFM+D2omLo6RiJs9SHCDUBJrjSTvB+9ovf9+ebBzQKcIeCaU
+	=
+X-Google-Smtp-Source: AGHT+IHIftzain54YhWj9ebHX9KxhqYls7nqAQPwBaAoCPecTYqGy4pwmjZoTEt7VRxpARLXJEwdgA==
+X-Received: by 2002:a17:906:ce30:b0:a3f:bd94:4d80 with SMTP id sd16-20020a170906ce3000b00a3fbd944d80mr8515992ejb.76.1709131691832;
+        Wed, 28 Feb 2024 06:48:11 -0800 (PST)
+Message-ID: <58656398-2d64-48b8-9ddc-c6836847a586@suse.com>
+Date: Wed, 28 Feb 2024 15:48:10 +0100
 MIME-Version: 1.0
-References: <20240227112528.4540-1-roger.pau@citrix.com> <20240227112528.4540-2-roger.pau@citrix.com>
- <e8ffdaa2-0786-4f9b-b4c4-03fe88e5c72b@citrix.com>
-In-Reply-To: <e8ffdaa2-0786-4f9b-b4c4-03fe88e5c72b@citrix.com>
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Wed, 28 Feb 2024 14:34:29 +0000
-Message-ID: <CAG7k0Eq8V3v6Jc3Z5d=mxzWuJ6DSHW5XZ1=D5MCw67W2LDY3sw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/5] xen/livepatch: register livepatch regions when loaded
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86: serializing of non-serializing MSR writes
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Feb 27, 2024 at 1:08=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
-x.com> wrote:
->
-> On 27/02/2024 11:25 am, Roger Pau Monne wrote:
-> > diff --git a/xen/common/virtual_region.c b/xen/common/virtual_region.c
-> > index ddac5c9147e5..e3a4dc8540df 100644
-> > --- a/xen/common/virtual_region.c
-> > +++ b/xen/common/virtual_region.c
-> > <snip>
-> >
-> > +#ifdef CONFIG_LIVEPATCH
-> >  void unregister_virtual_region(struct virtual_region *r)
-> >  {
-> > -    /* Expected to be called from Live Patch - which has IRQs disabled=
-. */
-> > -    ASSERT(!local_irq_is_enabled());
-> > -
-> >      remove_virtual_region(r);
-> > +
-> > +    /* Assert that no CPU might be using the removed region. */
-> > +    rcu_barrier();
-> >  }
-> >
-> > -#if defined(CONFIG_LIVEPATCH) && defined(CONFIG_X86)
-> > +#ifdef CONFIG_X86
-> >  void relax_virtual_region_perms(void)
-> >  {
-> >      const struct virtual_region *region;
-> > @@ -117,6 +106,7 @@ void tighten_virtual_region_perms(void)
-> >      rcu_read_unlock(&rcu_virtual_region_lock);
-> >  }
-> >  #endif
-> > +#endif
->
-> Can we please have:
->
-> #endif /* CONFIG_X86 */
-> #endif /* CONFIG_LIVEPATCH */
->
-> before this gets any more complicated to follow.  Can be fixed on commit.
->
+Linux commit 25a068b8e9a4e ("x86/apic: Add extra serialization for non-
+serializing MSRs") explains why an MFENCE+LFENCE pair is generally
+needed ahead of ICR writes in x2APIC mode, and also why at least in
+theory such is also needed ahead of TSC_DEADLINE writes. A comment of
+our own in send_IPI_mask_x2apic_phys() further explains a condition
+under which the LFENCE can be avoided.
 
-LGTM with this suggested change.
+Further Linux commit 04c3024560d3 ("x86/barrier: Do not serialize MSR
+accesses on AMD") explains that this barrier isn't needed on AMD or
+Hygon, and is in fact hampering performance in a measurable way.
 
-Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+Introduce a similarly named helper function, but with a parameter
+allowing callers to specify whether a memory access will follow, thus
+permitting the LFENCE to be omitted.
+
+Putting an instance in apic_wait_icr_idle() is to be on the safe side.
+The one case where it was clearly missing is in send_IPI_shortcut(),
+which is also used in x2APIC mode when called from send_IPI_mask().
+
+Function comment shamelessly borrowed (but adapted) from Linux.
+
+Fixes: 5500d265a2a8 ("x86/smp: use APIC ALLBUT destination shorthand when possible")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+I question the need for a fence ahead of writing TSC_DEADLINE: The Linux
+commit message talks about LVT being accessed via MMIO in xAPIC mode,
+but that should not be relevant here: It's all the local CPU, so there
+ought to not be visibility concerns (much like for a self-IPI no fence
+is needed ahead of the ICR write). If that wasn't needed, we could
+further use alternatives patching to remove the fence also from
+apic_wait_icr_idle() when in xAPIC mode. (And only then would I agree to
+have APIC in the feature identifier, like Linux has it.)
+
+A number of apic_write() may better be turned into apic_mem_write(), in
+particular e.g. the ones in send_IPI_mask_{flat,phys}(). That way it
+would be quite a bit easier to spot paths taken only in xAPIC mode.
+
+The INIT-INIT-SIPI sequence for AP startup doesn't use any barrier, also
+not in Linux afaics. I can't explain the lack thereof, though.
+
+--- a/xen/arch/x86/apic.c
++++ b/xen/arch/x86/apic.c
+@@ -1309,6 +1309,12 @@ int reprogram_timer(s_time_t timeout)
+ 
+     if ( tdt_enabled )
+     {
++        /*
++         * WRMSR to TSC_DEADLINE is not serializing.  We could pass @timeout
++         * here, but the passed value is preferably compile-time-constant.
++         */
++        weak_wrmsr_fence(false);
++
+         wrmsrl(MSR_IA32_TSC_DEADLINE, timeout ? stime2tsc(timeout) : 0);
+         return 1;
+     }
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -675,8 +675,12 @@ void amd_log_freq(const struct cpuinfo_x
+ 
+ void cf_check early_init_amd(struct cpuinfo_x86 *c)
+ {
+-	if (c == &boot_cpu_data)
++	if (c == &boot_cpu_data) {
++		/* No fencing needed ahead of certain MSR writes. */
++		setup_force_cpu_cap(X86_FEATURE_NO_WRMSR_FENCE);
++
+ 		amd_init_levelling();
++	}
+ 
+ 	ctxt_switch_levelling(NULL);
+ }
+--- a/xen/arch/x86/genapic/x2apic.c
++++ b/xen/arch/x86/genapic/x2apic.c
+@@ -97,15 +97,15 @@ static void cf_check send_IPI_mask_x2api
+ 
+     /*
+      * Ensure that any synchronisation data written in program order by this
+-     * CPU is seen by notified remote CPUs. The WRMSR contained within
+-     * apic_icr_write() can otherwise be executed early.
++     * CPU is seen by notified remote CPUs. The WRMSR contained in the loop
++     * below can otherwise be executed early.
+      * 
+-     * The reason smp_mb() is sufficient here is subtle: the register arguments
++     * The reason MFENCE is sufficient here is subtle: the register arguments
+      * to WRMSR must depend on a memory read executed after the barrier. This
+      * is guaranteed by cpu_physical_id(), which reads from a global array (and
+      * so cannot be hoisted above the barrier even by a clever compiler).
+      */
+-    smp_mb();
++    weak_wrmsr_fence(true);
+ 
+     local_irq_save(flags);
+ 
+@@ -130,7 +130,7 @@ static void cf_check send_IPI_mask_x2api
+     const cpumask_t *cluster_cpus;
+     unsigned long flags;
+ 
+-    smp_mb(); /* See above for an explanation. */
++    weak_wrmsr_fence(true); /* See above for an explanation. */
+ 
+     local_irq_save(flags);
+ 
+--- a/xen/arch/x86/include/asm/cpufeatures.h
++++ b/xen/arch/x86/include/asm/cpufeatures.h
+@@ -24,7 +24,7 @@ XEN_CPUFEATURE(APERFMPERF,        X86_SY
+ XEN_CPUFEATURE(MFENCE_RDTSC,      X86_SYNTH( 9)) /* MFENCE synchronizes RDTSC */
+ XEN_CPUFEATURE(XEN_SMEP,          X86_SYNTH(10)) /* SMEP gets used by Xen itself */
+ XEN_CPUFEATURE(XEN_SMAP,          X86_SYNTH(11)) /* SMAP gets used by Xen itself */
+-/* Bit 12 unused. */
++XEN_CPUFEATURE(NO_WRMSR_FENCE,    X86_SYNTH(12)) /* No MFENCE{,+LFENCE} ahead of certain WRMSR. */
+ XEN_CPUFEATURE(IND_THUNK_LFENCE,  X86_SYNTH(13)) /* Use IND_THUNK_LFENCE */
+ XEN_CPUFEATURE(IND_THUNK_JMP,     X86_SYNTH(14)) /* Use IND_THUNK_JMP */
+ XEN_CPUFEATURE(SC_NO_BRANCH_HARDEN, X86_SYNTH(15)) /* (Disable) Conditional branch hardening */
+--- a/xen/arch/x86/include/asm/msr.h
++++ b/xen/arch/x86/include/asm/msr.h
+@@ -97,6 +97,25 @@ static inline void msr_split(struct cpu_
+     regs->rax = (uint32_t)val;
+ }
+ 
++/*
++ * Make previous memory operations globally visible before a WRMSR.  Most
++ * WRMSRs are full serializing instructions themselves and do not require this
++ * barrier.  This may only be required for the TSC_DEADLINE and x2APIC MSRs.
++ *
++ * MFENCE makes writes visible, but only affects load/store instructions.
++ * WRMSR is unfortunately not a load/store instruction and is unaffected by
++ * MFENCE.  The LFENCE ensures that the WRMSR is not reordered, but callers
++ * can indicate to avoid it when they have a suitable memory access between
++ * the invocation of this function and the WRMSR in question.
++ */
++static inline void weak_wrmsr_fence(bool have_mem_access)
++{
++    alternative("mfence", "", X86_FEATURE_NO_WRMSR_FENCE);
++
++    if ( !have_mem_access )
++        alternative("lfence", "", X86_FEATURE_NO_WRMSR_FENCE);
++}
++
+ static inline uint64_t rdtsc(void)
+ {
+     uint32_t low, high;
+--- a/xen/arch/x86/smp.c
++++ b/xen/arch/x86/smp.c
+@@ -39,7 +39,10 @@ static unsigned int prepare_ICR2(unsigne
+ void apic_wait_icr_idle(void)
+ {
+     if ( x2apic_enabled )
++    {
++        weak_wrmsr_fence(false);
+         return;
++    }
+ 
+     while ( apic_read(APIC_ICR) & APIC_ICR_BUSY )
+         cpu_relax();
 
