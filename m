@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E17386B1D0
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 15:31:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686671.1068962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A94FC86B1E2
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 15:33:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686677.1068972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfKxV-0004p5-D6; Wed, 28 Feb 2024 14:30:57 +0000
+	id 1rfL04-0005ya-PI; Wed, 28 Feb 2024 14:33:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686671.1068962; Wed, 28 Feb 2024 14:30:57 +0000
+Received: by outflank-mailman (output) from mailman id 686677.1068972; Wed, 28 Feb 2024 14:33:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfKxV-0004nS-9p; Wed, 28 Feb 2024 14:30:57 +0000
-Received: by outflank-mailman (input) for mailman id 686671;
- Wed, 28 Feb 2024 14:30:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rfL04-0005wX-Lj; Wed, 28 Feb 2024 14:33:36 +0000
+Received: by outflank-mailman (input) for mailman id 686677;
+ Wed, 28 Feb 2024 14:33:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n4Dg=KF=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1rfKxU-0004IV-Rd
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 14:30:56 +0000
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [2607:f8b0:4864:20::1034])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fa97262d-d645-11ee-a1ee-f123f15fe8a2;
- Wed, 28 Feb 2024 15:30:54 +0100 (CET)
-Received: by mail-pj1-x1034.google.com with SMTP id
- 98e67ed59e1d1-29996cc6382so3973408a91.3
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 06:30:54 -0800 (PST)
+ <SRS0=+A+G=KF=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rfL03-0005wR-Lq
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 14:33:35 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 59f297c6-d646-11ee-afd8-a90da7624cb6;
+ Wed, 28 Feb 2024 15:33:34 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id CE10D4EE0737;
+ Wed, 28 Feb 2024 15:33:33 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,156 +39,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa97262d-d645-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709130653; x=1709735453; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=E0VlonLqhBdA+xA9i99/449MrxyCIN089k/qvTq0NHE=;
-        b=IAPIqYVaaYnl5e4E7ffH7GVQFpvzMMfPaIwup1d6chqmGGCCJMTwwKN5A71/geDwXj
-         646oBqL1ielIde77ivSxnBGd6rcM+MmM75z3r9RUsVLSo4Pej5YBpEpZeFpbq9ooGAUl
-         BywV4JvU/8u3Hn8ObWtxq05tJ+Ut3dJCWP47A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709130653; x=1709735453;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=E0VlonLqhBdA+xA9i99/449MrxyCIN089k/qvTq0NHE=;
-        b=cy2zTao13s/TLvRhXGHDwSg0DCDi8SY/LYWkUQBcn2ERdMzCmpFpwpm6T5novMz7Mm
-         N0vjJ/qzCbIQ0phsuvh54xmIxxWeoE3XqfcVgxdqfM4HQ1Lb/0By7MpyAWgNtEEdoQHi
-         X3YGzdgB8a7Zy23aal8n3verI+cEpHxT6DhEFQVMBk6IHihV9F/BvH3/duSwrgQ0VOO5
-         wUndz3umdTdhGy7OMBfGN65kzdPhpDtH+tHBbUFJdO0gxwqFrpBhYQxOFG2LGwDkwcIj
-         DIY+AlMrzgNnqpW1j/GvrEosKZ4gaIkphsEcUKl3jO0ir63c+ARzUyIbBgvXsyI3SnDr
-         TtIQ==
-X-Gm-Message-State: AOJu0YzhLNvXt2pmrJYV6JNigw0nGhW1XlphF032HP0j0gk/QaKmCMZC
-	Z4/8veZ5FH9291Up3gv0YZNf7pEkwdDy0u6AD/SGgAQJFlVn7N0MkSMKs/50h/Q+smeeKib+Q+f
-	IX8y+/EOmZQADFJ9F7i2LtA75fxYY+Uwr1iL8
-X-Google-Smtp-Source: AGHT+IEJNCr2dmwBrf8wBcx3mE+U/a/HOse1dc+CY8inY2XU3sKpglxxscJnJiJuklSL3Yvur0zcl1pkoPfcZLkTANU=
-X-Received: by 2002:a17:90a:88c:b0:299:3f10:20ba with SMTP id
- v12-20020a17090a088c00b002993f1020bamr11035825pjc.27.1709130653320; Wed, 28
- Feb 2024 06:30:53 -0800 (PST)
+X-Inumbo-ID: 59f297c6-d646-11ee-afd8-a90da7624cb6
 MIME-Version: 1.0
-References: <20240227112528.4540-1-roger.pau@citrix.com> <20240227112528.4540-6-roger.pau@citrix.com>
-In-Reply-To: <20240227112528.4540-6-roger.pau@citrix.com>
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Wed, 28 Feb 2024 14:30:43 +0000
-Message-ID: <CAG7k0EqQuqU5eyGRoZ2r4uwUuXWKZynN09ePmnVXH_32cWE_og@mail.gmail.com>
-Subject: Re: [PATCH v2 5/5] xen/livepatch: group and document payload hooks
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Feb 2024 15:33:33 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
+ julien@xen.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, George
+ Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH] xen: cache clearing and invalidation helpers
+ refactoring
+In-Reply-To: <b8bb4534-b11c-4fa6-a617-0460f494a626@suse.com>
+References: <cc6bf44701c808645c69bacaf4463295e2cb0fba.1708354388.git.nicola.vetrini@bugseng.com>
+ <4f3b3d52a3ba20b05ecfa068b916b804@bugseng.com>
+ <b8bb4534-b11c-4fa6-a617-0460f494a626@suse.com>
+Message-ID: <4b8015c51f93ae05ad0748832e06cf8b@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Feb 27, 2024 at 11:25=E2=80=AFAM Roger Pau Monne <roger.pau@citrix.=
-com> wrote:
->
-> Group the payload hooks between the pre/post handlers, and the apply/reve=
-rt
-> replacements.  Also attempt to comment the context in which the hooks are
-> executed.
->
-> No functional change.
->
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> ---
-> Changes since v1:
->  - New in this version.
-> ---
->  xen/include/xen/livepatch_payload.h | 37 ++++++++++++++++++++++-------
->  1 file changed, 29 insertions(+), 8 deletions(-)
->
-> diff --git a/xen/include/xen/livepatch_payload.h b/xen/include/xen/livepa=
-tch_payload.h
-> index b9cd4f209670..472d6a4a63c1 100644
-> --- a/xen/include/xen/livepatch_payload.h
-> +++ b/xen/include/xen/livepatch_payload.h
-> @@ -82,6 +82,8 @@ struct payload {
->   * collision.  Since multiple hooks can be registered, the
->   * .livepatch.hook.load section is a table of functions that will be
->   * executed in series by the livepatch infrastructure at patch load time=
-.
-> + *
-> + * Note the load hook is executed in quiesced context.
->   */
->  #define LIVEPATCH_LOAD_HOOK(_fn) \
->      livepatch_loadcall_t *__weak \
-> @@ -96,14 +98,20 @@ struct payload {
->       livepatch_unloadcall_t *__weak \
->          const livepatch_unload_data_##_fn __section(".livepatch.hooks.un=
-load") =3D _fn;
->
-> +/*
-> + * Pre/Post action hooks.
-> + *
-> + * This hooks are executed before or after the livepatch application. Pr=
-e hooks
-> + * can veto the application/revert of the livepatch.  They are not execu=
-ted in
-> + * quiesced context.  All of pre and post hooks are considered vetoing, =
-and
-> + * hence filling any of those will block the usage of the REPLACE action=
-.
-> + *
-> + * Each of the hooks below can only be set once per livepatch payload.
-> + */
->  #define LIVEPATCH_PREAPPLY_HOOK(_fn) \
->      livepatch_precall_t *__attribute__((weak, used)) \
->          const livepatch_preapply_data_##_fn __section(".livepatch.hooks.=
-preapply") =3D _fn;
->
-> -#define LIVEPATCH_APPLY_HOOK(_fn) \
-> -    livepatch_actioncall_t *__attribute__((weak, used)) \
-> -        const livepatch_apply_data_##_fn __section(".livepatch.hooks.app=
-ly") =3D _fn;
-> -
->  #define LIVEPATCH_POSTAPPLY_HOOK(_fn) \
->      livepatch_postcall_t *__attribute__((weak, used)) \
->          const livepatch_postapply_data_##_fn __section(".livepatch.hooks=
-.postapply") =3D _fn;
-> @@ -112,14 +120,27 @@ struct payload {
->      livepatch_precall_t *__attribute__((weak, used)) \
->          const livepatch_prerevert_data_##_fn __section(".livepatch.hooks=
-.prerevert") =3D _fn;
->
-> -#define LIVEPATCH_REVERT_HOOK(_fn) \
-> -    livepatch_actioncall_t *__attribute__((weak, used)) \
-> -        const livepatch_revert_data_##_fn __section(".livepatch.hooks.re=
-vert") =3D _fn;
-> -
->  #define LIVEPATCH_POSTREVERT_HOOK(_fn) \
->      livepatch_postcall_t *__attribute__((weak, used)) \
->          const livepatch_postrevert_data_##_fn __section(".livepatch.hook=
-s.postrevert") =3D _fn;
->
-> +/*
-> + * Action replacement hooks.
-> + *
-> + * The following hooks replace the hypervisor implementation for the liv=
-epatch
-> + * application and revert routines.  When filling the hooks below the na=
-tive
-> + * apply and revert routines will not be executed, so the provided hooks=
- need
-> + * to make sure the state of the payload after apply or revert is as exp=
-ected
-> + * by the livepatch logic.
-> + */
-> +#define LIVEPATCH_APPLY_HOOK(_fn) \
-> +    livepatch_actioncall_t *__attribute__((weak, used)) \
-> +        const livepatch_apply_data_##_fn __section(".livepatch.hooks.app=
-ly") =3D _fn;
-> +
-> +#define LIVEPATCH_REVERT_HOOK(_fn) \
-> +    livepatch_actioncall_t *__attribute__((weak, used)) \
-> +        const livepatch_revert_data_##_fn __section(".livepatch.hooks.re=
-vert") =3D _fn;
-> +
->  #endif /* __XEN_LIVEPATCH_PAYLOAD_H__ */
->
+On 2024-02-26 11:51, Jan Beulich wrote:
+> On 23.02.2024 08:58, Nicola Vetrini wrote:
+>> On 2024-02-19 16:14, Nicola Vetrini wrote:
+>>> The cache clearing and invalidation helpers in x86 and Arm didn't
+>>> comply with MISRA C Rule 17.7: "The value returned by a function
+>>> having non-void return type shall be used". On Arm they
+>>> were always returning 0, while some in x86 returned -EOPNOTSUPP
+>>> and in common/grant_table the return value is saved.
+>>> 
+>>> As a consequence, a common helper arch_grant_cache_flush that returns
+>>> an integer is introduced, so that each architecture can choose 
+>>> whether
+>>> to
+>>> return an error value on certain conditions, and the helpers have
+>>> either
+>>> been changed to return void (on Arm) or deleted entirely (on x86).
+>>> 
+>>> Signed-off-by: Julien Grall <julien@xen.org>
+>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>> ---
+>>> The original refactor idea came from Julien Grall in [1]; I edited 
+>>> that
+>>> proposal
+>>> to fix build errors.
+>>> 
+>>> I did introduce a cast to void for the call to flush_area_local on 
+>>> x86,
+>>> because
+>>> even before this patch the return value of that function wasn't 
+>>> checked
+>>> in all
+>>> but one use in x86/smp.c, and in this context the helper (perhaps
+>>> incidentally)
+>>> ignored the return value of flush_area_local.
+>>> 
+>>> [1]
+>>> https://lore.kernel.org/xen-devel/09589e8f-77b6-47f7-b5bd-cf485e4b60f1@xen.org/
+>>> ---
+>>>  xen/arch/arm/include/asm/page.h     | 33 
+>>> ++++++++++++++++++-----------
+>>>  xen/arch/x86/include/asm/flushtlb.h | 23 ++++++++++----------
+>>>  xen/common/grant_table.c            |  9 +-------
+>>>  3 files changed, 34 insertions(+), 31 deletions(-)
+>>> 
+>> 
+>> I'll put this patch in the backlog at the moment: too many intricacies
+>> while trying to untangle xen/flushtlb from xen/mm.h, and there are
+>> easier cases that can be done faster. If someone is interested I can
+>> post the partial work I've done so far, even though it doesn't
+>> build on x86.
+> 
+> This
+> https://lists.xen.org/archives/html/xen-devel/2024-02/msg01513.html
+> may be of interest to you in the context here.
+> 
 
-LGTM, thanks.
+I'll take a look, thanks.
 
-Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
