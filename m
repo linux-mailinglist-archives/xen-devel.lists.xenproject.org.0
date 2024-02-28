@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8A7E86B284
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 15:59:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686690.1069012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CAEF86B2C2
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 16:10:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686694.1069022 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfLOy-0004LF-GR; Wed, 28 Feb 2024 14:59:20 +0000
+	id 1rfLYf-0006Dw-Ci; Wed, 28 Feb 2024 15:09:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686690.1069012; Wed, 28 Feb 2024 14:59:20 +0000
+Received: by outflank-mailman (output) from mailman id 686694.1069022; Wed, 28 Feb 2024 15:09:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfLOy-0004Ir-DV; Wed, 28 Feb 2024 14:59:20 +0000
-Received: by outflank-mailman (input) for mailman id 686690;
- Wed, 28 Feb 2024 14:59:19 +0000
+	id 1rfLYf-0006CJ-9u; Wed, 28 Feb 2024 15:09:21 +0000
+Received: by outflank-mailman (input) for mailman id 686694;
+ Wed, 28 Feb 2024 15:09:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iHog=KF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfLOx-0004Il-Le
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 14:59:19 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1rfLYe-0006CD-7M
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 15:09:20 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f237fd0c-d649-11ee-afd8-a90da7624cb6;
- Wed, 28 Feb 2024 15:59:18 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a3ed9cae56fso183180966b.1
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 06:59:18 -0800 (PST)
+ id 583ebc9e-d64b-11ee-afd8-a90da7624cb6;
+ Wed, 28 Feb 2024 16:09:18 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a28a6cef709so839164766b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 07:09:19 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m2-20020a1709062b8200b00a3e72a6bf1csm1959326ejg.14.2024.02.28.06.59.17
+ tl26-20020a170907c31a00b00a3fb7cafad8sm1950097ejc.39.2024.02.28.07.09.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Feb 2024 06:59:17 -0800 (PST)
+ Wed, 28 Feb 2024 07:09:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f237fd0c-d649-11ee-afd8-a90da7624cb6
+X-Inumbo-ID: 583ebc9e-d64b-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709132358; x=1709737158; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709132958; x=1709737758; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=h1T+kpF3CbFMISAXr63wAGZxjagtLjgT6UxuFBQu/WU=;
-        b=UF6THkb5dcZX90Up7/Y2Z2TV9BYWbM9N6wfolqiwQofeuFNxD3ecipa4FNZaPtwkGU
-         9gZ7qyHJ32UF5+Soby6WGNvKZruIgi3CgYgfl+dIm7V89INfK0Wb5ZgXv5o73FOTsyz9
-         vHvdom3CbBGkWrGbUXO8YNb6SWrZDXOttrHO3OxYPQtSKg07744pU0RLeHmNlJe3W5HT
-         oQzWYcrxTq1dUBVAZn+FB+INhHumlD6APYnC68ymlCv0ETlk4rXy3l5lygs9eXhqFDD4
-         993qdb+ocqO2lrAp9VsfoDq0sFWSp7USUXXw+QOgR64OpbNtOA65lq5+jD3AECOfBLWb
-         tI5A==
+        bh=YhZYBZtincd42tPqrvkY4hq/5948OK8ztponalyQ6jU=;
+        b=Frhw5RUBd9Tn8lhhSCcBeo+cjTVmYmDiuGj2Iwz68oPmqHOrkKv1plvtxkpj0cUGjL
+         T6xt3aHrqvDIhUiy2312cBdY+ySow+fRCi12agNjxAULOIEL+wHbHeBOawRKf5WeFmtX
+         0dQZVGFKx8maan6oMjZCoOxaUwxfilmO8Nez1UqQx60WNctW51thKSW1NM3YxHS10e/t
+         2afM7LagjivzSHJjLHWVL3nJfdqz0lad5Kv5Tr6zA73Nt92IALnX/0bZpVwlWl/xjw4W
+         rdaDd10nMCUgs0iqVCwD39/ZkmuXrAZQ/2RbfqB7FI87oJmc9oQDW7EaGFXH3D8LSMxC
+         u0Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709132358; x=1709737158;
+        d=1e100.net; s=20230601; t=1709132958; x=1709737758;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=h1T+kpF3CbFMISAXr63wAGZxjagtLjgT6UxuFBQu/WU=;
-        b=HvU4zim9BhPq84OVWx5cvlp5kNJt6RQGXhlL6VmCrzpG7Sy0N2/bTuvBnmyFAGLMwP
-         NSAo+x7+IFc1aeWdlEUfMfJ+/XEJb/wlN/bpiuwaT7MIyCF7bD2Ze3AkFPya9FtfjOBU
-         LNGLfJO5FfDjrkG246ZA5oTGEFwN3G4xlebX/+EoJULDlD5wyln1TmAPy6ba5Gkj3/TK
-         xwN6EiHCdn7NrMMpyrhBcOpJROGI0GX52X1hS4GRluirjjSGHjXpVR+QAMFVibA7rVk+
-         Zq5stk5BBfS11lb0CcB5tkSLtFd4i7ZAGLpscRoEm7aTtTqGUEjit7O1WXGvJcZGvY4K
-         5Vyg==
-X-Forwarded-Encrypted: i=1; AJvYcCX/1RqE5PaHYzNbz99orWaC6307grkjJRQfQpu3j8ONCYvqr3s6N+chtE2U5viEYN7kMJLRXu3LIdri8ejmtVN4XO7ReegzHpL8s7sjfQQ=
-X-Gm-Message-State: AOJu0Yw2zr1dqU4Se52WerECyeTqOhG3IEZVbaTPtCNKe3OuGHO2IzHi
-	yc/tmlnvgGlxaCcl/wg65iqsE3JayrkrdZllnFXdP956UkKbPAsbPTmAi/RYcA==
-X-Google-Smtp-Source: AGHT+IFjX2hJKYVcJCSl97VfJgRz81X5z73sZGIW9iPKstXm7X/S6N930FllUv9NApy7unvJpQU8DQ==
-X-Received: by 2002:a17:907:1b10:b0:a3e:57ed:8b93 with SMTP id mp16-20020a1709071b1000b00a3e57ed8b93mr3301857ejc.19.1709132357937;
-        Wed, 28 Feb 2024 06:59:17 -0800 (PST)
-Message-ID: <5175ecb0-e6d9-418c-a73c-266d325406a4@suse.com>
-Date: Wed, 28 Feb 2024 15:59:16 +0100
+        bh=YhZYBZtincd42tPqrvkY4hq/5948OK8ztponalyQ6jU=;
+        b=iVogyMErvXDF1Uvo4o1PSvv9POT/TLgj/0hDeCaSSIoHjF7p/na4+HJd4s6Dn3zwUb
+         2M9rp+qBcqkW+Y30OIknIPT3SMr/O4feg8oM27uKdMLcRRBdNdm+Pf5O9NLJBAavQcPJ
+         HNCk5VLz5yA8zxwp8C0Mp79zrMNORZANokmKGZn/Htmtn3/XHArwUVhmVwlkoNjtHrnC
+         lcVmt/1ZkoQL16DqUvx1CeOIo2vPju+mzpBB6q829gtOZafXy4RAfHc4DG1mobWiqUpW
+         v3UzbUGdn9bbwENbcUyuTnNjCiJRAByii1cZQSYdpBOyEdQrDPtlH+U7VfE22FvVOyA/
+         tZEQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUu4tOXWYfFPH7ImVGn6GHqLX6PF4C0WLhuQ6Gh2J+EIjB82oEPAM93t7hDmBxghKO2n4oHyNwWG81KJwoaIhK/WDvWtowH6ADHqSOSc3k=
+X-Gm-Message-State: AOJu0Yxz7PSiq5bbrp4p/QSJglgRX05KQ0N6u+IgjfzsIDEQEPrVnTb8
+	PBX0EChL0Iz5aJJJ21OixOpF4HGqTuZD8M77IXdsjN0iLGT6UqDTlY2IaEksFg==
+X-Google-Smtp-Source: AGHT+IHHh5meT+s6XrienMEnMAIQbHI5+pawTXEro+uy6nwugh3YlOXbsgdMWeFaZSp+eVXRciaFpA==
+X-Received: by 2002:a17:906:d204:b0:a43:da8a:9ec9 with SMTP id w4-20020a170906d20400b00a43da8a9ec9mr2739154ejz.68.1709132958618;
+        Wed, 28 Feb 2024 07:09:18 -0800 (PST)
+Message-ID: <411c0f54-67cd-4b12-83ec-218703045707@suse.com>
+Date: Wed, 28 Feb 2024 16:09:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 04/12] xen/spinlock: rename recursive lock functions
+Subject: Re: [PATCH v4 05/12] xen/spinlock: add
+ rspin_[un]lock_irq[save|restore]()
 Content-Language: en-US
 To: Juergen Gross <jgross@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>, Paul Durrant <paul@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
 References: <20231212094725.22184-1-jgross@suse.com>
- <20231212094725.22184-5-jgross@suse.com>
+ <20231212094725.22184-6-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,29 +115,114 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231212094725.22184-5-jgross@suse.com>
+In-Reply-To: <20231212094725.22184-6-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 12.12.2023 10:47, Juergen Gross wrote:
-> Rename the recursive spin_lock() functions by replacing the trailing
-> "_recursive" with a leading "r".
+> Instead of special casing rspin_lock_irqsave() and
+> rspin_unlock_irqrestore() for the console lock, add those functions
+> to spinlock handling and use them where needed.
 > 
-> Switch the parameter to be a pointer to rspinlock_t.
-> 
-> Remove the indirection through a macro, as it is adding only complexity
-> without any gain.
-
-Considering we aren't aware of any leveraging of this, doing so is
-probably okay. Still I think it was done that way for a reason. Plus
-of course if we undo the indirection here, sooner or later we should
-also undo similar indirection elsewhere.
-
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
 > Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - new patch
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+In how far is this a necessary part of the series?
+
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -647,13 +647,15 @@ void show_stack_overflow(unsigned int cpu, const struct cpu_user_regs *regs)
+>  void show_execution_state(const struct cpu_user_regs *regs)
+>  {
+>      /* Prevent interleaving of output. */
+> -    unsigned long flags = console_lock_recursive_irqsave();
+> +    unsigned long flags;
+> +
+> +    rspin_lock_irqsave(&console_lock, flags);
+>  
+>      show_registers(regs);
+>      show_code(regs);
+>      show_stack(regs);
+>  
+> -    console_unlock_recursive_irqrestore(flags);
+> +    rspin_unlock_irqrestore(&console_lock, flags);
+>  }
+>  
+>  void cf_check show_execution_state_nonconst(struct cpu_user_regs *regs)
+> @@ -663,7 +665,7 @@ void cf_check show_execution_state_nonconst(struct cpu_user_regs *regs)
+>  
+>  void vcpu_show_execution_state(struct vcpu *v)
+>  {
+> -    unsigned long flags = 0;
+> +    unsigned long flags;
+>  
+>      if ( test_bit(_VPF_down, &v->pause_flags) )
+>      {
+> @@ -698,7 +700,7 @@ void vcpu_show_execution_state(struct vcpu *v)
+>  #endif
+>  
+>      /* Prevent interleaving of output. */
+> -    flags = console_lock_recursive_irqsave();
+> +    rspin_lock_irqsave(&console_lock, flags);
+>  
+>      vcpu_show_registers(v);
+>  
+> @@ -708,7 +710,7 @@ void vcpu_show_execution_state(struct vcpu *v)
+>           * Stop interleaving prevention: The necessary P2M lookups involve
+>           * locking, which has to occur with IRQs enabled.
+>           */
+> -        console_unlock_recursive_irqrestore(flags);
+> +        rspin_unlock_irqrestore(&console_lock, flags);
+>  
+>          show_hvm_stack(v, &v->arch.user_regs);
+>      }
+> @@ -717,7 +719,7 @@ void vcpu_show_execution_state(struct vcpu *v)
+>          if ( guest_kernel_mode(v, &v->arch.user_regs) )
+>              show_guest_stack(v, &v->arch.user_regs);
+>  
+> -        console_unlock_recursive_irqrestore(flags);
+> +        rspin_unlock_irqrestore(&console_lock, flags);
+>      }
+>  
+
+I view these as layering violations; ...
+
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -120,7 +120,7 @@ static int __read_mostly sercon_handle = -1;
+>  int8_t __read_mostly opt_console_xen; /* console=xen */
+>  #endif
+>  
+> -static DEFINE_RSPINLOCK(console_lock);
+> +DEFINE_RSPINLOCK(console_lock);
+
+... this should remain static. The question therefore just is whether
+to omit this patch or ...
+
+> @@ -1158,22 +1158,6 @@ void console_end_log_everything(void)
+>      atomic_dec(&print_everything);
+>  }
+>  
+> -unsigned long console_lock_recursive_irqsave(void)
+> -{
+> -    unsigned long flags;
+> -
+> -    local_irq_save(flags);
+> -    rspin_lock(&console_lock);
+> -
+> -    return flags;
+> -}
+> -
+> -void console_unlock_recursive_irqrestore(unsigned long flags)
+> -{
+> -    rspin_unlock(&console_lock);
+> -    local_irq_restore(flags);
+> -}
+
+... whether to retain these two functions as thin wrappers around the
+new, more generic construct.
 
 Jan
-
 
