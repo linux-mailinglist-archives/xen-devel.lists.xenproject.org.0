@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2080D86BACB
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 23:38:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686807.1069301 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79B9486BAE9
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 23:46:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686809.1069311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfSZ3-0005Ms-8p; Wed, 28 Feb 2024 22:38:13 +0000
+	id 1rfSga-00076B-0I; Wed, 28 Feb 2024 22:46:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686807.1069301; Wed, 28 Feb 2024 22:38:13 +0000
+Received: by outflank-mailman (output) from mailman id 686809.1069311; Wed, 28 Feb 2024 22:45:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfSZ3-0005Kc-65; Wed, 28 Feb 2024 22:38:13 +0000
-Received: by outflank-mailman (input) for mailman id 686807;
- Wed, 28 Feb 2024 22:38:11 +0000
+	id 1rfSgZ-00073n-TW; Wed, 28 Feb 2024 22:45:59 +0000
+Received: by outflank-mailman (input) for mailman id 686809;
+ Wed, 28 Feb 2024 22:45:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=msSf=KF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rfSZ1-0005KW-Kl
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 22:38:11 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ id 1rfSgY-00073h-Cw
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 22:45:58 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b1ed263-d68a-11ee-a1ee-f123f15fe8a2;
- Wed, 28 Feb 2024 23:38:09 +0100 (CET)
+ id 21ebd94a-d68b-11ee-a1ee-f123f15fe8a2;
+ Wed, 28 Feb 2024 23:45:56 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 5BC63CE1FD6;
- Wed, 28 Feb 2024 22:38:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69594C433F1;
- Wed, 28 Feb 2024 22:38:02 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id B76C7614CA;
+ Wed, 28 Feb 2024 22:45:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F19C433C7;
+ Wed, 28 Feb 2024 22:45:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,59 +42,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b1ed263-d68a-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 21ebd94a-d68b-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709159883;
-	bh=5WaCi+6gVTyfUU0Op00ytWhMO9xw7BQScrZbELM1l1Q=;
+	s=k20201202; t=1709160354;
+	bh=cjtlg/QVrYzErKBipwK6r+KHc9Hh6O43ER2xx5rOxfY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=bg8Ho0ICp8cDupFShhOwIsLfSkS7QOhJ/uVHZnNKL8wA2xoiYLFTqYGSRy04es9Ux
-	 1MvrpRmYQqMDvUhBbxN1rs6ZTbg8r2yw0IhLrk3JxV3hMDOEIGFHY7aJ1RmiJhjWNB
-	 TXJgjtkbaUsRCP03JR2hMTTrC8qODPHdhgoKGqK0MuW34+9mc7OPR4YHe1+PsOVsAE
-	 nIpmgY2h9UAamQsCWR3aRntrzWN/6Ak/e8rXzcxzG0GcJjAXjk3U/m9LZ9j5W2iFYr
-	 Ov7NC8Jk8LCadrSiPP1k54I02S3NqmdciY1TWzlb5aiVUfNDKZmwnH6PDFMdKxEJ1s
-	 ECaiLPzD27TQw==
-Date: Wed, 28 Feb 2024 14:38:00 -0800 (PST)
+	b=tdThU2SnCSD5Hl6IvVakztb48od9ZdR0amVvZDF14jKzbS73hPeryNCJnFnPPkXd6
+	 QHa45DzbR+daS/Jpj1l4mk8Y+EzeRRpq7G+uUppRCnYWc4sb1l+OaDGrtJn7FWjSjL
+	 zGDDjRAoQp5Gp1YD2nZzJ17FWf8z1WMYshPFSAMlF1o6vRFLYbk7D8Hz+uAQnwazjK
+	 gD2X40kpp94zkoraEhJnQPVR1JyzXx4s6UghdZ8Ykxw9KRJFS9gw8Vgsc+DFv/LsD9
+	 nAV9b+K9Tw0oVc5WdxbwZutsLRdDvW/gL4RtcU1N1IkeR4ONNdqqvvDcBnoVx9StX5
+	 jpytTpV86ZKrw==
+Date: Wed, 28 Feb 2024 14:45:51 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
-cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>, consulting@bugseng.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 2/2] xen/cpu: address MISRA C Rule 17.7
-In-Reply-To: <bcae31fb-856d-4737-b780-f41b3e24cfa7@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2402281437470.575685@ubuntu-linux-20-04-desktop>
-References: <cover.1708680104.git.nicola.vetrini@bugseng.com> <dd4ac0e670a2ad7ecb5eb435e5e3b4b313b1e0b6.1708680104.git.nicola.vetrini@bugseng.com> <33342a17-e71c-4752-a16f-da5c0ef77b51@suse.com> <alpine.DEB.2.22.394.2402261619210.247676@ubuntu-linux-20-04-desktop>
- <2178731a-ec81-4505-ba8a-2f945bf85133@suse.com> <7a8e610e-913e-4a56-8ce1-6dd6abd894f4@xen.org> <4bee79ca-7a7e-4bcc-ac97-5a5a57ec2c91@suse.com> <alpine.DEB.2.22.394.2402271808410.575685@ubuntu-linux-20-04-desktop> <6af04933659178b3ccabc5caf646273c@bugseng.com>
- <bcae31fb-856d-4737-b780-f41b3e24cfa7@xen.org>
+cc: Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+    Anthony Perard <anthony.perard@citrix.com>, 
+    Kelly Choi <kelly.choi@cloud.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: preparations for 4.18.1
+In-Reply-To: <521a4d3b-8ef1-4449-97bd-1a3d3e0e35ec@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2402281445450.575685@ubuntu-linux-20-04-desktop>
+References: <7dc621a0-924c-499c-86c1-c35ec1f34ec2@suse.com> <1f251f2e-91de-4f81-a93c-dcb95746d2e5@xen.org> <5a4e8583-7747-4f24-94f0-d040dabb5b04@suse.com> <521a4d3b-8ef1-4449-97bd-1a3d3e0e35ec@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 28 Feb 2024, Julien Grall wrote:
-> Hi Nicola,
+> Hi Jan,
 > 
-> On 28/02/2024 11:09, Nicola Vetrini wrote:
-> > > I asked Roberto if void casts are an option for compliance.
+> On 28/02/2024 12:58, Jan Beulich wrote:
+> > On 28.02.2024 12:50, Julien Grall wrote:
+> > > On 27/02/2024 13:19, Jan Beulich wrote:
+> > > > All,
+> > > > 
+> > > > the release is due in two to three weeks. Please point out backports you
+> > > > find
+> > > > missing from the respective staging branch, but which you consider
+> > > > relevant.
 > > > 
+> > > For Arm:
+> > > 
+> > > e11f576650 ("xen/arm: Fix UBSAN failure in start_xen()")
 > > 
-> > void casts are an option for sure. The rationale for the rule explicitly
-> > lists them as a compliance mechanism. An interesting aspect is what would be
-> > the consensus around void casts on functions whose return value is always
-> > ignored vs. functions whose return value is sometimes ignored.
+> > Which I assume you or Stefano will take care of?
 > 
-> If a return is always ignored, then the function should return void. For the
-> second case, I think it will be on the case by case basis.
+> I was expecting Stefano would do it as he did the backports in the past.
 
-+1
-
- 
-> > > In any case, I don't think we should use void casts in the specific
-> > > cases this patch is dealing with. Void casts (if anything) should be a
-> > > last resort while this patch fixes the issue in a better way.
-> 
-> +1.
-
+Done
 
