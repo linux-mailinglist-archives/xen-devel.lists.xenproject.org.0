@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC7ED86B2F6
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 16:21:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686710.1069072 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38D8986B2F9
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 16:22:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686714.1069082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfLkE-00048o-Ax; Wed, 28 Feb 2024 15:21:18 +0000
+	id 1rfLkx-0004gL-JU; Wed, 28 Feb 2024 15:22:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686710.1069072; Wed, 28 Feb 2024 15:21:18 +0000
+Received: by outflank-mailman (output) from mailman id 686714.1069082; Wed, 28 Feb 2024 15:22:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfLkE-00047I-7W; Wed, 28 Feb 2024 15:21:18 +0000
-Received: by outflank-mailman (input) for mailman id 686710;
- Wed, 28 Feb 2024 15:21:16 +0000
+	id 1rfLkx-0004eo-GO; Wed, 28 Feb 2024 15:22:03 +0000
+Received: by outflank-mailman (input) for mailman id 686714;
+ Wed, 28 Feb 2024 15:22:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eIhW=KF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rfLkC-00046f-8I
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 15:21:16 +0000
-Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
- [2607:f8b0:4864:20::f2d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=EdaL=KF=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rfLkv-00046f-TJ
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 15:22:01 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 02ada04e-d64d-11ee-a1ee-f123f15fe8a2;
- Wed, 28 Feb 2024 16:21:14 +0100 (CET)
-Received: by mail-qv1-xf2d.google.com with SMTP id
- 6a1803df08f44-68facd7ea4aso7932696d6.0
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 07:21:14 -0800 (PST)
-Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- od1-20020a0562142f0100b0068f9b20fb0bsm5268569qvb.100.2024.02.28.07.21.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Feb 2024 07:21:12 -0800 (PST)
+ id 1df411c1-d64d-11ee-a1ee-f123f15fe8a2;
+ Wed, 28 Feb 2024 16:22:00 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 41504225C1;
+ Wed, 28 Feb 2024 15:21:59 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F322413A72;
+ Wed, 28 Feb 2024 15:21:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id L9PGOZZP32UzAwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 28 Feb 2024 15:21:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +52,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02ada04e-d64d-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709133673; x=1709738473; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=j8QTheCBKVUBKIDTYuNTqQKn7bHopMG2hMs7YpvwL3U=;
-        b=db7jyLT/TtxwD250EOvy1G/mgPbssl/1RbR5s645p+DWO8E1vYtreDXncA/1yQn6BY
-         /JOQ0EIEe9cvFDJD03fEyae/jPt4/YvcNxvH6fUclqvIsVCiztpFhNsZBuRz1cQCGq2p
-         nrFpqG/SiirxKh1S4hcxwqgMJr+09ZvJH0LY0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709133673; x=1709738473;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j8QTheCBKVUBKIDTYuNTqQKn7bHopMG2hMs7YpvwL3U=;
-        b=P4GmKbRDWDno4wfOKnGJTBXsG/aFyP6OZV9vXMkgHmQwyyBtuTe247MRDQEQWaHFaA
-         Z1+gXPPztRYv4mSE6xbk4Ww77seg1ELAcOQu/Qpr9GWjUKTnEk787hHlCshbdpSPLTy6
-         adtqEeYv3gcyFswMHFSsvBeY0AV/qtr3HzZnkqwVaEY5MSHCcp5KVpgjv+Rmf7npB4zK
-         5ftswTYh9380xB5MsoSOV1oxXAZ9+57eR/HvtF6qrq8+iJdavG/PG/pLYCFQwVguiRAT
-         NONC5rbYnEQFrYz/nsXPVIZDJcwnaF+QnQErXJ4oVEaOLkGxnaYHjQQRs53dJE84Tuhs
-         tFHA==
-X-Forwarded-Encrypted: i=1; AJvYcCWCQZA5mDFIHoRO4Tu5FkDzFbLRdmlAY78PFVoBRGGrR6RLev6Atrg7OcwWLironn4adrG48CO36qOFVpzdoFrySjSmHS60Crci4poHRtg=
-X-Gm-Message-State: AOJu0YyAH20lETt1so9Vny9iHKz2S+NheISEvW0dHX8wP1EdRnR8TDcL
-	d/NjA6X8kjdL6O/sBu3ZXHbGFfqplEWU2fMbovlg8IGRKnkRIcTEtYKQDnZsAzs=
-X-Google-Smtp-Source: AGHT+IHgPadCOuUfGjl3pP8WzlQeO8n82cN1iJCQ/5y3YWVMXyvauzK4uwFaGn4xem11JmxI/lgP2w==
-X-Received: by 2002:a0c:df85:0:b0:68f:edbb:f317 with SMTP id w5-20020a0cdf85000000b0068fedbbf317mr2710300qvl.30.1709133673589;
-        Wed, 28 Feb 2024 07:21:13 -0800 (PST)
-Message-ID: <aebc274a-31ea-41f2-abb7-e45493ada436@citrix.com>
-Date: Wed, 28 Feb 2024 15:21:10 +0000
+X-Inumbo-ID: 1df411c1-d64d-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1709133719; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aqKuQZZeNejtV5JojVQkZFqH25IA5L/7ebKWxrvjISY=;
+	b=V+tcPXcCGXrwo/CQyYNMzmDUZhdkSSaPBwq0yVz/eVRz8ElQtmNMsrdMvgf8K3nHL98NxH
+	K4fSTCi3O8GutUaLUVE3SRZuApDo8pTTjDBIPAyc0AXFCE112I7gidjiFe6B/rcqz1i00Q
+	eIvQwMvuAQti8sOpxNVNHyc9IGc3jjA=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1709133719; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aqKuQZZeNejtV5JojVQkZFqH25IA5L/7ebKWxrvjISY=;
+	b=V+tcPXcCGXrwo/CQyYNMzmDUZhdkSSaPBwq0yVz/eVRz8ElQtmNMsrdMvgf8K3nHL98NxH
+	K4fSTCi3O8GutUaLUVE3SRZuApDo8pTTjDBIPAyc0AXFCE112I7gidjiFe6B/rcqz1i00Q
+	eIvQwMvuAQti8sOpxNVNHyc9IGc3jjA=
+Message-ID: <318818a3-4d7c-45ff-a656-067d12af555a@suse.com>
+Date: Wed, 28 Feb 2024 16:21:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] x86/traps: use entry_ssp in fixup_exception_return()
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <33da6f8b-af22-48c8-acce-3aa55c0e0414@suse.com>
- <45f89d82-bdc6-44b6-a784-bcdfdcca403d@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <45f89d82-bdc6-44b6-a784-bcdfdcca403d@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v4 05/12] xen/spinlock: add
+ rspin_[un]lock_irq[save|restore]()
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <20231212094725.22184-1-jgross@suse.com>
+ <20231212094725.22184-6-jgross@suse.com>
+ <411c0f54-67cd-4b12-83ec-218703045707@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <411c0f54-67cd-4b12-83ec-218703045707@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Level: ****
+X-Spamd-Bar: ++++
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=V+tcPXcC
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [4.27 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	 XM_UA_NO_VERSION(0.01)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 MIME_GOOD(-0.10)[text/plain];
+	 BAYES_SPAM(5.10)[100.00%];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 DKIM_TRACE(0.00)[suse.com:+];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_SEVEN(0.00)[8];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 R_MIXED_CHARSET(0.67)[subject];
+	 RCVD_TLS_ALL(0.00)[];
+	 MID_RHS_MATCH_FROM(0.00)[]
+X-Spam-Score: 4.27
+X-Rspamd-Queue-Id: 41504225C1
+X-Spam-Flag: NO
 
-On 28/02/2024 1:52 pm, Jan Beulich wrote:
-> --- a/xen/arch/x86/traps.c
-> +++ b/xen/arch/x86/traps.c
-> @@ -837,24 +825,26 @@ static void fixup_exception_return(struc
->  {
->      if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
->      {
-> -        unsigned long ssp, *ptr, *base;
-> +        unsigned long ssp = rdssp();
->  
-> -        if ( (ssp = rdssp()) == SSP_NO_SHSTK )
-> -            goto shstk_done;
-> +        if ( ssp != SSP_NO_SHSTK )
-> +        {
-> +            unsigned long *ptr = _p(regs->entry_ssp);
+On 28.02.24 16:09, Jan Beulich wrote:
+> On 12.12.2023 10:47, Juergen Gross wrote:
+>> Instead of special casing rspin_lock_irqsave() and
+>> rspin_unlock_irqrestore() for the console lock, add those functions
+>> to spinlock handling and use them where needed.
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>> V2:
+>> - new patch
+> 
+> In how far is this a necessary part of the series?
 
-To double check, this works by the magic of:
+Not really necessary. It just seemed wrong to have an open coded
+variant of rspin_lock_irqsave() and rspin_unlock_irqrestore().
 
-    signed long entry_ssp:48;
+> 
+>> --- a/xen/arch/x86/traps.c
+>> +++ b/xen/arch/x86/traps.c
+>> @@ -647,13 +647,15 @@ void show_stack_overflow(unsigned int cpu, const struct cpu_user_regs *regs)
+>>   void show_execution_state(const struct cpu_user_regs *regs)
+>>   {
+>>       /* Prevent interleaving of output. */
+>> -    unsigned long flags = console_lock_recursive_irqsave();
+>> +    unsigned long flags;
+>> +
+>> +    rspin_lock_irqsave(&console_lock, flags);
+>>   
+>>       show_registers(regs);
+>>       show_code(regs);
+>>       show_stack(regs);
+>>   
+>> -    console_unlock_recursive_irqrestore(flags);
+>> +    rspin_unlock_irqrestore(&console_lock, flags);
+>>   }
+>>   
+>>   void cf_check show_execution_state_nonconst(struct cpu_user_regs *regs)
+>> @@ -663,7 +665,7 @@ void cf_check show_execution_state_nonconst(struct cpu_user_regs *regs)
+>>   
+>>   void vcpu_show_execution_state(struct vcpu *v)
+>>   {
+>> -    unsigned long flags = 0;
+>> +    unsigned long flags;
+>>   
+>>       if ( test_bit(_VPF_down, &v->pause_flags) )
+>>       {
+>> @@ -698,7 +700,7 @@ void vcpu_show_execution_state(struct vcpu *v)
+>>   #endif
+>>   
+>>       /* Prevent interleaving of output. */
+>> -    flags = console_lock_recursive_irqsave();
+>> +    rspin_lock_irqsave(&console_lock, flags);
+>>   
+>>       vcpu_show_registers(v);
+>>   
+>> @@ -708,7 +710,7 @@ void vcpu_show_execution_state(struct vcpu *v)
+>>            * Stop interleaving prevention: The necessary P2M lookups involve
+>>            * locking, which has to occur with IRQs enabled.
+>>            */
+>> -        console_unlock_recursive_irqrestore(flags);
+>> +        rspin_unlock_irqrestore(&console_lock, flags);
+>>   
+>>           show_hvm_stack(v, &v->arch.user_regs);
+>>       }
+>> @@ -717,7 +719,7 @@ void vcpu_show_execution_state(struct vcpu *v)
+>>           if ( guest_kernel_mode(v, &v->arch.user_regs) )
+>>               show_guest_stack(v, &v->arch.user_regs);
+>>   
+>> -        console_unlock_recursive_irqrestore(flags);
+>> +        rspin_unlock_irqrestore(&console_lock, flags);
+>>       }
+>>   
+> 
+> I view these as layering violations; ...
+> 
+>> --- a/xen/drivers/char/console.c
+>> +++ b/xen/drivers/char/console.c
+>> @@ -120,7 +120,7 @@ static int __read_mostly sercon_handle = -1;
+>>   int8_t __read_mostly opt_console_xen; /* console=xen */
+>>   #endif
+>>   
+>> -static DEFINE_RSPINLOCK(console_lock);
+>> +DEFINE_RSPINLOCK(console_lock);
+> 
+> ... this should remain static. The question therefore just is whether
+> to omit this patch or ...
+> 
+>> @@ -1158,22 +1158,6 @@ void console_end_log_everything(void)
+>>       atomic_dec(&print_everything);
+>>   }
+>>   
+>> -unsigned long console_lock_recursive_irqsave(void)
+>> -{
+>> -    unsigned long flags;
+>> -
+>> -    local_irq_save(flags);
+>> -    rspin_lock(&console_lock);
+>> -
+>> -    return flags;
+>> -}
+>> -
+>> -void console_unlock_recursive_irqrestore(unsigned long flags)
+>> -{
+>> -    rspin_unlock(&console_lock);
+>> -    local_irq_restore(flags);
+>> -}
+> 
+> ... whether to retain these two functions as thin wrappers around the
+> new, more generic construct.
 
-getting sign extended back into a canonical address?
+I'd vote for the latter.
 
-~Andrew
+
+Juergen
 
