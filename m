@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47D8586B321
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 16:26:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686718.1069092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B0EB86B342
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 16:37:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686722.1069101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfLpK-0005id-7k; Wed, 28 Feb 2024 15:26:34 +0000
+	id 1rfLz6-000815-53; Wed, 28 Feb 2024 15:36:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686718.1069092; Wed, 28 Feb 2024 15:26:34 +0000
+Received: by outflank-mailman (output) from mailman id 686722.1069101; Wed, 28 Feb 2024 15:36:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfLpK-0005gb-4y; Wed, 28 Feb 2024 15:26:34 +0000
-Received: by outflank-mailman (input) for mailman id 686718;
- Wed, 28 Feb 2024 15:26:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iHog=KF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfLpJ-0005gV-GD
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 15:26:33 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bfdc3e67-d64d-11ee-a1ee-f123f15fe8a2;
- Wed, 28 Feb 2024 16:26:31 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a440b1c445eso108937866b.1
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 07:26:31 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- w18-20020a170906481200b00a440ec600e3sm517437ejq.121.2024.02.28.07.26.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Feb 2024 07:26:30 -0800 (PST)
+	id 1rfLz6-0007yj-2P; Wed, 28 Feb 2024 15:36:40 +0000
+Received: by outflank-mailman (input) for mailman id 686722;
+ Wed, 28 Feb 2024 15:36:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WGB+=KF=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rfLz5-0007yd-1r
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 15:36:39 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 291c1f5a-d64f-11ee-afd8-a90da7624cb6;
+ Wed, 28 Feb 2024 16:36:37 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-412b7baa9c5so2063155e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 07:36:38 -0800 (PST)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ z9-20020a05600c114900b00410bca333b7sm2394015wmz.27.2024.02.28.07.36.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Feb 2024 07:36:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfdc3e67-d64d-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 291c1f5a-d64f-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709133991; x=1709738791; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qBCQAmcAwbz+4BjecfA3CxB4ZRhe3irb7v10lQK7hPE=;
-        b=a0A8s6YsCX/notlfJ+KNjSi2SQ1StL1/9wAGvtbyXLi5UV+PaBHxzyojY1NPxxG5RE
-         GK3Sv0XY0bgrC8o831HABc0+J4ZsJ9D5TwjU1/Ho4B0TvNGmYaCkCF7W60RtSaPidqzI
-         O+wAviAutC6+BAs5OmGruBjFRdhUqGB/HWr+jOExoM5vrBZq1rdW9L3WK52XQrglkO4n
-         e+PFtjnG2oR7kdrubTGfZY9wHu0NyjUGJpIm8ObOJSKSjYznEtgsXwWmNHZA7JAvXX2L
-         JI928e1M+zLS6t164eVcUHGEbFOnM4QK02+m6fLLepopODDz0z5UUL9DKDpzM+MR9Neu
-         45SA==
+        d=cloud.com; s=cloud; t=1709134597; x=1709739397; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=vc3MR6wqRwFjdZ59y43EE7o5MZp5u8KpNsnAusaH2zI=;
+        b=EGw5yP+FlmaJ7iK783LR48AXUg8qkLhiHux167XWbnZE666EFIKwoaIQ8yxJ4We4hH
+         gXn9+Asf+lxCK/JT2LAEAJvCbjKtLlaQhRd3lLKB4NmNCU0rrDr8W7zNs8JfzbDEC01G
+         wHbDX3nxypo7qKwTfXmm6z6fEzFFLiYUN85iI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709133991; x=1709738791;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qBCQAmcAwbz+4BjecfA3CxB4ZRhe3irb7v10lQK7hPE=;
-        b=eGcJW2jVVPuLbvBXfaGSNHpK3ta4l9OH31a73gXmhY1fd/fPn97zxjJ4ZMbeGiZFoc
-         w+mGmhY2eGMWZfHNqaoE0beYMyVck2u48PipdKojhJXSS7+Z2F3nb0KVIJMqpxGVCShw
-         emWUmvZpOmwUtoKsj1aortO58N8Fm277LXTpbF0djK4KfYg4SNEiCJR8A+8cF7j973R4
-         +oPS6qqfd2OD4UDhAn6OAu62iUiOzUGXb8aw7ouI4mDs7nci2nQJKB9dfYMHCG2FmYAX
-         1/st9VZ4nqIUxqpLYwWQ64aDZjzdAtDgH1rHvtLROJZKAccEaxNOddzuqqAIgRumi6wc
-         k/8Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUJga2uQO0hEwLCSrEP5TX/fvJPPZx1OWZupIO7J1yvb7f9w/q7vhYFzPGDPB4pUQ9OxWz0dIoOJ/NdT2DDEpbQIzJow3Os8Z+KfQxihSU=
-X-Gm-Message-State: AOJu0YyvJTbbgKjNXw/DLKJF7zQm3tYMVN5uLrNY76EiiK0q/HrYgQgk
-	hz04CpET5exAbY8NhIAvOpq1PkyVgFX1i3GMTXtjC4lHq+7eNOUf1cypUUOEbQ==
-X-Google-Smtp-Source: AGHT+IHd1v/CSRpIrXzfYayj6GEQtN4EaQiXBkNxAe/PQh6vZVkrCEKg2JbiRXOKtZzCVMI5Oxq7PA==
-X-Received: by 2002:a17:906:4a17:b0:a43:f924:d65 with SMTP id w23-20020a1709064a1700b00a43f9240d65mr1823858eju.26.1709133991068;
-        Wed, 28 Feb 2024 07:26:31 -0800 (PST)
-Message-ID: <8d08be46-f847-431b-86c8-7cae3d68574f@suse.com>
-Date: Wed, 28 Feb 2024 16:26:29 +0100
+        d=1e100.net; s=20230601; t=1709134597; x=1709739397;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vc3MR6wqRwFjdZ59y43EE7o5MZp5u8KpNsnAusaH2zI=;
+        b=OR8YgusG5F8m3wKj0Pa9xl6ftpll5cqu+sa9U42aCAxfEooe3ZOXdoXmV4iuOUdBhz
+         WJPX3XKYG/KQWA9rD3zo2ICG9Bkp86wOCHaA1nCVRtd9wc0fgSXP5tszkOvu5zHKmtbC
+         mVpjCMT34QeFr5TNJQMj/3kHMUIAAr2q4TYIJc6PMDtqS7VgXr0w36+8b6FAtSsYTtrr
+         kKwdAiae+PO0/lr3SmZARot24kFVCD7jF8rONFJQH7FwpcBL9nDWNGgup+PjcIvhtnIX
+         291A4bXN6/CEITbRyx9ZddxgQPBKqo8JLIY/YBRlb7nheuygoVXkatZ4BP8B/9q1ArdN
+         qxdg==
+X-Gm-Message-State: AOJu0YzYbjKoaU7zJzdvZUvna0TCxJC95GhIakJTpmZjJPXehG3GRQ27
+	RieCqqxC9TxgRe7OLlSRyr8AM6G79n316YV0n0yDJ5kzPXQMyAbeISVn+CudNeM=
+X-Google-Smtp-Source: AGHT+IHhEwHeHosI3c6mcjtPP0oInY2niCQa0bxlDl2wUDFEW5rSqsPBjjLgbWyUcG0u8SvLx27tTw==
+X-Received: by 2002:a05:600c:4f09:b0:412:ae70:992e with SMTP id l9-20020a05600c4f0900b00412ae70992emr3901658wmq.21.1709134597489;
+        Wed, 28 Feb 2024 07:36:37 -0800 (PST)
+Date: Wed, 28 Feb 2024 15:36:35 +0000
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH 1/2] libxl: Fix segfault in device_model_spawn_outcome
+Message-ID: <f477d391-4676-4cf3-b87a-8f8ee83e7db6@perard>
+References: <20240109170540.38239-1-jandryuk@gmail.com>
+ <20240109170540.38239-2-jandryuk@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] x86/traps: use entry_ssp in fixup_exception_return()
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <33da6f8b-af22-48c8-acce-3aa55c0e0414@suse.com>
- <45f89d82-bdc6-44b6-a784-bcdfdcca403d@suse.com>
- <aebc274a-31ea-41f2-abb7-e45493ada436@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aebc274a-31ea-41f2-abb7-e45493ada436@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240109170540.38239-2-jandryuk@gmail.com>
 
-On 28.02.2024 16:21, Andrew Cooper wrote:
-> On 28/02/2024 1:52 pm, Jan Beulich wrote:
->> --- a/xen/arch/x86/traps.c
->> +++ b/xen/arch/x86/traps.c
->> @@ -837,24 +825,26 @@ static void fixup_exception_return(struc
->>  {
->>      if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
->>      {
->> -        unsigned long ssp, *ptr, *base;
->> +        unsigned long ssp = rdssp();
->>  
->> -        if ( (ssp = rdssp()) == SSP_NO_SHSTK )
->> -            goto shstk_done;
->> +        if ( ssp != SSP_NO_SHSTK )
->> +        {
->> +            unsigned long *ptr = _p(regs->entry_ssp);
+On Tue, Jan 09, 2024 at 12:05:39PM -0500, Jason Andryuk wrote:
+> libxl__spawn_qdisk_backend() explicitly sets guest_config to NULL when
+> starting QEMU (the usual launch through libxl__spawn_local_dm() has a
+> guest_config though).
 > 
-> To double check, this works by the magic of:
+> Bail early on a NULL guest_config/d_config.  This skips the QMP queries
+> for chardevs and VNC, but this xenpv QEMU instance isn't expected to
+> provide those - only qdisk (or 9pfs backends after an upcoming change).
 > 
->     signed long entry_ssp:48;
-> 
-> getting sign extended back into a canonical address?
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 
-That's the very reason for using an explicitly signed bitfield there,
-yes.
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 
-Jan
+Thanks,
+
+-- 
+Anthony PERARD
 
