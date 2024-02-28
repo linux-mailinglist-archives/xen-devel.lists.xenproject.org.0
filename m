@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB18B86ABFE
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 11:15:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686455.1068518 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CD2C86AC43
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 11:36:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686460.1068529 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfGy4-0006jM-G9; Wed, 28 Feb 2024 10:15:16 +0000
+	id 1rfHHr-000102-6a; Wed, 28 Feb 2024 10:35:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686455.1068518; Wed, 28 Feb 2024 10:15:16 +0000
+Received: by outflank-mailman (output) from mailman id 686460.1068529; Wed, 28 Feb 2024 10:35:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfGy4-0006gm-D3; Wed, 28 Feb 2024 10:15:16 +0000
-Received: by outflank-mailman (input) for mailman id 686455;
- Wed, 28 Feb 2024 10:15:14 +0000
+	id 1rfHHr-0000wn-2t; Wed, 28 Feb 2024 10:35:43 +0000
+Received: by outflank-mailman (input) for mailman id 686460;
+ Wed, 28 Feb 2024 10:35:41 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rfGy2-0006gc-PH; Wed, 28 Feb 2024 10:15:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1rfHHp-0000wf-GG
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 10:35:41 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rfGy2-0007re-Lx; Wed, 28 Feb 2024 10:15:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rfGy2-0001fJ-AD; Wed, 28 Feb 2024 10:15:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rfGy2-0007jG-9g; Wed, 28 Feb 2024 10:15:14 +0000
+ (envelope-from <julien@xen.org>)
+ id 1rfHHo-0008Co-Rr; Wed, 28 Feb 2024 10:35:40 +0000
+Received: from [15.248.2.225] (helo=[10.45.19.69])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rfHHo-0003U9-JW; Wed, 28 Feb 2024 10:35:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,294 +39,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=UO9kdt9E5ctXIi0KAk2/pD8+oAl6CnppQk409YYu+/k=; b=ViQfD3P31F6siRwVOfmlrQQT+6
-	9wKgSjl3nv5LNnOp41Ak7N6ujbOAzLmt2+jpl90YJfcdYWK6DY8ee1VT7WoC4GjWZ7vS/2aPgHwzk
-	/0puoVKh1xW8jQGe0r12qxJzcdljor4eNw24IWluUoEYytSGgSWuzMeG/iQkyJKhJc/4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184786-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=VblhwjmdAP0Edj1ztR7piXC5kmWcaYAOHgs0OAj9eVA=; b=f0o4rKtK1rZf+PBT9lWhR422v1
+	vKR4w9J+HZd55IIkq8roGPY/MYIOTqSbGeIiGAcG5AVDEVfb5YYR+QEKEIWLBdarEb11PsWSpbzKF
+	5IH+X9bKbFpwU/J++pI/OIumDUQ12oEBPm/iZTeY4LX/8pBKkjeZwe86XdE7AF64Ep+g=;
+Message-ID: <3982ba47-6709-47e3-a9c2-e2d3b4a2d8e3@xen.org>
+Date: Wed, 28 Feb 2024 10:35:37 +0000
 MIME-Version: 1.0
-Subject: [xen-4.17-testing test] 184786: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-4.17-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=49f77602373b58b7bbdb40cea2b49d2f88d4003d
-X-Osstest-Versions-That:
-    xen=091466ba55d1e2e75738f751818ace2e3ed08ccf
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 28 Feb 2024 10:15:14 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/common: Do not allocate magic pages 1:1 for direct
+ mapped domains
+Content-Language: en-GB
+To: Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alec Kwapis <alec.kwapis@medtronic.com>
+References: <20240226011935.169462-1-xin.wang2@amd.com>
+ <d1518124-483c-4409-9b36-6a3392378911@xen.org>
+ <a84aeb87-17e8-4195-90cb-7b0123064106@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <a84aeb87-17e8-4195-90cb-7b0123064106@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 184786 xen-4.17-testing real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184786/
+Hi Henry,
 
-Failures :-/ but no regressions.
+On 27/02/2024 13:17, Henry Wang wrote:
+> (-RISC-V and PPC people to avoid spamming their inbox as this is quite 
+> Arm specific)
+> 
+> Hi Julien,
+> 
+> On 2/26/2024 5:13 PM, Julien Grall wrote:
+>> Hi Henry,
+>>
+>> Welcome back!
+> 
+> Thanks!
+> 
+>> On 26/02/2024 01:19, Henry Wang wrote:
+>>> An error message can seen from the init-dom0less application on
+>>> direct-mapped 1:1 domains:
+>>> ```
+>>> Allocating magic pages
+>>> memory.c:238:d0v0 mfn 0x39000 doesn't belong to d1
+>>> Error on alloc magic pages
+>>> ```
+>>>
+>>> This is because populate_physmap() automatically assumes gfn == mfn
+>>> for direct mapped domains. This cannot be true for the magic pages
+>>> that are allocated later for Dom0less DomUs from the init-dom0less
+>>> helper application executed in Dom0.
+>>>
+>>> Force populate_physmap to take the "normal" memory allocation route for
+>>> the magic pages even for 1:1 Dom0less DomUs. This should work as long
+>>> as the 1:1 Dom0less DomU doesn't have anything else mapped at the same
+>>> guest address as the magic pages:
+>>> - gfn 0x39000 address 0x39000000
+>>> - gfn 0x39001 address 0x39001000
+>>> - gfn 0x39002 address 0x39002000
+>>> - gfn 0x39003 address 0x39003000
+>>
+>> This is very fragile. You are making the assumption that the magic 
+>> pages are not clashing with any RAM region. The layout defined in 
+>> arch-arm.h has been designed for guest where Xen is in full control of 
+>> the layout. This is not the case for directmapped domain. I don't 
+>> think it is correct to try to re-use part of the layout.
+> 
+> Apologies for the (a bit) late reply, it took a bit longer for me to 
+> understand the story about directmap stuff, and yes, now I agree with 
+> you, for those directmapped domains we should not reuse the guest layout 
+> directly.
+> 
+>> If you want to use 1:1 dom0less with xenstore & co, then you should 
+>> find a different place in memory for the magic pages (TDB how to find 
+>> that area). 
+> 
+> Yes, and maybe we can use similar strategy in find_unallocated_memory() 
+> or find_domU_holes() to do that.
+> 
+>> You will still have the problem of the 1:1 allocation, but I think 
+>> this could be solved bty adding a flag to force a non-1:1 allocation.
+> 
+> After checking the code flow, below rough plan came to my mind, I think 
+> what we need to do is:
+> 
+> (1) Find a range of un-used memory using similar method in 
+> find_unallocated_memory()/find_domU_holes()
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 184564
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184564
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 184564
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184564
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 184564
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184564
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184564
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 184564
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 184564
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 184564
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184564
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184564
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+AFAIK, the toolstack doesn't have any knowledge of the memeory layout 
+for dom0less domUs today. We would need to expose it first.
 
-version targeted for testing:
- xen                  49f77602373b58b7bbdb40cea2b49d2f88d4003d
-baseline version:
- xen                  091466ba55d1e2e75738f751818ace2e3ed08ccf
+Then the region could either be statically allocated (i.e. the admin 
+provides it in the DTB) or dynamically.
 
-Last test of basis   184564  2024-02-02 07:07:04 Z   26 days
-Testing same since   184786  2024-02-27 13:37:10 Z    0 days    1 attempts
+> 
+> (2) Change the base address, i.e. GUEST_MAGIC_BASE in alloc_xs_page() in 
+> init-dom0less.c to point to the address in (1) if static mem or 11 
+> directmap. (I think this is a bit tricky though, do you have any method 
+> that in your mind?)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Cyril Rébert (zithro) <slack@rabbit.lu>
-  Jan Beulich <jbeulich@suse.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  oxjo <oxjo@proton.me>
-  Paul Durrant <paul@xen.org>
-  Petr Beneš <w1benny@gmail.com>
-  Roger Pau Monné <roger.pau@citrix.com>
+AFAIK, the toolstack doesn't know whether a domain is direct mapped or 
+using static mem.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+I think this ties with what I just wrote above. For dom0less domUs, we 
+probably want Xen to prepare a memory layout (similar to the e820) that 
+will then be retrieved by the toolstack.
 
+> 
+> (3) Use a flag or combination of existing flags (CDF_staticmem + 
+> CDF_directmap) in populate_physmap() to force the allocation of these 
+> magic pages using alloc_domheap_pages() - i.e. the "else" condition in 
+> the bottom
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+If I am not mistaken, CDF_* are per-domain. So we would want to use MEMF_*.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+>>> +
+>>>   #endif /* __ASM_X86_MM_H__ */
+>>> diff --git a/xen/common/memory.c b/xen/common/memory.c
+>>> index b3b05c2ec0..ab4bad79e2 100644
+>>> --- a/xen/common/memory.c
+>>> +++ b/xen/common/memory.c
+>>> @@ -219,7 +219,7 @@ static void populate_physmap(struct memop_args *a)
+>>>           }
+>>>           else
+>>>           {
+>>> -            if ( is_domain_direct_mapped(d) )
+>>> +            if ( is_domain_direct_mapped(d) && !is_magic_gpfn(gpfn) )
+>>
+>> This path will also be reached by dom0. Effectively, this will prevent 
+>> dom0 to allocate the memory 1:1 for the magic GPFN (which is guest 
+>> specific).
+> 
+> I think above proposal will solve this issue.
+> 
+>> Also, why are you only checking the first GFN? What if the caller pass 
+>> an overlapped region?
+> 
+> I am a bit confused. My understanding is at this point we are handling 
+> one page at a time.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+We are handling one "extent" at the time. This could be one or multiple 
+pages (see extent_order).
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Cheers,
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   091466ba55..49f7760237  49f77602373b58b7bbdb40cea2b49d2f88d4003d -> stable-4.17
+-- 
+Julien Grall
 
