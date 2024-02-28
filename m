@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5F8886ACCE
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 12:19:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686477.1068577 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 824CA86ACE4
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 12:22:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686481.1068588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfHxM-00008b-4o; Wed, 28 Feb 2024 11:18:36 +0000
+	id 1rfI14-0001rN-Ld; Wed, 28 Feb 2024 11:22:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686477.1068577; Wed, 28 Feb 2024 11:18:36 +0000
+Received: by outflank-mailman (output) from mailman id 686481.1068588; Wed, 28 Feb 2024 11:22:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfHxM-00006Q-1B; Wed, 28 Feb 2024 11:18:36 +0000
-Received: by outflank-mailman (input) for mailman id 686477;
- Wed, 28 Feb 2024 11:18:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rfI14-0001p4-IT; Wed, 28 Feb 2024 11:22:26 +0000
+Received: by outflank-mailman (input) for mailman id 686481;
+ Wed, 28 Feb 2024 11:22:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iHog=KF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfHxL-00006K-6y
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 11:18:35 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1bf9f421-d62b-11ee-afd7-a90da7624cb6;
- Wed, 28 Feb 2024 12:18:33 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-512ab55fde6so7208488e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 03:18:33 -0800 (PST)
+ id 1rfI13-0001oy-2Z
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 11:22:25 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a4a9c252-d62b-11ee-a1ee-f123f15fe8a2;
+ Wed, 28 Feb 2024 12:22:23 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a28a6cef709so802009866b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 03:22:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- u24-20020a170906409800b00a3cfd838f32sm1762879ejj.178.2024.02.28.03.18.32
+ qh16-20020a170906ecb000b00a432777eb77sm1741836ejb.60.2024.02.28.03.22.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Feb 2024 03:18:32 -0800 (PST)
+ Wed, 28 Feb 2024 03:22:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1bf9f421-d62b-11ee-afd7-a90da7624cb6
+X-Inumbo-ID: a4a9c252-d62b-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709119113; x=1709723913; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709119342; x=1709724142; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=4uh43WYyos/QNMgImDchNX+Q4uLC6PkPBT72EL0leEI=;
-        b=anX5e6hxZhLquR1PN3R0xDI9z/JuNNrIdLtBsVmmL5iGjbXi8XrAlKZ8zjo+BbFa4Q
-         AX4b7dft4eDXEXcyTPOSAkyfxyTNf8acrM3z5SWxF9FXrQaDEK41GtK6YJQT/FFQmXRK
-         E3sIUOXVgI50OXytkju7K7yy4aPzIu8E+GenOZTcwQDjyg071o3mwQ4SiqzCguumL5g5
-         GCzSNgUSi3eHXSEk7mE+BqbJHsgdBDS0T4zOiJ9Zy3Ia4Bb3PJS/a5b/FZgw4xXwRH0c
-         dN3ZQuO9vK6f6mkvvkDgobMGMiWszgmQ//P584LIUi99z1qZzOYJXwdMbORI7TGYO76b
-         deag==
+        bh=pzRSwln9kYqqayC627UbGURKm6ipG9CKJ/VFEG1KIPs=;
+        b=bDPO6lm/TxcU1uXQI/O1kcN1HfVkG8ItVCt2PtuKnDiaC8riwEaekrasVKjcKAhWNp
+         OS5apRcPfNFFBglldbfsQqyf0Wtfwf3zL81eL/BM/kn8Kt9gRhF1VL/Fg7QMrJjpTQCJ
+         k7wRlFClmO8bj88mn6LPI438cBWnoSRDLiUmV1cfmAtVW6xDyve84dhuSj36JyPi0LBo
+         alLcGoQIQswARt1BkNhEAD4IOwkUwQKzAGz5rx+bVBJ7hZ+KupnQvQqF1VH54HKjn/c8
+         hAw0Z1EAMCXKYilG/B6dSuwup9Nz5/Vp8+b7Gq+UJC0lmznPteiXFckANdFehqO/AARV
+         hhSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709119113; x=1709723913;
+        d=1e100.net; s=20230601; t=1709119342; x=1709724142;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4uh43WYyos/QNMgImDchNX+Q4uLC6PkPBT72EL0leEI=;
-        b=kA5KV6P5aTJvf8K9W2MNVOjPZrjmREYupt6Nx6LkJhvEg2MBEeE4byNoRbDbyJo6K+
-         dVgKnaeWHZZNgg3UqGpvZE9K+PYeQHQdU4SDYOxt2OdR14F2SdHKA8wXTJKXWeyqU/gP
-         bbdpzLFeOpR7BpA7rfPlbdNn7Nv0PX/Dr2FvNPHFmIaJhfQCsLbjj8rxDWqtuF3beqOv
-         XS2kUy0x0yBoqwoi9RbfGAkE/ApIxSC33tZ7iC1YJMHGLReqTiqDgiTumHkokH2fuhKt
-         SvrdtvPmfi2E2Llrobw7SflMdzVNwUMfMMS78eYXdc0fFDoLldef3BfOKiGpjgZNVcqa
-         +yTQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXiNMk2uFSiR8sQ0teOo/WCLO7ccUPwzmkJSIwN1kXgWwGJpIG0RUaSq+5VBYYd0mVg0EI0UJ4sqxb8kM5HjIsGkRQ6x4P+Qs9H2UVQ2OI=
-X-Gm-Message-State: AOJu0YwHBrsrGdR5qwuXut5aBLBAdKMgY7en/lq7Ess0MTKCmOT67G1c
-	QcGuViF3o8Z7Q+PRapBgnArx5o63MCo9V6UMvUnbBMyvUPt3hWwonw3/AbaKVg==
-X-Google-Smtp-Source: AGHT+IFDwO14G023nwh5yMKiO/3bGVUn4uxx31tIhARZJWTjAVgomiIy+Zh0n6sb5dOWFYMUxbLjYw==
-X-Received: by 2002:ac2:5309:0:b0:513:17fb:24a1 with SMTP id c9-20020ac25309000000b0051317fb24a1mr1370119lfh.64.1709119113162;
-        Wed, 28 Feb 2024 03:18:33 -0800 (PST)
-Message-ID: <de7c8de8-2373-4d78-8aec-c633bb253660@suse.com>
-Date: Wed, 28 Feb 2024 12:18:31 +0100
+        bh=pzRSwln9kYqqayC627UbGURKm6ipG9CKJ/VFEG1KIPs=;
+        b=oNnT12wN6HWNL1eFfCDjB/Ajv4fV2ILIu/rUgAVqOt0QDb1uktZ47yM2KIgWwZ4w9V
+         JvDUWUQi2mpROOimjfqDpNB0g54v6moJC3NyYNRtq5zC2RE0r3dxnPsGIgykPBLmn1Dw
+         rwb+5uSeEZ17CG+KbHvQH8teg7tYk+/N/4x0j7djod8WZ3REeeMZS6AwqQVXPRKivJg5
+         j5vri7pzJNNqsr2GcgFdO34BRXe7vAuGlcSwtthbzqeQc4JBNpwvTkmJidikvnGiPmz+
+         2Gr3md7FyUYt5e1689+EvGzw9jONQXa/3+ywc7TzgsplEdVGG7oufe7XBUawfI3nGbsd
+         2zRQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXOTvGEsewcJaWMXxiaDIjBvZXC+1Z6wPLXCjhbNLE08maQTuTjoyWhfu1mU8cmG9GfTQCwC7fldapfs2RJOW3Y3SCbx/m0Ah133HPhYJc=
+X-Gm-Message-State: AOJu0YxJsCkQdHLybp+qhwGeLhFFXeYDk5b6wIHPaw8PF5QV7tFXba2x
+	5BEHN6H29Y0Bc1Fe9+4ntXlyXzkQ4TjhQK/YAUWJoS957bXyYqVOZ7df4b8KoA==
+X-Google-Smtp-Source: AGHT+IG10w+skdRKBQ2QKEtAWWQCWmBWo23p9FB0pkd1PJo6V8FxSZFSE757BUrQ/y7+61VFkEATaw==
+X-Received: by 2002:a17:907:119b:b0:a38:916e:a4fe with SMTP id uz27-20020a170907119b00b00a38916ea4femr8551978ejb.39.1709119342655;
+        Wed, 28 Feb 2024 03:22:22 -0800 (PST)
+Message-ID: <52f536db-782d-4805-906a-2934b289b997@suse.com>
+Date: Wed, 28 Feb 2024 12:22:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/memsharing: use an atomic add instead of a
- cmpxchg loop
+Subject: Re: [XEN PATCH 2/2] xen/cpu: address MISRA C Rule 17.7
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>,
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Julien Grall <julien@xen.org>, consulting@bugseng.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20240222090530.62530-1-roger.pau@citrix.com>
- <20240222090530.62530-2-roger.pau@citrix.com>
- <d8939069-a1cb-4794-a6aa-75a3e4d97884@suse.com>
- <CABfawhkhH7Pakkq+RgjfmW-f60CbOKxr6wWxvBSr2AkN+m1OdQ@mail.gmail.com>
- <2f68276d-0b10-4cec-8636-5456314c194e@suse.com> <Zd8QtCwp75Phjluc@macbook>
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1708680104.git.nicola.vetrini@bugseng.com>
+ <dd4ac0e670a2ad7ecb5eb435e5e3b4b313b1e0b6.1708680104.git.nicola.vetrini@bugseng.com>
+ <33342a17-e71c-4752-a16f-da5c0ef77b51@suse.com>
+ <alpine.DEB.2.22.394.2402261619210.247676@ubuntu-linux-20-04-desktop>
+ <2178731a-ec81-4505-ba8a-2f945bf85133@suse.com>
+ <7a8e610e-913e-4a56-8ce1-6dd6abd894f4@xen.org>
+ <4bee79ca-7a7e-4bcc-ac97-5a5a57ec2c91@suse.com>
+ <61bdcfc51c4d6ad81949f1f4d84593e1@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,66 +119,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zd8QtCwp75Phjluc@macbook>
+In-Reply-To: <61bdcfc51c4d6ad81949f1f4d84593e1@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 28.02.2024 11:53, Roger Pau Monné wrote:
-> On Fri, Feb 23, 2024 at 08:43:24AM +0100, Jan Beulich wrote:
->> On 22.02.2024 19:03, Tamas K Lengyel wrote:
->>> On Thu, Feb 22, 2024 at 5:06 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>> On 22.02.2024 10:05, Roger Pau Monne wrote:
->>>>> The usage of a cmpxchg loop in get_next_handle() is unnecessary, as the same
->>>>> can be achieved with an atomic increment, which is both simpler to read, and
->>>>> avoid any need for a loop.
->>>>>
->>>>> The cmpxchg usage is likely a remnant of 32bit support, which didn't have an
->>>>> instruction to do an atomic 64bit add, and instead a cmpxchg had to be used.
->>>>>
->>>>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>> Signed-of-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>
->>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>>> albeit ...
->>>>
->>>>> --- a/xen/arch/x86/mm/mem_sharing.c
->>>>> +++ b/xen/arch/x86/mm/mem_sharing.c
->>>>> @@ -179,13 +179,7 @@ static void mem_sharing_page_unlock(struct page_info *pg)
->>>>>
->>>>>  static shr_handle_t get_next_handle(void)
->>>>>  {
->>>>> -    /* Get the next handle get_page style */
->>>>> -    uint64_t x, y = next_handle;
->>>>> -    do {
->>>>> -        x = y;
->>>>> -    }
->>>>> -    while ( (y = cmpxchg(&next_handle, x, x + 1)) != x );
->>>>> -    return x + 1;
->>>>> +    return arch_fetch_and_add(&next_handle, 1) + 1;
->>>>>  }
->>>>
->>>> ... the adding of 1 here is a little odd when taken together with
->>>> next_handle's initializer. Tamas, you've not written that code, but do
->>>> you have any thoughts towards the possible removal of either the
->>>> initializer or the adding here? Plus that variable of course could
->>>> very well do with moving into this function.
->>>
->>> I have to say I find the existing logic here hard to parse but by the
->>> looks I don't think we need the + 1 once we switch to
->>> arch_fetch_and_add. Also could go without initializing next_handle to
->>> 1. Moving it into the function would not really accomplish anything
->>> other than style AFAICT?
+On 28.02.2024 12:06, Nicola Vetrini wrote:
+> On 2024-02-27 13:47, Jan Beulich wrote:
+>> On 27.02.2024 12:52, Julien Grall wrote:
+>>> Do you have another proposal? As Stefano said, we adopted the rule 
+>>> 17.7.
+>>> So we know need a solution to address it.
 >>
->> Well, limiting scope of things can be viewed as purely style, but I
->> think it's more than that: It makes intentions more clear and reduces
->> the chance of abuse (deliberate or unintentional).
+>> One possibility that was circulated while discussing was to add (void)
+>> casts. I'm not a huge fan of those, but between the two options that
+>> might be the lesser evil. We also use funny (should I say ugly)
+>> workarounds in a few cases where we have __must_check but still want
+>> to not really handle the return value in certain cases. Given there are
+>> example in the code base, extending use of such constructs is certainly
+>> also something that may want considering.
 > 
-> I'm afraid that whatever is the outcome here, I will defer it to a
-> further commit, since the purpose here is to be a non-functional
-> change.
+> Can you point out some of these constructs, just to get an idea of what 
+> that might look like?
 
-That's fine with me, but an ack from Tamas is still pending, unless I
-missed something somewhere.
+Grep for __must_check used in comments.
 
 Jan
 
