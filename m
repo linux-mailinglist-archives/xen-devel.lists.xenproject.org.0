@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A857186B0CE
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 14:52:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686639.1068887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EDBF86B0D6
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 14:52:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686641.1068898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfKLz-00013M-UD; Wed, 28 Feb 2024 13:52:11 +0000
+	id 1rfKMO-0001e1-60; Wed, 28 Feb 2024 13:52:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686639.1068887; Wed, 28 Feb 2024 13:52:11 +0000
+Received: by outflank-mailman (output) from mailman id 686641.1068898; Wed, 28 Feb 2024 13:52:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfKLz-00011m-RS; Wed, 28 Feb 2024 13:52:11 +0000
-Received: by outflank-mailman (input) for mailman id 686639;
- Wed, 28 Feb 2024 13:52:10 +0000
+	id 1rfKMO-0001c7-30; Wed, 28 Feb 2024 13:52:36 +0000
+Received: by outflank-mailman (input) for mailman id 686641;
+ Wed, 28 Feb 2024 13:52:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iHog=KF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfKLy-0000eZ-Ax
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 13:52:10 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ id 1rfKMM-0000eZ-49
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 13:52:34 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 90714bbd-d640-11ee-a1ee-f123f15fe8a2;
- Wed, 28 Feb 2024 14:52:08 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a26ed1e05c7so878413366b.2
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 05:52:08 -0800 (PST)
+ id 9ea85554-d640-11ee-a1ee-f123f15fe8a2;
+ Wed, 28 Feb 2024 14:52:32 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a43dba50bb7so162533766b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 05:52:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s24-20020a170906bc5800b00a3efa4e033asm1870713ejv.151.2024.02.28.05.52.07
+ s24-20020a170906bc5800b00a3efa4e033asm1870713ejv.151.2024.02.28.05.52.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Feb 2024 05:52:07 -0800 (PST)
+ Wed, 28 Feb 2024 05:52:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90714bbd-d640-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 9ea85554-d640-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709128328; x=1709733128; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709128352; x=1709733152; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gaX7a4NCHOeGdWCkg8kUSL8PRj5hzXXfo73pbxAntJ8=;
-        b=bwZLe610hPexq3V1s2hT6jb5Wkg6RJ3QLjqeyoR1QAVC3Wqd5Wm/IFnMS5QDEAFuNl
-         yG9t1lqEYfusKKMRT+RV8e3I0AVK0vUVjtFUCJUOBUdFVb9kJNqrpbD+vJMF8iBCS+z4
-         NKKwV15nWYLVfnbIsmE3EhHoJthM9ReuJA4hhlrttgu0tEwX2xzjnlKRSfeiDXuRxkAu
-         mO2vgO81Mj0o9M1TZOCs7HLcKyYLwLQie59Q323tJbmQEvC8kTmxjVj2iD7I7TJut/Ub
-         Jl3+47gHgBzqUtOSobDuiQQcdUrhWjHgvR+GMWMUYqNTMY9F54sFZjS1fem5QN5T3S1Z
-         te3A==
+        bh=q/QgX3d2GmmEaeKazC02JMPPR+cdwuaWvIKU6akMN0U=;
+        b=UHGSrD3sxscb+9I8SDvCFpl7XcCK7zxkzdQgPy5rNcF8VEV7/pEbatmfEsco78Lm6F
+         gdQjtxHkE+8R6FX4KTW/leivPFH8Spc+6Gd+awyy1ksoy3Qn7SCxa3XqZJqplshqyf4N
+         5P7P2kSZp0nehIXtHqCQTJCBBlhdfQDlm/S2vgT6FcKd5hsCNuKyvbk1Ko5QQnKxSAfF
+         tcw+fvBCSxtZwYzQ8SQa5zqqNgsjq6AGCyDa1LAyP9XJinpSaSarWKx4TiNitohq8yhG
+         2y7xJ+leIpWL2kPeIC+jMhY8ZB5NIBLa4tHokIlGt3RGEeYnp2Q3a0oDPPQgohbrBk9E
+         L+IQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709128328; x=1709733128;
+        d=1e100.net; s=20230601; t=1709128352; x=1709733152;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=gaX7a4NCHOeGdWCkg8kUSL8PRj5hzXXfo73pbxAntJ8=;
-        b=JJIAvTxvRsMagmKhooOXwBP/QKIuprxgrijJO9tcWX0PbKdJ9PhnR57gTXg7nnSNmJ
-         0mDy5LQ9z7EjYmvxfP+7QI+LEbMx1k64LEd4OJjS7jffnVrnfvLoNAsKTo+fcU47pbsA
-         sd3EvJUWbuS42AZ3NnVdgwvBuVwZD6bIxiydjB9vgarnQzkiXKNtbY1vBbucarAFvfsy
-         uhobAyy0kB2qg5P8YO6s4B6NoOeNYlPqY96WJOK7Bhhdkv8dm4feu9tqz+EZIZJep6x3
-         ZMpyo2aPPcXUAF1Ogm9KjrYAvawk/Ia9ojY8+1GJuH76PWnlnYGaBR/HJLka5qQ+0RVb
-         bKgg==
-X-Gm-Message-State: AOJu0YwtlNmfkPuILH0lbhRLtKDcwMWT2BBr1lYY5cfhZ2fRsbQYF1tf
-	rpkFnxUMtqScaWl6qKDD6BXgO6ipPmgjYESCP+sknPqYxPryp3NlWFbhaNLdYxrjb3XX1FITZuM
+        bh=q/QgX3d2GmmEaeKazC02JMPPR+cdwuaWvIKU6akMN0U=;
+        b=Ogdh2pCWGWaoeu2mafflGFdmYi/VVCebOGldbCbJhO9yrH72X1sJH43KPTw8q+r0Ac
+         oWzxFDwAJP7zye9fCWtfhHTOdgavqBH8TGGO0/MRkaQb99a5LfWETfq1mvfyviAZWNbe
+         rRkA59wmol1iGRVbugbOs0W0TzwwRfo3/9CQcA1DIEix5fTT00qBEUJfusycwCwC/4uw
+         UuMyTdsUPFCSFsXo29ooTCL70BAKJArVMXk3URk3ejxTLY89f4GFBo7t+bw8gZrEM5XJ
+         jigr9VEUggXJ6Iacr7dGBRX7L/EM3Pcj31IA5lDtK6t2brc8zrSFP9wFGIYgTzGIHrXn
+         lfPg==
+X-Gm-Message-State: AOJu0YzWLSHogjE3LhPLJ3sEpVwnjphp/nm/Y/Ev054AuJV4Deo2v1SP
+	5QgpsezdR7TdDI9u52gjLso0LcCVM/nCfTqlZ83h9MOQ3IvzPMOe3OAKtPNfRHE9NBBozuQ5r54
 	=
-X-Google-Smtp-Source: AGHT+IF962mt3eRDy21WIUNAu+Y3BfGUsdDO1T8wRDs+WGYmPyqGL5DdVNU2BOS3piXY0SkY/N1xRw==
-X-Received: by 2002:a17:906:70c:b0:a40:189d:c5bb with SMTP id y12-20020a170906070c00b00a40189dc5bbmr8228552ejb.0.1709128328039;
-        Wed, 28 Feb 2024 05:52:08 -0800 (PST)
-Message-ID: <0ad4543b-8eed-4147-b32d-b68d21fade98@suse.com>
-Date: Wed, 28 Feb 2024 14:52:07 +0100
+X-Google-Smtp-Source: AGHT+IHw+/IuBLaeeo8x6NbzlhNGLECq9A1xf3dIcqlbJd62TTy6LJ4i9ZBlmf4YPKGTOwnwHCbpJQ==
+X-Received: by 2002:a17:906:6d45:b0:a43:4c0a:5360 with SMTP id a5-20020a1709066d4500b00a434c0a5360mr5894721ejt.32.1709128351933;
+        Wed, 28 Feb 2024 05:52:31 -0800 (PST)
+Message-ID: <45f89d82-bdc6-44b6-a784-bcdfdcca403d@suse.com>
+Date: Wed, 28 Feb 2024 14:52:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 2/4] x86: record SSP at non-guest entry points
+Subject: [PATCH 3/4] x86/traps: use entry_ssp in fixup_exception_return()
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -115,181 +115,146 @@ In-Reply-To: <33da6f8b-af22-48c8-acce-3aa55c0e0414@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-We will want to use that value for call trace generation, and likely
-also to eliminate the somewhat fragile shadow stack searching done in
-fixup_exception_return(). For those purposes, guest-only entry points do
-not need to record that value.
-
-To keep the saving code simple, record our own SSP that corresponds to
-an exception frame, pointing to the top of the shadow stack counterpart
-of what the CPU has saved on the regular stack. Consuming code can then
-work its way from there.
+With the value recorded on entry there's no need anymore to go hunt for
+the respective exception frame on the shadow stack. By deriving "ptr"
+from that field (without any offset), it then ends up pointin one slot
+lower than before. Therefore all array indexes need incrementing, nicely
+doing away with all the negative ones.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-To record the full 64-bit value, some of the unused bits in the %cs slot
-could be used. Sadly that slot has saved_upcall_mask in an unhelpful
-location, otherwise simply storing low and high 32 bits in those two
-separate half-slots would be a pretty obvious choice. As long as
-"entry_ssp" is used in non-guest-entry frames only, we could of course
-put half of it into a union with saved_upcall_mask ...
+Indentation of the prior inner (but not innermost) if()'s body is
+deliberately left untouched, to aid review. It'll be adjusted in a
+separate follow-on patch.
 
-Else may want to put a BUILD_BUG_ON(VADDR_BITS > 48) somewhere, but I'm
-afraid I can't really identify a good place for such to live.
-
-Leveraging that the CPU stores zero in the upper bits of the selector
-register slots, the save sequence could also be
-
-        shl   $16, %rcx
-        or    %rcx, UREGS_entry_ssp-2(%rsp)
-
-That's shorter and avoids a 16-bit operation, but may be less desirable,
-for being a read-modify-write access.
-
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -1354,6 +1354,7 @@ void arch_get_info_guest(struct vcpu *v,
-     if ( !compat )
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -434,18 +434,6 @@ unsigned long get_stack_trace_bottom(uns
+     }
+ }
+ 
+-static unsigned long get_shstk_bottom(unsigned long sp)
+-{
+-    switch ( get_stack_page(sp) )
+-    {
+-#ifdef CONFIG_XEN_SHSTK
+-    case 0:  return ROUNDUP(sp, IST_SHSTK_SIZE) - sizeof(unsigned long);
+-    case 5:  return ROUNDUP(sp, PAGE_SIZE)      - sizeof(unsigned long);
+-#endif
+-    default: return sp - sizeof(unsigned long);
+-    }
+-}
+-
+ unsigned long get_stack_dump_bottom(unsigned long sp)
+ {
+     switch ( get_stack_page(sp) )
+@@ -837,24 +825,26 @@ static void fixup_exception_return(struc
+ {
+     if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
      {
-         memcpy(&c.nat->user_regs, &v->arch.user_regs, sizeof(c.nat->user_regs));
-+        c.nat->user_regs.entry_ssp = 0;
-         if ( is_pv_domain(d) )
-             memcpy(c.nat->trap_ctxt, v->arch.pv.trap_ctxt,
-                    sizeof(c.nat->trap_ctxt));
---- a/xen/arch/x86/hvm/svm/entry.S
-+++ b/xen/arch/x86/hvm/svm/entry.S
-@@ -94,7 +94,7 @@ __UNLIKELY_END(nsvm_hap)
-         sti
-         vmrun
+-        unsigned long ssp, *ptr, *base;
++        unsigned long ssp = rdssp();
  
--        SAVE_ALL
-+        SAVE_ALL ssp=0
+-        if ( (ssp = rdssp()) == SSP_NO_SHSTK )
+-            goto shstk_done;
++        if ( ssp != SSP_NO_SHSTK )
++        {
++            unsigned long *ptr = _p(regs->entry_ssp);
++            unsigned long primary_shstk =
++                (ssp & ~(STACK_SIZE - 1)) +
++                (PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8;
  
-         GET_CURRENT(bx)
+-        ptr = _p(ssp);
+-        base = _p(get_shstk_bottom(ssp));
++            BUG_ON((regs->entry_ssp ^ primary_shstk) >> PAGE_SHIFT);
  
---- a/xen/arch/x86/hvm/vmx/entry.S
-+++ b/xen/arch/x86/hvm/vmx/entry.S
-@@ -25,7 +25,7 @@
- #define VMLAUNCH     .byte 0x0f,0x01,0xc2
+-        for ( ; ptr < base; ++ptr )
+-        {
+             /*
+-             * Search for %rip.  The shstk currently looks like this:
++             * The shstk currently looks like this:
+              *
+              *   tok  [Supervisor token, == &tok | BUSY, only with FRED inactive]
+              *   ...  [Pointed to by SSP for most exceptions, empty in IST cases]
+              *   %cs  [== regs->cs]
+              *   %rip [== regs->rip]
+-             *   SSP  [Likely points to 3 slots higher, above %cs]
++             *   SSP  [Pointed to by entry_ssp; Likely points to 3 slots
++             *         higher, above %cs]
+              *   ...  [call tree to this function, likely 2/3 slots]
+              *
+              * and we want to overwrite %rip with fixup.  There are two
+@@ -867,13 +857,10 @@ static void fixup_exception_return(struc
+              *
+              * Check for both regs->rip and regs->cs matching.
+              */
+-            if ( ptr[0] == regs->rip && ptr[1] == regs->cs )
+-            {
+-                unsigned long primary_shstk =
+-                    (ssp & ~(STACK_SIZE - 1)) +
+-                    (PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8;
++            BUG_ON(ptr[1] != regs->rip || ptr[2] != regs->cs);
  
- ENTRY(vmx_asm_vmexit_handler)
--        SAVE_ALL
-+        SAVE_ALL ssp=0
+-                wrss(fixup, ptr);
++            {
++                wrss(fixup, &ptr[1]);
  
-         mov  %cr2,%rax
-         GET_CURRENT(bx)
-@@ -119,7 +119,7 @@ UNLIKELY_END(realmode)
+                 if ( !stub_ra )
+                     goto shstk_done;
+@@ -890,7 +877,7 @@ static void fixup_exception_return(struc
+                  * - if we're on an IST stack, we need to increment the
+                  *   original SSP.
+                  */
+-                BUG_ON((ptr[-1] ^ primary_shstk) >> PAGE_SHIFT);
++                BUG_ON((ptr[0] ^ primary_shstk) >> PAGE_SHIFT);
  
- .Lvmx_vmentry_fail:
-         sti
--        SAVE_ALL
-+        SAVE_ALL ssp=0
+                 if ( (ssp ^ primary_shstk) >> PAGE_SHIFT )
+                 {
+@@ -899,37 +886,27 @@ static void fixup_exception_return(struc
+                      * addresses actually match.  Then increment the interrupted
+                      * context's SSP.
+                      */
+-                    BUG_ON(stub_ra != *(unsigned long*)ptr[-1]);
+-                    wrss(ptr[-1] + 8, &ptr[-1]);
++                    BUG_ON(stub_ra != *(unsigned long*)ptr[0]);
++                    wrss(ptr[0] + 8, &ptr[0]);
+                     goto shstk_done;
+                 }
  
-         /*
-          * SPEC_CTRL_ENTRY notes
---- a/xen/arch/x86/include/asm/asm_defns.h
-+++ b/xen/arch/x86/include/asm/asm_defns.h
-@@ -221,7 +221,7 @@ static always_inline void stac(void)
- #endif
+                 /* Make sure the two return addresses actually match. */
+-                BUG_ON(stub_ra != ptr[2]);
++                BUG_ON(stub_ra != ptr[3]);
  
- #ifdef __ASSEMBLY__
--.macro SAVE_ALL compat=0
-+.macro SAVE_ALL compat=0 ssp=IS_ENABLED(CONFIG_XEN_SHSTK)
-         addq  $-(UREGS_error_code-UREGS_r15), %rsp
-         cld
-         movq  %rdi,UREGS_rdi(%rsp)
-@@ -235,6 +235,9 @@ static always_inline void stac(void)
-         movq  %rax,UREGS_rax(%rsp)
-         xor   %eax, %eax
- .if !\compat
-+.if \ssp
-+        rdsspq %rcx
-+.endif
-         movq  %r8,UREGS_r8(%rsp)
-         movq  %r9,UREGS_r9(%rsp)
-         movq  %r10,UREGS_r10(%rsp)
-@@ -264,6 +267,11 @@ static always_inline void stac(void)
-         xor   %r13d, %r13d
-         xor   %r14d, %r14d
-         xor   %r15d, %r15d
-+.if \ssp && !\compat
-+        mov   %cx, UREGS_entry_ssp(%rsp)
-+        shr   $16, %rcx
-+        mov   %ecx, UREGS_entry_ssp+2(%rsp)
-+.endif
- .endm
+                 /* Move exception frame, updating SSP there. */
+-                wrss(ptr[1], &ptr[2]); /* %cs */
+-                wrss(ptr[0], &ptr[1]); /* %rip */
+-                wrss(ptr[-1] + 8, &ptr[0]); /* SSP */
++                wrss(ptr[2], &ptr[3]); /* %cs */
++                wrss(ptr[1], &ptr[2]); /* %rip */
++                wrss(ptr[0] + 8, &ptr[1]); /* SSP */
  
- #define LOAD_ONE_REG(reg, compat) \
---- a/xen/arch/x86/x86_64/asm-offsets.c
-+++ b/xen/arch/x86/x86_64/asm-offsets.c
-@@ -48,6 +48,7 @@ void __dummy__(void)
-     OFFSET(UREGS_eflags, struct cpu_user_regs, rflags);
-     OFFSET(UREGS_rsp, struct cpu_user_regs, rsp);
-     OFFSET(UREGS_ss, struct cpu_user_regs, ss);
-+    OFFSET(UREGS_entry_ssp, struct cpu_user_regs, entry_ssp);
-     OFFSET(UREGS_kernel_sizeof, struct cpu_user_regs, es);
-     BLANK();
+                 /* Move all newer entries. */
+-                while ( --ptr != _p(ssp) )
+-                    wrss(ptr[-1], &ptr[0]);
++                while ( ptr-- != _p(ssp) )
++                    wrss(ptr[0], &ptr[1]);
  
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -257,7 +257,7 @@ FUNC(lstar_enter)
-         pushq $0
-         BUILD_BUG_ON(TRAP_syscall & 0xff)
-         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
--        SAVE_ALL
-+        SAVE_ALL ssp=0
+                 /* Finally account for our own stack having shifted up. */
+                 asm volatile ( "incsspd %0" :: "r" (2) );
+-
+-                goto shstk_done;
+             }
+         }
+-
+-        /*
+-         * We failed to locate and fix up the shadow IRET frame.  This could
+-         * be due to shadow stack corruption, or bad logic above.  We cannot
+-         * continue executing the interrupted context.
+-         */
+-        BUG();
+-
+     }
+  shstk_done:
  
-         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
-         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
-@@ -296,7 +296,7 @@ FUNC(cstar_enter)
-         pushq $0
-         BUILD_BUG_ON(TRAP_syscall & 0xff)
-         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
--        SAVE_ALL
-+        SAVE_ALL ssp=0
- 
-         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
-         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
-@@ -339,7 +339,7 @@ LABEL(sysenter_eflags_saved, 0)
-         pushq $0
-         BUILD_BUG_ON(TRAP_syscall & 0xff)
-         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
--        SAVE_ALL
-+        SAVE_ALL ssp=0
- 
-         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
-         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
-@@ -394,7 +394,7 @@ FUNC(entry_int80)
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
-         pushq $0
-         movb  $0x80, EFRAME_entry_vector(%rsp)
--        SAVE_ALL
-+        SAVE_ALL ssp=0
- 
-         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
-         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
---- a/xen/include/public/arch-x86/xen-x86_64.h
-+++ b/xen/include/public/arch-x86/xen-x86_64.h
-@@ -183,7 +183,19 @@ struct cpu_user_regs {
-     uint8_t  _pad1[3];
-     __DECL_REG_LO16(flags); /* rflags.IF == !saved_upcall_mask */
-     __DECL_REG_LO8(sp);
--    uint16_t ss, _pad2[3];
-+    uint16_t ss;
-+#if !defined(__XEN__)
-+    uint16_t _pad2[3];
-+#elif defined(COMPILE_OFFSETS)
-+    uint16_t entry_ssp[3];
-+#else
-+    /*
-+     * This points _at_ the corresponding shadow stack frame; it is _not_ the
-+     * outer context's SSP.  That, if the outer context has CET-SS enabled,
-+     * is stored in the top slot of the pointed to shadow stack frame.
-+     */
-+    signed long entry_ssp:48;
-+#endif
-     uint16_t es, _pad3[3];
-     uint16_t ds, _pad4[3];
-     uint16_t fs, _pad5[3];
 
 
