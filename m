@@ -2,38 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B0EB86B342
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 16:37:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686722.1069101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 288C886B380
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 16:43:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686725.1069111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfLz6-000815-53; Wed, 28 Feb 2024 15:36:40 +0000
+	id 1rfM5M-0002FD-QT; Wed, 28 Feb 2024 15:43:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686722.1069101; Wed, 28 Feb 2024 15:36:40 +0000
+Received: by outflank-mailman (output) from mailman id 686725.1069111; Wed, 28 Feb 2024 15:43:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfLz6-0007yj-2P; Wed, 28 Feb 2024 15:36:40 +0000
-Received: by outflank-mailman (input) for mailman id 686722;
- Wed, 28 Feb 2024 15:36:39 +0000
+	id 1rfM5M-0002Dh-Ni; Wed, 28 Feb 2024 15:43:08 +0000
+Received: by outflank-mailman (input) for mailman id 686725;
+ Wed, 28 Feb 2024 15:43:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WGB+=KF=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rfLz5-0007yd-1r
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 15:36:39 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=EdaL=KF=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rfM5L-0002Db-Je
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 15:43:07 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 291c1f5a-d64f-11ee-afd8-a90da7624cb6;
- Wed, 28 Feb 2024 16:36:37 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-412b7baa9c5so2063155e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 07:36:38 -0800 (PST)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- z9-20020a05600c114900b00410bca333b7sm2394015wmz.27.2024.02.28.07.36.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Feb 2024 07:36:36 -0800 (PST)
+ id 1098a6d5-d650-11ee-afd8-a90da7624cb6;
+ Wed, 28 Feb 2024 16:43:06 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EA8201F7C5;
+ Wed, 28 Feb 2024 15:43:05 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A738B13A5D;
+ Wed, 28 Feb 2024 15:43:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 3N8iJ4lU32W6CAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 28 Feb 2024 15:43:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +53,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 291c1f5a-d64f-11ee-afd8-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1709134597; x=1709739397; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=vc3MR6wqRwFjdZ59y43EE7o5MZp5u8KpNsnAusaH2zI=;
-        b=EGw5yP+FlmaJ7iK783LR48AXUg8qkLhiHux167XWbnZE666EFIKwoaIQ8yxJ4We4hH
-         gXn9+Asf+lxCK/JT2LAEAJvCbjKtLlaQhRd3lLKB4NmNCU0rrDr8W7zNs8JfzbDEC01G
-         wHbDX3nxypo7qKwTfXmm6z6fEzFFLiYUN85iI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709134597; x=1709739397;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vc3MR6wqRwFjdZ59y43EE7o5MZp5u8KpNsnAusaH2zI=;
-        b=OR8YgusG5F8m3wKj0Pa9xl6ftpll5cqu+sa9U42aCAxfEooe3ZOXdoXmV4iuOUdBhz
-         WJPX3XKYG/KQWA9rD3zo2ICG9Bkp86wOCHaA1nCVRtd9wc0fgSXP5tszkOvu5zHKmtbC
-         mVpjCMT34QeFr5TNJQMj/3kHMUIAAr2q4TYIJc6PMDtqS7VgXr0w36+8b6FAtSsYTtrr
-         kKwdAiae+PO0/lr3SmZARot24kFVCD7jF8rONFJQH7FwpcBL9nDWNGgup+PjcIvhtnIX
-         291A4bXN6/CEITbRyx9ZddxgQPBKqo8JLIY/YBRlb7nheuygoVXkatZ4BP8B/9q1ArdN
-         qxdg==
-X-Gm-Message-State: AOJu0YzYbjKoaU7zJzdvZUvna0TCxJC95GhIakJTpmZjJPXehG3GRQ27
-	RieCqqxC9TxgRe7OLlSRyr8AM6G79n316YV0n0yDJ5kzPXQMyAbeISVn+CudNeM=
-X-Google-Smtp-Source: AGHT+IHhEwHeHosI3c6mcjtPP0oInY2niCQa0bxlDl2wUDFEW5rSqsPBjjLgbWyUcG0u8SvLx27tTw==
-X-Received: by 2002:a05:600c:4f09:b0:412:ae70:992e with SMTP id l9-20020a05600c4f0900b00412ae70992emr3901658wmq.21.1709134597489;
-        Wed, 28 Feb 2024 07:36:37 -0800 (PST)
-Date: Wed, 28 Feb 2024 15:36:35 +0000
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH 1/2] libxl: Fix segfault in device_model_spawn_outcome
-Message-ID: <f477d391-4676-4cf3-b87a-8f8ee83e7db6@perard>
-References: <20240109170540.38239-1-jandryuk@gmail.com>
- <20240109170540.38239-2-jandryuk@gmail.com>
+X-Inumbo-ID: 1098a6d5-d650-11ee-afd8-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1709134986; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aMI8Uu9+chYTcBUcNm9qfVC5FSLSs/YUdASWkUTPQqY=;
+	b=tHhfoRiWdiLUhQaOfCPZYXwj2bPKgmyOU43rZrp8xKJ0/UJXzfzY2NrkjHxsTlwQXgZG1V
+	vm1Be0wkOW3BCveeyywta4Y0MJlA0Kl1lpsJ2ZmCgibJs9WXqcvKAjS47LsAo0eqNuX5xe
+	IybchevhopihY/VlRvQT1sDqIbd6v2M=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1709134985; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aMI8Uu9+chYTcBUcNm9qfVC5FSLSs/YUdASWkUTPQqY=;
+	b=c5Xl4xiWxPRPoo0bVB1PhPXti+AHDX0q7GkJkWMG97ggp7tdQKB33Ayd4Pq9XcyEOZbHOe
+	H/GywQaWKPQ40G1e90ZwhRA8LX/RNTHGLfgNhJpOvA+RTRtDPi3ujSPp/FsnEVgnB96P4p
+	nFcYU2V16kILwjjbFh7xiC2u5/rX4/g=
+Message-ID: <99aca5d7-87f1-4cce-a23d-3e1468ba3918@suse.com>
+Date: Wed, 28 Feb 2024 16:43:05 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240109170540.38239-2-jandryuk@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 06/12] xen/spinlock: make struct lock_profile
+ rspinlock_t aware
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ xen-devel@lists.xenproject.org
+References: <20231212094725.22184-1-jgross@suse.com>
+ <20231212094725.22184-7-jgross@suse.com>
+ <b76bff63-80de-4227-bcd9-8d3aa1275858@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <b76bff63-80de-4227-bcd9-8d3aa1275858@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Level: 
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=c5Xl4xiW
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-3.79 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	 XM_UA_NO_VERSION(0.01)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 BAYES_HAM(-3.00)[100.00%];
+	 MIME_GOOD(-0.10)[text/plain];
+	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 DKIM_TRACE(0.00)[suse.com:+];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_SEVEN(0.00)[8];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 R_MIXED_CHARSET(0.71)[subject];
+	 RCVD_TLS_ALL(0.00)[];
+	 MID_RHS_MATCH_FROM(0.00)[]
+X-Spam-Score: -3.79
+X-Rspamd-Queue-Id: EA8201F7C5
+X-Spam-Flag: NO
 
-On Tue, Jan 09, 2024 at 12:05:39PM -0500, Jason Andryuk wrote:
-> libxl__spawn_qdisk_backend() explicitly sets guest_config to NULL when
-> starting QEMU (the usual launch through libxl__spawn_local_dm() has a
-> guest_config though).
+On 28.02.24 16:19, Jan Beulich wrote:
+> On 12.12.2023 10:47, Juergen Gross wrote:
+>> --- a/xen/common/spinlock.c
+>> +++ b/xen/common/spinlock.c
+>> @@ -538,19 +538,31 @@ static void spinlock_profile_iterate(lock_profile_subfunc *sub, void *par)
+>>   static void cf_check spinlock_profile_print_elem(struct lock_profile *data,
+>>       int32_t type, int32_t idx, void *par)
+>>   {
+>> -    struct spinlock *lock = data->lock;
+>> +    unsigned int cpu;
+>> +    uint32_t lockval;
 > 
-> Bail early on a NULL guest_config/d_config.  This skips the QMP queries
-> for chardevs and VNC, but this xenpv QEMU instance isn't expected to
-> provide those - only qdisk (or 9pfs backends after an upcoming change).
+> Any reason for this not being unsigned int as well? The more that ...
 > 
-> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+>> +    if ( data->is_rlock )
+>> +    {
+>> +        cpu = data->rlock->debug.cpu;
+>> +        lockval = data->rlock->tickets.head_tail;
+>> +    }
+>> +    else
+>> +    {
+>> +        cpu = data->lock->debug.cpu;
+>> +        lockval = data->lock->tickets.head_tail;
+>> +    }
 
-Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+I've used the same type as tickets.head_tail.
 
-Thanks,
+>>   
+>>       printk("%s ", lock_profile_ancs[type].name);
+>>       if ( type != LOCKPROF_TYPE_GLOBAL )
+>>           printk("%d ", idx);
+>> -    printk("%s: addr=%p, lockval=%08x, ", data->name, lock,
+>> -           lock->tickets.head_tail);
+>> -    if ( lock->debug.cpu == SPINLOCK_NO_CPU )
+>> +    printk("%s: addr=%p, lockval=%08x, ", data->name, data->lock, lockval);
+> 
+> ... it's then printed with plain x as the format char.
 
--- 
-Anthony PERARD
+Which hasn't been changed by the patch. I can change it to PRIx32 if you want.
+
+> 
+>> +    if ( cpu == SPINLOCK_NO_CPU )
+>>           printk("not locked\n");
+>>       else
+>> -        printk("cpu=%d\n", lock->debug.cpu);
+>> -    printk("  lock:%" PRId64 "(%" PRI_stime "), block:%" PRId64 "(%" PRI_stime ")\n",
+>> -           data->lock_cnt, data->time_hold, data->block_cnt, data->time_block);
+>> +        printk("cpu=%u\n", cpu);
+>> +    printk("  lock:%" PRIu64 "(%" PRI_stime "), block:%" PRIu64 "(%" PRI_stime ")\n",
+>> +           data->lock_cnt, data->time_hold, (uint64_t)data->block_cnt,
+> 
+> I think I know why the cast is suddenly / unexpectedly needed, but imo
+> such wants stating in the description, when generally we aim at avoiding
+> casts where possible.
+
+Okay, will add a sentence.
+
+> 
+>> --- a/xen/include/xen/spinlock.h
+>> +++ b/xen/include/xen/spinlock.h
+>> @@ -76,13 +76,19 @@ union lock_debug { };
+>>   */
+>>   
+>>   struct spinlock;
+>> +/* Temporary hack until a dedicated struct rspinlock is existing. */
+>> +#define rspinlock spinlock
+>>   
+>>   struct lock_profile {
+>>       struct lock_profile *next;       /* forward link */
+>>       const char          *name;       /* lock name */
+>> -    struct spinlock     *lock;       /* the lock itself */
+>> +    union {
+>> +        struct spinlock *lock;       /* the lock itself */
+>> +        struct rspinlock *rlock;     /* the recursive lock itself */
+>> +    };
+> 
+> _LOCK_PROFILE() wants to initialize this field, unconditionally using
+> .lock. While I expect that problem to be taken care of in one of the
+> later patches, use of the macro won't work anymore with this union in
+> use with very old gcc that formally we still support. While a road to
+> generally raising the baseline requirements is still pretty unclear to
+> me, an option might be to require (and document) that to enable
+> DEBUG_LOCK_PROFILE somewhat newer gcc needs using.
+
+Patch 8 is using either .lock or .rlock depending on the lock type.
+
+What is the problem with the old gcc version? Static initializers of
+anonymous union members?
+
+> 
+>>       uint64_t            lock_cnt;    /* # of complete locking ops */
+>> -    uint64_t            block_cnt;   /* # of complete wait for lock */
+>> +    uint64_t            block_cnt:63; /* # of complete wait for lock */
+>> +    uint64_t            is_rlock:1;  /* use rlock pointer */
+> 
+> bool?
+
+Yes.
+
+
+Juergen
 
