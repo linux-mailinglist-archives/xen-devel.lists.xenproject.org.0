@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E16886A658
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 03:10:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686377.1068322 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B24ED86A667
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 03:14:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686379.1068332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rf9On-0002QE-O1; Wed, 28 Feb 2024 02:10:21 +0000
+	id 1rf9Sr-0002zP-7U; Wed, 28 Feb 2024 02:14:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686377.1068322; Wed, 28 Feb 2024 02:10:21 +0000
+Received: by outflank-mailman (output) from mailman id 686379.1068332; Wed, 28 Feb 2024 02:14:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rf9On-0002N8-Ky; Wed, 28 Feb 2024 02:10:21 +0000
-Received: by outflank-mailman (input) for mailman id 686377;
- Wed, 28 Feb 2024 02:10:20 +0000
+	id 1rf9Sr-0002xh-4b; Wed, 28 Feb 2024 02:14:33 +0000
+Received: by outflank-mailman (input) for mailman id 686379;
+ Wed, 28 Feb 2024 02:14:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=msSf=KF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rf9Om-0002N0-Jb
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 02:10:20 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ id 1rf9Sp-0002xb-TC
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 02:14:31 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8390fdc2-d5de-11ee-a1ee-f123f15fe8a2;
- Wed, 28 Feb 2024 03:10:18 +0100 (CET)
+ id 1a140b44-d5df-11ee-a1ee-f123f15fe8a2;
+ Wed, 28 Feb 2024 03:14:29 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 39F8DCE1F8F;
- Wed, 28 Feb 2024 02:10:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55B29C433C7;
- Wed, 28 Feb 2024 02:10:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 040F06133A;
+ Wed, 28 Feb 2024 02:14:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C78CC433C7;
+ Wed, 28 Feb 2024 02:14:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,103 +41,248 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8390fdc2-d5de-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 1a140b44-d5df-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709086212;
-	bh=k7uotmsW7zomBtopWFDRzvX/L8saNOM2jRg3oDb+lu4=;
+	s=k20201202; t=1709086467;
+	bh=OLoNRKwF25WpTLRj1j7m8QF5oKKCpZpWgANAuj0OFWM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=EqIWoNj9D+3lC+3+DwZVoIjZ7Q7FePP2UKhNOLnYgvgaXI2KY6n6085hMth5j9u42
-	 AP4fbkstI9mR5Rniy6BJTWkH54/EYXCgiIwCclUMTna5q/pB6f3UHFA3c/oo7yfS84
-	 7BDtV2Swnvo7pVsr3BNmAD3Fdy5cswgOl1CMDx5oWbZcWI27Qz8kI1SiumR8mRTM6/
-	 PzqGTX8Zs4adOCEy7Baw6HOjksb7xmLJfiZYL+IDiOHDNnBtyl9htEK9MUJsyBd83i
-	 OZJrZ5R9oFM3GaXVfaEWEzfNkhvBhoeR0H5YplhNUZUW/1JTtXpuN9eKP7u4no5bWQ
-	 H33XRxUUR/vJA==
-Date: Tue, 27 Feb 2024 18:10:09 -0800 (PST)
+	b=FDlGRPgoKU7kd1eEEf1bI/eTMK2ED6bVUobFb+UzAm/EvtUKB50JUymw/HBQiHLNR
+	 tE89dyYnU0Et8ON6qTAwntSfO64UyjkTDhgw3+VLZEuNX+ybwyhbe+uZfZhnQtVd1N
+	 lwT6PxiiiuoMz53vDE6qe/hC7nJcqzi7DH565H7r3MczRvyeEBbWbuYsOksAr0gCvl
+	 sug99Sm9cEK0eNkF8DXHkf0t5z4qdRWBShoNnYlpXisMicXUNMOGa6TN6c9AwYNOnu
+	 xNv0EUGRFKc9S1Au/cZfCzQBY8BS4e0QY2x4j84rqdmjM4b21W34B5lF65sIxd+6zK
+	 bznRjsywNWDcA==
+Date: Tue, 27 Feb 2024 18:14:24 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-cc: Julien Grall <julien@xen.org>, Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
-    xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH 2/2] xen/cpu: address MISRA C Rule 17.7
-In-Reply-To: <4bee79ca-7a7e-4bcc-ac97-5a5a57ec2c91@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2402271808410.575685@ubuntu-linux-20-04-desktop>
-References: <cover.1708680104.git.nicola.vetrini@bugseng.com> <dd4ac0e670a2ad7ecb5eb435e5e3b4b313b1e0b6.1708680104.git.nicola.vetrini@bugseng.com> <33342a17-e71c-4752-a16f-da5c0ef77b51@suse.com> <alpine.DEB.2.22.394.2402261619210.247676@ubuntu-linux-20-04-desktop>
- <2178731a-ec81-4505-ba8a-2f945bf85133@suse.com> <7a8e610e-913e-4a56-8ce1-6dd6abd894f4@xen.org> <4bee79ca-7a7e-4bcc-ac97-5a5a57ec2c91@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+    Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org, 
+    roberto.bagnara@bugseng.com, Bertrand.Marquis@arm.com, 
+    roger.pau@citrix.com, michal.orzel@amd.com
+Subject: Re: [XEN PATCH 3/4] xen/include: add pure and const attributes
+In-Reply-To: <4e3e949d-5714-4c3b-8514-50a3674c94d8@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2402271810170.575685@ubuntu-linux-20-04-desktop>
+References: <cover.1697638210.git.simone.ballarin@bugseng.com> <fd5421162a00aa782e0776324ff6497193c1e3d3.1697638210.git.simone.ballarin@bugseng.com> <89778285-5cba-8fb5-70bc-710b6dd30a10@suse.com> <0032186f-80c7-4dba-b46e-10d4a8e2a8cb@bugseng.com>
+ <e8bf9817-fd54-9bf4-4302-dcee682f9172@suse.com> <alpine.DEB.2.22.394.2310231417260.3516@ubuntu-linux-20-04-desktop> <8f8141e2-c55c-2e58-a078-d5d8764a02df@suse.com> <alpine.DEB.2.22.394.2402221730270.754277@ubuntu-linux-20-04-desktop>
+ <6eb4dc7c-c6a5-496a-a37f-125b00e9aaa3@suse.com> <alpine.DEB.2.22.394.2402231432090.754277@ubuntu-linux-20-04-desktop> <cb463469-51e1-4639-bf56-36fe9051d1b3@suse.com> <alpine.DEB.2.22.394.2402261511010.247676@ubuntu-linux-20-04-desktop>
+ <4e3e949d-5714-4c3b-8514-50a3674c94d8@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-867894101-1709086347=:575685"
+Content-ID: <alpine.DEB.2.22.394.2402271812340.575685@ubuntu-linux-20-04-desktop>
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-867894101-1709086347=:575685
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2402271812341.575685@ubuntu-linux-20-04-desktop>
 
 On Tue, 27 Feb 2024, Jan Beulich wrote:
-> On 27.02.2024 12:52, Julien Grall wrote:
-> > Hi Jan,
-> > 
-> > On 27/02/2024 07:28, Jan Beulich wrote:
-> >> On 27.02.2024 01:26, Stefano Stabellini wrote:
-> >>> On Mon, 26 Feb 2024, Jan Beulich wrote:
-> >>>> On 23.02.2024 10:35, Nicola Vetrini wrote:
-> >>>>> Refactor cpu_notifier_call_chain into two functions:
-> >>>>> - the variant that is allowed to fail loses the nofail flag
-> >>>>> - the variant that shouldn't fail is encapsulated in a call
-> >>>>>    to the failing variant, with an additional check.
+> On 27.02.2024 00:48, Stefano Stabellini wrote:
+> > On Mon, 26 Feb 2024, Jan Beulich wrote:
+> >> On 23.02.2024 23:36, Stefano Stabellini wrote:
+> >>> On Fri, 23 Feb 2024, Jan Beulich wrote:
+> >>>> On 23.02.2024 02:32, Stefano Stabellini wrote:
+> >>>>> On Tue, 24 Oct 2023, Jan Beulich wrote:
+> >>>>>> On 24.10.2023 00:05, Stefano Stabellini wrote:
+> >>>>>>> On Mon, 23 Oct 2023, Jan Beulich wrote:
+> >>>>>>>> On 23.10.2023 17:23, Simone Ballarin wrote:
+> >>>>>>>>> On 23/10/23 15:34, Jan Beulich wrote:
+> >>>>>>>>>> On 18.10.2023 16:18, Simone Ballarin wrote:
+> >>>>>>>>>>> --- a/xen/include/xen/pdx.h
+> >>>>>>>>>>> +++ b/xen/include/xen/pdx.h
+> >>>>>>>>>>> @@ -164,7 +164,7 @@ static inline unsigned long pfn_to_pdx(unsigned long pfn)
+> >>>>>>>>>>>    * @param pdx Page index
+> >>>>>>>>>>>    * @return Obtained pfn after decompressing the pdx
+> >>>>>>>>>>>    */
+> >>>>>>>>>>> -static inline unsigned long pdx_to_pfn(unsigned long pdx)
+> >>>>>>>>>>> +static inline __attribute_pure__ unsigned long pdx_to_pfn(unsigned long pdx)
+> >>>>>>>>>>>   {
+> >>>>>>>>>>>       return (pdx & pfn_pdx_bottom_mask) |
+> >>>>>>>>>>>              ((pdx << pfn_pdx_hole_shift) & pfn_top_mask);
+> >>>>>>>>>>
+> >>>>>>>>>> Taking this as an example for what I've said above: The compiler can't
+> >>>>>>>>>> know that the globals used by the functions won't change value. Even
+> >>>>>>>>>> within Xen it is only by convention that these variables are assigned
+> >>>>>>>>>> their values during boot, and then aren't changed anymore. Which makes
+> >>>>>>>>>> me wonder: Did you check carefully that around the time the variables
+> >>>>>>>>>> have their values established, no calls to the functions exist (which
+> >>>>>>>>>> might then be subject to folding)?
+> >>>>>>>>>
+> >>>>>>>>> There is no need to check that, the GCC documentation explicitly says:
+> >>>>>>>>>
+> >>>>>>>>> However, functions declared with the pure attribute *can safely read any 
+> >>>>>>>>> non-volatile objects*, and modify the value of objects in a way that 
+> >>>>>>>>> does not affect their return value or the observable state of the program.
+> >>>>>>>>
+> >>>>>>>> I did quote this same text in response to what Andrew has said, but I also
+> >>>>>>>> did note there that this needs to be taken with a grain of salt: The
+> >>>>>>>> compiler generally assumes a single-threaded environment, i.e. no changes
+> >>>>>>>> to globals behind the back of the code it is processing.
+> >>>>>>>
+> >>>>>>> Let's start from the beginning. The reason for Simone to add
+> >>>>>>> __attribute_pure__ to pdx_to_pfn and other functions is for
+> >>>>>>> documentation purposes. It is OK if it doesn't serve any purpose other
+> >>>>>>> than documentation.
+> >>>>>>>
+> >>>>>>> Andrew, for sure we do not want to lie to the compiler and introduce
+> >>>>>>> undefined behavior. If we think there is a risk of it, we should not do
+> >>>>>>> it.
+> >>>>>>>
+> >>>>>>> So, what do we want to document? We want to document that the function
+> >>>>>>> does not have side effects according to MISRA's definition of it, which
+> >>>>>>> might subtly differ from GCC's definition.
+> >>>>>>>
+> >>>>>>> Looking at GCC's definition of __attribute_pure__, with the
+> >>>>>>> clarification statement copy/pasted above by both Simone and Jan, it
+> >>>>>>> seems that __attribute_pure__ matches MISRA's definition of a function
+> >>>>>>> without side effects. It also seems that pdx_to_pfn abides to that
+> >>>>>>> definition.
+> >>>>>>>
+> >>>>>>> Jan has a point that GCC might be making other assumptions
+> >>>>>>> (single-thread execution) that might not hold true in our case. Given
+> >>>>>>> the way the GCC statement is written I think this is low risk. But maybe
+> >>>>>>> not all GCC versions we want to support in the project might have the
+> >>>>>>> same definition of __attribute_pure__. So we could end up using
+> >>>>>>> __attribute_pure__ correctly for the GCC version used for safety (GCC
+> >>>>>>> 12.1, see docs/misra/C-language-toolchain.rst) but it might actually
+> >>>>>>> break an older GCC version.
+> >>>>>>>
+> >>>>>>>
+> >>>>>>> So Option#1 is to use __attribute_pure__ taking the risk that a GCC or
+> >>>>>>> Clang version might interpret __attribute_pure__ differently and
+> >>>>>>> potentially misbehave.
+> >>>>>>>
+> >>>>>>> Option#2 is to avoid this risk, by not using __attribute_pure__.
+> >>>>>>> Instead, we can use SAF-xx-safe or deviations.rst to document that
+> >>>>>>> pdx_to_pfn and other functions like it are without side effects
+> >>>>>>> according to MISRA's definition.
+> >>>>>>>
+> >>>>>>>
+> >>>>>>> Both options have pros and cons. To me the most important factor is how
+> >>>>>>> many GCC versions come with the statement "pure attribute can safely
+> >>>>>>> read any non-volatile objects, and modify the value of objects in a way
+> >>>>>>> that does not affect their return value or the observable state of the
+> >>>>>>> program".
+> >>>>>>>
+> >>>>>>> I checked and these are the results:
+> >>>>>>> - gcc 4.0.2: no statement
+> >>>>>>> - gcc 5.1.0: no statement
+> >>>>>>> - gcc 6.1.0: no statement
+> >>>>>>> - gcc 7.1.0: no statement
+> >>>>>>> - gcc 8.1.0: alternative statement "The pure attribute imposes similar
+> >>>>>>>   but looser restrictions on a function’s definition than the const
+> >>>>>>>   attribute: it allows the function to read global variables."
+> >>>>>>> - gcc 9.1.0: yes statement
+> >>>>>>>
+> >>>>>>>
+> >>>>>>> So based on the above, __attribute_pure__ comes with its current
+> >>>>>>> definition only from gcc 9 onward. I don't know if as a Xen community we
+> >>>>>>> clearly declare a range of supported compilers, but I would imagine we
+> >>>>>>> would still want to support gcc versions older than 9? (Not to mention
+> >>>>>>> clang, which I haven't checked.)
+> >>>>>>>
+> >>>>>>> It doesn't seem to me that __attribute_pure__ could be correctly used on
+> >>>>>>> pdx_to_pfn with GCC 7.1.0 for example.
+> >>>>>>
+> >>>>>> The absence of documentation doesn't mean the attribute had different
+> >>>>>> (or even undefined) meaning in earlier versions. Instead it means one
+> >>>>>> would need to consult other places (source code?) to figure out whether
+> >>>>>> there was any behavioral difference (I don't think there was).
+> >>>>>>
+> >>>>>> That said, ...
+> >>>>>>
+> >>>>>>> So in conclusion, I think it is better to avoid __attribute_pure__ and
+> >>>>>>> use SAF-xx-safe or an alternative approach instead.
+> >>>>>>
+> >>>>>> ... I agree here. We just don't want to take chances.
 > >>>>>
-> >>>>> This prevents uses of the function that are not supposed to
-> >>>>> fail from ignoring the return value, thus violating Rule 17.7:
-> >>>>> "The value returned by a function having non-void return type shall
-> >>>>> be used".
+> >>>>> Let me resurrect this thread.
 > >>>>>
-> >>>>> No functional change.
+> >>>>> Could we use something like "pure" that we #define as we want?
 > >>>>>
-> >>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> >>>>> Depending on the compiler version or other options we could #define pure
+> >>>>> to __attribute_pure__ or to nothing.
 > >>>>
-> >>>> I'm afraid I disagree with this kind of bifurcation. No matter what
-> >>>> Misra thinks or says, it is normal for return values of functions to
-> >>>> not always be relevant to check.
+> >>>> While we can do about anything, I don't think it's a good idea to overload
+> >>>> a well known term with something having somewhat different meaning. If a
+> >>>> differently named custom attribute helps, that might be a possible option.
 > >>>
-> >>> Hi Jan, I disagree.
-> >>>
-> >>> Regardless of MISRA, I really think return values need to be checked.
-> >>> Moreover, we decided as a group to honor MISRA Rule 17.7, which requires
-> >>> return values to be checked. This patch is a good step forward.
+> >>> It doesn't have a different meaning. If it had a different meaning I'd
+> >>> agree with you.
 > >>
-> >> Yet splitting functions isn't the only way to deal with Misra's
-> >> requirements, I suppose. After all there are functions where the
-> >> return value is purely courtesy for perhaps just one of its callers.
+> >> Then we need to sort this aspect first: If there was no difference in
+> >> meaning, we ought to be using the real attribute, not a pseudo
+> >> surrogate. Yet the earlier discussion, according to my understanding,
+> >> has led to the understanding that for the given example the real
+> >> attribute cannot be applied entirely legitimately. Hence why the
+> >> thinking of alternatives actually started. What am I missing?
 > > 
-> > You are right that we have some places where one caller care about the 
-> > return value. But the problem is how do you tell whether the return was 
-> > ignored on purpose or not?
+> > There are two different questions:
+> > 1) using __attribute_pure__ in general when appropriate
+> > 2) using __attribute_pure__ in pdx_to_pfn as this patch does
 > > 
-> > We had at least one XSA because the return value of a function was not 
-> > checked (see XSA-222). We also had plenty of smaller patches to check 
-> > returns.
 > > 
-> > So far, we added __must_check when we believed return values should be 
-> > checked. But usually at the point we notice, this is far too late.
+> > I was talking about 1): as a general approach it looks like a good idea
+> > to use __attribute_pure__ when possible and appropriate.
 > > 
-> > To me the goal should be that we enforce __must_check everywhere. We are 
-> > probably going to detect places where we forgot to check the return. For 
-> > thoses that are on purpose, we can document them.
+> > Now let's talk about 2). The latest definition of __attribute_pure__ is:
 > > 
-> >>
-> >> Splitting simply doesn't scale very well, imo.
+> > """
+> > The pure attribute prohibits a function from modifying the state of the program that is observable by means other than inspecting the function’s return value. However, functions declared with the pure attribute can safely read any non-volatile objects, and modify the value of objects in a way that does not affect their return value or the observable state of the program.
+> > """
 > > 
-> > Do you have another proposal? As Stefano said, we adopted the rule 17.7. 
-> > So we know need a solution to address it.
+> > So there are two interesting issues:
+> > 
+> > a) While this documentation explicitly allows for reading global vars,
+> > older versions of the docs are less clear. What do we do about them?
+> > 
+> > b) Jan wrote that he interprets the statements above to be only valid in
+> > a single-threaded environment
+> > 
+> > 
+> > To be honest, I am not convinced by b). Jan, is there a statement in the
+> > GCC docs that says that all the attributes (pure being one of them) only
+> > apply to a single-thread environment?
 > 
-> One possibility that was circulated while discussing was to add (void)
-> casts. I'm not a huge fan of those, but between the two options that
-> might be the lesser evil. We also use funny (should I say ugly)
-> workarounds in a few cases where we have __must_check but still want
-> to not really handle the return value in certain cases. Given there are
-> example in the code base, extending use of such constructs is certainly
-> also something that may want considering.
+> It would need to be the other way around, I'm afraid: C99 defines its
+> abstract machine in a way not even considering possible parallel
+> execution (except for other external agents, e.g. when "volatile" is
+> necessary for memory accesses when that memory may also be modified
+> by such an external agent, e.g. a device on the bus). Hence we'd need
+> to find an explicit statement in gcc docs which relaxes that globally
+> or for certain aspects.
 
-I asked Roberto if void casts are an option for compliance.
+I don't think so: the way C99 defines its abstract machine is not
+tightly coupled with the way gcc extensions are defined.
 
-In any case, I don't think we should use void casts in the specific
-cases this patch is dealing with. Void casts (if anything) should be a
-last resort while this patch fixes the issue in a better way.
+Roberto, you have worked with gcc extensions quite a bit, what's your
+take on this?
+
+Other maintainers, please express your view.
+
+
+> > That would be extremely limiting
+> > for something like __attribute_pure__. I think we should take the
+> > documentation of attribute pure at face value. To me, it clearly applies
+> > to pdx_to_pfn. Roberto and the team at Bugseng came to the same
+> > conclusion.
+> > 
+> > On the other end, I think a) is important. Older version of GCC don't
+> > clarify the behavior toward global variables. From the documentation, I
+> > would use __attribute_pure__ only with GCC 9 or later. Which is why we
+> > need the #define.
+> 
+> Right, this is a position we can take. As said, I think we'd then limit
+> ourselves more than necessary. Otoh the number of people using gcc8 or
+> older to build up-to-date Xen should be constantly decreasing ...
+
+That is true, but I think it is an OK limitation to have.
+--8323329-867894101-1709086347=:575685--
 
