@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D271986B24B
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 15:48:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686684.1068992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2482486B261
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Feb 2024 15:53:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686688.1069002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfLEF-00016k-7P; Wed, 28 Feb 2024 14:48:15 +0000
+	id 1rfLIk-0003c2-Rc; Wed, 28 Feb 2024 14:52:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686684.1068992; Wed, 28 Feb 2024 14:48:15 +0000
+Received: by outflank-mailman (output) from mailman id 686688.1069002; Wed, 28 Feb 2024 14:52:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfLEF-00014u-3V; Wed, 28 Feb 2024 14:48:15 +0000
-Received: by outflank-mailman (input) for mailman id 686684;
- Wed, 28 Feb 2024 14:48:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rfLIk-0003ZK-Oc; Wed, 28 Feb 2024 14:52:54 +0000
+Received: by outflank-mailman (input) for mailman id 686688;
+ Wed, 28 Feb 2024 14:52:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iHog=KF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfLED-00014o-Ox
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 14:48:13 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 654e27e3-d648-11ee-afd8-a90da7624cb6;
- Wed, 28 Feb 2024 15:48:12 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a3d484a58f6so791806466b.3
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 06:48:12 -0800 (PST)
+ id 1rfLIi-0003ZE-Ko
+ for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 14:52:52 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0b58672b-d649-11ee-a1ee-f123f15fe8a2;
+ Wed, 28 Feb 2024 15:52:50 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a440b1c445eso101594066b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 06:52:50 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- lf7-20020a170907174700b00a4316384159sm1912315ejc.224.2024.02.28.06.48.11
+ p4-20020a170906614400b00a3f4bafa6fbsm1903065ejl.168.2024.02.28.06.52.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Feb 2024 06:48:11 -0800 (PST)
+ Wed, 28 Feb 2024 06:52:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 654e27e3-d648-11ee-afd8-a90da7624cb6
+X-Inumbo-ID: 0b58672b-d649-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709131692; x=1709736492; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=8T6SqAr8zRjYU0xw/FLOnzZ8QZ6ZQnxq79TKnjkGfqk=;
-        b=YgWsPuF26+YbI64fTVyvvx/9Pe6LnYS23k80Qsow+zVmHxm05bduQ64tKZzBUWJkyp
-         7/qhXjYLbQO2kxjpe2pe716WGp9mWQhOqpSbodx8iIY+zAZuh/SxOH1RcIUiLc04B6+f
-         SSGFPhXX2WIU4msB0lkz6FngwD0fVMUVBMKqg/XUD8rhcpH7RWWrV69dpDGmknegQ44R
-         51kKb8xQES0nY9Mp/a/r2cvE/aLDcukFiyB09To6ORcBzijMaN3p6HME9FgF3yMHdZ60
-         0yTc0sPZp3J/TihWDB/MWvIQmQeWyJ4ruFMlINnIy6aTEkGgQXQsBP01QCvDzypJ89xi
-         S6Cw==
+        d=suse.com; s=google; t=1709131970; x=1709736770; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=0cAx2wtEdscxtqJw6koZOCpPdjA45RO8nsZSMPNeIa4=;
+        b=Y4JDYgWjghHr8NPR0z+9GHFBo2I5wcNNLJUk9LnJQ4dSCzQZPC55h4Mdkpe0lReEC8
+         utvO5GKrXoLPSwcgdLMPQ85h4E/Xhd7tBerD3N+2EvSlyIxlZmOUYKSa+LJ89sYaPpjH
+         ECGSL1218xVli8NNaH3yAnudoMj9kvdgFMfkIEw4jitcDOyTHVLcn8kLScMl4WCOvf9P
+         DFlqHb8O0f5iLFJnMpXDkE4MfD297OETaCp2uTNz6BDFASSpVaFWKLc+jOi1+71eGFQO
+         iLW+Im683FoWw17Axmd04fwWo5PXoz+Jxbk2NTxvomsAMjPsK5lNClMXhOyqd0hyPkcH
+         3LaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709131692; x=1709736492;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8T6SqAr8zRjYU0xw/FLOnzZ8QZ6ZQnxq79TKnjkGfqk=;
-        b=jBDqDTwW/7cCwlZd5GheFpKAVSsFUoUjg68U/uD/hK+RXwjWaNchPOqZ6PEMKpazbO
-         AGv1WwVQSWbRh7QCGHJsdGYfiETLRoDwQhIM+TEcjHPbE/iRrOzg7Is6/tqXBIFbUevN
-         Z5njAz1yAoV7aZ4+dPUqNRSPGT4baV+tMVzIijFIGat050RuXwQ1JQourRfi/Tv9XctY
-         ehm//29X+f0PndY8f+P+NzvMTN+ICyBBZTQyn3ZM1eXh30P1TnTLcCBM7wrobl9ha1zL
-         AC8k29IU9ftS5JqgPa7hB6HmQFQn3qlXpMYsCy1tHkwXfwGeW/XJLml+mSdDLTpXi8cW
-         irBQ==
-X-Gm-Message-State: AOJu0YwA/DdM2C/9u/mBORDyziuDclSGUtT/7vgJTP7wgLMbZklOsoR/
-	kj1/b7K6Vdtql7kCDM9RT1NRS08wFM+D2omLo6RiJs9SHCDUBJrjSTvB+9ovf9+ebBzQKcIeCaU
+        d=1e100.net; s=20230601; t=1709131970; x=1709736770;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0cAx2wtEdscxtqJw6koZOCpPdjA45RO8nsZSMPNeIa4=;
+        b=YGX8zvm3VW34GPhc9MLCRJjj5noJLQckGrYPCjWYhWfPbVF/IUA6g7QJa/zFsJLB+5
+         uvYHn+jpoYdd3S7wLKCr8y5LoHCrVW35jXnf/0tvkjDkokXpjl2gGdHApocTae1/nrya
+         hIEd15dE0595ztgRFeb/8KCoZ0SBIzM8YGqdCfDiHQAxCW+HMSwz/VzLbTwFREG5Si1L
+         3ziTY2gNPt0Rw07XacjqwlvETGuFvrcRO1EuCO4HSO8s0uvRhzNLz21DedYT+6IKBM9O
+         om9LFMqYfs/ML06T9laFzGybuxKXngFktOfOG2MGbmyEIkaC/PBsw5kZZTUlUGnX5o7y
+         OhrA==
+X-Forwarded-Encrypted: i=1; AJvYcCXmCPK9D7EmcY1FQk+NH9RGroIXcN9zYItBmUoXK2bjerw+Xb5AwA+eNDeQkzbMzcKk9tZqyuwoN8vyFgx6Z6UvGB/D/aGaGkcAzkeJsd0=
+X-Gm-Message-State: AOJu0YxyfTdyoZUImbnRG4DTWnHihMYRE0+VatIxktDcBLX/sY4tnEK8
+	krvNjeuTkDSpGF0i0ewxm5PriNQ+JeWyQsHIMc1owoNqS4H7oaqy5Jio9TrdDFemD0mt/8luZxg
 	=
-X-Google-Smtp-Source: AGHT+IHIftzain54YhWj9ebHX9KxhqYls7nqAQPwBaAoCPecTYqGy4pwmjZoTEt7VRxpARLXJEwdgA==
-X-Received: by 2002:a17:906:ce30:b0:a3f:bd94:4d80 with SMTP id sd16-20020a170906ce3000b00a3fbd944d80mr8515992ejb.76.1709131691832;
-        Wed, 28 Feb 2024 06:48:11 -0800 (PST)
-Message-ID: <58656398-2d64-48b8-9ddc-c6836847a586@suse.com>
-Date: Wed, 28 Feb 2024 15:48:10 +0100
+X-Google-Smtp-Source: AGHT+IHUQXZ+VeT9gde4R5AX9cm3TiU/uXgIrEDpepJ8GUJ86S29iSHWw8Xj7K8C6jydPVSgcgKxZg==
+X-Received: by 2002:a17:906:792:b0:a43:fec3:b648 with SMTP id l18-20020a170906079200b00a43fec3b648mr1736086ejc.24.1709131970236;
+        Wed, 28 Feb 2024 06:52:50 -0800 (PST)
+Message-ID: <271ae402-7400-4dc5-9222-88523b9a2922@suse.com>
+Date: Wed, 28 Feb 2024 15:52:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Ping: [PATCH v2] Argo: don't obtain excess page references
+To: Christopher Clark <christopher.w.clark@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <79ed633d-b0bd-4a7d-a0c6-37a034e1ee96@suse.com>
+ <0374516c-b5fa-4880-a07a-0b788f491e9a@xen.org>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: serializing of non-serializing MSR writes
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -109,161 +116,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <0374516c-b5fa-4880-a07a-0b788f491e9a@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Linux commit 25a068b8e9a4e ("x86/apic: Add extra serialization for non-
-serializing MSRs") explains why an MFENCE+LFENCE pair is generally
-needed ahead of ICR writes in x2APIC mode, and also why at least in
-theory such is also needed ahead of TSC_DEADLINE writes. A comment of
-our own in send_IPI_mask_x2apic_phys() further explains a condition
-under which the LFENCE can be avoided.
+On 18.02.2024 19:01, Julien Grall wrote:
+> On 14/02/2024 10:12, Jan Beulich wrote:
+>> find_ring_mfn() already holds a page reference when trying to obtain a
+>> writable type reference. We shouldn't make assumptions on the general
+>> reference count limit being effectively "infinity". Obtain merely a type
+>> ref, re-using the general ref by only dropping the previously acquired
+>> one in the case of an error.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-Further Linux commit 04c3024560d3 ("x86/barrier: Do not serialize MSR
-accesses on AMD") explains that this barrier isn't needed on AMD or
-Hygon, and is in fact hampering performance in a measurable way.
+I'll give it till the end of the week for an ack to arrive (or a substantial
+objection), and commit some time next week in the absence of any response.
 
-Introduce a similarly named helper function, but with a parameter
-allowing callers to specify whether a memory access will follow, thus
-permitting the LFENCE to be omitted.
+Jan
 
-Putting an instance in apic_wait_icr_idle() is to be on the safe side.
-The one case where it was clearly missing is in send_IPI_shortcut(),
-which is also used in x2APIC mode when called from send_IPI_mask().
-
-Function comment shamelessly borrowed (but adapted) from Linux.
-
-Fixes: 5500d265a2a8 ("x86/smp: use APIC ALLBUT destination shorthand when possible")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-I question the need for a fence ahead of writing TSC_DEADLINE: The Linux
-commit message talks about LVT being accessed via MMIO in xAPIC mode,
-but that should not be relevant here: It's all the local CPU, so there
-ought to not be visibility concerns (much like for a self-IPI no fence
-is needed ahead of the ICR write). If that wasn't needed, we could
-further use alternatives patching to remove the fence also from
-apic_wait_icr_idle() when in xAPIC mode. (And only then would I agree to
-have APIC in the feature identifier, like Linux has it.)
-
-A number of apic_write() may better be turned into apic_mem_write(), in
-particular e.g. the ones in send_IPI_mask_{flat,phys}(). That way it
-would be quite a bit easier to spot paths taken only in xAPIC mode.
-
-The INIT-INIT-SIPI sequence for AP startup doesn't use any barrier, also
-not in Linux afaics. I can't explain the lack thereof, though.
-
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -1309,6 +1309,12 @@ int reprogram_timer(s_time_t timeout)
- 
-     if ( tdt_enabled )
-     {
-+        /*
-+         * WRMSR to TSC_DEADLINE is not serializing.  We could pass @timeout
-+         * here, but the passed value is preferably compile-time-constant.
-+         */
-+        weak_wrmsr_fence(false);
-+
-         wrmsrl(MSR_IA32_TSC_DEADLINE, timeout ? stime2tsc(timeout) : 0);
-         return 1;
-     }
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -675,8 +675,12 @@ void amd_log_freq(const struct cpuinfo_x
- 
- void cf_check early_init_amd(struct cpuinfo_x86 *c)
- {
--	if (c == &boot_cpu_data)
-+	if (c == &boot_cpu_data) {
-+		/* No fencing needed ahead of certain MSR writes. */
-+		setup_force_cpu_cap(X86_FEATURE_NO_WRMSR_FENCE);
-+
- 		amd_init_levelling();
-+	}
- 
- 	ctxt_switch_levelling(NULL);
- }
---- a/xen/arch/x86/genapic/x2apic.c
-+++ b/xen/arch/x86/genapic/x2apic.c
-@@ -97,15 +97,15 @@ static void cf_check send_IPI_mask_x2api
- 
-     /*
-      * Ensure that any synchronisation data written in program order by this
--     * CPU is seen by notified remote CPUs. The WRMSR contained within
--     * apic_icr_write() can otherwise be executed early.
-+     * CPU is seen by notified remote CPUs. The WRMSR contained in the loop
-+     * below can otherwise be executed early.
-      * 
--     * The reason smp_mb() is sufficient here is subtle: the register arguments
-+     * The reason MFENCE is sufficient here is subtle: the register arguments
-      * to WRMSR must depend on a memory read executed after the barrier. This
-      * is guaranteed by cpu_physical_id(), which reads from a global array (and
-      * so cannot be hoisted above the barrier even by a clever compiler).
-      */
--    smp_mb();
-+    weak_wrmsr_fence(true);
- 
-     local_irq_save(flags);
- 
-@@ -130,7 +130,7 @@ static void cf_check send_IPI_mask_x2api
-     const cpumask_t *cluster_cpus;
-     unsigned long flags;
- 
--    smp_mb(); /* See above for an explanation. */
-+    weak_wrmsr_fence(true); /* See above for an explanation. */
- 
-     local_irq_save(flags);
- 
---- a/xen/arch/x86/include/asm/cpufeatures.h
-+++ b/xen/arch/x86/include/asm/cpufeatures.h
-@@ -24,7 +24,7 @@ XEN_CPUFEATURE(APERFMPERF,        X86_SY
- XEN_CPUFEATURE(MFENCE_RDTSC,      X86_SYNTH( 9)) /* MFENCE synchronizes RDTSC */
- XEN_CPUFEATURE(XEN_SMEP,          X86_SYNTH(10)) /* SMEP gets used by Xen itself */
- XEN_CPUFEATURE(XEN_SMAP,          X86_SYNTH(11)) /* SMAP gets used by Xen itself */
--/* Bit 12 unused. */
-+XEN_CPUFEATURE(NO_WRMSR_FENCE,    X86_SYNTH(12)) /* No MFENCE{,+LFENCE} ahead of certain WRMSR. */
- XEN_CPUFEATURE(IND_THUNK_LFENCE,  X86_SYNTH(13)) /* Use IND_THUNK_LFENCE */
- XEN_CPUFEATURE(IND_THUNK_JMP,     X86_SYNTH(14)) /* Use IND_THUNK_JMP */
- XEN_CPUFEATURE(SC_NO_BRANCH_HARDEN, X86_SYNTH(15)) /* (Disable) Conditional branch hardening */
---- a/xen/arch/x86/include/asm/msr.h
-+++ b/xen/arch/x86/include/asm/msr.h
-@@ -97,6 +97,25 @@ static inline void msr_split(struct cpu_
-     regs->rax = (uint32_t)val;
- }
- 
-+/*
-+ * Make previous memory operations globally visible before a WRMSR.  Most
-+ * WRMSRs are full serializing instructions themselves and do not require this
-+ * barrier.  This may only be required for the TSC_DEADLINE and x2APIC MSRs.
-+ *
-+ * MFENCE makes writes visible, but only affects load/store instructions.
-+ * WRMSR is unfortunately not a load/store instruction and is unaffected by
-+ * MFENCE.  The LFENCE ensures that the WRMSR is not reordered, but callers
-+ * can indicate to avoid it when they have a suitable memory access between
-+ * the invocation of this function and the WRMSR in question.
-+ */
-+static inline void weak_wrmsr_fence(bool have_mem_access)
-+{
-+    alternative("mfence", "", X86_FEATURE_NO_WRMSR_FENCE);
-+
-+    if ( !have_mem_access )
-+        alternative("lfence", "", X86_FEATURE_NO_WRMSR_FENCE);
-+}
-+
- static inline uint64_t rdtsc(void)
- {
-     uint32_t low, high;
---- a/xen/arch/x86/smp.c
-+++ b/xen/arch/x86/smp.c
-@@ -39,7 +39,10 @@ static unsigned int prepare_ICR2(unsigne
- void apic_wait_icr_idle(void)
- {
-     if ( x2apic_enabled )
-+    {
-+        weak_wrmsr_fence(false);
-         return;
-+    }
- 
-     while ( apic_read(APIC_ICR) & APIC_ICR_BUSY )
-         cpu_relax();
 
