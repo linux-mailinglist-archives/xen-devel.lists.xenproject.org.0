@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6A8086CD54
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 16:45:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687231.1070349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39A4686CD55
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 16:46:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687233.1070359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfiaz-0000z8-H1; Thu, 29 Feb 2024 15:45:17 +0000
+	id 1rfibz-0001SX-QA; Thu, 29 Feb 2024 15:46:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687231.1070349; Thu, 29 Feb 2024 15:45:17 +0000
+Received: by outflank-mailman (output) from mailman id 687233.1070359; Thu, 29 Feb 2024 15:46:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfiaz-0000wa-EL; Thu, 29 Feb 2024 15:45:17 +0000
-Received: by outflank-mailman (input) for mailman id 687231;
- Thu, 29 Feb 2024 15:45:16 +0000
+	id 1rfibz-0001R1-NH; Thu, 29 Feb 2024 15:46:19 +0000
+Received: by outflank-mailman (input) for mailman id 687233;
+ Thu, 29 Feb 2024 15:46:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OAsO=KG=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rfiay-0000wS-9t
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 15:45:16 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ (envelope-from <SRS0=x8AV=KG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rfiby-0001Qt-6y
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 15:46:18 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 87bdf8c1-d719-11ee-afd8-a90da7624cb6;
- Thu, 29 Feb 2024 16:45:15 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1E03C1F7E9;
- Thu, 29 Feb 2024 15:45:14 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D7A8613503;
- Thu, 29 Feb 2024 15:45:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Tx85M4mm4GX+MwAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 29 Feb 2024 15:45:13 +0000
+ id acf19f64-d719-11ee-afd8-a90da7624cb6;
+ Thu, 29 Feb 2024 16:46:17 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-56533e30887so1800276a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 07:46:17 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ he44-20020a1709073dac00b00a4323d1b18fsm804181ejc.34.2024.02.29.07.46.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Feb 2024 07:46:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,188 +45,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87bdf8c1-d719-11ee-afd8-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1709221514; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Z8SfY5jVnFw4kZflsv6bRIFUWCtymoR6L22v1i1XNxM=;
-	b=hmZjsJa2y8K2UkiwOz92Zu7CVi9X7WL89xGgl+jg3c0s+0b2xXzDa8uOCB2Y5tFywnME6/
-	3e9NDIsppA7G4XYQNrh5lUESO1bzuM/TQdd5yoaEvy+PCogiyOJsS6sDF+lIYct1GsvlVQ
-	USPxgHoEAHS4XN/pZGcPzqKiF5v84Og=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1709221514; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Z8SfY5jVnFw4kZflsv6bRIFUWCtymoR6L22v1i1XNxM=;
-	b=hmZjsJa2y8K2UkiwOz92Zu7CVi9X7WL89xGgl+jg3c0s+0b2xXzDa8uOCB2Y5tFywnME6/
-	3e9NDIsppA7G4XYQNrh5lUESO1bzuM/TQdd5yoaEvy+PCogiyOJsS6sDF+lIYct1GsvlVQ
-	USPxgHoEAHS4XN/pZGcPzqKiF5v84Og=
-Message-ID: <d8f15460-8d58-4096-9e4f-b6ac307863db@suse.com>
-Date: Thu, 29 Feb 2024 16:45:13 +0100
+X-Inumbo-ID: acf19f64-d719-11ee-afd8-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1709221576; x=1709826376; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=yvStt6RpT6Q49zFDLwqwelFVZVbqpoF3M0TQaFXVjFk=;
+        b=aJgXDQGi3dkrOiIiocS9QnZwsB4s36KgC0e3XZ2jTpEJZRnfOwkSCm1OWmX/rmkQ3A
+         3GbGsVGN9A9Bi1IY0qhLd0qHaVh8143OMtBfLP3Z3iGcgi4MjlU3FtecQ+T3wsS1aLQ0
+         uWUmZhYfLISi92N1LgtmQZOLMelC0ZSJDQuwZ3NfbQIuNusGkJqkONg7bQmS7dye0uNz
+         fI6kg0rWEHZc1OaRTQPQEOsadqu47SMjTuhiIc5ovMGObIo0DaKYMPgnWIvbeWpqbcR4
+         Fjq+13NCgDw73VqH5kInaZy+90oEDKRljG+t5/x5CjSMuquVLqTtu/Dv6Pti6joZMQGf
+         4TUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709221576; x=1709826376;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=yvStt6RpT6Q49zFDLwqwelFVZVbqpoF3M0TQaFXVjFk=;
+        b=q+jhEUHzkdQ312Ea+m46kxL8SwgAm/lLBifAahQPw8ZZlsrnFCf3hdPblITULzor3j
+         cqjdrIAvA3DfuJUsxPbg/m+15Ygz8O5lkRTZsgCjxhdjuFhWf19QZopLhyOJ8QifGmA/
+         CZDKLi3wh7q7Qf5dpGwhh7DbNFra/ApiGox1aENLszTbtmjEV2xcE6am9feFj3Lq552Z
+         zAn5h/D62duDkxogr6nxyaxEuyzgC+i/Cb1rH2O2nRfVYWMpz2wmjNOqFmVHgp16b0+U
+         cm7ksEsrn5Za0gnirU/NybP9oVs7msDnlf6X6kY6zaCR00Y6BoaWAKinUwLA31BKHRco
+         w+LA==
+X-Forwarded-Encrypted: i=1; AJvYcCWy32Qnq7Z/o2Oe0uli+4wP/7HiBP8K0YHSwiPbo7wsmWB1hw2uH9nh3hYdgzMoCgD+U90ffIz4EsaQ574zqUTe1pxPEXNNKW9TU9ECds0=
+X-Gm-Message-State: AOJu0YzCyxXNWtdvrd0qY3eovt7mfTjP0ezBaxjh/TppL3E4khq1o7Q9
+	noE3ZT0dsrsxtG5aA5sCNI2vVdxXfnZZFLM8TPMMxNg30ydTvYuXqzhfx3DBPQ==
+X-Google-Smtp-Source: AGHT+IHGX/jJLHhP0Gk2ekkO5WT9x5v3oH3WPAGQiTxxufBleiRuvX5yk4vx+Ae3mcMKcS3LCnhLcw==
+X-Received: by 2002:a17:906:46d9:b0:a44:4ee9:c560 with SMTP id k25-20020a17090646d900b00a444ee9c560mr1162166ejs.53.1709221576655;
+        Thu, 29 Feb 2024 07:46:16 -0800 (PST)
+Message-ID: <c96542eb-daf4-4ce2-915e-86ca8e1848b5@suse.com>
+Date: Thu, 29 Feb 2024 16:46:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/12] xen/spinlock: split recursive spinlocks from
- normal ones
+Subject: Re: [PATCH v4 12/12] xen/spinlock: support higher number of cpus
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
+To: Juergen Gross <jgross@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <20231212094725.22184-1-jgross@suse.com>
- <20231212094725.22184-11-jgross@suse.com>
- <a037facf-c4d9-491f-b39f-56ed4221abf1@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <a037facf-c4d9-491f-b39f-56ed4221abf1@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <20231212094725.22184-13-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20231212094725.22184-13-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=hmZjsJa2
-X-Spamd-Result: default: False [-3.13 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	 XM_UA_NO_VERSION(0.01)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 DWL_DNSWL_HI(-3.50)[suse.com:dkim];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 DKIM_TRACE(0.00)[suse.com:+];
-	 MX_GOOD(-0.01)[];
-	 RCPT_COUNT_SEVEN(0.00)[7];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 R_MIXED_CHARSET(0.67)[subject];
-	 RCVD_TLS_ALL(0.00)[];
-	 MID_RHS_MATCH_FROM(0.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 1E03C1F7E9
-X-Spam-Level: 
-X-Spam-Score: -3.13
-X-Spam-Flag: NO
 
-On 29.02.24 16:32, Jan Beulich wrote:
-> On 12.12.2023 10:47, Juergen Gross wrote:
->> --- a/xen/common/spinlock.c
->> +++ b/xen/common/spinlock.c
->> @@ -541,6 +541,55 @@ void rspin_unlock_irqrestore(rspinlock_t *lock, unsigned long flags)
->>       local_irq_restore(flags);
->>   }
->>   
->> +int nrspin_trylock(rspinlock_t *lock)
->> +{
->> +    check_lock(&lock->debug, true);
->> +
->> +    if ( unlikely(lock->recurse_cpu != SPINLOCK_NO_CPU) )
->> +        return 0;
->> +
->> +    return spin_trylock_common(&lock->tickets, &lock->debug, LOCK_PROFILE_PAR);
->> +}
+On 12.12.2023 10:47, Juergen Gross wrote:
+> Allow 16 bits per cpu number, which is the limit imposed by
+> spinlock_tickets_t.
 > 
-> I wonder if we shouldn't take the opportunity and stop having trylock
-> functions have "int" return type. Perhaps already spin_trylock_common()
-> when introduced could use "bool" instead, then here following suit.
+> This will allow up to 65535 cpus, while increasing only the size of
+> recursive spinlocks in debug builds from 8 to 12 bytes.
 
-Fine with me.
+I think we want to be more conservative here, for the case of there
+being bugs: The CPU holding a lock may wrongly try to acquire it a
+2nd time. That's the 65536th ticket then, wrapping the value.
+Therefore my suggestion would be to only (mention) go(ing) up to 32k.
 
-> 
->> +void nrspin_lock(rspinlock_t *lock)
->> +{
->> +    spin_lock_common(&lock->tickets, &lock->debug, LOCK_PROFILE_PAR, NULL,
->> +                     NULL);
->> +}
->> +
->> +void nrspin_unlock(rspinlock_t *lock)
->> +{
->> +    spin_unlock_common(&lock->tickets, &lock->debug, LOCK_PROFILE_PAR);
->> +}
->> +
->> +void nrspin_lock_irq(rspinlock_t *lock)
->> +{
->> +    ASSERT(local_irq_is_enabled());
->> +    local_irq_disable();
->> +    nrspin_lock(lock);
->> +}
->> +
->> +void nrspin_unlock_irq(rspinlock_t *lock)
->> +{
->> +    nrspin_unlock(lock);
->> +    local_irq_enable();
->> +}
->> +
->> +unsigned long __nrspin_lock_irqsave(rspinlock_t *lock)
->> +{
->> +    unsigned long flags;
->> +
->> +    local_irq_save(flags);
->> +    nrspin_lock(lock);
->> +    return flags;
-> 
-> Nit: Strictly speaking we want a blank line ahead of this "return".
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  xen/common/spinlock.c      |  1 +
+>  xen/include/xen/spinlock.h | 18 +++++++++---------
+>  2 files changed, 10 insertions(+), 9 deletions(-)
 
-Okay, will add it.
+Shouldn't this also bump the upper bound of the NR_CPUS range then
+in xen/arch/Kconfig?
 
-> 
->> @@ -166,11 +172,15 @@ struct lock_profile_qhead { };
->>   struct lock_profile { };
->>   
->>   #define SPIN_LOCK_UNLOCKED {                                                  \
->> +    .debug =_LOCK_DEBUG,                                                      \
->> +}
->> +#define RSPIN_LOCK_UNLOCKED {                                                 \
->> +    .debug =_LOCK_DEBUG,                                                      \
->>       .recurse_cpu = SPINLOCK_NO_CPU,                                           \
->>       .debug =_LOCK_DEBUG,                                                      \
->>   }
-> 
-> Initializing .debug twice?
-
-Oh, right. Will drop one.
-
-> 
->> @@ -180,7 +190,6 @@ struct lock_profile { };
->>   
->>   #endif
->>   
->> -
->>   typedef union {
->>       uint32_t head_tail;
->>       struct {
-> 
-> Looks like this might be undoing what the earlier patch isn't going to
-> do anymore?
-
-Yes, seen it already.
-
-> 
->> @@ -242,6 +257,19 @@ void rspin_unlock_irqrestore(rspinlock_t *lock, unsigned long flags);
->>   int rspin_is_locked(const rspinlock_t *lock);
->>   void rspin_barrier(rspinlock_t *lock);
->>   
->> +int nrspin_trylock(rspinlock_t *lock);
->> +void nrspin_lock(rspinlock_t *lock);
->> +void nrspin_unlock(rspinlock_t *lock);
->> +void nrspin_lock_irq(rspinlock_t *lock);
->> +void nrspin_unlock_irq(rspinlock_t *lock);
->> +#define nrspin_lock_irqsave(l, f)                               \
->> +    ({                                                          \
->> +        BUILD_BUG_ON(sizeof(f) != sizeof(unsigned long));       \
->> +        ((f) = __nrspin_lock_irqsave(l));                       \
-> 
-> I don't think the outer pair of parentheses is needed here. As to the
-> leading double underscores, see comments elsewhere.
-
-Okay.
-
-
-Juergen
+Jan
 
