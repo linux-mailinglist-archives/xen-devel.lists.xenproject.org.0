@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2729986C61A
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C2DF86C61C
 	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 10:56:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686910.1069509 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.686911.1069519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfd93-0007L0-Jl; Thu, 29 Feb 2024 09:56:05 +0000
+	id 1rfd96-0007cE-Rx; Thu, 29 Feb 2024 09:56:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686910.1069509; Thu, 29 Feb 2024 09:56:05 +0000
+Received: by outflank-mailman (output) from mailman id 686911.1069519; Thu, 29 Feb 2024 09:56:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfd93-0007Ie-Ga; Thu, 29 Feb 2024 09:56:05 +0000
-Received: by outflank-mailman (input) for mailman id 686910;
- Thu, 29 Feb 2024 09:56:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rfd96-0007ZS-Ow; Thu, 29 Feb 2024 09:56:08 +0000
+Received: by outflank-mailman (input) for mailman id 686911;
+ Thu, 29 Feb 2024 09:56:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xh/y=KG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rfd92-0007IO-BJ
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 09:56:04 +0000
-Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
- [2607:f8b0:4864:20::730])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bed128b0-d6e8-11ee-a1ee-f123f15fe8a2;
- Thu, 29 Feb 2024 10:56:02 +0100 (CET)
-Received: by mail-qk1-x730.google.com with SMTP id
- af79cd13be357-787df45e513so43875785a.1
- for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 01:56:02 -0800 (PST)
+ id 1rfd95-000742-SE
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 09:56:07 +0000
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [2607:f8b0:4864:20::f35])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c1718812-d6e8-11ee-afd8-a90da7624cb6;
+ Thu, 29 Feb 2024 10:56:06 +0100 (CET)
+Received: by mail-qv1-xf35.google.com with SMTP id
+ 6a1803df08f44-68fb7928970so2866986d6.2
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 01:56:07 -0800 (PST)
 Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- vv3-20020a05620a562300b00787ad324b83sm505124qkn.120.2024.02.29.01.55.59
+ nf8-20020a0562143b8800b0068fb74ec7c9sm558588qvb.34.2024.02.29.01.56.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Feb 2024 01:56:00 -0800 (PST)
+ Thu, 29 Feb 2024 01:56:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,47 +44,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bed128b0-d6e8-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: c1718812-d6e8-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709200560; x=1709805360; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1709200565; x=1709805365; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ichlPTccQ4535UGjZfXAC8i6aK0BxI1NGty2U9n+z6Q=;
-        b=KyHOkarHbqmZVNWGBNjj0hIpDC1XeNHz4/87eu/QfSEsCZ12EiiwrFX4p9lO6HfFea
-         WU8vl2Kn7WCvYXHvfqEHKRZzO9ZQJb7k9juOu/7wQomm5PJRTPP9eiC95s2qgcqdW0xO
-         aq5yk2HkCiYJDRnz16JAI4PKH87ZHUDFLw9/8=
+        bh=I+Jq4VgjlztXV9LuPFURoS9J4NOCZCFBiZ63KHy9B7E=;
+        b=A4qVVgyWOmT2UrFCOuIHZ7lDc473YXT1AVc4psgKVylAjFb9QmCCYWZi1VKDguRvq2
+         hyYF9bojV3c/PDcGj6Z8lKv65obaJr6CvXFD+Yjcd0lLqG7AmAzMP0SxK9Gw5a9c34FA
+         +X60l4n9JXne/klOEczAmrClCfkooWvL5vOCY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709200560; x=1709805360;
+        d=1e100.net; s=20230601; t=1709200565; x=1709805365;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ichlPTccQ4535UGjZfXAC8i6aK0BxI1NGty2U9n+z6Q=;
-        b=Ir1teeMrnFcROO2FGpf4tiaKCp9TlQdi5C3nk2td42CEjAa35ulAHq1Vw0S4u+XGwY
-         phZo9uLoY+5+cEceqWA5PIJ5wjwBlR7z+jdraricy04PaWV+20XR3HqkHezSSK10idWT
-         5e8eui3M0fgv6yU4dfceAsR7kU2VBYo/slGVLeJ25/ebA2gBirj3jlFhNitpGJJEgB//
-         oTBTY43eU1P3YYPoZ+TQ2ez2s1WVRKGTw7mGX1KduSaGXvZqLF6DtX4ybaJIXfdlwvT1
-         lfT3tpYuF+dyZkYVeksfKzAc4WZtrGz1u0/mooivRPyOgViVQqlEeMZS4u2bz8AhP7yu
-         18GA==
-X-Gm-Message-State: AOJu0Yy4F7WeLdm682Kybl2BI8Hz7WNsBtHKmQo0A9Z0riz+8g4OCPM0
-	dLhA769xUYMRkJA2XWtF8LF1s3H6XNPzjDEgPxV9swICXAb9Ih978lYImkweaefjc7zCAvlixh0
-	L
-X-Google-Smtp-Source: AGHT+IFCTo2madUZMCyQcfvHbsHEVw0kDEKX9gsO3v8hankNjc86gX9tbq2ZjgRZGIVy4CyCSez8Ig==
-X-Received: by 2002:a05:620a:24d2:b0:787:f8fd:8ed with SMTP id m18-20020a05620a24d200b00787f8fd08edmr1812421qkn.55.1709200560358;
-        Thu, 29 Feb 2024 01:56:00 -0800 (PST)
+        bh=I+Jq4VgjlztXV9LuPFURoS9J4NOCZCFBiZ63KHy9B7E=;
+        b=Ef5gCu+SBEOHh34qoKSqfISVJAclcVN0I/mm+QJzv1tPivHbn/Wia3G9riKy+pLchi
+         xzKSEMULCciSfHSN0hnLGiPU8rQmPR24wC8zJRgoQw3dgEnZLjNtpXoxvMYr0Ms0unRW
+         i6Zh4vz0IaKYFUVMVhzOddCBBLqIfIaXY2OL6wE3yhgz3tXwn1m/+PEUc2mgAW5JoC9t
+         u+FRhCXpLrSd/I+rISSeUd92eDQ1R22qxz7l3SGFuE0/aGGPbre6+ooZ4kRrGYHzRo6a
+         REXnnFSYLv8nsMe+lUKPjFIz01o1l9qZjx0UZdhbXoss4348P4EfhNdlk7IoYuHzHzz5
+         zJ/w==
+X-Gm-Message-State: AOJu0Yx5SPqlLkHZcF0u2XZJNaFNp176n9HKkigA4+bDzX9veDo0veql
+	iVxvxvgNx6tjRajcyX6+slpM0KCbeygWko6g5U8AlTHFRXw/uj1qliuuH7Kvb+uYSdO3XSqhQYM
+	+
+X-Google-Smtp-Source: AGHT+IHpM2bPpu8mHD/WLp7i0gIrB8L7CHvbPXk6xReTWVVWbDqpncTL+Uacrdl0HbI2WS0x4N0k8w==
+X-Received: by 2002:a05:6214:32a:b0:68f:fe88:cc4c with SMTP id j10-20020a056214032a00b0068ffe88cc4cmr1794865qvu.41.1709200565411;
+        Thu, 29 Feb 2024 01:56:05 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: [PATCH 1/2] README: bump minimum required clang/llvm version
-Date: Thu, 29 Feb 2024 10:55:28 +0100
-Message-ID: <20240229095529.17723-2-roger.pau@citrix.com>
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH 2/2] automation: introduce non debug clang based tests
+Date: Thu, 29 Feb 2024 10:55:29 +0100
+Message-ID: <20240229095529.17723-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240229095529.17723-1-roger.pau@citrix.com>
 References: <20240229095529.17723-1-roger.pau@citrix.com>
@@ -92,120 +87,66 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-We no longer have a way to build with the minimum required clang/llvm version
-stated in the README on the gitlab CI loop, since we dropped the Debian Jessie
-container that had Clang 3.5.0.
+The generated code between the debug and release builds can be quite
+different, as a note 2ce562b2a413 only manifested in non-debug builds due to
+the usage of -O2.
 
-Bump the minimum required Clang/LLVM to the one used in the oldest production
-FreeBSD version (13.2 currently), as that's the main reason I care to maintain
-Clang/LLVM support, and as far as I know FreeBSD is the only production
-deployment of Xen built with Clang/LLVM.
-
-Purge the build jobs for non-supported Clang versions from Gitlab CI.  Note the
-.dockerfiles for the respective distros are explicitly not adjusted to drop the
-install of the clang packages, or else those jobs would start to fail on older
-Xen branches.
+Duplicate the clang based test in order to test with both debug and non-debug
+Xen builds.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-I'm willing to consider older versions, but there needs to be a reason (iow:
-use-case) for considering those, as maintaining support for older toolchains is
-a burden.
----
- README                          |  2 +-
- automation/gitlab-ci/build.yaml | 45 ---------------------------------
- 2 files changed, 1 insertion(+), 46 deletions(-)
+ automation/gitlab-ci/test.yaml | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/README b/README
-index c8a108449e29..5fe52cc7a932 100644
---- a/README
-+++ b/README
-@@ -41,7 +41,7 @@ provided by your OS distributor:
-         - GCC 4.1.2_20070115 or later
-         - GNU Binutils 2.16.91.0.5 or later
-         or
--        - Clang/LLVM 3.5 or later
-+        - Clang/LLVM 14.0.0 or later
-       - For ARM 32-bit:
-         - GCC 4.9 or later
-         - GNU Binutils 2.24 or later
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 6d2cb18b8883..347fe1b5a8db 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -638,21 +638,6 @@ debian-stretch-gcc:
-   variables:
-     CONTAINER: debian:stretch
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 8b7b2e4da92d..dedca794b257 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -422,13 +422,20 @@ qemu-smoke-x86-64-gcc:
+   needs:
+     - debian-stretch-gcc-debug
  
--debian-stretch-clang:
--  extends: .clang-x86-64-build
--  variables:
--    CONTAINER: debian:stretch
--
--debian-stretch-clang-debug:
--  extends: .clang-x86-64-build-debug
--  variables:
--    CONTAINER: debian:stretch
--
--debian-stretch-32-clang-debug:
--  extends: .clang-x86-32-build-debug
--  variables:
--    CONTAINER: debian:stretch-i386
--
- debian-stretch-32-gcc-debug:
-   extends: .gcc-x86-32-build-debug
-   variables:
-@@ -725,16 +710,6 @@ ubuntu-trusty-gcc-debug:
-   variables:
-     CONTAINER: ubuntu:trusty
+-qemu-smoke-x86-64-clang:
++qemu-smoke-x86-64-clang-debug:
+   extends: .qemu-x86-64
+   script:
+     - ./automation/scripts/qemu-smoke-x86-64.sh pv 2>&1 | tee ${LOGFILE}
+   needs:
+     - debian-bookworm-clang-debug
  
--ubuntu-xenial-clang:
--  extends: .clang-x86-64-build
--  variables:
--    CONTAINER: ubuntu:xenial
--
--ubuntu-xenial-clang-debug:
--  extends: .clang-x86-64-build-debug
--  variables:
--    CONTAINER: ubuntu:xenial
--
- ubuntu-xenial-gcc:
-   extends: .gcc-x86-64-build
-   variables:
-@@ -745,16 +720,6 @@ ubuntu-xenial-gcc-debug:
-   variables:
-     CONTAINER: ubuntu:xenial
++qemu-smoke-x86-64-clang:
++  extends: .qemu-x86-64
++  script:
++    - ./automation/scripts/qemu-smoke-x86-64.sh pv 2>&1 | tee ${LOGFILE}
++  needs:
++    - debian-bookworm-clang
++
+ qemu-smoke-x86-64-gcc-pvh:
+   extends: .qemu-x86-64
+   script:
+@@ -436,13 +443,20 @@ qemu-smoke-x86-64-gcc-pvh:
+   needs:
+     - debian-stretch-gcc-debug
  
--ubuntu-bionic-clang:
--  extends: .clang-x86-64-build
--  variables:
--    CONTAINER: ubuntu:bionic
--
--ubuntu-bionic-clang-debug:
--  extends: .clang-x86-64-build-debug
--  variables:
--    CONTAINER: ubuntu:bionic
--
- ubuntu-bionic-gcc:
-   extends: .gcc-x86-64-build
-   variables:
-@@ -775,16 +740,6 @@ ubuntu-focal-gcc-debug:
-   variables:
-     CONTAINER: ubuntu:focal
+-qemu-smoke-x86-64-clang-pvh:
++qemu-smoke-x86-64-clang-debug-pvh:
+   extends: .qemu-x86-64
+   script:
+     - ./automation/scripts/qemu-smoke-x86-64.sh pvh 2>&1 | tee ${LOGFILE}
+   needs:
+     - debian-bookworm-clang-debug
  
--ubuntu-focal-clang:
--  extends: .clang-x86-64-build
--  variables:
--    CONTAINER: ubuntu:focal
--
--ubuntu-focal-clang-debug:
--  extends: .clang-x86-64-build-debug
--  variables:
--    CONTAINER: ubuntu:focal
--
- opensuse-leap-clang:
-   extends: .clang-x86-64-build
-   variables:
++qemu-smoke-x86-64-clang-pvh:
++  extends: .qemu-x86-64
++  script:
++    - ./automation/scripts/qemu-smoke-x86-64.sh pvh 2>&1 | tee ${LOGFILE}
++  needs:
++    - debian-bookworm-clang
++
+ qemu-smoke-riscv64-gcc:
+   extends: .qemu-riscv64
+   script:
 -- 
 2.44.0
 
