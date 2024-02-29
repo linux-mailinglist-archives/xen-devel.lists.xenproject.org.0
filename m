@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E28B86CD71
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 16:49:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687236.1070369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E43A86CD7E
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 16:50:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687238.1070379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfif5-0002HZ-8o; Thu, 29 Feb 2024 15:49:31 +0000
+	id 1rfifu-0003pl-HV; Thu, 29 Feb 2024 15:50:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687236.1070369; Thu, 29 Feb 2024 15:49:31 +0000
+Received: by outflank-mailman (output) from mailman id 687238.1070379; Thu, 29 Feb 2024 15:50:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfif5-0002EN-64; Thu, 29 Feb 2024 15:49:31 +0000
-Received: by outflank-mailman (input) for mailman id 687236;
- Thu, 29 Feb 2024 15:49:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rfifu-0003nJ-Du; Thu, 29 Feb 2024 15:50:22 +0000
+Received: by outflank-mailman (input) for mailman id 687238;
+ Thu, 29 Feb 2024 15:50:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CJxE=KG=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1rfif3-0002EH-Ms
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 15:49:29 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1de7406b-d71a-11ee-a1ee-f123f15fe8a2;
- Thu, 29 Feb 2024 16:49:27 +0100 (CET)
+ id 1rfifs-0003n2-Eb
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 15:50:20 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3ca9e7be-d71a-11ee-afd8-a90da7624cb6;
+ Thu, 29 Feb 2024 16:50:19 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 049A46118F;
- Thu, 29 Feb 2024 15:49:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23133C433F1;
- Thu, 29 Feb 2024 15:49:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D30DC611AE;
+ Thu, 29 Feb 2024 15:50:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6209C433B1;
+ Thu, 29 Feb 2024 15:50:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1de7406b-d71a-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 3ca9e7be-d71a-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709221765;
+	s=k20201202; t=1709221817;
 	bh=8b7DfpvkFhJ07ZMBds5WMnK3M2mYX6QhEVWSf43j/K4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=SYecIYPBfgm2t/4TqRQUjQnGt/AEfhnkzY1mSZyS5N0p7LilltiLz6j7XWLa6EYU6
-	 6Q/EXXpQIjQ/2K6umnUHKpZ4fBhEX/f7gOdt4VwWiyqG7bmuUc11rh//85GxaSpEe9
-	 XGI9HP1nRlf/Tv+Lm1pjhF/CueR42WLe1j4ke8Y0ip5MzTXrO3fxnZ8pQlj/SSy1AU
-	 /38jJoeUyQtc4GhIii9OnetlwuFrJXJA93fXOhxv0DwozOtWvEPfS+EyBxSTBYjqCB
-	 PTO+EBasDwL8XREScSOAdfNYy3PIsl6h664qbXmSjJ4KTeCbaMNa+wdWErrpo0PHLz
-	 E8GcX21G08GvA==
+	b=f5G2clpUy0vR8RIAKU3RgU+VZZDBDBrodtCWEPP3IZ8Elm7+6uQpChU4bZ27zWc2/
+	 SPefgt8BCCNyryP5bm9nun4RDqN1bkOab1z4nej6sZge43SFDdyCiQ4wXOA6pgNZJc
+	 KceQptfd8xIe5CkNPmhmgOmGbNxd7dhTKBpIPZfjJj/HJ0voQrvZECAQt/XQHWXAme
+	 Nx0qKrIOWWkaO0+hvadXfU9qwYgIBqkbExdY9rq3LwAhhHIpjs8nM9e5F/q8UReXH/
+	 kGKUjo5GiglJc7Y+FoOJaSCVyGbHGqy6YqvKd9G8w3FS4wb2O+8k3yv403tzAAnJmf
+	 0OVF4wJTuGF7A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -66,16 +67,16 @@ Cc: Kunwu Chan <chentao@kylinos.cn>,
 	dave.hansen@linux.intel.com,
 	x86@kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 6.7 18/26] x86/xen: Add some null pointer checking to smp.c
-Date: Thu, 29 Feb 2024 10:48:37 -0500
-Message-ID: <20240229154851.2849367-18-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 16/21] x86/xen: Add some null pointer checking to smp.c
+Date: Thu, 29 Feb 2024 10:49:36 -0500
+Message-ID: <20240229154946.2850012-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240229154851.2849367-1-sashal@kernel.org>
-References: <20240229154851.2849367-1-sashal@kernel.org>
+In-Reply-To: <20240229154946.2850012-1-sashal@kernel.org>
+References: <20240229154946.2850012-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.7.6
+X-stable-base: Linux 6.6.18
 Content-Transfer-Encoding: 8bit
 
 From: Kunwu Chan <chentao@kylinos.cn>
