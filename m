@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A58686D1C5
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 19:14:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687394.1070795 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B62EB86D2E1
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 20:10:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687397.1070805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfkuw-0003bA-Pj; Thu, 29 Feb 2024 18:14:02 +0000
+	id 1rflmF-0002Zw-PO; Thu, 29 Feb 2024 19:09:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687394.1070795; Thu, 29 Feb 2024 18:14:02 +0000
+Received: by outflank-mailman (output) from mailman id 687397.1070805; Thu, 29 Feb 2024 19:09:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfkuw-0003YU-MV; Thu, 29 Feb 2024 18:14:02 +0000
-Received: by outflank-mailman (input) for mailman id 687394;
- Thu, 29 Feb 2024 18:14:01 +0000
+	id 1rflmF-0002Xc-LS; Thu, 29 Feb 2024 19:09:07 +0000
+Received: by outflank-mailman (input) for mailman id 687397;
+ Thu, 29 Feb 2024 19:09:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kPQN=KG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rfkuv-0003YO-Jr
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 18:14:01 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ <SRS0=nI6L=KG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rflmD-0002XP-UO
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 19:09:06 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f3bdb7b-d72e-11ee-a1ee-f123f15fe8a2;
- Thu, 29 Feb 2024 19:13:59 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a293f2280c7so251959766b.1
- for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 10:13:59 -0800 (PST)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- gs41-20020a1709072d2900b00a3d9e6e9983sm920149ejc.174.2024.02.29.10.13.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Feb 2024 10:13:56 -0800 (PST)
+ id ffab313f-d735-11ee-a1ee-f123f15fe8a2;
+ Thu, 29 Feb 2024 20:09:02 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3B9AC61325;
+ Thu, 29 Feb 2024 19:09:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 293EBC433B2;
+ Thu, 29 Feb 2024 19:09:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,130 +41,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f3bdb7b-d72e-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709230438; x=1709835238; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=F5eq2gDanKu26sYGf0JeKb4Y5I3SBwePWVmjX/aO+oM=;
-        b=jH4YBtPcHT9+B+6qmxEDXR8hMW6ZtgVQFG4Ec82Q9zCxZaYI85mi6DfGCX6F4qebDh
-         qtnKd2kzL+fL84/LtCZ/krQwaS+RiwnZCjDL2GVeei+liGjUGU6lQG5r2U05sfhEBMrq
-         xro/VmcKpVc3nS3xS4thWob6xuI2h78sGOEUQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709230438; x=1709835238;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=F5eq2gDanKu26sYGf0JeKb4Y5I3SBwePWVmjX/aO+oM=;
-        b=GCKw8k8TJ6pMZdtZOCq4yVmrAJpwFNmSg3woxHZpZy3lgxfpSmOLU7308HfjFX0+S7
-         /DmVBNhuompN+hPGk36QPN3HjQDYggvZy+91N74QKM7qgoBcqxwCVetTmm+xQjoajg9V
-         LbsKuTAVCshWMbhoc+V3gkZ9V4YpzCvgXwbbuVsLq+1TCVDOp2eogukNhHzsUvM4hqO3
-         qlETwTmnfUbsWkL2uvuYD/QZtL4L7+qpDEv7ZcHEBRTcp/DoPowy3nAWaFqNaycJgvdW
-         t8NfAtEUrxx0CjW1fXq8oPyhcV77iqIKpxsW60/xlDzQcBv+mco57NCkrqCcoa/BCaMJ
-         WziQ==
-X-Gm-Message-State: AOJu0YzM1JIh7pNuI71PYBr97cpfbg86V3gHNx9b2XSefhrbHmupsbj6
-	vcpLwIZPDRke7QA/Tq57eir5sIKvBBy5JE85n3JY192mi9zX7pWMIe1kf73Ly4hMUWdQ2gRyCXL
-	S
-X-Google-Smtp-Source: AGHT+IH8BKZ8PMWYkZ046yAG3mTPMFd4XNAvPL9mFFkvxwVI30tPXCmRMFgRW4itFlHsp1Uqisnstg==
-X-Received: by 2002:a17:906:6956:b0:a44:5a3d:7883 with SMTP id c22-20020a170906695600b00a445a3d7883mr1316934ejs.10.1709230437735;
-        Thu, 29 Feb 2024 10:13:57 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/cpu-policy: Allow for levelling of VERW side effects
-Date: Thu, 29 Feb 2024 18:13:54 +0000
-Message-Id: <20240229181354.2560819-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: ffab313f-d735-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709233741;
+	bh=/8j+WRa1L45Y9Ru5UpgPpTU8E8b9p2u+DaXfN8JZnnc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=CYABx7hpOmAtU6q1UqKnOOpd3j1lsWjbrR/7SmoMic+PtgVQiobk8mmbft3bqZKiZ
+	 c5pZzSaliyPj8OiqHdAPlSCVef60ivWYVJ595ubmIGi/UW8LPBQ8BqbEKDXz8SbQo2
+	 +pyQf/uaK2N67v5xDtdvy+Xe51ljGplBra/AP/aD1XqulvCozwKTSOyTXNtV5Prl1u
+	 wSN4lb7DmKSd7gVKPWE97cYbB801RoT8ewuj5ZPRMJifZxHLeoqxIng5flZIhGS/Wb
+	 nNgaXhiluvNJrYm9GaFRDLOW+0/4zyOcc5P0g3XPs6snzDjfR2v1J0xWMqQoWX7L/t
+	 /yekTvXDyHYkQ==
+Date: Thu, 29 Feb 2024 11:08:58 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Michal Orzel <michal.orzel@amd.com>
+cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: Fix arm32 build failure when early printk is
+ enabled
+In-Reply-To: <5671ee78-eeba-4bfc-bd95-dadb07c55cbd@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2402291108290.853156@ubuntu-linux-20-04-desktop>
+References: <20240228103555.172101-1-michal.orzel@amd.com> <9201bdc5-2e4c-48b7-8c92-f5063fde90b6@xen.org> <af11620a-ec16-4677-b968-d8e36c4555d2@amd.com> <alpine.DEB.2.22.394.2402281425260.575685@ubuntu-linux-20-04-desktop> <8228a48f-566c-4931-9f24-27bdaa1f0f28@amd.com>
+ <99b74dda-225b-4402-abb9-fcccfda0adbc@xen.org> <5671ee78-eeba-4bfc-bd95-dadb07c55cbd@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-MD_CLEAR and FB_CLEAR need OR-ing across a migrate pool.  Allow this, by
-having them unconditinally set in max, with the host values reflected in
-default.  Annotate the bits as having special properies.
+On Thu, 29 Feb 2024, Michal Orzel wrote:
+> On 29/02/2024 11:10, Julien Grall wrote:
+> > 
+> > 
+> > Hi,
+> > 
+> > On 29/02/2024 10:07, Michal Orzel wrote:
+> >>
+> >>
+> >> On 28/02/2024 23:27, Stefano Stabellini wrote:
+> >>>
+> >>>
+> >>> On Wed, 28 Feb 2024, Michal Orzel wrote:
+> >>>> Hi Julien,
+> >>>>
+> >>>> On 28/02/2024 12:42, Julien Grall wrote:
+> >>>>>
+> >>>>>
+> >>>>> Hi Michal,
+> >>>>>
+> >>>>> On 28/02/2024 10:35, Michal Orzel wrote:
+> >>>>>> Commit 0441c3acc7e9 forgot to rename FIXMAP_CONSOLE to FIX_CONSOLE in
+> >>>>>> TEMPORARY_EARLY_UART_VIRTUAL_ADDRESS macro. This results in a build
+> >>>>>> failure on arm32, when early printk is enabled:
+> >>>>>> arch/arm/arm32/mmu/head.S:311: Error: invalid operands (*UND* and *ABS* sections) for `*'
+> >>>>>
+> >>>>> Good catch! Somewhat related I wonder whether we should add earlyprintk
+> >>>>> testing in gitlab?
+> >>>> I thought about adding this and I think we should at least have build jobs (hypervisor only, no toolstack)
+> >>>> selecting early printk. When it comes to testing if early printk works, I'm not sure. It'd be nice
+> >>>> but FWIR we have limited bandwidth.
+> >>>>
+> >>>> @Stefano, what's your opinion?
+> >>>
+> >>> I think it would be a good and quick test to have. To save testing
+> >>> bandwidth I think we should reduce the amount of debug/non-debug
+> >>> variations of the same tests that we have.
+> >> Yes, I suggested that some time ago. We could keep both versions for generic tests,
+> >> but remove the non-debug version (unless you prefer to do the opposite) for:
+> > 
+> > I think it makes sense during development window to use the debug
+> > version. However, I think we want some non-debug testing during the
+> > hardening phase.
+> > 
+> > Can gitlab read CONFIG_DEBUG from Config.mk?
+> At the moment, we have 2 types of jobs - non debug and debug (with -debug suffix).
+> They set "debug" variable accordingly, which is used later on to modify .config:
+> echo "CONFIG_DEBUG=${debug}" >> xen/.config
+> 
+> Without this line, Xen would be built according to default value of CONFIG_DEBUG.
+> That said, I don't think we want to get back to this behavior.
+> 
+> If we want to save some bandwidth, we should make a decision whether to keep debug or non-debug versions.
+> x86 has both versions for build jobs and mostly debug test jobs.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/arch/x86/cpu-policy.c                   | 24 +++++++++++++++++++++
- xen/include/public/arch-x86/cpufeatureset.h |  4 ++--
- 2 files changed, 26 insertions(+), 2 deletions(-)
-
-diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
-index f3ed2d3a3227..41123e6cf778 100644
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -442,6 +442,16 @@ static void __init guest_common_max_feature_adjustments(uint32_t *fs)
-         __set_bit(X86_FEATURE_RSBA, fs);
-         __set_bit(X86_FEATURE_RRSBA, fs);
- 
-+        /*
-+         * These bits indicate that the VERW instruction may have gained
-+         * scrubbing side effects.  With pooling, they mean "you might migrate
-+         * somewhere where scrubbing is necessary", and may need exposing on
-+         * unaffected hardware.  This is fine, because the VERW instruction
-+         * has been around since the 286.
-+         */
-+        __set_bit(X86_FEATURE_MD_CLEAR, fs);
-+        __set_bit(X86_FEATURE_FB_CLEAR, fs);
-+
-         /*
-          * The Gather Data Sampling microcode mitigation (August 2023) has an
-          * adverse performance impact on the CLWB instruction on SKX/CLX/CPX.
-@@ -476,6 +486,20 @@ static void __init guest_common_default_feature_adjustments(uint32_t *fs)
-              cpu_has_rdrand && !is_forced_cpu_cap(X86_FEATURE_RDRAND) )
-             __clear_bit(X86_FEATURE_RDRAND, fs);
- 
-+        /*
-+         * These bits indicate that the VERW instruction may have gained
-+         * scrubbing side effects.  The max policy has them set for migration
-+         * reasons, so reset the default policy back to the host values in
-+         * case we're unaffected.
-+         */
-+        fs[FEATURESET_7d0]   &= ~cpufeat_mask(X86_FEATURE_MD_CLEAR);
-+        fs[FEATURESET_m10Al] &= ~cpufeat_mask(X86_FEATURE_FB_CLEAR);
-+
-+        fs[FEATURESET_7d0]   |= (boot_cpu_data.x86_capability[FEATURESET_7d0] &
-+                                 cpufeat_mask(X86_FEATURE_MD_CLEAR));
-+        fs[FEATURESET_m10Al] |= (boot_cpu_data.x86_capability[FEATURESET_m10Al] &
-+                                 cpufeat_mask(X86_FEATURE_FB_CLEAR));
-+
-         /*
-          * The Gather Data Sampling microcode mitigation (August 2023) has an
-          * adverse performance impact on the CLWB instruction on SKX/CLX/CPX.
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index b230d3a6907d..0374cec3a2af 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -262,7 +262,7 @@ XEN_CPUFEATURE(AVX512_4FMAPS, 9*32+ 3) /*A  AVX512 Multiply Accumulation Single
- XEN_CPUFEATURE(FSRM,          9*32+ 4) /*A  Fast Short REP MOVS */
- XEN_CPUFEATURE(AVX512_VP2INTERSECT, 9*32+8) /*a  VP2INTERSECT{D,Q} insns */
- XEN_CPUFEATURE(SRBDS_CTRL,    9*32+ 9) /*   MSR_MCU_OPT_CTRL and RNGDS_MITG_DIS. */
--XEN_CPUFEATURE(MD_CLEAR,      9*32+10) /*A  VERW clears microarchitectural buffers */
-+XEN_CPUFEATURE(MD_CLEAR,      9*32+10) /*!A VERW clears microarchitectural buffers */
- XEN_CPUFEATURE(RTM_ALWAYS_ABORT, 9*32+11) /*! June 2021 TSX defeaturing in microcode. */
- XEN_CPUFEATURE(TSX_FORCE_ABORT, 9*32+13) /* MSR_TSX_FORCE_ABORT.RTM_ABORT */
- XEN_CPUFEATURE(SERIALIZE,     9*32+14) /*A  SERIALIZE insn */
-@@ -334,7 +334,7 @@ XEN_CPUFEATURE(DOITM,              16*32+12) /*   Data Operand Invariant Timing
- XEN_CPUFEATURE(SBDR_SSDP_NO,       16*32+13) /*A  No Shared Buffer Data Read or Sideband Stale Data Propagation */
- XEN_CPUFEATURE(FBSDP_NO,           16*32+14) /*A  No Fill Buffer Stale Data Propagation */
- XEN_CPUFEATURE(PSDP_NO,            16*32+15) /*A  No Primary Stale Data Propagation */
--XEN_CPUFEATURE(FB_CLEAR,           16*32+17) /*A  Fill Buffers cleared by VERW */
-+XEN_CPUFEATURE(FB_CLEAR,           16*32+17) /*!A Fill Buffers cleared by VERW */
- XEN_CPUFEATURE(FB_CLEAR_CTRL,      16*32+18) /*   MSR_OPT_CPU_CTRL.FB_CLEAR_DIS */
- XEN_CPUFEATURE(RRSBA,              16*32+19) /*!  Restricted RSB Alternative */
- XEN_CPUFEATURE(BHI_NO,             16*32+20) /*A  No Branch History Injection  */
-
-base-commit: 54fd7b997470e6686667ca8e18f9ba6139efcdea
-prerequisite-patch-id: d2cbc8f341e98ccfd66016f19532df3ddbfc68a4
-prerequisite-patch-id: 4b4799fae62b5f41b9b0d2078e8b081605341a0a
--- 
-2.30.2
-
+It is good to have some debug and non-debug jobs, but we probably don't
+need both versions of every job.
 
