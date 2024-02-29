@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED23186CEEF
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 17:26:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687287.1070541 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BC6986CF12
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 17:28:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687294.1070550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfjEJ-0000aj-EC; Thu, 29 Feb 2024 16:25:55 +0000
+	id 1rfjGN-0001Ld-Ni; Thu, 29 Feb 2024 16:28:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687287.1070541; Thu, 29 Feb 2024 16:25:55 +0000
+Received: by outflank-mailman (output) from mailman id 687294.1070550; Thu, 29 Feb 2024 16:28:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfjEJ-0000Z2-AI; Thu, 29 Feb 2024 16:25:55 +0000
-Received: by outflank-mailman (input) for mailman id 687287;
- Thu, 29 Feb 2024 16:25:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rfjGN-0001JY-LC; Thu, 29 Feb 2024 16:28:03 +0000
+Received: by outflank-mailman (input) for mailman id 687294;
+ Thu, 29 Feb 2024 16:28:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x8AV=KG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfjEH-0000WZ-BD
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 16:25:53 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 331132ca-d71f-11ee-a1ee-f123f15fe8a2;
- Thu, 29 Feb 2024 17:25:49 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-563cb3ba9daso1563324a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 08:25:49 -0800 (PST)
+ id 1rfjGL-0001JM-Ga
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 16:28:01 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 811e2fdd-d71f-11ee-afd8-a90da7624cb6;
+ Thu, 29 Feb 2024 17:28:00 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a3d5e77cfbeso207059066b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 08:28:00 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- et5-20020a056402378500b00566a66b7409sm601971edb.16.2024.02.29.08.25.48
+ d25-20020a17090648d900b00a4339b8b1bbsm825064ejt.212.2024.02.29.08.27.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Feb 2024 08:25:48 -0800 (PST)
+ Thu, 29 Feb 2024 08:27:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 331132ca-d71f-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 811e2fdd-d71f-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709223949; x=1709828749; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709224080; x=1709828880; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=m5uwW5Gs8BNeP8m0OIGGJgypUgHyrMfzDBMuxqGO/mM=;
-        b=PoMvTrT0wVf1Jtk2EEuZa46OshXdMSYDUI7urEJh3D3s8dyXIY1ML9NL8kYsH0Xslg
-         3MXaWQJLm3vWLQWY9zeVfnxyl1+StFSCTSn0pkz6CTJi9fGFqCBDnVI0FE2Z1xkzWUZD
-         PQ7VMaHzCLosUSr1sxcU7D+Mk03oxMrOSg1eLzG6vVNej/dOqITr6OHrVcoEBW3/lEqa
-         7j25VjEPhJrD9BuPoOlANJe2PCPr3KAVBl/mcd9Ek/kyVY+winqWOXZPvWS8qh4PUxql
-         QdqREMqhARhND3pPMJmF/QO4cANBqRai8/ELxABsrTaqzSq5+EOcJW+hq0YZqRkvuHjE
-         d9yw==
+        bh=/gpsXEOg1wVyzd7WtANsuYmOpKxJtCLX7vfBXtObqbA=;
+        b=ALm2q60QEwGw0TBrlrvnxafqAP0AR3bk1mwIuIBf+pJhpz5YXesy/+ON96qVFAKiuA
+         E2WgcYc/3ThuUNkX78nktBlJ69ro4Upf4OWJmUyT2SDiMA6ct7fgo3UGLrNblMNATruh
+         DyKebWj0xZ+quOSnRe8nmLS/2Q0YTA4N2DSPt+4iP2d0eIllDunNIgpQcDDfWH/2LBQv
+         fuJ/HEMORjZr0Ytevn+ZTTtGfmSON12x/TZODMHWmCNbSblZtdx12ghZrLx5Z7CfItbJ
+         Y9ZTldNvNBD1o+mk9iO4V7G3jj6jGs5M4kfZrw135qG80SpiZKz+rXi5yuvEzkt+tC/Q
+         6AXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709223949; x=1709828749;
+        d=1e100.net; s=20230601; t=1709224080; x=1709828880;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=m5uwW5Gs8BNeP8m0OIGGJgypUgHyrMfzDBMuxqGO/mM=;
-        b=ocStEa1Nlgi6V92dT+IzdqJX5D+dAQHm56aPMyRFI4rng2PHZpjwKCA3e6cQivCuiJ
-         ZzBHDTxtfJRb8yo9HXmcFdksfCHXGCWH2vaQ8mIxoyXAceZs3Hyi/Q6KHgIGa4mW03bS
-         4rDydjVa5PL8pqo4DbWQBP7oVbCS7LFX3YdbujTr240xX9R0ed/2s/Pa9bsaajzmh3Bo
-         P3GGer8l3uWLNIGYQx0A0FmYpeaMmjnB+004PFEX4PWRhVb4hWH33cifwfjzdUBEckF2
-         l4a51YMt5VHYBl5oMkf8DECa2DoqAUPfw/DBwpxVXMIGL0cB/o2DaFPv2FaOA/c+aeqH
-         03fg==
-X-Forwarded-Encrypted: i=1; AJvYcCX6NSqstkiELiEpts/dVprT3vxyTSZXZWrk0jglLTRcRGg1gObbricD8ygmMol0Bqw/eOfiVHI8gRZA0Rz1dGiLzs7a8x5CK9DjCU6h1y0=
-X-Gm-Message-State: AOJu0YxzkYRg4p3bCgTCqUaND/x26uzYROx+xVAo591ShSrnf/KsFJRl
-	RVehiadYNGfKMR4RWANWTn+y2RExA7p3regHH1aTNzf32PQjrzpSYYKUpuQkXA==
-X-Google-Smtp-Source: AGHT+IEwimYARGtTXDS8xxyeHSDO65Ehn0VSIKYV8ZFLXZJa0tE4RgdrnlhL9vxhBmyUjuN262iO2A==
-X-Received: by 2002:a50:ef07:0:b0:566:2a1a:fe18 with SMTP id m7-20020a50ef07000000b005662a1afe18mr1953136eds.36.1709223949170;
-        Thu, 29 Feb 2024 08:25:49 -0800 (PST)
-Message-ID: <26be05f7-7361-40d9-92f2-cf2e22da9d4e@suse.com>
-Date: Thu, 29 Feb 2024 17:25:47 +0100
+        bh=/gpsXEOg1wVyzd7WtANsuYmOpKxJtCLX7vfBXtObqbA=;
+        b=tilc3T40SOebv4xMYvGJv6uoKTaTMaq1Cm62xUbvp0z51W1voWWV9x2QXAUzIynp+1
+         N4/mauAHjQarWMm0eSgbVYbL+eSSzzF/J6UukE/CW7Lz0QTwq2zLOOrVC4hzXmg0N+f3
+         hJYBIuwJPbJZ9GLwclFApDhqrEG4fSY1WCN+T18zpJFL4GuqgIgg324gsZXuRwM0CnTT
+         DZ69gDEPNdlOQchQbLGOUo0gffhrfMnK7d8RncDpjC0LGqmiua6vjhizs8cSwmjv0wbm
+         b5PK/hheCm/Lk4kpT5LV596W2rKcsmaGPP8smWGunEaHFgz6rAs22cvko1sWvvz/R1gM
+         OilQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV0wcQolo5sw/3SLGA3SnuJLfVrCW1BXMgl5ZZHyi59mpVp276xNm+9u8yZr03LZjfgua2IFezIHXggt9N9teikFqkC8ru3tVyfcLukFAA=
+X-Gm-Message-State: AOJu0YxwQymIquPE5vqZHQygmLy61kYqnH50djSFImbRejPZvkEmLJMi
+	Oeg+cosL9x/nFALVK/mzNB5cGU1vels3DbrO0UBCvd9pm2bSgghOkOdFbss9UA==
+X-Google-Smtp-Source: AGHT+IFsiKEkfrYuyIrR0wHTeBE5tIhC7xBIJeyqGrSnNonDwVwfvSYtclrBhEuQmN6IKOBVl88qoA==
+X-Received: by 2002:a17:906:eb10:b0:a44:4e64:d12c with SMTP id mb16-20020a170906eb1000b00a444e64d12cmr1273591ejb.35.1709224080061;
+        Thu, 29 Feb 2024 08:28:00 -0800 (PST)
+Message-ID: <48fe3e5b-13a4-40cf-8c4a-37f2d0eaddc9@suse.com>
+Date: Thu, 29 Feb 2024 17:27:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 01/10] xen/include: address violations of MISRA C Rule
- 20.7
+Subject: Re: [PATCH v5 03/23] xen/riscv: introduce nospec.h
 Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- julien@xen.org, George Dunlap <george.dunlap@citrix.com>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1709219010.git.nicola.vetrini@bugseng.com>
- <15d6e4fb5c873e7ea42cfcee2faa0bf33c10d101.1709219010.git.nicola.vetrini@bugseng.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
+ <16370492de5344ae8e1aab688261600491868f4e.1708962629.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,65 +115,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <15d6e4fb5c873e7ea42cfcee2faa0bf33c10d101.1709219010.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <16370492de5344ae8e1aab688261600491868f4e.1708962629.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.02.2024 16:27, Nicola Vetrini wrote:
-> --- a/xen/include/xen/kconfig.h
-> +++ b/xen/include/xen/kconfig.h
-> @@ -25,7 +25,7 @@
->  #define __ARG_PLACEHOLDER_1 0,
->  #define config_enabled(cfg) _config_enabled(cfg)
->  #define _config_enabled(value) __config_enabled(__ARG_PLACEHOLDER_##value)
-> -#define __config_enabled(arg1_or_junk) ___config_enabled(arg1_or_junk 1, 0)
-> +#define __config_enabled(arg1_or_junk) ___config_enabled(arg1_or_junk (1), (0))
->  #define ___config_enabled(__ignored, val, ...) val
+On 26.02.2024 18:38, Oleksii Kurochko wrote:
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/nospec.h
+> @@ -0,0 +1,25 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/* Copyright (C) 2024 Vates */
+> +
+> +#ifndef _ASM_GENERIC_NOSPEC_H
+> +#define _ASM_GENERIC_NOSPEC_H
 
-In addition to what Andrew said, would you mind clarifying what exactly the
-violation is here? I find it questionable that numeric literals need
-parenthesizing; they don't normally need to, aynwhere.
-
-> --- a/xen/include/xen/list.h
-> +++ b/xen/include/xen/list.h
-> @@ -490,9 +490,9 @@ static inline void list_splice_init(struct list_head *list,
->   * @member: the name of the list_struct within the struct.
->   */
->  #define list_for_each_entry(pos, head, member)                          \
-> -    for (pos = list_entry((head)->next, typeof(*pos), member);          \
-> -         &pos->member != (head);                                        \
-> -         pos = list_entry(pos->member.next, typeof(*pos), member))
-> +    for (pos = list_entry((head)->next, typeof(*(pos)), member);          \
-> +         &(pos)->member != (head);                                      \
-> +         pos = list_entry((pos)->member.next, typeof(*(pos)), member))
-
-this ends up inconsistent, which I think isn't nice: Some uses of "pos"
-are now parenthesized, while others aren't. Applies further down as well.
-
-You may also want to take this as a strong suggestion to split dissimilar
-changes, so uncontroversial parts can go in.
-
-> @@ -977,4 +977,3 @@ static inline void hlist_add_after_rcu(struct hlist_node *prev,
->            pos = pos->next)
->  
->  #endif /* __XEN_LIST_H__ */
-> -
-
-Unrelated change?
-
-> --- a/xen/include/xen/spinlock.h
-> +++ b/xen/include/xen/spinlock.h
-> @@ -94,7 +94,7 @@ struct lock_profile_qhead {
->      int32_t                   idx;     /* index for printout */
->  };
->  
-> -#define _LOCK_PROFILE(lockname) { .name = #lockname, .lock = &lockname, }
-> +#define _LOCK_PROFILE(lockname) { .name = #lockname, .lock = &(lockname), }
-
-This also may be viewed as falling in the same category, but is less
-problematic because the other use is stringification, when in principle
-some kind of expression would be passed in (albeit in practice I don't
-expect anyone would do that).
+Btw, at the very last second I noticed the GENERIC in here, which I
+took the liberty to replace. But please be more careful when moving
+files around in the tree.
 
 Jan
 
