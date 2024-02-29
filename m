@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 057E086CA46
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 14:30:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687122.1070038 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45C7A86CA8F
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 14:44:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687125.1070048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfgU7-0007qa-HQ; Thu, 29 Feb 2024 13:30:03 +0000
+	id 1rfghq-0003Yj-ML; Thu, 29 Feb 2024 13:44:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687122.1070038; Thu, 29 Feb 2024 13:30:03 +0000
+Received: by outflank-mailman (output) from mailman id 687125.1070048; Thu, 29 Feb 2024 13:44:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfgU7-0007mh-EG; Thu, 29 Feb 2024 13:30:03 +0000
-Received: by outflank-mailman (input) for mailman id 687122;
- Thu, 29 Feb 2024 13:30:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rfghq-0003X2-Je; Thu, 29 Feb 2024 13:44:14 +0000
+Received: by outflank-mailman (input) for mailman id 687125;
+ Thu, 29 Feb 2024 13:44:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=x8AV=KG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfgU5-0007Q0-CW
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 13:30:01 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a2fe5cef-d706-11ee-afd8-a90da7624cb6;
- Thu, 29 Feb 2024 14:30:00 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a28a6cef709so144555666b.1
- for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 05:30:00 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ts6-20020a170907c5c600b00a443858cf78sm688122ejc.185.2024.02.29.05.29.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Feb 2024 05:29:59 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1rfgho-0003Ww-QA
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 13:44:12 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rfghn-0005JO-Ly; Thu, 29 Feb 2024 13:44:11 +0000
+Received: from [15.248.3.86] (helo=[10.45.19.50])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rfghn-0005nE-D7; Thu, 29 Feb 2024 13:44:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +39,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2fe5cef-d706-11ee-afd8-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709213400; x=1709818200; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YvmJUgixnktpYQND47KyjYjCa+vl6iYdDcZMASTpmUc=;
-        b=b5ATq1egUInjkFXydlHftmM/M88DXM+PsSuk4XPJl6HQVfxV4pW+adUyt5sV/Ptd7c
-         hFzczgt4sQ7qEo8KOH0gLFSP7HFTTu+REqISuBeIOv80+GCaY2RKhBfmwmSKtiQBnXgv
-         +ZOtuqtXLV1DRFd5wVICkLH6gprLlwHlHTzWa2w9ZBOCpAnb4SdBldylIb+8Yze2AFvn
-         u3fen3jfoK+Z8Jl8LpgGSejZjzbVHYoxBShqwzOJIcBGxnMAMjxeQUx4YRRsa+ZflaW1
-         10q7MP68P9ZR4sPaxlDpN5stH4eYMIkcXYd8LhH/ADIzazRsrJLgEzEeKPO+61Bf0BkQ
-         3I2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709213400; x=1709818200;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YvmJUgixnktpYQND47KyjYjCa+vl6iYdDcZMASTpmUc=;
-        b=c2jnPhV+ejYKd2OdiVDpvzVTPPDD34yNoca4vXwCUXhyU8rNBt7nLb3cGycpYQjsF3
-         cfJ1f8iRzRLq+dH1GD8EwMDCaFVmxAeoFJTVyoMy77iVb0Ml7qHSopphED8rjdoMUHPU
-         jb7r33bnHOG5cmNqbWh1o5JLeVjOdUSd2IkOODq5lG0WaFX/Y58DYLVd4rSCgPAE1qpp
-         N/t3lRiDWKJv5/Za9O6pO+jbrdb7RUTtDdB+lFOXhPYd7uuVdASAWdar5OQwjmQHWDsF
-         3+myVMY2TwYl7R2RzknWbiFste9NMroY01PqVlyRwWgs4BtXvOl548sZ4mgoz7HgsaAM
-         QcQA==
-X-Forwarded-Encrypted: i=1; AJvYcCULOqQ0VRmKmzr47vVajXgNKTqHiOsZnepopsruezSC3fae6n+l5fCyziLXZ4rj8P6SfyoHW2xSk1ksNBB6W7V1tAcYIrYO82kqPk8yIQA=
-X-Gm-Message-State: AOJu0Yxd91ntD2YlJ1pqkqV7mbvKZSwUJ6h7+v36sc0OynzVaNeE42TL
-	8tPEJRjt3BKWgsizWfiyYrS3697SjixjL8MJIEZmaP7o0CkluYFGdT41MmduhQ==
-X-Google-Smtp-Source: AGHT+IFNpNMgIZSB5VcDdo6p03Y2wvWPnxLy46yfdLaHDyaL2fqYFY0VqMpeaPi8YrhuhQ+jBe22Lw==
-X-Received: by 2002:a17:906:48b:b0:a43:1e2b:b069 with SMTP id f11-20020a170906048b00b00a431e2bb069mr1501461eja.4.1709213399705;
-        Thu, 29 Feb 2024 05:29:59 -0800 (PST)
-Message-ID: <e811b3b0-a3d6-488d-b93c-e24c416477bf@suse.com>
-Date: Thu, 29 Feb 2024 14:29:58 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=o3SxjlVNtj9SkhQGFSMFDYXEZDnh9/s8sp4lHtTa3Fg=; b=MSF/BfBta2gS/W3uXbyTwHcVx8
+	dM/JuNuXyij1OSXebKRb8eOGSAEOUHtbwZoP7TzvrAfdLX3c2+YoG2xclqjs3QIgA/W5PDtbuF3BZ
+	WPI8fJWLdkxy94M95iY0MzdPZ7zqWQObOPhzjS1dDK/EstnV1h1fDfZHA3jKP5pHVXR4=;
+Message-ID: <8eed0200-eabf-4024-b018-74be45ef95db@xen.org>
+Date: Thu, 29 Feb 2024 13:44:09 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/cpu-policy: Fix x2APIC visibility for PV guests
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240229104304.2478614-1-andrew.cooper3@citrix.com>
- <707ff486-b448-4bc0-be7e-1c692b360734@suse.com>
- <623e9c0e-f05f-41e7-a800-0bba01cba7f4@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <623e9c0e-f05f-41e7-a800-0bba01cba7f4@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v5 23/23] xen/README: add compiler and binutils versions
+ for RISC-V64
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>
+Cc: George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Oleksii Kurochko
+ <oleksii.kurochko@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
+ <ebaa05ded3cfddb1e3f7c87cd806b866312878fb.1708962629.git.oleksii.kurochko@gmail.com>
+ <73a38d85-0798-4cfa-8625-0f8c9e05b2a3@suse.com>
+ <80fb8091-9a26-40a4-b2e7-371df9411861@xen.org>
+ <889b132b-b92e-465b-94af-4e4133e4c297@suse.com>
+ <52188e88-374c-449f-a71c-bfce9b6d07f4@xen.org>
+ <cd52114b-c4f1-4bb9-96a4-d802dc50bade@citrix.com>
+ <2a112321-f4fd-4ab4-a431-a0bb4cb6eaa2@suse.com>
+ <9b212dec-59ef-4cbb-bea7-add3867e4599@xen.org>
+ <aa3fbfca-4675-4f92-9037-a4a7c5eca4dd@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <aa3fbfca-4675-4f92-9037-a4a7c5eca4dd@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 29.02.2024 14:23, Andrew Cooper wrote:
-> On 29/02/2024 12:47 pm, Jan Beulich wrote:
->> On 29.02.2024 11:43, Andrew Cooper wrote:
->>> Right now, the host x2APIC setting filters into the PV max and default
->>> policies, yet PV guests cannot set MSR_APIC_BASE.EXTD or access any of the
->>> x2APIC MSR range.  Therefore they absolutely shouldn't see the x2APIC bit.
+Hi Jan,
+
+On 29/02/2024 12:51, Jan Beulich wrote:
+> On 29.02.2024 13:32, Julien Grall wrote:
+>> On 29/02/2024 12:17, Jan Beulich wrote:
+>>> On 29.02.2024 13:05, Andrew Cooper wrote:
+>>>> On 29/02/2024 10:23 am, Julien Grall wrote:
+>>>>>>>> IOW it is hard for me to see why RISC-V needs stronger restrictions
+>>>>>>>> here
+>>>>>>>> than other architectures. It ought to be possible to determine a
+>>>>>>>> baseline
+>>>>>>>> version. Even if taking the desire to have "pause" available as a
+>>>>>>>> requirement, gas (and presumably gld) 2.36.1 would already suffice.
+>>>>>>>
+>>>>>>> I think we want to bump it on Arm. There are zero reasons to try to
+>>>>>>> keep
+>>>>>>> a lower versions if nobody tests/use it in production.
+>>>>>>>
+>>>>>>> I would suggest to do the same on x86. What's the point of try to
+>>>>>>> support Xen with a 15+ years old compiler?
+>>>>>>
+>>>>>> It could have long been bumped if only a proper scheme to follow for
+>>>>>> this and future bumping would have been put forward by anyone keen on
+>>>>>> such bumping, like - see his reply - e.g. Andrew. You may recall that
+>>>>>> this was discussed more than once on meetings, with no real outcome.
+>>>>>> I'm personally not meaning to stand in the way of such bumping as long
+>>>>>> as it's done in a predictable manner, but I'm not keen on doing so and
+>>>>>> hence I don't view it as my obligation to try to invent a reasonable
+>>>>>> scheme. (My personal view is that basic functionality should be
+>>>>>> possible to have virtually everywhere, whereas for advanced stuff it
+>>>>>> is fine to require a more modern tool chain.)
+>>>>>
+>>>>> That's one way to see it. The problem with this statement is a user
+>>>>> today is mislead to think you can build Xen with any GCC versions
+>>>>> since 4.1. I don't believe we can guarantee that and we are exposing
+>>>>> our users to unnecessary risk.
+>>>>>
+>>>>> In addition to that, I agree with Andrew. This is preventing us to
+>>>>> improve our code base and we have to carry hacks for older compilers.
+>>>>
+>>>> I don't think anyone here is suggesting that we switch to a
+>>>> bleeding-edge-only policy.  But 15y of support is extreme in the
+>>>> opposite direction.
+>>>>
+>>>> Xen ought to be buildable in the contemporary distros of the day, and I
+>>>> don't think anyone is going to credibly argue otherwise.
+>>>>
+>>>> But, it's also fine for new things to have newer requirements.
+>>>>
+>>>> Take CET for example.  I know we have disagreements on exactly how it's
+>>>> toolchain-conditionalness is implemented, but the basic principle of "If
+>>>> you want shiny new optional feature $X, you need newer toolchain $Y" is
+>>>> entirely fine.
+>>>>
+>>>> A brand new architecture is exactly the same.  Saying "this is the
+>>>> minimum, because it's what we test" doesn't preclude someone coming
+>>>> along and saying "can we use $N-1 ?  See here it works, and here's a
+>>>> change to CI test it".
+>>>>
+>>>>
+>>>> Anyway, its clear we need to write some policy on this, before making
+>>>> specific adjustments.  To get started, is there going to be any
+>>>> objection whatsoever on some principles which begin as follows:
 >>>
->>> Linux has workarounds for the collateral damage caused by this leakage; it
->>> unconditionally filters out the x2APIC CPUID bit, and EXTD when reading
->>> MSR_APIC_BASE.
+>>> Largely not, but one aspect needs clarifying up front:
 >>>
->>> Hide the x2APIC bit in the PV default policy, but for compatibility, tolerate
->>> incoming VMs which already saw the bit.  This is logic from before the
->>> default/max split in Xen 4.14 which wasn't correctly adjusted at the time.
->> What about guest_cpuid()'s handling of leaf 0xb then? The %edx value
->> will change once a guest is rebooted, aiui. The comment in
->> recalculate_cpuid_policy() that you update refers to that.
-> 
-> That comment is going in the next patch irrespective.
-> 
-> But yes - this will change leaf 0xb from being
-> host-conditionally-visible to always hidden.
-
-Imo this wants saying explicitly, including why that's okay to do,
-especially since ...
-
-> PV guests don't have any coherent idea of topology.  Linux (with the
-> topo fixes) now explicitly ignores everything it can see and just fakes
-> up a flat non-SMT topology in a single package.
-
-... you validly use "now" here. Plus Linux isn't the only PV guest we
-need to care about.
-
-What's wrong (more wrong than the present putting of vCPU ID * 2 there)
-with retaining the population of that leaf (by dropping the x2apic
-dependency there)?
-
->>> This wants backporting as far as people can tollerate, but it's really not
->>> obvious which commit in 4.14 should be referenced in a Fixes: tag.
->> Why 4.14? In 4.7.0 I see ...
+>>>> * For established architectures, we expect Xen to be buildable on the
+>>>> common contemporary distros.  (i.e. minima is not newer than what's
+>>>> available in contemporary distros, without a good reason)
+>>>
+>>> What counts as contemporary distro? Still in normal support? LTS? Yet
+>>> more extreme forms?
 >>
->>> @@ -830,11 +846,10 @@ void recalculate_cpuid_policy(struct domain *d)
->>>      }
->>>  
->>>      /*
->>> -     * Allow the toolstack to set HTT, X2APIC and CMP_LEGACY.  These bits
->>> +     * Allow the toolstack to set HTT and CMP_LEGACY.  These bits
->>>       * affect how to interpret topology information in other cpuid leaves.
->>>       */
->>>      __set_bit(X86_FEATURE_HTT, max_fs);
->>> -    __set_bit(X86_FEATURE_X2APIC, max_fs);
->>>      __set_bit(X86_FEATURE_CMP_LEGACY, max_fs);
->>>  
->>>      /*
->> ... these adjustments, just still in calculate_pv_featureset(). I
->> haven't gone further backwards to check if/when this exposure has
->> really appeared. I wouldn't be surprised if it's been like that
->> for all the time since we gained x2APIC support in the hypervisor.
+>> LTS makes sense. More I am not sure. I am under the impression that
+>> people using older distros are those that wants a stable system. So they
+>> would unlikely try to upgrade the hypervisor.
+>>
+>> Even for LTS, I would argue that if it has been released 5 years ago,
+>> then you probably want to update it at the same time as moving to a
+>> newer Xen version.
 > 
-> 4.14 was when we got the proper default vs max split.  Before then, this
-> block of logic was an opencoded "max(ish) for tookstacks which know
-> about it" kind of thing.
+> For the purposes of distros I agree. For the purposes of individuals
+> I don't: What's wrong with running a newer hypervisor and/or kernel
+> underneath an older distro?
 
-Except it was also affecting what guests get to see, afaict.
+There is nothing wrong. I just don't understand the benefits for us to 
+support that use case. To me there are two sorts of individuals:
+  1. The ones that are using distro packages. They will unlikely want to 
+switch to a newer hypervisor
+  2. The ones that are happy to compile and hack their system. Fairly 
+likely they will use a more distros and/or would not be put up by 
+upgrading it.
 
-Jan
+What individuals do you have in mind?
+
+Also, for me, the minimum doesn't prevent anyone to try to compile with 
+an older compiler. It is only here to say that as a community we will 
+not investigate or trying to workaround bugs in those compilers.
+
+I don't see the problem with that if someone decide to use an older dom0 
+distros with a newer hypervisor. It would likely not be the only issue 
+they will have.
+
+Cheers,
+
+-- 
+Julien Grall
 
