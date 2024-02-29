@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54BBC86C8F9
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 13:17:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687003.1069678 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 345E186C936
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 13:28:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687007.1069689 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rffLj-0002LN-MZ; Thu, 29 Feb 2024 12:17:19 +0000
+	id 1rffVn-0004QH-KN; Thu, 29 Feb 2024 12:27:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687003.1069678; Thu, 29 Feb 2024 12:17:19 +0000
+Received: by outflank-mailman (output) from mailman id 687007.1069689; Thu, 29 Feb 2024 12:27:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rffLj-0002J5-Ja; Thu, 29 Feb 2024 12:17:19 +0000
-Received: by outflank-mailman (input) for mailman id 687003;
- Thu, 29 Feb 2024 12:17:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rffVn-0004OJ-Hn; Thu, 29 Feb 2024 12:27:43 +0000
+Received: by outflank-mailman (input) for mailman id 687007;
+ Thu, 29 Feb 2024 12:27:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=x8AV=KG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rffLi-0002Iz-8x
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 12:17:18 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7a743c9d-d6fc-11ee-afd8-a90da7624cb6;
- Thu, 29 Feb 2024 13:17:17 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a34c5ca2537so140613866b.0
- for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 04:17:17 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x11-20020a170906710b00b00a4434e9938asm631439ejj.84.2024.02.29.04.17.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Feb 2024 04:17:16 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1rffVm-0004OD-0z
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 12:27:42 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rffVk-0003cl-4f; Thu, 29 Feb 2024 12:27:40 +0000
+Received: from [15.248.3.86] (helo=[10.45.19.50])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rffVj-00011q-S4; Thu, 29 Feb 2024 12:27:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +39,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a743c9d-d6fc-11ee-afd8-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709209036; x=1709813836; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=E29zZS9OS38WsEG/fXh9BRCCU3ulttk+8HpykdOIMtE=;
-        b=fn2oOYiTqEA5G8qQuXI+PmD7xstpxPmRBP+AjVUz2yfrowma/vIA/AQJiLN2pWnXwp
-         X7TZJPCXtAZbJpL6VuW56is9iYV17QqT6VxePeCutRF6QJcO0xoVNEHde+zU040jVDGu
-         JfhdCtALnyOExGS50a5rZ0wF/JWN7ZGKZV2cSm/Xi1ByxaH0VqfJTIjgzDpwwt2YgEc2
-         sqLej0x1sUsfIbIDQGVr9BhXWIOPlXIY9/Ns3sXaB/SDGVA+CK/GygyJiURwPY/WH2Uw
-         PnE+7I7Dc/Oz9OpMboejmA2UK6j0TVCyH24DbWBixLWUglVR4oMqMwdsOvdf78kmBr3F
-         US2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709209036; x=1709813836;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=E29zZS9OS38WsEG/fXh9BRCCU3ulttk+8HpykdOIMtE=;
-        b=aQ+6AG2R83DACKxK75tDYWc8HsIsHfTJZYlPsq2eEifen9YJasz4Yu3DI5Pymas548
-         gULXJJPTvFmlZIv82jf94awMhHcs93RS48YzSCRZa59m2+FglYH+zQ2NDWDgizx/aOZV
-         NQLS9uI6YfNX9InkoWRF9u6Uf5nlB3BHoluPbWkdXcU7/OW5ShhLgBt+6gTmtKbHNVOz
-         d1qOrc4k8a+a2cd7aHlRFs9NtIxv4+zTO+wWax7MgDs5ONvrtx9VQclmrQqaFchYvBFT
-         sdJs8492bfkotKYcg3rUxLsdX6ldUgXL3JOVzDmPwXszwHeZUf3GTZRIeorTaRmkrbU7
-         AkxA==
-X-Forwarded-Encrypted: i=1; AJvYcCXxU3wwAYEaqLtRBLLupl8yGpUzmbfVlXbePufhqf7os5g7Ro3E9GLV6JwBxvVM0sSVK/WZh9U37P8xI3TP8VYN/2j/nvbxU0bOQEtVI6U=
-X-Gm-Message-State: AOJu0YyTm46ijo6HgdsUUJiqb3fBfOHSFNDIdK7nLshJz2Y0xORL9o65
-	YRfUfRvNIftYzOQVvclzCPDc5RP0FfFRDN/aJIWygUePLgk26hKfvnkKUwxDzg==
-X-Google-Smtp-Source: AGHT+IGChSSNgIfoxpE2Rfg6iyfYc8ePJzIsPPi0fU0xTE83tsXfRRSQpwvJB9Cbf7RIaxI8C8uxWg==
-X-Received: by 2002:a17:907:118d:b0:a3e:5726:c12 with SMTP id uz13-20020a170907118d00b00a3e57260c12mr1343701ejb.37.1709209036572;
-        Thu, 29 Feb 2024 04:17:16 -0800 (PST)
-Message-ID: <2a112321-f4fd-4ab4-a431-a0bb4cb6eaa2@suse.com>
-Date: Thu, 29 Feb 2024 13:17:15 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=kFYCJO0UODbwDXJhr/9AMLUzqRfQrzD7DIO3d2rmI6Q=; b=CO6fVbwGIPI/kJy6wzgrurSqoy
+	M9WlLvSahHQ71pv7tUXPuSEKihNPC5k3Vpj2eI6nXX0QrGgW3kNlWt7wHoUyLV9ejNAMiyNZOn3Vi
+	t6GZQUZ5RmAYHA0u2K+YPdKXVH8oAXyrLuLhsw2PsuzJNv+1T7kGd/4Gyohjoe1ykeVw=;
+Message-ID: <e817be8b-bef7-4702-87d3-3950cf176cf6@xen.org>
+Date: Thu, 29 Feb 2024 12:27:38 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v5 23/23] xen/README: add compiler and binutils versions
  for RISC-V64
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Language: en-GB
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Cc: George Dunlap <george.dunlap@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, Oleksii Kurochko
- <oleksii.kurochko@gmail.com>, Julien Grall <julien@xen.org>
+ xen-devel@lists.xenproject.org, Oleksii Kurochko <oleksii.kurochko@gmail.com>
 References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
  <ebaa05ded3cfddb1e3f7c87cd806b866312878fb.1708962629.git.oleksii.kurochko@gmail.com>
  <73a38d85-0798-4cfa-8625-0f8c9e05b2a3@suse.com>
@@ -95,35 +63,14 @@ References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
  <889b132b-b92e-465b-94af-4e4133e4c297@suse.com>
  <52188e88-374c-449f-a71c-bfce9b6d07f4@xen.org>
  <cd52114b-c4f1-4bb9-96a4-d802dc50bade@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
+From: Julien Grall <julien@xen.org>
 In-Reply-To: <cd52114b-c4f1-4bb9-96a4-d802dc50bade@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 29.02.2024 13:05, Andrew Cooper wrote:
+Hi Andrew,
+
+On 29/02/2024 12:05, Andrew Cooper wrote:
 > On 29/02/2024 10:23 am, Julien Grall wrote:
 >>>>> IOW it is hard for me to see why RISC-V needs stronger restrictions
 >>>>> here
@@ -182,34 +129,19 @@ On 29.02.2024 13:05, Andrew Cooper wrote:
 > specific adjustments.  To get started, is there going to be any
 > objection whatsoever on some principles which begin as follows:
 
-Largely not, but one aspect needs clarifying up front:
+No objections.
 
+> 
 > * For established architectures, we expect Xen to be buildable on the
 > common contemporary distros.  (i.e. minima is not newer than what's
 > available in contemporary distros, without a good reason)
 
-What counts as contemporary distro? Still in normal support? LTS? Yet
-more extreme forms?
+I think we would need to list the distros we are taking into account. 
+Reading the rest of the principles, I am assuming you would be ok if new 
+distros are added if there is a use case.
 
-Plus - whose distros would we consider?
+Cheers,
 
-Jan
-
-> * Optional features explicitly may have newer minima, generally chosen
-> by when toolchain support landed and/or was bugfixed suitably to be usable.
-> 
-> * Xen won't expect to update minima "just because".  But updates
-> across-the-board will be considered periodically where it doesn't
-> conflict with point 1, and where changing the minima allows us to use a
-> new feature to have a positive impact on the codebase.
-> 
-> * We always reserve the right to update minima to e.g. avoid crippling
-> code generation bugs, even if it conflicts with point 1.  Where
-> workarounds can reasonably be done, they ought to be preferred, but this
-> is ultimately at the discretion of the relevant architecture maintainers.
-> 
-> ?
-> 
-> ~Andrew
-
+-- 
+Julien Grall
 
