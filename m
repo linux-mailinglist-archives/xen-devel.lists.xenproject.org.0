@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05B0386C72C
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 11:43:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686945.1069589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB09686C889
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 12:53:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686957.1069599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfdsd-0002Ak-SG; Thu, 29 Feb 2024 10:43:11 +0000
+	id 1rfewy-0003Kx-Iu; Thu, 29 Feb 2024 11:51:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686945.1069589; Thu, 29 Feb 2024 10:43:11 +0000
+Received: by outflank-mailman (output) from mailman id 686957.1069599; Thu, 29 Feb 2024 11:51:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfdsd-00028s-PR; Thu, 29 Feb 2024 10:43:11 +0000
-Received: by outflank-mailman (input) for mailman id 686945;
- Thu, 29 Feb 2024 10:43:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kPQN=KG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rfdsc-00028m-FQ
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 10:43:10 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5392571d-d6ef-11ee-a1ee-f123f15fe8a2;
- Thu, 29 Feb 2024 11:43:08 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a444205f764so62699466b.2
- for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 02:43:08 -0800 (PST)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- i8-20020a170906698800b00a43e8e76825sm551417ejr.149.2024.02.29.02.43.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Feb 2024 02:43:05 -0800 (PST)
+	id 1rfewy-0003J4-Fx; Thu, 29 Feb 2024 11:51:44 +0000
+Received: by outflank-mailman (input) for mailman id 686957;
+ Thu, 29 Feb 2024 11:51:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rfewx-0003Iy-52
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 11:51:43 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rfeww-0002oJ-LQ; Thu, 29 Feb 2024 11:51:42 +0000
+Received: from [15.248.3.86] (helo=[10.45.19.50])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rfeww-0007UP-Dh; Thu, 29 Feb 2024 11:51:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +39,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5392571d-d6ef-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709203387; x=1709808187; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=e+97K3Va0wILi/TEk43C6BEvjMMCdN17c8jlE9FRLRQ=;
-        b=bNGXjVvYKTT1dEoRg+I1jILw8OXjZ/ay6mbMwfk4oAZnLBOgmHlcD+HEAcies2KeO6
-         +AVhbsPdCTb980khCBNan51ZHzlsOejKJdjEpqnAq641v3QZQLFzXUKYnUC8MlIQnq0Q
-         iEyi/B77YuqxdDrHNXFz5h39OW2KbI58tVSEI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709203387; x=1709808187;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=e+97K3Va0wILi/TEk43C6BEvjMMCdN17c8jlE9FRLRQ=;
-        b=ap35cE5dMwgPLNZq+UkDd1U+RA5gdIL4TOsJhRX3pvqJHDJMJr90RlwWFuckl2+JLr
-         24tuuYOpnnibaPMU42Q9kcWbN9BzaaDFnvE3GcRM6GXk/kLe5+LsQi2iUv6UGXkvFeIe
-         SV2PECRGCAFo7MsoEMam0EvmXVpQ65GQDYLpaCA34Tv9EDaBrPFPheY3psthG0HrMg+r
-         hIMZs5FYzebEBvMByOuCoyCD6q2tzDxRdboB/AcuDv4VYHJg/ogh2/GA7RzrBCnnImxE
-         yPF+TpFROOqXN2Qj5s40Qe4/LroD1BQ/4MbsMcbDh675crn1JCsy1ADNIQeOddWpWQcE
-         wDgA==
-X-Gm-Message-State: AOJu0YzGai7f25vBhIZdW5Bre1ZYdAnoOeW5nbSnSdYkth7Pww+mDEpC
-	VSXGHUtERxbkPwEuLWaUUH2E8QSbj1tEWJouIlhueFLbImPrVUtBzouaKYsWxzq9X9eA0/IydIs
-	H
-X-Google-Smtp-Source: AGHT+IHkUWf2Dj6ASdr/bVBK9V8FQhh8mjfGb7b58yDSpuaHu6tR9Oe3f9op0BTW12MJNBN/oPwXbA==
-X-Received: by 2002:a17:906:d146:b0:a44:1e32:a503 with SMTP id br6-20020a170906d14600b00a441e32a503mr1162316ejb.22.1709203386741;
-        Thu, 29 Feb 2024 02:43:06 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/cpu-policy: Fix x2APIC visibility for PV guests
-Date: Thu, 29 Feb 2024 10:43:04 +0000
-Message-Id: <20240229104304.2478614-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=K6VjbTW6Jv+NExibT1D+zXR6Evxh9PaZtfdIcQv1kss=; b=XHRuc1fSjBKi0UE1ALQKQT9XDO
+	DW7bxB4Ys6L4EhfZPbeP0Icz9bMpHWf2F8SqOzk+iT46uWCnuWJ78KvReWSzbUhn8jxGF47W7IBg8
+	BdTG+/5uR3z6b5pZ0yx38zWs98zsmuXLt4HTGrf39d+OV7Z4RMEccj00vBpCp/1RguD4=;
+Message-ID: <4778822e-582f-4e0d-9933-86d8d49ea3a5@xen.org>
+Date: Thu, 29 Feb 2024 11:51:39 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: IMPORTANT - : Need help on USB port virtualization with Xen
+ hypervisor
+Content-Language: en-GB
+To: LARRIEU Dominique <dominique.larrieu@thalesgroup.com>
+Cc: GOURLOT Francois <francois.gourlot@thalesgroup.com>,
+ GRUO Nicolas <nicolas-n.gruo@thalesgroup.com>,
+ Cc <xen-devel@lists.xenproject.org>, Kelly Choi <kelly.choi@cloud.com>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Juergen Gross <jgross@suse.com>,
+ WILLEMS Louis <louis.willems@thalesgroup.com>
+References: <d2de4ae9ecb34efc962dea7f8b4e7cbd@thalesgroup.com>
+ <bb2485e5-7818-435b-8d9c-dda88100979f@xen.org>
+ <a46ac2e14fa2410eafc26a37a00a442f@thalesgroup.com>
+ <427d2ecb865648b7a459c592c208c0be@thalesgroup.com>
+ <673b2bc630d748e8af0a15d4b553906e@thalesgroup.com>
+ <3ee3659afff645cabed86bcc22c44686@thalesgroup.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <3ee3659afff645cabed86bcc22c44686@thalesgroup.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Right now, the host x2APIC setting filters into the PV max and default
-policies, yet PV guests cannot set MSR_APIC_BASE.EXTD or access any of the
-x2APIC MSR range.  Therefore they absolutely shouldn't see the x2APIC bit.
+Hi Dominique,
 
-Linux has workarounds for the collateral damage caused by this leakage; it
-unconditionally filters out the x2APIC CPUID bit, and EXTD when reading
-MSR_APIC_BASE.
+On 29/02/2024 10:33, LARRIEU Dominique wrote:
+> Thank you for your quick answer.
+> 
+> You will find below our answers (in red) to your questions.
+> 
+> To summarize our request : what we would like is to use USB 3.0 driver with high speed configuration.
+> Today, it is not possible to do that.
+> The driver stay in full speed mode, and more often in USB 1.0 or 2.0 configuration.
+> 
+> Is it possible to configure the XEN USB 3.0 driver with the high speed mode ?
+> (read in our answers below the reference to the driver)
 
-Hide the x2APIC bit in the PV default policy, but for compatibility, tolerate
-incoming VMs which already saw the bit.  This is logic from before the
-default/max split in Xen 4.14 which wasn't correctly adjusted at the time.
+Looking at what you provided below, it is still unclear what you mean by 
+"Xen USB 3.0 driver". By any chance, are you confused with the "x" in xhci?
 
-Update the annotation from !A to !S which slightly better describes that it
-doesn't really exist in PV guests.  HVM guests, for which x2APIC can be
-emulated completely, already has it unconditionally set in the max policy.
+The drivers "xhci_hcd" and "xhci_pci" are generic and not 
+provided/maintained by Xen. So far, with the information provided, it is 
+unclear whether the problem is actually in the driver itself. I have a 
+few more questions. See below.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
+>>      We are detecting several issues with USB port virtualization with the
+> 
+>>      Xen hypervisor.
+> 
+> 
+> 
+> Just to clarify, you are assigning the PCI USB bus (rather than just the USB device) to the guest. Is that correct?
+> 
+> 
+> 
+> If so...
+> 
+> 
+> 
+> [Thales] : we are using the USB chipset of the mother board (see below the references)
 
-This wants backporting as far as people can tollerate, but it's really not
-obvious which commit in 4.14 should be referenced in a Fixes: tag.
----
- xen/arch/x86/cpu-policy.c                   | 19 +++++++++++++++++--
- xen/include/public/arch-x86/cpufeatureset.h |  2 +-
- 2 files changed, 18 insertions(+), 3 deletions(-)
+Thanks for the clarification. IIUC, you said you are having problem in 
+the guest itself. Have you tried to access the same USB device from 
+dom0? Or better without any Xen involved (i.e. booting Debian on baremetal).
 
-diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
-index 10079c26ae24..a0205672428d 100644
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -534,6 +534,14 @@ static void __init calculate_pv_max_policy(void)
-     *p = host_cpu_policy;
-     x86_cpu_policy_to_featureset(p, fs);
- 
-+    /*
-+     * Xen at the time of writing (Feb 2024, 4.19 dev cycle) used to leak the
-+     * host x2APIC capability into PV guests, but never supported the guest
-+     * trying to turn x2APIC mode on.  Tolerate an incoming VM which saw the
-+     * x2APIC CPUID bit.
-+     */
-+    __set_bit(X86_FEATURE_X2APIC, fs);
-+
-     for ( i = 0; i < ARRAY_SIZE(fs); ++i )
-         fs[i] &= pv_max_featuremask[i];
- 
-@@ -566,6 +574,14 @@ static void __init calculate_pv_def_policy(void)
-     *p = pv_max_cpu_policy;
-     x86_cpu_policy_to_featureset(p, fs);
- 
-+    /*
-+     * PV guests have never been able to use x2APIC mode, but at the time of
-+     * writing (Feb 2024, 4.19 dev cycle), the host value used to leak into
-+     * guests.  Hide it by default so new guests don't get mislead into
-+     * thinking that they can use x2APIC.
-+     */
-+    __clear_bit(X86_FEATURE_X2APIC, fs);
-+
-     for ( i = 0; i < ARRAY_SIZE(fs); ++i )
-         fs[i] &= pv_def_featuremask[i];
- 
-@@ -830,11 +846,10 @@ void recalculate_cpuid_policy(struct domain *d)
-     }
- 
-     /*
--     * Allow the toolstack to set HTT, X2APIC and CMP_LEGACY.  These bits
-+     * Allow the toolstack to set HTT and CMP_LEGACY.  These bits
-      * affect how to interpret topology information in other cpuid leaves.
-      */
-     __set_bit(X86_FEATURE_HTT, max_fs);
--    __set_bit(X86_FEATURE_X2APIC, max_fs);
-     __set_bit(X86_FEATURE_CMP_LEGACY, max_fs);
- 
-     /*
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index be5c1b748e27..b230d3a6907d 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -123,7 +123,7 @@ XEN_CPUFEATURE(PCID,          1*32+17) /*H  Process Context ID */
- XEN_CPUFEATURE(DCA,           1*32+18) /*   Direct Cache Access */
- XEN_CPUFEATURE(SSE4_1,        1*32+19) /*A  Streaming SIMD Extensions 4.1 */
- XEN_CPUFEATURE(SSE4_2,        1*32+20) /*A  Streaming SIMD Extensions 4.2 */
--XEN_CPUFEATURE(X2APIC,        1*32+21) /*!A Extended xAPIC */
-+XEN_CPUFEATURE(X2APIC,        1*32+21) /*!S Extended xAPIC */
- XEN_CPUFEATURE(MOVBE,         1*32+22) /*A  movbe instruction */
- XEN_CPUFEATURE(POPCNT,        1*32+23) /*A  POPCNT instruction */
- XEN_CPUFEATURE(TSC_DEADLINE,  1*32+24) /*S  TSC Deadline Timer */
+This would help to narrow down the issue.
+
+>>
+> 
+>>      We needyour helpto find a solution for these problems.
+> 
+>>
+> 
+>>      The Software used are :
+> 
+> 
+> 
+> Can you share some details of the HW you are using ?
+> 
+> 
+> 
+> [Thales] : HW :
+> 
+> [Thales] : We are using a GETAC X500 using the Mobile Intel QM175 Chipset
+> 
+> [Thales] : USB controller: Intel Corporation 100 Series/C230 Series Chipset Family USB 3.0 xHCI Controller (rev 31)
+> 
+> [Thales] : Subsystem: Mitac 100 Series/C230 Series Chipset Family USB 3.0 xHCI Controller
+> 
+> 
+> 
+> [Thales] : SW :
+> 
+> [Thales] : Kernel driver in use: xhci_hcd
+> 
+> [Thales] : Kernel modules : xhci_pci
+> 
+> 
+> 
+>>
+> 
+>>      -Debian 11 version5.10.0-20
+
+IIUC, before you said you had problem with Windows. So is this the 
+software in dom0? Or did you actually try with Debian and still see the 
+same issue?
+
+Regarding the configuration, given you are using the official Debian 
+package. Are you using 'xl' to create your guest?
+
+The ideal would be if you can paste the full configuration. If you can't 
+can you tell us if you are using any of these options: 'pci', 'usbdev', 
+'usbctrl'?
+
+[...]
+
+>>      -Xen version4.14
+> 
+> 
+> 
+> Are minor version of Xen 4.14 are you using ? Any patches on top ?
+> 
+> 
+> 
+> Xen 4.14 has also been out of support for a few months now. If that’s possible, I would recommend to try a new Xen version (the last stable is
+> 
+> 4.18) just in case your issue as been fixed in newer release.
+> 
+> 
+> 
+> [Thales] : we have to use Xen release that are downloaded from the Debian official repository  (requested by our customer)
+> 
+> [Thales] : the last one is version 4.14, but we would like to know if there is one more recent that is compatible with Linux Debian 11 ?
+
+Newer Xen releases should be compatible with Debian 11. But I am not 
+aware of any "official" package for that specific version.
+
+Cheers,
+
 -- 
-2.30.2
-
+Julien Grall
 
