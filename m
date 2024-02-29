@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9C4186BBFD
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 00:11:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686817.1069336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A53D86BE13
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 02:11:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686827.1069344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfT5F-0003Y4-6h; Wed, 28 Feb 2024 23:11:29 +0000
+	id 1rfUwE-0007wk-PK; Thu, 29 Feb 2024 01:10:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686817.1069336; Wed, 28 Feb 2024 23:11:29 +0000
+Received: by outflank-mailman (output) from mailman id 686827.1069344; Thu, 29 Feb 2024 01:10:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfT5F-0003VQ-2a; Wed, 28 Feb 2024 23:11:29 +0000
-Received: by outflank-mailman (input) for mailman id 686817;
- Wed, 28 Feb 2024 23:11:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rfUwE-0007um-Mf; Thu, 29 Feb 2024 01:10:18 +0000
+Received: by outflank-mailman (input) for mailman id 686827;
+ Thu, 29 Feb 2024 01:10:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eIhW=KF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rfT5D-0003VK-Ms
- for xen-devel@lists.xenproject.org; Wed, 28 Feb 2024 23:11:27 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b1dc3a82-d68e-11ee-a1ee-f123f15fe8a2;
- Thu, 29 Feb 2024 00:11:25 +0100 (CET)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2d28e465655so3514761fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 15:11:25 -0800 (PST)
+ <SRS0=kPQN=KG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rfUwD-0007ud-Q5
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 01:10:17 +0000
+Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com
+ [2607:f8b0:4864:20::f2a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4b9fcd7b-d69f-11ee-afd8-a90da7624cb6;
+ Thu, 29 Feb 2024 02:10:16 +0100 (CET)
+Received: by mail-qv1-xf2a.google.com with SMTP id
+ 6a1803df08f44-686a92a8661so1427736d6.0
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 17:10:15 -0800 (PST)
 Received: from [192.168.1.10] (host-92-3-248-192.as13285.net. [92.3.248.192])
  by smtp.gmail.com with ESMTPSA id
- f18-20020a05600c155200b00412b68cc169sm246212wmg.16.2024.02.28.15.11.23
+ mf15-20020a0562145d8f00b0068cc0b46682sm171047qvb.4.2024.02.28.17.10.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Feb 2024 15:11:23 -0800 (PST)
+ Wed, 28 Feb 2024 17:10:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1dc3a82-d68e-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 4b9fcd7b-d69f-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709161885; x=1709766685; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1709169014; x=1709773814; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=eb9sSmXWyyVHX0TuZl+mGrxr1zi5wA1dX/FkBS2Rw0Q=;
-        b=Lkm6hmXJRWs4eh9ve1wjX8pZWl5s/i7wQ8d2fRiyVz7n4p7yprfABZVLeoIokcGy9l
-         Hk+gbWn8+KpyTF6TiL4jaKyy/aAb5bKuCRwreV7w8+K/InooHSti3JhRbBxXXMamx9Tq
-         u2ncvBsgeuzoUA+C7b3JME8bmL+zUNE9wzRgo=
+        bh=zigJQi4wIFSrs+HGgYuL+wnmWC7wTVrxj7zxCQOvnJk=;
+        b=CgPXXa19FGXATcFrbDQbJ4qzeiLcK5QRs1hlGbSYWW9a0h2NmhxfNoiCfVNqDSU0Y2
+         UtMNZ2+O4ChaHkaZA3qcP4dTkkp+HjbDt9uoc7WeRJficvQ0suL0sNiZjAdDGHEAzb3z
+         ++CRosLv/HPxJ4rBM8bt8pPda6joMgmme9xqY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709161885; x=1709766685;
+        d=1e100.net; s=20230601; t=1709169014; x=1709773814;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eb9sSmXWyyVHX0TuZl+mGrxr1zi5wA1dX/FkBS2Rw0Q=;
-        b=r+p7fvXVAKZcyp81CBN9WUYWNn3l6XAbNiy9xjPY1KQciv3t6BIOhANmaEc+2dvKSu
-         sWm1ZVYpeXSul/Oh41r83GeR66XqrNpMTi9jF4f4sw10V0CafKyRK2QlXLMZJZFLVp42
-         vpOmtAu4u+oGn/CBRUXJ+3Of4zTHmxPhwolUpH3UV04e4RbsnIHcT88iwxjBdAf3+Es4
-         fLbjaW3IpP/ekPWX20PybVe64Vv7rG78ar5aBZ68qZaoyrJ1vsQf7yJK0kuCiQZnxguw
-         q3JlaJMFTM3XBYMgijpqssYS8nlnPQJh7X/LHBED2WbvZ0jAODB0F7ewB03qG0hzYwnM
-         YKFQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVofu8KB6qUIvlItgb+g+GGhIwfML84RViZ/d11++db4DZmECxKF6kZ0S4vqkme91V8pjhs0c+/OEYhJP69XEs5nQpvLdHqNtZcQsGcKPs=
-X-Gm-Message-State: AOJu0YwdzR+lFpwBF2PxKVjnous5/rvCOADhp3V7L6BggXWPoiSQlv6J
-	xdrlNsDCd/LvVvIGUSOwuRdF0oqRtmo0LnnDCshw19JE4e/eG1fuBbULRZE/aZE=
-X-Google-Smtp-Source: AGHT+IEyB8O85gk5mxNzLVkTwjQdUUN4mlnYV2jcrna5eO2lSipyl35cklvEFtd1vm/rxi8sAMKCQQ==
-X-Received: by 2002:a2e:781a:0:b0:2d2:6ed5:e45a with SMTP id t26-20020a2e781a000000b002d26ed5e45amr150543ljc.12.1709161884751;
-        Wed, 28 Feb 2024 15:11:24 -0800 (PST)
-Message-ID: <d0afb4d6-9fbc-49de-9f07-f76e4aeda8c1@citrix.com>
-Date: Wed, 28 Feb 2024 23:11:22 +0000
+        bh=zigJQi4wIFSrs+HGgYuL+wnmWC7wTVrxj7zxCQOvnJk=;
+        b=uSGQ0r67EneZJBCA7h54D/8YtEuuw64NS2qtVL1yENFckjsf6kVEqnVEQ+g4tOK+vb
+         QSzdfAmclbp1UF0dl6MPOzAfxDVctSaUc/meL6i9BHtS5wEZ2uwC3Iz/wKNAa1nZ87Nx
+         cApSVQaCMKEJKqFhyoHiDUS6a3vsuXF21+TmvE64/jM6XTbutbdBOvO4/cU094xbBruz
+         penFW+T/w2APlD6CCIXUsjT2CfbNEV8II861vOy9RPDm+5Vszk18NqP5GVENnidpnaAr
+         FgHqHD3gdcf4DUVhQ3qVM/XNrX/7z2V7xDPcmAAwkvKaOH3ooRlMIK7MFGisDPR8UgEA
+         98pg==
+X-Forwarded-Encrypted: i=1; AJvYcCWHfuzMi59d7tW64gk6dDeymUNRzZoFoBioH87tOQrJNPqT5HF8kb5dv+YZfB7a2BINbEOudxXTEGE/6cOUyE30xMyMxQlPirGPoH8c/3U=
+X-Gm-Message-State: AOJu0YyznLqbMzv5sllFQPoYdfTagkTRncdKHXBeio1CUWSaPiSpcl9a
+	UqXsLczrrI5Ylcy672O+KZbGcCyCDR6z+bVZuAr4BOIkTcBkGkN/im6zSYJVZD0=
+X-Google-Smtp-Source: AGHT+IEA5AtkoR0X4zpaCMVeZsWvIwRV0mkiA2sJfSNX+rt1LcO47BcjG5FGEflT3JCZHtNEg5gj8w==
+X-Received: by 2002:a0c:da03:0:b0:68f:2c18:3b8a with SMTP id x3-20020a0cda03000000b0068f2c183b8amr749829qvj.61.1709169014634;
+        Wed, 28 Feb 2024 17:10:14 -0800 (PST)
+Message-ID: <3bc3a319-45a8-4b22-b225-a2b19ee04c28@citrix.com>
+Date: Thu, 29 Feb 2024 01:10:11 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 23/23] xen/README: add compiler and binutils versions
- for RISC-V64
+Subject: Re: [PATCH] x86: serializing of non-serializing MSR writes
 Content-Language: en-GB
-To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
- <ebaa05ded3cfddb1e3f7c87cd806b866312878fb.1708962629.git.oleksii.kurochko@gmail.com>
- <73a38d85-0798-4cfa-8625-0f8c9e05b2a3@suse.com>
- <80fb8091-9a26-40a4-b2e7-371df9411861@xen.org>
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Dave Hansen <dave.hansen@intel.com>
+References: <58656398-2d64-48b8-9ddc-c6836847a586@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -134,100 +128,227 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <80fb8091-9a26-40a4-b2e7-371df9411861@xen.org>
+In-Reply-To: <58656398-2d64-48b8-9ddc-c6836847a586@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28/02/2024 10:58 pm, Julien Grall wrote:
-> Hi Jan,
+On 28/02/2024 2:48 pm, Jan Beulich wrote:
+> Linux commit 25a068b8e9a4e ("x86/apic: Add extra serialization for non-
+> serializing MSRs") explains why an MFENCE+LFENCE pair is generally
+> needed ahead of ICR writes in x2APIC mode, and also why at least in
+> theory such is also needed ahead of TSC_DEADLINE writes. A comment of
+> our own in send_IPI_mask_x2apic_phys() further explains a condition
+> under which the LFENCE can be avoided.
 >
-> On 27/02/2024 07:55, Jan Beulich wrote:
->> On 26.02.2024 18:39, Oleksii Kurochko wrote:
->>> This patch doesn't represent a strict lower bound for GCC and
->>> GNU Binutils; rather, these versions are specifically employed by
->>> the Xen RISC-V container and are anticipated to undergo continuous
->>> testing.
->>
->> Up and until that container would be updated to a newer gcc. I'm
->> afraid I view this as too weak a criteria,
+> Further Linux commit 04c3024560d3 ("x86/barrier: Do not serialize MSR
+> accesses on AMD") explains that this barrier isn't needed on AMD or
+> Hygon, and is in fact hampering performance in a measurable way.
 >
-> I disagree. We have to decide a limit at some point. It is sensible to
-> say that we are only supporting what we can tests. AFAIK, this is what
-> QEMU has been doing.
+> Introduce a similarly named helper function, but with a parameter
+> allowing callers to specify whether a memory access will follow, thus
+> permitting the LFENCE to be omitted.
 >
->> but I'm also not meaning to
->> stand in the way if somebody else wants to ack this patch in this form;
->> my bare minimum requirement is now met.
->>
->>> --- a/README
->>> +++ b/README
->>> @@ -48,6 +48,15 @@ provided by your OS distributor:
->>>         - For ARM 64-bit:
->>>           - GCC 5.1 or later
->>>           - GNU Binutils 2.24 or later
->>> +      - For RISC-V 64-bit:
->>> +        - GCC 12.2 or later
->>> +        - GNU Binutils 2.39 or later
->>> +        This doesn't represent a strict lower bound for GCC and GNU
->>> Binutils;
->>> +        rather, these versions are specifically employed by the Xen
->>> RISC-V
->>> +        container and are anticipated to undergo continuous testing.
->>
->> As per above, I think here it really needs saying "at the time of
->> writing"
->> or recording a concrete date. Furthermore I expect "these versions"
->> relates
->> to the specifically named versions and particularly _not_ to "or later":
->> With the criteria you apply, using later versions (or in fact any
->> version
->> other than the very specific ones used in the container) would be
->> similarly
->> untested. Much like x86 and Arm don't have the full range of permitted
->> tool chain versions continuously tested. Plus don't forget that
->> distros may
->> apply their own selection of patches on top of what they take from
->> upstream
->> (and they may also take random snapshots rather than released versions).
+> Putting an instance in apic_wait_icr_idle() is to be on the safe side.
+> The one case where it was clearly missing is in send_IPI_shortcut(),
+> which is also used in x2APIC mode when called from send_IPI_mask().
 >
-> TBH, I think this should be dropped from the README. With the wording,
-> it implies that older GCC would work, but this is not a guarantee.
+> Function comment shamelessly borrowed (but adapted) from Linux.
 >
-> The same for Arm, I suspect some revision of GCC below 5.1 that may
-> work. But that's just convenience to list a lower limit.
+> Fixes: 5500d265a2a8 ("x86/smp: use APIC ALLBUT destination shorthand when possible")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> I question the need for a fence ahead of writing TSC_DEADLINE: The Linux
+> commit message talks about LVT being accessed via MMIO in xAPIC mode,
+> but that should not be relevant here: It's all the local CPU, so there
+> ought to not be visibility concerns (much like for a self-IPI no fence
+> is needed ahead of the ICR write). If that wasn't needed, we could
+> further use alternatives patching to remove the fence also from
+> apic_wait_icr_idle() when in xAPIC mode. (And only then would I agree to
+> have APIC in the feature identifier, like Linux has it.)
 >
-> With the sentence dropped, I would be happy to ack this patch.
+> A number of apic_write() may better be turned into apic_mem_write(), in
+> particular e.g. the ones in send_IPI_mask_{flat,phys}(). That way it
+> would be quite a bit easier to spot paths taken only in xAPIC mode.
 >
->>
->> IOW it is hard for me to see why RISC-V needs stronger restrictions here
->> than other architectures. It ought to be possible to determine a
->> baseline
->> version. Even if taking the desire to have "pause" available as a
->> requirement, gas (and presumably gld) 2.36.1 would already suffice.
->
-> I think we want to bump it on Arm. There are zero reasons to try to
-> keep a lower versions if nobody tests/use it in production.
->
-> I would suggest to do the same on x86. What's the point of try to
-> support Xen with a 15+ years old compiler?
+> The INIT-INIT-SIPI sequence for AP startup doesn't use any barrier, also
+> not in Linux afaics. I can't explain the lack thereof, though.
 
-There is a material cost to supporting ancient toolchains.  I'm
-increasingly unwilling to keep paying.
+I have some opinions about what Linux did here...  I don't think a
+single vendor/arch-neutral helper can possibly be right.
 
-I'm also bored of needing to support versions of binutils which don't
-know the Virt instructions, which are approaching 2 decades old now.
+It is vendor and uarch dependent which WRMSR's transparently degrade to
+WRMSRNS, and it is vendor dependent which serialising sequence to use
+(if any).  e.g. AMD have recently (Zen2 uarch I believe) retroactively
+defined FS/GS_BASE to be non-serialising.  (And this is another CPUID
+bit we need to OR backwards in time.)
 
-There are very good reasons to move to GCC 5.1 minimum across the board,
-because that gets us several features (__has_include(), asm goto and
-_Generic()) which will make material improvements to our code.  And I'd
-like to start using other bits of C11/gnu11.
+Furthermore, IIRC AMD still owe us an update to the APM; the APM
+currently says that a serialising sequence is needed for ICR.  I'm told
+this isn't actually true, but I'm also very wary making an adjustment
+which is directly contradicted by the docs.
 
-The choice of minimum toolchains should definitely be per-arch, and
-"this is the oldest one we regularly test" is an entirely fine reason to
-set the minimum bar.
 
-Furthermore, Linux has regularly been bumping minimum toolchain versions
-due to code generation issues, and we'd be foolish not pay attention.
+The Linux change explains why in principle the IPI can be emitted before
+the stores are visible.
+
+This does actually explain TSC_DEADLINE too.  Setting a deadline in the
+past gets you an interrupt immediately, and if you combine that with a
+WRMSR being ordered ahead of an MFENCE, then causality is violated. 
+You'll take the interrupt on whichever instruction boundary has most
+recently retired, which will can be the wrong side of the WRMSR
+triggering the interrupts, at which point you'll livelock taking timer
+interrupts and re-arming the timer in the past.
+
+
+Now, for fencing, things are more complicated.  AMD define MFENCE as
+architecturally serialising.  Intel do not, hence why apparently a WRMSR
+can possibly move across it.  The LFENCE is added for it's new
+speculative property of dispatch serialising.
+
+We don't actually care about architecturally serialising.  If someone is
+interacting with these MSRs with relevant data in WC memory, then they
+get to keep all resulting pieces.
+
+However, we do care about plain stores, and for that we do need an
+MFENCE;LFENCE on Intel  (The jury is out on whether a single
+SERIALIZE[sic] would be better, but it should have the correct semantics
+architecturally speaking.)
+
+In particular, ...
+
+
+>
+> --- a/xen/arch/x86/apic.c
+> +++ b/xen/arch/x86/apic.c
+> @@ -1309,6 +1309,12 @@ int reprogram_timer(s_time_t timeout)
+>  
+>      if ( tdt_enabled )
+>      {
+> +        /*
+> +         * WRMSR to TSC_DEADLINE is not serializing.  We could pass @timeout
+> +         * here, but the passed value is preferably compile-time-constant.
+> +         */
+> +        weak_wrmsr_fence(false);
+> +
+>          wrmsrl(MSR_IA32_TSC_DEADLINE, timeout ? stime2tsc(timeout) : 0);
+>          return 1;
+>      }
+> --- a/xen/arch/x86/cpu/amd.c
+> +++ b/xen/arch/x86/cpu/amd.c
+> @@ -675,8 +675,12 @@ void amd_log_freq(const struct cpuinfo_x
+>  
+>  void cf_check early_init_amd(struct cpuinfo_x86 *c)
+>  {
+> -	if (c == &boot_cpu_data)
+> +	if (c == &boot_cpu_data) {
+> +		/* No fencing needed ahead of certain MSR writes. */
+> +		setup_force_cpu_cap(X86_FEATURE_NO_WRMSR_FENCE);
+> +
+>  		amd_init_levelling();
+> +	}
+>  
+>  	ctxt_switch_levelling(NULL);
+>  }
+> --- a/xen/arch/x86/genapic/x2apic.c
+> +++ b/xen/arch/x86/genapic/x2apic.c
+> @@ -97,15 +97,15 @@ static void cf_check send_IPI_mask_x2api
+>  
+>      /*
+>       * Ensure that any synchronisation data written in program order by this
+> -     * CPU is seen by notified remote CPUs. The WRMSR contained within
+> -     * apic_icr_write() can otherwise be executed early.
+> +     * CPU is seen by notified remote CPUs. The WRMSR contained in the loop
+> +     * below can otherwise be executed early.
+>       * 
+> -     * The reason smp_mb() is sufficient here is subtle: the register arguments
+> +     * The reason MFENCE is sufficient here is subtle: the register arguments
+>       * to WRMSR must depend on a memory read executed after the barrier. This
+>       * is guaranteed by cpu_physical_id(), which reads from a global array (and
+>       * so cannot be hoisted above the barrier even by a clever compiler).
+>       */
+> -    smp_mb();
+> +    weak_wrmsr_fence(true);
+>  
+>      local_irq_save(flags);
+>  
+> @@ -130,7 +130,7 @@ static void cf_check send_IPI_mask_x2api
+>      const cpumask_t *cluster_cpus;
+>      unsigned long flags;
+>  
+> -    smp_mb(); /* See above for an explanation. */
+> +    weak_wrmsr_fence(true); /* See above for an explanation. */
+>  
+>      local_irq_save(flags);
+>  
+> --- a/xen/arch/x86/include/asm/cpufeatures.h
+> +++ b/xen/arch/x86/include/asm/cpufeatures.h
+> @@ -24,7 +24,7 @@ XEN_CPUFEATURE(APERFMPERF,        X86_SY
+>  XEN_CPUFEATURE(MFENCE_RDTSC,      X86_SYNTH( 9)) /* MFENCE synchronizes RDTSC */
+>  XEN_CPUFEATURE(XEN_SMEP,          X86_SYNTH(10)) /* SMEP gets used by Xen itself */
+>  XEN_CPUFEATURE(XEN_SMAP,          X86_SYNTH(11)) /* SMAP gets used by Xen itself */
+> -/* Bit 12 unused. */
+> +XEN_CPUFEATURE(NO_WRMSR_FENCE,    X86_SYNTH(12)) /* No MFENCE{,+LFENCE} ahead of certain WRMSR. */
+>  XEN_CPUFEATURE(IND_THUNK_LFENCE,  X86_SYNTH(13)) /* Use IND_THUNK_LFENCE */
+>  XEN_CPUFEATURE(IND_THUNK_JMP,     X86_SYNTH(14)) /* Use IND_THUNK_JMP */
+>  XEN_CPUFEATURE(SC_NO_BRANCH_HARDEN, X86_SYNTH(15)) /* (Disable) Conditional branch hardening */
+> --- a/xen/arch/x86/include/asm/msr.h
+> +++ b/xen/arch/x86/include/asm/msr.h
+> @@ -97,6 +97,25 @@ static inline void msr_split(struct cpu_
+>      regs->rax = (uint32_t)val;
+>  }
+>  
+> +/*
+> + * Make previous memory operations globally visible before a WRMSR.  Most
+> + * WRMSRs are full serializing instructions themselves and do not require this
+> + * barrier.  This may only be required for the TSC_DEADLINE and x2APIC MSRs.
+> + *
+> + * MFENCE makes writes visible, but only affects load/store instructions.
+> + * WRMSR is unfortunately not a load/store instruction and is unaffected by
+> + * MFENCE.
+
+[ On Intel.   AMD didn't end up with this (mis)behaviour. ]
+
+>   The LFENCE ensures that the WRMSR is not reordered, but callers
+> + * can indicate to avoid it when they have a suitable memory access between
+> + * the invocation of this function and the WRMSR in question.
+
+... this makes no sense.
+
+We need the LFENCE for dispatch serialising properties, not it's load
+ordering properties.  What use will other memory have, when the entire
+problem is that WRMSR doesn't interact with them?
+
+Worse, it's a Spectre-v1 gadget and we're now acutely familiar with how
+the CPU will find its way around these.  So even expressing "I
+critically need the LFENCE" still gets you pot luck on whether it has
+any effect against a causality-violating WRMSR.
 
 ~Andrew
+
+> + */
+> +static inline void weak_wrmsr_fence(bool have_mem_access)
+> +{
+> +    alternative("mfence", "", X86_FEATURE_NO_WRMSR_FENCE);
+> +
+> +    if ( !have_mem_access )
+> +        alternative("lfence", "", X86_FEATURE_NO_WRMSR_FENCE);
+> +}
+> +
+>  static inline uint64_t rdtsc(void)
+>  {
+>      uint32_t low, high;
+> --- a/xen/arch/x86/smp.c
+> +++ b/xen/arch/x86/smp.c
+> @@ -39,7 +39,10 @@ static unsigned int prepare_ICR2(unsigne
+>  void apic_wait_icr_idle(void)
+>  {
+>      if ( x2apic_enabled )
+> +    {
+> +        weak_wrmsr_fence(false);
+>          return;
+> +    }
+>  
+>      while ( apic_read(APIC_ICR) & APIC_ICR_BUSY )
+>          cpu_relax();
+
 
