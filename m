@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA3D986C97E
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 13:51:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687054.1069848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46C9B86C9A1
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 14:02:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687066.1069859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rffsj-00017h-6W; Thu, 29 Feb 2024 12:51:25 +0000
+	id 1rfg26-0003WN-7Y; Thu, 29 Feb 2024 13:01:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687054.1069848; Thu, 29 Feb 2024 12:51:25 +0000
+Received: by outflank-mailman (output) from mailman id 687066.1069859; Thu, 29 Feb 2024 13:01:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rffsj-000155-3u; Thu, 29 Feb 2024 12:51:25 +0000
-Received: by outflank-mailman (input) for mailman id 687054;
- Thu, 29 Feb 2024 12:51:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rfg26-0003Te-4N; Thu, 29 Feb 2024 13:01:06 +0000
+Received: by outflank-mailman (input) for mailman id 687066;
+ Thu, 29 Feb 2024 13:01:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x8AV=KG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rffsi-00014v-7M
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 12:51:24 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3d61f8b9-d701-11ee-a1ee-f123f15fe8a2;
- Thu, 29 Feb 2024 13:51:22 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a4429c556efso152963966b.0
- for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 04:51:22 -0800 (PST)
+ id 1rfg25-0003TY-1Z
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 13:01:05 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9824c9f9-d702-11ee-afd8-a90da7624cb6;
+ Thu, 29 Feb 2024 14:01:03 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a3d484a58f6so146069466b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 05:01:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ti12-20020a170907c20c00b00a4138c3f054sm656409ejc.32.2024.02.29.04.51.21
+ gg20-20020a170906e29400b00a4426352d8asm659377ejb.193.2024.02.29.05.01.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Feb 2024 04:51:21 -0800 (PST)
+ Thu, 29 Feb 2024 05:01:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d61f8b9-d701-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 9824c9f9-d702-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709211081; x=1709815881; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709211663; x=1709816463; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=MyrzNvu2lYus1WJ92zu6GB+N2NdJKl6Xa1em8kZLN7M=;
-        b=RG+orhGZfxz/gKkaPjcvB8bAdnHBhKv1AqnPIrOBkHZCChTsH+jmSM8d9umHKgZuw4
-         GtcOxDvlmQ50IGSGr/CcrO8Nl7sJ0ThsnzyPBfCeCL3qomH1lpyEBkk2c9BsOFNdFD0j
-         H85OSO19ttRwDivQ0O8GDtcer9oRMMsC6305QXXZX79tYekxBvmXEVwyKUX5yHcXKIN1
-         3LmusXNAvowuxjjOCQhGmTwVsBp+Yec3nXjzRMkGSzILefdkeY3Eqb22KVlUtxLL4XkF
-         V1xTuofJ21y+xdYvLhst7PH1zR/hOSK2c2ZpRNMRJ0hOicql33n2LgTc5JAVLSqOOpi8
-         02ew==
+        bh=QRP+weW0GjLngKlURrimZf/CrgVi3wASdZaM9BCrpwQ=;
+        b=Kh87GuLkC7m9JeF3LwiSKBs7ZE23MpcPNgCIwqFkye5vAXd5HXk7BGLMGrpv56IDPf
+         vmhA7Gm9jujcUi8K9Fl1zpoBW/k8fu6syPtcasW738e86K88/roICzvDY3oML+oQh4VQ
+         Cy5MBtCvyG90AClywgBHQiCrpVvSKXPCA2lVKy7k51tAjTod5S+vT8/B6ZvH6d00rPyU
+         i8i86tJT/gzCzQhPtSSR9/WiG+Y6I39H+Y9RkTUHAbHY1AtiqL8FVxGOARV5PKqr8C6F
+         ujXuPhnfIrrXRhjlYPW/XIUle2TvEN4yPZmLK+Oi1PBn7k/3LptCCTw6UcouclgAYakJ
+         d90w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709211081; x=1709815881;
+        d=1e100.net; s=20230601; t=1709211663; x=1709816463;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=MyrzNvu2lYus1WJ92zu6GB+N2NdJKl6Xa1em8kZLN7M=;
-        b=eWhlT0GoFOMqzLuyfuQiOZRK5EXS3hp8p8bJ9kxpZVIwcLpnGnhARgjSpJql/kJYyl
-         6Iu9egak94m/F1tRU6Fs9GF8cOoSXMqqPmCi80m9AHgXkHBdp8obn1WLMCOqfYQkIGSq
-         JDkiU+SuZ8RAQJd4V1FWXE7FNG5mhEXUXGeWCfK+l0n8hHbMvDVlTGtT3SwRFHoSpNUb
-         b0aO2qGbFdVy5rGFxsVnjUvWo95mG6Qojz7Uc//spGoct0VgQh8i0J5ucE928bYX8YME
-         gE0MXv2qOEVx2z2gdCa/5uzfIL6v+9OrHkcmVa3eX8pANzL/5JqysBRWrhajFEDxt5Jx
-         Z8qg==
-X-Forwarded-Encrypted: i=1; AJvYcCXHHhYJ1KEeIMp+wNKrWEaTxI1nMZneW0vW3yvhuEORwNEmUF3X3DWgu/jlUWVgxx1RHyOKfjqwT5iaUhKtgAKe6bJt3ORHhbk6wRk/D4k=
-X-Gm-Message-State: AOJu0YxbZi8ynNQ6RUOVs/p6LCSQhAxwqvfPZTlMM2W8CS/CuQ+ShHTm
-	tnxv59ZUQIijtQKq33uEeHbJRD3x7yv+SKlyDHwHn6KjBdDUcHjL5Vq4fltcrOG1wcY9+HdFDWQ
+        bh=QRP+weW0GjLngKlURrimZf/CrgVi3wASdZaM9BCrpwQ=;
+        b=rGZqmoWWN5jJN0N2oylEiJKVnrdLn2MMR7/Ds+flC0fYWO1IgLKxOd+qpMAOJXsrei
+         ShCfRnzjZ6vtXqD7KxGNYSnwzGDBwaqFpe0S7hrql2oFEblhLfJlsB8dol5OjrgusOVC
+         mDOjnshhHO5uK3DDp9km3SOQheB61LZjKiqF3QNxsL89FdFjg/I9Rw/qV5O0ApMmcJ6O
+         NMhPnGCIqavVvXREL/KEx76z1PdXaSn7W3rPBrSvaEel0r44f4DXmU61WU/HIzhb6twS
+         coqY7B1cWA/dPJv4cx/b1xHgDrK9bYZVZpR7XmBI4sVDaq3El7wVAYF2w/jBDpBQnNWe
+         n4Cw==
+X-Forwarded-Encrypted: i=1; AJvYcCWG3B1nFM97GAYxRSa0OrARXxS6makhNm5OMerRb2+lofG9/FZ8R48prZryRkkZQwJqQAv+KdTLciZ6VpgeWJmG4HoJVJsHp0Vw4YaLpV8=
+X-Gm-Message-State: AOJu0Ywa+TJTbQyTVUZCmCwPDygN+r5Lb8pJ+HRcuulf3TKjdeKdRUcK
+	J8rVu9H+QX4NXrTJoBojOBAtWr5VLlBFj9pSW3nxtD3HYOXuecVLbJo6ZrzcPXuCz+ydLSprMNw
 	=
-X-Google-Smtp-Source: AGHT+IEnRbyK82of9AakUkrx+DncXYF2uUriUbtIw4sKaunI3VBVmF36OqTuo/gcwo9zmszoAHjWow==
-X-Received: by 2002:a17:906:3c47:b0:a44:1ace:2186 with SMTP id i7-20020a1709063c4700b00a441ace2186mr1446459ejg.22.1709211081573;
-        Thu, 29 Feb 2024 04:51:21 -0800 (PST)
-Message-ID: <aa3fbfca-4675-4f92-9037-a4a7c5eca4dd@suse.com>
-Date: Thu, 29 Feb 2024 13:51:20 +0100
+X-Google-Smtp-Source: AGHT+IHd80tWvIKGtqBK92bIcwTFX+EBeB7krGTS4Vfhu1Yndi22o1yNYWgVYSDWQTCZkscnYH4pvg==
+X-Received: by 2002:a17:906:3414:b0:a44:311a:3ec9 with SMTP id c20-20020a170906341400b00a44311a3ec9mr1404569ejb.51.1709211663378;
+        Thu, 29 Feb 2024 05:01:03 -0800 (PST)
+Message-ID: <78032daf-9052-4ab8-ba05-456fa4aee17b@suse.com>
+Date: Thu, 29 Feb 2024 14:01:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 23/23] xen/README: add compiler and binutils versions
- for RISC-V64
+Subject: Re: [PATCH 1/2] README: bump minimum required clang/llvm version
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: George Dunlap <george.dunlap@citrix.com>,
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, Oleksii Kurochko
- <oleksii.kurochko@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
- <ebaa05ded3cfddb1e3f7c87cd806b866312878fb.1708962629.git.oleksii.kurochko@gmail.com>
- <73a38d85-0798-4cfa-8625-0f8c9e05b2a3@suse.com>
- <80fb8091-9a26-40a4-b2e7-371df9411861@xen.org>
- <889b132b-b92e-465b-94af-4e4133e4c297@suse.com>
- <52188e88-374c-449f-a71c-bfce9b6d07f4@xen.org>
- <cd52114b-c4f1-4bb9-96a4-d802dc50bade@citrix.com>
- <2a112321-f4fd-4ab4-a431-a0bb4cb6eaa2@suse.com>
- <9b212dec-59ef-4cbb-bea7-add3867e4599@xen.org>
+ Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
+References: <20240229095529.17723-1-roger.pau@citrix.com>
+ <20240229095529.17723-2-roger.pau@citrix.com>
+ <780ec3ab-08e3-4fd8-a85f-0e89ea75dcc8@suse.com> <ZeB7S6i7pIwzkUNE@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -122,91 +115,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9b212dec-59ef-4cbb-bea7-add3867e4599@xen.org>
+In-Reply-To: <ZeB7S6i7pIwzkUNE@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29.02.2024 13:32, Julien Grall wrote:
-> On 29/02/2024 12:17, Jan Beulich wrote:
->> On 29.02.2024 13:05, Andrew Cooper wrote:
->>> On 29/02/2024 10:23 am, Julien Grall wrote:
->>>>>>> IOW it is hard for me to see why RISC-V needs stronger restrictions
->>>>>>> here
->>>>>>> than other architectures. It ought to be possible to determine a
->>>>>>> baseline
->>>>>>> version. Even if taking the desire to have "pause" available as a
->>>>>>> requirement, gas (and presumably gld) 2.36.1 would already suffice.
->>>>>>
->>>>>> I think we want to bump it on Arm. There are zero reasons to try to
->>>>>> keep
->>>>>> a lower versions if nobody tests/use it in production.
->>>>>>
->>>>>> I would suggest to do the same on x86. What's the point of try to
->>>>>> support Xen with a 15+ years old compiler?
->>>>>
->>>>> It could have long been bumped if only a proper scheme to follow for
->>>>> this and future bumping would have been put forward by anyone keen on
->>>>> such bumping, like - see his reply - e.g. Andrew. You may recall that
->>>>> this was discussed more than once on meetings, with no real outcome.
->>>>> I'm personally not meaning to stand in the way of such bumping as long
->>>>> as it's done in a predictable manner, but I'm not keen on doing so and
->>>>> hence I don't view it as my obligation to try to invent a reasonable
->>>>> scheme. (My personal view is that basic functionality should be
->>>>> possible to have virtually everywhere, whereas for advanced stuff it
->>>>> is fine to require a more modern tool chain.)
->>>>
->>>> That's one way to see it. The problem with this statement is a user
->>>> today is mislead to think you can build Xen with any GCC versions
->>>> since 4.1. I don't believe we can guarantee that and we are exposing
->>>> our users to unnecessary risk.
->>>>
->>>> In addition to that, I agree with Andrew. This is preventing us to
->>>> improve our code base and we have to carry hacks for older compilers.
->>>
->>> I don't think anyone here is suggesting that we switch to a
->>> bleeding-edge-only policy.  But 15y of support is extreme in the
->>> opposite direction.
->>>
->>> Xen ought to be buildable in the contemporary distros of the day, and I
->>> don't think anyone is going to credibly argue otherwise.
->>>
->>> But, it's also fine for new things to have newer requirements.
->>>
->>> Take CET for example.  I know we have disagreements on exactly how it's
->>> toolchain-conditionalness is implemented, but the basic principle of "If
->>> you want shiny new optional feature $X, you need newer toolchain $Y" is
->>> entirely fine.
->>>
->>> A brand new architecture is exactly the same.  Saying "this is the
->>> minimum, because it's what we test" doesn't preclude someone coming
->>> along and saying "can we use $N-1 ?  See here it works, and here's a
->>> change to CI test it".
->>>
->>>
->>> Anyway, its clear we need to write some policy on this, before making
->>> specific adjustments.  To get started, is there going to be any
->>> objection whatsoever on some principles which begin as follows:
+On 29.02.2024 13:40, Roger Pau Monné wrote:
+> On Thu, Feb 29, 2024 at 01:11:55PM +0100, Jan Beulich wrote:
+>> On 29.02.2024 10:55, Roger Pau Monne wrote:
+>>> --- a/README
+>>> +++ b/README
+>>> @@ -41,7 +41,7 @@ provided by your OS distributor:
+>>>          - GCC 4.1.2_20070115 or later
+>>>          - GNU Binutils 2.16.91.0.5 or later
+>>>          or
+>>> -        - Clang/LLVM 3.5 or later
+>>> +        - Clang/LLVM 14.0.0 or later
 >>
->> Largely not, but one aspect needs clarifying up front:
->>
->>> * For established architectures, we expect Xen to be buildable on the
->>> common contemporary distros.  (i.e. minima is not newer than what's
->>> available in contemporary distros, without a good reason)
->>
->> What counts as contemporary distro? Still in normal support? LTS? Yet
->> more extreme forms?
+>> Wow, that's a big step. I'm build-testing with Clang7 on one system and
+>> with Clang5 on another (and the latter more frequently than the former).
+>> If any real dependency on this new a version (about 3 years old?) was
+>> introduced, I would then no longer be able to locally test any Clang
+>> builds (and hence the risk would again increase that I introduce issues
+>> that affect just Clang builds).
 > 
-> LTS makes sense. More I am not sure. I am under the impression that 
-> people using older distros are those that wants a stable system. So they 
-> would unlikely try to upgrade the hypervisor.
-> 
-> Even for LTS, I would argue that if it has been released 5 years ago, 
-> then you probably want to update it at the same time as moving to a 
-> newer Xen version.
+> Would it be possible for you to update to a newer version?  I see both
+> the OpenSUSE containers in Gitlab have newer versions of Clang.
 
-For the purposes of distros I agree. For the purposes of individuals
-I don't: What's wrong with running a newer hypervisor and/or kernel
-underneath an older distro?
+No. These are SLES versions which I'm not intending to touch. See
+
+https://lists.xen.org/archives/html/xen-devel/2024-02/msg01793.html
+
+and
+
+https://lists.xen.org/archives/html/xen-devel/2024-02/msg01795.html
+
+for why. The most recent piece of hardware I've installed a fresh (but
+not exactly new, yet still fully supported) SLES version on would
+apparently offer Clang7 only, either.
+
+If anything I could see about building a newer Clang version myself;
+no idea how involved that is compared to the building of gcc (which I
+consider pretty straightforward, but that's biased by me being used to
+doing so).
 
 Jan
 
