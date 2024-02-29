@@ -2,32 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EE8486CB25
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 15:15:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687165.1070169 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BCA286CB4C
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 15:19:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687171.1070179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfhBU-0007Sh-SF; Thu, 29 Feb 2024 14:14:52 +0000
+	id 1rfhF6-0000Wa-BX; Thu, 29 Feb 2024 14:18:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687165.1070169; Thu, 29 Feb 2024 14:14:52 +0000
+Received: by outflank-mailman (output) from mailman id 687171.1070179; Thu, 29 Feb 2024 14:18:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfhBU-0007Pp-PR; Thu, 29 Feb 2024 14:14:52 +0000
-Received: by outflank-mailman (input) for mailman id 687165;
- Thu, 29 Feb 2024 14:14:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rfhF6-0000Uy-8M; Thu, 29 Feb 2024 14:18:36 +0000
+Received: by outflank-mailman (input) for mailman id 687171;
+ Thu, 29 Feb 2024 14:18:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rfhBS-0007PW-Vn
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 14:14:50 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rfhBR-00064j-U2; Thu, 29 Feb 2024 14:14:49 +0000
-Received: from [15.248.3.86] (helo=[10.45.19.50])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rfhBR-0007Tv-Ng; Thu, 29 Feb 2024 14:14:49 +0000
+ (envelope-from <SRS0=OAsO=KG=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rfhF4-0000Sl-B6
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 14:18:34 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6b40fab7-d70d-11ee-afd8-a90da7624cb6;
+ Thu, 29 Feb 2024 15:18:33 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 816F72236C;
+ Thu, 29 Feb 2024 14:18:32 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 10DB213503;
+ Thu, 29 Feb 2024 14:18:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id bh2hATiS4GUxHgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 29 Feb 2024 14:18:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,159 +52,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=bmwGVTfkjIMYE3GpyYTpwmNMOuHBCDVt2ZBFy8r5+FE=; b=fCcqv+PBonuyddsny68kHe+wU5
-	PtlPxuoBSz+jt3ELaKHZ7D4w7rbOHqVbqzoG/o+cvYfMbi8adKMlC61vkHZRW0Doj4JUnjHmrmCO0
-	BEluY/MzqKrnxQTtZdT15PBQU7R5vlIl6NZslPt0HwlkF7KzuZs6nXtU8rrtOftTesIQ=;
-Message-ID: <b86733f5-e61e-43ab-8375-8a3c7480c8d3@xen.org>
-Date: Thu, 29 Feb 2024 14:14:47 +0000
+X-Inumbo-ID: 6b40fab7-d70d-11ee-afd8-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1709216312; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cwFpXNyFH3FHcysLv87lCl1U+yDO/aQTyRzGoVPXfk0=;
+	b=LXHHPEpeRIX7Jjc7n2+skF3WJ90LfFrf27VWd6Klmmc+Igh/hwuU4/QACuzB3zG7KGFRfx
+	OQs3FDBzTBZBWVKmAHmz2aqWIyLUB9dcSFF/sOr1FKqJzZWYCspwi1kF0vR7TO0CS750Q2
+	W1dcVeXNWB45aGgDkmL0Jk1oJUU6/GI=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1709216312; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cwFpXNyFH3FHcysLv87lCl1U+yDO/aQTyRzGoVPXfk0=;
+	b=LXHHPEpeRIX7Jjc7n2+skF3WJ90LfFrf27VWd6Klmmc+Igh/hwuU4/QACuzB3zG7KGFRfx
+	OQs3FDBzTBZBWVKmAHmz2aqWIyLUB9dcSFF/sOr1FKqJzZWYCspwi1kF0vR7TO0CS750Q2
+	W1dcVeXNWB45aGgDkmL0Jk1oJUU6/GI=
+Message-ID: <b9865ed2-694a-4c88-963c-c9bb41727f1d@suse.com>
+Date: Thu, 29 Feb 2024 15:18:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 23/23] xen/README: add compiler and binutils versions
- for RISC-V64
-Content-Language: en-GB
+Subject: Re: [PATCH v4 09/12] xen/spinlock: add missing rspin_is_locked() and
+ rspin_barrier()
+Content-Language: en-US
 To: Jan Beulich <jbeulich@suse.com>
-Cc: George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, Oleksii Kurochko
- <oleksii.kurochko@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
- <ebaa05ded3cfddb1e3f7c87cd806b866312878fb.1708962629.git.oleksii.kurochko@gmail.com>
- <73a38d85-0798-4cfa-8625-0f8c9e05b2a3@suse.com>
- <80fb8091-9a26-40a4-b2e7-371df9411861@xen.org>
- <889b132b-b92e-465b-94af-4e4133e4c297@suse.com>
- <52188e88-374c-449f-a71c-bfce9b6d07f4@xen.org>
- <cd52114b-c4f1-4bb9-96a4-d802dc50bade@citrix.com>
- <2a112321-f4fd-4ab4-a431-a0bb4cb6eaa2@suse.com>
- <9b212dec-59ef-4cbb-bea7-add3867e4599@xen.org>
- <aa3fbfca-4675-4f92-9037-a4a7c5eca4dd@suse.com>
- <8eed0200-eabf-4024-b018-74be45ef95db@xen.org>
- <f28e22b7-2657-40d9-8a97-e747c689c2b0@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <f28e22b7-2657-40d9-8a97-e747c689c2b0@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20231212094725.22184-1-jgross@suse.com>
+ <20231212094725.22184-10-jgross@suse.com>
+ <1517146f-8bd9-4c8c-95d6-10b754e85d75@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <1517146f-8bd9-4c8c-95d6-10b754e85d75@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=LXHHPEpe
+X-Spamd-Result: default: False [-1.49 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	 XM_UA_NO_VERSION(0.01)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 BAYES_HAM(-0.90)[86.07%];
+	 MIME_GOOD(-0.10)[text/plain];
+	 DWL_DNSWL_LOW(-1.00)[suse.com:dkim];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 DKIM_TRACE(0.00)[suse.com:+];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_SEVEN(0.00)[9];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 R_MIXED_CHARSET(0.71)[subject];
+	 RCVD_TLS_ALL(0.00)[];
+	 MID_RHS_MATCH_FROM(0.00)[]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 816F72236C
+X-Spam-Level: 
+X-Spam-Score: -1.49
+X-Spam-Flag: NO
 
-
-
-On 29/02/2024 14:07, Jan Beulich wrote:
-> On 29.02.2024 14:44, Julien Grall wrote:
->> Hi Jan,
->>
->> On 29/02/2024 12:51, Jan Beulich wrote:
->>> On 29.02.2024 13:32, Julien Grall wrote:
->>>> On 29/02/2024 12:17, Jan Beulich wrote:
->>>>> On 29.02.2024 13:05, Andrew Cooper wrote:
->>>>>> On 29/02/2024 10:23 am, Julien Grall wrote:
->>>>>>>>>> IOW it is hard for me to see why RISC-V needs stronger restrictions
->>>>>>>>>> here
->>>>>>>>>> than other architectures. It ought to be possible to determine a
->>>>>>>>>> baseline
->>>>>>>>>> version. Even if taking the desire to have "pause" available as a
->>>>>>>>>> requirement, gas (and presumably gld) 2.36.1 would already suffice.
->>>>>>>>>
->>>>>>>>> I think we want to bump it on Arm. There are zero reasons to try to
->>>>>>>>> keep
->>>>>>>>> a lower versions if nobody tests/use it in production.
->>>>>>>>>
->>>>>>>>> I would suggest to do the same on x86. What's the point of try to
->>>>>>>>> support Xen with a 15+ years old compiler?
->>>>>>>>
->>>>>>>> It could have long been bumped if only a proper scheme to follow for
->>>>>>>> this and future bumping would have been put forward by anyone keen on
->>>>>>>> such bumping, like - see his reply - e.g. Andrew. You may recall that
->>>>>>>> this was discussed more than once on meetings, with no real outcome.
->>>>>>>> I'm personally not meaning to stand in the way of such bumping as long
->>>>>>>> as it's done in a predictable manner, but I'm not keen on doing so and
->>>>>>>> hence I don't view it as my obligation to try to invent a reasonable
->>>>>>>> scheme. (My personal view is that basic functionality should be
->>>>>>>> possible to have virtually everywhere, whereas for advanced stuff it
->>>>>>>> is fine to require a more modern tool chain.)
->>>>>>>
->>>>>>> That's one way to see it. The problem with this statement is a user
->>>>>>> today is mislead to think you can build Xen with any GCC versions
->>>>>>> since 4.1. I don't believe we can guarantee that and we are exposing
->>>>>>> our users to unnecessary risk.
->>>>>>>
->>>>>>> In addition to that, I agree with Andrew. This is preventing us to
->>>>>>> improve our code base and we have to carry hacks for older compilers.
->>>>>>
->>>>>> I don't think anyone here is suggesting that we switch to a
->>>>>> bleeding-edge-only policy.  But 15y of support is extreme in the
->>>>>> opposite direction.
->>>>>>
->>>>>> Xen ought to be buildable in the contemporary distros of the day, and I
->>>>>> don't think anyone is going to credibly argue otherwise.
->>>>>>
->>>>>> But, it's also fine for new things to have newer requirements.
->>>>>>
->>>>>> Take CET for example.  I know we have disagreements on exactly how it's
->>>>>> toolchain-conditionalness is implemented, but the basic principle of "If
->>>>>> you want shiny new optional feature $X, you need newer toolchain $Y" is
->>>>>> entirely fine.
->>>>>>
->>>>>> A brand new architecture is exactly the same.  Saying "this is the
->>>>>> minimum, because it's what we test" doesn't preclude someone coming
->>>>>> along and saying "can we use $N-1 ?  See here it works, and here's a
->>>>>> change to CI test it".
->>>>>>
->>>>>>
->>>>>> Anyway, its clear we need to write some policy on this, before making
->>>>>> specific adjustments.  To get started, is there going to be any
->>>>>> objection whatsoever on some principles which begin as follows:
->>>>>
->>>>> Largely not, but one aspect needs clarifying up front:
->>>>>
->>>>>> * For established architectures, we expect Xen to be buildable on the
->>>>>> common contemporary distros.  (i.e. minima is not newer than what's
->>>>>> available in contemporary distros, without a good reason)
->>>>>
->>>>> What counts as contemporary distro? Still in normal support? LTS? Yet
->>>>> more extreme forms?
->>>>
->>>> LTS makes sense. More I am not sure. I am under the impression that
->>>> people using older distros are those that wants a stable system. So they
->>>> would unlikely try to upgrade the hypervisor.
->>>>
->>>> Even for LTS, I would argue that if it has been released 5 years ago,
->>>> then you probably want to update it at the same time as moving to a
->>>> newer Xen version.
->>>
->>> For the purposes of distros I agree. For the purposes of individuals
->>> I don't: What's wrong with running a newer hypervisor and/or kernel
->>> underneath an older distro?
->>
->> There is nothing wrong. I just don't understand the benefits for us to
->> support that use case. To me there are two sorts of individuals:
->>    1. The ones that are using distro packages. They will unlikely want to
->> switch to a newer hypervisor
->>    2. The ones that are happy to compile and hack their system. Fairly
->> likely they will use a more distros and/or would not be put up by
->> upgrading it.
->>
->> What individuals do you have in mind?
+On 29.02.24 15:14, Jan Beulich wrote:
+> On 12.12.2023 10:47, Juergen Gross wrote:
+>> --- a/xen/common/spinlock.c
+>> +++ b/xen/common/spinlock.c
+>> @@ -458,6 +458,23 @@ void _spin_barrier(spinlock_t *lock)
+>>       spin_barrier_common(&lock->tickets, &lock->debug, LOCK_PROFILE_PAR);
+>>   }
+>>   
+>> +int rspin_is_locked(const rspinlock_t *lock)
+>> +{
+>> +    /*
+>> +     * Recursive locks may be locked by another CPU, yet we return
+>> +     * "false" here, making this function suitable only for use in
+>> +     * ASSERT()s and alike.
+>> +     */
+>> +    return lock->recurse_cpu == SPINLOCK_NO_CPU
+>> +           ? spin_is_locked_common(&lock->tickets)
+>> +           : lock->recurse_cpu == smp_processor_id();
+>> +}
+>> +
+>> +void rspin_barrier(rspinlock_t *lock)
+>> +{
+>> +    spin_barrier_common(&lock->tickets, &lock->debug, LOCK_PROFILE_PAR);
+>> +}
 > 
-> People like me.
+> Ah, here we go. Looks all okay to me, but needs re-ordering such that the
+> earlier patch won't transiently introduce a regression.
 
-Which means? From what I read you mostly use an older distros for smoke 
-testing/convenience.
+Yes, just wanted to answer something similar to your remark on patch 8.
 
->> Also, for me, the minimum doesn't prevent anyone to try to compile with
->> an older compiler. It is only here to say that as a community we will
->> not investigate or trying to workaround bugs in those compilers.
-> 
-> Besides this also allowing to use functionality you won't have an easy
-> way of replacing, what you say also doesn't make clear whether - for
-> cases where the issue can be (reasonably easily) worked around - patches
-> would be accepted, or rejected on the basis of only helping a below-the-
-> line compiler.
 
-I would not accept them.
-
-Cheers,
-
--- 
-Julien Grall
+Juergen
 
