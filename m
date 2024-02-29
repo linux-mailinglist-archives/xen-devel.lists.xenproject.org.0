@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CF5D86CCE8
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C50886CCEC
 	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 16:28:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687192.1070235 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.687194.1070256 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfiKS-0008Qp-J5; Thu, 29 Feb 2024 15:28:12 +0000
+	id 1rfiKU-0000Wt-Cb; Thu, 29 Feb 2024 15:28:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687192.1070235; Thu, 29 Feb 2024 15:28:12 +0000
+Received: by outflank-mailman (output) from mailman id 687194.1070256; Thu, 29 Feb 2024 15:28:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfiKS-0008Nf-Du; Thu, 29 Feb 2024 15:28:12 +0000
-Received: by outflank-mailman (input) for mailman id 687192;
- Thu, 29 Feb 2024 15:28:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rfiKU-0000QD-4w; Thu, 29 Feb 2024 15:28:14 +0000
+Received: by outflank-mailman (input) for mailman id 687194;
+ Thu, 29 Feb 2024 15:28:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ot4I=KG=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rfiKR-00087e-0N
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 15:28:11 +0000
+ id 1rfiKS-0008Ql-PM
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 15:28:12 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 25227046-d717-11ee-afd8-a90da7624cb6;
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2576eed4-d717-11ee-a1ee-f123f15fe8a2;
  Thu, 29 Feb 2024 16:28:10 +0100 (CET)
 Received: from nico.bugseng.com (unknown [46.228.253.196])
- by support.bugseng.com (Postfix) with ESMTPSA id 852CA4EE074B;
- Thu, 29 Feb 2024 16:28:09 +0100 (CET)
+ by support.bugseng.com (Postfix) with ESMTPSA id 3B1364EE074C;
+ Thu, 29 Feb 2024 16:28:10 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25227046-d717-11ee-afd8-a90da7624cb6
+X-Inumbo-ID: 2576eed4-d717-11ee-a1ee-f123f15fe8a2
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: nicola.vetrini@bugseng.com,
 	xen-devel@lists.xenproject.org
@@ -53,10 +53,10 @@ Cc: sstabellini@kernel.org,
 	roger.pau@citrix.com,
 	bertrand.marquis@arm.com,
 	julien@xen.org,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [XEN PATCH 02/10] xen/arm: address some violations of MISRA C Rule 20.7
-Date: Thu, 29 Feb 2024 16:27:54 +0100
-Message-Id: <efdeb0e013c36e18b5545fbdb33a43bb3f87039c.1709219010.git.nicola.vetrini@bugseng.com>
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH 03/10] x86: address some violations of MISRA C Rule 20.7
+Date: Thu, 29 Feb 2024 16:27:55 +0100
+Message-Id: <3c9e90aaf5dde769b689468fc818e4ae61fa11f3.1709219010.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1709219010.git.nicola.vetrini@bugseng.com>
 References: <cover.1709219010.git.nicola.vetrini@bugseng.com>
@@ -69,195 +69,50 @@ macro definitions should gain additional parentheses to ensure that all
 current and future users will be safe with respect to expansions that
 can possibly alter the semantics of the passed-in macro parameter.
 
+GUARD(1) is also amended to avoid modifying UA_KEEP or its definition.
+
 No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
-Style in arm64/cpufeature.c has not been amended, because this file seems
-to be kept in sync with its Linux counterpart.
+I wasn't very sure whether touching the definition of UA_KEEP would be a good
+idea, so I added parentheses in the only user I've seen so far that causes a
+violation.
 ---
- xen/arch/arm/arm64/cpufeature.c          | 14 +++++++-------
- xen/arch/arm/cpuerrata.c                 |  4 ++--
- xen/arch/arm/include/asm/arm64/sysregs.h |  2 +-
- xen/arch/arm/include/asm/guest_atomics.h |  4 ++--
- xen/arch/arm/include/asm/mm.h            |  2 +-
- xen/arch/arm/include/asm/smccc.h         |  8 ++++----
- xen/arch/arm/include/asm/vgic-emul.h     |  8 ++++----
- xen/arch/arm/vcpreg.c                    |  5 +++--
- 8 files changed, 24 insertions(+), 23 deletions(-)
+ xen/arch/x86/include/asm/irq.h | 6 +++---
+ xen/arch/x86/usercopy.c        | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/arm/arm64/cpufeature.c b/xen/arch/arm/arm64/cpufeature.c
-index 864413d9cc03..6fb8974ade7f 100644
---- a/xen/arch/arm/arm64/cpufeature.c
-+++ b/xen/arch/arm/arm64/cpufeature.c
-@@ -78,13 +78,13 @@
+diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.h
+index 082a3d6bbc6a..5c722848e8ce 100644
+--- a/xen/arch/x86/include/asm/irq.h
++++ b/xen/arch/x86/include/asm/irq.h
+@@ -179,9 +179,9 @@ void cleanup_domain_irq_mapping(struct domain *d);
+     void *__ret = radix_tree_lookup(&(d)->arch.hvm.emuirq_pirq, emuirq);\
+     __ret ? radix_tree_ptr_to_int(__ret) : IRQ_UNBOUND;                 \
+ })
+-#define IRQ_UNBOUND -1
+-#define IRQ_PT -2
+-#define IRQ_MSI_EMU -3
++#define IRQ_UNBOUND (-1)
++#define IRQ_PT      (-2)
++#define IRQ_MSI_EMU (-3)
  
- #define __ARM64_FTR_BITS(SIGNED, VISIBLE, STRICT, TYPE, SHIFT, WIDTH, SAFE_VAL) \
- 	{						\
--		.sign = SIGNED,				\
--		.visible = VISIBLE,			\
--		.strict = STRICT,			\
--		.type = TYPE,				\
--		.shift = SHIFT,				\
--		.width = WIDTH,				\
--		.safe_val = SAFE_VAL,			\
-+		.sign = (SIGNED),				\
-+		.visible = (VISIBLE),			\
-+		.strict = (STRICT),			\
-+		.type = (TYPE),				\
-+		.shift = (SHIFT),				\
-+		.width = (WIDTH),				\
-+		.safe_val = (SAFE_VAL),			\
- 	}
+ bool cpu_has_pending_apic_eoi(void);
  
- /* Define a feature with unsigned values */
-diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
-index a28fa6ac78cc..c678a555910f 100644
---- a/xen/arch/arm/cpuerrata.c
-+++ b/xen/arch/arm/cpuerrata.c
-@@ -462,8 +462,8 @@ static bool has_ssbd_mitigation(const struct arm_cpu_capabilities *entry)
- #define MIDR_RANGE(model, min, max)     \
-     .matches = is_affected_midr_range,  \
-     .midr_model = model,                \
--    .midr_range_min = min,              \
--    .midr_range_max = max
-+    .midr_range_min = (min),            \
-+    .midr_range_max = (max)
- 
- #define MIDR_ALL_VERSIONS(model)        \
-     .matches = is_affected_midr_range,  \
-diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
-index 3fdeb9d8cdef..b593e4028b53 100644
---- a/xen/arch/arm/include/asm/arm64/sysregs.h
-+++ b/xen/arch/arm/include/asm/arm64/sysregs.h
-@@ -465,7 +465,7 @@
- /* Access to system registers */
- 
- #define WRITE_SYSREG64(v, name) do {                    \
--    uint64_t _r = v;                                    \
-+    uint64_t _r = (v);                                  \
-     asm volatile("msr "__stringify(name)", %0" : : "r" (_r));       \
- } while (0)
- #define READ_SYSREG64(name) ({                          \
-diff --git a/xen/arch/arm/include/asm/guest_atomics.h b/xen/arch/arm/include/asm/guest_atomics.h
-index a1745f8613f6..8893eb9a55d7 100644
---- a/xen/arch/arm/include/asm/guest_atomics.h
-+++ b/xen/arch/arm/include/asm/guest_atomics.h
-@@ -32,7 +32,7 @@ static inline void guest_##name(struct domain *d, int nr, volatile void *p) \
-     perfc_incr(atomics_guest_paused);                                       \
-                                                                             \
-     domain_pause_nosync(d);                                                 \
--    name(nr, p);                                                            \
-+    (name)(nr, p);                                                          \
-     domain_unpause(d);                                                      \
+diff --git a/xen/arch/x86/usercopy.c b/xen/arch/x86/usercopy.c
+index b8c2d1cc0bed..b0b55398e968 100644
+--- a/xen/arch/x86/usercopy.c
++++ b/xen/arch/x86/usercopy.c
+@@ -106,7 +106,7 @@ unsigned int copy_from_guest_ll(void *to, const void __user *from, unsigned int
+     return n;
  }
  
-@@ -52,7 +52,7 @@ static inline int guest_##name(struct domain *d, int nr, volatile void *p)  \
-     perfc_incr(atomics_guest_paused);                                       \
-                                                                             \
-     domain_pause_nosync(d);                                                 \
--    oldbit = name(nr, p);                                                   \
-+    oldbit = (name)(nr, p);                                                 \
-     domain_unpause(d);                                                      \
-                                                                             \
-     return oldbit;                                                          \
-diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-index cbcf3bf14767..48538b5337aa 100644
---- a/xen/arch/arm/include/asm/mm.h
-+++ b/xen/arch/arm/include/asm/mm.h
-@@ -250,7 +250,7 @@ static inline void __iomem *ioremap_wc(paddr_t start, size_t len)
- #define gaddr_to_gfn(ga)    _gfn(paddr_to_pfn(ga))
- #define mfn_to_maddr(mfn)   pfn_to_paddr(mfn_x(mfn))
- #define maddr_to_mfn(ma)    _mfn(paddr_to_pfn(ma))
--#define vmap_to_mfn(va)     maddr_to_mfn(virt_to_maddr((vaddr_t)va))
-+#define vmap_to_mfn(va)     maddr_to_mfn(virt_to_maddr((vaddr_t)(va)))
- #define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
+-#if GUARD(1) + 0
++#if GUARD((1)) + 0
  
- /* Page-align address and convert to frame number format */
-diff --git a/xen/arch/arm/include/asm/smccc.h b/xen/arch/arm/include/asm/smccc.h
-index 1adcd37443c7..a1f309eea45a 100644
---- a/xen/arch/arm/include/asm/smccc.h
-+++ b/xen/arch/arm/include/asm/smccc.h
-@@ -122,7 +122,7 @@ struct arm_smccc_res {
- #define __constraint_read_7 __constraint_read_6, "r" (r7)
- 
- #define __declare_arg_0(a0, res)                            \
--    struct arm_smccc_res    *___res = res;                  \
-+    struct arm_smccc_res    *___res = (res);                \
-     register unsigned long  r0 ASM_REG(0) = (uint32_t)a0;   \
-     register unsigned long  r1 ASM_REG(1);                  \
-     register unsigned long  r2 ASM_REG(2);                  \
-@@ -130,7 +130,7 @@ struct arm_smccc_res {
- 
- #define __declare_arg_1(a0, a1, res)                        \
-     typeof(a1) __a1 = a1;                                   \
--    struct arm_smccc_res    *___res = res;                  \
-+    struct arm_smccc_res    *___res = (res);                \
-     register unsigned long  r0 ASM_REG(0) = (uint32_t)a0;   \
-     register unsigned long  r1 ASM_REG(1) = __a1;           \
-     register unsigned long  r2 ASM_REG(2);                  \
-@@ -139,7 +139,7 @@ struct arm_smccc_res {
- #define __declare_arg_2(a0, a1, a2, res)                    \
-     typeof(a1) __a1 = a1;                                   \
-     typeof(a2) __a2 = a2;                                   \
--    struct arm_smccc_res    *___res = res;				    \
-+    struct arm_smccc_res    *___res = (res);                \
-     register unsigned long  r0 ASM_REG(0) = (uint32_t)a0;   \
-     register unsigned long  r1 ASM_REG(1) = __a1;           \
-     register unsigned long  r2 ASM_REG(2) = __a2;           \
-@@ -149,7 +149,7 @@ struct arm_smccc_res {
-     typeof(a1) __a1 = a1;                                   \
-     typeof(a2) __a2 = a2;                                   \
-     typeof(a3) __a3 = a3;                                   \
--    struct arm_smccc_res    *___res = res;                  \
-+    struct arm_smccc_res    *___res = (res);                \
-     register unsigned long  r0 ASM_REG(0) = (uint32_t)a0;   \
-     register unsigned long  r1 ASM_REG(1) = __a1;           \
-     register unsigned long  r2 ASM_REG(2) = __a2;           \
-diff --git a/xen/arch/arm/include/asm/vgic-emul.h b/xen/arch/arm/include/asm/vgic-emul.h
-index e52fbaa3ec04..e2afb52498a8 100644
---- a/xen/arch/arm/include/asm/vgic-emul.h
-+++ b/xen/arch/arm/include/asm/vgic-emul.h
-@@ -6,11 +6,11 @@
-  * a range of registers
-  */
- 
--#define VREG32(reg) reg ... reg + 3
--#define VREG64(reg) reg ... reg + 7
-+#define VREG32(reg) (reg) ... (reg) + 3
-+#define VREG64(reg) (reg) ... (reg) + 7
- 
--#define VRANGE32(start, end) start ... end + 3
--#define VRANGE64(start, end) start ... end + 7
-+#define VRANGE32(start, end) (start) ... (end) + 3
-+#define VRANGE64(start, end) (start) ... (end) + 7
- 
- /*
-  * 64 bits registers can be accessible using 32-bit and 64-bit unless
-diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
-index a2d050070473..019cf34f003a 100644
---- a/xen/arch/arm/vcpreg.c
-+++ b/xen/arch/arm/vcpreg.c
-@@ -39,7 +39,8 @@
-  */
- 
- #ifdef CONFIG_ARM_64
--#define WRITE_SYSREG_SZ(sz, val, sysreg) WRITE_SYSREG((uint##sz##_t)val, sysreg)
-+#define WRITE_SYSREG_SZ(sz, val, sysreg) \
-+    WRITE_SYSREG((uint##sz##_t)(val), sysreg)
- #else
- /*
-  * WRITE_SYSREG{32/64} on arm32 is defined as variadic macro which imposes
-@@ -64,7 +65,7 @@ static bool func(struct cpu_user_regs *regs, type##sz##_t *r, bool read)    \
-     bool cache_enabled = vcpu_has_cache_enabled(v);                         \
-                                                                             \
-     GUEST_BUG_ON(read);                                                     \
--    WRITE_SYSREG_SZ(sz, *r, reg);                                           \
-+    WRITE_SYSREG_SZ(sz, *(r), reg);                                         \
-                                                                             \
-     p2m_toggle_cache(v, cache_enabled);                                     \
-                                                                             \
+ /**
+  * copy_to_guest_pv: - Copy a block of data into PV guest space.
 -- 
 2.34.1
-
 
