@@ -2,55 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F2FC86C962
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 13:42:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687029.1069758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28A8E86C972
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 13:48:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687037.1069768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rffju-0002nV-Aq; Thu, 29 Feb 2024 12:42:18 +0000
+	id 1rffpK-0003V8-1R; Thu, 29 Feb 2024 12:47:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687029.1069758; Thu, 29 Feb 2024 12:42:18 +0000
+Received: by outflank-mailman (output) from mailman id 687037.1069768; Thu, 29 Feb 2024 12:47:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rffju-0002lP-82; Thu, 29 Feb 2024 12:42:18 +0000
-Received: by outflank-mailman (input) for mailman id 687029;
- Thu, 29 Feb 2024 12:42:16 +0000
+	id 1rffpJ-0003St-Up; Thu, 29 Feb 2024 12:47:53 +0000
+Received: by outflank-mailman (input) for mailman id 687037;
+ Thu, 29 Feb 2024 12:47:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aH8z=KG=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rffjs-0002lH-Tn
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 12:42:16 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20600.outbound.protection.outlook.com
- [2a01:111:f403:200a::600])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=x8AV=KG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rffpI-0003Sn-Qd
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 12:47:52 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f64b7f02-d6ff-11ee-a1ee-f123f15fe8a2;
- Thu, 29 Feb 2024 13:42:14 +0100 (CET)
-Received: from BL0PR01CA0029.prod.exchangelabs.com (2603:10b6:208:71::42) by
- IA1PR12MB6649.namprd12.prod.outlook.com (2603:10b6:208:3a2::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7316.39; Thu, 29 Feb 2024 12:42:10 +0000
-Received: from BL02EPF0001A108.namprd05.prod.outlook.com
- (2603:10b6:208:71:cafe::6b) by BL0PR01CA0029.outlook.office365.com
- (2603:10b6:208:71::42) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.32 via Frontend
- Transport; Thu, 29 Feb 2024 12:42:10 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A108.mail.protection.outlook.com (10.167.241.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Thu, 29 Feb 2024 12:42:09 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 29 Feb
- 2024 06:42:09 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 29 Feb
- 2024 04:42:09 -0800
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Thu, 29 Feb 2024 06:42:07 -0600
+ id bf60a643-d700-11ee-a1ee-f123f15fe8a2;
+ Thu, 29 Feb 2024 13:47:50 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a44628725e3so22434466b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 04:47:50 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ h4-20020a1709063b4400b00a433f470cf1sm648666ejf.138.2024.02.29.04.47.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Feb 2024 04:47:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,116 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f64b7f02-d6ff-11ee-a1ee-f123f15fe8a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ffE9xrQH2Klfl4B00RouhcSdKwYBg0LPc4CVtV1yQz75N+P+6p/r1U3f3eY9A5FOTAbPAirZzUn1tFSSpjMnL70sINR2mai3u+eXYLA72qp05q9kkEYo9GKrn56C3KW4x3ocIgsMDD7ErcsJKaR0s2HgOrC4ZIa982INX4067hNX1H24q49mm0FiYhxqCJMECEGCfDlNDZ6TCO/qyAwsNvYQOZfxVJdrQ+7g2PyGE2Mw3+2k82/h781IdFCBAJmWAuyv8D82RgAV7p3IkqHj9buZPbs/y/7d/reBvtA/VdkHae/6npkV9Pyc9RrK/nOQVe5yLB1hQRHNetTCdFl0+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aR+/1AD3CcTgZburua/5KcSDzg4uv6mZ0FR95VNhb44=;
- b=EArdR3jfmAx+05yN78+0QkkaDcHKiLxzIwydiJ9JScYRXoTn+lo/6vT2XFGuotoucgnq9WB6z/PADw03wogO/sGJNBwHHqMcgAHsfQ8i8ZNPMQoDY4YIhQ9CBS9QDPqEdQCUHxFLMXgOFiHbUgso/6oZejC82/XHhPlPdEc+G+ZgH3+7Qz6xZ4WLhxsB7qfxF467ICwkluj+w4v1AvzFkMI1y7G+VcEdvXbhraV6noj1qvKqfRGF9T46+rp8mkE5OZNnjUqlPnoo6MitwWzFQBxL2x++d0rVZ850fDC/f6/viu0j1Sb/geCzIORwlFABCy5lAbMz2k6BOWmoxulruQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aR+/1AD3CcTgZburua/5KcSDzg4uv6mZ0FR95VNhb44=;
- b=r2+9K8rriAZT0OrNS+Urj57+vONvp2mIjMaYjvK5UgsAuporIz1nOdpXcwXFb1M/iXnRe/soEcv0CYFyRILUr0QcEybt5hQyxCMeXdOk16irrjcyNp9mzroNn6YSSxs02phXS1YICDvpsIQewXw+5bLYQ1us05VYFee+bidfV5c=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <216e9119-a7f9-43f3-80f9-f1c15685cad3@amd.com>
-Date: Thu, 29 Feb 2024 13:42:07 +0100
+X-Inumbo-ID: bf60a643-d700-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1709210870; x=1709815670; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5Ze8Gl+c5m0bhaEc2tOK4/IUPw2m7dVfUmIkxjX/BKw=;
+        b=XYfguade4+qeZFAfM0OMGR1/X3R7QiD4I7DjlQ8r3Njip3lwpmK17+J5Dy6fx2AUN8
+         4vCqdqzIffNCvZmygelP8ODow2N2Ab374I7MIVNVlaQRSW5GKVg6MFAhLZUd2++JXyRf
+         XR5Lpl14ivNZbJxxRFbm7GZaeqfbI7ZGkfmuvvJodzougmmf44LYzB4lM6wXQslhyCj+
+         1aI85vKnYcPkvnO1leklw7dGexWTVmcPXrKNQmexqfmmjWzqu4DsilAMlvZerEyDmS8h
+         XYz45zq/ej2FeEfwdoItbTcLIPG3cQlRISQTC/NfI63lCJgGDYc8nmUpZilR0ru59g1e
+         KkKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709210870; x=1709815670;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5Ze8Gl+c5m0bhaEc2tOK4/IUPw2m7dVfUmIkxjX/BKw=;
+        b=lXMpfJ9CYevgJD2KIQ2Yjl7aJ8hWBEDG2uEIhEqxHaIMsyFlEbDkm7Vxu1MlJn7krD
+         KMHZzu4ryODg5lyp4PIDsiAwJCnW90y1gGuRWTmsgzQNa0PK4lSrCSu6mLRtoGmKHm0w
+         tFcJdttvWuMkvbOuaNCsR6fdI2cMPekhuFFkTXEPpsHQ+u+vydYPdc1aEYe0sty0GTD8
+         PB81++ZzYwkPYb9x7zhs6eKTpG+rTogXxl1Xg9pCvO3wld8LO9pqOCBeJaAmc4SaB/ZS
+         kNm+37LnNyBVIBNFJAzAI6MbVOC6J+4iCqkpEjmYM3aHDdi0l6bJjurU8NcARdsZ5WVR
+         5Flg==
+X-Forwarded-Encrypted: i=1; AJvYcCXFtfOSoYvyreiEb9LwFpQuK3rurQZw3VxJHdebIWM7K0pNJVuuBtgylhBi7p6WlXJ/9Jp7OIRUhlSI5og3gVJeVghfZz5dFxZKGZeo5b4=
+X-Gm-Message-State: AOJu0Yxt2C+3jAAlbyeyR4MVAE7fkz+ZUZs/3yFUNtHeNx0BvzvESlWq
+	rJOMtwkZXmHmz/ldv+lSeddGdEnX3FgnpzeiXs3Cx62FopLlIzXI67OeOiiM5v2r6aKpR4B4pE4
+	=
+X-Google-Smtp-Source: AGHT+IFHn201zo35Usxx1CqEBgm4c8z9VNJgcf4hmP7t39TBbHGV2rQCACoTcW5zSsbZYppIjwZ6Eg==
+X-Received: by 2002:a17:906:aeca:b0:a43:4e75:21ac with SMTP id me10-20020a170906aeca00b00a434e7521acmr1299893ejb.52.1709210870132;
+        Thu, 29 Feb 2024 04:47:50 -0800 (PST)
+Message-ID: <707ff486-b448-4bc0-be7e-1c692b360734@suse.com>
+Date: Thu, 29 Feb 2024 13:47:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] SUPPORT.md: clarify support of booting 32-bit Xen on
- ARMv8
+Subject: Re: [PATCH] x86/cpu-policy: Fix x2APIC visibility for PV guests
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20240229121352.11264-1-michal.orzel@amd.com>
- <d1b7a4fd-0754-45f7-8c58-db36f0e94cfc@xen.org>
- <94176748-8438-460d-9434-6d18add55cef@amd.com>
- <544718e1-4855-4af1-a450-6362a8cd08f0@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <544718e1-4855-4af1-a450-6362a8cd08f0@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A108:EE_|IA1PR12MB6649:EE_
-X-MS-Office365-Filtering-Correlation-Id: ced1f797-014b-45f6-ef40-08dc3923d886
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	8gdnVajq/gKzVfQ+e5PcmVlV3Xhca8+SXXRiHlEBYAoBOqbLno3a16n28KzAEBq6WqMIGfq9vydhFUc/Xvpu16k5Q2gYzZnG1IcUEQjqRRh3Udbnr/ZgRoSAUzUpBRQjoBCUqNU4NxH9EEpA3l62Xo6aiiSU1XK6dxg/aQ4NSeqeoLUy1RIeNhwbnVeWd5DiU6R5b9vxpjxn5yW3fNI/ETQ3FxzaOSpmgwtPzDP60Mwv+HWhWOlV1g76eMkuv79caykK4aLMyoQPlk/v3gsDnBvP57hPO7j9lR1CJGcavE1a3JoFT50K6gOdWbXmLU5lEzz3Nd4kN8DQ5j4poJro73q0XyWc6H2mG7ThsUqC+yH5vzWKBUQ0ZSXtA4hmSyb1BkHteZRlLxieFh6MmXOFssvcQIy/mrieVyQC5P6XjeQo1CFGFcMtJ1FJUG3NBT7We0jhqRq7Uq5RU7YAQlVk+28kY4fWt3fhs+6DYsYBFiCO8/WHz7nZZQHyvP1r8xSjXoCuz+HJA/8mojUNP0sRWJ/Fo0ShRTEVVd0dl0nzd7zIBRtK4Trj33Rx0EGFNPCTpu7TYprXNgxqVJPSVxXQc69UPGOsp97EGEVfNYjoqYNfNxi1wojaRyRf3QMxOzuziJHEgHghmWYAo2T2VB0hXAzYGC7gTYz326+R/8/9Pj3vS/2526di4NZq3sE3umdh1q30cmS+1x4VjF+bWthao+vVYHCazMlSb9kqxVCDciOrqjvdbjobZLCfGRHz83yA
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Feb 2024 12:42:09.8815
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ced1f797-014b-45f6-ef40-08dc3923d886
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A108.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6649
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240229104304.2478614-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240229104304.2478614-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 29.02.2024 11:43, Andrew Cooper wrote:
+> Right now, the host x2APIC setting filters into the PV max and default
+> policies, yet PV guests cannot set MSR_APIC_BASE.EXTD or access any of the
+> x2APIC MSR range.  Therefore they absolutely shouldn't see the x2APIC bit.
+> 
+> Linux has workarounds for the collateral damage caused by this leakage; it
+> unconditionally filters out the x2APIC CPUID bit, and EXTD when reading
+> MSR_APIC_BASE.
+> 
+> Hide the x2APIC bit in the PV default policy, but for compatibility, tolerate
+> incoming VMs which already saw the bit.  This is logic from before the
+> default/max split in Xen 4.14 which wasn't correctly adjusted at the time.
 
+What about guest_cpuid()'s handling of leaf 0xb then? The %edx value
+will change once a guest is rebooted, aiui. The comment in
+recalculate_cpuid_policy() that you update refers to that.
 
-On 29/02/2024 13:40, Julien Grall wrote:
+> Update the annotation from !A to !S which slightly better describes that it
+> doesn't really exist in PV guests.  HVM guests, for which x2APIC can be
+> emulated completely, already has it unconditionally set in the max policy.
 > 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
 > 
-> On 29/02/2024 12:37, Michal Orzel wrote:
->> Hi Julien,
-> 
-> Hi Michal,
-> 
->>
->> On 29/02/2024 13:35, Julien Grall wrote:
->>> On 29/02/2024 12:13, Michal Orzel wrote:
->>>> Since commit bd1001db0af1 ("xen/arm: arm32: Allow Xen to boot on
->>>> unidentified CPUs"), it's been possible to boot 32-bit Xen on ARMv8A CPUs
->>>> in AArch32 state (assuming HW supports EL2 execution in AArch32). Clarify
->>>> the support statement and mark it as Tech Preview, as this use case is
->>>> uncommon and hasn't really been tested/hardened.
->>>>
->>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->>>> ---
->>>>    SUPPORT.md | 1 +
->>>>    1 file changed, 1 insertion(+)
->>>>
->>>> diff --git a/SUPPORT.md b/SUPPORT.md
->>>> index a90d1108c9d9..acc61230bb5e 100644
->>>> --- a/SUPPORT.md
->>>> +++ b/SUPPORT.md
->>>> @@ -40,6 +40,7 @@ supported in this document.
->>>>        Status: Supported
->>> I would consider to use 'Status, Xen in aarch64 mode: Supported' and then...
->>>
->>>>        Status, Cortex A57 r0p0-r1p1: Supported, not security supported
->>>>        Status, Cortex A77 r0p0-r1p0: Supported, not security supported
->>>> +    Status, Xen in AArch32 mode: Tech Preview
->>>
->>> ... move this line closer. What do you think?
->> That works for me too (+AArch64 instead of aarch64).
-> 
-> Ah yes. I keep forgetting capitalizing properly :).
-> 
->> Shall I respin the patch?
-> 
-> Up to you. I am happy to fix it. But I will wait a day or two just to
-> give a chance for the others to comment.
-That works for me, let's wait for Bertrand and Stefano.
+> This wants backporting as far as people can tollerate, but it's really not
+> obvious which commit in 4.14 should be referenced in a Fixes: tag.
 
-~Michal
+Why 4.14? In 4.7.0 I see ...
+
+> @@ -830,11 +846,10 @@ void recalculate_cpuid_policy(struct domain *d)
+>      }
+>  
+>      /*
+> -     * Allow the toolstack to set HTT, X2APIC and CMP_LEGACY.  These bits
+> +     * Allow the toolstack to set HTT and CMP_LEGACY.  These bits
+>       * affect how to interpret topology information in other cpuid leaves.
+>       */
+>      __set_bit(X86_FEATURE_HTT, max_fs);
+> -    __set_bit(X86_FEATURE_X2APIC, max_fs);
+>      __set_bit(X86_FEATURE_CMP_LEGACY, max_fs);
+>  
+>      /*
+
+... these adjustments, just still in calculate_pv_featureset(). I
+haven't gone further backwards to check if/when this exposure has
+really appeared. I wouldn't be surprised if it's been like that
+for all the time since we gained x2APIC support in the hypervisor.
+
+Jan
 
