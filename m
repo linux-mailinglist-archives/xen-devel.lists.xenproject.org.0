@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C8E586CF77
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 17:41:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687310.1070610 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C10CE86CF7F
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 17:43:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687317.1070621 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfjSn-0000CP-01; Thu, 29 Feb 2024 16:40:53 +0000
+	id 1rfjUa-0000l9-B9; Thu, 29 Feb 2024 16:42:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687310.1070610; Thu, 29 Feb 2024 16:40:52 +0000
+Received: by outflank-mailman (output) from mailman id 687317.1070621; Thu, 29 Feb 2024 16:42:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfjSm-00009r-Ta; Thu, 29 Feb 2024 16:40:52 +0000
-Received: by outflank-mailman (input) for mailman id 687310;
- Thu, 29 Feb 2024 16:40:51 +0000
+	id 1rfjUa-0000jd-86; Thu, 29 Feb 2024 16:42:44 +0000
+Received: by outflank-mailman (input) for mailman id 687317;
+ Thu, 29 Feb 2024 16:42:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x8AV=KG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfjSl-00009d-UW
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 16:40:51 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ id 1rfjUZ-0000jV-4K
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 16:42:43 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4ba24ef8-d721-11ee-a1ee-f123f15fe8a2;
- Thu, 29 Feb 2024 17:40:49 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-55a179f5fa1so1933921a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 08:40:49 -0800 (PST)
+ id 8dbc9f41-d721-11ee-a1ee-f123f15fe8a2;
+ Thu, 29 Feb 2024 17:42:40 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-563b7b3e3ecso1904252a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 08:42:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- wb6-20020a170907d50600b00a3f0dbdf106sm838118ejc.105.2024.02.29.08.40.48
+ m5-20020a509305000000b0056676b80a38sm792808eda.3.2024.02.29.08.42.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Feb 2024 08:40:49 -0800 (PST)
+ Thu, 29 Feb 2024 08:42:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ba24ef8-d721-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 8dbc9f41-d721-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709224849; x=1709829649; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709224960; x=1709829760; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=66ED0Hu2okQ0qkhX0QsEVkNRBgSv+C3kCbNUGkI/Wxk=;
-        b=PQ8j9O51NkBz772vYiGkxjJ5KBoIvvXf7xY4yw1j/YcM6R+oI4X3QnsvzjDu/O/iJI
-         qxOgYeyYnOIoMonWEM8gS6uEv3FhNL4mER209V76STPnE+jRd8WJMt/kI0IpDkNBGY0N
-         bs41ESfCRwyXAy05tj5QmBFr3ntE6FFuahlK0jiDU+s+8VXGKJ3FuK4bLVogv8W7XMp6
-         wsiPAis425tboJ+xeEk8bZeMgCaVn/Y+jh+nvCKDr7o3huZYw65E5CzdE5CaHsvIu9pd
-         Ja8whnNVL99cGs0BbOgzIaYFvXRBFu4OW3m2avdhUjuONXLwWn9tEbv0WhoOJcoFibVl
-         t6ww==
+        bh=vNZxO+maZ/8cU1NVm8QqlPDl3pXTDuL601hEP/qUtHI=;
+        b=f7xUX8ZlpInN0K3betHm9pC5JNXXtSwseq2KVVb5xHuzXj10Bexy0CY2ZxiPM8Mk3U
+         x/dJ8eCsDp/d3eTdTbQJE0LPQX6/vhot/FEpUwINocXSanePiS6zTjJvL03wo3iUnahU
+         uJpDY13nmmgnFfiUK8F6JgpNxb6DReZuPLuYUqOKFv7OyIrPWwJiiZ9iQ8ckb8h1qTB9
+         PhaxupZ677RAQ2ROT02+jJ6Go5j0t87WzxPaR1p9fSKM/gjU/Ur880+3yDUZQGJQulTZ
+         yuGuI4rwbcvO3tOGfVqEq5qtcEOix/8Uj5E9fRd9T3LYJCglz3o1iR8CjnhdSzkjI9Ho
+         e/uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709224849; x=1709829649;
+        d=1e100.net; s=20230601; t=1709224960; x=1709829760;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=66ED0Hu2okQ0qkhX0QsEVkNRBgSv+C3kCbNUGkI/Wxk=;
-        b=Kl3YDvK0KWwTob/QtW5dV1HKlA8cdCsRFqsW6MlLIcQrYLWqhmc7oAmbF4oKNJ02wK
-         E3RpVgn8yQnOqLbYehh/JxUPm/NsX0MWXTIobNEQsQusaP40zAe2xTTNhiKg1+Erl+Ed
-         +z0VG0AtFBlogTqMe97wbus68KxKKvpcsRM66X5FNjeQIbl2dLLVQxdPDPRQLxulMjOA
-         R3ckYLUBOTUn5Iau6IwG3rfs4EmgdB6ETCRxgVS17xOmQhaczf893DoQ9GlDfMpSiODm
-         7G7VyEsJCiUqXcV4pTQNZnzIF4VDa5MFANE/ouNdaxVjJTzYH1US3ZLD7OnQhLRFA496
-         6uLA==
-X-Forwarded-Encrypted: i=1; AJvYcCXKoaCnYPDowz7hUD2xBjQUkEsC0JaiLsxssot4VjwPjOfllCNrvq+tioqBRaTe1IhPBrZWmPHoLqjL6LZnCO42myvF5RmUC8Lcz10HoUQ=
-X-Gm-Message-State: AOJu0YzCYE0V0a8P9NP9rsJRKJJVJFKj22m9bnJddRuYafz0diyHuoW/
-	MNa8N3hSMpJTiSDlYprUuNgsFSmHbQSS1qtWZGKZX5zb6zA54QY1JTYbomqYrg==
-X-Google-Smtp-Source: AGHT+IE9JgcOaTa+Q5MtayXrrNJgm7NLFr1BPYcaXBZ9t9AeNi0bY8sKYd4C+CfyFgonxQK1bsPAuw==
-X-Received: by 2002:a17:906:46d9:b0:a44:4ee9:c560 with SMTP id k25-20020a17090646d900b00a444ee9c560mr1267938ejs.53.1709224849435;
-        Thu, 29 Feb 2024 08:40:49 -0800 (PST)
-Message-ID: <bd95193c-522a-4c74-98e0-68fa088a5b49@suse.com>
-Date: Thu, 29 Feb 2024 17:40:47 +0100
+        bh=vNZxO+maZ/8cU1NVm8QqlPDl3pXTDuL601hEP/qUtHI=;
+        b=pSTJ+/rBUCNcJK5wrG6MrcgHxRqu52ksgJTREq0jJXqnrT0ZPrfn1tof/XuUXWeeLF
+         Cd1XcLXUt86b46vNfbjQpco3zQcdeCRAynvoP6sgI/hHl4Zh2PmneqHeWh2o8tURlqVP
+         Y6IcaeBdUeLPhX4rIBhEX+FsUY4j216IjnFlqVkVONDdVoMtF7AdFEzg9FdvAYRhAGJ5
+         lH1MRoTzne/tQcO/l2LDBm6vjm8lxxcZNRhJwC7Z3OU0F6QKRZHDf6f0NV+DGiS+QoF0
+         ZXm5HpGFJD6v9kraLznT2FWcobbA5We5nIGHNnmN86w9v9wP2hYskzruVrcKPZeVCOxF
+         IRIw==
+X-Forwarded-Encrypted: i=1; AJvYcCVliOgto5H6pDeZqk1hvV7lq1JYXXt8++mJRssZv+6R4t1HpRKhw9Pv2/afEtLq77msZ137eHhR/2x/WyCuBKU+cdApNwFiweLwNVMQwgw=
+X-Gm-Message-State: AOJu0YytQOldhaMpahBG5a3HygNay4c5wSRUTr7zGDaX2lH1cZn/YNHw
+	B7C8MehuwgS0nM9vUdCxz2g/S4+GYYTeuZZf5jeykDKub5z8uPd4ZdvAOZjwEQ==
+X-Google-Smtp-Source: AGHT+IG5ddQt4hC4mKS5cvgDWe0fw61PGHx4/ht5iJnK2UBcC+G87TFo7LID5pxTXvQ7LwAPJWGtAQ==
+X-Received: by 2002:a50:cc46:0:b0:565:3aa7:565f with SMTP id n6-20020a50cc46000000b005653aa7565fmr1767025edi.8.1709224960317;
+        Thu, 29 Feb 2024 08:42:40 -0800 (PST)
+Message-ID: <dca418e7-d863-4fa9-9740-aada11313c33@suse.com>
+Date: Thu, 29 Feb 2024 17:42:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 04/10] xen/public: address violations of MISRA C Rule
+Subject: Re: [XEN PATCH 05/10] xen/perfc: address violations of MISRA C Rule
  20.7
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
@@ -90,7 +90,7 @@ Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  julien@xen.org, George Dunlap <george.dunlap@citrix.com>,
  Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <cover.1709219010.git.nicola.vetrini@bugseng.com>
- <0cdc4dc2fcad699a2274277b32de3ee0207d5a2d.1709219010.git.nicola.vetrini@bugseng.com>
+ <3418c09bb8c4ceeceb66334191adfad190954f56.1709219010.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,23 +115,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0cdc4dc2fcad699a2274277b32de3ee0207d5a2d.1709219010.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <3418c09bb8c4ceeceb66334191adfad190954f56.1709219010.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 29.02.2024 16:27, Nicola Vetrini wrote:
-> --- a/xen/include/public/xen.h
-> +++ b/xen/include/public/xen.h
-> @@ -988,7 +988,7 @@ typedef struct {
->        ((b) >>  8) & 0xFF, ((b) >>  0) & 0xFF,                           \
->        ((c) >>  8) & 0xFF, ((c) >>  0) & 0xFF,                           \
->        ((d) >>  8) & 0xFF, ((d) >>  0) & 0xFF,                           \
-> -                e1, e2, e3, e4, e5, e6}}
-> +                (e1), (e2), (e3), (e4), (e5), (e6)}}
+> --- a/xen/common/perfc.c
+> +++ b/xen/common/perfc.c
+> @@ -10,10 +10,10 @@
+>  #include <public/sysctl.h>
+>  #include <asm/perfc.h>
+>  
+> -#define PERFCOUNTER( var, name )              { name, TYPE_SINGLE, 0 },
+> -#define PERFCOUNTER_ARRAY( var, name, size )  { name, TYPE_ARRAY,  size },
+> -#define PERFSTATUS( var, name )               { name, TYPE_S_SINGLE, 0 },
+> -#define PERFSTATUS_ARRAY( var, name, size )   { name, TYPE_S_ARRAY,  size },
+> +#define PERFCOUNTER( var, name )              { (name), TYPE_SINGLE, 0 },
+> +#define PERFCOUNTER_ARRAY( var, name, size )  { (name), TYPE_ARRAY,  (size) },
+> +#define PERFSTATUS( var, name )               { (name), TYPE_S_SINGLE, 0 },
+> +#define PERFSTATUS_ARRAY( var, name, size )   { (name), TYPE_S_ARRAY,  (size) },
 
-Why? Wasn't it agreed already that long macro arguments passed on
-(no matter whether to a function, a macro, or like used here) don't
-need parenthesizing?
+Same question as for patch 4. Plus if this needed touching, then the stray
+blanks immediately inside the parentheses would please be dropped as well.
 
 Jan
 
