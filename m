@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F2EC86CCF2
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 16:28:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687191.1070229 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CF5D86CCE8
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 16:28:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687192.1070235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfiKS-0008Nc-CU; Thu, 29 Feb 2024 15:28:12 +0000
+	id 1rfiKS-0008Qp-J5; Thu, 29 Feb 2024 15:28:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687191.1070229; Thu, 29 Feb 2024 15:28:12 +0000
+Received: by outflank-mailman (output) from mailman id 687192.1070235; Thu, 29 Feb 2024 15:28:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfiKS-0008M4-7y; Thu, 29 Feb 2024 15:28:12 +0000
-Received: by outflank-mailman (input) for mailman id 687191;
- Thu, 29 Feb 2024 15:28:10 +0000
+	id 1rfiKS-0008Nf-Du; Thu, 29 Feb 2024 15:28:12 +0000
+Received: by outflank-mailman (input) for mailman id 687192;
+ Thu, 29 Feb 2024 15:28:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ot4I=KG=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rfiKQ-00087e-9P
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 15:28:10 +0000
+ id 1rfiKR-00087e-0N
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 15:28:11 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 24a431a6-d717-11ee-afd8-a90da7624cb6;
- Thu, 29 Feb 2024 16:28:09 +0100 (CET)
+ id 25227046-d717-11ee-afd8-a90da7624cb6;
+ Thu, 29 Feb 2024 16:28:10 +0100 (CET)
 Received: from nico.bugseng.com (unknown [46.228.253.196])
- by support.bugseng.com (Postfix) with ESMTPSA id ABBBC4EE074A;
- Thu, 29 Feb 2024 16:28:07 +0100 (CET)
+ by support.bugseng.com (Postfix) with ESMTPSA id 852CA4EE074B;
+ Thu, 29 Feb 2024 16:28:09 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24a431a6-d717-11ee-afd8-a90da7624cb6
+X-Inumbo-ID: 25227046-d717-11ee-afd8-a90da7624cb6
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: nicola.vetrini@bugseng.com,
 	xen-devel@lists.xenproject.org
@@ -53,11 +53,10 @@ Cc: sstabellini@kernel.org,
 	roger.pau@citrix.com,
 	bertrand.marquis@arm.com,
 	julien@xen.org,
-	George Dunlap <george.dunlap@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH 01/10] xen/include: address violations of MISRA C Rule 20.7
-Date: Thu, 29 Feb 2024 16:27:53 +0100
-Message-Id: <15d6e4fb5c873e7ea42cfcee2faa0bf33c10d101.1709219010.git.nicola.vetrini@bugseng.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [XEN PATCH 02/10] xen/arm: address some violations of MISRA C Rule 20.7
+Date: Thu, 29 Feb 2024 16:27:54 +0100
+Message-Id: <efdeb0e013c36e18b5545fbdb33a43bb3f87039c.1709219010.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1709219010.git.nicola.vetrini@bugseng.com>
 References: <cover.1709219010.git.nicola.vetrini@bugseng.com>
@@ -74,265 +73,190 @@ No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/include/xen/bug.h      |  2 +-
- xen/include/xen/init.h     |  4 +--
- xen/include/xen/kconfig.h  |  2 +-
- xen/include/xen/list.h     | 59 +++++++++++++++++++-------------------
- xen/include/xen/param.h    | 22 +++++++-------
- xen/include/xen/spinlock.h |  2 +-
- 6 files changed, 45 insertions(+), 46 deletions(-)
+Style in arm64/cpufeature.c has not been amended, because this file seems
+to be kept in sync with its Linux counterpart.
+---
+ xen/arch/arm/arm64/cpufeature.c          | 14 +++++++-------
+ xen/arch/arm/cpuerrata.c                 |  4 ++--
+ xen/arch/arm/include/asm/arm64/sysregs.h |  2 +-
+ xen/arch/arm/include/asm/guest_atomics.h |  4 ++--
+ xen/arch/arm/include/asm/mm.h            |  2 +-
+ xen/arch/arm/include/asm/smccc.h         |  8 ++++----
+ xen/arch/arm/include/asm/vgic-emul.h     |  8 ++++----
+ xen/arch/arm/vcpreg.c                    |  5 +++--
+ 8 files changed, 24 insertions(+), 23 deletions(-)
 
-diff --git a/xen/include/xen/bug.h b/xen/include/xen/bug.h
-index 2c45c462fc63..77fe1e1ba840 100644
---- a/xen/include/xen/bug.h
-+++ b/xen/include/xen/bug.h
-@@ -80,7 +80,7 @@ struct bug_frame {
-     [bf_type]    "i" (type),                                                 \
-     [bf_ptr]     "i" (ptr),                                                  \
-     [bf_msg]     "i" (msg),                                                  \
--    [bf_line_lo] "i" ((line & ((1 << BUG_LINE_LO_WIDTH) - 1))                \
-+    [bf_line_lo] "i" (((line) & ((1 << BUG_LINE_LO_WIDTH) - 1))              \
-                       << BUG_DISP_WIDTH),                                    \
-     [bf_line_hi] "i" (((line) >> BUG_LINE_LO_WIDTH) << BUG_DISP_WIDTH)
+diff --git a/xen/arch/arm/arm64/cpufeature.c b/xen/arch/arm/arm64/cpufeature.c
+index 864413d9cc03..6fb8974ade7f 100644
+--- a/xen/arch/arm/arm64/cpufeature.c
++++ b/xen/arch/arm/arm64/cpufeature.c
+@@ -78,13 +78,13 @@
  
-diff --git a/xen/include/xen/init.h b/xen/include/xen/init.h
-index 1d7c0216bc80..0a4223833755 100644
---- a/xen/include/xen/init.h
-+++ b/xen/include/xen/init.h
-@@ -63,9 +63,9 @@ typedef int (*initcall_t)(void);
- typedef void (*exitcall_t)(void);
+ #define __ARM64_FTR_BITS(SIGNED, VISIBLE, STRICT, TYPE, SHIFT, WIDTH, SAFE_VAL) \
+ 	{						\
+-		.sign = SIGNED,				\
+-		.visible = VISIBLE,			\
+-		.strict = STRICT,			\
+-		.type = TYPE,				\
+-		.shift = SHIFT,				\
+-		.width = WIDTH,				\
+-		.safe_val = SAFE_VAL,			\
++		.sign = (SIGNED),				\
++		.visible = (VISIBLE),			\
++		.strict = (STRICT),			\
++		.type = (TYPE),				\
++		.shift = (SHIFT),				\
++		.width = (WIDTH),				\
++		.safe_val = (SAFE_VAL),			\
+ 	}
  
- #define presmp_initcall(fn) \
--    const static initcall_t __initcall_##fn __init_call("presmp") = fn
-+    const static initcall_t __initcall_##fn __init_call("presmp") = (fn)
- #define __initcall(fn) \
--    const static initcall_t __initcall_##fn __init_call("1") = fn
-+    const static initcall_t __initcall_##fn __init_call("1") = (fn)
- #define __exitcall(fn) \
-     static exitcall_t __exitcall_##fn __exit_call = fn
+ /* Define a feature with unsigned values */
+diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
+index a28fa6ac78cc..c678a555910f 100644
+--- a/xen/arch/arm/cpuerrata.c
++++ b/xen/arch/arm/cpuerrata.c
+@@ -462,8 +462,8 @@ static bool has_ssbd_mitigation(const struct arm_cpu_capabilities *entry)
+ #define MIDR_RANGE(model, min, max)     \
+     .matches = is_affected_midr_range,  \
+     .midr_model = model,                \
+-    .midr_range_min = min,              \
+-    .midr_range_max = max
++    .midr_range_min = (min),            \
++    .midr_range_max = (max)
  
-diff --git a/xen/include/xen/kconfig.h b/xen/include/xen/kconfig.h
-index c25dc0f6c2a9..b7e70289737b 100644
---- a/xen/include/xen/kconfig.h
-+++ b/xen/include/xen/kconfig.h
-@@ -25,7 +25,7 @@
- #define __ARG_PLACEHOLDER_1 0,
- #define config_enabled(cfg) _config_enabled(cfg)
- #define _config_enabled(value) __config_enabled(__ARG_PLACEHOLDER_##value)
--#define __config_enabled(arg1_or_junk) ___config_enabled(arg1_or_junk 1, 0)
-+#define __config_enabled(arg1_or_junk) ___config_enabled(arg1_or_junk (1), (0))
- #define ___config_enabled(__ignored, val, ...) val
+ #define MIDR_ALL_VERSIONS(model)        \
+     .matches = is_affected_midr_range,  \
+diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
+index 3fdeb9d8cdef..b593e4028b53 100644
+--- a/xen/arch/arm/include/asm/arm64/sysregs.h
++++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+@@ -465,7 +465,7 @@
+ /* Access to system registers */
+ 
+ #define WRITE_SYSREG64(v, name) do {                    \
+-    uint64_t _r = v;                                    \
++    uint64_t _r = (v);                                  \
+     asm volatile("msr "__stringify(name)", %0" : : "r" (_r));       \
+ } while (0)
+ #define READ_SYSREG64(name) ({                          \
+diff --git a/xen/arch/arm/include/asm/guest_atomics.h b/xen/arch/arm/include/asm/guest_atomics.h
+index a1745f8613f6..8893eb9a55d7 100644
+--- a/xen/arch/arm/include/asm/guest_atomics.h
++++ b/xen/arch/arm/include/asm/guest_atomics.h
+@@ -32,7 +32,7 @@ static inline void guest_##name(struct domain *d, int nr, volatile void *p) \
+     perfc_incr(atomics_guest_paused);                                       \
+                                                                             \
+     domain_pause_nosync(d);                                                 \
+-    name(nr, p);                                                            \
++    (name)(nr, p);                                                          \
+     domain_unpause(d);                                                      \
+ }
+ 
+@@ -52,7 +52,7 @@ static inline int guest_##name(struct domain *d, int nr, volatile void *p)  \
+     perfc_incr(atomics_guest_paused);                                       \
+                                                                             \
+     domain_pause_nosync(d);                                                 \
+-    oldbit = name(nr, p);                                                   \
++    oldbit = (name)(nr, p);                                                 \
+     domain_unpause(d);                                                      \
+                                                                             \
+     return oldbit;                                                          \
+diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+index cbcf3bf14767..48538b5337aa 100644
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -250,7 +250,7 @@ static inline void __iomem *ioremap_wc(paddr_t start, size_t len)
+ #define gaddr_to_gfn(ga)    _gfn(paddr_to_pfn(ga))
+ #define mfn_to_maddr(mfn)   pfn_to_paddr(mfn_x(mfn))
+ #define maddr_to_mfn(ma)    _mfn(paddr_to_pfn(ma))
+-#define vmap_to_mfn(va)     maddr_to_mfn(virt_to_maddr((vaddr_t)va))
++#define vmap_to_mfn(va)     maddr_to_mfn(virt_to_maddr((vaddr_t)(va)))
+ #define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
+ 
+ /* Page-align address and convert to frame number format */
+diff --git a/xen/arch/arm/include/asm/smccc.h b/xen/arch/arm/include/asm/smccc.h
+index 1adcd37443c7..a1f309eea45a 100644
+--- a/xen/arch/arm/include/asm/smccc.h
++++ b/xen/arch/arm/include/asm/smccc.h
+@@ -122,7 +122,7 @@ struct arm_smccc_res {
+ #define __constraint_read_7 __constraint_read_6, "r" (r7)
+ 
+ #define __declare_arg_0(a0, res)                            \
+-    struct arm_smccc_res    *___res = res;                  \
++    struct arm_smccc_res    *___res = (res);                \
+     register unsigned long  r0 ASM_REG(0) = (uint32_t)a0;   \
+     register unsigned long  r1 ASM_REG(1);                  \
+     register unsigned long  r2 ASM_REG(2);                  \
+@@ -130,7 +130,7 @@ struct arm_smccc_res {
+ 
+ #define __declare_arg_1(a0, a1, res)                        \
+     typeof(a1) __a1 = a1;                                   \
+-    struct arm_smccc_res    *___res = res;                  \
++    struct arm_smccc_res    *___res = (res);                \
+     register unsigned long  r0 ASM_REG(0) = (uint32_t)a0;   \
+     register unsigned long  r1 ASM_REG(1) = __a1;           \
+     register unsigned long  r2 ASM_REG(2);                  \
+@@ -139,7 +139,7 @@ struct arm_smccc_res {
+ #define __declare_arg_2(a0, a1, a2, res)                    \
+     typeof(a1) __a1 = a1;                                   \
+     typeof(a2) __a2 = a2;                                   \
+-    struct arm_smccc_res    *___res = res;				    \
++    struct arm_smccc_res    *___res = (res);                \
+     register unsigned long  r0 ASM_REG(0) = (uint32_t)a0;   \
+     register unsigned long  r1 ASM_REG(1) = __a1;           \
+     register unsigned long  r2 ASM_REG(2) = __a2;           \
+@@ -149,7 +149,7 @@ struct arm_smccc_res {
+     typeof(a1) __a1 = a1;                                   \
+     typeof(a2) __a2 = a2;                                   \
+     typeof(a3) __a3 = a3;                                   \
+-    struct arm_smccc_res    *___res = res;                  \
++    struct arm_smccc_res    *___res = (res);                \
+     register unsigned long  r0 ASM_REG(0) = (uint32_t)a0;   \
+     register unsigned long  r1 ASM_REG(1) = __a1;           \
+     register unsigned long  r2 ASM_REG(2) = __a2;           \
+diff --git a/xen/arch/arm/include/asm/vgic-emul.h b/xen/arch/arm/include/asm/vgic-emul.h
+index e52fbaa3ec04..e2afb52498a8 100644
+--- a/xen/arch/arm/include/asm/vgic-emul.h
++++ b/xen/arch/arm/include/asm/vgic-emul.h
+@@ -6,11 +6,11 @@
+  * a range of registers
+  */
+ 
+-#define VREG32(reg) reg ... reg + 3
+-#define VREG64(reg) reg ... reg + 7
++#define VREG32(reg) (reg) ... (reg) + 3
++#define VREG64(reg) (reg) ... (reg) + 7
+ 
+-#define VRANGE32(start, end) start ... end + 3
+-#define VRANGE64(start, end) start ... end + 7
++#define VRANGE32(start, end) (start) ... (end) + 3
++#define VRANGE64(start, end) (start) ... (end) + 7
  
  /*
-diff --git a/xen/include/xen/list.h b/xen/include/xen/list.h
-index b5eab3a1eb6c..d803e7848cad 100644
---- a/xen/include/xen/list.h
-+++ b/xen/include/xen/list.h
-@@ -490,9 +490,9 @@ static inline void list_splice_init(struct list_head *list,
-  * @member: the name of the list_struct within the struct.
+  * 64 bits registers can be accessible using 32-bit and 64-bit unless
+diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
+index a2d050070473..019cf34f003a 100644
+--- a/xen/arch/arm/vcpreg.c
++++ b/xen/arch/arm/vcpreg.c
+@@ -39,7 +39,8 @@
   */
- #define list_for_each_entry(pos, head, member)                          \
--    for (pos = list_entry((head)->next, typeof(*pos), member);          \
--         &pos->member != (head);                                        \
--         pos = list_entry(pos->member.next, typeof(*pos), member))
-+    for (pos = list_entry((head)->next, typeof(*(pos)), member);          \
-+         &(pos)->member != (head);                                      \
-+         pos = list_entry((pos)->member.next, typeof(*(pos)), member))
  
- /**
-  * list_for_each_entry_reverse - iterate backwards over list of given type.
-@@ -501,9 +501,9 @@ static inline void list_splice_init(struct list_head *list,
-  * @member: the name of the list_struct within the struct.
-  */
- #define list_for_each_entry_reverse(pos, head, member)                  \
--    for (pos = list_entry((head)->prev, typeof(*pos), member);          \
--         &pos->member != (head);                                        \
--         pos = list_entry(pos->member.prev, typeof(*pos), member))
-+    for (pos = list_entry((head)->prev, typeof(*(pos)), member);          \
-+         &(pos)->member != (head);                                      \
-+         pos = list_entry((pos)->member.prev, typeof(*(pos)), member))
- 
- /**
-  * list_prepare_entry - prepare a pos entry for use in
-@@ -516,7 +516,7 @@ static inline void list_splice_init(struct list_head *list,
-  * list_for_each_entry_continue.
-  */
- #define list_prepare_entry(pos, head, member)           \
--    ((pos) ? : list_entry(head, typeof(*pos), member))
-+    ((pos) ? : list_entry(head, typeof(*(pos)), member))
- 
- /**
-  * list_for_each_entry_continue - continue iteration over list of given type
-@@ -528,9 +528,9 @@ static inline void list_splice_init(struct list_head *list,
-  * the current position.
-  */
- #define list_for_each_entry_continue(pos, head, member)                 \
--    for (pos = list_entry(pos->member.next, typeof(*pos), member);      \
--         &pos->member != (head);                                        \
--         pos = list_entry(pos->member.next, typeof(*pos), member))
-+    for (pos = list_entry((pos)->member.next, typeof(*(pos)), member);  \
-+         &(pos)->member != (head);                                      \
-+         pos = list_entry((pos)->member.next, typeof(*(pos)), member))
- 
- /**
-  * list_for_each_entry_from - iterate over list of given type from the
-@@ -542,8 +542,8 @@ static inline void list_splice_init(struct list_head *list,
-  * Iterate over list of given type, continuing from current position.
-  */
- #define list_for_each_entry_from(pos, head, member)                     \
--    for (; &pos->member != (head);                                      \
--         pos = list_entry(pos->member.next, typeof(*pos), member))
-+    for (; &(pos)->member != (head);                                    \
-+         pos = list_entry((pos)->member.next, typeof(*(pos)), member))
- 
- /**
-  * list_for_each_entry_safe - iterate over list of given type safe
-@@ -554,10 +554,10 @@ static inline void list_splice_init(struct list_head *list,
-  * @member: the name of the list_struct within the struct.
-  */
- #define list_for_each_entry_safe(pos, n, head, member)                  \
--    for (pos = list_entry((head)->next, typeof(*pos), member),          \
--         n = list_entry(pos->member.next, typeof(*pos), member);        \
--         &pos->member != (head);                                        \
--         pos = n, n = list_entry(n->member.next, typeof(*n), member))
-+    for (pos = list_entry((head)->next, typeof(*(pos)), member),        \
-+         n = list_entry((pos)->member.next, typeof(*(pos)), member);    \
-+         &(pos)->member != (head);                                      \
-+         pos = (n), n = list_entry((n)->member.next, typeof(*(n)), member))
- 
- /**
-  * list_for_each_entry_safe_continue
-@@ -570,10 +570,10 @@ static inline void list_splice_init(struct list_head *list,
-  * safe against removal of list entry.
-  */
- #define list_for_each_entry_safe_continue(pos, n, head, member)         \
--    for (pos = list_entry(pos->member.next, typeof(*pos), member),      \
--         n = list_entry(pos->member.next, typeof(*pos), member);        \
--         &pos->member != (head);                                        \
--         pos = n, n = list_entry(n->member.next, typeof(*n), member))
-+    for (pos = list_entry((pos)->member.next, typeof(*(pos)), member),  \
-+         n = list_entry((pos)->member.next, typeof(*(pos)), member);    \
-+         &(pos)->member != (head);                                      \
-+         pos = (n), n = list_entry((n)->member.next, typeof(*(n)), member))
- 
- /**
-  * list_for_each_entry_safe_from
-@@ -586,9 +586,9 @@ static inline void list_splice_init(struct list_head *list,
-  * removal of list entry.
-  */
- #define list_for_each_entry_safe_from(pos, n, head, member)             \
--    for (n = list_entry(pos->member.next, typeof(*pos), member);        \
--         &pos->member != (head);                                        \
--         pos = n, n = list_entry(n->member.next, typeof(*n), member))
-+    for (n = list_entry((pos)->member.next, typeof(*(pos)), member);    \
-+         &(pos)->member != (head);                                      \
-+         pos = (n), n = list_entry((n)->member.next, typeof(*(n)), member))
- 
- /**
-  * list_for_each_entry_safe_reverse
-@@ -601,10 +601,10 @@ static inline void list_splice_init(struct list_head *list,
-  * of list entry.
-  */
- #define list_for_each_entry_safe_reverse(pos, n, head, member)          \
--    for (pos = list_entry((head)->prev, typeof(*pos), member),          \
--         n = list_entry(pos->member.prev, typeof(*pos), member);        \
--         &pos->member != (head);                                        \
--         pos = n, n = list_entry(n->member.prev, typeof(*n), member))
-+    for (pos = list_entry((head)->prev, typeof(*(pos)), member),        \
-+         n = list_entry((pos)->member.prev, typeof(*(pos)), member);    \
-+         &(pos)->member != (head);                                      \
-+         pos = (n), n = list_entry((n)->member.prev, typeof(*(n)), member))
- 
- /**
-  * list_for_each_rcu - iterate over an rcu-protected list
-@@ -653,9 +653,9 @@ static inline void list_splice_init(struct list_head *list,
-  * as long as the traversal is guarded by rcu_read_lock().
-  */
- #define list_for_each_entry_rcu(pos, head, member)                      \
--    for (pos = list_entry((head)->next, typeof(*pos), member);          \
-+    for (pos = list_entry((head)->next, typeof(*(pos)), member);        \
-          &rcu_dereference(pos)->member != (head);                       \
--         pos = list_entry(pos->member.next, typeof(*pos), member))
-+         pos = list_entry((pos)->member.next, typeof(*(pos)), member))
- 
- /**
-  * list_for_each_continue_rcu
-@@ -977,4 +977,3 @@ static inline void hlist_add_after_rcu(struct hlist_node *prev,
-           pos = pos->next)
- 
- #endif /* __XEN_LIST_H__ */
--
-diff --git a/xen/include/xen/param.h b/xen/include/xen/param.h
-index 13607e0e50e0..1bdbab34ab1f 100644
---- a/xen/include/xen/param.h
-+++ b/xen/include/xen/param.h
-@@ -45,42 +45,42 @@ extern const struct kernel_param __setup_start[], __setup_end[];
- #define TEMP_NAME(base) _TEMP_NAME(base, __LINE__)
- 
- #define custom_param(_name, _var) \
--    __setup_str __setup_str_##_var[] = _name; \
-+    __setup_str __setup_str_##_var[] = (_name); \
-     __kparam __setup_##_var = \
-         { .name = __setup_str_##_var, \
-           .type = OPT_CUSTOM, \
--          .par.func = _var }
-+          .par.func = (_var) }
- #define boolean_param(_name, _var) \
--    __setup_str __setup_str_##_var[] = _name; \
-+    __setup_str __setup_str_##_var[] = (_name); \
-     __kparam __setup_##_var = \
-         { .name = __setup_str_##_var, \
-           .type = OPT_BOOL, \
-           .len = sizeof(_var) + \
-                  BUILD_BUG_ON_ZERO(sizeof(_var) != sizeof(bool)), \
--          .par.var = &_var }
-+          .par.var = &(_var) }
- #define integer_param(_name, _var) \
--    __setup_str __setup_str_##_var[] = _name; \
-+    __setup_str __setup_str_##_var[] = (_name); \
-     __kparam __setup_##_var = \
-         { .name = __setup_str_##_var, \
-           .type = OPT_UINT, \
-           .len = sizeof(_var), \
--          .par.var = &_var }
-+          .par.var = &(_var) }
- #define size_param(_name, _var) \
--    __setup_str __setup_str_##_var[] = _name; \
-+    __setup_str __setup_str_##_var[] = (_name); \
-     __kparam __setup_##_var = \
-         { .name = __setup_str_##_var, \
-           .type = OPT_SIZE, \
-           .len = sizeof(_var), \
--          .par.var = &_var }
-+          .par.var = &(_var) }
- #define string_param(_name, _var) \
--    __setup_str __setup_str_##_var[] = _name; \
-+    __setup_str __setup_str_##_var[] = (_name); \
-     __kparam __setup_##_var = \
-         { .name = __setup_str_##_var, \
-           .type = OPT_STR, \
-           .len = sizeof(_var), \
--          .par.var = &_var }
-+          .par.var = &(_var) }
- #define ignore_param(_name)                 \
--    __setup_str TEMP_NAME(__setup_str_ign)[] = _name;    \
-+    __setup_str TEMP_NAME(__setup_str_ign)[] = (_name);  \
-     __kparam TEMP_NAME(__setup_ign) =                    \
-         { .name = TEMP_NAME(__setup_str_ign),            \
-           .type = OPT_IGNORE }
-diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
-index 1cd9120eac7a..0e6a083dfb9e 100644
---- a/xen/include/xen/spinlock.h
-+++ b/xen/include/xen/spinlock.h
-@@ -94,7 +94,7 @@ struct lock_profile_qhead {
-     int32_t                   idx;     /* index for printout */
- };
- 
--#define _LOCK_PROFILE(lockname) { .name = #lockname, .lock = &lockname, }
-+#define _LOCK_PROFILE(lockname) { .name = #lockname, .lock = &(lockname), }
- #define _LOCK_PROFILE_PTR(name)                                               \
-     static struct lock_profile * const __lock_profile_##name                  \
-     __used_section(".lockprofile.data") =                                     \
+ #ifdef CONFIG_ARM_64
+-#define WRITE_SYSREG_SZ(sz, val, sysreg) WRITE_SYSREG((uint##sz##_t)val, sysreg)
++#define WRITE_SYSREG_SZ(sz, val, sysreg) \
++    WRITE_SYSREG((uint##sz##_t)(val), sysreg)
+ #else
+ /*
+  * WRITE_SYSREG{32/64} on arm32 is defined as variadic macro which imposes
+@@ -64,7 +65,7 @@ static bool func(struct cpu_user_regs *regs, type##sz##_t *r, bool read)    \
+     bool cache_enabled = vcpu_has_cache_enabled(v);                         \
+                                                                             \
+     GUEST_BUG_ON(read);                                                     \
+-    WRITE_SYSREG_SZ(sz, *r, reg);                                           \
++    WRITE_SYSREG_SZ(sz, *(r), reg);                                         \
+                                                                             \
+     p2m_toggle_cache(v, cache_enabled);                                     \
+                                                                             \
 -- 
 2.34.1
 
