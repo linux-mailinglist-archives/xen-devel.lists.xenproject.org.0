@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46C9B86C9A1
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 14:02:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687066.1069859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EC6686C9AB
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 14:03:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687069.1069868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfg26-0003WN-7Y; Thu, 29 Feb 2024 13:01:06 +0000
+	id 1rfg4I-0004ck-IS; Thu, 29 Feb 2024 13:03:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687066.1069859; Thu, 29 Feb 2024 13:01:06 +0000
+Received: by outflank-mailman (output) from mailman id 687069.1069868; Thu, 29 Feb 2024 13:03:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfg26-0003Te-4N; Thu, 29 Feb 2024 13:01:06 +0000
-Received: by outflank-mailman (input) for mailman id 687066;
- Thu, 29 Feb 2024 13:01:05 +0000
+	id 1rfg4I-0004aR-Fo; Thu, 29 Feb 2024 13:03:22 +0000
+Received: by outflank-mailman (input) for mailman id 687069;
+ Thu, 29 Feb 2024 13:03:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x8AV=KG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfg25-0003TY-1Z
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 13:01:05 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ id 1rfg4H-0004aL-8Y
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 13:03:21 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9824c9f9-d702-11ee-afd8-a90da7624cb6;
- Thu, 29 Feb 2024 14:01:03 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a3d484a58f6so146069466b.3
- for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 05:01:03 -0800 (PST)
+ id e9872243-d702-11ee-afd8-a90da7624cb6;
+ Thu, 29 Feb 2024 14:03:20 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a446478b04bso18725966b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 05:03:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- gg20-20020a170906e29400b00a4426352d8asm659377ejb.193.2024.02.29.05.01.02
+ mp7-20020a1709071b0700b00a440ceb4110sm670082ejc.183.2024.02.29.05.03.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Feb 2024 05:01:03 -0800 (PST)
+ Thu, 29 Feb 2024 05:03:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9824c9f9-d702-11ee-afd8-a90da7624cb6
+X-Inumbo-ID: e9872243-d702-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709211663; x=1709816463; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709211800; x=1709816600; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=QRP+weW0GjLngKlURrimZf/CrgVi3wASdZaM9BCrpwQ=;
-        b=Kh87GuLkC7m9JeF3LwiSKBs7ZE23MpcPNgCIwqFkye5vAXd5HXk7BGLMGrpv56IDPf
-         vmhA7Gm9jujcUi8K9Fl1zpoBW/k8fu6syPtcasW738e86K88/roICzvDY3oML+oQh4VQ
-         Cy5MBtCvyG90AClywgBHQiCrpVvSKXPCA2lVKy7k51tAjTod5S+vT8/B6ZvH6d00rPyU
-         i8i86tJT/gzCzQhPtSSR9/WiG+Y6I39H+Y9RkTUHAbHY1AtiqL8FVxGOARV5PKqr8C6F
-         ujXuPhnfIrrXRhjlYPW/XIUle2TvEN4yPZmLK+Oi1PBn7k/3LptCCTw6UcouclgAYakJ
-         d90w==
+        bh=L+eXhvCDuJb+v4y6mj8ABLnYe6afYa26GLF55SyHyBI=;
+        b=GOKdjT+QpS2DZCzErYIoDT/Mlxd8eAVJWnnc8a0VE1XtfAq05QjqvCPsIG0+cykDY5
+         piZxrUeOnIjqDlyMA0YJEy+M3scP8YAv1JHb2QiQPFE6QFwU142LvMcEOKK1mauH9Rco
+         tjf6u2E07m/If0rhWrkLfY6sqNunibHNljmf1nbztQzGL8s9FykGtE/sM9JSj4yvOMTx
+         0zIjhNceTGqhbRM2GC57rUZyknCSPobWi5G/ffRE4qw7R9l1YDO1zSmoY/57Z9SRzoLf
+         mVLnEKDTP0NU5mi7oVuLQL2GfdPeY3c0+f417A1lnP/hJzi0LQEdnLVCLJqv9Lk9zfJa
+         1v5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709211663; x=1709816463;
+        d=1e100.net; s=20230601; t=1709211800; x=1709816600;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QRP+weW0GjLngKlURrimZf/CrgVi3wASdZaM9BCrpwQ=;
-        b=rGZqmoWWN5jJN0N2oylEiJKVnrdLn2MMR7/Ds+flC0fYWO1IgLKxOd+qpMAOJXsrei
-         ShCfRnzjZ6vtXqD7KxGNYSnwzGDBwaqFpe0S7hrql2oFEblhLfJlsB8dol5OjrgusOVC
-         mDOjnshhHO5uK3DDp9km3SOQheB61LZjKiqF3QNxsL89FdFjg/I9Rw/qV5O0ApMmcJ6O
-         NMhPnGCIqavVvXREL/KEx76z1PdXaSn7W3rPBrSvaEel0r44f4DXmU61WU/HIzhb6twS
-         coqY7B1cWA/dPJv4cx/b1xHgDrK9bYZVZpR7XmBI4sVDaq3El7wVAYF2w/jBDpBQnNWe
-         n4Cw==
-X-Forwarded-Encrypted: i=1; AJvYcCWG3B1nFM97GAYxRSa0OrARXxS6makhNm5OMerRb2+lofG9/FZ8R48prZryRkkZQwJqQAv+KdTLciZ6VpgeWJmG4HoJVJsHp0Vw4YaLpV8=
-X-Gm-Message-State: AOJu0Ywa+TJTbQyTVUZCmCwPDygN+r5Lb8pJ+HRcuulf3TKjdeKdRUcK
-	J8rVu9H+QX4NXrTJoBojOBAtWr5VLlBFj9pSW3nxtD3HYOXuecVLbJo6ZrzcPXuCz+ydLSprMNw
-	=
-X-Google-Smtp-Source: AGHT+IHd80tWvIKGtqBK92bIcwTFX+EBeB7krGTS4Vfhu1Yndi22o1yNYWgVYSDWQTCZkscnYH4pvg==
-X-Received: by 2002:a17:906:3414:b0:a44:311a:3ec9 with SMTP id c20-20020a170906341400b00a44311a3ec9mr1404569ejb.51.1709211663378;
-        Thu, 29 Feb 2024 05:01:03 -0800 (PST)
-Message-ID: <78032daf-9052-4ab8-ba05-456fa4aee17b@suse.com>
-Date: Thu, 29 Feb 2024 14:01:01 +0100
+        bh=L+eXhvCDuJb+v4y6mj8ABLnYe6afYa26GLF55SyHyBI=;
+        b=xMC2TFXBTqGNH2TkgoESGdoU3iXg0SyLs3eqvaNT7OfP8rgWQY1rqxhq9BSyEKz4sv
+         XQq+1JHByXGa49eXhlAXaOG/TVJn6rs/Upc2y5EK3Y1HpNv4sUjSTF8Gk4u+MpfzQ00A
+         SEYjdc7i0DE9HuK0J1CZnrffrUMmiN5yWyzEqHKiFWnrb8unFF1zEOn8Nf4T6BSMqDAs
+         uEesWX/vl4S9XSLYlhuYDcNSWBBBmP8csHi2qGHzblfIC3RUuD9Js11232akP8YcMnmy
+         PzvmifZoDQa/ZKIZWmE36aJvgbgcBbybb+PyUE2tuE5IMOOuBiYKcrv0Egja4bKll4dH
+         EPUQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUd1o1I83lW+/sR1r6bTT1BfJpNLTKCGdiy+OKriTv10dpi4uplDNBq+RXGT2YwkaUlRZTESef9aw1DJf/tu3xBkB8bDvs6q63Qx0pDLzI=
+X-Gm-Message-State: AOJu0Yyb08VzBGM9p8dhG1quWlv74UmAnGox/Pzxm/IpMHCCS7tGa8vC
+	efueYChJIXthpWfnT6W43SoRASYVxfxJTYIp7ujTTVswiBRYmNH/V1n909CUZQ==
+X-Google-Smtp-Source: AGHT+IEVsQfR53UbMtrZML6OoUJTkPNNEOV5Xa4PKNBjk6nYEnBrbwKhyRMQ1+RYzMsxGIj0hVNvVw==
+X-Received: by 2002:a17:906:d145:b0:a3e:7f54:12c1 with SMTP id br5-20020a170906d14500b00a3e7f5412c1mr1552311ejb.72.1709211799908;
+        Thu, 29 Feb 2024 05:03:19 -0800 (PST)
+Message-ID: <52ea04ab-9a88-4288-b8d3-7af49e67c88f@suse.com>
+Date: Thu, 29 Feb 2024 14:03:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] README: bump minimum required clang/llvm version
+Subject: Re: [PATCH v9 1/6] config: update Mini-OS commit
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+To: Juergen Gross <jgross@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
-References: <20240229095529.17723-1-roger.pau@citrix.com>
- <20240229095529.17723-2-roger.pau@citrix.com>
- <780ec3ab-08e3-4fd8-a85f-0e89ea75dcc8@suse.com> <ZeB7S6i7pIwzkUNE@macbook>
+ xen-devel@lists.xenproject.org
+References: <20240229124830.13680-1-jgross@suse.com>
+ <20240229124830.13680-2-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,48 +113,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZeB7S6i7pIwzkUNE@macbook>
+In-Reply-To: <20240229124830.13680-2-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 29.02.2024 13:40, Roger Pau Monné wrote:
-> On Thu, Feb 29, 2024 at 01:11:55PM +0100, Jan Beulich wrote:
->> On 29.02.2024 10:55, Roger Pau Monne wrote:
->>> --- a/README
->>> +++ b/README
->>> @@ -41,7 +41,7 @@ provided by your OS distributor:
->>>          - GCC 4.1.2_20070115 or later
->>>          - GNU Binutils 2.16.91.0.5 or later
->>>          or
->>> -        - Clang/LLVM 3.5 or later
->>> +        - Clang/LLVM 14.0.0 or later
->>
->> Wow, that's a big step. I'm build-testing with Clang7 on one system and
->> with Clang5 on another (and the latter more frequently than the former).
->> If any real dependency on this new a version (about 3 years old?) was
->> introduced, I would then no longer be able to locally test any Clang
->> builds (and hence the risk would again increase that I introduce issues
->> that affect just Clang builds).
+On 29.02.2024 13:48, Juergen Gross wrote:
+> Update the Mini-OS upstream revision.
 > 
-> Would it be possible for you to update to a newer version?  I see both
-> the OpenSUSE containers in Gitlab have newer versions of Clang.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-No. These are SLES versions which I'm not intending to touch. See
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-https://lists.xen.org/archives/html/xen-devel/2024-02/msg01793.html
 
-and
-
-https://lists.xen.org/archives/html/xen-devel/2024-02/msg01795.html
-
-for why. The most recent piece of hardware I've installed a fresh (but
-not exactly new, yet still fully supported) SLES version on would
-apparently offer Clang7 only, either.
-
-If anything I could see about building a newer Clang version myself;
-no idea how involved that is compared to the building of gcc (which I
-consider pretty straightforward, but that's biased by me being used to
-doing so).
-
-Jan
 
