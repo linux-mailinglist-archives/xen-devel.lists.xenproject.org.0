@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ADD186C191
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 08:03:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686854.1069395 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF9A286C2AA
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 08:38:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686866.1069428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfaRs-0005i3-RU; Thu, 29 Feb 2024 07:03:20 +0000
+	id 1rfazP-0001o7-Ny; Thu, 29 Feb 2024 07:37:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686854.1069395; Thu, 29 Feb 2024 07:03:20 +0000
+Received: by outflank-mailman (output) from mailman id 686866.1069428; Thu, 29 Feb 2024 07:37:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfaRs-0005fu-O6; Thu, 29 Feb 2024 07:03:20 +0000
-Received: by outflank-mailman (input) for mailman id 686854;
- Thu, 29 Feb 2024 07:03:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rfazP-0001le-Kl; Thu, 29 Feb 2024 07:37:59 +0000
+Received: by outflank-mailman (input) for mailman id 686866;
+ Thu, 29 Feb 2024 07:37:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x8AV=KG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfaRq-0005fm-VG
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 07:03:18 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d45939a-d6d0-11ee-afd8-a90da7624cb6;
- Thu, 29 Feb 2024 08:03:17 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-565d1656c12so963416a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 23:03:17 -0800 (PST)
+ id 1rfazN-0001lW-Lk
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 07:37:57 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 73b99fe3-d6d5-11ee-a1ee-f123f15fe8a2;
+ Thu, 29 Feb 2024 08:37:55 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a44360a8b9dso56336066b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Feb 2024 23:37:55 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s12-20020a056402164c00b005667516866dsm321384edx.33.2024.02.28.23.03.16
+ lb24-20020a170906add800b00a4131367204sm391444ejb.80.2024.02.28.23.37.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Feb 2024 23:03:16 -0800 (PST)
+ Wed, 28 Feb 2024 23:37:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d45939a-d6d0-11ee-afd8-a90da7624cb6
+X-Inumbo-ID: 73b99fe3-d6d5-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709190197; x=1709794997; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=UcIUT9y/WAluqHtUy+fvfzc42TETOeVyLkUfy04xi6Q=;
-        b=UPzAimFsgzhW1jbhrO2U+9id/yP6u8RSfDPB7t6NtGuZBi+W39KDzXXwMZ3eNTbiD2
-         G/7KDV2JEuyQFbbaXSCSj5MnlXiT2CdeJY8J6OzIaMYsDiVg881J4YIQWxMK4+gSLqr3
-         BJYasbnz0FAHsyt/2vxXbPqWrp1HHBKHHssIktpRWBGHAK6qGv4nW4C8ejZJOTbZD8nb
-         Q7EiZsC+tY4oBok+vKuPjnUlU0b1FVLnjHhEZNY7gFckjC3qAM5uZ2S8I6DjidA5HPLV
-         D+nbzvTOugV+WpqEahKyWJBL6JGOS8hvf9H7NqbXWfSJpXoztHp7tssmmtNJ/QaYZwCx
-         roKA==
+        d=suse.com; s=google; t=1709192275; x=1709797075; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TxUzgkmubUb3J27gLbgz86cIAhX78Zc6oPVUOiI1wZg=;
+        b=ed4JsGKOV7Ra49DqgXUQcwY4s+5Pkvyvr9WDp6Uo7I88mP+au/R5qIPFE2ViQvMrhV
+         yw1PVmek9X5VgtLYjrjaIcox8aVCh5mbLYkMCnU3z1qm2t6NSKH9X7ht1/7GCAcNdAxf
+         JLIWFeVoCR2nZgK/yOjPhDpVq2HHzDnzJZJ8BD/VdV5vtsjBTQ1qmWzrln8F5orMXvgA
+         l8OFlIfDtS5CfoD8igDYctKJVXd2mc5btjzEk4gEqkDRh8cfx6c+xefcArdgQqLWLbiP
+         IujqA6eiE/r7E5eRU/jGtdfFpVMD4z6rbSOpGvQdNtJAS/r5V+QcH6XUPK/jpZtbGD9H
+         XZ0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709190197; x=1709794997;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=UcIUT9y/WAluqHtUy+fvfzc42TETOeVyLkUfy04xi6Q=;
-        b=D+9b3XfN+TIE//ln1RE7YY6zldHGjSUDe8T/DMxtPnmSGS1ufFWJPXuWhKRM0YEUsf
-         QhmGETWyVYJ4OZtn2pjdLHZ+9C2OJs9J6jR51TDlkZUWUykvgfR6WiyfSitDBqVZwmZI
-         myba9Tl8SFpaLCVWLe+2y75htitqHGXKvuAiFWbzhJo4PQh1cXIk8hYnFgVMnEitBwuC
-         oZxEuFtOVgAoss5yWsMeACf8OJo/ckobLkirZuewsOg6j4tugHnOLy8td8y5ysBdmMDl
-         UA53+8OH+X9nsj2yVwMWqRrE54ysfhYjevjofnG91QWYiJhVaEDFCBezZimUy0MaaZ4R
-         wHXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVXyt59EKMvnrTUZpCP7Wzn4xTuF6H+e5CEEOyOY1Pu/0psb9w5MyjoeQQhqrwjduzk2ytDiCdhghAKvRjjJ/G9blUdJn+Zzz+ZK8Q2FJw=
-X-Gm-Message-State: AOJu0YxK8kINaPIhuiJysFEqmkbop2MpLhd9RasPM9/8AoUzrORigNf7
-	ztHP5RcUOY7433+nHBb+h7KcE4m95rJTPCjjHmEkiQowXnI+9Ygt6OgF2ANKyA==
-X-Google-Smtp-Source: AGHT+IFsBMNtwxkE5x7L8PMc+f5Fod468HKv26dQEXHBijGuPM8Pm2OTsvBTIglOvJbntJEQrdHiMw==
-X-Received: by 2002:a50:cc08:0:b0:566:13f8:bcc with SMTP id m8-20020a50cc08000000b0056613f80bccmr761373edi.0.1709190197024;
-        Wed, 28 Feb 2024 23:03:17 -0800 (PST)
-Message-ID: <00881c6e-22a5-4283-b071-a9b92fbaf89a@suse.com>
-Date: Thu, 29 Feb 2024 08:03:15 +0100
+        d=1e100.net; s=20230601; t=1709192275; x=1709797075;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TxUzgkmubUb3J27gLbgz86cIAhX78Zc6oPVUOiI1wZg=;
+        b=hyUKn2w1+1ZDuXlbIr+St4XxUdyN17hDcUr9spIsD1VzLiD+lLX5w6ucK4aCI8CR64
+         H+e7xm7cT1vyZmmrGHblSOHo96NmrIkJ8G7tFPbr+4/xAOZ4Do1JocTfeDkXuGX9Ah78
+         RA+5OhXr33tTnSXsVGEdzrr6YvxK7UqVwi8SbPgGChxcDjIoQEM5UGCn4hWI0gihLtBt
+         Kxrcr6iuBlfsJF2rocIoilHTg1RpmikhcxiUf1emFjj1PfXIgtaV3TJB68Juuw19ts/O
+         jVPowV281yU0a6bB/OsTdELAwRQ5HoCpH4bs77ahxpaj+KzeeKZl1DYk1zzyKtYoOY9I
+         qzTw==
+X-Forwarded-Encrypted: i=1; AJvYcCXX7Org4Q1TMTWeWDJ7sy8bo+scNMbHtDyJvmMh8sszKNzFE7/wkAaAUHJElbQhtTZ7LzKHhrC8Z27Sm4aMUpABx/NW8xbwL/lQ7w5SX+8=
+X-Gm-Message-State: AOJu0YzrSbQlTwyq0tWq3oSjno1jTw87zmvBBnh/9wGJJtKfmFqqSmWn
+	BpgfBp0HVk2JhJ2liGcdURESlNDCgDv+YnVDxwzVlbfh6XMs36BooopEmKdouw==
+X-Google-Smtp-Source: AGHT+IHe39N40kSTHn0ZakWxc6IYudPegU4lQ7t1DTRAqUGWBh43lajHEKJUCVHQIbYIQR7Lw/qPLA==
+X-Received: by 2002:a17:906:fc1e:b0:a43:d6a9:ced8 with SMTP id ov30-20020a170906fc1e00b00a43d6a9ced8mr855517ejb.56.1709192274861;
+        Wed, 28 Feb 2024 23:37:54 -0800 (PST)
+Message-ID: <19c837ce-534c-4b76-b8fd-f5baa9f328bd@suse.com>
+Date: Thu, 29 Feb 2024 08:37:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: preparations for 4.18.1
+Subject: Re: [PATCH 1/2] x86/memsharing: use an atomic add instead of a
+ cmpxchg loop
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Tamas K Lengyel <tamas@tklengyel.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20240222090530.62530-1-roger.pau@citrix.com>
+ <20240222090530.62530-2-roger.pau@citrix.com>
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Wei Liu <wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>,
- Kelly Choi <kelly.choi@cloud.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Julien Grall <julien@xen.org>
-References: <7dc621a0-924c-499c-86c1-c35ec1f34ec2@suse.com>
- <1f251f2e-91de-4f81-a93c-dcb95746d2e5@xen.org>
- <5a4e8583-7747-4f24-94f0-d040dabb5b04@suse.com>
- <521a4d3b-8ef1-4449-97bd-1a3d3e0e35ec@xen.org>
- <alpine.DEB.2.22.394.2402281445450.575685@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,29 +115,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2402281445450.575685@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20240222090530.62530-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 28.02.2024 23:45, Stefano Stabellini wrote:
-> On Wed, 28 Feb 2024, Julien Grall wrote:
->> On 28/02/2024 12:58, Jan Beulich wrote:
->>> On 28.02.2024 12:50, Julien Grall wrote:
->>>> On 27/02/2024 13:19, Jan Beulich wrote:
->>>>> the release is due in two to three weeks. Please point out backports you
->>>>> find
->>>>> missing from the respective staging branch, but which you consider
->>>>> relevant.
->>>>
->>>> For Arm:
->>>>
->>>> e11f576650 ("xen/arm: Fix UBSAN failure in start_xen()")
->>>
->>> Which I assume you or Stefano will take care of?
->>
->> I was expecting Stefano would do it as he did the backports in the past.
+On 22.02.2024 10:05, Roger Pau Monne wrote:
+> The usage of a cmpxchg loop in get_next_handle() is unnecessary, as the same
+> can be achieved with an atomic increment, which is both simpler to read, and
+> avoid any need for a loop.
+> 
+> The cmpxchg usage is likely a remnant of 32bit support, which didn't have an
+> instruction to do an atomic 64bit add, and instead a cmpxchg had to be used.
+> 
+> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-of-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Was it deliberate that you did not also put it on the 4.17 branch?
+Hmm, same typo again, so my commit script again got the author wrong.
+I'm sorry again. I would consider adding an explicit confirmation step
+when there's no (well-formed) S-o-b, but I use this script elsewhere
+as well, and in e.g. binutils and gcc S-o-b are pretty uncommon. (And
+to avoid the question: I'm specifically avoiding From: itself in the
+common case, as for you and other people with non-ASCII characters in
+their names those typically don't properly show up there.)
 
 Jan
 
