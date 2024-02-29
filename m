@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 705F286C384
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 09:32:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686884.1069468 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 843EE86C46F
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 10:03:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686896.1069478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfbq5-0003cI-OL; Thu, 29 Feb 2024 08:32:25 +0000
+	id 1rfcJF-00087u-36; Thu, 29 Feb 2024 09:02:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686884.1069468; Thu, 29 Feb 2024 08:32:25 +0000
+Received: by outflank-mailman (output) from mailman id 686896.1069478; Thu, 29 Feb 2024 09:02:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfbq5-0003a9-Ks; Thu, 29 Feb 2024 08:32:25 +0000
-Received: by outflank-mailman (input) for mailman id 686884;
- Thu, 29 Feb 2024 08:32:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rfcJF-00086O-0H; Thu, 29 Feb 2024 09:02:33 +0000
+Received: by outflank-mailman (input) for mailman id 686896;
+ Thu, 29 Feb 2024 09:02:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x8AV=KG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfbq4-0003a1-Rg
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 08:32:24 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f267d62-d6dd-11ee-a1ee-f123f15fe8a2;
- Thu, 29 Feb 2024 09:32:22 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a43488745bcso100772466b.3
- for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 00:32:22 -0800 (PST)
+ id 1rfcJD-00086G-SS
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 09:02:31 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 442d1994-d6e1-11ee-afd8-a90da7624cb6;
+ Thu, 29 Feb 2024 10:02:30 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-565a3910f86so987544a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 01:02:29 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- sa24-20020a1709076d1800b00a440019ac45sm438328ejc.69.2024.02.29.00.32.21
+ s12-20020a056402520c00b0056691924615sm414578edd.2.2024.02.29.01.02.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Feb 2024 00:32:21 -0800 (PST)
+ Thu, 29 Feb 2024 01:02:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f267d62-d6dd-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 442d1994-d6e1-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709195542; x=1709800342; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709197349; x=1709802149; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=CLMf8eDTNHw6Alw0RWohgl+4qC6dnJ/q/Vt6MEOnodc=;
-        b=DvDYzl9/ym25Uhk1VKateXDJHX3Vz9wvBhhJ/keOi3xIOtq2NCM1ZM5KXhrH5ZJNvr
-         qjiA1r7V9+i3uGGXKWkFDYyGdiLEmEAHmvvP/pITCPgi/Fxt1xnoKidK/kf1ur6fxssm
-         7WX9PdWFG+UJ+LDIlLh9EVBdY/YuQX5zcL13q8wJq9Tz9janYYEh1o4+U5fsKYrvTDJt
-         57SSg6B9bHZCYIO18SYcQX/W81+HKyeLGSrSdjSBMAq54lioTu0seLB9TrG33o8X5+6Z
-         yyr2fVT3Z6OB9a0bOVMPEJ8skBHTR8+tJ9fV24XxG++sB3jSg8tA6X2NfrT3LZbTPIq8
-         sDFQ==
+        bh=A440DB1rpePBv7q7I/YQhlrb420DWDiyJv6Tx+CZ5uA=;
+        b=LhWVjAGytZvsTdpaZlaY+BFkmvYjdfu6FJ7YOUvahGT7Vgd57zoMjwwnct8ew3aMWI
+         7j4unoyj8N1TfVHLLqMH+T/HG/L+VeK8MkajG3StKnZtRiciCzINRqNjHjb1xJUfbiR7
+         TmTwXTIpr1CoVAFt/Xn3lQJPw1yeY+siUfhMJ6+pw9NSd4+VcLczhVVWxynwv6Vo0OiF
+         wIH5hW1TVPPsl7heG9tOdVybrUHvD1tzvSEeEWRTSUAHQOptksfEZfNAJubz8s59d3VO
+         FK+aMmKCaM/bSok/F02MKtdlt8CW/MBeRqJJl2od0koIn9TsBQ8+vUKzCmGG3SepGrLo
+         BXhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709195542; x=1709800342;
+        d=1e100.net; s=20230601; t=1709197349; x=1709802149;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=CLMf8eDTNHw6Alw0RWohgl+4qC6dnJ/q/Vt6MEOnodc=;
-        b=A1QosMo8Bl2IplwDjNAuMGDLHG41RFiV6e+aUnm/3LbPcgB0Z/ZyGCT6JP3/5OKBOS
-         EesX60zga7xIq4CcEVV7oU0QD3sEiPwyx77miXBsAmmpcsRjUDG/WgssS7z5CGmBzCZ2
-         67DRJ2zWgx9EH6w9F8i8K2e1g3rcJW0mflq3T8VCBuiywophntGWQr/kpdom2VH83ZoD
-         CjyAFjYULI6Fj4zdCRBIEZKoGNqWpqx+RMlqZyZE1/TNWxWh4yR6qm+lbSSJoeiTkUwx
-         IWA9ZRk9C0BtsC2E3iLSs1bYa1WVsuCTlI4c5g+unJ8OPMjhn8xK0u1IYP0M0mGrVgcV
-         oeYA==
-X-Forwarded-Encrypted: i=1; AJvYcCX7wQ6hYvuc20aSnX21Uq3x+D3kpjc28ByUr0W12uRPSPBlXus50WyoC7SXQ42bZm/Vrvvd9Sc01I6yvzQC7QaZs3v8euRvC3HkjxEGps8=
-X-Gm-Message-State: AOJu0YyUUjtHqnTDrQsH7Ju8FbxrLHjp14invXm9/0rA/PQIBUJrUTAQ
-	07mCym6fvP1YJfg24+//+44Cm1sn8qngfWZbQx6+A7BdnSZTe+DvazuNKdDV4A==
-X-Google-Smtp-Source: AGHT+IFve4bD7L4jKEawJbWIMMsrD0cTVvPZ5QfJl0TsjKBifJu8LQS0Ho96E+jbYAfPUaEAb/La5g==
-X-Received: by 2002:a17:906:3bc9:b0:a43:f949:8e8d with SMTP id v9-20020a1709063bc900b00a43f9498e8dmr973821ejf.67.1709195542159;
-        Thu, 29 Feb 2024 00:32:22 -0800 (PST)
-Message-ID: <0e2f5394-6322-4845-954f-ff080626523f@suse.com>
-Date: Thu, 29 Feb 2024 09:32:20 +0100
+        bh=A440DB1rpePBv7q7I/YQhlrb420DWDiyJv6Tx+CZ5uA=;
+        b=wRNjLTWddP8n515vTH0mhV8EEDqmyOER3KUW9EiyjP5ooFX2ZkxaAlYLJbnE/kZu5R
+         ItA26z0OW90Vwhmqh97V7y3fF0XlaqN5BYHPUQiC3/MOZWb+FyT2uLZRN/99App46eMB
+         QMjqhDL2ra0D2mZJl7jMLt+W+5TsujqPpxOLMdDt8ub7c5PiOO4up6vowMk4YwoL1cFc
+         2hhdixQhL7eLn/QHNvReYno+4l1tZqfVY6vGqWF1ITywteUhkzY3S7sB5Ch9cyrDdWPY
+         3KABf11Gg5PME+uWPboBdk6leOUmkI7rQC0riUMEbhE14CSGAfn2+PrJRZ+sSYMsLMFB
+         zdCA==
+X-Forwarded-Encrypted: i=1; AJvYcCVkzDLP4VpZ+0fX1MTA6qpFp7sD5w/IkmtWSkmMvBHCmWeQuJAsPevrN5wXg7hGya2NNO7f6dd2vEgmBMvFCafKRKEzNwVSljAoWk8yCf0=
+X-Gm-Message-State: AOJu0Yxs0iC7Fk4nH57I6slM3mqR7GmcsxjNTMHxBxq8bTQvlbsHOA+j
+	VCUlmyvh1tYBbrwwLXJwFzSsL5y+u0LsZwGCt2WLcWMiFipzrYZKqDU8DYGNJQ==
+X-Google-Smtp-Source: AGHT+IEQ35IA/S9f+UX5V7UcXXAkVypu3ElqFMIJRrUFLmS7faCc3K40/tciZ8nMfraRgVEPVn1mug==
+X-Received: by 2002:a05:6402:2153:b0:565:bb25:bb7b with SMTP id bq19-20020a056402215300b00565bb25bb7bmr1031236edb.6.1709197349201;
+        Thu, 29 Feb 2024 01:02:29 -0800 (PST)
+Message-ID: <e9140136-3446-4d0f-a977-549d5aed11a1@suse.com>
+Date: Thu, 29 Feb 2024 10:02:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] automation/eclair: extend deviations of MISRA C:2012
- Rule 16.3
+Subject: Re: [PATCH] x86: serializing of non-serializing MSR writes
 Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <6c96f889ae3fbdf516f0edfe4a5fb207540b6862.1709109662.git.federico.serafini@bugseng.com>
- <1a00c221-ce1c-45be-9ab3-e8f1a0e5678d@suse.com>
- <98d82c40-a81a-4c75-8cdf-aaef640382b6@bugseng.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Dave Hansen <dave.hansen@intel.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <58656398-2d64-48b8-9ddc-c6836847a586@suse.com>
+ <3bc3a319-45a8-4b22-b225-a2b19ee04c28@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,122 +112,194 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <98d82c40-a81a-4c75-8cdf-aaef640382b6@bugseng.com>
+In-Reply-To: <3bc3a319-45a8-4b22-b225-a2b19ee04c28@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 29.02.2024 09:01, Federico Serafini wrote:
-> On 28/02/24 10:06, Jan Beulich wrote:
->> On 28.02.2024 09:53, Federico Serafini wrote:
->>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+On 29.02.2024 02:10, Andrew Cooper wrote:
+> On 28/02/2024 2:48 pm, Jan Beulich wrote:
+>> Linux commit 25a068b8e9a4e ("x86/apic: Add extra serialization for non-
+>> serializing MSRs") explains why an MFENCE+LFENCE pair is generally
+>> needed ahead of ICR writes in x2APIC mode, and also why at least in
+>> theory such is also needed ahead of TSC_DEADLINE writes. A comment of
+>> our own in send_IPI_mask_x2apic_phys() further explains a condition
+>> under which the LFENCE can be avoided.
 >>
->> Comments below apply similarly to text added to this file.
+>> Further Linux commit 04c3024560d3 ("x86/barrier: Do not serialize MSR
+>> accesses on AMD") explains that this barrier isn't needed on AMD or
+>> Hygon, and is in fact hampering performance in a measurable way.
 >>
->>> --- a/docs/misra/deviations.rst
->>> +++ b/docs/misra/deviations.rst
->>> @@ -291,7 +291,14 @@ Deviations related to MISRA C:2012 Rules:
->>>        - Project-wide deviation; tagged as `deliberate` for ECLAIR.
->>>   
->>>      * - R16.3
->>> -     - Switch clauses ending with continue, goto, return statements are safe.
->>> +     - Switch clauses ending with an unconditional flow control statement
->>> +       (i.e., continue, goto, or return) are safe.
->>> +     - Tagged as `safe` for ECLAIR.
+>> Introduce a similarly named helper function, but with a parameter
+>> allowing callers to specify whether a memory access will follow, thus
+>> permitting the LFENCE to be omitted.
 >>
->> With this edit (unmentioned in the description, btw) ...
+>> Putting an instance in apic_wait_icr_idle() is to be on the safe side.
+>> The one case where it was clearly missing is in send_IPI_shortcut(),
+>> which is also used in x2APIC mode when called from send_IPI_mask().
 >>
->>> +   * - R16.3
->>> +     - Switch clauses ending with an if-else statement are safe if both
->>> +       branches consist of a flow control statement (i.e., continue, break,
->>> +       goto, return).
+>> Function comment shamelessly borrowed (but adapted) from Linux.
 >>
->> ... why is it not also "ending with" here?
-> 
-> Because the allowed pattern is:
-> 
-> if ( cond )
->   return; /* Or continue / break / goto */
-> else
->   break;  /* Or continue / goto / return */
-> 
-> See below for more information.
-> 
+>> Fixes: 5500d265a2a8 ("x86/smp: use APIC ALLBUT destination shorthand when possible")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> I question the need for a fence ahead of writing TSC_DEADLINE: The Linux
+>> commit message talks about LVT being accessed via MMIO in xAPIC mode,
+>> but that should not be relevant here: It's all the local CPU, so there
+>> ought to not be visibility concerns (much like for a self-IPI no fence
+>> is needed ahead of the ICR write). If that wasn't needed, we could
+>> further use alternatives patching to remove the fence also from
+>> apic_wait_icr_idle() when in xAPIC mode. (And only then would I agree to
+>> have APIC in the feature identifier, like Linux has it.)
 >>
->> Also what about either situation ending with a call to a noreturn function?
-> 
-> This can be added.
-> 
+>> A number of apic_write() may better be turned into apic_mem_write(), in
+>> particular e.g. the ones in send_IPI_mask_{flat,phys}(). That way it
+>> would be quite a bit easier to spot paths taken only in xAPIC mode.
 >>
->>> @@ -307,6 +314,16 @@ Deviations related to MISRA C:2012 Rules:
->>>        - Switch clauses ending with failure method \"BUG()\" are safe.
->>>        - Tagged as `safe` for ECLAIR.
->>>   
->>> +   * - R16.3
->>> +     - On X86, switch clauses ending generating an exception through
->>> +       \"generate_exception()\" are safe.
->>> +     - Tagged as `safe` for ECLAIR.
->>
->> This macro is limited to the emulator, so shouldn't be deviated globally.
+>> The INIT-INIT-SIPI sequence for AP startup doesn't use any barrier, also
+>> not in Linux afaics. I can't explain the lack thereof, though.
 > 
-> Noted.
+> I have some opinions about what Linux did here...  I don't think a
+> single vendor/arch-neutral helper can possibly be right.
 > 
->> Furthermore - why does the special case need mentioning here? Shouldn't
->> it be the underlying pattern which is deviated (along the lines of the
->> earlier ones):
->>
->>      if ( true )
->>      {
->>          ...
->>          goto ...; /* Or break / continue / return */
->>      }
+> It is vendor and uarch dependent which WRMSR's transparently degrade to
+> WRMSRNS, and it is vendor dependent which serialising sequence to use
+> (if any).  e.g. AMD have recently (Zen2 uarch I believe) retroactively
+> defined FS/GS_BASE to be non-serialising.  (And this is another CPUID
+> bit we need to OR backwards in time.)
 > 
-> This pattern that involves a compound statement for the true branch
-> is not deviated by this configuration.
-> 
-> See below for more information.
-> 
->>
->>> +   * - R16.3
->>> +     - Switch clauses ending generating a parse error through
->>> +       \"PARSE_ERR_RET()\" are safe.
->>> +     - Tagged as `safe` for ECLAIR.
->>
->> Again this isn't a global scope macro, so shouldn't be deviated globally.
-> 
-> Noted.
-> 
->> Plus it ends in "return", so ought to be covered by the earlier clause.
->> The fact that the return is in a body of do {} while(0) shouldn't matter
->> at all - that's purely syntactic sugar.
-> 
-> I gather from your comments/questions that you would like to deviate
-> *all* the patterns where an unintentional fall through can not happen.
-> 
-> Rule 16.3 is a purely syntactic rule, and, as a consequence,
-> in the current version of ECLAIR additional "allowed pattern" (aka
-> deviations) for that rule need to be described through AST nodes,
-> meaning that all what you consider as syntactic sugar cannot be ignored.
-> 
-> A deviation that covers all the pattern you are asking for could be
-> done, but it will result in a complex and quite long expression
-> (not easy to read and justify in front of an assessor).
-> 
-> Hence, what I am proposing is to deviate only the the simplest and
-> most readable cases, such as:
-> 
-> if ( cond )
->    return x;
-> else
->    return y;
-> 
-> without involving compound statements, fake do-wile and fake if
-> statements but rather deviating the macro inside of which are used
-> (as I did).
+> Furthermore, IIRC AMD still owe us an update to the APM; the APM
+> currently says that a serialising sequence is needed for ICR.  I'm told
+> this isn't actually true, but I'm also very wary making an adjustment
+> which is directly contradicted by the docs.
 
-I see. Problem is that this isn't sufficient for the code we have, and
-the seemingly random deviation of certain constructs by name looks to
-me as pretty undesirable.
+I can see you wanting the doc to be corrected. What I'm having trouble
+with is you having indicated (long ago) that we can avoid this fence on
+AMD, just to now effectively object to me (finally) getting around to
+actually doing so?
+
+> The Linux change explains why in principle the IPI can be emitted before
+> the stores are visible.
+> 
+> This does actually explain TSC_DEADLINE too.  Setting a deadline in the
+> past gets you an interrupt immediately, and if you combine that with a
+> WRMSR being ordered ahead of an MFENCE, then causality is violated. 
+> You'll take the interrupt on whichever instruction boundary has most
+> recently retired, which will can be the wrong side of the WRMSR
+> triggering the interrupts, at which point you'll livelock taking timer
+> interrupts and re-arming the timer in the past.
+
+Are you saying the interrupt is raised ahead of the insn retiring? That
+would be concerning, imo.
+
+Irrespective of that, as to live-locking: If that would really be a
+possible issue, moving lapic_timer_on() ahead of local_irq_enable() in
+acpi_processor_idle() and mwait_idle() would avoid that; the sole other
+use of reprogram_timer() already runs with IRQs off.
+
+> Now, for fencing, things are more complicated.  AMD define MFENCE as
+> architecturally serialising.  Intel do not, hence why apparently a WRMSR
+> can possibly move across it.  The LFENCE is added for it's new
+> speculative property of dispatch serialising.
+> 
+> We don't actually care about architecturally serialising.  If someone is
+> interacting with these MSRs with relevant data in WC memory, then they
+> get to keep all resulting pieces.
+> 
+> However, we do care about plain stores, and for that we do need an
+> MFENCE;LFENCE on Intel  (The jury is out on whether a single
+> SERIALIZE[sic] would be better, but it should have the correct semantics
+> architecturally speaking.)
+> 
+> In particular, ...
+> 
+>> --- a/xen/arch/x86/genapic/x2apic.c
+>> +++ b/xen/arch/x86/genapic/x2apic.c
+>> @@ -97,15 +97,15 @@ static void cf_check send_IPI_mask_x2api
+>>  
+>>      /*
+>>       * Ensure that any synchronisation data written in program order by this
+>> -     * CPU is seen by notified remote CPUs. The WRMSR contained within
+>> -     * apic_icr_write() can otherwise be executed early.
+>> +     * CPU is seen by notified remote CPUs. The WRMSR contained in the loop
+>> +     * below can otherwise be executed early.
+>>       * 
+>> -     * The reason smp_mb() is sufficient here is subtle: the register arguments
+>> +     * The reason MFENCE is sufficient here is subtle: the register arguments
+>>       * to WRMSR must depend on a memory read executed after the barrier. This
+>>       * is guaranteed by cpu_physical_id(), which reads from a global array (and
+>>       * so cannot be hoisted above the barrier even by a clever compiler).
+>>       */
+>> -    smp_mb();
+>> +    weak_wrmsr_fence(true);
+>>  
+>>      local_irq_save(flags);
+>>  
+>> @@ -130,7 +130,7 @@ static void cf_check send_IPI_mask_x2api
+>>      const cpumask_t *cluster_cpus;
+>>      unsigned long flags;
+>>  
+>> -    smp_mb(); /* See above for an explanation. */
+>> +    weak_wrmsr_fence(true); /* See above for an explanation. */
+>>  
+>>      local_irq_save(flags);
+>>  
+>> --- a/xen/arch/x86/include/asm/cpufeatures.h
+>> +++ b/xen/arch/x86/include/asm/cpufeatures.h
+>> @@ -24,7 +24,7 @@ XEN_CPUFEATURE(APERFMPERF,        X86_SY
+>>  XEN_CPUFEATURE(MFENCE_RDTSC,      X86_SYNTH( 9)) /* MFENCE synchronizes RDTSC */
+>>  XEN_CPUFEATURE(XEN_SMEP,          X86_SYNTH(10)) /* SMEP gets used by Xen itself */
+>>  XEN_CPUFEATURE(XEN_SMAP,          X86_SYNTH(11)) /* SMAP gets used by Xen itself */
+>> -/* Bit 12 unused. */
+>> +XEN_CPUFEATURE(NO_WRMSR_FENCE,    X86_SYNTH(12)) /* No MFENCE{,+LFENCE} ahead of certain WRMSR. */
+>>  XEN_CPUFEATURE(IND_THUNK_LFENCE,  X86_SYNTH(13)) /* Use IND_THUNK_LFENCE */
+>>  XEN_CPUFEATURE(IND_THUNK_JMP,     X86_SYNTH(14)) /* Use IND_THUNK_JMP */
+>>  XEN_CPUFEATURE(SC_NO_BRANCH_HARDEN, X86_SYNTH(15)) /* (Disable) Conditional branch hardening */
+>> --- a/xen/arch/x86/include/asm/msr.h
+>> +++ b/xen/arch/x86/include/asm/msr.h
+>> @@ -97,6 +97,25 @@ static inline void msr_split(struct cpu_
+>>      regs->rax = (uint32_t)val;
+>>  }
+>>  
+>> +/*
+>> + * Make previous memory operations globally visible before a WRMSR.  Most
+>> + * WRMSRs are full serializing instructions themselves and do not require this
+>> + * barrier.  This may only be required for the TSC_DEADLINE and x2APIC MSRs.
+>> + *
+>> + * MFENCE makes writes visible, but only affects load/store instructions.
+>> + * WRMSR is unfortunately not a load/store instruction and is unaffected by
+>> + * MFENCE.
+> 
+> [ On Intel.   AMD didn't end up with this (mis)behaviour. ]
+> 
+>>   The LFENCE ensures that the WRMSR is not reordered, but callers
+>> + * can indicate to avoid it when they have a suitable memory access between
+>> + * the invocation of this function and the WRMSR in question.
+> 
+> ... this makes no sense.
+> 
+> We need the LFENCE for dispatch serialising properties, not it's load
+> ordering properties.  What use will other memory have, when the entire
+> problem is that WRMSR doesn't interact with them?
+
+Are you suggesting the comment (and code) in send_IPI_mask_x2apic_*()
+(left visible in context further up) are wrong then? I consider it
+correct (looking forward to see you prove it wrong), and with that
+having a way to avoid the LFENCE looks correct to me. Plus the comment
+here doesn't say "load ordering" anywhere. It's strictly execution
+ordering, guaranteed by a memory access the WRMSR input is dependent
+upon. For load ordering, MFENCE alone would be enough.
+
+> Worse, it's a Spectre-v1 gadget and we're now acutely familiar with how
+> the CPU will find its way around these.  So even expressing "I
+> critically need the LFENCE" still gets you pot luck on whether it has
+> any effect against a causality-violating WRMSR.
+
+Hmm, besides me possibly taking this as "drop this patch" (which could
+do with making explicit, if that was meant), I'm afraid I can't view
+this remark as actionable in any way. Yet I firmly expect an IPI to not
+be raised speculatively (and, as said above, neither an LAPIC timer
+interrupt), so I'm even having trouble seeing how this would form a
+Spectre-v1 gadget.
 
 Jan
 
