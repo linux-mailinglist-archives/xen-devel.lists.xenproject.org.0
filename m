@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93F5F86CA2C
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 14:23:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687094.1069951 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8274086CA2D
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 14:23:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687099.1069973 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfgNd-0003qr-Dz; Thu, 29 Feb 2024 13:23:21 +0000
+	id 1rfgO3-0004Xv-SE; Thu, 29 Feb 2024 13:23:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687094.1069951; Thu, 29 Feb 2024 13:23:21 +0000
+Received: by outflank-mailman (output) from mailman id 687099.1069973; Thu, 29 Feb 2024 13:23:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfgNd-0003pL-BA; Thu, 29 Feb 2024 13:23:21 +0000
-Received: by outflank-mailman (input) for mailman id 687094;
- Thu, 29 Feb 2024 13:23:20 +0000
+	id 1rfgO3-0004UQ-Oe; Thu, 29 Feb 2024 13:23:47 +0000
+Received: by outflank-mailman (input) for mailman id 687099;
+ Thu, 29 Feb 2024 13:23:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=x8AV=KG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfgNc-0003p3-3v
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 13:23:20 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kPQN=KG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rfgO2-0003p3-Hv
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 13:23:46 +0000
+Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
+ [2607:f8b0:4864:20::f33])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b353b0e2-d705-11ee-a1ee-f123f15fe8a2;
- Thu, 29 Feb 2024 14:23:18 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a36126ee41eso154084666b.2
- for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 05:23:17 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- gb18-20020a170907961200b00a3efa4e033asm680118ejc.151.2024.02.29.05.23.16
+ id c30fbea2-d705-11ee-a1ee-f123f15fe8a2;
+ Thu, 29 Feb 2024 14:23:44 +0100 (CET)
+Received: by mail-qv1-xf33.google.com with SMTP id
+ 6a1803df08f44-690494d2e97so3353316d6.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 05:23:44 -0800 (PST)
+Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ b19-20020a0cf053000000b0068f6130e80dsm717623qvl.69.2024.02.29.05.23.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Feb 2024 05:23:17 -0800 (PST)
+ Thu, 29 Feb 2024 05:23:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +45,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b353b0e2-d705-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: c30fbea2-d705-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709212997; x=1709817797; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1709213024; x=1709817824; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=OIlpSUibrCGxxNEFFk2NHMnPuwzvvO9KjQXdlo3fam4=;
-        b=X7FkwMaxR0PMwcv98lRIHSBWaKmp24VkO6+M2hYvGhEwIxm0evJa75fRWOMiZ/Gx1n
-         sCcBvlk9kA2MS9sC4FEJ1zHrWjpqC4V94qqJAvc1bkadfI9o7D/sLzTlBxA1+DObuE9W
-         ZnW2V7gyoVd0aMqSsjkxeFEhBnSsGIj7L+PqjRctVwpz3TdRRCpZ8UFG6nDnapep+Oo4
-         nnN3VwJnkXvjstY1Y6Z0TXQquzaXC/O50JoPs5NSaYCJBHiQCxYpIGMgNYTaUqVdsUPh
-         1XUnpp68B2cz8ADhMOrmcrkjUI1CuAFkZE94f0Hub3MsDKTI9PdTcmpuqhjspeto0J88
-         zYgA==
+        bh=3xkkDsIfnCjDOGW9TDsukCtuFF7czac82KzI4GF5Lho=;
+        b=I0qtFJyrapZDHK3lpBoUnB9P/q8ZDY1FrmMFNb0nDLZM+5a1or8gGMST31kmfLGjAD
+         ByFO1omm6LLX3TKApim1hpW1UTHInR26UmhnU2Z7KCPtPxN0b8v4Tm51P23qYUyz6LxF
+         783SESktBtmrAnTcGi66sVj5EPzLQZa9wiulA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709212997; x=1709817797;
+        d=1e100.net; s=20230601; t=1709213024; x=1709817824;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OIlpSUibrCGxxNEFFk2NHMnPuwzvvO9KjQXdlo3fam4=;
-        b=nDYfJIS4IhHWxUdRtePW1eCx9qyXDXtN1ImrBk/+tNoFIxgRWLzs0Agng3XIq4vi4N
-         ea9/TsoOnQUtdFyctiq60Onsks+IA3X2uXaXPuosd5tw6RgqCFLrMRk0NmDQWbdbRSpD
-         anTruA0QnccyTU+PZvx1m8cyle9f50PP8GlK20O/ejsaOeQb0LfFWaV64CiZpibupeDh
-         jt5xYWIvxlrzaeYMvgj7nSy1LvpdBgxf0xq9AsRnlWJNlcDP0xFZ8eMoZ77oAK36faaT
-         takkqh8errHKxsmUnPoX6hj7AOKXKmtP/U4cgrbHG9p9VIufx8kapGRfQ+zX5xRtfs31
-         LlCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVCt9b5s1P5yNMECvHiHu9YwoxgbwCp83Nd6n6vxYnw11ewY1Z269dZ/XUpM7cIOcBozVFMVzNkKmieLP+eE1auYESVbRxWs/KZbJB8hQA=
-X-Gm-Message-State: AOJu0YwlfnvGsYrukwaOUQrDYU7u34mJe0P7Jcw034nmdwoeqtCGcivC
-	pqqUYqA+E+lKfayGJrWffs9u0CfvdTtMhV5XcK6KVgsNnZPItdTouNbUyYBy8Q==
-X-Google-Smtp-Source: AGHT+IF4VjaypXJweyqY+HBHnsTuyLsGPbWapDIRwUVXGLrurLzWm+JSjMgWDtKOXPkTcN3C3a+XrQ==
-X-Received: by 2002:a17:906:d8b4:b0:a3f:2ffd:c68b with SMTP id qc20-20020a170906d8b400b00a3f2ffdc68bmr1641034ejb.6.1709212997377;
-        Thu, 29 Feb 2024 05:23:17 -0800 (PST)
-Message-ID: <29bebf83-a78b-440f-a642-0ec9aa40c0d7@suse.com>
-Date: Thu, 29 Feb 2024 14:23:15 +0100
+        bh=3xkkDsIfnCjDOGW9TDsukCtuFF7czac82KzI4GF5Lho=;
+        b=Dc58xzdlCZK+rGP5KjLDgY3AuUqlmk+lxaCewuMS4sH6VGzFirdD4jUhiSqPmmsTaT
+         QwwMQcYu9G1N30cnZ/pE70vo16psh1dviyNaw5ruuubn0lRSMi9tJXaf4XOCRDLgwHeD
+         RoLJ7Nbj6Fy149I1DPnwETOBkZuBVc4h3bBE91GZt65Tsn8fJ/Lp1H5fNTHtPx+UsjNR
+         YSgJZaiRFtmqVs+Wo2BShq4L4Ie5HPTAIhmSEM6KjICnhAMvfvWCjoWvX9U7OClAlkal
+         xwN4h5zvjPFYJ1cSt2jPudP6+NwEUAzCQQ7RhICdSwVxVuC/yneXrMAX2xpiF8M4AYzS
+         hIxA==
+X-Forwarded-Encrypted: i=1; AJvYcCXi9kF9lypOn71IgHZAgN/2s0fZGEOMoVg8xXwKgXafujJQQeBsRVJMabWczBAzemr7RXqfCxxcM5yYG/7AJFQcaE4bIxCN41JcaMMiDk0=
+X-Gm-Message-State: AOJu0Yygk7CcrYRIjUtnfQGyp+rDO9IMULVp6mUJVS0mmK+BpLR72OkY
+	p+9BmgYLP1NZlDqs5rqw4QyymsRg9LHb+dvhB3tkQ8h+Xy+u/GcpDtnw8GpmkbQ=
+X-Google-Smtp-Source: AGHT+IGz3kZmMvSQwBxgEr/slFaR0FwkaGOqs8g3kEUGGBfz6plBAVAlpbUpY7HFfj+rvqUZ7E4Geg==
+X-Received: by 2002:a05:6214:d69:b0:68f:a0c2:7341 with SMTP id 9-20020a0562140d6900b0068fa0c27341mr2857308qvs.13.1709213023778;
+        Thu, 29 Feb 2024 05:23:43 -0800 (PST)
+Message-ID: <623e9c0e-f05f-41e7-a800-0bba01cba7f4@citrix.com>
+Date: Thu, 29 Feb 2024 13:23:41 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] pci: fix locking around vPCI removal in
- pci_remove_device()
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Paul Durrant <paul@xen.org>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20240229131525.19099-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240229131525.19099-1-roger.pau@citrix.com>
+Subject: Re: [PATCH] x86/cpu-policy: Fix x2APIC visibility for PV guests
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240229104304.2478614-1-andrew.cooper3@citrix.com>
+ <707ff486-b448-4bc0-be7e-1c692b360734@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <707ff486-b448-4bc0-be7e-1c692b360734@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29.02.2024 14:15, Roger Pau Monne wrote:
-> Currently vpci_deassign_device() is called without holding the per-domain
-> pci_lock in pci_remove_device(), which leads to:
-> 
-> Assertion 'rw_is_write_locked(&pdev->domain->pci_lock)' failed at ../drivers/vpci/vpci.c:47
-> [...]
-> Xen call trace:
->    [<ffff82d040260eac>] R vpci_deassign_device+0x10d/0x1b9
->    [<ffff82d04027932f>] S pci_remove_device+0x2b1/0x380
->    [<ffff82d040260bd0>] F pci_physdev_op+0x197/0x19e
->    [<ffff82d04032272d>] F do_physdev_op+0x342/0x12aa
->    [<ffff82d0402f067a>] F pv_hypercall+0x58e/0x62b
->    [<ffff82d0402012ba>] F lstar_enter+0x13a/0x140
-> 
-> Move the existing block that removes the device from the domain pdev_list ahead
-> and also issue the call to vpci_deassign_device() there.  It's fine to remove
-> the device from the domain list of assigned devices, as further functions only
-> care that the pdev domain field is correctly set to the owner of the device
-> about to be removed.
-> 
-> Moving the vpci_deassign_device() past the pci_cleanup_msi() call can be
-> dangerous, as doing the MSI cleanup ahead of having removed the vPCI handlers
-> could lead to stale data in vPCI MSI(-X) internal structures.
-> 
-> Fixes: 4f78438b45e2 ('vpci: use per-domain PCI lock to protect vpci structure')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 29/02/2024 12:47 pm, Jan Beulich wrote:
+> On 29.02.2024 11:43, Andrew Cooper wrote:
+>> Right now, the host x2APIC setting filters into the PV max and default
+>> policies, yet PV guests cannot set MSR_APIC_BASE.EXTD or access any of the
+>> x2APIC MSR range.  Therefore they absolutely shouldn't see the x2APIC bit.
+>>
+>> Linux has workarounds for the collateral damage caused by this leakage; it
+>> unconditionally filters out the x2APIC CPUID bit, and EXTD when reading
+>> MSR_APIC_BASE.
+>>
+>> Hide the x2APIC bit in the PV default policy, but for compatibility, tolerate
+>> incoming VMs which already saw the bit.  This is logic from before the
+>> default/max split in Xen 4.14 which wasn't correctly adjusted at the time.
+> What about guest_cpuid()'s handling of leaf 0xb then? The %edx value
+> will change once a guest is rebooted, aiui. The comment in
+> recalculate_cpuid_policy() that you update refers to that.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+That comment is going in the next patch irrespective.
 
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -817,15 +817,15 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
->      list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
->          if ( pdev->bus == bus && pdev->devfn == devfn )
->          {
-> -            vpci_deassign_device(pdev);
-> -            pci_cleanup_msi(pdev);
-> -            ret = iommu_remove_device(pdev);
->              if ( pdev->domain )
->              {
->                  write_lock(&pdev->domain->pci_lock);
-> +                vpci_deassign_device(pdev);
->                  list_del(&pdev->domain_list);
->                  write_unlock(&pdev->domain->pci_lock);
+But yes - this will change leaf 0xb from being
+host-conditionally-visible to always hidden.
 
-This then also is properly symmetric with what pci_add_device() has.
+PV guests don't have any coherent idea of topology.  Linux (with the
+topo fixes) now explicitly ignores everything it can see and just fakes
+up a flat non-SMT topology in a single package.
 
-Jan
+For PV dom0, where it sees the host MADT, the values in leaf 0xb are
+bogus as they don't come from the same enumeration space.
+>> Update the annotation from !A to !S which slightly better describes that it
+>> doesn't really exist in PV guests.  HVM guests, for which x2APIC can be
+>> emulated completely, already has it unconditionally set in the max policy.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Wei Liu <wl@xen.org>
+>>
+>> This wants backporting as far as people can tollerate, but it's really not
+>> obvious which commit in 4.14 should be referenced in a Fixes: tag.
+> Why 4.14? In 4.7.0 I see ...
+>
+>> @@ -830,11 +846,10 @@ void recalculate_cpuid_policy(struct domain *d)
+>>      }
+>>  
+>>      /*
+>> -     * Allow the toolstack to set HTT, X2APIC and CMP_LEGACY.  These bits
+>> +     * Allow the toolstack to set HTT and CMP_LEGACY.  These bits
+>>       * affect how to interpret topology information in other cpuid leaves.
+>>       */
+>>      __set_bit(X86_FEATURE_HTT, max_fs);
+>> -    __set_bit(X86_FEATURE_X2APIC, max_fs);
+>>      __set_bit(X86_FEATURE_CMP_LEGACY, max_fs);
+>>  
+>>      /*
+> ... these adjustments, just still in calculate_pv_featureset(). I
+> haven't gone further backwards to check if/when this exposure has
+> really appeared. I wouldn't be surprised if it's been like that
+> for all the time since we gained x2APIC support in the hypervisor.
 
->              }
-> +            pci_cleanup_msi(pdev);
-> +            ret = iommu_remove_device(pdev);
->              printk(XENLOG_DEBUG "PCI remove device %pp\n", &pdev->sbdf);
->              free_pdev(pseg, pdev);
->              break;
+4.14 was when we got the proper default vs max split.  Before then, this
+block of logic was an opencoded "max(ish) for tookstacks which know
+about it" kind of thing.
 
+~Andrew
 
