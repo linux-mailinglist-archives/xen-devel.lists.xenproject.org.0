@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F81686D7DB
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 00:30:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687462.1070955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 481BD86D7FE
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 00:43:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687468.1070978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfppr-0007mi-29; Thu, 29 Feb 2024 23:29:07 +0000
+	id 1rfq3i-0002sq-D7; Thu, 29 Feb 2024 23:43:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687462.1070955; Thu, 29 Feb 2024 23:29:07 +0000
+Received: by outflank-mailman (output) from mailman id 687468.1070978; Thu, 29 Feb 2024 23:43:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfppq-0007kP-Ue; Thu, 29 Feb 2024 23:29:06 +0000
-Received: by outflank-mailman (input) for mailman id 687462;
- Thu, 29 Feb 2024 23:29:05 +0000
+	id 1rfq3i-0002pg-AB; Thu, 29 Feb 2024 23:43:26 +0000
+Received: by outflank-mailman (input) for mailman id 687468;
+ Thu, 29 Feb 2024 23:43:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nI6L=KG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rfppp-0007kF-HG
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 23:29:05 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
+ <SRS0=mnTJ=KG=gmail.com=alexei.starovoitov@srs-se1.protection.inumbo.net>)
+ id 1rfq3g-0002pa-SX
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 23:43:24 +0000
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [2607:f8b0:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51690d33-d75a-11ee-a1ee-f123f15fe8a2;
- Fri, 01 Mar 2024 00:29:02 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 05847CE1B64;
- Thu, 29 Feb 2024 23:28:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAFE7C433F1;
- Thu, 29 Feb 2024 23:28:54 +0000 (UTC)
+ id 52aea4a3-d75c-11ee-a1ee-f123f15fe8a2;
+ Fri, 01 Mar 2024 00:43:22 +0100 (CET)
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-1dc29f1956cso13542095ad.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 15:43:22 -0800 (PST)
+Received: from localhost.localdomain ([2620:10d:c090:400::5:8f17])
+ by smtp.gmail.com with ESMTPSA id
+ l8-20020a170903120800b001dcc129cc2esm2079055plh.60.2024.02.29.15.43.18
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 29 Feb 2024 15:43:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,123 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51690d33-d75a-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709249336;
-	bh=yLkOZYsNkYyeStMQcxfFu62ISwDUw5RGaHksZiUJAX8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=lRE0z+Ha1P5ip46wgGwvSB1xbNS7vphi7+zWrReIlVE5Do7rYXfJEzQBrPALE2sHu
-	 gb455KHfq9jDjCCH499nNBrkVdcJ0fbQ0PIZo7IWsLDjlCUrU7AO3m5beI++306GFC
-	 +RTpUXBJTis+fUq/BHPQ+OCEeepr5Jlv/IX27BXpTXifyZV/2MRzrhq5+MJrH0T4EI
-	 q5Jh0Q7ORIJ+adU7Wkr1MFLIWrpWLKoB8zDEj9yagneCLccNK//KpVle7q2BzuWbr4
-	 yB1V0iYIqk/GoX38p6myveVKmJoRlu3X66VWP5Y8Q0df+sANs6jgJa7YxZUGiPzNey
-	 SmRxW7HwpKTJA==
-Date: Thu, 29 Feb 2024 15:28:53 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Federico Serafini <federico.serafini@bugseng.com>
-cc: Jan Beulich <jbeulich@suse.com>, andrew.cooper3@citrix.com, 
-    george.dunlap@citrix.com, julien@xen.org, bertrand.marquis@arm.com, 
-    roger.pau@citrix.com, xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <stefano.stabellini@amd.com>, 
-    roberto.bagnara@bugseng.com
-Subject: Re: [PATCH v2 2/3] docs/misra/rules.rst: add rule 5.5
-In-Reply-To: <3632611e-61ff-455a-9cc1-990a1f663d83@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2402291528230.853156@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2402131431070.1925432@ubuntu-linux-20-04-desktop> <20240213223334.3693410-2-stefano.stabellini@amd.com> <50719397-b053-43e1-9cf7-cc9eae9098ed@suse.com> <40b7465f-4966-43c7-8db3-e28a6cc48445@bugseng.com>
- <2da73259-a86e-4a13-9fd4-4217372f4b76@suse.com> <3632611e-61ff-455a-9cc1-990a1f663d83@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 52aea4a3-d75c-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1709250201; x=1709855001; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NzHHSXtSLrv/NknHpxtBThbqiIeWhWk4Z2HCRi70who=;
+        b=l1lskIJHOW0Pdc6x9Gyl366e03Us3X105se85FCYIUEcI0JVQBBFtCPB/PQHh0YXQz
+         7u95N7iylLxQmjsPvHOVIqrbtoZkZGxdHJgrXBUnywkrV7dv8KKzmJylbFuuX99bCVxV
+         3BcyeizhrTCKjT8/lCCxuMzdCrewX9Khy3p66uu2gcwiFLB5T38U1jGdxSTt2E9CEhsN
+         wBH9KfRniTbGhUPJ+j/JsxXNPtzMEznhyUK6eyhmmNs4C/nRf7jWR1kv0ZnRXEN+QMep
+         ubQPphSHBst3oYGmCVMbXVPXh4Ezj7snzIxzRsrsrjpzgWhKtT3LaKVdadLf3xz71Xj8
+         0ILg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709250201; x=1709855001;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NzHHSXtSLrv/NknHpxtBThbqiIeWhWk4Z2HCRi70who=;
+        b=dCq9jaSYqpZKTaxLs2KZwEUcSAPI4ugfiVRTP10V+CUBrcw86FhVNT7EDTepjZOKsp
+         XmYpc6qws6o15RrPf/bjqa0CneUjvxcf6bt745C3DeLMe0Jy+mx+fYl+sP70KbKw3fRO
+         ljHMeRWOtU00bKf/cVUKHTFzvJLKJMQquse2MACuuDUWF+QbRKf3DJ2pbw+QRedAi/QE
+         Vk8M4dxf2nToUW4ifi3seVQYx4rmD9DCuq6kaTYalig4yYh62KOthBStDX5yO9ZCIPSg
+         A3T1vPy0jXpRks43PNFkmBYwzWAsB3gf0PMrdKPN91YccJzhV6x1tVj+ZhZCTLY4zImb
+         50Jw==
+X-Forwarded-Encrypted: i=1; AJvYcCUrkjqzn9D72wUMgGZ7/EL56gyWzgSdylxOTjDAqMyEZG6bvC79XXm25Or8MU5oQEh1q2okE/slw1JsIwxeb+p5uZM9c5yO5b/L5aSXxRw=
+X-Gm-Message-State: AOJu0Yyi70JzwqDroHIJ5xLBcQUE+RNQgbTkKQqgUyvK7AYQsut+8Xu9
+	bI2wLdw8+kzHOUgiT+PUnG/iUF57yp8ynmXY8MvRFy2FOCrA+Mdc
+X-Google-Smtp-Source: AGHT+IGfl0YdKr5QO4H+FovdTc3eTEo8Q94QPX7tglxTnGBDlmv4twi/rgWyLSio1iEhhbNejBslzA==
+X-Received: by 2002:a17:902:d511:b0:1db:be69:d037 with SMTP id b17-20020a170902d51100b001dbbe69d037mr22315plg.46.1709250201120;
+        Thu, 29 Feb 2024 15:43:21 -0800 (PST)
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+To: bpf@vger.kernel.org
+Cc: daniel@iogearbox.net,
+	andrii@kernel.org,
+	torvalds@linux-foundation.org,
+	brho@google.com,
+	hannes@cmpxchg.org,
+	lstoakes@gmail.com,
+	akpm@linux-foundation.org,
+	urezki@gmail.com,
+	hch@infradead.org,
+	boris.ostrovsky@oracle.com,
+	sstabellini@kernel.org,
+	jgross@suse.com,
+	linux-mm@kvack.org,
+	xen-devel@lists.xenproject.org,
+	kernel-team@fb.com
+Subject: [PATCH v3 bpf-next 0/3] mm: Cleanup and identify various users of kernel virtual address space
+Date: Thu, 29 Feb 2024 15:43:13 -0800
+Message-Id: <20240229234316.44409-1-alexei.starovoitov@gmail.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-145)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Wed, 14 Feb 2024, Federico Serafini wrote:
-> On 14/02/24 14:15, Jan Beulich wrote:
-> > On 14.02.2024 12:27, Federico Serafini wrote:
-> > > On 14/02/24 09:28, Jan Beulich wrote:
-> > > > On 13.02.2024 23:33, Stefano Stabellini wrote:
-> > > > > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> > > > > ---
-> > > > >    docs/misra/rules.rst | 6 ++++++
-> > > > >    1 file changed, 6 insertions(+)
-> > > > > 
-> > > > > diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-> > > > > index c185366966..931158b354 100644
-> > > > > --- a/docs/misra/rules.rst
-> > > > > +++ b/docs/misra/rules.rst
-> > > > > @@ -181,6 +181,12 @@ maintainers if you want to suggest a change.
-> > > > >           headers (xen/include/public/) are allowed to retain longer
-> > > > >           identifiers for backward compatibility.
-> > > > >    +   * - `Rule 5.5
-> > > > > <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_05.c>`_
-> > > > > +     - Required
-> > > > > +     - Identifiers shall be distinct from macro names
-> > > > > +     - Clashes between function-like macros and non-callable entities
-> > > > > +       are allowed. The pattern #define x x is also allowed.
-> > > > 
-> > > > Just for me to know what exactly is covered (hence also a question
-> > > > to Roberto as to [to be] implemented Eclair behavior): Even when
-> > > > the above would be sufficient (and imo better) people frequently
-> > > > write
-> > > > 
-> > > > #define a(x, y) b(x, y)
-> > > > 
-> > > > which, transformed to the specific case here, would then be
-> > > > 
-> > > > #define a(x, y) a(x, y)
-> > > > 
-> > > > I'd assume such ought to also be covered, but that's not clear
-> > > > from the spelling above.
-> > > 
-> > > I list what happens in some different situations,
-> > > then we can find the right words for the documentation and/or
-> > > refine the configuration:
-> > > 
-> > > If you
-> > > #define x x
-> > > and then use `x' as identifier,
-> > > the resulting violation is deviated (allowed pattern).
-> > > 
-> > > If you
-> > > #define a(x, y) a(x, y)
-> > > and then use `a' as identifier for a non-callable entity,
-> > > the resulting violation is deviated (no clash with non-callable
-> > > entities).
-> > > If you use identifier `a' for a callable entity, the resulting violation
-> > > is reported: the allowed pattern covers only macros expanding to their
-> > > own name, in this case the macro name is considered to be
-> > > `a' only, not a(x, y).
-> > > 
-> > > If you
-> > > #define a(x, y) b(x, y)
-> > > and then use `a' as identifier for a non-callable entity,
-> > > the resulting violation is deviated (no clash with non-callable
-> > > entities).
-> > 
-> > I'm afraid I don't see what violation there is in this case, to
-> > deviate. As a result I'm also not sure I correctly understand the
-> > rest of your reply.
-> 
-> #define a(x, y) b(x, y)
-> 
-> int a; // Violation of Rule 5.5.
-> 
-> The macro name `a' that exist before the preprocessing phase,
-> still exists after the preprocessing phase as identifier for the integer
-> variable and this is a violation.
-> 
-> > > If you use `a' as identifier for a callable entity,
-> > > this is not a violation because after the preprocessing phase,
-> > > identifier `a' no longer exists.
-> I correct myself:
-> if you use `a' as identifier for a *function*,
-> it is not a violation because after the preprocessing phase
-> the identifier `a' no longer exists, for example:
-> 
-> #define a(x, y) b(x, y)
-> 
-> void a(int x, int y); // Ok.
+From: Alexei Starovoitov <ast@kernel.org>
 
-Federico, do you have a better wording suggestion for this rule?
+v2 -> v3
+- added Christoph's reviewed-by to patch 1
+- cap commit log lines to 75 chars
+- factored out common checks in patch 3 into helper
+- made vm_area_unmap_pages() return void
 
-Jan, any further requests here? What would you like to see as next step?
+There are various users of kernel virtual address space:
+vmalloc, vmap, ioremap, xen.
+
+- vmalloc use case dominates the usage. Such vm areas have VM_ALLOC flag
+and these areas are treated differently by KASAN.
+
+- the areas created by vmap() function should be tagged with VM_MAP
+(as majority of the users do).
+
+- ioremap areas are tagged with VM_IOREMAP and vm area start is aligned
+to size of the area unlike vmalloc/vmap.
+
+- there is also xen usage that is marked as VM_IOREMAP, but it doesn't
+call ioremap_page_range() unlike all other VM_IOREMAP users.
+
+To clean this up:
+1. Enforce that ioremap_page_range() checks the range and VM_IOREMAP flag
+2. Introduce VM_XEN flag to separate xen us cases from ioremap
+
+In addition BPF would like to reserve regions of kernel virtual address
+space and populate it lazily, similar to xen use cases.
+For that reason, introduce VM_SPARSE flag and vm_area_[un]map_pages()
+helpers to populate this sparse area.
+
+In the end the /proc/vmallocinfo will show
+"vmalloc"
+"vmap"
+"ioremap"
+"xen"
+"sparse"
+categories for different kinds of address regions.
+
+ioremap, xen, sparse will return zero when dumped through /proc/kcore
+
+Alexei Starovoitov (3):
+  mm: Enforce VM_IOREMAP flag and range in ioremap_page_range.
+  mm, xen: Separate xen use cases from ioremap.
+  mm: Introduce VM_SPARSE kind and vm_area_[un]map_pages().
+
+ arch/x86/xen/grant-table.c         |  2 +-
+ drivers/xen/xenbus/xenbus_client.c |  2 +-
+ include/linux/vmalloc.h            |  6 +++
+ mm/vmalloc.c                       | 75 +++++++++++++++++++++++++++++-
+ 4 files changed, 81 insertions(+), 4 deletions(-)
+
+-- 
+2.34.1
+
 
