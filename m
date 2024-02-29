@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB09686C889
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 12:53:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.686957.1069599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEBE186C8A5
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Feb 2024 12:56:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.686960.1069608 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfewy-0003Kx-Iu; Thu, 29 Feb 2024 11:51:44 +0000
+	id 1rff1R-0003vj-3B; Thu, 29 Feb 2024 11:56:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 686957.1069599; Thu, 29 Feb 2024 11:51:44 +0000
+Received: by outflank-mailman (output) from mailman id 686960.1069608; Thu, 29 Feb 2024 11:56:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfewy-0003J4-Fx; Thu, 29 Feb 2024 11:51:44 +0000
-Received: by outflank-mailman (input) for mailman id 686957;
- Thu, 29 Feb 2024 11:51:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rff1R-0003tO-03; Thu, 29 Feb 2024 11:56:21 +0000
+Received: by outflank-mailman (input) for mailman id 686960;
+ Thu, 29 Feb 2024 11:56:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rfewx-0003Iy-52
- for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 11:51:43 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rfeww-0002oJ-LQ; Thu, 29 Feb 2024 11:51:42 +0000
-Received: from [15.248.3.86] (helo=[10.45.19.50])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rfeww-0007UP-Dh; Thu, 29 Feb 2024 11:51:42 +0000
+ (envelope-from <SRS0=x8AV=KG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rff1O-0003tD-Td
+ for xen-devel@lists.xenproject.org; Thu, 29 Feb 2024 11:56:18 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8bd33da1-d6f9-11ee-afd8-a90da7624cb6;
+ Thu, 29 Feb 2024 12:56:17 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a3122b70439so147499966b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 03:56:17 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ j12-20020a170906094c00b00a3e5adf11c7sm609513ejd.157.2024.02.29.03.56.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Feb 2024 03:56:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,154 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=K6VjbTW6Jv+NExibT1D+zXR6Evxh9PaZtfdIcQv1kss=; b=XHRuc1fSjBKi0UE1ALQKQT9XDO
-	DW7bxB4Ys6L4EhfZPbeP0Icz9bMpHWf2F8SqOzk+iT46uWCnuWJ78KvReWSzbUhn8jxGF47W7IBg8
-	BdTG+/5uR3z6b5pZ0yx38zWs98zsmuXLt4HTGrf39d+OV7Z4RMEccj00vBpCp/1RguD4=;
-Message-ID: <4778822e-582f-4e0d-9933-86d8d49ea3a5@xen.org>
-Date: Thu, 29 Feb 2024 11:51:39 +0000
+X-Inumbo-ID: 8bd33da1-d6f9-11ee-afd8-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1709207777; x=1709812577; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KKTlU9l00RReVLNiskghv+Ya2Ums+IDx8IJVD/f+928=;
+        b=TqjDNyE/OvOLzEdmUSKZj5Hpiv5W0Nx8/530DPr4Fy7lgzqBGR8ocRmKd+Qu6RepRa
+         YkG0nml4bcGwFgl59Kc9Jcl2orUbvAzGAYll8IGPH+0pEfHUlaHmT8e/MrReolLl+G0x
+         gZpjySW/ZNvAy/ySbeezvCPbpZpUCZROJ0g3dXERuRBKQhs7v0qlg5ZlPc57xiPbVBVU
+         6QhET0YXw8Tmmfl3S3vUUqHSb1lLc0do8AU1AXKN40MXjlTvyAPVPryQ9/TwLqTBEupw
+         N4UisxJZTAVV4fsOoJLXfEXtJDs1/Xsi+3ANoPSeXrgu0bku5t03Yqal6gvDCDJWnhZm
+         tCIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709207777; x=1709812577;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=KKTlU9l00RReVLNiskghv+Ya2Ums+IDx8IJVD/f+928=;
+        b=d9ylIjgQ7SaHTLQlpdbOXm9Hqz64VGRn2YKUmq8pVqIsAOZ4zm/BEYL45K/2pCju2i
+         ZT8uWM7coXXoWlR/FpqnIOAgSgePLkF5zdrBRdJAtgVOO9Li70vVIEhDdoqdJgnpzPcu
+         8jBhWamy0f5keRd06qU8JWAslzAJjhkqhM2o+BUvAx/OxJexnHzFiSHw35PdWNZ0PmTx
+         lzBJcWknYGGcPUdn1JmmdnmSadN0CWyQg4VTYyYt2pQi5cxdzWV7+yBtaYP//S32xvkO
+         FajLAM/oJBBQe2p25TQCQ39aQjqKyHVIpEk+3RtY7vufRC+ju1Zgn4VuHDHJ7y2EQbMw
+         nNkQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWey0ATX4NU4shoIc1pRq6Mh++Z4e1zAiRlkXU8OHvHWEqXIrHj4TIYrVhkrme71ebfeDMXCCTd2RTdHCOP15NrLXVvY4uSwXTLvvCWFp8=
+X-Gm-Message-State: AOJu0Yx7WDgmkJPeucjuruRA/yJM11UF61vbRS4UXYjbxkAP53p5p/st
+	wd8MaM1CcPyYbzJUdEaPA99tE0WKY0CgfPOkLqCIgt90cVwW+Da/HP4Pkg9Ujw==
+X-Google-Smtp-Source: AGHT+IFOlm8N5jbpiJOBoY38ro1ICF4a6Ffl6wdTjvhU+ee0WYi+g8SBg7eEaoO9/38EN8k5W6bFLw==
+X-Received: by 2002:a17:907:20d5:b0:a44:752:ad4e with SMTP id qq21-20020a17090720d500b00a440752ad4emr1265641ejb.75.1709207777262;
+        Thu, 29 Feb 2024 03:56:17 -0800 (PST)
+Message-ID: <751bc87b-c8a4-4905-92bf-fc50f9102d4a@suse.com>
+Date: Thu, 29 Feb 2024 12:56:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: IMPORTANT - : Need help on USB port virtualization with Xen
- hypervisor
-Content-Language: en-GB
-To: LARRIEU Dominique <dominique.larrieu@thalesgroup.com>
-Cc: GOURLOT Francois <francois.gourlot@thalesgroup.com>,
- GRUO Nicolas <nicolas-n.gruo@thalesgroup.com>,
- Cc <xen-devel@lists.xenproject.org>, Kelly Choi <kelly.choi@cloud.com>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Juergen Gross <jgross@suse.com>,
- WILLEMS Louis <louis.willems@thalesgroup.com>
-References: <d2de4ae9ecb34efc962dea7f8b4e7cbd@thalesgroup.com>
- <bb2485e5-7818-435b-8d9c-dda88100979f@xen.org>
- <a46ac2e14fa2410eafc26a37a00a442f@thalesgroup.com>
- <427d2ecb865648b7a459c592c208c0be@thalesgroup.com>
- <673b2bc630d748e8af0a15d4b553906e@thalesgroup.com>
- <3ee3659afff645cabed86bcc22c44686@thalesgroup.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <3ee3659afff645cabed86bcc22c44686@thalesgroup.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v5 23/23] xen/README: add compiler and binutils versions
+ for RISC-V64
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
+ <ebaa05ded3cfddb1e3f7c87cd806b866312878fb.1708962629.git.oleksii.kurochko@gmail.com>
+ <73a38d85-0798-4cfa-8625-0f8c9e05b2a3@suse.com>
+ <80fb8091-9a26-40a4-b2e7-371df9411861@xen.org>
+ <889b132b-b92e-465b-94af-4e4133e4c297@suse.com>
+ <52188e88-374c-449f-a71c-bfce9b6d07f4@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <52188e88-374c-449f-a71c-bfce9b6d07f4@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Dominique,
+On 29.02.2024 11:23, Julien Grall wrote:
+> On 29/02/2024 07:58, Jan Beulich wrote:
+>> Therefore being too
+>> eager there would mean I can't really / easily (smoke) test Xen
+>> anymore on ancient hardware every once in a while. When afaict we do
+>> too little of such testing already anyway, despite not having any
+>> lower bound on hardware that formally we support running Xen on.
+> 
+> Can you provide more details of what you mean by "ancient"?
 
-On 29/02/2024 10:33, LARRIEU Dominique wrote:
-> Thank you for your quick answer.
-> 
-> You will find below our answers (in red) to your questions.
-> 
-> To summarize our request : what we would like is to use USB 3.0 driver with high speed configuration.
-> Today, it is not possible to do that.
-> The driver stay in full speed mode, and more often in USB 1.0 or 2.0 configuration.
-> 
-> Is it possible to configure the XEN USB 3.0 driver with the high speed mode ?
-> (read in our answers below the reference to the driver)
+Formally we support running Xen on any x86 hardware supporting 64-bit
+mode. I don't think I have any 1st gen systems left, but I think a
+2nd gen SVM and a 2nd gen VMX one is what I still have around.
 
-Looking at what you provided below, it is still unclear what you mean by 
-"Xen USB 3.0 driver". By any chance, are you confused with the "x" in xhci?
+>> (And
+>> no, upgrading the ancient distros on that ancient hardware is not an
+>> option for me.)
+> 
+> May I ask why? Is it because newer distros don't support your HW?
 
-The drivers "xhci_hcd" and "xhci_pci" are generic and not 
-provided/maintained by Xen. So far, with the information provided, it is 
-unclear whether the problem is actually in the driver itself. I have a 
-few more questions. See below.
+Because as part of my job I also need to support ancient versions of
+Xen on ancient distros. Since I need to keep those around, it makes
+sense to me to then also test modern Xen there (every now and then, as
+said, and not really extensively).
 
->>      We are detecting several issues with USB port virtualization with the
-> 
->>      Xen hypervisor.
-> 
-> 
-> 
-> Just to clarify, you are assigning the PCI USB bus (rather than just the USB device) to the guest. Is that correct?
-> 
-> 
-> 
-> If so...
-> 
-> 
-> 
-> [Thales] : we are using the USB chipset of the mother board (see below the references)
-
-Thanks for the clarification. IIUC, you said you are having problem in 
-the guest itself. Have you tried to access the same USB device from 
-dom0? Or better without any Xen involved (i.e. booting Debian on baremetal).
-
-This would help to narrow down the issue.
-
->>
-> 
->>      We needyour helpto find a solution for these problems.
-> 
->>
-> 
->>      The Software used are :
-> 
-> 
-> 
-> Can you share some details of the HW you are using ?
-> 
-> 
-> 
-> [Thales] : HW :
-> 
-> [Thales] : We are using a GETAC X500 using the Mobile Intel QM175 Chipset
-> 
-> [Thales] : USB controller: Intel Corporation 100 Series/C230 Series Chipset Family USB 3.0 xHCI Controller (rev 31)
-> 
-> [Thales] : Subsystem: Mitac 100 Series/C230 Series Chipset Family USB 3.0 xHCI Controller
-> 
-> 
-> 
-> [Thales] : SW :
-> 
-> [Thales] : Kernel driver in use: xhci_hcd
-> 
-> [Thales] : Kernel modules : xhci_pci
-> 
-> 
-> 
->>
-> 
->>      -Debian 11 version5.10.0-20
-
-IIUC, before you said you had problem with Windows. So is this the 
-software in dom0? Or did you actually try with Debian and still see the 
-same issue?
-
-Regarding the configuration, given you are using the official Debian 
-package. Are you using 'xl' to create your guest?
-
-The ideal would be if you can paste the full configuration. If you can't 
-can you tell us if you are using any of these options: 'pci', 'usbdev', 
-'usbctrl'?
-
-[...]
-
->>      -Xen version4.14
-> 
-> 
-> 
-> Are minor version of Xen 4.14 are you using ? Any patches on top ?
-> 
-> 
-> 
-> Xen 4.14 has also been out of support for a few months now. If that’s possible, I would recommend to try a new Xen version (the last stable is
-> 
-> 4.18) just in case your issue as been fixed in newer release.
-> 
-> 
-> 
-> [Thales] : we have to use Xen release that are downloaded from the Debian official repository  (requested by our customer)
-> 
-> [Thales] : the last one is version 4.14, but we would like to know if there is one more recent that is compatible with Linux Debian 11 ?
-
-Newer Xen releases should be compatible with Debian 11. But I am not 
-aware of any "official" package for that specific version.
-
-Cheers,
-
--- 
-Julien Grall
+Jan
 
