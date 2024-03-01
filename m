@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 671FC86D944
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 02:57:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687482.1071017 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EE3286D9E4
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 03:52:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687485.1071027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfs8G-0007rD-Kx; Fri, 01 Mar 2024 01:56:16 +0000
+	id 1rft0H-0007VI-G8; Fri, 01 Mar 2024 02:52:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687482.1071017; Fri, 01 Mar 2024 01:56:16 +0000
+Received: by outflank-mailman (output) from mailman id 687485.1071027; Fri, 01 Mar 2024 02:52:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfs8G-0007o0-IG; Fri, 01 Mar 2024 01:56:16 +0000
-Received: by outflank-mailman (input) for mailman id 687482;
- Fri, 01 Mar 2024 01:56:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rft0H-0007SM-BK; Fri, 01 Mar 2024 02:52:05 +0000
+Received: by outflank-mailman (input) for mailman id 687485;
+ Fri, 01 Mar 2024 02:52:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=codm=KH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rfs8E-0007nu-Oz
- for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 01:56:14 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df0fa8f3-d76e-11ee-a1ee-f123f15fe8a2;
- Fri, 01 Mar 2024 02:56:10 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D1E146164D;
- Fri,  1 Mar 2024 01:56:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BA63C433F1;
- Fri,  1 Mar 2024 01:56:05 +0000 (UTC)
+ <SRS0=B8uw=KH=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1rft0F-0007SG-8r
+ for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 02:52:03 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ada90dc9-d776-11ee-afd8-a90da7624cb6;
+ Fri, 01 Mar 2024 03:52:01 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-563c403719cso2431501a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Feb 2024 18:52:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +40,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df0fa8f3-d76e-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709258167;
-	bh=gbJ8Iv/7xTt/XUfyMnMXrC66ed30tdQaG4+PFSMncqk=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DaY5G3CS3sdH8A3HE+6CrZ9f0SGF+c7lQMKSYUFzQPlhRpx3iZVI1Iq0o18I2jmv6
-	 183ciPBEriZ2o/encAXsOKXINWmqgVhV4Tu06GfqVgRLedUO+ZWSipfk7ly2Jy0Ywy
-	 nr1+RsF0z2QI8KT6jOnd77YidFkxoM4eMfflOtU4r8m6jMP6kQPSl9Qe8yYfPAruno
-	 ERSacnRE/mp53WbDzKuaXBw2XPij9xb85LEANPdIvhJbLc8oK8bNW80hMHeDIqjzu0
-	 fWrjGMIWVtHyXaRZUIVyrjKT00X1dhJHqsKBPYhSNNmtpegoJFTmSdeWhSKWNRW5CT
-	 8Zqj0Mpg3XIzQ==
-Date: Thu, 29 Feb 2024 17:56:04 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Stefano Stabellini <stefano.stabellini@amd.com>
-cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
-    jbeulich@suse.com, george.dunlap@citrix.com, julien@xen.org, 
-    bertrannd.marquis@arm.com, roger.pau@citrix.com, 
-    roberto.bagnara@bugseng.com, federico.serafini@bugseng.com, 
-    Luca.Fancellu@arm.com, michal.orzel@amd.com
-Subject: Re: [PATCH v2 1/3] docs/misra/rules.rst: add rule 16.6 and 20.12
-In-Reply-To: <20240213223334.3693410-1-stefano.stabellini@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2402291754010.853156@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2402131431070.1925432@ubuntu-linux-20-04-desktop> <20240213223334.3693410-1-stefano.stabellini@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: ada90dc9-d776-11ee-afd8-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1709261521; x=1709866321; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=V8c7DzusyVw+Znt9CrR5f39iJoZ0yzhRReE6XVLz+Is=;
+        b=GHv56Rsmd2Fk6YyxcE8aRFMZg4Ar52sYAIGO7cQLCFbu2/8jGTbIbcs305OCkxa48X
+         ONIozZHRR7BAxNmwX6npBOV6HTccE+HfFWAZYWUL2xQHNcE9Mbq/HErq9L45s5+LczOF
+         RkgkyaC8mxxjV+DkEBnH31QtYuCjwilVS+0hMVbnAznU8dClJP6+zqcVm6oIW0hpcOTe
+         ZwQ2qZd4LnOjw2O3auoaJSYBamhsYuTbRxhs+VqFJjsrq3FTzNukUc5MseMmO76PNiQH
+         gq1ab3YfWEyzy3WUMn12+4HxeK9sSH1IbW32aDuAM4WzzmXp9ORCIOtf31YYlrUmqD9f
+         9maw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709261521; x=1709866321;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=V8c7DzusyVw+Znt9CrR5f39iJoZ0yzhRReE6XVLz+Is=;
+        b=nnmOQGDyGlm2sROmeEv25TfGINb/Gjy/V5TLzxvo/6upUH+mdho08DYsLsWrTQ8UaJ
+         6GpqG1G8l7wWdwk2XTpfq0bX+ZMMw7PNZu67MuzfTLXN+yuQ+KkCBhOb4uaRYpN7HZwD
+         yjQA0Qb6CVzA2uWtiDBBHGvnyl8uIRC+d858CC5lRL47M3tY60buVSPlTYClm4DWDD4R
+         tQJKP/RTOvx52e6en074qSGuBZbqf8e3Ckg6b/KamdP45umuU2ktfwCF0Niwmc0bXgg4
+         74C5EEZj6sU0wx6P1h+fI7Op9KHS7Jj7t9H6syunmSYfnkro2qBej0o2MKy/5cxZ47cb
+         h6bQ==
+X-Gm-Message-State: AOJu0Yzyoir0erdLxaz+XDQqrvaK/d4S2SS45eP1bAP9YkY/lZKwKWEd
+	OJyQfC4YIbSWrLfFmF+k2xDpt9GNH8x8GuQPVI7Vh/H4XxPJ1XiAhpVFYfO4LcQ7QTLyGMC5LmM
+	01tm+ImMizl7PuF2JmOhP5Jgbcuw=
+X-Google-Smtp-Source: AGHT+IHg+77c+rgwdZnPxqMc4Q/2a/ydQNP00ZLb0dA9Tee3YY2BVCWupf/QAHQ9rb7K34esVTUArhvwWhoaqrCJp/4=
+X-Received: by 2002:a05:6402:d73:b0:566:1683:6370 with SMTP id
+ ec51-20020a0564020d7300b0056616836370mr285242edb.19.1709261520829; Thu, 29
+ Feb 2024 18:52:00 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20240109170540.38239-1-jandryuk@gmail.com> <20240109170540.38239-3-jandryuk@gmail.com>
+ <3d849b15-cfad-4d85-b2b8-11cd19027720@perard>
+In-Reply-To: <3d849b15-cfad-4d85-b2b8-11cd19027720@perard>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 29 Feb 2024 21:51:49 -0500
+Message-ID: <CAKf6xps3dam-ACKq0XhRrsyeU4xvTpDMgkn0tedzzsQyiHwo8w@mail.gmail.com>
+Subject: Re: [PATCH 2/2] libxl: devd: Spawn QEMU for 9pfs
+To: Anthony PERARD <anthony.perard@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Juergen Gross <jgross@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+On Wed, Feb 28, 2024 at 11:01=E2=80=AFAM Anthony PERARD
+<anthony.perard@cloud.com> wrote:
+>
+> On Tue, Jan 09, 2024 at 12:05:40PM -0500, Jason Andryuk wrote:
+> > @@ -3430,7 +3431,7 @@ void libxl__spawn_qdisk_backend(libxl__egc *egc, =
+libxl__dm_spawn_state *dmss)
+> >       * because we will call this from unprivileged driver domains,
+> >       * so save it in the current domain libxl private dir.
+> >       */
+> > -    dmss->spawn.pidpath =3D GCSPRINTF("libxl/%u/qdisk-backend-pid", do=
+mid);
+> > +    dmss->spawn.pidpath =3D GCSPRINTF("libxl/%u/qemu-xenpv-backend-pid=
+", domid);
+>
+> This path is documented in "docs/misc/xenstore-paths.pandoc", I'm not
+> sure it's such a good idea to change it.
+>
+> But maybe it's ok to change the path because xl devd is expected add
+> then remove this path? And that pid isn't going to be useful to anything
+> else?
+>
+> I'd rather not change the path, but if you still think it's ok, we can
+> go for it. Thought?
 
-This patch broke gitlab-ci. The jobs failing are the cppcheck jobs.
+I changed the path to keep it consistent with the internal libxl
+names.  The node is for libxl's internal use, so it seemed okay to
+change.  But it is externally visible, so there could be other
+software looking at it.  I'm fine with leaving the xenstore name
+unchanged.
 
-xen/scripts/xen-analysis.py --run-cppcheck --cppcheck-misra -- -j80
-No summary for rule 20.12
-WARNING: Can't open /builds/xen-project/hardware/xen/xen/drivers/video/font_8x14.c: 'utf-8' codec can't decode byte 0x9f in position 7228: invalid start byte
-WARNING: Can't open /builds/xen-project/hardware/xen/xen/drivers/video/font_8x16.c: 'utf-8' codec can't decode byte 0x80 in position 5436: invalid start byte
-WARNING: Can't open /builds/xen-project/hardware/xen/xen/drivers/video/font_8x8.c: 'utf-8' codec can't decode byte 0x80 in position 4410: invalid start byte
-ERROR: An error occured when running:
-/builds/xen-project/hardware/xen/xen/tools/convert_misra_doc.py -i /builds/xen-project/hardware/xen/docs/misra/rules.rst -o /builds/xen-project/hardware/xen/xen/cppcheck-misra.txt -j /builds/xen-project/hardware/xen/xen/cppcheck-misra.json 
+(I didn't want to rename all the qdisk stuff, but it seemed like it
+should be renamed since it would also handle 9pfs.)
 
-I'll look into it as soon as possible.
-
-
-On Tue, 13 Feb 2024, Stefano Stabellini wrote:
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> ---
->  docs/misra/rules.rst | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-> index 182331089d..c185366966 100644
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -478,6 +478,12 @@ maintainers if you want to suggest a change.
->         adhere to Rule 16.2 would result in increased complexity and
->         maintenance difficulty, and could potentially introduce bugs. 
->  
-> +   * - `Rule 16.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_06.c>`_
-> +     - Required
-> +     - Every switch statement shall have at least two switch-clauses
-> +     - Single-clause switches are allowed when they do not involve a
-> +       default label.
-> +
->     * - `Rule 16.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_07.c>`_
->       - Required
->       - A switch-expression shall not have essentially Boolean type
-> @@ -554,6 +560,13 @@ maintainers if you want to suggest a change.
->         evaluation
->       -
->  
-> +   * - `Rule 20.12 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_20_12.c>`_
-> +     - A macro parameter used as an operand to the # or ## operators,
-> +       which is itself subject to further macro replacement, shall only
-> +       be used as an operand to these operators
-> +     - Required
-> +     - Variadic macros are allowed to violate the rule.
-> +
->     * - `Rule 20.13 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_20_13.c>`_
->       - Required
->       - A line whose first token is # shall be a valid preprocessing
-> -- 
-> 2.25.1
-> 
-> 
+Thanks,
+Jason
 
