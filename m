@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0882A86E10F
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 13:31:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687643.1071354 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A05A686E139
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 13:43:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687648.1071364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rg21w-0000rV-Tu; Fri, 01 Mar 2024 12:30:24 +0000
+	id 1rg2E3-0002sj-0A; Fri, 01 Mar 2024 12:42:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687643.1071354; Fri, 01 Mar 2024 12:30:24 +0000
+Received: by outflank-mailman (output) from mailman id 687648.1071364; Fri, 01 Mar 2024 12:42:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rg21w-0000p1-Qf; Fri, 01 Mar 2024 12:30:24 +0000
-Received: by outflank-mailman (input) for mailman id 687643;
- Fri, 01 Mar 2024 12:30:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rg2E2-0002pm-T0; Fri, 01 Mar 2024 12:42:54 +0000
+Received: by outflank-mailman (input) for mailman id 687648;
+ Fri, 01 Mar 2024 12:42:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jGsc=KH=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rg21u-0000nY-Qb
- for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 12:30:22 +0000
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [2001:4860:4864:20::35])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 78324372-d7c7-11ee-afd8-a90da7624cb6;
- Fri, 01 Mar 2024 13:30:21 +0100 (CET)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-21fb368b468so1098001fac.0
- for <xen-devel@lists.xenproject.org>; Fri, 01 Mar 2024 04:30:21 -0800 (PST)
+ id 1rg2E1-0002pg-G4
+ for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 12:42:53 +0000
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [2001:4860:4864:20::33])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 37025410-d7c9-11ee-a1ee-f123f15fe8a2;
+ Fri, 01 Mar 2024 13:42:51 +0100 (CET)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-21edca2a89dso1007918fac.3
+ for <xen-devel@lists.xenproject.org>; Fri, 01 Mar 2024 04:42:51 -0800 (PST)
 Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- u24-20020ae9c018000000b00787f695c487sm1585815qkk.98.2024.03.01.04.30.19
+ w1-20020a05620a0e8100b007853f736893sm1608490qkm.5.2024.03.01.04.42.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Mar 2024 04:30:20 -0800 (PST)
+ Fri, 01 Mar 2024 04:42:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,115 +44,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78324372-d7c7-11ee-afd8-a90da7624cb6
+X-Inumbo-ID: 37025410-d7c9-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709296220; x=1709901020; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=tZVfWNlAzvtMlMR2wkPKMnV6YlIBnJz6r+E+seKQxfY=;
-        b=rZvHDExp2YEP9syCPEbt0Zaq/7iFTgqvrhcXfUoSwtw/MLov7wF2dd2qgoWkFHvbvl
-         IYZ2JQ16y/pxwXEPg17meKhuR8Z8Wui1Nrpcxy53paDCTt1CNqGSlM1m72GlaG1MfvXR
-         38B36CH4tDg5XqJFIJsehmtjyrTqjSJsZod30=
+        d=citrix.com; s=google; t=1709296969; x=1709901769; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=/yrDSPpcrVwedi2F9gehZixolrotrnrXDhAVNv+q5K8=;
+        b=CiCl0A4YeR8sEJ9WxWF5tmtjG/2JKVjvFIqPwrJvspQKDNn4hY4RtifFS6uyTwDhUV
+         eftjN4CSW6bUK2PHxKYFdCiBVcRooir+cilPrzUAtDecJmLESM7d32Aia+gZ3H9H2g7M
+         ncOG6O5dUVZ2XS7F7G6tgnDs0IaeOZY8Ej6pg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709296220; x=1709901020;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tZVfWNlAzvtMlMR2wkPKMnV6YlIBnJz6r+E+seKQxfY=;
-        b=p964xsmLQcYRsLnbS6RyvcVDGxQAHzhjhKE6G1yAAHEvt2lAeVl6S2UVCkJQJt+c2i
-         TGfdgWE5ZuEyv0vYGNhA+YYynnb58WJryCFYwGsiWRnWbYTem/llCavNziRXOVXAvwBc
-         GhVIkPQYuzKG21I7Eq51b6ADEluHh4+J4R3jKGznAuvW7dGckpLvTlfB021xPRXxeyIw
-         +fs5R9G1fChGSlzcgdj4a9lmeDspOu7YWDsU5Gm6mgUi3k+w4K9oY3rWZZBdOKFdBnwU
-         vtS0iwaOW8xNk2/dfkyHeuRvSeWbz762ANaJbIsWLAjW/OB/rjbEa4a1dm0VS8I8vOUJ
-         kA4w==
-X-Gm-Message-State: AOJu0YwzNdse9kb7LSHHebvnoHliIL9Q0ZIn/I2NDU/lmWmjRE59Md5i
-	A/dSbVVJ9NQTsRNRM2ZwCIlbpbTd1UDsL94G82cnUxWA90/U1N/kHFX2DMj9wp4=
-X-Google-Smtp-Source: AGHT+IHk3GK72xn0yqiIm6Gw3CUJbIFzEMbKbcbYnEfJwTeTnOSGGJA+3p5HmyJP/1ISem5RyT5DGQ==
-X-Received: by 2002:a05:6870:9d05:b0:21f:412a:87a8 with SMTP id pp5-20020a0568709d0500b0021f412a87a8mr1448430oab.41.1709296220532;
-        Fri, 01 Mar 2024 04:30:20 -0800 (PST)
-Date: Fri, 1 Mar 2024 13:30:18 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] x86/cpu-policy: Fix visibility of HTT/CMP_LEGACY in max
- policies
-Message-ID: <ZeHKWiHvsw_yMT0Y@macbook>
-References: <20240301112829.2657865-1-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1709296969; x=1709901769;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/yrDSPpcrVwedi2F9gehZixolrotrnrXDhAVNv+q5K8=;
+        b=mvQqlLBHJTwVpZz4jd5QsepZ8c/2VjolBN/7psc/PLpahylnyvqOZ0cUZI1od+gzwJ
+         gGWY6WsORruMS6Zqw3dNsHL0zgM2AorTBs9vAq4mkJyMWtPIK1lsxgEYpDqrM+kiCWad
+         L8OjkM9qZeauMSGL+obXwVSf9qHXkTehPYXRxUCKPxzSxFDwWYs/jRczcuH4qkvHL6Ew
+         kehLr4Xq+WYNxg2x8IXa0d59gpXuoQAARFiZdoREfU0jhEa/EWwZaEHZM+7W/vvAp5CZ
+         HxZ1L7ViOMuaxOhNhp6ZZ9wToeL7x3dIWGdSS/vAWUWGUlfpDp2kQRC9ofwf52eeqXCs
+         or9Q==
+X-Gm-Message-State: AOJu0YwhHSF/mLo6tGFq0Yjyf8a2kuaYjMjNrSXtB4a2h07AfGK1hM6+
+	H/9lPWa77dpO7ng2W73LlygzlNlVQVKjPQYcNnza7WOvEL7kktcYAP3Z2cqEjhB3a0NhEWnwCLW
+	x
+X-Google-Smtp-Source: AGHT+IFdz+nfx5bajN0waBAIBb91rv9mlMdNQKfvkPLeyZAeD3briXViiPraIye9heLYeSUlV7o9lQ==
+X-Received: by 2002:a05:6870:ab0b:b0:21f:cb22:86b1 with SMTP id gu11-20020a056870ab0b00b0021fcb2286b1mr1504835oab.11.1709296969252;
+        Fri, 01 Mar 2024 04:42:49 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/mm: re-implement get_page_light() using an atomic increment
+Date: Fri,  1 Mar 2024 13:42:27 +0100
+Message-ID: <20240301124228.56123-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240301112829.2657865-1-andrew.cooper3@citrix.com>
 
-On Fri, Mar 01, 2024 at 11:28:29AM +0000, Andrew Cooper wrote:
-> The block in recalculate_cpuid_policy() predates the proper split between
-> default and max policies, and was a "slightly max for a toolstack which knows
-> about it" capability.  It didn't get transformed properly in Xen 4.14.
-> 
-> Because Xen will accept a VM with HTT/CMP_LEGACY seen, they should be visible
-> in the max polices.  Keep the default policy matching host settings.
-> 
-> This manifested as an incorrectly-rejected migration across XenServer's Xen
-> 4.13 -> 4.17 upgrade, as Xapi is slowly growing the logic to check a VM
-> against the target max policy.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+The current usage of a cmpxchg loop to increase the value of page count is not
+optimal on amd64, as there's already an instruction to do an atomic add to a
+64bit integer.
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Switch the code in get_page_light() to use an atomic increment, as that avoids
+a loop construct.  This slightly changes the order of the checks, as current
+code will crash before modifying the page count_info if the conditions are not
+correct, while with the proposed change the crash will happen immediately
+after having carried the counter increase.  Since we are crashing anyway, I
+don't believe the re-ordering to have any meaningful impact.
 
-I have one question below.
+Note that the page must already have a non-zero reference count which prevents
+the flags from changing, and the previous usage of the cmpxchg loop didn't
+guarantee that the rest of the fields in count_info didn't change while
+updating the reference count.
 
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> ---
->  xen/arch/x86/cpu-policy.c | 29 ++++++++++++++++++++++-------
->  1 file changed, 22 insertions(+), 7 deletions(-)
-> 
-> diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
-> index c9b32bc17849..4f558e502e01 100644
-> --- a/xen/arch/x86/cpu-policy.c
-> +++ b/xen/arch/x86/cpu-policy.c
-> @@ -464,6 +464,16 @@ static void __init guest_common_max_feature_adjustments(uint32_t *fs)
->               raw_cpu_policy.feat.clwb )
->              __set_bit(X86_FEATURE_CLWB, fs);
->      }
-> +
-> +    /*
-> +     * Topology information inside the guest is entirely at the toolstack's
-> +     * disgression, and bears no relationship to the host we're running on.
-> +     *
-> +     * HTT identifies p->basic.lppp as valid
-> +     * CMP_LEGACY identifies p->extd.nc as valid
-> +     */
-> +    __set_bit(X86_FEATURE_HTT, fs);
-> +    __set_bit(X86_FEATURE_CMP_LEGACY, fs);
->  }
->  
->  static void __init guest_common_default_feature_adjustments(uint32_t *fs)
-> @@ -514,6 +524,18 @@ static void __init guest_common_default_feature_adjustments(uint32_t *fs)
->              __clear_bit(X86_FEATURE_CLWB, fs);
->      }
->  
-> +    /*
-> +     * Topology information is at the toolstack's discretion so these are
-> +     * unconditionally set in max, but pick a default which matches the host.
-> +     */
-> +    __clear_bit(X86_FEATURE_HTT, fs);
-> +    if ( cpu_has_htt )
-> +        __set_bit(X86_FEATURE_HTT, fs);
-> +
-> +    __clear_bit(X86_FEATURE_CMP_LEGACY, fs);
-> +    if ( cpu_has_cmp_legacy )
-> +        __set_bit(X86_FEATURE_CMP_LEGACY, fs);
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/mm.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-Not that I oppose to it, but does it make sense to expose this options
-to PV guests by default?  Those guests don't really have an APIC ID,
-and I think we don't expect any of the topology information to be
-usable by them in the first place.
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index 4d6d7bfe4f89..2aff6d4b5338 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -2580,16 +2580,10 @@ bool get_page(struct page_info *page, const struct domain *domain)
+  */
+ static void get_page_light(struct page_info *page)
+ {
+-    unsigned long x, nx, y = page->count_info;
++    unsigned long old_pgc = arch_fetch_and_add(&page->count_info, 1);
+ 
+-    do {
+-        x  = y;
+-        nx = x + 1;
+-        BUG_ON(!(x & PGC_count_mask)); /* Not allocated? */
+-        BUG_ON(!(nx & PGC_count_mask)); /* Overflow? */
+-        y = cmpxchg(&page->count_info, x, nx);
+-    }
+-    while ( unlikely(y != x) );
++    BUG_ON(!(old_pgc & PGC_count_mask)); /* Not allocated? */
++    BUG_ON(!((old_pgc + 1) & PGC_count_mask)); /* Overflow? */
+ }
+ 
+ static int validate_page(struct page_info *page, unsigned long type,
+-- 
+2.44.0
 
-Thanks, Roger.
 
