@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26D1C86E4E5
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 17:03:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687748.1071529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8214A86E6D6
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 18:09:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687760.1071537 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rg5KW-0002MA-Hf; Fri, 01 Mar 2024 16:01:48 +0000
+	id 1rg6N4-00023e-8L; Fri, 01 Mar 2024 17:08:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687748.1071529; Fri, 01 Mar 2024 16:01:48 +0000
+Received: by outflank-mailman (output) from mailman id 687760.1071537; Fri, 01 Mar 2024 17:08:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rg5KW-0002JA-EL; Fri, 01 Mar 2024 16:01:48 +0000
-Received: by outflank-mailman (input) for mailman id 687748;
- Fri, 01 Mar 2024 16:01:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rg6N4-000225-5h; Fri, 01 Mar 2024 17:08:30 +0000
+Received: by outflank-mailman (input) for mailman id 687760;
+ Fri, 01 Mar 2024 17:08:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+MAL=KH=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rg5KU-0002J4-P1
- for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 16:01:46 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 00971bdd-d7e5-11ee-afd8-a90da7624cb6;
- Fri, 01 Mar 2024 17:01:45 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-563c595f968so3736716a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 01 Mar 2024 08:01:45 -0800 (PST)
+ <SRS0=RIpQ=KH=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
+ id 1rg6N2-00021z-3M
+ for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 17:08:28 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 50fc2be7-d7ee-11ee-a1ee-f123f15fe8a2;
+ Fri, 01 Mar 2024 18:08:25 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-412cd58dd71so2267885e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 01 Mar 2024 09:08:25 -0800 (PST)
+Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
+ jn3-20020a05600c6b0300b004128e903b2csm8910607wmb.39.2024.03.01.09.08.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Mar 2024 09:08:24 -0800 (PST)
+Received: from draig (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id 9A47B5F7B4;
+ Fri,  1 Mar 2024 17:08:24 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,152 +47,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00971bdd-d7e5-11ee-afd8-a90da7624cb6
+X-Inumbo-ID: 50fc2be7-d7ee-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1709308905; x=1709913705; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1709312905; x=1709917705; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=22goiwUKXnXos+NblU9baP8d3PaG2JHeNrBuLSf288Q=;
-        b=LOfKiRUnvISDGAjaWzyfeonBxvC7eZZXAbjvYDe1J8o5IRxz71RzNSFWGG8j2u5WQo
-         7A10VLjqFMdODKXIE+cp08i0yR4G7rHGa2fSOCkjZGMmT5iA9I/YIqr0bZoVciHYwuWt
-         uixROJoBW8IvoD6kgFkDpm98NOYncKHZ4+WlzIK6HdB26JFj+hwM7kTFtj4bno20tvy+
-         9mKHQyN7VBiLAhycNULY0l4u0HyhwBWfeJxYRZgrpxH3JuxrFXHXB7cGqffvW4JKizBD
-         Af/8L6Q1JNMwM9EwSAiJtWjUB2bJxD+NIbyVXmG03Xtvsgpv5J6MSpUkxJrpJptEgdUx
-         i58A==
+        bh=yIsxd3I49dEeoEihY92y12I5QN6KFVksMBQbYfAFd0k=;
+        b=MbSBKRy0Z8cpQv5rU7fvaPkGkBjAtk9LSeKmelqJT9d+yKxiQHyVH7FKvRgFCGbuYH
+         CfvqjDlgoF7Y3xYvnNhFLNBHVt5JeZurhb9X8YFqgt3EMB+9r+gPF4KKRih+j1tSrm7e
+         hmKeWTD0TmxGyhC3UTxczVZMvfXiLyzDemVx7xKGtUQGoGoraVUnTn/oJ9oLK6490x7L
+         jemEv5dI0wzEDQEtDkXZc6k+GmBF92ag3UWE2n3AQyqCfU9G7j753GP+cd8DmH/8jrMu
+         ljfNvKaIUJNoqndEeWjaMDo5hr9MRCA8VI5PgJT83uqqpEwS7svxembGHm/FG1YCtk2f
+         FiiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709308905; x=1709913705;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=22goiwUKXnXos+NblU9baP8d3PaG2JHeNrBuLSf288Q=;
-        b=lzw/gITt20Gws7QFIc4Bprc3fUcASS+1OIhxbwJmemV3urqD36ZE0iSKmQwqUeRNUw
-         duJmMe1n4s/6cgoGUbR5FhJfI7EfzwIcovuGdWOo4OFc23olUjQqOdbj6xcSYdCg3+8g
-         f9/aniPZf4Tn4nr3VXfyfXvedadMV1OANAgokBwhcr/Obbk3j6PMLPEq81OgmjNxUvO1
-         fKcTsd8FP4E2WwyUWCajr7TblWH5Ym1EfyWXxk54ODpmEILWp5AE1W/8MplwpaMBCTld
-         2CdZ6x6dbh2S9UqkgugoZGpNANq8edof2ZQ0Xi7lWrrYlJHYKScXhN5Aj3nRaUXUKSms
-         xISg==
-X-Gm-Message-State: AOJu0Ywb6BHzQrI2M+EDxQAJ75z9Njh/uDs5IPclY6f59GciZjSQjVix
-	j04jNq8ew+8KJHNpG8YGRz0dcQFfBiu4S5xcxg37VG85WM0GYAf/24bt/zmDTIj/3UqJA4q2XlV
-	2J4p8VHRA8aVcCBfOIHmqpHl2JCCN/7CkbRovdQ==
-X-Google-Smtp-Source: AGHT+IFZv0TSRLlipx3wNfelK/3PPDrzStQj9BbIJIgGxnjbLEcEcQubqJmyREr9tW8AV2Au0fU7oTdlfFSRJZJIf2Y=
-X-Received: by 2002:a17:906:dce:b0:a3f:adcf:7f58 with SMTP id
- p14-20020a1709060dce00b00a3fadcf7f58mr1851607eji.21.1709308904552; Fri, 01
- Mar 2024 08:01:44 -0800 (PST)
+        d=1e100.net; s=20230601; t=1709312905; x=1709917705;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=yIsxd3I49dEeoEihY92y12I5QN6KFVksMBQbYfAFd0k=;
+        b=aQOcpgf8/ri9YQukuq6EroXysnhF1gs0Z7HknwZvQtd7FUBJCxy7bozLwn/FQwaIuk
+         px5X6xSfQnVneEzKMaqVqZFvPWUZD0V2DEd6ndJzpxFpUNl7PtaHeWh6yNgeQ6e8zAUQ
+         0XPb+mlKP8IUFWrjQhUWxi988b47EaQGu3Xcd2UA+5S2+lNcrD1eLzZFeZxIluyhYNYK
+         3+7jxbRc93nzn8oKu0B+DmBk2lLaa7T1n5sHKWhzinJnuI3rpq74WhgnCwFWi9cJ/0d3
+         TMZH7zldmkIbHP7etn6drBemFV5jGOotPjT/xjU3rI8ayLSQxGSmuAMbUl+CdLmBaRcl
+         CnWQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW4W5v9fWcuH2IXreqg6FWcOVhEXdtmO2KGQN1fxFs7l3chqNkH9YtwoYSU3kyB0vgCv6/nQuQmh+2Y+HTHnr3PF/1QE5dvITjI1bczj8w=
+X-Gm-Message-State: AOJu0YzInL+8Pav4AwQ7sYRB7t1KUMmrPw4dh9SkfWsvMbExukq8NFGm
+	5i7HmWiYU87tbDXWpn7cnosmuaLpzjj/1ueI2hhmxYMn/5aPdL5ZwOCOIdZuS/E=
+X-Google-Smtp-Source: AGHT+IF/04gw/RkqLIbw8xez/beiUpqog3Zmj88Frgy30DgiLIcrkJ88jnJeBOUjtNlvcLKherqjQg==
+X-Received: by 2002:a05:600c:45cf:b0:412:ca55:10ec with SMTP id s15-20020a05600c45cf00b00412ca5510ecmr1148930wmo.19.1709312905208;
+        Fri, 01 Mar 2024 09:08:25 -0800 (PST)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Vikram Garhwal <vikram.garhwal@amd.com>
+Cc: <qemu-devel@nongnu.org>,  <sstabellini@kernel.org>,  <jgross@suse.com>,
+  Anthony Perard <anthony.perard@citrix.com>,  Paul Durrant <paul@xen.org>,
+  "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+Subject: Re: [QEMU][PATCH v3 4/7] xen: let xen_ram_addr_from_mapcache()
+ return -1 in case of not found entry
+In-Reply-To: <20240227223501.28475-5-vikram.garhwal@amd.com> (Vikram Garhwal's
+	message of "Tue, 27 Feb 2024 14:34:58 -0800")
+References: <20240227223501.28475-1-vikram.garhwal@amd.com>
+	<20240227223501.28475-5-vikram.garhwal@amd.com>
+User-Agent: mu4e 1.12.0; emacs 29.1
+Date: Fri, 01 Mar 2024 17:08:24 +0000
+Message-ID: <87o7bx5187.fsf@draig.linaro.org>
 MIME-Version: 1.0
-References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
- <20240129171811.21382-7-carlo.nonato@minervasys.tech> <c8e1da62-eea0-4103-b9f7-f5bd05b90e30@perard>
-In-Reply-To: <c8e1da62-eea0-4103-b9f7-f5bd05b90e30@perard>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Fri, 1 Mar 2024 17:01:33 +0100
-Message-ID: <CAG+AhRXtGB5pDLmGppWr1=Te-iEiKO==U==K45+37mPV5gzSUQ@mail.gmail.com>
-Subject: Re: [PATCH v6 06/15] tools: add support for cache coloring configuration
-To: Anthony PERARD <anthony.perard@cloud.com>
-Cc: xen-devel@lists.xenproject.org, andrea.bastoni@minervasys.tech, 
-	Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>, 
-	Marco Solieri <marco.solieri@minervasys.tech>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Anthony,
+Vikram Garhwal <vikram.garhwal@amd.com> writes:
 
-On Wed, Feb 28, 2024 at 7:05=E2=80=AFPM Anthony PERARD <anthony.perard@clou=
-d.com> wrote:
+> From: Juergen Gross <jgross@suse.com>
 >
-> On Mon, Jan 29, 2024 at 06:18:02PM +0100, Carlo Nonato wrote:
-> > diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-> > index 2ef8b4e054..4b541fffd2 100644
-> > --- a/tools/include/xenctrl.h
-> > +++ b/tools/include/xenctrl.h
-> > @@ -2653,6 +2653,15 @@ int xc_livepatch_replace(xc_interface *xch, char=
- *name, uint32_t timeout, uint32
-> >  int xc_domain_cacheflush(xc_interface *xch, uint32_t domid,
-> >                           xen_pfn_t start_pfn, xen_pfn_t nr_pfns);
-> >
-> > +/*
-> > + * Set LLC colors for a domain.
-> > + * This is an internal hypercall. It can only be used directly after d=
-omain
+> Today xen_ram_addr_from_mapcache() will either abort() or return 0 in
+> case it can't find a matching entry for a pointer value. Both cases
+> are bad, so change that to return an invalid address instead.
 >
-> What is an "internal hypercall"? Can those even exist?
-
-Bad naming from my side. I'll remove that piece from the comment.
-
-> > + * creation. An attempt to use it afterwards will result in an error.
-> > + */
-> > +int xc_domain_set_llc_colors(xc_interface *xch, uint32_t domid,
-> > +                             const unsigned int *llc_colors,
-> > +                             unsigned int num_llc_colors);
-> > +
-> >  #if defined(__arm__) || defined(__aarch64__)
-> >  int xc_dt_overlay(xc_interface *xch, void *overlay_fdt,
-> >                    uint32_t overlay_fdt_size, uint8_t overlay_op);
-> > diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
-> > index f2d9d14b4d..ad02288659 100644
-> > --- a/tools/libs/ctrl/xc_domain.c
-> > +++ b/tools/libs/ctrl/xc_domain.c
-> > @@ -2180,6 +2180,40 @@ int xc_domain_soft_reset(xc_interface *xch,
-> >      domctl.domain =3D domid;
-> >      return do_domctl(xch, &domctl);
-> >  }
-> > +
-> > +int xc_domain_set_llc_colors(xc_interface *xch, uint32_t domid,
-> > +                             const unsigned int *llc_colors,
-> > +                             unsigned int num_llc_colors)
-> > +{
-> > +    struct xen_domctl domctl =3D {};
-> > +    DECLARE_HYPERCALL_BUFFER(uint32_t, local);
-> > +    int ret =3D -1;
-> > +
-> > +    if ( num_llc_colors )
-> > +    {
-> > +        size_t bytes =3D sizeof(uint32_t) * num_llc_colors;
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+>  hw/xen/xen-mapcache.c | 11 +++--------
+>  1 file changed, 3 insertions(+), 8 deletions(-)
 >
-> Isn't there a risk of overflow, maybe only on 32bit platform? Or maybe
-> that doesn't matter because the hypervisor should be able to find out if
-> the buffer is too short, right?
+> diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
+> index dfc412d138..179b7e95b2 100644
+> --- a/hw/xen/xen-mapcache.c
+> +++ b/hw/xen/xen-mapcache.c
+> @@ -396,13 +396,8 @@ ram_addr_t xen_ram_addr_from_mapcache(void *ptr)
+>          }
+>      }
+>      if (!found) {
+> -        trace_xen_ram_addr_from_mapcache_not_found(ptr);
+> -        QTAILQ_FOREACH(reventry, &mapcache->locked_entries, next) {
+> -            trace_xen_ram_addr_from_mapcache_found(reventry->paddr_index,
+> -                                                   reventry->vaddr_req);
+> -        }
 
-I'm not aware of a way to find out the actual buffer size in the hypervisor=
-,
-so to answer your question, yes there's a risk of overflow, but that would
-require a huge number of colors, which would probably fail the allocation
-or would fail the check on the platform supported number of color in the
-hypervisor.
-If you prefer I can add the check here anyway.
+If these tracepoints aren't useful they need removing from trace-events.
+However I suspect it would be better to keep them in as they are fairly
+cheap.
 
-> > +        local =3D xc_hypercall_buffer_alloc(xch, local, bytes);
-> > +        if ( local =3D=3D NULL )
-> > +        {
-> > +            PERROR("Could not allocate LLC colors for set_llc_colors")=
-;
-> > +            return -ENOMEM;
-> > +        }
-> > +        memcpy(local, llc_colors, bytes);
-> > +        set_xen_guest_handle(domctl.u.set_llc_colors.llc_colors, local=
-);
-> > +    }
-> > +
-> > +    domctl.cmd =3D XEN_DOMCTL_set_llc_colors;
-> > +    domctl.domain =3D domid;
-> > +    domctl.u.set_llc_colors.num_llc_colors =3D num_llc_colors;
-> > +
-> > +    ret =3D do_domctl(xch, &domctl);
-> > +
-> > +    if ( local )
-> > +        xc_hypercall_buffer_free(xch, local);
->
-> It doesn't looks like you need to check if "local !=3D NULL" before
-> calling xc_hypercall_buffer_free(), it should work even with
-> local=3D=3DNULL. This is even used multiple time in xc_kexec.
+Otherwise:
 
-Ok, thanks.
+Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
 
-> > +
-> > +    return ret;
-> > +}
->
-> Thanks,
->
-> --
-> Anthony PERARD
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
 
