@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B5E586E093
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 12:44:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687617.1071293 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EB3686E0A9
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 12:50:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687620.1071304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rg1IX-0007gp-6d; Fri, 01 Mar 2024 11:43:29 +0000
+	id 1rg1Oh-0000BG-V3; Fri, 01 Mar 2024 11:49:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687617.1071293; Fri, 01 Mar 2024 11:43:29 +0000
+Received: by outflank-mailman (output) from mailman id 687620.1071304; Fri, 01 Mar 2024 11:49:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rg1IX-0007fC-3q; Fri, 01 Mar 2024 11:43:29 +0000
-Received: by outflank-mailman (input) for mailman id 687617;
- Fri, 01 Mar 2024 11:43:27 +0000
+	id 1rg1Oh-00008B-S2; Fri, 01 Mar 2024 11:49:51 +0000
+Received: by outflank-mailman (input) for mailman id 687620;
+ Fri, 01 Mar 2024 11:49:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GBmU=KH=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rg1IV-0007f6-7r
- for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 11:43:27 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=jGsc=KH=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rg1Og-000085-So
+ for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 11:49:50 +0000
+Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
+ [2607:f8b0:4864:20::f2b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ea135df9-d7c0-11ee-afd8-a90da7624cb6;
- Fri, 01 Mar 2024 12:43:25 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 5FD894EE0737;
- Fri,  1 Mar 2024 12:43:25 +0100 (CET)
+ id ceca50c1-d7c1-11ee-afd8-a90da7624cb6;
+ Fri, 01 Mar 2024 12:49:49 +0100 (CET)
+Received: by mail-qv1-xf2b.google.com with SMTP id
+ 6a1803df08f44-68fe8e20259so10041526d6.2
+ for <xen-devel@lists.xenproject.org>; Fri, 01 Mar 2024 03:49:49 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ em19-20020ad44f93000000b0068fdb03a3a3sm1781231qvb.95.2024.03.01.03.49.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Mar 2024 03:49:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,91 +44,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea135df9-d7c0-11ee-afd8-a90da7624cb6
+X-Inumbo-ID: ceca50c1-d7c1-11ee-afd8-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1709293789; x=1709898589; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=FNBpkR65MTOl8/GCeLBTKCHJTdEnwJffWZmpG66n6cc=;
+        b=VF19pbGCv6tpHngxxst0x/dkiNEVt3zUVx5Q6o9gfT5/kwEG+oxxrdlfksP5ctBNB9
+         3v0kvd1JnMVcwe1n1XX1icGXSsmhPnVVwUHzaF0e8OFUarOklXorX5SE7uAQ2IG+z/Z5
+         xaBBmuFWGdeeO2g44a+/NF/4rXHAWetpWPGJk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709293789; x=1709898589;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=FNBpkR65MTOl8/GCeLBTKCHJTdEnwJffWZmpG66n6cc=;
+        b=aaBmc4vtLNfxRE1QZbupr9JOI+YA30Nf9pZBfiEZcv5fmtViKP9B1b298HZgONQddx
+         js42K85bjsHgC0Pu3xFAs0ipLq7/1ZP4KcBFy9Uh4r9j6/xhFO36bOMnWlDgDdnc8YMI
+         Owh7QulasE39k1I4x5w5RfMQMMdivJ0P0gYW5qirEluT8LUZPUbX1eQYrVKaE3pXuZsc
+         l0o2kZPmX1gvo2sa6CUOpxAXN1oTdXnvTMYZFIN7+Hcybh/yGfCwPKNP6zVaO4TxeYBT
+         vwXFqFe4en6nnU/IX3CYCnE5LSX961B/Pwr1/jpiFr8HESasR6gKwxneOpfzPs/eN7zm
+         D+9Q==
+X-Gm-Message-State: AOJu0YzzZnX62sh/CuRgCU//U73tG1tyeA7tqohyHYk4UBL9D4mZsQpB
+	QMAZPsSZF+FWAb+L25bkoC2DxBa1L6sB22WT4Bt2UnprQtJxg/YUlKq8OsFqr+Q=
+X-Google-Smtp-Source: AGHT+IGbx7vWnNS/Isdsv654Vl3DbaT+eJ6GtoTm9x/oJ+T4BcOQVOTFEEVhx+w02sXY22HkKFyRHA==
+X-Received: by 2002:a0c:f892:0:b0:68f:b5b3:c417 with SMTP id u18-20020a0cf892000000b0068fb5b3c417mr1439989qvn.11.1709293788882;
+        Fri, 01 Mar 2024 03:49:48 -0800 (PST)
+Date: Fri, 1 Mar 2024 12:49:46 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] tests/resource: Fix HVM guest in !SHADOW builds
+Message-ID: <ZeHA2usyM2aOISxq@macbook>
+References: <20240229205354.2574207-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Date: Fri, 01 Mar 2024 12:43:25 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Xen Devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper3 <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Jbeulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Wei Liu
- <wl@xen.org>, Roger Pau <roger.pau@citrix.com>, Consulting
- <consulting@bugseng.com>
-Subject: Violations of MISRA C Rule 20.7 in
- xen/arch/x86/include/asm/hvm/trace.h
-Message-ID: <f4d01f28c7041359df0e256f819bcd31@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240229205354.2574207-1-andrew.cooper3@citrix.com>
 
-Reporting the discussion that took place on Matrix on the matter, so 
-that it can carry on here with all interested parties:
-
-> Hi everyone. I was looking at MISRA violations for Rule 20.7 
-> ("Expressions resulting from the expansion of macro parameters shall be 
-> enclosed in parentheses") generated by
+On Thu, Feb 29, 2024 at 08:53:54PM +0000, Andrew Cooper wrote:
+> Right now, test-resource always creates HVM Shadow guests.  But if Xen has
+> SHADOW compiled out, running the test yields:
 > 
->     #define TRC_PAR_LONG(par) ((uint32_t)(par)), ((par) >> 32)
+>   $./test-resource
+>   XENMEM_acquire_resource tests
+>   Test x86 PV
+>     Created d1
+>     Test grant table
+>   Test x86 PVH
+>     Skip: 95 - Operation not supported
 > 
-> The thing here is this: the simplest fix is
+> and doesn't really test HVM guests, but doesn't fail either.
 > 
->     -#define TRC_PAR_LONG(par) ((uint32_t)(par)), ((par) >> 32)
->     +#define TRC_PAR_LO(par) ((uint32_t)(par))
->     +#define TRC_PAR_HI(par) ((par) >> 32)
+> There's nothing paging-mode-specific about this test, so default to HAP if
+> possible and provide a more specific message if neither HAP or Shadow are
+> available.
 > 
-> and then replace all call sites accordingly. However, in certain places 
-> (e.g., svm.c:1445), this causes a build error:
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+One comment below.
+
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> ---
+>  tools/tests/resource/test-resource.c | 25 +++++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
 > 
->     arch/x86/hvm/svm/svm.c: In function ‘svm_inject_event’:
->     arch/x86/hvm/svm/svm.c:1445:1: error: macro "HVMTRACE_3D" requires 
-> 4 arguments, but only 3 given
->     1445 | TRC_PAR_LO(_event.cr2), TRC_PAR_HI(_event.cr2));
->     | ^
->     In file included from arch/x86/hvm/svm/svm.c:31:
-> 
-> this is due to the somewhat strange definition of HVMTRACE_3D which 
-> works with the previous form of the macro, but not the current one, as 
-> the macro argument in HVMTRACE_LONG_2D is now split (_LO is d2 and _HI 
-> is variadic), and therefore it's not passed to HVMTRACE_3D anymore as 
-> two arguments.
-> I have a proposal: introduce a d3 argument to HVMTRACE_LONG_2D to 
-> supply the additional argument and/or make HVMTRACE_LONG_2D 
-> non-variadic. This would of course apply to the similarly named macros 
-> in xen/arch/x86/include/asm/hvm/trace.h
+> diff --git a/tools/tests/resource/test-resource.c b/tools/tests/resource/test-resource.c
+> index 7ae88ea34807..2796053588d3 100644
+> --- a/tools/tests/resource/test-resource.c
+> +++ b/tools/tests/resource/test-resource.c
+> @@ -20,6 +20,8 @@ static xc_interface *xch;
+>  static xenforeignmemory_handle *fh;
+>  static xengnttab_handle *gh;
+>  
+> +static xc_physinfo_t physinfo;
+> +
+>  static void test_gnttab(uint32_t domid, unsigned int nr_frames,
+>                          unsigned long gfn)
+>  {
+> @@ -172,6 +174,23 @@ static void test_domain_configurations(void)
+>  
+>          printf("Test %s\n", t->name);
+>  
+> +#if defined(__x86_64__) || defined(__i386__)
+> +        /*
+> +         * On x86, use HAP guests if possible, but skip if neither HAP nor
+> +         * SHADOW is available.
+> +         */
+> +        if ( t->create.flags & XEN_DOMCTL_CDF_hvm )
+> +        {
+> +            if ( physinfo.capabilities & XEN_SYSCTL_PHYSCAP_hap )
+> +                t->create.flags |= XEN_DOMCTL_CDF_hap;
+> +            else if ( !(physinfo.capabilities & XEN_SYSCTL_PHYSCAP_shadow) )
+> +            {
+> +                printf("  Skip: Neither HAP or SHADOW available\n");
+> +                continue;
+> +            }
+> +        }
 
-Andrew Cooper:
-> sigh - I'm half way through deleting all of that
-> guess I ought to finish
+Provided that you are already checking, might also be worth to keep in
+mind that at some point we might want to also check for
+XEN_SYSCTL_PHYSCAP_{hvm,pv} and skip those tests if the requested domain
+type is not available.
 
-Andrew Cooper:
-> @Nicola Vetrini: 
-> https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=shortlog;h=refs/heads/xen-trace 
-> On second thoughts I'm not sure it fixes the problem
-> just changes it.  The problem is the use of macros to split a 64bit 
-> quantity across two 32bit fields
-
-Nicola Vetrini:
-> It seems so, yes. But afaict this can be fixed by splitting the macro 
-> definition in two, as done above, which wouldn't incur in the 
-> compilation error on the new API
-
-Andrew Cooper:
-> given the users of TRACE_PARAM64() by the end, I'd prefer to do that 
-> with real structs rather than perpetuating the macro mess
-
-George Dunlap:
-> It's been a long time since I looked at all this, but FWIW I inherited 
-> all the weird macro stuff, never liked it, and myself used structs for 
-> all new traces. So without having looked at the code at all, I'm 
-> predisposed to agree w/ Andy's assessment that we should just rip out 
-> the offending macros and replace them with structs.
-
-@gwd: I believe the file that I was concerned about does not fall under 
-the XENTRACE entry in MAINTAINERS; you may want to rectify that.
-
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Thanks, Roger.
 
