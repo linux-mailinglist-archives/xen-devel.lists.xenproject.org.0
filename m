@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 951BA86DDF4
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 10:15:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687587.1071236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8532186DDFD
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 10:16:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687589.1071246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfyz1-0003CU-Br; Fri, 01 Mar 2024 09:15:11 +0000
+	id 1rfz0T-0003gu-KM; Fri, 01 Mar 2024 09:16:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687587.1071236; Fri, 01 Mar 2024 09:15:11 +0000
+Received: by outflank-mailman (output) from mailman id 687589.1071246; Fri, 01 Mar 2024 09:16:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfyz1-0003A3-8O; Fri, 01 Mar 2024 09:15:11 +0000
-Received: by outflank-mailman (input) for mailman id 687587;
- Fri, 01 Mar 2024 09:15:10 +0000
+	id 1rfz0T-0003ed-Hf; Fri, 01 Mar 2024 09:16:41 +0000
+Received: by outflank-mailman (input) for mailman id 687589;
+ Fri, 01 Mar 2024 09:16:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IfCR=KH=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rfyz0-00039x-2b
- for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 09:15:10 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ <SRS0=do9M=KH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rfz0S-0003eX-6l
+ for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 09:16:40 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32e253fc-d7ac-11ee-afd8-a90da7624cb6;
- Fri, 01 Mar 2024 10:15:09 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a3f3d0d2787so276308266b.3
- for <xen-devel@lists.xenproject.org>; Fri, 01 Mar 2024 01:15:08 -0800 (PST)
-Received: from [192.168.206.239] ([94.75.70.14])
+ id 691a7b71-d7ac-11ee-afd8-a90da7624cb6;
+ Fri, 01 Mar 2024 10:16:39 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2d24a727f78so21179911fa.0
+ for <xen-devel@lists.xenproject.org>; Fri, 01 Mar 2024 01:16:39 -0800 (PST)
+Received: from [192.168.1.10] (host-92-3-248-192.as13285.net. [92.3.248.192])
  by smtp.gmail.com with ESMTPSA id
- w11-20020a17090652cb00b00a44879da0f3sm468161ejn.143.2024.03.01.01.15.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Mar 2024 01:15:07 -0800 (PST)
+ m17-20020a056000009100b0033e17341ebesm2522113wrx.117.2024.03.01.01.16.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 01 Mar 2024 01:16:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,124 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32e253fc-d7ac-11ee-afd8-a90da7624cb6
+X-Inumbo-ID: 691a7b71-d7ac-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709284508; x=1709889308; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=LQ7c+pMWAjkhAfGsmL8GcAuh/D5rJKD28a9NdMhn97c=;
-        b=noRS2UjVm2Z55AX/pKQPUwzgjRjngpLYJc7GN+fff9VIYFWCXfu3NA0jWFJFureHbq
-         dlw2HunTQAGaZKZ7AUfwgWIdPj3RzTihA555BgGNu/pnr9+3ZfhdMXOgIOpUkR3kgW0A
-         2u+fnagLlHRE0cwtx66B+1jCR8Gh2YE306lYxjFur3MeRgS3vjQFgsCf+ms+2tLIiS9h
-         N8gF/VtRm2eh8Qswjn5XQ2XXq9hV9UgPcL4Y/+rltoGT3N1UPu7MV5fgqBr71gJq9isL
-         ROpIuC0u9XVeLkWZxadfnLVGWSikKcCH6nprb5Gb4ANvDl+yv7QLOPdb326FSGnv1d8P
-         /4UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709284508; x=1709889308;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=citrix.com; s=google; t=1709284599; x=1709889399; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=LQ7c+pMWAjkhAfGsmL8GcAuh/D5rJKD28a9NdMhn97c=;
-        b=hO/eRhgjHJnWmMkniZy56oWUpPUUoRBP+A5JGy5MQCrOfoDx1E6zFHNKp5fzUmmED1
-         L8X0g2ELVL9J8sSS433emDlKG5Xfg8Rnl+4w/Wxt60Q99FvKrXiBc7nWXoFfwlHNRlkc
-         SV8pxnJPEgXKKzA454sI1XXRbXnd+tVkOX+Zf9Ju3y7azK13WCZMnjUrLeqx1nS40dNj
-         8qzu8HzdbO0hYMPoiwYnkZHbBOO8a2bd8FIor3+qZvWu1iPOctPmhoVIQdUURuC3jprI
-         DGMkoHot7NzhkrTFTdqVj5nBe7CajIxRhJMNTRWmU7HkWxKW4JA3PEVy3i18/SnsEp00
-         gCjQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXjaqwQOup5uIV74kV3+cEnsqYNpYHQm9yi6NP8MLgKaTcm9yH8JcyPmSNYhiGjkyGAwTviHxOkv4VqtiL2eNvGstyZmeltAqLBihCuHtg=
-X-Gm-Message-State: AOJu0YyZJDTDnD2BVBtm5QbVekXr5w7o7cXOxpYgrd1zLir4+pn39BNB
-	bi8r8ZawdwbqniFRTZJ9u/E/8mKmeoaajnN4b+LWnenpGvailAup
-X-Google-Smtp-Source: AGHT+IHQWLtXJG6nRUrvyR4wNEBXUq27yXOicC2LxMMpe6hRaOOxXDcAnyFSsCrHHmC2QpqAMF8SRA==
-X-Received: by 2002:a17:906:470a:b0:a44:1f24:d982 with SMTP id y10-20020a170906470a00b00a441f24d982mr883921ejq.50.1709284507555;
-        Fri, 01 Mar 2024 01:15:07 -0800 (PST)
-Message-ID: <1d9b7966eb94ab424cfb8db3f913cc5e50e7707a.camel@gmail.com>
-Subject: Re: [PATCH v5 04/23] xen/asm-generic: introduce generic fls() and
- flsl() functions
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
- <jbeulich@suse.com>,  Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Date: Fri, 01 Mar 2024 10:15:06 +0100
-In-Reply-To: <c4332e38-9977-4ad0-9a07-eadac7045802@citrix.com>
-References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
-	 <df7ab5055ef08fa595f913072302770a3f6a5c33.1708962629.git.oleksii.kurochko@gmail.com>
-	 <c4332e38-9977-4ad0-9a07-eadac7045802@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+        bh=4KAm7XliOdsaghbbgy3LsDm15LulpQtoKQtUPngD2eo=;
+        b=Vp0KNepoWAP8U5odW1NA+3DQfdNSEABTOKqr+hjTfUBinzdBpXgtHlVYAMqqnePIDa
+         ns2jpxq59cT3vWwbb0WCGjJ4KwDCoj5ch3quoOvfBvLvp04D2z0TtL3BecJq4dx9FMDh
+         TxwD9y0KTYoW7aHTbA43MMUoKKAOCh8Yaqzhc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709284599; x=1709889399;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=4KAm7XliOdsaghbbgy3LsDm15LulpQtoKQtUPngD2eo=;
+        b=tUtp/n3h6gpQDn1CrK+vdO18nHANNe2Hxg0AfHFbv6eiJMtaPjKRzzMeECIHQFL81b
+         9zkLcujTAtR+31xvVzIhjrVhTs/nWZQm/42EF7ja+RVvFCQL9O09IJ4oTIDIdi4KXt+U
+         KT/CZSrNBsJ05OJG1krlnf+5mXZWGjqViVP0UPV/L1KaGIzc4YXK6SWIMtPziyPU+PN8
+         Pkk0Gh2dXOQbti3uEUk+tTaAUqiktqKs/KNYDLX1LDhrPE08JTdqXtL/F20SgUjQDMdf
+         oLf1zXL0nQNqJ75MKwFqIO2SejnWISw3LK4FtxIVtnb5HyADNTjx/jAJlcNDTPcyVeo0
+         Arlw==
+X-Gm-Message-State: AOJu0YwnbPno5BluwpvrRsDg7zBNw4F9skutkjG4BGd2qZJ4Gqx7YtNV
+	u/EPKWbQ8rKdHoMvbxEwB7qdanrqnelwOthqxQeYG7EZpCTdy5W013Ex1iIBmp4=
+X-Google-Smtp-Source: AGHT+IEjPHdnAu8Svo6JbmnEEfd6Q/HurxXT95x8cipSigt5/NnWvB5kpvUh51/pj+geXIu1d3bWHA==
+X-Received: by 2002:a05:6512:51a:b0:513:114c:5b3 with SMTP id o26-20020a056512051a00b00513114c05b3mr806312lfb.21.1709284598828;
+        Fri, 01 Mar 2024 01:16:38 -0800 (PST)
+Message-ID: <74617e79-5b5c-4cd7-86da-92dd8239b8b2@citrix.com>
+Date: Fri, 1 Mar 2024 09:16:36 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs/misra/rules.rst: Fix entry for 20.12 rule
+Content-Language: en-GB
+To: Luca Fancellu <Luca.Fancellu@arm.com>, Michal Orzel <michal.orzel@amd.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+References: <20240301084947.19241-1-michal.orzel@amd.com>
+ <D3374E14-01A2-426E-83FF-C4BDB6072FAE@arm.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <D3374E14-01A2-426E-83FF-C4BDB6072FAE@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2024-02-29 at 16:25 +0000, Andrew Cooper wrote:
-> On 26/02/2024 5:38 pm, Oleksii Kurochko wrote:
-> > These functions can be useful for architectures that don't
-> > have corresponding arch-specific instructions.
-> >=20
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > =C2=A0Changes in V5:
-> > =C2=A0=C2=A0 - new patch
-> > ---
-> > =C2=A0xen/include/asm-generic/bitops/fls.h=C2=A0 | 18 +++++++++++++++++=
-+
-> > =C2=A0xen/include/asm-generic/bitops/flsl.h | 10 ++++++++++
-> > =C2=A02 files changed, 28 insertions(+)
-> > =C2=A0create mode 100644 xen/include/asm-generic/bitops/fls.h
-> > =C2=A0create mode 100644 xen/include/asm-generic/bitops/flsl.h
-> >=20
-> > diff --git a/xen/include/asm-generic/bitops/fls.h
-> > b/xen/include/asm-generic/bitops/fls.h
-> > new file mode 100644
-> > index 0000000000..369a4c790c
-> > --- /dev/null
-> > +++ b/xen/include/asm-generic/bitops/fls.h
-> > @@ -0,0 +1,18 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +#ifndef _ASM_GENERIC_BITOPS_FLS_H_
-> > +#define _ASM_GENERIC_BITOPS_FLS_H_
-> > +
-> > +/**
-> > + * fls - find last (most-significant) bit set
-> > + * @x: the word to search
-> > + *
-> > + * This is defined the same way as ffs.
-> > + * Note fls(0) =3D 0, fls(1) =3D 1, fls(0x80000000) =3D 32.
-> > + */
-> > +
-> > +static inline int fls(unsigned int x)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 return generic_fls(x);
-> > +}
-> > +
-> > +#endif /* _ASM_GENERIC_BITOPS_FLS_H_ */
-> > diff --git a/xen/include/asm-generic/bitops/flsl.h
-> > b/xen/include/asm-generic/bitops/flsl.h
-> > new file mode 100644
-> > index 0000000000..d0a2e9c729
-> > --- /dev/null
-> > +++ b/xen/include/asm-generic/bitops/flsl.h
-> > @@ -0,0 +1,10 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +#ifndef _ASM_GENERIC_BITOPS_FLSL_H_
-> > +#define _ASM_GENERIC_BITOPS_FLSL_H_
-> > +
-> > +static inline int flsl(unsigned long x)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 return generic_flsl(x);
-> > +}
-> > +
-> > +#endif /* _ASM_GENERIC_BITOPS_FLSL_H_ */
->=20
-> Please don't do this.=C2=A0 It's compounding existing problems we have
-> with
-> bitops, and there's a way to simplify things instead.
->=20
-> If you can wait a couple of days, I'll see about finishing and
-> posting
-> my prototype demonstrating a simplification across all architectures,
-> and a reduction of code overall.
-Please add me in CC.
+On 01/03/2024 8:52 am, Luca Fancellu wrote:
+>> On 1 Mar 2024, at 08:49, Michal Orzel <michal.orzel@amd.com> wrote:
+>>
+>> Commit 4cac80e22600 broke the CI cppcheck jobs by adding an entry for
+>> a rule 20.12 with "Severity" and "Summary" fields placed in reverse order.
+>> This leads to an error as reported by convert_misra_doc.py:
+>> No summary for rule 20.12
+>>
+>> Fixes: 4cac80e22600 ("docs/misra/rules.rst: add rule 16.6 and 20.12")
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>> ---
+>> Failed pipeline:
+>> https://gitlab.com/xen-project/xen/-/pipelines/1196428827
+>> ---
+> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
 
-~ Oleksii
+Thanks for the fast turnaround.  Lets hope the next run on staging fairs
+better.
+
+~Andrew
 
