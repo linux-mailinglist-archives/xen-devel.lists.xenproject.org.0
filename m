@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EB9586E0C4
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 12:59:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687625.1071313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D68B886E0D8
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 13:08:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687633.1071324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rg1XM-0001hk-PQ; Fri, 01 Mar 2024 11:58:48 +0000
+	id 1rg1g8-0003Zg-Pn; Fri, 01 Mar 2024 12:07:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687625.1071313; Fri, 01 Mar 2024 11:58:48 +0000
+Received: by outflank-mailman (output) from mailman id 687633.1071324; Fri, 01 Mar 2024 12:07:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rg1XM-0001fH-Mi; Fri, 01 Mar 2024 11:58:48 +0000
-Received: by outflank-mailman (input) for mailman id 687625;
- Fri, 01 Mar 2024 11:58:47 +0000
+	id 1rg1g8-0003Y0-MO; Fri, 01 Mar 2024 12:07:52 +0000
+Received: by outflank-mailman (input) for mailman id 687633;
+ Fri, 01 Mar 2024 12:07:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=do9M=KH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rg1XK-0001es-UD
- for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 11:58:46 +0000
-Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
- [2607:f8b0:4864:20::72e])
+ id 1rg1g6-0003Xu-IJ
+ for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 12:07:50 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0df2a087-d7c3-11ee-afd8-a90da7624cb6;
- Fri, 01 Mar 2024 12:58:45 +0100 (CET)
-Received: by mail-qk1-x72e.google.com with SMTP id
- af79cd13be357-787c900af02so150582285a.1
- for <xen-devel@lists.xenproject.org>; Fri, 01 Mar 2024 03:58:45 -0800 (PST)
+ id 52a579a5-d7c4-11ee-afd8-a90da7624cb6;
+ Fri, 01 Mar 2024 13:07:49 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-412c34e84a5so8123625e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 01 Mar 2024 04:07:49 -0800 (PST)
 Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- po10-20020a05620a384a00b00787bb956e07sm1568460qkn.76.2024.03.01.03.58.42
+ c21-20020a05600c0a5500b00412cb0961fasm549799wmq.6.2024.03.01.04.07.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Mar 2024 03:58:43 -0800 (PST)
+ Fri, 01 Mar 2024 04:07:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0df2a087-d7c3-11ee-afd8-a90da7624cb6
+X-Inumbo-ID: 52a579a5-d7c4-11ee-afd8-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709294324; x=1709899124; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1709294869; x=1709899669; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Q0uBECgOumcLo4ycKlv0F8SbxteGojvvBk2nW0PcJlI=;
-        b=JP9pyxz09QfRQZQjspyq83y5naTA18C7bAutnSnwE0cENTVEadL85/M/aiLuW50Ac/
-         mMKmTWadCIOZscjFaoUhxv8PCGCLtcujZWK/Ih5ljPMRPJepZMzwwQwQXA7givpbsJSg
-         KSDg1gbUcGv2V5zddhtz0LI2FazkT5DasvRvc=
+        bh=yXxfSimnoRmoFAT1TH4Kc2IG3WcGZKA2IB43QW1qH2s=;
+        b=oXlfsH7hESbU9dhoBQe92H8h5jPDwDlXKKKlKGUczS6K6sN4N0znbCwniyj7Wum4T8
+         pUb1hxTBbJ7iqm4y2TeRngYjQf83rnJUEqln5swmG0DzuQvP/mD58ZFaJswL6gqBYhAb
+         EoWVQqU68caLcpI1bWcJ68btAddNqDFtM3rIk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709294324; x=1709899124;
+        d=1e100.net; s=20230601; t=1709294869; x=1709899669;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q0uBECgOumcLo4ycKlv0F8SbxteGojvvBk2nW0PcJlI=;
-        b=WuU8IB6iV4ZLEIYOfi02alOXmAVHorxd9NY+TKZBsTF30Yaiex3lawobj1HiAI3lEG
-         QGbPzP1pqAg2bpZiE7y2An02y56+y4oQyEBSLebEiHndVrPjIgrck/8rEEfAC33u6nVS
-         wxwF46Oet6Coh7g3NW7HM7QZrpTsZtUWjyTBV9BRj2YLwMNDJ9hOjeiI9OoWPTIM0JXb
-         eRRZaFsjAq+OonJ8NvTMnSrHf/rfmQRHvI1y2zrm1E+Okpt8c7EaY8U/Vm3hjYslAPpC
-         cjP0ejKgBCymE7D3zwww/7zOMa1GZLokaFornQYluXDC4dmJfU50Ym+de+SBDUyWHCji
-         RIzA==
-X-Forwarded-Encrypted: i=1; AJvYcCUk4MOEHltYDywcwc0j+SYI3rF+kV/klF6JaRbsjhqW3hoy49k0q+hnJrGQxBU6Nuz/7fjBmLtSCRtNykkObRb8oWm2CinsRU8t1xMGN7o=
-X-Gm-Message-State: AOJu0Yyhjd7mVLn7TYMNmxMV8INbc7Y4C1NfBzwaUAyNlcRT+I4tvVOu
-	O4WNPcHOdYn2Eg/gRFa3rEUa6n8LJ077YWasi+hrYfmrMStWBaXxP3RGYuZMeGU=
-X-Google-Smtp-Source: AGHT+IGQlTqkV8d/1sludf0XM1jEEUksJottcjFTVBoK6NqUQATzkDovRkBDALMBL+kpglSMgBu5MQ==
-X-Received: by 2002:a05:620a:45a0:b0:788:2d3:8c9c with SMTP id bp32-20020a05620a45a000b0078802d38c9cmr5467858qkb.27.1709294324292;
-        Fri, 01 Mar 2024 03:58:44 -0800 (PST)
-Message-ID: <24db0ffc-fdab-4368-8a97-5c8fb8c2b779@citrix.com>
-Date: Fri, 1 Mar 2024 11:58:41 +0000
+        bh=yXxfSimnoRmoFAT1TH4Kc2IG3WcGZKA2IB43QW1qH2s=;
+        b=D+2p1pGVaDzdT0EIiPo0oALM54ldr4E22r7sES+oofq7jgTGmGkt9szYbu2pfb0g7Q
+         HgfmdKBhnBT0zYBdj2XGi7SAX8XftplQp4x5ioMD0/0vkxfW2YmaOpRUjFEbdZ+bm/h8
+         07pnRJ9Bso8iRjKzqp7ynnAkgt+HSCvJC3bW9GNH+GueHoYzmtqEI+HAgZRlalhTl3j+
+         RMsqppDFFM4kMJzsEt4pWU3O6bmBwIasuwPadOGENa6I5DQkrsjjg30WMGXB9/ahnbEp
+         FuUUOhilgX7SmY4VDFQRdT+Xx0g7r4yFkSuzCoudx/JWbbEKzmcps1vrzSwEJ3NDlH5W
+         bsKg==
+X-Gm-Message-State: AOJu0YzB8TAkK44H8odiZSEas1vv0hp8e9YnW+BgtYLM1wZbP1vgJzt4
+	TmGcEg6XXuI3froXxA2+rvhQ38F+qoHQnpQPNpQpsMxYVddLXGwaqu/lWcOSpO8rb5rsPK4RV9W
+	j
+X-Google-Smtp-Source: AGHT+IEpnXp7em0Y6tiDHUiXWmuvVfBLt7QU+qQoGfrUVkpPAsoRyAe2XYUejDT6tViEetrrRTGvOg==
+X-Received: by 2002:a7b:c7d9:0:b0:412:9ed4:290 with SMTP id z25-20020a7bc7d9000000b004129ed40290mr1315637wmk.25.1709294869114;
+        Fri, 01 Mar 2024 04:07:49 -0800 (PST)
+Message-ID: <dded6723-15fb-4f5c-85e0-70491e2876c3@citrix.com>
+Date: Fri, 1 Mar 2024 12:07:46 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Violations of MISRA C Rule 20.7 in
- xen/arch/x86/include/asm/hvm/trace.h
+Subject: Re: [PATCH] tests/resource: Fix HVM guest in !SHADOW builds
 Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Xen Devel <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jbeulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Roger Pau <roger.pau@citrix.com>, Consulting <consulting@bugseng.com>
-References: <f4d01f28c7041359df0e256f819bcd31@bugseng.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <20240229205354.2574207-1-andrew.cooper3@citrix.com>
+ <ZeHA2usyM2aOISxq@macbook>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -131,144 +128,80 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <f4d01f28c7041359df0e256f819bcd31@bugseng.com>
+In-Reply-To: <ZeHA2usyM2aOISxq@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 01/03/2024 11:43 am, Nicola Vetrini wrote:
-> Reporting the discussion that took place on Matrix on the matter, so
-> that it can carry on here with all interested parties:
->
->> Hi everyone. I was looking at MISRA violations for Rule 20.7
->> ("Expressions resulting from the expansion of macro parameters shall
->> be enclosed in parentheses") generated by
+On 01/03/2024 11:49 am, Roger Pau Monné wrote:
+> On Thu, Feb 29, 2024 at 08:53:54PM +0000, Andrew Cooper wrote:
+>> Right now, test-resource always creates HVM Shadow guests.  But if Xen has
+>> SHADOW compiled out, running the test yields:
 >>
->>     #define TRC_PAR_LONG(par) ((uint32_t)(par)), ((par) >> 32)
+>>   $./test-resource
+>>   XENMEM_acquire_resource tests
+>>   Test x86 PV
+>>     Created d1
+>>     Test grant table
+>>   Test x86 PVH
+>>     Skip: 95 - Operation not supported
 >>
->> The thing here is this: the simplest fix is
+>> and doesn't really test HVM guests, but doesn't fail either.
 >>
->>     -#define TRC_PAR_LONG(par) ((uint32_t)(par)), ((par) >> 32)
->>     +#define TRC_PAR_LO(par) ((uint32_t)(par))
->>     +#define TRC_PAR_HI(par) ((par) >> 32)
+>> There's nothing paging-mode-specific about this test, so default to HAP if
+>> possible and provide a more specific message if neither HAP or Shadow are
+>> available.
 >>
->> and then replace all call sites accordingly. However, in certain
->> places (e.g., svm.c:1445), this causes a build error:
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+>
+> One comment below.
+>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Wei Liu <wl@xen.org>
+>> ---
+>>  tools/tests/resource/test-resource.c | 25 +++++++++++++++++++++++++
+>>  1 file changed, 25 insertions(+)
 >>
->>     arch/x86/hvm/svm/svm.c: In function ‘svm_inject_event’:
->>     arch/x86/hvm/svm/svm.c:1445:1: error: macro "HVMTRACE_3D"
->> requires 4 arguments, but only 3 given
->>     1445 | TRC_PAR_LO(_event.cr2), TRC_PAR_HI(_event.cr2));
->>     | ^
->>     In file included from arch/x86/hvm/svm/svm.c:31:
->>
->> this is due to the somewhat strange definition of HVMTRACE_3D which
->> works with the previous form of the macro, but not the current one,
->> as the macro argument in HVMTRACE_LONG_2D is now split (_LO is d2 and
->> _HI is variadic), and therefore it's not passed to HVMTRACE_3D
->> anymore as two arguments.
->> I have a proposal: introduce a d3 argument to HVMTRACE_LONG_2D to
->> supply the additional argument and/or make HVMTRACE_LONG_2D
->> non-variadic. This would of course apply to the similarly named
->> macros in xen/arch/x86/include/asm/hvm/trace.h
->
-> Andrew Cooper:
->> sigh - I'm half way through deleting all of that
->> guess I ought to finish
->
-> Andrew Cooper:
->> @Nicola Vetrini:
->> https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=shortlog;h=refs/heads/xen-trace
->> On second thoughts I'm not sure it fixes the problem
->> just changes it.  The problem is the use of macros to split a 64bit
->> quantity across two 32bit fields
->
-> Nicola Vetrini:
->> It seems so, yes. But afaict this can be fixed by splitting the macro
->> definition in two, as done above, which wouldn't incur in the
->> compilation error on the new API
->
-> Andrew Cooper:
->> given the users of TRACE_PARAM64() by the end, I'd prefer to do that
->> with real structs rather than perpetuating the macro mess
->
-> George Dunlap:
->> It's been a long time since I looked at all this, but FWIW I
->> inherited all the weird macro stuff, never liked it, and myself used
->> structs for all new traces. So without having looked at the code at
->> all, I'm predisposed to agree w/ Andy's assessment that we should
->> just rip out the offending macros and replace them with structs.
->
-> @gwd: I believe the file that I was concerned about does not fall
-> under the XENTRACE entry in MAINTAINERS; you may want to rectify that.
->
+>> diff --git a/tools/tests/resource/test-resource.c b/tools/tests/resource/test-resource.c
+>> index 7ae88ea34807..2796053588d3 100644
+>> --- a/tools/tests/resource/test-resource.c
+>> +++ b/tools/tests/resource/test-resource.c
+>> @@ -20,6 +20,8 @@ static xc_interface *xch;
+>>  static xenforeignmemory_handle *fh;
+>>  static xengnttab_handle *gh;
+>>  
+>> +static xc_physinfo_t physinfo;
+>> +
+>>  static void test_gnttab(uint32_t domid, unsigned int nr_frames,
+>>                          unsigned long gfn)
+>>  {
+>> @@ -172,6 +174,23 @@ static void test_domain_configurations(void)
+>>  
+>>          printf("Test %s\n", t->name);
+>>  
+>> +#if defined(__x86_64__) || defined(__i386__)
+>> +        /*
+>> +         * On x86, use HAP guests if possible, but skip if neither HAP nor
+>> +         * SHADOW is available.
+>> +         */
+>> +        if ( t->create.flags & XEN_DOMCTL_CDF_hvm )
+>> +        {
+>> +            if ( physinfo.capabilities & XEN_SYSCTL_PHYSCAP_hap )
+>> +                t->create.flags |= XEN_DOMCTL_CDF_hap;
+>> +            else if ( !(physinfo.capabilities & XEN_SYSCTL_PHYSCAP_shadow) )
+>> +            {
+>> +                printf("  Skip: Neither HAP or SHADOW available\n");
+>> +                continue;
+>> +            }
+>> +        }
+> Provided that you are already checking, might also be worth to keep in
+> mind that at some point we might want to also check for
+> XEN_SYSCTL_PHYSCAP_{hvm,pv} and skip those tests if the requested domain
+> type is not available.
 
-My vague plan to fix this is to still take
-https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=commitdiff;h=8636f0eaa0f163f8a433eb17b9e0d2e87db284b6
-but not introduce TRACE_PARAM64
-
-The users are as follows:
-
-xen.git/xen$ git grep TRACE_PARAM64
-arch/x86/hvm/emulate.c:2183:        TRACE(TRC_HVM_CR_READ64, reg,
-TRACE_PARAM64(*val));
-arch/x86/hvm/emulate.c:2199:    TRACE(TRC_HVM_CR_WRITE64, reg,
-TRACE_PARAM64(val));
-arch/x86/hvm/emulate.c:2244:        TRACE(TRC_HVM_XCR_READ64, reg,
-TRACE_PARAM64(*val));
-arch/x86/hvm/emulate.c:2254:    TRACE(TRC_HVM_XCR_WRITE64, reg,
-TRACE_PARAM64(val));
-arch/x86/hvm/hpet.c:308:               TRACE_PARAM64(diff_ns),
-TRACE_PARAM64(period_ns));
-arch/x86/hvm/hvm.c:2155:    TRACE(TRC_HVM_CR_WRITE64, cr,
-TRACE_PARAM64(val));
-arch/x86/hvm/hvm.c:2220:    TRACE(TRC_HVM_CR_READ64, cr,
-TRACE_PARAM64(val));
-arch/x86/hvm/hvm.c:3631:    TRACE(TRC_HVM_MSR_READ, msr,
-TRACE_PARAM64(*msr_content));
-arch/x86/hvm/hvm.c:3647:    TRACE(TRC_HVM_MSR_WRITE, msr,
-TRACE_PARAM64(msr_content));
-arch/x86/hvm/svm/svm.c:1442:              TRACE_PARAM64(_event.cr2));
-arch/x86/hvm/svm/svm.c:2402:    TRACE(TRC_HVM_INVLPG64, 0,
-TRACE_PARAM64(linear));
-arch/x86/hvm/svm/svm.c:2630:                   exit_reason,
-TRACE_PARAM64(regs->rip));
-arch/x86/hvm/svm/svm.c:2826:                TRACE(TRC_HVM_PF_XEN64,
-regs->error_code, TRACE_PARAM64(va));
-arch/x86/hvm/vlapic.c:738:       
-TRACE_TIME(TRC_HVM_EMUL_LAPIC_START_TIMER, TRACE_PARAM64(delta),
-arch/x86/hvm/vlapic.c:739:                   TRACE_PARAM64(is_periodic ?
-period : 0), vlapic->pt.irq);
-arch/x86/hvm/vlapic.c:1209:       
-TRACE_TIME(TRC_HVM_EMUL_LAPIC_START_TIMER, TRACE_PARAM64(delta),
-arch/x86/hvm/vlapic.c:1210:                   TRACE_PARAM64(0LL),
-vlapic->pt.irq);
-arch/x86/hvm/vlapic.c:1223:           
-TRACE_TIME(TRC_HVM_EMUL_LAPIC_START_TIMER, TRACE_PARAM64(0LL),
-arch/x86/hvm/vlapic.c:1224:                       TRACE_PARAM64(0LL),
-vlapic->pt.irq);
-arch/x86/hvm/vlapic.c:1477:   
-TRACE_TIME(TRC_HVM_EMUL_LAPIC_START_TIMER, TRACE_PARAM64(period),
-arch/x86/hvm/vlapic.c:1478:               TRACE_PARAM64(is_periodic ?
-period : 0LL), s->pt.irq);
-arch/x86/hvm/vmx/vmx.c:2093:             
-TRACE_PARAM64(curr->arch.hvm.guest_cr[2]));
-arch/x86/hvm/vmx/vmx.c:3099:    TRACE(TRC_HVM_INVLPG64, /*invlpga=*/ 0,
-TRACE_PARAM64(linear));
-arch/x86/hvm/vmx/vmx.c:3160:        TRACE(TRC_HVM_LMSW64,
-TRACE_PARAM64(value));
-arch/x86/hvm/vmx/vmx.c:4064:        TRACE_TIME(TRC_HVM_VMEXIT64,
-exit_reason, TRACE_PARAM64(regs->rip));
-arch/x86/hvm/vmx/vmx.c:4346:                         
-TRACE_PARAM64(exit_qualification));
-include/xen/trace.h:87:#define TRACE_PARAM64(p)    (uint32_t)(p), ((p)
->> 32)
-
-and there are probably enough examples of "reg32, val64" to justify
-making a helper.  We're touching every site anyway, so adjudging for the
-next version of the series is easy.
-
-I might repost the first few patches right now.  All the fixes in the
-scheduler have been reviewed and ready to go for 3 release of Xen already...
+Fair point.  Lemme do a v2.
 
 ~Andrew
 
