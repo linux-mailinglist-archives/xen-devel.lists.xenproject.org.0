@@ -2,39 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D81E186DCCB
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 09:13:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.687559.1071187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA99F86DD2C
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Mar 2024 09:35:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.687564.1071197 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfy1B-0000W2-85; Fri, 01 Mar 2024 08:13:21 +0000
+	id 1rfyLs-0003oL-2N; Fri, 01 Mar 2024 08:34:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 687559.1071187; Fri, 01 Mar 2024 08:13:21 +0000
+Received: by outflank-mailman (output) from mailman id 687564.1071197; Fri, 01 Mar 2024 08:34:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rfy1B-0000Tu-4T; Fri, 01 Mar 2024 08:13:21 +0000
-Received: by outflank-mailman (input) for mailman id 687559;
- Fri, 01 Mar 2024 08:13:19 +0000
+	id 1rfyLr-0003lS-Vk; Fri, 01 Mar 2024 08:34:43 +0000
+Received: by outflank-mailman (input) for mailman id 687564;
+ Fri, 01 Mar 2024 08:34:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KgAT=KH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rfy19-0000To-Gp
- for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 08:13:19 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=skW7=KH=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rfyLq-0003lM-HG
+ for xen-devel@lists.xenproject.org; Fri, 01 Mar 2024 08:34:42 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2418::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8ef67c4c-d7a3-11ee-a1ee-f123f15fe8a2;
- Fri, 01 Mar 2024 09:13:17 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-56533e30887so3228405a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 01 Mar 2024 00:13:17 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k23-20020a1709063e1700b00a42f6d48c72sm1482682eji.145.2024.03.01.00.13.16
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Mar 2024 00:13:16 -0800 (PST)
+ id 8adf6125-d7a6-11ee-a1ee-f123f15fe8a2;
+ Fri, 01 Mar 2024 09:34:39 +0100 (CET)
+Received: from DS7PR03CA0140.namprd03.prod.outlook.com (2603:10b6:5:3b4::25)
+ by PH7PR12MB6491.namprd12.prod.outlook.com (2603:10b6:510:1f4::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.31; Fri, 1 Mar
+ 2024 08:34:35 +0000
+Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
+ (2603:10b6:5:3b4:cafe::97) by DS7PR03CA0140.outlook.office365.com
+ (2603:10b6:5:3b4::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.32 via Frontend
+ Transport; Fri, 1 Mar 2024 08:34:35 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Fri, 1 Mar 2024 08:34:35 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 1 Mar
+ 2024 02:34:34 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 1 Mar
+ 2024 00:34:33 -0800
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Fri, 1 Mar 2024 02:34:31 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,114 +63,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ef67c4c-d7a3-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709280797; x=1709885597; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qj2TOtP0QaYk201sneMG79nt/9riutl94IDNtJJc4nQ=;
-        b=ZNOb5Ya/5ax2Hl1xrsYslcbfdbOSi8OW638ZJYDCWddZLzfRhKRyAbdr2eCEt+OMNN
-         nuYk0cOwYWGxFXDHmHaUv1CXP1LxStEyoHOcA2MzWV1UqsZInUIl8CRTcmIBhoBugSPt
-         u+Svqxn3h2S+k0+XJiz6UvCktURqIHa4m1+x0LMYUedkMne2cWyRGkB4CPpmqRzEvS9i
-         JaRExPFKP00hs51wzV+HtXeIcZdM13J/nGdhQqdFT20fele8M1C545fMTbTuJddWqZpP
-         hGsHf4o0QxrIIusAmEHi0a41u7lri13qGmNMQHMakDpHZl//bW+9eY8nmz+wj8cxEUpI
-         7EhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709280797; x=1709885597;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qj2TOtP0QaYk201sneMG79nt/9riutl94IDNtJJc4nQ=;
-        b=SATha1n1l490zZFtalMQhZg+30ly0+AKnkXRwxb5zV8TNFqJoaBKpm+aaMNMqbFRxI
-         Nj8IjJL2OTbSCewbLw24gz6QhPIFwMQ5qCK3FVzlLwU3zRxfqiBsoUjxLIn7hNflfm43
-         5NIHvLA/lmKEQtojcmcf6k7lTe/0CM+09WvjKvctPaeWfC6KUkIkUQ7JI74YelHaaF4Y
-         eiLmaRzzFkg+Hj0DDVi3F6ok3erXaCIeW9KU/w0KmaoAPhpbHc8aswinBppEyZ+W/MSo
-         OD5aq9zTkt/nJuO092aj+G8iVxGEEdNlntT+JGVYyBIElDDp+jQjFOWWREKhiaAwfJ/C
-         1W1w==
-X-Gm-Message-State: AOJu0YzHXCTIjTPNAt8gI2u4euB9162edYq2VT19X+0jzCqBPdeTDBAs
-	WIWK0G3oy68RLiLot2XSfAUPey2MdL426plVYKPjQkfKU5osD9KFHGLb6+9Cr8A1x+fhAf17zlo
-	=
-X-Google-Smtp-Source: AGHT+IGRxsuXTZGLZcW43DrY/+D4D8AM/yfIPrQq8SeOINeKQz2+ZIbnPyBtPblM7xGP172VQke7rQ==
-X-Received: by 2002:a17:906:f2cc:b0:a43:e1aa:5f99 with SMTP id gz12-20020a170906f2cc00b00a43e1aa5f99mr739627ejb.52.1709280796887;
-        Fri, 01 Mar 2024 00:13:16 -0800 (PST)
-Message-ID: <a8cdfd40-8e61-4b94-8563-a5bd2a55c100@suse.com>
-Date: Fri, 1 Mar 2024 09:13:15 +0100
+X-Inumbo-ID: 8adf6125-d7a6-11ee-a1ee-f123f15fe8a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=C8jsPoEZcEzrwoJd0LArjAFA/M0ECPbiBIsYc3u1+dCGgt/0KtQvzwXnPuovB1wCtyPxCeMEPd3aONaLgqKpaA8RLd6e3BrXML3fgu8+I2RBP1E2fwCnxyuxajyaAJFE5K4rHiPzVaHyRIK0n1ytngNFQYGQEeJVY5bUmeS00x8EcxsbpDNhhvlExdcgYQKilQ0gh7pj0bq8tkF8YY27VXJvz9zEVwkthcaa3QlPPkCNmPvA7qQHi8HondJag0uSD9D7cuyLyKgBdDj4TqNBOFixwhKty/cizlq5l5coinMZulKGygbdhL6z4Fm8OSszbNmvp3SaYthfLQH+MDxUbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1jiFRjrnYN/0aS7YHHpCPHuCNGWCHKKaUsltcPDVniU=;
+ b=YDiZlwAHge4ymwBkmOGdWYV3RfOS3J6WPIy0kuyLlQACF0SWk+Q9iOrPxUDAE6pm/6s7rAXXwNt39vYfXXygIzurUh2ZAHoapff8se8I+CSmZj9CXWd5lXfSw1wp+LAkNyESbEFCzd3LNX5+jn1Fp29/FTSSfEYE/v+f0CU7wvZBkq3CxVmlioaPcOK3eif2WBFiaa0nByCLEv5DRJcQi92hvoZiTKwZGlm2Xi9KCzKoz6Qas/C0QimpJ1NOYN9BdLCOzI37+HxbJD6Qg6YSQomyq0cQHwposgDC1eCGCV37fabb2ZPl4HfKSI1sSj1gS6BHwLRCVrw1DRV9p7xWgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1jiFRjrnYN/0aS7YHHpCPHuCNGWCHKKaUsltcPDVniU=;
+ b=Q3JnSLbGwO55LSKE/bHJ4fYCfHPqMIsljNihgvAYyvnjT1O03bOnpN1EJ4XAf/nH34Fnhk90tITJj7BQq8jR+IY8Im6VsCfKBUS8UGDe8/8infeADHY0saUdDXZDdyU/wMl8/cN1AU41WYJHupDw96ZO/E4OvbncW2HNFw7a9x8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <36cfcc27-f432-49fa-a949-63b0400d9af7@amd.com>
+Date: Fri, 1 Mar 2024 09:34:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: xen | Failed pipeline for staging | 4cac80e2
+Subject: Re: [PATCH v2 1/3] docs/misra/rules.rst: add rule 16.6 and 20.12
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <65e12b62687a2_2c2cb9e3423456e@gitlab-sidekiq-catchall-v2-55cc6d75b7-k4whf.mail>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <65e12b62687a2_2c2cb9e3423456e@gitlab-sidekiq-catchall-v2-55cc6d75b7-k4whf.mail>
-Content-Type: text/plain; charset=UTF-8
+To: Stefano Stabellini <sstabellini@kernel.org>, Stefano Stabellini
+	<stefano.stabellini@amd.com>
+CC: <xen-devel@lists.xenproject.org>, <andrew.cooper3@citrix.com>,
+	<jbeulich@suse.com>, <george.dunlap@citrix.com>, <julien@xen.org>,
+	<bertrannd.marquis@arm.com>, <roger.pau@citrix.com>,
+	<roberto.bagnara@bugseng.com>, <federico.serafini@bugseng.com>,
+	<Luca.Fancellu@arm.com>
+References: <alpine.DEB.2.22.394.2402131431070.1925432@ubuntu-linux-20-04-desktop>
+ <20240213223334.3693410-1-stefano.stabellini@amd.com>
+ <alpine.DEB.2.22.394.2402291754010.853156@ubuntu-linux-20-04-desktop>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2402291754010.853156@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|PH7PR12MB6491:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55d5288f-072e-48b5-1b0e-08dc39ca6ceb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	JiTBkfTQ8VVLul0JActz3XRlhPQxxX2IUcCtOYQKq5yMePV6ZB3MXQSlibVvz6FARguR2htxv8/dLKSh0P/JvFjSilguma0w/83+YDXOx+XnzCcC/8CsT++WZPcu4kyh49CIZUMF6ettW1qo6fRnMsxR4tn9wLMGrAQL6EVJAVebzREtJqFfGSyD63/DTOQ2ewVw6nLy2nQW1ydMQoJoZziO/dclTfMeIX18NgATp/O1vIj21LsiMbTfiOdMqGaaoYLL5f2LgnI3eIL+5McD/MjXRjOc0q9u9sKJb0usPPphDtB9TrBE3yg9TRXX7rabLTJB8yDGNL6xK3QVzCZlHMKGftSARKGANWP29A1Bvnn2M1Uuizw+9X8OnSSnSM3x1BAEW/Bhje+4sYz6oag8dhybb7Fh7SN9BYR/yuPV7/n5kew2/rI1/yYY24f0OSnwPa8himVOEPxCIf9zph4Y9pIXcdFCGorCaKxHeqD+zoJjxwkO9tV7Z/SKmznv6WWBRJBqsXmRTKcBFMM0iMTK+A5zUtVvCxZWO43HJF/kpNXGsKp/gJWUZw7YAnzERsR05w6fqZodFn5/UpLc6MXBzxl8pFpOu8qcPkbjaivOBWBgYrRv3RUZlK7mQQpl3hnwp3mZqKeTyBc+jGY5Ubtg3bXePemV3p6IUaoNnW7a5cqNuYoM7QSwGXr477kXzu1l/LgCt7BmCs0BqP2b8Ss9ZHl2x4K5GHwEvm5uJbjwfaXS974vA9L9NAEp/G416X/r
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2024 08:34:35.0948
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55d5288f-072e-48b5-1b0e-08dc39ca6ceb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF0000343A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6491
 
-On 01.03.2024 02:12, GitLab wrote:
-> 
-> 
-> Pipeline #1196428827 has failed!
-> 
-> Project: xen ( https://gitlab.com/xen-project/xen )
-> Branch: staging ( https://gitlab.com/xen-project/xen/-/commits/staging )
-> 
-> Commit: 4cac80e2 ( https://gitlab.com/xen-project/xen/-/commit/4cac80e22600d5a38d77c65e9a6507c752efc155 )
-> Commit Message: docs/misra/rules.rst: add rule 16.6 and 20.12
-> 
-> ...
-> Commit Author: Stefano Stabellini
-> 
-> 
-> Pipeline #1196428827 ( https://gitlab.com/xen-project/xen/-/pipelines/1196428827 ) triggered by Ganis ( https://gitlab.com/ganis )
-> had 4 failed jobs.
-> 
-> Job #6293018467 ( https://gitlab.com/xen-project/xen/-/jobs/6293018467/raw )
-> 
-> Stage: test
-> Name: zen3p-pci-hvm-x86-64-gcc-debug
 
-Considering
+On 01/03/2024 02:56, Stefano Stabellini wrote:
+> 
+> 
+> Hi all,
+> 
+> This patch broke gitlab-ci. The jobs failing are the cppcheck jobs.
+> 
+> xen/scripts/xen-analysis.py --run-cppcheck --cppcheck-misra -- -j80
+> No summary for rule 20.12
+This is the error message. For rule 20.12, the summary and severity are in reverse order.
+I'll send a patch shortly.
 
-(domU) + fgrep 'MSI-X: Enable+'
-(domU) + lspci -vs 0000:00:04.0
-(domU) 	Capabilities: [70] MSI-X: Enable+ Count=5 Masked-
-(domU) + echo 'pci test passed'
-(domU) pci test passed
-(domU)  [ ok ]
-(domU)  [ ok ]
-
-I don't understand the subsequent
-
-[0Ksection_start:1709252523:upload_artifacts_on_failure
-[0K[0K[36;1mUploading artifacts for failed job[0;m[0;m
-...
-[0K[31;1mERROR: Job failed: exit code 1
-
-Any clarification towards what's going on here appreciated.
-
-Jan
+~Michal
 
