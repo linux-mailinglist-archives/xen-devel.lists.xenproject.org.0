@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 046DA86FB28
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 08:55:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688178.1072074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5FB86FB26
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 08:54:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688176.1072064 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rh3AF-00008U-Ca; Mon, 04 Mar 2024 07:55:11 +0000
+	id 1rh39g-00084f-5V; Mon, 04 Mar 2024 07:54:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688178.1072074; Mon, 04 Mar 2024 07:55:11 +0000
+Received: by outflank-mailman (output) from mailman id 688176.1072064; Mon, 04 Mar 2024 07:54:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rh3AF-00005y-8z; Mon, 04 Mar 2024 07:55:11 +0000
-Received: by outflank-mailman (input) for mailman id 688178;
- Mon, 04 Mar 2024 07:55:09 +0000
+	id 1rh39g-000825-1l; Mon, 04 Mar 2024 07:54:36 +0000
+Received: by outflank-mailman (input) for mailman id 688176;
+ Mon, 04 Mar 2024 07:54:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OdVH=KK=kernel.org=rppt@srs-se1.protection.inumbo.net>)
- id 1rh3AD-00005e-HW
- for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 07:55:09 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
+ (envelope-from <SRS0=Kl9k=KK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rh39f-0007wA-43
+ for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 07:54:35 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 83e7ea96-d9fc-11ee-afda-a90da7624cb6;
- Mon, 04 Mar 2024 08:55:08 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id F0C11CE09CC;
- Mon,  4 Mar 2024 07:55:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8DCDC433C7;
- Mon,  4 Mar 2024 07:54:55 +0000 (UTC)
+ id 70d03263-d9fc-11ee-afda-a90da7624cb6;
+ Mon, 04 Mar 2024 08:54:34 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-564372fb762so5441846a12.0
+ for <xen-devel@lists.xenproject.org>; Sun, 03 Mar 2024 23:54:34 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ tk2-20020a170907c28200b00a43ab3e38d6sm4435519ejc.114.2024.03.03.23.54.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 03 Mar 2024 23:54:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,106 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83e7ea96-d9fc-11ee-afda-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709538901;
-	bh=p6Urnz+2Ta3f7kOkPM5DbFuLip3NAfCMXzcs08p4wBo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ahcrYj1dyiqeI3FybO9o3aXX0MLEyrxXvIg4Hq/LjLd/8bn5nhNwjUoq8uYLe0Ml7
-	 NxC0ub4AubKaEjlt054LymegP0FHpoZStH80tU0a4A9ScXeQaUWHHXAgxHoLhCkMvL
-	 Bu2BAHGQ7bqf5hL2B6L8oVg3E8otol7ZUbWn+JAWyUncSvpeq/oY5CR1JqVbPoHMJg
-	 nZC0lhtkuq5rgdsQ3/3ZKHAzdFJ+YjLfDbjA9rTgRRX4h0gqWIJsqQ+dI+40IIdbqZ
-	 cCX6EN1NiDFXsxM1L/qOAsSFM2iWNfoSeHnvaeyVtw+UOJBZU3FWPizOY1HNOE+V7Q
-	 shceRKWhU9xIg==
-Date: Mon, 4 Mar 2024 09:54:08 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: bpf@vger.kernel.org, daniel@iogearbox.net, andrii@kernel.org,
-	torvalds@linux-foundation.org, brho@google.com, hannes@cmpxchg.org,
-	lstoakes@gmail.com, akpm@linux-foundation.org, urezki@gmail.com,
-	hch@infradead.org, boris.ostrovsky@oracle.com,
-	sstabellini@kernel.org, jgross@suse.com, linux-mm@kvack.org,
-	xen-devel@lists.xenproject.org, kernel-team@fb.com
-Subject: Re: [PATCH v2 bpf-next 2/3] mm, xen: Separate xen use cases from
- ioremap.
-Message-ID: <ZeV-IE-65yiIwFSY@kernel.org>
-References: <20240223235728.13981-1-alexei.starovoitov@gmail.com>
- <20240223235728.13981-3-alexei.starovoitov@gmail.com>
+X-Inumbo-ID: 70d03263-d9fc-11ee-afda-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1709538874; x=1710143674; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=n6Xe6TSFwCM/FbYS0Pn+JdVLdIVUR0H4ODheVTgzqo0=;
+        b=J+qpvfbwggut4yMGZ9qpOT+VjUWnY3Nv1phcpRsNgtrGMO4G1/GGX5FmeLRIZlnJ+D
+         WLnG1+6lFhRWOd9cpNHvaKCgkQreNgsjVN6t4Cbb0IRzRbzoX3gD1x115i8g4TfQlulK
+         KfEgY1FBpu1hJmXS9Kww0/7DphJNdNDgFOLd2L+A85Z3v0N9JP8o0XxfjfvRgGwaZo7/
+         2GQKuUhtH6aE516Ecdqz73acdXw7sglEbY8nY1wqxatVUqfQJtjj6puHGOxdUvY4PJ11
+         X8I20WrhVCd8Ackfn4v8jczqRmjnmMIXNDtamZ+EayPpajiYDnWUN4+t4BwevyOnJvKI
+         2Zdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709538874; x=1710143674;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=n6Xe6TSFwCM/FbYS0Pn+JdVLdIVUR0H4ODheVTgzqo0=;
+        b=WcfVwaO6pUeFtr+vOpY4KcFWKiOHSIC1ojKGQMx+z1GP8S+/MXO/aQeWSFoqOn3qid
+         b1Z+YEF4ZbjnKyOOdqptW0DmlOMfup99x2HZ8SmensjWCZBkCbQRjOzDZWYoRxXPtSvQ
+         f7MqvsqTYqjiHc74nCioZN2fzoQT9xQcKnq1K/58jrPcYQ5OkRU7xnnvqPTEFXD/DUO+
+         zCtgQbmK5lqGfABNBNJNbeQZlKO7CptdfmUVAYfkY+6nOXkNNcdxxd/T+XNHnao/5/vg
+         lxzqZGiy84euITj02F+J6M/sHcDxi9AmGJKPKw7r1+7ZGVQMuOXqW9IVwe+ec2Jgv26i
+         isYA==
+X-Forwarded-Encrypted: i=1; AJvYcCV0YcN4MOhX07SJBUHN8exWv5m0IfzC7AyyFZ9PufuBOykz2esF6BbzGHIdT3pUeAdvptd0AqIMVmtU8sQgX3GO7v96GMWbMXax59+oM3A=
+X-Gm-Message-State: AOJu0YwIjGnXMikwThuRvO1SCFUgAoA2nwF6Zs7YU18Lo1lGmAS/CPrH
+	XMIpt/X3fgDqgEnV7hUFwTyQs4RTA8LaI6D3cVd2zea6wHgVptCbEUQ3rPtK+rSGXOah59q85xE
+	=
+X-Google-Smtp-Source: AGHT+IGiWOnaglXIDuGoAPVaXOU8F+IpL/UBdUY5zRzd3zs2ZFOGmXpDCyu8B0HcZOiv023N/foclg==
+X-Received: by 2002:a17:906:d9c7:b0:a44:5a3d:7884 with SMTP id qk7-20020a170906d9c700b00a445a3d7884mr5351178ejb.3.1709538873870;
+        Sun, 03 Mar 2024 23:54:33 -0800 (PST)
+Message-ID: <6796aeba-52a2-426b-94e5-1852946dce98@suse.com>
+Date: Mon, 4 Mar 2024 08:54:34 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240223235728.13981-3-alexei.starovoitov@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/mm: re-implement get_page_light() using an atomic
+ increment
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20240301124228.56123-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240301124228.56123-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Feb 23, 2024 at 03:57:27PM -0800, Alexei Starovoitov wrote:
-> From: Alexei Starovoitov <ast@kernel.org>
+On 01.03.2024 13:42, Roger Pau Monne wrote:
+> The current usage of a cmpxchg loop to increase the value of page count is not
+> optimal on amd64, as there's already an instruction to do an atomic add to a
+> 64bit integer.
 > 
-> xen grant table and xenbus ring are not ioremap the way arch specific code is using it,
-> so let's add VM_XEN flag to separate them from VM_IOREMAP users.
-> xen will not and should not be calling ioremap_page_range() on that range.
-> /proc/vmallocinfo will print such region as "xen" instead of "ioremap" as well.
-> 
-> Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-> ---
->  arch/x86/xen/grant-table.c         | 2 +-
->  drivers/xen/xenbus/xenbus_client.c | 2 +-
->  include/linux/vmalloc.h            | 1 +
->  mm/vmalloc.c                       | 7 +++++--
->  4 files changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/x86/xen/grant-table.c b/arch/x86/xen/grant-table.c
-> index 1e681bf62561..b816db0349c4 100644
-> --- a/arch/x86/xen/grant-table.c
-> +++ b/arch/x86/xen/grant-table.c
-> @@ -104,7 +104,7 @@ static int arch_gnttab_valloc(struct gnttab_vm_area *area, unsigned nr_frames)
->  	area->ptes = kmalloc_array(nr_frames, sizeof(*area->ptes), GFP_KERNEL);
->  	if (area->ptes == NULL)
->  		return -ENOMEM;
-> -	area->area = get_vm_area(PAGE_SIZE * nr_frames, VM_IOREMAP);
-> +	area->area = get_vm_area(PAGE_SIZE * nr_frames, VM_XEN);
->  	if (!area->area)
->  		goto out_free_ptes;
->  	if (apply_to_page_range(&init_mm, (unsigned long)area->area->addr,
-> diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
-> index 32835b4b9bc5..b9c81a2d578b 100644
-> --- a/drivers/xen/xenbus/xenbus_client.c
-> +++ b/drivers/xen/xenbus/xenbus_client.c
-> @@ -758,7 +758,7 @@ static int xenbus_map_ring_pv(struct xenbus_device *dev,
->  	bool leaked = false;
->  	int err = -ENOMEM;
+> Switch the code in get_page_light() to use an atomic increment, as that avoids
+> a loop construct.  This slightly changes the order of the checks, as current
+> code will crash before modifying the page count_info if the conditions are not
+> correct, while with the proposed change the crash will happen immediately
+> after having carried the counter increase.  Since we are crashing anyway, I
+> don't believe the re-ordering to have any meaningful impact.
+
+While I consider this argument fine for ...
+
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -2580,16 +2580,10 @@ bool get_page(struct page_info *page, const struct domain *domain)
+>   */
+>  static void get_page_light(struct page_info *page)
+>  {
+> -    unsigned long x, nx, y = page->count_info;
+> +    unsigned long old_pgc = arch_fetch_and_add(&page->count_info, 1);
 >  
-> -	area = get_vm_area(XEN_PAGE_SIZE * nr_grefs, VM_IOREMAP);
-> +	area = get_vm_area(XEN_PAGE_SIZE * nr_grefs, VM_XEN);
->  	if (!area)
->  		return -ENOMEM;
->  	if (apply_to_page_range(&init_mm, (unsigned long)area->addr,
-> diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
-> index c720be70c8dd..223e51c243bc 100644
-> --- a/include/linux/vmalloc.h
-> +++ b/include/linux/vmalloc.h
-> @@ -28,6 +28,7 @@ struct iov_iter;		/* in uio.h */
->  #define VM_FLUSH_RESET_PERMS	0x00000100	/* reset direct map and flush TLB on unmap, can't be freed in atomic context */
->  #define VM_MAP_PUT_PAGES	0x00000200	/* put pages and free array in vfree */
->  #define VM_ALLOW_HUGE_VMAP	0x00000400      /* Allow for huge pages on archs with HAVE_ARCH_HUGE_VMALLOC */
-> +#define VM_XEN			0x00000800	/* xen use cases */
->  
->  #if (defined(CONFIG_KASAN_GENERIC) || defined(CONFIG_KASAN_SW_TAGS)) && \
->  	!defined(CONFIG_KASAN_VMALLOC)
+> -    do {
+> -        x  = y;
+> -        nx = x + 1;
+> -        BUG_ON(!(x & PGC_count_mask)); /* Not allocated? */
 
-There's also VM_DEFER_KMEMLEAK a line below:
+... this check, I'm afraid ...
 
-#if (defined(CONFIG_KASAN_GENERIC) || defined(CONFIG_KASAN_SW_TAGS)) && \
-	!defined(CONFIG_KASAN_VMALLOC)
-#define VM_DEFER_KMEMLEAK	0x00000801	/* defer kmemleak object creation */
-#else
-#define VM_DEFER_KMEMLEAK	0
-#endif
+> -        BUG_ON(!(nx & PGC_count_mask)); /* Overflow? */
 
-It should be adjusted as well.
-I think it makes sense to use an enumeration for vm_flags, just like as
-Suren did for GFP
-(https://lore.kernel.org/linux-mm/20240224015800.2569851-1-surenb@google.com/)
+... this is a problem unless we discount the possibility of an overflow
+happening in practice: If an overflow was detected only after the fact,
+there would be a window in time where privilege escalation was still
+possible from another CPU. IOW at the very least the description will
+need extending further. Personally I wouldn't chance it and leave this
+as a loop.
 
--- 
-Sincerely yours,
-Mike.
+Jan
 
