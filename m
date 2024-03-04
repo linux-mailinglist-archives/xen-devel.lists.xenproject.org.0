@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E52586FD87
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 10:28:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688235.1072214 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C40F486FDD2
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 10:40:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688242.1072224 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rh4bq-00053p-N2; Mon, 04 Mar 2024 09:27:46 +0000
+	id 1rh4mo-0007PO-Mk; Mon, 04 Mar 2024 09:39:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688235.1072214; Mon, 04 Mar 2024 09:27:46 +0000
+Received: by outflank-mailman (output) from mailman id 688242.1072224; Mon, 04 Mar 2024 09:39:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rh4bq-00052L-K0; Mon, 04 Mar 2024 09:27:46 +0000
-Received: by outflank-mailman (input) for mailman id 688235;
- Mon, 04 Mar 2024 09:27:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rh4mo-0007Ni-JT; Mon, 04 Mar 2024 09:39:06 +0000
+Received: by outflank-mailman (input) for mailman id 688242;
+ Mon, 04 Mar 2024 09:39:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Kl9k=KK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rh4bp-00052F-ND
- for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 09:27:45 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 74ea1c0c-da09-11ee-afda-a90da7624cb6;
- Mon, 04 Mar 2024 10:27:44 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a293f2280c7so748424866b.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 01:27:44 -0800 (PST)
+ id 1rh4mo-0007Nb-0B
+ for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 09:39:06 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 09a4b81d-da0b-11ee-a1ee-f123f15fe8a2;
+ Mon, 04 Mar 2024 10:39:03 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a293f2280c7so750319866b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 01:39:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ty24-20020a170907c71800b00a42eb84c7c2sm4614928ejc.142.2024.03.04.01.27.43
+ gq13-20020a170906e24d00b00a45621ded4bsm565362ejb.146.2024.03.04.01.39.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Mar 2024 01:27:43 -0800 (PST)
+ Mon, 04 Mar 2024 01:39:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74ea1c0c-da09-11ee-afda-a90da7624cb6
+X-Inumbo-ID: 09a4b81d-da0b-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709544464; x=1710149264; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9d6dkSNgHqXCPZ0f9CEpi9l3GKkSecj76fgrhfhUdqs=;
-        b=dbCN7b2K8vMEpp/4hB6TB4IGTooh8b+xeuNS24qyd/ZTgMLLoqTHziiPBf4mVZSJ09
-         yz7prK9zva45VFiIuEysGa08GzBkvfDo8o0zKXJt0pYZmFvIIhQyt8biQm+DwtSvYLtF
-         RN7p5VG+Mams0yhWCFqBYS7EMauXbQu2vD61j0dMqw6fH+Ns4erQQnaunXfqm7l9X4+J
-         8ecA/fwAM3xxj4QA+O4kQKqRAiL5N3WX7vB0MbyS8N6gLF8FyynBgmtFXMxhd8rE2cck
-         n2PTMjUdP/ymy8HZ0vBpAwj4MxUvyT+Nb80Uad0k9NHQcbSCXYebjiIqXx3kf+hfqs3Y
-         JsVg==
+        d=suse.com; s=google; t=1709545143; x=1710149943; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=BYefA596srdPM8s5itzd8N/YwFI3FPSMmRtIyZ5Bl9w=;
+        b=Ac7FNUTw/7//3xHqOO78H7d4WeJ47lFNU0jbNpRQ5+lVM5WV3yjoPuGI8UzUB6/G8M
+         qrB7p1mdakdXEhB/Y83ckOjskh6oZM05AcbAEg/hdIG/3sRTkYrsz5z3OvW0kVsls7CE
+         ATDnU9yPxNVIaXaF3emOInJowBcRIciib523VabCT14hxaIFmVyiv9jXf/c/PQhY/QDk
+         HrXbqxxJUQ8Xge/qJ4cucLlv+ExeVaJkSecMUFjZojIl2z5RjKbCNrDhzpd3VsoagX21
+         kZi+sLL7wH/SXWyPR63EcopSXJS9V6Lm9R/vWYTiO/KLJTMobu0R4dqfGETX6AaSNThX
+         Sp/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709544464; x=1710149264;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1709545143; x=1710149943;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9d6dkSNgHqXCPZ0f9CEpi9l3GKkSecj76fgrhfhUdqs=;
-        b=lWGDH2ObWECb+BINo57rh2FOeWX4Od0gzRH7cN9xi8w92OXCKj9yGd9YnWMaopA+Xw
-         lpQIPjqMgFPgJYDOcRuq6QbvpnYuDl8RKOXCyqrmOS1NQM3m8vngQr8q4gj4saVzeAv6
-         IXvJ8dQCnp/KLkiIiCPv1WbPXI2KbAB167qM5zmDjGvuBCggB/ZJrDDff27tXK9oCcn4
-         9M2EcM2iJ43xi2n61JaZa22JvXk87Ghn4acjOOtqm8eoqbBx8xGdsxxKRA+6MPSyBDgt
-         iGjVpb5aY4urUotDujTXV5JHG0i7Xjetu2YlFJ10dOulH8xNahFDrFvEQYwqlk1CseVS
-         09Ig==
-X-Gm-Message-State: AOJu0YwNdCYcja7+mgzjMSTmF3KHpmymjFdqR9LdU3v8F/8x0uc4eQHX
-	kcr19FI3cqBRxfUu4FTOA0T/wI5hHg9PGjiX1+GcbylCckXJ7kAWdgASL5sFZbFgjqSSZOuGRb0
-	=
-X-Google-Smtp-Source: AGHT+IEzfpawoAp3uAPLdCNBoMkSqkzjl6xbjWhog9MhQRqkvxZ4C2Z08Tx/GVBx7/cxRXJrRK8mQA==
-X-Received: by 2002:a17:906:3606:b0:a45:6d18:a80d with SMTP id q6-20020a170906360600b00a456d18a80dmr636686ejb.62.1709544464103;
-        Mon, 04 Mar 2024 01:27:44 -0800 (PST)
-Message-ID: <ff10dd86-6894-434f-b2cc-9407a83a3487@suse.com>
-Date: Mon, 4 Mar 2024 10:27:44 +0100
+        bh=BYefA596srdPM8s5itzd8N/YwFI3FPSMmRtIyZ5Bl9w=;
+        b=b5hcXPz2IJnjsDYBqacOs/EW5pJnRpR7K/+lqqMHj3EwdU6TSB6wysQuNxpQMleakA
+         fO2K/ZfVJc7Onajxw8J/ZUB+TgfIk4XS/0Yl9MjpvQBOsf57XLUnXqcxuH7pu44L2K10
+         jW83xJBlnGmfSB3xtyxMw6hpxb4Fgzm+u/Gw3HNNUQW3xwGdFbdF2WFWftTJTt4yi9Cg
+         2cxehsRd8Og65mCJhT+GYEc2VFlv1zDY0mHQ355XXrqf99nE3aOFaEisVRtd3Z9/dI9o
+         DwYDgbaZ7L8Arj/cUPqQogWObpAnXj6TiyhI3QWEjJbZW3rU/OyXxtg23WYgPNxbAljR
+         tmew==
+X-Forwarded-Encrypted: i=1; AJvYcCUlaikwGoAnxg22+J7z8BPUNK5cRQAG5G1/NpmNwI2UeaFuUPG4+1W/e5ewqzzVUqPeIvB0b6ftQRkMD7pXWye7fFe8kmIcqabUiG9XRAY=
+X-Gm-Message-State: AOJu0Yx2LBf4BiMJIAK3uEIz9mhdOWIjNkHioZm8TwGxr+gPNfyNv6yh
+	QN74Sb1tj/6ojUIyJ3gy5E8+G4VrxIU9B3f0bBo+gZUZDMSMCnCD0LF5qcrN2w==
+X-Google-Smtp-Source: AGHT+IE+FP3KXfK9AwYeTUsq3uLVEidZc1AjJq+YVerYjwe5ZHJnSnmQDEFejGL9qpcONRE9BCydAg==
+X-Received: by 2002:a17:906:af42:b0:a44:4c8e:f167 with SMTP id ly2-20020a170906af4200b00a444c8ef167mr4856378ejb.69.1709545143246;
+        Mon, 04 Mar 2024 01:39:03 -0800 (PST)
+Message-ID: <c84513ac-d3bd-403a-9bb7-a96d2a29aaa1@suse.com>
+Date: Mon, 4 Mar 2024 10:39:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 08/10] xen/errno: address violations of MISRA C Rule
+ 20.7
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
+ julien@xen.org, George Dunlap <george.dunlap@citrix.com>,
+ Wei Liu <wl@xen.org>
+References: <cover.1709219010.git.nicola.vetrini@bugseng.com>
+ <92dbcd9e5aa2ab45c50f3f567ddece59108568ad.1709219010.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] MAINTAINERS: drop AMD SVM and Intel VT-x sections
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -110,46 +116,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <92dbcd9e5aa2ab45c50f3f567ddece59108568ad.1709219010.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-We'd like to thank the VT-x maintainers for their past contributions,
-while at the same time we'd like to reflect reality as it has been for
-quite some time. Have VT-x maintainership (and for symmetry also AMD
-SVM's) fall back to general x86.
+On 29.02.2024 16:28, Nicola Vetrini wrote:
+> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
+> of macro parameters shall be enclosed in parentheses". Therefore, some
+> macro definitions should gain additional parentheses to ensure that all
+> current and future users will be safe with respect to expansions that
+> can possibly alter the semantics of the passed-in macro parameter.
+> 
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -220,13 +220,6 @@ M:	Andrew Cooper <andrew.cooper3@citrix.
- S:	Maintained
- F:	xen/drivers/passthrough/amd/
- 
--AMD SVM
--M:	Jan Beulich <jbeulich@suse.com>
--M:	Andrew Cooper <andrew.cooper3@citrix.com>
--S:	Supported
--F:	xen/arch/x86/hvm/svm/
--F:	xen/arch/x86/cpu/vpmu_amd.c
--
- ARGO
- M:	Christopher Clark <christopher.w.clark@gmail.com>
- S:	Maintained
-@@ -357,15 +350,6 @@ M:	Kevin Tian <kevin.tian@intel.com>
- S:	Supported
- F:	xen/drivers/passthrough/vtd/
- 
--INTEL(R) VT FOR X86 (VT-X)
--M:	Jun Nakajima <jun.nakajima@intel.com>
--M:	Kevin Tian <kevin.tian@intel.com>
--S:	Supported
--F:	xen/arch/x86/cpu/vpmu_intel.c
--F:	xen/arch/x86/hvm/vmx/
--F:	xen/arch/x86/include/asm/hvm/vmx/
--F:	xen/arch/x86/mm/p2m-ept.c
--
- IOMMU VENDOR INDEPENDENT CODE
- M:	Jan Beulich <jbeulich@suse.com>
- M:	Paul Durrant <paul@xen.org>
+
 
