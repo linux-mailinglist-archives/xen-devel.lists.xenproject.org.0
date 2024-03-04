@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0435870B0F
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 20:57:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688514.1072729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DD82870B68
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 21:20:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688519.1072739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhEQE-0001Nb-Ip; Mon, 04 Mar 2024 19:56:26 +0000
+	id 1rhEmR-0004TV-Ct; Mon, 04 Mar 2024 20:19:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688514.1072729; Mon, 04 Mar 2024 19:56:26 +0000
+Received: by outflank-mailman (output) from mailman id 688519.1072739; Mon, 04 Mar 2024 20:19:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhEQE-0001Lf-GI; Mon, 04 Mar 2024 19:56:26 +0000
-Received: by outflank-mailman (input) for mailman id 688514;
- Mon, 04 Mar 2024 19:56:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rhEmR-0004Sd-A2; Mon, 04 Mar 2024 20:19:23 +0000
+Received: by outflank-mailman (input) for mailman id 688519;
+ Mon, 04 Mar 2024 20:19:22 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=u/QD=KK=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1rhEQC-0001LZ-HA
- for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 19:56:24 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4517cad8-da61-11ee-a1ee-f123f15fe8a2;
- Mon, 04 Mar 2024 20:56:21 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.17.1/8.15.2) with ESMTPS id 424JuBmC026059
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Mon, 4 Mar 2024 14:56:17 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.17.1/8.15.2/Submit) id 424JuBjF026058;
- Mon, 4 Mar 2024 11:56:11 -0800 (PST) (envelope-from ehem)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rhEmQ-0004ST-LV; Mon, 04 Mar 2024 20:19:22 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rhEmQ-0007kT-Jl; Mon, 04 Mar 2024 20:19:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rhEmQ-00081R-B8; Mon, 04 Mar 2024 20:19:22 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rhEmQ-0000nj-Ac; Mon, 04 Mar 2024 20:19:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,93 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4517cad8-da61-11ee-a1ee-f123f15fe8a2
-Date: Mon, 4 Mar 2024 11:56:11 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-        Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: Serious AMD-Vi issue
-Message-ID: <ZeYnW17WnddwiSMF@mattapan.m5p.com>
-References: <ZbLDlRi0vctlhsNp@mattapan.m5p.com>
- <ZcqoVBnsgUJw8G0l@mattapan.m5p.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=tPS1pn//TthNN6c2zdnMerUucuLIk5jriuOUuAbNeq0=; b=joQvcvEYIo6Q2dLGE/lXeB6shX
+	4E369OL+4l9euWEMBhVnkKlJQsYJOak0UF3WCaW+1r/5Y1jtgrzSkeeG3Pt5g0OiADuNFZnO6YUL+
+	UUhPsdLqtP9xm9rghKVvzN6KOUa5EDQCSWpadNlNMDbd0V99hyrwb0U/z/9G+q6TrbBA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184903-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZcqoVBnsgUJw8G0l@mattapan.m5p.com>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
-	autolearn=unavailable autolearn_force=no version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-14) on mattapan.m5p.com
+Subject: [ovmf test] 184903: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=918288ab5a7c3abe9c58d576ccc0ae32e2c7dea0
+X-Osstest-Versions-That:
+    ovmf=bff9815b616669f1cf743e412bc0000efe22dfb4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 04 Mar 2024 20:19:22 +0000
 
-On Mon, Feb 12, 2024 at 03:23:00PM -0800, Elliott Mitchell wrote:
-> On Thu, Jan 25, 2024 at 12:24:53PM -0800, Elliott Mitchell wrote:
-> > Apparently this was first noticed with 4.14, but more recently I've been
-> > able to reproduce the issue:
-> > 
-> > https://bugs.debian.org/988477
-> > 
-> > The original observation features MD-RAID1 using a pair of Samsung
-> > SATA-attached flash devices.  The main line shows up in `xl dmesg`:
-> > 
-> > (XEN) AMD-Vi: IO_PAGE_FAULT: DDDD:bb:dd.f d0 addr ffffff???????000 flags 0x8 I
-> > 
-> > Where the device points at the SATA controller.  I've ended up
-> > reproducing this with some noticable differences.
-> > 
-> > A major goal of RAID is to have different devices fail at different
-> > times.  Hence my initial run had a Samsung device plus a device from
-> > another reputable flash manufacturer.
-> > 
-> > I initially noticed this due to messages in domain 0's dmesg about
-> > errors from the SATA device.  Wasn't until rather later that I noticed
-> > the IOMMU warnings in Xen's dmesg (perhaps post-domain 0 messages should
-> > be duplicated into domain 0's dmesg?).
-> > 
-> > All of the failures consistently pointed at the Samsung device.  Due to
-> > the expectation it would fail first (lower quality offering with
-> > lesser guarantees), I proceeded to replace it with a NVMe device.
-> > 
-> > With some monitoring I discovered the NVMe device was now triggering
-> > IOMMU errors, though not nearly as many as the Samsung SATA device did.
-> > As such looks like AMD-Vi plus MD-RAID1 appears to be exposing some sort
-> > of IOMMU issue with Xen.
-> > 
-> > 
-> > All I can do is offer speculation about the underlying cause.  There
-> > does seem to be a pattern of higher-performance flash storage devices
-> > being more severely effected.
-> > 
-> > I was speculating about the issue being the MD-RAID1 driver abusing
-> > Linux's DMA infrastructure in some fashion.
-> > 
-> > Upon further consideration, I'm wondering if this is perhaps a latency
-> > issue.  I imagine there is some sort of flush after the IOMMU tables are
-> > modified.  Perhaps the Samsung SATA (and all NVMe) devices were trying to
-> > execute commands before reloading the IOMMU tables is complete.
-> 
-> Ping!
-> 
-> The recipe seems to be Linux MD RAID1, plus Samsung SATA or any NVMe.
-> 
-> To make it explicit, when I tried Crucial SATA + Samsung SATA.  IOMMU
-> errors matched the Samsung SATA (a number of times the SATA driver
-> complained).
-> 
-> As stated, I'm speculating lower latency devices starting to execute
-> commands before IOMMU tables have finished reloading.  When originally
-> implemented fast flash devices were rare.
+flight 184903 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184903/
 
-I guess I'm lucky I ended up with some slightly higher-latency hardware.
-This is a very serious issue as data loss can occur.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 918288ab5a7c3abe9c58d576ccc0ae32e2c7dea0
+baseline version:
+ ovmf                 bff9815b616669f1cf743e412bc0000efe22dfb4
 
-AMD needs to fund their Xen engineers more, otherwise soon AMD hardware
-may no longer be viable with Xen.
+Last test of basis   184899  2024-03-04 16:43:32 Z    0 days
+Testing same since   184903  2024-03-04 18:41:12 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Michael Kubacki <michael.kubacki@microsoft.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   bff9815b61..918288ab5a  918288ab5a7c3abe9c58d576ccc0ae32e2c7dea0 -> xen-tested-master
 
