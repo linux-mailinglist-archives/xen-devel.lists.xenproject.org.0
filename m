@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69CD387095B
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 19:18:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688489.1072670 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6447F870988
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 19:28:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688492.1072680 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhCsu-0001jV-H4; Mon, 04 Mar 2024 18:17:56 +0000
+	id 1rhD3B-0003g6-Eb; Mon, 04 Mar 2024 18:28:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688489.1072670; Mon, 04 Mar 2024 18:17:56 +0000
+Received: by outflank-mailman (output) from mailman id 688492.1072680; Mon, 04 Mar 2024 18:28:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhCsu-0001hk-EV; Mon, 04 Mar 2024 18:17:56 +0000
-Received: by outflank-mailman (input) for mailman id 688489;
- Mon, 04 Mar 2024 18:17:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wNjK=KK=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rhCss-0001hc-NR
- for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 18:17:54 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 843e982a-da53-11ee-afda-a90da7624cb6;
- Mon, 04 Mar 2024 19:17:53 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 985DC4EE0737;
- Mon,  4 Mar 2024 19:17:52 +0100 (CET)
+	id 1rhD3B-0003eX-AP; Mon, 04 Mar 2024 18:28:33 +0000
+Received: by outflank-mailman (input) for mailman id 688492;
+ Mon, 04 Mar 2024 18:28:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rhD39-0003eN-SN; Mon, 04 Mar 2024 18:28:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rhD39-0005Yw-O4; Mon, 04 Mar 2024 18:28:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rhD39-0003mt-Gt; Mon, 04 Mar 2024 18:28:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rhD39-00007g-GP; Mon, 04 Mar 2024 18:28:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,60 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 843e982a-da53-11ee-afda-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=X40WUB8RzlHnxTKSl0RspQKBKKfcyjyam8kBpGG57jA=; b=ZC7mV8OyrWkJBlUJ7n0hc8cn3I
+	YYf+4FBmQDYVbxYrjDeoGfGjkG04ATJXue0kKuTe8viRAnzersgDF2YqtZEc6BOt28FIULv5sGTG5
+	vN7+WEoWIJQ5qMHnCjOYV0hDa8T7UYPV4JBh4QuewDfzcxspNBKSeWCjixT7T9NL7BdY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184899-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Mon, 04 Mar 2024 19:17:52 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- julien@xen.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 02/10] xen/arm: address some violations of MISRA C
- Rule 20.7
-In-Reply-To: <7c54b08875406e5b3a61325af124ae7f@bugseng.com>
-References: <cover.1709219010.git.nicola.vetrini@bugseng.com>
- <efdeb0e013c36e18b5545fbdb33a43bb3f87039c.1709219010.git.nicola.vetrini@bugseng.com>
- <905119be-8731-4669-ac7f-c21aed6845dc@suse.com>
- <7c54b08875406e5b3a61325af124ae7f@bugseng.com>
-Message-ID: <0aae1c64587cfbc67e81a20b36dd5056@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 184899: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=bff9815b616669f1cf743e412bc0000efe22dfb4
+X-Osstest-Versions-That:
+    ovmf=1ae5bee967bffcd6dbbabca913ea3c65d8f09c76
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 04 Mar 2024 18:28:31 +0000
 
-Hi,
+flight 184899 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184899/
 
-as the maintainers of this subsystem, would you prefer Jan's version or 
-the one in the patch?
-Both are fine w.r.t MISRA Rule 20.7 because the macro arguments 
-themselves are parenthesized.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 bff9815b616669f1cf743e412bc0000efe22dfb4
+baseline version:
+ ovmf                 1ae5bee967bffcd6dbbabca913ea3c65d8f09c76
 
->>> --- a/xen/arch/arm/include/asm/vgic-emul.h
->>> +++ b/xen/arch/arm/include/asm/vgic-emul.h
->>> @@ -6,11 +6,11 @@
->>>   * a range of registers
->>>   */
->>> 
->>> -#define VREG32(reg) reg ... reg + 3
->>> -#define VREG64(reg) reg ... reg + 7
->>> +#define VREG32(reg) (reg) ... (reg) + 3
->>> +#define VREG64(reg) (reg) ... (reg) + 7
->> 
->> #define VREG32(reg) (reg) ... ((reg) + 3)
->> #define VREG64(reg) (reg) ... ((reg) + 7)
->> 
->> ?
->> 
-> 
-> The outer parentheses are not required, but I can add them if the 
-> maintainers share your view.
+Last test of basis   184892  2024-03-04 10:11:18 Z    0 days
+Testing same since   184899  2024-03-04 16:43:32 Z    0 days    1 attempts
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+------------------------------------------------------------
+People who touched revisions under test:
+  Michael Kubacki <michael.kubacki@microsoft.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   1ae5bee967..bff9815b61  bff9815b616669f1cf743e412bc0000efe22dfb4 -> xen-tested-master
 
