@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D867B870FEE
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 23:16:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688535.1072770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 778ED87115C
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 00:56:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688538.1072780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhGau-0003Jc-Uj; Mon, 04 Mar 2024 22:15:36 +0000
+	id 1rhI9K-0007xE-0z; Mon, 04 Mar 2024 23:55:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688535.1072770; Mon, 04 Mar 2024 22:15:36 +0000
+Received: by outflank-mailman (output) from mailman id 688538.1072780; Mon, 04 Mar 2024 23:55:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhGau-0003I6-Rt; Mon, 04 Mar 2024 22:15:36 +0000
-Received: by outflank-mailman (input) for mailman id 688535;
- Mon, 04 Mar 2024 22:15:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rhGat-0003Hz-B9
- for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 22:15:35 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rhGas-0001Y4-W0; Mon, 04 Mar 2024 22:15:34 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.193])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rhGas-0007eb-Np; Mon, 04 Mar 2024 22:15:34 +0000
+	id 1rhI9J-0007vh-TE; Mon, 04 Mar 2024 23:55:13 +0000
+Received: by outflank-mailman (input) for mailman id 688538;
+ Mon, 04 Mar 2024 23:55:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bpxf=KK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rhI9I-0007vb-G5
+ for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 23:55:12 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a20189a4-da82-11ee-afda-a90da7624cb6;
+ Tue, 05 Mar 2024 00:55:09 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-412e993a82eso980485e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 15:55:09 -0800 (PST)
+Received: from [192.168.1.10] (host-92-3-248-192.as13285.net. [92.3.248.192])
+ by smtp.gmail.com with ESMTPSA id
+ n6-20020a05600c4f8600b0041273fc463csm19245376wmq.17.2024.03.04.15.55.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Mar 2024 15:55:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,138 +45,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=4SIzGA5dhCL6/TFze2sr+Z62EdHV7hyf9qgQqs3tcuA=; b=vDXvUAadIGLN8s8OVY2OVNclLC
-	HDXXWEG1CRl2pY5LZB0/8YHlSCL2uF9t2xZooOjMOzpq1zBe4WpMW9HHmXfcAUoU8Vni3w8gVAi2d
-	sQmWNtojYj436VXDLtDsLKCCKKQS2xl+ZLNfFaJ4pqiizWkL4K0lVoZRXpJIJfRFyDzI=;
-Message-ID: <1aa294ec-704c-4370-94c5-54573ed82af6@xen.org>
-Date: Mon, 4 Mar 2024 22:15:32 +0000
+X-Inumbo-ID: a20189a4-da82-11ee-afda-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1709596509; x=1710201309; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=gFjlR66KPO0usqHuW9e+T4e948lNj9/F8zaQXgIQDQY=;
+        b=U4JFHIvBzffcEQ6kyj7FYtg8NO/Nwk98QDjt4HEqX2Aj1arD8brmWI1Gd+gngil/+x
+         4qWGWN4B/Woxg5npvVpDWlUd6UHxBAg8Y2My86f9+AvX0ttiewf2pCVsmxlL5gmXOf28
+         RoSrNmobIOPLZc94PzHJcCwiv5maeOfzOM1zg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709596509; x=1710201309;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=gFjlR66KPO0usqHuW9e+T4e948lNj9/F8zaQXgIQDQY=;
+        b=YagBoUUvB83vjPLjoj4fxtx0VsoCOC3UXy3XSCrq9TT1M55eIwAae3RjhmVH7ZLJ9h
+         /XEa8xuhezkK0ynvDEPnhG0Aiavq/yqa5QqriT7gTb9z29kSQ7kpMV4xiQrvry3AWmQs
+         9+HtZvqfKntAwKXyEY0EX+BLnb2i62hOokfPoMb3vpb8q3zGgTf1VM9XrCdBElxmr+OS
+         22qQy4PyNPBJFf7fo/rqZcidGrQcz5i3j2mBufXxL1cDBkRQR1p2iGodbn7Arx2fmxzn
+         sQNPC7O3Qn61vsTXoWU/R7DUs1qLKsxYUbT7EFDmkticJK5Y7Im/YG8+ZtGbF35d4zI4
+         fmDg==
+X-Forwarded-Encrypted: i=1; AJvYcCWoMWz5pIJRbt0PtDMAjSvakinBHp/jkuorn6GFAV5x7XsMcOP4jmQhLNCaw1T3D87/19VmG47L/DZRuCGv1qLv5zHwpO9YkCABRvSgDTg=
+X-Gm-Message-State: AOJu0YyKw5QJ6EUgggepcqpeqLPaOaHZ7fCtYleSxpIu5wtjJfCHqIFi
+	XpAvF8Dw5RpMLHlO+t2FIRi/dHRTW2Dh9UPgEbVxQuEDdwsDVQGpC0X4WTC1v28=
+X-Google-Smtp-Source: AGHT+IGaHjaHlwyK1TiL4AEdsM45wvC26gPmSupneXhyO8wggJkMrX+LLbcy15hCeFl+BgeUF3Q0rg==
+X-Received: by 2002:a05:600c:1c9d:b0:412:dcab:7c79 with SMTP id k29-20020a05600c1c9d00b00412dcab7c79mr4239876wms.10.1709596508990;
+        Mon, 04 Mar 2024 15:55:08 -0800 (PST)
+Message-ID: <f3cbf20c-f591-4aec-bbe3-ef0efa24c42d@citrix.com>
+Date: Mon, 4 Mar 2024 23:55:07 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Xen 4.18rc/ARM64 on Raspberry Pi 4B: Traffic in DomU crashing
- Dom0 when using VLANs
+Subject: Re: AMD-Vi issue
 Content-Language: en-GB
-To: Paul Leiber <paul@onlineschubla.de>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, george.dunlap@cloud.com,
- Michal Orzel <michal.orzel@amd.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-References: <838ff75f-1352-4d3c-9bc1-c7a57c828231@onlineschubla.de>
- <4cddfd89-f195-4a50-a14d-b86121414e56@onlineschubla.de>
- <f8f39239-ea95-4fc7-9abe-6ca005eb02d2@onlineschubla.de>
- <ZarcWQ6Ugwowy050@mattapan.m5p.com>
- <CA+zSX=Y=BsVEp3o6jRprn5sntWVA0Z6wNXUxtffDN+=fPv_Fzg@mail.gmail.com>
- <4d7dbce9-ef20-4702-8056-9d5ab8152721@onlineschubla.de>
- <a5ad8772-01eb-4a84-93e2-c96c3b72fa48@xen.org>
- <d99853d8-fae4-4710-87cb-d74fd1377a03@onlineschubla.de>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <d99853d8-fae4-4710-87cb-d74fd1377a03@onlineschubla.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <ZbLDlRi0vctlhsNp@mattapan.m5p.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <ZbLDlRi0vctlhsNp@mattapan.m5p.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Paul,
+On 25/01/2024 8:24 pm, Elliott Mitchell wrote:
+> The original observation features MD-RAID1 using a pair of Samsung
+> SATA-attached flash devices.  The main line shows up in `xl dmesg`:
+>
+> (XEN) AMD-Vi: IO_PAGE_FAULT: DDDD:bb:dd.f d0 addr ffffff???????000 flags 0x8 I
 
-On 01/03/2024 19:37, Paul Leiber wrote:
-> Stopping xen-watchdog prevents the reboot. However, when triggering 
-> traffic on the VLAN, Dom0 and DomU become completely unresponsive. No 
-> error or kernel message is printed in the serial console.
+You have a device which is issuing interrupts which have been blocked
+due to the IOMMU configuration.
 
-Thanks for providing some logs. See some comments below. How long did 
-you wait before confirming dom0 is stucked?
+But you've elided all details other than the fact it's assigned to
+dom0.  As such, there is nothing we can do to help.
 
-IIRC, Linux may print some RCU stall logs after a few minutes.
+This isn't the first time you've been asked to provide a bare minimum
+amount of details such that we might be able to help.  I'm sorry you are
+having problems, but continuing to ping a question with no actionable
+information is unfair to those of us who are who are providing support
+to the community for free.
 
-> 
-> Switching to Xen console works. Pressing '0' produces the following output:
-> 
-> (XEN) '0' pressed -> dumping Dom0's registers
-> (XEN) *** Dumping Dom0 vcpu#0 state: ***
-> (XEN) ----[ Xen-4.19-unstable  arm64  debug=y  Tainted:   C    ]----
-> (XEN) CPU:    0
-> (XEN) PC:     ffff800008027e50
-> (XEN) LR:     ffff800008027e44
-> (XEN) SP_EL0: ffff800009c78f80
-> (XEN) SP_EL1: ffff800008003b60
-> (XEN) CPSR:   00000000000003c5 MODE:64-bit EL1h (Guest Kernel, handler)
-
-[...]
-
-> (XEN) *** Dumping Dom0 vcpu#1 state: ***
-> (XEN) ----[ Xen-4.19-unstable  arm64  debug=y  Tainted:   C    ]----
-> (XEN) CPU:    0
-> (XEN) PC:     ffff800008c5dc80
-> (XEN) LR:     ffff800008c5dc88
-> (XEN) SP_EL0: ffff000042272080
-> (XEN) SP_EL1: ffff80000800b0e0
-> (XEN) CPSR:   0000000080000305 MODE:64-bit EL1h (Guest Kernel, handler)
-
-[...]
-
-> (XEN) *** Dumping Dom0 vcpu#2 state: ***
-> (XEN) ----[ Xen-4.19-unstable  arm64  debug=y  Tainted:   C    ]----
-> (XEN) CPU:    0
-> (XEN) PC:     ffff800008027e50
-> (XEN) LR:     ffff800008027e44
-> (XEN) SP_EL0: ffff000042271040
-> (XEN) SP_EL1: ffff800009fcbf20
-> (XEN) CPSR:   00000000000003c5 MODE:64-bit EL1h (Guest Kernel, handler)
-
-[...]
-
-> (XEN) *** Dumping Dom0 vcpu#3 state: ***
-> (XEN) ----[ Xen-4.19-unstable  arm64  debug=y  Tainted:   C    ]----
-> (XEN) CPU:    0
-> (XEN) PC:     ffff800008027e50
-> (XEN) LR:     ffff800008027e44
-> (XEN) SP_EL0: ffff0000422730c0
-> (XEN) SP_EL1: ffff800009fd3f20
-> (XEN) CPSR:   00000000000003c5 MODE:64-bit EL1h (Guest Kernel, handler)
-
-All the PCs but one (vcpu#1) are the same.
-
-> (XEN) 'q' pressed -> dumping domain info (now = 727929105981)
-> (XEN) General information for domain 0:
-> (XEN)     refcnt=3 dying=0 pause_count=0
-> (XEN)     nr_pages=262144 xenheap_pages=2 dirty_cpus={} max_pages=262144
-> (XEN)     handle=00000000-0000-0000-0000-000000000000 vm_assist=00000020
-> (XEN) p2m mappings for domain 0 (vmid 1):
-> (XEN)   1G mappings: 0 (shattered 1)
-> (XEN)   2M mappings: 422 (shattered 90)
-> (XEN)   4K mappings: 45372
-> (XEN) Rangesets belonging to domain 0:
-> (XEN)     Interrupts { 32-152, 154-255 }
-> (XEN)     I/O Memory { 0-fe200, fe203-ff841, ff849-ffffffffffffffff }
-> (XEN) NODE affinity for domain 0: [0]
-> (XEN) VCPU information and callbacks for domain 0:
-> (XEN)   UNIT0 affinities: hard={0-3} soft={0-3}
-> (XEN)     VCPU0: CPU3 [has=F] poll=0 upcall_pend=01 upcall_mask=01
-> (XEN)     pause_count=0 pause_flags=1
-
-The vCPU is blocked. But...
-
-> (XEN) GICH_LRs (vcpu 0) mask=f
-> (XEN)    VCPU_LR[0]=2a000002
-> (XEN)    VCPU_LR[1]=1a00001b
-> (XEN)    VCPU_LR[2]=1a000001
-> (XEN)    VCPU_LR[3]=1a000010
-
-... it loosk like multiple IRQs are inflights. LR0 (holding IRQ2) is 
-active but the others are pending. This is the same for vCPU #2, #3. 
-vCPU #1 still seems to "work".
-
-AFAICT, Linux is using IRQ2 for the IPI CPU_STOP. So it sounds like dom0 
-may have panicked.
-
-Looking at the initial logs you posted. I see some messages from Xen but 
-no messages at all from dom0 (including boot). Can you check if you have 
-console=hvc0 on the Linux command line?
-
-If not, please add it and retry.
-
-Cheers,
-
--- 
-Julien Grall
+~Andrew
 
