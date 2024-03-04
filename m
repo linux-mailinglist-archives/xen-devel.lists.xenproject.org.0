@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2F5A8706A4
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 17:11:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688436.1072530 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F22687072F
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 17:32:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688444.1072544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhAtx-0007tl-S9; Mon, 04 Mar 2024 16:10:53 +0000
+	id 1rhBES-0003Rc-Il; Mon, 04 Mar 2024 16:32:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688436.1072530; Mon, 04 Mar 2024 16:10:53 +0000
+Received: by outflank-mailman (output) from mailman id 688444.1072544; Mon, 04 Mar 2024 16:32:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhAtx-0007rt-PF; Mon, 04 Mar 2024 16:10:53 +0000
-Received: by outflank-mailman (input) for mailman id 688436;
- Mon, 04 Mar 2024 16:10:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bpxf=KK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rhAtv-0007OP-Ul
- for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 16:10:51 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c497fdde-da41-11ee-a1ee-f123f15fe8a2;
- Mon, 04 Mar 2024 17:10:50 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a3ed9cae56fso1062774566b.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 08:10:50 -0800 (PST)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- o4-20020a17090611c400b00a458d85f9d9sm202394eja.142.2024.03.04.08.10.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Mar 2024 08:10:46 -0800 (PST)
+	id 1rhBES-0003OV-FU; Mon, 04 Mar 2024 16:32:04 +0000
+Received: by outflank-mailman (input) for mailman id 688444;
+ Mon, 04 Mar 2024 16:32:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rhBER-0003Na-7m
+ for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 16:32:03 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rhBEQ-0003Dy-Ma; Mon, 04 Mar 2024 16:32:02 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rhBEQ-0001fN-7N; Mon, 04 Mar 2024 16:32:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +39,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c497fdde-da41-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709568648; x=1710173448; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TH1o9ervsPKAzEGLoFJ5wQZrXDTVu2urG7J9ug8iYgw=;
-        b=vcAZo85w+c6NmrADiHaA8pYv8mwhpRX082etIj99UqIah//93PJ1GYo6gOGM9xVeuP
-         e/wEK3EATdwaR/a4waHyAsD9TOxVY5gzx5kE1t03ionJkfhm6dO1wslUGgE/huNCHayS
-         Dp11WgsP0qyAUNvHtzFPbjgAcLAFEgz9V2vcs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709568648; x=1710173448;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=TH1o9ervsPKAzEGLoFJ5wQZrXDTVu2urG7J9ug8iYgw=;
-        b=K5t/PGs8RJ3SQ3jTHI1RWVwpZp3r1+x+DbK5Zsrk191gtUzniCToFogentAsZ5xzWh
-         DeR+zN1hpUP2x6rGLBSiks65u/VjDiGidvyzxchenwhgXj108maBl3xOFtRpYJw/ewCs
-         eQ4Zubzd5py6IpHB6EoV6S6qGQ8+vTfMIpg9DIXeqEO1AXidfk5kHldNruYwo2cTpJ5m
-         IVc84fCPY/hVscHiNn5ekE4MCE2LKtn8XhI7xd6wLi0y+bUcB5jAdjdpCG/+B8h/wJYF
-         SubrQuhbFVHY4pLVQG5KJiATb+BdDrnH2rbUuKcQRD8MG2SKNJgf1AWQtLwEJRaTxAWT
-         R9ow==
-X-Gm-Message-State: AOJu0YzKXx4nuObgOIzFA/uQmBVXSl/akobGdFn9By6bIJFg1qswxEHR
-	2uYQD5FWtrkvwEPOfI7jgFORLwE7aslbMYEjj40KoAe5XUptsLZO+OaNIo6+oTyUhAXBclzKgfF
-	u
-X-Google-Smtp-Source: AGHT+IFY7Zi3s5N1fO8bKi7PdLeyirYiZkfQWHjAWNFGcAEoYFpgczXzC9wdr4CmnLT9Osd3gTWMCA==
-X-Received: by 2002:a17:906:f6d7:b0:a3f:c3f0:69bf with SMTP id jo23-20020a170906f6d700b00a3fc3f069bfmr9230056ejb.13.1709568648570;
-        Mon, 04 Mar 2024 08:10:48 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH 2/2] xen/nospec: Allow evaluate_nospec() to short circuit constant expressions
-Date: Mon,  4 Mar 2024 16:10:41 +0000
-Message-Id: <20240304161041.3465897-3-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20240304161041.3465897-1-andrew.cooper3@citrix.com>
-References: <20240304161041.3465897-1-andrew.cooper3@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=VKJgEvGBOw/UC3HKTngodgixYYnofVuSQb3X32ZaFUo=; b=zOV6XJSOlH6jui0ek+FVxbYCbR
+	nkhQ37ayEynLwy9g+NUU5RQ32qiv8cfdyTyAwqeBAMse4TBzxw/bYPtUzUaxbN3jzoxy68BVPcqWV
+	vEbVtBg2p+8kLsfAoQKTLjVs3J8zqI6whFmV4c/wxpgOE5ypn+jX7I+bY7qaZKoOZHbI=;
+Message-ID: <c9f92495-2c00-443f-bffd-1b09cb8a8c84@xen.org>
+Date: Mon, 4 Mar 2024 16:31:59 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] xen/*/nospec: Provide common versions of
+ evaluate_nospec/block_speculation
+Content-Language: en-GB
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>
+References: <20240304161041.3465897-1-andrew.cooper3@citrix.com>
+ <20240304161041.3465897-2-andrew.cooper3@citrix.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20240304161041.3465897-2-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When the compiler can reduce the condition to a constant, it can elide the
-conditional and one of the basic blocks.  However, arch_evaluate_nospec() will
-still insert speculation protection, despite there being nothing to protect.
+Hi Andrew,
 
-Allow the speculation protection to be skipped entirely when the compiler is
-removing the condition entirely.
+On 04/03/2024 16:10, Andrew Cooper wrote:
+> It is daft to require all architectures to provide empty implementations of
+> this functionality.
 
-e.g. for x86, given:
+Oleksii recenlty sent a similar patch [1]. This was pushed back because 
+from naming, it sounds like the helpers ought to be non-empty on every 
+architecture.
 
-  int foo(void)
-  {
-      if ( evaluate_nospec(1) )
-          return 2;
-      else
-          return 42;
-  }
+It would be best if asm-generic provides a safe version of the helpers. 
+So my preference is to not have this patch. This can of course change if 
+I see an explanation why it is empty on Arm (I believe it should contain 
+csdb) and other arch would want the same.
 
-then before, we get:
+Cheers,
 
-  <foo>:
-      lfence
-      mov    $0x2,%eax
-      retq
+[1] 
+5889d7a5fa81722472f95cc1448af0be8f359a7d.1707146506.git.oleksii.kurochko@gmail.com
 
-and afterwards, we get:
-
-  <foo>:
-      mov    $0x2,%eax
-      retq
-
-which is correct.  With no conditional branch to protect, the lfence isn't
-providing any relevant safety.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/include/xen/nospec.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/xen/include/xen/nospec.h b/xen/include/xen/nospec.h
-index a4155af08770..56cf67a44176 100644
---- a/xen/include/xen/nospec.h
-+++ b/xen/include/xen/nospec.h
-@@ -18,6 +18,15 @@ static always_inline bool evaluate_nospec(bool cond)
- #ifndef arch_evaluate_nospec
- #define arch_evaluate_nospec(cond) cond
- #endif
-+
-+    /*
-+     * If the compiler can reduce the condition to a constant, then it won't
-+     * be emitting a conditional branch, and there's nothing needing
-+     * protecting.
-+     */
-+    if ( __builtin_constant_p(cond) )
-+        return cond;
-+
-     return arch_evaluate_nospec(cond);
- }
- 
 -- 
-2.30.2
-
+Julien Grall
 
