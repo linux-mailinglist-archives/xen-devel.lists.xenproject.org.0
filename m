@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 924568702A5
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 14:26:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688402.1072442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 662428702AA
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 14:27:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688404.1072452 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rh8KD-0004e3-JR; Mon, 04 Mar 2024 13:25:49 +0000
+	id 1rh8LR-00058s-Vk; Mon, 04 Mar 2024 13:27:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688402.1072442; Mon, 04 Mar 2024 13:25:49 +0000
+Received: by outflank-mailman (output) from mailman id 688404.1072452; Mon, 04 Mar 2024 13:27:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rh8KD-0004ar-GU; Mon, 04 Mar 2024 13:25:49 +0000
-Received: by outflank-mailman (input) for mailman id 688402;
- Mon, 04 Mar 2024 13:25:48 +0000
+	id 1rh8LR-00055j-R4; Mon, 04 Mar 2024 13:27:05 +0000
+Received: by outflank-mailman (input) for mailman id 688404;
+ Mon, 04 Mar 2024 13:27:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Kl9k=KK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rh8KC-0004al-HC
- for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 13:25:48 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=890r=KK=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
+ id 1rh8LQ-00055b-AI
+ for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 13:27:04 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5e14cb7-da2a-11ee-afda-a90da7624cb6;
- Mon, 04 Mar 2024 14:25:47 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a449c5411e1so377288766b.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 05:25:47 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ld1-20020a170906f94100b00a451e507cfcsm1681285ejb.52.2024.03.04.05.25.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Mar 2024 05:25:46 -0800 (PST)
+ id e1c22e16-da2a-11ee-afda-a90da7624cb6;
+ Mon, 04 Mar 2024 14:27:02 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 3ED33CE130A;
+ Mon,  4 Mar 2024 13:26:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E96F3C433C7;
+ Mon,  4 Mar 2024 13:26:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,163 +41,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5e14cb7-da2a-11ee-afda-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709558746; x=1710163546; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=RBRkDZl/hRPgm+MdfM2Cf9hQXBSzf/1JP8gvjIGtFYY=;
-        b=Zlmq21H4RSK43407xQR62leZSjDnA1iQe/MhPGxvkdD53Whbk5UyxG0VK+w2c78XQX
-         AvOApAFjV5iMGpZtqHUCRndvWvyHYUc8Os0+MA6PFmYco5y1cmXmV/LorCWPjwPMC4i/
-         NgoMJ4sFv+y/rKNWRYMTKsxdoqH6mtsN5scEfVVxJJ8bpM7RTZMX81oQ9eLkC853O6sq
-         z26LI1uPV50SlW5/CPiAZBcCHvecfvamDLUuF/yfrZP3J82J/kRSef6lODGJ5lxk3YsG
-         dPaEsmF1Vwl5Bnk4LfSzjitSFDZ3hIL+idW2fiBj+AIeM2FaBtSiiLtz/y3tmAQDwu9O
-         v1/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709558746; x=1710163546;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RBRkDZl/hRPgm+MdfM2Cf9hQXBSzf/1JP8gvjIGtFYY=;
-        b=X2qWJoF4Qv3nFztqF3W6sEyLcIR5nR6qlVm7nOjKF+yn7mQPzlRg1rl9kM6l7Y9GFc
-         iVEj//pCk3Il0jzASXuWAAcLE8PwMJVLPo7Io1EGf+dbW3sGPN8wYVSrooa70ipSeDrN
-         /I6tYMuLMlOjWeKCJOwiKKqDlkZ2U6evpg/d1X9z4ykPtr2bKOJ34B+pesPLz5FAyenU
-         7vXvldCLRPMV68LWWij8ZUevyZpJ8dwGdq4mF684BTLYLM0OBmMZGJYCZCfaRpVglV5d
-         b9NIc/Wxa+DktoIQf4PM/T5bASxeQAsSQASiMqksTSkvH/iWKs2vUKfeDXocpx9S5Xla
-         QP5Q==
-X-Gm-Message-State: AOJu0YwJz93sr/W7fdtyqTuGHdQ6TXIknvCMeZsdSTPAZmQuRqzthuMD
-	YQg5je4FXV5r9sOaML5B/L1egGDyniOmyZftA2x87cVCARGLq7hZW5K3yMrk0w==
-X-Google-Smtp-Source: AGHT+IGiN48i6QsPxuG/DmaaqxhEzgLW5tbYV/M8xAU5FI+8xLs3Cuk+VK0jSoYu2CtDa+NpIKS1Cw==
-X-Received: by 2002:a17:906:f355:b0:a3e:c738:afa2 with SMTP id hg21-20020a170906f35500b00a3ec738afa2mr6649775ejb.76.1709558746586;
-        Mon, 04 Mar 2024 05:25:46 -0800 (PST)
-Message-ID: <06cce36e-5936-4374-9b56-1cb166c2b8b7@suse.com>
-Date: Mon, 4 Mar 2024 14:25:45 +0100
+X-Inumbo-ID: e1c22e16-da2a-11ee-afda-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1709558816;
+	bh=+I0soG2y9wOLdzgs+iOEFQHNkm2pStAlIL7zVcgMi74=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oMzp99FFoYxE/vOBF28I+Id1o/+jfqk2QKtf8z+qedFCDQo44dR1zoMcm4EHWUsN2
+	 9S7n+Qb7qUQaJTViEMqp0ZTD1looj6HK046a++qWpRN5hfjMkaubXIkZT/MmcI6S8X
+	 vdbb37LSe6aZm0VVDWGarbOZAntFjiFfFUm5jW9o=
+Date: Mon, 4 Mar 2024 14:26:53 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Andrew Panyakin <apanyaki@amazon.com>
+Cc: stable@vger.kernel.org, boris.ostrovsky@oracle.com, jgross@suse.com,
+	sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+	jgrall@amazon.com, sashal@kernel.org,
+	jeremy.fitzhardinge@citrix.com, konrad.wilk@oracle.com,
+	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+	benh@amazon.com, mheyne@amazon.de
+Subject: Re: [PATCH 5.10] xen/events: close evtchn after mapping cleanup
+Message-ID: <2024030433-legacy-unrivaled-f5fc@gregkh>
+References: <20240302160357.GA2232656@uc3ecf78c6baf56.ant.amazon.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hvmloader/PCI: skip huge BARs in certain calculations
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Neowutran <xen@neowutran.ovh>
-References: <090d572c-5196-46b2-9d6b-741b7cb66d97@suse.com>
- <ZeWcNGRsjGgUosJY@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZeWcNGRsjGgUosJY@macbook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240302160357.GA2232656@uc3ecf78c6baf56.ant.amazon.com>
 
-On 04.03.2024 11:02, Roger Pau Monné wrote:
-> On Mon, Mar 04, 2024 at 08:32:22AM +0100, Jan Beulich wrote:
->> BARs of size 2Gb and up can't possibly fit below 4Gb: Both the bottom of
->> the lower 2Gb range and the top of the higher 2Gb range have special
->> purpose. Don't even have them influence whether to (perhaps) relocate
->> low RAM.
+On Sat, Mar 02, 2024 at 08:03:57AM -0800, Andrew Panyakin wrote:
+> From: Maximilian Heyne <mheyne@amazon.de>
 > 
-> Here you mention 2Gb BARs, yet the code below sets the maximum BAR
-> size supported below 4Gb to 1Gb.
-
-Hmm, I'm puzzled: There are no other BAR sizes between 1Gb and 2Gb.
-Anything up to 1Gb continues to work as is, while everything 2Gb and
-up has behavior changed.
-
->> --- a/tools/firmware/hvmloader/pci.c
->> +++ b/tools/firmware/hvmloader/pci.c
->> @@ -33,6 +33,13 @@ uint32_t pci_mem_start = HVM_BELOW_4G_MM
->>  const uint32_t pci_mem_end = RESERVED_MEMBASE;
->>  uint64_t pci_hi_mem_start = 0, pci_hi_mem_end = 0;
->>  
->> +/*
->> + * BARs larger than this value are put in 64-bit space unconditionally.  That
->> + * is, such BARs also don't play into the determination of how big the lowmem
->> + * MMIO hole needs to be.
->> + */
->> +#define HUGE_BAR_THRESH GB(1)
+> Commit fa765c4b4aed2d64266b694520ecb025c862c5a9 upstream
 > 
-> I would be fine with defining this to an even lower number, like
-> 256Mb, as to avoid as much as possible memory relocation in order to
-> make the MMIO hole bigger.
-
-As suggested in a post-commit-message remark, the main question then is
-how to justify this.
-
->> @@ -367,7 +376,7 @@ void pci_setup(void)
->>              pci_mem_start = hvm_info->low_mem_pgend << PAGE_SHIFT;
->>      }
->>  
->> -    if ( mmio_total > (pci_mem_end - pci_mem_start) )
->> +    if ( mmio_total > (pci_mem_end - pci_mem_start) || bar64_relocate )
->>      {
->>          printf("Low MMIO hole not large enough for all devices,"
->>                 " relocating some BARs to 64-bit\n");
+> shutdown_pirq and startup_pirq are not taking the
+> irq_mapping_update_lock because they can't due to lock inversion. Both
+> are called with the irq_desc->lock being taking. The lock order,
+> however, is first irq_mapping_update_lock and then irq_desc->lock.
 > 
-> Is the above message now accurate?  Given the current code the low
-> MMIO could be expanded up to 2Gb, yet BAR relocation will happen
-> unconditionally once a 1Gb BAR is found.
-
-Well, "all" may not be quite accurate anymore, yet would making it e.g.
-"all applicable" really much more meaningful?
-
->> @@ -446,8 +455,9 @@ void pci_setup(void)
->>           *   the code here assumes it to be.)
->>           * Should either of those two conditions change, this code will break.
->>           */
->> -        using_64bar = bars[i].is_64bar && bar64_relocate
->> -            && (mmio_total > (mem_resource.max - mem_resource.base));
->> +        using_64bar = bars[i].is_64bar && bar64_relocate &&
->> +            (mmio_total > (mem_resource.max - mem_resource.base) ||
->> +             bar_sz > HUGE_BAR_THRESH);
->>          bar_data = pci_readl(devfn, bar_reg);
->>  
->>          if ( (bar_data & PCI_BASE_ADDRESS_SPACE) ==
->> @@ -467,7 +477,8 @@ void pci_setup(void)
->>                  resource = &mem_resource;
->>                  bar_data &= ~PCI_BASE_ADDRESS_MEM_MASK;
->>              }
->> -            mmio_total -= bar_sz;
->> +            if ( bar_sz <= HUGE_BAR_THRESH )
->> +                mmio_total -= bar_sz;
+> This opens multiple races:
+> - shutdown_pirq can be interrupted by a function that allocates an event
+>   channel:
 > 
-> I'm missing the part where hvmloader notifies QEMU of the possibly
-> expanded base and size memory PCI MMIO regions, so that those are
-> reflected in the PCI root complex registers?
+>   CPU0                        CPU1
+>   shutdown_pirq {
+>     xen_evtchn_close(e)
+>                               __startup_pirq {
+>                                 EVTCHNOP_bind_pirq
+>                                   -> returns just freed evtchn e
+>                                 set_evtchn_to_irq(e, irq)
+>                               }
+>     xen_irq_info_cleanup() {
+>       set_evtchn_to_irq(e, -1)
+>     }
+>   }
+> 
+>   Assume here event channel e refers here to the same event channel
+>   number.
+>   After this race the evtchn_to_irq mapping for e is invalid (-1).
+> 
+> - __startup_pirq races with __unbind_from_irq in a similar way. Because
+>   __startup_pirq doesn't take irq_mapping_update_lock it can grab the
+>   evtchn that __unbind_from_irq is currently freeing and cleaning up. In
+>   this case even though the event channel is allocated, its mapping can
+>   be unset in evtchn_to_irq.
+> 
+> The fix is to first cleanup the mappings and then close the event
+> channel. In this way, when an event channel gets allocated it's
+> potential previous evtchn_to_irq mappings are guaranteed to be unset already.
+> This is also the reverse order of the allocation where first the event
+> channel is allocated and then the mappings are setup.
+> 
+> On a 5.10 kernel prior to commit 3fcdaf3d7634 ("xen/events: modify internal
+> [un]bind interfaces"), we hit a BUG like the following during probing of NVMe
+> devices. The issue is that during nvme_setup_io_queues, pci_free_irq
+> is called for every device which results in a call to shutdown_pirq.
+> With many nvme devices it's therefore likely to hit this race during
+> boot because there will be multiple calls to shutdown_pirq and
+> startup_pirq are running potentially in parallel.
+> 
+>   ------------[ cut here ]------------
+>   blkfront: xvda: barrier or flush: disabled; persistent grants: enabled; indirect descriptors: enabled; bounce buffer: enabled
+>   kernel BUG at drivers/xen/events/events_base.c:499!
+>   invalid opcode: 0000 [#1] SMP PTI
+>   CPU: 44 PID: 375 Comm: kworker/u257:23 Not tainted 5.10.201-191.748.amzn2.x86_64 #1
+>   Hardware name: Xen HVM domU, BIOS 4.11.amazon 08/24/2006
+>   Workqueue: nvme-reset-wq nvme_reset_work
+>   RIP: 0010:bind_evtchn_to_cpu+0xdf/0xf0
+>   Code: 5d 41 5e c3 cc cc cc cc 44 89 f7 e8 2b 55 ad ff 49 89 c5 48 85 c0 0f 84 64 ff ff ff 4c 8b 68 30 41 83 fe ff 0f 85 60 ff ff ff <0f> 0b 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 0f 1f 44 00 00
+>   RSP: 0000:ffffc9000d533b08 EFLAGS: 00010046
+>   RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000006
+>   RDX: 0000000000000028 RSI: 00000000ffffffff RDI: 00000000ffffffff
+>   RBP: ffff888107419680 R08: 0000000000000000 R09: ffffffff82d72b00
+>   R10: 0000000000000000 R11: 0000000000000000 R12: 00000000000001ed
+>   R13: 0000000000000000 R14: 00000000ffffffff R15: 0000000000000002
+>   FS:  0000000000000000(0000) GS:ffff88bc8b500000(0000) knlGS:0000000000000000
+>   CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>   CR2: 0000000000000000 CR3: 0000000002610001 CR4: 00000000001706e0
+>   DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+>   DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+>   Call Trace:
+>    ? show_trace_log_lvl+0x1c1/0x2d9
+>    ? show_trace_log_lvl+0x1c1/0x2d9
+>    ? set_affinity_irq+0xdc/0x1c0
+>    ? __die_body.cold+0x8/0xd
+>    ? die+0x2b/0x50
+>    ? do_trap+0x90/0x110
+>    ? bind_evtchn_to_cpu+0xdf/0xf0
+>    ? do_error_trap+0x65/0x80
+>    ? bind_evtchn_to_cpu+0xdf/0xf0
+>    ? exc_invalid_op+0x4e/0x70
+>    ? bind_evtchn_to_cpu+0xdf/0xf0
+>    ? asm_exc_invalid_op+0x12/0x20
+>    ? bind_evtchn_to_cpu+0xdf/0xf0
+>    ? bind_evtchn_to_cpu+0xc5/0xf0
+>    set_affinity_irq+0xdc/0x1c0
+>    irq_do_set_affinity+0x1d7/0x1f0
+>    irq_setup_affinity+0xd6/0x1a0
+>    irq_startup+0x8a/0xf0
+>    __setup_irq+0x639/0x6d0
+>    ? nvme_suspend+0x150/0x150
+>    request_threaded_irq+0x10c/0x180
+>    ? nvme_suspend+0x150/0x150
+>    pci_request_irq+0xa8/0xf0
+>    ? __blk_mq_free_request+0x74/0xa0
+>    queue_request_irq+0x6f/0x80
+>    nvme_create_queue+0x1af/0x200
+>    nvme_create_io_queues+0xbd/0xf0
+>    nvme_setup_io_queues+0x246/0x320
+>    ? nvme_irq_check+0x30/0x30
+>    nvme_reset_work+0x1c8/0x400
+>    process_one_work+0x1b0/0x350
+>    worker_thread+0x49/0x310
+>    ? process_one_work+0x350/0x350
+>    kthread+0x11b/0x140
+>    ? __kthread_bind_mask+0x60/0x60
+>    ret_from_fork+0x22/0x30
+>   Modules linked in:
+>   ---[ end trace a11715de1eee1873 ]---
+> 
+> Fixes: d46a78b05c0e ("xen: implement pirq type event channels")
+> Cc: stable@vger.kernel.org
+> Co-debugged-by: Andrew Panyakin <apanyaki@amazon.com>
+> Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
+> [apanyaki: backport to v5.10-stable]
+> Signed-off-by: Andrew Paniakin <apanyaki@amazon.com>
+> ---
+> Compare to upstream patch this one does not have close_evtchn flag
+> because there is no need to handle static event channels.
+> This feature was added only in 58f6259b7a08f ("xen/evtchn: Introduce new
+> IOCTL to bind static evtchn")
 
-I don't understand this comment: I'm not changing the interaction
-with qemu at all. Whatever the new calculation it'll be communicated
-to qemu just as before.
+Where is the 5.15.y version of this commit?  We have to have that before
+we can take a 5.10.y version, right?
 
-> Overall I think we could simplify the code by having a hardcoded 1Gb
-> PCI MMIO hole below 4Gb, fill it with all the 32bit BARs and
-> (re)locate all 64bit BARs above 4Gb (not that I'm requesting you to do
-> it here).
+thanks,
 
-I'm afraid that would not work very well with OSes which aren't 64-bit
-BAR / PA aware (first and foremost non-PAE 32-bit ones). Iirc that's
-the reason why it wasn't done like you suggest back at the time.
-
-Jan
+greg k-h
 
