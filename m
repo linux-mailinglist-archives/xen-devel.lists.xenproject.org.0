@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3588A86FABE
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 08:29:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688160.1072024 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FE0A86FAE5
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 08:32:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688165.1072034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rh2lW-0002UQ-Cx; Mon, 04 Mar 2024 07:29:38 +0000
+	id 1rh2oC-0003xm-Rs; Mon, 04 Mar 2024 07:32:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688160.1072024; Mon, 04 Mar 2024 07:29:38 +0000
+Received: by outflank-mailman (output) from mailman id 688165.1072034; Mon, 04 Mar 2024 07:32:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rh2lW-0002RG-8o; Mon, 04 Mar 2024 07:29:38 +0000
-Received: by outflank-mailman (input) for mailman id 688160;
- Mon, 04 Mar 2024 07:29:37 +0000
+	id 1rh2oC-0003wJ-Ot; Mon, 04 Mar 2024 07:32:24 +0000
+Received: by outflank-mailman (input) for mailman id 688165;
+ Mon, 04 Mar 2024 07:32:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Kl9k=KK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rh2lV-0002R5-36
- for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 07:29:37 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1rh2oB-0003w7-KK
+ for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 07:32:23 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f31aa2e4-d9f8-11ee-a1ee-f123f15fe8a2;
- Mon, 04 Mar 2024 08:29:35 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a44cf608a39so162494966b.0
- for <xen-devel@lists.xenproject.org>; Sun, 03 Mar 2024 23:29:35 -0800 (PST)
+ id 56793c90-d9f9-11ee-a1ee-f123f15fe8a2;
+ Mon, 04 Mar 2024 08:32:21 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a450615d1c4so171334466b.0
+ for <xen-devel@lists.xenproject.org>; Sun, 03 Mar 2024 23:32:21 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- gt25-20020a170906f21900b00a3ec216ec6csm4390230ejb.45.2024.03.03.23.29.33
+ an19-20020a17090656d300b00a4536b32ae0sm991546ejc.30.2024.03.03.23.32.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 03 Mar 2024 23:29:34 -0800 (PST)
+ Sun, 03 Mar 2024 23:32:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f31aa2e4-d9f8-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 56793c90-d9f9-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709537374; x=1710142174; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=L1okNdYKKWc+5ObUqf2slTpzoSiSxY3lpzPn4YnJEsk=;
-        b=UMHUDJIFLhwbpyvYG2TsxxZd6iIG0ayVehrP2YMOQqjsviJ02Tx8p19KQrOM+N3VzN
-         zYx9ebzWnsU7fSRoZrM71N5oPUl2swuOQs6PbF7xzNkU6jllUc81/xD9Co3E3yYqffUC
-         5/polJ6OoqR0V+GExayGALqiDB7IM5vGvpYo+7/1PsgV1NOfkw8kKdZ7h67+mSlVvAXJ
-         tFElsXDK8XFg/r2Jze75ODf3jRnXvLq7I6UPRgN8uYuWEfRZ0IZCx/K+anlsitbJ+4Wu
-         r4JJ3nJySev6IQmqH2tsRz/fClkEKWHG7UQGWmtzOWA5i+YgoezSNGZjZUDYqVlqY7US
-         CF1Q==
+        d=suse.com; s=google; t=1709537541; x=1710142341; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Uao8jMabORIAFaIx1lr7Z9jLmX4PfQvpemPZ1siutL4=;
+        b=gj4u38Usfr5QoCfRFzMzRypEyGHjaBM3ZGDTFbFq/QjLtRpmh4W65l4edRSbysh5Lm
+         wk3PkiqDPrHCOeuAUpG0Jw1PrAYaxrF+ZoX+xE2fugdPfS78xVmJiWW9HR8UF0SnL28p
+         VemCns2z/zrx6Q+Z7P0ykxwI4d7l7u4wvdLxayrZHyxFb2okirgJzLzKl7bT+aJ3bXS8
+         CGONQqS9FDCPLYssnWiswCt6CCHdNsT8JE78LWiGoU7F3nR2M2Fnshyg2s7NFXxlqZU6
+         SrVis4UspjDBI08B2E+lArpU+u4P43mXHPTny2kHLW8Kzobf3xVzT/uunP6rEEPJl3oT
+         tHmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709537374; x=1710142174;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1709537541; x=1710142341;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=L1okNdYKKWc+5ObUqf2slTpzoSiSxY3lpzPn4YnJEsk=;
-        b=cJrw4mIyYtaWeJdMb6CbLkak/fSnDklgpKqkZhuPIAanFcYIpkr9kQpi9gFiq4toJf
-         CcjvPTQbDz6C/3DJA/0yDYtwuUjXJbVI+NBm7i9eXeXbAjZAl1bn/ZZvA238gTTkL/et
-         lCeD20uDW+43ZKeoZDBmIcVrDcqBNs4lTK4ZY4lCw0eR5/kvevrM9B2XJjoYQ1V7F3nh
-         lV4AYns4HFCYvsNTrqqWHDiY/jlD/IHUtsEk2s2I4Sy8wDOdBU4llMxw7jOJWiqnN02/
-         8mzKHlKeF3GVKMl6ing7kIRBjCZdfOyL1OrKzmVw8ubHVYx9pwGKj7PUDpi6jWN3rr1g
-         TxTw==
-X-Gm-Message-State: AOJu0YyZrQD1lKLONP33IuoIQ4G7leYN1hNFzOf+tA8OUgODTpV1tx1m
-	oTvVqy1VLNST8xl/17iImtxqZHazE0hEjOKcot+T3M/IqrxSDnrGiEawxKqrHQ==
-X-Google-Smtp-Source: AGHT+IFhmrSbg+iWaY6sIHRO5JN1W+QkZZ/aiYTZNMJ/kmhQ/2xzfhobcu0k5o41iC40VaPdbqjVTA==
-X-Received: by 2002:a17:906:e285:b0:a45:2d35:39b2 with SMTP id gg5-20020a170906e28500b00a452d3539b2mr1601919ejb.22.1709537374477;
-        Sun, 03 Mar 2024 23:29:34 -0800 (PST)
-Message-ID: <a3c32c20-ddd0-4acb-946c-be5e8bba26c9@suse.com>
-Date: Mon, 4 Mar 2024 08:29:35 +0100
+        bh=Uao8jMabORIAFaIx1lr7Z9jLmX4PfQvpemPZ1siutL4=;
+        b=QmIB/y05emzh3PZ/4FxP1DZPDZKTgYptQ4x2uoso259Va5TvheygMO3+Nk3O6FlTPe
+         eHBGw5gijCAxrArK2d8dwRC4HsYxbaPyQ/U6V0OBKXo5VTRikS8m0XmKlpUwXmZT4Z+V
+         VYRaQRcGHEVZygBZQG1j0DR3K6gK6RJ7u7KxdvYPR8ALGaHAklye5PzEin10YZWCdgFp
+         yoW4bFN2alNRE3iiwJ1q7d0s3AvccFC4FM6NWRqXAfzCvN7nv7EVTMewVqxVvU/0gfcN
+         Xmb/2n0WHtql2Plw3mz1flUALtkX/Yzq405IiTZAdpIh/KQXiQd8P1b2nao5knkw/hSr
+         gssg==
+X-Gm-Message-State: AOJu0YxzENKQpdj6hDAMtONo/9vFIS9uwTtEFW5Of14oRDeJyq7Fes2B
+	QXAA7Y0aDkyIivVVpxFPEDmvs1Q/LBF7rVKQfJ17scovXF+UGgoMESVuSQrCxXPBuQW5pEMWWC0
+	=
+X-Google-Smtp-Source: AGHT+IEcoARgmc5G5koCbat15gls+rTX1vPZP20RYOP87AnJ7G901KGg5EPH4WqN1CPAPDAEQ1Y7nA==
+X-Received: by 2002:a17:906:cd01:b0:a44:3056:1ec1 with SMTP id oz1-20020a170906cd0100b00a4430561ec1mr6543060ejb.6.1709537541189;
+        Sun, 03 Mar 2024 23:32:21 -0800 (PST)
+Message-ID: <090d572c-5196-46b2-9d6b-741b7cb66d97@suse.com>
+Date: Mon, 4 Mar 2024 08:32:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: hvmloader - allow_memory_relocate overlaps
 Content-Language: en-US
-To: Neowutran <xen@neowutran.ovh>
-Cc: xen-devel@lists.xenproject.org, Anthony Perard
- <anthony.perard@citrix.com>, George Dunlap <george.dunlap@citrix.com>
-References: <7oe275z3eap7rhdwmrm4mvqnjnhrpag5cjwnfvwsf7rchhkyjv@pd3abzwdhg6v>
- <217649a9-8399-48d3-ba49-ae22cacf0d4b@suse.com>
- <lyqv62ezqqaybcfuhkvbhiltvnxyy32wzr36kclh7bzrupcvib@a5fpoe6atykl>
- <1c857c96-9f2d-4787-8804-799a63a00480@suse.com>
- <7lhrvh2ad46gjke5kvy4pbvrhstv7ihwm64suqrkle4v43tos6@oktohrjfupkc>
- <6db70696-4b40-46d2-b19c-881820338ba4@suse.com>
- <56c24b5b-42a0-4022-bb14-f90a3881fdc1@suse.com>
- <qlc7q5dm2o5jeaodayvxpokhm6f3idjkh5pgmca3gy7jgurmnl@gwttnbtl32lr>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Neowutran <xen@neowutran.ovh>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] hvmloader/PCI: skip huge BARs in certain calculations
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,65 +110,85 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <qlc7q5dm2o5jeaodayvxpokhm6f3idjkh5pgmca3gy7jgurmnl@gwttnbtl32lr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.03.2024 21:24, Neowutran wrote:
-> On 2024-02-07 16:02, Jan Beulich wrote:
->> Could you give the patch below a try? I don't have a device with large
->> enough a BAR that I could sensibly pass through to a guest, so I was
->> only able to build-test the change.
-> 
-> Hi and thanks,
-> I just tested it, it indeed work well when the GPU have bar > 1Go. 
-> 
-> ------------
-> Setup: 
-> I removed my patch 
-> (
-> 
-> 
-> --- a/tools/libs/light/libxl_dm.c
-> +++ b/tools/libs/light/libxl_dm.c
-> @@ -2431,6 +2431,10 @@ void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state *sdss)
->                                         libxl__xs_get_dompath(gc, guest_domid)),
->                          "%s",
->                          libxl_bios_type_to_string(guest_config->b_info.u.hvm.bios));
-> +        libxl__xs_printf(gc, XBT_NULL,
-> +                         libxl__sprintf(gc, "%s/hvmloader/allow-memory-relocate", libxl__xs_get_dompath(gc, guest_domid)),
-> +                         "%d",
-> +                         0);
->      }
->      ret = xc_domain_set_target(ctx->xch, dm_domid, guest_domid);
->      if (ret<0) {
-> 
-> 
-> )
-> and applied your suggested "skip huge BARs" patch. 
-> My GPU: nvidia 4080
-> -------------
-> 
-> When the option "Resizable BAR support" is activated in my bios,
-> the BAR1 size of my gpu is reported to be 16GB. With this patch, gpu
-> passthrough work. 
+BARs of size 2Gb and up can't possibly fit below 4Gb: Both the bottom of
+the lower 2Gb range and the top of the higher 2Gb range have special
+purpose. Don't even have them influence whether to (perhaps) relocate
+low RAM.
 
-Good. I guess I should properly post that patch then, no matter that ...
+Reported-by: Neowutran <xen@neowutran.ovh>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+If we wanted to fit e.g. multiple 1Gb BARs, it would likely be prudent
+to similarly avoid low RAM relocation in the first place. Yet accounting
+for things differently depending on how many large BARs there are would
+require more intrusive code changes.
 
-> When the option "Resizable BAR support" is desactivated in my bios,
-> the BAR1 size of my gpu is reported to be 256MB. With this patch,
-> gpu passthrough doesn't work (same crash as before)
+That said, I'm open to further lowering of the threshold. That'll
+require different justification then, though.
 
-... this clearly requires further work then. 256Mb isn't all that large;
-could you post a log file (fragment) for this very case?
-
-> ( note: the option "Resizable BAR support" may or may not exist
-> depending on the motherboard model, on some it is 'hardcoded' to
-> activated, on some it is 'hardcoded' to desactivated)
-
-Resizable BARs is yet another thing on my (and maybe also Roger's) todo
-list. I'm a little uncomfortable doing any work there without having a
-system where I could actually test it ...
-
-Jan
+--- a/tools/firmware/hvmloader/pci.c
++++ b/tools/firmware/hvmloader/pci.c
+@@ -33,6 +33,13 @@ uint32_t pci_mem_start = HVM_BELOW_4G_MM
+ const uint32_t pci_mem_end = RESERVED_MEMBASE;
+ uint64_t pci_hi_mem_start = 0, pci_hi_mem_end = 0;
+ 
++/*
++ * BARs larger than this value are put in 64-bit space unconditionally.  That
++ * is, such BARs also don't play into the determination of how big the lowmem
++ * MMIO hole needs to be.
++ */
++#define HUGE_BAR_THRESH GB(1)
++
+ enum virtual_vga virtual_vga = VGA_none;
+ unsigned long igd_opregion_pgbase = 0;
+ 
+@@ -286,9 +293,11 @@ void pci_setup(void)
+             bars[i].bar_reg = bar_reg;
+             bars[i].bar_sz  = bar_sz;
+ 
+-            if ( ((bar_data & PCI_BASE_ADDRESS_SPACE) ==
+-                  PCI_BASE_ADDRESS_SPACE_MEMORY) ||
+-                 (bar_reg == PCI_ROM_ADDRESS) )
++            if ( is_64bar && bar_sz > HUGE_BAR_THRESH )
++                bar64_relocate = 1;
++            else if ( ((bar_data & PCI_BASE_ADDRESS_SPACE) ==
++                       PCI_BASE_ADDRESS_SPACE_MEMORY) ||
++                      (bar_reg == PCI_ROM_ADDRESS) )
+                 mmio_total += bar_sz;
+ 
+             nr_bars++;
+@@ -367,7 +376,7 @@ void pci_setup(void)
+             pci_mem_start = hvm_info->low_mem_pgend << PAGE_SHIFT;
+     }
+ 
+-    if ( mmio_total > (pci_mem_end - pci_mem_start) )
++    if ( mmio_total > (pci_mem_end - pci_mem_start) || bar64_relocate )
+     {
+         printf("Low MMIO hole not large enough for all devices,"
+                " relocating some BARs to 64-bit\n");
+@@ -446,8 +455,9 @@ void pci_setup(void)
+          *   the code here assumes it to be.)
+          * Should either of those two conditions change, this code will break.
+          */
+-        using_64bar = bars[i].is_64bar && bar64_relocate
+-            && (mmio_total > (mem_resource.max - mem_resource.base));
++        using_64bar = bars[i].is_64bar && bar64_relocate &&
++            (mmio_total > (mem_resource.max - mem_resource.base) ||
++             bar_sz > HUGE_BAR_THRESH);
+         bar_data = pci_readl(devfn, bar_reg);
+ 
+         if ( (bar_data & PCI_BASE_ADDRESS_SPACE) ==
+@@ -467,7 +477,8 @@ void pci_setup(void)
+                 resource = &mem_resource;
+                 bar_data &= ~PCI_BASE_ADDRESS_MEM_MASK;
+             }
+-            mmio_total -= bar_sz;
++            if ( bar_sz <= HUGE_BAR_THRESH )
++                mmio_total -= bar_sz;
+         }
+         else
+         {
 
