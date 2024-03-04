@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8385D86FAB6
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 08:26:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688157.1072011 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3588A86FABE
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Mar 2024 08:29:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688160.1072024 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rh2hT-0001sE-PS; Mon, 04 Mar 2024 07:25:27 +0000
+	id 1rh2lW-0002UQ-Cx; Mon, 04 Mar 2024 07:29:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688157.1072011; Mon, 04 Mar 2024 07:25:27 +0000
+Received: by outflank-mailman (output) from mailman id 688160.1072024; Mon, 04 Mar 2024 07:29:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rh2hT-0001q1-Lc; Mon, 04 Mar 2024 07:25:27 +0000
-Received: by outflank-mailman (input) for mailman id 688157;
- Mon, 04 Mar 2024 07:25:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rh2lW-0002RG-8o; Mon, 04 Mar 2024 07:29:38 +0000
+Received: by outflank-mailman (input) for mailman id 688160;
+ Mon, 04 Mar 2024 07:29:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Kl9k=KK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rh2hS-0001pv-7h
- for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 07:25:26 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5db9fd73-d9f8-11ee-afda-a90da7624cb6;
- Mon, 04 Mar 2024 08:25:24 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-565d1656c12so7216180a12.1
- for <xen-devel@lists.xenproject.org>; Sun, 03 Mar 2024 23:25:24 -0800 (PST)
+ id 1rh2lV-0002R5-36
+ for xen-devel@lists.xenproject.org; Mon, 04 Mar 2024 07:29:37 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f31aa2e4-d9f8-11ee-a1ee-f123f15fe8a2;
+ Mon, 04 Mar 2024 08:29:35 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a44cf608a39so162494966b.0
+ for <xen-devel@lists.xenproject.org>; Sun, 03 Mar 2024 23:29:35 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- u17-20020a056402111100b0056729e902f7sm1507882edv.56.2024.03.03.23.25.23
+ gt25-20020a170906f21900b00a3ec216ec6csm4390230ejb.45.2024.03.03.23.29.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 03 Mar 2024 23:25:23 -0800 (PST)
+ Sun, 03 Mar 2024 23:29:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5db9fd73-d9f8-11ee-afda-a90da7624cb6
+X-Inumbo-ID: f31aa2e4-d9f8-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709537124; x=1710141924; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+Q3KZ2WtVF7i6fMn4u4hmT38MdFFnvKR0PgAtrFTw9g=;
-        b=W6VK2cE5Z3+95miykXugOTmDZIQiHFLEctFxlMsxmHy1CE9Q/SRuA4dKoBxJvgNvWN
-         Ej9ckywxE18yYtbLsGFLdM8/s8uSX7Y7Mk7bMnczq0KuUOV9hFwnuQ/IQExqntgGF814
-         86eqXXMmwMbyqK/seEdlnwDWZrOk2y2tn8E+J4/oHFwowAPcw/ql61fVTTVMfL7cZd/e
-         8FjVDWAlmDlqJzlr0PswCLE+YclnUn8vthabfHtJ2GmlSBAzdQDqtJOTwUkx3c//AK9K
-         t/XFkLx+frC/yl/OwZn9CBN0EJPEqvAftPgoZteTbG2YIZxwOeMYJgjgMwHXqbz7BURu
-         oU/g==
+        d=suse.com; s=google; t=1709537374; x=1710142174; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=L1okNdYKKWc+5ObUqf2slTpzoSiSxY3lpzPn4YnJEsk=;
+        b=UMHUDJIFLhwbpyvYG2TsxxZd6iIG0ayVehrP2YMOQqjsviJ02Tx8p19KQrOM+N3VzN
+         zYx9ebzWnsU7fSRoZrM71N5oPUl2swuOQs6PbF7xzNkU6jllUc81/xD9Co3E3yYqffUC
+         5/polJ6OoqR0V+GExayGALqiDB7IM5vGvpYo+7/1PsgV1NOfkw8kKdZ7h67+mSlVvAXJ
+         tFElsXDK8XFg/r2Jze75ODf3jRnXvLq7I6UPRgN8uYuWEfRZ0IZCx/K+anlsitbJ+4Wu
+         r4JJ3nJySev6IQmqH2tsRz/fClkEKWHG7UQGWmtzOWA5i+YgoezSNGZjZUDYqVlqY7US
+         CF1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709537124; x=1710141924;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+Q3KZ2WtVF7i6fMn4u4hmT38MdFFnvKR0PgAtrFTw9g=;
-        b=vCIryn/sD3EhCtE9sUZEV5u/J4wYAVdaHod2wfBtogX33j+RL9s6AaT9kXFg9Xk1dV
-         9ec54i/wkmSTT1weSur2fPfbFwCwu6tOOCpRGHNUIcneX3WwZ08Dt9r6YcC8RNFuxLJl
-         5DafHDggFW7CT46IFDJ0b7iDtgML1pqADRnLHVJgE5kV6PfhHleIAtLqBapIbmZTHP/b
-         S4TeqOvfs0SR3NmQplbfF0CqrnCU26IzDjT7mN4SDyAY61UxPfMQsNqi+NgE8dnJTC6C
-         QWJ5ApF8JthVI2oltIjKCyens+qmKmB6npEmZ/nYBq1USDguQnOeD88gtJHceF2K3txk
-         GxIg==
-X-Forwarded-Encrypted: i=1; AJvYcCXfqYDMjAoC3Lw6jHds1M7+dViEoJI1H/X+OEigQmKnNp3j8IQXb1uY9/1bbF2vQcW8INdA40hU15CSqJL4Tdu62P2D5g+kCnPhzCl3TwI=
-X-Gm-Message-State: AOJu0Ywu4ztLMWela+6Ch2RQBFR2cjc8WjgFd+yIk9ftLBSa85i/vfM4
-	9C3SYJzF/9my/iYp1SGukhgAgyBsoAckKqn3PPNWZcHIiY4RxaL+j0LleoFdHg==
-X-Google-Smtp-Source: AGHT+IF41mcKJifwGSYi3e/xmyfEQm/pYR/KYz///8Ow4Rs2itbPF76c/FPlPmQx+y/J76iuWOESYg==
-X-Received: by 2002:aa7:dbcb:0:b0:567:683:11bb with SMTP id v11-20020aa7dbcb000000b00567068311bbmr4121505edt.20.1709537124194;
-        Sun, 03 Mar 2024 23:25:24 -0800 (PST)
-Message-ID: <a2c8f733-eef6-4af2-87c2-989f1772baea@suse.com>
-Date: Mon, 4 Mar 2024 08:25:23 +0100
+        d=1e100.net; s=20230601; t=1709537374; x=1710142174;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=L1okNdYKKWc+5ObUqf2slTpzoSiSxY3lpzPn4YnJEsk=;
+        b=cJrw4mIyYtaWeJdMb6CbLkak/fSnDklgpKqkZhuPIAanFcYIpkr9kQpi9gFiq4toJf
+         CcjvPTQbDz6C/3DJA/0yDYtwuUjXJbVI+NBm7i9eXeXbAjZAl1bn/ZZvA238gTTkL/et
+         lCeD20uDW+43ZKeoZDBmIcVrDcqBNs4lTK4ZY4lCw0eR5/kvevrM9B2XJjoYQ1V7F3nh
+         lV4AYns4HFCYvsNTrqqWHDiY/jlD/IHUtsEk2s2I4Sy8wDOdBU4llMxw7jOJWiqnN02/
+         8mzKHlKeF3GVKMl6ing7kIRBjCZdfOyL1OrKzmVw8ubHVYx9pwGKj7PUDpi6jWN3rr1g
+         TxTw==
+X-Gm-Message-State: AOJu0YyZrQD1lKLONP33IuoIQ4G7leYN1hNFzOf+tA8OUgODTpV1tx1m
+	oTvVqy1VLNST8xl/17iImtxqZHazE0hEjOKcot+T3M/IqrxSDnrGiEawxKqrHQ==
+X-Google-Smtp-Source: AGHT+IFhmrSbg+iWaY6sIHRO5JN1W+QkZZ/aiYTZNMJ/kmhQ/2xzfhobcu0k5o41iC40VaPdbqjVTA==
+X-Received: by 2002:a17:906:e285:b0:a45:2d35:39b2 with SMTP id gg5-20020a170906e28500b00a452d3539b2mr1601919ejb.22.1709537374477;
+        Sun, 03 Mar 2024 23:29:34 -0800 (PST)
+Message-ID: <a3c32c20-ddd0-4acb-946c-be5e8bba26c9@suse.com>
+Date: Mon, 4 Mar 2024 08:29:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/12] xen/spinlock: split recursive spinlocks from
- normal ones
-To: Juergen Gross <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20231212094725.22184-1-jgross@suse.com>
- <20231212094725.22184-11-jgross@suse.com>
- <a037facf-c4d9-491f-b39f-56ed4221abf1@suse.com>
- <d54d0774-0b73-4431-9d17-35b544bf91c3@suse.com>
+Subject: Re: hvmloader - allow_memory_relocate overlaps
 Content-Language: en-US
+To: Neowutran <xen@neowutran.ovh>
+Cc: xen-devel@lists.xenproject.org, Anthony Perard
+ <anthony.perard@citrix.com>, George Dunlap <george.dunlap@citrix.com>
+References: <7oe275z3eap7rhdwmrm4mvqnjnhrpag5cjwnfvwsf7rchhkyjv@pd3abzwdhg6v>
+ <217649a9-8399-48d3-ba49-ae22cacf0d4b@suse.com>
+ <lyqv62ezqqaybcfuhkvbhiltvnxyy32wzr36kclh7bzrupcvib@a5fpoe6atykl>
+ <1c857c96-9f2d-4787-8804-799a63a00480@suse.com>
+ <7lhrvh2ad46gjke5kvy4pbvrhstv7ihwm64suqrkle4v43tos6@oktohrjfupkc>
+ <6db70696-4b40-46d2-b19c-881820338ba4@suse.com>
+ <56c24b5b-42a0-4022-bb14-f90a3881fdc1@suse.com>
+ <qlc7q5dm2o5jeaodayvxpokhm6f3idjkh5pgmca3gy7jgurmnl@gwttnbtl32lr>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,37 +116,65 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d54d0774-0b73-4431-9d17-35b544bf91c3@suse.com>
+In-Reply-To: <qlc7q5dm2o5jeaodayvxpokhm6f3idjkh5pgmca3gy7jgurmnl@gwttnbtl32lr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.03.2024 15:37, Juergen Gross wrote:
-> On 29.02.24 16:32, Jan Beulich wrote:
->> On 12.12.2023 10:47, Juergen Gross wrote:
->>> +#define nrspin_lock_irqsave(l, f)                               \
->>> +    ({                                                          \
->>> +        BUILD_BUG_ON(sizeof(f) != sizeof(unsigned long));       \
->>> +        ((f) = __nrspin_lock_irqsave(l));                       \
->>
->> I don't think the outer pair of parentheses is needed here.
+On 01.03.2024 21:24, Neowutran wrote:
+> On 2024-02-07 16:02, Jan Beulich wrote:
+>> Could you give the patch below a try? I don't have a device with large
+>> enough a BAR that I could sensibly pass through to a guest, so I was
+>> only able to build-test the change.
 > 
-> Turns out it is needed. Otherwise something like:
+> Hi and thanks,
+> I just tested it, it indeed work well when the GPU have bar > 1Go. 
+> 
+> ------------
+> Setup: 
+> I removed my patch 
+> (
 > 
 > 
-> if ( a )
->      nrspin_lock_irqsave(l, f);
-> else
->      ...
+> --- a/tools/libs/light/libxl_dm.c
+> +++ b/tools/libs/light/libxl_dm.c
+> @@ -2431,6 +2431,10 @@ void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state *sdss)
+>                                         libxl__xs_get_dompath(gc, guest_domid)),
+>                          "%s",
+>                          libxl_bios_type_to_string(guest_config->b_info.u.hvm.bios));
+> +        libxl__xs_printf(gc, XBT_NULL,
+> +                         libxl__sprintf(gc, "%s/hvmloader/allow-memory-relocate", libxl__xs_get_dompath(gc, guest_domid)),
+> +                         "%d",
+> +                         0);
+>      }
+>      ret = xc_domain_set_target(ctx->xch, dm_domid, guest_domid);
+>      if (ret<0) {
 > 
-> will fail with "else without a previous if".
+> 
+> )
+> and applied your suggested "skip huge BARs" patch. 
+> My GPU: nvidia 4080
+> -------------
+> 
+> When the option "Resizable BAR support" is activated in my bios,
+> the BAR1 size of my gpu is reported to be 16GB. With this patch, gpu
+> passthrough work. 
 
-That's for "outer" in the whole #define I suppose, when I commented on
-just a specific line inside the construct. The ({ ... }) may better be
-avoided here too, for there being no reason to use a compiler
-extension when do { ... } while ( false ) would also do. Things would
-be different in the construct "returned" the flags value, in a more
-function-like manner. But that would be inconsistent with related
-similar functions.
+Good. I guess I should properly post that patch then, no matter that ...
+
+> When the option "Resizable BAR support" is desactivated in my bios,
+> the BAR1 size of my gpu is reported to be 256MB. With this patch,
+> gpu passthrough doesn't work (same crash as before)
+
+... this clearly requires further work then. 256Mb isn't all that large;
+could you post a log file (fragment) for this very case?
+
+> ( note: the option "Resizable BAR support" may or may not exist
+> depending on the motherboard model, on some it is 'hardcoded' to
+> activated, on some it is 'hardcoded' to desactivated)
+
+Resizable BARs is yet another thing on my (and maybe also Roger's) todo
+list. I'm a little uncomfortable doing any work there without having a
+system where I could actually test it ...
 
 Jan
 
