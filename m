@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 816458712CC
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 03:03:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688565.1072860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2960987141D
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 04:06:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688569.1072870 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhK98-0003f7-D2; Tue, 05 Mar 2024 02:03:10 +0000
+	id 1rhL7M-0004EK-SJ; Tue, 05 Mar 2024 03:05:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688565.1072860; Tue, 05 Mar 2024 02:03:10 +0000
+Received: by outflank-mailman (output) from mailman id 688569.1072870; Tue, 05 Mar 2024 03:05:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhK98-0003e5-9w; Tue, 05 Mar 2024 02:03:10 +0000
-Received: by outflank-mailman (input) for mailman id 688565;
- Tue, 05 Mar 2024 02:03:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rhL7M-0004Co-PJ; Tue, 05 Mar 2024 03:05:24 +0000
+Received: by outflank-mailman (input) for mailman id 688569;
+ Tue, 05 Mar 2024 03:05:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=49dx=KL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rhK96-0003dz-Or
- for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 02:03:08 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81310a80-da94-11ee-a1ee-f123f15fe8a2;
- Tue, 05 Mar 2024 03:03:06 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id AB5FB61323;
- Tue,  5 Mar 2024 02:03:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971E5C433A6;
- Tue,  5 Mar 2024 02:03:02 +0000 (UTC)
+ <SRS0=BjVz=KL=gmail.com=alexei.starovoitov@srs-se1.protection.inumbo.net>)
+ id 1rhL7L-0004Ci-AK
+ for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 03:05:23 +0000
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [2001:4860:4864:20::2a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 338b3410-da9d-11ee-afda-a90da7624cb6;
+ Tue, 05 Mar 2024 04:05:21 +0100 (CET)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-21fa086008fso2129593fac.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 19:05:21 -0800 (PST)
+Received: from localhost.localdomain ([2620:10d:c090:400::5:9426])
+ by smtp.gmail.com with ESMTPSA id
+ y15-20020aa7854f000000b006e5a99942c6sm6822695pfn.88.2024.03.04.19.05.18
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Mon, 04 Mar 2024 19:05:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,99 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81310a80-da94-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709604184;
-	bh=44hF53+GnnUl7hHcXX4PnfbEfEIeWhtu+CufIDQem50=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=e3LYIXUHMkn7mZb3TEOgFkDzuXIQKnPZMhj+a0YTLd2iPS7tu9DUD1SGyKZXKSV06
-	 goizl/Rzs6++OdGobb2m5yiAtoe6s5hlAvcvPNUcBEQr2nW9s2d72DeajtF/N+RwiP
-	 fzztViUjDtESRekDqq39DIJjUwMbH3HA3UVwuBMDTpZRG77OuE3gSwBH+RLB9itRhe
-	 4YMOROusnRjqg/9Ap6M0DDkren8fC3NaMKpyZq9rY2lJaXZpVNqdkNTN6JnCpJFJfD
-	 t1NCUqDkG4CqGmX72oMvYcLQp1Nbrqs22W18WxDDbpf55P6+8rl5n1e2U4YbUfHRGn
-	 px2A+50oxbmLA==
-Date: Mon, 4 Mar 2024 18:03:00 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
-    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, 
-    bertrand.marquis@arm.com, julien@xen.org, 
-    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: Re: [XEN PATCH 10/10] xen/keyhandler: address violations of MISRA
- C Rule 20.7
-In-Reply-To: <d7411c57-32f3-41c6-8233-685ed5dfe976@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2403041756140.853156@ubuntu-linux-20-04-desktop>
-References: <cover.1709219010.git.nicola.vetrini@bugseng.com> <2bc4a964f0f2f47488e72237678e944dbdbd7bb7.1709219010.git.nicola.vetrini@bugseng.com> <alpine.DEB.2.22.394.2402291457000.853156@ubuntu-linux-20-04-desktop> <1afd8805-7365-40ec-8e8e-468a83e20c40@suse.com>
- <alpine.DEB.2.22.394.2403011716180.853156@ubuntu-linux-20-04-desktop> <d7411c57-32f3-41c6-8233-685ed5dfe976@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 338b3410-da9d-11ee-afda-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1709607920; x=1710212720; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=GO37OSQRQXlN2VGFyW6LzwjH/NpS/PSzwjkGcO70oKE=;
+        b=bQnktXcuSynRg789+WgNB/k3JCU3EdOWVag3S7z4pUBxTxnoC0/7c1zCQKZ0bAYWTX
+         AahY04IZolUXZyv/5oOLHvGAnFpdr1s1mwfDQ3vQV0mhzmFj+w89dA0EVfwIdzT2oHYa
+         R2U9tviE/xyhwE6wTFS9SWEc/hX2zfhS46UxoT83X1I1U/XNttarPlV/ZUdd7ZoqZI4b
+         m1Qb6CSWTOtC8bXTj6KlwcXuLQHMsgG10ZN3cq+CiFUKqnN7rmm+6cffZ33qL1zWlRxm
+         dFgWr27N/xtHELoz+Sl5PghPtDCgGHE1IKKHF9Ud5UWjOqD0+JF/9RBKEBseO/oGrIoa
+         jE/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709607920; x=1710212720;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GO37OSQRQXlN2VGFyW6LzwjH/NpS/PSzwjkGcO70oKE=;
+        b=LLBuW2g4LAD0i8cUE0UxImfJ3gJW6V0frbhqSllxtcE9DrP1nfZ4IXDPaUT/a+Qoe7
+         uteDBmXYCCg0CD1wY/oqu5n2jnlxir3OTui2JqTNHaSFsqTAHrVJHj9lGGfkNMJNP3/s
+         viRZumuVihhk5N6gyErrJgYRPaPBYU9LmSKTpZsnrKKwE530gPIQkTN6vRhtoMcuUlJ2
+         97qiNV1geK1RoXwciIV6oAB338xzbDZr+m1D4TJGlhhJ5fL1MRuS3+6O1ZqnL78f892F
+         AlCSADPh57XoY48TT3/4NpwzQ4gnUCPF72vtRwRiGHFRKbdml/B0ZslwJ7Z0VEnfKF3M
+         lG9Q==
+X-Forwarded-Encrypted: i=1; AJvYcCV49LNWGYd+7HN6ZPjvk2pT0PUaPtu+2c9XKJao9LyoGevF7HdTEdlny1nS8tvRmdFtpkSvge5onnRXG6FhvM5uj5jA7POb8nLtzYuvvzE=
+X-Gm-Message-State: AOJu0YxTujz7O0XZ2EShSAFoulewQPllEU8obqZ/xFcnlkZL9lXXBCoj
+	+Ijf+0JF2zwl3B8QQKcFNouV+hYMZwYsh22AqFuE66msF4KZjzGL
+X-Google-Smtp-Source: AGHT+IF4DC0r95WIbRC/5og05/9WKTnTnsPpk3e37OmDlc5CQCogzBPB5agJQ7Ifv5VhRu3af2p6Pw==
+X-Received: by 2002:a05:6870:898f:b0:220:99bf:c26d with SMTP id f15-20020a056870898f00b0022099bfc26dmr589777oaq.9.1709607919882;
+        Mon, 04 Mar 2024 19:05:19 -0800 (PST)
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+To: bpf@vger.kernel.org
+Cc: daniel@iogearbox.net,
+	andrii@kernel.org,
+	torvalds@linux-foundation.org,
+	brho@google.com,
+	hannes@cmpxchg.org,
+	lstoakes@gmail.com,
+	akpm@linux-foundation.org,
+	urezki@gmail.com,
+	hch@infradead.org,
+	rppt@kernel.org,
+	boris.ostrovsky@oracle.com,
+	sstabellini@kernel.org,
+	jgross@suse.com,
+	linux-mm@kvack.org,
+	xen-devel@lists.xenproject.org,
+	kernel-team@fb.com
+Subject: [PATCH v4 bpf-next 0/2] mm: Enforce ioremap address space and introduce sparse vm_area
+Date: Mon,  4 Mar 2024 19:05:14 -0800
+Message-Id: <20240305030516.41519-1-alexei.starovoitov@gmail.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-145)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Mon, 4 Mar 2024, Jan Beulich wrote:
-> On 02.03.2024 02:37, Stefano Stabellini wrote:
-> > On Fri, 1 Mar 2024, Jan Beulich wrote:
-> >> On 29.02.2024 23:57, Stefano Stabellini wrote:
-> >>> On Thu, 29 Feb 2024, Nicola Vetrini wrote:
-> >>>> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
-> >>>> of macro parameters shall be enclosed in parentheses". Therefore, some
-> >>>> macro definitions should gain additional parentheses to ensure that all
-> >>>> current and future users will be safe with respect to expansions that
-> >>>> can possibly alter the semantics of the passed-in macro parameter.
-> >>>>
-> >>>> No functional change.
-> >>>>
-> >>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> >>>
-> >>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> >>
-> >> You did see the discussion on earlier patches, though? I don't think
-> >> any of the parentheses here are needed or wanted.
-> > 
-> > We need to align on this. Currently if we go by what's written in
-> > docs/misra/deviations.rst, then rhs should have parentheses.
-> 
-> Quoting the actual patch again:
+From: Alexei Starovoitov <ast@kernel.org>
 
-[...]
+v3 -> v4
+- dropped VM_XEN patch for now. It will be in the follow up.
+- fixed constant as pointed out by Mike
 
-> What rhs are you talking about in light of this change? The only rhs I
-> can spot here is already parenthesized.
+v2 -> v3
+- added Christoph's reviewed-by to patch 1
+- cap commit log lines to 75 chars
+- factored out common checks in patch 3 into helper
+- made vm_area_unmap_pages() return void
 
-Yes you are right. I replied here as an overall comment about our
-approach to 20.7, although this patch is not a good example. My reply
-was meant in the context of https://marc.info/?l=xen-devel&m=170928051025701
+There are various users of kernel virtual address space:
+vmalloc, vmap, ioremap, xen.
 
+- vmalloc use case dominates the usage. Such vm areas have VM_ALLOC flag
+and these areas are treated differently by KASAN.
 
-> > Can we safely claim that rhs parentheses are never needed? If so, then
-> > great, let's add it to deviations.rst and skip them here and other
-> > places in this patch series (e.g. patch #8). When I say "never" I am
-> > taking for granted that the caller is not doing something completely
-> > unacceptably broken such as: 
-> > 
-> >      WRITE_SYSREG64(var +, TTBR0_EL1)
-> 
-> I'm afraid I can't associate this with the patch here either. Instead in
-> the context here a (respective) construct as you mention above would simply
-> fail to build.
+- the areas created by vmap() function should be tagged with VM_MAP
+(as majority of the users do).
 
-Fair enough it will break the build. I was trying to clarify that when I
-wrote "the rhs parentheses are never needed" I meant "never" within
-reason. One can always find ways to break the system and I tried to make
-an example of something that for sure would break rhs or lhs without
-parentheses.
+- ioremap areas are tagged with VM_IOREMAP and vm area start is aligned
+to size of the area unlike vmalloc/vmap.
 
-I meant to say, if we don't account for exceptionally broken cases, can
-we safety say we don't need parentheses for rhs?
+- there is also xen usage that is marked as VM_IOREMAP, but it doesn't
+call ioremap_page_range() unlike all other VM_IOREMAP users.
 
+To clean this up a bit, enforce that ioremap_page_range() checks the range
+and VM_IOREMAP flag.
 
- 
-> > If we cannot generically claim that rhs parentheses are never needed,
-> > then I don't think we should make any exceptions. We should add them here
-> > and everywhere else. It should be easy to write a macro or review a
-> > patch with a macro from someone else, and making special exception makes
-> > it more difficult for everyone.
+In addition BPF would like to reserve regions of kernel virtual address
+space and populate it lazily, similar to xen use cases.
+For that reason, introduce VM_SPARSE flag and vm_area_[un]map_pages()
+helpers to populate this sparse area.
+
+In the end the /proc/vmallocinfo will show
+"vmalloc"
+"vmap"
+"ioremap"
+"sparse"
+categories for different kinds of address regions.
+
+ioremap, sparse will return zero when dumped through /proc/kcore
+
+Alexei Starovoitov (2):
+  mm: Enforce VM_IOREMAP flag and range in ioremap_page_range.
+  mm: Introduce VM_SPARSE kind and vm_area_[un]map_pages().
+
+ include/linux/vmalloc.h |  5 +++
+ mm/vmalloc.c            | 72 +++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 75 insertions(+), 2 deletions(-)
+
+-- 
+2.43.0
+
 
