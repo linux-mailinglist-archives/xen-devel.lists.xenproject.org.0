@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CBE4871627
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 08:01:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688599.1072963 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A289871657
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 08:11:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688602.1072974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhOnD-0006yK-4p; Tue, 05 Mar 2024 07:00:51 +0000
+	id 1rhOx5-0000Kv-1A; Tue, 05 Mar 2024 07:11:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688599.1072963; Tue, 05 Mar 2024 07:00:51 +0000
+Received: by outflank-mailman (output) from mailman id 688602.1072974; Tue, 05 Mar 2024 07:11:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhOnD-0006w9-2F; Tue, 05 Mar 2024 07:00:51 +0000
-Received: by outflank-mailman (input) for mailman id 688599;
- Tue, 05 Mar 2024 07:00:49 +0000
+	id 1rhOx4-0000JP-Uc; Tue, 05 Mar 2024 07:11:02 +0000
+Received: by outflank-mailman (input) for mailman id 688602;
+ Tue, 05 Mar 2024 07:11:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mek3=KL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rhOnB-0006w3-Re
- for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 07:00:49 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1rhOx3-0000JJ-Cm
+ for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 07:11:01 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 17c8d3cf-dabe-11ee-a1ee-f123f15fe8a2;
- Tue, 05 Mar 2024 08:00:47 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a44cdb2d3a6so389898666b.2
- for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 23:00:47 -0800 (PST)
+ id 844bdb62-dabf-11ee-a1ee-f123f15fe8a2;
+ Tue, 05 Mar 2024 08:10:58 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a441d7c6125so32655266b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 23:10:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s5-20020a170906c30500b00a4588e03238sm985393ejz.49.2024.03.04.23.00.46
+ v23-20020a1709067d9700b00a42ee62b634sm5654329ejo.106.2024.03.04.23.10.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Mar 2024 23:00:46 -0800 (PST)
+ Mon, 04 Mar 2024 23:10:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17c8d3cf-dabe-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 844bdb62-dabf-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709622047; x=1710226847; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709622658; x=1710227458; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Nf8icuCYBgULOWuEIBWVrfHWIQzMo8D1uULlQymypaM=;
-        b=Knu9/eTiIUi1YTH7z+2PWla8SHejI/Zy/ih/Q1wEu+2Iblus95JxYEE6To1M7p3ibH
-         qzD6qzgAMw+/DlxMEZAU6elC1CdaNCa70N6rmWve4c3c+Sae2WZUewN/QkHXwmjT7mWd
-         U03yS8qd37RB1akCIxBqt+ulv/Bv5NMtCsQvmhlIAvYMxO7uaRZoDCTE5IltrW2BpUvi
-         OWdvONkupSS9MwZGikZ6g96UK44on/bxIC3ZB20reoHvdson41GsvLmSmH94W0PVEZ9h
-         gj33+vzun6Ahj50Kz1NCP0w37Muh0+QFUrjg7GxQowOsb87S+F6FJ+AwWe0MAWkV83OA
-         BWhA==
+        bh=amVKZ/G30n/Yzg6bBgArHwLkCX61RuWSAll7jyvS1po=;
+        b=K8j9lHM9KMNDA9hzZMdsQNuHwz0quIw5FLLnxzyyK/bFZ56ZNyerLuLM0hHUmMP5rY
+         g/Ma96W2kZP027Ne63f2S5Ab5/nQRiphHA64ANOtxOz+U6n3Yvw2DXXCn7ul8Ss1SDHD
+         SAaHquDQBaY3BXKzdh5ZBeGU0J6gT17iCmGoswH7xG/rA/7psSKahmNaL1YK02J+2el4
+         t34tqsoUZEHAd42Iwe85XgvsY9lp/jTlpTWERvRVzjpiv6y4eRL5VJ/8aRUKkFcHipR/
+         pZ8tf9gXQDKQ/gMsTD7W6+nn/deU7TsQECPO2sElqGY1F1Q5Gvz60H+ExAPrhzEqzhQ3
+         2OtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709622047; x=1710226847;
+        d=1e100.net; s=20230601; t=1709622658; x=1710227458;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Nf8icuCYBgULOWuEIBWVrfHWIQzMo8D1uULlQymypaM=;
-        b=eUHn8OwpJpc91r5tzeEKk+3/hIC07DiA4m2KQ0HttH/PdJ7s0LIfZkbT0COyEQhba/
-         Cl6x2w5bKPU6pijpOFNsoxJqt3q1JgRw15Wcp/sOITvSeW0ypzJTDtGCok4GQHB9GHM8
-         AGc0aACiCqVytNsfgcBnuS1PiTEauUttI2jHvPhZJAn8HhIfGNYlFjIJ36oZ8eNe9MTV
-         FD4XTeK9QwLs6wWpbs23peRrZ0qqq9XvokyjuOYcFGCAHB7OVDsahQgupzncTfUKvUNx
-         8Nn1yRyHPiQ0dANlwMWK7BvxfCpb56Gttp31pIP9WOqi9aIvoT2gtpwHcaWzI0uXsnnd
-         Gfyg==
-X-Gm-Message-State: AOJu0Yz9O8lVTvEx5VjARPsnrH+EiGUE0S5FqClGPfGTBK4eM7zZc6Ie
-	y08kiiIs935lH9HxZ8hm3700gVdfWeH99KUyqrF09RKB/cxcec57aPXs22tHtQ==
-X-Google-Smtp-Source: AGHT+IHNbaswhkAzSgaIDgzEk4PeKUxQopwW20xf6VqpHEP6RRYPpByRQtENyroBp7IgEBKXtDCuQQ==
-X-Received: by 2002:a17:906:8318:b0:a45:597e:7628 with SMTP id j24-20020a170906831800b00a45597e7628mr3221713ejx.41.1709622046842;
-        Mon, 04 Mar 2024 23:00:46 -0800 (PST)
-Message-ID: <fe15bab2-3a48-4243-b50c-6d9854c218c2@suse.com>
-Date: Tue, 5 Mar 2024 08:00:45 +0100
+        bh=amVKZ/G30n/Yzg6bBgArHwLkCX61RuWSAll7jyvS1po=;
+        b=MN9cghqQ2Iq1rszpDzsYg7KDBiv5Cm2eBVbpEggHnJfaxoTKe56jiPpcZZL2knb49L
+         b4RkldeLIKDc1An2qyOO5d1PwN6UBGSiAHarfqQOGivsRJhTXCXL8blMphziLsY/79Xg
+         kXxnJTKkEp4ta805e6HJSA7px3cdWyYf6BnziYQPArKmF0jCeXTn4gzpCkKIVpQbEwlk
+         K5scxp7ANQhleqgbDfxGuRIcXwmJEfI+P5bZwqBOeMzq/Ap/6OO6DS0mJjR7C6Fok2As
+         8uPyn0unoqoA+XddQVuzq9fcPK77Vdkoz/3ifEq1PglHI+QAQKyxPRtMcqrpn04jFimG
+         vniw==
+X-Forwarded-Encrypted: i=1; AJvYcCWLWKb3fUm3xg9Mvup2wG5X3/VkupgNYNCKBc9P5yIQNvmvJjXKa+ycxdcctbMUiAbwRCY+5vXtpmNeoHdncL4kqlFvLkQsw4vIgBpM3uM=
+X-Gm-Message-State: AOJu0YwKI6q0nPVQas8tMvfdKLAKIgvT3XUvZ7Gur3a8OK0mut/M9bA2
+	Fs6Mb0fK5wT2jW2eHuyRoxLQvzwCMvNvlBE+h7IFWiF+Qr0DSUnIfVW8qGy/jA==
+X-Google-Smtp-Source: AGHT+IGaLa2uneYabfShH6mk4vIvYURxmB3fkkrVoOSaYBK87QIXSM8kzW/+a5e1MOYJZ5W+KrPHMQ==
+X-Received: by 2002:a17:906:2e92:b0:a45:6b65:f6cb with SMTP id o18-20020a1709062e9200b00a456b65f6cbmr2639599eji.26.1709622658427;
+        Mon, 04 Mar 2024 23:10:58 -0800 (PST)
+Message-ID: <012234d3-3677-4a1e-8e0c-6e67f582c55c@suse.com>
+Date: Tue, 5 Mar 2024 08:10:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 10/10] xen/keyhandler: address violations of MISRA C
- Rule 20.7
+Subject: Re: [PATCH 1/2] xen/*/nospec: Provide common versions of
+ evaluate_nospec/block_speculation
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- julien@xen.org, George Dunlap <george.dunlap@citrix.com>,
- Wei Liu <wl@xen.org>, Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <cover.1709219010.git.nicola.vetrini@bugseng.com>
- <2bc4a964f0f2f47488e72237678e944dbdbd7bb7.1709219010.git.nicola.vetrini@bugseng.com>
- <alpine.DEB.2.22.394.2402291457000.853156@ubuntu-linux-20-04-desktop>
- <1afd8805-7365-40ec-8e8e-468a83e20c40@suse.com>
- <alpine.DEB.2.22.394.2403011716180.853156@ubuntu-linux-20-04-desktop>
- <d7411c57-32f3-41c6-8233-685ed5dfe976@suse.com>
- <alpine.DEB.2.22.394.2403041756140.853156@ubuntu-linux-20-04-desktop>
+To: Julien Grall <julien@xen.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20240304161041.3465897-1-andrew.cooper3@citrix.com>
+ <20240304161041.3465897-2-andrew.cooper3@citrix.com>
+ <c9f92495-2c00-443f-bffd-1b09cb8a8c84@xen.org>
+ <d343c58c-2a3a-45a9-8d67-64d1506d973c@suse.com>
+ <5c06c437-b62c-4bee-8694-1be597887718@xen.org>
+ <141ed8a2-df4f-492c-a192-4ffa7f4c8384@suse.com>
+ <4fb729fa-8519-4244-a795-cc66a79cd346@citrix.com>
+ <c6f9c9fa-a252-41c4-b92f-435c57044cd2@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,78 +125,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2403041756140.853156@ubuntu-linux-20-04-desktop>
+In-Reply-To: <c6f9c9fa-a252-41c4-b92f-435c57044cd2@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.03.2024 03:03, Stefano Stabellini wrote:
-> On Mon, 4 Mar 2024, Jan Beulich wrote:
->> On 02.03.2024 02:37, Stefano Stabellini wrote:
->>> On Fri, 1 Mar 2024, Jan Beulich wrote:
->>>> On 29.02.2024 23:57, Stefano Stabellini wrote:
->>>>> On Thu, 29 Feb 2024, Nicola Vetrini wrote:
->>>>>> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
->>>>>> of macro parameters shall be enclosed in parentheses". Therefore, some
->>>>>> macro definitions should gain additional parentheses to ensure that all
->>>>>> current and future users will be safe with respect to expansions that
->>>>>> can possibly alter the semantics of the passed-in macro parameter.
+On 04.03.2024 18:40, Julien Grall wrote:
+> Hi Andrew,
+> 
+> On 04/03/2024 17:07, Andrew Cooper wrote:
+>> On 04/03/2024 4:55 pm, Jan Beulich wrote:
+>>> On 04.03.2024 17:46, Julien Grall wrote:
+>>>> On 04/03/2024 16:41, Jan Beulich wrote:
+>>>>> On 04.03.2024 17:31, Julien Grall wrote:
+>>>>>> On 04/03/2024 16:10, Andrew Cooper wrote:
+>>>>>>> It is daft to require all architectures to provide empty implementations of
+>>>>>>> this functionality.
+>>>>>> Oleksii recenlty sent a similar patch [1]. This was pushed back because
+>>>>>> from naming, it sounds like the helpers ought to be non-empty on every
+>>>>>> architecture.
 >>>>>>
->>>>>> No functional change.
->>>>>>
->>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>>
->>>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>>>>>> It would be best if asm-generic provides a safe version of the helpers.
+>>>>>> So my preference is to not have this patch. This can of course change if
+>>>>>> I see an explanation why it is empty on Arm (I believe it should contain
+>>>>>> csdb) and other arch would want the same.
+>>>>> Except that there's no new asm-generic/ header here (as opposed to how
+>>>>> Oleksii had it). Imo avoiding the need for empty stubs is okay this way,
+>>>>> when introducing an asm-generic/ header would not have been. Of course
+>>>>> if Arm wants to put something there rather sooner than later, then
+>>>>> perhaps the functions better wouldn't be removed from there, just to then
+>>>>> be put back pretty soon.
+>>>> I am confused. I agree the patch is slightly different, but I thought
+>>>> the fundamental problem was the block_speculation() implementation may
+>>>> not be safe everywhere. And it was best to let each architecture decide
+>>>> how they want to implement (vs Xen decide for us the default).
 >>>>
->>>> You did see the discussion on earlier patches, though? I don't think
->>>> any of the parentheses here are needed or wanted.
->>>
->>> We need to align on this. Currently if we go by what's written in
->>> docs/misra/deviations.rst, then rhs should have parentheses.
+>>>> Reading the original thread, I thought you had agreed with that
+>>>> statement. Did I misinterpret?
+>>> Yes and no. Whatever is put in asm-generic/ ought to be correct and safe
+>>> by default, imo. The same doesn't apply to fallbacks put in place in
+>>> headers in xen/: If an arch doesn't provide its own implementation, it
+>>> indicates that the default (fallback) is good enough. Still I can easily
+>>> see that other views are possible here ...
 >>
->> Quoting the actual patch again:
-> 
-> [...]
-> 
->> What rhs are you talking about in light of this change? The only rhs I
->> can spot here is already parenthesized.
-> 
-> Yes you are right. I replied here as an overall comment about our
-> approach to 20.7, although this patch is not a good example. My reply
-> was meant in the context of https://marc.info/?l=xen-devel&m=170928051025701
-
-I'm still confused: The rhs is being parenthsized there. It's the _lhs_
-which isn't and ...
-
->>> Can we safely claim that rhs parentheses are never needed? If so, then
->>> great, let's add it to deviations.rst and skip them here and other
->>> places in this patch series (e.g. patch #8). When I say "never" I am
->>> taking for granted that the caller is not doing something completely
->>> unacceptably broken such as: 
->>>
->>>      WRITE_SYSREG64(var +, TTBR0_EL1)
+>> With speculation, there's absolutely nothing we can possibly do in any
+>> common code which will be safe generally.
 >>
->> I'm afraid I can't associate this with the patch here either. Instead in
->> the context here a (respective) construct as you mention above would simply
->> fail to build.
+>> But we can make it less invasive until an architecture wants to
+>> implement the primitives.
 > 
-> Fair enough it will break the build. I was trying to clarify that when I
-> wrote "the rhs parentheses are never needed" I meant "never" within
-> reason. One can always find ways to break the system and I tried to make
-> an example of something that for sure would break rhs or lhs without
-> parentheses.
+> I understand the goal. However, I am unsure it is a good idea to provide 
+> unsafe just to reduce the arch specific header by a few lines. My 
+> concern is new ports may not realize that block_speculation() needs to 
+> be implemented. This could end to a preventable XSA in the future.
 > 
-> I meant to say, if we don't account for exceptionally broken cases, can
-> we safety say we don't need parentheses for rhs?
+> I guess the risk could be reduced if we had some documentation 
+> explaining how to port Xen to a new architecture (I am not asking you to 
+> write the doc).
 
-... doesn't need to, unless - as you say - one contrives examples. Yet to
-clarify here as well: I assume you mean "we don't need parentheses for lhs".
+But that's precisely the difference I'm trying to point out between having
+a stub header in asm-generic/ vs having the fallback in xen/nospec.h: This
+way an arch still has to supply asm/nospec.h, and hence they can be
+expected to consider what needs putting there and what can be left to the
+fallbacks (whether just "for the time being" is a separate question).
+Whereas allowing to simply point at the asm-generic/ header is (imo) far
+more likely to have only little thought applied ("oh, there is that
+generic header, let's just use it").
 
-And note that even if your example used the first parameter as lhs of an
-assignment, the build would still break. The + there would not magically
-combine with the = to a += operator. Tokenization occurs ahead of
-preprocessing, so the expanded macro would still have a + token followed by
-a = one. The only way to alter tokens is by using the ## operator. Which in
-turn precludes using parentheses.
+Yet as said, the line between the two can certainly be viewed as blurred.
 
 Jan
 
