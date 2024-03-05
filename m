@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B22DE87178E
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 09:06:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688624.1073023 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36122871800
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 09:18:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688629.1073034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhPnU-0002PH-6S; Tue, 05 Mar 2024 08:05:12 +0000
+	id 1rhPzc-0004PI-9d; Tue, 05 Mar 2024 08:17:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688624.1073023; Tue, 05 Mar 2024 08:05:12 +0000
+Received: by outflank-mailman (output) from mailman id 688629.1073034; Tue, 05 Mar 2024 08:17:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhPnU-0002Mu-3t; Tue, 05 Mar 2024 08:05:12 +0000
-Received: by outflank-mailman (input) for mailman id 688624;
- Tue, 05 Mar 2024 08:05:10 +0000
+	id 1rhPzc-0004NM-5K; Tue, 05 Mar 2024 08:17:44 +0000
+Received: by outflank-mailman (input) for mailman id 688629;
+ Tue, 05 Mar 2024 08:17:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mek3=KL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rhPnS-0002Mo-H8
- for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 08:05:10 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ id 1rhPzb-0004NG-7r
+ for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 08:17:43 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1401aac2-dac7-11ee-a1ee-f123f15fe8a2;
- Tue, 05 Mar 2024 09:05:06 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a4499ef8b5aso383143966b.0
- for <xen-devel@lists.xenproject.org>; Tue, 05 Mar 2024 00:05:06 -0800 (PST)
+ id d55bf106-dac8-11ee-a1ee-f123f15fe8a2;
+ Tue, 05 Mar 2024 09:17:40 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-56781070f38so1039781a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Mar 2024 00:17:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- pv25-20020a170907209900b00a3ee9305b02sm5717054ejb.20.2024.03.05.00.05.05
+ gb18-20020a170907961200b00a3efa4e033asm5730798ejc.151.2024.03.05.00.17.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Mar 2024 00:05:06 -0800 (PST)
+ Tue, 05 Mar 2024 00:17:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1401aac2-dac7-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: d55bf106-dac8-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709625906; x=1710230706; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709626660; x=1710231460; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZppC4XnuYv6vFg7B59V/gfQbC07jiAGXp641l7cWU7E=;
-        b=L8Ztma2gjG2oqJwxqvhGXBKeq2aPnw/F6BMNFYL44ngFIruf7jWVQqauMobF78zTKO
-         6v188OHtRUcQEft3n91uE3/TA9bR8zDACtV9j0wliYSNvrUMAYE3JOGZoKnWKjtx7Hz/
-         b1z8ZNXpCQS1uwlhDOivdZmOld/CfIgg4dXl80AAUJhKE9mh1Ag5yInOMESGOF7yB6zQ
-         JKEIb5D1iF8RKKjr2Ali/u7nn1RBtEOyTgbgYsJhVwu6is+wTQXUvs9CSjWxQomYdmAV
-         PYLZ75T0wB7mgi4y1E/LYtikwDP/1LRr8G5Ztl8DRWwPmLrvo0q3aq4/Kxe8h0RUPc0a
-         ujwA==
+        bh=YNryQ+UoJKj1Zusgw6se3JUnddbRrREPTLmiIxV9B9g=;
+        b=QsqeZgloKeAR8ctLKgMDTWz61ZFUMciFuKeqi9WQR/Ot1xvPusbaiVZPzekPO1AEzg
+         az92pC/a7fwCGcM/R/XUAAd/Ewu/qIu3YyaREKyUkeHk/LXaj/ZMrIyZ5hCnGFyiQXmF
+         DUK9uOXZTHDO8KESXJi6OhG8Ep9klrLRTRaVjY9xRmB7PKrVIx3zpjesM/IHGwAy/H07
+         n1dFJazxVaYUODHM0nnPQyB1UT3E+5hKy7LxoHVs76456z+dgZkubchWpkXQxfCUxDiA
+         oqjRMmAqc7PB3wkqPEVAxw3K0Q8cx5SgF09SHyYwyF/RWW6QlumA29yLCpV6gi2j/+ef
+         PNfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709625906; x=1710230706;
+        d=1e100.net; s=20230601; t=1709626660; x=1710231460;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZppC4XnuYv6vFg7B59V/gfQbC07jiAGXp641l7cWU7E=;
-        b=vRKHHDkHsuIjEDf4NR2jHUwxpIdQ6GAilaPQV8DrHWbVfAwe9JmPe/9n86PLo1pDqK
-         7b6MwDpR6jhWs3nLraEY3jatO+Dw9p3InQCorQ0RjCK0PaJcMP+7FydGJhCH+feMSARj
-         4rk32S/v1IkVxZP9oiTaxo9OJ4mnZKJ4Q3USu8pBZTzbk6Nbd8tCg6CKBI8Xr4nbSMrM
-         BxKumuoYrWdQjaQ7s7qFBYPrcAqa8bdrYvgDLx3SaxpXBL3lznE88iDVy24kkhtMxbhN
-         /nWrR06657xylZWoZaBTx6+kFocFjGv3+HAelwF5usMrposIiOIQTIMzWmIHUR0G+pgH
-         7XYw==
-X-Forwarded-Encrypted: i=1; AJvYcCUuCTMGWw0855KHL1BSANbbBhpssJnViqiiVle3yoqtBJHQaH4U3XXtlv+n44CBZEsdWVGvf0dCoCZvnRigkVrK84mxFBAk6qVKSBNyD5E=
-X-Gm-Message-State: AOJu0Yypjw+VzDGlpVhBX3tuxXSMqwVG9aDACRoqHo3ueupgjox/qjlo
-	dQ5ghkLDZ1Fay6a9nX4LhO9c1px1yjPLtIwySVxCcHmpijlgvGfvpFTiskLm6A==
-X-Google-Smtp-Source: AGHT+IFEqoW+Qa2czMVSnUt2/MnyfQBRNlJ37D7Km/QFaXOcEAClGka3Zab4bJVZJU5PgINg2AUHGw==
-X-Received: by 2002:a17:906:7f0e:b0:a44:b91e:315a with SMTP id d14-20020a1709067f0e00b00a44b91e315amr6953008ejr.68.1709625906322;
-        Tue, 05 Mar 2024 00:05:06 -0800 (PST)
-Message-ID: <bd916469-f764-4d2e-bce6-52e3ed5e74d1@suse.com>
-Date: Tue, 5 Mar 2024 09:05:05 +0100
+        bh=YNryQ+UoJKj1Zusgw6se3JUnddbRrREPTLmiIxV9B9g=;
+        b=Cs3d5wevOOROMGqGYX64zuUfRPY7Hr54ugtBEwptjiAKK6BtvWRUyW0/ZAb3l+nixO
+         vip8JotqddLvaXVHDl49QKJzfZ89yGRz/u/ETAXeKtcth4Hbbbhee/WcMlQZGVLjMFOQ
+         GIkH2o87PqG5LRo5S5TZdQ/ZIWemI23vYbhQQ59YlpOOXdMZ3K5k9aho7M15x0nUEfQ3
+         xAQHNrgvSCU8D1O479roL0fllx35ZrvHFiqKccBu0ZCv9INL5ZnnSYtmbDswrhrmUqly
+         Wsu5mOGGrEN55Yicx1P6DPK+x3fu3NZ/sRu0p1vW+erbS74LgDcNy7KBeVlgoJ54qVY0
+         Frsw==
+X-Forwarded-Encrypted: i=1; AJvYcCWYX62Sb23+jS6y7/DJp255eOzWiJja8h5bItKShgTP6lMzrmcowkrGD7mmsUgqyg5fSuyTL9FTl13x5CmSVZ4/97U0avSPU7P30olIVR4=
+X-Gm-Message-State: AOJu0YwmYlAFVD5jnvEublipcAECYQ5o1DTPKL6AKE4DfcprSf/+k6i0
+	Osv9CoK2+bgJ9yejoby2pEJi1o+G6NHPtfFPCZTwKQSWmWRAhGnZrEGtjXzEfA==
+X-Google-Smtp-Source: AGHT+IF5t1CvBUWCq5XU7aetCd4wlqf3kU7m26ojMg8foU4I8/EmP+h+TtHC4wlPqBSTpaWYSXCBvA==
+X-Received: by 2002:a17:906:ce30:b0:a43:f924:d63 with SMTP id sd16-20020a170906ce3000b00a43f9240d63mr1982673ejb.26.1709626660383;
+        Tue, 05 Mar 2024 00:17:40 -0800 (PST)
+Message-ID: <1aef844e-4ea9-4651-bba7-9e665abb8892@suse.com>
+Date: Tue, 5 Mar 2024 09:17:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 18/23] xen/riscv: add minimal stuff to processor.h to
- build full Xen
+Subject: Re: [PATCH v5 19/23] xen/riscv: add minimal stuff to mm.h to build
+ full Xen
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org
 References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
- <4e1ee99a9ad71015b5e8860d20b63337b526d0e9.1708962629.git.oleksii.kurochko@gmail.com>
+ <7f5d859b4dbc0593447ade0b221ece17eda68d1e.1708962629.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,110 +116,138 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4e1ee99a9ad71015b5e8860d20b63337b526d0e9.1708962629.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <7f5d859b4dbc0593447ade0b221ece17eda68d1e.1708962629.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 26.02.2024 18:39, Oleksii Kurochko wrote:
-> --- /dev/null
-> +++ b/docs/misc/riscv/booting.txt
-> @@ -0,0 +1,8 @@
-> +System requirements
-> +===================
+> --- a/xen/arch/riscv/include/asm/mm.h
+> +++ b/xen/arch/riscv/include/asm/mm.h
+> @@ -3,11 +3,252 @@
+>  #ifndef _ASM_RISCV_MM_H
+>  #define _ASM_RISCV_MM_H
+>  
+> +#include <public/xen.h>
+> +#include <xen/bug.h>
+> +#include <xen/mm-frame.h>
+> +#include <xen/pdx.h>
+> +#include <xen/types.h>
 > +
-> +The following extensions are expected to be supported by a system on which
-> +Xen is run:
-> +- Zihintpause:
-> +  On a system that doesn't have this extension, cpu_relax() should be
-> +  implemented properly. Otherwise, an illegal instruction exception will arise.
-
-This decision wants justifying in the (presently once again empty) description.
-
-Furthermore - will there really be an illegal instruction exception otherwise?
-Isn't it the nature of hints that they are NOPs if not serving their designated
-purpose?
-
-> --- a/xen/arch/riscv/arch.mk
-> +++ b/xen/arch/riscv/arch.mk
-> @@ -5,6 +5,12 @@ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+>  #include <asm/page-bits.h>
 >  
->  CFLAGS-$(CONFIG_RISCV_64) += -mabi=lp64
+>  #define pfn_to_paddr(pfn) ((paddr_t)(pfn) << PAGE_SHIFT)
+>  #define paddr_to_pfn(pa)  ((unsigned long)((pa) >> PAGE_SHIFT))
 >  
-> +ifeq ($(CONFIG_RISCV_64),y)
-> +has_zihintpause = $(call as-insn,$(CC) -mabi=lp64 -march=rv64i_zihintpause, "pause",_zihintpause,)
-> +else
-> +has_zihintpause = $(call as-insn,$(CC) -mabi=ilp32 -march=rv32i_zihintpause, "pause",_zihintpause,)
-> +endif
+> +#define paddr_to_pdx(pa)    mfn_to_pdx(maddr_to_mfn(pa))
+> +#define gfn_to_gaddr(gfn)   pfn_to_paddr(gfn_x(gfn))
+> +#define gaddr_to_gfn(ga)    _gfn(paddr_to_pfn(ga))
+> +#define mfn_to_maddr(mfn)   pfn_to_paddr(mfn_x(mfn))
+> +#define maddr_to_mfn(ma)    _mfn(paddr_to_pfn(ma))
+> +#define vmap_to_mfn(va)     maddr_to_mfn(virt_to_maddr((vaddr_t)va))
 
-Considering that down the road likely more such tests will want adding, I think
-this wants further abstracting for the rv32/rv64 difference (ideally in a way
-that wouldn't make future RV128 wrongly and silently take the RV32 branch).
-This would include eliminating the -mabi=lp64 redundancy with what's visible in
-context, perhaps by way of introducing a separate helper macro, e.g.
+va needs parenthesizing here. Also why vaddr_t here but ...
 
-riscv-abi-$(CONFIG_RISCV_32) := -mabi=ilp32
-riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
-
-I further see nothing wrong with also using $(riscv-march-y) here. I.e.
-overall
-
-_zihintpause := $(call as-insn,$(CC) $(riscv-abi-y) $(riscv-march-y)_zihintpause,"pause",_zihintpause)
-
-(still with potential of abstracting further through another macro such
-that not every such construct would need to spell out the ABI and arch
-compiler options).
-
-Plus a macro named has_* imo can be expected to expand to y or n. I would
-suggest to simply drop the "has", thus ...
-
-> @@ -12,7 +18,7 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
->  # into the upper half _or_ the lower half of the address space.
->  # -mcmodel=medlow would force Xen into the lower half.
->  
-> -CFLAGS += -march=$(riscv-march-y) -mstrict-align -mcmodel=medany
-> +CFLAGS += -march=$(riscv-march-y)$(has_zihintpause) -mstrict-align -mcmodel=medany
-
-... also making the use site look 
-
-> --- a/xen/arch/riscv/include/asm/processor.h
-> +++ b/xen/arch/riscv/include/asm/processor.h
-> @@ -12,6 +12,9 @@
->  
->  #ifndef __ASSEMBLY__
->  
-> +/* TODO: need to be implemeted */
-> +#define smp_processor_id() 0
+> +#define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
 > +
->  /* On stack VCPU state */
->  struct cpu_user_regs
->  {
-> @@ -53,6 +56,26 @@ struct cpu_user_regs
->      unsigned long pregs;
->  };
->  
-> +/* TODO: need to implement */
-> +#define cpu_to_core(cpu)   (0)
-> +#define cpu_to_socket(cpu) (0)
-
-Nit: Like above in smp_processor_id() no need for parentheses here.
-
-> +static inline void cpu_relax(void)
+> +static inline unsigned long __virt_to_maddr(unsigned long va)
 > +{
-> +#ifdef __riscv_zihintpause
-> +    /*
-> +     * Reduce instruction retirement.
-> +     * This assumes the PC changes.
+> +    BUG_ON("unimplemented");
+> +    return 0;
+> +}
+> +
+> +static inline void *__maddr_to_virt(unsigned long ma)
+> +{
+> +    BUG_ON("unimplemented");
+> +    return NULL;
+> +}
+> +
+> +#define virt_to_maddr(va) __virt_to_maddr((unsigned long)(va))
+> +#define maddr_to_virt(pa) __maddr_to_virt((unsigned long)(pa))
 
-What is this 2nd sentence about?
+... unsigned long here? In fact for __maddr_to_virt() I think there
+better wouldn't be any cast, such that the compiler can spot if, by
+mistake, a pointer type value was passed in. Or, wait, we can go
+yet further (also on x86): There are no uses of __maddr_to_virt()
+except here. Hence the symbol isn't needed (anymore?) in the first
+place.
 
-> +     */
-> +    __asm__ __volatile__ ( "pause" );
-> +#else
-> +    /* Encoding of the pause instruction */
-> +    __asm__ __volatile__ ( ".insn 0x100000F" );
+> +/* Convert between Xen-heap virtual addresses and machine frame numbers. */
+> +#define __virt_to_mfn(va)  mfn_x(maddr_to_mfn(virt_to_maddr(va)))
+> +#define __mfn_to_virt(mfn) maddr_to_virt(mfn_to_maddr(_mfn(mfn)))
+> +
+> +/*
+> + * We define non-underscored wrappers for above conversion functions.
+> + * These are overriden in various source files while underscored version
+> + * remain intact.
+> + */
+> +#define virt_to_mfn(va)     __virt_to_mfn(va)
+> +#define mfn_to_virt(mfn)    __mfn_to_virt(mfn)
+> +
+> +struct page_info
+> +{
+> +    /* Each frame can be threaded onto a doubly-linked list. */
+> +    struct page_list_entry list;
+> +
+> +    /* Reference count and various PGC_xxx flags and fields. */
+> +    unsigned long count_info;
+> +
+> +    /* Context-dependent fields follow... */
+> +    union {
+> +        /* Page is in use: ((count_info & PGC_count_mask) != 0). */
+> +        struct {
+> +            /* Type reference count and various PGT_xxx flags and fields. */
+> +            unsigned long type_info;
+> +        } inuse;
 
-May I ask that you spell out the leading zero here, to make clear there
-aren't, by mistake, one to few zeroes in the middle?
+Blank line here please.
 
 Jan
+
+> +        /* Page is on a free list: ((count_info & PGC_count_mask) == 0). */
+> +        union {
+> +            struct {
+> +                /*
+> +                 * Index of the first *possibly* unscrubbed page in the buddy.
+> +                 * One more bit than maximum possible order to accommodate
+> +                 * INVALID_DIRTY_IDX.
+> +                 */
+> +#define INVALID_DIRTY_IDX ((1UL << (MAX_ORDER + 1)) - 1)
+> +                unsigned long first_dirty:MAX_ORDER + 1;
+> +
+> +                /* Do TLBs need flushing for safety before next page use? */
+> +                bool need_tlbflush:1;
+> +
+> +#define BUDDY_NOT_SCRUBBING    0
+> +#define BUDDY_SCRUBBING        1
+> +#define BUDDY_SCRUB_ABORT      2
+> +                unsigned long scrub_state:2;
+> +            };
+> +
+> +            unsigned long val;
+> +        } free;
+> +    } u;
+> +
+> +    union {
+> +        /* Page is in use */
+> +        struct {
+> +            /* Owner of this page (NULL if page is anonymous). */
+> +            struct domain *domain;
+> +        } inuse;
+> +
+> +        /* Page is on a free list. */
+> +        struct {
+> +            /* Order-size of the free chunk this page is the head of. */
+> +            unsigned int order;
+> +        } free;
+> +    } v;
+> +
+> +    union {
+> +        /*
+> +         * Timestamp from 'TLB clock', used to avoid extra safety flushes.
+> +         * Only valid for: a) free pages, and b) pages with zero type count
+> +         */
+> +        uint32_t tlbflush_timestamp;
+> +    };
+> +};
+
 
