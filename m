@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20D1D8716F8
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 08:34:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688611.1073003 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B3CD871729
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 08:42:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688615.1073014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhPJf-0004oA-9H; Tue, 05 Mar 2024 07:34:23 +0000
+	id 1rhPRV-0006j2-1A; Tue, 05 Mar 2024 07:42:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688611.1073003; Tue, 05 Mar 2024 07:34:23 +0000
+Received: by outflank-mailman (output) from mailman id 688615.1073014; Tue, 05 Mar 2024 07:42:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhPJf-0004mC-6V; Tue, 05 Mar 2024 07:34:23 +0000
-Received: by outflank-mailman (input) for mailman id 688611;
- Tue, 05 Mar 2024 07:34:22 +0000
+	id 1rhPRU-0006hV-UT; Tue, 05 Mar 2024 07:42:28 +0000
+Received: by outflank-mailman (input) for mailman id 688615;
+ Tue, 05 Mar 2024 07:42:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mek3=KL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rhPJe-0004m1-5e
- for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 07:34:22 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1rhPRT-0006hP-Km
+ for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 07:42:27 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c8214330-dac2-11ee-afda-a90da7624cb6;
- Tue, 05 Mar 2024 08:34:21 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-565c6cf4819so10634571a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 23:34:21 -0800 (PST)
+ id e9539508-dac3-11ee-afda-a90da7624cb6;
+ Tue, 05 Mar 2024 08:42:26 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a26ed1e05c7so895426266b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 23:42:26 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d8-20020a50fe88000000b005673e29cc0fsm2351194edt.54.2024.03.04.23.34.20
+ an19-20020a17090656d300b00a4536b32ae0sm2255250ejc.30.2024.03.04.23.42.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Mar 2024 23:34:20 -0800 (PST)
+ Mon, 04 Mar 2024 23:42:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8214330-dac2-11ee-afda-a90da7624cb6
+X-Inumbo-ID: e9539508-dac3-11ee-afda-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709624061; x=1710228861; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709624546; x=1710229346; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=YkXHRLwqQQen41Vh/I0b74Fe81BXlt/sJghwfIeKq5o=;
-        b=CX5LwFWxSjYEBP3gAynKz4IK9IbalVr6oBXNgPcp/82aFUP/6hKqxIqhOCtVXEWJ76
-         r/klmUpsl3DSbBRTNWVzoRRw56YO4cjak6mnKkcocsKh1eFlteaBbDcy9yhVYkV1HGEC
-         UYXuErtcaFFmzXXkDOtqRmr5ymleRmuel3jTgGIQXl7llmcjKmkGmR6guGmd/DLdN/mn
-         GAiJ+8HqxNv1rHpp9mWv0Ey/BnoXR6qxNOMyPe2JZcAUMKbm7kc0XHNRpyd0TrsgRr33
-         3A5pWV9aFY26CPhs8Yo6C7ob97VqRZ1AM7Pts1Wjn5rUy8AN9mWfIhzp3wrJ/o0h2lcf
-         tY7Q==
+        bh=84R8AbOmfPnYlMLkc9ZNhLmmH6gcT0zgebxRsg5WjfQ=;
+        b=SrLk7TwJhz+fki3YlGSVhzwg/01kJkWDU2SpZPzSR0WmmNHXgbleoN44DKhJ2lVU1G
+         tnE2gcK/3eWTxBYxbbdZMef6sHJJOhFH58nsLmxaE/MWXAPCUumbLv6NSOR70syisSWR
+         eQJBnsZkIfA7OiJJP10dYd5Sdg3OoUX9Z0QH4it0QJEhIehGDeovya02qmqS/vLBVeuK
+         Ct99aIZaNDhSC1096Kx6PEL3lNBnPt+0QWXt2FJAFbDkCPLwo6Wz0+HjNIsq7mQm32HF
+         P8jpJa9U+lL33xHJ/myACaS10DTz6pd5Re8be/xqnqMrpBkdNPsFzBf3upefmvsA+pB6
+         3XjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709624061; x=1710228861;
+        d=1e100.net; s=20230601; t=1709624546; x=1710229346;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YkXHRLwqQQen41Vh/I0b74Fe81BXlt/sJghwfIeKq5o=;
-        b=TOuV+2a362lgYYzVFUaDwwUXQ+swbHDa7wXkhYQSUo4ZAy+L0/xHbh7/ND4Sik9/43
-         pd1c8599c+bY1mcZnRA/DkFfOrvUmjWQ0EBHKKjvGAKyGA7qeMLgTsoPHHjW9/D3cFUi
-         gFgAmorhi63yLXMajDbYvf7rzn34B5vdQuE/bvEG+n0cjvpiyB4SG6eSOgEDn8nYTTTv
-         wZqO+eCVE1YwXJlQJxO2CGUaKt8HYmpc7KVXmuqwcBG6WGlkM6aZz+FMTkMQVdml0xSz
-         UHUK6Yq5s7txbNOaoeuEXrsS60V/GfDL3tAulxW3LijIW7YDMcyBDlwYZTJe86Hy9mvh
-         90Xw==
-X-Forwarded-Encrypted: i=1; AJvYcCWnKn+rskCzUrBm3b2A0F4e9s1Cb8cgWB5gnaifFmfMZQ7J9QYcBU4epLwK08E9F0AUpKh/k3BD3eKUvxpLPn9mq8aNsmt4uyIXGdaGWuQ=
-X-Gm-Message-State: AOJu0Ywj6y9Nskbo1jWPUWChCnW1x7gpAWGJENXkRFosmtSSy6oLRnIh
-	uEa82VocyCcpFAijfBxoMnPG66vklJhYr8Eu9dfOoPlDdrf6+jKADdVf0pgrNA==
-X-Google-Smtp-Source: AGHT+IGtJrkWOuhbmki2x0qWHxgbqKKmw1E4KTXBNI0U/UMOPzHkDv+Gh8psZ+DDlMt4xrZBzFdeYw==
-X-Received: by 2002:a05:6402:31f3:b0:567:dd5:7afc with SMTP id dy19-20020a05640231f300b005670dd57afcmr1902733edb.8.1709624060725;
-        Mon, 04 Mar 2024 23:34:20 -0800 (PST)
-Message-ID: <beb4414f-99d9-4015-b438-83e2d475f2a0@suse.com>
-Date: Tue, 5 Mar 2024 08:34:19 +0100
+        bh=84R8AbOmfPnYlMLkc9ZNhLmmH6gcT0zgebxRsg5WjfQ=;
+        b=IrDECCTa+H3Zemn40eRdSZk6kINumoxVgUUOtNGEHwZ23RCnlaf2vYMVa4aw81llvs
+         6BtEEjJkTgmqJbZUoWFwJR0nlUvwF2/xEjYwI+cnYXS37RkpUOUD1Nzxf4EgrvxmYZjM
+         8hOL1QVlBRKsg+SFO/+kxpLitXRGqMYlGI6H/UMhG2SHMDIUx7pmp3KNpoCiKu10z/8o
+         zkkTR2EOJt38+E1XRbH/0CgtiMqNkZxvrZ52naikpz7sAsVXwU1SMrwTyWiVfDM7iABc
+         efZf3NJ78tai1uNfXGulXsQoh/kqBO01zM/JAVsKr53iaCa77h/2GQdvJXcf78noYfAU
+         TU8w==
+X-Forwarded-Encrypted: i=1; AJvYcCWRm5Le9Q75Mrx9sOaBj0U74+nn0MDnVvvZqN+dfqqkwXRSXwKffPSujo4W7vrofQgqYPp991YVb25itdnBE2rsMpMnVR7NEgdb9Hz1t6M=
+X-Gm-Message-State: AOJu0Yxj0v/YNtRh91JujpyXOy9bzZYHiUrHxAcwZRstjYBV1biwnlcG
+	uKWJcWH2DyROr4MZ+nXf/CPkI+TqbYBbZirJIhZuEkAQ/3krOuYpKs5GSlV5sQ==
+X-Google-Smtp-Source: AGHT+IHklhmfFAaRjcsTHjyiZJriZU6JO3b03Q1Z9qAnBfXM6pafrtOwcSllgg3XAym2ERnUlk0Xfw==
+X-Received: by 2002:a17:906:b254:b0:a45:ad52:d501 with SMTP id ce20-20020a170906b25400b00a45ad52d501mr95476ejb.12.1709624546010;
+        Mon, 04 Mar 2024 23:42:26 -0800 (PST)
+Message-ID: <f70aff01-610e-4b38-949f-f753d854b50b@suse.com>
+Date: Tue, 5 Mar 2024 08:42:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/*/nospec: Provide common versions of
- evaluate_nospec/block_speculation
+Subject: Re: [PATCH v5 10/23] xen/riscv: introduces acrquire, release and full
+ barriers
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240304161041.3465897-1-andrew.cooper3@citrix.com>
- <20240304161041.3465897-2-andrew.cooper3@citrix.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
+ <85eb894608120a05eb616cea721d24e02212a5cc.1708962629.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,57 +116,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240304161041.3465897-2-andrew.cooper3@citrix.com>
+In-Reply-To: <85eb894608120a05eb616cea721d24e02212a5cc.1708962629.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.03.2024 17:10, Andrew Cooper wrote:
-> --- a/xen/include/xen/nospec.h
-> +++ b/xen/include/xen/nospec.h
-> @@ -9,6 +9,29 @@
->  
->  #include <asm/nospec.h>
->  
-> +/*
-> + * Protect a conditional branch from bad speculation.  Architectures *must*
-> + * provide arch_evaluate_nospec() for this to be effective.
-> + */
-> +static always_inline bool evaluate_nospec(bool cond)
-> +{
-> +#ifndef arch_evaluate_nospec
-> +#define arch_evaluate_nospec(cond) cond
+On 26.02.2024 18:38, Oleksii Kurochko wrote:
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Hmm, noticed only while replying to patch 2: If the #define is to be kept
-(see my reply there) it needs to be one of
+Acked-by: Jan Beulich <jbeulich@suse.com>
+albeit ...
 
-#define arch_evaluate_nospec(cond) (cond)
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/fence.h
+> @@ -0,0 +1,9 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +#ifndef _ASM_RISCV_FENCE_H
+> +#define _ASM_RISCV_FENCE_H
+> +
+> +#define RISCV_ACQUIRE_BARRIER   "\tfence r , rw\n"
+> +#define RISCV_RELEASE_BARRIER   "\tfence rw, w\n"
+> +#define RISCV_FULL_BARRIER      "\tfence rw, rw\n"
 
-or
-
-#define arch_evaluate_nospec
-
-Or it ought to be #undef-ed after use (thus preventing use in a context
-where "cond" may expand to other than "cond").
+... I'm not really happy with the \t and \n that are put here. My take
+on this is that it is the responsibility of the use site to supply such
+as and when necessary.
 
 Jan
-
-> +#endif
-> +    return arch_evaluate_nospec(cond);
-> +}
-> +
-> +/*
-> + * Halt speculation unconditonally.  Architectures *must* provide
-> + * arch_block_speculation() for this to be effective.
-> + */
-> +static always_inline void block_speculation(void)
-> +{
-> +#ifdef arch_block_speculation
-> +    arch_block_speculation();
-> +#endif
-> +}
-> +
->  /**
->   * array_index_mask_nospec() - generate a ~0 mask when index < size, 0 otherwise
->   * @index: array element index
-
 
