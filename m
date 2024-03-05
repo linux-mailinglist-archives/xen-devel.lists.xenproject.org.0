@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8665871688
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 08:16:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688604.1072983 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AA9D8716DA
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 08:31:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688608.1072994 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhP1i-0000xE-IM; Tue, 05 Mar 2024 07:15:50 +0000
+	id 1rhPGL-0004B6-OG; Tue, 05 Mar 2024 07:30:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688604.1072983; Tue, 05 Mar 2024 07:15:50 +0000
+Received: by outflank-mailman (output) from mailman id 688608.1072994; Tue, 05 Mar 2024 07:30:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhP1i-0000uo-FG; Tue, 05 Mar 2024 07:15:50 +0000
-Received: by outflank-mailman (input) for mailman id 688604;
- Tue, 05 Mar 2024 07:15:49 +0000
+	id 1rhPGL-00048u-LB; Tue, 05 Mar 2024 07:30:57 +0000
+Received: by outflank-mailman (input) for mailman id 688608;
+ Tue, 05 Mar 2024 07:30:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mek3=KL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rhP1h-0000ui-9U
- for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 07:15:49 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1rhPGK-00048k-6p
+ for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 07:30:56 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3040cefe-dac0-11ee-a1ee-f123f15fe8a2;
- Tue, 05 Mar 2024 08:15:47 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a450615d1c4so383120466b.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 23:15:47 -0800 (PST)
+ id 4ca49e35-dac2-11ee-a1ee-f123f15fe8a2;
+ Tue, 05 Mar 2024 08:30:54 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a293f2280c7so920329366b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 23:30:54 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x23-20020a170906135700b00a3e4c47bad1sm5681042ejb.8.2024.03.04.23.15.46
+ bl9-20020a170906c24900b00a45ab830eabsm211109ejb.51.2024.03.04.23.30.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Mar 2024 23:15:46 -0800 (PST)
+ Mon, 04 Mar 2024 23:30:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3040cefe-dac0-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 4ca49e35-dac2-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709622947; x=1710227747; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709623853; x=1710228653; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=UrOIQqrlLnse7tBZRX2qhEt+nOD1UM1Foj/eyt7sbUc=;
-        b=OlMa+VN2D5KMtvGeNsx+QJPS7QIPbCJs81+aOM9Cm8F9s11FJS1AOO0XxgbQ+ViVvO
-         NijXkB6K9psiBBXH6HIlVkD9M2c9vox/DtxOJg+P5x1HtBUd2pHLZkc2mkur+x9JF/MK
-         5z1QeKxYi+vH8/SWGn+FYiqh2MnDa1GOwKNxZ/yC9jt7YchEFsOENDpZflSYSer4ZG5J
-         uUrk8UoBXCIV9fsnkKncuQo5qpxfTWMAdMEkvSvHwN/ByqBPjr9CPYcYPduVrZysnRLz
-         zzXcfsA+dvGMEN8dJZdATlusG3jA75UTRjHcTq3yImQAXM034K53/s/DCZuVJFd1dU28
-         YKcw==
+        bh=197nhNBsq4cL0hPa5PQ1jF0N/hg0vDGOjhUx7AFo1Kw=;
+        b=AFmh7a3NurJNEc002bqxxBeWHii7GS7wRJqX7txOMp2Vtb3UDWUPbjdd4jzDIR4OsW
+         d1S4JCtRZL6VnSNKDQEcBunUnvQUTHi2U6Pe+UXIbfzHYbq6pc7D3GHBuIM1Xvoj4PoC
+         os1hjycbzy4w4wPMrDFVBnn0v05H5U7G2HHDzzHXNOjFLdOnqdp0Jb924d147BlY/fKH
+         L/1OU1HfXoGEferyW9C5fVVB67IVYH6NGfnodyo9rYxilnlGjkP4EkrK8TPY5Dz/E2p5
+         vHP67sh/Qdy1ERWBk7bkwRvUueQ85dhg8FZzb28CvLO9KRq9ySdaEo2Isk9wzc6+8O/v
+         O8cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709622947; x=1710227747;
+        d=1e100.net; s=20230601; t=1709623853; x=1710228653;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=UrOIQqrlLnse7tBZRX2qhEt+nOD1UM1Foj/eyt7sbUc=;
-        b=eyZWs0SxPpRCDliNo01202x1Kwtwm6qcqlpAMYKrIdPGm5KzrAXmmC9rPgbTRmAySE
-         BqvWiANxMMbzXAAGjze1le0fhjYTRSs0qD5+z66lDlZ8njBwzJJhgv27bG/5kyvF0mBh
-         EcZtcUCt/XKKBghZsQrCocXVxea1yKVaq3BwyR+LI3rISyhhkhZFUq9b6rKv+aRw2dTm
-         LU7AzsOtkhKiv6kzDw+Y7ay/87A96Q1GpQ5gumlS27JKf/E920knKK8Y81Ot2QchiY3C
-         YYo/LBA8ZWrm3meVOUlZKN5oCDmxP8xm/Y/nbrV37/G22ukBO5xYAsvRR3msclsKqEti
-         j+Qg==
-X-Forwarded-Encrypted: i=1; AJvYcCWwvaE2i81YADUAs6aI+0DsPY9RIQLXhmzLOd5R+nP/CWIRiFLAeRX60SN3+ACGiKV7dDOnJwgEBI20AOQmSnXLF16NAKadtWcYCnLijSY=
-X-Gm-Message-State: AOJu0YyQir7p2iDjMiJPWZ6MHQKfaVclC6VBYbhsfaEElr8TxBJuVuMd
-	jOoRRmvtDbJUHnZxnjHDtLoKvHoz4MmtiA3eSVJOAl9jhMWJM/Sm/1fF0tihkg==
-X-Google-Smtp-Source: AGHT+IGyRoTrXJSoEbCIRT/b8sMy5rgR/gsp2T9aaZ93KKvx0x956GDLkJ/l3B8U8Nu8874gzSv+3w==
-X-Received: by 2002:a17:906:7fd8:b0:a45:297d:52b9 with SMTP id r24-20020a1709067fd800b00a45297d52b9mr1758865ejs.26.1709622946935;
-        Mon, 04 Mar 2024 23:15:46 -0800 (PST)
-Message-ID: <620ac7e0-b6ce-4ea4-be0e-ec97984eebec@suse.com>
-Date: Tue, 5 Mar 2024 08:15:45 +0100
+        bh=197nhNBsq4cL0hPa5PQ1jF0N/hg0vDGOjhUx7AFo1Kw=;
+        b=YM6rgl8shGgHEZCIJt9Bung98+HOrJ6tMywweQESynZ1VA5/M9pdP38toCraRMwsXD
+         CwU22RQcTWizxTcAGBQ9h47J/NtiQoPUakGFGoVn7BUdr8IDX22sRKT3tPnjMGwjYmZv
+         /1/fuk67s8Xl2jj4HM43QjfPzCBXfl0jhATH13/uE5Rza4nQ93+ym0X2aJx+nu+S0+gX
+         rAqRci7KMkCBFBCqaKk99hD9WUOkoOF4ZpsP6XmNsvK6WDVFBDH41PgWdqP0v5tC8K4h
+         jkCq+P2zJH8yRn/0YxH2fyBwPRsaLBHx6xHLme3tYTRiEX50I8CRm0bHDnqV5Pxg471X
+         zaIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXgVsk2O1Wmif69uBk60r9+u29pVQeF3RQ6Lj2YVblodQttBBXhxgQcadDxn6mnMM5Imfl87ZGdxlVP+9ePnl3XpDROgak0u8FoYmhgdZk=
+X-Gm-Message-State: AOJu0YzGMDF/UemZFyCOGJRFBVteftZMlU0o9mKcvehTp3Nb6mdrItfV
+	XIHB/MbR28jNdZPIhgmZIGNi6t87ATLsYG6aPM88IWJO6/9akoy8R1/2dstGOQ==
+X-Google-Smtp-Source: AGHT+IHK07/o2D+rdv5MbwmWJzh09zrb52W0ObjEsxKg2Ei2EOT/81RT0hKDjgSKjkxWlfrY4uIfbQ==
+X-Received: by 2002:a17:906:fb89:b0:a45:8efe:7c0 with SMTP id lr9-20020a170906fb8900b00a458efe07c0mr1407884ejb.48.1709623853595;
+        Mon, 04 Mar 2024 23:30:53 -0800 (PST)
+Message-ID: <3f46f0f9-e3be-483f-9f4b-41f9a5a087eb@suse.com>
+Date: Tue, 5 Mar 2024 08:30:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/*/nospec: Provide common versions of
- evaluate_nospec/block_speculation
+Subject: Re: [PATCH 2/2] xen/nospec: Allow evaluate_nospec() to short circuit
+ constant expressions
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240304161041.3465897-1-andrew.cooper3@citrix.com>
- <20240304161041.3465897-2-andrew.cooper3@citrix.com>
+ <20240304161041.3465897-3-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,32 +112,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240304161041.3465897-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20240304161041.3465897-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 04.03.2024 17:10, Andrew Cooper wrote:
-> It is daft to require all architectures to provide empty implementations of
-> this functionality.
-> 
-> Provide evaluate_nospec() and block_speculation() unconditionally in
-> xen/nospec.h with architectures able to opt in by providing suitable arch
-> variants.
-> 
-> Rename x86's implementation to the arch_*() variants.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> --- a/xen/include/xen/nospec.h
+> +++ b/xen/include/xen/nospec.h
+> @@ -18,6 +18,15 @@ static always_inline bool evaluate_nospec(bool cond)
+>  #ifndef arch_evaluate_nospec
+>  #define arch_evaluate_nospec(cond) cond
+>  #endif
+> +
+> +    /*
+> +     * If the compiler can reduce the condition to a constant, then it won't
+> +     * be emitting a conditional branch, and there's nothing needing
+> +     * protecting.
+> +     */
+> +    if ( __builtin_constant_p(cond) )
+> +        return cond;
+> +
+>      return arch_evaluate_nospec(cond);
+>  }
 
-Upon further thinking and with Julien's recent reply in mind:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+While for now, even after having some hours for considering, I can't point
+out anything concrete that could potentially become a problem here, I
+still have the gut feeling that this would better be left in the arch
+logic. (There's the oddity of what the function actually expands to if the
+#define in context actually takes effect, but that's merely cosmetic.)
 
-Still I'd prefer if the arch_* were left out. They look to me to go this
-half step too far (despite now having looked at patch 2 as well; I'll
-reply there separately). And it is this which was why I decided that
-going the other half step (moving these handful lines of code) wasn't
-really worth it, when considering whether to make such a patch myself.
+The one thing I'm firmly unhappy with is "won't" in the comment: We can't
+know what the compiler will do. I've certainly known of compilers which
+didn't as you indicate here. That was nothing remotely recent, but
+ancient DOS/Windows ones. Still, unlike with e.g. __{get,put}_user_bad()
+the compiler doing something unexpected would go entirely silently here.
+
+The other (minor) aspect I'm not entirely happy with is that you insert
+between the fallback #define and its use. I think (if we need such a
+#define in the first place) the two would better stay close together.
+
+As to the need for the #define: To me
+
+static always_inline bool evaluate_nospec(bool cond)
+{
+#ifdef arch_evaluate_nospec
+    return arch_evaluate_nospec(cond);
+#else
+    return cond;
+#endif
+}
+
+or even
+
+static always_inline bool evaluate_nospec(bool cond)
+{
+#ifdef arch_evaluate_nospec
+    return arch_evaluate_nospec(cond);
+#endif
+    return cond;
+}
+
+reads no worse, but perhaps slightly better, and is then consistent with
+block_speculation(). At which point the question about "insertion point"
+here would hopefully also disappear, as this addition is meaningful only
+ahead of the #else.
 
 Jan
 
