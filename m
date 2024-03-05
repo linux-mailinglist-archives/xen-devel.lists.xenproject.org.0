@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 026C5872282
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 16:16:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688825.1073493 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FE3B87229A
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 16:23:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688827.1073503 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhWWU-0002nS-It; Tue, 05 Mar 2024 15:16:06 +0000
+	id 1rhWdb-0004vA-9O; Tue, 05 Mar 2024 15:23:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688825.1073493; Tue, 05 Mar 2024 15:16:06 +0000
+Received: by outflank-mailman (output) from mailman id 688827.1073503; Tue, 05 Mar 2024 15:23:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhWWU-0002lw-FZ; Tue, 05 Mar 2024 15:16:06 +0000
-Received: by outflank-mailman (input) for mailman id 688825;
- Tue, 05 Mar 2024 15:16:05 +0000
+	id 1rhWdb-0004tO-6b; Tue, 05 Mar 2024 15:23:27 +0000
+Received: by outflank-mailman (input) for mailman id 688827;
+ Tue, 05 Mar 2024 15:23:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4c3Q=KL=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rhWWT-0002lq-UG
- for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 15:16:05 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=E7ce=KL=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rhWdZ-0004tI-Nx
+ for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 15:23:25 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48ba4548-db03-11ee-afda-a90da7624cb6;
- Tue, 05 Mar 2024 16:16:04 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-51341a5aafbso2883770e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 05 Mar 2024 07:16:04 -0800 (PST)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- k17-20020a192d11000000b00513200975b8sm2260118lfj.43.2024.03.05.07.16.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Mar 2024 07:16:03 -0800 (PST)
+ id 4edae1a7-db04-11ee-afda-a90da7624cb6;
+ Tue, 05 Mar 2024 16:23:24 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 091A36B64A;
+ Tue,  5 Mar 2024 15:23:24 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D683013A5B;
+ Tue,  5 Mar 2024 15:23:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id +WySMus452UNbQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 05 Mar 2024 15:23:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,166 +51,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48ba4548-db03-11ee-afda-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709651764; x=1710256564; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=hbwnm/lnZ1y0xmDyH+7GJGCVmhMJAz7GGhVKYVpt7jo=;
-        b=WY1Avh1nyEEcHewhVclEPhtA06WY6VcZjhCxLU6DSqd3w4yivA87A2MDZxbnUhmGmj
-         mHDMWB4KPTMPvc7vOU4R+6VuTZs5YCTiFseNvtoEC41j9U6nDpa4W0hDJmIO3ciguEh4
-         eCOEn4PattfhcYE7W1leOiMAMcjQ7/kwNansCyGLM7RqKsjyFQKr7ohpyN9nRBpjS/4Q
-         jQs8hLTYmpGYyMddGd102WDfnVVI/eb4lznC0l/B7CL8Kbo/xtXUIjauC3KmEO//eLjT
-         OUyjUpMMRTMSJHT+K1c1ptXRbLX5ErTuaB6HZYUhGD1QizIVlWk2afKSgUA7HPT9EU9l
-         3SpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709651764; x=1710256564;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=hbwnm/lnZ1y0xmDyH+7GJGCVmhMJAz7GGhVKYVpt7jo=;
-        b=p4niSRftshh6PnEjd4wHwLHO3l/lKeQyMw8aN1vbg7G2T41c5nT0oxiYt5TBL/2uDl
-         /hj5lhiYfABArV1n0ShWObYklrklIj6jTq60pLxHFaSHOImbMEcjQ6RVvo6q81iOTSln
-         2AmXlvmd3WXEqr5zi9bV4dM7VKMHvpOY7Ha4rL8SGpWGLveYW5DyU+c//pMEzDGTwtSy
-         eRMQqpFEJKpJfEQgrAbGR0ZZJuxuxoPAoELrShUpckl9VLZlEGlUBJ+fAGVk2XLHOnqm
-         rpJznNnFjVMfS7fjhZ7jqblq5843SoGThPjlwP5WwTEOpW6zE3NtaYEuB6E7aFoOx5st
-         tLRw==
-X-Forwarded-Encrypted: i=1; AJvYcCW7n3N2DoUjXpge+FfizgbcIIVAJ6M0QcXDpAunw+PvBeuCVd+EOqVr6OlpsmDdiN4byA5bmlhHOCN7auuVa1ydlWYNXhJB2JijYqkU8ko=
-X-Gm-Message-State: AOJu0YxjO9zwgbWTyoVzXZlZP9nvxHx/sIqFP6nsnqE0DZe5j4RshFXQ
-	3Dltnjp6icomcKPVwaRdu81TAF8TOEC3qqut9JgEp2rmXe0KmviH
-X-Google-Smtp-Source: AGHT+IG9hZHYqYmYABjFYqhyZOBijiGqvkxv+KonlpWkCBRXJI8n6ZZGWWXKTqndkpXe6j7tpCB/hA==
-X-Received: by 2002:a05:6512:208d:b0:512:9dee:44fe with SMTP id t13-20020a056512208d00b005129dee44femr1267105lfr.26.1709651763912;
-        Tue, 05 Mar 2024 07:16:03 -0800 (PST)
-Message-ID: <7df33568918536487ec75a05cd47cee128150c0c.camel@gmail.com>
-Subject: Re: [PATCH 1/2] xen/*/nospec: Provide common versions of
- evaluate_nospec/block_speculation
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall
- <julien@xen.org>,  Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand Marquis
- <bertrand.marquis@arm.com>,  Michal Orzel <michal.orzel@amd.com>, Shawn
- Anastasio <sanastasio@raptorengineering.com>, Xen-devel
- <xen-devel@lists.xenproject.org>
-Date: Tue, 05 Mar 2024 16:15:58 +0100
-In-Reply-To: <3bc0b828-d3c5-447d-b338-c478d8e337fc@citrix.com>
-References: <20240304161041.3465897-1-andrew.cooper3@citrix.com>
-	 <20240304161041.3465897-2-andrew.cooper3@citrix.com>
-	 <c9f92495-2c00-443f-bffd-1b09cb8a8c84@xen.org>
-	 <d343c58c-2a3a-45a9-8d67-64d1506d973c@suse.com>
-	 <5c06c437-b62c-4bee-8694-1be597887718@xen.org>
-	 <141ed8a2-df4f-492c-a192-4ffa7f4c8384@suse.com>
-	 <4fb729fa-8519-4244-a795-cc66a79cd346@citrix.com>
-	 <c6f9c9fa-a252-41c4-b92f-435c57044cd2@xen.org>
-	 <3bc0b828-d3c5-447d-b338-c478d8e337fc@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+X-Inumbo-ID: 4edae1a7-db04-11ee-afda-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1709652204; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dHLIUDCUa+RshrDdjeSgXkl9M+svQd7sCRDJwufl2HQ=;
+	b=luKFbel3ajGFwo/uOI0qZHiEn0+ElOrrQ3NjgV+q1gc2IDHCNPWFK0uDZB+AUl4J73mfUc
+	9a+hIV/CXUrgAA9U0XXN3fMRxF6FgLLIrvlT8MRTvHvf18G6YVqplRn5K+3OWuGHJ9C2M4
+	XwOa+6joiv/Nl887bQIQui/E3srwNwU=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1709652204; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dHLIUDCUa+RshrDdjeSgXkl9M+svQd7sCRDJwufl2HQ=;
+	b=luKFbel3ajGFwo/uOI0qZHiEn0+ElOrrQ3NjgV+q1gc2IDHCNPWFK0uDZB+AUl4J73mfUc
+	9a+hIV/CXUrgAA9U0XXN3fMRxF6FgLLIrvlT8MRTvHvf18G6YVqplRn5K+3OWuGHJ9C2M4
+	XwOa+6joiv/Nl887bQIQui/E3srwNwU=
+Message-ID: <0eeab3e6-f4fb-4723-a674-f5bbdb285356@suse.com>
+Date: Tue, 5 Mar 2024 16:23:23 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] 9pfsd: allow building with old glibc
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Anthony Perard <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>
+References: <3aca1707-9eab-4b85-a4ae-e56508b15843@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <3aca1707-9eab-4b85-a4ae-e56508b15843@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spamd-Result: default: False [-1.94 / 50.00];
+	 ARC_NA(0.00)[];
+	 TO_DN_EQ_ADDR_SOME(0.00)[];
+	 XM_UA_NO_VERSION(0.01)[];
+	 FROM_HAS_DN(0.00)[];
+	 RCPT_COUNT_THREE(0.00)[4];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 BAYES_HAM(-2.85)[99.36%];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 R_MIXED_CHARSET(1.00)[subject];
+	 RCVD_TLS_ALL(0.00)[];
+	 MID_RHS_MATCH_FROM(0.00)[]
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spam-Score: -1.94
 
-On Mon, 2024-03-04 at 17:50 +0000, Andrew Cooper wrote:
-> On 04/03/2024 5:40 pm, Julien Grall wrote:
-> > Hi Andrew,
-> >=20
-> > On 04/03/2024 17:07, Andrew Cooper wrote:
-> > > On 04/03/2024 4:55 pm, Jan Beulich wrote:
-> > > > On 04.03.2024 17:46, Julien Grall wrote:
-> > > > > On 04/03/2024 16:41, Jan Beulich wrote:
-> > > > > > On 04.03.2024 17:31, Julien Grall wrote:
-> > > > > > > On 04/03/2024 16:10, Andrew Cooper wrote:
-> > > > > > > > It is daft to require all architectures to provide
-> > > > > > > > empty
-> > > > > > > > implementations of
-> > > > > > > > this functionality.
-> > > > > > > Oleksii recenlty sent a similar patch [1]. This was
-> > > > > > > pushed back
-> > > > > > > because
-> > > > > > > from naming, it sounds like the helpers ought to be non-
-> > > > > > > empty on
-> > > > > > > every
-> > > > > > > architecture.
-> > > > > > >=20
-> > > > > > > It would be best if asm-generic provides a safe version
-> > > > > > > of the
-> > > > > > > helpers.
-> > > > > > > So my preference is to not have this patch. This can of
-> > > > > > > course
-> > > > > > > change if
-> > > > > > > I see an explanation why it is empty on Arm (I believe it
-> > > > > > > should
-> > > > > > > contain
-> > > > > > > csdb) and other arch would want the same.
-> > > > > > Except that there's no new asm-generic/ header here (as
-> > > > > > opposed to
-> > > > > > how
-> > > > > > Oleksii had it). Imo avoiding the need for empty stubs is
-> > > > > > okay
-> > > > > > this way,
-> > > > > > when introducing an asm-generic/ header would not have
-> > > > > > been. Of
-> > > > > > course
-> > > > > > if Arm wants to put something there rather sooner than
-> > > > > > later, then
-> > > > > > perhaps the functions better wouldn't be removed from
-> > > > > > there, just
-> > > > > > to then
-> > > > > > be put back pretty soon.
-> > > > > I am confused. I agree the patch is slightly different, but I
-> > > > > thought
-> > > > > the fundamental problem was the block_speculation()
-> > > > > implementation may
-> > > > > not be safe everywhere. And it was best to let each
-> > > > > architecture
-> > > > > decide
-> > > > > how they want to implement (vs Xen decide for us the
-> > > > > default).
-> > > > >=20
-> > > > > Reading the original thread, I thought you had agreed with
-> > > > > that
-> > > > > statement. Did I misinterpret?
-> > > > Yes and no. Whatever is put in asm-generic/ ought to be correct
-> > > > and
-> > > > safe
-> > > > by default, imo. The same doesn't apply to fallbacks put in
-> > > > place in
-> > > > headers in xen/: If an arch doesn't provide its own
-> > > > implementation, it
-> > > > indicates that the default (fallback) is good enough. Still I
-> > > > can
-> > > > easily
-> > > > see that other views are possible here ...
-> > >=20
-> > > With speculation, there's absolutely nothing we can possibly do
-> > > in any
-> > > common code which will be safe generally.
-> > >=20
-> > > But we can make it less invasive until an architecture wants to
-> > > implement the primitives.
-> >=20
-> > I understand the goal. However, I am unsure it is a good idea to
-> > provide unsafe just to reduce the arch specific header by a few
-> > lines.
->=20
-> It doesn't matter if it's unsafe in the arch header or unsafe in the
-> common code.=C2=A0 It's still unsafe.
->=20
-> There is no change in risk here.=C2=A0 There's simply less blind
-> copy/pasting
-> of the unsafe form into new architectures in order to get Xen to
-> compile.
-So, we're revisiting this topic again.
+On 05.03.24 15:33, Jan Beulich wrote:
+> Neither pread() / pwrite() nor O_DIRECTORY are available from glibc
+> 2.11.3 headers without defining (e.g.) _GNU_SOURCE. Supplying the
+> definition unconditionally shouldn't be a problem, seeing that various
+> other tools/ components do so, too.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-I agree that upon examining the current state of the code around these
-functions, it appears safe to provide stubs. However, the reason my
-patch was rejected is that it may not be entirely safe, as Julien
-pointed out that even with Arm, some functions shouldn't be empty.
+Fine with me.
 
-What I would like to propose is that it might be beneficial, at least
-in CONFIG_DEBUG=3Dy, to have a warning message. Does that make sense?
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
-~ Oleksii
 
+Juergen
 
 
