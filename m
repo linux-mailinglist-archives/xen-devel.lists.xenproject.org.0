@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99D6F871902
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 10:07:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688645.1073077 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C8EF871983
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 10:23:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688649.1073086 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhQki-0005NL-9I; Tue, 05 Mar 2024 09:06:24 +0000
+	id 1rhR0n-0000fr-Ms; Tue, 05 Mar 2024 09:23:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688645.1073077; Tue, 05 Mar 2024 09:06:24 +0000
+Received: by outflank-mailman (output) from mailman id 688649.1073086; Tue, 05 Mar 2024 09:23:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhQki-0005Lo-6R; Tue, 05 Mar 2024 09:06:24 +0000
-Received: by outflank-mailman (input) for mailman id 688645;
- Tue, 05 Mar 2024 09:06:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rhR0n-0000df-K3; Tue, 05 Mar 2024 09:23:01 +0000
+Received: by outflank-mailman (input) for mailman id 688649;
+ Tue, 05 Mar 2024 09:23:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mek3=KL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rhQkg-0005Lg-Kp
- for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 09:06:22 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a114a4ce-dacf-11ee-a1ee-f123f15fe8a2;
- Tue, 05 Mar 2024 10:06:19 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-564fd9eea75so531120a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 05 Mar 2024 01:06:19 -0800 (PST)
+ id 1rhR0m-0000dZ-AD
+ for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 09:23:00 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f462285c-dad1-11ee-afda-a90da7624cb6;
+ Tue, 05 Mar 2024 10:22:58 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-564647bcdbfso6234596a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Mar 2024 01:22:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- o7-20020a1709062e8700b00a4558314ea0sm1934513eji.15.2024.03.05.01.06.18
+ es14-20020a056402380e00b00566d9c8e6cesm4402905edb.21.2024.03.05.01.22.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Mar 2024 01:06:18 -0800 (PST)
+ Tue, 05 Mar 2024 01:22:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a114a4ce-dacf-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: f462285c-dad1-11ee-afda-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709629578; x=1710234378; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709630577; x=1710235377; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=b6myWXNcLURR9kBWEqO1eQi9eE7cOZznv0bO4f4eOv4=;
-        b=KNOkQVAYEZQFrxEJTZ/rrwhGLcj3EL6Mhl8won8qRhocC1Lu65A7PRQO6pAdfsV08F
-         f5lc6ddJTtBGfNHn/XvKdsYkl483ivBXlFmi0A5wD7YFkcNm78l1S2ylhdsh+Gq89MKa
-         7tb6n9v1qOcgG3tMMO+/nwcSAJ8IR0Ay/fxPvJNyAfqns0yj2Zx1faSIbH6UIh6R49IZ
-         rV07JDy4dgLEEiZGyL9lzADINrJUbzxsAvkpVo+kgmmi1JUhvxNXxXzev6xDCSgu4+sT
-         i99VvjHWemRBAuHVPnmasLgtDKXjVYxg68Ex0liUOXfhY/PUAOIBJJpvrcRnRU8a5fNl
-         fQVw==
+        bh=8/lg/dBVXYVnTxa9YsDLClf8gxSp0d+Ecm3//9clkvk=;
+        b=FeDuSGpZ8m1gsgZm6Ov24Zq0ci5xncJFoc17NNWIxdp10mFIYnnlp5liHsKRl5WfIg
+         iK+kgqC5kL0HFinO8/+nMWAKLCEi6M3JY2KQy0+mDUE2t8A7NjZ1C4MPudjVMsuxuyL/
+         gMWCdhA0DHV07prkkMxAdJN9B51+M7xAcv71RBvgq27CrMohB2Wjh+EZzmN74ptmBdo9
+         cmKlFe79BwCIWFZJmlIcf60Gx3bWVywA0Q2C37ucGHUry3zbNOcG4lF3jdhtF/ne7ZNT
+         UUYtQdWkig5FoLqALZcOYsWAoOUNm2uvI1HDG7W3AoHukNYVUSsBinkJu6uucjsWLncm
+         B6yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709629579; x=1710234379;
+        d=1e100.net; s=20230601; t=1709630577; x=1710235377;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=b6myWXNcLURR9kBWEqO1eQi9eE7cOZznv0bO4f4eOv4=;
-        b=GeT5jlW6ytZqpVk9ccaVwxc4l9DzoN2IBbDzitXwGnlOjsborrL8y9y1fi5DVBW1+F
-         fMYcI2K0jJI08KKUexcvo6KV+EZ2/S8xq6UH7F/+ZcfcrGFP3u9ihj3XdfepK2rP3Nfm
-         U6x1k/N7R10rjb6Pp4hEGrymwR+AKk0jZkFiHuUqNyldYgd2B1CtC+f++c8U7sX5nQF3
-         EfL5O00DCjaxiXcspux7k/Rw3Fap7+DE3BLTiiOgklpK9ghwbQTBNIyq7rdABdEaGlP1
-         0ACm/VQrKp5sloshrQa6/CNRVxFyzVkp3if86ApUTQP7XtP8MoinALpf8hsI31qy9BOZ
-         0Skw==
-X-Forwarded-Encrypted: i=1; AJvYcCXPJjKXz91R/q+1BbQ3FNycOgZpmboAJoR+ylq53SDuXgNI4MzhDdXSRWb829EQ0Hl+1RmZMZBY5poRumASe7+Zg5b1oKF7/U4z1cNIm2A=
-X-Gm-Message-State: AOJu0YxT2cYtG94DwK4AYtrZiJOQGbB1NE80oZIX48jb5aNcLMd4HRTO
-	OS7BUfNg8yFANIIJiHgSZF592VVvrSTW6eVukt0aO0VjaI40nLKG1A0Spfeoog==
-X-Google-Smtp-Source: AGHT+IG+rJAItN1CrtcfXKfRD6gl22xYC2wANjGL9X48Ej1ez9dPed87kz9uNrm5dGZdQN3eiwMdfQ==
-X-Received: by 2002:a17:906:c7d0:b0:a44:8caf:a2e0 with SMTP id dc16-20020a170906c7d000b00a448cafa2e0mr9038850ejb.74.1709629578618;
-        Tue, 05 Mar 2024 01:06:18 -0800 (PST)
-Message-ID: <d2e6e522-216b-4bcf-a75d-2bbc8e1563ce@suse.com>
-Date: Tue, 5 Mar 2024 10:06:17 +0100
+        bh=8/lg/dBVXYVnTxa9YsDLClf8gxSp0d+Ecm3//9clkvk=;
+        b=cZvxGU9j0b1cqEXglB9nEttl3RL06I8A5oqDJAT4EG16T6DF/SAnXAc2lu21SxfYym
+         k97c8m5ZoHYvArLm1eOET+xYT+AtmjlY+gzVDDQvM2MT2TLEc4W1Esr8SpfsONkkiEY7
+         uHKBG1zSusbQGEsS/breppOcVzD1HfJg0gG6DaRStW59Sk1lfFHGUG8AL4FAtyO0Ppty
+         Ej/Ztou2xpXT5T2VfgKJl4iw37MtuBKKKI8v3niezavK954IbEbXMhMduBwSROla7jU7
+         6utqgVqgsvBJdqiE2mvzSCH6fmnYAnGKWCOeww4QEXmUdgsY9Pr1jcS4mCcMZJtegGfs
+         DudQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW4lEIAFFxbCs6kyMGwqb6cSy/Y4k631MFg0vSCMRW8QnRG8DdCni2EQ75iPv52OKgv4HuzoGWOBeTImIMk3Wax2NICahI7ikB4ZAxZHAE=
+X-Gm-Message-State: AOJu0YzIWEclXiHowl1FV2wmCxkKXdbrgM2msClQvqUaB8IBinlePtkx
+	6h2cYiV992UZ6pE85E6TLqSDPu5V6XmXr/v2KzJudw73lJXkShJ0dPJFBUx4Wg==
+X-Google-Smtp-Source: AGHT+IFj6YAOi9Pay0Z9dpIK8woAvsAmaEyk7nUtw6opE8f4fbFvvkst+s6I9bbdJZm/hjdTDOInWQ==
+X-Received: by 2002:a05:6402:2226:b0:566:2e42:8c38 with SMTP id cr6-20020a056402222600b005662e428c38mr6810620edb.2.1709630577428;
+        Tue, 05 Mar 2024 01:22:57 -0800 (PST)
+Message-ID: <0f956920-48a1-4934-9ded-6aeda2a51867@suse.com>
+Date: Tue, 5 Mar 2024 10:22:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86: introduce xstate_zero
+Subject: Re: [PATCH 3/3] x86: switch to eager fpu save / restore
 Content-Language: en-US
 To: Fouad Hilly <fouad.hilly@cloud.com>
-Cc: Wei Liu <wei.liu2@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wei.liu2@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Paul Durrant <paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240304091307.2295344-1-fouad.hilly@cloud.com>
- <20240304091307.2295344-3-fouad.hilly@cloud.com>
+ <20240304091307.2295344-4-fouad.hilly@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,58 +115,64 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240304091307.2295344-3-fouad.hilly@cloud.com>
+In-Reply-To: <20240304091307.2295344-4-fouad.hilly@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 04.03.2024 10:13, Fouad Hilly wrote:
-> +void xstate_zero(uint64_t mask)
-> +{
-> +    bool ok;
-> +    struct xsave_struct tmp;
-> +
-> +    tmp.fpu_sse.mxcsr = MXCSR_DEFAULT;
+> From: Wei Liu <wei.liu2@citrix.com>
+> 
+> Previously FPU is lazily switched. Due to the fact that a malicious
+> guest can speculatively read the not yet switched out register states,
+> we need to eagerly switch FPU states when a domain is scheduled to
+> run.
 
-This is a clear indication that the function name is wrong. Perhaps it is
-"reset" that was meant?
+The speculation aspect is already covered as of XSA-267, and hence imo
+cannot be used as a justification here.
 
-> +    tmp.xsave_hdr.xstate_bv = 0;
-> +    tmp.xsave_hdr.xcomp_bv = 0;
-> +    memset(tmp.xsave_hdr.reserved, 0, sizeof(tmp.xsave_hdr.reserved));
-> +
-> +    ok = xrstor__(&tmp, mask, mask);
+> In the new world, Xen will eagerly switch FPU context in the
+> scheduler. Xen itself won't set CR0.TS other than for the purpose of
+> servicing a PV guest.
+> 
+> The following things are done:
+> 
+> 1. Xen will only set and clear CR0.TS on behalf of a PV guest. Any #NM
+>    received in Xen should only be delivered to the running PV guest.
+> 
+> 2. Xen no longer causes vmexit for #NM for HVM guests when nested HVM
+>    is not in use.
+> 
+> 3. When nested HVM is in use, Xen needs to trap #NM if specified by
+>    the L1 hypervisor, but all #NM handling is left to L1 hypervisor
+>    to deal with.
+> 
+> 4. Xen saves and restores FPU states wherever it needs to. The
+>    following places are modified:
+>    1. Scheduling in and out a guest;
+>    2. Calling EFI runtime service;
+>    3. ACPI reset;
+>    4. x86 insn emulator fpu insn emulation.
+> 
+> 5. Treat FPU as always initialised. Adjust following components:
+>    1. HVM vcpu context save / load code;
+>    2. arch_{get,set}_info_guest;
+>    3. VLAPIC code.
+> 
+> 6. Delete lazy FPU handling code.
 
-There's a lot of "tmp" that is left uninitialized, which would introduce
-a leak of (stack) data. I think "tmp" instead wants to have an initializer
-(consisting of just the explicit setting of MXCSR, leaving everything else
-to be default, i.e. zero-initialized).
+This wants splitting up. I'm actually puzzled that step 6 does not include
+purging of e.g. opt_eager_fpu. Converting that to "always true" would seem
+to be the one first step with a functional change. All further steps would
+be removal of then-dead code.
 
-> +    ASSERT(ok);
->  }
->  
->  bool xsave_enabled(const struct vcpu *v)
-> @@ -731,6 +753,9 @@ int handle_xsetbv(u32 index, u64 new_bv)
->      if ( (new_bv & ~xcr0_max) || !valid_xcr0(new_bv) )
->          return -EINVAL;
->  
-> +    /* Zero state components before writing new XCR0 */
-> +    xstate_zero(get_xcr0());
+> Strip XCR0 and IA32_XSS manipulation from __context_switch. We need to
+> be able to zero out previously used state components. Push everything
+> into fpu_xrstor as that's the most suitable place.
+> 
+> Tested on AMD with PKU disabled and Intel, no performance degradation.
 
-This change isn't explained in the description, doesn't fit the subject
-(i.e. mechanical and functional change likely want splitting), and is
-imo wrong: Why would XSETBV gain this kind of side effect, when processed
-(emulated) in Xen? What I can see may want clearing are state components
-which were never enabled before by a vCPU. That would then need doing
-after writing the new XCR0 value, though. And it looks like that's
-already in place - is there something wrong with that code?
-
-Or is this about clearing in hardware state components about to be turned
-off? If so, it would again need to be only the delta of components that's
-reset here, and their state would need saving first. Upon re-enabling of
-a component, that state would then need to be available for restoring.
-This need for saving of state would then also explain why what's presently
-named xstate_zero() can't very well use the vCPU's ->arch.xsave_area, but
-needs to have a (relatively big) on-stack variable instead.
+I dare to at least question whether this is going to hold once we support
+one of the huge state components (AMX patches have been pending for years).
 
 Jan
 
