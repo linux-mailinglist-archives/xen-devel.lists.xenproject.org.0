@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA2D6871A2C
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 11:06:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688697.1073148 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 238E0871AC7
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 11:22:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688701.1073158 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhRgF-0001vZ-Uq; Tue, 05 Mar 2024 10:05:51 +0000
+	id 1rhRvK-0004wK-8X; Tue, 05 Mar 2024 10:21:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688697.1073148; Tue, 05 Mar 2024 10:05:51 +0000
+Received: by outflank-mailman (output) from mailman id 688701.1073158; Tue, 05 Mar 2024 10:21:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhRgF-0001sr-SA; Tue, 05 Mar 2024 10:05:51 +0000
-Received: by outflank-mailman (input) for mailman id 688697;
- Tue, 05 Mar 2024 10:05:51 +0000
+	id 1rhRvK-0004uU-5n; Tue, 05 Mar 2024 10:21:26 +0000
+Received: by outflank-mailman (input) for mailman id 688701;
+ Tue, 05 Mar 2024 10:21:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mek3=KL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rhRgE-0001sj-VX
- for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 10:05:50 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ATxC=KL=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rhRvJ-0004sb-5N
+ for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 10:21:25 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f0bd292d-dad7-11ee-a1ee-f123f15fe8a2;
- Tue, 05 Mar 2024 11:05:48 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a4499ef8b5aso396596466b.0
- for <xen-devel@lists.xenproject.org>; Tue, 05 Mar 2024 02:05:48 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- o26-20020a1709061d5a00b00a44f6ce3e7fsm3340941ejh.77.2024.03.05.02.05.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Mar 2024 02:05:48 -0800 (PST)
+ id 1be1d1e4-dada-11ee-a1ee-f123f15fe8a2;
+ Tue, 05 Mar 2024 11:21:20 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id B96A94EE0737;
+ Tue,  5 Mar 2024 11:21:19 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +39,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0bd292d-dad7-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709633148; x=1710237948; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=7SmU9pewJHYbAF4aPkfQlh+Gg13jFRqwbbVdgo9MU2o=;
-        b=RNUan2BbbHj696u4YCI4coGcoeJgBXQUvgvOXg0e6SbpQZ5PODrTYY9Ecygvcc4UPl
-         eUa9PK/z5RYXqUo2u8LSbjXBbSrg7skwD+yzdxbG6hPkBuQsSJ1Co7Qb2AJw1CrhMhS7
-         kvxikduHeZzDI9OZRsk/JQsdf2HPb2W9EwQv6BLbEkTWY3auF+qCifKpS0XEBGFOs7mG
-         uWXCcd/xH3aDWMhOHXg1gGA4Ox9sFU7egInFKoowf5F3HRYb/qR3DEK5rkRdAE4PjkmD
-         fH/i9i0ktONhyewki+6OBRDgVbOsssniRXeACq9if/nxLA+kWb5CVXYhruVNBVxwZrIv
-         VmUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709633148; x=1710237948;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7SmU9pewJHYbAF4aPkfQlh+Gg13jFRqwbbVdgo9MU2o=;
-        b=UIFbThBTNmuZ+mFHaFw7KlpydZAoGtiX19Ef6YaV+c2RF6KyDbLyB6k7FZDV9P8BqW
-         vtw3CRXwgZKYw8Da0n3m8sfGctxgVFTQwpjsZv5meXhywyusycgjHDVtQj9M//3UvrMe
-         4JlYg6solA8BEqV+XIqQFZOLEU/cA5JiIs0rFZMzL9i295cC0/E0ZeMvyNl0vKbiSgSP
-         XOycAffpu6iAskNS2IElHNcyHXZD0yxRP4yK9D3cVJ+u5j5lOmg1eo32uCiTUmjGobZG
-         FAaRbH19WF+Sdrx1UP/gQOZVo+v6J4Om0b/rP+xAsftDtjPbhMPGtk6D3q828WKEMcg9
-         74Lg==
-X-Gm-Message-State: AOJu0YwIgQfOnF7nHtrrt7XoRQclsFvQ/6aJM9hFtDYJvOGpZMaByxDj
-	yHcy7u8n3IwGNWXj6e4fftwiBpbXqi0mH5EwEs//tFt/f6H5NajN2QDbsr53wQ==
-X-Google-Smtp-Source: AGHT+IGGThR46eccxaXipKrE+fr3QWJm27ZfeIXFowA+lhRA7Tp2qyXCtv91a6HKjZLep5/Yj+7p1A==
-X-Received: by 2002:a17:906:ccc8:b0:a44:1a51:a1fd with SMTP id ot8-20020a170906ccc800b00a441a51a1fdmr7267817ejb.64.1709633148281;
-        Tue, 05 Mar 2024 02:05:48 -0800 (PST)
-Message-ID: <e1d70dbd-c012-45a7-b122-b3e92af89bbe@suse.com>
-Date: Tue, 5 Mar 2024 11:05:47 +0100
+X-Inumbo-ID: 1be1d1e4-dada-11ee-a1ee-f123f15fe8a2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hvmloader/PCI: skip huge BARs in certain calculations
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Neowutran <xen@neowutran.ovh>
-References: <090d572c-5196-46b2-9d6b-741b7cb66d97@suse.com>
- <ZebmhBHpFasxFfiW@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZebmhBHpFasxFfiW@macbook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 05 Mar 2024 11:21:19 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>, Jbeulich
+ <jbeulich@suse.com>
+Cc: michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
+ julien@xen.org, George Dunlap <george.dunlap@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH 04/10] xen/public: address violations of MISRA C Rule
+ 20.7
+In-Reply-To: <alpine.DEB.2.22.394.2402291447590.853156@ubuntu-linux-20-04-desktop>
+References: <cover.1709219010.git.nicola.vetrini@bugseng.com>
+ <0cdc4dc2fcad699a2274277b32de3ee0207d5a2d.1709219010.git.nicola.vetrini@bugseng.com>
+ <bd95193c-522a-4c74-98e0-68fa088a5b49@suse.com>
+ <82940f688e5a5eee274fa579991ebd15@bugseng.com>
+ <alpine.DEB.2.22.394.2402291447590.853156@ubuntu-linux-20-04-desktop>
+Message-ID: <0e131a6795c9d28583e5e8c248843e67@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 05.03.2024 10:31, Roger Pau Monné wrote:
-> On Mon, Mar 04, 2024 at 08:32:22AM +0100, Jan Beulich wrote:
->> BARs of size 2Gb and up can't possibly fit below 4Gb: Both the bottom of
->> the lower 2Gb range and the top of the higher 2Gb range have special
->> purpose. Don't even have them influence whether to (perhaps) relocate
->> low RAM.
->>
->> Reported-by: Neowutran <xen@neowutran.ovh>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 2024-02-29 23:49, Stefano Stabellini wrote:
+> On Thu, 29 Feb 2024, Nicola Vetrini wrote:
+>> On 2024-02-29 17:40, Jan Beulich wrote:
+>> > On 29.02.2024 16:27, Nicola Vetrini wrote:
+>> > > --- a/xen/include/public/xen.h
+>> > > +++ b/xen/include/public/xen.h
+>> > > @@ -988,7 +988,7 @@ typedef struct {
+>> > >        ((b) >>  8) & 0xFF, ((b) >>  0) & 0xFF,                           \
+>> > >        ((c) >>  8) & 0xFF, ((c) >>  0) & 0xFF,                           \
+>> > >        ((d) >>  8) & 0xFF, ((d) >>  0) & 0xFF,                           \
+>> > > -                e1, e2, e3, e4, e5, e6}}
+>> > > +                (e1), (e2), (e3), (e4), (e5), (e6)}}
+>> >
+>> > Why? Wasn't it agreed already that long macro arguments passed on
+>> > (no matter whether to a function, a macro, or like used here) don't
+>> > need parenthesizing?
+>> >
+>> 
+>> That applies to all outermost macro invocations, but not to the 
+>> innermost one.
 > 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Thanks.
-
->> --- a/tools/firmware/hvmloader/pci.c
->> +++ b/tools/firmware/hvmloader/pci.c
->> @@ -33,6 +33,13 @@ uint32_t pci_mem_start = HVM_BELOW_4G_MM
->>  const uint32_t pci_mem_end = RESERVED_MEMBASE;
->>  uint64_t pci_hi_mem_start = 0, pci_hi_mem_end = 0;
->>  
->> +/*
->> + * BARs larger than this value are put in 64-bit space unconditionally.  That
->> + * is, such BARs also don't play into the determination of how big the lowmem
->> + * MMIO hole needs to be.
->> + */
->> +#define HUGE_BAR_THRESH GB(1)
+> I don't understand what you mean. Maybe a couple of trivial examples
+> would help.
 > 
-> I would maybe name this `BAR_RELOCATE_THRESH, `HUGE_BAR` is too
-> generic IMO.
-
-BAR_RELOC_THRESH it is then.
-
-> And also use 256Mb instead of 1GB, but just having a limit is good
-> enough, we can further tune it afterwards.
-
-As indicated in an earlier reply, I now firmly think that if we want to
-do so, it wants doing separately / incrementally.
-
->> @@ -446,8 +455,9 @@ void pci_setup(void)
->>           *   the code here assumes it to be.)
->>           * Should either of those two conditions change, this code will break.
->>           */
->> -        using_64bar = bars[i].is_64bar && bar64_relocate
->> -            && (mmio_total > (mem_resource.max - mem_resource.base));
->> +        using_64bar = bars[i].is_64bar && bar64_relocate &&
->> +            (mmio_total > (mem_resource.max - mem_resource.base) ||
->> +             bar_sz > HUGE_BAR_THRESH);
 > 
-> There's a comment above this that starts with:
+>> If you want also aggregate initalizers to be deviated, that could be 
+>> done
+>> (provided that the macro arg is not included in some expression, such 
+>> as
+>> "{..., e1 + 1, ...}"
 > 
-> "Relocate to high memory if the total amount of MMIO needed is more
-> than the low MMIO available."
-> 
-> I would slightly reword it to:
-> 
-> "Relocate to high memory if the total amount of MMIO needed is more
-> than the low MMIO available or BARs bigger that HUGE_BAR_THRESH are
-> present."
 
-Hmm, yes, done.
+Sorry for the late reply. This is the current state:
 
-Jan
+#define N(x) somestruct var = {..., x, ...}; // <- not deviated, 
+violation here
+#define M(x) N(x) // <- deviated, no violation here
+
+...
+
+M(0xff);
+
+The violation is resolved by {..., (x), ...} or by saying that when "x" 
+is a whole expression in its fully expanded form, then we allow it not 
+to be needlessly parenthesized, as Jan requested (unless I misunderstood 
+his reply). In that case, the only this that would still give a 
+violation in the above setting is questionable patterns such as
+
+#define Q(x) x, x
+
+
+
+> My gut feeling tells me that probably this is what we want but I'd
+> rather first understand exactly what you meant above
+
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
