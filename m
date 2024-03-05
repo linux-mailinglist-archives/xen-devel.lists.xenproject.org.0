@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2960987141D
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 04:06:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688569.1072870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2736787141B
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 04:06:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688570.1072879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhL7M-0004EK-SJ; Tue, 05 Mar 2024 03:05:24 +0000
+	id 1rhL7Q-0004Tb-2z; Tue, 05 Mar 2024 03:05:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688569.1072870; Tue, 05 Mar 2024 03:05:24 +0000
+Received: by outflank-mailman (output) from mailman id 688570.1072879; Tue, 05 Mar 2024 03:05:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhL7M-0004Co-PJ; Tue, 05 Mar 2024 03:05:24 +0000
-Received: by outflank-mailman (input) for mailman id 688569;
- Tue, 05 Mar 2024 03:05:23 +0000
+	id 1rhL7Q-0004R5-03; Tue, 05 Mar 2024 03:05:28 +0000
+Received: by outflank-mailman (input) for mailman id 688570;
+ Tue, 05 Mar 2024 03:05:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BjVz=KL=gmail.com=alexei.starovoitov@srs-se1.protection.inumbo.net>)
- id 1rhL7L-0004Ci-AK
- for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 03:05:23 +0000
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [2001:4860:4864:20::2a])
+ id 1rhL7N-0004Ci-Od
+ for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 03:05:25 +0000
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [2607:f8b0:4864:20::229])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 338b3410-da9d-11ee-afda-a90da7624cb6;
- Tue, 05 Mar 2024 04:05:21 +0100 (CET)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-21fa086008fso2129593fac.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 19:05:21 -0800 (PST)
+ id 35d542d6-da9d-11ee-afda-a90da7624cb6;
+ Tue, 05 Mar 2024 04:05:25 +0100 (CET)
+Received: by mail-oi1-x229.google.com with SMTP id
+ 5614622812f47-3c1ea5e54d3so1115863b6e.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 19:05:25 -0800 (PST)
 Received: from localhost.localdomain ([2620:10d:c090:400::5:9426])
  by smtp.gmail.com with ESMTPSA id
- y15-20020aa7854f000000b006e5a99942c6sm6822695pfn.88.2024.03.04.19.05.18
+ i37-20020a635865000000b005dc5289c4edsm7941060pgm.64.2024.03.04.19.05.22
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 04 Mar 2024 19:05:19 -0800 (PST)
+ Mon, 04 Mar 2024 19:05:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 338b3410-da9d-11ee-afda-a90da7624cb6
+X-Inumbo-ID: 35d542d6-da9d-11ee-afda-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709607920; x=1710212720; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=GO37OSQRQXlN2VGFyW6LzwjH/NpS/PSzwjkGcO70oKE=;
-        b=bQnktXcuSynRg789+WgNB/k3JCU3EdOWVag3S7z4pUBxTxnoC0/7c1zCQKZ0bAYWTX
-         AahY04IZolUXZyv/5oOLHvGAnFpdr1s1mwfDQ3vQV0mhzmFj+w89dA0EVfwIdzT2oHYa
-         R2U9tviE/xyhwE6wTFS9SWEc/hX2zfhS46UxoT83X1I1U/XNttarPlV/ZUdd7ZoqZI4b
-         m1Qb6CSWTOtC8bXTj6KlwcXuLQHMsgG10ZN3cq+CiFUKqnN7rmm+6cffZ33qL1zWlRxm
-         dFgWr27N/xtHELoz+Sl5PghPtDCgGHE1IKKHF9Ud5UWjOqD0+JF/9RBKEBseO/oGrIoa
-         jE/g==
+        d=gmail.com; s=20230601; t=1709607924; x=1710212724; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Lvs1TetY/ywxZOqb7cu6/qS8FYbgNwju0ZDKmLnC7pk=;
+        b=eV+hOtfVSSrB4hO7qKY1NLugmhUP6FxyBU4rEdTt/Hl2uH3eFaCs90N3luwjiDnhsj
+         plbcMZrj2oObEWr6BiR7F/3Dvm4GHypSABu71vh1VB169m25fRp/6bLFMhoM5wxTLl2r
+         RxBEBwIwQBiTqbecJN6znNh2sktouvMyYJoPBqhDLLs6xMtCgay6RYkiiF3VPxFe045O
+         dPDY4gBmshVD13Dh/ehNNIuMm3OdXNBmdD1fjqd7nN1Ay4oSuIi4ZxJd9hRG9bohAfwI
+         A7yZW1FU0zsqrAmeEni+sEjrgVB3AIPqpYrobiUprqB0cFJQlC5S0XK/hpv0WzMUD2Zm
+         /JTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709607920; x=1710212720;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=GO37OSQRQXlN2VGFyW6LzwjH/NpS/PSzwjkGcO70oKE=;
-        b=LLBuW2g4LAD0i8cUE0UxImfJ3gJW6V0frbhqSllxtcE9DrP1nfZ4IXDPaUT/a+Qoe7
-         uteDBmXYCCg0CD1wY/oqu5n2jnlxir3OTui2JqTNHaSFsqTAHrVJHj9lGGfkNMJNP3/s
-         viRZumuVihhk5N6gyErrJgYRPaPBYU9LmSKTpZsnrKKwE530gPIQkTN6vRhtoMcuUlJ2
-         97qiNV1geK1RoXwciIV6oAB338xzbDZr+m1D4TJGlhhJ5fL1MRuS3+6O1ZqnL78f892F
-         AlCSADPh57XoY48TT3/4NpwzQ4gnUCPF72vtRwRiGHFRKbdml/B0ZslwJ7Z0VEnfKF3M
-         lG9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCV49LNWGYd+7HN6ZPjvk2pT0PUaPtu+2c9XKJao9LyoGevF7HdTEdlny1nS8tvRmdFtpkSvge5onnRXG6FhvM5uj5jA7POb8nLtzYuvvzE=
-X-Gm-Message-State: AOJu0YxTujz7O0XZ2EShSAFoulewQPllEU8obqZ/xFcnlkZL9lXXBCoj
-	+Ijf+0JF2zwl3B8QQKcFNouV+hYMZwYsh22AqFuE66msF4KZjzGL
-X-Google-Smtp-Source: AGHT+IF4DC0r95WIbRC/5og05/9WKTnTnsPpk3e37OmDlc5CQCogzBPB5agJQ7Ifv5VhRu3af2p6Pw==
-X-Received: by 2002:a05:6870:898f:b0:220:99bf:c26d with SMTP id f15-20020a056870898f00b0022099bfc26dmr589777oaq.9.1709607919882;
-        Mon, 04 Mar 2024 19:05:19 -0800 (PST)
+        d=1e100.net; s=20230601; t=1709607924; x=1710212724;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Lvs1TetY/ywxZOqb7cu6/qS8FYbgNwju0ZDKmLnC7pk=;
+        b=IR9O7gsAgAEDpWxG6okLL6LAL4idXIXo1i/YM28yicGTR4WdFWab+AMjuhHtQ676nk
+         DerO5auzcERS2+JWWPRcKUSUqfsIDvxqZYPSqMw0WAERevUSpQiC9dyg4TTETwM8HPQZ
+         y3w61uvlXGT+FgEjGBBWLQrpqNiDGJadKWVW7NgJVX05iM9wBliUOTKb7w0yqd9mjJo7
+         5Y7Aq+fBZPNfrgj/0TMrURf/mU9d/+ccDxEC5WDXKz2B8QoHrSnpuKIurEdeIvYximVJ
+         QLYvTvEnYyHL+gp/rx/dzY87aDEsET+/rBB6Rav3ctp9Y6QsE0rR//mOcY452cqqKRpq
+         E4XQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWzjxPi4GqeKs/2eN4vHzL/ipZZ6O9LtAoYGnEwFAf5bRM9e8j+cFPxsKm9rFgVouR7EYx19zdc3697fBVqD9tEuvebc1YVmbCzjCfgZRI=
+X-Gm-Message-State: AOJu0Yyo9EEMrlxTpD60P3yllNQHRxb5kTr4VyZsi/96ByGpHQMHayLa
+	MW25V9PAPYqMDx2zFMtlzy9+G3fDBzX/Sds+lvBbovnyAHObZMZI
+X-Google-Smtp-Source: AGHT+IFYfdb0wzVKskM65cSKwSSitCWQ5HIwpxCM5POpmVMYG5/Wx6Ndr8UyOlbODBpKZ1uFvI0VUw==
+X-Received: by 2002:a05:6808:4c3:b0:3c2:c13:978c with SMTP id a3-20020a05680804c300b003c20c13978cmr597466oie.5.1709607923728;
+        Mon, 04 Mar 2024 19:05:23 -0800 (PST)
 From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
 To: bpf@vger.kernel.org
 Cc: daniel@iogearbox.net,
@@ -93,65 +94,54 @@ Cc: daniel@iogearbox.net,
 	linux-mm@kvack.org,
 	xen-devel@lists.xenproject.org,
 	kernel-team@fb.com
-Subject: [PATCH v4 bpf-next 0/2] mm: Enforce ioremap address space and introduce sparse vm_area
-Date: Mon,  4 Mar 2024 19:05:14 -0800
-Message-Id: <20240305030516.41519-1-alexei.starovoitov@gmail.com>
+Subject: [PATCH v4 bpf-next 1/2] mm: Enforce VM_IOREMAP flag and range in ioremap_page_range.
+Date: Mon,  4 Mar 2024 19:05:15 -0800
+Message-Id: <20240305030516.41519-2-alexei.starovoitov@gmail.com>
 X-Mailer: git-send-email 2.39.3 (Apple Git-145)
+In-Reply-To: <20240305030516.41519-1-alexei.starovoitov@gmail.com>
+References: <20240305030516.41519-1-alexei.starovoitov@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 From: Alexei Starovoitov <ast@kernel.org>
 
-v3 -> v4
-- dropped VM_XEN patch for now. It will be in the follow up.
-- fixed constant as pointed out by Mike
+There are various users of get_vm_area() + ioremap_page_range() APIs.
+Enforce that get_vm_area() was requested as VM_IOREMAP type and range
+passed to ioremap_page_range() matches created vm_area to avoid
+accidentally ioremap-ing into wrong address range.
 
-v2 -> v3
-- added Christoph's reviewed-by to patch 1
-- cap commit log lines to 75 chars
-- factored out common checks in patch 3 into helper
-- made vm_area_unmap_pages() return void
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+---
+ mm/vmalloc.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-There are various users of kernel virtual address space:
-vmalloc, vmap, ioremap, xen.
-
-- vmalloc use case dominates the usage. Such vm areas have VM_ALLOC flag
-and these areas are treated differently by KASAN.
-
-- the areas created by vmap() function should be tagged with VM_MAP
-(as majority of the users do).
-
-- ioremap areas are tagged with VM_IOREMAP and vm area start is aligned
-to size of the area unlike vmalloc/vmap.
-
-- there is also xen usage that is marked as VM_IOREMAP, but it doesn't
-call ioremap_page_range() unlike all other VM_IOREMAP users.
-
-To clean this up a bit, enforce that ioremap_page_range() checks the range
-and VM_IOREMAP flag.
-
-In addition BPF would like to reserve regions of kernel virtual address
-space and populate it lazily, similar to xen use cases.
-For that reason, introduce VM_SPARSE flag and vm_area_[un]map_pages()
-helpers to populate this sparse area.
-
-In the end the /proc/vmallocinfo will show
-"vmalloc"
-"vmap"
-"ioremap"
-"sparse"
-categories for different kinds of address regions.
-
-ioremap, sparse will return zero when dumped through /proc/kcore
-
-Alexei Starovoitov (2):
-  mm: Enforce VM_IOREMAP flag and range in ioremap_page_range.
-  mm: Introduce VM_SPARSE kind and vm_area_[un]map_pages().
-
- include/linux/vmalloc.h |  5 +++
- mm/vmalloc.c            | 72 +++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 75 insertions(+), 2 deletions(-)
-
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index d12a17fc0c17..f42f98a127d5 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -307,8 +307,21 @@ static int vmap_range_noflush(unsigned long addr, unsigned long end,
+ int ioremap_page_range(unsigned long addr, unsigned long end,
+ 		phys_addr_t phys_addr, pgprot_t prot)
+ {
++	struct vm_struct *area;
+ 	int err;
+ 
++	area = find_vm_area((void *)addr);
++	if (!area || !(area->flags & VM_IOREMAP)) {
++		WARN_ONCE(1, "vm_area at addr %lx is not marked as VM_IOREMAP\n", addr);
++		return -EINVAL;
++	}
++	if (addr != (unsigned long)area->addr ||
++	    (void *)end != area->addr + get_vm_area_size(area)) {
++		WARN_ONCE(1, "ioremap request [%lx,%lx) doesn't match vm_area [%lx, %lx)\n",
++			  addr, end, (long)area->addr,
++			  (long)area->addr + get_vm_area_size(area));
++		return -ERANGE;
++	}
+ 	err = vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
+ 				 ioremap_max_page_shift);
+ 	flush_cache_vmap(addr, end);
 -- 
 2.43.0
 
