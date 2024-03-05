@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B3CD871729
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 08:42:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688615.1073014 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B22DE87178E
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 09:06:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688624.1073023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhPRV-0006j2-1A; Tue, 05 Mar 2024 07:42:29 +0000
+	id 1rhPnU-0002PH-6S; Tue, 05 Mar 2024 08:05:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688615.1073014; Tue, 05 Mar 2024 07:42:29 +0000
+Received: by outflank-mailman (output) from mailman id 688624.1073023; Tue, 05 Mar 2024 08:05:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhPRU-0006hV-UT; Tue, 05 Mar 2024 07:42:28 +0000
-Received: by outflank-mailman (input) for mailman id 688615;
- Tue, 05 Mar 2024 07:42:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rhPnU-0002Mu-3t; Tue, 05 Mar 2024 08:05:12 +0000
+Received: by outflank-mailman (input) for mailman id 688624;
+ Tue, 05 Mar 2024 08:05:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mek3=KL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rhPRT-0006hP-Km
- for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 07:42:27 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e9539508-dac3-11ee-afda-a90da7624cb6;
- Tue, 05 Mar 2024 08:42:26 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a26ed1e05c7so895426266b.2
- for <xen-devel@lists.xenproject.org>; Mon, 04 Mar 2024 23:42:26 -0800 (PST)
+ id 1rhPnS-0002Mo-H8
+ for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 08:05:10 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1401aac2-dac7-11ee-a1ee-f123f15fe8a2;
+ Tue, 05 Mar 2024 09:05:06 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a4499ef8b5aso383143966b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Mar 2024 00:05:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- an19-20020a17090656d300b00a4536b32ae0sm2255250ejc.30.2024.03.04.23.42.25
+ pv25-20020a170907209900b00a3ee9305b02sm5717054ejb.20.2024.03.05.00.05.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Mar 2024 23:42:25 -0800 (PST)
+ Tue, 05 Mar 2024 00:05:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9539508-dac3-11ee-afda-a90da7624cb6
+X-Inumbo-ID: 1401aac2-dac7-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709624546; x=1710229346; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709625906; x=1710230706; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=84R8AbOmfPnYlMLkc9ZNhLmmH6gcT0zgebxRsg5WjfQ=;
-        b=SrLk7TwJhz+fki3YlGSVhzwg/01kJkWDU2SpZPzSR0WmmNHXgbleoN44DKhJ2lVU1G
-         tnE2gcK/3eWTxBYxbbdZMef6sHJJOhFH58nsLmxaE/MWXAPCUumbLv6NSOR70syisSWR
-         eQJBnsZkIfA7OiJJP10dYd5Sdg3OoUX9Z0QH4it0QJEhIehGDeovya02qmqS/vLBVeuK
-         Ct99aIZaNDhSC1096Kx6PEL3lNBnPt+0QWXt2FJAFbDkCPLwo6Wz0+HjNIsq7mQm32HF
-         P8jpJa9U+lL33xHJ/myACaS10DTz6pd5Re8be/xqnqMrpBkdNPsFzBf3upefmvsA+pB6
-         3XjA==
+        bh=ZppC4XnuYv6vFg7B59V/gfQbC07jiAGXp641l7cWU7E=;
+        b=L8Ztma2gjG2oqJwxqvhGXBKeq2aPnw/F6BMNFYL44ngFIruf7jWVQqauMobF78zTKO
+         6v188OHtRUcQEft3n91uE3/TA9bR8zDACtV9j0wliYSNvrUMAYE3JOGZoKnWKjtx7Hz/
+         b1z8ZNXpCQS1uwlhDOivdZmOld/CfIgg4dXl80AAUJhKE9mh1Ag5yInOMESGOF7yB6zQ
+         JKEIb5D1iF8RKKjr2Ali/u7nn1RBtEOyTgbgYsJhVwu6is+wTQXUvs9CSjWxQomYdmAV
+         PYLZ75T0wB7mgi4y1E/LYtikwDP/1LRr8G5Ztl8DRWwPmLrvo0q3aq4/Kxe8h0RUPc0a
+         ujwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709624546; x=1710229346;
+        d=1e100.net; s=20230601; t=1709625906; x=1710230706;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=84R8AbOmfPnYlMLkc9ZNhLmmH6gcT0zgebxRsg5WjfQ=;
-        b=IrDECCTa+H3Zemn40eRdSZk6kINumoxVgUUOtNGEHwZ23RCnlaf2vYMVa4aw81llvs
-         6BtEEjJkTgmqJbZUoWFwJR0nlUvwF2/xEjYwI+cnYXS37RkpUOUD1Nzxf4EgrvxmYZjM
-         8hOL1QVlBRKsg+SFO/+kxpLitXRGqMYlGI6H/UMhG2SHMDIUx7pmp3KNpoCiKu10z/8o
-         zkkTR2EOJt38+E1XRbH/0CgtiMqNkZxvrZ52naikpz7sAsVXwU1SMrwTyWiVfDM7iABc
-         efZf3NJ78tai1uNfXGulXsQoh/kqBO01zM/JAVsKr53iaCa77h/2GQdvJXcf78noYfAU
-         TU8w==
-X-Forwarded-Encrypted: i=1; AJvYcCWRm5Le9Q75Mrx9sOaBj0U74+nn0MDnVvvZqN+dfqqkwXRSXwKffPSujo4W7vrofQgqYPp991YVb25itdnBE2rsMpMnVR7NEgdb9Hz1t6M=
-X-Gm-Message-State: AOJu0Yxj0v/YNtRh91JujpyXOy9bzZYHiUrHxAcwZRstjYBV1biwnlcG
-	uKWJcWH2DyROr4MZ+nXf/CPkI+TqbYBbZirJIhZuEkAQ/3krOuYpKs5GSlV5sQ==
-X-Google-Smtp-Source: AGHT+IHklhmfFAaRjcsTHjyiZJriZU6JO3b03Q1Z9qAnBfXM6pafrtOwcSllgg3XAym2ERnUlk0Xfw==
-X-Received: by 2002:a17:906:b254:b0:a45:ad52:d501 with SMTP id ce20-20020a170906b25400b00a45ad52d501mr95476ejb.12.1709624546010;
-        Mon, 04 Mar 2024 23:42:26 -0800 (PST)
-Message-ID: <f70aff01-610e-4b38-949f-f753d854b50b@suse.com>
-Date: Tue, 5 Mar 2024 08:42:24 +0100
+        bh=ZppC4XnuYv6vFg7B59V/gfQbC07jiAGXp641l7cWU7E=;
+        b=vRKHHDkHsuIjEDf4NR2jHUwxpIdQ6GAilaPQV8DrHWbVfAwe9JmPe/9n86PLo1pDqK
+         7b6MwDpR6jhWs3nLraEY3jatO+Dw9p3InQCorQ0RjCK0PaJcMP+7FydGJhCH+feMSARj
+         4rk32S/v1IkVxZP9oiTaxo9OJ4mnZKJ4Q3USu8pBZTzbk6Nbd8tCg6CKBI8Xr4nbSMrM
+         BxKumuoYrWdQjaQ7s7qFBYPrcAqa8bdrYvgDLx3SaxpXBL3lznE88iDVy24kkhtMxbhN
+         /nWrR06657xylZWoZaBTx6+kFocFjGv3+HAelwF5usMrposIiOIQTIMzWmIHUR0G+pgH
+         7XYw==
+X-Forwarded-Encrypted: i=1; AJvYcCUuCTMGWw0855KHL1BSANbbBhpssJnViqiiVle3yoqtBJHQaH4U3XXtlv+n44CBZEsdWVGvf0dCoCZvnRigkVrK84mxFBAk6qVKSBNyD5E=
+X-Gm-Message-State: AOJu0Yypjw+VzDGlpVhBX3tuxXSMqwVG9aDACRoqHo3ueupgjox/qjlo
+	dQ5ghkLDZ1Fay6a9nX4LhO9c1px1yjPLtIwySVxCcHmpijlgvGfvpFTiskLm6A==
+X-Google-Smtp-Source: AGHT+IFEqoW+Qa2czMVSnUt2/MnyfQBRNlJ37D7Km/QFaXOcEAClGka3Zab4bJVZJU5PgINg2AUHGw==
+X-Received: by 2002:a17:906:7f0e:b0:a44:b91e:315a with SMTP id d14-20020a1709067f0e00b00a44b91e315amr6953008ejr.68.1709625906322;
+        Tue, 05 Mar 2024 00:05:06 -0800 (PST)
+Message-ID: <bd916469-f764-4d2e-bce6-52e3ed5e74d1@suse.com>
+Date: Tue, 5 Mar 2024 09:05:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 10/23] xen/riscv: introduces acrquire, release and full
- barriers
+Subject: Re: [PATCH v5 18/23] xen/riscv: add minimal stuff to processor.h to
+ build full Xen
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
 References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
- <85eb894608120a05eb616cea721d24e02212a5cc.1708962629.git.oleksii.kurochko@gmail.com>
+ <4e1ee99a9ad71015b5e8860d20b63337b526d0e9.1708962629.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,30 +116,110 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <85eb894608120a05eb616cea721d24e02212a5cc.1708962629.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <4e1ee99a9ad71015b5e8860d20b63337b526d0e9.1708962629.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.02.2024 18:38, Oleksii Kurochko wrote:
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
-albeit ...
-
+On 26.02.2024 18:39, Oleksii Kurochko wrote:
 > --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/fence.h
-> @@ -0,0 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +#ifndef _ASM_RISCV_FENCE_H
-> +#define _ASM_RISCV_FENCE_H
+> +++ b/docs/misc/riscv/booting.txt
+> @@ -0,0 +1,8 @@
+> +System requirements
+> +===================
 > +
-> +#define RISCV_ACQUIRE_BARRIER   "\tfence r , rw\n"
-> +#define RISCV_RELEASE_BARRIER   "\tfence rw, w\n"
-> +#define RISCV_FULL_BARRIER      "\tfence rw, rw\n"
+> +The following extensions are expected to be supported by a system on which
+> +Xen is run:
+> +- Zihintpause:
+> +  On a system that doesn't have this extension, cpu_relax() should be
+> +  implemented properly. Otherwise, an illegal instruction exception will arise.
 
-... I'm not really happy with the \t and \n that are put here. My take
-on this is that it is the responsibility of the use site to supply such
-as and when necessary.
+This decision wants justifying in the (presently once again empty) description.
+
+Furthermore - will there really be an illegal instruction exception otherwise?
+Isn't it the nature of hints that they are NOPs if not serving their designated
+purpose?
+
+> --- a/xen/arch/riscv/arch.mk
+> +++ b/xen/arch/riscv/arch.mk
+> @@ -5,6 +5,12 @@ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+>  
+>  CFLAGS-$(CONFIG_RISCV_64) += -mabi=lp64
+>  
+> +ifeq ($(CONFIG_RISCV_64),y)
+> +has_zihintpause = $(call as-insn,$(CC) -mabi=lp64 -march=rv64i_zihintpause, "pause",_zihintpause,)
+> +else
+> +has_zihintpause = $(call as-insn,$(CC) -mabi=ilp32 -march=rv32i_zihintpause, "pause",_zihintpause,)
+> +endif
+
+Considering that down the road likely more such tests will want adding, I think
+this wants further abstracting for the rv32/rv64 difference (ideally in a way
+that wouldn't make future RV128 wrongly and silently take the RV32 branch).
+This would include eliminating the -mabi=lp64 redundancy with what's visible in
+context, perhaps by way of introducing a separate helper macro, e.g.
+
+riscv-abi-$(CONFIG_RISCV_32) := -mabi=ilp32
+riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
+
+I further see nothing wrong with also using $(riscv-march-y) here. I.e.
+overall
+
+_zihintpause := $(call as-insn,$(CC) $(riscv-abi-y) $(riscv-march-y)_zihintpause,"pause",_zihintpause)
+
+(still with potential of abstracting further through another macro such
+that not every such construct would need to spell out the ABI and arch
+compiler options).
+
+Plus a macro named has_* imo can be expected to expand to y or n. I would
+suggest to simply drop the "has", thus ...
+
+> @@ -12,7 +18,7 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
+>  # into the upper half _or_ the lower half of the address space.
+>  # -mcmodel=medlow would force Xen into the lower half.
+>  
+> -CFLAGS += -march=$(riscv-march-y) -mstrict-align -mcmodel=medany
+> +CFLAGS += -march=$(riscv-march-y)$(has_zihintpause) -mstrict-align -mcmodel=medany
+
+... also making the use site look 
+
+> --- a/xen/arch/riscv/include/asm/processor.h
+> +++ b/xen/arch/riscv/include/asm/processor.h
+> @@ -12,6 +12,9 @@
+>  
+>  #ifndef __ASSEMBLY__
+>  
+> +/* TODO: need to be implemeted */
+> +#define smp_processor_id() 0
+> +
+>  /* On stack VCPU state */
+>  struct cpu_user_regs
+>  {
+> @@ -53,6 +56,26 @@ struct cpu_user_regs
+>      unsigned long pregs;
+>  };
+>  
+> +/* TODO: need to implement */
+> +#define cpu_to_core(cpu)   (0)
+> +#define cpu_to_socket(cpu) (0)
+
+Nit: Like above in smp_processor_id() no need for parentheses here.
+
+> +static inline void cpu_relax(void)
+> +{
+> +#ifdef __riscv_zihintpause
+> +    /*
+> +     * Reduce instruction retirement.
+> +     * This assumes the PC changes.
+
+What is this 2nd sentence about?
+
+> +     */
+> +    __asm__ __volatile__ ( "pause" );
+> +#else
+> +    /* Encoding of the pause instruction */
+> +    __asm__ __volatile__ ( ".insn 0x100000F" );
+
+May I ask that you spell out the leading zero here, to make clear there
+aren't, by mistake, one to few zeroes in the middle?
 
 Jan
 
