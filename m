@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 335F6871FB9
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 14:00:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688792.1073393 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAF79871FBF
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 14:03:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688795.1073403 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhUOn-00018p-Bw; Tue, 05 Mar 2024 13:00:01 +0000
+	id 1rhURO-0002aZ-OD; Tue, 05 Mar 2024 13:02:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688792.1073393; Tue, 05 Mar 2024 13:00:01 +0000
+Received: by outflank-mailman (output) from mailman id 688795.1073403; Tue, 05 Mar 2024 13:02:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhUOn-00016U-8T; Tue, 05 Mar 2024 13:00:01 +0000
-Received: by outflank-mailman (input) for mailman id 688792;
- Tue, 05 Mar 2024 13:00:00 +0000
+	id 1rhURO-0002Ye-KP; Tue, 05 Mar 2024 13:02:42 +0000
+Received: by outflank-mailman (input) for mailman id 688795;
+ Tue, 05 Mar 2024 13:02:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Mb5t=KL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rhUOm-00014v-Iy
- for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 13:00:00 +0000
-Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
- [2607:f8b0:4864:20::730])
+ id 1rhURN-0002YY-JS
+ for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 13:02:41 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4505e192-daf0-11ee-a1ee-f123f15fe8a2;
- Tue, 05 Mar 2024 13:59:58 +0100 (CET)
-Received: by mail-qk1-x730.google.com with SMTP id
- af79cd13be357-7881f80b2aeso39667485a.3
- for <xen-devel@lists.xenproject.org>; Tue, 05 Mar 2024 04:59:58 -0800 (PST)
+ id a558eacc-daf0-11ee-a1ee-f123f15fe8a2;
+ Tue, 05 Mar 2024 14:02:39 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5654f700705so7743247a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Mar 2024 05:02:39 -0800 (PST)
 Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- mv7-20020a056214338700b0068f8a00f581sm6128496qvb.106.2024.03.05.04.59.56
+ dh18-20020a0564021d3200b0056760e830f0sm1885747edb.81.2024.03.05.05.02.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Mar 2024 04:59:56 -0800 (PST)
+ Tue, 05 Mar 2024 05:02:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4505e192-daf0-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: a558eacc-daf0-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709643597; x=1710248397; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1709643758; x=1710248558; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ju4tUB7F72eR7oZPnQnghhkysRyXA19ZzPw04aENNV8=;
-        b=dtlqxPSYZ7O3LgX9Ee7C2ScExRfNb3kAdbRYCy4PJTyWQx5Gd4hst8Tc8pSUGyPfto
-         3e309Apd/IGUgXnur6vzGbQrqhzAO1eCQpYjJaxGcW2qJQx9/NV9aqUT2+XJkurGVGbF
-         2285+sPbnxMYeLGEb6bxOu8CixeqeIxL7bKW0=
+        bh=fBWja+jM2d0PGuZam/o/TZhJWcnGuUdDP0aqZXCvB7w=;
+        b=fjxNlQirDWMoP9UPRJBoyDvZIfQunu/vokZXC6gULzTO4P75rnS3/UdQjBBaDTRQ7T
+         g1qX76nLSCDpUo9rwU/cTb/SYRY5WMS7v6nzE+spWsG/0qDeP2d5Iqci9pbxhsY2rwJ+
+         mVGKSH+IYFNNDZOLaaFqyACjJzYJuCSIMAhB0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709643597; x=1710248397;
+        d=1e100.net; s=20230601; t=1709643758; x=1710248558;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ju4tUB7F72eR7oZPnQnghhkysRyXA19ZzPw04aENNV8=;
-        b=lFaYLQvqj1xwPqoAyLLGz8Pv2BlFIIQEQu8jBI+wlPNAQNgcC9/5Pag7cfBGS/YciH
-         5NFrke0fa6RLZebfPEruiEEDAHAWzpEeq32fwM2drl2QdrjaDB2Y4GYY3DwbWaH4jq6n
-         4D+Nz2MyReV9GCHCzBhPTvS/yMQV/2Py3oJ8eUy9bsTRAohgDdv5Pr5quHzGceV4zy5p
-         2hSq3fkH4IXa2kNujBCTHCne2XmqsKcfAzdBRpmWO1WItDQZN47HdNgUm5LT9ilo2S6s
-         OyrF7YMOT/j/McwEYKLLenNFCqdxoKdA0u0l2AAO4/M6E0Zs28vaIIHX4RixQ2ZVCf+K
-         g6UA==
-X-Forwarded-Encrypted: i=1; AJvYcCVxIIvS6cL5RkSgi6DJ7YTxsGNCsVsQ2Mz3uPGSdSk+YGTZXRDSnuDJ8p+uFkXrU7N15IWR13R4trPQsIPw779tEfWmBAGZi/bARGUWFsY=
-X-Gm-Message-State: AOJu0Yzzv3If94057PYqIRb4HoIUx20qyTy/j6h7lkuiTIcvViKcZKY0
-	3Ui9FYcChhWPtYd/LchH9GLSsJ0uI9Yg7THYcA0lcVcE1xRMho5it0TLyfy/djxhmh2VN2Sv0AK
-	q
-X-Google-Smtp-Source: AGHT+IHuqqw7P+KwBu6BxqA8NHP11iXaK1O04qC3d4XUKkOXDVBlOW4gKhOIXL9jDOJsaDclqYVwlw==
-X-Received: by 2002:a0c:dd8a:0:b0:68f:3919:ebc2 with SMTP id v10-20020a0cdd8a000000b0068f3919ebc2mr1926791qvk.39.1709643597500;
-        Tue, 05 Mar 2024 04:59:57 -0800 (PST)
-Message-ID: <0c0d350c-8b87-4870-aea8-6f9856009ce7@citrix.com>
-Date: Tue, 5 Mar 2024 12:59:54 +0000
+        bh=fBWja+jM2d0PGuZam/o/TZhJWcnGuUdDP0aqZXCvB7w=;
+        b=bJ6WCCHRQVw76ckSsnSN0jvVUUeYmgu7ilP9s6y5EwmOZESWZDvH15SaWb9uuEdnR8
+         RlHWTfAcZ1efSosGW4xWmBZUIzUrXjxUc8wYKle1H4yUVluI3Zog4yVbzP7JN3/n+Zqe
+         XhwbBoYzi9ZHsNUypp1AWo9HBBUo+QKRbGa4DtZBiBnUDiMTiWi4SZPDTnvBszp4ULdf
+         OlCe0ETSRco/mNEpQlSVMVzHQ8PizWF6S24YxVPg55UeN9TiPvfmq8865TrS4juAUan3
+         C8lw85Kh5NFzbWnXKcFdHaZ80gbT2FytZNyhOwqxvS/weIiip20sXVHY0vd5ig2NQ0LR
+         9PYA==
+X-Gm-Message-State: AOJu0YwV9ySgJ5hn6wsXqd2XJn7A9kkIZTFbjWpcvFT3+NzEzBE/gq+M
+	RaVbxhYYHIApDamwfy6dU1jLgELK2oNUHvgp5dOFy81KLnSPEKkWMQPIZlZMjdZZvRjq8sxnC/b
+	1
+X-Google-Smtp-Source: AGHT+IHwEAbtsWzs7Nw2LWvks57AuuQAxw30sQuhzDI7Zp9gSu33Uk64+dnnm+lg6cxzllouDH/mRQ==
+X-Received: by 2002:a50:85c6:0:b0:565:9fff:6046 with SMTP id q6-20020a5085c6000000b005659fff6046mr9471361edh.3.1709643758148;
+        Tue, 05 Mar 2024 05:02:38 -0800 (PST)
+Message-ID: <d6448913-8f22-40ee-b703-4d154906eab7@citrix.com>
+Date: Tue, 5 Mar 2024 13:02:37 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/{RISCV,PPC}/xen.lds: Delete duplicate _erodata
- definitions
+Subject: Re: [PATCH 3/3] x86/livepatch: Relax permissions on rodata too
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240305122121.3529541-1-andrew.cooper3@citrix.com>
- <f6ddaaf3-8c55-4155-9924-861b356f61dc@suse.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20240305121121.3527944-1-andrew.cooper3@citrix.com>
+ <20240305121121.3527944-4-andrew.cooper3@citrix.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -131,27 +129,28 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <f6ddaaf3-8c55-4155-9924-861b356f61dc@suse.com>
+In-Reply-To: <20240305121121.3527944-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05/03/2024 12:44 pm, Jan Beulich wrote:
-> On 05.03.2024 13:21, Andrew Cooper wrote:
->> This is bad copy/paste from somewhere.  Retain the second _erodata symbol,
->> which follows the Build ID, and matches the other architectures.
->>
->> No functional change.
-> I.e. the 2nd one took effect?
+On 05/03/2024 12:11 pm, Andrew Cooper wrote:
+> diff --git a/xen/common/virtual_region.c b/xen/common/virtual_region.c
+> index d2efe9e11492..f45812483b8e 100644
+> --- a/xen/common/virtual_region.c
+> +++ b/xen/common/virtual_region.c
+> @@ -91,9 +91,15 @@ void relax_virtual_region_perms(void)
+>  
+>      rcu_read_lock(&rcu_virtual_region_lock);
+>      list_for_each_entry_rcu( region, &virtual_region_list, list )
+> +    {
+>          modify_xen_mappings_lite((unsigned long)region->text_start,
+>                                   PAGE_ALIGN((unsigned long)region->text_end),
+>                                   PAGE_HYPERVISOR_RWX);
+> +        if ( region->rodata_start )
+> +            modify_xen_mappings_lite((unsigned long)region->rodata_start,
+> +                                     ROUNDUP((unsigned long)region->rodata_end, PAGE_SIZE),
 
-Seems to have done, yes.
+I missed the final refresh to turn this to PAGE_ALIGN().  Fixed locally.
 
->  (To be honest I'm surprised the linker
-> didn't complain about a duplicate symbol there.)
->
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Thanks.
-
-
+~Andrew
 
