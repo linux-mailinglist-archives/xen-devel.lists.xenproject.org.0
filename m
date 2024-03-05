@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E711B871F00
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 13:21:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688785.1073373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC08A871F71
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Mar 2024 13:45:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688789.1073383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhTnS-00038i-Bx; Tue, 05 Mar 2024 12:21:26 +0000
+	id 1rhU9l-0006oY-2n; Tue, 05 Mar 2024 12:44:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688785.1073373; Tue, 05 Mar 2024 12:21:26 +0000
+Received: by outflank-mailman (output) from mailman id 688789.1073383; Tue, 05 Mar 2024 12:44:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhTnS-00036a-9J; Tue, 05 Mar 2024 12:21:26 +0000
-Received: by outflank-mailman (input) for mailman id 688785;
- Tue, 05 Mar 2024 12:21:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mb5t=KL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rhTnQ-00036E-H2
- for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 12:21:24 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1c3cc7c-daea-11ee-afda-a90da7624cb6;
- Tue, 05 Mar 2024 13:21:24 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-56682b85220so8930555a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 05 Mar 2024 04:21:24 -0800 (PST)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- d17-20020a056402517100b005671100145dsm3559454ede.55.2024.03.05.04.21.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Mar 2024 04:21:22 -0800 (PST)
+	id 1rhU9l-0006n2-04; Tue, 05 Mar 2024 12:44:29 +0000
+Received: by outflank-mailman (input) for mailman id 688789;
+ Tue, 05 Mar 2024 12:44:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Mek3=KL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rhU9k-0006mw-6D
+ for xen-devel@lists.xenproject.org; Tue, 05 Mar 2024 12:44:28 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 18c3f1f0-daee-11ee-a1ee-f123f15fe8a2;
+ Tue, 05 Mar 2024 13:44:25 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a44f2d894b7so366544066b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Mar 2024 04:44:25 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ bo12-20020a170906d04c00b00a456f7628b7sm1792661ejb.27.2024.03.05.04.44.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Mar 2024 04:44:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,89 +45,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1c3cc7c-daea-11ee-afda-a90da7624cb6
+X-Inumbo-ID: 18c3f1f0-daee-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709641283; x=1710246083; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=e3i4C+xzhxQOm5TomDZOcoUjBDYeat+d4hlJTa4Id/Q=;
-        b=QiPnIF2i/WIkG+pSOtsHTLcU5YYzAo3RLG4iG0T1OnbVgYtxI0U0nK6zacLkFuaE5x
-         ktIABviXw/y8/HT408mk/jXgWr+vVQnt4qWyoVFZEDdoNuQ+AgCx9U007ppUFtX4SozT
-         MkHONaPR3saUtGl1jjYHAGSTUT/hBvBrqT1r4=
+        d=suse.com; s=google; t=1709642664; x=1710247464; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5i43aPJbdQgCLS7XtGHNgI9d3EjgkyrrCs5IB75O0us=;
+        b=NvTR64+Vu1ln8dpDek+Grmy8VadKYwevuJqwjkTzT+oPMh76IkXWvOK5SgQPvSrRKi
+         UcM8Jkjwd4VvkntQearDZnqAT2ksNJbrWfneAAhvJfGzVei3qC/1crwed4YaQUk/MCuB
+         xwUqbKr/K6k/ahyiqwlUVXC5MNEeY0CNICShIJ/gzDk5PwVvvUdHpzmQcUMWB4o/tzUw
+         obE57MzjHlKQMTvtSlyZogB1cCJEpjkdmk5zZtolaci3IFY/Zh67O0rxlLu57FWKf6Sz
+         SdcMfI0PP9dOtPc8gkZSUJHLvTYyqx1q3VZ+PL2/5vgkYEgNReOttvJGcULhR/UKVRuY
+         +MqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709641283; x=1710246083;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=e3i4C+xzhxQOm5TomDZOcoUjBDYeat+d4hlJTa4Id/Q=;
-        b=T3LWkcP7gcKlI9IXoccUKMpzOO/HViAJj1nD6P04EKO6xDHnaS0wm11RKupy4TYSxW
-         /HqH+eAWVRO3qkL4yoEMqa+/reuHknj2zYK2Xj/lKrVUM8dNzhOEqmjUuKaP5kXaNs27
-         fckXcjYSmr7Dz2A/d4aJsRq0xRUl2CD7nyZj/a+B3GS6DVgRR/GHIylhNgGl561hZzS1
-         RMKdIDSc0PuAkGYiMQGVH7WcdDJlC0DcDpAGqfAVL0/d3lqubIDOXBmAT8566C6kTyay
-         ijxla/Grg4FoMFBUeQ81AmlH7TeZqY2FcbjxZTJUoRgACKsoqv4EX6Gq6AhghGcFBFDX
-         dXLw==
-X-Gm-Message-State: AOJu0Yx9pdQ37/q5GKYapCtsR72xNSkqNduZT/E17IvpmbkZBT2V9oR/
-	J53PJ+7IbHuok/Gd+cxHLyzUPuHP5TSvFxNd7HJBSp25mHMZGN4aZD+7BUj8y+kzh+i5w22F6Qj
-	D
-X-Google-Smtp-Source: AGHT+IFynhTQKYhGLVqq9tzOLefAbg6pvPdrY7Js09ndbbQRoPATwuZA5uMChfo/Z/iZi0Iyg0pr1A==
-X-Received: by 2002:a05:6402:3d5:b0:567:6c77:dd43 with SMTP id t21-20020a05640203d500b005676c77dd43mr2764585edw.18.1709641282826;
-        Tue, 05 Mar 2024 04:21:22 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH] xen/{RISCV,PPC}/xen.lds: Delete duplicate _erodata definitions
-Date: Tue,  5 Mar 2024 12:21:21 +0000
-Message-Id: <20240305122121.3529541-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+        d=1e100.net; s=20230601; t=1709642664; x=1710247464;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5i43aPJbdQgCLS7XtGHNgI9d3EjgkyrrCs5IB75O0us=;
+        b=j4l6/Mc55TIxwURB943y9huZkl3ZmyAgX6UC0ihWfrdPhGVQeQYMK7+fl2mGWRTrcD
+         uqXvryAfappA0dbL11OeEUFKoLF4LavptrdV0qVVxBcMp9Zr2dATJ6vefCS31cd/aae1
+         Er/Y4fxMSbv8xhW+xgR6kZcgXt0XvaZ7WtwyCe0HrUVuCa3Tntmx2fKU2bCga+bEy0tY
+         j2a6PjlIhrxF3kbKBSYo28FMmXRXAwfP4WcQDvqmMxZhYth2tAyALou23ubp2ghB+rVM
+         m1dLoSIM/zBLl+qgwAQPJaObjpsTf9LVZym/ma67ZWQklQ00aUQgx4iXCvraIP40+dHL
+         ImWQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXPPp5CX8UtPnvwM54A2EPmkRkxVpMie+5o/IvG5FXaYZih7h9KJRdgtFvNbwXlR7Uwjw9bFil9tuS8+knA1X4pzGtjgrAjkn/Fqhn7l6E=
+X-Gm-Message-State: AOJu0YwsJptuXh3h+6t2go8xiUeNElNyt3Qxsc8RYvb5qUiXI40JMSFf
+	q8I5t4iJuOobqSGpRLdCa3k6SoRcwiU+xAl9SvADGEyCWU257znwgh4dBuWGRQ==
+X-Google-Smtp-Source: AGHT+IHkO9vyaF0Q5PjcIxBVatSZEhBRlhB7Q3Kdv4XbFIOwDujuUEMTWQCsQ8V/ptixQfkNhVD6Lg==
+X-Received: by 2002:a17:906:a3cf:b0:a45:16af:bda1 with SMTP id ca15-20020a170906a3cf00b00a4516afbda1mr4456493ejb.12.1709642664297;
+        Tue, 05 Mar 2024 04:44:24 -0800 (PST)
+Message-ID: <f6ddaaf3-8c55-4155-9924-861b356f61dc@suse.com>
+Date: Tue, 5 Mar 2024 13:44:23 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/{RISCV,PPC}/xen.lds: Delete duplicate _erodata
+ definitions
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240305122121.3529541-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240305122121.3529541-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is bad copy/paste from somewhere.  Retain the second _erodata symbol,
-which follows the Build ID, and matches the other architectures.
+On 05.03.2024 13:21, Andrew Cooper wrote:
+> This is bad copy/paste from somewhere.  Retain the second _erodata symbol,
+> which follows the Build ID, and matches the other architectures.
+> 
+> No functional change.
 
-No functional change.
+I.e. the 2nd one took effect? (To be honest I'm surprised the linker
+didn't complain about a duplicate symbol there.)
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-CC: Shawn Anastasio <sanastasio@raptorengineering.com>
----
- xen/arch/ppc/xen.lds.S   | 1 -
- xen/arch/riscv/xen.lds.S | 1 -
- 2 files changed, 2 deletions(-)
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
-index 030e1ee37b55..05b6db272805 100644
---- a/xen/arch/ppc/xen.lds.S
-+++ b/xen/arch/ppc/xen.lds.S
-@@ -60,7 +60,6 @@ SECTIONS
-         VPCI_ARRAY
- 
-         . = ALIGN(POINTER_ALIGN);
--        _erodata = .;        /* End of read-only data */
-     } :text
- 
-     #if defined(BUILD_ID)
-diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
-index 8510a87c4d06..ace6f49c579c 100644
---- a/xen/arch/riscv/xen.lds.S
-+++ b/xen/arch/riscv/xen.lds.S
-@@ -60,7 +60,6 @@ SECTIONS
-         VPCI_ARRAY
- 
-         . = ALIGN(POINTER_ALIGN);
--        _erodata = .;        /* End of read-only data */
-     } :text
- 
-     #if defined(BUILD_ID)
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-base-commit: fc84b4a5a37b9250d87ef63983b48e1953bba6d1
-prerequisite-patch-id: b14999775a3dc222f2f94d7d5d7a1db377de9cb9
-prerequisite-patch-id: 00650d75df673992b4c8cb6d7ac61dab72b9b309
-prerequisite-patch-id: 5464f5f1e7448cde38749a3744c9e74708727dee
--- 
-2.30.2
 
 
