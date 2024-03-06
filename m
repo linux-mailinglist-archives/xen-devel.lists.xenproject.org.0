@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA49E873D71
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 18:22:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689428.1074385 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1352873D86
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 18:29:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689434.1074395 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhuy3-0002hV-H2; Wed, 06 Mar 2024 17:22:11 +0000
+	id 1rhv4k-0003Nz-9B; Wed, 06 Mar 2024 17:29:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689428.1074385; Wed, 06 Mar 2024 17:22:11 +0000
+Received: by outflank-mailman (output) from mailman id 689434.1074395; Wed, 06 Mar 2024 17:29:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhuy3-0002ez-CZ; Wed, 06 Mar 2024 17:22:11 +0000
-Received: by outflank-mailman (input) for mailman id 689428;
- Wed, 06 Mar 2024 17:22:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rhv4k-0003M6-61; Wed, 06 Mar 2024 17:29:06 +0000
+Received: by outflank-mailman (input) for mailman id 689434;
+ Wed, 06 Mar 2024 17:29:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b0MG=KM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rhuy2-0002et-Ke
- for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 17:22:10 +0000
-Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
- [2607:f8b0:4864:20::736])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f445cf05-dbdd-11ee-afda-a90da7624cb6;
- Wed, 06 Mar 2024 18:21:23 +0100 (CET)
-Received: by mail-qk1-x736.google.com with SMTP id
- af79cd13be357-7884384438dso776485a.1
- for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 09:21:23 -0800 (PST)
-Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- pa7-20020a056214480700b0068f8a21a065sm7692538qvb.13.2024.03.06.09.21.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Mar 2024 09:21:21 -0800 (PST)
+ <SRS0=VjQC=KM=gmail.com=euidzero@srs-se1.protection.inumbo.net>)
+ id 1rhv4i-0003Ly-MQ
+ for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 17:29:04 +0000
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [2607:f8b0:4864:20::102a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 05d76583-dbdf-11ee-a1ee-f123f15fe8a2;
+ Wed, 06 Mar 2024 18:29:02 +0100 (CET)
+Received: by mail-pj1-x102a.google.com with SMTP id
+ 98e67ed59e1d1-29b31254820so3034699a91.0
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 09:29:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,140 +40,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f445cf05-dbdd-11ee-afda-a90da7624cb6
+X-Inumbo-ID: 05d76583-dbdf-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709745682; x=1710350482; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=1nxCopfxV6EPaal9AV9NrrH/uSsPcKDTN5Lg9Eqtxm0=;
-        b=STH8+PseeWnXHqGh1GFJOFAVTEjmQS5VWeRB7zeZvPBQFCEd4o3m6mkxiCX7xajZfD
-         DmaLpolCfA4y+z0UbGb/Bx7qGTfUad+TCnifRy9tYsDjQiX4ustSz0W4lnmx0j/Z+Xp7
-         rixgR7xX5EsfmAewBB23UsEAwH9+asHtqu65E=
+        d=gmail.com; s=20230601; t=1709746141; x=1710350941; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Wo+d/Xr9lGCvYIjueal3SEaIryY8gDEHwf05Z8ZS13s=;
+        b=goNwYS9wQ9wjSBKDpDnyXMKDzyq+n+fmWyGn5v6HiJ2Bi5dfWFNTDhke1AIszv6FO4
+         qrwVHL5++0VlG8+F0U3MdkNmLiKQl1RvGb2hEbI8QjPqcYvzoXTs6pXZbJvYQYTKeeWh
+         Fli1os4FSMLimMTSHMkYSrLJfH9QzHg/JUFp5xOaNg0Tc4ZBOHbM+29c6zKGDiBpNmAH
+         spAt2M3VtVq+mrMiWhhObTJLWntct3NtrNhP8l2A05kpMxX3NDEhhmVGNQV7TLVwyFuC
+         ZTMrXgMnXyEG0q3qJUG4dfkp4w5iJ3DxPmTm55vzmGZfQvG/2KVSSYlLTPvqoiAki7b2
+         JMaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709745682; x=1710350482;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1nxCopfxV6EPaal9AV9NrrH/uSsPcKDTN5Lg9Eqtxm0=;
-        b=rk0Pf9SDMjiJNvnqWldZ2+h1HnHlXQGgl3Gtr6MUCTrhgHWRKrBmBgnjk7XSxPe5bq
-         G6JJMm6u9z4zeoDDp+GhTBdagq1cpFOTp0O6ZXmrFxyk+JANv24oeUl8a+9+s8y/2Ap3
-         rG3JtIWOU/C6rbzVcyij8d+5AK7u1MXkTB+MpBZdlhkTTdkgqBv03XLm6ZG4m8KzOzCv
-         AKTr68CX63KH2V8wsm7c3dzKNNu29fWKOXPW8HuN/iERJaac/f6C8e/whlITXaPDLD27
-         xXimxoVZz01Ns6ZRkmw4ugoGi5CO55u8z34KKkGoywUbdFKrnIblzl5nK5wxEinF9dyC
-         2vwQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW+kriAvZbFccpsMLi8ZSXRp80+nmDeV+p7F7J/FCzTYsBc65G6qOLaB3o2qi3p2kJNa0mPsAU2k9oz0befh/PuLfXN5/YbRjvrC/4Ia5s=
-X-Gm-Message-State: AOJu0YwpixJGYwZTvXKK5Ri4YAUtFW1yDeM3T5Of11t8P2T/PGrLYCFc
-	4P265pPTsi+UMv8btdq/6wrzK9ijQlO3JJfdAu6dzEKs7U3ZCDlHv3Fza0RdLQInxJ4cr6G4fwG
-	X
-X-Google-Smtp-Source: AGHT+IHZDpEhAuKepksGbYvfCWJt9FC0LhsmdRD5cSIpZSd48qCFy29X3e4nnc1HI9Z+8HxVASL6/A==
-X-Received: by 2002:ad4:56e3:0:b0:68f:edeb:6b8c with SMTP id cr3-20020ad456e3000000b0068fedeb6b8cmr4999098qvb.12.1709745682250;
-        Wed, 06 Mar 2024 09:21:22 -0800 (PST)
-Message-ID: <82126c3a-0cde-452f-86aa-2571482f42aa@citrix.com>
-Date: Wed, 6 Mar 2024 17:21:19 +0000
+        d=1e100.net; s=20230601; t=1709746141; x=1710350941;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Wo+d/Xr9lGCvYIjueal3SEaIryY8gDEHwf05Z8ZS13s=;
+        b=ELdEe4Ao/errSL04PqRcPawQp0DIdu+UUYyhStIn9aY6Fidrh4wH2NsO8WG/8/YKhz
+         D2PYnIYtB7KAG2it0hkf4/cMlNZCP8Q+B6dBWfWmuDh6dMnwQ/Bb4utIl1u3s5ap6I1e
+         zmQwmk0GZs5iYpzDP5NpcAnfJVvTG5MR0k/f8lfy6o4/egkUmwvxDxk61+jZ8ejvj8s7
+         MLIwXGya6hS+Gx4qyUAsjkoALDUqXLsABryXW9x7XTcua7OmArTimC1HmmbBvpG3oMiJ
+         wkKAf0Qj88mQ1ITWxKJYyjVdGrl6WnrT5gbJbnaAniYSOTncERxbxIrQaviZDcH3ThDZ
+         21Yw==
+X-Gm-Message-State: AOJu0YwhX5YvYF+pp8JoMs0he/L8X/P3QT6RxcFy2aaOHhVf8gm/RaqC
+	+338lVnBVocsqdz6bGgpaLNWWNsjkb1i0QfbThNYiXbkaLr7CYTDhPGdco44JymobHSyvMdTgA2
+	jG/14ERQi7yiZ0dR7OjD7YSuw7FAXb4L5gss=
+X-Google-Smtp-Source: AGHT+IHrFIb/6HH+eC1Cs2jKzwjkYPvAxyHsiGKlRjr2jbzcyMU/7KHLHmT8HduN9pt1aKRGdREp6ewAIBBxgd5s7j4=
+X-Received: by 2002:a17:90a:70f:b0:29b:7921:6b93 with SMTP id
+ l15-20020a17090a070f00b0029b79216b93mr1612376pjl.47.1709746140781; Wed, 06
+ Mar 2024 09:29:00 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] xen/virtual-region: Include rodata pointers
-Content-Language: en-GB
-To: Ross Lagerwall <ross.lagerwall@cloud.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240305121121.3527944-1-andrew.cooper3@citrix.com>
- <20240305121121.3527944-3-andrew.cooper3@citrix.com>
- <87b82706-f538-4807-abaf-1e59cebd286b@suse.com>
- <CAG7k0EqWrPU0qocSJHyJAQca44LakQwZwAbiv5GRk-sQeaAYAg@mail.gmail.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <CAG7k0EqWrPU0qocSJHyJAQca44LakQwZwAbiv5GRk-sQeaAYAg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
+ <CAKm-UmaUZ=rj-F3RvMoR7H3OvBHm1iy4PTRZAjyi=MQUVTuYVg@mail.gmail.com>
+ <CAKm-Umat77MTh6=GEuH+bf1WRX+_B4-N5hY4xwADALfhj4QCPA@mail.gmail.com>
+ <6ba9568a-ff8e-48ad-907f-74303e04d3a2@suse.com> <CAKm-UmZVoUhidEV15Xk+J_XN5a2GsBqMbXL9wqdFdoAFf_u5AA@mail.gmail.com>
+ <bcbceba7-42ac-45be-80ab-e3dfe7741ec6@suse.com> <2eafe45b-fd97-472c-a173-459d6ff0b957@suse.com>
+ <CAKm-Umbs2D7NHFE+NW2xKOu7-AZhFpH4uzE5QTuQusnGA_eNWA@mail.gmail.com>
+ <f539144c-885a-461c-a506-bdb73e626a65@suse.com> <CAKm-UmY126AfdGhWcZ3s9vwN9+ksVRRFEhOu0ZFMoDvxrqOibw@mail.gmail.com>
+ <CAKm-UmYt3iV8zOhSmtqMGhi_8T93c_nCbnefs4m3UC+3UABqeQ@mail.gmail.com>
+ <CAKm-UmY-KXEAtBagikW4Jvp=SFXtmEg8P62pHfSo3Hr2s-0_-A@mail.gmail.com>
+ <CAKm-UmYbMCfXc1Ny0=qfB+UaLSXV9oEHZiSgS=mwKMwmOFGVrQ@mail.gmail.com>
+ <77c1c05d-a0a0-4292-9257-9b7fbebee0e3@suse.com> <2859ad22-8714-4628-8142-fc77fc2072c3@amd.com>
+ <CAKm-UmZpyGkWXugYTJqU+qqVDyCFEKghtd=NTr2wK5EMCeL9Ww@mail.gmail.com>
+ <214585d5-689d-4ba6-bd48-359428a7ed8f@amd.com> <CAKm-UmZoKwre8-G793VqRNFCmzAti1o-0Kp3ZyV_Z5cc0YNiKw@mail.gmail.com>
+ <CAKm-Umb=kGFqc5je9E3bbfQ0bcbZeY_Ntv5JDmO-vXj3N0MvPg@mail.gmail.com> <CAKm-UmZ113q-a8wEE5yo0OPPM3JpNqJzKaU1eNiCzT2YkGU0pQ@mail.gmail.com>
+In-Reply-To: <CAKm-UmZ113q-a8wEE5yo0OPPM3JpNqJzKaU1eNiCzT2YkGU0pQ@mail.gmail.com>
+From: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
+Date: Wed, 6 Mar 2024 18:28:49 +0100
+Message-ID: <CAKm-UmaG3KRtDkrEH7cNgLkRkRs2HG357S=BUjomhN6Ad-AkCQ@mail.gmail.com>
+Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Mario Limonciello <mario.limonciello@amd.com>, 
+	Juergen Gross <jgross@suse.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Content-Type: multipart/alternative; boundary="00000000000060a6300613014b0b"
 
-On 06/03/2024 5:09 pm, Ross Lagerwall wrote:
-> On Tue, Mar 5, 2024 at 2:17 PM Jan Beulich <jbeulich@suse.com> wrote:
->> On 05.03.2024 13:11, Andrew Cooper wrote:
->>> --- a/xen/include/xen/virtual_region.h
->>> +++ b/xen/include/xen/virtual_region.h
->>> @@ -16,6 +16,9 @@ struct virtual_region
->>>      const void *text_start;                /* .text virtual address start. */
->>>      const void *text_end;                  /* .text virtual address end. */
->>>
->>> +    const void *rodata_start;              /* .rodata virtual address start (optional). */
->>> +    const void *rodata_end;                /* .rodata virtual address end. */
->>> +
->>>      /* If this is NULL the default lookup mechanism is used. */
->>>      symbols_lookup_t *symbols_lookup;
->> While perhaps the least bad one can do without quite a bit more churn,
->> I'm still irritated by a virtual region (singular) suddenly covering
->> two ranges of VA space. At the very least I think the description should
->> say a word of justification in this regard. An alternative, after all,
->> could have been for livepatch code to register separate regions for
->> rodata (if present in a patch).
->>
->> A follow-on question then would be why ordinary data isn't reflected in
->> a virtual region. Aiui that's just because livepatch presently has no
->> need for it.
->>
->> Underlying question to both: Is the virtual region concept indeed meant
->> to be fully tied to livepatch and its needs?
->>
-> Virtual regions were introduced for live patching but I don't think it
-> is completely tied to live patching. It was introduced so that any code
-> can participate in symbol lookup, bug frame and exception table entry
-> search, rather than special casing "if livepatch" in many places.
+--00000000000060a6300613014b0b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Reasoning backward  (using a  kernel without the pinctrl_amd driver to
+> ensure xen only is at stake) :
+>  checking the diff in IOAPIC  between bare metal and xen  (IRQ7 is on
+> pin07 on APIC )
 >
-> I agree that the virtual region concept is being abused here - it's just
-> being used as a convenient place to store rodata start/end and doesn't
-> really have much to do with the text start & end / bug frame / exception
-> table entry search that the virtual region is intended for.
+> using kernel argument : apic=3Ddebug
 >
-> Maybe Andrew can explain why he used this approach?
+> bare metal :
+> [    0.715330] fedora kernel: ... APIC VERSION: 81050010
+> ...
+> [    0.715433] fedora kernel:  pin07, disabled, edge , high, V(00),
+> IRR(0), S(0), physical, D(0000), M(0)
+>
+> xen :
+> [    2.249582] fedora kernel: ... APIC VERSION: 00000014
+> ...
+> [    2.249730] fedora kernel:  pin07, disabled, level, low , V(60),
+> IRR(0), S(0), physical, D(0000), M(0)
+>
+> So the APIC table is not the same.
+>
+> As strange as it looks the  (IOAPIC 0) pin07 is correctly described by th=
+e
+> APIC in xen but yet differently than in baremetal.
+> But the APIC message comes long after the
+> [    1.833145] fedora kernel: xen: registering gsi 7 triggering 0 polarit=
+y
+> 1
+>
+> so I wonder if the APIC pin07 info had any influence.
+>
+> Finally found the fix : adding ioapic_ack=3Dnew to xen boot parameters.
+Not only the trackpad is now working but also the ACPI Embedded Controller
+which is completely disabled.
 
-I feel the simplicity and obviousness of patch 3 speaks for itself.
+S=C3=A9bastien
 
-How do you propose fixing it differently.
+--00000000000060a6300613014b0b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-~Andrew
+<div dir=3D"ltr"><div dir=3D"ltr"><div><br></div></div><br><div class=3D"gm=
+ail_quote"><br><div dir=3D"ltr"><div class=3D"gmail_quote"><div><div><div><=
+br></div></div></div></div></div><blockquote class=3D"gmail_quote" style=3D=
+"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
+ft:1ex"><div dir=3D"ltr"><div class=3D"gmail_quote"><div>Reasoning backward=
+=C2=A0 (using a=C2=A0 kernel without the pinctrl_amd driver to ensure xen o=
+nly is at stake) :</div><div>=C2=A0checking the diff in IOAPIC=C2=A0 betwee=
+n bare metal and xen=C2=A0 (IRQ7 is on pin07 on APIC ) <br></div><div><br><=
+/div><div>using kernel argument : apic=3Ddebug</div><div><br></div><div>bar=
+e metal :</div><div>[ =C2=A0 =C2=A00.715330] fedora kernel: ... APIC VERSIO=
+N: 81050010</div><div>...</div><div>[ =C2=A0 =C2=A00.715433] fedora kernel:=
+ =C2=A0pin07, disabled, edge , high, V(00), IRR(0), S(0), physical, D(0000)=
+, M(0)</div><div><br></div><div>xen :<br></div><div>[ =C2=A0 =C2=A02.249582=
+] fedora kernel: ... APIC VERSION: 00000014</div><div>...</div><div>[ =C2=
+=A0 =C2=A02.249730] fedora kernel: =C2=A0pin07, disabled, level, low , V(60=
+), IRR(0), S(0), physical, D(0000), M(0)</div><div><br></div><div>So the AP=
+IC table is not the same.</div><div><br></div><div>As strange as it looks t=
+he=C2=A0 (IOAPIC 0) pin07 is correctly described by the APIC in xen but yet=
+ differently than in baremetal.</div><div>But the APIC message comes long a=
+fter the <br></div><div>[ =C2=A0 =C2=A01.833145] fedora kernel: xen: regist=
+ering gsi 7 triggering 0 polarity 1</div><div><br></div><div>so I wonder if=
+ the APIC pin07 info had any influence.</div><div><br></div></div></div></b=
+lockquote><div>Finally found the fix : adding <span style=3D"font-weight:no=
+rmal">ioapic_ack=3Dnew</span> to xen boot parameters.</div><div>Not only th=
+e trackpad is now working but also the ACPI Embedded Controller which is co=
+mpletely disabled.</div><div><br></div><div>S=C3=A9bastien<br></div><div><b=
+r></div><div><br></div><div><br></div></div></div>
+
+--00000000000060a6300613014b0b--
 
