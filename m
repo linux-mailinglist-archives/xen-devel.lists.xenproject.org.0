@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E71D7873A6B
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 16:12:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689369.1074254 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 812EE873AB5
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 16:33:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689377.1074265 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhsvt-0000Zo-F2; Wed, 06 Mar 2024 15:11:49 +0000
+	id 1rhtFT-0004R2-6x; Wed, 06 Mar 2024 15:32:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689369.1074254; Wed, 06 Mar 2024 15:11:49 +0000
+Received: by outflank-mailman (output) from mailman id 689377.1074265; Wed, 06 Mar 2024 15:32:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhsvt-0000XS-C1; Wed, 06 Mar 2024 15:11:49 +0000
-Received: by outflank-mailman (input) for mailman id 689369;
- Wed, 06 Mar 2024 15:11:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rhtFT-0004Ox-42; Wed, 06 Mar 2024 15:32:03 +0000
+Received: by outflank-mailman (input) for mailman id 689377;
+ Wed, 06 Mar 2024 15:32:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rhsvr-0000XI-Ma; Wed, 06 Mar 2024 15:11:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rhsvr-0001jj-K5; Wed, 06 Mar 2024 15:11:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rhsvr-0005jO-8Y; Wed, 06 Mar 2024 15:11:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rhsvr-00015V-81; Wed, 06 Mar 2024 15:11:47 +0000
+ (envelope-from <SRS0=FIJu=KM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rhtFR-0004Or-6T
+ for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 15:32:01 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ac484a6f-dbce-11ee-afda-a90da7624cb6;
+ Wed, 06 Mar 2024 16:31:59 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a45bdf6e9c2so81000066b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 07:31:59 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ h17-20020a1709063c1100b00a42da3b6518sm7349399ejg.18.2024.03.06.07.31.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 06 Mar 2024 07:31:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,281 +45,424 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=8wq6X3ZqizdjBqnvkd8yxXYVdy8o8g/oe/Zh3nIL3G0=; b=GralKr0iUEqqWBkLMT2XW0jP6W
-	eXpgfLEZFu67A5WWiidnLx5axjmmhpQYKyWhGYgNvsZ6Sr9QVJZC8ny+mo35D2vVhGiCkvpqAFsnO
-	dJUVCi3xEVW3n72zgvqQbLJSPo+epURpZjiz2iK3PzCZ35POpoBAmjVWXAzJWtJpQywU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184917-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: ac484a6f-dbce-11ee-afda-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1709739119; x=1710343919; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=R7Bno0hyAUQO1crnpfNA0n5AIEwPTsHHAoqNPjU9xGg=;
+        b=StuTVdS/IH7cC2OZ93VUaWqm77kcu6kqR6+cmD8tHKUcAvDuhYK4h3ktoTHzvVhkRr
+         iAARe6OUqMNvg1OE2gIgFGZyEOIBC+bmlCgTyfitpEfJ8O4OSjQlSg7ESuwWGMcX1NTS
+         JB+QfYDaGBkOWkj4LlsDDWFEb0fSv4lgeCKgzqAKBt5PrOQSbU9PD1GxnjNU7wphgimV
+         F6Z5mgVVMe9Xw/s9RzRuorRmyi8zLR1APK5VJXmcYGS+gSD1PYnEp//ZZ4JRIJ/p/7EK
+         NXVSCNeJyO6KkeZNSIeNm0ENuBa0qLr0bx/H/apBNqkF3z8x/9eFQVyNjCM4eoWNHzE1
+         Ye1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709739119; x=1710343919;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=R7Bno0hyAUQO1crnpfNA0n5AIEwPTsHHAoqNPjU9xGg=;
+        b=OqGg8dU66Alb122RAf2c0RMSl+WOTXjaso64aH8bCprqCnIxOIqeT+iXkT72bpG4CI
+         sOL+OM7dL4maYbj9EeGkV8wbPv6ygb6d186nrO/DndWv6b3sBEjFFi8rVKZpjc7wKXPt
+         EUc2d6q5fBbOGZtjwkKmtQr+DN5g2rvXXqGj5IMxJXskxLJIPjXUg0jL+/JuA5uMUSby
+         /jaSYvRtQt3DCoPxSXiNZWMGW2otJJ6R61w01Jp0BHZ6qhpm78ND0A+h4umvYfHzfBTe
+         IMl6dKAfjksWSGDl1Qh+q2izhE4SNhv+iCCAmal2yrzXAxsmRqtcLevQKIcdJIuv3IQa
+         6aJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXfuSD+O24mWM3iUw9OF2vdj+aAUFrny+bhjG1YWXhvbwAHbknhWv9RrpgMwlYpoZFeBBQh+/NMRHgJPVCHLxao0RDepQMa0pl+kkVYahk=
+X-Gm-Message-State: AOJu0Yyu/gUBi4L0yvP9tfdpkqUy7NEqyuLoXhcfnb54to/lPTep5JyF
+	M2jerkrq+stFQsdTeA9FdJNYjydyOxxw/47h3ipZVUM7eD9OycjqAt3aMj14Lg==
+X-Google-Smtp-Source: AGHT+IEpqExf5FjnbJqWEbz37JG1rVb5Ojr5R869FFikWQZEPQdBh2EoDEFhZYNWx0sSwRxt7HQ1bw==
+X-Received: by 2002:a17:906:348b:b0:a45:a348:32ad with SMTP id g11-20020a170906348b00b00a45a34832admr4055294ejb.74.1709739119019;
+        Wed, 06 Mar 2024 07:31:59 -0800 (PST)
+Message-ID: <3d9b0fa3-d100-4e73-b5d5-782ef58e331a@suse.com>
+Date: Wed, 6 Mar 2024 16:31:56 +0100
 MIME-Version: 1.0
-Subject: [linux-linus test] 184917: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:build-arm64:xen-build:fail:regression
-    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
-    linux-linus:build-arm64-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=5847c9777c303a792202c609bd761dceb60f4eed
-X-Osstest-Versions-That:
-    linux=29cd507cbec282e13dcf8f38072a100af96b2bb7
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 06 Mar 2024 15:11:47 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 13/23] xen/riscv: introduce atomic.h
+Content-Language: en-US
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
+ <85ad8c86901d045beed228947d4c3faf277af3ca.1708962629.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <85ad8c86901d045beed228947d4c3faf277af3ca.1708962629.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 184917 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184917/
+On 26.02.2024 18:38, Oleksii Kurochko wrote:
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/atomic.h
+> @@ -0,0 +1,296 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Taken and modified from Linux.
+> + *
+> + * The following changes were done:
+> + * - * atomic##prefix##_*xchg_*(atomic##prefix##_t *v, c_t n) were updated
+> + *     to use__*xchg_generic()
+> + * - drop casts in write_atomic() as they are unnecessary
+> + * - drop introduction of WRITE_ONCE() and READ_ONCE().
+> + *   Xen provides ACCESS_ONCE()
+> + * - remove zero-length array access in read_atomic()
+> + * - drop defines similar to pattern
+> + *   #define atomic_add_return_relaxed   atomic_add_return_relaxed
+> + * - move not RISC-V specific functions to asm-generic/atomics-ops.h
+> + * 
+> + * Copyright (C) 2007 Red Hat, Inc. All Rights Reserved.
+> + * Copyright (C) 2012 Regents of the University of California
+> + * Copyright (C) 2017 SiFive
+> + * Copyright (C) 2024 Vates SAS
+> + */
+> +
+> +#ifndef _ASM_RISCV_ATOMIC_H
+> +#define _ASM_RISCV_ATOMIC_H
+> +
+> +#include <xen/atomic.h>
+> +
+> +#include <asm/cmpxchg.h>
+> +#include <asm/fence.h>
+> +#include <asm/io.h>
+> +#include <asm/system.h>
+> +
+> +#include <asm-generic/atomic-ops.h>
 
-Regressions :-(
+While, because of the forward decls in xen/atomic.h, having this #include
+works, I wonder if it wouldn't better be placed further down. The compiler
+will likely have an easier time when it sees the inline definitions ahead
+of any uses.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64                   6 xen-build                fail REGR. vs. 184912
+> +void __bad_atomic_size(void);
+> +
+> +/*
+> + * Legacy from Linux kernel. For some reason they wanted to have ordered
+> + * read/write access. Thereby read* is used instead of read<X>_cpu()
+> + */
+> +static always_inline void read_atomic_size(const volatile void *p,
+> +                                           void *res,
+> +                                           unsigned int size)
+> +{
+> +    switch ( size )
+> +    {
+> +    case 1: *(uint8_t *)res = readb(p); break;
+> +    case 2: *(uint16_t *)res = readw(p); break;
+> +    case 4: *(uint32_t *)res = readl(p); break;
+> +    case 8: *(uint32_t *)res  = readq(p); break;
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
- build-arm64-libvirt           1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 184912
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184912
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184912
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184912
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184912
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184912
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 184912
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184912
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+This is the point where the lack of constraints in io.h (see my respective
+comment) becomes actually harmful: You're accessing not MMIO, but compiler-
+visible variables here. It needs to know which ones are read ...
 
-version targeted for testing:
- linux                5847c9777c303a792202c609bd761dceb60f4eed
-baseline version:
- linux                29cd507cbec282e13dcf8f38072a100af96b2bb7
+> +    default: __bad_atomic_size(); break;
+> +    }
+> +}
+> +
+> +#define read_atomic(p) ({                               \
+> +    union { typeof(*p) val; char c[sizeof(*p)]; } x_;   \
+> +    read_atomic_size(p, x_.c, sizeof(*p));              \
+> +    x_.val;                                             \
+> +})
+> +
+> +#define write_atomic(p, x)                              \
+> +({                                                      \
+> +    typeof(*p) x__ = (x);                               \
+> +    switch ( sizeof(*p) )                               \
+> +    {                                                   \
+> +    case 1: writeb(x__,  p); break;                     \
+> +    case 2: writew(x__, p); break;                      \
+> +    case 4: writel(x__, p); break;                      \
+> +    case 8: writeq(x__, p); break;                      \
 
-Last test of basis   184912  2024-03-05 21:44:46 Z    0 days
-Testing same since   184917  2024-03-06 08:16:51 Z    0 days    1 attempts
+... or written.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Kamalesh Babulal <kamalesh.babulal@oracle.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Tejun Heo <tj@kernel.org>
-  Waiman Long <longman@redhat.com>
+Nit: There's a stray blank in the writeb() invocation.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  fail    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          blocked 
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  blocked 
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  blocked 
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     blocked 
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 blocked 
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      blocked 
- test-armhf-armhf-xl-vhd                                      pass    
+> +    default: __bad_atomic_size(); break;                \
+> +    }                                                   \
+> +    x__;                                                \
+> +})
+> +
+> +#define add_sized(p, x)                                 \
+> +({                                                      \
+> +    typeof(*(p)) x__ = (x);                             \
+> +    switch ( sizeof(*(p)) )                             \
 
+Like you have it here, {read,write}_atomic() also need p properly
+parenthesized. There look to be more parenthesization issues further
+down.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> +    {                                                   \
+> +    case 1: writeb(read_atomic(p) + x__, p); break;     \
+> +    case 2: writew(read_atomic(p) + x__, p); break;     \
+> +    case 4: writel(read_atomic(p) + x__, p); break;     \
+> +    default: __bad_atomic_size(); break;                \
+> +    }                                                   \
+> +})
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Any reason this doesn't have an 8-byte case? x86'es at least has one.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> +#define __atomic_acquire_fence() \
+> +    __asm__ __volatile__ ( RISCV_ACQUIRE_BARRIER "" ::: "memory" )
+> +
+> +#define __atomic_release_fence() \
+> +    __asm__ __volatile__ ( RISCV_RELEASE_BARRIER "" ::: "memory" )
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Elsewhere you use asm volatile() - why __asm__ __volatile__() here?
+Or why not there (cmpxchg.h, io.h)?
 
+> +/*
+> + * First, the atomic ops that have no ordering constraints and therefor don't
+> + * have the AQ or RL bits set.  These don't return anything, so there's only
+> + * one version to worry about.
+> + */
+> +#define ATOMIC_OP(op, asm_op, I, asm_type, c_type, prefix)  \
+> +static inline                                               \
+> +void atomic##prefix##_##op(c_type i, atomic##prefix##_t *v) \
+> +{                                                           \
+> +    __asm__ __volatile__ (                                  \
+> +        "   amo" #asm_op "." #asm_type " zero, %1, %0"      \
+> +        : "+A" (v->counter)                                 \
+> +        : "r" (I)                                           \
+> +        : "memory" );                                       \
+> +}                                                           \
+> +
+> +#define ATOMIC_OPS(op, asm_op, I)                           \
+> +        ATOMIC_OP (op, asm_op, I, w, int,   )
+> +
+> +ATOMIC_OPS(add, add,  i)
+> +ATOMIC_OPS(sub, add, -i)
+> +ATOMIC_OPS(and, and,  i)
+> +ATOMIC_OPS( or,  or,  i)
+> +ATOMIC_OPS(xor, xor,  i)
+> +
+> +#undef ATOMIC_OP
+> +#undef ATOMIC_OPS
+> +
+> +/*
+> + * Atomic ops that have ordered, relaxed, acquire, and release variants.
+> + * There's two flavors of these: the arithmatic ops have both fetch and return
+> + * versions, while the logical ops only have fetch versions.
+> + */
+> +#define ATOMIC_FETCH_OP(op, asm_op, I, asm_type, c_type, prefix)    \
+> +static inline                                                       \
+> +c_type atomic##prefix##_fetch_##op##_relaxed(c_type i,              \
+> +                         atomic##prefix##_t *v)                     \
+> +{                                                                   \
+> +    register c_type ret;                                            \
+> +    __asm__ __volatile__ (                                          \
+> +        "   amo" #asm_op "." #asm_type " %1, %2, %0"                \
+> +        : "+A" (v->counter), "=r" (ret)                             \
+> +        : "r" (I)                                                   \
+> +        : "memory" );                                               \
+> +    return ret;                                                     \
+> +}                                                                   \
+> +static inline                                                       \
+> +c_type atomic##prefix##_fetch_##op(c_type i, atomic##prefix##_t *v) \
+> +{                                                                   \
+> +    register c_type ret;                                            \
+> +    __asm__ __volatile__ (                                          \
+> +        "   amo" #asm_op "." #asm_type ".aqrl  %1, %2, %0"          \
+> +        : "+A" (v->counter), "=r" (ret)                             \
+> +        : "r" (I)                                                   \
+> +        : "memory" );                                               \
+> +    return ret;                                                     \
+> +}
+> +
+> +#define ATOMIC_OP_RETURN(op, asm_op, c_op, I, asm_type, c_type, prefix) \
+> +static inline                                                           \
+> +c_type atomic##prefix##_##op##_return_relaxed(c_type i,                 \
+> +                          atomic##prefix##_t *v)                        \
+> +{                                                                       \
+> +        return atomic##prefix##_fetch_##op##_relaxed(i, v) c_op I;      \
+> +}                                                                       \
+> +static inline                                                           \
+> +c_type atomic##prefix##_##op##_return(c_type i, atomic##prefix##_t *v)  \
+> +{                                                                       \
+> +        return atomic##prefix##_fetch_##op(i, v) c_op I;                \
+> +}
+> +
+> +#define ATOMIC_OPS(op, asm_op, c_op, I)                                 \
+> +        ATOMIC_FETCH_OP( op, asm_op,       I, w, int,   )               \
+> +        ATOMIC_OP_RETURN(op, asm_op, c_op, I, w, int,   )
 
-Not pushing.
+What purpose is the last macro argument when you only ever pass nothing
+for it (here and ...
 
-------------------------------------------------------------
-commit 5847c9777c303a792202c609bd761dceb60f4eed
-Merge: 29cd507cbec2 25125a476283
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Tue Mar 5 14:00:22 2024 -0800
+> +ATOMIC_OPS(add, add, +,  i)
+> +ATOMIC_OPS(sub, add, +, -i)
+> +
+> +#undef ATOMIC_OPS
+> +
+> +#define ATOMIC_OPS(op, asm_op, I) \
+> +        ATOMIC_FETCH_OP(op, asm_op, I, w, int,   )
 
-    Merge tag 'cgroup-for-6.8-rc7-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/tj/cgroup
-    
-    Pull cgroup fixes from Tejun Heo:
-     "Two cpuset fixes. Both are for bugs in error handling paths and low
-      risk"
-    
-    * tag 'cgroup-for-6.8-rc7-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/tj/cgroup:
-      cgroup/cpuset: Fix retval in update_cpumask()
-      cgroup/cpuset: Fix a memory leak in update_exclusive_cpumask()
+... here)?
 
-commit 25125a4762835d62ba1e540c1351d447fc1f6c7c
-Author: Kamalesh Babulal <kamalesh.babulal@oracle.com>
-Date:   Thu Feb 29 15:41:14 2024 +0530
+> +ATOMIC_OPS(and, and, i)
+> +ATOMIC_OPS( or,  or, i)
+> +ATOMIC_OPS(xor, xor, i)
+> +
+> +#undef ATOMIC_OPS
+> +
+> +#undef ATOMIC_FETCH_OP
+> +#undef ATOMIC_OP_RETURN
+> +
+> +/* This is required to provide a full barrier on success. */
+> +static inline int atomic_add_unless(atomic_t *v, int a, int u)
+> +{
+> +       int prev, rc;
+> +
+> +    __asm__ __volatile__ (
+> +        "0: lr.w     %[p],  %[c]\n"
+> +        "   beq      %[p],  %[u], 1f\n"
+> +        "   add      %[rc], %[p], %[a]\n"
+> +        "   sc.w.rl  %[rc], %[rc], %[c]\n"
+> +        "   bnez     %[rc], 0b\n"
+> +        RISCV_FULL_BARRIER
+> +        "1:\n"
+> +        : [p] "=&r" (prev), [rc] "=&r" (rc), [c] "+A" (v->counter)
+> +        : [a] "r" (a), [u] "r" (u)
+> +        : "memory");
+> +    return prev;
+> +}
+> +
+> +/*
+> + * atomic_{cmp,}xchg is required to have exactly the same ordering semantics as
+> + * {cmp,}xchg and the operations that return, so they need a full barrier.
+> + */
+> +#define ATOMIC_OP(c_t, prefix, size)                            \
+> +static inline                                                   \
+> +c_t atomic##prefix##_xchg_relaxed(atomic##prefix##_t *v, c_t n) \
+> +{                                                               \
+> +    return __xchg_generic(&(v->counter), n, size, "", "", "");  \
 
-    cgroup/cpuset: Fix retval in update_cpumask()
-    
-    The update_cpumask(), checks for newly requested cpumask by calling
-    validate_change(), which returns an error on passing an invalid set
-    of cpu(s). Independent of the error returned, update_cpumask() always
-    returns zero, suppressing the error and returning success to the user
-    on writing an invalid cpu range for a cpuset. Fix it by returning
-    retval instead, which is returned by validate_change().
-    
-    Fixes: 99fe36ba6fc1 ("cgroup/cpuset: Improve temporary cpumasks handling")
-    Signed-off-by: Kamalesh Babulal <kamalesh.babulal@oracle.com>
-    Reviewed-by: Waiman Long <longman@redhat.com>
-    Cc: stable@vger.kernel.org # v6.6+
-    Signed-off-by: Tejun Heo <tj@kernel.org>
+The inner parentheses aren't really needed here, are they?
 
-commit 66f40b926dd249f74334a22162c09e7ec1ec5b07
-Author: Waiman Long <longman@redhat.com>
-Date:   Tue Feb 27 19:58:01 2024 -0500
+> +}                                                               \
+> +static inline                                                   \
+> +c_t atomic##prefix##_xchg_acquire(atomic##prefix##_t *v, c_t n) \
+> +{                                                               \
+> +    return __xchg_generic(&(v->counter), n, size,               \
+> +                          "", "", RISCV_ACQUIRE_BARRIER);       \
+> +}                                                               \
+> +static inline                                                   \
+> +c_t atomic##prefix##_xchg_release(atomic##prefix##_t *v, c_t n) \
+> +{                                                               \
+> +    return __xchg_generic(&(v->counter), n, size,               \
+> +                          "", RISCV_RELEASE_BARRIER, "");       \
+> +}                                                               \
+> +static inline                                                   \
+> +c_t atomic##prefix##_xchg(atomic##prefix##_t *v, c_t n)         \
+> +{                                                               \
+> +    return __xchg_generic(&(v->counter), n, size,               \
+> +                          ".aqrl", "", "");                     \
+> +}                                                               \
+> +static inline                                                   \
+> +c_t atomic##prefix##_cmpxchg_relaxed(atomic##prefix##_t *v,     \
+> +                     c_t o, c_t n)                              \
+> +{                                                               \
+> +    return __cmpxchg_generic(&(v->counter), o, n, size,         \
+> +                             "", "", "");                       \
+> +}                                                               \
+> +static inline                                                   \
+> +c_t atomic##prefix##_cmpxchg_acquire(atomic##prefix##_t *v,     \
+> +                     c_t o, c_t n)                              \
+> +{                                                               \
+> +    return __cmpxchg_generic(&(v->counter), o, n, size,         \
+> +                             "", "", RISCV_ACQUIRE_BARRIER);    \
+> +}                                                               \
+> +static inline                                                   \
+> +c_t atomic##prefix##_cmpxchg_release(atomic##prefix##_t *v,     \
+> +                     c_t o, c_t n)                              \
+> +{	                                                            \
 
-    cgroup/cpuset: Fix a memory leak in update_exclusive_cpumask()
-    
-    Fix a possible memory leak in update_exclusive_cpumask() by moving the
-    alloc_cpumasks() down after the validate_change() check which can fail
-    and still before the temporary cpumasks are needed.
-    
-    Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
-    Reported-and-tested-by: Mirsad Todorovac <mirsad.todorovac@alu.hr>
-    Closes: https://lore.kernel.org/lkml/14915689-27a3-4cd8-80d2-9c30d0c768b6@alu.unizg.hr
-    Signed-off-by: Waiman Long <longman@redhat.com>
-    Signed-off-by: Tejun Heo <tj@kernel.org>
-    Cc: stable@vger.kernel.org # v6.7+
+A hard tab looks to have been left here.
+
+> +    return __cmpxchg_generic(&(v->counter), o, n, size,         \
+> +                             "", RISCV_RELEASE_BARRIER, "");    \
+> +}                                                               \
+> +static inline                                                   \
+> +c_t atomic##prefix##_cmpxchg(atomic##prefix##_t *v, c_t o, c_t n) \
+> +{                                                               \
+> +    return __cmpxchg_generic(&(v->counter), o, n, size,         \
+> +                             ".rl", "", " fence rw, rw\n");     \
+> +}
+> +
+> +#define ATOMIC_OPS() \
+> +    ATOMIC_OP(int,   , 4)
+> +
+> +ATOMIC_OPS()
+> +
+> +#undef ATOMIC_OPS
+> +#undef ATOMIC_OP
+> +
+> +static inline int atomic_sub_if_positive(atomic_t *v, int offset)
+> +{
+> +       int prev, rc;
+> +
+> +    __asm__ __volatile__ (
+> +        "0: lr.w     %[p],  %[c]\n"
+> +        "   sub      %[rc], %[p], %[o]\n"
+> +        "   bltz     %[rc], 1f\n"
+> +        "   sc.w.rl  %[rc], %[rc], %[c]\n"
+> +        "   bnez     %[rc], 0b\n"
+> +        "   fence    rw, rw\n"
+> +        "1:\n"
+> +        : [p] "=&r" (prev), [rc] "=&r" (rc), [c] "+A" (v->counter)
+> +        : [o] "r" (offset)
+> +        : "memory" );
+> +    return prev - offset;
+> +}
+> +
+> +#define atomic_dec_if_positive(v)	atomic_sub_if_positive(v, 1)
+
+Hmm, PPC for some reason also has the latter, but for both: Are they indeed
+going to be needed in RISC-V code? They certainly look unnecessary for the
+purpose of this series (allowing common code to build).
+
+> --- /dev/null
+> +++ b/xen/include/asm-generic/atomic-ops.h
+> @@ -0,0 +1,92 @@
+> +#/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef _ASM_GENERIC_ATOMIC_OPS_H_
+> +#define _ASM_GENERIC_ATOMIC_OPS_H_
+> +
+> +#include <xen/atomic.h>
+> +#include <xen/lib.h>
+
+If I'm not mistaken this header provides default implementations for every
+xen/atomic.h-provided forward inline declaration that can be synthesized
+from other atomic functions. I think a comment to this effect would want
+adding somewhere here.
+
+Jan
 
