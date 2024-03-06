@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F1AB873FF7
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 19:49:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689466.1074465 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D85CD873FFC
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 19:51:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689469.1074475 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhwKM-0005tX-Bg; Wed, 06 Mar 2024 18:49:18 +0000
+	id 1rhwLv-0007m9-OP; Wed, 06 Mar 2024 18:50:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689466.1074465; Wed, 06 Mar 2024 18:49:18 +0000
+Received: by outflank-mailman (output) from mailman id 689469.1074475; Wed, 06 Mar 2024 18:50:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhwKM-0005rC-7b; Wed, 06 Mar 2024 18:49:18 +0000
-Received: by outflank-mailman (input) for mailman id 689466;
- Wed, 06 Mar 2024 18:49:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rhwLv-0007kB-LY; Wed, 06 Mar 2024 18:50:55 +0000
+Received: by outflank-mailman (input) for mailman id 689469;
+ Wed, 06 Mar 2024 18:50:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VjQC=KM=gmail.com=euidzero@srs-se1.protection.inumbo.net>)
- id 1rhwKL-0005r6-7r
- for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 18:49:17 +0000
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [2607:f8b0:4864:20::102b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3ab816e7-dbea-11ee-afda-a90da7624cb6;
- Wed, 06 Mar 2024 19:49:16 +0100 (CET)
-Received: by mail-pj1-x102b.google.com with SMTP id
- 98e67ed59e1d1-299d3b09342so966794a91.2
- for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 10:49:16 -0800 (PST)
+ <SRS0=toy5=KM=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1rhwLt-0007k1-Tq
+ for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 18:50:53 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on20615.outbound.protection.outlook.com
+ [2a01:111:f400:7ea9::615])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 73923d18-dbea-11ee-a1ee-f123f15fe8a2;
+ Wed, 06 Mar 2024 19:50:51 +0100 (CET)
+Received: from BY3PR10CA0013.namprd10.prod.outlook.com (2603:10b6:a03:255::18)
+ by DS7PR12MB8420.namprd12.prod.outlook.com (2603:10b6:8:e9::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.39; Wed, 6 Mar
+ 2024 18:50:47 +0000
+Received: from SJ5PEPF000001CE.namprd05.prod.outlook.com
+ (2603:10b6:a03:255:cafe::4f) by BY3PR10CA0013.outlook.office365.com
+ (2603:10b6:a03:255::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.39 via Frontend
+ Transport; Wed, 6 Mar 2024 18:50:47 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ5PEPF000001CE.mail.protection.outlook.com (10.167.242.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7362.11 via Frontend Transport; Wed, 6 Mar 2024 18:50:46 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 6 Mar
+ 2024 12:50:45 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 6 Mar
+ 2024 12:50:45 -0600
+Received: from fedora.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Wed, 6 Mar 2024 12:50:44 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,279 +63,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ab816e7-dbea-11ee-afda-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709750954; x=1710355754; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=QoO1LrsJxu96wCkUsoQYGKYUdq+e6Vh+9T/S+oZ4Tsc=;
-        b=MgnRXC92OLARkwE/nOLbF8XueR8TFX2k1MHsIzF8ZdAZjYcICdJ5tepv/9JyuUY5JE
-         YULKjFSI2C+L1kntykudR4DVmOJJ4shcsg4JQjzTtWJGtQHblUTNaTZlM4FR3uAKND/B
-         utWf0kH5eqjDegMfZZJLLIHr9772C1C8hxVUPpZbMggR4ZRzIOzRva/QGFnBj/OTVs9d
-         jlDWZ2Xs65xx7rAm26zb1Oh9/d3LQ0w0hMpj9QojMKlF/JwZ+YODWlPDAZAh2N+iA1iF
-         QMCCLxy4i+qkZOm1v6JtM/2nG2aUblsvY8AvAlloh6Vi9B0CGM83vvOuJNmRu5tzMgvc
-         zFRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709750954; x=1710355754;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QoO1LrsJxu96wCkUsoQYGKYUdq+e6Vh+9T/S+oZ4Tsc=;
-        b=Q8TEVKIIfJTS6Jj10ZfR+ME7QuWQHMDrX29VO8A+OwzbCLhipVisgY/FIReTRCymb8
-         8ph+xVf2N33qToltEBVAPAMZsVkLWdQn2RatpqMZtg4RzbzYB7sfKKwYEStfAXm2Su8N
-         WiFu874WJ4XlOySdjnhF/ASoYKMbPOgdYTq3L1VZeXjO5WVWeVe2F/+myXg7l5I7UYg4
-         JdxHC9PE83mhN1+/SYckhGbP1ajgJBzju8Rk1eESxFNLr48ekT4iBLIU2VlIzZU+JmGu
-         yUPNnVGu45ORujKMs4xzmvdJH4+qx6e3PYwEpkyCZiJlcE2D9T1DeIydsO1RL4Qi2Uwj
-         yByw==
-X-Gm-Message-State: AOJu0Yx9++EszI8wVYsztkwFmWhC3fjodgLup3N0X73TkYIxSpaDIc/5
-	qy3xMHnJvKggE1COkI0Qy359lPy2FYsRfrafOg2OmAmscsAU/8gQbhlhUIDiWd2rKx6EdrSgCGg
-	k9sYpIFI33ceggES5+ZArx/qnTnA=
-X-Google-Smtp-Source: AGHT+IHaJJW52dofk64COniQUe+c5hg7HGK2tCGF3WOx8xTKWraUIKgNOPsr+82GGMvG4uOy1x2xfFV2UhZABlQkpFk=
-X-Received: by 2002:a17:90a:b382:b0:29a:da46:8d27 with SMTP id
- e2-20020a17090ab38200b0029ada468d27mr15324341pjr.0.1709750954203; Wed, 06 Mar
- 2024 10:49:14 -0800 (PST)
+X-Inumbo-ID: 73923d18-dbea-11ee-a1ee-f123f15fe8a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FUko/WRHKKy4khx/gNd6FIZb6OTcYmxUc56ULo6LbLSygrtZGNCn1jYvlwo+/8GDDjvqVICJobuI/jN4DZI8ap3BICpjp2d5Gh0zIwhS6AtPCK3aBhwrngpC2PV13EzmLrF6HUlh2ER+kkU7mz9N5y5hsAc/Dy2SYpKq783Q9mbWHJO8kbt0map2cvdGoh2x3HEq1wXnYM1OZcdOvyK4Cg7WRy7XrPvgGIC5GW2mlzX9MdRq6KRqQV6ZqIgnUc32F5NAGL1VZ5Bv1fOjSSUtoV1gDsLUZcMbBNSsaRj1hlbqlKCg6/PCWzsO0JBA/FdNbVlEdC/3dh+sgmzZrZ7HKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UXHnUUkP0I4VeoKV7/n47noRYWOiKkviRFLs6MBrGmU=;
+ b=FmbQqw004F3CuzhI2HYEsqlBILPWJz1rt8ssFzTycTIlC+GSflBoTa8+NjDNl5Ib4gPEYoo0AaoqTtBOTuo9nD2A+BAj4geyAjmCWizB3DFIGjN3VGhtWUP0EwsOzJxOvSOEwsYfzp0ctQchpsDUhPy9ShslXBnVopuLd79T8/aAajTNJqg5VLiqBqiYQoRo002vFy1IoNfEkwlzpvQSze5yOdySHMJLgsoS8b5ZuHAEOqqOBU6FtdlYpEJ6n+fldAwQxeb/BuBl4tvjDWt7cBcsc9WTVrl5t2d/wPPnV5/fvUFgn+3oH/YvpvOwiuzJWM93H+7ePhV+O15G6/heYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UXHnUUkP0I4VeoKV7/n47noRYWOiKkviRFLs6MBrGmU=;
+ b=Ss+RV/atmNx1YgCBe/9QLqV/+GEdZy2V6cx1u35BGLXfYZHaVD2Im3MOEGHLYjFQMwvNUXKImsZqrRdU5B5Fs1lLZAI393uMRYbhkUp7YCR+1bu5ER/U6h/HBQagYB32uQrviyGGKTIJWumhBR1KMNKHWCw4ugp2vFz7QdOVRA0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Jason Andryuk <jason.andryuk@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Jason Andryuk <jason.andryuk@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH 0/3] x86/pvh: Support relocating dom0 kernel
+Date: Wed, 6 Mar 2024 13:50:29 -0500
+Message-ID: <20240306185032.103216-1-jason.andryuk@amd.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
- <CAKm-UmY126AfdGhWcZ3s9vwN9+ksVRRFEhOu0ZFMoDvxrqOibw@mail.gmail.com>
- <CAKm-UmYt3iV8zOhSmtqMGhi_8T93c_nCbnefs4m3UC+3UABqeQ@mail.gmail.com>
- <CAKm-UmY-KXEAtBagikW4Jvp=SFXtmEg8P62pHfSo3Hr2s-0_-A@mail.gmail.com>
- <CAKm-UmYbMCfXc1Ny0=qfB+UaLSXV9oEHZiSgS=mwKMwmOFGVrQ@mail.gmail.com>
- <77c1c05d-a0a0-4292-9257-9b7fbebee0e3@suse.com> <2859ad22-8714-4628-8142-fc77fc2072c3@amd.com>
- <CAKm-UmZpyGkWXugYTJqU+qqVDyCFEKghtd=NTr2wK5EMCeL9Ww@mail.gmail.com>
- <214585d5-689d-4ba6-bd48-359428a7ed8f@amd.com> <CAKm-UmZoKwre8-G793VqRNFCmzAti1o-0Kp3ZyV_Z5cc0YNiKw@mail.gmail.com>
- <CAKm-Umb=kGFqc5je9E3bbfQ0bcbZeY_Ntv5JDmO-vXj3N0MvPg@mail.gmail.com>
- <CAKm-UmZ113q-a8wEE5yo0OPPM3JpNqJzKaU1eNiCzT2YkGU0pQ@mail.gmail.com>
- <CAKm-UmaG3KRtDkrEH7cNgLkRkRs2HG357S=BUjomhN6Ad-AkCQ@mail.gmail.com>
- <a3472888-7bfb-4889-8ccb-58384afff324@amd.com> <CAKm-UmYyxC5SrqdW3MYj326J7CCGRHZpc1+D0Dezd27z++3JJg@mail.gmail.com>
- <19852f4d-fbeb-4314-a2cb-ab3f05da13ba@amd.com>
-In-Reply-To: <19852f4d-fbeb-4314-a2cb-ab3f05da13ba@amd.com>
-From: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
-Date: Wed, 6 Mar 2024 19:49:02 +0100
-Message-ID: <CAKm-UmZm1d8Ehusoh5HNOST+0Dek7+vLQSKbVduz40BdHueiDA@mail.gmail.com>
-Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-	Juergen Gross <jgross@suse.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Content-Type: multipart/alternative; boundary="00000000000047a5f50613026ac0"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CE:EE_|DS7PR12MB8420:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9e4a1b4-af04-4651-4b1d-08dc3e0e5598
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Pl4qjhsryXvRh5yMGIJ3kaizq/WN9iqLE4A8pnHbGPNod2NMO3JNEGms/gOPYQyDIHEXOB5kazUr+QmkRZhmrgJrVFuhijGECLQfEfjxTvQsb1pgbNaft/9u/TOqs0W6/5GcbfxPuSFHontEZUKMWJgMPUDc9ckZ1vl/Hra5tnC66gpkh1jniVQ1d86xWRPettYR5Aag/80W3G5hOohKSDZT1i4CVuZg1KtxU8FALQiB66SC4oScueb2S4sflhfZgWKFJ4m519mLqhncaFbiLoei+AEZcWl4+bS06FzY/Dv9cBF08elFvLgHaHoEctGJl8e7KkJDXXx8A8ynRcbsx10Qg+UKle9YSkOZI0m4toNti7qlzl9pxTD3h+CsFG1Te9DkIB0vKrXQgeB08lVfmyDtLaXS93vNwGq9izClwjTGD13CCsZzMOfaN/giP95UydDKtYkdmFRwZGKX1pHX4sW86DJF8Mq0cgWi4/Y34DB4v5zlflyI1uaNrLhNI4dIeVSmWkwRSUZLiWeHHm15tNeFqIrq1g7UarUh4NtfqGz+x1tzXjhTcCE0JNgT1TKBuHERxz3bFAGeW1C6Uxtbv/glGs59IXmHsUv//YsLy5Bcx3YBaiMIfB+BP371Nks5nxMiA78o5j5G9m3ol2CGHK6QLJKFFvBG6pqBKpw0pvkRFTkS8SwMqkwbTRBT3EJAQjn4xELpva7j46DIA6uruc7bF7kK8dQg+Z2uLXH4mu3Z/vCW7wRl/BZjYzy7hDqx
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(376005)(82310400014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2024 18:50:46.4869
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9e4a1b4-af04-4651-4b1d-08dc3e0e5598
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001CE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8420
 
---00000000000047a5f50613026ac0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Xen tries to load a PVH dom0 kernel at the fixed guest physical address
+from the elf headers.  For Linux, this defaults to 0x1000000 (16MB), but
+it can be configured.
 
-Le mer. 6 mars 2024 =C3=A0 19:08, Mario Limonciello <mario.limonciello@amd.=
-com>
-a =C3=A9crit :
+Unfortunately there exist firmwares that have reserved regions at this
+address, so Xen fails to load the dom0 kernel since it's not RAM.
 
-> On 3/6/2024 12:05, S=C3=A9bastien Chaumat wrote:
-> >
-> >
-> > Le mer. 6 mars 2024 =C3=A0 18:33, Mario Limonciello
-> > <mario.limonciello@amd.com <mailto:mario.limonciello@amd.com>> a =C3=A9=
-crit :
-> >
-> >     On 3/6/2024 11:28, S=C3=A9bastien Chaumat wrote:
-> >      >
-> >      >
-> >      >
-> >      >
-> >      >     Reasoning backward  (using a  kernel without the pinctrl_amd
-> >     driver
-> >      >     to ensure xen only is at stake) :
-> >      >       checking the diff in IOAPIC  between bare metal and xen
-> >     (IRQ7 is
-> >      >     on pin07 on APIC )
-> >      >
-> >      >     using kernel argument : apic=3Ddebug
-> >      >
-> >      >     bare metal :
-> >      >     [    0.715330] fedora kernel: ... APIC VERSION: 81050010
-> >      >     ...
-> >      >     [    0.715433] fedora kernel:  pin07, disabled, edge , high,
-> >     V(00),
-> >      >     IRR(0), S(0), physical, D(0000), M(0)
-> >      >
-> >      >     xen :
-> >      >     [    2.249582] fedora kernel: ... APIC VERSION: 00000014
-> >      >     ...
-> >      >     [    2.249730] fedora kernel:  pin07, disabled, level, low ,
-> >     V(60),
-> >      >     IRR(0), S(0), physical, D(0000), M(0)
-> >      >
-> >      >     So the APIC table is not the same.
-> >      >
-> >      >     As strange as it looks the  (IOAPIC 0) pin07 is correctly
-> >     described
-> >      >     by the APIC in xen but yet differently than in baremetal.
-> >      >     But the APIC message comes long after the
-> >      >     [    1.833145] fedora kernel: xen: registering gsi 7
-> triggering 0
-> >      >     polarity 1
-> >      >
-> >      >     so I wonder if the APIC pin07 info had any influence.
-> >      >
-> >      > Finally found the fix : adding ioapic_ack=3Dnew to xen boot
-> parameters.
-> >      > Not only the trackpad is now working but also the ACPI Embedded
-> >      > Controller which is completely disabled.
-> >      >
-> >      > S=C3=A9bastien
-> >      >
-> >     That's great news!  I'm personally totally unfamiliar with
-> >     ioapic_ack=3Dnew, so I did a quick search and found out it's a Xen
-> >     parameter (I came across
-> >     https://xenbits.xen.org/docs/4.5-testing/misc/xen-command-line.html
-> >     <https://xenbits.xen.org/docs/4.5-testing/misc/xen-command-line.htm=
-l
-> >).
-> >
-> >     This mentions that "new" should be the default, so why isn't it the
-> >     case?
-> >
-> >
-> >   "This is the the default unless directed-EOI is supported"
-> > xl dmesg without forcing the parameters shows :
-> >
-> > (XEN) Enabled directed EOI with ioapic_ack_old on!
->
-> Got it; it sounds to me like a logic mismatch in Xen then.
->
-> >
-> >     Also; I'd be really interested to hear what happens with s2idle wit=
-h
-> >     Xen
-> >     now (if it works).
-> >
-> >
-> > suspend to RAM now works :)
->
-> Do you see /sys/power/suspend_stats/last_hw_sleep increasing with your
-> suspend cycle?
->
+The other issue is that the Linux PVH entry point is not
+position-independent.  It expects to run at the compiled
+CONFIG_PHYSICAL_ADDRESS.
 
-No,  it does not increase (0).
+This patch set expands the PVH dom0 builder to try to relocate the
+kernel if needed and possible.  XENFEAT_pvh_relocatable is added for
+kernels to indicate they are relocatable.  However, we may want to
+switch to an additional ELF note with the kernel alignment.  Linux
+specifies a kernel alignment in the bzImage boot_params.setup_header,
+but that is not present the ELF vmlinux file.
 
---00000000000047a5f50613026ac0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The first patch fixes some whitespace in features.h
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">Le=C2=A0mer. 6 mars 2024 =C3=A0=C2=A0=
-19:08, Mario Limonciello &lt;<a href=3D"mailto:mario.limonciello@amd.com">m=
-ario.limonciello@amd.com</a>&gt; a =C3=A9crit=C2=A0:<br></div><blockquote c=
-lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
-d rgb(204,204,204);padding-left:1ex">On 3/6/2024 12:05, S=C3=A9bastien Chau=
-mat wrote:<br>
-&gt; <br>
-&gt; <br>
-&gt; Le=C2=A0mer. 6 mars 2024 =C3=A0=C2=A018:33, Mario Limonciello <br>
-&gt; &lt;<a href=3D"mailto:mario.limonciello@amd.com" target=3D"_blank">mar=
-io.limonciello@amd.com</a> &lt;mailto:<a href=3D"mailto:mario.limonciello@a=
-md.com" target=3D"_blank">mario.limonciello@amd.com</a>&gt;&gt; a =C3=A9cri=
-t=C2=A0:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0On 3/6/2024 11:28, S=C3=A9bastien Chaumat wrote:<br=
->
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0Reasoning backward=C2=A0 (=
-using a=C2=A0 kernel without the pinctrl_amd<br>
-&gt;=C2=A0 =C2=A0 =C2=A0driver<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0to ensure xen only is at s=
-take) :<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0checking the diff i=
-n IOAPIC=C2=A0 between bare metal and xen <br>
-&gt;=C2=A0 =C2=A0 =C2=A0(IRQ7 is<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0on pin07 on APIC )<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0using kernel argument : ap=
-ic=3Ddebug<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0bare metal :<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0[ =C2=A0 =C2=A00.715330] f=
-edora kernel: ... APIC VERSION: 81050010<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0...<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0[ =C2=A0 =C2=A00.715433] f=
-edora kernel: =C2=A0pin07, disabled, edge , high,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0V(00),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0IRR(0), S(0), physical, D(=
-0000), M(0)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0xen :<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0[ =C2=A0 =C2=A02.249582] f=
-edora kernel: ... APIC VERSION: 00000014<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0...<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0[ =C2=A0 =C2=A02.249730] f=
-edora kernel: =C2=A0pin07, disabled, level, low ,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0V(60),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0IRR(0), S(0), physical, D(=
-0000), M(0)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0So the APIC table is not t=
-he same.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0As strange as it looks the=
-=C2=A0 (IOAPIC 0) pin07 is correctly<br>
-&gt;=C2=A0 =C2=A0 =C2=A0described<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0by the APIC in xen but yet=
- differently than in baremetal.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0But the APIC message comes=
- long after the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0[ =C2=A0 =C2=A01.833145] f=
-edora kernel: xen: registering gsi 7 triggering 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0polarity 1<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0so I wonder if the APIC pi=
-n07 info had any influence.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Finally found the fix : adding ioapic_ack=3Dn=
-ew to xen boot parameters.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Not only the trackpad is now working but also=
- the ACPI Embedded<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Controller which is completely disabled.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; S=C3=A9bastien<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0That&#39;s great news!=C2=A0 I&#39;m personally tot=
-ally unfamiliar with<br>
-&gt;=C2=A0 =C2=A0 =C2=A0ioapic_ack=3Dnew, so I did a quick search and found=
- out it&#39;s a Xen<br>
-&gt;=C2=A0 =C2=A0 =C2=A0parameter (I came across<br>
-&gt;=C2=A0 =C2=A0 =C2=A0<a href=3D"https://xenbits.xen.org/docs/4.5-testing=
-/misc/xen-command-line.html" rel=3D"noreferrer" target=3D"_blank">https://x=
-enbits.xen.org/docs/4.5-testing/misc/xen-command-line.html</a><br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://xenbits.xen.org/docs/4.5-tes=
-ting/misc/xen-command-line.html" rel=3D"noreferrer" target=3D"_blank">https=
-://xenbits.xen.org/docs/4.5-testing/misc/xen-command-line.html</a>&gt;).<br=
->
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0This mentions that &quot;new&quot; should be the de=
-fault, so why isn&#39;t it the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0case?<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0&quot;This is the the default unless directed-EOI is suppo=
-rted&quot;<br>
-&gt; xl dmesg without forcing the parameters shows :<br>
-&gt; <br>
-&gt; (XEN) Enabled directed EOI with ioapic_ack_old on!<br>
-<br>
-Got it; it sounds to me like a logic mismatch in Xen then.<br>
-<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Also; I&#39;d be really interested to hear what hap=
-pens with s2idle with<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Xen<br>
-&gt;=C2=A0 =C2=A0 =C2=A0now (if it works).<br>
-&gt; <br>
-&gt; <br>
-&gt; suspend to RAM now works :)<br>
-<br>
-Do you see /sys/power/suspend_stats/last_hw_sleep increasing with your <br>
-suspend cycle?<br></blockquote><div><br></div><div>No,=C2=A0 it does not in=
-crease (0).<br></div><div>=C2=A0<br></div></div></div>
+The second patch enhances bzimage_parse to pull the kernel_alignment into
+an optional align pointer.
 
---00000000000047a5f50613026ac0--
+The third patch expands the pvh dom0 kernel placement code.
+
+I'll post an additional patch showing the Linux changes to make PVH
+relocatable.  
+
+Jason Andryuk (3):
+  features.h: Replace hard tabs
+  xen/x86: bzImage parse kernel_alignment
+  x86/PVH: Support relocatable dom0 kernels
+
+ xen/arch/x86/bzimage.c             |   4 +-
+ xen/arch/x86/hvm/dom0_build.c      | 113 ++++++++++++++++++++++++++++-
+ xen/arch/x86/include/asm/bzimage.h |   3 +-
+ xen/arch/x86/pv/dom0_build.c       |   2 +-
+ xen/include/public/features.h      |   9 ++-
+ 5 files changed, 124 insertions(+), 7 deletions(-)
+
+-- 
+2.44.0
+
 
