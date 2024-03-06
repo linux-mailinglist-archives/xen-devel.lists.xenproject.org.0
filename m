@@ -2,52 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF842873FFB
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 19:51:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689472.1074505 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9330873FFF
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 19:52:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689478.1074516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhwM5-0000Ab-HT; Wed, 06 Mar 2024 18:51:05 +0000
+	id 1rhwMd-0001Yl-VK; Wed, 06 Mar 2024 18:51:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689472.1074505; Wed, 06 Mar 2024 18:51:05 +0000
+Received: by outflank-mailman (output) from mailman id 689478.1074516; Wed, 06 Mar 2024 18:51:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhwM5-00006w-DM; Wed, 06 Mar 2024 18:51:05 +0000
-Received: by outflank-mailman (input) for mailman id 689472;
- Wed, 06 Mar 2024 18:51:03 +0000
+	id 1rhwMd-0001WI-RC; Wed, 06 Mar 2024 18:51:39 +0000
+Received: by outflank-mailman (input) for mailman id 689478;
+ Wed, 06 Mar 2024 18:51:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=toy5=KM=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1rhwM3-0007k1-Rx
- for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 18:51:03 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20600.outbound.protection.outlook.com
- [2a01:111:f403:2418::600])
+ <SRS0=VYTB=KM=amd.com=Mario.Limonciello@srs-se1.protection.inumbo.net>)
+ id 1rhwMc-0007k1-6U
+ for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 18:51:38 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20605.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::605])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7a3f438f-dbea-11ee-a1ee-f123f15fe8a2;
- Wed, 06 Mar 2024 19:51:01 +0100 (CET)
-Received: from BYAPR01CA0027.prod.exchangelabs.com (2603:10b6:a02:80::40) by
- LV8PR12MB9405.namprd12.prod.outlook.com (2603:10b6:408:1fa::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.38; Wed, 6 Mar
- 2024 18:50:58 +0000
-Received: from SJ5PEPF000001CA.namprd05.prod.outlook.com
- (2603:10b6:a02:80:cafe::8e) by BYAPR01CA0027.outlook.office365.com
- (2603:10b6:a02:80::40) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.37 via Frontend
- Transport; Wed, 6 Mar 2024 18:50:57 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ5PEPF000001CA.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7362.11 via Frontend Transport; Wed, 6 Mar 2024 18:50:57 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 6 Mar
- 2024 12:50:56 -0600
-Received: from fedora.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 6 Mar 2024 12:50:55 -0600
+ id 8f09cd48-dbea-11ee-a1ee-f123f15fe8a2;
+ Wed, 06 Mar 2024 19:51:36 +0100 (CET)
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by DS7PR12MB6216.namprd12.prod.outlook.com (2603:10b6:8:94::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7362.24; Wed, 6 Mar 2024 18:51:30 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::dcf1:946c:3879:5765]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::dcf1:946c:3879:5765%4]) with mapi id 15.20.7339.035; Wed, 6 Mar 2024
+ 18:51:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,248 +47,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a3f438f-dbea-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 8f09cd48-dbea-11ee-a1ee-f123f15fe8a2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ehYy/t29tVSxeR6pttbMARcufQoWH+zAxrqUJu/dx1ARtrToPVVtN5FawayNQwOw2gYvaNIwLJfB5sf9AqQ3T0SwHoYaP4ZV8Fo2POIUi4XNAnxcyJsFzIdUf6t9YxQoJJcDzItnLcUack8QDJXjCUh6H0hH+nYkYN1/ntdYUzlMO91Sie80hExVCnp+O0V26gJj/ubS0D1LvRBbBvXpMlkA9JCcUhnIdWkLRZaaA4uZC95qWv3jfd0mMysQeBj7O/+8d0BWWFL4aWVX5XQKRYn0Wsz1Eb+bLgPKQJRclPyHmP0X4/ODEDiNKrBYF1NOb5qjyDpiKFlj62zgRzB53Q==
+ b=D+y7TdmXNxBluEQEIVpgetIXXewbJNh+/VaSrdg2F6mhOGzvkvmXTiAuhOXl0eJlFFlWNwW50ZZ7QL/Il3WvNZi2/nMqcgo7lj5tU+zgNp0sPLYFoqz+VjSEZdsyXh7ZnYLv8XlbUeNtIDp4hU5Uh0pf4l1WeNBULqy3mWLuwFPeZPQ9SpSeVj3AbxQHGWj7uzioF2C3n3KC2Qo/GSb0squdHDURfsoYpqtzR46kvvZC0AJmAyv2a6thT3Cyd3oXdNuZNlTbimA2VOAoJ16nseojLYS7Jz7WCfiClCoSkthR01DM2gFdFk02HyHcHDIUxRl+4lcGOP7vrtZVCU2vkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T3CZf4Zi/+LKE/JxglBmU2IixkGLM4biIR5p9SBTScI=;
- b=fqH2vtXhqKt590lDgbNd1+yk7bZk8PD1I2izsTmvbT2WwRq/suTbG1sJiKC44mzQJAUD085PW1gDJHrIa73I0TALmxa6s6hrInr9WcCFpuLdU+xBPIVEbXUGenhFx9dxhr1aNpUSK8JKFDAwloPmM3dEiCHGHHHphO5EXrmR0iBJR8zL0iLZq2t3E3IemrRsDWIKf+ZeAHB+CctsqsoXdYqo0cfgnQlYUsXF/3LaaVm+pVEdW9k3l3AiV954De7I1N43sMboFb1Nx2uuOVW53057jnJpvnj/ou02oWAqswSo46lyaBAWKt9Zm2EQC0honLogFatXYskgj0BC3ahtZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=njBIOzkPXzMFuv63yYQen7tK22va6bbzgMd3rSifM58=;
+ b=kQxWnok/YXbUtLREMMbKbsErJt+U9QTQk6r57e4QAfyIJdZAL+t4SrX0/Tn4yhcPRFoc+hvRJPa+ed3y4XMNTb6mJ0Js+ijH1lRCCOHIO2DsgH+Dh7sXqvUskU6HNF5SwskV0WYSjhb7n1HlQS19CfpcTupOwnj4k9+AWnnpqtUOEY4NYFEPabCx/4YvmxTrQZMR5/r8lbNt0bkaTJrhSTyzuacNcQlv3absakr13EluhQC/JJSQp+qL5ofMwtuvEsei4YxNQPkIJBkQ54VKaZ83TGzJ2FTpdiONaorNbvPPQfKlUaXB0AbRYcGWKMPMdtnGrGsyb76NyolsZO/XmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T3CZf4Zi/+LKE/JxglBmU2IixkGLM4biIR5p9SBTScI=;
- b=J1LoZ5QVDcPbn6hCpZgemz32LwgVxS1C1KkiQY5x/SGjd4W/k5ZiUMuoZBQuThjs/7zX64rmJeDLQomtoURhuK28rW5uKCM/nANpNgfBezsBdf93DJtKrlqn9KfDa+Pb/OY63dWCz8IB8hlx8lru5/zgJpXIM5+2A2bWjCSjqaA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Jason Andryuk <jason.andryuk@amd.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 3/3] x86/PVH: Support relocatable dom0 kernels
-Date: Wed, 6 Mar 2024 13:50:32 -0500
-Message-ID: <20240306185032.103216-4-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240306185032.103216-1-jason.andryuk@amd.com>
-References: <20240306185032.103216-1-jason.andryuk@amd.com>
-MIME-Version: 1.0
+ bh=njBIOzkPXzMFuv63yYQen7tK22va6bbzgMd3rSifM58=;
+ b=mECtXOdOoVlr3XLksvSqT0Xi0X69mUxigSrJ9xn0FpIVER3Vs20tyTnq8UPfU3dxqJz5IlQgHVNC492pUAXDUstojOnWJjh65U/Fd1YtOH6Udto+10vYa305FgHLh7Hc54HgqAAKL6Et8xM3KqrSzvIPetQAkDGFF6bYe6IMGPc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <7c2f9983-a0b5-41f7-81cb-f196787f3dfb@amd.com>
+Date: Wed, 6 Mar 2024 12:51:28 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+Content-Language: en-US
+To: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Juergen Gross <jgross@suse.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
+ <CAKm-UmY-KXEAtBagikW4Jvp=SFXtmEg8P62pHfSo3Hr2s-0_-A@mail.gmail.com>
+ <CAKm-UmYbMCfXc1Ny0=qfB+UaLSXV9oEHZiSgS=mwKMwmOFGVrQ@mail.gmail.com>
+ <77c1c05d-a0a0-4292-9257-9b7fbebee0e3@suse.com>
+ <2859ad22-8714-4628-8142-fc77fc2072c3@amd.com>
+ <CAKm-UmZpyGkWXugYTJqU+qqVDyCFEKghtd=NTr2wK5EMCeL9Ww@mail.gmail.com>
+ <214585d5-689d-4ba6-bd48-359428a7ed8f@amd.com>
+ <CAKm-UmZoKwre8-G793VqRNFCmzAti1o-0Kp3ZyV_Z5cc0YNiKw@mail.gmail.com>
+ <CAKm-Umb=kGFqc5je9E3bbfQ0bcbZeY_Ntv5JDmO-vXj3N0MvPg@mail.gmail.com>
+ <CAKm-UmZ113q-a8wEE5yo0OPPM3JpNqJzKaU1eNiCzT2YkGU0pQ@mail.gmail.com>
+ <CAKm-UmaG3KRtDkrEH7cNgLkRkRs2HG357S=BUjomhN6Ad-AkCQ@mail.gmail.com>
+ <a3472888-7bfb-4889-8ccb-58384afff324@amd.com>
+ <CAKm-UmYyxC5SrqdW3MYj326J7CCGRHZpc1+D0Dezd27z++3JJg@mail.gmail.com>
+ <19852f4d-fbeb-4314-a2cb-ab3f05da13ba@amd.com>
+ <CAKm-UmZm1d8Ehusoh5HNOST+0Dek7+vLQSKbVduz40BdHueiDA@mail.gmail.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <CAKm-UmZm1d8Ehusoh5HNOST+0Dek7+vLQSKbVduz40BdHueiDA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: SA9PR03CA0028.namprd03.prod.outlook.com
+ (2603:10b6:806:20::33) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CA:EE_|LV8PR12MB9405:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd647ce7-5f4d-4745-6283-08dc3e0e5bf9
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DS7PR12MB6216:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60f1788e-f486-4727-a15a-08dc3e0e6fa4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	OB6lho4d4qmSJMsKLPPvUveVfU8ytiL8AGNH+LlCnFFswKRijAbPVaXix9XKQfuMKykWNvlvRBGMMbylFnPME6+bk1+G6ycByO1/dzEASRhNdv5xulj4ApsBbkoQB+f8R6o3AAcdi0+8kvKvYf2eAxC/Vi+TYGzZKhntTg0ONVKnxSxUodUT3gQwMOVqMUJu53AnymdMI+MGp8bemV8MbOZGalmwhF8tnlSMP5DiWIlyUNVpfIe/59eGgF0XFL88CMsDucZvU/NZz0UCPxeLfQyK7diqnDUkfufqDg1I4o0af+oWbBGZESCdURsm9Hi01sZ4Lq6aTfFmGcQrrlqKa/GN6vsazC3zKX8n4dcR6VM6bWgil4//KXlp+CVjT/fLE5/SvdjwCdDvr5oiMbb/QTkuamdAmkAAfjRkSPQIr6l5GzZsa1owD6xET2EmAZ/86A/pB/Rcc6xnje5qZYb/jYZoIFspnN3lZ5pRxiYNwTPbVbxSfd7HkftxzwfB8bgtmYxMHISOd4reh5AgwrJiS2NroyPxHRi40nTgnVw1b5cYL1XcByC/5pn/f4XRTibe9vvcyjs3fc9iRO5NGjq8CUNOhREDjv8Py9/7uTNbqu6cVGSxj/wMVRADHhKTCNnoqfj8QfX3vnJCnJyIor8JpN4uPQA3ZhZZCKtfnZ1rrFMNYn+Jgzfgl91AUvzGTPCc/plsugpCFGNhcarZNwSe3mCKJswkcmcAJOMzrvMN0++KQUffu643851tiB/vdkrx
+	TrhbM8zNiwCEN4aKk6yAiZm8qb991xjuTp9A0NUQpvcsDXDdT1oK7xj8mkD4YMIjCgi9R/Kdf/K/2pw8R6AFOnCOTfkztDToT03kJQqHjhElZkTied2u/bN0KJ9UxmnoRyUsfagAu6JiabkeE/AqFk5KKv3/gsbcBM17J3rsAbh0nTp4EK7rRI8c2NkVDQg0IZJPhtrPn/PjDZzfUOr9tozWVvhGccqWQLjVo9L7ONyP8JnV5RO1Wz2O7/0GLophTUdoeiBbB5VQsaFgl39+PzlAI7SVM/asz8RCGynyuLcqQ1ECpMXGPIBDGSNDT0aT0kT1XZz5hql+ovOauGPpguRo6yzPi/D9wWTk21DTvgPbbgNDgIO0mMxR2Cscl7rakDkPU7qhY3AQRrfb1BFJaYmPDT7T/ZTEyHN5BjE6/7mQe4V3E+R7onsg+G807BLRjSgvYJWJBobnQ3cePnHC4qzXy26z0G6mLnSoqxS9Y1RAKukZHvtefcMFvX+DfPPY6L/F677WmzhAEYn6NMOcKWgtJH7eMN40leKTDjl9AymkL3j9Q93GzWNsDtvO5Nt/S2VeRRrUfrZ92X0AdkvPdMX+m8oKJbRGiO6Uoc0D6Ro=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(36860700004)(376005);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6101.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L2RkcHJQNk1JVzh2R3JwSGV2Y2dRcFFuVlN3TlI4NmhOaHRqMHFxTzVMd2J6?=
+ =?utf-8?B?WFI0RXl3MGRpRjQ4dmdJNmxid0hMU1hRdUdISHA2RWE1SzZPQllvNXJtTUV3?=
+ =?utf-8?B?QXJuN0o5bWhCMTUwK0IzYVhvcnNVM1NmVlNxZHZ0bHlvTW5pSG9vY1J6RTNF?=
+ =?utf-8?B?QWM0SVVRQzNmU2U0UVpKWWkzRGNESWRCcWg0dGNaK2UwaVhzSGxrNzhoaEh5?=
+ =?utf-8?B?eFlIUEVneU1sQzNKYzlTNWJYUUFYeElsMnVuYW14L1ROZTJvSlFHbXFiLzZQ?=
+ =?utf-8?B?MklPZlhwRHFEUjFBR2xQM214YzNKUCs5cjA5Szc1eGQyOHhhNVY1aGtJdDFE?=
+ =?utf-8?B?SmdGbnRTWDdqU2dyNzQ3ZUUvWDFNMzFvWTMvY20rSkM2eHNuc09yQkZTdEJ1?=
+ =?utf-8?B?d0ZFUVdSd25FSDVTQWZrbldBYk5BWTQ3d3hMSVoxeDdQOFVua3ducXBwcmt5?=
+ =?utf-8?B?a3owa3dGRHVvRlJDSlRHdlNGOUgyRzhCKzFLSWdSOVRpQTlGcEpSL3dTbzc3?=
+ =?utf-8?B?WDNJRlZQckNnT0xXOVZCc0EyY0dYWHhMYWtlRVhtNldVc1U3MjN5WWVNdTBT?=
+ =?utf-8?B?c0IrQjk2UWhiRVZlUCtxbXRYUG0yYk4xNTE1VzUvdkVNN0VXa2FHY3ZjOWUv?=
+ =?utf-8?B?TVpxbnp0Z2hkczN4c212UnVKWkhWODd2Vy95OXFjVEZMOHJLKzRONUZtS0ky?=
+ =?utf-8?B?NTB6d1gxcVlCS3NJeEZyRXg3aFk0WW5Da1lObk1PcVozamptODhRMHNFbzk0?=
+ =?utf-8?B?RnR5Q2UrT0VVMDd4Q003aEhXYUFETzR4dEI2dS9ybWN3L2wyUXYzWGRiK2l5?=
+ =?utf-8?B?NG9vc1BiWkphTktyckpaYktZWmE5clFjdXJSakNxUHVxVi96WnZCNU5NcFdz?=
+ =?utf-8?B?OU1TcWZBVGkwclNsRE9SMnhoclZ5VnRSOEJWMnJGR2tTa1lxbkx6UDBBVHhB?=
+ =?utf-8?B?V3ZvMzN2c3dENGV2OWhjalB2MnV3MlVEQjVYTmI5cW9sN3N2ellyN2YrdHVt?=
+ =?utf-8?B?UlNSVS9ZYjMxWW16S3h6cFhWLzFMSDlVa0pzaGxQMmZvQzBQVG12ODN5cHly?=
+ =?utf-8?B?ZHNidXFleWQ4U0Y0MC83QkVZd1RzL3d5QUM0Vy9NUmNKakNoYytYM3hIYkFy?=
+ =?utf-8?B?YTFVNTZxeGROTkszYUx4ZExmRGlnY2xKdmtyaDczeDIwQnhOcmtDelcxbVpz?=
+ =?utf-8?B?bitMSi95M2tKMnJCN3MzRmFpWmRCUVd6WlA2b2lnNHNyM0J3UmF5ZkhSR0RD?=
+ =?utf-8?B?N240OEJuRW52UGtrOENnWFJUckptbHZuRGh4ZEpnQjVKcHV6YWQ4SVc2UXov?=
+ =?utf-8?B?SG9TVkhXOHBWdHg1eWllYm96dXFtQUJLMkl0U1IyM1hJMDNJOXRYenFObU1K?=
+ =?utf-8?B?djdwREFDM2NjSkJQYi9vQUpFc28zNlpLcFpxa0lzYlNYSk9kazR4SzNyaU94?=
+ =?utf-8?B?WVg1REhRcUo5SmJEKzBDYVdWMEh3cmdYK2FqeGtreE1DZUx2OEJDRS9CTzEx?=
+ =?utf-8?B?bk1jaVJhRjVsOEhYRTNmbHQ4My9seTUrbEdldTMxYlp0ZllTcVdNVnZJOUJj?=
+ =?utf-8?B?ZzBFdDFNYWRtdmpheU5lazV3VXZFTEFNZXVJOWF3UkpGSS9SMlJjVCsyY2Fy?=
+ =?utf-8?B?UURsRnJCTnNLTTRpN2RqY096OG9jNXpZSm5BeldZQnhnRGlhRDh6cVJyOWRU?=
+ =?utf-8?B?VjluR0JBSFNMN0FaNmM1VlFnSXBlL1NHRVlVdk9oZmxpYjhGVG1ZRnRsaFhl?=
+ =?utf-8?B?Vm80a0NLWFZsYVFPV3UveXBFZlpWU1pHZUY2QzUvWGhwWXJqT1VHaDM0Z2RQ?=
+ =?utf-8?B?dmJtZkRaRmtKcXBBUGRhT2RzNDQxM3B0dHc2NjdYZmdsRUplcm0wVXp4aDls?=
+ =?utf-8?B?ODVIbmp6eEowNkJQRTVFZGU2ZWZKRFdvQnpoM25zK3pxOFFKRWNCYlVKS09y?=
+ =?utf-8?B?L3c3SHY1TXpYVEo2N2d1d20vWDZFVldoV2VBL1l1WE83WERBTVVmdVo0Zmlu?=
+ =?utf-8?B?RThZZ3JhTDEvanBMM0FSUVN1aUZ1TlR3bjF6UXVvakZnUGN2NGhubTgwU2c5?=
+ =?utf-8?B?VmhLenFNUFVXSjRLNGExOEpuaDAzbTkrZ3A3TUFLWVZNS2pLM1dCRlo0UWJG?=
+ =?utf-8?Q?zprIoms8h88DZ4kofShA2K5lU?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2024 18:50:57.2052
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60f1788e-f486-4727-a15a-08dc3e0e6fa4
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2024 18:51:30.4695
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd647ce7-5f4d-4745-6283-08dc3e0e5bf9
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001CA.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9405
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ThBeWc4A1RayvVvBSdjWommayPUPM81uHANUE7pNiqJiohEnOUEyK9Q57gmb5PzpbwFF8pjhKDpLsJ2NlC6+6g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6216
 
-Xen tries to load a PVH dom0 kernel at the fixed guest physical address
-from the elf headers.  For Linux, this defaults to 0x1000000 (16MB), but
-it can be configured.
+On 3/6/2024 12:49, Sébastien Chaumat wrote:
+> 
+> 
+> Le mer. 6 mars 2024 à 19:08, Mario Limonciello 
+> <mario.limonciello@amd.com <mailto:mario.limonciello@amd.com>> a écrit :
+> 
+>     On 3/6/2024 12:05, Sébastien Chaumat wrote:
+>      >
+>      >
+>      > Le mer. 6 mars 2024 à 18:33, Mario Limonciello
+>      > <mario.limonciello@amd.com <mailto:mario.limonciello@amd.com>
+>     <mailto:mario.limonciello@amd.com
+>     <mailto:mario.limonciello@amd.com>>> a écrit :
+>      >
+>      >     On 3/6/2024 11:28, Sébastien Chaumat wrote:
+>      >      >
+>      >      >
+>      >      >
+>      >      >
+>      >      >     Reasoning backward  (using a  kernel without the
+>     pinctrl_amd
+>      >     driver
+>      >      >     to ensure xen only is at stake) :
+>      >      >       checking the diff in IOAPIC  between bare metal and xen
+>      >     (IRQ7 is
+>      >      >     on pin07 on APIC )
+>      >      >
+>      >      >     using kernel argument : apic=debug
+>      >      >
+>      >      >     bare metal :
+>      >      >     [    0.715330] fedora kernel: ... APIC VERSION: 81050010
+>      >      >     ...
+>      >      >     [    0.715433] fedora kernel:  pin07, disabled, edge ,
+>     high,
+>      >     V(00),
+>      >      >     IRR(0), S(0), physical, D(0000), M(0)
+>      >      >
+>      >      >     xen :
+>      >      >     [    2.249582] fedora kernel: ... APIC VERSION: 00000014
+>      >      >     ...
+>      >      >     [    2.249730] fedora kernel:  pin07, disabled, level,
+>     low ,
+>      >     V(60),
+>      >      >     IRR(0), S(0), physical, D(0000), M(0)
+>      >      >
+>      >      >     So the APIC table is not the same.
+>      >      >
+>      >      >     As strange as it looks the  (IOAPIC 0) pin07 is correctly
+>      >     described
+>      >      >     by the APIC in xen but yet differently than in baremetal.
+>      >      >     But the APIC message comes long after the
+>      >      >     [    1.833145] fedora kernel: xen: registering gsi 7
+>     triggering 0
+>      >      >     polarity 1
+>      >      >
+>      >      >     so I wonder if the APIC pin07 info had any influence.
+>      >      >
+>      >      > Finally found the fix : adding ioapic_ack=new to xen boot
+>     parameters.
+>      >      > Not only the trackpad is now working but also the ACPI
+>     Embedded
+>      >      > Controller which is completely disabled.
+>      >      >
+>      >      > Sébastien
+>      >      >
+>      >     That's great news!  I'm personally totally unfamiliar with
+>      >     ioapic_ack=new, so I did a quick search and found out it's a Xen
+>      >     parameter (I came across
+>      >
+>     https://xenbits.xen.org/docs/4.5-testing/misc/xen-command-line.html
+>     <https://xenbits.xen.org/docs/4.5-testing/misc/xen-command-line.html>
+>      >   
+>       <https://xenbits.xen.org/docs/4.5-testing/misc/xen-command-line.html <https://xenbits.xen.org/docs/4.5-testing/misc/xen-command-line.html>>).
+>      >
+>      >     This mentions that "new" should be the default, so why isn't
+>     it the
+>      >     case?
+>      >
+>      >
+>      >   "This is the the default unless directed-EOI is supported"
+>      > xl dmesg without forcing the parameters shows :
+>      >
+>      > (XEN) Enabled directed EOI with ioapic_ack_old on!
+> 
+>     Got it; it sounds to me like a logic mismatch in Xen then.
+> 
+>      >
+>      >     Also; I'd be really interested to hear what happens with
+>     s2idle with
+>      >     Xen
+>      >     now (if it works).
+>      >
+>      >
+>      > suspend to RAM now works :)
+> 
+>     Do you see /sys/power/suspend_stats/last_hw_sleep increasing with your
+>     suspend cycle?
+> 
+> 
+> No,  it does not increase (0).
+> 
 
-Unfortunately there exist firmwares that have reserved regions at this
-address, so Xen fails to load the dom0 kernel since it's not RAM.
-
-The PVH entry code is not relocatable - it loads from absolute
-addresses, which fail when the kernel is loaded at a different address.
-With a suitably modified kernel, a reloctable entry point is possible.
-
-Add the XENFEAT_pvh_relocatable flag to let a kernel indicate that it
-supports a relocatable entry path.
-
-Change the loading to check for an acceptable load address.  If the
-kernel is relocatable, support finding an alternate load address.
-
-Linux cares about its physical alignment.  This can be pulled out of the
-bzImage header, but not from the vmlinux ELF file.  If an alignment
-can't be found, use 2MB.
-
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
-Put alignment as a new ELF note?  Presence of that note would indicate
-relocation support without a new XENFEAT flag.
-
-Default alignment to a multiple of 2MB to make more cases work?  It has
-to be a power of two, and a multiple might allow loading a customized
-kernel.  A larger alignment would limit the number of possible load
-locations.
----
- xen/arch/x86/hvm/dom0_build.c | 109 ++++++++++++++++++++++++++++++++++
- xen/include/public/features.h |   5 ++
- 2 files changed, 114 insertions(+)
-
-diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
-index bbae8a5645..34d68ee8fb 100644
---- a/xen/arch/x86/hvm/dom0_build.c
-+++ b/xen/arch/x86/hvm/dom0_build.c
-@@ -537,6 +537,109 @@ static paddr_t __init find_memory(
-     return INVALID_PADDR;
- }
- 
-+static bool __init check_load_address(
-+    const struct domain *d, const struct elf_binary *elf)
-+{
-+    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
-+    paddr_t kernel_end = ROUNDUP((paddr_t)elf->dest_base + elf->dest_size,
-+                                 PAGE_SIZE);
-+    unsigned int i;
-+
-+    /*
-+     * The memory map is sorted and all RAM regions starts and sizes are
-+     * aligned to page boundaries.
-+     */
-+    for ( i = 0; i < d->arch.nr_e820; i++ )
-+    {
-+        paddr_t start = d->arch.e820[i].addr;
-+        paddr_t end = d->arch.e820[i].addr + d->arch.e820[i].size;
-+
-+        if ( start <= kernel_start &&
-+             end >= kernel_end &&
-+             d->arch.e820[i].type == E820_RAM )
-+            return true;
-+    }
-+
-+    return false;
-+}
-+
-+/*
-+ * Find an e820 RAM region that fits the kernel at a suitable alignment.
-+ */
-+static paddr_t find_kernel_memory(
-+    const struct domain *d, struct elf_binary *elf, paddr_t align)
-+{
-+    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
-+    paddr_t kernel_end = ROUNDUP((paddr_t)elf->dest_base + elf->dest_size,
-+                                 PAGE_SIZE);
-+    unsigned int i;
-+
-+    /*
-+     * The memory map is sorted and all RAM regions starts and sizes are
-+     * aligned to page boundaries.
-+     */
-+    for ( i = 0; i < d->arch.nr_e820; i++ )
-+    {
-+        paddr_t start = d->arch.e820[i].addr;
-+        paddr_t end = d->arch.e820[i].addr + d->arch.e820[i].size;
-+        paddr_t kstart, kend, offset;
-+
-+        if ( d->arch.e820[i].type != E820_RAM )
-+            continue;
-+
-+        if ( d->arch.e820[i].size < elf->dest_size )
-+            continue;
-+
-+        if ( end < kernel_end )
-+            continue;
-+
-+        kstart = ROUNDUP(start, align);
-+        offset = kstart - kernel_start;
-+        kend = kernel_end + offset;
-+
-+        if ( kend <= end )
-+            return offset;
-+    }
-+
-+    return 0;
-+}
-+
-+/*
-+ * Check the kernel load address, and adjust if necessary and possible.
-+ */
-+static bool __init adjust_load_address(
-+    const struct domain *d, struct elf_binary *elf, struct elf_dom_parms *parms,
-+    paddr_t align)
-+{
-+    paddr_t offset;
-+
-+    /* Check load address */
-+    if ( check_load_address(d, elf) )
-+        return true;
-+
-+    if ( !test_bit(XENFEAT_pvh_relocatable, parms->f_supported) )
-+    {
-+        printk("Address conflict and %pd kernel is not relocatable\n", d);
-+        return false;
-+    }
-+
-+    if ( align == 0 )
-+        align = MB(2);
-+
-+    offset = find_kernel_memory(d, elf, align);
-+    if ( offset == 0 )
-+    {
-+        printk("Failed find a load offset for the kernel\n");
-+        return false;
-+    }
-+
-+    printk("Adjusting load address by %#lx\n", offset);
-+    elf->dest_base += offset;
-+    parms->phys_entry += offset;
-+
-+    return true;
-+}
-+
- static int __init pvh_load_kernel(struct domain *d, const module_t *image,
-                                   unsigned long image_headroom,
-                                   module_t *initrd, void *image_base,
-@@ -587,6 +690,12 @@ static int __init pvh_load_kernel(struct domain *d, const module_t *image,
-     elf.dest_base = (void *)(parms.virt_kstart - parms.virt_base);
-     elf.dest_size = parms.virt_kend - parms.virt_kstart;
- 
-+    if ( !adjust_load_address(d, &elf, &parms, align) )
-+    {
-+        printk("Unable to load kernel\n");
-+        return -ENOMEM;
-+    }
-+
-     elf_set_vcpu(&elf, v);
-     rc = elf_load_binary(&elf);
-     if ( rc < 0 )
-diff --git a/xen/include/public/features.h b/xen/include/public/features.h
-index 4437f25d25..300480cb22 100644
---- a/xen/include/public/features.h
-+++ b/xen/include/public/features.h
-@@ -120,6 +120,11 @@
- #define XENFEAT_runstate_phys_area        18
- #define XENFEAT_vcpu_time_phys_area       19
- 
-+/*
-+ * PVH: If set, the guest supports relocation in load address.
-+ */
-+#define XENFEAT_pvh_relocatable           20
-+
- #define XENFEAT_NR_SUBMAPS 1
- 
- #endif /* __XEN_PUBLIC_FEATURES_H__ */
--- 
-2.44.0
+OK, then in that case I suggest you run 
+https://gitlab.freedesktop.org/drm/amd/-/blob/master/scripts/amd_s2idle.py 
+in the hypervisor to find out what's wrong.
 
 
