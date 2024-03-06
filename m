@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B5948730FB
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 09:42:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.688986.1073847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 153C28732BD
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 10:41:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.688993.1073873 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhmqe-0006zG-1z; Wed, 06 Mar 2024 08:42:00 +0000
+	id 1rhnlk-0006wj-Ey; Wed, 06 Mar 2024 09:41:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 688986.1073847; Wed, 06 Mar 2024 08:42:00 +0000
+Received: by outflank-mailman (output) from mailman id 688993.1073873; Wed, 06 Mar 2024 09:41:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhmqd-0006wU-VL; Wed, 06 Mar 2024 08:41:59 +0000
-Received: by outflank-mailman (input) for mailman id 688986;
- Wed, 06 Mar 2024 08:41:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WCvN=KM=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rhmqc-0006wM-Gn
- for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 08:41:58 +0000
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
- [2607:f8b0:4864:20::f35])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 638b389e-db95-11ee-afda-a90da7624cb6;
- Wed, 06 Mar 2024 09:41:56 +0100 (CET)
-Received: by mail-qv1-xf35.google.com with SMTP id
- 6a1803df08f44-6906a7870f3so14165126d6.0
- for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 00:41:56 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- om13-20020a0562143d8d00b0069049135a69sm7023441qvb.118.2024.03.06.00.41.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Mar 2024 00:41:55 -0800 (PST)
+	id 1rhnlk-0006uj-C1; Wed, 06 Mar 2024 09:41:00 +0000
+Received: by outflank-mailman (input) for mailman id 688993;
+ Wed, 06 Mar 2024 09:40:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rhnli-0006ud-W4
+ for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 09:40:59 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rhnlg-0002va-U2; Wed, 06 Mar 2024 09:40:56 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rhnlg-0003GQ-OU; Wed, 06 Mar 2024 09:40:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,72 +39,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 638b389e-db95-11ee-afda-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709714515; x=1710319315; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=gRA45BD+xOCjZlCt+0rrl0MG9mC7LmUmAHQuHFIET2w=;
-        b=eXBonDp4Et2PjJqPej77X+FwTC6dLQuPDiswoSzFMXH5v5aYFNGxda8V97BpBGahz4
-         FrqMTJHdZalvg3gce0CCH2XknChE890hq0GyHscMKN9RqHF41R1zz9i7dl9p/ADcW0Vb
-         ZrGzzRKXeMhgUzj3g+z95Drj0CEVI3ohaIi6I=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709714515; x=1710319315;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gRA45BD+xOCjZlCt+0rrl0MG9mC7LmUmAHQuHFIET2w=;
-        b=Y7gHvJHQJXnLFyhbXNUEN2UBWMe4ywSGC8cmaifA/wZzXq6mFIA1GngFOuPYgbyjH2
-         XQywxapJIixZx0T/j+dyMPxaAi612HqvqIfbEJ8u8fsFQ8o+o2MnoemVFG1bXPpLV61z
-         esFNyTFpjekQ6NHP+ar60+K0hPFiJaFa2aXctr6n7nBLwLYRo3mToDhMQlql8f59LKHP
-         UUgBw+fiRaG7RXQ41IjKZc4go7csg0wm79P1lYULGGajIGk5dapOmur6qsZM6AHqm9tE
-         ZloYix5NyPeUd+OS9gYnfiSKG0e/82zyejpcdNfA6qzt/hPfsatP+hFQrkC0yqO4BZze
-         kKQA==
-X-Gm-Message-State: AOJu0YyfqfKTSbdsSh/g79I7YhfOSxNYJyaKGqNYLD2x8rIGM0vPRpMt
-	1agCq8iagQNj/zEPGUtP8h7ADWNgBU8iKcu2ZzNOE/kFRmDP1RykpsF3qjqtxjw=
-X-Google-Smtp-Source: AGHT+IHpHaaRiPnv86gpjeI/vrv1bQdEaUCNhyFGxCmZwrQz3mpvQ2u7eoPrR2nhhxxk28dsqfwmAw==
-X-Received: by 2002:a05:6214:8ea:b0:690:4deb:3aa5 with SMTP id dr10-20020a05621408ea00b006904deb3aa5mr4141781qvb.42.1709714515606;
-        Wed, 06 Mar 2024 00:41:55 -0800 (PST)
-Date: Wed, 6 Mar 2024 09:41:53 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: flyingpenghao@gmail.com
-Cc: xen-devel@lists.xenproject.org, Peng Hao <flyingpeng@tencent.com>
-Subject: Re: [PATCH]  xen/blkback: use kmap_local_page()
-Message-ID: <ZegsUUDfgNg3mzEw@macbook>
-References: <20240306051548.90954-1-flyingpeng@tencent.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Fb4QIs2E09TeP9Ic2+DwL4sBKHqXS4NERNnQ8agFh8E=; b=yIkleGITnirJOFnDo0zhUE/Px4
+	1njfUzl8A0GXAuX87JXuMHrsJ37rGXOfjm4ki8X5yV3IexSNne/vh1oFHXNhHCVHi1yxaaBO7FDxs
+	+Yguzt+u24p3Fe+8MDLRLc+OptBSajV9Hfzl3vsGBvNVO/8Q2AfBYdQiJxqE/iDs5N1s=;
+Message-ID: <b07ec4be-b7bf-4bf7-8959-4e1d49060530@xen.org>
+Date: Wed, 6 Mar 2024 09:40:55 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20240306051548.90954-1-flyingpeng@tencent.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] SUPPORT.md: clarify support of booting 32-bit Xen on
+ ARMv8
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <20240229121352.11264-1-michal.orzel@amd.com>
+ <d1b7a4fd-0754-45f7-8c58-db36f0e94cfc@xen.org>
+ <94176748-8438-460d-9434-6d18add55cef@amd.com>
+ <544718e1-4855-4af1-a450-6362a8cd08f0@xen.org>
+ <216e9119-a7f9-43f3-80f9-f1c15685cad3@amd.com>
+ <alpine.DEB.2.22.394.2402291307300.853156@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2402291307300.853156@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Mar 06, 2024 at 01:15:48PM +0800, flyingpenghao@gmail.com wrote:
-> From: Peng Hao <flyingpeng@tencent.com>
-> 
-> From: Peng Hao <flyingpeng@tencent.com>
-> 
-> Use kmap_local_page() instead of kmap_atomic() which has been
-> deprecated.
-> 
-> Signed-off-by: Peng Hao <flyingpeng@tencent.com>
-> ---
->  drivers/block/xen-blkback/blkback.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/block/xen-blkback/blkback.c b/drivers/block/xen-blkback/blkback.c
-> index 4defd7f387c7..cce534f43292 100644
-> --- a/drivers/block/xen-blkback/blkback.c
-> +++ b/drivers/block/xen-blkback/blkback.c
-> @@ -937,8 +937,8 @@ static int xen_blkbk_parse_indirect(struct blkif_request *req,
->  		if ((n % SEGS_PER_INDIRECT_FRAME) == 0) {
->  			/* Map indirect segments */
->  			if (segments)
-> -				kunmap_atomic(segments);
-> -			segments = kmap_atomic(pages[n/SEGS_PER_INDIRECT_FRAME]->page);
-> +				kunmap_local(segments);
-> +			segments = kmap_local_page(pages[n/SEGS_PER_INDIRECT_FRAME]->page);
 
-Don't you need to also switch to kunmap_local() then instead of
-kunmap_atomic()?
 
-Thanks, Roger.
+On 29/02/2024 21:07, Stefano Stabellini wrote:
+> On Thu, 29 Feb 2024, Michal Orzel wrote:
+>>
+>> On 29/02/2024 13:40, Julien Grall wrote:
+>>>
+>>>
+>>> On 29/02/2024 12:37, Michal Orzel wrote:
+>>>> Hi Julien,
+>>>
+>>> Hi Michal,
+>>>
+>>>>
+>>>> On 29/02/2024 13:35, Julien Grall wrote:
+>>>>> On 29/02/2024 12:13, Michal Orzel wrote:
+>>>>>> Since commit bd1001db0af1 ("xen/arm: arm32: Allow Xen to boot on
+>>>>>> unidentified CPUs"), it's been possible to boot 32-bit Xen on ARMv8A CPUs
+>>>>>> in AArch32 state (assuming HW supports EL2 execution in AArch32). Clarify
+>>>>>> the support statement and mark it as Tech Preview, as this use case is
+>>>>>> uncommon and hasn't really been tested/hardened.
+>>>>>>
+>>>>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>>>>>> ---
+>>>>>>     SUPPORT.md | 1 +
+>>>>>>     1 file changed, 1 insertion(+)
+>>>>>>
+>>>>>> diff --git a/SUPPORT.md b/SUPPORT.md
+>>>>>> index a90d1108c9d9..acc61230bb5e 100644
+>>>>>> --- a/SUPPORT.md
+>>>>>> +++ b/SUPPORT.md
+>>>>>> @@ -40,6 +40,7 @@ supported in this document.
+>>>>>>         Status: Supported
+>>>>> I would consider to use 'Status, Xen in aarch64 mode: Supported' and then...
+>>>>>
+>>>>>>         Status, Cortex A57 r0p0-r1p1: Supported, not security supported
+>>>>>>         Status, Cortex A77 r0p0-r1p0: Supported, not security supported
+>>>>>> +    Status, Xen in AArch32 mode: Tech Preview
+>>>>>
+>>>>> ... move this line closer. What do you think?
+>>>> That works for me too (+AArch64 instead of aarch64).
+>>>
+>>> Ah yes. I keep forgetting capitalizing properly :).
+>>>
+>>>> Shall I respin the patch?
+>>>
+>>> Up to you. I am happy to fix it. But I will wait a day or two just to
+>>> give a chance for the others to comment.
+>> That works for me, let's wait for Bertrand and Stefano.
+> 
+> I am fine with it
+
+Committed.
+
+Cheers,
+
+-- 
+Julien Grall
 
