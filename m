@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 122AB873596
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 12:28:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689079.1074044 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 531FE8735A3
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 12:34:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689088.1074052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhpRk-0007W8-Us; Wed, 06 Mar 2024 11:28:28 +0000
+	id 1rhpX1-0001fU-L2; Wed, 06 Mar 2024 11:33:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689079.1074044; Wed, 06 Mar 2024 11:28:28 +0000
+Received: by outflank-mailman (output) from mailman id 689088.1074052; Wed, 06 Mar 2024 11:33:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhpRk-0007Sw-Qu; Wed, 06 Mar 2024 11:28:28 +0000
-Received: by outflank-mailman (input) for mailman id 689079;
- Wed, 06 Mar 2024 11:28:27 +0000
+	id 1rhpX1-0001d1-IK; Wed, 06 Mar 2024 11:33:55 +0000
+Received: by outflank-mailman (input) for mailman id 689088;
+ Wed, 06 Mar 2024 11:33:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b0MG=KM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rhpRj-0007Sk-QN
- for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 11:28:27 +0000
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [2607:f8b0:4864:20::432])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=frGc=KM=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rhpWz-0001cv-Iz
+ for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 11:33:53 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a5fa7486-dbac-11ee-afda-a90da7624cb6;
- Wed, 06 Mar 2024 12:28:27 +0100 (CET)
-Received: by mail-pf1-x432.google.com with SMTP id
- d2e1a72fcca58-6e649a2548cso722957b3a.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 03:28:26 -0800 (PST)
-Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- o26-20020a056a001b5a00b006e4766d31bcsm10576344pfv.184.2024.03.06.03.28.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Mar 2024 03:28:20 -0800 (PST)
+ id 682c4665-dbad-11ee-afda-a90da7624cb6;
+ Wed, 06 Mar 2024 12:33:52 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 61B4268827;
+ Wed,  6 Mar 2024 11:33:51 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2598113A65;
+ Wed,  6 Mar 2024 11:33:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 15YzB59U6GWLFQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 06 Mar 2024 11:33:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +52,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5fa7486-dbac-11ee-afda-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709724505; x=1710329305; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=521epUU343fws/n3Qt/F/VfXYETfAXYIbBJqL9uNFAQ=;
-        b=vj/fxu84u3liW+k173l829RoOwrAclTYpq2DJ3wmlxGh/uAu8bPpEWOavSIz+cOvCd
-         zlA2TEiXzzvUWcZuVQKCw+HyzD/kokK1vJ7liRW3EoObTNWIW2CXy0Iwg6aA649YWRcH
-         EVD8eIE16C9ASJQOQq+CZcNbv5Meimq3kAc0Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709724505; x=1710329305;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=521epUU343fws/n3Qt/F/VfXYETfAXYIbBJqL9uNFAQ=;
-        b=xSm6IUdmEC2Cx15JFZ2qPVRgO8DthdEZ0QvxuwS3Ufc/n8w2z5HHfsPMMnu57vwVfo
-         t4NYD4I3KnLPkBh31szK3AmIORB3wxoUr9QrQhNUXKXchx6nDxmb8KQBXW5qGfl3UOF1
-         LCzCco8F+tovu/MvG4pd/NOJYfaqoUWzuRxYmuaoYe7nbYc/0+bjyrfBqfj1bT3UoaJJ
-         4kYbVEKivrrQxDrKfruYzVwCdvhBxu4kUbLKy/JbtXj9NWn1v+9YylljWqdp6KNG3qvw
-         2wdkf9sI/Tn7PEZXvBEi4WQ8gxCkYcX0avDokuQeA2SmTU8I+L8o8D/5bZfgast49VOf
-         qscg==
-X-Forwarded-Encrypted: i=1; AJvYcCVeJQ61pDl03/v8+tcXyneJOjtyYw8aAmgX4H13qDCnjbp8C3D1TEIUgUz5nOlijQXAAA8IG2Ol9FUY/QigyF1EYHQFyNV81kGDWI2natU=
-X-Gm-Message-State: AOJu0YxZCOqiX8urpDD2QnFRsn9szZF0k6gTQJ3nycXrPRBB6/XSALJx
-	EWPshY5gIzhZp3lVPETTGf48hLhMlkLlmZMQdholqPHz+138PG8bZOku1OZ3XmE=
-X-Google-Smtp-Source: AGHT+IGLPj1fn+uorrr/C3YCghvXNhNpU00FrCR5m1uZcx+SPa6WhTfekH9n6dkUzRslxJcl5U3ToA==
-X-Received: by 2002:a05:6a00:2da8:b0:6e3:caa7:3038 with SMTP id fb40-20020a056a002da800b006e3caa73038mr18655049pfb.0.1709724504659;
-        Wed, 06 Mar 2024 03:28:24 -0800 (PST)
-Message-ID: <89819348-2d62-40db-a998-0174290b2cc2@citrix.com>
-Date: Wed, 6 Mar 2024 11:28:17 +0000
+X-Inumbo-ID: 682c4665-dbad-11ee-afda-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1709724831; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XWos/1lXlyQ7RHkskDWY40b7ic1MXb23n+nmckfVvzc=;
+	b=hZSo0j89l3YvJ9zafpn9TehqNr133tdMWz2GWRiq+HNpQW4P6WnWAbRLldxvmlO6J/AbsO
+	wdWLXPuXPcY1CKWc434Ki/G5rrHtviK0D1adRhw6wX4LFDweBBpsUGxX8XtZk2Ejw6P6G8
+	qfqNKyTDLFILMNsEy4r9nSfhYqKHWi0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1709724831; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XWos/1lXlyQ7RHkskDWY40b7ic1MXb23n+nmckfVvzc=;
+	b=hZSo0j89l3YvJ9zafpn9TehqNr133tdMWz2GWRiq+HNpQW4P6WnWAbRLldxvmlO6J/AbsO
+	wdWLXPuXPcY1CKWc434Ki/G5rrHtviK0D1adRhw6wX4LFDweBBpsUGxX8XtZk2Ejw6P6G8
+	qfqNKyTDLFILMNsEy4r9nSfhYqKHWi0=
+Message-ID: <f372ba5e-2b46-4193-b7bd-01b4a2b459a9@suse.com>
+Date: Wed, 6 Mar 2024 12:33:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/asm: add commas to further macros
- definitions/invocations
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <d0fba0c4-7a37-4ad7-80c8-5d2e129601a7@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <d0fba0c4-7a37-4ad7-80c8-5d2e129601a7@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] MAINTAINERS: add an entry for tools/9pfsd
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20240306111631.1696-1-jgross@suse.com>
+ <56270f54-d86d-4849-9964-ae94318215b8@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <56270f54-d86d-4849-9964-ae94318215b8@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -3.13
+X-Spamd-Result: default: False [-3.13 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 XM_UA_NO_VERSION(0.01)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 BAYES_HAM(-2.75)[98.93%];
+	 MIME_GOOD(-0.10)[text/plain];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 NEURAL_HAM_SHORT(-0.20)[-0.999];
+	 RCPT_COUNT_SEVEN(0.00)[7];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,citrix.com:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 R_MIXED_CHARSET(0.91)[subject];
+	 RCVD_TLS_ALL(0.00)[];
+	 MID_RHS_MATCH_FROM(0.00)[]
+X-Spam-Flag: NO
 
-On 06/03/2024 11:25 am, Jan Beulich wrote:
-> In light of recent observations with how macros are handled by gas,
-> let's play by what we informally set for ourselves as a guideline: Use
-> commas to separate parameters/arguments.
->
-> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> In INDIRECT_{CALL,JMP} adding commas to the arguments passed on makes
-> things look a little odd (for no longer looking similar to ordinary use
-> of instruction mnemonics + operands). Thoughts on omitting the commas
-> there?
+On 06.03.24 12:23, Jan Beulich wrote:
+> On 06.03.2024 12:16, Juergen Gross wrote:
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -206,6 +206,12 @@ Maintainers List (try to look for most precise areas first)
+>>   
+>>   		-----------------------------------
+>>   
+>> +9PFSD
+>> +M:	Juergen Gross <jgross@suse.com>
+>> +M:	Anthony PERARD <anthony.perard@citrix.com>
+>> +S:	Supported
+>> +F:	tools/9pfsd
+> 
+> This wants a trailing slash.
 
-I'd prefer to go for consistency.
+Oh, indeed.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Can pretty certainly be taken care of while committing.
+
+Thanks,
+
+
+Juergen
+
 
