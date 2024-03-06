@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9663873C91
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 17:48:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689395.1074304 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7781873CB8
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 17:57:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689398.1074315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhuRe-00007T-CD; Wed, 06 Mar 2024 16:48:42 +0000
+	id 1rhuZF-00029N-4X; Wed, 06 Mar 2024 16:56:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689395.1074304; Wed, 06 Mar 2024 16:48:42 +0000
+Received: by outflank-mailman (output) from mailman id 689398.1074315; Wed, 06 Mar 2024 16:56:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhuRe-00005H-9Z; Wed, 06 Mar 2024 16:48:42 +0000
-Received: by outflank-mailman (input) for mailman id 689395;
- Wed, 06 Mar 2024 16:48:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rhuZF-000270-1J; Wed, 06 Mar 2024 16:56:33 +0000
+Received: by outflank-mailman (input) for mailman id 689398;
+ Wed, 06 Mar 2024 16:56:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+FG1=KM=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1rhuRc-00005B-Bw
- for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 16:48:40 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 612d88fb-dbd9-11ee-afda-a90da7624cb6;
- Wed, 06 Mar 2024 17:48:39 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-512f3e75391so2134279e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 08:48:38 -0800 (PST)
+ id 1rhuZD-00026u-T4
+ for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 16:56:31 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 79c8b058-dbda-11ee-a1ee-f123f15fe8a2;
+ Wed, 06 Mar 2024 17:56:29 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-33e383546c1so685092f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 08:56:28 -0800 (PST)
 Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- fk15-20020a05600c0ccf00b00412ff1acf05sm1021130wmb.7.2024.03.06.08.48.37
+ h18-20020a5d5052000000b0033cf4e47496sm17950600wrt.51.2024.03.06.08.56.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Mar 2024 08:48:37 -0800 (PST)
+ Wed, 06 Mar 2024 08:56:27 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id DE7A85F796;
- Wed,  6 Mar 2024 16:48:36 +0000 (GMT)
+ by draig.lan (Postfix) with ESMTP id 6A5BE5F88A;
+ Wed,  6 Mar 2024 16:56:27 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,107 +47,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 612d88fb-dbd9-11ee-afda-a90da7624cb6
+X-Inumbo-ID: 79c8b058-dbda-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1709743718; x=1710348518; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1709744188; x=1710348988; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PgcX19QUQvO9a0rJ1WYbUKrpxkk0cHhIiPkrtv4Xua8=;
-        b=APw3PZnzvflZzfU3ZXeCYAUUaczwMoppIGtlisEMSvUHsUZteBsVapMHp205Qaseod
-         gmqhzk/Tu+dwkln3ioW8gCz783YsxYGaV9c71KBJSsU8JUghlHHIDHwg7bG8yNojLTvq
-         AcDv2LyxGbBE2I31RT3bpjbQ6AAxECPDm3KGjqgnQmcGpdwVKfnxJef8mEZhRLJUtDdv
-         zq6hoUk8SsxOdXCw+3NT4JAnb3cDaH9nWtlVjukmnZo+mhgrJaC/hq8DJhDvBOcz876D
-         k8iVlnWAhcn/mRJ2pelEHm6lQkezYV6UFseSTPW9qpgmBy+RXTwpjPiggFc6S/Yr/sY+
-         ItKg==
+        bh=QmO7ZZgYnvYeyC1/GW84LLWQW1EeC1P4rBQfQjcRcV0=;
+        b=X/P4l1CRXDlRIZ1UamXH21t+KIBwZwWrR+2qGRR7D/0QXKUAZb/eHy5M3WIZrVE4Xg
+         8F3L3ko5drtk5EqMG03VMaVK5um9gmP/t0bU5TmX40qmMkgdJ/OlZ/U7xmKTw0ImO5rL
+         4XFJVKSijvz1Gnw8+oRz7FB+vJQh9YO3R9jWFI2AhPQdgfTyFwok/JRpz75BIZYWfk0w
+         g1qOaK0H7Fl9/BFjwpnd0QIwrQNjpTQ0tf6BQXh3aGVBDZYrwqepV/zjt7FCBR7PqPtN
+         kVzn0q4VZWvsGvokz9jEV11tj46lodmT5pA9l11zgb6mo4OWt/AVokYWMfkx/MWubFh7
+         MAcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709743718; x=1710348518;
+        d=1e100.net; s=20230601; t=1709744188; x=1710348988;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=PgcX19QUQvO9a0rJ1WYbUKrpxkk0cHhIiPkrtv4Xua8=;
-        b=oqikbLiGSYyMSX4ruuYIT/BofWx46v0vDg8fo/bQskVOdjimDlu3XdvU7MuavXvB/q
-         C47uvyZika91rgZJK86LqKmvUYRnTfZee1sEVRFvjv0GwlLfjm+8BibR2blNSI41tAFT
-         mL0XlcZMGf6Q6mzzNb5qbI3QBzyVyP1CTzxUIpTYe8bdhNDjr7GrYI6oAqWdh03sx8/K
-         huvtePU/Q4GcXXDxROaytm5n6OEh/NEd/JEPYjaoGWKrkygjrOcRgqDQUW5d7SMlAXPs
-         ZfAgBJ1JpUaau+8ZjZKeTmP1V3DDj+bXENoxqrYXanvWg2QBTeXD23YCRXZt9bNXGWlP
-         kpRw==
-X-Gm-Message-State: AOJu0YyCBZEBEUnvd8rvSbYsBaRunvhIY2PSRcv5nOIRVJJiNyM48dmW
-	pgtzanS60fqNOYxzgNd3JWei74j5AhzrspaWGacZFS3CNhx2R8L5VDxWnVIP39mM70uHpfjoGdp
-	2
-X-Google-Smtp-Source: AGHT+IEys42Mf/xBgBycnQ/heyOKiVoOZovfkQDvdq4KY0U7LwmYAV1vfWAjpNlbh3i5L8X0r+12sw==
-X-Received: by 2002:a05:6512:2e4:b0:513:64d7:afb5 with SMTP id m4-20020a05651202e400b0051364d7afb5mr933469lfq.57.1709743717603;
-        Wed, 06 Mar 2024 08:48:37 -0800 (PST)
+        bh=QmO7ZZgYnvYeyC1/GW84LLWQW1EeC1P4rBQfQjcRcV0=;
+        b=gsv3xL+T+ldPOIaQeOH5JAFhOfzhPloDw/CON2pEjxTjRsaxzkCZAzgbfcvNu05Or3
+         +SVrSgpCVBwjV95y2diXXbAhUmP0zgK91aI1S1wm4LlVJpMkpiUIOMK65+xrAqo2gwBT
+         PRH2kkYRM0aq7fNEoQYqVv28s3pu5AOCZvtRFgrC7ehW1Px7MkQ4tBoOQkpDd8awtiz7
+         y8RS2krnV+yxZrWYtANRpElR4PoOH/SCkP9HhOWHWx4vz5sPxyHH4rsL4Rq2qKg6XqE3
+         RmGj2MZpXBODRf4zaOhu7uFH2YQfuuO2MNbpriqiNqmNc2RWpuWdkoF6sUD8lF1FZlRo
+         JeCQ==
+X-Gm-Message-State: AOJu0Yz0YElLlMWEuL3A1pS5UkRKFZL3uUJC8z0+/6qKY2u74FEMBZDB
+	hXVreyxrZalRXlBgol4RUb+VYhLo7HSNBjIMMwQ0HD8dbUP2x8eQVqxuWNxuNVA=
+X-Google-Smtp-Source: AGHT+IE8V3aK2Sri5oE6eSGzqleS4sJmSeBCMsX3sQheIq1KhZ9SfzCrK3ZFaVL4AkWoYQlt49LhOw==
+X-Received: by 2002:a05:6000:1970:b0:33d:5548:435e with SMTP id da16-20020a056000197000b0033d5548435emr12514452wrb.53.1709744188167;
+        Wed, 06 Mar 2024 08:56:28 -0800 (PST)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-Subject: [RFC PATCH] tools/libxl: force running dm when device_model_args set
-Date: Wed,  6 Mar 2024 16:48:29 +0000
-Message-Id: <20240306164829.3815555-1-alex.bennee@linaro.org>
+Cc: julien@xen.org,
+	sstabellini@kernel.org,
+	bertrand.marquis@arm.com,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Subject: [RFC PATCH v2] xen/arm: improve handling of load/store instruction decoding
+Date: Wed,  6 Mar 2024 16:56:21 +0000
+Message-Id: <20240306165621.3819343-1-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When device_model_args is set we almost certainly want to spawn the
-device model. This is most useful when debugging with QEMU and you
-want to specify a new device type for testing without teaching libxl
-about the device itself.
+While debugging VirtIO on Arm we ran into a warning due to memory
+being memcpy'd across MMIO space. While the bug was in the mappings
+the warning was a little confusing:
+
+  (XEN) d47v2 Rn should not be equal to Rt except for r31
+  (XEN) d47v2 unhandled Arm instruction 0x3d800000
+  (XEN) d47v2 Unable to decode instruction
+
+The Rn == Rt warning is only applicable to single register load/stores
+so add some verification steps before to weed out unexpected accesses.
+
+While at it update the Arm ARM references to the latest version of the
+documentation.
 
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
 ---
-This is very much an RFC, it's useful to me as a developer but I can
-see an argument for being more cautious for production.
+v2
+  - use single line comments where applicable
+  - update Arm ARM references
+  - use #defines for magic numbers
 ---
- tools/libs/light/libxl_dm.c      | 6 ++++++
- tools/libs/light/libxl_types.idl | 2 ++
- tools/xl/xl_parse.c              | 2 ++
- 3 files changed, 10 insertions(+)
+ xen/arch/arm/decode.c | 35 ++++++++++++++++++++------
+ xen/arch/arm/decode.h | 57 ++++++++++++++++++++++++++++++++++++++-----
+ 2 files changed, 79 insertions(+), 13 deletions(-)
 
-diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-index 620f381560..5774510aa0 100644
---- a/tools/libs/light/libxl_dm.c
-+++ b/tools/libs/light/libxl_dm.c
-@@ -3969,7 +3969,13 @@ int libxl__need_xenpv_qemu(libxl__gc *gc, libxl_domain_config *d_config)
-         }
+diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
+index 2537dbebc1..73a88e4701 100644
+--- a/xen/arch/arm/decode.c
++++ b/xen/arch/arm/decode.c
+@@ -87,15 +87,36 @@ static int decode_arm64(register_t pc, mmio_info_t *info)
+         return 1;
      }
  
-+    /* finally if we've slurped extra args we almost certainly do */
-+    if (d_config->need_ext_dm) {
-+        ret = 1;
++    /* Check this is a load/store of some sort */
++    if ( (opcode.top_level.op1 & TL_LDST_OP1_MASK) != TL_LDST_OP1_VALUE )
++    {
++        gprintk(XENLOG_ERR, "Not a load/store instruction op1=%u\n",
++                opcode.top_level.op1);
++        goto bad_loadstore;
 +    }
 +
- out:
-+    LOGD(INFO, domid, "need_qemu: %s", ret == 1 ? "yes":"no");
-     return ret;
- }
++    /* We are only expecting single register load/stores */
++    if ( (opcode.ld_st.op0 & LS_SREG_OP0_MASK) != LS_SREG_OP0_VALUE )
++    {
++        gprintk(XENLOG_ERR, "Not single register load/store op0=%u\n",
++                opcode.ld_st.op0);
++        goto bad_loadstore;
++    }
++
+     /*
+-     * Refer Arm v8 ARM DDI 0487G.b, Page - C6-1107
+-     * "Shared decode for all encodings" (under ldr immediate)
+-     * If n == t && n != 31, then the return value is implementation defined
+-     * (can be WBSUPPRESS, UNKNOWN, UNDEFINED or NOP). Thus, we do not support
+-     * this. This holds true for ldrb/ldrh immediate as well.
++     * Refer Arm v8 ARM DDI 0487J.a, Page - K1-12586
++     *
++     * STR (immediate) CONSTRAINED UNPREDICTABLE behaviour
++     *
++     * "If the instruction encoding specifies pre-indexed addressing or
++     * post-indexed addressing, and n == t && n != 31, then one of the
++     * following behaviors must occur:" UNDEFINED, NOP or UNKNOWN
++     *
++     * Execution @ EL0/EL1 when HCR_EL2.TIDCP is 1 traps to EL2 with
++     * EC = 0.
+      *
+-     * Also refer, Page - C6-1384, the above described behaviour is same for
+-     * str immediate. This holds true for strb/strh immediate as well
++     * This also hold true for LDR (immediate), Page K1-12581 and
++     * the RB/RH variants of both.
+      */
+     if ( (opcode.ldr_str.rn == opcode.ldr_str.rt) && (opcode.ldr_str.rn != 31) )
+     {
+diff --git a/xen/arch/arm/decode.h b/xen/arch/arm/decode.h
+index 13db8ac968..188114a71e 100644
+--- a/xen/arch/arm/decode.h
++++ b/xen/arch/arm/decode.h
+@@ -24,17 +24,54 @@
+ #include <asm/processor.h>
  
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 2be194eb19..e7705bebe9 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -1113,6 +1113,8 @@ libxl_domain_config = Struct("domain_config", [
-     ("on_watchdog", libxl_action_on_shutdown),
-     ("on_crash", libxl_action_on_shutdown),
-     ("on_soft_reset", libxl_action_on_shutdown),
-+    # true when we need to launch dm to serve the guest
-+    ("need_ext_dm", bool),
-     ], dir=DIR_IN)
+ /*
+- * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Stores
+- * Page 318 specifies the following bit pattern for
+- * "load/store register (immediate post-indexed)".
++ * Refer to the ARMv8 ARM (DDI 0487J.a)
+  *
+- * 31 30 29  27 26 25  23   21 20              11   9         4       0
++ * Section C A64 Instruct Set Encoding
++ *
++ * C4.1 A64 instruction set encoding:
++ *
++ *   31  30  29 28  25 24                                             0
+  * ___________________________________________________________________
+- * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt   |
+- * |____|______|__|____|____|__|_______________|____|_________|_______|
++ * |op0 | x  x |  op1 |                                               |
++ * |____|______|______|_______________________________________________|
++ *
++ * op0 = 0 is reserved
++ * op1 = x1x0 for Loads and Stores
++ *
++ * Section C4.1.88 Loads and Stores
++ *
++ *  31    28 27   26   25  24 23 22 21      16 15  12 11 10 9        0
++ * ___________________________________________________________________
++ * |  op0   | 1 | op1 | 0 | op2 |  |    op3   |      | op4 |          |
++ * |________|___|_____|___|_____|__|__________|______|_____|__________|
++ *
++ * Page C4-653 Load/store register (immediate post-indexed)
++ *
++ * 31 30 29  27 26 25 24 23 22 21 20           12 11 10 9    5 4     0
++ * ___________________________________________________________________
++ * |size|1 1 1 |V | 0 0 | opc |0 |      imm9     | 0 1 |  Rn  |  Rt   |
++ * |____|______|__|_____|_____|__|_______________|_____|______|_______|
+  */
+ union instr {
+     uint32_t value;
++    struct {
++        unsigned int ign2:25;
++        unsigned int op1:4;     /* instruction class */
++        unsigned int ign1:2;
++        unsigned int op0:1;     /* value = 1b */
++    } top_level;
++    struct {
++        unsigned int ign1:10;
++        unsigned int op4:2;
++        unsigned int ign2:4;
++        unsigned int op3:6;
++        unsigned int ign3:1;
++        unsigned int op2:2;
++        unsigned int fixed1:1; /* value = 0b */
++        unsigned int op1:1;
++        unsigned int fixed2:1; /* value = 1b */
++        unsigned int op0:4;
++    } ld_st;
+     struct {
+         unsigned int rt:5;     /* Rt register */
+         unsigned int rn:5;     /* Rn register */
+@@ -49,6 +86,14 @@ union instr {
+     } ldr_str;
+ };
  
- libxl_diskinfo = Struct("diskinfo", [
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 52e20134a9..be0ea3e3dc 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -3083,6 +3083,8 @@ skip_usbdev:
-     if (e && e != ESRCH) {                                                \
-         fprintf(stderr,"xl: Unable to parse device_model_args"#type".\n");\
-         exit(-ERROR_FAIL);                                                \
-+    } else if (e) {                                                     \
-+        d_config->need_ext_dm = true;                                   \
-     }
++/* Top level load/store encoding */
++#define TL_LDST_OP1_MASK        0b0101
++#define TL_LDST_OP1_VALUE       0b0100
++
++/* Load/store single reg encoding */
++#define LS_SREG_OP0_MASK        0b0011
++#define LS_SREG_OP0_VALUE       0b0011
++
+ #define POST_INDEX_FIXED_MASK   0x3B200C00
+ #define POST_INDEX_FIXED_VALUE  0x38000400
  
-     /* parse extra args for qemu, common to both pv, hvm */
 -- 
 2.39.2
 
