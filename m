@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7A438741FA
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 22:29:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689520.1074584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 970B18741FF
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 22:32:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689522.1074594 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhyoi-00069X-AK; Wed, 06 Mar 2024 21:28:48 +0000
+	id 1rhyrS-0008Bi-Mp; Wed, 06 Mar 2024 21:31:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689520.1074584; Wed, 06 Mar 2024 21:28:48 +0000
+Received: by outflank-mailman (output) from mailman id 689522.1074594; Wed, 06 Mar 2024 21:31:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhyoi-00066x-7p; Wed, 06 Mar 2024 21:28:48 +0000
-Received: by outflank-mailman (input) for mailman id 689520;
- Wed, 06 Mar 2024 21:28:46 +0000
+	id 1rhyrS-0008AD-KB; Wed, 06 Mar 2024 21:31:38 +0000
+Received: by outflank-mailman (input) for mailman id 689522;
+ Wed, 06 Mar 2024 21:31:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8xNx=KM=gmail.com=alexei.starovoitov@srs-se1.protection.inumbo.net>)
- id 1rhyog-00066r-MU
- for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 21:28:46 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 825ed545-dc00-11ee-a1ee-f123f15fe8a2;
- Wed, 06 Mar 2024 22:28:44 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-33e122c8598so48292f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 13:28:44 -0800 (PST)
+ <SRS0=qOHf=KM=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1rhyrQ-0008A2-ND
+ for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 21:31:37 +0000
+Received: from fout7-smtp.messagingengine.com (fout7-smtp.messagingengine.com
+ [103.168.172.150]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e6cff01e-dc00-11ee-a1ee-f123f15fe8a2;
+ Wed, 06 Mar 2024 22:31:33 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailfout.nyi.internal (Postfix) with ESMTP id 004B71380101;
+ Wed,  6 Mar 2024 16:31:32 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Wed, 06 Mar 2024 16:31:32 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 6 Mar 2024 16:31:30 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,174 +43,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 825ed545-dc00-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709760523; x=1710365323; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=O1WsOY8bv9E8W81TGc4aAT5ds7Sn1+QowuadTWjYWtk=;
-        b=F2Z/b4WBDpHDuz5p0hMLYn5SO5FxF/jcnKHN5LIhCb+sZndnxsoteTLihGXtcIjz0B
-         z0FVHmOesP8GzCzJteFYj8uWJMMoo1nihRI8XF3FPSVwTbELXWVgqgia0vq63hdKiKWs
-         Huv8OfPnKV9PtHF+9Z8J1bKKjx7qHXW9+P85dX7dLesiixSyq0Gsn6xSrJsDLLEhJLn3
-         q0cu4jLp4jSmWStZ9lOyEgX1p8yQNIkJgByeF1m8W0jP4Gn5Wf2Y3ktkzA5ozZJ0OsD+
-         0ODl79+4+EZa7ec7H+CpGTyaF/S0FGU84vixMNSXp24rGM4PznaKrO6lV9rMJspRNKVe
-         OXrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709760523; x=1710365323;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=O1WsOY8bv9E8W81TGc4aAT5ds7Sn1+QowuadTWjYWtk=;
-        b=q1GbjH6uAfP4WanDUimOShEdS5htLitzjYn2jH8JnIksBZa7tSJmdXtcI0+HcMTX7y
-         9PbYa4mOZ3Zn37Ai7yyV21YcXkac01mvd6HhVz9QuNxNXukABVMYT9KTiC/9EoXOQbtE
-         HvFN8OmR/zAReV65ra/gh0ypXPXNaGVzjkO6ltj74CqxaxYwQloSH8O2Mb+X/AABFZBB
-         MbL2HstsSe7KrPfh74P8hEvV/quS/zJFokz3m3SD+8qIOAcTZ0Ou8xC9tnTkH9D7Y7Ow
-         jbjntTFibngbb5B+L6PY2fn7t5JzDbGvW/M/ZxmRSIqbrMRq/066XlpwS0BO9XXYsOEX
-         l05g==
-X-Forwarded-Encrypted: i=1; AJvYcCWvezk6ZZBtbX9rV0wKc+fJ5XZDsv0YeYIAL2wctW5B6r/JLCg9gWRtUNZ3TmIaFV70dTq2UcK/i4IUrkwdaToNTpzlOWgEF9FlAwRJlGE=
-X-Gm-Message-State: AOJu0Ywh8HQj9OSFu7z7UYkYyU+DhvSEpnnWvy2YBhXnyVkTMLg6rAja
-	M8k9lvx7MZbSWGNRXZmygRyBgvwiEF9yPJBEi4HfOfPGWhKLDTGwHyTwqZR/M0Ds8GkhXGHjLsq
-	ptpKcDLTfW+gPGUIAze9hSIHPRPg=
-X-Google-Smtp-Source: AGHT+IE8LqByzqRA7G6sW+7haX1F0BJfAJWcPpQ+nTruzkV9H0WItHjtg14wkPEK8qPwytWAsZTgM/brnIzbFge2cI0=
-X-Received: by 2002:a5d:5750:0:b0:33d:1145:8787 with SMTP id
- q16-20020a5d5750000000b0033d11458787mr11006914wrw.25.1709760523501; Wed, 06
- Mar 2024 13:28:43 -0800 (PST)
+X-Inumbo-ID: e6cff01e-dc00-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1709760691;
+	 x=1709847091; bh=DORPyG1rT9K1X/ITePyxsRS31apnbdqz9ZRD2mr6WPw=; b=
+	JHJW5n6L9szrMIB1x645aoVbBPtDKERwhzqvofA43FAt7lmETdc0QstN840ZMzgz
+	RF155ngC6cDMOYAuvtZJXhcg8ot5+bId5oQQDJQd91wTL8qk2s/P4WwsG+33uM54
+	eiEex9XuBE563MfD7mSzZPW1e+3JR2qgzRU4YmNPsTrbrmeymsZEg6e4UDupezle
+	Hvdmqp49GPw+/iv8JkS1XzSnIcdn8q4kS2QjOuS2Fgzj3SggqDsWpaJAd2bt39WW
+	ZNdsyS6aS8X0L4QZMImctJIUyTUhie86CgdzaBUNN6ocCYAysBREZj6rbcQhYMGB
+	Ezplcle3ESJjtU1L+4MVfA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1709760691; x=1709847091; bh=DORPyG1rT9K1X/ITePyxsRS31apn
+	bdqz9ZRD2mr6WPw=; b=GPZZavt90866rF1elW2YKSy3FVp8i3W/Ep4vxBh+6yAC
+	APjNJZnRN2mGpYuREc9JS3rMNI4gNew4KVBtqSMRLOPoQNaxJ+8IZPUYOaXsTMaF
+	Tw7WHmG5VAgmU0Kp2Q/ydiQt8GB1fdR47gZfBkkcUjXQ4nlLu+i+Ika9d2s6ZyfV
+	/I1Ho9h2pqbnco6S8qYe4mb+UixPGx/ajipApzE5eGFg7i6SY9Zc6TUH1vtEwtbE
+	kaZLyDFUO2o3bAJtultbAeEKfxsuklAhN2vo0xxNxMPBiQsoQA1cZy2Tn9Z5NveY
+	wT3UxHTMbYxDrkItgaxjIqT52AhMBlYP0kGi6CZVLg==
+X-ME-Sender: <xms:s-DoZQ1IrEgCRhr3CtM5oSZICxeN3usHMT0FR5hDZPmIZMPu9GzLjg>
+    <xme:s-DoZbF3CLT_P6Er2eUIC94mQakwuS-wlavuK6nAOrZB4lbNMzk-t6FbIhRV_Zqqh
+    _e8X7otMXONxQ>
+X-ME-Received: <xmr:s-DoZY5UsA8rgMeNms9c_5NAZfRemeVCoJNrv5Qri-Bc_O_7f8heqc9JvLpFpZgs2froLhert35cZbpR9n5dUDrUP_SAjZrFeA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledriedugddugeeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtroertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepfeek
+    hfeffeegjeduleetffejtedtjeeuvdekgedtvdfgleekveehjeeuveehhedvnecuffhomh
+    grihhnpehfrhgvvgguvghskhhtohhprdhorhhgpdgrmhgupghsvdhiughlvgdrphihnecu
+    vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrg
+    hrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:s-DoZZ0A13Xhd_jpm6fAkExD-rIp4ZFHjmIQeBAOuoaCBM_8WxclGA>
+    <xmx:s-DoZTEVGEo72uObdrKkCmOK_dMNrVHwPbbNlHrKE-y0mHqy_Cn6bQ>
+    <xmx:s-DoZS-oXbcnx1iNEVXHvKUfSbUAuYRv_UnMJR6WjJhCo8EEnsyEdQ>
+    <xmx:s-DoZXj-hazmnsH5r7KZ3H1p5Yp6b3kWmlWLQoNxd4w6IKIl2pGAOg>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 6 Mar 2024 22:31:28 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: =?utf-8?Q?S=C3=A9bastien?= Chaumat <euidzero@gmail.com>,
+	xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+Message-ID: <ZejgsTDBmsnmKeiG@mail-itl>
+References: <CAKm-Umb=kGFqc5je9E3bbfQ0bcbZeY_Ntv5JDmO-vXj3N0MvPg@mail.gmail.com>
+ <CAKm-UmZ113q-a8wEE5yo0OPPM3JpNqJzKaU1eNiCzT2YkGU0pQ@mail.gmail.com>
+ <CAKm-UmaG3KRtDkrEH7cNgLkRkRs2HG357S=BUjomhN6Ad-AkCQ@mail.gmail.com>
+ <a3472888-7bfb-4889-8ccb-58384afff324@amd.com>
+ <CAKm-UmYyxC5SrqdW3MYj326J7CCGRHZpc1+D0Dezd27z++3JJg@mail.gmail.com>
+ <19852f4d-fbeb-4314-a2cb-ab3f05da13ba@amd.com>
+ <CAKm-UmZm1d8Ehusoh5HNOST+0Dek7+vLQSKbVduz40BdHueiDA@mail.gmail.com>
+ <7c2f9983-a0b5-41f7-81cb-f196787f3dfb@amd.com>
+ <CAKm-UmaHA5Xgmneqv9zgEUN1eejqB_1aZ4Kd5MxWttoyVLThwA@mail.gmail.com>
+ <2a609713-3eec-438e-80af-c1dfcfe598c4@amd.com>
 MIME-Version: 1.0
-References: <20240305030516.41519-1-alexei.starovoitov@gmail.com>
- <20240305030516.41519-3-alexei.starovoitov@gmail.com> <CA+CK2bDCgpYR2-gHv-H3vDXDqcoA16vMNr55BZ6nouZNdwGufQ@mail.gmail.com>
-In-Reply-To: <CA+CK2bDCgpYR2-gHv-H3vDXDqcoA16vMNr55BZ6nouZNdwGufQ@mail.gmail.com>
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date: Wed, 6 Mar 2024 13:28:31 -0800
-Message-ID: <CAADnVQ+pxrRRvyLXG+opUuPuYZc+XTBLksK0rERrS1BY9ayQpQ@mail.gmail.com>
-Subject: Re: [PATCH v4 bpf-next 2/2] mm: Introduce VM_SPARSE kind and vm_area_[un]map_pages().
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: bpf <bpf@vger.kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Barret Rhoden <brho@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Lorenzo Stoakes <lstoakes@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Christoph Hellwig <hch@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, sstabellini@kernel.org, 
-	Juergen Gross <jgross@suse.com>, linux-mm <linux-mm@kvack.org>, xen-devel@lists.xenproject.org, 
-	Kernel Team <kernel-team@fb.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="HT33YYw7sRW++IZl"
+Content-Disposition: inline
+In-Reply-To: <2a609713-3eec-438e-80af-c1dfcfe598c4@amd.com>
+
+
+--HT33YYw7sRW++IZl
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 6 Mar 2024 22:31:28 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: =?utf-8?Q?S=C3=A9bastien?= Chaumat <euidzero@gmail.com>,
+	xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
 
-On Wed, Mar 6, 2024 at 1:04=E2=80=AFPM Pasha Tatashin <pasha.tatashin@solee=
-n.com> wrote:
->
-> On Mon, Mar 4, 2024 at 10:05=E2=80=AFPM Alexei Starovoitov
-> <alexei.starovoitov@gmail.com> wrote:
-> >
-> > From: Alexei Starovoitov <ast@kernel.org>
-> >
-> > vmap/vmalloc APIs are used to map a set of pages into contiguous kernel
-> > virtual space.
-> >
-> > get_vm_area() with appropriate flag is used to request an area of kerne=
-l
-> > address range. It's used for vmalloc, vmap, ioremap, xen use cases.
-> > - vmalloc use case dominates the usage. Such vm areas have VM_ALLOC fla=
-g.
-> > - the areas created by vmap() function should be tagged with VM_MAP.
-> > - ioremap areas are tagged with VM_IOREMAP.
-> >
-> > BPF would like to extend the vmap API to implement a lazily-populated
-> > sparse, yet contiguous kernel virtual space. Introduce VM_SPARSE flag
-> > and vm_area_map_pages(area, start_addr, count, pages) API to map a set
-> > of pages within a given area.
-> > It has the same sanity checks as vmap() does.
-> > It also checks that get_vm_area() was created with VM_SPARSE flag
-> > which identifies such areas in /proc/vmallocinfo
-> > and returns zero pages on read through /proc/kcore.
-> >
-> > The next commits will introduce bpf_arena which is a sparsely populated
-> > shared memory region between bpf program and user space process. It wil=
-l
-> > map privately-managed pages into a sparse vm area with the following st=
-eps:
-> >
-> >   // request virtual memory region during bpf prog verification
-> >   area =3D get_vm_area(area_size, VM_SPARSE);
-> >
-> >   // on demand
-> >   vm_area_map_pages(area, kaddr, kend, pages);
-> >   vm_area_unmap_pages(area, kaddr, kend);
-> >
-> >   // after bpf program is detached and unloaded
-> >   free_vm_area(area);
-> >
-> > Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-> > ---
-> >  include/linux/vmalloc.h |  5 ++++
-> >  mm/vmalloc.c            | 59 +++++++++++++++++++++++++++++++++++++++--
-> >  2 files changed, 62 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
-> > index c720be70c8dd..0f72c85a377b 100644
-> > --- a/include/linux/vmalloc.h
-> > +++ b/include/linux/vmalloc.h
-> > @@ -35,6 +35,7 @@ struct iov_iter;              /* in uio.h */
-> >  #else
-> >  #define VM_DEFER_KMEMLEAK      0
-> >  #endif
-> > +#define VM_SPARSE              0x00001000      /* sparse vm_area. not =
-all pages are present. */
-> >
-> >  /* bits [20..32] reserved for arch specific ioremap internals */
-> >
-> > @@ -232,6 +233,10 @@ static inline bool is_vm_area_hugepages(const void=
- *addr)
-> >  }
-> >
-> >  #ifdef CONFIG_MMU
-> > +int vm_area_map_pages(struct vm_struct *area, unsigned long start,
-> > +                     unsigned long end, struct page **pages);
-> > +void vm_area_unmap_pages(struct vm_struct *area, unsigned long start,
-> > +                        unsigned long end);
-> >  void vunmap_range(unsigned long addr, unsigned long end);
-> >  static inline void set_vm_flush_reset_perms(void *addr)
-> >  {
-> > diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> > index f42f98a127d5..e5b8c70950bc 100644
-> > --- a/mm/vmalloc.c
-> > +++ b/mm/vmalloc.c
-> > @@ -648,6 +648,58 @@ static int vmap_pages_range(unsigned long addr, un=
-signed long end,
-> >         return err;
-> >  }
-> >
-> > +static int check_sparse_vm_area(struct vm_struct *area, unsigned long =
-start,
-> > +                               unsigned long end)
-> > +{
-> > +       might_sleep();
->
-> This interface and in general VM_SPARSE would be useful for
-> dynamically grown kernel stacks [1]. However, the might_sleep() here
-> would be a problem. We would need to be able to handle
-> vm_area_map_pages() from interrupt disabled context therefore no
-> sleeping. The caller would need to guarantee that the page tables are
-> pre-allocated before the mapping.
+On Wed, Mar 06, 2024 at 02:37:20PM -0600, Mario Limonciello wrote:
+> On 3/6/2024 14:34, S=C3=A9bastien Chaumat wrote:
+> >=20
+> >=20
+> > Le=C2=A0mer. 6 mars 2024 =C3=A0=C2=A019:51, Mario Limonciello
+> > <mario.limonciello@amd.com <mailto:mario.limonciello@amd.com>> a =C3=A9=
+crit=C2=A0:
+> >=20
+> >     On 3/6/2024 12:49, S=C3=A9bastien Chaumat wrote:
+> >      >
+> >      >
+> >      > Le=C2=A0mer. 6 mars 2024 =C3=A0=C2=A019:08, Mario Limonciello
+> >      > <mario.limonciello@amd.com <mailto:mario.limonciello@amd.com>
+> >     <mailto:mario.limonciello@amd.com
+> >     <mailto:mario.limonciello@amd.com>>> a =C3=A9crit=C2=A0:
+> >      >
+> >      >=C2=A0 =C2=A0 =C2=A0On 3/6/2024 12:05, S=C3=A9bastien Chaumat wro=
+te:
+> >      >=C2=A0 =C2=A0 =C2=A0 >
+> >      >=C2=A0 =C2=A0 =C2=A0 >
+> >      >=C2=A0 =C2=A0 =C2=A0 > Le=C2=A0mer. 6 mars 2024 =C3=A0=C2=A018:33=
+, Mario Limonciello
+> >      >=C2=A0 =C2=A0 =C2=A0 > <mario.limonciello@amd.com
+> >      >=C2=A0 =C2=A0 =C2=A0 >=C2=A0 =C2=A0 =C2=A0Also; I'd be really int=
+erested to hear what happens with
+> >      >=C2=A0 =C2=A0 =C2=A0s2idle with
+> >      >=C2=A0 =C2=A0 =C2=A0 >=C2=A0 =C2=A0 =C2=A0Xen
+> >      >=C2=A0 =C2=A0 =C2=A0 >=C2=A0 =C2=A0 =C2=A0now (if it works).
+> >      >=C2=A0 =C2=A0 =C2=A0 >
+> >      >=C2=A0 =C2=A0 =C2=A0 >
+> >      >=C2=A0 =C2=A0 =C2=A0 > suspend to RAM now works :)
+> >      >
+> >      >=C2=A0 =C2=A0 =C2=A0Do you see /sys/power/suspend_stats/last_hw_s=
+leep increasing
+> >     with your
+> >      >=C2=A0 =C2=A0 =C2=A0suspend cycle?
+> >      >
+> >      >
+> >      > No,=C2=A0 it does not increase (0).
+> >      >
+> >=20
+> >     OK, then in that case I suggest you run
+> >     https://gitlab.freedesktop.org/drm/amd/-/blob/master/scripts/amd_s2=
+idle.py <https://gitlab.freedesktop.org/drm/amd/-/blob/master/scripts/amd_s=
+2idle.py>
+> >     in the hypervisor to find out what's wrong.
+> >=20
+> >=20
+> > It fails with xen (not bare metal) during the prerequisite tests :
+> >=20
+>=20
+> The script might need some modifications for tests that don't make sense =
+in
+> the context of Xen.
+>=20
+> > =E2=9C=85 GPIO driver `pinctrl_amd` available
+> > Traceback (most recent call last):
+> >  =C2=A0 File "/home/sch/Downloads/amd_s2idle.py", line 2447, in <module>
+> >  =C2=A0 =C2=A0 test =3D app.prerequisites()
+> >  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^^^^^^^^^^^^^^^^^^^
+> >  =C2=A0 File "/home/sch/Downloads/amd_s2idle.py", line 1938, in prerequ=
+isites
+> >  =C2=A0 =C2=A0 if not check():
+> >  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^^^^^^^
+> >  =C2=A0 File "/home/sch/Downloads/amd_s2idle.py", line 826, in check_msr
+> >  =C2=A0 =C2=A0 val =3D read_msr(reg, 0)
+> >  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^^^^^^^^^^^^^^^^
+> >  =C2=A0 File "/home/sch/Downloads/amd_s2idle.py", line 813, in read_msr
+> >  =C2=A0 =C2=A0 val =3D struct.unpack("Q", os.read(f, 8))[0]
+> >  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^^^^^^^^^^^^^
+> > OSError: [Errno 5] Input/output error
+> >=20
+> > Last line in the log is :
+> > 2024-03-06 21:29:33,146 DEBUG: Lockdown: [none] integrity confidentiali=
+ty
+> >=20
+>=20
+> Do you have userspace MSR support compiled in?  If not; that could explain
+> that problem.  But it's very unlikely you changed the MSRs.
+> For the purpose of finding where the suspend problem is, I'd comment out
+> that specific check for now.
 
-Sounds like we'd need to differentiate two kinds of sparse regions.
-One that is really sparse where page tables are not populated (bpf use case=
-)
-and another where only the pte level might be empty.
-Only the latter one will be usable for such auto-grow stacks.
+The s2idle isn't supported in Xen yet. Only S3 is. In fact, I have some
+work-in-progress patches for that, I may try testing them on this
+system.
 
-Months back I played with this idea:
-https://git.kernel.org/pub/scm/linux/kernel/git/ast/bpf.git/commit/?&id=3Dc=
-e63949a879f2f26c1c1834303e6dfbfb79d1fbd
-that
-"Make vmap_pages_range() allocate page tables down to the last (PTE) level.=
-"
-Essentially pass NULL instead of 'pages' into vmap_pages_range()
-and it will populate all levels except the last.
-Then the page fault handler can service a fault in auto-growing stack
-area if it has a page stashed in some per-cpu free list.
-I suspect this is something you might need for
-"16k stack that is populated on fault",
-plus a free list of 3 pages per-cpu,
-and set_pte_at() in pf handler.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--HT33YYw7sRW++IZl
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmXo4LEACgkQ24/THMrX
+1yx74wgAiyFwN0neiD07/K9M1vgr92W7f1Sr/u3jmLZl1/OM2eHti44gl4G4ClEP
+le7TWLJw65QNKIAWnaHJuQdzTpm8+Xw5b5mQVnl9bKI9ixvC/H+WycuW25EQtv3z
+fykNDxvmz5x+hPY4hM+64jPTD0RcVmgkqrPFXUEkonPHjAiHiGUp9J2gmu9KcFDW
+cwUk5l7znUZdPC9SvUpTgJKVGf9wcmZCg5rXycij8Jvgp7d4SYlL2YmO5NrJC8E8
+iFE7USj6sYLiJIWPki3Gmy2AC540lA/GeXBlcrtOaZHXZxv3bYzQiEi7Xuylfewi
+G4odHBLab4gkG/YtQnujTj7GIJhOGw==
+=MmtC
+-----END PGP SIGNATURE-----
+
+--HT33YYw7sRW++IZl--
 
