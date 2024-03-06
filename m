@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9241787379B
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 14:20:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689134.1074164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52A5687380D
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Mar 2024 14:45:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689333.1074174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhrBx-00035A-Ov; Wed, 06 Mar 2024 13:20:17 +0000
+	id 1rhrZs-0006uR-KR; Wed, 06 Mar 2024 13:45:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689134.1074164; Wed, 06 Mar 2024 13:20:17 +0000
+Received: by outflank-mailman (output) from mailman id 689333.1074174; Wed, 06 Mar 2024 13:45:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rhrBx-00032Y-MK; Wed, 06 Mar 2024 13:20:17 +0000
-Received: by outflank-mailman (input) for mailman id 689134;
- Wed, 06 Mar 2024 13:20:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rhrZs-0006su-Hc; Wed, 06 Mar 2024 13:45:00 +0000
+Received: by outflank-mailman (input) for mailman id 689333;
+ Wed, 06 Mar 2024 13:44:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FIJu=KM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rhrBv-00032O-MO
- for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 13:20:15 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 448f3a3d-dbbc-11ee-afda-a90da7624cb6;
- Wed, 06 Mar 2024 14:20:14 +0100 (CET)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-513173e8191so8651540e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 05:20:14 -0800 (PST)
+ id 1rhrZr-0006so-3k
+ for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 13:44:59 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b7fa7d10-dbbf-11ee-a1ee-f123f15fe8a2;
+ Wed, 06 Mar 2024 14:44:56 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5640fef9fa6so8434230a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 05:44:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- pv18-20020a170907209200b00a44b90abb1dsm5488207ejb.110.2024.03.06.05.20.13
+ z42-20020a509e2d000000b005669d904871sm7287020ede.49.2024.03.06.05.44.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Mar 2024 05:20:13 -0800 (PST)
+ Wed, 06 Mar 2024 05:44:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 448f3a3d-dbbc-11ee-afda-a90da7624cb6
+X-Inumbo-ID: b7fa7d10-dbbf-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709731214; x=1710336014; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=ir/m3nUHAc93iVzQkj1bZcSedz9SoljniaiWtgBL3sM=;
-        b=QSL29rtgagCCMBYI8xLVOidHgqkpP6ovdNtTc7sH6MbSazXao9Ke2XX9clY3g+Eplo
-         PpIkcG56P41QShMEPc2kBseQlrbWLlLvj09HoeIPKsiWaO81Dcrg71ElLEVVDJp5iKVo
-         YCSRVQNLyEZHSyLTQYgW8NSaYtD2s7g6uFFLTj5fr6ug7xAGbEL0vlsT4wDr2v5J9u97
-         Uaske9pfNA805fxi7Fvu3zfR/PhVLCth38FJVqdpnpSA4fee6IdY7OJBwXruEhmy94Fd
-         SpDrYKOQdJ3meCSK0fNeozP0j94HidUi1LL7NdWg2weGpTi4pBr19A3DqY9PGDYa4Cub
-         XVNA==
+        d=suse.com; s=google; t=1709732696; x=1710337496; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=PTTS79cJ01BN+KslCMfXg18XV1FMJ23RKExX5h1sW5g=;
+        b=AXK2RjIkvw2OeOogSSIq6tfnAR9inGkpurs4zYO5PjASI7T90Q8/sW2xW1l8sPukgq
+         0wvFfmYeq3vHYOaZeGMUSJS7xf3qVf5a+7t1KES6iOFWp2J2+RJUyOYSBfcxOmjUQuRJ
+         anAnMDMctNqabwtFRAj8u+ZawsYhK/9I0f0FhUIX++SiHrhyP/3DiEbLZ57FiYTuTogi
+         ZIUGgh7s0FADqcCHN/7B+jdPHFhKMaRinppH2scshOzAjyDkaYkuOg2v+7kj+mOnJvN6
+         GY1lJc12Dp9R/9bmF0UaxvSi45qZah23ncGdIPuiRMYt/oHqoKTPG1X+eWyeYpnSX8rs
+         69xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709731214; x=1710336014;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ir/m3nUHAc93iVzQkj1bZcSedz9SoljniaiWtgBL3sM=;
-        b=sD+gLPsKsRE0thul37u0qT9NMPbaFApSl1ChNkAEc/Xzptaq5ji3B4Xcep52AaXhjT
-         vFxPs3Y4WJn2IbF5tjhVav/3Gabxicr5bBALp1RB4NICESXQ5ZI9KzHORnWj03FDwXCp
-         1xVaHd/aG+LmqiQEostv/I717syBt9t8fkSNBs9RFz/5vNcWeQ9ZyI5sU5BgroTfMJQ6
-         ZSRhz/DI6N+7IsFNdKSv2nAiPg3K9pGMRhBs1GPNbX1gdlL7Kz1KTKn3i9IVE2yeOl/k
-         /2qKZVbrGd8ZyJRa9S+3iZV3v4dP3gN2kbgaDDJrb+h03bUIOHAzD+cMe1uwCj1AXYsY
-         y+kQ==
-X-Gm-Message-State: AOJu0YyjgNLn7RCFQqO5ZMVPTnC/VFMkFdSNJYd4aZZUgr3aM527UDdJ
-	hQpQtKk/IgnLbRg8ekAYpnnLpmJD8aFUGxD59XBMBbZ2eoxHv6pnV5FCkUHN3eQ0OmNiRZfqWMM
+        d=1e100.net; s=20230601; t=1709732696; x=1710337496;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=PTTS79cJ01BN+KslCMfXg18XV1FMJ23RKExX5h1sW5g=;
+        b=kQSuxXA5nRWJv4faMvVD0QrAKve1wH7rPu+Hr7yXZxElILk1seGbaGDHsQMC25x2Ie
+         SvUsa2NxbDRbTaFOdiMmUK5PW/rsvDUrplDlHhD08RoSbpsMAIOVbXIDgxNSroOv+DH8
+         SwQvg8S21MNIxoZ97B421Z4YisrGjfKFGJpNk+S1oOWL/mIQZ3k30q6TqQ+8H/NYMEJA
+         ciGNE7J+E7iPLq46BX6/QKvpyu/p6xKW/ztXRhk9osmhq4gc+9ZsEHV5QbzKaGmvM+GG
+         QRYz7x2EcFS+/n6WtXLUNSJdRUh086sw/dZym/AwZf8ny4A7c8qdn2H2jh4SewgH1iJd
+         4Jpw==
+X-Gm-Message-State: AOJu0Yzh8/SVdrOzNDzYo9VwnZE5Vre8dA2PnS7GOZ9QREuRBBd1CRNi
+	p4QwJ9eiEJwUQpzG4QBmeHb7fc0eZm8BtC4phhbPFVWIjB2qRY7RYiKLcsgQKHXeSB7bEqwwYos
 	=
-X-Google-Smtp-Source: AGHT+IHoAuXlDSvZEWgCgyz7PSkyGjh+3vPeSz09C4rtgttNn6dWuo378+VQ41znJHZWBUWim4SDBw==
-X-Received: by 2002:ac2:4ed2:0:b0:513:1c07:3be1 with SMTP id p18-20020ac24ed2000000b005131c073be1mr3038198lfr.4.1709731214014;
-        Wed, 06 Mar 2024 05:20:14 -0800 (PST)
-Message-ID: <88024bc6-6448-4bf5-b0f6-a75a697cb54f@suse.com>
-Date: Wed, 6 Mar 2024 14:20:12 +0100
+X-Google-Smtp-Source: AGHT+IEQxSdjMAMzec/52TfDdoDu9tqo4chsAUQ2GTT7Oyqqct74SzPGy7Urfh8vu+i31mx2FrFBEQ==
+X-Received: by 2002:a50:c8cb:0:b0:566:a235:9355 with SMTP id k11-20020a50c8cb000000b00566a2359355mr11142264edh.33.1709732696236;
+        Wed, 06 Mar 2024 05:44:56 -0800 (PST)
+Message-ID: <36cf1c15-faa5-4e25-8fdd-9c52076f4ca2@suse.com>
+Date: Wed, 6 Mar 2024 14:44:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] x86/entry: shrink insn size for some of our EFLAGS
- manipulation
+Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/entry: don't clear DF when raising #UD for lack of
+ syscall handler
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -113,54 +113,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Much like was recently done for setting entry vector, and along the
-lines of what we already had in handle_exception_saved, avoid 32-bit
-immediates where 8-bit ones do. Reduces .text.entry size by 16 bytes in
-my non-CET reference build, while in my CET reference build section size
-doesn't change (there and in .text only padding space increases).
+While doing so is intentional when invoking the actual callback, to
+mimic a hard-coded SYCALL_MASK / FMASK MSR, the same should not be done
+when no handler is available and hence #UD is raised.
 
-Inspired by other long->byte conversion work.
-
+Fixes: ca6fcf4321b3 ("x86/pv: Inject #UD for missing SYSCALL callbacks")
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Numbers above are biased by me also having the straight-line-speculation
-change in the tree, thus every JMP is followed by an INT3. Without that,
-.text.entry size would also shrink by 16 bytes in the CET build.
----
-v2: Drop switch_to_kernel change.
 
 --- a/xen/arch/x86/x86_64/entry.S
 +++ b/xen/arch/x86/x86_64/entry.S
-@@ -223,7 +223,7 @@ LABEL_LOCAL(.Lrestore_rcx_iret_exit_to_g
- /* No special register assumptions. */
- iret_exit_to_guest:
-         andl  $~(X86_EFLAGS_IOPL | X86_EFLAGS_VM), EFRAME_eflags(%rsp)
--        orl   $X86_EFLAGS_IF, EFRAME_eflags(%rsp)
-+        orb   $X86_EFLAGS_IF >> 8, EFRAME_eflags + 1(%rsp)
-         addq  $8,%rsp
- .Lft0:  iretq
-         _ASM_PRE_EXTABLE(.Lft0, handle_exception)
-@@ -346,7 +346,7 @@ LABEL(sysenter_eflags_saved, 0)
+@@ -38,6 +38,14 @@ FUNC_LOCAL(switch_to_kernel)
+         setc  %cl
+         leal  (,%rcx,TBF_INTERRUPT),%ecx
  
-         GET_STACK_END(bx)
-         /* PUSHF above has saved EFLAGS.IF clear (the caller had it set). */
--        orl   $X86_EFLAGS_IF, UREGS_eflags(%rsp)
-+        orb   $X86_EFLAGS_IF >> 8, UREGS_eflags + 1(%rsp)
-         mov   STACK_CPUINFO_FIELD(xen_cr3)(%rbx), %rcx
-         test  %rcx, %rcx
-         jz    .Lsyse_cr3_okay
-@@ -361,11 +361,11 @@ LABEL(sysenter_eflags_saved, 0)
-         cmpb  $0,VCPU_sysenter_disables_events(%rbx)
-         movq  VCPU_sysenter_addr(%rbx),%rax
-         setne %cl
--        testl $X86_EFLAGS_NT,UREGS_eflags(%rsp)
-+        testb $X86_EFLAGS_NT >> 8, UREGS_eflags + 1(%rsp)
-         leaq  VCPU_trap_bounce(%rbx),%rdx
- UNLIKELY_START(nz, sysenter_nt_set)
-         pushfq
--        andl  $~X86_EFLAGS_NT,(%rsp)
-+        andb  $~(X86_EFLAGS_NT >> 8), 1(%rsp)
-         popfq
- UNLIKELY_END(sysenter_nt_set)
-         testq %rax,%rax
++        /*
++         * The PV ABI hardcodes the (guest-inaccessible and virtual)
++         * SYSCALL_MASK MSR such that DF (and nothing else) would be cleared.
++         * Note that the equivalent of IF (VGCF_syscall_disables_events) is
++         * dealt with separately above.
++         */
++        mov   $~X86_EFLAGS_DF, %esi
++
+         test  %rax, %rax
+ UNLIKELY_START(z, syscall_no_callback) /* TB_eip == 0 => #UD */
+         mov   VCPU_trap_ctxt(%rbx), %rdi
+@@ -47,12 +55,13 @@ UNLIKELY_START(z, syscall_no_callback) /
+         testb $4, X86_EXC_UD * TRAPINFO_sizeof + TRAPINFO_flags(%rdi)
+         setnz %cl
+         lea   TBF_EXCEPTION(, %rcx, TBF_INTERRUPT), %ecx
++        or    $~0, %esi                 # don't clear DF
+ UNLIKELY_END(syscall_no_callback)
+ 
+         movq  %rax,TRAPBOUNCE_eip(%rdx)
+         movb  %cl,TRAPBOUNCE_flags(%rdx)
+         call  create_bounce_frame
+-        andl  $~X86_EFLAGS_DF,UREGS_eflags(%rsp)
++        and   %esi, UREGS_eflags(%rsp)
+ /* %rbx: struct vcpu */
+ test_all_events:
+         ASSERT_NOT_IN_ATOMIC
 
