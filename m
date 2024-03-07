@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BC79874B71
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 10:55:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689708.1074933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 075C2874BA5
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 11:01:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689711.1074942 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riASz-0005go-Kv; Thu, 07 Mar 2024 09:55:09 +0000
+	id 1riAYR-0007gw-6f; Thu, 07 Mar 2024 10:00:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689708.1074933; Thu, 07 Mar 2024 09:55:09 +0000
+Received: by outflank-mailman (output) from mailman id 689711.1074942; Thu, 07 Mar 2024 10:00:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riASz-0005fB-Ga; Thu, 07 Mar 2024 09:55:09 +0000
-Received: by outflank-mailman (input) for mailman id 689708;
- Thu, 07 Mar 2024 09:55:07 +0000
+	id 1riAYR-0007eH-3n; Thu, 07 Mar 2024 10:00:47 +0000
+Received: by outflank-mailman (input) for mailman id 689711;
+ Thu, 07 Mar 2024 10:00:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0qMR=KN=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1riASx-0005f5-92
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 09:55:07 +0000
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [2607:f8b0:4864:20::234])
+ <SRS0=Z5IG=KN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1riAYQ-0007dw-3g
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 10:00:46 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c5f5428b-dc68-11ee-afda-a90da7624cb6;
- Thu, 07 Mar 2024 10:55:05 +0100 (CET)
-Received: by mail-oi1-x234.google.com with SMTP id
- 5614622812f47-3c219604f51so373546b6e.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 01:55:05 -0800 (PST)
+ id 90b1cd7d-dc69-11ee-afda-a90da7624cb6;
+ Thu, 07 Mar 2024 11:00:45 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-412e96284b9so5660745e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 02:00:45 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ y24-20020a05600c341800b00412f6f4dea4sm2027120wmp.41.2024.03.07.02.00.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Mar 2024 02:00:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,93 +44,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5f5428b-dc68-11ee-afda-a90da7624cb6
+X-Inumbo-ID: 90b1cd7d-dc69-11ee-afda-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1709805304; x=1710410104; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OF8NOsya8q6lPS0cnvRqrZu0roqupg73tnRNu4gZNNQ=;
-        b=GM5MyaUTgEytBFQycJksD6/NLYKQaI4pvJf0iMa2SGsPXOSI6veG7ma1Xx/Df+v3sY
-         p7tKhSB+TY/HdJOildCAQPsd+Ndol5jIWGG40teX2G4SHNV8FHWnx/uiTYh9nqsmcJdH
-         YnOh0iXUQ1AsMWHqFuFwWO54S8lr1VEvFDAVM=
+        d=citrix.com; s=google; t=1709805645; x=1710410445; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=arMovgd2mIYnMLIDoAuAlvPpErBwmnW02thqvjtKbD8=;
+        b=JzGhEDG8HX+8eC8HfN74hDEs+XswOz5zYD69nQFbTLFSf/mDa/vdVgIIEYBEotksaf
+         dDSfyIv2NQcJcM3ee0IOBxIr7YD1iPPOPeZ4RenD3sZu8UjR7T3sK2KAiqiAxGrVIfSR
+         ysylCckgDKj85F2zSdfKQ78jIaMLcNH6JvwuE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709805304; x=1710410104;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=OF8NOsya8q6lPS0cnvRqrZu0roqupg73tnRNu4gZNNQ=;
-        b=A1Tkpwi0NtUxV7KJqo+zusVLhq27MCztI+3zYkQpVrgBvLyBZwQvDZmRXHedaHJIdF
-         M2agD2K8DQXUoLeTGu+0V6OMU8Xhxi+J7AwMoyR2pvelsasmQcU71jlH8gKM65Gw0stt
-         b3nqGy+oTHnNawYJJxU9XTU7HZrYT3SlNXOyu5TK3W5m8Tt28RYfr64pjH5Jqy9i0CKO
-         6YOa4dLvclbMFYzDD2HJn9r3Egxn9DZeucrPEm9fGXmPtx74GNk+YdiSj1agPZAy1qud
-         SokR4DAsl4OaTEjIL/Tx5tVzhESFkXMMaqI4FxgzsltB8VGCDNSL2KUrKUA/WDBbgyNd
-         qWig==
-X-Forwarded-Encrypted: i=1; AJvYcCUTPBQ26ouMzVqosFJWhwJzBlRldvBWbqlJnw2nXofrzkfYajpBv8sAATVX1aSDNNpnvOz8nkbuae5/acjBUBEIr0D3mJFiDYhnZxdECqY=
-X-Gm-Message-State: AOJu0Yyht0czV6vOtptHHSgNPzqLw3U6U05ozoFqQmYQ+jryJHUSB3SB
-	hheOYraX8S8Wu4prbY4VB0lCvz2ZWN2U6lYDXEsyotojtHL/rNmeONgV/NpHUT/eOSAylM/IljI
-	7PRG1OXINSdTtlmAZX8xoNon35pjsJBeoT8YgCQ==
-X-Google-Smtp-Source: AGHT+IE5a4+QbsY1ES+vvfCudzxFBk3rzUJMaI7FxC11qN6UMiq2SCvXz4sAMxo5nbKMR3N8Zkurz+sMh3Ps5UeisMs=
-X-Received: by 2002:a05:6870:208:b0:221:2e06:c5d2 with SMTP id
- j8-20020a056870020800b002212e06c5d2mr8471486oad.58.1709805304527; Thu, 07 Mar
- 2024 01:55:04 -0800 (PST)
-MIME-Version: 1.0
-References: <79ed633d-b0bd-4a7d-a0c6-37a034e1ee96@suse.com>
- <0374516c-b5fa-4880-a07a-0b788f491e9a@xen.org> <CACMJ4Gaw86kR0QAgWYNtu9JtU5TT=pEN_MBNwn1MB7FLb7pjRw@mail.gmail.com>
-In-Reply-To: <CACMJ4Gaw86kR0QAgWYNtu9JtU5TT=pEN_MBNwn1MB7FLb7pjRw@mail.gmail.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Thu, 7 Mar 2024 09:54:53 +0000
-Message-ID: <CA+zSX=aN2s588E6Ueo+Yk5ePPsss1q+NcHH0T-ytJDwt_cnevA@mail.gmail.com>
-Subject: Re: [PATCH v2] Argo: don't obtain excess page references
-To: Christopher Clark <christopher.w.clark@gmail.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, openxt <openxt@googlegroups.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+        d=1e100.net; s=20230601; t=1709805645; x=1710410445;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=arMovgd2mIYnMLIDoAuAlvPpErBwmnW02thqvjtKbD8=;
+        b=mKRjZ8CvpE+jfbxi3XaJGGw1CEtChlulTzWZwG0xJm/X0xh/IS2O71zpu2RHfGPkoP
+         abPG6XsI70wLOkZ24LzYdJ6SWJRB2XVjkCu1H0P1CBZCRlgzVPcOu2IPQR6eJae/4H0A
+         qJQI+RYgjxfLRN1F8r4fPnlVxwa7cABNokgnDlGN5Snwi0l/egoPgAxdC+q9r3LMhETr
+         BUom+zXilFDHYfAyHJ9nPShwwR+xKXIvncCOHSB3lDQZ1bdAyTeB26w2LuciAX5wrbjo
+         xcMUuW8hobShFbuRla5H/bKgY8gEbhwQ/fQA8ee04+oU8qbWQ91Hsyv6ddq5lkU61VLN
+         1kcA==
+X-Gm-Message-State: AOJu0Ywl8nuH/PrfDkZmrmyh6Afh1KSr7klgqwVD6jRFLjoBAv29T45o
+	Pyf6BUVDg/Zn5rhmYlaOCIZOSNeuLM4qJbjfTjMkq7B2FhXJo4BwYHdLk6WZfVY=
+X-Google-Smtp-Source: AGHT+IEUn/aZgDVhaZFPBF+ELwsOFaLiJMxKSj+uLOEmBCVVeca61mkWd8QhlvtEgqXvD03JizpeLQ==
+X-Received: by 2002:a05:600c:3ba5:b0:412:f979:587b with SMTP id n37-20020a05600c3ba500b00412f979587bmr2424003wms.17.1709805644662;
+        Thu, 07 Mar 2024 02:00:44 -0800 (PST)
+Date: Thu, 7 Mar 2024 11:00:43 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/3] x86/pvh: Support relocating dom0 kernel
+Message-ID: <ZemQS-8a_a5pwzf-@macbook>
+References: <20240306185032.103216-1-jason.andryuk@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20240306185032.103216-1-jason.andryuk@amd.com>
 
-On Wed, Mar 6, 2024 at 11:38=E2=80=AFPM Christopher Clark
-<christopher.w.clark@gmail.com> wrote:
->
-> On Sun, Feb 18, 2024 at 10:01=E2=80=AFAM Julien Grall <julien@xen.org> wr=
-ote:
-> >
-> > Hi Jan,
-> >
-> > On 14/02/2024 10:12, Jan Beulich wrote:
-> > > find_ring_mfn() already holds a page reference when trying to obtain =
-a
-> > > writable type reference. We shouldn't make assumptions on the general
-> > > reference count limit being effectively "infinity". Obtain merely a t=
-ype
-> > > ref, re-using the general ref by only dropping the previously acquire=
-d
-> > > one in the case of an error.
-> > >
-> > > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >
-> > Reviewed-by: Julien Grall <jgrall@amazon.com>
-> >
-> > > ---
-> > > I further question the log-dirty check there: The present P2M type of=
- a
-> > > page doesn't really matter for writing to the page (plus it's stale b=
-y
-> > > the time it is looked at). Instead I think every write to such a page
-> > > needs to be accompanied by a call to paging_mark_dirty().
-> >
-> > I agree with that.
->
-> Adding OpenXT mailing list as I have found that I have not had the
-> time available that I had hoped for to spend on reviewing this Argo
-> change, and to provide opportunity for downstream feedback.
->
-> Link to the posted patch (start of this thread):
-> https://lists.xenproject.org/archives/html/xen-devel/2024-02/msg00858.htm=
-l
+On Wed, Mar 06, 2024 at 01:50:29PM -0500, Jason Andryuk wrote:
+> Xen tries to load a PVH dom0 kernel at the fixed guest physical address
+> from the elf headers.  For Linux, this defaults to 0x1000000 (16MB), but
+> it can be configured.
+> 
+> Unfortunately there exist firmwares that have reserved regions at this
+> address, so Xen fails to load the dom0 kernel since it's not RAM.
+> 
+> The other issue is that the Linux PVH entry point is not
+> position-independent.  It expects to run at the compiled
+> CONFIG_PHYSICAL_ADDRESS.
+> 
+> This patch set expands the PVH dom0 builder to try to relocate the
+> kernel if needed and possible.  XENFEAT_pvh_relocatable is added for
+> kernels to indicate they are relocatable.  However, we may want to
+> switch to an additional ELF note with the kernel alignment.  Linux
+> specifies a kernel alignment in the bzImage boot_params.setup_header,
+> but that is not present the ELF vmlinux file.
 
-Could we add some more designated reviewers / maintainers to the Argo
-code to help spread the load a bit?
+I wonder whether we need a pair of notes, to signal the min/max
+addresses the kernel supports being relocated to.
 
- -George
+Thanks, Roger.
 
