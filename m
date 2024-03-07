@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EC18874992
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 09:27:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689667.1074874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E6248749DF
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 09:39:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689672.1074884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri94r-00068X-33; Thu, 07 Mar 2024 08:26:09 +0000
+	id 1ri9Hm-0000Bu-9M; Thu, 07 Mar 2024 08:39:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689667.1074874; Thu, 07 Mar 2024 08:26:09 +0000
+Received: by outflank-mailman (output) from mailman id 689672.1074884; Thu, 07 Mar 2024 08:39:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri94r-00065z-04; Thu, 07 Mar 2024 08:26:09 +0000
-Received: by outflank-mailman (input) for mailman id 689667;
- Thu, 07 Mar 2024 08:26:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ri9Hm-00009V-6h; Thu, 07 Mar 2024 08:39:30 +0000
+Received: by outflank-mailman (input) for mailman id 689672;
+ Thu, 07 Mar 2024 08:39:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tO0P=KN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ri94p-00065t-UZ
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 08:26:07 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5771c96d-dc5c-11ee-afda-a90da7624cb6;
- Thu, 07 Mar 2024 09:26:05 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a456ab934eeso92771166b.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 00:26:05 -0800 (PST)
+ id 1ri9Hk-00009N-Un
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 08:39:28 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 34af9da5-dc5e-11ee-a1ee-f123f15fe8a2;
+ Thu, 07 Mar 2024 09:39:26 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a36126ee41eso80262166b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 00:39:26 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- o7-20020a170906288700b00a42ed7421b8sm8088558ejd.93.2024.03.07.00.26.04
+ fy21-20020a170906b7d500b00a45c8b6e965sm753680ejb.3.2024.03.07.00.39.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Mar 2024 00:26:05 -0800 (PST)
+ Thu, 07 Mar 2024 00:39:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5771c96d-dc5c-11ee-afda-a90da7624cb6
+X-Inumbo-ID: 34af9da5-dc5e-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709799965; x=1710404765; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709800766; x=1710405566; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Y7l0GZitSpPL4w6PpS6/l7z/DlCc0WejNdMFZiCxAnc=;
-        b=GzcoKCTPWYehOQY5wPyoJ+4H/6eWv1o8/Ve5lNp8mTtgYeSj3fxTIwrqKDT94WEu/U
-         99Dd5wR+/ZSc/9XTvsDOLezYMab5ykZLyLi/k+z6aCejV819Zr57YPIZsovSAknkTESS
-         GCEzrJKoY7FYk3enCXIodOgy96MqlqNB8xZOVPBFeSgTpNbc1FojGfuLJ2b0nd7yU/2I
-         7M7UXkcUZCUyQacS5TTYZQsA9TpnWYNZ4MaZ3WI4PY7/Pmk0bA+y9JRUpyXEJCAD9lqu
-         M1jsblmKYPzmY6125KWU5U74o+a/4rIef2ZK5Y3CSrH4aqRqSkTQHbgGl2ARRucnOojS
-         2TIA==
+        bh=we4U2tzwhZPs/jF6fgksLO1+xacGitITsRSu/NC2LTM=;
+        b=FbQdwjYrRCGe60Jx/B5zZFt17USKlzIymQhtUvx/obPT0/3DAaqQAxjkQuU7suaZ1q
+         wKhoiR6aP47dZBnhtr32NRREPndjhUaCyY8TnVZHwqEJBmdrdySit8wSsviH3zU/bjU6
+         8WVZxeYJxYGDw8pgn/VnIB7jZ9oF83P7E2g0fBwiu7lInXeQtfmjm0/3dUzW9fV6YAn4
+         lzdzzJyuW5jJ4LTSAppN/+TRFupqYThQwKEbihxxYw2ttcYZ8qJiIePrbNZ4PhETpp9Y
+         IkuulFi60xPLLC2CWbGLK0n1fWm5TZEMhr+uWoqyC3LY6wieIkoYudCoexWbVSaG2yj7
+         a6Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709799965; x=1710404765;
+        d=1e100.net; s=20230601; t=1709800766; x=1710405566;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Y7l0GZitSpPL4w6PpS6/l7z/DlCc0WejNdMFZiCxAnc=;
-        b=kZju/1qk3ze4OxaFFpFBRc6+gKKQrnH8bk8J6nFAJmUDl/4Yc68urlssOvLqU8bAFw
-         t90TW8YVyp695jC0dlvgks5rRnDDsNtyoupNySUzQb6etdrHPlgI3+qRUXocuSaJNjAf
-         PAmFXcfTKDNbFfbEz/WiL6gIoHcC+VfVjq33qIQyJQ1IModIudUvT8iNMHUhy4KVssFs
-         BzHjH4K0rmu506Npjz7/TAB6IYjN0lr0X8iAjQ89gfI/cOsraYUzCdj8hQlMMzoBTdAA
-         GRfHbiCjxa+T4Hdo6JWwun6HN0ZIdnTvr5yOsRZ9IEehlOUMcTtGBYGkJ3dSWPdPa86n
-         WssQ==
-X-Gm-Message-State: AOJu0YwF73iYshafsStXKoibZ5k7T04RFyDeljjBJB2QIB9uYahsB8fc
-	byZmpiDWJAjatPxPhWKJCjLhvO9qbDg48enbjIOWFdk2AExptgGVq609zjuPBw==
-X-Google-Smtp-Source: AGHT+IHEARlUQzPah8TcatUtYqt3dhawpWIQ4/frE2MAr7wPon90pWCRXps08MIqR1RYX+mleSUEfw==
-X-Received: by 2002:a17:906:d0c7:b0:a45:b74c:6e14 with SMTP id bq7-20020a170906d0c700b00a45b74c6e14mr3409610ejb.57.1709799965382;
-        Thu, 07 Mar 2024 00:26:05 -0800 (PST)
-Message-ID: <8b02fb20-2e4d-4a68-b633-417c964e38be@suse.com>
-Date: Thu, 7 Mar 2024 09:26:03 +0100
+        bh=we4U2tzwhZPs/jF6fgksLO1+xacGitITsRSu/NC2LTM=;
+        b=WgYSYMWsA5Kgi1m9ITdfTpGDFjD8xQneENpPpotil9oVTnk4k0QqfUeuRAufZNxmb+
+         rt4/NOO8kFOsTNSSGLDfg3fiXdEjc6nFYBhccBGaY0pVISwRTgFADTyySh/NgO8GTGw6
+         cinJgcrXhNHKD7/kV+IwQfRXBMOfmvTZAnV+D16EjSokYIwureNRvQ9J/5HWvoHd0fWQ
+         j3Hz9/jBpV4SO2kTvyGMaR14FcSonkh/SFpqjwSfvCr5AwbXcd5qP4yKTFm0iqxhDaur
+         ozCN4b82fH6rD4O29miSU6ZMfOSo/YeN1+whCfNnsn3xgcZscru6s632fCmfnGDv/Kyt
+         WQvA==
+X-Forwarded-Encrypted: i=1; AJvYcCU0yKxiJ6/Sbl3oQAhyNug3YR15NvJMsl3HRGjnG7U0LIZRdWRaOnQziDRXZsCKFtT0EUncazBKe/nxNDul7EawD086jbYoYYUEmci3MTQ=
+X-Gm-Message-State: AOJu0YwAN5hNME0qFWGoGLKSnyaDY0rt/F5+7ssg3OUOis1IQxqKxQVR
+	Ug3+kp4uMkg9AHp1z/F+XhYSaf88iMHHb0EiZ/S7UirvCrhjaySaoaWAcfumaQ==
+X-Google-Smtp-Source: AGHT+IFrCLnJndWLjMsx1taV4EjvErmrHUJ1/I6GLZkn9emWz5Ygxf6qQmfpI71cokFqCZaay0puMw==
+X-Received: by 2002:a17:906:3e48:b0:a45:a9da:cc38 with SMTP id t8-20020a1709063e4800b00a45a9dacc38mr5059392eji.7.1709800765975;
+        Thu, 07 Mar 2024 00:39:25 -0800 (PST)
+Message-ID: <962cad57-21a8-4882-a23a-95add04cac9b@suse.com>
+Date: Thu, 7 Mar 2024 09:39:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] xen/x86: bzImage parse kernel_alignment
+Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Jason Andryuk <jason.andryuk@amd.com>
-References: <20240306185032.103216-1-jason.andryuk@amd.com>
- <20240306185032.103216-3-jason.andryuk@amd.com>
- <alpine.DEB.2.22.394.2403061809170.853156@ubuntu-linux-20-04-desktop>
+To: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Juergen Gross <jgross@suse.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
+ <CAKm-Umbs2D7NHFE+NW2xKOu7-AZhFpH4uzE5QTuQusnGA_eNWA@mail.gmail.com>
+ <f539144c-885a-461c-a506-bdb73e626a65@suse.com>
+ <CAKm-UmY126AfdGhWcZ3s9vwN9+ksVRRFEhOu0ZFMoDvxrqOibw@mail.gmail.com>
+ <CAKm-UmYt3iV8zOhSmtqMGhi_8T93c_nCbnefs4m3UC+3UABqeQ@mail.gmail.com>
+ <CAKm-UmY-KXEAtBagikW4Jvp=SFXtmEg8P62pHfSo3Hr2s-0_-A@mail.gmail.com>
+ <CAKm-UmYbMCfXc1Ny0=qfB+UaLSXV9oEHZiSgS=mwKMwmOFGVrQ@mail.gmail.com>
+ <77c1c05d-a0a0-4292-9257-9b7fbebee0e3@suse.com>
+ <2859ad22-8714-4628-8142-fc77fc2072c3@amd.com>
+ <CAKm-UmZpyGkWXugYTJqU+qqVDyCFEKghtd=NTr2wK5EMCeL9Ww@mail.gmail.com>
+ <214585d5-689d-4ba6-bd48-359428a7ed8f@amd.com>
+ <CAKm-UmZoKwre8-G793VqRNFCmzAti1o-0Kp3ZyV_Z5cc0YNiKw@mail.gmail.com>
+ <CAKm-Umb=kGFqc5je9E3bbfQ0bcbZeY_Ntv5JDmO-vXj3N0MvPg@mail.gmail.com>
+ <CAKm-UmZ113q-a8wEE5yo0OPPM3JpNqJzKaU1eNiCzT2YkGU0pQ@mail.gmail.com>
+ <CAKm-UmaG3KRtDkrEH7cNgLkRkRs2HG357S=BUjomhN6Ad-AkCQ@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,47 +126,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2403061809170.853156@ubuntu-linux-20-04-desktop>
+In-Reply-To: <CAKm-UmaG3KRtDkrEH7cNgLkRkRs2HG357S=BUjomhN6Ad-AkCQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07.03.2024 03:09, Stefano Stabellini wrote:
-> On Wed, 6 Mar 2024, Jason Andryuk wrote:
->> Expand bzimage_parse() to return kernel_alignment from the setup_header.
->> This will be needed if loading a PVH kernel at a physical offset to
->> compensate for a reserved E820 region.
+On 06.03.2024 18:28, Sébastien Chaumat wrote:
+> Reasoning backward  (using a  kernel without the pinctrl_amd driver to
+>> ensure xen only is at stake) :
+>>  checking the diff in IOAPIC  between bare metal and xen  (IRQ7 is on
+>> pin07 on APIC )
 >>
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>> using kernel argument : apic=debug
+>>
+>> bare metal :
+>> [    0.715330] fedora kernel: ... APIC VERSION: 81050010
+>> ...
+>> [    0.715433] fedora kernel:  pin07, disabled, edge , high, V(00),
+>> IRR(0), S(0), physical, D(0000), M(0)
+>>
+>> xen :
+>> [    2.249582] fedora kernel: ... APIC VERSION: 00000014
+>> ...
+>> [    2.249730] fedora kernel:  pin07, disabled, level, low , V(60),
+>> IRR(0), S(0), physical, D(0000), M(0)
+>>
+>> So the APIC table is not the same.
+>>
+>> As strange as it looks the  (IOAPIC 0) pin07 is correctly described by the
+>> APIC in xen but yet differently than in baremetal.
+>> But the APIC message comes long after the
+>> [    1.833145] fedora kernel: xen: registering gsi 7 triggering 0 polarity
+>> 1
+>>
+>> so I wonder if the APIC pin07 info had any influence.
+>>
+>> Finally found the fix : adding ioapic_ack=new to xen boot parameters.
+> Not only the trackpad is now working but also the ACPI Embedded Controller
+> which is completely disabled.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-with two remarks:
-
->> --- a/xen/arch/x86/hvm/dom0_build.c
->> +++ b/xen/arch/x86/hvm/dom0_build.c
->> @@ -548,12 +548,14 @@ static int __init pvh_load_kernel(struct domain *d, const module_t *image,
->>      struct elf_binary elf;
->>      struct elf_dom_parms parms;
->>      paddr_t last_addr;
->> +    unsigned int align = 0;
-
-Strictly speaking this isn't needed here, yet, and would suffice when added
-in the next patch. But I'm okay with keeping it.
-
->> --- a/xen/arch/x86/include/asm/bzimage.h
->> +++ b/xen/arch/x86/include/asm/bzimage.h
->> @@ -4,8 +4,7 @@
->>  #include <xen/init.h>
->>  
->>  unsigned long bzimage_headroom(void *image_start, unsigned long image_length);
->> -
->>  int bzimage_parse(void *image_base, void **image_start,
->> -                  unsigned long *image_len);
->> +                  unsigned long *image_len, unsigned int *align);
-
-Any particular reason for dropping the blank line? I'd prefer if it was kept,
-and I may take the liberty to respectively adjust the patch while committing.
+Hmm, interesting. From someone else's laptop many years ago I had actually
+an indication in the opposite direction: That didn't work because of our
+defaulting to new (no directed EOI in sight yet back at that time). I
+wonder if overriding the ack method isn't actually just papering over the
+underlying actual issue here, whatever that is. IOW with the edge vs level
+mismatch addressed I'd hope the override could then be dropped again.
 
 Jan
 
