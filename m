@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6148C8754F7
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 18:14:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689976.1075547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 257848754FB
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 18:14:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689978.1075555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riHJ9-00029O-PQ; Thu, 07 Mar 2024 17:13:27 +0000
+	id 1riHJx-0002c2-1l; Thu, 07 Mar 2024 17:14:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689976.1075547; Thu, 07 Mar 2024 17:13:27 +0000
+Received: by outflank-mailman (output) from mailman id 689978.1075555; Thu, 07 Mar 2024 17:14:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riHJ9-00026C-ME; Thu, 07 Mar 2024 17:13:27 +0000
-Received: by outflank-mailman (input) for mailman id 689976;
- Thu, 07 Mar 2024 17:13:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aqh0=KN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1riHJ7-00025n-CW
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 17:13:25 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 018dc424-dca6-11ee-afda-a90da7624cb6;
- Thu, 07 Mar 2024 18:13:24 +0100 (CET)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2d2991e8c12so11612801fa.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 09:13:24 -0800 (PST)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a14-20020a2e980e000000b002d0a7ba3215sm3114843ljj.85.2024.03.07.09.13.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Mar 2024 09:13:23 -0800 (PST)
+	id 1riHJw-0002a1-V9; Thu, 07 Mar 2024 17:14:16 +0000
+Received: by outflank-mailman (input) for mailman id 689978;
+ Thu, 07 Mar 2024 17:14:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=tO0P=KN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1riHJv-0002Zl-I4
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 17:14:15 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1de6a0a2-dca6-11ee-a1ee-f123f15fe8a2;
+ Thu, 07 Mar 2024 18:14:12 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-567fbbd723cso1399741a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 09:14:12 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ gq13-20020a170906e24d00b00a45621ded4bsm4460517ejb.146.2024.03.07.09.14.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Mar 2024 09:14:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,135 +45,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 018dc424-dca6-11ee-afda-a90da7624cb6
+X-Inumbo-ID: 1de6a0a2-dca6-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709831604; x=1710436404; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=qrlFTiBd5RZIoLfeqX5Iuykltkt949AokDl3AMi6iY0=;
-        b=MCqazaxxrsIpDTQn1OzooM/zBNWMUvSVUOFR+rFygyWN7TEwwe1sjalmiuN7PXrMrt
-         4TBfiPKCYrHFSa8waKQZHcA5piXt5CwU2OCudjNgdRyEEcp2DF9Xfz41+SfkM89J+4ce
-         X2RJlszQXULyAK0v5Gal2Cst1gg7cVIr1F7MAp2nNv8QhOC1GiyOHCQN4jPXLHrsNUGi
-         k7KNCzi4EzPAnfeUlvxfvERYrwTJOzVdG7QbYf6fZuzXjXuQy740Gqbt613EAWdDFzvP
-         49XlNNaI8RyUlCapV6H42xakIL/yw0qUpVjTQrrZj3RfHmgF354VUDnlACGwux2Q8qZ6
-         XQ5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709831604; x=1710436404;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1709831651; x=1710436451; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=qrlFTiBd5RZIoLfeqX5Iuykltkt949AokDl3AMi6iY0=;
-        b=myHrTIKOG7SbCqn/PXLJKugkeR0CHowynb4Xtz8J7i+0yrmUmGPrWr3raOIIBwE25C
-         f1SKPvvIhWnusWuan0bnFR3lcQcP21aDVTwKeocruk/+T2xIjrwiIUbhGuvJFaE6Oqn0
-         d0Rw07tMYuR5JK4J42qQ7dCQyObh+Rq8sTuJ34R6pc2wqPVKdKg3rOOnu+45lfQrA8sN
-         ME55y85D0ts8xQCwrwPt91uWMkrzdTQ6AZIA9cB0h1Oz3ihqxl+uuNWu5RBq/1NlApmx
-         T2Q5HRbdxi26pejK1NSuZYUvz5o9z2D6sfdk7BzdiKTiKewr0Y2/cJcH8iLLPQ2Pq1hm
-         w6Jw==
-X-Gm-Message-State: AOJu0YySHyZq796gSuXLzxiDUIQS9Xpn2qNHQfxccbhAAxnPVvU4Q88G
-	Nz3/YhRBmcSaZWG2HNPCgTUkXlOb+aDwoDAPuK2NhM9zgK2cM8XXW+MIkgzPWBo=
-X-Google-Smtp-Source: AGHT+IFHhBFaeFrp/MK6nlv6+oceZk2cqA02MKFl85idmcEwZfhVDDj013GrypXmzO8ENodpcbZCOw==
-X-Received: by 2002:a2e:978e:0:b0:2d2:6457:4087 with SMTP id y14-20020a2e978e000000b002d264574087mr351650lji.6.1709831603419;
-        Thu, 07 Mar 2024 09:13:23 -0800 (PST)
-Message-ID: <563cbcbf1bb4b540b858c187618969b75bd37481.camel@gmail.com>
-Subject: Re: [PATCH v9 1/7] automation: introduce fixed randconfig for RISC-V
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>
-Cc: Michal Orzel <michal.orzel@amd.com>
-Date: Thu, 07 Mar 2024 18:13:22 +0100
-In-Reply-To: <d8e330c26394d9415a0d76b2d951bf57b0b6dd4b.1708086092.git.oleksii.kurochko@gmail.com>
-References: <cover.1708086091.git.oleksii.kurochko@gmail.com>
-	 <d8e330c26394d9415a0d76b2d951bf57b0b6dd4b.1708086092.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+        bh=5FzSgLdAWYaoILd8r6pOp9cL4FDfyhV7+g5Vlst+zBU=;
+        b=NwVTi6ERmIFgaCV2LFG+3ji3TOYTEPT81mAC48fKlm4siHikgESDTNY9agb+D8ufvV
+         fUolxhIfpjzDpRRAucvwlDXBf01s7dVn6cxWrFJ0qwPXGK4hS7ffjIlBSu7hQmLlxi4C
+         Y24gjuZQEYBwgh2vJVi3n0wBK5n9OnJmLCBOqeFDpoTUGmdM7ruEo99NUqknY75axfZh
+         NADDxN9ummCCzdyp5eLpf+rGnjiHlFBU5nLmmGX16AghS9QQAUXFEbgjpGzJmEfydJXi
+         V5DTffBETrYAvy9oLpbjD9usqOhPEWzfBIURkFDYiv6uY0zPl/O/Vm/Y0q5sC2lab8VM
+         +WFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709831651; x=1710436451;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5FzSgLdAWYaoILd8r6pOp9cL4FDfyhV7+g5Vlst+zBU=;
+        b=n7q1AKVrqA6q7YOf246AaLObB09uaOoIcdF9qvq6QuR/24Y6ovsNG9eEUJnQNSX2FV
+         Pb9h+HoHZ8oBY9deBhiG+ldsYwr86ATD9GcWTi2e9tSiuh4uCi/50CFXQ/6dS64m3/Go
+         YN61NLL0Wxhr+8HP1+qckwdVnCAlPHT7iloQHEqjn5knQeKEQv/xdo1yoNjXHga8+qOL
+         r/bKVZ+Xb5js4pGBFW8zLvaKc6N2G0aA3T+2UB4jPlVDR0VcXsmXveDwWwAg0zEpihm2
+         7a6oNDdYU0/GafaKBqQHHoSAto3K4WPt0PQ53jPZRy1GzFTD3F2loRFruFi2UeqxHJg8
+         ASvw==
+X-Forwarded-Encrypted: i=1; AJvYcCXpaEpnNoUj0qVG4OYyJzltCIh/OXj6deOVyeqkUh+QDIKJWYtG973VhTW7eIs/bRPOUUyAFTyogapudWQMmEYiqM4PR40b/rAF06EyN/c=
+X-Gm-Message-State: AOJu0YwJtDXEmfNUXIW0Yfpu62w2Tq7YIq4ltPx+P8ZN7H6ej8+XAfbm
+	kPb3QsVsaq3f/4w5v+KORG+Uplgsjrj7+nwFQKdKZ1Dye30kL9C3n/x3OtfGjA==
+X-Google-Smtp-Source: AGHT+IHBgPIBJXAb8p9LS15ZVwJ2Ii5yz/Zko3U4SVv68bIIIjgO2vY+v259rSmUKbXH47soK6YPng==
+X-Received: by 2002:a17:906:3798:b0:a3f:bd94:4d80 with SMTP id n24-20020a170906379800b00a3fbd944d80mr13101311ejc.76.1709831651474;
+        Thu, 07 Mar 2024 09:14:11 -0800 (PST)
+Message-ID: <bbd4ea96-565a-4843-a4fe-fbbc714ddbf6@suse.com>
+Date: Thu, 7 Mar 2024 18:14:09 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 12/23] xen/riscv: introduce io.h
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
+ <dd7c95b5197dfd0cca0edf9c0ada631336eb60d7.1708962629.git.oleksii.kurochko@gmail.com>
+ <807c31d5-0c5a-4646-ba90-2f284289069f@suse.com>
+ <d047c0956f804f7191f91b1d690650e220ec0fe4.camel@gmail.com>
+ <a164230f-2054-47e9-b72c-51f4a5955fe0@suse.com>
+ <2a3e49bf94332c17b50e4f0f745e4b28b16dceb1.camel@gmail.com>
+ <2a05c233-b3c5-417c-bd6b-8b1c21f03c3d@suse.com>
+ <e51500581bb71ef9cc2879050e2577802a5dd14c.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <e51500581bb71ef9cc2879050e2577802a5dd14c.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello Doug and Stefano,
+On 07.03.2024 17:21, Oleksii wrote:
+> On Thu, 2024-03-07 at 16:32 +0100, Jan Beulich wrote:
+>> On 07.03.2024 14:44, Oleksii wrote:
+>>> On Thu, 2024-03-07 at 14:24 +0100, Jan Beulich wrote:
+>>>> On 07.03.2024 14:01, Oleksii wrote:
+>>>>> On Wed, 2024-03-06 at 15:13 +0100, Jan Beulich wrote:
+>>>>>>> +/* Generic IO read/write.  These perform native-endian
+>>>>>>> accesses.
+>>>>>>> */
+>>>>>>> +static inline void __raw_writeb(uint8_t val, volatile void
+>>>>>>> __iomem
+>>>>>>> *addr)
+>>>>>>> +{
+>>>>>>> +    asm volatile ( "sb %0, 0(%1)" : : "r" (val), "r"
+>>>>>>> (addr) );
+>>>>>>> +}
+>>>>>>
+>>>>>> I realize this is like Linux has it, but how is the compiler
+>>>>>> to
+>>>>>> know
+>>>>>> that
+>>>>>> *addr is being access here? 
+>>>>> Assembler syntax told compiler that. 0(%1) - means that the
+>>>>> memory
+>>>>> location pointed to by the address in register %1.
+>>>>
+>>>> No, the compiler doesn't decompose the string to figure how
+>>>> operands
+>>>> are used. That's what the constraints are for. The only two
+>>>> things
+>>>> the
+>>>> compiler does with the string is replace % operators and count
+>>>> line
+>>>> separators.
+>>> It looks like I am missing something.
+>>>
+>>> addr -> a some register ( because of "r" contraint ).
+>>> val -> is also register ( because of "r" contraint ).
+>>>
+>>> So the compiler will update instert an instruction:
+>>>  sb reg1, 0(reg2)
+>>>
+>>> what means *(uint_8 *)reg2 = (uint8_t)reg1.
+>>>
+>>> What am I missing?
+>>
+>> The fact that the compiler will not know that *(uint_8 *)reg2
+>> actually
+>> changes across this asm(). It may therefore continue to hold a cached
+>> value in a register, without knowing that its contents went stale.
+> Then it makes sense to me. Thanks.
 
-While Michal has reviewed this patch, I understand that I still need
-your Acked-by.
+FTAOD similar considerations apply to memory reads. The compiler may need
+to know that values held in registers first need writing back to memory
+before an asm() can be invoked.
 
-Could you please take a moment to review the patch?
+> It explains why it is needed +Q, but
+> I don't understand why constraint 'o' isn't used for __raw_writew, but
+> was used for __raw_writeb:
+> 
+>    static inline void __raw_writeb(u8 val, volatile void __iomem *addr)
+>    {
+>            asm volatile("strb %1, %0"
+>                         : "+Qo" (*(volatile u8 __force *)addr)
+>                         : "r" (val));
+>    }
+>    
+>    static inline void __raw_writew(u16 val, volatile void __iomem *addr)
+>    {
+>            asm volatile("strh %1, %0"
+>                         : "+Q" (*(volatile u16 __force *)addr)
+>                         : "r" (val));
+>    } 
+>    
+> If I understand correctly 'o' that the address is offsettable, so why
+> addr can not be offsettable for everyone case?
 
-Thanks in advance.
+I don't know; there may be peculiarities in RISC-V specific constraints.
 
-~ Oleksii
+> And one more thing, in Xen constraint "+" is used, but in Linux it was
+> dropped:
+> https://patchwork.kernel.org/project/linux-arm-kernel/patch/1426958753-26903-1-git-send-email-peter@hurleysoftware.com/
+> 
+> To me it looks like constraints should be always "+Qo".
 
-On Fri, 2024-02-16 at 13:39 +0100, Oleksii Kurochko wrote:
-> This patch introduces the anchor riscv-fixed-randconfig,
-> which includes all configurations that should be disabled for
-> randconfig builds.
->=20
-> Suggested-by: Stefano Stabellini <sstabellini@kernel.org>
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> The patch were introduced after discussion in a topic:
-> =C2=A0
-> https://lore.kernel.org/xen-devel/cover.1701966261.git.oleksii.kurochko@g=
-mail.com
-> /
-> ---
-> Changes in V9:
-> =C2=A0- add '|' symbol after EXTRA_FIXED_RANDCONFIG to make variables in
-> EXTRA_FIXED_RANDCONFIG
-> =C2=A0=C2=A0 be separated by new line.
-> =C2=A0- instead of introduction of new file for riscv-fixed-randconfig,
-> introduce an anchor
-> =C2=A0=C2=A0 inside build.yaml
-> ---
-> Changes in V8:
-> =C2=A0- Nothing changed. Only rebase
-> ---
-> Changes in V7:
-> =C2=A0- Nothing changed. Only rebase
-> ---
-> Changes in V6:
-> =C2=A0- The patch was introduced in this version of patch series.
-> ---
-> =C2=A0automation/gitlab-ci/build.yaml | 14 ++++++++++----
-> =C2=A01 file changed, 10 insertions(+), 4 deletions(-)
->=20
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-
-> ci/build.yaml
-> index 6d2cb18b88..aac29ee13a 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -512,6 +512,14 @@ alpine-3.18-gcc-debug-arm64-boot-cpupools:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_BOOT_TIME_CPUPOOLS=3Dy
-> =C2=A0
-> =C2=A0# RISC-V 64 cross-build
-> +.riscv-fixed-randconfig:
-> +=C2=A0 variables: &riscv-fixed-randconfig
-> +=C2=A0=C2=A0=C2=A0 EXTRA_FIXED_RANDCONFIG: |
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_COVERAGE=3Dn
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_EXPERT=3Dy
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_GRANT_TABLE=3Dn
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_MEM_ACCESS=3Dn
-> +
-> =C2=A0archlinux-current-gcc-riscv64:
-> =C2=A0=C2=A0 extends: .gcc-riscv64-cross-build
-> =C2=A0=C2=A0 variables:
-> @@ -532,8 +540,7 @@ archlinux-current-gcc-riscv64-randconfig:
-> =C2=A0=C2=A0=C2=A0=C2=A0 CONTAINER: archlinux:current-riscv64
-> =C2=A0=C2=A0=C2=A0=C2=A0 KBUILD_DEFCONFIG: tiny64_defconfig
-> =C2=A0=C2=A0=C2=A0=C2=A0 RANDCONFIG: y
-> -=C2=A0=C2=A0=C2=A0 EXTRA_FIXED_RANDCONFIG:
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_COVERAGE=3Dn
-> +=C2=A0=C2=A0=C2=A0 <<: *riscv-fixed-randconfig
-> =C2=A0
-> =C2=A0archlinux-current-gcc-riscv64-debug-randconfig:
-> =C2=A0=C2=A0 extends: .gcc-riscv64-cross-build-debug
-> @@ -541,8 +548,7 @@ archlinux-current-gcc-riscv64-debug-randconfig:
-> =C2=A0=C2=A0=C2=A0=C2=A0 CONTAINER: archlinux:current-riscv64
-> =C2=A0=C2=A0=C2=A0=C2=A0 KBUILD_DEFCONFIG: tiny64_defconfig
-> =C2=A0=C2=A0=C2=A0=C2=A0 RANDCONFIG: y
-> -=C2=A0=C2=A0=C2=A0 EXTRA_FIXED_RANDCONFIG:
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_COVERAGE=3Dn
-> +=C2=A0=C2=A0=C2=A0 <<: *riscv-fixed-randconfig
-> =C2=A0
-> =C2=A0# Power cross-build
-> =C2=A0debian-bullseye-gcc-ppc64le:
+For plain writes it should at least be "=Qo" then, yes. To me making those
+input operands on Arm can't have been quite right.
 
+Jan
 
