@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 789218749E7
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 09:41:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689677.1074905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEC49874AE2
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 10:31:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689694.1074919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri9Jq-0002Ad-TX; Thu, 07 Mar 2024 08:41:38 +0000
+	id 1riA56-00026N-Ih; Thu, 07 Mar 2024 09:30:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689677.1074905; Thu, 07 Mar 2024 08:41:38 +0000
+Received: by outflank-mailman (output) from mailman id 689694.1074919; Thu, 07 Mar 2024 09:30:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri9Jq-00027i-P3; Thu, 07 Mar 2024 08:41:38 +0000
-Received: by outflank-mailman (input) for mailman id 689677;
- Thu, 07 Mar 2024 08:41:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ri9Jp-00027Q-5W; Thu, 07 Mar 2024 08:41:37 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ri9Jp-0006ns-0k; Thu, 07 Mar 2024 08:41:37 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ri9Jo-0005dJ-IW; Thu, 07 Mar 2024 08:41:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ri9Jo-0004IY-I6; Thu, 07 Mar 2024 08:41:36 +0000
+	id 1riA56-00024B-Fe; Thu, 07 Mar 2024 09:30:28 +0000
+Received: by outflank-mailman (input) for mailman id 689694;
+ Thu, 07 Mar 2024 09:30:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Z5IG=KN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1riA55-000245-5F
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 09:30:27 +0000
+Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
+ [2607:f8b0:4864:20::82c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 53cf966e-dc65-11ee-afda-a90da7624cb6;
+ Thu, 07 Mar 2024 10:30:25 +0100 (CET)
+Received: by mail-qt1-x82c.google.com with SMTP id
+ d75a77b69052e-42f13eebabbso2921141cf.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 01:30:25 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ he29-20020a05622a601d00b0042ee1ff302esm4843954qtb.66.2024.03.07.01.30.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Mar 2024 01:30:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,424 +44,263 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=qAlLGBl71XiqBGjZ2Jy/MDAgGXrpk+/ttchQNXAR5Xo=; b=FzwOffd1peFR6MMwY0VrMZY0P8
-	Mau8lYYtiTIfzMgL9qerRdcCuCaES8fiv1q63q94nA+KnWo0eLasxsaN+AoVK0Kv4+R53NQl5Qd7f
-	B4q4Y1CdL87gdoQtGMgZNO9JdcyWJxopZlSxNeyRIpY2VE3WkJcuaakD48VErtjyHlas=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184922-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 53cf966e-dc65-11ee-afda-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1709803824; x=1710408624; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=5EkqeA+Q9vgb52Bj9IdDE0G1TqzZ7hUIGlxQCNPLfKQ=;
+        b=dcbI7gwZysLOQQ2RcSkS/nycuodVrhaO8wGOs9GMHgqIrRdS5e08zCTHCElnekgQDK
+         Sye+QzsBH21g2XfooKnmVJQgbifaW2bfkF3rUSlTO+X1zPT8rNwhH4RNX2S6DiGjDMRR
+         gaknPfr8GBQrd9I5elIrM/oSUoVp7EIpygpbc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709803824; x=1710408624;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5EkqeA+Q9vgb52Bj9IdDE0G1TqzZ7hUIGlxQCNPLfKQ=;
+        b=v3rC6w1EL1vYAoEHmdJv29ibwy/Px82KHOQfXh8Vh/BVUEBkrAfo+Xcw/SgeovQdnI
+         jhEQHSvtdeS6KZAcIrUCE7w/kE98KJqWurMw4PM4j3UHqMSjzxZNLWJCX6W80JLokEfY
+         ZSWL65C5VZgNKOEQb4m4CukcBviRhgcvUjVBuD/R+6ZGUlh0n0RBrvKLcRZ0ztv9NWj/
+         42LknmrRPe0tIHhSRx56o7U9C2HS0V4zCAwyfaTWJvFJVXoTKGh9ZkgKtJ338ZGG2fo5
+         zXXqo08r8BN8LzZYiZ3eIAzzHVxs+ZpY0WI0x+9kxJQc1sP70NVUihULYQZZOEoRYG2n
+         tYhg==
+X-Gm-Message-State: AOJu0YzHzwwwd/k9BI1dWDDIBmFw4c5JTmonWI/ujSMjcZMKWhle6j8J
+	8FZyX7Bci7y5OiTSVhDyLp8N8ZB5ecHidozsfdI7bNJEAhMB0HeBs4xP5JHTU6Y=
+X-Google-Smtp-Source: AGHT+IHJyWl/nytobRd3BzNxS/KpUyq50cBg5xwCWUDkCilRbVXXPTokdYnKO2qPQq+DLNi2aV7dPg==
+X-Received: by 2002:ac8:5bc4:0:b0:42e:da42:9c73 with SMTP id b4-20020ac85bc4000000b0042eda429c73mr9321418qtb.57.1709803824476;
+        Thu, 07 Mar 2024 01:30:24 -0800 (PST)
+Date: Thu, 7 Mar 2024 10:30:22 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH 3/3] x86/PVH: Support relocatable dom0 kernels
+Message-ID: <ZemJLs0yHiSGI6nO@macbook>
+References: <20240306185032.103216-1-jason.andryuk@amd.com>
+ <20240306185032.103216-4-jason.andryuk@amd.com>
 MIME-Version: 1.0
-Subject: [linux-6.1 test] 184922: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    linux-6.1:test-amd64-amd64-xl-multivcpu:guest-localmigrate/x10:fail:heisenbug
-    linux-6.1:test-armhf-armhf-xl-credit1:xen-boot:fail:heisenbug
-    linux-6.1:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-6.1:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-6.1:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-6.1:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-6.1:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-6.1:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=61adba85cc40287232a539e607164f273260e0fe
-X-Osstest-Versions-That:
-    linux=a3eb3a74aa8c94e6c8130b55f3b031f29162868c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 07 Mar 2024 08:41:36 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20240306185032.103216-4-jason.andryuk@amd.com>
 
-flight 184922 linux-6.1 real [real]
-flight 184929 linux-6.1 real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184922/
-http://logs.test-lab.xenproject.org/osstest/logs/184929/
+On Wed, Mar 06, 2024 at 01:50:32PM -0500, Jason Andryuk wrote:
+> Xen tries to load a PVH dom0 kernel at the fixed guest physical address
+> from the elf headers.  For Linux, this defaults to 0x1000000 (16MB), but
+> it can be configured.
+> 
+> Unfortunately there exist firmwares that have reserved regions at this
+> address, so Xen fails to load the dom0 kernel since it's not RAM.
+> 
+> The PVH entry code is not relocatable - it loads from absolute
+> addresses, which fail when the kernel is loaded at a different address.
+> With a suitably modified kernel, a reloctable entry point is possible.
+> 
+> Add the XENFEAT_pvh_relocatable flag to let a kernel indicate that it
+> supports a relocatable entry path.
+> 
+> Change the loading to check for an acceptable load address.  If the
+> kernel is relocatable, support finding an alternate load address.
+> 
+> Linux cares about its physical alignment.  This can be pulled out of the
+> bzImage header, but not from the vmlinux ELF file.  If an alignment
+> can't be found, use 2MB.
 
-Failures :-/ but no regressions.
+While I'm fine with having a Linux specific way, there needs to be a
+generic way of passing the alignment for non-bzImage kernels.
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-multivcpu 20 guest-localmigrate/x10 fail pass in 184929-retest
- test-armhf-armhf-xl-credit1   8 xen-boot            fail pass in 184929-retest
+ELF program headers have an align field, would that be suitable to
+use?
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-credit1 15 migrate-support-check fail in 184929 never pass
- test-armhf-armhf-xl-credit1 16 saverestore-support-check fail in 184929 never pass
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184831
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184841
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184841
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184841
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 184841
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 184841
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184841
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184841
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+In elf_parse_binary() where the p{start,end} is calculated, you could
+also fetch the p_offset from the lower found program header and use it
+as the required alignment.  Would that be OK for Linux and maybe avoid
+having to fiddle with the bzImage header?  FWIW it is likely fine for
+FreeBSD.
 
-version targeted for testing:
- linux                61adba85cc40287232a539e607164f273260e0fe
-baseline version:
- linux                a3eb3a74aa8c94e6c8130b55f3b031f29162868c
+> 
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 
-Last test of basis   184841  2024-03-02 08:11:10 Z    5 days
-Testing same since   184922  2024-03-06 15:13:36 Z    0 days    1 attempts
+I created a gitlab ticket for this:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdun Nihaal <abdun.nihaal@gmail.com>
-  Adrian Hunter <adrian.hunter@intel.com>
-  Alex Deucher <alexander.deucher@amd.com>
-  Alexander Lobakin <alexandr.lobakin@intel.com>
-  Alexander Ofitserov <oficerovas@altlinux.org>
-  Alexander Stein <alexander.stein@ew.tq-group.com>
-  Alexandru Gagniuc <alexandru.gagniuc@hp.com>
-  Andrew Morton <akpm@linux-foundation.org>
-  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-  Anna Schumaker <Anna.Schumaker@Netapp.com>
-  Ard Biesheuvel <ardb+git@google.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Arnd Bergmann <arnd@arndb.de>
-  Arturas Moskvinas <arturas.moskvinas@gmail.com>
-  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-  Bjorn Andersson <andersson@kernel.org>
-  Bjorn Andersson <quic_bjorande@quicinc.com>
-  Bjorn Helgaas <bhelgaas@google.com>
-  Borislav Petkov (AMD) <bp@alien8.de>
-  Borislav Petkov <bp@suse.de>
-  Christian Brauner <brauner@kernel.org>
-  Christian König <christian.koenig@amd.com>
-  Christophe Kerello <christophe.kerello@foss.st.com>
-  Chuck Lever <chuck.lever@oracle.com>
-  Chunyan Zhang <chunyan.zhang@unisoc.com>
-  Clancy Shang <clancy.shang@quectel.com>
-  Colin Ian King <colin.i.king@gmail.com>
-  Curtis Klein <curtis.klein@hpe.com>
-  Dai Ngo <dai.ngo@oracle.com>
-  Daniel Borkmann <daniel@iogearbox.net>
-  Daniel Vetter <daniel.vetter@ffwll.ch>
-  Dave Hansen <dave.hansen@linux.intel.com>
-  David Disseldorp <ddiss@suse.de>
-  David Howells <dhowells@redhat.com>
-  David S. Miller <davem@davemloft.net>
-  David Sterba <dsterba@suse.com>
-  Davide Caratti <dcaratti@redhat.com>
-  Dimitris Vlachos <dvlachos@ics.forth.gr>
-  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-  Dmitry Torokhov <dmitry.torokhov@gmail.com>
-  Doug Smythies <dsmythies@telus.net>
-  Edward Lo <edward.lo@ambergroup.io>
-  Elad Nachman <enachman@marvell.com>
-  Elson Roy Serrao <quic_eserrao@quicinc.com>
-  Eniac Zhang <eniac-xw.zhang@hp.com>
-  Eric Dumazet <edumazet@google.com>
-  Evgeniy Baskov <baskov@ispras.ru>
-  Filipe Manana <fdmanana@suse.com>
-  Florian Fainelli <florian.fainelli@broadcom.com>
-  Florian Westphal <fw@strlen.de>
-  Frank Li <Frank.Li@nxp.com>
-  Gaurav Batra <gbatra@linux.vnet.ibm.com>
-  Geert Uytterhoeven <geert+renesas@glider.be>
-  Geliang Tang <tanggeliang@kylinos.cn>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Gustavo A. R. Silva <gustavoars@kernel.org>
-  Han Xu <han.xu@nxp.com>
-  Hans de Goede <hdegoede@redhat.com>
-  Hans Peter <flurry123@gmx.ch>
-  Herbert Xu <herbert@gondor.apana.org.au>
-  Hou Zhiqiang <Zhiqiang.Hou@nxp.com>
-  Ido Schimmel <idosch@nvidia.com>
-  Ignat Korchagin <ignat@cloudflare.com>
-  Ingo Molnar <mingo@kernel.org>
-  Ivan Semenov <ivan@semenov.dev>
-  Jakub Kicinski <kuba@kernel.org>
-  Jakub Raczynski <j.raczynski@samsung.com>
-  Janaki Ramaiah Thota <quic_janathot@quicinc.com>
-  Javier Carrasco <javier.carrasco.cruz@gmail.com>
-  Jeff Layton <jlayton@kernel.org>
-  Jeremy Kerr <jk@codeconstruct.com.au>
-  Jia-Ju Bai <baijiaju1990@gmail.com>
-  Jiri Bohac <jbohac@suse.cz>
-  Jiri Slaby (SUSE) <jirislaby@kernel.org>
-  Jiri Slaby <jirislaby@kernel.org>
-  Joerg Roedel <jroedel@suse.de>
-  Johan Hovold <johan+linaro@kernel.org>
-  Johannes Berg <johannes.berg@intel.com>
-  Jon Hunter <jonathanh@nvidia.com>
-  Jonas Dreßler <verdre@v0yd.nl>
-  Juergen Gross <jgross@suse.com>
-  Justin Iurman <justin.iurman@uliege.be>
-  Kai-Heng Feng <kai.heng.feng@canonical.com>
-  Kees Cook <keescook@chromium.org>
-  Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-  Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-  Kuniyuki Iwashima <kuniyu@amazon.com>
-  Leon Romanovsky <leon@kernel.org>
-  Leon Romanovsky <leonro@nvidia.com>
-  Lin Ma <linma@zju.edu.cn>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Lorenzo Pieralisi <lpieralisi@kernel.org>
-  Louis DeLosSantos <louis.delos.devel@gmail.com>
-  Luca Ceresoli <luca.ceresoli@bootlin.com>
-  Luca Weiss <luca.weiss@fairphone.com>
-  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-  Lukasz Majewski <lukma@denx.de>
-  Manivannan Sadhasivam <mani@kernel.org>
-  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-  Marek Vasut <marex@denx.de>
-  Mario Limonciello <mario.limonciello@amd.com>
-  Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Martin KaFai Lau <martin.lau@kernel.org>
-  Martynas Pumputis <m@lambda.lt>
-  Mateusz Jończyk <mat.jonczyk@o2.pl>
-  Matthew Auld <matthew.auld@intel.com>
-  Matthieu Baerts (NGI0) <matttbe@kernel.org>
-  Maximilian Heyne <mheyne@amazon.de>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Mickaël Salaün <mic@digikod.net>
-  Mike Christie <michael.christie@oracle.com>
-  Min-Hua Chen <minhuadotchen@gmail.com>
-  Ming Lei <ming.lei@redhat.com>
-  Miquel Raynal <miquel.raynal@bootlin.com>
-  Neil Armstrong <neil.armstrong@linaro.org>
-  NeilBrown <neilb@suse.de>
-  Nicolas Belin <nbelin@baylibre.com>
-  Nikolay Aleksandrov <razor@blackwall.org>
-  Oleksij Rempel <o.rempel@pengutronix.de>
-  Pablo Neira Ayuso <pablo@netfilter.org>
-  Palmer Dabbelt <palmer@rivosinc.com>
-  Paolo Abeni <pabeni@redhat.com>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Patrisious Haddad <phaddad@nvidia.com>
-  Pavel Machek (CIP) <pavel@denx.de>
-  Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
-  Peng Ma <peng.ma@nxp.com>
-  Petr Machata <petrm@nvidia.com>
-  Pucha Himasekhar Reddy <himasekharx.reddy.pucha@intel.com> (A Contingent worker at Intel)
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Rob Herring <robh@kernel.org>
-  Robert Foss <rfoss@kernel.org>
-  Ron Economos <re@w6rz.net>
-  Ryosuke Yasuoka <ryasuoka@redhat.com>
-  Sabrina Dubroca <sd@queasysnail.net>
-  Salvatore Bonaccorso <carnil@debian.org>
-  Saravana Kannan <saravanak@google.com>
-  Sasha Levin <sashal@kernel.org>
-  Sean Christopherson <seanjc@google.com>
-  Sebastian Reichel <sebastian.reichel@collabora.com>
-  SeongJae Park <sj@kernel.org>
-  Shawn Guo <shawnguo@kernel.org>
-  Shiraz Saleem <shiraz.saleem@intel.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Steev Klimaszewski <steev@kali.org>
-  Stefan Wahren <stefan.wahren@i2se.com>
-  Stephen Boyd <sboyd@kernel.org>
-  Steve Morvai <stevemorvai@hotmail.com>
-  Steven Rostedt (Google) <rostedt@goodmis.org>
-  Suren Baghdasaryan <surenb@google.com>
-  Tadeusz Struk <tstruk@gigaio.com>
-  Takashi Iwai <tiwai@suse.de>
-  Takashi Sakamoto <o-takashi@sakamocchi.jp>
-  Tasos Sahanidis <tasos@tasossah.com>
-  Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-  Thierry Reding <treding@nvidia.com>
-  Tim Schumacher <timschumi@gmx.de>
-  Tomas Krcka <krckatom@amazon.de>
-  Tony Nguyen <anthony.l.nguyen@intel.com>
-  Ulf Hansson <ulf.hansson@linaro.org>
-  Vicki Pfau <vi@endrift.com>
-  Vinod Koul <vkoul@kernel.org>
-  Will Deacon <will@kernel.org>
-  Xiaowei Bao <xiaowei.bao@nxp.com>
-  Xiu Jianfeng <xiujianfeng@huawei.com>
-  Yang Shi <yang@os.amperecomputing.com>
-  Yann Sionneau <ysionneau@kalrayinc.com>
-  Ye Bin <yebin10@huawei.com>
-  Yi Zhao <yi.zhao@nxp.com>
-  Ying Hsu <yinghsu@chromium.org>
-  Yunjian Wang <wangyunjian@huawei.com>
-  Yuntao Wang <ytcoode@gmail.com>
-  Zijun Hu <quic_zijuhu@quicinc.com>
-  Zong Li <zong.li@sifive.com>
+https://gitlab.com/xen-project/xen/-/issues/180
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                fail    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
+If you want to reference it.
 
+> ---
+> Put alignment as a new ELF note?  Presence of that note would indicate
+> relocation support without a new XENFEAT flag.
+> 
+> Default alignment to a multiple of 2MB to make more cases work?  It has
+> to be a power of two, and a multiple might allow loading a customized
+> kernel.  A larger alignment would limit the number of possible load
+> locations.
+> ---
+>  xen/arch/x86/hvm/dom0_build.c | 109 ++++++++++++++++++++++++++++++++++
+>  xen/include/public/features.h |   5 ++
+>  2 files changed, 114 insertions(+)
+> 
+> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+> index bbae8a5645..34d68ee8fb 100644
+> --- a/xen/arch/x86/hvm/dom0_build.c
+> +++ b/xen/arch/x86/hvm/dom0_build.c
+> @@ -537,6 +537,109 @@ static paddr_t __init find_memory(
+>      return INVALID_PADDR;
+>  }
+>  
+> +static bool __init check_load_address(
+> +    const struct domain *d, const struct elf_binary *elf)
+> +{
+> +    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
+> +    paddr_t kernel_end = ROUNDUP((paddr_t)elf->dest_base + elf->dest_size,
+> +                                 PAGE_SIZE);
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+You can use PAGE_ALIGN() here (and below) for simplicity.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> +    unsigned int i;
+> +
+> +    /*
+> +     * The memory map is sorted and all RAM regions starts and sizes are
+> +     * aligned to page boundaries.
+> +     */
+> +    for ( i = 0; i < d->arch.nr_e820; i++ )
+> +    {
+> +        paddr_t start = d->arch.e820[i].addr;
+> +        paddr_t end = d->arch.e820[i].addr + d->arch.e820[i].size;
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Since the memory map is sorted you can end the loop once end start >=
+kernel_end?  As further regions are past the kernel destination.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> +
+> +        if ( start <= kernel_start &&
+> +             end >= kernel_end &&
+> +             d->arch.e820[i].type == E820_RAM )
+> +            return true;
+> +    }
+> +
+> +    return false;
+> +}
+> +
+> +/*
+> + * Find an e820 RAM region that fits the kernel at a suitable alignment.
+> + */
 
+This (and other) comment seems to fit in a single line: /* ... */.
 
-Pushing revision :
+> +static paddr_t find_kernel_memory(
+> +    const struct domain *d, struct elf_binary *elf, paddr_t align)
 
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   a3eb3a74aa8c9..61adba85cc402  61adba85cc40287232a539e607164f273260e0fe -> tested/linux-6.1
+elf can be const AFAICT.
+
+> +{
+> +    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
+> +    paddr_t kernel_end = ROUNDUP((paddr_t)elf->dest_base + elf->dest_size,
+> +                                 PAGE_SIZE);
+> +    unsigned int i;
+> +
+> +    /*
+> +     * The memory map is sorted and all RAM regions starts and sizes are
+> +     * aligned to page boundaries.
+> +     */
+> +    for ( i = 0; i < d->arch.nr_e820; i++ )
+> +    {
+> +        paddr_t start = d->arch.e820[i].addr;
+> +        paddr_t end = d->arch.e820[i].addr + d->arch.e820[i].size;
+> +        paddr_t kstart, kend, offset;
+> +
+> +        if ( d->arch.e820[i].type != E820_RAM )
+> +            continue;
+> +
+> +        if ( d->arch.e820[i].size < elf->dest_size )
+> +            continue;
+> +
+> +        if ( end < kernel_end )
+> +            continue;
+
+I'm not sure I understand this check, why would we refuse regions
+below the fixed kernel end?  Those should be equally suitable if big
+enough and meeting the alignment requirements.
+
+> +
+> +        kstart = ROUNDUP(start, align);
+> +        offset = kstart - kernel_start;
+> +        kend = kernel_end + offset;
+> +
+> +        if ( kend <= end )
+> +            return offset;
+
+Why not return this as an address to use to load the kernel instead of
+an offset from dest_base?  That would also make the calculations
+easier IMO.
+
+> +    }
+
+This should be limited to a range below 4GB.
+
+> +    return 0;
+> +}
+> +
+> +/*
+> + * Check the kernel load address, and adjust if necessary and possible.
+> + */
+> +static bool __init adjust_load_address(
+> +    const struct domain *d, struct elf_binary *elf, struct elf_dom_parms *parms,
+> +    paddr_t align)
+> +{
+> +    paddr_t offset;
+> +
+> +    /* Check load address */
+> +    if ( check_load_address(d, elf) )
+> +        return true;
+> +
+> +    if ( !test_bit(XENFEAT_pvh_relocatable, parms->f_supported) )
+> +    {
+> +        printk("Address conflict and %pd kernel is not relocatable\n", d);
+> +        return false;
+> +    }
+> +
+> +    if ( align == 0 )
+> +        align = MB(2);
+> +
+> +    offset = find_kernel_memory(d, elf, align);
+> +    if ( offset == 0 )
+> +    {
+> +        printk("Failed find a load offset for the kernel\n");
+> +        return false;
+> +    }
+> +
+> +    printk("Adjusting load address by %#lx\n", offset);
+
+I think this would be more helpful if the previous and the new ranges
+are printed, as I'm not sure the previous dest_base is printed, in
+which case the offset doesn't help much.  I would do:
+
+if ( opt_dom0_verbose )
+    printk("relocating kernel from [%lx, %lx] -> [%lx, %lx]\n", ...);
+
+> +    elf->dest_base += offset;
+> +    parms->phys_entry += offset;
+
+As noted above, I think it would be better if find_kernel_memory()
+find an absolute address which is then adjusted here.
+
+> +
+> +    return true;
+> +}
+> +
+>  static int __init pvh_load_kernel(struct domain *d, const module_t *image,
+>                                    unsigned long image_headroom,
+>                                    module_t *initrd, void *image_base,
+> @@ -587,6 +690,12 @@ static int __init pvh_load_kernel(struct domain *d, const module_t *image,
+>      elf.dest_base = (void *)(parms.virt_kstart - parms.virt_base);
+>      elf.dest_size = parms.virt_kend - parms.virt_kstart;
+>  
+> +    if ( !adjust_load_address(d, &elf, &parms, align) )
+
+check_and_adjust_?  As the address is not unconditionally adjusted.
+
+Thanks, Roger.
 
