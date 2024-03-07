@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66C07874F8A
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 14:02:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689889.1075325 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4574874F90
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 14:04:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689891.1075336 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riDNa-0005y6-2m; Thu, 07 Mar 2024 13:01:46 +0000
+	id 1riDQ0-0006uh-Ej; Thu, 07 Mar 2024 13:04:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689889.1075325; Thu, 07 Mar 2024 13:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 689891.1075336; Thu, 07 Mar 2024 13:04:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riDNZ-0005wV-W9; Thu, 07 Mar 2024 13:01:45 +0000
-Received: by outflank-mailman (input) for mailman id 689889;
- Thu, 07 Mar 2024 13:01:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1riDQ0-0006ro-Bz; Thu, 07 Mar 2024 13:04:16 +0000
+Received: by outflank-mailman (input) for mailman id 689891;
+ Thu, 07 Mar 2024 13:04:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aqh0=KN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1riDNY-0005wP-5P
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 13:01:44 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d88b4d0d-dc82-11ee-afda-a90da7624cb6;
- Thu, 07 Mar 2024 14:01:43 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-513181719easo657136e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 05:01:43 -0800 (PST)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- j16-20020ac253b0000000b005131cb35b42sm3030452lfh.298.2024.03.07.05.01.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Mar 2024 05:01:42 -0800 (PST)
+ <SRS0=1wkY=KN=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
+ id 1riDPy-0006rg-8K
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 13:04:14 +0000
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [2607:f8b0:4864:20::1032])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 30e7f194-dc83-11ee-a1ee-f123f15fe8a2;
+ Thu, 07 Mar 2024 14:04:12 +0100 (CET)
+Received: by mail-pj1-x1032.google.com with SMTP id
+ 98e67ed59e1d1-29ae4c7da02so523993a91.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 05:04:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +40,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d88b4d0d-dc82-11ee-afda-a90da7624cb6
+X-Inumbo-ID: 30e7f194-dc83-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709816503; x=1710421303; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=V1y2FJyPs+k3PDp6e5opcymWlk+q387INNZNDKg1BzA=;
-        b=kJKX+51zS09OK0cy5QW/lDHVK8pw6MTJYPs7wIilkeSXPbWCZxtSvO3zQ3bl9/v/08
-         ZZgaQfFWVKrQm4HDfNt8bOnTMDqJwOMA1Pm7be1v0uAY1MfRo9VmUkCPc8zIziyFy8uD
-         Ghi/Z0dCHm/2kP1/lSydNhy+mPmLndKmRSc+il5Isftm3iHDGbVTtLE372MBUmsufdNq
-         5+fsfTo+DWY6Tl4VDqcj6o1QQQcDhk62f6lHabsEp8AFEKs9fy6FbhU5rkwLYg1IRbSK
-         xLkArOBOIeeLy+kM0kS1Q7peqKhM2mgzh0xZin/9JKZ0yBShVnvGmqi/2kxJpd40eeHG
-         Nvkg==
+        d=citrix.com; s=google; t=1709816651; x=1710421451; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=K8KoaNI1LMVC8yIyXhS5P9xvcqQjNdkTXiETLJzEH24=;
+        b=sI4mt2rcv+FLiRO/LyCnirgVg1V/U2PQkTq8ZECujlIBaU5HUbF2ZAJUWghiR9BbqF
+         iQvzHWcGBSXVC1oQ6FF/bRcZ29eh9NruQwQuYJ/6j+YI2kCwJ3LP7c95Xyi44OhdgTzK
+         +m6qBfKaOVFfxZ/KhGPkZ1xS6SPwMJzAkeoQo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709816503; x=1710421303;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=V1y2FJyPs+k3PDp6e5opcymWlk+q387INNZNDKg1BzA=;
-        b=b88g3G6M5yZeHruZFGOmEUlXFs3jmQ0e6tWOULKJCIbMageBbYSDbWGHSMrPMV5SMT
-         5hsyHBQSmstpfDhP4oLIfZd5kNXtxlf/Tr53mncplVxQr+sIZ5lOq0IGktv5riTHRdWF
-         p6qCOy8iyp93iaYaCKBwAesAVczidOOTM7WmxuizBnz2aygJLCsQvGhanmACluo4gLmj
-         XDYE7lIpbLYmKJ7Q+3z+GqDGODlmRL/QsT7S5jrJjThZ0DTPfdi9ZgMBAKfgGqtgy3Xl
-         YppQe5YHRC5W2AhIlpCXLWU+LyDfTHc6gejFGADNvmsdUumQrs/40ud3n9De60zjmH7f
-         yZTA==
-X-Forwarded-Encrypted: i=1; AJvYcCUdVrsrIdGIUHoObJECovdER38qgfuqDaLMYS6A8RZaJhLOVVrPIJlbxGrGisIs1n0UejYH9+76bfGuXub4vl9tdAkiPHDI7lU1twwILfw=
-X-Gm-Message-State: AOJu0YwMEbSVdfNOFFycZiXGybwEpkDDY9wlzQ/JlwMnOEcC7HTCFBvI
-	tdQw7KVuHLX4IA5DgU0vxNpBLeBI2nlj31o2xdu+TKn1HCA4UDSh
-X-Google-Smtp-Source: AGHT+IFMOjQqW9/32uytgFsRj9xGJUyGSpduAvI/Se53uWer3Rz4KEz9wCS2rGwNmMWvSI7P9prWNQ==
-X-Received: by 2002:a05:6512:4851:b0:513:54c6:9f68 with SMTP id ep17-20020a056512485100b0051354c69f68mr1285058lfb.18.1709816502471;
-        Thu, 07 Mar 2024 05:01:42 -0800 (PST)
-Message-ID: <d047c0956f804f7191f91b1d690650e220ec0fe4.camel@gmail.com>
-Subject: Re: [PATCH v5 12/23] xen/riscv: introduce io.h
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
- xen-devel@lists.xenproject.org
-Date: Thu, 07 Mar 2024 14:01:41 +0100
-In-Reply-To: <807c31d5-0c5a-4646-ba90-2f284289069f@suse.com>
-References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
-	 <dd7c95b5197dfd0cca0edf9c0ada631336eb60d7.1708962629.git.oleksii.kurochko@gmail.com>
-	 <807c31d5-0c5a-4646-ba90-2f284289069f@suse.com>
+        d=1e100.net; s=20230601; t=1709816651; x=1710421451;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=K8KoaNI1LMVC8yIyXhS5P9xvcqQjNdkTXiETLJzEH24=;
+        b=A8gQY5Dy0vnawUCaY2Rj7XCaXKQQJbHEGNizOqtgnibUZaggb3S6HQ/ci2sO/6QteU
+         Qh+kyNoVcfR55XaTk2R/TN9lr+v3Qlf/LzoSA6idStA9DfhplI0LCEWlKLeZ+wXTz+yw
+         uO+8NlqBbUvxsJ+P9ly5c2rvyl9c5czj98pBI9RnfMn330E3nJCR3xOA1ye7JHxlOAnF
+         ZrEwwKxxTQRLwScMz9fOg585KUSm2co3DwSP4bEBm3fUj+5wmM3di9lvNx1XQvN2ypJb
+         /ulYaBsEn2lDYEpY5AfMqCgVKzUn6C5Csb5FPndEx1hCBafxYA+McIdvOjAZfjkmPxmm
+         bPTw==
+X-Forwarded-Encrypted: i=1; AJvYcCXNuilteRBilNS7AAETSsBkLpewngTaCS+XSqjDciT3glHyXEwP1EmzChi/zBttlTU3nCcbmCJTenfgzT5ii6XGdp1+p5YukNLUN+2H+b4=
+X-Gm-Message-State: AOJu0YzacrymtCfLetFHr+TdyCvBabQZKdfQlVbHeXbP4RaySSEiqCwH
+	DbF1G9Nr1pyHYVFBSryAKzyGs2f+x+6M29VXxbT01/10lKJiUKAPHjmmHOYcsINSz2XNDxWg1o/
+	GreopHPpHl0KPpcpa0xYJbV0xXN740PBfVhCc
+X-Google-Smtp-Source: AGHT+IHTzmzrNV39VVqUwCjVMBqXjqhLlCwObB+zNLHSNIPP6JFCsXE95Wdry7ezSqDUwY+jsaDP5IhghpAJEliInRs=
+X-Received: by 2002:a17:90b:78a:b0:299:3efe:8209 with SMTP id
+ l10-20020a17090b078a00b002993efe8209mr14005945pjz.4.1709816650717; Thu, 07
+ Mar 2024 05:04:10 -0800 (PST)
+MIME-Version: 1.0
+References: <20240305121121.3527944-1-andrew.cooper3@citrix.com>
+ <20240305121121.3527944-3-andrew.cooper3@citrix.com> <87b82706-f538-4807-abaf-1e59cebd286b@suse.com>
+ <CAG7k0EqWrPU0qocSJHyJAQca44LakQwZwAbiv5GRk-sQeaAYAg@mail.gmail.com>
+ <82126c3a-0cde-452f-86aa-2571482f42aa@citrix.com> <76ce9dcf-8cac-44b3-9550-f516024bad6e@suse.com>
+ <9e827057-9306-4a2a-8816-410661bf8892@citrix.com> <818ac202-5473-4638-b140-45272b1041ed@suse.com>
+ <e8b5ef98-900b-42b7-a688-a379168ef396@citrix.com>
+In-Reply-To: <e8b5ef98-900b-42b7-a688-a379168ef396@citrix.com>
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+Date: Thu, 7 Mar 2024 13:03:58 +0000
+Message-ID: <CAG7k0EqNn006WVBG+hNxGCjMSMFsuevSMda0R1BQgi_H5ibrCw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] xen/virtual-region: Include rodata pointers
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Xen-devel <xen-devel@lists.xenproject.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
-MIME-Version: 1.0
 
-On Wed, 2024-03-06 at 15:13 +0100, Jan Beulich wrote:
-> > +/* Generic IO read/write.=C2=A0 These perform native-endian accesses.
-> > */
-> > +static inline void __raw_writeb(uint8_t val, volatile void __iomem
-> > *addr)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 asm volatile ( "sb %0, 0(%1)" : : "r" (val), "r" (a=
-ddr) );
-> > +}
->=20
-> I realize this is like Linux has it, but how is the compiler to know
-> that
-> *addr is being access here?=C2=A0
-Assembler syntax told compiler that. 0(%1) - means that the memory
-location pointed to by the address in register %1.
+On Thu, Mar 7, 2024 at 12:16=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
+x.com> wrote:
+>
+> On 07/03/2024 11:58 am, Jan Beulich wrote:
+> > On 07.03.2024 12:31, Andrew Cooper wrote:
+> >>
+> >> The thing called virtual_region already describes 6 ranges, and I'm
+> >> adding a 7th.
+> > Hmm, yes, in a way you're right.
+> >
+> >> It has been a module-ish description right from the very outset.  I
+> >> don't think it is fair to describe this as an abuse at all.
+> >>
+> >> Is this going to satisfy the outstanding concerns?
+> > Yes. And thank you for bearing with me.
+>
+> No problem.  I'm glad that we've come to an agreement.
+>
+> Ross?
+>
 
-> If the omission of respective constraints here
-> and below is intentional, I think a comment (covering all instances)
-> is
-> needed. Note that while supposedly cloned from Arm code, Arm variants
-> do
-> have such constraints in Linux.
->=20
-It uses this constains only in arm32:
-#define __raw_writeb __raw_writeb
-static inline void __raw_writeb(u8 val, volatile void __iomem *addr)
-{
-	asm volatile("strb %1, %0"
-		     : : "Qo" (*(volatile u8 __force *)addr), "r"
-(val));
-}
+Yes, I think that is fine with the additional description clarifying it.
 
-But in case of arm64:
+With that,
 
-#define __raw_writeb __raw_writeb
-static __always_inline void __raw_writeb(u8 val, volatile void __iomem
-*addr)
-{
-	asm volatile("strb %w0, [%1]" : : "rZ" (val), "r" (addr));
-}
+Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 
-And again looking at the defintion they use different option of strb
-instruction, and in case of strb they use [%1] which tells compiler
-that %1 is addressed which should be dereferenced.
-
-~ Oleksii
+>
+> >
+> > Jan
+> >
+> >> diff --git a/xen/include/xen/virtual_region.h
+> >> b/xen/include/xen/virtual_region.h
+> >> index d05362071135..9d150beb8a87 100644
+> >> --- a/xen/include/xen/virtual_region.h
+> >> +++ b/xen/include/xen/virtual_region.h
+> >> @@ -9,6 +9,12 @@
+> >>  #include <xen/list.h>
+> >>  #include <xen/symbols.h>
+> >>
+> >> +/*
+> >> + * Despite it's name, this is module(ish) description.
+> >> + *
+> >> + * There's one region for .text/etc, one region for .init during boot=
+ only,
+> >> + * and one region per livepatch.
+> >> + */
+> >>  struct virtual_region
+> >>  {
+> >>      struct list_head list;
+> >>
+> >> ~Andrew
+>
 
