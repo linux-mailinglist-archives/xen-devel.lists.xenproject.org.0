@@ -2,53 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76A838752C9
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 16:11:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689944.1075477 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74E22875336
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 16:33:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689947.1075485 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riFP4-00028u-6m; Thu, 07 Mar 2024 15:11:26 +0000
+	id 1riFjr-00072F-Re; Thu, 07 Mar 2024 15:32:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689944.1075477; Thu, 07 Mar 2024 15:11:26 +0000
+Received: by outflank-mailman (output) from mailman id 689947.1075485; Thu, 07 Mar 2024 15:32:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riFP4-00025k-3B; Thu, 07 Mar 2024 15:11:26 +0000
-Received: by outflank-mailman (input) for mailman id 689944;
- Thu, 07 Mar 2024 15:11:24 +0000
+	id 1riFjr-0006zm-OY; Thu, 07 Mar 2024 15:32:55 +0000
+Received: by outflank-mailman (input) for mailman id 689947;
+ Thu, 07 Mar 2024 15:32:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=inme=KN=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1riFP2-00025e-Jm
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 15:11:24 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20600.outbound.protection.outlook.com
- [2a01:111:f403:2009::600])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=tO0P=KN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1riFjq-0006ze-8t
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 15:32:54 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f497e1a0-dc94-11ee-a1ee-f123f15fe8a2;
- Thu, 07 Mar 2024 16:11:22 +0100 (CET)
-Received: from BL1PR13CA0352.namprd13.prod.outlook.com (2603:10b6:208:2c6::27)
- by SN7PR12MB6767.namprd12.prod.outlook.com (2603:10b6:806:269::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.24; Thu, 7 Mar
- 2024 15:11:17 +0000
-Received: from BL6PEPF0001AB51.namprd04.prod.outlook.com
- (2603:10b6:208:2c6:cafe::9e) by BL1PR13CA0352.outlook.office365.com
- (2603:10b6:208:2c6::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.9 via Frontend
- Transport; Thu, 7 Mar 2024 15:11:17 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB51.mail.protection.outlook.com (10.167.242.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7362.11 via Frontend Transport; Thu, 7 Mar 2024 15:11:17 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 7 Mar
- 2024 09:11:16 -0600
-Received: from [172.17.205.23] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35 via Frontend
- Transport; Thu, 7 Mar 2024 09:11:15 -0600
+ id f5ca9b5a-dc97-11ee-a1ee-f123f15fe8a2;
+ Thu, 07 Mar 2024 16:32:51 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-564fd9eea75so1471398a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 07:32:51 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ i23-20020a0564020f1700b00567f780d4a2sm1614385eda.78.2024.03.07.07.32.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Mar 2024 07:32:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,113 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f497e1a0-dc94-11ee-a1ee-f123f15fe8a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ng+1ycah4IcZbdHOPuQ+4lOH71CN4jm2TuN7oaqnV96gQ86kmvZnUGFGsRuCy1BvLN4dhzAZUfi7PIzx77QqFIUOOPGb4B5NwOtNPD37YBL6ns1zsp6l80+XIsSTjkdM0s9HGHyRbW5sJSAyZd7W/d6so9i8S2f5FdVhp0Zxo1W5NpUC0+0TpKEbO3LtSP7UweJIF2ZVxrCyBMcXoikmVUHC/t/3jNYND3z6Zdel/3a0pQZaBbGXtO0E2JEPaajF3UmId4TEsly2cHAq6QSQdY3ISQ0tIPu9rOx0eeZ74gpduezeZ+/WlBahj3z1Q8y7FiGPEyqLO+KLqynwWESFNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lyz5ZBTCWm9VEOHTTlST/3STwxadr7r9q9oasJWdGoE=;
- b=Jy84SKO+QLj5qnN1a/53rD06rlRB53UM6hw5Fe6gateMglbz+h4+GPPiDmTkaeB/4QQUSxT6dNE4U3Vv1G+RH9vzWmS4sUhxrVUNXNdEfjZwmJTVz6Uw9XROsWV2TMfQ9tNWQEgMNsUCNL0cpePj7FzP+zBhy4YZK/qsTePjQI3vREm4licIzxaGTNs1HaRo/Na5pWOQudEyFyrSFTv5izZstmTHttFqIt79iqamNZ1FR8l1uhwUZ7USoWe2BBrWkg1FHDcZL6Jg36GaAh8xY0DOJwPLj7COqIIn7g9QmDIfL7J/2X3rmsVxuni+Q7CwfiuQhhwA5TZ0gFSOBGtddQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lyz5ZBTCWm9VEOHTTlST/3STwxadr7r9q9oasJWdGoE=;
- b=y+s1phGgZX3LYZbB2CKix9Jb4Bm+dj1GXc8d/b03IPYWQKhwj0eQfelmmzwnLWsYTcJXPXJaElphBLiaN0YSOIUGkS1xPhVWiag5b/RJSTamwvQx/AQOz7TDeejIwPReYrrtoeQ7XoDw+mpwjvWVyICBQzxNJN+MpouHagDzMMU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <264c495a-de34-458b-b1f2-80fc58829c06@amd.com>
-Date: Thu, 7 Mar 2024 10:06:54 -0500
+X-Inumbo-ID: f5ca9b5a-dc97-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1709825571; x=1710430371; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ICTD9W1jZNKmaeymhp1OA1AH+0jy22X0d9edds9WeIo=;
+        b=YAFTiY+6ZxRoKL8UbrRkYrn5zghfBJwselnnsQHeeQIU9pfOEPuShHzBrl/x1SXolR
+         266ruF2f1oBuipouly3mbhROmDXJKWALoiqAEKPimaESzFXj3dS5Cza7PCLwBSx1OyrJ
+         qQSbj6M5Vy4D12HdfkKAxB/oWl/TgVnL56FpZ2JqaA3wBqTqVE5n4Li+DHRVzGpLV1B4
+         1wnOiz8dmxh/j24GaUj9sLFBEodJciG7OCh9tdnXZ14xP++lv8GIlhtrDppnHtgnQsd1
+         NkXXXdlbQRnzEloo9m+AFNgB/vG0hI2rHe9Alg6w6jC5k7oNJvehTOvTZiy04MTzJQ8Y
+         75dQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709825571; x=1710430371;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ICTD9W1jZNKmaeymhp1OA1AH+0jy22X0d9edds9WeIo=;
+        b=fyMWm7CF4T0VR6aaBdiOKjw1hGG4H35eIl2hsREMV1eYWDbmnpwj2y4Nwc7w6AEfMJ
+         OmvA/efSsa34zVYQRywkeXALrsb02tmXoIIgnEDxReSEOGotN8/8s8f6ED9QN741RbIl
+         OcsBDR+k6LlCL8ZX4Wwhnu/5CraMHd2XUmDgEbC9EJ5NDHk4z9gpt9O05PpTAKU2m/TB
+         hWWl0qNBpxyyIJvbNIs7IiogJoZq+U4jUFoIVaFSahWQ517R7JikPhjFNC1zUAwPxemA
+         DtKag8kRm2eMYd5NTBd92okSvD/Sf7KPg7t8FqvYA7NK+9h/JQqbLSOlPJJYJadUEFQV
+         UiQA==
+X-Forwarded-Encrypted: i=1; AJvYcCWTxSzujSvkJHapEh2f82+X+LQlIGGa0gga6ZzJfWRWTJePI5d2PWh/DxU3i5pJbLe578kGKB81ARL0I9zODx/MRGu9hZ+eEM+56n8T8nY=
+X-Gm-Message-State: AOJu0Yxazl9/hlRgLiWLtiGcfBay1KE/WdaMqA2ynLNnA65hhajBVxkJ
+	6IovSFII9V9KripyD0heY4sbK8EvoPkybsg4LO0OyxKzQq4O7h8N2sjXcVBpug==
+X-Google-Smtp-Source: AGHT+IE4a6ySWnbqC1+6etZSY5njGHdzxOmDXQc+iri7lQX9wLSodv5Uy94bi6zTeOu3jeIxS20h8w==
+X-Received: by 2002:a50:c354:0:b0:567:672f:6076 with SMTP id q20-20020a50c354000000b00567672f6076mr108987edb.14.1709825571223;
+        Thu, 07 Mar 2024 07:32:51 -0800 (PST)
+Message-ID: <2a05c233-b3c5-417c-bd6b-8b1c21f03c3d@suse.com>
+Date: Thu, 7 Mar 2024 16:32:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] xen/x86: bzImage parse kernel_alignment
-To: Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-CC: <xen-devel@lists.xenproject.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20240306185032.103216-1-jason.andryuk@amd.com>
- <20240306185032.103216-3-jason.andryuk@amd.com>
- <alpine.DEB.2.22.394.2403061809170.853156@ubuntu-linux-20-04-desktop>
- <8b02fb20-2e4d-4a68-b633-417c964e38be@suse.com>
+Subject: Re: [PATCH v5 12/23] xen/riscv: introduce io.h
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <8b02fb20-2e4d-4a68-b633-417c964e38be@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB51:EE_|SN7PR12MB6767:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4445ac16-815e-4fad-1ee7-08dc3eb8d6d1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	z1KgQMhL/TGeUgFQrlON4obJrRhYz8P3lVwh9qoqEKXEjJwISMe4EoBYstqcuXU3dJn0FAdZ+BQOw//GbyMYiql9NNhsxAO7C+xpqihzC56mIrO10TTF2iuAVURMBKh7wHXIosOANhqgGGi7H3v9OTcN5nd54VUckPnlyY3mkFjdhmbn8Wzh3OJQiEd0y1/oc5CgbWUlRJvkLgYVRXxJhH6uqtjL3sHLRXCQ1xWMUiESVWgXXTxJPGbX3yvntbZDlIQY1xy3QCooggC8EnRKfI+0yjYGsfcSWgLV3rHQGaxXUYEGlPByYRLAOtF/CrdVhL7DXY1WX4Am7+d+205f2cTDSyzwyeMWy9PE9oMkO3K3u1bhTtKMMQ71kwVJ6f9sezEEwTdLo3qctSBIN3Z/Blz3R9zaKvhQeZp2ObsiacVimsDrJ8+iDGKl0RG//w6fw112IEWypmBTV5FymYaFPdTWsnZa5d+zgB0OWZ2JZgJThM9x8ciIWnogNK8jRkj+AxaVBaxLPDGWvxK/XlyKD/8GAO/150PCKjlp+Mn1zz7XXnH2TcHJssqbKM9uQnicBm5bifkwgQaMBl6uj3fnY48KKMaOBzxHE8AHqWrR4OiFcWMXoXk9xYx7alByIkbAJoN707SwNvRr/+88PXuw0D+UgPVc2FC0f4dFRZcPYEOaPxr+K7PgqaicW7IWPopxeTLjHtKof8cf9VRsqjf9ztuk7AHgWwbAEK0BZmhPss6Vgn59JL8VX0luNga2J/rw
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(376005)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2024 15:11:17.8232
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4445ac16-815e-4fad-1ee7-08dc3eb8d6d1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB51.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6767
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
+ <dd7c95b5197dfd0cca0edf9c0ada631336eb60d7.1708962629.git.oleksii.kurochko@gmail.com>
+ <807c31d5-0c5a-4646-ba90-2f284289069f@suse.com>
+ <d047c0956f804f7191f91b1d690650e220ec0fe4.camel@gmail.com>
+ <a164230f-2054-47e9-b72c-51f4a5955fe0@suse.com>
+ <2a3e49bf94332c17b50e4f0f745e4b28b16dceb1.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <2a3e49bf94332c17b50e4f0f745e4b28b16dceb1.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2024-03-07 03:26, Jan Beulich wrote:
-> On 07.03.2024 03:09, Stefano Stabellini wrote:
->> On Wed, 6 Mar 2024, Jason Andryuk wrote:
->>> Expand bzimage_parse() to return kernel_alignment from the setup_header.
->>> This will be needed if loading a PVH kernel at a physical offset to
->>> compensate for a reserved E820 region.
->>>
->>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+On 07.03.2024 14:44, Oleksii wrote:
+> On Thu, 2024-03-07 at 14:24 +0100, Jan Beulich wrote:
+>> On 07.03.2024 14:01, Oleksii wrote:
+>>> On Wed, 2024-03-06 at 15:13 +0100, Jan Beulich wrote:
+>>>>> +/* Generic IO read/write.  These perform native-endian
+>>>>> accesses.
+>>>>> */
+>>>>> +static inline void __raw_writeb(uint8_t val, volatile void
+>>>>> __iomem
+>>>>> *addr)
+>>>>> +{
+>>>>> +    asm volatile ( "sb %0, 0(%1)" : : "r" (val), "r" (addr) );
+>>>>> +}
+>>>>
+>>>> I realize this is like Linux has it, but how is the compiler to
+>>>> know
+>>>> that
+>>>> *addr is being access here? 
+>>> Assembler syntax told compiler that. 0(%1) - means that the memory
+>>> location pointed to by the address in register %1.
 >>
->> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>> No, the compiler doesn't decompose the string to figure how operands
+>> are used. That's what the constraints are for. The only two things
+>> the
+>> compiler does with the string is replace % operators and count line
+>> separators.
+> It looks like I am missing something.
 > 
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> with two remarks:
+> addr -> a some register ( because of "r" contraint ).
+> val -> is also register ( because of "r" contraint ).
 > 
->>> --- a/xen/arch/x86/hvm/dom0_build.c
->>> +++ b/xen/arch/x86/hvm/dom0_build.c
->>> @@ -548,12 +548,14 @@ static int __init pvh_load_kernel(struct domain *d, const module_t *image,
->>>       struct elf_binary elf;
->>>       struct elf_dom_parms parms;
->>>       paddr_t last_addr;
->>> +    unsigned int align = 0;
+> So the compiler will update instert an instruction:
+>  sb reg1, 0(reg2)
 > 
-> Strictly speaking this isn't needed here, yet, and would suffice when added
-> in the next patch. But I'm okay with keeping it.
+> what means *(uint_8 *)reg2 = (uint8_t)reg1.
 > 
->>> --- a/xen/arch/x86/include/asm/bzimage.h
->>> +++ b/xen/arch/x86/include/asm/bzimage.h
->>> @@ -4,8 +4,7 @@
->>>   #include <xen/init.h>
->>>   
->>>   unsigned long bzimage_headroom(void *image_start, unsigned long image_length);
->>> -
->>>   int bzimage_parse(void *image_base, void **image_start,
->>> -                  unsigned long *image_len);
->>> +                  unsigned long *image_len, unsigned int *align);
-> 
-> Any particular reason for dropping the blank line? I'd prefer if it was kept,
-> and I may take the liberty to respectively adjust the patch while committing.
+> What am I missing?
 
-No, no particular reason.  The blank line can be retained.
+The fact that the compiler will not know that *(uint_8 *)reg2 actually
+changes across this asm(). It may therefore continue to hold a cached
+value in a register, without knowing that its contents went stale.
 
-Thanks,
-Jason
+Jan
 
