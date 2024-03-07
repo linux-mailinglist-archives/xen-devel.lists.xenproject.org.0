@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E6248749DF
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 09:39:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689672.1074884 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 248558749E3
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 09:41:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689674.1074895 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri9Hm-0000Bu-9M; Thu, 07 Mar 2024 08:39:30 +0000
+	id 1ri9Ir-0001d0-J3; Thu, 07 Mar 2024 08:40:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689672.1074884; Thu, 07 Mar 2024 08:39:30 +0000
+Received: by outflank-mailman (output) from mailman id 689674.1074895; Thu, 07 Mar 2024 08:40:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri9Hm-00009V-6h; Thu, 07 Mar 2024 08:39:30 +0000
-Received: by outflank-mailman (input) for mailman id 689672;
- Thu, 07 Mar 2024 08:39:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tO0P=KN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ri9Hk-00009N-Un
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 08:39:28 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34af9da5-dc5e-11ee-a1ee-f123f15fe8a2;
- Thu, 07 Mar 2024 09:39:26 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a36126ee41eso80262166b.2
- for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 00:39:26 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fy21-20020a170906b7d500b00a45c8b6e965sm753680ejb.3.2024.03.07.00.39.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Mar 2024 00:39:25 -0800 (PST)
+	id 1ri9Ir-0001aN-Fm; Thu, 07 Mar 2024 08:40:37 +0000
+Received: by outflank-mailman (input) for mailman id 689674;
+ Thu, 07 Mar 2024 08:40:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=v9lb=KN=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1ri9Iq-0001aD-AS
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 08:40:36 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2405::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5d31fcfe-dc5e-11ee-afda-a90da7624cb6;
+ Thu, 07 Mar 2024 09:40:34 +0100 (CET)
+Received: from CH0PR03CA0417.namprd03.prod.outlook.com (2603:10b6:610:11b::6)
+ by DS7PR12MB8274.namprd12.prod.outlook.com (2603:10b6:8:da::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.26; Thu, 7 Mar
+ 2024 08:40:30 +0000
+Received: from CH1PEPF0000A347.namprd04.prod.outlook.com
+ (2603:10b6:610:11b:cafe::b0) by CH0PR03CA0417.outlook.office365.com
+ (2603:10b6:610:11b::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.39 via Frontend
+ Transport; Thu, 7 Mar 2024 08:40:30 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000A347.mail.protection.outlook.com (10.167.244.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7362.11 via Frontend Transport; Thu, 7 Mar 2024 08:40:30 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 7 Mar
+ 2024 02:40:29 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 7 Mar
+ 2024 02:40:29 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 7 Mar 2024 02:40:28 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +63,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34af9da5-dc5e-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709800766; x=1710405566; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=we4U2tzwhZPs/jF6fgksLO1+xacGitITsRSu/NC2LTM=;
-        b=FbQdwjYrRCGe60Jx/B5zZFt17USKlzIymQhtUvx/obPT0/3DAaqQAxjkQuU7suaZ1q
-         wKhoiR6aP47dZBnhtr32NRREPndjhUaCyY8TnVZHwqEJBmdrdySit8wSsviH3zU/bjU6
-         8WVZxeYJxYGDw8pgn/VnIB7jZ9oF83P7E2g0fBwiu7lInXeQtfmjm0/3dUzW9fV6YAn4
-         lzdzzJyuW5jJ4LTSAppN/+TRFupqYThQwKEbihxxYw2ttcYZ8qJiIePrbNZ4PhETpp9Y
-         IkuulFi60xPLLC2CWbGLK0n1fWm5TZEMhr+uWoqyC3LY6wieIkoYudCoexWbVSaG2yj7
-         a6Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709800766; x=1710405566;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=we4U2tzwhZPs/jF6fgksLO1+xacGitITsRSu/NC2LTM=;
-        b=WgYSYMWsA5Kgi1m9ITdfTpGDFjD8xQneENpPpotil9oVTnk4k0QqfUeuRAufZNxmb+
-         rt4/NOO8kFOsTNSSGLDfg3fiXdEjc6nFYBhccBGaY0pVISwRTgFADTyySh/NgO8GTGw6
-         cinJgcrXhNHKD7/kV+IwQfRXBMOfmvTZAnV+D16EjSokYIwureNRvQ9J/5HWvoHd0fWQ
-         j3Hz9/jBpV4SO2kTvyGMaR14FcSonkh/SFpqjwSfvCr5AwbXcd5qP4yKTFm0iqxhDaur
-         ozCN4b82fH6rD4O29miSU6ZMfOSo/YeN1+whCfNnsn3xgcZscru6s632fCmfnGDv/Kyt
-         WQvA==
-X-Forwarded-Encrypted: i=1; AJvYcCU0yKxiJ6/Sbl3oQAhyNug3YR15NvJMsl3HRGjnG7U0LIZRdWRaOnQziDRXZsCKFtT0EUncazBKe/nxNDul7EawD086jbYoYYUEmci3MTQ=
-X-Gm-Message-State: AOJu0YwAN5hNME0qFWGoGLKSnyaDY0rt/F5+7ssg3OUOis1IQxqKxQVR
-	Ug3+kp4uMkg9AHp1z/F+XhYSaf88iMHHb0EiZ/S7UirvCrhjaySaoaWAcfumaQ==
-X-Google-Smtp-Source: AGHT+IFrCLnJndWLjMsx1taV4EjvErmrHUJ1/I6GLZkn9emWz5Ygxf6qQmfpI71cokFqCZaay0puMw==
-X-Received: by 2002:a17:906:3e48:b0:a45:a9da:cc38 with SMTP id t8-20020a1709063e4800b00a45a9dacc38mr5059392eji.7.1709800765975;
-        Thu, 07 Mar 2024 00:39:25 -0800 (PST)
-Message-ID: <962cad57-21a8-4882-a23a-95add04cac9b@suse.com>
-Date: Thu, 7 Mar 2024 09:39:24 +0100
+X-Inumbo-ID: 5d31fcfe-dc5e-11ee-afda-a90da7624cb6
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Q8lvsILVBXB3cHShi4eZ8xH762Xy5bExIKOsxYL2oIK2IR3SwwjPFe846xx36nfgQR5bR3q+uNITZWOZRG62hXRcj3RkChzaP0VbJ2OPkSksPTwgkHtSfChZwWnneiQmmUkLsoWzVaxAOYS1l4mGW9rMVDYYiLyvIMZARYvk7THEUW64pfC05qWfewu2vToV8UwIjmMpfvQTa3l4Gd9YX0lWkkDRanBKTkiPt6UjwOjIyhij6epllslkKWI1KpeyQDe8pp1Kt7pMUe3SoCT/R/MK/Xl5njSuIjpnuDGt8uci9zC2iq5d1In0HKt0A9z0wkoympMqEb3ac+8bh+mt5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w1nMzjLtwMORyPPhkWOuHDn8NKVpR+bJSH8OQwqLg9Q=;
+ b=lOUXweC3ZmC/4gtNW7mbFn9KKjufZ7J7K2bcEITIl8wXuwgrvcTUrFizQFYRirA4feooo41H6X6vwwiSdqkwkAoWyirb9kzmHTun5zw3pX92LjS6CPWcT7EikK7iUXPmNl2kLR9CjNCdF6R3TKEo2oHHV/QCIWHjS58d/vgcY4mUWY7t8PtP7b4jjbgFnOJ57w/7a0wM/w5aXUCdzCwxFfHwm6ZsvqFbqbe/e/bd3AYAhv9mQCGA9pPzmGIhUYi+bm2JIh3pjjiWEFUzV7NVELWWMVTaC8aFeC2iuVb+WZeyuwon8gcoiw1f8o4Q2pxkBiYZgmoO6K7TYLnCMl390Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w1nMzjLtwMORyPPhkWOuHDn8NKVpR+bJSH8OQwqLg9Q=;
+ b=sHIhmXj27HRzV/CA4j3OOVai8GhW5kHtX0FNbrpLqg3Et2glBLAh5ozLixq6nXXhxBv3epxLnzm60d1W8t9nxgVsuQ2T/cmam4/A6mJsBdGtVEvJ7uEBRVxt+IETaS6GJDYd4XzJaxykffx3ouShT388UPBGqf1DL+594bNvaOU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <3cb1b056-59a7-4ffe-856d-e45aac1936a9@amd.com>
+Date: Thu, 7 Mar 2024 09:40:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+Subject: Re: [RFC PATCH v2] xen/arm: improve handling of load/store
+ instruction decoding
+To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	<xen-devel@lists.xenproject.org>
+CC: <julien@xen.org>, <sstabellini@kernel.org>, <bertrand.marquis@arm.com>,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+References: <20240306165621.3819343-1-alex.bennee@linaro.org>
 Content-Language: en-US
-To: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Juergen Gross <jgross@suse.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
- <CAKm-Umbs2D7NHFE+NW2xKOu7-AZhFpH4uzE5QTuQusnGA_eNWA@mail.gmail.com>
- <f539144c-885a-461c-a506-bdb73e626a65@suse.com>
- <CAKm-UmY126AfdGhWcZ3s9vwN9+ksVRRFEhOu0ZFMoDvxrqOibw@mail.gmail.com>
- <CAKm-UmYt3iV8zOhSmtqMGhi_8T93c_nCbnefs4m3UC+3UABqeQ@mail.gmail.com>
- <CAKm-UmY-KXEAtBagikW4Jvp=SFXtmEg8P62pHfSo3Hr2s-0_-A@mail.gmail.com>
- <CAKm-UmYbMCfXc1Ny0=qfB+UaLSXV9oEHZiSgS=mwKMwmOFGVrQ@mail.gmail.com>
- <77c1c05d-a0a0-4292-9257-9b7fbebee0e3@suse.com>
- <2859ad22-8714-4628-8142-fc77fc2072c3@amd.com>
- <CAKm-UmZpyGkWXugYTJqU+qqVDyCFEKghtd=NTr2wK5EMCeL9Ww@mail.gmail.com>
- <214585d5-689d-4ba6-bd48-359428a7ed8f@amd.com>
- <CAKm-UmZoKwre8-G793VqRNFCmzAti1o-0Kp3ZyV_Z5cc0YNiKw@mail.gmail.com>
- <CAKm-Umb=kGFqc5je9E3bbfQ0bcbZeY_Ntv5JDmO-vXj3N0MvPg@mail.gmail.com>
- <CAKm-UmZ113q-a8wEE5yo0OPPM3JpNqJzKaU1eNiCzT2YkGU0pQ@mail.gmail.com>
- <CAKm-UmaG3KRtDkrEH7cNgLkRkRs2HG357S=BUjomhN6Ad-AkCQ@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKm-UmaG3KRtDkrEH7cNgLkRkRs2HG357S=BUjomhN6Ad-AkCQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240306165621.3819343-1-alex.bennee@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A347:EE_|DS7PR12MB8274:EE_
+X-MS-Office365-Filtering-Correlation-Id: 14931be4-006c-4c79-ef34-08dc3e823f1e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	XelT6DKEcX58PG3CHNPqQh9OBa9Ljt2TGG7mJ+SJn55jOUd8vckVajWjE4N2qGhENRctQPmGPOdO/XBulZW62VV4fKRExR73DdK60vHU2hCev6on8/yW8WXEdkduGXmlOsU60YKmDvDwEJNtrV9iufFPGgKWozXAnzpOXXvOlxg74AXiK1r7+1vHqLJi1TA1QnpgeX/rdHJT/VBZOSQi50G40l47HNgpavEt6Pmf6AUx9DiChkuzpDzbm9KOKHCKdBMw5Ja1DNFhzFP5NVHecUIR1j2oExoJW+3FP/EyZJFcdF4fsNJaJfpFhwENIGZCS2M4S5HeUoCmwztYMyPZMFfoDtvyqWOfFxU2+rR/r+Gr7klNB+gaLEjwonhSQl84VouhyycRKTdGl7AfBuIu03lm+lAhH5BpC159V4/ciWmawWH6G6SO/G/WCcrkCqvhhAvQNyLW9b7K9zWie44B3taRRiM7a7uJAKtef8SQaCZgeKtGGIXGIZe8L2s/27onPjuBHozuqzIXSU5npFexoJU7Zft0ZkLIiRlWsEHpI/neSFAuBiBVTrFYEMVMkI6dQfyIFxV6DeOA8JO/yAkAsRwL0fQdR3NwQthw+rXhlFMifIcCX56uwwX0sIlBrZKs3PAvXuUg/HX0HUM4CBPuH0BssPNSKtTRasf4jpoYtOFHljhtz8XgJYitwDkAfNTJDtA3vX+O0EhHpTZD6xvAIxahZo1CPK+ocpMs1dgqRzM2DzQk0xgYVaHx4coJlclF
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(36860700004)(376005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2024 08:40:30.4805
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14931be4-006c-4c79-ef34-08dc3e823f1e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000A347.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8274
 
-On 06.03.2024 18:28, Sébastien Chaumat wrote:
-> Reasoning backward  (using a  kernel without the pinctrl_amd driver to
->> ensure xen only is at stake) :
->>  checking the diff in IOAPIC  between bare metal and xen  (IRQ7 is on
->> pin07 on APIC )
->>
->> using kernel argument : apic=debug
->>
->> bare metal :
->> [    0.715330] fedora kernel: ... APIC VERSION: 81050010
->> ...
->> [    0.715433] fedora kernel:  pin07, disabled, edge , high, V(00),
->> IRR(0), S(0), physical, D(0000), M(0)
->>
->> xen :
->> [    2.249582] fedora kernel: ... APIC VERSION: 00000014
->> ...
->> [    2.249730] fedora kernel:  pin07, disabled, level, low , V(60),
->> IRR(0), S(0), physical, D(0000), M(0)
->>
->> So the APIC table is not the same.
->>
->> As strange as it looks the  (IOAPIC 0) pin07 is correctly described by the
->> APIC in xen but yet differently than in baremetal.
->> But the APIC message comes long after the
->> [    1.833145] fedora kernel: xen: registering gsi 7 triggering 0 polarity
->> 1
->>
->> so I wonder if the APIC pin07 info had any influence.
->>
->> Finally found the fix : adding ioapic_ack=new to xen boot parameters.
-> Not only the trackpad is now working but also the ACPI Embedded Controller
-> which is completely disabled.
+Hi Alex,
 
-Hmm, interesting. From someone else's laptop many years ago I had actually
-an indication in the opposite direction: That didn't work because of our
-defaulting to new (no directed EOI in sight yet back at that time). I
-wonder if overriding the ack method isn't actually just papering over the
-underlying actual issue here, whatever that is. IOW with the edge vs level
-mismatch addressed I'd hope the override could then be dropped again.
+NIT: RFC tag is no longer needed.
 
-Jan
+On 06/03/2024 17:56, Alex Bennée wrote:
+> 
+> 
+> While debugging VirtIO on Arm we ran into a warning due to memory
+> being memcpy'd across MMIO space. While the bug was in the mappings
+> the warning was a little confusing:
+> 
+>   (XEN) d47v2 Rn should not be equal to Rt except for r31
+>   (XEN) d47v2 unhandled Arm instruction 0x3d800000
+>   (XEN) d47v2 Unable to decode instruction
+> 
+> The Rn == Rt warning is only applicable to single register load/stores
+> so add some verification steps before to weed out unexpected accesses.
+> 
+> While at it update the Arm ARM references to the latest version of the
+> documentation.
+> 
+> Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+> Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Move the CC line after --- so that it's not included in the final commit msg.
+
+> 
+> ---
+> v2
+>   - use single line comments where applicable
+>   - update Arm ARM references
+>   - use #defines for magic numbers
+> ---
+>  xen/arch/arm/decode.c | 35 ++++++++++++++++++++------
+>  xen/arch/arm/decode.h | 57 ++++++++++++++++++++++++++++++++++++++-----
+>  2 files changed, 79 insertions(+), 13 deletions(-)
+> 
+> diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
+> index 2537dbebc1..73a88e4701 100644
+> --- a/xen/arch/arm/decode.c
+> +++ b/xen/arch/arm/decode.c
+> @@ -87,15 +87,36 @@ static int decode_arm64(register_t pc, mmio_info_t *info)
+>          return 1;
+>      }
+> 
+> +    /* Check this is a load/store of some sort */
+> +    if ( (opcode.top_level.op1 & TL_LDST_OP1_MASK) != TL_LDST_OP1_VALUE )
+> +    {
+> +        gprintk(XENLOG_ERR, "Not a load/store instruction op1=%u\n",
+> +                opcode.top_level.op1);
+> +        goto bad_loadstore;
+> +    }
+> +
+> +    /* We are only expecting single register load/stores */
+> +    if ( (opcode.ld_st.op0 & LS_SREG_OP0_MASK) != LS_SREG_OP0_VALUE )
+> +    {
+> +        gprintk(XENLOG_ERR, "Not single register load/store op0=%u\n",
+NIT: missing 'a' between Not and single
+
+> +                opcode.ld_st.op0);
+> +        goto bad_loadstore;
+> +    }
+> +
+>      /*
+> -     * Refer Arm v8 ARM DDI 0487G.b, Page - C6-1107
+> -     * "Shared decode for all encodings" (under ldr immediate)
+> -     * If n == t && n != 31, then the return value is implementation defined
+> -     * (can be WBSUPPRESS, UNKNOWN, UNDEFINED or NOP). Thus, we do not support
+> -     * this. This holds true for ldrb/ldrh immediate as well.
+> +     * Refer Arm v8 ARM DDI 0487J.a, Page - K1-12586
+> +     *
+> +     * STR (immediate) CONSTRAINED UNPREDICTABLE behaviour
+> +     *
+> +     * "If the instruction encoding specifies pre-indexed addressing or
+> +     * post-indexed addressing, and n == t && n != 31, then one of the
+> +     * following behaviors must occur:" UNDEFINED, NOP or UNKNOWN
+> +     *
+> +     * Execution @ EL0/EL1 when HCR_EL2.TIDCP is 1 traps to EL2 with
+> +     * EC = 0.
+>       *
+> -     * Also refer, Page - C6-1384, the above described behaviour is same for
+> -     * str immediate. This holds true for strb/strh immediate as well
+> +     * This also hold true for LDR (immediate), Page K1-12581 and
+> +     * the RB/RH variants of both.
+>       */
+>      if ( (opcode.ldr_str.rn == opcode.ldr_str.rt) && (opcode.ldr_str.rn != 31) )
+>      {
+> diff --git a/xen/arch/arm/decode.h b/xen/arch/arm/decode.h
+> index 13db8ac968..188114a71e 100644
+> --- a/xen/arch/arm/decode.h
+> +++ b/xen/arch/arm/decode.h
+> @@ -24,17 +24,54 @@
+>  #include <asm/processor.h>
+> 
+>  /*
+> - * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Stores
+> - * Page 318 specifies the following bit pattern for
+> - * "load/store register (immediate post-indexed)".
+> + * Refer to the ARMv8 ARM (DDI 0487J.a)
+>   *
+> - * 31 30 29  27 26 25  23   21 20              11   9         4       0
+> + * Section C A64 Instruct Set Encoding
+This line is not needed
+
+> + *
+> + * C4.1 A64 instruction set encoding:
+NIT: I would put a comma after section number i.e. C4.1, A64 ...
+The same would apply in other places.
+
+> + *
+> + *   31  30  29 28  25 24                                             0
+>   * ___________________________________________________________________
+> - * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt   |
+> - * |____|______|__|____|____|__|_______________|____|_________|_______|
+> + * |op0 | x  x |  op1 |                                               |
+> + * |____|______|______|_______________________________________________|
+> + *
+> + * op0 = 0 is reserved
+I'm not sure how to read it. It is reserved provided op1 is also 0.
+
+> + * op1 = x1x0 for Loads and Stores
+> + *
+> + * Section C4.1.88 Loads and Stores
+Missing colon at the end?
+
+> + *
+> + *  31    28 27   26   25  24 23 22 21      16 15  12 11 10 9        0
+> + * ___________________________________________________________________
+> + * |  op0   | 1 | op1 | 0 | op2 |  |    op3   |      | op4 |          |
+> + * |________|___|_____|___|_____|__|__________|______|_____|__________|
+> + *
+> + * Page C4-653 Load/store register (immediate post-indexed)
+> + *
+> + * 31 30 29  27 26 25 24 23 22 21 20           12 11 10 9    5 4     0
+> + * ___________________________________________________________________
+> + * |size|1 1 1 |V | 0 0 | opc |0 |      imm9     | 0 1 |  Rn  |  Rt   |
+> + * |____|______|__|_____|_____|__|_______________|_____|______|_______|
+>   */
+>  union instr {
+>      uint32_t value;
+> +    struct {
+> +        unsigned int ign2:25;
+Here, your numeration of ignore fields is in descending order (starting from lsb) but ..,
+
+> +        unsigned int op1:4;     /* instruction class */
+> +        unsigned int ign1:2;
+> +        unsigned int op0:1;     /* value = 1b */
+Why op0 = 0b1 ? This structure represents the generic bit layout (the emulation deals with single ldr/str).
+I would drop this comment.
+
+> +    } top_level;
+> +    struct {
+> +        unsigned int ign1:10;
+here in ascending. Let's be consistent (fixed fields are in ascending order). 
+
+> +        unsigned int op4:2;
+> +        unsigned int ign2:4;
+> +        unsigned int op3:6;
+> +        unsigned int ign3:1;
+> +        unsigned int op2:2;
+> +        unsigned int fixed1:1; /* value = 0b */
+> +        unsigned int op1:1;
+> +        unsigned int fixed2:1; /* value = 1b */
+> +        unsigned int op0:4;
+> +    } ld_st;
+>      struct {
+>          unsigned int rt:5;     /* Rt register */
+>          unsigned int rn:5;     /* Rn register */
+> @@ -49,6 +86,14 @@ union instr {
+>      } ldr_str;
+>  };
+> 
+> +/* Top level load/store encoding */
+> +#define TL_LDST_OP1_MASK        0b0101
+> +#define TL_LDST_OP1_VALUE       0b0100
+> +
+> +/* Load/store single reg encoding */
+> +#define LS_SREG_OP0_MASK        0b0011
+> +#define LS_SREG_OP0_VALUE       0b0011
+> +
+>  #define POST_INDEX_FIXED_MASK   0x3B200C00
+>  #define POST_INDEX_FIXED_VALUE  0x38000400
+> 
+> --
+> 2.39.2
+> 
+> 
+
+~Michal
 
