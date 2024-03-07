@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA10A8745BA
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 02:40:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689609.1074761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C61238745C6
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 02:52:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689614.1074770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri2kC-0002Zj-5v; Thu, 07 Mar 2024 01:40:24 +0000
+	id 1ri2ug-0004iB-3l; Thu, 07 Mar 2024 01:51:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689609.1074761; Thu, 07 Mar 2024 01:40:24 +0000
+Received: by outflank-mailman (output) from mailman id 689614.1074770; Thu, 07 Mar 2024 01:51:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri2kC-0002YC-27; Thu, 07 Mar 2024 01:40:24 +0000
-Received: by outflank-mailman (input) for mailman id 689609;
- Thu, 07 Mar 2024 01:40:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ri2ug-0004hE-0x; Thu, 07 Mar 2024 01:51:14 +0000
+Received: by outflank-mailman (input) for mailman id 689614;
+ Thu, 07 Mar 2024 01:51:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nvJe=KN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ri2kA-0002Y6-OZ
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 01:40:22 +0000
+ id 1ri2ue-0004h8-ES
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 01:51:12 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 916ef542-dc23-11ee-a1ee-f123f15fe8a2;
- Thu, 07 Mar 2024 02:39:42 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2819e9e0-dc25-11ee-afda-a90da7624cb6;
+ Thu, 07 Mar 2024 02:51:05 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 12DCD61BCE;
- Thu,  7 Mar 2024 01:39:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB0BC433F1;
- Thu,  7 Mar 2024 01:39:38 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 4D95A61A3E;
+ Thu,  7 Mar 2024 01:51:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7483C433F1;
+ Thu,  7 Mar 2024 01:51:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,123 +41,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 916ef542-dc23-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 2819e9e0-dc25-11ee-afda-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709775580;
-	bh=8TyXHrMAokNqX9PY/rXFl06PuUpnN21MPfNTOWlVI34=;
+	s=k20201202; t=1709776262;
+	bh=R/F1ZSbpZekKrxNMmgsEC5tthbinM6LLxoMhze4B9pg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Rhn68/38bfSd0jT8y9UF89CvUvS5hvMnLKqAXNUq9GH/wDwgZ8hMJ1m4X1NYTqMon
-	 vi36A42F4t9v+wfzQekq6SKdYokPQWNZhRI7z25RyfkkhZ4mja5wlL7YGGkPtxlbdL
-	 QnZuZD6IH1E8pMG89lTQf1HCKOBRID2aMBVrKfkX0fNBG0tfmdON9+aq53Xc8IAqV7
-	 M3krK3KS+r01AXS8IvmQOA/KQTttm5IJGfLBu2l6ZpIzXAjDQN9m/0twCJDKncoCzt
-	 OhDJmMqWJVjFLMoXHMu/Lejf+pB5JR50KAkphn2PL8YRaAq8IfkEqAi35MGrqYAHoa
-	 cuHHrCVh8ASig==
-Date: Wed, 6 Mar 2024 17:39:37 -0800 (PST)
+	b=CQJYAn61BKlYlIwGv8Is9yXYj5aZwec5Yk7lGaSAZca500AVqd5Z78/d8WQlG0AKb
+	 OFzJAC8JW0SZ9PTb6MmjxW/PhtnKGx1gKurUlJ4sbSJIhgecsmyM4pjjirrr3p5vtK
+	 djeK51MGCIMIDghgrF5EtuI6iti+e+qs1yVHdWv1oeICk6ZuoFpEnQE1FErujsq0d2
+	 6D6CyEe6WsVkW3kmZVsHKxah23msyrO/IUDOAIWSNtzRZkMvsmItSSZsPkNtj0yqzn
+	 RdhvP8Ow09BMK1EB62LvL+dzJJwrL+HiNYK2abnhvMTtkkunLCY9SW+DiVWgbD2bek
+	 uaC2b8CGvDcbw==
+Date: Wed, 6 Mar 2024 17:50:59 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
-    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, 
-    bertrand.marquis@arm.com, julien@xen.org, 
-    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: Re: [XEN PATCH 10/10] xen/keyhandler: address violations of MISRA
- C Rule 20.7
-In-Reply-To: <fe15bab2-3a48-4243-b50c-6d9854c218c2@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2403061734250.853156@ubuntu-linux-20-04-desktop>
-References: <cover.1709219010.git.nicola.vetrini@bugseng.com> <2bc4a964f0f2f47488e72237678e944dbdbd7bb7.1709219010.git.nicola.vetrini@bugseng.com> <alpine.DEB.2.22.394.2402291457000.853156@ubuntu-linux-20-04-desktop> <1afd8805-7365-40ec-8e8e-468a83e20c40@suse.com>
- <alpine.DEB.2.22.394.2403011716180.853156@ubuntu-linux-20-04-desktop> <d7411c57-32f3-41c6-8233-685ed5dfe976@suse.com> <alpine.DEB.2.22.394.2403041756140.853156@ubuntu-linux-20-04-desktop> <fe15bab2-3a48-4243-b50c-6d9854c218c2@suse.com>
+    xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
+    Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+    x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    linux-kernel@vger.kernel.org, Jan Beulich <jbeulich@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH RFC] x86/xen: attempt to inflate the memory balloon on
+ PVH
+In-Reply-To: <Zec_SGeM5bF3DPgj@macbook>
+Message-ID: <alpine.DEB.2.22.394.2403061749190.853156@ubuntu-linux-20-04-desktop>
+References: <20240220174341.56131-1-roger.pau@citrix.com> <alpine.DEB.2.22.394.2402221701190.754277@ubuntu-linux-20-04-desktop> <Zec_SGeM5bF3DPgj@macbook>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-1275602164-1709776262=:853156"
 
-On Tue, 5 Mar 2024, Jan Beulich wrote:
-> On 05.03.2024 03:03, Stefano Stabellini wrote:
-> > On Mon, 4 Mar 2024, Jan Beulich wrote:
-> >> On 02.03.2024 02:37, Stefano Stabellini wrote:
-> >>> On Fri, 1 Mar 2024, Jan Beulich wrote:
-> >>>> On 29.02.2024 23:57, Stefano Stabellini wrote:
-> >>>>> On Thu, 29 Feb 2024, Nicola Vetrini wrote:
-> >>>>>> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
-> >>>>>> of macro parameters shall be enclosed in parentheses". Therefore, some
-> >>>>>> macro definitions should gain additional parentheses to ensure that all
-> >>>>>> current and future users will be safe with respect to expansions that
-> >>>>>> can possibly alter the semantics of the passed-in macro parameter.
-> >>>>>>
-> >>>>>> No functional change.
-> >>>>>>
-> >>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> >>>>>
-> >>>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> >>>>
-> >>>> You did see the discussion on earlier patches, though? I don't think
-> >>>> any of the parentheses here are needed or wanted.
-> >>>
-> >>> We need to align on this. Currently if we go by what's written in
-> >>> docs/misra/deviations.rst, then rhs should have parentheses.
-> >>
-> >> Quoting the actual patch again:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1275602164-1709776262=:853156
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Tue, 5 Mar 2024, Roger Pau Monné wrote:
+> On Thu, Feb 22, 2024 at 05:16:09PM -0800, Stefano Stabellini wrote:
+> > On Tue, 20 Feb 2024, Roger Pau Monne wrote:
+> > > When running as PVH or HVM Linux will use holes in the memory map as scratch
+> > > space to map grants, foreign domain pages and possibly miscellaneous other
+> > > stuff.  However the usage of such memory map holes for Xen purposes can be
+> > > problematic.  The request of holesby Xen happen quite early in the kernel boot
+> > > process (grant table setup already uses scratch map space), and it's possible
+> > > that by then not all devices have reclaimed their MMIO space.  It's not
+> > > unlikely for chunks of Xen scratch map space to end up using PCI bridge MMIO
+> > > window memory, which (as expected) causes quite a lot of issues in the system.
 > > 
-> > [...]
-> > 
-> >> What rhs are you talking about in light of this change? The only rhs I
-> >> can spot here is already parenthesized.
-> > 
-> > Yes you are right. I replied here as an overall comment about our
-> > approach to 20.7, although this patch is not a good example. My reply
-> > was meant in the context of https://marc.info/?l=xen-devel&m=170928051025701
+> > Am I understanding correctly that XEN_BALLOON_MEMORY_HOTPLUG doesn't
+> > help because it becomes available too late in the PVH boot sequence? 
 > 
-> I'm still confused: The rhs is being parenthsized there. It's the _lhs_
-> which isn't and ...
+> No, not really, the hoptplug mechanism is available as early as the
+> balloon driver requires, the issue is that when Linux starts making
+> use of such unpopulated ranges (for example in order to map the shared
+> info page) many drivers have not yet reserved their MMIO regions, and so it's
+> not uncommon for the balloon driver to end up using address ranges that
+> would otherwise be used by device BARs for example.
 > 
-> >>> Can we safely claim that rhs parentheses are never needed? If so, then
-> >>> great, let's add it to deviations.rst and skip them here and other
-> >>> places in this patch series (e.g. patch #8). When I say "never" I am
-> >>> taking for granted that the caller is not doing something completely
-> >>> unacceptably broken such as: 
-> >>>
-> >>>      WRITE_SYSREG64(var +, TTBR0_EL1)
-> >>
-> >> I'm afraid I can't associate this with the patch here either. Instead in
-> >> the context here a (respective) construct as you mention above would simply
-> >> fail to build.
+> This causes havoc, Linux starts to reposition device BARs, sometimes
+> it can manage to re-position them, otherwise some devices are not
+> usable.
+
+OK this is bad
+
+
+> > > At least for PVH dom0 we have the possibility of using regions marked as
+> > > UNUSABLE in the e820 memory map.  Either if the region is UNUSABLE in the
+> > > native memory map, or it has been converted into UNUSABLE in order to hide RAM
+> > > regions from dom0, the second stage translation page-tables can populate those
+> > > areas without issues.
+> > > 
+> > > PV already has this kind of logic, where the balloon driver is inflated at
+> > > boot.  Re-use the current logic in order to also inflate it when running as
+> > > PVH.  onvert UNUSABLE regions up to the ratio specified in EXTRA_MEM_RATIO to
+> > > RAM, while reserving them using xen_add_extra_mem() (which is also moved so
+> > > it's no longer tied to CONFIG_PV).
+> > > 
+> > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > > ---
+> > > RFC reasons:
+> > > 
+> > >  * Note that it would be preferred for the hypervisor to provide an explicit
+> > >    range to be used as scratch mapping space, but that requires changes to Xen,
+> > >    and it's not fully clear whether Xen can figure out the position of all MMIO
+> > >    regions at boot in order to suggest a scratch mapping region for dom0.
+> > > 
+> > >  * Should the whole set of xen_{add,del,chk,inv}_extra_mem() functions be moved
+> > >    to a different file?  For the purposes of PVH only xen_add_extra_mem() is
+> > >    moved and the chk and inv ones are PV specific and might not want moving to
+> > >    a separate file just to guard them with CONFIG_PV.
+> > > ---
+> > >  arch/x86/include/asm/xen/hypervisor.h |  1 +
+> > >  arch/x86/platform/pvh/enlighten.c     |  3 ++
+> > >  arch/x86/xen/enlighten.c              | 32 +++++++++++++
+> > >  arch/x86/xen/enlighten_pvh.c          | 68 +++++++++++++++++++++++++++
+> > >  arch/x86/xen/setup.c                  | 44 -----------------
+> > >  arch/x86/xen/xen-ops.h                | 14 ++++++
+> > >  drivers/xen/balloon.c                 |  2 -
+> > >  7 files changed, 118 insertions(+), 46 deletions(-)
+> > > 
+> > > diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
+> > > index a9088250770f..31e2bf8d5db7 100644
+> > > --- a/arch/x86/include/asm/xen/hypervisor.h
+> > > +++ b/arch/x86/include/asm/xen/hypervisor.h
+> > > @@ -62,6 +62,7 @@ void xen_arch_unregister_cpu(int num);
+> > >  #ifdef CONFIG_PVH
+> > >  void __init xen_pvh_init(struct boot_params *boot_params);
+> > >  void __init mem_map_via_hcall(struct boot_params *boot_params_p);
+> > > +void __init xen_reserve_extra_memory(struct boot_params *bootp);
+> > >  #endif
+> > >  
+> > >  /* Lazy mode for batching updates / context switch */
+> > > diff --git a/arch/x86/platform/pvh/enlighten.c b/arch/x86/platform/pvh/enlighten.c
+> > > index 00a92cb2c814..a12117f3d4de 100644
+> > > --- a/arch/x86/platform/pvh/enlighten.c
+> > > +++ b/arch/x86/platform/pvh/enlighten.c
+> > > @@ -74,6 +74,9 @@ static void __init init_pvh_bootparams(bool xen_guest)
+> > >  	} else
+> > >  		xen_raw_printk("Warning: Can fit ISA range into e820\n");
+> > >  
+> > > +	if (xen_guest)
+> > > +		xen_reserve_extra_memory(&pvh_bootparams);
+> > > +
+> > >  	pvh_bootparams.hdr.cmd_line_ptr =
+> > >  		pvh_start_info.cmdline_paddr;
+> > >  
+> > > diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
+> > > index 3c61bb98c10e..a01ca255b0c6 100644
+> > > --- a/arch/x86/xen/enlighten.c
+> > > +++ b/arch/x86/xen/enlighten.c
+> > > @@ -6,6 +6,7 @@
+> > >  #include <linux/console.h>
+> > >  #include <linux/cpu.h>
+> > >  #include <linux/kexec.h>
+> > > +#include <linux/memblock.h>
+> > >  #include <linux/slab.h>
+> > >  #include <linux/panic_notifier.h>
+> > >  
+> > > @@ -350,3 +351,34 @@ void xen_arch_unregister_cpu(int num)
+> > >  }
+> > >  EXPORT_SYMBOL(xen_arch_unregister_cpu);
+> > >  #endif
+> > > +
+> > > +/* Amount of extra memory space we add to the e820 ranges */
+> > > +struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
+> > > +
+> > > +void __init xen_add_extra_mem(unsigned long start_pfn, unsigned long n_pfns)
+> > > +{
+> > > +	unsigned int i;
+> > > +
+> > > +	/*
+> > > +	 * No need to check for zero size, should happen rarely and will only
+> > > +	 * write a new entry regarded to be unused due to zero size.
+> > > +	 */
+> > > +	for (i = 0; i < XEN_EXTRA_MEM_MAX_REGIONS; i++) {
+> > > +		/* Add new region. */
+> > > +		if (xen_extra_mem[i].n_pfns == 0) {
+> > > +			xen_extra_mem[i].start_pfn = start_pfn;
+> > > +			xen_extra_mem[i].n_pfns = n_pfns;
+> > > +			break;
+> > > +		}
+> > > +		/* Append to existing region. */
+> > > +		if (xen_extra_mem[i].start_pfn + xen_extra_mem[i].n_pfns ==
+> > > +		    start_pfn) {
+> > > +			xen_extra_mem[i].n_pfns += n_pfns;
+> > > +			break;
+> > > +		}
+> > > +	}
+> > > +	if (i == XEN_EXTRA_MEM_MAX_REGIONS)
+> > > +		printk(KERN_WARNING "Warning: not enough extra memory regions\n");
+> > > +
+> > > +	memblock_reserve(PFN_PHYS(start_pfn), PFN_PHYS(n_pfns));
+> > > +}
+> > > diff --git a/arch/x86/xen/enlighten_pvh.c b/arch/x86/xen/enlighten_pvh.c
+> > > index ada3868c02c2..c28f073c1df5 100644
+> > > --- a/arch/x86/xen/enlighten_pvh.c
+> > > +++ b/arch/x86/xen/enlighten_pvh.c
+> > > @@ -1,6 +1,7 @@
+> > >  // SPDX-License-Identifier: GPL-2.0
+> > >  #include <linux/acpi.h>
+> > >  #include <linux/export.h>
+> > > +#include <linux/mm.h>
+> > >  
+> > >  #include <xen/hvc-console.h>
+> > >  
+> > > @@ -72,3 +73,70 @@ void __init mem_map_via_hcall(struct boot_params *boot_params_p)
+> > >  	}
+> > >  	boot_params_p->e820_entries = memmap.nr_entries;
+> > >  }
+> > > +
+> > > +/*
+> > > + * Reserve e820 UNUSABLE regions to inflate the memory balloon.
+> > > + *
+> > > + * On PVH dom0 the host memory map is used, RAM regions available to dom0 are
+> > > + * located as the same place as in the native memory map, but since dom0 gets
+> > > + * less memory than the total amount of host RAM the ranges that can't be
+> > > + * populated are converted from RAM -> UNUSABLE.  Use such regions (up to the
+> > > + * ratio signaled in EXTRA_MEM_RATIO) in order to inflate the balloon driver at
+> > > + * boot.  Doing so prevents the guest (even if just temporary) from using holes
+> > > + * in the memory map in order to map grants or foreign addresses, and
+> > > + * hopefully limits the risk of a clash with a device MMIO region.  Ideally the
+> > > + * hypervisor should notify us which memory ranges are suitable for creating
+> > > + * foreign mappings, but that's not yet implemented.
+> > > + */
+> > > +void __init xen_reserve_extra_memory(struct boot_params *bootp)
+> > > +{
+> > > +	unsigned int i, ram_pages = 0, extra_pages;
+> > > +
+> > > +	for (i = 0; i < bootp->e820_entries; i++) {
+> > > +		struct boot_e820_entry *e = &bootp->e820_table[i];
+> > > +
+> > > +		if (e->type != E820_TYPE_RAM)
+> > > +			continue;
+> > > +		ram_pages += PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr);
+> > > +	}
+> > > +
+> > > +	/* Max amount of extra memory. */
+> > > +	extra_pages = EXTRA_MEM_RATIO * ram_pages;
+> > > +
+> > > +	/*
+> > > +	 * Convert UNUSABLE ranges to RAM and reserve them for foreign mapping
+> > > +	 * purposes.
+> > > +	 */
+> > > +	for (i = 0; i < bootp->e820_entries && extra_pages; i++) {
+> > > +		struct boot_e820_entry *e = &bootp->e820_table[i];
+> > > +		unsigned long pages;
+> > > +
+> > > +		if (e->type != E820_TYPE_UNUSABLE)
+> > > +			continue;
+> > > +
+> > > +		pages = min(extra_pages,
+> > > +			PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr));
+> > > +
+> > > +		if (pages != (PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr))) {
+> > > +			struct boot_e820_entry *next;
+> > > +
+> > > +			if (bootp->e820_entries ==
+> > > +			    ARRAY_SIZE(bootp->e820_table))
+> > > +				/* No space left to split - skip region. */
+> > > +				continue;
+> > > +
+> > > +			/* Split entry. */
+> > > +			next = e + 1;
+> > > +			memmove(next, e,
+> > > +				(bootp->e820_entries - i) * sizeof(*e));
+> > > +			bootp->e820_entries++;
+> > > +			next->addr = PAGE_ALIGN(e->addr) + PFN_PHYS(pages);
+> > > +			e->size = next->addr - e->addr;
+> > > +			next->size -= e->size;
 > > 
-> > Fair enough it will break the build. I was trying to clarify that when I
-> > wrote "the rhs parentheses are never needed" I meant "never" within
-> > reason. One can always find ways to break the system and I tried to make
-> > an example of something that for sure would break rhs or lhs without
-> > parentheses.
+> > Is this really worth doing? Can we just skip this range and continue or
+> > simply break out and call it a day? Or even add the whole range instead?
 > > 
-> > I meant to say, if we don't account for exceptionally broken cases, can
-> > we safety say we don't need parentheses for rhs?
+> > The reason I am asking is that I am expecting E820_TYPE_UNUSABLE regions
+> > not to be huge. Splitting one just to cover the few remaining pages out
+> > of extra_pages doesn't seem worth it?
 > 
-> ... doesn't need to, unless - as you say - one contrives examples. Yet to
-> clarify here as well: I assume you mean "we don't need parentheses for lhs".
+> No, they are usually quite huge on PVH dom0, because when building a
+> PVH dom0 the E820_TYPE_RAM ranges that are not made available to dom0
+> because of a dom0_mem option end up being reported as
+> E820_TYPE_UNUSABLE in the e820 provided to dom0.
+> 
+> That's mostly the motivation of the change, to be able to reuse those
+> ranges as scratch space for foreign mappings.
+> 
+> Ideally the hypervisor should somehow report suitable ranges in the
+> address space for domains to create foreign mappings, but this does
+> require an amount of extra work I don't have time to do ATM, hence
+> this stopgap proposal.
 
-Yes. Far clarity, we are all aligned that lhs does not need parentheses
-and in fact it is even already deviated in docs/misra/deviations.rst.
+I see. We have gained this feature on ARM not long ago for Dom0 and
+Dom0less guests.
 
-Now back to this specific patch.
-
-The problem is that the comma ',' doesn't need parenthesis for the
-parameters. However, the way we wrote the deviation in
-docs/misra/deviations.rst doesn't cover the case this patch is dealing
-with. docs/misra/deviations.rst only speaks of functions and macros
-arguments.
-
-Should we rephrase docs/misra/deviations.rst in terms of ',' instead ?
-Can ECLAR deal with it?
-
-
-
-> And note that even if your example used the first parameter as lhs of an
-> assignment, the build would still break. The + there would not magically
-> combine with the = to a += operator. Tokenization occurs ahead of
-> preprocessing, so the expanded macro would still have a + token followed by
-> a = one. The only way to alter tokens is by using the ## operator. Which in
-> turn precludes using parentheses.
-
-OK
+All right, I have no reservations. The patch looks OK to me. Juergen?
+--8323329-1275602164-1709776262=:853156--
 
