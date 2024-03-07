@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48D068754D8
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 18:08:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689973.1075536 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6148C8754F7
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 18:14:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689976.1075547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riHEI-0008PZ-6W; Thu, 07 Mar 2024 17:08:26 +0000
+	id 1riHJ9-00029O-PQ; Thu, 07 Mar 2024 17:13:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689973.1075536; Thu, 07 Mar 2024 17:08:26 +0000
+Received: by outflank-mailman (output) from mailman id 689976.1075547; Thu, 07 Mar 2024 17:13:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riHEI-0008NS-2p; Thu, 07 Mar 2024 17:08:26 +0000
-Received: by outflank-mailman (input) for mailman id 689973;
- Thu, 07 Mar 2024 17:08:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1riHJ9-00026C-ME; Thu, 07 Mar 2024 17:13:27 +0000
+Received: by outflank-mailman (input) for mailman id 689976;
+ Thu, 07 Mar 2024 17:13:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aqh0=KN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1riHEG-0008N4-0V
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 17:08:24 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4ce65270-dca5-11ee-a1ee-f123f15fe8a2;
- Thu, 07 Mar 2024 18:08:22 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-5131c0691feso1526403e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 09:08:21 -0800 (PST)
+ id 1riHJ7-00025n-CW
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 17:13:25 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 018dc424-dca6-11ee-afda-a90da7624cb6;
+ Thu, 07 Mar 2024 18:13:24 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2d2991e8c12so11612801fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 09:13:24 -0800 (PST)
 Received: from [192.168.206.239] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- f12-20020a05651201cc00b00513360ebd22sm2551021lfp.118.2024.03.07.09.08.19
+ a14-20020a2e980e000000b002d0a7ba3215sm3114843ljj.85.2024.03.07.09.13.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Mar 2024 09:08:20 -0800 (PST)
+ Thu, 07 Mar 2024 09:13:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ce65270-dca5-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 018dc424-dca6-11ee-afda-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709831301; x=1710436101; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1709831604; x=1710436404; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=ViU2v0qBRASJJ7QWLeqYy0/HQnnBlvBlJiZL/b+CMsc=;
-        b=Tq39TXViKArPXWw2oMepVBssBTWXTlvzj5/4VkL17uc6gthW+DT9ZaxD5TNRYENLqd
-         ZAXNaphy1unK14Sv8km3d9w/4sM/0ALR6hOqJz9zpIZzA9didBHHcdK/6w2l8ajUxpqn
-         2OXo1Y2ytR7wCDvSud2CbEuU/1TyGJFh7fB9xbcIH3WRWPM3ljDqxqyHw+vTZ5PBq7EM
-         RPv/gWLL4cirANLtn+LehzboaSU51FXR3xBE350vfc02z6oTVgTAdPPbEPim4y/nb0bT
-         7fPL1NODz/LpDFexN/lakNSArqRWMDDzAm3jT4UeutgxZRljTIthzVpoPOBfqAu5+P4n
-         gYuA==
+        bh=qrlFTiBd5RZIoLfeqX5Iuykltkt949AokDl3AMi6iY0=;
+        b=MCqazaxxrsIpDTQn1OzooM/zBNWMUvSVUOFR+rFygyWN7TEwwe1sjalmiuN7PXrMrt
+         4TBfiPKCYrHFSa8waKQZHcA5piXt5CwU2OCudjNgdRyEEcp2DF9Xfz41+SfkM89J+4ce
+         X2RJlszQXULyAK0v5Gal2Cst1gg7cVIr1F7MAp2nNv8QhOC1GiyOHCQN4jPXLHrsNUGi
+         k7KNCzi4EzPAnfeUlvxfvERYrwTJOzVdG7QbYf6fZuzXjXuQy740Gqbt613EAWdDFzvP
+         49XlNNaI8RyUlCapV6H42xakIL/yw0qUpVjTQrrZj3RfHmgF354VUDnlACGwux2Q8qZ6
+         XQ5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709831301; x=1710436101;
+        d=1e100.net; s=20230601; t=1709831604; x=1710436404;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ViU2v0qBRASJJ7QWLeqYy0/HQnnBlvBlJiZL/b+CMsc=;
-        b=t2y1Rv5lbxw7Qzs07pB7jhbgw3boi7sp8blah6fD0Z9mqt/fUCN86eANxutoh7JbLX
-         1sUe/FY25eI3iwzVpe9298rYvXpzlBW4F4fRez1PcO9BG1vdmrkt7Cs4nIOIOKhF5imx
-         0L0t4GVW2fz6j7/YdnBbpZ1qWywSDkc3aPkeukgKKsvqS8ea+5mKTSF+w5EpXFvbOQpN
-         ob8ATfwCK9XbWuVW7WstQXLMz58hStf0lSd3yEyj8x2PJG+XjyDWZ6CH66Stftc0lyxL
-         nJiSNfvXofHSixeC55NwtMz0Q8/0vyC4oA7BjvcOUfcatKrzraCvGplaKPn7qTkKclqX
-         zp4g==
-X-Forwarded-Encrypted: i=1; AJvYcCVnmrBz63zVvcKjpVqsQvJCIa7j5WTbPxYsDBhz37RM4zujOFnqyYFhi+MeE39BNbEKoiUFYIKl3JX/yHSP8FF/FHkJ9lOy56+A2cyH1E8=
-X-Gm-Message-State: AOJu0YwOGIsVqiBS38foYAOYQJamfericXerUQg8MUsh/zbF4GicuTi7
-	c52ls7Hv+RavG6U6VsKl/sgK4PnoJUAQKC4rt342e6/QbWMM55eW
-X-Google-Smtp-Source: AGHT+IFCy+1qkHbSXi3+x5WAqAVxxB/7wcM6pQ+w8nIVeD8daUd7709MAmi0ugx5OaIEiBU1w6+x1Q==
-X-Received: by 2002:ac2:514a:0:b0:513:6ac7:138c with SMTP id q10-20020ac2514a000000b005136ac7138cmr1725104lfd.40.1709831300561;
-        Thu, 07 Mar 2024 09:08:20 -0800 (PST)
-Message-ID: <a64b84d6759cb7daa48af5c6680e0011ed6bb113.camel@gmail.com>
-Subject: Re: [PATCH] move __read_mostly to xen/cache.h
+        bh=qrlFTiBd5RZIoLfeqX5Iuykltkt949AokDl3AMi6iY0=;
+        b=myHrTIKOG7SbCqn/PXLJKugkeR0CHowynb4Xtz8J7i+0yrmUmGPrWr3raOIIBwE25C
+         f1SKPvvIhWnusWuan0bnFR3lcQcP21aDVTwKeocruk/+T2xIjrwiIUbhGuvJFaE6Oqn0
+         d0Rw07tMYuR5JK4J42qQ7dCQyObh+Rq8sTuJ34R6pc2wqPVKdKg3rOOnu+45lfQrA8sN
+         ME55y85D0ts8xQCwrwPt91uWMkrzdTQ6AZIA9cB0h1Oz3ihqxl+uuNWu5RBq/1NlApmx
+         T2Q5HRbdxi26pejK1NSuZYUvz5o9z2D6sfdk7BzdiKTiKewr0Y2/cJcH8iLLPQ2Pq1hm
+         w6Jw==
+X-Gm-Message-State: AOJu0YySHyZq796gSuXLzxiDUIQS9Xpn2qNHQfxccbhAAxnPVvU4Q88G
+	Nz3/YhRBmcSaZWG2HNPCgTUkXlOb+aDwoDAPuK2NhM9zgK2cM8XXW+MIkgzPWBo=
+X-Google-Smtp-Source: AGHT+IFHhBFaeFrp/MK6nlv6+oceZk2cqA02MKFl85idmcEwZfhVDDj013GrypXmzO8ENodpcbZCOw==
+X-Received: by 2002:a2e:978e:0:b0:2d2:6457:4087 with SMTP id y14-20020a2e978e000000b002d264574087mr351650lji.6.1709831603419;
+        Thu, 07 Mar 2024 09:13:23 -0800 (PST)
+Message-ID: <563cbcbf1bb4b540b858c187618969b75bd37481.camel@gmail.com>
+Subject: Re: [PATCH v9 1/7] automation: introduce fixed randconfig for RISC-V
 From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
-  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Roger
- Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Bertrand Marquis
- <bertrand.marquis@arm.com>,  Volodymyr Babchuk
- <volodymyr_babchuk@epam.com>, Shawn Anastasio
- <sanastasio@raptorengineering.com>,  "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>
-Date: Thu, 07 Mar 2024 18:08:19 +0100
-In-Reply-To: <64466285-35b8-497c-a12b-60fe0c998ba6@suse.com>
-References: <f25eb5c9-7c14-6e23-8535-2c66772b333e@suse.com>
-	 <b49777c7-c677-826f-01da-c6b5b67f5b85@citrix.com>
-	 <893a5ebf-54e2-f2b2-1365-2a6d36ed3a39@suse.com>
-	 <fb627eae0deb85569d3c3044154f1588e9202ec9.camel@gmail.com>
-	 <64466285-35b8-497c-a12b-60fe0c998ba6@suse.com>
+To: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>
+Cc: Michal Orzel <michal.orzel@amd.com>
+Date: Thu, 07 Mar 2024 18:13:22 +0100
+In-Reply-To: <d8e330c26394d9415a0d76b2d951bf57b0b6dd4b.1708086092.git.oleksii.kurochko@gmail.com>
+References: <cover.1708086091.git.oleksii.kurochko@gmail.com>
+	 <d8e330c26394d9415a0d76b2d951bf57b0b6dd4b.1708086092.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
 
-On Fri, 2023-12-22 at 12:09 +0100, Jan Beulich wrote:
-> On 22.12.2023 10:39, Oleksii wrote:
-> > On Tue, 2023-08-08 at 12:32 +0200, Jan Beulich wrote:
-> > > On 08.08.2023 12:18, Andrew Cooper wrote:
-> > > > On 08/08/2023 10:46 am, Jan Beulich wrote:
-> > > > > There's no need for every arch to define its own identical
-> > > > > copy.
-> > > > > If down
-> > > > > the road an arch needs to customize it, we can add #ifndef
-> > > > > around
-> > > > > the
-> > > > > common #define.
-> > > > >=20
-> > > > > To be on the safe side build-breakage-wise, change a couple
-> > > > > of
-> > > > > #include
-> > > > > <asm/cache.h> to the xen/ equivalent.
-> > > > >=20
-> > > > > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > > >=20
-> > > > Could we find a better place to put this?
-> > > >=20
-> > > > __read_mostly is just a section.=C2=A0 It's relationship to the
-> > > > cache is
-> > > > only
-> > > > microarchitectural, and is not the same kind of information as
-> > > > the
-> > > > rest
-> > > > of cache.h
-> > > >=20
-> > > > __ro_after_init is only here because __read_mostly is here, but
-> > > > has
-> > > > absolutely nothing to do with caches whatsoever.
-> > > >=20
-> > > > If we're cleaning them up, they ought to live elsewhere.
-> > >=20
-> > > I would be considering init.h (for having most other __section()
-> > > uses,
-> > > and for also needing __read_mostly), but that's not a great place
-> > > to
-> > > put these either. In fact I see less connection there than for
-> > > cache.h.
-> > > So the primary need is a good suggestion (I'm hesitant to suggest
-> > > to
-> > > introduce section.h just for this).
-> > Andrew sent some suggestions here:
-> > https://lore.kernel.org/xen-devel/3df1dad8-3476-458f-9022-160e0af57d39@=
-citrix.com/
-> >=20
-> > Will that work for you?
->=20
-> I still need to properly look at the suggested options.
-Have you had a chance to review the suggested options?
+Hello Doug and Stefano,
+
+While Michal has reviewed this patch, I understand that I still need
+your Acked-by.
+
+Could you please take a moment to review the patch?
+
+Thanks in advance.
 
 ~ Oleksii
+
+On Fri, 2024-02-16 at 13:39 +0100, Oleksii Kurochko wrote:
+> This patch introduces the anchor riscv-fixed-randconfig,
+> which includes all configurations that should be disabled for
+> randconfig builds.
+>=20
+> Suggested-by: Stefano Stabellini <sstabellini@kernel.org>
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> The patch were introduced after discussion in a topic:
+> =C2=A0
+> https://lore.kernel.org/xen-devel/cover.1701966261.git.oleksii.kurochko@g=
+mail.com
+> /
+> ---
+> Changes in V9:
+> =C2=A0- add '|' symbol after EXTRA_FIXED_RANDCONFIG to make variables in
+> EXTRA_FIXED_RANDCONFIG
+> =C2=A0=C2=A0 be separated by new line.
+> =C2=A0- instead of introduction of new file for riscv-fixed-randconfig,
+> introduce an anchor
+> =C2=A0=C2=A0 inside build.yaml
+> ---
+> Changes in V8:
+> =C2=A0- Nothing changed. Only rebase
+> ---
+> Changes in V7:
+> =C2=A0- Nothing changed. Only rebase
+> ---
+> Changes in V6:
+> =C2=A0- The patch was introduced in this version of patch series.
+> ---
+> =C2=A0automation/gitlab-ci/build.yaml | 14 ++++++++++----
+> =C2=A01 file changed, 10 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-
+> ci/build.yaml
+> index 6d2cb18b88..aac29ee13a 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -512,6 +512,14 @@ alpine-3.18-gcc-debug-arm64-boot-cpupools:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_BOOT_TIME_CPUPOOLS=3Dy
+> =C2=A0
+> =C2=A0# RISC-V 64 cross-build
+> +.riscv-fixed-randconfig:
+> +=C2=A0 variables: &riscv-fixed-randconfig
+> +=C2=A0=C2=A0=C2=A0 EXTRA_FIXED_RANDCONFIG: |
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_COVERAGE=3Dn
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_EXPERT=3Dy
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_GRANT_TABLE=3Dn
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_MEM_ACCESS=3Dn
+> +
+> =C2=A0archlinux-current-gcc-riscv64:
+> =C2=A0=C2=A0 extends: .gcc-riscv64-cross-build
+> =C2=A0=C2=A0 variables:
+> @@ -532,8 +540,7 @@ archlinux-current-gcc-riscv64-randconfig:
+> =C2=A0=C2=A0=C2=A0=C2=A0 CONTAINER: archlinux:current-riscv64
+> =C2=A0=C2=A0=C2=A0=C2=A0 KBUILD_DEFCONFIG: tiny64_defconfig
+> =C2=A0=C2=A0=C2=A0=C2=A0 RANDCONFIG: y
+> -=C2=A0=C2=A0=C2=A0 EXTRA_FIXED_RANDCONFIG:
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_COVERAGE=3Dn
+> +=C2=A0=C2=A0=C2=A0 <<: *riscv-fixed-randconfig
+> =C2=A0
+> =C2=A0archlinux-current-gcc-riscv64-debug-randconfig:
+> =C2=A0=C2=A0 extends: .gcc-riscv64-cross-build-debug
+> @@ -541,8 +548,7 @@ archlinux-current-gcc-riscv64-debug-randconfig:
+> =C2=A0=C2=A0=C2=A0=C2=A0 CONTAINER: archlinux:current-riscv64
+> =C2=A0=C2=A0=C2=A0=C2=A0 KBUILD_DEFCONFIG: tiny64_defconfig
+> =C2=A0=C2=A0=C2=A0=C2=A0 RANDCONFIG: y
+> -=C2=A0=C2=A0=C2=A0 EXTRA_FIXED_RANDCONFIG:
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_COVERAGE=3Dn
+> +=C2=A0=C2=A0=C2=A0 <<: *riscv-fixed-randconfig
+> =C2=A0
+> =C2=A0# Power cross-build
+> =C2=A0debian-bullseye-gcc-ppc64le:
+
 
