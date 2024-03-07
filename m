@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54A6487489F
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 08:24:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689644.1074821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3747F8748E8
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 08:40:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689648.1074830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri85j-0003mw-H9; Thu, 07 Mar 2024 07:22:59 +0000
+	id 1ri8M5-00064w-SG; Thu, 07 Mar 2024 07:39:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689644.1074821; Thu, 07 Mar 2024 07:22:59 +0000
+Received: by outflank-mailman (output) from mailman id 689648.1074830; Thu, 07 Mar 2024 07:39:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri85j-0003k1-EB; Thu, 07 Mar 2024 07:22:59 +0000
-Received: by outflank-mailman (input) for mailman id 689644;
- Thu, 07 Mar 2024 07:22:58 +0000
+	id 1ri8M5-00063Q-PT; Thu, 07 Mar 2024 07:39:53 +0000
+Received: by outflank-mailman (input) for mailman id 689648;
+ Thu, 07 Mar 2024 07:39:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tO0P=KN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ri85i-0003jv-Qd
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 07:22:58 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1ri8M4-00063K-Ai
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 07:39:52 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8436f1ad-dc53-11ee-a1ee-f123f15fe8a2;
- Thu, 07 Mar 2024 08:22:55 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a45670f9508so78418766b.0
- for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 23:22:55 -0800 (PST)
+ id e0f0380e-dc55-11ee-a1ee-f123f15fe8a2;
+ Thu, 07 Mar 2024 08:39:50 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-565ef8af2f5so581119a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 23:39:50 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- qw28-20020a1709066a1c00b00a381ca0e589sm7911809ejc.22.2024.03.06.23.22.54
+ z42-20020a509e2d000000b005669d904871sm8144564ede.49.2024.03.06.23.39.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Mar 2024 23:22:54 -0800 (PST)
+ Wed, 06 Mar 2024 23:39:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8436f1ad-dc53-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: e0f0380e-dc55-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709796175; x=1710400975; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709797189; x=1710401989; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=/xmRdUvHLMnsKqHMkhW5o+z5O4BuUYwsSyD8ZCfnF+A=;
-        b=P4fdnKs0DoVar7u7zk5BCrbTgNQ4eIEeVjL5v6Vcfxhj1PG7VitqxXW1EDtPjzGKr1
-         82/hUtt3uNG1CkCgYd5ed24Y+9NNmgtAsvwmvYYhEJ/Nje+fUB6Q03j3CALq2l3xdZue
-         XiRuiyoOS3Mno+PEivukccLI5LZbqxHDzcd+JJQq8U71DPJeTrVNadgRNXUNrYCwbUJI
-         VWD7iDKJ2IaWdSoibroIjamt5lHwqztvyqjY+S4VSz5NXPifrBqPN7fzf+WzVpZHpe+t
-         +KZuIq7KuQ7+leWHO/3ZANXFNO4XSGG/esW6I7ehXdDIlB2b/XWyzQp+4XaR8HbjFZma
-         kb4g==
+        bh=BCV4sTx2yEU/u8q1cBmkuc6Qg/vaqDeD1BFa9Vn1fZU=;
+        b=FkjjvEs/PCPu/IL2KF/qe0lmkBMGONm11mSnnJgOfA3G8KyOgvrmXT+LYl7hfIgT8N
+         HhEh9fBnY2CNC9fehS8IY/kq5G/YdWqcFVP7m+jOcJvtdXtunzrtVX/cUVIUi2PFNgj9
+         hrOpjCRAfB9i6FlRRzPPkYW+xtrHdGRznmpIi/2K0Y+Jw13DMGxMGZ1iNStjfcBF4yob
+         FIQpYEDoEuZzdElialwOqVFgmpY2fzVuNubwBPn5h3u7QlqWlBAzAaZdDuoOdFBc9Z5o
+         0zGS5LoOfsDccerja9HntJifmFtJGEHjL/vllWEmyJuwZW4xFSKJxQri6JmRjAocnq1Z
+         Jr3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709796175; x=1710400975;
+        d=1e100.net; s=20230601; t=1709797189; x=1710401989;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/xmRdUvHLMnsKqHMkhW5o+z5O4BuUYwsSyD8ZCfnF+A=;
-        b=UVWalFwwDSlmFINrUw6f6cMR4UZajVw1ze4AmXAwRl9slWqZTt+abpvVRkK276v9Va
-         1NyV1QYCHUpet4oKr0rpDpE2T6k1OcuDfizCKUcso6kRIInVdd5SfPABp6dPWHVC6KUp
-         BzTOTzv1iYKozMjp25b1fiZmEWRnNDE7RHNLF0IReDIWrW3ItJkZ7+r0lqDq2ETnpkcn
-         PEZDq6QZ3dtDUzBLKyfFPWNk3b+VSNsPTGksfIpIzQR4L7fTGnPLVY6Qo1JsZEyJJ/Dj
-         c3tlZgY/c6t/X16Eb5QtAVPT705MJJpfxNr9wZIGLFI+5z2KdCfCBhZBbxx0FpVwMJoI
-         BUyw==
-X-Forwarded-Encrypted: i=1; AJvYcCUHfm/eWwokWC862q12n86UK8wh5Wj8QPNbQ39BMBDa1QMWTgdcSZ3vepPKeG4RlcLp/+P1Tvlqk9uVZ8Hw4JHU7nOBVjLf8UVtdL3Ddkw=
-X-Gm-Message-State: AOJu0YzjnPbKcW+3WTyTTHGakBe4V1kx38XB+v0czfAQXw1z6Fo8uu/u
-	bbPJU51AYSebF9Hj9IRGS5KEgUWIH9t/6lZ/jYsOwDq+e2Z01/Sw7f1D+S0I2A==
-X-Google-Smtp-Source: AGHT+IGYNlPhtXoi1UiJ898y2bO3HMjKt2n+Y4J+k0ua9NGUAzcSWJh2VVOr5/e9RhWsw8D458xOkQ==
-X-Received: by 2002:a17:906:1959:b0:a3e:93d0:3443 with SMTP id b25-20020a170906195900b00a3e93d03443mr10623437eje.34.1709796174928;
-        Wed, 06 Mar 2024 23:22:54 -0800 (PST)
-Message-ID: <7b98737a-c12b-462b-8e3f-593eced138e1@suse.com>
-Date: Thu, 7 Mar 2024 08:22:53 +0100
+        bh=BCV4sTx2yEU/u8q1cBmkuc6Qg/vaqDeD1BFa9Vn1fZU=;
+        b=HFkumf0mtZeM2wO7BUClzlZ5B9emVnv6jOcjabFonqn4T/XI5TFWty4NHQ9xIhBK1Z
+         BBMvy9ZnSJERAEDbBLVFmmPcdh6tvBiR9y4yjPF3WpgKcPicT+PbguN+CI5fJOg+Ud32
+         RWqPFkDQ03jSHL5OO/aThIqTeUAy5gwFGB8UUNZ3SSQe+QPfyBd2iF+nxnn0k5CmnvYw
+         1jYlHpGheUzPd4NuVK9ILyw/uBoNLNFsM8/0w7dkOW17iq0EaopjAV546uH6hlVE1mT5
+         pjLG25Dy/EWgrRU1Rq0Q874mALjCjEUmI5+J6DigJqNyw17MqiqwhDZK0b+hGiPcYECB
+         tYJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXog3gc45k4mFdfn5GpVri9/pIXC/GbXByxPMVd84fpqIOztLxBPOLzUuQ0Z4vvPpqbMes1pwdFvHtxCN8PmTU9ZS9vRAafdI6qtTKOonQ=
+X-Gm-Message-State: AOJu0YzzXkY22VQYSjkUJ0UlIyxln2Lp/nSpv5p2vgCXEhGdYBmOja2x
+	40DRAfmxi81HA6eYxQsz7il+71YmmHWkZt9GaxNcRNES5KFnowmaR69J2Nx/Gg==
+X-Google-Smtp-Source: AGHT+IFJhHwcMmCCacBRAHlYz9aJq511aAo2pCW8zscxEn2SND7CrWERzFXhsTpl8E8DXHm0hFwJIw==
+X-Received: by 2002:a50:85c6:0:b0:565:9fff:6046 with SMTP id q6-20020a5085c6000000b005659fff6046mr13214584edh.3.1709797189486;
+        Wed, 06 Mar 2024 23:39:49 -0800 (PST)
+Message-ID: <76ce9dcf-8cac-44b3-9550-f516024bad6e@suse.com>
+Date: Thu, 7 Mar 2024 08:39:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/9pfsd: Fix build error caused by strerror_r
+Subject: Re: [PATCH 2/3] xen/virtual-region: Include rodata pointers
 Content-Language: en-US
-To: Henry Wang <xin.wang2@amd.com>, Juergen Gross <jgross@suse.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20240307055450.3158740-1-xin.wang2@amd.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Ross Lagerwall <ross.lagerwall@cloud.com>
+References: <20240305121121.3527944-1-andrew.cooper3@citrix.com>
+ <20240305121121.3527944-3-andrew.cooper3@citrix.com>
+ <87b82706-f538-4807-abaf-1e59cebd286b@suse.com>
+ <CAG7k0EqWrPU0qocSJHyJAQca44LakQwZwAbiv5GRk-sQeaAYAg@mail.gmail.com>
+ <82126c3a-0cde-452f-86aa-2571482f42aa@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,66 +116,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240307055450.3158740-1-xin.wang2@amd.com>
+In-Reply-To: <82126c3a-0cde-452f-86aa-2571482f42aa@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 07.03.2024 06:54, Henry Wang wrote:
-> Below error can be seen when doing Yocto build of the toolstack:
+On 06.03.2024 18:21, Andrew Cooper wrote:
+> On 06/03/2024 5:09 pm, Ross Lagerwall wrote:
+>> On Tue, Mar 5, 2024 at 2:17 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>> On 05.03.2024 13:11, Andrew Cooper wrote:
+>>>> --- a/xen/include/xen/virtual_region.h
+>>>> +++ b/xen/include/xen/virtual_region.h
+>>>> @@ -16,6 +16,9 @@ struct virtual_region
+>>>>      const void *text_start;                /* .text virtual address start. */
+>>>>      const void *text_end;                  /* .text virtual address end. */
+>>>>
+>>>> +    const void *rodata_start;              /* .rodata virtual address start (optional). */
+>>>> +    const void *rodata_end;                /* .rodata virtual address end. */
+>>>> +
+>>>>      /* If this is NULL the default lookup mechanism is used. */
+>>>>      symbols_lookup_t *symbols_lookup;
+>>> While perhaps the least bad one can do without quite a bit more churn,
+>>> I'm still irritated by a virtual region (singular) suddenly covering
+>>> two ranges of VA space. At the very least I think the description should
+>>> say a word of justification in this regard. An alternative, after all,
+>>> could have been for livepatch code to register separate regions for
+>>> rodata (if present in a patch).
+>>>
+>>> A follow-on question then would be why ordinary data isn't reflected in
+>>> a virtual region. Aiui that's just because livepatch presently has no
+>>> need for it.
+>>>
+>>> Underlying question to both: Is the virtual region concept indeed meant
+>>> to be fully tied to livepatch and its needs?
+>>>
+>> Virtual regions were introduced for live patching but I don't think it
+>> is completely tied to live patching. It was introduced so that any code
+>> can participate in symbol lookup, bug frame and exception table entry
+>> search, rather than special casing "if livepatch" in many places.
+>>
+>> I agree that the virtual region concept is being abused here - it's just
+>> being used as a convenient place to store rodata start/end and doesn't
+>> really have much to do with the text start & end / bug frame / exception
+>> table entry search that the virtual region is intended for.
+>>
+>> Maybe Andrew can explain why he used this approach?
 > 
-> | io.c: In function 'p9_error':
-> | io.c:684:5: error: ignoring return value of 'strerror_r' declared
->   with attribute 'warn_unused_result' [-Werror=unused-result]
-> |   684 |     strerror_r(err, ring->buffer, ring->ring_size);
-> |       |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> | cc1: all warnings being treated as errors
+> I feel the simplicity and obviousness of patch 3 speaks for itself.
 > 
-> Fix it by adding a return value and check it properly.
-> 
-> Signed-off-by: Henry Wang <xin.wang2@amd.com>
-> ---
->  tools/9pfsd/io.c | 16 +++++++++++-----
->  1 file changed, 11 insertions(+), 5 deletions(-)
-> 
-> diff --git a/tools/9pfsd/io.c b/tools/9pfsd/io.c
-> index adb887c7d9..163eee6ecc 100644
-> --- a/tools/9pfsd/io.c
-> +++ b/tools/9pfsd/io.c
-> @@ -681,11 +681,17 @@ static void p9_error(struct ring *ring, uint16_t tag, uint32_t err)
->  {
->      unsigned int erroff;
->  
-> -    strerror_r(err, ring->buffer, ring->ring_size);
-> -    erroff = add_string(ring, ring->buffer, strlen(ring->buffer));
-> -    fill_buffer(ring, P9_CMD_ERROR, tag, "SU",
-> -                erroff != ~0 ? ring->str + erroff : "cannot allocate memory",
-> -                &err);
-> +    char *ret = strerror_r(err, ring->buffer, ring->ring_size);
-> +
-> +    if ( ret )
+> How do you propose fixing it differently.
 
-While you're checking the return value, this looks to be the only use of
-"ret". Which looks wrong for the GNU form of the function. But an up front
-question is whether we can expect all host OSes / libc implementations to
-actually support the GNU form. Using _GNU_SOURCE may, after all, then not
-be appropriate for a component using this function. Jürgen, thoughts?
-
-> +    {
-> +        erroff = add_string(ring, ring->buffer, strlen(ring->buffer));
-> +        fill_buffer(ring, P9_CMD_ERROR, tag, "SU",
-> +                    erroff != ~0 ?
-> +                             ring->str + erroff :
-> +                             "cannot allocate memory",
-
-Indentation looks questionable to me here, albeit tools/ may have different
-preferences than xen/.
+I'm not opposed to doing it the way you do, but I think it then needs
+clarifying (up front) what a virtual region really is. It looks to be
+morphing into a module description instead ... One easy option might
+be to have a comment next to the struct additions here making clear
+that this is rather an abuse, but chosen to be this way to keep things
+simple elsewhere.
 
 Jan
-
-> +                    &err);
-> +    }
->  }
->  
->  static void p9_version(struct ring *ring, struct p9_header *hdr)
-
 
