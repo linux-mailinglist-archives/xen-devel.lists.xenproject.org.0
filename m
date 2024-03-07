@@ -2,32 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D84338750F9
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 14:53:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689921.1075407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66FFA875110
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 14:56:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689924.1075416 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riEB5-0007wD-ES; Thu, 07 Mar 2024 13:52:55 +0000
+	id 1riEEb-0008W6-Sr; Thu, 07 Mar 2024 13:56:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689921.1075407; Thu, 07 Mar 2024 13:52:55 +0000
+Received: by outflank-mailman (output) from mailman id 689924.1075416; Thu, 07 Mar 2024 13:56:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riEB5-0007t6-B2; Thu, 07 Mar 2024 13:52:55 +0000
-Received: by outflank-mailman (input) for mailman id 689921;
- Thu, 07 Mar 2024 13:52:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iDND=KN=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1riEB3-0007t0-NY
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 13:52:53 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fdde3b9b-dc89-11ee-afda-a90da7624cb6;
- Thu, 07 Mar 2024 14:52:52 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id CB8364EE0738;
- Thu,  7 Mar 2024 14:52:51 +0100 (CET)
+	id 1riEEb-0008TB-QG; Thu, 07 Mar 2024 13:56:33 +0000
+Received: by outflank-mailman (input) for mailman id 689924;
+ Thu, 07 Mar 2024 13:56:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xW6h=KN=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
+ id 1riEEZ-0008T0-Sv
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 13:56:31 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2417::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7ecb0847-dc8a-11ee-a1ee-f123f15fe8a2;
+ Thu, 07 Mar 2024 14:56:29 +0100 (CET)
+Received: from SJ0PR13CA0138.namprd13.prod.outlook.com (2603:10b6:a03:2c6::23)
+ by CH3PR12MB8880.namprd12.prod.outlook.com (2603:10b6:610:17b::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.26; Thu, 7 Mar
+ 2024 13:56:23 +0000
+Received: from SJ5PEPF000001C8.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::1c) by SJ0PR13CA0138.outlook.office365.com
+ (2603:10b6:a03:2c6::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.8 via Frontend
+ Transport; Thu, 7 Mar 2024 13:56:22 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ5PEPF000001C8.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7362.11 via Frontend Transport; Thu, 7 Mar 2024 13:56:22 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 7 Mar
+ 2024 07:56:21 -0600
+Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 7 Mar 2024 07:56:20 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,150 +59,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdde3b9b-dc89-11ee-afda-a90da7624cb6
+X-Inumbo-ID: 7ecb0847-dc8a-11ee-a1ee-f123f15fe8a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XyQ4q3jfixL9gdKLG6NBP4HiurWtUXx2Bl5GbNvqXMcA0ktHPLL+CHfFGMSPzTHvuVpFrxPU/WO6FCt0KfbdFuDV5yJ44KWZBqC697SCxkRUN1gABQHJULSA9f5hbh/jSb2q66KcOxpr60XnhRo1wd23pAPw0tXAbS+7+K02mjkmdXMTK5Fu+ngussSyCqaZ5SaKiO9wg1sWWmAXkzJosY0SDBCyGVG6Z+IAJYzTodAPlXMr+WVmwaTv4ORXG3xHeOBV8REwnYaLQScER96E+2XathxgAyX6fwGyUR5FsEQcSY8EtJDaP3d2HUF43VRrjohk6k2BqluimXoM+LkJTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kwMVbPg4+WKCy5F7bQxVc2/fbCEkF426EOJxgKoiuOA=;
+ b=XdWRjWtrSkRAA9T5zbTLZl6+HFlLAEnp7mcoCpS7oDYGnc34aI5SLaRp1rwiZzDM3p/04ZA7WR+rWhob31lAJSLO+pEkyc+HLZaw3wwB1CG6vdmrOqNinbB7IWOTONYl6EFV58AyJZMzgt9SAMQKXSs16CL/CCBLJjly6HkLQ7mZBrLYXwNaUksjF4b+n4eMlOM9v7ymqw37wctmsmgFyz8hvdRPvN88ZhsCI2xftwyJ5DvW6g1pYzS0XavKgX0LX6BgFZ287uQaM3qz2rFauA4pgk66hiaCUpI6FOtL7yTMt/odCiTm1PQLxdqQ5l7ZsYMzntMpbXVjlro3V8eKEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kwMVbPg4+WKCy5F7bQxVc2/fbCEkF426EOJxgKoiuOA=;
+ b=D1OgkKghrTa3m0J2mVy2X9Jbm6jLnJFXb9piCiuF9V+KL4UbYpqr+BDlELwuSOgmnLj21c1ZSsJfy9oz9s0jcJv0HGn8qkTcUeX+eMSjenAiKKTaQWfOG9NtO9bR8WsrvhePRmNwS6JJL6HxfzuBQm1JNW+0giiwAfAOauVIEhs=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Henry Wang <xin.wang2@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Henry Wang <xin.wang2@amd.com>, Wei Liu <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, Jan Beulich
+	<jbeulich@suse.com>
+Subject: [PATCH v3] tools/9pfsd: Fix build error caused by strerror_r
+Date: Thu, 7 Mar 2024 21:56:16 +0800
+Message-ID: <20240307135616.3953774-1-xin.wang2@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Date: Thu, 07 Mar 2024 14:52:51 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- julien@xen.org, George Dunlap <george.dunlap@citrix.com>, Wei Liu
- <wl@xen.org>
-Subject: Re: [XEN PATCH 10/10] xen/keyhandler: address violations of MISRA C
- Rule 20.7
-In-Reply-To: <c09db98c-2d04-428f-93a7-6a6900032054@suse.com>
-References: <cover.1709219010.git.nicola.vetrini@bugseng.com>
- <2bc4a964f0f2f47488e72237678e944dbdbd7bb7.1709219010.git.nicola.vetrini@bugseng.com>
- <alpine.DEB.2.22.394.2402291457000.853156@ubuntu-linux-20-04-desktop>
- <1afd8805-7365-40ec-8e8e-468a83e20c40@suse.com>
- <alpine.DEB.2.22.394.2403011716180.853156@ubuntu-linux-20-04-desktop>
- <d7411c57-32f3-41c6-8233-685ed5dfe976@suse.com>
- <alpine.DEB.2.22.394.2403041756140.853156@ubuntu-linux-20-04-desktop>
- <fe15bab2-3a48-4243-b50c-6d9854c218c2@suse.com>
- <alpine.DEB.2.22.394.2403061734250.853156@ubuntu-linux-20-04-desktop>
- <c09db98c-2d04-428f-93a7-6a6900032054@suse.com>
-Message-ID: <43b7edf1f4d9169a36198b18519c5714@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: xin.wang2@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C8:EE_|CH3PR12MB8880:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9323798b-54aa-45ba-74f5-08dc3eae5f74
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	jOToZOAqNWqYzVcLYojz+kHg3agXpGw0d6AvVwTwWl3lMwfwbjAL277fKgXKKLv5RYiq32At1neHsGVN5tTiqB5EJWCHuhCnVBYLTYJYiYYu1u2VVFuDhIaN5N4ELLSUhlirHCtqaY1Ku3cpspHuMlWCyB1XpX3LGwiknJbCiOi9GfXhM0Yiww/rj3pp1C6HDhZowZHEug5uTFaPtfBHQGYp/PofNcG/LFRpgVIJ0aLT6W76geJmOi1umKvNgworbo04s0+D0d5zxfBMWa1Mk9spV0LBWXe1vjll2U0AGEEM1WfMz0KBD7Lad6lDtWsRhonyNlG3cgQ/G0Z+wUVQJ4G1k2Vm5/jDXdf0C9XH3d5u+r99Nr1pXccgux8VrYog6Xac36qOPvZUmXlLkTpsawNjGYngaGUe1lXJ3N5/M8vyrHjEva8ajBFxM0d8b9KBB8isJpqJVki8q5XtYEiTHSObZQe7gozKkbKFcDUM4F8fevIRUWbUOtNj0JA4BeyxYOY/OYOxQQdTBepq4RO5H0/WuFsbKHCvODz2nZd2/en851j/+tB87x+Xx3Uc+k6WBkZOFgLX5fvBpjr+LugNN45tnAwCE/K9z1/pNdqKXfd3B4NtbTgQB8V7l9YnaCgGuBYcIH7sJenrKR23dCWNVkfGNIsSyFt6Tiu6rCFpazpZ1y28li/CF/MWsx7rCb7AjTWhdCxiuq442Nn/4cxxYuWW9vAjlwGmk1gyFykZCDC6jb0JUFPLPSfmYbwPmTrg
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(376005)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2024 13:56:22.5217
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9323798b-54aa-45ba-74f5-08dc3eae5f74
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001C8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8880
 
-On 2024-03-07 08:42, Jan Beulich wrote:
-> On 07.03.2024 02:39, Stefano Stabellini wrote:
->> On Tue, 5 Mar 2024, Jan Beulich wrote:
->>> On 05.03.2024 03:03, Stefano Stabellini wrote:
->>>> On Mon, 4 Mar 2024, Jan Beulich wrote:
->>>>> On 02.03.2024 02:37, Stefano Stabellini wrote:
->>>>>> On Fri, 1 Mar 2024, Jan Beulich wrote:
->>>>>>> On 29.02.2024 23:57, Stefano Stabellini wrote:
->>>>>>>> On Thu, 29 Feb 2024, Nicola Vetrini wrote:
->>>>>>>>> MISRA C Rule 20.7 states: "Expressions resulting from the 
->>>>>>>>> expansion
->>>>>>>>> of macro parameters shall be enclosed in parentheses". 
->>>>>>>>> Therefore, some
->>>>>>>>> macro definitions should gain additional parentheses to ensure 
->>>>>>>>> that all
->>>>>>>>> current and future users will be safe with respect to 
->>>>>>>>> expansions that
->>>>>>>>> can possibly alter the semantics of the passed-in macro 
->>>>>>>>> parameter.
->>>>>>>>> 
->>>>>>>>> No functional change.
->>>>>>>>> 
->>>>>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>>>>> 
->>>>>>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->>>>>>> 
->>>>>>> You did see the discussion on earlier patches, though? I don't 
->>>>>>> think
->>>>>>> any of the parentheses here are needed or wanted.
->>>>>> 
->>>>>> We need to align on this. Currently if we go by what's written in
->>>>>> docs/misra/deviations.rst, then rhs should have parentheses.
->>>>> 
->>>>> Quoting the actual patch again:
->>>> 
->>>> [...]
->>>> 
->>>>> What rhs are you talking about in light of this change? The only 
->>>>> rhs I
->>>>> can spot here is already parenthesized.
->>>> 
->>>> Yes you are right. I replied here as an overall comment about our
->>>> approach to 20.7, although this patch is not a good example. My 
->>>> reply
->>>> was meant in the context of 
->>>> https://marc.info/?l=xen-devel&m=170928051025701
->>> 
->>> I'm still confused: The rhs is being parenthsized there. It's the 
->>> _lhs_
->>> which isn't and ...
->>> 
->>>>>> Can we safely claim that rhs parentheses are never needed? If so, 
->>>>>> then
->>>>>> great, let's add it to deviations.rst and skip them here and other
->>>>>> places in this patch series (e.g. patch #8). When I say "never" I 
->>>>>> am
->>>>>> taking for granted that the caller is not doing something 
->>>>>> completely
->>>>>> unacceptably broken such as:
->>>>>> 
->>>>>>      WRITE_SYSREG64(var +, TTBR0_EL1)
->>>>> 
->>>>> I'm afraid I can't associate this with the patch here either. 
->>>>> Instead in
->>>>> the context here a (respective) construct as you mention above 
->>>>> would simply
->>>>> fail to build.
->>>> 
->>>> Fair enough it will break the build. I was trying to clarify that 
->>>> when I
->>>> wrote "the rhs parentheses are never needed" I meant "never" within
->>>> reason. One can always find ways to break the system and I tried to 
->>>> make
->>>> an example of something that for sure would break rhs or lhs without
->>>> parentheses.
->>>> 
->>>> I meant to say, if we don't account for exceptionally broken cases, 
->>>> can
->>>> we safety say we don't need parentheses for rhs?
->>> 
->>> ... doesn't need to, unless - as you say - one contrives examples. 
->>> Yet to
->>> clarify here as well: I assume you mean "we don't need parentheses 
->>> for lhs".
->> 
->> Yes. Far clarity, we are all aligned that lhs does not need 
->> parentheses
->> and in fact it is even already deviated in docs/misra/deviations.rst.
->> 
->> Now back to this specific patch.
->> 
->> The problem is that the comma ',' doesn't need parenthesis for the
->> parameters. However, the way we wrote the deviation in
->> docs/misra/deviations.rst doesn't cover the case this patch is dealing
->> with. docs/misra/deviations.rst only speaks of functions and macros
->> arguments.
->> 
->> Should we rephrase docs/misra/deviations.rst in terms of ',' instead ?
-> 
-> That's what I've requested elsewhere, yes.
-> 
->> Can ECLAR deal with it?
-> 
-> I seem to vaguely recall Nicola saying it can, but if not then it 
-> surely
-> can be made to do so.
-> 
-> Jan
+Below error can be seen when doing Yocto build of the toolstack:
 
-Yes. In v2 I'll write the deviation, so that this patch and other can be 
-dropped, since they only deal with this subcase.
+| io.c: In function 'p9_error':
+| io.c:684:5: error: ignoring return value of 'strerror_r' declared
+  with attribute 'warn_unused_result' [-Werror=unused-result]
+|   684 |     strerror_r(err, ring->buffer, ring->ring_size);
+|       |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+| cc1: all warnings being treated as errors
 
+Using strerror_r() without special casing different build environments
+is impossible due to the different return types (int vs char *)
+depending on the environment. As p9_error() is not on a performance
+critical path, using strerror() with a mutex ought to be fine. So,
+fix the build by using strerror() to replace strerror_r(). The steps
+would then become: Acquire the mutex first, invoke strerror(), copy
+the string from strerror() to the designated buffer and then drop the
+mutex.
+
+Fixes: f4900d6d69b5 ("9pfsd: allow building with old glibc")
+Signed-off-by: Henry Wang <xin.wang2@amd.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+v3:
+- Add in-code comment and commit msg to explain why use strerror_r().
+- Cosmetic and style changes about the logic.
+- Add Jan's Reviewed-by tag.
+- Add a "Fixes" tag.
+- Use a macro-defined value for the maximum error string length.
+---
+ tools/9pfsd/io.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/tools/9pfsd/io.c b/tools/9pfsd/io.c
+index adb887c7d9..df1be3df7d 100644
+--- a/tools/9pfsd/io.c
++++ b/tools/9pfsd/io.c
+@@ -677,11 +677,28 @@ static bool name_ok(const char *str)
+     return true;
+ }
+ 
++/* Including the '\0' */
++#define MAX_ERRSTR_LEN 80
+ static void p9_error(struct ring *ring, uint16_t tag, uint32_t err)
+ {
+     unsigned int erroff;
++    static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
++    char *str;
++    size_t len = 0;
++
++    /*
++     * While strerror_r() exists, it comes in a POSIX and a GNU flavor.
++     * Let's try to avoid trying to be clever with determining which
++     * one it is that the underlying C library offers, when really we
++     * don't expect this function to be called very often.
++     */
++    pthread_mutex_lock(&mutex);
++    str = strerror(err);
++    len = min(strlen(str), (size_t)(MAX_ERRSTR_LEN - 1));
++    memcpy(ring->buffer, str, len);
++    ((char *)ring->buffer)[len] = '\0';
++    pthread_mutex_unlock(&mutex);
+ 
+-    strerror_r(err, ring->buffer, ring->ring_size);
+     erroff = add_string(ring, ring->buffer, strlen(ring->buffer));
+     fill_buffer(ring, P9_CMD_ERROR, tag, "SU",
+                 erroff != ~0 ? ring->str + erroff : "cannot allocate memory",
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+2.34.1
+
 
