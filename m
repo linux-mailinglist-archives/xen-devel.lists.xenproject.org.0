@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E32C874E5B
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 12:56:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689805.1075125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A4A9874E67
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 12:57:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689810.1075136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riCLq-0002pY-8o; Thu, 07 Mar 2024 11:55:54 +0000
+	id 1riCNP-0003Mh-JF; Thu, 07 Mar 2024 11:57:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689805.1075125; Thu, 07 Mar 2024 11:55:54 +0000
+Received: by outflank-mailman (output) from mailman id 689810.1075136; Thu, 07 Mar 2024 11:57:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riCLq-0002nO-6C; Thu, 07 Mar 2024 11:55:54 +0000
-Received: by outflank-mailman (input) for mailman id 689805;
- Thu, 07 Mar 2024 11:55:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1riCNP-0003Ko-GV; Thu, 07 Mar 2024 11:57:31 +0000
+Received: by outflank-mailman (input) for mailman id 689810;
+ Thu, 07 Mar 2024 11:57:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NZPn=KN=linaro.org=manos.pitsidianakis@srs-se1.protection.inumbo.net>)
- id 1riCLo-0002nE-In
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 11:55:52 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a53a9652-dc79-11ee-afda-a90da7624cb6;
- Thu, 07 Mar 2024 12:55:51 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-412f55695d1so7252625e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 03:55:51 -0800 (PST)
-Received: from meli.delivery (adsl-101.109.242.224.tellas.gr.
- [109.242.224.101]) by smtp.gmail.com with ESMTPSA id
- r11-20020a05600c35cb00b004127057d6b9sm2517388wmq.35.2024.03.07.03.55.50
+ id 1riCNN-0003Ki-Ha
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 11:57:29 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id de3d06bb-dc79-11ee-a1ee-f123f15fe8a2;
+ Thu, 07 Mar 2024 12:57:27 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-33e383546c1so414375f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 03:57:27 -0800 (PST)
+Received: from meli.delivery (adsl-101.37.6.0.tellas.gr. [37.6.0.101])
+ by smtp.gmail.com with ESMTPSA id
+ ck4-20020a5d5e84000000b0033e2b9f647asm14506048wrb.31.2024.03.07.03.57.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Mar 2024 03:55:50 -0800 (PST)
+ Thu, 07 Mar 2024 03:57:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +45,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a53a9652-dc79-11ee-afda-a90da7624cb6
+X-Inumbo-ID: de3d06bb-dc79-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1709812551; x=1710417351; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1709812647; x=1710417447; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:in-reply-to
          :references:user-agent:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=S2WmJe5+VMgo3q0Y6DtKVBoMQYi4KEJJ63YECSnGdAI=;
-        b=ti9lqOzxB3HbfaCeLZHY9v7EZlsjgowvN1YP+0s7bhET55tmnJgDpTitGEjrdz6Ywz
-         uQmQF78ggM/vlzIp1gllsQb+BjDb8+2aqN+KWtcWg5qcEJcjpdDqb1MtiUdaMYj217+v
-         mzjyq3zAYP6pp00SnhbAzS71KDq5Sr4AZqs6Yta1a0lut5XBQBFRF7BwgOleVYmLcDsG
-         wBJeN90y4zJM+PWcXBQB6XnhO+/OS6w9GBsyAIma7oX42seAA63/0YIkIfkYIdChFiUH
-         FS8TXmG3Q9Y9CwGSeCWXr+kpSKJBHkj4UZ516to278B++g4jM2lXsyoGEuwazutcpzeI
-         DYJg==
+        bh=57A09yidrpDPUR1r7F8CHS4CvBdl9GurP/NjYKl3Cg4=;
+        b=eke7JxnznCc0A/kZKQdl5wxi1VxhfDQJdWJ2ilw3NL3MdP6Pc2tdcOriBRKL8LpiX3
+         PXjS3mwH5S2nqc+rc2GV5IwfTBbAi3MdEhva/Sj+vZiwId7E3v18KyCDhGiehZdfK/GM
+         wcvjaLyq7dUddhaDM36qerigS0xXo37HjASeX1xFTzuJPZnTSjHBCMCPXn7G9Kenr9lI
+         oDjFgXXfvyhbs0AGqqIh7Uu+BtBrxafPD7JrZ6sju6kqFmmg8EZWRjGvdVMj2fKOtvd2
+         4famhP7Qh9qRHkah5/DopySo0bnywT85AXBYGnThHpzqlacNyJp2PZ9gENW9ARpVo7XN
+         /rmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709812551; x=1710417351;
+        d=1e100.net; s=20230601; t=1709812647; x=1710417447;
         h=content-transfer-encoding:mime-version:message-id:in-reply-to
          :references:user-agent:subject:cc:to:from:date:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=S2WmJe5+VMgo3q0Y6DtKVBoMQYi4KEJJ63YECSnGdAI=;
-        b=X34X8ITZJkZxD2nfKD9NGAZu9KPQqAwd+Oofm/kOqzrKndQyIh+LlRig3sDm+6sUKY
-         cCmWYH9/asiEnzbGVBjEHj1q83Gxw5qyqPZs8KkNbGBuQPodmCW89BehT0Vnv167w+bV
-         tycAUdVFhdCIqMSrIFQsy8mpWbqqroWS2xG/ue3P6o7RDmAIIX8eW9Yg6PiI2n0uS/mb
-         laIb77QoMQUkOYma06f3rz+3lZJH58aVxyhE2Bw47EIK3n3ljRTZgXfKl5GRH5XhlvDZ
-         +fcsUnsDRDX/iu6Q78kAxJGAHcPvIpXNhVIXB5yd7Fr7pEFBcUca9cGEES4DsHf8Dezv
-         SLgg==
-X-Forwarded-Encrypted: i=1; AJvYcCV2x4X+FtM6OZaY08H909+txupaeTuUcCaorc7M2NpTzPxWTjnQzVWzguwlQG3eAKnJXSTp+pYR0jQmV07L152cnfH7s4aruc6V1FAYPJQ=
-X-Gm-Message-State: AOJu0YwowhDTSWPxeQtKXwpyXTk21HPBOC4jGOX/yoOzAypE0CBpahnZ
-	7gpL9EQ4uzAvqKFz/Xa5HHTwW2+YwHwhz2Ew8Qtx7pl7q8kFocnC1b6Ttc9alVU=
-X-Google-Smtp-Source: AGHT+IGSeoRtR4+ZIJLregRqLFeBUzAzoogr8Ud+254lhRno0eax5sWI6+KhquUo7luhLcS/qDwyrg==
-X-Received: by 2002:a05:600c:5247:b0:412:9dd0:f7e7 with SMTP id fc7-20020a05600c524700b004129dd0f7e7mr13265305wmb.22.1709812551075;
-        Thu, 07 Mar 2024 03:55:51 -0800 (PST)
-Date: Thu, 07 Mar 2024 13:54:35 +0200
+        bh=57A09yidrpDPUR1r7F8CHS4CvBdl9GurP/NjYKl3Cg4=;
+        b=UMOSgVtRK8q5L+n7SkRs1+cam7fIk5XpYUDW6x4cVJzrguXYJprR8yL3tn4KKQUclM
+         7ck7IgyfV6YNtqlJr2d5B+brPvqhYzncYYnho9Xhp69MLNbOjORzNSqQoVjtpqc83NbB
+         9TSosDIJhltHFb5PjO3Ely8V7JJUqw2EqjJW5COQY0LXSVBAPuKSgCwnPnvttSp+RsU3
+         hJInLDnOX76u8T0vNDLrO57u3ViOd3vTcXDVu+i6yii6z8hwiwup2P+FiUm17XtX5NXr
+         7KlQJqDsOBM3J8QwF+KKSzBcBAazrQHwv/GDHo7aZSDDst2+adn+MUXSGgbXHgd9gIaC
+         AIhQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXHw9Morm6qkLjNTgzG3MKnqctzsPQvIKAItdYLCKdPqOEY+rFoV+fWnyWr5n/Xs3Eq0kV3/LvPqWB2SnAo94nwk48v5/RV4XpRE3MyD2Y=
+X-Gm-Message-State: AOJu0Yza3Y79eERDHtskgiWQuZgpINTWKWIdrglSXxQIPuZVkGudI8X+
+	/YgNjNFKclkY0x9HzonbGhniyWdVCnY7Sc/OpU8OaC9f9wyEzFnEsKfNDnWIYDw=
+X-Google-Smtp-Source: AGHT+IESCFwpHQmPxOg130/0yHnqMR5/u93SMsub5nGrOR8b42+ayiblaPN9pioxp+dZdBxzB/xsng==
+X-Received: by 2002:a5d:6e90:0:b0:33e:d27:4f8c with SMTP id k16-20020a5d6e90000000b0033e0d274f8cmr12927971wrz.6.1709812647026;
+        Thu, 07 Mar 2024 03:57:27 -0800 (PST)
+Date: Thu, 07 Mar 2024 13:55:56 +0200
 From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-To: qemu-devel@nongnu.org, Philippe Mathieu-Daud=?UTF-8?B?w6kg?=<philmd@linaro.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, David Woodhouse <dwmw@amazon.co.uk>, Thomas Huth <thuth@redhat.com>, qemu-arm@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, Alex Benn=?UTF-8?B?w6k=?= e <alex.bennee@linaro.org>, xen-devel@lists.xenproject.org, Philippe Mathieu-Daud=?UTF-8?B?w6kg?=<philmd@linaro.org>, Peter Maydell <peter.maydell@linaro.org>, "Michael S. Tsirkin" <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Richard Henderson <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>
-Subject: Re: [PATCH-for-9.0 4/9] hw/xen/hvm: Expose xen_memory_listener declaration
+To: qemu-arm@nongnu.org, Philippe Mathieu-Daud=?UTF-8?B?w6kg?=<philmd@linaro.org>, qemu-devel@nongnu.org
+Cc: Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, David Woodhouse <dwmw@amazon.co.uk>, Thomas Huth <thuth@redhat.com>, qemu-arm@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, Alex Benn=?UTF-8?B?w6k=?= e <alex.bennee@linaro.org>, xen-devel@lists.xenproject.org, Philippe Mathieu-Daud=?UTF-8?B?w6kg?=<philmd@linaro.org>, Richard Henderson <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>, "Michael S. Tsirkin" <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
+Subject: Re: [PATCH-for-9.0 5/9] hw/xen/hvm: Expose xen_read_physmap() prototype
 User-Agent: meli 0.8.5-rc.3
-References: <20231114163123.74888-1-philmd@linaro.org> <20231114163123.74888-5-philmd@linaro.org>
-In-Reply-To: <20231114163123.74888-5-philmd@linaro.org>
-Message-ID: <9z7t0.nx533lxsltko@linaro.org>
+References: <20231114163123.74888-1-philmd@linaro.org> <20231114163123.74888-6-philmd@linaro.org>
+In-Reply-To: <20231114163123.74888-6-philmd@linaro.org>
+Message-ID: <9z7vo.cvkkbfxdigjz@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset=utf-8; format=flowed
 
 On Tue, 14 Nov 2023 18:31, Philippe Mathieu-Daudé <philmd@linaro.org> wrote:
->There can only be a single xen_memory_listener definition
->in a qemu-system binary.
+>In a pair of commit we are going to call xen_read_physmap()
+>out of hw/i386/xen/xen-hvm.c.
 >
 >Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 >---
 > include/hw/xen/xen-hvm-common.h | 1 +
-> hw/arm/xen_arm.c                | 2 +-
-> hw/i386/xen/xen-hvm.c           | 2 +-
-> 3 files changed, 3 insertions(+), 2 deletions(-)
+> hw/i386/xen/xen-hvm.c           | 4 ++--
+> 2 files changed, 3 insertions(+), 2 deletions(-)
 >
 >diff --git a/include/hw/xen/xen-hvm-common.h b/include/hw/xen/xen-hvm-common.h
->index 83ed16f425..0fed15ed04 100644
+>index 0fed15ed04..536712dc83 100644
 >--- a/include/hw/xen/xen-hvm-common.h
 >+++ b/include/hw/xen/xen-hvm-common.h
->@@ -18,6 +18,7 @@
-> extern MemoryRegion xen_memory;
-> extern MemoryListener xen_io_listener;
-> extern DeviceListener xen_device_listener;
->+extern const MemoryListener xen_memory_listener;
+>@@ -97,6 +97,7 @@ void xen_register_ioreq(XenIOState *state, unsigned int max_cpus,
 > 
-> //#define DEBUG_XEN_HVM
+> void cpu_ioreq_pio(ioreq_t *req);
 > 
->diff --git a/hw/arm/xen_arm.c b/hw/arm/xen_arm.c
->index b478d74ea0..39dcd74d07 100644
->--- a/hw/arm/xen_arm.c
->+++ b/hw/arm/xen_arm.c
->@@ -38,7 +38,7 @@
-> #define TYPE_XEN_ARM  MACHINE_TYPE_NAME("xenpvh")
-> OBJECT_DECLARE_SIMPLE_TYPE(XenArmState, XEN_ARM)
-> 
->-static const MemoryListener xen_memory_listener = {
->+const MemoryListener xen_memory_listener = {
->     .region_add = xen_region_add,
->     .region_del = xen_region_del,
->     .log_start = NULL,
+>+void xen_read_physmap(XenIOState *state);
+> void xen_arch_handle_ioreq(XenIOState *state, ioreq_t *req);
+> void xen_arch_set_memory(XenIOState *state,
+>                          MemoryRegionSection *section,
 >diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
->index b64204ea94..a65a96f0de 100644
+>index a65a96f0de..789779d02c 100644
 >--- a/hw/i386/xen/xen-hvm.c
 >+++ b/hw/i386/xen/xen-hvm.c
->@@ -469,7 +469,7 @@ static void xen_log_global_stop(MemoryListener *listener)
->     xen_in_migration = false;
+>@@ -525,7 +525,7 @@ static void handle_vmport_ioreq(XenIOState *state, ioreq_t *req)
 > }
 > 
->-static const MemoryListener xen_memory_listener = {
->+const MemoryListener xen_memory_listener = {
->     .name = "xen-memory",
->     .region_add = xen_region_add,
->     .region_del = xen_region_del,
+> #ifdef XEN_COMPAT_PHYSMAP
+>-static void xen_read_physmap(XenIOState *state)
+>+void xen_read_physmap(XenIOState *state)
+> {
+>     XenPhysmap *physmap = NULL;
+>     unsigned int len, num, i;
+>@@ -573,7 +573,7 @@ static void xen_read_physmap(XenIOState *state)
+>     free(entries);
+> }
+> #else
+>-static void xen_read_physmap(XenIOState *state)
+>+void xen_read_physmap(XenIOState *state)
+> {
+> }
+> #endif
 >-- 
 >2.41.0
 >
 >
-
 
 Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
