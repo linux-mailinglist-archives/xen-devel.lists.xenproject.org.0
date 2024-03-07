@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C61238745C6
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 02:52:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689614.1074770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74D2E8745E8
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 03:09:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689618.1074781 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri2ug-0004iB-3l; Thu, 07 Mar 2024 01:51:14 +0000
+	id 1ri3CE-0007gd-DF; Thu, 07 Mar 2024 02:09:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689614.1074770; Thu, 07 Mar 2024 01:51:14 +0000
+Received: by outflank-mailman (output) from mailman id 689618.1074781; Thu, 07 Mar 2024 02:09:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri2ug-0004hE-0x; Thu, 07 Mar 2024 01:51:14 +0000
-Received: by outflank-mailman (input) for mailman id 689614;
- Thu, 07 Mar 2024 01:51:12 +0000
+	id 1ri3CE-0007el-A4; Thu, 07 Mar 2024 02:09:22 +0000
+Received: by outflank-mailman (input) for mailman id 689618;
+ Thu, 07 Mar 2024 02:09:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nvJe=KN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ri2ue-0004h8-ES
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 01:51:12 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1ri3CC-0007bR-2y
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 02:09:20 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2819e9e0-dc25-11ee-afda-a90da7624cb6;
- Thu, 07 Mar 2024 02:51:05 +0100 (CET)
+ id b2f2aa8a-dc27-11ee-afda-a90da7624cb6;
+ Thu, 07 Mar 2024 03:09:17 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 4D95A61A3E;
- Thu,  7 Mar 2024 01:51:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7483C433F1;
- Thu,  7 Mar 2024 01:51:00 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id E9D23CE2364;
+ Thu,  7 Mar 2024 02:09:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16593C433F1;
+ Thu,  7 Mar 2024 02:09:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,283 +41,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2819e9e0-dc25-11ee-afda-a90da7624cb6
+X-Inumbo-ID: b2f2aa8a-dc27-11ee-afda-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709776262;
-	bh=R/F1ZSbpZekKrxNMmgsEC5tthbinM6LLxoMhze4B9pg=;
+	s=k20201202; t=1709777352;
+	bh=hYROHoVH0buEWWfmdF9lYIqOOaFMpk53Aaj3DKaC1uA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=CQJYAn61BKlYlIwGv8Is9yXYj5aZwec5Yk7lGaSAZca500AVqd5Z78/d8WQlG0AKb
-	 OFzJAC8JW0SZ9PTb6MmjxW/PhtnKGx1gKurUlJ4sbSJIhgecsmyM4pjjirrr3p5vtK
-	 djeK51MGCIMIDghgrF5EtuI6iti+e+qs1yVHdWv1oeICk6ZuoFpEnQE1FErujsq0d2
-	 6D6CyEe6WsVkW3kmZVsHKxah23msyrO/IUDOAIWSNtzRZkMvsmItSSZsPkNtj0yqzn
-	 RdhvP8Ow09BMK1EB62LvL+dzJJwrL+HiNYK2abnhvMTtkkunLCY9SW+DiVWgbD2bek
-	 uaC2b8CGvDcbw==
-Date: Wed, 6 Mar 2024 17:50:59 -0800 (PST)
+	b=eLi548Y2tDV6U5/gKH6izQuz+bR+LjEYJ8FvYnbS5BDBjHdzqE+ELHKk1pukD17Dy
+	 G12/i+ik2bwV8A+VlSh0x5pQ+YiHw03YJA8ieXMv0Kh4V2IRKF2mcRGbbeKH/1aXcJ
+	 EC5MO4nDakULFvjfUlkl+Sp/+SvSNsWP5vkianR06fndKO9p9kHkUJ2aIY+YTROi8y
+	 KYZeOjcTTSN9/QQ5wbf2gLeOeR3tcICwR3pToGclEjCCTyQXwkuX+SorRY4ELd6leC
+	 JLBwRGirfqz72vsTWYo109ozlpeOpRyvLw9L6Uint3w04O5DRrZ3QWKCVuEVehJZX/
+	 FpHjgSLzqISTQ==
+Date: Wed, 6 Mar 2024 18:09:09 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
-    Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
-    x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    linux-kernel@vger.kernel.org, Jan Beulich <jbeulich@suse.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH RFC] x86/xen: attempt to inflate the memory balloon on
- PVH
-In-Reply-To: <Zec_SGeM5bF3DPgj@macbook>
-Message-ID: <alpine.DEB.2.22.394.2403061749190.853156@ubuntu-linux-20-04-desktop>
-References: <20240220174341.56131-1-roger.pau@citrix.com> <alpine.DEB.2.22.394.2402221701190.754277@ubuntu-linux-20-04-desktop> <Zec_SGeM5bF3DPgj@macbook>
+To: Jason Andryuk <jason.andryuk@amd.com>
+cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH 3/3] x86/PVH: Support relocatable dom0 kernels
+In-Reply-To: <20240306185032.103216-4-jason.andryuk@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2403061805440.853156@ubuntu-linux-20-04-desktop>
+References: <20240306185032.103216-1-jason.andryuk@amd.com> <20240306185032.103216-4-jason.andryuk@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1275602164-1709776262=:853156"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1275602164-1709776262=:853156
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 5 Mar 2024, Roger Pau Monné wrote:
-> On Thu, Feb 22, 2024 at 05:16:09PM -0800, Stefano Stabellini wrote:
-> > On Tue, 20 Feb 2024, Roger Pau Monne wrote:
-> > > When running as PVH or HVM Linux will use holes in the memory map as scratch
-> > > space to map grants, foreign domain pages and possibly miscellaneous other
-> > > stuff.  However the usage of such memory map holes for Xen purposes can be
-> > > problematic.  The request of holesby Xen happen quite early in the kernel boot
-> > > process (grant table setup already uses scratch map space), and it's possible
-> > > that by then not all devices have reclaimed their MMIO space.  It's not
-> > > unlikely for chunks of Xen scratch map space to end up using PCI bridge MMIO
-> > > window memory, which (as expected) causes quite a lot of issues in the system.
-> > 
-> > Am I understanding correctly that XEN_BALLOON_MEMORY_HOTPLUG doesn't
-> > help because it becomes available too late in the PVH boot sequence? 
+On Wed, 6 Mar 2024, Jason Andryuk wrote:
+> Xen tries to load a PVH dom0 kernel at the fixed guest physical address
+> from the elf headers.  For Linux, this defaults to 0x1000000 (16MB), but
+> it can be configured.
 > 
-> No, not really, the hoptplug mechanism is available as early as the
-> balloon driver requires, the issue is that when Linux starts making
-> use of such unpopulated ranges (for example in order to map the shared
-> info page) many drivers have not yet reserved their MMIO regions, and so it's
-> not uncommon for the balloon driver to end up using address ranges that
-> would otherwise be used by device BARs for example.
+> Unfortunately there exist firmwares that have reserved regions at this
+> address, so Xen fails to load the dom0 kernel since it's not RAM.
 > 
-> This causes havoc, Linux starts to reposition device BARs, sometimes
-> it can manage to re-position them, otherwise some devices are not
-> usable.
-
-OK this is bad
-
-
-> > > At least for PVH dom0 we have the possibility of using regions marked as
-> > > UNUSABLE in the e820 memory map.  Either if the region is UNUSABLE in the
-> > > native memory map, or it has been converted into UNUSABLE in order to hide RAM
-> > > regions from dom0, the second stage translation page-tables can populate those
-> > > areas without issues.
-> > > 
-> > > PV already has this kind of logic, where the balloon driver is inflated at
-> > > boot.  Re-use the current logic in order to also inflate it when running as
-> > > PVH.  onvert UNUSABLE regions up to the ratio specified in EXTRA_MEM_RATIO to
-> > > RAM, while reserving them using xen_add_extra_mem() (which is also moved so
-> > > it's no longer tied to CONFIG_PV).
-> > > 
-> > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > > ---
-> > > RFC reasons:
-> > > 
-> > >  * Note that it would be preferred for the hypervisor to provide an explicit
-> > >    range to be used as scratch mapping space, but that requires changes to Xen,
-> > >    and it's not fully clear whether Xen can figure out the position of all MMIO
-> > >    regions at boot in order to suggest a scratch mapping region for dom0.
-> > > 
-> > >  * Should the whole set of xen_{add,del,chk,inv}_extra_mem() functions be moved
-> > >    to a different file?  For the purposes of PVH only xen_add_extra_mem() is
-> > >    moved and the chk and inv ones are PV specific and might not want moving to
-> > >    a separate file just to guard them with CONFIG_PV.
-> > > ---
-> > >  arch/x86/include/asm/xen/hypervisor.h |  1 +
-> > >  arch/x86/platform/pvh/enlighten.c     |  3 ++
-> > >  arch/x86/xen/enlighten.c              | 32 +++++++++++++
-> > >  arch/x86/xen/enlighten_pvh.c          | 68 +++++++++++++++++++++++++++
-> > >  arch/x86/xen/setup.c                  | 44 -----------------
-> > >  arch/x86/xen/xen-ops.h                | 14 ++++++
-> > >  drivers/xen/balloon.c                 |  2 -
-> > >  7 files changed, 118 insertions(+), 46 deletions(-)
-> > > 
-> > > diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
-> > > index a9088250770f..31e2bf8d5db7 100644
-> > > --- a/arch/x86/include/asm/xen/hypervisor.h
-> > > +++ b/arch/x86/include/asm/xen/hypervisor.h
-> > > @@ -62,6 +62,7 @@ void xen_arch_unregister_cpu(int num);
-> > >  #ifdef CONFIG_PVH
-> > >  void __init xen_pvh_init(struct boot_params *boot_params);
-> > >  void __init mem_map_via_hcall(struct boot_params *boot_params_p);
-> > > +void __init xen_reserve_extra_memory(struct boot_params *bootp);
-> > >  #endif
-> > >  
-> > >  /* Lazy mode for batching updates / context switch */
-> > > diff --git a/arch/x86/platform/pvh/enlighten.c b/arch/x86/platform/pvh/enlighten.c
-> > > index 00a92cb2c814..a12117f3d4de 100644
-> > > --- a/arch/x86/platform/pvh/enlighten.c
-> > > +++ b/arch/x86/platform/pvh/enlighten.c
-> > > @@ -74,6 +74,9 @@ static void __init init_pvh_bootparams(bool xen_guest)
-> > >  	} else
-> > >  		xen_raw_printk("Warning: Can fit ISA range into e820\n");
-> > >  
-> > > +	if (xen_guest)
-> > > +		xen_reserve_extra_memory(&pvh_bootparams);
-> > > +
-> > >  	pvh_bootparams.hdr.cmd_line_ptr =
-> > >  		pvh_start_info.cmdline_paddr;
-> > >  
-> > > diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
-> > > index 3c61bb98c10e..a01ca255b0c6 100644
-> > > --- a/arch/x86/xen/enlighten.c
-> > > +++ b/arch/x86/xen/enlighten.c
-> > > @@ -6,6 +6,7 @@
-> > >  #include <linux/console.h>
-> > >  #include <linux/cpu.h>
-> > >  #include <linux/kexec.h>
-> > > +#include <linux/memblock.h>
-> > >  #include <linux/slab.h>
-> > >  #include <linux/panic_notifier.h>
-> > >  
-> > > @@ -350,3 +351,34 @@ void xen_arch_unregister_cpu(int num)
-> > >  }
-> > >  EXPORT_SYMBOL(xen_arch_unregister_cpu);
-> > >  #endif
-> > > +
-> > > +/* Amount of extra memory space we add to the e820 ranges */
-> > > +struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
-> > > +
-> > > +void __init xen_add_extra_mem(unsigned long start_pfn, unsigned long n_pfns)
-> > > +{
-> > > +	unsigned int i;
-> > > +
-> > > +	/*
-> > > +	 * No need to check for zero size, should happen rarely and will only
-> > > +	 * write a new entry regarded to be unused due to zero size.
-> > > +	 */
-> > > +	for (i = 0; i < XEN_EXTRA_MEM_MAX_REGIONS; i++) {
-> > > +		/* Add new region. */
-> > > +		if (xen_extra_mem[i].n_pfns == 0) {
-> > > +			xen_extra_mem[i].start_pfn = start_pfn;
-> > > +			xen_extra_mem[i].n_pfns = n_pfns;
-> > > +			break;
-> > > +		}
-> > > +		/* Append to existing region. */
-> > > +		if (xen_extra_mem[i].start_pfn + xen_extra_mem[i].n_pfns ==
-> > > +		    start_pfn) {
-> > > +			xen_extra_mem[i].n_pfns += n_pfns;
-> > > +			break;
-> > > +		}
-> > > +	}
-> > > +	if (i == XEN_EXTRA_MEM_MAX_REGIONS)
-> > > +		printk(KERN_WARNING "Warning: not enough extra memory regions\n");
-> > > +
-> > > +	memblock_reserve(PFN_PHYS(start_pfn), PFN_PHYS(n_pfns));
-> > > +}
-> > > diff --git a/arch/x86/xen/enlighten_pvh.c b/arch/x86/xen/enlighten_pvh.c
-> > > index ada3868c02c2..c28f073c1df5 100644
-> > > --- a/arch/x86/xen/enlighten_pvh.c
-> > > +++ b/arch/x86/xen/enlighten_pvh.c
-> > > @@ -1,6 +1,7 @@
-> > >  // SPDX-License-Identifier: GPL-2.0
-> > >  #include <linux/acpi.h>
-> > >  #include <linux/export.h>
-> > > +#include <linux/mm.h>
-> > >  
-> > >  #include <xen/hvc-console.h>
-> > >  
-> > > @@ -72,3 +73,70 @@ void __init mem_map_via_hcall(struct boot_params *boot_params_p)
-> > >  	}
-> > >  	boot_params_p->e820_entries = memmap.nr_entries;
-> > >  }
-> > > +
-> > > +/*
-> > > + * Reserve e820 UNUSABLE regions to inflate the memory balloon.
-> > > + *
-> > > + * On PVH dom0 the host memory map is used, RAM regions available to dom0 are
-> > > + * located as the same place as in the native memory map, but since dom0 gets
-> > > + * less memory than the total amount of host RAM the ranges that can't be
-> > > + * populated are converted from RAM -> UNUSABLE.  Use such regions (up to the
-> > > + * ratio signaled in EXTRA_MEM_RATIO) in order to inflate the balloon driver at
-> > > + * boot.  Doing so prevents the guest (even if just temporary) from using holes
-> > > + * in the memory map in order to map grants or foreign addresses, and
-> > > + * hopefully limits the risk of a clash with a device MMIO region.  Ideally the
-> > > + * hypervisor should notify us which memory ranges are suitable for creating
-> > > + * foreign mappings, but that's not yet implemented.
-> > > + */
-> > > +void __init xen_reserve_extra_memory(struct boot_params *bootp)
-> > > +{
-> > > +	unsigned int i, ram_pages = 0, extra_pages;
-> > > +
-> > > +	for (i = 0; i < bootp->e820_entries; i++) {
-> > > +		struct boot_e820_entry *e = &bootp->e820_table[i];
-> > > +
-> > > +		if (e->type != E820_TYPE_RAM)
-> > > +			continue;
-> > > +		ram_pages += PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr);
-> > > +	}
-> > > +
-> > > +	/* Max amount of extra memory. */
-> > > +	extra_pages = EXTRA_MEM_RATIO * ram_pages;
-> > > +
-> > > +	/*
-> > > +	 * Convert UNUSABLE ranges to RAM and reserve them for foreign mapping
-> > > +	 * purposes.
-> > > +	 */
-> > > +	for (i = 0; i < bootp->e820_entries && extra_pages; i++) {
-> > > +		struct boot_e820_entry *e = &bootp->e820_table[i];
-> > > +		unsigned long pages;
-> > > +
-> > > +		if (e->type != E820_TYPE_UNUSABLE)
-> > > +			continue;
-> > > +
-> > > +		pages = min(extra_pages,
-> > > +			PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr));
-> > > +
-> > > +		if (pages != (PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr))) {
-> > > +			struct boot_e820_entry *next;
-> > > +
-> > > +			if (bootp->e820_entries ==
-> > > +			    ARRAY_SIZE(bootp->e820_table))
-> > > +				/* No space left to split - skip region. */
-> > > +				continue;
-> > > +
-> > > +			/* Split entry. */
-> > > +			next = e + 1;
-> > > +			memmove(next, e,
-> > > +				(bootp->e820_entries - i) * sizeof(*e));
-> > > +			bootp->e820_entries++;
-> > > +			next->addr = PAGE_ALIGN(e->addr) + PFN_PHYS(pages);
-> > > +			e->size = next->addr - e->addr;
-> > > +			next->size -= e->size;
-> > 
-> > Is this really worth doing? Can we just skip this range and continue or
-> > simply break out and call it a day? Or even add the whole range instead?
-> > 
-> > The reason I am asking is that I am expecting E820_TYPE_UNUSABLE regions
-> > not to be huge. Splitting one just to cover the few remaining pages out
-> > of extra_pages doesn't seem worth it?
+> The PVH entry code is not relocatable - it loads from absolute
+> addresses, which fail when the kernel is loaded at a different address.
+> With a suitably modified kernel, a reloctable entry point is possible.
 > 
-> No, they are usually quite huge on PVH dom0, because when building a
-> PVH dom0 the E820_TYPE_RAM ranges that are not made available to dom0
-> because of a dom0_mem option end up being reported as
-> E820_TYPE_UNUSABLE in the e820 provided to dom0.
+> Add the XENFEAT_pvh_relocatable flag to let a kernel indicate that it
+> supports a relocatable entry path.
 > 
-> That's mostly the motivation of the change, to be able to reuse those
-> ranges as scratch space for foreign mappings.
+> Change the loading to check for an acceptable load address.  If the
+> kernel is relocatable, support finding an alternate load address.
 > 
-> Ideally the hypervisor should somehow report suitable ranges in the
-> address space for domains to create foreign mappings, but this does
-> require an amount of extra work I don't have time to do ATM, hence
-> this stopgap proposal.
+> Linux cares about its physical alignment.  This can be pulled out of the
+> bzImage header, but not from the vmlinux ELF file.  If an alignment
+> can't be found, use 2MB.
+> 
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+> Put alignment as a new ELF note?  Presence of that note would indicate
+> relocation support without a new XENFEAT flag.
+> 
+> Default alignment to a multiple of 2MB to make more cases work?  It has
+> to be a power of two, and a multiple might allow loading a customized
+> kernel.  A larger alignment would limit the number of possible load
+> locations.
+> ---
+>  xen/arch/x86/hvm/dom0_build.c | 109 ++++++++++++++++++++++++++++++++++
+>  xen/include/public/features.h |   5 ++
+>  2 files changed, 114 insertions(+)
+> 
+> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+> index bbae8a5645..34d68ee8fb 100644
+> --- a/xen/arch/x86/hvm/dom0_build.c
+> +++ b/xen/arch/x86/hvm/dom0_build.c
+> @@ -537,6 +537,109 @@ static paddr_t __init find_memory(
+>      return INVALID_PADDR;
+>  }
+>  
+> +static bool __init check_load_address(
+> +    const struct domain *d, const struct elf_binary *elf)
+> +{
+> +    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
+> +    paddr_t kernel_end = ROUNDUP((paddr_t)elf->dest_base + elf->dest_size,
+> +                                 PAGE_SIZE);
+> +    unsigned int i;
+> +
+> +    /*
+> +     * The memory map is sorted and all RAM regions starts and sizes are
+> +     * aligned to page boundaries.
+> +     */
+> +    for ( i = 0; i < d->arch.nr_e820; i++ )
+> +    {
+> +        paddr_t start = d->arch.e820[i].addr;
+> +        paddr_t end = d->arch.e820[i].addr + d->arch.e820[i].size;
+> +
+> +        if ( start <= kernel_start &&
+> +             end >= kernel_end &&
+> +             d->arch.e820[i].type == E820_RAM )
+> +            return true;
+> +    }
+> +
+> +    return false;
+> +}
+> +
+> +/*
+> + * Find an e820 RAM region that fits the kernel at a suitable alignment.
+> + */
+> +static paddr_t find_kernel_memory(
+> +    const struct domain *d, struct elf_binary *elf, paddr_t align)
+> +{
+> +    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
+> +    paddr_t kernel_end = ROUNDUP((paddr_t)elf->dest_base + elf->dest_size,
+> +                                 PAGE_SIZE);
+> +    unsigned int i;
+> +
+> +    /*
+> +     * The memory map is sorted and all RAM regions starts and sizes are
+> +     * aligned to page boundaries.
+> +     */
+> +    for ( i = 0; i < d->arch.nr_e820; i++ )
+> +    {
+> +        paddr_t start = d->arch.e820[i].addr;
+> +        paddr_t end = d->arch.e820[i].addr + d->arch.e820[i].size;
+> +        paddr_t kstart, kend, offset;
+> +
+> +        if ( d->arch.e820[i].type != E820_RAM )
+> +            continue;
+> +
+> +        if ( d->arch.e820[i].size < elf->dest_size )
+> +            continue;
+> +
+> +        if ( end < kernel_end )
+> +            continue;
 
-I see. We have gained this feature on ARM not long ago for Dom0 and
-Dom0less guests.
+Why this check? Is it to make sure we look for e820 regions that are
+higher in terms of addresses? If so, couldn't we start from
+d->arch.nr_e820 and go down instead of starting from 0 and going up?
 
-All right, I have no reservations. The patch looks OK to me. Juergen?
---8323329-1275602164-1709776262=:853156--
+The PVH entry point is a 32-bit entry point if I remember right? Do we
+need a 32-bit check? If so then it might not be a good idea to start
+from arch.nr_e820 and go down.
+
+
+
+> +        kstart = ROUNDUP(start, align);
+> +        offset = kstart - kernel_start;
+> +        kend = kernel_end + offset;
+> +
+> +        if ( kend <= end )
+> +            return offset;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +/*
+> + * Check the kernel load address, and adjust if necessary and possible.
+> + */
+> +static bool __init adjust_load_address(
+> +    const struct domain *d, struct elf_binary *elf, struct elf_dom_parms *parms,
+> +    paddr_t align)
+> +{
+> +    paddr_t offset;
+> +
+> +    /* Check load address */
+> +    if ( check_load_address(d, elf) )
+> +        return true;
+> +
+> +    if ( !test_bit(XENFEAT_pvh_relocatable, parms->f_supported) )
+> +    {
+> +        printk("Address conflict and %pd kernel is not relocatable\n", d);
+> +        return false;
+> +    }
+> +
+> +    if ( align == 0 )
+> +        align = MB(2);
+> +
+> +    offset = find_kernel_memory(d, elf, align);
+> +    if ( offset == 0 )
+> +    {
+> +        printk("Failed find a load offset for the kernel\n");
+> +        return false;
+> +    }
+> +
+> +    printk("Adjusting load address by %#lx\n", offset);
+> +    elf->dest_base += offset;
+> +    parms->phys_entry += offset;
+> +
+> +    return true;
+> +}
+> +
+>  static int __init pvh_load_kernel(struct domain *d, const module_t *image,
+>                                    unsigned long image_headroom,
+>                                    module_t *initrd, void *image_base,
+> @@ -587,6 +690,12 @@ static int __init pvh_load_kernel(struct domain *d, const module_t *image,
+>      elf.dest_base = (void *)(parms.virt_kstart - parms.virt_base);
+>      elf.dest_size = parms.virt_kend - parms.virt_kstart;
+>  
+> +    if ( !adjust_load_address(d, &elf, &parms, align) )
+> +    {
+> +        printk("Unable to load kernel\n");
+> +        return -ENOMEM;
+> +    }
+> +
+>      elf_set_vcpu(&elf, v);
+>      rc = elf_load_binary(&elf);
+>      if ( rc < 0 )
+> diff --git a/xen/include/public/features.h b/xen/include/public/features.h
+> index 4437f25d25..300480cb22 100644
+> --- a/xen/include/public/features.h
+> +++ b/xen/include/public/features.h
+> @@ -120,6 +120,11 @@
+>  #define XENFEAT_runstate_phys_area        18
+>  #define XENFEAT_vcpu_time_phys_area       19
+>  
+> +/*
+> + * PVH: If set, the guest supports relocation in load address.
+> + */
+> +#define XENFEAT_pvh_relocatable           20
+> +
+>  #define XENFEAT_NR_SUBMAPS 1
+>  
+>  #endif /* __XEN_PUBLIC_FEATURES_H__ */
+> -- 
+> 2.44.0
+> 
+> 
 
