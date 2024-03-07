@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C004C875B12
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Mar 2024 00:24:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.690062.1075718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F8ED875B26
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Mar 2024 00:35:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.690066.1075728 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riN4d-0005Ee-I6; Thu, 07 Mar 2024 23:22:51 +0000
+	id 1riNGN-0007of-Iy; Thu, 07 Mar 2024 23:34:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 690062.1075718; Thu, 07 Mar 2024 23:22:51 +0000
+Received: by outflank-mailman (output) from mailman id 690066.1075728; Thu, 07 Mar 2024 23:34:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riN4d-0005Cg-FT; Thu, 07 Mar 2024 23:22:51 +0000
-Received: by outflank-mailman (input) for mailman id 690062;
- Thu, 07 Mar 2024 23:22:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1riNGN-0007mM-GI; Thu, 07 Mar 2024 23:34:59 +0000
+Received: by outflank-mailman (input) for mailman id 690066;
+ Thu, 07 Mar 2024 23:34:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qXJj=KN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1riN4c-0005CT-Bp
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 23:22:50 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b6960ea-dcd9-11ee-a1ee-f123f15fe8a2;
- Fri, 08 Mar 2024 00:22:47 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-413131d40f4so2135205e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 15:22:47 -0800 (PST)
+ id 1riNGM-0007mC-7p
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 23:34:58 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4eb2b697-dcdb-11ee-afda-a90da7624cb6;
+ Fri, 08 Mar 2024 00:34:57 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-413161dae46so4488755e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 15:34:57 -0800 (PST)
 Received: from [192.168.86.29] ([83.104.235.82])
  by smtp.gmail.com with ESMTPSA id
- y24-20020a05600c341800b00412f6f4dea4sm3901363wmp.41.2024.03.07.15.22.45
+ bq26-20020a5d5a1a000000b0033e2777f313sm16689938wrb.72.2024.03.07.15.34.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Mar 2024 15:22:45 -0800 (PST)
+ Thu, 07 Mar 2024 15:34:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b6960ea-dcd9-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 4eb2b697-dcdb-11ee-afda-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709853766; x=1710458566; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1709854497; x=1710459297; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ex4/icQFidJpYIkE03Yk5gfU4TXdYqbRCh9cL/On5yw=;
-        b=KRTWRPbKbXeg0P1e+88hVExKPHY7F1Zfg9QeQaXzq+8hwOXyBKBW1BP2tYy5aTPFiR
-         T8jwqK8mGcDWtSngRRMGA1E51nmileIaRkrC9WUehCAh4tQoy0SY1IpxMaLHfTf3SHVM
-         NBXDxcZqOgTFvjl5/odrPEwtaY2Yxp2G/3Kvc=
+        bh=m+77g2/BzW4D6dQgLN0/JFcef5gXJ4V23qaqh5TBrxg=;
+        b=eMl2W1PhlLyeW6e+9/ZxvlIzQvkooou8mN1moQTurd1w3Lg7OCFKti7Ieag5Ux1AV7
+         B3Zp/MK5y8XP8+aZoljh1LFVOxNNRrghZSfSFkqbiu1Bo4Oq6T24CVG9g+I9aH4D1bCl
+         0zK371DOwM3rCRlqx0tu0cCNwErKybrgrFCnQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709853766; x=1710458566;
+        d=1e100.net; s=20230601; t=1709854497; x=1710459297;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ex4/icQFidJpYIkE03Yk5gfU4TXdYqbRCh9cL/On5yw=;
-        b=TafA2EFm8rY/lpXP8qt2pWxURh5QCgHlNgCcU/alnrhqPdYYsVtVTYaO8t0DIxyErP
-         phzz+qI2x4sdYDRxY1ZGvDjWKkJG3+yUcOkxucAOLshM5C2oJQSmY0pKZprzY5cVODty
-         zonuz0XvveQlWqqXI/hP24xONTTcZ0dIxWJR0Ek2bA/qt/i0IA/9DRxIuFEai4KdDgWt
-         4yNHKl+nS3gS48DxPhdH3tiJySVmUAa468wNle7mgp1wrEAXKgN3AIXq2uT9YKMkVwQW
-         +Ku+v16OV24a0Grkerw7gFq4WPPjgjFT4rvaPK2ZR6oP4xrnRkFTBbE5NzvSI1QKlo7P
-         rVcw==
-X-Forwarded-Encrypted: i=1; AJvYcCW+xyjk+WkTf3BwVl/0enSy/xouL29RtDhhwhegjTVODICqdL3/E5oUMYPMZoziZgUXI/2QIsnFTW/oQSAn5iXxc55GkfJB+z1LYT2zkPg=
-X-Gm-Message-State: AOJu0YyFUZfCPmPfncq/WeJ75qkAEEElXBQ+jO/uTlctJm2ZaC+55h78
-	pEySe42nNVbMJEwDpw9GRAP3m+fdfvWMa94xpVCMJTcEqx4yEXrkctJsZc9PzLo=
-X-Google-Smtp-Source: AGHT+IFZUEYyiKHjj7IZb9ZbXpLPMXE8UTH/cW5RfvQq+gIh7tmbnBD909WrSTnRhGSfds8kxazd2Q==
-X-Received: by 2002:a05:600c:4ed2:b0:412:b674:28ff with SMTP id g18-20020a05600c4ed200b00412b67428ffmr14664570wmq.22.1709853766416;
-        Thu, 07 Mar 2024 15:22:46 -0800 (PST)
-Message-ID: <b72f8767-b21c-4dab-8541-e45b1c2f9582@citrix.com>
-Date: Thu, 7 Mar 2024 23:22:45 +0000
+        bh=m+77g2/BzW4D6dQgLN0/JFcef5gXJ4V23qaqh5TBrxg=;
+        b=UxYFcGyLi5Ju5kciPtWD9nDQ10yh/CHz/f/ha+sxPlVgvNmPntmszvpgE6cCPH89rZ
+         ZSe0eJff6ImO3aXQwTBsTcwRJIw2RHKb4hx5IYJrBjW8fk1nqSULD8WaipB2Bc7p/dj/
+         k9jYyixqj4aciiY7fqTcchR2x78v5s0POs9MyhOgHqyV1MFIubozoGAQiUK3AmPhMi+L
+         YT+P2R6jZgMJaGEOKBzX0oQwL/Z4hfDobnd/CrWyM5xYtARSD7vt6Vl8RTnjn+16BIYG
+         yam1e9S4M8CbjFyEP69YfNc0iDWZ/8ApkGW4GTHjEqb2PY5qY5UeMqLJc8127T3cANcB
+         2ZSw==
+X-Forwarded-Encrypted: i=1; AJvYcCVw1Rte9benVMUzwDboP1C2TKlKQuKj64GQ/kJkXdwsTQVaevvaYjwDEh07tQP15NyFGlbYbQu3MD7HKq1GoQgxFlc/6lkUgh/JZbcq0TI=
+X-Gm-Message-State: AOJu0Yy+Yi1HHXVU5z52fS1aY7QMGWPryusskrKwZMNHXofqfR6YPG28
+	T4Eun5I2pP8f7DIm+Oxp5ulzd24gdEEjEtXxKEO3UDqykoIxaP6LFWe+GV3Smr0=
+X-Google-Smtp-Source: AGHT+IGrGKQWuMQ4tPH6GIWCn/tTFolVkrBDaH68V6+6u877hjgNd+60aaXsGBE0OzaZEaMasMfkuQ==
+X-Received: by 2002:a5d:4144:0:b0:33d:d2bc:bf41 with SMTP id c4-20020a5d4144000000b0033dd2bcbf41mr13795897wrq.31.1709854496721;
+        Thu, 07 Mar 2024 15:34:56 -0800 (PST)
+Message-ID: <715771bb-bff4-46d7-82b0-d0ad6d7a33ae@citrix.com>
+Date: Thu, 7 Mar 2024 23:34:55 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/svm: Drop the _enabled suffix from vmcb bits
+Subject: Re: [PATCH 2/2] x86/svmdebug: Print sev and sev_es vmcb bits
 Content-Language: en-GB
 To: Vaishali Thakkar <vaishali.thakkar@vates.tech>,
  xen-devel@lists.xenproject.org
 Cc: jbeulich@suse.com, roger.pau@citrix.com, wl@xen.org
 References: <cover.1709846387.git.vaishali.thakkar@vates.tech>
- <3c419824febca229cedf2a3bd42cb68d3a3d56a8.1709846387.git.vaishali.thakkar@vates.tech>
+ <9cc6b407ec3b45f034b7deb6f5f44a561eecca47.1709846387.git.vaishali.thakkar@vates.tech>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -128,36 +128,39 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <3c419824febca229cedf2a3bd42cb68d3a3d56a8.1709846387.git.vaishali.thakkar@vates.tech>
+In-Reply-To: <9cc6b407ec3b45f034b7deb6f5f44a561eecca47.1709846387.git.vaishali.thakkar@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 07/03/2024 9:40 pm, Vaishali Thakkar wrote:
-> The suffix is redundant for np/sev/sev-es bits. Drop it
-> to avoid adding extra code volume.
->
-> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Vaishali Thakkar <vaishali.thakkar@vates.tech>i
+> diff --git a/xen/arch/x86/hvm/svm/svmdebug.c b/xen/arch/x86/hvm/svm/svmdebug.c
+> index 24358c6eea..f54b426fb3 100644
+> --- a/xen/arch/x86/hvm/svm/svmdebug.c
+> +++ b/xen/arch/x86/hvm/svm/svmdebug.c
+> @@ -53,6 +53,8 @@ void svm_vmcb_dump(const char *from, const struct vmcb_struct *vmcb)
+>             vmcb->exitinfo1, vmcb->exitinfo2);
+>      printk("np_ctrl = %#"PRIx64" guest_asid = %#x\n",
+>             vmcb_get_np_ctrl(vmcb), vmcb_get_guest_asid(vmcb));
+> +    printk("sev = %d sev_es = %d\n",
+> +           vmcb_get_sev(vmcb), vmcb_get_sev_es(vmcb));
 
-Typo on the end of your email address?
+Hmm.  These are covered by the previous line printing all of np_ctrl. 
+What about rearranging the previous line to be something like:
 
-> diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
-> index e4e01add8c..7e285cf85a 100644
-> --- a/xen/arch/x86/hvm/svm/nestedsvm.c
-> +++ b/xen/arch/x86/hvm/svm/nestedsvm.c
-> @@ -706,7 +706,7 @@ nsvm_vcpu_vmentry(struct vcpu *v, struct cpu_user_regs *regs,
->      }
->  
->      /* nested paging for the guest */
-> -    svm->ns_hap_enabled = !!ns_vmcb->_np_enable;
-> +    svm->ns_hap_enabled = !!ns_vmcb->_np;
+printk("asid: %#x, np_ctrl: %#"PRIx64" -%s%s%s\n",
+    vmcb->_asid, vmcb->_np_ctrl,
+    vmcb->_np ? " NP" : "",
+    vmcb->_sev ? " SEV" : "",
+    ...);
 
-Because the type of is bool, the !! can be dropped too while changing
-this line.
+This is more compact (things like "guest" in "guest asid" is entirely
+redundant), and provides both the raw _np_ctrl field and a bit-by-bit
+decode on the same line, rather than having different parts of the info
+on different lines and bools written out in longhand?
 
-It seems that this was missing cleanup from f57ae00635 "SVM: split
-_np_enable VMCB field".
+See xen/arch/x86/spec_ctrl.c: print_details() for a rather more complete
+example of this style of printk() rendering for bits, including how to
+tabulate it for better readability.
 
-Anyway, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com> and I'm
-happy to fix on commit.
+~Andrew
 
