@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EAA18748F1
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 08:42:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689650.1074841 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EC18874992
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 09:27:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689667.1074874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri8Oq-0007TO-9H; Thu, 07 Mar 2024 07:42:44 +0000
+	id 1ri94r-00068X-33; Thu, 07 Mar 2024 08:26:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689650.1074841; Thu, 07 Mar 2024 07:42:44 +0000
+Received: by outflank-mailman (output) from mailman id 689667.1074874; Thu, 07 Mar 2024 08:26:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri8Oq-0007Rs-6F; Thu, 07 Mar 2024 07:42:44 +0000
-Received: by outflank-mailman (input) for mailman id 689650;
- Thu, 07 Mar 2024 07:42:42 +0000
+	id 1ri94r-00065z-04; Thu, 07 Mar 2024 08:26:09 +0000
+Received: by outflank-mailman (input) for mailman id 689667;
+ Thu, 07 Mar 2024 08:26:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tO0P=KN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ri8Oo-0007Rm-ON
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 07:42:42 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1ri94p-00065t-UZ
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 08:26:07 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46f2d9c3-dc56-11ee-afda-a90da7624cb6;
- Thu, 07 Mar 2024 08:42:41 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5645960cd56so708933a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 23:42:41 -0800 (PST)
+ id 5771c96d-dc5c-11ee-afda-a90da7624cb6;
+ Thu, 07 Mar 2024 09:26:05 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a456ab934eeso92771166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 00:26:05 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bx18-20020a170906a1d200b00a44f07e55d2sm5451506ejb.41.2024.03.06.23.42.40
+ o7-20020a170906288700b00a42ed7421b8sm8088558ejd.93.2024.03.07.00.26.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Mar 2024 23:42:40 -0800 (PST)
+ Thu, 07 Mar 2024 00:26:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46f2d9c3-dc56-11ee-afda-a90da7624cb6
+X-Inumbo-ID: 5771c96d-dc5c-11ee-afda-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709797361; x=1710402161; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709799965; x=1710404765; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Y7e0DzqJ9/uRKDP87LkRLRn6M/3mWXMP2NGC8Tah1to=;
-        b=HXsLoU64Yw2KCcJo9xjKm6kqxkeBe3TG+MBuZHLkpZYYkRC/lfVXb6+Hlya4A7vHeO
-         ah2LwWH+3YBt//FeMWznHTAXCMZGGRUMD82j6m6dYLp+0CluPHokAeX2zbL+OdO3OJyv
-         oSl2oTSa+2ltVZml/sS4VqcgUmkviXh3vtmRlKYMEljmUdejvvY0T9BlwbmQY2+dcMes
-         NPL8DWTsBcEXlUrnVuXcop9i3KCyb9RO9hQtgxEyhxS4ul/IQx2kL9M4ejVETAQzNEbA
-         MiZ61nax2TByHwSGpQVU3nF2NIAAGSHXtPULVafcXDiH/qOM6tUSZBF7u45UaOEKiRS2
-         q+RQ==
+        bh=Y7l0GZitSpPL4w6PpS6/l7z/DlCc0WejNdMFZiCxAnc=;
+        b=GzcoKCTPWYehOQY5wPyoJ+4H/6eWv1o8/Ve5lNp8mTtgYeSj3fxTIwrqKDT94WEu/U
+         99Dd5wR+/ZSc/9XTvsDOLezYMab5ykZLyLi/k+z6aCejV819Zr57YPIZsovSAknkTESS
+         GCEzrJKoY7FYk3enCXIodOgy96MqlqNB8xZOVPBFeSgTpNbc1FojGfuLJ2b0nd7yU/2I
+         7M7UXkcUZCUyQacS5TTYZQsA9TpnWYNZ4MaZ3WI4PY7/Pmk0bA+y9JRUpyXEJCAD9lqu
+         M1jsblmKYPzmY6125KWU5U74o+a/4rIef2ZK5Y3CSrH4aqRqSkTQHbgGl2ARRucnOojS
+         2TIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709797361; x=1710402161;
+        d=1e100.net; s=20230601; t=1709799965; x=1710404765;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Y7e0DzqJ9/uRKDP87LkRLRn6M/3mWXMP2NGC8Tah1to=;
-        b=kPZFb+N9ABn7dnzVzfTUtCqz4NLyLb7Wv6iVri65v65Lh9WCT8OO39ud+IUYnsuBKD
-         OkAyoeQSxBJe44tt40wlWxU0dbpWlaXwPQnlq6dZ4wmQTB9N3R63F9v8iwzce0GjlSqe
-         p9wWqdCXEZv7Yu/YXMAb+311RC1pLbqLncM/PXKZfh/AnRtwBNZm8EC5CYV7UGjsNPOQ
-         ur0XlkB+E9M7zyc7uaeNtJbcdN9pU86GS7KxH2uJu4mXJl6g1TGNwlPeiR0b4hh3IT0i
-         xQDDyqO4xA/3iEu1w1u4+QUmRm1qBZQBl1Ruv3PKuP5fpEhFpRNTeVF2HhIVkBW2NztM
-         JN+w==
-X-Gm-Message-State: AOJu0Yx08nUr/j8/qneq21mSxacjaACHr1Cq+hrsIqwzLNZKfJbUaEr7
-	GIkZCEdXyMu5ko/2FWPdzl3mOGtn7m+6qmzTqIyINVoRUpy4zsKTzyM6ZSjsOg==
-X-Google-Smtp-Source: AGHT+IFFfp5sdqSVprdZh4oUG96In2rreu5flL0V9IhEIa9ot30sZbv0hPKWPa2D9jKPKVKTTA1q6w==
-X-Received: by 2002:a17:906:b7c9:b0:a3f:1055:28b7 with SMTP id fy9-20020a170906b7c900b00a3f105528b7mr10180167ejb.63.1709797360659;
-        Wed, 06 Mar 2024 23:42:40 -0800 (PST)
-Message-ID: <c09db98c-2d04-428f-93a7-6a6900032054@suse.com>
-Date: Thu, 7 Mar 2024 08:42:39 +0100
+        bh=Y7l0GZitSpPL4w6PpS6/l7z/DlCc0WejNdMFZiCxAnc=;
+        b=kZju/1qk3ze4OxaFFpFBRc6+gKKQrnH8bk8J6nFAJmUDl/4Yc68urlssOvLqU8bAFw
+         t90TW8YVyp695jC0dlvgks5rRnDDsNtyoupNySUzQb6etdrHPlgI3+qRUXocuSaJNjAf
+         PAmFXcfTKDNbFfbEz/WiL6gIoHcC+VfVjq33qIQyJQ1IModIudUvT8iNMHUhy4KVssFs
+         BzHjH4K0rmu506Npjz7/TAB6IYjN0lr0X8iAjQ89gfI/cOsraYUzCdj8hQlMMzoBTdAA
+         GRfHbiCjxa+T4Hdo6JWwun6HN0ZIdnTvr5yOsRZ9IEehlOUMcTtGBYGkJ3dSWPdPa86n
+         WssQ==
+X-Gm-Message-State: AOJu0YwF73iYshafsStXKoibZ5k7T04RFyDeljjBJB2QIB9uYahsB8fc
+	byZmpiDWJAjatPxPhWKJCjLhvO9qbDg48enbjIOWFdk2AExptgGVq609zjuPBw==
+X-Google-Smtp-Source: AGHT+IHEARlUQzPah8TcatUtYqt3dhawpWIQ4/frE2MAr7wPon90pWCRXps08MIqR1RYX+mleSUEfw==
+X-Received: by 2002:a17:906:d0c7:b0:a45:b74c:6e14 with SMTP id bq7-20020a170906d0c700b00a45b74c6e14mr3409610ejb.57.1709799965382;
+        Thu, 07 Mar 2024 00:26:05 -0800 (PST)
+Message-ID: <8b02fb20-2e4d-4a68-b633-417c964e38be@suse.com>
+Date: Thu, 7 Mar 2024 09:26:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 10/10] xen/keyhandler: address violations of MISRA C
- Rule 20.7
+Subject: Re: [PATCH 2/3] xen/x86: bzImage parse kernel_alignment
 Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- julien@xen.org, George Dunlap <george.dunlap@citrix.com>,
- Wei Liu <wl@xen.org>, Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <cover.1709219010.git.nicola.vetrini@bugseng.com>
- <2bc4a964f0f2f47488e72237678e944dbdbd7bb7.1709219010.git.nicola.vetrini@bugseng.com>
- <alpine.DEB.2.22.394.2402291457000.853156@ubuntu-linux-20-04-desktop>
- <1afd8805-7365-40ec-8e8e-468a83e20c40@suse.com>
- <alpine.DEB.2.22.394.2403011716180.853156@ubuntu-linux-20-04-desktop>
- <d7411c57-32f3-41c6-8233-685ed5dfe976@suse.com>
- <alpine.DEB.2.22.394.2403041756140.853156@ubuntu-linux-20-04-desktop>
- <fe15bab2-3a48-4243-b50c-6d9854c218c2@suse.com>
- <alpine.DEB.2.22.394.2403061734250.853156@ubuntu-linux-20-04-desktop>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <20240306185032.103216-1-jason.andryuk@amd.com>
+ <20240306185032.103216-3-jason.andryuk@amd.com>
+ <alpine.DEB.2.22.394.2403061809170.853156@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,93 +113,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2403061734250.853156@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2403061809170.853156@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07.03.2024 02:39, Stefano Stabellini wrote:
-> On Tue, 5 Mar 2024, Jan Beulich wrote:
->> On 05.03.2024 03:03, Stefano Stabellini wrote:
->>> On Mon, 4 Mar 2024, Jan Beulich wrote:
->>>> On 02.03.2024 02:37, Stefano Stabellini wrote:
->>>>> On Fri, 1 Mar 2024, Jan Beulich wrote:
->>>>>> On 29.02.2024 23:57, Stefano Stabellini wrote:
->>>>>>> On Thu, 29 Feb 2024, Nicola Vetrini wrote:
->>>>>>>> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
->>>>>>>> of macro parameters shall be enclosed in parentheses". Therefore, some
->>>>>>>> macro definitions should gain additional parentheses to ensure that all
->>>>>>>> current and future users will be safe with respect to expansions that
->>>>>>>> can possibly alter the semantics of the passed-in macro parameter.
->>>>>>>>
->>>>>>>> No functional change.
->>>>>>>>
->>>>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>>>>
->>>>>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->>>>>>
->>>>>> You did see the discussion on earlier patches, though? I don't think
->>>>>> any of the parentheses here are needed or wanted.
->>>>>
->>>>> We need to align on this. Currently if we go by what's written in
->>>>> docs/misra/deviations.rst, then rhs should have parentheses.
->>>>
->>>> Quoting the actual patch again:
->>>
->>> [...]
->>>
->>>> What rhs are you talking about in light of this change? The only rhs I
->>>> can spot here is already parenthesized.
->>>
->>> Yes you are right. I replied here as an overall comment about our
->>> approach to 20.7, although this patch is not a good example. My reply
->>> was meant in the context of https://marc.info/?l=xen-devel&m=170928051025701
+On 07.03.2024 03:09, Stefano Stabellini wrote:
+> On Wed, 6 Mar 2024, Jason Andryuk wrote:
+>> Expand bzimage_parse() to return kernel_alignment from the setup_header.
+>> This will be needed if loading a PVH kernel at a physical offset to
+>> compensate for a reserved E820 region.
 >>
->> I'm still confused: The rhs is being parenthsized there. It's the _lhs_
->> which isn't and ...
->>
->>>>> Can we safely claim that rhs parentheses are never needed? If so, then
->>>>> great, let's add it to deviations.rst and skip them here and other
->>>>> places in this patch series (e.g. patch #8). When I say "never" I am
->>>>> taking for granted that the caller is not doing something completely
->>>>> unacceptably broken such as: 
->>>>>
->>>>>      WRITE_SYSREG64(var +, TTBR0_EL1)
->>>>
->>>> I'm afraid I can't associate this with the patch here either. Instead in
->>>> the context here a (respective) construct as you mention above would simply
->>>> fail to build.
->>>
->>> Fair enough it will break the build. I was trying to clarify that when I
->>> wrote "the rhs parentheses are never needed" I meant "never" within
->>> reason. One can always find ways to break the system and I tried to make
->>> an example of something that for sure would break rhs or lhs without
->>> parentheses.
->>>
->>> I meant to say, if we don't account for exceptionally broken cases, can
->>> we safety say we don't need parentheses for rhs?
->>
->> ... doesn't need to, unless - as you say - one contrives examples. Yet to
->> clarify here as well: I assume you mean "we don't need parentheses for lhs".
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 > 
-> Yes. Far clarity, we are all aligned that lhs does not need parentheses
-> and in fact it is even already deviated in docs/misra/deviations.rst.
-> 
-> Now back to this specific patch.
-> 
-> The problem is that the comma ',' doesn't need parenthesis for the
-> parameters. However, the way we wrote the deviation in
-> docs/misra/deviations.rst doesn't cover the case this patch is dealing
-> with. docs/misra/deviations.rst only speaks of functions and macros
-> arguments.
-> 
-> Should we rephrase docs/misra/deviations.rst in terms of ',' instead ?
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-That's what I've requested elsewhere, yes.
+Acked-by: Jan Beulich <jbeulich@suse.com>
+with two remarks:
 
-> Can ECLAR deal with it?
+>> --- a/xen/arch/x86/hvm/dom0_build.c
+>> +++ b/xen/arch/x86/hvm/dom0_build.c
+>> @@ -548,12 +548,14 @@ static int __init pvh_load_kernel(struct domain *d, const module_t *image,
+>>      struct elf_binary elf;
+>>      struct elf_dom_parms parms;
+>>      paddr_t last_addr;
+>> +    unsigned int align = 0;
 
-I seem to vaguely recall Nicola saying it can, but if not then it surely
-can be made to do so.
+Strictly speaking this isn't needed here, yet, and would suffice when added
+in the next patch. But I'm okay with keeping it.
+
+>> --- a/xen/arch/x86/include/asm/bzimage.h
+>> +++ b/xen/arch/x86/include/asm/bzimage.h
+>> @@ -4,8 +4,7 @@
+>>  #include <xen/init.h>
+>>  
+>>  unsigned long bzimage_headroom(void *image_start, unsigned long image_length);
+>> -
+>>  int bzimage_parse(void *image_base, void **image_start,
+>> -                  unsigned long *image_len);
+>> +                  unsigned long *image_len, unsigned int *align);
+
+Any particular reason for dropping the blank line? I'd prefer if it was kept,
+and I may take the liberty to respectively adjust the patch while committing.
 
 Jan
 
