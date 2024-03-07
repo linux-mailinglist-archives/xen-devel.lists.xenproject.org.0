@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AF30874EC0
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 13:16:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689852.1075226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B629874ECD
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 13:20:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689857.1075236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riCfX-0004Cj-I4; Thu, 07 Mar 2024 12:16:15 +0000
+	id 1riCj5-000664-43; Thu, 07 Mar 2024 12:19:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689852.1075226; Thu, 07 Mar 2024 12:16:15 +0000
+Received: by outflank-mailman (output) from mailman id 689857.1075236; Thu, 07 Mar 2024 12:19:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riCfX-0004BD-FD; Thu, 07 Mar 2024 12:16:15 +0000
-Received: by outflank-mailman (input) for mailman id 689852;
- Thu, 07 Mar 2024 12:16:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qXJj=KN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1riCfW-0004B7-2I
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 12:16:14 +0000
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
- [2607:f8b0:4864:20::72f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7c5fd32c-dc7c-11ee-a1ee-f123f15fe8a2;
- Thu, 07 Mar 2024 13:16:12 +0100 (CET)
-Received: by mail-qk1-x72f.google.com with SMTP id
- af79cd13be357-7884bfc77acso3147185a.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 04:16:12 -0800 (PST)
-Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- vv24-20020a05620a563800b0078821ab6668sm5015970qkn.34.2024.03.07.04.16.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Mar 2024 04:16:10 -0800 (PST)
+	id 1riCj5-00062y-0L; Thu, 07 Mar 2024 12:19:55 +0000
+Received: by outflank-mailman (input) for mailman id 689857;
+ Thu, 07 Mar 2024 12:19:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xW6h=KN=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
+ id 1riCj2-00061A-Uf
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 12:19:53 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2412::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fe89621e-dc7c-11ee-afda-a90da7624cb6;
+ Thu, 07 Mar 2024 13:19:51 +0100 (CET)
+Received: from PR3P251CA0028.EURP251.PROD.OUTLOOK.COM (2603:10a6:102:b5::19)
+ by IA1PR12MB6044.namprd12.prod.outlook.com (2603:10b6:208:3d4::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.24; Thu, 7 Mar
+ 2024 12:19:46 +0000
+Received: from SN1PEPF0002BA4D.namprd03.prod.outlook.com
+ (2603:10a6:102:b5:cafe::5d) by PR3P251CA0028.outlook.office365.com
+ (2603:10a6:102:b5::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.26 via Frontend
+ Transport; Thu, 7 Mar 2024 12:19:45 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4D.mail.protection.outlook.com (10.167.242.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7362.11 via Frontend Transport; Thu, 7 Mar 2024 12:19:44 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 7 Mar
+ 2024 06:19:43 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 7 Mar
+ 2024 06:19:42 -0600
+Received: from [172.31.100.92] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 7 Mar 2024 06:19:41 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +63,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c5fd32c-dc7c-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709813771; x=1710418571; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=YVs+BxVlwZMWWSv06IRPU7DiZaS7F6CzcUc0mkPOuaE=;
-        b=hBu7ngQRrOlQW5HOw9MgtuePvECkg5CNCDn+MO5/3IfTIjj32WK8DPl0as5PiXmb92
-         SZROL4eDS/12C8VDM5m6kTDAqOJl4pkezhbUmhE2/9wA1yr5USNaXk1+iNgiVqHn4aKd
-         DPXdrOe25XZm7xPpliXnVS/JfJEJysG2J1tfM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709813771; x=1710418571;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YVs+BxVlwZMWWSv06IRPU7DiZaS7F6CzcUc0mkPOuaE=;
-        b=JrHeI7FFCdXb6X6Wm8P/7MEuKgETs12AJyAHPL7hocLYG9SboKJgQmSK/CRSf38qFP
-         zhm8iheDuYWz/CGNXcvaof6NlBv66puiKfoIWbGvyA2YyxlbfRx8xPyqLK38zQ62a+U5
-         sXzdNk7s6l+JlLSab0NCUiitCPb0IoAQmMpVgHC3POkQiS1YWXD2UvpFqX41vBQdM9U0
-         Pt+uYV75f8Uw7mMXnX2/2X8GqAa/nhfzytVleS/sWl8nrJ1faCPLGqBr+Jxhdxw5eprU
-         3nn6ZY69Z0JeSRPwuZhfq5yLVSrNUm1kXuxKxF0K7RxhiFBqz0AeSw0oI31hF+D9I78A
-         tbuw==
-X-Forwarded-Encrypted: i=1; AJvYcCUG2LX8B8kovu7z4AUwxBHFWfkMd2dH+zWGZTh9kA5KqIxJaLUzETxhpk4a6oSkEhzXF6gJf51Tej3PtNkGk+1g/zmAiA7/radcV6ltJl8=
-X-Gm-Message-State: AOJu0Yzmz4qrPxaXXJ8dAmAbALOPRMXgCet3vHhAYSJz8GnS6IZYa1m7
-	T88Tru2FxW/FsumqrZSpPquIJr664BvlWQyFbULppikgYdvBRTxzh7Sz1ojcDJg=
-X-Google-Smtp-Source: AGHT+IFeNEeNc66TzOYEswILIHEvQI7AlVThlYIpa4WrWBrqu1nuDKfzsjqCG3Gk5j2cnUSK7p5O3Q==
-X-Received: by 2002:a05:620a:5373:b0:788:332d:6f7e with SMTP id op51-20020a05620a537300b00788332d6f7emr7875162qkn.39.1709813771111;
-        Thu, 07 Mar 2024 04:16:11 -0800 (PST)
-Message-ID: <e8b5ef98-900b-42b7-a688-a379168ef396@citrix.com>
-Date: Thu, 7 Mar 2024 12:16:08 +0000
+X-Inumbo-ID: fe89621e-dc7c-11ee-afda-a90da7624cb6
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RMY9hmf6oX/3ohGTUzigcPu/mg+by+CTQ7UM6KxUaU9tduuCqPePMxx43Ab7ByKuR9tfPgmwS6X3DCOOLIx/Im+7Ymq0vjqN3Zc6ETJMAuLbudRBl85C8IFBKYMuTCN8YsOpN1UCczcvdKAxfKzWN3gp2IfurH6jmLugj0L0OuYnKBP7NFHkmk9VG2zkVU2X65Y9FLdzZhvz1NCi9nvpjpCRdEAvax2ksZj1YWN7+dR35R+8Fc85ED9WWkCnW38oiIPeBZEF4pMILsHcch7fDHrezDY6dhQuP+AyHNE7KwLqC2Qdjj+VVTZSKL04ArED15bhHUHL/ILoaZ5u4Hw7Cg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k0gcwpiaF4ajbC6fPVDyeiKq/4opE2bwQfKz6n50CTQ=;
+ b=GRnLqLsltyQcv7FFQM4f2jasKXgG4JDcGuV8+FNkuOkvH0FTOoplhAWqYuyMI0LR4jhJOidiOyFhMoff1QzX1VOGW3GnnoxTfB8IuBplT1QCvsVML/j5rG+9N2shM9PxYYRk4FS3Z2K/5dpVFJ6eGKsmDjh9lw6ooI5mYZYMXALnSYe6XN46q7QUI5GrtxG9fiRCnXDcYHA1sPwJd9FgssQt6qR4MF37UM/5tfGhk0RGEx57Noza/uwyscquOjkIB00bfwUvp3oZVfwtDfNSpsjvJVJdp10p2ClQKRQiXj23EygUeWwAB1b9fOlIgHP837kq3FvQK1xiy8Ws3/tLmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k0gcwpiaF4ajbC6fPVDyeiKq/4opE2bwQfKz6n50CTQ=;
+ b=h6T4MHdgoHGzxGa/MYZMEWY70IEe24by8t1FbDtuAIha0pk/nYi/TYS08aozUWgEL9EodsU5Q4/a4MFYCEdOTmAV7wqFMkTLwANVxDGg7TcR9RcFbtq8g4tp+EypGBGx2O0W0N53F+bejtJbsr2mO+XnlCd/mQ9h2PeoxQcYP5E=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <87b4f7fc-29a8-4201-83c5-afb9169a222d@amd.com>
+Date: Thu, 7 Mar 2024 20:19:40 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] xen/virtual-region: Include rodata pointers
-Content-Language: en-GB
+Subject: Re: [PATCH v2] tools/9pfsd: Fix build error caused by strerror_r()
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Ross Lagerwall <ross.lagerwall@cloud.com>
-References: <20240305121121.3527944-1-andrew.cooper3@citrix.com>
- <20240305121121.3527944-3-andrew.cooper3@citrix.com>
- <87b82706-f538-4807-abaf-1e59cebd286b@suse.com>
- <CAG7k0EqWrPU0qocSJHyJAQca44LakQwZwAbiv5GRk-sQeaAYAg@mail.gmail.com>
- <82126c3a-0cde-452f-86aa-2571482f42aa@citrix.com>
- <76ce9dcf-8cac-44b3-9550-f516024bad6e@suse.com>
- <9e827057-9306-4a2a-8816-410661bf8892@citrix.com>
- <818ac202-5473-4638-b140-45272b1041ed@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <818ac202-5473-4638-b140-45272b1041ed@suse.com>
-Content-Type: text/plain; charset=UTF-8
+CC: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, "Juergen
+ Gross" <jgross@suse.com>, <xen-devel@lists.xenproject.org>
+References: <20240307103847.3710737-1-xin.wang2@amd.com>
+ <8428e980-ac88-40bb-8334-d52deeb52bb0@suse.com>
+Content-Language: en-US
+From: Henry Wang <xin.wang2@amd.com>
+In-Reply-To: <8428e980-ac88-40bb-8334-d52deeb52bb0@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4D:EE_|IA1PR12MB6044:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77a97465-f791-416f-1636-08dc3ea0df4e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ueSOFoVkIpCSe4vSMAxdW/hWKLPfrwsGA1lJMa5R4398LW9F+YVHmg4FUHtq2p8ZVVx82IfL+QXLUeBsJTc0BaZJQIqC/n4BUs96RVa9CzAIbDNJ7NuVwcLxdcqoJx0Qjygs/C/J79kYJ1gz9Ev0v/EA3his06euQdbFRjz2G66/OR5zQKjqCSQCirUQ+lqV7IIIg2i5UAAS7zBOYqmWwhyPybSyov+vvT/gOdK0heOp+geodilz9pX1m2gtRdDyk1MiLTvw5PxdGVlmyyJvR/JnBbAuUos9Hcwws/t7BnhajClP3RLrNT8kdKfcSITk2spd/Rk7iqHbkwAwZ77tlC71n5UMwe3I86aceaMdoayZJHhJJPEPlXCsEoZDE7bC7fo47IXbNrMBhHt7LhLOdwIYEeq10uhHlH6Z+KbWGq7+lV3nL7Wqzb/x4BoNoMFmAlFQOk3u8mqiTgFXYvkfJ870T2CbvoVJklzRumobJAlfrTHk1xhNyVc12C6VvSwW4EsbEQcZhLDZK+geOHIjl7oyIwLF6Yqr9FomwKhUyHeAx8j7lF/N9DmqKxTHyD8BOk0f8qNAQwbl61uN7RJzRlRFdpk2xZTvOcsys/kHImxQgFcnws1l2sUi4eVY9I+5MUtrBchtjAi5fraSlXTZ+cd8yo/e2yDll69u61sKzrLBrgAVo4kut/M57vo9nbK39wIwT6/diVnXLwu1Rm9i4Icg9HmJwMliKvrWsWs0mn3V+Pzvu6HUuo+VCQQQWlYf
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(376005)(82310400014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2024 12:19:44.1112
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77a97465-f791-416f-1636-08dc3ea0df4e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002BA4D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6044
 
-On 07/03/2024 11:58 am, Jan Beulich wrote:
-> On 07.03.2024 12:31, Andrew Cooper wrote:
+Hi Jan,
+
+On 3/7/2024 7:04 PM, Jan Beulich wrote:
+> On 07.03.2024 11:38, Henry Wang wrote:
+>> Below error can be seen when doing Yocto build of the toolstack:
 >>
->> The thing called virtual_region already describes 6 ranges, and I'm
->> adding a 7th.
-> Hmm, yes, in a way you're right.
->
->> It has been a module-ish description right from the very outset.  I
->> don't think it is fair to describe this as an abuse at all.
+>> | io.c: In function 'p9_error':
+>> | io.c:684:5: error: ignoring return value of 'strerror_r' declared
+>>    with attribute 'warn_unused_result' [-Werror=unused-result]
+>> |   684 |     strerror_r(err, ring->buffer, ring->ring_size);
+>> |       |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> | cc1: all warnings being treated as errors
 >>
->> Is this going to satisfy the outstanding concerns?
-> Yes. And thank you for bearing with me.
+>> Fix the build by using strerror() to replace strerror_r(). Since
+>> strerror() is thread-unsafe, use a separate local mutex to protect
+>> the action. The steps would then become: Acquire the mutex first,
+>> invoke strerror(), copy the string from strerror() to the designated
+>> buffer and then drop the mutex.
+>>
+>>
+>> Fixes: f4900d6d69b5 ("9pfsd: allow building with old glibc")
 
-No problem.  I'm glad that we've come to an agreement.
+I will add this tag in v3.
+>> Signed-off-by: Henry Wang <xin.wang2@amd.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Ross?
+Thanks!
 
-~Andrew
-
+> albeit there are a number of cosmetic aspects I'd have done differently
+> (see bottom of mail). The one thing I'd really like to ask for it a
+> comment ...
 >
+>> --- a/tools/9pfsd/io.c
+>> +++ b/tools/9pfsd/io.c
+>> @@ -680,8 +680,18 @@ static bool name_ok(const char *str)
+>>   static void p9_error(struct ring *ring, uint16_t tag, uint32_t err)
+>>   {
+>>       unsigned int erroff;
+>> +    static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+>> +    char *strerror_str;
+>> +    RING_IDX strerror_len = 0, copy_len = 0;
+>> +
+> ... here explaining why strerror_r() isn't used. Unless other comments
+> arise and a v3 would be needed, I'd add
+>
+>      /*
+>       * While strerror_r() exists, it comes in a POSIX and a GNU flavor.
+>       * Let's try to avoid trying to be clever with determining which
+>       * one it is that the underlying C library offers, when really we
+>       * don't expect this function to be called very often.
+>       */
+>
+> while committing.
+
+Since I am working on a V3 which will be sent out soon, please don't 
+bother :) I will
+handle it from my side.
+
+> Anyway it'll need a maintainer ack first.
+>
+>> +    pthread_mutex_lock(&mutex);
+>> +    strerror_str = strerror(err);
+>> +    strerror_len = strlen(strerror_str) + 1;
+>> +    copy_len = min(strerror_len, ring->ring_size);
+>> +    memcpy(ring->buffer, strerror_str, copy_len);
+>> +    ((char *)(ring->buffer))[copy_len - 1] = '\0';
+>> +    pthread_mutex_unlock(&mutex);
+>>   
+>> -    strerror_r(err, ring->buffer, ring->ring_size);
+>>       erroff = add_string(ring, ring->buffer, strlen(ring->buffer));
+>>       fill_buffer(ring, P9_CMD_ERROR, tag, "SU",
+>>                   erroff != ~0 ? ring->str + erroff : "cannot allocate memory",
+>      pthread_mutex_lock(&mutex);
+>      str = strerror(err);
+>      len = min(strlen(str), ring->ring_size - 1);
+
+This actually will fire below errors on my build env, hence I separated 
+them with a different variable.
+
+tools/include/xen-tools/common-macros.h:38:21: error: comparison of 
+distinct pointer types lacks a cast [-Werror]
+|    38 |         (void) (&_x == &_y);                    \
+|       |                     ^~
+| io.c:695:11: note: in expansion of macro 'min'
+|   695 |     len = min(strlen(str), MAX_ERRSTR_LEN - 1);;
+|       |           ^~~
+| cc1: all warnings being treated as errors
+
+>      memcpy(ring->buffer, str, len);
+>      ((char *)ring->buffer)[len] = '\0';
+>      pthread_mutex_unlock(&mutex);
+
+I will follow your style in V3 if you don't have any specific comment on 
+the error that I posted above (plus also not strongly disagree with my 
+approach in v2).
+
+Kind regards,
+Henry
+
 > Jan
->
->> diff --git a/xen/include/xen/virtual_region.h
->> b/xen/include/xen/virtual_region.h
->> index d05362071135..9d150beb8a87 100644
->> --- a/xen/include/xen/virtual_region.h
->> +++ b/xen/include/xen/virtual_region.h
->> @@ -9,6 +9,12 @@
->>  #include <xen/list.h>
->>  #include <xen/symbols.h>
->>  
->> +/*
->> + * Despite it's name, this is module(ish) description.
->> + *
->> + * There's one region for .text/etc, one region for .init during boot only,
->> + * and one region per livepatch.
->> + */
->>  struct virtual_region
->>  {
->>      struct list_head list;
->>
->> ~Andrew
 
 
