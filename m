@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D68C6874472
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 00:38:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689576.1074725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DF198745A4
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 02:32:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689606.1074751 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri0pt-00046V-7Q; Wed, 06 Mar 2024 23:38:09 +0000
+	id 1ri2bN-0000Vf-Bc; Thu, 07 Mar 2024 01:31:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689576.1074725; Wed, 06 Mar 2024 23:38:09 +0000
+Received: by outflank-mailman (output) from mailman id 689606.1074751; Thu, 07 Mar 2024 01:31:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ri0pt-000447-40; Wed, 06 Mar 2024 23:38:09 +0000
-Received: by outflank-mailman (input) for mailman id 689576;
- Wed, 06 Mar 2024 23:38:07 +0000
+	id 1ri2bN-0000TU-7u; Thu, 07 Mar 2024 01:31:17 +0000
+Received: by outflank-mailman (input) for mailman id 689606;
+ Thu, 07 Mar 2024 01:31:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rsyy=KM=gmail.com=christopher.w.clark@srs-se1.protection.inumbo.net>)
- id 1ri0pr-00043v-GD
- for xen-devel@lists.xenproject.org; Wed, 06 Mar 2024 23:38:07 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ <SRS0=nvJe=KN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1ri2bM-0000TO-4L
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 01:31:16 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 95331f6a-dc12-11ee-afda-a90da7624cb6;
- Thu, 07 Mar 2024 00:38:06 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-568107a9ff2so271722a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Mar 2024 15:38:06 -0800 (PST)
+ id 60a95a80-dc22-11ee-afda-a90da7624cb6;
+ Thu, 07 Mar 2024 02:31:12 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 5ABADCE1E7D;
+ Thu,  7 Mar 2024 01:31:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4828C433C7;
+ Thu,  7 Mar 2024 01:31:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,89 +41,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95331f6a-dc12-11ee-afda-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709768286; x=1710373086; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Rs435nhAJhDlf8VEGEp55iddRE0N5vlG0qIaHENxohA=;
-        b=BDO62eFra8Ol3PDh/lUipnh3R89dNR/CYMVaxp8eFhs84SPq5PNAbbEFY8IHRg6IT2
-         9OrsYStfukNyFJzR5ArYYlCkkMb7iBhWtklPDc7GbUUf9bYQABdmfjP3XVAyaBXg6QaB
-         v7PDwYRJ5iqKf/1RDRZW03zcKLH82hMBZ5zYWxxtl7uAAJzhhg+1aL8TDjDuFmuqQXv2
-         6ZCl7eerA/wALxvcrRRBdBiqonkp5iugDa1XPIkkBzal9AojuvqEf9/I9C34XT8exFUz
-         Eqlj9WZo4+iAi0OigQfgLxraCTkIq2SUXot4pd5P5uhMCJGnge6WOoIbDDuoMUz3bnUY
-         guIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709768286; x=1710373086;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Rs435nhAJhDlf8VEGEp55iddRE0N5vlG0qIaHENxohA=;
-        b=DS35WgrfsIhvbPFdMubUjWRv82K2XkuUjE4RL/CD0qxUb7sgx/PcjKO/lXl2+ebXos
-         SOU2yktLhuDEGdw+h2hzhasIjIUly5w+pNXYfjbEOz3QzGOBIViJu0jYvzX8lBOsO8CU
-         MWSdI40DuWOs0adTtXJLXwp7FNkPwPEF/bbiA1A3rAzhHNKPwc2uuR85NDcNaLeP3LFj
-         bOqzs8qf6LIsI2s031iNC7MY+epV4nXy/wY1X6//J968D8zoAN5YCfx24hMa4wiqM0jB
-         3FAExNLk2j3V7JG0i+YVV68y5IZaA2AL2N6VguOwj9kgElRhyWlftcZx/XZfBHuptPcc
-         pOrQ==
-X-Gm-Message-State: AOJu0YwiZPWDhdZkBkxjbawd4yDDJ4Pa/l0+TDC/aty6ALSCSYdxy7l1
-	CwU6GaZjtaHXq4XQ6N3CgwEI5zIJ4GbYPsJxzdTNtxpTorqfe1ZwNHqBc66BVU4btn/9FE8xxsJ
-	YAG+LZnA+pO6UcDHeWqONy7u4riMRzSXqH20=
-X-Google-Smtp-Source: AGHT+IF0uNmyNEI5H5qVpmLPkty3e5IOpkliyi+fP3fsHr8AmB81uFXT59GhqPxEgOMXdBsBx/6ycmrxTPxJXAd9XgU=
-X-Received: by 2002:a50:c90d:0:b0:565:e610:c358 with SMTP id
- o13-20020a50c90d000000b00565e610c358mr10526624edh.38.1709768286040; Wed, 06
- Mar 2024 15:38:06 -0800 (PST)
+X-Inumbo-ID: 60a95a80-dc22-11ee-afda-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709775068;
+	bh=T5FPfb3bOwQwaxZ89tvSdalPvMidkFRd8A4ARsLFe9M=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Gp7LErzAqZICGdof/gxR2NVw2QFjoj1Ir6prBrFbE07dT2b+RJxLmkyk1VrWSxskJ
+	 MvIulL4VXr7p6PfrWgxw1WJh33fr+yGpkw/5VQ+n+Me3OUFp3pEc9q4znD0AktNxsq
+	 Q2dFT/O2QraaK0TewO97y9hUyQkm366AwaBc0WTP30vi0/xx6RBjustWXMMtsaPgkX
+	 VVQZ0+pJAMmRDwcZfZLtk1S9YXBKWveow5JXmIJM2JP20UXdsyVWfiveIGbdlMuKRv
+	 LOuCoVFHT6V3TB9suCWYd6zVzM7uAiAPOahKN5U6yPYwKkgkkEYoZ8E852M493JrMu
+	 HTZ1QVfEX9bwg==
+Date: Wed, 6 Mar 2024 17:31:05 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
+    roger.pau@citrix.com, bertrand.marquis@arm.com, julien@xen.org, 
+    Rahul Singh <rahul.singh@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [XEN PATCH 06/10] arm/smmu: address some violations of MISRA C
+ Rule 20.7
+In-Reply-To: <8bbf294d832b973648e84e5d837b1878a84f7645.1709219010.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2403061730570.853156@ubuntu-linux-20-04-desktop>
+References: <cover.1709219010.git.nicola.vetrini@bugseng.com> <8bbf294d832b973648e84e5d837b1878a84f7645.1709219010.git.nicola.vetrini@bugseng.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-References: <79ed633d-b0bd-4a7d-a0c6-37a034e1ee96@suse.com> <0374516c-b5fa-4880-a07a-0b788f491e9a@xen.org>
-In-Reply-To: <0374516c-b5fa-4880-a07a-0b788f491e9a@xen.org>
-From: Christopher Clark <christopher.w.clark@gmail.com>
-Date: Wed, 6 Mar 2024 15:37:53 -0800
-Message-ID: <CACMJ4Gaw86kR0QAgWYNtu9JtU5TT=pEN_MBNwn1MB7FLb7pjRw@mail.gmail.com>
-Subject: Re: [PATCH v2] Argo: don't obtain excess page references
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, openxt <openxt@googlegroups.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-On Sun, Feb 18, 2024 at 10:01=E2=80=AFAM Julien Grall <julien@xen.org> wrot=
-e:
->
-> Hi Jan,
->
-> On 14/02/2024 10:12, Jan Beulich wrote:
-> > find_ring_mfn() already holds a page reference when trying to obtain a
-> > writable type reference. We shouldn't make assumptions on the general
-> > reference count limit being effectively "infinity". Obtain merely a typ=
-e
-> > ref, re-using the general ref by only dropping the previously acquired
-> > one in the case of an error.
-> >
-> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
->
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
->
-> > ---
-> > I further question the log-dirty check there: The present P2M type of a
-> > page doesn't really matter for writing to the page (plus it's stale by
-> > the time it is looked at). Instead I think every write to such a page
-> > needs to be accompanied by a call to paging_mark_dirty().
->
-> I agree with that.
+On Thu, 29 Feb 2024, Nicola Vetrini wrote:
+> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
+> of macro parameters shall be enclosed in parentheses". Therefore, some
+> macro definitions should gain additional parentheses to ensure that all
+> current and future users will be safe with respect to expansions that
+> can possibly alter the semantics of the passed-in macro parameter.
+> 
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Adding OpenXT mailing list as I have found that I have not had the
-time available that I had hoped for to spend on reviewing this Argo
-change, and to provide opportunity for downstream feedback.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Link to the posted patch (start of this thread):
-https://lists.xenproject.org/archives/html/xen-devel/2024-02/msg00858.html
 
-Christopher
-
->
-> Cheers,
->
-> --
-> Julien Grall
+> ---
+>  xen/drivers/passthrough/arm/smmu.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+> index 625ed0e41961..83196057a937 100644
+> --- a/xen/drivers/passthrough/arm/smmu.c
+> +++ b/xen/drivers/passthrough/arm/smmu.c
+> @@ -242,7 +242,7 @@ struct arm_smmu_xen_device {
+>  	struct iommu_group *group;
+>  };
+>  
+> -#define dev_archdata(dev) ((struct arm_smmu_xen_device *)dev->iommu)
+> +#define dev_archdata(dev) ((struct arm_smmu_xen_device *)(dev)->iommu)
+>  #define dev_iommu_domain(dev) (dev_archdata(dev)->domain)
+>  #define dev_iommu_group(dev) (dev_archdata(dev)->group)
+>  
+> @@ -627,7 +627,7 @@ struct arm_smmu_master_cfg {
+>  };
+>  #define INVALID_SMENDX			-1
+>  #define for_each_cfg_sme(cfg, i, idx, num) \
+> -	for (i = 0; idx = cfg->smendx[i], i < num; ++i)
+> +	for (i = 0; idx = (cfg)->smendx[i], (i) < (num); ++(i))
+>  
+>  struct arm_smmu_master {
+>  	struct device_node		*of_node;
+> -- 
+> 2.34.1
+> 
 
