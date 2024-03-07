@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D727874CF0
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 12:04:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.689766.1075050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AE20874CA6
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Mar 2024 11:47:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.689758.1075022 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riBXl-0006An-1l; Thu, 07 Mar 2024 11:04:09 +0000
+	id 1riBGu-0001Op-5H; Thu, 07 Mar 2024 10:46:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 689766.1075050; Thu, 07 Mar 2024 11:04:09 +0000
+Received: by outflank-mailman (output) from mailman id 689758.1075022; Thu, 07 Mar 2024 10:46:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riBXk-00068E-V7; Thu, 07 Mar 2024 11:04:08 +0000
-Received: by outflank-mailman (input) for mailman id 689766;
- Thu, 07 Mar 2024 11:04:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NZPn=KN=linaro.org=manos.pitsidianakis@srs-se1.protection.inumbo.net>)
- id 1riBXj-0005sH-IJ
- for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 11:04:07 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 69d0564c-dc72-11ee-a1ee-f123f15fe8a2;
- Thu, 07 Mar 2024 12:04:05 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-41312cf36a8so1714105e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 03:04:05 -0800 (PST)
-Received: from meli.delivery (adsl-101.37.6.0.tellas.gr. [37.6.0.101])
- by smtp.gmail.com with ESMTPSA id
- c6-20020a05600c0a4600b00412f2136793sm2395336wmq.44.2024.03.07.03.04.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Mar 2024 03:04:04 -0800 (PST)
+	id 1riBGu-0001Le-0l; Thu, 07 Mar 2024 10:46:44 +0000
+Received: by outflank-mailman (input) for mailman id 689758;
+ Thu, 07 Mar 2024 10:46:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=tO0P=KN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1riBGs-0001LT-AB
+ for xen-devel@lists.xenproject.org; Thu, 07 Mar 2024 10:46:42 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fb5afb53-dc6f-11ee-afda-a90da7624cb6;
+ Thu, 07 Mar 2024 11:46:41 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a44628725e3so101459666b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 02:46:41 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ i7-20020a17090639c700b00a45ae9636d2sm2297200eje.107.2024.03.07.02.46.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Mar 2024 02:46:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,266 +45,360 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69d0564c-dc72-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: fb5afb53-dc6f-11ee-afda-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1709809445; x=1710414245; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to
-         :references:user-agent:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=y/YHYrBcAuwAYsvgxQDkgi/+/ASQ6Z2Ja+hha7xSnoM=;
-        b=EzVpK5W+x0ahezxLQ3I8G2ywMsv5ju/8y+QPFORfmSHDR5LWfTN0P6t/ASqRl3DdUb
-         2OqwoUN+soefbvxFtPd1/PftTwnk+oqUXbSBRVrBb6doYVT0wreJaWouLq62eGc79Ezj
-         OUhsDvCwl4WlR6vBLYwzof6+DhqV8gEGJhRJqY4I/iNlm9/qLtkGs9muwh2pslLYcFwe
-         qDFB5dHmGcdnOKpBBEPuZgx3VWfCxBlct9Af2Xu4qd4pa0+91ZZJeGZEUFMYQcxkwZND
-         98tZHzZJ7TGGqhAaEObgVddXO+Wnbjgc0eM9/1dWuDqkR/NaY9u9ItFkKEIzSL47Flkf
-         dhaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709809445; x=1710414245;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to
-         :references:user-agent:subject:cc:to:from:date:x-gm-message-state
+        d=suse.com; s=google; t=1709808401; x=1710413201; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=y/YHYrBcAuwAYsvgxQDkgi/+/ASQ6Z2Ja+hha7xSnoM=;
-        b=n34cAv25WXI5riHFmGvV29/+7wS8FoxbMusJgYzZT9ZMctf2L56Ea7Od3Y5RDDLdCi
-         Afm2qNKmtUKtrBrdIdptKVKCqnsi+Wu0hvRogkH35dZJigDPHRu2GaF6nU6kUNOgt0uk
-         hN5LUu1KL4gmxLtrYx5bLozW2Sf/HwO/LV9YRTD3hK8NAKHbuLNHjgCeNXmgFqx3GFy9
-         OEXnzhctM117D+ZFYJ/g6imwpc0lve2WH+xa1gfHVNc6RNVMOPNI4AAUmyALrlwQkU0s
-         R2t/4Rc7yPDVRg2Uo2/qWvvl2zbdiSqDlfdpaqFl6JA/q9djH9ogz991DuZU135jUel9
-         ZIGw==
-X-Forwarded-Encrypted: i=1; AJvYcCVCL9SaLRz3z2ZELYRw1nCd1lIBnede4a+bm+BHdkbtyMcMP49F0IcFLhdcoJt0IfXxQwiK58MxHN7y/WT3Y3zq0YHbNpoyL9GvwsOk9UI=
-X-Gm-Message-State: AOJu0YwDUTm8qN2NawOV0AYC+YKzB0m1nWhOxB22LsQT+3vOU/GRMVe2
-	nYBFGUAEkRBXJMk5BQ/X0EHgaYTXrSqiwaIx+T9oa13fZ8xiOdHzaoemTTfnS/s=
-X-Google-Smtp-Source: AGHT+IHaAws1XqkU4NwrR+6W6/kfS49fq/4B1VyIX6VkNndanIKiC48FMk2IagcIM592qtws8DKWKA==
-X-Received: by 2002:a05:600c:1d03:b0:412:c7b2:5636 with SMTP id l3-20020a05600c1d0300b00412c7b25636mr13372940wms.23.1709809444882;
-        Thu, 07 Mar 2024 03:04:04 -0800 (PST)
-Date: Thu, 07 Mar 2024 12:46:02 +0200
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, Alex Benn=?UTF-8?B?w6k=?= e <alex.bennee@linaro.org>
-Cc: julien@xen.org, sstabellini@kernel.org, bertrand.marquis@arm.com
-Subject: Re: [RFC PATCH v2] xen/arm: improve handling of load/store instruction decoding
-User-Agent: meli 0.8.5-rc.3
-References: <20240306165621.3819343-1-alex.bennee@linaro.org> <3cb1b056-59a7-4ffe-856d-e45aac1936a9@amd.com> <9z3mh.tiey2z2itr9a@linaro.org> <5eaf5a24-d9b6-4045-8b90-61897464d7a2@amd.com>
-In-Reply-To: <5eaf5a24-d9b6-4045-8b90-61897464d7a2@amd.com>
-Message-ID: <9z5eq.tgi8mkv6tysq@linaro.org>
+        bh=UZ3Hlv3IloJ+ZC2OKOC4rqgHWvC3LhHGBUj0s74mEFI=;
+        b=GJRSK7DoLd8NSqC8t/Uf37znVjVKoMZsArc+kHBY8ARH7oyauFfaEBx4e5VZBTAKg0
+         9OyixqIci/9Z3Bz9c7evUhP0SeFnbv1+17GT5i65ZK7quLGHK+cXaDHEh3O0IDT2xOGA
+         MPQvcxcJpLrZslfFcDis/02eGuWuKZDVxRc1x43PW5ZgXUHVIbzawP9fOEugJ5yqi0DP
+         DQ4zTwPBQOfqcXboQL+/iuYZzWawjQsBYULEuTi0N0WC6qiRPD989ie/u2r1IrHonjLN
+         cUNi0kzbWrpm5CEgsK+PPFjzQVq+Ft6QaFMfTjMax391Ox75sQB6g7JYcMJPvCYPh+jp
+         OvmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709808401; x=1710413201;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UZ3Hlv3IloJ+ZC2OKOC4rqgHWvC3LhHGBUj0s74mEFI=;
+        b=NKLo/SjhjECoRfoZGBVb47901HG3c5HK2Yk1bMBdEKUeyvyWryE4LPLzl8RAKXF06r
+         Xty8faytvKAygO0rgL9HWC09y7ezlh+CBcj2a1lxcOoh2SHgRi8JfFKfQ1cF7/sCiZFa
+         zTd9J6CTBEVyd5Rc3FQb0GU79SAfxLPln2oMTTX7ZbKA1a3EyYSegPEhympGueo14B7R
+         7MjiQHDPZ60TWit1Rh69PHcU57UPCq++UhSukShLz+FaZ96HNY71YQ2DvqBXaI0iHlug
+         giYZcI9o4ejSrfIUDZm5EEba5dA/Pib7vh4XG5Kqpa4X3qiY7wvdmtv0YGce6aeGVPEj
+         aD3g==
+X-Forwarded-Encrypted: i=1; AJvYcCUEwPFtQgG48GYFKP3eDNIMralYYi19KaT68gqyJtyeDXPLhIb7sQ1BkwJktMWg6xq2tzO7PmUgko/J9yuDrTLXuUkd+Cy8NAJO9Wctw7E=
+X-Gm-Message-State: AOJu0Yy9WBFojLYCZI5teAnuX596UxAwlQg1kPhD/OpE49zl2gkLT0H3
+	cZEGpwNTX8VjnWSFH6bWz4rc9+1gVwHjMUu3S9UrJrnlFMiOP1sMz22CthtqZw==
+X-Google-Smtp-Source: AGHT+IG2QmYH74T2ZqsmxzCAYzR6PKE5C77KI/OsRCHlk7x9YXnp8/40KEn72bakMQ8fanJArv+llA==
+X-Received: by 2002:a17:906:4902:b0:a45:1254:abd5 with SMTP id b2-20020a170906490200b00a451254abd5mr8819334ejq.58.1709808400644;
+        Thu, 07 Mar 2024 02:46:40 -0800 (PST)
+Message-ID: <dd45b338-7b43-442d-85cd-307b3d228d87@suse.com>
+Date: Thu, 7 Mar 2024 11:46:39 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 11/23] xen/riscv: introduce cmpxchg.h
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
+ <ce7604de39b3480553eeaeafc11138494016983f.1708962629.git.oleksii.kurochko@gmail.com>
+ <23ff1c20-91f3-4c60-9562-7f1cd57c1043@suse.com>
+ <f6e16589bfbcd94d6f62c34f080cbcd3406eca6f.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <f6e16589bfbcd94d6f62c34f080cbcd3406eca6f.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset=utf-8; format=flowed
 
-On Thu, 07 Mar 2024 12:43, Michal Orzel <michal.orzel@amd.com> wrote:
->
->
->On 07/03/2024 11:02, Manos Pitsidianakis wrote:
->> 
->> 
->> Hi Michal, Alex,
->> 
->> I'm responding to Michel but also giving my own review comments here.
->> 
->> On Thu, 07 Mar 2024 10:40, Michal Orzel <michal.orzel@amd.com> wrote:
->>> Hi Alex,
+On 07.03.2024 11:35, Oleksii wrote:
+> On Wed, 2024-03-06 at 15:56 +0100, Jan Beulich wrote:
+>> On 26.02.2024 18:38, Oleksii Kurochko wrote:
+>>> The header was taken from Linux kernl 6.4.0-rc1.
 >>>
->>> NIT: RFC tag is no longer needed.
+>>> Addionally, were updated:
+>>> * add emulation of {cmp}xchg for 1/2 byte types using 32-bit atomic
+>>>   access.
+>>> * replace tabs with spaces
+>>> * replace __* variale with *__
+>>> * introduce generic version of xchg_* and cmpxchg_*.
 >>>
->>> On 06/03/2024 17:56, Alex Bennée wrote:
->>>>
->>>>
->>>> While debugging VirtIO on Arm we ran into a warning due to memory
->>>> being memcpy'd across MMIO space. While the bug was in the mappings
->>>> the warning was a little confusing:
->>>>
->>>>   (XEN) d47v2 Rn should not be equal to Rt except for r31
->>>>   (XEN) d47v2 unhandled Arm instruction 0x3d800000
->>>>   (XEN) d47v2 Unable to decode instruction
->>>>
->>>> The Rn == Rt warning is only applicable to single register load/stores
->>>> so add some verification steps before to weed out unexpected accesses.
->>>>
->>>> While at it update the Arm ARM references to the latest version of the
->>>> documentation.
->>>>
->>>> Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
->>>> Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
->>> Move the CC line after --- so that it's not included in the final commit msg.
+>>> Implementation of 4- and 8-byte cases were left as it is done in
+>>> Linux kernel as according to the RISC-V spec:
+>>> ```
+>>> Table A.5 ( only part of the table was copied here )
 >>>
->>>>
->>>> ---
->>>> v2
->>>>   - use single line comments where applicable
->>>>   - update Arm ARM references
->>>>   - use #defines for magic numbers
->>>> ---
->>>>  xen/arch/arm/decode.c | 35 ++++++++++++++++++++------
->>>>  xen/arch/arm/decode.h | 57 ++++++++++++++++++++++++++++++++++++++-----
->>>>  2 files changed, 79 insertions(+), 13 deletions(-)
->>>>
->>>> diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
->>>> index 2537dbebc1..73a88e4701 100644
->>>> --- a/xen/arch/arm/decode.c
->>>> +++ b/xen/arch/arm/decode.c
->>>> @@ -87,15 +87,36 @@ static int decode_arm64(register_t pc, mmio_info_t *info)
->>>>          return 1;
->>>>      }
->>>>
->>>> +    /* Check this is a load/store of some sort */
->>>> +    if ( (opcode.top_level.op1 & TL_LDST_OP1_MASK) != TL_LDST_OP1_VALUE )
->>>> +    {
->>>> +        gprintk(XENLOG_ERR, "Not a load/store instruction op1=%u\n",
->>>> +                opcode.top_level.op1);
->>>> +        goto bad_loadstore;
->>>> +    }
->>>> +
->>>> +    /* We are only expecting single register load/stores */
->>>> +    if ( (opcode.ld_st.op0 & LS_SREG_OP0_MASK) != LS_SREG_OP0_VALUE )
->>>> +    {
->>>> +        gprintk(XENLOG_ERR, "Not single register load/store op0=%u\n",
->>> NIT: missing 'a' between Not and single
+>>> Linux Construct       RVWMO Mapping
+>>> atomic <op> relaxed    amo<op>.{w|d}
+>>> atomic <op> acquire    amo<op>.{w|d}.aq
+>>> atomic <op> release    amo<op>.{w|d}.rl
+>>> atomic <op>            amo<op>.{w|d}.aqrl
 >>>
->>>> +                opcode.ld_st.op0);
->>>> +        goto bad_loadstore;
->>>> +    }
->>>> +
->>>>      /*
->>>> -     * Refer Arm v8 ARM DDI 0487G.b, Page - C6-1107
->>>> -     * "Shared decode for all encodings" (under ldr immediate)
->>>> -     * If n == t && n != 31, then the return value is implementation defined
->>>> -     * (can be WBSUPPRESS, UNKNOWN, UNDEFINED or NOP). Thus, we do not support
->>>> -     * this. This holds true for ldrb/ldrh immediate as well.
->>>> +     * Refer Arm v8 ARM DDI 0487J.a, Page - K1-12586
->>>> +     *
->>>> +     * STR (immediate) CONSTRAINED UNPREDICTABLE behaviour
->>>> +     *
->>>> +     * "If the instruction encoding specifies pre-indexed addressing or
->>>> +     * post-indexed addressing, and n == t && n != 31, then one of the
->>>> +     * following behaviors must occur:" UNDEFINED, NOP or UNKNOWN
->>>> +     *
->>>> +     * Execution @ EL0/EL1 when HCR_EL2.TIDCP is 1 traps to EL2 with
->>>> +     * EC = 0.
->>>>       *
->>>> -     * Also refer, Page - C6-1384, the above described behaviour is same for
->>>> -     * str immediate. This holds true for strb/strh immediate as well
->>>> +     * This also hold true for LDR (immediate), Page K1-12581 and
->>>> +     * the RB/RH variants of both.
->>>>       */
->>>>      if ( (opcode.ldr_str.rn == opcode.ldr_str.rt) && (opcode.ldr_str.rn != 31) )
->>>>      {
->>>> diff --git a/xen/arch/arm/decode.h b/xen/arch/arm/decode.h
->>>> index 13db8ac968..188114a71e 100644
->>>> --- a/xen/arch/arm/decode.h
->>>> +++ b/xen/arch/arm/decode.h
->>>> @@ -24,17 +24,54 @@
->>>>  #include <asm/processor.h>
->>>>
->>>>  /*
->>>> - * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Stores
->>>> - * Page 318 specifies the following bit pattern for
->>>> - * "load/store register (immediate post-indexed)".
->>>> + * Refer to the ARMv8 ARM (DDI 0487J.a)
->>>>   *
->>>> - * 31 30 29  27 26 25  23   21 20              11   9         4       0
->>>> + * Section C A64 Instruct Set Encoding
->>> This line is not needed
->> 
->> I think it is needed for context (it answers the question "what is
->> C4.1?" in the following line.
->> 
->>>> + *
->>>> + * C4.1 A64 instruction set encoding:
->>> NIT: I would put a comma after section number i.e. C4.1, A64 ...
->>> The same would apply in other places.
->> 
->> Style manuals use either space (like here), a period (.) or colon (:),
->> never a comma.
->Since it's a NIT, I'm not going to object. I just care about readability, we do not
->need to adhere to any "style manuals".
-
-I agree about readability :) the manuals mention was not an appeal to 
-authority, just a sign of what is more common out there hence readable 
-for more people. It is a nitpicking and subjective of course, so I'm not 
-arguing for/against it, just sharing my 2 cents.
-
->
->> 
+>>> Linux Construct       RVWMO LR/SC Mapping
+>>> atomic <op> relaxed    loop: lr.{w|d}; <op>; sc.{w|d}; bnez loop
+>>> atomic <op> acquire    loop: lr.{w|d}.aq; <op>; sc.{w|d}; bnez loop
+>>> atomic <op> release    loop: lr.{w|d}; <op>; sc.{w|d}.aqrl∗ ; bnez
+>>> loop OR
+>>>                        fence.tso; loop: lr.{w|d}; <op>; sc.{w|d}∗ ;
+>>> bnez loop
+>>> atomic <op>            loop: lr.{w|d}.aq; <op>; sc.{w|d}.aqrl; bnez
+>>> loop
 >>>
->>>> + *
->>>> + *   31  30  29 28  25 24                                             0
->>>>   * ___________________________________________________________________
->>>> - * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt   |
->>>> - * |____|______|__|____|____|__|_______________|____|_________|_______|
->>>> + * |op0 | x  x |  op1 |                                               |
->>>> + * |____|______|______|_______________________________________________|
->>>> + *
->>>> + * op0 = 0 is reserved
->>> I'm not sure how to read it. It is reserved provided op1 is also 0.
->> 
->> Yes, it should say something like:
->> 
->>> Decode field values op0 = 0, op1 = 0 are reserved.
->>> Values op0 = 1, op1 = x1x0 correspond to Loads and Stores
->> 
->>>> + * op1 = x1x0 for Loads and Stores
->>>> + *
->>>> + * Section C4.1.88 Loads and Stores
->>> Missing colon at the end?
->> 
->> It's a heading so a colon would not be appropriate.
->In this case why was it added before in:
->"C4.1 A64 instruction set encoding:"
+>>> The Linux mappings for release operations may seem stronger than
+>>> necessary,
+>>> but these mappings are needed to cover some cases in which Linux
+>>> requires
+>>> stronger orderings than the more intuitive mappings would provide.
+>>> In particular, as of the time this text is being written, Linux is
+>>> actively
+>>> debating whether to require load-load, load-store, and store-store
+>>> orderings
+>>> between accesses in one critical section and accesses in a
+>>> subsequent critical
+>>> section in the same hart and protected by the same synchronization
+>>> object.
+>>> Not all combinations of FENCE RW,W/FENCE R,RW mappings with aq/rl
+>>> mappings
+>>> combine to provide such orderings.
+>>> There are a few ways around this problem, including:
+>>> 1. Always use FENCE RW,W/FENCE R,RW, and never use aq/rl. This
+>>> suffices
+>>>    but is undesirable, as it defeats the purpose of the aq/rl
+>>> modifiers.
+>>> 2. Always use aq/rl, and never use FENCE RW,W/FENCE R,RW. This does
+>>> not
+>>>    currently work due to the lack of load and store opcodes with aq
+>>> and rl
+>>>    modifiers.
+>>
+>> As before I don't understand this point. Can you give an example of
+>> what
+>> sort of opcode / instruction is missing?
+> If I understand the spec correctly then l{b|h|w|d} and s{b|h|w|d}
+> instructions don't have aq or rl annotation.
 
-It should be removed from that, good point. Or at least put a colon here 
-and in all headers for consistency.
+How would load insns other that LR and store insns other than SC come
+into play here?
 
->
->> 
+>>> 3. Strengthen the mappings of release operations such that they
+>>> would
+>>>    enforce sufficient orderings in the presence of either type of
+>>> acquire mapping.
+>>>    This is the currently-recommended solution, and the one shown in
+>>> Table A.5.
+>>> ```
 >>>
->>>> + *
->>>> + *  31    28 27   26   25  24 23 22 21      16 15  12 11 10 9        0
->>>> + * ___________________________________________________________________
->>>> + * |  op0   | 1 | op1 | 0 | op2 |  |    op3   |      | op4 |          |
->>>> + * |________|___|_____|___|_____|__|__________|______|_____|__________|
->>>> + *
->> 
->> Maybe we should add the op{0,1,2,3,4} values for consistency?
->> 
->>> Values op0=xx11, op1=0, op2=0x, op3=0xxxxx, op4=01 correspond to
->>> Load/store register (immediate post-indexed)
->I think this should stay neutral in case we add a new emulation in a future.
-
-Do you mean for future Arm versions? decode.{c,h} should definitely be 
-more future-proof... I think it's okay in this case only because the 
-comment block starts with the source's name "ARMv8 ARM (DDI 0487J.a)". I 
-don't object however to what you're saying, either is fine for me!
-
-
->
->> 
->>>> + * Page C4-653 Load/store register (immediate post-indexed)
->>>> + *
->>>> + * 31 30 29  27 26 25 24 23 22 21 20           12 11 10 9    5 4     0
->>>> + * ___________________________________________________________________
->>>> + * |size|1 1 1 |V | 0 0 | opc |0 |      imm9     | 0 1 |  Rn  |  Rt   |
->>>> + * |____|______|__|_____|_____|__|_______________|_____|______|_______|
->>>>   */
->>>>  union instr {
->>>>      uint32_t value;
->>>> +    struct {
->>>> +        unsigned int ign2:25;
->>> Here, your numeration of ignore fields is in descending order (starting from lsb) but ..,
+>>> But in Linux kenrel atomics were strengthen with fences:
+>>> ```
+>>> Atomics present the same issue with locking: release and acquire
+>>> variants need to be strengthened to meet the constraints defined
+>>> by the Linux-kernel memory consistency model [1].
 >>>
->>>> +        unsigned int op1:4;     /* instruction class */
->>>> +        unsigned int ign1:2;
->>>> +        unsigned int op0:1;     /* value = 1b */
->>> Why op0 = 0b1 ? This structure represents the generic bit layout (the emulation deals with single ldr/str).
->>> I would drop this comment.
->> 
->> It is a reserved bit which can never be 0.
->Where did you take this information from?
+>>> Atomics present a further issue: implementations of atomics such
+>>> as atomic_cmpxchg() and atomic_add_unless() rely on LR/SC pairs,
+>>> which do not give full-ordering with .aqrl; for example, current
+>>> implementations allow the "lr-sc-aqrl-pair-vs-full-barrier" test
+>>> below to end up with the state indicated in the "exists" clause.
+>>>
+>>> In order to "synchronize" LKMM and RISC-V's implementation, this
+>>> commit strengthens the implementations of the atomics operations
+>>> by replacing .rl and .aq with the use of ("lightweigth") fences,
+>>> and by replacing .aqrl LR/SC pairs in sequences such as:
+>>>
+>>> 0:      lr.w.aqrl  %0, %addr
+>>>         bne        %0, %old, 1f
+>>>         ...
+>>>         sc.w.aqrl  %1, %new, %addr
+>>>         bnez       %1, 0b
+>>> 1:
+>>>
+>>> with sequences of the form:
+>>>
+>>> 0:      lr.w       %0, %addr
+>>>         bne        %0, %old, 1f
+>>>               ...
+>>>         sc.w.rl    %1, %new, %addr   /* SC-release   */
+>>>         bnez       %1, 0b
+>>>         fence      rw, rw            /* "full" fence */
+>>> 1:
+>>>
+>>> following Daniel's suggestion.
+>>>
+>>> These modifications were validated with simulation of the RISC-V
+>>> memory consistency model.
+>>>
+>>> C lr-sc-aqrl-pair-vs-full-barrier
+>>>
+>>> {}
+>>>
+>>> P0(int *x, int *y, atomic_t *u)
+>>> {
+>>>         int r0;
+>>>         int r1;
+>>>
+>>>         WRITE_ONCE(*x, 1);
+>>>         r0 = atomic_cmpxchg(u, 0, 1);
+>>>         r1 = READ_ONCE(*y);
+>>> }
+>>>
+>>> P1(int *x, int *y, atomic_t *v)
+>>> {
+>>>         int r0;
+>>>         int r1;
+>>>
+>>>         WRITE_ONCE(*y, 1);
+>>>         r0 = atomic_cmpxchg(v, 0, 1);
+>>>         r1 = READ_ONCE(*x);
+>>> }
+>>>
+>>> exists (u=1 /\ v=1 /\ 0:r1=0 /\ 1:r1=0)
+>>
+>> While I'm entirely willing to trust this can happen, I can't bring
+>> this
+>> in line with the A extension spec.
+>>
+>> Additionally it's not clear to me in how far all of this applies when
+>> you don't really use LR/SC in the 4- and 8-byte cases (and going
+>> forward
+>> likely also not in the 1- and 2-byte case, utilizing Zahba when
+>> available).
+> It just explain what combination of fences, lr/sc, amoswap, .aq and .rl
+> annotation can be combined, and why combinations introduced in this
+> patch are used.
 
->As I wrote above, I don't think we should bind this union to a single 
->use case we currently have.
->The struct top_level should represent the generic encoding of A64 instruction.
+Except that I don't understand that explanation, iow why said combination
+of values could be observed even when using suffixes properly.
 
-C4.1, page C4-400. op0 is only zero in the reserved (unallocated) case, 
-for the generic encoding.
+>>> +    uint8_t new_val_pos = ((unsigned long)(ptr) & (0x4 -
+>>> sizeof(*ptr))) * BITS_PER_BYTE; \
+>>
+>> Why uint8_t?
+> It is enough to cover possible start bit position of value that should
+> be updated, so I decided to use uint8_t.
 
->
->~Michal
+Please take a look at the "Types" section in ./CODING_STYLE.
+
+>>> +    { \
+>>> +    case 1: \
+>>> +    case 2: \
+>>> +        ret__ = emulate_xchg_1_2(ptr, new__, sfx, pre, post); \
+>>> +        break; \
+>>> +    case 4: \
+>>> +        __amoswap_generic(ptr, new__, ret__,\
+>>> +                          ".w" sfx,  pre, post); \
+>>> +        break; \
+>>> +    case 8: \
+>>> +        __amoswap_generic(ptr, new__, ret__,\
+>>> +                          ".d" sfx,  pre, post); \
+>>> +        break; \
+>>
+>> In io.h you make sure to avoid rv64-only insns. Here you don't. The
+>> build
+>> would fail either way, but this still looks inconsistent.
+>>
+>> Also nit: Stray double blands (twice) ahead of "pre". Plus with this
+>> style
+>> of line continuation you want to consistently have exactly one blank
+>> ahead
+>> of each backslash.
+>>
+>>> +    default: \
+>>> +        STATIC_ASSERT_UNREACHABLE(); \
+>>> +    } \
+>>> +    ret__; \
+>>> +})
+>>> +
+>>> +#define xchg_relaxed(ptr, x) \
+>>> +({ \
+>>> +    __typeof__(*(ptr)) x_ = (x); \
+>>
+>> What is the purpose of this, when __xchg_generic() already does this
+>> same
+>> type conversion?
+>>
+>>> +    (__typeof__(*(ptr)))__xchg_generic(ptr, x_, sizeof(*(ptr)),
+>>> "", "", ""); \
+>>> +})
+>>> +
+>>> +#define xchg_acquire(ptr, x) \
+>>> +({ \
+>>> +    __typeof__(*(ptr)) x_ = (x); \
+>>> +    (__typeof__(*(ptr)))__xchg_generic(ptr, x_, sizeof(*(ptr)), \
+>>> +                                       "", "",
+>>> RISCV_ACQUIRE_BARRIER); \
+>>> +})
+>>> +
+>>> +#define xchg_release(ptr, x) \
+>>> +({ \
+>>> +    __typeof__(*(ptr)) x_ = (x); \
+>>> +    (__typeof__(*(ptr)))__xchg_generic(ptr, x_, sizeof(*(ptr)),\
+>>> +                                       "", RISCV_RELEASE_BARRIER,
+>>> ""); \
+>>> +})
+>>
+>> As asked before: Are there going to be any uses of these three?
+>> Common
+>> code doesn't require them. And not needing to provide them would
+>> simplify things quite a bit, it seems.
+> I checked my private branches and it looks to me that I introduced them
+> only for the correspondent atomic operations ( which was copied from
+> Linux Kernel ) which are not also used.
+> 
+> So we could definitely drop these macros for now, but should
+> xchg_generic() be updated as well? If to look at:
+>  #define xchg(ptr, x) __xchg_generic(ptr, (unsigned long)(x), sizeof(*
+> (ptr)), \
+>                                     ".aqrl", "", "")
+> Last two arguments start to be unneeded, but I've wanted to leave them,
+> in case someone will needed to back xchg_{release, acquire, ...}. Does
+> it make any sense?
+
+It all depends on how it's justified in the description.
+
+>>> +#define xchg(ptr, x) __xchg_generic(ptr, (unsigned long)(x),
+>>> sizeof(*(ptr)), \
+>>> +                                    ".aqrl", "", "")
+>>
+>> According to the earlier comment (where I don't follow the example
+>> given),
+>> is .aqrl sufficient here? And even if it was for the 4- and 8-byte
+>> cases,
+>> is it sufficient in the 1- and 2-byte emulation case (where it then
+>> is
+>> appended to just the SC)?
+> If I understand your question correctly then accroding to the spec.,
+> .aqrl is enough for amo<op>.{w|d} instructions:
+>    Linux Construct        RVWMO AMO Mapping
+>    atomic <op> relaxed    amo<op>.{w|d}
+>    atomic <op> acquire    amo<op>.{w|d}.aq
+>    atomic <op> release    amo<op>.{w|d}.rl
+>    atomic <op>            amo<op>.{w|d}.aqrl
+> but in case of lr/sc you are right sc requires suffix too:
+>    Linux Construct        RVWMO LR/SC Mapping
+>    atomic <op> relaxed    loop: lr.{w|d}; <op>; sc.{w|d}; bnez loop
+>    atomic <op> acquire    loop: lr.{w|d}.aq; <op>; sc.{w|d}; bnez loop
+>    atomic <op> release    loop: lr.{w|d}; <op>; sc.{w|d}.aqrl∗ ; bnez 
+>    loop OR fence.tso; loop: lr.{w|d}; <op>; sc.{w|d}∗ ; bnez loop
+>    atomic <op>            loop: lr.{w|d}.aq; <op>; sc.{w|d}.aqrl; bnez
+>    loop
+>    
+> I will add sc_sfx to emulate_xchg_1_2(). The only question is left if
+> __xchg_generic(ptr, new, size, sfx, pre, post) should be changed to:
+> __xchg_generic(ptr, new, size, sfx1, sfx2, pre, post) to cover both
+> cases amo<op>.{w|d}.sfx1 and lr.{w|d}.sfx1 ... sc.{w|d}.sfx2?
+
+I expect that's going to be necessary. In the end you'll see what's needed
+when making the code adjustment.
+
+Jan
 
