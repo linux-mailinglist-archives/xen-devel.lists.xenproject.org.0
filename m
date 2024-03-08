@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D39A68763A6
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Mar 2024 12:52:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.690253.1076099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B45CC8763EC
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Mar 2024 13:02:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.690263.1076107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riYlh-00073Z-W5; Fri, 08 Mar 2024 11:52:05 +0000
+	id 1riYvB-00012K-0Q; Fri, 08 Mar 2024 12:01:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 690253.1076099; Fri, 08 Mar 2024 11:52:05 +0000
+Received: by outflank-mailman (output) from mailman id 690263.1076107; Fri, 08 Mar 2024 12:01:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riYlh-000708-T6; Fri, 08 Mar 2024 11:52:05 +0000
-Received: by outflank-mailman (input) for mailman id 690253;
- Fri, 08 Mar 2024 11:52:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fOiY=KO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1riYlg-0006zo-TK
- for xen-devel@lists.xenproject.org; Fri, 08 Mar 2024 11:52:04 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 47485b3d-dd42-11ee-a1ee-f123f15fe8a2;
- Fri, 08 Mar 2024 12:52:03 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a44e3176120so276255166b.1
- for <xen-devel@lists.xenproject.org>; Fri, 08 Mar 2024 03:52:03 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- lo2-20020a170906fa0200b00a45a687b52asm3964798ejb.213.2024.03.08.03.52.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Mar 2024 03:52:02 -0800 (PST)
+	id 1riYvA-00010p-Ty; Fri, 08 Mar 2024 12:01:52 +0000
+Received: by outflank-mailman (input) for mailman id 690263;
+ Fri, 08 Mar 2024 12:01:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=41Qb=KO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1riYv9-00010j-QK
+ for xen-devel@lists.xenproject.org; Fri, 08 Mar 2024 12:01:51 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a591b237-dd43-11ee-afda-a90da7624cb6;
+ Fri, 08 Mar 2024 13:01:50 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5683093ffbbso622893a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Mar 2024 04:01:50 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ es14-20020a056402380e00b00566d9c8e6cesm7832390edb.21.2024.03.08.04.01.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Mar 2024 04:01:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +45,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47485b3d-dd42-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: a591b237-dd43-11ee-afda-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709898722; x=1710503522; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Yzjvtpd02EXTD0CBLiukYiC98wqWFipIlesqqLdxagc=;
-        b=JbMKBEu8/ujXvvvMfGpBL/ZYYs9R8jd/xEj5YCYIXhoYrLgwOCR0B6rTVAsgohTvHm
-         03W7Xd0J/w5y1Kh+3HNeH2waMAeaIs1MkeOebCWrWrekii87uWc2opnyeM/IbsOycLYh
-         gvBkxOLEnqMYaN/jHqKOeiFlUkcE6VcBb9eodc0vfVTaV9WoFVHsn/7Tx9ozt3YyJt/X
-         fH9DB8y7YYRxz0/r3FYpuQD+YQnOJBHXg0uC7GZYbrlvlf7lOakiap98D2I2cfQ9ou5a
-         xKfL6XMsRP5E3pnxaciWOtdufGLD7yV9END6R9g/BauZYL3Jrs1ybpfPHGdfptLTCRD8
-         lT2A==
+        d=gmail.com; s=20230601; t=1709899310; x=1710504110; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Np6OnpckeZVNGXoI0tK1G+zWIcIRU+/QyLKRbrCJ+xg=;
+        b=lavU1pciln6IdO5JbcKNRGmKeCj5ZGWefTqv5SaWl2IXzajI0nBgpp3Ngbq8ZdCiam
+         NksOLrmTW/M/4pjVhPYPOun4jK3d5nIs/eY6v16662T9CoPRK4zGw/dyrqO/W6ElwMsi
+         tMTmZVVjix5Ve/B/kI16QmRfCI7nTRE6UlMAK3rNXkorTkPp3kcaVfzyMT9df7keYlKF
+         bY96slQ7AMzsElvqcH1d6Hav9rLRB+PT40InQPV6uZg7wKHiNaCQjg2v0p1vu9rYV4X0
+         APJj3M+x6C9VdljCrZnmLyEnESs1xfPfZ/My1kMNfVtmjGb8LVqKwb65n7WKBDJ/zdM6
+         QPhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709898722; x=1710503522;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Yzjvtpd02EXTD0CBLiukYiC98wqWFipIlesqqLdxagc=;
-        b=wPeIa8JEIQvU8BLcyRxCl9bBjL9IlHt5f2whvpoyM0XPK/OUH4SxDIRAXHc+SJm7uZ
-         Jff17sSZV7OJsmLiU1w3wMBR/pwcy/QiyC+nA3KIclWcRSTjrDcgjhrKuL9AfItTQf/T
-         EtZrazRobrU7MQDKyGZnb6QaycWA/lPM6++3N7RhqBRbDqo5ZMB0Y1roflvrA9TNK9ur
-         Vlnem+gYhhW9FxViqRWdZY+2V1cMSL+l6YIa7ivghR7WcrqrqOLChq/eBfPfJeDkV8QM
-         uP9QQqyR/frH05cwbR5+JlFo64s/xVINm+7kWFCce/LdNyZ5z9lwsV9pf9j+hga2MMYe
-         gIkw==
-X-Forwarded-Encrypted: i=1; AJvYcCVwqC41V90MBzOsgIEDNJJvX8peaM/j/fEQ8AoQ8swQwR0ImrZZCs5181FfTwk6t1vPeHdHzdtBGDTWIe4hbu3nXb1mKQMC4JFo/gj0OsY=
-X-Gm-Message-State: AOJu0Yzff1H3nHTJBEYoirv2cIG8b+iC+2GRGDLeco3f1MF04nAHicWY
-	l5xnVgiZ8L6v7yfFUwmwXAtcMiNd0dHl1EzIyYMYIUGCnxzJHdWyp3oVKjPMkA==
-X-Google-Smtp-Source: AGHT+IGoWoK7V6eeh0TOne5BkJtCxB5wfbROSlxf9soWoiTAM2vcSnVJ/R0ucKGBDxQmA1d2rgP/Xg==
-X-Received: by 2002:a17:906:695:b0:a45:1850:e6ed with SMTP id u21-20020a170906069500b00a451850e6edmr11153123ejb.6.1709898722379;
-        Fri, 08 Mar 2024 03:52:02 -0800 (PST)
-Message-ID: <c64f693d-fdb2-44ca-9e24-097e34c07236@suse.com>
-Date: Fri, 8 Mar 2024 12:52:00 +0100
+        d=1e100.net; s=20230601; t=1709899310; x=1710504110;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Np6OnpckeZVNGXoI0tK1G+zWIcIRU+/QyLKRbrCJ+xg=;
+        b=G+iqYl3ekIlb0+sLof1CZ2hpSmQPvo16OFJkwlIbvu8pBipdQtV9kP5yzQanN2nCU+
+         mJr9VIK0VqTabEtDPWKN2+JdqY8DdhxIjYPkARo7D0DrY67xbhmrydzc7RFCg1Kwibn8
+         +EdvpHClH4YMvuEG91YMr1DSiSuConh56zEQ0eQLosXfqecEDXzrl9JUZaNDf27WgDRA
+         +gaL6xZ1wdBYWtkNq55TeHEYLGmp4t/Ir+gqrZp1AYfcPsRBusR3ACX1CT1BMZRhkVY6
+         ZmMoPzddL4OnJbxiHl0VtcHH3KMxZppuZmFYNOzCKfiKt44Ztp9XrAj4dksD50q8rbBQ
+         a9nA==
+X-Forwarded-Encrypted: i=1; AJvYcCVezf1FTy8T7uLbfQf0o4OWPzJU3LRz+xKPQ33Tk5XGtYOR7XKLWO2EoS9Wel2wkW2oiVtA0I42yoIrrsxlR2c2KkQbFY17LVZnXDlCxY4=
+X-Gm-Message-State: AOJu0Yw3JV2wXj1OP37y3aQyogcS4Z6Wa+NuZ4QJgPeb61gAzVAdUyXQ
+	39YUebR+R5ZllpH2y0KHtFKC+9c9aq56HTKXvSvD7yZszHtjIWB4
+X-Google-Smtp-Source: AGHT+IHEf4k1cAFCyBc91/yWA6kjAwmW5Cqd9qnnNfQK7YC2A/cxVifFoBV19rWf3XddzR7cbWWAZQ==
+X-Received: by 2002:a50:aa9c:0:b0:567:23a2:5b1e with SMTP id q28-20020a50aa9c000000b0056723a25b1emr1833514edc.23.1709899309901;
+        Fri, 08 Mar 2024 04:01:49 -0800 (PST)
+Message-ID: <4343336e663ec5de6c8f322485fb65032a7c0585.camel@gmail.com>
+Subject: Re: [PATCH] move __read_mostly to xen/cache.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Roger
+ Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Bertrand Marquis
+ <bertrand.marquis@arm.com>,  Volodymyr Babchuk
+ <volodymyr_babchuk@epam.com>, Shawn Anastasio
+ <sanastasio@raptorengineering.com>,  "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+Date: Fri, 08 Mar 2024 13:01:48 +0100
+In-Reply-To: <b8822a77-57e6-4f72-bace-c23045fcb377@suse.com>
+References: <f25eb5c9-7c14-6e23-8535-2c66772b333e@suse.com>
+	 <b49777c7-c677-826f-01da-c6b5b67f5b85@citrix.com>
+	 <893a5ebf-54e2-f2b2-1365-2a6d36ed3a39@suse.com>
+	 <fb627eae0deb85569d3c3044154f1588e9202ec9.camel@gmail.com>
+	 <64466285-35b8-497c-a12b-60fe0c998ba6@suse.com>
+	 <a64b84d6759cb7daa48af5c6680e0011ed6bb113.camel@gmail.com>
+	 <b8822a77-57e6-4f72-bace-c23045fcb377@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 12/23] xen/riscv: introduce io.h
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
- <dd7c95b5197dfd0cca0edf9c0ada631336eb60d7.1708962629.git.oleksii.kurochko@gmail.com>
- <807c31d5-0c5a-4646-ba90-2f284289069f@suse.com>
- <d047c0956f804f7191f91b1d690650e220ec0fe4.camel@gmail.com>
- <a164230f-2054-47e9-b72c-51f4a5955fe0@suse.com>
- <2a3e49bf94332c17b50e4f0f745e4b28b16dceb1.camel@gmail.com>
- <2a05c233-b3c5-417c-bd6b-8b1c21f03c3d@suse.com>
- <e51500581bb71ef9cc2879050e2577802a5dd14c.camel@gmail.com>
- <bbd4ea96-565a-4843-a4fe-fbbc714ddbf6@suse.com>
- <9ec718f3bba178d437035add3c7467011fc3ffc0.camel@gmail.com>
- <d3eabf773211defb2f8a9a22545fca5c7cf3eca1.camel@gmail.com>
- <82375df2-f7fd-43a1-9183-f4823fe791ec@suse.com>
- <4b6c9458efc85a57c14c6b6147d47245fece1f88.camel@gmail.com>
- <d3c8618f-133a-48ca-a648-611250a8c334@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d3c8618f-133a-48ca-a648-611250a8c334@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 08.03.2024 12:49, Jan Beulich wrote:
-> On 08.03.2024 11:14, Oleksii wrote:
->> On Fri, 2024-03-08 at 08:26 +0100, Jan Beulich wrote:
->>> On 07.03.2024 21:54, Oleksii wrote:
->>>> On Thu, 2024-03-07 at 21:49 +0100, Oleksii wrote:
->>>>> On Thu, 2024-03-07 at 18:14 +0100, Jan Beulich wrote:
->>>>>> For plain writes it should at least be "=Qo" then, yes.
->>>>> Constraints Q is a machine specific constraint, and I am not sure
->>>>> that
->>>>> it makes sense to use "=o" only and probably it is a reason why
->>>>> it is
->>>>> enough only "r". Does it make sense?
->>>> Probably for RISC-V can be used:
->>>> RISC-V—config/riscv/constraints.md
->>>>    ...
->>>>    A
->>>>        An address that is held in a general-purpose register.
->>>>    ...
->>>
->>> Just from the description I would have said no, but looking at what
->>> "A"
->>> actually expands to it is indeed RISC-V's counterpart of Arm's "Q".
->>> So
->>> yes, this looks like what amo* want to use, and then as a real
->>> operand,
->>> not just a fake one.
->> I am not sure that I know how to check correctly how "A" expands, but I
->> tried to look at code which will be generated with and without
->> constraints and it is the same:
-> 
-> As expected.
-> 
->>    // static inline void __raw_writel(uint32_t val, volatile void
->>    __iomem *addr)
->>    // {
->>    //     asm volatile ( "sw %0, 0(%1)" : : "r" (val), "r"(addr) );
->>    // }
->>    
->>    static inline void __raw_writel(uint32_t val, volatile void __iomem
->>    *addr)
->>    {
->>        asm volatile ( "sw %0, %1" : : "r" (val), "Ao" (*(volatile
->>    uint32_t __force *)addr) );
-> 
-> You want just "A" here though; adding an offset (as "o" permits) would
-> yield an insn which the assembler would reject.
+On Fri, 2024-03-08 at 09:22 +0100, Jan Beulich wrote:
+> On 07.03.2024 18:08, Oleksii wrote:
+> > On Fri, 2023-12-22 at 12:09 +0100, Jan Beulich wrote:
+> > > On 22.12.2023 10:39, Oleksii wrote:
+> > > > On Tue, 2023-08-08 at 12:32 +0200, Jan Beulich wrote:
+> > > > > On 08.08.2023 12:18, Andrew Cooper wrote:
+> > > > > > On 08/08/2023 10:46 am, Jan Beulich wrote:
+> > > > > > > There's no need for every arch to define its own
+> > > > > > > identical
+> > > > > > > copy.
+> > > > > > > If down
+> > > > > > > the road an arch needs to customize it, we can add
+> > > > > > > #ifndef
+> > > > > > > around
+> > > > > > > the
+> > > > > > > common #define.
+> > > > > > >=20
+> > > > > > > To be on the safe side build-breakage-wise, change a
+> > > > > > > couple
+> > > > > > > of
+> > > > > > > #include
+> > > > > > > <asm/cache.h> to the xen/ equivalent.
+> > > > > > >=20
+> > > > > > > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > > > > >=20
+> > > > > > Could we find a better place to put this?
+> > > > > >=20
+> > > > > > __read_mostly is just a section.=C2=A0 It's relationship to the
+> > > > > > cache is
+> > > > > > only
+> > > > > > microarchitectural, and is not the same kind of information
+> > > > > > as
+> > > > > > the
+> > > > > > rest
+> > > > > > of cache.h
+> > > > > >=20
+> > > > > > __ro_after_init is only here because __read_mostly is here,
+> > > > > > but
+> > > > > > has
+> > > > > > absolutely nothing to do with caches whatsoever.
+> > > > > >=20
+> > > > > > If we're cleaning them up, they ought to live elsewhere.
+> > > > >=20
+> > > > > I would be considering init.h (for having most other
+> > > > > __section()
+> > > > > uses,
+> > > > > and for also needing __read_mostly), but that's not a great
+> > > > > place
+> > > > > to
+> > > > > put these either. In fact I see less connection there than
+> > > > > for
+> > > > > cache.h.
+> > > > > So the primary need is a good suggestion (I'm hesitant to
+> > > > > suggest
+> > > > > to
+> > > > > introduce section.h just for this).
+> > > > Andrew sent some suggestions here:
+> > > > https://lore.kernel.org/xen-devel/3df1dad8-3476-458f-9022-160e0af57=
+d39@citrix.com/
+> > > >=20
+> > > > Will that work for you?
+> > >=20
+> > > I still need to properly look at the suggested options.
+> > Have you had a chance to review the suggested options?
+>=20
+> I'm sure you've seen
+>=20
+> https://lists.xen.org/archives/html/xen-devel/2024-01/msg00145.html
+>=20
+> To add to that - xen/linkage.h is for assembly code only right now.
+> While
+> I'd be happy to add C stuff there, there's an (imo) obvious issue
+> with
+> code churn then: All C files using __read_mostly would then need to
+> be
+> changed to include xen/linkage.h. And no, I don't view including the
+> file
+> once in a "central" other header file as a viable solution: That's
+> where
+> some of our really bad header dependency issues come from. Plus a
+> goal
+> ought to be (imo) that touching a header like this one would better
+> not
+> result in a full re-build of everything, when doing incremental
+> builds.
+>=20
+> Same obviously goes for the case of introducing xen/sections.h, i.e.
+> the
+> other proposed alternative.
+>=20
+> Bottom line: Given the state of our tree, I still view my proposed
+> placement as the least bad one for the time being. To change my view,
+> I'd still expect a _viable_ alternative proposal to be made.
+Based on your replies, I can conclude that there is no good place for
+__read_mostly and __ro_after_init.
 
-Wait - this is plain SW, so can't it even be the more generic "m" then?
-(As said, I'm uncertain about "o"; in general I think it's risky to use.)
+If my conclusion is correct, then an introduction of a new header is
+required. I totally agree that the inclusion of the introduced header
+to 'central' header only for the reason not to update all C files using
+__read_mostly macros is not a good solution, but I don't see an issue
+with an update of all C files which use __read_mostly/__ro_after_init
+if it is required. I realize that it can be a huge amount of files, but
+if the situation requires that, it looks not so bad solution. If to
+look at places where <xen/cache.h> is included now, then there wouldn't
+be too many places that needed to be updated.
 
-Jan
+Despite this fact, I don't think that an introduction of xen/section.h
+is a bad solution, xen/cache.h can also be a good place for it as my
+understanding of __read_mostly is that it is not only meant for just
+read-only data, there are performance reasons for using it:
+/*
+* __read_mostly is used to keep rarely changing variables out of
+frequently
+* updated cachelines. Its use should be reserved for data that is used
+* frequently in hot paths. Performance traces can help decide when to
+use
+* this. You want __read_mostly data to be tightly packed, so that in
+the
+* best case multiple frequently read variables for a hot path will be
+next
+* to each other in order to reduce the number of cachelines needed to
+* execute a critical path.
+*/
 
-> Also just to remind
-> you: In write functions you need "=A" (and in amo ones "+A"), i.e. the
-> memory operand then needs to be an output, not an input.
-> 
-> Jan
+Not related to my words above, here is a little remark about the patch
+changes. Does it make sense to wrap the definition of __read_mostly()
+by "#ifndef __read_mostly" in case architecture decides to redefine it?
 
+~ Oleksii
 
