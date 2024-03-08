@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAD76875E2B
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Mar 2024 08:04:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.690113.1075828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5890A875E5A
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Mar 2024 08:18:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.690117.1075838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riUGD-0003RN-G3; Fri, 08 Mar 2024 07:03:17 +0000
+	id 1riUUx-0005Ze-KH; Fri, 08 Mar 2024 07:18:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 690113.1075828; Fri, 08 Mar 2024 07:03:17 +0000
+Received: by outflank-mailman (output) from mailman id 690117.1075838; Fri, 08 Mar 2024 07:18:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riUGD-0003Pq-C0; Fri, 08 Mar 2024 07:03:17 +0000
-Received: by outflank-mailman (input) for mailman id 690113;
- Fri, 08 Mar 2024 07:03:16 +0000
+	id 1riUUx-0005X7-GL; Fri, 08 Mar 2024 07:18:31 +0000
+Received: by outflank-mailman (input) for mailman id 690117;
+ Fri, 08 Mar 2024 07:18:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fOiY=KO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1riUGC-0003PW-EO
- for xen-devel@lists.xenproject.org; Fri, 08 Mar 2024 07:03:16 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1riUUw-0005X1-AA
+ for xen-devel@lists.xenproject.org; Fri, 08 Mar 2024 07:18:30 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ee241168-dd19-11ee-a1ee-f123f15fe8a2;
- Fri, 08 Mar 2024 08:03:13 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a44628725e3so210837266b.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 23:03:13 -0800 (PST)
+ id 0eab2fbe-dd1c-11ee-a1ee-f123f15fe8a2;
+ Fri, 08 Mar 2024 08:18:27 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-564372fb762so627079a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 23:18:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k14-20020a170906a38e00b00a45f3524ac3sm103550ejz.118.2024.03.07.23.03.12
+ l13-20020aa7d94d000000b0056828004c75sm579845eds.51.2024.03.07.23.18.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Mar 2024 23:03:12 -0800 (PST)
+ Thu, 07 Mar 2024 23:18:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee241168-dd19-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 0eab2fbe-dd1c-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709881393; x=1710486193; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709882306; x=1710487106; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=u65kGKGP9OS4t/YRB0fHFsYT9hmTBiOmEwHyF8Oinww=;
-        b=N39IZ5kG94JTRepz4vpXzpLo4h69aGSQKxaeGaDwNvb1NoDLHKrT7ncEvq0XBwk9Ew
-         A4yCeyilIMH10u045GMcmJ7Vy+2z58pu8WLTR4HLvlWo9rcKev4dPLriZJ+TRrRMLhQP
-         HlTAGo4mmbQ17VYJEYdbep/L69UHcbLV41+R4FHWtYNlz3EcXaH19yeundRH3q4MRqiV
-         3l3U9x9KmzWFDCVewWhymFI47LO7ydJRbhoMpOVYZacIJ508Yz/k3eiOGdbI+WETXmJe
-         MkSLkw+OVZIe3ZaAGLQ/wxbclYYjmYeVSRMDOkx8OzA+ynyvzeFwpkyrmvC8THz/nFcT
-         +/mQ==
+        bh=QfZcAyokEhcr3g+gmO7LAD2eQKRA9xZssWV+SW3Ru+c=;
+        b=DL+qEZEUKfvCYBmb8uzbsIt2EVreekv8i90weqlOHRufoV0n0gcb9SK76mtlydT25r
+         KKRMZr8wVqRGGMoZZ4tCJusu98GwSaxEFTOWVq8VZELAy2PKBi0/xT60sLzzoD3w3avM
+         8ymBNgW+wqxkQmlUQOvlursRid+1GlMr9EIbDmFsdldrs7p7/3/XdqT5ZwfTMUbRWcMF
+         /rJRjXMIdHvl6a5oxG7zEfC/YkLXPyT6N0FpJ3OLAWH4FK3/kkWWQhmVvjOeUYtZsQoU
+         SKvlio1x4JoYYRo3iegu6wR+TmIQuT5AYumXc+5HJ4ZHjnKMHh14RGscNiNYdUejvAMH
+         b1vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709881393; x=1710486193;
+        d=1e100.net; s=20230601; t=1709882306; x=1710487106;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=u65kGKGP9OS4t/YRB0fHFsYT9hmTBiOmEwHyF8Oinww=;
-        b=w8VNyQ7LUGJiksVUErfX4e/W6/Wqmf0T9PQbd/Kps5lSSG8sFQ39INWABkPOuqBhPJ
-         +GL/SUXLpisiSedushVbeDDNIKI6j+Px+81hIcyKDrlPs1ZxSO+5aDIp6gi5C1hgGcFj
-         ai+okr3wjkaNYq0Q4In2yrF9V8HTDmYwtbGYd91u9w69I1yqDCdSyPBqUYkllNRBB+vT
-         VM6EQ6UZqgj9OKsvqXXes4/K7BcjPEYWUAbEhaw93nwoPdDlt7URWMhMgXXqo+q82h8w
-         blhNaIOtQWtBQu0Avr3lGTjSXoT4j6uUQ1kK3b71+WJJcJOFPLC8/zEjVC9f1hvc3MWA
-         EEhQ==
-X-Gm-Message-State: AOJu0YxCz5YrRCWQotd8zrO1zvUaJMZPAoSiIIlqx0PWQkl61IkeRkIW
-	aNTKe0mpzBjpQGaDYZAbqNi5cNsiIBrEa3WS7vsHmNxWrALHAXMwX5eCU3TWEA==
-X-Google-Smtp-Source: AGHT+IEaEnJqREv01fQAU0+qpgaUs2hhF0cV375ZfNWdY/z62Pc0DE0bwGQIaxJiEeh6XqvCCAUNnw==
-X-Received: by 2002:a17:907:367:b0:a43:f020:57ed with SMTP id rs7-20020a170907036700b00a43f02057edmr13978704ejb.73.1709881392977;
-        Thu, 07 Mar 2024 23:03:12 -0800 (PST)
-Message-ID: <b781fdce-c0aa-4262-97e2-38e22be70198@suse.com>
-Date: Fri, 8 Mar 2024 08:03:11 +0100
+        bh=QfZcAyokEhcr3g+gmO7LAD2eQKRA9xZssWV+SW3Ru+c=;
+        b=CUVHOnOk4sw10AGu9azeQubPw186Wt0PuVm1RLeDFjZTbnsT1zz5I0hGiEeeMVap8j
+         Yl0qtBiJV4PFlYi7v/1NsRTCk2B928OVmJsoW1hy4brGg+BA/5Eqwj4E6GxSlE25T0Vc
+         ZOKY3ljq7OhsXNofdyh2bm12sSod94ODSX0r9Iv8ogSGCwTWxlh/PJ+w21yu8dgshngy
+         v26a0VlEglBI2himFqXocUhLuFVIcqaXD7JC5fymgnhFAVyzJb4gQcGa5w91ZpVMUyL3
+         YAcAmnFs/d47jHJeAbsAahUiOx3iTNZeRHHi+h6R3+Rds5p7Vt0JSsS//ZB2LgG7e4nB
+         043Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVCtxX++RcS6RGyR1s8OfO+/SeSTLDBWSmvSlnX55BR1CVSl2bLHrePzCGz12aJiyoIrxSvFovoLlZUOKdcn+s612PBXTD1evMdaxpc4qM=
+X-Gm-Message-State: AOJu0Yx2Ng5s2kFnmXhf0UiBsmPvn7OPj635FrMDniZVuryBH5qD2E9x
+	IWVLucJik2P5sr/a/XlZaZypeauUmm1jpAkrnmMyt35m8zmUZGr2s6oOP7w+ZQ==
+X-Google-Smtp-Source: AGHT+IGJy7zMTfl2hzXYs/0qb354ygpOPOx5PjLGAyXyLhohemM1LAVzVE3VNFv9jSyeWT3SkX6L7A==
+X-Received: by 2002:a05:6402:2311:b0:568:1599:b854 with SMTP id l17-20020a056402231100b005681599b854mr1146266eda.42.1709882306603;
+        Thu, 07 Mar 2024 23:18:26 -0800 (PST)
+Message-ID: <b6d14b07-33e2-4fca-9cd0-c461ceef4e84@suse.com>
+Date: Fri, 8 Mar 2024 08:18:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] x86/pvh: Support relocating dom0 kernel
+Subject: Re: [PATCH v5 12/23] xen/riscv: introduce io.h
 Content-Language: en-US
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20240306185032.103216-1-jason.andryuk@amd.com>
- <ZemQS-8a_a5pwzf-@macbook> <f6cbaf67-f5c7-4947-a07a-0f1d8f693462@suse.com>
- <ZemVBa1rxMsNI1pp@macbook> <c771b190-134b-453a-8699-2a29c6685e86@amd.com>
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
+ <dd7c95b5197dfd0cca0edf9c0ada631336eb60d7.1708962629.git.oleksii.kurochko@gmail.com>
+ <807c31d5-0c5a-4646-ba90-2f284289069f@suse.com>
+ <d047c0956f804f7191f91b1d690650e220ec0fe4.camel@gmail.com>
+ <a164230f-2054-47e9-b72c-51f4a5955fe0@suse.com>
+ <2a3e49bf94332c17b50e4f0f745e4b28b16dceb1.camel@gmail.com>
+ <2a05c233-b3c5-417c-bd6b-8b1c21f03c3d@suse.com>
+ <e51500581bb71ef9cc2879050e2577802a5dd14c.camel@gmail.com>
+ <bbd4ea96-565a-4843-a4fe-fbbc714ddbf6@suse.com>
+ <9ec718f3bba178d437035add3c7467011fc3ffc0.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,50 +123,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c771b190-134b-453a-8699-2a29c6685e86@amd.com>
+In-Reply-To: <9ec718f3bba178d437035add3c7467011fc3ffc0.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 07.03.2024 18:33, Jason Andryuk wrote:
-> On 2024-03-07 05:20, Roger Pau Monné wrote:
->> On Thu, Mar 07, 2024 at 11:08:37AM +0100, Jan Beulich wrote:
->>> On 07.03.2024 11:00, Roger Pau Monné wrote:
->>>> On Wed, Mar 06, 2024 at 01:50:29PM -0500, Jason Andryuk wrote:
->>>>> Xen tries to load a PVH dom0 kernel at the fixed guest physical address
->>>>> from the elf headers.  For Linux, this defaults to 0x1000000 (16MB), but
->>>>> it can be configured.
->>>>>
->>>>> Unfortunately there exist firmwares that have reserved regions at this
->>>>> address, so Xen fails to load the dom0 kernel since it's not RAM.
->>>>>
->>>>> The other issue is that the Linux PVH entry point is not
->>>>> position-independent.  It expects to run at the compiled
->>>>> CONFIG_PHYSICAL_ADDRESS.
->>>>>
->>>>> This patch set expands the PVH dom0 builder to try to relocate the
->>>>> kernel if needed and possible.  XENFEAT_pvh_relocatable is added for
->>>>> kernels to indicate they are relocatable.  However, we may want to
->>>>> switch to an additional ELF note with the kernel alignment.  Linux
->>>>> specifies a kernel alignment in the bzImage boot_params.setup_header,
->>>>> but that is not present the ELF vmlinux file.
->>>>
->>>> I wonder whether we need a pair of notes, to signal the min/max
->>>> addresses the kernel supports being relocated to.
->>>
->>> Plus, as per your other reply, a 3rd one to specify alignment needs.
->>
->> Alignment we could in theory get from the ELF program header, if OSes
->> fill those reliably.  FreeBSD seems to do so, haven't checked Linux.
-> 
-> I will look into this more, but at first glance, I don't see a 
-> connection between Linux's CONFIG_PHYSICAL_ALIGN and the values in the 
-> elf headers.  As a quick test, I set CONFIG_PHYSICAL_ALIGN=0x800000, but 
-> the elf align values are still 0x200000.
-> 
-> The elf header values may be a suitable fallback though?
+On 07.03.2024 21:49, Oleksii wrote:
+> On Thu, 2024-03-07 at 18:14 +0100, Jan Beulich wrote:
+>> For plain writes it should at least be "=Qo" then, yes.
+> Constraints Q is a machine specific constraint, and I am not sure that
+> it makes sense to use "=o" only and probably it is a reason why it is
+> enough only "r". Does it make sense?
 
-Imo, given the above, explicit values should be required. Better not
-load a kernel than doing so and then getting hard to debug crashes.
+Especially the 'only "r"' part doesn't, no. I also don't see why "=o"
+would make no sense - that's fundamentally no different than "=m".
+Unless the immediates used in the ultimate insns are large enough to
+cover the full range of possible values, my take is that "o" is never
+appropriate to use. With one exception in a case like we have here:
+If the operand isn't used in the actual instruction(s), then that's
+fine, as the specific value of the adjusted immediate wouldn't matter
+at all.
+
+As to "Q" - that's an Arm constraint anyway, not a RISC-V one? If so,
+I'm not sure why we're discussing it here. In any event, I'd be curious
+to understand in how far the combination "Qo" makes sense.
+
+>>  To me making those
+>> input operands on Arm can't have been quite right.
+> I  don't understand why they both are input, logically it looks like an
+> address should be an output.
+
+How would an address be an output, when that's needed to be calculated
+for the memory access to take place? It would be an output (and
+presumably a dummy/fake one) only if the address calculation was done
+in the asm() itself (and there I don't mean the operands, but the
+actual assembly instruction(s)).
 
 Jan
 
