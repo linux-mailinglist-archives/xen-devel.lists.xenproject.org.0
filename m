@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A20C58765D1
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Mar 2024 14:59:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.690310.1076188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 194408765F5
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Mar 2024 15:05:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.690313.1076200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rial1-0007Yd-UD; Fri, 08 Mar 2024 13:59:31 +0000
+	id 1riaqW-0001C1-Gp; Fri, 08 Mar 2024 14:05:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 690310.1076188; Fri, 08 Mar 2024 13:59:31 +0000
+Received: by outflank-mailman (output) from mailman id 690313.1076200; Fri, 08 Mar 2024 14:05:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rial1-0007WB-RF; Fri, 08 Mar 2024 13:59:31 +0000
-Received: by outflank-mailman (input) for mailman id 690310;
- Fri, 08 Mar 2024 13:59:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8hQF=KO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rial0-0007SX-Db
- for xen-devel@lists.xenproject.org; Fri, 08 Mar 2024 13:59:30 +0000
-Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
- [2607:f8b0:4864:20::830])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 13f0529a-dd54-11ee-a1ee-f123f15fe8a2;
- Fri, 08 Mar 2024 14:59:28 +0100 (CET)
-Received: by mail-qt1-x830.google.com with SMTP id
- d75a77b69052e-42f13eebabbso9799921cf.3
- for <xen-devel@lists.xenproject.org>; Fri, 08 Mar 2024 05:59:28 -0800 (PST)
-Received: from [192.168.86.29] ([83.104.235.82])
- by smtp.gmail.com with ESMTPSA id
- d17-20020ac85351000000b0042f148f6caasm2453283qto.78.2024.03.08.05.59.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Mar 2024 05:59:26 -0800 (PST)
+	id 1riaqW-0001A8-E5; Fri, 08 Mar 2024 14:05:12 +0000
+Received: by outflank-mailman (input) for mailman id 690313;
+ Fri, 08 Mar 2024 14:05:11 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1riaqV-0001A1-NT
+ for xen-devel@lists.xenproject.org; Fri, 08 Mar 2024 14:05:11 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1riaqL-0001wf-T1; Fri, 08 Mar 2024 14:05:01 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1riaqL-0003Ob-Lc; Fri, 08 Mar 2024 14:05:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +39,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13f0529a-dd54-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1709906367; x=1710511167; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=v/+37e/CZnsEbkRBexCvC3pluOt7LMrL9B3WZcXqPu4=;
-        b=ZgJpWbMYQ3AkFPVYcpH48sEGYqge2O/H3GDnTt1/B3mUidlS1CmBe7XmnzhfR7Rk75
-         db0sc4M4WdatOuIlnQ42xRYdNpCfzXfgGiij8/btyA74HP9+mIGZshqMfCDC0U8x7Q8+
-         KOO/Y3A+4d1DsU8s4lhHT/eoFYwx5ba0/EvO8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709906367; x=1710511167;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=v/+37e/CZnsEbkRBexCvC3pluOt7LMrL9B3WZcXqPu4=;
-        b=QraOCoFc8VsZnzJ8UBVEz5vWHlb1nrEko/ECZmjCMOvqxjB80Q7o2CJAJ5Y2YlOZta
-         7Wmrt1c5WTc5F9fUdy6TpkUGDuECbujcVriOjPGMXw0x745Mdt7daNheR32GB0uhvP/V
-         LUwvyDxrdlvqEPhQMTcpR2maqjVwCS3tw+1DmaPOPCNg9b13jhm8jvvfww5RJ97GRtww
-         spoEHakwuRZ4hyuhNBZx5mVfzHusJ4Tb3+s+M9jQP1sBiUtlEMqA+zZlPXVpDbaiQYd/
-         Dpx+JJDV5NZaAYIhtDGewKmkbwWOnjh1uQybibNJLPZVuksmjC8h74gaXRHaJ0HmxAua
-         Vu/w==
-X-Forwarded-Encrypted: i=1; AJvYcCUKgOQgyrFMe16dJW2iQMXa2/SDo9yjAcyee+zGnhKu0Z+O8svBrjTfAtTR9Ulk8wHlBrp+5ihKPLDo7rHeQ3c2Vb2gzL2QudjvVHmc4NM=
-X-Gm-Message-State: AOJu0YxVraLqNaxXIs80rnCTU7OttcQ5EAv3tZAOsXe/wqFuMU8KNMCJ
-	aIiZ2AueEgrbNpSTVZkxLPmHdlBlCphfZNXYm/mUFscfUSpLo4WYrKVdvZQsaXU=
-X-Google-Smtp-Source: AGHT+IFoPHKtY9ZPxS7YtBzkiGHnX2qzlkS3O+7Gnek0VVottCuWWniwZ/EkS3VOjPN9ra7VGXaR9g==
-X-Received: by 2002:a05:622a:118f:b0:42e:d2a7:9eee with SMTP id m15-20020a05622a118f00b0042ed2a79eeemr25173qtk.46.1709906367186;
-        Fri, 08 Mar 2024 05:59:27 -0800 (PST)
-Message-ID: <b9ecffeb-cbef-4be7-bb85-224cbc11a35b@citrix.com>
-Date: Fri, 8 Mar 2024 13:59:25 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=+SP+fyHAEWzq/M9ruBj6he5Ab9v6PnVgoi6FmrbjuH8=; b=F69wLXlKNMmzvtSgu5CconVXuL
+	uIa3jelVf3MjrIMdv68+mBi35IBhgjFf/Hz58+IbLSssAduHCIpRMJEh4sh2iQ2GTFLor76IA6FZ2
+	scJtRYVmRUS61L9/pYQFek3KjDhQh/BNP/kfmoPt2Uv8m71RBmXvIZ6P7MV9NfbwrILk=;
+Message-ID: <48038c7f-d7cd-4100-a41b-8042bcb93208@xen.org>
+Date: Fri, 8 Mar 2024 14:04:59 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [xen-unstable test] 184940: regressions - FAIL
+Subject: Re: [PATCH 1/2] xen/arm: Add imx8q{m,x} platform glue
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
-Cc: osstest service owner <osstest-admin@xenproject.org>
-References: <osstest-184940-mainreport@xen.org>
- <5c21d349-5021-490f-bc6b-eb5973622688@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <5c21d349-5021-490f-bc6b-eb5973622688@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: John Ernberg <john.ernberg@actia.se>, Peng Fan <peng.fan@nxp.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Jonas Blixt <jonas.blixt@actia.se>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20240131114952.305805-1-john.ernberg@actia.se>
+ <20240131114952.305805-2-john.ernberg@actia.se>
+ <a2f726f5-df4c-4d15-90af-7d59c0f1f513@xen.org>
+ <494d4961-ad8a-4d1d-aaa6-d1bfb9d6a137@actia.se>
+ <167f0c7a-e037-446c-82f8-2584e35a7af1@xen.org>
+ <a265ea2d-9b5f-4726-9395-448b1b669839@actia.se>
+ <012b5f83-2f9b-4477-965e-07b8506c0052@xen.org>
+ <DU0PR04MB94170CB1F77E3D594A6D0E9488402@DU0PR04MB9417.eurprd04.prod.outlook.com>
+ <5a0c8f09-4f01-45e9-892c-86342c0d0ec5@xen.org>
+ <08ae764c-3490-4dd1-ab70-7a855a98d16d@actia.se>
+ <911ec1bb-3733-4f37-839e-673a88e408ff@actia.se>
+ <ab61278a-f3f1-41de-a0b2-eca6f19be103@xen.org>
+ <848794f3-a337-49d9-84db-a969970f071b@actia.se>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <848794f3-a337-49d9-84db-a969970f071b@actia.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 08/03/2024 1:56 pm, Jan Beulich wrote:
-> On 08.03.2024 14:45, osstest service owner wrote:
->> flight 184940 xen-unstable real [real]
->> flight 184945 xen-unstable real-retest [real]
->> http://logs.test-lab.xenproject.org/osstest/logs/184940/
->> http://logs.test-lab.xenproject.org/osstest/logs/184945/
+Hi John,
+
+Thank you for the reply.
+
+On 08/03/2024 13:40, John Ernberg wrote:
+> On 3/7/24 00:07, Julien Grall wrote:
+>>   > Ping on the watchdog discussion bits.
 >>
->> Regressions :-(
+>> Sorry for the late reply.
 >>
->> Tests which did not succeed and are blocking,
->> including tests which could not be run:
->>  test-amd64-amd64-livepatch   13 livepatch-run            fail REGR. vs. 184927
->>  test-amd64-i386-livepatch    13 livepatch-run            fail REGR. vs. 184927
-> Hmm, both have "(XEN) common/livep" following the shell prompt,
-> i.e. an incomplete hypervisor log message (maybe a failed assertion?),
-> suggesting a triple fault may have occurred. While some livepatch
-> related changes are under test, I can't (for now) connect any of them
-> (or any of the other changes) with such behavior.
+>> On 06/03/2024 13:13, John Ernberg wrote:
+>>> On 2/9/24 14:14, John Ernberg wrote:
+>>>>
+>>>>>      * IMX_SIP_TIMER_*:  This seems to be related to the watchdog.
+>>>>> Shouldn't dom0 rely on the watchdog provided by Xen instead? So those
+>>>>> call will be used by Xen.
+>>>>
+>>>> That is indeed a watchdog SIP, and also for setting the SoC internal RTC
+>>>> if it is being used.
+>>>>
+>>>> I looked around if there was previous discussion and only really
+>>>> found [3].
+>>>> Is the xen/xen/include/watchdog.h header meant to be for this kind of
+>>>> watchdog support or is that more for the VM watchdog? Looking at the x86
+>>>> ACPI NMI watchdog it seems like the former, but I have never worked with
+>>>> x86 nor ACPI.
+>>
+>> include/watchdog.h contains helper to configure the watchdog for Xen. We
+>> also have per-VM watchdog and this is configured by the hypercall
+>> SCHEDOP_watchdog.
+>>
+>>>>
+>>>> Currently forwarding it to Dom0 has not caused any watchdog resets with
+>>>> our watchdog timeout settings, our specific Dom0 setup and VM count.
+>>
+>> IIUC, the SMC API for the watchdog would be similar to the ACPI NMI
+>> watchdog. So I think it would make more sense if this is not exposed to
+>> dom0 (even if Xen is doing nothing with it).
+>>
+>> Can you try to hide the SMCs and check if dom0 still behave properly?
+>>
+>> Cheers,
+>>
+> 
+> This SMC manages a hardware watchdog, if it's not pinged within a
+> specific interval the entire board resets.
 
-Well... that's ominously my changes then, but our testing seems happy
-with them.
+Do you know what's the default interval? Is it large enough so Xen + 
+dom0 can boot (at least up to when the watchdog driver is initialized)?
 
-~Andrew
+> 
+> If I block the SMCs the watchdog driver in Dom0 will fail to ping the
+> watchdog, triggering a board reset because the system looks to have
+> become unresponsive. The reason this patch set started is because we
+> couldn't ping the watchdog when running with Xen.
+> 
+> In our specific system the bootloader enables the watchdog as early as
+> possible so that we can get watchdog protection for as much of the boot
+> as we possibly can.
+> 
+> So, if we are to block the SMC from Dom0, then Xen needs to take over
+> the pinging. It could be implemented similarly to the NMI watchdog,
+> except that the system will reset if the ping is missed rather than
+> backtrace.
+> It would also mean that Xen will get a whole watchdog driver-category
+> due to the watchdog being vendor and sometimes even SoC specific when it
+> comes to Arm.
+> 
+> My understanding of the domain watchdog code is that today the domain
+> needs to call SCHEDOP_watchdog at least once to start the watchdog
+> timer. Since watchdog protection through the whole boot process is
+> desirable we'd need some core changes, such as an option to start the
+> domain watchdog on init. >
+> It's quite a big change to make
+
+For clarification, above you seem to mention two changes:
+
+  1) Allow Xen to use the HW watchdog
+  2) Allow the domain to use the watchdog early
+
+I am assuming by big change, you are referring to 2?
+
+, while I am not against doing it if it
+> makes sense, I now wonder if Xen should manage hardware watchdogs.
+> Looking at the domain watchdog code it looks like if a domain does not
+> get enough execution time, the watchdog will not be pinged enough and
+> the guest will be reset. So either watchdog approach requires Dom0 to
+> get execution time. Dom0 also needs to service all the PV backends it's
+> responsible for. I'm not sure it's valuable to add another layer of
+> watchdog for this scenario as the end result (checking that the entire
+> system works) is achieved without it as well.
+> 
+> So, before I try to find the time to make a proposal for moving the
+> hardware watchdog bit to Xen, do we really want it?
+
+Thanks for the details. Given that the watchdog is enabled by the 
+bootloader, I think we want Xen to drive the watchdog for two reasons:
+  1) In true dom0less environment, dom0 would not exist
+  2) You are relying on Xen + Dom0 to boot (or at least enough to get 
+the watchdog working) within the watchdog interval.
+
+Let see what the other Arm maintainer thinks.
+
+-- 
+Julien Grall
 
