@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A6F7875E6E
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Mar 2024 08:26:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.690124.1075858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07910875E84
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Mar 2024 08:30:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.690128.1075868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riUcZ-0008Fv-No; Fri, 08 Mar 2024 07:26:23 +0000
+	id 1riUfs-00010h-6H; Fri, 08 Mar 2024 07:29:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 690124.1075858; Fri, 08 Mar 2024 07:26:23 +0000
+Received: by outflank-mailman (output) from mailman id 690128.1075868; Fri, 08 Mar 2024 07:29:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1riUcZ-0008Cl-L0; Fri, 08 Mar 2024 07:26:23 +0000
-Received: by outflank-mailman (input) for mailman id 690124;
- Fri, 08 Mar 2024 07:26:22 +0000
+	id 1riUfs-0000yh-3E; Fri, 08 Mar 2024 07:29:48 +0000
+Received: by outflank-mailman (input) for mailman id 690128;
+ Fri, 08 Mar 2024 07:29:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fOiY=KO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1riUcY-0008Cf-4s
- for xen-devel@lists.xenproject.org; Fri, 08 Mar 2024 07:26:22 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1riUfr-0000yb-56
+ for xen-devel@lists.xenproject.org; Fri, 08 Mar 2024 07:29:47 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 28a2e7fb-dd1d-11ee-a1ee-f123f15fe8a2;
- Fri, 08 Mar 2024 08:26:20 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a45bdf6e9c2so210683366b.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 23:26:20 -0800 (PST)
+ id a2d8a960-dd1d-11ee-a1ee-f123f15fe8a2;
+ Fri, 08 Mar 2024 08:29:45 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-563cb3ba9daso1963057a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Mar 2024 23:29:45 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- dl7-20020a170907944700b00a45f39b2d16sm89600ejc.200.2024.03.07.23.26.19
+ k15-20020aa7c38f000000b00568229390f2sm877985edq.70.2024.03.07.23.29.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Mar 2024 23:26:19 -0800 (PST)
+ Thu, 07 Mar 2024 23:29:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28a2e7fb-dd1d-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: a2d8a960-dd1d-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1709882780; x=1710487580; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1709882985; x=1710487785; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=uTWcfXJrYzYS20fiF3OEBcA73p13jR931MWUyarmd+8=;
-        b=YLWjM1k43Dmu/Rzm/cfU6gviVBLprevUUZN3D+cwrTf0o7sLAYWAKETY+LKr27ei65
-         GSqGDnBBqGjYdXLzrfjNF5zl10bEUhFd9XkP82ZYDaIZyF6le6kAViBVxxeYd3D0KFVw
-         UccEUpQ375daYgodswFy6kSAGGluErLPAYOfC8/cj6FozqJugXA0reZAvf6/uYvCUtXK
-         Glja7orXgFY9kCHKrkola7eSX3pDX/G3ux79ROWzuOPEouoeIONb0Cr0OcRUWlX4o7Dz
-         XbRvwLdqhDXzIrvd/13lcCOzLuD2aicFC58cV5QpezHfIw5QlhcGhsPk6HuThFwGwrN9
-         nxsA==
+        bh=T4TSznoAriWsUNcIPeGIus6j96yiP1D9gFaPIigEgJM=;
+        b=aUxr6cKRfVl0Xkbz9UfqQY42H7kgelg4dCSIEzZ7Y0tc77z7NxmokRLRy8sArHmBEy
+         558Y7BzmPXveFADht1krkUrWPdNiwHuD36DWm7Kwk49hUvvCuPmO4WIpxWNDPUGqzLMG
+         M1juSHU9+dGnB/MSZ03XXTUPPSUh48fQKR9+ZC+0V7xZVelojfh1s3TOQZwwnaScctwn
+         n+xTQM7jsrs17nJLmdMiwkUbyFqdoMqBsNv44MzVaFIVRRvXJnpowCsIv2LUy/3igoxZ
+         b6ELgNnVidTw6O7CEySplylgxzAmfzc32+T/6iLSHuQ49L4xeJJmgTddhZmgvmvrPd5e
+         vwPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709882780; x=1710487580;
+        d=1e100.net; s=20230601; t=1709882985; x=1710487785;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=uTWcfXJrYzYS20fiF3OEBcA73p13jR931MWUyarmd+8=;
-        b=KZqJ9c+JTBKPnS+198vf6TjRIye4OLLqApB0XELcwUGmlmZ1td+01InfmP8UMwaZ6Y
-         XGbe5uRfL9+wyrYm4GXXXQzL3b3q0QDpVXJ/bjuzxbmtCkrOQfE4kWj/bdFOMo5K7KX2
-         9vGuYNu+cbpL1YIK2h+ltHNCBV4LPSoJ8ADauPWrlR2MwYMm2aoLTU6Ic6gO/OK6WHVM
-         sRJhaVEj6PcPokxjhOj7/M3mzljDBvJdjq2RZSTGrdRoORkof0bhpc9fMHBu4irmyAz5
-         QONbJoRFav0R+/8+qfZAviUyMPU0LycL4d3ySLv3lLFDvOlTZVHb36kHQR7qPO/+mlIN
-         aURA==
-X-Forwarded-Encrypted: i=1; AJvYcCUEX+FXBuATYTVNPDBDm+8tuOn76HTyKHMW/Bm3e7j9g5ZjbgKcCESqSJcgoXPYWjn2B86sZb5YDGVK/j63XxBMwKnbOLlL1lImizyVCJg=
-X-Gm-Message-State: AOJu0YwuAyFmWXfnqb7I+40eatpA3PLH4+2Cg2hHH5Etik7+0D1C+/bY
-	np8aHDX1PdQntDT3w0gMhPWO7LpW5nDU6XqPpSEkTI3axPR3QZ5q+ljNSxjW9A==
-X-Google-Smtp-Source: AGHT+IHA8ulfjCOmXk9YJlfxOprdM0oT+hgSeYyia3ycXFOHD3gEbhv6SDsKzyWHGqQ/6pqIlVxV/Q==
-X-Received: by 2002:a17:906:f0d1:b0:a45:a448:b08f with SMTP id dk17-20020a170906f0d100b00a45a448b08fmr7493101ejb.54.1709882779680;
-        Thu, 07 Mar 2024 23:26:19 -0800 (PST)
-Message-ID: <82375df2-f7fd-43a1-9183-f4823fe791ec@suse.com>
-Date: Fri, 8 Mar 2024 08:26:18 +0100
+        bh=T4TSznoAriWsUNcIPeGIus6j96yiP1D9gFaPIigEgJM=;
+        b=pYcH6086Mg+Aug1fwmsi5gV6d0zAOELoaHeJWkME4qiYjoLYnJw/FkkVf1BNNKfYDk
+         JCvkMsJ9Ysz/rjwc9+oRAXzFKy6Nv2sxvt78+lt9DLG8i8cmtOijyrCIiqDjN0765Fll
+         ok4XWexyY8mMgeIcwoJ3/KfCvse3rEhw4PPC4tfr47GoGqXnl65m7Tk38EV1xunY1HNC
+         lS0XkFFTXT+Fe0pIuvF2e0adopkCpAq2dN1AOuaYcs9U4bfSwz7OKoWLCRzes+waQVqn
+         tIfQDnqtRGnKKXCJxbRYmw2iDCZglRvSAOgluN7UX5keI/uvYkyhBfuqJDlZfCv2LnT0
+         iFqw==
+X-Forwarded-Encrypted: i=1; AJvYcCUtXp8kFPB/LxJDoTLwuRzsiwWS4Tw0Pyh4yKJuB/vKHDzJSDlNYlxFyc1kfTvoRt7YlfLOVrC+kJ6iRJaJPmtacyLGWZftldaqdzG5J+w=
+X-Gm-Message-State: AOJu0Yy+rg8aoQq79KZln5i54APghZWFCXLGEAjr3ccfqdcVJrM/nP6z
+	P/Qk4w/wxsvnGTHgRVWbTFuXbR5eU0mQ1R5U043dZxC9XkQ/XQq/0+GETvrpbQ==
+X-Google-Smtp-Source: AGHT+IFOjqxwB69wkNyorCEMKbKNzwn7ir1b9yKiAyY5+588AN3u+dJXBTao6aGKYGjreGjp+Z4iGg==
+X-Received: by 2002:a50:8ad7:0:b0:565:f90c:1263 with SMTP id k23-20020a508ad7000000b00565f90c1263mr1418333edk.9.1709882984739;
+        Thu, 07 Mar 2024 23:29:44 -0800 (PST)
+Message-ID: <267da690-b925-4679-8462-a7f91f8efd65@suse.com>
+Date: Fri, 8 Mar 2024 08:29:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 12/23] xen/riscv: introduce io.h
+Subject: Re: [PATCH 1/2] x86/svm: Drop the _enabled suffix from vmcb bits
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+To: Vaishali Thakkar <vaishali.thakkar@vates.tech>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org,
  xen-devel@lists.xenproject.org
-References: <cover.1708962629.git.oleksii.kurochko@gmail.com>
- <dd7c95b5197dfd0cca0edf9c0ada631336eb60d7.1708962629.git.oleksii.kurochko@gmail.com>
- <807c31d5-0c5a-4646-ba90-2f284289069f@suse.com>
- <d047c0956f804f7191f91b1d690650e220ec0fe4.camel@gmail.com>
- <a164230f-2054-47e9-b72c-51f4a5955fe0@suse.com>
- <2a3e49bf94332c17b50e4f0f745e4b28b16dceb1.camel@gmail.com>
- <2a05c233-b3c5-417c-bd6b-8b1c21f03c3d@suse.com>
- <e51500581bb71ef9cc2879050e2577802a5dd14c.camel@gmail.com>
- <bbd4ea96-565a-4843-a4fe-fbbc714ddbf6@suse.com>
- <9ec718f3bba178d437035add3c7467011fc3ffc0.camel@gmail.com>
- <d3eabf773211defb2f8a9a22545fca5c7cf3eca1.camel@gmail.com>
+References: <cover.1709846387.git.vaishali.thakkar@vates.tech>
+ <3c419824febca229cedf2a3bd42cb68d3a3d56a8.1709846387.git.vaishali.thakkar@vates.tech>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -124,40 +111,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d3eabf773211defb2f8a9a22545fca5c7cf3eca1.camel@gmail.com>
+In-Reply-To: <3c419824febca229cedf2a3bd42cb68d3a3d56a8.1709846387.git.vaishali.thakkar@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 07.03.2024 21:54, Oleksii wrote:
-> On Thu, 2024-03-07 at 21:49 +0100, Oleksii wrote:
->> On Thu, 2024-03-07 at 18:14 +0100, Jan Beulich wrote:
->>> For plain writes it should at least be "=Qo" then, yes.
->> Constraints Q is a machine specific constraint, and I am not sure
->> that
->> it makes sense to use "=o" only and probably it is a reason why it is
->> enough only "r". Does it make sense?
-> Probably for RISC-V can be used:
-> RISC-V—config/riscv/constraints.md
->    ...
->    A
->        An address that is held in a general-purpose register.
->    ...
+On 07.03.2024 22:40, Vaishali Thakkar wrote:
+> --- a/xen/arch/x86/hvm/svm/nestedsvm.c
+> +++ b/xen/arch/x86/hvm/svm/nestedsvm.c
+> @@ -571,7 +571,7 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
+>      if ( nestedhvm_paging_mode_hap(v) )
+>      {
+>          /* host nested paging + guest nested paging. */
+> -        n2vmcb->_np_enable = 1;
+> +        n2vmcb->_np = 1;
 
-Just from the description I would have said no, but looking at what "A"
-actually expands to it is indeed RISC-V's counterpart of Arm's "Q". So
-yes, this looks like what amo* want to use, and then as a real operand,
-not just a fake one.
+Given the field is bool, "true" here and elsewhere as well as ...
 
-> AArch64 family—config/aarch64/constraints.md:
->    ...
->    Q
->        A memory address which uses a single base register with no
->    offset
->    ...
-> Also 'no offset' explains why it was added 'o' constraint for Arm
-> additionally.
+> @@ -601,7 +601,7 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
+>      else
+>      {
+>          /* host shadow paging + guest shadow paging. */
+> -        n2vmcb->_np_enable = 0;
+> +        n2vmcb->_np = 0;
 
-I don't think it does.
+... "false" here (and once again further down)?
 
 Jan
 
