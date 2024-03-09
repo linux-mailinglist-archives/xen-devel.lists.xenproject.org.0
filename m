@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B184877383
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Mar 2024 20:23:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.690974.1076717 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7047787738A
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Mar 2024 20:23:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.690976.1076727 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rj2Ht-0002fW-K8; Sat, 09 Mar 2024 19:23:17 +0000
+	id 1rj2I1-0003Kw-Td; Sat, 09 Mar 2024 19:23:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 690974.1076717; Sat, 09 Mar 2024 19:23:17 +0000
+Received: by outflank-mailman (output) from mailman id 690976.1076727; Sat, 09 Mar 2024 19:23:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rj2Ht-0002dV-GH; Sat, 09 Mar 2024 19:23:17 +0000
-Received: by outflank-mailman (input) for mailman id 690974;
- Sat, 09 Mar 2024 19:23:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rj2I1-0003HU-PW; Sat, 09 Mar 2024 19:23:25 +0000
+Received: by outflank-mailman (input) for mailman id 690976;
+ Sat, 09 Mar 2024 19:23:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MmSm=KP=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1rj2Hs-0001PG-9Y
- for xen-devel@lists.xenproject.org; Sat, 09 Mar 2024 19:23:16 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7a608a61-de4a-11ee-afdb-a90da7624cb6;
- Sat, 09 Mar 2024 20:23:15 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-5131316693cso4162562e87.0
- for <xen-devel@lists.xenproject.org>; Sat, 09 Mar 2024 11:23:15 -0800 (PST)
+ id 1rj2Hz-0000Lp-MQ
+ for xen-devel@lists.xenproject.org; Sat, 09 Mar 2024 19:23:23 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7e33ef02-de4a-11ee-a1ee-f123f15fe8a2;
+ Sat, 09 Mar 2024 20:23:22 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a44f2d894b7so410823566b.1
+ for <xen-devel@lists.xenproject.org>; Sat, 09 Mar 2024 11:23:22 -0800 (PST)
 Received: from m1x-phil.lan ([176.176.181.237])
  by smtp.gmail.com with ESMTPSA id
- p16-20020a17090653d000b00a45464679b1sm1162257ejo.127.2024.03.09.11.23.13
+ g21-20020a170906595500b00a45a96a9c37sm1182786ejr.65.2024.03.09.11.23.19
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 09 Mar 2024 11:23:15 -0800 (PST)
+ Sat, 09 Mar 2024 11:23:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,37 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a608a61-de4a-11ee-afdb-a90da7624cb6
+X-Inumbo-ID: 7e33ef02-de4a-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1710012195; x=1710616995; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1710012202; x=1710617002; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0dapH6sMmnV9ZamVJJtysMb9yL4xw8w3bAoh22EL4Vo=;
-        b=fHCxpYTJrujOGvx39nMCUL0k5oKD5+rHFeT5I+lFFnN4j068UFbLSG/WOLeEM1/ZZH
-         VQ+ShR+2TCfQHNsG5C8vMloNdd7NFyttFp1ENyqj1z0/jdFnGrL3h3Dgn+0NSbPBoccV
-         PQv6+jix2ZrszySLNw6mU7Rbq5QKs201e0NS79WHEwviKTOJaP7vtjQjnph8/wnli1/B
-         WuaGqE72Blhnul0+66zjBxSNh98Dro0+qPVvZAgDTkcyOqDOLHVA++yzDe+vS+2Dw+gp
-         eF5u8qTBQNFvjGUNXRdXCENCR3in48YGY2ykg6YsYgLQit8ZKshUk0cCyuX9WegJZ4qO
-         o2Cw==
+        bh=A3YPWAKLFpXy74v59/y9ZVQ7mfzqWdCePg5o0rXQJdU=;
+        b=WGMZShYZLxi8XKRo8QOv1JT27KOo+vUH+RE2vuiFfnbXpIVXsWjrapKQlmhOT8hfdy
+         PORz8Zyin31DkaKVjXtMB9rMLAy+RvQsSMHzIXCPcqBZ7OmoHSaLSXknqVkE3xqBtNQK
+         Ka2m1anq4cXog7dj5m3o2eS+yViJY7WJ0vLhr7itViZ8fG+Gva/C2CcN/7C4VLvOrkr3
+         016+SeJnXKE4+CKg/WuVZwZ8NDpHAgU7xh0v7neLdstg1l4tM+dEcmPdJx1qIUcUUA9i
+         vTiw1QqGM5V2eUN0Y1lS3cWeYU0St4bl+vSezz8PVBRj9ZBZeYJThjvfyB00CCb/gQMr
+         PpDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710012195; x=1710616995;
+        d=1e100.net; s=20230601; t=1710012202; x=1710617002;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0dapH6sMmnV9ZamVJJtysMb9yL4xw8w3bAoh22EL4Vo=;
-        b=Ppo5TI/Yyvp2rjXG1SynzSn1AYJViCYlku2aGhAB6UX1pLYrBgzVybofkcRqf4/5uN
-         WpOt8EHH+CEzl6rmdjkaoDFTNRIWVhy9PnDD3q01W/CScowecRN2vQF3uZHnU/4PZnva
-         xIOrsBrcxNo0M4L7q/od0kO0lnm+mdxkMsOGcJWFqB4un2K+dg0OfNAvwIJLuNEA5khX
-         nsSurh7ed8juKI/DgoTjlY5nKelLD8f7ZKalz3rDyT2iy2RhwmFIlPEWS5jz1basghkU
-         rH4L62tyDK6l5o5wL7bbAVGDCbusrjF944qHJ3Z80wb1VJXKsMnIvvx/SWzSHSpRLrFw
-         +Lmg==
-X-Forwarded-Encrypted: i=1; AJvYcCWcUz2V1bll2BET1Rj/LjW8uJ27NopxQpovkVD7E/p2kEoYDS5UvBoZqclmNwvjDx47Yb2E/QX47aNhlaQqFItoTDLSs9a4E+je83/cAe4=
-X-Gm-Message-State: AOJu0Yym+YItdot1fU8kRrHveAnrtxOaDYbRUgcFwMCqzc0Q1MyBUl6V
-	vDqAu78YEB485kwzUy89+LHq1SzIiLFuKjbAXrwIC/2MCjGexb0w3JUMbxWPlu0=
-X-Google-Smtp-Source: AGHT+IFZ9Fs+PsF2jnfTNVld6iD1aF/yC/++Clb+ISz5eMReGA6KlLI+TlLWLbqJFmWdTAeuAL2cvw==
-X-Received: by 2002:a19:f709:0:b0:513:54c6:9f68 with SMTP id z9-20020a19f709000000b0051354c69f68mr1301272lfe.18.1710012195436;
-        Sat, 09 Mar 2024 11:23:15 -0800 (PST)
+        bh=A3YPWAKLFpXy74v59/y9ZVQ7mfzqWdCePg5o0rXQJdU=;
+        b=pjU2BYunbzat3gCVnJwqrjnC3f7lmiQn/CeSL49kQRmXhHjHtdVa36QrP6BwPlE/mr
+         Ya4eKdNViYPvxJdmcx+0QiX4yauCdyYZqOXll3HPI2kfsmyZfN/8NF3b86VXmjhj+Cy9
+         IrLBb+TzNjTElwd5svBrhFkLQkBO+QZSKApq95/SR/jdPnlPN9aGRt826yUCv3zRxDCa
+         rP0Ip0+m14BKkZ3HJVzRXIOrdeHntFY42ryHtFKH8E6Bm/ESpFRaLNXtPVdXxmBY+Ou5
+         2JBQV6tc0OAw8GGir1Lv1bqb295XlqNzeq1HUmSuupuCj7bqzorVKvy6hneGyrQ9sJFR
+         O3sA==
+X-Forwarded-Encrypted: i=1; AJvYcCV7zGDt3AsloAqtQa/XqxlUApXQtzC0QBKK8OauU1/cYRIKUg2mDVS5Qlai1JZcnJeaOPGRrWFChMRiU2JFVa57GUTsKGSfZBuTlzMJUVk=
+X-Gm-Message-State: AOJu0YwXHJxy+59ntkzMi2j4dV1VuyM4Q31G8dD7oPo7jcChQNK5BZP9
+	qYZ7Bh4B/3yEZkYUasBBhnWll7+HIT9Bze6yGK8LtNh9iRQZskhkIAPfkhZQb9g=
+X-Google-Smtp-Source: AGHT+IESzjyaLuyggJlbtw/UU7wtPA1UXBAfVV9w8oQeEuaTMGyVqGqT6YAp9h+VrsWLnSESfaBeNA==
+X-Received: by 2002:a17:906:b110:b0:a45:c9fb:86d7 with SMTP id u16-20020a170906b11000b00a45c9fb86d7mr1387127ejy.54.1710012201803;
+        Sat, 09 Mar 2024 11:23:21 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: qemu-ppc@nongnu.org,
@@ -85,15 +85,15 @@ Cc: qemu-ppc@nongnu.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Anthony Perard <anthony.perard@citrix.com>,
 	Paul Durrant <paul@xen.org>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Richard Henderson <richard.henderson@linaro.org>,
 	Eduardo Habkost <eduardo@habkost.net>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
 	xen-devel@lists.xenproject.org
-Subject: [PULL 10/43] hw/xen: Extract 'xen_igd.h' from 'xen_pt.h'
-Date: Sat,  9 Mar 2024 20:21:37 +0100
-Message-ID: <20240309192213.23420-11-philmd@linaro.org>
+Subject: [PULL 11/43] hw/i386/xen: Compile 'xen-hvm.c' with Xen CPPFLAGS
+Date: Sat,  9 Mar 2024 20:21:38 +0100
+Message-ID: <20240309192213.23420-12-philmd@linaro.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20240309192213.23420-1-philmd@linaro.org>
 References: <20240309192213.23420-1-philmd@linaro.org>
@@ -101,185 +101,32 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-"hw/xen/xen_pt.h" requires "hw/xen/xen_native.h" which is target
-specific. It also declares IGD methods, which are not target
-specific.
-
-Target-agnostic code can use IGD methods. To allow that, extract
-these methos into a new "hw/xen/xen_igd.h" header.
+xen-hvm.c calls xc_set_hvm_param() from <xenctrl.h>,
+so better compile it with Xen CPPFLAGS.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
-Message-Id: <20231114143816.71079-18-philmd@linaro.org>
+Message-Id: <20231114143816.71079-19-philmd@linaro.org>
 ---
- hw/xen/xen_pt.h             | 14 --------------
- include/hw/xen/xen_igd.h    | 33 +++++++++++++++++++++++++++++++++
- accel/xen/xen-all.c         |  1 +
- hw/i386/pc_piix.c           |  1 +
- hw/xen/xen_pt.c             |  3 ++-
- hw/xen/xen_pt_config_init.c |  3 ++-
- hw/xen/xen_pt_graphics.c    |  3 ++-
- hw/xen/xen_pt_stub.c        |  2 +-
- 8 files changed, 42 insertions(+), 18 deletions(-)
- create mode 100644 include/hw/xen/xen_igd.h
+ hw/i386/xen/meson.build | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
-index d3180bb134..095a0f0365 100644
---- a/hw/xen/xen_pt.h
-+++ b/hw/xen/xen_pt.h
-@@ -15,9 +15,6 @@
- #include "xen-host-pci-device.h"
- #include "qom/object.h"
+diff --git a/hw/i386/xen/meson.build b/hw/i386/xen/meson.build
+index 3dc4c4f106..3f0df8bc07 100644
+--- a/hw/i386/xen/meson.build
++++ b/hw/i386/xen/meson.build
+@@ -1,8 +1,10 @@
+ i386_ss.add(when: 'CONFIG_XEN', if_true: files(
+-  'xen-hvm.c',
+   'xen_apic.c',
+   'xen_pvdevice.c',
+ ))
++i386_ss.add(when: ['CONFIG_XEN', xen], if_true: files(
++  'xen-hvm.c',
++))
  
--bool xen_igd_gfx_pt_enabled(void);
--void xen_igd_gfx_pt_set(bool value, Error **errp);
--
- void xen_pt_log(const PCIDevice *d, const char *f, ...) G_GNUC_PRINTF(2, 3);
- 
- #define XEN_PT_ERR(d, _f, _a...) xen_pt_log(d, "%s: Error: "_f, __func__, ##_a)
-@@ -62,12 +59,6 @@ typedef struct XenPTDeviceClass {
-     XenPTQdevRealize pci_qdev_realize;
- } XenPTDeviceClass;
- 
--uint32_t igd_read_opregion(XenPCIPassthroughState *s);
--void xen_igd_reserve_slot(PCIBus *pci_bus);
--void igd_write_opregion(XenPCIPassthroughState *s, uint32_t val);
--void xen_igd_passthrough_isa_bridge_create(XenPCIPassthroughState *s,
--                                           XenHostPCIDevice *dev);
--
- /* function type for config reg */
- typedef int (*xen_pt_conf_reg_init)
-     (XenPCIPassthroughState *, XenPTRegInfo *, uint32_t real_offset,
-@@ -353,11 +344,6 @@ static inline bool xen_pt_has_msix_mapping(XenPCIPassthroughState *s, int bar)
- void *pci_assign_dev_load_option_rom(PCIDevice *dev, int *size,
-                                      unsigned int domain, unsigned int bus,
-                                      unsigned int slot, unsigned int function);
--static inline bool is_igd_vga_passthrough(XenHostPCIDevice *dev)
--{
--    return (xen_igd_gfx_pt_enabled()
--            && ((dev->class_code >> 0x8) == PCI_CLASS_DISPLAY_VGA));
--}
- int xen_pt_register_vga_regions(XenHostPCIDevice *dev);
- int xen_pt_unregister_vga_regions(XenHostPCIDevice *dev);
- void xen_pt_setup_vga(XenPCIPassthroughState *s, XenHostPCIDevice *dev,
-diff --git a/include/hw/xen/xen_igd.h b/include/hw/xen/xen_igd.h
-new file mode 100644
-index 0000000000..7ffca06c10
---- /dev/null
-+++ b/include/hw/xen/xen_igd.h
-@@ -0,0 +1,33 @@
-+/*
-+ * Copyright (c) 2007, Neocleus Corporation.
-+ * Copyright (c) 2007, Intel Corporation.
-+ *
-+ * SPDX-License-Identifier: GPL-2.0-only
-+ *
-+ * Alex Novik <alex@neocleus.com>
-+ * Allen Kay <allen.m.kay@intel.com>
-+ * Guy Zana <guy@neocleus.com>
-+ */
-+#ifndef XEN_IGD_H
-+#define XEN_IGD_H
-+
-+#include "hw/xen/xen-host-pci-device.h"
-+
-+typedef struct XenPCIPassthroughState XenPCIPassthroughState;
-+
-+bool xen_igd_gfx_pt_enabled(void);
-+void xen_igd_gfx_pt_set(bool value, Error **errp);
-+
-+uint32_t igd_read_opregion(XenPCIPassthroughState *s);
-+void xen_igd_reserve_slot(PCIBus *pci_bus);
-+void igd_write_opregion(XenPCIPassthroughState *s, uint32_t val);
-+void xen_igd_passthrough_isa_bridge_create(XenPCIPassthroughState *s,
-+                                           XenHostPCIDevice *dev);
-+
-+static inline bool is_igd_vga_passthrough(XenHostPCIDevice *dev)
-+{
-+    return (xen_igd_gfx_pt_enabled()
-+            && ((dev->class_code >> 0x8) == PCI_CLASS_DISPLAY_VGA));
-+}
-+
-+#endif
-diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
-index 5ff0cb8bd9..0bdefce537 100644
---- a/accel/xen/xen-all.c
-+++ b/accel/xen/xen-all.c
-@@ -15,6 +15,7 @@
- #include "hw/xen/xen_native.h"
- #include "hw/xen/xen-legacy-backend.h"
- #include "hw/xen/xen_pt.h"
-+#include "hw/xen/xen_igd.h"
- #include "chardev/char.h"
- #include "qemu/accel.h"
- #include "sysemu/cpus.h"
-diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-index ce6aad758d..e123458bbc 100644
---- a/hw/i386/pc_piix.c
-+++ b/hw/i386/pc_piix.c
-@@ -55,6 +55,7 @@
- #ifdef CONFIG_XEN
- #include <xen/hvm/hvm_info_table.h>
- #include "hw/xen/xen_pt.h"
-+#include "hw/xen/xen_igd.h"
- #endif
- #include "hw/xen/xen-x86.h"
- #include "hw/xen/xen.h"
-diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-index 36e6f93c37..a8edabdabc 100644
---- a/hw/xen/xen_pt.c
-+++ b/hw/xen/xen_pt.c
-@@ -59,7 +59,8 @@
- #include "hw/pci/pci.h"
- #include "hw/qdev-properties.h"
- #include "hw/qdev-properties-system.h"
--#include "xen_pt.h"
-+#include "hw/xen/xen_pt.h"
-+#include "hw/xen/xen_igd.h"
- #include "hw/xen/xen.h"
- #include "hw/xen/xen-legacy-backend.h"
- #include "qemu/range.h"
-diff --git a/hw/xen/xen_pt_config_init.c b/hw/xen/xen_pt_config_init.c
-index 2b8680b112..ba4cd78238 100644
---- a/hw/xen/xen_pt_config_init.c
-+++ b/hw/xen/xen_pt_config_init.c
-@@ -15,7 +15,8 @@
- #include "qemu/osdep.h"
- #include "qapi/error.h"
- #include "qemu/timer.h"
--#include "xen_pt.h"
-+#include "hw/xen/xen_pt.h"
-+#include "hw/xen/xen_igd.h"
- #include "hw/xen/xen-legacy-backend.h"
- 
- #define XEN_PT_MERGE_VALUE(value, data, val_mask) \
-diff --git a/hw/xen/xen_pt_graphics.c b/hw/xen/xen_pt_graphics.c
-index 0aed3bb6fd..6c2e3f4840 100644
---- a/hw/xen/xen_pt_graphics.c
-+++ b/hw/xen/xen_pt_graphics.c
-@@ -3,7 +3,8 @@
-  */
- #include "qemu/osdep.h"
- #include "qapi/error.h"
--#include "xen_pt.h"
-+#include "hw/xen/xen_pt.h"
-+#include "hw/xen/xen_igd.h"
- #include "xen-host-pci-device.h"
- 
- static unsigned long igd_guest_opregion;
-diff --git a/hw/xen/xen_pt_stub.c b/hw/xen/xen_pt_stub.c
-index 5c108446a8..72feebeb20 100644
---- a/hw/xen/xen_pt_stub.c
-+++ b/hw/xen/xen_pt_stub.c
-@@ -6,7 +6,7 @@
-  */
- 
- #include "qemu/osdep.h"
--#include "hw/xen/xen_pt.h"
-+#include "hw/xen/xen_igd.h"
- #include "qapi/error.h"
- 
- bool xen_igd_gfx_pt_enabled(void)
+ i386_ss.add(when: 'CONFIG_XEN_BUS', if_true: files(
+   'xen_platform.c',
 -- 
 2.41.0
 
