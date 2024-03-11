@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B6DC877D2F
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 10:46:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691340.1077226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D7A877D51
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 10:51:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691344.1077235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjcEX-0005bq-FQ; Mon, 11 Mar 2024 09:46:13 +0000
+	id 1rjcJS-0007Hh-2N; Mon, 11 Mar 2024 09:51:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691340.1077226; Mon, 11 Mar 2024 09:46:13 +0000
+Received: by outflank-mailman (output) from mailman id 691344.1077235; Mon, 11 Mar 2024 09:51:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjcEX-0005Ye-Bf; Mon, 11 Mar 2024 09:46:13 +0000
-Received: by outflank-mailman (input) for mailman id 691340;
- Mon, 11 Mar 2024 09:46:11 +0000
+	id 1rjcJR-0007Fi-W5; Mon, 11 Mar 2024 09:51:17 +0000
+Received: by outflank-mailman (input) for mailman id 691344;
+ Mon, 11 Mar 2024 09:51:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XtLZ=KR=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1rjcEV-0005YW-P9
- for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 09:46:11 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20601.outbound.protection.outlook.com
- [2a01:111:f403:2415::601])
+ (envelope-from <SRS0=ZVPQ=KR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rjcJQ-0007Fa-S3
+ for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 09:51:16 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2f3f6f4d-df8c-11ee-a1ee-f123f15fe8a2;
- Mon, 11 Mar 2024 10:46:08 +0100 (CET)
-Received: from DS7PR05CA0036.namprd05.prod.outlook.com (2603:10b6:8:2f::25) by
- MW4PR12MB7120.namprd12.prod.outlook.com (2603:10b6:303:222::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.35; Mon, 11 Mar
- 2024 09:46:05 +0000
-Received: from DS1PEPF0001709C.namprd05.prod.outlook.com
- (2603:10b6:8:2f:cafe::73) by DS7PR05CA0036.outlook.office365.com
- (2603:10b6:8:2f::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.17 via Frontend
- Transport; Mon, 11 Mar 2024 09:46:05 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0001709C.mail.protection.outlook.com (10.167.18.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7386.12 via Frontend Transport; Mon, 11 Mar 2024 09:46:04 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 11 Mar
- 2024 04:46:04 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 11 Mar
- 2024 02:46:04 -0700
-Received: from [10.65.148.173] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 11 Mar 2024 04:46:01 -0500
+ id e64f7c47-df8c-11ee-a1ee-f123f15fe8a2;
+ Mon, 11 Mar 2024 10:51:14 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a45ecef71deso305197266b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 02:51:14 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ wk8-20020a170907054800b00a46021ef90csm2434146ejb.107.2024.03.11.02.51.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Mar 2024 02:51:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,185 +45,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f3f6f4d-df8c-11ee-a1ee-f123f15fe8a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gFnQI3yypiCq/eX47VxOoJ/pDaSQ0bn5Pqs8Oqs7cyiL/iVHUhIf7P3t6ppY54pjuAvt25uYj00utgCT27dg13PdrFtDvBIeE/dSSrEen7O/TUnBkjU0weTV5zK26lM7W2t/AODX/XKXQPNNLePxpaZ7WklmK6n1Rw61/Xtr2SYA/UkHBKuFWm7VDlSbd3qUjHvNVJxgOrma4M42fYFslo6K3m5msnk8XxOeNFUrnEvmikDv+motTJX/4/dzAXutx+oc3e1+wIz8UXSWi2p5MjOFsWuImcelmHkkZLvYemGUxtJ3J7sT11hnDfquHEJhKc0psyFOiA/ajyLa9ejskg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dimKD9WEZ+AXOmV4JiStlxQSYUnWW7h85oCYHLBQvBQ=;
- b=P4D9eynklWJXXDsyPWYg6qHSt38dP1RCayInkE7zuWrBCC42oQsf6tHixa6sQEMAiPnVn6phJWzI7Z96p0FgatoxUsSPenL142B5CJeNZ6aPcoss6pZXu6zq+4W+U38M8xDy4WeDMFzeLoGv6KZxfAp0N2jsXLZJPMwqh5mHnaNlScrCVAhSOQ2czOyDNETQ2Lk2S29fg4ohSYqkYsk1gnZr3yn1Qn5a1WCs32pSRnorhpLYovJU1S3UpP6chfg79FneOUWX/vt4WVJq5QOWizZbQSJ4uJZHFsJFr79MZPDACLuUo+3hX1pVqsodADe5+obr5N5ZOumVRJ/cjyDfOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dimKD9WEZ+AXOmV4JiStlxQSYUnWW7h85oCYHLBQvBQ=;
- b=v33Fm26CVc62xddAIwQwtn6su5/L2y8KHPlm/yjYhdwDHVAF9xH9905YRRUSt8il88bua4kmYn3DXj/WFTXYSltAIw0iSTGyJh0J0sNnbFMlkPAoTMu5mEc82GYcKEBheweENx5TeZFhQ/TX1bCQPkx2msC6+DMRtydKn58A42s=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <6c53d4fc-638e-4f88-b25f-8d71065c8984@amd.com>
-Date: Mon, 11 Mar 2024 17:46:00 +0800
+X-Inumbo-ID: e64f7c47-df8c-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1710150674; x=1710755474; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=cjw1qo3T7OGwuTk84hXD8wjyH/8ueDiGizGMBQp+aGQ=;
+        b=Y6XH9/2HRZRoHYrCMGWISeBvxFcoSVBovnLrSIZEfl1XufgMRERhlII5dRe6L6PbV9
+         k7197LbKStjIxdUAoYQIMlJRc4h7Tj5DIwF2zoPDoTcl/nX7DXetMYLN40pPrL0l3QbI
+         AglhCbRWJ/ccoAkn4vy81T+QyRQa+EK7IUSpU/vTIUbB6leT4R6APv/9u7AoqCzBr+SY
+         P7Nk9jM8sNhm2lpzHu0G4Kcb3yURVF4xAtgFCwUg3iuPB9+jQag2ubUXR7xyzBIo0Qbh
+         za9RNDTDnskquHEk30Gwf2tH2YeqMCuRdgmLhLaxmc35/0xmcO4q2VNF+nd3LKgzi5jJ
+         GCyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710150674; x=1710755474;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=cjw1qo3T7OGwuTk84hXD8wjyH/8ueDiGizGMBQp+aGQ=;
+        b=lRQ05OVc65utxL7ayd0xrOVc3Ld1fgflLg9BID/HNrFExPPlvv0R7l5+Mm4yT6feGj
+         hjM4I62byyiaSEIXJycEicMO8A7Dy67QKfTHgpopRbKpDitGjqHOS3CEpE43O9Mc20ST
+         ruAXlQRN/DYLHIwkYS983tqERPx6bMD1cvZ7nDQXkEUVDNGeEZ3cOBZtNTzr/wrLilP6
+         pnaKx2+72MOG5RuoBJsYXOH9l44kLjy2/diPOfC+OrD3vdhUCyrWmYAq/EcBIyUl3/Zg
+         8BJuzUC/Di/urm+ItZxyDDAr782S9iWlH0iK6FRY31IBgpZd73oziHF2fNnCjvEIuexP
+         sAlQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXNGIh60SYlJgDBqTvfp5HWBJz8TzH2+vOYPV8SifRnXcB7obyvpu/heo/ffJR/X7mxjYRLT0WBByw9wukxwGUp2zZXmLBRo/8wSqwokFA=
+X-Gm-Message-State: AOJu0YwioTl9Qa5zcVzVai6CJ73nnpiOXHIf/TGw1mAn+PanGHZTnS/o
+	1BXtdyKLsR89ykmXaqcZX1KiXqEBl8Me+o6N0MTu+TxGPla19tx1p4QtzSxsaQ==
+X-Google-Smtp-Source: AGHT+IElfjJDp4q7VIQduRqcTYK67XilJNwZdAqIIGWtHzqPXHZJn1/lD24bPQc/bX8Rmgat1tKdNQ==
+X-Received: by 2002:a17:906:16d7:b0:a45:5bc1:ac35 with SMTP id t23-20020a17090616d700b00a455bc1ac35mr3447494ejd.30.1710150674312;
+        Mon, 11 Mar 2024 02:51:14 -0700 (PDT)
+Message-ID: <874fc4f8-f862-4fa7-b436-dd1420d010a7@suse.com>
+Date: Mon, 11 Mar 2024 10:51:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] xen/domctl, tools: Introduce a new domctl to get
- guest memory map
-To: Michal Orzel <michal.orzel@amd.com>, <xen-devel@lists.xenproject.org>
-CC: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, "Juergen
- Gross" <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "George
- Dunlap" <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Alec Kwapis <alec.kwapis@medtronic.com>
-References: <20240308015435.4044339-1-xin.wang2@amd.com>
- <20240308015435.4044339-4-xin.wang2@amd.com>
- <f084464d-fb6d-45c3-a747-4a69804f7d26@amd.com>
+Subject: Re: [XEN PATCH] xen/evtchn: address violations of MISRA C:2012 Rules
+ 16.3 and 16.4
 Content-Language: en-US
-From: Henry Wang <xin.wang2@amd.com>
-In-Reply-To: <f084464d-fb6d-45c3-a747-4a69804f7d26@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Federico Serafini <federico.serafini@bugseng.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <3ec419e30227a8016c28e04524cd36a549aaddcf.1709898466.git.federico.serafini@bugseng.com>
+ <ef3e2ce7-6798-4ade-a5d4-fadf017bbd43@suse.com>
+ <602c2da1-d5ab-4120-ab19-37e75820d129@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <602c2da1-d5ab-4120-ab19-37e75820d129@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001709C:EE_|MW4PR12MB7120:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63121bf9-77bf-44ca-7169-08dc41b011ea
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	k9zxBKPH44fZ4jnEv4TB+jEI+TKw0bxyJAnHnNkq0zYMwxrnev1tr8Q2va/V4AneXCvYBa5byf8te09JMf6A3aWXlyjgKwRQPiVzxrjSH2dzpBgw6A5vDub5xtzRUyVVVQiaqcH036wXDEbnQXhBDkDnGFiEBMozdMk9Vdt+DYBtv8VbA1A07qWwJJZVc2rMEDRaB62YMKrQDGf28wA2LUxmXVR4NI+ZH2LI2//hfCPQAZq1npv9jdXCX5yuMp9ep1BZiOw7tFlWi7zovafR+nzBJTELiXrXC/ZNE17kvGL9EW3c2ZQH1XKxHeXgXHET/ZKCLVtqc7lHgQqohW7T5aj72BnUQBOZPEnzjcuU44rZMqiYEEwZY8B1oaWhG7oBQbUoOddfCpTtvbcldA4hSB4WYllUhC6AjI4T7zcu0AFgAEzvm3qoGEXTI/bpZ/6Upp6HVcsBG68mrfFz7ejAo10XuN5OMPyxZVt0fWLRqB/zbFC92Nm378a6aVhfD3vdz4eG5g5uydT7vL4IA1zR20yUaUR2wzKLS3vADOmQ7IAdr2t9HZw+u0zfNr9SBmuRB0jp7ySnJmfgxROhHOr/18yJ8hOTvZk3EE2L8C1pwutJLCxZq85ms5a5oW36swH08feI5oJ7bJLtSQ9fTWqMAgMMkTASriEcsz66kduAGlL3TC1LRtje0W1aHotILThzgKvxNI1zXwuyP5O9hngzqeLKaTs1ubTCcOa7mcNe3aQXLinWOkKgr2ifvEeezCVy
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(7416005)(82310400014)(1800799015)(376005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2024 09:46:04.9456
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63121bf9-77bf-44ca-7169-08dc41b011ea
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF0001709C.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7120
 
-Hi Michal,
+On 11.03.2024 10:02, Federico Serafini wrote:
+> On 11/03/24 08:40, Jan Beulich wrote:
+>> On 08.03.2024 12:51, Federico Serafini wrote:
+>>> --- a/xen/common/event_channel.c
+>>> +++ b/xen/common/event_channel.c
+>>> @@ -130,9 +130,12 @@ static bool virq_is_global(unsigned int virq)
+>>>   
+>>>       case VIRQ_ARCH_0 ... VIRQ_ARCH_7:
+>>>           return arch_virq_is_global(virq);
+>>> +
+>>> +    default:
+>>> +        ASSERT(virq < NR_VIRQS);
+>>> +        break;
+>>>       }
+>>>   
+>>> -    ASSERT(virq < NR_VIRQS);
+>>>       return true;
+>>>   }
+>>
+>> Just for my understanding: The ASSERT() is moved so the "default" would
+>> consist of more than just "break". Why is it that then the "return" isn't
+>> moved, too?
+> 
+> No reason in particular.
+> If preferred, I can move it too.
 
-On 3/11/2024 5:10 PM, Michal Orzel wrote:
-> Hi Henry,
->
-> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> index 5e7a7f3e7e..54f3601ab0 100644
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -696,6 +696,7 @@ int arch_domain_create(struct domain *d,
->   {
->       unsigned int count = 0;
->       int rc;
-> +    struct mem_map_domain *mem_map = &d->arch.mem_map;
->   
->       BUILD_BUG_ON(GUEST_MAX_VCPUS < MAX_VIRT_CPUS);
->   
-> @@ -785,6 +786,11 @@ int arch_domain_create(struct domain *d,
->       d->arch.sve_vl = config->arch.sve_vl;
->   #endif
->   
-> +    mem_map->regions[mem_map->nr_mem_regions].start = GUEST_MAGIC_BASE;
-> You don't check for exceeding max number of regions. Is the expectation that nr_mem_regions
-> is 0 at this stage? Maybe add an ASSERT here.
+I for one would prefer that, yes. But what's needed up front is that we
+decide what we want to do _consistently_ in all such cases.
 
-Sure, I will add the checking.
+>>> @@ -1672,6 +1676,9 @@ static void domain_dump_evtchn_info(struct domain *d)
+>>>           case ECS_VIRQ:
+>>>               printk(" v=%d", chn->u.virq);
+>>>               break;
+>>> +        default:
+>>> +            /* Nothing to do in other cases. */
+>>> +            break;
+>>>           }
+>>
+>> Yes this, just to mention it, while in line with what Misra demands is
+>> pretty meaningless imo: The absence of "default" says exactly what the
+>> comment now says. FTAOD - this is a comment towards the Misra guideline,
+>> not so much towards the specific change here.
+> 
+> Both you and Stefano reviewed the code and agreed on the fact that doing
+> nothing for the default case is the right thing and now the code
+> explicitly says that without letting any doubts.
+> Furthermore, during the reviews it could happen that you notice a switch
+> where something needs to be done for the default case.
 
->> +    mem_map->regions[mem_map->nr_mem_regions].size = GUEST_MAGIC_SIZE;
->> +    mem_map->regions[mem_map->nr_mem_regions].type = GUEST_MEM_REGION_MAGIC;
->> +    mem_map->nr_mem_regions++;
->> +
->>       return 0;
->>   
->>   fail:
->> diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
->> index ad56efb0f5..92024bcaa0 100644
->> --- a/xen/arch/arm/domctl.c
->> +++ b/xen/arch/arm/domctl.c
->> @@ -148,7 +148,6 @@ long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
->>   
->>           return 0;
->>       }
->> -
->>       case XEN_DOMCTL_vuart_op:
->>       {
->>           int rc;
->> @@ -176,6 +175,24 @@ long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
->>   
->>           return rc;
->>       }
->> +    case XEN_DOMCTL_get_mem_map:
->> +    {
->> +        int rc;
-> Without initialization, what will be the rc value on success?
+That shouldn't happen during review. Anyone proposing a patch to add such
+a comment wants to first have made sure the comment is actually applicable
+there. Otherwise we're in "mechanically add comments" territory, which I
+think we all agreed we want to avoid.
 
-Thanks for catching this (and the copy back issue below). I made a silly 
-mistake here and didn't catch it as I also missed checking the rc in the 
-toolstack side...I will fix both side.
-
->> +        /*
->> +         * Cap the number of regions to the minimum value between toolstack and
->> +         * hypervisor to avoid overflowing the buffer.
->> +         */
->> +        uint32_t nr_regions = min(d->arch.mem_map.nr_mem_regions,
->> +                                  domctl->u.mem_map.nr_mem_regions);
->> +
->> +        if ( copy_to_guest(domctl->u.mem_map.buffer,
->> +                           d->arch.mem_map.regions,
->> +                           nr_regions) ||
->> +             __copy_to_guest(u_domctl, domctl, 1) )
-> In domctl.h, you wrote that nr_regions is IN/OUT but you don't seem to write back the actual number
-> of regions.
-
-Thanks. Added "domctl->u.mem_map.nr_mem_regions = nr_regions;" locally.
-
->> +/* Guest memory region types */
->> +#define GUEST_MEM_REGION_DEFAULT    0
-> What's the purpose of this default type? It seems unusued.
-
-I added it because struct arch_domain (or we should say struct domain) 
-is zalloc-ed. So the default type field in struct xen_mem_region is 0. 
-Otherwise we may (mistakenly) define a region type as 0 and lead to 
-mistakes.
->> +#define GUEST_MEM_REGION_MAGIC      1
->> +
->>   /* Physical Address Space */
->>   
->>   /* Virtio MMIO mappings */
->> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
->> index a33f9ec32b..77bf999651 100644
->> --- a/xen/include/public/domctl.h
->> +++ b/xen/include/public/domctl.h
->> @@ -946,6 +946,25 @@ struct xen_domctl_paging_mempool {
->>       uint64_aligned_t size; /* Size in bytes. */
->>   };
->>   
->> +#define XEN_MAX_MEM_REGIONS 1
-> The max number of regions can differ between arches. How are you going to handle it?
-
-I think we can add
-```
-#ifndef XEN_MAX_MEM_REGIONS
-
-#define XEN_MAX_MEM_REGIONS 1
-
-#endif
-```
-here and define the arch specific XEN_MAX_MEM_REGIONS in 
-public/arch-*.h. I will fix this in v3.
-
-Kind regards,
-Henry
-
-> ~Michal
-
+Jan
 
