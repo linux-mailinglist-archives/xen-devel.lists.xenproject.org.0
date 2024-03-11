@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4FF9877D80
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 11:00:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691349.1077244 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B03D877D8B
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 11:02:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691353.1077255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjcRs-0008Ah-S1; Mon, 11 Mar 2024 10:00:00 +0000
+	id 1rjcTy-0001IG-8A; Mon, 11 Mar 2024 10:02:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691349.1077244; Mon, 11 Mar 2024 10:00:00 +0000
+Received: by outflank-mailman (output) from mailman id 691353.1077255; Mon, 11 Mar 2024 10:02:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjcRs-00088X-PN; Mon, 11 Mar 2024 10:00:00 +0000
-Received: by outflank-mailman (input) for mailman id 691349;
- Mon, 11 Mar 2024 09:59:59 +0000
+	id 1rjcTy-0001Fv-4y; Mon, 11 Mar 2024 10:02:10 +0000
+Received: by outflank-mailman (input) for mailman id 691353;
+ Mon, 11 Mar 2024 10:02:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZVPQ=KR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rjcRr-00088P-5s
- for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 09:59:59 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ id 1rjcTw-0001Fn-Jk
+ for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 10:02:08 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1e201384-df8e-11ee-afdc-a90da7624cb6;
- Mon, 11 Mar 2024 10:59:58 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-55a5e7fa471so3391071a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 02:59:58 -0700 (PDT)
+ id 6b6466cb-df8e-11ee-afdc-a90da7624cb6;
+ Mon, 11 Mar 2024 11:02:07 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a44ad785a44so348614966b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 03:02:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cq15-20020a056402220f00b0056761c83bdesm2768225edb.93.2024.03.11.02.59.56
+ fx3-20020a170906b74300b00a4380e85e5csm2694420ejb.202.2024.03.11.03.02.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Mar 2024 02:59:57 -0700 (PDT)
+ Mon, 11 Mar 2024 03:02:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e201384-df8e-11ee-afdc-a90da7624cb6
+X-Inumbo-ID: 6b6466cb-df8e-11ee-afdc-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710151197; x=1710755997; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710151327; x=1710756127; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=njDdIhoPqBZTh60yJEisQtVCv8xuKwPRrDCjbBuHbEE=;
-        b=RdntzaVqgtujZgXLPbY9W7aX++Jb+7tl++mdUBee+PKP99curvU47n9W8kbjnkFa0w
-         dr2+9fz4ipSaa6iDnQg4lTTexRJI11acqG5lNZVH21Wk4uPMHc+veRoT19UOBqvaz48M
-         1me1OOR6XWFa/TypZPCHjA63fYGpp5LXo3eEZ7btUI+j21bhIekEG3FULWwOvfhS3D+J
-         nFm8gd2Bb7jWmkYGDiTm6AvFj8Jvm8BHgRjaWe0Hv0XagylvAABaUxIklglsMtPD3/bB
-         mcZ/311iQc0TYlN9G0/L32wB17hkQoi3yU5WYa7K1oAVX0U068T33UnJRDseS5AHkOX1
-         NBPg==
+        bh=qbg+vF7i72557q4DEOv0RK5/78u1N0LCfCUG3/X9Hlc=;
+        b=Hohm33CR08NIau6PTuyM2DeJkXsZ6IZPQS3hLeclxMUbdbsTqrZERDqtKXRcGjMzgS
+         44q8+fG62GMsw5gRauWA9UGjrOtDQcYonX8KK2/XOX46zOxMZ/5xvXrKmKNIFyw6gpmV
+         MbZiAJLpqFTRB9gok2O7gUyHtFIX3BGi9u/F/iKKRyGOi97wfsjUM3geHy+a1NB7h1Kj
+         N9pw0tuNjvBWSM2qA1NIbArADZIB+oCGZVe1ZyTj80KUGkg7b/G7JmXxhe8Ur1QXkxnl
+         zi0fACYI2TEn8QqrKUFofBh9cqeEQpMT1wBlN/e3CiY5/B8Ysofak9JnmT0GMAPaMDrh
+         qQqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710151197; x=1710755997;
+        d=1e100.net; s=20230601; t=1710151327; x=1710756127;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=njDdIhoPqBZTh60yJEisQtVCv8xuKwPRrDCjbBuHbEE=;
-        b=ntn9sQTV/LFeg9ECXuhUpXLJYIQGDfIAWmw3KqMotWHJqJ1Mvq5YF0KY0VfnhBbD/t
-         p5ghBuElVo9QQt28ZH/5MJomdDctU4Q30hkhF1AKFzexjwj1bXwgiOKuBzr939drHVvg
-         F7OFsCFckAIwSFUXMG4Py1QZACieL6krpnobrCqCNEIjJq8/eL9i4WsRVQ7MBDniDHoX
-         05TsIs+sjROI0Z4W6NxqHpNiFz0YUG1s/V3qdbvTbDefULeb3pXL+0W71kZNUxxG3aUy
-         XjhrdYniGBOg3y1tCayt6/am02BluPdM9UsRtTR9bJbw7wJzVAmn9xfO1J/O+3puTqai
-         6ciA==
-X-Forwarded-Encrypted: i=1; AJvYcCXvek+gPHZc1LsDQMQsa7xYutsfylqY0sgMtv+xooaAnBg2FnLWwOC2SozBIh+flWHEEZBOuyal8aaxuW7c8dvHh9CsbsHfexbT+fTCjbY=
-X-Gm-Message-State: AOJu0Yz1zsP25cEiJXK79KxXC7mzSYKA6w+jDYl51kuyBru2ehZgNOS6
-	USfQXSLBl8z1zTbgstmTxErupDFhVIYP/pEQB17hLCrW6ftA0mRWPwk0O/gsfQ==
-X-Google-Smtp-Source: AGHT+IGXP0mS1rcBOG+TIYfcyljwRC7NyYxNvyayzFfGgNXHBrfAmtW+C2NSw7BTSq4BN5Mmx11mgA==
-X-Received: by 2002:a05:6402:5c3:b0:568:13f5:81eb with SMTP id n3-20020a05640205c300b0056813f581ebmr3820946edx.38.1710151197497;
-        Mon, 11 Mar 2024 02:59:57 -0700 (PDT)
-Message-ID: <b5c9c975-4c6a-4724-8cf4-a6b90dd137cb@suse.com>
-Date: Mon, 11 Mar 2024 10:59:58 +0100
+        bh=qbg+vF7i72557q4DEOv0RK5/78u1N0LCfCUG3/X9Hlc=;
+        b=vbBnOQWYEy0S7kLhUGdwpul/rEd/TsbT3dBldpR1k6SlixmehUSOITjc43OEjEEPDF
+         5CjryyH+3Um75OLHqc6WAUHux0MWrByyPUtZRDLNxB1mZd8gtvt7BtUC34y9OluoRcWi
+         FNkpgRtaKR9JQ9jc+wOttXQKXovZS0hpR/vZvT1TTds4lYrkCVgAVR0zdQ7r5fNKPV5k
+         vBJvo9c5Eo0jtgWZcAh4G7FREaEbKK9XbPNVYogG2g0s7c9qM/Fz6geJ8rKd2+Jv/ejQ
+         UQ1aVOCNLliBbGk3V0OuvC/qzN+RrVCLCKT039EhlXwnYF/abox37F7gasYczFTQRn3Q
+         oKrA==
+X-Forwarded-Encrypted: i=1; AJvYcCUom+7YHp/C+gD61frXkumfVoI+WfoiavAybVAoOc2cMJdxh/DUOyfCrQ0JZThQsS92l6s9dDim4fhtyEuwkm1LKb49Mn2IOQY1sBjazfk=
+X-Gm-Message-State: AOJu0YyFD6fVkYxUGOCCirgslvH7GLAqvZCPRySE4M+zp1XFADDzxXF9
+	VhGggkMDwM/hah3AGnlWki6qIcIj90M5OS3kPagQCTyUTUjG5I2p/ryKNLWDefSIWMcMx9T8U9E
+	=
+X-Google-Smtp-Source: AGHT+IEeDrQduDtSQsmtJ852fLDutA1VfLEa0Kl36lYhEk1p6XjIVPeUNxvtTMkoRRIwBn8mYqE2Ug==
+X-Received: by 2002:a17:906:6897:b0:a45:a2cc:eb8b with SMTP id n23-20020a170906689700b00a45a2cceb8bmr3445154ejr.13.1710151327159;
+        Mon, 11 Mar 2024 03:02:07 -0700 (PDT)
+Message-ID: <def59c84-13e6-4175-ae5d-e0ba7770f68e@suse.com>
+Date: Mon, 11 Mar 2024 11:02:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 00/16] xen: address violation of MISRA C:2012
- Directive 4.10
+Subject: Re: [XEN PATCH v3 01/16] misra: add deviation for headers that
+ explicitly avoid guards
 Content-Language: en-US
 To: Simone Ballarin <simone.ballarin@bugseng.com>
 Cc: consulting@bugseng.com, sstabellini@kernel.org,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Doug Goldstein <cardoe@cardoe.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 References: <cover.1710145041.git.simone.ballarin@bugseng.com>
+ <310fe4a0ccd0ad45bcf1cd9811ac56c9a560dd0b.1710145041.git.simone.ballarin@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,55 +116,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cover.1710145041.git.simone.ballarin@bugseng.com>
+In-Reply-To: <310fe4a0ccd0ad45bcf1cd9811ac56c9a560dd0b.1710145041.git.simone.ballarin@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.03.2024 09:59, Simone Ballarin wrote:
-> The Xen sources contain violations of MISRA C:2012 Directive 4.10 whose headline states:
-> "Precautions shall be taken in order to prevent the contents of a header file
-> being included more than once".
+> Some headers, under specific circumstances (documented in a comment at
+> the beginning of the file), explicitly avoid inclusion guards: the caller
+> is responsible for including them correctly.
 > 
-> As stated in v2, the following naming convention has been estabilished:
-> - arch/.../include/asm/ headers -> ASM_<filename>_H
-> - private headers -> <dir>_<filename>_H
-> - asm-generic headers -> ASM_GENERIC_<filename>_H
+> These files are not supposed to comply with Directive 4.10:
+> "Precautions shall be taken in order to prevent the contents of a header
+> file being included more than once"
 > 
-> Since there would have been conflicting guards between architectures (which is a violation
-> of the directive),
-
-Why would this be a violation? The two sets of headers aren't use together,
-and any scan should only point out collisions in what's actively used, I'd
-hope.
-
-> there has been a need for ASM headers to specify  if the inclusion guard
-> referred to ARM or X86. Hence it has been decided to adopt instead:
-> - arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM_<architecture>_<subdir>_<filename>_H
+> This patch adds deviation cooments for headers that avoid guards.
 > 
-> The subdir used is the smallest possible to avoid collisions. For example, it has been
-> observed that in "xen/arch/arm/include/asm/arm32" and "xen/arch/arm/include/asm/arm64" there
-> are plenty of header files with the same name, hence  _ARMxx_ was added as subdirectory.
-
-Why couldn't <arch>_<subdir> together be ARMxx there, allowing us to get
-away with one less name component.
-
-> There has been a need to define a standard for generated headers too:
->  - include/generated/<subdir>/<filename>.h-> GENERATED_<subdir>_<filename>_H
->  - arch/<architecture>/include/generated/asm/<filename>.h-> <arch>_GENERATED_ASM_<name>_H
+> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
 > 
-> To summarize, here are all the rules that have been applied:
-> - private headers -> <dir>_<filename>_H
+> ---
+> Changes in v3:
+> - fix inconsistent deviation ID
+> - change comment-based deviation text
+> Changes in v2:
+> - use the format introduced with doc/misra/safe.json instead of
+>   a generic text-based deviation
+> ---
+>  docs/misra/safe.json                        | 9 +++++++++
+>  xen/include/public/arch-x86/cpufeatureset.h | 1 +
+>  xen/include/public/errno.h                  | 1 +
+>  3 files changed, 11 insertions(+)
 
-And <dir> here is the full path? I thought I had indicated before that
-this is going to lead to excessively long identifiers.
-
-> - asm-generic headers -> ASM_GENERIC_<filename>_H
-> - arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM_<architecture>_<subdir>_<filename>_H
-> - include/generated/<subdir>/<filename>.h-> GENERATED_<subdir>_<filename>_H
-> - arch/<architecture>/include/generated/asm/<filename>.h-> <arch>_GENERATED_ASM_<name>_H
-
-And _ASM_ is merely a precaution for stuff appearing outside of asm/ (which
-doesn't seem very likely)?
+I understand something wants doing, but having such comments appear in public
+headers feels wrong to me. I'm afraid I have no good alternative suggestion.
 
 Jan
 
