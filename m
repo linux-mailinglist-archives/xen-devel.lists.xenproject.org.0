@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 937C587861A
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 18:12:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691555.1077633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD4F987864D
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 18:28:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691561.1077644 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjjBk-0004Kb-P9; Mon, 11 Mar 2024 17:11:48 +0000
+	id 1rjjRR-0006S7-2x; Mon, 11 Mar 2024 17:28:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691555.1077633; Mon, 11 Mar 2024 17:11:48 +0000
+Received: by outflank-mailman (output) from mailman id 691561.1077644; Mon, 11 Mar 2024 17:28:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjjBk-0004IQ-LV; Mon, 11 Mar 2024 17:11:48 +0000
-Received: by outflank-mailman (input) for mailman id 691555;
- Mon, 11 Mar 2024 17:11:47 +0000
+	id 1rjjRR-0006Qb-0A; Mon, 11 Mar 2024 17:28:01 +0000
+Received: by outflank-mailman (input) for mailman id 691561;
+ Mon, 11 Mar 2024 17:27:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GLWP=KR=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rjjBj-0004I7-DQ
- for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 17:11:47 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ <SRS0=UbMp=KR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rjjRP-0006QV-Rf
+ for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 17:27:59 +0000
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [2607:f8b0:4864:20::22d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 70e6da1d-dfca-11ee-afdc-a90da7624cb6;
- Mon, 11 Mar 2024 18:11:46 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-33e285a33bdso2653041f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 10:11:46 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- bk15-20020a0560001d8f00b0033e3ce48ba1sm6929218wrb.16.2024.03.11.10.11.45
+ id b3c32fa8-dfcc-11ee-afdc-a90da7624cb6;
+ Mon, 11 Mar 2024 18:27:58 +0100 (CET)
+Received: by mail-oi1-x22d.google.com with SMTP id
+ 5614622812f47-3c1ea5b42e7so1942749b6e.2
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 10:27:58 -0700 (PDT)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ vv14-20020a05620a562e00b00788662eda89sm1837700qkn.15.2024.03.11.10.27.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Mar 2024 10:11:45 -0700 (PDT)
+ Mon, 11 Mar 2024 10:27:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +44,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70e6da1d-dfca-11ee-afdc-a90da7624cb6
+X-Inumbo-ID: b3c32fa8-dfcc-11ee-afdc-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1710177106; x=1710781906; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1710178077; x=1710782877; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=TbfT0KcT1M6xxN772/YoxmHDMjLUtwQdO+VOpR+uOQY=;
-        b=G5UfIIAc9YaqISUu6Oe2ft+QDQDlm7kPix7uJRTwCKwVsQhdWHu1oPzFFi0w2/7yTk
-         kc4rgVERQzXCPR8dBTnqj0E/ZbBTN8Y7X6mqKdsrDxG1Qnvw8bScluZV/hMEnuubatsj
-         XxRaQyic60vVEjhYeOFr7LfVcrtlBx9BWGlaM=
+        bh=N65cQcdg6uyPizXZCPwzdDvQhh5w9InmBIs0WXwkfl0=;
+        b=vF2TeGruIMGKPcsjLFKKYxxcpTOaDWpOBGpcThEuM9jmu2Q+17YayV729oS6Wde/Ua
+         zHxtuccIskShqD6uJYBNXRX+BcR7ozhFLIY8FhCpavWlcL9nhrfY5bdXsfeICytm01hL
+         kyG9O2Jf1vnEvTDE2nUt2owrYrfHgAs8yxl8c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710177106; x=1710781906;
+        d=1e100.net; s=20230601; t=1710178077; x=1710782877;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TbfT0KcT1M6xxN772/YoxmHDMjLUtwQdO+VOpR+uOQY=;
-        b=XHQTeOGBvEd0icDLBEfvagk1ADgEU+xtTunuFiKktCno3PiPBXldozSjU6/w7hJJbo
-         lnzXlgn6/aOLfBEUUSwCQA+CfhQfiK2kbEi2tVaYSVQb+edvaCe4KRoiveULDm+R4Sku
-         0pvak+eDBbBaeYwJKT1tBoCxd+P1rHCT8dAiyhk7act6/DrIwkwo2Y/0FFJUCXSNwnqF
-         jgtsy+NECVJsixPTONNg5Sbcd4/Kz+8I5tKWnbiljVejqrIMVqwQqDv4O09gl2pEOSF0
-         Dey4fuGQVr3feZVYC7+IhmYLdFjCKS4hbztmYBI4TL1FzTw5lVvAZZEDDGoqlZCsr253
-         DsLw==
-X-Gm-Message-State: AOJu0YwptMTV1B874i6mEwbRmQ3t1ER3NnrfE511yqAMiwt2VtJRayOv
-	Qte32l9lwg7U3acjthUxO2yRy06Zq2Bi0iT4KvzPAdlHBWQ24jisx/laOaXRysV56SRIUmnAMMv
-	D
-X-Google-Smtp-Source: AGHT+IETd7Qp368uuLTAl0Jzcs5nz0Nv1G/xWNsI/Px/+M3SZihuCh7KRQUhaDYMABL0/w/W8x2wNQ==
-X-Received: by 2002:adf:e9c7:0:b0:33d:284a:401 with SMTP id l7-20020adfe9c7000000b0033d284a0401mr4895232wrn.68.1710177105863;
-        Mon, 11 Mar 2024 10:11:45 -0700 (PDT)
-Date: Mon, 11 Mar 2024 17:11:44 +0000
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
+        bh=N65cQcdg6uyPizXZCPwzdDvQhh5w9InmBIs0WXwkfl0=;
+        b=Z/BKPLYwpWLu/oQCgEuJSmQZT8IliAzpiwzAqU2sYaNvnTn9WKC67L+OG36gNdFtLS
+         yQUvIbt+8OB+qRuxom9WnErPi0Rq7WTO8fKnrIPag3VIclAe5CWOuwTxndrVlS/WnVdW
+         2wjTXEmd7V7oWHWkiyBSSlCb+DzaA10r4iEXXJIP+481Pys6wxhYkK0syHah9lzEfQSX
+         uja08+WH25FHULsW3+QR+vn6l6Rp/N+eDHYq0z8HqOWV1FE25GfQiqS6UB84KjwA22VM
+         nayR7gEqzd5tADXBGFwY6VJdchGJSJBlco+O0ZBIDHmRkjTkjinLzKGimw9hoSA0xpqK
+         Fg5g==
+X-Gm-Message-State: AOJu0YywHSIavH/X0To57aDUBEl6vREpnlfZ3vLlHsFs5KRD7UIZ7+GN
+	f63TXwG8xrR3kBImdVcpjqxXVW1ZbNB/DmPk5jqaQMADD3aL32cAR82auumcP/I=
+X-Google-Smtp-Source: AGHT+IHG6xMGHzeyv9S/JYSx4dG33eg2aA2qHBQ42wtSwJB9YbqyMgvv6WO8VWFbdiYRCG6BfrTI3g==
+X-Received: by 2002:a05:6870:f14a:b0:220:daa3:4800 with SMTP id l10-20020a056870f14a00b00220daa34800mr8499941oac.40.1710178077192;
+        Mon, 11 Mar 2024 10:27:57 -0700 (PDT)
+Date: Mon, 11 Mar 2024 18:27:52 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Roger Pau Monne <roger.pau@citrix.com>
+	Juergen Gross <jgross@suse.com>
 Subject: Re: [OSSTEST PATCH] ap-common: Switch to Linux 6.1 by default on x86
  + drop dom0 i386
-Message-ID: <bc1c7338-7cbe-4794-b8df-1d06d913d8a1@perard>
+Message-ID: <Ze8_GPiqd9L5SzE8@macbook>
 References: <20240306114741.14564-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 In-Reply-To: <20240306114741.14564-1-anthony.perard@citrix.com>
 
@@ -103,20 +100,78 @@ On Wed, Mar 06, 2024 at 11:47:41AM +0000, Anthony PERARD wrote:
 > "xen-unstable" branch but also all xen stable branches, seabios, qemu,
 > osstest, libvirt, so every branch that aren't "linux-*".
 > 
-[...]
+> Here is the list jobs that changes, and whether they are replace, or
+> have existing equivalents, on the "xen-unstable" branch. Changes
+> compared with:
+>     OSSTEST_CONFIG=standalone-config-example nice eatmydata ./standalone-generate-dump-flight-runvars
 > 
-> In any case, the list of test would be the same as for the existing
-> branch "linux-linus" or "linux-6.1" branches.
+> Gone, without exiting or new test-amd64-amd64-*:
+> - test-amd64-i386-freebsd10-amd64
+> - test-amd64-i386-freebsd10-i386
+
+I should have removed those long time ago, as FreeBSD has been EOL for
+ages.
+
+> - test-amd64-i386-qemut-rhel6hvm-amd
+> - test-amd64-i386-qemut-rhel6hvm-intel
+> - test-amd64-i386-qemuu-rhel6hvm-amd
+> - test-amd64-i386-qemuu-rhel6hvm-intel
 > 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> Gone, but with exiting test-amd64-amd64-* equivalent:
+> - test-amd64-coresched-i386-xl
+> - test-amd64-i386-examine
+> - test-amd64-i386-examine-bios
+> - test-amd64-i386-examine-uefi
+> - test-amd64-i386-libvirt
+> - test-amd64-i386-libvirt-pair
+> - test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm
+> - test-amd64-i386-libvirt-xsm
+> - test-amd64-i386-livepatch
+> - test-amd64-i386-migrupgrade
+> - test-amd64-i386-pair
+> - test-amd64-i386-xl
+> - test-amd64-i386-xl-pvshim
+> - test-amd64-i386-xl-qemut-debianhvm-amd64
+> - test-amd64-i386-xl-qemut-debianhvm-i386-xsm
+> - test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm
+> - test-amd64-i386-xl-qemut-win7-amd64
+> - test-amd64-i386-xl-qemut-ws16-amd64
+> - test-amd64-i386-xl-qemuu-debianhvm-amd64
+> - test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow
+> - test-amd64-i386-xl-qemuu-debianhvm-i386-xsm
+> - test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict
+> - test-amd64-i386-xl-qemuu-ovmf-amd64
+> - test-amd64-i386-xl-qemuu-win7-amd64
+> - test-amd64-i386-xl-qemuu-ws16-amd64
+> - test-amd64-i386-xl-shadow
+> - test-amd64-i386-xl-simplat-amd64-buster
+> - test-amd64-i386-xl-xsm
+> 
+> Gone, but replaced by a new test-amd64-amd64-*:
+> - test-amd64-i386-libvirt-raw
+> - test-amd64-i386-xl-vhd
+> 
+> Some test-amd64-amd64-* are also changed:
+> - test-amd64-amd64-libvirt-vhd
+> - test-amd64-amd64-qemuu-freebsd11-amd64
+> - test-amd64-amd64-qemuu-freebsd12-amd64
+> - test-amd64-amd64-xl-qcow2
+> + test-amd64-amd64-freebsd11-amd64
+> + test-amd64-amd64-freebsd12-amd64
+> + test-amd64-amd64-libvirt-qcow2
+> + test-amd64-amd64-libvirt-raw
+> + test-amd64-amd64-xl-vhd
 
-There hasn't been comment on this change, so I guess everyone is happy
-for this change to go in. :-)
+Is this purely a name change, or there's some kind of functional
+change?
 
-I'll push it later this week.
+I'm mostly worried whether this could lead to regressions getting in
+as osstest would detect those jobs as new instead of inheriting from
+the previous jobs.  Also the "History for test ..." won't link to jobs
+prior to the rename?
 
-Thanks,
+I guess I'm confused about what causes the qemuu to be dropped from
+the job names above.
 
--- 
-Anthony PERARD
+Thanks, Roger.
 
