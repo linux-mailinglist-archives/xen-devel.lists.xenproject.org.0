@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B37B0877E8C
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 12:02:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691395.1077334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6629877E96
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 12:05:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691399.1077344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjdPc-0005hn-2T; Mon, 11 Mar 2024 11:01:44 +0000
+	id 1rjdSV-0006GX-GM; Mon, 11 Mar 2024 11:04:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691395.1077334; Mon, 11 Mar 2024 11:01:44 +0000
+Received: by outflank-mailman (output) from mailman id 691399.1077344; Mon, 11 Mar 2024 11:04:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjdPb-0005ex-W6; Mon, 11 Mar 2024 11:01:43 +0000
-Received: by outflank-mailman (input) for mailman id 691395;
- Mon, 11 Mar 2024 11:01:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rjdSV-0006E7-Dl; Mon, 11 Mar 2024 11:04:43 +0000
+Received: by outflank-mailman (input) for mailman id 691399;
+ Mon, 11 Mar 2024 11:04:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=p0J3=KR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rjdPa-0005er-Tj
- for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 11:01:42 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bd5a520a-df96-11ee-a1ee-f123f15fe8a2;
- Mon, 11 Mar 2024 12:01:41 +0100 (CET)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-51320ca689aso3240963e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 04:01:41 -0700 (PDT)
+ id 1rjdST-0006E1-TB
+ for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 11:04:41 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 28907615-df97-11ee-afdc-a90da7624cb6;
+ Mon, 11 Mar 2024 12:04:41 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5673b5a356eso4379711a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 04:04:41 -0700 (PDT)
 Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- n23-20020ac242d7000000b005131b423d80sm1033734lfl.160.2024.03.11.04.01.39
+ a10-20020a17090640ca00b00a4550e8ae70sm2770802ejk.63.2024.03.11.04.04.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Mar 2024 04:01:39 -0700 (PDT)
+ Mon, 11 Mar 2024 04:04:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd5a520a-df96-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 28907615-df97-11ee-afdc-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710154900; x=1710759700; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=citrix.com; s=google; t=1710155080; x=1710759880; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=/MW2QcR+fBI2ctibF2XXgYOn0s+CU8tedK8srXQt3m4=;
-        b=e7XgSG2Yqk09JcieGOYwV/7ENlI2y9Jzl5jF++05FOM8I/+jSkUXkrSARSS6Z5zm7+
-         BmkFiflF8wnmnCtnOx/wiSQc5zwHdcVA1Slub7sZQETsgZ0X8Y0b5W31qnPL4wn6av6X
-         Oi6FqH/ZYBWvIIMUW5kNI2c1x1H2scSMkkKnY=
+        bh=B99vhk+y0uiy3tqw4ypWKDbYu2zT+5lYQQrd1Y678FA=;
+        b=lGmImCS4ERud2ii6ZCvuJufakYDT0uDzRkQFHTPOMMFALl/fPnHucE0k1BfYiyx6hU
+         jEobgFYSCgFSqfEiCmDebgyqgF09CeU7ICwNrgt6/k+mKVOUnmh+8bUDH+7Rhq5PrQ1K
+         PyaBa+nbT+MARgNIK0HEIm/0p9wvRoymbi2lU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710154900; x=1710759700;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1710155080; x=1710759880;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/MW2QcR+fBI2ctibF2XXgYOn0s+CU8tedK8srXQt3m4=;
-        b=HVNaPWY8tPAhS7TR3U1R0nHzNsGHB4EQBWnBMqJWNaUGPsNUDRKnMYyWnt1rZgLNMJ
-         UfGD3Q57iJKNQpM97dPZqGSxr62I4iFeivnYisJDhveEmENwH8EZDkaE3jZ+abiKl/gb
-         UyqIXMbqGsnNWC9wLdJicYc/EfHaBBaineIc515aNXGMALb7zyohv68yJ4z2PJuHcbBW
-         G8ue9NUDCi/xc0hiBWEtp7RHBxNtnaszdkL5Rq76lWMAPHen6zDbGoAIruQbwciHle/X
-         oDSh0oE1Ga9g/9kKiMId5iOQh1B46KxVgTet6ZYD3tvhU+/7W9IQ5/VU2ZEeSqX1IHzE
-         Eeug==
-X-Forwarded-Encrypted: i=1; AJvYcCW+teRPIyjkszI1vx0Sq/Blsw0vJj2VG0jobY3YPfSlBIyXxvmNM1US6SBYV/TubZW5VtSBj+S2Ag4w4dkjfn2Cna66rkwqRvN/o+9ndOc=
-X-Gm-Message-State: AOJu0Yzfrp2JJct69BOHqr/wvv+ADesPtR4MsT1QG86USsq/cb96Hu93
-	XXRPx1XECWTEmVT15HQcQMJOvNcHQvgJgxLyMdicGahmgagSrZz6/twI7D2fUGA=
-X-Google-Smtp-Source: AGHT+IG9/wh43oPwXJI5AOBQDpfjiNvplT/l51tUtzQUW8999tstAK+i/dm20NXOLjmC80WI8UH/nw==
-X-Received: by 2002:ac2:4c38:0:b0:513:1a9c:ae77 with SMTP id u24-20020ac24c38000000b005131a9cae77mr3678316lfq.52.1710154900377;
-        Mon, 11 Mar 2024 04:01:40 -0700 (PDT)
-Message-ID: <a7e045cb-e93a-420b-938d-b7786e8825ab@citrix.com>
-Date: Mon, 11 Mar 2024 11:01:38 +0000
+        bh=B99vhk+y0uiy3tqw4ypWKDbYu2zT+5lYQQrd1Y678FA=;
+        b=X5Y25cpIOlEspEwZXC2NBW1Iu5Ds9UiMgumoY/RS2iIp+qHPWwoQvgzG4K2rN00RzW
+         Axk3y/dtGz0mK5FoQnzbMZIK8B+8+chkU9dWp5cKvBa3TVdk9LPX9fdUQWRPO8Wg9apZ
+         YlWWyAk8WFB8xOjtqxSjhHtknF7qxrrHaG44mzjjfwb0GZAaMFJ8Wwtz2qu+IvmDFUH8
+         YLjjsug9F4vSnlQkTO810EP7souzoFUhZTGpab8EEd9Dn5uJhP8fBSmIJjj1I9zU1EED
+         joFUtq2PeFmHfkYGK3aA3hG/xL/Isml8tGr/GbhzPOSYjAYQji2Db6ivi2kMn9RoxLE1
+         HHEA==
+X-Forwarded-Encrypted: i=1; AJvYcCXQVbKqTvuuopNqzxVKkgJRpZfQbtI3x5nX9UAI/eR3K3bktyyswChxhrkuVXbmyoWF7BqZF1uU87b0ja1prtFKUfEppcG9vDJpdZTOgaw=
+X-Gm-Message-State: AOJu0YyB+WxQRtR5EGJoW7A90r6F6tYJUfZZtvvJoD/ny+N2jks09fLc
+	3Y0gbTeoaN7HY8IUR5/tsvUyz+dWojCaibCPDxZeePPWKRM+Oqbhq2M8BVcMGBE=
+X-Google-Smtp-Source: AGHT+IH+75W5SD1QjQhmgwUzP9jKVnw+9RIMC8QpF76HlqeJvpOFa5Acso3DIohj66fKLiLxCxkdFQ==
+X-Received: by 2002:a17:907:970a:b0:a46:22fc:74d3 with SMTP id jg10-20020a170907970a00b00a4622fc74d3mr2691932ejc.72.1710155080457;
+        Mon, 11 Mar 2024 04:04:40 -0700 (PDT)
+Message-ID: <b9d1b7a4-9a17-442e-84f8-e2a498f5ec44@citrix.com>
+Date: Mon, 11 Mar 2024 11:04:39 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mm: fix detection of last L1 entry in
- modify_xen_mappings_lite()
+Subject: Re: xen | Failed pipeline for staging | e90089db
 Content-Language: en-GB
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
-References: <20240311105416.4556-1-roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <65eed65856f57_2c8a520124653@gitlab-sidekiq-catchall-v2-df9f7d5b4-ts6r7.mail>
+ <55f7b5f5-0f0d-4c80-aeeb-a2e8f22f1197@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -127,26 +127,49 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240311105416.4556-1-roger.pau@citrix.com>
+In-Reply-To: <55f7b5f5-0f0d-4c80-aeeb-a2e8f22f1197@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/03/2024 10:54 am, Roger Pau Monne wrote:
-> The current logic to detect when to switch to the next L1 table is incorrectly
-> using l2_table_offset() in order to notice when the last entry on the current
-> L1 table has been reached.
+On 11/03/2024 10:15 am, Jan Beulich wrote:
+> On 11.03.2024 11:00, GitLab wrote:
+>>
+>> Pipeline #1208433952 has failed!
+>>
+>> Project: xen ( https://gitlab.com/xen-project/hardware/xen )
+>> Branch: staging ( https://gitlab.com/xen-project/hardware/xen/-/commits/staging )
+>>
+>> Commit: e90089db ( https://gitlab.com/xen-project/hardware/xen/-/commit/e90089db3fab06dc8947fcd64f1ed54569e708a6 )
+>> Commit Message: arm/smmu: address some violations of MISRA C Ru...
+>> Commit Author: Nicola Vetrini
+>> Committed by: Jan Beulich ( https://gitlab.com/jbeulich )
+>>
+>>
+>> Pipeline #1208433952 ( https://gitlab.com/xen-project/hardware/xen/-/pipelines/1208433952 ) triggered by Jan Beulich ( https://gitlab.com/jbeulich )
+>> had 2 failed jobs.
+>>
+>> Job #6362049499 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/6362049499/raw )
+>>
+>> Stage: build
+>> Name: ubuntu-trusty-gcc
+> I'm afraid I can't make sense of this supposed failure.
+
+fatal: unable to access
+'https://gitlab.com/xen-project/hardware/xen.git/': Couldn't connect to
+server
+
+Networking failure.
+
 >
-> It should instead use l1_table_offset() to check whether the index has wrapped
-> to point to the first entry, and so the next L1 table should be used.
->
-> Fixes: 8676092a0f16 ('x86/livepatch: Fix livepatch application when CET is active')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> Job #6362049553 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/6362049553/raw )
+>>
+>> Stage: test
+>> Name: build-each-commit-gcc
+> This one simply timed out once again, for it taking too long to build a
+> dozen commits in non-incremental fashion.
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Irritatingly the timeout is per-repo not a global setting.  I've bumped
+this back up to 3h to match the other main repos.
 
-> ---
-> This fixes the osstest livepatch related crash, we have been lucky so far that
-> the .text section didn't seem to have hit this.
-
-I'm very surprised too.
+~Andrew
 
