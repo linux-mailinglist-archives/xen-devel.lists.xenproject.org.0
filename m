@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1207877B59
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 08:33:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691203.1076907 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BB2E877B66
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 08:40:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691208.1076918 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rja9T-0007r0-FF; Mon, 11 Mar 2024 07:32:51 +0000
+	id 1rjaGo-00014C-AT; Mon, 11 Mar 2024 07:40:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691203.1076907; Mon, 11 Mar 2024 07:32:51 +0000
+Received: by outflank-mailman (output) from mailman id 691208.1076918; Mon, 11 Mar 2024 07:40:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rja9T-0007pD-Bw; Mon, 11 Mar 2024 07:32:51 +0000
-Received: by outflank-mailman (input) for mailman id 691203;
- Mon, 11 Mar 2024 07:32:49 +0000
+	id 1rjaGo-00011e-7Y; Mon, 11 Mar 2024 07:40:26 +0000
+Received: by outflank-mailman (input) for mailman id 691208;
+ Mon, 11 Mar 2024 07:40:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZVPQ=KR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rja9R-0007p7-QK
- for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 07:32:49 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ id 1rjaGm-00011V-CT
+ for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 07:40:24 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8e1651c9-df79-11ee-a1ee-f123f15fe8a2;
- Mon, 11 Mar 2024 08:32:46 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5684db9147dso1002884a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 00:32:46 -0700 (PDT)
+ id 9da9c632-df7a-11ee-a1ee-f123f15fe8a2;
+ Mon, 11 Mar 2024 08:40:22 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a3fb8b0b7acso284738066b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 00:40:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bm24-20020a0564020b1800b005682f8b62a6sm2616809edb.97.2024.03.11.00.32.45
+ y26-20020a170906471a00b00a45ad52d510sm2608883ejq.139.2024.03.11.00.40.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Mar 2024 00:32:45 -0700 (PDT)
+ Mon, 11 Mar 2024 00:40:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e1651c9-df79-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 9da9c632-df7a-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710142366; x=1710747166; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710142821; x=1710747621; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=B3RvATf96rWv6M4+vM3PXqEhIxUAX6vcQRD5Vf2iN8A=;
-        b=bwyXJ2LNT6+cK78+n9yDkmH4h7/fHc6/n+X47OENCEKy0oIq/FD/52QFznhLrSMuGn
-         GtPEOt6NNRFlr+p0ftb1EzLHHQKraYW7KQwXfGbxc5RtNmKgnQpjxALBJ1Omt4GL3/fR
-         6qRKx9tORJmqDcxWYUWUh9U5WxMc/7n7V9dd7Iss9DlBaN2WcTxN2gW/BfpG0udGXr9E
-         ZJXoDTTladrWO13rhSid3qJjFtogT1LxlBSb/D96HEUBTfDGJvu2fj1nh6UT9kGQ3BDr
-         H0/cBLpJ84/S9NVq5yXMWzZ/tjaG55mAePkPR7qe6DxWn6dtgZlIL8FT/l61K09IczPE
-         iQ6A==
+        bh=kNSQpzQh8XqKnFyK4B50zqOK1xBn3feJQ+pPGR+Q9lY=;
+        b=JlYGFyWuK9wl3VnwKepzwu3r4Xu3EQGITAWGLScVHLUa4Wy3u00PVm1SPRf+SWfcW5
+         dmwkQoMwDmsddWAyk2DSURs7LbfZ+m+TeXE/0V9Q1N6Ra/ezuHk9EAsS5Xo2ajc0xWch
+         dz8BD89AAk+EsmmxOuqzQ3Jrq+1IDI6IA1M7QNgrhusr2QZpQdhjmslnrqvputO0kHEB
+         2GS3BAorETilx4avCva0HihdfFG5kOueoDzLbqwTiaBkp2CV/K5KlZDZccx26E4AYhQV
+         nAd0x1lJ8c1Gl0v4g9nULfayHLjP9tc1zZhuh14VlPqbVROF7eheECEP1kUSmm9JEHo9
+         qKMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710142366; x=1710747166;
+        d=1e100.net; s=20230601; t=1710142821; x=1710747621;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=B3RvATf96rWv6M4+vM3PXqEhIxUAX6vcQRD5Vf2iN8A=;
-        b=i3G4mFtXJI6/3Ee2ew4E/3CT9XwsUsX/J5bsny7tW/kN9GEFPcXW+93+xNB2woXnA6
-         ep1dVczYJC00Y06osYRFPQCgJN9uGLMG1iZ2cqygnHHZguoydpHFc7UTg6znmdz156dO
-         jGxRERS7xV7TnPgqGaAiY/d0tvMZiVFnRop1QU/5b8kovbxiYEcFFbqbeRs9tTQ5DSl0
-         xGeQOkNtsXC/qeFCTyPBlJYP+lqEoRZu04ZPVhoKtKFem3Iomjcg5EwVQPUPoeF/6hJY
-         MundY6x8pH9altXL7k4Nuc4p3FwjbWHCTVaGz+W9n2vLw4Z2nEhcfOM/s+PZLr+F1+j1
-         r/uQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXRF+Q2V7FRQe0BBe4q8NbAkadecOeduykOglguzeTYpXiq63Ss9R5Td5TywVKPoXYIlTaMS9LL7z/slKZPWZHxZp3LhjP82aeICiwKImo=
-X-Gm-Message-State: AOJu0YwQ2gpS55rpseyjZg7fBYRAFjoG0dIFTayzeHCCBiiBcL6nYMH/
-	HJLEzqZbC9OFLk30nbZwMHmuI2Fajl16EYzekQJ1Fr5RVS7NPTaN45pFmRGNjw==
-X-Google-Smtp-Source: AGHT+IH6Vkzm37VcSz+pvebU/96ODzs6PMdegr8j4jXCeuOsCALjSsVOZC46ECmXwBicAute4wsPDA==
-X-Received: by 2002:a50:ab1c:0:b0:568:3367:d603 with SMTP id s28-20020a50ab1c000000b005683367d603mr3606916edc.2.1710142365871;
-        Mon, 11 Mar 2024 00:32:45 -0700 (PDT)
-Message-ID: <6e2c0cb6-89de-4429-8f43-c4687a26cefe@suse.com>
-Date: Mon, 11 Mar 2024 08:32:46 +0100
+        bh=kNSQpzQh8XqKnFyK4B50zqOK1xBn3feJQ+pPGR+Q9lY=;
+        b=C9Unwyj3ujUpMcQ2r/McZtLJgOA7teekONVQAbcx1lRDgeFENt57JTRt2xrnNbRJD7
+         N64CSwB5hiY30VsFLliQqrPmqBVJhtWo4CtHPZOda31FFcHM4LCeX9F8TrTKs935AQgv
+         U2yojVtwSKVJzKXhOEurDnd+53mv9hc/oxPTNf/xaDA3REGzOyjXlMeV1ky/W725GisF
+         0Bgpnl/RAs2CBuvDDztD6NKb59Wu/AbPu0DfUEEwULib+44w6/lDqbKStnt0Lb3sLeDP
+         waBDDp1w03pj2YXNiulQ/mTF6Ux4cdRH32vzMcYUJG9z1ZgynjAfB6hvcQFsgQtFmv2i
+         ngWA==
+X-Forwarded-Encrypted: i=1; AJvYcCULXKYlSRTNhl4RQ2xqdMSRSB4NyqGj5dS+HVNUx6+SujFWcPhcs00W+SK2+sX4Z8VajTJ41q6Ct5PpgXQgH5S/UCMY/M4xs4KpxbL2+b0=
+X-Gm-Message-State: AOJu0YyR6gstAvmaORwISw27n/lQlVmAuyQqXsEcSNspvPSWUHfHbE5K
+	1sfkW1mlxgrWhTOUXxkgTyCKUGhuR86YrYjZI8GsLjgCipxbBx2ZsWCZ0eCnHw==
+X-Google-Smtp-Source: AGHT+IHxAPMZBAyhZCi/rlbcCgEbREQxW1vZ7bus7lsBZwpHK09gC8T7NVgPm8DBy7e91I6fpi3ekA==
+X-Received: by 2002:a17:907:7847:b0:a44:1fcf:9b97 with SMTP id lb7-20020a170907784700b00a441fcf9b97mr3062251ejc.24.1710142821487;
+        Mon, 11 Mar 2024 00:40:21 -0700 (PDT)
+Message-ID: <ef3e2ce7-6798-4ade-a5d4-fadf017bbd43@suse.com>
+Date: Mon, 11 Mar 2024 08:40:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] xen/compiler: deviate the inline macro for MISRA C
- Rule 20.4
+Subject: Re: [XEN PATCH] xen/evtchn: address violations of MISRA C:2012 Rules
+ 16.3 and 16.4
 Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
- julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <d2b3ae062756a28a040a9553a4f0e621cfdeb5e0.1709885163.git.nicola.vetrini@bugseng.com>
+To: Federico Serafini <federico.serafini@bugseng.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <3ec419e30227a8016c28e04524cd36a549aaddcf.1709898466.git.federico.serafini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,70 +113,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d2b3ae062756a28a040a9553a4f0e621cfdeb5e0.1709885163.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <3ec419e30227a8016c28e04524cd36a549aaddcf.1709898466.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.03.2024 09:10, Nicola Vetrini wrote:
-> Rule 20.4 states: "A macro shall not be defined with the same name
-> as a keyword".
-> 
-> Defining this macro with the same name as the inline keyword
-> allows for additionally checking that out-of-lined static inline
-> functions end up in the correct section while minimizing churn and
-> has a positive impact on the overall safety. See [1] for additional
-> context on the motivation of this deviation.
-> 
-> No functional change.
-> 
-> [1] https://lore.kernel.org/xen-devel/adaa6d55-266d-4df8-8967-9340080d17e4@citrix.com/
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
->  docs/misra/safe.json       | 8 ++++++++
->  xen/include/xen/compiler.h | 1 +
->  2 files changed, 9 insertions(+)
-> 
-> diff --git a/docs/misra/safe.json b/docs/misra/safe.json
-> index 952324f85cf9..a2bbacddf06a 100644
-> --- a/docs/misra/safe.json
-> +++ b/docs/misra/safe.json
-> @@ -28,6 +28,14 @@
->          },
->          {
->              "id": "SAF-3-safe",
-> +            "analyser": {
-> +                "eclair": "MC3R1.R20.4"
-> +            },
-> +            "name": "MC3R1.R20.4: allow the augmentation of the inline keyword in some build configurations",
-> +            "text": "The definition of this macro named inline allows further checking in some build configurations that certain symbols end up in the right sections."
-> +        },
+On 08.03.2024 12:51, Federico Serafini wrote:
+> --- a/xen/common/event_channel.c
+> +++ b/xen/common/event_channel.c
+> @@ -130,9 +130,12 @@ static bool virq_is_global(unsigned int virq)
+>  
+>      case VIRQ_ARCH_0 ... VIRQ_ARCH_7:
+>          return arch_virq_is_global(virq);
+> +
+> +    default:
+> +        ASSERT(virq < NR_VIRQS);
+> +        break;
+>      }
+>  
+> -    ASSERT(virq < NR_VIRQS);
+>      return true;
+>  }
 
-With this wording the ID isn't going to be re-usable anywhere else. Even
-if the exact same reasoning would apply.
+Just for my understanding: The ASSERT() is moved so the "default" would
+consist of more than just "break". Why is it that then the "return" isn't
+moved, too?
 
-> +        {
-> +            "id": "SAF-4-safe",
->              "analyser": {},
->              "name": "Sentinel",
->              "text": "Next ID to be used"
-> diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
-> index 16d554f2a593..e3d9f9fb8e4b 100644
-> --- a/xen/include/xen/compiler.h
-> +++ b/xen/include/xen/compiler.h
-> @@ -82,6 +82,7 @@
->   * inline functions not expanded inline get placed in .init.text.
->   */
->  #include <xen/init.h>
-> +/* SAF-3-safe MISRA C Rule 20.4: define the inline macro to perform checks */
->  #define inline inline __init
->  #endif
+> @@ -846,6 +849,7 @@ int evtchn_send(struct domain *ld, unsigned int lport)
+>          break;
+>      default:
+>          ret = -EINVAL;
+> +        break;
+>      }
 
-I don't think the definition is "to perform checks"; it's rather to make
-sure checking elsewhere wouldn't (seemingly) randomly fail. 'Override
-"inline" for section contents checks to pass when the compiler chooses
-not to inline a particular function' perhaps? Albeit that's getting
-long-ish, I fear.
+I certainly agree here.
+
+> @@ -1672,6 +1676,9 @@ static void domain_dump_evtchn_info(struct domain *d)
+>          case ECS_VIRQ:
+>              printk(" v=%d", chn->u.virq);
+>              break;
+> +        default:
+> +            /* Nothing to do in other cases. */
+> +            break;
+>          }
+
+Yes this, just to mention it, while in line with what Misra demands is
+pretty meaningless imo: The absence of "default" says exactly what the
+comment now says. FTAOD - this is a comment towards the Misra guideline,
+not so much towards the specific change here.
+
+One other remark though, considering the specific function we're in: In
+a certifiable environment, will there actually be the capability to
+issue debug keys? Shouldn't we have a Kconfig option allowing to remove
+all that from a build (and then also from relevant scans)?
 
 Jan
 
