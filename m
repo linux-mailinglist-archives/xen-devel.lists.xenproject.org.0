@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A07E18778C7
-	for <lists+xen-devel@lfdr.de>; Sun, 10 Mar 2024 23:24:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691171.1076868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1DAD8779CA
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 03:20:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691181.1076878 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjRZ8-0007nh-TB; Sun, 10 Mar 2024 22:22:46 +0000
+	id 1rjVFu-0005MQ-6d; Mon, 11 Mar 2024 02:19:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691171.1076868; Sun, 10 Mar 2024 22:22:46 +0000
+Received: by outflank-mailman (output) from mailman id 691181.1076878; Mon, 11 Mar 2024 02:19:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjRZ8-0007lh-PI; Sun, 10 Mar 2024 22:22:46 +0000
-Received: by outflank-mailman (input) for mailman id 691171;
- Sun, 10 Mar 2024 22:22:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rjRZ6-0007lX-VX; Sun, 10 Mar 2024 22:22:44 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rjRZ6-00074c-Ra; Sun, 10 Mar 2024 22:22:44 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rjRZ6-0002Hk-Ct; Sun, 10 Mar 2024 22:22:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rjRZ6-0003JX-CO; Sun, 10 Mar 2024 22:22:44 +0000
+	id 1rjVFu-0005K1-3S; Mon, 11 Mar 2024 02:19:10 +0000
+Received: by outflank-mailman (input) for mailman id 691181;
+ Mon, 11 Mar 2024 02:19:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jdo/=KR=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1rjVFs-0005Jv-8a
+ for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 02:19:08 +0000
+Received: from fhigh8-smtp.messagingengine.com
+ (fhigh8-smtp.messagingengine.com [103.168.172.159])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ba7efaf3-df4d-11ee-afdc-a90da7624cb6;
+ Mon, 11 Mar 2024 03:19:05 +0100 (CET)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.48])
+ by mailfhigh.nyi.internal (Postfix) with ESMTP id 7FD8C11400A3;
+ Sun, 10 Mar 2024 22:19:02 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Sun, 10 Mar 2024 22:19:02 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 10 Mar 2024 22:19:01 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,108 +44,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7KklgaqnQUetgv2gyAvnvMLvFCsHjUmehdMz8Bo1sTA=; b=iqUhNnTEN2lsaW1ZmrBHzPgB2p
-	WOPIV/I6sTs7jvVZhC7kA1Fvgkk/lYR0lrLDSiMgID/ZuE3UC8GT4AtiDjQXdubpMLOK6ZqE+82gb
-	fWTwYjtci+gHUt8SToROs1tlb1F2kWdJJmtLuv04JZn5AJSSy9nbzUSLqkrmMLXZn6bI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184988-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: ba7efaf3-df4d-11ee-afdc-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1710123542;
+	 x=1710209942; bh=VP2jc/P8qd46OULqCsZHqh9JHFNlEKiqUCBbplUrN3g=; b=
+	DDg4xkWuZwLAh5CWDH2GvIkzlK+ZJhTz7j0S1kEnWXJP6H6Gb4Gu4fOyZS5mY/mM
+	IaWekjvx1P5/IH/h7yYv3ZsumXnZog1X+0kGjjbXVPUwSfzgoSyCor+OuA+zUlZR
+	Qk4Cfu61GqZTctvw3RuBb5KTNiaf88Si+4bhKLA9R9ZgakmjNuj3kOgNrQb2kb/+
+	BtG5Gwc0tveJnfEar/uRIakJHq6qmQp0b7bYREXBb8ytozvjpTwTEfJpGFVEVeR8
+	1QmoVZbdCdr+FDn7SagVrGplTgPmFug9xqEiLQnWTUoxDQgATwxn6/NiZTeJwkr/
+	1pC8as0fl+KTcjNdWoVvxA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1710123542; x=1710209942; bh=VP2jc/P8qd46OULqCsZHqh9JHFNl
+	EKiqUCBbplUrN3g=; b=cZ0vIIrHx3SQ40cfpvKLEbw93iXiZbPb9CjH8RII9ynw
+	aTU2x3tWhR6ySfkvjNPmwzOF6dS0vWm6WJPbcY7kBy8m+SJu95k3r28cpkfntlzX
+	F4zzcFileAkNVRn0STIyzcPPi97EuTOgdt5jrUBOqZTTxB4frxOcxav7mPU9IaDx
+	f+f4Ih4G2V9pav2ARxH79Gx2QxQjUEb8vZwVNu4mms7NDzxhcAO+j5wfJtsWaIA/
+	3yLxtoyNaMK0dx/hSg75LOkDuqXH3WL/bUFymCa4Q3Z2e7jNfF290qG6CEjoyG/k
+	HnLV0sEg9LEL3Xfq6eYSLOmEo9FCv5a+YH4HaoKJSA==
+X-ME-Sender: <xms:FmruZS-WkU7RESLaKCWHwtJ0uYJtkKAt-_vn9R2UL7voAyTk0XnEdA>
+    <xme:FmruZStINb61M1Esin0meli3W4ZGhDSASJSuciH3UyFSh6-DwNX8gLGc-1zXyOZ8C
+    K8fkxd4dEc9cQ>
+X-ME-Received: <xmr:FmruZYC0iqQfMLY9YX_Z5KxxAbg6RQL3zEDSF0ggFE9idosjTjMmWWgo77G0PBLpVl0QzCGCkLeWSPqNv7vgzgnP_ePy00N0sg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrjedtgdegiecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetfeeu
+    ueevvdeuvdefkeehhfegjefhtddvleefveegjeekfeevudevfeeljeefgeenucffohhmrg
+    hinhepghhithhhuhgsrdgtohhmpdhgihhtlhgrsgdrtghomhenucevlhhushhtvghrufhi
+    iigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:FmruZadGHVg0l_Ax85cY6KW2ZP0gw3VnZ_i9riUG-SCobeKb4Y_WUA>
+    <xmx:FmruZXPjKAIya_AiYgnp-jyOKTN00QevxCQNsr6nRaU8QKnKJFGLCg>
+    <xmx:FmruZUnGrJAOZXAZeCgpfRecG3QTsXq3A7JSjQl6fkZlV6ZTW38ARg>
+    <xmx:FmruZcr7NoUleMyYLPWe-zmGiY3e-JffmgaWmG5d6hHHqKhxQrFb1w>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 11 Mar 2024 03:18:58 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, oxjo@proton.me
+Subject: Regression with xhci console (was: [PATCH 1/4] amd-vi: fix IVMD
+ memory type checks)
+Message-ID: <Ze5qE9yBLG0chLm2@mail-itl>
+References: <20240201170159.66330-1-roger.pau@citrix.com>
+ <20240201170159.66330-2-roger.pau@citrix.com>
 MIME-Version: 1.0
-Subject: [seabios test] 184988: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    seabios=5d87ff2542c1116e07ae74ba84197a0013e08db1
-X-Osstest-Versions-That:
-    seabios=163fd9f0872f95366cfe34eb11568934c2d2fe29
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 10 Mar 2024 22:22:44 +0000
-
-flight 184988 seabios real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184988/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184972
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 184972
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184972
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184972
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 184972
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
-
-version targeted for testing:
- seabios              5d87ff2542c1116e07ae74ba84197a0013e08db1
-baseline version:
- seabios              163fd9f0872f95366cfe34eb11568934c2d2fe29
-
-Last test of basis   184972  2024-03-09 07:11:10 Z    1 days
-Testing same since   184988  2024-03-10 17:11:02 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Daniel Verkamp <daniel@drv.nu>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="0K9+IosBBskMkRSx"
+Content-Disposition: inline
+In-Reply-To: <20240201170159.66330-2-roger.pau@citrix.com>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+--0K9+IosBBskMkRSx
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 11 Mar 2024 03:18:58 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, oxjo@proton.me
+Subject: Regression with xhci console (was: [PATCH 1/4] amd-vi: fix IVMD
+ memory type checks)
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On Thu, Feb 01, 2024 at 06:01:56PM +0100, Roger Pau Monne wrote:
+> The current code that parses the IVMD blocks is relaxed with regard to the
+> restriction that such unity regions should always fall into memory ranges
+> marked as reserved in the memory map.
+>=20
+> However the type checks for the IVMD addresses are inverted, and as a res=
+ult
+> IVMD ranges falling into RAM areas are accepted.  Note that having such r=
+anges
+> in the first place is a firmware bug, as IVMD should always fall into res=
+erved
+> ranges.
+>=20
+> Fixes: ed6c77ebf0c1 ('AMD/IOMMU: check / convert IVMD ranges for being / =
+to be reserved')
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+FYI Xen 4.17.3 with this patch (but not others in the series) causes
+panic on boot on Framework 14 AMD laptop:
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+    (XEN)  [0000000044570000, 000000005077efff] (usable)
+    ...
+    (XEN) AMD-Vi: Warning: IVMD: [4f83f000,4f880000) is not (entirely) in r=
+eserved memory
+    (XEN) AMD-Vi: Error: IVMD: page at 4f83f000 can't be converted
+    ...
+    (XEN) Xen BUG at drivers/passthrough/amd/iommu_init.c:1386
 
+Full boot log at https://github.com/QubesOS/qubes-issues/issues/9030
+4.17.2 worked fine.
+I'll try the whole series (and the follow up one), but I don't expect
+any difference.
 
-Pushing revision :
+This looks to be related to XHCI console, which does use the same API to
+allow device to DMA into relevant buffers even when the rest of XHCI is
+used by dom0 (or even other domain if 'share=3Dyes' is used):
+https://gitlab.com/xen-project/xen/-/blob/staging/xen/drivers/char/xhci-dbc=
+=2Ec?ref_type=3Dheads#L1421-1424
 
-To xenbits.xen.org:/home/xen/git/osstest/seabios.git
-   163fd9f..5d87ff2  5d87ff2542c1116e07ae74ba84197a0013e08db1 -> xen-tested-master
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--0K9+IosBBskMkRSx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmXuahMACgkQ24/THMrX
+1yx3YAf/dhs2ytpdfDthEzokauYeBlsjAQyVzVsFnQlGDlYPg0gRCDVxZUQ85h6r
+vQXqxjCEhKGH1XCr+rGwtzwNHUUBxuYaHlqAlIe0QVIy9/ZwqUcAtVEUpe63At6o
+h8b8Bx4PTEeYl935cerpogU+ISttrWwfwZVf4nD72frPIOc998si8Mcr1O/4lj/p
+/St7Mgy2VZn+bEm5xHbuvSRrEtiiMbi3cLTfrX/M1H2zfvFBEwTK9a4wT3TNPEtC
+mDNBOA/CN7cBC3v3E1u+12qjSa0eeEa/0/6hizZJuSt0RLrLtDrIh+RmgR5SeQvS
+nSLVAWKRHTMxqaS3fikfkhsEeG9g4Q==
+=T+r4
+-----END PGP SIGNATURE-----
+
+--0K9+IosBBskMkRSx--
 
