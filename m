@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78C9F877DA3
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 11:09:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691357.1077265 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D88BF877DB8
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 11:11:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691361.1077274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjcaT-00022f-P8; Mon, 11 Mar 2024 10:08:53 +0000
+	id 1rjccY-0003j0-8Q; Mon, 11 Mar 2024 10:11:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691357.1077265; Mon, 11 Mar 2024 10:08:53 +0000
+Received: by outflank-mailman (output) from mailman id 691361.1077274; Mon, 11 Mar 2024 10:11:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjcaT-000219-ML; Mon, 11 Mar 2024 10:08:53 +0000
-Received: by outflank-mailman (input) for mailman id 691357;
- Mon, 11 Mar 2024 10:08:53 +0000
+	id 1rjccY-0003gI-5V; Mon, 11 Mar 2024 10:11:02 +0000
+Received: by outflank-mailman (input) for mailman id 691361;
+ Mon, 11 Mar 2024 10:11:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZVPQ=KR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rjcaT-000213-05
- for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 10:08:53 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1rjccX-0003g8-CM
+ for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 10:11:01 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5ba74645-df8f-11ee-a1ee-f123f15fe8a2;
- Mon, 11 Mar 2024 11:08:50 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-563c595f968so5013307a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 03:08:50 -0700 (PDT)
+ id a8656f59-df8f-11ee-a1ee-f123f15fe8a2;
+ Mon, 11 Mar 2024 11:10:59 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-568307fe62eso3567938a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 03:10:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j14-20020a170906474e00b00a44adc01f13sm2697155ejs.196.2024.03.11.03.08.49
+ h4-20020a170906260400b00a461e10094asm1366091ejc.95.2024.03.11.03.10.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Mar 2024 03:08:49 -0700 (PDT)
+ Mon, 11 Mar 2024 03:10:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ba74645-df8f-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: a8656f59-df8f-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710151730; x=1710756530; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710151859; x=1710756659; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=KUHS0hw5GthlB6BizdBU0xbbpqvs867SBrZ9HQhcCdQ=;
-        b=E0VQHxS6MavwVsm538mM4nKhApZXLfSZ8Ba/IWZ+YIa+oWSKiDKOONaa+mOM1sU+gd
-         fLEZ1RXGQiK/Nc8rPGl2GACKvK1gjvWgmKYmgXsXUyYYmzp+I1vRFgCCAlZiIvL70XhC
-         Vn46TEyClYmJ4cJAPgO38ZP8x2Ra7XrFB44Wt7WLAazRj0KM+QfbQzaev1jBz7pk1OoD
-         94mZ8C6VOiOL0P59QjUkcfCv/h9i43omd9DD/te1e3OOLCAhbH7tcnvTh03hU9vwP11z
-         v36zdYnE0lKfPU1zsdvJo3LZPbkOWtqXZLSLH6E8bIn/RRnXIuWrVYtv/h1yGwX6orQJ
-         hXLw==
+        bh=HY3G0C8ssgCw4IYQAmu5w9eJ4+9WJnmVFND2gySiPCQ=;
+        b=SFHaIIFUVd90qkA2p9V2CLO2T5mHPd3imjXJPLuZtI4WQ+5bTmPZ5co1QBxpRH9VbI
+         uxhkSUEGWqitbDDSXU2wCTiUYjYhw8gts9BjLlnQm7A5qbD2bbRBbWOP9nKs5I/9t4IF
+         KKH2rxVoYPYQeiPlp15v04co+e7c+eMCsmRyQNWl8/XSmtFhWsSkHOcOoBGZ2Ku3hNma
+         kr7jLl8pw8pH52RFjw3SIhjqkXympQzysnpfUzpeG9Ln5P15fkWeAt0SG9Oh2X6Wsaqc
+         56y7nEU2KoJPBQUWRtM7NyeqKPFxYbWFdrw7W591+CCxyvyAIq0iePBMqyryxYEEDPgU
+         y7yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710151730; x=1710756530;
+        d=1e100.net; s=20230601; t=1710151859; x=1710756659;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KUHS0hw5GthlB6BizdBU0xbbpqvs867SBrZ9HQhcCdQ=;
-        b=hiDxyT7/4o0ZiODAdJ9c29ucleByk2oT6X+Fn/uuINlqB+Ieem8a8DVr3vF5qKfEtH
-         bhVZYYnQAhjVg0gOaGqGtlArI8QE6Tbg7h8E5l2uEXzbwiHx1NDfQYlwChirzdNKBvdg
-         nWlRxayv9GTtqL6BcEtbu7Vv20zuQYvET5QzliNE+TIP0MJEM/iB1DRKTMq9lt4wfOS1
-         YngiqNJ1S81JXF1kfZjEcyJLBD3Sp4odYVr7uvxsdHT+HR7nzLgJoJLs2WxklM7c7EKJ
-         oVTgOlqiNjtyxpSBLk463nMQ/OeJbfenO/vTyp3W8X82ssJWLQ9IrhXjWh0QNG2d6oaP
-         wvgA==
-X-Forwarded-Encrypted: i=1; AJvYcCWJ5fnn7hFjkEhINLL1CE3ghVZSSorXZqEVaIFS0Dxk1+YV3RzJaxTg3FGzie+ap6vBB4QSCZTLie7R++v+N3S3c/mRkY8xO2mgRx/8cuk=
-X-Gm-Message-State: AOJu0YxTBLIRKaklH+H2zzyHRm/m13Rd3AcwicikjHzkptyKx9d+kv4F
-	n+3ZNEy8Nm5m00GRrJ/ORTKr2r+9mDzi/FvDS8DFqU4KHtX+HyOZ5qSBt8SAhA==
-X-Google-Smtp-Source: AGHT+IHKWlkOLJ0nPqpfDdjciCyKEVyTDO/m+Cfo6buab+FqcKBTPUwvAQ1nd/M0/jFNcIxRNceWhQ==
-X-Received: by 2002:a17:907:8743:b0:a46:27ac:b954 with SMTP id qo3-20020a170907874300b00a4627acb954mr1610930ejc.54.1710151730195;
-        Mon, 11 Mar 2024 03:08:50 -0700 (PDT)
-Message-ID: <adeb5103-81b4-4f04-9ff6-a0526c8065db@suse.com>
-Date: Mon, 11 Mar 2024 11:08:50 +0100
+        bh=HY3G0C8ssgCw4IYQAmu5w9eJ4+9WJnmVFND2gySiPCQ=;
+        b=EfuinjJtqNZCwMb4nR1IGgabC0+nZR/GsNbO9Yuz4pRG9+rInXyustlTieOA31qs2U
+         ulw/lLJQBJHdCg8dqGz0eG0fYKXetYNLR2Jc0oshe5WtJfrPuNv0HrPUPUxT811L3lyu
+         98D6hR1a6az94RojLdlkONvxZ/EYLTXN1oZixyXzYZVtVTkS/bAXmiig72FsPtW2zPzK
+         ptLvksMJlBngJMljnX72IkPSbmb+EJRBfHQigTDul6lw2WxFtkzrykO883G71pBIeyIi
+         FCJFHKLfToqROhfPO/+fZ1MQZyyPXYMk9CgvW6S+p59l0neyOFXNJFnIxE6IntBepjPq
+         HBzg==
+X-Forwarded-Encrypted: i=1; AJvYcCVLrsGZR7EwuRJV9Z+hQ4oIX+5bLMVU9RjtKJmRVr+alqOoQGDsVOPizjFscQXQQY4djZg+AX0kaoLC9B4LwrVnHZ6dogL2bGWWqao6aNQ=
+X-Gm-Message-State: AOJu0YxswUxUxjbZeSuZ5SGncczBPf5HI+vDuPHwPye/LdnQp+a0twrD
+	5GNJKL9Ddw21ydmbgG6taS3jrtHYj123Nfwoujhgvll4lVExz2htE8nNXPb1Dw==
+X-Google-Smtp-Source: AGHT+IF2Dfh+ZcaReek5qofW2ooz5uwVemsb+ar5ciV8rJKsqGYCKF0taCd/dBbziYZ8NywZ1EuZdw==
+X-Received: by 2002:a17:907:8b98:b0:a46:2643:845f with SMTP id tb24-20020a1709078b9800b00a462643845fmr2203254ejc.58.1710151858987;
+        Mon, 11 Mar 2024 03:10:58 -0700 (PDT)
+Message-ID: <332ebf49-9aa4-42fd-99be-bda16580c92f@suse.com>
+Date: Mon, 11 Mar 2024 11:10:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 03/16] misra: add deviations for direct inclusion
- guards
+Subject: Re: [XEN PATCH v3 04/16] xen/arm: address violations of MISRA C:2012
+ Directive 4.10
 Content-Language: en-US
 To: Simone Ballarin <simone.ballarin@bugseng.com>
 Cc: consulting@bugseng.com, sstabellini@kernel.org,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1710145041.git.simone.ballarin@bugseng.com>
- <1fdfec12fd2207c294f50d01d8ec32f890b915d7.1710145041.git.simone.ballarin@bugseng.com>
+ <868ede5a23489e018e272188edfbee572d1ad393.1710145041.git.simone.ballarin@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,59 +116,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1fdfec12fd2207c294f50d01d8ec32f890b915d7.1710145041.git.simone.ballarin@bugseng.com>
+In-Reply-To: <868ede5a23489e018e272188edfbee572d1ad393.1710145041.git.simone.ballarin@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.03.2024 09:59, Simone Ballarin wrote:
-> Add deviation comments to address violations of
-> MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order
-> to prevent the contents of a header file being included more than
-> once").
-> 
-> Inclusion guards must appear at the beginning of the headers
-> (comments are permitted anywhere).
-> 
-> This patch adds deviation comments using the format specified
-> in docs/misra/safe.json for headers with just the direct
-> inclusion guard before the inclusion guard since they are
-> safe and not supposed to comply with the directive.
-> 
-> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
-> 
-> ---
-> Changes in v3:
-> - fix inconsistent deviation ID
-> The patch has been introduced in v2.
-> ---
->  docs/misra/safe.json                 | 8 ++++++++
->  xen/arch/arm/include/asm/hypercall.h | 1 +
->  xen/arch/x86/include/asm/hypercall.h | 1 +
->  3 files changed, 10 insertions(+)
-
-What about asm-generic/hypercall.h?
-
-> --- a/xen/arch/arm/include/asm/hypercall.h
-> +++ b/xen/arch/arm/include/asm/hypercall.h
-> @@ -1,3 +1,4 @@
-> +/* SAF-5-safe direct inclusion guard before */
->  #ifndef __XEN_HYPERCALL_H__
->  #error "asm/hypercall.h should not be included directly - include xen/hypercall.h instead"
->  #endif
-> --- a/xen/arch/x86/include/asm/hypercall.h
-> +++ b/xen/arch/x86/include/asm/hypercall.h
-> @@ -2,6 +2,7 @@
->   * asm-x86/hypercall.h
+> --- a/xen/arch/arm/efi/efi-boot.h
+> +++ b/xen/arch/arm/efi/efi-boot.h
+> @@ -3,6 +3,10 @@
+>   * is intended to be included by common/efi/boot.c _only_, and
+>   * therefore can define arch specific global variables.
 >   */
->  
-> +/* SAF-5-safe direct inclusion guard before */
->  #ifndef __XEN_HYPERCALL_H__
->  #error "asm/hypercall.h should not be included directly - include xen/hypercall.h instead"
->  #endif
+> +
+> +#ifndef XEN_ARCH_ARM_EFI_EFI_BOOT_H
+> +#define XEN_ARCH_ARM_EFI_EFI_BOOT_H
 
-Iirc it was said that this way checking for correct guards is suppressed
-altogether in Eclair, which is not what we want. Can you clarify this,
-please?
+Related to my question raised against the cover letter, what does the
+XEN_ prefix gain us here? All building of the hypervisor binaries
+happens inside the xen/ subtree.
 
 Jan
 
