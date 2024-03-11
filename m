@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D88BF877DB8
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 11:11:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691361.1077274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8A59877DF2
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 11:16:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691367.1077284 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjccY-0003j0-8Q; Mon, 11 Mar 2024 10:11:02 +0000
+	id 1rjch6-0004Jx-PU; Mon, 11 Mar 2024 10:15:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691361.1077274; Mon, 11 Mar 2024 10:11:02 +0000
+Received: by outflank-mailman (output) from mailman id 691367.1077284; Mon, 11 Mar 2024 10:15:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjccY-0003gI-5V; Mon, 11 Mar 2024 10:11:02 +0000
-Received: by outflank-mailman (input) for mailman id 691361;
- Mon, 11 Mar 2024 10:11:01 +0000
+	id 1rjch6-0004I3-MD; Mon, 11 Mar 2024 10:15:44 +0000
+Received: by outflank-mailman (input) for mailman id 691367;
+ Mon, 11 Mar 2024 10:15:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZVPQ=KR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rjccX-0003g8-CM
- for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 10:11:01 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ id 1rjch5-0004Hx-3u
+ for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 10:15:43 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a8656f59-df8f-11ee-a1ee-f123f15fe8a2;
- Mon, 11 Mar 2024 11:10:59 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-568307fe62eso3567938a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 03:10:59 -0700 (PDT)
+ id 4eb46285-df90-11ee-a1ee-f123f15fe8a2;
+ Mon, 11 Mar 2024 11:15:38 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a4627a7233aso117115566b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 03:15:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h4-20020a170906260400b00a461e10094asm1366091ejc.95.2024.03.11.03.10.58
+ s13-20020a170906168d00b00a462bd5ddcdsm628573ejd.144.2024.03.11.03.15.37
+ for <xen-devel@lists.xenproject.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Mar 2024 03:10:58 -0700 (PDT)
+ Mon, 11 Mar 2024 03:15:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +46,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8656f59-df8f-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 4eb46285-df90-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710151859; x=1710756659; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=suse.com; s=google; t=1710152138; x=1710756938; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=HY3G0C8ssgCw4IYQAmu5w9eJ4+9WJnmVFND2gySiPCQ=;
-        b=SFHaIIFUVd90qkA2p9V2CLO2T5mHPd3imjXJPLuZtI4WQ+5bTmPZ5co1QBxpRH9VbI
-         uxhkSUEGWqitbDDSXU2wCTiUYjYhw8gts9BjLlnQm7A5qbD2bbRBbWOP9nKs5I/9t4IF
-         KKH2rxVoYPYQeiPlp15v04co+e7c+eMCsmRyQNWl8/XSmtFhWsSkHOcOoBGZ2Ku3hNma
-         kr7jLl8pw8pH52RFjw3SIhjqkXympQzysnpfUzpeG9Ln5P15fkWeAt0SG9Oh2X6Wsaqc
-         56y7nEU2KoJPBQUWRtM7NyeqKPFxYbWFdrw7W591+CCxyvyAIq0iePBMqyryxYEEDPgU
-         y7yw==
+        bh=Bk9VSZLSe3R6ckTqwWmyIGqBXh5+oRT91UuzhN+BqNw=;
+        b=esbu3LBnCO3geLd53IzVwjm3mnmZ0BielgG8zmt4wHrIVxs583ovdlxrvB8+zZI1bF
+         iUg915JAFYcv17gRCX9Pj+nf0TR58K4JgkEmMEHRA9NKB9Lm3dtDiquUBPFCdi+lLP20
+         277FeWfgt1oHHlkYk8nucRtNOuuHgvv3Vst2v6XpMd97LeW/EcytFO1nR5KHmsqNLzNE
+         FR5IZ6QXVwV0dYNXVTqJ/06uziTBZ+Zje4fjr+0xY1F2HGbamSGXXKtT0be+RVwJueUk
+         piz0y060OsAkuZzB9QbSWq5Ia9LwxcKS5MSx84E7hVgkzBgBIzIsDytanxhnsFrAFoBk
+         SS8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710151859; x=1710756659;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1710152138; x=1710756938;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HY3G0C8ssgCw4IYQAmu5w9eJ4+9WJnmVFND2gySiPCQ=;
-        b=EfuinjJtqNZCwMb4nR1IGgabC0+nZR/GsNbO9Yuz4pRG9+rInXyustlTieOA31qs2U
-         ulw/lLJQBJHdCg8dqGz0eG0fYKXetYNLR2Jc0oshe5WtJfrPuNv0HrPUPUxT811L3lyu
-         98D6hR1a6az94RojLdlkONvxZ/EYLTXN1oZixyXzYZVtVTkS/bAXmiig72FsPtW2zPzK
-         ptLvksMJlBngJMljnX72IkPSbmb+EJRBfHQigTDul6lw2WxFtkzrykO883G71pBIeyIi
-         FCJFHKLfToqROhfPO/+fZ1MQZyyPXYMk9CgvW6S+p59l0neyOFXNJFnIxE6IntBepjPq
-         HBzg==
-X-Forwarded-Encrypted: i=1; AJvYcCVLrsGZR7EwuRJV9Z+hQ4oIX+5bLMVU9RjtKJmRVr+alqOoQGDsVOPizjFscQXQQY4djZg+AX0kaoLC9B4LwrVnHZ6dogL2bGWWqao6aNQ=
-X-Gm-Message-State: AOJu0YxswUxUxjbZeSuZ5SGncczBPf5HI+vDuPHwPye/LdnQp+a0twrD
-	5GNJKL9Ddw21ydmbgG6taS3jrtHYj123Nfwoujhgvll4lVExz2htE8nNXPb1Dw==
-X-Google-Smtp-Source: AGHT+IF2Dfh+ZcaReek5qofW2ooz5uwVemsb+ar5ciV8rJKsqGYCKF0taCd/dBbziYZ8NywZ1EuZdw==
-X-Received: by 2002:a17:907:8b98:b0:a46:2643:845f with SMTP id tb24-20020a1709078b9800b00a462643845fmr2203254ejc.58.1710151858987;
-        Mon, 11 Mar 2024 03:10:58 -0700 (PDT)
-Message-ID: <332ebf49-9aa4-42fd-99be-bda16580c92f@suse.com>
-Date: Mon, 11 Mar 2024 11:10:59 +0100
+        bh=Bk9VSZLSe3R6ckTqwWmyIGqBXh5+oRT91UuzhN+BqNw=;
+        b=p4C717GpbYb9r02tNHX7l8F44itTFxbB1gF10SQknM4lU70yT73Yi0/iKLUIllkEkw
+         ZgYo1uvc41umOl/IMEdpiV+1oXmSM1Rft+d15OgPW/zsKkEoqamQiPc4NBMPBBMiSyMf
+         uGv37EnQANiv3WyyQPcmruNoEzpnUnRxOFj/vxUYKUzHiX/1Jbo/D1A5jhpTRgkBVX/z
+         PIcmnbvXtpB9GdNJFroKP85xOxAmhQfR3MxCqh2PA7mUspgZdFouu1bxH6vydJ5JPFo2
+         xfdQi1DALoLO5Pgh9PNwcyKYYWixeibGPdCIBiBfmjQ/1pLLZVYLWPjQVXofCILRzF3t
+         sTKA==
+X-Gm-Message-State: AOJu0Yx3Of36z/annkXGgIHJ532zgMUdkoBnD6NgZ3Er+rF/FlA7JlwA
+	u7Z/aCDUU7rfzhGqRl9OpSc1pcFDMQNk/vJMw9e8JOlWKvACDptw9Og+Q0ZstMauRAK9O7geZcs
+	=
+X-Google-Smtp-Source: AGHT+IHUGlC6fFcoD0e/UZ+V0xepMb/URTdzXiC4Vvv4hMauGPxqDfa6pVD2QssNXhVAtRE4rxucsw==
+X-Received: by 2002:a17:906:c290:b0:a46:1f8f:a0b0 with SMTP id r16-20020a170906c29000b00a461f8fa0b0mr3087757ejz.13.1710152138023;
+        Mon, 11 Mar 2024 03:15:38 -0700 (PDT)
+Message-ID: <55f7b5f5-0f0d-4c80-aeeb-a2e8f22f1197@suse.com>
+Date: Mon, 11 Mar 2024 11:15:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 04/16] xen/arm: address violations of MISRA C:2012
- Directive 4.10
+Subject: Re: xen | Failed pipeline for staging | e90089db
 Content-Language: en-US
-To: Simone Ballarin <simone.ballarin@bugseng.com>
-Cc: consulting@bugseng.com, sstabellini@kernel.org,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1710145041.git.simone.ballarin@bugseng.com>
- <868ede5a23489e018e272188edfbee572d1ad393.1710145041.git.simone.ballarin@bugseng.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <65eed65856f57_2c8a520124653@gitlab-sidekiq-catchall-v2-df9f7d5b4-ts6r7.mail>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,24 +109,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <868ede5a23489e018e272188edfbee572d1ad393.1710145041.git.simone.ballarin@bugseng.com>
+In-Reply-To: <65eed65856f57_2c8a520124653@gitlab-sidekiq-catchall-v2-df9f7d5b4-ts6r7.mail>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.03.2024 09:59, Simone Ballarin wrote:
-> --- a/xen/arch/arm/efi/efi-boot.h
-> +++ b/xen/arch/arm/efi/efi-boot.h
-> @@ -3,6 +3,10 @@
->   * is intended to be included by common/efi/boot.c _only_, and
->   * therefore can define arch specific global variables.
->   */
-> +
-> +#ifndef XEN_ARCH_ARM_EFI_EFI_BOOT_H
-> +#define XEN_ARCH_ARM_EFI_EFI_BOOT_H
+On 11.03.2024 11:00, GitLab wrote:
+> 
+> 
+> Pipeline #1208433952 has failed!
+> 
+> Project: xen ( https://gitlab.com/xen-project/hardware/xen )
+> Branch: staging ( https://gitlab.com/xen-project/hardware/xen/-/commits/staging )
+> 
+> Commit: e90089db ( https://gitlab.com/xen-project/hardware/xen/-/commit/e90089db3fab06dc8947fcd64f1ed54569e708a6 )
+> Commit Message: arm/smmu: address some violations of MISRA C Ru...
+> Commit Author: Nicola Vetrini
+> Committed by: Jan Beulich ( https://gitlab.com/jbeulich )
+> 
+> 
+> Pipeline #1208433952 ( https://gitlab.com/xen-project/hardware/xen/-/pipelines/1208433952 ) triggered by Jan Beulich ( https://gitlab.com/jbeulich )
+> had 2 failed jobs.
+> 
+> Job #6362049499 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/6362049499/raw )
+> 
+> Stage: build
+> Name: ubuntu-trusty-gcc
 
-Related to my question raised against the cover letter, what does the
-XEN_ prefix gain us here? All building of the hypervisor binaries
-happens inside the xen/ subtree.
+I'm afraid I can't make sense of this supposed failure.
+
+> Job #6362049553 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/6362049553/raw )
+> 
+> Stage: test
+> Name: build-each-commit-gcc
+
+This one simply timed out once again, for it taking too long to build a
+dozen commits in non-incremental fashion.
 
 Jan
 
