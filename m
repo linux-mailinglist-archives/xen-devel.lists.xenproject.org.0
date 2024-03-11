@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A41698785DC
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 17:58:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691549.1077614 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C80F5878601
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Mar 2024 18:08:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691552.1077623 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjiyY-0000Ze-Cy; Mon, 11 Mar 2024 16:58:10 +0000
+	id 1rjj7x-0002S2-92; Mon, 11 Mar 2024 17:07:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691549.1077614; Mon, 11 Mar 2024 16:58:10 +0000
+Received: by outflank-mailman (output) from mailman id 691552.1077623; Mon, 11 Mar 2024 17:07:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjiyY-0000Xx-AB; Mon, 11 Mar 2024 16:58:10 +0000
-Received: by outflank-mailman (input) for mailman id 691549;
- Mon, 11 Mar 2024 16:58:09 +0000
+	id 1rjj7x-0002Pz-6K; Mon, 11 Mar 2024 17:07:53 +0000
+Received: by outflank-mailman (input) for mailman id 691552;
+ Mon, 11 Mar 2024 17:07:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZVPQ=KR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rjiyX-0000Xr-FG
- for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 16:58:09 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1rjj7w-0002Pq-2E
+ for xen-devel@lists.xenproject.org; Mon, 11 Mar 2024 17:07:52 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 88a64ae6-dfc8-11ee-a1ee-f123f15fe8a2;
- Mon, 11 Mar 2024 17:58:07 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5658082d2c4so6009552a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 09:58:07 -0700 (PDT)
+ id e3be83b4-dfc9-11ee-a1ee-f123f15fe8a2;
+ Mon, 11 Mar 2024 18:07:49 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a450bedffdfso603539066b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Mar 2024 10:07:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n10-20020aa7d04a000000b0056826248468sm3106458edo.89.2024.03.11.09.58.06
+ bn23-20020a170906c0d700b00a462e4d7216sm820484ejb.76.2024.03.11.10.07.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Mar 2024 09:58:06 -0700 (PDT)
+ Mon, 11 Mar 2024 10:07:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88a64ae6-dfc8-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: e3be83b4-dfc9-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710176287; x=1710781087; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710176869; x=1710781669; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=wWpKp7nCxFXHUhoAq4Q++ZBgt4mxrjKsMFSgtPCtRVo=;
-        b=TEV76pKZ7yhEMuDrzJFVLeVLO3tPLe201eA86+QnTrmwyGzRxQkUx/pB5IUtLIgPCM
-         W8qS4a7S84Wn+2fK9Cpys0hClLxfqqFkUAJJ7h7oSw7D6mjQAaGa5ygBkrP1PPH3M4Bx
-         4EDoMNiptJSqHuPlOjfHYJZ5HhKgiExyVbhvh2GfaHIEWWLj4CxQfYc21CAGvF4NUCHQ
-         WECgz6gmCM9Te7ioJVo39qiPTQ/ol6knPNfbU20fXbKgRCkqolG9eX+x6iRcGzzpFvS4
-         6jV8FdbYsovvJmkj0VclyzSCklNLuXHVg2hOIXLOQmTaaGnF26Z9AbU/QbcX2IG/v+QT
-         IwEA==
+        bh=0Z3XRah5GvuTNyDs90MKA8ijOhgInolYoRz7oKLKBqE=;
+        b=cnuYRIDs/J5N0Q/0m1OhevI9ewEXGriW6ZKkOF+Ntwr3fwl42xXS0sPc+ConAHr9Jj
+         QkLe+C5gjga9OXCmf1MFEcaz+e03GkKLRXZwbdrRThIhAq8sxMPBM831gVMVAnSmwDNN
+         eorChIcUwQt3Cu+reCKynjMm/jLDwrilBF/TM4mcFyrmy1opJ/p37dTZTxJFST2nb/Dm
+         nXgHH67nDWGIfBNW8D1OkJzGZ/vHV/gxN27planjpEUTA+7e4xKUwt8Rf4LViObCtREy
+         5dbsfpwtD5bCzB6BP02qqQkGbbfhfrSMuw76y7TjRLCtukyNUb9QtSg1kwVhRJL/+LtW
+         +B4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710176287; x=1710781087;
+        d=1e100.net; s=20230601; t=1710176869; x=1710781669;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wWpKp7nCxFXHUhoAq4Q++ZBgt4mxrjKsMFSgtPCtRVo=;
-        b=by+ZACmZXfKNk3OZnorDN250wf8jyRMzGvq4JQBDC/pmQ2NlcvSosYPXMJpfiWJfuV
-         6elTmiejQhJHZmovt4t0zv1bXsfQavOPFUAwmkxc2ivVsvKlyvGwaNaVgb2yRp4dI5BO
-         l/Svl+4S0VpKNsmJvQ7QOmuywSk/QFysZbB6ttTtzaTW7+L+x+CvLwuv5lt5pwTcSB0M
-         iKaXxBEayUTC7WSKkK8F9ln8s4UHnV2j4Qs+ZVWtBb0xMC9wwYnBq/glJ8zXxeJUfWD+
-         bSRDn0vlJOs0ISJ0LbSE0wT8x+zvQosOZ4GuYCK6wW8LjfbhkYdXfDrsfPBUYg/a2O3V
-         5fPQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXN29RPB0KMriqTA8VHLU7jPl4d9X8kyPxxKVo7HQjODfS87h2BEIhX5TJC7sljo7qtyKFuLUBuxjhukmx1Vr/r7HqFFVMBBjhQo1NtjGc=
-X-Gm-Message-State: AOJu0YwbHO/FLSey653rmw26kVuujCRJTppMhd25945KWzIGALLXNZji
-	IFCA8/LWZDeN6/RnaHqWkJCzF16n14npj80CFVfrcDB6S3GxHvVksFrXp2zb/2Dtr6ETex7hjyE
-	=
-X-Google-Smtp-Source: AGHT+IGmvvpQNvsF6SE3Z/Zct7cvyH6zvS91FpcKfvE+ByByx8N0/GP/o8FnS9zEWoRld0XJJGb91g==
-X-Received: by 2002:a50:d558:0:b0:568:1444:a828 with SMTP id f24-20020a50d558000000b005681444a828mr3616680edj.37.1710176287047;
-        Mon, 11 Mar 2024 09:58:07 -0700 (PDT)
-Message-ID: <ef01a9fd-4825-4430-9c20-62277e1b2114@suse.com>
-Date: Mon, 11 Mar 2024 17:58:05 +0100
+        bh=0Z3XRah5GvuTNyDs90MKA8ijOhgInolYoRz7oKLKBqE=;
+        b=OOZLnU5JNEM6KCZZPfCD1R7QQrVQpOgxSzQpntEKhRIiluZTKdu1G/IhZnLlrh167K
+         msIjp03HMAtUxoUZi0VC0EbnfuVOCm8/ot1Br0ZuMLcttwaAB11wSAwkRgdio7g2htdi
+         fO6GU9H4pTtokpHPkv3GpQ9iFoCaJI8EPwUmYtd1bsoXqPGA8YvFpIblxOahCz7RYZZE
+         6P0x2Jde2SQAeEUSbZK33YhtyNQV6SmdeIL5piuGhdGvKN+CF8Pl+uHJxpxLL60/WgBC
+         ODqYzX4RgUo95ysTzoIQEBWc9Ld7It0ACXxS4wJHbhs4wFSn0waZ2yhSVU/2L9plZp0d
+         BC5w==
+X-Forwarded-Encrypted: i=1; AJvYcCWupmbUZ8dcYBeSjjknaOfMG++OziEocCyRgjGo8L6KTQWjG40o+g+34g35gOoBPTaaTATVZiZAsSbIR/tXDmGmB0VZIndw4UTAS2ePi3E=
+X-Gm-Message-State: AOJu0Yz1pMUCYV5WmPWHBOV7EzinH2SmLalTboj7NDwxFwPLJc7WWoCE
+	tK5fXl46G/zVUOKGYQUdHk7O3ZSbQl6BO2wcE1TO7KMIA+99uMqzoBEoyjpSng==
+X-Google-Smtp-Source: AGHT+IHF7CR9TPeZenlhRyg9jAdD1UVkXbjx0RMMgXIqaeTJT8V47cHhjX+Oajq8Viub2w2bFb+DBA==
+X-Received: by 2002:a17:907:c78f:b0:a44:e34a:792f with SMTP id tz15-20020a170907c78f00b00a44e34a792fmr5677425ejc.15.1710176869382;
+        Mon, 11 Mar 2024 10:07:49 -0700 (PDT)
+Message-ID: <1cb8bca3-58b6-4a8d-ac46-8338ea5807e7@suse.com>
+Date: Mon, 11 Mar 2024 18:07:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] xen/domctl, tools: Introduce a new domctl to get
- guest memory map
+Subject: Re: [PATCH v2 5/5] xen/memory, tools: Make init-dom0less consume
+ XEN_DOMCTL_get_mem_map
 Content-Language: en-US
 To: Henry Wang <xin.wang2@amd.com>
 Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Alec Kwapis <alec.kwapis@medtronic.com>, xen-devel@lists.xenproject.org
 References: <20240308015435.4044339-1-xin.wang2@amd.com>
- <20240308015435.4044339-4-xin.wang2@amd.com>
+ <20240308015435.4044339-6-xin.wang2@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,40 +115,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240308015435.4044339-4-xin.wang2@amd.com>
+In-Reply-To: <20240308015435.4044339-6-xin.wang2@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+I'm afraid the title doesn't really say what the patch actually means
+to achieve.
+
 On 08.03.2024 02:54, Henry Wang wrote:
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -946,6 +946,25 @@ struct xen_domctl_paging_mempool {
->      uint64_aligned_t size; /* Size in bytes. */
->  };
->  
-> +#define XEN_MAX_MEM_REGIONS 1
-> +
-> +struct xen_mem_region {
-> +    uint64_t start;
-> +    uint64_t size;
+> Previous commits enable the toolstack to get the domain memory map,
+> therefore instead of hardcoding the guest magic pages region, use
+> the XEN_DOMCTL_get_mem_map domctl to get the start address of the
+> guest magic pages region. Add the (XEN)MEMF_force_heap_alloc memory
+> flags to force populate_physmap() to allocate page from domheap
+> instead of using 1:1 or static allocated pages to map the magic pages.
 
-uint64_aligned_t?
+A patch description wants to be (largely) self-contained. "Previous
+commits" shouldn't be mentioned; recall that the sequence in which
+patches go in is unknown to you up front. (In fact the terms "commit"
+or "patch" should be avoided altogether when describing what a patch
+does. The only valid use I can think of is when referring to commits
+already in the tree, and then typically by quoting their hash and
+title.)
 
-> +    unsigned int type;
+> --- a/xen/include/public/memory.h
+> +++ b/xen/include/public/memory.h
+> @@ -41,6 +41,11 @@
+>  #define XENMEMF_exact_node(n) (XENMEMF_node(n) | XENMEMF_exact_node_request)
+>  /* Flag to indicate the node specified is virtual node */
+>  #define XENMEMF_vnode  (1<<18)
+> +/*
+> + * Flag to force populate physmap to use pages from domheap instead of 1:1
+> + * or static allocation.
+> + */
+> +#define XENMEMF_force_heap_alloc  (1<<19)
+>  #endif
 
-uint32_t and explicit padding (incl checking thereof) please.
+If this is for populate_physmap only, then other sub-ops need to reject
+its use.
 
-> +};
-> +typedef struct xen_mem_region xen_mem_region_t;
-> +DEFINE_XEN_GUEST_HANDLE(xen_mem_region_t);
-> +
-> +struct xen_domctl_mem_map {
-> +    /* IN & OUT */
-> +    uint32_t nr_mem_regions;
-> +    /* OUT */
-> +    XEN_GUEST_HANDLE(xen_mem_region_t) buffer;
+I have to admit I'm a little wary of allocating another flag here and ...
 
-XEN_GUEST_HANDLE_64() and explicit padding (+checking) again please.
+> --- a/xen/include/xen/mm.h
+> +++ b/xen/include/xen/mm.h
+> @@ -205,6 +205,8 @@ struct npfec {
+>  #define  MEMF_no_icache_flush (1U<<_MEMF_no_icache_flush)
+>  #define _MEMF_no_scrub    8
+>  #define  MEMF_no_scrub    (1U<<_MEMF_no_scrub)
+> +#define _MEMF_force_heap_alloc 9
+> +#define  MEMF_force_heap_alloc (1U<<_MEMF_force_heap_alloc)
+>  #define _MEMF_node        16
+>  #define  MEMF_node_mask   ((1U << (8 * sizeof(nodeid_t))) - 1)
+>  #define  MEMF_node(n)     ((((n) + 1) & MEMF_node_mask) << _MEMF_node)
+
+... here - we don't have that many left. Since other sub-ops aren't
+intended to support this flag, did you consider adding another (perhaps
+even arch-specific) sub-op instead?
 
 Jan
 
