@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFA56878F9A
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 09:21:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691701.1077946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22028878FC3
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 09:33:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691706.1077959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjxNk-0003or-U0; Tue, 12 Mar 2024 08:21:08 +0000
+	id 1rjxZG-0005q6-1B; Tue, 12 Mar 2024 08:33:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691701.1077946; Tue, 12 Mar 2024 08:21:08 +0000
+Received: by outflank-mailman (output) from mailman id 691706.1077959; Tue, 12 Mar 2024 08:33:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjxNk-0003m5-Qv; Tue, 12 Mar 2024 08:21:08 +0000
-Received: by outflank-mailman (input) for mailman id 691701;
- Tue, 12 Mar 2024 08:21:07 +0000
+	id 1rjxZF-0005nd-Uf; Tue, 12 Mar 2024 08:33:01 +0000
+Received: by outflank-mailman (input) for mailman id 691706;
+ Tue, 12 Mar 2024 08:33:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rjxNj-0003lz-70
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 08:21:07 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
+ id 1rjxZE-0005nX-IC
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 08:33:00 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 78d2918f-e049-11ee-afdd-a90da7624cb6;
- Tue, 12 Mar 2024 09:21:06 +0100 (CET)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2d40fe2181dso47340641fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 01:21:06 -0700 (PDT)
+ id 22086d77-e04b-11ee-afdd-a90da7624cb6;
+ Tue, 12 Mar 2024 09:32:59 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a45c006ab82so608221866b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 01:32:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cq15-20020a056402220f00b0056761c83bdesm3736461edb.93.2024.03.12.01.21.04
+ dv18-20020a170906b81200b00a456a97faaesm3587517ejb.86.2024.03.12.01.32.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 01:21:05 -0700 (PDT)
+ Tue, 12 Mar 2024 01:32:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78d2918f-e049-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 22086d77-e04b-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710231665; x=1710836465; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710232379; x=1710837179; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=M3ffPOtRcv9waHyVC3FI+fg9G66DrwjncSkxrL418Qc=;
-        b=O7BiMrMdiLmJt6m179W2bn/Lycy7k2LvC5p94cLOaOh9OQ8JpnwENFKL1bG94uLGht
-         Cz/k+PGBNShRTsb+SWH0ijUT6BoXXFZXaVm/2T6Ia0CPb5EHYH/qonbOlzgj3rLyUHXP
-         Yc19q7O3EmR/XEyDtx5IWbl/FklPAFDBkGH+Qx7vmCvT0mlTjLSGP0Q7mDZyWNAJ3fwy
-         I0sO6NnVMwrh7bMyCCqRR4cxr/TXxe23VT3TWbv0R1G3f+apfsBCpyeteT78hI5psdeO
-         E1yRL1oV+8lNaRWXuL5zumwzXpvUpbimbh8NaOR62eY64wTifdOq8eB+IvG98E2GZ2gC
-         ZxLA==
+        bh=nyEh0rQYJE6Jec/uxVqP64Ftm28yLZ08FcTzjd6KJ+M=;
+        b=ZExSEvH7ntyB+UKAucN9E1n8StLXvrybQPTcqloJEELSnemWAe4w87geA4pM0eP+gE
+         2KCHIVieYYc6wTb1mOsF4kKReGuUFxj5riBRtLr2buEEZXe2a2psT9YYl/QyqY6xWRPL
+         FjMJOiSUglAQUOo2MxoI8XZbBWC1pWxnd5OqpBbJysvfl3cgsGVd6onvwMFQrR1ehAOv
+         P+43p5C6Y/r2JAWZcF93et8JqG7fFoZ3QvBHTki+37XO9y4P5lxp5z0kl6tkPz/XeuSV
+         Vx3flC7jLTihsTZjzP7uQHLKNANMBk7B1xWG3lqZHOE5oSAWm+dCBA5ztLkySGrUvLrW
+         EYcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710231665; x=1710836465;
+        d=1e100.net; s=20230601; t=1710232379; x=1710837179;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=M3ffPOtRcv9waHyVC3FI+fg9G66DrwjncSkxrL418Qc=;
-        b=NewOHyPfkhTn3MqegbL2qBTp9/cjdUlHV+0l5bugZyvwjkD86zPCBj1gCCrymopVK0
-         OxMiMKlNt5VHNLVCO/dPLbYUR8sHciCvZaxs2cqSlqflkXCSIaSqC89ltMTWsIFIYlVw
-         sWzk9x4B6dzthSy2X3mp0Wm6yhU3lU1wwqDbiHDmHpC6u5Z4lnLGZOHg7x4nQfNu62RD
-         VreCsatEb69vvA8ESHAkl1sDsdgntY609aCKuTd9MXPxUv12opBINIENBFqCR2vMIwHs
-         61R94KKGWA+Hu92jo+i1foQUKCDKYq1fSIFO4wBJvvoS5NINQeVgtlWNHuq0LzbYWeqa
-         GXOw==
-X-Forwarded-Encrypted: i=1; AJvYcCWZWCVgChrKpBUCme/vGHRbnB9+/5PX9Nh19KKznnmih/m7DrzctNFt0paT+6aGahrS33Jkhm+3bzjuA18qvPo2HUFJVYUVCH62UFQzSas=
-X-Gm-Message-State: AOJu0Ywlq6rR1XYQ9Z3gkxfX32kLfQYivTiZckQSKra37mcQjRBrvSZq
-	vWGlIcn49xSc8vE7j3oI/1CtSUn3y2DQlKCUb+9c+jw0KJlNdxww1JNaSv6m2w==
-X-Google-Smtp-Source: AGHT+IH+s2A/J2VJbPM0DeuU1dBvlJN/Jku50XJd+mV8QWZKU/HXMEWLtu2m12T8I8t4gvyaqXaIVw==
-X-Received: by 2002:a2e:b8d4:0:b0:2d4:513d:7b34 with SMTP id s20-20020a2eb8d4000000b002d4513d7b34mr938448ljp.17.1710231665513;
-        Tue, 12 Mar 2024 01:21:05 -0700 (PDT)
-Message-ID: <f61bbdae-500a-4106-8f86-7adaad2ca1a5@suse.com>
-Date: Tue, 12 Mar 2024 09:21:04 +0100
+        bh=nyEh0rQYJE6Jec/uxVqP64Ftm28yLZ08FcTzjd6KJ+M=;
+        b=M8rxFWvRf+S8d7QZXEA53dMij2hxA+dsdwbzw/l26KjhVG7vcG0mDqmEDgspEhIVmb
+         626ZxAfA1sqZaYtFUDr6BS1rK474oJ+2KOr99kgmdXXak7ej/FSk+fyn0zBwrAPE/Aft
+         e/5zkreJUCZaoYTabf6/zqTLQyEwy2a7eeWoqCGACeSczazm3nwJQxqduauO18ioZiVZ
+         9xC8K/IFInhKXrFBJ6vG6+OhS1DUEsl85t4rCcVQDY5kSRH0DSVeC6GHQSurZSHaxFX0
+         GpYftIgBhiYOmwceVAHUH+3MxEqGr7NbIt+8vL8syygZ9Ex/cT/QaSyxwuM7fKzh/PQH
+         lEXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU8tA+fzBPjyPluX7C4mkLDNWnLLERBhwHy+rSuKYRm2R4mll1PbpAvuyA7UkN32VNBJ2CNuOxPq07VCgZgHch+pPMImjG5rpzpqMfXddc=
+X-Gm-Message-State: AOJu0YzAgpQ5iYDC0dOwi9Rveia95AcfjfHfPCvTpz7JrJxnNdGKMW3N
+	pqUEngmsf9Rk/nUrpmK6hClvjSLU1FpNzLrhHww4C4wAhKpstXcIQd3Fj/0lGQ==
+X-Google-Smtp-Source: AGHT+IFdZEXZ4dDepLONAj9MsyQZPoh/SWEdgXRy6Ic73JdAEwCJejRKx+gzCSWmKpzDHi5J66+PbQ==
+X-Received: by 2002:a17:907:c315:b0:a45:547a:49e1 with SMTP id tl21-20020a170907c31500b00a45547a49e1mr2460285ejc.3.1710232378975;
+        Tue, 12 Mar 2024 01:32:58 -0700 (PDT)
+Message-ID: <40dffd72-0362-42bc-b4c8-9a26804fed68@suse.com>
+Date: Tue, 12 Mar 2024 09:32:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 09/16] xen: address violations of MISRA C:2012
+Subject: Re: [XEN PATCH v3 10/16] x86/asm: address violations of MISRA C:2012
  Directive 4.10
 Content-Language: en-US
 To: Simone Ballarin <simone.ballarin@bugseng.com>
 Cc: consulting@bugseng.com, sstabellini@kernel.org,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
  Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1710145041.git.simone.ballarin@bugseng.com>
- <504cdd2a0f27d28e0a87492f75476b123b68bbc0.1710145041.git.simone.ballarin@bugseng.com>
+ <1e44047e767431c32621ae44d3121bc2152b3cb5.1710145041.git.simone.ballarin@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,85 +117,103 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <504cdd2a0f27d28e0a87492f75476b123b68bbc0.1710145041.git.simone.ballarin@bugseng.com>
+In-Reply-To: <1e44047e767431c32621ae44d3121bc2152b3cb5.1710145041.git.simone.ballarin@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.03.2024 09:59, Simone Ballarin wrote:
-> Amend inclusion guards to address violations of
-> MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order
-> to prevent the contents of a header file being included more than
-> once").
-> 
-> Inclusion guards must appear at the beginning of the headers
-> (comments are permitted anywhere) and the #if directive cannot
-> be used for other checks.
+> --- a/docs/misra/safe.json
+> +++ b/docs/misra/safe.json
+> @@ -52,6 +52,14 @@
+>          },
+>          {
+>              "id": "SAF-6-safe",
+> +            "analyser": {
+> +                "eclair": "MC3R1.D4.10"
+> +            },
+> +            "name": "Dir 4.10: file intended for multiple inclusion",
+> +            "text": "Files intended for multiple inclusion are not supposed to comply with D4.10."
+> +        },
 
-This latter restriction, even if just slightly, hampers readability
+There's an overlap with SAF-3-safe as added by patch 01. What's the reason
+separate entries are needed?
 
-> --- a/xen/include/xen/err.h
-> +++ b/xen/include/xen/err.h
-> @@ -1,5 +1,6 @@
-> -#if !defined(__XEN_ERR_H__) && !defined(__ASSEMBLY__)
-> -#define __XEN_ERR_H__
-> +#ifndef XEN_INCLUDE_XEN_ERR_H
-> +#define XEN_INCLUDE_XEN_ERR_H
-> +#ifndef __ASSEMBLY__
->  
->  #include <xen/compiler.h>
->  #include <xen/errno.h>
-> @@ -41,4 +42,5 @@ static inline int __must_check PTR_RET(const void *ptr)
->  	return IS_ERR(ptr) ? PTR_ERR(ptr) : 0;
->  }
->  
-> -#endif /* __XEN_ERR_H__ */
-> +#endif /* __ASSEMBLY__ */
-> +#endif /* XEN_INCLUDE_XEN_ERR_H */
-
-... here, ...
-
-> --- a/xen/include/xen/softirq.h
-> +++ b/xen/include/xen/softirq.h
-> @@ -1,5 +1,6 @@
-> -#if !defined(__XEN_SOFTIRQ_H__) && !defined(__ASSEMBLY__)
-> -#define __XEN_SOFTIRQ_H__
-> +#ifndef XEN_INCLUDE_XEN_SOFTIRQ_H
-> +#define XEN_INCLUDE_XEN_SOFTIRQ_H
-> +#ifndef __ASSEMBLY__
->  
->  /* Low-latency softirqs come first in the following list. */
->  enum {
-> @@ -40,4 +41,5 @@ void cpu_raise_softirq_batch_finish(void);
+> --- a/xen/arch/x86/include/asm/compat.h
+> +++ b/xen/arch/x86/include/asm/compat.h
+> @@ -2,6 +2,9 @@
+>   * compat.h
 >   */
->  void process_pending_softirqs(void);
 >  
-> -#endif /* __XEN_SOFTIRQ_H__ */
-> +#endif /* __ASSEMBLY__ */
-> +#endif /* XEN_INCLUDE_XEN_SOFTIRQ_H */
-
-... here, and ...
-
-> --- a/xen/include/xen/vmap.h
-> +++ b/xen/include/xen/vmap.h
-> @@ -1,5 +1,6 @@
-> -#if !defined(__XEN_VMAP_H__) && defined(VMAP_VIRT_START)
-> -#define __XEN_VMAP_H__
-> +#ifndef XEN_INCLUDE_XEN_VMAP_H
-> +#define XEN_INCLUDE_XEN_VMAP_H
-> +#ifdef VMAP_VIRT_START
+> +#ifndef ASM_X86_COMPAT_H
+> +#define ASM_X86_COMPAT_H
+> +
+>  #ifdef CONFIG_COMPAT
 >  
->  #include <xen/mm-frame.h>
->  #include <xen/page-size.h>
-> @@ -42,4 +43,5 @@ static inline void vm_init(void)
->      vm_init_type(VMAP_DEFAULT, (void *)VMAP_VIRT_START, arch_vmap_virt_end());
->  }
->  
-> -#endif /* __XEN_VMAP_H__ */
-> +#endif /* VMAP_VIRT_START */
-> +#endif /* XEN_INCLUDE_XEN_VMAP_H */
+>  #define COMPAT_BITS_PER_LONG 32
+> @@ -18,3 +21,5 @@ int switch_compat(struct domain *);
+>  #include <xen/errno.h>
+>  static inline int switch_compat(struct domain *d) { return -EOPNOTSUPP; }
+>  #endif
+> +
+> +#endif /* ASM_X86_COMPAT_H */
 
-... here. Wasn't a goal of Misra to also not have negative effects on code
-readability?
+I'd be happy to ack this change; once again an indication that dissimilar
+changes would better not be munged in a single patch. Such a patch, btw,
+also shouldn't come with "x86/asm:" as a subject prefix - there's nothing
+assembly-ish here; asm/ as a directory name is Linux heritage, without
+that being a "component" in any way.
+
+> --- a/xen/arch/x86/include/asm/cpufeatures.h
+> +++ b/xen/arch/x86/include/asm/cpufeatures.h
+> @@ -1,7 +1,4 @@
+> -/*
+> - * Explicitly intended for multiple inclusion.
+> - */
+> -
+> +/* SAF-6-safe file intended for multiple inclusion */
+>  #include <xen/lib/x86/cpuid-autogen.h>
+
+With the blank line removed the comment, by convention of how these
+comments are placed, applies to the #include directive, which is wrong.
+
+> --- a/xen/arch/x86/include/asm/efibind.h
+> +++ b/xen/arch/x86/include/asm/efibind.h
+> @@ -1,2 +1,7 @@
+> +#ifndef ASM_X86_EFIBIND_H
+> +#define ASM_X86_EFIBIND_H
+> +
+>  #include <xen/types.h>
+>  #include <asm/x86_64/efibind.h>
+> +
+> +#endif /* ASM_X86_EFIBIND_H */
+
+This could go with the compat.h change above.
+
+> --- a/xen/include/Makefile
+> +++ b/xen/include/Makefile
+> @@ -104,10 +104,16 @@ $(obj)/compat/.xlat/%.lst: $(srcdir)/xlat.lst FORCE
+>  xlat-y := $(shell sed -ne 's,@arch@,$(compat-arch-y),g' -re 's,^[?!][[:blank:]]+[^[:blank:]]+[[:blank:]]+,,p' $(srcdir)/xlat.lst | uniq)
+>  xlat-y := $(filter $(patsubst compat/%,%,$(headers-y)),$(xlat-y))
+>  
+> +ARCHDIR = $(shell echo $(SRCARCH) | tr a-z A-Z)
+
+Didn't the earlier patch introduce ARCHDIR already, just elsewhere? This
+would better be done once in a central place then, maybe in
+scripts/Kbuild.include.
+
+>  quiet_cmd_xlat_h = GEN     $@
+> -cmd_xlat_h = \
+> -	cat $(filter %.h,$^) >$@.new; \
+> +define cmd_xlat_h
+> +	echo "#ifndef ASM_$(ARCHDIR)_COMPAT_XLAT_H" > $@.new; \
+> +	echo "#define ASM_$(ARCHDIR)_COMPAT_XLAT_H" >> $@.new; \
+> +	cat $(filter %.h,$^) >> $@.new; \
+> +	echo "#endif /* ASM_$(ARCHDIR)_COMPAT_XLAT_H */" >> $@.new; \
+>  	mv -f $@.new $@
+> +endef
+
+I'm unclear about the move from "=" to "define". Readability isn't really
+helped, is it?
 
 Jan
 
