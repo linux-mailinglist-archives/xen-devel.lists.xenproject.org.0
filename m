@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE2C88797D3
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 16:41:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691919.1078513 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D69FB8797D8
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 16:43:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691922.1078523 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk4FS-0001nw-Ka; Tue, 12 Mar 2024 15:41:02 +0000
+	id 1rk4HI-0002PD-2k; Tue, 12 Mar 2024 15:42:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691919.1078513; Tue, 12 Mar 2024 15:41:02 +0000
+Received: by outflank-mailman (output) from mailman id 691922.1078523; Tue, 12 Mar 2024 15:42:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk4FS-0001mQ-Hh; Tue, 12 Mar 2024 15:41:02 +0000
-Received: by outflank-mailman (input) for mailman id 691919;
- Tue, 12 Mar 2024 15:41:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rk4HI-0002Md-01; Tue, 12 Mar 2024 15:42:56 +0000
+Received: by outflank-mailman (input) for mailman id 691922;
+ Tue, 12 Mar 2024 15:42:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rk4FQ-0001mK-NU
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 15:41:00 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eca16ec0-e086-11ee-afdd-a90da7624cb6;
- Tue, 12 Mar 2024 16:40:59 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-56840d872aeso4257625a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 08:40:59 -0700 (PDT)
+ id 1rk4HG-0002MX-P0
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 15:42:54 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 30126b19-e087-11ee-a1ee-f123f15fe8a2;
+ Tue, 12 Mar 2024 16:42:52 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-563c403719cso6960036a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 08:42:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cq15-20020a056402220f00b0056761c83bdesm4068487edb.93.2024.03.12.08.40.58
+ e3-20020a170906314300b00a4558314ea0sm4025767eje.15.2024.03.12.08.42.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 08:40:58 -0700 (PDT)
+ Tue, 12 Mar 2024 08:42:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eca16ec0-e086-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 30126b19-e087-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710258059; x=1710862859; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710258172; x=1710862972; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=NSMa9ltAFpDnZugHD70b4ResjpouQ80j9uB/02gDj7A=;
-        b=QklFcbuXEwbXCTK074qsKE8T1fw7yUbgMYzpFGgBA7cXcU/Zz2mvB+oKJQIdoU2TqI
-         UHIGJy7n7WVl8i2r707vObySgc+9Er6Ot6UmbMV2FgcEvog/WlBeUi78Mpy/WaCihRvT
-         fhcHYNH8q9zIfaP8GPjdW4Ov/68fqxOE7s7OzLV6v+g4LfSj/TXWnoUkyxV5Vb0ZI2SV
-         QY8b1gbzkZXKTy/m+lBHUbsGpvVfMrYful5wT56KFKiytnmDXz+W83/CPfusv724IxbS
-         oGQgHBkvn7O2GYX9kpnzr4etMNw1ig1WYu2ZflYLFpwkDn/cFiGcwK1Q3NU+KcSuG9W4
-         g5SA==
+        bh=3bmYaFDpLFhm5Cgf4OSH5gVC6zXWCPjmzWGkAA68ISs=;
+        b=JfLv+MkKN/ZlPc/u74aTrP/LbNc8axN5joB8f3QqONsWbEx9Pq5EXIRJojT5PzeuP/
+         sq1AKfWboyzD8n9EfGCmdTwZ5QyJ9Ii7ElHMITbeqnNMZ4MTAiwhrs9/XbnL5BD2PA72
+         VDG25y+IshyBtuvCNLO1afByXAtyzgkWFfxL/LiyMfpcB79jbHwQ51gP1Pv4WaGi1J8j
+         TWJwVVtN8U4SGgY23GW5WCI+lCr3/ufEimWpUGlKKls4cuCkaosb7DkVrRCkQFXjvMBA
+         /H9uFCKZW46LyaXEsLpk9HxDKkHtw5PcNqIf8A7WaGXBknVPJxY8VLAtH7EDQl5NAz++
+         FhOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710258059; x=1710862859;
+        d=1e100.net; s=20230601; t=1710258172; x=1710862972;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=NSMa9ltAFpDnZugHD70b4ResjpouQ80j9uB/02gDj7A=;
-        b=CQ0cAPqLDgjRU72UVymPtnWkWd9Kpzkhtk+2bSMuMOKP7bAO46/7BOvGFIFYqoWAGt
-         hd7Zu2TF83332L/+19jjwyKx6uyimw2LtKmYI+Vt6wfVlAN0yMbEuJ0ngEvublC3hCAJ
-         oefD5fx4ksZUOVAw6nnWX7UVyBQ/FqnCQ6AdpgC+u0VwGFTk1P0c08PoAdo9bnwu8e+7
-         GlUQwo5bQ57W2VBZo+vQ3sjoOIGYZpI7sH+D/g/UBQ6J7zstoADpLEmsiL4M/M66RKvK
-         Wp4lgaWEh957HxxZ6uEfvqUD2f4yRpdXIwe/gQ3ZjVlaY6tfkpK9TElwbNoffkbYrWLI
-         rxOw==
-X-Forwarded-Encrypted: i=1; AJvYcCXjvTHLo23q96mPMUW4lGZc5Zc+GOdskhvbEZubC/wHE4BNlxit0Q8+UWy1KgaJ7uK3aUQDH5XaDqhWUC+HcqqA1Z3Ozjp6iAq/iIyRHlI=
-X-Gm-Message-State: AOJu0YyXrTIxJUZyW/iX4rA5dsLcJo1ptxqV7peZ5RBpcKMCPb3oaFFU
-	8gJtGNeqptVPlPgF6B7uduy1yC0eygK9bTY6/ebjZyH6HNsbO736ufpiLyJt/w==
-X-Google-Smtp-Source: AGHT+IGZ0d4/PgOIuxE27huHUmCLVBB9WAt7XpYvfWjxXmkX6H6yB7t/aKGxo24CAhQNRwG4GN8D4A==
-X-Received: by 2002:a50:999e:0:b0:567:737f:e91f with SMTP id m30-20020a50999e000000b00567737fe91fmr6808805edb.27.1710258059161;
-        Tue, 12 Mar 2024 08:40:59 -0700 (PDT)
-Message-ID: <d8156a8f-d905-4e6a-b1cf-e9676cb3e8f3@suse.com>
-Date: Tue, 12 Mar 2024 16:40:57 +0100
+        bh=3bmYaFDpLFhm5Cgf4OSH5gVC6zXWCPjmzWGkAA68ISs=;
+        b=sq97VsF2e98UlWvUPnH+xiR3OsF1B1JR2v9l+25q+6ePwK75mvBxEkGm9ncvNPCbJ0
+         Lr9vQxqAFEF6RGDPQlA4rGkf1g8e89AXXpFTAFOgMiPBkAaAx7jCTMsjHXLnzbHyaVOB
+         L9n7UMSodAZYLMbzQcGFDYKxulvup02JOwfNgaoV/tQ3BifMY4lhE/MRIDV3zOs6Vh/T
+         hxEzuvwt3I28h5IN8lkk28TDjRh2AJWyexcwGLYZiVEU2kDYQ3tgpLUgmZKIYZxl7rTD
+         GqpX1fAm2YuRAQz9eXarISEK4MQPe0963a0GL+apKagTqsmeqI5EmOxTdUgDyXv+MjO5
+         nvJA==
+X-Forwarded-Encrypted: i=1; AJvYcCVxRlkDikdwibF/PSEIwkuSGN+Fkx9nNyZi+urQI9eswRL8msUy81u1xa+3m744pqV0YRlULvZz9KzxKpUURwdRjlgvdw6zSBoAr7j37wo=
+X-Gm-Message-State: AOJu0YxhrlaawGKbnN88yXK+BAYJBODxPyyDYNlxIPhMfu9yXewXpGIs
+	jVDLvkhMNBFrhBnYiRPBmbQVcDlfWL3H/+FL19sl6FtGe5ooOolHD8I1DYfPLw==
+X-Google-Smtp-Source: AGHT+IHUmKEpJBilIByF+OT6BofcD8ZtLvUIdOznrpzaCoYzusFFI1UckbHqFe0/vzS/Pn3oXMUZGQ==
+X-Received: by 2002:a17:906:7d8:b0:a3f:5ad2:1ff0 with SMTP id m24-20020a17090607d800b00a3f5ad21ff0mr2603917ejc.46.1710258172303;
+        Tue, 12 Mar 2024 08:42:52 -0700 (PDT)
+Message-ID: <c84047ae-4c6d-47a4-9ce4-44427e571e1c@suse.com>
+Date: Tue, 12 Mar 2024 16:42:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/9] x86/boot: choose AP stack based on APIC ID
+Subject: Re: [XEN PATCH 2/9] x86: don't access x86_cpu_to_apicid[] directly,
+ use cpu_physical_id(cpu)
 Content-Language: en-US
 To: Krystian Hebel <krystian.hebel@3mdeb.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
- <0e7dd957b6f26fa7b752bdce1ef6ebe97c825903.1699982111.git.krystian.hebel@3mdeb.com>
- <d0e03f9a-83b2-4809-9b76-5612f28f2464@suse.com>
- <ddf79696-e32e-49ca-bfe7-073c63b21e09@3mdeb.com>
+ <705574ddb7f18bae9ed3f60ddf2e4bda02c70388.1699982111.git.krystian.hebel@3mdeb.com>
+ <904f358b-c535-4de2-b31d-e593687af11b@suse.com>
+ <e5c7199b-bacb-4a81-964f-802c260ce75c@3mdeb.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,76 +115,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ddf79696-e32e-49ca-bfe7-073c63b21e09@3mdeb.com>
+In-Reply-To: <e5c7199b-bacb-4a81-964f-802c260ce75c@3mdeb.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.03.2024 16:11, Krystian Hebel wrote:
-> On 7.02.2024 17:11, Jan Beulich wrote:
+On 12.03.2024 16:18, Krystian Hebel wrote:
+> On 7.02.2024 17:28, Jan Beulich wrote:
 >> On 14.11.2023 18:49, Krystian Hebel wrote:
->>> --- a/xen/arch/x86/boot/trampoline.S
->>> +++ b/xen/arch/x86/boot/trampoline.S
->>> +        /* Not x2APIC, read from MMIO */
->>> +        mov     0xfee00020, %esp
->> Please don't open-code existing constants (APIC_ID here and below,
->> APIC_DEFAULT_PHYS_BASE just here, and ...
->>
->>> +        shr     $24, %esp
->> ... a to-be-introduced constant here (for {G,S}ET_xAPIC_ID() to use as
->> well then). This is the only way of being able to easily identify all
->> pieces of code accessing the same piece of hardware.
-> 
-> Yes, this was also caught in review done by Qubes OS team.
-> 
-> New constant and {G,S}ET_xAPIC_ID() should be in separate patch, I presume?
-
-Preferably, yes.
-
->>> --- a/xen/arch/x86/boot/x86_64.S
->>> +++ b/xen/arch/x86/boot/x86_64.S
->>> @@ -15,7 +15,33 @@ ENTRY(__high_start)
->>>           mov     $XEN_MINIMAL_CR4,%rcx
->>>           mov     %rcx,%cr4
->>>   
->>> -        mov     stack_start(%rip),%rsp
->>> +        test    %ebx,%ebx
->> Nit (style): Elsewhere you have blanks after the commas, just here
->> (and once again near the end of the hunk) you don't.
-> Is either style preferred?This file has both.
-
-Conversion takes time, so in new code we aim at having those blanks.
-Over time we hope to have them nearly everywhere, at which point it
-may make sense to to a final cleanup sweep.
-
->>> --- a/xen/arch/x86/setup.c
->>> +++ b/xen/arch/x86/setup.c
->>> @@ -1951,6 +1951,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>>> --- a/xen/arch/x86/apic.c
+>>> +++ b/xen/arch/x86/apic.c
+>>> @@ -950,7 +950,7 @@ __next:
 >>>        */
->>>       if ( !pv_shim )
->>>       {
->>> +        /* Separate loop to make parallel AP bringup possible. */
->>>           for_each_present_cpu ( i )
->>>           {
->>>               /* Set up cpu_to_node[]. */
->>> @@ -1958,6 +1959,12 @@ void __init noreturn __start_xen(unsigned long mbi_p)
->>>               /* Set up node_to_cpumask based on cpu_to_node[]. */
->>>               numa_add_cpu(i);
->>>   
->>> +            if ( stack_base[i] == NULL )
->>> +                stack_base[i] = cpu_alloc_stack(i);
->>> +        }
->> Imo this wants accompanying by removal of the allocation in
->> cpu_smpboot_alloc(). Which would then make more visible that there's
->> error checking there, but not here (I realize there effectively is
->> error checking in assembly code, but that'll end in HLT with no
->> useful indication of what the problem is). Provided, as Julien has
->> pointed out, that the change is necessary in the first place.
-> 
-> The allocation in cpu_smpboot_alloc() was left for hot-plug. This loops
-> over present CPUs, not possible ones.
+>>>       if (boot_cpu_physical_apicid == -1U)
+>>>           boot_cpu_physical_apicid = get_apic_id();
+>>> -    x86_cpu_to_apicid[0] = get_apic_id();
+>>> +    cpu_physical_id(0) = get_apic_id();
+>> While personally I don't mind as much, I expect Andrew would not like
+>> this: Something that looks like a function call on the lhs is against
+>> what normal language structure would be.
+> This made me cringe as well, but I've seen something like this used in
+> other places (per_cpu() mostly) so I thought it was OK. I can change it.
 
-Ah, right. Yet better error checking / reporting is going to be needed
-anyway.
+Please try to get in touch with Andrew, to see what he thinks (especially
+with your pointing of per_cpu()'s similarity).
 
 Jan
 
