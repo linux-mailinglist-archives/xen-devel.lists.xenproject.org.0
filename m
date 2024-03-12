@@ -2,56 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B12D879D3B
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 22:07:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692194.1079050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A64F879DFC
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 23:01:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692199.1079060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk9LH-0008EH-Hq; Tue, 12 Mar 2024 21:07:23 +0000
+	id 1rkAAX-00080F-GR; Tue, 12 Mar 2024 22:00:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692194.1079050; Tue, 12 Mar 2024 21:07:23 +0000
+Received: by outflank-mailman (output) from mailman id 692199.1079060; Tue, 12 Mar 2024 22:00:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk9LH-0008BQ-E9; Tue, 12 Mar 2024 21:07:23 +0000
-Received: by outflank-mailman (input) for mailman id 692194;
- Tue, 12 Mar 2024 21:07:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rkAAX-0007yO-Dh; Tue, 12 Mar 2024 22:00:21 +0000
+Received: by outflank-mailman (input) for mailman id 692199;
+ Tue, 12 Mar 2024 22:00:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eRt5=KS=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1rk9LF-0008BK-9x
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 21:07:21 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20600.outbound.protection.outlook.com
- [2a01:111:f403:2408::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8229b3f0-e0b4-11ee-a1ee-f123f15fe8a2;
- Tue, 12 Mar 2024 22:07:18 +0100 (CET)
-Received: from BN9PR03CA0358.namprd03.prod.outlook.com (2603:10b6:408:f6::33)
- by BY5PR12MB4290.namprd12.prod.outlook.com (2603:10b6:a03:20e::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.35; Tue, 12 Mar
- 2024 21:07:14 +0000
-Received: from BN2PEPF000044A8.namprd04.prod.outlook.com
- (2603:10b6:408:f6:cafe::3) by BN9PR03CA0358.outlook.office365.com
- (2603:10b6:408:f6::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.34 via Frontend
- Transport; Tue, 12 Mar 2024 21:07:14 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN2PEPF000044A8.mail.protection.outlook.com (10.167.243.102) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7386.12 via Frontend Transport; Tue, 12 Mar 2024 21:07:14 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 12 Mar
- 2024 16:07:13 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 12 Mar
- 2024 16:07:13 -0500
-Received: from [172.27.105.181] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 12 Mar 2024 16:07:12 -0500
+ <SRS0=+jUN=KS=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1rkAAW-0007yI-J3
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 22:00:20 +0000
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e816584a-e0bb-11ee-afdd-a90da7624cb6;
+ Tue, 12 Mar 2024 23:00:18 +0100 (CET)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.48])
+ by mailout.nyi.internal (Postfix) with ESMTP id B05C15C0086;
+ Tue, 12 Mar 2024 18:00:14 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Tue, 12 Mar 2024 18:00:14 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 12 Mar 2024 18:00:12 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,122 +43,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8229b3f0-e0b4-11ee-a1ee-f123f15fe8a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fPb7m4Z9is1mUzTYYV78kYLQfOZfn9hkJMkUtd5vDDQcDFLm2pTSeGUCD3JJeEA0QAtaCGQ3Mod3xa5JZom6ytZNg7qbMzHOUKXGvCXG7S8+5GRAGNB5C0NtCCBitqWcavH6IzzhTgO8fFHsy2iQUMZzDFuflDWR8lm6UHmFv12SPYRKuqsKk7GrgnURp+8I92ITX5UhAW7j8tSAjmHHVVMvW2hzg+bAeh85eptSCrTvnSiLNbaHyLwAy8ifTKVgYJP9XEEC0PTaaM/U5tRL8/TEwVgujhIshCDfBy8TUECG9E9mJUC+iUGjB9+Y27J+3maiA8k79G5hoMZ354/lXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kmh5UqZ5R5kQnbVbB8JNHjk/o5Wo9fYO0iZUT8Ma4f8=;
- b=dQTyCN9/ivjyazlkCae6+agr/ru/aFI2gDGUMcmJijeqVuVzQvnpNjZ2QwFf8m5tJdQVAw1MI7hTsQdoZKdpcjFwX7MoipYxYccmrEBeGwVjnOH28HTyOm2Iy4teauxpF8Ha7aOCLK1OGQ6fDMY+XzbliKzib20sg8AoYhBfnxef7uY9DVTSMXPudgM12YA9At/jhnNtog0915NoSGyIc9JeMj4PUtxPqT6S+cw7fbgNNmuthINQwiimjebYtqWsZ12rkG3i+ff0ur0sYsVALCrLrdRLCY1IVrycM72CoyCX8GVu+FrjKn7AHvOAPYXV1fT7Vq9Zd5bPR09debUX7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=invisiblethingslab.com
- smtp.mailfrom=amd.com; dmarc=pass (p=quarantine sp=quarantine pct=100)
- action=none header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kmh5UqZ5R5kQnbVbB8JNHjk/o5Wo9fYO0iZUT8Ma4f8=;
- b=lHqZrI++k/X/w/+7pLeuxz6wMk20odao4VsZN7u8waERONpsLz+R7tTF9EKoWmMLJ0UaI1CuQrpjwdbZewXa659XlZjgvXbewhoPkEARRuqHoJ0VIjI5+voVoMe35pKeWZSKG7LPAcReZf6PyCU/wMscSsRA5hwOghWQjFkGigI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <9207a620-2998-49dc-992f-5d756d3f6524@amd.com>
-Date: Tue, 12 Mar 2024 17:07:12 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+X-Inumbo-ID: e816584a-e0bb-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1710280814;
+	 x=1710367214; bh=6D5/LLqXdsYWMYX8yW9HXHbC3p01jO2T7c0aof4XfOM=; b=
+	AUECVd+xGNQEQXoFII1I4vPF3ajvgDOEk436r9wcTFYs6Glil7zKePJpyLIU5aUT
+	dVQmWHSIwUrQdrL+/FUM0fbX91qEUgqIcNrW+S9PswMIxfqdeumfZb1+XUo+tst8
+	ilbyi999u9Xxm5oYTHxfYmU0cGj+tpFZBQ8jhm1KU7GfV1qMLixYxjITYYMA7PHx
+	dIb4WVq3qjaetmviN9ultWIvMCahuS0y5Z810X7mwgyUxsxYyHUWlk+dAfeeojRf
+	7835Sx8EqbEiCVALOM419n47h0F2ycNJn6rxcElnApk59m/kXZApMcrsM7GPbh0v
+	C5VWWtB3RHYKXvkEqnEVbw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1710280814; x=1710367214; bh=6D5/LLqXdsYWMYX8yW9HXHbC3p01
+	jO2T7c0aof4XfOM=; b=KaM4Nf4PhoWL4F6PYj11ahyRwaZuPWtBQ18XxW+ip6Wz
+	s2X1OBieOqMOEgsrXkVyonMPWS1A1g0LbA2YdSFXTsECChoBmlIfIhJ65NMhauWX
+	uJ66ZWVDj7QvCWQZEc9lltt4UlrI9E6u089F7OPWix2nke6YFf43C34wOfYNcdMH
+	741fJZML4bhNoowsljfhM3xqjH0eyMUCEyNy0rL8bf/STyhilN4TI0JrD2lweF6R
+	IErnfjXCr4rxKd8RpWU7Y9qATaGCq2JiZ+677ZoWpglpTr6UYbhQENYAOu944k6T
+	ZYptUu01t57jS+L3Uxq5FahgJeN1fhM5ROl904GOPQ==
+X-ME-Sender: <xms:bdDwZdHgzewu95am36ovETe-I2wX-YAcxLukrybSjnepBVFXGTfh4w>
+    <xme:bdDwZSWbRpKeXNi5D_7bZJB5AXmG7up_Yo5xMra99Cqp_HEY1QXOFSEkwJeEUtzb7
+    t2JUFEdCu9whQ>
+X-ME-Received: <xmr:bdDwZfKk78rgYK9XKgW28QPjxQ3_yyn59-5UhTm2s5E2Fr1YgGWU_HeB0IWBdwC-9-SvFr7KUG1khNDQFvxJo-MNNFQungbuag>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrjeefgdduheehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:bdDwZTETNublYWpjR0bb8OGX0OeaxcdfZGYau4cijeB8ycTKoKOaeA>
+    <xmx:bdDwZTX2swXEpswXoJNGVfbp6ezCKGyxBhRvAo2KWeiiuq3V2PsaXg>
+    <xmx:bdDwZeMOlozZRQl-Rvl8gyz9rMsTP2jLHnFCzJkVmBkNtUHZAN8Uqw>
+    <xmx:bdDwZS3aJbOGv3BIwOcK76FgLxGViCE8He_l8dgDDbWSomlH8L3tGw>
+    <xmx:btDwZVIcKaY8Dd9kBcsEm8pP0FDooIfkgg1IsMNdrAU8W7PD62SIFw>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 12 Mar 2024 23:00:09 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Patrick Plenefisch <simonpatp@gmail.com>,
+	xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>
 Subject: Re: E820 memory allocation issue on Threadripper platforms
-Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>, "Juergen
- Gross" <jgross@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>
-CC: Patrick Plenefisch <simonpatp@gmail.com>,
-	<xen-devel@lists.xenproject.org>, Jason Andryuk <jandryuk@gmail.com>
-References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
- <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com>
+Message-ID: <ZfDQaq8DWh1Mz2KW@mail-itl>
+References: <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com>
  <dcaf9d8d-ad5a-4714-936b-79ed0e587f9d@suse.com>
  <CAOCpoWeowZPuQTeBp9nu8p8CDtE=u++wN_UqRoABZtB57D50Qw@mail.gmail.com>
  <ac742d12-ec91-4215-bb42-82a145924b4f@suse.com>
  <CAOCpoWfQmkhN3hms1xuotSUZzVzR99i9cNGGU2r=yD5PjysMiQ@mail.gmail.com>
  <fa23a590-5869-4e11-8998-1d03742c5919@suse.com>
  <CAOCpoWf4CMkCWx8uR2NbFrZrKSS78wj1-hFsAUqsjCfsmqooVA@mail.gmail.com>
- <Zap7uX3k0kfoMOoF@mail-itl> <Ze2-dkQkn41WJ60v@mail-itl>
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <Ze2-dkQkn41WJ60v@mail-itl>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A8:EE_|BY5PR12MB4290:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3b0946d5-9004-491f-353e-08dc42d8642e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	KbDvYFQ3ovh1Zzt1ePn0mmmA1YmBuFuOycvd9wdFk0cF/bS52uyxfAdBT3CqfzYVV+1PCZXzp0O70+MLoAve7CK+VfdXg387dsTWCf+VOroJpYOFftbDNhMjtjDR+dyDezbEpVJrAHyDzguYRuCfd/mhoTxQA5xWwlrbOTmh6v+2aY+H79towgvto+lsxezqlXKkN84Potx0YvW3We4AZl53slBAeN7DdfEO0jxknSBara913LgDtHFPsHTPO131IPTEkA3VJ+pxv/oveSQAgR83gwHqsJvJHX9Dd36IMyXsGxQoOp4EDc5aw22LGZ1hDWyGkrL6zhmtustjK6wwaEXpDtWIWmVs5f6F9/pxZzN/VHc2bMJdgLe0X0aAigaYss5dKXOR3/+Fhwu9SwinffA8+I96/VdbNMxSbXk8VAFcDt46hzF5+UsVeYFu+NRZVkwVhdNZTsbgbk9RVV0ks6ghl9vJCCM20uI+9TXPVnjhk0RCUeFpAQEqRSWQ18BYR3EX/wRWJNDUcXOVHPWmXpsMVH8efzqQQMjla1Qp+FvJq7Xras0NkVwFWfNgAaUM3Sjof447eoL2IGnRsg/8e8Q8IlQ5IQdVQqjVqG6P+moRtNzVUmyqPyCMpaGLbWLhfyeYYvUXR2w4z4rQph0NKUTcQ3W704dba53Lf7EDfBrCiKiEKWVAP7xKAiOoeiml6O+D/E6HewTtUg80NWOSFuuiE9J+yDq+FWJmqLgU49fV/ZBGObRFxncDF0S2Vv3h
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(36860700004)(1800799015)(82310400014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2024 21:07:14.0574
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b0946d5-9004-491f-353e-08dc42d8642e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044A8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4290
+ <Zap7uX3k0kfoMOoF@mail-itl>
+ <Ze2-dkQkn41WJ60v@mail-itl>
+ <9207a620-2998-49dc-992f-5d756d3f6524@amd.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="TOyaDT5Pyb2A8YcA"
+Content-Disposition: inline
+In-Reply-To: <9207a620-2998-49dc-992f-5d756d3f6524@amd.com>
 
-On 2024-03-10 10:06, Marek Marczykowski-Górecki wrote:
-> On Fri, Jan 19, 2024 at 02:40:06PM +0100, Marek Marczykowski-Górecki wrote:
->> On Thu, Jan 18, 2024 at 01:23:56AM -0500, Patrick Plenefisch wrote:
->>> On Wed, Jan 17, 2024 at 3:46 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>> On 17.01.2024 07:12, Patrick Plenefisch wrote:
->>>>> As someone who hasn't built a kernel in over a decade, should I figure
->>>> out
->>>>> how to do a kernel build with CONFIG_PHYSICAL_START=0x2000000 and report
->>>>> back?
->>>>
->>>> That was largely a suggestion to perhaps allow you to gain some
->>>> workable setup. It would be of interest to us largely for completeness.
->>>>
->>>
->>> Typo aside, setting the boot to 2MiB works! It works better for PV
->>
->> Are there any downsides of running kernel with
->> CONFIG_PHYSICAL_START=0x200000? I can confirm it fixes the issue on
->> another affected system, and if there aren't any practical downsides,
->> I'm tempted to change it the default kernel in Qubes OS.
-> 
-> I have the answer here: CONFIG_PHYSICAL_START=0x200000 breaks booting
-> Xen in KVM with OVMF. There, the memory map has:
-> (XEN)  0000000100000-00000007fffff type=7 attr=000000000000000f
-> (XEN)  0000000800000-0000000807fff type=10 attr=000000000000000f
-> (XEN)  0000000808000-000000080afff type=7 attr=000000000000000f
-> (XEN)  000000080b000-000000080bfff type=10 attr=000000000000000f
-> (XEN)  000000080c000-000000080ffff type=7 attr=000000000000000f
-> (XEN)  0000000810000-00000008fffff type=10 attr=000000000000000f
-> (XEN)  0000000900000-00000015fffff type=4 attr=000000000000000f
-> 
-> So, starting at 0x1000000 worked since type=4 (boot service data) is
-> available at that time already, but with 0x200000 it conflicts with
-> those AcpiNvs areas around 0x800000.
-> 
-> I'm cc-ing Jason since I see he claimed relevant gitlab issue. This
-> conflict at least gives easy test environment with console logged to a
-> file.
 
-Thanks.  I actually hacked Xen to reserve memory ranges in the e820 to 
-repro.
+--TOyaDT5Pyb2A8YcA
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 12 Mar 2024 23:00:09 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Patrick Plenefisch <simonpatp@gmail.com>,
+	xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>
+Subject: Re: E820 memory allocation issue on Threadripper platforms
 
-I claimed the *PVH* Dom0 gitlab issue.  PV is outside of my scope :(
+On Tue, Mar 12, 2024 at 05:07:12PM -0400, Jason Andryuk wrote:
+> On 2024-03-10 10:06, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Fri, Jan 19, 2024 at 02:40:06PM +0100, Marek Marczykowski-G=C3=B3rec=
+ki wrote:
+> > > On Thu, Jan 18, 2024 at 01:23:56AM -0500, Patrick Plenefisch wrote:
+> > > > On Wed, Jan 17, 2024 at 3:46=E2=80=AFAM Jan Beulich <jbeulich@suse.=
+com> wrote:
+> > > > > On 17.01.2024 07:12, Patrick Plenefisch wrote:
+> > > > > > As someone who hasn't built a kernel in over a decade, should I=
+ figure
+> > > > > out
+> > > > > > how to do a kernel build with CONFIG_PHYSICAL_START=3D0x2000000=
+ and report
+> > > > > > back?
+> > > > >=20
+> > > > > That was largely a suggestion to perhaps allow you to gain some
+> > > > > workable setup. It would be of interest to us largely for complet=
+eness.
+> > > > >=20
+> > > >=20
+> > > > Typo aside, setting the boot to 2MiB works! It works better for PV
+> > >=20
+> > > Are there any downsides of running kernel with
+> > > CONFIG_PHYSICAL_START=3D0x200000? I can confirm it fixes the issue on
+> > > another affected system, and if there aren't any practical downsides,
+> > > I'm tempted to change it the default kernel in Qubes OS.
+> >=20
+> > I have the answer here: CONFIG_PHYSICAL_START=3D0x200000 breaks booting
+> > Xen in KVM with OVMF. There, the memory map has:
+> > (XEN)  0000000100000-00000007fffff type=3D7 attr=3D000000000000000f
+> > (XEN)  0000000800000-0000000807fff type=3D10 attr=3D000000000000000f
+> > (XEN)  0000000808000-000000080afff type=3D7 attr=3D000000000000000f
+> > (XEN)  000000080b000-000000080bfff type=3D10 attr=3D000000000000000f
+> > (XEN)  000000080c000-000000080ffff type=3D7 attr=3D000000000000000f
+> > (XEN)  0000000810000-00000008fffff type=3D10 attr=3D000000000000000f
+> > (XEN)  0000000900000-00000015fffff type=3D4 attr=3D000000000000000f
+> >=20
+> > So, starting at 0x1000000 worked since type=3D4 (boot service data) is
+> > available at that time already, but with 0x200000 it conflicts with
+> > those AcpiNvs areas around 0x800000.
+> >=20
+> > I'm cc-ing Jason since I see he claimed relevant gitlab issue. This
+> > conflict at least gives easy test environment with console logged to a
+> > file.
+>=20
+> Thanks.  I actually hacked Xen to reserve memory ranges in the e820 to
+> repro.
+>=20
+> I claimed the *PVH* Dom0 gitlab issue.  PV is outside of my scope :(
 
-Regards,
-Jason
+That's not bad either, it means we're getting closer to usable PVH dom0
+:)
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--TOyaDT5Pyb2A8YcA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmXw0GoACgkQ24/THMrX
+1yypLgf5AZRwhRFiM87Nuk24tv2H3Xhdxk2BfkcZ1NF4tqqXiileISW9XtYW241D
+OQJb7Wd802Ynh/zX84QbJ9BF/FmaQ6pmHN5X2EJzdWkBWzdQ1PJqbBgpyMijpBvw
+FufBj8BFFna+TwI2fiumMNlUdd6aLIKUevB9Gpyy+8w6na1EIDBbt+GdE86eTL/a
+oRihxPahjQjNJqnmHoBuqgzByRmR46tL6lAtjVQKoEfNfgOUnpF7vlY8uBdJ2+aU
+u31KOznD7AJ5rSrt7S2qShM0jlTJcm+S2e6Mx2aqhG9qTa/9SpOpztfzRCU2+DBi
+biuY561P6xylxImiJUhs2ZonDeReEQ==
+=Nrvi
+-----END PGP SIGNATURE-----
+
+--TOyaDT5Pyb2A8YcA--
 
