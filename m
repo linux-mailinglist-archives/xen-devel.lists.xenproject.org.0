@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22028878FC3
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 09:33:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691706.1077959 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 645D4879195
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 11:01:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691725.1077969 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjxZG-0005q6-1B; Tue, 12 Mar 2024 08:33:02 +0000
+	id 1rjyvf-0001Ar-0Y; Tue, 12 Mar 2024 10:00:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691706.1077959; Tue, 12 Mar 2024 08:33:02 +0000
+Received: by outflank-mailman (output) from mailman id 691725.1077969; Tue, 12 Mar 2024 10:00:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjxZF-0005nd-Uf; Tue, 12 Mar 2024 08:33:01 +0000
-Received: by outflank-mailman (input) for mailman id 691706;
- Tue, 12 Mar 2024 08:33:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rjxZE-0005nX-IC
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 08:33:00 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 22086d77-e04b-11ee-afdd-a90da7624cb6;
- Tue, 12 Mar 2024 09:32:59 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a45c006ab82so608221866b.3
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 01:32:59 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- dv18-20020a170906b81200b00a456a97faaesm3587517ejb.86.2024.03.12.01.32.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 01:32:58 -0700 (PDT)
+	id 1rjyve-00018C-Sz; Tue, 12 Mar 2024 10:00:14 +0000
+Received: by outflank-mailman (input) for mailman id 691725;
+ Tue, 12 Mar 2024 10:00:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YGKU=KS=bounce.vates.tech=bounce-md_30504962.65f027a6.v1-c951a183e47448219ca972096574c410@srs-se1.protection.inumbo.net>)
+ id 1rjyvd-000186-4c
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 10:00:13 +0000
+Received: from mail137-23.atl71.mandrillapp.com
+ (mail137-23.atl71.mandrillapp.com [198.2.137.23])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4fc65b14-e057-11ee-a1ee-f123f15fe8a2;
+ Tue, 12 Mar 2024 11:00:10 +0100 (CET)
+Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail137-23.atl71.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Tv8Jk3fQMz1XLJMM
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 10:00:06 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ c951a183e47448219ca972096574c410; Tue, 12 Mar 2024 10:00:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,175 +43,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22086d77-e04b-11ee-afdd-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710232379; x=1710837179; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=nyEh0rQYJE6Jec/uxVqP64Ftm28yLZ08FcTzjd6KJ+M=;
-        b=ZExSEvH7ntyB+UKAucN9E1n8StLXvrybQPTcqloJEELSnemWAe4w87geA4pM0eP+gE
-         2KCHIVieYYc6wTb1mOsF4kKReGuUFxj5riBRtLr2buEEZXe2a2psT9YYl/QyqY6xWRPL
-         FjMJOiSUglAQUOo2MxoI8XZbBWC1pWxnd5OqpBbJysvfl3cgsGVd6onvwMFQrR1ehAOv
-         P+43p5C6Y/r2JAWZcF93et8JqG7fFoZ3QvBHTki+37XO9y4P5lxp5z0kl6tkPz/XeuSV
-         Vx3flC7jLTihsTZjzP7uQHLKNANMBk7B1xWG3lqZHOE5oSAWm+dCBA5ztLkySGrUvLrW
-         EYcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710232379; x=1710837179;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nyEh0rQYJE6Jec/uxVqP64Ftm28yLZ08FcTzjd6KJ+M=;
-        b=M8rxFWvRf+S8d7QZXEA53dMij2hxA+dsdwbzw/l26KjhVG7vcG0mDqmEDgspEhIVmb
-         626ZxAfA1sqZaYtFUDr6BS1rK474oJ+2KOr99kgmdXXak7ej/FSk+fyn0zBwrAPE/Aft
-         e/5zkreJUCZaoYTabf6/zqTLQyEwy2a7eeWoqCGACeSczazm3nwJQxqduauO18ioZiVZ
-         9xC8K/IFInhKXrFBJ6vG6+OhS1DUEsl85t4rCcVQDY5kSRH0DSVeC6GHQSurZSHaxFX0
-         GpYftIgBhiYOmwceVAHUH+3MxEqGr7NbIt+8vL8syygZ9Ex/cT/QaSyxwuM7fKzh/PQH
-         lEXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU8tA+fzBPjyPluX7C4mkLDNWnLLERBhwHy+rSuKYRm2R4mll1PbpAvuyA7UkN32VNBJ2CNuOxPq07VCgZgHch+pPMImjG5rpzpqMfXddc=
-X-Gm-Message-State: AOJu0YzAgpQ5iYDC0dOwi9Rveia95AcfjfHfPCvTpz7JrJxnNdGKMW3N
-	pqUEngmsf9Rk/nUrpmK6hClvjSLU1FpNzLrhHww4C4wAhKpstXcIQd3Fj/0lGQ==
-X-Google-Smtp-Source: AGHT+IFdZEXZ4dDepLONAj9MsyQZPoh/SWEdgXRy6Ic73JdAEwCJejRKx+gzCSWmKpzDHi5J66+PbQ==
-X-Received: by 2002:a17:907:c315:b0:a45:547a:49e1 with SMTP id tl21-20020a170907c31500b00a45547a49e1mr2460285ejc.3.1710232378975;
-        Tue, 12 Mar 2024 01:32:58 -0700 (PDT)
-Message-ID: <40dffd72-0362-42bc-b4c8-9a26804fed68@suse.com>
-Date: Tue, 12 Mar 2024 09:32:57 +0100
+X-Inumbo-ID: 4fc65b14-e057-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1710237606; x=1710498106;
+	bh=jamJqCRaVrxTDYTLaUvwcJ+2xZOIKW+B0yNDJy6preA=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=T1D0lQ25kMuY9LkuIU+Zh+AMkhIZ2B82YTk2JIy2HumytcRfkqBIudeWd2He+YwEW
+	 kjUQQdqpf8oTf55MLu91J1nkm/OY6LFMbmcJYHi2U2FfryhBZo3tJI9E79qBFoEUoD
+	 EBNI13f2icIyne+NjgmccI+55CJklJh5j2if/QSSjrB5JTEZ2cvNbliacxxw+z2BS9
+	 DtqC+3/yQrzcyvzUMRhIEJ88G1RaNU9KWM0pRyztHljcjXqAIuiPt/UbmAfTIgl/34
+	 Aq9/GiK+tvhckpdMQa6REMo2HBPvsVK0fE+ID69V/Y6WjlfVfKO40PTIlo4bPFLr54
+	 6l2yoXt6vni5A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1710237606; x=1710498106; i=vaishali.thakkar@vates.tech;
+	bh=jamJqCRaVrxTDYTLaUvwcJ+2xZOIKW+B0yNDJy6preA=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=Ts+0MkoKB/NyNOIPGbHbXAmgU6l1guYoSOFqowraCruPG3Dx5kbPI1wz+AuXEtJwy
+	 0sAfC+9BDdcKdI2WV23pY5llG79IW9cFsHM7/G+Fg8pF7rElJ65fT3PeLiccFNAr6r
+	 pvz+O2OGMPW8cp9WLQKn5ASK7L2naKDLaelSGXiEXaEFesqajIZSjVnri5xCL5ket3
+	 SW7Qdp2OEYHyfTcqfmN8VVZ7JnzGgjwR0hT6/pSOAnQmRUsMytxjJcUEqhakKd2zBM
+	 Tu+4YAbNWo75RXK+t16yO0HBxOM0FjFCulEiRCAdGWCIPYIXO/C0EytMIykJ0d0TJf
+	 yAX6gT/lTF0UQ==
+From: Vaishali Thakkar <vaishali.thakkar@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v2=201/3]=20x86/svm:=20Drop=20the=20=5Fenabled=20suffix=20from=20vmcb=20bits?=
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1710237605414
+Message-Id: <5dd4007d-f273-4e43-add6-a77f0459fc33@vates.tech>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org, xen-devel@lists.xenproject.org
+References: <cover.1710149462.git.vaishali.thakkar@vates.tech> <8e6d8cac54ca05f1202580b574c548e08988d8f6.1710149462.git.vaishali.thakkar@vates.tech> <1c67a337-e9d5-4e4a-91d5-3c935c410cda@suse.com>
+In-Reply-To: <1c67a337-e9d5-4e4a-91d5-3c935c410cda@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.c951a183e47448219ca972096574c410?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240312:md
+Date: Tue, 12 Mar 2024 10:00:06 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 10/16] x86/asm: address violations of MISRA C:2012
- Directive 4.10
-Content-Language: en-US
-To: Simone Ballarin <simone.ballarin@bugseng.com>
-Cc: consulting@bugseng.com, sstabellini@kernel.org,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1710145041.git.simone.ballarin@bugseng.com>
- <1e44047e767431c32621ae44d3121bc2152b3cb5.1710145041.git.simone.ballarin@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1e44047e767431c32621ae44d3121bc2152b3cb5.1710145041.git.simone.ballarin@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11.03.2024 09:59, Simone Ballarin wrote:
-> --- a/docs/misra/safe.json
-> +++ b/docs/misra/safe.json
-> @@ -52,6 +52,14 @@
->          },
->          {
->              "id": "SAF-6-safe",
-> +            "analyser": {
-> +                "eclair": "MC3R1.D4.10"
-> +            },
-> +            "name": "Dir 4.10: file intended for multiple inclusion",
-> +            "text": "Files intended for multiple inclusion are not supposed to comply with D4.10."
-> +        },
+On 3/12/24 08:54, Jan Beulich wrote:
+> On 11.03.2024 13:40, Vaishali Thakkar wrote:
+>> --- a/xen/arch/x86/hvm/svm/nestedsvm.c
+>> +++ b/xen/arch/x86/hvm/svm/nestedsvm.c
+>> @@ -571,7 +571,7 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
+>>       if ( nestedhvm_paging_mode_hap(v) )
+>>       {
+>>           /* host nested paging + guest nested paging. */
+>> -        n2vmcb->_np_enable = 1;
+>> +        n2vmcb->_np = true;
+>>   
+>>           nestedsvm_vmcb_set_nestedp2m(v, ns_vmcb, n2vmcb);
+>>   
+>> @@ -585,7 +585,7 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
+>>       else if ( paging_mode_hap(v->domain) )
+>>       {
+>>           /* host nested paging + guest shadow paging. */
+>> -        n2vmcb->_np_enable = 1;
+>> +        n2vmcb->_np = true;
+>>           /* Keep h_cr3 as it is. */
+>>           n2vmcb->_h_cr3 = n1vmcb->_h_cr3;
+>>           /* When l1 guest does shadow paging
+>> @@ -601,7 +601,7 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
+>>       else
+>>       {
+>>           /* host shadow paging + guest shadow paging. */
+>> -        n2vmcb->_np_enable = 0;
+>> +        n2vmcb->_np = false;
+>>           n2vmcb->_h_cr3 = 0x0;
+>>   
+>>           /* TODO: Once shadow-shadow paging is in place come back to here
+>> @@ -706,7 +706,7 @@ nsvm_vcpu_vmentry(struct vcpu *v, struct cpu_user_regs *regs,
+>>       }
+>>   
+>>       /* nested paging for the guest */
+>> -    svm->ns_hap_enabled = !!ns_vmcb->_np_enable;
+>> +    svm->ns_hap_enabled = ns_vmcb->_np;
+>>   
+>>       /* Remember the V_INTR_MASK in hostflags */
+>>       svm->ns_hostflags.fields.vintrmask = !!ns_vmcb->_vintr.fields.intr_masking;
+>> @@ -1084,7 +1084,7 @@ nsvm_vmcb_prepare4vmexit(struct vcpu *v, struct cpu_user_regs *regs)
+>>       if ( nestedhvm_paging_mode_hap(v) )
+>>       {
+>>           /* host nested paging + guest nested paging. */
+>> -        ns_vmcb->_np_enable = n2vmcb->_np_enable;
+>> +        ns_vmcb->_np = n2vmcb->_np;
+>>           ns_vmcb->_cr3 = n2vmcb->_cr3;
+>>           /* The vmcb->h_cr3 is the shadowed h_cr3. The original
+>>            * unshadowed guest h_cr3 is kept in ns_vmcb->h_cr3,
+>> @@ -1093,7 +1093,7 @@ nsvm_vmcb_prepare4vmexit(struct vcpu *v, struct cpu_user_regs *regs)
+>>       else if ( paging_mode_hap(v->domain) )
+>>       {
+>>           /* host nested paging + guest shadow paging. */
+>> -        ns_vmcb->_np_enable = 0;
+>> +        ns_vmcb->_np = false;
+>>           /* Throw h_cr3 away. Guest is not allowed to set it or
+>>            * it can break out, otherwise (security hole!) */
+>>           ns_vmcb->_h_cr3 = 0x0;
+>> @@ -1104,7 +1104,7 @@ nsvm_vmcb_prepare4vmexit(struct vcpu *v, struct cpu_user_regs *regs)
+>>       else
+>>       {
+>>           /* host shadow paging + guest shadow paging. */
+>> -        ns_vmcb->_np_enable = 0;
+>> +        ns_vmcb->_np = false;
+>>           ns_vmcb->_h_cr3 = 0x0;
+>>           /* The vmcb->_cr3 is the shadowed cr3. The original
+>>            * unshadowed guest cr3 is kept in ns_vmcb->_cr3,
+> 
+> While spotting the small issue below it occurred to me: Why is it that
+> vmcb_set_...() is open-coded everywhere here? I think this would be
+> pretty nice to avoid at the same time (for lines touched anyway, or in
+> a separate prereq patch, or alternatively [and only ideally] for all
+> other instances in a follow-on patch). Thoughts?
 
-There's an overlap with SAF-3-safe as added by patch 01. What's the reason
-separate entries are needed?
+Yes, I noticed this too. My plan was to send a followup patch for
+fixing all the instances where vmcb_set/get_...() can be used.
+There are bunch of other vmcb bits (apart from the ones being
+handled in this patchset) in this file and in svm.c which can
+benefit from using VMCB accessors.
 
-> --- a/xen/arch/x86/include/asm/compat.h
-> +++ b/xen/arch/x86/include/asm/compat.h
-> @@ -2,6 +2,9 @@
->   * compat.h
->   */
->  
-> +#ifndef ASM_X86_COMPAT_H
-> +#define ASM_X86_COMPAT_H
-> +
->  #ifdef CONFIG_COMPAT
->  
->  #define COMPAT_BITS_PER_LONG 32
-> @@ -18,3 +21,5 @@ int switch_compat(struct domain *);
->  #include <xen/errno.h>
->  static inline int switch_compat(struct domain *d) { return -EOPNOTSUPP; }
->  #endif
-> +
-> +#endif /* ASM_X86_COMPAT_H */
+>> --- a/xen/arch/x86/hvm/svm/svm.c
+>> +++ b/xen/arch/x86/hvm/svm/svm.c
+>> @@ -473,7 +473,7 @@ static int svm_vmcb_restore(struct vcpu *v, struct hvm_hw_cpu *c)
+>>   
+>>       if ( paging_mode_hap(v->domain) )
+>>       {
+>> -        vmcb_set_np_enable(vmcb, 1);
+>> +        vmcb_set_np(vmcb, 1);
+> 
+> No switching to "true" here? (If the answer to the other question is
+> "No" for whatever reason, I'd nevertheless like to see this on adjusted,
+> which could then be done while committing.)
 
-I'd be happy to ack this change; once again an indication that dissimilar
-changes would better not be munged in a single patch. Such a patch, btw,
-also shouldn't come with "x86/asm:" as a subject prefix - there's nothing
-assembly-ish here; asm/ as a directory name is Linux heritage, without
-that being a "component" in any way.
+Sorry, I missed this instance. I'll fix it if I'll need to send another
+revised patchset for some other fixes (based on review comments), else
+feel free to fix it while committing. Thanks.
 
-> --- a/xen/arch/x86/include/asm/cpufeatures.h
-> +++ b/xen/arch/x86/include/asm/cpufeatures.h
-> @@ -1,7 +1,4 @@
-> -/*
-> - * Explicitly intended for multiple inclusion.
-> - */
-> -
-> +/* SAF-6-safe file intended for multiple inclusion */
->  #include <xen/lib/x86/cpuid-autogen.h>
-
-With the blank line removed the comment, by convention of how these
-comments are placed, applies to the #include directive, which is wrong.
-
-> --- a/xen/arch/x86/include/asm/efibind.h
-> +++ b/xen/arch/x86/include/asm/efibind.h
-> @@ -1,2 +1,7 @@
-> +#ifndef ASM_X86_EFIBIND_H
-> +#define ASM_X86_EFIBIND_H
-> +
->  #include <xen/types.h>
->  #include <asm/x86_64/efibind.h>
-> +
-> +#endif /* ASM_X86_EFIBIND_H */
-
-This could go with the compat.h change above.
-
-> --- a/xen/include/Makefile
-> +++ b/xen/include/Makefile
-> @@ -104,10 +104,16 @@ $(obj)/compat/.xlat/%.lst: $(srcdir)/xlat.lst FORCE
->  xlat-y := $(shell sed -ne 's,@arch@,$(compat-arch-y),g' -re 's,^[?!][[:blank:]]+[^[:blank:]]+[[:blank:]]+,,p' $(srcdir)/xlat.lst | uniq)
->  xlat-y := $(filter $(patsubst compat/%,%,$(headers-y)),$(xlat-y))
->  
-> +ARCHDIR = $(shell echo $(SRCARCH) | tr a-z A-Z)
-
-Didn't the earlier patch introduce ARCHDIR already, just elsewhere? This
-would better be done once in a central place then, maybe in
-scripts/Kbuild.include.
-
->  quiet_cmd_xlat_h = GEN     $@
-> -cmd_xlat_h = \
-> -	cat $(filter %.h,$^) >$@.new; \
-> +define cmd_xlat_h
-> +	echo "#ifndef ASM_$(ARCHDIR)_COMPAT_XLAT_H" > $@.new; \
-> +	echo "#define ASM_$(ARCHDIR)_COMPAT_XLAT_H" >> $@.new; \
-> +	cat $(filter %.h,$^) >> $@.new; \
-> +	echo "#endif /* ASM_$(ARCHDIR)_COMPAT_XLAT_H */" >> $@.new; \
->  	mv -f $@.new $@
-> +endef
-
-I'm unclear about the move from "=" to "define". Readability isn't really
-helped, is it?
-
-Jan
+> Jan
 
