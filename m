@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D69FB8797D8
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 16:43:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691922.1078523 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC14B879845
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 16:49:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691927.1078534 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk4HI-0002PD-2k; Tue, 12 Mar 2024 15:42:56 +0000
+	id 1rk4NK-0003DV-Na; Tue, 12 Mar 2024 15:49:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691922.1078523; Tue, 12 Mar 2024 15:42:56 +0000
+Received: by outflank-mailman (output) from mailman id 691927.1078534; Tue, 12 Mar 2024 15:49:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk4HI-0002Md-01; Tue, 12 Mar 2024 15:42:56 +0000
-Received: by outflank-mailman (input) for mailman id 691922;
- Tue, 12 Mar 2024 15:42:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rk4NK-0003At-KW; Tue, 12 Mar 2024 15:49:10 +0000
+Received: by outflank-mailman (input) for mailman id 691927;
+ Tue, 12 Mar 2024 15:49:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rk4HG-0002MX-P0
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 15:42:54 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 30126b19-e087-11ee-a1ee-f123f15fe8a2;
- Tue, 12 Mar 2024 16:42:52 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-563c403719cso6960036a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 08:42:52 -0700 (PDT)
+ id 1rk4NJ-0003An-Ar
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 15:49:09 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0fd7bc02-e088-11ee-afdd-a90da7624cb6;
+ Tue, 12 Mar 2024 16:49:08 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2d4360ab3daso37289441fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 08:49:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e3-20020a170906314300b00a4558314ea0sm4025767eje.15.2024.03.12.08.42.51
+ e14-20020a50fb8e000000b00568554e368dsm2489947edq.3.2024.03.12.08.49.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 08:42:52 -0700 (PDT)
+ Tue, 12 Mar 2024 08:49:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30126b19-e087-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 0fd7bc02-e088-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710258172; x=1710862972; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710258548; x=1710863348; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3bmYaFDpLFhm5Cgf4OSH5gVC6zXWCPjmzWGkAA68ISs=;
-        b=JfLv+MkKN/ZlPc/u74aTrP/LbNc8axN5joB8f3QqONsWbEx9Pq5EXIRJojT5PzeuP/
-         sq1AKfWboyzD8n9EfGCmdTwZ5QyJ9Ii7ElHMITbeqnNMZ4MTAiwhrs9/XbnL5BD2PA72
-         VDG25y+IshyBtuvCNLO1afByXAtyzgkWFfxL/LiyMfpcB79jbHwQ51gP1Pv4WaGi1J8j
-         TWJwVVtN8U4SGgY23GW5WCI+lCr3/ufEimWpUGlKKls4cuCkaosb7DkVrRCkQFXjvMBA
-         /H9uFCKZW46LyaXEsLpk9HxDKkHtw5PcNqIf8A7WaGXBknVPJxY8VLAtH7EDQl5NAz++
-         FhOQ==
+        bh=FbRA83MiwO/+5AdVZxlBYF1GDk7OKCIaDODL9TPrMbw=;
+        b=bkux6cow4wnZ6nwiLXEORd+OAy1/fUXYBA/+5vX3H7TjsOi5JbU/IoAceklyMZj4F9
+         TKghUuKz/e2zgQyhLbvJrBJ50rdYy9pqppVFMsZmCj3PSqKGs9xbIahWCyACHbNtxr4H
+         nUpHGqOBM36SOR3VAnbeT1mTI7wRcDJQl//DDuJ7Z7EmyhfZ+aACdo3W2QlFmGIMjkMu
+         7wUH2PQGCCQo72czCP8kNoW+lhFWIU39oN+rAK+gKoEB4ZuGF1xa0ib00RzXqoBCA//B
+         1D6XJXKjYmuKxoSLmYp5TnE6e75W/Xi5EMGxDHkKe4gUVlkBL9lNU0Q8MxSZnRX8HwVf
+         UnAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710258172; x=1710862972;
+        d=1e100.net; s=20230601; t=1710258548; x=1710863348;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3bmYaFDpLFhm5Cgf4OSH5gVC6zXWCPjmzWGkAA68ISs=;
-        b=sq97VsF2e98UlWvUPnH+xiR3OsF1B1JR2v9l+25q+6ePwK75mvBxEkGm9ncvNPCbJ0
-         Lr9vQxqAFEF6RGDPQlA4rGkf1g8e89AXXpFTAFOgMiPBkAaAx7jCTMsjHXLnzbHyaVOB
-         L9n7UMSodAZYLMbzQcGFDYKxulvup02JOwfNgaoV/tQ3BifMY4lhE/MRIDV3zOs6Vh/T
-         hxEzuvwt3I28h5IN8lkk28TDjRh2AJWyexcwGLYZiVEU2kDYQ3tgpLUgmZKIYZxl7rTD
-         GqpX1fAm2YuRAQz9eXarISEK4MQPe0963a0GL+apKagTqsmeqI5EmOxTdUgDyXv+MjO5
-         nvJA==
-X-Forwarded-Encrypted: i=1; AJvYcCVxRlkDikdwibF/PSEIwkuSGN+Fkx9nNyZi+urQI9eswRL8msUy81u1xa+3m744pqV0YRlULvZz9KzxKpUURwdRjlgvdw6zSBoAr7j37wo=
-X-Gm-Message-State: AOJu0YxhrlaawGKbnN88yXK+BAYJBODxPyyDYNlxIPhMfu9yXewXpGIs
-	jVDLvkhMNBFrhBnYiRPBmbQVcDlfWL3H/+FL19sl6FtGe5ooOolHD8I1DYfPLw==
-X-Google-Smtp-Source: AGHT+IHUmKEpJBilIByF+OT6BofcD8ZtLvUIdOznrpzaCoYzusFFI1UckbHqFe0/vzS/Pn3oXMUZGQ==
-X-Received: by 2002:a17:906:7d8:b0:a3f:5ad2:1ff0 with SMTP id m24-20020a17090607d800b00a3f5ad21ff0mr2603917ejc.46.1710258172303;
-        Tue, 12 Mar 2024 08:42:52 -0700 (PDT)
-Message-ID: <c84047ae-4c6d-47a4-9ce4-44427e571e1c@suse.com>
-Date: Tue, 12 Mar 2024 16:42:51 +0100
+        bh=FbRA83MiwO/+5AdVZxlBYF1GDk7OKCIaDODL9TPrMbw=;
+        b=Ig+iOO9Jzgst7SSGBW0fA59Qgd95gCBmJpgOwWGkzUky+Ye4T6ijZUw/st9xM0ENa7
+         K639Fa3rZJLlezYySOgBSWnuIRjcj1bcA8sNoWthYVrvD0AQVNDYl1pFYBFU6F/EvrnW
+         lhUbHoYa5/rdVhrWFY823cvhK/S7+4yJP7in8x76Q5ECjD1t32IACkCyjGQMj9Mc5E/H
+         NSw+DFoNJB+8+6IcMXSnDULwabP00mQ+23RQn3ntiYocgRv9vQ8vyCGjpyUHWLmDu2oj
+         87TfApLOjRAN08igDbw2HF5A4MHZbQIkaK+QmWFGWxVNpgUQkIRaBkwwe5GF4foUfTTO
+         fpsg==
+X-Forwarded-Encrypted: i=1; AJvYcCVAhGy1Kd/fOmNePL0PN15DZUSPYq/awxH4ScRg3853bEJ4YyjuA6/zzC71ogp4SqmIL72emrz/vuO0bTPEfoGxWDpIeTX0myJDrcLWXvM=
+X-Gm-Message-State: AOJu0YzIYZhIvNboFR1VttfgtK5EBV+bCf3c2CQvlKqQa40O0K89eJV3
+	/yzpE4C8/FP6uIFXier/ZAwGIZz+gFkKM8t08t+3IZ2+i+UHaM9k/ac/HGmckA==
+X-Google-Smtp-Source: AGHT+IHawHznR/QP16njJczhOJgq8uXLgCtKz/7BDOB2PlnQ5gcgiWD1V0nUWAeWtCjYsP9jSYebkg==
+X-Received: by 2002:a2e:a9ac:0:b0:2d4:22d1:d96c with SMTP id x44-20020a2ea9ac000000b002d422d1d96cmr1837780ljq.25.1710258547704;
+        Tue, 12 Mar 2024 08:49:07 -0700 (PDT)
+Message-ID: <c42322a5-8908-450f-b076-836440a5b7d9@suse.com>
+Date: Tue, 12 Mar 2024 16:49:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 2/9] x86: don't access x86_cpu_to_apicid[] directly,
- use cpu_physical_id(cpu)
+Subject: Re: [XEN PATCH 3/9] x86/smp: drop x86_cpu_to_apicid, use
+ cpu_data[cpu].apicid instead
 Content-Language: en-US
 To: Krystian Hebel <krystian.hebel@3mdeb.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>
 References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
- <705574ddb7f18bae9ed3f60ddf2e4bda02c70388.1699982111.git.krystian.hebel@3mdeb.com>
- <904f358b-c535-4de2-b31d-e593687af11b@suse.com>
- <e5c7199b-bacb-4a81-964f-802c260ce75c@3mdeb.com>
+ <8121d9b472b305be751158aa3af3fed98ff0572e.1699982111.git.krystian.hebel@3mdeb.com>
+ <b85ecee7-65ce-47f0-8e9d-cdc056d337fb@xen.org>
+ <24dc1f13-3add-4b5f-9e2d-a18286b691eb@suse.com>
+ <c0fb2c1f-a759-4328-96f7-d4795d2fe4d9@3mdeb.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,29 +117,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e5c7199b-bacb-4a81-964f-802c260ce75c@3mdeb.com>
+In-Reply-To: <c0fb2c1f-a759-4328-96f7-d4795d2fe4d9@3mdeb.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.03.2024 16:18, Krystian Hebel wrote:
-> On 7.02.2024 17:28, Jan Beulich wrote:
->> On 14.11.2023 18:49, Krystian Hebel wrote:
->>> --- a/xen/arch/x86/apic.c
->>> +++ b/xen/arch/x86/apic.c
->>> @@ -950,7 +950,7 @@ __next:
->>>        */
->>>       if (boot_cpu_physical_apicid == -1U)
->>>           boot_cpu_physical_apicid = get_apic_id();
->>> -    x86_cpu_to_apicid[0] = get_apic_id();
->>> +    cpu_physical_id(0) = get_apic_id();
->> While personally I don't mind as much, I expect Andrew would not like
->> this: Something that looks like a function call on the lhs is against
->> what normal language structure would be.
-> This made me cringe as well, but I've seen something like this used in
-> other places (per_cpu() mostly) so I thought it was OK. I can change it.
+On 12.03.2024 16:29, Krystian Hebel wrote:
+> On 7.02.2024 17:41, Jan Beulich wrote:
+>> On 02.02.2024 19:11, Julien Grall wrote:
+>>> On 14/11/2023 17:50, Krystian Hebel wrote:
+>>>> --- a/xen/arch/x86/numa.c
+>>>> +++ b/xen/arch/x86/numa.c
+>>>> @@ -54,14 +54,13 @@ bool __init arch_numa_unavailable(void)
+>>>>    /*
+>>>>     * Setup early cpu_to_node.
+>>>>     *
+>>>> - * Populate cpu_to_node[] only if x86_cpu_to_apicid[],
+>>>> - * and apicid_to_node[] tables have valid entries for a CPU.
+>>>> - * This means we skip cpu_to_node[] initialisation for NUMA
+>>>> - * emulation and faking node case (when running a kernel compiled
+>>>> - * for NUMA on a non NUMA box), which is OK as cpu_to_node[]
+>>>> - * is already initialized in a round robin manner at numa_init_array,
+>>>> - * prior to this call, and this initialization is good enough
+>>>> - * for the fake NUMA cases.
+>>>> + * Populate cpu_to_node[] only if cpu_data[], and apicid_to_node[]
+>> You mean cpu_physical_id() here, and then this change wants doing when
+>> switching to that, imo.
+> You mean s/cpu_data[]/cpu_physical_id()/ or something else?
 
-Please try to get in touch with Andrew, to see what he thinks (especially
-with your pointing of per_cpu()'s similarity).
+Well, in general terms - whatever the function in fact accesses. That's,
+if I reconstruct it from patch 2, as you say then.
 
 Jan
 
