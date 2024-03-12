@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEF138798EC
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DCE98798EB
 	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 17:26:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691955.1078614 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.691956.1078624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk4x6-0005Yq-4g; Tue, 12 Mar 2024 16:26:08 +0000
+	id 1rk4x7-0005nE-BD; Tue, 12 Mar 2024 16:26:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691955.1078614; Tue, 12 Mar 2024 16:26:08 +0000
+Received: by outflank-mailman (output) from mailman id 691956.1078624; Tue, 12 Mar 2024 16:26:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk4x6-0005Wc-1t; Tue, 12 Mar 2024 16:26:08 +0000
-Received: by outflank-mailman (input) for mailman id 691955;
- Tue, 12 Mar 2024 16:26:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rk4x7-0005kq-8c; Tue, 12 Mar 2024 16:26:09 +0000
+Received: by outflank-mailman (input) for mailman id 691956;
+ Tue, 12 Mar 2024 16:26:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+jUN=KS=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1rk4x4-0005WW-0t
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 16:26:06 +0000
-Received: from wfout3-smtp.messagingengine.com
- (wfout3-smtp.messagingengine.com [64.147.123.146])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34ec0686-e08d-11ee-a1ee-f123f15fe8a2;
+ id 1rk4x6-0005fl-Nx
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 16:26:08 +0000
+Received: from wfhigh4-smtp.messagingengine.com
+ (wfhigh4-smtp.messagingengine.com [64.147.123.155])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 35fadccc-e08d-11ee-afdd-a90da7624cb6;
  Tue, 12 Mar 2024 17:26:01 +0100 (CET)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailfout.west.internal (Postfix) with ESMTP id A04A81C00107;
- Tue, 12 Mar 2024 12:25:55 -0400 (EDT)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.48])
+ by mailfhigh.west.internal (Postfix) with ESMTP id B13131800098;
+ Tue, 12 Mar 2024 12:25:58 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Tue, 12 Mar 2024 12:25:56 -0400
+ by compute7.internal (MEProxy); Tue, 12 Mar 2024 12:25:59 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 12 Mar 2024 12:25:53 -0400 (EDT)
+ 12 Mar 2024 12:25:56 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,137 +44,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34ec0686-e08d-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 35fadccc-e08d-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
-	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm1;
-	 t=1710260755; x=1710347155; bh=NwcXswoAPzQCq70LrrXUbpoKQWinPR2b
-	G2OYKwUeiIk=; b=NdyzPkKfBUnMCRDXJkCF5Efyra+fwbVJBjS+/qpCdrw8U8f4
-	+QLm6/ZkLwx70P8eQzOuGrt0eDN2P0WiZTSCu+nBmgHa3x+cxhdIV3Dw82V5EwN5
-	tuN9waxgYPY5ZacOoPegaKWcaD8D0iFaNPu+I3rFpu6wb5zGvkos1crhpmm2KxaA
-	IqkLe6OvINtXHvoo1OUeGRtdGOc7cYV86meh19WtRPPjI1cqY85MJY4pOoDmnJQm
-	iclMOetVya90OvHhsRRde+DHTkhLx0w1Z8t1wWOCjeJyVKAN66daSj8/xCpg0PSD
-	2CBEvG903l17JqRsdh2LpNIafV8YjNRE8PrD+g==
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1710260758; x=1710347158; bh=qF84mesdWl
+	/lEGSQYlkmAm+QzNjClBgQx5p+iDQh+vg=; b=FfQK9LIzkOJqaMKwDtuRJehC+s
+	4fHEDLOEMNUPfMWk0fdeiilK94BFmMhB13NNOh1mbzHFZd6TV2szJcZwYzRBtmzD
+	0j4RwOwR+ulNKDZJXsQzsqgaqKLSkTPbtFFxBQPHwJZqrDKh6Hb6KkOIalY2wHb0
+	GJmFK5LNdUJSdP4HkwjrOL2vZe+T7VLwy7rV59poei7o+jB6bdVNB3Njn1OLGy/i
+	2//7tvUMTadqWkX1BUO41rLD0A+8HZNCQuvPZHESfmkZ2uA+zcqBICA0rF40uZ9u
+	thBXjmNQNL2fWgGb6WZ8y9iYn5v35lEDduQJydtGEQHJfad3LBJoyPzx1DlA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1710260755; x=1710347155; bh=NwcXswoAPzQCq
-	70LrrXUbpoKQWinPR2bG2OYKwUeiIk=; b=TrL+78tDNL6FQSO6FRdSMc+tja5Ce
-	x0VchrnpX1r/M+hLHObz1k07WF1XfmGPSu6bfXkRCckD1wUleXs+l1onRAZFzW/e
-	vHkT6QPb394eblf2pbGctHlKLrmL74iHzr5Rw/AqqRX7tamdZgp4kBCd0u8IyP3P
-	tJMMHYFbxZRqnj2G/3iUOhdBpZmACmGj+1OcUoZKRK7FMcd5jhKslxW1fedmQhFq
-	YrLVU1LyYfVB7DJNBBSl8Z5Q9tQeyPGawwgz2mNP/w6+hxuUwpnwCk0MZsL8m26k
-	8ud0irLwN5gTMemH5HREfiZRUN4zrwZhJZwOEXPwHTv5JbcoH2lhDVW4A==
-X-ME-Sender: <xms:EoLwZYYhSn2n3-qIrv87FKX4_EKBU5jObj7-IWzr2r-fIXvevJSMgQ>
-    <xme:EoLwZTbGLFbd3qtn2J2vkW2bg3VTDr6o0P_cCMGZJo8HByEOiwP5G6tUbJyApssqy
-    AsCtlA6Z5_-lg>
-X-ME-Received: <xmr:EoLwZS9BTXBiMbMyUO60PLVa4zbIVYfZU2WlPzAK7GaPokTHunjM1aiJxGB9SxXcjbAsgrR7q7l9kCmwnP73Cm3Fxp8InONHBJeD8CriyUP46hJ7xWY>
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1710260758; x=
+	1710347158; bh=qF84mesdWl/lEGSQYlkmAm+QzNjClBgQx5p+iDQh+vg=; b=o
+	IdrArvWUvA6ePny+nor9rLKE/1485d1TMywDzezP8X7C8L51/p0nqoPErh9RIpgW
+	f6FDy0dWEdKpcg9/prgHaSdfpHA9jkE6YKJrD9YlPVqA6dWMwXIv9hH2jGMbGB/9
+	RmSmemXGZU5njVGh1jWRkJIA5vknCFx82sZwk51gZcBT2vDCL99Y4Euxtnhjg0bm
+	/oIW0h+0aQHKXRyVUNqcMIFAxGXvqseuykiYISuY1veWF8dJhL7ylftoohz562Tf
+	D5uCvEdvcChccMG/XHeIKcrl66iqSmizczNA1E8y4wh7jXSiicxtG4aPttHWzNT0
+	1DwBzBz4hy3o/4WV0pdIA==
+X-ME-Sender: <xms:FYLwZVotD9aTAFsWNyNIujpM9Gg8oXdyou9iKQH3HGZxsL72e-Hw4g>
+    <xme:FYLwZXpHI-rXin2LaIIHS375frr6Zi7RfNErpscslH-D1Aw7i8AIVYoNGXNjpqg38
+    W7q8HuluUYQHQ>
+X-ME-Received: <xmr:FYLwZSNjFQuWw8TplJEBepPFwpzsvDYQ4Zyax2mshM8-uI-w3VGFKpV-XtiqTJsBnISlIFgdp239iDW-0RTulf7GcaOORjUbasxVb5ErBOaF7lWhzkQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrjeefgdekkecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefhvfevufffkffogggtgfesthekredtredtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepleekhfdu
-    leetleelleetteevfeefteffkeetteejheelgfegkeelgeehhfdthedvnecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:EoLwZSpnrFeUCBue2np7WZQJXxbOqgjh_TiY5sSF3gnaP5wEv8h3sQ>
-    <xmx:EoLwZTptE_wT6-LE5DW4TQWldi0MQk65EbNr-_sc7dqJtCb4i2Bjeg>
-    <xmx:EoLwZQQ6xkYtWJbQ7cIV-h0tqPwQeThD2AgM9SX4GfOFksOQVDqSXw>
-    <xmx:EoLwZTrd06BQOBQT-uNnSgzUOlUADVaJa5etABH9qFhoz-7uD6APbw>
-    <xmx:E4LwZQjCd_aEy4FdJJW17iEPhGPMazR8nNYwyqZ2d2KhFjXC-xbgQXpWJKU>
+    fjughrpefhvfevufffkffojghfgggtgfesthekredtredtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfeu
+    udehgfdvfeehhedujeehfeduveeugefhkefhheelgeevudetueeiudfggfffnecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:FYLwZQ4UVPKP5CcNDo7sHswdEBTQDYFcwApKrPWaAp9wjjs-gWfn4w>
+    <xmx:FoLwZU7i_JTpnsQT2wk6Z1_w7IfWd4FvZW7ZkK-YkRpoUt5QnlyJyw>
+    <xmx:FoLwZYgLzWe4Aod1oD6L6QRYS56Y6QRSvW9aS6EwLvlKayXcvSNGuw>
+    <xmx:FoLwZW6qp2736JxUh2TRrqPlWdB9rTKjGUTpygR1g4VeN44-lW6D6g>
+    <xmx:FoLwZeSnCh-CEeqxeFTVI3_bEVksON04uW8naxQ9FQNonlFNN7x752DUWRg>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
 	Paul Durrant <paul@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 1/2] IOMMU: store name for extra reserved device memory
-Date: Tue, 12 Mar 2024 17:25:14 +0100
-Message-ID: <20240312162541.384793-1-marmarek@invisiblethingslab.com>
+Subject: [PATCH v2 2/2] drivers/char: mark extra reserved device memory in memory map
+Date: Tue, 12 Mar 2024 17:25:15 +0100
+Message-ID: <20240312162541.384793-2-marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240312162541.384793-1-marmarek@invisiblethingslab.com>
+References: <20240312162541.384793-1-marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-It will be useful for error reporting in a subsequent patch.
+The IOMMU driver checks if RMRR/IVMD are marked as reserved in memory
+map. This should be true for addresses coming from the firmware, but
+when extra pages used by Xen itself are included in the mapping, those
+are taken from usable RAM used. Mark those pages as reserved too.
 
+Not marking the pages as reserved didn't caused issues before due to
+another a bug in IOMMU driver code, that was fixed in 83afa3135830
+("amd-vi: fix IVMD memory type checks").
+
+Failing to reserve memory will lead to panic in IOMMU setup code. And
+not including the page in IOMMU mapping will lead to broken console (due
+to IOMMU faults). The pages chosen by the XHCI console driver should
+still be usable by the CPU though, and the console code already can deal
+with too slow console by dropping characters (and console not printing
+anything is a special case of "slow"). When reserving fails print an error
+message showing which pages failed and who requested them. This should
+be enough hint to find why XHCI console doesn't work.
+
+Fixes: 3a1a7b809ffa "drivers/char: mark DMA buffers as reserved for the XHCI"
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
-New in v2
----
- xen/drivers/char/xhci-dbc.c     | 3 ++-
- xen/drivers/passthrough/iommu.c | 5 ++++-
- xen/include/xen/iommu.h         | 3 ++-
- 3 files changed, 8 insertions(+), 3 deletions(-)
+Alternative error handling could be a panic, but with this version I
+think it can be avoided. And not panicing gives a better chance to
+actually see the error message (from the hopefully started dom0),
+especially as the affected driver is the console one.
 
-diff --git a/xen/drivers/char/xhci-dbc.c b/xen/drivers/char/xhci-dbc.c
-index 3bf389be7d0b..8e2037f1a5f7 100644
---- a/xen/drivers/char/xhci-dbc.c
-+++ b/xen/drivers/char/xhci-dbc.c
-@@ -1421,7 +1421,8 @@ void __init xhci_dbc_uart_init(void)
-         iommu_add_extra_reserved_device_memory(
-                 PFN_DOWN(virt_to_maddr(&dbc_dma_bufs)),
-                 PFN_UP(sizeof(dbc_dma_bufs)),
--                uart->dbc.sbdf);
-+                uart->dbc.sbdf,
-+                "XHCI console");
-         serial_register_uart(SERHND_XHCI, &dbc_uart_driver, &dbc_uart);
-     }
- }
+The reserve_e820_ram() is x86-specific. Is there some equivalent API for
+ARM, or maybe even some abstract one? That said, I have no way to test
+XHCI console on ARM, I don't know if such hardware even exists...
+
+Changes in v2:
+- move reserving to iommu_get_extra_reserved_device_memory() to cover
+  all users of iommu_add_extra_reserved_device_memory()
+- change error handling to not panic, as in this code layout it can skip
+  sending the pages to the IOMMU driver
+---
+ xen/drivers/passthrough/iommu.c | 19 +++++++++++++++++++
+ xen/include/xen/iommu.h         |  5 ++++-
+ 2 files changed, 23 insertions(+), 1 deletion(-)
+
 diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
-index 996c31be1284..03587c0cd680 100644
+index 03587c0cd680..a311a37a2a03 100644
 --- a/xen/drivers/passthrough/iommu.c
 +++ b/xen/drivers/passthrough/iommu.c
-@@ -682,6 +682,7 @@ struct extra_reserved_range {
-     unsigned long start;
-     unsigned long nr;
-     pci_sbdf_t sbdf;
-+    const char *name;
- };
- static unsigned int __initdata nr_extra_reserved_ranges;
- static struct extra_reserved_range __initdata
-@@ -689,7 +690,8 @@ static struct extra_reserved_range __initdata
+@@ -21,6 +21,9 @@
+ #include <xen/softirq.h>
+ #include <xen/keyhandler.h>
+ #include <xsm/xsm.h>
++#ifdef CONFIG_X86
++#include <asm/e820.h>
++#endif
  
- int __init iommu_add_extra_reserved_device_memory(unsigned long start,
-                                                   unsigned long nr,
--                                                  pci_sbdf_t sbdf)
-+                                                  pci_sbdf_t sbdf,
-+                                                  const char *name)
- {
-     unsigned int idx;
+ unsigned int __read_mostly iommu_dev_iotlb_timeout = 1000;
+ integer_param("iommu_dev_iotlb_timeout", iommu_dev_iotlb_timeout);
+@@ -715,6 +718,22 @@ int __init iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
  
-@@ -700,6 +702,7 @@ int __init iommu_add_extra_reserved_device_memory(unsigned long start,
-     extra_reserved_ranges[idx].start = start;
-     extra_reserved_ranges[idx].nr = nr;
-     extra_reserved_ranges[idx].sbdf = sbdf;
-+    extra_reserved_ranges[idx].name = name;
- 
-     return 0;
- }
+     for ( idx = 0; idx < nr_extra_reserved_ranges; idx++ )
+     {
++#ifdef CONFIG_X86
++        if ( !reserve_e820_ram(
++                &e820,
++                pfn_to_paddr(extra_reserved_ranges[idx].start),
++                pfn_to_paddr(extra_reserved_ranges[idx].start +
++                             extra_reserved_ranges[idx].nr)) )
++        {
++            printk(XENLOG_ERR "Failed to reserve [%"PRIx64"-%"PRIx64") for %s, "
++                   "skipping IOMMU mapping for it, some functionality may be broken\n",
++                   pfn_to_paddr(extra_reserved_ranges[idx].start),
++                   pfn_to_paddr(extra_reserved_ranges[idx].start +
++                                extra_reserved_ranges[idx].nr),
++                   extra_reserved_ranges[idx].name);
++            continue;
++        }
++#endif
+         ret = func(extra_reserved_ranges[idx].start,
+                    extra_reserved_ranges[idx].nr,
+                    extra_reserved_ranges[idx].sbdf.sbdf,
 diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index 9621459c63ee..b7829dff4588 100644
+index b7829dff4588..875eaeb90167 100644
 --- a/xen/include/xen/iommu.h
 +++ b/xen/include/xen/iommu.h
-@@ -329,7 +329,8 @@ struct iommu_ops {
+@@ -324,7 +324,8 @@ struct iommu_ops {
+ };
+ 
+ /*
+- * To be called by Xen internally, to register extra RMRR/IVMD ranges.
++ * To be called by Xen internally, to register extra RMRR/IVMD ranges for RAM
++ * pages.
+  * Needs to be called before IOMMU initialization.
   */
  extern int iommu_add_extra_reserved_device_memory(unsigned long start,
-                                                   unsigned long nr,
--                                                  pci_sbdf_t sbdf);
-+                                                  pci_sbdf_t sbdf,
-+                                                  const char *name);
+@@ -334,6 +335,8 @@ extern int iommu_add_extra_reserved_device_memory(unsigned long start,
  /*
   * To be called by specific IOMMU driver during initialization,
   * to fetch ranges registered with iommu_add_extra_reserved_device_memory().
++ * This has a side effect of marking requested ranges as "reserverd" in the
++ * memory map.
+  */
+ extern int iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
+                                                   void *ctxt);
 -- 
 2.43.0
 
