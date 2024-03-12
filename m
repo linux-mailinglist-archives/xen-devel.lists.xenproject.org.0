@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3EBB878F1A
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 08:37:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691672.1077885 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49458878F45
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 08:54:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691677.1077896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjwgw-0002Ga-Uj; Tue, 12 Mar 2024 07:36:54 +0000
+	id 1rjwxd-00053D-Bz; Tue, 12 Mar 2024 07:54:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691672.1077885; Tue, 12 Mar 2024 07:36:54 +0000
+Received: by outflank-mailman (output) from mailman id 691677.1077896; Tue, 12 Mar 2024 07:54:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjwgw-0002EZ-S4; Tue, 12 Mar 2024 07:36:54 +0000
-Received: by outflank-mailman (input) for mailman id 691672;
- Tue, 12 Mar 2024 07:36:53 +0000
+	id 1rjwxd-00051O-8g; Tue, 12 Mar 2024 07:54:09 +0000
+Received: by outflank-mailman (input) for mailman id 691677;
+ Tue, 12 Mar 2024 07:54:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/Msr=KS=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1rjwgv-0002ET-Mq
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 07:36:53 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20600.outbound.protection.outlook.com
- [2a01:111:f403:2416::600])
+ (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rjwxb-00051I-T9
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 07:54:07 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 49a04de4-e043-11ee-a1ee-f123f15fe8a2;
- Tue, 12 Mar 2024 08:36:51 +0100 (CET)
-Received: from SN4PR0501CA0048.namprd05.prod.outlook.com
- (2603:10b6:803:41::25) by MW4PR12MB6708.namprd12.prod.outlook.com
- (2603:10b6:303:1ed::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.35; Tue, 12 Mar
- 2024 07:36:47 +0000
-Received: from CY4PEPF0000E9D8.namprd05.prod.outlook.com
- (2603:10b6:803:41:cafe::9f) by SN4PR0501CA0048.outlook.office365.com
- (2603:10b6:803:41::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.18 via Frontend
- Transport; Tue, 12 Mar 2024 07:36:46 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D8.mail.protection.outlook.com (10.167.241.83) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7386.12 via Frontend Transport; Tue, 12 Mar 2024 07:36:46 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 12 Mar
- 2024 02:36:45 -0500
-Received: from [10.65.148.173] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 12 Mar 2024 02:36:43 -0500
+ id b3007f0f-e045-11ee-a1ee-f123f15fe8a2;
+ Tue, 12 Mar 2024 08:54:05 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a4429c556efso421655666b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 00:54:05 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ uz17-20020a170907119100b00a45cac9ae6bsm3563382ejb.162.2024.03.12.00.54.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Mar 2024 00:54:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,129 +45,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49a04de4-e043-11ee-a1ee-f123f15fe8a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C2qf4i8oXxXt+SccMk5O/6oQ7h04iPMGuXNW97y2CZmRBIrLz8/0SmSNdxXgWD7g4+h433RTzD2qIqpDIzTjTsQ3MIuh7BhrGo3n2Lq3BCmLRlwxhAzH/gsjIKnlp7pqcNbzFvxdm459u48vxsnFy7VgHTMO28/EwLmsbpAxhK3DI7RbxnYhU6m0q+qjF66PwomVIDCVd9WkA+7Q/2JvzkthFc44RZHNPYblqrEPwyFyNM/sRdCE/2sCp/C0nHH6yuLNdiOX4C0iXoORAULXQqTW5AImz9IHDnPoVdErLA7ky1DZwroHyZPFD/8G/5SvAdUbc/TW6AGmeXF5gU3u7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uXLRgGXa/GHyCQHgRtman8uGCjv6NBxjHbeCydiRMmY=;
- b=fpBbN9F/n2TOCbk+BP95aXjdSIrlnrDq+Wsn5Sjk6SquYFV467Hqe0zQppxNJ2TaVDsIIPNUZ9fhKvtbhMnVbqCy2qKG8CkOh7nmWu5EREURVMnRtsjj67ajaXBKFGf+eI3cxpJ3cyb4uX2pUNe5H9HmRvUA4CHGI5v0qRiQaufGUpLp9u2REjM4Wm+SgfUZRp9+p/jHxFTRPAuvUooaDbZ00xBZ2Tv5vg9r6ECM+7kLbD62uP4KYY8XJO8gyXXScOM821UhnTzLw/mu28mgKUWZabyZ172Z3Od7V3gg+NZknTMZzaCusL9VytDGnh0wTaJ+5rG032UwdQfUXPZ/zw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uXLRgGXa/GHyCQHgRtman8uGCjv6NBxjHbeCydiRMmY=;
- b=1lN6ye2IkoD166CG2eKisSau3ARxm3rzfZgvc8WplLMgTua/3qTd/oYn2xjRFiKhv9cpgKlWQbe2ovECBZBy1shA6fZL/umXj/ltQdF9B0WXMRnr1NQ/VXHb3wyuRSTa1F+IUkvUpHxNDn5jNahE08gNZxax45crIFGkD0Fn1Ls=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <8a4da09f-b880-46f5-a2ad-b29b77f39108@amd.com>
-Date: Tue, 12 Mar 2024 15:36:42 +0800
+X-Inumbo-ID: b3007f0f-e045-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1710230045; x=1710834845; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=f3GK0cmtdDN2N9cAiwyNY1qd0hRMu+6vns3erC5jAMY=;
+        b=I9RfMTP/dXdKGjhcfFjsz28R8/WZ9SJVOLo1Q4xocb77WWusaCtK5I4V/21iC8D4kY
+         ENR3W1SdaZN9EL2zCeo5F+Ae2bw1Z6ZQwuuA0sh5LR0b4SdpUf8ogP65ZF7vkvvBwOkc
+         sf0ix8Ie1ZJdM9z+y/X7K5r0WGy5wnK5rM6GzuXTuaIJQkYWQxBlazz8UX69Bot2myAg
+         I/oY5tygBmV60rZrxW7Mfra0JFIy+5yb8KKRtrcT6TmO4mcCoX5Z1TJ31gn9OwKWvBzo
+         OyFmGfWkltEHpzlnzsRdQQ0EcosY7740DWlUOq7Ahzrw5egwK4L9l9ra0OvQI1JI5RtG
+         tqPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710230045; x=1710834845;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=f3GK0cmtdDN2N9cAiwyNY1qd0hRMu+6vns3erC5jAMY=;
+        b=hAWFSNyUoKXBMKofwk4TL7YGWaQnn5rYe586sF5s12BXQLesUPNxYOYUF5dopf9JIj
+         jm+N9ZL2WiAVb9vMWDwYn5jnq57PwgZ3u3g3+k7ovQ6gvAwYnVmP2E0zt1xJikpiJUnx
+         Ga36C5Q8U+HOw3AUF1UeVtBRub6mtyun4J2vDnPuWwtrJIqC58Mhct3y0xdNC3E4XxTZ
+         zCKoBjIR4Wr5TR4DHILWfctiF4jMU0wTEQQolYSEQ7nrnUdMv9CmrQGzTt6szqR0h8fD
+         8eVnxlRDNkRa4q5dJWDPfd1u829RR+K/z0Yi4QhBhRP5x30o6Y0ox8prPBgzNx8En9c9
+         M9HQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWSnJ8+exZiHpGNRej2ujRA1p73ahSnn2XnA28Po/18DgSUYT/teAh5ZTE7Znp3FXv1C5N4wb1Q1KLHcdjyElWJ7/yKQy6malwUM/PPqlE=
+X-Gm-Message-State: AOJu0YzprM8DTcZWae+5+Z0piupQxP5NOAnAXvG0PcXavmuylZhViB+s
+	stG05QBLIUP6SgRi7r8vCkpsj7qIVmz6xafe1v1P876PmbCUtBYXmoRkQIEQtw==
+X-Google-Smtp-Source: AGHT+IGkBlQ/4D51Icy0kE0Ssw3BxOn727nfGFJ4t1n1oObO5yDGmUllJgwhTN/jCg3lbK3LdwB4Vw==
+X-Received: by 2002:a17:906:3daa:b0:a3f:5144:ada2 with SMTP id y10-20020a1709063daa00b00a3f5144ada2mr5294718ejh.2.1710230045147;
+        Tue, 12 Mar 2024 00:54:05 -0700 (PDT)
+Message-ID: <1c67a337-e9d5-4e4a-91d5-3c935c410cda@suse.com>
+Date: Tue, 12 Mar 2024 08:54:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] xen/memory, tools: Make init-dom0less consume
- XEN_DOMCTL_get_mem_map
-To: Jan Beulich <jbeulich@suse.com>
-CC: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	Alec Kwapis <alec.kwapis@medtronic.com>, <xen-devel@lists.xenproject.org>
-References: <20240308015435.4044339-1-xin.wang2@amd.com>
- <20240308015435.4044339-6-xin.wang2@amd.com>
- <1cb8bca3-58b6-4a8d-ac46-8338ea5807e7@suse.com>
- <294ff8fb-825c-4950-857a-166b65474a53@amd.com>
- <7b9f3e46-8a70-403f-a98c-e53bea04b389@suse.com>
+Subject: Re: [PATCH v2 1/3] x86/svm: Drop the _enabled suffix from vmcb bits
+To: Vaishali Thakkar <vaishali.thakkar@vates.tech>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org,
+ xen-devel@lists.xenproject.org
+References: <cover.1710149462.git.vaishali.thakkar@vates.tech>
+ <8e6d8cac54ca05f1202580b574c548e08988d8f6.1710149462.git.vaishali.thakkar@vates.tech>
 Content-Language: en-US
-From: Henry Wang <xin.wang2@amd.com>
-In-Reply-To: <7b9f3e46-8a70-403f-a98c-e53bea04b389@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <8e6d8cac54ca05f1202580b574c548e08988d8f6.1710149462.git.vaishali.thakkar@vates.tech>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: xin.wang2@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|MW4PR12MB6708:EE_
-X-MS-Office365-Filtering-Correlation-Id: cbb59859-b180-4c28-9e3c-08dc42672bc5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	UYD8LGobvkutqWncPGvqec5miUOSnVnOgBvKq6AU4dzBMjtMEN6iwEtIQbWInn3UMZzqbujZiZulMWHHsRgo868EEqzBIBLXSjZlzQFfPpTsRybcySIcuSKjt5LN9GuXHeYGR4frFs/+npOy7K9tsJE3rhpzt+gvRIoVaLnP5fFDyQ2XEmBk4bPhnT796wd5a76/GURd5In9F7Fhgy8boXvQi7OA7XFJedQXtBmIaxlsDeI317nNfZAifcOo7dsVWWTKvdtIkWwX3k9DPmxh/NzM3+RO+id2hu4s3xpBTuvWPxXzBTDGU58OHSu2P2JoqeUWBAAUkuE9zrfR6pTtJr9Dczg2SHKd2z+KSH4KqtfcZAWa1X2Ts/6Sm8+bcZAjKTO4K/iOuhXbM5Ld15OWgMnO7FKUfiUNhK+1WHt2vSJAC0DQiM/nfwPDcv9+Mhcp7sb2S9ebm9VMTPIbKv9UdTi/7+UHBYMWL1Y6u66mrRhSVKg8/cHAfrk7d4wL8d1B8K915aYalBNKjjdYEYmUWUuCDREEU96mxWtnzxEIJeCxtsm1+PYqC3k7xyMuMws9RGJFnm2IP3yQzJqtQXFKlMz4QylLpl1T9aJwu2z2xJNgA16zQzIEKxyAg4Cm3fbySWcv8VD/gicoJ+Wnu/zg/IDeaN7Dd3DB/hKtuRflKDObkQVTtRHx5aDf5Abj8ZDuTfJflXM9visQsM4NIuZZHw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(1800799015)(36860700004)(376005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2024 07:36:46.2110
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cbb59859-b180-4c28-9e3c-08dc42672bc5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000E9D8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6708
 
-Hi Jan,
+On 11.03.2024 13:40, Vaishali Thakkar wrote:
+> --- a/xen/arch/x86/hvm/svm/nestedsvm.c
+> +++ b/xen/arch/x86/hvm/svm/nestedsvm.c
+> @@ -571,7 +571,7 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
+>      if ( nestedhvm_paging_mode_hap(v) )
+>      {
+>          /* host nested paging + guest nested paging. */
+> -        n2vmcb->_np_enable = 1;
+> +        n2vmcb->_np = true;
+>  
+>          nestedsvm_vmcb_set_nestedp2m(v, ns_vmcb, n2vmcb);
+>  
+> @@ -585,7 +585,7 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
+>      else if ( paging_mode_hap(v->domain) )
+>      {
+>          /* host nested paging + guest shadow paging. */
+> -        n2vmcb->_np_enable = 1;
+> +        n2vmcb->_np = true;
+>          /* Keep h_cr3 as it is. */
+>          n2vmcb->_h_cr3 = n1vmcb->_h_cr3;
+>          /* When l1 guest does shadow paging
+> @@ -601,7 +601,7 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
+>      else
+>      {
+>          /* host shadow paging + guest shadow paging. */
+> -        n2vmcb->_np_enable = 0;
+> +        n2vmcb->_np = false;
+>          n2vmcb->_h_cr3 = 0x0;
+>  
+>          /* TODO: Once shadow-shadow paging is in place come back to here
+> @@ -706,7 +706,7 @@ nsvm_vcpu_vmentry(struct vcpu *v, struct cpu_user_regs *regs,
+>      }
+>  
+>      /* nested paging for the guest */
+> -    svm->ns_hap_enabled = !!ns_vmcb->_np_enable;
+> +    svm->ns_hap_enabled = ns_vmcb->_np;
+>  
+>      /* Remember the V_INTR_MASK in hostflags */
+>      svm->ns_hostflags.fields.vintrmask = !!ns_vmcb->_vintr.fields.intr_masking;
+> @@ -1084,7 +1084,7 @@ nsvm_vmcb_prepare4vmexit(struct vcpu *v, struct cpu_user_regs *regs)
+>      if ( nestedhvm_paging_mode_hap(v) )
+>      {
+>          /* host nested paging + guest nested paging. */
+> -        ns_vmcb->_np_enable = n2vmcb->_np_enable;
+> +        ns_vmcb->_np = n2vmcb->_np;
+>          ns_vmcb->_cr3 = n2vmcb->_cr3;
+>          /* The vmcb->h_cr3 is the shadowed h_cr3. The original
+>           * unshadowed guest h_cr3 is kept in ns_vmcb->h_cr3,
+> @@ -1093,7 +1093,7 @@ nsvm_vmcb_prepare4vmexit(struct vcpu *v, struct cpu_user_regs *regs)
+>      else if ( paging_mode_hap(v->domain) )
+>      {
+>          /* host nested paging + guest shadow paging. */
+> -        ns_vmcb->_np_enable = 0;
+> +        ns_vmcb->_np = false;
+>          /* Throw h_cr3 away. Guest is not allowed to set it or
+>           * it can break out, otherwise (security hole!) */
+>          ns_vmcb->_h_cr3 = 0x0;
+> @@ -1104,7 +1104,7 @@ nsvm_vmcb_prepare4vmexit(struct vcpu *v, struct cpu_user_regs *regs)
+>      else
+>      {
+>          /* host shadow paging + guest shadow paging. */
+> -        ns_vmcb->_np_enable = 0;
+> +        ns_vmcb->_np = false;
+>          ns_vmcb->_h_cr3 = 0x0;
+>          /* The vmcb->_cr3 is the shadowed cr3. The original
+>           * unshadowed guest cr3 is kept in ns_vmcb->_cr3,
 
-On 3/12/2024 3:34 PM, Jan Beulich wrote:
-> On 12.03.2024 04:44, Henry Wang wrote:
->> On 3/12/2024 1:07 AM, Jan Beulich wrote:
->>> On 08.03.2024 02:54, Henry Wang wrote:
->>>> --- a/xen/include/public/memory.h
->>>> +++ b/xen/include/public/memory.h
->>>> @@ -41,6 +41,11 @@
->>>>    #define XENMEMF_exact_node(n) (XENMEMF_node(n) | XENMEMF_exact_node_request)
->>>>    /* Flag to indicate the node specified is virtual node */
->>>>    #define XENMEMF_vnode  (1<<18)
->>>> +/*
->>>> + * Flag to force populate physmap to use pages from domheap instead of 1:1
->>>> + * or static allocation.
->>>> + */
->>>> +#define XENMEMF_force_heap_alloc  (1<<19)
->>>>    #endif
->>> If this is for populate_physmap only, then other sub-ops need to reject
->>> its use.
->>>
->>> I have to admit I'm a little wary of allocating another flag here and ...
->>>
->>>> --- a/xen/include/xen/mm.h
->>>> +++ b/xen/include/xen/mm.h
->>>> @@ -205,6 +205,8 @@ struct npfec {
->>>>    #define  MEMF_no_icache_flush (1U<<_MEMF_no_icache_flush)
->>>>    #define _MEMF_no_scrub    8
->>>>    #define  MEMF_no_scrub    (1U<<_MEMF_no_scrub)
->>>> +#define _MEMF_force_heap_alloc 9
->>>> +#define  MEMF_force_heap_alloc (1U<<_MEMF_force_heap_alloc)
->>>>    #define _MEMF_node        16
->>>>    #define  MEMF_node_mask   ((1U << (8 * sizeof(nodeid_t))) - 1)
->>>>    #define  MEMF_node(n)     ((((n) + 1) & MEMF_node_mask) << _MEMF_node)
->>> ... here - we don't have that many left. Since other sub-ops aren't
->>> intended to support this flag, did you consider adding another (perhaps
->>> even arch-specific) sub-op instead?
->> Not really, I basically followed the discussion from [1] to implement
->> this patch. However I understand your concern. Just want to make sure if
->> I understand your suggestion correctly, by "adding another sub-op" you
->> mean adding a sub-op similar as "XENMEM_populate_physmap" but only with
->> executing the "else" part I want, so we can drop the use of these two
->> added flags? Thanks!
->>
->> [1]
->> https://lore.kernel.org/xen-devel/3982ba47-6709-47e3-a9c2-e2d3b4a2d8e3@xen.org/
-> In which case please check with Julien (and perhaps other Arm maintainers)
-> before deciding on whether to go this alternative route.
+While spotting the small issue below it occurred to me: Why is it that
+vmcb_set_...() is open-coded everywhere here? I think this would be
+pretty nice to avoid at the same time (for lines touched anyway, or in
+a separate prereq patch, or alternatively [and only ideally] for all
+other instances in a follow-on patch). Thoughts?
 
-Yes sure, I will wait a bit longer for the agreement of the discussion 
-before implementing the code.
+> --- a/xen/arch/x86/hvm/svm/svm.c
+> +++ b/xen/arch/x86/hvm/svm/svm.c
+> @@ -473,7 +473,7 @@ static int svm_vmcb_restore(struct vcpu *v, struct hvm_hw_cpu *c)
+>  
+>      if ( paging_mode_hap(v->domain) )
+>      {
+> -        vmcb_set_np_enable(vmcb, 1);
+> +        vmcb_set_np(vmcb, 1);
 
-Kind regards,
-Henry
+No switching to "true" here? (If the answer to the other question is
+"No" for whatever reason, I'd nevertheless like to see this on adjusted,
+which could then be done while committing.)
 
-> Jan
-
+Jan
 
