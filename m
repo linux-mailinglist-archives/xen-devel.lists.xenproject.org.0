@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93DAC8796D2
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 15:49:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691892.1078434 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A40A78796FE
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 15:59:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691896.1078443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk3RJ-0005mr-BP; Tue, 12 Mar 2024 14:49:13 +0000
+	id 1rk3aV-0007ZY-4z; Tue, 12 Mar 2024 14:58:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691892.1078434; Tue, 12 Mar 2024 14:49:13 +0000
+Received: by outflank-mailman (output) from mailman id 691896.1078443; Tue, 12 Mar 2024 14:58:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk3RJ-0005ky-7e; Tue, 12 Mar 2024 14:49:13 +0000
-Received: by outflank-mailman (input) for mailman id 691892;
- Tue, 12 Mar 2024 14:49:11 +0000
+	id 1rk3aV-0007Xz-2A; Tue, 12 Mar 2024 14:58:43 +0000
+Received: by outflank-mailman (input) for mailman id 691896;
+ Tue, 12 Mar 2024 14:58:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+jUN=KS=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1rk3RH-0005kp-Av
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 14:49:11 +0000
-Received: from wfout2-smtp.messagingengine.com
- (wfout2-smtp.messagingengine.com [64.147.123.145])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rk3aU-0007Xt-GN
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 14:58:42 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ae08bf3f-e07f-11ee-a1ee-f123f15fe8a2;
- Tue, 12 Mar 2024 15:49:09 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailfout.west.internal (Postfix) with ESMTP id 343261C000BB;
- Tue, 12 Mar 2024 10:49:06 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Tue, 12 Mar 2024 10:49:06 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 12 Mar 2024 10:49:04 -0400 (EDT)
+ id 031b7454-e081-11ee-a1ee-f123f15fe8a2;
+ Tue, 12 Mar 2024 15:58:40 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2d109e82bd0so78151641fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 07:58:40 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ fj10-20020a0564022b8a00b00565af2ea649sm3973699edb.14.2024.03.12.07.58.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Mar 2024 07:58:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,182 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae08bf3f-e07f-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1710254945;
-	 x=1710341345; bh=T2Q+WJNq02k8Pv37K1fkr0orQ6W/GMwWl8daG0xqNw8=; b=
-	fqHiRT1T1moNt8HzPm5woPiHmtgdfSwlVf3ubddIu7Or98nHRyjVdOUgVk/BJoG8
-	aYZgBgerqrmh0ikPheM/lpZT4kzxWSZeos6dI2X8V7/pZgsYQMNgyfu6kLZxXVUs
-	zBy0X/Yib6W/87xYMZFXx4E8RfiriaZlAOgIlKQ17S0R3ZxizNIDNWSOUuqzlgRf
-	mgLPnks3JMEP+REHf++7feFG4xMHhx6LZIhtArZgyIRQ8+7UXdux0ctHY4ctjNCZ
-	aQolwSluH4cnv7C/D0SF9BT1QzS9k3PQ/EAJ//icLXDEcCNNEI3V8ZzYGi4sKOCK
-	gD9Bcok8zDaOyKl7lfyUpg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1710254945; x=1710341345; bh=T2Q+WJNq02k8Pv37K1fkr0orQ6W/
-	GMwWl8daG0xqNw8=; b=BduQHtMVqr5fHWrpefVzU34cYyn11fLtJjNQvbS6n+Lq
-	/OeGekwTuM7NBJlgCDP5B540HDg3rYEvkw5cqAifFmknmSgGWRWsIw9yRoU2XHfI
-	CxWUSlS26crrlJz1jOK7eSzfn9iDDj6wE9ty+gm3FrQwl1NGqoo15CmthRSkunTh
-	hShn4nl8CwwqIXpAH/hq9yo4RgaO673lLpv2ltA8TBDqFYHNOS3+rjneQAE7wxZ9
-	NRDLx5Tg5IBbuPC9qwWp7jhOyfmxAsOrc7Sw2wDw7nG5nSCFzuUBPk2qiJFbdgCE
-	LWEO8r2uYkOLpk+d5W4MAkhqfCHf0YVd8TslV/E4dQ==
-X-ME-Sender: <xms:YWvwZZQe5ePJdO2Y0QH1ydlKjDaVTrauddNRjY-w0GRgXuEge4ox9g>
-    <xme:YWvwZSwZbbIhaJtMgjvVUua6rDEP76EuWGux8VOtNPtRLQmDY9Gv6ozcIYlKLO74h
-    d4vrzd_SEvTzA>
-X-ME-Received: <xmr:YWvwZe2XAVGvXc97VD7lmzwy15H5sznR1YmrSn14KrVwX4MZT12zn47wOmVSW2JL52Iv4CZOUkvI4RYBxj-Lsyf_aX63aLySYA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrjeefgdeikecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
-    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:YWvwZRAKjMWEvlfZUIe8kxkvzH-NENuiCcVvqIVq3nRzyteuK9rvyw>
-    <xmx:YWvwZShtrlBBBFZ77HxAJRRsY3JxEtFlP87tmHcazv5eR7t5zdNNzg>
-    <xmx:YWvwZVoGHeI-P-CHiis1W2Q5b-V_hS_o56ufhCt-HUmptbL0U6R1Uw>
-    <xmx:YWvwZdghprNswQAGTimE7cnoXRABOokPzxfIooJGMZOjw9gJrjNYHg>
-    <xmx:YWvwZbVVqoOow3V_sQtzupmehwjK5EjetAN2YEisIs7wttNH6Q5jiZ6PIMk>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 12 Mar 2024 15:49:01 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] drivers/char: mark XHCI DMA buffers reserved in memory
- map
-Message-ID: <ZfBrXqn_Sr_g4Hnr@mail-itl>
-References: <20240311203431.342530-1-marmarek@invisiblethingslab.com>
- <ZfAtahcXWGqckQFW@macbook>
- <6a80ceb6-cc2a-4d8f-9a66-70063923b0ea@suse.com>
- <ZfBlklSndB3djVJ2@mail-itl>
- <6286d582-ef92-47c3-8bb1-b8f2d3270a4f@suse.com>
+X-Inumbo-ID: 031b7454-e081-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1710255520; x=1710860320; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=3HjKGRpfIuNggACzJB+28pH8IV0WC3Ki+EkzhoSBzjM=;
+        b=fyfoL1HBwvjhu2lXHoBMm2+/eRpqhCqPTlFrri1it4LQHqNK6TnEcjBgROnUqtfd6S
+         Z1qWCS0YxfHlWMvBng+oodXEoftbgphJcX+RJ3kZHwNEbZjq7q0qEVHFu1rSNE5fOx1y
+         chbZtm45i1moAy0tiTwFDIT2BNa7fa2ldcOmRwK+0gqLXk1NJ2KNoRedVLJolKbM28Jt
+         9yznQ/3xUOP08K9q6DbZUkLCvXDR3G8M+qIKwizZOhQEaQZP6+uJqwtm6xdtqkFYt/QJ
+         C0msWAfqHLJnWR4RalL9fatOM/bylCutiC4z/UOQ9BhaVDyCTXechBNAatcT68R8hSBa
+         4aow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710255520; x=1710860320;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=3HjKGRpfIuNggACzJB+28pH8IV0WC3Ki+EkzhoSBzjM=;
+        b=cKiEHN53o+avBoqwXLLQ/4TYLn/Kl0YMhRZKeGUD8xcX9OFTEAi+TqkL8BrRX1zFWj
+         Og1spiioufK9jusFyluTK9V+28hwMhhuJAgFitUGOKgdS4QjbuMx8uCsSy6ZhfOBA8JG
+         RO+Ge4nkRysbtNmn04QS0sTycWZnylPNwWsBytG386J3MXOZHPStFhEC/FzuOKWXUaEq
+         3fCQctBQnTj21d7Bnfn376bv1jrpke+iehDBVz0dIMitKdptd6uze6/m+Q9xPeUKZVPr
+         +ugJaLHCLTVg0IndKgCzC67cc6QQIlxjWl7+bOLzmTJkN/IX9IbsYnfj3bnKlQVrd2+V
+         wrww==
+X-Forwarded-Encrypted: i=1; AJvYcCXtQZEYR6m+4mLlHyu/m9p7L15ksNxkyx5P1zdr6RQUIYROQVAyXGt6YDtHqfRBuFsEuRImBgQQVOjylt0auS58dbbzVfFg/dBwmhfU050=
+X-Gm-Message-State: AOJu0YwMRqHxdb4X90HxGOsmxWVShakRxI/ArozXPqIUEArRrSOjJSFL
+	OR9Nq8WO0v2zrnwG/RCgi+pPXpbdlTXCkIMsB2pi8b9Fy0NFsHhcjQmVDBFw1g==
+X-Google-Smtp-Source: AGHT+IFHG3yO7+3ZkrAhRPtrWb/engaW6sYGVj7uyqEP07T4dGw0t61HAUq21WAmse+vhjrTXCDDjg==
+X-Received: by 2002:a05:651c:80d:b0:2d2:ccd2:3a9b with SMTP id r13-20020a05651c080d00b002d2ccd23a9bmr6036994ljb.28.1710255519791;
+        Tue, 12 Mar 2024 07:58:39 -0700 (PDT)
+Message-ID: <9c4bbb6f-60d6-43b8-aa82-35fa6f393e23@suse.com>
+Date: Tue, 12 Mar 2024 15:58:38 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="PnjxCYIQ+rRJIJpx"
-Content-Disposition: inline
-In-Reply-To: <6286d582-ef92-47c3-8bb1-b8f2d3270a4f@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v3 13/16] xen: add deviations for MISRA C.2012
+ Directive 4.10
+Content-Language: en-US
+To: Simone Ballarin <simone.ballarin@bugseng.com>,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+Cc: consulting@bugseng.com, sstabellini@kernel.org,
+ Doug Goldstein <cardoe@cardoe.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1710145041.git.simone.ballarin@bugseng.com>
+ <787aa5a65135796c825d366b43e00ba018c0065b.1710145041.git.simone.ballarin@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <787aa5a65135796c825d366b43e00ba018c0065b.1710145041.git.simone.ballarin@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 11.03.2024 09:59, Simone Ballarin wrote:
+> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+> 
+> Add safe deviation for *.c files, as estabilished in past discussion.
+> Add SAF deviation for files that need an #include directive before guard.
 
---PnjxCYIQ+rRJIJpx
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 Mar 2024 15:49:01 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] drivers/char: mark XHCI DMA buffers reserved in memory
- map
+While similar topics, the two are technically entirely different, and
+hence would likely again better be split. In fact I think I might ack
+the former as is, while ...
 
-On Tue, Mar 12, 2024 at 03:37:15PM +0100, Jan Beulich wrote:
-> On 12.03.2024 15:24, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Tue, Mar 12, 2024 at 11:53:46AM +0100, Jan Beulich wrote:
-> >> On 12.03.2024 11:24, Roger Pau Monn=C3=A9 wrote:
-> >>>> --- a/xen/arch/x86/setup.c
-> >>>> +++ b/xen/arch/x86/setup.c
-> >>>> @@ -1806,6 +1806,9 @@ void asmlinkage __init noreturn __start_xen(un=
-signed long mbi_p)
-> >>>>      mmio_ro_ranges =3D rangeset_new(NULL, "r/o mmio ranges",
-> >>>>                                    RANGESETF_prettyprint_hex);
-> >>>> =20
-> >>>> +    /* Needs to happen after E820 processing but before IOMMU init =
-*/
-> >>>> +    xhci_dbc_uart_reserve_ram();
-> >>>
-> >>> Overall it might be better if some generic solution for all users of
-> >>> iommu_add_extra_reserved_device_memory() could be implemented,
-> >>
-> >> +1
-> >>
-> >>> but I'm
-> >>> unsure whether the intention is for the interface to always be used
-> >>> against RAM.
-> >>
-> >> I think we can work from that assumption for now.
-> >=20
-> > One more question - what should be the error handling in this case?
->=20
-> My first reaction here is - please first propose something that's
-> sensible from your perspective, and then we can go from there. That's
-> generally easier that discussion without seeing involved code.
-> However, ...
->=20
-> > At
-> > this stage, if reserving fails, I can still skip giving this range to
-> > the IOMMU driver, which (most likely) will result in IOMMU faults and
-> > in-operational device (xhci console). Since I don't know (theoretically)
-> > what driver requested the range, the error message can only contain an
-> > address and device, so will be a bit less actionable for the user
-> > (although it should be quite easy to notice the BDF being the XHCI one).
-> >=20
-> > Panic surely is safer option, but less user friendly, especially since
-> > (due to the above) I cannot give explicit hint to disable XHCI console.
->=20
-> ... reading this I was meaning to ...
->=20
-> > And kinda independently - I'm tempted to add another field to `struct
-> > extra_reserved_range` (and an argument to
-> > `iommu_add_extra_reserved_device_memory()`) - textual description, for
-> > the error reporting purpose.
->=20
-> ... suggest minimally this. We may want to go farther, though: The party
-> registering the range could also supply a callback, to be invoked in
-> case registration fails. That callback could then undo whatever is
-> necessary in order to not use the memory range in question.
->=20
-> That said - isn't all of this over-engineering, as the allocated memory
-> range must have come from a valid RAM region? In which case a simple
-> BUG_ON() may be all that's needed (and will never trigger in practice,
-> unless we truly screwed up somewhere)?
+> --- a/xen/include/public/arch-x86/xen.h
+> +++ b/xen/include/public/arch-x86/xen.h
+> @@ -7,6 +7,7 @@
+>   * Copyright (c) 2004-2006, K A Fraser
+>   */
+>  
+> +/* SAF-7-safe include before guard needed for correct code generation */
+>  #include "../xen.h"
+>  
+>  #ifndef __XEN_PUBLIC_ARCH_X86_XEN_H__
 
-In this case (with a single use of
-iommu_add_extra_reserved_device_memory()), it will be valid RAM. But
-reserving may fail for other reasons too, for example overflow of the
-E820 map.
+... I fear I lack details about the need for this, not even taking into
+account my earlier remark regarding the insertion of such comments in
+public headers. Why is the #include needed for our own purposes (we
+can't easily (re)move it entirely, as external consumers may rely on
+it)? The common case is for this header to be included from ../xen.h.
+In that case, aiui, the #include above has no effect at all, due to the
+guard in ../xen.h. Which leaves direct inclusions of the header here.
+There I'd expect a change like the one here to be accompanied by
+clarification of why those few cases can't be switched to including
+public/xen.h instead. Because if that was possible, doing so would
+allow us to get away here without any deviation.
 
-Undoing things certainly is possible, but quite complicated (none of the
-involved serial console APIs support disabling/unregistering a console).
-Given the simplicity of the workaround user can do (not enabling xhci
-console), I don't think it's worth going this route.
-
-Anyway, I'll post v2 with some version of the above and we can continue
-discussion there.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---PnjxCYIQ+rRJIJpx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmXwa14ACgkQ24/THMrX
-1yyqAgf/R53YqHxmnYPijYE6YRdufBlcewDX5yJybHcZ2BMxy2hDSgLhngVQp1hS
-kBDJBYKPXPzr+F9DbRQq4ZHU1MdG3G80j0LS5niGiVYlpMhfE9dBJvg1QhC3zeTF
-Yy8QBH/FAtICCEE13X1dFIo+VFC5UFiTOQF8GsWSsFHcLpCdPIOaDTyfr8Kr0J3o
-B4Ap/W9Cz5FrWBDchKkl85DetONvxN7k0z+NpbkDNhqXZvOLpYSHiXB8JRcx4MEg
-yjCAHpJiAUbO5TYEtun2rWypfifAp3zJYCcf/LA19BsAvPaCb2E//C8ioOPVAfHp
-3hrHcOPRF9ewFdzg91b0XcLZP9nOVQ==
-=wHrp
------END PGP SIGNATURE-----
-
---PnjxCYIQ+rRJIJpx--
+Jan
 
