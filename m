@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4050787967F
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 15:37:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691886.1078413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58AE38796AC
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 15:45:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691889.1078424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk3Fo-00030n-33; Tue, 12 Mar 2024 14:37:20 +0000
+	id 1rk3NA-0004wo-Qn; Tue, 12 Mar 2024 14:44:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691886.1078413; Tue, 12 Mar 2024 14:37:20 +0000
+Received: by outflank-mailman (output) from mailman id 691889.1078424; Tue, 12 Mar 2024 14:44:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk3Fo-0002z6-0M; Tue, 12 Mar 2024 14:37:20 +0000
-Received: by outflank-mailman (input) for mailman id 691886;
- Tue, 12 Mar 2024 14:37:19 +0000
+	id 1rk3NA-0004uZ-O0; Tue, 12 Mar 2024 14:44:56 +0000
+Received: by outflank-mailman (input) for mailman id 691889;
+ Tue, 12 Mar 2024 14:44:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rk3Fm-0002yy-Ve
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 14:37:18 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ id 1rk3N9-0004uR-F5
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 14:44:55 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 062a580f-e07e-11ee-a1ee-f123f15fe8a2;
- Tue, 12 Mar 2024 15:37:17 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a4645485da6so101287366b.1
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 07:37:17 -0700 (PDT)
+ id 1622185a-e07f-11ee-a1ee-f123f15fe8a2;
+ Tue, 12 Mar 2024 15:44:53 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a449c5411e1so5694566b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 07:44:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- kk28-20020a170907767c00b00a4547925e3asm3986100ejc.141.2024.03.12.07.37.15
+ wk8-20020a170907054800b00a46021ef90csm3646751ejb.107.2024.03.12.07.44.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 07:37:16 -0700 (PDT)
+ Tue, 12 Mar 2024 07:44:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 062a580f-e07e-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 1622185a-e07f-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710254236; x=1710859036; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710254693; x=1710859493; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=KWaDcU0FZBzF9S4NRN/c7rzjyNYyjHXBflnxtbvx+Ac=;
-        b=GXLBoLl8mkAqwA9NfAadGizFBMKE+On4hL/qU+UEUcqL5B4IygK2fLHJRSVecsxtbl
-         NHo2uLULoYsV4pi3LXcXDDxamd8DtjpCgVmR1B1UXhcEvUJLpPthnAAPC+028InaMrot
-         5yqOFB1UvR+12sxD1vEjWeR3IdYfLPfJQIUvjOjeFXrNzLOJFq2JinT0QkLXrZ4arWme
-         ErFzyLGMfrFVcQxWk1qVKLnJxn1fVRjhLp/wofhMSERvlz3hiuHTGySZBvTVWmx02CGE
-         ZWH5TFOsfuTaz4LJfefAL5Seexf+jRMKxt0t1sN8pCZZSRuehbDvJ+sgcEMWyD9MTAIR
-         uPtQ==
+        bh=xz85V7dr+KazXifa+zWdglCjBgOJ02wy4vGnNj+JMG4=;
+        b=dnZaz3eyMgXpyKJTZJbyAmX0O7e7iNiwh57ct3IVLCtfz6besni9NAsJR6UzqW8Dcb
+         KN0RsCwuZlaa3LZsQX5GHjlEnnZ5OfWgwznD2NxYIcn8xblHdgmCyeFbQVEDcxVfNBw+
+         GSs+IuRld6mE31XWU+gc9QS6LylV6hsbqwO/CvQKSr5CjYnyZZ/hUhgzN0VOnNW6XuSe
+         z+p7zSnl36N4lD5cljN5c3YgTJWbWuk58ogcJmi5Wh0Pq4N1fdB47nD8I1LtoSu5hVbv
+         g60Z8Sh33H2muIAN0awsei6w5iLpp5lJ8wANosUfCWeuBxIkR9F5uLrizGcZm6lAxNJg
+         pCkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710254236; x=1710859036;
+        d=1e100.net; s=20230601; t=1710254693; x=1710859493;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KWaDcU0FZBzF9S4NRN/c7rzjyNYyjHXBflnxtbvx+Ac=;
-        b=ExKnnWCyjX0WI7JbALMhJ/PRH/hTuXJn24wX3AknCELzWFRnCdK3RDSvmUDOnX+3eU
-         zlIcDgtG3ba6NlrV+3hXZxUVCd3igK8A3N6+MZDNkBDtm+T7IEC1JzCA/c8Sk3OR1bzc
-         2ULzE+k4iRktxNU5M3WEPwNU+5o0M29zWcuXwr/YJuxRCmF+4u2Hsjjymc/5SBHd6InA
-         7B2oHVlaH1wJfNT2kt1J+G/ESV1+Xw1MGirUo6Ah9dEU6A3vlnIHVfKOprbiAtuBwxbW
-         CfZk36gL1o586THLcttECJUwxSQSUGFZlzPeqa98w8vn7v53y2uHACdchbYW5bl4vonq
-         ODyw==
-X-Forwarded-Encrypted: i=1; AJvYcCVKTpijQCbWMy0BTr/dXbaas4W6evSuIy1sBjG4N2wn8u3yMHB0o0yWYsNhHMneoL/eXjLp+gogyQafVMotyzGS61mx6s6hd5KQCLqihMM=
-X-Gm-Message-State: AOJu0Yy3zlzFGzFYsJ/vuhgNXIOxVkoULppQCRqolVstDiMqa9BruD4E
-	F4pCSuj65Zy3enZTQT/kr9UHWLeYyaaUNSgpAu91R7GtZpT+HfvnpTL0Y+RHDw==
-X-Google-Smtp-Source: AGHT+IGyT1N1ArT6wfbi4oBxSpAokhc2hzaioChczY5/FHl8YM7G9M2aFWMiBDCYmWBmklMKlqqHDA==
-X-Received: by 2002:a17:907:d30b:b0:a3e:b523:90b with SMTP id vg11-20020a170907d30b00b00a3eb523090bmr7594933ejc.14.1710254236414;
-        Tue, 12 Mar 2024 07:37:16 -0700 (PDT)
-Message-ID: <6286d582-ef92-47c3-8bb1-b8f2d3270a4f@suse.com>
-Date: Tue, 12 Mar 2024 15:37:15 +0100
+        bh=xz85V7dr+KazXifa+zWdglCjBgOJ02wy4vGnNj+JMG4=;
+        b=UH8W5DtkYYAu9Ztu2yUQ96bz/BnJdOtc66E0gDgZWxzOz3CLVcpYee1NDFGePef9DQ
+         oBYWkmmPcoNiGhgkKwQV70Y+O6iBedmw1wI/A6GkEYIRmkM6aT1KuK50HLWnrfgcKmLl
+         3U8hJxl403XcXyXiVxwbYNfOROL6VjCAH7Tc2rZHZ+JLxnWTxTVit/4mWiFqU3j5ZIGt
+         /p2L8FiPSHj2NTKnW1GFWF3mk5Ba8qvq+nBETcWevr2Pf5RVuEvcN3SDUfrM/i8pighR
+         CV0UzJr7uGr9G/s2klZvuqHDZ2wYW0CZo+bAWqROIj9Qg1+pncDrkfrHZ6b76OqK8OsB
+         zbDw==
+X-Forwarded-Encrypted: i=1; AJvYcCU6sRyVe7/8GdFHgX5aOcBL1ytU6HksMyUldd12PevYZjmWsVixXdGBaeQKcqRNSYloJ6J63p0VwOmW6q8NeSvWwoqZ3DqucMnnp9CQVqQ=
+X-Gm-Message-State: AOJu0Yzgy8yeezWyl5TwV134pOeAdiRgiOorq46Lm0QnQoTSs/z1/WmL
+	QxHRm4kbdugV1dV9DImOSeE3OgozhBPrT9Ft3MN8TCWZHeH6/iaJ0lUzIOsoIg==
+X-Google-Smtp-Source: AGHT+IEgx3RM07WB6h6B+eW+MMazojnoti3kW1+aojuxETf9wEGGKR8O9CYRmQe+bZdeIcalsJ43lg==
+X-Received: by 2002:a17:906:5a8c:b0:a43:3b2:bcf6 with SMTP id l12-20020a1709065a8c00b00a4303b2bcf6mr379447ejq.14.1710254692726;
+        Tue, 12 Mar 2024 07:44:52 -0700 (PDT)
+Message-ID: <ac05feee-1090-4002-b6fc-17189bc7fccd@suse.com>
+Date: Tue, 12 Mar 2024 15:44:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drivers/char: mark XHCI DMA buffers reserved in memory
- map
+Subject: Re: [XEN PATCH v3 12/16] xen: address violations of MISRA C:2012
+ Directive 4.10
 Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20240311203431.342530-1-marmarek@invisiblethingslab.com>
- <ZfAtahcXWGqckQFW@macbook> <6a80ceb6-cc2a-4d8f-9a66-70063923b0ea@suse.com>
- <ZfBlklSndB3djVJ2@mail-itl>
+To: Simone Ballarin <simone.ballarin@bugseng.com>,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+Cc: consulting@bugseng.com, sstabellini@kernel.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1710145041.git.simone.ballarin@bugseng.com>
+ <ab967347ae22d662c82962b1fdd6e6449bdd8c5e.1710145041.git.simone.ballarin@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,67 +115,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZfBlklSndB3djVJ2@mail-itl>
+In-Reply-To: <ab967347ae22d662c82962b1fdd6e6449bdd8c5e.1710145041.git.simone.ballarin@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 12.03.2024 15:24, Marek Marczykowski-Górecki wrote:
-> On Tue, Mar 12, 2024 at 11:53:46AM +0100, Jan Beulich wrote:
->> On 12.03.2024 11:24, Roger Pau Monné wrote:
->>>> --- a/xen/arch/x86/setup.c
->>>> +++ b/xen/arch/x86/setup.c
->>>> @@ -1806,6 +1806,9 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>>>      mmio_ro_ranges = rangeset_new(NULL, "r/o mmio ranges",
->>>>                                    RANGESETF_prettyprint_hex);
->>>>  
->>>> +    /* Needs to happen after E820 processing but before IOMMU init */
->>>> +    xhci_dbc_uart_reserve_ram();
->>>
->>> Overall it might be better if some generic solution for all users of
->>> iommu_add_extra_reserved_device_memory() could be implemented,
->>
->> +1
->>
->>> but I'm
->>> unsure whether the intention is for the interface to always be used
->>> against RAM.
->>
->> I think we can work from that assumption for now.
-> 
-> One more question - what should be the error handling in this case?
+On 11.03.2024 09:59, Simone Ballarin wrote:
+> --- a/xen/build.mk
+> +++ b/xen/build.mk
+> @@ -45,6 +45,8 @@ asm-offsets.s: arch/$(SRCARCH)/$(ARCH)/asm-offsets.c
+>  	$(CC) $(call cpp_flags,$(c_flags)) -S -g0 -o $@.new -MQ $@ $<
+>  	$(call move-if-changed,$@.new,$@)
+>  
+> +ARCHDIR = $(shell echo $(SRCARCH) | tr a-z A-Z)
 
-My first reaction here is - please first propose something that's
-sensible from your perspective, and then we can go from there. That's
-generally easier that discussion without seeing involved code.
-However, ...
+Yet another instance?
 
-> At
-> this stage, if reserving fails, I can still skip giving this range to
-> the IOMMU driver, which (most likely) will result in IOMMU faults and
-> in-operational device (xhci console). Since I don't know (theoretically)
-> what driver requested the range, the error message can only contain an
-> address and device, so will be a bit less actionable for the user
-> (although it should be quite easy to notice the BDF being the XHCI one).
-> 
-> Panic surely is safer option, but less user friendly, especially since
-> (due to the above) I cannot give explicit hint to disable XHCI console.
+> --- a/xen/scripts/Makefile.asm-generic
+> +++ b/xen/scripts/Makefile.asm-generic
+> @@ -31,8 +31,22 @@ generated-y := $(addprefix $(obj)/, $(generated-y))
+>  old-headers := $(wildcard $(obj)/*.h)
+>  unwanted    := $(filter-out $(generic-y) $(generated-y),$(old-headers))
+>  
+> +define header_stub
+> +#ifndef ASM_GENERIC_$(3)_$(2)_H
+> +#define ASM_GENERIC_$(3)_$(2)_H
+> +
+> +#include <asm-generic/$(1).h>
+> +
+> +#endif /* ASM_GENERIC_$(3)_$(2)_H */
+> +endef
+> +
+> +arch = $(shell echo $(SRCARCH) | tr a-z A-Z)
 
-... reading this I was meaning to ...
+And one more, in disguise - why not ARCHDIR here?
 
-> And kinda independently - I'm tempted to add another field to `struct
-> extra_reserved_range` (and an argument to
-> `iommu_add_extra_reserved_device_memory()`) - textual description, for
-> the error reporting purpose.
+> +header_body = $(call header_stub,$*,$(shell echo "$*" | tr a-z A-Z),$(arch))
+> +export header_body
 
-... suggest minimally this. We may want to go farther, though: The party
-registering the range could also supply a callback, to be invoked in
-case registration fails. That callback could then undo whatever is
-necessary in order to not use the memory range in question.
+This ought to be doable without involving a shell variable, I'd hope.
+But - this is a lot of effort just to ...
 
-That said - isn't all of this over-engineering, as the allocated memory
-range must have come from a valid RAM region? In which case a simple
-BUG_ON() may be all that's needed (and will never trigger in practice,
-unless we truly screwed up somewhere)?
+>  quiet_cmd_wrap = WRAP    $@
+> -      cmd_wrap = echo "\#include <asm-generic/$*.h>" > $@
+> +      cmd_wrap = echo "$$header_body" > $@
+
+... deal with an innocent header consisting of just a single #include.
 
 Jan
 
