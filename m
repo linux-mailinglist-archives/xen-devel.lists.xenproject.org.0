@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2FE2879866
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 16:56:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691935.1078563 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B4EE879879
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 16:59:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691940.1078574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk4U8-0005ue-Q9; Tue, 12 Mar 2024 15:56:12 +0000
+	id 1rk4XD-0006wV-CK; Tue, 12 Mar 2024 15:59:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691935.1078563; Tue, 12 Mar 2024 15:56:12 +0000
+Received: by outflank-mailman (output) from mailman id 691940.1078574; Tue, 12 Mar 2024 15:59:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk4U8-0005sN-NI; Tue, 12 Mar 2024 15:56:12 +0000
-Received: by outflank-mailman (input) for mailman id 691935;
- Tue, 12 Mar 2024 15:56:11 +0000
+	id 1rk4XD-0006tf-96; Tue, 12 Mar 2024 15:59:23 +0000
+Received: by outflank-mailman (input) for mailman id 691940;
+ Tue, 12 Mar 2024 15:59:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rk4U7-0005sE-8V
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 15:56:11 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0a8d6a0d-e089-11ee-afdd-a90da7624cb6;
- Tue, 12 Mar 2024 16:56:08 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a28a6cef709so640735966b.1
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 08:56:08 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ld1-20020a170906f94100b00a461c74bbbfsm2699283ejb.91.2024.03.12.08.56.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 08:56:08 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=t7HW=KS=3mdeb.com=krystian.hebel@srs-se1.protection.inumbo.net>)
+ id 1rk4XC-0006tZ-7Y
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 15:59:22 +0000
+Received: from 2.mo581.mail-out.ovh.net (2.mo581.mail-out.ovh.net
+ [87.98.143.68]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7ce02049-e089-11ee-afdd-a90da7624cb6;
+ Tue, 12 Mar 2024 16:59:20 +0100 (CET)
+Received: from director1.ghost.mail-out.ovh.net (unknown [10.108.17.154])
+ by mo581.mail-out.ovh.net (Postfix) with ESMTP id 4TvJHD1NkHz1Drq
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 15:59:20 +0000 (UTC)
+Received: from ghost-submission-6684bf9d7b-dqcch (unknown [10.110.113.89])
+ by director1.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 3A7E41FE91;
+ Tue, 12 Mar 2024 15:59:18 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.102])
+ by ghost-submission-6684bf9d7b-dqcch with ESMTPSA
+ id or3LOtZ78GUmCgEAPdwMoA
+ (envelope-from <krystian.hebel@3mdeb.com>); Tue, 12 Mar 2024 15:59:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +46,387 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a8d6a0d-e089-11ee-afdd-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710258968; x=1710863768; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0OsmxsGsmYAus/RH/y9PaIuXpWenHxAlXzle9HumqCw=;
-        b=LbV502eKwnPTa13mPebpqoIVoJk+CxsV30NLxdyctnCN15OnAHHeoPB968mfiLjCy5
-         XYqKy/dUgLEfh/bfcO7frWm/9s9AsEJnpYkSBfmcHeXmqAnrjSlQ8feFFZ1/SXzZqrnJ
-         jpNQkFlAKr5zVA45PvFYgrHM5tvDcY62ZUYoGCMiHAiidoOO+PMwwKL8iHZ9n52Ib7dz
-         Eyj+Cy0G8Pa7aO3VX9DnEMliHsvXaItbuLGGOneWrbHNTUAnNL9HdgKtaI0gMTV3HsB6
-         qyFy4zoj1QdCMp8VQILYfH8QVvavtGOhSF/2kaoDOJE5M2lmxak8Yno3tQ9wL24IEsGS
-         Rg0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710258968; x=1710863768;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0OsmxsGsmYAus/RH/y9PaIuXpWenHxAlXzle9HumqCw=;
-        b=ndklUMxTIiE7OWIiCAcAKuep3hAEbwORbNNPwLC3x3SvoPXfTkQHMEPu13l8/RvIsz
-         0IDj6JuY5jNCoooTGzQLx1SMoHgCr+HPTn3kceLBoBbyDNtoWDWcUvVNM9w2yc9/7VBD
-         0e1RlYjK2DV4+/3IAmRpXfJBKxtomPuBReijTaMIVmRcLv2ywE8R0JBzK2ztdnB4bD2Z
-         xGrSKyD/zrk5SC6JFXEJW5wNEy78C8w5aZPtUAo/0NBZbX+R9sKLy/+SWNusDMcd+LQ0
-         hgGnfCDFxHE5TuMTAuCWk816Svoa3yNeiW9rwUOEW0C10slYboVwmYLNVbn9tix5wCwu
-         GrtQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXr62yFFEnrsm+IhzbeWNBUiQ+kX+65dYVwe3JtP5D7fNvbXLSkU/DwI2aa8TJPxsDZ3hsoSX6OaZlSzJ2sasZAJ7K6JL40roPQXsKaGxQ=
-X-Gm-Message-State: AOJu0YzOkFLyd4aFfYjQuyX1FpJ+JDCdZn+Ng+x3nrMY/J6VH3Oz1QHC
-	i34X0ZPc1LiJFN3GumgN9IWNVyVKdqtmzLL7wZ5H608r80edAI/zxuDt2bEQ9A==
-X-Google-Smtp-Source: AGHT+IFypSkTQJZ6eqLQ+AQNbzT8R8CJkS7az4UBwYNcTt0zg0N4WC+AP9zTJjHNath/SJy1FKjHJg==
-X-Received: by 2002:a17:906:c793:b0:a46:3f18:957 with SMTP id cw19-20020a170906c79300b00a463f180957mr1658308ejb.36.1710258968475;
-        Tue, 12 Mar 2024 08:56:08 -0700 (PDT)
-Message-ID: <d264d7e6-2aec-4ffb-94ad-dcaa3ae1688f@suse.com>
-Date: Tue, 12 Mar 2024 16:56:07 +0100
+X-Inumbo-ID: 7ce02049-e089-11ee-afdd-a90da7624cb6
+Authentication-Results:garm.ovh; auth=pass (GARM-102R0040c942c0f-2bc0-4f3f-9004-f3dbd45a2912,
+                    0B6B113C544506A41C6EB031E0F94F2E66B6AEBC) smtp.auth=krystian.hebel@3mdeb.com
+X-OVh-ClientIp:217.171.61.25
+Content-Type: multipart/alternative;
+ boundary="------------fxxSrUaDYSHJhsFTScDE9qCt"
+Message-ID: <dcb4d61a-d2bc-4018-aeef-89339f3faadc@3mdeb.com>
+Date: Tue, 12 Mar 2024 16:59:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 16/16] xen/lz4: address violations of MISRA C:2012
- Directive 4.10
+Subject: Re: [XEN PATCH 4/9] x86/smp: move stack_base to cpu_data
 Content-Language: en-US
-To: Simone Ballarin <simone.ballarin@bugseng.com>
-Cc: consulting@bugseng.com, sstabellini@kernel.org,
- Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1710145041.git.simone.ballarin@bugseng.com>
- <1d02e429534b9b1c53fd3c5b82588e3803434c92.1710145041.git.simone.ballarin@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1d02e429534b9b1c53fd3c5b82588e3803434c92.1710145041.git.simone.ballarin@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
+To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
+ <70e3b7c84a69a7ec52b3ed6314395165c281734c.1699982111.git.krystian.hebel@3mdeb.com>
+ <d0fc568a-f54e-4480-a903-6407f4e3a5b6@xen.org>
+ <52e2db77-88c4-47c5-85d7-34b0bb133b69@suse.com>
+From: Krystian Hebel <krystian.hebel@3mdeb.com>
+In-Reply-To: <52e2db77-88c4-47c5-85d7-34b0bb133b69@suse.com>
+X-Ovh-Tracer-Id: 8923882662734768473
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvledrjeefgdekfecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpegtkfffgggfuffvvehfhfgjsegrtderredtvdejnecuhfhrohhmpefmrhihshhtihgrnhcujfgvsggvlhcuoehkrhihshhtihgrnhdrhhgvsggvlhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnheptddtledufedvgfettdevhffgtdegjeekveefgeelhfdvueegkeetueeuhfejgeetnecuffhomhgrihhnpeefmhguvggsrdgtohhmnecukfhppeduvdejrddtrddtrddupddvudejrddujedurdeiuddrvdehpdefjedrheelrddugedvrddutddvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehkrhihshhtihgrnhdrhhgvsggvlhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheekuddpmhhouggvpehsmhhtphhouhht
+
+This is a multi-part message in MIME format.
+--------------fxxSrUaDYSHJhsFTScDE9qCt
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11.03.2024 09:59, Simone Ballarin wrote:
-> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
-> 
-> Add inclusion guard to address violations of
-> MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order to
-> prevent the contents of a header file being included more than once").
-> Mechanical change.
-> ---
-> Commit introduced in v3
-> 
-> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
-> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
 
-Once again somewhat reluctantly
-Acked-by: Jan Beulich <jbeulich@suse.com>
+On 5.02.2024 09:41, Jan Beulich wrote:
+> On 02.02.2024 19:24, Julien Grall wrote:
+>> On 14/11/2023 17:50, Krystian Hebel wrote:
+>>> This location is easier to access from assembly. Having it close to
+>>> other data required during initialization has also positive (although
+>>> rather small) impact on prefetching data from RAM.
+>> I understand your goal but...
+>>
+>>> --- a/xen/arch/x86/include/asm/cpufeature.h
+>>> +++ b/xen/arch/x86/include/asm/cpufeature.h
+>> ... cpufeature.h feels a rather odd place for storing the stack. I am
+>> not entirely sure where else to place. Andrew, Jan, Roger?
+> Well, without having looked at the patch/series itself yet, I can only
+> say that if struct cpuinfo_x86 really is the place to put this
+> information, then it's unavoidable to have the field added in this
+> header. That said, it certainly feels like an abuse - there's nothing
+> in common with other (collected) data in this structure. "Easier to
+> access from assembly" may be a fair reason, but then I'd expect the
+> downsides of alternatives to be discussed explicitly. For example, a
+> simple new array might be as "easily" accessible from assembly.
+
+Initially I thought I'll be using more fields from this structure a lot, 
+like
+booted_cores or apicid. I'll move this and cpu_state introduced in following
+patch somewhere else.
+
+>
+>>> @@ -37,6 +37,7 @@ struct cpuinfo_x86 {
+>>>        unsigned int phys_proc_id;         /* package ID of each logical CPU */
+>>>        unsigned int cpu_core_id;          /* core ID of each logical CPU */
+>>>        unsigned int compute_unit_id;      /* AMD compute unit ID of each logical CPU */
+>>> +    void *stack_base;
+>> AFAICT, this means there will be a padding before stack_base and ...
+>>
+>>>        unsigned short x86_clflush_size;
+>> ... another one here. Is there any particular reason the new field
+>> wasn't added at the end?
+> With ...
+>
+>>>    } __cacheline_aligned;
+> ... this I'm not exactly sure this is a problem right now (there may
+> be ample padding space anyway, yet I didn't go count). But I agree
+> with your comment in principle.
+I've checked that the size didn't change after adding. I also think that
+I checked that adding it there wouldn't add any padding, but maybe I
+miscalculated something. In any way, this will be moved from here.
+>>> --- a/xen/arch/x86/smpboot.c
+>>> +++ b/xen/arch/x86/smpboot.c
+>>> @@ -75,13 +75,15 @@ static enum cpu_state {
+>>>    } cpu_state;
+>>>    #define set_cpu_state(state) do { smp_mb(); cpu_state = (state); } while (0)
+>>>    
+>>> -void *stack_base[NR_CPUS];
+>>> -
+>>>    void initialize_cpu_data(unsigned int cpu)
+>>>    {
+>>>        uint32_t apicid = cpu_physical_id(cpu);
+>>> +    void *stack = cpu_data[cpu].stack_base;
+>>> +
+>>>        cpu_data[cpu] = boot_cpu_data;
+>>> +
+>>>        cpu_physical_id(cpu) = apicid;
+>>> +    cpu_data[cpu].stack_base = stack;
+>>>    }
+>>>    
+>>>    static bool smp_store_cpu_info(unsigned int id)
+>>> @@ -579,8 +581,6 @@ static int do_boot_cpu(int apicid, int cpu)
+>>>            printk("Booting processor %d/%d eip %lx\n",
+>>>                   cpu, apicid, start_eip);
+>>>    
+>>> -    stack_start = stack_base[cpu] + STACK_SIZE - sizeof(struct cpu_info);
+>>> -
+>> You remove this line because I can't quite figure out where stack_start
+>> is now set. This is used...
+> This line sets a global variable, which ...
+>
+>>> @@ -856,7 +856,7 @@ int setup_cpu_root_pgt(unsigned int cpu)
+>>>    
+>>>        /* Install direct map page table entries for stack, IDT, and TSS. */
+>>>        for ( off = rc = 0; !rc && off < STACK_SIZE; off += PAGE_SIZE )
+>>> -        rc = clone_mapping(__va(__pa(stack_base[cpu])) + off, rpt);
+>>> +        rc = clone_mapping(__va(__pa(cpu_data[cpu].stack_base)) + off, rpt);
+>>>    
+>>>        if ( !rc )
+>>>            rc = clone_mapping(idt_tables[cpu], rpt);
+>>> @@ -1007,10 +1007,10 @@ static void cpu_smpboot_free(unsigned int cpu, bool remove)
+>>>            FREE_XENHEAP_PAGE(per_cpu(gdt, cpu));
+>>>            FREE_XENHEAP_PAGE(idt_tables[cpu]);
+>>>    
+>>> -        if ( stack_base[cpu] )
+>>> +        if ( cpu_data[cpu].stack_base )
+>>>            {
+>>> -            memguard_unguard_stack(stack_base[cpu]);
+>>> -            FREE_XENHEAP_PAGES(stack_base[cpu], STACK_ORDER);
+>>> +            memguard_unguard_stack(cpu_data[cpu].stack_base);
+>>> +            FREE_XENHEAP_PAGES(cpu_data[cpu].stack_base, STACK_ORDER);
+>>>            }
+>>>        }
+>>>    }
+>>> @@ -1044,11 +1044,11 @@ static int cpu_smpboot_alloc(unsigned int cpu)
+>>>        if ( node != NUMA_NO_NODE )
+>>>            memflags = MEMF_node(node);
+>>>    
+>>> -    if ( stack_base[cpu] == NULL &&
+>>> -         (stack_base[cpu] = cpu_alloc_stack(cpu)) == NULL )
+>>> +    if ( cpu_data[cpu].stack_base == NULL &&
+>>> +         (cpu_data[cpu].stack_base = cpu_alloc_stack(cpu)) == NULL )
+>>>                goto out;
+>>>    
+>>> -    info = get_cpu_info_from_stack((unsigned long)stack_base[cpu]);
+>>> +    info = get_cpu_info_from_stack((unsigned long)cpu_data[cpu].stack_base);
+>> ... here.
+> ... pretty clearly is not used here (anymore). Instead I'd raise the
+> question of what the remaining purpose of that variable then is.
+> Looking through updates this patch alone makes to use sites of
+> stack_start, it's unclear whether the use from assembly code has gone
+> away already - brief checking suggests it hasn't.
+BSP still uses it, but APs don't. That said, comment above declaration says
+otherwise, I'll change it, or maybe this variable can be removed altogether
+since it always points to the same place, and there are only two consumers,
+both in assembly.
+>
+> Jan
+Best regards,
+
+-- 
+Krystian Hebel
+Firmware Engineer
+https://3mdeb.com  | @3mdeb_com
+
+--------------fxxSrUaDYSHJhsFTScDE9qCt
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 5.02.2024 09:41, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:52e2db77-88c4-47c5-85d7-34b0bb133b69@suse.com">
+      <pre class="moz-quote-pre" wrap="">On 02.02.2024 19:24, Julien Grall wrote:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">On 14/11/2023 17:50, Krystian Hebel wrote:
+</pre>
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">This location is easier to access from assembly. Having it close to
+other data required during initialization has also positive (although
+rather small) impact on prefetching data from RAM.
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">
+I understand your goal but...
+
+</pre>
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">
+... cpufeature.h feels a rather odd place for storing the stack. I am 
+not entirely sure where else to place. Andrew, Jan, Roger?
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Well, without having looked at the patch/series itself yet, I can only
+say that if struct cpuinfo_x86 really is the place to put this
+information, then it's unavoidable to have the field added in this
+header. That said, it certainly feels like an abuse - there's nothing
+in common with other (collected) data in this structure. "Easier to
+access from assembly" may be a fair reason, but then I'd expect the
+downsides of alternatives to be discussed explicitly. For example, a
+simple new array might be as "easily" accessible from assembly.</pre>
+    </blockquote>
+    <p>Initially I thought I'll be using more fields from this structure
+      a lot, like<br>
+      booted_cores or apicid. I'll move this and cpu_state introduced in
+      following<br>
+      patch somewhere else.<br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:52e2db77-88c4-47c5-85d7-34b0bb133b69@suse.com">
+      <pre class="moz-quote-pre" wrap="">
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">@@ -37,6 +37,7 @@ struct cpuinfo_x86 {
+      unsigned int phys_proc_id;         /* package ID of each logical CPU */
+      unsigned int cpu_core_id;          /* core ID of each logical CPU */
+      unsigned int compute_unit_id;      /* AMD compute unit ID of each logical CPU */
++    void *stack_base;
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">
+AFAICT, this means there will be a padding before stack_base and ...
+
+</pre>
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">      unsigned short x86_clflush_size;
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">
+... another one here. Is there any particular reason the new field 
+wasn't added at the end?
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+With ...
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">  } __cacheline_aligned;
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+... this I'm not exactly sure this is a problem right now (there may
+be ample padding space anyway, yet I didn't go count). But I agree
+with your comment in principle.</pre>
+    </blockquote>
+    I've checked that the size didn't change after adding. I also think
+    that<br>
+    I checked that adding it there wouldn't add any padding, but maybe I<br>
+    miscalculated something. In any way, this will be moved from here.<span
+    style="white-space: pre-wrap">
+</span>
+    <blockquote type="cite"
+      cite="mid:52e2db77-88c4-47c5-85d7-34b0bb133b69@suse.com">
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">--- a/xen/arch/x86/smpboot.c
++++ b/xen/arch/x86/smpboot.c
+@@ -75,13 +75,15 @@ static enum cpu_state {
+  } cpu_state;
+  #define set_cpu_state(state) do { smp_mb(); cpu_state = (state); } while (0)
+  
+-void *stack_base[NR_CPUS];
+-
+  void initialize_cpu_data(unsigned int cpu)
+  {
+      uint32_t apicid = cpu_physical_id(cpu);
++    void *stack = cpu_data[cpu].stack_base;
++
+      cpu_data[cpu] = boot_cpu_data;
++
+      cpu_physical_id(cpu) = apicid;
++    cpu_data[cpu].stack_base = stack;
+  }
+  
+  static bool smp_store_cpu_info(unsigned int id)
+@@ -579,8 +581,6 @@ static int do_boot_cpu(int apicid, int cpu)
+          printk("Booting processor %d/%d eip %lx\n",
+                 cpu, apicid, start_eip);
+  
+-    stack_start = stack_base[cpu] + STACK_SIZE - sizeof(struct cpu_info);
+-
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">
+You remove this line because I can't quite figure out where stack_start 
+is now set. This is used...
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+This line sets a global variable, which ...
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">@@ -856,7 +856,7 @@ int setup_cpu_root_pgt(unsigned int cpu)
+  
+      /* Install direct map page table entries for stack, IDT, and TSS. */
+      for ( off = rc = 0; !rc &amp;&amp; off &lt; STACK_SIZE; off += PAGE_SIZE )
+-        rc = clone_mapping(__va(__pa(stack_base[cpu])) + off, rpt);
++        rc = clone_mapping(__va(__pa(cpu_data[cpu].stack_base)) + off, rpt);
+  
+      if ( !rc )
+          rc = clone_mapping(idt_tables[cpu], rpt);
+@@ -1007,10 +1007,10 @@ static void cpu_smpboot_free(unsigned int cpu, bool remove)
+          FREE_XENHEAP_PAGE(per_cpu(gdt, cpu));
+          FREE_XENHEAP_PAGE(idt_tables[cpu]);
+  
+-        if ( stack_base[cpu] )
++        if ( cpu_data[cpu].stack_base )
+          {
+-            memguard_unguard_stack(stack_base[cpu]);
+-            FREE_XENHEAP_PAGES(stack_base[cpu], STACK_ORDER);
++            memguard_unguard_stack(cpu_data[cpu].stack_base);
++            FREE_XENHEAP_PAGES(cpu_data[cpu].stack_base, STACK_ORDER);
+          }
+      }
+  }
+@@ -1044,11 +1044,11 @@ static int cpu_smpboot_alloc(unsigned int cpu)
+      if ( node != NUMA_NO_NODE )
+          memflags = MEMF_node(node);
+  
+-    if ( stack_base[cpu] == NULL &amp;&amp;
+-         (stack_base[cpu] = cpu_alloc_stack(cpu)) == NULL )
++    if ( cpu_data[cpu].stack_base == NULL &amp;&amp;
++         (cpu_data[cpu].stack_base = cpu_alloc_stack(cpu)) == NULL )
+              goto out;
+  
+-    info = get_cpu_info_from_stack((unsigned long)stack_base[cpu]);
++    info = get_cpu_info_from_stack((unsigned long)cpu_data[cpu].stack_base);
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">
+... here.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+... pretty clearly is not used here (anymore). Instead I'd raise the
+question of what the remaining purpose of that variable then is.
+Looking through updates this patch alone makes to use sites of
+stack_start, it's unclear whether the use from assembly code has gone
+away already - brief checking suggests it hasn't.</pre>
+    </blockquote>
+    BSP still uses it, but APs don't. That said, comment above
+    declaration says<br>
+    otherwise, I'll change it, or maybe this variable can be removed
+    altogether<br>
+    since it always points to the same place, and there are only two
+    consumers,<br>
+    both in assembly.<br>
+    <blockquote type="cite"
+      cite="mid:52e2db77-88c4-47c5-85d7-34b0bb133b69@suse.com">
+      <pre class="moz-quote-pre" wrap="">
 
 Jan
+</pre>
+    </blockquote>
+    Best regards,<br>
+    <pre class="moz-signature" cols="72">-- 
+Krystian Hebel
+Firmware Engineer
+<a class="moz-txt-link-freetext" href="https://3mdeb.com">https://3mdeb.com</a> | @3mdeb_com</pre>
+  </body>
+</html>
+
+--------------fxxSrUaDYSHJhsFTScDE9qCt--
 
