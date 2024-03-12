@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3315587934A
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 12:49:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691793.1078158 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E8EB87939A
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 13:03:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691798.1078170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk0ct-00006U-Fr; Tue, 12 Mar 2024 11:48:59 +0000
+	id 1rk0pw-0003O6-Oj; Tue, 12 Mar 2024 12:02:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691793.1078158; Tue, 12 Mar 2024 11:48:59 +0000
+Received: by outflank-mailman (output) from mailman id 691798.1078170; Tue, 12 Mar 2024 12:02:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk0ct-0008Ul-Ca; Tue, 12 Mar 2024 11:48:59 +0000
-Received: by outflank-mailman (input) for mailman id 691793;
- Tue, 12 Mar 2024 11:48:58 +0000
+	id 1rk0pw-0003LQ-M7; Tue, 12 Mar 2024 12:02:28 +0000
+Received: by outflank-mailman (input) for mailman id 691798;
+ Tue, 12 Mar 2024 12:02:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vdFL=KS=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1rk0cs-0008TQ-18
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 11:48:58 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=+jUN=KS=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1rk0pu-0003LK-Nu
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 12:02:26 +0000
+Received: from wfhigh1-smtp.messagingengine.com
+ (wfhigh1-smtp.messagingengine.com [64.147.123.152])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8190e005-e066-11ee-afdd-a90da7624cb6;
- Tue, 12 Mar 2024 12:48:56 +0100 (CET)
-Received: from truciolo.bugseng.com (unknown [37.162.53.177])
- by support.bugseng.com (Postfix) with ESMTPSA id B1F964EE0C90;
- Tue, 12 Mar 2024 12:48:54 +0100 (CET)
+ id 62775f14-e068-11ee-afdd-a90da7624cb6;
+ Tue, 12 Mar 2024 13:02:24 +0100 (CET)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.48])
+ by mailfhigh.west.internal (Postfix) with ESMTP id AA3791800082;
+ Tue, 12 Mar 2024 08:02:20 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Tue, 12 Mar 2024 08:02:21 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 12 Mar 2024 08:02:18 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,113 +44,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8190e005-e066-11ee-afdd-a90da7624cb6
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Paul Durrant <paul@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
+X-Inumbo-ID: 62775f14-e068-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1710244940;
+	 x=1710331340; bh=Ma+2LP1YhgBrzbXr0JBu0zyCAyWKPMM7lw3llKmFuH4=; b=
+	eCh2wtGuB0TwHgnKRYz9qxoXA/1MZ3C2bGFy7TgziQjjA+Aq6i3w+YhNpzvoWVio
+	S5PlijuCHhW7KQWsgR1P7mxdJuKew/TeYJhtCoY/LyNnpMCJbmSUw58FMJq0e9ZT
+	HluKNoF4U+MGiVfYp/0p1skJohuiMhupQYTcknraaUH1SHUs/+erLjvl8WdAd4W8
+	FLhAcsL6oTPtje3ZUu0bHLVLe87fxw2CefcqEZmp9BAGXg/L8ccxpqJlyNzLjg7k
+	hEJ0xI+OP4CmS9TTI32Kc10jRIuPgCRxBspgTMWWN0IBuwAOW1kbMw45wso9gNWx
+	aKdYS7HJEhKfLEsSq912Hw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1710244940; x=1710331340; bh=Ma+2LP1YhgBrzbXr0JBu0zyCAyWK
+	PMM7lw3llKmFuH4=; b=JOSxxWgQzj5K6P4kPCpETq5A++ufHgAEL6ukiibkGteh
+	MgmQwxicTQSrKopNKyIOHg70tLKc3DQuUm9m7CNQNEFBi1usNBYefynR+OTaI+bB
+	N+P05k1vzKUKqD7rn/JcNebqTKFtqdlFrkoKQBxfUa+LBW6UTnkCgZsh4aZZ2Eb2
+	sEvbibE8Pw+v/AXQIEZBOrt/d+fnB3r8C86QzUMSizlbu1s/8BWYIi5FIAtk35/w
+	RUYWBUF+ieG2CkRDJ6Ja3+jXqBxbiM1J3oe7Jd0pzB90VAgu+y9WHsz1o2jNhd2n
+	dLM16oxcpNR5uClu/3E9cZbT/XQuPeAWXwUuwx00bQ==
+X-ME-Sender: <xms:S0TwZdTyLWWZ4AnwKJG8Eaicw4mnYaZ84QMgzYKvCptO1TUq5-3z5w>
+    <xme:S0TwZWz4IFgQ5KaIMTTtCIopzrOnDCkci2rOL_-1JTmqD1n3pVJQnNKWazK-k0VDx
+    qJPxVxwcwhiTQ>
+X-ME-Received: <xmr:S0TwZS0mK8i_HhHO3Gcecn3m-paHxsCRDn3QkHMjNGO8UP_EAYq6D9B-bhDHm3QDLGlZHnkiz7jUG1i_wXFkZcPCsZ34i83fzA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrjeefgdefhecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
+    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:S0TwZVAbC3ujLFUhzZAAzcpqrFo9rfGUWlTmdrim1NjYtV0H-6xDpA>
+    <xmx:S0TwZWhFSCghLTNf7rHeB7GRy8gP9RwuA0pYbFeJV0756QrQ3bXdpQ>
+    <xmx:S0TwZZqZ58FpNCrf6XGXx3KnuIXIaS59r2oYFZaPf6as5cuRyuQf3w>
+    <xmx:S0TwZRhUMjy3QAAe3jUjEazjnVNCuaE0tFRhoGbdapro-HDoj1GCuA>
+    <xmx:TETwZfXzU41BOPZlvCzxtbjnnc1qfqgdJuE4v9neFiwdcbQcd48ILS-RcQc>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 12 Mar 2024 13:02:14 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN RFC] xen: avoid grep fodder define and undef
-Date: Tue, 12 Mar 2024 12:48:42 +0100
-Message-Id: <0002f3df03aac283fa3dc7365e9040ab7ffaee2e.1710242950.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] drivers/char: mark XHCI DMA buffers reserved in memory
+ map
+Message-ID: <ZfBERyqQ7Ous3nGE@mail-itl>
+References: <20240311203431.342530-1-marmarek@invisiblethingslab.com>
+ <ZfAtahcXWGqckQFW@macbook>
+ <6a80ceb6-cc2a-4d8f-9a66-70063923b0ea@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="IuHzY/XwPjfFrxcX"
+Content-Disposition: inline
+In-Reply-To: <6a80ceb6-cc2a-4d8f-9a66-70063923b0ea@suse.com>
 
-Place an "#if 0" before grep fodder definitions and remove the
-"#undef".
 
-This addresses several violations of MISRA C:2012 Rule 5.5
-("Identifiers shall be distinct from macro names").
+--IuHzY/XwPjfFrxcX
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 12 Mar 2024 13:02:14 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] drivers/char: mark XHCI DMA buffers reserved in memory
+ map
 
-No functional change.
+On Tue, Mar 12, 2024 at 11:53:46AM +0100, Jan Beulich wrote:
+> On 12.03.2024 11:24, Roger Pau Monn=C3=A9 wrote:
+> >> --- a/xen/arch/x86/setup.c
+> >> +++ b/xen/arch/x86/setup.c
+> >> @@ -1806,6 +1806,9 @@ void asmlinkage __init noreturn __start_xen(unsi=
+gned long mbi_p)
+> >>      mmio_ro_ranges =3D rangeset_new(NULL, "r/o mmio ranges",
+> >>                                    RANGESETF_prettyprint_hex);
+> >> =20
+> >> +    /* Needs to happen after E820 processing but before IOMMU init */
+> >> +    xhci_dbc_uart_reserve_ram();
+> >=20
+> > Overall it might be better if some generic solution for all users of
+> > iommu_add_extra_reserved_device_memory() could be implemented,
+>=20
+> +1
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
-Hello, I would like to know what you think about this change.
-If you want to keep grep fodders as they are, an alternative could be to
-deviate violations of Rule 5.5 involving the TYPE_SAFE macro.
----
- xen/include/xen/iommu.h    |  5 +----
- xen/include/xen/mm-frame.h | 15 +++------------
- 2 files changed, 4 insertions(+), 16 deletions(-)
+In that case, is the approach with
+iommu_get_extra_reserved_device_memory() okay (and a comment that it
+will have a side effect...) ?
 
-diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index 9621459c63..ef57f31417 100644
---- a/xen/include/xen/iommu.h
-+++ b/xen/include/xen/iommu.h
-@@ -33,13 +33,10 @@ TYPE_SAFE(uint64_t, dfn);
- #define PRI_dfn     PRIx64
- #define INVALID_DFN _dfn(~0ULL)
- 
--#ifndef dfn_t
-+#if 0
- #define dfn_t /* Grep fodder: dfn_t, _dfn() and dfn_x() are defined above */
- #define _dfn
- #define dfn_x
--#undef dfn_t
--#undef _dfn
--#undef dfn_x
- #endif
- 
- static inline dfn_t __must_check dfn_add(dfn_t dfn, unsigned long i)
-diff --git a/xen/include/xen/mm-frame.h b/xen/include/xen/mm-frame.h
-index c25e836f25..d973aec901 100644
---- a/xen/include/xen/mm-frame.h
-+++ b/xen/include/xen/mm-frame.h
-@@ -14,13 +14,10 @@ TYPE_SAFE(unsigned long, mfn);
-  */
- #define INVALID_MFN_INITIALIZER { INVALID_MFN_RAW }
- 
--#ifndef mfn_t
-+#if 0
- #define mfn_t /* Grep fodder: mfn_t, _mfn() and mfn_x() are defined above */
- #define _mfn
- #define mfn_x
--#undef mfn_t
--#undef _mfn
--#undef mfn_x
- #endif
- 
- static inline mfn_t __must_check mfn_add(mfn_t mfn, unsigned long i)
-@@ -53,13 +50,10 @@ TYPE_SAFE(unsigned long, gfn);
-  */
- #define INVALID_GFN_INITIALIZER { INVALID_GFN_RAW }
- 
--#ifndef gfn_t
-+#if 0
- #define gfn_t /* Grep fodder: gfn_t, _gfn() and gfn_x() are defined above */
- #define _gfn
- #define gfn_x
--#undef gfn_t
--#undef _gfn
--#undef gfn_x
- #endif
- 
- static inline gfn_t __must_check gfn_add(gfn_t gfn, unsigned long i)
-@@ -85,13 +79,10 @@ static inline bool gfn_eq(gfn_t x, gfn_t y)
- TYPE_SAFE(unsigned long, pfn);
- #define PRI_pfn          "05lx"
- 
--#ifndef pfn_t
-+#if 0
- #define pfn_t /* Grep fodder: pfn_t, _pfn() and pfn_x() are defined above */
- #define _pfn
- #define pfn_x
--#undef pfn_t
--#undef _pfn
--#undef pfn_x
- #endif
- 
- #endif /* __XEN_FRAME_NUM_H__ */
--- 
-2.34.1
+> > but I'm
+> > unsure whether the intention is for the interface to always be used
+> > against RAM.
+>=20
+> I think we can work from that assumption for now.
 
+Ok, I'll add a comment about that. I guess, if needed in the future,
+iommu_add_extra_reserved_device_memory() can gain an extra parameter to
+distinguish RAM from non-RAM mappings.
+
+BTW should e820_change_range_type() return 1 in case of mapping already
+having the right type? Otherwise, if one wants to use
+iommu_add_extra_reserved_device_memory() on already reserved memory, the
+e820_change_range_type() would fail.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--IuHzY/XwPjfFrxcX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmXwREcACgkQ24/THMrX
+1yylzAf+MIXUacgkN2SoiRmIUZUpM7Moa2VIjwXJAzVwoXyoHKfBeJTWCCZ97LzZ
+sZSp6I0p9VcDNkQ1zFqzrRte0dtExSYK1gAXwZdPdNRnltRnaCuz4hksJG20jSVj
+nXS18EbPAU4XjgPtARozcCu6LyZpALW7LMzD33aqz2fDTRRRtUljEIDK9Z/4R8Me
+y2BdxO55JthfpD8eOFFGll+ZG4sP5fRnXbWCqOusf2edJ6B+OlPfSZYIUI4/cpps
+AG0HqAUYoA1mBFbMG83lHst8+JDZHAP9WmFjxjH+kqf8LDHrcMwuDqH4hvXdvDu8
+DA1Jwdzsl0PvH30tvGDb301GWu+SDA==
+=9uWv
+-----END PGP SIGNATURE-----
+
+--IuHzY/XwPjfFrxcX--
 
