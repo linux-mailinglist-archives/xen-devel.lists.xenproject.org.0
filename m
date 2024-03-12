@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47E498792A2
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 12:02:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691768.1078089 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B4998792CA
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 12:14:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691778.1078118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjzsq-00072C-TD; Tue, 12 Mar 2024 11:01:24 +0000
+	id 1rk050-0001GJ-67; Tue, 12 Mar 2024 11:13:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691768.1078089; Tue, 12 Mar 2024 11:01:24 +0000
+Received: by outflank-mailman (output) from mailman id 691778.1078118; Tue, 12 Mar 2024 11:13:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjzsq-0006zv-QW; Tue, 12 Mar 2024 11:01:24 +0000
-Received: by outflank-mailman (input) for mailman id 691768;
- Tue, 12 Mar 2024 11:01:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rk050-0001En-2v; Tue, 12 Mar 2024 11:13:58 +0000
+Received: by outflank-mailman (input) for mailman id 691778;
+ Tue, 12 Mar 2024 11:13:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xiV3=KS=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rjzsp-0006zp-Jn
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 11:01:23 +0000
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [2607:f8b0:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dc157419-e05f-11ee-afdd-a90da7624cb6;
- Tue, 12 Mar 2024 12:01:22 +0100 (CET)
-Received: by mail-ot1-x333.google.com with SMTP id
- 46e09a7af769-6e52b9234c0so918192a34.2
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 04:01:22 -0700 (PDT)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- x6-20020a05620a098600b0078835bfddb8sm3562169qkx.84.2024.03.12.04.01.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Mar 2024 04:01:20 -0700 (PDT)
+ <SRS0=krxI=KS=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rk04y-0001Ef-RO
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 11:13:56 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9d014617-e061-11ee-a1ee-f123f15fe8a2;
+ Tue, 12 Mar 2024 12:13:54 +0100 (CET)
+Received: from nico.bugseng.com (unknown [46.228.253.194])
+ by support.bugseng.com (Postfix) with ESMTPSA id DDE774EE0C90;
+ Tue, 12 Mar 2024 12:13:52 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,72 +39,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc157419-e05f-11ee-afdd-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710241281; x=1710846081; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=CkuD7/VKzR/42WmV9g0w5MfXQqoF0FZt+XVoxJxKCaQ=;
-        b=BsK7Fn1JPYf0/zvjVDYk4Wz0CfGZewg5gkGR6j1yHRXA9m4nnYr1bH+qhtJLhQOpdD
-         vsnVAVEcg4QeMXCtfkvQHql4hjPobsQtAE5/32Xc7QyggI9DLjv7jdiyyaiK6S3gceiL
-         3zPb0JzXLohWGGrXjD++tS+v/LH4w7L45uEnw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710241281; x=1710846081;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CkuD7/VKzR/42WmV9g0w5MfXQqoF0FZt+XVoxJxKCaQ=;
-        b=f08vMHy8jg92x5lkDwu0T7lidJZfMw5oSVljz5jOsCNIBbIODo21pjpQYRBXOHzegA
-         o9p9BGtLaU79+5LrA4+1wAfq/4I8/m9O/2ouUVL29GrcebUEhfq4b1CMohErZYL3pD+9
-         Q1YPcMUcu+b0Zib5r8xgF6aBwpL/DoWZm/fZnhIxN7FoedIX4LL1Zru29wdLKWHko6y2
-         4BmWqQYvEvP04oSk4w6ZpxTek1iPoPvbcaRPZ40H5cuVvvK+u6+EpqEz3PPBV5EHA4Fu
-         YovXPUhhhVMuDgF+LFztJ+cim7YbQjtSKZz1qrFZ8Fg2emXt/mDKmK5zGz51TQ7rK7Yg
-         NOEA==
-X-Gm-Message-State: AOJu0YwZ9vAyqyEgDYI7iyAUhZBuzQPR2KuOZKeAkuoGANs70TuWRPIk
-	/Z9Gy58cEf3L1PigRZM1LptJOzlW91uLRzS/vXkS/Owfk3w4zI1I7ZNQuUXU1HM=
-X-Google-Smtp-Source: AGHT+IHIVXpe5ZL0iQ5eq6zRiXO5qWk23xUawDTCs0iz1TSxjCtPDoDIDApJMAPnfVigz8stb9hlyA==
-X-Received: by 2002:a9d:7a92:0:b0:6e5:307b:fa70 with SMTP id l18-20020a9d7a92000000b006e5307bfa70mr5505560otn.29.1710241280790;
-        Tue, 12 Mar 2024 04:01:20 -0700 (PDT)
-Date: Tue, 12 Mar 2024 12:01:18 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Simone Ballarin <simone.ballarin@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
-	Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
+X-Inumbo-ID: 9d014617-e061-11ee-a1ee-f123f15fe8a2
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: nicola.vetrini@bugseng.com,
+	xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	bertrand.marquis@arm.com,
+	julien@xen.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	Kevin Tian <kevin.tian@intel.com>
-Subject: Re: [PATCH v2 1/2] x86/IOMMU: address violations of MISRA C:2012
- Rule 14.4
-Message-ID: <ZfA1_pYQi-aKXH3A@macbook>
-References: <cover.1702310368.git.maria.celeste.cesario@bugseng.com>
- <746a33fff1386b2e76657b5f7cfb31f3b117a1fe.1702310368.git.maria.celeste.cesario@bugseng.com>
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH v2] xen/compiler: deviate the inline macro for MISRA C  Rule 20.4
+Date: Tue, 12 Mar 2024 12:13:49 +0100
+Message-Id: <0e48f35eaa95bbba6c2b8219e412bfd6d9c82b52.1710241987.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <746a33fff1386b2e76657b5f7cfb31f3b117a1fe.1702310368.git.maria.celeste.cesario@bugseng.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Dec 13, 2023 at 05:10:50PM +0100, Simone Ballarin wrote:
-> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
-> 
-> The xen sources contain violations of MISRA C:2012 Rule 14.4 whose
-> headline states:
-> "The controlling expression of an if statement and the controlling
-> expression of an iteration-statement shall have essentially Boolean type".
-> 
-> Add comparisons to avoid using enum constants as controlling expressions
-> to comply with Rule 14.4.
+Rule 20.4 states: "A macro shall not be defined with the same name
+as a keyword".
 
-If we really want to go this route, we also need to amend the comment
-in iommu_intremap definition, as it's no longer valid:
+Defining this macro with the same name as the inline keyword
+allows for additionally checking that out-of-lined static inline
+functions end up in the correct section while minimizing churn and
+has a positive impact on the overall safety. See [1] for additional
+context on the motivation of this deviation.
 
-extern enum __packed iommu_intremap {
-   /*
-    * In order to allow traditional boolean uses of the iommu_intremap
-    * variable, the "off" value has to come first (yielding a value of zero).
-    */
-   iommu_intremap_off,
+No functional change.
 
-We no longer allow traditional boolean uses of iommu_intremap.
+[1] https://lore.kernel.org/xen-devel/adaa6d55-266d-4df8-8967-9340080d17e4@citrix.com/
 
-Thanks, Roger.
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+Changes in v2:
+- Rephrased SAF comment to be more general and added exact motivation
+  for the redefinition of "inline" in deviation.rst.
+---
+ docs/misra/deviations.rst  | 6 ++++++
+ docs/misra/safe.json       | 8 ++++++++
+ xen/include/xen/compiler.h | 1 +
+ 3 files changed, 15 insertions(+)
+
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index 123c78e20a01..f8b40dd1e461 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -322,6 +322,12 @@ Deviations related to MISRA C:2012 Rules:
+          - /\* Fallthrough \*/
+          - /\* Fallthrough. \*/
+ 
++   * - R20.4
++     -  The override of the keyword \"inline\" in xen/compiler.h is present so
++        that section contents checks pass when the compiler chooses not to
++        inline a particular function.
++     - Comment-based deviation.
++
+    * - R20.7
+      - Code violating Rule 20.7 is safe when macro parameters are used:
+        (1) as function arguments;
+diff --git a/docs/misra/safe.json b/docs/misra/safe.json
+index 952324f85cf9..d361d0e65ceb 100644
+--- a/docs/misra/safe.json
++++ b/docs/misra/safe.json
+@@ -28,6 +28,14 @@
+         },
+         {
+             "id": "SAF-3-safe",
++            "analyser": {
++                "eclair": "MC3R1.R20.4"
++            },
++            "name": "MC3R1.R20.4: allow the definition of a macro with the same name as a keyword in some special cases",
++            "text": "The definition of a macro with the same name as a keyword can be useful in certain configurations to improve the guarantees that can be provided by Xen. See docs/misra/deviations.rst for a precise rationale for all such cases."
++        },
++        {
++            "id": "SAF-4-safe",
+             "analyser": {},
+             "name": "Sentinel",
+             "text": "Next ID to be used"
+diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+index 16d554f2a593..fc87a2edad7f 100644
+--- a/xen/include/xen/compiler.h
++++ b/xen/include/xen/compiler.h
+@@ -82,6 +82,7 @@
+  * inline functions not expanded inline get placed in .init.text.
+  */
+ #include <xen/init.h>
++/* SAF-3-safe MISRA C Rule 20.4: allow section checks to pass when not inlined */
+ #define inline inline __init
+ #endif
+ 
+-- 
+2.34.1
+
 
