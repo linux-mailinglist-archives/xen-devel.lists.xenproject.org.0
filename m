@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 299AB879272
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 11:50:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691757.1078059 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCFC9879285
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 11:54:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691760.1078068 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjziX-0003uo-EK; Tue, 12 Mar 2024 10:50:45 +0000
+	id 1rjzlY-0004UZ-Ru; Tue, 12 Mar 2024 10:53:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691757.1078059; Tue, 12 Mar 2024 10:50:45 +0000
+Received: by outflank-mailman (output) from mailman id 691760.1078068; Tue, 12 Mar 2024 10:53:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjziX-0003sh-Av; Tue, 12 Mar 2024 10:50:45 +0000
-Received: by outflank-mailman (input) for mailman id 691757;
- Tue, 12 Mar 2024 10:50:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rjzlY-0004T3-P2; Tue, 12 Mar 2024 10:53:52 +0000
+Received: by outflank-mailman (input) for mailman id 691760;
+ Tue, 12 Mar 2024 10:53:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rjziW-0003sb-C5
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 10:50:44 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5fd0dd31-e05e-11ee-afdd-a90da7624cb6;
- Tue, 12 Mar 2024 11:50:43 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a44665605f3so753046166b.2
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 03:50:43 -0700 (PDT)
+ id 1rjzlW-0004Sx-Pl
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 10:53:50 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ce084821-e05e-11ee-a1ee-f123f15fe8a2;
+ Tue, 12 Mar 2024 11:53:48 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a44ad785a44so511109066b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 03:53:48 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x11-20020a1709064bcb00b00a449b175d2fsm3729713ejv.222.2024.03.12.03.50.42
+ f15-20020a170906048f00b00a42ee62b634sm3719489eja.106.2024.03.12.03.53.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 03:50:42 -0700 (PDT)
+ Tue, 12 Mar 2024 03:53:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5fd0dd31-e05e-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: ce084821-e05e-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710240643; x=1710845443; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710240828; x=1710845628; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=dYBA5ZRY3sMwHRTKUt/lRju6/j+m+2WI0qT9VSOvySE=;
-        b=ACL20bEkRLf5qZARviwUH3COUKQ6W36sj0lzJKyLCXprVd/2te9lVw1Q8jjcB+B/jy
-         V5hOtdF9+Ckxj7GCuo162PuLMN3CnPeFf2dHHRMdcis0HCZMEWu1jit/dSSt8e+vk+mB
-         8LdstAQ5ITcZmFyu3tvM8cThe8BSktkNYLE5JJbxMr5ayQ+x/pxWtOy8QwgtMg4A+fNT
-         DHTdw3iUrzvB4iW3sU/CuLHW06iqUZCBrhsJYhgriq8W20/Nalqr/FfxYXq4+ok37Ew1
-         2imFEkjF2Cx63li7f+ZCL4ep4Q5i4Ym5adfmWvCfacoRHb31a/3WV08L2hrRUszfc3AW
-         OOGQ==
+        bh=/rojXMfHXApf8EGOHWtgacoTXPjnXkQP6vbQTBrXJBA=;
+        b=bN7uQc0DIlOFx6kpT/UUgT9ChvqPhBvQq1e2bQtUupHVtUurX6qTp9Ni76qHWkFtu5
+         l752pwVSWktLBToN6q7kxwnD0X/ya2OMRUHxjVoW2eZauc53L2AAK2OHEvdDqv3jePZe
+         kp2P63/v5Q/2TvkuFwCM9Cbs9u87lyjKt1UUkmQjw+aDmbnZ0uATIO29Uenwkzwnxw6K
+         Qy2wCjgJiDrL7QHMCmKYYq+HR/j60cT1RVVxFBsJOm/XFsIYMWDrXEsu7wgMtOkN0ome
+         KZdugXa1Z5U9BJ43li4SwwGmMMvKivR/d/tIJZdTp0OptYWsWDtHP71YZw42Ebw/BAnk
+         FXcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710240643; x=1710845443;
+        d=1e100.net; s=20230601; t=1710240828; x=1710845628;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dYBA5ZRY3sMwHRTKUt/lRju6/j+m+2WI0qT9VSOvySE=;
-        b=NnM7TXZKWy/+mU+7XSdYF/V+3URsAywocx9APLqOzCs9KFZeCJJLF4o+YrJaOoSlN5
-         UrppC9MmFEIT/1LiB4K/CqblSqobZsU020IPqI9Zv05F+UyENcemku0f+ZQ7kXxiK8AB
-         7s3CeE4cqnsv4zGDfS3FUwEqIJ7TscGowcwgw8DTw5aKEQEKfzpN9WGow3rRY9vubH7s
-         V38JxGT3mQ2mxYL9iBVRn9HYPr/TdmzKU9PP/VEwTLLLZCcgW/zvySYcOMt1o0Kkwf9V
-         1UGhnAUyK0sTt4Z2+Qn3tVV2GekLulUp7r1lGR0SYG9T8zS8ibjhXp/OK/s3d/KenS5a
-         /QUA==
-X-Forwarded-Encrypted: i=1; AJvYcCWiC18jVFB4SuagQs8JTXFxgSP0UdVOR/vtbr+0Ll4izGzC5kVmHL4cx0bK3p+4S8L8WLybi2Myog+ldsFiNgDR5JWBGc46LbZAKnXWPPo=
-X-Gm-Message-State: AOJu0YxBIv7ivqJoFeVCBCbT4KV2m4MWT1BEmbSMXvaHBqcVePAcGTtl
-	xtTPa7N9A8ff8RDtWdwl813YT/D4O06xl00OHDbP3BpvM/ylFIjtFXXMpqPKCA==
-X-Google-Smtp-Source: AGHT+IH5nZR5vvDN4qN+c89PhcPB2ebU/v35WNGv1h28RdKTbha0GZhT7FgsPZCFJY6E8KRYjz4KUQ==
-X-Received: by 2002:a17:906:19c5:b0:a46:2c22:7f4c with SMTP id h5-20020a17090619c500b00a462c227f4cmr3090292ejd.35.1710240642995;
-        Tue, 12 Mar 2024 03:50:42 -0700 (PDT)
-Message-ID: <b6c32d82-1081-49c3-9d09-99561847bfd5@suse.com>
-Date: Tue, 12 Mar 2024 11:50:42 +0100
+        bh=/rojXMfHXApf8EGOHWtgacoTXPjnXkQP6vbQTBrXJBA=;
+        b=MYd1qlxeM6GCC1r8VugdKBVD7MsCpcxwBYKUnqXIUICjdDPQqJBPO0W/YLoQtYpOQV
+         HvkRICa0tR787iUVLPMP294Q0713ItmL/mvzt9Cc/lbdRJh2KFwhM3h4FsDsY9wPko9g
+         nKVEof75xJiiN6DQrr3E+c4VIaz0gYfb0E9ThhCwkZe6NpKptakwNCq7kGMuGlbQfWGW
+         oWnpPoMkJ//Ms99R5YyOuic8tGhmj2BgcuWgpnAaMSMmr8KNPMEMi1KU99cmL7yPEZ2a
+         8lYNgMakiX14gGwYYx901Ic5b23D52DpLcWirh8fQksiEv0JXpLHHri9JF6U300dRcXs
+         hqPg==
+X-Gm-Message-State: AOJu0YzxN/Q3PGbqMc8COTPuNAK676SI5qje6hlWY4DlcQEu09tu7rBT
+	VBsULO/iR5hC5BKJM8dmfzOjzr1fNbD8PERdHAdTlTJUq82iHzOqG7lAp0wI7A==
+X-Google-Smtp-Source: AGHT+IGgZQJ0JPYFoWVYHjujLovk/rKXJJzrgrqi4AFrfdCp9sNVKh8sFbV+Nd920ALC50PRV4tkHQ==
+X-Received: by 2002:a17:906:6d0e:b0:a46:2aa1:1d with SMTP id m14-20020a1709066d0e00b00a462aa1001dmr2950174ejr.8.1710240827983;
+        Tue, 12 Mar 2024 03:53:47 -0700 (PDT)
+Message-ID: <6a80ceb6-cc2a-4d8f-9a66-70063923b0ea@suse.com>
+Date: Tue, 12 Mar 2024 11:53:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] x86/svm: Drop the suffix _guest from vmcb bit
+Subject: Re: [PATCH] drivers/char: mark XHCI DMA buffers reserved in memory
+ map
 Content-Language: en-US
-To: Vaishali Thakkar <vaishali.thakkar@vates.tech>
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org,
- xen-devel@lists.xenproject.org
-References: <cover.1710149462.git.vaishali.thakkar@vates.tech>
- <b0e5dde517599e8af5aadbaff7dd4410e83fcf86.1710149462.git.vaishali.thakkar@vates.tech>
- <d2830e8e-6cf5-4266-a7ac-c5103fcae233@suse.com>
- <b0740f0b-0833-4d7b-959b-89a3cef051d5@vates.tech>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20240311203431.342530-1-marmarek@invisiblethingslab.com>
+ <ZfAtahcXWGqckQFW@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,45 +114,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b0740f0b-0833-4d7b-959b-89a3cef051d5@vates.tech>
+In-Reply-To: <ZfAtahcXWGqckQFW@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12.03.2024 11:08, Vaishali Thakkar wrote:
-> On 3/12/24 08:59, Jan Beulich wrote:
->> On 11.03.2024 13:40, Vaishali Thakkar wrote:
->>> @@ -698,11 +698,11 @@ nsvm_vcpu_vmentry(struct vcpu *v, struct cpu_user_regs *regs,
->>>       /* Convert explicitely to boolean. Deals with l1 guests
->>>        * that use flush-by-asid w/o checking the cpuid bits */
->>>       nv->nv_flushp2m = !!ns_vmcb->tlb_control;
->>> -    if ( svm->ns_guest_asid != ns_vmcb->_guest_asid )
->>> +    if ( svm->ns_asid != ns_vmcb->_asid )
->>>       {
->>>           nv->nv_flushp2m = 1;
->>>           hvm_asid_flush_vcpu_asid(&vcpu_nestedhvm(v).nv_n2asid);
->>> -        svm->ns_guest_asid = ns_vmcb->_guest_asid;
->>> +        svm->ns_asid = ns_vmcb->_asid;
->>>       }
->>>   
->>>       /* nested paging for the guest */
->>> @@ -1046,7 +1046,7 @@ nsvm_vmcb_prepare4vmexit(struct vcpu *v, struct cpu_user_regs *regs)
->>>       /* Keep it. It's maintainted by the l1 guest. */
->>>   
->>>       /* ASID */
->>> -    /* ns_vmcb->_guest_asid = n2vmcb->_guest_asid; */
->>> +    /* ns_vmcb->_asid = n2vmcb->_asid; */
->>
->> Unlike in the earlier patch, where I could accept the request to switch
->> to using accessor functions as scope-creep-ish, here I'm pretty firm
->> with my request to stop their open-coding at the same time. Unless of
->> course there's a technical reason the accessors cannot be used here.
+On 12.03.2024 11:24, Roger Pau Monné wrote:
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -1806,6 +1806,9 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>>      mmio_ro_ranges = rangeset_new(NULL, "r/o mmio ranges",
+>>                                    RANGESETF_prettyprint_hex);
+>>  
+>> +    /* Needs to happen after E820 processing but before IOMMU init */
+>> +    xhci_dbc_uart_reserve_ram();
 > 
-> Yes, so as mentioned in the other patch's reply, I plan to tackle this 
-> instance too in the followup patchset along with others. So, if you're
-> fine with it, I'll leave this one here for now. Unless you prefer otherwise.
+> Overall it might be better if some generic solution for all users of
+> iommu_add_extra_reserved_device_memory() could be implemented,
 
-I thought I said pretty clearly that here I'm stronger with my request
-than on the other patch.
++1
+
+> but I'm
+> unsure whether the intention is for the interface to always be used
+> against RAM.
+
+I think we can work from that assumption for now.
 
 Jan
 
