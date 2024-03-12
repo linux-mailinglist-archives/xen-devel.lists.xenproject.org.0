@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D42B879862
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 16:54:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691931.1078543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 423EE879864
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 16:55:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691933.1078553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk4SZ-0004tA-9N; Tue, 12 Mar 2024 15:54:35 +0000
+	id 1rk4TL-0005Ng-ID; Tue, 12 Mar 2024 15:55:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691931.1078543; Tue, 12 Mar 2024 15:54:35 +0000
+Received: by outflank-mailman (output) from mailman id 691933.1078553; Tue, 12 Mar 2024 15:55:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk4SZ-0004rI-6r; Tue, 12 Mar 2024 15:54:35 +0000
-Received: by outflank-mailman (input) for mailman id 691931;
- Tue, 12 Mar 2024 15:54:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rk4TL-0005Lf-Eu; Tue, 12 Mar 2024 15:55:23 +0000
+Received: by outflank-mailman (input) for mailman id 691933;
+ Tue, 12 Mar 2024 15:55:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rk4SX-0004rC-UU
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 15:54:33 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d0c4a689-e088-11ee-a1ee-f123f15fe8a2;
- Tue, 12 Mar 2024 16:54:31 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a45ba1f8e89so624837466b.1
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 08:54:31 -0700 (PDT)
+ id 1rk4TK-0005CN-0v
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 15:55:22 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ee4d3727-e088-11ee-afdd-a90da7624cb6;
+ Tue, 12 Mar 2024 16:55:21 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a28a6cef709so640561766b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 08:55:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ld1-20020a170906f94100b00a461c74bbbfsm2699283ejb.91.2024.03.12.08.54.30
+ ld1-20020a170906f94100b00a461c74bbbfsm2699283ejb.91.2024.03.12.08.55.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 08:54:31 -0700 (PDT)
+ Tue, 12 Mar 2024 08:55:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0c4a689-e088-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: ee4d3727-e088-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710258871; x=1710863671; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710258921; x=1710863721; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=jl6fEIgH2oglGYPVjMa6cx3/SPDIkeNV4c9GG1YmLTE=;
-        b=bGOkx2pHDt13Gi9iSOWigKj+Whw4+jf3vWRPJQbf0ZG+kJ1VZOJ6MwGHfE+On0oj4O
-         6Gtn2/xI7U3e0PBycztDZvb7nBSnnjFJecC4pjE0IHJrl3S6GVtrxoRTFDHwQKlZsk17
-         aYkyBoOy52IxFsVz0ogtIezKMUYh2zCTR+aExgZkFSMPS7PVyhC8GxsMYnGylSTkPEEk
-         eWcTEyGAeiF8ZzOwTOx9Fq1UzadVjLreldSTPsuGdJcmiKmp3qBPVFoFcOTLc1QJwdbD
-         8nIS/12YCMpIW7px71w9i5MD8XARvnt6DVlkokpQT0JD2jHpdgpwgGwqaThgw2z0EyPO
-         tJ2A==
+        bh=bUAB7QbBrOuy75xiVNXmLPTl1p+19b/5Fs5tqFgq71A=;
+        b=RbISJ+wGXXHOCmF6eJvSj+OkERih6uAMAPvgJCdzKt7rCybtirLH0/70Reu3RPSEpw
+         kv7tMhzEyqhUtbdmWA2UQnSVNtz4dDunoisTkcLbUdhenZC5HxLKeUqhbsVUsLjoN15Z
+         WqMn6TIcaSXC8iY4Nc56AwwUWhUdM/Q2mScokpcq0S2GYeqaW0MuS27r5E2/VvshhM4p
+         /4TErUeRfR9xigVWz27LZR/9ZIq/Kcn2/3T0/sBSEkspC67W5cIvuwIOUdzH3mp+JOGb
+         n94ydae8QN8Z8oxIn/2niGpu0kEzTLt6ocqIH/zs2pNOkNEu39tPSCJhS5XzUWQx56aY
+         Uf3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710258871; x=1710863671;
+        d=1e100.net; s=20230601; t=1710258921; x=1710863721;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jl6fEIgH2oglGYPVjMa6cx3/SPDIkeNV4c9GG1YmLTE=;
-        b=eO1CZ3vOELwTtCIMlBt7GdTBLcN0o0Ju7GNO7yQk55nPbylHNFp7vE3U5cnqqHlsLC
-         8IVNFpE4QnDF90c/8NDjlP1vP26dQCfKER6bwXAwmIuV8ztbQQDAKYZkmP2XxHqiKmuO
-         CuBE6He6wNqP+68Ikvr3gH7nbmYBAHVRWipdke3T1iqHh18zCSVV4ktx6TW9jT1oFesN
-         LwvrCstXfd0VROlNLf/DU97/QJ+tuZVlDYSXOckibEweU057TA9Dppr7yDdQ9BMFfmD8
-         Rueo4pX++z/ZxqpmGLcJ2d6h9poiAyj5XGlmw81Px31eQWUmqA2WODgle05GnCQnirX1
-         MiXA==
-X-Forwarded-Encrypted: i=1; AJvYcCWOI/HmqkkatyA+GBa90XhQZHNmDLZF3LI4y87MuTyTNciHqV7mJdwPPavkj9uRctndR2QWYRkiZ6zkpVK1x/KUwZnIVrZPvkblBlRQTcY=
-X-Gm-Message-State: AOJu0YyxNBk2iH/a/4bBOWlTNpFcsgE7gX4Mt0uI1rfbld1c0ai0+vRK
-	HfBgK20Iwrsd/fcz2N21/0ip5NHQRVAcilLnfG9JtxchmTN2LiHilhlBdibtTg==
-X-Google-Smtp-Source: AGHT+IHi3LXKzx6fHhr5HA+tii4DsLRmvVNoPYeVL0CTnMFFDgCHCQUtBX6Oi9vizj18eu6FgoegjQ==
-X-Received: by 2002:a17:906:af83:b0:a44:55e8:53b6 with SMTP id mj3-20020a170906af8300b00a4455e853b6mr6776137ejb.32.1710258871400;
-        Tue, 12 Mar 2024 08:54:31 -0700 (PDT)
-Message-ID: <7a9d46bb-e231-4b1a-a60c-62905e6cc1cc@suse.com>
-Date: Tue, 12 Mar 2024 16:54:30 +0100
+        bh=bUAB7QbBrOuy75xiVNXmLPTl1p+19b/5Fs5tqFgq71A=;
+        b=Du90hjtrkFVnqeoToCbapPuaeIGzw2hyhTVSWOhOmQdSUKUUiVD3xDyAsSpIAZ0Q/5
+         dZwtKateB8T1cLPmcV6ixLUGTC62+7JRPwGlh/7co3zqQ5sgI9WProNh4/ir85N04676
+         5mXDBSmjoThqAuyz7p0vPNv17fqFLs2sTxKpXyK0LpYsK2fzGujYfu5nzOpBTjAl80vK
+         R0eEDMI2pY7eIALD9DOhb1vnJ8avr82OJp9lmRWkvq3DRt2hN/SBJRabxn/mtEcAJEjk
+         V6OV4LDe/TLdlFVLE3m9jtbQ9T803hjaualYxe87jmmKZlqGpQr5Xi9dSD7uyTKOKe0A
+         +bUQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXsng+k7HHuDTDTifhxq8B7tuo7eOs+AYYgRdYf+ldsTI7ItLGd7VDT1sSyXUkiWxBKemvLNrXjR7h3THaCCqK7XEsiKgS9Hik6DrBVv2Q=
+X-Gm-Message-State: AOJu0YxjiP+/jtbPZXjxsI7eIJEUujIEYRE9PvFKQ9YFwAJk1YrZhx5j
+	SVO5XxE2GFxj8iVLN/9PNpAda4uMleDjiNRUefUcQwXDtyCSk+i2ed3C/gwk4McYIHlO/12Ogcs
+	=
+X-Google-Smtp-Source: AGHT+IGWq3EAubyD3sdivTPr2QhuG4+z35NHCHejXN7B/+f1MJzxzD1cVVSfL7DhnQkdSMKJJT20Ng==
+X-Received: by 2002:a17:906:bf4a:b0:a45:bf67:bab2 with SMTP id ps10-20020a170906bf4a00b00a45bf67bab2mr6682747ejb.59.1710258920914;
+        Tue, 12 Mar 2024 08:55:20 -0700 (PDT)
+Message-ID: <a11df04d-eeba-4aca-8d93-3ec20b9a5837@suse.com>
+Date: Tue, 12 Mar 2024 16:55:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 14/16] xen/x86: address violations of MISRA C:2012
+Subject: Re: [XEN PATCH v3 15/16] x86/mtrr: address violations of MISRA C:2012
  Directive 4.10
 Content-Language: en-US
 To: Simone Ballarin <simone.ballarin@bugseng.com>
 Cc: consulting@bugseng.com, sstabellini@kernel.org,
- xen-devel@lists.xenproject.org,
  Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
 References: <cover.1710145041.git.simone.ballarin@bugseng.com>
- <305d6474a84e16d44c193a93e2c2ca91d6dd0f7e.1710145041.git.simone.ballarin@bugseng.com>
+ <33413c877af70c8aed05ed1bc7b259c59087cb96.1710145041.git.simone.ballarin@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,42 +116,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <305d6474a84e16d44c193a93e2c2ca91d6dd0f7e.1710145041.git.simone.ballarin@bugseng.com>
+In-Reply-To: <33413c877af70c8aed05ed1bc7b259c59087cb96.1710145041.git.simone.ballarin@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.03.2024 09:59, Simone Ballarin wrote:
 > From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
 > 
-> Edit inclusion guards to address violations of
+> Add inclusion guard to address violations of
 > MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order to
 > prevent the contents of a header file being included more than once").
 > Mechanical change.
+> ---
+> Commit introduced in v3
+> 
+> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
 
-The changes all follow a single pattern, yet I'm afraid I can't bring
-this pattern in line with this description. To take ...
-
-> --- a/xen/arch/x86/include/asm/domain.h
-> +++ b/xen/arch/x86/include/asm/domain.h
-> @@ -1,5 +1,5 @@
-> -#ifndef __ASM_DOMAIN_H__
-> -#define __ASM_DOMAIN_H__
-> +#ifndef ASM_X86_DOMAIN_H
-> +#define ASM_X86_DOMAIN_H
->  
->  #include <xen/mm.h>
->  #include <xen/radix-tree.h>
-> @@ -780,7 +780,7 @@ struct arch_vcpu_io {
->  /* Maxphysaddr supportable by the paging infrastructure. */
->  unsigned int domain_max_paddr_bits(const struct domain *d);
->  
-> -#endif /* __ASM_DOMAIN_H__ */
-> +#endif /* ASM_X86_DOMAIN_H */
-
-... this as example - what's the violation here? The existing symbol
-provides the intended effect, doesn't it? What it does not is adhere
-to the new naming scheme, but there's no mention of that in the
-description.
+Somewhat reluctantly
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
