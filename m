@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC14B879845
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 16:49:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691927.1078534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D42B879862
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 16:54:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691931.1078543 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk4NK-0003DV-Na; Tue, 12 Mar 2024 15:49:10 +0000
+	id 1rk4SZ-0004tA-9N; Tue, 12 Mar 2024 15:54:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691927.1078534; Tue, 12 Mar 2024 15:49:10 +0000
+Received: by outflank-mailman (output) from mailman id 691931.1078543; Tue, 12 Mar 2024 15:54:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk4NK-0003At-KW; Tue, 12 Mar 2024 15:49:10 +0000
-Received: by outflank-mailman (input) for mailman id 691927;
- Tue, 12 Mar 2024 15:49:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rk4SZ-0004rI-6r; Tue, 12 Mar 2024 15:54:35 +0000
+Received: by outflank-mailman (input) for mailman id 691931;
+ Tue, 12 Mar 2024 15:54:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rk4NJ-0003An-Ar
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 15:49:09 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0fd7bc02-e088-11ee-afdd-a90da7624cb6;
- Tue, 12 Mar 2024 16:49:08 +0100 (CET)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2d4360ab3daso37289441fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 08:49:08 -0700 (PDT)
+ id 1rk4SX-0004rC-UU
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 15:54:33 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d0c4a689-e088-11ee-a1ee-f123f15fe8a2;
+ Tue, 12 Mar 2024 16:54:31 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a45ba1f8e89so624837466b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 08:54:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e14-20020a50fb8e000000b00568554e368dsm2489947edq.3.2024.03.12.08.49.07
+ ld1-20020a170906f94100b00a461c74bbbfsm2699283ejb.91.2024.03.12.08.54.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 08:49:07 -0700 (PDT)
+ Tue, 12 Mar 2024 08:54:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fd7bc02-e088-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: d0c4a689-e088-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710258548; x=1710863348; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710258871; x=1710863671; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=FbRA83MiwO/+5AdVZxlBYF1GDk7OKCIaDODL9TPrMbw=;
-        b=bkux6cow4wnZ6nwiLXEORd+OAy1/fUXYBA/+5vX3H7TjsOi5JbU/IoAceklyMZj4F9
-         TKghUuKz/e2zgQyhLbvJrBJ50rdYy9pqppVFMsZmCj3PSqKGs9xbIahWCyACHbNtxr4H
-         nUpHGqOBM36SOR3VAnbeT1mTI7wRcDJQl//DDuJ7Z7EmyhfZ+aACdo3W2QlFmGIMjkMu
-         7wUH2PQGCCQo72czCP8kNoW+lhFWIU39oN+rAK+gKoEB4ZuGF1xa0ib00RzXqoBCA//B
-         1D6XJXKjYmuKxoSLmYp5TnE6e75W/Xi5EMGxDHkKe4gUVlkBL9lNU0Q8MxSZnRX8HwVf
-         UnAg==
+        bh=jl6fEIgH2oglGYPVjMa6cx3/SPDIkeNV4c9GG1YmLTE=;
+        b=bGOkx2pHDt13Gi9iSOWigKj+Whw4+jf3vWRPJQbf0ZG+kJ1VZOJ6MwGHfE+On0oj4O
+         6Gtn2/xI7U3e0PBycztDZvb7nBSnnjFJecC4pjE0IHJrl3S6GVtrxoRTFDHwQKlZsk17
+         aYkyBoOy52IxFsVz0ogtIezKMUYh2zCTR+aExgZkFSMPS7PVyhC8GxsMYnGylSTkPEEk
+         eWcTEyGAeiF8ZzOwTOx9Fq1UzadVjLreldSTPsuGdJcmiKmp3qBPVFoFcOTLc1QJwdbD
+         8nIS/12YCMpIW7px71w9i5MD8XARvnt6DVlkokpQT0JD2jHpdgpwgGwqaThgw2z0EyPO
+         tJ2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710258548; x=1710863348;
+        d=1e100.net; s=20230601; t=1710258871; x=1710863671;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FbRA83MiwO/+5AdVZxlBYF1GDk7OKCIaDODL9TPrMbw=;
-        b=Ig+iOO9Jzgst7SSGBW0fA59Qgd95gCBmJpgOwWGkzUky+Ye4T6ijZUw/st9xM0ENa7
-         K639Fa3rZJLlezYySOgBSWnuIRjcj1bcA8sNoWthYVrvD0AQVNDYl1pFYBFU6F/EvrnW
-         lhUbHoYa5/rdVhrWFY823cvhK/S7+4yJP7in8x76Q5ECjD1t32IACkCyjGQMj9Mc5E/H
-         NSw+DFoNJB+8+6IcMXSnDULwabP00mQ+23RQn3ntiYocgRv9vQ8vyCGjpyUHWLmDu2oj
-         87TfApLOjRAN08igDbw2HF5A4MHZbQIkaK+QmWFGWxVNpgUQkIRaBkwwe5GF4foUfTTO
-         fpsg==
-X-Forwarded-Encrypted: i=1; AJvYcCVAhGy1Kd/fOmNePL0PN15DZUSPYq/awxH4ScRg3853bEJ4YyjuA6/zzC71ogp4SqmIL72emrz/vuO0bTPEfoGxWDpIeTX0myJDrcLWXvM=
-X-Gm-Message-State: AOJu0YzIYZhIvNboFR1VttfgtK5EBV+bCf3c2CQvlKqQa40O0K89eJV3
-	/yzpE4C8/FP6uIFXier/ZAwGIZz+gFkKM8t08t+3IZ2+i+UHaM9k/ac/HGmckA==
-X-Google-Smtp-Source: AGHT+IHawHznR/QP16njJczhOJgq8uXLgCtKz/7BDOB2PlnQ5gcgiWD1V0nUWAeWtCjYsP9jSYebkg==
-X-Received: by 2002:a2e:a9ac:0:b0:2d4:22d1:d96c with SMTP id x44-20020a2ea9ac000000b002d422d1d96cmr1837780ljq.25.1710258547704;
-        Tue, 12 Mar 2024 08:49:07 -0700 (PDT)
-Message-ID: <c42322a5-8908-450f-b076-836440a5b7d9@suse.com>
-Date: Tue, 12 Mar 2024 16:49:06 +0100
+        bh=jl6fEIgH2oglGYPVjMa6cx3/SPDIkeNV4c9GG1YmLTE=;
+        b=eO1CZ3vOELwTtCIMlBt7GdTBLcN0o0Ju7GNO7yQk55nPbylHNFp7vE3U5cnqqHlsLC
+         8IVNFpE4QnDF90c/8NDjlP1vP26dQCfKER6bwXAwmIuV8ztbQQDAKYZkmP2XxHqiKmuO
+         CuBE6He6wNqP+68Ikvr3gH7nbmYBAHVRWipdke3T1iqHh18zCSVV4ktx6TW9jT1oFesN
+         LwvrCstXfd0VROlNLf/DU97/QJ+tuZVlDYSXOckibEweU057TA9Dppr7yDdQ9BMFfmD8
+         Rueo4pX++z/ZxqpmGLcJ2d6h9poiAyj5XGlmw81Px31eQWUmqA2WODgle05GnCQnirX1
+         MiXA==
+X-Forwarded-Encrypted: i=1; AJvYcCWOI/HmqkkatyA+GBa90XhQZHNmDLZF3LI4y87MuTyTNciHqV7mJdwPPavkj9uRctndR2QWYRkiZ6zkpVK1x/KUwZnIVrZPvkblBlRQTcY=
+X-Gm-Message-State: AOJu0YyxNBk2iH/a/4bBOWlTNpFcsgE7gX4Mt0uI1rfbld1c0ai0+vRK
+	HfBgK20Iwrsd/fcz2N21/0ip5NHQRVAcilLnfG9JtxchmTN2LiHilhlBdibtTg==
+X-Google-Smtp-Source: AGHT+IHi3LXKzx6fHhr5HA+tii4DsLRmvVNoPYeVL0CTnMFFDgCHCQUtBX6Oi9vizj18eu6FgoegjQ==
+X-Received: by 2002:a17:906:af83:b0:a44:55e8:53b6 with SMTP id mj3-20020a170906af8300b00a4455e853b6mr6776137ejb.32.1710258871400;
+        Tue, 12 Mar 2024 08:54:31 -0700 (PDT)
+Message-ID: <7a9d46bb-e231-4b1a-a60c-62905e6cc1cc@suse.com>
+Date: Tue, 12 Mar 2024 16:54:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 3/9] x86/smp: drop x86_cpu_to_apicid, use
- cpu_data[cpu].apicid instead
+Subject: Re: [XEN PATCH v3 14/16] xen/x86: address violations of MISRA C:2012
+ Directive 4.10
 Content-Language: en-US
-To: Krystian Hebel <krystian.hebel@3mdeb.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>
-References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
- <8121d9b472b305be751158aa3af3fed98ff0572e.1699982111.git.krystian.hebel@3mdeb.com>
- <b85ecee7-65ce-47f0-8e9d-cdc056d337fb@xen.org>
- <24dc1f13-3add-4b5f-9e2d-a18286b691eb@suse.com>
- <c0fb2c1f-a759-4328-96f7-d4795d2fe4d9@3mdeb.com>
+To: Simone Ballarin <simone.ballarin@bugseng.com>
+Cc: consulting@bugseng.com, sstabellini@kernel.org,
+ xen-devel@lists.xenproject.org,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <cover.1710145041.git.simone.ballarin@bugseng.com>
+ <305d6474a84e16d44c193a93e2c2ca91d6dd0f7e.1710145041.git.simone.ballarin@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,35 +115,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c0fb2c1f-a759-4328-96f7-d4795d2fe4d9@3mdeb.com>
+In-Reply-To: <305d6474a84e16d44c193a93e2c2ca91d6dd0f7e.1710145041.git.simone.ballarin@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.03.2024 16:29, Krystian Hebel wrote:
-> On 7.02.2024 17:41, Jan Beulich wrote:
->> On 02.02.2024 19:11, Julien Grall wrote:
->>> On 14/11/2023 17:50, Krystian Hebel wrote:
->>>> --- a/xen/arch/x86/numa.c
->>>> +++ b/xen/arch/x86/numa.c
->>>> @@ -54,14 +54,13 @@ bool __init arch_numa_unavailable(void)
->>>>    /*
->>>>     * Setup early cpu_to_node.
->>>>     *
->>>> - * Populate cpu_to_node[] only if x86_cpu_to_apicid[],
->>>> - * and apicid_to_node[] tables have valid entries for a CPU.
->>>> - * This means we skip cpu_to_node[] initialisation for NUMA
->>>> - * emulation and faking node case (when running a kernel compiled
->>>> - * for NUMA on a non NUMA box), which is OK as cpu_to_node[]
->>>> - * is already initialized in a round robin manner at numa_init_array,
->>>> - * prior to this call, and this initialization is good enough
->>>> - * for the fake NUMA cases.
->>>> + * Populate cpu_to_node[] only if cpu_data[], and apicid_to_node[]
->> You mean cpu_physical_id() here, and then this change wants doing when
->> switching to that, imo.
-> You mean s/cpu_data[]/cpu_physical_id()/ or something else?
+On 11.03.2024 09:59, Simone Ballarin wrote:
+> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+> 
+> Edit inclusion guards to address violations of
+> MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order to
+> prevent the contents of a header file being included more than once").
+> Mechanical change.
 
-Well, in general terms - whatever the function in fact accesses. That's,
-if I reconstruct it from patch 2, as you say then.
+The changes all follow a single pattern, yet I'm afraid I can't bring
+this pattern in line with this description. To take ...
+
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -1,5 +1,5 @@
+> -#ifndef __ASM_DOMAIN_H__
+> -#define __ASM_DOMAIN_H__
+> +#ifndef ASM_X86_DOMAIN_H
+> +#define ASM_X86_DOMAIN_H
+>  
+>  #include <xen/mm.h>
+>  #include <xen/radix-tree.h>
+> @@ -780,7 +780,7 @@ struct arch_vcpu_io {
+>  /* Maxphysaddr supportable by the paging infrastructure. */
+>  unsigned int domain_max_paddr_bits(const struct domain *d);
+>  
+> -#endif /* __ASM_DOMAIN_H__ */
+> +#endif /* ASM_X86_DOMAIN_H */
+
+... this as example - what's the violation here? The existing symbol
+provides the intended effect, doesn't it? What it does not is adhere
+to the new naming scheme, but there's no mention of that in the
+description.
 
 Jan
 
