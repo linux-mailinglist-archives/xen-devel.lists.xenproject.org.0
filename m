@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CB7C8792E8
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 12:25:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691781.1078128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 695D28792E9
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 12:25:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691783.1078138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk0Fj-0003My-3u; Tue, 12 Mar 2024 11:25:03 +0000
+	id 1rk0G8-0003lT-Bp; Tue, 12 Mar 2024 11:25:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691781.1078128; Tue, 12 Mar 2024 11:25:03 +0000
+Received: by outflank-mailman (output) from mailman id 691783.1078138; Tue, 12 Mar 2024 11:25:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk0Fj-0003Jw-0c; Tue, 12 Mar 2024 11:25:03 +0000
-Received: by outflank-mailman (input) for mailman id 691781;
- Tue, 12 Mar 2024 11:25:01 +0000
+	id 1rk0G8-0003jv-8S; Tue, 12 Mar 2024 11:25:28 +0000
+Received: by outflank-mailman (input) for mailman id 691783;
+ Tue, 12 Mar 2024 11:25:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=puNH=KS=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1rk0Fh-0003Jq-T4
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 11:25:01 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rk0G6-0003Jq-C7
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 11:25:26 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 293480ee-e063-11ee-afdd-a90da7624cb6;
- Tue, 12 Mar 2024 12:25:00 +0100 (CET)
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-632-3h6p3-o2OzWdtojOZSd3WA-1; Tue, 12 Mar 2024 07:24:57 -0400
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-42ee0da398eso75267801cf.1
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 04:24:57 -0700 (PDT)
-Received: from [192.168.0.9] (ip-109-43-177-86.web.vodafone.de.
- [109.43.177.86]) by smtp.gmail.com with ESMTPSA id
- l11-20020a05622a050b00b0042c7d11e280sm3608889qtx.90.2024.03.12.04.24.51
+ id 38e644b2-e063-11ee-afdd-a90da7624cb6;
+ Tue, 12 Mar 2024 12:25:25 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a4417fa396fso387025666b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 04:25:25 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ rn16-20020a170906d93000b00a441a7a75b5sm3737581ejb.209.2024.03.12.04.25.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 04:24:56 -0700 (PDT)
+ Tue, 12 Mar 2024 04:25:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,167 +45,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 293480ee-e063-11ee-afdd-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1710242699;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=gnBoAxc43PzxlzX8NgDw1FOToc09+ltM8010JBkSnys=;
-	b=e9/3H3VMXf5v0Hyrk6ovKXcI9QUHW4RkLDr+ez+uLnmbk1Qx9EPoVGUqU0nOaF0sUtpyPi
-	RdGhb5YyhYO3WPLpPPz6WAO9d2nEZAhZj600nHtyJL+G9mQvk7ASeUME1vXjw0WDqLvMPt
-	uHTJsvYMTcGB/uM7sQPamVnWN4ZMgNU=
-X-MC-Unique: 3h6p3-o2OzWdtojOZSd3WA-1
+X-Inumbo-ID: 38e644b2-e063-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1710242725; x=1710847525; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=x1f1hNNbAJyaikjmoaIR3ZKVQAUoGbmjEBi5wSEkNnc=;
+        b=A1OGhHLs8EU3OVQ0GL2Y1h9ceqDBbEe++wZL9KhWwD2xY637rgyI7rc/IO3z0O3099
+         rPthkjoWWtw9jYd8Sjs5iUjLbeYj6WXuvnfGMSKKBPiS7BhHG6XvemzmsEvCf2ITuwmM
+         01FEX8/2yn1NQKD/1JY/TT/mVl/NW+kbZOzkjZTcCM5n43/GqtcGYI17JOaim6kgduUr
+         qsMYqSpkQio5Nyeg2nIQFK12pHuiw3zp5/0uqn6u81yVmku7q+0kSb1zDfQOYIohah7C
+         a3r0Onhr+kW9LSsqyY1BzK6UMrAm5AVVe/U/LpUo6Q6MypzS4EXB69uS2EXEVIS4GJCL
+         YJ7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710242697; x=1710847497;
+        d=1e100.net; s=20230601; t=1710242725; x=1710847525;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gnBoAxc43PzxlzX8NgDw1FOToc09+ltM8010JBkSnys=;
-        b=FBq7YG0DoZXiYuIwGqbligm6YSEONCUVuOUGLPQ/HBB5jj40YtkFBv9eDW7mNGyxZ3
-         //1vr5gmI04CUKEygZoouw155bnuHARRH+x8EDwd7Jo/BJFE1Eoh8go+LikC9DILgfU/
-         Ck+UnoMGplTzoH0E8uvGwApYbrB/AbvZjGbjdQGAlZx1H5q32XLOuYANJ5R2jv8cHzwr
-         bZh4Ga89BtDQEWpM5ut10g6ZErMh5Boqb7SmdFgYX/C6mUkRClj4OVqwrYMhBH6LjTvQ
-         qrg/eWI93Cf7LsFCHeA26u0b96R8s4+dkdChfC1tjAARHU6psI+tqIGbaPDEowh+5yHD
-         iepw==
-X-Forwarded-Encrypted: i=1; AJvYcCUhtWX7bJOuK8dptbITkPzkUsmJ6sCdbOJ/rn8aMzI/nY798ZQY6N95Qs/RKgDzi+/Z3YihDKb1YPxjyothXlG1MHXVdnIFfa1oKp85n+k=
-X-Gm-Message-State: AOJu0YwtB+wRVaEfNHsYXPeM64TtUhTE8dskhyaxJUG2HPPoDHEgkIjw
-	gHUwuNghl5KMEPOfwPVct2wk5jcWczgJaTMGp24NTILcSZ0zBD+Ly9p+eRB+VxTr82rZBqCiKyt
-	P4MQ89DHt2l+080esPvXp0ax7saVTmKuBS0G5jXM2ZqaGD2ypTJQcwmitri7tLD53
-X-Received: by 2002:a05:622a:1454:b0:42e:8beb:325 with SMTP id v20-20020a05622a145400b0042e8beb0325mr10339144qtx.31.1710242696623;
-        Tue, 12 Mar 2024 04:24:56 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHOC3aOF+g4AMZA0grALUbHfxXPMcm4Ryayzppon2mawE44bRCtuTu2Z1s3VoohtkPfAdKV1g==
-X-Received: by 2002:a05:622a:1454:b0:42e:8beb:325 with SMTP id v20-20020a05622a145400b0042e8beb0325mr10339129qtx.31.1710242696303;
-        Tue, 12 Mar 2024 04:24:56 -0700 (PDT)
-Message-ID: <96422cf0-30a8-4e2a-99c5-8388ec342e36@redhat.com>
-Date: Tue, 12 Mar 2024 12:24:49 +0100
+        bh=x1f1hNNbAJyaikjmoaIR3ZKVQAUoGbmjEBi5wSEkNnc=;
+        b=FQFz0gzINNEUtVArXTrRsiuBDFj5RbwmQd+c31otUNhqq9AFa5IuT/ruvk09zMsE1r
+         RxlZS0Nf2b2EKum9QQ5t3b5bMNl0S+Amy7+LNnpI0+aBqZrcPc23OD+EpYRkyvUT1pG1
+         jk18ZYX2Lg6OovwS/OKCi1wQvpxOKxgmHHSmZ1jQhFL/GLNpUGtbnFmAmiP27V9WM1yy
+         ipnY5mKVIBwGGLOU0nQZLklBENtMeJiLYO6mcLP86YzGCWuRCYVyz+iWELan6244x6aK
+         LnbMih43H0oOHjfSif0U3gPS9vB6ABFbMCfh1Wkjr9+yw4HQ+a+WISEs/9R8nkKub+2Y
+         gu6w==
+X-Forwarded-Encrypted: i=1; AJvYcCWarRvwfxCOTWBgpeeWJrRMrHS9m3w+dPaQY8XMBi9vhqFhjICRQ0qv8EcjUnd+SuQoxY+AUcifmaxaBoCVphPkVCSy+M/QvqKHDa0kuNA=
+X-Gm-Message-State: AOJu0YxGVD56vyNNPFrAHgF6w3pgDzZVDrJS39BJhEuVkH7CjBToVKQq
+	q+YwP3dJ7GPy73/WGugEBvzJHDycaNs6domxqUCo0+sR3T9/ISymVYeOsNNxGg==
+X-Google-Smtp-Source: AGHT+IGussY1iV27BVX8rdhd4lzvwCNFhFWETP4Anw8wdT9W0o1rF0FFyQOaDACEdAFr++n9WLGjQw==
+X-Received: by 2002:a17:906:2616:b0:a45:b5a0:f3a with SMTP id h22-20020a170906261600b00a45b5a00f3amr5473258ejc.17.1710242725225;
+        Tue, 12 Mar 2024 04:25:25 -0700 (PDT)
+Message-ID: <cf13d0d3-ac5a-483c-956b-12dad7af9cc8@suse.com>
+Date: Tue, 12 Mar 2024 12:25:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 14/29] target/i386: Prefer fast cpu_env() over slower
- CPU QOM cast macro
-To: Igor Mammedov <imammedo@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Cc: qemu-devel@nongnu.org, qemu-riscv@nongnu.org, qemu-s390x@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- qemu-ppc@nongnu.org, qemu-arm@nongnu.org,
- Richard Henderson <richard.henderson@linaro.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Eduardo Habkost <eduardo@habkost.net>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- Cameron Esfahani <dirty@apple.com>, Roman Bolshakov <rbolshakov@ddn.com>,
- Marcelo Tosatti <mtosatti@redhat.com>, David Woodhouse
- <dwmw2@infradead.org>, xen-devel@lists.xenproject.org
-References: <20240129164514.73104-1-philmd@linaro.org>
- <20240129164514.73104-15-philmd@linaro.org>
- <20240130140115.135f533d@imammedo.users.ipa.redhat.com>
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <20240130140115.135f533d@imammedo.users.ipa.redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Subject: Re: [XEN PATCH v2] xen/compiler: deviate the inline macro for MISRA C
+ Rule 20.4
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
+ julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <0e48f35eaa95bbba6c2b8219e412bfd6d9c82b52.1710241987.git.nicola.vetrini@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <0e48f35eaa95bbba6c2b8219e412bfd6d9c82b52.1710241987.git.nicola.vetrini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 30/01/2024 14.01, Igor Mammedov wrote:
-> On Mon, 29 Jan 2024 17:44:56 +0100
-> Philippe Mathieu-Daudé <philmd@linaro.org> wrote:
+On 12.03.2024 12:13, Nicola Vetrini wrote:
+> Rule 20.4 states: "A macro shall not be defined with the same name
+> as a keyword".
 > 
->> Mechanical patch produced running the command documented
->> in scripts/coccinelle/cpu_env.cocci_template header.
+> Defining this macro with the same name as the inline keyword
+> allows for additionally checking that out-of-lined static inline
+> functions end up in the correct section while minimizing churn and
+> has a positive impact on the overall safety. See [1] for additional
+> context on the motivation of this deviation.
 > 
+> No functional change.
 > 
-> commenting here since, I'm not expert on coccinelle scripts.
+> [1] https://lore.kernel.org/xen-devel/adaa6d55-266d-4df8-8967-9340080d17e4@citrix.com/
 > 
-> On negative side we are permanently loosing type checking in this area.
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Not really that much. Have a look at cpu_env(), it has a comment saying:
+Acked-by: Jan Beulich <jbeulich@suse.com>
+with ...
 
-  "We validate that CPUArchState follows CPUState in cpu-all.h"
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -322,6 +322,12 @@ Deviations related to MISRA C:2012 Rules:
+>           - /\* Fallthrough \*/
+>           - /\* Fallthrough. \*/
+>  
+> +   * - R20.4
+> +     -  The override of the keyword \"inline\" in xen/compiler.h is present so
+> +        that section contents checks pass when the compiler chooses not to
+> +        inline a particular function.
 
-So instead of run-time checking, the check should have already been done 
-during compile time, i.e. when you have a valid CPUState pointer, it should 
-be possible to derive a valid CPUArchState pointer from it without much 
-further checking during runtime.
+... padding (1st line of this bullet point) and indentation (2nd and 3rd
+lines) adjusted to what's used elsewhere, including e.g ...
 
-> Is it worth it, what gains do we get with this series?
+> +     - Comment-based deviation.
+> +
+>     * - R20.7
+>       - Code violating Rule 20.7 is safe when macro parameters are used:
+>         (1) as function arguments;
 
-It's a small optimization, but why not?
+... here. Happy to do so while committing.
 
-> Side note,
-> QOM cast expenses you are replacing could be negated by disabling
-> CONFIG_QOM_CAST_DEBUG without killing type check code when it's enabled.
-> That way you will speed up not only cpuenv access but also all other casts
-> across the board.
-
-Yes, but that checking is enabled by default and does not have such 
-compile-time checks that could be used instead, so I think Philippe's series 
-here is still a good idea.
-
->> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
->> ---
-> ...
->>   static inline void vmx_clear_nmi_blocking(CPUState *cpu)
->>   {
->> -    X86CPU *x86_cpu = X86_CPU(cpu);
->> -    CPUX86State *env = &x86_cpu->env;
->> -
->> -    env->hflags2 &= ~HF2_NMI_MASK;
-> 
->> +    cpu_env(cpu)->hflags2 &= ~HF2_NMI_MASK;
-> 
-> this style of de-referencing return value of macro/function
-> was discouraged in past and preferred way was 'Foo f = CAST(me); f->some_access
-> 
-> (it's just imprint speaking, I don't recall where it comes from)
-
-I agree, though the new code is perfectly valid, it looks nicer if we'd use 
-a variable here instead.
-
-  Thomas
-
+Jan
 
