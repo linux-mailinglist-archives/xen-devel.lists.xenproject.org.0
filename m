@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4065D8791E6
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 11:25:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691735.1077999 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D98E8791F8
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 11:27:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691739.1078008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjzJS-00056b-B3; Tue, 12 Mar 2024 10:24:50 +0000
+	id 1rjzLd-0005ei-KP; Tue, 12 Mar 2024 10:27:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691735.1077999; Tue, 12 Mar 2024 10:24:50 +0000
+Received: by outflank-mailman (output) from mailman id 691739.1078008; Tue, 12 Mar 2024 10:27:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rjzJS-00054W-7n; Tue, 12 Mar 2024 10:24:50 +0000
-Received: by outflank-mailman (input) for mailman id 691735;
- Tue, 12 Mar 2024 10:24:48 +0000
+	id 1rjzLd-0005cw-HU; Tue, 12 Mar 2024 10:27:05 +0000
+Received: by outflank-mailman (input) for mailman id 691739;
+ Tue, 12 Mar 2024 10:27:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xiV3=KS=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rjzJQ-00054Q-J0
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 10:24:48 +0000
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
- [2607:f8b0:4864:20::833])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rjzLc-0005cq-MV
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 10:27:04 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bf63d273-e05a-11ee-a1ee-f123f15fe8a2;
- Tue, 12 Mar 2024 11:24:46 +0100 (CET)
-Received: by mail-qt1-x833.google.com with SMTP id
- d75a77b69052e-42f2009e559so39169471cf.0
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 03:24:46 -0700 (PDT)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- v13-20020a05622a144d00b0042f09f01fc5sm3605042qtx.59.2024.03.12.03.24.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Mar 2024 03:24:44 -0700 (PDT)
+ id 10f48ede-e05b-11ee-a1ee-f123f15fe8a2;
+ Tue, 12 Mar 2024 11:27:02 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-56829f41f81so5929090a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 03:27:02 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ e20-20020a056402149400b00568229390f2sm3848964edv.70.2024.03.12.03.27.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Mar 2024 03:27:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,159 +45,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf63d273-e05a-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 10f48ede-e05b-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710239085; x=1710843885; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=g10mt9fmav6B3gWf5WI149xekOm7KtFu5UaQ24GsQBw=;
-        b=uD3+0pqNYHEPaC82S7n/3Q7Lqu0srJjx5DkqLdSqToxhCJPJpk6lxIA0MPec/DJU73
-         1yDosnxwv10AS0r5Cs3b6Rp7539I7qj7CYW5Br8elvYktimB7plj7ZQWaXXtz/PErLcH
-         vAh8SwsjyOszwDJyBRglKJGaQWEmKcaTpzH6E=
+        d=suse.com; s=google; t=1710239222; x=1710844022; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=QyyVWKQYvsrBwxAWlOdMNIERUxfrCBr902msAjkZoyE=;
+        b=UgG4adGVT0j6UdhYfZAHPyl0AxdKkbaJXPnLbeo7WBEjBjD3LREiVx3ZdFOLiphIxr
+         ZSVcTnpaf59UJxiIdp3NPZ9g04k3yZDngIoIO6qRSW0UPEos7YqT7faN6dR+VAio9G2U
+         IPQ+SaSjSs2BMXuzatDN6RGM7mYE7B0wRwSNH5YFfl5UtVNmb/rJc1QYI3ouHSoOov/9
+         0/u0ElDtxljhLT2a25dXTnrp8S1FnAVqb/JhrXro0zEjnS7a5p1KnhLHgMlYiGB7P9Iv
+         spGgEF0y+VnJh5i88ejZStFLrGafC1GOpwn2B+K94vkJ1QFHeX6CkmurJxv5NlU1pMBZ
+         uc4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710239085; x=1710843885;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=g10mt9fmav6B3gWf5WI149xekOm7KtFu5UaQ24GsQBw=;
-        b=qalCHE9QT/oaZhWcTh8eaFgTuhq5P+zII/vVMvw4LGF2K2GPlc13RLLowSIovZMnVQ
-         rR5yVMFPDX/RIeobDzzXyBkq+Yb0B00MMUr+5yYJEoHQsi3DfJ4/EBuXuEtWqQUDfI9w
-         XLnGTDR+eTmrTAvJCmPED+piCc8D4PZqZzSLRlj9PfSYpzfYTl1s0KEYjmVLsrzRM9Us
-         L+z4MeZ30fd7yujWK8P7b+0vCp5Teu5poBJt9UR/1q5gPyLq6HN52aiXlJnh/c2SnP5X
-         PdJ5G355qgIAaJQShcK4hQT6drn5L3d1/7amdcErxH6I6IzlX8oGJbyPpKYYQQ0O6ush
-         O2wQ==
-X-Gm-Message-State: AOJu0YyXeDe687QvnrTe/1kFPKjDcdDWtt50Lh/HleP9/fOqABeZv0qk
-	tbP1bcPC/MUfkrrU9og0z9R5ccAoDf1Usu9X5IB7TTzPITzQvlxkNXNxD31o2tc=
-X-Google-Smtp-Source: AGHT+IFjUZa2g+oIG3wLAueq51RDtTCE+l7Oc6t/FV3WT6CSsP6dAm+9JZ+Xd2D5rECyFfTT060u5w==
-X-Received: by 2002:ac8:5c02:0:b0:42e:fa89:14b7 with SMTP id i2-20020ac85c02000000b0042efa8914b7mr14610904qti.15.1710239085226;
-        Tue, 12 Mar 2024 03:24:45 -0700 (PDT)
-Date: Tue, 12 Mar 2024 11:24:42 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] drivers/char: mark XHCI DMA buffers reserved in memory
- map
-Message-ID: <ZfAtahcXWGqckQFW@macbook>
-References: <20240311203431.342530-1-marmarek@invisiblethingslab.com>
+        d=1e100.net; s=20230601; t=1710239222; x=1710844022;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QyyVWKQYvsrBwxAWlOdMNIERUxfrCBr902msAjkZoyE=;
+        b=WM0rB9IkiuxSec6Ble5hAS1ZcDbISIDuxDs9DCyNLZS7NotW2MQ4y2OLuG1kD8Mi7H
+         Rx/Dz+VXmf2iUepWHVBt/Wl5tO0ZX3ntGiLWOqhyw5NRrpyCDy0jz7eQYyp22925KZau
+         W7Zbu7nBedIYM3Wz1VwME4QeenYMiNGScyTTZAT1sfusH7/j5ySCRA/pVSPWdM/fLS6P
+         6q1A0LmyjmTymFWj8jREhwA9bs4x+TbCgrEgUgjAfC3MyaZXsyhoWc+Dt3MSe30km7ws
+         2H2PXU2kIYXahS3VpgMxEtp2ZmxXImDjO3hvbzsdtHqPkNHlMNmdUahEF0zuuHMbRc4N
+         6glw==
+X-Gm-Message-State: AOJu0YxpICkaAoOQoaggxPlB80ZvFyr6lROC8S+ApLdlc/oLetUuMpjJ
+	N6+SucbFhB6AZramEbG+vilvFdvN2k7cZjaljnlMMh8p+dJZvGhJkgafRbl2AtMX5XCE5pu5Bak
+	=
+X-Google-Smtp-Source: AGHT+IG0Tzn0nErONZTRjvk4Jc/alLfKl3YZMvM2TgOr6agzJNzeTL7WOEouD3ZjP7DeWwQsh98z2w==
+X-Received: by 2002:a50:d6c2:0:b0:568:1445:c32b with SMTP id l2-20020a50d6c2000000b005681445c32bmr5953612edj.25.1710239222225;
+        Tue, 12 Mar 2024 03:27:02 -0700 (PDT)
+Message-ID: <f7b82e17-8282-400b-a6c2-b74761bbd6ce@suse.com>
+Date: Tue, 12 Mar 2024 11:27:01 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240311203431.342530-1-marmarek@invisiblethingslab.com>
+User-Agent: Mozilla Thunderbird
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2] x86+Arm: drop (rename) __virt_to_maddr() /
+ __maddr_to_virt()
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Mar 11, 2024 at 09:33:11PM +0100, Marek Marczykowski-Górecki wrote:
-> The IOMMU driver checks if RMRR/IVMD are marked as reserved in memory
-> map. This should be true for addresses coming from the firmware, but
-> when extra pages used by Xen itself are included in the mapping, those
-> are taken from usable RAM used. Mark those pages as reserved too.
-> 
-> Not marking the pages as reserved didn't caused issues before due to
-> another a bug in IOMMU driver code, that was fixed in 83afa3135830
-> ("amd-vi: fix IVMD memory type checks").
-> 
-> Failing to reserve memory will lead to panic in IOMMU setup code. And
-> not including the page in IOMMU mapping will lead to broken console (on
-> due to IOMMU faults). Handling failure with panic() isn't the most user
-> friendly thing, but at this stage the alternative would require undoing
-> a lot of console init. Since the user can do it much easier - by simply
-> not enabling xhci console next time, say that and panic.
-> 
-> Fixes: 3a1a7b809ffa "drivers/char: mark DMA buffers as reserved for the XHCI"
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> ---
-> As an alternative implementation I have considered changing
-> iommu_get_extra_reserved_device_memory() to modify memory map. But that
-> may hide (or cause) some other issues when this API will gain some more
-> users in the future.
-> 
-> The reserve_e820_ram() is x86-specific. Is there some equivalent API for
-> ARM, or maybe even some abstract one? That said, I have no way to test
-> XHCI console on ARM, I don't know if such hardware even exists...
-> ---
->  xen/arch/x86/setup.c        |  3 +++
->  xen/drivers/char/xhci-dbc.c | 22 ++++++++++++++++++++++
->  xen/include/xen/serial.h    |  2 ++
->  3 files changed, 27 insertions(+)
-> 
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index a21984b1ccd8..8ab89b3710ed 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1806,6 +1806,9 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->      mmio_ro_ranges = rangeset_new(NULL, "r/o mmio ranges",
->                                    RANGESETF_prettyprint_hex);
->  
-> +    /* Needs to happen after E820 processing but before IOMMU init */
-> +    xhci_dbc_uart_reserve_ram();
+There's no use of them anymore except in the definitions of the non-
+underscore-prefixed aliases.
 
-Overall it might be better if some generic solution for all users of
-iommu_add_extra_reserved_device_memory() could be implemented, but I'm
-unsure whether the intention is for the interface to always be used
-against RAM.
+On Arm convert the (renamed) inline function to a macro.
 
->      xsm_multiboot_init(module_map, mbi);
->  
->      /*
-> diff --git a/xen/drivers/char/xhci-dbc.c b/xen/drivers/char/xhci-dbc.c
-> index 3bf389be7d0b..e31f3cba7838 100644
-> --- a/xen/drivers/char/xhci-dbc.c
-> +++ b/xen/drivers/char/xhci-dbc.c
-> @@ -31,6 +31,9 @@
->  #include <asm/io.h>
->  #include <asm/string.h>
->  #include <asm/system.h>
-> +#ifdef CONFIG_X86
-> +#include <asm/e820.h>
-> +#endif
->  
->  /* uncomment to have dbc_uart_dump() debug function */
->  /* #define DBC_DEBUG 1 */
-> @@ -1426,6 +1429,25 @@ void __init xhci_dbc_uart_init(void)
->      }
->  }
->  
-> +void __init xhci_dbc_uart_reserve_ram(void)
-> +{
-> +    struct dbc *dbc = &dbc_uart.dbc;
+On x86 rename the inline functions, adjust the virt_to_maddr() #define,
+and purge the maddr_to_virt() one, thus eliminating a bogus cast which
+would have allowed the passing of a pointer type variable into
+maddr_to_virt() to go silently.
 
-const.  Or seeing as it's used only once you could just use
-dbc_uart.dbc.enable.
+No functional change intended.
 
-> +
-> +    if ( !dbc->enable )
-> +        return;
-> +
-> +#ifdef CONFIG_X86
-> +    if ( !reserve_e820_ram(
-> +            &e820,
-> +            virt_to_maddr(&dbc_dma_bufs),
-> +            virt_to_maddr(&dbc_dma_bufs) + sizeof(dbc_dma_bufs) - 1) )
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+v2: Avoid aliasing macro on Arm.
 
-It would be best to align this up:
-PAGE_ALIGN(virt_to_maddr(&dbc_dma_bufs) + sizeof(dbc_dma_bufs))
-
-The '- 1' is wrong, as reserve_e820_ram() expects a non-inclusive end
-parameter.
-
-> +        panic("Failed to reserve XHCI DMA buffers (%"PRIx64"-%"PRIx64"), "
-
-We usually represent inclusive memory ranges as "[%lx, %lx]".
-
-> +              "disable xhci console to work around\n",
-> +              virt_to_maddr(&dbc_dma_bufs),
-> +              virt_to_maddr(&dbc_dma_bufs) + sizeof(dbc_dma_bufs) - 1);
-> +#endif
-> +}
-
-Won't it be best to make the whole function guarded by CONFIG_X86? So
-that attempts to use it on !X86 will get a build failure and clearly
-notice some work is needed in order to use the function on other
-arches?
-
-Thanks, Roger.
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -256,12 +256,10 @@ static inline void __iomem *ioremap_wc(p
+ /* Page-align address and convert to frame number format */
+ #define paddr_to_pfn_aligned(paddr)    paddr_to_pfn(PAGE_ALIGN(paddr))
+ 
+-static inline paddr_t __virt_to_maddr(vaddr_t va)
+-{
+-    uint64_t par = va_to_par(va);
+-    return (par & PADDR_MASK & PAGE_MASK) | (va & ~PAGE_MASK);
+-}
+-#define virt_to_maddr(va)   __virt_to_maddr((vaddr_t)(va))
++#define virt_to_maddr(va) ({                                        \
++    vaddr_t va_ = (vaddr_t)(va);                                    \
++    (va_to_par(va_) & PADDR_MASK & PAGE_MASK) | (va_ & ~PAGE_MASK); \
++})
+ 
+ #ifdef CONFIG_ARM_32
+ /**
+--- a/xen/arch/x86/hvm/nestedhvm.c
++++ b/xen/arch/x86/hvm/nestedhvm.c
+@@ -125,7 +125,7 @@ static int __init cf_check nestedhvm_set
+     /* shadow_io_bitmaps can't be declared static because
+      *   they must fulfill hw requirements (page aligned section)
+      *   and doing so triggers the ASSERT(va >= XEN_VIRT_START)
+-     *   in __virt_to_maddr()
++     *   in virt_to_maddr()
+      *
+      * So as a compromise pre-allocate them when xen boots.
+      * This function must be called from within start_xen() when
+--- a/xen/arch/x86/include/asm/page.h
++++ b/xen/arch/x86/include/asm/page.h
+@@ -269,8 +269,6 @@ void copy_page_sse2(void *to, const void
+ #define mfn_valid(mfn)      __mfn_valid(mfn_x(mfn))
+ #define virt_to_mfn(va)     __virt_to_mfn(va)
+ #define mfn_to_virt(mfn)    __mfn_to_virt(mfn)
+-#define virt_to_maddr(va)   __virt_to_maddr((unsigned long)(va))
+-#define maddr_to_virt(ma)   __maddr_to_virt((unsigned long)(ma))
+ #define maddr_to_page(ma)   __maddr_to_page(ma)
+ #define page_to_maddr(pg)   __page_to_maddr(pg)
+ #define virt_to_page(va)    __virt_to_page(va)
+--- a/xen/arch/x86/include/asm/x86_64/page.h
++++ b/xen/arch/x86/include/asm/x86_64/page.h
+@@ -34,7 +34,7 @@ static inline unsigned long canonicalise
+ #define pdx_to_virt(pdx) ((void *)(DIRECTMAP_VIRT_START + \
+                                    ((unsigned long)(pdx) << PAGE_SHIFT)))
+ 
+-static inline unsigned long __virt_to_maddr(unsigned long va)
++static inline unsigned long virt_to_maddr(unsigned long va)
+ {
+     ASSERT(va < DIRECTMAP_VIRT_END);
+     if ( va >= DIRECTMAP_VIRT_START )
+@@ -47,8 +47,9 @@ static inline unsigned long __virt_to_ma
+ 
+     return xen_phys_start + va - XEN_VIRT_START;
+ }
++#define virt_to_maddr(va) virt_to_maddr((unsigned long)(va))
+ 
+-static inline void *__maddr_to_virt(unsigned long ma)
++static inline void *maddr_to_virt(unsigned long ma)
+ {
+     /* Offset in the direct map, accounting for pdx compression */
+     unsigned long va_offset = maddr_to_directmapoff(ma);
 
