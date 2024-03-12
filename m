@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23EEC879536
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 14:41:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691868.1078371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C1838795D5
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 15:15:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691877.1078384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk2Mn-0002UT-6y; Tue, 12 Mar 2024 13:40:29 +0000
+	id 1rk2th-0007DW-RP; Tue, 12 Mar 2024 14:14:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691868.1078371; Tue, 12 Mar 2024 13:40:29 +0000
+Received: by outflank-mailman (output) from mailman id 691877.1078384; Tue, 12 Mar 2024 14:14:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk2Mn-0002SY-3s; Tue, 12 Mar 2024 13:40:29 +0000
-Received: by outflank-mailman (input) for mailman id 691868;
- Tue, 12 Mar 2024 13:40:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rk2Ml-0002SS-Vj
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 13:40:27 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 14bb13c5-e076-11ee-a1ee-f123f15fe8a2;
- Tue, 12 Mar 2024 14:40:25 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-563bb51c36eso6230898a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 06:40:25 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v8-20020a1709067d8800b00a45aeaf9969sm3861203ejo.5.2024.03.12.06.40.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 06:40:24 -0700 (PDT)
+	id 1rk2th-0007AO-OU; Tue, 12 Mar 2024 14:14:29 +0000
+Received: by outflank-mailman (input) for mailman id 691877;
+ Tue, 12 Mar 2024 14:14:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=t7HW=KS=3mdeb.com=krystian.hebel@srs-se1.protection.inumbo.net>)
+ id 1rk2tg-0007AI-4N
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 14:14:28 +0000
+Received: from 3.mo584.mail-out.ovh.net (3.mo584.mail-out.ovh.net
+ [46.105.57.129]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d554492f-e07a-11ee-afdd-a90da7624cb6;
+ Tue, 12 Mar 2024 15:14:26 +0100 (CET)
+Received: from director1.ghost.mail-out.ovh.net (unknown [10.109.140.55])
+ by mo584.mail-out.ovh.net (Postfix) with ESMTP id 4TvFyB1b28z19YL
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 14:14:26 +0000 (UTC)
+Received: from ghost-submission-6684bf9d7b-zcqb6 (unknown [10.110.96.141])
+ by director1.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 670921FE8D;
+ Tue, 12 Mar 2024 14:14:25 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.107])
+ by ghost-submission-6684bf9d7b-zcqb6 with ESMTPSA
+ id iGI1EEFj8GUrzwAABa7qdA
+ (envelope-from <krystian.hebel@3mdeb.com>); Tue, 12 Mar 2024 14:14:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +46,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14bb13c5-e076-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710250825; x=1710855625; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3toOv0f7V7jxo5xnPAfLR8vQRIBGwow3QbvN91f8I3M=;
-        b=YzwnBhAKFDo6QH++JIdO7Qy3p+r+spkRdkEmnsMT6fCvsB28bMDrJQBSAAqH68d2qZ
-         jGExYUHBNz5S4VBOUrmLrW9B2vNJUzc1vjHXKg1S69mAwk/a/VE7LacCqfOw9vPOjAP3
-         XMo8Mo4T6FMWqqLy84Bgszr9nCAipM7HLZ9u73oQ8PDYE/xWkQxtiJy78IYXK4dKj3O+
-         Y3OYzWYC0w9e8mWxg3N9XOSWcukqA5W7/lkZIf7A+oXfY35YFrjUqg3ZVRYZ5ztKpKTf
-         GKtpXcn0Z4YdDiMPLLKb5zLMFRMluKB5vFLTE+K0ibD9BEHVN/eNXiQvMbMb4tqV/iTi
-         zy2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710250825; x=1710855625;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3toOv0f7V7jxo5xnPAfLR8vQRIBGwow3QbvN91f8I3M=;
-        b=v91A1JfUpHeAWeXxVZPxhhYhiD3q2UZr9hfqkx+tIwkIwUaoaQJDsmVHmYMNB2DSoI
-         +Su3FhA79NpktbGd8lTAvMTF3jxmRGmJMcpuj7baUj+DK7P5ATwS+PfuGA4A+nIyFp4O
-         VRIqvis6b0q4cCozyzxdzaYmdWVmcU5cq+V7yaze8IOxrreAOpmlQaOpnrcsjJa1Ucia
-         Q0Ia13dlO0cmjT0ekldYJfWPl7RU/IERBqcg+3W/8WbpwJaNF0uqpRG7iONg7qUwqFTZ
-         s5eKS1Oy32zMgGtRV0AeMmHzQlWNsFP76AgnDFfBCS30rBUOWQorUArJeGCudMmIcZe1
-         aesA==
-X-Forwarded-Encrypted: i=1; AJvYcCUBxtkj939Lc1lBLLJz5mkY7qiAEkYow2Xi6+od4wsvg0hPxXPR0CcAg3RjS9OFCafIpTlJ637LpeuJBMIVAugKDE2lHDGMcvQmUjaSai8=
-X-Gm-Message-State: AOJu0YySlbAqEYd0gS2pQ03hp0VkdLc/T6aif5ZfLV78yPwO689k7B25
-	uf1XK+NYOksSQlLQPKiAPiHYpCXdcryS008qPCS4B0QNobYUB7s+FN0ssH6AXkvvzkZE+NT4caQ
-	=
-X-Google-Smtp-Source: AGHT+IF3zmQFlGhpVJZ3iUn8a4FGnT2CVp/HhAHnQ/aK6Y0sSSqdISk2K6HpAIQ/UdFA8jzEqqB9nw==
-X-Received: by 2002:a17:906:6815:b0:a45:98f3:997e with SMTP id k21-20020a170906681500b00a4598f3997emr5715553ejr.7.1710250825021;
-        Tue, 12 Mar 2024 06:40:25 -0700 (PDT)
-Message-ID: <2f41ad83-6911-4838-905b-dfe44ccaf8cf@suse.com>
-Date: Tue, 12 Mar 2024 14:40:23 +0100
+X-Inumbo-ID: d554492f-e07a-11ee-afdd-a90da7624cb6
+Authentication-Results:garm.ovh; auth=pass (GARM-107S001d43bc115-4bd6-465f-8f6d-b9d6973bfb82,
+                    0B6B113C544506A41C6EB031E0F94F2E66B6AEBC) smtp.auth=krystian.hebel@3mdeb.com
+X-OVh-ClientIp:217.171.61.25
+Message-ID: <387275c4-6a56-4400-97c6-a8cc1409547d@3mdeb.com>
+Date: Tue, 12 Mar 2024 15:14:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drivers/char: mark XHCI DMA buffers reserved in memory
- map
+Subject: Re: [XEN PATCH 1/9] x86/boot: choose AP stack based on APIC ID
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
+ <0e7dd957b6f26fa7b752bdce1ef6ebe97c825903.1699982111.git.krystian.hebel@3mdeb.com>
+ <07660850-5b7a-4811-997e-8237e575f429@xen.org>
 Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20240311203431.342530-1-marmarek@invisiblethingslab.com>
- <ZfAtahcXWGqckQFW@macbook> <6a80ceb6-cc2a-4d8f-9a66-70063923b0ea@suse.com>
- <ZfBERyqQ7Ous3nGE@mail-itl> <2a04315c-7bb8-4985-8aca-bece9d0d535e@suse.com>
- <ZfBT-xwmKCugJQVy@mail-itl> <ZfBXBe_9Bw9t4NVP@mail-itl>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZfBXBe_9Bw9t4NVP@mail-itl>
-Content-Type: text/plain; charset=UTF-8
+From: Krystian Hebel <krystian.hebel@3mdeb.com>
+In-Reply-To: <07660850-5b7a-4811-997e-8237e575f429@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 7151997687513327984
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvledrjeefgdeivdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfuvfevfhfhjggtgfesthekredttddvjeenucfhrhhomhepmfhrhihsthhirghnucfjvggsvghluceokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeigeeifeeffeefhffffeehuedvheethfeuvdetffdtheefffeigfelleeuhfduvdenucffohhmrghinhepthhrrghmphholhhinhgvrdhssgdpgiekiegpieegrdhssgdpfehmuggvsgdrtghomhenucfkphepuddvjedrtddrtddruddpvddujedrudejuddriedurddvhedpfeejrdehledrudegvddruddtjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepkhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehkeegpdhmohguvgepshhmthhpohhuth
 
-On 12.03.2024 14:22, Marek Marczykowski-Górecki wrote:
-> On Tue, Mar 12, 2024 at 02:09:14PM +0100, Marek Marczykowski-Górecki wrote:
->> On Tue, Mar 12, 2024 at 01:38:53PM +0100, Jan Beulich wrote:
->>> On 12.03.2024 13:02, Marek Marczykowski-Górecki wrote:
->>>> BTW should e820_change_range_type() return 1 in case of mapping already
->>>> having the right type? Otherwise, if one wants to use
->>>> iommu_add_extra_reserved_device_memory() on already reserved memory, the
->>>> e820_change_range_type() would fail.
->>>
->>> You raised that question on Matrix yesterday, iirc, and I left it
->>> unanswered there because it takes archeology to find the answer (or at
->>> least get closer to one). And, please don't get me wrong, you could as
->>> well do that yourself. (My vague recollection from having dealt with
->>> similar code in Linux is that yes, in the example given the function
->>> ought to indeed have failed back then. Depending on present uses etc
->>> it may well be that we could reconsider, though.)
+Hi,
+
+On 26.01.2024 19:30, Julien Grall wrote:
+> Hi,
+>
+> I am not too familiary with the x86 boot code. But I will give a try 
+> to review :).
+>
+> On 14/11/2023 17:49, Krystian Hebel wrote:
+>> This is made as first step of making parallel AP bring-up possible. It
+>> should be enough for pre-C code.
 >>
->> I sure can do some archaeology there, I was just hoping any of you would
->> know the answer already.
-> 
-> None of the commit messages touching that code give the answer. But
-> looking around, most callers of reserve_e820_ram() ignore its return
-> value. One exception is reserving memory for kexec. I guess in that case
-> it may be intentional to fail if the area is reserved already, as it may
-> indicate it cannot be used for kexec. Is that correct?
+>> Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
+>> ---
+>>   xen/arch/x86/boot/trampoline.S | 20 ++++++++++++++++++++
+>>   xen/arch/x86/boot/x86_64.S     | 28 +++++++++++++++++++++++++++-
+>>   xen/arch/x86/setup.c           |  7 +++++++
+>>   3 files changed, 54 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/xen/arch/x86/boot/trampoline.S 
+>> b/xen/arch/x86/boot/trampoline.S
+>> index b8ab0ffdcbb0..ec254125016d 100644
+>> --- a/xen/arch/x86/boot/trampoline.S
+>> +++ b/xen/arch/x86/boot/trampoline.S
+>> @@ -72,6 +72,26 @@ trampoline_protmode_entry:
+>>           mov     $X86_CR4_PAE,%ecx
+>>           mov     %ecx,%cr4
+>>   +        /*
+>> +         * Get APIC ID while we're in non-paged mode. Start by 
+>> checking if
+>> +         * x2APIC is enabled.
+>> +         */
+>> +        mov     $MSR_APIC_BASE, %ecx
+>> +        rdmsr
+>> +        and     $APIC_BASE_EXTD, %eax
+>> +        jnz     .Lx2apic
+>> +
+>> +        /* Not x2APIC, read from MMIO */
+>> +        mov     0xfee00020, %esp
+>> +        shr     $24, %esp
+>> +        jmp     1f
+>> +
+>> +.Lx2apic:
+>> +        mov     $(MSR_X2APIC_FIRST + (0x20 >> 4)), %ecx
+>> +        rdmsr
+>> +        mov     %eax, %esp
+>> +1:
+>> +
+>>           /* Load pagetable base register. */
+>>           mov     $sym_offs(idle_pg_table),%eax
+>>           add     bootsym_rel(trampoline_xen_phys_start,4,%eax)
+>> diff --git a/xen/arch/x86/boot/x86_64.S b/xen/arch/x86/boot/x86_64.S
+>> index 04bb62ae8680..b85b47b5c1a0 100644
+>> --- a/xen/arch/x86/boot/x86_64.S
+>> +++ b/xen/arch/x86/boot/x86_64.S
+>> @@ -15,7 +15,33 @@ ENTRY(__high_start)
+>>           mov     $XEN_MINIMAL_CR4,%rcx
+>>           mov     %rcx,%cr4
+>>   -        mov     stack_start(%rip),%rsp
+>> +        test    %ebx,%ebx
+>> +        cmovz   stack_start(%rip), %rsp
+>> +        jz      .L_stack_set
+>> +
+>> +        /* APs only: get stack base from APIC ID saved in %esp. */
+>> +        mov     $-1, %rax
+>> +        lea     x86_cpu_to_apicid(%rip), %rcx
+> I would consider to move this patch after #2 and #3, so the logic is 
+> not modified again. This would help the review.
+I agree, maybe even after #4 after that patch is modified according to 
+other comments.
+>
+>> +1:
+>> +        add     $1, %rax
+>> +        cmp     $NR_CPUS, %eax
+>> +        jb      2f
+> I think we can get rid of this jump by reworking the loop so %eax is 
+> tested as the end of the loop. But this is boot code, so it is 
+> possibly not worth it. I will leave the x86 maintainers commenting.
+Not sure if I understood "end of the loop" correctly, but if I did, it 
+would result in out-of-bounds read. Anyway, this is changed by further 
+patches which I still have to reorder, I'll check if final form can be 
+improved.
+>
+>> +        hlt
+>> +2:
+>> +        cmp     %esp, (%rcx, %rax, 4)
+>> +        jne     1b
+>> +
+>> +        /* %eax is now Xen CPU index. */
+>> +        lea     stack_base(%rip), %rcx
+>> +        mov     (%rcx, %rax, 8), %rsp
+>> +
+>> +        test    %rsp,%rsp
+>> +        jnz     1f
+>> +        hlt
+>> +1:
+> NIT: Can you use 3? This makes the code easier to read and less prone 
+> to error (you have two very close 1).
+Ack
+>
+>> +        add     $(STACK_SIZE - CPUINFO_sizeof), %rsp
+>> +
+>> +.L_stack_set:
+>>             /* Reset EFLAGS (subsumes CLI and CLD). */
+>>           pushq   $0
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index a3d3f797bb1e..1285969901e0 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -1951,6 +1951,7 @@ void __init noreturn __start_xen(unsigned long 
+>> mbi_p)
+>>        */
+>>       if ( !pv_shim )
+>>       {
+>> +        /* Separate loop to make parallel AP bringup possible. */
+>
+> The loop split seems to be unrelated to this patch. Actually, I was 
+> expecting that only the assembly code would be modified.
+Fair point, I originally left it here so the code can be bisected if 
+needed, but code changed significantly since then. In current form it 
+should be safe to do this in the last commit.
+>
+>>           for_each_present_cpu ( i )
+>>           {
+>>               /* Set up cpu_to_node[]. */
+>> @@ -1958,6 +1959,12 @@ void __init noreturn __start_xen(unsigned long 
+>> mbi_p)
+>>               /* Set up node_to_cpumask based on cpu_to_node[]. */
+>>               numa_add_cpu(i);
+>>   +            if ( stack_base[i] == NULL )
+>> +                stack_base[i] = cpu_alloc_stack(i);
+>
+> I don't quite understand this change at least in the context of this 
+> patch. AFAICT the stack will be currently allocated in 
+> cpu_smpboot_callback() which is called while the CPU is prepared. So 
+> you should not need this allocation right now.
+>
+> Looking at the rest of the series, it seems you allocate the stack 
+> earlier so you start the CPU bring-up earlier. But they will still be 
+> held in assembly code until cpu_up() is called.
+>
+> So effectively, part of the C part of the CPUs bring-up is still 
+> serialized. Did I understand the logic correctly?
+>
+> If so, I would suggest to clarify it in the series because this wasn't 
+> obvious to me (I was expecting start_secondary() would also run in 
+> parallell).
 
-I suppose so, yes.
+start_secondary() is started in parallel, CPUs are not held in assembly. 
+Calling C (almost) always requires stack, and most of this series comes 
+to making stack available for all APs at once, just so APs can loop 
+early in start_secondary().
 
-> There are also a couple of calls to e820_change_range_type() in tboot
-> code where it changes E820_RESERVED to E820_UNUSABLE. There, I guess
-> changing e820_change_range_type() behavior would be okay.
+You are correct, most of C part is serialized. I tried to make it 
+parallel as well but quickly gave up. Some of the notifiers callbacks 
+are resistant against any attempts at parallelization, and this set of 
+patches already gave satisfactory improvements in boot time (and was 
+enough to go through peculiar SMP bring-up used by Intel TXT dynamic 
+launch, which is the reason why I had to do it in the first place).
 
-Possibly, but please don't put much trust in the tboot code we have.
+>
+> Regarding the change in setup.c, I think it would make more sense in 
+> patch #9.
+>
+> Cheers,
+>
+Best regards,
 
-Jan
+-- 
+Krystian Hebel
+Firmware Engineer
+https://3mdeb.com | @3mdeb_com
+
 
