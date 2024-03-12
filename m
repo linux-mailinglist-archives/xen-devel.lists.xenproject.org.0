@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A40A78796FE
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 15:59:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.691896.1078443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C43B87970C
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Mar 2024 16:03:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.691899.1078454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk3aV-0007ZY-4z; Tue, 12 Mar 2024 14:58:43 +0000
+	id 1rk3eb-0001A0-OE; Tue, 12 Mar 2024 15:02:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 691896.1078443; Tue, 12 Mar 2024 14:58:43 +0000
+Received: by outflank-mailman (output) from mailman id 691899.1078454; Tue, 12 Mar 2024 15:02:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rk3aV-0007Xz-2A; Tue, 12 Mar 2024 14:58:43 +0000
-Received: by outflank-mailman (input) for mailman id 691896;
- Tue, 12 Mar 2024 14:58:42 +0000
+	id 1rk3eb-00017B-Kl; Tue, 12 Mar 2024 15:02:57 +0000
+Received: by outflank-mailman (input) for mailman id 691899;
+ Tue, 12 Mar 2024 15:02:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=88Ay=KS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rk3aU-0007Xt-GN
- for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 14:58:42 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
+ id 1rk3ea-000173-4U
+ for xen-devel@lists.xenproject.org; Tue, 12 Mar 2024 15:02:56 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 031b7454-e081-11ee-a1ee-f123f15fe8a2;
- Tue, 12 Mar 2024 15:58:40 +0100 (CET)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2d109e82bd0so78151641fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 07:58:40 -0700 (PDT)
+ id 9a5ee11d-e081-11ee-a1ee-f123f15fe8a2;
+ Tue, 12 Mar 2024 16:02:54 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a4627a7233aso8620466b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Mar 2024 08:02:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fj10-20020a0564022b8a00b00565af2ea649sm3973699edb.14.2024.03.12.07.58.39
+ e27-20020a170906315b00b00a46220c3c39sm2426599eje.39.2024.03.12.08.02.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 07:58:39 -0700 (PDT)
+ Tue, 12 Mar 2024 08:02:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 031b7454-e081-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 9a5ee11d-e081-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710255520; x=1710860320; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710255773; x=1710860573; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3HjKGRpfIuNggACzJB+28pH8IV0WC3Ki+EkzhoSBzjM=;
-        b=fyfoL1HBwvjhu2lXHoBMm2+/eRpqhCqPTlFrri1it4LQHqNK6TnEcjBgROnUqtfd6S
-         Z1qWCS0YxfHlWMvBng+oodXEoftbgphJcX+RJ3kZHwNEbZjq7q0qEVHFu1rSNE5fOx1y
-         chbZtm45i1moAy0tiTwFDIT2BNa7fa2ldcOmRwK+0gqLXk1NJ2KNoRedVLJolKbM28Jt
-         9yznQ/3xUOP08K9q6DbZUkLCvXDR3G8M+qIKwizZOhQEaQZP6+uJqwtm6xdtqkFYt/QJ
-         C0msWAfqHLJnWR4RalL9fatOM/bylCutiC4z/UOQ9BhaVDyCTXechBNAatcT68R8hSBa
-         4aow==
+        bh=H3gCzu8ARyqrSY7VwQNo7wczR4eVQYg4J0ukImiGafs=;
+        b=EGlVi4h3ruiNi8WlEGuQEEQsT9nJMHQ2cLMc8sK44Qmmyjyq3DpIVNR9yjge10KkPy
+         mdHHULqmJeOLy51pdNtmLdflSSWx/srh/u75+qUQbP3Ne8SvOfUqD/WtBVwASe5Fyndd
+         kUuRTS1GhOmgwBHSyQtx1KP8krFgn/0vQTm2RvqvHEXDdwAwK7Fz+LzhC5+e81r5v9mo
+         La9YJwq60uYPmH7Lr4YHuFV+KC+aBeoAhiel8EHhSpHgDvl0ww6UyUyETjbzr5rOYRdj
+         5ognTSuYfagXMOkkdRuIxooS7t4SKFVFbohGLzAalUXzOBdnLHGhCK5NgrktHnLoWMCe
+         MTyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710255520; x=1710860320;
+        d=1e100.net; s=20230601; t=1710255773; x=1710860573;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3HjKGRpfIuNggACzJB+28pH8IV0WC3Ki+EkzhoSBzjM=;
-        b=cKiEHN53o+avBoqwXLLQ/4TYLn/Kl0YMhRZKeGUD8xcX9OFTEAi+TqkL8BrRX1zFWj
-         Og1spiioufK9jusFyluTK9V+28hwMhhuJAgFitUGOKgdS4QjbuMx8uCsSy6ZhfOBA8JG
-         RO+Ge4nkRysbtNmn04QS0sTycWZnylPNwWsBytG386J3MXOZHPStFhEC/FzuOKWXUaEq
-         3fCQctBQnTj21d7Bnfn376bv1jrpke+iehDBVz0dIMitKdptd6uze6/m+Q9xPeUKZVPr
-         +ugJaLHCLTVg0IndKgCzC67cc6QQIlxjWl7+bOLzmTJkN/IX9IbsYnfj3bnKlQVrd2+V
-         wrww==
-X-Forwarded-Encrypted: i=1; AJvYcCXtQZEYR6m+4mLlHyu/m9p7L15ksNxkyx5P1zdr6RQUIYROQVAyXGt6YDtHqfRBuFsEuRImBgQQVOjylt0auS58dbbzVfFg/dBwmhfU050=
-X-Gm-Message-State: AOJu0YwMRqHxdb4X90HxGOsmxWVShakRxI/ArozXPqIUEArRrSOjJSFL
-	OR9Nq8WO0v2zrnwG/RCgi+pPXpbdlTXCkIMsB2pi8b9Fy0NFsHhcjQmVDBFw1g==
-X-Google-Smtp-Source: AGHT+IFHG3yO7+3ZkrAhRPtrWb/engaW6sYGVj7uyqEP07T4dGw0t61HAUq21WAmse+vhjrTXCDDjg==
-X-Received: by 2002:a05:651c:80d:b0:2d2:ccd2:3a9b with SMTP id r13-20020a05651c080d00b002d2ccd23a9bmr6036994ljb.28.1710255519791;
-        Tue, 12 Mar 2024 07:58:39 -0700 (PDT)
-Message-ID: <9c4bbb6f-60d6-43b8-aa82-35fa6f393e23@suse.com>
-Date: Tue, 12 Mar 2024 15:58:38 +0100
+        bh=H3gCzu8ARyqrSY7VwQNo7wczR4eVQYg4J0ukImiGafs=;
+        b=fr/Ud69GwgIpKAHsorn7+oUjpMxeg2AR46PfV/i5C0dljyqxYw5eX2ZUU5ExizfXmO
+         VLRe5ca7nhwU7VtJtI///Q0MkaLVrAlJaqOj/9Kami2NaIsV+WJ8rRk375oiz9sVYj12
+         XX/ea0DBx0GnYO9UjMv+9UqyDbx/SlT+3k9GuRdh3fwzZBT4+fb6x0hxaMjBMr41lrbr
+         TeZeBQdamSSbrbIcgX70cpXePCBvDBlz9PkhovqRzgbdjFNkTrsRWAtsIGN6Ml1ifNNu
+         /2aK1d7KpnKKyqt6kVRXHZ24vxsfoww0NFsDljEQ5XVIbYqJhTk2dV6WQ+cxWFpieLvJ
+         bLUw==
+X-Forwarded-Encrypted: i=1; AJvYcCWXEHUee8aIWLqlsLB8FXVtgUQWaW/bby9aKQSOSwn+v4reDDooBE10GXHsXpBWxbmkaCUl79ZrrgjyAfBAi3L1AIxP9kpHUo9F/YIB5FE=
+X-Gm-Message-State: AOJu0Yy/ilnykSVVRGp7puzdWdKcgfvab0H9Kg2WgjjwMNkkgyZWR3w7
+	uMlZTgoPYlJO9g0XObW02g9ZD94LLwLiCieb5Fzxq+9OjKSAiN2A/8LEcY3+Kg==
+X-Google-Smtp-Source: AGHT+IFHePa92tGkLK3FNGG1AH8RJXDMwqEqsyI1z1ia3ohmOSDqPivvlBtSEXG3YS4TG8zYtOwzmQ==
+X-Received: by 2002:a17:906:3e0c:b0:a43:cbed:950d with SMTP id k12-20020a1709063e0c00b00a43cbed950dmr7213635eji.38.1710255773609;
+        Tue, 12 Mar 2024 08:02:53 -0700 (PDT)
+Message-ID: <6a3f66a7-bd5c-4355-8847-47bfc9033ab3@suse.com>
+Date: Tue, 12 Mar 2024 16:02:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 13/16] xen: add deviations for MISRA C.2012
- Directive 4.10
+Subject: Re: [PATCH] drivers/char: mark XHCI DMA buffers reserved in memory
+ map
 Content-Language: en-US
-To: Simone Ballarin <simone.ballarin@bugseng.com>,
- Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
-Cc: consulting@bugseng.com, sstabellini@kernel.org,
- Doug Goldstein <cardoe@cardoe.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1710145041.git.simone.ballarin@bugseng.com>
- <787aa5a65135796c825d366b43e00ba018c0065b.1710145041.git.simone.ballarin@bugseng.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20240311203431.342530-1-marmarek@invisiblethingslab.com>
+ <ZfAtahcXWGqckQFW@macbook> <6a80ceb6-cc2a-4d8f-9a66-70063923b0ea@suse.com>
+ <ZfBlklSndB3djVJ2@mail-itl> <6286d582-ef92-47c3-8bb1-b8f2d3270a4f@suse.com>
+ <ZfBrXqn_Sr_g4Hnr@mail-itl>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,42 +117,87 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <787aa5a65135796c825d366b43e00ba018c0065b.1710145041.git.simone.ballarin@bugseng.com>
+In-Reply-To: <ZfBrXqn_Sr_g4Hnr@mail-itl>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11.03.2024 09:59, Simone Ballarin wrote:
-> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+On 12.03.2024 15:49, Marek Marczykowski-Górecki wrote:
+> On Tue, Mar 12, 2024 at 03:37:15PM +0100, Jan Beulich wrote:
+>> On 12.03.2024 15:24, Marek Marczykowski-Górecki wrote:
+>>> On Tue, Mar 12, 2024 at 11:53:46AM +0100, Jan Beulich wrote:
+>>>> On 12.03.2024 11:24, Roger Pau Monné wrote:
+>>>>>> --- a/xen/arch/x86/setup.c
+>>>>>> +++ b/xen/arch/x86/setup.c
+>>>>>> @@ -1806,6 +1806,9 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>>>>>>      mmio_ro_ranges = rangeset_new(NULL, "r/o mmio ranges",
+>>>>>>                                    RANGESETF_prettyprint_hex);
+>>>>>>  
+>>>>>> +    /* Needs to happen after E820 processing but before IOMMU init */
+>>>>>> +    xhci_dbc_uart_reserve_ram();
+>>>>>
+>>>>> Overall it might be better if some generic solution for all users of
+>>>>> iommu_add_extra_reserved_device_memory() could be implemented,
+>>>>
+>>>> +1
+>>>>
+>>>>> but I'm
+>>>>> unsure whether the intention is for the interface to always be used
+>>>>> against RAM.
+>>>>
+>>>> I think we can work from that assumption for now.
+>>>
+>>> One more question - what should be the error handling in this case?
+>>
+>> My first reaction here is - please first propose something that's
+>> sensible from your perspective, and then we can go from there. That's
+>> generally easier that discussion without seeing involved code.
+>> However, ...
+>>
+>>> At
+>>> this stage, if reserving fails, I can still skip giving this range to
+>>> the IOMMU driver, which (most likely) will result in IOMMU faults and
+>>> in-operational device (xhci console). Since I don't know (theoretically)
+>>> what driver requested the range, the error message can only contain an
+>>> address and device, so will be a bit less actionable for the user
+>>> (although it should be quite easy to notice the BDF being the XHCI one).
+>>>
+>>> Panic surely is safer option, but less user friendly, especially since
+>>> (due to the above) I cannot give explicit hint to disable XHCI console.
+>>
+>> ... reading this I was meaning to ...
+>>
+>>> And kinda independently - I'm tempted to add another field to `struct
+>>> extra_reserved_range` (and an argument to
+>>> `iommu_add_extra_reserved_device_memory()`) - textual description, for
+>>> the error reporting purpose.
+>>
+>> ... suggest minimally this. We may want to go farther, though: The party
+>> registering the range could also supply a callback, to be invoked in
+>> case registration fails. That callback could then undo whatever is
+>> necessary in order to not use the memory range in question.
+>>
+>> That said - isn't all of this over-engineering, as the allocated memory
+>> range must have come from a valid RAM region? In which case a simple
+>> BUG_ON() may be all that's needed (and will never trigger in practice,
+>> unless we truly screwed up somewhere)?
 > 
-> Add safe deviation for *.c files, as estabilished in past discussion.
-> Add SAF deviation for files that need an #include directive before guard.
+> In this case (with a single use of
+> iommu_add_extra_reserved_device_memory()), it will be valid RAM. But
+> reserving may fail for other reasons too, for example overflow of the
+> E820 map.
+> 
+> Undoing things certainly is possible, but quite complicated (none of the
+> involved serial console APIs support disabling/unregistering a console).
 
-While similar topics, the two are technically entirely different, and
-hence would likely again better be split. In fact I think I might ack
-the former as is, while ...
-
-> --- a/xen/include/public/arch-x86/xen.h
-> +++ b/xen/include/public/arch-x86/xen.h
-> @@ -7,6 +7,7 @@
->   * Copyright (c) 2004-2006, K A Fraser
->   */
->  
-> +/* SAF-7-safe include before guard needed for correct code generation */
->  #include "../xen.h"
->  
->  #ifndef __XEN_PUBLIC_ARCH_X86_XEN_H__
-
-... I fear I lack details about the need for this, not even taking into
-account my earlier remark regarding the insertion of such comments in
-public headers. Why is the #include needed for our own purposes (we
-can't easily (re)move it entirely, as external consumers may rely on
-it)? The common case is for this header to be included from ../xen.h.
-In that case, aiui, the #include above has no effect at all, due to the
-guard in ../xen.h. Which leaves direct inclusions of the header here.
-There I'd expect a change like the one here to be accompanied by
-clarification of why those few cases can't be switched to including
-public/xen.h instead. Because if that was possible, doing so would
-allow us to get away here without any deviation.
+True. I was rather thinking of disabling the actual I/O paths.
 
 Jan
+
+> Given the simplicity of the workaround user can do (not enabling xhci
+> console), I don't think it's worth going this route.
+> 
+> Anyway, I'll post v2 with some version of the above and we can continue
+> discussion there.
+> 
+
 
