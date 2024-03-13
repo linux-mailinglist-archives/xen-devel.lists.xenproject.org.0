@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0A1287AB7F
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 17:41:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692629.1079971 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 047B787AB80
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 17:41:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692630.1079980 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkRfY-0000LF-4g; Wed, 13 Mar 2024 16:41:32 +0000
+	id 1rkRfZ-0000b8-Fk; Wed, 13 Mar 2024 16:41:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692629.1079971; Wed, 13 Mar 2024 16:41:32 +0000
+Received: by outflank-mailman (output) from mailman id 692630.1079980; Wed, 13 Mar 2024 16:41:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkRfY-0000Ip-0g; Wed, 13 Mar 2024 16:41:32 +0000
-Received: by outflank-mailman (input) for mailman id 692629;
- Wed, 13 Mar 2024 16:41:30 +0000
+	id 1rkRfZ-0000YY-CZ; Wed, 13 Mar 2024 16:41:33 +0000
+Received: by outflank-mailman (input) for mailman id 692630;
+ Wed, 13 Mar 2024 16:41:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2OjJ=KT=bounce.vates.tech=bounce-md_30504962.65f1d737.v1-0a50c5bf78884ac4b4c33705b6ebd394@srs-se1.protection.inumbo.net>)
- id 1rkRfW-0008Dq-8R
- for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 16:41:30 +0000
+ <SRS0=uqOb=KT=bounce.vates.tech=bounce-md_30504962.65f1d73a.v1-02c8ef692cf34864b336a41beefd05b2@srs-se1.protection.inumbo.net>)
+ id 1rkRfX-0008Dq-8h
+ for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 16:41:31 +0000
 Received: from mail133-16.atl131.mandrillapp.com
  (mail133-16.atl131.mandrillapp.com [198.2.133.16])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a198dd9-e158-11ee-afdd-a90da7624cb6;
- Wed, 13 Mar 2024 17:41:29 +0100 (CET)
+ id 8b1cb283-e158-11ee-afdd-a90da7624cb6;
+ Wed, 13 Mar 2024 17:41:30 +0100 (CET)
 Received: from pmta13.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
  by mail133-16.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4Tvx9N0CKwzB5p521
- for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 16:41:28 +0000 (GMT)
+ 4Tvx9Q14d0zB5p8C3
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 16:41:30 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 0a50c5bf78884ac4b4c33705b6ebd394; Wed, 13 Mar 2024 16:41:27 +0000
+ 02c8ef692cf34864b336a41beefd05b2; Wed, 13 Mar 2024 16:41:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,190 +43,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a198dd9-e158-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 8b1cb283-e158-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1710348088; x=1710608588;
-	bh=rr1EGVf91eM8PfB9T0UeBppnRI+2X6vdx2ec2oXZ69o=;
+	s=mte1; t=1710348090; x=1710608590;
+	bh=FMitaZpjptJvXQpvaxxHZ/aFZkkeDw8TY9xvhcTGIUY=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=EOIJGJy7/QVasU3fTPRh0emzLkv6sf8W3xrRO7PYQWVjPZYyXAJmDnWP9xhYTEpGV
-	 rKXoN9RvtKizA4/gvsFNXPvFUgiRXk4RtTK4EkEn/Wh/6rYzL7jreWs+zuYOoniydv
-	 LeOLQwhfNvEaAspKkDxGns8NxsPrIa9HcMDAjZsGjH/toLaxH0oIaHRDbjpnZXfEcO
-	 IBsYCCv8mIKXqM/73TdYr8UfwXxPJEqYB38NY/uoTAeNt2eJRLGrcayfr8gzPyE/Fg
-	 X8asq2pWxHTNnJsM5MiFehXY0RUeiXfecaI5cuGaVkybI+2mIHMZyzEFbeb7Tos8Jx
-	 bzpNG+95h/f4A==
+	b=NO1+mgHmuB344VkLQH3vs3M/sf9zVdMkXS3QvrvUEe8PmF3CnoqMWI+nSm6U0P0UK
+	 jA0YXSdhIbIVxDtAZRBx0Qu2zpqxsQBHg1yPPA/GvGn2yfT5EtPKYx2vFwyXxDs0QR
+	 4ADyf893c7HoLOzTw5Kq46oKQ7VqX8zBc3DCoSCFI/EoJgpNW/i6FSL7cxUpiAB2N4
+	 uIS3ejWHNAZGJxOcg27hCjrcnP9uzgRaTRVWt9dxXDq08JnKDoP/q2LUHHP94I56hQ
+	 KwA4EygUDkKE3VPF7BxSRzfBPODe6I3LLaQBLGKTTAIRv/XvEUbsY25QY8Vsfmvu1A
+	 CnSyhULIQN9cg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1710348088; x=1710608588; i=vaishali.thakkar@vates.tech;
-	bh=rr1EGVf91eM8PfB9T0UeBppnRI+2X6vdx2ec2oXZ69o=;
+	t=1710348090; x=1710608590; i=vaishali.thakkar@vates.tech;
+	bh=FMitaZpjptJvXQpvaxxHZ/aFZkkeDw8TY9xvhcTGIUY=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=RNBnBA3yGqFMtOLYKHUafmF4i+JZa7dos4w2FB8q5V8ndCTV/c0fQQU6RrUwQ72Cr
-	 GlKZ5/SIRZTZx7c+YKYrF4e0MGNOjBEGO/UF64SSXIbuhr3wSUXPdeP6AnnYDu46WA
-	 kn1ewZZkoiHTGUTj58TgO3Mk86f8xmoyZPUh4AnHB9Rv+24cfgFJ8kPiu5Nnhk8xNB
-	 z9VsnYRciKVF4EM0Kr07FcjiqxndffNnke1JxsZ4+a0UMhtabwAhX/gK5osyPlQW7F
-	 s0/xTwIu3dDUz7j5e83Gy64wqhvyZuO3U7BPxdfHRunNbVVPKfP5BFqmVtzg3y2d0H
-	 hrc/06dHAstgg==
+	b=VBN6sibtXiH+TGClEeQQ3pqVM2hAo59ljZXcskj8Jkqux+uFWpvwmDmt+La4+y7oc
+	 YH83TUYMtJfCnoW2VeCf2vhifyKCUj45mWCHE3djhI+nWyNXcROj2mIciDWdXctTVE
+	 nfe1V58e1ZK6xkIjPRZAH4sNQU/uthsOH+ZCNBKBkft/7zY3t3ci1FqWtGSBDrOIRS
+	 G8JvAjfMk416jVBc7jKIryxggD8xNAmqfl9hLI4XYU/DUmPXuNhApcNPwl8Pv3jyiH
+	 e4+e0ojS/QyLUci6tkwW+26avYtzttuJOs0IqaARLmXoMzl3NwD7a4htSrEP5C9Z6w
+	 0dkrNKcRGWD2Q==
 From: Vaishali Thakkar <vaishali.thakkar@vates.tech>
-Subject: =?utf-8?Q?[PATCH=20v3=202/3]=20x86/svm:=20Drop=20the=20suffix=20=5Fguest=20from=20vmcb=20bit?=
+Subject: =?utf-8?Q?[PATCH=20v3=203/3]=20x86/svmdebug:=20Print=20np,=20sev=20and=20sev=5Fes=20vmcb=20bits?=
 X-Mailer: git-send-email 2.44.0
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1710348086853
+X-Bm-Transport-Timestamp: 1710348088991
 To: xen-devel@lists.xenproject.org
 Cc: jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org, Vaishali Thakkar <vaishali.thakkar@vates.tech>
-Message-Id: <88d5a0ce6745428120ebc37369d3d75358d5c582.1710347950.git.vaishali.thakkar@vates.tech>
+Message-Id: <f71fc11c1411f17a3570e3f8c8c088c1276b8552.1710347950.git.vaishali.thakkar@vates.tech>
 In-Reply-To: <cover.1710347950.git.vaishali.thakkar@vates.tech>
 References: <cover.1710347950.git.vaishali.thakkar@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.0a50c5bf78884ac4b4c33705b6ebd394?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.02c8ef692cf34864b336a41beefd05b2?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20240313:md
-Date: Wed, 13 Mar 2024 16:41:27 +0000
+Date: Wed, 13 Mar 2024 16:41:30 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-The suffix _guest is redundant for asid bit. Drop it
-to avoid adding extra code volume.
+Currently only raw _np_ctrl is being printed. It can
+be informational to know about which particular bits
+are enabled. So, this commit adds the bit-by-bit decode
+for np, sev and sev_es bits.
 
-While we're here, replace 0/1 with false/true and use
-VMCB accessors instead of open coding.
+Note that while, only np is enabled in certain scenarios
+at the moment, work for enabling sev and sev_es is in
+progress. And it'll be useful to have this information as
+part of svmdebug.
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Vaishali Thakkar <vaishali.thakkar@vates.tech>
 ---
 Changes since v1:
-        - This patch wasn't part of v1. It's been added to
-          address Andrew's suggestion.
+        - Pretty printing
 Changes since v2:
-        - replace 0/1 with false/true in one of the instance
-        - Use VMCB accessors instead of open coding
+        - Minor changes in pretty printing to make information
+          clear
+        - Improve commit log and subject to include _np bit
 ---
- xen/arch/x86/hvm/svm/asid.c                  | 6 +++---
- xen/arch/x86/hvm/svm/nestedsvm.c             | 8 ++++----
- xen/arch/x86/hvm/svm/svmdebug.c              | 4 ++--
- xen/arch/x86/include/asm/hvm/svm/nestedsvm.h | 2 +-
- xen/arch/x86/include/asm/hvm/svm/vmcb.h      | 6 +++---
- 5 files changed, 13 insertions(+), 13 deletions(-)
+ xen/arch/x86/hvm/svm/svmdebug.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/svm/asid.c b/xen/arch/x86/hvm/svm/asid.c
-index 28e0dbc176..39e3c56919 100644
---- a/xen/arch/x86/hvm/svm/asid.c
-+++ b/xen/arch/x86/hvm/svm/asid.c
-@@ -37,14 +37,14 @@ void svm_asid_handle_vmrun(void)
-     /* ASID 0 indicates that ASIDs are disabled. */
-     if ( p_asid->asid == 0 )
-     {
--        vmcb_set_guest_asid(vmcb, 1);
-+        vmcb_set_asid(vmcb,true);
-         vmcb->tlb_control =
-             cpu_has_svm_flushbyasid ? TLB_CTRL_FLUSH_ASID : TLB_CTRL_FLUSH_ALL;
-         return;
-     }
- 
--    if ( vmcb_get_guest_asid(vmcb) != p_asid->asid )
--        vmcb_set_guest_asid(vmcb, p_asid->asid);
-+    if ( vmcb_get_asid(vmcb) != p_asid->asid )
-+        vmcb_set_asid(vmcb, p_asid->asid);
- 
-     vmcb->tlb_control =
-         !need_flush ? TLB_CTRL_NO_FLUSH :
-diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
-index 07630d74d3..a8d5f4ee95 100644
---- a/xen/arch/x86/hvm/svm/nestedsvm.c
-+++ b/xen/arch/x86/hvm/svm/nestedsvm.c
-@@ -157,7 +157,7 @@ int cf_check nsvm_vcpu_reset(struct vcpu *v)
-     svm->ns_hap_enabled = 0;
-     svm->ns_vmcb_guestcr3 = 0;
-     svm->ns_vmcb_hostcr3 = 0;
--    svm->ns_guest_asid = 0;
-+    svm->ns_asid = 0;
-     svm->ns_hostflags.bytes = 0;
-     svm->ns_vmexit.exitinfo1 = 0;
-     svm->ns_vmexit.exitinfo2 = 0;
-@@ -698,11 +698,11 @@ nsvm_vcpu_vmentry(struct vcpu *v, struct cpu_user_regs *regs,
-     /* Convert explicitely to boolean. Deals with l1 guests
-      * that use flush-by-asid w/o checking the cpuid bits */
-     nv->nv_flushp2m = !!ns_vmcb->tlb_control;
--    if ( svm->ns_guest_asid != ns_vmcb->_guest_asid )
-+    if ( svm->ns_asid != vmcb_get_asid(ns_vmcb))
-     {
-         nv->nv_flushp2m = 1;
-         hvm_asid_flush_vcpu_asid(&vcpu_nestedhvm(v).nv_n2asid);
--        svm->ns_guest_asid = ns_vmcb->_guest_asid;
-+        svm->ns_asid = vmcb_get_asid(ns_vmcb);
-     }
- 
-     /* nested paging for the guest */
-@@ -1046,7 +1046,7 @@ nsvm_vmcb_prepare4vmexit(struct vcpu *v, struct cpu_user_regs *regs)
-     /* Keep it. It's maintainted by the l1 guest. */
- 
-     /* ASID */
--    /* ns_vmcb->_guest_asid = n2vmcb->_guest_asid; */
-+    /* vmcb_set_asid(ns_vmcb, vmcb_get_asid(n2vmcb)); */
- 
-     /* TLB control */
-     ns_vmcb->tlb_control = 0;
 diff --git a/xen/arch/x86/hvm/svm/svmdebug.c b/xen/arch/x86/hvm/svm/svmdebug.c
-index 24358c6eea..0d714c728c 100644
+index 0d714c728c..9d3badcf5d 100644
 --- a/xen/arch/x86/hvm/svm/svmdebug.c
 +++ b/xen/arch/x86/hvm/svm/svmdebug.c
-@@ -51,8 +51,8 @@ void svm_vmcb_dump(const char *from, const struct vmcb_struct *vmcb)
+@@ -51,8 +51,11 @@ void svm_vmcb_dump(const char *from, const struct vmcb_struct *vmcb)
             vmcb->exitcode, vmcb->exit_int_info.raw);
      printk("exitinfo1 = %#"PRIx64" exitinfo2 = %#"PRIx64"\n",
             vmcb->exitinfo1, vmcb->exitinfo2);
--    printk("np_ctrl = %#"PRIx64" guest_asid = %#x\n",
--           vmcb_get_np_ctrl(vmcb), vmcb_get_guest_asid(vmcb));
-+    printk("np_ctrl = %#"PRIx64" asid = %#x\n",
-+           vmcb_get_np_ctrl(vmcb), vmcb_get_asid(vmcb));
+-    printk("np_ctrl = %#"PRIx64" asid = %#x\n",
+-           vmcb_get_np_ctrl(vmcb), vmcb_get_asid(vmcb));
++    printk("asid = %#x np_ctrl = %#"PRIx64":%s%s%s\n",
++           vmcb_get_asid(vmcb), vmcb_get_np_ctrl(vmcb),
++           vmcb_get_np(vmcb)     ? " NP"     : "",
++           vmcb_get_sev(vmcb)    ? " SEV"    : "",
++           vmcb_get_sev_es(vmcb) ? " SEV_ES" : "");
      printk("virtual vmload/vmsave = %d, virt_ext = %#"PRIx64"\n",
             vmcb->virt_ext.fields.vloadsave_enable, vmcb->virt_ext.bytes);
      printk("cpl = %d efer = %#"PRIx64" star = %#"PRIx64" lstar = %#"PRIx64"\n",
-diff --git a/xen/arch/x86/include/asm/hvm/svm/nestedsvm.h b/xen/arch/x86/include/asm/hvm/svm/nestedsvm.h
-index 406fc082b1..7767cd6080 100644
---- a/xen/arch/x86/include/asm/hvm/svm/nestedsvm.h
-+++ b/xen/arch/x86/include/asm/hvm/svm/nestedsvm.h
-@@ -51,7 +51,7 @@ struct nestedsvm {
-      *     the l1 guest nested page table
-      */
-     uint64_t ns_vmcb_guestcr3, ns_vmcb_hostcr3;
--    uint32_t ns_guest_asid;
-+    uint32_t ns_asid;
- 
-     bool ns_hap_enabled;
- 
-diff --git a/xen/arch/x86/include/asm/hvm/svm/vmcb.h b/xen/arch/x86/include/asm/hvm/svm/vmcb.h
-index bf2b8d9a94..0396d10b90 100644
---- a/xen/arch/x86/include/asm/hvm/svm/vmcb.h
-+++ b/xen/arch/x86/include/asm/hvm/svm/vmcb.h
-@@ -383,7 +383,7 @@ typedef union
-         bool intercepts:1; /* 0:  cr/dr/exception/general intercepts,
-                             *     pause_filter_count, tsc_offset */
-         bool iopm:1;       /* 1:  iopm_base_pa, msrpm_base_pa */
--        bool asid:1;       /* 2:  guest_asid */
-+        bool asid:1;       /* 2:  asid */
-         bool tpr:1;        /* 3:  vintr */
-         bool np:1;         /* 4:  np, h_cr3, g_pat */
-         bool cr:1;         /* 5:  cr0, cr3, cr4, efer */
-@@ -413,7 +413,7 @@ struct vmcb_struct {
-     u64 _iopm_base_pa;          /* offset 0x40 - cleanbit 1 */
-     u64 _msrpm_base_pa;         /* offset 0x48 - cleanbit 1 */
-     u64 _tsc_offset;            /* offset 0x50 - cleanbit 0 */
--    u32 _guest_asid;            /* offset 0x58 - cleanbit 2 */
-+    u32 _asid;                  /* offset 0x58 - cleanbit 2 */
-     u8  tlb_control;            /* offset 0x5C - TLB_CTRL_* */
-     u8  res07[3];
-     vintr_t _vintr;             /* offset 0x60 - cleanbit 3 */
-@@ -642,7 +642,7 @@ VMCB_ACCESSORS(pause_filter_thresh, intercepts)
- VMCB_ACCESSORS(tsc_offset, intercepts)
- VMCB_ACCESSORS(iopm_base_pa, iopm)
- VMCB_ACCESSORS(msrpm_base_pa, iopm)
--VMCB_ACCESSORS(guest_asid, asid)
-+VMCB_ACCESSORS(asid, asid)
- VMCB_ACCESSORS(vintr, tpr)
- VMCB_ACCESSORS(np_ctrl, np)
- VMCB_ACCESSORS_(np, bool, np)
 -- 
 2.44.0
 
