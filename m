@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92EE887AE0D
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 18:48:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692713.1080091 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6656387AF24
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 19:18:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692718.1080101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkSi4-0002dG-7L; Wed, 13 Mar 2024 17:48:12 +0000
+	id 1rkTA5-0000is-E9; Wed, 13 Mar 2024 18:17:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692713.1080091; Wed, 13 Mar 2024 17:48:12 +0000
+Received: by outflank-mailman (output) from mailman id 692718.1080101; Wed, 13 Mar 2024 18:17:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkSi4-0002bi-4B; Wed, 13 Mar 2024 17:48:12 +0000
-Received: by outflank-mailman (input) for mailman id 692713;
- Wed, 13 Mar 2024 17:48:10 +0000
+	id 1rkTA5-0000hN-Af; Wed, 13 Mar 2024 18:17:09 +0000
+Received: by outflank-mailman (input) for mailman id 692718;
+ Wed, 13 Mar 2024 18:17:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M9/O=KT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rkSi2-0002ar-FS
- for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 17:48:10 +0000
-Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
- [2607:f8b0:4864:20::82a])
+ id 1rkTA3-0000hF-M7
+ for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 18:17:07 +0000
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [2607:f8b0:4864:20::731])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d9edf626-e161-11ee-a1ee-f123f15fe8a2;
- Wed, 13 Mar 2024 18:48:08 +0100 (CET)
-Received: by mail-qt1-x82a.google.com with SMTP id
- d75a77b69052e-4308c87f6faso191051cf.3
- for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 10:48:08 -0700 (PDT)
+ id e553b527-e165-11ee-a1ee-f123f15fe8a2;
+ Wed, 13 Mar 2024 19:17:05 +0100 (CET)
+Received: by mail-qk1-x731.google.com with SMTP id
+ af79cd13be357-78822adc835so5512185a.3
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 11:17:05 -0700 (PDT)
 Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- s12-20020ac8758c000000b0043096801173sm457536qtq.88.2024.03.13.10.48.03
+ b23-20020a05620a127700b007885cd1c058sm4949553qkl.103.2024.03.13.11.17.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Mar 2024 10:48:05 -0700 (PDT)
+ Wed, 13 Mar 2024 11:17:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9edf626-e161-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: e553b527-e165-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710352086; x=1710956886; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1710353823; x=1710958623; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=iPMAMpD1gm9uztDgbh0tGfyJ0XhNKqmbjIwHhct2ubE=;
-        b=F97Cd78ztuB544MYXoVvhBXfB/tJUBJ2t3ALnNpUrgScOjWZ7HtPCLX5+dwvBd95KG
-         G73jH+JBqw2wScwaRGb4ZSoT7as8F/1q6D0VwlFcQE2jUf5mBxam95e1O90CLx0vTXko
-         7qWHVY5LPgLit251p0bw1kUJjoswIfCpryY6c=
+        bh=BNmCiAOWb71HcisPNuwclr9VmMOrpEOdYu4AXP25DtE=;
+        b=lM2qf51f1kWaFn/Z5mM9LLTR2oxh/BeN8fs8rDaUeQvERWQ2RNbUTrN/P4TVXGo31q
+         Ljk7g8OvjfBO9jnZZoq+B/2OYXoM4REfdLdZoVgf5/NpeAIrh1W2H5MvQw3gWhqSARyc
+         HwCUKVj+Mt5UwzMghpsA9jt09Tu0cJvWATHeA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710352086; x=1710956886;
+        d=1e100.net; s=20230601; t=1710353823; x=1710958623;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=iPMAMpD1gm9uztDgbh0tGfyJ0XhNKqmbjIwHhct2ubE=;
-        b=RPFo6qRMZzu+lL8ABVmNs759GNT1cD01liXRn0aa5LSxuyZJFrJRLwum5RbkxWS6J+
-         qkhjpSXI6t1U2NhtASMwok0mr1rNo9J6XzBk4Xg9ySh7gDVOHFs1IDIeqwmrwgoibElU
-         mlJsO0R6CBitq8ReL8sZKHwf4x622Tu8+wCUI8RKBFbualAzf2kZuAgQvqehfoCuJyUZ
-         e3lR3FlzPte7BoYvb0baPPW7riJeNnd1kWtFvxt2fy3MuqB1wMojUAYPL4+KIDFknudA
-         VLpPaBaEUZN7sk85JlgDkd5wskSt14kmMIc62P/NDCregogYSgVKoGj013gV7goFslUx
-         Kmww==
-X-Gm-Message-State: AOJu0YwljVyivq7EQdWX0TnklMP4trDXjxP/dn0EGSzNMaYBUk5W2fLU
-	PCfFEIhD/Q4KdaUedSnnd37pNqp0u9sUm0NENsmm5wuT4o8ixqs+e/K2Jl22mvm6we5sKT8azvF
-	9
-X-Google-Smtp-Source: AGHT+IEXvzE5SX2GElD+rvpMOU3suRmnfUi8FSgJp3A8DgSyn/3wHItRfBGZVO0OCKBl32PQtemoQA==
-X-Received: by 2002:ac8:5f09:0:b0:42f:309e:5ce2 with SMTP id x9-20020ac85f09000000b0042f309e5ce2mr14754897qta.29.1710352086221;
-        Wed, 13 Mar 2024 10:48:06 -0700 (PDT)
-Message-ID: <04b7bed5-ef60-4d21-90f2-2eea05397fb3@citrix.com>
-Date: Wed, 13 Mar 2024 17:48:02 +0000
+        bh=BNmCiAOWb71HcisPNuwclr9VmMOrpEOdYu4AXP25DtE=;
+        b=chn9ITootKnVH/znx2YDkupxYH1YIGzYecelljhCWFVHvLRHHueTHkSo3qDLEvz0vN
+         a93ULJr7BwiiAW+UU6P7xTProNoa4AqRoCsJ25W24QuA0Sj4D6RkrplfHzJnPDWckfNe
+         C6e0zfvnnxa6wlq37EUJdolUGTuDZ0wgtMTUcBICf94hzNgBGpHiy04SeMJkwgRYN0y+
+         WOFu6nXWoX/RKhcrN0OqCme+N9xJQpQR7LOV+wXH+mftu+p+eVHiyxRoEgZOmRFvTFza
+         5BmG6lAqkEYpxOWpw/rS6nE98LHbEARUY6ZZAM1VMJx1gu26f1xGoq1kJr7HdlGYlyp5
+         THrQ==
+X-Gm-Message-State: AOJu0YzOVHhvzKThI0mJ/RIsVLHjWrdpBm5TXy+vb/9JKEaPF1d9Tbhy
+	6cpal2X1l/Tw0VDnwg1Z4dZ/HZyil8AcrFQjrNA8m4c//b7rsjEhdCahLFpLEHfyo+szrnC4a2D
+	T
+X-Google-Smtp-Source: AGHT+IEl1fFA9remQKXuEYS0Iwe1nWaLn/L/sSnsWeg9AweiS6Nhhe2q1TONGVnwvJMJRcvFJ8G9Ww==
+X-Received: by 2002:a05:620a:201c:b0:788:1f98:14b8 with SMTP id c28-20020a05620a201c00b007881f9814b8mr632888qka.39.1710353823724;
+        Wed, 13 Mar 2024 11:17:03 -0700 (PDT)
+Message-ID: <29db9ea8-0312-4261-92a2-55f868572a4d@citrix.com>
+Date: Wed, 13 Mar 2024 18:16:59 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 3/7] xen/bitops: Implement ffsl() in common logic
@@ -143,32 +143,27 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13/03/2024 5:27 pm, Andrew Cooper wrote:
->  xen/arch/arm/include/asm/bitops.h |  2 +-
->  xen/arch/ppc/include/asm/bitops.h |  1 -
->  xen/arch/x86/include/asm/bitops.h | 30 +++++++++++++-----------------
->  xen/common/bitops.c               |  7 +++++++
->  xen/include/xen/bitops.h          | 12 ++++++++++++
->  5 files changed, 33 insertions(+), 19 deletions(-)
->
-> diff --git a/xen/arch/arm/include/asm/bitops.h b/xen/arch/arm/include/asm/bitops.h
-> index 09c6064274a7..59ae8ed150b6 100644
-> --- a/xen/arch/arm/include/asm/bitops.h
-> +++ b/xen/arch/arm/include/asm/bitops.h
-> @@ -158,7 +158,7 @@ static inline int fls(unsigned int x)
->  
->  
->  #define arch_ffs(x) ({ unsigned int __t = (x); fls(ISOLATE_LSB(__t)); })
-> -#define ffsl(x) ({ unsigned long __t = (x); flsl(ISOLATE_LSB(__t)); })
-> +#define arch_ffsl(x) ({ unsigned long __t = (x); flsl(ISOLATE_LSB(__t)); })
->  
->  /**
->   * find_first_set_bit - find the first set bit in @word
+> diff --git a/xen/common/bitops.c b/xen/common/bitops.c
+> index 484df68768ad..eceffe5029d6 100644
+> --- a/xen/common/bitops.c
+> +++ b/xen/common/bitops.c
+> @@ -40,6 +40,13 @@ static void test_ffs(void)
+>      CHECK(ffs, 0, 0);
+>      CHECK(ffs, 1, 1);
+>      CHECK(ffs, 0x80000000U, 32);
+> +
+> +    /* unsigned int ffsl(unsigned long) */
+> +    CHECK(ffsl, 0, 0);
+> +    CHECK(ffsl, 1, 1);
+> +    CHECK(ffsl, 1UL << (BITS_PER_LONG - 1), BITS_PER_LONG);
+> +    if ( BITS_PER_LONG > 32 )
+> +        CHECK(ffsl, 1UL << 32, 33);
+>  }
 
-It turns out this change isn't bisectable on ARM, but it is by the end
-of the series.
+This if() needs to be an #if to compile on arm32.
 
-Reordering patches 6+7 to be ahead of this one resolves the bisection
-problem.
+Otherwise, I've managed to make the series fully bisectable on all
+architectures.
 
 ~Andrew
 
