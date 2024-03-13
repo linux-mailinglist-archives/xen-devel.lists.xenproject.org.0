@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24D5D87A9F5
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 16:03:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692494.1079702 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F8D687A9F6
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 16:03:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692495.1079712 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkQ8q-0004hG-3F; Wed, 13 Mar 2024 15:03:40 +0000
+	id 1rkQ8s-0004yX-Al; Wed, 13 Mar 2024 15:03:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692494.1079702; Wed, 13 Mar 2024 15:03:40 +0000
+Received: by outflank-mailman (output) from mailman id 692495.1079712; Wed, 13 Mar 2024 15:03:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkQ8p-0004eY-Vh; Wed, 13 Mar 2024 15:03:39 +0000
-Received: by outflank-mailman (input) for mailman id 692494;
- Wed, 13 Mar 2024 15:03:39 +0000
+	id 1rkQ8s-0004wA-6G; Wed, 13 Mar 2024 15:03:42 +0000
+Received: by outflank-mailman (input) for mailman id 692495;
+ Wed, 13 Mar 2024 15:03:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Fwto=KT=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1rkQ8p-0003t5-2J
- for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 15:03:39 +0000
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [2607:f8b0:4864:20::734])
+ id 1rkQ8q-0003t5-HB
+ for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 15:03:40 +0000
+Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
+ [2607:f8b0:4864:20::832])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ded11ed3-e14a-11ee-afdd-a90da7624cb6;
- Wed, 13 Mar 2024 16:03:38 +0100 (CET)
-Received: by mail-qk1-x734.google.com with SMTP id
- af79cd13be357-7882e94d408so541337985a.0
- for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 08:03:38 -0700 (PDT)
+ id dfbba345-e14a-11ee-afdd-a90da7624cb6;
+ Wed, 13 Mar 2024 16:03:39 +0100 (CET)
+Received: by mail-qt1-x832.google.com with SMTP id
+ d75a77b69052e-42f468b62f1so18609091cf.1
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 08:03:39 -0700 (PDT)
 Received: from rossla-lxenia.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- s9-20020ac85ec9000000b0042ef4b5f4fbsm4930034qtx.38.2024.03.13.08.03.34
+ s9-20020ac85ec9000000b0042ef4b5f4fbsm4930034qtx.38.2024.03.13.08.03.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Mar 2024 08:03:35 -0700 (PDT)
+ Wed, 13 Mar 2024 08:03:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,188 +45,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ded11ed3-e14a-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: dfbba345-e14a-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710342216; x=1710947016; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1710342218; x=1710947018; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=U4TeTAtNjsqWwlrctsZmN5LB4TEkMI5eFT9ZNBGXubI=;
-        b=QXv1Ogx7cB5RsixhnMvChPv95kZ4LAXWT7izmloYZE4YqONv2wv2tDL+ftCgdwnd6a
-         v9ddVubasZrGmm6qWWuf9qcOXPLhjYGreFyqjHrrnLPdhwGlXtTwVlhyrxGUnHEkExoJ
-         zk1MgaZsZQ2cu9z2ep0OTxddCHTKvJFzQewi4=
+        bh=QiEx2+FLzW3zGCVQrA43mi0ECENchTli/sSUjekg7XE=;
+        b=qZwyMYL1mLpk7EdfkdjdqZKanWej+vjsND+QOl/Rao1w9ewDq+Qn9aBraHZpn9EOpK
+         tf6nbrUsMk6SVhbmyVu9e6yhf5u2tYQeooMZT15XeHKQxZKeGTIfaIoGiFKe+CNxtbkA
+         AOiSjWaVKUe7i+2gFK4zAX59HhFWuvZlx6N0k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710342216; x=1710947016;
+        d=1e100.net; s=20230601; t=1710342218; x=1710947018;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=U4TeTAtNjsqWwlrctsZmN5LB4TEkMI5eFT9ZNBGXubI=;
-        b=erm0ZfNIvFgYlJX2N5NPzEd78ZjlQfnSKthAVTCwdVvn73aSosd5ONj0NTil0P72IA
-         aJYq9FTpDNH0VTd9t/mut3KM5KrpY/oMpuW4C7PTGqJxhrX+e2idLEX82Opbls/przDj
-         WDcmWjzu/ubKFn1CzNQxm/bFehMpWlA3+IJxYCLzJAKuwH5cZMHMubySOG8r4B5IfwFO
-         t1L0PgIv/BTVPJlAllqcBk3hA0xfi2vbx8Fzgj8HcNXlOKVodtqU46MGqAv/yVVzQUaL
-         OLr58ohtswVj/w2YaNJJ/jFg432BCsaduZkOq5JSX2+FS8475/vSfogdN+wV25t3/wyR
-         Mlug==
-X-Gm-Message-State: AOJu0Yyuwq0Y4YgNh15ZWmtCItwWioqFN4V1Ko6oBTor4x3DpXR/ayXe
-	q5LOr1vOgoz5F4rDGz1Ec2Ou73NobPU5KeQibl8rBq/5XcoXnkhQWk7NkXQQyLp7Jr/z+dFA/4B
-	lSy2h
-X-Google-Smtp-Source: AGHT+IE7eJh239NUg3LLwlY/kx4HoJml6ruPsHnqzezPRVHpl1dImCS7EL5JGXJT9DvImYTHuGiuAQ==
-X-Received: by 2002:a05:622a:251:b0:42e:f101:952 with SMTP id c17-20020a05622a025100b0042ef1010952mr17139115qtx.11.1710342216119;
-        Wed, 13 Mar 2024 08:03:36 -0700 (PDT)
+        bh=QiEx2+FLzW3zGCVQrA43mi0ECENchTli/sSUjekg7XE=;
+        b=c0EiK4mA/pA3NxeKq5YPN37COjddCA2eDgfemKd8B2aIoqgIBTgI237oslq+whDec8
+         oBtv2AWtDg3RzUveUuksAKhLeLTgZc75blavj6s6HIPakrXlxm5TMR2vySQe3BAbi5Tb
+         QMiRl9KWg7FQPSi3juLjwk+5x0wORjcR4qCC8eOYPO5o0zwEb+S7eVOpEhgq377ci20R
+         +8CTORlRFhTd3Qt7LFtYtY/k+K/unNAkcuYGYOVkEt5JW5fwXFeQWVCKJevnh0j/IG+G
+         HlCFH5nJ3XBAgVc1cx+5OjU7zxja196iMwDFhhspVTpp3JJ9fxqpmOtIvueZ9mq6qmu6
+         98ZQ==
+X-Gm-Message-State: AOJu0YzN/s8fbMgfxn/zNQzNBV4+3GDx+1Gs7Qzbl9FOY0fSBo/7fYrG
+	hJNpoIKDKAL06Io8t3oEqMpV4N5h/95MjCTTyuomYXlh/lVkYwNmOG6fGb0Ud7IA+jEdt0bJbrf
+	ltQ==
+X-Google-Smtp-Source: AGHT+IEY4iMUpxcQkqaJtj9BZiqXpcRfn1PNNn7j6IsH2RqYkSF7CFfot+XPRvFlXjpahBC8IR10pQ==
+X-Received: by 2002:a05:622a:653:b0:42e:eb7d:1ab3 with SMTP id a19-20020a05622a065300b0042eeb7d1ab3mr5774242qtb.65.1710342218284;
+        Wed, 13 Mar 2024 08:03:38 -0700 (PDT)
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 3/4] x86: Hand-edit coff flags to remove RELOCS_STRIPPED flag
-Date: Wed, 13 Mar 2024 15:04:38 +0000
-Message-ID: <20240313150439.791213-4-ross.lagerwall@citrix.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH 4/4] x86: Call Shim Verify in the multiboot2 path
+Date: Wed, 13 Mar 2024 15:04:39 +0000
+Message-ID: <20240313150439.791213-5-ross.lagerwall@citrix.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240313150439.791213-1-ross.lagerwall@citrix.com>
 References: <20240313150439.791213-1-ross.lagerwall@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The generated PE binary is generated without relocations since it does
-not need them. However, the linker sets the IMAGE_FILE_RELOCS_STRIPPED
-flag which implies the binary is not relocatable and this causes some
-tools to refuse to handle the binary (e.g. Shim). As there is no option
-to remove this flag using the linker, post-process the binary to do it.
+Now that the multiboot2 binary can be verified by Shim, ensure that the
+dom0 kernel is verified when using the multiboot2 path. If the Shim
+protocol is not available and the SecureBoot variable is not set to 0
+(or the state cannot be determined), abort the boot.
 
 Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 ---
- .gitignore                        |  1 +
- xen/arch/x86/Makefile             |  2 +
- xen/arch/x86/efi/set-coff-flags.c | 83 +++++++++++++++++++++++++++++++
- 3 files changed, 86 insertions(+)
- create mode 100644 xen/arch/x86/efi/set-coff-flags.c
+ xen/arch/x86/boot/head.S    |  4 ++-
+ xen/arch/x86/efi/efi-boot.h | 65 ++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 67 insertions(+), 2 deletions(-)
 
-diff --git a/.gitignore b/.gitignore
-index d8b57e32f888..ab0b18352a0f 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -256,6 +256,7 @@ xen/arch/x86/boot/*.lnk
- xen/arch/x86/efi.lds
- xen/arch/x86/efi/check.efi
- xen/arch/x86/efi/mkreloc
-+xen/arch/x86/efi/set-coff-flags
- xen/arch/x86/include/asm/asm-macros.h
- xen/arch/*/xen.lds
- xen/arch/*/efi/boot.c
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index e26b1cb35036..73b16ddeb976 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -86,6 +86,7 @@ extra-y += xen.lds
+diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+index 84dc8b76b61d..7b6e5d3882ad 100644
+--- a/xen/arch/x86/boot/head.S
++++ b/xen/arch/x86/boot/head.S
+@@ -385,10 +385,12 @@ __efi64_mb2_start:
+         /* Keep the stack aligned. Do not pop a single item off it. */
+         mov     (%rsp),%rdi
  
- hostprogs-y += boot/mkelf32
- hostprogs-y += efi/mkreloc
-+hostprogs-y += efi/set-coff-flags
++        mov     %rbx, %rcx
++
+         /*
+          * efi_multiboot2() is called according to System V AMD64 ABI:
+          *   - IN:  %rdi - EFI ImageHandle, %rsi - EFI SystemTable,
+-         *          %rdx - MB2 cmdline
++         *          %rdx - MB2 cmdline, %rcx - Multiboot information.
+          */
+         call    efi_multiboot2
  
- # Allows usercopy.c to include itself
- $(obj)/usercopy.o: CFLAGS-y += -iquote .
-@@ -157,6 +158,7 @@ endif
- 		{ echo "No Multiboot1 header found" >&2; false; }
- 	od -t x4 -N 32768 $@.tmp | grep e85250d6 > /dev/null || \
- 		{ echo "No Multiboot2 header found" >&2; false; }
-+	$(obj)/efi/set-coff-flags $@.tmp
- 	mv $@.tmp $(TARGET)
- 	$(NM) -pa --format=sysv $@ \
- 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
-diff --git a/xen/arch/x86/efi/set-coff-flags.c b/xen/arch/x86/efi/set-coff-flags.c
-new file mode 100644
-index 000000000000..a99415e6bcbf
---- /dev/null
-+++ b/xen/arch/x86/efi/set-coff-flags.c
-@@ -0,0 +1,83 @@
-+#include <stdio.h>
-+#include <stdint.h>
-+#include <unistd.h>
-+#include <fcntl.h>
+diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+index 8ea64e31cdc2..a9569e150e08 100644
+--- a/xen/arch/x86/efi/efi-boot.h
++++ b/xen/arch/x86/efi/efi-boot.h
+@@ -3,6 +3,7 @@
+  * is intended to be included by common/efi/boot.c _only_, and
+  * therefore can define arch specific global variables.
+  */
++#include <xen/multiboot2.h>
+ #include <xen/vga.h>
+ #include <asm/e820.h>
+ #include <asm/edd.h>
+@@ -808,9 +809,69 @@ static const char *__init get_option(const char *cmd, const char *opt)
+     return o;
+ }
+ 
++#define ALIGN_UP(arg, align) \
++                (((arg) + (align) - 1) & ~((typeof(arg))(align) - 1))
 +
-+struct mz_hdr {
-+    uint16_t signature;
-+#define MZ_SIGNATURE 0x5a4d
-+    uint16_t last_page_size;
-+    uint16_t page_count;
-+    uint16_t relocation_count;
-+    uint16_t header_paras;
-+    uint16_t min_paras;
-+    uint16_t max_paras;
-+    uint16_t entry_ss;
-+    uint16_t entry_sp;
-+    uint16_t checksum;
-+    uint16_t entry_ip;
-+    uint16_t entry_cs;
-+    uint16_t relocations;
-+    uint16_t overlay;
-+    uint8_t reserved[32];
-+    uint32_t extended_header_base;
-+};
-+
-+struct coff_hdr {
-+    uint32_t signature;
-+    uint16_t cpu;
-+    uint16_t section_count;
-+    int32_t timestamp;
-+    uint32_t symbols_file_offset;
-+    uint32_t symbol_count;
-+    uint16_t opt_hdr_size;
-+    uint16_t flags;
-+};
-+
-+int main(int argc, char **argv)
++static void __init efi_verify_dom0(uint64_t mbi_in)
 +{
-+    int fd;
-+    struct mz_hdr mz_hdr;
-+    struct coff_hdr coff_hdr;
++    uint64_t ptr;
++    const multiboot2_tag_t *tag;
++    EFI_SHIM_LOCK_PROTOCOL *shim_lock;
++    EFI_STATUS status;
++    const multiboot2_tag_module_t *kernel = NULL;
++    const multiboot2_fixed_t *mbi_fix = _p(mbi_in);
++    static EFI_GUID __initdata shim_lock_guid = SHIM_LOCK_PROTOCOL_GUID;
++    static EFI_GUID __initdata global_variable_guid = EFI_GLOBAL_VARIABLE;
 +
-+    if ( argc != 2 )
++    ptr = ALIGN_UP(mbi_in + sizeof(*mbi_fix), MULTIBOOT2_TAG_ALIGN);
++
++    for ( tag = _p(ptr); (uint64_t)tag - mbi_in < mbi_fix->total_size;
++          tag = _p(ALIGN_UP((uint64_t)tag + tag->size, MULTIBOOT2_TAG_ALIGN)) )
 +    {
-+        fprintf(stderr, "usage: %s <image>\n", argv[0]);
-+        return 1;
++        if ( tag->type == MULTIBOOT2_TAG_TYPE_MODULE )
++        {
++            kernel = (const multiboot2_tag_module_t *)tag;
++            break;
++        }
++        else if ( tag->type == MULTIBOOT2_TAG_TYPE_END )
++            break;
 +    }
 +
-+    fd = open(argv[1], O_RDWR);
-+    if ( fd < 0 ||
-+         read(fd, &mz_hdr, sizeof(mz_hdr)) != sizeof(mz_hdr) )
++    if ( !kernel )
++        return;
++
++    if ( (status = efi_bs->LocateProtocol(&shim_lock_guid, NULL,
++                                          (void **)&shim_lock)) != EFI_SUCCESS )
 +    {
-+        perror(argv[1]);
-+        return 2;
++        UINT32 attr;
++        UINT8 data;
++        UINTN size = sizeof(data);
++
++        status = efi_rs->GetVariable((CHAR16 *)L"SecureBoot", &global_variable_guid,
++                                     &attr, &size, &data);
++        if ( status == EFI_NOT_FOUND )
++            return;
++
++        if ( EFI_ERROR(status) )
++            PrintErrMesg(L"Could not get SecureBoot variable", status);
++
++        if ( attr != (EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS) )
++            PrintErrMesg(L"Unexpected SecureBoot attributes", attr);
++
++        if ( size == 1 && data == 0 )
++            return;
++
++        blexit(L"Could not locate shim but Secure Boot is enabled");
 +    }
 +
-+    if ( mz_hdr.signature != MZ_SIGNATURE ||
-+         !mz_hdr.extended_header_base )
-+    {
-+        fprintf(stderr, "%s: Wrong DOS file format\n", argv[1]);
-+        return 2;
-+    }
-+
-+    if ( lseek(fd, mz_hdr.extended_header_base, SEEK_SET) < 0 ||
-+         read(fd, &coff_hdr, sizeof(coff_hdr)) != sizeof(coff_hdr) )
-+    {
-+        perror(argv[1]);
-+        return 2;
-+    }
-+
-+    coff_hdr.flags &= ~0x1;
-+
-+    if ( lseek(fd, mz_hdr.extended_header_base, SEEK_SET) < 0 ||
-+         write(fd, &coff_hdr, sizeof(coff_hdr)) != sizeof(coff_hdr) )
-+    {
-+        perror(argv[1]);
-+        return 3;
-+    }
-+
-+    close(fd);
-+
-+    return 0;
++    if ( (status = shim_lock->Verify(_p(kernel->mod_start),
++                                     kernel->mod_end - kernel->mod_start)) != EFI_SUCCESS )
++        PrintErrMesg(L"Dom0 kernel image could not be verified", status);
 +}
++
+ void asmlinkage __init efi_multiboot2(EFI_HANDLE ImageHandle,
+                                       EFI_SYSTEM_TABLE *SystemTable,
+-                                      const char *cmdline)
++                                      const char *cmdline, uint64_t mbi_in)
+ {
+     EFI_GRAPHICS_OUTPUT_PROTOCOL *gop;
+     EFI_HANDLE gop_handle;
+@@ -902,6 +963,8 @@ void asmlinkage __init efi_multiboot2(EFI_HANDLE ImageHandle,
+ 
+     efi_relocate_esrt(SystemTable);
+ 
++    efi_verify_dom0(mbi_in);
++
+     efi_exit_boot(ImageHandle, SystemTable);
+ }
+ 
 -- 
 2.43.0
 
