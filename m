@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8F9B87AB28
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 17:32:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692623.1079940 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E419C87AB7D
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 17:41:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692627.1079951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkRVv-0005e9-Pn; Wed, 13 Mar 2024 16:31:35 +0000
+	id 1rkRfP-0008FV-Kf; Wed, 13 Mar 2024 16:41:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692623.1079940; Wed, 13 Mar 2024 16:31:35 +0000
+Received: by outflank-mailman (output) from mailman id 692627.1079951; Wed, 13 Mar 2024 16:41:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkRVv-0005bU-MZ; Wed, 13 Mar 2024 16:31:35 +0000
-Received: by outflank-mailman (input) for mailman id 692623;
- Wed, 13 Mar 2024 16:31:34 +0000
+	id 1rkRfP-0008Dw-Hu; Wed, 13 Mar 2024 16:41:23 +0000
+Received: by outflank-mailman (input) for mailman id 692627;
+ Wed, 13 Mar 2024 16:41:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5AcA=KT=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rkRVu-0005bO-6S
- for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 16:31:34 +0000
-Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
- [2607:f8b0:4864:20::c30])
+ <SRS0=fMvF=KT=bounce.vates.tech=bounce-md_30504962.65f1d72e.v1-955815554105470d8cc16439a67cb507@srs-se1.protection.inumbo.net>)
+ id 1rkRfO-0008Dq-LH
+ for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 16:41:22 +0000
+Received: from mail137-23.atl71.mandrillapp.com
+ (mail137-23.atl71.mandrillapp.com [198.2.137.23])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 266263c9-e157-11ee-afdd-a90da7624cb6;
- Wed, 13 Mar 2024 17:31:32 +0100 (CET)
-Received: by mail-oo1-xc30.google.com with SMTP id
- 006d021491bc7-5a21859a4b8so1432974eaf.0
- for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 09:31:32 -0700 (PDT)
+ id 8523251d-e158-11ee-afdd-a90da7624cb6;
+ Wed, 13 Mar 2024 17:41:21 +0100 (CET)
+Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail137-23.atl71.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Tvx9B1V3Nz1XLJlY
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 16:41:18 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 955815554105470d8cc16439a67cb507; Wed, 13 Mar 2024 16:41:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,84 +43,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 266263c9-e157-11ee-afdd-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1710347491; x=1710952291; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=umgvJmcBaleLQI+t61eBfjeJyu3f6nhm74M4JR/otFc=;
-        b=VJhp1/BGAmH/9nQ0DAP1OajFZ0WM9O12SSnRaZiMZY6fsJHhHmkAkdGjIZz9GcqkIG
-         U8cYnKUX9QrupmWx7JKqfLOLWmr0svHuQbrnG5hHqeqXRawXhSQXvIl/0KJOupIETmwx
-         SHVnIVd+hWptc5XSHqdqwfRjJmSKAz3uhm8tg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710347491; x=1710952291;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=umgvJmcBaleLQI+t61eBfjeJyu3f6nhm74M4JR/otFc=;
-        b=OxVFI1wAXWEZ24CYQK0w0zzBUyVb5RGBIbC6hywqIKXSE65Bi0Xs776ZGSA5b4LiDS
-         0CEylNkd8wI8hWVjHBXF8HaoCUoBTiTZwL3Xi8Rn9w7k2GIxeShzO1AwcbTDA+bWWS0V
-         5Pgi4A1Nj/zf+dW88ft0oZFA7TYN0E9LVTGZTo6IfcQoOlYGWlxH7ks7lSNA8rYQ7ZS+
-         4Jz5MT+gKjNn6DMa/VBygCMRbgGR4Kcge4rOyYGkXPQsebpDCKVx7K0PDcX+uE/+G1Hl
-         LcCv0fxWQuWtcgwwxqzwe8L2ogz0uVGPe89i9GX7Tv+apczdb5xZlJWnycKRP7NaLacH
-         sHhg==
-X-Gm-Message-State: AOJu0YwaDXtv8/oJ1Zr3UPW//Qq+lBEJvcyEhRTCOnemnI5USAORFmG3
-	AzUaVBPVLuw8cLcl1XZBuamsbIBxDRLTTEDPZKM7bCDlSMcQeVidMlsIzhMV8TGEVJZRMSngXJL
-	BAt+bRIfe30pQh9rTUaPjWdbujEtuSa0XJGKg5w==
-X-Google-Smtp-Source: AGHT+IEH2gZXJs2GYm9YIzznaX9/VCtR9VxyDnXjn8f48/KO/KwdpvpJI7e2unbFpW4Eq8/kv/xqtdumDvLgiYEmSfg=
-X-Received: by 2002:a05:6870:f14e:b0:221:8fd9:284c with SMTP id
- l14-20020a056870f14e00b002218fd9284cmr3956496oac.1.1710347491259; Wed, 13 Mar
- 2024 09:31:31 -0700 (PDT)
+X-Inumbo-ID: 8523251d-e158-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1710348078; x=1710608578;
+	bh=0bduU8vi4qUwaEqWeiDsH+4vvViTADvEp8YdEFXN0zs=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=MluqUJDd7QgnBCO9/UmrxW33FMqUiNfTqLr7KDVXO9oFpVTXXMGWWwI8I3ZFQ6DjT
+	 L+8Sz80efk9pwxDIS2Kj733wTzhhuquHHTNzU5wmWAZ9L6EYnBCk8yU1Z2kpEHQCPI
+	 IaHc2x+OVOy9QbJIiop7rYTzeFv3evCEEy0ZBiS+aPX4qDSo+j5PXb2VKG8HRPAM7H
+	 OoXLPCfIhk+6O58QR3eMO4ZchhK5OOtDeQEwn5ofKd55ESwVjMDd5k60VYbMB4KLW7
+	 imfHjqt60ntECTEme7eWEmpTxUHoX+tkvHb1T4NvC/v4hoMoKxgXEnPhE3Mo5nSn55
+	 6uY7wO7Lv1MmQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1710348078; x=1710608578; i=vaishali.thakkar@vates.tech;
+	bh=0bduU8vi4qUwaEqWeiDsH+4vvViTADvEp8YdEFXN0zs=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=V1oXK6CpbTdLnLGjfdAAeMN8Tt0z9s1i+ooCxzex9e2b9de8YxAQ6BkhXwOvQ7j43
+	 /AWsZgC6KBcZsA7kOKO/BURXuyuTL0GmzAzDb3XCKm4f8iGM1mQ8PnXn5zKFIcKMWd
+	 4W+BenjUFtah49jJM1u/jkhSEuw2vPDvueqcyDO2BxI3hP5LUJkdnN/c090SxZbGkM
+	 6KOK3TqY67wn1LBS4zYhdYXOuY7nat7FqiR28eLrTc4aRxAyW1/KiBvi1Wi34FRzjO
+	 dq068MK+2UT9n/mS56PAK37Hpy5/Hmrpgm/AHSGTZfBCwVZEyJcJNW0VlrePVqgViZ
+	 jocT5hEYy7wmA==
+From: Vaishali Thakkar <vaishali.thakkar@vates.tech>
+Subject: =?utf-8?Q?[PATCH=20v3=200/3]=20Misc=20changes=20for=20few=20VMCB=20bits?=
+X-Mailer: git-send-email 2.44.0
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1710348077128
+To: xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org, Vaishali Thakkar <vaishali.thakkar@vates.tech>
+Message-Id: <cover.1710347950.git.vaishali.thakkar@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.955815554105470d8cc16439a67cb507?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240313:md
+Date: Wed, 13 Mar 2024 16:41:18 +0000
 MIME-Version: 1.0
-References: <ac46f25b-e669-f309-b36e-c4760e10479e@suse.com> <3daef84c-47dd-4a6b-9984-402e997598dc@suse.com>
-In-Reply-To: <3daef84c-47dd-4a6b-9984-402e997598dc@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Wed, 13 Mar 2024 16:31:20 +0000
-Message-ID: <CA+zSX=aQv3cx6BR9soqaN8LD_esUqkxnVQRA6p5RzzsAiLcHbQ@mail.gmail.com>
-Subject: Re: [PATCH v4] x86/PoD: tie together P2M update and increment of
- entry count
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Mar 13, 2024 at 2:00=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> When not holding the PoD lock across the entire region covering P2M
-> update and stats update, the entry count - if to be incorrect at all -
-> should indicate too large a value in preference to a too small one, to
-> avoid functions bailing early when they find the count is zero. However,
-> instead of moving the increment ahead (and adjust back upon failure),
-> extend the PoD-locked region.
->
-> Fixes: 99af3cd40b6e ("x86/mm: Rework locking in the PoD layer")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Hi,
 
-Would you mind commenting on why you went with multiple unlocks,
-rather than multiple if statements?
+In this patchset, first & second patch removes the unnecessary
+suffix from a bunch of vmcb bits. Third patch is about printing
+the status of sev and sev-es bits while dumping VMCB.
 
-e.g.,
+Changes since v1:
+  - Address comments from Andrew and Jan
+  - Add extrapatch to drop the suffix _guest as per Andrew's
+    suggestion in one of the reviews
+  - Address Andrew's comment with respect to pretty printing
 
-```
-rc =3D p2m_set_entry(...);
+Changes since v2:
+  - Use VMCB accessors instead of open coding in patch 1 & 2
+  - Fix one remaining instance of using false/true instead of
+    0/1 in patch 2
+  - Improve the pretty printing in svm-debug based on Jan's
+    comments
+  - Improve commit logs and the subject of patch 3 to include
+    the changes done in v3
 
-/* Do the pod entry adjustment while holding the lock on success */
-if ( rc =3D=3D 0 ) {
- /* adjust pod entries */
-}
+Vaishali Thakkar (3):
+  x86/svm: Drop the _enabled suffix from vmcb bits
+  x86/svm: Drop the suffix _guest from vmcb bit
+  x86/svmdebug: Print np, sev and sev_es vmcb bits
 
-pod_unlock(p2m);
+ xen/arch/x86/hvm/svm/asid.c                  |  6 ++---
+ xen/arch/x86/hvm/svm/nestedsvm.c             | 22 ++++++++---------
+ xen/arch/x86/hvm/svm/svm.c                   |  2 +-
+ xen/arch/x86/hvm/svm/svmdebug.c              |  7 ++++--
+ xen/arch/x86/hvm/svm/vmcb.c                  |  2 +-
+ xen/arch/x86/include/asm/hvm/svm/nestedsvm.h |  2 +-
+ xen/arch/x86/include/asm/hvm/svm/vmcb.h      | 26 ++++++++++----------
+ 7 files changed, 35 insertions(+), 32 deletions(-)
 
-/* Do the rest of the clean-up and error handling */
-if (rc =3D=3D 0 ) {
-```
-
-Just right now the multiple unlocks makes me worry that we may forget
-one at some point.
-
- -George
+-- 
+2.44.0
 
