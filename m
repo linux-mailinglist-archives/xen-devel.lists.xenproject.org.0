@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B879487AA4B
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 16:17:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692563.1079882 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3737D87AAA6
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 16:48:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692584.1079891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkQLv-0007Zp-Dk; Wed, 13 Mar 2024 15:17:11 +0000
+	id 1rkQon-0001QD-GX; Wed, 13 Mar 2024 15:47:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692563.1079882; Wed, 13 Mar 2024 15:17:11 +0000
+Received: by outflank-mailman (output) from mailman id 692584.1079891; Wed, 13 Mar 2024 15:47:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkQLv-0007W9-7K; Wed, 13 Mar 2024 15:17:11 +0000
-Received: by outflank-mailman (input) for mailman id 692563;
- Wed, 13 Mar 2024 15:17:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rkQon-0001Oc-Dt; Wed, 13 Mar 2024 15:47:01 +0000
+Received: by outflank-mailman (input) for mailman id 692584;
+ Wed, 13 Mar 2024 15:35:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WIWB=KT=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1rkQLs-0005e0-Ro
- for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 15:17:08 +0000
-Received: from fout3-smtp.messagingengine.com (fout3-smtp.messagingengine.com
- [103.168.172.146]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c10a0061-e14c-11ee-a1ee-f123f15fe8a2;
- Wed, 13 Mar 2024 16:17:07 +0100 (CET)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailfout.nyi.internal (Postfix) with ESMTP id 961B41380063;
- Wed, 13 Mar 2024 11:17:06 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Wed, 13 Mar 2024 11:17:06 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 13 Mar 2024 11:17:04 -0400 (EDT)
+ <SRS0=Xmzd=KT=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
+ id 1rkQdQ-0007MK-Ms
+ for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 15:35:16 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 49d8cea8-e14f-11ee-afdd-a90da7624cb6;
+ Wed, 13 Mar 2024 16:35:15 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a466a256726so11207066b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 08:35:15 -0700 (PDT)
+Received: from EMEAENGAAD91498.citrite.net ([217.156.233.157])
+ by smtp.gmail.com with ESMTPSA id
+ lt9-20020a170906fa8900b00a45c4d3ee11sm4930248ejb.123.2024.03.13.08.35.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Mar 2024 08:35:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,93 +45,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c10a0061-e14c-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to; s=fm1; t=1710343026; x=1710429426; bh=rqAlWJ788XGq8tNuFWR/8
-	CwesBByjaWaSAP4BkMnyEs=; b=KmXybWfqPZ5FXd7uhqw9z5UweMLZ+OASdIDdd
-	2CAloPqIaW5uyVPavfKwG9NJqYo6q3FIW4GQL1yvFmdkeB6nhGHp06QLV60UtBiG
-	fkcdVQmAysQO/suw1eNMaWsDATj+FMWwa2OZvQS3cWSYwRGCSWNkr+a+J1crgkYM
-	NSTIVOdykSMhM8nStI7iNfvKaEAiunUE/1kfRiuEykZnO3B18zlvhe7o+Z5NOBbj
-	p5HuzYR0Fg/nMNXaf2Ex1Vdz8/Pm6eEnU9XUybk+++LJDRwyVSey6MWr6aVkQ19Z
-	9nxyjMCan//Pd//C36ilSrJmGlnPNbdO+FRNxFMwNhhk8q5TQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1710343026; x=
-	1710429426; bh=rqAlWJ788XGq8tNuFWR/8CwesBByjaWaSAP4BkMnyEs=; b=I
-	EpOTZre72V/R9KM4M3B5tt+XtrdmVc5AMZGW5iUIfjy/o/loE4wInAV6+Sjf/9Jg
-	W8Uv0oY9A1DyNneY7JP8HYQlcCHQ0xqMcutK2L5JF8IHsgB3i+rGC9Wb3CD+FcU/
-	RSZNV5LgBs1j0Pk+Q08O6PGF8aIaIfnXMb6+WVw1HcY4nekZln414ijY1/e7we+H
-	LNL9cda5nreRVoUTlv5Ia37Ptd1zwzOuaAsxm1qo72s2UGL7Urjms1NHAZ2F8s+f
-	QUD4Xjj5/s82QiECZjMv/LhHpUo35Y807YIBiTYANc1yQAQh1q9TigGEla7pjEGg
-	wkox0OjTJOVsLSho0jmFw==
-X-ME-Sender: <xms:csPxZcsSwPPB0ORp5X7LaC4N5S6TR_wzmAcHFq-vXX85uRPQLzuTvw>
-    <xme:csPxZZd-xP5z59q0d0k1DWQl4SaJ6Mb5Ed1OrvoeNEFVDEM_RqTNg0Sm3ZxPiw-kZ
-    rRn3lOH1cqZTg>
-X-ME-Received: <xmr:csPxZXzo-Z9oAg5hmyikQDWdX1FJDPMWdQ0CdUItD43MaX9lE3lNVOEd0_8PdI9t9iD-M9BBZovNGcfkA5_MoAwKyMAKBnaAjrxncGw9A5lZ5Z7uKLY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrjeehgdejgecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefhvfevufffkffojghfggfgsedtkeertdertdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeuteeh
-    gfeiheehfedtueeludfhgfeileeujefhgffgieeiveethfeffffffedtheenucffohhmrg
-    hinhepghhithhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
-    pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomh
-X-ME-Proxy: <xmx:csPxZfPQesNIHll1ntf5PSuwhA1PdUdt2wCqzKIzDuG7brDxme3G7w>
-    <xmx:csPxZc8NTSlsLQ4JduTr_JOK3EPKRX2_y5t-cLfyBWseukbCs0iPIg>
-    <xmx:csPxZXV38Y1zy338ZCjdGAkIgSU2YxT73SiYPhl5MEMzlWGG5Yen7Q>
-    <xmx:csPxZVeMnGnlIqDgdA5WYIMw5vR6SVy1pioxBpITqVVGY8Q0lJ9jgA>
-    <xmx:csPxZQav3H4QcZcpOcXILzJ8fCWs6rMxn4whZcpjY8oM7Dy2Pq_iDA>
-Feedback-ID: i1568416f:Fastmail
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 7/7] [DO NOT APPLY] switch to alternative artifact repo
-Date: Wed, 13 Mar 2024 16:16:12 +0100
-Message-ID: <6e8f9bd56b241e101b014f748888010adf280da5.1710342968.git-series.marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.afa2d89161590f5193dd6bfd340c5e9347877aae.1710342968.git-series.marmarek@invisiblethingslab.com>
-References: <cover.afa2d89161590f5193dd6bfd340c5e9347877aae.1710342968.git-series.marmarek@invisiblethingslab.com>
+X-Inumbo-ID: 49d8cea8-e14f-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1710344114; x=1710948914; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hRQqdzncpSGt6fbxgjyMV5po9/h6eRl9V9eIxuTQ6WM=;
+        b=bl4Dt/huZinBzY2e1nMqXFh7DdwOewEBuT3hRQdi2P3QH/LxBQFO/Os6gyzcLtfZP7
+         RTJ2k2f3D+KLb0lxPhBNE592gL7WDQGY+AjVyjaEcdNsvkOjZTSVRtlsLETJzcFSCcS2
+         niGyuvdEHK3IthqumxO0IKJpGzLXmJJSWEUPM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710344114; x=1710948914;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hRQqdzncpSGt6fbxgjyMV5po9/h6eRl9V9eIxuTQ6WM=;
+        b=J18TOK0ThQhkE1F8AIpTlIi8md+PMPz/+KAIgfSqA2xqA0BuNTdoSOgbLWd2LpCJgZ
+         haGxT0fi+unuNv2FVl4W8G0ss6lK1aIWeu60ffF3rn4s96OU+ybTsqqGHnFVJcGn5k6/
+         7xN1vuwhiI7uR+2JN6qFlapVePvBlL8sHJ0tMvnbLKMRSQSX9BPBLisieCwBHUunh8oV
+         eEXZ3PsPjscN3wkZt2irhwfRAVZv7GP9pbfTMlZKcfeZaUzWVoBR9G2TM3kH57Apw6Qv
+         t+Mkpmyf/B10FAl5w2I+P3w2+6tj2yOHVhZQ9gGNBXHvUSBvp56FHOE0+N4hCnJFwEEI
+         7F4A==
+X-Gm-Message-State: AOJu0YymwlMxOyRp7tQ7jbm67OjQagGdHQO58kTDgWXhcci7Qx0M4G6R
+	TLyCZKHQ1ndb/fyhaKDwuJneL/NA/gjONJ1snTtb6XyNiA3wxx28hK5fwetetx9c5oc3Jwdk1Fg
+	LjSY=
+X-Google-Smtp-Source: AGHT+IEwiuP76hhoS6jiTUnmlM0RhWgGzAerXqT9OvHGPPKxYJR3T319S28euVfQtzUbbgmooWxizQ==
+X-Received: by 2002:a17:907:2da2:b0:a46:4bd4:df86 with SMTP id gt34-20020a1709072da200b00a464bd4df86mr3359956ejc.3.1710344114354;
+        Wed, 13 Mar 2024 08:35:14 -0700 (PDT)
+From: Matthew Barnes <matthew.barnes@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Matthew Barnes <matthew.barnes@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [XEN PATCH] tools: add x2APIC entries in MADT based on APIC ID
+Date: Wed, 13 Mar 2024 15:35:11 +0000
+Message-Id: <cd1a3ce14790af8c1bb4372ef0be5a6cbbb50b1c.1710338145.git.matthew.barnes@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For testing, switch to my containers registry that includes containers
-rebuilt with changes in this series.
----
- automation/gitlab-ci/build.yaml | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+libacpi is a tool that is used by libxl (for PVH guests) and hvmloader
+(for HVM guests) to construct ACPI tables for guests.
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 6d2cb18b8883..7dafbf144494 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -320,7 +320,7 @@ qemu-system-ppc64-8.1.0-ppc64-export:
+Currently, libacpi only uses APIC entries to enumerate processors for
+guests in the MADT.
+
+The APIC ID field in APIC entries is an octet big, which is fine for
+xAPIC IDs, but not so for sufficiently large x2APIC IDs.
+
+This patch scans each APIC ID before constructing the MADT, and uses the
+x2APIC entry for each vCPU whose APIC ID exceeds the size limit imposed
+by regular APIC entries.
+
+Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
+---
+ tools/libacpi/acpi2_0.h | 13 +++++++
+ tools/libacpi/build.c   | 75 ++++++++++++++++++++++++++++++-----------
+ 2 files changed, 68 insertions(+), 20 deletions(-)
+
+diff --git a/tools/libacpi/acpi2_0.h b/tools/libacpi/acpi2_0.h
+index 6dfa939a8c0c..10e567686fe6 100644
+--- a/tools/libacpi/acpi2_0.h
++++ b/tools/libacpi/acpi2_0.h
+@@ -344,6 +344,7 @@ struct acpi_20_waet {
+ #define ACPI_IO_SAPIC                       0x06
+ #define ACPI_PROCESSOR_LOCAL_SAPIC          0x07
+ #define ACPI_PLATFORM_INTERRUPT_SOURCES     0x08
++#define ACPI_PROCESSOR_LOCAL_X2APIC         0x09
  
- alpine-3.18-rootfs-export:
-   extends: .test-jobs-artifact-common
--  image: registry.gitlab.com/xen-project/xen/tests-artifacts/alpine:3.18
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/tests-artifacts/alpine:3.18
-   script:
-     - mkdir binaries && cp /initrd.tar.gz binaries/initrd.tar.gz
-   artifacts:
-@@ -331,7 +331,7 @@ alpine-3.18-rootfs-export:
+ /*
+  * APIC Structure Definitions.
+@@ -360,6 +361,18 @@ struct acpi_20_madt_lapic {
+     uint32_t flags;
+ };
  
- kernel-6.1.19-export:
-   extends: .test-jobs-artifact-common
--  image: registry.gitlab.com/xen-project/xen/tests-artifacts/kernel:6.1.19
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/tests-artifacts/kernel:6.1.19
-   script:
-     - mkdir binaries && cp /bzImage binaries/bzImage
-   artifacts:
++/*
++ * Processor Local x2APIC Structure Definition.
++ */
++struct acpi_20_madt_x2apic {
++    uint8_t  type;              /* Must refer to x2APIC type (0x09) */
++    uint8_t  length;            /* Must be length of x2APIC struct in bytes (0x10) */
++    uint16_t reserved;          /* Must be zero */
++    uint32_t apic_id;           /* Processor's local x2APIC ID */
++    uint32_t flags;             /* Same as Local APIC flags */
++    uint32_t acpi_processor_id; /* Refers to a processor device used to associate the X2APIC structure with */
++};
++
+ /*
+  * Local APIC Flags.  All other bits are reserved and must be 0.
+  */
+diff --git a/tools/libacpi/build.c b/tools/libacpi/build.c
+index 2f29863db154..5b0fd6584b30 100644
+--- a/tools/libacpi/build.c
++++ b/tools/libacpi/build.c
+@@ -63,6 +63,27 @@ static void set_checksum(
+     p[checksum_offset] = -sum;
+ }
+ 
++static unsigned calculate_madt_size(const struct acpi_config *config)
++{
++    uint32_t apic_id;
++    unsigned i, size;
++
++    size  = sizeof(struct acpi_20_madt);
++    size += sizeof(struct acpi_20_madt_intsrcovr) * 16;
++    size += sizeof(struct acpi_20_madt_ioapic);
++
++    for ( i = 0; i < config->hvminfo->nr_vcpus; i++ )
++    {
++        apic_id = config->lapic_id(i);
++        if ( apic_id < 255 )
++            size += sizeof(struct acpi_20_madt_lapic);
++        else
++            size += sizeof(struct acpi_20_madt_x2apic);
++    }
++
++    return size;
++}
++
+ static struct acpi_20_madt *construct_madt(struct acpi_ctxt *ctxt,
+                                            const struct acpi_config *config,
+                                            struct acpi_info *info)
+@@ -70,18 +91,14 @@ static struct acpi_20_madt *construct_madt(struct acpi_ctxt *ctxt,
+     struct acpi_20_madt           *madt;
+     struct acpi_20_madt_intsrcovr *intsrcovr;
+     struct acpi_20_madt_ioapic    *io_apic;
+-    struct acpi_20_madt_lapic     *lapic;
++    void                          *apicid_entry;
+     const struct hvm_info_table   *hvminfo = config->hvminfo;
+-    int i, sz;
++    unsigned i, sz;
+ 
+     if ( config->lapic_id == NULL )
+         return NULL;
+ 
+-    sz  = sizeof(struct acpi_20_madt);
+-    sz += sizeof(struct acpi_20_madt_intsrcovr) * 16;
+-    sz += sizeof(struct acpi_20_madt_ioapic);
+-    sz += sizeof(struct acpi_20_madt_lapic) * hvminfo->nr_vcpus;
+-
++    sz = calculate_madt_size(config);
+     madt = ctxt->mem_ops.alloc(ctxt, sz, 16);
+     if (!madt) return NULL;
+ 
+@@ -134,27 +151,45 @@ static struct acpi_20_madt *construct_madt(struct acpi_ctxt *ctxt,
+         io_apic->ioapic_id   = config->ioapic_id;
+         io_apic->ioapic_addr = config->ioapic_base_address;
+ 
+-        lapic = (struct acpi_20_madt_lapic *)(io_apic + 1);
++        apicid_entry = io_apic + 1;
+     }
+     else
+-        lapic = (struct acpi_20_madt_lapic *)(madt + 1);
++        apicid_entry = madt + 1;
+ 
+     info->nr_cpus = hvminfo->nr_vcpus;
+-    info->madt_lapic0_addr = ctxt->mem_ops.v2p(ctxt, lapic);
++    info->madt_lapic0_addr = ctxt->mem_ops.v2p(ctxt, apicid_entry);
+     for ( i = 0; i < hvminfo->nr_vcpus; i++ )
+     {
+-        memset(lapic, 0, sizeof(*lapic));
+-        lapic->type    = ACPI_PROCESSOR_LOCAL_APIC;
+-        lapic->length  = sizeof(*lapic);
+-        /* Processor ID must match processor-object IDs in the DSDT. */
+-        lapic->acpi_processor_id = i;
+-        lapic->apic_id = config->lapic_id(i);
+-        lapic->flags = (test_bit(i, hvminfo->vcpu_online)
+-                        ? ACPI_LOCAL_APIC_ENABLED : 0);
+-        lapic++;
++        uint32_t apic_id = config->lapic_id(i);
++        if ( apic_id < 255 )
++        {
++            struct acpi_20_madt_lapic *lapic = apicid_entry;
++            memset(lapic, 0, sizeof(*lapic));
++            lapic->type    = ACPI_PROCESSOR_LOCAL_APIC;
++            lapic->length  = sizeof(*lapic);
++            /* Processor ID must match processor-object IDs in the DSDT. */
++            lapic->acpi_processor_id = i;
++            lapic->apic_id = apic_id;
++            lapic->flags = (test_bit(i, hvminfo->vcpu_online)
++                            ? ACPI_LOCAL_APIC_ENABLED : 0);
++            apicid_entry = lapic + 1;
++        }
++        else
++        {
++            struct acpi_20_madt_x2apic *x2apic = apicid_entry;
++            memset(x2apic, 0, sizeof(*x2apic));
++            x2apic->type    = ACPI_PROCESSOR_LOCAL_X2APIC;
++            x2apic->length  = sizeof(*x2apic);
++            x2apic->apic_id = apic_id;
++            x2apic->flags   = (test_bit(i, hvminfo->vcpu_online)
++                                ? ACPI_LOCAL_APIC_ENABLED : 0);
++            /* Processor ID must match processor-object IDs in the DSDT. */
++            x2apic->acpi_processor_id = i;
++            apicid_entry = x2apic + 1;
++        }
+     }
+ 
+-    madt->header.length = (unsigned char *)lapic - (unsigned char *)madt;
++    madt->header.length = (unsigned char *)apicid_entry - (unsigned char *)madt;
+     set_checksum(madt, offsetof(struct acpi_header, checksum),
+                  madt->header.length);
+     info->madt_csum_addr =
 -- 
-git-series 0.9.1
+2.34.1
+
 
