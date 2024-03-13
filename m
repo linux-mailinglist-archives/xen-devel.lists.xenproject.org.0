@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE61587ADFE
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 18:46:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692711.1080081 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92EE887AE0D
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 18:48:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692713.1080091 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkSgF-00026f-To; Wed, 13 Mar 2024 17:46:19 +0000
+	id 1rkSi4-0002dG-7L; Wed, 13 Mar 2024 17:48:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692711.1080081; Wed, 13 Mar 2024 17:46:19 +0000
+Received: by outflank-mailman (output) from mailman id 692713.1080091; Wed, 13 Mar 2024 17:48:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkSgF-000243-Pk; Wed, 13 Mar 2024 17:46:19 +0000
-Received: by outflank-mailman (input) for mailman id 692711;
- Wed, 13 Mar 2024 17:46:18 +0000
+	id 1rkSi4-0002bi-4B; Wed, 13 Mar 2024 17:48:12 +0000
+Received: by outflank-mailman (input) for mailman id 692713;
+ Wed, 13 Mar 2024 17:48:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dYD6=KT=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1rkSgD-00023x-Ub
- for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 17:46:18 +0000
-Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=M9/O=KT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rkSi2-0002ar-FS
+ for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 17:48:10 +0000
+Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
+ [2607:f8b0:4864:20::82a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95649226-e161-11ee-a1ee-f123f15fe8a2;
- Wed, 13 Mar 2024 18:46:15 +0100 (CET)
-Received: from [192.168.7.187] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.17.2/8.17.1) with ESMTPSA id 42DHjT8d2268621
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Wed, 13 Mar 2024 10:45:30 -0700
+ id d9edf626-e161-11ee-a1ee-f123f15fe8a2;
+ Wed, 13 Mar 2024 18:48:08 +0100 (CET)
+Received: by mail-qt1-x82a.google.com with SMTP id
+ d75a77b69052e-4308c87f6faso191051cf.3
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 10:48:08 -0700 (PDT)
+Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ s12-20020ac8758c000000b0043096801173sm457536qtq.88.2024.03.13.10.48.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Mar 2024 10:48:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,106 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95649226-e161-11ee-a1ee-f123f15fe8a2
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 42DHjT8d2268621
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2024021201; t=1710351931;
-	bh=rzerA9hoGeFJCAIOx2/2/GsCWjUYIzB/Laek7drkNa4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ogrRRkDg6g2i+51nEZwh9h/klWPjU6VT0YpdSjqNtKHbej6934YuPe2MOtK0YAjPU
-	 g6B9xVG7HpfPwMAV+y+SjUi9T7PXbALMMdZjs+bGDqoFcO0y2UfuRhUHxQOh/rYIZF
-	 eiR+V1PLMEBe+4hUpPfWv4WwY+zQ7S85vBIdkJHYorGddUTm3gHFdlE4shNhOVBpVE
-	 uzR3u7AHEufSQ0GfzQS2KAZ9NvJ0zn/tDRAFZ31CmSusC/V1CCRo4wKxP/KNUg6VFE
-	 HLjdjzcrE4FZWZc7zUlp6Kb+ANl9GE7HB1Kd2u8Wsm/F9LXBPUNM2+LpNLUEGskYXW
-	 ocDaMHmI9oDfg==
-Message-ID: <a686dd76-276d-418a-be57-4e9e9b80a4b9@zytor.com>
-Date: Wed, 13 Mar 2024 10:45:26 -0700
+X-Inumbo-ID: d9edf626-e161-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1710352086; x=1710956886; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=iPMAMpD1gm9uztDgbh0tGfyJ0XhNKqmbjIwHhct2ubE=;
+        b=F97Cd78ztuB544MYXoVvhBXfB/tJUBJ2t3ALnNpUrgScOjWZ7HtPCLX5+dwvBd95KG
+         G73jH+JBqw2wScwaRGb4ZSoT7as8F/1q6D0VwlFcQE2jUf5mBxam95e1O90CLx0vTXko
+         7qWHVY5LPgLit251p0bw1kUJjoswIfCpryY6c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710352086; x=1710956886;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=iPMAMpD1gm9uztDgbh0tGfyJ0XhNKqmbjIwHhct2ubE=;
+        b=RPFo6qRMZzu+lL8ABVmNs759GNT1cD01liXRn0aa5LSxuyZJFrJRLwum5RbkxWS6J+
+         qkhjpSXI6t1U2NhtASMwok0mr1rNo9J6XzBk4Xg9ySh7gDVOHFs1IDIeqwmrwgoibElU
+         mlJsO0R6CBitq8ReL8sZKHwf4x622Tu8+wCUI8RKBFbualAzf2kZuAgQvqehfoCuJyUZ
+         e3lR3FlzPte7BoYvb0baPPW7riJeNnd1kWtFvxt2fy3MuqB1wMojUAYPL4+KIDFknudA
+         VLpPaBaEUZN7sk85JlgDkd5wskSt14kmMIc62P/NDCregogYSgVKoGj013gV7goFslUx
+         Kmww==
+X-Gm-Message-State: AOJu0YwljVyivq7EQdWX0TnklMP4trDXjxP/dn0EGSzNMaYBUk5W2fLU
+	PCfFEIhD/Q4KdaUedSnnd37pNqp0u9sUm0NENsmm5wuT4o8ixqs+e/K2Jl22mvm6we5sKT8azvF
+	9
+X-Google-Smtp-Source: AGHT+IEXvzE5SX2GElD+rvpMOU3suRmnfUi8FSgJp3A8DgSyn/3wHItRfBGZVO0OCKBl32PQtemoQA==
+X-Received: by 2002:ac8:5f09:0:b0:42f:309e:5ce2 with SMTP id x9-20020ac85f09000000b0042f309e5ce2mr14754897qta.29.1710352086221;
+        Wed, 13 Mar 2024 10:48:06 -0700 (PDT)
+Message-ID: <04b7bed5-ef60-4d21-90f2-2eea05397fb3@citrix.com>
+Date: Wed, 13 Mar 2024 17:48:02 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/1] x86: Rename __{start,end}_init_task to
- __{start,end}_init_stack
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-        linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linux-arch@vger.kernel.org
-Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-        boris.ostrovsky@oracle.com, arnd@arndb.de
-References: <20240313060546.1952893-1-xin@zytor.com>
- <ab57dce7-6e89-44aa-a87a-2ffa8cc87fc4@suse.com>
-Content-Language: en-US
-From: Xin Li <xin@zytor.com>
-Autocrypt: addr=xin@zytor.com; keydata=
- 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
- l75w1xInsg==
-In-Reply-To: <ab57dce7-6e89-44aa-a87a-2ffa8cc87fc4@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 3/7] xen/bitops: Implement ffsl() in common logic
+Content-Language: en-GB
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <20240313172716.2325427-1-andrew.cooper3@citrix.com>
+ <20240313172716.2325427-4-andrew.cooper3@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240313172716.2325427-4-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 3/13/2024 12:09 AM, Jürgen Groß wrote:
-> On 13.03.24 07:05, Xin Li (Intel) wrote:
->> The stack of a task has been separated from the memory of a task_struct
->> struture for a long time on x86, as a result __{start,end}_init_task no
->> longer mark the start and end of the init_task structure, but its stack
->> only.
->>
->> Rename __{start,end}_init_task to __{start,end}_init_stack.
->>
->> Note other architectures are not affected because __{start,end}_init_task
->> are used on x86 only.
->>
+On 13/03/2024 5:27 pm, Andrew Cooper wrote:
+>  xen/arch/arm/include/asm/bitops.h |  2 +-
+>  xen/arch/ppc/include/asm/bitops.h |  1 -
+>  xen/arch/x86/include/asm/bitops.h | 30 +++++++++++++-----------------
+>  xen/common/bitops.c               |  7 +++++++
+>  xen/include/xen/bitops.h          | 12 ++++++++++++
+>  5 files changed, 33 insertions(+), 19 deletions(-)
+>
+> diff --git a/xen/arch/arm/include/asm/bitops.h b/xen/arch/arm/include/asm/bitops.h
+> index 09c6064274a7..59ae8ed150b6 100644
+> --- a/xen/arch/arm/include/asm/bitops.h
+> +++ b/xen/arch/arm/include/asm/bitops.h
+> @@ -158,7 +158,7 @@ static inline int fls(unsigned int x)
+>  
+>  
+>  #define arch_ffs(x) ({ unsigned int __t = (x); fls(ISOLATE_LSB(__t)); })
+> -#define ffsl(x) ({ unsigned long __t = (x); flsl(ISOLATE_LSB(__t)); })
+> +#define arch_ffsl(x) ({ unsigned long __t = (x); flsl(ISOLATE_LSB(__t)); })
+>  
+>  /**
+>   * find_first_set_bit - find the first set bit in @word
 
->> diff --git a/include/asm-generic/vmlinux.lds.h 
->> b/include/asm-generic/vmlinux.lds.h
->> index 5dd3a61d673d..a168be99d522 100644
->> --- a/include/asm-generic/vmlinux.lds.h
->> +++ b/include/asm-generic/vmlinux.lds.h
->> @@ -399,13 +399,13 @@
->>   #define INIT_TASK_DATA(align)                        \
->>       . = ALIGN(align);                        \
->> -    __start_init_task = .;                        \
->> +    __start_init_stack = .;                        \
->>       init_thread_union = .;                        \
->>       init_stack = .;                            \
->> -    KEEP(*(.data..init_task))                    \
->> +    KEEP(*(.data..init_stack))                    \
-> 
-> Is this modification really correct?
-> 
+It turns out this change isn't bisectable on ARM, but it is by the end
+of the series.
 
-Good catch, I should not change it.
+Reordering patches 6+7 to be ahead of this one resolves the bisection
+problem.
 
-Thanks!
-     Xin
-
+~Andrew
 
