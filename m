@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7CD387ABE4
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 17:52:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692640.1079990 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4DD987AD2A
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 18:27:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692668.1080001 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkRos-0002xF-B8; Wed, 13 Mar 2024 16:51:10 +0000
+	id 1rkSNx-0001nR-10; Wed, 13 Mar 2024 17:27:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692640.1079990; Wed, 13 Mar 2024 16:51:10 +0000
+Received: by outflank-mailman (output) from mailman id 692668.1080001; Wed, 13 Mar 2024 17:27:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkRos-0002vj-8P; Wed, 13 Mar 2024 16:51:10 +0000
-Received: by outflank-mailman (input) for mailman id 692640;
- Wed, 13 Mar 2024 16:51:09 +0000
+	id 1rkSNw-0001lg-Uc; Wed, 13 Mar 2024 17:27:24 +0000
+Received: by outflank-mailman (input) for mailman id 692668;
+ Wed, 13 Mar 2024 17:27:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CotD=KT=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rkRor-0002vd-Ks
- for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 16:51:09 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ <SRS0=M9/O=KT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rkSNv-0001lR-PM
+ for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 17:27:23 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e322ebf2-e159-11ee-a1ee-f123f15fe8a2;
- Wed, 13 Mar 2024 17:51:07 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-413ebcf1315so402235e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 09:51:07 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ id f234f549-e15e-11ee-a1ee-f123f15fe8a2;
+ Wed, 13 Mar 2024 18:27:20 +0100 (CET)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-513af1a29b1so131831e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 10:27:20 -0700 (PDT)
+Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- l5-20020a05600c1d0500b00412ea52b102sm2881155wms.34.2024.03.13.09.51.06
+ f15-20020a170906048f00b00a42ee62b634sm5005732eja.106.2024.03.13.10.27.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Mar 2024 09:51:06 -0700 (PDT)
+ Wed, 13 Mar 2024 10:27:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e322ebf2-e159-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: f234f549-e15e-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1710348667; x=1710953467; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=a48IgrpPJ/Rmc3kWvVNrrLx58qYK0IkJ0bjzeqBQ4lM=;
-        b=cOkvf6nru4iuuR8C66Oi7zp1tEe/pQfZhTHzhfu1w6o7s/OeopADGJWegK3U7d7TDi
-         ULKS4bpzA9BNqJZZjSQR0HMcGJ6/W5vVzGw/wUJ/LjxrgPTDXT5BGXXyfSpwvonpXud3
-         PAddkfBk3gS6oOJcKCb3jgwcS/oEN7NdckFOU=
+        d=citrix.com; s=google; t=1710350839; x=1710955639; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=pyLwwVFgBnHc3nFQowSZW9Ad/7H+CSvbIhdAvxdTYsw=;
+        b=GlHoAD3iso2LNjQ+hcrnJGYqAANPWb3PYb6VQ0UNuMtUzZeOnzsUpHaKdTuFUBvhpx
+         b7Y4E8GH9nJwyxHrGZpYfBLu7+GlPmdhjWJth+6q2zXNawSU4IbQjfiLMhGX9wnOXK/8
+         C7TqLr3+HeQi/JXZckRr4YaGtqFfcIx3rNqDA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710348667; x=1710953467;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=a48IgrpPJ/Rmc3kWvVNrrLx58qYK0IkJ0bjzeqBQ4lM=;
-        b=O4UepK3T6Pu3VBmYEPyZF8cx3t/pFDrJQu9E2CHDD1cW4VWxDtehqg4pM9WKbRdqop
-         jN6dDCuJd9cpP5KiBlibew0WAP4isazsdAg4WY496GNjgmS9cPuhx2K1jn0uqz2PwbBi
-         cFtz5UEPKY9X2LkHHmPJslvSsGUWjFjzHDZNjCcGp6dMlwNa3F8fXDT/TcvRCrvC1WG4
-         cAZMF9rrvDg/VF2Rbis84SqmkFkioL6tzdlkeiJtZFcFjFm2jdD/HXf/cDp46xjMnxvl
-         +DpA08rLvnz+mh/GYa7W28/buwCGAsWO+9ohWxw8feh9IwtqDiwctG6uD0rLNarMWItF
-         pMeA==
-X-Gm-Message-State: AOJu0YxLzxrj17axH+Topw1fuQUkgLpD05afkVnmOKfWZinebTO1tfCy
-	nMX4uNDACE1Iq5DL8TjVQdN5BzOb4pV8ZiatWlsCwaH59QPSnMlR11XpT0DBiMo=
-X-Google-Smtp-Source: AGHT+IGHjkhoGd+u+DjD0/B/AmrhjOejn066tx3QHGsOxJyXFXgPSrrkIi7rNHthrbg1ncQigDa1zw==
-X-Received: by 2002:a05:600c:4e91:b0:413:1810:4a48 with SMTP id f17-20020a05600c4e9100b0041318104a48mr360661wmq.22.1710348666900;
-        Wed, 13 Mar 2024 09:51:06 -0700 (PDT)
-Date: Wed, 13 Mar 2024 16:51:05 +0000
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: [OSSTEST PATCH] ap-common: Switch to Linux 6.1 by default on x86
- + drop dom0 i386
-Message-ID: <e6e2849d-dd44-4842-9c8a-d861df49ecff@perard>
-References: <20240306114741.14564-1-anthony.perard@citrix.com>
- <Ze8_GPiqd9L5SzE8@macbook>
- <dfe482d8-06d8-4b32-8a28-d6e60b6535dc@perard>
- <ZfGEa_u3VZv-CuTq@macbook>
+        d=1e100.net; s=20230601; t=1710350839; x=1710955639;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=pyLwwVFgBnHc3nFQowSZW9Ad/7H+CSvbIhdAvxdTYsw=;
+        b=D3YQaUh9hEKIehNqP92AFbgoeZURrN/WYLWOdiIHof1HerhrfPHabrhFb/zjwvCwm2
+         T/Hk0ikJdHwsTnglTcs7AImoLGQ8XwfTiYKnCjPTaO3y0Jac56m4uJ4YD1EE5Bq/uJEl
+         9KULkMGeqkuED9hE9apF2cWnW28TpbN/TpWuMxDQKzsNiwEnUVnL+4ycmWknin6UsX5i
+         yhDCFuxsvJGzqnrxWqfU1RgKCmzWi1rGUe0l+wWwY3VcGcLoX94Jze+OiExV3K61fvgD
+         7WDL5MgYnECU6IiN9bEfjtMPsUOymlE0YCRf48obMRxglZmmJH/WBxEQn9gsraj4fZ0x
+         qThg==
+X-Gm-Message-State: AOJu0YzTFP2LwZlsM1Tjr+aDk3R7UvdIWEzH5qBcNwx4g1RpOQqJcDWq
+	YyKzPZlY36kcqQUBF12W82P/k6s6GhKz9vLTZ5+2YC5kw2tpTjmudjk3LrojbiJMPqBegv03NDn
+	H
+X-Google-Smtp-Source: AGHT+IEDKPvTYZ7XDnessGq8xmW9ZOY5dodKLoW5fce8u1aLcMsw6ykbZTFo5kj61Z9Xuhn9yVhX6g==
+X-Received: by 2002:a05:6512:3baa:b0:513:b102:7d93 with SMTP id g42-20020a0565123baa00b00513b1027d93mr8028462lfv.24.1710350839245;
+        Wed, 13 Mar 2024 10:27:19 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	"consulting @ bugseng . com" <consulting@bugseng.com>,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: [PATCH 0/7] xen/bitops: Reduce the mess, starting with ffs()
+Date: Wed, 13 Mar 2024 17:27:09 +0000
+Message-Id: <20240313172716.2325427-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZfGEa_u3VZv-CuTq@macbook>
 
-On Wed, Mar 13, 2024 at 11:48:11AM +0100, Roger Pau Monné wrote:
-> On Tue, Mar 12, 2024 at 05:19:46PM +0000, Anthony PERARD wrote:
-> > On Mon, Mar 11, 2024 at 06:27:52PM +0100, Roger Pau Monné wrote:
-> > > On Wed, Mar 06, 2024 at 11:47:41AM +0000, Anthony PERARD wrote:
-> > > > Gone, but replaced by a new test-amd64-amd64-*:
-> > > > - test-amd64-i386-libvirt-raw
-> > > > - test-amd64-i386-xl-vhd
-> > > > 
-> > > > Some test-amd64-amd64-* are also changed:
-> > > > - test-amd64-amd64-libvirt-vhd
-> > > > - test-amd64-amd64-qemuu-freebsd11-amd64
-> > > > - test-amd64-amd64-qemuu-freebsd12-amd64
-> > > > - test-amd64-amd64-xl-qcow2
-> > > > + test-amd64-amd64-freebsd11-amd64
-> > > > + test-amd64-amd64-freebsd12-amd64
-> > > > + test-amd64-amd64-libvirt-qcow2
-> > > > + test-amd64-amd64-libvirt-raw
-> > > > + test-amd64-amd64-xl-vhd
-> > > 
-> > > Is this purely a name change, or there's some kind of functional
-> > > change?
-> > 
-> > For test-amd64-amd64-qemuu-freebsd1{1,2}-amd64, it looks like the
-> > "-qemuu" is a bug. The freebsd jobs shouldn't have used $qemuu_suffix,
-> > as it doesn't use $qemuu_runvar. So I'm guessing $qemuu_suffix was just
-> > the value left from a previous call of test_matrix_do_one() with
-> > dom0arch==i386. The new name is already used by "linux-linus" branch.
-> 
-> FTAOD, could you mention this in the commit message?
-> 
-> FreeBSD doesn't use `$qemuu_runvar` because it was always using QEMU
-> upstream (when the FreeBSD test was added we decided to only test with
-> QEMU upstream).  So there's indeed no `-qemut` variant, but by
-> dropping the -qemuu prefix it could be confused with a PV guest
-> based test.
+bitops.h is a mess.  It has grown organtically over many years, and forces
+unreasonable repsonsibilities out into the per-arch stubs.
 
-I thought "-qemuu" just meant we were using the qemu-upstream as
-device-model instead of the default one, but it seems that instead no
-jobs are generated with "$qemuu_suffix==''", (or only for Xen 4.2 and
-older). So now I guess that all HVM tests have either -qemut or -qemuu.
+Start cleaning it up with ffs() and friends.  Across the board, this adds:
 
-We that, I guess it makes sense to keep "-qemuu" for freebsd tests. That
-would just change branch "linux-linus" and "linux-6.1". I'll prepare a
-new patch with that.
+ * Functioning bitops without arch-specific asm
+ * An option for arches to provide more optimal code generation
+ * Compile-time constant folding
+ * Testing at both compile time and during init that the basic operations
+   behave according to spec.
 
-> > As for the few changes in {xl,libvirt}-{raw,vhd,qcow2} tests, this is
-> > because of
-> > - f536e834f673 ("make-flight: Trim the matrix of disk format flights")
-> > - 5c70735f177f ("fmtarches: Use dom0arches, not hardcoded arch list")
-> 
-> Probably a dummy question, but why haven't those commits changed the
-> output of make-flight earlier?  I'm fine with the change, but I don't
-> really get why we are seeing it only now.
+and the only reason this series isn't a net reduction in code alone is the
+because of the testing infrastructure in patch 1.
 
-Looking at the commit message, they did some changes.
+This form is superior in many ways, including getting RISC-V support for free.
 
-But the second commit might have made changes in a way that wasn't
-intended. For example, "xl-raw" test disappear.
+Testing:
+  https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1212269924
+  https://cirrus-ci.com/build/4939856296542208
 
-First commit intended to have exactly 6 jobs spread across all arches.
-It used as input "i386 armhf amd64 armhf" and just check that the arch
-corresponded to the current "$dom0arch". The function is called several
-time with different $dom0arch.
+Andrew Cooper (7):
+  xen/bitops: Cleanup ahead of rearrangements
+  xen/bitops: Implement ffs() in common logic
+  xen/bitops: Implement ffsl() in common logic
+  xen/bitops: Delete generic_ffs{,l}()
+  xen/bitops: Implement ffs64() in common logic
+  xen: Swap find_first_set_bit() for ffsl() - 1
+  xen/bitops: Delete find_first_set_bit()
 
-The second mention commit changes to use $dom0arches which takes
-different values " i386 amd64", then " armhf" and " arm64". The extra
-space at the beginning of the string is why there's no more "xl-raw"
-tests, because now '' became one of the possible dom0arch which of course
-it doesn't exist. Then we have the same exact list of 3 test on armhf
-and arm64, which defeat the original intention of the first mention
-commit.
+ xen/arch/arm/include/asm/bitops.h            | 16 +---
+ xen/arch/ppc/include/asm/bitops.h            | 11 ---
+ xen/arch/x86/guest/xen/xen.c                 |  4 +-
+ xen/arch/x86/hvm/dom0_build.c                |  2 +-
+ xen/arch/x86/hvm/hpet.c                      |  8 +-
+ xen/arch/x86/include/asm/bitops.h            | 53 +++++------
+ xen/arch/x86/include/asm/pt-contig-markers.h |  2 +-
+ xen/arch/x86/mm.c                            |  2 +-
+ xen/arch/x86/mm/p2m-pod.c                    |  4 +-
+ xen/common/Makefile                          |  1 +
+ xen/common/bitops.c                          | 70 ++++++++++++++
+ xen/common/page_alloc.c                      |  2 +-
+ xen/common/softirq.c                         |  2 +-
+ xen/drivers/passthrough/amd/iommu_map.c      |  2 +-
+ xen/drivers/passthrough/iommu.c              |  4 +-
+ xen/drivers/passthrough/x86/iommu.c          |  4 +-
+ xen/include/xen/bitops.h                     | 97 +++++++++-----------
+ xen/include/xen/compiler.h                   |  3 +-
+ 18 files changed, 160 insertions(+), 127 deletions(-)
+ create mode 100644 xen/common/bitops.c
 
-So, now I feel like I need to rework do_pv_debian_tests() to at least
-re-add "xl-raw" test, and maybe keep only 6 toolstack-disk_format tests
-spread across all arches? That could maybe reduce the number of tests on
-arm64 which is the current bottleneck.
 
-Cheers,
-
+base-commit: 03cf7ca23e0e876075954c558485b267b7d02406
 -- 
-Anthony PERARD
+2.30.2
+
 
