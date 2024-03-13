@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BC5987A817
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 14:11:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692429.1079543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CF2587A834
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 14:22:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692432.1079553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkOOH-0006ZE-Kw; Wed, 13 Mar 2024 13:11:29 +0000
+	id 1rkOXi-0008Dj-HU; Wed, 13 Mar 2024 13:21:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692429.1079543; Wed, 13 Mar 2024 13:11:29 +0000
+Received: by outflank-mailman (output) from mailman id 692432.1079553; Wed, 13 Mar 2024 13:21:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkOOH-0006Xh-IL; Wed, 13 Mar 2024 13:11:29 +0000
-Received: by outflank-mailman (input) for mailman id 692429;
- Wed, 13 Mar 2024 13:11:28 +0000
+	id 1rkOXi-0008Ac-Ej; Wed, 13 Mar 2024 13:21:14 +0000
+Received: by outflank-mailman (input) for mailman id 692432;
+ Wed, 13 Mar 2024 13:21:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bR7k=KT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rkOOG-0006Xb-CR
- for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 13:11:28 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1rkOXg-0008AW-FP
+ for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 13:21:12 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 331fdf1d-e13b-11ee-afdd-a90da7624cb6;
- Wed, 13 Mar 2024 14:11:27 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-56845954ffeso5252543a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 06:11:27 -0700 (PDT)
+ id 8f44786f-e13c-11ee-afdd-a90da7624cb6;
+ Wed, 13 Mar 2024 14:21:11 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a450bedffdfso131149366b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 06:21:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ef9-20020a05640228c900b00566a461e1ecsm4942944edb.73.2024.03.13.06.11.26
+ qw14-20020a170906fcae00b00a46647b6496sm226510ejb.155.2024.03.13.06.21.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Mar 2024 06:11:26 -0700 (PDT)
+ Wed, 13 Mar 2024 06:21:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 331fdf1d-e13b-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 8f44786f-e13c-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710335487; x=1710940287; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710336071; x=1710940871; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ukep3jUkH4sPmqfRTOcW0WYTM94o9OLOjax8bs8jJRo=;
-        b=AZQAOJLy150kymBl7E9zvqlnDR99N3FcmJRdCXJvtsGx0R4nUwHVUb+Sk31gaX7JHf
-         Wx0sX4E3QyhdUI79ppuPZhSFVVhHMeg/mqGwMYSovuJUHCdACBrRSGJ9Sa8FP3AY98/1
-         eWJUkl/bMpOY6V2PxgkmaHYj1Lvp0Kfe7l67zYq6TPRzFBOt6rgf1fDLvTJhe8Eb2ALZ
-         RypMRYhqcpatkmHOF/eF24jQUi7KqkqWaVY1em3F7PUyPQE6p4XXoi72km77xqmcfxRb
-         HWv0ycDzBJpVG12jkdfMOO4eVn3amuWlJEAD33Isq8RfhQeMrO14HW5WG42Bl//vokB3
-         X7lQ==
+        bh=8NOnulto4mHXTGIK1YPxftEbHfrfAN5ZyCaTfuQAlFU=;
+        b=QojkelqBZBpuQ8yEPI/z3pljqp5nUyiN2FJU1+K5hiEDKFEsFPzi7VDp53ZCLYCf85
+         bOdu3tyXCJir1CcXcPWSIsf2S1Vrl45yRwDR81HX8ZuwkE5tMv+udWu9JxOn2mMN/Bb7
+         TIP5RPMcO/2IBy++686iA6SIq8iyKn9+tX8a11pmVkpYP0MoTVOFCLG7SXoUp6LiEFZ1
+         fO/UP0HJ8fU82ZfTlMZ2Lyd8tXSqbFH3AkzFGhsA3LHSoeoQqL9m+zpGUHTVW9m5dHXF
+         3DB3zuQZJuhOPS3fr1bhDMHZq5hLjtvvxe8ZGNq6EKfzn1fPWqYceMdfW5fvpL1uZYfx
+         ux3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710335487; x=1710940287;
+        d=1e100.net; s=20230601; t=1710336071; x=1710940871;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ukep3jUkH4sPmqfRTOcW0WYTM94o9OLOjax8bs8jJRo=;
-        b=M7a+CuIVR7Ks0sLLWFNKxMesVhY/BGoxjskniED9vlVM/8lLhvu1QjlVWgvISuNUBs
-         a7N860stQUd9az8GBnQ7CufcuKmUygfDopCkFBgu354q9DZRGfH8dghR6/Hs3P5NWp9w
-         PIyZMqpLLg9EealBLVGjO15e3MvYiGXbcXr7hvKvJC47xyJaV0hQO8f6fvl2/V5Rs3I8
-         GYUkjshnQQWjFhTmLpNxi+d3u4sb9hJq7hhUMITdR5QJMSLfavDpbqXz3XFhQFH4rX0E
-         KhaQ4/gxOCtie4dWqpm49n3P8vtUO7qTABJMg63dyRzce6x1N5/sb1G92Zv6fS2eRepp
-         VG+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWEnI2VpKHmNoqaAx/GECZ6iSPC3QjRncnzPdJWi0nrElTPbWsZw/18IvOlwfQwxtC4Iua6N2ryTrH3p7DDPwoWJOoV83kx4kYIPiUc9RI=
-X-Gm-Message-State: AOJu0Yx1Hsf/BXQkjyuXjjgnZ2rwD7Z+CTX999Fu4Z7OhYFTgKQLhKYy
-	kOsx0c3m6EK/Gg2HWB4HtPAzmYW10bPW1QYlpfWobgoduW5rtE5YCo+3E10Twg==
-X-Google-Smtp-Source: AGHT+IHr6RfFoRkwPirHm2TaTZhSKY3iT4ZC4eMs4MD9pxkEA/3R2vQKyWhNqQVPzTxC7WXvUs6/Lw==
-X-Received: by 2002:a50:c048:0:b0:566:aba4:7209 with SMTP id u8-20020a50c048000000b00566aba47209mr3572857edd.13.1710335486804;
-        Wed, 13 Mar 2024 06:11:26 -0700 (PDT)
-Message-ID: <746d063c-c5ef-4a16-a9b1-30215045573e@suse.com>
-Date: Wed, 13 Mar 2024 14:11:11 +0100
+        bh=8NOnulto4mHXTGIK1YPxftEbHfrfAN5ZyCaTfuQAlFU=;
+        b=FCSA/LSdntehRI5VuB9/B2dO8b2pAx02PWzSjxfpZ6ZkggRfHsSxGEepMlrt3MMqHx
+         c/CcYOavqcg6FXxdZT8BlwwVtTwF5uEPwQAlXXUNNRJx9z9z8DxWzxozxF+Fylm4TbPi
+         VUu+xIJR0f3ZC25hhI3HZgvjvdL1Y/xinqkkVIgDhZ21tGhViZLmOk/HSdVsamwj6aY/
+         bfi0Z2adlbaZDg3mgc7UCOJV4E8tJ1hxctiqbNwXXdwWlXugEIoyEHcNGnVoP3Os+nAj
+         eN217P9ePH4nY2Ywc1zuCme9eE6mwrA+C02JWblpRKg8/soKRD9ReQM0yNLcg6IBQnQe
+         AS9w==
+X-Forwarded-Encrypted: i=1; AJvYcCVQVNK2bnSYY+55OEM0gaa+9klgsprhIbLzWIGBhzCzTDvo6QqKsd2jfqPcOZopOgf52rG48Bec7337f2YrE1V4XYekQ0C9YqSrJL4Cqb8=
+X-Gm-Message-State: AOJu0YwP5SBniIVS04MZ7QoEbLNvpbCyWMAY5jRY7uXKfReyxrzcHSBE
+	6v/WOpCUeFQ7fI08TOC2krY01CuGLgxe+vsMyYVEsEIBiQHzJRjdqNh+jxVeNw==
+X-Google-Smtp-Source: AGHT+IHRm90eFCHbE29SVeSOxCuo9s6xD3+IoZIwlc/7pNVLGrCIhDDtZHbv9Pwt4+Rk4KoFt1a57w==
+X-Received: by 2002:a17:907:d311:b0:a3e:b263:d769 with SMTP id vg17-20020a170907d31100b00a3eb263d769mr2622677ejc.4.1710336070950;
+        Wed, 13 Mar 2024 06:21:10 -0700 (PDT)
+Message-ID: <86d27aa3-4ac7-4717-bafd-598b1201faf1@suse.com>
+Date: Wed, 13 Mar 2024 14:21:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 6/9] x86/shutdown: protect against recurrent
- machine_restart()
+Subject: Re: [XEN PATCH 8/9] x86/smp: make cpu_state per-CPU
 Content-Language: en-US
 To: Krystian Hebel <krystian.hebel@3mdeb.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
- <87b0e650f28038c2fb64c5eb607c8fdaa7b4db07.1699982111.git.krystian.hebel@3mdeb.com>
- <665c7f47-a218-4187-858d-562bb5b9513b@suse.com>
- <173cc1f7-d906-47ed-bba3-d43da219fd7b@3mdeb.com>
+ <52083114d4cbbc75f021e8c61763ad0e166cf05b.1699982111.git.krystian.hebel@3mdeb.com>
+ <c1e23e38-aaac-44c5-a1af-999f71909110@suse.com>
+ <848c6735-c700-4feb-bc0c-259d00147564@3mdeb.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,40 +114,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <173cc1f7-d906-47ed-bba3-d43da219fd7b@3mdeb.com>
+In-Reply-To: <848c6735-c700-4feb-bc0c-259d00147564@3mdeb.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.03.2024 17:05, Krystian Hebel wrote:
-> 
-> On 8.02.2024 12:30, Jan Beulich wrote:
+On 12.03.2024 17:38, Krystian Hebel wrote:
+> On 8.02.2024 13:13, Jan Beulich wrote:
 >> On 14.11.2023 18:50, Krystian Hebel wrote:
->>> If multiple CPUs called machine_restart() before actual restart took
->>> place, but after boot CPU declared itself not online,
->> Can you help me please in identifying where this operation is? I can see
->> two places where a CPU is removed from cpu_online_map, yet neither
->> __stop_this_cpu() nor __cpu_disable() ought to be coming into play here.
->> In fact I didn't think CPU0 was ever marked not-online. Except perhaps
->> if we came through machine_crash_shutdown() -> nmi_shootdown_cpus(), but
->> I'm sure you would have mentioned such a further dependency.
->>
-> BUG_ON() in cpu_notifier_call_chain() (I've been playing with some of
-> the notifiers and one of them eventually failed) resulted in panic()
-> around the same time AP did in pm_idle() due to inconsistent settings
-> between BSP and AP for MWAIT/MONITOR support after TXT dynamic
-> launch. There is 5s delay between smp_send_stop() and actual reboot,
-> during that time AP spammed the output so the original reason for
-> panic() was visible only after unreasonable amount of scrolling.
-> 
-> Adding TXT support is the reason why I even started making AP bring-up
-> parallel. Problem with MWAIT doesn't happen in current code or changes
-> in this patchset, but handling of such error is related to SMP so I've 
-> included it.
+>>> @@ -320,6 +317,10 @@ void start_secondary(unsigned int cpu)
+>>>   
+>>>       /* Critical region without IDT or TSS.  Any fault is deadly! */
+>>>   
+>>> +    /* Wait until data set up by CPU_UP_PREPARE notifiers is ready. */
+>>> +    while ( cpu_data[cpu].cpu_state != CPU_STATE_CALLOUT )
+>>> +        cpu_relax();
+>> I'm afraid I don't understand the comment (and hence whether this loop
+>> is actually needed here): __cpu_up() is called only after those
+>> notifiers completed.
+> Yes, but broadcasted INIT-SIPI-SIPI sequence added in next patch will be
+> sent before that call is made, and consequently APs potentially can get
+> to this point before that data is set up.
 
-If you mean to address a latent problem, then you want to say so and you
-want to make sure you include enough detail on the (future) conditions
-under which the problem may happen. Otherwise anything you say wants to
-match present code / behavior.
+That's fine, and I was able to conclude this once having read that following
+patch. But the patch here, including its description, wants to the self-
+contained.
 
 Jan
 
