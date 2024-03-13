@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E369487A026
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 01:29:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692231.1079151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C60B387A1AA
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 03:35:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692244.1079161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkCU4-0005UV-Tk; Wed, 13 Mar 2024 00:28:40 +0000
+	id 1rkERk-0001PV-E2; Wed, 13 Mar 2024 02:34:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692231.1079151; Wed, 13 Mar 2024 00:28:40 +0000
+Received: by outflank-mailman (output) from mailman id 692244.1079161; Wed, 13 Mar 2024 02:34:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkCU4-0005Sb-Ql; Wed, 13 Mar 2024 00:28:40 +0000
-Received: by outflank-mailman (input) for mailman id 692231;
- Wed, 13 Mar 2024 00:28:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EqwV=KT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rkCU2-0005SV-Qj
- for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 00:28:39 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a0584eec-e0d0-11ee-a1ee-f123f15fe8a2;
- Wed, 13 Mar 2024 01:28:36 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id E422CCE172D;
- Wed, 13 Mar 2024 00:28:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A4C1C433C7;
- Wed, 13 Mar 2024 00:28:29 +0000 (UTC)
+	id 1rkERk-0001O1-9e; Wed, 13 Mar 2024 02:34:24 +0000
+Received: by outflank-mailman (input) for mailman id 692244;
+ Wed, 13 Mar 2024 02:34:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rkERj-0001Nr-37; Wed, 13 Mar 2024 02:34:23 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rkERi-0000St-Nh; Wed, 13 Mar 2024 02:34:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rkERi-0000lz-Be; Wed, 13 Mar 2024 02:34:22 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rkERi-00005k-9t; Wed, 13 Mar 2024 02:34:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,73 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0584eec-e0d0-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710289710;
-	bh=VETAQc7mohf8kIx42D/f98f55cEIgZLe8uhKx+/HHMk=;
-	h=Date:From:To:cc:Subject:From;
-	b=B0S1cAJdjnFAxW73IAjHgtdAiSeXAC8PHzmDsXfh1Nbi5/OF8kFsUrqsYg5PLQwF5
-	 1rA7jL57OMStyzXvVeDPa5lrYe1iUH+NGtpOocXtHfgWhx9fI8fvPnD5K+KDshl6Go
-	 FF1Go2kIS+kc9aWGpCzqHAcsrTxfBLCl4jjSEnfeTOHXig3dgqBL+9VpEHRWarJr+T
-	 JWCBrd88Ao4le+c9/n6/LSKApmgk+7pvzXHE/tdpmOFpk4HPHHKnxIh9+kgPfWAMot
-	 AjYUTQrNIEQdBPgtnMyT6D+RFwDsQMBGCvAQbsADstNs8VGSrFZ0nMf/58KFyx8Wfn
-	 /xyEpOhOlMmvg==
-Date: Tue, 12 Mar 2024 17:28:27 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=xaTE/iyBNVRb9eONytJzp0KHrDLcgtexqRCJpQQ2Pqw=; b=2NoUi5PWTvrlUkdIM50qUpzIXd
+	3OTk6kzqb+7JERFlPPKMNkIJl2gLwjggQ+hRsIRPPjzZJBQFxC37yc7nDDSybc2Hwlxnh526k+TaY
+	fSA8EcFndVc4ckYTQPkTQ76Dds5RpVGqm/4IVb/vHITuc97zfI5sma58qvZ3B2TvYOm8=;
 To: xen-devel@lists.xenproject.org
-cc: andrew.cooper3@citrix.com, bertrand.marquis@arm.com, jbeulich@suse.com, 
-    julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, 
-    sstabellini@kernel.org
-Subject: [PATCH] docs/misra: add Rule 16.4
-Message-ID: <alpine.DEB.2.22.394.2403121725370.853156@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Message-ID: <osstest-185008-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 185008: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=ddaf39263a1ed84e60238622dfed83ff14ecc50a
+X-Osstest-Versions-That:
+    ovmf=ccf91b518f22102d446f26320110d30ea0fc1fa9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 13 Mar 2024 02:34:22 +0000
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
-I tested the rendered output and it is correct both on the gitlab UI as
-well as with tools like rst2html.
----
- docs/misra/rules.rst | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+flight 185008 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185008/
 
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index 1e134ccebc..5e9367f11c 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -478,6 +478,30 @@ maintainers if you want to suggest a change.
-      - In addition to break, also other unconditional flow control statements
-        such as continue, return, goto are allowed.
- 
-+   * - `Rule 16.4 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_04.c>`_
-+     - Required
-+     - Every switch statement shall have a default label
-+     - Switch statements with enums as controlling expression don't need
-+       a default label as gcc -Wall enables -Wswitch which warns (and
-+       breaks the build) if one of the enum labels is missing from the
-+       switch.
-+
-+       Switch statements with integer types as controlling expression
-+       should have a default label:
-+
-+       - if the switch is expected to handle all possible cases
-+         explicitly, then a default label shall be added to handle
-+         unexpected error conditions, using BUG(), ASSERT(), WARN(),
-+         domain_crash(), or other appropriate methods;
-+
-+       - if the switch is expected to handle a subset of all
-+         possible cases, then a default label shall be added with an
-+         in-code comment as follows::
-+
-+             /* only handle a subset of the possible cases */
-+             default:
-+                 break;
-+
-    * - `Rule 16.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_02.c>`_
-      - Required
-      - A switch label shall only be used when the most closely-enclosing
--- 
-2.25.1
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 ddaf39263a1ed84e60238622dfed83ff14ecc50a
+baseline version:
+ ovmf                 ccf91b518f22102d446f26320110d30ea0fc1fa9
+
+Last test of basis   184943  2024-03-08 09:11:25 Z    4 days
+Testing same since   185008  2024-03-12 17:41:21 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   ccf91b518f..ddaf39263a  ddaf39263a1ed84e60238622dfed83ff14ecc50a -> xen-tested-master
 
