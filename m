@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4DD987AD2A
+	by mail.lfdr.de (Postfix) with ESMTPS id E9FFB87AD2B
 	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 18:27:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692668.1080001 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.692669.1080006 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkSNx-0001nR-10; Wed, 13 Mar 2024 17:27:25 +0000
+	id 1rkSNx-0001uJ-9v; Wed, 13 Mar 2024 17:27:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692668.1080001; Wed, 13 Mar 2024 17:27:25 +0000
+Received: by outflank-mailman (output) from mailman id 692669.1080006; Wed, 13 Mar 2024 17:27:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkSNw-0001lg-Uc; Wed, 13 Mar 2024 17:27:24 +0000
-Received: by outflank-mailman (input) for mailman id 692668;
- Wed, 13 Mar 2024 17:27:23 +0000
+	id 1rkSNx-0001oL-79; Wed, 13 Mar 2024 17:27:25 +0000
+Received: by outflank-mailman (input) for mailman id 692669;
+ Wed, 13 Mar 2024 17:27:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M9/O=KT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rkSNv-0001lR-PM
- for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 17:27:23 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ id 1rkSNw-0001lR-0k
+ for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 17:27:24 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f234f549-e15e-11ee-a1ee-f123f15fe8a2;
- Wed, 13 Mar 2024 18:27:20 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-513af1a29b1so131831e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 10:27:20 -0700 (PDT)
+ id f3206778-e15e-11ee-a1ee-f123f15fe8a2;
+ Wed, 13 Mar 2024 18:27:21 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a466a1f9ea0so11607266b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 10:27:21 -0700 (PDT)
 Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- f15-20020a170906048f00b00a42ee62b634sm5005732eja.106.2024.03.13.10.27.17
+ f15-20020a170906048f00b00a42ee62b634sm5005732eja.106.2024.03.13.10.27.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Mar 2024 10:27:18 -0700 (PDT)
+ Wed, 13 Mar 2024 10:27:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,33 +45,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f234f549-e15e-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: f3206778-e15e-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710350839; x=1710955639; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=pyLwwVFgBnHc3nFQowSZW9Ad/7H+CSvbIhdAvxdTYsw=;
-        b=GlHoAD3iso2LNjQ+hcrnJGYqAANPWb3PYb6VQ0UNuMtUzZeOnzsUpHaKdTuFUBvhpx
-         b7Y4E8GH9nJwyxHrGZpYfBLu7+GlPmdhjWJth+6q2zXNawSU4IbQjfiLMhGX9wnOXK/8
-         C7TqLr3+HeQi/JXZckRr4YaGtqFfcIx3rNqDA=
+        d=citrix.com; s=google; t=1710350840; x=1710955640; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=z/bXHNWyZkTLicGysMRuS+mhbdjAEJwJyFIm3Wfcg6A=;
+        b=PBaPTIjeHQfhYt3S01T0O1dQwOA9fFVtYeF7mirFDdDbl43ITmtKXPmepfXq/r5WWX
+         Ydc3cWAEeTV8F0ItQ2GE2N6Hz3bFKKjLed9sb29Ps92ERQZiQ4fOccrg+jDT6sN55Jgv
+         9LHfdoX5gccWmqJFLvkrNyhWtrhhmjBDiPo4I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710350839; x=1710955639;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pyLwwVFgBnHc3nFQowSZW9Ad/7H+CSvbIhdAvxdTYsw=;
-        b=D3YQaUh9hEKIehNqP92AFbgoeZURrN/WYLWOdiIHof1HerhrfPHabrhFb/zjwvCwm2
-         T/Hk0ikJdHwsTnglTcs7AImoLGQ8XwfTiYKnCjPTaO3y0Jac56m4uJ4YD1EE5Bq/uJEl
-         9KULkMGeqkuED9hE9apF2cWnW28TpbN/TpWuMxDQKzsNiwEnUVnL+4ycmWknin6UsX5i
-         yhDCFuxsvJGzqnrxWqfU1RgKCmzWi1rGUe0l+wWwY3VcGcLoX94Jze+OiExV3K61fvgD
-         7WDL5MgYnECU6IiN9bEfjtMPsUOymlE0YCRf48obMRxglZmmJH/WBxEQn9gsraj4fZ0x
-         qThg==
-X-Gm-Message-State: AOJu0YzTFP2LwZlsM1Tjr+aDk3R7UvdIWEzH5qBcNwx4g1RpOQqJcDWq
-	YyKzPZlY36kcqQUBF12W82P/k6s6GhKz9vLTZ5+2YC5kw2tpTjmudjk3LrojbiJMPqBegv03NDn
-	H
-X-Google-Smtp-Source: AGHT+IEDKPvTYZ7XDnessGq8xmW9ZOY5dodKLoW5fce8u1aLcMsw6ykbZTFo5kj61Z9Xuhn9yVhX6g==
-X-Received: by 2002:a05:6512:3baa:b0:513:b102:7d93 with SMTP id g42-20020a0565123baa00b00513b1027d93mr8028462lfv.24.1710350839245;
-        Wed, 13 Mar 2024 10:27:19 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1710350840; x=1710955640;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=z/bXHNWyZkTLicGysMRuS+mhbdjAEJwJyFIm3Wfcg6A=;
+        b=n9ocQOz6S+kYUcy0wRHUGawr3L9WcdAnaLXDLPdZFvmKGmCsAIUm3/TVNOXp5d00bH
+         0Uu5JsO5QyJRwzi4HdhiM/KUJfKeXYLCcM/2YrlceIn1fOgR2m56IQRR5VMqtjftWKOl
+         n1lwefK7+q7A1hmAvCZ0cS6TjvQLlnZUBJ2Eku6u/PJAT7j9jLFchvWF5NqqfTV/Xhbk
+         p/mQMf6+oe3yHvuULVO74TsK9WCzoYr7m11X7ZMc4eZ/fQiKHtXPTgb0PXTX9sZD8QA4
+         jyPfk/+283Ov9aC7ef1flRX7QOeFRmTRQXf/iXBNtyVP4jcGnWCsydvRx0dBlFNGMCzt
+         fE1w==
+X-Gm-Message-State: AOJu0Yx+6/LKWuhOOARTlfS3v7qeRN+buJcIG3XFeQfeYnjLmMqQ1sLD
+	G1Hl7Ybmfw6LO53rHMoI0Z/+OYHPl6QdMmb3yeSJhIVB8HBR4iNTK6e6WhEWLeK/c2AYWEhBBtn
+	l
+X-Google-Smtp-Source: AGHT+IG5eOM/N8WPQ+tLKnromzM4xSu+1XcAJsvPgdf1Zalb2TQYPjNhcC8YFhYbXe6S0A8CFLD9yw==
+X-Received: by 2002:a17:907:a093:b0:a45:54f3:b44d with SMTP id hu19-20020a170907a09300b00a4554f3b44dmr9508916ejc.8.1710350840553;
+        Wed, 13 Mar 2024 10:27:20 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -89,66 +90,155 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Simone Ballarin <simone.ballarin@bugseng.com>,
 	Federico Serafini <federico.serafini@bugseng.com>,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [PATCH 0/7] xen/bitops: Reduce the mess, starting with ffs()
-Date: Wed, 13 Mar 2024 17:27:09 +0000
-Message-Id: <20240313172716.2325427-1-andrew.cooper3@citrix.com>
+Subject: [PATCH 1/7] xen/bitops: Cleanup ahead of rearrangements
+Date: Wed, 13 Mar 2024 17:27:10 +0000
+Message-Id: <20240313172716.2325427-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20240313172716.2325427-1-andrew.cooper3@citrix.com>
+References: <20240313172716.2325427-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-bitops.h is a mess.  It has grown organtically over many years, and forces
-unreasonable repsonsibilities out into the per-arch stubs.
+ * Rename __attribute_pure__ to just __pure before it gains users.
+ * Identify the areas of xen/bitops.h which are a mess.
+ * Create common/bitops.c for compile and runtime testing.  This provides a
+   statement of the ABI, and a confirmation that arch-specific implementations
+   behave as expected.
 
-Start cleaning it up with ffs() and friends.  Across the board, this adds:
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+CC: Shawn Anastasio <sanastasio@raptorengineering.com>
+CC: consulting@bugseng.com <consulting@bugseng.com>
+CC: Simone Ballarin <simone.ballarin@bugseng.com>
+CC: Federico Serafini <federico.serafini@bugseng.com>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
- * Functioning bitops without arch-specific asm
- * An option for arches to provide more optimal code generation
- * Compile-time constant folding
- * Testing at both compile time and during init that the basic operations
-   behave according to spec.
-
-and the only reason this series isn't a net reduction in code alone is the
-because of the testing infrastructure in patch 1.
-
-This form is superior in many ways, including getting RISC-V support for free.
-
-Testing:
-  https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1212269924
-  https://cirrus-ci.com/build/4939856296542208
-
-Andrew Cooper (7):
-  xen/bitops: Cleanup ahead of rearrangements
-  xen/bitops: Implement ffs() in common logic
-  xen/bitops: Implement ffsl() in common logic
-  xen/bitops: Delete generic_ffs{,l}()
-  xen/bitops: Implement ffs64() in common logic
-  xen: Swap find_first_set_bit() for ffsl() - 1
-  xen/bitops: Delete find_first_set_bit()
-
- xen/arch/arm/include/asm/bitops.h            | 16 +---
- xen/arch/ppc/include/asm/bitops.h            | 11 ---
- xen/arch/x86/guest/xen/xen.c                 |  4 +-
- xen/arch/x86/hvm/dom0_build.c                |  2 +-
- xen/arch/x86/hvm/hpet.c                      |  8 +-
- xen/arch/x86/include/asm/bitops.h            | 53 +++++------
- xen/arch/x86/include/asm/pt-contig-markers.h |  2 +-
- xen/arch/x86/mm.c                            |  2 +-
- xen/arch/x86/mm/p2m-pod.c                    |  4 +-
- xen/common/Makefile                          |  1 +
- xen/common/bitops.c                          | 70 ++++++++++++++
- xen/common/page_alloc.c                      |  2 +-
- xen/common/softirq.c                         |  2 +-
- xen/drivers/passthrough/amd/iommu_map.c      |  2 +-
- xen/drivers/passthrough/iommu.c              |  4 +-
- xen/drivers/passthrough/x86/iommu.c          |  4 +-
- xen/include/xen/bitops.h                     | 97 +++++++++-----------
- xen/include/xen/compiler.h                   |  3 +-
- 18 files changed, 160 insertions(+), 127 deletions(-)
+I expect MISRA will have something to say about the macros here, but they are
+in aid of better testing.
+---
+ xen/common/Makefile        |  1 +
+ xen/common/bitops.c        | 41 ++++++++++++++++++++++++++++++++++++++
+ xen/include/xen/bitops.h   | 13 +++++++++---
+ xen/include/xen/compiler.h |  3 ++-
+ 4 files changed, 54 insertions(+), 4 deletions(-)
  create mode 100644 xen/common/bitops.c
 
-
-base-commit: 03cf7ca23e0e876075954c558485b267b7d02406
+diff --git a/xen/common/Makefile b/xen/common/Makefile
+index e5eee19a8537..1f8ca9a2f4f8 100644
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -1,5 +1,6 @@
+ obj-$(CONFIG_ARGO) += argo.o
+ obj-y += bitmap.o
++obj-y += bitops.o
+ obj-$(CONFIG_GENERIC_BUG_FRAME) += bug.o
+ obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
+ obj-$(CONFIG_CORE_PARKING) += core_parking.o
+diff --git a/xen/common/bitops.c b/xen/common/bitops.c
+new file mode 100644
+index 000000000000..4c07191b4030
+--- /dev/null
++++ b/xen/common/bitops.c
+@@ -0,0 +1,41 @@
++#include <xen/bitops.h>
++#include <xen/bug.h>
++#include <xen/init.h>
++
++/* Hide a value from the optimiser. */
++#define HIDE(x) ({ typeof(x) _x = x; asm volatile ( "" : "+r" (_x) ); _x; })
++
++/*
++ * Check that fn(val) can be calcuated by the compiler, and that it gives the
++ * expected answer.
++ */
++#define COMPILE_CHECK(fn, val, res)                                     \
++    do {                                                                \
++        if ( fn(val) != res )                                           \
++            asm (".error \"Compile time check '" STR(fn(val) == res) "' failed\""); \
++    } while ( 0 )
++
++/*
++ * Check that Xen's runtime logic for fn(val) gives the expected answer.  This
++ * requires using HIDE() to prevent the optimiser from emitting the full
++ * calculation.
++ */
++#define RUNTIME_CHECK(fn, val, res)             \
++    do {                                        \
++        BUG_ON(fn(HIDE(val)) != res);           \
++    } while ( 0 )
++
++/*
++ * Perform compiletime and runtime checks for fn(val) == res.
++ */
++#define CHECK(fn, val, res)                     \
++    do {                                        \
++        COMPILE_CHECK(fn, val, res);            \
++        RUNTIME_CHECK(fn, val, res);            \
++    } while ( 0 )
++
++static int __init cf_check test_bitops(void)
++{
++    return 0;
++}
++__initcall(test_bitops);
+diff --git a/xen/include/xen/bitops.h b/xen/include/xen/bitops.h
+index e3c5a4ccf321..9b40f20381a2 100644
+--- a/xen/include/xen/bitops.h
++++ b/xen/include/xen/bitops.h
+@@ -1,5 +1,7 @@
+-#ifndef _LINUX_BITOPS_H
+-#define _LINUX_BITOPS_H
++#ifndef XEN_BITOPS_H
++#define XEN_BITOPS_H
++
++#include <xen/compiler.h>
+ #include <xen/types.h>
+ 
+ /*
+@@ -103,8 +105,13 @@ static inline int generic_flsl(unsigned long x)
+  * Include this here because some architectures need generic_ffs/fls in
+  * scope
+  */
++
++/* --------------------- Please tidy above here --------------------- */
++
+ #include <asm/bitops.h>
+ 
++/* --------------------- Please tidy below here --------------------- */
++
+ #ifndef find_next_bit
+ /**
+  * find_next_bit - find the next set bit in a memory region
+@@ -294,4 +301,4 @@ static inline __u32 ror32(__u32 word, unsigned int shift)
+ 
+ #define BIT_WORD(nr) ((nr) / BITS_PER_LONG)
+ 
+-#endif
++#endif /* XEN_BITOPS_H */
+diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+index 16d554f2a593..972719df55b3 100644
+--- a/xen/include/xen/compiler.h
++++ b/xen/include/xen/compiler.h
+@@ -85,7 +85,8 @@
+ #define inline inline __init
+ #endif
+ 
+-#define __attribute_pure__  __attribute__((__pure__))
++#define __pure  __attribute__((__pure__))
++
+ #define __attribute_const__ __attribute__((__const__))
+ #define __transparent__     __attribute__((__transparent_union__))
+ 
 -- 
 2.30.2
 
