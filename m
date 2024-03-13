@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E836E87AA09
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 16:07:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692516.1079732 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A19FB87AA0A
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Mar 2024 16:07:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692517.1079742 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkQBm-0007Fi-0l; Wed, 13 Mar 2024 15:06:42 +0000
+	id 1rkQBo-0007Ug-7j; Wed, 13 Mar 2024 15:06:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692516.1079732; Wed, 13 Mar 2024 15:06:41 +0000
+Received: by outflank-mailman (output) from mailman id 692517.1079742; Wed, 13 Mar 2024 15:06:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkQBl-0007EA-U7; Wed, 13 Mar 2024 15:06:41 +0000
-Received: by outflank-mailman (input) for mailman id 692516;
- Wed, 13 Mar 2024 15:06:41 +0000
+	id 1rkQBo-0007T0-4E; Wed, 13 Mar 2024 15:06:44 +0000
+Received: by outflank-mailman (input) for mailman id 692517;
+ Wed, 13 Mar 2024 15:06:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Fwto=KT=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1rkQBl-0007E2-36
- for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 15:06:41 +0000
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
- [2607:f8b0:4864:20::72f])
+ id 1rkQBm-0007E2-OD
+ for xen-devel@lists.xenproject.org; Wed, 13 Mar 2024 15:06:42 +0000
+Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
+ [2607:f8b0:4864:20::734])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4aa96ae8-e14b-11ee-a1ee-f123f15fe8a2;
- Wed, 13 Mar 2024 16:06:39 +0100 (CET)
-Received: by mail-qk1-x72f.google.com with SMTP id
- af79cd13be357-7810827e54eso499590585a.2
- for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 08:06:39 -0700 (PDT)
+ id 4bc200d4-e14b-11ee-a1ee-f123f15fe8a2;
+ Wed, 13 Mar 2024 16:06:41 +0100 (CET)
+Received: by mail-qk1-x734.google.com with SMTP id
+ af79cd13be357-789cd0c402dso28402885a.2
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 08:06:41 -0700 (PDT)
 Received: from rossla-lxenia.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- p10-20020a0ccb8a000000b0068fba49ae81sm4786811qvk.57.2024.03.13.08.06.36
+ p10-20020a0ccb8a000000b0068fba49ae81sm4786811qvk.57.2024.03.13.08.06.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Mar 2024 08:06:37 -0700 (PDT)
+ Wed, 13 Mar 2024 08:06:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +45,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4aa96ae8-e14b-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 4bc200d4-e14b-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710342398; x=1710947198; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=7dNacejZJRMQu9t2c+pDCXl+dVVU+S1TMISMGfwPh5c=;
-        b=fBk9saJOu0U5/qgHpI4jL832doMC1WcFlUOVINcA+uodwu/XXalWWWQ8svxK5deug8
-         azm9ykTuxehdavkbareWpGLRgLPgvEKyVjM9jmkUre0IWYTbJFGean/kEXQpks5IaCgk
-         v2dEYmoQwu8msLkR10QwhsgxcSX1oGzd2q+9E=
+        d=citrix.com; s=google; t=1710342400; x=1710947200; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KAyEylEkZ+K2w5SdFVwnvdxOdsHKUOMCQVTI6rsesLI=;
+        b=A3nMThb6X9zfnpKvr/5hGP8Z5RPtr8PlieTMZ4RqzgDUxeza9L/uzxZJmp5hagIcfa
+         Ufl1YULVEAIkziSzAdh/OAf2xs4de5YubDI7z5B64VL4Ws/jm36+TJ8lKqjevYdLNLS9
+         oKnpwhedMo7fwLsRiQ0vdUc3U/i0HEjFDjNFs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710342398; x=1710947198;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7dNacejZJRMQu9t2c+pDCXl+dVVU+S1TMISMGfwPh5c=;
-        b=dErGe+BQikU2/MsJZZ/20eF0jpjyxTUdzwit0r22ygtQw2xCmSn5eHUdYFTN4mGKmN
-         k2Rg5DIVXnZv9Y7QmF5ujJiw6bTqTAWHV+e7/RqmiSMMcPmrT8rDk7kqg4cXPQH8ReQ5
-         NXC25r6/9SYdjHn2Hch2q6VOf7TWyWwiSqXpjlX1wMbnk/lwECKI0NHCpc/r0Rjiiwos
-         +ZOJMDcNeYJnHjOZpjrx47B9cJt67sHF4q4Muv6GaYM0NxkN/NbJhaf1APo79C188xfo
-         mZf/HuiIvJ/tVsQgmbk4k/pA33Oi9QjkGOSEIDqP916o0XRyLwcRweCQ4doA/yqS52ki
-         dWlA==
-X-Gm-Message-State: AOJu0YzQSZPQZkW1dNjqdubVCOjRAAsv4YR0yQia7RVxK3vcUXyDsDbo
-	I3yf1gsvfN8ELYxPAATjpMX0mdPyZnKMACfCmshTsn+3bVlWaUjQdARA+RknyA==
-X-Google-Smtp-Source: AGHT+IFhMt8DXtazFgVZd/4MjyU0qWHW0Ln8qk4yZbgM72DpJVggRE7M2YW+oFuMogX6QJsGiBk0wQ==
-X-Received: by 2002:a0c:ee8a:0:b0:690:e65d:4b26 with SMTP id u10-20020a0cee8a000000b00690e65d4b26mr109507qvr.31.1710342397898;
-        Wed, 13 Mar 2024 08:06:37 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1710342400; x=1710947200;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=KAyEylEkZ+K2w5SdFVwnvdxOdsHKUOMCQVTI6rsesLI=;
+        b=vQLnsqTgt/PSiWX4ATZTn3neD+QhgoQyxY6QuKhSCLKX7Bc0pAGF2SZzxnCc0cMnIG
+         wk6yL0Gk3osJpZJAd4+wI+XVvNehNBF4woxL5zhAZOAJXqXUhk16xewLRYpcvHqRHLbq
+         5X+/6Zxy3gzjxbzHl8V4VYpnfR10gPHYZGS7AQWWvmKJiNjAlDktp7HTDiuXFS47ptoZ
+         DKpCTp3L1hQ4W8DXfllBpOjDl3YpSYIYBoIwyAe++BMCPZDgyMOBCmeXlsUxrKQDJPrL
+         SxDKVLtVUkLoz9HlMR2uHZHWjse35VWCPD05Ji58cdZRD9NYbsjlsMHJXly/UtcKyfX7
+         0a9A==
+X-Gm-Message-State: AOJu0YzBOWgIXaBWrEGMCxYYZ8Y1VySfrWTchVdxxlb/tj66OKmBEnJS
+	dIUhpxR27oADd6SSfSivEcBRIJ3sMp36gsAEWiRLtSfg4hI0ckhGt0Wf8ebBN8xn7tIX71cOJNU
+	OwTyt
+X-Google-Smtp-Source: AGHT+IHAOg2qe/MwH4SNZCYldAKrSK+zeLn7ifIh3S+CftY7/WCiBtrBu5n7dA3H67+lyXstuf2NLA==
+X-Received: by 2002:a0c:d687:0:b0:691:1cde:e19f with SMTP id k7-20020a0cd687000000b006911cdee19fmr89340qvi.17.1710342399919;
+        Wed, 13 Mar 2024 08:06:39 -0700 (PDT)
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
 To: grub-devel@gnu.org
 Cc: xen-devel@lists.xenproject.org,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Daniel Kiper <daniel.kiper@oracle.com>,
 	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: [PATCH 0/7] GRUB: Supporting Secure Boot of xen.gz
-Date: Wed, 13 Mar 2024 15:07:41 +0000
-Message-ID: <20240313150748.791236-1-ross.lagerwall@citrix.com>
+Subject: [PATCH 1/7] multiboot2: Add load type header and support for the PE binary type
+Date: Wed, 13 Mar 2024 15:07:42 +0000
+Message-ID: <20240313150748.791236-2-ross.lagerwall@citrix.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240313150748.791236-1-ross.lagerwall@citrix.com>
+References: <20240313150748.791236-1-ross.lagerwall@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series implements support for loading and verifying a signed
-xen.gz binary. This would allow the same xen.gz binary to be used for
-BIOS boot, UEFI boot, and UEFI boot with Secure Boot verification.
-There is an accompanying Xen patch series.
+Currently, multiboot2-compatible bootloaders can load ELF binaries and
+a.out binaries. The presence of the address header tag determines
+how the bootloader tries to interpret the binary (a.out if the address
+tag is present else ELF).
 
-The first two patches update the multiboot2 specification with the
-necessary changes.
+Add a new load type header tag that explicitly states the type of the
+binary. Bootloaders should use the binary type specified in the load
+type tag. If the load type tag is not present, the bootloader should
+fall back to the previous heuristics.
 
-Patches 3 through 5 implement the spec changes.
-Patches 6 and 7 are a couple of small changes to allow the Secure Boot
-verification to happen.
+In addition to the existing address and ELF load types, specify a new
+optional PE binary load type. This new type is a useful addition since
+PE binaries can be signed and verified (i.e. used with Secure Boot).
 
-Ross
+Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+---
+ doc/multiboot.texi | 39 ++++++++++++++++++++++++++++++++++-----
+ doc/multiboot2.h   | 13 +++++++++++++
+ 2 files changed, 47 insertions(+), 5 deletions(-)
 
-Diff stat for 0001 and 0002 (to be applied to  the "multiboot2" branch)
-Ross Lagerwall (2):
-  multiboot2: Add load type header and support for the PE binary type
-  multiboot2: Allow 64-bit entry tags
-
- doc/multiboot.texi | 71 ++++++++++++++++++++++++++++++++++------------
- doc/multiboot2.h   | 19 ++++++++++++-
- 2 files changed, 71 insertions(+), 19 deletions(-)
-
-Diff stat for 0003 to 0007 (to be applied to the "master" branch)
-Ross Lagerwall (5):
-  multiboot2: Add support for the load type header tag
-  multiboot2: Add PE load support
-  multiboot2: Add support for 64-bit entry addresses
-  efi: Allow loading multiboot modules without verification
-  verifiers: Verify after decompression
-
- grub-core/Makefile.core.def       |   1 +
- grub-core/kern/efi/sb.c           |   1 +
- grub-core/loader/multiboot_mbi2.c |  66 ++-
- grub-core/loader/multiboot_pe.c   | 694 ++++++++++++++++++++++++++++++
- include/grub/efi/pe32.h           |  64 +++
- include/grub/file.h               |   2 +-
- include/grub/multiboot2.h         |   4 +
- include/multiboot2.h              |  19 +-
- 8 files changed, 844 insertions(+), 7 deletions(-)
- create mode 100644 grub-core/loader/multiboot_pe.c
-
+diff --git a/doc/multiboot.texi b/doc/multiboot.texi
+index df8a0d056e76..d12719c744eb 100644
+--- a/doc/multiboot.texi
++++ b/doc/multiboot.texi
+@@ -511,11 +511,12 @@ assumes that no bss segment is present.
+ 
+ Note: This information does not need to be provided if the kernel image
+ is in @sc{elf} format, but it must be provided if the image is in a.out
+-format or in some other format. When the address tag is present it must
+-be used in order to load the image, regardless of whether an @sc{elf}
+-header is also present. Compliant boot loaders must be able to load
+-images that are either in @sc{elf} format or contain the address tag
+-embedded in the Multiboot2 header.
++format or in some other format. If the load type tag is not specified
++and the address tag is present it must be used in order to load the
++image, regardless of whether an @sc{elf} header is also present.
++Compliant boot loaders must be able to load images that are either in
++@sc{elf} format or contain the address tag embedded in the Multiboot2
++header.
+ 
+ @subsection The entry address tag of Multiboot2 header
+ 
+@@ -732,6 +733,34 @@ and @samp{2} means load image at highest possible address but not
+ higher than max_addr.
+ @end table
+ 
++@node Load type tag
++@subsection Load type tag
++
++@example
++@group
++        +-------------------+
++u16     | type = 11         |
++u16     | flags             |
++u32     | size = 12         |
++u32     | load_type         |
++        +-------------------+
++@end group
++@end example
++
++This tag indicates the type of the payload and how the boot loader
++should load it.
++
++The meaning of each field is as follows:
++
++@table @code
++@item load_type
++Recognized load types are @samp{0} for address (i.e. load a.out using
++the address tag), @samp{1} for ELF, and @samp{2} for PE. Compliant
++bootloaders should implement support for a.out and ELF as a minimum.  If
++this tag is not specified, the boot loader should attempt to load the
++payload using the information specified in the address tag if present,
++else it should load the payload as an ELF binary.  @end table
++
+ @node Machine state
+ @section MIPS machine state
+ 
+diff --git a/doc/multiboot2.h b/doc/multiboot2.h
+index b181607075b2..d4cae05706e4 100644
+--- a/doc/multiboot2.h
++++ b/doc/multiboot2.h
+@@ -75,6 +75,7 @@
+ #define MULTIBOOT_HEADER_TAG_ENTRY_ADDRESS_EFI32  8
+ #define MULTIBOOT_HEADER_TAG_ENTRY_ADDRESS_EFI64  9
+ #define MULTIBOOT_HEADER_TAG_RELOCATABLE  10
++#define MULTIBOOT_HEADER_TAG_LOAD_TYPE  11
+ 
+ #define MULTIBOOT_ARCHITECTURE_I386  0
+ #define MULTIBOOT_ARCHITECTURE_MIPS32  4
+@@ -179,6 +180,18 @@ struct multiboot_header_tag_relocatable
+   multiboot_uint32_t preference;
+ };
+ 
++struct multiboot_header_tag_load_type
++{
++  multiboot_uint16_t type;
++  multiboot_uint16_t flags;
++  multiboot_uint32_t size;
++#define MULTIBOOT_LOAD_TYPE_ADDRESS     0
++#define MULTIBOOT_LOAD_TYPE_ELF         1
++#define MULTIBOOT_LOAD_TYPE_PE          2
++#define MULTIBOOT_LOAD_TYPE_TOTAL       3
++  multiboot_uint32_t load_type;
++};
++
+ struct multiboot_color
+ {
+   multiboot_uint8_t red;
 -- 
 2.43.0
 
