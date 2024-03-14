@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9920C87C039
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 16:31:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693325.1081251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EA1E87C052
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 16:33:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693329.1081263 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkn22-0002YK-I2; Thu, 14 Mar 2024 15:30:10 +0000
+	id 1rkn5K-0003Gm-09; Thu, 14 Mar 2024 15:33:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693325.1081251; Thu, 14 Mar 2024 15:30:10 +0000
+Received: by outflank-mailman (output) from mailman id 693329.1081263; Thu, 14 Mar 2024 15:33:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkn22-0002WT-EH; Thu, 14 Mar 2024 15:30:10 +0000
-Received: by outflank-mailman (input) for mailman id 693325;
- Thu, 14 Mar 2024 15:30:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rkn5J-0003Es-Tj; Thu, 14 Mar 2024 15:33:33 +0000
+Received: by outflank-mailman (input) for mailman id 693329;
+ Thu, 14 Mar 2024 15:33:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rkn21-0002WN-A4
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 15:30:09 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bd1a7950-e217-11ee-afdd-a90da7624cb6;
- Thu, 14 Mar 2024 16:30:08 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-56845954fffso1295443a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 08:30:08 -0700 (PDT)
+ id 1rkn5I-0003Ej-7S
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 15:33:32 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 35951c5f-e218-11ee-a1ee-f123f15fe8a2;
+ Thu, 14 Mar 2024 16:33:30 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-56647babfe6so1458715a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 08:33:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d3-20020a1709064c4300b00a466d1641f0sm795163ejw.123.2024.03.14.08.30.06
+ f23-20020a170906049700b00a4588098c5esm803943eja.132.2024.03.14.08.33.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 08:30:07 -0700 (PDT)
+ Thu, 14 Mar 2024 08:33:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd1a7950-e217-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 35951c5f-e218-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710430207; x=1711035007; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710430410; x=1711035210; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=YH0oQ8jj10jESIRADjk9ySvuGKF46f+zs1nG8AmLPO8=;
-        b=WgCgGMK/9NAL8zFzXbVahMR9Ulg527Wm2oZx+SzfjWL/iIaZl4w/L0WyZqvhHfvI0i
-         Vkwp9ATm+EGCZadYSJXiZ3z8JhD/Ol5CZG0juHg+IuDQsKBcNdvgADHz0XA7e9VR7+kR
-         BWfZQ/6Q0biWSpIHHSt4V28Pb/qV3LX2bvduCTRsugzRp+3Ug/nrbunyk072rCXotW5D
-         YXUCibZtnbWYmB3SNPv8Ws5Fn9Y6fSurKVAhGaCHuEI2PlObVA+XEKEZufTqhMQI+Pd4
-         HlyJlUEOH5wBT18+Vsjr3rU21vS3p5ftOmGDbONpJPK+Q5rIJBV2v1pGLuQLm5xGsVbS
-         j5uA==
+        bh=QY+LJPNp7m6PeIjTFExpYUxA+SrCAjz9mhvCE9G7UGk=;
+        b=Xvnz4n9PDjikuHFo6zmv92l0IDetndd6Gjk1oHts6F1YIZqywHvTXT0OlHWUS1i6pW
+         rPN7afjwHoBORPU7qiHRdmdKQ+jrDUUjYrrrsIM/4QKAngoZZYTrpMMSCm1W71oAEzuN
+         YSFVEQGVfcBn7hoI8KThzjvorz7tKUDbmv2RVRwCfnBvBw2wqo0WOhXTeT/PL5kui2Gi
+         MxAM63498ga7HeGnJx42yBEeRxkQX0/AgKORrNyDzAN76wsnHk13iz5PKtGJM1jVkdE3
+         ZSiHWX16zd2hyX9Zdi+RDVSpfK+NLiTmLk8dZsXqRKlM1Y5nmx4Pd0zUE/5lpImnmsUh
+         VQBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710430207; x=1711035007;
+        d=1e100.net; s=20230601; t=1710430410; x=1711035210;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YH0oQ8jj10jESIRADjk9ySvuGKF46f+zs1nG8AmLPO8=;
-        b=kueta4wsFscA2KARKpuzeraveRie/uET4muHrjGlYveIc6S6N+pG6+64LzLki/PL6Q
-         30HyRFYqzoyNos9yiW0Mwmag92NOcnPfUmbckOPx2OoMg77tz9jIP82DyA5Z23bPYWfm
-         E1a0kRP5pn3CAOs5OnWXq1pva9JhHwoWc4Jg7a6l2MamCRTLCPkBHmxZBsRUL18Rg5+K
-         2thjNd4W8X+1KXLyJxt35/tqu/Ad9w3N8Gda9NgWwykUUwI5OznnDkyC3bD5Jx9tMhDD
-         VHgW9eI2G9rLeSHhN7yvH9D/lHfjbcExArL4oe3HFyNAGYhc8zCsOaOhExLBBW2qfrWw
-         2wyA==
-X-Gm-Message-State: AOJu0YzZB+mrPtHhb3L55+4y3LPhWneZPxdGy62sC8aw3zMZSNS7n79C
-	AByKaXWBQDEwN3C8mdCtfzGD2UPmCEifXPhiuFz+CdxDvwke1J5D6BBQgwqgTg==
-X-Google-Smtp-Source: AGHT+IF3K4rRN/KBPvxNp1/4QSSPNAElPWrQuZ3rM+GcDXf+ka9odBNf+r1r9PX9CwEI47qG74sPjQ==
-X-Received: by 2002:a17:906:1c0e:b0:a45:ebdf:b071 with SMTP id k14-20020a1709061c0e00b00a45ebdfb071mr218277ejg.35.1710430207539;
-        Thu, 14 Mar 2024 08:30:07 -0700 (PDT)
-Message-ID: <a531578e-ade0-45bb-b916-e195e51e97cf@suse.com>
-Date: Thu, 14 Mar 2024 16:30:05 +0100
+        bh=QY+LJPNp7m6PeIjTFExpYUxA+SrCAjz9mhvCE9G7UGk=;
+        b=Bb4OdzAtv90jNQp0YwW2blvZAA61uptHpsY4KYl2v/70iVX2wpK6tfgpI1y2pEyW9m
+         yEbo2lCUaGlgnnuU/Caq3NzMRFD6XRBPkbtF5xDkf6EmoTaLEXAzTilUFpWSqzdj2pm7
+         zJpgY9DMqic/sfs147bWXYmx2Qlq3xl5daFahBXdIEq6uaR8TYHcYwMC2k5rcbPHUPYP
+         61lYvCcLJX/5wGh2JCOf5RYFNt6QTYsF3d6RQEH7vtbdYpihHRANYTt1vUBBA0farz+Z
+         X+nnTUDhPss0uEQEQVyoRIQ56IJ2dL06+l0hoR9A09I/UcUH44IMyGXcQMMvF6sksZQi
+         nJFg==
+X-Forwarded-Encrypted: i=1; AJvYcCUcd2xb2dd2Z7Rg1EdB6vBYB3+uSf+zG6MH/KQ49Uvc/i836bTTAhWuFN5xIPR9q/i2KG29zVgEKMxfvO8JGXsxHsrkreHH8lIQi+5RrYI=
+X-Gm-Message-State: AOJu0YwdNEl6w1kCD6S8fMUbY1xTRaEVlK0lwFsus/lyiAo7wDVn11qL
+	i4ok+3eGU+jWYGGYircjSmSW2OnA/VhjRAK3YUx53mqkdVjgOtgMGP4zoOOO8w==
+X-Google-Smtp-Source: AGHT+IGj2cW4rbPrS21BAX30Hty+57JXFKO7Whn4B06BftR1b529siPQV812q3cQsy/3K5AOGqql1g==
+X-Received: by 2002:a17:906:7fc8:b0:a46:2760:3c9b with SMTP id r8-20020a1709067fc800b00a4627603c9bmr1326410ejs.34.1710430409734;
+        Thu, 14 Mar 2024 08:33:29 -0700 (PDT)
+Message-ID: <e233c298-66aa-4653-9b83-18006abe63eb@suse.com>
+Date: Thu, 14 Mar 2024 16:33:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] x86/PVH: Support relocatable dom0 kernels
+Subject: Re: [RISCV] [PATCH 0/7] xen/bitops: Reduce the mess, starting with
+ ffs()
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jason Andryuk <jason.andryuk@amd.com>
-References: <20240313193021.241764-1-jason.andryuk@amd.com>
- <20240313193021.241764-4-jason.andryuk@amd.com> <ZfLIBHTbcbGqFAhY@macbook>
- <afb3aa21-cd8b-425d-a4fa-b9ca57367d28@amd.com> <ZfMKuUqopaj-Gubu@macbook>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240313172716.2325427-1-andrew.cooper3@citrix.com>
+ <1805b028-e21f-448f-bf94-2156092e40a5@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,50 +122,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZfMKuUqopaj-Gubu@macbook>
+In-Reply-To: <1805b028-e21f-448f-bf94-2156092e40a5@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14.03.2024 15:33, Roger Pau Monné wrote:
-> On Thu, Mar 14, 2024 at 09:51:22AM -0400, Jason Andryuk wrote:
->> On 2024-03-14 05:48, Roger Pau Monné wrote:
->>> On Wed, Mar 13, 2024 at 03:30:21PM -0400, Jason Andryuk wrote:
->>>> @@ -234,6 +235,17 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
->>>>                   elf_note_numeric_array(elf, note, 8, 0),
->>>>                   elf_note_numeric_array(elf, note, 8, 1));
->>>>           break;
->>>> +
->>>> +    case XEN_ELFNOTE_PVH_RELOCATION:
->>>> +        if ( elf_uval(elf, note, descsz) != 3 * sizeof(uint64_t) )
->>>> +            return -1;
->>>> +
->>>> +        parms->phys_min = elf_note_numeric_array(elf, note, 8, 0);
->>>> +        parms->phys_max = elf_note_numeric_array(elf, note, 8, 1);
->>>> +        parms->phys_align = elf_note_numeric_array(elf, note, 8, 2);
->>>
->>> Size for those needs to be 4 (32bits) as the entry point is in 32bit
->>> mode?  I don't see how we can start past the 4GB boundary.
+On 14.03.2024 15:45, Andrew Cooper wrote:
+> On 13/03/2024 5:27 pm, Andrew Cooper wrote:
+>> Start cleaning it up with ffs() and friends.  Across the board, this adds:
 >>
->> I specified the note as 3x 64bit values.  It seemed simpler than trying to
->> support both 32bit and 64bit depending on the kernel arch.  Also, just using
->> 64bit provides room in case it is needed in the future.
+>>  * Functioning bitops without arch-specific asm
 > 
-> Why do you say depending on the kernel arch?
+> It turns out that RISC-V doesn't have a CLZ instruction in the base
+> ISA.  As a consequence, __builtin_ffs() emits a library call to ffs() on
+> GCC, or a de Bruijn sequence on Clang.
 > 
-> PVH doesn't know the bitness of the kernel, as the kernel entry point
-> is always started in protected 32bit mode.  We should just support
-> 32bit values, regardless of the kernel bitness, because that's the
-> only range that's suitable in order to jump into the entry point.
+> The optional Zbb extension adds a CLZ instruction, after which
+> __builtin_ffs() emits a very simple sequence.
 > 
-> Note how XEN_ELFNOTE_PHYS32_ENTRY is also unconditionally a 32bit
-> integer.
+> This leaves us with several options.
 > 
->> Do you want the note to be changed to 3x 32bit values?
+> 1) Put generic_ffs() back in, although if we do this then it's going to
+> be out-of-line in lib/ where it can be mostly ignored.
 > 
-> Unless anyone objects, yes, that's would be my preference.
+> 2) Require Zbb for Xen.
+> 
+> 3) Alternative it up with Zbb or generic_ffs().
+> 
+> 
+> I've got half a mind to do 1) irrespective.  It's mostly just shuffling
+> logic out of bitops.h into lib/.
 
-As mentioned elsewhere, unless the entire note is meant to be x86-specific,
-this fixed-32-bit property then would want limiting to x86.
+Yes. Might also help with the bi-sectability issue you faced.
+
+> I also think we should do option 2 for RISCV.  Given the instruction
+> groups that H does mandate, it's unrealistic to expect that such a chip
+> wouldn't support Zbb/etc.
+
+I'm not so sure here.
+
+> Also, getting full alternatives working is yet-more work that's not
+> trivial at this point in RISCV's development.  I think it is entirely
+> reasonable to avoid this work for now, and make it a problem for anyone
+> who has an H-capable Zbb-incapable system.  (with a strong implication
+> that this is work that probably never needs to be done.)
+
+That's definitely for later.
 
 Jan
 
