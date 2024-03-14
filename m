@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AF5587B855
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 08:11:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692885.1080502 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8185787B85C
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 08:13:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692888.1080511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkfFC-0003EA-U2; Thu, 14 Mar 2024 07:11:14 +0000
+	id 1rkfGj-0003lR-7R; Thu, 14 Mar 2024 07:12:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692885.1080502; Thu, 14 Mar 2024 07:11:14 +0000
+Received: by outflank-mailman (output) from mailman id 692888.1080511; Thu, 14 Mar 2024 07:12:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkfFC-0003Bi-QI; Thu, 14 Mar 2024 07:11:14 +0000
-Received: by outflank-mailman (input) for mailman id 692885;
- Thu, 14 Mar 2024 07:11:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rkfGj-0003j4-4d; Thu, 14 Mar 2024 07:12:49 +0000
+Received: by outflank-mailman (input) for mailman id 692888;
+ Thu, 14 Mar 2024 07:12:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rkfFA-0003BH-SL
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 07:11:12 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 09889e8c-e1d2-11ee-afdd-a90da7624cb6;
- Thu, 14 Mar 2024 08:11:11 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a4644bde1d4so72571066b.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 00:11:11 -0700 (PDT)
+ id 1rkfGh-0003ir-4N
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 07:12:47 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 414cb66f-e1d2-11ee-a1ee-f123f15fe8a2;
+ Thu, 14 Mar 2024 08:12:45 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a467322d52eso22830966b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 00:12:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a11-20020a170906190b00b00a44e2f3024bsm407573eje.68.2024.03.14.00.11.10
+ a11-20020a170906190b00b00a44e2f3024bsm407573eje.68.2024.03.14.00.12.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 00:11:10 -0700 (PDT)
+ Thu, 14 Mar 2024 00:12:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09889e8c-e1d2-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 414cb66f-e1d2-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710400271; x=1711005071; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710400364; x=1711005164; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=SDY4jjLhZUBmy0omOEEqP4FrI3d4/utzdwwQ/ZpA04M=;
-        b=TPc0ygq3tWNuC326HPrMf004Xysuv4WZ+18mWXBpcDRlRYR96LEZwUQh3O9NQORV8h
-         VCFKZrOIF93kZTEIzKlgBJXrfW9Ev3oA8b+fIN8yjoYEuAC6io5sRnFDcTTdiE/rbLNR
-         gcnkv/p987X9QJVEwwRXiCdV6JWJTxL4c1pGpGI4/4tlN1F/dJG0y03YeSzjmGGTnq0z
-         +27ZFJKf4t3ii/0lpBovLTj7HCs7D46+bYb48iJv6c2D1lBK7DB8fcjvRg/WY+ST9lWA
-         eG4a34j7bLvUih8LfNhBBbkHMoifQelnJJwL/Jh80KVciXIohvETuvASLdXJE6vA5nmG
-         i1SA==
+        bh=uEGIKWERXxJZZsP2GSvtxoFBn1i7L5TVlz/9PjvFIIg=;
+        b=YU775gH72Tq9CChpUK+sszg0rOd6unSEEP3oKcNnhVDx9V3Pq50x0h1Sue5DUS9WOj
+         IBEm1oz3S0VHckOR9/70YYxUiG/mVn7U1ZFk8MUOOkL5LzEA9qhv+0oC2UIj4iTbhqAY
+         9OnLHCwAvmtPm4vfXMkeWNhKETIiaTmqMB+InyUh5sDkr77y/h1uIytLXuAG0tFNryZB
+         LaHbLCV1KepKqnX+ClNB3QvIIMKJSrZVwlYTBPo7qWqZOSvCnRIpLMXIxd8KksuqHlg/
+         FZmAZ8mZd7In/r158k1f2dGxRfp9YOVWaK6YDLMzyG4hWIawdruWBhsZ3pKcOvwAzFjO
+         pi3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710400271; x=1711005071;
+        d=1e100.net; s=20230601; t=1710400364; x=1711005164;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=SDY4jjLhZUBmy0omOEEqP4FrI3d4/utzdwwQ/ZpA04M=;
-        b=J671szI0O0OuSKIioSUa5qE2OWLuQ6sfeAjh68N84qC8nIIkunaspY/dXXDX6OkQ2z
-         BApdHnJVNE24zlH9XTS0OAvu/nMK4sQle65/bd2pPffOGrYosz3Q8i8f0go1mKCiSNze
-         mPsdWWo/tX5O43AI9sSaqDnBGUW6gfqTFeSpC8JomFsfaF8tH1n1fMWj4CHhx6M1amxg
-         eDST1Tb6c3cdlslDQZR04Ot/oTOp//ij51dz02MZVMEGTm7Q+9mkdJh1dQaESsrDmXtO
-         HJgKVXM7JdPheQEKC84ECqG2beVTs5LAxVkv3nHvUbmSBFlg+DMZDyk7NVWiWp2+ZVZ9
-         JijA==
-X-Forwarded-Encrypted: i=1; AJvYcCUBt4pyOrH9rxyE3+fVQIFlmBHzRnco7RHVsmCY0LAp2yxY01DO+15bDhEjxngkILRNj50Eu93WpGgteG7h/nqZ0o3xUfwRyhKDwA1jfkk=
-X-Gm-Message-State: AOJu0YyAtNrEUkWOu5X7rD+N9BWJKe0WQwwmiPHi3E/FpNwrLZ/0Oada
-	uWZ1ufaXWuRQVtUx/ti33k0ExG8sqrVdseVModXtdbacTYjLRPNpUATCLu3pkA==
-X-Google-Smtp-Source: AGHT+IE39Fz82EN2jBhgle/gy6FAsWss++CefBwacU6aIw//7hMZpmN58GHMQbkeidRy0ALmgFnttQ==
-X-Received: by 2002:a17:907:c082:b0:a46:74f0:6380 with SMTP id st2-20020a170907c08200b00a4674f06380mr292932ejc.3.1710400271021;
-        Thu, 14 Mar 2024 00:11:11 -0700 (PDT)
-Message-ID: <82ae53ac-f2d1-4d86-8719-4e5cc2e5f57d@suse.com>
-Date: Thu, 14 Mar 2024 08:11:09 +0100
+        bh=uEGIKWERXxJZZsP2GSvtxoFBn1i7L5TVlz/9PjvFIIg=;
+        b=PtleGJuEE7pQiRUMcJ/RN+vxhG4Mqv1aHxMCSzwTR3UnxB61qyc9ACH+irPZhRgCX2
+         re3DFguqT7oxy3eiOb6owcUq7RlhTx9V0V7scaOHscCIgx+7n5Ya1nru44AbxUA2qFc3
+         jxNSjjliQxik/rM2C3cGdnEHk+qjFh/gO+h9w1ze+4Bs3SZ9D6v6dqp1KILfQvl7iBke
+         5K2dbEgZwYMhZ1n1t4JqIZzTvxq99Y0ye77ovQw3CHNjYiGmT/S+yyJjrdSDlJEa0eyH
+         47jl6Hi/lfpshdtQJePx6+sGn7sMaK2UwAEe2Uk83GRgzUNFc4kEUSpQgdklPGLN+86v
+         5vgA==
+X-Forwarded-Encrypted: i=1; AJvYcCX6rW2oomA5biTUbFyTMJiwghFe09hXZ8hUSxo2Xn/E8ySjszVvB9j1/8J7joRkuZkavrgQ5HVNSTJt50nK23OdjUrWA42nVKVYkX3Ey2g=
+X-Gm-Message-State: AOJu0YweIGHWjFRdyqkcuiu9vwQ6CsKpSiarUUtOHsFJkCsgmseCZgUq
+	FVdCYj/adHNetDOeqG9qGXznnKyzVkq9GixdP0mwHtYZo18wKReLw7k9DygOKg==
+X-Google-Smtp-Source: AGHT+IHlAGzbMsO3qiuxPwesexCM+itoBYdRpP/Rr/YTkAsTZBpwUOjui8Fsp4B6W7gp2nn7qRDa4Q==
+X-Received: by 2002:a17:906:6545:b0:a45:2e21:c78c with SMTP id u5-20020a170906654500b00a452e21c78cmr453720ejn.13.1710400364611;
+        Thu, 14 Mar 2024 00:12:44 -0700 (PDT)
+Message-ID: <ee471b89-b630-443d-8ad8-0ea384871137@suse.com>
+Date: Thu, 14 Mar 2024 08:12:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] Revert "xen/x86: bzImage parse kernel_alignment"
+Subject: Re: [PATCH v2 3/3] x86/PVH: Support relocatable dom0 kernels
 Content-Language: en-US
-To: Jason Andryuk <jason.andryuk@amd.com>
+To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
 References: <20240313193021.241764-1-jason.andryuk@amd.com>
- <20240313193021.241764-2-jason.andryuk@amd.com>
+ <20240313193021.241764-4-jason.andryuk@amd.com>
+ <70daf607-03e7-4927-8ce2-5721ca3387ee@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,17 +114,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240313193021.241764-2-jason.andryuk@amd.com>
+In-Reply-To: <70daf607-03e7-4927-8ce2-5721ca3387ee@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.03.2024 20:30, Jason Andryuk wrote:
-> A new ELF note will specify the alignment for a relocatable PVH kernel.
-> ELF notes are suitable for vmlinux and other ELF files, so this
-> Linux-specific bzImage parsing in unnecessary.
+On 13.03.2024 22:02, Jason Andryuk wrote:
+> On 2024-03-13 15:30, Jason Andryuk wrote:
+>> +/* Find an e820 RAM region that fits the kernel at a suitable alignment. */
+>> +static paddr_t __init find_kernel_memory(
+>> +    const struct domain *d, struct elf_binary *elf,
+>> +    const struct elf_dom_parms *parms)
+>> +{
+>> +    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
+>> +    paddr_t kernel_end = PAGE_ALIGN((paddr_t)elf->dest_base + elf->dest_size);
+>> +    paddr_t kernel_size = kernel_end - kernel_start;
+>> +    unsigned int i;
+>> +
+>> +    /*
+>> +     * The memory map is sorted and all RAM regions starts and sizes are
+>> +     * aligned to page boundaries.
+>> +     */
+>> +    for ( i = 0; i < d->arch.nr_e820; i++ )
+>> +    {
+>> +        paddr_t start = d->arch.e820[i].addr;
+>> +        paddr_t end = d->arch.e820[i].addr + d->arch.e820[i].size;
+>> +        paddr_t kstart, kend;
+>> +
+>> +        if ( d->arch.e820[i].type != E820_RAM )
+>> +            continue;
+>> +
+>> +        if ( d->arch.e820[i].size < kernel_size )
+>> +            continue;
+>> +
+>> +        kstart = ROUNDUP(start, parms->phys_align);
+>> +        kstart = kstart < parms->phys_min ? parms->phys_min : kstart;
+> 
+> This should be
+>          kstart = MAX(kstart, parms->phys_min);
 
-Hmm, shouldn't the order of attempts to figure the alignment be ELF note,
-ELF header, and then 2Mb?
+Except that MAX() really ought to be the last resort; max() and max_t()
+want considering in preference.
 
 Jan
 
