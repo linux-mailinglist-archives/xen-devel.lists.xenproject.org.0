@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D1A387B899
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 08:32:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692935.1080671 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01F6787B89C
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 08:36:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692944.1080691 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkfZb-0006lp-0Q; Thu, 14 Mar 2024 07:32:19 +0000
+	id 1rkfdf-000091-Oh; Thu, 14 Mar 2024 07:36:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692935.1080671; Thu, 14 Mar 2024 07:32:18 +0000
+Received: by outflank-mailman (output) from mailman id 692944.1080691; Thu, 14 Mar 2024 07:36:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkfZa-0006iX-T6; Thu, 14 Mar 2024 07:32:18 +0000
-Received: by outflank-mailman (input) for mailman id 692935;
- Thu, 14 Mar 2024 07:32:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rkfdf-00006K-M0; Thu, 14 Mar 2024 07:36:31 +0000
+Received: by outflank-mailman (input) for mailman id 692944;
+ Thu, 14 Mar 2024 07:36:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rkfZZ-0006ec-Qj
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 07:32:17 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb120c9b-e1d4-11ee-afdd-a90da7624cb6;
- Thu, 14 Mar 2024 08:32:15 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a4663b29334so80786866b.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 00:32:15 -0700 (PDT)
+ id 1rkfde-00006E-80
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 07:36:30 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 917cd516-e1d5-11ee-a1ee-f123f15fe8a2;
+ Thu, 14 Mar 2024 08:36:28 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5654f700705so884223a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 00:36:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- qs28-20020a170906459c00b00a4550e8ae70sm426840ejc.63.2024.03.14.00.32.14
+ a4-20020a170906368400b00a44936527b5sm424171ejc.99.2024.03.14.00.36.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 00:32:15 -0700 (PDT)
+ Thu, 14 Mar 2024 00:36:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb120c9b-e1d4-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 917cd516-e1d5-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710401535; x=1711006335; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GIcEdI7kxKhclI2LxWoGU/C+gHk87AbL9d+nyKPro2c=;
-        b=Zu94OhF+EgjWRUeeFLj6xgaAY+AWVcfeMrOSjAlCOVzZ4dSV+INoCofBh0Vqmh7B0L
-         miwavrrL0xs7ZijsbZ8VAJ/CejZGTxBKz8OlxLUuoFXQFBq1ngjDwuimz8M4zqIMTVjk
-         EsbUHEFJ0Ka8QF9jQBRWctiCm5dfYuUz+/uxgE3rsf6XH7NgcFss45LqLG/vsG/kWzMA
-         6ZvzNl6koYZH1RCebyILhfXRJ1BQ7465o9xDY4PUDdPv8VXC2hXGoOldoqpeylnVjGnN
-         y11I6cu8MEwFG3YXngeJDFwD4j/RE9xGX6Mu/z+aviZc0xZH+K2tkDr76yYFFJPEoWl1
-         Sdxg==
+        d=suse.com; s=google; t=1710401787; x=1711006587; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=k3dqRlcRe/o4vhkTOMhPU2eVhFfQTGacqRMrQJxnmuc=;
+        b=aYynHamUuT8G1WdhCIanI6deIstgTOoHaJa7Hcg9gvU9wuES1WN6+tmXUzhWl7rXLP
+         tq8GjSGG8DuPofA4pfJaWpa5uxDqCHreYdj7Ylrp/WoshSZIuxTSbZgTEJS6FU6oK+sL
+         eEU8G38ppxdJ+UPszR7WPvWAxTelFo++Gaj9NlQI9mh8Ju0L4TkoamF9agChedOE0Nma
+         w2lnCcNhjLW74ZDo0BI/mpYc5ecxWv6p1EhJ1Z1hNxFNgtq9ugHD0cHXq0QHtwMR5Ied
+         o3QJIj0Uqj6avCupbd7omYjiiT3fAKFHCNpN0A+Znw4ULAi0zEF4PM0QSA9jJMMf7PDY
+         RNpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710401535; x=1711006335;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GIcEdI7kxKhclI2LxWoGU/C+gHk87AbL9d+nyKPro2c=;
-        b=YdLFOvYf0lEKZkwjmx/qAZQz+Slo9xpmUeUvgv6ApLjaqgLS2RxTtENmT6J0qzifcs
-         7JIE457rpdnJ8YTL0cvLeQ8OB173SUptcI6hKCw+qmbxRXvie/XmZ0DxRseKSl1Mu5j7
-         ux3OWiAPc1rD6QRXikG2XJ0GLlZjw5nZVe345vs2DKB03S/crEp8ldZeEe0DEibbnOQy
-         Nsl6z+LvcZ5JvwlFosh03NKViwQy7pwPiaUtZ986iWmjalw3UsyK7J+m8nN/DGAsFrBn
-         usKRPzsLEHzO7muOrOAtr9pe9//KIDfnRrYIwOIuxupHiHlUt+GOXffpU3yt4fGiGIXf
-         OZ+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCV/D/U0nUEAMSdFNH00VTjbbmE10bURVDj5X47ec/eQowQd678veFkVHBtHJ4ojx9W4py1LLu4XuItpnDr4NdGrjFYm4yQf2E4GwC4y1TA=
-X-Gm-Message-State: AOJu0Yz4aCvsSgqDEq0SOWuDL9SB9rmcP0ncRBryvUoJaQ8GEXWAdpu9
-	CSnl59tg89OKbQeU3GQi2VxsfSGkZVNM57g2ANQc8XQe8HCpJEHQe+fuOXVDSg==
-X-Google-Smtp-Source: AGHT+IF9WzJnd6nnanJZeTCmwGwPjJUgCKSkfJVCB5DEoFNuhLDB9i6TTbrwqmpcGKAFNZwp3mPGRg==
-X-Received: by 2002:a17:907:1049:b0:a46:6623:6938 with SMTP id oy9-20020a170907104900b00a4666236938mr508517ejb.50.1710401535292;
-        Thu, 14 Mar 2024 00:32:15 -0700 (PDT)
-Message-ID: <272d0e4a-3ac0-4b42-9297-6d476151e28d@suse.com>
-Date: Thu, 14 Mar 2024 08:32:13 +0100
+        d=1e100.net; s=20230601; t=1710401787; x=1711006587;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=k3dqRlcRe/o4vhkTOMhPU2eVhFfQTGacqRMrQJxnmuc=;
+        b=THi0FH1KKofXddGrUHkFcd+DTzhtfZqw9OBfypLTrva5MCMbERJszlodzya10vrAjq
+         L3IAwlrV7X845IL63xEzjP5eaCzV/OfU8nFEM93+8kovVv1r+AW7Pw3n81TQN6KaVHrB
+         ng3hVf3fCsL/5zO3XOmlZ1a+rxwNzQy5b/SxQO9uwDToDmimoFBfsxIZtL/ZXqWnCm5i
+         vZl9xDrEYPpwRF4BPv83jcg3crc9lSonVoHvH67W7tN+ttW7Zxa3xIiJ76sQenbTrZ44
+         RupObfq4ytqjlajfPCVgaRlCRyMDfiJ+UTLL24IX16RqqiEGcWCZ3ie5kLjOo9PK0oBT
+         jU2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXD6wKzveT/iGIzLVWIFUPLwaMROzAp0WnFXHc+27wO/ZwXdQWTyRaIx200ApKxvgjpcP2mUuDRGck5NBxLWsCH5wg3Vrw4ljCO+DHcjr8=
+X-Gm-Message-State: AOJu0YzM+aYOO725M+t4rVMsGtaVFOtNq4AlDHT6B3qmy3g5wGd0TLtP
+	I+M255tGYtixVr20QrpEls/8tbfJ5Ge60OYqNnCICR3y2nbnq4jR3O18hdNKBw==
+X-Google-Smtp-Source: AGHT+IFi2XyF7/kFS3zjUSX36HXApkTJui7R3HfkuSbr/GbdJuTFQgY8zWOZlNi7JJWkSLFXLL3TUg==
+X-Received: by 2002:a17:907:d310:b0:a46:776b:1d5f with SMTP id vg16-20020a170907d31000b00a46776b1d5fmr117114ejc.73.1710401787629;
+        Thu, 14 Mar 2024 00:36:27 -0700 (PDT)
+Message-ID: <5bfd2a8e-afa9-4630-ae75-382edc943bc6@suse.com>
+Date: Thu, 14 Mar 2024 08:36:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/13] xen/spinlock: remove misra rule 21.1 violations
-To: Juergen Gross <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20240314072029.16937-1-jgross@suse.com>
- <20240314072029.16937-2-jgross@suse.com>
+Subject: Re: [PATCH] docs/misra: document the expected sizes of integer types
 Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: andrew.cooper3@citrix.com, bertrand.marquis@arm.com,
+ george.dunlap@citrix.com, julien@xen.org, michal.orzel@amd.com,
+ roger.pau@citrix.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2403131622020.853156@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,58 +111,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240314072029.16937-2-jgross@suse.com>
+In-Reply-To: <alpine.DEB.2.22.394.2403131622020.853156@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.03.2024 08:20, Juergen Gross wrote:
-> In xen spinlock code there are several violations of MISRA rule 21.1
-> (identifiers starting with "__" or "_[A-Z]").
-> 
-> Fix them by using trailing underscores instead.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+On 14.03.2024 00:23, Stefano Stabellini wrote:
+> Xen makes assumptions about the size of integer types on the various
+> architectures. Document these assumptions.
 
-I can live with the changes as they are, but before giving an ack, I'd
-still like to ask if the moved underscores are really useful / necessary
-in all cases. E.g.
-
-> --- a/xen/include/xen/spinlock.h
-> +++ b/xen/include/xen/spinlock.h
-> @@ -22,7 +22,7 @@ union lock_debug {
->          bool unseen:1;
->      };
->  };
-> -#define _LOCK_DEBUG { .val = LOCK_DEBUG_INITVAL }
-> +#define LOCK_DEBUG_ { .val = LOCK_DEBUG_INITVAL }
-
-... for an internal helper macro it may indeed be better to have a
-trailing one here, but ...
-
-> @@ -95,27 +95,27 @@ struct lock_profile_qhead {
->      int32_t                   idx;     /* index for printout */
->  };
->  
-> -#define _LOCK_PROFILE(lockname) { .name = #lockname, .lock = &(lockname), }
-> -#define _LOCK_PROFILE_PTR(name)                                               \
-> -    static struct lock_profile * const __lock_profile_##name                  \
-> +#define LOCK_PROFILE_(lockname) { .name = #lockname, .lock = &(lockname), }
-> +#define LOCK_PROFILE_PTR_(name)                                               \
-> +    static struct lock_profile * const lock_profile__##name                   \
-
-... I'm not entirely convinced of the need for the double infix ones
-here ...
-
-> -#define SPIN_LOCK_UNLOCKED _SPIN_LOCK_UNLOCKED(NULL)
-> +#define SPIN_LOCK_UNLOCKED SPIN_LOCK_UNLOCKED_(NULL)
->  #define DEFINE_SPINLOCK(l)                                                    \
-> -    spinlock_t l = _SPIN_LOCK_UNLOCKED(NULL);                                 \
-> -    static struct lock_profile __lock_profile_data_##l = _LOCK_PROFILE(l);    \
-> -    _LOCK_PROFILE_PTR(l)
-> +    spinlock_t l = SPIN_LOCK_UNLOCKED_(NULL);                                 \
-> +    static struct lock_profile lock_profile_data__##l = LOCK_PROFILE_(l);     \
-
-.... and here.
+This all reads as if we required exact widths. Is that really the case? Imo
+we e.g. merely depend upon sizeof(int) >= 4 * CHAR_BITS. (I can see that,
+while not technically required, we may want to specify CHAR_BITS == 8, at
+least for the time being.)
 
 Jan
+
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> ---
+>  docs/misra/C-language-toolchain.rst | 44 +++++++++++++++++++++++++++++
+>  1 file changed, 44 insertions(+)
+> 
+> diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-toolchain.rst
+> index b7c2000992..0d3bb2fe6e 100644
+> --- a/docs/misra/C-language-toolchain.rst
+> +++ b/docs/misra/C-language-toolchain.rst
+> @@ -480,4 +480,48 @@ The table columns are as follows:
+>       - See Section "4.13 Preprocessing Directives" of GCC_MANUAL and Section "11.1 Implementation-defined behavior" of CPP_MANUAL.
+>  
+>  
+> +Sizes of Integer types
+> +______________________
+> +
+> +.. list-table::
+> +   :widths: 10 10 45
+> +   :header-rows: 1
+> +
+> +   * - Type
+> +     - Size
+> +     - Architectures
+> +
+> +   * - char 
+> +     - 8 bits
+> +     - all architectures
+> +
+> +   * - short
+> +     - 16 bits
+> +     - all architectures
+> +
+> +   * - int
+> +     - 32 bits
+> +     - all architectures
+> +
+> +   * - long
+> +     - 32 bits 
+> +     - 32-bit architectures (x86_32, ARMv8-A AArch32, ARMv8-R AArch32)
+> +
+> +   * - long
+> +     - 64 bits 
+> +     - 64-bit architectures (x86_64, ARMv8-A AArch64, RV64, PPC64)
+> +
+> +   * - long long
+> +     - 64-bit
+> +     - all architectures
+> +
+> +   * - pointer
+> +     - 32-bit
+> +     - 32-bit architectures (x86_32, ARMv8-A AArch32, ARMv8-R AArch32)
+> +
+> +   * - pointer
+> +     - 64-bit
+> +     - 64-bit architectures (x86_64, ARMv8-A AArch64, RV64, PPC64)
+> +
+> +
+>  END OF DOCUMENT.
+
 
