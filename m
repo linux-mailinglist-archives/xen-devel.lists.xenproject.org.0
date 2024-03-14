@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 973C287C303
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 19:48:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693447.1081527 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6B8887C310
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 19:51:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693451.1081537 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkq6v-0007Km-Ve; Thu, 14 Mar 2024 18:47:25 +0000
+	id 1rkqAi-0000oI-F6; Thu, 14 Mar 2024 18:51:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693447.1081527; Thu, 14 Mar 2024 18:47:25 +0000
+Received: by outflank-mailman (output) from mailman id 693451.1081537; Thu, 14 Mar 2024 18:51:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkq6v-0007JF-T3; Thu, 14 Mar 2024 18:47:25 +0000
-Received: by outflank-mailman (input) for mailman id 693447;
- Thu, 14 Mar 2024 18:47:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rkqAi-0000la-CM; Thu, 14 Mar 2024 18:51:20 +0000
+Received: by outflank-mailman (input) for mailman id 693451;
+ Thu, 14 Mar 2024 18:51:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rR1U=KU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rkq6v-0007J9-0B
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 18:47:25 +0000
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
- [2607:f8b0:4864:20::833])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4adbbe54-e233-11ee-a1ee-f123f15fe8a2;
- Thu, 14 Mar 2024 19:47:22 +0100 (CET)
-Received: by mail-qt1-x833.google.com with SMTP id
- d75a77b69052e-430acf667afso1014611cf.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 11:47:22 -0700 (PDT)
+ id 1rkqAh-0000lU-4N
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 18:51:19 +0000
+Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
+ [2607:f8b0:4864:20::829])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d705c156-e233-11ee-afdd-a90da7624cb6;
+ Thu, 14 Mar 2024 19:51:18 +0100 (CET)
+Received: by mail-qt1-x829.google.com with SMTP id
+ d75a77b69052e-42ee33b2d58so7005851cf.3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 11:51:18 -0700 (PDT)
 Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- l1-20020ac84cc1000000b0042f04e421d2sm1067472qtv.24.2024.03.14.11.47.19
+ d13-20020ac847cd000000b0042f21fe66f7sm1066590qtr.73.2024.03.14.11.51.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 11:47:21 -0700 (PDT)
+ Thu, 14 Mar 2024 11:51:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4adbbe54-e233-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: d705c156-e233-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710442042; x=1711046842; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=edk6fdaxLwF/Pq30+zYWxTrKfjAUS/7mmdROmeeEAcE=;
-        b=R+Q38khTa71kq+DYN9A8oEo+0RPDH5C3dCmmfTo5upXnF3iHtqLjSInLpO3kgtCT12
-         YEcYDqNfIHP91T9+re43JmyC3ozE+A65aa1yhLOU4pQuQy+FQVh6lSCVTyoGK2m5H86z
-         mCf3b6685ixqONnX4KXx/XFy7BNpohfO72+VU=
+        d=citrix.com; s=google; t=1710442277; x=1711047077; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=35IIQwAtd0xy77CIsxN6/OzZ7I4Hyg1YPyW5Febi9xY=;
+        b=Qrq4Fi/wlqCgQDxIpqvMTM1VBJCgN9+Av3XDHcJ6UhbBXGSNFymh2OOGcABeMTrCVG
+         O2RxPcX9lyJNhwN+8Cd7OQwWivHF05qhVSib5sVHl5Mj2YuHpXAQGjldFJe6zohIMM+B
+         NfcNzjO7Pjpzb99rAPX8qz9t4tSeGPW2jLhdc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710442042; x=1711046842;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=edk6fdaxLwF/Pq30+zYWxTrKfjAUS/7mmdROmeeEAcE=;
-        b=K/bhUb1NVnbUfuj6+An9Vkmnh+7RxhOiMwyhoY0XNXXzixgF6CG/j9BdJwmSQ5lo3V
-         xeDgAMQ1Lu+BBvXhLaazR+jlfKSI1obfKeJYoqS4ibtYONp6bE18/DnBUx9dUD3Ory+c
-         qOF5/y1Me814lKHDZcPfj/am0vu/DHNSElUYNorBXfKQgmPeQ47rOq4smt5i206DhHTs
-         gTpvQd+Qe/H2QMCXJyR6eSG48szOP7zgaa+87Khuc+3648faQd9jBa59/Prnt8yCHxos
-         +heA6Sgtth+qd2RMmrz+NqxdHSlQwygmnR+YzU+09Nx60bGkhOFTFyAIgBONM2gyzhir
-         zPwg==
-X-Forwarded-Encrypted: i=1; AJvYcCV2PwYU4tzQWBKl4sSqguwjj0T4ZbwVjtufB0BSOpQNdoR4xujNCQhbV9cqCw8mnrmAsNdTeJ0Z6eO02+lQCzJJ6kBRN6Kuh5FLFMq5Ijc=
-X-Gm-Message-State: AOJu0Yxjn0icpAsdue3CnLkpKIUsfT6zYVqnjs97b9RaT8I/c3QMEWEQ
-	Ns60ktUKVinTaD53T8RPTYS2KPi+Jz1lh0vH9+0kCYKfWoLlrsaZwQ5ghAx3xxY=
-X-Google-Smtp-Source: AGHT+IFEAur5dlDVikexYq4s8x/G5TPcC91b0437JkcY65Hhw+TbZGEu4+aWv+UI7GGv7JFFrzCB9w==
-X-Received: by 2002:a05:622a:5cf:b0:42e:f660:8067 with SMTP id d15-20020a05622a05cf00b0042ef6608067mr2758444qtb.36.1710442041721;
-        Thu, 14 Mar 2024 11:47:21 -0700 (PDT)
-Message-ID: <1356dd16-03e1-4c01-9aac-597a127dea85@citrix.com>
-Date: Thu, 14 Mar 2024 18:47:18 +0000
+        d=1e100.net; s=20230601; t=1710442277; x=1711047077;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=35IIQwAtd0xy77CIsxN6/OzZ7I4Hyg1YPyW5Febi9xY=;
+        b=dlqDoKjy6I41oGoWZ5KvYxM1XuUn+IPB0kRqniSjZUk8KrWgGYGn1KNDN1vGpz2IMn
+         JBlxc8ukNw6jGRz6Ocntx84zdzr9JjwxkqCOUJjzu7Wzw9oqirBCmOEX2W5owYo7tEA6
+         AxmyM/HYPPTQZM7t25oochzlVddmaesmgZ89q1qthR53g2PC0B+bFURK9jlXbgMfAj3q
+         zBJpNMZvk5cZ+TiINwfGm5/LfY/ZKOubcWDgycwoW83PXWuHwaBMkYSx4gO6RZvPntZG
+         F8pRIe5bQzQ5ay/Gvw1ZkBHSFJEVwm0mLg5lNgg96D4g/TuK1Xs7nQpIPC47v4KT457o
+         ptEA==
+X-Forwarded-Encrypted: i=1; AJvYcCUjl/hhZnnkDE4DRS1rCyP91CzjOCvJXapQFrCYKsQ01ptGdTeW9BW9CT1MV+6NAqQOXCXqXk6KbOlqYUTfa3aq8aXgl/hVuhKPnU7wQuQ=
+X-Gm-Message-State: AOJu0YyCmvZoWilrKP9M5KaMksogXsWeA7dh0K9nmrkyNdIbIsahE2XJ
+	dvILBbVlMw91OnlvAseoqT92Ne3NPEaNmGM8rC9K8wotSubsRK0snWgeompWFLE=
+X-Google-Smtp-Source: AGHT+IGPldSYfuK3jyE6mCTuz/mAQ2JfROMvXHyXNdFjJDxuECYBJrBNX8ONvlIRvzcpc/aHqWKgew==
+X-Received: by 2002:ac8:5e50:0:b0:42e:d18f:71d9 with SMTP id i16-20020ac85e50000000b0042ed18f71d9mr2790790qtx.5.1710442276817;
+        Thu, 14 Mar 2024 11:51:16 -0700 (PDT)
+Message-ID: <cc3c0484-a896-4100-8400-50036d1e8c71@citrix.com>
+Date: Thu, 14 Mar 2024 18:51:13 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 6/7] xen: Swap find_first_set_bit() for ffsl() - 1
 Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
@@ -95,7 +97,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
 References: <20240313172716.2325427-1-andrew.cooper3@citrix.com>
  <20240313172716.2325427-7-andrew.cooper3@citrix.com>
  <ba0552cc-10eb-460d-89a1-ffc43fe75542@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
+ <1356dd16-03e1-4c01-9aac-597a127dea85@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -139,67 +141,71 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <ba0552cc-10eb-460d-89a1-ffc43fe75542@suse.com>
+In-Reply-To: <1356dd16-03e1-4c01-9aac-597a127dea85@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14/03/2024 2:30 pm, Jan Beulich wrote:
-> On 13.03.2024 18:27, Andrew Cooper wrote:
->> --- a/xen/drivers/passthrough/x86/iommu.c
->> +++ b/xen/drivers/passthrough/x86/iommu.c
->> @@ -641,7 +641,7 @@ struct page_info *iommu_alloc_pgtable(struct domain_iommu *hd,
->>      if ( contig_mask )
->>      {
->>          /* See pt-contig-markers.h for a description of the marker scheme. */
->> -        unsigned int i, shift = find_first_set_bit(contig_mask);
->> +        unsigned int i, shift = ffsl(contig_mask) - 1;
-> The need for subtracting 1 is why personally I dislike ffs() / ffsl() (and
-> why I think find_first_set_bit() and __ffs() (but no __ffsl()) were
-> introduced).
+On 14/03/2024 6:47 pm, Andrew Cooper wrote:
+> On 14/03/2024 2:30 pm, Jan Beulich wrote:
+>> On 13.03.2024 18:27, Andrew Cooper wrote:
+>>> --- a/xen/drivers/passthrough/x86/iommu.c
+>>> +++ b/xen/drivers/passthrough/x86/iommu.c
+>>> @@ -641,7 +641,7 @@ struct page_info *iommu_alloc_pgtable(struct domain_iommu *hd,
+>>>      if ( contig_mask )
+>>>      {
+>>>          /* See pt-contig-markers.h for a description of the marker scheme. */
+>>> -        unsigned int i, shift = find_first_set_bit(contig_mask);
+>>> +        unsigned int i, shift = ffsl(contig_mask) - 1;
+>> The need for subtracting 1 is why personally I dislike ffs() / ffsl() (and
+>> why I think find_first_set_bit() and __ffs() (but no __ffsl()) were
+>> introduced).
+> It's sad that there are competing APIs with different bit-labelling, but
+> the optimiser does cancel the -1 with arch_ffs() (for at least x86 and
+> ARM that I studied in detail).
+>
+> I firmly believe that fewer APIs which are fully well defined (and can
+> optimise based on the compiler's idea of safety) is still better than a
+> maze of APIs with different behaviours.
+>
+>> But what I first of all would like to have clarification on is what your
+>> (perhaps just abstract at this point) plans are wrt ffz() / ffzl().
+>> Potential side-by-side uses would be odd now, and would continue to be odd
+>> if the difference in bit labeling was retained. Since we're switching to
+>> a consolidated set of basic helpers, such an anomaly would better not
+>> survive imo.
+> I honestly hadn't got that far yet.  I was mainly trying to dis-entangle
+> the existing mess so RISC-V wasn't making it yet-worse.
+>
+> But yes - it warrants thinking about.
+>
+>
+> I was intending to do the fls() next then popcnt().   The latter has
+> quite a lot of cleanup wanting to come with it, and is more
+> architecturally invasive, and I know I've got a years-old outstanding
+> piece of work to try and do popcnt more nicely on x86.
+>
+> I have wanted ffz() in the past.  I think I just went with explicit ~
+> because I didn't want to continue this debate at the time.
+>
+> However, I (very much more) do not want a situation where ffs() and
+> ffz() have different bit-labellings.
+>
+>
+> There are no builtins, and having now studied the architectures we care
+> about... https://godbolt.org/z/KasP41n1e ...not even x86 has a "count
+> leading/trailing zeros" instruction.
 
-It's sad that there are competing APIs with different bit-labelling, but
-the optimiser does cancel the -1 with arch_ffs() (for at least x86 and
-ARM that I studied in detail).
+Hopefully obviously, I meant ones here.   My point is that the compiler
+emitted code always has a NOT in it somewhere.
 
-I firmly believe that fewer APIs which are fully well defined (and can
-optimise based on the compiler's idea of safety) is still better than a
-maze of APIs with different behaviours.
+>
+> So using ffs(~val) really will get you the best code generation
+> available, and seeing as it halves the number of bitops to maintain, I
+> think this is the best tradeoff overall.
+>
+> I intend to put ffz() and __ffs() into linux-compat.h and leave them
+> there to discourage their use generally.
+>
+> ~Andrew
 
-> But what I first of all would like to have clarification on is what your
-> (perhaps just abstract at this point) plans are wrt ffz() / ffzl().
-> Potential side-by-side uses would be odd now, and would continue to be odd
-> if the difference in bit labeling was retained. Since we're switching to
-> a consolidated set of basic helpers, such an anomaly would better not
-> survive imo.
-
-I honestly hadn't got that far yet.  I was mainly trying to dis-entangle
-the existing mess so RISC-V wasn't making it yet-worse.
-
-But yes - it warrants thinking about.
-
-
-I was intending to do the fls() next then popcnt().   The latter has
-quite a lot of cleanup wanting to come with it, and is more
-architecturally invasive, and I know I've got a years-old outstanding
-piece of work to try and do popcnt more nicely on x86.
-
-I have wanted ffz() in the past.  I think I just went with explicit ~
-because I didn't want to continue this debate at the time.
-
-However, I (very much more) do not want a situation where ffs() and
-ffz() have different bit-labellings.
-
-
-There are no builtins, and having now studied the architectures we care
-about... https://godbolt.org/z/KasP41n1e ...not even x86 has a "count
-leading/trailing zeros" instruction.
-
-So using ffs(~val) really will get you the best code generation
-available, and seeing as it halves the number of bitops to maintain, I
-think this is the best tradeoff overall.
-
-I intend to put ffz() and __ffs() into linux-compat.h and leave them
-there to discourage their use generally.
-
-~Andrew
 
