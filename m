@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4C1F87B898
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 08:32:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692930.1080652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E79B87B894
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 08:29:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692919.1080642 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkfZK-000680-EW; Thu, 14 Mar 2024 07:32:02 +0000
+	id 1rkfWC-0003sK-WC; Thu, 14 Mar 2024 07:28:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692930.1080652; Thu, 14 Mar 2024 07:32:02 +0000
+Received: by outflank-mailman (output) from mailman id 692919.1080642; Thu, 14 Mar 2024 07:28:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkfZK-00065U-BG; Thu, 14 Mar 2024 07:32:02 +0000
-Received: by outflank-mailman (input) for mailman id 692930;
- Thu, 14 Mar 2024 07:32:01 +0000
+	id 1rkfWC-0003qO-TZ; Thu, 14 Mar 2024 07:28:48 +0000
+Received: by outflank-mailman (input) for mailman id 692919;
+ Thu, 14 Mar 2024 07:28:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CDQ4=KU=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rkfPJ-0005cd-Of
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 07:21:41 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ id 1rkfPP-0005cd-8l
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 07:21:47 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 80bf598c-e1d3-11ee-afdd-a90da7624cb6;
- Thu, 14 Mar 2024 08:21:41 +0100 (CET)
+ id 84170f40-e1d3-11ee-afdd-a90da7624cb6;
+ Thu, 14 Mar 2024 08:21:46 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B808D21CF1;
- Thu, 14 Mar 2024 07:21:40 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 623A91F79B;
+ Thu, 14 Mar 2024 07:21:46 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 74A4713977;
- Thu, 14 Mar 2024 07:21:40 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1F2EE13977;
+ Thu, 14 Mar 2024 07:21:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id rPftGoSl8mWSDgAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 14 Mar 2024 07:21:40 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 6SIlBoql8mWXDgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 14 Mar 2024 07:21:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,25 +51,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80bf598c-e1d3-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 84170f40-e1d3-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1710400900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1710400906; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DBLksahmXlvC7yfjAllNqgbhTHyvKKzQktudFgw2Foo=;
-	b=kWqNAVP3JS7sjxQkIwZt1BroxwjcH64mEb2qLaXG2yWdT6SUyShr2k5C0fhULY5SHAQyDL
-	27e/Xl3xDpcLXVIrGcioT/W5GthopOOYd4IdRNewui2wM30Wj2Myq6U4SoVxMJF3EjnC04
-	gqSbGmQ78luNfFIUgkKVSfgwsiKz4Gw=
+	bh=svDhVGjKFzIPpcWjFYARn/2rWUfeidU+xfRiYlSjnX4=;
+	b=EkBnLKOBMPSiT+mLfvH5diIs5oNZa3ZYrVL2mqE0YS3a3slf6xVaQ1xNZbcKaPWCXxlsId
+	saQdPEEfqZF0QIsteoa/J3SfuX2vLdA99ZEWn4uun0ngYCOJjlesSCZY3akhpEmeiPfPqf
+	CBS9SfE5xRbTmX3zGkjFY4/M9SIZ0JY=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1710400900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1710400906; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DBLksahmXlvC7yfjAllNqgbhTHyvKKzQktudFgw2Foo=;
-	b=kWqNAVP3JS7sjxQkIwZt1BroxwjcH64mEb2qLaXG2yWdT6SUyShr2k5C0fhULY5SHAQyDL
-	27e/Xl3xDpcLXVIrGcioT/W5GthopOOYd4IdRNewui2wM30Wj2Myq6U4SoVxMJF3EjnC04
-	gqSbGmQ78luNfFIUgkKVSfgwsiKz4Gw=
+	bh=svDhVGjKFzIPpcWjFYARn/2rWUfeidU+xfRiYlSjnX4=;
+	b=EkBnLKOBMPSiT+mLfvH5diIs5oNZa3ZYrVL2mqE0YS3a3slf6xVaQ1xNZbcKaPWCXxlsId
+	saQdPEEfqZF0QIsteoa/J3SfuX2vLdA99ZEWn4uun0ngYCOJjlesSCZY3akhpEmeiPfPqf
+	CBS9SfE5xRbTmX3zGkjFY4/M9SIZ0JY=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -79,16 +79,16 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v5 12/13] xen/rwlock: raise the number of possible cpus
-Date: Thu, 14 Mar 2024 08:20:28 +0100
-Message-Id: <20240314072029.16937-13-jgross@suse.com>
+Subject: [PATCH v5 13/13] xen: allow up to 16383 cpus
+Date: Thu, 14 Mar 2024 08:20:29 +0100
+Message-Id: <20240314072029.16937-14-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20240314072029.16937-1-jgross@suse.com>
 References: <20240314072029.16937-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spam-Level: ****
-Authentication-Results: smtp-out1.suse.de;
+Authentication-Results: smtp-out2.suse.de;
 	none
 X-Spamd-Result: default: False [4.90 / 50.00];
 	 ARC_NA(0.00)[];
@@ -111,76 +111,34 @@ X-Spamd-Result: default: False [4.90 / 50.00];
 X-Spam-Score: 4.90
 X-Spam-Flag: NO
 
-The rwlock handling is limiting the number of cpus to 4095 today. The
-main reason is the use of the atomic_t data type for the main lock
-handling, which needs 2 bits for the locking state (writer waiting or
-write locked), 12 bits for the id of a possible writer, and a 12 bit
-counter for readers. The limit isn't 4096 due to an off by one sanity
-check.
+With lock handling now allowing up to 16384 cpus (spinlocks can handle
+65535 cpus, rwlocks can handle 16384 cpus), raise the allowed limit for
+the number of cpus to be configured to 16383.
 
-The atomic_t data type is 32 bits wide, so in theory 15 bits for the
-writer's cpu id and 15 bits for the reader count seem to be fine, but
-via read_trylock() more readers than cpus are possible.
-
-This means that it is possible to raise the number of cpus to 16384
-without changing the rwlock_t data structure. In order to avoid the
-reader count wrapping to zero, don't let read_trylock() succeed in case
-the highest bit of the reader's count is set already. This leaves enough
-headroom for non-recursive readers to enter without risking a wrap.
-
-While at it calculate _QW_CPUMASK and _QR_SHIFT from _QW_SHIFT and
-add a sanity check for not overflowing the atomic_t data type.
+The new limit is imposed by IOMMU_CMD_BUFFER_MAX_ENTRIES and
+QINVAL_MAX_ENTRY_NR required to be larger than 2 * CONFIG_NR_CPUS.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V5:
-- new patch
+- new patch (Jan Beulich)
 ---
- xen/include/xen/rwlock.h | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ xen/arch/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/include/xen/rwlock.h b/xen/include/xen/rwlock.h
-index 65d88b0ef4..afd57659bd 100644
---- a/xen/include/xen/rwlock.h
-+++ b/xen/include/xen/rwlock.h
-@@ -23,12 +23,12 @@ typedef struct {
- #define rwlock_init(l) (*(l) = (rwlock_t)RW_LOCK_UNLOCKED)
+diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
+index 67ba38f32f..308ce129a8 100644
+--- a/xen/arch/Kconfig
++++ b/xen/arch/Kconfig
+@@ -6,7 +6,7 @@ config PHYS_ADDR_T_32
  
- /* Writer states & reader shift and bias. */
--#define    _QW_CPUMASK  0xfffU             /* Writer CPU mask */
--#define    _QW_SHIFT    12                 /* Writer flags shift */
--#define    _QW_WAITING  (1U << _QW_SHIFT)  /* A writer is waiting */
--#define    _QW_LOCKED   (3U << _QW_SHIFT)  /* A writer holds the lock */
--#define    _QW_WMASK    (3U << _QW_SHIFT)  /* Writer mask */
--#define    _QR_SHIFT    14                 /* Reader count shift */
-+#define    _QW_SHIFT    14                      /* Writer flags shift */
-+#define    _QW_CPUMASK  ((1U << _QW_SHIFT) - 1) /* Writer CPU mask */
-+#define    _QW_WAITING  (1U << _QW_SHIFT)       /* A writer is waiting */
-+#define    _QW_LOCKED   (3U << _QW_SHIFT)       /* A writer holds the lock */
-+#define    _QW_WMASK    (3U << _QW_SHIFT)       /* Writer mask */
-+#define    _QR_SHIFT    (_QW_SHIFT + 2)         /* Reader count shift */
- #define    _QR_BIAS     (1U << _QR_SHIFT)
- 
- void queue_read_lock_slowpath(rwlock_t *lock);
-@@ -36,14 +36,16 @@ void queue_write_lock_slowpath(rwlock_t *lock);
- 
- static inline bool _is_write_locked_by_me(unsigned int cnts)
- {
--    BUILD_BUG_ON(_QW_CPUMASK < NR_CPUS);
-+    BUILD_BUG_ON((_QW_CPUMASK + 1) < NR_CPUS);
-+    BUILD_BUG_ON(NR_CPUS * _QR_BIAS > INT_MAX);
-     return (cnts & _QW_WMASK) == _QW_LOCKED &&
-            (cnts & _QW_CPUMASK) == smp_processor_id();
- }
- 
- static inline bool _can_read_lock(unsigned int cnts)
- {
--    return !(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts);
-+    return cnts <= INT_MAX &&
-+           (!(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts));
- }
- 
- /*
+ config NR_CPUS
+ 	int "Maximum number of CPUs"
+-	range 1 4095
++	range 1 16383
+ 	default "256" if X86
+ 	default "8" if ARM && RCAR3
+ 	default "4" if ARM && QEMU
 -- 
 2.35.3
 
