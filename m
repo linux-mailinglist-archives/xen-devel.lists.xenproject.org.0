@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACC9087B93D
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 09:26:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692972.1080739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C43C87B954
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 09:32:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692976.1080758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkgPT-0005Js-Ht; Thu, 14 Mar 2024 08:25:55 +0000
+	id 1rkgVr-0008Oo-C9; Thu, 14 Mar 2024 08:32:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692972.1080739; Thu, 14 Mar 2024 08:25:55 +0000
+Received: by outflank-mailman (output) from mailman id 692976.1080758; Thu, 14 Mar 2024 08:32:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkgPT-0005Hu-Dc; Thu, 14 Mar 2024 08:25:55 +0000
-Received: by outflank-mailman (input) for mailman id 692972;
- Thu, 14 Mar 2024 08:25:54 +0000
+	id 1rkgVr-0008M3-8V; Thu, 14 Mar 2024 08:32:31 +0000
+Received: by outflank-mailman (input) for mailman id 692976;
+ Thu, 14 Mar 2024 08:32:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rkgPS-0005Ho-Km
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 08:25:54 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1rkgVq-0008Lx-Bu
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 08:32:30 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7859c334-e1dc-11ee-afdd-a90da7624cb6;
- Thu, 14 Mar 2024 09:25:52 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5684ea117a3so881250a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 01:25:52 -0700 (PDT)
+ id 64d26b68-e1dd-11ee-afdd-a90da7624cb6;
+ Thu, 14 Mar 2024 09:32:29 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5654f700705so953495a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 01:32:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- sa37-20020a1709076d2500b00a4635a21ff0sm467385ejc.38.2024.03.14.01.25.51
+ vi2-20020a170907d40200b00a45c8b6e965sm474970ejc.3.2024.03.14.01.32.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 01:25:51 -0700 (PDT)
+ Thu, 14 Mar 2024 01:32:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7859c334-e1dc-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 64d26b68-e1dd-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710404752; x=1711009552; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710405149; x=1711009949; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=E4BQVZCAUZLtOYbg/K1gx8DsAF2ZNaLfyFD+765ChUs=;
-        b=S2E6PyR3X8YA6JUy4BOQzjXtxe2Q3v44QmbQfr+IAZV1qQvqoPpuFnGjJrtpzF7ISj
-         B7o61CZj5RtO20s6DkjuivOYRvF9MR3wpSJCcphQc2aWN4M80zrPjgCR3+n2sgWGz6HE
-         GME+FUfmzF4uD+cXOqe4C7CKpR0SzJhPZm5iNX3KmIJnlhAgp6djNEfgJcJrLwhvaw9L
-         aO6PhAMlUIBbRFiyCNfAac/uFtZo3hMXuLKgs43AdS9tqIiJWZkY4rP6xCHPMDGGhgVv
-         pb9SH44g5TEMJFPt6mmXz5PiqZ9tWmuB19Hj03cBqTQoobAReaZP5jX1fL42sSMmfKPz
-         SUSw==
+        bh=eAq5lHzW3IOwT/BTYiASAU2qB4P+zsotmrOl4INl2+Q=;
+        b=MKp7E2uqKWtCFRLkHWx5m+C5iDaRWC2u2TwqdsYNSQ0nMGmIhqr3Xhm/A/9fpkNswj
+         +HAes7apsoJPT/BHbHC+NVb5mp8mvMrZ9JL3keE080+j3oV1XxD51YM7vk7Q7lWFmmzE
+         Q2qbQj+1vkcPTeXaer2p8fMWeUGsZPgN9rQkc4lKruPlUFzm8CCrrE2oiU4rtAu5Rsoz
+         YGHty+AGbmp4ETl5XK53X7HFbM395/DGsLvf1w2aT3X3Ju/DQl7W6kP4JPKbGAFYvuDp
+         0pvRIiz2WdsT5xEsZIOFia2/x2LQcom5Zq6zTvXeLpQ+6el/1AVXoPjX0Q9rvKkInCaa
+         KodQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710404752; x=1711009552;
+        d=1e100.net; s=20230601; t=1710405149; x=1711009949;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=E4BQVZCAUZLtOYbg/K1gx8DsAF2ZNaLfyFD+765ChUs=;
-        b=dRbRPOnzDbDRzwoJpD6tb5AcuUxgzTnt+zaJ4htvgAZiYfZtoyGHSj4B45FgZ0BpId
-         V3TIwIhvPoHb8mv6oL+m9K/GBDNw/By+UyatPhQ1P9qlYmmoH962INAwYE43LlY3LW38
-         Du4XvPwCsGUlSeAtwoQ6CGUGzb6sbIXuHf29zsDQcFFSE85ik40NbuYyYugh/y3axioY
-         dXMVP3Y07Xyw1D8puCld0mltgUohR7m9mjJ5fjK/5UPHdBAcX1cMOuwmitW/IVoo+xO9
-         66/HFeFtATLgbn11OIyXbmX0KS3fWZk1dtgzzCH9Mp//AA1yAZfF6yv/0A69QNeRpFvk
-         rbwA==
-X-Forwarded-Encrypted: i=1; AJvYcCVB887i37/ZWDFTq/jmmBL8xmvXEZ1VCa/1oZPV5leLzoDztAdd0uCNs4LNt8BJINTf+alykFEEZ5yKEr5ctvPX6wir02qqJUGdZFQFw5M=
-X-Gm-Message-State: AOJu0YyAk6lgz6uqRzS9Y2WBWiylpOncAp3A69OvBeLBFjWRuhR/++cv
-	m7avEeiKIYBB0ZGUcybzVdRfVE8St6Q/iBVOplHK5D0iYwKcUOFpLWTeVCnJ3A==
-X-Google-Smtp-Source: AGHT+IFJxzEXEIIRmszXVnSvDzECzMhxKKcMo2qJi3iESG9UivHQQgDKP6KO6UK4SpqW3hvu8TVw7A==
-X-Received: by 2002:a17:907:a705:b0:a46:4d97:82a3 with SMTP id vw5-20020a170907a70500b00a464d9782a3mr732254ejc.59.1710404751893;
-        Thu, 14 Mar 2024 01:25:51 -0700 (PDT)
-Message-ID: <4fd5140b-0a34-464c-8ed8-4c38a094e9b1@suse.com>
-Date: Thu, 14 Mar 2024 09:25:50 +0100
+        bh=eAq5lHzW3IOwT/BTYiASAU2qB4P+zsotmrOl4INl2+Q=;
+        b=SRG67mEDlBzS3mB+4yALwMFqrjtoGjcuPwR0slzCFuI/SuTn4vycwTaDNN1LTLD7rl
+         NsZsEckLYJ1MvthZVYzV3h59gIAP/BTYD2ZlmRPImdRnIu1tEFriAOw4HjUUx82XvNSd
+         NDqZmk3Mi/b1djCOyfF7rxWxrCCBzzIpuh3qlMwi7KQ2dfKFiphlU7jVIO/C55AYfpjI
+         bvFiC6lyDOwv8Enc7ECwtOXrk2YwqACZH9U3iswmzQ6E4e4Hp/ypcdjypys9Ke0tQDOE
+         r/L9D02YYhMaaYMoijjo42rrGZhMpeFcB4Cfuu8FeTVGXOY32md5i3zO7IIZHHvc9RWH
+         rd9Q==
+X-Forwarded-Encrypted: i=1; AJvYcCX8M72xjZrBaK2/uNAHuv3uMEBP+ggAhQZuFtKrO//l1Rh+pbZP6ZdyB/JNv+C4LVqkTIpXraUZeF6cvGkuVoAWRpvjssxLK/kMiUehGlw=
+X-Gm-Message-State: AOJu0Yw+jJc4Zf30AWRSF7CasAbmQVdXoAKeFHm5bcUKPs6kmAGyy0O6
+	LmQUj3xV/oK+O8H4n/7ayxJ/JoILpAbagT3+kLiV3i5koXHeRJn9v51aWb5KzA==
+X-Google-Smtp-Source: AGHT+IHpzrOffIcWE2Wi3cSg242I/M5nZ1oNnuAYKUMyt9f48X1FwHGz2/DA09gA2fIpxQ/VyKuWKQ==
+X-Received: by 2002:a17:907:2d21:b0:a43:bf25:989 with SMTP id gs33-20020a1709072d2100b00a43bf250989mr879258ejc.9.1710405148691;
+        Thu, 14 Mar 2024 01:32:28 -0700 (PDT)
+Message-ID: <6186b676-660c-4bfa-a825-18ff7f0d7f62@suse.com>
+Date: Thu, 14 Mar 2024 09:32:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/entry: Delete RESTORE_ALL
+Subject: Re: [XEN PATCH] amd/iommu: add fixed size to function parameter of
+ array type
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240313142641.2150302-1-andrew.cooper3@citrix.com>
- <20240313142641.2150302-3-andrew.cooper3@citrix.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
+ julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <533a2d4f0c92d7fe92aa200b64434389de546f69.1710343652.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,26 +113,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240313142641.2150302-3-andrew.cooper3@citrix.com>
+In-Reply-To: <533a2d4f0c92d7fe92aa200b64434389de546f69.1710343652.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.03.2024 15:26, Andrew Cooper wrote:
-> There is only a single user now, and it's the one odd case.  Inline and
-> simplify it to just the compat case.
+On 14.03.2024 08:42, Nicola Vetrini wrote:
+> The 'cmd' parameter of amd_iommu_send_guest_cmd is passed
+> to a function that expects arrays of size 4, therefore
+> specifying explicitly the size also in amd_iommu_send_guest_cmd
+> allows not to accidentally pass a smaller array or assume that
+> send_iommu_command handles array sizes >4 correctly.
 > 
 > No functional change.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+> All current users pass an array of size 4, hence this patch is addressing
+> a potential issue noticed by the analyzer in the context of Rule 17.5
+> ("The function argument corresponding to a parameter declared to have an array
+> type shall have an appropriate number of elements"), not an actual problem in
+> the sources.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+While true, I think we want to consider alternatives. First one being to rip
+out this dead code (thus addressing other Misra concerns as well). Second,
+if we meant to keep it, to properly do away with the (ab)use of u32[].
 
-> In principle we want to delay the %rsp adjustment until after VERW, but that
-> turns disp8's into disp32's, making the overall code size larger.
+Finally, if to be taken in this least-effort shape, ...
 
-While beneficial for SPEC_CTRL_COND_VERW, that might then harm the IRETQ.
-So aiui neither placement is ideal, and hence the Disp<N> consideration
-is the determining factor either way.
+> --- a/xen/drivers/passthrough/amd/iommu.h
+> +++ b/xen/drivers/passthrough/amd/iommu.h
+> @@ -346,7 +346,7 @@ void cf_check amd_iommu_crash_shutdown(void);
+>  
+>  /* guest iommu support */
+>  #ifdef CONFIG_HVM
+> -void amd_iommu_send_guest_cmd(struct amd_iommu *iommu, u32 cmd[]);
+> +void amd_iommu_send_guest_cmd(struct amd_iommu *iommu, u32 cmd[4]);
+
+... u32 here and ...
+
+> --- a/xen/drivers/passthrough/amd/iommu_cmd.c
+> +++ b/xen/drivers/passthrough/amd/iommu_cmd.c
+> @@ -390,7 +390,7 @@ void amd_iommu_flush_all_caches(struct amd_iommu *iommu)
+>      flush_command_buffer(iommu, 0);
+>  }
+>  
+> -void amd_iommu_send_guest_cmd(struct amd_iommu *iommu, u32 cmd[])
+> +void amd_iommu_send_guest_cmd(struct amd_iommu *iommu, u32 cmd[4])
+
+... here would better be replaced by uint32_t at the same time, not the
+least because that's what ...
+
+>  {
+>      send_iommu_command(iommu, cmd);
+
+... this function already takes afaics.
 
 Jan
 
