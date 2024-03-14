@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2682187C0E8
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 17:05:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693357.1081327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E9B587C0EC
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 17:06:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693360.1081337 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rknZc-0003Hl-IS; Thu, 14 Mar 2024 16:04:52 +0000
+	id 1rknaX-0003m6-Vf; Thu, 14 Mar 2024 16:05:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693357.1081327; Thu, 14 Mar 2024 16:04:52 +0000
+Received: by outflank-mailman (output) from mailman id 693360.1081337; Thu, 14 Mar 2024 16:05:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rknZc-0003Ek-Er; Thu, 14 Mar 2024 16:04:52 +0000
-Received: by outflank-mailman (input) for mailman id 693357;
- Thu, 14 Mar 2024 16:04:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rknaX-0003lS-Qq; Thu, 14 Mar 2024 16:05:49 +0000
+Received: by outflank-mailman (input) for mailman id 693360;
+ Thu, 14 Mar 2024 16:05:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rknZa-0003Ed-PS
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 16:04:50 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9544480b-e21c-11ee-a1ee-f123f15fe8a2;
- Thu, 14 Mar 2024 17:04:48 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a28a6cef709so152741166b.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 09:04:48 -0700 (PDT)
+ id 1rknaX-0003lG-4Y
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 16:05:49 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b8c8af66-e21c-11ee-afdd-a90da7624cb6;
+ Thu, 14 Mar 2024 17:05:48 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a45606c8444so131431866b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 09:05:48 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h21-20020a17090619d500b00a46447348e8sm827048ejd.191.2024.03.14.09.04.47
+ h21-20020a17090619d500b00a46447348e8sm827048ejd.191.2024.03.14.09.05.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 09:04:48 -0700 (PDT)
+ Thu, 14 Mar 2024 09:05:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9544480b-e21c-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: b8c8af66-e21c-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710432288; x=1711037088; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710432348; x=1711037148; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=VhbS3U795qG1siKvxeuRBWc5m9VW37NK7XrVFdwFPCQ=;
-        b=AC4L9lmG1DS2fudNPXuNtFrO8EnR+mgc7KpYTmpEN8gbsztvh/TNtFN7W4vkr6bBoQ
-         iOCjurwiOrOPeRUjZQUY2INPvN/NXmcDjxS8TFVbxyvWkTU2ZUNgtHTVCDYISUA7xR5E
-         wCg6RFOQFEEwmA6i0KIxgEkOcGSZZcy5SHg2m6gVMniuluIiio8+fWc57Kv4N6JF4hI8
-         b+0qZBMjGwHI872HyL+52MBxb7yEaAuU4KSmuXpcccIoMT9B3FaggE4A7dMgOVRO4R5A
-         iQzjgQu8RsuwJfEnExTSNVvtZ4gGPFYFl2c6b0nyNh9xnamwywx+gkNd0GgKp9qwIfG/
-         s3ww==
+        bh=lDFQUkvNMfU2vCunQ8k56Z3/CNehReAEK/vThUwXMAg=;
+        b=e6zQqz/gBf8AT1FW3wmq1dzmbNwodjAfx9FzosdAG046JK67tzBoQZh48QRjiQoFS+
+         LWLBe37ll+g2pgyXKPGkJFypx1wLhmjpXBtlXBNulUOBpHPr8WlOzPP8pENUOpZ7TpO+
+         hxDKH/jF4NtFi12uB/GZgG+4omWHWXSs9Z6/UlscLhzdqP1SHUFd0n4CVI0R0ta1VZeQ
+         Kk2uGN5zo7l477BzaxY9GxUSDhfSXy4O3UD0W5oRQnPBdQrmA4SKBOVztsTKpPUIKsP4
+         XmYS99mKK9ZK57yx+Tt5B3UA9KpbhJPa6LPvLguo1yPTWSWmN/YP2DktrEYuMywfoV8Z
+         PGlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710432288; x=1711037088;
+        d=1e100.net; s=20230601; t=1710432348; x=1711037148;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VhbS3U795qG1siKvxeuRBWc5m9VW37NK7XrVFdwFPCQ=;
-        b=pDvUjO7EOU19UkDH413fPv9R4E/QLLFkB8Az0d5ILg9neGCpDw0KFPpxyYxkAAlLpV
-         wbQaNBh6lCXzvM26Sp0gjvw4cdWbzNF2COQ3yJkY6m/3vyJ8eq91+UoreHTd4ZYCMk4E
-         eoP1EW+qxlREMFzigG9mnUWPe5IWxll0Qskuw/ENx/e2zuT5LpN96FDLWJ1gmxWk1F7e
-         egLn3DO32hLPxUMA3rIkXFV+J3vARUE+ELTBFYDZtM37sJLmAFD5f32ms428k67EdhPe
-         v3wuWfH2E9VnvlJOVnUAZ6q0aTWwCitEpP1BgwIS7ctprUGnwvxlJjUNjD1cBs9zQdta
-         vzBg==
-X-Forwarded-Encrypted: i=1; AJvYcCXq1Vy2d9Svi1EZENXEqvjLAC3lKz0GyDSLvEIyFR/y1/6kZeAV32AGYmsqyeldcr5695u/O2c3njKkpTs0XfqXDGWkl7SQxZWT6AFuya0=
-X-Gm-Message-State: AOJu0Yw5ZY8ZjMsfZTCOI0RKYEyPBt4PGroeNwCU/eIcfrg5ERE+8kuh
-	z5521AE8ttW88HaDz8CBXxzvR8w7wLtny8RvHhaYM5DCvl5pglmIHIV/pnOKPg==
-X-Google-Smtp-Source: AGHT+IGxkQH+DOGbBNbcZAAZv+5+a9Tp9q5e+bC+JAh8tahWu9b3UYpWDlGepDupM7GQfYgaFwDx3A==
-X-Received: by 2002:a17:906:ca56:b0:a43:e550:4067 with SMTP id jx22-20020a170906ca5600b00a43e5504067mr885215ejb.12.1710432288274;
-        Thu, 14 Mar 2024 09:04:48 -0700 (PDT)
-Message-ID: <3f8af14a-391b-46db-99cb-d7cafe126cfd@suse.com>
-Date: Thu, 14 Mar 2024 17:04:46 +0100
+        bh=lDFQUkvNMfU2vCunQ8k56Z3/CNehReAEK/vThUwXMAg=;
+        b=L8bCIJCrQGdN/Yyt3tIn2QLyIrb56NMIBJWYy0hWXys3KP2iP4dIwDKXdAqIfsTjTa
+         dYdu+orulKof7/ebDnn00M6eNZC3+5l7htBFeWx7j3kpEg2348FBtnuYjB8PH9Wax/rs
+         fqHesl+1FvHag5Pl6BgjyiJFQjqTRfFblKZu025Ees1VQDkbuAOr0+SsI7aJtRzeWhUV
+         6FIu/RtRqHvXVv+dWjbrXh5Kurh0DLWZuDyarnvh9ze0RdHnkLp9/QLQOId2EmwV1UAK
+         bJaq2rYuTPzq7dMMoPl4ZdLWDd7i0y/+CP9D9yOtQ46coQNR23BC/SlXQ3pJA2H/R+Vg
+         3g8A==
+X-Forwarded-Encrypted: i=1; AJvYcCWuJLRFhoqfjOW1vxfjdBHBNeGGCk2Mnn/wrVCc1r6MUOzR3c9EiT+sPJw/XnWGwcx2FTgow5+c+IviBoSl3+rXzG7EroYGVd9z3TNtV9s=
+X-Gm-Message-State: AOJu0YzPUjqoJZnI6E9ih5exsaEFAOOYyVLYMpxMHJe1ZWvtKMytec8v
+	OFwbxfXEclTzDmj8TgtQ4BXNgx3BGMvKA3Io27Hrs9n+pWLzux3kiSbTOFIJvNUorpM6PhZwjUE
+	=
+X-Google-Smtp-Source: AGHT+IGO6570hR7uaewWamPznXEZ5N6T/BSsXWUZmv/LNoZlsU1c95gwD2Qk2xSNBUGnr/s3wj0XPQ==
+X-Received: by 2002:a17:906:ba84:b0:a46:74d2:a0c3 with SMTP id cu4-20020a170906ba8400b00a4674d2a0c3mr1644715ejd.4.1710432347990;
+        Thu, 14 Mar 2024 09:05:47 -0700 (PDT)
+Message-ID: <8b844971-4266-474e-b1d5-6ee40b64664e@suse.com>
+Date: Thu, 14 Mar 2024 17:05:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] x86/svm: Drop the suffix _guest from vmcb bit
+Subject: Re: [PATCH v3 3/3] x86/svmdebug: Print np, sev and sev_es vmcb bits
 Content-Language: en-US
 To: Vaishali Thakkar <vaishali.thakkar@vates.tech>
 Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org,
  xen-devel@lists.xenproject.org
 References: <cover.1710347950.git.vaishali.thakkar@vates.tech>
- <88d5a0ce6745428120ebc37369d3d75358d5c582.1710347950.git.vaishali.thakkar@vates.tech>
+ <f71fc11c1411f17a3570e3f8c8c088c1276b8552.1710347950.git.vaishali.thakkar@vates.tech>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,33 +112,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <88d5a0ce6745428120ebc37369d3d75358d5c582.1710347950.git.vaishali.thakkar@vates.tech>
+In-Reply-To: <f71fc11c1411f17a3570e3f8c8c088c1276b8552.1710347950.git.vaishali.thakkar@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13.03.2024 17:41, Vaishali Thakkar wrote:
-> The suffix _guest is redundant for asid bit. Drop it
-> to avoid adding extra code volume.
+> Currently only raw _np_ctrl is being printed. It can
+> be informational to know about which particular bits
+> are enabled. So, this commit adds the bit-by-bit decode
+> for np, sev and sev_es bits.
 > 
-> While we're here, replace 0/1 with false/true and use
-> VMCB accessors instead of open coding.
+> Note that while, only np is enabled in certain scenarios
+> at the moment, work for enabling sev and sev_es is in
+> progress. And it'll be useful to have this information as
+> part of svmdebug.
 > 
-> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > Signed-off-by: Vaishali Thakkar <vaishali.thakkar@vates.tech>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with ...
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/x86/hvm/svm/asid.c
-> +++ b/xen/arch/x86/hvm/svm/asid.c
-> @@ -37,14 +37,14 @@ void svm_asid_handle_vmrun(void)
->      /* ASID 0 indicates that ASIDs are disabled. */
->      if ( p_asid->asid == 0 )
->      {
-> -        vmcb_set_guest_asid(vmcb, 1);
-> +        vmcb_set_asid(vmcb,true);
 
-... the blank put back that was lost here (can be done while committing).
-
-Jan
 
