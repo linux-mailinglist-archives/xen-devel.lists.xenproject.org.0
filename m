@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 681A287BE01
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 14:50:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693249.1081101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D439287BE0D
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 14:51:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693251.1081110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rklTD-0000DC-RL; Thu, 14 Mar 2024 13:50:07 +0000
+	id 1rklUg-0000iu-4M; Thu, 14 Mar 2024 13:51:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693249.1081101; Thu, 14 Mar 2024 13:50:07 +0000
+Received: by outflank-mailman (output) from mailman id 693251.1081110; Thu, 14 Mar 2024 13:51:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rklTD-00009g-Nr; Thu, 14 Mar 2024 13:50:07 +0000
-Received: by outflank-mailman (input) for mailman id 693249;
- Thu, 14 Mar 2024 13:50:05 +0000
+	id 1rklUg-0000gc-1g; Thu, 14 Mar 2024 13:51:38 +0000
+Received: by outflank-mailman (input) for mailman id 693251;
+ Thu, 14 Mar 2024 13:51:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rklTB-0008R1-H9
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 13:50:05 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QCks=KU=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1rklUf-0000gU-3H
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 13:51:37 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2417::601])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c2989781-e209-11ee-afdd-a90da7624cb6;
- Thu, 14 Mar 2024 14:50:04 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5683247fd0fso1415271a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 06:50:04 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fe4-20020a056402390400b00567e27c72c4sm724838edb.62.2024.03.14.06.50.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 06:50:02 -0700 (PDT)
+ id f8899aea-e209-11ee-afdd-a90da7624cb6;
+ Thu, 14 Mar 2024 14:51:35 +0100 (CET)
+Received: from CH2PR08CA0007.namprd08.prod.outlook.com (2603:10b6:610:5a::17)
+ by IA1PR12MB7661.namprd12.prod.outlook.com (2603:10b6:208:426::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.26; Thu, 14 Mar
+ 2024 13:51:23 +0000
+Received: from DS2PEPF00003447.namprd04.prod.outlook.com
+ (2603:10b6:610:5a:cafe::49) by CH2PR08CA0007.outlook.office365.com
+ (2603:10b6:610:5a::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.38 via Frontend
+ Transport; Thu, 14 Mar 2024 13:51:22 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF00003447.mail.protection.outlook.com (10.167.17.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7386.12 via Frontend Transport; Thu, 14 Mar 2024 13:51:22 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 14 Mar
+ 2024 08:51:22 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 14 Mar
+ 2024 08:51:21 -0500
+Received: from [172.17.162.8] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 14 Mar 2024 08:51:21 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +63,365 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2989781-e209-11ee-afdd-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710424204; x=1711029004; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jyMhEAcE+ONrg9SbjkT2CneQMZ+uB2RNa9WH9aBaYxg=;
-        b=O+DTg6aP1C8ylTngN/zZHoH6wueaD9gZDOCEQ+JIk7/04U4P0lEGMkrWOA2Y3y0w8S
-         smG8ljqL1eWv+lXwDWi0qNZMexywc+sTiSuv23eCeSOEnuTkmbhQZN6RouvQ855EJin/
-         oWuYkfC51ppCPVZLL2NRKyvS3TuL3shCTayk4KAvZ68eOE9/ZGoJVBOLDkWL8n1UVR4L
-         eR9Uh13vfNKRpf3b4Z0Aqoltbtw8PpUFly5DF7bsMpUFuoy9516Z3XuL45CYVpOAJD1+
-         vDSkgrAIWYKR3petmuAPPWu81UGYrBkiJ8JJHW4AxOlzvGLes4d9MHEf10X/BP9yj4wh
-         cPAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710424204; x=1711029004;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jyMhEAcE+ONrg9SbjkT2CneQMZ+uB2RNa9WH9aBaYxg=;
-        b=kIgsIdocMYrD/PW7qKatPVjf2B6H4m/U8HuMWTvqgLaTMGOw+e1oUqIxJB3Cp49lhs
-         96gpK4Qrc0uhfM51s3rxOx8jITdxICRQUWSyyPgYoj8iq6HL72e9mpQfQ8jFwhrXdykL
-         C41QdHh5w9Wx40FWx+U3rmXy+jfrk8XTSZwxmyYzbVRXQ3ys3h0EIer4hRRYMgjFakJ3
-         65iNcV1ruwNsuYCwz33hKWHGb00BbjhlQClzHtY9dbfUKloazTNhmGlLNl7QQBTTw408
-         lItYErLaWzztmpxCNzBG9uYmPFLhJYz/col/uk2Rde5L1Md5j8f4QQOyG3xATxPkZB2P
-         KWAQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUTI05OAQmeFCz6TCcH8M5nQxhAP6rlh7seclnu/+NVRmjSozeWhYD17CNP92OxH7zRCNFWVkiVjIjxRF4+jhU6m6RX6luIvAa1sY8q7jw=
-X-Gm-Message-State: AOJu0Yyr2dUYeWWj55NcPjkQy43jBlNfGlFSHPd7jdTkR+rqI8bt9JGV
-	QpTaDSyzg2jioaB7FNw22Ho5ke9Ypeyye+XBrb33iJ4fjbbBnRgZJPpCi3mZpg==
-X-Google-Smtp-Source: AGHT+IHWv+HiTqJ6lVR/STiwd80AwDbiWqmn8BjWNFxebSXvCOkJFrKSL42QuecRwSLuHFykJcDSPA==
-X-Received: by 2002:a05:6402:4495:b0:566:777:af4f with SMTP id er21-20020a056402449500b005660777af4fmr560442edb.1.1710424203799;
-        Thu, 14 Mar 2024 06:50:03 -0700 (PDT)
-Message-ID: <32a4de1e-94fe-4b44-b95c-55cd1ec7e7e4@suse.com>
-Date: Thu, 14 Mar 2024 14:50:01 +0100
+X-Inumbo-ID: f8899aea-e209-11ee-afdd-a90da7624cb6
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hmJXtctNhitLjZLr3jvCoG0iNdt8sGhqnE2UbDasN1zTI5Hb/PhRLJIaC9FampqME6TlT48V7+36DzkfkKtEe9SvD/t0vYYYKByCPfYcNRK1QK7OAB1HIDl/q0yJAS6hjRJYN7wQWLEmp8FSDAcdo/dDPZxKHetpCYlIj79dMWMJkmZuSaZBU+1LNLUCLa0YWQAUJRAhybk9WZxSjmJB1PrWttft/TNTiUTs0w/4740082Qryz79DK7N8Y5Mh+oVXtDyAM2yZiNx+EvIccBUjTnNqNqC+dRP6fISmyXDWDjE4iGKe0nvnBTKMM8qBHOwKqSGiq3Yjvzx7EfXnUMY0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eDt/puo9y9p/vv03V5R6XBNRP5HW9wRwW3BZC+S4ujw=;
+ b=KfnDN5uWwWuq9Wp0P73QL1mSCd5gfm4UKT/DTGZ4p/O7KMaXzwm4+L65CPc96YkzlxmwCpPdtWrnGol2mAhv/6oo6zTjP2trRsMqdfHPzeXUjC9Jfc6jk/4ee1knAIaz+/hJrdU/0crazdtc88b0nBx8NI6mBVbDb4GD6h1ujl3eFbls0FnUkRl/mqw5CztLmciyBdFAb19vOuFIfx40OlR2Cp8+anTSVPiNROll3vQisrdhetpJ7qsWqwU1FlmThF/EK7pOjb8Grs39/xArbyLTQrGNYTc5//AL9GUqmA2QVdLLKEf51av8jJccmuQC0foTPM8OSypbxTHB5r63Ww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eDt/puo9y9p/vv03V5R6XBNRP5HW9wRwW3BZC+S4ujw=;
+ b=yZBwZlwlsWHZwaB4qC5tZipTgvYL5GbffAfAuFGpcbAovCB7cOLKVNbUP0upGqFEGaug83xXCztFczFAHxDGNjyKFyEPkYejb5qlOUZGsdgEaMkBwjFv22+LQOqV2v9iez0FGVUYCIN8IOYOrST3E0+Feutjs3vz3cz4RRVdb7c=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <afb3aa21-cd8b-425d-a4fa-b9ca57367d28@amd.com>
+Date: Thu, 14 Mar 2024 09:51:22 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] tools: add x2APIC entries in MADT based on APIC ID
+Subject: Re: [PATCH v2 3/3] x86/PVH: Support relocatable dom0 kernels
 Content-Language: en-US
-To: Matthew Barnes <matthew.barnes@cloud.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <cd1a3ce14790af8c1bb4372ef0be5a6cbbb50b1c.1710338145.git.matthew.barnes@cloud.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cd1a3ce14790af8c1bb4372ef0be5a6cbbb50b1c.1710338145.git.matthew.barnes@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>
+References: <20240313193021.241764-1-jason.andryuk@amd.com>
+ <20240313193021.241764-4-jason.andryuk@amd.com> <ZfLIBHTbcbGqFAhY@macbook>
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <ZfLIBHTbcbGqFAhY@macbook>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003447:EE_|IA1PR12MB7661:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb863103-2fff-4735-9cb4-08dc442dd583
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Sfqrq/NsXJ5QkvLs6JK+wNUvAYEmzmy67KVX117pB8w9i3pCtvnZYE5HkmIYhjGG0ddZx1i/mImYzXmTMQdiZJnaJBD+3FKpVVWKYEFWZ8QU4ak15pTIWD98Ek7zREbQTzDFVKGwkrZ+49mRbmHTtLBPkup1fgJQ6qtGYeSloOs85pJmue9BaeX3l4xl4kU1+/SbSHHBLHPoeQuqeeN0Fb/yn37ML9YDEAWAxoMTCt7NaL+0fsnvZN08tIwDjmOpbxnglrvKoA4aHxBhePLwxdC+SjyZf6YFBHl6i9donvDkhVjIugQ03wPXOHz9JHrEJulVO4Jh4c0/zujaIAzosMtdboTxZtBNlw+GCO0/yK0YYstTIb9BJknwp6zgZuQneQamVyhtV1NDZesroGmOHhEN6TSf61crQU0uMAhI5xLijIZJon7X86W1KJ/6AGISQjemtgTeTE8VtvizQIJa5xy47Gk5DO46RXqcMOh89VI09MOLHdnLZ8tphnPFRhBkTrMDpaTjpmH1cuu9nwCJvIN2weKTr77GKdzk3RCu44vIibwxCjRV81Nlu/D6//ikPZlq/AjXUr9LEyBWm9JMSAmX8SC/GpDpTnyXgXmR959GkZ//FXlTDArh9lJTqPaZucHLa3yVCeAylK/SNv/lIMaEjlqC35LrlcBE+6v7CeYYsOMmD4ti9hypmZAdnAfU+JCdPtzA3ZqFlEejLMSH5g==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(376005)(82310400014)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2024 13:51:22.5376
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb863103-2fff-4735-9cb4-08dc442dd583
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF00003447.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7661
 
-On 13.03.2024 16:35, Matthew Barnes wrote:
-> libacpi is a tool that is used by libxl (for PVH guests) and hvmloader
-> (for HVM guests) to construct ACPI tables for guests.
+On 2024-03-14 05:48, Roger Pau Monné wrote:
+> On Wed, Mar 13, 2024 at 03:30:21PM -0400, Jason Andryuk wrote:
+>> Xen tries to load a PVH dom0 kernel at the fixed guest physical address
+>> from the elf headers.  For Linux, this defaults to 0x1000000 (16MB), but
+>> it can be configured.
+>>
+>> Unfortunately there exist firmwares that have reserved regions at this
+>> address, so Xen fails to load the dom0 kernel since it's not RAM.
+>>
+>> The PVH entry code is not relocatable - it loads from absolute
+>> addresses, which fail when the kernel is loaded at a different address.
+>> With a suitably modified kernel, a reloctable entry point is possible.
+>>
+>> Add XEN_ELFNOTE_PVH_RELOCATION which specifies the minimum, maximum and
+>> alignment needed for the kernel.  The presence of the NOTE indicates the
+>> kernel supports a relocatable entry path.
+>>
+>> Change the loading to check for an acceptable load address.  If the
+>> kernel is relocatable, support finding an alternate load address.
+>>
+>> Link: https://gitlab.com/xen-project/xen/-/issues/180
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>> ---
+>> ELF Note printing looks like:
+>> (XEN) ELF: note: PVH_RELOCATION = min: 0x1000000 max: 0xffffffff align: 0x200000
+>>
+>> v2:
+>> Use elfnote for min, max & align - use 64bit values.
+>> Print original and relocated memory addresses
+>> Use check_and_adjust_load_address() name
+>> Return relocated base instead of offset
+>> Use PAGE_ALIGN
+>> Don't load above max_phys (expected to be 4GB in kernel elf note)
+>> Use single line comments
+>> Exit check_load_address loop earlier
+>> Add __init to find_kernel_memory()
+>> ---
+>>   xen/arch/x86/hvm/dom0_build.c      | 108 +++++++++++++++++++++++++++++
+>>   xen/common/libelf/libelf-dominfo.c |  13 ++++
+>>   xen/include/public/elfnote.h       |  11 +++
+>>   xen/include/xen/libelf.h           |   3 +
+>>   4 files changed, 135 insertions(+)
+>>
+>> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+>> index 0ceda4140b..5c6c0d2db3 100644
+>> --- a/xen/arch/x86/hvm/dom0_build.c
+>> +++ b/xen/arch/x86/hvm/dom0_build.c
+>> @@ -537,6 +537,108 @@ static paddr_t __init find_memory(
+>>       return INVALID_PADDR;
+>>   }
+>>   
+>> +static bool __init check_load_address(
+>> +    const struct domain *d, const struct elf_binary *elf)
+>> +{
+>> +    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
 > 
-> Currently, libacpi only uses APIC entries to enumerate processors for
-> guests in the MADT.
+> Are you sure this is correct?  If a program header specifies a non-4K
+> aligned load address we should still try to honor it.  I think this is
+> very unlikely, but still we shouldn't apply non-requested alignments
+> to addresses coming from the ELF headers.
+
+I think it's correct in terms of checking the e820 table.  Since the 
+memory map is limited to 4k granularity, the bounds need to be rounded 
+accordingly.
+
+>> +    paddr_t kernel_end = PAGE_ALIGN((paddr_t)elf->dest_base + elf->dest_size);
+>> +    unsigned int i;
+>> +
+>> +    /*
+>> +     * The memory map is sorted and all RAM regions starts and sizes are
+>> +     * aligned to page boundaries.
 > 
-> The APIC ID field in APIC entries is an octet big, which is fine for
-> xAPIC IDs, but not so for sufficiently large x2APIC IDs.
+> Relying on sizes to be page aligned seems fragile: it might work now
+> because of the order in which pvh_setup_vmx_realmode_helpers() first
+> reserves memory for the TSS and afterwards for the identity page
+> tables, but it's not a property this code should assume.
 
-Yet where would those come from? I can see that down the road we will
-have such, but right now I don't think we do. Without saying so, this
-change could be mistaken for a fix of an active bug.
+That can be removed.  It would just eliminate the early exit...
 
-> This patch scans each APIC ID before constructing the MADT, and uses the
-> x2APIC entry for each vCPU whose APIC ID exceeds the size limit imposed
-> by regular APIC entries.
+>> +     */
+>> +    for ( i = 0; i < d->arch.nr_e820; i++ )
+>> +    {
+>> +        paddr_t start = d->arch.e820[i].addr;
+>> +        paddr_t end = d->arch.e820[i].addr + d->arch.e820[i].size;
+>> +
+>> +        if ( start >= kernel_end )
+>> +            return false;
 
-It is my understanding that if you use any x2APIC entry, every CPU needs
-to have one.
+... here.
 
-> @@ -134,27 +151,45 @@ static struct acpi_20_madt *construct_madt(struct acpi_ctxt *ctxt,
->          io_apic->ioapic_id   = config->ioapic_id;
->          io_apic->ioapic_addr = config->ioapic_base_address;
->  
-> -        lapic = (struct acpi_20_madt_lapic *)(io_apic + 1);
-> +        apicid_entry = io_apic + 1;
->      }
->      else
-> -        lapic = (struct acpi_20_madt_lapic *)(madt + 1);
-> +        apicid_entry = madt + 1;
->  
->      info->nr_cpus = hvminfo->nr_vcpus;
-> -    info->madt_lapic0_addr = ctxt->mem_ops.v2p(ctxt, lapic);
-> +    info->madt_lapic0_addr = ctxt->mem_ops.v2p(ctxt, apicid_entry);
->      for ( i = 0; i < hvminfo->nr_vcpus; i++ )
->      {
-> -        memset(lapic, 0, sizeof(*lapic));
-> -        lapic->type    = ACPI_PROCESSOR_LOCAL_APIC;
-> -        lapic->length  = sizeof(*lapic);
-> -        /* Processor ID must match processor-object IDs in the DSDT. */
-> -        lapic->acpi_processor_id = i;
-> -        lapic->apic_id = config->lapic_id(i);
-> -        lapic->flags = (test_bit(i, hvminfo->vcpu_online)
-> -                        ? ACPI_LOCAL_APIC_ENABLED : 0);
-> -        lapic++;
-> +        uint32_t apic_id = config->lapic_id(i);
-> +        if ( apic_id < 255 )
+>> +        if ( start <= kernel_start &&
+>> +             end >= kernel_end &&
+>> +             d->arch.e820[i].type == E820_RAM )
+> 
+> Nit: I would maybe do the type check before the boundary ones, as it's
+> pointless to do boundary checking on a region of a non-RAM type.  But
+> I guess you could also see it the other way around.
+> 
+>> +            return true;
+>> +    }
+>> +
+>> +    return false;
+>> +}
+>> +
+>> +/* Find an e820 RAM region that fits the kernel at a suitable alignment. */
+>> +static paddr_t __init find_kernel_memory(
+>> +    const struct domain *d, struct elf_binary *elf,
+> 
+> const for elf also.
 
-Nit (here and below): This file uses hypervisor coding style. and hence a
-blank line is wanted between declaration(s) and statement(s).
+Yes, thanks.
 
-> +        {
-> +            struct acpi_20_madt_lapic *lapic = apicid_entry;
-> +            memset(lapic, 0, sizeof(*lapic));
-> +            lapic->type    = ACPI_PROCESSOR_LOCAL_APIC;
-> +            lapic->length  = sizeof(*lapic);
-> +            /* Processor ID must match processor-object IDs in the DSDT. */
-> +            lapic->acpi_processor_id = i;
-> +            lapic->apic_id = apic_id;
-> +            lapic->flags = (test_bit(i, hvminfo->vcpu_online)
-> +                            ? ACPI_LOCAL_APIC_ENABLED : 0);
-> +            apicid_entry = lapic + 1;
-> +        }
-> +        else
-> +        {
-> +            struct acpi_20_madt_x2apic *x2apic = apicid_entry;
-> +            memset(x2apic, 0, sizeof(*x2apic));
-> +            x2apic->type    = ACPI_PROCESSOR_LOCAL_X2APIC;
-> +            x2apic->length  = sizeof(*x2apic);
-> +            x2apic->apic_id = apic_id;
-> +            x2apic->flags   = (test_bit(i, hvminfo->vcpu_online)
-> +                                ? ACPI_LOCAL_APIC_ENABLED : 0);
+>> +    const struct elf_dom_parms *parms)
+>> +{
+>> +    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
+>> +    paddr_t kernel_end = PAGE_ALIGN((paddr_t)elf->dest_base + elf->dest_size);
+>> +    paddr_t kernel_size = kernel_end - kernel_start;
+> 
+> Hm, I'm again unsure about the alignments applied here.
 
-Nit: Indentation off by 1.
+Same as above regarding 4k granularity.
 
-Jan
+> I think if anything we want to assert that dest_base is aligned to phys_align.
+
+That would indicate the kernel image is inconsistent.
+
+>> +    unsigned int i;
+>> +
+>> +    /*
+>> +     * The memory map is sorted and all RAM regions starts and sizes are
+>> +     * aligned to page boundaries.
+>> +     */
+>> +    for ( i = 0; i < d->arch.nr_e820; i++ )
+>> +    {
+>> +        paddr_t start = d->arch.e820[i].addr;
+>> +        paddr_t end = d->arch.e820[i].addr + d->arch.e820[i].size;
+>> +        paddr_t kstart, kend;
+>> +
+>> +        if ( d->arch.e820[i].type != E820_RAM )
+>> +            continue;
+>> +
+>> +        if ( d->arch.e820[i].size < kernel_size )
+>> +            continue;
+> 
+> You can unify both checks in a single condition.
+
+Ok.
+
+>> +
+>> +        kstart = ROUNDUP(start, parms->phys_align);
+>> +        kstart = kstart < parms->phys_min ? parms->phys_min : kstart;
+>> +        kend = kstart + kernel_size;
+>> +
+>> +        if ( kend > parms->phys_max )
+>> +            return 0;
+>> +
+>> +        if ( kend <= end )
+>> +            return kstart;
+>> +    }
+>> +
+>> +    return 0;
+>> +}
+>> +
+>> +/* Check the kernel load address, and adjust if necessary and possible. */
+>> +static bool __init check_and_adjust_load_address(
+>> +    const struct domain *d, struct elf_binary *elf, struct elf_dom_parms *parms)
+>> +{
+>> +    paddr_t reloc_base;
+>> +
+>> +    if ( check_load_address(d, elf) )
+>> +        return true;
+>> +
+>> +    if ( parms->phys_align == UNSET_ADDR )
+>> +    {
+>> +        printk("Address conflict and %pd kernel is not relocatable\n", d);
+>> +        return false;
+>> +    }
+>> +
+>> +    reloc_base = find_kernel_memory(d, elf, parms);
+>> +    if ( reloc_base == 0 )
+>> +    {
+>> +        printk("Failed find a load address for the kernel\n");
+> 
+> Since you print the domain in the error message prior to this one, I
+> would consider also printing it here (or not printing it in both
+> cases).
+
+I'll add the %pd.
+
+>> +        return false;
+>> +    }
+>> +
+>> +    if ( opt_dom0_verbose )
+>> +        printk("Relocating kernel from [%lx, %lx] -> [%lx, %lx]\n",
+>> +               (paddr_t)elf->dest_base,
+>> +               (paddr_t)elf->dest_base + elf->dest_size,
+>> +               reloc_base, reloc_base + elf->dest_size);
+> 
+> I think you need `- 1` for the end calculation if you use inclusive
+> ranges [, ].  Otherwise [, ) should be used.
+
+Ok, I'll do [, ] with the -1.
+
+>> +
+>> +    parms->phys_entry += (reloc_base - (paddr_t)elf->dest_base);
+> 
+> This seems to assume that the image is always relocated at a higher
+> address that the original one?
+> 
+> parms->phys_entry = reloc_base + (parms->phys_entry - elf->dest_base);
+
+Ok
+
+>> +    elf->dest_base = (char *)reloc_base;
+>> +
+>> +    return true;
+>> +}
+>> +
+>>   static int __init pvh_load_kernel(struct domain *d, const module_t *image,
+>>                                     unsigned long image_headroom,
+>>                                     module_t *initrd, void *image_base,
+>> @@ -585,6 +687,12 @@ static int __init pvh_load_kernel(struct domain *d, const module_t *image,
+>>       elf.dest_base = (void *)(parms.virt_kstart - parms.virt_base);
+>>       elf.dest_size = parms.virt_kend - parms.virt_kstart;
+>>   
+>> +    if ( !check_and_adjust_load_address(d, &elf, &parms) )
+>> +    {
+>> +        printk("Unable to load kernel\n");
+> 
+> check_and_adjust_load_address() already prints an error message,
+> probably no need to print another message.
+
+Ok
+
+>> +        return -ENOMEM;
+>> +    }
+>> +
+>>       elf_set_vcpu(&elf, v);
+>>       rc = elf_load_binary(&elf);
+>>       if ( rc < 0 )
+>> diff --git a/xen/common/libelf/libelf-dominfo.c b/xen/common/libelf/libelf-dominfo.c
+>> index 7cc7b18a51..837a1b0f21 100644
+>> --- a/xen/common/libelf/libelf-dominfo.c
+>> +++ b/xen/common/libelf/libelf-dominfo.c
+>> @@ -125,6 +125,7 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
+>>           [XEN_ELFNOTE_SUSPEND_CANCEL] = { "SUSPEND_CANCEL", ELFNOTE_INT },
+>>           [XEN_ELFNOTE_MOD_START_PFN] = { "MOD_START_PFN", ELFNOTE_INT },
+>>           [XEN_ELFNOTE_PHYS32_ENTRY] = { "PHYS32_ENTRY", ELFNOTE_INT },
+>> +        [XEN_ELFNOTE_PVH_RELOCATION] = { "PVH_RELOCATION", ELFNOTE_OTHER },
+>>       };
+>>   /* *INDENT-ON* */
+>>   
+>> @@ -234,6 +235,17 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
+>>                   elf_note_numeric_array(elf, note, 8, 0),
+>>                   elf_note_numeric_array(elf, note, 8, 1));
+>>           break;
+>> +
+>> +    case XEN_ELFNOTE_PVH_RELOCATION:
+>> +        if ( elf_uval(elf, note, descsz) != 3 * sizeof(uint64_t) )
+>> +            return -1;
+>> +
+>> +        parms->phys_min = elf_note_numeric_array(elf, note, 8, 0);
+>> +        parms->phys_max = elf_note_numeric_array(elf, note, 8, 1);
+>> +        parms->phys_align = elf_note_numeric_array(elf, note, 8, 2);
+> 
+> Size for those needs to be 4 (32bits) as the entry point is in 32bit
+> mode?  I don't see how we can start past the 4GB boundary.
+
+I specified the note as 3x 64bit values.  It seemed simpler than trying 
+to support both 32bit and 64bit depending on the kernel arch.  Also, 
+just using 64bit provides room in case it is needed in the future.
+
+Do you want the note to be changed to 3x 32bit values?
+
+>> +        elf_msg(elf, "min: %#"PRIx64" max: %#"PRIx64" align: %#"PRIx64"\n",
+>> +                parms->phys_min, parms->phys_max, parms->phys_align);
+>> +        break;
+>>       }
+>>       return 0;
+>>   }
+>> @@ -545,6 +557,7 @@ elf_errorstatus elf_xen_parse(struct elf_binary *elf,
+>>       parms->p2m_base = UNSET_ADDR;
+>>       parms->elf_paddr_offset = UNSET_ADDR;
+>>       parms->phys_entry = UNSET_ADDR32;
+>> +    parms->phys_align = UNSET_ADDR;
+> 
+> For correctness I would also init phys_{min,max}.
+
+There is a memset() out of context above to zero the structure.  I 
+thought leaving them both 0 would be fine.
+
+I chose to initialize phys_align as the 64bit UNSET_ADDR since that is 
+clearly invalid...  Though we don't have any checking that phys_align is 
+a power of 2.
+
+Regards,
+Jason
 
