@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1160687BA07
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 10:06:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693060.1080788 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0221287BA5D
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 10:26:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693067.1080797 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkh21-0006gF-CY; Thu, 14 Mar 2024 09:05:45 +0000
+	id 1rkhL2-0001ZR-VT; Thu, 14 Mar 2024 09:25:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693060.1080788; Thu, 14 Mar 2024 09:05:45 +0000
+Received: by outflank-mailman (output) from mailman id 693067.1080797; Thu, 14 Mar 2024 09:25:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkh21-0006e6-9d; Thu, 14 Mar 2024 09:05:45 +0000
-Received: by outflank-mailman (input) for mailman id 693060;
- Thu, 14 Mar 2024 09:05:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rkhL2-0001Wu-Sc; Thu, 14 Mar 2024 09:25:24 +0000
+Received: by outflank-mailman (input) for mailman id 693067;
+ Thu, 14 Mar 2024 09:25:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4N5k=KU=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rkh20-0006e0-Kl
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 09:05:44 +0000
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [2001:4860:4864:20::34])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 08b18431-e1e2-11ee-a1ee-f123f15fe8a2;
- Thu, 14 Mar 2024 10:05:42 +0100 (CET)
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-22215ccbafeso381451fac.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 02:05:42 -0700 (PDT)
+ <SRS0=pU9H=KU=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rkhL1-0001Wj-JX
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 09:25:23 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c80d592a-e1e4-11ee-afdd-a90da7624cb6;
+ Thu, 14 Mar 2024 10:25:22 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 95C504EE0739;
+ Thu, 14 Mar 2024 10:25:21 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,68 +39,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 08b18431-e1e2-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1710407141; x=1711011941; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7BxBaJcrAmxi2huKCdNF1/OD24+lEdSeSWhukacTCPU=;
-        b=DEdJLEaAFkKvocFUsTtfOt1jSuBnclDogwCeQ2BoZspaAfjZ7pSEdj+tXMA3Ja/v7Y
-         9Nm8Xn8HtORrT6yLxGu3Ad4gdXVO2EGiSF1fOPUJoqcbTgk2OLCywi0bWrmkwjnmBjfM
-         uQiRhagZPIGQjXvQuEQxJmeL0BZVh/tCfrxfY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710407141; x=1711011941;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=7BxBaJcrAmxi2huKCdNF1/OD24+lEdSeSWhukacTCPU=;
-        b=YCbf/eabMxNYIks2KiAlDUMTn66FWLEoKbfRlCTM0ZaSrA2U+lUAiPxahg8dA6y9rp
-         jQr7qTVQG0u26VINBDQqt4UncTOvsdIDkcjztWLXqM72kuPUzgSRSYihgJxobQ0y7F4y
-         KUR2HwmcxCNn91DZOluTcrijNc88u7sJvz0MS7Z8WmtySKulc8uT+tVPOZJY/xXxU4HW
-         KO6MUpUSyRmLFQQ7Xb0pvgLn1oUkJDiE/CAnc48aR+lISikfqagHfBa57vgmOIoo+iEm
-         3TW7vjStMQt10jTrqqxMoPNZYJyPY0uuQbCuY88CChmUzc1myTKNw4ArkC7gVX8qCRXr
-         sYqQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWekO5U4OGtm9Q61Tbqh8mw6OUV1aEVHW3Y7ftmYBblq22KcrANTzgM/9rsGtEx9xk8DNfayFcyRXD5Y9UZA1tA/NlflBEYa8r5VaPkpaM=
-X-Gm-Message-State: AOJu0YynQ5IEKDnzt4GADUli4JrxMJYq9x/s6MaMvIBicDwPyuv4GiLF
-	uCPVCe15CiXrAXq0oP3PL2UgTdFlDmkm2koRC/O9MNShy8N4lzc+gD4r5DiktpWReBtrwAy7/tM
-	Qpc74WSpm6N13BrInNH5/ghjatETggH9/aDTqTg==
-X-Google-Smtp-Source: AGHT+IHnYaeIN8ZWl0ZQ8WXofu9hPBDLWpuV3nWBRIUpTlElCPA5mS+woRgk2jbu10j226lsCe2MzMmQBm1kyR19Puo=
-X-Received: by 2002:a05:6871:286:b0:21f:d1e6:d8e8 with SMTP id
- i6-20020a056871028600b0021fd1e6d8e8mr1305710oae.39.1710407141441; Thu, 14 Mar
- 2024 02:05:41 -0700 (PDT)
+X-Inumbo-ID: c80d592a-e1e4-11ee-afdd-a90da7624cb6
 MIME-Version: 1.0
-References: <alpine.DEB.2.22.394.2403131622020.853156@ubuntu-linux-20-04-desktop>
- <5bfd2a8e-afa9-4630-ae75-382edc943bc6@suse.com>
-In-Reply-To: <5bfd2a8e-afa9-4630-ae75-382edc943bc6@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Thu, 14 Mar 2024 09:05:30 +0000
-Message-ID: <CA+zSX=bg-SPbiVCorGZUR=esMk_zviV6e0LcN9XHfzQzM9N5tw@mail.gmail.com>
-Subject: Re: [PATCH] docs/misra: document the expected sizes of integer types
+Date: Thu, 14 Mar 2024 10:25:21 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
-	bertrand.marquis@arm.com, julien@xen.org, michal.orzel@amd.com, 
-	roger.pau@citrix.com, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
+ julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH] amd/iommu: add fixed size to function parameter of
+ array type
+In-Reply-To: <6186b676-660c-4bfa-a825-18ff7f0d7f62@suse.com>
+References: <533a2d4f0c92d7fe92aa200b64434389de546f69.1710343652.git.nicola.vetrini@bugseng.com>
+ <6186b676-660c-4bfa-a825-18ff7f0d7f62@suse.com>
+Message-ID: <503aa63b5204e9b9eab5a21235df7c6c@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Mar 14, 2024 at 7:36=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 14.03.2024 00:23, Stefano Stabellini wrote:
-> > Xen makes assumptions about the size of integer types on the various
-> > architectures. Document these assumptions.
->
-> This all reads as if we required exact widths. Is that really the case?
+On 2024-03-14 09:32, Jan Beulich wrote:
+> On 14.03.2024 08:42, Nicola Vetrini wrote:
+>> The 'cmd' parameter of amd_iommu_send_guest_cmd is passed
+>> to a function that expects arrays of size 4, therefore
+>> specifying explicitly the size also in amd_iommu_send_guest_cmd
+>> allows not to accidentally pass a smaller array or assume that
+>> send_iommu_command handles array sizes >4 correctly.
+>> 
+>> No functional change.
+>> 
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> ---
+>> All current users pass an array of size 4, hence this patch is 
+>> addressing
+>> a potential issue noticed by the analyzer in the context of Rule 17.5
+>> ("The function argument corresponding to a parameter declared to have 
+>> an array
+>> type shall have an appropriate number of elements"), not an actual 
+>> problem in
+>> the sources.
+> 
+> While true, I think we want to consider alternatives. First one being 
+> to rip
+> out this dead code (thus addressing other Misra concerns as well). 
+> Second,
+> if we meant to keep it, to properly do away with the (ab)use of u32[].
+> 
 
-At least one thing here is that *all compilers on the architecture*
-need to have the same idea.  If not, we absolutely need to change
-"unsigned int" to "uint32_t" in any public interface.
+I'm not understanding what you consider dead code.
+I see three users of amd_iommu_send_guest_cmd and seven for 
+send_iommu_command.
+I can adjust u32 for sure. There are also other u32/uint32_t 
+incosistencies in that header.
 
-A second thing is not only assumptions about minimum number of bits,
-but about storage size and alignment.  Again, if we don't assume that
-"unsigned int" is exactly 4 bytes, then we should go through and
-change it to "uint32_t" anywhere that the size or alignment matter.
+> Finally, if to be taken in this least-effort shape, ...
+> 
+>> --- a/xen/drivers/passthrough/amd/iommu.h
+>> +++ b/xen/drivers/passthrough/amd/iommu.h
+>> @@ -346,7 +346,7 @@ void cf_check amd_iommu_crash_shutdown(void);
+>> 
+>>  /* guest iommu support */
+>>  #ifdef CONFIG_HVM
+>> -void amd_iommu_send_guest_cmd(struct amd_iommu *iommu, u32 cmd[]);
+>> +void amd_iommu_send_guest_cmd(struct amd_iommu *iommu, u32 cmd[4]);
+> 
+> ... u32 here and ...
+> 
+>> --- a/xen/drivers/passthrough/amd/iommu_cmd.c
+>> +++ b/xen/drivers/passthrough/amd/iommu_cmd.c
+>> @@ -390,7 +390,7 @@ void amd_iommu_flush_all_caches(struct amd_iommu 
+>> *iommu)
+>>      flush_command_buffer(iommu, 0);
+>>  }
+>> 
+>> -void amd_iommu_send_guest_cmd(struct amd_iommu *iommu, u32 cmd[])
+>> +void amd_iommu_send_guest_cmd(struct amd_iommu *iommu, u32 cmd[4])
+> 
+> ... here would better be replaced by uint32_t at the same time, not the
+> least because that's what ...
+> 
+>>  {
+>>      send_iommu_command(iommu, cmd);
+> 
+> ... this function already takes afaics.
+> 
+> Jan
 
- -George
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
