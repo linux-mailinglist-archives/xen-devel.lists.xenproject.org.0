@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43FC287C0BA
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 16:56:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693345.1081303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEC1487C0C6
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 16:59:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693351.1081314 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rknRE-0008G4-GH; Thu, 14 Mar 2024 15:56:12 +0000
+	id 1rknUG-00013f-Tp; Thu, 14 Mar 2024 15:59:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693345.1081303; Thu, 14 Mar 2024 15:56:12 +0000
+Received: by outflank-mailman (output) from mailman id 693351.1081314; Thu, 14 Mar 2024 15:59:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rknRE-0008EC-Dc; Thu, 14 Mar 2024 15:56:12 +0000
-Received: by outflank-mailman (input) for mailman id 693345;
- Thu, 14 Mar 2024 15:56:11 +0000
+	id 1rknUG-00011H-Qy; Thu, 14 Mar 2024 15:59:20 +0000
+Received: by outflank-mailman (input) for mailman id 693351;
+ Thu, 14 Mar 2024 15:59:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rknRD-0007yo-18
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 15:56:11 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1rknUF-00011B-Is
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 15:59:19 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5f995025-e21b-11ee-a1ee-f123f15fe8a2;
- Thu, 14 Mar 2024 16:56:09 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a45ecef71deso128448766b.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 08:56:09 -0700 (PDT)
+ id cfd6cbda-e21b-11ee-a1ee-f123f15fe8a2;
+ Thu, 14 Mar 2024 16:59:17 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a44e3176120so149983466b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 08:59:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cb4-20020a0564020b6400b005663b0d7243sm823552edb.83.2024.03.14.08.56.07
+ u23-20020a1709064ad700b00a4479997b97sm827987ejt.66.2024.03.14.08.59.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 08:56:08 -0700 (PDT)
+ Thu, 14 Mar 2024 08:59:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f995025-e21b-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: cfd6cbda-e21b-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710431769; x=1711036569; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710431957; x=1711036757; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=wOCU3NWJniNyX6fc79VPzHP9+dGIk3tKzVJn2zsQ0i8=;
-        b=clcmQ9RJejav5ZJv5blLPG0p6h//6h4OtyUStyMAukM6kbUzCqTskkkkzjBR7gP50B
-         m2o7iI37OH1U/HwI7WBRJGBDQFGUGI6JlVGaRVtLOjRS8S8/tSrOy+fEVxfYPM4GBbKi
-         gprqvP3oGcsTLPFGoLJGvw31XEePfXbyVNNtc0DDQbiuCIgfB7yq5zZrLbw8G+gobE9e
-         jsWg/9zjugZh1ss9Rj9VanLvL+dsMAvwWrSx4KK44UvInS+T1sIDLtldouIs6ExyJSn/
-         tV6dj9VLbW/g7cR6xq7Y0Q8R36rhZlI8yHKBtrsR7R+F+LmVAzHl/3JzdLXFCnPu/Hx6
-         26Xg==
+        bh=fgW6x4OIe60B2dlZUDhPbecfA3EZ1GTZVuz81ZJtJu4=;
+        b=dFGviQnn/+BdwUHmAEaZjG36pLQRAy/LHdsDoxoycrT+KMzH70jORizYAhA7HW+T5H
+         DvkryQ+iLOyOvJCYRDprpVLfJC4okVS72sTgEuEznRGPThCZlRSYEnknnhdpAYSfQP/0
+         p6X5AKDZkdgAW5bPj/nweGn7RvqYOOQOhJBaTWC9xVpKMAJPzVfo4ZTZoM1iaAxmv/yx
+         unKqXEf8ZjBvEdmg3dObZ5Q/fz8hcRGjXOBP/MDGEvxFQa5jpJyuvH1aWj3gwPbiUBpV
+         2eQ7jn8reDI4matkIs2Hu6z3P7H4u2COfCkYT94W7O4gqerziXMs9hShWMvLTFiDn/r9
+         9Kqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710431769; x=1711036569;
+        d=1e100.net; s=20230601; t=1710431957; x=1711036757;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wOCU3NWJniNyX6fc79VPzHP9+dGIk3tKzVJn2zsQ0i8=;
-        b=TM5AUcUqejwYnIgWyZw6fgntTKlsG4fxFOAXCXfn+2c7gADSLddu6GztsG9QOAIt7b
-         oUmCud9u3ccFiFhQkuAWWpis9S1N3LR4fhSypNcU2PZNa0mb29/roilXbapNxX5YcRbP
-         k+K19fbVfiFv7mhoFFmoiRvkX1yfMYwWWJOV466sJgWQZuSTpt5EjzXkaESgngeqQBB4
-         uyBUOpLMAIEG1mk/mm60zbxkhxmlFxKy5nUOnF1+M4wFk9G7C2wcYcp8yzO9aVfqZ75V
-         EyNiFBFLS6B64U2rw+B02jgcu4aJs91eQQLeI3A4PAfpBb+RzOOpQ2BIqkBBv2yIqgeJ
-         mRsA==
-X-Forwarded-Encrypted: i=1; AJvYcCUQvIqcAhGv8um2N2k8g/I4FzQGrFMXqJWCkPuBZHttsFfSEkm/XvtcHKCnRWMm20JqkRXoJLuBv8mM8/9XaKSZbkzKKuAbELbqC2uK4ms=
-X-Gm-Message-State: AOJu0Yw9SSYrfRm57uFKVCbrxGRweXSBCJ0RPaQQ0jAPudhezIklzyEE
-	tkKKufKCLmjh1JkQS+CuEXpPkkg9ALm7Y7mpY2QnX0Ja853dCDWu4BEeXI5T1w==
-X-Google-Smtp-Source: AGHT+IGEVsvslfT7/SAY3eNFXwst+hLJ9kwNj20DOtZxPSMdt9GSFlKzceHurGUfYH24AgzQtqqfXQ==
-X-Received: by 2002:a17:907:a801:b0:a45:ca21:7694 with SMTP id vo1-20020a170907a80100b00a45ca217694mr1850235ejc.10.1710431768736;
-        Thu, 14 Mar 2024 08:56:08 -0700 (PDT)
-Message-ID: <a103a8cd-33f6-44db-acc0-eb105d86b073@suse.com>
-Date: Thu, 14 Mar 2024 16:56:07 +0100
+        bh=fgW6x4OIe60B2dlZUDhPbecfA3EZ1GTZVuz81ZJtJu4=;
+        b=uLygjuwvs1f++GODGMfk9JhKXo04DKGVzE5iEMdbznPMoCTQQ+UBd7FiSVHgD3LROT
+         VGZX2GUzUlnGiAxmpnJEWhN8JWpQAbxF30ZT/R+oeh+cbQW1YFpcCq9GkVqJN6bMg9ox
+         v7e7EKMsh0HZE1C622mtdF8CtnO9yvxtGlo3McHtGrQ+cbaVLnoHBVKS2dEH9kAfCMhY
+         G1xiuy6Ri9otbT/w3Numrmnw9kpvUK6cSd0FD4NWufuZVkPu5iENQVj+x6WjaquwQc6+
+         Ww0cz8hUacdQ2FYOfZSuDtalH4w1xpm+o/x0gGhmn9kBJYVsdgnt0wnyTJpdbHCbrXR+
+         NKuA==
+X-Forwarded-Encrypted: i=1; AJvYcCWQkOr1Ao3KETxELMKZ2K1PEmYPkRY6H29lvdI6QaqAN+oqMOXQ7RAnvWubK/VqvUWYKN6MsIF5wBcuLXuIZHaInnS3W2QJ/ZQb/VyvuEM=
+X-Gm-Message-State: AOJu0YzONmpKZWVH+/y/SVVUgdNO011cgxDApr2TY+aNn60oe+M+cBwF
+	mWm1KpfzbLWcAzNRwoq9amQxnOoQuCsbBIggs8dFzZmSM0zD/HjcY19Y+WOgyQ==
+X-Google-Smtp-Source: AGHT+IGWwC/XwNYlYaLKlj6hhGSuOjawQ1L55RSNxPzkUmB6xnfcUIkDuSwKGxljl3UpDQXlPSLCzg==
+X-Received: by 2002:a17:906:3b42:b0:a46:5f03:fe01 with SMTP id h2-20020a1709063b4200b00a465f03fe01mr216432ejf.18.1710431956971;
+        Thu, 14 Mar 2024 08:59:16 -0700 (PDT)
+Message-ID: <926895a0-f777-4e17-951f-6df0cc24b0f2@suse.com>
+Date: Thu, 14 Mar 2024 16:59:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] xen/bitops: Implement ffs64() in common logic
+Subject: Re: [PATCH 7/7] xen/bitops: Delete find_first_set_bit()
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -96,7 +96,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Nicola Vetrini <nicola.vetrini@bugseng.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240313172716.2325427-1-andrew.cooper3@citrix.com>
- <20240313172716.2325427-6-andrew.cooper3@citrix.com>
+ <20240313172716.2325427-8-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,33 +121,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240313172716.2325427-6-andrew.cooper3@citrix.com>
+In-Reply-To: <20240313172716.2325427-8-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13.03.2024 18:27, Andrew Cooper wrote:
-> --- a/xen/common/bitops.c
-> +++ b/xen/common/bitops.c
-> @@ -47,6 +47,18 @@ static void test_ffs(void)
->      CHECK(ffsl, 1UL << (BITS_PER_LONG - 1), BITS_PER_LONG);
->      if ( BITS_PER_LONG > 32 )
->          CHECK(ffsl, 1UL << 32, 33);
-> +
-> +    /*
-> +     * unsigned int ffs64(uint64_t)
-> +     *
-> +     * 32-bit builds of Xen have to split this into two adjacent operations,
-> +     * so test all interesting bit positions.
-> +     */
-> +    CHECK(ffs64, 0, 0);
-> +    CHECK(ffs64, 1, 1);
-> +    CHECK(ffs64, (uint64_t)0x0000000080000000, 32);
-> +    CHECK(ffs64, (uint64_t)0x0000000100000000, 33);
-> +    CHECK(ffs64, (uint64_t)0x8000000000000000, 64);
+> --- a/xen/arch/x86/include/asm/bitops.h
+> +++ b/xen/arch/x86/include/asm/bitops.h
+> @@ -401,18 +401,6 @@ static always_inline unsigned int __scanbit(unsigned long val, unsigned int max)
+>      r__;                                                                    \
+>  })
+>  
+> -/**
+> - * find_first_set_bit - find the first set bit in @word
+> - * @word: the word to search
+> - * 
+> - * Returns the bit-number of the first set bit. The input must *not* be zero.
+> - */
+> -static inline unsigned int find_first_set_bit(unsigned long word)
+> -{
+> -    asm ( "rep; bsf %1,%0" : "=r" (word) : "rm" (word) );
+> -    return (unsigned int)word;
+> -}
 
-I'm pretty sure Misra will want ULL suffixes on the last two and at least an UL
-one on the middle of the lines. The casts aren't going to help (and could then
-be dropped).
+And you think it's okay to no longer use TZCNT like this when available,
+where the output doesn't have to have its value set up front?
 
 Jan
 
