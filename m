@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEA3487BEAC
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 15:16:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693271.1081150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E475287BEBB
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 15:19:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693275.1081161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rklsZ-0007BF-NM; Thu, 14 Mar 2024 14:16:19 +0000
+	id 1rklvl-0008OW-5n; Thu, 14 Mar 2024 14:19:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693271.1081150; Thu, 14 Mar 2024 14:16:19 +0000
+Received: by outflank-mailman (output) from mailman id 693275.1081161; Thu, 14 Mar 2024 14:19:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rklsZ-00078i-Kh; Thu, 14 Mar 2024 14:16:19 +0000
-Received: by outflank-mailman (input) for mailman id 693271;
- Thu, 14 Mar 2024 14:16:18 +0000
+	id 1rklvl-0008ME-2T; Thu, 14 Mar 2024 14:19:37 +0000
+Received: by outflank-mailman (input) for mailman id 693275;
+ Thu, 14 Mar 2024 14:19:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rklsY-00078c-9Z
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 14:16:18 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1rklvj-0008M8-Fr
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 14:19:35 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b4b14a6-e20d-11ee-a1ee-f123f15fe8a2;
- Thu, 14 Mar 2024 15:16:16 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a466381b411so118311966b.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 07:16:16 -0700 (PDT)
+ id e105b0a2-e20d-11ee-a1ee-f123f15fe8a2;
+ Thu, 14 Mar 2024 15:19:33 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2d28051376eso11642361fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 07:19:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- qs28-20020a170906459c00b00a4550e8ae70sm755944ejc.63.2024.03.14.07.16.14
+ k11-20020aa7c38b000000b005684fa1c4dbsm763553edq.52.2024.03.14.07.19.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 07:16:15 -0700 (PDT)
+ Thu, 14 Mar 2024 07:19:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b4b14a6-e20d-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: e105b0a2-e20d-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710425775; x=1711030575; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710425973; x=1711030773; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=imitLls3Iml+yz8NLBOmoFjmf4ds0peculVdTuXhQEM=;
-        b=ELyDaQV7WnXRMiIAaLCKyHVQMwMKd625lrp5ZqV07WkLf0i2BdVd4v8EQ3jGjGfwH8
-         kXzeTzWVFLKj+ocSiFgR4bos/yJq/7EhinjeOYQmkd0t+GmLUEpUoDjhq4aOsQ9YIT6r
-         +6gM0X2FDYwvz50b5HI9qFQN63OZEXBIR7cT2VAxh84NCIKsm73NZC0R6NzishbvrOh9
-         aY7MkedrhGln+kgM6BlATpUdZUlFJ/YAxkSzeF8WcXuVK1sd8fUQbpOTZaZDJ5oiXn44
-         PabZzf16W+BDUcqZlHBIXYKr02EYX3WxSTmGBhj6FNpFOzjtqd0mPrbb6ixfIY4kR1nl
-         NOSA==
+        bh=8VV/7UStmUOrNQMmzxeCw9icNXOCDteX0ZLA/7seFCg=;
+        b=af3QS0ViR+4unAggB876dsNRmEMitLanWPsK7jOk0rfNUo2BzQ+NL4VzbM7/y1HJw6
+         PKa9NFsIw5OVSC28k70bUU9dtDnspMPkua4Njroi+TQQgmFAV/LajeZwnGYh1qg/x8KT
+         mJClxUl3qXX3n6mOKzStw9psb03S57KlL8euPO9G6us0taltm9Kt9m7ch0exSICoTrVl
+         9VAlQP3uMZKISQceKXUie7KzwMtrJ7poPOEkSHJhwhoH66WowCja8fKPwIh65t9NibBy
+         hhtmf4RG7T4Kk8q2IKUIE1TwMQEfSKXV5IFI2VLRGI41Drk/LIiAo7TwSrrqtRYtDk0b
+         JYFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710425775; x=1711030575;
+        d=1e100.net; s=20230601; t=1710425973; x=1711030773;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=imitLls3Iml+yz8NLBOmoFjmf4ds0peculVdTuXhQEM=;
-        b=GQGt0OYln8ONs+OY+MEeaRDpGiWEZrHutG7xGYbXK8Lf90KiahJeHRwnRUpETVBw0q
-         Noy9oQE5ltKKBDIJjuZhA2FD20TSxusFWKxuXUu78/EE/QTkZvXcZnvk4wSQGN/wD0W8
-         xDkuTO9IQw+t7GvEd95N5zjfXuDQPdXtRIFagM+yVTp4CKEwUfk145pxAwUF4t0ur3xh
-         rBNRTh0sfIoT3KYKMDMzLLB3bK82z2qFwgqn5ZRBHrBBAb7Z4bJjjq5QtS7OFtrQXjVP
-         muDLYOhLtQLlNFAdnfqlyCxWBWvdq4rJVNwuu49YA11LwX37L72JIjum/LGPkYUmPKfE
-         IN8Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWqlBbuAzaslhfVbRbyIPgXOBocyVJK764HteivROle15B5a73RnXQOpTcmsns+i6fXiHDlzz5pwYfYBoLVGiiAx2S4e7NuIrapUmwKOAU=
-X-Gm-Message-State: AOJu0YwJITsH2LUfGCgzWUnL9nUNIZm0ouBSIr8w+b5ZtQI7PWek67pG
-	ghdKAz9BKNQfoUqINOJ9Qw8RvRbyzWMf5cGtY0ypDOZsO5ZWznJvExbwEOJJtg==
-X-Google-Smtp-Source: AGHT+IGsvL/wr3RjqyuVvH5rKRhKBzNE1OlHkuczQufEM5OD/OAhhclESnIszZUBkH6kRwORALOONA==
-X-Received: by 2002:a17:906:6899:b0:a44:7bbe:d774 with SMTP id n25-20020a170906689900b00a447bbed774mr759918ejr.9.1710425775394;
-        Thu, 14 Mar 2024 07:16:15 -0700 (PDT)
-Message-ID: <76a1e81d-86d1-438c-975e-c4db46af93ee@suse.com>
-Date: Thu, 14 Mar 2024 15:16:13 +0100
+        bh=8VV/7UStmUOrNQMmzxeCw9icNXOCDteX0ZLA/7seFCg=;
+        b=v2xej57aQUh7KwRLsXvAJ9C43Yjzfi+xz2ebKtCC1Lu9R8lGm1/YiCnvUSj6w0szfL
+         b70+kfgjZTyPLBrkGZn38SUNgvojbL4KEfHV1IXsHzrg9Kd0SKxDtJpwxmchSgOPtFGn
+         xRtxJqez9MmTmbXTSEoGN9E7ySd3CSqRFCSIB9z4aMVEOa02zjY02xogPIa0zEyBfWcN
+         CrGxz3gR1HXaURvHUhqjuslTnQaWWbsqtjxA4j3+y00+jScbcdZLGb0agkUPdlzlXTOm
+         c/4KJG3UE8zw5R7fu4Xmntdvgla7sEdzKeGWfoEhwVEEvNSS4a3FHQj5rT+FfUUTrdIL
+         qxzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWDBgIeKH3+Y4YsCW3ch/eYcG3lMNlCCZrRZgpT3CnjpQ36EIIb+xARJdhunhLjFspo1TkOIi8WjcT8F3eGU/hbQnC/hEEgsW9TGLMyiRg=
+X-Gm-Message-State: AOJu0YwDK8tkSt/WYM8H2q0nIWVauryhO67XVS3DqJDAy3OtqwiTnh3o
+	TQq45fhNvnmEKoKK/52J1YsjmNfeqb4eNS7qtypl73Qk/koVaz95BLJMdMgm+g==
+X-Google-Smtp-Source: AGHT+IE0ull/N5JIyjy4s7JChuo1XtdH8I3NYhDUEl2j8kbE5D75Q1ZqSf+CVwjAmLtbZrXMVoKNPw==
+X-Received: by 2002:a05:651c:1039:b0:2d4:3e96:47ee with SMTP id w25-20020a05651c103900b002d43e9647eemr106264ljm.26.1710425972794;
+        Thu, 14 Mar 2024 07:19:32 -0700 (PDT)
+Message-ID: <43c49aa6-d690-467e-8ce3-ca37b9d41e76@suse.com>
+Date: Thu, 14 Mar 2024 15:19:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] xen/bitops: Implement ffs() in common logic
+Subject: Re: [PATCH v2 3/3] x86/PVH: Support relocatable dom0 kernels
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Federico Serafini <federico.serafini@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240313172716.2325427-1-andrew.cooper3@citrix.com>
- <20240313172716.2325427-3-andrew.cooper3@citrix.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <20240313193021.241764-1-jason.andryuk@amd.com>
+ <20240313193021.241764-4-jason.andryuk@amd.com>
+ <945609d6-741e-4934-a4f2-6e5597ce5dcd@suse.com>
+ <a4f18ccc-c878-4924-a110-6afaaea1b01b@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,95 +116,69 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240313172716.2325427-3-andrew.cooper3@citrix.com>
+In-Reply-To: <a4f18ccc-c878-4924-a110-6afaaea1b01b@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.03.2024 18:27, Andrew Cooper wrote:
-> --- a/xen/arch/arm/include/asm/bitops.h
-> +++ b/xen/arch/arm/include/asm/bitops.h
-> @@ -157,7 +157,7 @@ static inline int fls(unsigned int x)
->  }
->  
->  
-> -#define ffs(x) ({ unsigned int __t = (x); fls(ISOLATE_LSB(__t)); })
-> +#define arch_ffs(x) ({ unsigned int __t = (x); fls(ISOLATE_LSB(__t)); })
+On 14.03.2024 15:13, Jason Andryuk wrote:
+> On 2024-03-14 09:21, Jan Beulich wrote:
+>> On 13.03.2024 20:30, Jason Andryuk wrote:
+>>> --- a/xen/include/public/elfnote.h
+>>> +++ b/xen/include/public/elfnote.h
+>>> @@ -194,6 +194,17 @@
+>>>    */
+>>>   #define XEN_ELFNOTE_PHYS32_ENTRY 18
+>>>   
+>>> +/*
+>>> + * Physical loading constraints for PVH kernels
+>>> + *
+>>> + * Used to place constraints on the guest physical loading addresses and
+>>> + * alignment for a PVH kernel.  This note's value is 3 64bit values in
+>>> + * the following order: minimum, maximum and alignment.
+>>
+>> Along the lines of what I said on another sub-thread, I think at least
+>> alignment wants to be optional here. Perhaps, with max going first, min
+>> could also be optional.
+> 
+> Interesting idea.
+> 
+>> As indicated in different context by Roger, the values being uniformly
+>> 64-bit ones also is questionable.
+>>
+>>> + * The presence of this note indicates the kernel is relocatable.
+>>
+>> I think it wants making explicit here that the act of relocating is still
+>> left to the kernel.
+> 
+> Ok.
+> 
+> How is this for a new description?
+> 
+> """
+> Physical loading constraints for PVH kernels
+> 
+> Used to place constraints on the guest physical loading addresses and 
+> alignment for a PVH kernel.
+> 
+> The presence of this note indicates the kernel supports relocating itself.
+> 
+> The note may include up to three 32bit values.
 
-The way the macro is invoked, I don't think the helper local variable
-is then needed anymore?
+I'm as unsure about always 32-bit as I am on it being uniformly 64-bit.
+One question here is whether this note is intended to be x86-specific.
 
-> --- a/xen/arch/x86/include/asm/bitops.h
-> +++ b/xen/arch/x86/include/asm/bitops.h
-> @@ -430,16 +430,23 @@ static inline int ffsl(unsigned long x)
->      return (int)r+1;
->  }
->  
-> -static inline int ffs(unsigned int x)
-> +static inline unsigned int arch_ffs(unsigned int x)
->  {
-> -    int r;
-> +    int r = -1;
-> +
-> +    /*
-> +     * The AMD manual states that BSF won't modify the destination register if
-> +     * x=0.  The Intel manual states that the result is undefined, but the
-> +     * architects have said that the register is written back with it's old
-> +     * value, possibly zero extended above 32 bits.
-> +     */
-> +    asm ( "bsf %[val], %[res]"
-> +          : [res] "+r" (r)
-> +          : [val] "rm" (x) );
+>   - a maximum address for the entire image to be loaded below (default 
+> 0xfffffff)
 
-And this isn't what the compiler would be doing anyway?
+One f too few?
 
-Also, just to mention it: I take it that you/we are sure that disallowing
-both operands to be the same register is still better than ...
+>   - a minimum address for the start of the image (default 0)
+>   - a required start alignment (default 1)
+> """
+> 
+> I think if we can agree on the ELF note, the rest will fall into place.
 
-> -    asm ( "bsf %1,%0\n\t"
-> -          "jnz 1f\n\t"
-> -          "mov $-1,%0\n"
-> -          "1:" : "=r" (r) : "rm" (x));
-
-... the original form?
-
-> --- a/xen/common/bitops.c
-> +++ b/xen/common/bitops.c
-> @@ -34,8 +34,18 @@
->          RUNTIME_CHECK(fn, val, res);            \
->      } while ( 0 )
->  
-> +static void test_ffs(void)
-
-Nit: __init please, even if there ought to be no reason for the compiler
-to not inline this function.
-
-> --- a/xen/include/xen/bitops.h
-> +++ b/xen/include/xen/bitops.h
-> @@ -110,6 +110,21 @@ static inline int generic_flsl(unsigned long x)
->  
->  #include <asm/bitops.h>
->  
-> +/*
-> + * Find First Set bit.  Bits are labelled from 1.
-> + */
-> +static always_inline __pure unsigned int ffs(unsigned int x)
-
-Why always_inline?
-
-> +{
-> +    if ( __builtin_constant_p(x) )
-> +        return __builtin_ffs(x);
-> +
-> +#ifndef arch_ffs
-> +#define arch_ffs __builtin_ffs
-> +#endif
-> +
-> +    return arch_ffs(x);
-> +}
-
-Just to mention it: __builtin_ffs() takes and returns plain int. I'm
-happy about our own helper being unsigned-correct, but anything like
-this has a Misra angle too.
+Presumably, yes.
 
 Jan
 
