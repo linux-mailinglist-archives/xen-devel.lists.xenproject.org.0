@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F1A287B81C
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 07:57:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692876.1080469 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE27787B82A
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 07:59:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692879.1080482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkf0s-0007lS-9Q; Thu, 14 Mar 2024 06:56:26 +0000
+	id 1rkf46-0008PX-OM; Thu, 14 Mar 2024 06:59:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692876.1080469; Thu, 14 Mar 2024 06:56:26 +0000
+Received: by outflank-mailman (output) from mailman id 692879.1080482; Thu, 14 Mar 2024 06:59:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkf0s-0007jA-6A; Thu, 14 Mar 2024 06:56:26 +0000
-Received: by outflank-mailman (input) for mailman id 692876;
- Thu, 14 Mar 2024 06:56:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rkf46-0008Nf-Kd; Thu, 14 Mar 2024 06:59:46 +0000
+Received: by outflank-mailman (input) for mailman id 692879;
+ Thu, 14 Mar 2024 06:59:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rkf0r-0007j1-0Y
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 06:56:25 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f71f0708-e1cf-11ee-a1ee-f123f15fe8a2;
- Thu, 14 Mar 2024 07:56:21 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-513c8b72b24so761794e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 23:56:21 -0700 (PDT)
+ id 1rkf45-0008NT-IW
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 06:59:45 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 70238bc3-e1d0-11ee-afdd-a90da7624cb6;
+ Thu, 14 Mar 2024 07:59:44 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a466f6318e9so43556166b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Mar 2024 23:59:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- i26-20020a17090671da00b00a46231722ffsm393340ejk.26.2024.03.13.23.56.20
+ rf22-20020a1709076a1600b00a450b817705sm390590ejc.154.2024.03.13.23.59.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Mar 2024 23:56:20 -0700 (PDT)
+ Wed, 13 Mar 2024 23:59:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f71f0708-e1cf-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 70238bc3-e1d0-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710399381; x=1711004181; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710399584; x=1711004384; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=4bsRFjvEs9d2X4RMP01V0aWA4NbOMHn0nWSvnkSs0c4=;
-        b=gnbUvIBM2lbZWDFJGCHwReS+q8JvAaybt52o5k/J3P0Q32SfrUZmlwE9aK23QYtnk4
-         ioMKIlMHgJ9tMKwexA+7nyC5l1W/1PEEpU6namPowv+aPMT8bRdJE2LnMxgXCwR41EjF
-         rM67IGrSaIiaU1ZSkYRrcw1T3wwPSmvcQo3fsT81YZe89+fkWqEsTECioxZw4ZgPQzye
-         iKHvE+TXUf1knjshH5uV/+97NDOTUOAYy4cB0FGjD877yz52o2zvkYLZq/C3drjHB3yp
-         KP1IGhpb9jVw3hHgWlek5AFQB5LVLJ2z7SQfB93w3G+X+sL2cS0kClv4KOatxJk25MU8
-         5/Mg==
+        bh=VV5YwNgoCT/B7J5r+Pq5V4OoUWpPdECRCv+fqrqNjto=;
+        b=EGZkwMAbI200dG1sHuEeuOH2FqrK6S31jorJ9Kd9bYZyZOoTBLbKYtvk6s7SX6e4r9
+         B8PT1WL+90Ajbuhn7v1rGPCuYFFTM19hSXJtTy77kBUU+yNu9NreHq05SQhSsK8btk6W
+         MxLArVRvM5UT3fOGgstKMW9AAm6vUe7cfPVc0PqtKMqLspDVw1r7P+/xopRWYi8jR/ov
+         gIAT5p6EhFCWD7u+KebomJLEVgrxH8/i5Fjwn3e0ndEGapDD1RIKVFuwSJRhJkPAZiDk
+         ZXPBVuFrC23PYmNSRN/cybeILLggntY0XvMNBtYhj7DtccEDGHqjZnclx5xBNZlNJCFc
+         WHdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710399381; x=1711004181;
+        d=1e100.net; s=20230601; t=1710399584; x=1711004384;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4bsRFjvEs9d2X4RMP01V0aWA4NbOMHn0nWSvnkSs0c4=;
-        b=D8JZ1YetGTKzpi3GHMmw5ot+4JqRRUE6nSxFUgMINfmjT2iHWYrhKpWRHgXzBY11JN
-         HX0qi6WAJrTohD6RoZc/bRL0F1466t7G83ai9pMxHa/mDjucrmHApc2M0m9moK2lkBwW
-         hcu1JIAJKCm86kwdZf0JyOCLfHNZvNNn/t45SUSEut5Cc0yHRMV5w6lEtEmsyRVfLRHb
-         UM1rj8/+/nTIGbLLWbVIW+cICkJVTGT3CTumUjXHNLTFmxJde8op73jzij/Ag9GbUl7V
-         4B/9Erhrmg1TS/woLUa+pcct8W9Gto7u5jSfmceFaagL+udjdwz+HSEEGaM50fFhsDnn
-         Ogug==
-X-Forwarded-Encrypted: i=1; AJvYcCW7P8aTisOFIchYB4Zng6mVCU8kDMkSyx8PXz2XjcagAeX5ulZ3whbhOrMgSJ1O2SIqidf8Y9y8A8UcwznW/O+h9fJ3JbUHuXU7yhzQ4lk=
-X-Gm-Message-State: AOJu0YwygoTfAAez4LeYnOIPMrfttgUzvOW3ojpg22GHYSx83zhk0QyY
-	dTc/pj2L/UzNTVpMuUOYcOiSDNYMJjQMIIABdQ0ZkwOfXCwRLV0R7OyAylpwYA==
-X-Google-Smtp-Source: AGHT+IGgHPeJlmnkLd9D6K+sgH0kd6RJ4KwJ6Pa0Bf4BUEL4LzxqyR31kpGaPDfbL0OHsX7EThy/ag==
-X-Received: by 2002:a19:2d55:0:b0:512:ab58:3807 with SMTP id t21-20020a192d55000000b00512ab583807mr533489lft.9.1710399381036;
-        Wed, 13 Mar 2024 23:56:21 -0700 (PDT)
-Message-ID: <a92e5343-ab40-448e-a05c-84a5c2ffb95c@suse.com>
-Date: Thu, 14 Mar 2024 07:56:19 +0100
+        bh=VV5YwNgoCT/B7J5r+Pq5V4OoUWpPdECRCv+fqrqNjto=;
+        b=CX9f8jPUoAAPKp+/oFvg4cqRxhL39SOgyPnw/rCSb3nO/qHS96kSxGFi+Z/mzPkLX0
+         A2IMbAJ8y/W/dfk5ZvDoZwBAG+UlTYL+0c7psLdlpFponKkGdFPr1EPFh7kC2Z9nO9dk
+         XtN8VQoKaopyQhITWg4biUSw17x22r4Nllg9tzCBcJKlEzAydZudo1z5ASF949Pl3VEP
+         KA17o7RKXQ131lhprpd0SSxtNCxIhQFM4DO2xZblWIYpBb8Q3hmhWH2RwhzL5HXd+/13
+         brJ3zavGyT5xNmrH304vixMI38w4CaKCekCB8ZnTpCQKAy/DQCsTFCReFHb0u0XeUINa
+         f1Tg==
+X-Gm-Message-State: AOJu0YwoV2yvJoW9MPxSEroqqqW1IZMJDh3UQgF6p5X0ZxvuMSI0OF42
+	96rKy4aWqiiiboJYtipedJsIQCyUHjyi3m7TslnJl5rSoqzdIoTMWex0mUesmg==
+X-Google-Smtp-Source: AGHT+IFQYCByxxlLskiIeN9Te63LVh6xABQ83MgYO96JNYY5akMaw0NUd8KfDL+uA2/NCw/5M1YJlw==
+X-Received: by 2002:a17:906:24d6:b0:a46:58ac:8b55 with SMTP id f22-20020a17090624d600b00a4658ac8b55mr544904ejb.15.1710399584175;
+        Wed, 13 Mar 2024 23:59:44 -0700 (PDT)
+Message-ID: <40fd93be-f626-43d5-b239-6976665efe30@suse.com>
+Date: Thu, 14 Mar 2024 07:59:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/misra: add Rule 16.4
+Subject: Re: [PATCH v4] x86/PoD: tie together P2M update and increment of
+ entry count
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, bertrand.marquis@arm.com, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2403121725370.853156@ubuntu-linux-20-04-desktop>
- <136e4667-8c6d-45ec-b652-b6b690a16f34@suse.com>
- <alpine.DEB.2.22.394.2403131554100.853156@ubuntu-linux-20-04-desktop>
+To: George Dunlap <george.dunlap@cloud.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <ac46f25b-e669-f309-b36e-c4760e10479e@suse.com>
+ <3daef84c-47dd-4a6b-9984-402e997598dc@suse.com>
+ <CA+zSX=aQv3cx6BR9soqaN8LD_esUqkxnVQRA6p5RzzsAiLcHbQ@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,64 +113,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2403131554100.853156@ubuntu-linux-20-04-desktop>
+In-Reply-To: <CA+zSX=aQv3cx6BR9soqaN8LD_esUqkxnVQRA6p5RzzsAiLcHbQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.03.2024 00:04, Stefano Stabellini wrote:
-> On Wed, 13 Mar 2024, Jan Beulich wrote:
->> On 13.03.2024 01:28, Stefano Stabellini wrote:
->>> +       Switch statements with integer types as controlling expression
->>> +       should have a default label:
->>> +
->>> +       - if the switch is expected to handle all possible cases
->>> +         explicitly, then a default label shall be added to handle
->>> +         unexpected error conditions, using BUG(), ASSERT(), WARN(),
->>> +         domain_crash(), or other appropriate methods;
->>> +
->>> +       - if the switch is expected to handle a subset of all
->>> +         possible cases, then a default label shall be added with an
->>> +         in-code comment as follows::
->>> +
->>> +             /* only handle a subset of the possible cases */
->>> +             default:
->>> +                 break;
+On 13.03.2024 17:31, George Dunlap wrote:
+> On Wed, Mar 13, 2024 at 2:00 PM Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> Unless it being made crystal clear that mechanically reproducing this
->> comment isn't going to do, I'm going to have a hard time picking
->> between actively vetoing or just accepting if someone else acks this.
->> At the very least, though, the suggested (or, as requested, example)
->> comment should match ./CODING_STYLE. And it may need placing
->> differently if I understood correctly what Misra / Eclair demand
->> (between default: and break; rather than ahead of both).
+>> When not holding the PoD lock across the entire region covering P2M
+>> update and stats update, the entry count - if to be incorrect at all -
+>> should indicate too large a value in preference to a too small one, to
+>> avoid functions bailing early when they find the count is zero. However,
+>> instead of moving the increment ahead (and adjust back upon failure),
+>> extend the PoD-locked region.
 >>
->> The only place I'd accept a pre-cooked comment is to cover the
->> "notifier pattern".
+>> Fixes: 99af3cd40b6e ("x86/mm: Rework locking in the PoD layer")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Hi Jan, 
-> 
-> During the MISRA C call we discussed two distinct situations:
-> 
-> 1) when the default is not supposed to happen (it could be an BUG_ON)
-> 2) when we only handle a subset of cases on purpose
-> 
-> For 2), it is useful to have a comment to clarify that we are dealing
-> with 2) instead of 1). It is not a pre-cooked comment. The comment
-> should be reviewed and checked that it is actually true that for this
-> specific switch the default is expected and we should do nothing.
-> 
-> However, the comment is indeed pre-cooked in the sense that we don't
-> need to have several different variations of them to explain why we only
-> handle a subset of cases.
-> 
-> The majority of people on the call agreed with this (or so I understood).
+> Would you mind commenting on why you went with multiple unlocks,
+> rather than multiple if statements?
 
-Hmm, my -0.5 was on the understanding that we would not encourage entirely
-mechanical adding of such comments. Yet providing a pre-worded comment
-here does exactly this, in my opinion. Imo here it should be made clear
-_where_ the comment needs to be put, but not how it is to be worded. As
-was (largely) settled on during the discussion, the comment doesn't need
-to go into a great level of detail.
+Simply because what I did I view as more logical a code structure
+than ...
+
+> e.g.,
+> 
+> ```
+> rc = p2m_set_entry(...);
+> 
+> /* Do the pod entry adjustment while holding the lock on success */
+> if ( rc == 0 ) {
+>  /* adjust pod entries */
+> }
+> 
+> pod_unlock(p2m);
+> 
+> /* Do the rest of the clean-up and error handling */
+> if (rc == 0 ) {
+
+... this, ...
+
+> Just right now the multiple unlocks makes me worry that we may forget
+> one at some point.
+
+... despite this possible concern. But well, if going the other route
+is what it takes to finally get this in, so be it.
 
 Jan
 
