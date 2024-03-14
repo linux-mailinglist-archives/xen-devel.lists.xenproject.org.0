@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A59687BEF5
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 15:33:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693300.1081210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B825087BEF8
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 15:33:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693303.1081221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkm8n-0005rS-E3; Thu, 14 Mar 2024 14:33:05 +0000
+	id 1rkm9G-0006TT-QW; Thu, 14 Mar 2024 14:33:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693300.1081210; Thu, 14 Mar 2024 14:33:05 +0000
+Received: by outflank-mailman (output) from mailman id 693303.1081221; Thu, 14 Mar 2024 14:33:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkm8n-0005pv-As; Thu, 14 Mar 2024 14:33:05 +0000
-Received: by outflank-mailman (input) for mailman id 693300;
- Thu, 14 Mar 2024 14:33:04 +0000
+	id 1rkm9G-0006Rc-MR; Thu, 14 Mar 2024 14:33:34 +0000
+Received: by outflank-mailman (input) for mailman id 693303;
+ Thu, 14 Mar 2024 14:33:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rkm8m-0005pp-HV
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 14:33:04 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=P774=KU=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rkm9F-0005pp-AE
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 14:33:33 +0000
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [2607:f8b0:4864:20::72c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3d49105-e20f-11ee-afdd-a90da7624cb6;
- Thu, 14 Mar 2024 15:33:03 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a44ad785a44so115261266b.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 07:33:03 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v23-20020a1709067d9700b00a4663a7120asm758327ejo.166.2024.03.14.07.33.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 07:33:02 -0700 (PDT)
+ id d4e5f14a-e20f-11ee-afdd-a90da7624cb6;
+ Thu, 14 Mar 2024 15:33:32 +0100 (CET)
+Received: by mail-qk1-x72c.google.com with SMTP id
+ af79cd13be357-788303f317eso46697185a.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 07:33:32 -0700 (PDT)
+Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
+ bl32-20020a05620a1aa000b00789dfdfa12esm196775qkb.19.2024.03.14.07.33.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Mar 2024 07:33:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +44,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3d49105-e20f-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: d4e5f14a-e20f-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710426783; x=1711031583; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QRzneQIbB1lWKpJoC5q0aXoJLsyRGUVQnNwFc8SYcz8=;
-        b=SEdCToGGn4rjEvALoaRKSZGdK+LDL/X3dF/u4tKX+rMX2yr9hjuwLzWWfbkfFZFWzK
-         3Xtxq/Sa5SMz2DsthzvjfEtNVDNhs0dCzyGHXea2oI1Hbz1O6u+UwvXs9ufyOk+oQtBh
-         r9/K4G7pR6BMJh/pMK9L0K0Ungu89FfUwkM/GmOxfr+EyAQMrxHLfRvL6O0gEORl3QYM
-         7Kc/9zSXDneqIboNK4TeYdbJuPEY+7Z/0t7X/R5aGNCXha/w8HsC1dSI7DSX2G8LfTxp
-         clwRp3kMXZ1zuYHgQFoADcSEnwRf5ncWinZJo9gFEgDxvC/p5ahz7oZPxOQD6Fwugd6D
-         bWbg==
+        d=citrix.com; s=google; t=1710426811; x=1711031611; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=LfP4doKPQLrJtKtwWlZC1QrZ3hW6BNrPh5jy4k7/53k=;
+        b=PT+kXBYfQX/sgnCb9WVO6ThYtGC3Mjhiumc0YVF9RGnDren4USq4Eil/cgLnYBPLuH
+         42iQuguZ+JasFavWnNm/N+/dh9+lrkkyPXTrJWvwkysH9uZFbEg915cnafatLOQF29o0
+         xlOhCub5eu1a0XeyyVkTauNZtFwtk27WMSRoA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710426783; x=1711031583;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1710426811; x=1711031611;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QRzneQIbB1lWKpJoC5q0aXoJLsyRGUVQnNwFc8SYcz8=;
-        b=hdLqcC9wm/E8ZQsfZWPlVkY+Px2NKVzyzpmtb7xoRyqB4++JmZdgbyEG9AwFBXGZQD
-         Ed7U4XJhJuGOzLPfq/7Ef3IHcI2nH8zg9c5/dwjjkGR7oB6TRpCBKr+rAr5Sd2f4HGmG
-         8pYxvc4UUmN7GfwkI92yCR/G5X2fCRtrahgHSmCOPRgUZGiAdft2MApmOLHylOTip4f7
-         +loQO1ZuvVPBUwzN2/khZFnwuIvwakzydqhn6/o246PHy4B2E7bnZlFFCdM613TjSljd
-         Lin+pSCx+vOZGun9JFcNuMSYsL8OQguN2/dUm/BqIS0VU6qzqmFwj4oAI4QabkE+pPGN
-         U4wg==
-X-Gm-Message-State: AOJu0YzIig1QrQYTLjhoGyvGeMxwE8O7620Eb1CQuSSP2UHECKiub2Yz
-	Kf8k/WbSaiMWLU70tweZf3BldwxdmxHXYY1RkkWTpIcxxG2Tnt2aAYoxN3rc4Q==
-X-Google-Smtp-Source: AGHT+IE/hyKjk4oxselP63p81n5F0QgPzuyAWalggblhlofF0UOzNbsSYDYrVITmuTXodkKqJqyyZw==
-X-Received: by 2002:a17:907:d40d:b0:a43:49ca:2473 with SMTP id vi13-20020a170907d40d00b00a4349ca2473mr947071ejc.0.1710426782891;
-        Thu, 14 Mar 2024 07:33:02 -0700 (PDT)
-Message-ID: <b9709a9e-841d-4dfa-ad40-db2a2ffde95c@suse.com>
-Date: Thu, 14 Mar 2024 15:33:01 +0100
+        bh=LfP4doKPQLrJtKtwWlZC1QrZ3hW6BNrPh5jy4k7/53k=;
+        b=l1R4P/ZnVWWU0XXFB94//3ciFsl/Cx2cIVrivgz//HXCwQCMA/uR3E7bKPMo9KCKKR
+         xvq59nmiOXaZGh8S5RInf0FoCqCSD+2Tnm8k8yKiRdIgGvfM/rEvaj3lIGDQeNLCt45T
+         MTd48bJM/G1dk/aY+n+ud5HNjh0bnT/+7yl44lDbmosn3b2w+CkzKz7LhF7+l34n7kj3
+         81jNbthWvwCDODivkrbLK5IauOlRR/566U7uTna7RdF4rHsv9jJegbKPy6vG0wLzOnZE
+         n3p0m0fD/zzNGmoQ9NO4RBAwLH6PYcAIje1EiEUf67tEkcx3/crIAUIn2Vb/GpiC5b0+
+         l69Q==
+X-Gm-Message-State: AOJu0YxYlULm+qVXsnBjh2pBVXDwOqx32Y5ncoHQeyHnbJ0cyhspju0q
+	yqg8VPIbxI9fB/V2MVs8hJULVIYlEnw1SQgqR+Ude1OtdAby9jTzdekthk98FmA=
+X-Google-Smtp-Source: AGHT+IEVRBu34ffizHVWtACX8Y9ZLlw2RDlsw+3BR5Hv3IxkrMN1tEYum0iJUKC98yyC5bjGRkN/Gw==
+X-Received: by 2002:a05:620a:3905:b0:789:d306:879a with SMTP id qr5-20020a05620a390500b00789d306879amr2439220qkn.7.1710426811307;
+        Thu, 14 Mar 2024 07:33:31 -0700 (PDT)
+Date: Thu, 14 Mar 2024 15:33:29 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 3/3] x86/PVH: Support relocatable dom0 kernels
+Message-ID: <ZfMKuUqopaj-Gubu@macbook>
+References: <20240313193021.241764-1-jason.andryuk@amd.com>
+ <20240313193021.241764-4-jason.andryuk@amd.com>
+ <ZfLIBHTbcbGqFAhY@macbook>
+ <afb3aa21-cd8b-425d-a4fa-b9ca57367d28@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] multiboot2: Add load type header and support for the
- PE binary type
-Content-Language: en-US
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Daniel Kiper <daniel.kiper@oracle.com>,
- grub-devel@gnu.org
-References: <20240313150748.791236-1-ross.lagerwall@citrix.com>
- <20240313150748.791236-2-ross.lagerwall@citrix.com>
- <c6e79962-0537-4ed8-b99f-f2614f5a7987@suse.com>
- <CAG7k0Ep6fDfjKXj-iwuGh=pF_BS-1EaT9kRm1xJTZ=bmt=3+rA@mail.gmail.com>
- <d2be3727-3a94-408f-a751-e91792c9d15c@suse.com>
- <CAG7k0EoHs7WZrgL4ixZWvfc1VUv40pQe=qt8WTLMdQhBv54ngA@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAG7k0EoHs7WZrgL4ixZWvfc1VUv40pQe=qt8WTLMdQhBv54ngA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <afb3aa21-cd8b-425d-a4fa-b9ca57367d28@amd.com>
 
-On 14.03.2024 15:24, Ross Lagerwall wrote:
-> On Thu, Mar 14, 2024 at 1:37 PM Jan Beulich <jbeulich@suse.com> wrote:
->> On 14.03.2024 10:30, Ross Lagerwall wrote:
->>> On Thu, Mar 14, 2024 at 7:24 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>> On 13.03.2024 16:07, Ross Lagerwall wrote:
->>>>> In addition to the existing address and ELF load types, specify a new
->>>>> optional PE binary load type. This new type is a useful addition since
->>>>> PE binaries can be signed and verified (i.e. used with Secure Boot).
->>>>
->>>> And the consideration to have ELF signable (by whatever extension to
->>>> the ELF spec) went nowhere?
->>>
->>> I'm not sure if you're referring to some ongoing work to create signable
->>> ELFs that I'm not aware of.
->>
->> Something must have been invented already to make Linux modules signable.
+On Thu, Mar 14, 2024 at 09:51:22AM -0400, Jason Andryuk wrote:
+> On 2024-03-14 05:48, Roger Pau Monné wrote:
+> > On Wed, Mar 13, 2024 at 03:30:21PM -0400, Jason Andryuk wrote:
+> > > Xen tries to load a PVH dom0 kernel at the fixed guest physical address
+> > > from the elf headers.  For Linux, this defaults to 0x1000000 (16MB), but
+> > > it can be configured.
+> > > 
+> > > Unfortunately there exist firmwares that have reserved regions at this
+> > > address, so Xen fails to load the dom0 kernel since it's not RAM.
+> > > 
+> > > The PVH entry code is not relocatable - it loads from absolute
+> > > addresses, which fail when the kernel is loaded at a different address.
+> > > With a suitably modified kernel, a reloctable entry point is possible.
+> > > 
+> > > Add XEN_ELFNOTE_PVH_RELOCATION which specifies the minimum, maximum and
+> > > alignment needed for the kernel.  The presence of the NOTE indicates the
+> > > kernel supports a relocatable entry path.
+> > > 
+> > > Change the loading to check for an acceptable load address.  If the
+> > > kernel is relocatable, support finding an alternate load address.
+> > > 
+> > > Link: https://gitlab.com/xen-project/xen/-/issues/180
+> > > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> > > ---
+> > > ELF Note printing looks like:
+> > > (XEN) ELF: note: PVH_RELOCATION = min: 0x1000000 max: 0xffffffff align: 0x200000
+> > > 
+> > > v2:
+> > > Use elfnote for min, max & align - use 64bit values.
+> > > Print original and relocated memory addresses
+> > > Use check_and_adjust_load_address() name
+> > > Return relocated base instead of offset
+> > > Use PAGE_ALIGN
+> > > Don't load above max_phys (expected to be 4GB in kernel elf note)
+> > > Use single line comments
+> > > Exit check_load_address loop earlier
+> > > Add __init to find_kernel_memory()
+> > > ---
+> > >   xen/arch/x86/hvm/dom0_build.c      | 108 +++++++++++++++++++++++++++++
+> > >   xen/common/libelf/libelf-dominfo.c |  13 ++++
+> > >   xen/include/public/elfnote.h       |  11 +++
+> > >   xen/include/xen/libelf.h           |   3 +
+> > >   4 files changed, 135 insertions(+)
+> > > 
+> > > diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+> > > index 0ceda4140b..5c6c0d2db3 100644
+> > > --- a/xen/arch/x86/hvm/dom0_build.c
+> > > +++ b/xen/arch/x86/hvm/dom0_build.c
+> > > @@ -537,6 +537,108 @@ static paddr_t __init find_memory(
+> > >       return INVALID_PADDR;
+> > >   }
+> > > +static bool __init check_load_address(
+> > > +    const struct domain *d, const struct elf_binary *elf)
+> > > +{
+> > > +    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
+> > 
+> > Are you sure this is correct?  If a program header specifies a non-4K
+> > aligned load address we should still try to honor it.  I think this is
+> > very unlikely, but still we shouldn't apply non-requested alignments
+> > to addresses coming from the ELF headers.
 > 
-> Linux module signatures operate outside of the ELF container. In fact,
-> AFAIK the actual signed content could be anything. The file format is:
+> I think it's correct in terms of checking the e820 table.  Since the memory
+> map is limited to 4k granularity, the bounds need to be rounded accordingly.
+
+That's for populating the p2m, but I don't see why the kernel load
+area should be limited by this?
+
+There's AFAICt no issue from a kernel requesting that it's start load
+address is not page aligned (granted that's very unlikely), but I
+don't see why we would impose an unneeded restriction here.
+
+The kernel load area doesn't affect how the p2m is populated, that's
+mandated by the e820.
+
+> > > +    paddr_t kernel_end = PAGE_ALIGN((paddr_t)elf->dest_base + elf->dest_size);
+> > > +    unsigned int i;
+> > > +
+> > > +    /*
+> > > +     * The memory map is sorted and all RAM regions starts and sizes are
+> > > +     * aligned to page boundaries.
+> > 
+> > Relying on sizes to be page aligned seems fragile: it might work now
+> > because of the order in which pvh_setup_vmx_realmode_helpers() first
+> > reserves memory for the TSS and afterwards for the identity page
+> > tables, but it's not a property this code should assume.
 > 
-> * Content (i.e. ELF binary)
-> * Signature of content in PKCS7 format
-> * Signature info, including signature length
-> * Magic marker: "~Module signature appended~\n"
+> That can be removed.  It would just eliminate the early exit...
 > 
-> This kind of arrangement does indeed work but it is fragile. Since the
-> signature is on the entire contents and tools that understand ELF don't
-> parse the signature, any transformation of the binary (e.g. to
-> strip out debuginfo) will cause the signature to be lost / invalidated.
+> > > +     */
+> > > +    for ( i = 0; i < d->arch.nr_e820; i++ )
+> > > +    {
+> > > +        paddr_t start = d->arch.e820[i].addr;
+> > > +        paddr_t end = d->arch.e820[i].addr + d->arch.e820[i].size;
+> > > +
+> > > +        if ( start >= kernel_end )
+> > > +            return false;
+> 
+> ... here.
 
-This looks extremely poor to me, so ...
+I think the sorted aspect is fine, the aligned part is the one I'm
+complaining about, so the check above can stay.
 
-> Nevertheless, this could still be an option for Xen if this is
-> deemed to be a preferred solution by others. It would be good to hear
-> some opinions on this.
+> > > +    const struct elf_dom_parms *parms)
+> > > +{
+> > > +    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
+> > > +    paddr_t kernel_end = PAGE_ALIGN((paddr_t)elf->dest_base + elf->dest_size);
+> > > +    paddr_t kernel_size = kernel_end - kernel_start;
+> > 
+> > Hm, I'm again unsure about the alignments applied here.
+> 
+> Same as above regarding 4k granularity.
+> 
+> > I think if anything we want to assert that dest_base is aligned to phys_align.
+> 
+> That would indicate the kernel image is inconsistent.
 
-... I'd rather not see this used for Xen.
+Indeed.  I think doing that sanity check would be worth.
 
-Jan
+> > > diff --git a/xen/common/libelf/libelf-dominfo.c b/xen/common/libelf/libelf-dominfo.c
+> > > index 7cc7b18a51..837a1b0f21 100644
+> > > --- a/xen/common/libelf/libelf-dominfo.c
+> > > +++ b/xen/common/libelf/libelf-dominfo.c
+> > > @@ -125,6 +125,7 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
+> > >           [XEN_ELFNOTE_SUSPEND_CANCEL] = { "SUSPEND_CANCEL", ELFNOTE_INT },
+> > >           [XEN_ELFNOTE_MOD_START_PFN] = { "MOD_START_PFN", ELFNOTE_INT },
+> > >           [XEN_ELFNOTE_PHYS32_ENTRY] = { "PHYS32_ENTRY", ELFNOTE_INT },
+> > > +        [XEN_ELFNOTE_PVH_RELOCATION] = { "PVH_RELOCATION", ELFNOTE_OTHER },
+> > >       };
+> > >   /* *INDENT-ON* */
+> > > @@ -234,6 +235,17 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
+> > >                   elf_note_numeric_array(elf, note, 8, 0),
+> > >                   elf_note_numeric_array(elf, note, 8, 1));
+> > >           break;
+> > > +
+> > > +    case XEN_ELFNOTE_PVH_RELOCATION:
+> > > +        if ( elf_uval(elf, note, descsz) != 3 * sizeof(uint64_t) )
+> > > +            return -1;
+> > > +
+> > > +        parms->phys_min = elf_note_numeric_array(elf, note, 8, 0);
+> > > +        parms->phys_max = elf_note_numeric_array(elf, note, 8, 1);
+> > > +        parms->phys_align = elf_note_numeric_array(elf, note, 8, 2);
+> > 
+> > Size for those needs to be 4 (32bits) as the entry point is in 32bit
+> > mode?  I don't see how we can start past the 4GB boundary.
+> 
+> I specified the note as 3x 64bit values.  It seemed simpler than trying to
+> support both 32bit and 64bit depending on the kernel arch.  Also, just using
+> 64bit provides room in case it is needed in the future.
+
+Why do you say depending on the kernel arch?
+
+PVH doesn't know the bitness of the kernel, as the kernel entry point
+is always started in protected 32bit mode.  We should just support
+32bit values, regardless of the kernel bitness, because that's the
+only range that's suitable in order to jump into the entry point.
+
+Note how XEN_ELFNOTE_PHYS32_ENTRY is also unconditionally a 32bit
+integer.
+
+> Do you want the note to be changed to 3x 32bit values?
+
+Unless anyone objects, yes, that's would be my preference.
+
+> > > +        elf_msg(elf, "min: %#"PRIx64" max: %#"PRIx64" align: %#"PRIx64"\n",
+> > > +                parms->phys_min, parms->phys_max, parms->phys_align);
+> > > +        break;
+> > >       }
+> > >       return 0;
+> > >   }
+> > > @@ -545,6 +557,7 @@ elf_errorstatus elf_xen_parse(struct elf_binary *elf,
+> > >       parms->p2m_base = UNSET_ADDR;
+> > >       parms->elf_paddr_offset = UNSET_ADDR;
+> > >       parms->phys_entry = UNSET_ADDR32;
+> > > +    parms->phys_align = UNSET_ADDR;
+> > 
+> > For correctness I would also init phys_{min,max}.
+> 
+> There is a memset() out of context above to zero the structure.  I thought
+> leaving them both 0 would be fine.
+
+0 would be a valid value, hence it's best to use UNSET_ADDR to clearly
+notice when a value has been provided by the parsed binary or not.
+
+Thanks, Roger.
 
