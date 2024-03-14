@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84E6187BC4C
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 12:55:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693159.1080887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06D4687BCBA
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 13:24:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693177.1080897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkjf1-0008Gl-40; Thu, 14 Mar 2024 11:54:11 +0000
+	id 1rkk7Y-0004J7-KP; Thu, 14 Mar 2024 12:23:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693159.1080887; Thu, 14 Mar 2024 11:54:11 +0000
+Received: by outflank-mailman (output) from mailman id 693177.1080897; Thu, 14 Mar 2024 12:23:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkjf1-0008ER-0W; Thu, 14 Mar 2024 11:54:11 +0000
-Received: by outflank-mailman (input) for mailman id 693159;
- Thu, 14 Mar 2024 11:54:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rR1U=KU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rkjez-0008EJ-37
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 11:54:09 +0000
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
- [2607:f8b0:4864:20::f35])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90053d8f-e1f9-11ee-afdd-a90da7624cb6;
- Thu, 14 Mar 2024 12:54:08 +0100 (CET)
-Received: by mail-qv1-xf35.google.com with SMTP id
- 6a1803df08f44-690fed6816fso5506506d6.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 04:54:08 -0700 (PDT)
-Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- gs7-20020a056214226700b0068fcfef2077sm339201qvb.93.2024.03.14.04.54.05
+	id 1rkk7Y-0004Gv-Hc; Thu, 14 Mar 2024 12:23:40 +0000
+Received: by outflank-mailman (input) for mailman id 693177;
+ Thu, 14 Mar 2024 12:23:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rkk7X-0004Gp-Aw
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 12:23:39 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aee1430c-e1fd-11ee-a1ee-f123f15fe8a2;
+ Thu, 14 Mar 2024 13:23:37 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a45bb2a9c20so85276766b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 05:23:37 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ qx12-20020a170906fccc00b00a44a04aa3cfsm654915ejb.225.2024.03.14.05.23.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 04:54:06 -0700 (PDT)
+ Thu, 14 Mar 2024 05:23:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90053d8f-e1f9-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: aee1430c-e1fd-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710417247; x=1711022047; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710419017; x=1711023817; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=VV97gBqoOSjs5ndq0Aw3AU/fQLxuOaxS8JGpY1ZwC+U=;
-        b=olkIehVoUI5Yt1ODiHO6traXLmx3imGrurE82rsZfhbYPg6T0dBoFtd3f+UJBJEan1
-         +0T+IeTNZ1c7moaexHIOkdYYvV0NF6tzC6ukSe8TU0bLnUxQFs/9TswOp8Fbxj9teTnN
-         /Yg0FT6LnZPbYoTBuCkzixDpThVcKvvg0yLHQ=
+        bh=WOjMpM+Npomr4BsE2wNuLO5CgqwO8e+gdOM4yMDJy3A=;
+        b=AQBrFKrOHdY9P1yLAPta5hutET7r2vT5/DYmPRHJDP3jdCuzYbrvPKVHeOzT4t4VYF
+         jp39JdX2oQW5tbt3/jGuG42205byBwYXFJuu33ATi2G7HhII68A+St8q7yEl/Tooimcu
+         nYv61ospC4beOM25t7q4GJ4yx3YrstJbe2akfElKVexsx24NYTEHT5W5UfDf20XKcSNE
+         7XMWzlBqbuTr2hlUnQQ6Jf7MY1uacNd2kEU9PLDxc7e8X3KrvmjH6CO7oPjMf+S1cM98
+         uJpozYHoa87o4rlJbYzjcMspA6IpdbG7SCqKRRHLhW2boA2f/JohrJg6jEO3LORsarpZ
+         KWVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710417247; x=1711022047;
+        d=1e100.net; s=20230601; t=1710419017; x=1711023817;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VV97gBqoOSjs5ndq0Aw3AU/fQLxuOaxS8JGpY1ZwC+U=;
-        b=OKwqYHGKO3Oee2QDhq5yXGvu/SMw7t0opupjngLKW47w6HWywGDJY9/SA27mPIbiRD
-         LHcSikHZ/xSSLSoERUOtnwb4+raxczFvOTcSuBl00FWbdmI5XzuUvKuN6K/ljk5Spz30
-         NhLQqFSnjcU4ApKlDusprA5yObu2Y7anhrmwTw3SjK986lg08nZtR/OZBF/wuydbbHex
-         F44jk/6sc03OxQluK1LUK4F8nxFNLtkcv7pJsHs4Zb4omt+5dhJu0B3IuygJtgNjQtQv
-         1f4N+QFLT5rAb2xTTn1bAKjrjgvXHLczwxXu4LcPbnc/zTwvMZBogZ7QAk+44UiGi/kC
-         MHpA==
-X-Forwarded-Encrypted: i=1; AJvYcCUxcyzDXYR6Ws6874U14KPt4qk4/PMsMzHidwUVc8qJxl2vAtSTZYU6+Z0DOMRc5aY/8rCZ8gwJ8PJ58q18jKB6NIKNu1iDSvBLLzqk8i4=
-X-Gm-Message-State: AOJu0YzZd6Nj8mtiLrRIjBS2RIHj94oFD8fTx3Qs4zJs/URXzWGBvmq2
-	TRhFYR0YUGZxr0ejCkAqIbXpqhBHP8r/DlAy/RrRSAmwRGJKIqf08qijUhxnpo0=
-X-Google-Smtp-Source: AGHT+IEuuAWffBYiqnQULRbO4u+18hYYyUy8oHh26n6ndD0HEX6YmLoeCWlmDrqdwIT2o15lbSQz6g==
-X-Received: by 2002:a0c:e3c2:0:b0:691:46ee:6abc with SMTP id e2-20020a0ce3c2000000b0069146ee6abcmr1678249qvl.3.1710417246980;
-        Thu, 14 Mar 2024 04:54:06 -0700 (PDT)
-Message-ID: <c222dccd-014d-43d6-9b26-2ae03e4c31ec@citrix.com>
-Date: Thu, 14 Mar 2024 11:54:04 +0000
+        bh=WOjMpM+Npomr4BsE2wNuLO5CgqwO8e+gdOM4yMDJy3A=;
+        b=MFV1//3BZzlo16IkFWyjVJinT1BYiw2WAbdl2GJRrlctiiLamfEOxAm56Ypa2Xqa7w
+         KUHBbwHxl97+HBxG/rMj5c05MjK9qb6xoEF7J7NP29w7rK8NSwI+uZrfFJG5ktKq7xmP
+         WhbZ0PxLFDz/E8KXrn9iOhzWSB8hcpZAk/+4vbyyfHasIY9ZeNTfKHsHMWbD5VO6Q8xX
+         B2J3E6AWvW3NRguctswqrnccTlijpzyt3jnh3qLyBsP2/PGTB5GzxOHdTGfIrBHpeGeg
+         CN/ncn07oBMDYXa8XMNT21ebf/4STwLdy1TpMb2paGbCLQ4qY47qC5aSdUwmT7G+UQLB
+         doRA==
+X-Forwarded-Encrypted: i=1; AJvYcCXv4qCpTtdo/mPsw2yRQzYpewRBrzbNX2JWZszqGHZte4c63Sla7TvgB9hr71gEAxw75pFkXaLur+GSV4WX2VWmNt8o6GPdRptk5RUv5R0=
+X-Gm-Message-State: AOJu0YxROeE8pBl5KySlAYuJ3SJqk3cG42knxj0C93HTXS1xErL2XM9E
+	sFAcKDk3d8alEzThs5JCvC+NhMaXbjOrT247iOxonK5ELy+oFaEsByWdfo+h7g==
+X-Google-Smtp-Source: AGHT+IGTmU40Nx3TfIrptU2UsWf0iOe22ix1XDbX6UZvv4x9DO7r3Ts1hl5e2sCTK5RyQ+CnrzJqww==
+X-Received: by 2002:a17:906:a282:b0:a45:9008:ca1b with SMTP id i2-20020a170906a28200b00a459008ca1bmr1083786ejz.1.1710419016841;
+        Thu, 14 Mar 2024 05:23:36 -0700 (PDT)
+Message-ID: <a10bf170-da69-45c2-aa7a-97d94995d4db@suse.com>
+Date: Thu, 14 Mar 2024 13:23:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] xen: avoid grep fodder define and undef
-Content-Language: en-GB
-To: Federico Serafini <federico.serafini@bugseng.com>,
+Subject: Re: [XEN PATCH] amd/iommu: add fixed size to function parameter of
+ array type
+Content-Language: en-US
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
+ julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
  xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, Jan Beulich <jbeulich@suse.com>,
- Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-References: <1f41883b6688d669d912f9358beccca016bd7ba8.1710401549.git.federico.serafini@bugseng.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <1f41883b6688d669d912f9358beccca016bd7ba8.1710401549.git.federico.serafini@bugseng.com>
+References: <533a2d4f0c92d7fe92aa200b64434389de546f69.1710343652.git.nicola.vetrini@bugseng.com>
+ <6186b676-660c-4bfa-a825-18ff7f0d7f62@suse.com>
+ <503aa63b5204e9b9eab5a21235df7c6c@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <503aa63b5204e9b9eab5a21235df7c6c@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14/03/2024 7:37 am, Federico Serafini wrote:
-> Place an "#if 0" before grep fodder #define-s and remove
-> the #undef-s.
->
-> This addresses violations of MISRA C:2012 Rules 20.5 ("#undef should
-> not be used") and 5.5 ("Identifiers shall be distinct from macro
-> names").
->
-> No functional change.
->
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+On 14.03.2024 10:25, Nicola Vetrini wrote:
+> On 2024-03-14 09:32, Jan Beulich wrote:
+>> On 14.03.2024 08:42, Nicola Vetrini wrote:
+>>> The 'cmd' parameter of amd_iommu_send_guest_cmd is passed
+>>> to a function that expects arrays of size 4, therefore
+>>> specifying explicitly the size also in amd_iommu_send_guest_cmd
+>>> allows not to accidentally pass a smaller array or assume that
+>>> send_iommu_command handles array sizes >4 correctly.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>> ---
+>>> All current users pass an array of size 4, hence this patch is 
+>>> addressing
+>>> a potential issue noticed by the analyzer in the context of Rule 17.5
+>>> ("The function argument corresponding to a parameter declared to have 
+>>> an array
+>>> type shall have an appropriate number of elements"), not an actual 
+>>> problem in
+>>> the sources.
+>>
+>> While true, I think we want to consider alternatives. First one being 
+>> to rip
+>> out this dead code (thus addressing other Misra concerns as well). 
+>> Second,
+>> if we meant to keep it, to properly do away with the (ab)use of u32[].
+>>
+> 
+> I'm not understanding what you consider dead code.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+iommu_guest.c:guest_iommu_{init,destroy,set_base,add_event_log}() have
+no callers; guest_iommu_add_ppr_log() having one is suspicious, but the
+function will still bail early due to domain_iommu() never returning
+non-NULL in practice. With that I'm pretty sure nothing else in the file
+is actually reachable.
 
-It really doesn't matter how we go about excluding the grep-fodder from
-the build, and this is a little neater.
+> I see three users of amd_iommu_send_guest_cmd
+
+All in said file.
+
+> and seven for send_iommu_command.
+
+Well, this one of course isn't dead.
+
+> I can adjust u32 for sure. There are also other u32/uint32_t 
+> incosistencies in that header.
+
+Which we're going to take care of over time.
+
+Jan
 
