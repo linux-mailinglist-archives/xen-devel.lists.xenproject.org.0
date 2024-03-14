@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 573DA87C50B
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 23:16:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693515.1081718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28DD687C50C
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 23:16:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693511.1081680 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rktMy-00015Y-D7; Thu, 14 Mar 2024 22:16:12 +0000
+	id 1rktMt-0000BB-RM; Thu, 14 Mar 2024 22:16:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693515.1081718; Thu, 14 Mar 2024 22:16:12 +0000
+Received: by outflank-mailman (output) from mailman id 693511.1081680; Thu, 14 Mar 2024 22:16:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rktMy-0000wR-25; Thu, 14 Mar 2024 22:16:12 +0000
-Received: by outflank-mailman (input) for mailman id 693515;
- Thu, 14 Mar 2024 22:16:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rktMt-0008UV-OU; Thu, 14 Mar 2024 22:16:07 +0000
+Received: by outflank-mailman (input) for mailman id 693511;
+ Thu, 14 Mar 2024 22:16:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=y43E=KU=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1rktMw-0000X2-NE
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 22:16:10 +0000
+ id 1rktMs-0008HV-Q3
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 22:16:06 +0000
 Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 72db41df-e250-11ee-a1ee-f123f15fe8a2;
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 72dc1d32-e250-11ee-afdd-a90da7624cb6;
  Thu, 14 Mar 2024 23:16:05 +0100 (CET)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id A5F1C8286CAF;
+ by mail.rptsys.com (Postfix) with ESMTP id F1101828673E;
  Thu, 14 Mar 2024 17:16:01 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id tDgj889x-TCk; Thu, 14 Mar 2024 17:16:01 -0500 (CDT)
+ with ESMTP id PsppJZOTuu59; Thu, 14 Mar 2024 17:16:01 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id F1AAE828673E;
- Thu, 14 Mar 2024 17:16:00 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 3AF578286A4B;
+ Thu, 14 Mar 2024 17:16:01 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id Ekesbb3plJdX; Thu, 14 Mar 2024 17:16:00 -0500 (CDT)
+ with ESMTP id tgjB4xl8g7Ku; Thu, 14 Mar 2024 17:16:01 -0500 (CDT)
 Received: from raptor-ewks-026.lan (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 214678286CAF;
+ by mail.rptsys.com (Postfix) with ESMTPSA id BA7988286CDC;
  Thu, 14 Mar 2024 17:16:00 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,91 +51,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72db41df-e250-11ee-a1ee-f123f15fe8a2
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com F1AAE828673E
+X-Inumbo-ID: 72dc1d32-e250-11ee-afdd-a90da7624cb6
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 3AF578286A4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1710454561; bh=MDQ4qX1cZClSO+Sy5SemqANFOXF/LtmGjUBuy5sUWoI=;
+	t=1710454561; bh=ImWiIfCHbaewHCZffKSjHa8JvgXFPUKjK9FnpBwpojM=;
 	h=From:To:Date:Message-Id:MIME-Version;
-	b=ViEnf6+rfF6+CQ43NWAtk16nUwQnLpNd9AHxGAbH51+3DDm96kWYULgFqvzEiAuNW
-	 xMrmDMWWLbs6I/zpmaaoQH5vh6EiZgfBUYgQGI6OUOVDa11VLvih0jM/RNUAlfJmFM
-	 XHUnFR9879uXfHp92MjtFv4vlayklRSQ4L+ogEy4=
+	b=gaVilxusz+uoUP3SZd87R5ePrtO3uSDmeGW6+2ItIMFg5fe9LIdtDsfPPX29ELf36
+	 jezQawQXoEsi4jiOmdrPxkZlJJrcUpBs2BMjIamka1RRn0gmW4mv5+HaT+KdoHkFFP
+	 NQY7f8pC6SCN2L+EhqCCqpNs6dimIFGQjmE0YEtY=
 X-Virus-Scanned: amavisd-new at rptsys.com
 From: Shawn Anastasio <sanastasio@raptorengineering.com>
 To: xen-devel@lists.xenproject.org
 Cc: tpearson@raptorengineering.com,
 	Jan Beulich <jbeulich@suse.com>,
 	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
+	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3 6/9] xen/common: Move Arm's bootfdt.c to common
-Date: Thu, 14 Mar 2024 17:15:44 -0500
-Message-Id: <908ea2d9bccf0b3455119cfd9af0597aee005fe8.1710443965.git.sanastasio@raptorengineering.com>
+Subject: [PATCH v3 7/9] xen/ppc: Enable bootfdt and boot allocator
+Date: Thu, 14 Mar 2024 17:15:45 -0500
+Message-Id: <adebcaa145af5e3de7fba07dc84b0993866e98ac.1710443965.git.sanastasio@raptorengineering.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1710443965.git.sanastasio@raptorengineering.com>
 References: <cover.1710443965.git.sanastasio@raptorengineering.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-Move Arm's bootfdt.c to xen/common so that it can be used by other
-device tree architectures like PPC and RISCV.
+Enable usage of bootfdt for populating the boot info struct from the
+firmware-provided device tree.  Also enable the Xen boot page allocator.
 
-Suggested-by: Julien Grall <julien@xen.org>
+Includes minor changes to bootfdt.c's boot_fdt_info() to tolerate the
+scenario in which the FDT overlaps a reserved memory region, as is the
+case on PPC when booted directly from skiboot.
+
 Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-Acked-by: Julien Grall <julien@xen.org>
 ---
-Changes in v2:
-  - Drop #if defined(CONFIG_ARM_EFI) now that efi_enabled is stubbed
+ xen/arch/ppc/include/asm/setup.h |  5 +++++
+ xen/arch/ppc/setup.c             | 21 ++++++++++++++++++++-
+ xen/common/device-tree/bootfdt.c | 11 +++++++++--
+ 3 files changed, 34 insertions(+), 3 deletions(-)
 
- MAINTAINERS                                    | 1 +
- xen/arch/arm/Makefile                          | 1 -
- xen/common/device-tree/Makefile                | 1 +
- xen/{arch/arm => common/device-tree}/bootfdt.c | 0
- 4 files changed, 2 insertions(+), 1 deletion(-)
- rename xen/{arch/arm => common/device-tree}/bootfdt.c (100%)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e85fbe6737..20fdec9ffa 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -251,6 +251,7 @@ S:	Supported
- L:	xen-devel@lists.xenproject.org
- F:	docs/misc/arm/
- F:	xen/arch/arm/
-+F:	xen/common/device-tree/bootfdt.c
- F:	xen/drivers/char/arm-uart.c
- F:	xen/drivers/char/cadence-uart.c
- F:	xen/drivers/char/exynos4210-uart.c
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 7b1350e2ef..9e1548378c 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -10,7 +10,6 @@ obj-$(CONFIG_TEE) += tee/
- obj-$(CONFIG_HAS_VPCI) += vpci.o
-
- obj-$(CONFIG_HAS_ALTERNATIVE) += alternative.o
--obj-y += bootfdt.init.o
- obj-y += cpuerrata.o
- obj-y += cpufeature.o
- obj-y += decode.o
-diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index c97b2bd88c..fa5beafd65 100644
---- a/xen/common/device-tree/Makefile
-+++ b/xen/common/device-tree/Makefile
-@@ -1 +1,2 @@
-+obj-y += bootfdt.init.o
- obj-y += bootinfo.o
-diff --git a/xen/arch/arm/bootfdt.c b/xen/common/device-tree/bootfdt.c
-similarity index 100%
-rename from xen/arch/arm/bootfdt.c
-rename to xen/common/device-tree/bootfdt.c
---
+diff --git a/xen/arch/ppc/include/asm/setup.h b/xen/arch/ppc/include/asm/setup.h
+index 1b2d29c5b6..fe27f61fc3 100644
+--- a/xen/arch/ppc/include/asm/setup.h
++++ b/xen/arch/ppc/include/asm/setup.h
+@@ -115,4 +115,9 @@ const char *boot_module_kind_as_string(bootmodule_kind kind);
+ struct bootcmdline *boot_cmdline_find_by_kind(bootmodule_kind kind);
+ void populate_boot_allocator(void);
+ 
++/*
++ * bootfdt.c
++ */
++size_t boot_fdt_info(const void *fdt, paddr_t paddr);
++
+ #endif /* __ASM_PPC_SETUP_H__ */
+diff --git a/xen/arch/ppc/setup.c b/xen/arch/ppc/setup.c
+index 101bdd8bb6..946167a56f 100644
+--- a/xen/arch/ppc/setup.c
++++ b/xen/arch/ppc/setup.c
+@@ -1,12 +1,14 @@
+ /* SPDX-License-Identifier: GPL-2.0-or-later */
+ #include <xen/init.h>
+ #include <xen/lib.h>
++#include <xen/libfdt/libfdt.h>
+ #include <xen/mm.h>
+ #include <public/version.h>
+ #include <asm/boot.h>
+ #include <asm/early_printk.h>
+ #include <asm/mm.h>
+ #include <asm/processor.h>
++#include <asm/setup.h>
+ 
+ /* Xen stack for bringing up the first CPU. */
+ unsigned char __initdata cpu0_boot_stack[STACK_SIZE] __aligned(STACK_SIZE);
+@@ -24,6 +26,9 @@ void __init noreturn start_xen(unsigned long r3, unsigned long r4,
+                                unsigned long r5, unsigned long r6,
+                                unsigned long r7)
+ {
++    void *boot_fdt;
++    struct bootmodule *xen_bootmodule;
++
+     if ( r5 )
+     {
+         /* Unsupported OpenFirmware boot protocol */
+@@ -32,11 +37,25 @@ void __init noreturn start_xen(unsigned long r3, unsigned long r4,
+     else
+     {
+         /* kexec boot protocol */
+-        boot_opal_init((void *)r3);
++        boot_fdt = (void *)r3;
++        boot_opal_init(boot_fdt);
+     }
+ 
+     setup_exceptions();
+ 
++    device_tree_flattened = boot_fdt;
++    boot_fdt_info(boot_fdt, r3);
++
++    /*
++     * Xen relocates itself at the ppc64 entrypoint, so we need to manually mark
++     * the kernel module.
++     */
++    xen_bootmodule = add_boot_module(BOOTMOD_XEN, __pa(_start),
++                                     PAGE_ALIGN(__pa(_end)), false);
++    BUG_ON(!xen_bootmodule);
++
++    populate_boot_allocator();
++
+     setup_initial_pagetables();
+ 
+     early_printk("Hello, ppc64le!\n");
+diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
+index 35dbdf3384..1985648b31 100644
+--- a/xen/common/device-tree/bootfdt.c
++++ b/xen/common/device-tree/bootfdt.c
+@@ -543,12 +543,19 @@ size_t __init boot_fdt_info(const void *fdt, paddr_t paddr)
+     if ( ret < 0 )
+         panic("No valid device tree\n");
+ 
+-    add_boot_module(BOOTMOD_FDT, paddr, fdt_totalsize(fdt), false);
+-
+     ret = device_tree_for_each_node(fdt, 0, early_scan_node, NULL);
+     if ( ret )
+         panic("Early FDT parsing failed (%d)\n", ret);
+ 
++    /*
++     * Add module for the FDT itself after the device tree has been parsed. This
++     * is required on ppc64le where the device tree passed to Xen may have been
++     * allocated by skiboot, in which case it will exist within a reserved
++     * region and this call will fail. This is fine, however, since either way
++     * the allocator will know not to step on the device tree.
++     */
++    add_boot_module(BOOTMOD_FDT, paddr, fdt_totalsize(fdt), false);
++
+     /*
+      * On Arm64 setup_directmap_mappings() expects to be called with the lowest
+      * bank in memory first. There is no requirement that the DT will provide
+-- 
 2.30.2
 
 
