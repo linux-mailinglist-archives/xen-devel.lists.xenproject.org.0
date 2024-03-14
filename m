@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 730F387B846
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 08:06:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.692883.1080492 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AF5587B855
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 08:11:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.692885.1080502 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkfAe-0001WK-DS; Thu, 14 Mar 2024 07:06:32 +0000
+	id 1rkfFC-0003EA-U2; Thu, 14 Mar 2024 07:11:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 692883.1080492; Thu, 14 Mar 2024 07:06:32 +0000
+Received: by outflank-mailman (output) from mailman id 692885.1080502; Thu, 14 Mar 2024 07:11:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkfAe-0001Tn-9h; Thu, 14 Mar 2024 07:06:32 +0000
-Received: by outflank-mailman (input) for mailman id 692883;
- Thu, 14 Mar 2024 07:06:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rkfFC-0003Bi-QI; Thu, 14 Mar 2024 07:11:14 +0000
+Received: by outflank-mailman (input) for mailman id 692885;
+ Thu, 14 Mar 2024 07:11:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rkfAd-0001Th-1x
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 07:06:31 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 610f8199-e1d1-11ee-a1ee-f123f15fe8a2;
- Thu, 14 Mar 2024 08:06:28 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5684073ab38so1135902a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 00:06:28 -0700 (PDT)
+ id 1rkfFA-0003BH-SL
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 07:11:12 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 09889e8c-e1d2-11ee-afdd-a90da7624cb6;
+ Thu, 14 Mar 2024 08:11:11 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a4644bde1d4so72571066b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 00:11:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- eg22-20020a056402289600b005682fbc2531sm397893edb.74.2024.03.14.00.06.27
+ a11-20020a170906190b00b00a44e2f3024bsm407573eje.68.2024.03.14.00.11.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 00:06:28 -0700 (PDT)
+ Thu, 14 Mar 2024 00:11:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 610f8199-e1d1-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 09889e8c-e1d2-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710399988; x=1711004788; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710400271; x=1711005071; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=9P1OYHEIZ00D70YK/MTK2q4gEfIL8FZO5C4MTZJrik8=;
-        b=G+62XjKhkQztUfDwBDwhJhAp0+lvujsfvAQtggRhGuA1JNfOwre+0itBZsWIZLVXn0
-         LRx25dMCuDT8J5yecai2HJ/ViVD2t+n0jRBDRwcEePfXiL2v/Dpe0C72fJByQhNJuVmj
-         Cv0Ovah/Sdm1Qb7AEpGF/RIFnYt/aiu2kU3gckLZsYSWs9cu00+ryyjEneY9fd6IKqHn
-         fwugXnbWn3uZmt7sS2keik2OX2PeUsEtH/IY2F7x/90A+ib7gSqTTQpRol6LikEzyfcd
-         TxOEZ5SJQxZYdGZxDe6m7AvsMdcuOejK6VriwEdrvO0aB4rVQydft87RNgcdyhcB4VyD
-         4fZw==
+        bh=SDY4jjLhZUBmy0omOEEqP4FrI3d4/utzdwwQ/ZpA04M=;
+        b=TPc0ygq3tWNuC326HPrMf004Xysuv4WZ+18mWXBpcDRlRYR96LEZwUQh3O9NQORV8h
+         VCFKZrOIF93kZTEIzKlgBJXrfW9Ev3oA8b+fIN8yjoYEuAC6io5sRnFDcTTdiE/rbLNR
+         gcnkv/p987X9QJVEwwRXiCdV6JWJTxL4c1pGpGI4/4tlN1F/dJG0y03YeSzjmGGTnq0z
+         +27ZFJKf4t3ii/0lpBovLTj7HCs7D46+bYb48iJv6c2D1lBK7DB8fcjvRg/WY+ST9lWA
+         eG4a34j7bLvUih8LfNhBBbkHMoifQelnJJwL/Jh80KVciXIohvETuvASLdXJE6vA5nmG
+         i1SA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710399988; x=1711004788;
+        d=1e100.net; s=20230601; t=1710400271; x=1711005071;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9P1OYHEIZ00D70YK/MTK2q4gEfIL8FZO5C4MTZJrik8=;
-        b=vRd4vO4430MS4hkqdIpDsOcr/TwQyQfxbUIacUENtctn4bl5WcoE9Jt+EyVwxr4Zz9
-         aS8OnymKdI1tLXPHr2aqTQ/nshsrI7L6nC4KbSc+cpA0SbL8uc40evgQcmo3gEnETNeq
-         zx3fbfKngMW/j4in83/EAZzsX9BjkMOEFQgreX17XfEEvDBa8pMlc6T+wmjoTFjEVT2T
-         JJgKEY3OtEQ5x/zThAATseqy4P8OTrcKR8ayZaK1MZkt/F6qqvDqojJ1e5nYpblRbsmg
-         gRUrPCcOMB7PTlTn2B8iI7C4l0SHF3tvbgQy82VA7wzCQlTJfPwGezeksu7HgwNZwtzr
-         XxNg==
-X-Forwarded-Encrypted: i=1; AJvYcCWmu3rB68HPK+VSI5Pvw0cKep4lggj/YNhMKniRBIeMLqleSJLF4q85UOWF6UOzyCOSZQYIH+P3scFD7eGRhfYJww6JNXOEUURtdp35Yf8=
-X-Gm-Message-State: AOJu0Yy96w+CJ5FA0oDg4Tu2AjY92ceKNWKchMzXvN9cdA8QU37gArem
-	rQf8vHg3c1ZReJESzWmAj/AOMv0Bmd9rmM7LG88Ni1EJewEqpPUTpc5WblEC1w==
-X-Google-Smtp-Source: AGHT+IEWtqa7IXxXxoU6Zayu+tLvIcUZ3CgKocmrCpSSW8tvucasIBcihFSI04JmZ5fAkeollUsyow==
-X-Received: by 2002:a05:6402:1f14:b0:567:1263:e31f with SMTP id b20-20020a0564021f1400b005671263e31fmr1183986edb.10.1710399988467;
-        Thu, 14 Mar 2024 00:06:28 -0700 (PDT)
-Message-ID: <97516382-b756-48da-a358-6b093c4cb20f@suse.com>
-Date: Thu, 14 Mar 2024 08:06:27 +0100
+        bh=SDY4jjLhZUBmy0omOEEqP4FrI3d4/utzdwwQ/ZpA04M=;
+        b=J671szI0O0OuSKIioSUa5qE2OWLuQ6sfeAjh68N84qC8nIIkunaspY/dXXDX6OkQ2z
+         BApdHnJVNE24zlH9XTS0OAvu/nMK4sQle65/bd2pPffOGrYosz3Q8i8f0go1mKCiSNze
+         mPsdWWo/tX5O43AI9sSaqDnBGUW6gfqTFeSpC8JomFsfaF8tH1n1fMWj4CHhx6M1amxg
+         eDST1Tb6c3cdlslDQZR04Ot/oTOp//ij51dz02MZVMEGTm7Q+9mkdJh1dQaESsrDmXtO
+         HJgKVXM7JdPheQEKC84ECqG2beVTs5LAxVkv3nHvUbmSBFlg+DMZDyk7NVWiWp2+ZVZ9
+         JijA==
+X-Forwarded-Encrypted: i=1; AJvYcCUBt4pyOrH9rxyE3+fVQIFlmBHzRnco7RHVsmCY0LAp2yxY01DO+15bDhEjxngkILRNj50Eu93WpGgteG7h/nqZ0o3xUfwRyhKDwA1jfkk=
+X-Gm-Message-State: AOJu0YyAtNrEUkWOu5X7rD+N9BWJKe0WQwwmiPHi3E/FpNwrLZ/0Oada
+	uWZ1ufaXWuRQVtUx/ti33k0ExG8sqrVdseVModXtdbacTYjLRPNpUATCLu3pkA==
+X-Google-Smtp-Source: AGHT+IE39Fz82EN2jBhgle/gy6FAsWss++CefBwacU6aIw//7hMZpmN58GHMQbkeidRy0ALmgFnttQ==
+X-Received: by 2002:a17:907:c082:b0:a46:74f0:6380 with SMTP id st2-20020a170907c08200b00a4674f06380mr292932ejc.3.1710400271021;
+        Thu, 14 Mar 2024 00:11:11 -0700 (PDT)
+Message-ID: <82ae53ac-f2d1-4d86-8719-4e5cc2e5f57d@suse.com>
+Date: Thu, 14 Mar 2024 08:11:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: make Roger an IOMMU Maintainer
+Subject: Re: [PATCH v2 1/3] Revert "xen/x86: bzImage parse kernel_alignment"
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, bertrand.marquis@arm.com,
- george.dunlap@citrix.com, julien@xen.org, michal.orzel@amd.com,
- roger.pau@citrix.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2403131638530.853156@ubuntu-linux-20-04-desktop>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+References: <20240313193021.241764-1-jason.andryuk@amd.com>
+ <20240313193021.241764-2-jason.andryuk@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,16 +112,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2403131638530.853156@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20240313193021.241764-2-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.03.2024 00:40, Stefano Stabellini wrote:
-> Roger kindly volunteered to step up as IOMMU Maintainer.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+On 13.03.2024 20:30, Jason Andryuk wrote:
+> A new ELF note will specify the alignment for a relocatable PVH kernel.
+> ELF notes are suitable for vmlinux and other ELF files, so this
+> Linux-specific bzImage parsing in unnecessary.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Hmm, shouldn't the order of attempts to figure the alignment be ELF note,
+ELF header, and then 2Mb?
 
-
+Jan
 
