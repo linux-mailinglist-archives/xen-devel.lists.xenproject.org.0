@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 567C287BED5
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 15:25:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693283.1081191 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5655087BEE9
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Mar 2024 15:31:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693295.1081200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkm0l-0002uA-9d; Thu, 14 Mar 2024 14:24:47 +0000
+	id 1rkm6j-0004tE-02; Thu, 14 Mar 2024 14:30:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693283.1081191; Thu, 14 Mar 2024 14:24:47 +0000
+Received: by outflank-mailman (output) from mailman id 693295.1081200; Thu, 14 Mar 2024 14:30:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rkm0l-0002rX-6r; Thu, 14 Mar 2024 14:24:47 +0000
-Received: by outflank-mailman (input) for mailman id 693283;
- Thu, 14 Mar 2024 14:24:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=k6je=KU=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1rkm0j-0002rN-UJ
- for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 14:24:45 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9ab345bb-e20e-11ee-afdd-a90da7624cb6;
- Thu, 14 Mar 2024 15:24:44 +0100 (CET)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2d208be133bso13972551fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 07:24:44 -0700 (PDT)
+	id 1rkm6i-0004qs-Td; Thu, 14 Mar 2024 14:30:56 +0000
+Received: by outflank-mailman (input) for mailman id 693295;
+ Thu, 14 Mar 2024 14:30:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=n3nm=KU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rkm6h-0004qj-63
+ for xen-devel@lists.xenproject.org; Thu, 14 Mar 2024 14:30:55 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 76222929-e20f-11ee-a1ee-f123f15fe8a2;
+ Thu, 14 Mar 2024 15:30:53 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-568a42133d8so648648a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 07:30:53 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a4-20020a170906368400b00a44936527b5sm761937ejc.99.2024.03.14.07.30.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Mar 2024 07:30:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,112 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ab345bb-e20e-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 76222929-e20f-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710426284; x=1711031084; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eE9q4Q01UYQYqY5fwC6tqKiprWoMreG95et3p+5+Q9k=;
-        b=KTDcODzP5HiUjbTJs4dhEzxXDIzQYlGyDESxAj1bcaqEkchZON6t6DglJwHem8kUwZ
-         BqNdTnk3VbhpUyovzEuZ1ddz4NqrUkXStdQ+ZOWYlhOYKJoGk0qmSuW6y1CNgTUQJWv+
-         hTDB118CVq3YDl7QRGYUSYhkfgsgYQRmgq2nI=
+        d=suse.com; s=google; t=1710426652; x=1711031452; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DCT1wZkB8l4x4i4dYUX7Zb52JDKuaiCmBD63nWQOknw=;
+        b=PnSVz6ZL1Zq+FwqtOu6oV4YBJfGfyzWz5cm/Bgo1O5++Z9xrbe9JFRXavMXpzth4nD
+         MySAnU5RSiz4A0NIJMLSlTTRELi97c8bfmVks36jQ/Ctr1vT1IZoEm2vBj+YVWn0eHQJ
+         nkEpljuuWuOf+kYzPxopkX8kBfkNXVbZNpbKoOtLspLJ8DmAtNDy1almpSjuXdzHEAvc
+         HA3ePc8PpgZrWkPyabigp/yUiFgl1jBSIZBxjFQaGg9w2yxsa/cKgfVlgIYEVgkdqdw3
+         Sj2SpszCxowKG7Ng+6sRaPXE3n4FwshZG1kUFCl2mIn5tDLlQFxEpaP0jil+zTm8Diud
+         CtVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710426284; x=1711031084;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=eE9q4Q01UYQYqY5fwC6tqKiprWoMreG95et3p+5+Q9k=;
-        b=bpEPiQZluoY4K7cWNK326J4pskdThmMA53naD2+tSZlyVlNRoXTxMsbJDtM+CkG5iM
-         4IVWDK0oXsb+NvvyKK2yozSYsn11tsQrD5YdZQg0zayFUZ9CRDP6USw5DrxSffHnVK3x
-         cm2D0WQ3hEefpSb++U5GLd57T31OrJaDLT2wKD1zVgYLy1TuQzLyxMz4L8YNqobe5h5t
-         MQeu/t0FxANb2gPkwP5DCljYlWb2xWmbDPTbBl3vBuokuLEtyc357QYPumZHichSNFI2
-         tN6nowieTq8r8DG+SeUNqkh2Gti8z/njhnbDxxKQkmXQaKTaVhIqilmnZ+YTe+F8jBhT
-         KnRw==
-X-Gm-Message-State: AOJu0YxOsKzbhIXjP/xMlVsl9lOOkiGUillwvfZo6KnPwr/xqjTfin3p
-	aeGNog9RiEYbtNo2xZkpe+WzTDu/V2UAOBcSoTW2o0HOfZId4kvvDMVfGbTN3WNp6uhuicyG5Qf
-	BNq+6aebdIV8V2QW+RLCjB1GuUULq5p5+8D4CzzysELIFbbR95EE1
-X-Google-Smtp-Source: AGHT+IGvh0qoWbbG2d+SvduVPKKMqsK/Z0ugqZHGsWLdzsNVC5nhhv1ttkMdHOFkyicUGvbNpEM9qot11RQYXjpDaOM=
-X-Received: by 2002:a2e:9bc3:0:b0:2d4:4777:e2d8 with SMTP id
- w3-20020a2e9bc3000000b002d44777e2d8mr135371ljj.13.1710426284181; Thu, 14 Mar
- 2024 07:24:44 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1710426652; x=1711031452;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=DCT1wZkB8l4x4i4dYUX7Zb52JDKuaiCmBD63nWQOknw=;
+        b=Kgj/zyK6hrZuI87TQIaMcRd9gGp+f6HNe8I49+JPFaSmvuaD7ZC+9jRWtztGE519mX
+         R7eYlCOqrXsOjLDQhE3I1pye6les9uVr2ZtPxF3P+O0/aHvslOCreAQII8O4OsB5X6x6
+         yHGCkMtdzPqRoi8q+LEm4KusUTHzkyhEyq8g/3llG2v3xfF+7p8Os3W5ikDv4aoFfGB2
+         WmwJccLk4jKt+7amMosC8zse8vS51wqTlGi/+kyJxSMn3cSr6zstG9ASjLj9Zog6nNqk
+         CNDFikhk0lzrb9lxOb5WShH7HP4Nysrz4/NqGhp97VSyg1K1qz8bV9/KlVdoiu/1Xq2V
+         ErRw==
+X-Forwarded-Encrypted: i=1; AJvYcCVUUuma5gPMk7Dfqz8Q2lQibFif5m/zMCbwpaBPxHaqhdt3M3404CcuHbqj5oEr5d3VixuHgbHxl5g98KzX+bp3yGRC9/rATmjCeDjdUT4=
+X-Gm-Message-State: AOJu0Yxty/hzZbVIGvHj5Rg/sR9sq9Iki0hfNJSubWPD6v4lCE6coFok
+	xFgoHsawtwI1bGLdOxQr9V+vzPUpNBroeVdxFhRNwXR6idxz/8cnxMCWys1Tvw==
+X-Google-Smtp-Source: AGHT+IGf65dEOO2zzR5oTanXDAp4VQjbwxFowMHlsGcYKPQEd0EgRlMFe2Vyxh+f+37ca8Zax1U0kw==
+X-Received: by 2002:a17:906:40ca:b0:a45:2e21:c776 with SMTP id a10-20020a17090640ca00b00a452e21c776mr1335826ejk.3.1710426652575;
+        Thu, 14 Mar 2024 07:30:52 -0700 (PDT)
+Message-ID: <ba0552cc-10eb-460d-89a1-ffc43fe75542@suse.com>
+Date: Thu, 14 Mar 2024 15:30:50 +0100
 MIME-Version: 1.0
-References: <20240313150748.791236-1-ross.lagerwall@citrix.com>
- <20240313150748.791236-2-ross.lagerwall@citrix.com> <c6e79962-0537-4ed8-b99f-f2614f5a7987@suse.com>
- <CAG7k0Ep6fDfjKXj-iwuGh=pF_BS-1EaT9kRm1xJTZ=bmt=3+rA@mail.gmail.com> <d2be3727-3a94-408f-a751-e91792c9d15c@suse.com>
-In-Reply-To: <d2be3727-3a94-408f-a751-e91792c9d15c@suse.com>
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Thu, 14 Mar 2024 14:24:31 +0000
-Message-ID: <CAG7k0EoHs7WZrgL4ixZWvfc1VUv40pQe=qt8WTLMdQhBv54ngA@mail.gmail.com>
-Subject: Re: [PATCH 1/7] multiboot2: Add load type header and support for the
- PE binary type
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Daniel Kiper <daniel.kiper@oracle.com>, grub-devel@gnu.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/7] xen: Swap find_first_set_bit() for ffsl() - 1
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240313172716.2325427-1-andrew.cooper3@citrix.com>
+ <20240313172716.2325427-7-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240313172716.2325427-7-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Mar 14, 2024 at 1:37=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 14.03.2024 10:30, Ross Lagerwall wrote:
-> > On Thu, Mar 14, 2024 at 7:24=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >>
-> >> On 13.03.2024 16:07, Ross Lagerwall wrote:
-> >>> In addition to the existing address and ELF load types, specify a new
-> >>> optional PE binary load type. This new type is a useful addition sinc=
-e
-> >>> PE binaries can be signed and verified (i.e. used with Secure Boot).
-> >>
-> >> And the consideration to have ELF signable (by whatever extension to
-> >> the ELF spec) went nowhere?
-> >>
-> >
-> > I'm not sure if you're referring to some ongoing work to create signabl=
-e
-> > ELFs that I'm not aware of.
->
-> Something must have been invented already to make Linux modules signable.
+On 13.03.2024 18:27, Andrew Cooper wrote:
+> --- a/xen/drivers/passthrough/x86/iommu.c
+> +++ b/xen/drivers/passthrough/x86/iommu.c
+> @@ -641,7 +641,7 @@ struct page_info *iommu_alloc_pgtable(struct domain_iommu *hd,
+>      if ( contig_mask )
+>      {
+>          /* See pt-contig-markers.h for a description of the marker scheme. */
+> -        unsigned int i, shift = find_first_set_bit(contig_mask);
+> +        unsigned int i, shift = ffsl(contig_mask) - 1;
 
-Linux module signatures operate outside of the ELF container. In fact,
-AFAIK the actual signed content could be anything. The file format is:
+The need for subtracting 1 is why personally I dislike ffs() / ffsl() (and
+why I think find_first_set_bit() and __ffs() (but no __ffsl()) were
+introduced).
 
-* Content (i.e. ELF binary)
-* Signature of content in PKCS7 format
-* Signature info, including signature length
-* Magic marker: "~Module signature appended~\n"
+But what I first of all would like to have clarification on is what your
+(perhaps just abstract at this point) plans are wrt ffz() / ffzl().
+Potential side-by-side uses would be odd now, and would continue to be odd
+if the difference in bit labeling was retained. Since we're switching to
+a consolidated set of basic helpers, such an anomaly would better not
+survive imo.
 
-This kind of arrangement does indeed work but it is fragile. Since the
-signature is on the entire contents and tools that understand ELF don't
-parse the signature, any transformation of the binary (e.g. to
-strip out debuginfo) will cause the signature to be lost / invalidated.
-
-Nevertheless, this could still be an option for Xen if this is
-deemed to be a preferred solution by others. It would be good to hear
-some opinions on this.
-
->
-> > I didn't choose that route because:
-> >
-> > * Signed PE binaries are the current standard for Secure Boot.
-> >
-> > * Having signed ELF binaries would mean that code to handle them needs
-> > to be added to Shim which contravenes its goals of being small and
-> > simple to verify.
->
-> Both true, but neither goes entirely without saying, I suppose.
->
-> > * I could be wrong on this but to my knowledge, the ELF format is not
-> > being actively updated nor is the standard owned/maintained by a
-> > specific group which makes updating it difficult.
->
-> And PE/COFF isn't under control of a public entity / group afaik, which
-> may be viewed as no better, if not worse.
-
-Agreed, I guess my point was that PE/COFF doesn't need to be updated to
-support signing because it already supports it.
-
-Thanks,
-Ross
+Jan
 
