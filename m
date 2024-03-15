@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FF0387D357
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 19:09:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694033.1082897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBD4B87D34F
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 19:08:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694006.1082857 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rlC02-0001XC-5w; Fri, 15 Mar 2024 18:09:46 +0000
+	id 1rlByX-0006Vk-1L; Fri, 15 Mar 2024 18:08:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694033.1082897; Fri, 15 Mar 2024 18:09:46 +0000
+Received: by outflank-mailman (output) from mailman id 694006.1082857; Fri, 15 Mar 2024 18:08:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rlC02-0001VH-25; Fri, 15 Mar 2024 18:09:46 +0000
-Received: by outflank-mailman (input) for mailman id 694033;
- Fri, 15 Mar 2024 18:09:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mDue=KV=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rlBx5-0005yW-Ao
- for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 18:06:43 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c74b4bfc-e2f6-11ee-afdd-a90da7624cb6;
- Fri, 15 Mar 2024 19:06:42 +0100 (CET)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2d4698f4936so31765381fa.1
- for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 11:06:42 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- g29-20020a05651c079d00b002d0acb57c89sm568939lje.64.2024.03.15.11.06.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Mar 2024 11:06:41 -0700 (PDT)
+	id 1rlByW-0006T3-UD; Fri, 15 Mar 2024 18:08:12 +0000
+Received: by outflank-mailman (input) for mailman id 694006;
+ Fri, 15 Mar 2024 18:08:11 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rlByV-0006R8-Et; Fri, 15 Mar 2024 18:08:11 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rlByV-0000KT-6l; Fri, 15 Mar 2024 18:08:11 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rlByU-0003nB-OD; Fri, 15 Mar 2024 18:08:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rlByU-0008P6-NS; Fri, 15 Mar 2024 18:08:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,99 +42,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c74b4bfc-e2f6-11ee-afdd-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1710526002; x=1711130802; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jsMXEbuzvQgFJEn0K8X9h9yZxAaRur+Xb5WLOt3ikK8=;
-        b=gePbBkmJGKQc7GUheasZf2LMvRMy9qzQAbCCtTpR6vS63ZhiMsuFVE+vhkJfHAFHUD
-         8ZAlJ7jT/ylSclX+H8lLLDuP6fyRk4KHtqqyTLbU7YFfEO+ebsd/0ZYKFmTbUfTW0siU
-         oX4BfaqFMCB89EEZ6CjKp/J9rdu8raPd3fz3D9TP92OuLK+6eItrEbR6N2qZP2nLXqBO
-         t6PyhIyM0YXc7onWomajyNzqZFHBJUkNtgdAvQ8USE7mVgthHlpuGnIaKzC302DFaVTL
-         wjV8vd4ODsPn0rBp5Kkc/oRWbDm/1NQVytFlrGvzgd7yafUxqgVH6ZPao8UsK7m6U0wv
-         oLEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710526002; x=1711130802;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jsMXEbuzvQgFJEn0K8X9h9yZxAaRur+Xb5WLOt3ikK8=;
-        b=YUUZgP6k+2NuldVj0iyCIOLEN05bNnpyhCzegobsuNjB2Cyy0kBTEOtcd+r2+5Y+yZ
-         t2p4YP4+qOv0d5UwR9fXt3/v0+HKA+WLfkfLLSF0FyDT6hBdbbwl0mdQHchOWbO7fiUZ
-         vKExxoHERw8UqTXTJBhw7SAZDsY8l1gN/u8X4wg55Y4gD+PpbMfb5nKffENJLoOlFmpH
-         FsxyQL5ZccabRxV8B7qb64me+3YAI6TjCJMQIwfhQThY2hPX8NTgb2yg9lD92Lolk5Rl
-         EMszOGyH9ZTvh6AEzdeMWfoTP0d3A/X+M909L4w8mDclF5Jl73e6KvJ8ikINJnn7AVG4
-         Zebw==
-X-Gm-Message-State: AOJu0YzifmZR7nrh8iUrdmMOdHMaahbsg0bB9Og5MArfBoFE5w1apViW
-	9313EfU4NREMyeYnY6t89LK7wFM5UzCKyLQd9h2BGwlHN3efuT2DVmzlDCw0x/w=
-X-Google-Smtp-Source: AGHT+IE9dXphkeMbJR8ERhFEV7xr9bENpzyXUz8rXvndWu6/JOiC/7cONEq9zSxMkFaOAq+Cvy7U9Q==
-X-Received: by 2002:a2e:8806:0:b0:2d4:3c32:814d with SMTP id x6-20020a2e8806000000b002d43c32814dmr4122685ljh.26.1710526001704;
-        Fri, 15 Mar 2024 11:06:41 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=IfOeSQxn/kT/Iy+tzuw6Lq77GsSztYCqYSPCV4m7mWc=; b=AjAesQIraJgeJs51mjvvPG07hh
+	oH2GbQfcLiFTJIxHnBxRt7thk0K4KgaO7gEBBQnn2eo5UHwhkiK/FlMv+dItfgUZZmaC6kyTaTzOG
+	ly8LBOCA7zW3teBGb+60nnPtNACUKLcijvMsvaqB4zvY7e+YqbKXLDVGSdrP31rIKJWE=;
 To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v6 20/20] xen/README: add compiler and binutils versions for RISC-V64
-Date: Fri, 15 Mar 2024 19:06:16 +0100
-Message-ID: <6bbbc11bc16f31ee8b2a5f47405c61236c97d205.1710517542.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1710517542.git.oleksii.kurochko@gmail.com>
-References: <cover.1710517542.git.oleksii.kurochko@gmail.com>
-MIME-Version: 1.0
+Message-ID: <osstest-185050-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [seabios test] 185050: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    seabios=192e23b78418abc23a92a7174ae2294fabe4b8a3
+X-Osstest-Versions-That:
+    seabios=3722c21de19ba64de56495502c0c025b913a9b15
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 15 Mar 2024 18:08:10 +0000
 
-This patch doesn't represent a strict lower bound for GCC and
-GNU Binutils; rather, these versions are specifically employed by
-the Xen RISC-V container and are anticipated to undergo continuous
-testing. Older GCC and GNU Binutils would work,
-but this is not a guarantee.
+flight 185050 seabios real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185050/
 
-While it is feasible to utilize Clang, it's important to note that,
-currently, there is no Xen RISC-V CI job in place to verify the
-seamless functioning of the build with Clang.
+Failures :-/ but no regressions.
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- Changes in V6:
-  - update the message in README.
----
- Changes in V5:
-  - update the commit message and README file with additional explanation about GCC and
-    GNU Binutils version. Additionally, it was added information about Clang.
----
- Changes in V4:
-  - Update version of GCC (12.2) and GNU Binutils (2.39) to the version
-    which are in Xen's contrainter for RISC-V
----
- Changes in V3:
-  - new patch
----
- README | 4 ++++
- 1 file changed, 4 insertions(+)
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 185005
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 185005
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 185005
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 185005
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 185005
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
 
-diff --git a/README b/README
-index c8a108449e..30da5ff9c0 100644
---- a/README
-+++ b/README
-@@ -48,6 +48,10 @@ provided by your OS distributor:
-       - For ARM 64-bit:
-         - GCC 5.1 or later
-         - GNU Binutils 2.24 or later
-+      - For RISC-V 64-bit:
-+        - GCC 12.2 or later
-+        - GNU Binutils 2.39 or later
-+          Older GCC and GNU Binutils would work, but this is not a guarantee.
-     * POSIX compatible awk
-     * Development install of zlib (e.g., zlib-dev)
-     * Development install of Python 2.7 or later (e.g., python-dev)
--- 
-2.43.0
+version targeted for testing:
+ seabios              192e23b78418abc23a92a7174ae2294fabe4b8a3
+baseline version:
+ seabios              3722c21de19ba64de56495502c0c025b913a9b15
 
+Last test of basis   185005  2024-03-12 14:43:08 Z    3 days
+Testing same since   185050  2024-03-15 14:41:08 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Daniel Verkamp <daniel@drv.nu>
+  Kevin O'Connor <kevin@koconnor.net>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/seabios.git
+   3722c21..192e23b  192e23b78418abc23a92a7174ae2294fabe4b8a3 -> xen-tested-master
 
