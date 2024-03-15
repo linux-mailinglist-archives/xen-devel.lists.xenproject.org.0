@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A714C87CA72
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 10:13:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693703.1082089 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1974B87CA85
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 10:16:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693705.1082100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl3cP-0004Yl-Uv; Fri, 15 Mar 2024 09:12:49 +0000
+	id 1rl3g0-00058z-Dv; Fri, 15 Mar 2024 09:16:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693703.1082089; Fri, 15 Mar 2024 09:12:49 +0000
+Received: by outflank-mailman (output) from mailman id 693705.1082100; Fri, 15 Mar 2024 09:16:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl3cP-0004XA-SN; Fri, 15 Mar 2024 09:12:49 +0000
-Received: by outflank-mailman (input) for mailman id 693703;
- Fri, 15 Mar 2024 09:12:49 +0000
+	id 1rl3g0-00056o-Aq; Fri, 15 Mar 2024 09:16:32 +0000
+Received: by outflank-mailman (input) for mailman id 693705;
+ Fri, 15 Mar 2024 09:16:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZGBu=KV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rl3cP-0004X1-0G
- for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 09:12:49 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1rl3fy-00056b-Np
+ for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 09:16:30 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2f0cdb41-e2ac-11ee-a1ee-f123f15fe8a2;
- Fri, 15 Mar 2024 10:12:44 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a449c5411e1so239191466b.1
- for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 02:12:45 -0700 (PDT)
+ id b47066f1-e2ac-11ee-a1ee-f123f15fe8a2;
+ Fri, 15 Mar 2024 10:16:28 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a466f89560eso217391766b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 02:16:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h21-20020a17090619d500b00a46447348e8sm1510700ejd.191.2024.03.15.02.12.43
+ jo26-20020a170906f6da00b00a45f63d2959sm1509823ejb.210.2024.03.15.02.16.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Mar 2024 02:12:44 -0700 (PDT)
+ Fri, 15 Mar 2024 02:16:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f0cdb41-e2ac-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: b47066f1-e2ac-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710493964; x=1711098764; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710494188; x=1711098988; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=jVOgakGe8faeutUV1zRVP7AxkFZ6opIywJfJEZvuySI=;
-        b=cGJcag21FPF31XowVnHlhF5NwyDRLapFoDBrYRvRPc2+31P3dtIOYsN1v5QNP9cgBK
-         M0W4rdhqnm8Ck5Dc67jy8CBSNk+A5hQAqO03oPFeG1gPkpErfTYf522L9LUUREgD+GRT
-         2Gg2UMurxeCZfUu/QI2Ltadq4d1rTHVIUSXSvsl9n9EaixrKPG7SyA69Kuh6YHOL+gWM
-         Hc4QA+Q7uvNhV4F32NHk/bD/ojDsiYrJd/zttxsaK0R+9seZlnxwjoZ55edBSHu47yQe
-         OPRxDD+4vXIKvtHTlN366A0Ayt5L4NtFhBjfcelXot30N5LEzda1hDT7O8WdYJXvNQwA
-         gZGA==
+        bh=0hdcfZXt+BfhaR+5vj1AtvNow29vmEI8shV/8Y9XsK4=;
+        b=IkAc7qxrmFOk+3q8q4aB3UngiZyHgf/KVbNgldY1K9vxqIUJshx9ViohK88XYALdH8
+         g8SWaMgTkWnH6cKNkSmJ+a9dJmvBPmP6yJYYH2TDh6aLkYVLvJtCs3agnDVM8WjW4miR
+         3Us7Xa362Qzm4OMalkikt36zhvejNz4q/IheudTWeMXerukWJ28Ir1N0IiNtD+DIMdPe
+         a1yRpj0Ps9P4KnwM/eihhlGaeQ4STls+vBvdqUU103CiHJYPV5qswqlGg+zQoLEAPZZY
+         EV7bGOx1b2I0lRUFUtBRSgUskIjpKZQ7UUy1cessfvwwGvG0hWWFSVeyF00dGJI0Xi7w
+         2sxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710493964; x=1711098764;
+        d=1e100.net; s=20230601; t=1710494188; x=1711098988;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jVOgakGe8faeutUV1zRVP7AxkFZ6opIywJfJEZvuySI=;
-        b=YFVAccTAogZs5C4GUxRzfMf/AxpQZvq4sPQK6F0l2ArjJaXPaAKW9RRooB9slq0rWe
-         9rSaw3Bh2vbQmhTK1NCBb1dvhIcWF5q1QvjNkzQJaUk83aQq6j8Vmsy4IuA7lqwV27Us
-         jQXk8R6ZpMK02goqaTKI6vmMHiSzj6tvgqfMLWUVjRQ3BPf7HXZLNpG1BHXUL6G0JpAw
-         zXaBbH3vE10eli+TFKBSJQOxfMLC4Ux2qIgN3drD0hyw4xmwyXTXreVVTTB3D7vM4SJT
-         +TTU2JvL7u9ILsYiY5fxZClgPdrOgNOTMHVaaRHmPfXhdMR3BESt3YIn63ulp+SAhjnN
-         z2Vg==
-X-Forwarded-Encrypted: i=1; AJvYcCWCibu/nBVnzpMc5fJuRXlO6jAoJYtyGniTS2ESXliZgKqKKknTRRSy+JLS28EiHb0QKWi9/TXKpBTOUjzeH8C9PlDQ7tj/keO3zCzxPFI=
-X-Gm-Message-State: AOJu0YzrWtmYxfVCMhuZxQB7QCbWKoBSbStw3/J1JFwzdWb6rqd2ErgE
-	ww6OumhGAb0bIE5thp33XWbRRekKLkFaCOpBn0DfMHGRGbnv2QQHWU4voxg7WQ==
-X-Google-Smtp-Source: AGHT+IFGmhPGHf8xubxpEjvi8G1D1dt3RI7nSybuQy9yeA/Hkmp8/13SoUQlQ6sM6Xde7510j8u+WQ==
-X-Received: by 2002:a17:906:3545:b0:a46:1fb:1df with SMTP id s5-20020a170906354500b00a4601fb01dfmr2642544eja.42.1710493964451;
-        Fri, 15 Mar 2024 02:12:44 -0700 (PDT)
-Message-ID: <f3c56a60-2f66-4d9a-bd29-1e573122080d@suse.com>
-Date: Fri, 15 Mar 2024 10:12:42 +0100
+        bh=0hdcfZXt+BfhaR+5vj1AtvNow29vmEI8shV/8Y9XsK4=;
+        b=nKq3kQWDoiEaYCUfoJRN452fugBZzOMZBSPxgPmpQQWjOzBNSSrIwB/M9RIDmOwPc6
+         fO2oiU8Ks4Nk1QUKrboISaL+aHJhO0dfOyqw8JHSlvWnVhUs1EaG1b1J0DRSa+3s4o91
+         ADzss/Br/T/mJbeZP/wHRpcQtzdoh9OSf87F5ab8nHlJQbHBe+/zF4msi6wYmO936/KO
+         1IQ4IhIDEfXEXW9/WjQjfTkgc2VLvTFTkaybgSYYYxBOruQbYx1supIOBTRwYDfg7LLE
+         +HMXrwshgihWl+hU5iHGheM9mAiZosXcixDns62C+P8bqzmrDL9/dgmSka3I6QC3Z0Vp
+         2aoA==
+X-Forwarded-Encrypted: i=1; AJvYcCV1gHb6wWVk45ZODMaPJLLIGdjF5pr8r7S2fcc4yUiDAlAPmBDdpD10Tbms6S85p3O8+kyqJI8FmKYXvX8+IxPwMzV41HvMCvoCJeWYPcg=
+X-Gm-Message-State: AOJu0YwSqi2rBuVe79cMivGSzqgrw2lWuduDNHpyUFd9IiY08rYETUOX
+	mOJOj9ZNmAPZz8xxgPizskozgB2eajDh37uKap84gXZkSXyeL8msaEE2/AkWXA==
+X-Google-Smtp-Source: AGHT+IEdXWF6zuyRlPEeIIohOi3bLNcjKdTXo1CEPzeyiWowRjdJ7XHTUW1G2BIphG//lI8mIo70Rw==
+X-Received: by 2002:a17:906:a40c:b0:a46:2874:ecd5 with SMTP id l12-20020a170906a40c00b00a462874ecd5mr2472107ejz.55.1710494188344;
+        Fri, 15 Mar 2024 02:16:28 -0700 (PDT)
+Message-ID: <152e76ee-6e75-4881-aa88-313f0ae058be@suse.com>
+Date: Fri, 15 Mar 2024 10:16:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] automation/eclair: allow parameter name "unused"
+Subject: Re: [PATCH v3 5/9] xen/device-tree: Move Arm's setup.c bootinfo
+ functions to common
 Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <f2666bff183d5497b4993fdc27f6a66141ec8d85.1710433895.git.federico.serafini@bugseng.com>
+To: Shawn Anastasio <sanastasio@raptorengineering.com>
+Cc: tpearson@raptorengineering.com, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1710443965.git.sanastasio@raptorengineering.com>
+ <039524d4157dddb2faf6887739a727f6e993b53f.1710443965.git.sanastasio@raptorengineering.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,26 +118,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f2666bff183d5497b4993fdc27f6a66141ec8d85.1710433895.git.federico.serafini@bugseng.com>
+In-Reply-To: <039524d4157dddb2faf6887739a727f6e993b53f.1710443965.git.sanastasio@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.03.2024 17:35, Federico Serafini wrote:
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -157,6 +157,11 @@ Deviations related to MISRA C:2012 Rules:
->           - xen/common/unxz.c
->           - xen/common/unzstd.c
->  
-> +   * - R8.3
-> +     - Parameter name "unused" is deliberate and makes explicit the intention
-> +       of not using the parameter within the function.
-> +     - Tagged as `deliberate` for ECLAIR.
+On 14.03.2024 23:15, Shawn Anastasio wrote:
+> Arm's setup.c contains a collection of functions for parsing memory map
+> and other boot information from a device tree. Since these routines are
+> generally useful on any architecture that supports device tree booting,
+> move them into xen/common/device-tree.
+> 
+> Suggested-by: Julien Grall <julien@xen.org>
+> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+> ---
+>  MAINTAINERS                       |   1 +
+>  xen/arch/arm/setup.c              | 419 --------------------------
+>  xen/common/Makefile               |   1 +
+>  xen/common/device-tree/Makefile   |   1 +
+>  xen/common/device-tree/bootinfo.c | 469 ++++++++++++++++++++++++++++++
+>  5 files changed, 472 insertions(+), 419 deletions(-)
+>  create mode 100644 xen/common/device-tree/Makefile
+>  create mode 100644 xen/common/device-tree/bootinfo.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 56a6932037..e85fbe6737 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -301,6 +301,7 @@ M:	Stefano Stabellini <sstabellini@kernel.org>
+>  M:	Julien Grall <julien@xen.org>
+>  S:	Supported
+>  F:	xen/common/libfdt/
+> +F:	xen/common/device-tree/setup.c
 
-Before writing this, did you consider what is going to happen when a
-function happens to have more than one unused parameter? They can't all
-be named "unused", so some flexibility is needed here. E.g. by permitting
-a number to be appended.
+Perhaps more generally
+
+F:	xen/common/device-tree/
+
+?
 
 Jan
 
