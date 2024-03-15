@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CAED87CAC6
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 10:35:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693716.1082130 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 208A687CAD5
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 10:42:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693719.1082140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl3xd-000167-9Z; Fri, 15 Mar 2024 09:34:45 +0000
+	id 1rl43u-0002pI-VA; Fri, 15 Mar 2024 09:41:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693716.1082130; Fri, 15 Mar 2024 09:34:45 +0000
+Received: by outflank-mailman (output) from mailman id 693719.1082140; Fri, 15 Mar 2024 09:41:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl3xd-00013M-6X; Fri, 15 Mar 2024 09:34:45 +0000
-Received: by outflank-mailman (input) for mailman id 693716;
- Fri, 15 Mar 2024 09:34:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rl43u-0002mh-RU; Fri, 15 Mar 2024 09:41:14 +0000
+Received: by outflank-mailman (input) for mailman id 693719;
+ Fri, 15 Mar 2024 09:41:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZGBu=KV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rl3xc-00013G-79
- for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 09:34:44 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 40b20d66-e2af-11ee-afdd-a90da7624cb6;
- Fri, 15 Mar 2024 10:34:42 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a449c5411e1so242193966b.1
- for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 02:34:42 -0700 (PDT)
+ id 1rl43t-0002mb-Bm
+ for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 09:41:13 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 283aa5b9-e2b0-11ee-a1ee-f123f15fe8a2;
+ Fri, 15 Mar 2024 10:41:11 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-568a9c331a3so984948a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 02:41:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- sa15-20020a1709076d0f00b00a45bbeeea9asm1514832ejc.167.2024.03.15.02.34.41
+ es8-20020a056402380800b00568afb0e731sm410668edb.63.2024.03.15.02.41.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Mar 2024 02:34:42 -0700 (PDT)
+ Fri, 15 Mar 2024 02:41:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40b20d66-e2af-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 283aa5b9-e2b0-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710495282; x=1711100082; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710495671; x=1711100471; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=dhjjVOC80pNyBwiTU+xpcfNzWvp0QP/7r2RStgUYOWI=;
-        b=XwfiDxiKEZctADj2rDtK0rcI0fVEVGpETFZEM3JjK0psHL+aSxMhm2woF+mCTvrcCh
-         /WeLGxSIM8oWEJAuc0ODyVJNPyRmEMLamwpT2u6EkcB9KWgNWmtqxGmSg5ofMqNnDvmf
-         eyQXlQT6bTx5FV56QUwSmRxSaOIVMP31gmT1vHdaqOuLiH1HPUWedMVexbeA8e7UadrB
-         CbhmhjSIXCD+sFCRAKgRHG0XGYrM1QjKk4o5H2NK3gKPTEIh9622/xZBSZGXjxPJcDLd
-         CUu8FE/xR7AOdKoiUCBVbUXIUymyIQnD+oxG+8gA2lGzk7+RvjXsGWfcK4xq4pVyNiQZ
-         VHNA==
+        bh=teJnyWDQr2oaTGWwL+dBcI4Yobw/suAYoMyuPznVkAc=;
+        b=DiX/IOMawDU86xF/O6YXCpZp8WWc7JvsGxE9UPrknfpp5Wwk1y9wtIkbyHzc1fQC9L
+         0SplM/5rBDD9mz5XsY9MxOIboyKI3/J/0neUaJiPoymuI1Ze1SA1bQvRPllxa+lWOwkW
+         8k/vtRo8Tl6LzR7bBJ8dCuOInXifIVIUbSx0KLNEkmIlDoIf6w5Z6e+t6gyxkW/3NXQ2
+         u9mGlqKA94ea4j6ReNvpTuQ7aP2kSxxk9Hbo7IfZ6gMahA4LEnCh0/dVCfkNMVAwAIqq
+         U0FE0jYi78d/gZ5M49+tOpWgNLSk4pMIz5y3rbFIcuGp9nO9Ubc0ZcGKTEjFrtXv1U7o
+         XnZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710495282; x=1711100082;
+        d=1e100.net; s=20230601; t=1710495671; x=1711100471;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dhjjVOC80pNyBwiTU+xpcfNzWvp0QP/7r2RStgUYOWI=;
-        b=V4pwB3NU0Q8fNs0SQilSs508LKtDn3qqOsgYZEzbjI+HTA8l8MlyyrlWIGqxV/CJ3l
-         PuKAFasjZlzeL3V7+UNos3m/GwaesSu4DmbO0HJq+GT7JaSHQuCM35Lxm3mraOGi7mKi
-         l7FZZKFs+YkZOpNOaDYLYsb4Kd9doq5h+g0qaBMut1tTkB/oor26xDsH401ga19U0gLP
-         kBkxbd/ilL4HfK7CZbVKvJhgotvx1Ms6jSXx7ghRXUC1Sd3675tkuXmqca5+BGVrgZxS
-         DaN4QbMy+QDOQNoyJct1kLJzZwbAmJBoMQ+H/C3RcLuK+KlT+N6GowuhR3JwagIVTnZy
-         a6iw==
-X-Forwarded-Encrypted: i=1; AJvYcCWFOzYgbn0szv0yFfsGmT9NYfxTVm04MS0Kz7DrT0jWuDMkpw559EZN27Z7OcaqkuBq6EAPs6ap1PqzlVocGxjRFPpy6shvuCwvGSDguAI=
-X-Gm-Message-State: AOJu0YzuMGs1HAi2YVMLL12R+w2FNCdQjf+4gNisA+wQXgTIPiZ6mTRQ
-	phCq4HkD6EsNYQiwRWwLiBJGrLlp5NvtQOzHc2XsU/PmT2A8cYlbyPK987/1CQ==
-X-Google-Smtp-Source: AGHT+IHLkBNfzonNvhwYRmmMfxkDb1+FfnTIizyDzKMhmmkykGxyIvEnB4xtU5ydmZFT2CqI0Nooag==
-X-Received: by 2002:a17:906:6a1c:b0:a46:8d93:6c4d with SMTP id qw28-20020a1709066a1c00b00a468d936c4dmr590268ejc.25.1710495282445;
-        Fri, 15 Mar 2024 02:34:42 -0700 (PDT)
-Message-ID: <5a4533e5-c6f3-418c-811b-2bd0a631f1ad@suse.com>
-Date: Fri, 15 Mar 2024 10:34:40 +0100
+        bh=teJnyWDQr2oaTGWwL+dBcI4Yobw/suAYoMyuPznVkAc=;
+        b=aJ6zxCUdtjJ6e6OADPPPIUJAuer2i855PxY8au82B7S+n7CqZk5nJO0fOCojwQHuru
+         cGme50KdSoOkLU5cbgjGT/Usf9Axo6RkXIFv8wrqJqDs2M5PIr8iOpAP5b3k+hJkD+Le
+         t4vnXrjWFHnpB3sYtTbcAyxmKqvqDLm1JhAAyTqsiRpRiuiGj013XZAIqPE1/gKdvysa
+         SiwCG2v1B3+t2qaWQEA0hiT+HbSc944RFeoWJL8tkB5qFk9mSftcIMXGcnoxFacy4UIA
+         bOPgRm3I5Iuvgu6KQp3TTfB/DjHDnIJZhZMt55ZBNTgEszBPOTLvGUsW5E3gh2GUdoef
+         PD9g==
+X-Forwarded-Encrypted: i=1; AJvYcCVbKL0K58sM4I44VxI3LzOdJkM4uGpMi0yXrErAUSdBSId6VEbc88J7PSWvtXvY6xC9YSrU7eRNuEv8xe8eV+dyEigqxiHTFGGDjG7oHhs=
+X-Gm-Message-State: AOJu0YygdMpGc1lsB34adhLadLHn9X3YehfWlMlQ72ufxA/nCRrCgkj2
+	XeH4nXrYdZSyHQ10hvdczyHm9t1uAJlD54M+4Iva57hulChCM9gw7O4OIe6W3Q==
+X-Google-Smtp-Source: AGHT+IGbx8q4GVgXeOD+o0CxbRx07eT9Nw8gmt7lUBAYEvKqMQQplzoJsgzpF0hiBo5P8VCCavkuFw==
+X-Received: by 2002:a05:6402:538f:b0:564:dd13:56e9 with SMTP id ew15-20020a056402538f00b00564dd1356e9mr3332585edb.29.1710495670791;
+        Fri, 15 Mar 2024 02:41:10 -0700 (PDT)
+Message-ID: <6a76723e-ba47-40b3-8f33-d68030b14299@suse.com>
+Date: Fri, 15 Mar 2024 10:41:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] docs/misra/rules.rst: add rule 5.5
+Subject: Re: [PATCH v2] docs/misra: document the expected sizes of integer
+ types
 Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: andrew.cooper3@citrix.com, bertrand.marquis@arm.com,
  george.dunlap@citrix.com, julien@xen.org, michal.orzel@amd.com,
  roger.pau@citrix.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2403141733460.853156@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2403141516550.853156@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,38 +112,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2403141733460.853156@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2403141516550.853156@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.03.2024 01:35, Stefano Stabellini wrote:
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -181,6 +181,21 @@ maintainers if you want to suggest a change.
->         headers (xen/include/public/) are allowed to retain longer
->         identifiers for backward compatibility.
->  
-> +   * - `Rule 5.5 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_05.c>`_
-> +     - Required
-> +     - Identifiers shall be distinct from macro names
-> +     - Macros expanding to their own name are allowed, e.g.::
-> +
-> +           #define x x
-> +
-> +       Clashes between names of function-like macros and identifiers of
-> +       non-callable entities are allowed. Callable entities having an
-> +       identifier that is the same of the name of a
-> +       function-like macro are not allowed. Example (not allowed)::
-> +
-> +           #define f(x, y) f(x, y);
+On 14.03.2024 23:17, Stefano Stabellini wrote:
+> Xen makes assumptions about the size of integer types on the various
+> architectures. Document these assumptions.
 
-The semicolon here wants dropping, just to not give questionable constructs
-as examples.
-
-> +           void f(int x, int y);
-
-With this not allowed and there (iirc) being examples of such in the code,
-I'll be curious how it is meant to deal with them.
+My prior reservation wrt exact vs minimum sizes remains. Additionally,
+is it really meaningful to document x86-32 as an architecture, when it's
+been many years that the hypervisor cannot be built anymore for that
+target? If it's not (just) the hypervisor build that's intended to be
+covered here (the file living under docs/misra/, after all), can that
+further purpose please be mentioned?
 
 Jan
 
