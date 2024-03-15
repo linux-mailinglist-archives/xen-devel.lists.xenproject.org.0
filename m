@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F07187D0C6
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 16:56:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693924.1082627 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AAF587D118
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 17:20:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693931.1082637 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl9uX-0001dK-Ge; Fri, 15 Mar 2024 15:55:57 +0000
+	id 1rlAHV-000694-Af; Fri, 15 Mar 2024 16:19:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693924.1082627; Fri, 15 Mar 2024 15:55:57 +0000
+Received: by outflank-mailman (output) from mailman id 693931.1082637; Fri, 15 Mar 2024 16:19:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl9uX-0001aW-Dw; Fri, 15 Mar 2024 15:55:57 +0000
-Received: by outflank-mailman (input) for mailman id 693924;
- Fri, 15 Mar 2024 15:55:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rlAHV-00066w-7w; Fri, 15 Mar 2024 16:19:41 +0000
+Received: by outflank-mailman (input) for mailman id 693931;
+ Fri, 15 Mar 2024 16:19:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=S0HQ=KV=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rl9uV-0001aM-At
- for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 15:55:55 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8010c385-e2e4-11ee-a1ee-f123f15fe8a2;
- Fri, 15 Mar 2024 16:55:52 +0100 (CET)
-Received: from nico.bugseng.com (unknown [46.228.253.194])
- by support.bugseng.com (Postfix) with ESMTPSA id 886D54EE073C;
- Fri, 15 Mar 2024 16:55:51 +0100 (CET)
+ <SRS0=9knB=KV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rlAHU-00066q-6a
+ for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 16:19:40 +0000
+Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
+ [2607:f8b0:4864:20::f2c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d1bdf95a-e2e7-11ee-afdd-a90da7624cb6;
+ Fri, 15 Mar 2024 17:19:38 +0100 (CET)
+Received: by mail-qv1-xf2c.google.com with SMTP id
+ 6a1803df08f44-690c1747c3cso20834606d6.0
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 09:19:38 -0700 (PDT)
+Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ gg8-20020a056214252800b00690befbe5a5sm2165055qvb.74.2024.03.15.09.19.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 15 Mar 2024 09:19:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,880 +45,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8010c385-e2e4-11ee-a1ee-f123f15fe8a2
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: nicola.vetrini@bugseng.com,
-	xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [XEN PATCH v3] amd/iommu: clean up unused guest iommu related functions
-Date: Fri, 15 Mar 2024 16:55:39 +0100
-Message-Id: <98fef1239e4f0e756daf863a9e4e7bb679baa264.1710518105.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: d1bdf95a-e2e7-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1710519577; x=1711124377; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=CKu39slrG6a1VHtNDYlfaSJE1xOSh8axePXwE8pvjAU=;
+        b=aShxp+o+L0vL7eb1VGdusHz33qT4jywa3ITUeOJ/WL+kjk+rBh2qC288mjKPqFPTiQ
+         1ADweh4PdDPskLr6+FuJuUF9kvQXAblm1dl43RDcvB5VF0vEXEyEAZgIbeXCmuG7usVV
+         v+mcejb3Y902VzSvXPXZ5HOqFL60sLIDFYNPI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710519577; x=1711124377;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=CKu39slrG6a1VHtNDYlfaSJE1xOSh8axePXwE8pvjAU=;
+        b=MwxRcLWwRGJin5STAVbrjFeu2OedOgcWs3F74M8Zp1zPhsqn+cU0lxQ1xNU8OIQasi
+         nK7TioQfZXssnPPinotb4+vYcm6mQxM86GeNCycJ2itTWlHRCnQExvtbIWKu0iaZsmC2
+         N7cMnZsXtakf3EZZVJP4Su/iPEeD87qu2b7QfrnGaW51J2GA3BOjx1v2o4pG0eAlhAD0
+         zIL3rEXTJL2Tp3OtOkcCGrnN1ysY48l0WW6fK2lvBvRw8BzkHqZq6o2GpNDaw94dzuxm
+         hVr2A4Q+MX4wUlN7GPLXMYlugRnWFd8s66YN85sN7ScSDqhLhoLMxB52vlBOmuZnOUmo
+         LmLA==
+X-Gm-Message-State: AOJu0YwRHIYYyImKme3yQ4vSPwNGTWpVHgVUP4Ve3O07kREkPOnrejUS
+	9G3VVfcBjHbccFp/l4qOEVIK1qM96HG8xhOb1/QH7mt/c+4f+kNRyhL62d40KI31X/s9sPmCKLI
+	2
+X-Google-Smtp-Source: AGHT+IFlA/OyynrsC5394jj0QMAwobbYSi/kX11eVpi5V7h2Mpeg4vY4wqUHPgCKvwUzUZ8Po1dRVA==
+X-Received: by 2002:a0c:f2d0:0:b0:690:d4e7:1374 with SMTP id c16-20020a0cf2d0000000b00690d4e71374mr9548918qvm.13.1710519577378;
+        Fri, 15 Mar 2024 09:19:37 -0700 (PDT)
+Message-ID: <38ed2c56-67f3-4d6d-9766-38a294661af6@citrix.com>
+Date: Fri, 15 Mar 2024 16:19:34 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/vpci: Improve code generation in mask_write()
+Content-Language: en-GB
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240315121322.3300387-1-andrew.cooper3@citrix.com>
+ <ZfRlo2mzARgue1cz@macbook>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <ZfRlo2mzARgue1cz@macbook>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Delete unused functions from 'iommu_guest.c'.
+On 15/03/2024 3:13 pm, Roger Pau Monné wrote:
+> On Fri, Mar 15, 2024 at 12:13:22PM +0000, Andrew Cooper wrote:
+>> The use of __clear_bit() forces dmask to be spilled to the stack, and
+>> interferes with the compiler heuristcs for some upcoming improvements to the
+>> ffs() code generation.
+>>
+>> First, shrink dmask to just the active vectors by making out the upper bits.
+>> This replaces the "i < msi->vectors" part of the loop condition.
+>>
+>> Next, use a simple while() loop with "clear bottom bit" expressed in plane C,
+>> which affords the optimiser a far better understanding of what the loop is
+>> doing.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>
+>> Noticed when looking at the ffs() code gen improvements.
+>>
+>> Any suggestion on how to test this?  test_vcpi doesn't seem to check anything
+>> here.  I think I've got the boundary conditions for msi->vectors right, but
+>> I'd be lying if I said I was certain...
+> There's no easy way to test this because it relies on having a PCI
+> device underneath.  test_vpci just checks the logic to add & remove
+> handlers, but doesn't get remotely close as to attempting to provide
+> some kind of dummy environment for pass through to be sanity tested.
+>
+> I should look into it.
+>
+>> bloat-o-meter reports:
+>>
+>>   add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-28 (-28)
+>>   Function                                     old     new   delta
+>>   mask_write                                   142     114     -28
+>>
+>> which is a consequence of the compiler having a much better idea of what's
+>> going on in the loop.  There's more to come with the ffs() improvements too.
+>> ---
+>>  xen/drivers/vpci/msi.c | 10 ++++++----
+>>  1 file changed, 6 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
+>> index d3aa5df08941..30adcf7df05d 100644
+>> --- a/xen/drivers/vpci/msi.c
+>> +++ b/xen/drivers/vpci/msi.c
+>> @@ -169,13 +169,15 @@ static void cf_check mask_write(
+>>  
+>>      if ( msi->enabled )
+>>      {
+>> -        unsigned int i;
+>> +        /* Skip changes to vectors which aren't enabled. */
+>> +        dmask &= (~0U >> (32 - msi->vectors));
+> Do we need to ASSERT that msi->vectors <= 32 in order to avoid
+> theoretical UB?
 
-No functional change.
+I don't think so.  Things have gone catastrophically wrong elsewhere to
+get here with 64 or 128.
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
-guest_iommu_add_ptr_log has still one caller, but even that seems
-suspicious. I left it in and uniformed its parameter type at the
-moment, so that whether it should be kept can be sorted out later.
-If that caller indeed should be removed as well, then
-no function in the file is actually reachable as far as I can tell.
+All this does is stop calling the set-mask callback for disabled vectors.
 
-Changes in v2:
-- change parameter type to uint32_t
-- remove unused functions
-Changes in v3:
-- also remove amd_iommu_send_guest_cmd
----
- xen/drivers/passthrough/amd/iommu.h       |   7 +-
- xen/drivers/passthrough/amd/iommu_cmd.c   |   7 -
- xen/drivers/passthrough/amd/iommu_guest.c | 762 +---------------------
- 3 files changed, 2 insertions(+), 774 deletions(-)
-
-diff --git a/xen/drivers/passthrough/amd/iommu.h b/xen/drivers/passthrough/amd/iommu.h
-index 1b62c083ba67..65de88217c07 100644
---- a/xen/drivers/passthrough/amd/iommu.h
-+++ b/xen/drivers/passthrough/amd/iommu.h
-@@ -346,12 +346,7 @@ void cf_check amd_iommu_crash_shutdown(void);
- 
- /* guest iommu support */
- #ifdef CONFIG_HVM
--void amd_iommu_send_guest_cmd(struct amd_iommu *iommu, u32 cmd[]);
--void guest_iommu_add_ppr_log(struct domain *d, u32 entry[]);
--void guest_iommu_add_event_log(struct domain *d, u32 entry[]);
--int guest_iommu_init(struct domain* d);
--void guest_iommu_destroy(struct domain *d);
--int guest_iommu_set_base(struct domain *d, uint64_t base);
-+void guest_iommu_add_ppr_log(struct domain *d, uint32_t entry[]);
- #else
- static inline void guest_iommu_add_ppr_log(struct domain *d, uint32_t entry[]) {}
- #endif
-diff --git a/xen/drivers/passthrough/amd/iommu_cmd.c b/xen/drivers/passthrough/amd/iommu_cmd.c
-index 49b9fcac9410..83c525b84f91 100644
---- a/xen/drivers/passthrough/amd/iommu_cmd.c
-+++ b/xen/drivers/passthrough/amd/iommu_cmd.c
-@@ -389,10 +389,3 @@ void amd_iommu_flush_all_caches(struct amd_iommu *iommu)
-     invalidate_iommu_all(iommu);
-     flush_command_buffer(iommu, 0);
- }
--
--void amd_iommu_send_guest_cmd(struct amd_iommu *iommu, u32 cmd[])
--{
--    send_iommu_command(iommu, cmd);
--    /* TBD: Timeout selection may require peeking into cmd[]. */
--    flush_command_buffer(iommu, 0);
--}
-diff --git a/xen/drivers/passthrough/amd/iommu_guest.c b/xen/drivers/passthrough/amd/iommu_guest.c
-index 4c4252eea116..19bd2e5d8e63 100644
---- a/xen/drivers/passthrough/amd/iommu_guest.c
-+++ b/xen/drivers/passthrough/amd/iommu_guest.c
-@@ -20,28 +20,7 @@
- 
- #include "iommu.h"
- 
--#define IOMMU_MMIO_SIZE                         0x8000
--#define IOMMU_MMIO_PAGE_NR                      0x8
--#define RING_BF_LENGTH_MASK                     0x0F000000
--#define RING_BF_LENGTH_SHIFT                    24
--
--#define PASMAX_9_bit                            0x8
--#define GUEST_CR3_1_LEVEL                       0x0
--#define GUEST_ADDRESS_SIZE_6_LEVEL              0x2
--#define HOST_ADDRESS_SIZE_6_LEVEL               0x2
--
- #define reg_to_u64(reg) (((uint64_t)reg.hi << 32) | reg.lo )
--#define u64_to_reg(reg, val) \
--    do \
--    { \
--        (reg)->lo = (u32)(val); \
--        (reg)->hi = (val) >> 32; \
--    } while (0)
--
--static unsigned int get_machine_bdf(struct domain *d, uint16_t guest_bdf)
--{
--    return guest_bdf;
--}
- 
- static uint16_t get_guest_bdf(struct domain *d, uint16_t machine_bdf)
- {
-@@ -53,62 +32,6 @@ static inline struct guest_iommu *domain_iommu(struct domain *d)
-     return dom_iommu(d)->arch.amd.g_iommu;
- }
- 
--static inline struct guest_iommu *vcpu_iommu(struct vcpu *v)
--{
--    return dom_iommu(v->domain)->arch.amd.g_iommu;
--}
--
--static void guest_iommu_enable(struct guest_iommu *iommu)
--{
--    iommu->enabled = 1;
--}
--
--static void guest_iommu_disable(struct guest_iommu *iommu)
--{
--    iommu->enabled = 0;
--}
--
--/*
-- * The Guest CR3 Table is a table written by the guest kernel, pointing at
-- * gCR3 values for PASID transactions to use.  The Device Table Entry points
-- * at a system physical address.
-- *
-- * However, these helpers deliberately use untyped parameters without
-- * reference to gfn/mfn because they are used both for programming the real
-- * IOMMU, and interpreting a guests programming of its vIOMMU.
-- */
--static uint64_t dte_get_gcr3_table(const struct amd_iommu_dte *dte)
--{
--    return (((uint64_t)dte->gcr3_trp_51_31 << 31) |
--            (dte->gcr3_trp_30_15 << 15) |
--            (dte->gcr3_trp_14_12 << 12));
--}
--
--static void dte_set_gcr3_table(struct amd_iommu_dte *dte, uint16_t dom_id,
--                               uint64_t addr, bool gv, uint8_t glx)
--{
--#define GCR3_MASK(hi, lo) (((1UL << ((hi) + 1)) - 1) & ~((1UL << (lo)) - 1))
--
--    /* I bit must be set when gcr3 is enabled */
--    dte->i = true;
--
--    dte->gcr3_trp_14_12 = MASK_EXTR(addr, GCR3_MASK(14, 12));
--    dte->gcr3_trp_30_15 = MASK_EXTR(addr, GCR3_MASK(30, 15));
--    dte->gcr3_trp_51_31 = MASK_EXTR(addr, GCR3_MASK(51, 31));
--
--    dte->domain_id = dom_id;
--    dte->glx = glx;
--    dte->gv = gv;
--
--#undef GCR3_MASK
--}
--
--static unsigned int host_domid(struct domain *d, uint64_t g_domid)
--{
--    /* Only support one PPR device in guest for now */
--    return d->domain_id;
--}
--
- static unsigned long get_gfn_from_base_reg(uint64_t base_raw)
- {
-     base_raw &= PADDR_MASK;
-@@ -146,24 +69,6 @@ static unsigned long guest_iommu_get_table_mfn(struct domain *d,
-     return mfn;
- }
- 
--static void guest_iommu_enable_dev_table(struct guest_iommu *iommu)
--{
--    uint32_t length_raw = get_field_from_reg_u32(iommu->dev_table.reg_base.lo,
--                                                 IOMMU_DEV_TABLE_SIZE_MASK,
--                                                 IOMMU_DEV_TABLE_SIZE_SHIFT);
--    iommu->dev_table.size = (length_raw + 1) * PAGE_SIZE;
--}
--
--static void guest_iommu_enable_ring_buffer(struct guest_iommu *iommu,
--                                           struct guest_buffer *buffer,
--                                           uint32_t entry_size)
--{
--    uint32_t length_raw = get_field_from_reg_u32(buffer->reg_base.hi,
--                                                 RING_BF_LENGTH_MASK,
--                                                 RING_BF_LENGTH_SHIFT);
--    buffer->size = entry_size << length_raw;
--}
--
- void guest_iommu_add_ppr_log(struct domain *d, u32 entry[])
- {
-     uint16_t gdev_id;
-@@ -184,7 +89,7 @@ void guest_iommu_add_ppr_log(struct domain *d, u32 entry[])
-     if ( tail >= iommu->ppr_log.size || head >= iommu->ppr_log.size )
-     {
-         AMD_IOMMU_DEBUG("Error: guest iommu ppr log overflows\n");
--        guest_iommu_disable(iommu);
-+        iommu->enabled = 0;
-         return;
-     }
- 
-@@ -213,668 +118,3 @@ void guest_iommu_add_ppr_log(struct domain *d, u32 entry[])
- 
-     guest_iommu_deliver_msi(d);
- }
--
--void guest_iommu_add_event_log(struct domain *d, u32 entry[])
--{
--    uint16_t dev_id;
--    unsigned long mfn, tail, head;
--    event_entry_t *log;
--    struct guest_iommu *iommu;
--
--    if ( !is_hvm_domain(d) )
--        return;
--
--    iommu = domain_iommu(d);
--    if ( !iommu )
--        return;
--
--    tail = iommu->event_log.reg_tail.lo;
--    head = iommu->event_log.reg_head.lo;
--
--    if ( tail >= iommu->event_log.size || head >= iommu->event_log.size )
--    {
--        AMD_IOMMU_DEBUG("Error: guest iommu event overflows\n");
--        guest_iommu_disable(iommu);
--        return;
--    }
--
--    mfn = guest_iommu_get_table_mfn(d, reg_to_u64(iommu->event_log.reg_base),
--                                    tail);
--    ASSERT(mfn_valid(_mfn(mfn)));
--
--    log = map_domain_page(_mfn(mfn)) + (tail & ~PAGE_MASK);
--
--    /* re-write physical device id into virtual device id */
--    dev_id = get_guest_bdf(d, iommu_get_devid_from_cmd(entry[0]));
--    iommu_set_devid_to_cmd(&entry[0], dev_id);
--    memcpy(log, entry, sizeof(event_entry_t));
--
--    /* Now shift event log tail pointer */
--    tail += sizeof(event_entry_t);
--    if ( tail >= iommu->event_log.size )
--    {
--        tail = 0;
--        iommu->reg_status.lo |= IOMMU_STATUS_EVENT_LOG_OVERFLOW;
--    }
--
--    iommu->event_log.reg_tail.lo = tail;
--    unmap_domain_page(log);
--
--    guest_iommu_deliver_msi(d);
--}
--
--static int do_complete_ppr_request(struct domain *d, cmd_entry_t *cmd)
--{
--    uint16_t dev_id;
--    struct amd_iommu *iommu;
--
--    dev_id = get_machine_bdf(d, iommu_get_devid_from_cmd(cmd->data[0]));
--    iommu = find_iommu_for_device(0, dev_id);
--
--    if ( !iommu )
--    {
--        AMD_IOMMU_DEBUG("%s: Fail to find iommu for bdf %x\n",
--                        __func__, dev_id);
--        return -ENODEV;
--    }
--
--    /* replace virtual device id into physical */
--    iommu_set_devid_to_cmd(&cmd->data[0], dev_id);
--    amd_iommu_send_guest_cmd(iommu, cmd->data);
--
--    return 0;
--}
--
--static int do_invalidate_pages(struct domain *d, cmd_entry_t *cmd)
--{
--    uint16_t gdom_id, hdom_id;
--    struct amd_iommu *iommu = NULL;
--
--    gdom_id = get_field_from_reg_u32(cmd->data[1],
--                                    IOMMU_INV_IOMMU_PAGES_DOMAIN_ID_MASK,
--                                    IOMMU_INV_IOMMU_PAGES_DOMAIN_ID_SHIFT);
--
--    hdom_id = host_domid(d, gdom_id);
--    set_field_in_reg_u32(hdom_id, cmd->data[1],
--                         IOMMU_INV_IOMMU_PAGES_DOMAIN_ID_MASK,
--                         IOMMU_INV_IOMMU_PAGES_DOMAIN_ID_SHIFT, &cmd->data[1]);
--
--    for_each_amd_iommu ( iommu )
--        amd_iommu_send_guest_cmd(iommu, cmd->data);
--
--    return 0;
--}
--
--static int do_invalidate_all(struct domain *d, cmd_entry_t *cmd)
--{
--    struct amd_iommu *iommu = NULL;
--
--    for_each_amd_iommu ( iommu )
--        amd_iommu_flush_all_pages(d);
--
--    return 0;
--}
--
--static int do_invalidate_iotlb_pages(struct domain *d, cmd_entry_t *cmd)
--{
--    struct amd_iommu *iommu;
--    uint16_t dev_id;
--
--    dev_id = get_machine_bdf(d, iommu_get_devid_from_cmd(cmd->data[0]));
--
--    iommu = find_iommu_for_device(0, dev_id);
--    if ( !iommu )
--    {
--        AMD_IOMMU_DEBUG("%s: Fail to find iommu for bdf %x\n",
--                         __func__, dev_id);
--        return -ENODEV;
--    }
--
--    iommu_set_devid_to_cmd(&cmd->data[0], dev_id);
--    amd_iommu_send_guest_cmd(iommu, cmd->data);
--
--    return 0;
--}
--
--static int do_completion_wait(struct domain *d, cmd_entry_t *cmd)
--{
--    bool com_wait_int, i, s;
--    struct guest_iommu *iommu;
--    unsigned long gfn;
--    p2m_type_t p2mt;
--
--    iommu = domain_iommu(d);
--
--    i = cmd->data[0] & IOMMU_COMP_WAIT_I_FLAG_MASK;
--    s = cmd->data[0] & IOMMU_COMP_WAIT_S_FLAG_MASK;
--
--    if ( i )
--        iommu->reg_status.lo |= IOMMU_STATUS_COMP_WAIT_INT;
--
--    if ( s )
--    {
--        uint64_t gaddr_lo, gaddr_hi, gaddr_64, data;
--        void *vaddr;
--
--        data = (uint64_t)cmd->data[3] << 32 | cmd->data[2];
--        gaddr_lo = get_field_from_reg_u32(cmd->data[0],
--                                          IOMMU_COMP_WAIT_ADDR_LOW_MASK,
--                                          IOMMU_COMP_WAIT_ADDR_LOW_SHIFT);
--        gaddr_hi = get_field_from_reg_u32(cmd->data[1],
--                                          IOMMU_COMP_WAIT_ADDR_HIGH_MASK,
--                                          IOMMU_COMP_WAIT_ADDR_HIGH_SHIFT);
--
--        gaddr_64 = (gaddr_hi << 32) | (gaddr_lo << 3);
--
--        gfn = gaddr_64 >> PAGE_SHIFT;
--        vaddr = map_domain_page(get_gfn(d, gfn ,&p2mt));
--        put_gfn(d, gfn);
--
--        write_u64_atomic((uint64_t *)(vaddr + (gaddr_64 & (PAGE_SIZE-1))),
--                         data);
--        unmap_domain_page(vaddr);
--    }
--
--    com_wait_int = iommu->reg_status.lo & IOMMU_STATUS_COMP_WAIT_INT;
--
--    if ( iommu->reg_ctrl.com_wait_int_en && com_wait_int )
--        guest_iommu_deliver_msi(d);
--
--    return 0;
--}
--
--static int do_invalidate_dte(struct domain *d, cmd_entry_t *cmd)
--{
--    uint16_t gbdf, mbdf, req_id, gdom_id, hdom_id, prev_domid;
--    struct amd_iommu_dte *gdte, *mdte, *dte_base;
--    struct amd_iommu *iommu = NULL;
--    struct guest_iommu *g_iommu;
--    uint64_t gcr3_gfn, gcr3_mfn;
--    uint8_t glx, gv;
--    unsigned long dte_mfn, flags;
--    p2m_type_t p2mt;
--
--    g_iommu = domain_iommu(d);
--    gbdf = iommu_get_devid_from_cmd(cmd->data[0]);
--    mbdf = get_machine_bdf(d, gbdf);
--
--    /* Guest can only update DTEs for its passthru devices */
--    if ( mbdf == 0 || gbdf == 0 )
--        return 0;
--
--    /* Sometimes guest invalidates devices from non-exists dtes */
--    if ( (gbdf * sizeof(struct amd_iommu_dte)) > g_iommu->dev_table.size )
--        return 0;
--
--    dte_mfn = guest_iommu_get_table_mfn(d,
--                                        reg_to_u64(g_iommu->dev_table.reg_base),
--                                        sizeof(struct amd_iommu_dte) * gbdf);
--    ASSERT(mfn_valid(_mfn(dte_mfn)));
--
--    /* Read guest dte information */
--    dte_base = map_domain_page(_mfn(dte_mfn));
--
--    gdte = &dte_base[gbdf % (PAGE_SIZE / sizeof(struct amd_iommu_dte))];
--
--    gdom_id = gdte->domain_id;
--    gcr3_gfn = dte_get_gcr3_table(gdte) >> PAGE_SHIFT;
--    glx = gdte->glx;
--    gv = gdte->gv;
--
--    unmap_domain_page(dte_base);
--
--    /* Do not update host dte before gcr3 has been set */
--    if ( gcr3_gfn == 0 )
--        return 0;
--
--    gcr3_mfn = mfn_x(get_gfn(d, gcr3_gfn, &p2mt));
--    put_gfn(d, gcr3_gfn);
--
--    ASSERT(mfn_valid(_mfn(gcr3_mfn)));
--
--    iommu = find_iommu_for_device(0, mbdf);
--    if ( !iommu )
--    {
--        AMD_IOMMU_DEBUG("%s: Fail to find iommu for bdf %x!\n",
--                        __func__, mbdf);
--        return -ENODEV;
--    }
--
--    /* Setup host device entry */
--    hdom_id = host_domid(d, gdom_id);
--    req_id = get_dma_requestor_id(iommu->seg, mbdf);
--    dte_base = iommu->dev_table.buffer;
--    mdte = &dte_base[req_id];
--    prev_domid = mdte->domain_id;
--
--    spin_lock_irqsave(&iommu->lock, flags);
--    dte_set_gcr3_table(mdte, hdom_id, gcr3_mfn << PAGE_SHIFT, gv, glx);
--
--    spin_unlock_irqrestore(&iommu->lock, flags);
--
--    amd_iommu_flush_device(iommu, req_id, prev_domid);
--
--    return 0;
--}
--
--static void cf_check guest_iommu_process_command(void *data)
--{
--    unsigned long opcode, tail, head, cmd_mfn;
--    cmd_entry_t *cmd;
--    struct domain *d = data;
--    struct guest_iommu *iommu;
--
--    iommu = domain_iommu(d);
--
--    if ( !iommu->enabled )
--        return;
--
--    head = iommu->cmd_buffer.reg_head.lo;
--    tail = iommu->cmd_buffer.reg_tail.lo;
--
--    /* Tail pointer is rolled over by guest driver, value outside
--     * cmd_buffer_entries cause iommu disabled
--     */
--
--    if ( tail >= iommu->cmd_buffer.size || head >= iommu->cmd_buffer.size )
--    {
--        AMD_IOMMU_DEBUG("Error: guest iommu cmd buffer overflows\n");
--        guest_iommu_disable(iommu);
--        return;
--    }
--
--    while ( head != tail )
--    {
--        int ret = 0;
--
--        cmd_mfn = guest_iommu_get_table_mfn(d,
--                                            reg_to_u64(iommu->cmd_buffer.reg_base),
--                                            head);
--        ASSERT(mfn_valid(_mfn(cmd_mfn)));
--
--        cmd = map_domain_page(_mfn(cmd_mfn)) + (head & ~PAGE_MASK);
--
--        opcode = get_field_from_reg_u32(cmd->data[1],
--                                        IOMMU_CMD_OPCODE_MASK,
--                                        IOMMU_CMD_OPCODE_SHIFT);
--        switch ( opcode )
--        {
--        case IOMMU_CMD_COMPLETION_WAIT:
--            ret = do_completion_wait(d, cmd);
--            break;
--        case IOMMU_CMD_INVALIDATE_DEVTAB_ENTRY:
--            ret = do_invalidate_dte(d, cmd);
--            break;
--        case IOMMU_CMD_INVALIDATE_IOMMU_PAGES:
--            ret = do_invalidate_pages(d, cmd);
--            break;
--        case IOMMU_CMD_INVALIDATE_IOTLB_PAGES:
--            ret = do_invalidate_iotlb_pages(d, cmd);
--            break;
--        case IOMMU_CMD_INVALIDATE_INT_TABLE:
--            break;
--        case IOMMU_CMD_COMPLETE_PPR_REQUEST:
--            ret = do_complete_ppr_request(d, cmd);
--            break;
--        case IOMMU_CMD_INVALIDATE_IOMMU_ALL:
--            ret = do_invalidate_all(d, cmd);
--            break;
--        default:
--            AMD_IOMMU_DEBUG("CMD: Unknown command cmd_type = %lx "
--                            "head = %ld\n", opcode, head);
--            break;
--        }
--
--        unmap_domain_page(cmd);
--        head += sizeof(cmd_entry_t);
--        if ( head >= iommu->cmd_buffer.size )
--            head = 0;
--        if ( ret )
--            guest_iommu_disable(iommu);
--    }
--
--    /* Now shift cmd buffer head pointer */
--    iommu->cmd_buffer.reg_head.lo = head;
--    return;
--}
--
--static int guest_iommu_write_ctrl(struct guest_iommu *iommu, uint64_t val)
--{
--    union amd_iommu_control newctrl = { .raw = val };
--
--    if ( newctrl.iommu_en )
--    {
--        guest_iommu_enable(iommu);
--        guest_iommu_enable_dev_table(iommu);
--    }
--
--    if ( newctrl.iommu_en && newctrl.cmd_buf_en )
--    {
--        guest_iommu_enable_ring_buffer(iommu, &iommu->cmd_buffer,
--                                       sizeof(cmd_entry_t));
--        /* Enable iommu command processing */
--        tasklet_schedule(&iommu->cmd_buffer_tasklet);
--    }
--
--    if ( newctrl.iommu_en && newctrl.event_log_en )
--    {
--        guest_iommu_enable_ring_buffer(iommu, &iommu->event_log,
--                                       sizeof(event_entry_t));
--        iommu->reg_status.lo |=  IOMMU_STATUS_EVENT_LOG_RUN;
--        iommu->reg_status.lo &= ~IOMMU_STATUS_EVENT_LOG_OVERFLOW;
--    }
--
--    if ( newctrl.iommu_en && newctrl.ppr_en && newctrl.ppr_log_en )
--    {
--        guest_iommu_enable_ring_buffer(iommu, &iommu->ppr_log,
--                                       sizeof(ppr_entry_t));
--        iommu->reg_status.lo |=  IOMMU_STATUS_PPR_LOG_RUN;
--        iommu->reg_status.lo &= ~IOMMU_STATUS_PPR_LOG_OVERFLOW;
--    }
--
--    if ( newctrl.iommu_en && iommu->reg_ctrl.cmd_buf_en &&
--         !newctrl.cmd_buf_en )
--    {
--        /* Disable iommu command processing */
--        tasklet_kill(&iommu->cmd_buffer_tasklet);
--    }
--
--    if ( iommu->reg_ctrl.event_log_en && !newctrl.event_log_en )
--        iommu->reg_status.lo &= ~IOMMU_STATUS_EVENT_LOG_RUN;
--
--    if ( iommu->reg_ctrl.iommu_en && !newctrl.iommu_en )
--        guest_iommu_disable(iommu);
--
--    iommu->reg_ctrl = newctrl;
--
--    return 0;
--}
--
--static uint64_t iommu_mmio_read64(struct guest_iommu *iommu,
--                                  unsigned long offset)
--{
--    uint64_t val;
--
--    switch ( offset )
--    {
--    case IOMMU_DEV_TABLE_BASE_LOW_OFFSET:
--        val = reg_to_u64(iommu->dev_table.reg_base);
--        break;
--    case IOMMU_CMD_BUFFER_BASE_LOW_OFFSET:
--        val = reg_to_u64(iommu->cmd_buffer.reg_base);
--        break;
--    case IOMMU_EVENT_LOG_BASE_LOW_OFFSET:
--        val = reg_to_u64(iommu->event_log.reg_base);
--        break;
--    case IOMMU_PPR_LOG_BASE_LOW_OFFSET:
--        val = reg_to_u64(iommu->ppr_log.reg_base);
--        break;
--    case IOMMU_CMD_BUFFER_HEAD_OFFSET:
--        val = reg_to_u64(iommu->cmd_buffer.reg_head);
--        break;
--    case IOMMU_CMD_BUFFER_TAIL_OFFSET:
--        val = reg_to_u64(iommu->cmd_buffer.reg_tail);
--        break;
--    case IOMMU_EVENT_LOG_HEAD_OFFSET:
--        val = reg_to_u64(iommu->event_log.reg_head);
--        break;
--    case IOMMU_EVENT_LOG_TAIL_OFFSET:
--        val = reg_to_u64(iommu->event_log.reg_tail);
--        break;
--    case IOMMU_PPR_LOG_HEAD_OFFSET:
--        val = reg_to_u64(iommu->ppr_log.reg_head);
--        break;
--    case IOMMU_PPR_LOG_TAIL_OFFSET:
--        val = reg_to_u64(iommu->ppr_log.reg_tail);
--        break;
--    case IOMMU_CONTROL_MMIO_OFFSET:
--        val = iommu->reg_ctrl.raw;
--        break;
--    case IOMMU_STATUS_MMIO_OFFSET:
--        val = reg_to_u64(iommu->reg_status);
--        break;
--    case IOMMU_EXT_FEATURE_MMIO_OFFSET:
--        val = iommu->reg_ext_feature.raw;
--        break;
--
--    default:
--        AMD_IOMMU_DEBUG("Guest reads unknown mmio offset = %lx\n", offset);
--        val = 0;
--        break;
--    }
--
--    return val;
--}
--
--static int cf_check guest_iommu_mmio_read(
--    struct vcpu *v, unsigned long addr, unsigned int len, unsigned long *pval)
--{
--    struct guest_iommu *iommu = vcpu_iommu(v);
--    unsigned long offset;
--    uint64_t val;
--    uint32_t mmio, shift;
--    uint64_t mask = 0;
--
--    offset = addr - iommu->mmio_base;
--
--    if ( unlikely((offset & (len - 1 )) || (len > 8)) )
--    {
--        AMD_IOMMU_DEBUG("iommu mmio read access is not aligned:"
--                        " offset = %lx, len = %x\n", offset, len);
--        return X86EMUL_UNHANDLEABLE;
--    }
--
--    mask = (len == 8) ? ~0ULL : (1ULL << (len * 8)) - 1;
--    shift = (offset & 7u) * 8;
--
--    /* mmio access is always aligned on 8-byte boundary */
--    mmio = offset & (~7u);
--
--    spin_lock(&iommu->lock);
--    val = iommu_mmio_read64(iommu, mmio);
--    spin_unlock(&iommu->lock);
--
--    *pval = (val >> shift ) & mask;
--
--    return X86EMUL_OKAY;
--}
--
--static void guest_iommu_mmio_write64(struct guest_iommu *iommu,
--                                    unsigned long offset, uint64_t val)
--{
--    switch ( offset )
--    {
--    case IOMMU_DEV_TABLE_BASE_LOW_OFFSET:
--        u64_to_reg(&iommu->dev_table.reg_base, val);
--        break;
--    case IOMMU_CMD_BUFFER_BASE_LOW_OFFSET:
--        u64_to_reg(&iommu->cmd_buffer.reg_base, val);
--        break;
--    case IOMMU_EVENT_LOG_BASE_LOW_OFFSET:
--        u64_to_reg(&iommu->event_log.reg_base, val);
--        break;
--    case IOMMU_PPR_LOG_BASE_LOW_OFFSET:
--        u64_to_reg(&iommu->ppr_log.reg_base, val);
--        break;
--    case IOMMU_CONTROL_MMIO_OFFSET:
--        guest_iommu_write_ctrl(iommu, val);
--        break;
--    case IOMMU_CMD_BUFFER_HEAD_OFFSET:
--        iommu->cmd_buffer.reg_head.lo = val & IOMMU_RING_BUFFER_PTR_MASK;
--        break;
--    case IOMMU_CMD_BUFFER_TAIL_OFFSET:
--        iommu->cmd_buffer.reg_tail.lo = val & IOMMU_RING_BUFFER_PTR_MASK;
--        tasklet_schedule(&iommu->cmd_buffer_tasklet);
--        break;
--    case IOMMU_EVENT_LOG_HEAD_OFFSET:
--        iommu->event_log.reg_head.lo = val & IOMMU_RING_BUFFER_PTR_MASK;
--        break;
--    case IOMMU_EVENT_LOG_TAIL_OFFSET:
--        iommu->event_log.reg_tail.lo = val & IOMMU_RING_BUFFER_PTR_MASK;
--        break;
--    case IOMMU_PPR_LOG_HEAD_OFFSET:
--        iommu->ppr_log.reg_head.lo = val & IOMMU_RING_BUFFER_PTR_MASK;
--        break;
--    case IOMMU_PPR_LOG_TAIL_OFFSET:
--        iommu->ppr_log.reg_tail.lo = val & IOMMU_RING_BUFFER_PTR_MASK;
--        break;
--    case IOMMU_STATUS_MMIO_OFFSET:
--        val &= IOMMU_STATUS_EVENT_LOG_OVERFLOW |
--               IOMMU_STATUS_EVENT_LOG_INT |
--               IOMMU_STATUS_COMP_WAIT_INT |
--               IOMMU_STATUS_PPR_LOG_OVERFLOW |
--               IOMMU_STATUS_PPR_LOG_INT |
--               IOMMU_STATUS_GAPIC_LOG_OVERFLOW |
--               IOMMU_STATUS_GAPIC_LOG_INT;
--        u64_to_reg(&iommu->reg_status, reg_to_u64(iommu->reg_status) & ~val);
--        break;
--
--    default:
--        AMD_IOMMU_DEBUG("guest writes unknown mmio offset = %lx,"
--                        " val = %" PRIx64 "\n", offset, val);
--        break;
--    }
--}
--
--static int cf_check guest_iommu_mmio_write(
--    struct vcpu *v, unsigned long addr, unsigned int len, unsigned long val)
--{
--    struct guest_iommu *iommu = vcpu_iommu(v);
--    unsigned long offset;
--    uint64_t reg_old, mmio;
--    uint32_t shift;
--    uint64_t mask = 0;
--
--    offset = addr - iommu->mmio_base;
--
--    if ( unlikely((offset & (len - 1)) || (len > 8)) )
--    {
--        AMD_IOMMU_DEBUG("iommu mmio write access is not aligned:"
--                        " offset = %lx, len = %x\n", offset, len);
--        return X86EMUL_UNHANDLEABLE;
--    }
--
--    mask = (len == 8) ? ~0ULL : (1ULL << (len * 8)) - 1;
--    shift = (offset & 7) * 8;
--
--    /* mmio access is always aligned on 8-byte boundary */
--    mmio = offset & ~7;
--
--    spin_lock(&iommu->lock);
--
--    reg_old = iommu_mmio_read64(iommu, mmio);
--    reg_old &= ~(mask << shift);
--    val = reg_old | ((val & mask) << shift);
--    guest_iommu_mmio_write64(iommu, mmio, val);
--
--    spin_unlock(&iommu->lock);
--
--    return X86EMUL_OKAY;
--}
--
--int guest_iommu_set_base(struct domain *d, uint64_t base)
--{
--    p2m_type_t t;
--    struct guest_iommu *iommu = domain_iommu(d);
--
--    if ( !iommu )
--        return -EACCES;
--
--    iommu->mmio_base = base;
--    base >>= PAGE_SHIFT;
--
--    for ( int i = 0; i < IOMMU_MMIO_PAGE_NR; i++ )
--    {
--        unsigned long gfn = base + i;
--
--        get_gfn_query(d, gfn, &t);
--        p2m_change_type_one(d, gfn, t, p2m_mmio_dm);
--        put_gfn(d, gfn);
--    }
--
--    return 0;
--}
--
--/* Initialize mmio read only bits */
--static void guest_iommu_reg_init(struct guest_iommu *iommu)
--{
--    union amd_iommu_ext_features ef = {
--        /* Support prefetch */
--        .flds.pref_sup = 1,
--        /* Support PPR log */
--        .flds.ppr_sup = 1,
--        /* Support guest translation */
--        .flds.gt_sup = 1,
--        /* Support invalidate all command */
--        .flds.ia_sup = 1,
--        /* Host translation size has 6 levels */
--        .flds.hats = HOST_ADDRESS_SIZE_6_LEVEL,
--        /* Guest translation size has 6 levels */
--        .flds.gats = GUEST_ADDRESS_SIZE_6_LEVEL,
--        /* Single level gCR3 */
--        .flds.glx_sup = GUEST_CR3_1_LEVEL,
--        /* 9 bit PASID */
--        .flds.pas_max = PASMAX_9_bit,
--    };
--
--    iommu->reg_ext_feature = ef;
--}
--
--static int cf_check guest_iommu_mmio_range(struct vcpu *v, unsigned long addr)
--{
--    struct guest_iommu *iommu = vcpu_iommu(v);
--
--    return iommu && addr >= iommu->mmio_base &&
--           addr < iommu->mmio_base + IOMMU_MMIO_SIZE;
--}
--
--static const struct hvm_mmio_ops iommu_mmio_ops = {
--    .check = guest_iommu_mmio_range,
--    .read = guest_iommu_mmio_read,
--    .write = guest_iommu_mmio_write
--};
--
--/* Domain specific initialization */
--int guest_iommu_init(struct domain* d)
--{
--    struct guest_iommu *iommu;
--    struct domain_iommu *hd = dom_iommu(d);
--
--    if ( !is_hvm_domain(d) || !is_iommu_enabled(d) || !iommuv2_enabled ||
--         !has_viommu(d) )
--        return 0;
--
--    iommu = xzalloc(struct guest_iommu);
--    if ( !iommu )
--    {
--        AMD_IOMMU_DEBUG("Error allocating guest iommu structure.\n");
--        return 1;
--    }
--
--    guest_iommu_reg_init(iommu);
--    iommu->mmio_base = ~0ULL;
--    iommu->domain = d;
--    hd->arch.amd.g_iommu = iommu;
--
--    tasklet_init(&iommu->cmd_buffer_tasklet, guest_iommu_process_command, d);
--
--    spin_lock_init(&iommu->lock);
--
--    register_mmio_handler(d, &iommu_mmio_ops);
--
--    return 0;
--}
--
--void guest_iommu_destroy(struct domain *d)
--{
--    struct guest_iommu *iommu;
--
--    iommu = domain_iommu(d);
--    if ( !iommu )
--        return;
--
--    tasklet_kill(&iommu->cmd_buffer_tasklet);
--    xfree(iommu);
--
--    dom_iommu(d)->arch.amd.g_iommu = NULL;
--}
--- 
-2.34.1
-
+~Andrew
 
