@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3978787CD14
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 13:14:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693836.1082444 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF90487CD1D
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 13:17:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693839.1082453 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl6RE-0006ci-Ln; Fri, 15 Mar 2024 12:13:28 +0000
+	id 1rl6VD-0007By-5Q; Fri, 15 Mar 2024 12:17:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693836.1082444; Fri, 15 Mar 2024 12:13:28 +0000
+Received: by outflank-mailman (output) from mailman id 693839.1082453; Fri, 15 Mar 2024 12:17:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl6RE-0006bB-Ia; Fri, 15 Mar 2024 12:13:28 +0000
-Received: by outflank-mailman (input) for mailman id 693836;
- Fri, 15 Mar 2024 12:13:26 +0000
+	id 1rl6VD-00079i-2t; Fri, 15 Mar 2024 12:17:35 +0000
+Received: by outflank-mailman (input) for mailman id 693839;
+ Fri, 15 Mar 2024 12:17:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9knB=KV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rl6RC-0006b5-Jt
- for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 12:13:26 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ <SRS0=3A35=KV=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1rl6VA-00079b-Rx
+ for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 12:17:32 +0000
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [2001:4860:4864:20::30])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ca13c1c-e2c5-11ee-afdd-a90da7624cb6;
- Fri, 15 Mar 2024 13:13:25 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-563bb51c36eso2578732a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 05:13:25 -0700 (PDT)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- h25-20020a17090634d900b00a454438091fsm1654875ejb.70.2024.03.15.05.13.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Mar 2024 05:13:23 -0700 (PDT)
+ id ff1402ff-e2c5-11ee-afdd-a90da7624cb6;
+ Fri, 15 Mar 2024 13:17:31 +0100 (CET)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-221830f6643so1118153fac.2
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 05:17:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +40,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ca13c1c-e2c5-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: ff1402ff-e2c5-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710504804; x=1711109604; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=1aZV9TonYmvhh8ERncfMGScFuRJUFVx1UlX7BWrmAn8=;
-        b=UF5xkQIRE/agyCK2r8XokBpT8s6hMhCWMXzof6f8F4R6BEo1fcGr6GvliSKkz751Tx
-         94rcOrcyMxTHC8303ROe/vEMqro+84tOWUZxMTXh5mZS7CEMae7ohHjCnd/Jp65Hj9PR
-         56xiAQAFFmBAE9mFt4QJ2SSSYzCtfmI4/qxgY=
+        d=cloud.com; s=cloud; t=1710505050; x=1711109850; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=b6gPQ4WDYUxprQhEdyUeUfF/08t4lHxJxIj5U8So4xs=;
+        b=hrCMNhkOoJfeaZbmTXuiStpFGPo8BnlmLTjq6foc9RMZSgXm5+z9CoyhDW3LHK75zf
+         gFyQRxMmlLSwkc9yygIPAQ/ocF8ycUo2tgVYKhsZ5tGA0IV7UY6RrA5lgKp3hlA9jGb9
+         jNkmknPPNd8yUnGTCF21t1GJZ8+rH44p8NXlE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710504804; x=1711109604;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1aZV9TonYmvhh8ERncfMGScFuRJUFVx1UlX7BWrmAn8=;
-        b=EB6hQfPW4t2cRNYQuklgV6SeGfLPwxirftDpYSzhUYBez51YLs4WDnogz3+egsB90D
-         3+T70Qu9MdGmmXj91UpmYVW3eDPQsAp+kyI9TfFG6/2urLK2KPtpQYAHjmc2SWmkGTTj
-         ADHzj2hBmZwzs+Qp/bLd6fk+kV61oQuOb15BFNw3LaOV8ohmggDRC9QYYbv2g/g+xpWT
-         CvJsF9Ee+6qYbB25ldNcAVy5HlYA/LUnR/WMt7jN0IZuDtRdFk2qbOjgGZL+4wCYeVN1
-         EJyxKyy+W6yyTpv1kXzl/gkNLoyvBqPoR2xGgbBeK96fLZqswGbfkH9fNlipEmC1zSIk
-         mfeA==
-X-Gm-Message-State: AOJu0YyDhkGXcDk7WTrV+piNBWmWhppmezmRA8WbxV4IucTH3+or9Y+V
-	Th94y+f5iSRSr1KpAw5VM44swkVNuWbgUyOFCbeEN5U+t0IDa1aQbDIOZH6uNKIP49Bd6iD8ddN
-	V
-X-Google-Smtp-Source: AGHT+IGZKvTM/4eMMxsMM0rZZNSgULV/RpS+/Uc3ymt/V9eHGvVfVNPI2oxyPTMeUcUEzS5kLckolQ==
-X-Received: by 2002:a17:907:987c:b0:a44:4c8e:f167 with SMTP id ko28-20020a170907987c00b00a444c8ef167mr2898559ejc.69.1710504804093;
-        Fri, 15 Mar 2024 05:13:24 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] xen/vpci: Improve code generation in mask_write()
-Date: Fri, 15 Mar 2024 12:13:22 +0000
-Message-Id: <20240315121322.3300387-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+        d=1e100.net; s=20230601; t=1710505050; x=1711109850;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=b6gPQ4WDYUxprQhEdyUeUfF/08t4lHxJxIj5U8So4xs=;
+        b=CUKtKZ28IGmSLSWA/Z00kNb2DYjbAzdtGMIe+9VF0uOK4TiIqcmNiLEbY8WsLLr0T6
+         r1WICG5irQDR2O9LlaXTwXRef77dJvhavcTP1hZSDIuscejrIel7WJ3SKLRmCO4EyjBi
+         zhRn1VkOWPMZIqztA3jfNjclXalYinufyROz+FdALQfgAfKiB0MdZWIg63x0vQu0fe22
+         N+P8x3zf2PKPjQ2ERlVo1WDHmJevwXixJvC1TQG27AuxTCv392gVPXK5XHr2+1dxRIFc
+         DVbgoRe2oh8ccln1NVQ40oNDMaM5O5edwCZ34VqgRYUtH7Pd+qAsj8olg2WZCbZ1Dwu+
+         J0mw==
+X-Forwarded-Encrypted: i=1; AJvYcCVSkEpo1IZNu27tijOYDB2BN5LKTqmBNHgVMdLDVPXwvagPIaLvMsKIZPSM/BxJkcC/DwkxW6ry+GxP633HPnTaKnp2QeBBgjltZSwaqoA=
+X-Gm-Message-State: AOJu0Yytfj8EvWQPucgZXnBLe0udog67b9Ct910Sv9MY7XCpcc/GPhbb
+	baRWtXdScP8yfrzUdzbfeZ30xBxLtx8y1ug84TVmFuNAVYbl3B2iP3ylciVqeQbDmPLx6So+tdN
+	I/D+aUZ8EyKNvTSsvZOkiJY80M2RRAkZOsMgABQ==
+X-Google-Smtp-Source: AGHT+IG5GSULDr5g0JuUkibPJm8GUihvcxvoHSQflK1udT/a6PfpKRJDEU2GJMPn3UG2C9udzPNdGf6WefRb0A0q0TU=
+X-Received: by 2002:a05:6870:5b81:b0:221:cb1b:c57d with SMTP id
+ em1-20020a0568705b8100b00221cb1bc57dmr5209269oab.7.1710505050569; Fri, 15 Mar
+ 2024 05:17:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <alpine.DEB.2.22.394.2311221331130.2053963@ubuntu-linux-20-04-desktop>
+ <5a8f90d6-6502-4d93-9fd7-45fea0ede24a@suse.com> <alpine.DEB.2.22.394.2403081758400.853156@ubuntu-linux-20-04-desktop>
+ <CA+zSX=aiqacW+QLM+KX-CcAo3DVnN+Kn7vQsOOKGK3qQOqXvBA@mail.gmail.com>
+ <a2485ac6-19ac-42ce-b8cf-6f8408483521@xen.org> <alpine.DEB.2.22.394.2403141711460.853156@ubuntu-linux-20-04-desktop>
+ <e57a3c03-fcbc-4a5a-8b23-b9b9448de2be@suse.com> <CA+zSX=anV+h8a8Ynq1Eh+PmtmgiSj8ruRfBbhLrhMbrNn+ED0w@mail.gmail.com>
+ <63891474-1dc4-4c86-aaf4-cc4d4c53a0ae@suse.com>
+In-Reply-To: <63891474-1dc4-4c86-aaf4-cc4d4c53a0ae@suse.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Fri, 15 Mar 2024 12:17:19 +0000
+Message-ID: <CA+zSX=bu-gRYUYOKMRp5kJ02ExdrtFEHTgXapwTVotm5cK2dfw@mail.gmail.com>
+Subject: Re: [PATCH] do_multicall and MISRA Rule 8.3\
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, federico.serafini@bugseng.com, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org, 
+	michal.orzel@amd.com, julien@xen.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The use of __clear_bit() forces dmask to be spilled to the stack, and
-interferes with the compiler heuristcs for some upcoming improvements to the
-ffs() code generation.
+On Fri, Mar 15, 2024 at 11:57=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
+ote:
+> > It sounds like Andy and Stefano feel like this is a situation where "a
+> > fixed width quantity is meant"; absent any further guidance from the
+> > CODING_STYLE about when fixed widths should or should not be used, I
+> > don't think this change would be a violation of CODING_STYLE.
+>
+> As with any not sufficiently clear statement, that's certainly true here,
+> too. Yet if we try to give as wide meaning as possible to "a fixed width
+> quantity is meant", there's basically no restriction on use of fixed widt=
+h
+> types because everyone can just say "but I mean a fixed width quantity
+> here". I think the earlier sentence needs taking with higher priority,
+> i.e. if a basic type does for the purpose, that's what should be used. Th=
+e
+> 2nd sentence then only tries to further clarify what the 1st means.
 
-First, shrink dmask to just the active vectors by making out the upper bits.
-This replaces the "i < msi->vectors" part of the loop condition.
+Come, now.  There are lots of situations where we just need some sort
+of number, and there's no real need to worry about the exact size.
+There are other situations, where we mean "whatever covers the whole
+address space" or the like, where it makes sense to have something
+like "unsigned long", which changes size, but in predictable and
+useful ways.  There are other situations, like when talking over an
+API to code which may be compiled by a different compiler, or may be
+running in a different processor mode, where we want to be more
+specific, and set an exact number of bits.
 
-Next, use a simple while() loop with "clear bottom bit" expressed in plane C,
-which affords the optimiser a far better understanding of what the loop is
-doing.
+Should we use uint32_t for random loop variables?  Pretty clearly
+"No".  Should we use uint32_t for the C entry of a hypercall, even
+though the assembly code allegedly makes that unnecessary?  At least
+two core maintainers think "maybe just to be safe".  That's hardly a
+slippery slope of "anyone can say anything".
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Roger Pau Monné <roger.pau@citrix.com>
+Other than "it's in CODING_STYLE", and "it's not really necessary
+because it's ensured in the assembly code", you haven't advanced a
+single reason why "uint32_t" is problematic.
 
-Noticed when looking at the ffs() code gen improvements.
-
-Any suggestion on how to test this?  test_vcpi doesn't seem to check anything
-here.  I think I've got the boundary conditions for msi->vectors right, but
-I'd be lying if I said I was certain...
-
-bloat-o-meter reports:
-
-  add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-28 (-28)
-  Function                                     old     new   delta
-  mask_write                                   142     114     -28
-
-which is a consequence of the compiler having a much better idea of what's
-going on in the loop.  There's more to come with the ffs() improvements too.
----
- xen/drivers/vpci/msi.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
-index d3aa5df08941..30adcf7df05d 100644
---- a/xen/drivers/vpci/msi.c
-+++ b/xen/drivers/vpci/msi.c
-@@ -169,13 +169,15 @@ static void cf_check mask_write(
- 
-     if ( msi->enabled )
-     {
--        unsigned int i;
-+        /* Skip changes to vectors which aren't enabled. */
-+        dmask &= (~0U >> (32 - msi->vectors));
- 
--        for ( i = ffs(dmask) - 1; dmask && i < msi->vectors;
--              i = ffs(dmask) - 1 )
-+        while ( dmask )
-         {
-+            unsigned int i = ffs(dmask) - 1;
-+
-             vpci_msi_arch_mask(msi, pdev, i, (val >> i) & 1);
--            __clear_bit(i, &dmask);
-+            dmask &= (dmask - 1);
-         }
-     }
- 
-
-base-commit: d638e304f13a5ef7d125de5ace5f7828a7b25bac
--- 
-2.30.2
-
+ -George
 
