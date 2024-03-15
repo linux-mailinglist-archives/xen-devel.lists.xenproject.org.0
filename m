@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2DC287CBBD
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 11:59:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693750.1082229 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DADB887CBBE
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 11:59:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693751.1082244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl5Hr-0001Ci-Fm; Fri, 15 Mar 2024 10:59:43 +0000
+	id 1rl5Hs-0001aY-Pq; Fri, 15 Mar 2024 10:59:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693750.1082229; Fri, 15 Mar 2024 10:59:43 +0000
+Received: by outflank-mailman (output) from mailman id 693751.1082244; Fri, 15 Mar 2024 10:59:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl5Hr-000172-Af; Fri, 15 Mar 2024 10:59:43 +0000
-Received: by outflank-mailman (input) for mailman id 693750;
- Fri, 15 Mar 2024 10:59:42 +0000
+	id 1rl5Hs-0001Y0-I0; Fri, 15 Mar 2024 10:59:44 +0000
+Received: by outflank-mailman (input) for mailman id 693751;
+ Fri, 15 Mar 2024 10:59:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WnwS=KV=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rl5Hq-0000xG-AC
- for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 10:59:42 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1rl5Hr-0000xG-Cd
+ for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 10:59:43 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1ef74117-e2bb-11ee-a1ee-f123f15fe8a2;
- Fri, 15 Mar 2024 11:59:40 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a44ad785a44so222892866b.3
- for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 03:59:40 -0700 (PDT)
+ id 1fbae93e-e2bb-11ee-a1ee-f123f15fe8a2;
+ Fri, 15 Mar 2024 11:59:41 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a4682272ff6so74871766b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 03:59:41 -0700 (PDT)
 Received: from carlo-ubuntu.mo54.unimo.it (nonato.mo54.unimo.it.
  [155.185.85.8]) by smtp.gmail.com with ESMTPSA id
- en6-20020a17090728c600b00a465a012cf1sm1621493ejc.18.2024.03.15.03.59.38
+ en6-20020a17090728c600b00a465a012cf1sm1621493ejc.18.2024.03.15.03.59.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Mar 2024 03:59:39 -0700 (PDT)
+ Fri, 15 Mar 2024 03:59:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,274 +45,399 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ef74117-e2bb-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 1fbae93e-e2bb-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1710500379; x=1711105179; darn=lists.xenproject.org;
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1710500380; x=1711105180; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OWLty+UmaFeSrZ8CDxzo05Ip09kKWG0NEp9+DODidks=;
-        b=ldiOgj3xJn5axnXkIuNYwNxKrbZ+bFUu9GJBfYeMdTiJhLD9gtg0MTOhMJm78J50g4
-         itTUfh3ZyzG0GEn3xH6Fg3rTmNDbGtLZkdttBvSlKbwEH/4PbQO6+EkgSp3tve2eqOLo
-         SYpv1uCT55kSzwRGisaP3Ph4s8kbcsFmhUQrZKgk6gsuRIUa0CD8hxtqZrcHu70dJQ9H
-         yIW3Tn0CRzhAZp3yaytDfCMEuHeMAIPJojxWKZni76W4ALhls/V8h8FkLXRwNlcO908K
-         TN1BfpBNudXQRvTselnAzRQkpvV5Wk/M+UpWBmTROjemLbUVreOkqb0KhLBcxl4etYGj
-         gIQA==
+        bh=/2v5J5S6fkJ+uKCqq6m+sZTt6B+LqvwXJp/jvybin1k=;
+        b=BPTzWojcNtCaSf1/MrwzKjYozF8M+g8IoQPW3OW9B9qUldhHoMRfAaxw2MqEw3/QoW
+         zQ/iegoaVeeFxTcWFCySQVd3kj4ee+Nd/+uILiO0+n9udLasHSexWh+GNOUgciQ6km2a
+         VjNBI8ksZMROox4AEEarHd379lF7zQZyVd+iMNY+qUY9/Vn6jOIpF4FbbyMgFBc+fsv7
+         8ZR8F3kGQBdWQM4ufDWdefkRFLF/zrRIGZN0Qu+NVRWdL2sMdSSzPEL6bPVn5HmCl9BK
+         xH1ZMbnEL/BPtXdJL456c8uWfRYdM9Mn2kb/I8zi8qciag7VS7nOnBCr7ZJgbfyBKe70
+         TIMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710500379; x=1711105179;
+        d=1e100.net; s=20230601; t=1710500380; x=1711105180;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=OWLty+UmaFeSrZ8CDxzo05Ip09kKWG0NEp9+DODidks=;
-        b=S7A3t576kxJariIu06ce6unjzqHEGcilH8znFQwT+jifklbQlkYWgzq7izX8PM09O1
-         mXU8L2HT/mqGAslPPPmR5VB6vR4N6p4QbMkgK07/lsfvexcqXBbm+TDDZHHzQehCawtY
-         JLSwxtE0J4mwb9d4TF6k9avrbSqMFlNWxHfxQVrlps4p8Hmt+UajVG0c4AVeJ1YCBbZA
-         PJo7rS53b5r6pTPXaCKQahrS+krLfyDbikl0nUUj4pinID1P9T4mFKWziR+7Jqy5fMZh
-         NSYZboq0F13k4f3mbOT0cr6u+/SAdIycBBLg0tjK0N8SLoQnlMvsISlvTF/rJAk1fFT+
-         f/hg==
-X-Gm-Message-State: AOJu0YzEzH0uklMwB+F343MCHMxGzw1jj+zoVwQt16Kh5AjmceIfJIQC
-	PW3BtGoDI9h9/Sw3NsAHwc1I4Jn8jM3PerNanOOZSl3xClzR/Xw+drPDdcw/kOiTrK3DZo+Y1Nq
-	2q6Y=
-X-Google-Smtp-Source: AGHT+IGyDlyKdPdWuWCjfVqFNKccm5QWYNVLFSk/SQKMB8nHSuqPqqc0RsTIGPi//EncToi9WPg4iw==
-X-Received: by 2002:a17:906:80da:b0:a46:8c40:dabf with SMTP id a26-20020a17090680da00b00a468c40dabfmr666865ejx.31.1710500379690;
-        Fri, 15 Mar 2024 03:59:39 -0700 (PDT)
+        bh=/2v5J5S6fkJ+uKCqq6m+sZTt6B+LqvwXJp/jvybin1k=;
+        b=BpYj95qh8xdVkAa1TV0Qvl0YCPEpD762yRvRPi63F4Wn/mh71OcAUBR6Lj/CKWIOMS
+         q8x6yXi3C8yeBd1JnkTBY3eAVsm+dXC80TTOcWAt4aHDpyvKd7Rq66EVbfAgQB1tfNmd
+         Dq/CGjSwCX+NiM43d286MrSArwdIgwoILYgnaDhFy9EU7/XYDAgbOHztAUbIuhqpoKlG
+         mY2ykzY/Or0ltNpWT3ew4pyx/leqyPs43lczXkQEOYAiWBWHCKC8f2vNCEnkfEmJsZWm
+         3719755U4zC1+4VEPtXbMW17sTs0EVOZKtrYbL9s3amAtxUy2sLQGDCKOPWrkgT7vzWJ
+         m8Cw==
+X-Gm-Message-State: AOJu0Yz9is77vaSvQnmE12xAF45Y6EgPuNU3wr/94eNIaFEhop5v8Z5E
+	NH8A6t1hkivNIn7KwiHxq3MRGlQUqOYXrKXsc4zCmQmPN03fo4M1sgZaCx/UDgHcSKRiQq2oeh9
+	cN+Q=
+X-Google-Smtp-Source: AGHT+IG0AJsxocPF4EmR44olv+T0FuBTWutAsozsmvN0BMhXTg/2NAX/gD+c4ZdKPiRK9F9JUb4AgQ==
+X-Received: by 2002:a17:906:e286:b0:a46:220b:25b4 with SMTP id gg6-20020a170906e28600b00a46220b25b4mr2436716ejb.11.1710500380493;
+        Fri, 15 Mar 2024 03:59:40 -0700 (PDT)
 From: Carlo Nonato <carlo.nonato@minervasys.tech>
 To: xen-devel@lists.xenproject.org
 Cc: Carlo Nonato <carlo.nonato@minervasys.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v7 03/14] xen/arm: permit non direct-mapped Dom0 construction
-Date: Fri, 15 Mar 2024 11:58:51 +0100
-Message-Id: <20240315105902.160047-4-carlo.nonato@minervasys.tech>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Marco Solieri <marco.solieri@minervasys.tech>
+Subject: [PATCH v7 04/14] xen/arm: add Dom0 cache coloring support
+Date: Fri, 15 Mar 2024 11:58:52 +0100
+Message-Id: <20240315105902.160047-5-carlo.nonato@minervasys.tech>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
 References: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Cache coloring requires Dom0 not to be direct-mapped because of its non
-contiguous mapping nature, so allocate_memory() is needed in this case.
-8d2c3ab18cc1 ("arm/dom0less: put dom0less feature code in a separate module")
-moved allocate_memory() in dom0less_build.c. In order to use it
-in Dom0 construction bring it back to domain_build.c and declare it in
-domain_build.h.
+Add a command line parameter to allow the user to set the coloring
+configuration for Dom0.
+A common configuration syntax for cache colors is introduced and
+documented.
+Take the opportunity to also add:
+ - default configuration notion.
+ - function to check well-formed configurations.
 
-Take the opportunity to adapt the implementation of allocate_memory() so
-that it uses the host layout when called on the hwdom, via
-find_unallocated_memory().
+Direct mapping Dom0 isn't possible when coloring is enabled, so
+CDF_directmap flag is removed when creating it.
+
+Based on original work from: Luca Miccio <lucmiccio@gmail.com>
 
 Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
 ---
 v7:
-- allocate_memory() now uses the host layout when called on the hwdom
+- parse_color_config() doesn't accept leading/trailing commas anymore
+- removed alloc_colors() helper
 v6:
-- new patch
+- moved domain_llc_coloring_free() in this patch
+- removed domain_alloc_colors() in favor of a more explicit allocation
+- parse_color_config() now accepts the size of the array to be filled
+- allocate_memory() moved in another patch
+v5:
+- Carlo Nonato as the new author
+- moved dom0 colors parsing (parse_colors()) in this patch
+- added dom0_set_llc_colors() to set dom0 colors after creation
+- moved color allocation and checking in this patch
+- error handling when allocating color arrays
+- FIXME: copy pasted allocate_memory() cause it got moved
+v4:
+- dom0 colors are dynamically allocated as for any other domain
+  (colors are duplicated in dom0_colors and in the new array, but logic
+  is simpler)
 ---
- xen/arch/arm/dom0less-build.c           | 43 -----------
- xen/arch/arm/domain_build.c             | 99 ++++++++++++++++++++++++-
- xen/arch/arm/include/asm/domain_build.h |  1 +
- 3 files changed, 96 insertions(+), 47 deletions(-)
+ docs/misc/cache-coloring.rst      |  29 +++++++
+ docs/misc/xen-command-line.pandoc |   9 +++
+ xen/arch/arm/domain_build.c       |  10 ++-
+ xen/common/domain.c               |   3 +
+ xen/common/llc-coloring.c         | 128 ++++++++++++++++++++++++++++++
+ xen/include/xen/llc-coloring.h    |   3 +
+ 6 files changed, 181 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index 1142f7f74a..992080e61a 100644
---- a/xen/arch/arm/dom0less-build.c
-+++ b/xen/arch/arm/dom0less-build.c
-@@ -49,49 +49,6 @@ bool __init is_dom0less_mode(void)
-     return ( !dom0found && domUfound );
- }
+diff --git a/docs/misc/cache-coloring.rst b/docs/misc/cache-coloring.rst
+index 871e7a3ddb..4c859135cb 100644
+--- a/docs/misc/cache-coloring.rst
++++ b/docs/misc/cache-coloring.rst
+@@ -114,6 +114,35 @@ Specific documentation is available at `docs/misc/xen-command-line.pandoc`.
+ +----------------------+-------------------------------+
+ | ``llc-nr-ways``      | set the LLC number of ways    |
+ +----------------------+-------------------------------+
++| ``dom0-llc-colors``  | Dom0 color configuration      |
+++----------------------+-------------------------------+
++
++Colors selection format
++***********************
++
++Regardless of the memory pool that has to be colored (Xen, Dom0/DomUs),
++the color selection can be expressed using the same syntax. In particular a
++comma-separated list of colors or ranges of colors is used.
++Ranges are hyphen-separated intervals (such as `0-4`) and are inclusive on both
++sides.
++
++Note that:
++
++- no spaces are allowed between values.
++- no overlapping ranges or duplicated colors are allowed.
++- values must be written in ascending order.
++
++Examples:
++
+++-------------------+-----------------------------+
++| **Configuration** | **Actual selection**        |
+++-------------------+-----------------------------+
++| 1-2,5-8           | [1, 2, 5, 6, 7, 8]          |
+++-------------------+-----------------------------+
++| 4-8,10,11,12      | [4, 5, 6, 7, 8, 10, 11, 12] |
+++-------------------+-----------------------------+
++| 0                 | [0]                         |
+++-------------------+-----------------------------+
  
--static void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
--{
--    unsigned int i;
--    paddr_t bank_size;
--
--    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd:\n",
--           /* Don't want format this as PRIpaddr (16 digit hex) */
--           (unsigned long)(kinfo->unassigned_mem >> 20), d);
--
--    kinfo->mem.nr_banks = 0;
--    bank_size = MIN(GUEST_RAM0_SIZE, kinfo->unassigned_mem);
--    if ( !allocate_bank_memory(d, kinfo, gaddr_to_gfn(GUEST_RAM0_BASE),
--                               bank_size) )
--        goto fail;
--
--    bank_size = MIN(GUEST_RAM1_SIZE, kinfo->unassigned_mem);
--    if ( !allocate_bank_memory(d, kinfo, gaddr_to_gfn(GUEST_RAM1_BASE),
--                               bank_size) )
--        goto fail;
--
--    if ( kinfo->unassigned_mem )
--        goto fail;
--
--    for( i = 0; i < kinfo->mem.nr_banks; i++ )
--    {
--        printk(XENLOG_INFO "%pd BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%ldMB)\n",
--               d,
--               i,
--               kinfo->mem.bank[i].start,
--               kinfo->mem.bank[i].start + kinfo->mem.bank[i].size,
--               /* Don't want format this as PRIpaddr (16 digit hex) */
--               (unsigned long)(kinfo->mem.bank[i].size >> 20));
--    }
--
--    return;
--
--fail:
--    panic("Failed to allocate requested domain memory."
--          /* Don't want format this as PRIpaddr (16 digit hex) */
--          " %ldKB unallocated. Fix the VMs configurations.\n",
--          (unsigned long)kinfo->unassigned_mem >> 10);
--}
--
- #ifdef CONFIG_VGICV2
- static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
- {
+ Auto-probing of LLC specs
+ #########################
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 2936abea2c..28035a214d 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -963,6 +963,15 @@ Controls for the dom0 IOMMU setup.
+ 
+ Specify a list of IO ports to be excluded from dom0 access.
+ 
++### dom0-llc-colors
++> `= List of [ <integer> | <integer>-<integer> ]`
++
++> Default: `All available LLC colors`
++
++Specify dom0 LLC color configuration. This option is available only when
++`CONFIG_LLC_COLORING` is enabled. If the parameter is not set, all available
++colors are used.
++
+ ### dom0_max_vcpus
+ 
+ Either:
 diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 085d88671e..d21be2c57b 100644
+index d21be2c57b..3de1659836 100644
 --- a/xen/arch/arm/domain_build.c
 +++ b/xen/arch/arm/domain_build.c
-@@ -415,7 +415,6 @@ static void __init allocate_memory_11(struct domain *d,
+@@ -2,6 +2,7 @@
+ #include <xen/init.h>
+ #include <xen/compile.h>
+ #include <xen/lib.h>
++#include <xen/llc-coloring.h>
+ #include <xen/mm.h>
+ #include <xen/param.h>
+ #include <xen/domain_page.h>
+@@ -2208,6 +2209,7 @@ void __init create_dom0(void)
+         .max_maptrack_frames = -1,
+         .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
+     };
++    unsigned int flags = CDF_privileged;
+     int rc;
+ 
+     /* The vGIC for DOM0 is exactly emulating the hardware GIC */
+@@ -2235,10 +2237,16 @@ void __init create_dom0(void)
+             panic("SVE vector length error\n");
      }
- }
  
--#ifdef CONFIG_DOM0LESS_BOOT
- bool __init allocate_bank_memory(struct domain *d, struct kernel_info *kinfo,
-                                  gfn_t sgfn, paddr_t tot_size)
- {
-@@ -477,7 +476,96 @@ bool __init allocate_bank_memory(struct domain *d, struct kernel_info *kinfo,
+-    dom0 = domain_create(0, &dom0_cfg, CDF_privileged | CDF_directmap);
++    if ( !llc_coloring_enabled )
++        flags |= CDF_directmap;
++
++    dom0 = domain_create(0, &dom0_cfg, flags);
+     if ( IS_ERR(dom0) )
+         panic("Error creating domain 0 (rc = %ld)\n", PTR_ERR(dom0));
  
-     return true;
- }
--#endif
++    if ( llc_coloring_enabled && (rc = dom0_set_llc_colors(dom0)) )
++        panic("Error initializing LLC coloring for domain 0 (rc = %d)", rc);
 +
-+/* Forward declaration */
-+static int __init find_unallocated_memory(const struct kernel_info *kinfo,
-+                                          struct meminfo *ext_regions);
+     if ( alloc_dom0_vcpu0(dom0) == NULL )
+         panic("Error creating domain 0 vcpu0\n");
+ 
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index f6f5574996..f144b54f4f 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -33,6 +33,7 @@
+ #include <xen/xenoprof.h>
+ #include <xen/irq.h>
+ #include <xen/argo.h>
++#include <xen/llc-coloring.h>
+ #include <asm/p2m.h>
+ #include <asm/processor.h>
+ #include <public/sched.h>
+@@ -1208,6 +1209,8 @@ void domain_destroy(struct domain *d)
+ 
+     BUG_ON(!d->is_dying);
+ 
++    domain_llc_coloring_free(d);
 +
-+void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
+     /* May be already destroyed, or get_domain() can race us. */
+     if ( atomic_cmpxchg(&d->refcnt, 0, DOMAIN_DESTROYED) != 0 )
+         return;
+diff --git a/xen/common/llc-coloring.c b/xen/common/llc-coloring.c
+index 51eae90ad5..ebd7087dc2 100644
+--- a/xen/common/llc-coloring.c
++++ b/xen/common/llc-coloring.c
+@@ -18,6 +18,63 @@ integer_param("llc-nr-ways", llc_nr_ways);
+ /* Number of colors available in the LLC */
+ static unsigned int __ro_after_init max_nr_colors;
+ 
++static unsigned int __initdata dom0_colors[CONFIG_NR_LLC_COLORS];
++static unsigned int __initdata dom0_num_colors;
++
++/*
++ * Parse the coloring configuration given in the buf string, following the
++ * syntax below.
++ *
++ * COLOR_CONFIGURATION ::= COLOR | RANGE,...,COLOR | RANGE
++ * RANGE               ::= COLOR-COLOR
++ *
++ * Example: "0,2-6,15-16" represents the set of colors: 0,2,3,4,5,6,15,16.
++ */
++static int __init parse_color_config(const char *buf, unsigned int *colors,
++                                     unsigned int max_num_colors,
++                                     unsigned int *num_colors)
 +{
-+    unsigned int i = 0;
-+    unsigned int nr_banks = 2;
-+    paddr_t bank_start, bank_size;
-+    struct meminfo *hwdom_free_mem = NULL;
++    const char *s = buf;
 +
-+    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd:\n",
-+           /* Don't want format this as PRIpaddr (16 digit hex) */
-+           (unsigned long)(kinfo->unassigned_mem >> 20), d);
++    *num_colors = 0;
 +
-+    kinfo->mem.nr_banks = 0;
-+    /*
-+     * Use host memory layout for hwdom. Only case for this is when LLC coloring
-+     * is enabled.
-+     */
-+    if ( is_hardware_domain(d) )
++    while ( *s != '\0' )
 +    {
-+        ASSERT(llc_coloring_enabled);
++        unsigned int color, start, end;
 +
-+        hwdom_free_mem = xzalloc(struct meminfo);
-+        if ( !hwdom_free_mem )
-+            goto fail;
++        start = simple_strtoul(s, &s, 0);
 +
-+        if ( find_unallocated_memory(kinfo, hwdom_free_mem) )
-+            goto fail;
-+
-+        nr_banks = hwdom_free_mem->nr_banks;
-+    }
-+
-+    for ( ; kinfo->unassigned_mem > 0 && nr_banks > 0; i++, nr_banks-- )
-+    {
-+        if ( is_hardware_domain(d) )
++        if ( *s == '-' )    /* Range */
 +        {
-+            bank_start = hwdom_free_mem->bank[i].start;
-+            bank_size = hwdom_free_mem->bank[i].size;
-+
-+            if ( bank_size < min_t(paddr_t, kinfo->unassigned_mem, MB(128)) )
-+                continue;
++            s++;
++            end = simple_strtoul(s, &s, 0);
 +        }
-+        else
-+        {
-+            if ( i == 0 )
-+            {
-+                bank_start = GUEST_RAM0_BASE;
-+                bank_size = GUEST_RAM0_SIZE;
-+            }
-+            else if ( i == 1 )
-+            {
-+                bank_start = GUEST_RAM1_BASE;
-+                bank_size = GUEST_RAM1_SIZE;
-+            }
-+            else
-+                goto fail;
-+        }
++        else                /* Single value */
++            end = start;
 +
-+        bank_size = MIN(bank_size, kinfo->unassigned_mem);
-+        if ( !allocate_bank_memory(d, kinfo, gaddr_to_gfn(bank_start),
-+                                   bank_size) )
-+            goto fail;
++        if ( start > end || (end - start) > (UINT_MAX - *num_colors) ||
++             (*num_colors + (end - start)) >= max_num_colors )
++            return -EINVAL;
++
++        for ( color = start; color <= end; color++ )
++            colors[(*num_colors)++] = color;
++
++        if ( *s == ',' )
++            s++;
++        else if ( *s != '\0' )
++            break;
 +    }
 +
-+    if ( kinfo->unassigned_mem )
-+        goto fail;
-+
-+    for( i = 0; i < kinfo->mem.nr_banks; i++ )
-+    {
-+        printk(XENLOG_INFO "%pd BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%ldMB)\n",
-+               d,
-+               i,
-+               kinfo->mem.bank[i].start,
-+               kinfo->mem.bank[i].start + kinfo->mem.bank[i].size,
-+               /* Don't want format this as PRIpaddr (16 digit hex) */
-+               (unsigned long)(kinfo->mem.bank[i].size >> 20));
-+    }
-+
-+    xfree(hwdom_free_mem);
-+    return;
-+
-+fail:
-+    panic("Failed to allocate requested domain memory."
-+          /* Don't want format this as PRIpaddr (16 digit hex) */
-+          " %ldKB unallocated. Fix the VMs configurations.\n",
-+          (unsigned long)kinfo->unassigned_mem >> 10);
++    return *s ? -EINVAL : 0;
 +}
++
++static int __init parse_dom0_colors(const char *s)
++{
++    return parse_color_config(s, dom0_colors, ARRAY_SIZE(dom0_colors),
++                              &dom0_num_colors);
++}
++custom_param("dom0-llc-colors", parse_dom0_colors);
++
+ static void print_colors(const unsigned int *colors, unsigned int num_colors)
+ {
+     unsigned int i;
+@@ -41,6 +98,22 @@ static void print_colors(const unsigned int *colors, unsigned int num_colors)
+     printk(" }\n");
+ }
  
++static bool check_colors(const unsigned int *colors, unsigned int num_colors)
++{
++    unsigned int i;
++
++    for ( i = 0; i < num_colors; i++ )
++    {
++        if ( colors[i] >= max_nr_colors )
++        {
++            printk(XENLOG_ERR "LLC color %u >= %u\n", colors[i], max_nr_colors);
++            return false;
++        }
++    }
++
++    return true;
++}
++
+ void __init llc_coloring_init(void)
+ {
+     unsigned int way_size;
+@@ -91,6 +164,61 @@ void cf_check domain_dump_llc_colors(const struct domain *d)
+     print_colors(d->llc_colors, d->num_llc_colors);
+ }
+ 
++static int domain_set_default_colors(struct domain *d)
++{
++    unsigned int *colors = xmalloc_array(unsigned int, max_nr_colors);
++    unsigned int i;
++
++    if ( !colors )
++        return -ENOMEM;
++
++    printk(XENLOG_WARNING
++           "LLC color config not found for %pd, using all colors\n", d);
++
++    for ( i = 0; i < max_nr_colors; i++ )
++        colors[i] = i;
++
++    d->llc_colors = colors;
++    d->num_llc_colors = max_nr_colors;
++
++    return 0;
++}
++
++int __init dom0_set_llc_colors(struct domain *d)
++{
++    unsigned int *colors;
++
++    if ( !dom0_num_colors )
++        return domain_set_default_colors(d);
++
++    if ( !check_colors(dom0_colors, dom0_num_colors) )
++    {
++        printk(XENLOG_ERR "Bad LLC color config for %pd\n", d);
++        return -EINVAL;
++    }
++
++    colors = xmalloc_array(unsigned int, dom0_num_colors);
++    if ( !colors )
++        return -ENOMEM;
++
++    /* Static type checking */
++    (void)(colors == dom0_colors);
++    memcpy(colors, dom0_colors, sizeof(*colors) * dom0_num_colors);
++    d->llc_colors = colors;
++    d->num_llc_colors = dom0_num_colors;
++
++    return 0;
++}
++
++void domain_llc_coloring_free(struct domain *d)
++{
++    if ( !llc_coloring_enabled )
++        return;
++
++    /* free pointer-to-const using __va(__pa()) */
++    xfree(__va(__pa(d->llc_colors)));
++}
++
  /*
-  * When PCI passthrough is available we want to keep the
-@@ -1161,7 +1249,7 @@ int __init make_hypervisor_node(struct domain *d,
-         if ( !ext_regions )
-             return -ENOMEM;
+  * Local variables:
+  * mode: C
+diff --git a/xen/include/xen/llc-coloring.h b/xen/include/xen/llc-coloring.h
+index 67b27c995b..ee82932266 100644
+--- a/xen/include/xen/llc-coloring.h
++++ b/xen/include/xen/llc-coloring.h
+@@ -16,16 +16,19 @@ extern bool llc_coloring_enabled;
+ void llc_coloring_init(void);
+ void dump_llc_coloring_info(void);
+ void domain_dump_llc_colors(const struct domain *d);
++void domain_llc_coloring_free(struct domain *d);
+ #else
+ #define llc_coloring_enabled false
  
--        if ( is_domain_direct_mapped(d) )
-+        if ( domain_use_host_layout(d) )
-         {
-             if ( !is_iommu_enabled(d) )
-                 res = find_unallocated_memory(kinfo, ext_regions);
-@@ -2073,7 +2161,10 @@ static int __init construct_dom0(struct domain *d)
-     /* type must be set before allocate_memory */
-     d->arch.type = kinfo.type;
+ static inline void llc_coloring_init(void) {}
+ static inline void dump_llc_coloring_info(void) {}
+ static inline void domain_dump_llc_colors(const struct domain *d) {}
++static inline void domain_llc_coloring_free(struct domain *d) {}
  #endif
--    allocate_memory_11(d, &kinfo);
-+    if ( is_domain_direct_mapped(d) )
-+        allocate_memory_11(d, &kinfo);
-+    else
-+        allocate_memory(d, &kinfo);
-     find_gnttab_region(d, &kinfo);
  
-     rc = process_shm_chosen(d, &kinfo);
-diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
-index da9e6025f3..b8e171e5cc 100644
---- a/xen/arch/arm/include/asm/domain_build.h
-+++ b/xen/arch/arm/include/asm/domain_build.h
-@@ -8,6 +8,7 @@ typedef __be32 gic_interrupt_t[3];
+ unsigned int get_llc_way_size(void);
+ void arch_llc_coloring_init(void);
++int dom0_set_llc_colors(struct domain *d);
  
- bool allocate_bank_memory(struct domain *d, struct kernel_info *kinfo,
-                           gfn_t sgfn, paddr_t tot_size);
-+void allocate_memory(struct domain *d, struct kernel_info *kinfo);
- int construct_domain(struct domain *d, struct kernel_info *kinfo);
- int domain_fdt_begin_node(void *fdt, const char *name, uint64_t unit);
- int make_chosen_node(const struct kernel_info *kinfo);
+ #endif /* __COLORING_H__ */
+ 
 -- 
 2.34.1
 
