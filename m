@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8D0D87CBB1
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 11:58:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693745.1082194 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CBBC87CBBA
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 11:59:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693747.1082204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl5GP-00089z-9G; Fri, 15 Mar 2024 10:58:13 +0000
+	id 1rl5Ho-0000ch-IE; Fri, 15 Mar 2024 10:59:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693745.1082194; Fri, 15 Mar 2024 10:58:13 +0000
+Received: by outflank-mailman (output) from mailman id 693747.1082204; Fri, 15 Mar 2024 10:59:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl5GP-00087K-6B; Fri, 15 Mar 2024 10:58:13 +0000
-Received: by outflank-mailman (input) for mailman id 693745;
- Fri, 15 Mar 2024 10:58:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rl5GN-00085d-ER
- for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 10:58:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rl5GM-0008Tg-Lh; Fri, 15 Mar 2024 10:58:10 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rl5GM-0003jY-Cl; Fri, 15 Mar 2024 10:58:10 +0000
+	id 1rl5Ho-0000af-Fa; Fri, 15 Mar 2024 10:59:40 +0000
+Received: by outflank-mailman (input) for mailman id 693747;
+ Fri, 15 Mar 2024 10:59:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WnwS=KV=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1rl5Hn-0000aQ-04
+ for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 10:59:39 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1d66fc1c-e2bb-11ee-afdd-a90da7624cb6;
+ Fri, 15 Mar 2024 11:59:37 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a468226e135so74733566b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 03:59:37 -0700 (PDT)
+Received: from carlo-ubuntu.mo54.unimo.it (nonato.mo54.unimo.it.
+ [155.185.85.8]) by smtp.gmail.com with ESMTPSA id
+ en6-20020a17090728c600b00a465a012cf1sm1621493ejc.18.2024.03.15.03.59.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Mar 2024 03:59:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,124 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=4riWuCVUm7NgESscmGYEJ55dDJYLa2cImkKzyhvYz+M=; b=UeUyWQII61HBU3x/ax+BknYdaU
-	XCeX8MlZSjt5SinMc6Qvq22acqch7asgbYVvfXBxbTSXCGAbw8Rva4cgnRZefMYrrGAdKJxBTudmO
-	W/6F6IH5U94YeNuJHakJhtWj+CFAxjjtfP+X/Y1bJPMwoM6eH2pvLDBZCIFi5CqlbClI=;
-Message-ID: <dc0b86eb-e494-45c9-b1f3-31a9b9f84f77@xen.org>
-Date: Fri, 15 Mar 2024 10:58:08 +0000
+X-Inumbo-ID: 1d66fc1c-e2bb-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1710500376; x=1711105176; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3rCKwXe47zdPxf3eu90GCtkMGXFP7tCC1kpyZ9XRJHM=;
+        b=RLj9VxmDkRbZHKu3sXWrg8SXv4EMPGtTrFzjmA90MRE61bZGRF7rY0UPBaXRpkkzGJ
+         oZGAYS/LamYB7uthNjETh6x/lF0Afla+Xsfp5pn1I3e/1pkwDxNq315M6cXna2g6VGVa
+         LiU6ymY183zB2/xUfxUBCytmpX7PpuNrT0TnAw9qYwGVgJ3ymRkoT5QWl6zP7B/b/WXI
+         pCt7gnur6ZgnMXSnEgSWmq3+YPVtypAzEWOGKu/BS5AxGqb2JeJvlmEeo43Ffmzdyy8C
+         jN6XpHFhtsuXIEZEiBRdmdv1CbidnszoXEFrw1qYg4LJ+RinY6gWLOcyOFnJVkcUOjt2
+         8AqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710500376; x=1711105176;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3rCKwXe47zdPxf3eu90GCtkMGXFP7tCC1kpyZ9XRJHM=;
+        b=gnzKiKtV6OSGqEPPgbB/Uy3UM1G2irsmwLldysvgIc7xwSEXj54B2wvpYIOrxaorhW
+         Drq6XSXr0WzcFa1K09PYLM358FIQuS4CcKCgPJVIBa57i0NetQTvyqigMKae7Hr3RXL7
+         Rd1KurTLJxn75AbOaJvnC7Py++r8BnROYyN6X7t6lBIJo9AOh697PDUWE5wHAXs5y4mL
+         eNQxBMF99unHBxoo4e9IX27sMshlXZfhzL2Za1ZBqMwg99gDOzwQLCfwO7Ki9Lg7TNgO
+         oeRSkPE4WxBg73ixM2t0YgJsakOveh08jDZ1GWB7z8qvaOQQne9jDJrbuL+3WiQ6MMG0
+         glQg==
+X-Gm-Message-State: AOJu0YzMQINtMHO9bMnFJm1ythvZjU6VBDLglZzSPyNWPT8u7Dutfs3Y
+	eg97355W0dPyYmGAFoE/1IAYdHjhRTHaERoK/sVx1p98xNy5YM0ze8m0XFeqmCupd/BULU3+mHg
+	4w3E=
+X-Google-Smtp-Source: AGHT+IEeWS16YrFMYdPbrZbKXVbRq2wvHOC5Obn8jrlOL6J0MKm0DIXRyIFrJdaI0X1uF5iO5pd2RQ==
+X-Received: by 2002:a17:906:5d7:b0:a45:f6fa:8c20 with SMTP id t23-20020a17090605d700b00a45f6fa8c20mr3186789ejt.14.1710500376488;
+        Fri, 15 Mar 2024 03:59:36 -0700 (PDT)
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+To: xen-devel@lists.xenproject.org
+Cc: Carlo Nonato <carlo.nonato@minervasys.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v7 00/14] Arm cache coloring
+Date: Fri, 15 Mar 2024 11:58:48 +0100
+Message-Id: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/arm: Set correct per-cpu cpu_core_mask
-Content-Language: en-GB
-To: Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org,
- george.dunlap@cloud.com
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Henry Wang <Henry.Wang@arm.com>, Juergen Gross <jgross@suse.com>
-References: <20240228015822.56108-1-xin.wang2@amd.com>
- <77520838-67cb-4755-8b02-2ec8b90c7bfa@xen.org>
- <16838c64-c633-4125-9388-af02e18a89be@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <16838c64-c633-4125-9388-af02e18a89be@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Shared caches in multi-core CPU architectures represent a problem for
+predictability of memory access latency. This jeopardizes applicability
+of many Arm platform in real-time critical and mixed-criticality
+scenarios. We introduce support for cache partitioning with page
+coloring, a transparent software technique that enables isolation
+between domains and Xen, and thus avoids cache interference.
 
+When creating a domain, a simple syntax (e.g. `0-3` or `4-11`) allows
+the user to define assignments of cache partitions ids, called colors,
+where assigning different colors guarantees no mutual eviction on cache
+will ever happen. This instructs the Xen memory allocator to provide
+the i-th color assignee only with pages that maps to color i, i.e. that
+are indexed in the i-th cache partition.
 
-On 14/03/2024 14:22, Henry Wang wrote:
-> Hi Julien,
+The proposed implementation supports the dom0less feature.
+The proposed implementation doesn't support the static-mem feature.
+The solution has been tested in several scenarios, including Xilinx Zynq
+MPSoCs.
 
-Hi,
+Carlo Nonato (13):
+  xen/common: add cache coloring common code
+  xen/arm: add initial support for LLC coloring on arm64
+  xen/arm: permit non direct-mapped Dom0 construction
+  xen/arm: add Dom0 cache coloring support
+  xen: extend domctl interface for cache coloring
+  tools: add support for cache coloring configuration
+  xen/arm: add support for cache coloring configuration via device-tree
+  xen/page_alloc: introduce preserved page flags macro
+  xen/page_alloc: introduce page flag to stop buddy merging
+  xen: add cache coloring allocator for domains
+  xen/arm: use domain memory to allocate p2m page tables
+  xen/arm: make consider_modules() available for xen relocation
+  xen/arm: add cache coloring support for Xen
 
-> 
-> On 3/14/2024 9:27 PM, Julien Grall wrote:
->> Hi Henry,
->>
->> On 28/02/2024 01:58, Henry Wang wrote:
->>> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
->>> index a84e706d77..d9ebd55d4a 100644
->>> --- a/xen/arch/arm/smpboot.c
->>> +++ b/xen/arch/arm/smpboot.c
->>> @@ -66,7 +66,6 @@ static bool cpu_is_dead;
->>>     /* ID of the PCPU we're running on */
->>>   DEFINE_PER_CPU(unsigned int, cpu_id);
->>> -/* XXX these seem awfully x86ish... */
->>
->> :). I guess at the time we didn't realize that MT was supported on 
->> Arm. It is at least part of the spec, but as Michal pointed out it 
->> doesn't look like a lot of processors supports it.
-> 
-> Yep. Do you think changing the content of this line to something like 
-> "Although multithread is part of the Arm spec, there are not many 
-> processors support multithread and current Xen on Arm assumes there is 
-> no multithread" makes sense to you?
-> 
->>>   /* representing HT siblings of each logical CPU */
->>>   DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_sibling_mask);
->>>   /* representing HT and core siblings of each logical CPU */
->>> @@ -89,6 +88,10 @@ static int setup_cpu_sibling_map(int cpu)
->>>       cpumask_set_cpu(cpu, per_cpu(cpu_sibling_mask, cpu));
->>>       cpumask_set_cpu(cpu, per_cpu(cpu_core_mask, cpu));
->>>   +    /* Currently we assume there is no multithread. */
->>
->> I am not very familiar with the scheduling in Xen. Do you know what's 
->> the consequence of not properly supporting MT? One thing I can think 
->> of is security (I know there were plenty of security issues with SMT).
-> 
-> Unfortunately me neither, so adding George to this thread as I think he 
-> can bring us some insights on this topic from the scheduler perspective.
+Luca Miccio (1):
+  xen/arm: add Xen cache colors command line parameter
 
-+Juergen as he worked on co-scheduling.
-
-> 
->> Depending on the answer, I would consider to print a warning and maybe 
->> add it in SUPPORT.MD in a separate patch.
-> 
-> To be honest, as discussed in v1. I think I am quite tempted to add an 
-> ASSERT(system_cpuinfo.mpidr.mt == 0) to make sure we catch the 
-> multithread support stuff earlier. 
-
-ASSERT(...) is not the right solution. You may have user using a Xen 
-shipped by distros where this would be a NOP.
-
-We could try to hide MT completely from the scheduler. If that's too 
-difficult, then we could add use warning_add() to throw a warning (see 
-how we dealt with opt_hmp_unsafe).
-
-I don't really know what will happen
-> if running current Xen on top of a multithread-implemented processor, 
-> probably it will be fine, but probably some strange behavior will happen 
-> after the boot time which I think will be difficult to debug...
-
-I am not sure what you mean by "strange behavior". AFAIK, you may see 
-different performance characteristics and more importantly this is a 
-nest for security issue. But I don't expect any difficult to debug.
-
-> 
->> Also, looking at the v1 discussion, it sounds like even 
->> cpu_sibling_mask would not be correct. So I think it would make sense 
->> to move the comment on top of setup_cpu_sibling_map.
-> 
-> Sounds good. I will move it in v3.
-> 
->>> +    cpumask_or(per_cpu(cpu_core_mask, cpu),
->>> +               per_cpu(cpu_core_mask, cpu), &cpu_possible_map);
->>
->> AFIACT, per_cpu(cpu_core_mask, ...) will now be equal to 
->> cpu_possible_map. In that case, wouldn't it be better to simply copy 
->> the cpumask?
-> 
-> You mean cpumask_copy(per_cpu(cpu_core_mask, cpu), &cpu_possible_map)? 
-
-Yes.
-
-Cheers,
+ SUPPORT.md                              |   7 +
+ docs/man/xl.cfg.5.pod.in                |  10 +
+ docs/misc/arm/device-tree/booting.txt   |   4 +
+ docs/misc/cache-coloring.rst            | 255 +++++++++++++++++
+ docs/misc/xen-command-line.pandoc       |  70 +++++
+ tools/include/libxl.h                   |   5 +
+ tools/include/xenctrl.h                 |   9 +
+ tools/libs/ctrl/xc_domain.c             |  35 +++
+ tools/libs/light/libxl_create.c         |   9 +
+ tools/libs/light/libxl_types.idl        |   1 +
+ tools/xl/xl_parse.c                     |  38 ++-
+ xen/arch/Kconfig                        |  28 ++
+ xen/arch/arm/Kconfig                    |   1 +
+ xen/arch/arm/Makefile                   |   1 +
+ xen/arch/arm/alternative.c              |  30 +-
+ xen/arch/arm/arm32/mmu/mm.c             |  93 +-----
+ xen/arch/arm/arm64/mmu/head.S           |  58 +++-
+ xen/arch/arm/arm64/mmu/mm.c             |  28 +-
+ xen/arch/arm/dom0less-build.c           |  59 ++--
+ xen/arch/arm/domain_build.c             | 109 ++++++-
+ xen/arch/arm/include/asm/domain_build.h |   1 +
+ xen/arch/arm/include/asm/mm.h           |   5 +
+ xen/arch/arm/include/asm/mmu/layout.h   |   3 +
+ xen/arch/arm/include/asm/processor.h    |  16 ++
+ xen/arch/arm/include/asm/setup.h        |   3 +
+ xen/arch/arm/llc-coloring.c             | 136 +++++++++
+ xen/arch/arm/mmu/p2m.c                  |   4 +-
+ xen/arch/arm/mmu/setup.c                | 199 ++++++++++++-
+ xen/arch/arm/setup.c                    |  13 +-
+ xen/common/Kconfig                      |   3 +
+ xen/common/Makefile                     |   1 +
+ xen/common/domain.c                     |   3 +
+ xen/common/domctl.c                     |   8 +
+ xen/common/keyhandler.c                 |   3 +
+ xen/common/llc-coloring.c               | 360 ++++++++++++++++++++++++
+ xen/common/page_alloc.c                 | 210 +++++++++++++-
+ xen/include/public/domctl.h             |   9 +
+ xen/include/xen/llc-coloring.h          |  64 +++++
+ xen/include/xen/sched.h                 |   5 +
+ 39 files changed, 1721 insertions(+), 175 deletions(-)
+ create mode 100644 docs/misc/cache-coloring.rst
+ create mode 100644 xen/arch/arm/llc-coloring.c
+ create mode 100644 xen/common/llc-coloring.c
+ create mode 100644 xen/include/xen/llc-coloring.h
 
 -- 
-Julien Grall
+2.34.1
+
 
