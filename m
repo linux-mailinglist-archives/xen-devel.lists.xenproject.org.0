@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6696687D75C
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Mar 2024 00:34:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694093.1082946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 233CC87D778
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Mar 2024 00:59:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694097.1082955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rlH2v-00074K-2s; Fri, 15 Mar 2024 23:33:05 +0000
+	id 1rlHRk-0001j5-UQ; Fri, 15 Mar 2024 23:58:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694093.1082946; Fri, 15 Mar 2024 23:33:05 +0000
+Received: by outflank-mailman (output) from mailman id 694097.1082955; Fri, 15 Mar 2024 23:58:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rlH2u-00071k-Vl; Fri, 15 Mar 2024 23:33:04 +0000
-Received: by outflank-mailman (input) for mailman id 694093;
- Fri, 15 Mar 2024 23:33:03 +0000
+	id 1rlHRk-0001gn-Rj; Fri, 15 Mar 2024 23:58:44 +0000
+Received: by outflank-mailman (input) for mailman id 694097;
+ Fri, 15 Mar 2024 23:58:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nznT=KV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rlH2t-00071e-Kd
- for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 23:33:03 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1rlHRj-0001gh-Sq
+ for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 23:58:43 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b75cb2d-e324-11ee-a1ee-f123f15fe8a2;
- Sat, 16 Mar 2024 00:32:59 +0100 (CET)
+ id f1f54c84-e327-11ee-a1ee-f123f15fe8a2;
+ Sat, 16 Mar 2024 00:58:41 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2FEAA61807;
- Fri, 15 Mar 2024 23:32:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F075BC433C7;
- Fri, 15 Mar 2024 23:32:55 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id B5A66CE2238;
+ Fri, 15 Mar 2024 23:58:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAED7C433F1;
+ Fri, 15 Mar 2024 23:58:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,382 +42,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b75cb2d-e324-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: f1f54c84-e327-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710545577;
-	bh=H/x2lLzI8P6R+NSkHS4VduyzdzVjwtYv/SKm4YvtS8w=;
+	s=k20201202; t=1710547118;
+	bh=hch4Iq2kCOfE1Yr5gSemlDffouVi1ooMupgbzXdSvXA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Xg/egQJ5VPGfHWaPfbjkASUQgd5veABTLT8iDrq3nNqwxvhIK0uT3oLRuFcWxVxJb
-	 UppGiDpf4Kbss+O3NEXXaAh9dmvniW+Fp/npU6CbXdKomTwTuNN+E1MRUWre0Y19PB
-	 mx+J3+IwdnTzUOWFBIg3hotaP8H2+hGQkkDA+Ahwslm2gJbI9iwhYgVBk2n55Xhb9S
-	 EMl0yjDc5BFtMKv4SxPzV+HpnSAGJbY3/hsIan66jomGxcpbFGapNJlZsUR6E4UBhk
-	 sOng1+6AiasIrz7y7WQjDyhxsmr2T5d6MlPCgp6nCguBBi50keFRUp8t0MZGuTrhLz
-	 iOeRc53lVC1Ng==
-Date: Fri, 15 Mar 2024 16:32:53 -0700 (PDT)
+	b=nyI10j7cGrybdAhwikdbqmd6R6/OZgYpME1w9fNfMN9qRtMN7CxKTt9YlGgHX9R1A
+	 gNHp5DmfWMV0bZuzE3jKbKaj3LCtB5kqMd3nvMZRhA+yp+LEqTYSEWLCtXdcELYo6u
+	 f/947NOc7nYygRbYDl5v5gB/IcsvnQSZ1b2W0mPP34fYBVIn4goJNxavxAmnXN5cDS
+	 tLkRjLtFi8lOo7ggrg0d6ac3Mg39K3r5p9cgqj3jP36wIAbRQgnScrwoO6GFeMPLvl
+	 HjXurFei/m2CL1e+RmVCDSeGjPkfaO6JfD2sAo/KkziC0wOKlJ+MmMdX9tSZSa8JVt
+	 bx9Pczmh73TSw==
+Date: Fri, 15 Mar 2024 16:58:34 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: LARRIEU Dominique <dominique.larrieu@thalesgroup.com>
-cc: Julien Grall <julien@xen.org>, 
-    GOURLOT Francois <francois.gourlot@thalesgroup.com>, 
-    GRUO Nicolas <nicolas-n.gruo@thalesgroup.com>, 
-    Cc <xen-devel@lists.xenproject.org>, Kelly Choi <kelly.choi@cloud.com>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+To: George Dunlap <george.dunlap@cloud.com>
+cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, federico.serafini@bugseng.com, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Juergen Gross <jgross@suse.com>, 
-    WILLEMS Louis <louis.willems@thalesgroup.com>, vikram.garhwal@amd.com, 
-    Edgar.Iglesias@amd.com, sstabellini@kernel.org
-Subject: RE: IMPORTANT - : Need help on USB port virtualization with Xen
- hypervisor
-In-Reply-To: <2e53bd839f904d8a97ee5645ee9e9361@thalesgroup.com>
-Message-ID: <alpine.DEB.2.22.394.2403151558480.853156@ubuntu-linux-20-04-desktop>
-References: <d2de4ae9ecb34efc962dea7f8b4e7cbd@thalesgroup.com> <bb2485e5-7818-435b-8d9c-dda88100979f@xen.org> <a46ac2e14fa2410eafc26a37a00a442f@thalesgroup.com> <427d2ecb865648b7a459c592c208c0be@thalesgroup.com> <673b2bc630d748e8af0a15d4b553906e@thalesgroup.com>
- <3ee3659afff645cabed86bcc22c44686@thalesgroup.com> <4778822e-582f-4e0d-9933-86d8d49ea3a5@xen.org> <8f2a2bbaf29e41709eeab695efe48f17@thalesgroup.com> <acf5d91425f34721b496cd49f3883ac9@thalesgroup.com> <2e53bd839f904d8a97ee5645ee9e9361@thalesgroup.com>
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    xen-devel@lists.xenproject.org, michal.orzel@amd.com
+Subject: Re: [PATCH] do_multicall and MISRA Rule 8.3\
+In-Reply-To: <CA+zSX=bGfc+dsZjg4xmW2fgsnFQLSAh1ChOY3jYU_AD5SJw_7w@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2403151650230.853156@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2311221331130.2053963@ubuntu-linux-20-04-desktop> <5a8f90d6-6502-4d93-9fd7-45fea0ede24a@suse.com> <alpine.DEB.2.22.394.2403081758400.853156@ubuntu-linux-20-04-desktop> <CA+zSX=aiqacW+QLM+KX-CcAo3DVnN+Kn7vQsOOKGK3qQOqXvBA@mail.gmail.com>
+ <a2485ac6-19ac-42ce-b8cf-6f8408483521@xen.org> <alpine.DEB.2.22.394.2403141711460.853156@ubuntu-linux-20-04-desktop> <e57a3c03-fcbc-4a5a-8b23-b9b9448de2be@suse.com> <CA+zSX=anV+h8a8Ynq1Eh+PmtmgiSj8ruRfBbhLrhMbrNn+ED0w@mail.gmail.com>
+ <63891474-1dc4-4c86-aaf4-cc4d4c53a0ae@suse.com> <CA+zSX=bu-gRYUYOKMRp5kJ02ExdrtFEHTgXapwTVotm5cK2dfw@mail.gmail.com> <d05be83a-e7f1-4c2f-afda-42deee9be203@suse.com> <3f27abc3-9809-4637-a29c-8aeafcd29ade@xen.org> <7109ef7e-040c-4d11-ba4b-d898ed2530ff@suse.com>
+ <CA+zSX=bGfc+dsZjg4xmW2fgsnFQLSAh1ChOY3jYU_AD5SJw_7w@mail.gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1892190326-1710544158=:853156"
-Content-ID: <alpine.DEB.2.22.394.2403151628020.853156@ubuntu-linux-20-04-desktop>
+Content-Type: multipart/mixed; BOUNDARY="8323329-233457267-1710546788=:853156"
+Content-ID: <alpine.DEB.2.22.394.2403151653250.853156@ubuntu-linux-20-04-desktop>
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1892190326-1710544158=:853156
+--8323329-233457267-1710546788=:853156
 Content-Type: text/plain; CHARSET=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2403151628021.853156@ubuntu-linux-20-04-desktop>
+Content-ID: <alpine.DEB.2.22.394.2403151653251.853156@ubuntu-linux-20-04-desktop>
 
-Hi Dominique,
+On Fri, 15 Mar 2024, George Dunlap wrote:
+> On Fri, Mar 15, 2024 at 2:13 PM Jan Beulich <jbeulich@suse.com> wrote:
+> >
+> > On 15.03.2024 14:55, Julien Grall wrote:
+> > > Hi Jan,
+> > >
+> > > On 15/03/2024 13:24, Jan Beulich wrote:
+> > >> On 15.03.2024 13:17, George Dunlap wrote:
+> > >>> On Fri, Mar 15, 2024 at 11:57 AM Jan Beulich <jbeulich@suse.com> wrote:
+> > >>>>> It sounds like Andy and Stefano feel like this is a situation where "a
+> > >>>>> fixed width quantity is meant"; absent any further guidance from the
+> > >>>>> CODING_STYLE about when fixed widths should or should not be used, I
+> > >>>>> don't think this change would be a violation of CODING_STYLE.
+> [snip]
+> > >>> Other than "it's in CODING_STYLE", and "it's not really necessary
+> > >>> because it's ensured in the assembly code", you haven't advanced a
+> > >>> single reason why "uint32_t" is problematic.
+> > >>
+> > >> And it isn't, I never said it would be. But if we set rules for
+> > >> ourselves, why would we take the first opportunity to not respect them?
+> > >
+> > > I am a bit confused. Reading through the thread you seem to agree that
+> > > the written rules are respected here. So what rules are you talking about?
+> >
+> > What was proposed is use of a fixed width type where according to my
+> > reading ./CODING_STYLE says it shouldn't be used.
+> 
+> This conversation is starting to get frustrating.  That's simply not
+> what it says, and I pointed that out just a few messages ago.
+> 
+> To reiterate:The text says fixed-width types are OK when a fixed-width
+> quantity is "meant"; and that in this case, Stefano and Andy "mean" to
+> use a fixed-width quantity.  The implied subtext of that sentence
+> could be, "Don't use fixed width types unless there's a good reason to
+> use a fixed width", and both Andy and Stefano think there's a good
+> reason.  This argument you haven't really addressed at all, except
+> with a specious "slippery slope" argument meant to nullify the
+> exception; and now you attempt to simply ignore.
+> 
+> I venture to assert that for most people, the rules are a means to an
+> end: That end being code which is correct, robust, fast, easy to
+> write, maintain, debug, and review patches for.  What I agreed to,
+> when I accepted this patch, was that *in general* we would avoid using
+> fixed-width types; but that there were cases where doing so made
+> sense.  Some of those were discussed in the thread above.
+> 
+> Andy and Stefano have already put forward reasons why they think a
+> fixed-width type would be better here, which are related to "end
+> goals": namely, more robust and easy to maintain code.  When I asked
+> what "end goals" would be negatively impacted by using a fixed-width
+> type, you explicitly said that there were none!  That the *only*
+> reason you're continuing to argue is that we have a document somewhere
+> that says we should -- a document which explicitly acknowledges that
+> there will be exceptions!
+> 
+> The ideal response would have been to lay out a reasonably
+> comprehensive set of criteria for when to use basic types, when to use
+> fixed-width types, and how each criteria advanced the end goals of a
+> better codebase.  A sufficient response would have been to lay out
+> reasons why "better codebase", in this instance, tilts towards using a
+> basic type rather than a fixed-width type.
+> 
+> Saying "That's what the rules say", without motivating it by
+> explaining how it connects to a better codebase, is just not a helpful
+> response; and making that argument after it's been pointed out that
+> that is *not* what the rules say is even worse.
 
-You posted this configuration:
+Thanks George for taking the time to write all of the above.
 
-device_model_args = [ "
-                      "-device","nec-usb-xhci,id=xhci",
-                      "-device","usb-host,bus=xhci.0,hostbus=1,hostport=13",
-                      "-device","usb-host,bus=xhci.0,hostbus=1,hostport=10",
-                      "-device","usb-host,bus=xhci.0,hostbus=1,hostport=2",
-                      "-device","usb-host,bus=xhci.0,hostbus=2,hostport=2",
-                      "-device","usb-host,bus=xhci.0,hostbus=2,hostport=1",
-                      "-device","usb-host,bus=xhci.0,hostbus=1,hostport=1"]
-
-It looks like you are using QEMU-based USB passthrough. Basically QEMU
-(independently from Xen) is accessing the USB device in Dom0 and
-exposing a corresponding device to the guest. I am not sure if there is
-anything that can be done in QEMU to support USB 3.0 with high speed,
-people in CC might know.
-
-There two other alternatives to this approach. You can use PV USB
-Passthrough instead. Juergen (CCed) is the original author. I am not
-sure if that supports USB 3.0 either.
-
-Finally, you can directly assign the entire USB Controller to the guest
-using PCI Passthrough: assign the whole USB Controller, with all the USB
-devices connect to it, as a PCI device to the guest. For sure, if this
-approach is OK for you, it will lead to the best performance.
-
-Cheers,
-
-Stefano
-
-
-
-On Thu, 14 Mar 2024, LARRIEU Dominique wrote:
-> Hi Julien,
-> 
->  
-> 
-> You will find here above the answers to your questions.
-> 
->  
-> 
-> Thank you very much for your help.
-> 
->  
-> 
-> Best regards,
-> 
-> Dominique
-> 
->  
-> 
->  
-> 
->  
-> 
-> -----Message d'origine-----
-> De : Julien Grall <julien@xen.org>
-> Envoyé : jeudi 29 février 2024 12:52
-> À : LARRIEU Dominique <dominique.larrieu@thalesgroup.com>
-> Cc : GOURLOT Francois <francois.gourlot@thalesgroup.com>; GRUO Nicolas <nicolas-n.gruo@thalesgroup.com>; Cc
-> <xen-devel@lists.xenproject.org>; Kelly Choi <kelly.choi@cloud.com>; Jan Beulich <jbeulich@suse.com>; Roger Pau Monné
-> <roger.pau@citrix.com>; Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>; Juergen Gross
-> <jgross@suse.com>; WILLEMS Louis <louis.willems@thalesgroup.com>
-> Objet : Re: IMPORTANT - : Need help on USB port virtualization with Xen hypervisor
-> 
->  
-> 
-> Hi Dominique,
-> 
->  
-> 
-> On 29/02/2024 10:33, LARRIEU Dominique wrote:
-> 
-> > Thank you for your quick answer.
-> 
-> >
-> 
-> > You will find below our answers (in red) to your questions.
-> 
-> >
-> 
-> > To summarize our request : what we would like is to use USB 3.0 driver with high speed configuration.
-> 
-> > Today, it is not possible to do that.
-> 
-> > The driver stay in full speed mode, and more often in USB 1.0 or 2.0 configuration.
-> 
-> >
-> 
-> > Is it possible to configure the XEN USB 3.0 driver with the high speed mode ?
-> 
-> > (read in our answers below the reference to the driver)
-> 
->  
-> 
-> Looking at what you provided below, it is still unclear what you mean by "Xen USB 3.0 driver". By any chance, are you confused with the "x"
-> in xhci?
-> 
->  
-> 
-> The drivers "xhci_hcd" and "xhci_pci" are generic and not provided/maintained by Xen. So far, with the information provided, it is unclear
-> whether the problem is actually in the driver itself. I have a few more questions. See below.
-> 
->  
-> 
-> >>      We are detecting several issues with USB port virtualization
-> 
-> >> with the
-> 
-> >
-> 
-> >>      Xen hypervisor.
-> 
-> >
-> 
-> >
-> 
-> >
-> 
-> > Just to clarify, you are assigning the PCI USB bus (rather than just the USB device) to the guest. Is that correct?
-> 
-> >
-> 
-> >
-> 
-> >
-> 
-> > If so...
-> 
-> >
-> 
-> >
-> 
-> >
-> 
-> > [Thales] : we are using the USB chipset of the mother board (see below
-> 
-> > the references)
-> 
->  
-> 
-> Thanks for the clarification. IIUC, you said you are having problem in the guest itself. Have you tried to access the same USB device from
-> dom0? Or better without any Xen involved (i.e. booting Debian on baremetal).
-> 
->  
-> 
-> This would help to narrow down the issue.
-> 
->  
-> 
-> [Thales, 14/03/24] We have no difficulty accessing the USB device on the dom0
-> 
->  
-> 
-> >> 
-> 
-> >
-> 
-> >>      We needyour helpto find a solution for these problems.
-> 
-> >
-> 
-> >> 
-> 
-> >
-> 
-> >>      The Software used are :
-> 
-> >
-> 
-> >
-> 
-> >
-> 
-> > Can you share some details of the HW you are using ?
-> 
-> >
-> 
-> >
-> 
-> >
-> 
-> > [Thales] : HW :
-> 
-> >
-> 
-> > [Thales] : We are using a GETAC X500 using the Mobile Intel QM175
-> 
-> > Chipset
-> 
-> >
-> 
-> > [Thales] : USB controller: Intel Corporation 100 Series/C230 Series
-> 
-> > Chipset Family USB 3.0 xHCI Controller (rev 31)
-> 
-> >
-> 
-> > [Thales] : Subsystem: Mitac 100 Series/C230 Series Chipset Family USB
-> 
-> > 3.0 xHCI Controller
-> 
-> >
-> 
-> >
-> 
-> >
-> 
-> > [Thales] : SW :
-> 
-> >
-> 
-> > [Thales] : Kernel driver in use: xhci_hcd
-> 
-> >
-> 
-> > [Thales] : Kernel modules : xhci_pci
-> 
-> >
-> 
-> >
-> 
-> >
-> 
-> >> 
-> 
-> >
-> 
-> >>      -Debian 11 version5.10.0-20
-> 
->  
-> 
-> IIUC, before you said you had problem with Windows. So is this the software in dom0? Or did you actually try with Debian and still see the
-> same issue?
-> 
-> [Thales, 14/03/24] We are not sure to understand the question. The information we provided to you was the modules on the dom0. The driver
-> which is back on the dom guest Windows: controleur hote ReunesasUSB 3.0 extensible
-> 
->  
-> 
-> Regarding the configuration, given you are using the official Debian package. Are you using 'xl' to create your guest?
-> 
-> [Thales, 14/03/24] yes we do
-> 
->  
-> 
-> The ideal would be if you can paste the full configuration. If you can't can you tell us if you are using any of these options: 'pci',
-> 'usbdev', 'usbctrl'?
-> 
-> [Thales, 14/03/24]
-> 
-> device_model_args = [ "
-> 
->                       "-device","nec-usb-xhci,id=xhci",
-> 
->                       "-device","usb-host,bus=xhci.0,hostbus=1,hostport=13",
-> 
->                       "-device","usb-host,bus=xhci.0,hostbus=1,hostport=10",
-> 
->                       "-device","usb-host,bus=xhci.0,hostbus=1,hostport=2",
-> 
->                       "-device","usb-host,bus=xhci.0,hostbus=2,hostport=2",
-> 
->                       "-device","usb-host,bus=xhci.0,hostbus=2,hostport=1",
-> 
->                       "-device","usb-host,bus=xhci.0,hostbus=1,hostport=1"]
-> 
-> [end Thales, 14/03/24]
-> 
->  
-> 
-> [...]
-> 
->  
-> 
-> >>      -Xen version4.14
-> 
-> >
-> 
-> >
-> 
-> >
-> 
-> > Are minor version of Xen 4.14 are you using ? Any patches on top ?
-> 
-> >
-> 
-> >
-> 
-> >
-> 
-> > Xen 4.14 has also been out of support for a few months now. If that’s
-> 
-> > possible, I would recommend to try a new Xen version (the last stable
-> 
-> > is
-> 
-> >
-> 
-> > 4.18) just in case your issue as been fixed in newer release.
-> 
-> >
-> 
-> >
-> 
-> >
-> 
-> > [Thales] : we have to use Xen release that are downloaded from the
-> 
-> > Debian official repository  (requested by our customer)
-> 
-> >
-> 
-> > [Thales] : the last one is version 4.14, but we would like to know if there is one more recent that is compatible with Linux Debian 11 ?
-> 
->  
-> 
-> Newer Xen releases should be compatible with Debian 11. But I am not aware of any "official" package for that specific version.
-> 
->  
-> 
-> Cheers,
-> 
->  
-> 
-> --
-> 
-> Julien Grall
-> 
-> 
-> 
---8323329-1892190326-1710544158=:853156--
+Let's please move forward with this patch.
+--8323329-233457267-1710546788=:853156--
 
