@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F4E687CED1
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 15:29:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693891.1082544 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1979787CF45
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 15:46:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693898.1082553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl8XN-0001IR-B1; Fri, 15 Mar 2024 14:27:57 +0000
+	id 1rl8oU-0004vu-Ol; Fri, 15 Mar 2024 14:45:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693891.1082544; Fri, 15 Mar 2024 14:27:57 +0000
+Received: by outflank-mailman (output) from mailman id 693898.1082553; Fri, 15 Mar 2024 14:45:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl8XN-0001Gd-7k; Fri, 15 Mar 2024 14:27:57 +0000
-Received: by outflank-mailman (input) for mailman id 693891;
- Fri, 15 Mar 2024 14:27:56 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rl8XM-0001GT-5j; Fri, 15 Mar 2024 14:27:56 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rl8XL-0003sI-Tv; Fri, 15 Mar 2024 14:27:55 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rl8XL-0002OC-J1; Fri, 15 Mar 2024 14:27:55 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rl8XL-0001D9-Ih; Fri, 15 Mar 2024 14:27:55 +0000
+	id 1rl8oU-0004t8-MA; Fri, 15 Mar 2024 14:45:38 +0000
+Received: by outflank-mailman (input) for mailman id 693898;
+ Fri, 15 Mar 2024 14:45:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3A35=KV=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1rl8oT-0004t2-BH
+ for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 14:45:37 +0000
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [2001:4860:4864:20::2f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ad61bee7-e2da-11ee-a1ee-f123f15fe8a2;
+ Fri, 15 Mar 2024 15:45:35 +0100 (CET)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-2220a389390so1105099fac.0
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 07:45:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +40,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=jigkvZ2WWAncg2z3mz1A15Yyc65W3oXzR6d035AaN/8=; b=EFqN3FsvwSzKyMK4IshNqYry5F
-	yOH2EJHBUD+7c6iXlyQ6AI59rhUtjvQY+uOLx98o174WzjI4ileS93Iual9h1IlzAU0iE0Xtg1wng
-	dEaCF5T91IikQaoPzQWejSNuHOp0lUVjV1gKftscvkNRh4mnzuS7cykbLw+MwiPbMX6g=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185049-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: ad61bee7-e2da-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1710513933; x=1711118733; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=u//wIGFq1yQTQLzBR6MSPkedM2eYpzAAUoGuU2PDtA0=;
+        b=N72e1oyvLQsuNBZGZCtRBUzj5WblzIf5aLHT6M9VEsB68Yjz/Fh/J/U0JxQJ2QPc+1
+         H1TrHurUUP6apDw/v51VN5MaPRfB7FyHlvLsLTcIaiLsoVAxbB8onp5XbM5t3zU9hsnD
+         /gJ3sSC94hXRLGl/PEbQ+dBf8gyvDNUTvYl6M=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710513933; x=1711118733;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=u//wIGFq1yQTQLzBR6MSPkedM2eYpzAAUoGuU2PDtA0=;
+        b=rOG0wBAbiFjKP8Gb7HRWaE8T4ZxXwM5VN0VXGBH8yasAulejujgcIkTS0wgnRDw1C3
+         pYWSx3OYr8RHEhnbaHyUOOs3gZAit+HkNccvEz66ThrZxP43ZvZDwHXCf7d8YtsiO68P
+         D6qx9lBJQGTwKa6CARigGg9DxbZPOHezDGXtOscfnYkhwJFYhtNxPHB7EmL7aN860zwY
+         aiJNkJMOicSL7pwbIuI59TgNV46izBzrft/zCZbuHlhT4HWBF6gRcmenYAQZ+BJNnNv0
+         00jKv28lY88MyHZ8x01W1wzCmPoqnfGds4YDXYrtS1DcKzuGBW1YYetSGa5NEXWQOjQG
+         1Zwg==
+X-Forwarded-Encrypted: i=1; AJvYcCW5tgdAQvpLRRT0El5qqyK3rpB04moA0SGqe7aXzqhrvKXQEB+95/FBxv6KbFdPHcXMCbFC2FnbBLnaIbECUMtRUVEhK0Nh9UozPjgZXEs=
+X-Gm-Message-State: AOJu0YxzhoNNDoWD94zds+23n0eJf1B8yDVogSi4Ljv9t0LdLqv/IQDt
+	CL3HB1J2LQQqGKgAeu67ekoxx2FzJv75plamZuHHszZ8GFQouhS37c/kIA+/aoHPrsKBdGADuED
+	4jXj579OkfMbeE8WOkAMjABZ7PlIeFf3mHu6i1A==
+X-Google-Smtp-Source: AGHT+IEslSXPGgfyyimDUiovSqXJsNPowt/4E9lwjWThs37NKWEZDujK+wt/j8PmacQfQUJR6sXH8PcjJq5pbFcZzwI=
+X-Received: by 2002:a05:6870:200e:b0:221:9cf3:8ae5 with SMTP id
+ o14-20020a056870200e00b002219cf38ae5mr3574390oab.24.1710513932865; Fri, 15
+ Mar 2024 07:45:32 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [ovmf test] 185049: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=3840c35e34d1c992268092b6366e26f2acc55a75
-X-Osstest-Versions-That:
-    ovmf=ccbbc2a5c84a0330b28b726ef0936fc16937005a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 15 Mar 2024 14:27:55 +0000
+References: <alpine.DEB.2.22.394.2311221331130.2053963@ubuntu-linux-20-04-desktop>
+ <5a8f90d6-6502-4d93-9fd7-45fea0ede24a@suse.com> <alpine.DEB.2.22.394.2403081758400.853156@ubuntu-linux-20-04-desktop>
+ <CA+zSX=aiqacW+QLM+KX-CcAo3DVnN+Kn7vQsOOKGK3qQOqXvBA@mail.gmail.com>
+ <a2485ac6-19ac-42ce-b8cf-6f8408483521@xen.org> <alpine.DEB.2.22.394.2403141711460.853156@ubuntu-linux-20-04-desktop>
+ <e57a3c03-fcbc-4a5a-8b23-b9b9448de2be@suse.com> <CA+zSX=anV+h8a8Ynq1Eh+PmtmgiSj8ruRfBbhLrhMbrNn+ED0w@mail.gmail.com>
+ <63891474-1dc4-4c86-aaf4-cc4d4c53a0ae@suse.com> <CA+zSX=bu-gRYUYOKMRp5kJ02ExdrtFEHTgXapwTVotm5cK2dfw@mail.gmail.com>
+ <d05be83a-e7f1-4c2f-afda-42deee9be203@suse.com> <3f27abc3-9809-4637-a29c-8aeafcd29ade@xen.org>
+ <7109ef7e-040c-4d11-ba4b-d898ed2530ff@suse.com>
+In-Reply-To: <7109ef7e-040c-4d11-ba4b-d898ed2530ff@suse.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Fri, 15 Mar 2024 14:45:21 +0000
+Message-ID: <CA+zSX=bGfc+dsZjg4xmW2fgsnFQLSAh1ChOY3jYU_AD5SJw_7w@mail.gmail.com>
+Subject: Re: [PATCH] do_multicall and MISRA Rule 8.3\
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+	federico.serafini@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org, 
+	michal.orzel@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 185049 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185049/
+On Fri, Mar 15, 2024 at 2:13=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 15.03.2024 14:55, Julien Grall wrote:
+> > Hi Jan,
+> >
+> > On 15/03/2024 13:24, Jan Beulich wrote:
+> >> On 15.03.2024 13:17, George Dunlap wrote:
+> >>> On Fri, Mar 15, 2024 at 11:57=E2=80=AFAM Jan Beulich <jbeulich@suse.c=
+om> wrote:
+> >>>>> It sounds like Andy and Stefano feel like this is a situation where=
+ "a
+> >>>>> fixed width quantity is meant"; absent any further guidance from th=
+e
+> >>>>> CODING_STYLE about when fixed widths should or should not be used, =
+I
+> >>>>> don't think this change would be a violation of CODING_STYLE.
+[snip]
+> >>> Other than "it's in CODING_STYLE", and "it's not really necessary
+> >>> because it's ensured in the assembly code", you haven't advanced a
+> >>> single reason why "uint32_t" is problematic.
+> >>
+> >> And it isn't, I never said it would be. But if we set rules for
+> >> ourselves, why would we take the first opportunity to not respect them=
+?
+> >
+> > I am a bit confused. Reading through the thread you seem to agree that
+> > the written rules are respected here. So what rules are you talking abo=
+ut?
+>
+> What was proposed is use of a fixed width type where according to my
+> reading ./CODING_STYLE says it shouldn't be used.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 3840c35e34d1c992268092b6366e26f2acc55a75
-baseline version:
- ovmf                 ccbbc2a5c84a0330b28b726ef0936fc16937005a
+This conversation is starting to get frustrating.  That's simply not
+what it says, and I pointed that out just a few messages ago.
 
-Last test of basis   185047  2024-03-15 09:11:16 Z    0 days
-Testing same since   185049  2024-03-15 12:41:10 Z    0 days    1 attempts
+To reiterate:The text says fixed-width types are OK when a fixed-width
+quantity is "meant"; and that in this case, Stefano and Andy "mean" to
+use a fixed-width quantity.  The implied subtext of that sentence
+could be, "Don't use fixed width types unless there's a good reason to
+use a fixed width", and both Andy and Stefano think there's a good
+reason.  This argument you haven't really addressed at all, except
+with a specious "slippery slope" argument meant to nullify the
+exception; and now you attempt to simply ignore.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Du Lin <du.lin@intel.com>
+I venture to assert that for most people, the rules are a means to an
+end: That end being code which is correct, robust, fast, easy to
+write, maintain, debug, and review patches for.  What I agreed to,
+when I accepted this patch, was that *in general* we would avoid using
+fixed-width types; but that there were cases where doing so made
+sense.  Some of those were discussed in the thread above.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Andy and Stefano have already put forward reasons why they think a
+fixed-width type would be better here, which are related to "end
+goals": namely, more robust and easy to maintain code.  When I asked
+what "end goals" would be negatively impacted by using a fixed-width
+type, you explicitly said that there were none!  That the *only*
+reason you're continuing to argue is that we have a document somewhere
+that says we should -- a document which explicitly acknowledges that
+there will be exceptions!
 
+The ideal response would have been to lay out a reasonably
+comprehensive set of criteria for when to use basic types, when to use
+fixed-width types, and how each criteria advanced the end goals of a
+better codebase.  A sufficient response would have been to lay out
+reasons why "better codebase", in this instance, tilts towards using a
+basic type rather than a fixed-width type.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Saying "That's what the rules say", without motivating it by
+explaining how it connects to a better codebase, is just not a helpful
+response; and making that argument after it's been pointed out that
+that is *not* what the rules say is even worse.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   ccbbc2a5c8..3840c35e34  3840c35e34d1c992268092b6366e26f2acc55a75 -> xen-tested-master
+ -George
 
