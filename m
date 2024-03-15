@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 208A687CAD5
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 10:42:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693719.1082140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D005687CADA
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 10:48:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693722.1082149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl43u-0002pI-VA; Fri, 15 Mar 2024 09:41:14 +0000
+	id 1rl4Ac-0003eI-Ie; Fri, 15 Mar 2024 09:48:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693719.1082140; Fri, 15 Mar 2024 09:41:14 +0000
+Received: by outflank-mailman (output) from mailman id 693722.1082149; Fri, 15 Mar 2024 09:48:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl43u-0002mh-RU; Fri, 15 Mar 2024 09:41:14 +0000
-Received: by outflank-mailman (input) for mailman id 693719;
- Fri, 15 Mar 2024 09:41:13 +0000
+	id 1rl4Ac-0003bl-Fw; Fri, 15 Mar 2024 09:48:10 +0000
+Received: by outflank-mailman (input) for mailman id 693722;
+ Fri, 15 Mar 2024 09:48:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZGBu=KV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rl43t-0002mb-Bm
- for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 09:41:13 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1rl4Ab-0003bf-BL
+ for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 09:48:09 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 283aa5b9-e2b0-11ee-a1ee-f123f15fe8a2;
- Fri, 15 Mar 2024 10:41:11 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-568a9c331a3so984948a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 02:41:11 -0700 (PDT)
+ id 2022290b-e2b1-11ee-a1ee-f123f15fe8a2;
+ Fri, 15 Mar 2024 10:48:07 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-568a5e15ae8so1500394a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 02:48:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- es8-20020a056402380800b00568afb0e731sm410668edb.63.2024.03.15.02.41.10
+ a13-20020a170906684d00b00a4646051f25sm1514861ejs.203.2024.03.15.02.48.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Mar 2024 02:41:10 -0700 (PDT)
+ Fri, 15 Mar 2024 02:48:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 283aa5b9-e2b0-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 2022290b-e2b1-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710495671; x=1711100471; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710496087; x=1711100887; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=teJnyWDQr2oaTGWwL+dBcI4Yobw/suAYoMyuPznVkAc=;
-        b=DiX/IOMawDU86xF/O6YXCpZp8WWc7JvsGxE9UPrknfpp5Wwk1y9wtIkbyHzc1fQC9L
-         0SplM/5rBDD9mz5XsY9MxOIboyKI3/J/0neUaJiPoymuI1Ze1SA1bQvRPllxa+lWOwkW
-         8k/vtRo8Tl6LzR7bBJ8dCuOInXifIVIUbSx0KLNEkmIlDoIf6w5Z6e+t6gyxkW/3NXQ2
-         u9mGlqKA94ea4j6ReNvpTuQ7aP2kSxxk9Hbo7IfZ6gMahA4LEnCh0/dVCfkNMVAwAIqq
-         U0FE0jYi78d/gZ5M49+tOpWgNLSk4pMIz5y3rbFIcuGp9nO9Ubc0ZcGKTEjFrtXv1U7o
-         XnZg==
+        bh=gD/Pc9X6PfFxpUAKaLZpaRNJBs5DNUIe8R8bnxvxUvQ=;
+        b=PSV4eXLl68BtB0O5u68QV48K9kVlRTjMzAtvXE+aRoo1I1kNOcMd+L7Zk20M1HhuSg
+         rYBG58yo2zl/zC0XGPbF5O1JtTmZpwJz37BZ8UZfJOQ8SMISq0TQ0mmKhkOqwO9MCROD
+         mFcktLoRm9yCReLI7bhvVL4x0dz+9VI5h3aHMmKObGF5uCN0V5pPZxbOTGI8xLoE7kT/
+         41+EnyiCv8TFOaA5Vj4GKVG7KfO7DropTk16EFuMfp4goY+UbkMhXHsUSyPzV6htpnqu
+         BuNkYNKXnkEFIAqlpkQIWXg/V8L7xYDgOz+cVjaAUCyXnpepwlXF+ZJI979/ubyo9xzY
+         12Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710495671; x=1711100471;
+        d=1e100.net; s=20230601; t=1710496087; x=1711100887;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=teJnyWDQr2oaTGWwL+dBcI4Yobw/suAYoMyuPznVkAc=;
-        b=aJ6zxCUdtjJ6e6OADPPPIUJAuer2i855PxY8au82B7S+n7CqZk5nJO0fOCojwQHuru
-         cGme50KdSoOkLU5cbgjGT/Usf9Axo6RkXIFv8wrqJqDs2M5PIr8iOpAP5b3k+hJkD+Le
-         t4vnXrjWFHnpB3sYtTbcAyxmKqvqDLm1JhAAyTqsiRpRiuiGj013XZAIqPE1/gKdvysa
-         SiwCG2v1B3+t2qaWQEA0hiT+HbSc944RFeoWJL8tkB5qFk9mSftcIMXGcnoxFacy4UIA
-         bOPgRm3I5Iuvgu6KQp3TTfB/DjHDnIJZhZMt55ZBNTgEszBPOTLvGUsW5E3gh2GUdoef
-         PD9g==
-X-Forwarded-Encrypted: i=1; AJvYcCVbKL0K58sM4I44VxI3LzOdJkM4uGpMi0yXrErAUSdBSId6VEbc88J7PSWvtXvY6xC9YSrU7eRNuEv8xe8eV+dyEigqxiHTFGGDjG7oHhs=
-X-Gm-Message-State: AOJu0YygdMpGc1lsB34adhLadLHn9X3YehfWlMlQ72ufxA/nCRrCgkj2
-	XeH4nXrYdZSyHQ10hvdczyHm9t1uAJlD54M+4Iva57hulChCM9gw7O4OIe6W3Q==
-X-Google-Smtp-Source: AGHT+IGbx8q4GVgXeOD+o0CxbRx07eT9Nw8gmt7lUBAYEvKqMQQplzoJsgzpF0hiBo5P8VCCavkuFw==
-X-Received: by 2002:a05:6402:538f:b0:564:dd13:56e9 with SMTP id ew15-20020a056402538f00b00564dd1356e9mr3332585edb.29.1710495670791;
-        Fri, 15 Mar 2024 02:41:10 -0700 (PDT)
-Message-ID: <6a76723e-ba47-40b3-8f33-d68030b14299@suse.com>
-Date: Fri, 15 Mar 2024 10:41:09 +0100
+        bh=gD/Pc9X6PfFxpUAKaLZpaRNJBs5DNUIe8R8bnxvxUvQ=;
+        b=Y82Jo0N44jX53OeLes4ty++kVNlppFceghDEShUxPP1tef7Lx2YmHCcc05e+ixhYK2
+         5Z00x6PDrLh5sdw8a7t54UobmuZimgYNao2GisCQ9v5azKvKtGqNL9sjZrWgLdlyqiRf
+         GKPjE5JwQ4amZopULVwaJKMxOVgopC3eo72za9TTKLVKOZlMlYcU9TNwRAp7qTxcXZs8
+         4qPw3C4gJvGpXQu9O/9QIMpV044PZQTm330oF3UeZjH4W+T72a2UlnJQhgRVEyC/+eZb
+         +kb9gB5hNzx3MTzIIVVfkVwEofPXS14gsKxQzTbtIRE/m0ZFrTrwjRjXnrI7OxnyKvBc
+         yZug==
+X-Forwarded-Encrypted: i=1; AJvYcCX+sbhgy4/a5TAdoyfok3KnxWytLDMr7AZkSRtmf7BSwOP/dhrdjLMiUeFFt7SbKrRajAkOysGA4pU50xbPCwdQqAv/X9XeZ2PdhCiULns=
+X-Gm-Message-State: AOJu0YzMqQgyBVQ1UbjzJQOb+FAoI19Wj+11lOCUJqEWvIoDKW4zDzEj
+	zyXylqGzrriDnsyJMCq3yNebIxO4Xl4c2L+8TypAUI9rqojI8wPQrlVvx1UPYA==
+X-Google-Smtp-Source: AGHT+IG5niJGd+BSRLD+GT/59wfmkytP2ffo86hUx8JjVzkbnCD8HTSA73eERwn9f4rK7BjTStTxNw==
+X-Received: by 2002:a17:906:874d:b0:a46:11a9:430 with SMTP id hj13-20020a170906874d00b00a4611a90430mr2812879ejb.76.1710496086797;
+        Fri, 15 Mar 2024 02:48:06 -0700 (PDT)
+Message-ID: <88bd8577-42e6-4087-9888-00cd73e7f0bc@suse.com>
+Date: Fri, 15 Mar 2024 10:48:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs/misra: document the expected sizes of integer
- types
+Subject: Re: [PATCH v2 3/3] x86/PVH: Support relocatable dom0 kernels
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, bertrand.marquis@arm.com,
- george.dunlap@citrix.com, julien@xen.org, michal.orzel@amd.com,
- roger.pau@citrix.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2403141516550.853156@ubuntu-linux-20-04-desktop>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <20240313193021.241764-1-jason.andryuk@amd.com>
+ <20240313193021.241764-4-jason.andryuk@amd.com>
+ <12fe48a6-6957-49d7-adf5-1a3ac8b1bfaa@suse.com>
+ <7506abe0-e3d4-44f7-b54d-592ae2e3fd3e@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,20 +116,80 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2403141516550.853156@ubuntu-linux-20-04-desktop>
+In-Reply-To: <7506abe0-e3d4-44f7-b54d-592ae2e3fd3e@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.03.2024 23:17, Stefano Stabellini wrote:
-> Xen makes assumptions about the size of integer types on the various
-> architectures. Document these assumptions.
+On 14.03.2024 20:19, Jason Andryuk wrote:
+> On 2024-03-14 09:31, Jan Beulich wrote:
+>> On 13.03.2024 20:30, Jason Andryuk wrote:
+>>> --- a/xen/arch/x86/hvm/dom0_build.c
+>>> +++ b/xen/arch/x86/hvm/dom0_build.c
+>>> @@ -537,6 +537,108 @@ static paddr_t __init find_memory(
+>>>       return INVALID_PADDR;
+>>>   }
+>>>   
+>>> +static bool __init check_load_address(
+>>> +    const struct domain *d, const struct elf_binary *elf)
+>>> +{
+>>> +    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
+>>> +    paddr_t kernel_end = PAGE_ALIGN((paddr_t)elf->dest_base + elf->dest_size);
+>>
+>> Both casts act on a pointer value. Such cannot legitimately be converted
+>> to paddr_t; it only so happens that paddr_t is effectively the same as
+>> uintptr_t right now. (Same issue again further down.) That said, I notice
+>> we have pre-existing examples of this ...
+> 
+> Yes, I followed existing code.  Do you want dest_base to be switched to 
+> a uintptr_t?
 
-My prior reservation wrt exact vs minimum sizes remains. Additionally,
-is it really meaningful to document x86-32 as an architecture, when it's
-been many years that the hypervisor cannot be built anymore for that
-target? If it's not (just) the hypervisor build that's intended to be
-covered here (the file living under docs/misra/, after all), can that
-further purpose please be mentioned?
+I think it was deliberately switched to being a pointer at some point,
+maybe even in a security fix.
+
+>>> +/* Check the kernel load address, and adjust if necessary and possible. */
+>>> +static bool __init check_and_adjust_load_address(
+>>> +    const struct domain *d, struct elf_binary *elf, struct elf_dom_parms *parms)
+>>> +{
+>>> +    paddr_t reloc_base;
+>>> +
+>>> +    if ( check_load_address(d, elf) )
+>>> +        return true;
+>>> +
+>>> +    if ( parms->phys_align == UNSET_ADDR )
+>>> +    {
+>>> +        printk("Address conflict and %pd kernel is not relocatable\n", d);
+>>> +        return false;
+>>> +    }
+>>> +
+>>> +    reloc_base = find_kernel_memory(d, elf, parms);
+>>> +    if ( reloc_base == 0 )
+>>> +    {
+>>> +        printk("Failed find a load address for the kernel\n");
+>>> +        return false;
+>>> +    }
+>>> +
+>>> +    if ( opt_dom0_verbose )
+>>> +        printk("Relocating kernel from [%lx, %lx] -> [%lx, %lx]\n",
+>>> +               (paddr_t)elf->dest_base,
+>>> +               (paddr_t)elf->dest_base + elf->dest_size,
+>>
+>> By using %p you clearly can avoid the casts here.
+> 
+> Ok.
+> 
+>>> +               reloc_base, reloc_base + elf->dest_size);
+>>
+>> I'm not convinced %lx is really appropriate for paddr_t.
+> 
+> PRIpaddr exists.  It's "016lx" for x86.  Using that and %p add lots of 0s:
+> (XEN) Relocating kernel from [0000000001000000, 000000000202ffff] -> 
+> [0000000002200000, 000000000322ffff]
+
+That's to be accepted, I guess.
+
+Looking at it again, is "Relocating" in the log message perhaps misleading?
+We don't relocate it, that's something the kernel itself has to do. We only
+put it at other than the default position. Maybe "Moving" instead?
 
 Jan
 
