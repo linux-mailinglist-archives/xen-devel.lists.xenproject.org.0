@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F53787C8E7
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 07:59:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.693643.1082040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7057187C938
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Mar 2024 08:31:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.693677.1082050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl1X9-0000Cy-Rr; Fri, 15 Mar 2024 06:59:15 +0000
+	id 1rl21w-0005uS-LD; Fri, 15 Mar 2024 07:31:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 693643.1082040; Fri, 15 Mar 2024 06:59:15 +0000
+Received: by outflank-mailman (output) from mailman id 693677.1082050; Fri, 15 Mar 2024 07:31:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rl1X9-00009o-Og; Fri, 15 Mar 2024 06:59:15 +0000
-Received: by outflank-mailman (input) for mailman id 693643;
- Fri, 15 Mar 2024 06:59:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rl21w-0005sd-Ih; Fri, 15 Mar 2024 07:31:04 +0000
+Received: by outflank-mailman (input) for mailman id 693677;
+ Fri, 15 Mar 2024 07:31:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZGBu=KV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rl1X8-00009g-Ni
- for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 06:59:14 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8797ca88-e299-11ee-a1ee-f123f15fe8a2;
- Fri, 15 Mar 2024 07:59:12 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-512f3e75391so1640402e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Mar 2024 23:59:12 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- sa37-20020a1709076d2500b00a4635a21ff0sm1412722ejc.38.2024.03.14.23.59.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 23:59:12 -0700 (PDT)
+ (envelope-from <SRS0=m7tg=KV=gmail.com=phcoder@srs-se1.protection.inumbo.net>)
+ id 1rl21u-0005p8-It
+ for xen-devel@lists.xenproject.org; Fri, 15 Mar 2024 07:31:02 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f98f534c-e29d-11ee-afdd-a90da7624cb6;
+ Fri, 15 Mar 2024 08:31:02 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2d46dd8b0b8so21229541fa.2
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Mar 2024 00:31:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,124 +40,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8797ca88-e299-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: f98f534c-e29d-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710485952; x=1711090752; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=f0BNugw9oUIIEpNu31+YGP/DO2a6/E/ajyMHR3fBV80=;
-        b=HooDN3ajluP6RuuBLWqwGDh29pU+7eqQThknQISR1skmA8enov1j5RbptEYUTeN7Ur
-         tZuDOqfF8hVvllTp6LZpthvTJM5yqx9HsFQau1C8twtlRRqbb/Pl++5rCQmfxlAB84cE
-         +WISJZpLBFhnton59Y+zO6yo+lSezKdgggg5wzPkoMINaKNEHubuSo0HEqtOOwQhiJ+f
-         MifCSqUKRLFOjnKkEuVCiPwhIgnRCeHojqhU1yvixPxMwxaHQ/+2Mxwnd0NW7CU7j8n4
-         eaw6DlFgs0iYs6BwTSbdwHQKYnhPWpLAWnIXn9FeUJhM6S1endznTB68n/qQ3SEDza0G
-         Q/Sw==
+        d=gmail.com; s=20230601; t=1710487861; x=1711092661; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=wehPS2kEKkREW3AN11EsCYAASYqr8Gk/vdvA5GOTKLk=;
+        b=IzpUb5WwyDrGamtsBAzKXuD9mNfXXYbXGa/Hm7sRGZVMOrgp/eI7hrZBxvM0IrzptE
+         3i75N7FLZPK+rRREmp3F+Uhc3qhA1Dc2+g/djdvIGJ9ThiWhcAtPGjwbvaEXeU5eXf7Q
+         a0b7WqxQhGw56uiYbYnQc+NMXBCIL/IeJXT0sOKDdUWd9bM1fR0qa1oYnrzk/PT5vcKt
+         Izf5QJrw464uvnrqBCgkI1ntBTLR+Z8e+eIReSX1mkt6mndZ0RK0fAvzBsAo1IjS8lfh
+         71+GBXt0mN89LP+8TNlv9aXBbeDePY/sonS9wSDTrCO4vI3F4rWzAP3rOtEvvzeCqPoL
+         lqPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710485952; x=1711090752;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=f0BNugw9oUIIEpNu31+YGP/DO2a6/E/ajyMHR3fBV80=;
-        b=vtkdJ408xD7e/YYX38HAq6Vg0A+xTFRbo84qEIPW6x7W1XPw08NnB9skf7oT5UQBVq
-         h24nxWT1/4IV9JnQUrmUFuA9tAopJh9GVDaXWqzn45PDh/Y+1KObxQy+yTqRe/w9o7Lw
-         PVZi/RL896ftiMm9dXoyeMLhexnRO6OgrwViBKCu64B3BEuE95OxdTL3pmufQerXyq2w
-         AGcuxPS2u2KmO67ft+Qd2dbP+hA97h3Cj01b+fb/y5EusHZ658Xd7IMx9eKcyiB8Aybt
-         H3XjCq+hDMOCS2slOeHAvZosqJ9QwqwnLEEUu4OHNozjOaV5bD1h70jZO7Nrtn/humFt
-         +rEA==
-X-Forwarded-Encrypted: i=1; AJvYcCU80P/BAShU6/LtenH8w/jxu5gr4zbWqF87B1Im6KDph7qbBsO6mTcfOznV+wAY9bSdVcvLWr7OTnyepDkZFT9NWfAxoT79Qaddy7KaSoo=
-X-Gm-Message-State: AOJu0YzZ6xmIEfIhl61hwKvcwZZdNxj/u+qXoycD3DM46MST0b9st7uw
-	/4hX/vJ62sxzEb/pp49pexCS+/emii209R58D5qB2z6sOtOrDOceFm+ASMi9Vg==
-X-Google-Smtp-Source: AGHT+IGSBkE57xWXRzEnNDTEof79wsq4rPg9HP96IMo0m54w5Eo51e690dvYzWz80KPwy9rwq1NJwQ==
-X-Received: by 2002:a05:6512:3ca6:b0:513:d3e3:f78c with SMTP id h38-20020a0565123ca600b00513d3e3f78cmr2959529lfv.40.1710485952333;
-        Thu, 14 Mar 2024 23:59:12 -0700 (PDT)
-Message-ID: <2ea3d566-1b21-44e6-bdb6-7c554a7f7996@suse.com>
-Date: Fri, 15 Mar 2024 07:59:10 +0100
+        d=1e100.net; s=20230601; t=1710487861; x=1711092661;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wehPS2kEKkREW3AN11EsCYAASYqr8Gk/vdvA5GOTKLk=;
+        b=WLCcpUVPnKtIoC3GDNGjpjaYglO3C8VA4EKAzTY2VOa6fF1L67o2jdPy5jqc9dWCNN
+         SKqi3RlTTxx5iKfUdRvy9gdk0FBAJet98dIJzoYuSH0v9NrJ1yHuGuqJTG2m+XAUCcEw
+         hSU8QUsR1YBMiAvffWSlv0pIu/4U017q/E4i3w4MLJD2XT5C2eEkYiy0kdD11mMJFi3o
+         eZE7kXZQVLJ4moXcVxd/SjxkihkpudQ9GFr+iuja8ldvgsx6E5HeCCYqClWlwt0H++ki
+         8/ynwMmwa02Mx2wwu/zR0QaMSYcObXx23QxPm5x+o/Aub0e/7ElJQdGMrd0r0aqPUDxC
+         Sq+w==
+X-Forwarded-Encrypted: i=1; AJvYcCXHgsVzYCvxZerWrEUJiBMAnCQyBFkq9FREmNpuQldjfqOKO6VaKJ6gehNx46XkVU6lAC1Z13wKAyQ7sCxfUB77HqmuPEoxNR0Jf3vY5tc=
+X-Gm-Message-State: AOJu0YyBCNmI1m5gELdNyxhvYta7scTJMEnQQqoI/lswEs/wohpuLcfB
+	LDJCapKnqt5zYHp63GS/XkprJsvh6f/SD1ZRhZiVjCkvgozNxOsPNo349GgL1FltF0JtFJKEcQz
+	7p3vdb7mLdYYdA7W9tm4KLhtRhxc=
+X-Google-Smtp-Source: AGHT+IFPPGnPPOV1zLV6mH02SJS4GVbYq3kTRHYpWSLkfR1Qw4+lYFWESVLcUr3tiTeZGz1jwfEHjMLVJaNHCk5wTqw=
+X-Received: by 2002:a2e:8949:0:b0:2d4:6765:65ec with SMTP id
+ b9-20020a2e8949000000b002d4676565ecmr3009805ljk.42.1710487861328; Fri, 15 Mar
+ 2024 00:31:01 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 01/16] misra: add deviation for headers that
- explicitly avoid guards
-Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1710145041.git.simone.ballarin@bugseng.com>
- <310fe4a0ccd0ad45bcf1cd9811ac56c9a560dd0b.1710145041.git.simone.ballarin@bugseng.com>
- <def59c84-13e6-4175-ae5d-e0ba7770f68e@suse.com>
- <alpine.DEB.2.22.394.2403141554040.853156@ubuntu-linux-20-04-desktop>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2403141554040.853156@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20240313150748.791236-1-ross.lagerwall@citrix.com> <20240313150748.791236-4-ross.lagerwall@citrix.com>
+In-Reply-To: <20240313150748.791236-4-ross.lagerwall@citrix.com>
+From: "Vladimir 'phcoder' Serbinenko" <phcoder@gmail.com>
+Date: Fri, 15 Mar 2024 10:30:50 +0300
+Message-ID: <CAEaD8JPr_Mxi5pKUV+Ybpx+H8c7G=j+D4g3FQcc8n9yiydk19Q@mail.gmail.com>
+Subject: Re: [PATCH 3/7] multiboot2: Add support for the load type header tag
+To: The development of GNU GRUB <grub-devel@gnu.org>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Daniel Kiper <daniel.kiper@oracle.com>
+Content-Type: multipart/alternative; boundary="0000000000005e05b50613adfde6"
 
-On 14.03.2024 23:55, Stefano Stabellini wrote:
-> On Mon, 11 Mar 2024, Jan Beulich wrote:
->> On 11.03.2024 09:59, Simone Ballarin wrote:
->>> Some headers, under specific circumstances (documented in a comment at
->>> the beginning of the file), explicitly avoid inclusion guards: the caller
->>> is responsible for including them correctly.
->>>
->>> These files are not supposed to comply with Directive 4.10:
->>> "Precautions shall be taken in order to prevent the contents of a header
->>> file being included more than once"
->>>
->>> This patch adds deviation cooments for headers that avoid guards.
->>>
->>> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
->>>
->>> ---
->>> Changes in v3:
->>> - fix inconsistent deviation ID
->>> - change comment-based deviation text
->>> Changes in v2:
->>> - use the format introduced with doc/misra/safe.json instead of
->>>   a generic text-based deviation
->>> ---
->>>  docs/misra/safe.json                        | 9 +++++++++
->>>  xen/include/public/arch-x86/cpufeatureset.h | 1 +
->>>  xen/include/public/errno.h                  | 1 +
->>>  3 files changed, 11 insertions(+)
->>
->> I understand something wants doing, but having such comments appear in public
->> headers feels wrong to me. I'm afraid I have no good alternative suggestion.
-> 
-> Given that in both cases there is very nice explanation on how to use
-> the headers as an in-code comment just above, could we embed the
-> SAF-3-safe marker in the existing comment?
+--0000000000005e05b50613adfde6
+Content-Type: text/plain; charset="UTF-8"
 
-I'm afraid that won't address my remark, and I'm further afraid this would
-then render the SAF part of the comment ineffectual.
+Not a full review. Just one blocking problem
 
-> If not, I think we should go with this patch as is (I don't think it is
-> worth my, your, and Simone's time to look for alternatives).
 
-Easy alternative: Simply leave public headers alone.
+>
+>      }
+> +  case MULTIBOOT_LOAD_TYPE_PE:
+> +      grub_fatal ("Unsupported load type: %u\n", mld.load_type);
+> +  default:
+> +    /* should be impossible */
+> +    grub_fatal ("Unknown load type: %u\n", mld.load_type);
+>
+Don't use grub_fatal for this. grub_fatal is only when continue to execute
+grub is unwise. Here you just have an unsupported file. This is definitely
+a GRUB_ERR_BAD_OS
 
-Jan
+
+>
+
+--0000000000005e05b50613adfde6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Not a full review. Just one blocking problem<br><br><div =
+class=3D"gmail_quote" dir=3D"auto"><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><br><br>
+=C2=A0 =C2=A0 =C2=A0}<br>
++=C2=A0 case MULTIBOOT_LOAD_TYPE_PE:<br>
++=C2=A0 =C2=A0 =C2=A0 grub_fatal (&quot;Unsupported load type: %u\n&quot;, =
+mld.load_type);<br>
++=C2=A0 default:<br>
++=C2=A0 =C2=A0 /* should be impossible */<br>
++=C2=A0 =C2=A0 grub_fatal (&quot;Unknown load type: %u\n&quot;, mld.load_ty=
+pe);<br></blockquote></div><div dir=3D"auto">Don&#39;t use grub_fatal for t=
+his. grub_fatal is only when continue to execute grub is unwise. Here you j=
+ust have an unsupported file. This is definitely a GRUB_ERR_BAD_OS</div><di=
+v dir=3D"auto"><br></div><div class=3D"gmail_quote" dir=3D"auto"><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
+id;padding-left:1ex"><br>
+</blockquote></div></div>
+
+--0000000000005e05b50613adfde6--
 
