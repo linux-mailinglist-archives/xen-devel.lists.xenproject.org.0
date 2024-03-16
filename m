@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AFAD87D826
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Mar 2024 04:24:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694135.1083051 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32CD987D8B7
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Mar 2024 05:02:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694139.1083062 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rlKdW-0007a7-95; Sat, 16 Mar 2024 03:23:06 +0000
+	id 1rlLEY-0004Zm-4u; Sat, 16 Mar 2024 04:01:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694135.1083051; Sat, 16 Mar 2024 03:23:06 +0000
+Received: by outflank-mailman (output) from mailman id 694139.1083062; Sat, 16 Mar 2024 04:01:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rlKdW-0007XS-6M; Sat, 16 Mar 2024 03:23:06 +0000
-Received: by outflank-mailman (input) for mailman id 694135;
- Sat, 16 Mar 2024 03:23:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rlLEY-0004YF-23; Sat, 16 Mar 2024 04:01:22 +0000
+Received: by outflank-mailman (input) for mailman id 694139;
+ Sat, 16 Mar 2024 04:01:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+ATQ=KW=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1rlKdU-0007XM-Ir
- for xen-devel@lists.xenproject.org; Sat, 16 Mar 2024 03:23:04 +0000
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7e261e40-e344-11ee-a1ee-f123f15fe8a2;
- Sat, 16 Mar 2024 04:23:01 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 5D1D05C004F;
- Fri, 15 Mar 2024 23:23:00 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Fri, 15 Mar 2024 23:23:00 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 15 Mar 2024 23:22:59 -0400 (EDT)
+ <SRS0=3Lt+=KW=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
+ id 1rlLEW-0004Y9-R4
+ for xen-devel@lists.xenproject.org; Sat, 16 Mar 2024 04:01:20 +0000
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d561ee04-e349-11ee-afdd-a90da7624cb6;
+ Sat, 16 Mar 2024 05:01:18 +0100 (CET)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 15D95320010B;
+ Sat, 16 Mar 2024 00:01:12 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Sat, 16 Mar 2024 00:01:13 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 16 Mar 2024 00:01:11 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,178 +43,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e261e40-e344-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: d561ee04-e349-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm1; t=1710559380; x=1710645780; bh=JG
-	KYRygn5+9kiCBHJyMLdgRVPh3h1+QHe7wMvEDshX4=; b=IcKkSERbS/GWt9n5ac
-	NtsdYKqbxPnMZJ45Scp6hBk43AtiEw+JPQCX33ddogfP8c8QVcd2BPdfxxPhcKTx
-	0P04TYcudKJumskb4LaSwEJyLR57txdKkwaIsfZVfu1sMQUM9Ps6UGlE8toP5lZJ
-	CohbAf3EJcI5BbiIwxc2jdM57oPcYRCcPDtjaFEb8/hXVPferDxzTMHyUhFk9nE9
-	0wNfo6LhjeiGcs/ISNbnqZB9PUXWbLB1+QkFL9ury3NSgaZawMOjk7nZvg/pAsx3
-	zeVeg83aRJyDn+tDoRibECimS7OwDQSSTfyc3Fv8O2DJgJT+WjSqsI+/97lkHkz6
-	XfQw==
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1710561672;
+	 x=1710648072; bh=RDB0VzEGZIjYO7+eYsNfBjQXMjBAGaY8KxMVv2LWsp8=; b=
+	ZCySQg06GLcTcy9RbUuNqPvNgNU/rBPwRLb9zgeDy6bU3Fa2HrUpJCPErtIC1Bdm
+	pb/jarLjRbakRj5V0lUAWzPj2r2QXEpq669Xf+KDPAOv3/tcPRuZqJEwmZD5ilxb
+	uFdJZgDKpr5tvaz0W5IkENU074ZVb+q+M7HX2ZSzqeMie8GEF4VZA68JLUI7KLif
+	08o3nc1SPrPxVTq2rXh9srk0qUr1IblsfhDPg56YEk+7mCqxsUaEbRCpYnt2QfVu
+	fcmQ0P9TB5n2bwqmYEu7e6PPYlO/WlG2ZLwFR2fXexwpIbrKS3GbR0hDQvhSNApM
+	bw/rRrZRIum4hHUrtppvGw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1710559380; x=1710645780; bh=JGKYRygn5+9kiCBHJyMLdgRVPh3h1+QHe7w
-	MvEDshX4=; b=qOuAL5SNITcwXg1l/GzJJRTIKI0rRUeKNYjyQbmg1pxMKR22otT
-	GNYtLweSrclIOb07JMURQ5OdVN+QZfW+RwQfJVAxQqwdh4wKVGBq4Jo6G0WLoED2
-	V8ZImSbiYFeZJA6UGMh6yZh4PXB4iPbWvn7OcQAh7HRm3IK7OVNRxXDprHhMdkaa
-	xrtDEOFbt7tmZ5UeGIULIUdvGG8Wvk9ko0CHfAEnoCSwN6VddQ62toaj48BqUO4f
-	p+EvDPYfm7HI4MppcG7YyPSMjg8NOqH3meP0Onoh/aVozxIWsZuz+mplLqqqL/hv
-	GFhaFCncsPZDny6CDRkoRe1hHVkOn8HQj2A==
-X-ME-Sender: <xms:lBD1ZSyNOedvRgrjiLgSCyaYsLCR0KFEISmNaNRUjhrgwSsiiejQiA>
-    <xme:lBD1ZeS_3LyxZX3bVGtnCUMuRO5Mtdmp8G2BTNcUJRDAkaA_q172s_EQ-UGRsq2ug
-    ACdGR7BoiMkPA>
-X-ME-Received: <xmr:lBD1ZUXk9FNvERd6FfaHYg2J5q6XFOPVWeXl8hZHPost96tK1vzm8Ea9Fg3qvg-Bq1nwjohO60sLDc8YDYUsDU7vSbvrOXxocA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrkedtgdehkecutefuodetggdotefrodftvf
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1710561672; x=1710648072; bh=RDB0VzEGZIjYO7+eYsNfBjQXMjBA
+	GaY8KxMVv2LWsp8=; b=P2zNmKbNrMWMeSutXTfBhKv8khjXimSRw7CEUT8GEaCq
+	y6+4WJGnJK25P2KErUZRV0d2z/7bDQDai+CG9xmOgb8JB2xhRRfAoux7fjETxzNR
+	M+r0pzCSDotbpUhcBrzXHd2vhGBBMeA9H4uw9f8wfuoopj7rrAeHuqySxgxG48Tu
+	+IQ5Us56DUVxe/O3WQVTMJs//VvYrrAP6rTH0XhaQ3pP58A2MDXouHlmK3HfinkR
+	fYqYBuMQC/3EdalDeLXSHWvPMelyi3k8l3DNju8ihnIGkhpKmce9E12WW8oo019G
+	L58+PB+k0+fFxt+MRYLdOn7S1FzIIbxAOFvrOZFF0Q==
+X-ME-Sender: <xms:iBn1Zb3Zna7KltotjmN3Pj0cdN_DT-hJmWmUwvaS-cbm44Rv3buNGg>
+    <xme:iBn1ZaGfBxNAO77e2-lgWc1SV-tT2V8CvQ7OgtGAI8fZciy6vznKIbR7rKoVDtM_E
+    G00dEYNdDncNLA>
+X-ME-Received: <xmr:iBn1Zb71dbHlnOAuMN1xM_g1iInGZJKXqotX4qNdCtG-FD7ygtGMCoIUxWSjHniWdmU1qEs9oq5uBvGhuZdsmvY6Lg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrkedtgdeiiecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfggtggusehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeduheeltdek
-    kefgieekjeejiefgvefhudfhvdduhfdtvedufeefhfehteehieehteenucffohhmrghinh
-    epkhgvrhhnvghlrdhorhhgpdhgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigv
-    pedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisg
-    hlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:lBD1ZYib2k5_h80lilSDZaqjm6Np4PNlcZ8Jer2oxOC7BJDVHNfXiQ>
-    <xmx:lBD1ZUAtdIiKHF_c-ZAaOjwFqSc1LQNeKwhJxDklz5QxUwmULSFVxg>
-    <xmx:lBD1ZZJgBTJALJI_yR8ArPkMfZpCmL2pSlN6nCJREP-HtlKn-4cBhQ>
-    <xmx:lBD1ZbDbQjbVBk_vVqKZEYACkBqcoKUMjn0i0FiK6kkgeJXiW6qilw>
-    <xmx:lBD1ZXOiH8ajM0YSPLtluKB6l2EXZxrXv5wZDuPwZzsSlG0pD1q1BQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Sat, 16 Mar 2024 04:22:53 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Simon Gaiser <simon@invisiblethingslab.com>
-Subject: Status of S0ix with Xen
-Message-ID: <ZfUQju8HBEkJNnKh@mail-itl>
+    fjughrpefkffgguffvvehfhfgjtgesghdtreertddtjeenucfhrhhomhepufhimhhonhcu
+    ifgrihhsvghruceoshhimhhonhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
+    hmqeenucggtffrrghtthgvrhhnpeeggeevtdefudehleefgeetvedtudeghfeifeegleff
+    kedthefgiedvudefvddvudenucffohhmrghinhepghhithhhuhgsrdgtohhmnecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepshhimhhonhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:iBn1ZQ3CDR5yULgCnafh9JLqP3gKFVWsf-ncV7ML2Gia5QrYRw0j4g>
+    <xmx:iBn1ZeERc47lJT39xOhk2K0nrNZoFRWpPej--5GwvokooimV9CRC5Q>
+    <xmx:iBn1ZR9fYSMJDtAixZeGFkhGhuz1xFQAEs_7iP5X736CjzhkRuHwkg>
+    <xmx:iBn1ZbnrHJGYcOtuknYRX8mmW0ICF2ImGhgFgH0rq7ZiRwELExurYw>
+    <xmx:iBn1ZQMihKXmWVb5KaZ7GxorhNR-wIoktVGubvRjBoGVfLaZFoXqGg>
+Feedback-ID: idc5945a3:Fastmail
+Message-ID: <940f93dc-37cb-499c-9e48-1898e12ce053@invisiblethingslab.com>
+Date: Sat, 16 Mar 2024 05:00:59 +0100
 MIME-Version: 1.0
+Subject: Re: Status of S0ix with Xen
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+References: <ZfUQju8HBEkJNnKh@mail-itl>
+Content-Language: en-US
+From: Simon Gaiser <simon@invisiblethingslab.com>
+In-Reply-To: <ZfUQju8HBEkJNnKh@mail-itl>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="PeMlmw02okIHY8Dx"
-Content-Disposition: inline
+ protocol="application/pgp-signature";
+ boundary="------------yxpE2F20G0aRgWgcKvscgSK9"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------yxpE2F20G0aRgWgcKvscgSK9
+Content-Type: multipart/mixed; boundary="------------mSao4Len6MXjiPCP9pgZk61S";
+ protected-headers="v1"
+From: Simon Gaiser <simon@invisiblethingslab.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Message-ID: <940f93dc-37cb-499c-9e48-1898e12ce053@invisiblethingslab.com>
+Subject: Re: Status of S0ix with Xen
+References: <ZfUQju8HBEkJNnKh@mail-itl>
+In-Reply-To: <ZfUQju8HBEkJNnKh@mail-itl>
+Autocrypt-Gossip: addr=marmarek@invisiblethingslab.com;
+ keydata= xsBNBE5j9EwBCACbYHjxDrxFAY3n1x9KBFvjzkG1qFSTVBnH4vpD/5Na4sZq4uDDMUCjivrm
+ MzbWYaivYj96BygdOiw7PWxYrhuW0b2WYOeGudZyApgFz42g458s78EciuhgfuWBlxr8dOEN
+ /9ueVFHcvtZmDbHhMVPcQ0O7gwh0JmwkOsf7P7WAfYXsQlhO/EBRrNXR0Je+GEpYADhRktxX
+ h1d3Iz+oKYuwHioLX8ovoAT4+peOuecWUSpUWebpDbTR5i7NRP3PIblB4KzWJa2kh/f3mx4v
+ SRGnHn+BfX42xSe0X7Ktl4Xf+KNq9Wkcjk2CZP57hV2v4pO0ZUOXD7IhlZtnfNj67WjdABEB
+ AAHNPU1hcmVrIE1hcmN6eWtvd3NraS1Hw7NyZWNraSA8bWFybWFyZWtAaW52aXNpYmxldGhp
+ bmdzbGFiLmNvbT7CwHoEEwEIACQCGwMFCwkIBwMFFQoJCAsFFgIDAQACHgECF4AFAll+l7cC
+ GQEACgkQ24/THMrX1yw6kAgAiKiUhzAPXZj5ndqiQDl8u8PUK34SupLzYNMJOCBw5Wh+CPHe
+ XYlQUwfULWxmzjiWCzzWDx2X/ONsYdRGKDKMqG5srOSWe1IYXv00MEutGsK+m/hmC5mqi/97
+ DVNZ1VtKj5WW79IsI0/7ueHsQYNNrXyOfZvKsRE8VIUJ0tNfLFDFlNpq9jONuF+GviMWxrA5
+ FoVaGmjh63xC0fOQYqhP2v8dbYS4B6bO5NZKI2cTHb9Li2iY0e7wIoNgvqgtR3Iv2U2Ry0yL
+ D3mNQhwyxcWChexlymjfqLEZwKqaIOo57HOpt7OA+bMg6MvkdUTjNWf2GE6fqCcALjcToJ3L
+ NDc1KM7ATQROY/RMAQgAtRWgUZ5mOy+c/qzmiVnxqDkiOJjmnIh3Pn+OqCtjcrTyPI9eVc06
+ uH30Jkco0soLiG/UgwVw4XwBlm95j9n6TSUms4mPBh1YiR1hBjsjYwn8zp/Ue9xWk1N6E14H
+ aj55GxmS2H3YIlOXfQLr0X3RHsmKixTOKyisrYlJu71FmettDFV7CgMXy1Bc1LbAE08asvAS
+ ShHFdRiRRtkuVHvY/Ebq9L54kOxtlI6ahrflMcT0YCMON5oe4GgQRh3p2uy+d/LS2bgRcQST
+ IebErj8x0lM271f97GvxV/ypHo7XVIDI5FX1u31Agzx3HQr035GHt4HV4/GVCz+V4xt4BonB
+ tQARAQABwsBfBBgBAgAJBQJOY/RMAhsMAAoJENuP0xzK19cs5MgH/jWLXil2Ud4TdtWnBxc+
+ 2/QZZk2JCssc1PgWNzvH5wH7U+8lGSlUK8ZMOqrrF8C5rX0+xEn7deSrsZChIOnUFo8rhCZK
+ y/mBV+FhkMj24FZZ0n8w3eF4KF2t68Pt+AvMjxQHwxAMdf3QftgQhD0qYkt/28eedUQ+jwz6
+ kipc4qUQmqTEViQRPa3WAnKgNDQUDUwNruzthfGvHUjllf7zbPI8gkbARM0KlTkLikc9u+Ni
+ VMbJTiGPB7YHyw2MIPq1n+mhSPAyXE6CVBnYkonQ7P3SLZssxC3PIarV+DTU68umQB3pfrfF
+ 7hMcAY5csWrK9/x/Zz4RUfgN6Q3HLrSp9UQ=
 
---PeMlmw02okIHY8Dx
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+--------------mSao4Len6MXjiPCP9pgZk61S
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 16 Mar 2024 04:22:53 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Simon Gaiser <simon@invisiblethingslab.com>
-Subject: Status of S0ix with Xen
 
-Hi,
+A very small correction to Marek's summary, only matters if you really
+going to look at details:
 
-S0ix came up in a recent discussion, so let me post a small status
-update. We have patches that makes Qubes suspend with ~90% S0ix
-residency. It's significantly worse than native Linux on the same system
-- that gets 99+%, but still a significant progress.
-We do have a tricky case though, because we use PCI passthrough, with
-stubdomains.
+Marek Marczykowski-G=C3=B3recki:
+[...]
+> 2. When toolstack issues "suspend" command (via xenstore
+> control/shutdown), Linux uses "freeze" path, that doesn't put devices
+> into low power state. Changing that to "suspend" path helps (the second=
 
-A summary of changes required is posted by Simon in a tracking issue[1],
-but let me post it here too:
+> patch in [2]), and for our case seems to have no negative consequences.=
 
-    So currently on my test system (NUC11TNHi5) I'm being able to reach
-    S0ix residency with only dom0 running for nearly 90=E2=80=AF% of the su=
-spend to
-    idle time. (That's still worse than native Linux with >=C2=A099=E2=80=
-=AF%.)
 
-    Used changes:
+That's not quite true. See the hacky change to
+xenbus_frontend_dev_resume in that patch. For a proper change this needs
+to be clarified when which behavior is actually correct.
 
-     - Xen
-       - Disable HPET legacy mode after it has been userd for IOAPIC
-         test during boot ([upstream discussion](https://lore.kernel.org/xe=
-n-devel/cb408368-077d-edb5-b4ad-f80086db48c1@invisiblethingslab.com/),
-         including minimally required diff)
-       - Tiger Lake support in Xen's mwait-idle driver. Unlike Linux'
-         version of that driver Xen's only supports the CPUs for which
-         it contains a hardcoded config. For the moment I just manualy adde=
-d the
-         config Linux is reading from ACPI. Needs to be tested if this is
-         actually required (see also
-         [Jan's comment](https://lore.kernel.org/xen-devel/f6c27788-bdd9-e5=
-b1-a874-7f48a27c66a9@suse.com/))
-       - Allow reading of S0ix related MSRs. Not sure if any of them is
-         strictly required to get into S0ix states, but at the very
-         least you want them to be able to debug things (for example via
-         `/sys/kernel/debug/pmc_core/...`)
-       - Teach `cpu_idle.c` that Tiger Lake also has PC{8..10} (for proper =
-debug output)
-       - Disable `ondemand` cpufreq governor (both `powersave` as well as `=
-perfromance` work)
-     - Linux in dom0
-       - Add wakup support to `xen-pirq`
-         ([patch](https://lore.kernel.org/xen-devel/20230313134102.3157-1-s=
-imon@invisiblethingslab.com/) sent upstream)
-       - If using a SATA device you need to enable low power mode for
-         link management (`echo min_power > /sys/class/scsi_host/host0/link=
-_power_management_policy`, tried to get
-         it [enabled by default](https://lore.kernel.org/linux-ide/20230213=
-102450.1604-1-simon@invisiblethingslab.com/)
-         but that's
-         [not so easy](https://lore.kernel.org/linux-ide/ad02467d-d623-5933=
--67e0-09925c185568@leemhuis.info))
+> But we do not use live migration nor save/restore - which is another us=
+e
+> of this feature, and we have not tested if this still works.
+> [...]
+> [1] https://github.com/QubesOS/qubes-issues/issues/6411#issuecomment-15=
+38089344
+> [2] https://github.com/QubesOS/qubes-linux-kernel/pull/910/files
+> [3] https://github.com/QubesOS/qubes-vmm-xen-stubdom-linux/pull/63/file=
+s
 
-    First tests with a running guest and investigating the difference to
-    native Linux are progress (the later is probably due to some timer).
+--------------mSao4Len6MXjiPCP9pgZk61S--
 
-Since the above update, few more things came up:
-1. Thunderbolt driver in Linux does not support suspending when kernel
-is built with CONFIG_HOTPLUG_PCI=3Dn (which is the case in Qubes). We have
-a hacky workaround at [2] (the first patch), together with more details
-about the issue in the patch description.
-
-2. When toolstack issues "suspend" command (via xenstore
-control/shutdown), Linux uses "freeze" path, that doesn't put devices
-into low power state. Changing that to "suspend" path helps (the second
-patch in [2]), and for our case seems to have no negative consequences.
-But we do not use live migration nor save/restore - which is another use
-of this feature, and we have not tested if this still works.
-
-3. QEMU emulates (instead of passthrough) power management related
-config space. This is fixed at [3]
-
-The relevant patches are all linked in pull requests connected to the issue.
-
-This is still work in progress. Some of the patches were already posted
-to relevant mailing lists, other still require some more work and will
-be posted later. I'm posting it here mostly to share that we are working
-on it. But also, if anybody wants to try it out and maybe help
-improving, the patches are out there.
-
-[1] https://github.com/QubesOS/qubes-issues/issues/6411#issuecomment-153808=
-9344
-[2] https://github.com/QubesOS/qubes-linux-kernel/pull/910/files
-[3] https://github.com/QubesOS/qubes-vmm-xen-stubdom-linux/pull/63/files
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---PeMlmw02okIHY8Dx
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------yxpE2F20G0aRgWgcKvscgSK9
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmX1EI4ACgkQ24/THMrX
-1ywKngf/WbytYRhVxqGN+4F/FXKdP8I2vfrQTWYOK6FpP7vAuijgaTBtO6Z3Q5VK
-izGubqVrrANF5xw+fsalsbXwsbE+Z/kjzHz9qGKzjBrnqu0hK7nxArDcRmGbH4ej
-+uacy3SmY7fU6OxBzEtYbzomq9MF+ZgNrzQ63luO6g0c1vsRcdF3gFxKEpXArnQD
-wUlqhJ4fnNRaKQQuEk9VZp1/eaN5nUTNEse1zz36z7FM0qWKmaTPQfuCfMTsRvZo
-q3dwbnnyr8pXOw6isae47BWurkSErJkZ6UWfFuKdvpxqv+1mxJCjwZJW7ft/+eLn
-dXVV9QOWUNQbegJapSwC6A5sW+0hKw==
-=aNDT
+iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmX1GX4ACgkQkO9xfO/x
+ly//QBAArgXBZGCPwGN/mlzh7vyck9sUsxU3nhkNsl2GGR2Ymw4MTikfp4hcPT8R
+iWtt5TlqaLJq9EFxCrjCWh2HqELSZy6weXl/VMdEeWqeOvYeVS3Wuv98LdwhzVCl
+A3lOOGHhHwU9DBk2aXiRtmUrO+hErrtMXpaZpqc3d8X+3A+DEZkDJeGTTQ5vCACW
+dIveuOn8zqt4t8Rkn+0QB+/eT5ORvXwxuhcVxTcn7TSdT8cRc/2lNXbg6yQhF59/
+O7gTVGtLPcr9vdFC8R2e9S/cYOSUg/kw2w/PIipq9lEoSvgfo8u67O1xV+32mdCZ
+OoWdelZyaRQsqpVXeINVC22wi0ANTUt4zee866LhX6voVhNInpb8LZOH5MPgOj7V
+NStZ3VVzyhqwf8B7x1XSEQqq46jSOP52RlWdqrkWCvv4E7VRbwZzyEpCP+z6WNQf
+kEKoa+pIs9ZCVVkfZSIUGCnM/peAjud5Jt+oTA+GHj8/vr530/1xxaCCxG0WhwKJ
+EKZMxRotXu9gS0hOi+h7jxUR8Kaek6OFGW74W0xfw0JDlukKvCV6bVumPjXIuU3c
+8Wrv4b20EwYEiZsdX83zf2zGezF/RMWbxMjLzi6Jl2pehDYur4o0cMiYbpqgGMJ+
+1j8PMOEJDlO9yH168Wzu+lNP325r76bjkdz6GbEZ0NLHz4Hj3/s=
+=NDi4
 -----END PGP SIGNATURE-----
 
---PeMlmw02okIHY8Dx--
+--------------yxpE2F20G0aRgWgcKvscgSK9--
 
