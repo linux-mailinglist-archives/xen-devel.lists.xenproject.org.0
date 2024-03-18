@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29DB487E8FE
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 12:54:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694609.1083495 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3062387E905
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 12:54:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694612.1083521 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmBZ5-0001Le-Qt; Mon, 18 Mar 2024 11:54:03 +0000
+	id 1rmBZ7-0001wI-Mt; Mon, 18 Mar 2024 11:54:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694609.1083495; Mon, 18 Mar 2024 11:54:03 +0000
+Received: by outflank-mailman (output) from mailman id 694612.1083521; Mon, 18 Mar 2024 11:54:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmBZ5-0001HD-Mk; Mon, 18 Mar 2024 11:54:03 +0000
-Received: by outflank-mailman (input) for mailman id 694609;
- Mon, 18 Mar 2024 11:54:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rmBZ7-0001qM-Io; Mon, 18 Mar 2024 11:54:05 +0000
+Received: by outflank-mailman (input) for mailman id 694612;
+ Mon, 18 Mar 2024 11:54:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QoDm=KY=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rmBZ4-0001F3-UO
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 11:54:02 +0000
+ id 1rmBZ5-0001F2-R8
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 11:54:03 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 35d9b533-e51e-11ee-afdd-a90da7624cb6;
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 361da749-e51e-11ee-a1ee-f123f15fe8a2;
  Mon, 18 Mar 2024 12:54:01 +0100 (CET)
 Received: from nico.bugseng.com (unknown [46.228.253.194])
- by support.bugseng.com (Postfix) with ESMTPSA id 92BBE4EE0745;
- Mon, 18 Mar 2024 12:54:00 +0100 (CET)
+ by support.bugseng.com (Postfix) with ESMTPSA id 0C6044EE0746;
+ Mon, 18 Mar 2024 12:54:01 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35d9b533-e51e-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 361da749-e51e-11ee-a1ee-f123f15fe8a2
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: nicola.vetrini@bugseng.com,
 	xen-devel@lists.xenproject.org
@@ -48,10 +48,10 @@ Cc: sstabellini@kernel.org,
 	xenia.ragiadakou@amd.com,
 	ayan.kumar.halder@amd.com,
 	consulting@bugseng.com,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: [XEN PATCH 03/10] xen/xsm: add parentheses to comply with MISRA C Rule 20.7
-Date: Mon, 18 Mar 2024 12:53:46 +0100
-Message-Id: <4eeb9be581e3fa07378f5a7deb23c9066474638b.1710762555.git.nicola.vetrini@bugseng.com>
+	Julien Grall <julien@xen.org>
+Subject: [XEN PATCH 04/10] xen/device_tree: address violations of MISRA C Rule 20.7
+Date: Mon, 18 Mar 2024 12:53:47 +0100
+Message-Id: <3845d2a318bdaab242a7fd67473b05198db1b111.1710762555.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1710762555.git.nicola.vetrini@bugseng.com>
 References: <cover.1710762555.git.nicola.vetrini@bugseng.com>
@@ -68,31 +68,26 @@ No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/include/xsm/dummy.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This patch uniforms the way these macros use parentheses, skipping the
+already deviated cases of the lhs of an assignment. In principle, all
+three could have the parentheses on the macro argument in the lhs added.
+---
+ xen/include/xen/device_tree.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
-index 8671af1ba4d3..88039fdd227c 100644
---- a/xen/include/xsm/dummy.h
-+++ b/xen/include/xsm/dummy.h
-@@ -58,7 +58,7 @@ void __xsm_action_mismatch_detected(void);
+diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+index 6fe2fa8b2123..e6287305a7b5 100644
+--- a/xen/include/xen/device_tree.h
++++ b/xen/include/xen/device_tree.h
+@@ -250,7 +250,7 @@ dt_find_interrupt_controller(const struct dt_device_match *matches);
+     for ( pp = (dn)->properties; (pp) != NULL; pp = (pp)->next )
  
- #define XSM_DEFAULT_ARG /* */
- #define XSM_DEFAULT_VOID void
--#define XSM_ASSERT_ACTION(def) xsm_default_t action = def; (void)action
-+#define XSM_ASSERT_ACTION(def) xsm_default_t action = (def); (void)action
+ #define dt_for_each_device_node(dt, dn)                     \
+-    for ( dn = dt; (dn) != NULL; dn = (dn)->allnext )
++    for ( dn = (dt); (dn) != NULL; dn = (dn)->allnext )
  
- #else /* CONFIG_XSM */
- 
-@@ -71,7 +71,7 @@ void __xsm_action_mismatch_detected(void);
- #define XSM_INLINE always_inline
- #define XSM_DEFAULT_ARG xsm_default_t action,
- #define XSM_DEFAULT_VOID xsm_default_t action
--#define XSM_ASSERT_ACTION(def) LINKER_BUG_ON(def != action)
-+#define XSM_ASSERT_ACTION(def) LINKER_BUG_ON((def) != action)
- 
- #endif /* CONFIG_XSM */
- 
+ #define dt_for_each_child_node(dt, dn)                      \
+     for ( dn = (dt)->child; (dn) != NULL; dn = (dn)->sibling )
 -- 
 2.34.1
 
