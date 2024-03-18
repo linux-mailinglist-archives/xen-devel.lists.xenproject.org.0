@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DB5587E900
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 12:54:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694617.1083569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42F1F87E904
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 12:54:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694616.1083563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmBZB-0003CE-NP; Mon, 18 Mar 2024 11:54:09 +0000
+	id 1rmBZB-00033t-B9; Mon, 18 Mar 2024 11:54:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694617.1083569; Mon, 18 Mar 2024 11:54:09 +0000
+Received: by outflank-mailman (output) from mailman id 694616.1083563; Mon, 18 Mar 2024 11:54:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmBZB-000335-HU; Mon, 18 Mar 2024 11:54:09 +0000
-Received: by outflank-mailman (input) for mailman id 694617;
- Mon, 18 Mar 2024 11:54:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rmBZB-0002xt-2R; Mon, 18 Mar 2024 11:54:09 +0000
+Received: by outflank-mailman (input) for mailman id 694616;
+ Mon, 18 Mar 2024 11:54:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QoDm=KY=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rmBZ9-0001F2-Qm
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 11:54:07 +0000
+ id 1rmBZ8-0001F3-PA
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 11:54:06 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3846bc1c-e51e-11ee-a1ee-f123f15fe8a2;
- Mon, 18 Mar 2024 12:54:05 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 38e8a27b-e51e-11ee-afdd-a90da7624cb6;
+ Mon, 18 Mar 2024 12:54:06 +0100 (CET)
 Received: from nico.bugseng.com (unknown [46.228.253.194])
- by support.bugseng.com (Postfix) with ESMTPSA id 192424EE0749;
- Mon, 18 Mar 2024 12:54:04 +0100 (CET)
+ by support.bugseng.com (Postfix) with ESMTPSA id 338494EE074B;
+ Mon, 18 Mar 2024 12:54:05 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3846bc1c-e51e-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 38e8a27b-e51e-11ee-afdd-a90da7624cb6
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: nicola.vetrini@bugseng.com,
 	xen-devel@lists.xenproject.org
@@ -53,9 +53,9 @@ Cc: sstabellini@kernel.org,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH 08/10] xen/notifier: address violations of MISRA C Rule 20.7
-Date: Mon, 18 Mar 2024 12:53:51 +0100
-Message-Id: <5ea6d48a2af93c54693364eb5bfa7e575eb717a3.1710762555.git.nicola.vetrini@bugseng.com>
+Subject: [XEN PATCH 09/10] xen/wait: address violations of MISRA C Rule 20.7
+Date: Mon, 18 Mar 2024 12:53:52 +0100
+Message-Id: <1d9f79590a224b4007f34a609b8024b36dd44a04.1710762555.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1710762555.git.nicola.vetrini@bugseng.com>
 References: <cover.1710762555.git.nicola.vetrini@bugseng.com>
@@ -72,22 +72,28 @@ No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/include/xen/notifier.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ xen/include/xen/wait.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/xen/include/xen/notifier.h b/xen/include/xen/notifier.h
-index 2a952484df43..05359e8a850d 100644
---- a/xen/include/xen/notifier.h
-+++ b/xen/include/xen/notifier.h
-@@ -34,7 +34,7 @@ struct notifier_head {
- };
+diff --git a/xen/include/xen/wait.h b/xen/include/xen/wait.h
+index 6eb7667d9c7f..1c68bc564b09 100644
+--- a/xen/include/xen/wait.h
++++ b/xen/include/xen/wait.h
+@@ -40,12 +40,12 @@ do {                                            \
+     if ( condition )                            \
+         break;                                  \
+     for ( ; ; ) {                               \
+-        prepare_to_wait(&wq);                   \
++        prepare_to_wait(&(wq));                 \
+         if ( condition )                        \
+             break;                              \
+         wait();                                 \
+     }                                           \
+-    finish_wait(&wq);                           \
++    finish_wait(&(wq));                         \
+ } while (0)
  
- #define NOTIFIER_HEAD(name) \
--    struct notifier_head name = { .head = LIST_HEAD_INIT(name.head) }
-+    struct notifier_head name = { .head = LIST_HEAD_INIT((name).head) }
- 
- 
- void notifier_chain_register(
+ /* Private functions. */
 -- 
 2.34.1
 
