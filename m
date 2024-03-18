@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2CB987E910
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 13:01:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694646.1083599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 637FC87E911
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 13:03:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694651.1083609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmBfb-0000Az-S7; Mon, 18 Mar 2024 12:00:47 +0000
+	id 1rmBhh-0000pr-7W; Mon, 18 Mar 2024 12:02:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694646.1083599; Mon, 18 Mar 2024 12:00:47 +0000
+Received: by outflank-mailman (output) from mailman id 694651.1083609; Mon, 18 Mar 2024 12:02:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmBfb-00009C-PN; Mon, 18 Mar 2024 12:00:47 +0000
-Received: by outflank-mailman (input) for mailman id 694646;
- Mon, 18 Mar 2024 12:00:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rmBhh-0000oJ-44; Mon, 18 Mar 2024 12:02:57 +0000
+Received: by outflank-mailman (input) for mailman id 694651;
+ Mon, 18 Mar 2024 12:02:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qQPi=KY=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rmBfa-0008VL-Ph
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 12:00:46 +0000
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [2607:f8b0:4864:20::231])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 26584048-e51f-11ee-a1ee-f123f15fe8a2;
- Mon, 18 Mar 2024 13:00:45 +0100 (CET)
-Received: by mail-oi1-x231.google.com with SMTP id
- 5614622812f47-3c38bac4c50so170364b6e.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 05:00:45 -0700 (PDT)
+ <SRS0=az6s=KY=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rmBhg-0000oD-6G
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 12:02:56 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 741f7692-e51f-11ee-afdd-a90da7624cb6;
+ Mon, 18 Mar 2024 13:02:55 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-413f1853bf3so28840035e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 05:02:55 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ t20-20020a05600c199400b004132ae838absm14793489wmq.43.2024.03.18.05.02.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 Mar 2024 05:02:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,82 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26584048-e51f-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 741f7692-e51f-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1710763244; x=1711368044; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/pVtFyqZfvvBB1UYqatX5Ax0FSP5NTPHu/QejxaaD5Q=;
-        b=bVvuhGVlnLpbtfLMKnFZUKFQ49nVc9Ifl8zXts8/fLoWWua+H64aHp2gW5hkH1QxB6
-         hfc9OxQplOEJYEMbAhhMai1Rw/+CO8BPSgZBR4MdGObrsl/AOzPPuhOyRMuANc9djgHr
-         P6DUGOmF2yJ6kWBeJSR7ecj4u9E16kv+3lkrg=
+        d=cloud.com; s=cloud; t=1710763374; x=1711368174; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=zw2EktgE+5/3X3GE505EIk99kT1ap2KZKgZaaJMsPhk=;
+        b=XE2Lp+Fq8jJM5EYDQWaz1wQHL4LvkXun3l4/KRZLJr9J/ZDVcS/OfY321TjSltKhAN
+         hZlBxgZKd0oC7V+NHPlAqhF9mLYCMCkCOQ53gl84dx4d2JPN/VoF1+LYFfJKSQZIAx8K
+         WTu4pmBHIszFzTQZYq7vIVXzDH3cPwNIDSLvU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710763244; x=1711368044;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/pVtFyqZfvvBB1UYqatX5Ax0FSP5NTPHu/QejxaaD5Q=;
-        b=trheFgAzHHJWkTtMHHkXYQuYPwPMc53JYuXISzy7fLKZTcc6X1ZMaK4Dzh5QnyI97c
-         dBAvJhWIZBBW61O+LzvCbyoH+qT/D9Cn9JQeGhuT6h75eaq//hVtPsiwtEIu5Y1LkSMn
-         0cVXY4gWNbWnaL3JqqaM4s8/tw0GcMu9oo1O6rBHGAWRIEtTfRRSAKcaBxQKwidcpMaE
-         g4CVKuQpfNe/Tpir8ka/p35Wmn1u7Ntq8s9XvS6hyN5DF/HdJ2udtJN34dlcQPSYRd/e
-         URd3reHzq0uj7n8RT0CVOXviUJfnjBLxpMo6Vixy5YwkwhPlLr+XjyJXFz4f1au7ZHe2
-         9SKg==
-X-Gm-Message-State: AOJu0Yy1JLD5g5MdCtJ6wrTNboPmrnjGgi2wG/MerBzcITpdOH/R5ZKc
-	Zdzq7WuXSvtPASNBxs6Bpis+dPg6m7DQAfn/crjELw9Y3LWSP0uAWoi20WcWSx8E90QkvLc/Ho5
-	DdpP5qjJR9/qHPW22bXAtQxFaybRLw+Lma12GMg==
-X-Google-Smtp-Source: AGHT+IF1erhh6qPb2+vPFu3twX4R0XdL8tC9t4mIN+qiUJsNptDyJZLJgye46L0p3kwRSwhL0sG3gYzkGGA2p06RZgQ=
-X-Received: by 2002:a05:6870:a68e:b0:221:ca43:604e with SMTP id
- i14-20020a056870a68e00b00221ca43604emr11685694oam.53.1710763243910; Mon, 18
- Mar 2024 05:00:43 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1710763374; x=1711368174;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zw2EktgE+5/3X3GE505EIk99kT1ap2KZKgZaaJMsPhk=;
+        b=YTZI007XLCwF2tmH8A/ob+tGqAj8woVSUVOH8vDgcuOJfUoXdi6c+7YZd1HVYOnSu0
+         rUUewxeyPVmdSrrUhTK8I3f3CV0/EAnLYZEyxFuduR441WWf83jnsrqUNR53b18c2drb
+         NISs2u6RQHucDpcPi/KT9RhWzAgBzHLhW6TR/l64RE4zEo5ILZd0xEPPVTLGtLN8a5Ti
+         erlRKDzRXnaSl4OuxJCV4fT0zCQdcnqMn2ixse8exOjjet5cCKw+IijsHceIeca5tsO5
+         tFI4HDu2yEpgDfExH4Yulz7BlSgBdX6CtXyqty5En5v8rifMatBW27RfD4V9c8VEbdi9
+         3fJw==
+X-Gm-Message-State: AOJu0YzNuJraAFc2lplzoxBcGyoq8oaxqCYXfK5kHki/P3F3/KSPC8po
+	mR1RUSUmhWaBxbauxAyPt87t6rRnZA6oDBkNCUrjRzZzug38VOSkcd071+neeEU=
+X-Google-Smtp-Source: AGHT+IH1Xeji7NT5Hr7hdguPclUtPwKCiCfGpR9kBBlsVbliHOJkp5sg4zsaLriPiVqdNB2hDsb0Hg==
+X-Received: by 2002:a05:600c:3150:b0:413:f80f:9a5 with SMTP id h16-20020a05600c315000b00413f80f09a5mr8262467wmo.5.1710763374582;
+        Mon, 18 Mar 2024 05:02:54 -0700 (PDT)
+Date: Mon, 18 Mar 2024 12:02:53 +0000
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: [OSSTEST PATCH v2 0/3] Switch to Linux 6.1 by default on x86
+Message-ID: <73baa2f3-4ce1-4611-8633-cc024a42d0c9@perard>
+References: <20240315154849.28819-1-anthony.perard@citrix.com>
+ <Zfgao9BaG20mLRuU@macbook>
 MIME-Version: 1.0
-References: <cover.1710762555.git.nicola.vetrini@bugseng.com> <0c584c738f744a583497f1fb862d753836d8b249.1710762555.git.nicola.vetrini@bugseng.com>
-In-Reply-To: <0c584c738f744a583497f1fb862d753836d8b249.1710762555.git.nicola.vetrini@bugseng.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 18 Mar 2024 12:00:33 +0000
-Message-ID: <CA+zSX=ZFan78nXrymP-89rroDUwPfqWnj3ajSK8h0ov+1bDzFw@mail.gmail.com>
-Subject: Re: [XEN PATCH 10/10] xen/sched: address violations of MISRA C Rule 20.7
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-	michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-	consulting@bugseng.com, Dario Faggioli <dfaggioli@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Zfgao9BaG20mLRuU@macbook>
 
-On Mon, Mar 18, 2024 at 11:54=E2=80=AFAM Nicola Vetrini
-<nicola.vetrini@bugseng.com> wrote:
->
-> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
-> of macro parameters shall be enclosed in parentheses". Therefore, some
-> macro definitions should gain additional parentheses to ensure that all
-> current and future users will be safe with respect to expansions that
-> can possibly alter the semantics of the passed-in macro parameter.
->
-> No functional change.
->
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
->  xen/common/sched/private.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/xen/common/sched/private.h b/xen/common/sched/private.h
-> index 459d1dfb11a5..c0e7c96d24f4 100644
-> --- a/xen/common/sched/private.h
-> +++ b/xen/common/sched/private.h
-> @@ -540,7 +540,7 @@ static inline void sched_unit_unpause(const struct sc=
-hed_unit *unit)
->  }
->
->  #define REGISTER_SCHEDULER(x) static const struct scheduler *x##_entry \
-> -  __used_section(".data.schedulers") =3D &x
-> +  __used_section(".data.schedulers") =3D &(x)
+On Mon, Mar 18, 2024 at 11:42:43AM +0100, Roger Pau Monné wrote:
+> On Fri, Mar 15, 2024 at 03:48:46PM +0000, Anthony PERARD wrote:
+> > Anthony PERARD (3):
+> >   make-fligh: Fix freebsd guest test test-id
+> >   mfi-common: Rework toolstack-disk_format test matrix
+> >   ap-common: Switch to Linux 6.1 by default on x86 + drop dom0 i386
+> 
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Arguably this is safe, because any `x` which would be problematic in
-this line wouldn't compile in the line above.
+Pushed.
 
-But it's almost certainly not worth the effort of documenting or deviating,=
- so:
+Thanks,
 
-Acked-by: George Dunlap <george.dunlap@cloud.com>
+-- 
+Anthony PERARD
 
