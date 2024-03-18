@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABD1B87EA52
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 14:48:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694716.1083760 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0C2187EA62
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 14:50:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694722.1083770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmDLa-0005dj-EZ; Mon, 18 Mar 2024 13:48:14 +0000
+	id 1rmDNK-0007E4-Ph; Mon, 18 Mar 2024 13:50:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694716.1083760; Mon, 18 Mar 2024 13:48:14 +0000
+Received: by outflank-mailman (output) from mailman id 694722.1083770; Mon, 18 Mar 2024 13:50:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmDLa-0005bR-C2; Mon, 18 Mar 2024 13:48:14 +0000
-Received: by outflank-mailman (input) for mailman id 694716;
- Mon, 18 Mar 2024 13:48:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=emy9=KY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmDLY-0005bL-V4
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 13:48:12 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 285b166b-e52e-11ee-a1ee-f123f15fe8a2;
- Mon, 18 Mar 2024 14:48:10 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a466a27d30aso567509566b.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 06:48:10 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- wn2-20020a170907068200b00a46c508d661sm814213ejb.176.2024.03.18.06.48.09
+	id 1rmDNK-0007Ax-Mj; Mon, 18 Mar 2024 13:50:02 +0000
+Received: by outflank-mailman (input) for mailman id 694722;
+ Mon, 18 Mar 2024 13:50:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=we9v=KY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rmDNI-0006xz-S3
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 13:50:00 +0000
+Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
+ [2607:f8b0:4864:20::b33])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 69404b7d-e52e-11ee-afdd-a90da7624cb6;
+ Mon, 18 Mar 2024 14:49:59 +0100 (CET)
+Received: by mail-yb1-xb33.google.com with SMTP id
+ 3f1490d57ef6-dcbc00f6c04so3712625276.3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 06:49:59 -0700 (PDT)
+Received: from [10.80.67.23] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ fk13-20020a05622a558d00b00430b59c37acsm3442625qtb.13.2024.03.18.06.49.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 06:48:09 -0700 (PDT)
+ Mon, 18 Mar 2024 06:49:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,174 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 285b166b-e52e-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 69404b7d-e52e-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710769690; x=1711374490; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1710769799; x=1711374599; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=du66YwXtf6/Ss4etI303MhOow965JdkYQmY9J0bKLhE=;
-        b=E/Msq3mZ3jLyxzZqAUi0BywRAAAPTNIctOMr7OjAHmyvFQMF6+Gj6qaV24qboGDGYY
-         9lKhQj7O0hkb1gP6miwB2nJ0VAfvNfhY8Wo9tKEq+f8Hx6K7CUeR6YQKA+yJ1L/jNKWr
-         Xo4k8n8Ln4ygkWx/CN+LkfhkQnRrnfqDx4vjRz8w4RKmrD+uCTFSB6WJW81u/RBVkVIj
-         yvJCLOYF81utvsf7bwBc+fzqEHaQyR/0cEFQ5V+CMpDsAJPy9BVtzIb/sl3IWEIvMcFK
-         S+HVy4AxfsAtO1bi5+Gq0fl2k9inP8rTBkc6xvDVKnCAxaAiemsxgwZzJUJk9NhcFxti
-         dJpg==
+        bh=jGI563ovUKf9CtxDtAQ3CoJsPfD3toO3vX1R2ObYPCg=;
+        b=Ios6ERztea6ijIukT0d9m6zLHXsED20UGdO0RQEyUmyknzY1sIICUCNmrBivZjb08O
+         1ZU+TZ/jIJItk+xohtC2btqoEUy+u77LsM2lw1fqRvwt2VczFkLZq5FFt4Ofpz4sXyTN
+         r3oS56X0kFd8Inq2U0J7Kb4/IIP2dxxHHcUaY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710769690; x=1711374490;
+        d=1e100.net; s=20230601; t=1710769799; x=1711374599;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=du66YwXtf6/Ss4etI303MhOow965JdkYQmY9J0bKLhE=;
-        b=gfgbBunQVYLVOekER34wKJ5WVc0Mbtn312tzM8dXLhsklIfurceTLWa5T/q1m0GY/v
-         Q86YjPAsRhemkdx75qjzLxsi4zl0R4+1PC5khpfz84Fe8Z9bRdzp0D8ZSUi0ZKVqszqa
-         eKLlxcgjTFD+e0S+Ud+RJoFU36u8eO5/EmSWIcFoD+PmDeHyAzeTj97/X8PhlzNRBFbl
-         guR5z5Ice987VGMoe66kWKPx4dmTmoiQ3QZrrgqmoi+WPbeQV5g5tq7JQ/ZchqfUlKih
-         dRklQcSaT1/bPBm2LdKzvrExMk3jQgDFxK202ROGkXefCuX4yj+9EqBTRSTWmub7BNOX
-         olpA==
-X-Forwarded-Encrypted: i=1; AJvYcCUL6toyjSJZ7S+F79MdGvs1NO5cS61L4qFCg0IgcuvB0HT8RElksXP14jSenoxcXah06OKAoUpLmjOOWsz1xLCMAUPnJ2PWB4r0GgWqNLA=
-X-Gm-Message-State: AOJu0Yz8NnUNfTSnIVTJ1JzB4PsKJdNBXNJ3qYK7jp4xhxNFlGAbI5wc
-	uS8Dw9jWENVI5Lr3YEQWwvV6BYUQmpEwTpYMp5eV+6U2ROZNq3POOPbpDJfH0A==
-X-Google-Smtp-Source: AGHT+IEnXlaMjUhNTy1ZLvdl4Nk+vOaoFx/Po/X8mVGdyQHWfBpM0AlRk0B7l19EZZLSF2ryEhKl2g==
-X-Received: by 2002:a17:907:1ca4:b0:a46:9e3c:9e62 with SMTP id nb36-20020a1709071ca400b00a469e3c9e62mr5833474ejc.13.1710769689910;
-        Mon, 18 Mar 2024 06:48:09 -0700 (PDT)
-Message-ID: <351eebc2-7da3-4082-830b-d8e764e2066a@suse.com>
-Date: Mon, 18 Mar 2024 14:48:09 +0100
+        bh=jGI563ovUKf9CtxDtAQ3CoJsPfD3toO3vX1R2ObYPCg=;
+        b=AvQyzbOnpc009rAAGtmNFdWljBFOB8Tc97l+X+BNsqQYcnInG0I1utFV5/UmJ64bpQ
+         L22c8pVEHqNPR/UvgvqRUQMTNk9ehBJY/LDscYHATFJpeykC9YNmaa+RMQw1FLpgDTK+
+         SdlmfuZN6+a6Zh1fcNlbWtRAD0MUghAjneUV+K5fd/+Y6ZtKgV2TUGCJsc9nztqx2pEm
+         ZkHWmJGsDyJUeFsL+J95v8PM4ejYWKwfp1FTuv6fEd+aMRxNC2AMgFXqmzkqbiXbSpDQ
+         7fTTY96HbupiI05biy8o5Ym/eagcedLeUdJBErfuOK9UN4DUudXADhq13mjohkhc51HW
+         42+g==
+X-Forwarded-Encrypted: i=1; AJvYcCVlVsyN+Ek8rY7EzSf/GlY9E38PUOD7gCYiZbcfeh39zOCTI286KzsOwazqQKz6M/fF2h3gG3/eg+HtIjVjo6qNGND6p/O52f1Nx0284QQ=
+X-Gm-Message-State: AOJu0Yym+f0lGBg7rrxhxe9dd5xIEyHZ6T2UPniCy2y791oZTCk3/tN7
+	azebxhlHmAaitpU+jfFdaE99jcWNmwhHYxUB5cbibri+QawUX7fe0UJu4AY2Qjk=
+X-Google-Smtp-Source: AGHT+IG0FxvqvMUoLFE/nBLua3BfXo+u0XNYkVAAzBs35HqXyjaTizG6HnlvJV2r/Oxe2VX/bWRbyg==
+X-Received: by 2002:a25:6a83:0:b0:dcb:ba75:bde7 with SMTP id f125-20020a256a83000000b00dcbba75bde7mr6562385ybc.7.1710769798711;
+        Mon, 18 Mar 2024 06:49:58 -0700 (PDT)
+Message-ID: <14accd85-d549-4551-a95c-6c8bcee92db5@citrix.com>
+Date: Mon, 18 Mar 2024 13:49:55 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drivers/char: mark extra reserved device memory in
- memory map
-Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240312162541.384793-1-marmarek@invisiblethingslab.com>
- <20240312162541.384793-2-marmarek@invisiblethingslab.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240312162541.384793-2-marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH 4/4] xen/virtual-region: Drop setup_virtual_regions()
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240318110442.3653997-1-andrew.cooper3@citrix.com>
+ <20240318110442.3653997-5-andrew.cooper3@citrix.com>
+ <047ecaf2-66c6-4d07-ab14-9c50acfc1f9a@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <047ecaf2-66c6-4d07-ab14-9c50acfc1f9a@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12.03.2024 17:25, Marek Marczykowski-Górecki wrote:
-> The IOMMU driver checks if RMRR/IVMD are marked as reserved in memory
-> map. This should be true for addresses coming from the firmware, but
-> when extra pages used by Xen itself are included in the mapping, those
-> are taken from usable RAM used. Mark those pages as reserved too.
-> 
-> Not marking the pages as reserved didn't caused issues before due to
-> another a bug in IOMMU driver code, that was fixed in 83afa3135830
-> ("amd-vi: fix IVMD memory type checks").
-> 
-> Failing to reserve memory will lead to panic in IOMMU setup code. And
-> not including the page in IOMMU mapping will lead to broken console (due
-> to IOMMU faults). The pages chosen by the XHCI console driver should
-> still be usable by the CPU though, and the console code already can deal
-> with too slow console by dropping characters (and console not printing
-> anything is a special case of "slow"). When reserving fails print an error
-> message showing which pages failed and who requested them. This should
-> be enough hint to find why XHCI console doesn't work.
-> 
-> Fixes: 3a1a7b809ffa "drivers/char: mark DMA buffers as reserved for the XHCI"
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> ---
-> Alternative error handling could be a panic, but with this version I
-> think it can be avoided. And not panicing gives a better chance to
-> actually see the error message (from the hopefully started dom0),
-> especially as the affected driver is the console one.
-> 
-> The reserve_e820_ram() is x86-specific. Is there some equivalent API for
-> ARM, or maybe even some abstract one? That said, I have no way to test
-> XHCI console on ARM, I don't know if such hardware even exists...
+On 18/03/2024 1:29 pm, Jan Beulich wrote:
+> On 18.03.2024 12:04, Andrew Cooper wrote:
+>> --- a/xen/common/virtual_region.c
+>> +++ b/xen/common/virtual_region.c
+>> @@ -39,6 +39,11 @@ static struct virtual_region core = {
+>>          { __start_bug_frames_2, __stop_bug_frames_2 },
+>>          { __start_bug_frames_3, __stop_bug_frames_3 },
+>>      },
+>> +
+>> +#ifdef CONFIG_X86
+>> +    .ex = __start___ex_table,
+>> +    .ex_end = __stop___ex_table,
+>> +#endif
+>>  };
+>>  
+>>  /* Becomes irrelevant when __init sections are cleared. */
+>> @@ -57,6 +62,11 @@ static struct virtual_region core_init __initdata = {
+>>          { __start_bug_frames_2, __stop_bug_frames_2 },
+>>          { __start_bug_frames_3, __stop_bug_frames_3 },
+>>      },
+>> +
+>> +#ifdef CONFIG_X86
+>> +    .ex = __start___ex_table,
+>> +    .ex_end = __stop___ex_table,
+>> +#endif
+>>  };
+> My main reservation here is this x86-specific code in a common file.
+> Are we certain both RISC-V and PPC will get away without needing to
+> touch this? If so, I might consider ack-ing. But really I'd prefer if
+> this could be minimally abstracted, via e.g. CONFIG_HAS_EXTABLE
+> (selected by x86 only for now).
 
-These are normal PCI devices, so I don't see why they shouldn't be usable
-on non-x86 systems. But this is all okay as long as XHCI depends on X86
-in Kconfig.
+This isn't the first bit of CONFIG_X86 in this file.  However, I'd not
+spotted that we have CONFIG_HAS_EX_TABLE already.  I can swap.
 
-> --- a/xen/drivers/passthrough/iommu.c
-> +++ b/xen/drivers/passthrough/iommu.c
-> @@ -21,6 +21,9 @@
->  #include <xen/softirq.h>
->  #include <xen/keyhandler.h>
->  #include <xsm/xsm.h>
-> +#ifdef CONFIG_X86
-> +#include <asm/e820.h>
-> +#endif
+As to extable on other architectures, that's not something I can answer,
+although it's not something I can see in Oleksii's or Shawn's series so far.
 
-This could do with a separating newline.
-
-> @@ -715,6 +718,22 @@ int __init iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
->  
->      for ( idx = 0; idx < nr_extra_reserved_ranges; idx++ )
->      {
-> +#ifdef CONFIG_X86
-> +        if ( !reserve_e820_ram(
-> +                &e820,
-> +                pfn_to_paddr(extra_reserved_ranges[idx].start),
-> +                pfn_to_paddr(extra_reserved_ranges[idx].start +
-> +                             extra_reserved_ranges[idx].nr)) )
-
-Indentation is odd here - it should be one level down from the start
-of the function name. That side, code here and ...
-
-> +        {
-> +            printk(XENLOG_ERR "Failed to reserve [%"PRIx64"-%"PRIx64") for %s, "
-> +                   "skipping IOMMU mapping for it, some functionality may be broken\n",
-> +                   pfn_to_paddr(extra_reserved_ranges[idx].start),
-> +                   pfn_to_paddr(extra_reserved_ranges[idx].start +
-> +                                extra_reserved_ranges[idx].nr),
-
-... here would likely benefit from introducing "start" and "end"
-local variables.
-
-> --- a/xen/include/xen/iommu.h
-> +++ b/xen/include/xen/iommu.h
-> @@ -324,7 +324,8 @@ struct iommu_ops {
->  };
->  
->  /*
-> - * To be called by Xen internally, to register extra RMRR/IVMD ranges.
-> + * To be called by Xen internally, to register extra RMRR/IVMD ranges for RAM
-> + * pages.
->   * Needs to be called before IOMMU initialization.
->   */
->  extern int iommu_add_extra_reserved_device_memory(unsigned long start,
-> @@ -334,6 +335,8 @@ extern int iommu_add_extra_reserved_device_memory(unsigned long start,
->  /*
->   * To be called by specific IOMMU driver during initialization,
->   * to fetch ranges registered with iommu_add_extra_reserved_device_memory().
-> + * This has a side effect of marking requested ranges as "reserverd" in the
-
-Nit: "reserved"
-
-Jan
-
-> + * memory map.
->   */
->  extern int iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
->                                                    void *ctxt);
-
+~Andrew
 
