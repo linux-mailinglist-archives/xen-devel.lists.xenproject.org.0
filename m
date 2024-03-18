@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8088087EF82
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 19:14:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695113.1084659 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D57387F083
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 20:43:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695126.1084669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmHUP-00032B-UX; Mon, 18 Mar 2024 18:13:37 +0000
+	id 1rmIrt-0002AQ-B5; Mon, 18 Mar 2024 19:41:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695113.1084659; Mon, 18 Mar 2024 18:13:37 +0000
+Received: by outflank-mailman (output) from mailman id 695126.1084669; Mon, 18 Mar 2024 19:41:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmHUP-0002zf-RU; Mon, 18 Mar 2024 18:13:37 +0000
-Received: by outflank-mailman (input) for mailman id 695113;
- Mon, 18 Mar 2024 18:13:36 +0000
+	id 1rmIrt-00027D-7u; Mon, 18 Mar 2024 19:41:57 +0000
+Received: by outflank-mailman (input) for mailman id 695126;
+ Mon, 18 Mar 2024 19:41:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=we9v=KY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rmHUO-0002se-Ng
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 18:13:36 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jQEp=KY=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1rmIrr-000277-AU
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 19:41:55 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3c251899-e553-11ee-a1ee-f123f15fe8a2;
- Mon, 18 Mar 2024 19:13:35 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5684ea117a3so6916759a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 11:13:35 -0700 (PDT)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- p8-20020a50cd88000000b0056851310a04sm5102928edi.16.2024.03.18.11.13.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Mar 2024 11:13:33 -0700 (PDT)
+ id 8fc9187f-e55f-11ee-a1ee-f123f15fe8a2;
+ Mon, 18 Mar 2024 20:41:50 +0100 (CET)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.17.1/8.15.2) with ESMTPS id 42IJfcuZ028419
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Mon, 18 Mar 2024 15:41:43 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.17.1/8.15.2/Submit) id 42IJfZGO028418;
+ Mon, 18 Mar 2024 12:41:35 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +43,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c251899-e553-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710785614; x=1711390414; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=I5jTcKsMsCqCrjNyG868pQQ+v3sQiSH8rAadw9EdKLI=;
-        b=qUMzjBoyHaQjCDvWJWi+MWSfRY4U0n1+QgNRo4JZ8eSIEoyQRP/gkwRm9FTEvYjKBG
-         vbYrdwetX6RcL2Whh3NFy5Rf83ADmzX2zvpkV7hLxx10tjCNh6oUBMC12VwKDW/yTv6A
-         +4xmCWzIp1+9weIN/kIPzSB9n7iqRFgXk+TsU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710785614; x=1711390414;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=I5jTcKsMsCqCrjNyG868pQQ+v3sQiSH8rAadw9EdKLI=;
-        b=Xf/rjTEi1Gwbpr4yOGAv81mNE22Ea6NQY9knupjXVdGGAwDguryhgSO7zzGeHP+8jZ
-         MBsLgCyKJmxopiKdSOtoq9Ul8i/PW8lo6lSfsdOoOdvMOYG52MM9HZ3PEI3UI3CEG/63
-         w9Zne5ck13p6xbR5orZdr65D3wIdLtKb1hcNVOfDjtWiYdggXqZzALkatYJ61Dhog8x7
-         Z458+StFfZob4yOD0EQ9HksRHys3bLqVTho1ZNwpVptGLGTuQWgYKYylxTUvaMCeHrQ7
-         W80IpDkXOY1zqjIDlIGesHspiXxamedgapSZfQuZBbjm8noOjDTWT+RC70tYKQjlQjQM
-         VG7A==
-X-Gm-Message-State: AOJu0YzZS9IuwUQFI73Y2wu8k79hcCOZgnh5wc1QVTSfxl6JWnypvkig
-	IuDHmOTxMW/pVLrCLcw0cOZSM8t6aYezJpP0tJDh39H5pKne8VyVZIWKzzIVfOzYgoejronwnw/
-	I
-X-Google-Smtp-Source: AGHT+IEVqkAVuUC43xKqBKiq9ZHbnwtpWzUTfk/Doj61qI9uNVeWzsOT41KaFLXz0MpWEdazflWPbQ==
-X-Received: by 2002:a05:6402:3706:b0:56a:2b6b:42cd with SMTP id ek6-20020a056402370600b0056a2b6b42cdmr2456495edb.3.1710785613674;
-        Mon, 18 Mar 2024 11:13:33 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/features: More AMD features
-Date: Mon, 18 Mar 2024 18:13:32 +0000
-Message-Id: <20240318181332.3817631-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: 8fc9187f-e55f-11ee-a1ee-f123f15fe8a2
+Date: Mon, 18 Mar 2024 12:41:35 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+        Wei Liu <wl@xen.org>
+Subject: Re: Serious AMD-Vi(?) issue
+Message-ID: <ZfiY7/FBTwPQlfYi@mattapan.m5p.com>
+References: <ZbLDlRi0vctlhsNp@mattapan.m5p.com>
+ <ZcqoVBnsgUJw8G0l@mattapan.m5p.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZcqoVBnsgUJw8G0l@mattapan.m5p.com>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+	autolearn=unavailable autolearn_force=no version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-14) on mattapan.m5p.com
 
-All of these are informational and require no further logic changes in Xen to
-support.
+I sent a ping on this about 2 weeks ago.  Since the plan is to move x86
+IOMMU under general x86, the other x86 maintainers should be aware of
+this:
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+On Mon, Feb 12, 2024 at 03:23:00PM -0800, Elliott Mitchell wrote:
+> On Thu, Jan 25, 2024 at 12:24:53PM -0800, Elliott Mitchell wrote:
+> > Apparently this was first noticed with 4.14, but more recently I've been
+> > able to reproduce the issue:
+> > 
+> > https://bugs.debian.org/988477
+> > 
+> > The original observation features MD-RAID1 using a pair of Samsung
+> > SATA-attached flash devices.  The main line shows up in `xl dmesg`:
+> > 
+> > (XEN) AMD-Vi: IO_PAGE_FAULT: DDDD:bb:dd.f d0 addr ffffff???????000 flags 0x8 I
+> > 
+> > Where the device points at the SATA controller.  I've ended up
+> > reproducing this with some noticable differences.
+> > 
+> > A major goal of RAID is to have different devices fail at different
+> > times.  Hence my initial run had a Samsung device plus a device from
+> > another reputable flash manufacturer.
+> > 
+> > I initially noticed this due to messages in domain 0's dmesg about
+> > errors from the SATA device.  Wasn't until rather later that I noticed
+> > the IOMMU warnings in Xen's dmesg (perhaps post-domain 0 messages should
+> > be duplicated into domain 0's dmesg?).
+> > 
+> > All of the failures consistently pointed at the Samsung device.  Due to
+> > the expectation it would fail first (lower quality offering with
+> > lesser guarantees), I proceeded to replace it with a NVMe device.
+> > 
+> > With some monitoring I discovered the NVMe device was now triggering
+> > IOMMU errors, though not nearly as many as the Samsung SATA device did.
+> > As such looks like AMD-Vi plus MD-RAID1 appears to be exposing some sort
+> > of IOMMU issue with Xen.
+> > 
+> > 
+> > All I can do is offer speculation about the underlying cause.  There
+> > does seem to be a pattern of higher-performance flash storage devices
+> > being more severely effected.
+> > 
+> > I was speculating about the issue being the MD-RAID1 driver abusing
+> > Linux's DMA infrastructure in some fashion.
+> > 
+> > Upon further consideration, I'm wondering if this is perhaps a latency
+> > issue.  I imagine there is some sort of flush after the IOMMU tables are
+> > modified.  Perhaps the Samsung SATA (and all NVMe) devices were trying to
+> > execute commands before reloading the IOMMU tables is complete.
+> 
+> Ping!
+> 
+> The recipe seems to be Linux MD RAID1, plus Samsung SATA or any NVMe.
+> 
+> To make it explicit, when I tried Crucial SATA + Samsung SATA.  IOMMU
+> errors matched the Samsung SATA (a number of times the SATA driver
+> complained).
+> 
+> As stated, I'm speculating lower latency devices starting to execute
+> commands before IOMMU tables have finished reloading.  When originally
+> implemented fast flash devices were rare.
 
-I'm not sure about FSRSC as a name, but it definitely beats AMD's longhand
-name of FAST_REP_SCASB.
----
- tools/misc/xen-cpuid.c                      | 5 +++++
- xen/include/public/arch-x86/cpufeatureset.h | 8 ++++++++
- 2 files changed, 13 insertions(+)
+Both reproductions of this issue I'm aware of were on systems with AMD
+processors.  I'm doubtul suspicion of flash storage hardware is unique
+to owners of AMD systems.  As a result while this /could/ also effect
+Intel systems, the lack of reports /suggests/ otherwise.
 
-diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
-index 51efbff579e6..b562ee839d38 100644
---- a/tools/misc/xen-cpuid.c
-+++ b/tools/misc/xen-cpuid.c
-@@ -91,6 +91,7 @@ static const char *const str_e1c[32] =
-     [24] = "perfctr-nb", /* [25] */
-     [26] = "dbx",        [27] = "perftsc",
-     [28] = "pcx-l2i",    [29] = "monitorx",
-+    [30] = "dbext2",
- };
- 
- static const char *const str_7b0[32] =
-@@ -199,11 +200,15 @@ static const char *const str_7a1[32] =
- 
- static const char *const str_e21a[32] =
- {
-+    [ 0] = "no-nest-bp",    [ 1] = "fs-gs-ns",
-     [ 2] = "lfence+",
-     [ 6] = "nscb",
-     [ 8] = "auto-ibrs",
-+    [10] = "amd-fsrs",      [11] = "amd-fsrc",
- 
-     /* 16 */                [17] = "cpuid-user-dis",
-+    [18] = "epsf",          [19] = "fsrsc",
-+    [20] = "amd-prefetchi",
- 
-     /* 26 */                [27] = "sbpb",
-     [28] = "ibpb-brtype",   [29] = "srso-no",
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index eb9f552948be..11287aaabe43 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -168,6 +168,7 @@ XEN_CPUFEATURE(TBM,           3*32+21) /*A  trailing bit manipulations */
- XEN_CPUFEATURE(TOPOEXT,       3*32+22) /*   topology extensions CPUID leafs */
- XEN_CPUFEATURE(DBEXT,         3*32+26) /*A  data breakpoint extension */
- XEN_CPUFEATURE(MONITORX,      3*32+29) /*   MONITOR extension (MONITORX/MWAITX) */
-+XEN_CPUFEATURE(DBEXT2,        3*32+30) /*A  Address Mask Extentions */
- 
- /* Intel-defined CPU features, CPUID level 0x0000000D:1.eax, word 4 */
- XEN_CPUFEATURE(XSAVEOPT,      4*32+ 0) /*A  XSAVEOPT instruction */
-@@ -290,10 +291,17 @@ XEN_CPUFEATURE(WRMSRNS,      10*32+19) /*S  WRMSR Non-Serialising */
- XEN_CPUFEATURE(AVX_IFMA,     10*32+23) /*A  AVX-IFMA Instructions */
- 
- /* AMD-defined CPU features, CPUID level 0x80000021.eax, word 11 */
-+XEN_CPUFEATURE(NO_NEST_BP,         11*32+ 0) /*A  No Nested Data Breakpoints */
-+XEN_CPUFEATURE(FS_GS_NS,           11*32+ 1) /*S  FS/GS base MSRs non-serialising */
- XEN_CPUFEATURE(LFENCE_DISPATCH,    11*32+ 2) /*A  LFENCE always serializing */
- XEN_CPUFEATURE(NSCB,               11*32+ 6) /*A  Null Selector Clears Base (and limit too) */
- XEN_CPUFEATURE(AUTO_IBRS,          11*32+ 8) /*S  Automatic IBRS */
-+XEN_CPUFEATURE(AMD_FSRS,           11*32+10) /*A  Fast Short REP STOSB */
-+XEN_CPUFEATURE(AMD_FSRC,           11*32+11) /*A  Fast Short REP CMPSB */
- XEN_CPUFEATURE(CPUID_USER_DIS,     11*32+17) /*   CPUID disable for CPL > 0 software */
-+XEN_CPUFEATURE(EPSF,               11*32+18) /*A  Enhanced Predictive Store Forwarding */
-+XEN_CPUFEATURE(FSRSC,              11*32+19) /*A  Fast Short REP SCASB */
-+XEN_CPUFEATURE(AMD_PREFETCHI,      11*32+20) /*A  PREFETCHIT{0,1} Instructions */
- XEN_CPUFEATURE(SBPB,               11*32+27) /*A  Selective Branch Predictor Barrier */
- XEN_CPUFEATURE(IBPB_BRTYPE,        11*32+28) /*A  IBPB flushes Branch Type predictions too */
- XEN_CPUFEATURE(SRSO_NO,            11*32+29) /*A  Hardware not vulenrable to Speculative Return Stack Overflow */
+I've noticed two things when glancing at the original report.  LVM is not
+in use here, so that doesn't seem to effect the problem.  The Phenom II
+the original reporter tested as not having the issue might have lacked
+proper BIOS support, hence IOMMU not being functional.
 
-base-commit: 62018f08708a5ff6ef8fc8ff2aaaac46e5a60430
+This being a latency issue is *speculation*, but would explain the
+pattern of devices being effected.
+
+This is rather serious as it can lead to data loss (phew!  glad I just
+barely dodged this outcome).
+
+
 -- 
-2.30.2
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
 
 
