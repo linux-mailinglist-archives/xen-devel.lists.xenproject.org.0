@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AB3987ECB1
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 16:53:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694838.1083987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECC7C87ECCA
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 16:55:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694842.1083997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmFI7-0007SY-9J; Mon, 18 Mar 2024 15:52:47 +0000
+	id 1rmFKh-000831-Mq; Mon, 18 Mar 2024 15:55:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694838.1083987; Mon, 18 Mar 2024 15:52:47 +0000
+Received: by outflank-mailman (output) from mailman id 694842.1083997; Mon, 18 Mar 2024 15:55:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmFI7-0007QD-6n; Mon, 18 Mar 2024 15:52:47 +0000
-Received: by outflank-mailman (input) for mailman id 694838;
- Mon, 18 Mar 2024 15:52:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8te1=KY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rmFI6-0007Q0-0P
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 15:52:46 +0000
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [2607:f8b0:4864:20::f2b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f8c289a-e53f-11ee-afdd-a90da7624cb6;
- Mon, 18 Mar 2024 16:52:45 +0100 (CET)
-Received: by mail-qv1-xf2b.google.com with SMTP id
- 6a1803df08f44-690fed6816fso31208676d6.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 08:52:45 -0700 (PDT)
-Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
- 11-20020ad45bab000000b0069046d929a3sm5363281qvq.145.2024.03.18.08.52.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Mar 2024 08:52:44 -0700 (PDT)
+	id 1rmFKh-0007zq-K0; Mon, 18 Mar 2024 15:55:27 +0000
+Received: by outflank-mailman (input) for mailman id 694842;
+ Mon, 18 Mar 2024 15:55:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=rE6T=KY=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rmFKf-0007zk-SQ
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 15:55:25 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ee146862-e53f-11ee-a1ee-f123f15fe8a2;
+ Mon, 18 Mar 2024 16:55:23 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a46805cd977so453034566b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 08:55:23 -0700 (PDT)
+Received: from ?IPV6:2003:e5:873a:400:704b:6dbb:e7c0:786e?
+ (p200300e5873a0400704b6dbbe7c0786e.dip0.t-ipconnect.de.
+ [2003:e5:873a:400:704b:6dbb:e7c0:786e])
+ by smtp.gmail.com with ESMTPSA id
+ d20-20020a1709067f1400b00a468bcde79bsm3745619ejr.109.2024.03.18.08.55.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Mar 2024 08:55:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,76 +47,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f8c289a-e53f-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: ee146862-e53f-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710777164; x=1711381964; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=g1SXh3TRJWNRoXlu8AMgOkJ0X83NQ6GJjyvwMEEkrD0=;
-        b=S7dVcuuF6kU8uAIMapQ6r3lpu9s2oe0+c8/E4uMaEW4UXEYBCjziCAiJeFJ9V+x2Ye
-         I6jEMVqAu76VjaxsUCjj2y/TAArJczPJfbBJ/rb+2NmV9eSpFOsixpdE21apydj5vRBh
-         111ma/ps40weYTUXJ2gDnKgJIKAw5Kv/L3B18=
+        d=suse.com; s=google; t=1710777323; x=1711382123; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=dUEPalGmDXdpQ5eI8mLGAlTuARjS7QQ1V8I4dDK1z9g=;
+        b=PW7fPvrSAS5vX6XQUOVgE6VDArsAz6fz/9Kbl0feTgmRoKFoMgY+MM32hLpF+6+jIh
+         7cezVfLKrL8fGcErsZ5EFfcmXRIMqqcAWIiUx2zFjO++7M/Hqw5Oj8r2Hp8rkd3a0O4u
+         GV9tHWHeqkDb28D9du6egdOHurD5bj8/iWEFe196baWfbhhZksC/OJsMVxD7EbojA7gV
+         mq5yufwOiwXdxhhce8y3JJ1KGZ8fpCqYuVjeO0K6NLvpIQLoOG6S3YjfFkTK8fXM5Fhm
+         FVwdn+64QDv4UIn6shyruvNwc/Fk72qvpFB3NSAO4kKPaScRVMmkp+cqeCaWwWUTem5Y
+         9Xiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710777164; x=1711381964;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1710777323; x=1711382123;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=g1SXh3TRJWNRoXlu8AMgOkJ0X83NQ6GJjyvwMEEkrD0=;
-        b=oioasCQrcrj95bEuPUVSVN+zUhNnCqE1xykG5JkumSDtyqxRQrQIx/sGVAigeJic6f
-         AwOrKlKSCcwZOc7EcpF/eDDNXVCstaDesR9tNc1rDGO2TFbez/Ob7eNBTs2/9hshwA9w
-         STd1cCey+zU8plqDt68gc90NqbMyWgpXcNrizgsZCEk7SuORnJn+eJHnWpVMkqO8R3NN
-         KtFokZZgI8BCPCwcUSIyIG3BESa1iEzlDvnCcQyvZpZUDy0RCISlnGaIhAvhtNQhOOa2
-         iCbD/o0K14sTLSUdKF7UL/v47ta716WVi8v0DRJcLpQeaXh5AluxjXo7JhcqcAlTQr7u
-         yQpQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV+H2QyorSHjBU+wo33LF91/u5pwRGVQxHGouBmZskcFrI5z2umm1/A0BC9Sv3PN8LZbJuwrIJwYoBBgApfZ2Nf0BYzMTQGuxCHmvlgoJY=
-X-Gm-Message-State: AOJu0Yx4zTIMQBvjmoUrhfFhlfARk6ZQ8sqRnJIFOJvzqd8ZZySNtzBY
-	qaqNyr3Ph8VkRLmORXngvsQmp/LglMSSoX+h75VAkB7EgVNV2bBlBXDev/Dz9+g=
-X-Google-Smtp-Source: AGHT+IE7qr1H6LtG96P5eYjKxk7LFvzAzPmHAEhBL2oxWpFILpALXkEOM8Pxk9mAG8kqmhbdnyXQoQ==
-X-Received: by 2002:a0c:e3c2:0:b0:691:46ee:6abc with SMTP id e2-20020a0ce3c2000000b0069146ee6abcmr13458520qvl.3.1710777164430;
-        Mon, 18 Mar 2024 08:52:44 -0700 (PDT)
-Date: Mon, 18 Mar 2024 16:52:42 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 1/2] IOMMU: store name for extra reserved device memory
-Message-ID: <ZfhjSgAwZnSuI10N@macbook>
-References: <20240312162541.384793-1-marmarek@invisiblethingslab.com>
- <3ab49282-6b67-4ab0-bb65-f04c62bcadcb@suse.com>
+        bh=dUEPalGmDXdpQ5eI8mLGAlTuARjS7QQ1V8I4dDK1z9g=;
+        b=EpnPhbPvBfm/1CKOtnV8AsJWwYSFvM5RG/Tbh6sU6p9bP3qqQ4k4OiJXMaHPpxYjEa
+         wn8YrNo3Iww9icxR8b9rvzrE4f/0s6OP3cxDFnk71dwKa1Qq0OsTGv5MYpFzD4ySfVVa
+         mjbHszGtom/Ae89MDYjlnlcpIB8dLFyVtDoB+rgyXMRABXlnvU3VWQ7yIG8RlHEKH/M2
+         61DVr3XotnO1Zh8W3dXljAjMqUc64UgQvKnG1q5m57r1nR5Q3ZoIDZ4nLcAPmMdK42iJ
+         KusFpGBTTm5MIF1ztKWdllYGleSRkiCg4zOKERQMZJ3hrHYKYuZ41mHP1ZprNdlFrgOE
+         3s7g==
+X-Forwarded-Encrypted: i=1; AJvYcCVMl0KkkOo0AaC6xBvIYJcxYzlEvYkJjGNfAqUwuqyrk828r1aKI+cMFoYR8U+WqQXZn2O5j/UNbTkbx0WDPKcllV6LpbJ25xRHRoATfhE=
+X-Gm-Message-State: AOJu0YyDLuYvpOJjwqSPQu5mXUiP8A2zemMVfJtb46QL2PETMAmG0RR9
+	Vm9ll8OSDCDiPfAuzuvYT5EjDW1nQS+n5J7AUyyCmEfbDC4atWQv0otKn/d3MqI=
+X-Google-Smtp-Source: AGHT+IH5jFzXO8+bsqCVFgSb/RdY2e94djCs8rhKL5LhE2LqQwj/c5m685dqh5OnfADlo0VInRFv8Q==
+X-Received: by 2002:a17:906:17d5:b0:a46:ba9d:29aa with SMTP id u21-20020a17090617d500b00a46ba9d29aamr2398417eje.66.1710777323136;
+        Mon, 18 Mar 2024 08:55:23 -0700 (PDT)
+Message-ID: <39e1f192-9790-49da-8f33-1eeb6a245539@suse.com>
+Date: Mon, 18 Mar 2024 16:55:22 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3ab49282-6b67-4ab0-bb65-f04c62bcadcb@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 04/13] xen/spinlock: add
+ rspin_[un]lock_irq[save|restore]()
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20240314072029.16937-1-jgross@suse.com>
+ <20240314072029.16937-5-jgross@suse.com>
+ <1b8417b8-93aa-4976-a27a-701cfdf183b4@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <1b8417b8-93aa-4976-a27a-701cfdf183b4@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Mar 18, 2024 at 02:40:21PM +0100, Jan Beulich wrote:
-> On 12.03.2024 17:25, Marek Marczykowski-Górecki wrote:
-> > It will be useful for error reporting in a subsequent patch.
-> > 
-> > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+On 18.03.24 15:43, Jan Beulich wrote:
+> On 14.03.2024 08:20, Juergen Gross wrote:
+>> Instead of special casing rspin_lock_irqsave() and
+>> rspin_unlock_irqrestore() for the console lock, add those functions
+>> to spinlock handling and use them where needed.
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
 > 
-> In principle
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> However, ...
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> with two remarks:
 > 
-> > --- a/xen/drivers/passthrough/iommu.c
-> > +++ b/xen/drivers/passthrough/iommu.c
-> > @@ -682,6 +682,7 @@ struct extra_reserved_range {
-> >      unsigned long start;
-> >      unsigned long nr;
-> >      pci_sbdf_t sbdf;
-> > +    const char *name;
-> >  };
+>> --- a/xen/common/spinlock.c
+>> +++ b/xen/common/spinlock.c
+>> @@ -475,15 +475,31 @@ void _rspin_lock(rspinlock_t *lock)
+>>       lock->recurse_cnt++;
+>>   }
+>>   
+>> +unsigned long _rspin_lock_irqsave(rspinlock_t *lock)
+>> +{
+>> +    unsigned long flags;
+>> +
+>> +    local_irq_save(flags);
+>> +    _rspin_lock(lock);
+>> +
+>> +    return flags;
+>> +}
+>> +
+>>   void _rspin_unlock(rspinlock_t *lock)
+>>   {
+>>       if ( likely(--lock->recurse_cnt == 0) )
+>>       {
+>>           lock->recurse_cpu = SPINLOCK_NO_CPU;
+>> -        spin_unlock(lock);
+>> +        _spin_unlock(lock);
 > 
-> ... to me "descr" (or the longer "description") would seem more suitable.
-> Thoughts?
+> This looks like an unrelated change. I think I can guess the purpose, but
+> it would be nice if such along-the-way changes could be mentioned in the
+> description.
 
-I'm happy either way, but I don't find 'name' odd.
+I think it would be better to move that change to patch 3.
 
-Thanks, Roger.
+> 
+>> --- a/xen/include/xen/spinlock.h
+>> +++ b/xen/include/xen/spinlock.h
+>> @@ -272,7 +272,15 @@ static always_inline void spin_lock_if(bool condition, spinlock_t *l)
+>>    */
+>>   bool _rspin_trylock(rspinlock_t *lock);
+>>   void _rspin_lock(rspinlock_t *lock);
+>> +#define rspin_lock_irqsave(l, f)                                \
+>> +    ({                                                          \
+>> +        BUILD_BUG_ON(sizeof(f) != sizeof(unsigned long));       \
+>> +        ((f) = _rspin_lock_irqsave(l));                         \
+> 
+> Perhaps in the context of another patch in the series I think I had
+> pointed out that the outer pair of parentheses is unnecessary in
+> constructs like this.
+
+Oh, this one slipped through, sorry for that.
+
+Will fix it in the next iteration.
+
+
+Juergen
 
