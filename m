@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E3BE87ECE6
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 17:00:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694855.1084026 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F67687ECF5
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 17:06:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694862.1084036 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmFPD-0002vD-QD; Mon, 18 Mar 2024 16:00:07 +0000
+	id 1rmFUe-0004NW-D7; Mon, 18 Mar 2024 16:05:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694855.1084026; Mon, 18 Mar 2024 16:00:07 +0000
+Received: by outflank-mailman (output) from mailman id 694862.1084036; Mon, 18 Mar 2024 16:05:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmFPD-0002t5-NH; Mon, 18 Mar 2024 16:00:07 +0000
-Received: by outflank-mailman (input) for mailman id 694855;
- Mon, 18 Mar 2024 16:00:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rmFUe-0004KP-AX; Mon, 18 Mar 2024 16:05:44 +0000
+Received: by outflank-mailman (input) for mailman id 694862;
+ Mon, 18 Mar 2024 16:05:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rE6T=KY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rmFPC-00010X-Jg
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 16:00:06 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95c297b6-e540-11ee-a1ee-f123f15fe8a2;
- Mon, 18 Mar 2024 17:00:04 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a466a27d30aso591541966b.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 09:00:04 -0700 (PDT)
+ id 1rmFUd-0004KJ-5V
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 16:05:43 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5ec1419d-e541-11ee-afdd-a90da7624cb6;
+ Mon, 18 Mar 2024 17:05:42 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a46aaf6081fso255143666b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 09:05:42 -0700 (PDT)
 Received: from ?IPV6:2003:e5:873a:400:704b:6dbb:e7c0:786e?
  (p200300e5873a0400704b6dbbe7c0786e.dip0.t-ipconnect.de.
  [2003:e5:873a:400:704b:6dbb:e7c0:786e])
  by smtp.gmail.com with ESMTPSA id
- i26-20020a1709061cda00b00a46baa4723asm1556486ejh.119.2024.03.18.09.00.03
+ i22-20020a17090671d600b00a46d58fbc11sm81704ejk.118.2024.03.18.09.05.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 09:00:03 -0700 (PDT)
+ Mon, 18 Mar 2024 09:05:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,42 +47,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95c297b6-e540-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 5ec1419d-e541-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710777604; x=1711382404; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710777941; x=1711382741; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1HbzZscfp2/Mm7Ud1ZYajdefYIS3C3CLwkbOLfjXB1Y=;
-        b=KqtK6CEsy6VG2OC1XrVGJUR4GU0fp9izr7nUHD2NvoBs9CQMGKMvi086CADpXSg1of
-         /DaN9VWMq1xY7BY5eCDVRYiPfiHAQZnlj2n46/QoFeSXDd9X5UT9BM5bJXtqYAH13tz3
-         8AnH/WZ7FKTtAEKnSEmITGfun5DX2c0doH2g1/tjcDml2shuCR0PEY2XVaSO724RBzt/
-         9poHz9xDD9e6YAvIsgxJv+PEoqF7S4YPjsS3Y+RbXYFESXNfTqbmwLpkQejwHsXJakFu
-         LCeNJhSuupcqFTIdijnf0psxz+kAiwfWGo6OY9J93DBsTUgdwgL8klCaZwrE1HbeZ1Zf
-         E0Ow==
+        bh=n2z791031MnjwyORIdmOta/N62xQ8VXP7ioyI/cQbCk=;
+        b=FGIr0c/2wyQH2G0vhDj1rAKZdtZv3G8aKhRW4ZzIYkXt4WtP1lyKcquRu8eaPmfc9y
+         SYBToLecdVV6MTrX3E1syq4wP0olnyzC6csot73IaIduIGagBNtpSg9Qk0rfTRv5QJkd
+         O/YzSPz5CbcvaCRs32RLlnSLyB2mbHiuT48azJ+5uSdxeZbjb3jYYMpr+kJPhIpeBvZc
+         iKyY9u1wzjq3HflY/NlEGW2eg0ILRtOTKyD1sds/Hi8pZmv0+IPNXbnomn4lAOuH9Ckh
+         xsyPs0pTlm/s/JED3l6ro4wErjSHhKJMVhx1W6+HD6AN+wkaQSigvqjfQ175VgvJoVf9
+         mwHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710777604; x=1711382404;
+        d=1e100.net; s=20230601; t=1710777941; x=1711382741;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1HbzZscfp2/Mm7Ud1ZYajdefYIS3C3CLwkbOLfjXB1Y=;
-        b=cHT3po0Tyd0e9HAWyYIp7Rh4xagpSW4LvFfg9vX+fiBK2Ed+uB4MSBcHLtKC7H7Q/R
-         Q+INKEPTXbRR3Br6Kko8J7VX01wlFibhM5AS3IxAq3aYujjVU5OtlRdk2WuFan28M5OK
-         l+BCJdwZ8XZmeNnNBiIWK0YqNbT8/u4563U4qykxmblAOwgwk96/MhT+i0wjosGdPN6p
-         29EGYsqkctiT9Ap7Jz54/cCRJtm8d/6IaUlW42iGAcQPVnQ8Td9i528TobectqvFJmpc
-         ezuhKqgHystlxVrAEpQuYIvZBXa6uFS1fffDi6LxOKj3S2jRusDqDg9xFQnXvnvTbSRb
-         xRxg==
-X-Forwarded-Encrypted: i=1; AJvYcCVlPg750WXLMtQSYqsC+TogNjrP4tKzQfUQBt7POSYMCS2t4mb33UQi6Ofus5ZoWBUEglHcEBSRvnDDjHiQY9kNSUzk2kWul89DshU4Hus=
-X-Gm-Message-State: AOJu0YzGe0GubUYstW1nkKUP6fTZVk8bI8Fii9i/bkrJLkZD3TaH4Eul
-	WtXx8x4IuZXN8ID6KABa6/ZJWMCesD5REBIrZxc0h4kXsEGamBdLy0oe4QNQiLk=
-X-Google-Smtp-Source: AGHT+IGyTlOC3pRf5WIC+HFxyf//D44oVOGRSP99lU4wZoYYaOT/Y7j4ofoUwiaIPWdYzk8khWuxrQ==
-X-Received: by 2002:a17:906:7f10:b0:a45:f705:777c with SMTP id d16-20020a1709067f1000b00a45f705777cmr7637596ejr.40.1710777603836;
-        Mon, 18 Mar 2024 09:00:03 -0700 (PDT)
-Message-ID: <4ee88d53-4b2f-4768-951c-7080680df337@suse.com>
-Date: Mon, 18 Mar 2024 17:00:03 +0100
+        bh=n2z791031MnjwyORIdmOta/N62xQ8VXP7ioyI/cQbCk=;
+        b=EApccBI7KKZdE4hXQNuyy/Rpc5p+IH6DPrm4eOJ2dcu9AScyar1ci+fmM9KPx/xQcd
+         a6fd1y1vZ//lln6iTXUonjbSygC92lsCd6J1WFhEqSFZEWHvyjhuxnQq4RiNq80GxU4A
+         gPmu87X3+XDbZ+QNCJnWZWgzxf8Kdl7YPh5iq380fMCtu5qAEkB4zRY6ddGsrWKo4gbL
+         +BiFkDMHsPGMGs5TQzS8v6EVFvJXO9Qx6x/uqm/e4ih/lwCZtaGG6Y1hb5HRe7T6mHXa
+         q6yNAo3NVcuW1PG3T9ssrdeAF3+ePDsabbBU9uH9vuCx5hnwvAbzY0mvSR4u++smHgmJ
+         Ipuw==
+X-Forwarded-Encrypted: i=1; AJvYcCXNvJBi0f/BP4tQEnp8v4M6KpWsj8P24466V1XXUrvtb8bBJFK+qCi+qNYAchRkreldT3Kt4gXrFp7sDiIc+hjxTpX8Gt/8B6eBbDxSgFI=
+X-Gm-Message-State: AOJu0Yzgvf5y08CV8QR4eIQg0ui4I/fvISAagEYkf/x9gYOHTLWqWCcj
+	MxXpH+tGaMsukuB19bT4++7ERtv+xAQujWAYy4euaBa4OotkNFG5S5x5Sb3d9uY=
+X-Google-Smtp-Source: AGHT+IFPUFT8UOZBxZ217QsFSB7tcASN6JcFr+Ty+CUte1Eo59pgmjDm4BNwLqrSvmQ5ET0k24ohsQ==
+X-Received: by 2002:a17:907:7e93:b0:a46:a9f7:eebd with SMTP id qb19-20020a1709077e9300b00a46a9f7eebdmr4631967ejc.47.1710777941595;
+        Mon, 18 Mar 2024 09:05:41 -0700 (PDT)
+Message-ID: <51229f1e-bfbb-41b2-82a9-4b58ce9afaa2@suse.com>
+Date: Mon, 18 Mar 2024 17:05:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 12/13] xen/rwlock: raise the number of possible cpus
+Subject: Re: [PATCH v5 04/13] xen/spinlock: add
+ rspin_[un]lock_irq[save|restore]()
 Content-Language: en-US
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -90,91 +91,64 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <20240314072029.16937-1-jgross@suse.com>
- <20240314072029.16937-13-jgross@suse.com>
- <fc1b15e7-8ffc-4bc5-90dd-9f501a0e169d@suse.com>
+ <20240314072029.16937-5-jgross@suse.com>
+ <1b8417b8-93aa-4976-a27a-701cfdf183b4@suse.com>
+ <39e1f192-9790-49da-8f33-1eeb6a245539@suse.com>
+ <1ac7b3cd-2f61-4c13-8cac-f74f953ffb08@suse.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <fc1b15e7-8ffc-4bc5-90dd-9f501a0e169d@suse.com>
+In-Reply-To: <1ac7b3cd-2f61-4c13-8cac-f74f953ffb08@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18.03.24 16:39, Jan Beulich wrote:
-> On 14.03.2024 08:20, Juergen Gross wrote:
->> The rwlock handling is limiting the number of cpus to 4095 today. The
->> main reason is the use of the atomic_t data type for the main lock
->> handling, which needs 2 bits for the locking state (writer waiting or
->> write locked), 12 bits for the id of a possible writer, and a 12 bit
->> counter for readers. The limit isn't 4096 due to an off by one sanity
->> check.
+On 18.03.24 16:59, Jan Beulich wrote:
+> On 18.03.2024 16:55, Jürgen Groß wrote:
+>> On 18.03.24 15:43, Jan Beulich wrote:
+>>> On 14.03.2024 08:20, Juergen Gross wrote:
+>>>> Instead of special casing rspin_lock_irqsave() and
+>>>> rspin_unlock_irqrestore() for the console lock, add those functions
+>>>> to spinlock handling and use them where needed.
+>>>>
+>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>
+>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>> with two remarks:
+>>>
+>>>> --- a/xen/common/spinlock.c
+>>>> +++ b/xen/common/spinlock.c
+>>>> @@ -475,15 +475,31 @@ void _rspin_lock(rspinlock_t *lock)
+>>>>        lock->recurse_cnt++;
+>>>>    }
+>>>>    
+>>>> +unsigned long _rspin_lock_irqsave(rspinlock_t *lock)
+>>>> +{
+>>>> +    unsigned long flags;
+>>>> +
+>>>> +    local_irq_save(flags);
+>>>> +    _rspin_lock(lock);
+>>>> +
+>>>> +    return flags;
+>>>> +}
+>>>> +
+>>>>    void _rspin_unlock(rspinlock_t *lock)
+>>>>    {
+>>>>        if ( likely(--lock->recurse_cnt == 0) )
+>>>>        {
+>>>>            lock->recurse_cpu = SPINLOCK_NO_CPU;
+>>>> -        spin_unlock(lock);
+>>>> +        _spin_unlock(lock);
+>>>
+>>> This looks like an unrelated change. I think I can guess the purpose, but
+>>> it would be nice if such along-the-way changes could be mentioned in the
+>>> description.
 >>
->> The atomic_t data type is 32 bits wide, so in theory 15 bits for the
->> writer's cpu id and 15 bits for the reader count seem to be fine, but
->> via read_trylock() more readers than cpus are possible.
+>> I think it would be better to move that change to patch 3.
 > 
-> As a result, afaict you choose to use just 14 bits for the CPU, but
-> still 15 bits (with the 16th to deal with overflow) for the reader count.
-> That could do with making explicit here, as a question is whether we
-> deem as sufficient that there is just one extra bit for the reader
-> count.
+> Hmm, it would be a secondary change there, too. I was actually meaning to
+> commit patches 2-5, but if things want moving around I guess I better
+> wait with doing so?
 
-Okay, I'll add a sentence to the commit message.
-
-> 
->> --- a/xen/include/xen/rwlock.h
->> +++ b/xen/include/xen/rwlock.h
->> @@ -23,12 +23,12 @@ typedef struct {
->>   #define rwlock_init(l) (*(l) = (rwlock_t)RW_LOCK_UNLOCKED)
->>   
->>   /* Writer states & reader shift and bias. */
->> -#define    _QW_CPUMASK  0xfffU             /* Writer CPU mask */
->> -#define    _QW_SHIFT    12                 /* Writer flags shift */
->> -#define    _QW_WAITING  (1U << _QW_SHIFT)  /* A writer is waiting */
->> -#define    _QW_LOCKED   (3U << _QW_SHIFT)  /* A writer holds the lock */
->> -#define    _QW_WMASK    (3U << _QW_SHIFT)  /* Writer mask */
->> -#define    _QR_SHIFT    14                 /* Reader count shift */
->> +#define    _QW_SHIFT    14                      /* Writer flags shift */
->> +#define    _QW_CPUMASK  ((1U << _QW_SHIFT) - 1) /* Writer CPU mask */
->> +#define    _QW_WAITING  (1U << _QW_SHIFT)       /* A writer is waiting */
->> +#define    _QW_LOCKED   (3U << _QW_SHIFT)       /* A writer holds the lock */
->> +#define    _QW_WMASK    (3U << _QW_SHIFT)       /* Writer mask */
->> +#define    _QR_SHIFT    (_QW_SHIFT + 2)         /* Reader count shift */
->>   #define    _QR_BIAS     (1U << _QR_SHIFT)
-> 
-> Btw, seeing all the uppercase U suffixes here, I think you had some
-> lowercase ones earlier in the series. While Misra doesn't demand
-> uppercase for U, it does for L and iirc we decided to use all
-> uppercase suffixes as a result. Would be nice if what goes in could
-> have this correct right away.
-
-I'll rescan all the patches and change them accordingly.
-
-> 
->> @@ -36,14 +36,16 @@ void queue_write_lock_slowpath(rwlock_t *lock);
->>   
->>   static inline bool _is_write_locked_by_me(unsigned int cnts)
->>   {
->> -    BUILD_BUG_ON(_QW_CPUMASK < NR_CPUS);
->> +    BUILD_BUG_ON((_QW_CPUMASK + 1) < NR_CPUS);
->> +    BUILD_BUG_ON(NR_CPUS * _QR_BIAS > INT_MAX);
->>       return (cnts & _QW_WMASK) == _QW_LOCKED &&
->>              (cnts & _QW_CPUMASK) == smp_processor_id();
->>   }
->>   
->>   static inline bool _can_read_lock(unsigned int cnts)
->>   {
->> -    return !(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts);
->> +    return cnts <= INT_MAX &&
->> +           (!(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts));
->>   }
-> 
-> I view this as problematic: Code knowing that a write lock is being held
-> may invoke a function using read_trylock() and expect the lock to be
-> available there.
-
-So you expect it to be fine that someone is using read_trylock() 32768 times
-recursively while holding a lock as a writer? Sure, I can change the condition,
-but OTOH ...
+Hmm, maybe just drop this hunk and let patch 7 handle it?
 
 
 Juergen
-
 
