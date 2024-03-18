@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66BB887EA6D
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 14:54:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694724.1083781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD81A87EA72
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 14:57:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694732.1083801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmDRT-0008TC-9W; Mon, 18 Mar 2024 13:54:19 +0000
+	id 1rmDTl-0001Ai-0Q; Mon, 18 Mar 2024 13:56:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694724.1083781; Mon, 18 Mar 2024 13:54:19 +0000
+Received: by outflank-mailman (output) from mailman id 694732.1083801; Mon, 18 Mar 2024 13:56:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmDRT-0008R6-6o; Mon, 18 Mar 2024 13:54:19 +0000
-Received: by outflank-mailman (input) for mailman id 694724;
- Mon, 18 Mar 2024 13:54:18 +0000
+	id 1rmDTk-000180-U0; Mon, 18 Mar 2024 13:56:40 +0000
+Received: by outflank-mailman (input) for mailman id 694732;
+ Mon, 18 Mar 2024 13:56:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=emy9=KY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmDRS-0008Qw-5w
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 13:54:18 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ id 1rmDTj-00017p-OL
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 13:56:39 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0302366c-e52f-11ee-afdd-a90da7624cb6;
- Mon, 18 Mar 2024 14:54:17 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a46aaf6081fso229286266b.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 06:54:17 -0700 (PDT)
+ id 57913563-e52f-11ee-afdd-a90da7624cb6;
+ Mon, 18 Mar 2024 14:56:39 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-568a9c331a3so4066859a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 06:56:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l22-20020a1709067d5600b00a469e550472sm3039024ejp.60.2024.03.18.06.54.16
+ ij11-20020a056402158b00b005688450c264sm4631306edb.91.2024.03.18.06.56.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 06:54:16 -0700 (PDT)
+ Mon, 18 Mar 2024 06:56:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0302366c-e52f-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 57913563-e52f-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710770057; x=1711374857; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
+        d=suse.com; s=google; t=1710770199; x=1711374999; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=vdFJzLL7+XxWvJIfFHzS8ECIuG+kQxLH5Hk8uTvzn5E=;
-        b=eeXGTYU7LmT4MuzWJRj/SzMifbhgfBtrm+GXTd4DQiNSA9gGtcWOx7VamHSTkOqZ9k
-         DIRsqBkNumkKNhPg20EE8l4KrAlAP941DA5NPRWZ07anCVNBRSUupyIG0cbcIoLPNLaP
-         H1Y7gWy6Icp8uj1D1iAhvhS+2KuZi3AKb1PMzSXL4Fd4hZdsD08i8iH7dMt+Lqj2urBI
-         3nlSSvJVWFZbuBgeJd1YBzcZCq9hKAiEBxvR2TI5eSHsCfFXFBF52QGpaR9zCUMyFu24
-         +lcQPA7oHPnS77hd2BZ9Ysp9T9fU0rfDUBRZN9csLnws32/7UuF5R6ZwHORcq/RvjRob
-         fvNw==
+        bh=M26AKOSwj1thasag5hkT096kGfsSdSx8dLZESqL0/GE=;
+        b=PapynUfkGedSVVw8C2vB0MY+lFTn0VThbnYYe1mbn2grrYy4VkJky6Sw+/1PSlrIze
+         sjoCQGhwptTWNDwl0zA8pLhZOONLFQv+ZXQjzATzmjcx1Qt2RQM3KmNfY2sPjS2mrrzv
+         GGmTYb3jU4JYNNPaYtfUassqZDuvm8pdXlz+yaEwMJSxe1VWMJSXcx4iNcDULQlW4OcF
+         bgcCSZouDJ2UUcrkpxAL0esZCyZeOFUFTbKOfWegY8rcu009rncwiTFzOAQoJT3XcbXL
+         B1zvYLQm7KEljMjAgrTt1ycRFCxY6aqpbOfbE1YFRdEvIimzD0iSI7H1yNGlydtszw2N
+         q4QA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710770057; x=1711374857;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
+        d=1e100.net; s=20230601; t=1710770199; x=1711374999;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vdFJzLL7+XxWvJIfFHzS8ECIuG+kQxLH5Hk8uTvzn5E=;
-        b=T1JOs6oupzNz6gynk5gvCP8iMaac1/mOKm54xZ8HLjX9hdl479WYaCNN1JD8Ag/kr0
-         FNr3j4InepPudSis4VJZtWbM7hcVM4NfqpSrJrcFyYrgy+khjWZdr8SHHTpd4sPGkMjg
-         +eZ5Qj1KRQSS6h3L+IcWI1K/ZO5fgtErTMZ8K9omgM07zA4VPDxYfO+c+9Lkv3ITvFyr
-         fLp3kaL27dDqQqN02VXUfpga9TxL0suM7ig2kVZM2bvAAIbvglAvqJlalCV2lqEQ2dLE
-         NR3R71ZS1c66xV6KvqssjVdSY3nYBD7by+9wcwUsSn7azVhOth1WV47lmTPb2lxg1dZV
-         xd0A==
-X-Gm-Message-State: AOJu0YzRlimarooDR0Ov8bi9uXZJp4MpxkIdw4NWGJz68DW/SzHEMLai
-	iS8+2x8HTbR8ZWoTEkZ9aIlae8LcEPLfOTvL/drJoTOgoZxlCHotkReflDWd9dx10eUP0XJPzWc
-	=
-X-Google-Smtp-Source: AGHT+IEZvCP6dQv64Uc05XniwlVkQ962g8rOYRrZf1yU+wZVh9Ui7TfW4Dw7QDIeY9Ni+GuxMFSdKw==
-X-Received: by 2002:a17:907:11c7:b0:a45:c027:372 with SMTP id va7-20020a17090711c700b00a45c0270372mr6672048ejb.68.1710770056817;
-        Mon, 18 Mar 2024 06:54:16 -0700 (PDT)
-Message-ID: <75b51044-50dc-492c-b87d-b0e1a9701696@suse.com>
-Date: Mon, 18 Mar 2024 14:54:15 +0100
+        bh=M26AKOSwj1thasag5hkT096kGfsSdSx8dLZESqL0/GE=;
+        b=at+kXqFyt+lkEf6JtOS7oYMbEPUaIYeKVMNxrzIFSRVUNE1Pj+R9/Os78aN6y2eGn6
+         hn5ZgTxLmk46p7fH7fbxiAkeRUiI+mV2qkNaSs/cG9WsHECTSe4e/fk2LZBB1j7yzSIq
+         11PBhkX0KjUvaAcxH40CyeoBO+bWnJRHlYFcF0Cx6Ib/ehuX+uAaBQ9ubB6L+9QOk+O8
+         MsLNNbn196D4z2UtE+0Ul8mJfMR1IFxgxfiTYwPXvNHzcO1PYynD0H4dNTnF5jfofecx
+         ynggScFw+WOcL6VWPl2Lkdxr9ytES8XLN7BBKDtEn+HKlZqFkFeBNhHY9L0cz7q7rMWf
+         NCvQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVRC4YrGIwDTu5eE6mOtuY0HlvRtphEDt/AX5jHFAvvevOrify27ewA+ubVTV5ISKD3vUPeci0ylvHc+zp4fg9z5hh9rBT2g3O4mYMNLP0=
+X-Gm-Message-State: AOJu0Yz72y9gSSyU4cx0Jzd8N21Fl4xGYM8SV1s2wHFoKSQRexeLw9DS
+	jAu1B/sqtzsV0lLWD0kUaFcCEQ7Wxyb0i3dbsosrnNQ0E7Lf8y3pXvojya/+IQ==
+X-Google-Smtp-Source: AGHT+IFg5WEZrYjPaAOsvuosd/ojX4YzQrK/kI9Qt7YaaiCqV5RegHI3Wd176J4OkbUVV1fHTzGWNw==
+X-Received: by 2002:a05:6402:3986:b0:568:223e:f2b0 with SMTP id fk6-20020a056402398600b00568223ef2b0mr10176553edb.21.1710770198712;
+        Mon, 18 Mar 2024 06:56:38 -0700 (PDT)
+Message-ID: <15911343-1eab-46bb-9e97-dce0b87ab504@suse.com>
+Date: Mon, 18 Mar 2024 14:56:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] x86: Move SVM features exposed to guest into
- hvm_max_cpu_policy
+Subject: Re: [PATCH v2 2/3] nestedsvm: Disable TscRateMSR
 Content-Language: en-US
 To: George Dunlap <george.dunlap@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <20240313122454.965566-1-george.dunlap@cloud.com>
- <20240313122454.965566-2-george.dunlap@cloud.com>
-Cc: xen-devel@lists.xenproject.org
+ <20240313122454.965566-3-george.dunlap@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,19 +112,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240313122454.965566-2-george.dunlap@cloud.com>
+In-Reply-To: <20240313122454.965566-3-george.dunlap@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13.03.2024 13:24, George Dunlap wrote:
-> Currently (nested) SVM features we're willing to expose to the guest
-> are defined in calculate_host_policy, and stored in host_cpu_policy.
-> This is the wrong place for this; move it into
-> calculate_hvm_max_policy(), and store it in hvm_max_cpu_policy.
+> The primary purpose of TSC scaling, from our perspective, is to
+> maintain the fiction of an "invariant TSC" across migrates between
+> platforms with different clock speeds.
+> 
+> On AMD, the TscRateMSR CPUID bit is unconditionally enabled in the
+> "host cpuid", even if the hardware doesn't actually support it.
+> According to c/s fd14a1943c4 ("nestedsvm: Support TSC Rate MSR"),
+> testing showed that emulating TSC scaling in an L1 was more expensive
+> than emulating TSC scaling on an L0 (due to extra sets of vmexit /
+> vmenter).
+> 
+> However, the current implementation seems to be broken.
+> 
+> First of all, the final L2 scaling ratio should be a composition of
+> the L0 scaling ratio and the L1 scaling ratio; there's no indication
+> this is being done anywhere.
+> 
+> Secondly, it's not clear that the L1 tsc scaling ratio actually
+> affects the L0 tsc scaling ratio.  The stored value (ns_tscratio) is
+> used to affect the tsc *offset*, but doesn't seem to actually be
+> factored into d->hvm.tsc_scaling_ratio.  (Which shouldn't be
+> per-domain anyway, but per-vcpu.)  Having the *offset* scaled
+> according to the nested scaling without the actual RDTSC itself also
+> being scaled has got to produce inconsistent results.
+> 
+> For now, just disable the functionality entirely until we can
+> implement it properly:
+> 
+> - Don't set TSCRATEMSR in the host CPUID policy
+
+"host" is stale here; it's "HVM max" now.
+
+> - Remove MSR_AMD64_TSC_RATIO emulation handling, so that the guest
+>   guests a #GP if it tries to access them (as it should when
+>   TSCRATEMSR is clear)
+> 
+> - Remove ns_tscratio from struct nestedhvm, and all code that touches
+>   it
+> 
+> Unfortunately this means ripping out the scaling calculation stuff as
+> well, since it's only used in the nested case; it's there in the git
+> tree if we need it for reference when we re-introduce it.
 > 
 > Signed-off-by: George Dunlap <george.dunlap@cloud.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-
+Jan
 
