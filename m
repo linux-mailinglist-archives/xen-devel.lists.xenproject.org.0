@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0EE187EB85
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 15:59:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694777.1083891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB9A287EB89
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 16:00:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694779.1083902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmESa-0000z6-IW; Mon, 18 Mar 2024 14:59:32 +0000
+	id 1rmETJ-0002Lu-SG; Mon, 18 Mar 2024 15:00:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694777.1083891; Mon, 18 Mar 2024 14:59:32 +0000
+Received: by outflank-mailman (output) from mailman id 694779.1083902; Mon, 18 Mar 2024 15:00:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmESa-0000wU-FK; Mon, 18 Mar 2024 14:59:32 +0000
-Received: by outflank-mailman (input) for mailman id 694777;
- Mon, 18 Mar 2024 14:59:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rmETJ-0002Iw-Oj; Mon, 18 Mar 2024 15:00:17 +0000
+Received: by outflank-mailman (input) for mailman id 694779;
+ Mon, 18 Mar 2024 15:00:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=emy9=KY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmESZ-0000wO-Cb
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 14:59:31 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1ebac03b-e538-11ee-a1ee-f123f15fe8a2;
- Mon, 18 Mar 2024 15:59:29 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-55a179f5fa1so5142530a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 07:59:29 -0700 (PDT)
+ id 1rmETI-0002Ig-9R
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 15:00:16 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3a197cc0-e538-11ee-afdd-a90da7624cb6;
+ Mon, 18 Mar 2024 16:00:15 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-56890b533aaso5049732a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 08:00:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- eo14-20020a056402530e00b00568a1897dbesm4440379edb.77.2024.03.18.07.59.28
+ eo14-20020a056402530e00b00568a1897dbesm4440379edb.77.2024.03.18.08.00.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 07:59:28 -0700 (PDT)
+ Mon, 18 Mar 2024 08:00:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ebac03b-e538-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 3a197cc0-e538-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710773969; x=1711378769; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710774015; x=1711378815; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3riX+v6dfd9+Zjk5Yj5hZvN8xcEUeV+FYYHRvgqoxRA=;
-        b=EhND6e9Q42fyZp6kPv5o953d9Y8I3Z/f6uAmyFR4acWbwT9leMY6RlTERHqgnRuYcH
-         p5XuDwUCP2sFelMaQVndM3ps4A/SJT9PlM7WFD7GXwaovbS/tu/rhSjOjCGYxTC0w9oA
-         TASDHyWtrsJIskClE28wAnYNVWDJ4yjPNx0DTn6ShT3pu0ksBZdHHqmObqmApkHohR5L
-         VPNECltLbndvOyIZQJ49LN+qmhXzwlXu7PESVAgrcolIl5Y9/wyLVQOWQtAPvdBr/cur
-         rBmrzgi0EisXh4IxfVXkKeDOiVNr3CxHn2CCxlEhwe50RAtOsaY0y9BQV3RwAwkWwanZ
-         9hTg==
+        bh=YHqamr0gTEW8e7B50+a4ktySInOO/1ridk6aQsoXk/o=;
+        b=UELAuUmfU7FU+i5tcC25L0dRHPJg9Xw/fSZatT1mL8aExMcXPIXqmH/3taZnBhxasN
+         qcXWJgnbDLUv7gKvXTyJwF4oF3sntVTUByAuxgWPFjZKleYOSjQcKIG8EGJXzPTCuwTe
+         IGJq6PFdpAHuLROpv+ggl5+fPxBzzH+nSQXJLpvhXDeT4GLkRmop9qiX553vwbOPJLLd
+         xKcrdfs2zO+5rau4d3MzlIPMt+uD/ZGbABujuqTFnOyJyLd6BSUVqPAm/fWCLawF6uQl
+         AdQZQQF3hin8uk8t4q0EUe3yx8+sBizt/VuW3TCQDqrWpAFof/8Y2D1YEnBz8DfXAWH4
+         499w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710773969; x=1711378769;
+        d=1e100.net; s=20230601; t=1710774015; x=1711378815;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3riX+v6dfd9+Zjk5Yj5hZvN8xcEUeV+FYYHRvgqoxRA=;
-        b=M4/NiqZGj+4uM/D/JhWy0VOdHDJLYhIVpZROqoAldwStxx4iEYiVOQNYgeZhxQgnVb
-         rhSAizDIzQ+jkZsUTxpMnYhB61kzO0zYVXwnCn6vKz+u36QRQaEProgYTyRwDBxe5F+n
-         judfSH+CyWfBy2pRfbkIwjpJCBXobM5ZURkjGK9CsgTd7mNoRFE8+IiVNIDg8itJzBWd
-         X3wb/u5s+D2ayWyQIFleSJp2414WEK7TdxXPcCkzDSljfbUEto4791kdOjAbzQgU2B+5
-         3b75gyLLb/ImaAYX/MtNxC1RI00GbRvVwJnJkrUjipcq81o2K6n/EY9UuUPY6SrEclXr
-         eOSQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUNmUYO+vRhQ/DCdOVsIHHIgRudSKxid5BnZ+qWV2pAe/yvT3j3B5heZcpI1htAe72KaCQJg1IiiN0yoy9MpcTbNsct2V2tGcdo5wkD9n4=
-X-Gm-Message-State: AOJu0Yzrm0bMFz/WsyFYZFhx1b8EjNPI8q/wceS2t2WtxK/s3KZaH9UX
-	qAZ1fqSfkn0qxg5l6iCklm1TmxwajJ5Qg01kBY+VSNvXGPPGUmnq7Yj26k3wWg==
-X-Google-Smtp-Source: AGHT+IGWb42vkoX7Y8/zVVp8bLKmfVbJBri2tFhKl6S4eSBILILA8b5+enTgTDHwbS90Ke1dH4Craw==
-X-Received: by 2002:a05:6402:4282:b0:568:7ad9:f2af with SMTP id g2-20020a056402428200b005687ad9f2afmr10509674edc.27.1710773968764;
-        Mon, 18 Mar 2024 07:59:28 -0700 (PDT)
-Message-ID: <6aa7699e-fe39-44d6-8781-c32147ff9581@suse.com>
-Date: Mon, 18 Mar 2024 15:59:27 +0100
+        bh=YHqamr0gTEW8e7B50+a4ktySInOO/1ridk6aQsoXk/o=;
+        b=TAQ1DLDeku58Myvi4HVvpe+cESFc+Wf0sKy6onjmwErufCy010aF/tWa8UcJPCokXo
+         XYMUJOELlymB/p95E3rYfJddtMl3LJhdXEPJWvPWz7RkC3z1z3957ALD3HWqfER8gk4Y
+         esqStzDzQqCGPFYHX55T5e25XTCBq3O9Yqgp9jRVxFH1fPJHxTj4zU2u1yhYHaWQXKyX
+         tOBRFtmBqfwH+xrkFeheNlvpXGDkIPhm7OeBGRnY9x2KCyKrzOJdum9dmehIKyiNUDgn
+         vDeh0P5Iv67bHpapTq1NBg1nMy1X7JCRbfHE68VvSYxTnphFYaH2qfdSdvuFi9CU+AuJ
+         JAbA==
+X-Forwarded-Encrypted: i=1; AJvYcCVA3OJpUmbk7x/8yPO+RKjb2XSXPeiauKjARr4iqTPwirBdS/TiGB3e/+FvUT0CjI7+wt65wgjSCPpCBGF4R/7V7Ctoo2puAnN5FJfgX6o=
+X-Gm-Message-State: AOJu0YyH+PCdYR78bQcxkRN2LVwd95iNGfxoptuJU67Fp2AaLfflkELZ
+	Jwli0OthAFIiOP+ais3+1X0txOQJ/0QotMXc4nm2C3PDTOlQKCJg6PtwBUk+MQ==
+X-Google-Smtp-Source: AGHT+IEaukdOFEr+1z7MEGZbQDmcIPUZF1zlEal+HfLqwP1jaEDk1RaTtl2DmezurIAH9aGlO2KAUA==
+X-Received: by 2002:a05:6402:4149:b0:566:ab45:e6c5 with SMTP id x9-20020a056402414900b00566ab45e6c5mr9460492eda.28.1710774014769;
+        Mon, 18 Mar 2024 08:00:14 -0700 (PDT)
+Message-ID: <1385ed46-da4f-484e-b562-5b0d7ff038f0@suse.com>
+Date: Mon, 18 Mar 2024 16:00:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/13] xen/spinlock: split recursive spinlocks from
- normal ones
+Subject: Re: [PATCH v5 10/13] xen/spinlock: let all is_locked and trylock
+ variants return bool
 Content-Language: en-US
 To: Juergen Gross <jgross@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -89,7 +89,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <20240314072029.16937-1-jgross@suse.com>
- <20240314072029.16937-10-jgross@suse.com>
+ <20240314072029.16937-11-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,28 +114,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240314072029.16937-10-jgross@suse.com>
+In-Reply-To: <20240314072029.16937-11-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 14.03.2024 08:20, Juergen Gross wrote:
-> Recursive and normal spinlocks are sharing the same data structure for
-> representation of the lock. This has two major disadvantages:
-> 
-> - it is not clear from the definition of a lock, whether it is intended
->   to be used recursive or not, while a mixture of both usage variants
->   needs to be
-> 
-> - in production builds (builds without CONFIG_DEBUG_LOCKS) the needed
->   data size of an ordinary spinlock is 8 bytes instead of 4, due to the
->   additional recursion data needed (associated with that the rwlock
->   data is using 12 instead of only 8 bytes)
-> 
-> Fix that by introducing a struct spinlock_recursive for recursive
-> spinlocks only, and switch recursive spinlock functions to require
-> pointers to this new struct.
-> 
-> This allows to check the correct usage at build time.
+> Switch the remaining trylock and is_locked variants to return bool.
 > 
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 
