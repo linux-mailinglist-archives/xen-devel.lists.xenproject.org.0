@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 637FC87E911
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 13:03:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694651.1083609 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D98DB87E93E
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 13:22:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694656.1083619 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmBhh-0000pr-7W; Mon, 18 Mar 2024 12:02:57 +0000
+	id 1rmC07-0004Ut-NA; Mon, 18 Mar 2024 12:21:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694651.1083609; Mon, 18 Mar 2024 12:02:57 +0000
+Received: by outflank-mailman (output) from mailman id 694656.1083619; Mon, 18 Mar 2024 12:21:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmBhh-0000oJ-44; Mon, 18 Mar 2024 12:02:57 +0000
-Received: by outflank-mailman (input) for mailman id 694651;
- Mon, 18 Mar 2024 12:02:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rmC07-0004Sa-JW; Mon, 18 Mar 2024 12:21:59 +0000
+Received: by outflank-mailman (input) for mailman id 694656;
+ Mon, 18 Mar 2024 12:21:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=az6s=KY=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rmBhg-0000oD-6G
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 12:02:56 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 741f7692-e51f-11ee-afdd-a90da7624cb6;
- Mon, 18 Mar 2024 13:02:55 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-413f1853bf3so28840035e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 05:02:55 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ <SRS0=we9v=KY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rmC06-0004SU-5N
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 12:21:58 +0000
+Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
+ [2607:f8b0:4864:20::730])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1bf9072e-e522-11ee-a1ee-f123f15fe8a2;
+ Mon, 18 Mar 2024 13:21:56 +0100 (CET)
+Received: by mail-qk1-x730.google.com with SMTP id
+ af79cd13be357-789e6f7f748so165495885a.3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 05:21:56 -0700 (PDT)
+Received: from [10.80.67.23] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- t20-20020a05600c199400b004132ae838absm14793489wmq.43.2024.03.18.05.02.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Mar 2024 05:02:54 -0700 (PDT)
+ e7-20020a05620a12c700b00789ea49fd22sm2437045qkl.49.2024.03.18.05.21.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Mar 2024 05:21:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 741f7692-e51f-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 1bf9072e-e522-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1710763374; x=1711368174; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=zw2EktgE+5/3X3GE505EIk99kT1ap2KZKgZaaJMsPhk=;
-        b=XE2Lp+Fq8jJM5EYDQWaz1wQHL4LvkXun3l4/KRZLJr9J/ZDVcS/OfY321TjSltKhAN
-         hZlBxgZKd0oC7V+NHPlAqhF9mLYCMCkCOQ53gl84dx4d2JPN/VoF1+LYFfJKSQZIAx8K
-         WTu4pmBHIszFzTQZYq7vIVXzDH3cPwNIDSLvU=
+        d=citrix.com; s=google; t=1710764515; x=1711369315; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=98xrJ4tASlah8xufYKmqEE73Ggve4q4kDHL4pwkBFFg=;
+        b=l57I2tciupYKPElqvFeBfvKbZeBXQqPWsvfjULHQz0XOPjx7rc63rxL4cuHeg9wGpI
+         3zzoO081J8IAQBA9pvoEyX7lcNtCsxhUSN+Lz0QFrQu2Xlp6eEyApbKDapqx/PzaxTZi
+         ggDJIfTZltu4DpM8YinUakZrF73QwNiRneb58=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710763374; x=1711368174;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1710764515; x=1711369315;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zw2EktgE+5/3X3GE505EIk99kT1ap2KZKgZaaJMsPhk=;
-        b=YTZI007XLCwF2tmH8A/ob+tGqAj8woVSUVOH8vDgcuOJfUoXdi6c+7YZd1HVYOnSu0
-         rUUewxeyPVmdSrrUhTK8I3f3CV0/EAnLYZEyxFuduR441WWf83jnsrqUNR53b18c2drb
-         NISs2u6RQHucDpcPi/KT9RhWzAgBzHLhW6TR/l64RE4zEo5ILZd0xEPPVTLGtLN8a5Ti
-         erlRKDzRXnaSl4OuxJCV4fT0zCQdcnqMn2ixse8exOjjet5cCKw+IijsHceIeca5tsO5
-         tFI4HDu2yEpgDfExH4Yulz7BlSgBdX6CtXyqty5En5v8rifMatBW27RfD4V9c8VEbdi9
-         3fJw==
-X-Gm-Message-State: AOJu0YzNuJraAFc2lplzoxBcGyoq8oaxqCYXfK5kHki/P3F3/KSPC8po
-	mR1RUSUmhWaBxbauxAyPt87t6rRnZA6oDBkNCUrjRzZzug38VOSkcd071+neeEU=
-X-Google-Smtp-Source: AGHT+IH1Xeji7NT5Hr7hdguPclUtPwKCiCfGpR9kBBlsVbliHOJkp5sg4zsaLriPiVqdNB2hDsb0Hg==
-X-Received: by 2002:a05:600c:3150:b0:413:f80f:9a5 with SMTP id h16-20020a05600c315000b00413f80f09a5mr8262467wmo.5.1710763374582;
-        Mon, 18 Mar 2024 05:02:54 -0700 (PDT)
-Date: Mon, 18 Mar 2024 12:02:53 +0000
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: [OSSTEST PATCH v2 0/3] Switch to Linux 6.1 by default on x86
-Message-ID: <73baa2f3-4ce1-4611-8633-cc024a42d0c9@perard>
-References: <20240315154849.28819-1-anthony.perard@citrix.com>
- <Zfgao9BaG20mLRuU@macbook>
+        bh=98xrJ4tASlah8xufYKmqEE73Ggve4q4kDHL4pwkBFFg=;
+        b=ijUJpdglqOJUdCxeXyF+cPYDIQwZqULdSGfyuYH56KhKCTBa/hwbZTlGCrBM7msGQ2
+         uiKQprJhdHlBIDJdmrpcMnrtbD185S2LunHB8GK6yHLQ5lqCxfuX49cMmwIrEol3z7sZ
+         QATG0O4jNr0BozpiQUIuarCs3lH9La31f7JYZOZFL7V8LuNpmDGx7DWFLHgpuxuR2UJ5
+         H5ROmej6Gdydpj93RILowBdpi6eJks0b9XAs6meVK1dTSU3HKuFwJUoQRtMz4S2GfFfz
+         9hfDsFdxTDkkSHkUXiaRVKvWhg98+GX+iawYk/Y5sMwn/uGP+K4kBI7UV8PzlC8upayw
+         upNQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXcTy/8So/3yDeQqEuQ+kPAHLq9JX5MPA8PIpUsktAVWYLa8C7Hj8ECrkc7mAtRxayVqFRBRpxJvXPXDQi+9huvzvtTx+0Ta4uEJTNCKlc=
+X-Gm-Message-State: AOJu0Yx40q9+EJNzyC/wYUQlK4yWgMf+RsJPasZsq7sfqlyQabcTrcqi
+	R/97X6xJsd1VPzgdVkAChjFY5g8saWbx1mIo82WTM0GhzuIIA/0tIDiZg4PPJuc=
+X-Google-Smtp-Source: AGHT+IG/B6EpVZ7mTbxVkwy1x8aWhQB/0MOSsAnpcLBBXouCROaJYhVGXRLwIphI2b6FT9CIjp+Okw==
+X-Received: by 2002:a05:620a:c93:b0:78a:10c:fa2f with SMTP id q19-20020a05620a0c9300b0078a010cfa2fmr2605377qki.39.1710764515008;
+        Mon, 18 Mar 2024 05:21:55 -0700 (PDT)
+Message-ID: <31220753-95bf-4742-a2ab-dfb4f814abdf@citrix.com>
+Date: Mon, 18 Mar 2024 12:21:52 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Zfgao9BaG20mLRuU@macbook>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/mm: use block_lock_speculation() in _mm_write_lock()
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, George Dunlap <george.dunlap@cloud.com>
+References: <eea85453-32df-4d0e-b6b5-74b2bf16ae1a@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <eea85453-32df-4d0e-b6b5-74b2bf16ae1a@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Mar 18, 2024 at 11:42:43AM +0100, Roger Pau Monné wrote:
-> On Fri, Mar 15, 2024 at 03:48:46PM +0000, Anthony PERARD wrote:
-> > Anthony PERARD (3):
-> >   make-fligh: Fix freebsd guest test test-id
-> >   mfi-common: Rework toolstack-disk_format test matrix
-> >   ap-common: Switch to Linux 6.1 by default on x86 + drop dom0 i386
-> 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+On 18/03/2024 10:54 am, Jan Beulich wrote:
+> I can only guess that using block_speculation() there was a leftover
+> from, earlier on, SPECULATIVE_HARDEN_LOCK depending on
+> SPECULATIVE_HARDEN_BRANCH.
+>
+> Fixes: 197ecd838a2a ("locking: attempt to ensure lock wrappers are always inline")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Pushed.
+Yes, it looks that way.
 
-Thanks,
-
--- 
-Anthony PERARD
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
