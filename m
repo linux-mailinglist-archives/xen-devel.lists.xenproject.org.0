@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37F0A87E3B2
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 07:35:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694466.1083266 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88E4987E3F3
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 08:16:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694473.1083278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rm6aP-0003aA-1e; Mon, 18 Mar 2024 06:35:05 +0000
+	id 1rm7DY-0000fT-2y; Mon, 18 Mar 2024 07:15:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694466.1083266; Mon, 18 Mar 2024 06:35:05 +0000
+Received: by outflank-mailman (output) from mailman id 694473.1083278; Mon, 18 Mar 2024 07:15:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rm6aO-0003Y4-VH; Mon, 18 Mar 2024 06:35:04 +0000
-Received: by outflank-mailman (input) for mailman id 694466;
- Mon, 18 Mar 2024 06:35:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rm7DX-0000cV-VT; Mon, 18 Mar 2024 07:15:31 +0000
+Received: by outflank-mailman (input) for mailman id 694473;
+ Mon, 18 Mar 2024 07:15:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rE6T=KY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rm6aN-0003Xy-TC
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 06:35:03 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a4df4c58-e4f1-11ee-a1ee-f123f15fe8a2;
- Mon, 18 Mar 2024 07:35:00 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a467d8efe78so379019666b.3
- for <xen-devel@lists.xenproject.org>; Sun, 17 Mar 2024 23:35:00 -0700 (PDT)
-Received: from ?IPV6:2003:e5:873a:400:704b:6dbb:e7c0:786e?
- (p200300e5873a0400704b6dbbe7c0786e.dip0.t-ipconnect.de.
- [2003:e5:873a:400:704b:6dbb:e7c0:786e])
- by smtp.gmail.com with ESMTPSA id
- gc14-20020a170906c8ce00b00a46ab3adea5sm2049343ejb.113.2024.03.17.23.34.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 17 Mar 2024 23:34:59 -0700 (PDT)
+ (envelope-from <SRS0=H/eU=KY=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1rm7DT-0000cL-TR
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 07:15:30 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 49fa2860-e4f7-11ee-afdd-a90da7624cb6;
+ Mon, 18 Mar 2024 08:15:26 +0100 (CET)
+Received: from terminus.zytor.com (terminus.zytor.com
+ [IPv6:2607:7c80:54:3:0:0:0:136]) (authenticated bits=0)
+ by mail.zytor.com (8.17.2/8.17.1) with ESMTPSA id 42I7ETdi910464
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Mon, 18 Mar 2024 00:14:34 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,128 +41,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4df4c58-e4f1-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710743699; x=1711348499; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WlT4lf4QT+N7CBObrOaQfgIRmr2ZJ20Y2+aXDVEVwPc=;
-        b=SXr/5gKR7ReTCRAbYPcpZQi7q9ICv7NcITnh9XLgZ3iZWprNYgudqyA9pPxzn6hqex
-         bpAKlVZGPSmdOxvHoFULhgEt/cOXhJoocTp7DFbiix3oG7DC5RoFyJq2CzWKfWf1Svke
-         Kd7yC1Zf4Er6qFgILaifamkH2nATv9IwFMHHyO/VNl7iBEKoXrYOfkac0FXuX5dFlPZg
-         VIk7yYSZcXITjaw5XN5/wJxhoLxL8aJWDtSG1zDe849GqKWZeSCC9Xskwuw61HBBR6rR
-         mGSpRT2k4cdbNg6hajc/5sYEI/dF9Y0O54lj/G28gYeBAdwB0e8sfa0Q9K+5arlKxU/3
-         FWaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710743699; x=1711348499;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WlT4lf4QT+N7CBObrOaQfgIRmr2ZJ20Y2+aXDVEVwPc=;
-        b=RJlmAnh2ULHqhf9VrFcYeJ5BNhNnjh9UGw/0X3v0BwwBf2yoABZG98ZCVTLjRZL4Qe
-         5eKY21zNyd0FrrHBlAJfKpXJ18xAbfrG9CPAryflJ2l2XcvthnTpXBkZPtk0TLI+SMjz
-         RmKC6HXxS1BudSTnGgayMNOdP7Pjja+iKi9l64ssyC5QsO5tVWzdmmHTRejPVVOUvzIJ
-         IDLKsTUqowqXhFNtMuU6AIPwEyfDgZ0qAJxljAVjF71wmQPXdonnpauWLYYsn81MZ7g+
-         s9dAicXPkm2gITrnyUxImK+zDD4RjuSaprx1PWdTzCEEuTN8q3JVVtP1XFDNnh5VQBxG
-         jTFw==
-X-Forwarded-Encrypted: i=1; AJvYcCUzW0V+6AfqmFdmS+VyUU30GQq0uPWOIdczQANpIqkYnI1SC0nomWGxt29WIPfFF6oiaM22Wn7UkXPhWX299N7S6Kl4QVZZhfeOaUXLE5k=
-X-Gm-Message-State: AOJu0Yx7lVW+EjjfnHvYLSXH3Y60BSGZO2nL0ZSPjqYpTDijoFVPFxYD
-	hmF2vpqROr1y7ZcJV7pot9F6LrJu5JWSMCvcHRixhlWNwtgoMWjO3EScQCEKfWs=
-X-Google-Smtp-Source: AGHT+IEkwbfLnF7KQV7xOnq5nLI/EFewzkLUcW4Q15vzQ6NsAUhisRoX1KZkhYAfLipTOXpX6FKcOg==
-X-Received: by 2002:a17:906:80c7:b0:a46:c8e0:e253 with SMTP id a7-20020a17090680c700b00a46c8e0e253mr480656ejx.52.1710743699453;
-        Sun, 17 Mar 2024 23:34:59 -0700 (PDT)
-Message-ID: <0b0cc755-1418-4d2b-a935-555996bf550b@suse.com>
-Date: Mon, 18 Mar 2024 07:34:58 +0100
+X-Inumbo-ID: 49fa2860-e4f7-11ee-afdd-a90da7624cb6
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 42I7ETdi910464
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2024031401; t=1710746075;
+	bh=lOgqPli4E6y6mgNZ3XzJ8MlzC1fqsi4wvgAp64a4zdg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=4qfo7+Bopd2+cAB5JZREDFFnwJ9EUBUQzcTriimHV5zBacAHniCvGQvo/sA6muLna
+	 r4PwVGXSNtnFAarpjPSIkcS/hfYgUg4ojZl9bimUFHmnM0P9CO9rh8dpDRYahLqOvt
+	 jnGim1lPI+5C7q/LXw9w5uKxwMQXRUaNszLu95FjFea3zs0mFNXuwyPH5LagxqX0vC
+	 DosUI2YMVafFXw+c4aHUHb5JuMOQj2w2l2V9R0IlbFLWugYYUIdGE6Z5Vy6yC1MuaW
+	 vy1Q4stBFIJ3UVxNPttVvgPU9sLEwyljSMMwcFiw0pKIcgh2pkDHDqZRXAoNS8IABG
+	 Eqfo27oqDTeqA==
+From: "Xin Li (Intel)" <xin@zytor.com>
+To: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-arch@vger.kernel.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        jgross@suse.com, boris.ostrovsky@oracle.com, arnd@arndb.de
+Subject: [PATCH v2 1/1] x86: Rename __{start,end}_init_task to __{start,end}_init_stack
+Date: Mon, 18 Mar 2024 00:14:29 -0700
+Message-ID: <20240318071429.910454-1-xin@zytor.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/arm: Set correct per-cpu cpu_core_mask
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Henry Wang <xin.wang2@amd.com>,
- xen-devel@lists.xenproject.org, george.dunlap@cloud.com
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Henry Wang <Henry.Wang@arm.com>
-References: <20240228015822.56108-1-xin.wang2@amd.com>
- <77520838-67cb-4755-8b02-2ec8b90c7bfa@xen.org>
- <16838c64-c633-4125-9388-af02e18a89be@amd.com>
- <dc0b86eb-e494-45c9-b1f3-31a9b9f84f77@xen.org>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <dc0b86eb-e494-45c9-b1f3-31a9b9f84f77@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15.03.24 11:58, Julien Grall wrote:
-> 
-> 
-> On 14/03/2024 14:22, Henry Wang wrote:
->> Hi Julien,
-> 
-> Hi,
-> 
->>
->> On 3/14/2024 9:27 PM, Julien Grall wrote:
->>> Hi Henry,
->>>
->>> On 28/02/2024 01:58, Henry Wang wrote:
->>>> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
->>>> index a84e706d77..d9ebd55d4a 100644
->>>> --- a/xen/arch/arm/smpboot.c
->>>> +++ b/xen/arch/arm/smpboot.c
->>>> @@ -66,7 +66,6 @@ static bool cpu_is_dead;
->>>>     /* ID of the PCPU we're running on */
->>>>   DEFINE_PER_CPU(unsigned int, cpu_id);
->>>> -/* XXX these seem awfully x86ish... */
->>>
->>> :). I guess at the time we didn't realize that MT was supported on Arm. It is 
->>> at least part of the spec, but as Michal pointed out it doesn't look like a 
->>> lot of processors supports it.
->>
->> Yep. Do you think changing the content of this line to something like 
->> "Although multithread is part of the Arm spec, there are not many processors 
->> support multithread and current Xen on Arm assumes there is no multithread" 
->> makes sense to you?
->>
->>>>   /* representing HT siblings of each logical CPU */
->>>>   DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_sibling_mask);
->>>>   /* representing HT and core siblings of each logical CPU */
->>>> @@ -89,6 +88,10 @@ static int setup_cpu_sibling_map(int cpu)
->>>>       cpumask_set_cpu(cpu, per_cpu(cpu_sibling_mask, cpu));
->>>>       cpumask_set_cpu(cpu, per_cpu(cpu_core_mask, cpu));
->>>>   +    /* Currently we assume there is no multithread. */
->>>
->>> I am not very familiar with the scheduling in Xen. Do you know what's the 
->>> consequence of not properly supporting MT? One thing I can think of is 
->>> security (I know there were plenty of security issues with SMT).
->>
->> Unfortunately me neither, so adding George to this thread as I think he can 
->> bring us some insights on this topic from the scheduler perspective.
-> 
-> +Juergen as he worked on co-scheduling.
+The stack of a task has been separated from the memory of a task_struct
+struture for a long time on x86, as a result __{start,end}_init_task no
+longer mark the start and end of the init_task structure, but its stack
+only.
 
-There are four aspects regarding multithreading:
+Rename __{start,end}_init_task to __{start,end}_init_stack.
 
-- security (basically boils down to one thread possibly being able to use
-   side channel attacks for accessing other thread's data via resources in
-   the core shared between the threads)
+Note other architectures are not affected because __{start,end}_init_task
+are used on x86 only.
 
-- performance (trying to spread running vcpus across as many cores as
-   possible will utilize more hardware resources resulting generally in better
-   performance - especially credit2 is supporting that)
+Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+---
 
-- power consumption (a completely idle core will consume less power - again
-   credit2 is supporting that with the correct setting)
+Change since v1:
+* Revert an accident insane change, init_task to init_stack (Jürgen Groß).
+---
+ arch/x86/include/asm/processor.h  | 4 ++--
+ arch/x86/kernel/head_64.S         | 2 +-
+ arch/x86/xen/xen-head.S           | 2 +-
+ include/asm-generic/vmlinux.lds.h | 6 +++---
+ 4 files changed, 7 insertions(+), 7 deletions(-)
 
-- busy loops (cpu_relax() support)
+diff --git a/arch/x86/include/asm/processor.h b/arch/x86/include/asm/processor.h
+index 811548f131f4..8b3a3f3bb859 100644
+--- a/arch/x86/include/asm/processor.h
++++ b/arch/x86/include/asm/processor.h
+@@ -636,10 +636,10 @@ static __always_inline void prefetchw(const void *x)
+ #define KSTK_ESP(task)		(task_pt_regs(task)->sp)
+ 
+ #else
+-extern unsigned long __end_init_task[];
++extern unsigned long __end_init_stack[];
+ 
+ #define INIT_THREAD {							\
+-	.sp	= (unsigned long)&__end_init_task -			\
++	.sp	= (unsigned long)&__end_init_stack -			\
+ 		  TOP_OF_KERNEL_STACK_PADDING -				\
+ 		  sizeof(struct pt_regs),				\
+ }
+diff --git a/arch/x86/kernel/head_64.S b/arch/x86/kernel/head_64.S
+index d8198fbd70e5..c7babd7ebb0f 100644
+--- a/arch/x86/kernel/head_64.S
++++ b/arch/x86/kernel/head_64.S
+@@ -66,7 +66,7 @@ SYM_CODE_START_NOALIGN(startup_64)
+ 	mov	%rsi, %r15
+ 
+ 	/* Set up the stack for verify_cpu() */
+-	leaq	(__end_init_task - TOP_OF_KERNEL_STACK_PADDING - PTREGS_SIZE)(%rip), %rsp
++	leaq	(__end_init_stack - TOP_OF_KERNEL_STACK_PADDING - PTREGS_SIZE)(%rip), %rsp
+ 
+ 	/* Setup GSBASE to allow stack canary access for C code */
+ 	movl	$MSR_GS_BASE, %ecx
+diff --git a/arch/x86/xen/xen-head.S b/arch/x86/xen/xen-head.S
+index 04101b984f24..43eadf03f46d 100644
+--- a/arch/x86/xen/xen-head.S
++++ b/arch/x86/xen/xen-head.S
+@@ -49,7 +49,7 @@ SYM_CODE_START(startup_xen)
+ 	ANNOTATE_NOENDBR
+ 	cld
+ 
+-	leaq	(__end_init_task - TOP_OF_KERNEL_STACK_PADDING - PTREGS_SIZE)(%rip), %rsp
++	leaq	(__end_init_stack - TOP_OF_KERNEL_STACK_PADDING - PTREGS_SIZE)(%rip), %rsp
+ 
+ 	/* Set up %gs.
+ 	 *
+diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+index 514d3002ad8a..cdfdcca23045 100644
+--- a/include/asm-generic/vmlinux.lds.h
++++ b/include/asm-generic/vmlinux.lds.h
+@@ -399,13 +399,13 @@
+ 
+ #define INIT_TASK_DATA(align)						\
+ 	. = ALIGN(align);						\
+-	__start_init_task = .;						\
++	__start_init_stack = .;						\
+ 	init_thread_union = .;						\
+ 	init_stack = .;							\
+ 	KEEP(*(.data..init_task))					\
+ 	KEEP(*(.data..init_thread_info))				\
+-	. = __start_init_task + THREAD_SIZE;				\
+-	__end_init_task = .;
++	. = __start_init_stack + THREAD_SIZE;				\
++	__end_init_stack = .;
+ 
+ #define JUMP_TABLE_DATA							\
+ 	. = ALIGN(8);							\
 
-For credit2 MT specifics see the large comment block in xen/common/sched/credit2
-starting at line 636.
+base-commit: 7e19a79344df2ed5e106091c29338962261b0290
+-- 
+2.44.0
 
-Note that core scheduling is currently not supported on Arm, as there are
-architecture specific bits missing in the context switching logic.
-
-
-Juergen
 
