@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 450F787F1B6
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 22:04:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695132.1084679 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0474D87F1EA
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 22:20:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695135.1084690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmK9A-0004IF-5S; Mon, 18 Mar 2024 21:03:52 +0000
+	id 1rmKOU-0006XG-Fg; Mon, 18 Mar 2024 21:19:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695132.1084679; Mon, 18 Mar 2024 21:03:52 +0000
+Received: by outflank-mailman (output) from mailman id 695135.1084690; Mon, 18 Mar 2024 21:19:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmK9A-0004Gi-1s; Mon, 18 Mar 2024 21:03:52 +0000
-Received: by outflank-mailman (input) for mailman id 695132;
- Mon, 18 Mar 2024 21:03:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rmKOU-0006UM-CL; Mon, 18 Mar 2024 21:19:42 +0000
+Received: by outflank-mailman (input) for mailman id 695135;
+ Mon, 18 Mar 2024 21:19:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7Pz/=KY=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1rmK99-0004Gc-Ee
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 21:03:51 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20600.outbound.protection.outlook.com
- [2a01:111:f403:2417::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 03328497-e56b-11ee-afdd-a90da7624cb6;
- Mon, 18 Mar 2024 22:03:48 +0100 (CET)
-Received: from PA7P264CA0001.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:2d3::9)
- by SA0PR12MB4413.namprd12.prod.outlook.com (2603:10b6:806:9e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.26; Mon, 18 Mar
- 2024 21:03:45 +0000
-Received: from SN1PEPF000252A1.namprd05.prod.outlook.com
- (2603:10a6:102:2d3:cafe::c4) by PA7P264CA0001.outlook.office365.com
- (2603:10a6:102:2d3::9) with Microsoft SMTP Server (version=TLS1_2,
+ <SRS0=KtFp=KY=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1rmKOS-0006UG-UJ
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 21:19:40 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2418::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 38f70f5f-e56d-11ee-a1ee-f123f15fe8a2;
+ Mon, 18 Mar 2024 22:19:37 +0100 (CET)
+Received: from BN9PR03CA0891.namprd03.prod.outlook.com (2603:10b6:408:13c::26)
+ by CH3PR12MB7641.namprd12.prod.outlook.com (2603:10b6:610:150::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.27; Mon, 18 Mar
+ 2024 21:19:34 +0000
+Received: from BN1PEPF00004688.namprd05.prod.outlook.com
+ (2603:10b6:408:13c:cafe::1f) by BN9PR03CA0891.outlook.office365.com
+ (2603:10b6:408:13c::26) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.26 via Frontend
- Transport; Mon, 18 Mar 2024 21:03:43 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SN1PEPF000252A1.mail.protection.outlook.com (10.167.242.8) with Microsoft
+ Transport; Mon, 18 Mar 2024 21:19:34 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00004688.mail.protection.outlook.com (10.167.243.133) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Mon, 18 Mar 2024 21:03:42 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7409.10 via Frontend Transport; Mon, 18 Mar 2024 21:19:34 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 18 Mar
- 2024 16:03:41 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 16:19:33 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 18 Mar
- 2024 14:03:41 -0700
-Received: from [172.22.164.0] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 18 Mar 2024 16:03:40 -0500
+ 2024 16:19:33 -0500
+Received: from [172.21.216.216] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Mon, 18 Mar 2024 16:19:32 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,152 +63,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03328497-e56b-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 38f70f5f-e56d-11ee-a1ee-f123f15fe8a2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CEjYYKsqsBRjMoKzzcL5HKtsUmF87Ir+n+uKak+3KG5TlZui0kP/5xD8Fis6j4sSB8ufmzWOkkuN7NZ+UQLdec86WStcPKjjxtbXQBdCTeZTZqYvjjvwJ9Jl7PimGUCVrBhVBQfsdBysuCi9V2UshqRD87lrQtH5Z28EOcouJpZ/dbKpxnE0iq7XFYhiWWVry1ey2r/Fg3+PHlnLkAQFG07+j3avYra4/0luRCZnwzwwPF+NjhY/WPPKUv6C9LqOhyN/V8cDHl89t/EXrySpI8oQR/H379BeMq+CKbixzijLqnpzJEqwx7PVkSoDpximUkfgdnBSI4alyj46Vt3xxA==
+ b=cB/rDWXK9ZlmHYqGfM+WBjM16yLrEeoZh7DgChCv/6/nHj/qSbsIgvYkCU/pwXkzruaqwgLlg/WGmmZdhmbDBH9a3J15V005Mzu8IQtgihxlDASvtIUppUE/k3AbHWoiSOVwkNwfz6soEiNFDomt+CbUD9V7sR1fVDspYRy8xrXZcPAhWhG7zpEOouzk6hXI0VdyERVgRm1nCo4cSRGcbYmgTBj51davkjkTJO3zGoDHaDfcUSWRHreYDfgZZF5QcK5Jmlenf6CR71RwOU/qT+owR24MAibym11llHLE0b89fOpS2KdQDWXzkDBa7WFSIVW0CvBv/Hhh3MwkzWmXzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OqX99EhzTzI3Q6ELp8FMSA0vDL3ywxwbPu1ksn1z+d8=;
- b=oU8ToRvUvL+uWimpN0ChsqI7b1UGZNLxzUAlaGmK97MVvbrjFY3deEAK4Vx6Rik3A0qAn9J90YHSfo7Iz/5ld58lgZdQerDkqT4TLUiCnyrL9YCNkH6Z+BxbboSR5yzKKYSJmBkXgYWcztBbGJuDiydpZ+7yfxjRvyE6w3zozL0ZIlarJWo7oTc5Hdl4YxCQa+fGetQ3XIN/AUKskr429iR+PTuLvjWZfRrU67PPrit5IdmYTomT4lhOpJVPbxD9LqHuDVVPpHpFnYydB0iBeZaAC8l0IfploKEO0qjChyW4elk44vGpcFsveif1joLESV6WQzmZ8+KiDWkLIlLNkQ==
+ bh=Q+rZjqPCJXjW6MluSM4Nqyv82XjBn/kSPGLI+d6DwM8=;
+ b=f3UDar920FfWgSb/SI1iz+voeC9aBjt+Jnm0486BNj0dGneTsjkjgJzJ1BkswzQBEIkruq/iGMzM8UC3pvnVlbT8jEIm/1wbRjdxOsTGod/sH+hZg0yykgo27Si2Wo0iqpXS/BLSmjP/tIOrriO6n0qzGg+ahgVUHlHuH5hflBH5Uy/HmHPNDAx3eIS0hk4hmC9AxWVAZ04sLA3F9QPI9NLg4THEVLcPxSE4jWaZ73+BOTANbOD8r3LR9EfjLHogH/b4QOK4cdrhcXk/siaA2xM7ESPUeWnlXiI7rTZvnSRKYlzKScr4v1hkjpVfCQ6EcB4A/s9lN/ZigFiyNH/dYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OqX99EhzTzI3Q6ELp8FMSA0vDL3ywxwbPu1ksn1z+d8=;
- b=B/gaqIyH9gIf4u/EQo4KSCK8WpzKL7AQBiw7augeFGDSOCipItDjVetH9wgYzQixoU8ksNQMZUtGLoDJtNv8ClMGjAUUdgrPdIYRj6WSSLgWKsUxukP7NGkB+es+TWA9D4XGWoiV1TXOpCC9p7P5DwRiS7OvN8pzml92mEJm2Yo=
+ bh=Q+rZjqPCJXjW6MluSM4Nqyv82XjBn/kSPGLI+d6DwM8=;
+ b=x1RhcJrvM99cDKm6vhWh82kJjhim3UMiqWgkJTUrF/qDFik84R+L3+BdV9cK5XbxtLOEtKWLmwgPjnte76bIRlID99V2qZCPU0H1GKTphhb1A1XrOsQfeFolOAKVhKcvXwLqwGyLsEywebva7WK+PlY69hThEFd1hwGT0E2hEPA=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <242f4ec0-c634-4044-833e-7df3c720abc5@amd.com>
-Date: Mon, 18 Mar 2024 17:03:40 -0400
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <769e4e95-1c76-4e07-b623-27b35ef388ef@amd.com>
+Date: Mon, 18 Mar 2024 17:19:32 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Subject: Re: [PATCH v13 10/14] vpci/header: emulate PCI_COMMAND register for
- guests
+From: Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH v2 3/3] x86/PVH: Support relocatable dom0 kernels
 To: Jan Beulich <jbeulich@suse.com>
-CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
-	"Julien Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
 	<xen-devel@lists.xenproject.org>
-References: <20240202213321.1920347-1-stewart.hildebrand@amd.com>
- <20240202213321.1920347-11-stewart.hildebrand@amd.com>
- <180cac00-e7c4-4bea-bd13-c5983da707d7@suse.com>
+References: <20240313193021.241764-1-jason.andryuk@amd.com>
+ <20240313193021.241764-4-jason.andryuk@amd.com>
+ <945609d6-741e-4934-a4f2-6e5597ce5dcd@suse.com>
+ <a4f18ccc-c878-4924-a110-6afaaea1b01b@amd.com>
+ <43c49aa6-d690-467e-8ce3-ca37b9d41e76@suse.com>
 Content-Language: en-US
-In-Reply-To: <180cac00-e7c4-4bea-bd13-c5983da707d7@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <43c49aa6-d690-467e-8ce3-ca37b9d41e76@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A1:EE_|SA0PR12MB4413:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7ac4824b-5c71-4c5e-45cd-08dc478ee496
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004688:EE_|CH3PR12MB7641:EE_
+X-MS-Office365-Filtering-Correlation-Id: cded4abb-773f-4775-cd88-08dc47911c15
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Rrnt4itabgnVbY3dHwcg6H6xzw2xgk7RIThQV/c+JH66HKGzpkFTHOFW7OPFGspHg76BxzmCPjyg3rxhdV74C9m1s7BCdBVq3HyOmAxHV4j1kan/OmJ1QxyulbGD5Ir0a8scuG90NK69ofdon11M8Yim1yEKOSy5o1ftoPuRSdHYhTTPxfU6JJzZVd3F9ZEQ21QG8cEktvUO3Wj8NXU3BlFJhLyF9OV7Qv75yD3ab+S6IFKwjLKvErrD7+yWTbl9TJUZd7oBMp+9joKG88ZufdqvGs5IL3ZRtRM5D/bf24WYtCINeG5uGdrFlDplLP//A42jumCEWOEKBKmk8GAPsNPJvLXUxXoPVTFmO4ksHNHOOjw6y/TwlxuxW1ts4S64SUvTV6TaZ5OtIiqdTrJoozfVtTv9zwZKSCEwvzJlC0SnVi8fhQcrVpnXvbwGB7lwfMiYHsZoCmQSwa9106z8j7JipwexyLR0Y4jvjYnQnyy/iNxWnBR70hMm+hWyn67GxXiKPnMw4qOvxuYsOQkgNQLdLlJyeZH/+r1yqlJ8tEH7OFkGHhXVVd/bx12xBemMfcn2hubYxaDdarfj3j/zxv7ELDbNiODrtE7hGEuh7WrjNnKhKGxuxVZyrxI30SC6dNxto/OhvendX/DDGTu4riIp7aHXdV00/YvZx1mZvDMtN2eT6PuU9u3t8TScd7m6gkUhvc0BLhOOWUCyH3EmFA==
+	7PeIoTGlobISdYDo+XplnYPUxOJa5swlmqPqh/BQJ7PPLg0bDj1sVH88iLksgPHssREwAR010b3F5nmJAuWOfcMCq/mpTkJxtlEHgoleFX00h493ScbhhkHwIz9iaOQP3Z1B6AQr7JXgkbouruDq17VS8l1ORuwhskkvFZavyTH3K8qcsU8hwDtozw2D2AKeGGGVk/03tmmd6bxRSGpafWKfeBSO9xEHM3RlmzLUGphM9lXF1V6qCLjyb8S0vv3NWiTdTyJ89/s27cnMX6IIK2geO2WEuEQ/LuqadvqA2dQYWDEqdsUcPZEsIVM1Dfz014cecbWVqYx0TTfE/zKPyhHsX0HSWfC2GtlSWmQAzb5F3cFUffYEHkqmHe+QjbSuBpbMVfSYpqR+SpZaHCHvmAJ1TWaKj4YU5KF+Qvo7Ijgl2kuMij701qd6DJcjwxwATZ//XOmjvPmNnTSXg6ow55Fzq92MCaHBQJ5vrsM2Dp01OyH8PvPVIE/qafGkibgCT8cQHJ4Qz3HBIAgkCuZW+5vWEzmqvvZn6bUzjPy0AM/OLEDXPULdx9Q0x4owXA/NctyDPJI0meuDCZe3TBh6QbKE99KIN+6/xsTZFiA7SDqNQ/g3GSj9NxlAWcSrKTsEKNxGcURt41KaAI1TCAcKS+ZmyPAo2JLgzGrUEBAzFNwN/YoYn+OJb6BOmoY4uNF0k86CXcp37ajwUMFIVmWBcU+ofsVqaSreArTDazN2QR1FZ1U7/kpk7rrH7h7FkJLG
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(376005)(82310400014)(7416005)(1800799015);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(1800799015)(376005)(36860700004);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2024 21:03:42.4655
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2024 21:19:34.5226
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ac4824b-5c71-4c5e-45cd-08dc478ee496
+X-MS-Exchange-CrossTenant-Network-Message-Id: cded4abb-773f-4775-cd88-08dc47911c15
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000252A1.namprd05.prod.outlook.com
+	BN1PEPF00004688.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4413
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7641
 
-On 2/14/24 10:41, Jan Beulich wrote:
-> On 02.02.2024 22:33, Stewart Hildebrand wrote:
->> @@ -836,9 +870,20 @@ static int cf_check init_header(struct pci_dev *pdev)
->>      if ( pdev->ignore_bars )
->>          return 0;
->>  
->> -    /* Disable memory decoding before sizing. */
->>      cmd = pci_conf_read16(pdev->sbdf, PCI_COMMAND);
->> -    if ( cmd & PCI_COMMAND_MEMORY )
->> +
->> +    /*
->> +     * Clear PCI_COMMAND_MEMORY and PCI_COMMAND_IO for DomUs, so they will
->> +     * always start with memory decoding disabled and to ensure that we will not
->> +     * call modify_bars() at the end of this function.
+On 2024-03-14 10:19, Jan Beulich wrote:
+> On 14.03.2024 15:13, Jason Andryuk wrote:
+>> On 2024-03-14 09:21, Jan Beulich wrote:
+>>> On 13.03.2024 20:30, Jason Andryuk wrote:
+>>>> --- a/xen/include/public/elfnote.h
+>>>> +++ b/xen/include/public/elfnote.h
+>>>> @@ -194,6 +194,17 @@
+>>>>     */
+>>>>    #define XEN_ELFNOTE_PHYS32_ENTRY 18
+>>>>    
+>>>> +/*
+>>>> + * Physical loading constraints for PVH kernels
+>>>> + *
+>>>> + * Used to place constraints on the guest physical loading addresses and
+>>>> + * alignment for a PVH kernel.  This note's value is 3 64bit values in
+>>>> + * the following order: minimum, maximum and alignment.
+>>>
+>>> Along the lines of what I said on another sub-thread, I think at least
+>>> alignment wants to be optional here. Perhaps, with max going first, min
+>>> could also be optional.
+>>
+>> Interesting idea.
+>>
+>>> As indicated in different context by Roger, the values being uniformly
+>>> 64-bit ones also is questionable.
+>>>
+>>>> + * The presence of this note indicates the kernel is relocatable.
+>>>
+>>> I think it wants making explicit here that the act of relocating is still
+>>> left to the kernel.
+>>
+>> Ok.
+>>
+>> How is this for a new description?
+>>
+>> """
+>> Physical loading constraints for PVH kernels
+>>
+>> Used to place constraints on the guest physical loading addresses and
+>> alignment for a PVH kernel.
+>>
+>> The presence of this note indicates the kernel supports relocating itself.
+>>
+>> The note may include up to three 32bit values.
 > 
-> To achieve this, fiddling with PCI_COMMAND_IO isn't necessary. Which isn't
-> to say its clearing should go away; quite the other way around: Why would
-> we leave e.g. PCI_COMMAND_MASTER enabled? In fact wasn't it in an earlier
-> version of the series that the guest view simply started out as zero? The
-> patch description still says so.
-
-Yep, clearing PCI_COMMAND_MASTER too for domUs makes sense to me, I'll
-make this change in v14. I'll also try to improve the comment.
-
-Roger suggested at [1] that we should reflect the state of the hardware
-in the command register. I'll update the patch description accordingly.
-
-Archaeology/notes/references follow, primarily for my own reference:
-
-Note that the rsvdp_mask will be applied to the guest_cmd value before
-being returned to the guest, so no need to apply masks here.
-
-Clearing both PCI_COMMAND_MEMORY and PCI_COMMAND_IO for domUs was
-suggested by Roger at [2] and [3]. It is currently problematic for
-devices assigned to domUs to have memory decoding enabled at this stage
-because we don't yet have a good/generic way to initialize
-bar.guest_addr taking the domU memory layout into account.
-
-Reminder that we want to leave the PCI_COMMAND_{MASTER,MEMORY,IO} bits
-unchanged for devices assigned to dom0. A description of why can be
-found in the commit message of:
-
-53d9133638c3 ("pci: do not disable memory decoding for devices").
-
-[1] https://lore.kernel.org/xen-devel/ZLqI65gmNj1XDBm4@MacBook-Air-de-Roger.local/
-[2] https://lore.kernel.org/xen-devel/ZRquRcRz-K43WeMc@MacBookPdeRoger/
-[3] https://lore.kernel.org/xen-devel/ZVy73iJ3E8nJHvgf@macbook.local/
-
->> --- a/xen/drivers/vpci/msi.c
->> +++ b/xen/drivers/vpci/msi.c
->> @@ -70,6 +70,13 @@ static void cf_check control_write(
->>  
->>          if ( vpci_msi_arch_enable(msi, pdev, vectors) )
->>              return;
->> +
->> +        /* Make sure domU doesn't enable INTx while enabling MSI. */
->> +        if ( !is_hardware_domain(pdev->domain) )
->> +        {
->> +            pci_intx(pdev, false);
->> +            pdev->vpci->header.guest_cmd |= PCI_COMMAND_INTX_DISABLE;
->> +        }
+> I'm as unsure about always 32-bit as I am on it being uniformly 64-bit.
+> One question here is whether this note is intended to be x86-specific.
 > 
-> While here we're inside "if ( new_enabled )", ...
+>>    - a maximum address for the entire image to be loaded below (default
+>> 0xfffffff)
 > 
->> --- a/xen/drivers/vpci/msix.c
->> +++ b/xen/drivers/vpci/msix.c
->> @@ -135,6 +135,13 @@ static void cf_check control_write(
->>          }
->>      }
->>  
->> +    /* Make sure domU doesn't enable INTx while enabling MSI-X. */
->> +    if ( new_enabled && !msix->enabled && !is_hardware_domain(pdev->domain) )
->> +    {
->> +        pci_intx(pdev, false);
->> +        pdev->vpci->header.guest_cmd |= PCI_COMMAND_INTX_DISABLE;
->> +    }
-> 
-> .. here you further check that it's actually a 0->1 transition? Why
-> not alike for MSI?
+> One f too few?
 
-Good catch, we should similarly check for a 0->1 transition for MSI.
-I'll fix it.
+Whoops - yes.
+
+>>    - a minimum address for the start of the image (default 0)
+>>    - a required start alignment (default 1)
+
+Jan, in the discussion of patch 1, you wrote "Hmm, shouldn't the order 
+of attempts to figure the alignment be ELF note, ELF header, and then 
+2Mb?"  My latest revision initializes phys_alignment to 1 and updates 
+that if PHYS32_RELOC specifies an alignment.  Do you still want these 
+other locations checked for alignment values?
+
+Regards,
+Jason
 
