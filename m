@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0474D87F1EA
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 22:20:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695135.1084690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27BB287F1EF
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 22:21:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695137.1084699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmKOU-0006XG-Fg; Mon, 18 Mar 2024 21:19:42 +0000
+	id 1rmKQG-0007wj-RN; Mon, 18 Mar 2024 21:21:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695135.1084690; Mon, 18 Mar 2024 21:19:42 +0000
+Received: by outflank-mailman (output) from mailman id 695137.1084699; Mon, 18 Mar 2024 21:21:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmKOU-0006UM-CL; Mon, 18 Mar 2024 21:19:42 +0000
-Received: by outflank-mailman (input) for mailman id 695135;
- Mon, 18 Mar 2024 21:19:40 +0000
+	id 1rmKQG-0007tk-O1; Mon, 18 Mar 2024 21:21:32 +0000
+Received: by outflank-mailman (input) for mailman id 695137;
+ Mon, 18 Mar 2024 21:21:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KtFp=KY=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1rmKOS-0006UG-UJ
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 21:19:40 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20600.outbound.protection.outlook.com
- [2a01:111:f403:2418::600])
+ id 1rmKQF-0007tc-Ja
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 21:21:31 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2407::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 38f70f5f-e56d-11ee-a1ee-f123f15fe8a2;
- Mon, 18 Mar 2024 22:19:37 +0100 (CET)
-Received: from BN9PR03CA0891.namprd03.prod.outlook.com (2603:10b6:408:13c::26)
- by CH3PR12MB7641.namprd12.prod.outlook.com (2603:10b6:610:150::18)
+ id 7bb6d9fb-e56d-11ee-a1ee-f123f15fe8a2;
+ Mon, 18 Mar 2024 22:21:29 +0100 (CET)
+Received: from BN9PR03CA0524.namprd03.prod.outlook.com (2603:10b6:408:131::19)
+ by CYXPR12MB9277.namprd12.prod.outlook.com (2603:10b6:930:d8::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.27; Mon, 18 Mar
- 2024 21:19:34 +0000
-Received: from BN1PEPF00004688.namprd05.prod.outlook.com
- (2603:10b6:408:13c:cafe::1f) by BN9PR03CA0891.outlook.office365.com
- (2603:10b6:408:13c::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.26 via Frontend
- Transport; Mon, 18 Mar 2024 21:19:34 +0000
+ 2024 21:21:26 +0000
+Received: from BN1PEPF0000468A.namprd05.prod.outlook.com
+ (2603:10b6:408:131:cafe::eb) by BN9PR03CA0524.outlook.office365.com
+ (2603:10b6:408:131::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36 via Frontend
+ Transport; Mon, 18 Mar 2024 21:21:26 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN1PEPF00004688.mail.protection.outlook.com (10.167.243.133) with Microsoft
+ BN1PEPF0000468A.mail.protection.outlook.com (10.167.243.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Mon, 18 Mar 2024 21:19:34 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ 15.20.7409.10 via Frontend Transport; Mon, 18 Mar 2024 21:21:25 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 18 Mar
- 2024 16:19:33 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 18 Mar
- 2024 16:19:33 -0500
+ 2024 16:21:24 -0500
 Received: from [172.21.216.216] (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 18 Mar 2024 16:19:32 -0500
+ Transport; Mon, 18 Mar 2024 16:21:23 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,30 +59,30 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38f70f5f-e56d-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 7bb6d9fb-e56d-11ee-a1ee-f123f15fe8a2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cB/rDWXK9ZlmHYqGfM+WBjM16yLrEeoZh7DgChCv/6/nHj/qSbsIgvYkCU/pwXkzruaqwgLlg/WGmmZdhmbDBH9a3J15V005Mzu8IQtgihxlDASvtIUppUE/k3AbHWoiSOVwkNwfz6soEiNFDomt+CbUD9V7sR1fVDspYRy8xrXZcPAhWhG7zpEOouzk6hXI0VdyERVgRm1nCo4cSRGcbYmgTBj51davkjkTJO3zGoDHaDfcUSWRHreYDfgZZF5QcK5Jmlenf6CR71RwOU/qT+owR24MAibym11llHLE0b89fOpS2KdQDWXzkDBa7WFSIVW0CvBv/Hhh3MwkzWmXzw==
+ b=Lfrd8JjV1yiilTqaZKSklb4zq3t65y4/cFE+L4VWjP4ya01F4PYRIC3N9xeNK0NT0OU7CpTba2VoaY5JS0d8jqxJptU8gwa9Azj8c10/m6j6iO+h5c+F+VYpci1tir4R93a82m7fB8PFs0Wwg57ptKuAvlm1tsIa68B90sQMOI+yXPv9yaLGKi7DffhWLTgbArbscf9AVUeMLwZY+j51fpc5VvcICiO2l+/o0TF5jnpR7Vo8PlZe1q27ndRzH9pxaSdTH58jdYybtzqKwFPQvu5FXIIwO1SgHaZhKPGWQ2Pb9s6qP82SuBKpuOyXqBreoI31Ssyyy9xix6sT6Sl/Zw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q+rZjqPCJXjW6MluSM4Nqyv82XjBn/kSPGLI+d6DwM8=;
- b=f3UDar920FfWgSb/SI1iz+voeC9aBjt+Jnm0486BNj0dGneTsjkjgJzJ1BkswzQBEIkruq/iGMzM8UC3pvnVlbT8jEIm/1wbRjdxOsTGod/sH+hZg0yykgo27Si2Wo0iqpXS/BLSmjP/tIOrriO6n0qzGg+ahgVUHlHuH5hflBH5Uy/HmHPNDAx3eIS0hk4hmC9AxWVAZ04sLA3F9QPI9NLg4THEVLcPxSE4jWaZ73+BOTANbOD8r3LR9EfjLHogH/b4QOK4cdrhcXk/siaA2xM7ESPUeWnlXiI7rTZvnSRKYlzKScr4v1hkjpVfCQ6EcB4A/s9lN/ZigFiyNH/dYg==
+ bh=n8V58abC6y7/v0VQJ//5e3QNkh8LLiiWKHsc9lSKePQ=;
+ b=Yl1vujwS4ZSImBMAJnp5DA0hCv1kbk5H3ttj2ug/+CY6sFU5eSmuRoRmmaYvy7zzgmD3cK4TxO15Iy+j5Z8S8NcPQKyNxpHpaMlEk1TTF3SqClMUW+218X57k2ylqIpX0j0hgfghYSckzc13fckfLvMD0fbpnpbxBSmUSJcFCZh7vfP7lQPvoKi8ThQpb9Hktq/nG3luTolSK1F6QiinkzajoksjN8BeUgqXLRjkncPfHV2F0bLDXKx0T+BaLpN+HDcgwDXpiCOCA1FddHgOu3Ltp86fdQyPDvQfeNsHmGTQhZTUfMwvN8gKUG+kY2qDiUsdCckAAzmrY7zhELA3ww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q+rZjqPCJXjW6MluSM4Nqyv82XjBn/kSPGLI+d6DwM8=;
- b=x1RhcJrvM99cDKm6vhWh82kJjhim3UMiqWgkJTUrF/qDFik84R+L3+BdV9cK5XbxtLOEtKWLmwgPjnte76bIRlID99V2qZCPU0H1GKTphhb1A1XrOsQfeFolOAKVhKcvXwLqwGyLsEywebva7WK+PlY69hThEFd1hwGT0E2hEPA=
+ bh=n8V58abC6y7/v0VQJ//5e3QNkh8LLiiWKHsc9lSKePQ=;
+ b=2uVtHXfoL9yTj7tP3ZLKAyK5Ie4iI7BWKAL+A7UNfdOvuHDWo/sBVHoq1Sl5Xsi1WRI9ysOakGMRp7YKUY0r6OT9IPiNWO9MloR/xi9NtAM1ZPmLIPkZt6ZAyB/giO7tjFeQcPiuoWM9hJJTd0HgCDCAD/GamoWMpLD7+byny5k=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <769e4e95-1c76-4e07-b623-27b35ef388ef@amd.com>
-Date: Mon, 18 Mar 2024 17:19:32 -0400
+Message-ID: <c16dcad1-5310-4e90-8045-02c0893f6814@amd.com>
+Date: Mon, 18 Mar 2024 17:21:18 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Jason Andryuk <jason.andryuk@amd.com>
@@ -99,99 +95,126 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>,
 	<xen-devel@lists.xenproject.org>
 References: <20240313193021.241764-1-jason.andryuk@amd.com>
  <20240313193021.241764-4-jason.andryuk@amd.com>
- <945609d6-741e-4934-a4f2-6e5597ce5dcd@suse.com>
- <a4f18ccc-c878-4924-a110-6afaaea1b01b@amd.com>
- <43c49aa6-d690-467e-8ce3-ca37b9d41e76@suse.com>
+ <12fe48a6-6957-49d7-adf5-1a3ac8b1bfaa@suse.com>
+ <7506abe0-e3d4-44f7-b54d-592ae2e3fd3e@amd.com>
+ <88bd8577-42e6-4087-9888-00cd73e7f0bc@suse.com>
 Content-Language: en-US
-In-Reply-To: <43c49aa6-d690-467e-8ce3-ca37b9d41e76@suse.com>
+In-Reply-To: <88bd8577-42e6-4087-9888-00cd73e7f0bc@suse.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004688:EE_|CH3PR12MB7641:EE_
-X-MS-Office365-Filtering-Correlation-Id: cded4abb-773f-4775-cd88-08dc47911c15
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468A:EE_|CYXPR12MB9277:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6dc3520f-50d6-4b90-e78a-08dc47915e84
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	7PeIoTGlobISdYDo+XplnYPUxOJa5swlmqPqh/BQJ7PPLg0bDj1sVH88iLksgPHssREwAR010b3F5nmJAuWOfcMCq/mpTkJxtlEHgoleFX00h493ScbhhkHwIz9iaOQP3Z1B6AQr7JXgkbouruDq17VS8l1ORuwhskkvFZavyTH3K8qcsU8hwDtozw2D2AKeGGGVk/03tmmd6bxRSGpafWKfeBSO9xEHM3RlmzLUGphM9lXF1V6qCLjyb8S0vv3NWiTdTyJ89/s27cnMX6IIK2geO2WEuEQ/LuqadvqA2dQYWDEqdsUcPZEsIVM1Dfz014cecbWVqYx0TTfE/zKPyhHsX0HSWfC2GtlSWmQAzb5F3cFUffYEHkqmHe+QjbSuBpbMVfSYpqR+SpZaHCHvmAJ1TWaKj4YU5KF+Qvo7Ijgl2kuMij701qd6DJcjwxwATZ//XOmjvPmNnTSXg6ow55Fzq92MCaHBQJ5vrsM2Dp01OyH8PvPVIE/qafGkibgCT8cQHJ4Qz3HBIAgkCuZW+5vWEzmqvvZn6bUzjPy0AM/OLEDXPULdx9Q0x4owXA/NctyDPJI0meuDCZe3TBh6QbKE99KIN+6/xsTZFiA7SDqNQ/g3GSj9NxlAWcSrKTsEKNxGcURt41KaAI1TCAcKS+ZmyPAo2JLgzGrUEBAzFNwN/YoYn+OJb6BOmoY4uNF0k86CXcp37ajwUMFIVmWBcU+ofsVqaSreArTDazN2QR1FZ1U7/kpk7rrH7h7FkJLG
+	bLllJIUzFYCMqSESLbw0j4cEIppspdEQYMBKd3VUU1sGiDliVAi+l9XdFrWe0Y75aJ8rgr8tj31/dDtCS6LXWtQCKq6zT36hJ68UdCjohoEdMYoclrS0luDsN+jwJM0ikpK2Vaw1pJeyHl+1gWO/zJlAEj2Rpf6fxCi2cePftxg7bVUUmvLPGe6GUsS1vuQ56uYcpHn4E1V+ClqwVRTYgQZ4zEpFv4KrzyOe16HHWOFseSn4eO/ntyGN9qC2PmjYm85dBoAdMntH27PKS0S4nrTWX07Y7riVqZQrqMc/9nqelNPHUfZSFQTkcfufyV0GGc612Hq9XWgIKY+72qrtlZPwAP95uCUg11Aymdp3EcqjtN033fHHx6q1d2g/d5pMGWKefdnsJJQcs/oXtnc31lU1U8yWRE5CJvC08ebWoUS3J86O50CCNfQaIcaLDRj9n/Hm5M0Qpp0lAwEzJj9VS0G8rbFj+mynm2in9EhFagJf0ymAmGgj97HCHbP2aJE6gUYNhOfaZntDT8Y5h80BO5G3os2Sh8V5QFVPvlhIcO9t4W1nowziyz8COhCbFR8bCTBFjeLn3Mv7D+jfRz0mynAEGdnItCPAH4Yci7uujMpnHf83fDFYusYGbKJWpsCMSwDEjXcVvWphU8w0KbLbVcP9p2gWZ9oLxK0YGMUsAaICew5UJbIol/c5Zd3mj7blId3M3SoBseRCOgyD5PuQAW3zCgCMircCxhJz48ONJ4mXHeYcgm/fp1CgIVnLQO6t
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(1800799015)(376005)(36860700004);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(36860700004)(376005)(1800799015);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2024 21:19:34.5226
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2024 21:21:25.9490
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cded4abb-773f-4775-cd88-08dc47911c15
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6dc3520f-50d6-4b90-e78a-08dc47915e84
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004688.namprd05.prod.outlook.com
+	BN1PEPF0000468A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7641
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9277
 
-On 2024-03-14 10:19, Jan Beulich wrote:
-> On 14.03.2024 15:13, Jason Andryuk wrote:
->> On 2024-03-14 09:21, Jan Beulich wrote:
+On 2024-03-15 05:48, Jan Beulich wrote:
+> On 14.03.2024 20:19, Jason Andryuk wrote:
+>> On 2024-03-14 09:31, Jan Beulich wrote:
 >>> On 13.03.2024 20:30, Jason Andryuk wrote:
->>>> --- a/xen/include/public/elfnote.h
->>>> +++ b/xen/include/public/elfnote.h
->>>> @@ -194,6 +194,17 @@
->>>>     */
->>>>    #define XEN_ELFNOTE_PHYS32_ENTRY 18
+>>>> --- a/xen/arch/x86/hvm/dom0_build.c
+>>>> +++ b/xen/arch/x86/hvm/dom0_build.c
+>>>> @@ -537,6 +537,108 @@ static paddr_t __init find_memory(
+>>>>        return INVALID_PADDR;
+>>>>    }
 >>>>    
->>>> +/*
->>>> + * Physical loading constraints for PVH kernels
->>>> + *
->>>> + * Used to place constraints on the guest physical loading addresses and
->>>> + * alignment for a PVH kernel.  This note's value is 3 64bit values in
->>>> + * the following order: minimum, maximum and alignment.
+>>>> +static bool __init check_load_address(
+>>>> +    const struct domain *d, const struct elf_binary *elf)
+>>>> +{
+>>>> +    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
+>>>> +    paddr_t kernel_end = PAGE_ALIGN((paddr_t)elf->dest_base + elf->dest_size);
 >>>
->>> Along the lines of what I said on another sub-thread, I think at least
->>> alignment wants to be optional here. Perhaps, with max going first, min
->>> could also be optional.
+>>> Both casts act on a pointer value. Such cannot legitimately be converted
+>>> to paddr_t; it only so happens that paddr_t is effectively the same as
+>>> uintptr_t right now. (Same issue again further down.) That said, I notice
+>>> we have pre-existing examples of this ...
 >>
->> Interesting idea.
->>
->>> As indicated in different context by Roger, the values being uniformly
->>> 64-bit ones also is questionable.
+>> Yes, I followed existing code.  Do you want dest_base to be switched to
+>> a uintptr_t?
+> 
+> I think it was deliberately switched to being a pointer at some point,
+> maybe even in a security fix.
+
+commit 65808a8ed41cc7c044f588bd6cab5af0fdc0e029 "libelf: check all 
+pointer accesses", part of XSA-55, switched from a single dest pointer 
+to dest_base & dest_size.
+
+For libxenguest, it's a pointer to guest-mapped memory to copy in the 
+kernel.  For PV dom0 creation, it's a pointer - Xen switches to the dom0 
+page tables and performs the copy with it as-is.  For PVH dom0, it's a 
+guest physical address.
+
+Are you looking for this to be addressed in this series?
+
+>>>> +/* Check the kernel load address, and adjust if necessary and possible. */
+>>>> +static bool __init check_and_adjust_load_address(
+>>>> +    const struct domain *d, struct elf_binary *elf, struct elf_dom_parms *parms)
+>>>> +{
+>>>> +    paddr_t reloc_base;
+>>>> +
+>>>> +    if ( check_load_address(d, elf) )
+>>>> +        return true;
+>>>> +
+>>>> +    if ( parms->phys_align == UNSET_ADDR )
+>>>> +    {
+>>>> +        printk("Address conflict and %pd kernel is not relocatable\n", d);
+>>>> +        return false;
+>>>> +    }
+>>>> +
+>>>> +    reloc_base = find_kernel_memory(d, elf, parms);
+>>>> +    if ( reloc_base == 0 )
+>>>> +    {
+>>>> +        printk("Failed find a load address for the kernel\n");
+>>>> +        return false;
+>>>> +    }
+>>>> +
+>>>> +    if ( opt_dom0_verbose )
+>>>> +        printk("Relocating kernel from [%lx, %lx] -> [%lx, %lx]\n",
+>>>> +               (paddr_t)elf->dest_base,
+>>>> +               (paddr_t)elf->dest_base + elf->dest_size,
 >>>
->>>> + * The presence of this note indicates the kernel is relocatable.
->>>
->>> I think it wants making explicit here that the act of relocating is still
->>> left to the kernel.
+>>> By using %p you clearly can avoid the casts here.
 >>
 >> Ok.
 >>
->> How is this for a new description?
+>>>> +               reloc_base, reloc_base + elf->dest_size);
+>>>
+>>> I'm not convinced %lx is really appropriate for paddr_t.
 >>
->> """
->> Physical loading constraints for PVH kernels
->>
->> Used to place constraints on the guest physical loading addresses and
->> alignment for a PVH kernel.
->>
->> The presence of this note indicates the kernel supports relocating itself.
->>
->> The note may include up to three 32bit values.
+>> PRIpaddr exists.  It's "016lx" for x86.  Using that and %p add lots of 0s:
+>> (XEN) Relocating kernel from [0000000001000000, 000000000202ffff] ->
+>> [0000000002200000, 000000000322ffff]
 > 
-> I'm as unsure about always 32-bit as I am on it being uniformly 64-bit.
-> One question here is whether this note is intended to be x86-specific.
+> That's to be accepted, I guess.
 > 
->>    - a maximum address for the entire image to be loaded below (default
->> 0xfffffff)
-> 
-> One f too few?
+> Looking at it again, is "Relocating" in the log message perhaps misleading?
+> We don't relocate it, that's something the kernel itself has to do. We only
+> put it at other than the default position. Maybe "Moving" instead?
 
-Whoops - yes.
+Yes, "Moving" sounds better.  I guess I'll drop the "from" and insert a 
+%pd for:
 
->>    - a minimum address for the start of the image (default 0)
->>    - a required start alignment (default 1)
-
-Jan, in the discussion of patch 1, you wrote "Hmm, shouldn't the order 
-of attempts to figure the alignment be ELF note, ELF header, and then 
-2Mb?"  My latest revision initializes phys_alignment to 1 and updates 
-that if PHYS32_RELOC specifies an alignment.  Do you still want these 
-other locations checked for alignment values?
+(XEN) Moving d0 kernel [0000000001000000, 000000000202ffff] -> 
+[0000000002200000, 000000000322ffff]
 
 Regards,
 Jason
