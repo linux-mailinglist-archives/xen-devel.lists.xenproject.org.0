@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EAE987EDE0
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 17:48:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694931.1084207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A464E87EDE7
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 17:49:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694933.1084217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmG9U-0006De-9w; Mon, 18 Mar 2024 16:47:56 +0000
+	id 1rmGB2-00005N-Ln; Mon, 18 Mar 2024 16:49:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694931.1084207; Mon, 18 Mar 2024 16:47:56 +0000
+Received: by outflank-mailman (output) from mailman id 694933.1084217; Mon, 18 Mar 2024 16:49:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmG9U-0006B4-79; Mon, 18 Mar 2024 16:47:56 +0000
-Received: by outflank-mailman (input) for mailman id 694931;
- Mon, 18 Mar 2024 16:47:55 +0000
+	id 1rmGB2-0008Us-IV; Mon, 18 Mar 2024 16:49:32 +0000
+Received: by outflank-mailman (input) for mailman id 694933;
+ Mon, 18 Mar 2024 16:49:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=emy9=KY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmG9T-0006Ay-L0
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 16:47:55 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1rmGB1-0008Um-Ny
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 16:49:31 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 444415d6-e547-11ee-afdd-a90da7624cb6;
- Mon, 18 Mar 2024 17:47:54 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a467d8efe78so472934066b.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 09:47:54 -0700 (PDT)
+ id 7d86570d-e547-11ee-afdd-a90da7624cb6;
+ Mon, 18 Mar 2024 17:49:30 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a46aaf6081fso262904266b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 09:49:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e9-20020a170906c00900b00a46ce8f5e11sm564072ejz.152.2024.03.18.09.47.53
+ e9-20020a170906c00900b00a46ce8f5e11sm564072ejz.152.2024.03.18.09.49.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 09:47:53 -0700 (PDT)
+ Mon, 18 Mar 2024 09:49:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 444415d6-e547-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 7d86570d-e547-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710780474; x=1711385274; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710780570; x=1711385370; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3JQQC7SCOR0ADM40aLhKPCBH7sTI8Bxk7mQM461sbfo=;
-        b=BJUXR7J6LNukJBHEdkdw3jgShFsyt/FF0grr/vHG68qp+LuPWp+P1aQbozRzXzSeuQ
-         TGJzDd4IesZIgsVfQQiRQGKglbSIhp/kabnieECkoKsyJmYR06aOhayV2EkHh1UmmwM+
-         rQzDRKAK+FW4CBreW2SCCLpX2d2gM2lkW5rVh5yo/h8eJTa7SyC1DfwIKFEYq0bsR+Rq
-         M+duisopU6cVHDwUaTgdtH7Jt3h8na8ngRE9taXUdbcmh1xIRHRbflDGjHv5+MNfVf4E
-         igKWCaPd80lwIYIV6buHzGod9mpKWO7c7XL0GLoFnHvufFM9fbc5JDHiK4vA4p0C+F1c
-         WJqA==
+        bh=P/b80GEbnFGDZM70kWZE83UJmRDIWScWxcxf64Q2gco=;
+        b=Q4wKIAikK5qEFN86AWHpfP38R/5kbI5HUtd62DJ0M1+Dj9xDpDmZBa5e6GAbC17nwi
+         cfT2LdPBCXjHdecNk1xaTjobGOCVeFdBu9DdiSeZVNH/us9Hik2CbYaix4mz3lh13FcE
+         9530eypk2TuqhHNbw4p5QZg+OGJeKYInzB1fHisJ8rFKCLKdKcNI6dpa8ZrWUVGdn69Z
+         JP8B/emJsueNW0CZ1oXEuK10adtItxbzhJocSLFRGKF/Ytx3AajuhJrG3vP/G1GZhk3Y
+         jEZLwC7dqe+8oXCfg01Xp0bwLvrck32mVEhDK2f2FNiBBKbNxX5vw+UKjXcSvddbcIt3
+         8GBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710780474; x=1711385274;
+        d=1e100.net; s=20230601; t=1710780570; x=1711385370;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3JQQC7SCOR0ADM40aLhKPCBH7sTI8Bxk7mQM461sbfo=;
-        b=wX9NFUEy661AK1KsJMkorcyXjHuSd3lvWqRrZ57pWuWCIdabBSzd/zGdl9+jYlV5B7
-         oZ+tdx2r9VC9pkHjR7ZyX3VazPR23NjqX+vhNTZxn29NjsERz9sZZBkDnFBQB8MLj0KC
-         jKlAfH+uS3wM/d0eepyXVqOq6Qm49cB+hvMSxg28uw5Gf0zuq78WlLZrxZlpKYy6FuyO
-         cSYsdrGVVr91uGaZrp02noAh+aV3Mx4jisXpqOofE6RXvjSwoU5xqaqCsBRD/kAJlO0/
-         phw4ebwpFEoQOy3dHJ751JRuOt+G+pnZ8D+Pan5u0PsslyWGZ9ix9XoP1UEIqfP7+qdN
-         /WQQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWFSNgtliPdjHaZ2iqXoEtHmf+y1JiwmmtIGMBpUkeECnIL0RqWgMx4kavHMgurkvrSR0oz+KnuXEHAfjzar5GyNTVQDre0dmmIw9KVNHI=
-X-Gm-Message-State: AOJu0YzoWDZu54OYgTrbm/qHvXl2qiAtrwBJn2eNiUReU26Qvw00Ap+l
-	nYZKPuif9gYAbjUWZAOhPFXBrgqWoGQEASsmXaSVPjX/BQVUqDG5r9IcrrueEw==
-X-Google-Smtp-Source: AGHT+IFJpirN2ACSw9GPznDMX5THDiGiTds4anPrl9HayfkJPBBd8DafzaimSZUH39buKyLeBRbzAQ==
-X-Received: by 2002:a17:906:3e18:b0:a44:51c1:733c with SMTP id k24-20020a1709063e1800b00a4451c1733cmr8337654eji.39.1710780474163;
-        Mon, 18 Mar 2024 09:47:54 -0700 (PDT)
-Message-ID: <5a3a2087-36fd-4ac7-8cd7-7dc29a0d0bd5@suse.com>
-Date: Mon, 18 Mar 2024 17:47:53 +0100
+        bh=P/b80GEbnFGDZM70kWZE83UJmRDIWScWxcxf64Q2gco=;
+        b=UUSZKYlkCRiIh8G9lKKPlQ6JIlaEWUKfQMnYIfqncygYx+zZGw9qUHFBHXJJ6mUmnY
+         aybQONQXg1ZmvBffmuo+KS01GjvU+pjCLRN7tZ0Qy83FY1Q6KjB3ayqy9zDcasCyM0Jy
+         DsTbEFlw5ZQWclF9vI6LZ2KQAw/08bCW/tJMvezH0uTDkJqXK1Kc5lhBqZIRhXLSrQcK
+         bSUn9ySOGvg5shzb8kN0TiGGaKJ5Jzyi1igzjXgu1eQM8n5yoPZTYt0DW40l/MfvN3Eo
+         Xhgpz8YFDbizcWyVa2FV9/nck1Jrx3HS6s6zd0M1PZnWMvbrUSknuG6Vt8h2hx0W/7Tr
+         IC7Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVJeGIGtd24RktkpJSB7VCX3jA1V7BJdcxTDIsbx1ZtsFdbGu9MbUKICtg4ODG9Oicj/gcaMupe7hJwhVYFT7sYirNL9Ienre8YvCYY0KI=
+X-Gm-Message-State: AOJu0YzCSZGbn3ZloXMxRgklDw57HmM8ho7ZAaQ/gZvBX+lc8Az12Emt
+	Gs46jdJIOeRlPSpnTxHvZX3aZhdJU4IS6/khcAaUgP/IF0V1roxeRE/+Z8UGww==
+X-Google-Smtp-Source: AGHT+IHEOvzc2V82eWwghBz1J8gllLa0v/NmL50y1dYSw7rW25XGSHHMcmymDbUCwJZzvEFpsTgZ3Q==
+X-Received: by 2002:a17:907:11c7:b0:a45:c027:372 with SMTP id va7-20020a17090711c700b00a45c0270372mr6909150ejb.68.1710780570268;
+        Mon, 18 Mar 2024 09:49:30 -0700 (PDT)
+Message-ID: <28eaf480-4ed6-4c1d-9508-63e8d497d530@suse.com>
+Date: Mon, 18 Mar 2024 17:49:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 05/10] EFI: address violations of MISRA C Rule 20.7
+Subject: Re: [XEN PATCH 07/10] xen/efi: efibind: address violations of MISRA C
+ Rule 20.7
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  ayan.kumar.halder@amd.com, consulting@bugseng.com,
- xen-devel@lists.xenproject.org
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <cover.1710762555.git.nicola.vetrini@bugseng.com>
- <66095ff2496d9b2be701877a3df762293fc8708b.1710762555.git.nicola.vetrini@bugseng.com>
+ <d2bc16c1b2d00b85f4b1a96bd855bbfe38861e87.1710762555.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,7 +117,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <66095ff2496d9b2be701877a3df762293fc8708b.1710762555.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <d2bc16c1b2d00b85f4b1a96bd855bbfe38861e87.1710762555.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -128,28 +133,12 @@ On 18.03.2024 12:53, Nicola Vetrini wrote:
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > ---
 > This file is matched by exclude-list.json, but the fix is rather trivial
-> and actually benefits code that is in scope for compliance.
+> and impacts code that in under the scope of MISRA compliance.
 
-Hmm, yes, the change is simple enough to not be a big hindrance even if we
-were to pull in incremental updates from gnu-efi, so
+On the same basis as the other change:
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Albeit preferably with ...
-
-> --- a/xen/include/efi/efierr.h
-> +++ b/xen/include/efi/efierr.h
-> @@ -22,7 +22,7 @@ Revision History
->  
->  
->  #define EFIWARN(a)                            (a)
-> -#define EFI_ERROR(a)              (((INTN) a) < 0)
-> +#define EFI_ERROR(a)              (((INTN)(a)) < 0)
-
-... excess parentheses dropped in exchange:
-
-#define EFI_ERROR(a)              ((INTN)(a) < 0)
-
-I may take the liberty of doing so while committing.
+I wonder though: Where do we draw the line?
 
 Jan
 
