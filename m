@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9A4F87EB68
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 15:49:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694768.1083870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B958B87EB7E
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 15:57:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694774.1083881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmEIh-0005Mz-9I; Mon, 18 Mar 2024 14:49:19 +0000
+	id 1rmEQU-0007r3-2V; Mon, 18 Mar 2024 14:57:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694768.1083870; Mon, 18 Mar 2024 14:49:19 +0000
+Received: by outflank-mailman (output) from mailman id 694774.1083881; Mon, 18 Mar 2024 14:57:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmEIh-0005Ja-6a; Mon, 18 Mar 2024 14:49:19 +0000
-Received: by outflank-mailman (input) for mailman id 694768;
- Mon, 18 Mar 2024 14:49:18 +0000
+	id 1rmEQT-0007oG-VW; Mon, 18 Mar 2024 14:57:21 +0000
+Received: by outflank-mailman (input) for mailman id 694774;
+ Mon, 18 Mar 2024 14:57:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=emy9=KY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmEIg-0005JU-B3
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 14:49:18 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1rmEQT-0007oA-56
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 14:57:21 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1ca4807-e536-11ee-afdd-a90da7624cb6;
- Mon, 18 Mar 2024 15:49:17 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-56b8e4f38a2so6580a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 07:49:16 -0700 (PDT)
+ id d1843e76-e537-11ee-afdd-a90da7624cb6;
+ Mon, 18 Mar 2024 15:57:19 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a46cc855600so118880966b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 07:57:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p8-20020aa7c888000000b00567fa27e75fsm4655186eds.32.2024.03.18.07.49.16
+ l20-20020a1709067d5400b00a46bed423a0sm1170690ejp.23.2024.03.18.07.57.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 07:49:16 -0700 (PDT)
+ Mon, 18 Mar 2024 07:57:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1ca4807-e536-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: d1843e76-e537-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710773356; x=1711378156; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710773839; x=1711378639; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1E622452z54d2ZKN7d8wn0TImsbuLvk7Yn3b+UyU6CA=;
-        b=KbiEssLKPwTsbogkgHNllKt2sdrecxgqGSzW+eVJ9ym8Uzmyn3vJazY+i8mmbJTd/g
-         2oXVuXUChs6wI78xtlPN2QDvyAzp1CzHNQ8LHsPni/JcMTvEgssh9FDGebeYNJ1WCIBl
-         4qzmv6QEDyVW9iiKxggRsdIOtYOsSOBVe3JaQON9MNn4paaoq5567XBc/1ggjJZGStEF
-         tinV2iMmrjKmQ8Q9S157dRbe78iisiukhYVFe85KSX0XXDHDjVo9fthqcOgh6Dkb9r4D
-         /imJfYwBQl415Q3p6ndb0/RirgpLjE5P4KkI3cH9PkT0cH06oTnjrb7oB3rHbR9G+dZJ
-         sIpg==
+        bh=vaPg+rnST4a2xz31vCnYXXNma73H0XKOPY4z7JssaZk=;
+        b=X9r5kvVm40K5yb9o301x9jIMgotHo9zbdP89YDym8zui7CONhLxQ5qd466YQqb2x+L
+         X3Y7cw5Z+oNrd2VyWvb3SfPyfD2kyQHtaejznzhWWaUkGlgX0Kuuf3JSXYgaBR9+R8WA
+         jARR9TtkKI9WPnr62zcunZ6QHzOHwdr4q6EtwWZoB0h1WXGuP5XGxVH8a0RZwqGE7hvm
+         bxyMffjsb6hHOchbi+i78D/ZKLNp5BaPpObBVZIrEJ1X09lbb7lp9ypQDuDfJq604RZ0
+         QDiCxIPVHPHR6DPL49VVtPH8mZd5+376kAPGLlWC+MhD+hDnTArH3Qud1aL8tU7OIQDB
+         Uw4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710773356; x=1711378156;
+        d=1e100.net; s=20230601; t=1710773839; x=1711378639;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1E622452z54d2ZKN7d8wn0TImsbuLvk7Yn3b+UyU6CA=;
-        b=ZjRVYNhIM9FqkzjvGwtkGEAXGXEg+XFrfA6C0SGCAka7/fd+jUz0yfz8qAo12bZUf0
-         B42+FM3vzqgcgCsyGeAjJgblzUbrXJGOPDt7yA0NSwf+f7Wu3GIOOcH89+Nii9YoQB1p
-         ElbI64lHVkjEslOcCsFihLowcZAl2cB2/J8jfHJQ5+IUI44P5Z7qXMP8HQmgVJ/sPtmp
-         61ba8sWxdRGdWd/1ml4WEmSlKhBgTWJogpjJUJdhC15JaXa01dVlrKbfAB/dWyPHvwf8
-         WiOXUcNf+TJspt9njU0Mp010GsKjIspu+Dd9pIVwRGh4TinFEGZe4bcygANMKEfzr5/x
-         aHoQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU6EYH3m3CSIAqnzfGmui9ucevpmblh3ZxjIA9aJDu7BXbMey/7Xxyq+Idj9Xij3abwA03SipVySA6W1X4SAFxNVsTO8Br2y8oUWs7X5po=
-X-Gm-Message-State: AOJu0Yx7p+1pU2dis/9D+fem2eeKbvZdilXuO46Y0fME/4L98CzHs4L7
-	NfMlWLTttYtQjk98w6mX1GC3nSX7Fl6EOS96d1BPSu+f4ATePPDssvK/mZ2KhQ==
-X-Google-Smtp-Source: AGHT+IFA9M1AzQM14aWje1Sf86pErhuNUlRMgo1sZsXZ8ap2P5nKkLmnACdOh1qn8mf2C0mHEB8tyQ==
-X-Received: by 2002:a05:6402:1f49:b0:568:93f:36c6 with SMTP id 9-20020a0564021f4900b00568093f36c6mr8924338edz.22.1710773356582;
-        Mon, 18 Mar 2024 07:49:16 -0700 (PDT)
-Message-ID: <91819455-52ca-41c8-aa9f-ae092e117489@suse.com>
-Date: Mon, 18 Mar 2024 15:49:15 +0100
+        bh=vaPg+rnST4a2xz31vCnYXXNma73H0XKOPY4z7JssaZk=;
+        b=hU8oONtU45kYVZXykEDYQWtJD9I4BklC/1A6RZfK0f8CuOCiAbAMr8OJ8bcfzeSXjd
+         whre/yFmqaWbwcq9cZejNoACHn05fJv9MXRFkRJXbTRmtRiUSGyvPplVmsveo1uCOaN5
+         aHb1lQpfpb11c8MX9kVFLGBYFCi72MC8Co4b2GO3AzpfTHM/xolDFFlQ93HY7jvrKGmg
+         foCbtHzMdAxyhSMptEaUY/n6eBUuA4Trp9+NsIt/QVEdg/SzHq6R1IAADHwOyg1rrltn
+         AO7DyrcbQsbUV98XOujH46CCJBRx/hkf8vc47hzgr6ry57yucGm6Ee1PS1NnMW1bxHpq
+         RxNQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUB2NBHyFSZtZejRSyOATHoQgjVLtnHR3EuNnwFtm5BVjjW9AuhW1ipROdMZX6GHqwcw4FFeoedTcbJGlvFlTZIhHbXjGi20gA/Uawc6fk=
+X-Gm-Message-State: AOJu0YxOTRgOAoUZWALPrJjMlddxoe2dt5KYyc2loNN8LlJGlRLKKGLH
+	KZYyaUNdfm2tcEswM3OKFTCHG+EuzKQ7/ldoOBsRUegD9zqXMssAThOZINSleQ==
+X-Google-Smtp-Source: AGHT+IG5ibjyMQwRKzdG7XcJfHQj5hiPJH7hWMKT4SPwg+9pxK6Fmg6J+bMyuLtg9HAUgn+RZoamAA==
+X-Received: by 2002:a17:906:6bd4:b0:a44:1e32:a503 with SMTP id t20-20020a1709066bd400b00a441e32a503mr8582452ejs.22.1710773839286;
+        Mon, 18 Mar 2024 07:57:19 -0700 (PDT)
+Message-ID: <ceb2083a-0d57-44fb-bd78-d8f44ae0bc9b@suse.com>
+Date: Mon, 18 Mar 2024 15:57:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 07/13] xen/spinlock: add another function level
+Subject: Re: [PATCH v5 08/13] xen/spinlock: add missing rspin_is_locked() and
+ rspin_barrier()
 Content-Language: en-US
 To: Juergen Gross <jgross@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
  xen-devel@lists.xenproject.org
 References: <20240314072029.16937-1-jgross@suse.com>
- <20240314072029.16937-8-jgross@suse.com>
+ <20240314072029.16937-9-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,20 +116,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240314072029.16937-8-jgross@suse.com>
+In-Reply-To: <20240314072029.16937-9-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 14.03.2024 08:20, Juergen Gross wrote:
-> Add another function level in spinlock.c hiding the spinlock_t layout
-> from the low level locking code.
-> 
-> This is done in preparation of introducing rspinlock_t for recursive
-> locks without having to duplicate all of the locking code.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> --- a/xen/common/spinlock.c
+> +++ b/xen/common/spinlock.c
+> @@ -395,14 +395,7 @@ static bool always_inline spin_is_locked_common(const spinlock_tickets_t *t)
+>  
+>  int _spin_is_locked(const spinlock_t *lock)
+>  {
+> -    /*
+> -     * Recursive locks may be locked by another CPU, yet we return
+> -     * "false" here, making this function suitable only for use in
+> -     * ASSERT()s and alike.
+> -     */
+> -    return lock->recurse_cpu == SPINLOCK_NO_CPU
+> -           ? spin_is_locked_common(&lock->tickets)
+> -           : lock->recurse_cpu == smp_processor_id();
+> +    return spin_is_locked_common(&lock->tickets);
+>  }
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+The "only suitable for ASSERT()s and alike" part of the comment wants
+to survive here, I think.
 
+> @@ -465,6 +458,23 @@ void _spin_barrier(spinlock_t *lock)
+>      spin_barrier_common(&lock->tickets, &lock->debug, LOCK_PROFILE_PAR);
+>  }
+>  
+> +bool _rspin_is_locked(const rspinlock_t *lock)
+> +{
+> +    /*
+> +     * Recursive locks may be locked by another CPU, yet we return
+> +     * "false" here, making this function suitable only for use in
+> +     * ASSERT()s and alike.
+> +     */
+> +    return lock->recurse_cpu == SPINLOCK_NO_CPU
+> +           ? spin_is_locked_common(&lock->tickets)
+> +           : lock->recurse_cpu == smp_processor_id();
+> +}
 
+Here otoh I wonder if both the comment and the spin_is_locked_common()
+part of the condition are actually correct. Oh, the latter needs
+retaining as long as we have nrspin_*() functions, I suppose. But the
+comment could surely do with improving a little - at the very least
+"yet we return "false"" isn't quite right; minimally there's a "may"
+missing.
+
+In principle, without any nrspin_*() functions, the result here ought
+to be usable generally, not just for ASSERT()s. Whether having its
+and _spin_is_locked()'s behavior differ would be a good idea is a
+separate question, of course.
+
+Jan
 
