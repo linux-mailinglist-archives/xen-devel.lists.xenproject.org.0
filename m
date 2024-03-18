@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0C2187EA62
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 14:50:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694722.1083770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEDE587EA6E
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 14:54:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694725.1083791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmDNK-0007E4-Ph; Mon, 18 Mar 2024 13:50:02 +0000
+	id 1rmDRU-0000HK-GY; Mon, 18 Mar 2024 13:54:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694722.1083770; Mon, 18 Mar 2024 13:50:02 +0000
+Received: by outflank-mailman (output) from mailman id 694725.1083791; Mon, 18 Mar 2024 13:54:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmDNK-0007Ax-Mj; Mon, 18 Mar 2024 13:50:02 +0000
-Received: by outflank-mailman (input) for mailman id 694722;
- Mon, 18 Mar 2024 13:50:00 +0000
+	id 1rmDRU-0000Ee-DB; Mon, 18 Mar 2024 13:54:20 +0000
+Received: by outflank-mailman (input) for mailman id 694725;
+ Mon, 18 Mar 2024 13:54:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=we9v=KY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rmDNI-0006xz-S3
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 13:50:00 +0000
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
- [2607:f8b0:4864:20::b33])
+ id 1rmDRS-0008Qw-Vg
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 13:54:18 +0000
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [2607:f8b0:4864:20::72a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69404b7d-e52e-11ee-afdd-a90da7624cb6;
- Mon, 18 Mar 2024 14:49:59 +0100 (CET)
-Received: by mail-yb1-xb33.google.com with SMTP id
- 3f1490d57ef6-dcbc00f6c04so3712625276.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 06:49:59 -0700 (PDT)
+ id 03502659-e52f-11ee-afdd-a90da7624cb6;
+ Mon, 18 Mar 2024 14:54:18 +0100 (CET)
+Received: by mail-qk1-x72a.google.com with SMTP id
+ af79cd13be357-789e2bf854dso158611385a.3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 06:54:18 -0700 (PDT)
 Received: from [10.80.67.23] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- fk13-20020a05622a558d00b00430b59c37acsm3442625qtb.13.2024.03.18.06.49.56
+ o5-20020ae9f505000000b0078812b73ea1sm4581535qkg.28.2024.03.18.06.54.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 06:49:58 -0700 (PDT)
+ Mon, 18 Mar 2024 06:54:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69404b7d-e52e-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 03502659-e52f-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710769799; x=1711374599; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1710770057; x=1711374857; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=jGI563ovUKf9CtxDtAQ3CoJsPfD3toO3vX1R2ObYPCg=;
-        b=Ios6ERztea6ijIukT0d9m6zLHXsED20UGdO0RQEyUmyknzY1sIICUCNmrBivZjb08O
-         1ZU+TZ/jIJItk+xohtC2btqoEUy+u77LsM2lw1fqRvwt2VczFkLZq5FFt4Ofpz4sXyTN
-         r3oS56X0kFd8Inq2U0J7Kb4/IIP2dxxHHcUaY=
+        bh=ai+rH1Ya2HGRi5MrW4Yk9UAKRD8uMIBORJU1vstP6xw=;
+        b=o9jZf9z/oDiIi99fBT9i0KlIGkDYqTM3UUpYWhUpgitSjwWcP6zrRKgRfTy4F14nBC
+         Di0LHvFDITy72AL1+ZoMWAxTYHFNrPPQJUZdJXnt6UP4+akstkcT3K0BVqUhOOF1Nm92
+         t7ht1JcMeTR+R3vHYs676vMfR7rekB5O0N/2M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710769799; x=1711374599;
+        d=1e100.net; s=20230601; t=1710770057; x=1711374857;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jGI563ovUKf9CtxDtAQ3CoJsPfD3toO3vX1R2ObYPCg=;
-        b=AvQyzbOnpc009rAAGtmNFdWljBFOB8Tc97l+X+BNsqQYcnInG0I1utFV5/UmJ64bpQ
-         L22c8pVEHqNPR/UvgvqRUQMTNk9ehBJY/LDscYHATFJpeykC9YNmaa+RMQw1FLpgDTK+
-         SdlmfuZN6+a6Zh1fcNlbWtRAD0MUghAjneUV+K5fd/+Y6ZtKgV2TUGCJsc9nztqx2pEm
-         ZkHWmJGsDyJUeFsL+J95v8PM4ejYWKwfp1FTuv6fEd+aMRxNC2AMgFXqmzkqbiXbSpDQ
-         7fTTY96HbupiI05biy8o5Ym/eagcedLeUdJBErfuOK9UN4DUudXADhq13mjohkhc51HW
-         42+g==
-X-Forwarded-Encrypted: i=1; AJvYcCVlVsyN+Ek8rY7EzSf/GlY9E38PUOD7gCYiZbcfeh39zOCTI286KzsOwazqQKz6M/fF2h3gG3/eg+HtIjVjo6qNGND6p/O52f1Nx0284QQ=
-X-Gm-Message-State: AOJu0Yym+f0lGBg7rrxhxe9dd5xIEyHZ6T2UPniCy2y791oZTCk3/tN7
-	azebxhlHmAaitpU+jfFdaE99jcWNmwhHYxUB5cbibri+QawUX7fe0UJu4AY2Qjk=
-X-Google-Smtp-Source: AGHT+IG0FxvqvMUoLFE/nBLua3BfXo+u0XNYkVAAzBs35HqXyjaTizG6HnlvJV2r/Oxe2VX/bWRbyg==
-X-Received: by 2002:a25:6a83:0:b0:dcb:ba75:bde7 with SMTP id f125-20020a256a83000000b00dcbba75bde7mr6562385ybc.7.1710769798711;
-        Mon, 18 Mar 2024 06:49:58 -0700 (PDT)
-Message-ID: <14accd85-d549-4551-a95c-6c8bcee92db5@citrix.com>
-Date: Mon, 18 Mar 2024 13:49:55 +0000
+        bh=ai+rH1Ya2HGRi5MrW4Yk9UAKRD8uMIBORJU1vstP6xw=;
+        b=gpW6o2QtecKf1t10m/HTEu6wsxeXvxJJL2zNieM53/TTOsq6oeISJ+j/LVseKQ9eWg
+         nHYsliUkKAvNq6r0qBLoscKKRn9yXmguB00v8g6LM6/Y1oHkqsM72Z869RsJbtJiaVxh
+         F3NzvQLXhmvum9ORHvXAIcs1tZgMGO/ZZLvrSSA3/0NavLuJKGxnwdLkEE9AKcp7LSFp
+         6GCtOkHiTU8DEDZBLvp1NbwOGYw8XuzcPcLxeBRByw+vF9UX7dEKTSm7OtxkkwiIQxNi
+         Dkz7uAID2FM3yTFsiLpMwV8UDIHN6zUz5e6SQndbEkZSxJmdvblJq7pUOtP1IaYT+MFc
+         tHBA==
+X-Forwarded-Encrypted: i=1; AJvYcCVVX0QcDCKQpXiDvGEd32R7b+ie6aWucDnthEmipcQPT9U5FNOuum+Gz4p68x1QGpCImm31atlb8lKhtUVgXvez/Zkm6L9uptqmlfqHYOo=
+X-Gm-Message-State: AOJu0YxY47+jUTnqZU+rr+L5K8NsJjEJontrQGsCqGdL1DCJFceqwIMX
+	PQlpFwLwKBnZ5KeaRWPKyB+1iTmPX3ZOAIXiVB7DAzuydzzZGEtpJZklxnZ8Ed8=
+X-Google-Smtp-Source: AGHT+IFnkx8BnXe53mpSL+LDkTWhltJ/rmeXDFYclFZMadSWR7d8pcwiJiPOkLlTlTvt2mx+iaNelg==
+X-Received: by 2002:a05:620a:2951:b0:789:fe61:8451 with SMTP id n17-20020a05620a295100b00789fe618451mr3649504qkp.63.1710770057223;
+        Mon, 18 Mar 2024 06:54:17 -0700 (PDT)
+Message-ID: <483c2375-26f9-442d-ba2f-c87cb2253178@citrix.com>
+Date: Mon, 18 Mar 2024 13:54:14 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] xen/virtual-region: Drop setup_virtual_regions()
+Subject: Re: [PATCH 3/4] xen/virtual-region: Link the list build time
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -91,8 +91,8 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Ross Lagerwall <ross.lagerwall@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240318110442.3653997-1-andrew.cooper3@citrix.com>
- <20240318110442.3653997-5-andrew.cooper3@citrix.com>
- <047ecaf2-66c6-4d07-ab14-9c50acfc1f9a@suse.com>
+ <20240318110442.3653997-4-andrew.cooper3@citrix.com>
+ <94622e8d-e5b9-4306-bc61-d37cd8078338@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -137,47 +137,82 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <047ecaf2-66c6-4d07-ab14-9c50acfc1f9a@suse.com>
+In-Reply-To: <94622e8d-e5b9-4306-bc61-d37cd8078338@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 18/03/2024 1:29 pm, Jan Beulich wrote:
+On 18/03/2024 1:25 pm, Jan Beulich wrote:
 > On 18.03.2024 12:04, Andrew Cooper wrote:
+>> Given 3 statically initialised objects, its easy to link the list at build
+>> time.  There's no need to do it during runtime at boot (and with IRQs-off,
+>> even).
+> Hmm, technically that's correct, but isn't the overall result more fragile,
+> in being more error prone if going forward someone found a need to alter
+> things? Kind of supporting that view is also ...
+>
+>> ---
+>>  xen/common/virtual_region.c | 45 ++++++++++++++++++++++++-------------
+>>  1 file changed, 30 insertions(+), 15 deletions(-)
+> ... the diffstat of the change. It's perhaps also for a reason that ...
+>
 >> --- a/xen/common/virtual_region.c
 >> +++ b/xen/common/virtual_region.c
->> @@ -39,6 +39,11 @@ static struct virtual_region core = {
->>          { __start_bug_frames_2, __stop_bug_frames_2 },
->>          { __start_bug_frames_3, __stop_bug_frames_3 },
->>      },
+>> @@ -15,8 +15,19 @@ extern const struct bug_frame
+>>      __start_bug_frames_2[], __stop_bug_frames_2[],
+>>      __start_bug_frames_3[], __stop_bug_frames_3[];
+>>  
+>> +/*
+>> + * For the built-in regions, the double linked list can be constructed at
+>> + * build time.  Forward-declare the elements.
+>> + */
+>> +static struct list_head virtual_region_list;
+>> +static struct virtual_region core, core_init;
 >> +
->> +#ifdef CONFIG_X86
->> +    .ex = __start___ex_table,
->> +    .ex_end = __stop___ex_table,
->> +#endif
->>  };
+>>  static struct virtual_region core = {
+>> -    .list = LIST_HEAD_INIT(core.list),
+>> +    .list = {
+>> +        .next = &core_init.list,
+>> +        .prev = &virtual_region_list,
+>> +    },
+>> +
+>>      .text_start = _stext,
+>>      .text_end = _etext,
+>>      .rodata_start = _srodata,
+>> @@ -32,7 +43,11 @@ static struct virtual_region core = {
 >>  
 >>  /* Becomes irrelevant when __init sections are cleared. */
->> @@ -57,6 +62,11 @@ static struct virtual_region core_init __initdata = {
->>          { __start_bug_frames_2, __stop_bug_frames_2 },
->>          { __start_bug_frames_3, __stop_bug_frames_3 },
->>      },
+>>  static struct virtual_region core_init __initdata = {
+>> -    .list = LIST_HEAD_INIT(core_init.list),
+>> +    .list = {
+>> +        .next = &virtual_region_list,
+>> +        .prev = &core.list,
+>> +    },
 >> +
->> +#ifdef CONFIG_X86
->> +    .ex = __start___ex_table,
->> +    .ex_end = __stop___ex_table,
->> +#endif
->>  };
-> My main reservation here is this x86-specific code in a common file.
-> Are we certain both RISC-V and PPC will get away without needing to
-> touch this? If so, I might consider ack-ing. But really I'd prefer if
-> this could be minimally abstracted, via e.g. CONFIG_HAS_EXTABLE
-> (selected by x86 only for now).
+>>      .text_start = _sinittext,
+>>      .text_end = _einittext,
+>>  
+>> @@ -50,7 +65,10 @@ static struct virtual_region core_init __initdata = {
+>>   *
+>>   * All readers of virtual_region_list MUST use list_for_each_entry_rcu.
+>>   */
+>> -static LIST_HEAD(virtual_region_list);
+>> +static struct list_head virtual_region_list = {
+>> +    .next = &core.list,
+>> +    .prev = &core_init.list,
+>> +};
+> ... there's no pre-cooked construct to avoid any open-coding at least
+> here.
+>
+> To clarify up front: I'm willing to be convinced otherwise, and I therefore
+> might subsequently provide an ack. I'm also specifically not meaning this
+> to be treated as "pending objection"; if another maintainer provides an ack,
+> that's okay(ish) with me.
 
-This isn't the first bit of CONFIG_X86 in this file.  However, I'd not
-spotted that we have CONFIG_HAS_EX_TABLE already.  I can swap.
+I think it's a very small price to pay in order to allow patch 4 to exist.
 
-As to extable on other architectures, that's not something I can answer,
-although it's not something I can see in Oleksii's or Shawn's series so far.
+If you can think of a nice way to express this with a pre-cooked
+construct then suggestions welcome, but it's a really complicated piece
+of metaprogramming to express in a nice way.
 
 ~Andrew
 
