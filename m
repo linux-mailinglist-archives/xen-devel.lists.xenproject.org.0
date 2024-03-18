@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2507587E9CE
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 14:06:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694680.1083680 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1F4187E9E2
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 14:10:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694686.1083690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmCg4-0003vM-Jw; Mon, 18 Mar 2024 13:05:20 +0000
+	id 1rmCl8-0005mM-6P; Mon, 18 Mar 2024 13:10:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694680.1083680; Mon, 18 Mar 2024 13:05:20 +0000
+Received: by outflank-mailman (output) from mailman id 694686.1083690; Mon, 18 Mar 2024 13:10:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmCg4-0003t5-H5; Mon, 18 Mar 2024 13:05:20 +0000
-Received: by outflank-mailman (input) for mailman id 694680;
- Mon, 18 Mar 2024 13:05:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rmCl8-0005jX-3I; Mon, 18 Mar 2024 13:10:34 +0000
+Received: by outflank-mailman (input) for mailman id 694686;
+ Mon, 18 Mar 2024 13:10:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=emy9=KY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmCg3-0003sx-7S
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 13:05:19 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b11915b-e528-11ee-afdd-a90da7624cb6;
- Mon, 18 Mar 2024 14:05:18 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-566e869f631so4836333a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 06:05:18 -0700 (PDT)
+ id 1rmCl7-0005jP-C1
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 13:10:33 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e5a4c373-e528-11ee-a1ee-f123f15fe8a2;
+ Mon, 18 Mar 2024 14:10:31 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a46cf8f649dso51086766b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 06:10:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- lc17-20020a170906dff100b00a46bdffd002sm1164722ejc.158.2024.03.18.06.05.16
+ v15-20020a1709061dcf00b00a46cf83216csm298369ejh.120.2024.03.18.06.10.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 06:05:17 -0700 (PDT)
+ Mon, 18 Mar 2024 06:10:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b11915b-e528-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: e5a4c373-e528-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710767117; x=1711371917; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2MKvWL+Y6y7QZUtCQnQugGOSxbO7LN9Yha4cAfbYvIo=;
-        b=c9sAT5/N6T/gv8ZJGNG8GchIyc9lvDMw4mbjwWZ5cvusU6BzuPTFhg0iInNIv2kUoY
-         ee+P3V0/Q9uwT9Fusjqc9jEH7/mwdxpGQOM65KnO0WJyV1ePEtwTsFpvQOYDaDg+QAjg
-         FfUUibJqnDjX1h51u9hC+ACXyvTeTWY2y/sxVYtqZHuu7P1LKONK7qCNeQh2iHznJ4DJ
-         U+UiG5PuBq02lsqUR369mBTc5zTC6v15wiW05/Z0CcV3AWXCFwUEckZ1TIufn77dhzJC
-         2knYr54pTiX8FO5GJhOISb9d6GHwXI2bXLRdKafRRSqFUHvWqesESmKrd9HmB8aBtZoP
-         TiGA==
+        d=suse.com; s=google; t=1710767430; x=1711372230; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=gjILFo13bCOElL9oZ/z9R73yH+FFeKVq0zNPOrbcw9o=;
+        b=KHqbBpIhjecTku/dap1Dcw77Zkz8YxvTOU7suebh8JXB2jTNYpu2C4zHI/Io9pAALB
+         u1TpYRtatG6+E1aYgJYLMaZ/xunk6YgrfN+nq0vc8nAPTRxavMNsA9PzgS9MikpNaOM7
+         slnodGjn9T+63VBrW6QoN1sIZ0UD/Fdj2GWiQVGkVQ7AOSECOdzP0SU2C+agHw1h7hr6
+         cM7piigHDL8BrjrdPzcZyzPs6MLoabb7BchXvv5RL/k+/I7QvWA60CFQVWCNbvHZkNbs
+         HwQoqGtqfD4kt6SeGSEuF1GNheqO7EW7FIMizZY9b3G5ixWj3jcBZ3dihk2usw0SwKzY
+         XXaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710767117; x=1711371917;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2MKvWL+Y6y7QZUtCQnQugGOSxbO7LN9Yha4cAfbYvIo=;
-        b=vanqaWktOr0sdX3RCwQuBgRPDJC0M3axl0QavanMo8G+dimkor92UcT0n5uKUgEuWB
-         GkkwN0TRCXtGICFv9pOvF1sMqyMDiSUDETpOyvOfxOh/YtSz9EjmwifJU6VVKLjDErtj
-         RT6VslI1PrH9UsjZsUu8z/Tcv6Hsk+Lnf6l6TTNI+nMQT26AgcV2FgdbKVKoEnYb6bG/
-         d50ePY74WwNunDfPhnc5FIE/cA7yyRRDJhDHxsdAPLnwupDXMxxnJiwermH9tyKq6Bhe
-         X907Uhp9KBaF3u/MkAHY2mXlQ58/4fOirhBz9ahJUttILIJ1DKPCJuFLPvU+ihJYI9Hu
-         asSw==
-X-Forwarded-Encrypted: i=1; AJvYcCXlmQgxEqs6ehM9ZFdR34obdDaWtUQPZUPDk6W8wN6AdL6L8E5gCxdFHZgDjylslX/2fBtVZolXzl42q5506RNg7QvB/96bu6rza4iYjUY=
-X-Gm-Message-State: AOJu0YznfnZdDe5bg1dwAVmhl7ISMBI4VVrFfRTkozj1tq5hi9VIKnt3
-	PoDboySCnDeK4aD0O714ZHuXSwoYE+uwWOu5bSn4zOXi3XakD4cBpSBxVy9QBQ==
-X-Google-Smtp-Source: AGHT+IEHd5icWl5jCQXO/j2Rpb7yqnUkHfILRbpmPVLQ3/EpDOfBiRP3wBkTv68mkMoV/lFNlqF5hQ==
-X-Received: by 2002:a17:907:a0cc:b0:a45:ed7f:265c with SMTP id hw12-20020a170907a0cc00b00a45ed7f265cmr10058792ejc.0.1710767117478;
-        Mon, 18 Mar 2024 06:05:17 -0700 (PDT)
-Message-ID: <74477362-3022-45c9-bebb-c194a92aa10e@suse.com>
-Date: Mon, 18 Mar 2024 14:05:16 +0100
+        d=1e100.net; s=20230601; t=1710767430; x=1711372230;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=gjILFo13bCOElL9oZ/z9R73yH+FFeKVq0zNPOrbcw9o=;
+        b=o0A41TeULIYmKXLSIgwEwk4sC9rKZlWDLX0fUfW+stDm4myyOhJoZaNcFcet+oomGl
+         i5PF0NsjTC+JrgD+/Prgf3Ac4DCuVL49WqGfbtT9mVSijTMm4sNlKmetMgMHw9kNFStv
+         cGBzmCMSwWABtar+DgEZwSjuuIr7UJ9oGdqcxVd3GHHrCufIp9bd9QPa6FMwYP0PBkdp
+         4+Vz082NiO9wl3hGN9UB6qqg/btUVOznWc0U249CndBgO8QBddqvvjCyUkrQ4uENhctr
+         4CqIKmHnIKdIKDMUkwhwEHQyhAWwtw4CeUjWQYGBvZ902oGeMnAPbiZivSBZ0guT8Oxe
+         LcuA==
+X-Forwarded-Encrypted: i=1; AJvYcCURFWRw0gJZjiul030LSWcXlWBmG+zbjY7820GjJy07i7jdXCg4DRPOUuPv0K6HiqX77wD1Y+PdSamvNelGBGXcvwcWGm6qBzpcvdyIplc=
+X-Gm-Message-State: AOJu0YxkFx4V/FY7dO5iHPiXEWlM44ZTW0oLYgqXZnnyomiZ8IUoqdiy
+	SlXFRnNJW/vKesRdPsRgU+ZmIh4xoMkj8Xie1N2U7bWmnNtZUOUXOeadEe6x8g==
+X-Google-Smtp-Source: AGHT+IGaqVUMv2Zp+HJqWL/U8nJA4cHByVyaBtIaSgjd5fORAizKl5XvTHFASFh0zU8gvSnBrEZUzw==
+X-Received: by 2002:a17:906:6607:b0:a46:5da0:7c09 with SMTP id b7-20020a170906660700b00a465da07c09mr8073580ejp.28.1710767430559;
+        Mon, 18 Mar 2024 06:10:30 -0700 (PDT)
+Message-ID: <c4866ad1-4c35-4f7b-93c1-ece463f8a8ad@suse.com>
+Date: Mon, 18 Mar 2024 14:10:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3] amd/iommu: clean up unused guest iommu related
- functions
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <98fef1239e4f0e756daf863a9e4e7bb679baa264.1710518105.git.nicola.vetrini@bugseng.com>
+Subject: Re: [PATCH 1/4] xen/link: Introduce a common BUGFRAMES definition
 Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240318110442.3653997-1-andrew.cooper3@citrix.com>
+ <20240318110442.3653997-2-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,54 +119,21 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <98fef1239e4f0e756daf863a9e4e7bb679baa264.1710518105.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <20240318110442.3653997-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.03.2024 16:55, Nicola Vetrini wrote:
-> Delete unused functions from 'iommu_guest.c'.
+On 18.03.2024 12:04, Andrew Cooper wrote:
+> Bugframe linkage is identical in all architectures.  This is not surprising
+> given that it is (now) only consumed by common/virtual_region.c
+> 
+> Introduce a common BUGFRAMES define in xen.lds.h ahead of rearranging their
+> structure.
 > 
 > No functional change.
 > 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
-> guest_iommu_add_ptr_log has still one caller, but even that seems
-> suspicious.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-As said, it should be dropped. You remove ...
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> -/* Domain specific initialization */
-> -int guest_iommu_init(struct domain* d)
-> -{
-> -    struct guest_iommu *iommu;
-> -    struct domain_iommu *hd = dom_iommu(d);
-> -
-> -    if ( !is_hvm_domain(d) || !is_iommu_enabled(d) || !iommuv2_enabled ||
-> -         !has_viommu(d) )
-> -        return 0;
-> -
-> -    iommu = xzalloc(struct guest_iommu);
-> -    if ( !iommu )
-> -    {
-> -        AMD_IOMMU_DEBUG("Error allocating guest iommu structure.\n");
-> -        return 1;
-> -    }
-> -
-> -    guest_iommu_reg_init(iommu);
-> -    iommu->mmio_base = ~0ULL;
-> -    iommu->domain = d;
-> -    hd->arch.amd.g_iommu = iommu;
-
-... the only place setting  to non-NULL. With that the 2nd if() in
-guest_iommu_add_ppr_log() is guaranteed to cause an early return, at which
-point the function is meaningless to call.
-
-But yeah, we can of course clean that up in a 2nd step. It's not like in
-order to make a new attempt we would be very likely to simply revert the
-changes to drop all of this code (in which case it being a single commit
-would make things easier). It very likely wants re-writing from scratch.
-Hence on top of Stefano's R-b:
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
 
