@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34F3787E57B
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 10:14:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694555.1083383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A143387E681
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 10:55:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694564.1083393 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rm93u-0006QX-1H; Mon, 18 Mar 2024 09:13:42 +0000
+	id 1rm9hi-000442-W6; Mon, 18 Mar 2024 09:54:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694555.1083383; Mon, 18 Mar 2024 09:13:42 +0000
+Received: by outflank-mailman (output) from mailman id 694564.1083393; Mon, 18 Mar 2024 09:54:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rm93t-0006Np-Tz; Mon, 18 Mar 2024 09:13:41 +0000
-Received: by outflank-mailman (input) for mailman id 694555;
- Mon, 18 Mar 2024 09:13:40 +0000
+	id 1rm9hi-00042C-TU; Mon, 18 Mar 2024 09:54:50 +0000
+Received: by outflank-mailman (input) for mailman id 694564;
+ Mon, 18 Mar 2024 09:54:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=emy9=KY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rm93s-0006Nj-JV
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 09:13:40 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8te1=KY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rm9hg-000426-Ox
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 09:54:48 +0000
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
+ [2607:f8b0:4864:20::736])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ce6771ce-e507-11ee-afdd-a90da7624cb6;
- Mon, 18 Mar 2024 10:13:38 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-56a2b881911so735688a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 02:13:38 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ko6-20020a170906aa0600b00a46a9c38a64sm2301711ejb.65.2024.03.18.02.13.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 02:13:37 -0700 (PDT)
+ id 8dca18fa-e50d-11ee-afdd-a90da7624cb6;
+ Mon, 18 Mar 2024 10:54:47 +0100 (CET)
+Received: by mail-qk1-x736.google.com with SMTP id
+ af79cd13be357-789e83637e0so154835485a.2
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 02:54:47 -0700 (PDT)
+Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
+ pi20-20020a05620a379400b00788406f9c7dsm4410200qkn.101.2024.03.18.02.54.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 Mar 2024 02:54:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,161 +44,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce6771ce-e507-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 8dca18fa-e50d-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710753218; x=1711358018; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=FzxNvNLNHvnL98ErJsYdzvurFiNavMb6GDLPsMwaO4k=;
-        b=OOYUhqEdF/hYOD/PwsKN0ZPP+DK1B1UMangK3/A36KSvlj/KpA7Hb2ti36og8GL1D/
-         onFvjdqqN5sz2yCpRo/ssDnfS0F40xvikrejCFA6xY+Z3a+XB78Rgon3MEri0w0ToSvK
-         e8cAVoqJ4QB8nZbp4OaRcqkQ+xlCLVla7lS4zhK3e8GzcIP26kEgdrobFHJmA7qGDdDL
-         qO/NmBqwhL7FbbyQfkY3LY4aM8zUbB2LMuADvk0z4HFiDog/4bO5xGd8wC957Ym48+RR
-         B95vjMIjZkYao7keTYw4ZiOlGuVJFcK9g7vBtrdcU7i79v1pEEXNrIyAtPeG8rLI0gd/
-         q9pg==
+        d=citrix.com; s=google; t=1710755686; x=1711360486; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Vb7sv4C/b8dEhPARry4PDXgALgtTgI/ctLV7gaE2U48=;
+        b=IQg6fwrNzbQdUosOUlxDf7G0SGwY9XWxi8ZkJbabuGmaL2BoHEip5cfkrIsCUGNv3M
+         kJqiU/B27wpJLuudqHCBTOLPPVzWNF3pIIkHmcmm9D1EXwlhWoHHr3oCndXINK2kqUV1
+         HG/PGe4xEn3CuLwpTpLAM6mDWJxs9631qDF+E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710753218; x=1711358018;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1710755686; x=1711360486;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FzxNvNLNHvnL98ErJsYdzvurFiNavMb6GDLPsMwaO4k=;
-        b=aJ5Vd57V7RXId/zuokPZXztd1qnh8SgazdznPPt/10ttvyUnU9OoBeUaNQA+a3Lzlq
-         PXcgMIJ/N2GzFNvN7Jfg7xplEh3s6jJwqafmjXc04EheG8lDT6xd//xZCZdL/oWFxzTF
-         HITqaGkqxzrkoyp/XmPQ6SFrsRHRgwvSzkjaWh5ffCOIRA2Pu0GRYAu2HTRXUt6Mfdce
-         0tnm9ux2lN5z0rCfo7sjrBX0wxS6LScexw8j+eGOMIro2L1Tw2/mht5qBuAx8ST4LYmn
-         UCJvrfDA/bPeBYmI3GBqRm0n36XoG1DvP8/sjDwcMzWzNGmH5pRfh/2mAP3nnQVOzMux
-         t+oQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVJV5TfFTiICTJ7PJD4nFLlv64vulcnqni5RHYWOYuYMcED9DXG2cCKdKcwXX4meMqOjszMMoSC1QBCcQO+22vBQsUNYtU59U5/f4Grspc=
-X-Gm-Message-State: AOJu0Ywumiu6TqI1JvfrVacOpidTHWsOj5bRARbDt0Xxf+bWwUVFBWYV
-	b1PUnGZ37FF1bxuJstYU8RJ1YJkbmXhFy5u+4cSlcbwNbSkJrf/0KsGcbYPrqg==
-X-Google-Smtp-Source: AGHT+IEZYzPAWMXU4xehCEXy5woTKeEXJhZaerU86HdYBn8dglzctLbR7090UcIdiWu/FGihzaC5kQ==
-X-Received: by 2002:a17:906:8406:b0:a46:7384:3233 with SMTP id n6-20020a170906840600b00a4673843233mr6610762ejx.57.1710753218100;
-        Mon, 18 Mar 2024 02:13:38 -0700 (PDT)
-Message-ID: <f088d9ac-fded-495e-9cc2-8514f7eb3e31@suse.com>
-Date: Mon, 18 Mar 2024 10:13:37 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] xen: Swap find_first_set_bit() for ffsl() - 1
-Content-Language: en-US
+        bh=Vb7sv4C/b8dEhPARry4PDXgALgtTgI/ctLV7gaE2U48=;
+        b=AxuToZn5wV6wcvB8hwZ4dzh4498JFJqB6C1x+fcqJI4Lh/Y+VktCcGOCGOJdiCeLal
+         WGrJPDWGm6ixGxKUzePbHFo/brckcRKeoxlMpOJAqd7O07L3nshwUwaZ5Z5fHF0MtsUk
+         6Pm8roGh5+H3e35gpnbDO8kD/gapJoYhbqImZ7nyJD4esXuv9UocbZO7WJ9LY1vx43oD
+         EVuICRoN091XPw0P1vcAMZ6la45VhezR4fM+gqbBA3p1dR8bMm1nP0IxGEZhRgdvpeE+
+         C2WfJwj2ehi2NfUpKyFzyBG5d325LDKaQkdCzb0TfuQTU1vF9sqcLd2CJ/5L8JGLzJ5t
+         7wZQ==
+X-Gm-Message-State: AOJu0YwTvn4s2i2IkoLiV4Es6CYx5iIoTbOAEUqN1g0excdg9jiyJKRI
+	0l2kUdajCoL65YrLG2RfrY2i31OtqzDrYrN2jrlipDVzcU3NvMsXgLIFFk6wMZM6m2ySiRePPYS
+	W
+X-Google-Smtp-Source: AGHT+IEMBr15bIUQFDJFkYcY7gMhbzh5b6DT8qTSxGgHIif9R82yvmomHsd0XxGcqKqmfRHwkfQaxg==
+X-Received: by 2002:a05:620a:c0d:b0:789:e71b:f2e4 with SMTP id l13-20020a05620a0c0d00b00789e71bf2e4mr7957629qki.63.1710755686464;
+        Mon, 18 Mar 2024 02:54:46 -0700 (PDT)
+Date: Mon, 18 Mar 2024 10:54:44 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Federico Serafini <federico.serafini@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240313172716.2325427-1-andrew.cooper3@citrix.com>
- <20240313172716.2325427-7-andrew.cooper3@citrix.com>
- <ba0552cc-10eb-460d-89a1-ffc43fe75542@suse.com>
- <1356dd16-03e1-4c01-9aac-597a127dea85@citrix.com>
- <cc3c0484-a896-4100-8400-50036d1e8c71@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cc3c0484-a896-4100-8400-50036d1e8c71@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] x86/boot: Improve the boot watchdog determination of
+ stuck cpus
+Message-ID: <ZfgPZEAhNUtpwiqv@macbook>
+References: <20240315195704.3423282-1-andrew.cooper3@citrix.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20240315195704.3423282-1-andrew.cooper3@citrix.com>
 
-On 14.03.2024 19:51, Andrew Cooper wrote:
-> On 14/03/2024 6:47 pm, Andrew Cooper wrote:
->> On 14/03/2024 2:30 pm, Jan Beulich wrote:
->>> On 13.03.2024 18:27, Andrew Cooper wrote:
->>>> --- a/xen/drivers/passthrough/x86/iommu.c
->>>> +++ b/xen/drivers/passthrough/x86/iommu.c
->>>> @@ -641,7 +641,7 @@ struct page_info *iommu_alloc_pgtable(struct domain_iommu *hd,
->>>>      if ( contig_mask )
->>>>      {
->>>>          /* See pt-contig-markers.h for a description of the marker scheme. */
->>>> -        unsigned int i, shift = find_first_set_bit(contig_mask);
->>>> +        unsigned int i, shift = ffsl(contig_mask) - 1;
->>> The need for subtracting 1 is why personally I dislike ffs() / ffsl() (and
->>> why I think find_first_set_bit() and __ffs() (but no __ffsl()) were
->>> introduced).
->> It's sad that there are competing APIs with different bit-labelling, but
->> the optimiser does cancel the -1 with arch_ffs() (for at least x86 and
->> ARM that I studied in detail).
->>
->> I firmly believe that fewer APIs which are fully well defined (and can
->> optimise based on the compiler's idea of safety) is still better than a
->> maze of APIs with different behaviours.
+On Fri, Mar 15, 2024 at 07:57:04PM +0000, Andrew Cooper wrote:
+> Right now, check_nmi_watchdog() has two processing loops over all online =
+CPUs
+> using prev_nmi_count as storage.
+>=20
+> Use a cpumask_t instead (1/32th as much initdata) and have wait_for_nmis()
+> make the determination of whether it is stuck, rather than having both
+> functions needing to agree on how many ticks mean stuck.
+>=20
+> More importantly though, it means we can use the standard cpumask
+> infrastructure, including turning this:
+>=20
+>   (XEN) Brought up 512 CPUs
+>   (XEN) Testing NMI watchdog on all CPUs: {0,1,2,3,4,5,6,7,8,9,10,11,12,1=
+3,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,3=
+8,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,6=
+3,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,8=
+8,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,=
+110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128=
+,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,14=
+7,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,1=
+66,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,=
+185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203=
+,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,22=
+2,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,2=
+41,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,=
+260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278=
+,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,29=
+7,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,3=
+16,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,=
+335,336,337,338,339,340,341,342,343,344,345,346,347,348,349,350,351,352,353=
+,354,355,356,357,358,359,360,361,362,363,364,365,366,367,368,369,370,371,37=
+2,373,374,375,376,377,378,379,380,381,382,383,384,385,386,387,388,389,390,3=
+91,392,393,394,395,396,397,398,399,400,401,402,403,404,405,406,407,408,409,=
+410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428=
+,429,430,431,432,433,434,435,436,437,438,439,440,441,442,443,444,445,446,44=
+7,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,4=
+66,467,468,469,470,471,472,473,474,475,476,477,478,479,480,481,482,483,484,=
+485,486,487,488,489,490,491,492,493,494,495,496,497,498,499,500,501,502,503=
+,504,505,506,507,508,509,510,511} stuck
+>=20
+> into the rather more manageable:
+>=20
+>   (XEN) Brought up 512 CPUs
+>   (XEN) Testing NMI watchdog on all CPUs: {0-511} stuck
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I agree here. The anomaly (as I would call it) with ffs(), though, is what
-makes me wonder whether we might not be better off introducing ctz() and
-clz() instead. Unlike ffs() their name says exactly what is meant. This is
-then also a clear hint, for Arm and RISC-V at least, what underlying
-instruction is used. Plus there are matching builtins (unlike for e.g.
-fls()).
+One thing has to be said about the previous message: it was hard to
+not see it when all CPUs on the system failed the watchdog test.
 
->>> But what I first of all would like to have clarification on is what your
->>> (perhaps just abstract at this point) plans are wrt ffz() / ffzl().
->>> Potential side-by-side uses would be odd now, and would continue to be odd
->>> if the difference in bit labeling was retained. Since we're switching to
->>> a consolidated set of basic helpers, such an anomaly would better not
->>> survive imo.
->> I honestly hadn't got that far yet.  I was mainly trying to dis-entangle
->> the existing mess so RISC-V wasn't making it yet-worse.
->>
->> But yes - it warrants thinking about.
->>
->>
->> I was intending to do the fls() next then popcnt().   The latter has
->> quite a lot of cleanup wanting to come with it, and is more
->> architecturally invasive, and I know I've got a years-old outstanding
->> piece of work to try and do popcnt more nicely on x86.
->>
->> I have wanted ffz() in the past.  I think I just went with explicit ~
->> because I didn't want to continue this debate at the time.
->>
->> However, I (very much more) do not want a situation where ffs() and
->> ffz() have different bit-labellings.
->>
->>
->> There are no builtins, and having now studied the architectures we care
->> about... https://godbolt.org/z/KasP41n1e ...not even x86 has a "count
->> leading/trailing zeros" instruction.
-> 
-> Hopefully obviously, I meant ones here.   My point is that the compiler
-> emitted code always has a NOT in it somewhere.
+Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-Right; I was about to ask but then remembered there was another mail from
-you on this thread.
-
->> So using ffs(~val) really will get you the best code generation
->> available, and seeing as it halves the number of bitops to maintain, I
->> think this is the best tradeoff overall.
->>
->> I intend to put ffz() and __ffs() into linux-compat.h and leave them
->> there to discourage their use generally.
-
-I'm okay with this plan. As per above I'd prefer if ffs() moved there, too.
-
-Jan
+Thanks.
 
