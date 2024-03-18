@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CF6C87EDA4
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 17:36:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694891.1084112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4005B87EDA6
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 17:36:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694892.1084127 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmFxw-0005Rt-FY; Mon, 18 Mar 2024 16:36:00 +0000
+	id 1rmFxx-0005nn-OL; Mon, 18 Mar 2024 16:36:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694891.1084112; Mon, 18 Mar 2024 16:36:00 +0000
+Received: by outflank-mailman (output) from mailman id 694892.1084127; Mon, 18 Mar 2024 16:36:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmFxw-0005L7-CD; Mon, 18 Mar 2024 16:36:00 +0000
-Received: by outflank-mailman (input) for mailman id 694891;
- Mon, 18 Mar 2024 16:35:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rmFxx-0005mL-JE; Mon, 18 Mar 2024 16:36:01 +0000
+Received: by outflank-mailman (input) for mailman id 694892;
+ Mon, 18 Mar 2024 16:36:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=we9v=KY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rmFxu-0005JO-W2
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 16:35:58 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 98c415ae-e545-11ee-afdd-a90da7624cb6;
- Mon, 18 Mar 2024 17:35:57 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a468004667aso469316066b.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 09:35:57 -0700 (PDT)
+ id 1rmFxw-0005JN-97
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 16:36:00 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 996fdeaf-e545-11ee-a1ee-f123f15fe8a2;
+ Mon, 18 Mar 2024 17:35:58 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-568aa3096e9so5493096a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 09:35:58 -0700 (PDT)
 Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- j22-20020a170906051600b00a441a7a75b5sm4988894eja.209.2024.03.18.09.35.55
+ j22-20020a170906051600b00a441a7a75b5sm4988894eja.209.2024.03.18.09.35.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Mon, 18 Mar 2024 09:35:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -45,149 +45,525 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98c415ae-e545-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 996fdeaf-e545-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710779756; x=1711384556; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1710779758; x=1711384558; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Cpzmmaoi0pJueucz7Za6oBj+S2IXaqOnagU2yAyCJ44=;
-        b=JP9orS50tij7AR5qSry6psj3uSxN+dqggrNruuOGAo5lKFRepM6iDtccLLDS4d9j00
-         VnwGA6p4Td7d7Wv54zs+62zDQWslgbV73ZJ9fLnovz8D5dq7o+cvrrQAC28b+kWRgbOJ
-         bXoHqmAIInr8qAHHC18zjjlx7sw8l978xW9Q0=
+        bh=x3WegiCwiNXkkjs6VfwYfT79v4emqYj9IeVAQcTvOi4=;
+        b=cpOoF0uaI4Pa8rubhx2A76gvCLgQDPevnFFRYNeTNO0wU+etRQUt5RuMJDO9s/350u
+         ly/Hw4+GnD+RNILgwFwK+5rSLtYYxFnFHOeA+lkEm+Vo6BaCyy7poaaiE0D8UFx/Vw1R
+         85VlsI2y5EcTKRJxCXQjvp/1xwHh5S/d0fHoU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710779756; x=1711384556;
+        d=1e100.net; s=20230601; t=1710779758; x=1711384558;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Cpzmmaoi0pJueucz7Za6oBj+S2IXaqOnagU2yAyCJ44=;
-        b=if/w0DYXDIzTg/uEBxgo1+1IBfN40KJ8/Z/LPFHMMMkynANIpJiO7XAVlBn9i4zQRo
-         PMtKLrddf0vcjaE4JXNPczYDpdo/Y2ZoADBv+hL5hCEtduryqgpICM/U+0YVWOa0xJKN
-         wp8uakLmSi2metjuiOQ2rNrdSuswiPQcufLVC+4Dii7VwD4/lmvVEx975QdEbXL+nDi2
-         LmSCb70opR1dLL23R8E+2/uxIMaVFjX0+P2IFA5oqZyoMs/lEBJqlkPYCFA1dfyA5AhU
-         0FlXY5h/LLRHutSHGzeab8/WO4a8k0uV7lyuNgQ3FDPXJrG3lP/zTdBoWtS3BdqLW+gs
-         YIPw==
-X-Gm-Message-State: AOJu0YytK9Pjhfss0KWzSNRlBdbA9nLO7tCn8HH/V89oz8zDfmv+m9e1
-	slZzXZIPM1zZBsMB37rC/PAOGoNl2jfr+IoSvp4fU8MOqt0IUU6+ZenX2EiRHR6tv7X2OyblJW9
-	k
-X-Google-Smtp-Source: AGHT+IFlFP6MCdOoAYd9kZM9daEwNdNvAgjw0dy0gDaSkJUU2uztyqS390yRXY9RR7dsxHNJEWQejw==
-X-Received: by 2002:a17:906:81d0:b0:a46:d304:fce2 with SMTP id e16-20020a17090681d000b00a46d304fce2mr617114ejx.35.1710779756410;
-        Mon, 18 Mar 2024 09:35:56 -0700 (PDT)
+        bh=x3WegiCwiNXkkjs6VfwYfT79v4emqYj9IeVAQcTvOi4=;
+        b=BNgw4RTY+UZY0P6NYbdPCRUwrs46mNNFHWcsMF1MdG9DwqX+ISUyWNRPBRPd0euAXd
+         GEEEAM/V5FKO6AX4rgp+3x4HqHJbDcqhzHCy/tkjIi5pjzQDeaWNL55NgPBF2x6x2gBL
+         gi7W7KktYfhhtxdfIVKmp2YvubWFrpKalXVPv4tsPoYT5r9A+f54FmnU6HSesaNZzNgq
+         lna7sjTl4Qn/gRmkpvCMU8cqg1gJa+1vOFcl5bX/W1qBCSUOF5xmgPc1Mex3TxpKMKlP
+         /z2InVtITQJjMDUnIGacz3lRMfrt+yn0DjzEQ9ZLMjB+igmlLZgmKVWXmJrW7oV8z6wO
+         /tsQ==
+X-Gm-Message-State: AOJu0Yw+EVEIbMVp3xSOvb9zH4hED+4btHHGFFnOvV3JMzUVj9O/MfU9
+	HiBcSOHxY9UecOMtiKbZpF+RNSN0vheDnV/nhhJ8Km0Xl/MynQLP8uHK0AKwPLMV+6umAMClWUg
+	J
+X-Google-Smtp-Source: AGHT+IFwQFT4d2T2VeU4ObTqUFuCgzNbdi9xZPxcaU1yxWCMOe8aG00Scb7/bBqScL2xuuXgVRZpVw==
+X-Received: by 2002:a17:906:80c4:b0:a46:a8b8:f4cf with SMTP id a4-20020a17090680c400b00a46a8b8f4cfmr79151ejx.35.1710779757835;
+        Mon, 18 Mar 2024 09:35:57 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
 	George Dunlap <George.Dunlap@eu.citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>,
 	"consulting @ bugseng . com" <consulting@bugseng.com>
-Subject: [PATCH 1/7] xen/trace: Introduce new API
-Date: Mon, 18 Mar 2024 16:35:46 +0000
-Message-Id: <20240318163552.3808695-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/7] xen/credit2: Clean up trace handling
+Date: Mon, 18 Mar 2024 16:35:47 +0000
+Message-Id: <20240318163552.3808695-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20240318163552.3808695-1-andrew.cooper3@citrix.com>
 References: <20240318163552.3808695-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-trace() and trace_time(), in function form for struct arguments, and macro
-form for simple uint32_t list arguments.
+There is no need for bitfields anywhere - use more sensible types.  There is
+also no need to cast 'd' to (unsigned char *) before passing it to a function
+taking void *.  Switch to new trace_time() API.
 
-This will be used to clean up the mess of macros which exists throughout the
-codebase, as well as eventually dropping __trace_var().
-
-There is intentionally no macro to split a 64-bit parameter in the new API,
-for MISRA reasons.
+No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
 ---
 CC: George Dunlap <George.Dunlap@eu.citrix.com>
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Julien Grall <julien@xen.org>
+CC: Dario Faggioli <dfaggioli@suse.com>
 CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
 CC: consulting@bugseng.com <consulting@bugseng.com>
 
+v2:
+ * Fix whitespace.
 v3:
- * Extend with trace() and trace_time()
- * Delete TRACE_PARAM64() for MISRA reasons.
+ * Rebase over core API changes.
 ---
- xen/common/trace.c      |  5 +++++
- xen/include/xen/trace.h | 30 ++++++++++++++++++++++++++++++
- 2 files changed, 35 insertions(+)
+ xen/common/sched/credit2.c | 301 ++++++++++++++++++-------------------
+ 1 file changed, 146 insertions(+), 155 deletions(-)
 
-diff --git a/xen/common/trace.c b/xen/common/trace.c
-index 4e7b080e6154..c94ce1f7dc90 100644
---- a/xen/common/trace.c
-+++ b/xen/common/trace.c
-@@ -808,6 +808,11 @@ void __trace_var(u32 event, bool cycles, unsigned int extra,
-         tasklet_schedule(&trace_notify_dom0_tasklet);
+diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
+index c76330d79d3a..b7df9f2a9111 100644
+--- a/xen/common/sched/credit2.c
++++ b/xen/common/sched/credit2.c
+@@ -1085,13 +1085,13 @@ static void update_max_weight(struct csched2_runqueue_data *rqd, int new_weight,
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned rqi:16, max_weight:16;
+-        } d;
+-        d.rqi = rqd->id;
+-        d.max_weight = rqd->max_weight;
+-        __trace_var(TRC_CSCHED2_RUNQ_MAX_WEIGHT, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t rqi, max_weight;
++        } d = {
++            .rqi        = rqd->id,
++            .max_weight = rqd->max_weight,
++        };
++
++        trace_time(TRC_CSCHED2_RUNQ_MAX_WEIGHT, sizeof(d), &d);
+     }
  }
  
-+void trace(uint32_t event, unsigned int extra, const void *extra_data)
-+{
-+    __trace_var(event, event & TRC_HD_CYCLE_FLAG, extra, extra_data);
-+}
+@@ -1119,9 +1119,7 @@ _runq_assign(struct csched2_unit *svc, struct csched2_runqueue_data *rqd)
+             .rqi  = rqd->id,
+         };
+ 
+-        __trace_var(TRC_CSCHED2_RUNQ_ASSIGN, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++        trace_time(TRC_CSCHED2_RUNQ_ASSIGN, sizeof(d), &d);
+     }
+ 
+ }
+@@ -1354,9 +1352,7 @@ update_runq_load(const struct scheduler *ops,
+             .shift      = P,
+         };
+ 
+-        __trace_var(TRC_CSCHED2_UPDATE_RUNQ_LOAD, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++        trace_time(TRC_CSCHED2_UPDATE_RUNQ_LOAD, sizeof(d), &d);
+     }
+ }
+ 
+@@ -1406,16 +1402,16 @@ update_svc_load(const struct scheduler *ops,
+     {
+         struct {
+             uint64_t v_avgload;
+-            unsigned unit:16, dom:16;
+-            unsigned shift;
+-        } d;
+-        d.dom = svc->unit->domain->domain_id;
+-        d.unit = svc->unit->unit_id;
+-        d.v_avgload = svc->avgload;
+-        d.shift = P;
+-        __trace_var(TRC_CSCHED2_UPDATE_UNIT_LOAD, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint32_t shift;
++        } d = {
++            .v_avgload = svc->avgload,
++            .unit      = svc->unit->unit_id,
++            .dom       = svc->unit->domain->domain_id,
++            .shift     = P,
++        };
 +
- void __trace_hypercall(uint32_t event, unsigned long op,
-                        const xen_ulong_t *args)
++        trace_time(TRC_CSCHED2_UPDATE_UNIT_LOAD, sizeof(d), &d);
+     }
+ }
+ 
+@@ -1424,7 +1420,7 @@ update_load(const struct scheduler *ops,
+             struct csched2_runqueue_data *rqd,
+             struct csched2_unit *svc, int change, s_time_t now)
  {
-diff --git a/xen/include/xen/trace.h b/xen/include/xen/trace.h
-index 055883287e8c..f184844e1b55 100644
---- a/xen/include/xen/trace.h
-+++ b/xen/include/xen/trace.h
-@@ -37,6 +37,9 @@ int tb_control(struct xen_sysctl_tbuf_op *tbc);
+-    trace_var(TRC_CSCHED2_UPDATE_LOAD, 1, 0,  NULL);
++    TRACE_TIME(TRC_CSCHED2_UPDATE_LOAD);
  
- int trace_will_trace_event(u32 event);
- 
-+/* Create a trace record, with pre-constructed additional parameters. */
-+void trace(uint32_t event, unsigned int extra, const void *extra_data);
+     update_runq_load(ops, rqd, change, now);
+     if ( svc )
+@@ -1462,15 +1458,15 @@ static void runq_insert(struct csched2_unit *svc)
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned unit:16, dom:16;
+-            unsigned pos;
+-        } d;
+-        d.dom = svc->unit->domain->domain_id;
+-        d.unit = svc->unit->unit_id;
+-        d.pos = pos;
+-        __trace_var(TRC_CSCHED2_RUNQ_POS, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint32_t pos;
++        } d = {
++            .unit = svc->unit->unit_id,
++            .dom  = svc->unit->domain->domain_id,
++            .pos  = pos,
++        };
 +
- void __trace_var(uint32_t event, bool cycles, unsigned int extra, const void *);
- 
- static inline void trace_var(uint32_t event, bool cycles, unsigned int extra,
-@@ -66,6 +69,9 @@ static inline int trace_will_trace_event(uint32_t event)
-     return 0;
++        trace_time(TRC_CSCHED2_RUNQ_POS, sizeof(d), &d);
+     }
  }
  
-+static inline void trace(
-+    uint32_t event, unsigned int extra, const void *extra_data) {}
+@@ -1563,16 +1559,16 @@ static s_time_t tickle_score(const struct scheduler *ops, s_time_t now,
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned unit:16, dom:16;
+-            int credit, score;
+-        } d;
+-        d.dom = cur->unit->domain->domain_id;
+-        d.unit = cur->unit->unit_id;
+-        d.credit = cur->credit;
+-        d.score = score;
+-        __trace_var(TRC_CSCHED2_TICKLE_CHECK, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint32_t credit, score;
++        } d = {
++            .unit   = cur->unit->unit_id,
++            .dom    = cur->unit->domain->domain_id,
++            .credit = cur->credit,
++            .score  = score,
++        };
 +
- static inline void trace_var(uint32_t event, bool cycles, unsigned int extra,
-                              const void *extra_data) {}
- static inline void __trace_var(uint32_t event, bool cycles, unsigned int extra,
-@@ -74,6 +80,30 @@ static inline void __trace_hypercall(uint32_t event, unsigned long op,
-                                      const xen_ulong_t *args) {}
- #endif /* CONFIG_TRACEBUFFER */
++        trace_time(TRC_CSCHED2_TICKLE_CHECK, sizeof(d), &d);
+     }
  
-+/* Create a trace record with time included. */
-+static inline void trace_time(
-+    uint32_t event, unsigned int extra, const void *extra_data)
-+{
-+    trace(event | TRC_HD_CYCLE_FLAG, extra, extra_data);
-+}
+     return score;
+@@ -1610,17 +1606,16 @@ runq_tickle(const struct scheduler *ops, struct csched2_unit *new, s_time_t now)
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned unit:16, dom:16;
+-            unsigned processor;
+-            int credit;
+-        } d;
+-        d.dom = unit->domain->domain_id;
+-        d.unit = unit->unit_id;
+-        d.processor = cpu;
+-        d.credit = new->credit;
+-        __trace_var(TRC_CSCHED2_TICKLE_NEW, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint32_t processor, credit;
++        } d = {
++            .dom       = unit->domain->domain_id,
++            .unit      = unit->unit_id,
++            .processor = cpu,
++            .credit    = new->credit,
++        };
 +
-+/*
-+ * Create a trace record, packaging up to 7 additional parameters into a
-+ * uint32_t array.
-+ */
-+#define TRACE(_e, ...)                                          \
-+    do {                                                        \
-+        if ( unlikely(tb_init_done) )                           \
-+        {                                                       \
-+            uint32_t _d[] = { __VA_ARGS__ };                    \
-+            BUILD_BUG_ON(ARRAY_SIZE(_d) > TRACE_EXTRA_MAX);     \
-+            trace(_e, sizeof(_d), sizeof(_d) ? _d : NULL);      \
-+        }                                                       \
-+    } while ( 0 )
++        trace_time(TRC_CSCHED2_TICKLE_NEW, sizeof(d), &d);
+     }
+ 
+     /*
+@@ -1759,12 +1754,12 @@ runq_tickle(const struct scheduler *ops, struct csched2_unit *new, s_time_t now)
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned cpu:16, pad:16;
+-        } d;
+-        d.cpu = ipid; d.pad = 0;
+-        __trace_var(TRC_CSCHED2_TICKLE, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t cpu, _pad;
++        } d = {
++            .cpu = ipid,
++        };
 +
-+/* Create a trace record with time included. */
-+#define TRACE_TIME(_e, ...) TRACE((_e) | TRC_HD_CYCLE_FLAG, ##__VA_ARGS__)
++        trace_time(TRC_CSCHED2_TICKLE, sizeof(d), &d);
+     }
+ 
+     tickle_cpu(ipid, rqd);
+@@ -1840,16 +1835,16 @@ static void reset_credit(int cpu, s_time_t now, struct csched2_unit *snext)
+         if ( unlikely(tb_init_done) )
+         {
+             struct {
+-                unsigned unit:16, dom:16;
+-                int credit_start, credit_end;
+-            } d;
+-            d.dom = svc->unit->domain->domain_id;
+-            d.unit = svc->unit->unit_id;
+-            d.credit_start = start_credit;
+-            d.credit_end = svc->credit;
+-            __trace_var(TRC_CSCHED2_CREDIT_RESET, 1,
+-                        sizeof(d),
+-                        (unsigned char *)&d);
++                uint16_t unit, dom;
++                uint32_t credit_start, credit_end;
++            } d = {
++                .unit         = svc->unit->unit_id,
++                .dom          = svc->unit->domain->domain_id,
++                .credit_start = start_credit,
++                .credit_end   = svc->credit,
++            };
 +
- /* Convenience macros for calling the trace function. */
- #define TRACE_0D(_e)                            \
-     do {                                        \
++            trace_time(TRC_CSCHED2_CREDIT_RESET, sizeof(d), &d);
+         }
+     }
+ 
+@@ -1895,18 +1890,17 @@ void burn_credits(struct csched2_runqueue_data *rqd,
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned unit:16, dom:16;
+-            int credit, budget;
+-            int delta;
+-        } d;
+-        d.dom = svc->unit->domain->domain_id;
+-        d.unit = svc->unit->unit_id;
+-        d.credit = svc->credit;
+-        d.budget = has_cap(svc) ?  svc->budget : INT_MIN;
+-        d.delta = delta;
+-        __trace_var(TRC_CSCHED2_CREDIT_BURN, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint32_t credit, budget, delta;
++        } d = {
++            .unit   = svc->unit->unit_id,
++            .dom    = svc->unit->domain->domain_id,
++            .credit = svc->credit,
++            .budget = has_cap(svc) ? svc->budget : INT_MIN,
++            .delta  = delta,
++        };
++
++        trace_time(TRC_CSCHED2_CREDIT_BURN, sizeof(d), &d);
+     }
+ }
+ 
+@@ -2551,17 +2545,17 @@ csched2_res_pick(const struct scheduler *ops, const struct sched_unit *unit)
+     {
+         struct {
+             uint64_t b_avgload;
+-            unsigned unit:16, dom:16;
+-            unsigned rq_id:16, new_cpu:16;
+-        } d;
+-        d.dom = unit->domain->domain_id;
+-        d.unit = unit->unit_id;
+-        d.rq_id = min_rqd ? min_rqd->id : -1;
+-        d.b_avgload = min_avgload;
+-        d.new_cpu = new_cpu;
+-        __trace_var(TRC_CSCHED2_PICKED_CPU, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint16_t rq_id, new_cpu;
++        } d = {
++            .b_avgload = min_avgload,
++            .unit      = unit->unit_id,
++            .dom       = unit->domain->domain_id,
++            .rq_id     = min_rqd ? min_rqd->id : -1,
++            .new_cpu   = new_cpu,
++        };
++
++        trace_time(TRC_CSCHED2_PICKED_CPU, sizeof(d), &d);
+     }
+ 
+     return get_sched_res(new_cpu);
+@@ -2622,16 +2616,16 @@ static void migrate(const struct scheduler *ops,
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned unit:16, dom:16;
+-            unsigned rqi:16, trqi:16;
+-        } d;
+-        d.dom = unit->domain->domain_id;
+-        d.unit = unit->unit_id;
+-        d.rqi = svc->rqd->id;
+-        d.trqi = trqd->id;
+-        __trace_var(TRC_CSCHED2_MIGRATE, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint16_t rqi, trqi;
++        } d = {
++            .unit = unit->unit_id,
++            .dom  = unit->domain->domain_id,
++            .rqi  = svc->rqd->id,
++            .trqi = trqd->id,
++        };
++
++        trace_time(TRC_CSCHED2_MIGRATE, sizeof(d), &d);
+     }
+ 
+     if ( svc->flags & CSFLAG_scheduled )
+@@ -2768,15 +2762,15 @@ static void balance_load(const struct scheduler *ops, int cpu, s_time_t now)
+         if ( unlikely(tb_init_done) )
+         {
+             struct {
+-                unsigned lrq_id:16, orq_id:16;
+-                unsigned load_delta;
+-            } d;
+-            d.lrq_id = st.lrqd->id;
+-            d.orq_id = st.orqd->id;
+-            d.load_delta = st.load_delta;
+-            __trace_var(TRC_CSCHED2_LOAD_CHECK, 1,
+-                        sizeof(d),
+-                        (unsigned char *)&d);
++                uint16_t lrq_id, orq_id;
++                uint32_t load_delta;
++            } d = {
++                .lrq_id     = st.lrqd->id,
++                .orq_id     = st.orqd->id,
++                .load_delta = st.load_delta,
++            };
++
++            trace_time(TRC_CSCHED2_LOAD_CHECK, sizeof(d), &d);
+         }
+ 
+         /*
+@@ -2820,9 +2814,7 @@ static void balance_load(const struct scheduler *ops, int cpu, s_time_t now)
+             .orq_id     = st.orqd->id,
+         };
+ 
+-        __trace_var(TRC_CSCHED2_LOAD_BALANCE, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++        trace_time(TRC_CSCHED2_LOAD_BALANCE, sizeof(d), &d);
+     }
+ 
+     SCHED_STAT_CRANK(acct_load_balance);
+@@ -3407,15 +3399,15 @@ runq_candidate(struct csched2_runqueue_data *rqd,
+         if ( unlikely(tb_init_done) )
+         {
+             struct {
+-                unsigned unit:16, dom:16;
+-                unsigned runtime;
+-            } d;
+-            d.dom = scurr->unit->domain->domain_id;
+-            d.unit = scurr->unit->unit_id;
+-            d.runtime = now - scurr->unit->state_entry_time;
+-            __trace_var(TRC_CSCHED2_RATELIMIT, 1,
+-                        sizeof(d),
+-                        (unsigned char *)&d);
++                uint16_t unit, dom;
++                uint32_t runtime;
++            } d = {
++                .unit    = scurr->unit->unit_id,
++                .dom     = scurr->unit->domain->domain_id,
++                .runtime = now - scurr->unit->state_entry_time,
++            };
++
++            trace_time(TRC_CSCHED2_RATELIMIT, sizeof(d), &d);
+         }
+         return scurr;
+     }
+@@ -3468,13 +3460,13 @@ runq_candidate(struct csched2_runqueue_data *rqd,
+         if ( unlikely(tb_init_done) )
+         {
+             struct {
+-                unsigned unit:16, dom:16;
+-            } d;
+-            d.dom = svc->unit->domain->domain_id;
+-            d.unit = svc->unit->unit_id;
+-            __trace_var(TRC_CSCHED2_RUNQ_CAND_CHECK, 1,
+-                        sizeof(d),
+-                        (unsigned char *)&d);
++                uint16_t unit, dom;
++            } d = {
++                .unit = svc->unit->unit_id,
++                .dom  = svc->unit->domain->domain_id,
++            };
++
++            trace_time(TRC_CSCHED2_RUNQ_CAND_CHECK, sizeof(d), &d);
+         }
+ 
+         /*
+@@ -3542,17 +3534,16 @@ runq_candidate(struct csched2_runqueue_data *rqd,
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned unit:16, dom:16;
+-            unsigned tickled_cpu;
+-            int credit;
+-        } d;
+-        d.dom = snext->unit->domain->domain_id;
+-        d.unit = snext->unit->unit_id;
+-        d.credit = snext->credit;
+-        d.tickled_cpu = snext->tickled_cpu;
+-        __trace_var(TRC_CSCHED2_RUNQ_CANDIDATE, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint32_t tickled_cpu, credit;
++        } d = {
++            .unit        = snext->unit->unit_id,
++            .dom         = snext->unit->domain->domain_id,
++            .tickled_cpu = snext->tickled_cpu,
++            .credit      = snext->credit,
++        };
++
++        trace_time(TRC_CSCHED2_RUNQ_CANDIDATE, sizeof(d), &d);
+     }
+ 
+     if ( unlikely(snext->tickled_cpu != -1 && snext->tickled_cpu != cpu) )
+@@ -3608,18 +3599,18 @@ static void cf_check csched2_schedule(
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned cpu:16, rq_id:16;
+-            unsigned tasklet:8, idle:8, smt_idle:8, tickled:8;
+-        } d;
+-        d.cpu = cur_cpu;
+-        d.rq_id = c2r(sched_cpu);
+-        d.tasklet = tasklet_work_scheduled;
+-        d.idle = is_idle_unit(currunit);
+-        d.smt_idle = cpumask_test_cpu(sched_cpu, &rqd->smt_idle);
+-        d.tickled = tickled;
+-        __trace_var(TRC_CSCHED2_SCHEDULE, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t cpu, rq_id;
++            uint8_t tasklet, idle, smt_idle, tickled;
++        } d = {
++            .cpu      = cur_cpu,
++            .rq_id    = c2r(sched_cpu),
++            .tasklet  = tasklet_work_scheduled,
++            .idle     = is_idle_unit(currunit),
++            .smt_idle = cpumask_test_cpu(sched_cpu, &rqd->smt_idle),
++            .tickled  = tickled,
++        };
++
++        trace_time(TRC_CSCHED2_SCHEDULE, sizeof(d), &d);
+     }
+ 
+     /* Update credits (and budget, if necessary). */
+@@ -3654,7 +3645,7 @@ static void cf_check csched2_schedule(
+     if ( tasklet_work_scheduled )
+     {
+         __clear_bit(__CSFLAG_unit_yield, &scurr->flags);
+-        trace_var(TRC_CSCHED2_SCHED_TASKLET, 1, 0, NULL);
++        TRACE_TIME(TRC_CSCHED2_SCHED_TASKLET);
+         snext = csched2_unit(sched_idle_unit(sched_cpu));
+     }
+     else
 -- 
 2.30.2
 
