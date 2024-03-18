@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC14B87EAB8
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 15:18:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694741.1083812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27E4E87EAD2
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 15:23:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694749.1083821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmDoH-0004dO-N4; Mon, 18 Mar 2024 14:17:53 +0000
+	id 1rmDtR-0007St-8F; Mon, 18 Mar 2024 14:23:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694741.1083812; Mon, 18 Mar 2024 14:17:53 +0000
+Received: by outflank-mailman (output) from mailman id 694749.1083821; Mon, 18 Mar 2024 14:23:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmDoH-0004b6-JB; Mon, 18 Mar 2024 14:17:53 +0000
-Received: by outflank-mailman (input) for mailman id 694741;
- Mon, 18 Mar 2024 14:17:52 +0000
+	id 1rmDtR-0007Qf-54; Mon, 18 Mar 2024 14:23:13 +0000
+Received: by outflank-mailman (input) for mailman id 694749;
+ Mon, 18 Mar 2024 14:23:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=emy9=KY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmDoG-0004au-1D
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 14:17:52 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ id 1rmDtQ-0007Pn-1U
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 14:23:12 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4c106a21-e532-11ee-a1ee-f123f15fe8a2;
- Mon, 18 Mar 2024 15:17:48 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a46d0a8399aso59278166b.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 07:17:48 -0700 (PDT)
+ id 0bd73bc9-e533-11ee-a1ee-f123f15fe8a2;
+ Mon, 18 Mar 2024 15:23:10 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a46aaf6081fso235499866b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 07:23:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- my10-20020a1709065a4a00b00a4663d3b2bfsm4873630ejc.217.2024.03.18.07.17.47
+ dl19-20020a170907945300b00a44b90abb1dsm4826650ejc.110.2024.03.18.07.23.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 07:17:47 -0700 (PDT)
+ Mon, 18 Mar 2024 07:23:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c106a21-e532-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 0bd73bc9-e533-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710771468; x=1711376268; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710771789; x=1711376589; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=qwFxVwwG6hCkpAos63NFwCKOuaguL+cfxYb3mvG+OQg=;
-        b=gi+LHvDSeWWzRv9rFWlu9MrhXYknDq+dvKaepzEQaJAR+0b2EAZ+JdozNGvyAOO9SW
-         JfK/DE/CjPUiNJ8P4Xyk9Yl3n9LWi0UT40CrWjA+acrNLqf9UHb4ovsPWGAhDXScsrEO
-         UQ+RtJk5TBS6t9haJtQjRVd10rtd0ZVZcnL2Fl46RoEssu1d49mOq6kkqehzNAhOJXDz
-         8t6r5+daMzoclYrKWRsW5Ip29od9eiKyp6E3Hc9JlypRTtkO93UNcEldlhT2oafq4pZ2
-         WL/QtBmJdBO6MPXfq837v5bwB+7WxGEYdgnleExN2RrHPKOrg03fqawOXhvfY1i98ljh
-         Gkfg==
+        bh=vzKDrBCNe4KDT0EZdUfGfCbruNaSk8Ji1ErhSE7z6i8=;
+        b=MYC9JM99pinJ+t0pgtcN3qd/oW94ehTpJqRLasTKXVP/fXfT81dXGeB4XvaIS5v53c
+         mcx+GeMzFivT+yLWKVlGGfdKehepWla+K8aFkzGh8limaCIAvKzvhLBhHaKcKc1PCFyB
+         qdSFFY3mXOsWUp/aJGxsZgJomyTuuYG7s9ZAebU1tWPq8zsdv5KAjeJ1SfnHCeLhrEz1
+         5Sq01W+sIwlptovd8OvKrrL2CkTu6SnLF9bHqTszJmDKfgkNQOvo5kJZRt6gM6lLD10u
+         CAa0uFyW4RTdUiTMJcA1tkIg7FXKOhLi72F+3nha4uwbflKtI4U7I0P7ehAYSWC76cIJ
+         w/KA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710771468; x=1711376268;
+        d=1e100.net; s=20230601; t=1710771789; x=1711376589;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qwFxVwwG6hCkpAos63NFwCKOuaguL+cfxYb3mvG+OQg=;
-        b=S2j773rFN8h8xxyF24WEpfeLljZeXShQ923p16ET9oB3n3Jr1HF2RI/H1Zbtidn2d5
-         TRGZYilGikZVwdrjALl2sB9m+dXC/poLLXFUPLnj/J7HjzOzdyFFP4TIHylcF/YPtxxI
-         n9U6i2t/1APbzaUO35a6yOt4+lEGSbJTF32jrEImr82xnsScuYEhEuTRmCCAxSHAk6UV
-         50kCZMekUAHUj78aHTf6WadljgldPqkhNAt5ZOch/zPn2MFC+OO9rZQH8047Kz5Swbhn
-         CFWrmgvFX/8AA4vKkjq6GudjV+EB1QQQnkaC7sqQS1c1oCgJb5Qp9p4vNrewJyaQCsWz
-         YaAA==
-X-Forwarded-Encrypted: i=1; AJvYcCWqA6L6VcldYyK5zzsqLP8SygNPqohqnM0LVvRcy7isxJKxA91a3Shb3Enwwve/3HB0uyb34ErmJUabwukv5l4tmTphRk2MiCxGreb5WzU=
-X-Gm-Message-State: AOJu0Yx3OKc3g5g+pnKLQPlxNS4IuvYEzb5ercElyvhYWn64dosJHN3j
-	Iy7psIJZn0N8FZHMkR2XW9trIT7M26NuBhDtpdkjbQauyRfc5K1tPFjilQS2UA==
-X-Google-Smtp-Source: AGHT+IFxDjTgVPgvKbPd+01/1lQ8twVqqwIiK+1gi+EMKSv0WOe9jIou3VmOPunGME5rAlx6ELt28g==
-X-Received: by 2002:a17:907:7249:b0:a46:a85d:de81 with SMTP id ds9-20020a170907724900b00a46a85dde81mr5811263ejc.12.1710771467759;
-        Mon, 18 Mar 2024 07:17:47 -0700 (PDT)
-Message-ID: <7a5b3ec3-c122-479a-b714-529e150bf4c0@suse.com>
-Date: Mon, 18 Mar 2024 15:17:46 +0100
+        bh=vzKDrBCNe4KDT0EZdUfGfCbruNaSk8Ji1ErhSE7z6i8=;
+        b=QmcOU7n5kXJypcFt45mtigHK8LFOBj8MYxovdieZNohlmuyLWkrhRQq+6LQQkiCfC6
+         xppkcped0xaPCPTDJK1W3k+3miAFiq5cOLksSsq6IMJRi43Kmjg12kg73f7gtz7fAOSP
+         +99990Y0cKxUIcQf89YjgjHZxUfGxrY7mRnqbNhdAU5QupV1xxys/JN8WQ3oJTILSSOI
+         X8IGREWhWLSH7cxhSE7W25yWrcEA1/jw+TOH3DN2oabPfMTZeCwtJFqi6ojyIt9E/4b3
+         NHJr2nKJj2tcZ6hyaP9YXq5XJlP/Aa8tJKOvEgvhskRCNv7hAUMsjnYZd/85bQlF3CU0
+         +mvg==
+X-Forwarded-Encrypted: i=1; AJvYcCU7Ppe+bEjT7cTxM4DV6AkWDG/Wq1u8ACMfQ2g40wAw49HWDtf7gBheyCxmPQO7xmempJXRk35zUwtZxAkuR6ppgFiCTQEjZd41/XWEccI=
+X-Gm-Message-State: AOJu0Yz37jT59fXZunRnvdjF+CVolqrqbGFXgtjCiuJVmJ4vKZg7XHIk
+	BS2cYMaalICp3djMQkS9C/xk5q/DJtt9AHrOVzLUT7IbUVGA5eMz4ezdo56GiQ==
+X-Google-Smtp-Source: AGHT+IHR+RklMTX9K/qyQa0NuSMNJruYJjqhll/N6ysX+BzdBwvF7Kr0AvixSVOLEg7AJWI9kTIJFQ==
+X-Received: by 2002:a17:906:2291:b0:a46:9395:de1f with SMTP id p17-20020a170906229100b00a469395de1fmr5811986eja.62.1710771789501;
+        Mon, 18 Mar 2024 07:23:09 -0700 (PDT)
+Message-ID: <d49ec73d-9a10-4c2d-a8ce-0c16f0bf749a@suse.com>
+Date: Mon, 18 Mar 2024 15:23:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] svm/nestedsvm: Introduce nested capabilities bit
+Subject: Re: [PATCH 4/4] xen/virtual-region: Drop setup_virtual_regions()
 Content-Language: en-US
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- xen-devel@lists.xenproject.org
-References: <20240313122454.965566-1-george.dunlap@cloud.com>
- <20240313122454.965566-4-george.dunlap@cloud.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240318110442.3653997-1-andrew.cooper3@citrix.com>
+ <20240318110442.3653997-5-andrew.cooper3@citrix.com>
+ <047ecaf2-66c6-4d07-ab14-9c50acfc1f9a@suse.com>
+ <14accd85-d549-4551-a95c-6c8bcee92db5@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,97 +121,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240313122454.965566-4-george.dunlap@cloud.com>
+In-Reply-To: <14accd85-d549-4551-a95c-6c8bcee92db5@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.03.2024 13:24, George Dunlap wrote:
-> In order to make implementation and testing tractable, we will require
-> specific host functionality.  Add a nested_virt bit to hvm_funcs.caps,
-> and return an error if a domain is created with nested virt and this
-> bit isn't set.  Create VMX and SVM callbacks to be executed from
-> start_nested_svm(), which is guaranteed to execute after all
-
-Nit: nestedhvm_setup() (or, with different wording, start_nested_{svm,vmx}()).
-
-> command-line options have been procesed.
+On 18.03.2024 14:49, Andrew Cooper wrote:
+> On 18/03/2024 1:29 pm, Jan Beulich wrote:
+>> On 18.03.2024 12:04, Andrew Cooper wrote:
+>>> --- a/xen/common/virtual_region.c
+>>> +++ b/xen/common/virtual_region.c
+>>> @@ -39,6 +39,11 @@ static struct virtual_region core = {
+>>>          { __start_bug_frames_2, __stop_bug_frames_2 },
+>>>          { __start_bug_frames_3, __stop_bug_frames_3 },
+>>>      },
+>>> +
+>>> +#ifdef CONFIG_X86
+>>> +    .ex = __start___ex_table,
+>>> +    .ex_end = __stop___ex_table,
+>>> +#endif
+>>>  };
+>>>  
+>>>  /* Becomes irrelevant when __init sections are cleared. */
+>>> @@ -57,6 +62,11 @@ static struct virtual_region core_init __initdata = {
+>>>          { __start_bug_frames_2, __stop_bug_frames_2 },
+>>>          { __start_bug_frames_3, __stop_bug_frames_3 },
+>>>      },
+>>> +
+>>> +#ifdef CONFIG_X86
+>>> +    .ex = __start___ex_table,
+>>> +    .ex_end = __stop___ex_table,
+>>> +#endif
+>>>  };
+>> My main reservation here is this x86-specific code in a common file.
+>> Are we certain both RISC-V and PPC will get away without needing to
+>> touch this? If so, I might consider ack-ing. But really I'd prefer if
+>> this could be minimally abstracted, via e.g. CONFIG_HAS_EXTABLE
+>> (selected by x86 only for now).
 > 
-> For VMX, start with always enabling it if HAP is present; this
-> shouldn't change current behvior.
-> 
-> For SVM, require some basic functionality, adding a document
-> explaining the rationale.
-> 
-> NB that only SVM CPUID bits 0-7 have been considered.  Bits 10-16 may
-> be considered in a follow-up patch.
-> 
-> Signed-off-by: George Dunlap <george.dunlap@cloud.com>
->[...]
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -673,6 +673,12 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->           */
->          config->flags |= XEN_DOMCTL_CDF_oos_off;
->  
-> +    if ( nested_virt && !hvm_nested_virt_supported() )
-> +    {
-> +        dprintk(XENLOG_INFO, "Nested virt requested but not available\n");
-> +        return -EINVAL;        
-> +    }
-> +
->      if ( nested_virt && !hap )
->      {
->          dprintk(XENLOG_INFO, "Nested virt not supported without HAP\n");
+> This isn't the first bit of CONFIG_X86 in this file.  However, I'd not
+> spotted that we have CONFIG_HAS_EX_TABLE already.  I can swap.
 
-As mentioned in reply to v1, I think what both start_nested_{svm,vmx}() check
-is redundant with this latter check. I think that check isn't necessary there
-(yet unlike suggested in reply to v1 I don't think anymore that the check here
-can alternatively be dropped). And even if it was to be kept for some reason,
-I'm having some difficulty seeing why vendor code needs to do that check, when
-nestedhvm_setup() could do it for both of them.
-
-> --- a/xen/arch/x86/hvm/nestedhvm.c
-> +++ b/xen/arch/x86/hvm/nestedhvm.c
-> @@ -150,6 +150,16 @@ static int __init cf_check nestedhvm_setup(void)
->      __clear_bit(0x80, shadow_io_bitmap[0]);
->      __clear_bit(0xed, shadow_io_bitmap[1]);
->  
-> +    /* 
-> +     * NB this must be called after all command-line processing has been
-> +     * done, so that if (for example) HAP is disabled, nested virt is
-> +     * disabled as well.
-> +     */
-> +    if ( cpu_has_vmx )
-> +        start_nested_vmx(&hvm_funcs);
-> +    else if ( cpu_has_svm )
-> +        start_nested_svm(&hvm_funcs);
-
-Instead of passing the pointer, couldn't you have the functions return
-bool, and then set hvm_funcs.caps.nested_virt from that? Passing that
-pointer looks somewhat odd to me.
-
-Is there a reason to use direct calls here rather than a true hook
-(seeing that hvm_funcs must have been populated by the time we make it
-here)? I understand we're (remotely) considering to switch away from
-using hooks at some point, but right now this feels somewhat
-inconsistent if not further justified.
-
-> --- a/xen/arch/x86/hvm/vmx/vvmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vvmx.c
-> @@ -2816,6 +2816,14 @@ void nvmx_set_cr_read_shadow(struct vcpu *v, unsigned int cr)
->      __vmwrite(read_shadow_field, v->arch.hvm.nvcpu.guest_cr[cr]);
->  }
->  
-> +void __init start_nested_vmx(struct hvm_function_table *hvm_function_table)
-> +{
-> +    /* TODO: Require hardware support before enabling nested virt */
-> +    hvm_function_table->caps.nested_virt =
-> +        hvm_function_table->caps.hap;
-> +}
-> +
-> +
-
-Nit: No double blank lines please.
+At which point:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
