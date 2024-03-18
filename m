@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A07987E43E
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 08:46:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.694505.1083306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7725287E467
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Mar 2024 08:54:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.694509.1083316 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rm7hH-00061k-Tw; Mon, 18 Mar 2024 07:46:15 +0000
+	id 1rm7os-0007or-Lt; Mon, 18 Mar 2024 07:54:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 694505.1083306; Mon, 18 Mar 2024 07:46:15 +0000
+Received: by outflank-mailman (output) from mailman id 694509.1083316; Mon, 18 Mar 2024 07:54:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rm7hH-0005zz-R8; Mon, 18 Mar 2024 07:46:15 +0000
-Received: by outflank-mailman (input) for mailman id 694505;
- Mon, 18 Mar 2024 07:46:14 +0000
+	id 1rm7os-0007nK-J5; Mon, 18 Mar 2024 07:54:06 +0000
+Received: by outflank-mailman (input) for mailman id 694509;
+ Mon, 18 Mar 2024 07:54:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=emy9=KY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rm7hG-0005zY-KU
- for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 07:46:14 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1rm7oq-0007nE-RY
+ for xen-devel@lists.xenproject.org; Mon, 18 Mar 2024 07:54:04 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9727276a-e4fb-11ee-a1ee-f123f15fe8a2;
- Mon, 18 Mar 2024 08:46:12 +0100 (CET)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2d41d1bedc9so67927511fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 00:46:12 -0700 (PDT)
+ id afad461b-e4fc-11ee-a1ee-f123f15fe8a2;
+ Mon, 18 Mar 2024 08:54:02 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a4675aaa2e8so452128366b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Mar 2024 00:54:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h12-20020a170906260c00b00a457a55b814sm4556217ejc.73.2024.03.18.00.46.10
+ js22-20020a170906ca9600b00a46b8cd9b51sm1226767ejb.185.2024.03.18.00.54.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 00:46:11 -0700 (PDT)
+ Mon, 18 Mar 2024 00:54:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9727276a-e4fb-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: afad461b-e4fc-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710747971; x=1711352771; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710748442; x=1711353242; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=6UQRtBhWJpPkCEMPCrBPLIFgvcaNsTRJRzsowCFQ7Xo=;
-        b=J2Qvm9Hf4pk4i7JhCBOlYepUozsBT2IeA/MiBd3vBWuOE+76YnaeqUHXgKRKzuexLc
-         3gkwpBaQ2OWDrgeNr4l/ikCVmNVC9XrohBQOqyn2w9eg3C4mWSwf8gvmkSrzjsOJFEDE
-         CGzK+3cN7vl5yszP3Vt9lrnRiJF6qjLH90kC5RilDm0YWKfzo5uU3b1mDcSEmFqeSNS6
-         EWSPcn/ttrrU1i6VntrmQfILVmXBQYIxyIqsby09XYFm0U6BbJU47G+vVbDDStWtmwuv
-         0wfFDrR7gJ/wCcypQjepuAyC5liFgZszgrMhIPlbCkFFRytBYuuxLZ+qaHnJAlLcymZJ
-         fj+Q==
+        bh=JtSNiJ5JxZs/szM2xlAaB3/oeh0bAZWDXhtNPyZ1dq0=;
+        b=Y9+rhZ92m+KdfhiUL0AZilSf7lwGpzEqN6wtrSRTLBCeFqofVGnb7Xx55QC1o/QHfH
+         V4peBI1jl+SkJyR0hlN7rRDtCT9B16VhYn1w57B5ZYJ7OSOM1a9YLh1e9GAf9iwHHsGh
+         eJiFd53a3eZlAMVGsctvV7Aqjye4+m45GeT6TsM956sY6Hyq6b4hA7nKyuaJU6L8D9S6
+         2TOsEb0cF70S9rEHA/zP9oFq/bp3e4jRO86H6QEvNHcaJZpqzfpiEHthkKV1IxsANEJA
+         Y8+6bxRfoaJ30BqcNzKfTkM1w+wdat2jDsvKTE2PLZ4INiHsurwsWzKiF3iTh93GoBS0
+         L9eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710747971; x=1711352771;
+        d=1e100.net; s=20230601; t=1710748442; x=1711353242;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6UQRtBhWJpPkCEMPCrBPLIFgvcaNsTRJRzsowCFQ7Xo=;
-        b=LEMF8o+i6y5QF0FDAQSfmZqKkYm30GnUmYfoBfSc1iImht+te0qRuNAaiSROPkWJky
-         VZMwZhCsJS6VatTFyJyJIcQEdwd6xFbObE1BlNW3hnJn1hRcdZVd4AU0IJ50M0JtkyfA
-         z5OXms3NY90AIMBdbclWgNqvMWggu/Z/kYLZ/JChZCuc1WgS8dhX8nr97ahpu5ns0O9D
-         aJR6XsVMeU3FIq/etn064Vr1WvyYiToYZ+YZLeujpUKfKKtfElsgL2mpS7EzsZ/f0K/k
-         OOKuxPafwAGvlUOT2A1WgWouxE7+/8J1hmTOtvfV0xepuR/iRHnpA1LUEu4LPtz/AB51
-         WZPQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUGNqhBjmomp5W9D+qKcMoOd4PbKG/8saYJTK7j+hYj+kyxxqNZgPITMKJqdi+wc+UUrcu9VL0lJQVMj+SSTXbyh9rgArrAgDdu6mmNHQg=
-X-Gm-Message-State: AOJu0Yx3Qqa2dbeiBultIWcN6YkKgkh2VCd4X/7p+MULB1xS1m9FxBzz
-	Ltr6yTMV0FpYIRyFxkHJveeTJelnnaCUBqlQvICWm+2syOAb3ucQSw1WpobXLA==
-X-Google-Smtp-Source: AGHT+IH1QsWXurGWiJgWIx8XoD6rxDs1TBeUMTMLENuR9dVZHY3Ew4EEz47MRWCZ8bIuoOFHH7KTQQ==
-X-Received: by 2002:a19:2d5b:0:b0:513:a766:4672 with SMTP id t27-20020a192d5b000000b00513a7664672mr4263912lft.4.1710747971554;
-        Mon, 18 Mar 2024 00:46:11 -0700 (PDT)
-Message-ID: <5128255f-fe52-4425-b168-34946c0c901e@suse.com>
-Date: Mon, 18 Mar 2024 08:46:12 +0100
+        bh=JtSNiJ5JxZs/szM2xlAaB3/oeh0bAZWDXhtNPyZ1dq0=;
+        b=PN4FrkYpXQfbIXlU5HZYahlZnzOabCVJL4GlcQNQJTt05gCr5vt8fHnMK7MK1K10qM
+         UYsGj8S9LICoDxRSFQmxhqNZkmvTW9ZKaHoarAizDZm3dMhxPlpCJ0pgrgijjsRv5pl6
+         cDB1ulHWBm3U+ARQMX6HAqGC8fqOzvQ3W4QWQGrJwSJBB3mJv6AAv23mzddKKLFhfOUK
+         KrOP6au2uqo3vQRyVshqUfZCLh3FjKQ9I7jxgNCw98fwX7t5cPtIgQfIJJ4ggDdB+n3Y
+         jZVgdpmUbDyOqKuDRUVUBET4BYsH47ir/0sgiDGfKzriGGz/einj2DYU59hbE/TtpZsX
+         dDRA==
+X-Forwarded-Encrypted: i=1; AJvYcCWgh2iFerdVERZYc0B9T6AKIC1AeLnWmgPxTiZ8SS73KwTGYGew641RQLuEvP9Ki7F3RWz6B9W98DReRP1BUHshUP8eP/FJGv+sZrUbtyc=
+X-Gm-Message-State: AOJu0Yz70n9u6Y56k0eSK3whffL26VpgeL3j/cfyej/p0zpXYRcuWVKJ
+	3uMox2ckoDHthxmg5MjBFRiqWHilPOJHFVAQoBIH+GSrxCErEE/s2/iu04IkLg==
+X-Google-Smtp-Source: AGHT+IEchGSfqvlM0BpIeOtls7X44UfwIfZDBarIntrDZP6eGDoS2U3Dv/24fiphDw+7/qtsaXh/lQ==
+X-Received: by 2002:a17:906:3586:b0:a46:c386:bfb0 with SMTP id o6-20020a170906358600b00a46c386bfb0mr826967ejb.4.1710748442255;
+        Mon, 18 Mar 2024 00:54:02 -0700 (PDT)
+Message-ID: <9ec42fc6-efc3-499b-b066-e582563cfc9c@suse.com>
+Date: Mon, 18 Mar 2024 08:54:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] do_multicall and MISRA Rule 8.3
+Subject: Re: [PATCH v6 02/20] xen/riscv: disable unnecessary configs
 Content-Language: en-US
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, federico.serafini@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org,
- michal.orzel@amd.com
-References: <alpine.DEB.2.22.394.2311221331130.2053963@ubuntu-linux-20-04-desktop>
- <5a8f90d6-6502-4d93-9fd7-45fea0ede24a@suse.com>
- <alpine.DEB.2.22.394.2403081758400.853156@ubuntu-linux-20-04-desktop>
- <CA+zSX=aiqacW+QLM+KX-CcAo3DVnN+Kn7vQsOOKGK3qQOqXvBA@mail.gmail.com>
- <a2485ac6-19ac-42ce-b8cf-6f8408483521@xen.org>
- <alpine.DEB.2.22.394.2403141711460.853156@ubuntu-linux-20-04-desktop>
- <e57a3c03-fcbc-4a5a-8b23-b9b9448de2be@suse.com>
- <CA+zSX=anV+h8a8Ynq1Eh+PmtmgiSj8ruRfBbhLrhMbrNn+ED0w@mail.gmail.com>
- <63891474-1dc4-4c86-aaf4-cc4d4c53a0ae@suse.com>
- <CA+zSX=bu-gRYUYOKMRp5kJ02ExdrtFEHTgXapwTVotm5cK2dfw@mail.gmail.com>
- <d05be83a-e7f1-4c2f-afda-42deee9be203@suse.com>
- <3f27abc3-9809-4637-a29c-8aeafcd29ade@xen.org>
- <7109ef7e-040c-4d11-ba4b-d898ed2530ff@suse.com>
- <CA+zSX=bGfc+dsZjg4xmW2fgsnFQLSAh1ChOY3jYU_AD5SJw_7w@mail.gmail.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1710517542.git.oleksii.kurochko@gmail.com>
+ <5a1b905601db481a1a625dafbbf9b28dbe12876c.1710517542.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -127,121 +114,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CA+zSX=bGfc+dsZjg4xmW2fgsnFQLSAh1ChOY3jYU_AD5SJw_7w@mail.gmail.com>
+In-Reply-To: <5a1b905601db481a1a625dafbbf9b28dbe12876c.1710517542.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.03.2024 15:45, George Dunlap wrote:
-> On Fri, Mar 15, 2024 at 2:13 PM Jan Beulich <jbeulich@suse.com> wrote:
->> On 15.03.2024 14:55, Julien Grall wrote:
->>> On 15/03/2024 13:24, Jan Beulich wrote:
->>>> On 15.03.2024 13:17, George Dunlap wrote:
->>>>> On Fri, Mar 15, 2024 at 11:57 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>>>>> It sounds like Andy and Stefano feel like this is a situation where "a
->>>>>>> fixed width quantity is meant"; absent any further guidance from the
->>>>>>> CODING_STYLE about when fixed widths should or should not be used, I
->>>>>>> don't think this change would be a violation of CODING_STYLE.
-> [snip]
->>>>> Other than "it's in CODING_STYLE", and "it's not really necessary
->>>>> because it's ensured in the assembly code", you haven't advanced a
->>>>> single reason why "uint32_t" is problematic.
->>>>
->>>> And it isn't, I never said it would be. But if we set rules for
->>>> ourselves, why would we take the first opportunity to not respect them?
->>>
->>> I am a bit confused. Reading through the thread you seem to agree that
->>> the written rules are respected here. So what rules are you talking about?
->>
->> What was proposed is use of a fixed width type where according to my
->> reading ./CODING_STYLE says it shouldn't be used.
-> 
-> This conversation is starting to get frustrating.
+On 15.03.2024 19:05, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/configs/tiny64_defconfig
+> +++ b/xen/arch/riscv/configs/tiny64_defconfig
+> @@ -7,6 +7,23 @@
+>  # CONFIG_GRANT_TABLE is not set
+>  # CONFIG_SPECULATIVE_HARDEN_ARRAY is not set
+>  # CONFIG_MEM_ACCESS is not set
+> +# CONFIG_ARGO is not set
+> +# CONFIG_HYPFS_CONFIG is not set
 
-Same here.
+What exactly is wrong with permitting this?
 
->  That's simply not
-> what it says, and I pointed that out just a few messages ago.
-> 
-> To reiterate:The text says fixed-width types are OK when a fixed-width
-> quantity is "meant"; and that in this case, Stefano and Andy "mean" to
-> use a fixed-width quantity.  The implied subtext of that sentence
-> could be, "Don't use fixed width types unless there's a good reason to
-> use a fixed width", and both Andy and Stefano think there's a good
-> reason.  This argument you haven't really addressed at all, except
-> with a specious "slippery slope" argument meant to nullify the
-> exception; and now you attempt to simply ignore.
-> 
-> I venture to assert that for most people, the rules are a means to an
-> end: That end being code which is correct, robust, fast, easy to
-> write, maintain, debug, and review patches for.  What I agreed to,
-> when I accepted this patch, was that *in general* we would avoid using
-> fixed-width types; but that there were cases where doing so made
-> sense.  Some of those were discussed in the thread above.
-> 
-> Andy and Stefano have already put forward reasons why they think a
-> fixed-width type would be better here, which are related to "end
-> goals": namely, more robust and easy to maintain code.  When I asked
-> what "end goals" would be negatively impacted by using a fixed-width
-> type, you explicitly said that there were none!  That the *only*
-> reason you're continuing to argue is that we have a document somewhere
-> that says we should -- a document which explicitly acknowledges that
-> there will be exceptions!
+> +# CONFIG_CORE_PARKING is not set
 
-The named reasons simply aren't convincing to me, at all. There's no
-loss towards the "end goals" when "unsigned int" is used instead of
-"uint32_t". Plus I recall Andrew putting under question use of
-"unsigned int" for various hypercall parameter declarations, indicating
-his belief that "unsigned long" ought to be used. That's, to me, quite
-the opposite of using fixed-width types here, as there's no uniformly
-correct fixed-width type to use in that case.
+At the example of this: It cannot be enabled by a user (or randconfig),
+it needs to be selected by an arch. Which RISC-V doesn't. Hence why
+specify (and not really override) the value here? This may apply to
+others as well, at the very least ...
 
-So to me, besides there not having been technical arguments towards
-the need to use fixed width types here, there's actually added
-confusion about what's actually wanted. Imo if we started using fixed-
-width types for hypercall handler parameter declarations, (almost?) all
-non-handle ones would likely want to be converted. Consistency, after
-all, is part of the "easy to maintain code" goal. Plus without
-consistency how would one determine when to use what kind of types.
+> +# CONFIG_DEBUG_TRACE is not set
+> +# CONFIG_IOREQ_SERVER is not set
+> +# CONFIG_CRASH_DEBUG is not setz
+> +# CONFIG_KEXEC is not set
+> +# CONFIG_LIVEPATCH is not set
+> +# CONFIG_NUMA is not set
+> +# CONFIG_PERF_COUNTERS is not set
+> +# CONFIG_HAS_PMAP is not set
 
-Bottom line: My take is that here we're discussing a matter of taste
-(preferring fixed width types) vs a matter of a supposedly agreed upon
-rule (preferring to avoid them). Hence my "there not having been
-technical arguments". I therefore view your accuse as simply unfair.
+... anything CONFIG_HAS_*.
 
-> The ideal response would have been to lay out a reasonably
-> comprehensive set of criteria for when to use basic types, when to use
-> fixed-width types, and how each criteria advanced the end goals of a
-> better codebase.  A sufficient response would have been to lay out
-> reasons why "better codebase", in this instance, tilts towards using a
-> basic type rather than a fixed-width type.
-
-The main use of fixed width types, to me, is in interface structure
-definitions - between Xen and hardware / firmware, or in hypercall
-structures. I'm afraid I have a hard time seeing good uses outside of
-that. Even in inline assembly, types of variables used for inputs or
-outputs don't strictly need to be fixed-width; I can somewhat accept
-their use there for documentation purposes.
-
-> Saying "That's what the rules say", without motivating it by
-> explaining how it connects to a better codebase, is just not a helpful
-> response; and making that argument after it's been pointed out that
-> that is *not* what the rules say is even worse.
-
-Well, as above, I view this as unfair as well. The rule's there. It
-should be followed. If there really were downsides to following it,
-the rule should be amended or dropped. If it was dropped, we'd end
-up where we were before: People randomly using fixed width types even
-in places we agree they're not suitable for use. And there being no
-real handle in reviews to ask for them to change.
-
-In this context, may I remind you that I'm doing a lot more reviews
-than you. Having been accused of (and in various cases also guilty of)
-bike shedding, it is quite helpful when one can back change requests
-by references to (more or less) clearly spelled out rules. If too much
-room for interpretation remains (and if there's disagreement about
-interpretation), what's written down needs tightening imo. Hence why a
-goal of mine has been to get ./CODING_STYLE into less ambiguous shape.
-With rather little success, sadly.
+In summary - please limit overrides to what is minimally necessary.
 
 Jan
+
+> +# CONFIG_TRACEBUFFER is not set
+> +# CONFIG_XENOPROF is not set
+> +# CONFIG_COMPAT is not set
+> +# CONFIG_COVERAGE is not set
+> +# CONFIG_UBSAN is not set
+> +# CONFIG_NEEDS_LIBELF is not set
+>  
+>  CONFIG_RISCV_64=y
+>  CONFIG_DEBUG=y
+
 
