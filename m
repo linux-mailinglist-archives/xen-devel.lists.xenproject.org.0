@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B17B287FEAD
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 14:22:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695373.1085061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8D9187FED1
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 14:27:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695376.1085071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmZPy-00072C-IX; Tue, 19 Mar 2024 13:22:14 +0000
+	id 1rmZUL-0007cm-0g; Tue, 19 Mar 2024 13:26:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695373.1085061; Tue, 19 Mar 2024 13:22:14 +0000
+Received: by outflank-mailman (output) from mailman id 695376.1085071; Tue, 19 Mar 2024 13:26:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmZPy-0006zN-Fs; Tue, 19 Mar 2024 13:22:14 +0000
-Received: by outflank-mailman (input) for mailman id 695373;
- Tue, 19 Mar 2024 13:22:13 +0000
+	id 1rmZUK-0007Zc-UA; Tue, 19 Mar 2024 13:26:44 +0000
+Received: by outflank-mailman (input) for mailman id 695376;
+ Tue, 19 Mar 2024 13:26:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aOUF=KZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmZPx-0006zH-5I
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 13:22:13 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1rmZUJ-0007Z8-EF
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 13:26:43 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1fa7bb7-e5f3-11ee-afdd-a90da7624cb6;
- Tue, 19 Mar 2024 14:22:12 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a46a7b8e07fso415358266b.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 06:22:12 -0700 (PDT)
+ id 533be6d1-e5f4-11ee-afdd-a90da7624cb6;
+ Tue, 19 Mar 2024 14:26:42 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a46ba938de0so329424766b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 06:26:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- o20-20020a170906289400b00a4668980c12sm6046479ejd.182.2024.03.19.06.22.11
+ bw9-20020a170906c1c900b00a4668970f74sm6127780ejb.108.2024.03.19.06.26.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Mar 2024 06:22:11 -0700 (PDT)
+ Tue, 19 Mar 2024 06:26:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1fa7bb7-e5f3-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 533be6d1-e5f4-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710854531; x=1711459331; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iNHqaS4hCYlzXBeIJcF37JkLflryMYj84q8OtdKaqUc=;
-        b=TLxRYrpLg2FVEDe/5B699AlyiAOFmsIdY3PCZoqTCQK3aD/FcDvzoTuOOtgA9B5tCF
-         JB4mTUEMuPH1vzIIS+kItHVjKPFPsdtWet2zaSVG5n2q2Kd7oF39qlDHXfDw7PQFjuY2
-         who01+1rVCU609V4cyc6rkdd56N/w/pwTwW+ET6gDPZTdeT9wZxS8pH1JOp9EtUMT84X
-         NxD+LMWtgJKdBx4zz9gsyeW7T3QXq8xx9Zs0T1LznPCkqtXyuYe7ovyTzTWnvKylTGPy
-         aCADYjcOPuEY7GFcz8TenpTvUiyV/5IM7NdMJNTT87kB25p0OCoTpMQF3VhLm13or/v1
-         ZeGA==
+        d=suse.com; s=google; t=1710854802; x=1711459602; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=qy3d7UI70UHqP4Vsxkko+WvDNZPB+pMg565jLu/AARc=;
+        b=VUPaCrgbUn7YJD/qtiCwlZ/xWNCvoVmm9V02m66Hnj1Y6VCeHTA4eLsUru54uXona2
+         yRKmU1J2cBldPH9v/8kxuUfAqJipBkv742dayKX/zQEopAgSNm7UJzLmtAfuZfH+vVq9
+         CTwgFazE4W3kqVE3zy4xy290U+NyII5Z+cxfDc6zgH1Boyci+VYt2FjeNwkdSbYppp1z
+         3ZQqQ070cALs+WKlDiCrLd6NzvPX6IS81WwIc3EZtAiht6liWA6CeENNVvUCzlRWQY/S
+         amjZpV9wB68VTRmObZZuWgEE1V9to48zu9evkda/0SGk4evqs5Mxiy4x9HOrCs4PcQJD
+         YLPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710854531; x=1711459331;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=iNHqaS4hCYlzXBeIJcF37JkLflryMYj84q8OtdKaqUc=;
-        b=m0BBgbXkugHpdxlktv2tHPfGdidxsayFaq+qmCF+mJCUizW2fleA1JH3G/1KCyB137
-         XLeNKkf72IQofN8+6k9WpvR+zzxZDL0Cia2WgbyWWIVxED/wHBoAp8oDZ3w0yRxZtnPj
-         tvPQULOSKpo8SZSeJjrfsIiq8WB1Ao2g4AOrGeVw27qBpe9n1J3wLrWfNpsSdTGD2JZH
-         GsiViBYlipXUqVsMtvdRXQqE5vGcNpXy4wQJvZvHxkR+6PemKArGthc2defqK4OQdIOR
-         tUfpYz2J+kye3FAfWV9OdaJ7hCqYQ0cf9OkUWjx5DuhcVypF2ywtJlfeusbCfKIpDF0o
-         4K0Q==
-X-Gm-Message-State: AOJu0YyEezz7J5EFzUPP6zcnlXvFG6qjWTAqfjQCgdJkfor1J89/QwSk
-	bMCj9bBW9jp0Pwa1Rj246sGmW1lS8ojVxpL12fgLozA80Fs/8Ko6PGzaFI0s9SaCi4udIPh3dVw
+        d=1e100.net; s=20230601; t=1710854802; x=1711459602;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qy3d7UI70UHqP4Vsxkko+WvDNZPB+pMg565jLu/AARc=;
+        b=busmMZgT+qw57Nnzu0EKFPhX9cry+CGfQjZAw/Urr6Mmpw94SLarN+0cCL4pWCrRVu
+         GVB1keonLwLblPdB+ZSxaCLD2V8htUofPGiw1DSVTHZYX7f0hIm3EOaHNbyPiPMXALmZ
+         U8R/Do9jNV+oZGHLT135jGZZ9qtUFRbbOUDKdCIGD0WCUd1/dfL/1NGDSKrT4yYjyccJ
+         xg2RObxBT2G5r83mwNr66clr6asOKiBsTJOh2onVjMkLG/oi3WPmrRz5GrKCdgdLjXQr
+         Zr8HSRs7fTFI0f5Mwn3OYCQGj+nYgG3qjWIPFK+kzfq/noKDomH9yOxggCb/sx0pCJCt
+         gqxA==
+X-Gm-Message-State: AOJu0YycdlJA9uVkxgOofG+aswsVuDtuu01CBiUk9BRYnGx9sz9LsRJS
+	m5pldHxnaZzb4mKBJ+c1lKWMWKbh+f/pTv9mEk/PFNuCPFtlwTWQRo3hGuDewv+x02FLYeUOEls
 	=
-X-Google-Smtp-Source: AGHT+IF5I93HlWa1k48yzQp5rLpOSD1GUXFpYyMPj6ExHw4qGKj5DTFa2ZHs6as+JVJ0AxG3nCOZ+A==
-X-Received: by 2002:a17:906:7b8f:b0:a46:50ca:b318 with SMTP id s15-20020a1709067b8f00b00a4650cab318mr11159149ejo.16.1710854531640;
-        Tue, 19 Mar 2024 06:22:11 -0700 (PDT)
-Message-ID: <95699d2c-7e2a-40db-875f-907990797317@suse.com>
-Date: Tue, 19 Mar 2024 14:22:10 +0100
+X-Google-Smtp-Source: AGHT+IF1OTh5iqBwuxtfrZEgug4XurD13QaPTDgc/hc9BmwOfTN9W1GX1rY1fWcNNu4erS74SO8r1A==
+X-Received: by 2002:a17:907:940c:b0:a46:ea52:3ed2 with SMTP id dk12-20020a170907940c00b00a46ea523ed2mr311685ejc.44.1710854802208;
+        Tue, 19 Mar 2024 06:26:42 -0700 (PDT)
+Message-ID: <227fbeda-1690-4158-8404-53b4236c0235@suse.com>
+Date: Tue, 19 Mar 2024 14:26:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v5] x86/PoD: tie together P2M update and increment of entry
- count
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@cloud.com>
-References: <ac46f25b-e669-f309-b36e-c4760e10479e@suse.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] avoid UB in guest handle arithmetic
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -113,57 +111,157 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ac46f25b-e669-f309-b36e-c4760e10479e@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-When not holding the PoD lock across the entire region covering P2M
-update and stats update, the entry count - if to be incorrect at all -
-should indicate too large a value in preference to a too small one, to
-avoid functions bailing early when they find the count is zero. However,
-instead of moving the increment ahead (and adjust back upon failure),
-extend the PoD-locked region.
+At least XENMEM_memory_exchange can have huge values passed in the
+nr_extents and nr_exchanged fields. Adding such values to pointers can
+overflow, resulting in UB. Cast respective pointers to "unsigned long"
+while at the same time making the necessary multiplication explicit.
+Remaining arithmetic is, despite there possibly being mathematical
+overflow, okay as per the C99 spec: "A computation involving unsigned
+operands can never overflow, because a result that cannot be represented
+by the resulting unsigned integer type is reduced modulo the number that
+is one greater than the largest value that can be represented by the
+resulting type." The overflow that we need to guard against is checked
+for in array_access_ok().
 
-Fixes: 99af3cd40b6e ("x86/mm: Rework locking in the PoD layer")
+Note that in / down from array_access_ok() the address value is only
+ever cast to "unsigned long" anyway, which is why in the invocation from
+guest_handle_subrange_okay() the value doesn't need casting back to
+pointer type.
+
+In compat grant table code change two guest_handle_add_offset() to avoid
+passing in negative offsets.
+
+Since {,__}clear_guest_offset() need touching anyway, also deal with
+another (latent) issue there: They were losing the handle type, i.e. the
+size of the individual objects accessed. Luckily the few users we
+presently have all pass char or uint8 handles.
+
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v5: Re-arrange conditionals to have just a single unlock.
-v4: Shrink locked region a little again, where possible.
-v3: Extend locked region instead. Add Fixes: tag.
-v2: Add comments.
 
---- a/xen/arch/x86/mm/p2m-pod.c
-+++ b/xen/arch/x86/mm/p2m-pod.c
-@@ -1348,19 +1348,28 @@ mark_populate_on_demand(struct domain *d
-         }
-     }
+--- a/xen/arch/x86/include/asm/guest_access.h
++++ b/xen/arch/x86/include/asm/guest_access.h
+@@ -43,7 +43,7 @@
+      array_access_ok((hnd).p, (nr), sizeof(*(hnd).p)))
+ #define guest_handle_subrange_okay(hnd, first, last)    \
+     (paging_mode_external(current->domain) ||           \
+-     array_access_ok((hnd).p + (first),                 \
++     array_access_ok((unsigned long)(hnd).p + (first) * sizeof(*(hnd).p), \
+                      (last)-(first)+1,                  \
+                      sizeof(*(hnd).p)))
  
-+    /*
-+     * P2M update and stats increment need to collectively be under PoD lock,
-+     * to prevent code elsewhere observing PoD entry count being zero despite
-+     * there actually still being PoD entries (created by the p2m_set_entry()
-+     * invocation below).
-+     */
-+    pod_lock(p2m);
-+
-     /* Now, actually do the two-way mapping */
-     rc = p2m_set_entry(p2m, gfn, INVALID_MFN, order,
-                        p2m_populate_on_demand, p2m->default_access);
-     if ( rc == 0 )
-     {
--        pod_lock(p2m);
-         p2m->pod.entry_count += 1UL << order;
-         p2m->pod.entry_count -= pod_count;
-         BUG_ON(p2m->pod.entry_count < 0);
--        pod_unlock(p2m);
-+    }
-+
-+    pod_unlock(p2m);
+--- a/xen/common/compat/grant_table.c
++++ b/xen/common/compat/grant_table.c
+@@ -232,7 +232,7 @@ int (compat_grant_table_op)(
+                 cnt_uop = guest_handle_cast(xfer, void);
+                 while ( n-- )
+                 {
+-                    guest_handle_add_offset(xfer, -1);
++                    guest_handle_subtract_offset(xfer, 1);
+                     if ( __copy_field_to_guest(xfer, nat.xfer + n, status) )
+                         rc = -EFAULT;
+                 }
+@@ -277,7 +277,7 @@ int (compat_grant_table_op)(
+                 cnt_uop = guest_handle_cast(copy, void);
+                 while ( n-- )
+                 {
+-                    guest_handle_add_offset(copy, -1);
++                    guest_handle_subtract_offset(copy, 1);
+                     if ( __copy_field_to_guest(copy, nat.copy + n, status) )
+                         rc = -EFAULT;
+                 }
+--- a/xen/include/xen/guest_access.h
++++ b/xen/include/xen/guest_access.h
+@@ -15,8 +15,10 @@
+ #define guest_handle_is_null(hnd)        ((hnd).p == NULL)
  
-+    if ( rc == 0 )
-         ioreq_request_mapcache_invalidate(d);
--    }
-     else if ( order )
-     {
-         /*
+ /* Offset the given guest handle into the array it refers to. */
+-#define guest_handle_add_offset(hnd, nr) ((hnd).p += (nr))
+-#define guest_handle_subtract_offset(hnd, nr) ((hnd).p -= (nr))
++#define guest_handle_add_offset(hnd, nr) ((hnd).p = \
++    (typeof((hnd).p))((unsigned long)(hnd).p + (nr) * sizeof(*(hnd).p)))
++#define guest_handle_subtract_offset(hnd, nr) ((hnd).p = \
++    (typeof((hnd).p))((unsigned long)(hnd).p - (nr) * sizeof(*(hnd).p)))
+ 
+ /*
+  * Cast a guest handle (either XEN_GUEST_HANDLE or XEN_GUEST_HANDLE_PARAM)
+@@ -59,20 +61,22 @@
+  */
+ #define copy_to_guest_offset(hnd, off, ptr, nr) ({      \
+     const typeof(*(ptr)) *_s = (ptr);                   \
+-    char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
++    unsigned long d_ = (unsigned long)(hnd).p;          \
+     /* Check that the handle is not for a const type */ \
+     void *__maybe_unused _t = (hnd).p;                  \
+     (void)((hnd).p == _s);                              \
+-    raw_copy_to_guest(_d+(off), _s, sizeof(*_s)*(nr));  \
++    raw_copy_to_guest((void *)(d_ + (off) * sizeof(*_s)), \
++                      _s, (nr) * sizeof(*_s));          \
+ })
+ 
+ /*
+  * Clear an array of objects in guest context via a guest handle,
+  * specifying an offset into the guest array.
+  */
+-#define clear_guest_offset(hnd, off, nr) ({    \
+-    void *_d = (hnd).p;                        \
+-    raw_clear_guest(_d+(off), nr);             \
++#define clear_guest_offset(hnd, off, nr) ({             \
++    unsigned long d_ = (unsigned long)(hnd).p;          \
++    raw_clear_guest((void *)(d_ + (off) * sizeof(*(hnd).p)), \
++                    (nr) * sizeof(*(hnd).p));           \
+ })
+ 
+ /*
+@@ -80,9 +84,11 @@
+  * specifying an offset into the guest array.
+  */
+ #define copy_from_guest_offset(ptr, hnd, off, nr) ({    \
+-    const typeof(*(ptr)) *_s = (hnd).p;                 \
++    unsigned long s_ = (unsigned long)(hnd).p;          \
+     typeof(*(ptr)) *_d = (ptr);                         \
+-    raw_copy_from_guest(_d, _s+(off), sizeof(*_d)*(nr));\
++    raw_copy_from_guest(_d,                             \
++                        (const void *)(s_ + (off) * sizeof(*_d)), \
++                        (nr) * sizeof(*_d));            \
+ })
+ 
+ /* Copy sub-field of a structure to guest context via a guest handle. */
+@@ -117,22 +123,26 @@
+ 
+ #define __copy_to_guest_offset(hnd, off, ptr, nr) ({        \
+     const typeof(*(ptr)) *_s = (ptr);                       \
+-    char (*_d)[sizeof(*_s)] = (void *)(hnd).p;              \
++    unsigned long d_ = (unsigned long)(hnd).p;              \
+     /* Check that the handle is not for a const type */     \
+     void *__maybe_unused _t = (hnd).p;                      \
+     (void)((hnd).p == _s);                                  \
+-    __raw_copy_to_guest(_d + (off), _s, sizeof(*_s) * (nr));\
++    __raw_copy_to_guest((void *)(d_ + (off) * sizeof(*_s)), \
++                      _s, (nr) * sizeof(*_s));              \
+ })
+ 
+-#define __clear_guest_offset(hnd, off, nr) ({    \
+-    void *_d = (hnd).p;                          \
+-    __raw_clear_guest(_d + (off), nr);           \
++#define __clear_guest_offset(hnd, off, nr) ({               \
++    unsigned long d_ = (unsigned long)(hnd).p;              \
++    __raw_clear_guest((void *)(d_ + (off) * sizeof(*(hnd).p)), \
++                      (nr) * sizeof(*(hnd).p));             \
+ })
+ 
+ #define __copy_from_guest_offset(ptr, hnd, off, nr) ({          \
+-    const typeof(*(ptr)) *_s = (hnd).p;                         \
++    unsigned long s_ = (unsigned long)(hnd).p;                  \
+     typeof(*(ptr)) *_d = (ptr);                                 \
+-    __raw_copy_from_guest(_d, _s + (off), sizeof (*_d) * (nr)); \
++    __raw_copy_from_guest(_d,                                   \
++                          (const void *)(s_ + (off) * sizeof(*_d)), \
++                          (nr) * sizeof(*_d));                  \
+ })
+ 
+ #define __copy_field_to_guest(hnd, ptr, field) ({       \
 
