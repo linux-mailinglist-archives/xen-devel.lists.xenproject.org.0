@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ECCF88061C
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 21:37:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695603.1085463 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7A4D88064B
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 21:52:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695606.1085473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmgBl-0003az-58; Tue, 19 Mar 2024 20:36:01 +0000
+	id 1rmgR1-0006th-Eb; Tue, 19 Mar 2024 20:51:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695603.1085463; Tue, 19 Mar 2024 20:36:01 +0000
+Received: by outflank-mailman (output) from mailman id 695606.1085473; Tue, 19 Mar 2024 20:51:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmgBl-0003ZF-1q; Tue, 19 Mar 2024 20:36:01 +0000
-Received: by outflank-mailman (input) for mailman id 695603;
- Tue, 19 Mar 2024 20:36:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rmgR1-0006sA-Bb; Tue, 19 Mar 2024 20:51:47 +0000
+Received: by outflank-mailman (input) for mailman id 695606;
+ Tue, 19 Mar 2024 20:51:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CQvM=KZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rmgBj-0003Z9-V6
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 20:35:59 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4a5fc92f-e630-11ee-a1ee-f123f15fe8a2;
- Tue, 19 Mar 2024 21:35:57 +0100 (CET)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2d2505352e6so68116241fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 13:35:57 -0700 (PDT)
+ id 1rmgQz-0006s4-Lw
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 20:51:45 +0000
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [2607:f8b0:4864:20::831])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7e417d2e-e632-11ee-afdd-a90da7624cb6;
+ Tue, 19 Mar 2024 21:51:44 +0100 (CET)
+Received: by mail-qt1-x831.google.com with SMTP id
+ d75a77b69052e-430c41f3f89so2877631cf.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 13:51:44 -0700 (PDT)
 Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- r7-20020a05600c35c700b0041409fa57c4sm10813404wmq.34.2024.03.19.13.35.56
+ bw7-20020a05622a098700b00430cc9ca5ffsm3251967qtb.81.2024.03.19.13.51.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Mar 2024 13:35:56 -0700 (PDT)
+ Tue, 19 Mar 2024 13:51:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a5fc92f-e630-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 7e417d2e-e632-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710880557; x=1711485357; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1710881503; x=1711486303; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=m7McJ6S66+ecWQRpPnVmoi5TAzuw97Xo7wL7THoklmQ=;
-        b=pdTnQqbTsvHVF4GBp6brMmg9zFCLBxdyqDjWAWMRJcvxF9o3EUTt9J1FwIIjqf8UoF
-         f8cgYm2J8I83xBGWPM7SvfxPLLkxjznxaDJ7RTcNQ/u2i0B5BTRLD5C0qG3HOl+NXu2D
-         p9YoUD8m9tTarK4MGZyD8djWcqu3lJbUQbA4s=
+        bh=9ssBcy+nyWsJ8bmEaXd//Ag4IkIIyUhjb0uq6ZyMtjI=;
+        b=auG+hlZPsUlqD8YibDK41xMUlbu1+VitJG8J0w2KmnldSLBxyMJuVmerjTU1WAQVV9
+         aQhNkQUbxtgoPH6pWVb8mggjbtV6ZhNBxRV59IcqbCXnIil0Ox/5p5M67K+AQIG+C9mr
+         vH85Sy3vNHT3jdO1kbKnNR+cnGAQZxImFZutE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710880557; x=1711485357;
+        d=1e100.net; s=20230601; t=1710881503; x=1711486303;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=m7McJ6S66+ecWQRpPnVmoi5TAzuw97Xo7wL7THoklmQ=;
-        b=NdB8ignnLyvLAXKWxbFLH1HQUWe1mIJcEZ/yJuvuN+7k9f6zXNegXz2baeSkAPW9fT
-         USNV5gt52xwtYFWxnoAzuvPvQQWdohk4UoXdjBsomjN+6lWWbOepzfdBZbdudz0m1dPR
-         SmYln+ugEPDtCy+uo4YuVqhhXhPRu3MOEgFEG1J5ZeeejqhU9ejKVDcHITWjdMcWiarI
-         0dC5tQNrkKCp099XxSxoIxMKgWJHay+0NWSoyRqb9VZH0UJb5bglGcXKRG8XtWQ50l8E
-         BINUA3oxvzqZHm58hO2aBiv4/LCp5wCWmuXtnv2kCezcU0vFeNlK8ME284KNAp+oVDVz
-         Vmrg==
-X-Forwarded-Encrypted: i=1; AJvYcCXri5DesEP6yWy/dPckUrfRUmr3eOr58Ir7cCIDuDgZ7WpsmFoGfOO2/0u+c7LwQrovJCsOL5MQccKHkHEfEvcxd7b/+RQSuJ0orJ7tlRs=
-X-Gm-Message-State: AOJu0YyapgYg5/3KfodOvSGsOyfog82FV/6ZDSi14J8nPs62BpWPkbxn
-	l6ilfggz4RTBM2OWrrV7qAfwF/dxquVQlDnzTtVpUVsrA/yjNHrmAobIeBbbcgU=
-X-Google-Smtp-Source: AGHT+IGWusMg3EYh+yHBDa5ijJ5T0vjRiptIo66FZX2EiBxTXHLbtLOMtEYejZd4ytjp/m+wIVIoZg==
-X-Received: by 2002:a2e:9019:0:b0:2d4:6e71:59ef with SMTP id h25-20020a2e9019000000b002d46e7159efmr10204905ljg.5.1710880557030;
-        Tue, 19 Mar 2024 13:35:57 -0700 (PDT)
-Message-ID: <1c3d790d-bdac-495a-868b-36e12d45c457@citrix.com>
-Date: Tue, 19 Mar 2024 20:35:56 +0000
+        bh=9ssBcy+nyWsJ8bmEaXd//Ag4IkIIyUhjb0uq6ZyMtjI=;
+        b=qjeeBpDAI/fsx0olWTWIfG/nG7xj5BfrlEOdsMfeOhbcQzdqHMTRWIajW7/RZoRGRE
+         xv0AqKiNrF0ZoeDFnd5xj0KIWbXMqPFB3Owc/UyX0DqN7qy9XWHYH/NJBBdA5KzQmGiX
+         PJha4demosvLYPAeh0EAMSrk10JhdyYMM5HRHdNKIIhqEVb9GcfK9UfDornsZFoZv+dS
+         TQUe1tyKsq8ImRY0ev20YTq4qaJgj5ceiysVrtdz3aiNU7Retl++ORc5wUhEE5A0kcZk
+         j7fkq6LLuiolOeALjAzknEKt7xtFqNkxgPG+lT8Isd/1z6qFUpCkrmmVSRWGBr385eBD
+         90TA==
+X-Forwarded-Encrypted: i=1; AJvYcCW3A94azSVsnt6ISqlXiY51OWiUWNb9N3uqiO4ecNGAgNjm4Laif4/nkJaEui63DmZvgnYTCdgZTFYlr+dY93/dB83Xm3EvObfqiSwr1vQ=
+X-Gm-Message-State: AOJu0YxSFJ7UFiOLUUjlB1c1g5mZQxp3QtLF24nv/pMCkvOQRcNA/8g4
+	y74kVtudgXvecrPZsHfMEHtehO6qOeRyhlOJ8JJuesafvtmrF7zf4uzBTPz3vwk=
+X-Google-Smtp-Source: AGHT+IEU/owLiZ1iXm5qel7/stcnGoWAYql2UkQey8BE6Q1zAN0tj5BvYg8+IVJBjyyhnHCn5ybDFA==
+X-Received: by 2002:a05:622a:a091:b0:430:fff3:aa9f with SMTP id jv17-20020a05622aa09100b00430fff3aa9fmr307244qtb.18.1710881503130;
+        Tue, 19 Mar 2024 13:51:43 -0700 (PDT)
+Message-ID: <61b8e8a6-ab9d-434d-88dc-9ea4a082375b@citrix.com>
+Date: Tue, 19 Mar 2024 20:51:40 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: adjust initial setting of watchdog kind
+Subject: Re: [PATCH] x86: increase NMI timer frequency if necessary
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <fe289ca1-aa3a-49af-b7d7-70949237464b@suse.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <d5fd3646-18b3-4dae-8da7-6afa187f930e@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -129,51 +128,46 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <fe289ca1-aa3a-49af-b7d7-70949237464b@suse.com>
+In-Reply-To: <d5fd3646-18b3-4dae-8da7-6afa187f930e@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 25/01/2024 2:12 pm, Jan Beulich wrote:
-> "watchdog_timeout=0" is documented to disable the watchdog. Make sure
-> this also is true when there's a subsequent "watchdog" command line
-> option (and no further "watchdog_timeout=" one).
+On 25/01/2024 4:55 pm, Jan Beulich wrote:
+> Since the performance counters used for the NMI watchdog count non-
+> halted cycles, they may count at a rate higher than cpu_khz.
 
-We also document that latest takes precedence, at which point "watchdog"
-would re-activate.
+Is this in theory, or observed in practice?
 
+It is my understanding that perf counters count in P0 reference cycles,
+and not at the Turbo/CBS rate.
+
+>  Thus the
+> watchdog tick may occur more frequently than invocations of the timer
+> if we don't account for the ratio between nominal and maximum CPU clock
+> speeds, which would be a problem in particular when "watchdog_timeout=1"
+> is in effect (for high enough ratios even larger timout values may pose
+> a problem).
 >
-> While there also switch watchdog_setup() to returning void, bringing it
-> in line with the !CONFIG_WATCHDOG case. Further amend command line
-> documentation to also mention the implicit effect of specifying a non-
-> zero timeout.
+> Leverage the so far display-only data we collect on newer Intel and AMD
+> CPUs. On older CPUs we just have to (continue to) hope that the default
+> frequency of 1 Hz is okay(-ish) to use.
+>
+> While adding the new variable, also move the (now adjacent) cpu_khz to
+> .data.ro_after_init.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> Alternatively "watchdog" following "watchdog_timeout=0" could be taken
-> to mean to use the default timeout again.
+> This renders the "log" in the function names somewhat stale, but I don't
+> think this strictly warrants renaming the functions right away.
 
-I realise that watchdog_timeout is my fault, but in fairness it was an
-early change of mine in Xen and didn't exactly get the kind of review it
-would get these days.  It also wasn't used by XenServer in the end - we
-just stayed at a default 5s.
+I'm not comfortable with this change.  It's adding to a complicated
+timing problem, rather than simplifying it.
 
-I'm very tempted to suggest deleting watchdog_timeout, and extending
-watchdog= to have `force | <bool> | <int>s` so you could specify e.g.
-`watchdog=10s`.
-
-The watchdog is off by default so I don't expect this will impact
-people.  It is also more convenient for the end user, and means that we
-don't have have the current split approach of two separate options
-fighting for control over each other.
-
-It also means we we can in principle support non-integer-second units of
-time in a theoretical future when the NMI handler can count time properly.
-
-> Really I think the comment in watchdog_setup() is wrong, and the
-> function would hence better go away.
-
-That comment dates from 2006.  I highly suspect it's not true any more,
-and it certainly is odd to be running over all CPUs like that.
+The real problem we've got is that the NMI handler is guessing at the
+timeout by counting NMIs, not by actually counting time.  There are
+several ways to fix this even with the current rendezvous logic.  When
+the NMI handler can actually say "if ( NOW() - last > timeout )", then
+the exact frequently of NMIs becomes far less important.
 
 ~Andrew
 
