@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07D9F880408
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 18:56:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695558.1085411 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3B3D88057E
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 20:33:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695591.1085433 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmdgH-0004Nl-7d; Tue, 19 Mar 2024 17:55:21 +0000
+	id 1rmfCG-0002eC-4n; Tue, 19 Mar 2024 19:32:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695558.1085411; Tue, 19 Mar 2024 17:55:21 +0000
+Received: by outflank-mailman (output) from mailman id 695591.1085433; Tue, 19 Mar 2024 19:32:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmdgH-0004Lg-4j; Tue, 19 Mar 2024 17:55:21 +0000
-Received: by outflank-mailman (input) for mailman id 695558;
- Tue, 19 Mar 2024 17:55:19 +0000
+	id 1rmfCG-0002cJ-1r; Tue, 19 Mar 2024 19:32:28 +0000
+Received: by outflank-mailman (input) for mailman id 695591;
+ Tue, 19 Mar 2024 19:32:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yEhX=KZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rmdgF-0004La-Pi
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 17:55:19 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ <SRS0=CQvM=KZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rmfCE-0002c9-Lu
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 19:32:26 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d92ae894-e619-11ee-afdd-a90da7624cb6;
- Tue, 19 Mar 2024 18:55:18 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-33ff53528ceso2060897f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 10:55:18 -0700 (PDT)
-Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
- z5-20020a5d44c5000000b0033b87c2725csm12838740wrr.104.2024.03.19.10.55.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Mar 2024 10:55:18 -0700 (PDT)
+ id 68b79038-e627-11ee-afdd-a90da7624cb6;
+ Tue, 19 Mar 2024 20:32:23 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-33e1d327595so3902048f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 12:32:23 -0700 (PDT)
+Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ m2-20020a05600c3b0200b004142894df64sm5579299wms.5.2024.03.19.12.32.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Mar 2024 12:32:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,124 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d92ae894-e619-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 68b79038-e627-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710870918; x=1711475718; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=pOorp9oPj27UM7coMUX9+JZpLzJHJalw1+cwFEHhakg=;
-        b=HuGCQy3jiCohaW+qGkKcxIBiIZzAN/tXSPOVqndp+dKQbw+9EJHC/sgP787++e3MTQ
-         ZtYPEpJGcPwmJbifvmZ/l/ceudQ9/HFiqiBXHNjZ1/nPV9PEs9/DWx9kwyOpBuLWd/5D
-         RIB/aRJE+r/hmBUYaOA0WjpPBOjTkOP+psawg=
+        d=citrix.com; s=google; t=1710876742; x=1711481542; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QjBNX0X4WwogqDfb45E1kF0bril/tJaw/P9Q/Rx8MSI=;
+        b=vRASjtQ8TUxzubkdn5hSfS67mgSZimGBcAGO3NUjmsM9hQQKLhUgYBNFwy66s0YsLF
+         FmMhwiVWJBcPTeIfs8jZXEaw4vs+mkqJXyRkEi1rQ1Z+/ZlQtCuHW9WpVroKLHL6lqBc
+         i0F29xJaHD9QQQ7FcHCg2P4xnUswB9q3tU35I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710870918; x=1711475718;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pOorp9oPj27UM7coMUX9+JZpLzJHJalw1+cwFEHhakg=;
-        b=JVpdhowQc7bJgpYZjy0tYfMV1wi5zEtFhSGPNC8w8q1WpS9K3WtapoVlyamMtZaLSp
-         xCbxLhxB6pNyA2tA2J30OfMvWFs9/PeUhbrrHCpKG48UEQG3ed0t6AUwI76D1DUjGgQN
-         e4oAk1vVv0W87FZAR3IkvwuyCD6zIXsWjBXBHXX1GRQWEKP4xLYfVA1ejw+8dVvl0St6
-         5Va18wrqeMyGrI97COJVr86oVsa019cieO+6NImEt/A7btyLU2I77i6a4z8uhScfMYw2
-         0Eojuu6QaFMOOgKK7WbuOUdnRdaO+bkEw+uAcZLe98uuW1wDZyLr8tItKLRzZEQhIiqs
-         6Djw==
-X-Gm-Message-State: AOJu0YwqerdN1kHjDPwLfVNVmfOQU0OOaG8ViTgwZZPOygFRngf4sGP3
-	+zGjmyQVIpYVe4CTiyQ0xM9xPL3ZP6ZY7LJjSezLf91OcyvY5H4mII4JMbb+M4U=
-X-Google-Smtp-Source: AGHT+IECCSk49H6gp6UgFinGb3tXDmyb5T5o7xPSV/1U4MvK4o2xRAjHWBmtYxIx6BCOcBS+lwQouQ==
-X-Received: by 2002:a5d:4607:0:b0:33e:7029:96bf with SMTP id t7-20020a5d4607000000b0033e702996bfmr10934084wrq.58.1710870918224;
-        Tue, 19 Mar 2024 10:55:18 -0700 (PDT)
-Date: Tue, 19 Mar 2024 18:55:17 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 2/6] tools/xc: Add xc_cpu_policy to the public xenctrl.h
- header
-Message-ID: <ZfnRhQ94uIwQCN3v@macbook>
-References: <20240109153834.4192-1-alejandro.vallejo@cloud.com>
- <20240109153834.4192-3-alejandro.vallejo@cloud.com>
+        d=1e100.net; s=20230601; t=1710876742; x=1711481542;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QjBNX0X4WwogqDfb45E1kF0bril/tJaw/P9Q/Rx8MSI=;
+        b=qhAVsSNANT6ZHOnWNNjoEP/VBOn0U40TsI9Wl7Bh0K2kISDqNo2M9MmIx/pCmTWs+Y
+         vv3BpWjvyIQu4EDAZpuWcGUjScaqI9NX7+1KndPIefa5yI8JaN3/wCCzeYG5dl7dqbAN
+         XR8331rf79kIjuCViKeDI6QQjcf3PMmjoeXd/B7I0rZDA6MdZrlhmsMJrTiafC+UOQCE
+         bgjaCjfbJgHK1/ofXyJfWyeEXfW2wBN1MYfgZaOVs+yBV3cL1NR7vs9CvkCCS9J9NZRr
+         T0oohWfwn4vuvA5qcexnGQ/BDlmJG4dqbn4/wFuZpA3iRwNAeSO3lZWCuSWlJjRayCvE
+         Lc0Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXvprfjaQ0FGYAN/wNUaWRGiwcI6SqXhzuh3fJMSwaJ1SBo/nIeB0ppHobG9Ulrbnk9CdLltPnBVVyIQPMfp4F1mhhBc7l6Kh4m1g53r1c=
+X-Gm-Message-State: AOJu0YzbreH6Ey8dvgt71K8ccEy7dZVNvm10oaIv50nJDgKzioBuvyOq
+	rguBGzvufIdYrnPq7rQYY7LWBhH8cF4tr3PT/Aq2NPO5yxL1q8PbgXU+dKt/LbI=
+X-Google-Smtp-Source: AGHT+IGAHXsT6sdsmLcdmOjdcLCUGGNTK3ONiJOuzzDKornYQ2xzyc0vt951QiV4T/juuu5KmNHGFw==
+X-Received: by 2002:adf:e68c:0:b0:33e:1a96:2be7 with SMTP id r12-20020adfe68c000000b0033e1a962be7mr9084633wrm.11.1710876742565;
+        Tue, 19 Mar 2024 12:32:22 -0700 (PDT)
+Message-ID: <7f44c5cd-2e50-4262-a9bd-dacd313f82bc@citrix.com>
+Date: Tue, 19 Mar 2024 19:32:21 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20240109153834.4192-3-alejandro.vallejo@cloud.com>
+User-Agent: Mozilla Thunderbird
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/mm: fix detection of last L1 entry in
+ modify_xen_mappings_lite()
+To: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20240311105416.4556-1-roger.pau@citrix.com>
+ <ac38c8bf-56c2-49f8-98fe-1563803a9c14@suse.com>
+Content-Language: en-GB
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <ac38c8bf-56c2-49f8-98fe-1563803a9c14@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jan 09, 2024 at 03:38:30PM +0000, Alejandro Vallejo wrote:
-> Move struct xc_cpu_policy data structure out of xg_private.h and into
-> the public xenguest.h so it can be used by libxl.
+On 11/03/2024 11:29 am, Jan Beulich wrote:
+> On 11.03.2024 11:54, Roger Pau Monne wrote:
+>> The current logic to detect when to switch to the next L1 table is incorrectly
+>> using l2_table_offset() in order to notice when the last entry on the current
+>> L1 table has been reached.
+>>
+>> It should instead use l1_table_offset() to check whether the index has wrapped
+>> to point to the first entry, and so the next L1 table should be used.
+>>
+>> Fixes: 8676092a0f16 ('x86/livepatch: Fix livepatch application when CET is active')
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> ---
+>> This fixes the osstest livepatch related crash, we have been lucky so far that
+>> the .text section didn't seem to have hit this.
+> About half a megabyte more to go until .text could run into such an issue,
+> I guess, just considering the core Xen image. Patches are presumably not
+> large enough to stand a sufficient risk of hitting the issue.
+>
+> I think there's another latent problem though, related to this part of the
+> comment ahead of the function:
+>
+>  * It is the callers responsibility to not pass s or e in the middle of
+>  * superpages if changing the permission on the whole superpage is going to be
+>  * a problem.
+>
+> This only suggests that for a pointer into the middle of a superpage the
+> effect may be wider than intended. But with s misaligned modulo 2Mb the
+> superpage part of the loop would keep v misaligned, and if the 2nd 2Mb
+> range wasn't a superpage, part of the range wouldn't be touched at all.
+> Right now with .text always 2Mb-aligned (and with there not being a
+> superpage mapping across _srodata) there's no issue as long as superpages
+> aren't used in patch loading. Yet recall that .text used to be only 1Mb
+> aligned in older Xen versions, and this fact isn't entirely set in stone
+> when !XEN_ALIGN_2M.
 
-I will let Andrew comment on this one, IIRC the initial idea was to
-not leak cpu_policy into libxl, and to instead have it as an opaque
-object that libxl can interact with using helpers.
+That comment was added at your request.
 
-I haven't looked at followup patches - I assume this is done to
-manipulate the cpuid data more easily from libxl, and ultimately drop
-xc_xend_cpuid?
+The start address is always going to a linker symbol in the main image,
+or something allocated with MAP_SMALL_PAGES.
 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> ---
->  tools/include/xenguest.h             |  8 +++++++-
->  tools/libs/guest/xg_private.h        | 10 ----------
->  xen/include/xen/lib/x86/cpu-policy.h |  5 +++++
->  3 files changed, 12 insertions(+), 11 deletions(-)
-> 
-> diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
-> index e01f494b77..4e9078fdee 100644
-> --- a/tools/include/xenguest.h
-> +++ b/tools/include/xenguest.h
-> @@ -784,7 +784,13 @@ xen_pfn_t *xc_map_m2p(xc_interface *xch,
->                        unsigned long *mfn0);
->  
->  #if defined(__i386__) || defined(__x86_64__)
-> -typedef struct xc_cpu_policy xc_cpu_policy_t;
-> +#include <xen/lib/x86/cpu-policy.h>
-> +
-> +typedef struct xc_cpu_policy {
-> +    struct cpu_policy policy;
-> +    xen_cpuid_leaf_t leaves[CPUID_MAX_SERIALISED_LEAVES];
-> +    xen_msr_entry_t msrs[MSR_MAX_SERIALISED_ENTRIES];
-> +} xc_cpu_policy_t;
->  
->  /* Create and free a xc_cpu_policy object. */
->  xc_cpu_policy_t *xc_cpu_policy_init(void);
-> diff --git a/tools/libs/guest/xg_private.h b/tools/libs/guest/xg_private.h
-> index d73947094f..d1940f1ea4 100644
-> --- a/tools/libs/guest/xg_private.h
-> +++ b/tools/libs/guest/xg_private.h
-> @@ -170,14 +170,4 @@ int pin_table(xc_interface *xch, unsigned int type, unsigned long mfn,
->  #define M2P_SIZE(_m)    ROUNDUP(((_m) * sizeof(xen_pfn_t)), M2P_SHIFT)
->  #define M2P_CHUNKS(_m)  (M2P_SIZE((_m)) >> M2P_SHIFT)
->  
-> -#if defined(__x86_64__) || defined(__i386__)
-> -#include <xen/lib/x86/cpu-policy.h>
-> -
-> -struct xc_cpu_policy {
-> -    struct cpu_policy policy;
-> -    xen_cpuid_leaf_t leaves[CPUID_MAX_SERIALISED_LEAVES];
-> -    xen_msr_entry_t msrs[MSR_MAX_SERIALISED_ENTRIES];
-> -};
-> -#endif /* x86 */
-> -
->  #endif /* XG_PRIVATE_H */
-> diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
-> index 14724cedff..65f6335b32 100644
-> --- a/xen/include/xen/lib/x86/cpu-policy.h
-> +++ b/xen/include/xen/lib/x86/cpu-policy.h
-> @@ -85,6 +85,11 @@ unsigned int x86_cpuid_lookup_vendor(uint32_t ebx, uint32_t ecx, uint32_t edx);
->   */
->  const char *x86_cpuid_vendor_to_str(unsigned int vendor);
->  
-> +#ifndef __XEN__
-> +/* Needed for MAX() */
-> +#include <xen-tools/common-macros.h>
-> +#endif /* __XEN__ */
+Xen's .text strictly is 2M aligned.  The boot time pagetable handling
+doesn't otherwise.
 
-I think for this header it is up to the user to provide the required
-context, iow: it should be tools/include/xenguest.h to include
-xen-tools/common-macros.h ahead of cpu-policy.h.  Otherwise we should
-likely do the same for #ifdef __XEN__ branch and include whatever
-header that defines MAX().
+But either way.  The two options are to either ASSERT() that v is 2M
+aligned when finding PSE, or to realign it on each iteration.  I'd
+prefer to go with the assert on the basis that I don't expect this
+property to be violated in practice.
 
-Thanks, Roger.
+I also note that forcing page alignment on e is useless.  All it does is
+force the caller to do pointless work.
+
+~Andrew
 
