@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D851880339
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 18:15:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695543.1085371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4858F8803A4
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 18:40:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695547.1085380 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmd36-0003uO-9p; Tue, 19 Mar 2024 17:14:52 +0000
+	id 1rmdRb-0000X9-9R; Tue, 19 Mar 2024 17:40:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695543.1085371; Tue, 19 Mar 2024 17:14:52 +0000
+Received: by outflank-mailman (output) from mailman id 695547.1085380; Tue, 19 Mar 2024 17:40:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmd36-0003rz-6K; Tue, 19 Mar 2024 17:14:52 +0000
-Received: by outflank-mailman (input) for mailman id 695543;
- Tue, 19 Mar 2024 17:14:50 +0000
+	id 1rmdRb-0000V6-6g; Tue, 19 Mar 2024 17:40:11 +0000
+Received: by outflank-mailman (input) for mailman id 695547;
+ Tue, 19 Mar 2024 17:40:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CQvM=KZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rmd34-0003rs-7k
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 17:14:50 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1rmdRa-0000V0-0O
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 17:40:10 +0000
+Received: from mail-ua1-x933.google.com (mail-ua1-x933.google.com
+ [2607:f8b0:4864:20::933])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 30ee9838-e614-11ee-afdd-a90da7624cb6;
- Tue, 19 Mar 2024 18:14:49 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-41412e6b2cfso15788395e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 10:14:49 -0700 (PDT)
+ id ba0fd701-e617-11ee-afdd-a90da7624cb6;
+ Tue, 19 Mar 2024 18:40:08 +0100 (CET)
+Received: by mail-ua1-x933.google.com with SMTP id
+ a1e0cc1a2514c-7e0a4b2d777so87994241.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 10:40:08 -0700 (PDT)
 Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- by19-20020a056000099300b0034174875850sm5493269wrb.70.2024.03.19.10.14.47
+ jn10-20020ad45dea000000b00690dd47a41csm6716887qvb.86.2024.03.19.10.40.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Mar 2024 10:14:47 -0700 (PDT)
+ Tue, 19 Mar 2024 10:40:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30ee9838-e614-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: ba0fd701-e617-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710868488; x=1711473288; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1710870005; x=1711474805; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=W6/a3b+fxTvBdKPc6QkA6k20Nwv60cgrdy6XCpTTdV4=;
-        b=iG7FysCifNX6P6Ax5YWu3mlQXaqjcz5BzxGD6buLzvvNKl5tWoPiBC7B1n1X+RbGP6
-         CSsdV3wJSoR/IjBZZGGOYcB/cRuf0FRzPWmzIk7p8Pe8KMIhwXFcpCmbRhvqoGNqeUEr
-         1D1Gx1FzuyGGWci0bcRIhcosWhw1khWL/dBOM=
+        bh=rrL9Kz+ZKM/DM784P4UlmLyF0ehyJ9P9HDQ8QX8yhXk=;
+        b=lgC1TV0l+nZM24pO5GBHU5DHkTjwd14IDwqEV9vHhPDmxcax7qhZw59d9RkUpSU5xo
+         hyHPKgdjXHJaQQsZiA36hVZVbBOGOdPVtpHK/R1wtwh9OPttvQVuD1L8i1QWBGmHkxGt
+         aspwmRxmU3rCalGTtKhutD+ayB7FFKP3CzDI0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710868488; x=1711473288;
+        d=1e100.net; s=20230601; t=1710870005; x=1711474805;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=W6/a3b+fxTvBdKPc6QkA6k20Nwv60cgrdy6XCpTTdV4=;
-        b=RGsrev/eaego75idkNePq2AhAJ++/ZmYWi0g4x8i1xd5ILWVN+v6gRr6gSLJhg4tdH
-         6F3QOuCel4+SCOTzhOjSafjxPskfRBjv2XzcXqXSGHEAItixxTDT+rPaSIImzQwF8gRc
-         v9rRROqHdBjizjF2VvThngadGEbiikfYTS8Az7/O09Vj+WUz4vO1SEA7uSY7gZphiWwx
-         t5F1uNvwtr82HBBYO1w7LSKga1zOz9rq9Z9+Gny92KY9bhzkijGlHInHtpb3Wp45hveP
-         xFzgNde/xp0DOvetl49M3sy+PavkBF0cC2YXiWyrsPvDuH2DzNrW/y4aji2T7zXDmIkO
-         DHhw==
-X-Forwarded-Encrypted: i=1; AJvYcCX58xVmnA/Npv57d4OgtCdkECKaMwmsejJDlzPcRLrS+hbQqA6w1+LGxENFEAMBRln+zqEtMM0OkXPD7EDkayOg6bHWL0fugwvJ8Rw4IAo=
-X-Gm-Message-State: AOJu0YwFgmi7f6CBiJX6XmW2P3F18IHY5oDp6RRvaL2oNeg6Viq2z/gm
-	NNOhjaowLyui05dHDFicjiETrSVLwb0GPagipk9oOmATK0Jx0UN7l9E8J7c2dAw=
-X-Google-Smtp-Source: AGHT+IEWhF1WEEmo5ffkgUbVs9VOlMvVYiysFsQkLQ1uSJmao0h5BSiPUFRGwdLoJZb0syY7ZbI5cg==
-X-Received: by 2002:a05:600c:3c86:b0:414:286:fd1f with SMTP id bg6-20020a05600c3c8600b004140286fd1fmr7705455wmb.11.1710868488528;
-        Tue, 19 Mar 2024 10:14:48 -0700 (PDT)
-Message-ID: <c322bc29-d1e6-4acb-a410-ea2e3204a111@citrix.com>
-Date: Tue, 19 Mar 2024 17:14:47 +0000
+        bh=rrL9Kz+ZKM/DM784P4UlmLyF0ehyJ9P9HDQ8QX8yhXk=;
+        b=pa8AMISoqVHZu7rv9ZYDOPXqnVO50SwlLCWFvB//5htUZGxA8c3KCu43G0/euW9q6y
+         VPYyLu8pXEZmLN5KeGdHM9WvRB87uSz9du2bKyslLCrAlH7zg63Xly78uSj66jBv0nMF
+         OoFC4ZtYG7sjV2QE+P2XP39gxmhjDROHr3ANdB6ug7tuE9ihwTtDUwMINgdo/6BMcSsU
+         LwH48RIWTRq6lUW7A5Du4Slnxap1KtGrc4BEKZZ/YyADhNdJImWROh82An5EB8pzEAEr
+         rx7vmQguuQMg78EYWOcgFoTUKXOoZ4NHAZyvv5Ci2rWs1f5Umxdk5OEnDk0lcSSUuuSC
+         aoJQ==
+X-Gm-Message-State: AOJu0Yw/h9GC1ejjxKsu9z+uwvk9yDhu4VzUcUh1Z637+VHI0AjAcRJC
+	xHUn3P3CW7maZW+9H5QDNKZubpUkNyLv4LbVX9u+GYh73OS4rKLjt07wyMRm9Su/JtsOWID587K
+	s
+X-Google-Smtp-Source: AGHT+IH+czLzwWWnZk1urz4FDtf9C2NKC9ZwJiOIcHr+FcmaBdlBZJxL8Tet126APtKnudnCgmZAxg==
+X-Received: by 2002:a67:b915:0:b0:476:6a20:bdd6 with SMTP id q21-20020a67b915000000b004766a20bdd6mr10493362vsn.31.1710870005506;
+        Tue, 19 Mar 2024 10:40:05 -0700 (PDT)
+Message-ID: <8eb3d0d4-daf2-40a4-83b6-d3726e02814f@citrix.com>
+Date: Tue, 19 Mar 2024 17:40:03 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] x86/features: More AMD features
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 References: <20240318181332.3817631-1-andrew.cooper3@citrix.com>
- <e45432b2-9ab5-4fa7-994c-37265edbc8f5@suse.com>
- <4aa2aced-d4dc-40d6-818b-8163657cd670@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -129,34 +127,73 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <4aa2aced-d4dc-40d6-818b-8163657cd670@suse.com>
+In-Reply-To: <20240318181332.3817631-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19/03/2024 1:11 pm, Jan Beulich wrote:
-> On 19.03.2024 08:33, Jan Beulich wrote:
->> On 18.03.2024 19:13, Andrew Cooper wrote:
->>> I'm not sure about FSRSC as a name, but it definitely beats AMD's longhand
->>> name of FAST_REP_SCASB.
->> With FSRS already used, I guess that's the closest we can get to keep
->> names for similar features similar.
->>
->>> --- a/tools/misc/xen-cpuid.c
->>> +++ b/tools/misc/xen-cpuid.c
->>> @@ -91,6 +91,7 @@ static const char *const str_e1c[32] =
->>>      [24] = "perfctr-nb", /* [25] */
->>>      [26] = "dbx",        [27] = "perftsc",
->>>      [28] = "pcx-l2i",    [29] = "monitorx",
->>> +    [30] = "dbext2",
->>>  };
->> AMD calls this AddrMaskExt (PM) or AdMskExtn (PPR). I can see where your
->> different name choice is coming from, yet I still wonder whether we should
->> try to stay closer where possible.
-> Having located the corresponding doc,
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> with a slight preference to adjusted names for this one feature.
+On 18/03/2024 6:13 pm, Andrew Cooper wrote:
+> All of these are informational and require no further logic changes in Xen to
+> support.
+>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+>
+> I'm not sure about FSRSC as a name, but it definitely beats AMD's longhand
+> name of FAST_REP_SCASB.
+> ---
+>  tools/misc/xen-cpuid.c                      | 5 +++++
+>  xen/include/public/arch-x86/cpufeatureset.h | 8 ++++++++
+>  2 files changed, 13 insertions(+)
+>
+> diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
+> index 51efbff579e6..b562ee839d38 100644
+> --- a/tools/misc/xen-cpuid.c
+> +++ b/tools/misc/xen-cpuid.c
+> @@ -91,6 +91,7 @@ static const char *const str_e1c[32] =
+>      [24] = "perfctr-nb", /* [25] */
+>      [26] = "dbx",        [27] = "perftsc",
+>      [28] = "pcx-l2i",    [29] = "monitorx",
+> +    [30] = "dbext2",
+>  };
+>  
+>  static const char *const str_7b0[32] =
+> @@ -199,11 +200,15 @@ static const char *const str_7a1[32] =
+>  
+>  static const char *const str_e21a[32] =
+>  {
+> +    [ 0] = "no-nest-bp",    [ 1] = "fs-gs-ns",
+>      [ 2] = "lfence+",
+>      [ 6] = "nscb",
+>      [ 8] = "auto-ibrs",
+> +    [10] = "amd-fsrs",      [11] = "amd-fsrc",
+>  
+>      /* 16 */                [17] = "cpuid-user-dis",
+> +    [18] = "epsf",          [19] = "fsrsc",
 
-Neither are great.  How about "addr-msk-ext" ?
+It occurs to me that I need this hunk too.
+
+diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
+index 25d329ce486f..bf3f9ec01e6e 100755
+--- a/xen/tools/gen-cpuid.py
++++ b/xen/tools/gen-cpuid.py
+@@ -329,6 +329,10 @@ def crunch_numbers(state):
+         # In principle the TSXLDTRK insns could also be considered
+independent.
+         RTM: [TSXLDTRK],
+ 
++        # Enhanced Predictive Store-Forwarding is a informational note
+on top
++        # of PSF.
++        PSFD: [EPSF],
++
+         # The ARCH_CAPS CPUID bit enumerates the availability of the
+whole register.
+         ARCH_CAPS: list(range(RDCL_NO, RDCL_NO + 64)),
+ 
+
+To cause EPSF to disappear properly when levelling.
 
 ~Andrew
 
