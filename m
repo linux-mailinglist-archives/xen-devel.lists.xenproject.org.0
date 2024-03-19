@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F51688015C
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 17:04:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695483.1085281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C2DB8801C0
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 17:16:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695489.1085291 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmbwB-0002v8-9Z; Tue, 19 Mar 2024 16:03:39 +0000
+	id 1rmc8F-0005Hh-BI; Tue, 19 Mar 2024 16:16:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695483.1085281; Tue, 19 Mar 2024 16:03:39 +0000
+Received: by outflank-mailman (output) from mailman id 695489.1085291; Tue, 19 Mar 2024 16:16:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmbwB-0002tS-6r; Tue, 19 Mar 2024 16:03:39 +0000
-Received: by outflank-mailman (input) for mailman id 695483;
- Tue, 19 Mar 2024 16:03:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rmc8F-0005Fz-7n; Tue, 19 Mar 2024 16:16:07 +0000
+Received: by outflank-mailman (input) for mailman id 695489;
+ Tue, 19 Mar 2024 16:16:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aOUF=KZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmbw9-0002tK-NM
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 16:03:37 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e5ca587-e60a-11ee-afdd-a90da7624cb6;
- Tue, 19 Mar 2024 17:03:36 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-56b857bac38so973233a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 09:03:36 -0700 (PDT)
+ id 1rmc8D-0005Ft-RS
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 16:16:05 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fa8c5360-e60b-11ee-a1ee-f123f15fe8a2;
+ Tue, 19 Mar 2024 17:16:01 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a465ddc2c09so389516166b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 09:16:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ek20-20020a056402371400b0056b9754fa1fsm782402edb.60.2024.03.19.09.03.35
+ s14-20020a056402014e00b0056b81da18c0sm1745979edu.17.2024.03.19.09.16.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Mar 2024 09:03:35 -0700 (PDT)
+ Tue, 19 Mar 2024 09:16:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e5ca587-e60a-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: fa8c5360-e60b-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710864216; x=1711469016; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EtHfdTvgfTJgk7m9Ttz2PcO/AOctE+1IurGzbgNC7xs=;
-        b=bskAAJ6aSqRRDfG1aw0B02gDrNWbqoL0S/72Iw4KdgIe/meDUp+1zZpnewkjBV0pUP
-         Pr/y+lMioiWr16nUUQpK2JDeE/UT4ucwQGpukTwSjy1nbdxxuHDZcHFEt/5fbsz5Kr2g
-         2ZvUNrDn3w3bK41PT/Duaw9UhHC8Z9WOSIXXa80lMfN0VxsufuwTrE0tO1/OGTtsumf+
-         /HbTDeU2PNLssS8E8DLS+Mixmp6kjBuSPszQSMSGbZGqrPdERMl+kktAgw1hCRnFjsvX
-         fvkjI8qUyzZHOALcvOezPPGAzOvg0yShrDEa2SVqlDqm0FJvjHKhkDAy+SX1n+prn4tP
-         +Zfg==
+        d=suse.com; s=google; t=1710864961; x=1711469761; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZAD2pA23WrR6O/crsHzWBoKV29m/NxlQoWgxo8hwufc=;
+        b=b4Nw3kWnNSDBSq5YEpdzt65d1U/xhIrjQGNiG/4BpscqcBzvC0qhy3TnZjW/alyISU
+         MdMaRTEcrw5+5zcd7tbAL9jGySUFRcxp7JmIzOpTkv55z/fvCwcOb1I/7Cf+ibSDXhkY
+         a8euJ67BByEmxGl3Qqj6X7arzgUVCCfogrbHq8ueEQzzPJz6Ny+cEx76QgX3+uePfrqv
+         Zp/Ua7aCBoVJcrYQNim23p8yEpghFADuTvEnwhcfkWIFNCjzDtIaG6Tt06HZigbessR3
+         XfxggFXMZvPFKIpu24ChYKoYAvSsdRypH2gGW0hqrX3hCgRpfzkSCdDb8faO3XGMdJF/
+         RnDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710864216; x=1711469016;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EtHfdTvgfTJgk7m9Ttz2PcO/AOctE+1IurGzbgNC7xs=;
-        b=qkUX+Ur9mNOavJLB8NRM6Bfg/WxW/bbmsiuhqkwhBG+VESsfWhWi2G7KoSY4fp7bIg
-         Rl7TJUdRk/egnY/zjst4q7l0s4k4sw9KFXXxebcJHy8vvioRCL79uhtYR6CYlrrSVj3T
-         KeUmE9stl6cWMFE9QUJHFSItBmleeJARj6z4aCk/TmbDbPy78qnEJdiqf1mlEn60T2zW
-         LOm1YaHGUJr5d7Bo4Uaf/QgoKf3W8rPbivGADgD/j/C3u8VVI4WFtU86RuWQKvDUNq2Z
-         0DR7Q29t+LWT/rGadB8E/8idrDljPqttjwKHsQhKrCC/VR66lZSqj65zqC/Yg/CkFg+1
-         6mpg==
-X-Forwarded-Encrypted: i=1; AJvYcCWbCXStQk4wY+FWp1t9ol0paw7c3G8kyV2SC9bjzPDx+9fjPudmrImDO2csBISavDnSjWYkjzcv6A40Mt/p3SquKYpKpaU/AgLGXCSr6Lw=
-X-Gm-Message-State: AOJu0Yywwb8tYX6YT0V8AUbdKik88zTkL3XcMPWCf7+s6B5TP8LbSDHQ
-	7lzGeqvUPLFWsG2rdmaPLBy2LfneEJmPrI4hA+JxVCmwnKnUNanmuehJR3tGgPJT3JSPY3eV8LU
-	=
-X-Google-Smtp-Source: AGHT+IFkrW6OEWqYCE+I9uzhw2wyuVwG249wD7+3krzcAduz+Y37v03UC3sNPxCPkpm6y55IMZZ8Qw==
-X-Received: by 2002:a05:6402:1f08:b0:565:f7c7:f23c with SMTP id b8-20020a0564021f0800b00565f7c7f23cmr8216926edb.3.1710864216190;
-        Tue, 19 Mar 2024 09:03:36 -0700 (PDT)
-Message-ID: <9dfd1629-e69f-40a9-a027-9e36add0a48f@suse.com>
-Date: Tue, 19 Mar 2024 17:03:34 +0100
+        d=1e100.net; s=20230601; t=1710864961; x=1711469761;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ZAD2pA23WrR6O/crsHzWBoKV29m/NxlQoWgxo8hwufc=;
+        b=QVCE6fdqCfgGIaPXgqMB5EBiYG5QUSIt5Yr7T0gLuQGQwh/Z5t3Q5yacYDP1ssLXFa
+         FDruJUhcMeavDGfKmswxkoYNkp+G/qABisG1CAvlT+hAim9Es2dX2EJplzjrweRC6ybd
+         cedQpPWESdBfilxc0+rqkiEmIUsRzpx9VFq6rzF69w23EQSBAuf3ICT9bFQUcHlmlhrq
+         +n5WUZzfCtLqZ08Vh9yPWnkgc6HTnM/Eup8eTVC8+KfvuobcXAXnDeqLCiv8yBAxy1NY
+         M5ynjPd5VSqvu9Y/K3oZGKbwrFtEyp4VQ09OWJcerV4GFN9RhgyhX15Q8FQOB5XyS7St
+         Xegg==
+X-Forwarded-Encrypted: i=1; AJvYcCWDT+8pW0Xl4fykQKrbfILnyYZosH/VUMFtMsyFNGLgcjm7IZkByjcaEeZx0RkFNTJnLKt1P4LtJfyeVGzIDp/t30VHNfbXTlUn+yqnlBU=
+X-Gm-Message-State: AOJu0YwVIMNJdNzwRwnz9MVDg6t3qBksQFro1iCQ9NoxUA3UlToAHIpa
+	p1IHFBe4nGQoNniSGs8RYhijC+ehzKLDl1HzSnDTfzhlKh/2SCAJic9TGThTEQ==
+X-Google-Smtp-Source: AGHT+IHVSaJvWmv6hpAzfqE2aEhcxREg9WiQZkQ4Wv36s5o83bWqZXrlnPYlTgdMIeVjTIHloo5fEg==
+X-Received: by 2002:a05:6402:5d0:b0:565:6e34:da30 with SMTP id n16-20020a05640205d000b005656e34da30mr10889400edx.21.1710864961432;
+        Tue, 19 Mar 2024 09:16:01 -0700 (PDT)
+Message-ID: <5ebf9310-7815-45ca-ac8b-5acc98a9e3df@suse.com>
+Date: Tue, 19 Mar 2024 17:15:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v7 14/14] xen/arm: add cache coloring support for Xen
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 To: Carlo Nonato <carlo.nonato@minervasys.tech>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
@@ -93,7 +94,7 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
 References: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
  <20240315105902.160047-15-carlo.nonato@minervasys.tech>
-From: Jan Beulich <jbeulich@suse.com>
+ <147ba010-3776-4ebd-a871-894921bcd4c4@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,90 +118,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240315105902.160047-15-carlo.nonato@minervasys.tech>
+In-Reply-To: <147ba010-3776-4ebd-a871-894921bcd4c4@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.03.2024 11:59, Carlo Nonato wrote:
-> @@ -62,7 +63,67 @@ unsigned int __init get_llc_way_size(void)
->      return line_size * num_sets;
->  }
->  
-> -void __init arch_llc_coloring_init(void) {}
+On 19.03.2024 16:58, Jan Beulich wrote:
+> On 15.03.2024 11:59, Carlo Nonato wrote:
+>> @@ -326,6 +328,27 @@ unsigned int get_max_nr_llc_colors(void)
+>>      return max_nr_colors;
+>>  }
+>>  
+>> +paddr_t __init xen_colored_map_size(void)
+>> +{
+>> +    return ROUNDUP((_end - _start) * max_nr_colors, XEN_PADDR_ALIGN);
+>> +}
+> 
+> XEN_PADDR_ALIGN is an inherently Arm thing. Such better wouldn't appear
+> in common code.
 
-Btw, doing things this way isn't very nice. I was about to ask ...
-
-> +/**
-> + * get_xen_paddr - get physical address to relocate Xen to
-> + *
-> + * Xen is relocated to as near to the top of RAM as possible and
-> + * aligned to a XEN_PADDR_ALIGN boundary.
-> + */
-> +static paddr_t __init get_xen_paddr(paddr_t xen_size)
-> +{
-> +    const struct meminfo *mi = &bootinfo.mem;
-> +    paddr_t min_size;
-> +    paddr_t paddr = 0;
-> +    unsigned int i;
-> +
-> +    min_size = (xen_size + (XEN_PADDR_ALIGN-1)) & ~(XEN_PADDR_ALIGN-1);
-> +
-> +    /* Find the highest bank with enough space. */
-> +    for ( i = 0; i < mi->nr_banks; i++ )
-> +    {
-> +        const struct membank *bank = &mi->bank[i];
-> +        paddr_t s, e;
-> +
-> +        if ( bank->size >= min_size )
-> +        {
-> +            e = consider_modules(bank->start, bank->start + bank->size,
-> +                                 min_size, XEN_PADDR_ALIGN, 0);
-> +            if ( !e )
-> +                continue;
-> +
-> +#ifdef CONFIG_ARM_32
-> +            /* Xen must be under 4GB */
-> +            if ( e > GB(4) )
-> +                e = GB(4);
-> +            if ( e < bank->start )
-> +                continue;
-> +#endif
-> +
-> +            s = e - min_size;
-> +
-> +            if ( s > paddr )
-> +                paddr = s;
-> +        }
-> +    }
-> +
-> +    if ( !paddr )
-> +        panic("Not enough memory to relocate Xen\n");
-> +
-> +    printk("Placing Xen at 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
-> +           paddr, paddr + min_size);
-> +
-> +    return paddr;
-> +}
-> +
-> +void __init arch_llc_coloring_init(void)
-> +{
-> +    struct bootmodule *xen_bootmodule = boot_module_find_by_kind(BOOTMOD_XEN);
-> +
-> +    BUG_ON(!xen_bootmodule);
-> +
-> +    xen_bootmodule->size = xen_colored_map_size();
-> +    xen_bootmodule->start = get_xen_paddr(xen_bootmodule->size);
-> +}
-
-... whether the build wouldn't have been broken until this function
-is added. Since you know the function is going to gain a non-empty
-body, please introduce it in the earlier patch as
-
-void __init arch_llc_coloring_init(void)
-{
-}
-
-instead.
+And actually in patch 10 you introduce get_max_nr_llc_colors). With
+that, this calculation can more to Arm code.
 
 Jan
 
