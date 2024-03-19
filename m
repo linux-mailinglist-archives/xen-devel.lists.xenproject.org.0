@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A1BB87F891
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 08:45:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695238.1084840 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EF0487F8E2
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 09:07:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695247.1084850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmU9h-0000sp-Kg; Tue, 19 Mar 2024 07:45:05 +0000
+	id 1rmUUt-0004mG-PO; Tue, 19 Mar 2024 08:06:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695238.1084840; Tue, 19 Mar 2024 07:45:05 +0000
+Received: by outflank-mailman (output) from mailman id 695247.1084850; Tue, 19 Mar 2024 08:06:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmU9h-0000qQ-Hz; Tue, 19 Mar 2024 07:45:05 +0000
-Received: by outflank-mailman (input) for mailman id 695238;
- Tue, 19 Mar 2024 07:45:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rmUUt-0004kj-LW; Tue, 19 Mar 2024 08:06:59 +0000
+Received: by outflank-mailman (input) for mailman id 695247;
+ Tue, 19 Mar 2024 08:06:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aOUF=KZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmU9g-0000qK-24
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 07:45:04 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9815c160-e5c4-11ee-afdd-a90da7624cb6;
- Tue, 19 Mar 2024 08:45:02 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-56a0c0a7ebcso2258785a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 00:45:02 -0700 (PDT)
+ id 1rmUUr-0004kd-VH
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 08:06:57 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a6e1c50f-e5c7-11ee-a1ee-f123f15fe8a2;
+ Tue, 19 Mar 2024 09:06:55 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a46dd7b4bcbso43727566b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 01:06:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ds11-20020a0564021ccb00b005689baaae61sm5445816edb.26.2024.03.19.00.45.01
+ di17-20020a170906731100b00a45aa7cb029sm5756003ejc.36.2024.03.19.01.06.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Mar 2024 00:45:01 -0700 (PDT)
+ Tue, 19 Mar 2024 01:06:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9815c160-e5c4-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: a6e1c50f-e5c7-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710834302; x=1711439102; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710835615; x=1711440415; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=OzP8GK1yyfxFlMfW8+ge1XFxBG/6uSp2j697TrAMWwE=;
-        b=f4muVJCodDcg35D+VJeKdiGXZplYxinieUnkVlhq0kalxCx4sQESCeAJ4LLyB1hZHZ
-         C6htBI4Els+pqs07ZGddoE86HTiHJVziAabeYGYawMvLPYkMQwm7TInhk56Mb/qWZXxx
-         iP0mx3Kf8LM9AgrTMNmT1Xmv+/+50Jk8jfSmD/8Q07pqgbT1iyqDZ3Dj8UaJ0vRArSa3
-         IuTPboHTH2WD++0/X6ZoJtXO9ICX5DOlpzM76m0/arRVrFtwkdxMc1QYWFiGI8MUwsoU
-         7P7/vnGi7mukAsdNA6fekDanh55hgxNJ4zbxQgouErjgVgRrDVhZq9CeOMq82MGqSN4K
-         p6LA==
+        bh=vNRWCo+o1B68GBRRcxYDYCJpuCK2Mo5BzztG9yF8XPU=;
+        b=gl0n2OkZ//FVAdr5AfoHGGlekVQ2a0288jhJuRg/X5rt3K51R6dSrg0DLWlLWLbnj9
+         0kkrKRj23ygIZOET4GJQ6a5U/3sIwppN8+oZl/FmR4025btuVtZqDBrU5Pagb9UOpglu
+         qH2OlFWLPaipxwPgdq4uO2x2mqWD6VygVHMAH3n3X83iYA8sbVuFCCtewKZzbuGljp74
+         bpAxovhIGWOU2IzEpLG7ul3C/2nPIigUjTQiano+jkSm3trxW+yUILdMI1doZJqMaPva
+         ++69PpzFxoFkarbcicBEaISx7DylaiHZngy+1W1utLwXvoZFxYn1bNVa1VADudgQraDA
+         KxPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710834302; x=1711439102;
+        d=1e100.net; s=20230601; t=1710835615; x=1711440415;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OzP8GK1yyfxFlMfW8+ge1XFxBG/6uSp2j697TrAMWwE=;
-        b=j7MvUCVc5BNQmBVzN5P0JlcGQBWlIt4hKaxOXKhq7t9bWxfStnSHyMEn6K5Mov3G5V
-         pw/KUqNpInCFfR3zJm0ljbOULR72RjxG6+NDSr61F/AxyIrtqNvHfsyomtl3Go0Y5uq2
-         7zOkks5xgJV3eDdhkRkc+hwhJ4vh0O2Lu5ntjDeuwv7UmnMDzh6KXYzLgvCKTEeCJxWQ
-         SanBWwe4s3CrR/D18V+d9zgUOQ+YfZpBOgHLgiRF0pz+HUTm18RVM/sAWjJixtHc2dQ7
-         aPjAWcc9Y5feKpRzEYrZgq5cZuUX92uuC5mhLuGkT+Ek87nNv/TR089zIQCHiP9NTPDS
-         tBCg==
-X-Forwarded-Encrypted: i=1; AJvYcCUU3f9s3ITSSqDfMvSEGr1lGoqTo0FuboDxV1Z9aDpbVvf17ejzPvMoyzjw9svQOsooAYMvIYeQ1C3JNnTuhPdLcRjtgQRN27qMKgQOi7E=
-X-Gm-Message-State: AOJu0YyzGtpunQkHt/wu0yzijZpqwJWmFSTj+RD3IKKvZdi4m7Yw3uyC
-	11BQaC1K7CQh55u50uEw8aJDRp+0zwHbZvCjDrQCXzPh1B/h6uHKYi88XPwl3A==
-X-Google-Smtp-Source: AGHT+IGYweTOL94tLcs8pI/TkiuB2JUt9O8ZEb6N1glqcW2tJFPi9bKOk/rILxkmbnGIqT2k42skpw==
-X-Received: by 2002:a05:6402:400e:b0:56b:9f3d:8f32 with SMTP id d14-20020a056402400e00b0056b9f3d8f32mr11931eda.12.1710834301847;
-        Tue, 19 Mar 2024 00:45:01 -0700 (PDT)
-Message-ID: <b675da13-e444-472c-997b-3db45a10e797@suse.com>
-Date: Tue, 19 Mar 2024 08:45:00 +0100
+        bh=vNRWCo+o1B68GBRRcxYDYCJpuCK2Mo5BzztG9yF8XPU=;
+        b=swGMMX48PyJGfMiYjcxqcF3+eDHsaCDbNIJ/980UUYecNuR8e16Fl8yDwP9BivQY8a
+         /6nCrHfMwYQV+pHZAPTtgQeOvxakU7zJDMeoKr8bKhMWLdDINH8FqF34aQ3wkIJQ6IzM
+         VcXU/rkpdiYFIzueEzdaKiaT9/ReKQeKUpXbNHGMw9upjrSVmmhAhDW9cpN3+A1JKcAh
+         IuULr5ned6N85PR6OLBRnhNG46WpO8OmYrD7PRQoexKUi6CN3NnWXwGrArZxFzFIad9D
+         ywQaWLa0HsVARRMKBsX0aN3gZpqhj/AoSr2f40gB1TLnmwt9CNAFczS5KfrQfQy2GgBo
+         STuw==
+X-Forwarded-Encrypted: i=1; AJvYcCVeXVFgnKh/ZDIeLDCd11k4kzI1dQV8RXPKxj20XEj2W6YuKqSW6EmIhTANbHrlkGlXVi75TlJDDp9FEH3gOBoPUzf5UWExmUvY0bsxzkA=
+X-Gm-Message-State: AOJu0YxUa8A9Q1zU9lXa1SB/zneTGK8nVMqHLC3krAq4kr927gJ9Bnux
+	TAWHj7QIRF62hCBbAL3wrK6sSsoDQLUMbr+RKHW6QisDKEH9VP1f7RZjOJXoYg==
+X-Google-Smtp-Source: AGHT+IHlY36jXRq5Ip1pxI3H7UpbW+X/Bt2GUgs04mLKuhGAluLrGQadGYxTet0RtcqdbwHxzVOT4w==
+X-Received: by 2002:a17:907:174c:b0:a46:47d5:2851 with SMTP id lf12-20020a170907174c00b00a4647d52851mr8752702ejc.29.1710835615159;
+        Tue, 19 Mar 2024 01:06:55 -0700 (PDT)
+Message-ID: <fadd30c9-440d-401d-bd05-7e1d965bbefe@suse.com>
+Date: Tue, 19 Mar 2024 09:06:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 03/16] misra: add deviations for direct inclusion
- guards
+Subject: Re: [PATCH v2] docs/misra: document the expected sizes of integer
+ types
 Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Simone Ballarin <simone.ballarin@bugseng.com>
-References: <cover.1710145041.git.simone.ballarin@bugseng.com>
- <1fdfec12fd2207c294f50d01d8ec32f890b915d7.1710145041.git.simone.ballarin@bugseng.com>
- <adeb5103-81b4-4f04-9ff6-a0526c8065db@suse.com>
- <6472eb42-157a-4d6e-b5bb-daa74fbbd97b@bugseng.com>
- <a9f85f2b-3eae-4544-88dd-6984011f0ef9@suse.com>
- <3e4bb597-3624-418e-93d0-b95042fd27a7@bugseng.com>
- <alpine.DEB.2.22.394.2403141559270.853156@ubuntu-linux-20-04-desktop>
- <077c0373-6eec-4403-b31e-574c8e8ae067@suse.com>
- <alpine.DEB.2.22.394.2403151738160.853156@ubuntu-linux-20-04-desktop>
- <0513e505-5444-4a9f-9a77-ec9f359ddf27@suse.com>
- <alpine.DEB.2.22.394.2403181732010.853156@ubuntu-linux-20-04-desktop>
+Cc: andrew.cooper3@citrix.com, bertrand.marquis@arm.com,
+ george.dunlap@citrix.com, julien@xen.org, michal.orzel@amd.com,
+ roger.pau@citrix.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2403141516550.853156@ubuntu-linux-20-04-desktop>
+ <6a76723e-ba47-40b3-8f33-d68030b14299@suse.com>
+ <alpine.DEB.2.22.394.2403151658530.853156@ubuntu-linux-20-04-desktop>
+ <7ab73379-b057-4568-9869-141cef185752@suse.com>
+ <alpine.DEB.2.22.394.2403181735410.853156@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -126,90 +116,137 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2403181732010.853156@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2403181735410.853156@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.03.2024 04:34, Stefano Stabellini wrote:
+On 19.03.2024 04:37, Stefano Stabellini wrote:
 > On Mon, 18 Mar 2024, Jan Beulich wrote:
->> On 16.03.2024 01:43, Stefano Stabellini wrote:
+>> On 16.03.2024 01:07, Stefano Stabellini wrote:
 >>> On Fri, 15 Mar 2024, Jan Beulich wrote:
->>>> On 14.03.2024 23:59, Stefano Stabellini wrote:
->>>>> On Mon, 11 Mar 2024, Simone Ballarin wrote:
->>>>>> On 11/03/24 14:56, Jan Beulich wrote:
->>>>>>> On 11.03.2024 13:00, Simone Ballarin wrote:
->>>>>>>> On 11/03/24 11:08, Jan Beulich wrote:
->>>>>>>>> On 11.03.2024 09:59, Simone Ballarin wrote:
->>>>>>>>>> --- a/xen/arch/arm/include/asm/hypercall.h
->>>>>>>>>> +++ b/xen/arch/arm/include/asm/hypercall.h
->>>>>>>>>> @@ -1,3 +1,4 @@
->>>>>>>>>> +/* SAF-5-safe direct inclusion guard before */
->>>>>>>>>>    #ifndef __XEN_HYPERCALL_H__
->>>>>>>>>>    #error "asm/hypercall.h should not be included directly - include
->>>>>>>>>> xen/hypercall.h instead"
->>>>>>>>>>    #endif
->>>>>>>>>> --- a/xen/arch/x86/include/asm/hypercall.h
->>>>>>>>>> +++ b/xen/arch/x86/include/asm/hypercall.h
->>>>>>>>>> @@ -2,6 +2,7 @@
->>>>>>>>>>     * asm-x86/hypercall.h
->>>>>>>>>>     */
->>>>>>>>>>    +/* SAF-5-safe direct inclusion guard before */
->>>>>>>>>>    #ifndef __XEN_HYPERCALL_H__
->>>>>>>>>>    #error "asm/hypercall.h should not be included directly - include
->>>>>>>>>> xen/hypercall.h instead"
->>>>>>>>>>    #endif
->>>>>>>>>
->>>>>>>>> Iirc it was said that this way checking for correct guards is suppressed
->>>>>>>>> altogether in Eclair, which is not what we want. Can you clarify this,
->>>>>>>>> please?
->>>>>>>>>
->>>>>>>>
->>>>>>>> My first change was moving this check inside the guard.
->>>>>>>> You commented my patch saying that this would be an error because someone
->>>>>>>> can
->>>>>>>> include it directly if it has already been included indirectly.
->>>>>>>> I replied telling that this was the case also before the change.
->>>>>>>> You agreed with me, and we decided that the correct thing would be fixing
->>>>>>>> the
->>>>>>>> check and not apply my temporary change to address the finding.
->>>>>>>>
->>>>>>>> Considering that the code should be amended, a SAF deviation seems to me
->>>>>>>> the most appropriate way for suppressing these findings.
->>>>>>>
->>>>>>> Since I don't feel your reply addresses my question, asking differently:
->>>>>>> With
->>>>>>> your change in place, will failure to have proper guards (later) in these
->>>>>>> headers still be reported by Eclair?
->>>>>>
->>>>>> No, if you put something between the check and the guard,
->>>>>> no violation will be reported.
->>>>>
->>>>> From this email exchange I cannot under if Jan is OK with this patch or
->>>>> not.
+>>>> On 14.03.2024 23:17, Stefano Stabellini wrote:
+>>>>> Xen makes assumptions about the size of integer types on the various
+>>>>> architectures. Document these assumptions.
 >>>>
->>>> Whether I'm okay(ish) with the patch here depends on our position towards
->>>> the lost checking in Eclair mentioned above. To me it still looks relevant
->>>> that checking for a guard occurs, even if that isn't first in a file for
->>>> some specific reason.
+>>>> My prior reservation wrt exact vs minimum sizes remains.
 >>>
->>> More checking is better than less checking, but if we cannot find a
->>> simple and actionable way forward on this violation, deviating it is
->>> still a big improvement because it allows us to enable the ECLAIR Dir
->>> 4.10 checks in xen.git overall (which again goes back to more checking
->>> is better than less checking). 
+>>> We have to specify the exact size. In practice the size is predetermined
+>>> and exact with all our supported compilers given a architecture.
 >>
->> You have a point here. I think though that at the very least the lost
->> checking opportunity wants calling out quite explicitly.
+>> But that's not the purpose of this document; if it was down to what
+>> compilers offer, we could refer to compiler documentation (and iirc we
+>> already do for various aspects). The purpose of this document, aiui,
+>> is to document assumption we make in hypervisor code. And those should
+>> be >=, not ==.
 > 
-> All right, then maybe this patch can go in with a clarification in the
-> commit message?
+> Well... I guess the two of us are making different assumptions then :-)
 > 
-> Something like:
+> Which is the reason why documenting assumptions is so important. More at
+> the bottom.
 > 
-> Note that with SAF-5-safe in place, failures to have proper guards later
-> in the header files will not be reported
+> 
+>>> Most importantly, unfortunately we use non-fixed-size integer types in
+>>> C hypercall entry points and public ABIs. In my opinion, that is not
+>>> acceptable.
+>>
+>> The problem is that I can't see the reason for you thinking so. The C
+>> entry points sit past assembly code doing (required to do) necessary
+>> adjustments, if any. If there was no assembly layer, whether to use
+>> fixed with types for such parameters would depend on what the
+>> architecture guarantees.
+> 
+> This could be the source of the disagreement. I see the little assembly
+> code as not important, I consider it just like a little trampoline to
+> me. As we describe the hypercalls in C header files, I consider the C
+> functions the "official" hypercall entry points.
 
-That would be okay with me.
+Why would that be? Any code we execute in Xen is relevant.
+
+> Also, as this is an ABI, I consider mandatory to use clear width
+> definitions of all the types (whether with this document or with
+> fixed-width types, and fixed-width types are clearer and better) in both
+> the C header files that describe the ABI interfaces, as well as the C
+> entry points that corresponds to it. E.g. I think we have to use
+> the same types in both do_sched_op and the hypercall description in
+> xen/include/public/sched.h
+
+There are two entirely separate aspects to the ABI: One is what we
+document towards consumers of it. The other is entirely internal, i.e.
+an implementation detail - how we actually consume the data.
+Documenting fixed-width types towards consumers is probably okay,
+albeit (see below) imo still not strictly necessary (for being
+needlessly limiting).
+
+>> As to public ABIs - that's structure definitions, and I agree we ought
+>> to uniformly use fixed-width types there. We largely do; a few things
+>> still require fixing.
+> 
+> +1
+> 
+> 
+>>> We have two options:
+>>>
+>>> 1) we go with this document, and we clarify that even if we specify
+>>>   "unsigned int", we actually mean a 32-bit integer
+>>>
+>>> 2) we change all our public ABIs and C hypercall entry points to use
+>>>    fixed-size types (e.g. s/unsigned int/uint32_t/g)
+>>>
+>>> 2) is preferred because it is clearer but it is more work. So I went
+>>> with 1). I also thought you would like 1) more.
+>>
+>> For ABIs (i.e. structures) we ought to be making that change anyway.
+>> Leaving basic types in there is latently buggy.
+> 
+> I am glad we agree :-)
+> 
+> It is just that I also consinder the C hypercall entry points as part of
+> the ABI
+> 
+> 
+>> I'm happy to see a document like this added, for the purpose described
+>> above. But to me 1) and 2) and largely independent of one another.
+> 
+> Good that you are also happy with a document like this.
+> 
+> The remaining question is: what about the rest of the C functions in Xen
+> that are certainly not part of an ABI?
+
+As per above - anything internal isn't part of the ABI, C entry points
+for hypercall handlers included. All we need to ensure is that we consume
+the data according to what the ABI sets forth.
+
+To use wording from George when he criticized my supposed lack of actual
+arguments: While there's nothing technically wrong with using fixed
+width types there (or in fact everywhere), there's also nothing technically
+wrong with using plain C types there and almost everywhere else (ABI
+structures excluded). With both technically equal, ./CODING_STYLE has the
+only criteria to pick between the two. IOW that's what I view wrong in
+George's argumentation: Demanding that I provide technical arguments when
+the desire to use fixed width types for the purpose under discussion also
+isn't backed by any.
+
+> Those are less critical, still this document should apply uniformily to
+> them too. I don't understand why you are making the >= width assumption
+> you mentioned at the top of the file when actually it is impossible to
+> exercise or test this assumption on any compiler or any architecture
+> that works with Xen. If it cannot be enabled, it hasn't been tested, and
+> it probably won't work.
+
+Hmm, yes, that's one way to look at it. My perspective is different though:
+By writing down assumptions that are more strict than necessary, we'd be
+excluding ports to environments meeting the >= assumption, but not meeting
+the == one. Unless of course you can point me at any place where - not
+just by mistake / by being overly lax - we truly depend on the == that you
+want to put in place. IOW yes, there likely would need to be adjustments
+to code if such a port was to happen. Yet we shouldn't further harden
+requirements that were never meant to be there.
+
+Note that by writing down anything more strict than necessary, you'd also
+encourage people to further wrongly treat e.g. uint32_t and unsigned int
+as identical. Such wrong assumptions had been a severe hindrance in doing
+ports from 32- to 64-bit processors some 20 years ago. I would have hoped
+that we'd learn from such mistakes.
 
 Jan
 
