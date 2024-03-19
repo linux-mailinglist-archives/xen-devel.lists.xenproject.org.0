@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C35218802C1
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 17:54:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695517.1085361 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D851880339
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 18:15:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695543.1085371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmcj6-0007u5-Ma; Tue, 19 Mar 2024 16:54:12 +0000
+	id 1rmd36-0003uO-9p; Tue, 19 Mar 2024 17:14:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695517.1085361; Tue, 19 Mar 2024 16:54:12 +0000
+Received: by outflank-mailman (output) from mailman id 695543.1085371; Tue, 19 Mar 2024 17:14:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmcj6-0007qa-JF; Tue, 19 Mar 2024 16:54:12 +0000
-Received: by outflank-mailman (input) for mailman id 695517;
- Tue, 19 Mar 2024 16:54:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rmd36-0003rz-6K; Tue, 19 Mar 2024 17:14:52 +0000
+Received: by outflank-mailman (input) for mailman id 695543;
+ Tue, 19 Mar 2024 17:14:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CQvM=KZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rmcj5-0007hl-6w
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 16:54:11 +0000
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [2607:f8b0:4864:20::f32])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4dd1b257-e611-11ee-a1ee-f123f15fe8a2;
- Tue, 19 Mar 2024 17:54:09 +0100 (CET)
-Received: by mail-qv1-xf32.google.com with SMTP id
- 6a1803df08f44-6962e6fbf60so11649786d6.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 09:54:09 -0700 (PDT)
+ id 1rmd34-0003rs-7k
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 17:14:50 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 30ee9838-e614-11ee-afdd-a90da7624cb6;
+ Tue, 19 Mar 2024 18:14:49 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-41412e6b2cfso15788395e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 10:14:49 -0700 (PDT)
 Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- f7-20020a0562141d2700b00690f0d7057esm6654927qvd.39.2024.03.19.09.54.07
+ by19-20020a056000099300b0034174875850sm5493269wrb.70.2024.03.19.10.14.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Mar 2024 09:54:08 -0700 (PDT)
+ Tue, 19 Mar 2024 10:14:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4dd1b257-e611-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 30ee9838-e614-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710867248; x=1711472048; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1710868488; x=1711473288; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=cutktx+ICee1wOAHN/b2stNjsIly+eRSrL1CyxQSNSY=;
-        b=t3Nf8E7NnFE4Sw0loM0D4KfOPN3bVELLklWY4hCdtDy0MrlDW33G5Xv5/WdiZiTU5L
-         +j45CPm4Pg2sijm8iVMLqncwlEPL+o4bkgzBscdYLuxWetNZdGZ0eFJIDODd5Num/J4Y
-         1wxHCxbfEkdp1N+RSvRbkZzqmrbfb7TFFXmbk=
+        bh=W6/a3b+fxTvBdKPc6QkA6k20Nwv60cgrdy6XCpTTdV4=;
+        b=iG7FysCifNX6P6Ax5YWu3mlQXaqjcz5BzxGD6buLzvvNKl5tWoPiBC7B1n1X+RbGP6
+         CSsdV3wJSoR/IjBZZGGOYcB/cRuf0FRzPWmzIk7p8Pe8KMIhwXFcpCmbRhvqoGNqeUEr
+         1D1Gx1FzuyGGWci0bcRIhcosWhw1khWL/dBOM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710867248; x=1711472048;
+        d=1e100.net; s=20230601; t=1710868488; x=1711473288;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cutktx+ICee1wOAHN/b2stNjsIly+eRSrL1CyxQSNSY=;
-        b=AxSk/SieYTW4kVwma376gtc6gYv26DIKs1HZxgR5WYy+St6hWfUT2wFCOF361tKtL6
-         TirytewgblJuBROCW4TLpsTMMe6Xg2N01QckqPHJRDz2lygNx05If4hXocbnCK93+uNX
-         aeYNveopf2QqNe5xUGCuRTV5lEqTiG9dukIzFv30UC4rx2MiJOrY8Zgw7ElJykqQTg0n
-         RB3reKSVfK9K6WuvY7ZoB8ropke5iXFeiakbmptwZQN0o/T3o4RX5GFu9FFaqnSioGBX
-         n+HtQhRVFMnM9osBbeyCbjyZT9FJh73E1uZum9VQbhDzZHNyZ3hfTpOmkmIf9W3FJCed
-         /rug==
-X-Forwarded-Encrypted: i=1; AJvYcCWTaKslvHx2jeMuqpAZ/UfjoiW9VmcFcAtgXSgtxxnCROpyjy4Ec9kGp2/y/B0Z9F0KBtwTqDGJ1CTjPSS5Deg/cQKMaTGCptZ4cWJ5Npo=
-X-Gm-Message-State: AOJu0YzrjpFYlikUuu8N4cgl1yADpCd50VYgVlcSYO7eTmNq0QeuNIKe
-	mUjgylfiBTIDkU9oWd5WUixE7/Wf2yyrDFdTL6+3uQb4a2gWOVIOt5xf4S0OPPnN+3SLLpu1qJ1
-	y
-X-Google-Smtp-Source: AGHT+IFYmFA5/QWhfmnDwkW7P5s+XlmV13ZjXYQ35OAJKaDaBdMtRumBvBwUp8J6/yAk7pXY+uktkQ==
-X-Received: by 2002:a0c:f912:0:b0:690:c79a:2d35 with SMTP id v18-20020a0cf912000000b00690c79a2d35mr15089006qvn.9.1710867248458;
-        Tue, 19 Mar 2024 09:54:08 -0700 (PDT)
-Message-ID: <31653616-35c0-4ad5-a9df-2a1496416f3f@citrix.com>
-Date: Tue, 19 Mar 2024 16:54:06 +0000
+        bh=W6/a3b+fxTvBdKPc6QkA6k20Nwv60cgrdy6XCpTTdV4=;
+        b=RGsrev/eaego75idkNePq2AhAJ++/ZmYWi0g4x8i1xd5ILWVN+v6gRr6gSLJhg4tdH
+         6F3QOuCel4+SCOTzhOjSafjxPskfRBjv2XzcXqXSGHEAItixxTDT+rPaSIImzQwF8gRc
+         v9rRROqHdBjizjF2VvThngadGEbiikfYTS8Az7/O09Vj+WUz4vO1SEA7uSY7gZphiWwx
+         t5F1uNvwtr82HBBYO1w7LSKga1zOz9rq9Z9+Gny92KY9bhzkijGlHInHtpb3Wp45hveP
+         xFzgNde/xp0DOvetl49M3sy+PavkBF0cC2YXiWyrsPvDuH2DzNrW/y4aji2T7zXDmIkO
+         DHhw==
+X-Forwarded-Encrypted: i=1; AJvYcCX58xVmnA/Npv57d4OgtCdkECKaMwmsejJDlzPcRLrS+hbQqA6w1+LGxENFEAMBRln+zqEtMM0OkXPD7EDkayOg6bHWL0fugwvJ8Rw4IAo=
+X-Gm-Message-State: AOJu0YwFgmi7f6CBiJX6XmW2P3F18IHY5oDp6RRvaL2oNeg6Viq2z/gm
+	NNOhjaowLyui05dHDFicjiETrSVLwb0GPagipk9oOmATK0Jx0UN7l9E8J7c2dAw=
+X-Google-Smtp-Source: AGHT+IEWhF1WEEmo5ffkgUbVs9VOlMvVYiysFsQkLQ1uSJmao0h5BSiPUFRGwdLoJZb0syY7ZbI5cg==
+X-Received: by 2002:a05:600c:3c86:b0:414:286:fd1f with SMTP id bg6-20020a05600c3c8600b004140286fd1fmr7705455wmb.11.1710868488528;
+        Tue, 19 Mar 2024 10:14:48 -0700 (PDT)
+Message-ID: <c322bc29-d1e6-4acb-a410-ea2e3204a111@citrix.com>
+Date: Tue, 19 Mar 2024 17:14:47 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/boot: Support the watchdog on newer AMD systems
+Subject: Re: [PATCH] x86/features: More AMD features
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240319144802.3894710-1-andrew.cooper3@citrix.com>
- <20240319144802.3894710-3-andrew.cooper3@citrix.com>
- <b27f1635-7f0d-4c8b-9dcc-934a84bdd98a@suse.com>
+References: <20240318181332.3817631-1-andrew.cooper3@citrix.com>
+ <e45432b2-9ab5-4fa7-994c-37265edbc8f5@suse.com>
+ <4aa2aced-d4dc-40d6-818b-8163657cd670@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -130,46 +129,34 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <b27f1635-7f0d-4c8b-9dcc-934a84bdd98a@suse.com>
+In-Reply-To: <4aa2aced-d4dc-40d6-818b-8163657cd670@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19/03/2024 4:51 pm, Jan Beulich wrote:
-> On 19.03.2024 15:48, Andrew Cooper wrote:
->> The MSRs used by setup_k7_watchdog() are architectural in 64bit.  The Unit
->> Select (0x76, cycles not in halt state) isn't, but it hasn't changed in 23
->> years, making this a trend likely to continue.
+On 19/03/2024 1:11 pm, Jan Beulich wrote:
+> On 19.03.2024 08:33, Jan Beulich wrote:
+>> On 18.03.2024 19:13, Andrew Cooper wrote:
+>>> I'm not sure about FSRSC as a name, but it definitely beats AMD's longhand
+>>> name of FAST_REP_SCASB.
+>> With FSRS already used, I guess that's the closest we can get to keep
+>> names for similar features similar.
 >>
->> Drop the family check.  If the Unit Select does happen to change meaning in
->> the future, check_nmi_watchdog() will still notice the watchdog not operating
->> as expected.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> --- a/tools/misc/xen-cpuid.c
+>>> +++ b/tools/misc/xen-cpuid.c
+>>> @@ -91,6 +91,7 @@ static const char *const str_e1c[32] =
+>>>      [24] = "perfctr-nb", /* [25] */
+>>>      [26] = "dbx",        [27] = "perftsc",
+>>>      [28] = "pcx-l2i",    [29] = "monitorx",
+>>> +    [30] = "dbext2",
+>>>  };
+>> AMD calls this AddrMaskExt (PM) or AdMskExtn (PPR). I can see where your
+>> different name choice is coming from, yet I still wonder whether we should
+>> try to stay closer where possible.
+> Having located the corresponding doc,
 > Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> with a slight preference to adjusted names for this one feature.
 
-Thanks.
-
->
->> --- a/xen/arch/x86/nmi.c
->> +++ b/xen/arch/x86/nmi.c
->> @@ -387,15 +387,12 @@ void setup_apic_nmi_watchdog(void)
->>      if ( nmi_watchdog == NMI_NONE )
->>          return;
->>  
->> -    switch (boot_cpu_data.x86_vendor) {
->> +    switch ( boot_cpu_data.x86_vendor )
->> +    {
->>      case X86_VENDOR_AMD:
->> -        switch (boot_cpu_data.x86) {
->> -        case 6:
-> Just to mention it - this case label has been dead code anyway for about 10
-> years.
-
-Yeah... I noticed that after writing the commit message, although it's
-not very easy to slip in.
-
-Also it's 25 years since the K7 was released (June 1999), because I
-apparently can't count.
+Neither are great.  How about "addr-msk-ext" ?
 
 ~Andrew
 
