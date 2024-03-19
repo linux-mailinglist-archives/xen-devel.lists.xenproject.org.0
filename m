@@ -2,46 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BB9487F830
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 08:11:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695227.1084817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A6FB87F870
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 08:34:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695233.1084829 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmTcA-0004K4-Qp; Tue, 19 Mar 2024 07:10:26 +0000
+	id 1rmTz2-0007Te-Kz; Tue, 19 Mar 2024 07:34:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695227.1084817; Tue, 19 Mar 2024 07:10:26 +0000
+Received: by outflank-mailman (output) from mailman id 695233.1084829; Tue, 19 Mar 2024 07:34:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmTcA-0004Hr-NQ; Tue, 19 Mar 2024 07:10:26 +0000
-Received: by outflank-mailman (input) for mailman id 695227;
- Tue, 19 Mar 2024 07:10:25 +0000
+	id 1rmTz2-0007RP-I9; Tue, 19 Mar 2024 07:34:04 +0000
+Received: by outflank-mailman (input) for mailman id 695233;
+ Tue, 19 Mar 2024 07:34:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xTJq=KZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rmTc9-0004Hl-8E
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 07:10:25 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
+ (envelope-from <SRS0=aOUF=KZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rmTz1-0007RJ-3s
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 07:34:03 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c0fa819d-e5bf-11ee-afdd-a90da7624cb6;
- Tue, 19 Mar 2024 08:10:23 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DC69B5D25C;
- Tue, 19 Mar 2024 07:10:22 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B21B8136A5;
- Tue, 19 Mar 2024 07:10:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Gsr2KV46+WVJYwAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 19 Mar 2024 07:10:22 +0000
+ id 0e078f35-e5c3-11ee-afdd-a90da7624cb6;
+ Tue, 19 Mar 2024 08:34:01 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-563c403719cso6301751a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 00:34:01 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ i22-20020a17090671d600b00a46d58fbc11sm831770ejk.118.2024.03.19.00.34.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Mar 2024 00:34:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,108 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0fa819d-e5bf-11ee-afdd-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1710832223; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=60bEIDwx+NXczuoY7AFrsSbeXmm714yJjf0EPnqnQ6o=;
-	b=TZfk+EKd+rpUzJAX7/cgQaDnSlrl68A0hnx/FbOIrgbzVPuemZlRN07Up0duvO+pTt0O6j
-	K0yWbLG/fJKaJuBQY8mmiLU4cSYusYP1y74CIKCkFWru0KJXiTgZmeJhUN1E4oNA63utdD
-	j1SJ0FmvH+XZXkP1xN/LXeCuiwzbA/U=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1710832222; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=60bEIDwx+NXczuoY7AFrsSbeXmm714yJjf0EPnqnQ6o=;
-	b=kZtefftjM/Ld8PYQi5P+W736PuwztLTtFlY5/tF8FF/lwZUu/WRQ7NOzClDHOKOP1mecFC
-	EsvdgpEzpgofq4DqqAkvoS0lHkVG5nuJv+TMbxwRlu2nZSS9eX7qt0dxVlQP2C7HCb3KXz
-	LFZefv0pH38RoMN2DQ0hdy8kVzN51VE=
-From: Juergen Gross <jgross@suse.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	sstabellini@kernel.org
-Subject: [GIT PULL] xen: branch for v6.9-rc1
-Date: Tue, 19 Mar 2024 08:10:22 +0100
-Message-Id: <20240319071022.7513-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
+X-Inumbo-ID: 0e078f35-e5c3-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1710833641; x=1711438441; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4Tbt14xyTFu8XXmumWNE8T7XrCfHAF7cozhh++uEE08=;
+        b=T7ljbkHBHv49fpIqBBLLmYjuF+/oGfnCv+krscDk45i0PxbCzAzqw0dxuBBku3hCUO
+         IYrufgbzR/WdhDrFO/rDJDozJzWNN8tX+N5bVLyhvCW9xsHQB6KN2FQulZnWyElxIFr+
+         r2oKDnYbVV5LaqTN3s30P5sJmjqQ5TRLaQrn4xZVCI39apX+x3XJzH8cElgtDDSiiqjV
+         IjgIWF9+2VY2EOa8abrb9fVWOxamnTgKE8aCtTO61rwLUkahqdannt65Vugd0gJUOQ34
+         /TccxqmQFv/a8rIQ1wYMeAMF7NtnOjZnQ2SThl4mynBI6XryhBBdZ4m3XCll97z1gkSS
+         pmWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710833641; x=1711438441;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=4Tbt14xyTFu8XXmumWNE8T7XrCfHAF7cozhh++uEE08=;
+        b=f9cerGhu9ViU6VV/RNgQITli2UfenK+Z7XdQeD3NgtZ8pGWmP7t+Wlk+z/j378mqmo
+         13x0P8zwpNiFLUukbqaakX5/m+ioRZO25d+wV0mOpClhYgON0j4FeBm3cwN6u+Og/p3s
+         smV741YTCx4FpgXNEOQd26Lw+xuJ4EFEv1OuCTclINXSX/SIhsUUsx175OBDqY3BHmC4
+         RRkjXC4ea9lHqB+Ve3QZLdGWdOq/9rqCt2hK8I5WMJkLL0JUQQn29S3Vc8ukOXuIocSt
+         KlQxHCDKGd0CFWmdoVG+BhSL6npUweWjTjdsdgYP8q8knc45ugGnBxwMHS/t5L9z1uW9
+         XYBA==
+X-Forwarded-Encrypted: i=1; AJvYcCX/UrWZ9b6tevwH3FB42G9U5aRgCRe7lDrIz6nnPAoFjOhx8WigYF4f4XFias43uGO5WjapErISW/bdJ7B7XeUtgrY0PJkwjZbM876fm7c=
+X-Gm-Message-State: AOJu0YxXSSXIYMCWqO5Zz3kSyxFtr6xlOlgc3LGq8h/sVGdqV0LahdCi
+	eWwyQYW+ZEdVP2nqLPuqDWxjL3ukNRipGEL+jcJM34oSD0Nttu6XxUWZ0NS1Qw==
+X-Google-Smtp-Source: AGHT+IEIB1jx8MpUGbf+HVqTTpPb684QE4RTLck/YO6HieV6LnatfTf3PAXARAb8GEExZvrCjrtS2w==
+X-Received: by 2002:a17:907:1707:b0:a46:7dc1:e4d1 with SMTP id le7-20020a170907170700b00a467dc1e4d1mr9581857ejc.73.1710833640804;
+        Tue, 19 Mar 2024 00:34:00 -0700 (PDT)
+Message-ID: <e45432b2-9ab5-4fa7-994c-37265edbc8f5@suse.com>
+Date: Tue, 19 Mar 2024 08:33:59 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/features: More AMD features
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240318181332.3817631-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240318181332.3817631-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -5.01
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-5.01 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[4];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	 MIME_GOOD(-0.10)[text/plain];
-	 TO_DN_NONE(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 DWL_DNSWL_HI(-3.50)[suse.com:dkim];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 DKIM_TRACE(0.00)[suse.com:+];
-	 MX_GOOD(-0.01)[];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-1.00)[87.14%]
-X-Spam-Level: 
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=kZtefftj
-X-Rspamd-Queue-Id: DC69B5D25C
+Content-Transfer-Encoding: 7bit
 
-Linus,
+On 18.03.2024 19:13, Andrew Cooper wrote:
+> I'm not sure about FSRSC as a name, but it definitely beats AMD's longhand
+> name of FAST_REP_SCASB.
 
-Please git pull the following tag:
+With FSRS already used, I guess that's the closest we can get to keep
+names for similar features similar.
 
- git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.9-rc1-tag
+> --- a/tools/misc/xen-cpuid.c
+> +++ b/tools/misc/xen-cpuid.c
+> @@ -91,6 +91,7 @@ static const char *const str_e1c[32] =
+>      [24] = "perfctr-nb", /* [25] */
+>      [26] = "dbx",        [27] = "perftsc",
+>      [28] = "pcx-l2i",    [29] = "monitorx",
+> +    [30] = "dbext2",
+>  };
 
-xen: branch for v6.9-rc1
+AMD calls this AddrMaskExt (PM) or AdMskExtn (PPR). I can see where your
+different name choice is coming from, yet I still wonder whether we should
+try to stay closer where possible.
 
-It contains the following patches:
-
-- 2 patches for Xen event channel handling fixing a regression wit a
-  rare kernel config and adding some hardening.
-
-- A patch for better support of running Xen dom0 in PVH mode.
-
-- A cleanup patch for the xen grant-dma-iommu driver.
-
-
-Thanks.
-
-Juergen
-
- arch/x86/include/asm/xen/hypervisor.h |  5 +++
- arch/x86/platform/pvh/enlighten.c     |  3 ++
- arch/x86/xen/enlighten.c              | 32 +++++++++++++++++
- arch/x86/xen/enlighten_pvh.c          | 68 +++++++++++++++++++++++++++++++++++
- arch/x86/xen/setup.c                  | 44 -----------------------
- arch/x86/xen/xen-ops.h                | 14 ++++++++
- drivers/xen/balloon.c                 |  2 --
- drivers/xen/events/events_base.c      | 22 +++++++-----
- drivers/xen/evtchn.c                  |  6 ++++
- drivers/xen/grant-dma-iommu.c         |  6 ++--
- 10 files changed, 143 insertions(+), 59 deletions(-)
-
-Juergen Gross (2):
-      xen/evtchn: avoid WARN() when unbinding an event channel
-      xen/events: increment refcnt only if event channel is refcounted
-
-Roger Pau Monne (1):
-      x86/xen: attempt to inflate the memory balloon on PVH
-
-Uwe Kleine-König (1):
-      xen/grant-dma-iommu: Convert to platform remove callback returning void
+Jan
 
