@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D4CB87F90B
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 09:12:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695253.1084860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ABEC87F946
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 09:16:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695256.1084871 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmUZ4-0006h8-Cy; Tue, 19 Mar 2024 08:11:18 +0000
+	id 1rmUdP-0007JP-Tz; Tue, 19 Mar 2024 08:15:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695253.1084860; Tue, 19 Mar 2024 08:11:18 +0000
+Received: by outflank-mailman (output) from mailman id 695256.1084871; Tue, 19 Mar 2024 08:15:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmUZ4-0006fO-8s; Tue, 19 Mar 2024 08:11:18 +0000
-Received: by outflank-mailman (input) for mailman id 695253;
- Tue, 19 Mar 2024 08:11:17 +0000
+	id 1rmUdP-0007GF-Qz; Tue, 19 Mar 2024 08:15:47 +0000
+Received: by outflank-mailman (input) for mailman id 695256;
+ Tue, 19 Mar 2024 08:15:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aOUF=KZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmUZ3-0006fH-Ca
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 08:11:17 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1rmUdP-0007G9-3C
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 08:15:47 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 423da8f4-e5c8-11ee-afdd-a90da7624cb6;
- Tue, 19 Mar 2024 09:11:16 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-56b9e5ed074so134771a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 01:11:16 -0700 (PDT)
+ id e2da9c8d-e5c8-11ee-afdd-a90da7624cb6;
+ Tue, 19 Mar 2024 09:15:45 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a46d9fbb5a5so64215566b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 01:15:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- de24-20020a056402309800b00568c604eea2sm3078781edb.55.2024.03.19.01.11.15
+ h25-20020a17090634d900b00a454438091fsm5760810ejb.70.2024.03.19.01.15.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Mar 2024 01:11:15 -0700 (PDT)
+ Tue, 19 Mar 2024 01:15:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 423da8f4-e5c8-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: e2da9c8d-e5c8-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710835876; x=1711440676; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710836145; x=1711440945; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=bsx6Lhr9MnXsGSnWlPS2nh2fG7nOaR0L7dRJ8WpTJKA=;
-        b=blViKgS+TfD7AMf1O774sLVlxg2Mdpdl5pPoqjLzaWL2bK+pfOmdSTT6A2zdvXRpjX
-         XYi6V5pCdTSnpp1fBiHyEH/kZt+TpU/4WY6+BD9rmUPqBjHjy2YOv9xqZtuBphzKz0kE
-         2Car3KfP53qmAx/ujx5p1E/hPgBVLr+LpZgP5wt7NA7TcxYAjao5RpRsB5sRoB7Xj5Db
-         EwUHX/dzT3+W1UeACGvwWq/oJBgGYhEj546sRWFIWo3Xpg7BeXoNwN3HiYN4DSOHDDhM
-         wT/qvj9ozRWybnesgE3GMdElwl1yrc9bffghpgAlqa1oYjaT4hnkWCjvyUm1r+7fNDFt
-         jPjw==
+        bh=uQye6Y4P+NXTkYUYsIvH1XldHouhJPvX6q245Jd1G4g=;
+        b=URpeDlK5+E83eLnkqB/R969mVeqU8Fhh4IPZ3LxLq3X3blEXjMQAJou14gs2n67O0e
+         HlZ5CaAyQfofw7HeXOQPHuVZfONGCTxHyc+0QddIM12LouMdxwbs997KLLppL9R6HYE+
+         VsJfboYyjNtP5dH48YI3zL1GAjY1SpCNz9e0wmBK/0cgpOwjjA54qaRJnf/EsPb75Q9i
+         A6FqCKGwOjm05GWd0POYNv6ciComw1BZU22RVubZKW7ddp+JG5eOk3xMpAKpobaA9IDj
+         KAF8c1mOO1mPMGeRZxOheBezRZWHOqMwdB9OcSi34m/1pT4tIum/PVvJ14MeO6kDBZUo
+         fJ9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710835876; x=1711440676;
+        d=1e100.net; s=20230601; t=1710836145; x=1711440945;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bsx6Lhr9MnXsGSnWlPS2nh2fG7nOaR0L7dRJ8WpTJKA=;
-        b=DnQegxn6kswnljmUxHq9UG7p92Wh7zIQM8VTKKCrH0r1uVClRbxM+5e8oEnbsAIIbJ
-         X1Pio0wfWRitUSvAWxWBDDV34bdgA9GrcX934o3CPG8zyHXWDc0In4XhkM5n0Umb4BF9
-         FZycU+2jSs+w5TE7nSB2FooJkqoIhJ0VTJZEvy86AJHzytu+qTnDkXZ13m4kLstosv7C
-         UrF4U+fZcTWZfQM66Le7+se9Z1p2/nxQZg2QB5g4Uz9rM7cQwaoegoi2FvFkoA0Qlyt0
-         YdK9C5t9PvJjINWE6IpPOc9WHWeMB/2R+kI09J1kkAcbcTQf8P7d/2Ay9ouWh80WSel/
-         XxNA==
-X-Forwarded-Encrypted: i=1; AJvYcCX0NAP4nuErpHMLbKZthr/19dlFXAXwNUS7IpTG5i+lgbqz7YQ+2v56VCMQh6gPTcTmjtpNn8KovKjtffZtKoy/dp+TBOsLLzb0u+5SipM=
-X-Gm-Message-State: AOJu0Yy+dbLoXbDjgyGTWPuoB4Tzc71zDpvIkWxtz5n8/IVs9X0wuPnt
-	Z9punCIcHrM/1eIvwkLiW6NUSy7tBk2unGG4A8UvB7z0XZ33brmG9LFC/dvZ9Q==
-X-Google-Smtp-Source: AGHT+IHR3kevxuKmzOiPRHaIrbEeSYk0WNDHhENbfpo1lUZCpeWs1AG6HMVYaBlY3SSysazVJ0Q8XQ==
-X-Received: by 2002:a05:6402:3884:b0:568:9a2f:84b with SMTP id fd4-20020a056402388400b005689a2f084bmr1194647edb.10.1710835875798;
-        Tue, 19 Mar 2024 01:11:15 -0700 (PDT)
-Message-ID: <f09d7b16-c13a-4e9f-8aa1-7605c24780d6@suse.com>
-Date: Tue, 19 Mar 2024 09:11:14 +0100
+        bh=uQye6Y4P+NXTkYUYsIvH1XldHouhJPvX6q245Jd1G4g=;
+        b=sq9leNZMWLb+oc7h2PeKYZ5vE+yxyRXMYEM2m73x/cSnrdoY1CxnONmHY3gAQqmwax
+         tMhVi5PCToNO6+HACc+knZoCqw/y9jZUB/sqjBsg7hCinSFyLOmFFDkDjbVntkOsmZMp
+         llEGYo3KrMtPHNIh7GsnetEO6E4ORzcSPXKS2nRjbv0q/oCtWgYskfFDZ1fE1evFRjKm
+         aDKRUrhYhSVj7sKIL5qCVwRP6rsp5oYkl0wadSrlCdf2Wu1Ejt6GRLa5tMS6j1VXBKlg
+         Q18xVi+Y00c+4bzhlJKQO65N6OTAHlSVQoSz0C+aZuRwWNUZS8S4mXdsr7NVOMyWTu83
+         ycTw==
+X-Forwarded-Encrypted: i=1; AJvYcCVKKSwLdUK+/+F1SGAOpYq79Zte31qqHvWVuGreip8/VvCmz32kiZdm3gdopC82Nrqaoh/8Ogr8GNsABi9UBW44KKN0xuQtdA9lgU4UHQU=
+X-Gm-Message-State: AOJu0Yy+zNuZuQMQYfAhvYTid/wbXX2DNxq3DeNt4fDKkTpjrYTaxtoz
+	uoSohizUi4Gvt6R7wMG9dWd+nlngK3iRVuB4MOlFpok1q3kvKKvWbijx/1cWfg==
+X-Google-Smtp-Source: AGHT+IFEmLPllDnQ+x8vIoJCX0JLXXFn0DfeNNfk6ktvbTiPvF82V77cXfd+c2+kgAMY1WEfY2iNSg==
+X-Received: by 2002:a17:906:88d:b0:a46:b1b3:aba0 with SMTP id n13-20020a170906088d00b00a46b1b3aba0mr1036679eje.17.1710836145330;
+        Tue, 19 Mar 2024 01:15:45 -0700 (PDT)
+Message-ID: <ba2f4e13-d599-4376-933b-c23c0d6e6dbe@suse.com>
+Date: Tue, 19 Mar 2024 09:15:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 3/3] x86/PVH: Support relocatable dom0 kernels
@@ -90,10 +90,10 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20240313193021.241764-1-jason.andryuk@amd.com>
  <20240313193021.241764-4-jason.andryuk@amd.com>
- <945609d6-741e-4934-a4f2-6e5597ce5dcd@suse.com>
- <a4f18ccc-c878-4924-a110-6afaaea1b01b@amd.com>
- <43c49aa6-d690-467e-8ce3-ca37b9d41e76@suse.com>
- <769e4e95-1c76-4e07-b623-27b35ef388ef@amd.com>
+ <12fe48a6-6957-49d7-adf5-1a3ac8b1bfaa@suse.com>
+ <7506abe0-e3d4-44f7-b54d-592ae2e3fd3e@amd.com>
+ <88bd8577-42e6-4087-9888-00cd73e7f0bc@suse.com>
+ <c16dcad1-5310-4e90-8045-02c0893f6814@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,79 +118,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <769e4e95-1c76-4e07-b623-27b35ef388ef@amd.com>
+In-Reply-To: <c16dcad1-5310-4e90-8045-02c0893f6814@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.03.2024 22:19, Jason Andryuk wrote:
-> On 2024-03-14 10:19, Jan Beulich wrote:
->> On 14.03.2024 15:13, Jason Andryuk wrote:
->>> On 2024-03-14 09:21, Jan Beulich wrote:
+On 18.03.2024 22:21, Jason Andryuk wrote:
+> On 2024-03-15 05:48, Jan Beulich wrote:
+>> On 14.03.2024 20:19, Jason Andryuk wrote:
+>>> On 2024-03-14 09:31, Jan Beulich wrote:
 >>>> On 13.03.2024 20:30, Jason Andryuk wrote:
->>>>> --- a/xen/include/public/elfnote.h
->>>>> +++ b/xen/include/public/elfnote.h
->>>>> @@ -194,6 +194,17 @@
->>>>>     */
->>>>>    #define XEN_ELFNOTE_PHYS32_ENTRY 18
+>>>>> --- a/xen/arch/x86/hvm/dom0_build.c
+>>>>> +++ b/xen/arch/x86/hvm/dom0_build.c
+>>>>> @@ -537,6 +537,108 @@ static paddr_t __init find_memory(
+>>>>>        return INVALID_PADDR;
+>>>>>    }
 >>>>>    
->>>>> +/*
->>>>> + * Physical loading constraints for PVH kernels
->>>>> + *
->>>>> + * Used to place constraints on the guest physical loading addresses and
->>>>> + * alignment for a PVH kernel.  This note's value is 3 64bit values in
->>>>> + * the following order: minimum, maximum and alignment.
+>>>>> +static bool __init check_load_address(
+>>>>> +    const struct domain *d, const struct elf_binary *elf)
+>>>>> +{
+>>>>> +    paddr_t kernel_start = (paddr_t)elf->dest_base & PAGE_MASK;
+>>>>> +    paddr_t kernel_end = PAGE_ALIGN((paddr_t)elf->dest_base + elf->dest_size);
 >>>>
->>>> Along the lines of what I said on another sub-thread, I think at least
->>>> alignment wants to be optional here. Perhaps, with max going first, min
->>>> could also be optional.
+>>>> Both casts act on a pointer value. Such cannot legitimately be converted
+>>>> to paddr_t; it only so happens that paddr_t is effectively the same as
+>>>> uintptr_t right now. (Same issue again further down.) That said, I notice
+>>>> we have pre-existing examples of this ...
 >>>
->>> Interesting idea.
->>>
->>>> As indicated in different context by Roger, the values being uniformly
->>>> 64-bit ones also is questionable.
->>>>
->>>>> + * The presence of this note indicates the kernel is relocatable.
->>>>
->>>> I think it wants making explicit here that the act of relocating is still
->>>> left to the kernel.
->>>
->>> Ok.
->>>
->>> How is this for a new description?
->>>
->>> """
->>> Physical loading constraints for PVH kernels
->>>
->>> Used to place constraints on the guest physical loading addresses and
->>> alignment for a PVH kernel.
->>>
->>> The presence of this note indicates the kernel supports relocating itself.
->>>
->>> The note may include up to three 32bit values.
+>>> Yes, I followed existing code.  Do you want dest_base to be switched to
+>>> a uintptr_t?
 >>
->> I'm as unsure about always 32-bit as I am on it being uniformly 64-bit.
->> One question here is whether this note is intended to be x86-specific.
->>
->>>    - a maximum address for the entire image to be loaded below (default
->>> 0xfffffff)
->>
->> One f too few?
+>> I think it was deliberately switched to being a pointer at some point,
+>> maybe even in a security fix.
 > 
-> Whoops - yes.
+> commit 65808a8ed41cc7c044f588bd6cab5af0fdc0e029 "libelf: check all 
+> pointer accesses", part of XSA-55, switched from a single dest pointer 
+> to dest_base & dest_size.
 > 
->>>    - a minimum address for the start of the image (default 0)
->>>    - a required start alignment (default 1)
+> For libxenguest, it's a pointer to guest-mapped memory to copy in the 
+> kernel.  For PV dom0 creation, it's a pointer - Xen switches to the dom0 
+> page tables and performs the copy with it as-is.  For PVH dom0, it's a 
+> guest physical address.
 > 
-> Jan, in the discussion of patch 1, you wrote "Hmm, shouldn't the order 
-> of attempts to figure the alignment be ELF note, ELF header, and then 
-> 2Mb?"  My latest revision initializes phys_alignment to 1 and updates 
-> that if PHYS32_RELOC specifies an alignment.  Do you still want these 
-> other locations checked for alignment values?
+> Are you looking for this to be addressed in this series?
 
-I think it would be prudent to do so, yet at the same time I guess I won't
-insist. Defaulting to 1, though, looks overly lax. In order for the
-alignment value to be sensible to omit, the default needs to be sensible
-(no lower than 4k, and quite likely better 2M).
+I'm sorry to ask, but what is "this" here? I'd like your change to leave
+all types alone. I'd further like your change to preferably avoid cloning
+questionable code (i.e. casts using the wrong type in particular). Plus,
+where technically possible, adhere to the general principle of avoiding
+casts (for typically being at least somewhat risky towards hiding
+potential bugs).
 
 Jan
 
