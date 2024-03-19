@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C0FC8800DB
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 16:41:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695451.1085211 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 289AD8800EF
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 16:45:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695455.1085221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmbaS-0003Qn-4w; Tue, 19 Mar 2024 15:41:12 +0000
+	id 1rmbeL-00041e-Kd; Tue, 19 Mar 2024 15:45:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695451.1085211; Tue, 19 Mar 2024 15:41:12 +0000
+Received: by outflank-mailman (output) from mailman id 695455.1085221; Tue, 19 Mar 2024 15:45:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmbaS-0003Ow-23; Tue, 19 Mar 2024 15:41:12 +0000
-Received: by outflank-mailman (input) for mailman id 695451;
- Tue, 19 Mar 2024 15:41:10 +0000
+	id 1rmbeL-0003zc-Hu; Tue, 19 Mar 2024 15:45:13 +0000
+Received: by outflank-mailman (input) for mailman id 695455;
+ Tue, 19 Mar 2024 15:45:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aOUF=KZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmbaQ-0003Oq-BC
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 15:41:10 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ id 1rmbeJ-0003zW-Vv
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 15:45:11 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b3d610f-e607-11ee-afdd-a90da7624cb6;
- Tue, 19 Mar 2024 16:41:09 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-563bb51c36eso6668767a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 08:41:09 -0700 (PDT)
+ id ab3dc132-e607-11ee-afdd-a90da7624cb6;
+ Tue, 19 Mar 2024 16:45:10 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-563c403719cso6974782a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 08:45:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cn25-20020a0564020cb900b00568c3a2f4f8sm3648492edb.74.2024.03.19.08.41.08
+ ij11-20020a056402158b00b005688450c264sm5892611edb.91.2024.03.19.08.45.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Mar 2024 08:41:08 -0700 (PDT)
+ Tue, 19 Mar 2024 08:45:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b3d610f-e607-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: ab3dc132-e607-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710862869; x=1711467669; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710863110; x=1711467910; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=5QuJiuZejgGbVVW4I7TxfPxzbgWfyKHNf+/xElfOkWk=;
-        b=TutcFcM7pP6+47IXlKAYso8CY6iLL4p8EWYb5B4tRLHqkQzI64onRi9RZ70ATTmcpS
-         8wiQiO5cjsTtvdLiY1L+7ZaIhPiKlNLRMfJv3Nhypb7m6h6w07Dfg87A2Mz1bnixGYgJ
-         KV1MYV2pq2fhaGwL0c1isO1kINPJXJCYb9mcR6HKGeM2Lt3hCMLrHHx7fWGrMWWTSSbm
-         VJdqsJswB5+XkrLaE+i8vtgJQ9cBzvCOT2ldRWdtSPeRxvAQ9POgUcf6MHYsK0hbUg7O
-         ILIFoWTPOHRGAz3CFNztI4puEgiuc9hzf5rNDX/L4XIDmfr6NyKIPGmR/2ba56fwGFTA
-         W6Xg==
+        bh=AXm82f/41fQJPFkPWTE5+4k70f5QuF7qFPegW52LF9s=;
+        b=JPz8+C/2JUOp6Z1UjMexV7rGOVVMLS4qiTjQvz80NXn7liEmCCYc0gVpfjlCPl81vt
+         K/aRQqBjyLCa7Lk9RA1V/hD4iIKwIzBxX26d1U0n6qDCnzWHvHw8eu/xol/C9mdLYyg9
+         r72zn3KcFddbAPnTgDC+eFQc85moEafgQOgLOIpnH3PP/Hcx4PbjyLixIHEIt627IMN3
+         rkyWcPjGpxc2GYA3waZppNQqHq/brz5rsybeRaKZlnB30h2B/q0wFpYvsUO/PtC4lEsi
+         aJzevdb+K/p8rVqU8VwH1sl9h/FDBG7GVk6XPb3E1YRbgQ/hfinTfYosX+fbu3H5xfxO
+         Nw+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710862869; x=1711467669;
+        d=1e100.net; s=20230601; t=1710863110; x=1711467910;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5QuJiuZejgGbVVW4I7TxfPxzbgWfyKHNf+/xElfOkWk=;
-        b=FdIXPyRyHyTL6WziFdXPFyjF/JU2UUGTlda0/3whjx9dYiYjSGt1Ly/Qh9SZ6m9E5I
-         vRsWNHglJXxYoY6sL6BUWCkyjx6lAXhGJKmkTPEkF4CmZ8XlFQpWAtwVMu/kNFmgRYiV
-         DgGegu/QO/8ZIQhdAucDYyMKanNkx5VWmXqPK9rxWM9DzB1Kn/NYWzb9fnPMVK0XEenw
-         n2g+Gxjxb2jQNVNOv6WBvXn0j8mygDPdoFffGhEar+HyRjyZ72CPiv42nWb1MXlJHBfd
-         6n7nE4sJU+eEnex7AXerSgVJSWS1pn6ZYww9LUAdu1qtzmNH8RJAt3RMSCu9jpFTj80k
-         ionQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX5gRbuqKqBp2eiK7iqdZ2VR97Z/o0uiRgxv5MB/uoFybQ2++tMq1f8OFFZHslat8JMP3vUHzxfgXIFUrvA7T0SeTYwgIydcMdmw0q63UU=
-X-Gm-Message-State: AOJu0Yy0Jka3A0ZRU8qG9iYdQ11IdHxZlQNu0jEN9eeaSG0FlUbH+rWT
-	NhRu09TrXLLBgced+TZ6JsigMxtftQKofryJ1AsZtVyRCHzPMrj5FscZBK6YuQ==
-X-Google-Smtp-Source: AGHT+IGYopEIA0RUKNyFYfgZ0p5xnnwkf23XGKeuXf36RWrKhRxybHMhHZesmI9kdDty+RKeMTDGRQ==
-X-Received: by 2002:a05:6402:3604:b0:568:fb58:bc50 with SMTP id el4-20020a056402360400b00568fb58bc50mr2065098edb.25.1710862868742;
-        Tue, 19 Mar 2024 08:41:08 -0700 (PDT)
-Message-ID: <8194d91a-a71a-44f2-a498-61297ac2ee29@suse.com>
-Date: Tue, 19 Mar 2024 16:41:07 +0100
+        bh=AXm82f/41fQJPFkPWTE5+4k70f5QuF7qFPegW52LF9s=;
+        b=DM1opTiRT2Wf1vxePa0qWRK4LdFTakW+pF0y0zf6fWEFiP3N782XxoFMYfHQ8mAtY6
+         elTT1GEgi1T6cUMRYT9fe0gPHoAqCv2XBpT5n5ad4JwvvDmvePFu7l1PKLleltuKM7fw
+         IbpBy2mKvwJzB43ugTzmQbHMX09ollbxs2phILGsOcNjvnOEnpUVq0fAinklMldwTlbx
+         WpW2ZAfr9CiEt3se9WQDx0pzQx16BojdEchCGdsX3sTysHItLpWqulT+1Lo+2HWV5EIS
+         Yznk92OVi8r4D/7tmne6hgOg/CFAtbJobgOi5g/IlOKk4cbO9evf2jn7ApdkS8ZtA1X/
+         m+3A==
+X-Forwarded-Encrypted: i=1; AJvYcCX6rwYfRFexPcCjXSWHosirB5dND46rm7N0e01CtRsMEmPgFMAm5/NO7wsi7Gbix8dZ921YcLNXO0Icsbwc7Lz4+Y4AeVRCCd/PKlLv2fo=
+X-Gm-Message-State: AOJu0YyqPOcNgLis9PuvbLaui4VTnINuJ0k1wgexRC+kZ6Hl7bOoOJPN
+	GBIj5BW1DHhl6lHjETrW9YrRWxTwPDMM99I/jAAy/iiMNSKvJUL4BAhe9LMnkQ==
+X-Google-Smtp-Source: AGHT+IHRMJ5WoTQMcGBIYXnf4ljl/QW+q8PlaK1fdoY9TaeLlfCql04BJrThLogAFWQAoZXhKRSNog==
+X-Received: by 2002:a05:6402:e10:b0:568:949b:e91f with SMTP id h16-20020a0564020e1000b00568949be91fmr11933713edh.36.1710863110299;
+        Tue, 19 Mar 2024 08:45:10 -0700 (PDT)
+Message-ID: <c0e82206-2e13-4dc7-a220-e51b40dde778@suse.com>
+Date: Tue, 19 Mar 2024 16:45:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 07/14] xen/arm: add support for cache coloring
- configuration via device-tree
+Subject: Re: [PATCH v7 04/14] xen/arm: add Dom0 cache coloring support
 Content-Language: en-US
 To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
  Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
 References: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
- <20240315105902.160047-8-carlo.nonato@minervasys.tech>
+ <20240315105902.160047-5-carlo.nonato@minervasys.tech>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,49 +116,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240315105902.160047-8-carlo.nonato@minervasys.tech>
+In-Reply-To: <20240315105902.160047-5-carlo.nonato@minervasys.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 15.03.2024 11:58, Carlo Nonato wrote:
 > --- a/xen/common/llc-coloring.c
 > +++ b/xen/common/llc-coloring.c
-> @@ -253,6 +253,37 @@ int domain_set_llc_colors(struct domain *d,
->      return 0;
->  }
+> @@ -18,6 +18,63 @@ integer_param("llc-nr-ways", llc_nr_ways);
+>  /* Number of colors available in the LLC */
+>  static unsigned int __ro_after_init max_nr_colors;
 >  
-> +int __init domain_set_llc_colors_from_str(struct domain *d, const char *str)
+> +static unsigned int __initdata dom0_colors[CONFIG_NR_LLC_COLORS];
+> +static unsigned int __initdata dom0_num_colors;
+> +
+> +/*
+> + * Parse the coloring configuration given in the buf string, following the
+> + * syntax below.
+> + *
+> + * COLOR_CONFIGURATION ::= COLOR | RANGE,...,COLOR | RANGE
+> + * RANGE               ::= COLOR-COLOR
+> + *
+> + * Example: "0,2-6,15-16" represents the set of colors: 0,2,3,4,5,6,15,16.
+> + */
+> +static int __init parse_color_config(const char *buf, unsigned int *colors,
+> +                                     unsigned int max_num_colors,
+> +                                     unsigned int *num_colors)
 > +{
-> +    int err;
-> +    unsigned int *colors, num_colors;
+> +    const char *s = buf;
 > +
-> +    if ( !str )
-> +        return domain_set_default_colors(d);
+> +    *num_colors = 0;
 > +
-> +    colors = xmalloc_array(unsigned int, max_nr_colors);
-> +    if ( !colors )
-> +        return -ENOMEM;
-> +
-> +    err = parse_color_config(str, colors, max_nr_colors, &num_colors);
-> +    if ( err )
+> +    while ( *s != '\0' )
 > +    {
-> +        printk(XENLOG_ERR "Error parsing LLC color configuration");
-> +        return err;
+> +        unsigned int color, start, end;
+> +
+> +        start = simple_strtoul(s, &s, 0);
+> +
+> +        if ( *s == '-' )    /* Range */
+> +        {
+> +            s++;
+> +            end = simple_strtoul(s, &s, 0);
+> +        }
+> +        else                /* Single value */
+> +            end = start;
+> +
+> +        if ( start > end || (end - start) > (UINT_MAX - *num_colors) ||
+> +             (*num_colors + (end - start)) >= max_num_colors )
+> +            return -EINVAL;
+> +
+> +        for ( color = start; color <= end; color++ )
+> +            colors[(*num_colors)++] = color;
+> +
+> +        if ( *s == ',' )
+> +            s++;
+> +        else if ( *s != '\0' )
+> +            break;
 > +    }
 > +
-> +    if ( !check_colors(colors, num_colors) )
-> +    {
-> +        printk(XENLOG_ERR "Bad LLC color config for %pd\n", d);
-> +        return -EINVAL;
-> +    }
+> +    return *s ? -EINVAL : 0;
+> +}
+> +
+> +static int __init parse_dom0_colors(const char *s)
+> +{
+> +    return parse_color_config(s, dom0_colors, ARRAY_SIZE(dom0_colors),
 
-"colors" is again leaked on the error paths.
+With it not being possible to pass max_nr_colors here (due to the value
+not having been established yet), don't you need to check somewhere else
+that ...
 
-> +    d->llc_colors = colors;
-> +    d->num_llc_colors = num_colors;
+> +                              &dom0_num_colors);
 
-num_colors may be quite a bit smaller than max_nr_colors; worth re-
-allocating the array to free up excess space?
+... dom0_num_colors isn't too large?
 
 Jan
 
