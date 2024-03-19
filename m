@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F7F687FE80
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 14:19:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695369.1085051 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B17B287FEAD
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 14:22:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695373.1085061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmZMP-0005I9-41; Tue, 19 Mar 2024 13:18:33 +0000
+	id 1rmZPy-00072C-IX; Tue, 19 Mar 2024 13:22:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695369.1085051; Tue, 19 Mar 2024 13:18:33 +0000
+Received: by outflank-mailman (output) from mailman id 695373.1085061; Tue, 19 Mar 2024 13:22:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmZMP-0005Gc-0j; Tue, 19 Mar 2024 13:18:33 +0000
-Received: by outflank-mailman (input) for mailman id 695369;
- Tue, 19 Mar 2024 13:18:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yEhX=KZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rmZMN-0005DG-5Y
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 13:18:31 +0000
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [2607:f8b0:4864:20::f32])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2cbf5615-e5f3-11ee-a1ee-f123f15fe8a2;
- Tue, 19 Mar 2024 14:18:29 +0100 (CET)
-Received: by mail-qv1-xf32.google.com with SMTP id
- 6a1803df08f44-69145fc4265so38007266d6.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 06:18:29 -0700 (PDT)
-Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
- cz8-20020a056214088800b00691663dbd4csm5984370qvb.78.2024.03.19.06.18.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Mar 2024 06:18:27 -0700 (PDT)
+	id 1rmZPy-0006zN-Fs; Tue, 19 Mar 2024 13:22:14 +0000
+Received: by outflank-mailman (input) for mailman id 695373;
+ Tue, 19 Mar 2024 13:22:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=aOUF=KZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rmZPx-0006zH-5I
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 13:22:13 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b1fa7bb7-e5f3-11ee-afdd-a90da7624cb6;
+ Tue, 19 Mar 2024 14:22:12 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a46a7b8e07fso415358266b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 06:22:12 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ o20-20020a170906289400b00a4668980c12sm6046479ejd.182.2024.03.19.06.22.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Mar 2024 06:22:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,145 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2cbf5615-e5f3-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: b1fa7bb7-e5f3-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710854308; x=1711459108; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=eEZL8Wp7PtGZZCztHBKQg2DIByzevBllOdV4RD3XbXA=;
-        b=QuoEsKSq/14CIeCbGnzE/8S+H9zGJIaEALQOtABrEHoYqCTiFVVzMZtoBT7IeH82QU
-         496o+gtF1jUp+qfHcARRj7dF5arSw5/IqNigODynrOEYA4esMG4m/pwTICxKLT6c8h1u
-         q62EG+ZslwYDkXs57bcCoSPW+E6M91ZeMBhFc=
+        d=suse.com; s=google; t=1710854531; x=1711459331; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=iNHqaS4hCYlzXBeIJcF37JkLflryMYj84q8OtdKaqUc=;
+        b=TLxRYrpLg2FVEDe/5B699AlyiAOFmsIdY3PCZoqTCQK3aD/FcDvzoTuOOtgA9B5tCF
+         JB4mTUEMuPH1vzIIS+kItHVjKPFPsdtWet2zaSVG5n2q2Kd7oF39qlDHXfDw7PQFjuY2
+         who01+1rVCU609V4cyc6rkdd56N/w/pwTwW+ET6gDPZTdeT9wZxS8pH1JOp9EtUMT84X
+         NxD+LMWtgJKdBx4zz9gsyeW7T3QXq8xx9Zs0T1LznPCkqtXyuYe7ovyTzTWnvKylTGPy
+         aCADYjcOPuEY7GFcz8TenpTvUiyV/5IM7NdMJNTT87kB25p0OCoTpMQF3VhLm13or/v1
+         ZeGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710854308; x=1711459108;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eEZL8Wp7PtGZZCztHBKQg2DIByzevBllOdV4RD3XbXA=;
-        b=B83oHzndhJbS+6BMdzMwn+56Vv7NrPxlYlL+xrUJ5zFrczcq/XDF4s5wEBXBICs2UC
-         gkIab4+ZPtvUusIurgZpXaKHECbTYkecLUNqILfivMOEtAg4urlkmqfp5+FmNCc/5Udm
-         /YPsNtT06d4GppQyZBcY0zBPXN5+j/yfGJOj12+9x0x6/9xZLP3+M+4dTGt+sFk7YUWe
-         u/x/VaTahUmzZsNJbNdhbvUD5+NGjPuyNp2ndASZ+UgfseYqi0QXYFWGYY1bybS2nFtm
-         s3IwNHsZ2m9uCXec9daUW5jqgiQL4pprHQfVp+8kiwzWYQru5mRdUS0wUmsPQsUrr/uM
-         qXew==
-X-Forwarded-Encrypted: i=1; AJvYcCVKWms+wQ52ibn92FKoqY1duULDWT7ztCrJsUC3svGmTGTnEghr4Vrlm7VW09fLEv9CS5vNL+t1jzBUotONtCakA4/UUDYnGJGoGUCklDs=
-X-Gm-Message-State: AOJu0Yy8o823hbtUYeuhDV8/ZcwpqXXFMAuTXou8GwOy0uJ8IC+lSVpl
-	1gOzOcCs5KdUSJY4dME24ZTErSiJOyJ35vjiDVa6u8wlcfKzzz9nUGicsgygQ7U=
-X-Google-Smtp-Source: AGHT+IHSRYQ/BxWWIyxOaaI9zA/WImLgEQdIFCzGFXrRn7xOf6XttcNfvOdEZOc/Xl3c1FD9rTWCdg==
-X-Received: by 2002:ad4:58a4:0:b0:691:698e:9299 with SMTP id ea4-20020ad458a4000000b00691698e9299mr1938874qvb.61.1710854307946;
-        Tue, 19 Mar 2024 06:18:27 -0700 (PDT)
-Date: Tue, 19 Mar 2024 14:18:25 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: grub-devel@gnu.org, xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Daniel Kiper <daniel.kiper@oracle.com>
-Subject: Re: [PATCH 1/7] multiboot2: Add load type header and support for the
- PE binary type
-Message-ID: <ZfmQf03uKe5DW0L-@macbook>
-References: <20240313150748.791236-1-ross.lagerwall@citrix.com>
- <20240313150748.791236-2-ross.lagerwall@citrix.com>
+        d=1e100.net; s=20230601; t=1710854531; x=1711459331;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=iNHqaS4hCYlzXBeIJcF37JkLflryMYj84q8OtdKaqUc=;
+        b=m0BBgbXkugHpdxlktv2tHPfGdidxsayFaq+qmCF+mJCUizW2fleA1JH3G/1KCyB137
+         XLeNKkf72IQofN8+6k9WpvR+zzxZDL0Cia2WgbyWWIVxED/wHBoAp8oDZ3w0yRxZtnPj
+         tvPQULOSKpo8SZSeJjrfsIiq8WB1Ao2g4AOrGeVw27qBpe9n1J3wLrWfNpsSdTGD2JZH
+         GsiViBYlipXUqVsMtvdRXQqE5vGcNpXy4wQJvZvHxkR+6PemKArGthc2defqK4OQdIOR
+         tUfpYz2J+kye3FAfWV9OdaJ7hCqYQ0cf9OkUWjx5DuhcVypF2ywtJlfeusbCfKIpDF0o
+         4K0Q==
+X-Gm-Message-State: AOJu0YyEezz7J5EFzUPP6zcnlXvFG6qjWTAqfjQCgdJkfor1J89/QwSk
+	bMCj9bBW9jp0Pwa1Rj246sGmW1lS8ojVxpL12fgLozA80Fs/8Ko6PGzaFI0s9SaCi4udIPh3dVw
+	=
+X-Google-Smtp-Source: AGHT+IF5I93HlWa1k48yzQp5rLpOSD1GUXFpYyMPj6ExHw4qGKj5DTFa2ZHs6as+JVJ0AxG3nCOZ+A==
+X-Received: by 2002:a17:906:7b8f:b0:a46:50ca:b318 with SMTP id s15-20020a1709067b8f00b00a4650cab318mr11159149ejo.16.1710854531640;
+        Tue, 19 Mar 2024 06:22:11 -0700 (PDT)
+Message-ID: <95699d2c-7e2a-40db-875f-907990797317@suse.com>
+Date: Tue, 19 Mar 2024 14:22:10 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20240313150748.791236-2-ross.lagerwall@citrix.com>
+User-Agent: Mozilla Thunderbird
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v5] x86/PoD: tie together P2M update and increment of entry
+ count
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@cloud.com>
+References: <ac46f25b-e669-f309-b36e-c4760e10479e@suse.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ac46f25b-e669-f309-b36e-c4760e10479e@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Mar 13, 2024 at 03:07:42PM +0000, Ross Lagerwall wrote:
-> Currently, multiboot2-compatible bootloaders can load ELF binaries and
-> a.out binaries. The presence of the address header tag determines
-> how the bootloader tries to interpret the binary (a.out if the address
-> tag is present else ELF).
-> 
-> Add a new load type header tag that explicitly states the type of the
-> binary. Bootloaders should use the binary type specified in the load
-> type tag. If the load type tag is not present, the bootloader should
-> fall back to the previous heuristics.
-> 
-> In addition to the existing address and ELF load types, specify a new
-> optional PE binary load type. This new type is a useful addition since
-> PE binaries can be signed and verified (i.e. used with Secure Boot).
-> 
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> ---
->  doc/multiboot.texi | 39 ++++++++++++++++++++++++++++++++++-----
->  doc/multiboot2.h   | 13 +++++++++++++
->  2 files changed, 47 insertions(+), 5 deletions(-)
-> 
-> diff --git a/doc/multiboot.texi b/doc/multiboot.texi
-> index df8a0d056e76..d12719c744eb 100644
-> --- a/doc/multiboot.texi
-> +++ b/doc/multiboot.texi
-> @@ -511,11 +511,12 @@ assumes that no bss segment is present.
->  
->  Note: This information does not need to be provided if the kernel image
->  is in @sc{elf} format, but it must be provided if the image is in a.out
-> -format or in some other format. When the address tag is present it must
-> -be used in order to load the image, regardless of whether an @sc{elf}
-> -header is also present. Compliant boot loaders must be able to load
-> -images that are either in @sc{elf} format or contain the address tag
-> -embedded in the Multiboot2 header.
-> +format or in some other format. If the load type tag is not specified
-> +and the address tag is present it must be used in order to load the
-> +image, regardless of whether an @sc{elf} header is also present.
-> +Compliant boot loaders must be able to load images that are either in
-> +@sc{elf} format or contain the address tag embedded in the Multiboot2
-> +header.
->  
->  @subsection The entry address tag of Multiboot2 header
->  
-> @@ -732,6 +733,34 @@ and @samp{2} means load image at highest possible address but not
->  higher than max_addr.
->  @end table
->  
-> +@node Load type tag
-> +@subsection Load type tag
-> +
-> +@example
-> +@group
-> +        +-------------------+
-> +u16     | type = 11         |
-> +u16     | flags             |
-> +u32     | size = 12         |
-> +u32     | load_type         |
-> +        +-------------------+
-> +@end group
-> +@end example
-> +
-> +This tag indicates the type of the payload and how the boot loader
-> +should load it.
-> +
-> +The meaning of each field is as follows:
-> +
-> +@table @code
-> +@item load_type
-> +Recognized load types are @samp{0} for address (i.e. load a.out using
-> +the address tag), @samp{1} for ELF, and @samp{2} for PE. Compliant
-> +bootloaders should implement support for a.out and ELF as a minimum.  If
-> +this tag is not specified, the boot loader should attempt to load the
-> +payload using the information specified in the address tag if present,
-> +else it should load the payload as an ELF binary.  @end table
+When not holding the PoD lock across the entire region covering P2M
+update and stats update, the entry count - if to be incorrect at all -
+should indicate too large a value in preference to a too small one, to
+avoid functions bailing early when they find the count is zero. However,
+instead of moving the increment ahead (and adjust back upon failure),
+extend the PoD-locked region.
 
-I wonder if it would be simpler to use the following order instead:
+Fixes: 99af3cd40b6e ("x86/mm: Rework locking in the PoD layer")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v5: Re-arrange conditionals to have just a single unlock.
+v4: Shrink locked region a little again, where possible.
+v3: Extend locked region instead. Add Fixes: tag.
+v2: Add comments.
 
-1. Address tag
-2. Load type tag
-3. ELF header
-
-It's pointless to add a Loader type tag with load_type == 0, as that's
-already mandated by the Address tag.  IOW: signaling the use of the
-Address tag here is kind of pointless, if the fields in the Address
-tag are set, that's the only signaling required for the data in the
-Address tag to be used.
-
-Or are we attempting to support images that set Address tag and Load
-type tag != 0 in order to use the Address tag when the loader doesn't
-recognize the Load type tag, and otherwise use a different format?
-
-Would it be sensible for multiboot2 to use PE in preference to ELF if
-present on the image?  (without requiring any signaling).  I would
-think this could be troublesome if kernels are so far expecting the
-ELF header to be used with multiboot2, even if they also expose a PE
-header.
-
-Thanks, Roger.
+--- a/xen/arch/x86/mm/p2m-pod.c
++++ b/xen/arch/x86/mm/p2m-pod.c
+@@ -1348,19 +1348,28 @@ mark_populate_on_demand(struct domain *d
+         }
+     }
+ 
++    /*
++     * P2M update and stats increment need to collectively be under PoD lock,
++     * to prevent code elsewhere observing PoD entry count being zero despite
++     * there actually still being PoD entries (created by the p2m_set_entry()
++     * invocation below).
++     */
++    pod_lock(p2m);
++
+     /* Now, actually do the two-way mapping */
+     rc = p2m_set_entry(p2m, gfn, INVALID_MFN, order,
+                        p2m_populate_on_demand, p2m->default_access);
+     if ( rc == 0 )
+     {
+-        pod_lock(p2m);
+         p2m->pod.entry_count += 1UL << order;
+         p2m->pod.entry_count -= pod_count;
+         BUG_ON(p2m->pod.entry_count < 0);
+-        pod_unlock(p2m);
++    }
++
++    pod_unlock(p2m);
+ 
++    if ( rc == 0 )
+         ioreq_request_mapcache_invalidate(d);
+-    }
+     else if ( order )
+     {
+         /*
 
