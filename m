@@ -2,34 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 640D587F620
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 04:39:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695209.1084801 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BB9487F830
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 08:11:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695227.1084817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmQK0-0007wu-8L; Tue, 19 Mar 2024 03:39:28 +0000
+	id 1rmTcA-0004K4-Qp; Tue, 19 Mar 2024 07:10:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695209.1084801; Tue, 19 Mar 2024 03:39:28 +0000
+Received: by outflank-mailman (output) from mailman id 695227.1084817; Tue, 19 Mar 2024 07:10:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmQK0-0007ux-4t; Tue, 19 Mar 2024 03:39:28 +0000
-Received: by outflank-mailman (input) for mailman id 695209;
- Tue, 19 Mar 2024 03:39:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N0xd=KZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rmQJy-0007tZ-Ca
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 03:39:26 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 462dd0d3-e5a2-11ee-a1ee-f123f15fe8a2;
- Tue, 19 Mar 2024 04:39:23 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id E1C5ECE0AAF;
- Tue, 19 Mar 2024 03:39:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B6A0C433C7;
- Tue, 19 Mar 2024 03:39:18 +0000 (UTC)
+	id 1rmTcA-0004Hr-NQ; Tue, 19 Mar 2024 07:10:26 +0000
+Received: by outflank-mailman (input) for mailman id 695227;
+ Tue, 19 Mar 2024 07:10:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xTJq=KZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rmTc9-0004Hl-8E
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 07:10:25 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c0fa819d-e5bf-11ee-afdd-a90da7624cb6;
+ Tue, 19 Mar 2024 08:10:23 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DC69B5D25C;
+ Tue, 19 Mar 2024 07:10:22 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B21B8136A5;
+ Tue, 19 Mar 2024 07:10:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Gsr2KV46+WVJYwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 19 Mar 2024 07:10:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,88 +53,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 462dd0d3-e5a2-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710819560;
-	bh=ipxwmoYe3sUV/2+U7vcS9yuguFs4t7xBD6cS3jUqb/0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=hGTFaWOJGcxb/eEFT1cKauscJr67gg+c5TFm3NmKgf4xP0WLUfqpaaaxiPyf365xV
-	 PvZiiAyjLdYR8+OJefBn1Buw25Ah2ZWhkE+yYFHcYgfdns//Qzy6woXV38vnoq33nY
-	 cm9LAae3GEvfn2UF/pGhuFURMTqQ/ZMsV0cAj7mb0rgsFEtUQgAQx4ZGDd/WWhlcjc
-	 0lOwSXrONSsWMI6+eeaQz7xfVtqIxtvqm8OURPFDvnZDN/EnmPOKy0jZvhGu5QJLnx
-	 pUHzJJrjIuTM/+t5G+GK8ELwtpRcOI9oVtvExULJkxGHzvuMS9b0OHsIzTCjWtYkEJ
-	 vPFMO1g6wuMMw==
-Date: Mon, 18 Mar 2024 21:39:16 -0600 (MDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: George Dunlap <george.dunlap@cloud.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, federico.serafini@bugseng.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    xen-devel@lists.xenproject.org, michal.orzel@amd.com
-Subject: Re: [PATCH] do_multicall and MISRA Rule 8.3
-In-Reply-To: <5128255f-fe52-4425-b168-34946c0c901e@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2403181752370.853156@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2311221331130.2053963@ubuntu-linux-20-04-desktop> <5a8f90d6-6502-4d93-9fd7-45fea0ede24a@suse.com> <alpine.DEB.2.22.394.2403081758400.853156@ubuntu-linux-20-04-desktop> <CA+zSX=aiqacW+QLM+KX-CcAo3DVnN+Kn7vQsOOKGK3qQOqXvBA@mail.gmail.com>
- <a2485ac6-19ac-42ce-b8cf-6f8408483521@xen.org> <alpine.DEB.2.22.394.2403141711460.853156@ubuntu-linux-20-04-desktop> <e57a3c03-fcbc-4a5a-8b23-b9b9448de2be@suse.com> <CA+zSX=anV+h8a8Ynq1Eh+PmtmgiSj8ruRfBbhLrhMbrNn+ED0w@mail.gmail.com>
- <63891474-1dc4-4c86-aaf4-cc4d4c53a0ae@suse.com> <CA+zSX=bu-gRYUYOKMRp5kJ02ExdrtFEHTgXapwTVotm5cK2dfw@mail.gmail.com> <d05be83a-e7f1-4c2f-afda-42deee9be203@suse.com> <3f27abc3-9809-4637-a29c-8aeafcd29ade@xen.org> <7109ef7e-040c-4d11-ba4b-d898ed2530ff@suse.com>
- <CA+zSX=bGfc+dsZjg4xmW2fgsnFQLSAh1ChOY3jYU_AD5SJw_7w@mail.gmail.com> <5128255f-fe52-4425-b168-34946c0c901e@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: c0fa819d-e5bf-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1710832223; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=60bEIDwx+NXczuoY7AFrsSbeXmm714yJjf0EPnqnQ6o=;
+	b=TZfk+EKd+rpUzJAX7/cgQaDnSlrl68A0hnx/FbOIrgbzVPuemZlRN07Up0duvO+pTt0O6j
+	K0yWbLG/fJKaJuBQY8mmiLU4cSYusYP1y74CIKCkFWru0KJXiTgZmeJhUN1E4oNA63utdD
+	j1SJ0FmvH+XZXkP1xN/LXeCuiwzbA/U=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1710832222; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=60bEIDwx+NXczuoY7AFrsSbeXmm714yJjf0EPnqnQ6o=;
+	b=kZtefftjM/Ld8PYQi5P+W736PuwztLTtFlY5/tF8FF/lwZUu/WRQ7NOzClDHOKOP1mecFC
+	EsvdgpEzpgofq4DqqAkvoS0lHkVG5nuJv+TMbxwRlu2nZSS9eX7qt0dxVlQP2C7HCb3KXz
+	LFZefv0pH38RoMN2DQ0hdy8kVzN51VE=
+From: Juergen Gross <jgross@suse.com>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	sstabellini@kernel.org
+Subject: [GIT PULL] xen: branch for v6.9-rc1
+Date: Tue, 19 Mar 2024 08:10:22 +0100
+Message-Id: <20240319071022.7513-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -5.01
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-5.01 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	 FROM_HAS_DN(0.00)[];
+	 RCPT_COUNT_THREE(0.00)[4];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	 MIME_GOOD(-0.10)[text/plain];
+	 TO_DN_NONE(0.00)[];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 DWL_DNSWL_HI(-3.50)[suse.com:dkim];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 DKIM_TRACE(0.00)[suse.com:+];
+	 MX_GOOD(-0.01)[];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-1.00)[87.14%]
+X-Spam-Level: 
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=kZtefftj
+X-Rspamd-Queue-Id: DC69B5D25C
 
-On Mon, 18 Mar 2024, Jan Beulich wrote:
-> The named reasons simply aren't convincing to me, at all. There's no
-> loss towards the "end goals" when "unsigned int" is used instead of
-> "uint32_t". Plus I recall Andrew putting under question use of
-> "unsigned int" for various hypercall parameter declarations, indicating
-> his belief that "unsigned long" ought to be used. That's, to me, quite
-> the opposite of using fixed-width types here, as there's no uniformly
-> correct fixed-width type to use in that case.
-> 
-> So to me, besides there not having been technical arguments towards
-> the need to use fixed width types here, there's actually added
-> confusion about what's actually wanted. Imo if we started using fixed-
-> width types for hypercall handler parameter declarations, (almost?) all
-> non-handle ones would likely want to be converted. Consistency, after
-> all, is part of the "easy to maintain code" goal. Plus without
-> consistency how would one determine when to use what kind of types.
+Linus,
 
-[...]
+Please git pull the following tag:
 
-> The main use of fixed width types, to me, is in interface structure
-> definitions - between Xen and hardware / firmware, or in hypercall
-> structures. I'm afraid I have a hard time seeing good uses outside of
-> that. Even in inline assembly, types of variables used for inputs or
-> outputs don't strictly need to be fixed-width; I can somewhat accept
-> their use there for documentation purposes.
+ git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.9-rc1-tag
+
+xen: branch for v6.9-rc1
+
+It contains the following patches:
+
+- 2 patches for Xen event channel handling fixing a regression wit a
+  rare kernel config and adding some hardening.
+
+- A patch for better support of running Xen dom0 in PVH mode.
+
+- A cleanup patch for the xen grant-dma-iommu driver.
 
 
-Non-ABI interfaces are OK with native types.
+Thanks.
 
-Our ABI interfaces are, for better or for worse, described using C
-header files. Looking at these header files, it should be clear the size
-and alignment of all integer parameters.
+Juergen
 
-To that end, I think we should use fixed-width types in all ABIs,
-including hypercall entry points. In my opinion, C hypercall entry
-points are part of the ABI and should match the integer types used in
-the public header files. I don't consider the little assembly code on
-hypercall entry as important. I think we should avoid having one
-description of the hypercall types in sched.h and different types used
-in do_sched_op.
+ arch/x86/include/asm/xen/hypervisor.h |  5 +++
+ arch/x86/platform/pvh/enlighten.c     |  3 ++
+ arch/x86/xen/enlighten.c              | 32 +++++++++++++++++
+ arch/x86/xen/enlighten_pvh.c          | 68 +++++++++++++++++++++++++++++++++++
+ arch/x86/xen/setup.c                  | 44 -----------------------
+ arch/x86/xen/xen-ops.h                | 14 ++++++++
+ drivers/xen/balloon.c                 |  2 --
+ drivers/xen/events/events_base.c      | 22 +++++++-----
+ drivers/xen/evtchn.c                  |  6 ++++
+ drivers/xen/grant-dma-iommu.c         |  6 ++--
+ 10 files changed, 143 insertions(+), 59 deletions(-)
 
-Sometimes, we might have parameters that vary in size depending on the
-architecture. For instance, a parameter could be 32-bit for 32-bit
-architectures and 64-bit for 64-bit architectures.
+Juergen Gross (2):
+      xen/evtchn: avoid WARN() when unbinding an event channel
+      xen/events: increment refcnt only if event channel is refcounted
 
-For these cases, using "unsigned long", together with a document like
-the one I submitted recently to xen-devel, is a good way forward: it
-is semantically correct on all architectures, and it still comes with a
-precise size and alignment as described in the document. In this
-context, "unsigned long" means "register size" (on ARM we have
-register_t). This is the one case where it makes sense not to use a
-fixed-width type. Alternatively we would have to use #ifdefs.
+Roger Pau Monne (1):
+      x86/xen: attempt to inflate the memory balloon on PVH
+
+Uwe Kleine-König (1):
+      xen/grant-dma-iommu: Convert to platform remove callback returning void
 
