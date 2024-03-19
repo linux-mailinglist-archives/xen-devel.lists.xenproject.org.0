@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57ED488065B
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 21:59:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695610.1085493 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FE7588065C
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 21:59:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695611.1085502 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmgY5-0007zx-CP; Tue, 19 Mar 2024 20:59:05 +0000
+	id 1rmgY9-0008KX-Nr; Tue, 19 Mar 2024 20:59:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695610.1085493; Tue, 19 Mar 2024 20:59:05 +0000
+Received: by outflank-mailman (output) from mailman id 695611.1085502; Tue, 19 Mar 2024 20:59:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmgY5-0007yB-8E; Tue, 19 Mar 2024 20:59:05 +0000
-Received: by outflank-mailman (input) for mailman id 695610;
- Tue, 19 Mar 2024 20:59:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rmgY9-0008HU-Kd; Tue, 19 Mar 2024 20:59:09 +0000
+Received: by outflank-mailman (input) for mailman id 695611;
+ Tue, 19 Mar 2024 20:59:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=D7vt=KZ=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1rmgY4-0007xt-LO
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 20:59:04 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20600.outbound.protection.outlook.com
- [2a01:111:f403:2009::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 83eae5a2-e633-11ee-afdd-a90da7624cb6;
- Tue, 19 Mar 2024 21:59:03 +0100 (CET)
-Received: from DS7PR05CA0010.namprd05.prod.outlook.com (2603:10b6:5:3b9::15)
- by PH7PR12MB6720.namprd12.prod.outlook.com (2603:10b6:510:1b3::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.26; Tue, 19 Mar
- 2024 20:59:00 +0000
-Received: from DS2PEPF0000343F.namprd02.prod.outlook.com
- (2603:10b6:5:3b9:cafe::78) by DS7PR05CA0010.outlook.office365.com
- (2603:10b6:5:3b9::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.12 via Frontend
- Transport; Tue, 19 Mar 2024 20:59:00 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS2PEPF0000343F.mail.protection.outlook.com (10.167.18.42) with Microsoft
+ id 1rmgY8-0007jV-Hg
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 20:59:08 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:200a::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 865926d3-e633-11ee-a1ee-f123f15fe8a2;
+ Tue, 19 Mar 2024 21:59:07 +0100 (CET)
+Received: from CH2PR07CA0005.namprd07.prod.outlook.com (2603:10b6:610:20::18)
+ by IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.30; Tue, 19 Mar
+ 2024 20:59:02 +0000
+Received: from CH1PEPF0000A346.namprd04.prod.outlook.com
+ (2603:10b6:610:20:cafe::ba) by CH2PR07CA0005.outlook.office365.com
+ (2603:10b6:610:20::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.19 via Frontend
+ Transport; Tue, 19 Mar 2024 20:59:02 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000A346.mail.protection.outlook.com (10.167.244.11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Tue, 19 Mar 2024 20:58:59 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7409.10 via Frontend Transport; Tue, 19 Mar 2024 20:59:02 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 19 Mar
- 2024 15:58:58 -0500
+ 2024 15:59:01 -0500
 Received: from fedora.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 19 Mar 2024 15:58:57 -0500
+ Transport; Tue, 19 Mar 2024 15:59:00 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,149 +59,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83eae5a2-e633-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 865926d3-e633-11ee-a1ee-f123f15fe8a2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QP4kE3KnwdB6lhcrw2PbDmWLMdjKfDzlEXaqY18R1HCVWfZvT371alStIsDrIK7/eH8QyygOT3DntguKx+1yMipEIqDPnk2x5dsH7kaq2urbezQ3vlzz48Bmeb3mRW2rfSbquaqN9HLcnfjVbe7xbBk/8Imo+dbJmThGwvCv1RL2sHKW9jJhKgLXFkTqKtwxerehKA54TIISM2P2VcLlYJul99pi/lRAg0pl2Fww0tK72cVeIwWyoBazjp6yRXr41oawEf/acb6tp/AuMLjCeCR53pqNuDSLZttY1fuKPxj/H4U5Qme3yynhr9IWO3lpyvN93Heyoy/qCcGC9moylg==
+ b=IBzRTvisDlefOi9ZyMK7LQIdFVUzW/fGjGCj4THYmsSQJ3jhYb5yVrqWiPDeziDY0w5kX4sQfpmvtchL180JErnKNGZlCA6177rgwVT3ZdKr3/67VBA6yHY7tnW8O2aAkwvVs98W7xE8YQ65LA1ynUTPXrXdmQQNY2MgoTUF8OCssc8oUE8EqaR/38IxkkPH1hs0ur3Wxg1IgDuWUZJqn7K0N7ws7GQuGh7tgnOB+rycM8AfmjtLIaySly8H6f4dnP5QEgJhQKfKAQvgIrdsOh1dvuvzpPYn6rGvyAAQKyUJdaF3ewLFaX84sDE8ZtiPxWDPyuDEhlyMFz/RAq4Wuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lvOehq1EJKjZfWXBSzZg1ZZ1p5IUUk1AykmRfeyalZA=;
- b=PNCHOtDTdMxWeRKFvqUNxWU5nbQ+c+vQ9tn5TwxRenqmNtjD9wycLeGwRmzP5sDXm3wYF5Cuhu131QR2SOV0OPkml07VXm3IFCT9EzbU3YqR6Z+xaYZ2ZirtNqLrlg10sSCEUieTi0kEq0Nxj3MPMUvHyStmjZxwA+tB2Q2wN4PKreyOLg4iWTunA9kKq4wRgJJmaN8QFYhWP5h1DDPJJWSS8z4L//FbLSimY2VXU3rvk4PRXw+kIVLPJTcRoGXZ+Koa8aXviAJOgFTDgSAAGI6FUgdQrm+0Sd0QMjtdobuEoOk3nbPwGTCQfQSOYFBke/no4nxHBXOZ+cJ38x+Kgw==
+ bh=NDm0ZtVyDBysq2xkYmsebdtkUyX6X2/ReXcGS+SS/nU=;
+ b=kwprMUzI8IFE5wjhqZDCqZtcY3a+sB8t9SUHJ+m3gfRtvfrhPoqodprbqXf+wOXmT8RpBRh9wcPGQLC39gtduH8Ln5/OjDKxfR4ALGAHqhvQbkc6uW+okAWOrIJ0nexrwZrAJ9n65ERKAMMpaXckXPlsACiCFVFMnF79S12M7rrMiP5RyEqQ87TbHpYKh/j2fgyj1xmVNiYrvI/o2g6/230+f4/sz08epA0tZZj3zoFMZhzK/3n88o/JHWLMoP4CNGCQzeEF4zkL49lKef9vpS3bJfbCKPGLYpDsB8NwUanbXsZQ16scJRQ6OSQHiQ7PCeCe2d0dsT4IaunQgtM92Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lvOehq1EJKjZfWXBSzZg1ZZ1p5IUUk1AykmRfeyalZA=;
- b=dFwlsOiV0hwdksokGnZ4VQqmaIBeTPFwnS+lpUu6pL3/JlXCNC8Jn7NHYeIsKm7Df+hMPzoJXDWsKF+FeRZ4BX/RBdxuFzGDkk407MgiUfpH46+sYjrfhNBwsghQBY29+MWRbkVmo5c2O3wx5LtQhohvzkCxCnzI0ho4wXgtLNI=
+ bh=NDm0ZtVyDBysq2xkYmsebdtkUyX6X2/ReXcGS+SS/nU=;
+ b=XJlX0xIalPXa2OCZY/7xPbtPOtTvKRGDSQF3ScK9BxU9T+e7w3toQKCIoaas50Xwhbv0mqVC4MjoPKJZwkIw6lsRSoQL2ZyHCsXxNc2CmZ2iDEhqLpbOKZfyiXOUOn32JuGyndr5XFx5qzDPBQTaR9GzF+9OfU6FDRwknOPOG3w=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Jason Andryuk <jason.andryuk@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Jason Andryuk <jason.andryuk@amd.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>
-Subject: [PATCH v3 1/3] Revert "xen/x86: bzImage parse kernel_alignment"
-Date: Tue, 19 Mar 2024 16:58:47 -0400
-Message-ID: <20240319205849.115884-2-jason.andryuk@amd.com>
+CC: Jason Andryuk <jason.andryuk@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [PATCH v3 2/3] libelf: Expand ELF note printing
+Date: Tue, 19 Mar 2024 16:58:48 -0400
+Message-ID: <20240319205849.115884-3-jason.andryuk@amd.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240319205849.115884-1-jason.andryuk@amd.com>
 References: <20240319205849.115884-1-jason.andryuk@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
+Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343F:EE_|PH7PR12MB6720:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1b8378e-132a-4a54-f0fd-08dc4857669a
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A346:EE_|IA1PR12MB7736:EE_
+X-MS-Office365-Filtering-Correlation-Id: 955bdd22-30f8-4648-08f7-08dc4857680f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	r8OnCdXJb+tokcrlhn8iiEY+4Fun5Gr7Fg3nCYPHg5/CIaOrIJiqiuCcitCL/jifBkrffIJEvH9xt7w0GYklEghfFC3WZlEJov1UCm88RVXzkP6B+XxrizgSJfvY9CvMk9cKlfxA6+XEfpAfrhrbW9PfngFJC+mtkzHk7Iz6Bshedvtz4Rkh4XCCWRRz6IUyGDogAPV8juC2+gkXebA9cudyWYmRn6pPhMPU3GZwQZhC7qEbR8tot0Lb2zJHLoPif89xonVpk4exUpZqC9Fe3Evn15Xs7yA071uDjAeG2fFxGNRJkhYGPZcJdk0rFhnx9WSCwYTGMoNA/BSEegth7Y7uPCfc/t2Ql6qXsQAni+jPnpBKygCo7Ee+f4n+PwV7UDRzspCtEctH5s4weKDs32fGPplIVSsBv5LN6ZjM81YfExpLoF7RhNrC9iYvcviGYdrPmq0Cb4QG/rlA5lj/zmyWQSLWzmlhmGNtEVZB8bjw92kx5GPitY3RbjBndbiV7oCU2omdIwUcCkM2JZfWvDvruDqAD/7fjIHVJw6VGxN/Y5yVBAwd+i57eBU/sSPfkdfHiCctw0UNUUN96HrDd7GFIIgZnTMtoMW/O9pdn7TCSabMuH47/qgXkkktuBpn2kPZC/HJlhxBIFiJH1O9VmNTtzRGlhyHTQ/mQT/vxbPP0UswNm1tkHTYCtWPqKHIfy8cKEqNXUg00nDqdxBy+xDq1kVpfk9Qmy+vsWR3nHvRohIPNWm+62IcutNQKc4p
+	aPMiu3QItUiwzdgKym7VRj33rEQPotKrYMRnIbvy6DQt9e/SGYPVNXoSC586xV0Zen2Q8ZannXTJcLbfrIFsO6vAjE2LusAbUvxQBXVuzlEvhVVIDWybiLw8LahdyoQF/AT57kjy70D4EZh5VU0c9BGRoBCpXruB6IYa054TYlen9UG8J3URqORCyIbre2X5fXHqPyVTyCArcVkRbwVBn8sr82WEk6FJXqnGIIVDoblqzPeJ3RF/Z/ODdPXkXVRyvGGU0O8A88f9IxD883fQ2PCS8jESLQ8RRs0eatK7O9ORJaqE6wuGyeGv/jlM6WtXTFjeWnhyFg+yMgqeOfy6GrkOFCtntWzCYngCwx5qA3cE3i1trfcszFK6C9Dbu9HNxCobdbzRCOsQ3MbMOBllHkBbblhOJttFR5LBYo8oH5o74DAjKHsIgsy9RgFV6mf3LnJVqPLEJt8II47lRzAERRwKrbDMO6q9v/rK7TP9L2OMYXzg2QmInNCbkxAHg1GZJmSw5XGnEi2RkGS4M4dQ1YHzy3M4/scVq39ZCioNlOp2WcHPdTDN2ISv6y7YXF1Tk5aLGk4dXU7/q1Y3eLMByeEsXThUvPe8vQjwjtG+x34E02ZFg0pXWAGZbExUWBtvWvr39rkOMIoTTSjWuh8kTMpeCxuYg3nTSUpJ9KLoiIB3e+oHhGsdYKRkXO0OcPC8ZWaeOf30EDLmai9L1sWQr76ol9jNPi5hb06R/O42HyZ2Hl+BGwYIR3NxSSPF6zN6
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(1800799015)(82310400014)(36860700004);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(36860700004)(376005)(1800799015);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2024 20:58:59.9771
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2024 20:59:02.4313
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1b8378e-132a-4a54-f0fd-08dc4857669a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 955bdd22-30f8-4648-08f7-08dc4857680f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF0000343F.namprd02.prod.outlook.com
+	CH1PEPF0000A346.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6720
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7736
 
-A new ELF note will specify the alignment for a relocatable PVH kernel.
-ELF notes are suitable for vmlinux and other ELF files, so this
-Linux-specific bzImage parsing in unnecessary.
+The XEN_ELFNOTE_L1_MFN_VALID is an array of pairs of values, but it is
+printed as:
+(XEN) ELF: note: L1_MFN_VALID = 0
 
-This reverts commit c44cac229067faeec8f49247d1cf281723ac2d40.
+This is a limitation of only printing either string or numeric values.
+Switch from the boolean to an enum which allows more flexibility in
+printing the values.  Introduce ELFNOTE_NAME to only print the name
+without a value like:
+(XEN) ELF: note: L1_MFN_VALID
 
 Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 ---
- xen/arch/x86/bzimage.c             | 4 +---
- xen/arch/x86/hvm/dom0_build.c      | 4 +---
- xen/arch/x86/include/asm/bzimage.h | 2 +-
- xen/arch/x86/pv/dom0_build.c       | 2 +-
- 4 files changed, 4 insertions(+), 8 deletions(-)
+v3:
+Remove fatal size check
+Don't print values - just the name for presence
+---
+ xen/common/libelf/libelf-dominfo.c | 50 +++++++++++++++++-------------
+ 1 file changed, 29 insertions(+), 21 deletions(-)
 
-diff --git a/xen/arch/x86/bzimage.c b/xen/arch/x86/bzimage.c
-index 0f4cfc49f7..ac4fd428be 100644
---- a/xen/arch/x86/bzimage.c
-+++ b/xen/arch/x86/bzimage.c
-@@ -105,7 +105,7 @@ unsigned long __init bzimage_headroom(void *image_start,
- }
+diff --git a/xen/common/libelf/libelf-dominfo.c b/xen/common/libelf/libelf-dominfo.c
+index a13a5e4db6..405510ead9 100644
+--- a/xen/common/libelf/libelf-dominfo.c
++++ b/xen/common/libelf/libelf-dominfo.c
+@@ -101,26 +101,30 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
+ /* *INDENT-OFF* */
+     static const struct {
+         const char *name;
+-        bool str;
++        enum {
++            ELFNOTE_INT,
++            ELFNOTE_STRING,
++            ELFNOTE_NAME,
++        } type;
+     } note_desc[] = {
+-        [XEN_ELFNOTE_ENTRY] = { "ENTRY", 0},
+-        [XEN_ELFNOTE_HYPERCALL_PAGE] = { "HYPERCALL_PAGE", 0},
+-        [XEN_ELFNOTE_VIRT_BASE] = { "VIRT_BASE", 0},
+-        [XEN_ELFNOTE_INIT_P2M] = { "INIT_P2M", 0},
+-        [XEN_ELFNOTE_PADDR_OFFSET] = { "PADDR_OFFSET", 0},
+-        [XEN_ELFNOTE_HV_START_LOW] = { "HV_START_LOW", 0},
+-        [XEN_ELFNOTE_XEN_VERSION] = { "XEN_VERSION", 1},
+-        [XEN_ELFNOTE_GUEST_OS] = { "GUEST_OS", 1},
+-        [XEN_ELFNOTE_GUEST_VERSION] = { "GUEST_VERSION", 1},
+-        [XEN_ELFNOTE_LOADER] = { "LOADER", 1},
+-        [XEN_ELFNOTE_PAE_MODE] = { "PAE_MODE", 1},
+-        [XEN_ELFNOTE_FEATURES] = { "FEATURES", 1},
+-        [XEN_ELFNOTE_SUPPORTED_FEATURES] = { "SUPPORTED_FEATURES", 0},
+-        [XEN_ELFNOTE_BSD_SYMTAB] = { "BSD_SYMTAB", 1},
+-        [XEN_ELFNOTE_L1_MFN_VALID] = { "L1_MFN_VALID", false },
+-        [XEN_ELFNOTE_SUSPEND_CANCEL] = { "SUSPEND_CANCEL", 0 },
+-        [XEN_ELFNOTE_MOD_START_PFN] = { "MOD_START_PFN", 0 },
+-        [XEN_ELFNOTE_PHYS32_ENTRY] = { "PHYS32_ENTRY", 0 },
++        [XEN_ELFNOTE_ENTRY] = { "ENTRY", ELFNOTE_INT },
++        [XEN_ELFNOTE_HYPERCALL_PAGE] = { "HYPERCALL_PAGE", ELFNOTE_INT },
++        [XEN_ELFNOTE_VIRT_BASE] = { "VIRT_BASE", ELFNOTE_INT },
++        [XEN_ELFNOTE_INIT_P2M] = { "INIT_P2M", ELFNOTE_INT },
++        [XEN_ELFNOTE_PADDR_OFFSET] = { "PADDR_OFFSET", ELFNOTE_INT },
++        [XEN_ELFNOTE_HV_START_LOW] = { "HV_START_LOW", ELFNOTE_INT },
++        [XEN_ELFNOTE_XEN_VERSION] = { "XEN_VERSION", ELFNOTE_STRING },
++        [XEN_ELFNOTE_GUEST_OS] = { "GUEST_OS", ELFNOTE_STRING },
++        [XEN_ELFNOTE_GUEST_VERSION] = { "GUEST_VERSION", ELFNOTE_STRING },
++        [XEN_ELFNOTE_LOADER] = { "LOADER", ELFNOTE_STRING },
++        [XEN_ELFNOTE_PAE_MODE] = { "PAE_MODE", ELFNOTE_STRING },
++        [XEN_ELFNOTE_FEATURES] = { "FEATURES", ELFNOTE_STRING },
++        [XEN_ELFNOTE_SUPPORTED_FEATURES] = { "SUPPORTED_FEATURES", ELFNOTE_INT },
++        [XEN_ELFNOTE_BSD_SYMTAB] = { "BSD_SYMTAB", ELFNOTE_STRING },
++        [XEN_ELFNOTE_L1_MFN_VALID] = { "L1_MFN_VALID", ELFNOTE_NAME },
++        [XEN_ELFNOTE_SUSPEND_CANCEL] = { "SUSPEND_CANCEL", ELFNOTE_INT },
++        [XEN_ELFNOTE_MOD_START_PFN] = { "MOD_START_PFN", ELFNOTE_INT },
++        [XEN_ELFNOTE_PHYS32_ENTRY] = { "PHYS32_ENTRY", ELFNOTE_INT },
+     };
+ /* *INDENT-ON* */
  
- int __init bzimage_parse(void *image_base, void **image_start,
--                         unsigned long *image_len, unsigned int *align)
-+                         unsigned long *image_len)
- {
-     struct setup_header *hdr = (struct setup_header *)(*image_start);
-     int err = bzimage_check(hdr, *image_len);
-@@ -118,8 +118,6 @@ int __init bzimage_parse(void *image_base, void **image_start,
-     {
-         *image_start += (hdr->setup_sects + 1) * 512 + hdr->payload_offset;
-         *image_len = hdr->payload_length;
--        if ( align )
--            *align = hdr->kernel_alignment;
+@@ -136,7 +140,7 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
+         return 0;
      }
  
-     if ( elf_is_elfbinary(*image_start, *image_len) )
-diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
-index bbae8a5645..0ceda4140b 100644
---- a/xen/arch/x86/hvm/dom0_build.c
-+++ b/xen/arch/x86/hvm/dom0_build.c
-@@ -548,14 +548,12 @@ static int __init pvh_load_kernel(struct domain *d, const module_t *image,
-     struct elf_binary elf;
-     struct elf_dom_parms parms;
-     paddr_t last_addr;
--    unsigned int align = 0;
-     struct hvm_start_info start_info = { 0 };
-     struct hvm_modlist_entry mod = { 0 };
-     struct vcpu *v = d->vcpu[0];
-     int rc;
- 
--    rc = bzimage_parse(image_base, &image_start, &image_len, &align);
--    if ( rc != 0 )
-+    if ( (rc = bzimage_parse(image_base, &image_start, &image_len)) != 0 )
+-    if ( note_desc[type].str )
++    if ( note_desc[type].type == ELFNOTE_STRING )
      {
-         printk("Error trying to detect bz compressed kernel\n");
-         return rc;
-diff --git a/xen/arch/x86/include/asm/bzimage.h b/xen/arch/x86/include/asm/bzimage.h
-index 2e04f5cc7b..7ed69d3910 100644
---- a/xen/arch/x86/include/asm/bzimage.h
-+++ b/xen/arch/x86/include/asm/bzimage.h
-@@ -6,6 +6,6 @@
- unsigned long bzimage_headroom(void *image_start, unsigned long image_length);
+         str = elf_strval(elf, elf_note_desc(elf, note));
+         if (str == NULL)
+@@ -146,13 +150,17 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
+         parms->elf_notes[type].type = XEN_ENT_STR;
+         parms->elf_notes[type].data.str = str;
+     }
+-    else
++    else if ( note_desc[type].type == ELFNOTE_INT )
+     {
+         val = elf_note_numeric(elf, note);
+         elf_msg(elf, "ELF: note: %s = %#" PRIx64 "\n", note_desc[type].name, val);
+         parms->elf_notes[type].type = XEN_ENT_LONG;
+         parms->elf_notes[type].data.num = val;
+     }
++    else if ( note_desc[type].type == ELFNOTE_NAME )
++    {
++        elf_msg(elf, "ELF: note: %s\n", note_desc[type].name);
++    }
+     parms->elf_notes[type].name = note_desc[type].name;
  
- int bzimage_parse(void *image_base, void **image_start,
--                  unsigned long *image_len, unsigned int *align);
-+                  unsigned long *image_len);
- 
- #endif /* __X86_BZIMAGE_H__ */
-diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
-index e9fa8a9a82..d8043fa58a 100644
---- a/xen/arch/x86/pv/dom0_build.c
-+++ b/xen/arch/x86/pv/dom0_build.c
-@@ -416,7 +416,7 @@ int __init dom0_construct_pv(struct domain *d,
- 
-     d->max_pages = ~0U;
- 
--    if ( (rc = bzimage_parse(image_base, &image_start, &image_len, NULL)) != 0 )
-+    if ( (rc = bzimage_parse(image_base, &image_start, &image_len)) != 0 )
-         return rc;
- 
-     if ( (rc = elf_init(&elf, image_start, image_len)) != 0 )
+     switch ( type )
 -- 
 2.44.0
 
