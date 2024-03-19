@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC25E8802B6
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 17:49:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695507.1085330 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 274098802BC
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 17:52:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695510.1085341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmceC-0004ok-KY; Tue, 19 Mar 2024 16:49:08 +0000
+	id 1rmcgY-0006s7-14; Tue, 19 Mar 2024 16:51:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695507.1085330; Tue, 19 Mar 2024 16:49:08 +0000
+Received: by outflank-mailman (output) from mailman id 695510.1085341; Tue, 19 Mar 2024 16:51:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmceC-0004mL-Hu; Tue, 19 Mar 2024 16:49:08 +0000
-Received: by outflank-mailman (input) for mailman id 695507;
- Tue, 19 Mar 2024 16:49:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rmcgX-0006pU-UB; Tue, 19 Mar 2024 16:51:33 +0000
+Received: by outflank-mailman (input) for mailman id 695510;
+ Tue, 19 Mar 2024 16:51:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aOUF=KZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmceA-0004j8-9N
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 16:49:06 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 983de763-e610-11ee-a1ee-f123f15fe8a2;
- Tue, 19 Mar 2024 17:49:04 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-566e869f631so6629277a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 09:49:04 -0700 (PDT)
+ id 1rmcgX-0006pO-2B
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 16:51:33 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f0336e48-e610-11ee-afdd-a90da7624cb6;
+ Tue, 19 Mar 2024 17:51:32 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-568aa282ccdso5830781a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 09:51:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x1-20020a056402414100b00568d2d4e4besm2947416eda.54.2024.03.19.09.49.03
+ z10-20020a170906714a00b00a46c39e6a47sm2288156ejj.148.2024.03.19.09.51.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Mar 2024 09:49:03 -0700 (PDT)
+ Tue, 19 Mar 2024 09:51:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 983de763-e610-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: f0336e48-e610-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710866944; x=1711471744; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710867091; x=1711471891; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ak6OBi7xOtHRafKXxTWNWHJwCs6mqQu4V0EKs1GUWCk=;
-        b=glxM+z7pWX1s22IKBJzw6DgBBr+77XFKsby3zujCbuDCvJKxy3/yOa2wgoKMsOu9OW
-         Itm+5FxnZMkelGy8PfDbiajspl9vwy+KwTBDkbjt3GRrbC3X/LM/QeTdSct/ssgmedYM
-         05jcyMYxU5q1+UwF7d2X/dI5EZIzra9ocHZjU8xur+r4w/ki/pg028Il1LmRdn2G1tja
-         wysxPRatjW+FAGXqw7cPpnTDpNUy61VP3Xr8alVxvPgkjh4/TZkkuRjcfsOoDRoJV58X
-         IowrpvbE+u3PuOpN71Au/WxyOFxIMOebLiV7Xzawf97LTtNk8pmG5xdvnlzwXf0J+oug
-         gHPw==
+        bh=5c1m0stHH+Uv4w1Vr3ysdaNPyDTZUTJ2KrUxuOTSVCc=;
+        b=VWTcEWoXOOO0e+s26BE9ZaPx2438wSKYINDGYqiSpm1ym06VU8rvlLXeE3diSL2MQG
+         S8ftJ+P0kL2ALc7USfeiWR0dM8cFL+jkkpdBgCGTiRZGv6e7OUG5TEi34Yr/F0iAIyae
+         l4d/OrOY6IjzIBmYsU6Lm1gR1cy4wJf4PHCdghNn1fdQLyCpRCU63vwhHox82PMQrJSU
+         7li9wE8a1xT14Ni9F3e6VCIzdoAfWDEObj6es33WCjWgX/8JDZ3pQh8pKgC3HF5J4rlz
+         cRoWe9XumVqIgNeeoHjPZdvI9xz0S3P2vpJo9Gb2Z8kTfxMSyquJCoO/TrGVowrnOK+d
+         brIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710866944; x=1711471744;
+        d=1e100.net; s=20230601; t=1710867091; x=1711471891;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ak6OBi7xOtHRafKXxTWNWHJwCs6mqQu4V0EKs1GUWCk=;
-        b=dRuhtbApkq4G9DjmKY0EYUapDInnX166doPWbFE9I6D+8Nrj+tt0CW4ykYRGWxCaY2
-         D1gmwHYWTZOkSjbjupg5MEqHgNKKqoF18xc41clGHNHUwxh2JmU0/0IJN/M/WnILoZJA
-         AdFpPL6CXV9Ost7UyfXABWqstPQoFFDSHvB0r3g/tj6zqgcQPdxRZOnZbfv6yjx3ZZXg
-         CpEkVhcLHI61vMbzs4qntNheyIyIj2pIQaQ79VUgdkkNXTvNkY9D5hScZKRZq7Dwg4Y8
-         bnwgqW9UhqbbPaomhZI2cPYhgScrKVSkOhujx+YV0rDFuYOGZXXiXTbajt8SwxIxl/+X
-         UTqg==
-X-Forwarded-Encrypted: i=1; AJvYcCUHY+aSouV9NjL6nwblOHbrqXUbX/hI8N+6ECy6TY/memjocqP4rnXNuxp8sIzrMT1BhJ4q7lxrNketDqSXToQtrZjexyF6C4CHDZNU5fc=
-X-Gm-Message-State: AOJu0Yz81AinJlL2BVlXNjf8sVKFLcsJkC7JeZBcgrULVCOIgAXPrJXw
-	cVXPzD1hShaGQ/qpw7W/yIftpJyB2eYYBSNBIdTNRHAM3SGtmMrlxVN28yCFKQ==
-X-Google-Smtp-Source: AGHT+IGAYEN5Kczb5Lz7KHcRf/+98ZXMvWFAjvH5S2gIZjbEiOKFPIJYoH0+wj+tW+24GMSxZQeNAg==
-X-Received: by 2002:a05:6402:1f82:b0:566:6640:10e5 with SMTP id c2-20020a0564021f8200b00566664010e5mr2819072edc.12.1710866943977;
-        Tue, 19 Mar 2024 09:49:03 -0700 (PDT)
-Message-ID: <baa244dc-eec4-43ea-bc0a-41f3e4340975@suse.com>
-Date: Tue, 19 Mar 2024 17:49:02 +0100
+        bh=5c1m0stHH+Uv4w1Vr3ysdaNPyDTZUTJ2KrUxuOTSVCc=;
+        b=YHNCCMEq3Nw/myU+1vbylDFQVgRNyhdRruQbPSAvY8MEAQjaq2DqrhHR7zUqaAYM76
+         2d6OSNoXLTTRx8plbZd/dHptIqqo/79IIVjVDsEpESHsJoFrki8Z9TEdbubIlfNHG/Qt
+         vlPVLLibHWPyaB+pHe1iHZhoJkb4pX/gu8R+l5iLb/2fDzB5qirQ8ISMuIyqYSmPKEDJ
+         wQA6GV9toGLRspFTcOQH9ofkz2pdpj0Z2otBBEoAfyk8BC4f21+guwBOjoVjwWVij4LB
+         UO1b2XqAyYfNpk5SCCR7Nj7xtZn0m/z/NTA6P6Hqw5ULTOCAVhoc4G244OxTRVFmvDuf
+         Wpng==
+X-Forwarded-Encrypted: i=1; AJvYcCUIc6TjvQtK+lrijMrmXYObuHGoe7kb+0PqgjYiQLLpgQgA4kFllBw3tNj7vZjrYVliEzYSiHxdKFt2/FTE72rY3VsfZTdHXBP4GLwlXDI=
+X-Gm-Message-State: AOJu0YwNARVIzZsEbApvoi3mBf5tIpjlbxe4kO0wxc1M+8UXyy9Spr8X
+	+jy+PL7Apgifm4Yt9PWSRPUysD2KUBYw7zlex5k7kA+e53T/RkUI9//ZoH2DRQ==
+X-Google-Smtp-Source: AGHT+IF83qp78yQsypXnHscIK9CJiwAR8Zz9XRhQ9FDb4zeOZHTGNWST4Zu/yczgSxw3CkY76oVg7A==
+X-Received: by 2002:a17:907:a70f:b0:a46:671a:75f1 with SMTP id vw15-20020a170907a70f00b00a46671a75f1mr11662858ejc.3.1710867091574;
+        Tue, 19 Mar 2024 09:51:31 -0700 (PDT)
+Message-ID: <b27f1635-7f0d-4c8b-9dcc-934a84bdd98a@suse.com>
+Date: Tue, 19 Mar 2024 17:51:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/boot: Fix setup_apic_nmi_watchdog() to fail more
- cleanly
+Subject: Re: [PATCH 2/2] x86/boot: Support the watchdog on newer AMD systems
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240319144802.3894710-1-andrew.cooper3@citrix.com>
- <20240319144802.3894710-2-andrew.cooper3@citrix.com>
+ <20240319144802.3894710-3-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,32 +111,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240319144802.3894710-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20240319144802.3894710-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 19.03.2024 15:48, Andrew Cooper wrote:
-> Right now, if the user requests the watchdog on the command line,
-> setup_apic_nmi_watchdog() will blindly assume that setting up the watchdog
-> worked.  Reuse nmi_perfctr_msr to identify when the watchdog has been set up.
+> The MSRs used by setup_k7_watchdog() are architectural in 64bit.  The Unit
+> Select (0x76, cycles not in halt state) isn't, but it hasn't changed in 23
+> years, making this a trend likely to continue.
 > 
-> Rearrange setup_p6_watchdog() to not set nmi_perfctr_msr until the sanity
-> checks are performed.  Turn setup_p4_watchdog() into a void function, matching
-> the others.
-> 
-> If the watchdog isn't set up, inform the user and override to NMI_NONE, which
-> will prevent check_nmi_watchdog() from claiming that all CPUs are stuck.
-> 
-> e.g.:
-> 
->   (XEN) alt table ffff82d040697c38 -> ffff82d0406a97f0
->   (XEN) Failed to configure NMI watchdog
->   (XEN) Brought up 512 CPUs
->   (XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
+> Drop the family check.  If the Unit Select does happen to change meaning in
+> the future, check_nmi_watchdog() will still notice the watchdog not operating
+> as expected.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
+> --- a/xen/arch/x86/nmi.c
+> +++ b/xen/arch/x86/nmi.c
+> @@ -387,15 +387,12 @@ void setup_apic_nmi_watchdog(void)
+>      if ( nmi_watchdog == NMI_NONE )
+>          return;
+>  
+> -    switch (boot_cpu_data.x86_vendor) {
+> +    switch ( boot_cpu_data.x86_vendor )
+> +    {
+>      case X86_VENDOR_AMD:
+> -        switch (boot_cpu_data.x86) {
+> -        case 6:
 
+Just to mention it - this case label has been dead code anyway for about 10
+years.
+
+Jan
 
