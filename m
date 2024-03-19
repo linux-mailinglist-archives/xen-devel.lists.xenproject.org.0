@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 179848805D0
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 21:04:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695599.1085453 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ECCF88061C
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Mar 2024 21:37:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695603.1085463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmfgy-0007UJ-L7; Tue, 19 Mar 2024 20:04:12 +0000
+	id 1rmgBl-0003az-58; Tue, 19 Mar 2024 20:36:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695599.1085453; Tue, 19 Mar 2024 20:04:12 +0000
+Received: by outflank-mailman (output) from mailman id 695603.1085463; Tue, 19 Mar 2024 20:36:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmfgy-0007Sj-HF; Tue, 19 Mar 2024 20:04:12 +0000
-Received: by outflank-mailman (input) for mailman id 695599;
- Tue, 19 Mar 2024 20:04:11 +0000
+	id 1rmgBl-0003ZF-1q; Tue, 19 Mar 2024 20:36:01 +0000
+Received: by outflank-mailman (input) for mailman id 695603;
+ Tue, 19 Mar 2024 20:36:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CQvM=KZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rmfgx-0007Sd-96
- for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 20:04:11 +0000
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
- [2607:f8b0:4864:20::831])
+ id 1rmgBj-0003Z9-V6
+ for xen-devel@lists.xenproject.org; Tue, 19 Mar 2024 20:35:59 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d8a55f9b-e62b-11ee-a1ee-f123f15fe8a2;
- Tue, 19 Mar 2024 21:04:09 +0100 (CET)
-Received: by mail-qt1-x831.google.com with SMTP id
- d75a77b69052e-430acf667afso28043061cf.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 13:04:09 -0700 (PDT)
+ id 4a5fc92f-e630-11ee-a1ee-f123f15fe8a2;
+ Tue, 19 Mar 2024 21:35:57 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2d2505352e6so68116241fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 13:35:57 -0700 (PDT)
 Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- gc4-20020a05622a59c400b00430e8d3ecb0sm1025896qtb.14.2024.03.19.13.04.06
+ r7-20020a05600c35c700b0041409fa57c4sm10813404wmq.34.2024.03.19.13.35.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Mar 2024 13:04:07 -0700 (PDT)
+ Tue, 19 Mar 2024 13:35:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8a55f9b-e62b-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 4a5fc92f-e630-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710878647; x=1711483447; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1710880557; x=1711485357; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=tObnPGozjIVJamnHKKQTDznJGiaX1sldN4GuDqnNO4Q=;
-        b=keYF+pwk1FOjZ8k/G4mCny9T8To3eHR0In+788opdNx/jP80P6LMV2m29Y5JP/f/96
-         MWxu8Uz1zG9AEiCvJx6JPxq/DXCu8YCpTpPqUq60KNqppyVxg9f2uK+sosApHBemO+G7
-         npSRzhz7MCHkqsdOA/LHrw78Bi7v0v3YBqSQk=
+        bh=m7McJ6S66+ecWQRpPnVmoi5TAzuw97Xo7wL7THoklmQ=;
+        b=pdTnQqbTsvHVF4GBp6brMmg9zFCLBxdyqDjWAWMRJcvxF9o3EUTt9J1FwIIjqf8UoF
+         f8cgYm2J8I83xBGWPM7SvfxPLLkxjznxaDJ7RTcNQ/u2i0B5BTRLD5C0qG3HOl+NXu2D
+         p9YoUD8m9tTarK4MGZyD8djWcqu3lJbUQbA4s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710878647; x=1711483447;
+        d=1e100.net; s=20230601; t=1710880557; x=1711485357;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tObnPGozjIVJamnHKKQTDznJGiaX1sldN4GuDqnNO4Q=;
-        b=bKD1CR7tWeHfGXQ9qob3/TO+L6k/T3b55RQQz+adZkcexIM4FbeoxGof7RLoO/2mMP
-         +e0PUkP7YkBjxMuusM2SHB70273GH6T5G/fk7m6EgSjICtnVwRh0+GU8yO5qrMyA5wwu
-         A5ZF35gwLU7glgs3WPpV8mQxP826+7CF3ef0K1oZ3p2DjFS0p2zROnkE5+KzbDQReqnJ
-         CjZzMM8KMzY1a28UPeSM2Qgk2cwxpswyjTzIF/jME4w8B/URt2kDHEuwRy1DVdD+MHwK
-         hmrjIB9+L38feVCkh2owBKb+mlKiRQpgcdlDN9OTyBVTIqw5wCjsPoMJoWyjo/KEwdw5
-         WMFA==
-X-Gm-Message-State: AOJu0YzMQO4M+tP4xqTf8TJ1fU3ZM4fM32KcxnXeUxvkN3ARigHs1OU7
-	831iajCevwiCPI/amfHEcqcHL0u/80aqN2dDflo5eEPkAnQgOEh//Pjt0mlvTlTXhE/hiS41tUr
-	k
-X-Google-Smtp-Source: AGHT+IE+HqTbAJX2Om/aBZgkdcnSmUFdvB70r0r0KU+sBvJttlhmv+96CSAWeUTXZULzbOwX4x46OQ==
-X-Received: by 2002:ac8:5848:0:b0:430:b6e6:1c28 with SMTP id h8-20020ac85848000000b00430b6e61c28mr4038983qth.25.1710878647505;
-        Tue, 19 Mar 2024 13:04:07 -0700 (PDT)
-Message-ID: <d9863e24-5efa-4079-9d7f-fb08d4e9f5c6@citrix.com>
-Date: Tue, 19 Mar 2024 20:04:05 +0000
+        bh=m7McJ6S66+ecWQRpPnVmoi5TAzuw97Xo7wL7THoklmQ=;
+        b=NdB8ignnLyvLAXKWxbFLH1HQUWe1mIJcEZ/yJuvuN+7k9f6zXNegXz2baeSkAPW9fT
+         USNV5gt52xwtYFWxnoAzuvPvQQWdohk4UoXdjBsomjN+6lWWbOepzfdBZbdudz0m1dPR
+         SmYln+ugEPDtCy+uo4YuVqhhXhPRu3MOEgFEG1J5ZeeejqhU9ejKVDcHITWjdMcWiarI
+         0dC5tQNrkKCp099XxSxoIxMKgWJHay+0NWSoyRqb9VZH0UJb5bglGcXKRG8XtWQ50l8E
+         BINUA3oxvzqZHm58hO2aBiv4/LCp5wCWmuXtnv2kCezcU0vFeNlK8ME284KNAp+oVDVz
+         Vmrg==
+X-Forwarded-Encrypted: i=1; AJvYcCXri5DesEP6yWy/dPckUrfRUmr3eOr58Ir7cCIDuDgZ7WpsmFoGfOO2/0u+c7LwQrovJCsOL5MQccKHkHEfEvcxd7b/+RQSuJ0orJ7tlRs=
+X-Gm-Message-State: AOJu0YyapgYg5/3KfodOvSGsOyfog82FV/6ZDSi14J8nPs62BpWPkbxn
+	l6ilfggz4RTBM2OWrrV7qAfwF/dxquVQlDnzTtVpUVsrA/yjNHrmAobIeBbbcgU=
+X-Google-Smtp-Source: AGHT+IGWusMg3EYh+yHBDa5ijJ5T0vjRiptIo66FZX2EiBxTXHLbtLOMtEYejZd4ytjp/m+wIVIoZg==
+X-Received: by 2002:a2e:9019:0:b0:2d4:6e71:59ef with SMTP id h25-20020a2e9019000000b002d46e7159efmr10204905ljg.5.1710880557030;
+        Tue, 19 Mar 2024 13:35:57 -0700 (PDT)
+Message-ID: <1c3d790d-bdac-495a-868b-36e12d45c457@citrix.com>
+Date: Tue, 19 Mar 2024 20:35:56 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mm: Refine address alignment checks in
- modify_xen_mappings_lite()
+Subject: Re: [PATCH] x86: adjust initial setting of watchdog kind
 Content-Language: en-GB
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20240319195856.4172284-1-andrew.cooper3@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <fe289ca1-aa3a-49af-b7d7-70949237464b@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -128,33 +129,51 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240319195856.4172284-1-andrew.cooper3@citrix.com>
+In-Reply-To: <fe289ca1-aa3a-49af-b7d7-70949237464b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19/03/2024 7:58 pm, Andrew Cooper wrote:
-> Require 's' to be superpage aligned if given over a superpage mapping.  This
-> is expected to be the case in practice, and prevents the v getting misaligned
-> over superpages during the processing loop.
->
-> Rmove the requirement for 'e' to be page aligned.  All this is doing is
+On 25/01/2024 2:12 pm, Jan Beulich wrote:
+> "watchdog_timeout=0" is documented to disable the watchdog. Make sure
+> this also is true when there's a subsequent "watchdog" command line
+> option (and no further "watchdog_timeout=" one).
 
-"Remove".  Fixed locally.
+We also document that latest takes precedence, at which point "watchdog"
+would re-activate.
 
-> forcing work for the caller just to satisfy an assertion.
 >
-> Reported-by: Jan Beulich <JBeulich@suse.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> While there also switch watchdog_setup() to returning void, bringing it
+> in line with the !CONFIG_WATCHDOG case. Further amend command line
+> documentation to also mention the implicit effect of specifying a non-
+> zero timeout.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
+> Alternatively "watchdog" following "watchdog_timeout=0" could be taken
+> to mean to use the default timeout again.
 
-Code-gen wise, this drops 2x
+I realise that watchdog_timeout is my fault, but in fairness it was an
+early change of mine in Xen and didn't exactly get the kind of review it
+would get these days.  It also wasn't used by XenServer in the end - we
+just stayed at a default 5s.
 
-48 8d b0 ff 0f 00 00    lea    0xfff(%rax),%rsi
-48 81 e6 00 f0 ff ff    and    $0xfffffffffffff000,%rsi
+I'm very tempted to suggest deleting watchdog_timeout, and extending
+watchdog= to have `force | <bool> | <int>s` so you could specify e.g.
+`watchdog=10s`.
 
-from {relax,tighten}_virtual_region_perms().
+The watchdog is off by default so I don't expect this will impact
+people.  It is also more convenient for the end user, and means that we
+don't have have the current split approach of two separate options
+fighting for control over each other.
+
+It also means we we can in principle support non-integer-second units of
+time in a theoretical future when the NMI handler can count time properly.
+
+> Really I think the comment in watchdog_setup() is wrong, and the
+> function would hence better go away.
+
+That comment dates from 2006.  I highly suspect it's not true any more,
+and it certainly is odd to be running over all CPUs like that.
 
 ~Andrew
 
