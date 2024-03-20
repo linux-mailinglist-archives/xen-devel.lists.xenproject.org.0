@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A20A880B43
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 07:36:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695691.1085595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D81A880B81
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 07:52:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695695.1085606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmpY2-0006Ss-1H; Wed, 20 Mar 2024 06:35:38 +0000
+	id 1rmpoH-00018V-Ii; Wed, 20 Mar 2024 06:52:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695691.1085595; Wed, 20 Mar 2024 06:35:38 +0000
+Received: by outflank-mailman (output) from mailman id 695695.1085606; Wed, 20 Mar 2024 06:52:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmpY1-0006Qr-US; Wed, 20 Mar 2024 06:35:37 +0000
-Received: by outflank-mailman (input) for mailman id 695691;
- Wed, 20 Mar 2024 06:35:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rmpoH-00015K-Dr; Wed, 20 Mar 2024 06:52:25 +0000
+Received: by outflank-mailman (input) for mailman id 695695;
+ Wed, 20 Mar 2024 06:50:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9RIb=K2=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rmpY0-0006Ql-Lz
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 06:35:36 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0da2afef-e684-11ee-a1ee-f123f15fe8a2;
- Wed, 20 Mar 2024 07:35:34 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-56b8248e2d8so3366577a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 23:35:33 -0700 (PDT)
-Received: from ?IPV6:2003:e5:873a:400:704b:6dbb:e7c0:786e?
- (p200300e5873a0400704b6dbbe7c0786e.dip0.t-ipconnect.de.
- [2003:e5:873a:400:704b:6dbb:e7c0:786e])
- by smtp.gmail.com with ESMTPSA id
- h7-20020a056402094700b00568abb329a3sm5555856edz.88.2024.03.19.23.35.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Mar 2024 23:35:32 -0700 (PDT)
+ (envelope-from <SRS0=CSxH=K2=redhat.com=clg@srs-se1.protection.inumbo.net>)
+ id 1rmplw-0000AA-DY
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 06:50:00 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 10f34e00-e686-11ee-afdd-a90da7624cb6;
+ Wed, 20 Mar 2024 07:49:59 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-650-erG_ZhkbPw68buUwpoSCoA-1; Wed,
+ 20 Mar 2024 02:49:53 -0400
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 963471C06901;
+ Wed, 20 Mar 2024 06:49:52 +0000 (UTC)
+Received: from corto.redhat.com (unknown [10.39.192.59])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E851A1C060A6;
+ Wed, 20 Mar 2024 06:49:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,66 +51,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0da2afef-e684-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710916533; x=1711521333; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=+lDzr2w02rVl5i39iHJOGsPh/Br7Dg/rii9eZpfwt1M=;
-        b=EP60K0yNx+v9KEsT1x0SWrmKY97eQz0QDeB1QC0+X1VzcSdn61Ipn+cdzcQ4IZRGai
-         qS9B7z8s47oRIggCm8NoXTxGyp2Wcdi8TFLbLPaAYmO3KxbSzYt73gv2dt6dSAesN27N
-         gGoIWPzWDHMendGF4RtcJUC9vXi5OCx18+xNZ/VpzMDyfA+Vv47/2QmyBCMmZbO8bVUj
-         4yYwNBArRcayTzGXgYl2NLr6K5i+fBTB1XjP8Mi3K0Bc7y2TTYnKpc5bxyQrN/DF0MYY
-         AaYEvx/SqoXxvHsrDzly/TOLclqDQggMXZYLDzHm3EIaEqiYBJFUEQNg6L3Kml8xLiPV
-         3kQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710916533; x=1711521333;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+lDzr2w02rVl5i39iHJOGsPh/Br7Dg/rii9eZpfwt1M=;
-        b=e/8KLsKiKWf+knx0j7ypJnGfk0qnx9gbwb5OjnPUAcjPYkL9dPcAvRLXEztBAK8aJg
-         gMpUBM8rJMjKVTIypERBrpdQzsaNu/8QXvL48GdaPxdyjuBjLq3KvNME55wKmcKQFB5h
-         M+YUQH/lLEE+PwOlUqCpK8rIUFP9n96JsGj2dxKtk/G8enhZ7D0hHwNP0os3Ce8CIToo
-         CEd0aMWDdG8QMrqFKsYRXnS/ew5YN99T343g20sXt1K/0Rf3VGakyuobTSoWtHeFjuhE
-         rE/NiqWGXL+rQSGxxB3lv5y0wu3SHrO5Na45vVsrIyLtjZOR8xNfsAgGBoeAjWdFrVjy
-         2W3g==
-X-Forwarded-Encrypted: i=1; AJvYcCXTUX4gL8GF1lLE/N95TnWOcSJf2jm1FmwMPGrSvshenGxFmkMaQTKfUkRLUEpELJax94iA/ETDO8s+uBnbFL8XMC62kz8CStOWXgorNRE=
-X-Gm-Message-State: AOJu0Yz7YS9UTiLUa4ubTuKtHSKAWuer43lcedWxW1TurpLWTQub/U/5
-	4Nz4NvBbjRMYWmrbqODBEAtjPTK/uOwNKyk/HpywfKZBEFjGchbmV75qHVyro/Q=
-X-Google-Smtp-Source: AGHT+IETFzu+HFRx/soYUPuG6RGaeJvJMFpY5Cqy84nbvtlZhn5eXhYPgU4OZja5Xyjy4WHVr2r9DQ==
-X-Received: by 2002:a05:6402:5384:b0:568:ae7:bc0 with SMTP id ew4-20020a056402538400b005680ae70bc0mr12089603edb.34.1710916533023;
-        Tue, 19 Mar 2024 23:35:33 -0700 (PDT)
-Message-ID: <553a8bfb-94f3-4c3a-b1ae-17d0cb185737@suse.com>
-Date: Wed, 20 Mar 2024 07:35:32 +0100
+X-Inumbo-ID: 10f34e00-e686-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1710917397;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YdM+8DlBSfQGNojw2NWBbBFEkSwJYFiGvC2NciZ76U0=;
+	b=Kv6r4ntuXWXBikreIho718NAxSQohzkXZvuTst3lQoH6ThWD70xx/z+vprNkCFfCei+22p
+	RU5AvWgctABLMFy+BBsK6lsXQARd9v/8Zt214D/mKddyLqDa0hH1Z05kqaqk0Qi1KYHgvK
+	nz45wayFTaGeSSqL5ZAP+YhEIKyp0cg=
+X-MC-Unique: erG_ZhkbPw68buUwpoSCoA-1
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@redhat.com>
+To: qemu-devel@nongnu.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Alex Williamson <alex.williamson@redhat.com>,
+	=?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@redhat.com>,
+	Peter Xu <peterx@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Cc: Fabiano Rosas <farosas@suse.de>,
+	Avihai Horon <avihaih@nvidia.com>,
+	Markus Armbruster <armbru@redhat.com>,
+	Prasad Pandit <pjp@fedoraproject.org>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH for-9.1 v5 09/14] memory: Add Error** argument to .log_global_start() handler
+Date: Wed, 20 Mar 2024 07:49:05 +0100
+Message-ID: <20240320064911.545001-10-clg@redhat.com>
+In-Reply-To: <20240320064911.545001-1-clg@redhat.com>
+References: <20240320064911.545001-1-clg@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/rwlock: Don't perpeuatite broken API in new logic
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich
- <JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>
-References: <20240319113020.3843309-1-andrew.cooper3@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <20240319113020.3843309-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
 
-On 19.03.24 12:30, Andrew Cooper wrote:
-> The single user wants this the sane way around.  Write it as a normal static
-> inline just like rspin_lock().
-> 
-> Fixes: cc3e8df542ed ("xen/spinlock: add rspin_[un]lock_irq[save|restore]()")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Modify all .log_global_start() handlers to take an Error** parameter
+and return a bool. Adapt memory_global_dirty_log_start() to interrupt
+on the first error the loop on handlers. In such case, a rollback is
+performed to stop dirty logging on all listeners where it was
+previously enabled.
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Anthony Perard <anthony.perard@citrix.com>
+Cc: Paul Durrant <paul@xen.org>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
+Cc: David Hildenbrand <david@redhat.com>
+Signed-off-by: Cédric Le Goater <clg@redhat.com>
+---
 
-Maybe with the subject fixed (s/rwlock/spinlock/).
+ Changes in v5:
 
+ - Removed memory_global_dirty_log_rollback
+ - Introduced memory_global_dirty_log_do_start() to call
+   .log_global_start() handlers and do the rollback in case of error.
+ - Kept modification of the global_dirty_tracking flag within
+   memory_global_dirty_log_start()  
+ - Added an assert on error of a .log_global_start() handler in
+   listener_add_address_space()
 
-Juergen
+ include/exec/memory.h |  5 ++++-
+ hw/i386/xen/xen-hvm.c |  3 ++-
+ hw/vfio/common.c      |  4 +++-
+ hw/virtio/vhost.c     |  3 ++-
+ system/memory.c       | 37 +++++++++++++++++++++++++++++++++++--
+ 5 files changed, 46 insertions(+), 6 deletions(-)
+
+diff --git a/include/exec/memory.h b/include/exec/memory.h
+index 8626a355b310ed7b1a1db7978ba4b394032c2f15..5555567bc4c9fdb53e8f63487f1400980275687d 100644
+--- a/include/exec/memory.h
++++ b/include/exec/memory.h
+@@ -998,8 +998,11 @@ struct MemoryListener {
+      * active at that time.
+      *
+      * @listener: The #MemoryListener.
++     * @errp: pointer to Error*, to store an error if it happens.
++     *
++     * Return: true on success, else false setting @errp with error.
+      */
+-    void (*log_global_start)(MemoryListener *listener);
++    bool (*log_global_start)(MemoryListener *listener, Error **errp);
+ 
+     /**
+      * @log_global_stop:
+diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
+index 7745cb39631ea423aeb6e5d3eb7f7bcbe27ec6fa..f6e9a1bc86491783077b5cb5aafdb19ab294e392 100644
+--- a/hw/i386/xen/xen-hvm.c
++++ b/hw/i386/xen/xen-hvm.c
+@@ -457,11 +457,12 @@ static void xen_log_sync(MemoryListener *listener, MemoryRegionSection *section)
+                           int128_get64(section->size));
+ }
+ 
+-static void xen_log_global_start(MemoryListener *listener)
++static bool xen_log_global_start(MemoryListener *listener, Error **errp)
+ {
+     if (xen_enabled()) {
+         xen_in_migration = true;
+     }
++    return true;
+ }
+ 
+ static void xen_log_global_stop(MemoryListener *listener)
+diff --git a/hw/vfio/common.c b/hw/vfio/common.c
+index 011ceaab89433de4496dffadc737286e053f321d..8f9cbdc0264044ce587877a7d19d14b28527291b 100644
+--- a/hw/vfio/common.c
++++ b/hw/vfio/common.c
+@@ -1066,7 +1066,8 @@ out:
+     return ret;
+ }
+ 
+-static void vfio_listener_log_global_start(MemoryListener *listener)
++static bool vfio_listener_log_global_start(MemoryListener *listener,
++                                           Error **errp)
+ {
+     VFIOContainerBase *bcontainer = container_of(listener, VFIOContainerBase,
+                                                  listener);
+@@ -1083,6 +1084,7 @@ static void vfio_listener_log_global_start(MemoryListener *listener)
+                      ret, strerror(-ret));
+         vfio_set_migration_error(ret);
+     }
++    return !ret;
+ }
+ 
+ static void vfio_listener_log_global_stop(MemoryListener *listener)
+diff --git a/hw/virtio/vhost.c b/hw/virtio/vhost.c
+index 2e4e040db87acf45166da86d268077f54511d82c..d405f03caf2fd3a5ea23bdc0392f4c6c072bc10b 100644
+--- a/hw/virtio/vhost.c
++++ b/hw/virtio/vhost.c
+@@ -1044,7 +1044,7 @@ check_dev_state:
+     return r;
+ }
+ 
+-static void vhost_log_global_start(MemoryListener *listener)
++static bool vhost_log_global_start(MemoryListener *listener, Error **errp)
+ {
+     int r;
+ 
+@@ -1052,6 +1052,7 @@ static void vhost_log_global_start(MemoryListener *listener)
+     if (r < 0) {
+         abort();
+     }
++    return true;
+ }
+ 
+ static void vhost_log_global_stop(MemoryListener *listener)
+diff --git a/system/memory.c b/system/memory.c
+index a229a79988fce2aa3cb77e3a130db4c694e8cd49..ca4d91484fb3d06f4b902486fea49dba86dc141b 100644
+--- a/system/memory.c
++++ b/system/memory.c
+@@ -2914,9 +2914,33 @@ static unsigned int postponed_stop_flags;
+ static VMChangeStateEntry *vmstate_change;
+ static void memory_global_dirty_log_stop_postponed_run(void);
+ 
++static bool memory_global_dirty_log_do_start(Error **errp)
++{
++    MemoryListener *listener;
++
++    QTAILQ_FOREACH(listener, &memory_listeners, link) {
++        if (listener->log_global_start) {
++            if (!listener->log_global_start(listener, errp)) {
++                goto err;
++            }
++        }
++    }
++    return true;
++
++err:
++    while ((listener = QTAILQ_PREV(listener, link)) != NULL) {
++        if (listener->log_global_stop) {
++            listener->log_global_stop(listener);
++        }
++    }
++
++    return false;
++}
++
+ void memory_global_dirty_log_start(unsigned int flags)
+ {
+     unsigned int old_flags;
++    Error *local_err = NULL;
+ 
+     assert(flags && !(flags & (~GLOBAL_DIRTY_MASK)));
+ 
+@@ -2936,7 +2960,13 @@ void memory_global_dirty_log_start(unsigned int flags)
+     trace_global_dirty_changed(global_dirty_tracking);
+ 
+     if (!old_flags) {
+-        MEMORY_LISTENER_CALL_GLOBAL(log_global_start, Forward);
++        if (!memory_global_dirty_log_do_start(&local_err)) {
++            global_dirty_tracking &= ~flags;
++            trace_global_dirty_changed(global_dirty_tracking);
++            error_report_err(local_err);
++            return;
++        }
++
+         memory_region_transaction_begin();
+         memory_region_update_pending = true;
+         memory_region_transaction_commit();
+@@ -3014,8 +3044,11 @@ static void listener_add_address_space(MemoryListener *listener,
+         listener->begin(listener);
+     }
+     if (global_dirty_tracking) {
++        /*
++         * Migration has already started. Assert on any error.
++         */
+         if (listener->log_global_start) {
+-            listener->log_global_start(listener);
++            listener->log_global_start(listener, &error_abort);
+         }
+     }
+ 
+-- 
+2.44.0
 
 
