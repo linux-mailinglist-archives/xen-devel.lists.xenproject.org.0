@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2DB4881538
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 17:08:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696033.1086562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A003D881554
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 17:15:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696035.1086572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmyUL-0008S6-F1; Wed, 20 Mar 2024 16:08:25 +0000
+	id 1rmyb4-00023j-4w; Wed, 20 Mar 2024 16:15:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696033.1086562; Wed, 20 Mar 2024 16:08:25 +0000
+Received: by outflank-mailman (output) from mailman id 696035.1086572; Wed, 20 Mar 2024 16:15:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmyUL-0008Q0-CF; Wed, 20 Mar 2024 16:08:25 +0000
-Received: by outflank-mailman (input) for mailman id 696033;
- Wed, 20 Mar 2024 16:08:23 +0000
+	id 1rmyb4-00021w-2B; Wed, 20 Mar 2024 16:15:22 +0000
+Received: by outflank-mailman (input) for mailman id 696035;
+ Wed, 20 Mar 2024 16:15:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ljj4=K2=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rmyUJ-0008PC-Sq
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 16:08:23 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=CSxH=K2=redhat.com=clg@srs-se1.protection.inumbo.net>)
+ id 1rmyb2-00021q-Sn
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 16:15:20 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 130dfcb0-e6d4-11ee-a1ee-f123f15fe8a2;
- Wed, 20 Mar 2024 17:08:22 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4146d750dcdso354595e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 09:08:22 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- v7-20020a05600c444700b0041469869d11sm2642895wmn.47.2024.03.20.09.08.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Mar 2024 09:08:21 -0700 (PDT)
+ id 09177410-e6d5-11ee-a1ee-f123f15fe8a2;
+ Wed, 20 Mar 2024 17:15:16 +0100 (CET)
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
+ [209.85.210.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-34-HXTIKzDRNoa80nrM3xgv7A-1; Wed, 20 Mar 2024 12:15:12 -0400
+Received: by mail-ot1-f69.google.com with SMTP id
+ 46e09a7af769-6e678d894e9so6398829a34.2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 09:15:12 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:280:24f0:9db0:474c:ff43:9f5c?
+ ([2a01:e0a:280:24f0:9db0:474c:ff43:9f5c])
+ by smtp.gmail.com with ESMTPSA id
+ x14-20020ae9e90e000000b00789ea3555acsm4666094qkf.19.2024.03.20.09.15.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Mar 2024 09:15:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +50,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 130dfcb0-e6d4-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1710950902; x=1711555702; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=9ydCgfXZXN/lh3bnAqoOjUPtVfgXID7+JO/rNeRXEfg=;
-        b=Sw4ojcy1fpnR3appZX3Z19qxDvh3YpQ+sMJa2+JbFqfN2sxaCDP3DbPRw51fAJZrOy
-         4tXK2jFVZZ+/BjXdbyiFAEf6VoaYoG0gegCzlO4kYqRuRESqKiTkL+FER7jdaoUI0H4E
-         vyVcTu0WjUfyvXFn7CW16ac+YgG2GskLdDZUo=
+X-Inumbo-ID: 09177410-e6d5-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1710951314;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T4IhxAuWNgzsFqb6tIlcQFajJYSC/Su8joooqt+6RRU=;
+	b=MhVWwfkRVTsHTL55ggC8jH3QlzeEdGBvtfP1jzvqOyuLa9kagWwNdfOo/dZiXD7+iaF8bs
+	dkssLwOAQ2ubvPZ7l1VEAn1/dVrzEwPViGuD/J0hwaXltk1W3Ebcj5Wpn7ypm3fsFJ+EIP
+	BJwXXog9MenSx7zuohcUf0P3i3dmzJo=
+X-MC-Unique: HXTIKzDRNoa80nrM3xgv7A-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710950902; x=1711555702;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1710951312; x=1711556112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9ydCgfXZXN/lh3bnAqoOjUPtVfgXID7+JO/rNeRXEfg=;
-        b=drcRqaqKt5klx/nImeG4QI5sSMjKB3ecRnh+QAaluAPfIjLL0aDA9V+oKMY/cDPZQ6
-         fY8AHETqK07E+PfyRGgA35M2KMWa5kVPxN3K1PeJoAjZMPrLYuH+i8Rk/gFNZb/WwXH5
-         R/r9zBMpk4EGw4+T/bbDqdhZ50ljwVBbhgu7d8eCm+JwdJH5buy6x1p+hM0I48vk4vfP
-         2ckARFUJkyy/GgNWI/UfivUI+rRDKpn0i8KqtQ0ZWXc5XvRbEz92jHoHIVvfYWfI/yxE
-         aKsSz02B44Jkz+EzZCs7mYCkNRVbkNGWvPfOw2L4hsq0NXp888xgHTa7t+K1N0MQYhpr
-         FN9g==
-X-Gm-Message-State: AOJu0YyfSuzgLcJloRw7VstD5BsaXm/7zJlqWihBL1ApXgs8OPp+6Jx5
-	CZ8XJLg4Vg8bvGGAds/COc5jo58NWJnMPfmQXdIJc61htTF1rqo3aKixZ0m0XHw=
-X-Google-Smtp-Source: AGHT+IGpwx+I3CN3YLrc7zIzvUFeBYMTuvVJc90Jx1S+kBKlIQ6qwlWc3728h4Co9hIdC9w8efqDCw==
-X-Received: by 2002:a05:600c:4a96:b0:414:f4:c6c0 with SMTP id b22-20020a05600c4a9600b0041400f4c6c0mr82663wmp.20.1710950901790;
-        Wed, 20 Mar 2024 09:08:21 -0700 (PDT)
-Date: Wed, 20 Mar 2024 16:08:20 +0000
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: zithro / Cyril =?iso-8859-1?Q?R=E9bert?= <slack@rabbit.lu>
-Cc: xen-devel@lists.xenproject.org,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v2] docs/man: add shutdown reasons to xl (list) man page
-Message-ID: <c77ecb60-35c1-426d-bac5-f4892598c6b5@perard>
-References: <0a2fcad111622431b8cd54c69adc3dedd24fb572.1709910923.git.slack@rabbit.lu>
+        bh=T4IhxAuWNgzsFqb6tIlcQFajJYSC/Su8joooqt+6RRU=;
+        b=AGg4PQtGx5faeEjU37vQHEc5btPBaj942wbUMUwoes4RpsQu+ktt2e3j3GMrFqpLYw
+         5StgsHDb05CnClC7aSLfbWc5aQN9ZQrYuDjpM8jG2qV09BDdrGNZXEJkyj0juGvV15TZ
+         B8X0DXwczyKRSNriP/rIDNuhRQP5bCxMK4cWCTGs0mvusYNqVU2LpsjLZnbxyscxd2gp
+         i11AX9+PAC40dFcA1Rg6BSkkYQWuCOzGvWapkfSXTA3ljZI7pcjz+IHBoT5t8wBDJvXs
+         U6cLct86jUa5lxN3I19+crw9z7qMuml1UP7VgiejL/2W8aCIqBaOZ4IWffm4fZhj3Ji/
+         9i1w==
+X-Forwarded-Encrypted: i=1; AJvYcCV3D0bxSyu7ZR+yFjBNcZhjcyW+BExwVBHiyvKn/jT7r4rAIJFZDoJUuXgmwUXcRb/wogGgm75dovfuVhddqrw7em3TIFWmNowrETNbIMQ=
+X-Gm-Message-State: AOJu0Yyihz3BwWXtb5mmhIBGdIJpa/1u+rowvSzgJAVHZ2GD1bCajvVo
+	3vZYEc88eU4clsaBCUtYAuAvHBKz6o3EtajsqFofFmlplSR71+9s+R5UHs8j0o2DWmBZeuJlq93
+	q8gC3vmEB4nX6LHke1Jjtb9DHu1FcsQp0X8zBUoIDxxXUeqFAjUr9DVPq7w9zq771
+X-Received: by 2002:a05:6830:1d70:b0:6e6:8516:4866 with SMTP id l16-20020a0568301d7000b006e685164866mr12600256oti.16.1710951312072;
+        Wed, 20 Mar 2024 09:15:12 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG5SXrLrO24aMjWMzHB6MM12ePW1/UUxpm7nPE1oUi+NjEX/CxeqywPujgO7EBLwXPakP49HA==
+X-Received: by 2002:a05:6830:1d70:b0:6e6:8516:4866 with SMTP id l16-20020a0568301d7000b006e685164866mr12600232oti.16.1710951311827;
+        Wed, 20 Mar 2024 09:15:11 -0700 (PDT)
+Message-ID: <d58d5134-dbfb-4c07-956a-5e8f3e230798@redhat.com>
+Date: Wed, 20 Mar 2024 17:15:06 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-9.1 v5 09/14] memory: Add Error** argument to
+ .log_global_start() handler
+To: Peter Xu <peterx@redhat.com>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ David Hildenbrand <david@redhat.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Fabiano Rosas <farosas@suse.de>, Avihai Horon <avihaih@nvidia.com>,
+ Markus Armbruster <armbru@redhat.com>, Prasad Pandit
+ <pjp@fedoraproject.org>, xen-devel@lists.xenproject.org
+References: <20240320064911.545001-1-clg@redhat.com>
+ <20240320064911.545001-10-clg@redhat.com> <Zfr10JG2dTChsLVj@x1n>
+From: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>
+In-Reply-To: <Zfr10JG2dTChsLVj@x1n>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, fr
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <0a2fcad111622431b8cd54c69adc3dedd24fb572.1709910923.git.slack@rabbit.lu>
 
-On Fri, Mar 08, 2024 at 04:19:20PM +0100, zithro / Cyril R�bert wrote:
-> Questions (unblocking):
->  - why a double space between all sentences ?
+On 3/20/24 15:42, Peter Xu wrote:
+> On Wed, Mar 20, 2024 at 07:49:05AM +0100, Cédric Le Goater wrote:
+>> Modify all .log_global_start() handlers to take an Error** parameter
+>> and return a bool. Adapt memory_global_dirty_log_start() to interrupt
+>> on the first error the loop on handlers. In such case, a rollback is
+>> performed to stop dirty logging on all listeners where it was
+>> previously enabled.
+>>
+>> Cc: Stefano Stabellini <sstabellini@kernel.org>
+>> Cc: Anthony Perard <anthony.perard@citrix.com>
+>> Cc: Paul Durrant <paul@xen.org>
+>> Cc: "Michael S. Tsirkin" <mst@redhat.com>
+>> Cc: Paolo Bonzini <pbonzini@redhat.com>
+>> Cc: David Hildenbrand <david@redhat.com>
+>> Signed-off-by: Cédric Le Goater <clg@redhat.com>
+> 
+> Reviewed-by: Peter Xu <peterx@redhat.com>
+> 
+> Still one comment below:
+> 
+>> @@ -3014,8 +3044,11 @@ static void listener_add_address_space(MemoryListener *listener,
+>>           listener->begin(listener);
+>>       }
+>>       if (global_dirty_tracking) {
+>> +        /*
+>> +         * Migration has already started. Assert on any error.
+> 
+> If you won't mind, I can change this to:
+> 
+>    /*
+>     * Currently only VFIO can fail log_global_start(), and it's not allowed
+>     * to hotplug a VFIO device during migration, so this should never fail
+>     * when invoked.  If it can start to fail in the future, we need to be
+>     * able to fail the whole listener_add_address_space() and its callers.
+>     */
 
-It's an English thing maybe?
-
-Wikipedia has an article about it: https://en.wikipedia.org/wiki/Sentence_spacing
-But actually, single space seems like it used to be a french thing, even
-called "French spacing":
-https://en.wikipedia.org/wiki/History_of_sentence_spacing#French_and_English_spacing
-
-I guess it doesn't really matter. I don't really pay attention to it
-anyway.
-
->  - how to get a "simple LF" ? Ie. I want to use <br>, not <p>
->    (a simple <Enter> has no effect, a double renders a <p>)
-
-That doesn't look to be possible, unless you actually managed to write
-the paragraph for all targeted formats, with things like =begin html...,
-but that would probably make things more complicated that necessary.
-
-> ---
-> diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
-> index bed8393473..d37227ba58 100644
-> --- a/docs/man/xl.1.pod.in
-> +++ b/docs/man/xl.1.pod.in
-> @@ -370,12 +370,50 @@ scheduling by the Xen hypervisor.
->  The guest OS has shut down (SCHEDOP_shutdown has been called) but the
->  domain is not dying yet.
->  
-> -=item B<c - crashed>
-> +There are six shutdown reasons, which will be displayed after the "s" : B<-rscwS>.
-> +
-> +Note that some states will only be displayed if "on_poweroff=preserve" is set in
-> +the config file, see L<xl.cfg(5)>).
-> +
-> +=over 4
-> +
-> +=over 4
-> +
-> +=item B<s- : poweroff>
-> +
-> +The domain exited normally, it will get destroyed.
-> +
-> +=item B<sr : reboot>
-> +
-> +The domain will reboot.
-
-Well, that's not really true. I think to end up in this state, what
-happen is that the domain shutdown and ask for a reboot. It's normally
-the toolstack job to cleanup the domain then create a new domain for the
-guest. I guess you might see this state if you have "on_reboot=preserve"
-or you run `xl list` at the right time. Or the toolstack crashed and
-fail to kill the domain before a reboot. So maybe a better to have
-something like "The domain exited normally and ask for a reboot."
-
-Same things for the other entries (poweroff and watchdog). The status is
-just the current status of what is supposed to happen. But a few things
-might mean that the domain stay in that state unless the admin does
-something. This could be simply because there's "on_*=preserve" setting,
-the toolstack crashed or we just happen to look while the toolstack is
-cleaning thing up.
-
-> +=item B<ss : suspend>
-> +
-> +The domain is suspended to disk or to RAM. If suspended to disk, the domain will
-> +get destroyed.
-
-I think in that state, the domain is just suspended, maybe to RAM? I
-don't know if suspend to disk would end up in this state, my guess is
-the domain will go to "poweroff" instead. But for suspend to "RAM", I
-think the toolstack is supposed to save the guest memory and guest
-config somewhere, maybe even on a different host for live migration?
-
-This is a state that seems to happen as part of a live migration (or `xl
-save` I guess).
-
-I tried to suspend a guest (runnning `systemd suspend`), but xl never
-reported `ss`, because there's nothing to do I guess. So this state is
-probably really about migration.
-
+Sure, or I will in a v6. Markus had a comment on 8/14.
 
 Thanks,
 
--- 
-Anthony PERARD
+C.
+
 
