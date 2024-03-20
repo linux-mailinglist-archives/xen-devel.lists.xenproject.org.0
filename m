@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00480881459
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 16:19:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695991.1086440 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20FD488145F
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 16:20:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695993.1086450 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmxj3-0008Nq-B3; Wed, 20 Mar 2024 15:19:33 +0000
+	id 1rmxja-0001Ku-LE; Wed, 20 Mar 2024 15:20:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695991.1086440; Wed, 20 Mar 2024 15:19:33 +0000
+Received: by outflank-mailman (output) from mailman id 695993.1086450; Wed, 20 Mar 2024 15:20:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmxj3-0008LM-8D; Wed, 20 Mar 2024 15:19:33 +0000
-Received: by outflank-mailman (input) for mailman id 695991;
- Wed, 20 Mar 2024 15:19:32 +0000
+	id 1rmxja-0001JG-GI; Wed, 20 Mar 2024 15:20:06 +0000
+Received: by outflank-mailman (input) for mailman id 695993;
+ Wed, 20 Mar 2024 15:20:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WskH=K2=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rmxj2-0008Eu-7m
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 15:19:32 +0000
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [2001:4860:4864:20::31])
+ <SRS0=x+RR=K2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rmxjZ-0008Eu-4N
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 15:20:05 +0000
+Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
+ [2607:f8b0:4864:20::730])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3f27473d-e6cd-11ee-a1ee-f123f15fe8a2;
- Wed, 20 Mar 2024 16:19:30 +0100 (CET)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-221a9e5484aso19363fac.0
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 08:19:30 -0700 (PDT)
+ id 52f22566-e6cd-11ee-a1ee-f123f15fe8a2;
+ Wed, 20 Mar 2024 16:20:03 +0100 (CET)
+Received: by mail-qk1-x730.google.com with SMTP id
+ af79cd13be357-789f50b3e40so81798885a.1
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 08:20:03 -0700 (PDT)
+Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
+ jf14-20020a0562142a4e00b00690afbf56d5sm7875091qvb.66.2024.03.20.08.20.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Mar 2024 08:20:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,64 +44,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f27473d-e6cd-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 52f22566-e6cd-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1710947969; x=1711552769; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Bu393cTx6QvaMvwbGbEh7W8EIbEAY62y8lPrC2ykeBM=;
-        b=bc5VTf54J6AqfSojIGwAJUR9ryiAdUbpI4lTNqar0ZR5TBnX6FxDes9BrD32jr5X4E
-         Hld3rEvX/F0M0dYkUOwhTyH3i9JzUVFO7mAc9/68AoOGPYVsvjTh5r5JNV3tQkLoMuLz
-         yGEEq9f33Ank8ERYuZwtYRHR3h8Ff8Twn0EkU=
+        d=citrix.com; s=google; t=1710948002; x=1711552802; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=AHbkqahN1wSn0BiQYUnDUhVtbBjifYZuCyICyoeS01Y=;
+        b=cTQFv0FtELFhQQEcK5ilPzZdN0gcCgnXccVSDkiSQtPPBFWgdpNO2w1KMTYvfLWHSR
+         M8pnie9/Kf2rHmNBVutMuN872x0Qa9Z5XcvGdpy67xtqQQgBrVqnlF0e7SOKcw8pPVEc
+         hw8mYelvLIdRyIfqD1Q98r++c4RXbVr5FZGO4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710947969; x=1711552769;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Bu393cTx6QvaMvwbGbEh7W8EIbEAY62y8lPrC2ykeBM=;
-        b=aIv4FHQHmp56uUkQ3BUus1lp2NQ9RhcxQWE6cnF504IliRq1c3w4PkpAUNbrXkNI7v
-         U3Bv8ytvzFGae5qHto4pZ3heCPFBXmbeLSCSLWjntRIEwlO5kFSg67KbHQsFxOmzaNvs
-         TfieYJpm2aMyPk8q2vqLZ++RYJT/4EV3CM1dB/XiwS9AxRFe3rJxFN0KeV7c6WdoE+g2
-         3tOS1RbqNVsT6VR791wbTfWeh9LCzAgDwcTW/hRSUJhStn8TwzYLIjmPuUUhbQLJr5bg
-         PgblRXULuWEjtTP+0jN2QHSQDcwSBZsbH6hFu5hUm66CUB77/dI8JZJ0udbN5P3iNETR
-         Ia9Q==
-X-Gm-Message-State: AOJu0Yz+1fTzn+W+LENQmosCBpVUbEOywjAr1pHQmzlGLs1zhcj7HTBa
-	HPaEqKwS9VU0T1STDLQ3G2ebOFia9vN56+J+11OSt0Km0ObXOpusY9nBgB6JaKN+jvcL7IcYFN4
-	DTcbod48WSxvcGUoCJsBkByb2QItB3C4QEB/SsA==
-X-Google-Smtp-Source: AGHT+IEi82yqno5eBgA7Sujeg4SmVLKEcvZEIkHLOAkysCPR+Wh9kv0Qhujv5MSeA2P1sJjbB1P1jXi7drly7b4Pg8c=
-X-Received: by 2002:a05:6870:510:b0:221:8a03:6dea with SMTP id
- j16-20020a056870051000b002218a036deamr18679533oao.38.1710947969216; Wed, 20
- Mar 2024 08:19:29 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1710948002; x=1711552802;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AHbkqahN1wSn0BiQYUnDUhVtbBjifYZuCyICyoeS01Y=;
+        b=tOXh3bKRc2DoeGncpT5PMzdJm7PEB3dLtDm69Z8vdeeKqWiO6c+SGImbizBzNEwHKy
+         tX4UcifNrweAR9mtiYnq2yb7GGV3Zzs2TYy/DSzJD14ZPVGPZQvu/mJAUVUn0fb/gUph
+         3ryJvfaoKzPTNh/a5zMjyYxPPDwiNwwRg/gdSHn8zJKaA18CVUb27s59rCNCj9JClidt
+         vAkVDuiwIFY+jq8gIiuCr5Rfxs49PKDzCYC1XAF3mBecFV5JyaK7ro5JwzriNagAc4Bx
+         7jJAGpdZOwyWsqjDmiGx4l7oSzW9i7M81XSohy87CO89L8zYtEu9nAQQi5LFQx003fQA
+         Z3jQ==
+X-Gm-Message-State: AOJu0YyovUlQrYfXoZfbGPcnK6HrPiG4Gl8dxg3qRD+pz60J3jogH7Fu
+	IoUN1n7FLBm2FuACDSM1jbAaruyAPR9Qda8+8o/SB4Q+t7QaSA8B76sa0awHMSM=
+X-Google-Smtp-Source: AGHT+IHLPITz3dcd5Ofgn3kQkXvFDtliG5Ej/74OJiimgL312cvmYzgGI3XSlq2N4z5dqGyH4Z3m5Q==
+X-Received: by 2002:a05:6214:401c:b0:68f:b825:9255 with SMTP id kd28-20020a056214401c00b0068fb8259255mr166122qvb.22.1710948002367;
+        Wed, 20 Mar 2024 08:20:02 -0700 (PDT)
+Date: Wed, 20 Mar 2024 16:20:00 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: [OSSTEST PATCH 02/36] ts-xen-build-prep: Only force git protocol
+ v2 on buster
+Message-ID: <Zfr-oCQrJmetJPQG@macbook>
+References: <20240318165545.3898-1-anthony.perard@citrix.com>
+ <20240318165545.3898-3-anthony.perard@citrix.com>
 MIME-Version: 1.0
-References: <20240318163552.3808695-1-andrew.cooper3@citrix.com> <20240318163552.3808695-5-andrew.cooper3@citrix.com>
-In-Reply-To: <20240318163552.3808695-5-andrew.cooper3@citrix.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Wed, 20 Mar 2024 15:19:18 +0000
-Message-ID: <CA+zSX=ZfZET4MZ2bHkq00Q8EXuQ-=LENU-BhmWr6h_Jsu2Ewzg@mail.gmail.com>
-Subject: Re: [PATCH 4/7] xen/sched: Clean up trace handling
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Dario Faggioli <dfaggioli@suse.com>, 
-	George Dunlap <George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-	"consulting @ bugseng . com" <consulting@bugseng.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20240318165545.3898-3-anthony.perard@citrix.com>
 
-On Mon, Mar 18, 2024 at 4:36=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
-x.com> wrote:
->
-> There is no need for bitfields anywhere - use more sensible types.  There=
- is
-> also no need to cast 'd' to (unsigned char *) before passing it to a func=
-tion
-> taking void *.  Switch to new trace_time() API.
->
-> No functional change.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+On Mon, Mar 18, 2024 at 04:55:11PM +0000, Anthony PERARD wrote:
+> Newer version of Debian and thus git would use this automatically, no
+> need to force it.
+> 
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> ---
+>  Osstest/TestSupport.pm | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Osstest/TestSupport.pm b/Osstest/TestSupport.pm
+> index f0e087aa..0dded9b2 100644
+> --- a/Osstest/TestSupport.pm
+> +++ b/Osstest/TestSupport.pm
+> @@ -3257,7 +3257,7 @@ END
+>  
+>      # Adding mandadory use of Git protocol v2
+>      # necessary on buster when building QEMU v8.1
+> -    $gitcfg .= <<END;
+> +    $gitcfg .= <<END if $ho->{Suite} =~ m/buster/;
+>  [protocol]
+>  	version = 2
 
-Reviewed-by: George Dunlap <george.dunlap@cloud.com>
+Do we need to limit ourselves to version 2 for the git cache stuff, or
+that doesn't matter?
+
+I'm wondering whether it case version 3 of the protocol appears we
+would be in trouble by not having version = 2 in the config file.
+
+Thanks, Roger.
 
