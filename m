@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0A20880BD9
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 08:16:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695739.1085746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D9FB880C02
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 08:28:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695747.1085762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmqB3-0008B3-Q2; Wed, 20 Mar 2024 07:15:57 +0000
+	id 1rmqNA-0002bK-Tc; Wed, 20 Mar 2024 07:28:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695739.1085746; Wed, 20 Mar 2024 07:15:57 +0000
+Received: by outflank-mailman (output) from mailman id 695747.1085762; Wed, 20 Mar 2024 07:28:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmqB3-00084s-MJ; Wed, 20 Mar 2024 07:15:57 +0000
-Received: by outflank-mailman (input) for mailman id 695739;
- Wed, 20 Mar 2024 07:15:57 +0000
+	id 1rmqNA-0002YH-Q7; Wed, 20 Mar 2024 07:28:28 +0000
+Received: by outflank-mailman (input) for mailman id 695747;
+ Wed, 20 Mar 2024 07:28:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QeEy=K2=hotmail.com=rafael_andreas@srs-se1.protection.inumbo.net>)
- id 1rmqB2-00081u-VT
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 07:15:56 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02olkn20800.outbound.protection.outlook.com
- [2a01:111:f403:2e06::800])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LUpO=K2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rmqN9-0002YB-5V
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 07:28:27 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1807fb9-e689-11ee-afdd-a90da7624cb6;
- Wed, 20 Mar 2024 08:15:55 +0100 (CET)
-Received: from DU0P192MB1700.EURP192.PROD.OUTLOOK.COM (2603:10a6:10:3bf::6) by
- DB9P192MB1803.EURP192.PROD.OUTLOOK.COM (2603:10a6:10:39a::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7386.26; Wed, 20 Mar 2024 07:15:54 +0000
-Received: from DU0P192MB1700.EURP192.PROD.OUTLOOK.COM
- ([fe80::181e:3628:177d:1cf9]) by DU0P192MB1700.EURP192.PROD.OUTLOOK.COM
- ([fe80::181e:3628:177d:1cf9%4]) with mapi id 15.20.7386.017; Wed, 20 Mar 2024
- 07:15:53 +0000
+ id 70131dfc-e68b-11ee-afdd-a90da7624cb6;
+ Wed, 20 Mar 2024 08:28:25 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a450bedffdfso779287566b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 00:28:25 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ qx33-20020a170907b5a100b00a46baba1a0asm3481034ejc.100.2024.03.20.00.28.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Mar 2024 00:28:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,119 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1807fb9-e689-11ee-afdd-a90da7624cb6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bhg9Pt+9bdQHsV3sGqzpeuIMX/S0dQ2XrM227/aMPGOkfAyoABqzegmkuuSlrB0bTFKknTm2/85bpvRe3BSCHMwfh/ULZlBc3vid1+mX2PYvsovbkG0W5ddAyQYP7OiF6r1X6x5x+NFnadBJDB0EB5d+Q52ZOVMY9F+KVTi7Up3cQB+o5CyZt1Iw5fBOOwZp+WXne1TlsJSDaETwDvcA7s9zPAkH08EcMZ4Gl9JBwIqI0gEfcjo/nI12ZJ9UZbtX1gY9JmuWC2kpbVF1ZPfpoHPlzfkONExmwM99+CoVB4L/9reESGex70ghJ9InF3jlUT0gmm3kjOjF1d6VYKFczg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L09xaIyDfPc1imD82wYwTmT8UcsJA4judxkiTTMaxjA=;
- b=K6TC/DYJw8CXznvYKMInlHlSYshBAmrYn3/Eo6YvLHGhf+wB/YNHvfTBqM8wVxoPhQQHB29SUuYRZ4Cr6fN5BFc1oaQ4ZY1jwiDYJT936klgusScmKoXV9kiBTF+VeQ+SnM6Pku56YZEqoASlAlBYE9WjKVx2yX3Kxbi9M8st1XBIO/iy+Fu26kaA0UCi8/EGU79wsk6Drsdr3aSSDBEmq0YTk1TU2jbT2nESLejn6Jnb+Nx8nGmW//tT0whyUgW9AeeHdlZ5JJjkLYo/EoHvyfXXJPl2G6+McYdclMUMANzUkxIDRgVwfBUV6LQs4qDSoSFjDDs9SeJ0MmhoaEEqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L09xaIyDfPc1imD82wYwTmT8UcsJA4judxkiTTMaxjA=;
- b=tgs9PvBYhXYILLNPfeyeCsKbRKIPbsppfu8HDKvqBpkqlWDeDoI8i4WS1rM3tatIc3uedo3DsTdAQt8s4rU6iIo0p34/++KKsddVbh0o2kDkt4YcSkvDByegH9ekbB+/A3Rov6TaEeSkSODEo2tWewSRd63Fwk3Z4IQoW824ZFMKF5DDoIk8VPVvSYcXChRst/a+7jTtklp0gnSLZkXrZfpSnchSsQCRUw/ykeca1AbGeLhuGlNvTz3jAKu4KL7X7yEezpm6pqFArOvZyV+Ux9rIWhsobjGRCc4ydEs8JdVEBHbqoW0dd0PYPhV5AxOhxctaUPCzkmn1IgjfoClMng==
-From: =?UTF-8?q?Rafa=C3=ABl=20Kooi?= <rafael_andreas@hotmail.com>
-To: dragoon@waifu-technologies.moe,
-	xen-devel@lists.xenproject.org
-Subject: [XEN PATCH 1/1] tools/xenstore: Add missing XENCONSOLED_ARGS variable
-Date: Wed, 20 Mar 2024 08:15:46 +0100
-Message-ID:
- <DU0P192MB170046CFB3F2977E45B08E3EE3332@DU0P192MB1700.EURP192.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <cover.1710892585.git.rafael_andreas@hotmail.com>
-References: <cover.1710892585.git.rafael_andreas@hotmail.com>
+X-Inumbo-ID: 70131dfc-e68b-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1710919704; x=1711524504; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=s0LEgY1RjsJIakwBbbw3bdu6oVzf6ULLUGjZUk7F0xo=;
+        b=c/KKEThM87WWKq3Z7Vija5Pxuz30MxqqmaZRUb6pJioPY/ZG4Tb3MeCB7Maeik1QX7
+         X/yOwTY3En5TvghOW1sD7i8PkbC439m+OswSjtqq76Rxf1PWFmjLll6TdNrTSGqEvQyk
+         /s1P51qzZXvBkQYt6WUHSRdVYevQwciaMLjRUXTP2XnHtXxoA3mtMLbur72RmFAL9t1N
+         qyYVwlhNxY7pI8/Z9u90l78NSutAsYAyuIUPFgg95E9U/LIusPsIJ9//WZMVTg+lQqoj
+         /Kgm0uqRRA7iQsfnJMhjBeRf8UMgk3FvduCZH0/N8fNStQE7B2m0w1fnGpfq4eINAwod
+         d6Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710919704; x=1711524504;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=s0LEgY1RjsJIakwBbbw3bdu6oVzf6ULLUGjZUk7F0xo=;
+        b=J/Px3L+NflLDzWJyYGwewRqm2j3vZmJEbruHshCeEM2wuL/dI82ijGDDTyliiYR//3
+         exW36hpiPyG5nS7ahGSt6Qvd5hzlmk5CN1sjHj2A3NLUhGgcEdDMsiMgY5O/R+LyGer6
+         KPgENlRqbbCe1uCdqzAJ93vr8J6uZZG5KCldeL75McZw6cEd4KTIfO9ot7BqJcbN5Q/f
+         6xsfk6eJdBdcmXGWDOd169JSXXGD0ArgS7dhB0Ry7PgDbxTmHXJ2m4knurxWEHuZn0km
+         tAkX7nuCVrSGSu6y/VQDWy2/EYux0If2EBiX71VH0y2YOqq0j40koZIHG7MJUzbJjxZG
+         vSIw==
+X-Forwarded-Encrypted: i=1; AJvYcCWm44Nsxiq/LUdVy+a8GFCnFHgdSQhHydU+hFkTdV5HvlPBLZpYNhwxmQHh7cEKV2Hlv+Xm6R4PdhaNAu39I8IoSHbt9IlLdyAvY3bq1ik=
+X-Gm-Message-State: AOJu0Yx7V9dui1K6gjPgSW6G+RgAq5AjcluCfF83M2p8TCpKI1O2FLVP
+	XePJxSQW2CRdHuah2FuDLaBY2GyxZ6JwRSgUEdNn0qvClQLmYNPvV+sSLjek+g==
+X-Google-Smtp-Source: AGHT+IGAOVl6MYYeRG2wz/mmad70P4kBTBXEmWqrh64wZSCM40FdHOXcrbfu7CDsBnLkLzQOzzZlZg==
+X-Received: by 2002:a17:906:c042:b0:a46:cf3e:c68f with SMTP id bm2-20020a170906c04200b00a46cf3ec68fmr3904267ejb.49.1710919704477;
+        Wed, 20 Mar 2024 00:28:24 -0700 (PDT)
+Message-ID: <1f65c061-1877-4c73-86f3-4a814f9a3e18@suse.com>
+Date: Wed, 20 Mar 2024 08:28:23 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86: increase NMI timer frequency if necessary
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <d5fd3646-18b3-4dae-8da7-6afa187f930e@suse.com>
+ <61b8e8a6-ab9d-434d-88dc-9ea4a082375b@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <61b8e8a6-ab9d-434d-88dc-9ea4a082375b@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-TMN: [y1Gw2ZI1CKmIfyxqXY5TDSGUuH5GL87D5lK7PFIyq/4K3j93zwONTfqZ652w/eq5]
-X-ClientProxiedBy: FR4P281CA0075.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ce::20) To DU0P192MB1700.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:10:3bf::6)
-X-Microsoft-Original-Message-ID:
- <4b50f894496298b8e1058641e45f339ae3cb513d.1710892585.git.rafael_andreas@hotmail.com>
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU0P192MB1700:EE_|DB9P192MB1803:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15d0d9ae-6068-404b-c73b-08dc48ad944c
-X-MS-Exchange-SLBlob-MailProps:
-	qdrM8TqeFBsDoBs/oZrXuoWrSByezst704aY3uOTeGkffot19l2ErGRPgK4SoMGmvilXCA0kfdrEZc4+d5rHQ4ZH7xKgCErg3Fd3Zp0wGxyGhqL4RUmc8hem9jt8l/tbb0ttfUh61FtByQAn/rPoKsJjDYyuaEJRkFONJ4HUCtD7XCg966NofB282V7Eb4Ob7yLyxwFuz2sPpe6/taSarRM9Aa+TSHS8KW1IcyDzBuPUt7jXc6/lfG2h4OfyjjT9UVAkV0uiczZ2AqTpr0iiXnKJb4x5kuNcyDvt/EGad+dofwPGMa+EBdWcmIwfPP2VUX4lnHwyKi36CHufUZVdZwTLak1WU2xVQ65Rwc4+0oOSWDeeuEwqi9cuduEVqgBbTHel//Dg0f8AOYg7aGuHAnYu189d6dTu71PZgHzQAY862UfUNCvO4qwJRsNk+84GfOxSOJ03akysaXnt7Y+WKVQxlpNFDT6XknQSv98rEoGZOs3Fg86JDWTwyCNnMQC3wOKTIsv4OLWY+vbUjJSK9P8IG5g+qvDJT1aZDt/Nnl9FMduiCKAowJ2PDqby3H4i2WADnaSAheKAH2v6jg8v/GDGZfb9g/39KiTDlZ9adXv4K7DSbvGrZyxnOlphyxKu9KliGHISadZC4gUtGyOLGhEHvL/Ml2axNW85YnI9VMXFT6YDAEGI1rllthlCwucvZr6b7Gf4xlkB36y3WTKq6Ry4OAxBkWhl1k9xZRd6SEzLNOBV8vaq8NILcSbs3byyRJvdCm5fP/saop7sLuuxPHvxM5FV6354
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	j+UEt0Z/15xzlS1jGJhOLg+dWRkkRgwBipqx92z9Usbr2W4byJweYjz+3YggODSv7C5lOkwTih7skP+6LBD+W0fCbXoE51Zg/qhsucH8FJ+4JdIMnOw+ZJxcn9P8fXKyngnoGI90lTUsa34j6eQWCoyiuhvNTHwrH6h3OK3sZvjo+768HTo11WbzT4ltShq7vbIObnvpRLvCp7mEXh7PEcSUggGdExN3wrdcl6rcHa/1Gk/EI/RPxnfMOcA9uYrezFC3LEEGxIUP1Cv6WqUq+dssO27q4A3kxH0CtV5OYqSqnL7qPI3UZ+3si1umMoek+zEsfh13Et4WfXX7TuS9WoQrw1n+UEUPFG9YGuNqoKlxqQCc7AarHBqeHSz+r2vQEItdDy19xVH/AJMaDRV3iRnjSJBTJOr2LAlknrydlT8nm/DdtLvN5pkHWToduB2qI/9y2ZO53fLHGyl4qS5vGZBsirs86Y7ziSaXftzKtrJI2Qp90YjKYsKBcQ3SYufucCCTZcDO9ODKkiyajrE5mn9kjAdvpxxbtoUJ9hXXI7jMtEO5NdSId9BQJUWn1mW3
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MzN6bnNTLytYNWJtN3RMLzU4blJHdW5DQTlmWkJ5UFRpeXFBdjZkTWhFekJS?=
- =?utf-8?B?V3dJTEZZTUZYMlVQUGhYQmFYNFk3QXBCTlhaNU9UVnpmV3VPbll0TUFSblR1?=
- =?utf-8?B?V25aVXc4RlFTZ3VVSklVRXo2TkwyV2JVUXQyYVg5dHdzU1YrcklWMUZ5Rlps?=
- =?utf-8?B?VVc0S1RYMUxHL1prSkpjcVJqNmRyY01KSEphMjdubFUyTUpSMGI5MlI1UkFh?=
- =?utf-8?B?L0JpM0lPRVo1ZG1seFRIRWhCSVpvMDlPaldaRkp6ZEVnTndhOXEvVUVXUFU0?=
- =?utf-8?B?bHZ0Q1NQQU5pMUVVWkVINFVuanM2allvdmdiY1VJN3ViYmpxSEFxRDl3Vkw4?=
- =?utf-8?B?b1kyMDFtQ1BSWlA0NVE3c205cEtnTmFLRTgwQzR2dUV5MHQvdUpWTE1IU1Fp?=
- =?utf-8?B?VkJWL2tVNXVHd1VESVNLYklDNjc4M0tHd2JlV0xtdWpPVjEreTQydStiQVZs?=
- =?utf-8?B?QlBhQWFjWWkvYXpuT1FmRkMxTE5IM2ZVR3EzYWE5ZzhMNzJRckczZ1VpcGpu?=
- =?utf-8?B?Z0twQmdNeUdvY2pLVEY0d3BCWkc3ckI1d1N0V2xxRldFSUhieTZaYkF2Y1B0?=
- =?utf-8?B?QkpTbEg0K0VDWC9uVTJ4Q1VoUnhidm9rVzExdDF4K3grRnNvSHEwN1BzYnhX?=
- =?utf-8?B?TzV2ZnJaQ0QwZVZoMWc3d2wzTkc5cjNFTFJKOVJ0R0FxLzIwcXdQUFdRamtP?=
- =?utf-8?B?dTJXOWFQNjgvTllwWVdRa2VjVTh0emdjWXEwQ3U3c1Qrd2hXcGNaUWtodC9j?=
- =?utf-8?B?bUoxOUNFekVFbG1CYkZVZXZSbWxhYmF6QWFDQXpMcnlrVlNHR2d5YWx6NTNk?=
- =?utf-8?B?aS9YallNZS9uaFNSQjBvQTNMNllUVFpyVmptVTNvQTVjOUdkYnh6dW1aNmlB?=
- =?utf-8?B?enRmZnZpS01DdzI4UVFacFBvSWdrSTJuSkMyb3cyQkRuWHZPTGlOOEtFbVR0?=
- =?utf-8?B?NEZEMzV4NEd4QURZTHJLYWV1a2d3c1FGUHc2Z1ZsdWMvenBVRWdMTTVId3F2?=
- =?utf-8?B?ZjBkdlZmV3RWT1NYL1lLaWg0d0VDREcyWDFEbjZyczdUQ3BONkdtWklpN3lK?=
- =?utf-8?B?Qmk0UVhDREd5Y0NrQURUVWRIQWtPd0xlRnZ4MFkwQXB2d3VRczBsTVlaMFI1?=
- =?utf-8?B?MlN1ZFRNMEt5bWtSTjdLd2dVRldxdjc0eGUxcUVKTzFtZ3RiSjdEVVFRdE5j?=
- =?utf-8?B?WXFHc0NxSk1QQWMwdkVtclo1bXo5Ukd0MTVXdzlhQnBKZWs3endMSWtqZWll?=
- =?utf-8?B?QklTMGgwc2RhbUlmQlBVMGpYQThVb3FKSW56ZytJZVlhM2tnM0U4SHBwL2dm?=
- =?utf-8?B?Rk0xTE9VRjJBZStocnNNKzViUHVwLysyRXhTMXhPNnpUeEN1WDk3SVJUYk5U?=
- =?utf-8?B?QUxyQnNlZXpBR1VpQVZ4ZExBQnBmZkNqVGpMRHdHVGozbkt5QTVITDBzclQz?=
- =?utf-8?B?SlF5L1lSbjRMNk54VDVqNzVSdEJ2azB3dGxtRHhUcU9pcFlNUE93OEhHcTVl?=
- =?utf-8?B?WjRjRE40OEFnMzI2U1kva1JtNlRoM0JFRDRRL2t5dHBpai83RFdWVm5kdVp3?=
- =?utf-8?B?Y2g5U3VYMG1kTklHOWl1ai8xMFY5ZUs4cytKQm1nYVcvK1FBUWFoV3Y5R3Rs?=
- =?utf-8?B?Y1ZTUDJrUTVZZTBQWHIxc2IwNDJnN2FZeENCczVPZUlGT25DL2Nma05oVTc4?=
- =?utf-8?B?dFBSL0ZKRlVPYnZHQ0swYk82eXBWT0wrYUhIZDIzRWM4ZUtxUGVZR3BGZnFs?=
- =?utf-8?Q?OixWXpx+8f9R+1j9cpq9LhFJJvJXaJUuNT4/7S2?=
-X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-fb43a.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15d0d9ae-6068-404b-c73b-08dc48ad944c
-X-MS-Exchange-CrossTenant-AuthSource: DU0P192MB1700.EURP192.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 07:15:53.9025
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P192MB1803
 
-The systemd xenconsoled.service uses the XENCONSOLED_ARGS variable, but
-it was missing from the xencommons file.
+On 19.03.2024 21:51, Andrew Cooper wrote:
+> On 25/01/2024 4:55 pm, Jan Beulich wrote:
+>> Since the performance counters used for the NMI watchdog count non-
+>> halted cycles, they may count at a rate higher than cpu_khz.
+> 
+> Is this in theory, or observed in practice?
 
-Signed-off-by: Rafaël Kooi <rafael_andreas@hotmail.com>
----
- tools/hotplug/Linux/init.d/sysconfig.xencommons.in | 6 ++++++
- 1 file changed, 6 insertions(+)
+It's been over two months since doing the experiments, so I can only go
+from memory, but my recollection is that I actually observed higher
+rates, just not high enough (yet) for the watchdog (without this change)
+to start malfunctioning.
 
-diff --git a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-index 1bdd830d8a..42104ecaa4 100644
---- a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-+++ b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-@@ -5,6 +5,12 @@
- # Log xenconsoled messages (cf xl dmesg)
- #XENCONSOLED_TRACE=[none|guest|hv|all]
- 
-+## Type: string
-+## Default: ""
-+#
-+# Additional commandline arguments to start xenconsoled.
-+XENCONSOLED_ARGS=
-+
- ## Type: string
- ## Default: daemon
- #
--- 
-2.44.0
+> It is my understanding that perf counters count in P0 reference cycles,
+> and not at the Turbo/CBS rate.
+> 
+>>  Thus the
+>> watchdog tick may occur more frequently than invocations of the timer
+>> if we don't account for the ratio between nominal and maximum CPU clock
+>> speeds, which would be a problem in particular when "watchdog_timeout=1"
+>> is in effect (for high enough ratios even larger timout values may pose
+>> a problem).
+>>
+>> Leverage the so far display-only data we collect on newer Intel and AMD
+>> CPUs. On older CPUs we just have to (continue to) hope that the default
+>> frequency of 1 Hz is okay(-ish) to use.
+>>
+>> While adding the new variable, also move the (now adjacent) cpu_khz to
+>> .data.ro_after_init.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> This renders the "log" in the function names somewhat stale, but I don't
+>> think this strictly warrants renaming the functions right away.
+> 
+> I'm not comfortable with this change.  It's adding to a complicated
+> timing problem, rather than simplifying it.
 
+The actual change to the watchdog logic is minimal - a build-time constant
+is replaced by a boot-time determined value.
+
+> The real problem we've got is that the NMI handler is guessing at the
+> timeout by counting NMIs, not by actually counting time.  There are
+> several ways to fix this even with the current rendezvous logic.  When
+> the NMI handler can actually say "if ( NOW() - last > timeout )", then
+> the exact frequently of NMIs becomes far less important.
+
+But that would come with its own downsides: The logic within the NMI
+handler should be as simple as possible, involving as little as possible
+other code. NOW(), for example, cannot really be used there without
+first fiddling with the time rendezvous (to make sure an NMI hitting in
+the middle of an update to the scaling values will know how to use
+consistent data; that could e.g. be done by flip-flopping between two
+instances of the data, with a "selector" always flipped last).
+
+Jan
 
