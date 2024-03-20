@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0B9E8816BC
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 18:42:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696080.1086689 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3AC08816FB
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 19:01:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696084.1086698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmzxb-0001FR-TO; Wed, 20 Mar 2024 17:42:43 +0000
+	id 1rn0Ew-0004wz-A4; Wed, 20 Mar 2024 18:00:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696080.1086689; Wed, 20 Mar 2024 17:42:43 +0000
+Received: by outflank-mailman (output) from mailman id 696084.1086698; Wed, 20 Mar 2024 18:00:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmzxb-0001CN-QB; Wed, 20 Mar 2024 17:42:43 +0000
-Received: by outflank-mailman (input) for mailman id 696080;
- Wed, 20 Mar 2024 17:42:42 +0000
+	id 1rn0Ew-0004us-7R; Wed, 20 Mar 2024 18:00:38 +0000
+Received: by outflank-mailman (input) for mailman id 696084;
+ Wed, 20 Mar 2024 18:00:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O5f7=K2=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1rmzxa-0001CB-K3
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 17:42:42 +0000
-Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
- [2607:f8b0:4864:20::b35])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3f5b8f13-e6e1-11ee-a1ee-f123f15fe8a2;
- Wed, 20 Mar 2024 18:42:40 +0100 (CET)
-Received: by mail-yb1-xb35.google.com with SMTP id
- 3f1490d57ef6-dc6cbe1ac75so124111276.1
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 10:42:40 -0700 (PDT)
+ <SRS0=9Jnl=K2=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1rn0Ev-0004um-DL
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 18:00:37 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bee769d1-e6e3-11ee-a1ee-f123f15fe8a2;
+ Wed, 20 Mar 2024 19:00:34 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 9221D82854B3;
+ Wed, 20 Mar 2024 13:00:32 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id 4wCm0tXK1P70; Wed, 20 Mar 2024 13:00:31 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id D634F82856C4;
+ Wed, 20 Mar 2024 13:00:31 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id DHjujYy71IOm; Wed, 20 Mar 2024 13:00:31 -0500 (CDT)
+Received: from raptor-ewks-026.lan (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 7ECD582854B3;
+ Wed, 20 Mar 2024 13:00:31 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,161 +51,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f5b8f13-e6e1-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: bee769d1-e6e3-11ee-a1ee-f123f15fe8a2
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com D634F82856C4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1710956559; x=1711561359; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4PNmrfeclRSaZ0piCvl3NPFSnMqmFKWwWU1pPxBzzB4=;
-        b=nkRbUSfqlhxIGfWA4dFhT8hmEPqREEXhOxzv0gj0g4be49m8+rGuubh7ksgdeq+0XA
-         M1zuipMyx2FDXzKMi+FRxu9KLwX/TkcaBGJNHNbZw9gH9/Ow/q58JhqezvpChyV50EtY
-         5Nq1p/N2Ed1XxNBWAu+dMRqCegKoa3k1WF5zmwCLIn8Uv8JP5XWswaGdXZONz4jylK9c
-         ya9U3R/KRq6BERxYTCwoaMJe4Y/mSfZQFFBLO1kL1Owu45qK1rKkQb2NXa6mr+y8X2RL
-         Yq2ERtdVvn7QMd2UnwRUqbm0V3uO9JYnMNQocxKcrFMr2MSNKjxHATYUA5w22kScbl5N
-         cbjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710956559; x=1711561359;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4PNmrfeclRSaZ0piCvl3NPFSnMqmFKWwWU1pPxBzzB4=;
-        b=BWGharQ8kON+ml+zEQONl4VxS2AVHNpix/0aBmVtpRWxo6nrU0mvfY4KccYGk8HJsq
-         p+L0uroe21VDNQsbOV7Xly8m1spqIx21iNdmWwcYXp0c9uTEQMrXXdE9KsYvxZ/v+PSX
-         DNMxsVA2FFploTDDBbd3BNPmUsJ0FaWtpdeSc/qU9KmUuR/6TGOn3FVP2UZlgiqnmMst
-         KjzTY7QqCeUk82l8jhE7T89DPxP+Gw0PYjH8Y9zWVbAaS04WTR1zsokZElowGxnMeVOM
-         2IVNm3AXMcgtRrjWh+D6uBe9gBxgVOMKHU/V9/3RWkS46a+Uu+6DojYH1LyKhwRTsI09
-         7Xbw==
-X-Forwarded-Encrypted: i=1; AJvYcCXil3q3rHiPW1StUouBxsN6s165pz2IhYFL1x8LHhGPKOuzKLN3zhSmneylWnb0DBYLqD/QARakDdvxb40JIKpe71poosNCBPP0uMsl20I=
-X-Gm-Message-State: AOJu0YzdPv+BJLFzPU/ed4g6Hqus3/g753t6lZhVIC3lBeHXnt04476F
-	teHitar3am3bRBRfbjY8yuktizc5nRmohqizNXaRgHtbsw0rejuPghO1VRKO59LcPruxpH7jj7i
-	mrqIDUbnxWzKDRrIpM/blbuolVSA=
-X-Google-Smtp-Source: AGHT+IF1vHg3nWNn8XTf2zs//TlcE4NB9URz9j93fR3rDahcsKwH8Qh2oWbvidfw1UwEtC6WUuLogrROJAMX9zdn2KI=
-X-Received: by 2002:a25:c747:0:b0:dd1:6cad:8fd3 with SMTP id
- w68-20020a25c747000000b00dd16cad8fd3mr284023ybe.27.1710956559522; Wed, 20 Mar
- 2024 10:42:39 -0700 (PDT)
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1710957631; bh=94W0o+FADbFYEfpLUI+OVM+ilIyFdZSfdMiHNwBLaZY=;
+	h=From:To:Date:Message-Id:MIME-Version;
+	b=nF4TxXy1/+qW8VvQoesw9HogKLglhs5jlxE8jI/DlPllrWKwZw3mGJyjAY6hoGZ0c
+	 LN9snEOrlTJBrYyFo2rW9JQHD8c8NYeRlgXhxWZc8I6TFnKGAGjxVHsimm+ChP8Uu+
+	 HpxGbnuO5ONwFiqMdA47SOFDKb8X+qbmlw1vdycQ=
+X-Virus-Scanned: amavisd-new at rptsys.com
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+To: xen-devel@lists.xenproject.org
+Cc: tpearson@raptorengineering.com,
+	Jan Beulich <jbeulich@suse.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH] xen/ppc: Ensure ELF sections' physical load addresses start at 0x0
+Date: Wed, 20 Mar 2024 13:00:21 -0500
+Message-Id: <20240320180021.70373-1-sanastasio@raptorengineering.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20231011193444.81254-1-jandryuk@gmail.com> <CAKf6xpuJe6Cza6bow3QxDGf1viu0kish7Y8YRN8haXL1oEF3HA@mail.gmail.com>
-In-Reply-To: <CAKf6xpuJe6Cza6bow3QxDGf1viu0kish7Y8YRN8haXL1oEF3HA@mail.gmail.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 20 Mar 2024 13:42:27 -0400
-Message-ID: <CAKf6xpv2oDpPB3wWh=Fz_ahDVgmvw2MSj_q3RYqQ8NG6km5Tuw@mail.gmail.com>
-Subject: Re: [PATCH v3] Input: xen-kbdfront - drop keys to shrink modalias
-To: linux-kernel@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Phillip Susi <phill@thesusis.net>, stable@vger.kernel.org, 
-	Mattijs Korpershoek <mkorpershoek@baylibre.com>, linux-input@vger.kernel.org, 
-	xen-devel <xen-devel@lists.xenproject.org>, Juergen Gross <jgross@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-Hi Dmitry,
+Some boot mechanisms, including the new linux file_load kexec systemcall
+used by system firmware v2.10 on RaptorCS systems will try to honor the
+physical address field of the ELF LOAD section header, which will fail
+when the address is based off of XEN_VIRT_START (0xc000000000000000).
 
-Do you have any feedback, or can you pick up this patch?  It solves a
-real issue affecting udev, which crashes the Debian installer and
-breaks the mouse for Gnome.
+To ensure that the physical address of the LOAD section header starts at
+0x0, import the DECL_SECTION macro from x86's xen.lds.S.
 
-Or would you be okay if this patch went in via the Xen tree?
+Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+---
+ xen/arch/ppc/xen.lds.S | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
-Thanks,
-Jason
+diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
+index 05b6db2728..0ed285f0a7 100644
+--- a/xen/arch/ppc/xen.lds.S
++++ b/xen/arch/ppc/xen.lds.S
+@@ -4,6 +4,12 @@
+ OUTPUT_ARCH(powerpc:common64)
+ ENTRY(start)
+ 
++#ifdef CONFIG_LD_IS_GNU
++# define DECL_SECTION(x) x : AT(ADDR(#x) - XEN_VIRT_START)
++#else
++# define DECL_SECTION(x) x : AT(ADDR(x) - XEN_VIRT_START)
++#endif
++
+ PHDRS
+ {
+     text PT_LOAD ;
+@@ -17,7 +23,7 @@ SECTIONS
+     . = XEN_VIRT_START;
+     _start = .;
+ 
+-    .text : {
++    DECL_SECTION(.text) {
+         _stext = .;            /* Text section */
+         *(.text.header)
+ 
+@@ -40,7 +46,7 @@ SECTIONS
+     } :text
+ 
+     . = ALIGN(PAGE_SIZE);
+-    .rodata : {
++    DECL_SECTION(.rodata) {
+         _srodata = .;          /* Read-only data */
+         /* Bug frames table */
+         __start_bug_frames = .;
+@@ -64,7 +70,7 @@ SECTIONS
+ 
+     #if defined(BUILD_ID)
+     . = ALIGN(4);
+-    .note.gnu.build-id : {
++    DECL_SECTION(.note.gnu.build-id) {
+         __note_gnu_build_id_start = .;
+         *(.note.gnu.build-id)
+         __note_gnu_build_id_end = .;
+@@ -73,19 +79,19 @@ SECTIONS
+     _erodata = .;                /* End of read-only data */
+ 
+     . = ALIGN(PAGE_SIZE);
+-    .data.ro_after_init : {
++    DECL_SECTION(.data.ro_after_init) {
+         __ro_after_init_start = .;
+         *(.data.ro_after_init)
+         . = ALIGN(PAGE_SIZE);
+         __ro_after_init_end = .;
+     } :text
+ 
+-    .data.read_mostly : {
++    DECL_SECTION(.data.read_mostly) {
+         *(.data.read_mostly)
+     } :text
+ 
+     . = ALIGN(PAGE_SIZE);
+-    .data : {                    /* Data */
++    DECL_SECTION(.data) {                    /* Data */
+         *(.data.page_aligned)
+         . = ALIGN(8);
+         __start_schedulers_array = .;
+@@ -100,7 +106,7 @@ SECTIONS
+ 
+     . = ALIGN(PAGE_SIZE);             /* Init code and data */
+     __init_begin = .;
+-    .init.text : {
++    DECL_SECTION(.init.text) {
+         _sinittext = .;
+         *(.init.text)
+         _einittext = .;
+@@ -108,7 +114,7 @@ SECTIONS
+     } :text
+ 
+     . = ALIGN(PAGE_SIZE);
+-    .init.data : {
++    DECL_SECTION(init.data) {
+         *(.init.rodata)
+         *(.init.rodata.*)
+ 
+@@ -137,18 +143,18 @@ SECTIONS
+         __ctors_end = .;
+     } :text
+ 
+-    .got : {
++    DECL_SECTION(.got) {
+         *(.got .toc)
+     } :text
+ 
+-    .got.plt : {
++    DECL_SECTION(.got.plt) {
+         *(.got.plt)
+     } :text
+ 
+     . = ALIGN(POINTER_ALIGN);
+     __init_end = .;
+ 
+-    .bss : {                     /* BSS */
++    DECL_SECTION(.bss) {                     /* BSS */
+         __bss_start = .;
+         *(.bss.stack_aligned)
+         *(.bss.page_aligned)
+@@ -168,7 +174,7 @@ SECTIONS
+     _end = . ;
+ 
+     /* Section for the device tree blob (if any). */
+-    .dtb : { *(.dtb) } :text
++    DECL_SECTION(.dtb) { *(.dtb) } :text
+ 
+     DWARF2_DEBUG_SECTIONS
+ 
+-- 
+2.30.2
 
-On Wed, Nov 1, 2023 at 10:11=E2=80=AFAM Jason Andryuk <jandryuk@gmail.com> =
-wrote:
->
-> Hi Dmitry,
->
-> Do you have any feedback or can you pick this up?
->
-> Thanks,
-> Jason
->
-> On Wed, Oct 11, 2023 at 3:34=E2=80=AFPM Jason Andryuk <jandryuk@gmail.com=
-> wrote:
-> >
-> > xen kbdfront registers itself as being able to deliver *any* key since
-> > it doesn't know what keys the backend may produce.
-> >
-> > Unfortunately, the generated modalias gets too large and uevent creatio=
-n
-> > fails with -ENOMEM.
-> >
-> > This can lead to gdm not using the keyboard since there is no seat
-> > associated [1] and the debian installer crashing [2].
-> >
-> > Trim the ranges of key capabilities by removing some BTN_* ranges.
-> > While doing this, some neighboring undefined ranges are removed to trim
-> > it further.
-> >
-> > An upper limit of KEY_KBD_LCD_MENU5 is still too large.  Use an upper
-> > limit of KEY_BRIGHTNESS_MENU.
-> >
-> > This removes:
-> > BTN_DPAD_UP(0x220)..BTN_DPAD_RIGHT(0x223)
-> > Empty space 0x224..0x229
-> >
-> > Empty space 0x28a..0x28f
-> > KEY_MACRO1(0x290)..KEY_MACRO30(0x2ad)
-> > KEY_MACRO_RECORD_START          0x2b0
-> > KEY_MACRO_RECORD_STOP           0x2b1
-> > KEY_MACRO_PRESET_CYCLE          0x2b2
-> > KEY_MACRO_PRESET1(0x2b3)..KEY_MACRO_PRESET3(0xb5)
-> > Empty space 0x2b6..0x2b7
-> > KEY_KBD_LCD_MENU1(0x2b8)..KEY_KBD_LCD_MENU5(0x2bc)
-> > Empty space 0x2bd..0x2bf
-> > BTN_TRIGGER_HAPPY(0x2c0)..BTN_TRIGGER_HAPPY40(0x2e7)
-> > Empty space 0x2e8..0x2ff
-> >
-> > The modalias shrinks from 2082 to 1550 bytes.
-> >
-> > A chunk of keys need to be removed to allow the keyboard to be used.
-> > This may break some functionality, but the hope is these macro keys are
-> > uncommon and don't affect any users.
-> >
-> > [1] https://github.com/systemd/systemd/issues/22944
-> > [2] https://lore.kernel.org/xen-devel/87o8dw52jc.fsf@vps.thesusis.net/T=
-/
-> >
-> > Cc: Phillip Susi <phill@thesusis.net>
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> > Reviewed-by: Mattijs Korpershoek <mkorpershoek@baylibre.com>
-> > ---
-> > v3:
-> > Add Mattijs R-b
-> > Put /* and */ on separate lines
-> > ---
-> >  drivers/input/misc/xen-kbdfront.c | 11 ++++++++++-
-> >  1 file changed, 10 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/input/misc/xen-kbdfront.c b/drivers/input/misc/xen=
--kbdfront.c
-> > index 67f1c7364c95..d59ba8f9852e 100644
-> > --- a/drivers/input/misc/xen-kbdfront.c
-> > +++ b/drivers/input/misc/xen-kbdfront.c
-> > @@ -256,7 +256,16 @@ static int xenkbd_probe(struct xenbus_device *dev,
-> >                 __set_bit(EV_KEY, kbd->evbit);
-> >                 for (i =3D KEY_ESC; i < KEY_UNKNOWN; i++)
-> >                         __set_bit(i, kbd->keybit);
-> > -               for (i =3D KEY_OK; i < KEY_MAX; i++)
-> > +               /*
-> > +                * In theory we want to go KEY_OK..KEY_MAX, but that gr=
-ows the
-> > +                * modalias line too long.  There is a gap of buttons f=
-rom
-> > +                * BTN_DPAD_UP..BTN_DPAD_RIGHT and KEY_ALS_TOGGLE is th=
-e next
-> > +                * defined. Then continue up to KEY_BRIGHTNESS_MENU as =
-an upper
-> > +                * limit.
-> > +                */
-> > +               for (i =3D KEY_OK; i < BTN_DPAD_UP; i++)
-> > +                       __set_bit(i, kbd->keybit);
-> > +               for (i =3D KEY_ALS_TOGGLE; i <=3D KEY_BRIGHTNESS_MENU; =
-i++)
-> >                         __set_bit(i, kbd->keybit);
-> >
-> >                 ret =3D input_register_device(kbd);
-> > --
-> > 2.41.0
-> >
 
