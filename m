@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 153A28812B5
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 14:52:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695922.1086235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9410C8812BA
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 14:55:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695924.1086244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmwMW-00084P-J4; Wed, 20 Mar 2024 13:52:12 +0000
+	id 1rmwP6-0000BW-WB; Wed, 20 Mar 2024 13:54:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695922.1086235; Wed, 20 Mar 2024 13:52:12 +0000
+Received: by outflank-mailman (output) from mailman id 695924.1086244; Wed, 20 Mar 2024 13:54:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmwMW-00081C-Ft; Wed, 20 Mar 2024 13:52:12 +0000
-Received: by outflank-mailman (input) for mailman id 695922;
- Wed, 20 Mar 2024 13:52:11 +0000
+	id 1rmwP6-00008X-T7; Wed, 20 Mar 2024 13:54:52 +0000
+Received: by outflank-mailman (input) for mailman id 695924;
+ Wed, 20 Mar 2024 13:54:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LUpO=K2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmwMV-0007zI-Rk
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 13:52:11 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1rmwP5-00008Q-Ns
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 13:54:51 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0bc71c52-e6c1-11ee-afdd-a90da7624cb6;
- Wed, 20 Mar 2024 14:52:10 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5684db9147dso8706130a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 06:52:10 -0700 (PDT)
+ id 6bd5d1cd-e6c1-11ee-afdd-a90da7624cb6;
+ Wed, 20 Mar 2024 14:54:50 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a46d0a8399aso163661066b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 06:54:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g18-20020a056402091200b00568b6f73491sm5557660edz.14.2024.03.20.06.52.08
+ xj4-20020a170906db0400b00a46aba003eesm4886584ejb.215.2024.03.20.06.54.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Mar 2024 06:52:09 -0700 (PDT)
+ Wed, 20 Mar 2024 06:54:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0bc71c52-e6c1-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 6bd5d1cd-e6c1-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710942729; x=1711547529; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710942890; x=1711547690; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=II4y1E8zMQL5MTcZbckP76UZN6K9hkpvDxtIt/wDvpQ=;
-        b=FdhwOykEaZosWE1cPhMmp4sZzu88/LoRI4KXJ4FhwIZ4Jfhmvw9orslIef2+Aa5p6d
-         oezP040mqMRq/KKs43qfahwlsPy20H+4bewial2pq3Tt90Hr4HAkh1/dq2fbwDnVE1zp
-         zj3ZheUF8NUQ/VEz8hT7+RyNOheBNrhS0LfZ/0/NJsx3c73OZFji49ZNuZjAp9L33yYj
-         geBJ0LHLux/7ulQrR3GlBlPBsR3ZC6VioYxH+jS22j4WhBqCHBuQ49pYt80pA6+M8eqE
-         n+NbNXQ/AG8vLxU6MCwALQHGtJCj/fZPrTBN/9ZhiEJZOjLaEXfKu0yWMIrMinBBWul3
-         oULQ==
+        bh=Qm21WwCwGeW+W2XQIszmwXT848dJr4l2ZZCaVHgRCVo=;
+        b=CtmU+Z5uEc+3iXOt+rFV7Ios8nadZx3AaPeVtes3c7jpynO73nIpBlmFaVScVMd9hX
+         eTPEB5pNz2TmOw6tXs+g+r087vmcvOV+3isy4gb1HQBVnqxst1iTQVP0kyPt4/BYCK1H
+         1v8jLIVNAOJMq1bZRvK3HO3puxXPd11y1n8HnygCvjv92Cunif32hBiQYT0DoL0exQIO
+         hLDyR/oOi7TKTQTGDQlOCOHG+wRFNpKWrbXFr2WG3/rjF0pfAzlzJXE9VANP1G5Oe6pi
+         FtdrVCTj2Bz9NcihzAYdVKazMb5/1RiJWcabgI/o96XzDZgpoQKcBmDRV476BHNHF+W3
+         wv6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710942729; x=1711547529;
+        d=1e100.net; s=20230601; t=1710942890; x=1711547690;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=II4y1E8zMQL5MTcZbckP76UZN6K9hkpvDxtIt/wDvpQ=;
-        b=aQoRjRYX+5kN7h0G+FUzNDqoO6vlYQU6xfhyKNwVrT1yPC44wL/JHQT7xaTai92PK8
-         V4tj7EAkSmRTAbWMTUMJ2ZX3LQxoMD33kgcxJL6xsb+Nv9XPN47R7ubWd6T+qKcFE2ZH
-         iZi6Ik704zcPXG+3cwbhrfjJtcg07LvEzMmw1c4Jfkp60x+UMENBFWdREy4xeQ9fZ3Ax
-         8EJbVaB2Vc2HlTvZFnBx2Nd7mCeEl7wKGKvpXnRnAodqcGhmcQAqTtV3zdUjzJp+VTZy
-         +fdUqfQ7zHSJPQzT11aqNn2SLrjEMm5xY/scOF2U9ulOKempkkQEmPr6H6ZpjWy6DIz5
-         f4eQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUPV7lFdx648zrwZzhJ/lRv+/7Vuoz38Gh7E2BGthCbgQbxLWRxFSQ2Cy52nyK5CF/M4fn16y+SFvzB+n30SUsFRHBqdKmbzuUqmnOWAL8=
-X-Gm-Message-State: AOJu0Yyy4xo4BlpSVOVrTMxXLKfK1QeJvWQNrH0RldvMGV+MscYQoBcn
-	io+5xCl+VtelunRPt6izgndWnDtZ8ik8/ym9IWCJ5qpeolhLH0sgKlmoxQvVLw==
-X-Google-Smtp-Source: AGHT+IHSRRC09PlTdnLIJN9/ryDHQ2hyjK3k0+9BJMDreXQMBumLI2YfjRWSAdvFfcuA8IzFKMRKUg==
-X-Received: by 2002:a05:6402:2b93:b0:568:a18:2eb3 with SMTP id fj19-20020a0564022b9300b005680a182eb3mr14129340edb.11.1710942729224;
-        Wed, 20 Mar 2024 06:52:09 -0700 (PDT)
-Message-ID: <961ffe23-a903-4da0-bc30-8918785101ef@suse.com>
-Date: Wed, 20 Mar 2024 14:52:07 +0100
+        bh=Qm21WwCwGeW+W2XQIszmwXT848dJr4l2ZZCaVHgRCVo=;
+        b=WM1znAKKl5+zpLNlWVGnkydkD69xL+4LI+R98mYbGbSFlrhGKdEesM6RuJhBendzQU
+         DlxvMaa7ofU92S2ZBPkceb64unMBvl1UyX3s2apjv8EBtfPCZ/G21mjwG+x4VfSDgQ5e
+         0ygjR5L8dtPaWTc1Yy9h4watqj8ei8eEKC360LX1FqohFzOvApS9/+ungDYucT5afYUo
+         48Pp2Uz4Q2c5sqLAIIPHENOdTOQMEmVzRkvol/GnxHG5venSuuT34BWhkCZnYknecerL
+         BIrcrDQ0E62P050XFx1z6+x+mQX47jyrJuHihI/zNXsMGi2othMWuXFUSTFPctPa0Pz+
+         k4Ig==
+X-Forwarded-Encrypted: i=1; AJvYcCUiKzJ7cqyMpcm+8ckkgO62z58KfjHQzm9HDgRqjBdh2YZsTce4Hfgmv5iq4rRGc876ohy9uiHYwf6++VkTPaF3P6A1lMQFqVnjrnhQYrg=
+X-Gm-Message-State: AOJu0Yw20lB8cyxbwHYQreHbtDtZLpNpmxVHdbLS2z3kzzIs31bjS2KW
+	NpcOQUawkviC9kXZ54JimN17JeDnX7uQ/lSI+BOrAcmCNov3E39lTLAo0Gbgag==
+X-Google-Smtp-Source: AGHT+IG75MirnZzKoOTf8EhJ/2m8xB+4LrjHAxI+IekJhpZ+2OK+j/7AGaqNKkgI2v9/v5MIXTIIig==
+X-Received: by 2002:a17:906:2317:b0:a46:d759:d531 with SMTP id l23-20020a170906231700b00a46d759d531mr2132941eja.34.1710942890356;
+        Wed, 20 Mar 2024 06:54:50 -0700 (PDT)
+Message-ID: <0ae49632-3e14-425b-9140-826264fae14f@suse.com>
+Date: Wed, 20 Mar 2024 14:54:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] xen/trace: Update final {__,}trace_var() users to the
- new API
+Subject: Re: [PATCH 7/7] xen/trace: Drop old trace API
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -91,7 +90,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "consulting @ bugseng . com" <consulting@bugseng.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240318163552.3808695-1-andrew.cooper3@citrix.com>
- <20240318163552.3808695-7-andrew.cooper3@citrix.com>
+ <20240318163552.3808695-8-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,41 +115,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240318163552.3808695-7-andrew.cooper3@citrix.com>
+In-Reply-To: <20240318163552.3808695-8-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 18.03.2024 17:35, Andrew Cooper wrote:
-> This logically drops the cycles parameter, as it's now encoded directly in the
-> event code.
+> With all users updated to the new API, drop the old API.  This includes all of
+> asm/hvm/trace.h, which allows us to drop some includes.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: George Dunlap <George.Dunlap@eu.citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> CC: consulting@bugseng.com <consulting@bugseng.com>
+> 
+> v2.1:
+>  * New
+> v3:
+>  * Extend to drop __trace_var() too
 
-That encoding is an internal detail of the new API; for the purposes of the
-callers the pattern looks to be that ...
-
-> --- a/xen/arch/x86/hvm/emulate.c
-> +++ b/xen/arch/x86/hvm/emulate.c
-> @@ -67,7 +67,7 @@ static void hvmtrace_io_assist(const ioreq_t *p)
->          size *= 2;
->      }
->  
-> -    trace_var(event, 0/*!cycles*/, size, buffer);
-> +    trace(event, size, buffer);
-
-... the respective parameter being 0 translates to trace(), while ...
-
-> --- a/xen/arch/x86/irq.c
-> +++ b/xen/arch/x86/irq.c
-> @@ -135,7 +135,7 @@ static void _trace_irq_mask(uint32_t event, int irq, int vector,
->  
->      memcpy(d.mask, mask,
->             min(sizeof(d.mask), BITS_TO_LONGS(nr_cpu_ids) * sizeof(long)));
-> -    trace_var(event, 1, sizeof(d), &d);
-> +    trace_time(event, sizeof(d), &d);
-
-... the parameter being 1 translates to trace_time(). Imo the description
-would better express it that way. Irrespective, assuming that pattern is
-what is meant to hold,
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+And still
+Acked-by: Jan Beulich <jbeulich@suse.com>
+(with the never responded to remark in [1] still holding)
 
 Jan
+
+[1] https://lists.xen.org/archives/html/xen-devel/2021-09/msg02154.html
 
