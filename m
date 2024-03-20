@@ -2,38 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94753881379
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 15:39:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695954.1086333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E4B788138B
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 15:42:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695959.1086344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmx6I-0003kJ-37; Wed, 20 Mar 2024 14:39:30 +0000
+	id 1rmx9G-0005s6-LB; Wed, 20 Mar 2024 14:42:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695954.1086333; Wed, 20 Mar 2024 14:39:30 +0000
+Received: by outflank-mailman (output) from mailman id 695959.1086344; Wed, 20 Mar 2024 14:42:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmx6H-0003id-W3; Wed, 20 Mar 2024 14:39:29 +0000
-Received: by outflank-mailman (input) for mailman id 695954;
- Wed, 20 Mar 2024 14:39:28 +0000
+	id 1rmx9G-0005qI-I4; Wed, 20 Mar 2024 14:42:34 +0000
+Received: by outflank-mailman (input) for mailman id 695959;
+ Wed, 20 Mar 2024 14:42:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FoSn=K2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rmx6G-0003i2-5n
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 14:39:28 +0000
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
- [2607:f8b0:4864:20::72f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Z2Qb=K2=redhat.com=peterx@srs-se1.protection.inumbo.net>)
+ id 1rmx9F-0005qB-G3
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 14:42:33 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a63846f6-e6c7-11ee-a1ee-f123f15fe8a2;
- Wed, 20 Mar 2024 15:39:26 +0100 (CET)
-Received: by mail-qk1-x72f.google.com with SMTP id
- af79cd13be357-789dbd9a6f1so458939685a.1
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 07:39:26 -0700 (PDT)
-Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- fq9-20020a056214258900b00690d5310c55sm7898609qvb.114.2024.03.20.07.39.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Mar 2024 07:39:24 -0700 (PDT)
+ id 145d1188-e6c8-11ee-a1ee-f123f15fe8a2;
+ Wed, 20 Mar 2024 15:42:31 +0100 (CET)
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-691-Wxepv2U9OmeF6JRKW-vBwA-1; Wed, 20 Mar 2024 10:42:28 -0400
+Received: by mail-oi1-f200.google.com with SMTP id
+ 5614622812f47-3c38e3efb8aso463510b6e.0
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 07:42:28 -0700 (PDT)
+Received: from x1n ([99.254.121.117]) by smtp.gmail.com with ESMTPSA id
+ ge16-20020a05622a5c9000b00430b79aaa1esm5775620qtb.94.2024.03.20.07.42.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Mar 2024 07:42:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,143 +48,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a63846f6-e6c7-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710945565; x=1711550365; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ajswfk2sjKRwa/19iHb95k1d/F0Cr7s1YL08KFECNhA=;
-        b=nz3+l2oQiUKIzpQXxxdORJzxZb6zrorjkdt15ybLw7+sGC8Y3iCwWQBgRkn0WbOmWK
-         XN1qCLCLaSrB8ic1LKVX3xl3LpW62xPN6r0+jeOesOj67ivbcBRkkjYa/VXflXT511g/
-         c0lE9QhjW7hMezeybAc8gBtz9dBXgidZEj6SU=
+X-Inumbo-ID: 145d1188-e6c8-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1710945750;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lmYNCVj1qYxPr/KiXOpLo9If0W3ioxfEJHjY6ipJGAg=;
+	b=KMkEieClrqdb1HKf3Rs+hXMmu5JxJ4BTs0AtWNHsIxLdz1R+PLslw7XQgcxvLzcgesAmF3
+	OmVtqyI8dqs+DBnzDHy5fgt7rK8pk+sENHHJpYqY4hjQYmu8tij/REP/ivuynHSQ58Ruq+
+	+k/ggYRwGX88KeJXTQGjnNOIyQcUyy0=
+X-MC-Unique: Wxepv2U9OmeF6JRKW-vBwA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710945565; x=1711550365;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1710945748; x=1711550548;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ajswfk2sjKRwa/19iHb95k1d/F0Cr7s1YL08KFECNhA=;
-        b=FB4Jn4UeXV1k72+DNL+0LtlGfDn6/vhCMYlZMX9j/N6ziInsorp/IRk2kLXF5MiGx5
-         RrvKWwl3olL4c+YrLnakJaVeYOeetQZGbMMN2L/rqlQ2D4VFkNpzhciidGVjfxVgO6a3
-         6xEvuywCbvmnI/b6FNfyRXQrsfvz2s9e+fu6iJcjxf/IT+wzcvT+yVYxTbq1CCLaALeP
-         ADECjUazSAS6WpFGhuLOomIdk2vAVd/FW1iMZtI9d1SIPVyPP+VEG9xvu7Jr9DhRPgdx
-         /A51Rh2+hOH4HLmBIqJFgkdOwMalFVzTXasxIaX9IelH8GENYpe+x/wKhX+b8mL2ViTC
-         beKQ==
-X-Gm-Message-State: AOJu0YwvlivnC5O5tLchWnSlpf3ypN2sQtQM6wb1ojpcSnNw7OdkB57J
-	iaNk+5L3anezCnAKaVqGJJ0rsXTlZU65o2L8Y9cnZcQ3tKeul8gkCsJbBqUebHU=
-X-Google-Smtp-Source: AGHT+IHG16YNl0P89+u2+PyuZWl7wypLMWZSpuLYeJwgwgBJSA8W6vgxo8RTND/6W+G45RLQqgnTiw==
-X-Received: by 2002:a0c:9c8c:0:b0:68f:2b35:5edf with SMTP id i12-20020a0c9c8c000000b0068f2b355edfmr17850085qvf.13.1710945565093;
-        Wed, 20 Mar 2024 07:39:25 -0700 (PDT)
-Message-ID: <815d5bd4-18af-4f5f-b6a5-6302a1d682a2@citrix.com>
-Date: Wed, 20 Mar 2024 14:39:22 +0000
+        bh=lmYNCVj1qYxPr/KiXOpLo9If0W3ioxfEJHjY6ipJGAg=;
+        b=Vw48kg7hpVmrk/Vj2HsiP6eEzXtPk2g1IwQFXzrUXm3LP83j84L0NWO6xAtLfAhx4u
+         1aWttGCobfo8qnXN7vvdY3C2tsy50C3WEfu/te68osrHhtLh43Te4XXDXR0PA62VT+Ly
+         xZ3xtcoN5Y9bYzO+m1QbbXrQ2pl65DqNh8GwLYl49MAozisLeqhbWTfBfpOOjn+03hVx
+         ROAllCxyrwrUNNZ73OcbrBN1dnu9k8zO8/SHvEakltxfQKprbbhvJSHb3aIDwT/JaPb3
+         9XahMAKjD7hIoWe6H5ArKe2bvU8Cih4HrIeKIPlJeOC77nPvX85VyHM+8zM4nwI/wYmC
+         +urg==
+X-Forwarded-Encrypted: i=1; AJvYcCXUDF5bM33OUjfvx4RjuimI82RWAcOT71AoIoEIKZeU2HprO4bGjIxPOI1GT9DoucyuHJbBdW7Pdcq7IYBtlBSz0ftV0HWWdCtp1EkHCIU=
+X-Gm-Message-State: AOJu0YxAuDQ/sWGMt80GTp6n2QEucrco8FhxX0PumO1M9VGIg/8Tu9g/
+	7UZuBCdqxYgzRM3KfmOQ9NyV2QPnmXhtIuyhJkfePeflF2vXPdPrD5pbk4XWQINWqeLiJYBYqbb
+	wzSKm+FrjXz0hKu7BUe7uHNmlMqTUEMTqLNJgltSiB7L4Sxajq8yEwDGkjvGoF5a8
+X-Received: by 2002:a05:6808:1508:b0:3c3:62e8:b257 with SMTP id u8-20020a056808150800b003c362e8b257mr17461016oiw.2.1710945747861;
+        Wed, 20 Mar 2024 07:42:27 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGG1VX1WcbuhKZfwJ8zAztngTa7EDORJFVVDVVSW2Mx3OJakfgoqiSm2eUrIxhK5KuwSOm0dQ==
+X-Received: by 2002:a05:6808:1508:b0:3c3:62e8:b257 with SMTP id u8-20020a056808150800b003c362e8b257mr17460978oiw.2.1710945747404;
+        Wed, 20 Mar 2024 07:42:27 -0700 (PDT)
+Date: Wed, 20 Mar 2024 10:42:24 -0400
+From: Peter Xu <peterx@redhat.com>
+To: =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Alex Williamson <alex.williamson@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Fabiano Rosas <farosas@suse.de>, Avihai Horon <avihaih@nvidia.com>,
+	Markus Armbruster <armbru@redhat.com>,
+	Prasad Pandit <pjp@fedoraproject.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH for-9.1 v5 09/14] memory: Add Error** argument to
+ .log_global_start() handler
+Message-ID: <Zfr10JG2dTChsLVj@x1n>
+References: <20240320064911.545001-1-clg@redhat.com>
+ <20240320064911.545001-10-clg@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/vcpu: relax VCPUOP_initialise restriction for non-PV
- vCPUs
-Content-Language: en-GB
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20240320135720.68894-1-roger.pau@citrix.com>
- <1304a0d2-ff17-4823-9d31-c32eb7b79f30@citrix.com> <ZfryIBR6RECujayD@macbook>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ZfryIBR6RECujayD@macbook>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20240320064911.545001-10-clg@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-On 20/03/2024 2:26 pm, Roger Pau Monné wrote:
-> On Wed, Mar 20, 2024 at 02:06:27PM +0000, Andrew Cooper wrote:
->> On 20/03/2024 1:57 pm, Roger Pau Monne wrote:
->>> There's no reason to force HVM guests to have a valid vcpu_info area when
->>> initializing a vCPU, as the vCPU can also be brought online using the local
->>> APIC, and on that path there's no requirement for vcpu_info to be setup ahead
->>> of the bring up.  Note an HVM vCPU can operate normally without making use of
->>> vcpu_info.
->>>
->>> Restrict the check against dummy_vcpu_info to only apply to PV guests.
->>>
->>> Fixes: 192df6f9122d ('x86: allow HVM guests to use hypercalls to bring up vCPUs')
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> Thanks for looking into this.  But, do we actually need to force this on
->> PV either?
-> Possibly, having now taken a look at the users it does seem they could
-> cope with unpopulated vcpu_info_area.
->
-> Part of my understanding was that this was some kind of courtesy to PV
-> guests in order to prevent starting them without a vcpu_info, which
-> strictly speaking is not mandatory, but otherwise the guest vCPU won't
-> be able to receive interrupts, not even IPIs.
+On Wed, Mar 20, 2024 at 07:49:05AM +0100, Cédric Le Goater wrote:
+> Modify all .log_global_start() handlers to take an Error** parameter
+> and return a bool. Adapt memory_global_dirty_log_start() to interrupt
+> on the first error the loop on handlers. In such case, a rollback is
+> performed to stop dirty logging on all listeners where it was
+> previously enabled.
+> 
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Anthony Perard <anthony.perard@citrix.com>
+> Cc: Paul Durrant <paul@xen.org>
+> Cc: "Michael S. Tsirkin" <mst@redhat.com>
+> Cc: Paolo Bonzini <pbonzini@redhat.com>
+> Cc: David Hildenbrand <david@redhat.com>
+> Signed-off-by: Cédric Le Goater <clg@redhat.com>
 
-That's more of a stick than a carrot... "you must set up the area of a
-CPU before you can bring it online". Except as we've seen, HVM has been
-fine all along without it.
->> The only interesting user of dummy_vcpu_info now is vcpu_info_populate()
->> which can cope with any arbitrary vCPU.
->>
->> I have a suspicion that we can (now) delete these two checks, delete the
->> dummy_vcpu_info object, and use a regular NULL pointer in
->> vcpu_info_{populate,reset}(), and in doing so, remove one of the bigger
->> pieces of PV-absurdity from Xen.
-> I was expecting this to be something we can backport.  OTOH removing
-> the check completely (or even getting rid of dummy_vcpu_info) is not
-> something that we would want to backport.
->
-> I would rather do the removal of dummy_vcpu_info as followup work.
+Reviewed-by: Peter Xu <peterx@redhat.com>
 
-I was worried about ARM with your patch, because it's spelt HVM there,
-rather than PV.
+Still one comment below:
 
-However, I'd forgotten that ARM's do_vcpu_op() filters ops down to just
-VCPUOP_register_{vcpu_info,runstate_memory_area} so VCPUOP_initialise
-isn't reachable.
+> @@ -3014,8 +3044,11 @@ static void listener_add_address_space(MemoryListener *listener,
+>          listener->begin(listener);
+>      }
+>      if (global_dirty_tracking) {
+> +        /*
+> +         * Migration has already started. Assert on any error.
 
-Therefore, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+If you won't mind, I can change this to:
 
-It also means ARM can't use any of the PHYS registration yet...
+  /*
+   * Currently only VFIO can fail log_global_start(), and it's not allowed
+   * to hotplug a VFIO device during migration, so this should never fail
+   * when invoked.  If it can start to fail in the future, we need to be
+   * able to fail the whole listener_add_address_space() and its callers.
+   */
 
-~Andrew
+Thanks,
+
+> +         */
+>          if (listener->log_global_start) {
+> -            listener->log_global_start(listener);
+> +            listener->log_global_start(listener, &error_abort);
+>          }
+>      }
+>  
+> -- 
+> 2.44.0
+> 
+
+-- 
+Peter Xu
+
 
