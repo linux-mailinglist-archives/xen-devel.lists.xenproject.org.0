@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AFA2881465
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 16:21:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695995.1086460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CA1C88149A
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 16:30:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696001.1086469 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmxkN-0002Bv-S0; Wed, 20 Mar 2024 15:20:55 +0000
+	id 1rmxtR-0004tE-N1; Wed, 20 Mar 2024 15:30:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695995.1086460; Wed, 20 Mar 2024 15:20:55 +0000
+Received: by outflank-mailman (output) from mailman id 696001.1086469; Wed, 20 Mar 2024 15:30:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmxkN-00029T-OT; Wed, 20 Mar 2024 15:20:55 +0000
-Received: by outflank-mailman (input) for mailman id 695995;
- Wed, 20 Mar 2024 15:20:54 +0000
+	id 1rmxtR-0004rS-Jg; Wed, 20 Mar 2024 15:30:17 +0000
+Received: by outflank-mailman (input) for mailman id 696001;
+ Wed, 20 Mar 2024 15:30:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FoSn=K2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rmxkM-00029L-CP
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 15:20:54 +0000
-Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
- [2607:f8b0:4864:20::f2c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LUpO=K2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rmxtQ-0004pR-33
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 15:30:16 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 70bf8469-e6cd-11ee-afdd-a90da7624cb6;
- Wed, 20 Mar 2024 16:20:53 +0100 (CET)
-Received: by mail-qv1-xf2c.google.com with SMTP id
- 6a1803df08f44-696499bd61eso189686d6.0
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 08:20:53 -0700 (PDT)
-Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- z17-20020a056214041100b0068ff8d75a90sm7993670qvx.19.2024.03.20.08.20.50
+ id bf974059-e6ce-11ee-afdd-a90da7624cb6;
+ Wed, 20 Mar 2024 16:30:14 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-568a53d2ce0so8646401a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 08:30:14 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ g14-20020a170906198e00b00a46d049ff63sm2795901ejd.21.2024.03.20.08.30.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Mar 2024 08:20:51 -0700 (PDT)
+ Wed, 20 Mar 2024 08:30:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +45,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70bf8469-e6cd-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: bf974059-e6ce-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710948052; x=1711552852; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710948614; x=1711553414; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=vOTF6kZ6FBZD7tJjnyTBwctBC1Fk5qrha5m3WONRLsY=;
-        b=tOHkJk/25oHwluShufOOseob1bwId5MOXuE1tPZd95uEFOm8dcxBW3wDeQNRvW9/Dd
-         l/A3Jkx0ZnfEy6Znw+CSvHyFTgNxrZDWX0UXLph69fDjJheBo1vWJ9UmtF9W/jMpMs/X
-         DwxRUnImKqjxNTGoz57bcluzu0AqSQxfTxJyM=
+        bh=VApuDQqrgJvlwg9vBixJseS5JxGZrA4GOg7tCwIYp50=;
+        b=N5vTfkdBEqO0/UmaQI43YE2msaKEgawKsBWBMmiynCgRSwB4k62WK6OBxQBGwHRcYG
+         /xkR5BXg0lvPWW++UCcuSbeVbu+9sUAHISLt8iJLnERdlsHAXH9aBheT6ycmoqjaAGlp
+         +sYkQ6j3LGv4xBmN4guDdK+uBYkkkwDADezKssDEJME+Qk6fO74EV/P5zkkC39FOuECH
+         E8LxtslbDB4Ugs+whm4MmZTc3z0mXBH1OIAdjaoDtOtt5Mv8VOnRahXy60oU15yXtBbL
+         x2kkLRAJUJ9P6iTaM0gt0dOSnEyy1O3VYyEjum1yQ3aWc0ZlrZwaNcP6PQStc3IO7wXt
+         cCbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710948052; x=1711552852;
+        d=1e100.net; s=20230601; t=1710948614; x=1711553414;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vOTF6kZ6FBZD7tJjnyTBwctBC1Fk5qrha5m3WONRLsY=;
-        b=Kuov6weloAxHexOrM5wXsf8f4ndUlJ/rtyUH40ArIxTM4GLzr9ya7VwPvsGAkb9YoC
-         iRL2LGHDomhr0HL9JalTWSSLPQpraK/cvKypIXijIoriSb0B4Si/La4aOqkf2q+y/fnt
-         wbt5AAX8E/H2aVgwBFenRMp5zv0vvkul8k3SWpBKTXpAnf4ghtzXx9Xk/eeGY+uAWtnk
-         UAOhn9v7+dYAKAY599L1S7Bk/hEEOifyqx6/5VWl5Gw7ZhO6l9W1NlI1gYWcDDVgD7cy
-         PyLsvOloDAH6tWEwNo/1UCKjIe/StLptf72t0kMv7mFYRPNn7cNo4aAfPYJkwXfZFD/R
-         FaKg==
-X-Forwarded-Encrypted: i=1; AJvYcCWh6d6Mj13JoRTp/Noh5c8G/86/xRazlj/HyrOoYzB/zycl7jlaUB2SKYjojiQk+0liHAsNTqZJ8akJAQHFpd2AD1ebhfhYSbAyzt3F67E=
-X-Gm-Message-State: AOJu0YzyLbgeRlI0OA1z3Yph8rQ46Ol0wDbCIYf79YAB7Bov23sj6MSj
-	Gwm/0NM3X1vcVhm397AnIXUuo/4rTSOYsGRNNIEj/ieliSgDbuUWJmKwIWoGBY8=
-X-Google-Smtp-Source: AGHT+IE4GloOEz89snQBSYYTt9HxFold1Das25+/WLQUyu+o/v20u8saDBzrzBs+z+S2KLgxnrV96w==
-X-Received: by 2002:a0c:dc14:0:b0:696:22ae:eb67 with SMTP id s20-20020a0cdc14000000b0069622aeeb67mr5462127qvk.33.1710948052418;
-        Wed, 20 Mar 2024 08:20:52 -0700 (PDT)
-Message-ID: <aec3917b-cda8-40ec-97d5-fe4ffb73c90d@citrix.com>
-Date: Wed, 20 Mar 2024 15:20:49 +0000
+        bh=VApuDQqrgJvlwg9vBixJseS5JxGZrA4GOg7tCwIYp50=;
+        b=XPM7UoDb1t7Ezlhjx6a6YxbVAfjPybmTPMJ0xPTt9qE13rdrmYbY8zhIqzZLxkWQHV
+         WLnvTXus/9lWTIJ4NXDKPDJJnoafo7V2sF7K36cVnTJ4Z5L0i86lr1XXZs+4L9qnop4/
+         yIy5cAFa+IQ8Z9SomU4ehSzkXxeTjBTs3B53YW+9IME4UbAndX0f0/7+5hmvp2cw+MsB
+         98nBpO2CdPSgjjc1p+1Da450/NohtJ94FUxcrjEKZKHBl376C6rfCNmY66bNpIP+xR5O
+         SH3KT1uHFW5pbpcxByYp+gmrMQO05HCj2VC7X21FMnM8SS5JODOR86sUeitUCpIVwjMJ
+         zbDQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXZoRWsaKXyyNJtBxxshTndiUqbWKZqCO/t74PY0HNo/S4QlH2CNj95kDneo3UqPXdWOQMU04zW6pGz1hpfZf8S7CsxOcN8ZHtivqlsboQ=
+X-Gm-Message-State: AOJu0YxWmaje9Vu5uMhvKacDAVdndXEVVQL3Vd7B9QknZbxEav7rrG+d
+	1C+iWDRRnLkR9Mhr5rxw1u6cvfDvLgzRR/nBoWpYd1GR7HiaXBvQkvtu14DOow==
+X-Google-Smtp-Source: AGHT+IFAXmqkup65W+d2WEBHewlDJCDwRawBfEuFXa3BWXr+TKrRNA2v9pUYN9Rk03v+h0Gux4aq+g==
+X-Received: by 2002:a17:906:34ca:b0:a46:1d4b:d81 with SMTP id h10-20020a17090634ca00b00a461d4b0d81mr11170474ejb.62.1710948614309;
+        Wed, 20 Mar 2024 08:30:14 -0700 (PDT)
+Message-ID: <bf7266c7-659b-4503-97b8-3458384ae299@suse.com>
+Date: Wed, 20 Mar 2024 16:30:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/vcpu: relax VCPUOP_initialise restriction for non-PV
- vCPUs
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v6 04/20] xen/asm-generic: introduce generic non-atomic
+ test_*bit()
+Content-Language: en-US
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
-References: <20240320135720.68894-1-roger.pau@citrix.com>
- <73314dc5-0145-4aa7-a3cd-23c943235392@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <73314dc5-0145-4aa7-a3cd-23c943235392@suse.com>
+References: <cover.1710517542.git.oleksii.kurochko@gmail.com>
+ <48b7dfafccc7a0ed814b5dfb0f109a0473a1b4b4.1710517542.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <48b7dfafccc7a0ed814b5dfb0f109a0473a1b4b4.1710517542.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20/03/2024 3:09 pm, Jan Beulich wrote:
-> On 20.03.2024 14:57, Roger Pau Monne wrote:
->> There's no reason to force HVM guests to have a valid vcpu_info area when
->> initializing a vCPU, as the vCPU can also be brought online using the local
->> APIC, and on that path there's no requirement for vcpu_info to be setup ahead
->> of the bring up.  Note an HVM vCPU can operate normally without making use of
->> vcpu_info.
-> While I'd agree if you started with "There's no real need to force ...", I
-> still think there is a reason: If one wants to use paravirt interfaces (i.e.
-> hypercalls), they would better do so consistently. After all there's also
-> no need to use VCPUOP_initialise, yet you're not disabling its use.
+On 15.03.2024 19:06, Oleksii Kurochko wrote:
+> The patch introduces the following generic functions:
+> * test_bit
+> * generic___test_and_set_bit
+> * generic___test_and_clear_bit
+> * generic___test_and_change_bit
+> 
+> Also, the patch introduces the following generics which are
+> used by the functions mentioned above:
+> * BITOP_BITS_PER_WORD
+> * BITOP_MASK
+> * BITOP_WORD
+> * BITOP_TYPE
+> 
+> These functions and macros can be useful for architectures
+> that don't have corresponding arch-specific instructions.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-I firmly disagree.
+First of all: How much syncing has there been versus Andrew's plans?
+I don't want to end up in the middle of two entirely different
+approaches to the same generalization goal.
 
-There are good reasons to use VCPUOP_initialise over INIT-SIPI-SIPI
-(like avoiding 16bit mode - in the case we want it here, to fix APIC_ID
-enumeration in a way that doesn't involve putting more complexity into
-HVMLoader), and forcing us to set up a useless structure before we can
-boot vCPU number 32 is just wrong.
+> --- /dev/null
+> +++ b/xen/include/asm-generic/bitops/bitops-bits.h
+> @@ -0,0 +1,21 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef _ASM_GENERIC_BITOPS_BITS_H_
+> +#define _ASM_GENERIC_BITOPS_BITS_H_
+> +
+> +#ifndef BITOP_BITS_PER_WORD
+> +#define BITOP_BITS_PER_WORD     32
+> +#endif
+> +
+> +#ifndef BITOP_MASK
+> +#define BITOP_MASK(nr)          (1U << ((nr) % BITOP_BITS_PER_WORD))
+> +#endif
+> +
+> +#ifndef BITOP_WORD
+> +#define BITOP_WORD(nr)          ((nr) / BITOP_BITS_PER_WORD)
+> +#endif
+> +
+> +#ifndef BITOP_TYPE
+> +typedef uint32_t bitops_uint_t;
+> +#endif
 
-It was dumb to design a hypercall like this in the first place for PV
-guests, and it definitely isn't OK to keep guests broken because of it.
+Is it of practical use to permit overriding of one of BITOP_TYPE and
+BITOP_BITS_PER_WORD? I think both want tying together.
 
-~Andrew
+Is it further of any use to allow overriding of BITOP_{MASK,WORD}?
+There's minimal generalization needed to allow an override of
+BITOP_TYPE, though:
+
+#define BITOP_MASK(nr)          ((bitop_uint_t)1 << ((nr) % BITOP_BITS_PER_WORD))
+
+Note that I've omitted the 's' from the typedef name - the macros
+all having no 'S', imo the type also shouldn't (or the other way
+around).
+
+> --- /dev/null
+> +++ b/xen/include/asm-generic/bitops/generic-non-atomic.h
+> @@ -0,0 +1,89 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * The file is based on Linux ( 6.4.0 ) header:
+> + *   include/asm-generic/bitops/generic-non-atomic.h
+> + * 
+> + * Only functions that can be reused in Xen were left; others were removed.
+> + * 
+> + * Also, the following changes were done:
+> + *  - it was updated the message inside #ifndef ... #endif.
+> + *  - __always_inline -> always_inline to be align with definition in
+> + *    xen/compiler.h.
+> + *  - update function prototypes from
+> + *    generic___test_and_*(unsigned long nr nr, volatile unsigned long *addr) to
+> + *    generic___test_and_*(unsigned long nr, volatile void *addr) to be
+
+What's the point of having a whopping 3 successive inner underscores?
+Which btw ...
+
+> + *    consistent with other related macros/defines.
+> + *  - convert identations from tabs to spaces.
+> + *  - inside generic__test_and_* use 'bitops_uint_t' instead of 'unsigned long'
+> + *    to be generic.
+
+... shrink to just 2 here.
+
+Oh, and there's no generic__test_bit(), but just test_bit() in a separate
+header.
+
+> + */
+> +
+> +#ifndef __ASM_GENERIC_BITOPS_GENERIC_NON_ATOMIC_H
+> +#define __ASM_GENERIC_BITOPS_GENERIC_NON_ATOMIC_H
+> +
+> +#include <xen/compiler.h>
+> +
+> +#include <asm-generic/bitops/bitops-bits.h>
+> +
+> +#ifndef XEN_BITOPS_H
+> +#error only <xen/bitops.h> can be included directly
+> +#endif
+> +
+> +/*
+> + * Generic definitions for bit operations, should not be used in regular code
+> + * directly.
+> + */
+> +
+> +/**
+> + * generic___test_and_set_bit - Set a bit and return its old value
+> + * @nr: Bit to set
+> + * @addr: Address to count from
+> + *
+> + * This operation is non-atomic and can be reordered.
+> + * If two examples of this operation race, one can appear to succeed
+> + * but actually fail.  You must protect multiple accesses with a lock.
+> + */
+> +static always_inline bool
+> +generic___test_and_set_bit(unsigned long nr, volatile void *addr)
+> +{
+> +    bitops_uint_t mask = BITOP_MASK(nr);
+> +    bitops_uint_t *p = ((bitops_uint_t *)addr) + BITOP_WORD(nr);
+
+If you cast away the volatile here, what's the point of having it in
+the parameter declaration? Also such a cast doesn't need an outer
+pair of parentheses.
+
+> +    bitops_uint_t old = *p;
+> +
+> +    *p = old | mask;
+> +    return (old & mask) != 0;
+
+Minor: The function returning bool, the "!= 0" (and then also the
+parentheses) could be omitted.
+
+> --- /dev/null
+> +++ b/xen/include/asm-generic/bitops/test-bit.h
+> @@ -0,0 +1,18 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef _ASM_GENERIC_BITOPS_TESTBIT_H_
+> +#define _ASM_GENERIC_BITOPS_TESTBIT_H_
+> +
+> +#include <asm-generic/bitops/bitops-bits.h>
+> +
+> +/**
+> + * test_bit - Determine whether a bit is set
+> + * @nr: bit number to test
+> + * @addr: Address to start counting from
+> + */
+> +static inline int test_bit(int nr, const volatile void *addr)
+> +{
+> +    const volatile bitops_uint_t *p = addr;
+> +    return 1 & (p[BITOP_WORD(nr)] >> (nr & (BITOP_BITS_PER_WORD - 1)));
+> +}
+
+Interestingly you don't lose the volatile here. Overall the way this
+is written would likely benefit the other functions too. There's no
+cast needed here and thus also not there.
+
+Jan
 
