@@ -2,41 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C75958816AF
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 18:40:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696073.1086669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27F668816B2
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 18:40:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696075.1086679 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmzus-00077R-3f; Wed, 20 Mar 2024 17:39:54 +0000
+	id 1rmzvb-0000Cs-Ds; Wed, 20 Mar 2024 17:40:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696073.1086669; Wed, 20 Mar 2024 17:39:54 +0000
+Received: by outflank-mailman (output) from mailman id 696075.1086679; Wed, 20 Mar 2024 17:40:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmzus-000756-0z; Wed, 20 Mar 2024 17:39:54 +0000
-Received: by outflank-mailman (input) for mailman id 696073;
- Wed, 20 Mar 2024 17:39:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rmzvb-00009p-9N; Wed, 20 Mar 2024 17:40:39 +0000
+Received: by outflank-mailman (input) for mailman id 696075;
+ Wed, 20 Mar 2024 17:40:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Z2Qb=K2=redhat.com=peterx@srs-se1.protection.inumbo.net>)
- id 1rmzuq-00074i-FW
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 17:39:52 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d9a04aab-e6e0-11ee-a1ee-f123f15fe8a2;
- Wed, 20 Mar 2024 18:39:50 +0100 (CET)
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-627-lT-piUw6Oym9JcGnVqj80A-1; Wed, 20 Mar 2024 13:39:45 -0400
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-690c19ee50bso188526d6.0
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 10:39:45 -0700 (PDT)
-Received: from x1n ([99.254.121.117]) by smtp.gmail.com with ESMTPSA id
- jn10-20020ad45dea000000b00690dd47a41csm8107560qvb.86.2024.03.20.10.39.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Mar 2024 10:39:43 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1rmzvZ-000087-Ni
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 17:40:37 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rmzvT-0003z7-Fn; Wed, 20 Mar 2024 17:40:31 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ helo=[192.168.19.64]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rmzvT-0001HT-8M; Wed, 20 Mar 2024 17:40:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,77 +39,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9a04aab-e6e0-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1710956389;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LadTrEs32q6JuiUng9QgE0IesXnTjqGpv9qfMYEDVbA=;
-	b=a5zRqAUfCmKNEazpk4etbOhASu7XmFuKj1DkCSaE+/+wiYCXIFkxN2g7+xA/a9aXTQOA2B
-	2YkYPdl/UrDHRkiqm3/K4nZn2JvKza0b+jSnE2LIFzYKBQHj3Nbudsuj1Y0ATdSwyteqpP
-	z5JEF23rVsdxkpv7prsbFKDVX2t1nVg=
-X-MC-Unique: lT-piUw6Oym9JcGnVqj80A-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710956385; x=1711561185;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LadTrEs32q6JuiUng9QgE0IesXnTjqGpv9qfMYEDVbA=;
-        b=BhTIr3Bm7xpeZ416C8q/Cs+6vIjwwwpDZH9BU/0yIl03CSONBovmq2UH4JZnl6CkLi
-         MY+JEFsgkqLzjOjkghMnFB/GZ/izJcyvLdt9D0baNaTBME8Og1r5B8xNg2uB8Y/ontT5
-         tzPJwH61p46BYhLf9eorncYhWv5DN/7wiY7XhsPQb3saGtv//bdmfPyh5WtQKygpGZX3
-         ufXOZxYC3MhgyQ8PrEozTqDtVOIw9rLVuaWxMIJFXmumuk4p2Z8E7nyYj4ZxoxTC4GMe
-         kDH1z/wHGSgKMCY3b1KbaYMLgb8mukJMDWFrSYXS+bqWpRDr804Ahs1cYvsQNu9JTm2o
-         nVfw==
-X-Forwarded-Encrypted: i=1; AJvYcCWuw6MAmFb56hazRDDgDhjLZG5SgBAXl84pMWPmux8ZpaYXILvHEzqQh0PInfJ6/Blwk5v+M6Ff+nLOcgskO9tmW77244DTGDz3jgciq24=
-X-Gm-Message-State: AOJu0YzEBRwSPhbyX1DPSFXGoxN9xU6q6ufaWm7BTEfMPbK+NWkUeNCL
-	Yt/+IKexkLWxNxYVmvCrBNU9op3V9y8p7aqRAeYLExUUuTnndz1noUZEpGPnoFd1dltIqhwZXEB
-	o/wrIVQcY+EdSKfCawLpWWK7uV/d6ZrFYGNPNM0WpU8g4V6J7Z0MsrSH/RyppDpjW
-X-Received: by 2002:a05:6214:3f85:b0:690:9db6:f410 with SMTP id ow5-20020a0562143f8500b006909db6f410mr6764867qvb.3.1710956384655;
-        Wed, 20 Mar 2024 10:39:44 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFLZ2jRy2HZB5vFRERmbsQfn7UkuWfj7vRUfuSEG/rE4h7BJgEFptrr/T99J5Y/I3ZjhMxHSg==
-X-Received: by 2002:a05:6214:3f85:b0:690:9db6:f410 with SMTP id ow5-20020a0562143f8500b006909db6f410mr6764835qvb.3.1710956384209;
-        Wed, 20 Mar 2024 10:39:44 -0700 (PDT)
-Date: Wed, 20 Mar 2024 13:39:41 -0400
-From: Peter Xu <peterx@redhat.com>
-To: =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>
-Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	David Hildenbrand <david@redhat.com>,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Fabiano Rosas <farosas@suse.de>, Avihai Horon <avihaih@nvidia.com>,
-	Markus Armbruster <armbru@redhat.com>,
-	Prasad Pandit <pjp@fedoraproject.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH for-9.1 v5 09/14] memory: Add Error** argument to
- .log_global_start() handler
-Message-ID: <ZfsfXX48CEV5IfiJ@x1n>
-References: <20240320064911.545001-1-clg@redhat.com>
- <20240320064911.545001-10-clg@redhat.com>
- <Zfr10JG2dTChsLVj@x1n>
- <d58d5134-dbfb-4c07-956a-5e8f3e230798@redhat.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ulaIoR54LBoqpK4Z4anTPfx7+lnGyqwCjrbO3ABQAmg=; b=uZUz4BczMcqgUnhfS/5IG0CsHw
+	R4RzDPe+/pbb+iW8YtxFQZeVDk9z5VPwh0y6cK91g9ieycDhBgKgW1T1WpXHbNVIt6qo3GU6U0FPL
+	Qtk+xRpkIGbVLdjx5jyHO1/RNWibzTMgDLZ5cX3G/745eu8f5hiBd9PaA30Dur9hLxyg=;
+Message-ID: <849f3f5a-b960-444a-a10e-1f2df36c22a7@xen.org>
+Date: Wed, 20 Mar 2024 17:40:29 +0000
 MIME-Version: 1.0
-In-Reply-To: <d58d5134-dbfb-4c07-956a-5e8f3e230798@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] xen/arm: Add imx8q{m,x} platform glue
+Content-Language: en-GB
+To: John Ernberg <john.ernberg@actia.se>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Peng Fan <peng.fan@nxp.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jonas Blixt <jonas.blixt@actia.se>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20240131114952.305805-1-john.ernberg@actia.se>
+ <20240131114952.305805-2-john.ernberg@actia.se>
+ <a2f726f5-df4c-4d15-90af-7d59c0f1f513@xen.org>
+ <494d4961-ad8a-4d1d-aaa6-d1bfb9d6a137@actia.se>
+ <167f0c7a-e037-446c-82f8-2584e35a7af1@xen.org>
+ <a265ea2d-9b5f-4726-9395-448b1b669839@actia.se>
+ <012b5f83-2f9b-4477-965e-07b8506c0052@xen.org>
+ <DU0PR04MB94170CB1F77E3D594A6D0E9488402@DU0PR04MB9417.eurprd04.prod.outlook.com>
+ <5a0c8f09-4f01-45e9-892c-86342c0d0ec5@xen.org>
+ <08ae764c-3490-4dd1-ab70-7a855a98d16d@actia.se>
+ <911ec1bb-3733-4f37-839e-673a88e408ff@actia.se>
+ <ab61278a-f3f1-41de-a0b2-eca6f19be103@xen.org>
+ <848794f3-a337-49d9-84db-a969970f071b@actia.se>
+ <48038c7f-d7cd-4100-a41b-8042bcb93208@xen.org>
+ <967020E7-3D03-416A-8BFC-6F4E4BD9D7B5@arm.com>
+ <c17e0eeb-b679-4685-9ae9-6662c2035500@actia.se>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <c17e0eeb-b679-4685-9ae9-6662c2035500@actia.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Mar 20, 2024 at 05:15:06PM +0100, Cédric Le Goater wrote:
-> Sure, or I will in a v6. Markus had a comment on 8/14.
+Hi John,
 
-Yeah, I can handle both if they're the only ones.  Thanks,
+On 20/03/2024 16:24, John Ernberg wrote:
+> Hi Bertrand,
+> 
+> On 3/13/24 11:07, Bertrand Marquis wrote:
+>> Hi,
+>>
+>>> On 8 Mar 2024, at 15:04, Julien Grall <julien@xen.org> wrote:
+>>>
+>>> Hi John,
+>>>
+>>> Thank you for the reply.
+>>>
+>>> On 08/03/2024 13:40, John Ernberg wrote:
+>>>> On 3/7/24 00:07, Julien Grall wrote:
+>>>>>    > Ping on the watchdog discussion bits.
+>>>>>
+>>>>> Sorry for the late reply.
+>>>>>
+>>>>> On 06/03/2024 13:13, John Ernberg wrote:
+>>>>>> On 2/9/24 14:14, John Ernberg wrote:
+>>>>>>>
+>>>>>>>>       * IMX_SIP_TIMER_*:  This seems to be related to the watchdog.
+>>>>>>>> Shouldn't dom0 rely on the watchdog provided by Xen instead? So those
+>>>>>>>> call will be used by Xen.
+>>>>>>>
+>>>>>>> That is indeed a watchdog SIP, and also for setting the SoC internal RTC
+>>>>>>> if it is being used.
+>>>>>>>
+>>>>>>> I looked around if there was previous discussion and only really
+>>>>>>> found [3].
+>>>>>>> Is the xen/xen/include/watchdog.h header meant to be for this kind of
+>>>>>>> watchdog support or is that more for the VM watchdog? Looking at the x86
+>>>>>>> ACPI NMI watchdog it seems like the former, but I have never worked with
+>>>>>>> x86 nor ACPI.
+>>>>>
+>>>>> include/watchdog.h contains helper to configure the watchdog for Xen. We
+>>>>> also have per-VM watchdog and this is configured by the hypercall
+>>>>> SCHEDOP_watchdog.
+>>>>>
+>>>>>>>
+>>>>>>> Currently forwarding it to Dom0 has not caused any watchdog resets with
+>>>>>>> our watchdog timeout settings, our specific Dom0 setup and VM count.
+>>>>>
+>>>>> IIUC, the SMC API for the watchdog would be similar to the ACPI NMI
+>>>>> watchdog. So I think it would make more sense if this is not exposed to
+>>>>> dom0 (even if Xen is doing nothing with it).
+>>>>>
+>>>>> Can you try to hide the SMCs and check if dom0 still behave properly?
+>>>>>
+>>>>> Cheers,
+>>>>>
+>>>> This SMC manages a hardware watchdog, if it's not pinged within a
+>>>> specific interval the entire board resets.
+>>>
+>>> Do you know what's the default interval? Is it large enough so Xen + dom0 can boot (at least up to when the watchdog driver is initialized)?
+>>>
+>>>> If I block the SMCs the watchdog driver in Dom0 will fail to ping the
+>>>> watchdog, triggering a board reset because the system looks to have
+>>>> become unresponsive. The reason this patch set started is because we
+>>>> couldn't ping the watchdog when running with Xen.
+>>>> In our specific system the bootloader enables the watchdog as early as
+>>>> possible so that we can get watchdog protection for as much of the boot
+>>>> as we possibly can.
+>>>> So, if we are to block the SMC from Dom0, then Xen needs to take over
+>>>> the pinging. It could be implemented similarly to the NMI watchdog,
+>>>> except that the system will reset if the ping is missed rather than
+>>>> backtrace.
+>>>> It would also mean that Xen will get a whole watchdog driver-category
+>>>> due to the watchdog being vendor and sometimes even SoC specific when it
+>>>> comes to Arm.
+>>>> My understanding of the domain watchdog code is that today the domain
+>>>> needs to call SCHEDOP_watchdog at least once to start the watchdog
+>>>> timer. Since watchdog protection through the whole boot process is
+>>>> desirable we'd need some core changes, such as an option to start the
+>>>> domain watchdog on init. >
+>>>> It's quite a big change to make
+>>>
+>>> For clarification, above you seem to mention two changes:
+>>>
+>>> 1) Allow Xen to use the HW watchdog
+>>> 2) Allow the domain to use the watchdog early
+>>>
+>>> I am assuming by big change, you are referring to 2?
+>>>
+>>> , while I am not against doing it if it
+>>>> makes sense, I now wonder if Xen should manage hardware watchdogs.
+>>>> Looking at the domain watchdog code it looks like if a domain does not
+>>>> get enough execution time, the watchdog will not be pinged enough and
+>>>> the guest will be reset. So either watchdog approach requires Dom0 to
+>>>> get execution time. Dom0 also needs to service all the PV backends it's
+>>>> responsible for. I'm not sure it's valuable to add another layer of
+>>>> watchdog for this scenario as the end result (checking that the entire
+>>>> system works) is achieved without it as well.
+>>>> So, before I try to find the time to make a proposal for moving the
+>>>> hardware watchdog bit to Xen, do we really want it?
+>>>
+>>> Thanks for the details. Given that the watchdog is enabled by the bootloader, I think we want Xen to drive the watchdog for two reasons:
+>>> 1) In true dom0less environment, dom0 would not exist
+>>> 2) You are relying on Xen + Dom0 to boot (or at least enough to get the watchdog working) within the watchdog interval.
+>>
+>> Definitely we need to consider the case where there is no Dom0.
+>>
+>> I think there are in fact 3 different use cases here:
+>> - watchdog fully driven in a domain (dom0 or another): would work if it is expected
+>>     that Xen + Domain boot time is under the watchdog initial refresh rate. I think this
+>>     could make sense on some applications where your system depends on a specific
+>>     domain to be properly booted to work. This would require an initial refresh time
+>>     configurable in the boot loader probably.
+> 
+> This is our use-case. ^
+> 
+> Our dom0 is monitoring and managing the other domains in our system.
+> Without dom0 working the system isn't really working as a whole.
+> 
+> @Julien: Would you be ok with the patch set continuing in the direction
+> of the
+> original proposal, letting another party (or me at a later time) implement
+> the fully driven by Xen option?
+I am concerned about this particular point from Bertrand:
+
+"would work if it is expected that Xen + Domain boot time is under the 
+watchdog initial refresh rate."
+
+How will a user be able to figure out how to initially configure the 
+watchdog? Is this something you can easily configure in the bootloader 
+at runtime?
+
+
+Overall, I am not for this approach at least in the current status. I 
+would be more inclined if there are some documentations explaining how 
+this is supposed to be configured on NXP, so others can use the code.
+
+Anyway, this is why we have multiple Arm maintainers for this kind of 
+situation. If they other agrees with you, then they can ack the patch 
+and this can be merged.
+
+Cheers,
 
 -- 
-Peter Xu
-
+Julien Grall
 
