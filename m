@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E84C880FCB
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 11:30:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695845.1086042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66DF5881020
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 11:42:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695849.1086052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmtCn-00015H-2c; Wed, 20 Mar 2024 10:29:57 +0000
+	id 1rmtOK-000404-4k; Wed, 20 Mar 2024 10:41:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695845.1086042; Wed, 20 Mar 2024 10:29:57 +0000
+Received: by outflank-mailman (output) from mailman id 695849.1086052; Wed, 20 Mar 2024 10:41:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmtCm-000124-Vk; Wed, 20 Mar 2024 10:29:56 +0000
-Received: by outflank-mailman (input) for mailman id 695845;
- Wed, 20 Mar 2024 10:29:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rmtOK-0003xN-1E; Wed, 20 Mar 2024 10:41:52 +0000
+Received: by outflank-mailman (input) for mailman id 695849;
+ Wed, 20 Mar 2024 10:41:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=x+RR=K2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rmtCl-00011y-T3
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 10:29:55 +0000
-Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
- [2607:f8b0:4864:20::f36])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca686045-e6a4-11ee-afdd-a90da7624cb6;
- Wed, 20 Mar 2024 11:29:54 +0100 (CET)
-Received: by mail-qv1-xf36.google.com with SMTP id
- 6a1803df08f44-6962950c6bfso18391896d6.2
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 03:29:54 -0700 (PDT)
-Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
- ff7-20020a0562140bc700b00691823f0980sm6058550qvb.0.2024.03.20.03.29.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Mar 2024 03:29:53 -0700 (PDT)
+ <SRS0=wxfT=K2=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rmtOI-0003xG-7B
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 10:41:50 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2414::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 72de5813-e6a6-11ee-a1ee-f123f15fe8a2;
+ Wed, 20 Mar 2024 11:41:47 +0100 (CET)
+Received: from MN2PR18CA0005.namprd18.prod.outlook.com (2603:10b6:208:23c::10)
+ by CY8PR12MB7635.namprd12.prod.outlook.com (2603:10b6:930:9e::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.31; Wed, 20 Mar
+ 2024 10:41:44 +0000
+Received: from BN3PEPF0000B078.namprd04.prod.outlook.com
+ (2603:10b6:208:23c:cafe::e) by MN2PR18CA0005.outlook.office365.com
+ (2603:10b6:208:23c::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.28 via Frontend
+ Transport; Wed, 20 Mar 2024 10:41:44 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN3PEPF0000B078.mail.protection.outlook.com (10.167.243.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7409.10 via Frontend Transport; Wed, 20 Mar 2024 10:41:43 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 20 Mar
+ 2024 05:41:43 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 20 Mar
+ 2024 03:41:43 -0700
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Wed, 20 Mar 2024 05:41:42 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,216 +63,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca686045-e6a4-11ee-afdd-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710930593; x=1711535393; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=1hmVZ4+5+0fNwvZlaQM/m0KtR/kGoLvMMhEnvLzTk54=;
-        b=WS0dYfDKePmCjhdzmuxwj+MCniCvznJaA9WjE293Flr3uVrdMUuQScu3I1vzBksCjm
-         mhGN4L936i2KPxdvpebwUa++4DwAD+LrcBjlZY9ExCOyXFdA/Dwv8J7SGwqSQfv0d/rS
-         1F80G+/sYtpJFy9gCNvcykEVef+IPy9MfkVKM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710930593; x=1711535393;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1hmVZ4+5+0fNwvZlaQM/m0KtR/kGoLvMMhEnvLzTk54=;
-        b=J81ghsP8vGdNwOxz5ARYLLv26QdCZBrlsJ4yeRgHPZBUxBNVlcZPd28dfHp91wj2/N
-         6MdWEZ1MbNgIT59ai9xeHTrxCAq0K7fY3nRjPScMecfqIp6vsHK2Guf8Yxikt5PhghJ7
-         TZxlV/AiDlxyMuNfQ34jZV260sOlJHMrrIT7C2EjyirzE7eFf16kfDFkYKiQH8rhLJ8d
-         aXX9J+SSG9pAEYEvFBrq9prJhv/ZBng5meBJKw3NL/xZ6OYTINE99jBI5SJhYLRHQo9H
-         iA2QIGHYOlRGKaXCVg4tGs4pPBCRacCCTT6dKoKnAuNpgSgRyNCFypWqDQzNhW1bbe2+
-         sXaw==
-X-Gm-Message-State: AOJu0YyFwhnYeW20Wdb63L7IfciJA+9aaSFbfQBsD+ES27Kh9PpLvBIJ
-	hZHQyEOFZQNn/3z6i/NKGz0Ohq8WVxOD2gyemWTjGgW0W1pmUvyP/SBwDAyr2w8=
-X-Google-Smtp-Source: AGHT+IG51sWuWUQEL848x8erv1rYW1ylxELTIBf9Ry4ICLJktKO0EHkaR852yxGzVhNd2U3A+Q9IoA==
-X-Received: by 2002:a05:6214:8d2:b0:691:51d4:c40c with SMTP id da18-20020a05621408d200b0069151d4c40cmr16417177qvb.18.1710930593357;
-        Wed, 20 Mar 2024 03:29:53 -0700 (PDT)
-Date: Wed, 20 Mar 2024 11:29:50 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 6/6] xen/x86: Add topology generator
-Message-ID: <Zfq6np1--SxKGE30@macbook>
-References: <20240109153834.4192-1-alejandro.vallejo@cloud.com>
- <20240109153834.4192-7-alejandro.vallejo@cloud.com>
+X-Inumbo-ID: 72de5813-e6a6-11ee-a1ee-f123f15fe8a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lXSmWGDpHWVU4QTneCknMpgRneWlzchX+EXwawKACnDViuF/0GfLeI9cusFkr3MmPABT+2XxYDJaICk51SZFR0GjFMq1cbSn1kqaP57XsneH2+Hrl5jeZX5/j6MOVPgeensebTUa2ctbUeDLAjZFpBm2QPYOz+9mjsi5BinI7BEKxJRn2GnXIrqyD6uNhU4Bnjb+k8sFnXAwden3DjcdCN1k+AGwH8VvmDt0PUbeItroQ+7Zw8RVcuXPvWmpFYSW/oyhkdXJmlizetubLHmaZHomPuYz4TEXxw2kZkAG28jEdtr0BaNVJxSFqtcd29yE1fciq9ziytrf/+BQsJH9BQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ahkl+so/vWN4QFLNrbnQu94+YQ9o6SWrby7EpEPkVQA=;
+ b=EuQi8uWEmdXww4xwwNbBdOftpAAhkEo8wrJw91DPXCbxqvt8GXn7N/PXyI9IHzLc5/Nu5s/l01nSsSCKgm8dpXRamEd8l0fnNH+knhZ9QF6p3Ozfmc2ZL1bg2m6Pk1//wq3VmQAM78btVMfYs4+W6rBBeYKzMztA3EcFVmIZDpinCiSOXi3AyLyc73Y04qF5SurudUZ0NvgukPbuXkUsusfz9XNw55bw6otNFnLh8ukQwVObFF7Ypbo+ZLnVNBFtV2yxhuYpebMQG/t3vw8OLUzjldL6MDeRZsNRNxozMlJ5BiwJAJ14Z6On2RfsoF+5V1dUZtdVDTovAhE9sDGb3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ahkl+so/vWN4QFLNrbnQu94+YQ9o6SWrby7EpEPkVQA=;
+ b=zBnLxSAEe89KikQ+/pi6E5auYwi85DSCcAp6Z+QKJrni2JrlTvGn5YdSLznsTdrknR9cQFogEuxBRlOFlYVFirmXmqWTIwC70erjA249f9XCtLZFoK23fRn188qiUxX1vXmI+K3CXjY31fyJbpTLfgPyn3viAxno0xsJuPvHiMs=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <0254141f-7751-41e0-a460-343cc500bc47@amd.com>
+Date: Wed, 20 Mar 2024 11:41:36 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20240109153834.4192-7-alejandro.vallejo@cloud.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/11] xen/arm: Introduce helper for static memory pages
+Content-Language: en-US
+To: Luca Fancellu <luca.fancellu@arm.com>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>
+References: <20240312130331.78418-1-luca.fancellu@arm.com>
+ <20240312130331.78418-6-luca.fancellu@arm.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240312130331.78418-6-luca.fancellu@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|CY8PR12MB7635:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b7993ac-7c4d-4083-8506-08dc48ca55d0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	QBXRbuluRXh7Y/K+mvC2kdgWPQiv00TozZYqGbxi9TRSPceJiVfKSh1yBKDKv6IfBoU6/7jo1pENXC/LNALRo4g8ZQXR98+4XV74XZgyZ+F+aymJUz46VosxgFQ8AhYhHIe0NrpfHBdYnq3dCTplII9IfhfCcrq4xKUOLFpXCCVlz9QeSs8pTHYujR7qIc1VufntQ1eXT2sFXKpYZRTTY0zO4jbPNXaVXXhMk0+avzcdaIqQAxWwed8TI48J34HKkUAdAzxYw34EmvZ2LpzONbuviQ4UTVcdGzt3gKgAPt59YzsOQbVi7Q5W8ED+Lj8PSDSj2/4vC+Dxx7ImVZMWgW/W7akZLAFW21bnJuZOq9GiOL40CQv/P62u757g87pJACleF0an3qyBZOn+z5XdQ9svkDVui1M17II93oahEPAGfhDrrzqnNuuwKIOlYRCJ/aZZQIWvPynPhSPgT0bJMzL++lKB0JpHUCbmCO568QrhIx4+pmcewVYX7jpyFZJ9yQ/fHb3hhRxb9khBBqrcl18D+5vsrMTh1hx3fXrrqqZaNxTGs8nWUmU/drd5PCKu5PKeS52tMDWHJVV9ri5xdrMnToo7hwvL8XVQbK8mFyGv+rpG+oQ+Gy44WUY3ze95RvibKWKKNQb+9soSps+vj2F+KjbEPLszDNWCs7QIHbPQ34q869W790AOnRbLWrxZcFiekbdQ0Au+tWgq9bgTQzISa4zAI0AgvVsYxPp3pjoh8rycwqAxpskjtu2/S4xv
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(376005)(82310400014)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 10:41:43.9777
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b7993ac-7c4d-4083-8506-08dc48ca55d0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B078.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7635
 
-On Tue, Jan 09, 2024 at 03:38:34PM +0000, Alejandro Vallejo wrote:
-> This allows toolstack to synthesise sensible topologies for guests. In
-> particular, this patch causes x2APIC IDs to be packed according to the
-> topology now exposed to the guests on leaf 0xb.
+Hi Luca,
+
+On 12/03/2024 14:03, Luca Fancellu wrote:
 > 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> 
+> Introduce a new helper function in the static-memory module
+> that can be called to manage static memory banks, this is
+> done to reuse the code when other modules would like to
+> manage static memory banks that are not part of the
+> reserved_mem structure.
+The placement of this patch in a series is a bit strange given no use of init_staticmem_bank()
+in the subsequent patch. I would move it right before patch #8.
+
+Also, you could mention that this is because the information about shared memory regions
+will no longer be stored in reserved_mem.
+
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 > ---
->  tools/include/xenguest.h        |  15 ++++
->  tools/libs/guest/xg_cpuid_x86.c | 144 ++++++++++++++++++++------------
->  xen/arch/x86/cpu-policy.c       |   6 +-
->  3 files changed, 107 insertions(+), 58 deletions(-)
+>  xen/arch/arm/include/asm/static-memory.h | 12 ++++++++++++
+>  xen/arch/arm/static-memory.c             | 12 +-----------
+>  2 files changed, 13 insertions(+), 11 deletions(-)
 > 
-> diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
-> index 4e9078fdee..f0043c559b 100644
-> --- a/tools/include/xenguest.h
-> +++ b/tools/include/xenguest.h
-> @@ -843,5 +843,20 @@ enum xc_static_cpu_featuremask {
->      XC_FEATUREMASK_HVM_HAP_DEF,
->  };
->  const uint32_t *xc_get_static_cpu_featuremask(enum xc_static_cpu_featuremask);
-> +
-> +/**
-> + * Synthesise topology information in `p` given high-level constraints
-> + *
-> + * Topology is given in various fields accross several leaves, some of
-> + * which are vendor-specific. This function uses the policy itself to
-> + * derive such leaves from threads/core and cores/package.
-> + *
-> + * @param p                   CPU policy of the domain.
-> + * @param threads_per_core    threads/core. Doesn't need to be a power of 2.
-> + * @param cores_per_package   cores/package. Doesn't need to be a power of 2.
-> + */
-> +void xc_topo_from_parts(struct cpu_policy *p,
-> +                        uint32_t threads_per_core, uint32_t cores_per_pkg);
-
-I think you can use plain unsigned int here.
-
-> +
->  #endif /* __i386__ || __x86_64__ */
->  #endif /* XENGUEST_H */
-> diff --git a/tools/libs/guest/xg_cpuid_x86.c b/tools/libs/guest/xg_cpuid_x86.c
-> index 4453178100..7a622721be 100644
-> --- a/tools/libs/guest/xg_cpuid_x86.c
-> +++ b/tools/libs/guest/xg_cpuid_x86.c
-> @@ -584,7 +584,7 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
->      bool hvm;
->      xc_domaininfo_t di;
->      struct xc_cpu_policy *p = xc_cpu_policy_init();
-> -    unsigned int i, nr_leaves = ARRAY_SIZE(p->leaves), nr_msrs = 0;
-> +    unsigned int nr_leaves = ARRAY_SIZE(p->leaves), nr_msrs = 0;
->      uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
->      uint32_t host_featureset[FEATURESET_NR_ENTRIES] = {};
->      uint32_t len = ARRAY_SIZE(host_featureset);
-> @@ -727,60 +727,8 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
->      }
->      else
->      {
-> -        /*
-> -         * Topology for HVM guests is entirely controlled by Xen.  For now, we
-> -         * hardcode APIC_ID = vcpu_id * 2 to give the illusion of no SMT.
-> -         */
-> -        p->policy.basic.htt = true;
-> -        p->policy.extd.cmp_legacy = false;
-> -
-> -        /*
-> -         * Leaf 1 EBX[23:16] is Maximum Logical Processors Per Package.
-> -         * Update to reflect vLAPIC_ID = vCPU_ID * 2, but make sure to avoid
-> -         * overflow.
-> -         */
-> -        if ( !p->policy.basic.lppp )
-> -            p->policy.basic.lppp = 2;
-> -        else if ( !(p->policy.basic.lppp & 0x80) )
-> -            p->policy.basic.lppp *= 2;
-> -
-> -        switch ( p->policy.x86_vendor )
-> -        {
-> -        case X86_VENDOR_INTEL:
-> -            for ( i = 0; (p->policy.cache.subleaf[i].type &&
-> -                          i < ARRAY_SIZE(p->policy.cache.raw)); ++i )
-> -            {
-> -                p->policy.cache.subleaf[i].cores_per_package =
-> -                    (p->policy.cache.subleaf[i].cores_per_package << 1) | 1;
-> -                p->policy.cache.subleaf[i].threads_per_cache = 0;
-> -            }
-> -            break;
-> -
-> -        case X86_VENDOR_AMD:
-> -        case X86_VENDOR_HYGON:
-> -            /*
-> -             * Leaf 0x80000008 ECX[15:12] is ApicIdCoreSize.
-> -             * Leaf 0x80000008 ECX[7:0] is NumberOfCores (minus one).
-> -             * Update to reflect vLAPIC_ID = vCPU_ID * 2.  But avoid
-> -             * - overflow,
-> -             * - going out of sync with leaf 1 EBX[23:16],
-> -             * - incrementing ApicIdCoreSize when it's zero (which changes the
-> -             *   meaning of bits 7:0).
-> -             *
-> -             * UPDATE: I addition to avoiding overflow, some
-> -             * proprietary operating systems have trouble with
-> -             * apic_id_size values greater than 7.  Limit the value to
-> -             * 7 for now.
-> -             */
-> -            if ( p->policy.extd.nc < 0x7f )
-> -            {
-> -                if ( p->policy.extd.apic_id_size != 0 && p->policy.extd.apic_id_size < 0x7 )
-> -                    p->policy.extd.apic_id_size++;
-> -
-> -                p->policy.extd.nc = (p->policy.extd.nc << 1) | 1;
-> -            }
-> -            break;
-> -        }
-> +        /* TODO: Expose the ability to choose a custom topology for HVM/PVH */
-> +        xc_topo_from_parts(&p->policy, 1, di.max_vcpu_id + 1);
-
-It would be better if this was split into two commits.  First commit
-would move the code as-is into xc_topo_from_parts() without any
-changes.  Second patch would do the functional changes.  That was it's
-far easier to spot what are the relevant changes vs pure code
-movement.
-
->      }
->  
->      nr_leaves = ARRAY_SIZE(p->leaves);
-> @@ -1028,3 +976,89 @@ bool xc_cpu_policy_is_compatible(xc_interface *xch, xc_cpu_policy_t *host,
->  
->      return false;
->  }
-> +
-> +static uint32_t order(uint32_t n)
+> diff --git a/xen/arch/arm/include/asm/static-memory.h b/xen/arch/arm/include/asm/static-memory.h
+> index 3e3efd70c38d..665d4df50eda 100644
+> --- a/xen/arch/arm/include/asm/static-memory.h
+> +++ b/xen/arch/arm/include/asm/static-memory.h
+> @@ -7,6 +7,18 @@
+> 
+>  #ifdef CONFIG_STATIC_MEMORY
+> 
+> +static inline void init_staticmem_bank(const struct membank *bank)
 > +{
-> +    return 32 - __builtin_clz(n);
-> +}
-> +
-> +void xc_topo_from_parts(struct cpu_policy *p,
-> +                        uint32_t threads_per_core, uint32_t cores_per_pkg)
-> +{
-> +    uint32_t threads_per_pkg = threads_per_core * cores_per_pkg;
-> +    uint32_t apic_id_size;
-> +
-> +    if ( p->basic.max_leaf < 0xb )
-> +        p->basic.max_leaf = 0xb;
-> +
-> +    memset(p->topo.raw, 0, sizeof(p->topo.raw));
-> +
-> +    /* thread level */
-> +    p->topo.subleaf[0].nr_logical = threads_per_core;
-> +    p->topo.subleaf[0].id_shift = 0;
-> +    p->topo.subleaf[0].level = 0;
-> +    p->topo.subleaf[0].type = 1;
-> +    if ( threads_per_core > 1 )
-> +        p->topo.subleaf[0].id_shift = order(threads_per_core - 1);
-> +
-> +    /* core level */
-> +    p->topo.subleaf[1].nr_logical = cores_per_pkg;
-> +    if ( p->x86_vendor == X86_VENDOR_INTEL )
-> +        p->topo.subleaf[1].nr_logical = threads_per_pkg;
-> +    p->topo.subleaf[1].id_shift = p->topo.subleaf[0].id_shift;
-> +    p->topo.subleaf[1].level = 1;
-> +    p->topo.subleaf[1].type = 2;
-> +    if ( cores_per_pkg > 1 )
-> +        p->topo.subleaf[1].id_shift += order(cores_per_pkg - 1);
+> +    mfn_t bank_start = _mfn(PFN_UP(bank->start));
+The header should be self-contained so you should add <xen/pfn.h> that is not included in asm/kernel.h path.
 
-I was kind of expecting this to be part of cpu-policy rather than xc,
-as we could then also test this like you do test
-x86_x2apic_id_from_vcpu_id().
+Other than that:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-It could also be used to populate the topologies in the tests
-themselves.
-
-Thanks, Roger.
+~Michal
 
