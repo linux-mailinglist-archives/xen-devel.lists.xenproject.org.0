@@ -2,41 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E4B788138B
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 15:42:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695959.1086344 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 577A48813B3
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 15:52:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695965.1086357 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmx9G-0005s6-LB; Wed, 20 Mar 2024 14:42:34 +0000
+	id 1rmxIN-0008BU-Go; Wed, 20 Mar 2024 14:51:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695959.1086344; Wed, 20 Mar 2024 14:42:34 +0000
+Received: by outflank-mailman (output) from mailman id 695965.1086357; Wed, 20 Mar 2024 14:51:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmx9G-0005qI-I4; Wed, 20 Mar 2024 14:42:34 +0000
-Received: by outflank-mailman (input) for mailman id 695959;
- Wed, 20 Mar 2024 14:42:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rmxIN-00089x-E7; Wed, 20 Mar 2024 14:51:59 +0000
+Received: by outflank-mailman (input) for mailman id 695965;
+ Wed, 20 Mar 2024 14:51:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Z2Qb=K2=redhat.com=peterx@srs-se1.protection.inumbo.net>)
- id 1rmx9F-0005qB-G3
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 14:42:33 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 145d1188-e6c8-11ee-a1ee-f123f15fe8a2;
- Wed, 20 Mar 2024 15:42:31 +0100 (CET)
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
- [209.85.167.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-691-Wxepv2U9OmeF6JRKW-vBwA-1; Wed, 20 Mar 2024 10:42:28 -0400
-Received: by mail-oi1-f200.google.com with SMTP id
- 5614622812f47-3c38e3efb8aso463510b6e.0
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 07:42:28 -0700 (PDT)
-Received: from x1n ([99.254.121.117]) by smtp.gmail.com with ESMTPSA id
- ge16-20020a05622a5c9000b00430b79aaa1esm5775620qtb.94.2024.03.20.07.42.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Mar 2024 07:42:27 -0700 (PDT)
+ (envelope-from <SRS0=LUpO=K2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rmxIM-00089r-3c
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 14:51:58 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 65e17366-e6c9-11ee-afdd-a90da7624cb6;
+ Wed, 20 Mar 2024 15:51:56 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a46f28f89baso141725866b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 07:51:56 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ l8-20020a17090612c800b00a46aab70226sm5003222ejb.180.2024.03.20.07.51.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Mar 2024 07:51:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,118 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 145d1188-e6c8-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1710945750;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lmYNCVj1qYxPr/KiXOpLo9If0W3ioxfEJHjY6ipJGAg=;
-	b=KMkEieClrqdb1HKf3Rs+hXMmu5JxJ4BTs0AtWNHsIxLdz1R+PLslw7XQgcxvLzcgesAmF3
-	OmVtqyI8dqs+DBnzDHy5fgt7rK8pk+sENHHJpYqY4hjQYmu8tij/REP/ivuynHSQ58Ruq+
-	+k/ggYRwGX88KeJXTQGjnNOIyQcUyy0=
-X-MC-Unique: Wxepv2U9OmeF6JRKW-vBwA-1
+X-Inumbo-ID: 65e17366-e6c9-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1710946316; x=1711551116; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=CFMfJtML86pv/21eEramWeq28DSOe+aESCcohJ1wgE0=;
+        b=XalG+dpSwQnh4QNGQ7o+OSkr+d5jQBuIh/HOQIT1d1osWAEu0GygmcCTkXq0MuIToB
+         FaA40f7Zp4/EyllQANw8civ60I3qlkpBinnSYxsekAxEboxhrDNwvXYmFSfdoPbUV0oz
+         9nWDyXZM0IRBenL5OOu1SmRqb89srmSHGM6GzxDR/T8/UTrAF8Pf4f36fmOwzWEiIwlo
+         PX7hh//SDtM384wQQUT77K6ODj19ZarOmAO76llY65TeKul5ahkBC5n4rOaNZoy8hp3B
+         2qv/7LXNKr4dm0gC8Ww2TXFFCxSbtXtI/+zUI5s+Z53HS0bjJmi6PYKvlP4G7o4TY0xw
+         wOew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710945748; x=1711550548;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1710946316; x=1711551116;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lmYNCVj1qYxPr/KiXOpLo9If0W3ioxfEJHjY6ipJGAg=;
-        b=Vw48kg7hpVmrk/Vj2HsiP6eEzXtPk2g1IwQFXzrUXm3LP83j84L0NWO6xAtLfAhx4u
-         1aWttGCobfo8qnXN7vvdY3C2tsy50C3WEfu/te68osrHhtLh43Te4XXDXR0PA62VT+Ly
-         xZ3xtcoN5Y9bYzO+m1QbbXrQ2pl65DqNh8GwLYl49MAozisLeqhbWTfBfpOOjn+03hVx
-         ROAllCxyrwrUNNZ73OcbrBN1dnu9k8zO8/SHvEakltxfQKprbbhvJSHb3aIDwT/JaPb3
-         9XahMAKjD7hIoWe6H5ArKe2bvU8Cih4HrIeKIPlJeOC77nPvX85VyHM+8zM4nwI/wYmC
-         +urg==
-X-Forwarded-Encrypted: i=1; AJvYcCXUDF5bM33OUjfvx4RjuimI82RWAcOT71AoIoEIKZeU2HprO4bGjIxPOI1GT9DoucyuHJbBdW7Pdcq7IYBtlBSz0ftV0HWWdCtp1EkHCIU=
-X-Gm-Message-State: AOJu0YxAuDQ/sWGMt80GTp6n2QEucrco8FhxX0PumO1M9VGIg/8Tu9g/
-	7UZuBCdqxYgzRM3KfmOQ9NyV2QPnmXhtIuyhJkfePeflF2vXPdPrD5pbk4XWQINWqeLiJYBYqbb
-	wzSKm+FrjXz0hKu7BUe7uHNmlMqTUEMTqLNJgltSiB7L4Sxajq8yEwDGkjvGoF5a8
-X-Received: by 2002:a05:6808:1508:b0:3c3:62e8:b257 with SMTP id u8-20020a056808150800b003c362e8b257mr17461016oiw.2.1710945747861;
-        Wed, 20 Mar 2024 07:42:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGG1VX1WcbuhKZfwJ8zAztngTa7EDORJFVVDVVSW2Mx3OJakfgoqiSm2eUrIxhK5KuwSOm0dQ==
-X-Received: by 2002:a05:6808:1508:b0:3c3:62e8:b257 with SMTP id u8-20020a056808150800b003c362e8b257mr17460978oiw.2.1710945747404;
-        Wed, 20 Mar 2024 07:42:27 -0700 (PDT)
-Date: Wed, 20 Mar 2024 10:42:24 -0400
-From: Peter Xu <peterx@redhat.com>
-To: =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>
-Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	David Hildenbrand <david@redhat.com>,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Fabiano Rosas <farosas@suse.de>, Avihai Horon <avihaih@nvidia.com>,
-	Markus Armbruster <armbru@redhat.com>,
-	Prasad Pandit <pjp@fedoraproject.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH for-9.1 v5 09/14] memory: Add Error** argument to
- .log_global_start() handler
-Message-ID: <Zfr10JG2dTChsLVj@x1n>
-References: <20240320064911.545001-1-clg@redhat.com>
- <20240320064911.545001-10-clg@redhat.com>
+        bh=CFMfJtML86pv/21eEramWeq28DSOe+aESCcohJ1wgE0=;
+        b=CKdpdGxeif5GBAcqry6JIxO/OSoR4UpeMbmr5GMo+FZPeBGmfCHgGqw4GG+QndssZA
+         SwC9o3n0aqxTLB4yy26ZpZVceWY4/8s2PatBjAZGpLMmQviE0iOQeDhYENMvPbP4YX9f
+         j0ecdvi6WnFwxHTQ0/Vs+qL9XQIG0zTXLasMK+XkW/IQPu9xsAH0gxWeYtWbUO9pNtuR
+         TCcsuYnk/NHVbHcVR8J8nOoBzMa+o3m/6LAaVyvgNQswVSoCzGweJIcnxS4b07klmstL
+         Sff7MVioupoW3i+Y7fu008dOoxLvYdLoFRCmRqz53GHcXPAn7ZETv4RhxXU4NYZoXiNz
+         SXCg==
+X-Gm-Message-State: AOJu0YzjqCMAK7f71FfvvLFg4Gia+zeI/U9vgvQcidN4FPl8Ynhfcvj6
+	LxIyzZSFLvlCggXPdn35+yH6wAvX5ZjItxehFgaQ2SITcWHb7hpmFM/6J3vdow==
+X-Google-Smtp-Source: AGHT+IHcp4QK7WOx2IlrUEzMjc53/wzNLiYSCjVLaXQFzSR3FMnfHyje/z1YoD45tHHveo7TTGtX7w==
+X-Received: by 2002:a17:906:1152:b0:a46:ba8f:bcdc with SMTP id i18-20020a170906115200b00a46ba8fbcdcmr2531593eja.8.1710946316322;
+        Wed, 20 Mar 2024 07:51:56 -0700 (PDT)
+Message-ID: <fef02fa7-3f13-4c51-8971-da59c8b85563@suse.com>
+Date: Wed, 20 Mar 2024 15:51:55 +0100
 MIME-Version: 1.0
-In-Reply-To: <20240320064911.545001-10-clg@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] AMD/IOMMU: drop remaining guest-IOMMU bits too
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <5eb98372-2992-4a93-846c-4e325c41af98@suse.com>
+ <Zfq-mNNfG6I7diJw@macbook> <c9f31608-3ff9-45d1-83e9-60541a8ec0f9@suse.com>
+ <ZfrtXXgqkeom3uVV@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZfrtXXgqkeom3uVV@macbook>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Wed, Mar 20, 2024 at 07:49:05AM +0100, Cédric Le Goater wrote:
-> Modify all .log_global_start() handlers to take an Error** parameter
-> and return a bool. Adapt memory_global_dirty_log_start() to interrupt
-> on the first error the loop on handlers. In such case, a rollback is
-> performed to stop dirty logging on all listeners where it was
-> previously enabled.
+On 20.03.2024 15:06, Roger Pau Monné wrote:
+> On Wed, Mar 20, 2024 at 11:58:50AM +0100, Jan Beulich wrote:
+>> On 20.03.2024 11:46, Roger Pau Monné wrote:
+>>> On Tue, Mar 19, 2024 at 02:28:12PM +0100, Jan Beulich wrote:
+>>>> With a02174c6c885 ("amd/iommu: clean up unused guest iommu related
+>>>> functions") having removed the sole place where d->g_iommu would be set
+>>>> to non-NULL, guest_iommu_add_ppr_log() will unconditionally bail the
+>>>> latest from its 2nd if(). With it dropped, all other stuff in the file
+>>>> is unused, too. Delete iommu_guest.c altogether.
+>>>>
+>>>> Further delete struct guest{_buffer,_dev_table,_iommu{,_msi}} as well as
+>>>> struct mmio_reg for being unused with the unused g_iommu also dropped
+>>>> from struct arch_iommu.
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Anthony Perard <anthony.perard@citrix.com>
-> Cc: Paul Durrant <paul@xen.org>
-> Cc: "Michael S. Tsirkin" <mst@redhat.com>
-> Cc: Paolo Bonzini <pbonzini@redhat.com>
-> Cc: David Hildenbrand <david@redhat.com>
-> Signed-off-by: Cédric Le Goater <clg@redhat.com>
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Reviewed-by: Peter Xu <peterx@redhat.com>
+Thanks.
 
-Still one comment below:
-
-> @@ -3014,8 +3044,11 @@ static void listener_add_address_space(MemoryListener *listener,
->          listener->begin(listener);
->      }
->      if (global_dirty_tracking) {
-> +        /*
-> +         * Migration has already started. Assert on any error.
-
-If you won't mind, I can change this to:
-
-  /*
-   * Currently only VFIO can fail log_global_start(), and it's not allowed
-   * to hotplug a VFIO device during migration, so this should never fail
-   * when invoked.  If it can start to fail in the future, we need to be
-   * able to fail the whole listener_add_address_space() and its callers.
-   */
-
-Thanks,
-
-> +         */
->          if (listener->log_global_start) {
-> -            listener->log_global_start(listener);
-> +            listener->log_global_start(listener, &error_abort);
->          }
->      }
->  
-> -- 
-> 2.44.0
+>>>> ---
+>>>> I wasn't sure how far to further go with removing the body of
+>>>> parse_ppr_log_entry(), or perhaps even the entire function, and then
+>>>> further up to all PPR logging code. Hence why for now I've merely
+>>>> commented out the function call into the file being deleted (which of
+>>>> course Misra isn't going to like). Thoughts / suggestions?
+>>>>
+>>>> I further wonder whether set_iommu_guest_translation_control() should
+>>>> have been invoked independent of guest-IOMMU actually being enabled. IOW
+>>>> that may want purging, too. Along these lines iommuv2_enabled may also
+>>>> want dropping, for not having any consumer left. Much like has_viommu()
+>>>> and then also {XEN_,}X86_EMU_IOMMU, i.e. going as far as affecting the
+>>>> public interface.
 > 
+> I would drop it all.  The public interface part is not stable anyway,
+> as it's a domctl, but I would be fine if you want to keep the X86_EMU_IOMMU.
 
--- 
-Peter Xu
+By "all" you also mean the PPR logging code? That's where I felt I might
+be going too far ...
 
+Jan
 
