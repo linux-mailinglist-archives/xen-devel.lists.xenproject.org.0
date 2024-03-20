@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FD6B881210
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 14:10:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695908.1086195 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E919088121A
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 14:13:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695910.1086205 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmvhe-0007Py-Mm; Wed, 20 Mar 2024 13:09:58 +0000
+	id 1rmvkp-0000YH-5e; Wed, 20 Mar 2024 13:13:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695908.1086195; Wed, 20 Mar 2024 13:09:58 +0000
+Received: by outflank-mailman (output) from mailman id 695910.1086205; Wed, 20 Mar 2024 13:13:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmvhe-0007Mn-Jz; Wed, 20 Mar 2024 13:09:58 +0000
-Received: by outflank-mailman (input) for mailman id 695908;
- Wed, 20 Mar 2024 13:09:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rmvkp-0000V4-2B; Wed, 20 Mar 2024 13:13:15 +0000
+Received: by outflank-mailman (input) for mailman id 695910;
+ Wed, 20 Mar 2024 13:13:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LUpO=K2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmvhd-0007Mf-EI
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 13:09:57 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 25455601-e6bb-11ee-a1ee-f123f15fe8a2;
- Wed, 20 Mar 2024 14:09:55 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-513ccc70a6dso11508189e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 06:09:55 -0700 (PDT)
+ id 1rmvkn-0000Uy-Ck
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 13:13:13 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9a92a5ab-e6bb-11ee-afdd-a90da7624cb6;
+ Wed, 20 Mar 2024 14:13:12 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-566e869f631so7600497a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 06:13:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- qt11-20020a170906eceb00b00a46d2e9fd73sm2567415ejb.222.2024.03.20.06.09.54
+ g18-20020a056402091200b00568b6f73491sm5523208edz.14.2024.03.20.06.13.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Mar 2024 06:09:54 -0700 (PDT)
+ Wed, 20 Mar 2024 06:13:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25455601-e6bb-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 9a92a5ab-e6bb-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710940195; x=1711544995; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710940392; x=1711545192; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=GDAtE6pMunSN2aoshMW+PYqPKc8voG7r1xGtdTypMfo=;
-        b=Acr5bSuAy7+YJOkL63dnjay7i5neGjmwVUfeqE/Vi+uYKvRMo6dCvgg6BKAzq7fB3Q
-         8JJMfU70Tf1Rfdg/So3lGa1QDYCtV6lUtQ2+H5JgSjj1WJKpCMe4DZ855zxT8VA6Rt68
-         /AZMh9/jTyGSIRzkG7lqQvqLHxn8sGHXn1tEwCbd25lrP66FO1bN/pd/wYdr2+QVBRxb
-         jcCfuT4siDoyrLtW9rUzwR69ILeWwRCjbO9Pebvlkd7wrCoZ4hwqvdQgeYv/RVHjYFSy
-         wnuAaT9Cw9YXXlOF7iJF+sktjYOL6OTdI2Uqa5mmuclaz/Apn+6gmBzzIDxbpwJ5ljsT
-         QCZA==
+        bh=D4Knu+N3h3s5QMvzeNSrDHIQP1y/gcNwYue6TG77bt8=;
+        b=ItzZ1rgqS34aFAFs51EUdioIRhnIVto+BilT+FQRkXWfVqIB07KthY53ArGYfdclkd
+         dq2PVOOHK/1gSsk2b/r9N347pc2RaYCgOIKa1m4do0A5m36yjrUtnRN39wcs7FhSU8oo
+         wriC/VBLExqhP1Ak0Vc9J85Qg/ApFsLNghIDYo/eJUdA17kijZD9ZU1y6ow0jarXukJp
+         FQfI8Raxg5E3sTq/iIYe2MO/SkiL8CpQdaEF968ChPPHJOVylZZf0wQex0e7EUK7ekeg
+         z5aUlQeMkuXAvWotxWQMWetQ2377bdB8RQq+mDD+Zh66sE5j96WAG9yDCfddKZ7IXO1u
+         clOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710940195; x=1711544995;
+        d=1e100.net; s=20230601; t=1710940392; x=1711545192;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GDAtE6pMunSN2aoshMW+PYqPKc8voG7r1xGtdTypMfo=;
-        b=A9p/3Xpe54ydqAj7sDjw+944MsX3+XHvy2AOumm7xdrKFnxuJhysCjidpBGbsf0NYW
-         ne0bp+qhrjW6IgtLit9ssbzqRlIwpc6onUXWcAze7xt+n8g8Zp4BdEMzFWdLcRHHmlkA
-         ntISJqwNLm3ZQzxs2Ac7ZRahQLvyqmn49aWRG7B+zpmZoZ98Sgw3R7Xg/sj9rXSKTqUV
-         8Lyayp5k8pK2aEK7n/IWxA9+2Em3EORQy3MC9r296ZW90jvp79NFJAr2iHPgvtB/Q/rC
-         G8l9U84DrkSVcuHIG+PFCxmp+k/bq4BMOYWAEiIMaf1GaI/gEQ15beiJoQjnzp//Icf2
-         hcKA==
-X-Gm-Message-State: AOJu0YzLreiRWS0If8kQK5AdzLxA+99GE6ZxlCw19Msdo9EnB7iOpRr9
-	sEAsbQIsA+64yL1vt22ASxGVDr/lGQYibmjb3fNE2b79hsJDu3DqhXrZpBfMYQ==
-X-Google-Smtp-Source: AGHT+IGq/EARVD0JUtEy8N5UoOUNBjp13mNAGUQVPH9Av22FSZx4S+RxZ9tm3eKI5abvqgfmX6EAIw==
-X-Received: by 2002:a19:2d10:0:b0:513:af27:df03 with SMTP id k16-20020a192d10000000b00513af27df03mr10540479lfj.5.1710940194797;
-        Wed, 20 Mar 2024 06:09:54 -0700 (PDT)
-Message-ID: <ecbb1db2-6d6a-4fa3-9b4e-c9367fae7b21@suse.com>
-Date: Wed, 20 Mar 2024 14:09:53 +0100
+        bh=D4Knu+N3h3s5QMvzeNSrDHIQP1y/gcNwYue6TG77bt8=;
+        b=xRPWsILgdYxqa8f9oZE0+DsxDmmk9rrajBHuEMSWCjCu3EFre0xttLyccGd/CyEeXL
+         6PG8OIaOWqdVCLjginNlQeH7XVCHQxAY8oO2MB25yxJEQeYYIW1Mo3iNE1v0sPaHPHT/
+         9veD4XNArMXC0mN0yZNZ52FoFAGspqa8WVB+eX1Sxl6Ol5roneyfjCDZx8RIpKAkROA+
+         /egeuklEmWJuSsYeMD8Qii4jDpdqmzLPkkE+9zu8Fx06e8hODRRZmhKKJerjDnZJywE1
+         pWeQ1/Ov10bagv9D/RtCoAU7jvfW30CHM1veQqIdY3tIaNEvElbemVL8TI8uCGKg1MlW
+         uLBA==
+X-Gm-Message-State: AOJu0Yzeu1gwa/6rbBxBjDtWLJX4N/T75RHKHcI5BhGl19khp1VdViVQ
+	obHHSsR6EFRjo8SCPPd6d/Vrsj/Q693Av6/XgoTJVuXCXZzgRvAOFLeajQ7vTA==
+X-Google-Smtp-Source: AGHT+IF4p505pV2rzIXObwWCPCriSjExyMKIcWfrtVXL561xq9VOABYXSWM1jYf8knfRLphzjRSQ1Q==
+X-Received: by 2002:a05:6402:4499:b0:566:2aff:2d38 with SMTP id er25-20020a056402449900b005662aff2d38mr4255474edb.26.1710940391746;
+        Wed, 20 Mar 2024 06:13:11 -0700 (PDT)
+Message-ID: <bb02d6b9-fb23-48d5-9c79-b40a32cc66d3@suse.com>
+Date: Wed, 20 Mar 2024 14:13:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] xen/trace: Introduce new API
+Subject: Re: [PATCH 2/7] xen/credit2: Clean up trace handling
 Content-Language: en-US
-To: George Dunlap <george.dunlap@cloud.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@cloud.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Dario Faggioli <dfaggioli@suse.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Nicola Vetrini <nicola.vetrini@bugseng.com>,
  "consulting @ bugseng . com" <consulting@bugseng.com>
 References: <20240318163552.3808695-1-andrew.cooper3@citrix.com>
- <20240318163552.3808695-2-andrew.cooper3@citrix.com>
- <CA+zSX=Y2gJ1_uWdeC6Gyv0VX4WytgVdqhbaGfmda3pLKZYs8pg@mail.gmail.com>
+ <20240318163552.3808695-3-andrew.cooper3@citrix.com>
+ <CA+zSX=b7X91bZZQcm=PvLbxeEofq12yNn2h+-Rb7WZESYmxPeA@mail.gmail.com>
+ <19d9487e-67cf-4c1e-9dc6-419d9c5d0120@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,55 +117,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CA+zSX=Y2gJ1_uWdeC6Gyv0VX4WytgVdqhbaGfmda3pLKZYs8pg@mail.gmail.com>
+In-Reply-To: <19d9487e-67cf-4c1e-9dc6-419d9c5d0120@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20.03.2024 12:58, George Dunlap wrote:
-> On Mon, Mar 18, 2024 at 4:36 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+On 20.03.2024 13:19, Andrew Cooper wrote:
+> On 20/03/2024 12:16 pm, George Dunlap wrote:
+>> On Mon, Mar 18, 2024 at 4:36 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>>> There is no need for bitfields anywhere - use more sensible types.  There is
+>>> also no need to cast 'd' to (unsigned char *) before passing it to a function
+>>> taking void *.  Switch to new trace_time() API.
+>>>
+>>> No functional change.
+>> Hey Andrew -- overall changes look great, thanks for doing this very
+>> detailed work.
 >>
->> trace() and trace_time(), in function form for struct arguments, and macro
->> form for simple uint32_t list arguments.
+>> One issue here is that you've changed a number of signed values to
+>> unsigned values; for example:
 >>
->> This will be used to clean up the mess of macros which exists throughout the
->> codebase, as well as eventually dropping __trace_var().
->>
->> There is intentionally no macro to split a 64-bit parameter in the new API,
->> for MISRA reasons.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> @@ -1563,16 +1559,16 @@ static s_time_t tickle_score(const struct scheduler *ops, s_time_t now,
+>>>      if ( unlikely(tb_init_done) )
+>>>      {
+>>>          struct {
+>>> -            unsigned unit:16, dom:16;
+>>> -            int credit, score;
+>>> -        } d;
+>>> -        d.dom = cur->unit->domain->domain_id;
+>>> -        d.unit = cur->unit->unit_id;
+>>> -        d.credit = cur->credit;
+>>> -        d.score = score;
+>>> -        __trace_var(TRC_CSCHED2_TICKLE_CHECK, 1,
+>>> -                    sizeof(d),
+>>> -                    (unsigned char *)&d);
+>>> +            uint16_t unit, dom;
+>>> +            uint32_t credit, score;
+>> ...here you change `int` to `unit32_t`; but `credit` and `score` are
+>> both signed values, which may be negative.  There are a number of
+>> other similar instances.  In general, if there's a signed value, it
+>> was meant.
 > 
-> Thanks for doing this, it all looks good to me.
-> 
-> I'll note that last time this was posted, there were some questions.
-> One was regarding underscores in the macro parameters.  I don't care
-> about this enough to stop it going in.
+> Oh - this is a consequence of being reviewed that way in earlier iterations.
 
-We ought to finally settle on our take on this, preferably recording
-the outcome in ./CODING_STYLE.
+Which in turn is a result of us still having way to many uses of plain
+int when signed quantities aren't meant. Plus my suggestion to make
+this explicit by saying "signed int" was rejected.
 
-> The other question was about the use of ##__VA_ARGS__. I don't
-> actually understand what that comment was trying to say, as a quick
-> Google search it appears that 1) this will do what I think it should
-> do, and 2) it works both in gcc and clang.
-> 
-> We should give Jan a chance to explain his second point more clearly
-> before checking it in;
+> If they really can hold negative numbers, they can become int32_t's. 
+> What's important is that they have a clearly-specified width.
 
-Well. Gcc 13.2 documentation explicitly mentions this form; interestingly
-with a quick search I couldn't find the original extension's documentation
-anymore. It is possible that I didn't spot this 2.5 years ago. It is also
-possible the their doc has changed in the meantime. In any event, my view
-back at the time was that I'd preferably see us use the (long-standing)
-gcc extension (args...) or use __VA_ARGS__ in a standard compliant way.
-Yet with the original form no longer properly documented, maybe they have
-a plan to remove that at some point. So while my preference stays for the
-time being, I also don't mind if this code is left as is.
+And please feel free to retain my R-b with any such adjustments.
 
 Jan
-
-> but:
-> 
-> Reviewed-by: George Dunlap <george.dunlap@cloud.com>
-
 
