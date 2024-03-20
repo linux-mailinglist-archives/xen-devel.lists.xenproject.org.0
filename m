@@ -2,44 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BD4E8817B5
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 20:11:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696127.1086778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71AFF88181A
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 20:45:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696138.1086789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rn1LS-0005JP-Tj; Wed, 20 Mar 2024 19:11:26 +0000
+	id 1rn1rR-0002td-EE; Wed, 20 Mar 2024 19:44:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696127.1086778; Wed, 20 Mar 2024 19:11:26 +0000
+Received: by outflank-mailman (output) from mailman id 696138.1086789; Wed, 20 Mar 2024 19:44:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rn1LS-0005Hs-R0; Wed, 20 Mar 2024 19:11:26 +0000
-Received: by outflank-mailman (input) for mailman id 696127;
- Wed, 20 Mar 2024 19:11:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9Jnl=K2=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1rn1LS-0005Hm-0D
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 19:11:26 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a438cc85-e6ed-11ee-a1ee-f123f15fe8a2;
- Wed, 20 Mar 2024 20:11:23 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id A959D8286A6D;
- Wed, 20 Mar 2024 14:11:22 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id IJgJPPJVF8gv; Wed, 20 Mar 2024 14:11:21 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id B9DA38286C88;
- Wed, 20 Mar 2024 14:11:21 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id FZjd3Ij6uOd1; Wed, 20 Mar 2024 14:11:21 -0500 (CDT)
-Received: from raptor-ewks-026.lan (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 54E918286A6D;
- Wed, 20 Mar 2024 14:11:21 -0500 (CDT)
+	id 1rn1rR-0002qQ-AN; Wed, 20 Mar 2024 19:44:29 +0000
+Received: by outflank-mailman (input) for mailman id 696138;
+ Wed, 20 Mar 2024 19:44:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=3RsG=K2=kernel.org=conor@srs-se1.protection.inumbo.net>)
+ id 1rn1rP-0002qK-Sl
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 19:44:27 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 41d1eb03-e6f2-11ee-afdd-a90da7624cb6;
+ Wed, 20 Mar 2024 20:44:26 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3F161610A1;
+ Wed, 20 Mar 2024 19:44:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A8BC433C7;
+ Wed, 20 Mar 2024 19:44:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,208 +41,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a438cc85-e6ed-11ee-a1ee-f123f15fe8a2
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com B9DA38286C88
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1710961881; bh=qjDVerNvsyKF24rTniU+fXX2Dku1Mqf9+Trxaksp5R8=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=ad+nnNfgnkhRdJiXGiSIDDTGEHFWwngbo8toN2vDdnzzFZutrrsETST/PKWuycM+g
-	 snAuwvvhYj/eMQwOfBGcKYiuxUi/9mtJxmr446AjggrNu3oPULw15jw7Z0kURqdVx8
-	 bjCENSEFHDx1nCTXTd8GLEWX36bCCFda24cKRMAs=
-X-Virus-Scanned: amavisd-new at rptsys.com
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-To: xen-devel@lists.xenproject.org
-Cc: tpearson@raptorengineering.com,
-	Jan Beulich <jbeulich@suse.com>,
+X-Inumbo-ID: 41d1eb03-e6f2-11ee-afdd-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1710963865;
+	bh=nchtvu7FyrnG5+8ZjCxOdqbxijBRFgG29pgMUueefj4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dq+2KQVqqpBQnXoimBBcfhDTj7RoP+EYdG/aEQxrd8VN3TCYgUMycznOe7BltO6S3
+	 N++IciqUkRWvqTrkDQkYOLfX9FWUiAd1VqgNg6d5Eb3ojixm7PWzOaRAD9IbmcWFvq
+	 4X0I8mGtuZs8j/bppsRWlm21GBWcFd6ViKjO2CQ/JbrRn0NVTdC+unMY0Bv9W3chHg
+	 uyAdBHjBPFL5UIHIiTcavY7TcEvPM2BjUt0+H0p15mLE+61ttnifHo+6kDQHRJe2x5
+	 hVma6Lfx2JrO1CbRkVFwagrrkYx7dfehIHKmkPQOFkSAHfJbBS/DfAnAyOWh3PFgrw
+	 nSTaZnLV+sHOg==
+Date: Wed, 20 Mar 2024 19:44:20 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH v2] xen/ppc: Ensure ELF sections' physical load addresses start at 0x0
-Date: Wed, 20 Mar 2024 14:11:05 -0500
-Message-Id: <20240320191105.84369-1-sanastasio@raptorengineering.com>
-X-Mailer: git-send-email 2.30.2
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 03/20] xen/riscv: introduce extenstion support check
+ by compiler
+Message-ID: <20240320-oak-uprising-db787f501695@spud>
+References: <cover.1710517542.git.oleksii.kurochko@gmail.com>
+ <d4df95eb7a30df3f882b67f200964232fee9d6c1.1710517542.git.oleksii.kurochko@gmail.com>
+ <6ddc9d8a-20e7-4e4d-ae1a-d2ea01479b38@suse.com>
+ <04c1424cec1342dcfb849d361f5eb9f3e7f34734.camel@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="WuXc4XOhTO1ZLXjC"
+Content-Disposition: inline
+In-Reply-To: <04c1424cec1342dcfb849d361f5eb9f3e7f34734.camel@gmail.com>
 
-Some boot mechanisms, including the new linux file_load kexec systemcall
-used by system firmware v2.10 on RaptorCS systems will try to honor the
-physical address field of the ELF LOAD section header, which will fail
-when the address is based off of XEN_VIRT_START (0xc000000000000000).
 
-To ensure that the physical address of the LOAD section header starts at
-0x0, move x86's DECL_SECTION macro to xen.lds.h and use it to declare
-all sections.
+--WuXc4XOhTO1ZLXjC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-Changes in v2:
-  - Move DECL_SECTION to xen.lds.h
+On Wed, Mar 20, 2024 at 07:58:05PM +0100, Oleksii wrote:
+> On Mon, 2024-03-18 at 17:58 +0100, Jan Beulich wrote:
+> > On 15.03.2024 19:05, Oleksii Kurochko wrote:
+> > > Currently, RISC-V requires two extensions: _zbb and _zihintpause.
+> >=20
+> > Do we really require Zbb already?
+> After an introduction of Andrew C. patches [1] it is requited for
+> __builtin_ffs{l}
+>=20
+> [1]
+> https://lore.kernel.org/xen-devel/20240313172716.2325427-1-andrew.cooper3=
+@citrix.com/T/#t
+> >=20
+> > > This patch introduces a compiler check to check if these extensions
+> > > are supported.
+> > > Additionally, it introduces the riscv/booting.txt file, which
+> > > contains
+> > > information about the extensions that should be supported by the
+> > > platform.
+> > >=20
+> > > In the future, a feature will be introduced to check whether an
+> > > extension
+> > > is supported at runtime.
+> > > However, this feature requires functionality for parsing device
+> > > tree
+> > > source (DTS), which is not yet available.
+> >=20
+> > Can't you query the CPU for its features?
+> I couldn't find such reg ( or SBI call ) in the spec.
 
- xen/arch/ppc/xen.lds.S    | 27 +++++++++++++++------------
- xen/arch/x86/xen.lds.S    |  6 +-----
- xen/include/xen/xen.lds.h | 10 ++++++++++
- 3 files changed, 26 insertions(+), 17 deletions(-)
+There isn't.
 
-diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
-index 05b6db2728..3cead1f980 100644
---- a/xen/arch/ppc/xen.lds.S
-+++ b/xen/arch/ppc/xen.lds.S
-@@ -4,6 +4,9 @@
- OUTPUT_ARCH(powerpc:common64)
- ENTRY(start)
+> SBI call sbi_probe_extension() exists, but it doesn't check for every
+> possible extension. As far as I understand it checks only for that one
+> which are present in SBI spec.
 
-+/* Used by the DECL_SECTION() macro to calculate physical load addresses */
-+#define __XEN_VIRT_START XEN_VIRT_START
-+
- PHDRS
- {
-     text PT_LOAD ;
-@@ -17,7 +20,7 @@ SECTIONS
-     . = XEN_VIRT_START;
-     _start = .;
+Yeah, it only checks for SBI extensions, not ISA extensions.
 
--    .text : {
-+    DECL_SECTION(.text) {
-         _stext = .;            /* Text section */
-         *(.text.header)
+> The most closest thing I see how to check that without dts is how it is
+> done in OpenSBI:
 
-@@ -40,7 +43,7 @@ SECTIONS
-     } :text
+IIRC this only "works" because the OpenSBI devs assume that there are no
+non-normative behaviours and all CSRs have their ~God~ RVI defined
+meanings. Reading a CSR to see if it traps is not behaviour you can really
+rely on unless the platform claims to support Sstrict - but Sstrict you'd
+have to detect from the DT so chicken and egg for you! It's one of these
+new "extensions" from the profiles spec, so it doesn't even have support
+in Linux's dt-bindings yet. Up to Xen devs if you guys want to make the
+same assumptions as OpenSBI. Linux doesn't and when we discussed this
+not too long ago on the U-Boot ML in the context of the rng CSR it was
+also decided not to do make the assumption there either.
 
-     . = ALIGN(PAGE_SIZE);
--    .rodata : {
-+    DECL_SECTION(.rodata) {
-         _srodata = .;          /* Read-only data */
-         /* Bug frames table */
-         __start_bug_frames = .;
-@@ -64,7 +67,7 @@ SECTIONS
+Personally I wonder if you can just apply the same policy here as you
+did with Zbb in the other thread and assume that something with H will
+have Zihintpause and leave implementing a "fake" pause as an exercise
+for someone that introduces such a system?
+If Jess is correct, and I do remember testing this, it's actually
+"always" safe to call the pause instruction on CPUs where the extension
+is not supported as it uses an encoding of fence that effectively makes
+it a into a nop:
+https://lore.kernel.org/linux-riscv/2E96A836-764D-4D07-AB79-3861B9CC2B1F@jr=
+tc27.com/
+At worst, that'd make cpu_relax() a nop if someone didn't meet that
+requirement.
 
-     #if defined(BUILD_ID)
-     . = ALIGN(4);
--    .note.gnu.build-id : {
-+    DECL_SECTION(.note.gnu.build-id) {
-         __note_gnu_build_id_start = .;
-         *(.note.gnu.build-id)
-         __note_gnu_build_id_end = .;
-@@ -73,19 +76,19 @@ SECTIONS
-     _erodata = .;                /* End of read-only data */
+FWIW, Linux's cpu_relax() on RISC-V looks like:
+	static inline void cpu_relax(void)
+	{
+	#ifdef __riscv_muldiv
+		int dummy;
+		/* In lieu of a halt instruction, induce a long-latency stall. */
+		__asm__ __volatile__ ("div %0, %0, zero" : "=3Dr" (dummy));
+	#endif
+=09
+	#ifdef CONFIG_TOOLCHAIN_HAS_ZIHINTPAUSE
+		/*
+		 * Reduce instruction retirement.
+		 * This assumes the PC changes.
+		 */
+		__asm__ __volatile__ ("pause");
+	#else
+		/* Encoding of the pause instruction */
+		__asm__ __volatile__ (".4byte 0x100000F");
+	#endif
+		barrier();
+	}
 
-     . = ALIGN(PAGE_SIZE);
--    .data.ro_after_init : {
-+    DECL_SECTION(.data.ro_after_init) {
-         __ro_after_init_start = .;
-         *(.data.ro_after_init)
-         . = ALIGN(PAGE_SIZE);
-         __ro_after_init_end = .;
-     } :text
+I figure having div is part of your base requirements, so maybe you can
+just do something similar in the !zihintpause case if making that
+extension a requirement is problematic?=20
+Doing that invalid div used to be conditional, but cpu_relax() is in the
+vdso so the static branch it used to be gated with got removed and its
+now unconditional. Probably that's not a constraint on Xen's cpu_relax()?
 
--    .data.read_mostly : {
-+    DECL_SECTION(.data.read_mostly) {
-         *(.data.read_mostly)
-     } :text
+Oh ye, and we do the .4byte crap so that toolchain support wasn't needed
+for Zihintpause given we are using it in exactly one place.
 
-     . = ALIGN(PAGE_SIZE);
--    .data : {                    /* Data */
-+    DECL_SECTION(.data) {                    /* Data */
-         *(.data.page_aligned)
-         . = ALIGN(8);
-         __start_schedulers_array = .;
-@@ -100,7 +103,7 @@ SECTIONS
+Cheers,
+Conor.
 
-     . = ALIGN(PAGE_SIZE);             /* Init code and data */
-     __init_begin = .;
--    .init.text : {
-+    DECL_SECTION(.init.text) {
-         _sinittext = .;
-         *(.init.text)
-         _einittext = .;
-@@ -108,7 +111,7 @@ SECTIONS
-     } :text
+> #define csr_read_allowed(csr_num, trap)				\
+> 	({							\
+> 	register ulong tinfo asm("a3") =3D (ulong)trap;		\
+> 	register ulong ttmp asm("a4");				\
+> 	register ulong mtvec =3D sbi_hart_expected_trap_addr();	\
+> 	register ulong ret =3D
+> 0;					\
+> 	((struct sbi_trap_info *)(trap))->cause =3D 0;		\
+> 	asm volatile(						\
+> 		"add %[ttmp], %[tinfo],
+> zero\n"			\
+> 		"csrrw %[mtvec], " STR(CSR_MTVEC) ", %[mtvec]\n"\
+> 		"csrr %[ret],
+> %[csr]\n"				\
+> 		"csrw " STR(CSR_MTVEC) ", %[mtvec]"		\
+> 	    : [mtvec] "+&r"(mtvec), [tinfo] "+&r"(tinfo),	\
+> 	      [ttmp] "+&r"(ttmp), [ret] "=3D&r" (ret)		\
+> 	    : [csr] "i" (csr_num)				\
+> 	    : "memory");					\
+> 	ret;							\
+> 	})							\
+> ...
+> 	/* Detect if hart supports stimecmp CSR(Sstc extension) */
+> 	if (hfeatures->priv_version >=3D SBI_HART_PRIV_VER_1_12) {
+> 		csr_read_allowed(CSR_STIMECMP, (unsigned long)&trap);
+> 		if (!trap.cause)
+> 			__sbi_hart_update_extension(hfeatures,
+> 					SBI_HART_EXT_SSTC, true);
+> 	}
 
-     . = ALIGN(PAGE_SIZE);
--    .init.data : {
-+    DECL_SECTION(init.data) {
-         *(.init.rodata)
-         *(.init.rodata.*)
+--WuXc4XOhTO1ZLXjC
+Content-Type: application/pgp-signature; name="signature.asc"
 
-@@ -137,18 +140,18 @@ SECTIONS
-         __ctors_end = .;
-     } :text
+-----BEGIN PGP SIGNATURE-----
 
--    .got : {
-+    DECL_SECTION(.got) {
-         *(.got .toc)
-     } :text
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZfs8lAAKCRB4tDGHoIJi
+0r3/AP4/vBGX2iN5mwOMnv3lpuWA8BP/zws5AN71Fjuw9yy97gEAretmOJDJLMZl
+Y91Kogw5xVnQZFa9xmdM5VeRdsseKQ0=
+=YKEu
+-----END PGP SIGNATURE-----
 
--    .got.plt : {
-+    DECL_SECTION(.got.plt) {
-         *(.got.plt)
-     } :text
-
-     . = ALIGN(POINTER_ALIGN);
-     __init_end = .;
-
--    .bss : {                     /* BSS */
-+    DECL_SECTION(.bss) {                     /* BSS */
-         __bss_start = .;
-         *(.bss.stack_aligned)
-         *(.bss.page_aligned)
-@@ -168,7 +171,7 @@ SECTIONS
-     _end = . ;
-
-     /* Section for the device tree blob (if any). */
--    .dtb : { *(.dtb) } :text
-+    DECL_SECTION(.dtb) { *(.dtb) } :text
-
-     DWARF2_DEBUG_SECTIONS
-
-diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index 8930e14fc4..1ef6645128 100644
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -12,6 +12,7 @@
-
- #define FORMAT "pei-x86-64"
- #undef __XEN_VIRT_START
-+#undef DECL_SECTION
- #define __XEN_VIRT_START __image_base__
- #define DECL_SECTION(x) x :
-
-@@ -20,11 +21,6 @@ ENTRY(efi_start)
- #else /* !EFI */
-
- #define FORMAT "elf64-x86-64"
--#ifdef CONFIG_LD_IS_GNU
--# define DECL_SECTION(x) x : AT(ADDR(#x) - __XEN_VIRT_START)
--#else
--# define DECL_SECTION(x) x : AT(ADDR(x) - __XEN_VIRT_START)
--#endif
-
- ENTRY(start_pa)
-
-diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
-index 06b7110837..be90f5ca0f 100644
---- a/xen/include/xen/xen.lds.h
-+++ b/xen/include/xen/xen.lds.h
-@@ -5,6 +5,16 @@
-  * Common macros to be used in architecture specific linker scripts.
-  */
-
-+/*
-+ * Declare a section whose load address is based at PA 0 rather than
-+ * Xen's virtual base address.
-+ */
-+#ifdef CONFIG_LD_IS_GNU
-+# define DECL_SECTION(x) x : AT(ADDR(#x) - __XEN_VIRT_START)
-+#else
-+# define DECL_SECTION(x) x : AT(ADDR(x) - __XEN_VIRT_START)
-+#endif
-+
- /*
-  * To avoid any confusion, please note that the EFI macro does not correspond
-  * to EFI support and is used when linking a native EFI (i.e. PE/COFF) binary,
---
-2.30.2
-
+--WuXc4XOhTO1ZLXjC--
 
