@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7C1588174A
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 19:25:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696094.1086729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52B24881792
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 19:55:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696121.1086758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rn0cC-0002Mx-Kz; Wed, 20 Mar 2024 18:24:40 +0000
+	id 1rn15m-00013X-DL; Wed, 20 Mar 2024 18:55:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696094.1086729; Wed, 20 Mar 2024 18:24:40 +0000
+Received: by outflank-mailman (output) from mailman id 696121.1086758; Wed, 20 Mar 2024 18:55:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rn0cC-0002K5-Gp; Wed, 20 Mar 2024 18:24:40 +0000
-Received: by outflank-mailman (input) for mailman id 696094;
- Wed, 20 Mar 2024 18:24:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rn15m-00011F-AS; Wed, 20 Mar 2024 18:55:14 +0000
+Received: by outflank-mailman (input) for mailman id 696121;
+ Wed, 20 Mar 2024 18:55:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FoSn=K2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rn0cB-0002Jz-4E
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 18:24:39 +0000
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [2607:f8b0:4864:20::234])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1b0078fa-e6e7-11ee-a1ee-f123f15fe8a2;
- Wed, 20 Mar 2024 19:24:37 +0100 (CET)
-Received: by mail-oi1-x234.google.com with SMTP id
- 5614622812f47-3c398187b4dso156414b6e.0
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 11:24:37 -0700 (PDT)
-Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- ge16-20020a05622a5c9000b00430b79aaa1esm5963929qtb.94.2024.03.20.11.24.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Mar 2024 11:24:34 -0700 (PDT)
+ <SRS0=q6JT=K2=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1rn15k-000119-Hg
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 18:55:12 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2414::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 60a23329-e6eb-11ee-afdd-a90da7624cb6;
+ Wed, 20 Mar 2024 19:55:11 +0100 (CET)
+Received: from PH7PR10CA0015.namprd10.prod.outlook.com (2603:10b6:510:23d::17)
+ by DM4PR12MB9072.namprd12.prod.outlook.com (2603:10b6:8:be::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7386.28; Wed, 20 Mar 2024 18:55:06 +0000
+Received: from SA2PEPF000015C9.namprd03.prod.outlook.com
+ (2603:10b6:510:23d:cafe::a7) by PH7PR10CA0015.outlook.office365.com
+ (2603:10b6:510:23d::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.26 via Frontend
+ Transport; Wed, 20 Mar 2024 18:55:06 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF000015C9.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7409.10 via Frontend Transport; Wed, 20 Mar 2024 18:55:05 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 20 Mar
+ 2024 13:55:05 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 20 Mar
+ 2024 13:55:05 -0500
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via
+ Frontend Transport; Wed, 20 Mar 2024 13:55:04 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,123 +63,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b0078fa-e6e7-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1710959075; x=1711563875; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=TuZek9bnFjLuMH9tITh2oa+4tTdqpkIFYiXhJCJJmoI=;
-        b=N5YxeFJkkMWSXgkOEEcvMCMFFB7vjWaa4aRfeITA5OX4jtIKySNF2tvh4mpzRUu0VO
-         eqirPhoJ+Yr+du8Px5+aRHRkQPQGZXd87zBUnMC27r53nlLfU1z+9f4QUmUy1UyOe+6x
-         f5HzdbOvcYkuhge3jQwHHWugBKPFce6VR7iVQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710959075; x=1711563875;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=TuZek9bnFjLuMH9tITh2oa+4tTdqpkIFYiXhJCJJmoI=;
-        b=KPS8IUE6eAVA+OEsTDHb8Acv5ePsY9IcTVNe5ChDKTgqyCB3LmHnb2jpQkLJLB7zQ/
-         HiNG0Qy+gTuxUcJwPYR0Yc+jsg7wSFqqXhaZm8HAD4zmUCLsVH5UuFPnVcsbkvykY7Ee
-         jEZ7/lUPZRX++F/7ejH9Zq3KDcvAmFuaoFqsjvamSyIsS4agk5z+kd9SjG3Yx3C6KaZN
-         5vaWSky+ueCSXohhwIggQaG+M7ALXYjlrRI5cX7u69ne9J6w8PKDToGB8lZ3MTF1Ym6R
-         BhMNDI70v5zd8sQeL02GzJXJ9uz04VgXXWp57VLU7O/hfkcFFfvaR7QNujHJ9CLnX5CY
-         dfpQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVXYdQk4qXyBeGIQPjHA2l4icZ8h5eLXPCx4KG19/ZMrCPvEAarhlF07ba/rMwasnqnftwFbAh5P3rL/g7K1QwMh7ZesU6u61gfjlEPmiA=
-X-Gm-Message-State: AOJu0YwIl8N1+/SlwejvU0GO6MWg527EydF9ReVZRsmrI9wfBR8SEmwy
-	u/PY+9MRQ+PNEctE74t9uu5zcayKdmAMgpzVQ/NYu8MRDL1QXWJCk7WqUkPVQ3Tyii8csjTre/p
-	Q
-X-Google-Smtp-Source: AGHT+IEOpB56/mKx2IyLKd38j6ThBujl9ke9z3ITgUhHQNQXEWtUpZWb6NMbNrISDmt4pO/wsODrJA==
-X-Received: by 2002:a05:6808:1185:b0:3c3:9933:9afa with SMTP id j5-20020a056808118500b003c399339afamr5851687oil.24.1710959075555;
-        Wed, 20 Mar 2024 11:24:35 -0700 (PDT)
-Message-ID: <0dc5010b-a960-42af-b02f-c10da54f05ea@citrix.com>
-Date: Wed, 20 Mar 2024 18:24:33 +0000
+X-Inumbo-ID: 60a23329-e6eb-11ee-afdd-a90da7624cb6
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SzZlkhresZkNicUpzVSVkIpWh7MH51YfnDvlHskjoZBj24TFdNYT2ebSFVXfY2Jc+hQhYav0FF8zeDLKN1tTzPQnPZAEJ0ql+9lSXWl+mi23FRPozqHqiulqgTulcinSZ+F27iedSqUpi/TbAZjXPhUfVdKGRt8z7lYZg3PprUx0GoJ8R4p6ukI0Y3hLr/zRp3ZLjRS4IOqzLqznpAfV22qRAKVj2l41NaArP1dchXol20m1tmkXQGXp6LanknH6qBmk4JgZIcAJ/fKVsPPr3/MakGu8OAgkHhj9dXgHfNdX5r7FdEP8PMRTySkbuCVQGOMgN/SBUROqnwMRifr7cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cwZsh0Edhlli/f5Lbenp8QaPj7oDs9Yd5glvYjqLHFg=;
+ b=bon2ZWRPVt+vMU6QzAf+TS6W4Y31XGSnRqRH3obdEhPFKF1QYnAiBlWgNinR+wGjSs5hsH/vxynV0GsclXm/zk80hLmPZBDJYFcZnpvxYruOFZwbaQ9vpxn/HuGRjKKZpQzF1C0RI7CZLRobvVgpo4JdeIPuMktpBNA8kwOvLKnfapf/kEXLXfgzT3S7sfW7OSQQAgUfL3EsWBCZAFc4VICV4UximfNFE2UrmaxlYBzYplLia9/VzKFeEwY1UYvjMrYuqA1UZnaBMPPt/JHpfWEAS6Nw/10QuapxsMhzFnZq3OSYud+9JuqY/PlbGd7dcfL/oQwv86p+mq6aPVXJMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cwZsh0Edhlli/f5Lbenp8QaPj7oDs9Yd5glvYjqLHFg=;
+ b=n19sB6VFDaOgLGeEUF80Jjzt2y/TUyLWky/GlN+gvJA8oDVfEKuVjifR9ZkOkgthnLOKeiZF2EuNgffG9TYkhSwCHqNCKTci5WL3mjlNqbO8D2S2Pr3c0ph3PiVX/fC81xHwNDkshCYneXoKEcZlJsr7g8j8JTKLepWsr3mBPw4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <julien@xen.org>, <bertrand.marquis@arm.com>,
+	<michal.orzel@amd.com>, <Volodymyr_Babchuk@epam.com>,
+	<dpsmith@apertussolutions.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Subject: [RFC PATCH v1] xen: arm: Set state to SYS_STATE_smp_boot before smp initialization
+Date: Wed, 20 Mar 2024 18:54:55 +0000
+Message-ID: <20240320185455.3409182-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/ppc: Ensure ELF sections' physical load addresses
- start at 0x0
-Content-Language: en-GB
-To: Shawn Anastasio <sanastasio@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-Cc: tpearson@raptorengineering.com, Jan Beulich <jbeulich@suse.com>
-References: <20240320180021.70373-1-sanastasio@raptorengineering.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240320180021.70373-1-sanastasio@raptorengineering.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015C9:EE_|DM4PR12MB9072:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc4402c4-7415-4b49-2474-08dc490f41ff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	P2DKH+tSoLyaHDCG68fyGnQaG9eYxjppBn/196r4SQ0c5Fu58j9KhvdK3MLa9qaPLkNqCPkB7vWb4Cnar5WM04KblaNDVDbTIKBDSLAtl7fXsK3wzwI4/WVZlCRgyotisbwZD/NiUZpiJ+OV5dHBFuYcHLi7jBp09e8hnrSzdRCcyfiIpXbzmALa82k1C+SsEGkvtGLwjTmxdlKxYL+e/bxBdYTxN3kC/q7+nD7Xo8tpvgCRHVXzu9C2Og2ODk6I0//rKzncCg3RD2e3w97Jyz9kLKm5bHNxkE3FSXGX1p2n43IfVgA1rlXBJmCgA/jYP1CPuUYsiz4ezdrmfuSbz2TNi/TFgtZLrPIDQEsuVa5QRmf0IcD6Omx0fWzx7yy3iOH5f0patlJ5jHb/SFAc4jKtpI8IMfgLy6/5xDR8eKBJwjIrk/GmNbSjo2p+YQ6yVU4ETxVrjWHr6JEyTpU36/S5y4Vll52jp9LAHeeFWrtC8zR52ZdfV/QMUnun6THSRe93YNbliaHXStxYU+Cn4jbfLoQZrbxDkNFackxmQXf5ufvgYmnX7nnN1LO2sQ7S1lZ9Ji99RrXfvfNhvURqaRz5ie7ntOj8dqQg8dwHE7wvVp+axW7DMZBEbs31lMMVTeEnnuRWuPIdURbMn1pMqqj/XpVgpaOED3KkGRjz1sutGMkHy9bVIwn7xgHmaGfq+67on9YgzF0NvXYhJSuW9H4HbM/Nj+Aw1IPciWr4hBJTVQ5dbaC6E3BM9WE2mUbR
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(36860700004)(82310400014)(1800799015);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 18:55:05.9720
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc4402c4-7415-4b49-2474-08dc490f41ff
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF000015C9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9072
 
-On 20/03/2024 6:00 pm, Shawn Anastasio wrote:
-> Some boot mechanisms, including the new linux file_load kexec systemcall
-> used by system firmware v2.10 on RaptorCS systems will try to honor the
-> physical address field of the ELF LOAD section header, which will fail
-> when the address is based off of XEN_VIRT_START (0xc000000000000000).
->
-> To ensure that the physical address of the LOAD section header starts at
-> 0x0, import the DECL_SECTION macro from x86's xen.lds.S.
->
-> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-> ---
->  xen/arch/ppc/xen.lds.S | 30 ++++++++++++++++++------------
->  1 file changed, 18 insertions(+), 12 deletions(-)
->
-> diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
-> index 05b6db2728..0ed285f0a7 100644
-> --- a/xen/arch/ppc/xen.lds.S
-> +++ b/xen/arch/ppc/xen.lds.S
-> @@ -4,6 +4,12 @@
->  OUTPUT_ARCH(powerpc:common64)
->  ENTRY(start)
->  
-> +#ifdef CONFIG_LD_IS_GNU
-> +# define DECL_SECTION(x) x : AT(ADDR(#x) - XEN_VIRT_START)
-> +#else
-> +# define DECL_SECTION(x) x : AT(ADDR(x) - XEN_VIRT_START)
-> +#endif
+This is similar to what is being done on x86.
 
-Could you put this in xen.lds.h please, and dedup it from x86 ?
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+---
+ xen/arch/arm/setup.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-With that done, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 424744ad5e..3d110685bc 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -787,6 +787,8 @@ void asmlinkage __init start_xen(unsigned long boot_phys_offset,
+ 
+     processor_id();
+ 
++    system_state = SYS_STATE_smp_boot;
++
+     smp_init_cpus();
+     nr_cpu_ids = smp_get_max_cpus();
+     printk(XENLOG_INFO "SMP: Allowing %u CPUs\n", nr_cpu_ids);
+-- 
+2.25.1
+
 
