@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C5D9880E4E
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 10:08:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695825.1085978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3D9D880E5B
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 10:12:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695828.1085991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmrvk-00006O-0n; Wed, 20 Mar 2024 09:08:16 +0000
+	id 1rmrzO-0001tQ-Hy; Wed, 20 Mar 2024 09:12:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695825.1085978; Wed, 20 Mar 2024 09:08:15 +0000
+Received: by outflank-mailman (output) from mailman id 695828.1085991; Wed, 20 Mar 2024 09:12:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmrvj-0008VW-UH; Wed, 20 Mar 2024 09:08:15 +0000
-Received: by outflank-mailman (input) for mailman id 695825;
- Wed, 20 Mar 2024 09:08:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rmrzO-0001qn-Ep; Wed, 20 Mar 2024 09:12:02 +0000
+Received: by outflank-mailman (input) for mailman id 695828;
+ Wed, 20 Mar 2024 09:12:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LUpO=K2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmrvi-0008VQ-Ky
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 09:08:14 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60e4f019-e699-11ee-a1ee-f123f15fe8a2;
- Wed, 20 Mar 2024 10:08:12 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a46f0da1b4fso69824066b.2
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 02:08:12 -0700 (PDT)
+ id 1rmrzM-0001qf-Pk
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 09:12:00 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e7b5ea4c-e699-11ee-afdd-a90da7624cb6;
+ Wed, 20 Mar 2024 10:11:59 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a46d0a8399aso115369966b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 02:11:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g14-20020a170906198e00b00a46d049ff63sm2425212ejd.21.2024.03.20.02.08.11
+ a4-20020a170906368400b00a46006bc7e9sm6978439ejc.159.2024.03.20.02.11.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Mar 2024 02:08:11 -0700 (PDT)
+ Wed, 20 Mar 2024 02:11:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60e4f019-e699-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: e7b5ea4c-e699-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710925692; x=1711530492; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710925918; x=1711530718; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=D/ZwndSap+UjguGMNzzVmaq33gAVfBCyBcru2Ya/D5I=;
-        b=IDCfwxexbt+az7o9k/FC2EWEk8pvQLURZbp+2xwv95YQ6uBgAwqXYDca9NXwkGtGqN
-         OG/z+eZqGGMxgYlVMqSvbSJd+jv+aG7VcsRs5plGn6/zHKefWfLTcuzolCBQbadrxkEd
-         hC7xLzVY3C8FUo2+r7mZNgaX5kqYJ0fpU/gllKZA5rXutmQYKXyn4/nNEXIPy/A8KfEx
-         MpWgs+Nhj2Y409tI9CY7EC4tPMurORDw/OK4p+EnOdevmW2iuCyNz9lwqCaLCUZcd5Ok
-         kDC1tk4ESXDJi0SC79EvWqUJWOL19+dNQCtZZlWVkOVQpdZOmdsc+1olAGYyL/jgGzxT
-         o/IA==
+        bh=m8DgjMHAPNLrp/oH1catHKQq2B4nnG9SaOpJp6mkQRQ=;
+        b=gAD3hJO0zllKbQUrQNdsR9f3PzmTQn2y3IfnVa7wZFOJVpJVnrmHNBu3JMlRa1D+Gl
+         mFBxzyCECQJcZPks9pDNfUasFxfeH2fw7CP1oSeID6JaBzbo7GbDW2yHZwMBjM2mIUCA
+         QiS4tHKd4Rta7BrVM68jMYEm3Wvl8T46iP1MfyWd4xuFbzItfDRDy8Wu6Rf+lMeJKWOB
+         Xh3qVLjzdG0J5fY40qMq7wzY6sKe6EH97UxJMHaCBD5B/LNEUbrBkHzOFeEFqmbIXRmS
+         0BaI67KyGe8T8qLRV7FIxTUskmAjf3qghGt5riNXKJK0LLQCkOLboZC6jE7cLkcEujhQ
+         YCDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710925692; x=1711530492;
+        d=1e100.net; s=20230601; t=1710925918; x=1711530718;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=D/ZwndSap+UjguGMNzzVmaq33gAVfBCyBcru2Ya/D5I=;
-        b=RCovrkEIWlcAd7NdBFavnLMofu1LQSbGRTiGdufe/qNPsH6v1r+nmXmw3pvm7RGzDL
-         3ZnZZC5LZ3a5IlJAiQJbhz4gr+b9EBkqLtBaC4BSFru2hNdfQgUjinCAyHLAS4i+odZv
-         cCMiCFTnrSDvmcZqP6lyOMvxw8FNCPeaB/wUKNd/BkvWtYJaGB0aHKg5vP1t8H4tl/2n
-         c8dsq3U79ad7tl+k4aYLKeG1s1QW8lfgA/EdxcZQPeX+iRfo8zl4+aipVLffoTsrdI6e
-         HAiXgYnaQKMQTqpEEoIHubccsniX1I+DJztx3oG2ogJWNqfKycyHHPfDbiOic4NGXpwM
-         3IdQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUPKNyynBG4xOBnAKGzU5XVDvxgV6YOy/VFPcDByWilexs4KMWQtUCwQQ786ZLBx+cXN89Ehou/YVY2Ajd4PlgRL5UGU0loMinO7UZ2KDA=
-X-Gm-Message-State: AOJu0Yy4mO6thQBvkMdfJ8JBIur8shP8uqqrjycpiY5nOWna0CYTOPbH
-	3rFMDLTxf2NriRnNhAWun1wJyl2/jZJFlAtOwrCADGNY7lTO/X3OoFjl9OYFsg==
-X-Google-Smtp-Source: AGHT+IEi5QcEdgX9OfmpO5GHMu9SBhlRMR/xskEeRhCYZ9vemBd4NtsHAiuRkOVDoSCzFjah6zPJeg==
-X-Received: by 2002:a17:906:c794:b0:a46:be85:4410 with SMTP id cw20-20020a170906c79400b00a46be854410mr5875104ejb.74.1710925692208;
-        Wed, 20 Mar 2024 02:08:12 -0700 (PDT)
-Message-ID: <9341a711-74c3-463f-8cc2-a54e19b4b2f4@suse.com>
-Date: Wed, 20 Mar 2024 10:08:10 +0100
+        bh=m8DgjMHAPNLrp/oH1catHKQq2B4nnG9SaOpJp6mkQRQ=;
+        b=BxXRN+GubAqYkKym0AF939y4nRIQqqaSKALZVqkf3WKQcdufCOFRq1lnrl8D3jK/Ij
+         bqzDQeFnBd1mYGfF2fxkbUoEKcdg3yDtzaEtaBOU7xdPqB2aQC2d3MVxKY8/7ud/L6Gn
+         rSpSkRkba/MIB2NaXJNKW4jfmMfpm8/Gmi92kiQbsbke7WG8lBZC3Zo8yflXL8MCVvbS
+         WDo9U8JsuU8Cl1mmvLJ4sjQKgFrHhnEpCFnUL7/iME4C5+g7K4i4IqWd2x8UaUks2TEA
+         XmRBbHbYDTZWOV2tCQRyx+UFw3vPplj2LD2zxBFmNmCyWbS3g4ougpl2rAI7H8DgzgwC
+         wOEw==
+X-Forwarded-Encrypted: i=1; AJvYcCUgDA14OZ5TAiC++XwwtIb6GN85GVjuKpMHorpT9PuuwvPtZvxp+IeiWpRLpwxWT3BI/UYlRaI9jSevOMV7+CiURVLEmL/sAp/KnzTfI94=
+X-Gm-Message-State: AOJu0YzuEQa1C5idHDjiJ8dP+q/tdIbLFlgJZ+7i8WTj8RD9+1dQk+/s
+	y6DYg0uhplAZw6/R9HdLa0CT3xKHZil5QiefOlFsHVQj1bwmgeKvkDTMPG0gBg==
+X-Google-Smtp-Source: AGHT+IGNAFWT1rc1h04T18SBS33wQpI3Tc3Svs8798sZs5l/ZSPowgYohaQYY98B8VYXjXTm2NxcJg==
+X-Received: by 2002:a17:907:9449:b0:a46:f6f2:6861 with SMTP id dl9-20020a170907944900b00a46f6f26861mr964796ejc.36.1710925918342;
+        Wed, 20 Mar 2024 02:11:58 -0700 (PDT)
+Message-ID: <4ce30a38-5b5c-4d4c-a0c4-8c1a63759203@suse.com>
+Date: Wed, 20 Mar 2024 10:11:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/2] automation/eclair: add deviation for MISRA C:2012
- Rule 17.1
+Subject: Re: [XEN PATCH 2/2] xen: address violations of MISRA C Rule 17.1
 Content-Language: en-US
 To: Simone Ballarin <simone.ballarin@bugseng.com>
-Cc: consulting@bugseng.com, Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <cover.1710923235.git.simone.ballarin@bugseng.com>
- <882b442c8c1f73f8116676ab9351defe5c9609ac.1710923235.git.simone.ballarin@bugseng.com>
+ <f7c2f12ab1b62301cfea3a28707178950f480932.1710923235.git.simone.ballarin@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,73 +117,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <882b442c8c1f73f8116676ab9351defe5c9609ac.1710923235.git.simone.ballarin@bugseng.com>
+In-Reply-To: <f7c2f12ab1b62301cfea3a28707178950f480932.1710923235.git.simone.ballarin@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.03.2024 09:50, Simone Ballarin wrote:
-> MISRA C:2012 Rule 17.1 states:
-> The features of `<stdarg.h>' shall not be used
+On 20.03.2024 09:51, Simone Ballarin wrote:
+> MISRA C Rule 20.7 states: "The features of `<stdarg.h>' shall not be used"
 > 
 > The Xen community wants to avoid using variadic functions except for
 > specific circumstances where it feels appropriate by strict code review.
 > 
-> Add deviation for functions related to console output (printk and similar).
-> 
-> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
-> ---
->  .../eclair_analysis/ECLAIR/deviations.ecl     | 26 +++++++++++++++++++
->  docs/misra/deviations.rst                     |  5 ++++
->  2 files changed, 31 insertions(+)
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index 9ac3ee4dfd..7c3559a3a0 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -382,6 +382,32 @@ explicit comment indicating the fallthrough intention is present."
->  -config=MC3R1.R16.6,switch_clauses+={deliberate, "default(0)"}
->  -doc_end
->  
-> +#
-> +# Series 17.
-> +#
-> +
-> +-doc_begin="Functions related to console output are allowed to use the variadic features provided by stdarg.h."
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(debugtrace_printk)&&kind(function))))"}
+> Functions hypercall_create_continuation and hypercall_xlat_continuation
+> are special hypercalls made to break long running hypercalls into multiple
+> calls.
 
-This isn't concole output related.
+Here and below: These aren't "special hypercalls". They're internal helper
+functions.
 
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(dt_dprintk)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(printk)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(guest_printk)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(panic)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(dprintk)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(gdprintk)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(snprintf)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(scnprintf)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(xasprintf)&&kind(function))))"}
+> They take a variable number of arguments depending on the original
+> hypercall they are trying to continue.
 
-These three and ...
-
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(mm_printk)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(dbgp_printk)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(elf_call_log_callback)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(vsnprintf)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(vscnprintf)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(xvasprintf)&&kind(function))))"}
-
-... these three aren't either.
-
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(vprintk_common)&&kind(function))))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(guest_printk)&&kind(function))))"}
-> +-config=MC3R1.R17.1,macros+={hide , "^va_(arg|start|copy|end)$"}
-> +-doc_end
-
-Further, is there a reason xyzprintk() are all listed individually?
-Surely if we'd introduce a new flavor, we'd want that excluded too.
-
-Finally, {,g}dprintk() in neither of their incarnation use any of the
-va_* items listed. Why do they need mentioning here?
+Am I misremembering or did Andrew outline a plan to eliminate the variadic-
+ness from these? From certifiability perspective avoiding the need for a
+deviation would likely be preferable?
 
 Jan
 
