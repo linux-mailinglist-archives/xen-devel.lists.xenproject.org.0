@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD7CC880C64
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 08:51:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695762.1085812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA65D880C66
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 08:51:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695766.1085822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmqig-0001XW-Ku; Wed, 20 Mar 2024 07:50:42 +0000
+	id 1rmqjY-0002KB-US; Wed, 20 Mar 2024 07:51:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695762.1085812; Wed, 20 Mar 2024 07:50:42 +0000
+Received: by outflank-mailman (output) from mailman id 695766.1085822; Wed, 20 Mar 2024 07:51:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmqig-0001VM-FF; Wed, 20 Mar 2024 07:50:42 +0000
-Received: by outflank-mailman (input) for mailman id 695762;
- Wed, 20 Mar 2024 07:50:41 +0000
+	id 1rmqjY-0002Hq-RG; Wed, 20 Mar 2024 07:51:36 +0000
+Received: by outflank-mailman (input) for mailman id 695766;
+ Wed, 20 Mar 2024 07:51:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QeEy=K2=hotmail.com=rafael_andreas@srs-se1.protection.inumbo.net>)
- id 1rmqif-0001Uy-4c
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 07:50:41 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05acsn20800.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::800])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LUpO=K2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rmqjX-0002Hb-Gb
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 07:51:35 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8ae5cd4c-e68e-11ee-a1ee-f123f15fe8a2;
- Wed, 20 Mar 2024 08:50:38 +0100 (CET)
-Received: from DU0P192MB1700.EURP192.PROD.OUTLOOK.COM (2603:10a6:10:3bf::6) by
- PR3P192MB0828.EURP192.PROD.OUTLOOK.COM (2603:10a6:102:45::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7386.34; Wed, 20 Mar 2024 07:50:38 +0000
-Received: from DU0P192MB1700.EURP192.PROD.OUTLOOK.COM
- ([fe80::181e:3628:177d:1cf9]) by DU0P192MB1700.EURP192.PROD.OUTLOOK.COM
- ([fe80::181e:3628:177d:1cf9%4]) with mapi id 15.20.7386.017; Wed, 20 Mar 2024
- 07:50:38 +0000
+ id aafd2936-e68e-11ee-a1ee-f123f15fe8a2;
+ Wed, 20 Mar 2024 08:51:32 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a46a7208eedso531053966b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 00:51:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ak8-20020a170906888800b00a46b4544da2sm3964527ejc.125.2024.03.20.00.51.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Mar 2024 00:51:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,121 +45,333 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ae5cd4c-e68e-11ee-a1ee-f123f15fe8a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MMGKSz2wMqPhSO6xqeZ30Med/ckEivdCi22ro7US5sXxDGKbI8kN4nGK/Qumy59ypBycBEg9ur7CrGJ4Y1bPg6V/frYFEnDcM1+YAxZZRuMzpf7F6e9dSrPneZSCUbXcMlBRyn7jjYLIB62JDa/viBjpDyvdkNdHMITcNuSv/LjJW0PUC7btJz3KXwJJjG3SLvmFp+va/g90FRgdR5l/mAuTCDsRFW3LK0jjuFKjOjRud8prRPlI/9+a29naRBuS5pGfuBCeGVbUUwKh0HsiEQHB2d3/ekO/a8Jo2DhqG16GXf1NiO+07jGHOVZZ+5+Tne5pf6avtJbCEoVl68U+Mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L09xaIyDfPc1imD82wYwTmT8UcsJA4judxkiTTMaxjA=;
- b=DL2/JVRVb+/iy/LHXeZACWGX6/gUk8wS1idWKaqMYFzfqJJAwiAe8Zu/G0Xgj74zjYQ5N6BMU3wRYG7i0VIATsZO3JIO+zE5AD9KwSLIuWg6NAANXzJ2kwf0338LDgWMPfGQu3hMTh1FynpZrRuRJwzTIs2P/gx4LW9/70289BEk+eZo7tdAApMXzFFFFeFOViEIHluVAOGgjntX4ic4fJ2iLxzsquRlo/96JGhO5ty87hvE5y/tKi/b7Bkormx3F6rIB+ogffgJU5sA3tOP/WFzg5/irC22jl2NVf6UaGZc7LkAZ68S5A5pzmC/Xrgj3uvCFFbEWpxrvLibCFp2dA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L09xaIyDfPc1imD82wYwTmT8UcsJA4judxkiTTMaxjA=;
- b=uois+tdcleraLQ5xW87TAq5AYD7939tKYfGoEBXsSc03t9UDTV/nwSHoGOFiyxWvjss7UDhCh/3l1ZgX6oCSGurdFeV9ToTz+jO7NvD+L1FXpSzA/AFAokEioHjYH5KVddKvUQD4a9sQEESnqMVtbEaGGj1equyMTvsLzYki9lNw7o/GdcxKx9Evam/+rvH1//S/ewwcid3c/p02T6LPOk7HHj7UrNVgElfZS489hQbRewkGyoKh3ZCJ+2VP29IWg1tRzSQENhzzC+U9/G3UioyfNTPYTv++JjBuTlZFy9JnhH2EvoWT5W1vl8QiqkHy9yn3gm/jzsD04jKERtjEUg==
-From: =?UTF-8?q?Rafa=C3=ABl=20Kooi?= <rafael_andreas@hotmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Rafa=C3=ABl=20Kooi?= <rafael_andreas@hotmail.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [XEN PATCH v2 1/1] tools: init scripts: Add missing XENCONSOLED_ARGS variable
-Date: Wed, 20 Mar 2024 08:48:33 +0100
-Message-ID:
- <DU0P192MB1700AA0337B5E6598E23EE0AE3332@DU0P192MB1700.EURP192.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <cover.1710920673.git.rafael_andreas@hotmail.com>
-References: <cover.1710920673.git.rafael_andreas@hotmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TMN: [XwTrKlg6f4ZATfloz9Fk/iU60x4veSBMf8mKytBR9Ce6Ht4Idhuv0UoRIyNBALfD]
-X-ClientProxiedBy: FR4P281CA0360.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f4::13) To DU0P192MB1700.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:10:3bf::6)
-X-Microsoft-Original-Message-ID:
- <963cbb19d73f3d7c7f1fadceac376dfae81beb19.1710920673.git.rafael_andreas@hotmail.com>
+X-Inumbo-ID: aafd2936-e68e-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1710921092; x=1711525892; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=264kYHMNrCnzKREFunj4TW0vQGlF/lmI4/pk1dPm/GE=;
+        b=M6Y2IRfku6TaCzQZiCGVZV83hJ0IgKqPtPkBwq3BGRHyUJWXm0cQz61vAXoRLpq1HW
+         YWnoJpLTJBAvqON19cc9ATCtl7xr92FixrNU5cigIXs2V++ph9+MrYUiViIc0dx1mfJN
+         OBWz60bpJ0xBF1lZil7+lu1D/8b6KHYgZLVJkuBFFxKvIcAUPkNzdel63TBCrjXjzR3h
+         I1QmXtPXhEMZnp3tMUUQYehQXUr0l/EyfMmHNFWDNkYeQiFfhZxJ5YoYFOsIanSQfqQt
+         zF+FE5hXp9P1KxEZu/ELMCs3+m8n2KSi6OyVysrnxbg8VuatNdb217CwdbZfD48SNLp6
+         QiDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710921092; x=1711525892;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=264kYHMNrCnzKREFunj4TW0vQGlF/lmI4/pk1dPm/GE=;
+        b=CtETCzv4PLbtD6E6bClm9WjbPPM77z2ZkXY1ghLRe46PxgYlErZ6ADz1QOfZZWbLfz
+         kuvd7VFGCbbomyAaYXnFE3b6gJ7vv400EGbSO44OlVDc+b5zGMHcRB73FMCdKBONVdwa
+         eyaauJ8cKnTK3ULSNiFn2Uk8sCy+ORIqtDpBPGnUP4Ha8M86ePV8M1Qgc0Jd/za1IDvw
+         uxDOjN8BLwFmTCpSg3ZWj9dJyuO5Vu5ZiSsrv38kVc56jB3FpeKlFDKN7h9yaI05ie9X
+         aY/rmLKXWAdsJCW+Xafvx7uD41uVA8XQqwOLSrxWUentUxYOeRnBj9SvXrVIY0Y5J2aE
+         Y2gQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV8Fm9Nw8wbxuKNhr4Zp+XwA7nHMsz6+SpYwUFVzdXgewK+c9WdB1iVpYeBS8p5ydWWyJdYifBotFtPL+73ZMebwhErIFmOCUPymoGdMTQ=
+X-Gm-Message-State: AOJu0YxHkKVF/uh7fLem+TRUPmkMNQF0m4p2ykPPDrLRkkUbMB3Nwu4G
+	gx1CR5bb+VR5/2Pu2HhEPYJDs5KZbyRhTMVF04U7gPWuWQWfhX9AfB/qx3/3bA==
+X-Google-Smtp-Source: AGHT+IHtv+XzZNa/R00/jRtgycGltymphZM8VseCmYqQksNyeRocCY1USJXsZziK8RQ49YKe1FxeeQ==
+X-Received: by 2002:a17:906:5292:b0:a46:2cc4:421 with SMTP id c18-20020a170906529200b00a462cc40421mr10285617ejm.74.1710921092354;
+        Wed, 20 Mar 2024 00:51:32 -0700 (PDT)
+Message-ID: <87234837-9fb3-40a9-849d-8b8574f2661c@suse.com>
+Date: Wed, 20 Mar 2024 08:51:31 +0100
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU0P192MB1700:EE_|PR3P192MB0828:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29f9d41a-f599-4def-e87b-08dc48b26e8a
-X-MS-Exchange-SLBlob-MailProps:
-	laRBL560oLSDAxiCsf/0myDYsncr6f65usFjG82Jg1Mkme1//TIjYHjzju0NSEsT3BOEcjuifrvDLpGRmGntEbBHYBtOszk4h+U9iCNGGZBeaHk01U9hbmSup5UtwbHfmyOD1gOH1W4u9+MY9fDCLGK9XESmEgyOeJ0p+12cbkxXBDsNxz0Q6Tr+DyrG7XSkor1wOEbN/vAIr/yhgSB0KMoD+rNjYsDZpzeMJEeMJRwUJBq/s3TW1XkWPAMCAsBEgx9W68Pfdn9W8xu4HrHfj8DC0zy2xVTaf5o7YylvyaoDW4nKfujeHAhIyeQXXk+YeNO2zfAR0KC5S45MJ9pKE3jqg55DCKO0ZHhmtUJ7fP9mHJkJ/76QeGbghd6iNOLUQKl8atFsoRyC/2gqV3o2Huxg8083jZgIgevff6CvS29IQ9LgcTY0rvdyMZvxUSKNyjiLUeZ9HvdwhtqRHDTnSIR1O6Ay2O3AGUVxAsJyEikgZ/LXrtN3OaCTY+bf/GT/GZkzQUu9eJac2xGyQc26v5dkAlqT70TcKibX+I/MlcFYjTE4sKDsGKS7AySL3+JdhGSVjA5pzUa9zCzgPCKOxvJ8UyDi7kU6ysTLIlfWDU9GZMkdodM88Qm52dHjBce8LYCh0QTIQlV1eCwl7v41VopEbp+bnYrj8/suMbOjD2v5qhyo9lNkneXn/wz1BtDyQO8GS/HrUS971NUoEpPqoZtwfb21o/A1axEPdnAxS0HrBJ0N9t81lBbrbMCZK+M9WUThglZjsMEAySmTsPt9Uq5brC9kkfec
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	0L7nBKHpBr5MLu54pcKEQRPlzu/xn4zw4sy8Q7MpMLc7B9cjXTUeVpHcbpK7Lm5+j9KSvGup+VzFb/Pr1aBAIncdO78JZ4QAXL9iMzY4cIW/R4hwJWnm9km5T2mS5kmNX7N735Tg4QDFgdNBN205KUiD6nnxfna4Lalgi4uqFbEsxMymdtLGW0XloDSdKXNXBKIKP2AO/KfJZA+QGA2XVPjfBB4tyiegDa73PKewcvpRFJ6jiwjVl3kZ+i1XGaqcBjzkqbQF8WptIBa7iksHdtqwnWOWYKt1NfFF54tEE9iMdNv25f/aQh8Pe0cXnfo+NDV1vGN+FSnajU115KxQAsfJ2duRdw04wIp+0HcX7dfIuBWLgHDzPRuoPXr6vdmDXWF/J2oNqo7yrlR8dMuInX2z8dh4RpbYKKIPjBF3//W6Xtoj5WhMtGqd6rnojxF9IcKHXhOv0v0We/q9tL0Lo9jBershfhdQoG/uwxLyQjFeK6p3Yh0ClWuxW1gVMkEkydPOKTXhIzn0MsoG8T4KKfjgFwE+i4dKvqQ3mjjZU0ejZTfrNq0ZXW5AdNO6uz+k8NrFo2Qc6eLLzrrMFcG/FWww4vNEs8v2I4xwR9qbDg85HLkqXaHOqRQr2FcugfAv
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eGVPOFlhOVdmODdhcnRtd0M5VkJmR210eW1HaU1UcHpLNUNJREdFWHZMR1R6?=
- =?utf-8?B?MEFTL0tBVi9pV2RDUG5naG5tVTFvc0xWd3pFUUFsWjNaMS83dnh2Wm1Qb3Vo?=
- =?utf-8?B?WmFsZE9MR2U1UnFuVmwrN2pNZTdOU1hjZDlpZmsyYnhWek9UWUNwc3Q5NVBI?=
- =?utf-8?B?RFhldGZtMERhOVVOUVhtcGJENVpTOTRFelkvQjZRdG9zV0hPZmRhM1ErRFBH?=
- =?utf-8?B?V3hBUmFxakhNUnVpSU92M0MvNThLT3l2TER1cVJoZDcwcnBtL2pYNG1VdUR4?=
- =?utf-8?B?d3ZFTm1GUmJ2VHJ3K1JNSlFTU0I5TXVUUW1VdHkyM2FIMUN6MFgxM2gwZGNT?=
- =?utf-8?B?b09zOVE1WTBjekNzVDZxaUtWQ214Q3ZGSGg5NzBxbzFOUDhRSEplWGRUTGhj?=
- =?utf-8?B?SDloN2lFd3NyeFNqSTd3UU4wOEZPOHVPZ1hmVkRQV2RMemdkcDRBTlRRWlpM?=
- =?utf-8?B?ZHRLeHkvNUxoWjlDWUpKSHNmUDRXQ2I1VjBUaXlHTGZuOFhZSm04YWQ1aTE4?=
- =?utf-8?B?d2xFZzU4UHBzMmFsSnVjQlJ6R3VtQ1BSK2NKTTZlNHczejdxTUd5Y25MMkdI?=
- =?utf-8?B?VHRBTy9DU2RLUVl0NHIvRG4rajYzZC9iREJCVCtvVml2Yk1kTHRnOFoyZjRP?=
- =?utf-8?B?ZGE5VkRWdmdKaHhQbVg4QlE5U2dWRzRrVWY5azFhUjJDRjNJenFLYStlUXBK?=
- =?utf-8?B?a0pSMkRURkpaYks2cmJsSGh5NHFhS3Y4S1plRERhSHZKYW96eW5DQm1HQWRt?=
- =?utf-8?B?SDBrSFBkNk9tMXpnR3lkWGcvcEsrWmQvbysvbCtuRmJFeTJ0YkdNeWQ3Nlo3?=
- =?utf-8?B?ZGNqb0p1NFlMcVFlRFNINm0wWGxwTUZ2Q01JQ1YwTXNmNkxqMUxSWWZLSGU5?=
- =?utf-8?B?ZmJjZzU1REs0b3pwd3JUTWNscjlhSUpLOVdUdHR1WWphc0Y4c1JvOWpSYS9s?=
- =?utf-8?B?TWoyUU00KzRidHBTdjh1dzU0ck9VY1JnL095TithemFlSnplZjA1S2pCb1Bs?=
- =?utf-8?B?S1NBaWswUFJNTit3MHJCdWU5Uk1wMTI2c2R4SURIa0JucDlGUDZwYnFOK0E5?=
- =?utf-8?B?WmZTM0pPVVFyMklDUENXYzBvajY2ZTZFQ2hud25wNFppdXRTMExWc1lYZzZI?=
- =?utf-8?B?R3BtbXd3ZTRJQWdnM0pIMW1kWTRHRFJiZ3phdEwvSTBZSVN1cXlZV3BpRG9G?=
- =?utf-8?B?c2VNeGRHY1AxdlJwWm1vcHVIczBaOTFJYXc1bzlkL2s2NE5RSytpZHRWUUNt?=
- =?utf-8?B?WkpEL2o4dGQ1RXlVSmpkOW0vZFZLODJvV0Z6VHoxMGNCSGNadUE1aFZnMUlZ?=
- =?utf-8?B?UVVPRG1kVWJjNi9ncXR6dmIzWUtYS2tGZG54ZjliU1pPU1ZwZ2M5Z3dmcGRo?=
- =?utf-8?B?UER1YTZTM0NKS2J6Y2Q1ZDJvTGltcWlRWk81THJpR0FRZFRqaW5Kc2t0WHhs?=
- =?utf-8?B?TS9nSnZlSDZ3V3FCNytjT0s4QUYzaUlwTU0xbHdXVlFzU0NVaVVoekR0c2VP?=
- =?utf-8?B?SWpxOVNPenBSUkYyaVdlUitESXRnQWhPZ2FFRnVKajB3Umg0Mjh6ZzhyUll4?=
- =?utf-8?B?ZTVMVHBXZHFTdTdwYUYwK0t5RFJnV2Ywa3hjMEVvT1JXd1QrNkV2TWdaeHFa?=
- =?utf-8?B?cWh2L0JPa0hUd1RsYWNWZkJzVkg5dko3S29rQXV2R2p4UGUrU1h3QllDVHIx?=
- =?utf-8?B?VnJMYitCZmZOUndWR2pVd1pQSGZ4RzRPL044V09mUkV6SVBUQW03ckFDVFR6?=
- =?utf-8?Q?LvMIo73vAKa/XxCVEh8N55jdBEiJdh6+IrmWBY1?=
-X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-fb43a.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29f9d41a-f599-4def-e87b-08dc48b26e8a
-X-MS-Exchange-CrossTenant-AuthSource: DU0P192MB1700.EURP192.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 07:50:37.9057
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3P192MB0828
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] docs/misra: document the expected sizes of integer
+ types
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: andrew.cooper3@citrix.com, bertrand.marquis@arm.com,
+ george.dunlap@citrix.com, julien@xen.org, michal.orzel@amd.com,
+ roger.pau@citrix.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2403141516550.853156@ubuntu-linux-20-04-desktop>
+ <6a76723e-ba47-40b3-8f33-d68030b14299@suse.com>
+ <alpine.DEB.2.22.394.2403151658530.853156@ubuntu-linux-20-04-desktop>
+ <7ab73379-b057-4568-9869-141cef185752@suse.com>
+ <alpine.DEB.2.22.394.2403181735410.853156@ubuntu-linux-20-04-desktop>
+ <fadd30c9-440d-401d-bd05-7e1d965bbefe@suse.com>
+ <alpine.DEB.2.22.394.2403190815220.853156@ubuntu-linux-20-04-desktop>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2403190815220.853156@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The systemd xenconsoled.service uses the XENCONSOLED_ARGS variable, but
-it was missing from the xencommons file.
+On 20.03.2024 07:01, Stefano Stabellini wrote:
+> On Tue, 19 Mar 2024, Jan Beulich wrote:
+>> On 19.03.2024 04:37, Stefano Stabellini wrote:
+>>> On Mon, 18 Mar 2024, Jan Beulich wrote:
+>>>> On 16.03.2024 01:07, Stefano Stabellini wrote:
+>>>>> On Fri, 15 Mar 2024, Jan Beulich wrote:
+>>>>>> On 14.03.2024 23:17, Stefano Stabellini wrote:
+>>>>>>> Xen makes assumptions about the size of integer types on the various
+>>>>>>> architectures. Document these assumptions.
+>>>>>>
+>>>>>> My prior reservation wrt exact vs minimum sizes remains.
+>>>>>
+>>>>> We have to specify the exact size. In practice the size is predetermined
+>>>>> and exact with all our supported compilers given a architecture.
+>>>>
+>>>> But that's not the purpose of this document; if it was down to what
+>>>> compilers offer, we could refer to compiler documentation (and iirc we
+>>>> already do for various aspects). The purpose of this document, aiui,
+>>>> is to document assumption we make in hypervisor code. And those should
+>>>> be >=, not ==.
+>>>
+>>> Well... I guess the two of us are making different assumptions then :-)
+>>>
+>>> Which is the reason why documenting assumptions is so important. More at
+>>> the bottom.
+>>>
+>>>
+>>>>> Most importantly, unfortunately we use non-fixed-size integer types in
+>>>>> C hypercall entry points and public ABIs. In my opinion, that is not
+>>>>> acceptable.
+>>>>
+>>>> The problem is that I can't see the reason for you thinking so. The C
+>>>> entry points sit past assembly code doing (required to do) necessary
+>>>> adjustments, if any. If there was no assembly layer, whether to use
+>>>> fixed with types for such parameters would depend on what the
+>>>> architecture guarantees.
+>>>
+>>> This could be the source of the disagreement. I see the little assembly
+>>> code as not important, I consider it just like a little trampoline to
+>>> me. As we describe the hypercalls in C header files, I consider the C
+>>> functions the "official" hypercall entry points.
+>>
+>> Why would that be? Any code we execute in Xen is relevant.
+> 
+> There are a few reasons:
+> 
+> - the public interface is described in a C header so it makes sense for
+>   the corresponding implementation to be in C
+> 
+> - the C entry point is often both the entry point in C and also common
+>   code
+> 
+> - depending on the architecture, there is typically always some minimal
+>   assembly entry code to prepare the environment before we can jump into
+>   C-land; still one wouldn't consider those minimal and routine assembly
+>   operations to be a meaningful hypercall entry point corresponding to
+>   the C declaration in the public headers
+> 
+> - as per MISRA and also general good practice, we need the declaration
+>   in the public header files to match the definition in C
 
-Signed-off-by: Rafaël Kooi <rafael_andreas@hotmail.com>
----
- tools/hotplug/Linux/init.d/sysconfig.xencommons.in | 6 ++++++
- 1 file changed, 6 insertions(+)
+Throughout, but especially with this last point, I feel there's confusion
+(not sure on which side): There are no declarations of hypercall functions
+in the public headers. Adding declarations there for the C entry points in
+Xen would actually be wrong, as we don't provide such functions anywhere
+(to consumers of the ABI).
 
-diff --git a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-index 1bdd830d8a..42104ecaa4 100644
---- a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-+++ b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-@@ -5,6 +5,12 @@
- # Log xenconsoled messages (cf xl dmesg)
- #XENCONSOLED_TRACE=[none|guest|hv|all]
- 
-+## Type: string
-+## Default: ""
-+#
-+# Additional commandline arguments to start xenconsoled.
-+XENCONSOLED_ARGS=
-+
- ## Type: string
- ## Default: daemon
- #
--- 
-2.44.0
+>>> Also, as this is an ABI, I consider mandatory to use clear width
+>>> definitions of all the types (whether with this document or with
+>>> fixed-width types, and fixed-width types are clearer and better) in both
+>>> the C header files that describe the ABI interfaces, as well as the C
+>>> entry points that corresponds to it. E.g. I think we have to use
+>>> the same types in both do_sched_op and the hypercall description in
+>>> xen/include/public/sched.h
+>>
+>> There are two entirely separate aspects to the ABI: One is what we
+>> document towards consumers of it. The other is entirely internal, i.e.
+>> an implementation detail - how we actually consume the data.
+>> Documenting fixed-width types towards consumers is probably okay,
+>> albeit (see below) imo still not strictly necessary (for being
+>> needlessly limiting).
+> 
+> I don't see it this way.
+> 
+> As the Xen public interface description is in C and used during the
+> build, my opinion is that the public description and the C definition
+> need to match.
+> 
+> Also, I don't understand how you can say that public interfaces don't
+> strictly necessarily have to use fixed-width types.
+> 
+> Imagine that you use native types with different compilers that can
+> actually output different width interger sizes (which is not possible
+> today with gcc or clang). Imagine that a guest is written in a language
+> other than C (e.g. Java) based on the public interface description. It
+> cannot work correctly, can it?
 
+They'd need to write appropriate hypercall invocation functions. As per
+above - we don't provide these in the public headers, not even for C
+consumers.
+
+> I don't see how we can possibly have a public interface with anything
+> other than fixed-width integers.
+
+That's the consumer side of the ABI. It says nothing about the internal
+implementation details in Xen. All we need to do there is respect the
+ABI. That has no influence whatsoever on the C entry points when those
+aren't the actual hypercall entrypoints into the hypervisor.
+
+>>>> As to public ABIs - that's structure definitions, and I agree we ought
+>>>> to uniformly use fixed-width types there. We largely do; a few things
+>>>> still require fixing.
+>>>
+>>> +1
+>>>
+>>>
+>>>>> We have two options:
+>>>>>
+>>>>> 1) we go with this document, and we clarify that even if we specify
+>>>>>   "unsigned int", we actually mean a 32-bit integer
+>>>>>
+>>>>> 2) we change all our public ABIs and C hypercall entry points to use
+>>>>>    fixed-size types (e.g. s/unsigned int/uint32_t/g)
+>>>>>
+>>>>> 2) is preferred because it is clearer but it is more work. So I went
+>>>>> with 1). I also thought you would like 1) more.
+>>>>
+>>>> For ABIs (i.e. structures) we ought to be making that change anyway.
+>>>> Leaving basic types in there is latently buggy.
+>>>
+>>> I am glad we agree :-)
+>>>
+>>> It is just that I also consinder the C hypercall entry points as part of
+>>> the ABI
+>>>
+>>>
+>>>> I'm happy to see a document like this added, for the purpose described
+>>>> above. But to me 1) and 2) and largely independent of one another.
+>>>
+>>> Good that you are also happy with a document like this.
+>>>
+>>> The remaining question is: what about the rest of the C functions in Xen
+>>> that are certainly not part of an ABI?
+>>
+>> As per above - anything internal isn't part of the ABI, C entry points
+>> for hypercall handlers included. All we need to ensure is that we consume
+>> the data according to what the ABI sets forth.
+> 
+> It doesn't look like we'll convince one another on this point. But let
+> me try another way.
+> 
+> In my view, having mismatched types between declaration and definition
+> and having non-fixed-width types in C hypercall entry points is really
+> bad for a number of reasons, among them:
+> - correctness
+> - risk of ABI breakage
+> - mismatch of declaration and definition
+
+What mismatches are you talking about? There's nothing mismatched now,
+and there cannot be any mismatch, because the consumers of the ABI don't
+call Xen functions directly.
+
+> In your view, the drawback is not following the CODING_STYLE.
+> 
+> The two points of views on this subject don't have the same to lose. If
+> I were you, I would probably not invest my energy to defend the
+> CODING_STYLE.
+> 
+> 
+>> To use wording from George when he criticized my supposed lack of actual
+>> arguments: While there's nothing technically wrong with using fixed
+>> width types there (or in fact everywhere), there's also nothing technically
+>> wrong with using plain C types there and almost everywhere else (ABI
+>> structures excluded). With both technically equal, ./CODING_STYLE has the
+>> only criteria to pick between the two. IOW that's what I view wrong in
+>> George's argumentation: Demanding that I provide technical arguments when
+>> the desire to use fixed width types for the purpose under discussion also
+>> isn't backed by any.
+> 
+> I don't think we are in violation of the CODING_STYLE as it explicitly
+> accounts for exceptions. Public interfaces declarations and definitions
+> (hypercalls C entry points included) are an exception.
+
+If that was technically necessary, I would surely agree to there being an
+exception here.
+
+> In my opinion, using fixed-width integers in public headers and C
+> definitions (including C hypercall entry points) is top priority for
+> correctness. Correctness is more important than style. So, if we need to
+> change the CODING_STYLE to get there, let's change the CODING_STYLE.
+> 
+> 
+>>> Those are less critical, still this document should apply uniformily to
+>>> them too. I don't understand why you are making the >= width assumption
+>>> you mentioned at the top of the file when actually it is impossible to
+>>> exercise or test this assumption on any compiler or any architecture
+>>> that works with Xen. If it cannot be enabled, it hasn't been tested, and
+>>> it probably won't work.
+>>
+>> Hmm, yes, that's one way to look at it. My perspective is different though:
+>> By writing down assumptions that are more strict than necessary, we'd be
+>> excluding ports to environments meeting the >= assumption, but not meeting
+>> the == one. Unless of course you can point me at any place where - not
+>> just by mistake / by being overly lax - we truly depend on the == that you
+>> want to put in place. IOW yes, there likely would need to be adjustments
+>> to code if such a port was to happen. Yet we shouldn't further harden
+>> requirements that were never meant to be there.
+> 
+> I have already shown that all the current implementations and tests only
+> check for ==. In my opinion, this is sufficient evidence that >= is not
+> supported.
+> 
+> If you admit it probably wouldn't work without fixes today, would you
+> security-support such a configuration? Would you safety-support it? I
+> wouldn't want to buy a car running Xen compiled with a compiler using
+> integer sizes different from the ones written in this document.
+> 
+> Let me summarize our positions on these topics.
+> 
+> Agreed points:
+> - public interfaces should use fixed-width types
+> - it is a good idea to have a document describing our assumptions about
+>   integer types
+> 
+> Open decision points and misalignments:
+> - Should the C hypercall entry points match the public header
+>   declarations and ideally use fixed-width integer types? 
+
+As per above, this question just cannot be validly raised. There are
+no public header declarations to match.
+
+> I'd say yes and I would argue for it
+> 
+> - Should the document describing our assumptions about integer types
+>   specify == (unsigned int == uint32_t) or >= (unsigned int >=
+>   uint32_t)?
+> 
+> I'd say specify == and I would argue for it
+
+Actually, I had a further thought here in the meantime: For particular
+ports, using == is likely okay - they're conforming to particular
+psABI-s, after all (and that's what the compilers used also implement).
+I'd nevertheless expect >= to be used in common assumptions. That way
+for existing ports you get what you want, and there would still be
+provisions for new ports using, say, an ILP64 ABI. Common code would
+need to adhere to the common assumptions only. Arch-specific code can
+work from the more tight assumptions. (If future sub-arch variants are
+to be expected, like RV128, arch-code may still be well advised to try
+to avoid the more tight assumptions where possible, just to limit
+eventual porting effort.)
+
+Jan
 
