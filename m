@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1E7D880CC8
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 09:12:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695783.1085862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B7E9880D11
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 09:32:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695791.1085871 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmr3P-0000Tt-H9; Wed, 20 Mar 2024 08:12:07 +0000
+	id 1rmrMB-00052T-1f; Wed, 20 Mar 2024 08:31:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695783.1085862; Wed, 20 Mar 2024 08:12:07 +0000
+Received: by outflank-mailman (output) from mailman id 695791.1085871; Wed, 20 Mar 2024 08:31:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmr3P-0000SK-EH; Wed, 20 Mar 2024 08:12:07 +0000
-Received: by outflank-mailman (input) for mailman id 695783;
- Wed, 20 Mar 2024 08:12:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rmrMA-0004zv-Ui; Wed, 20 Mar 2024 08:31:30 +0000
+Received: by outflank-mailman (input) for mailman id 695791;
+ Wed, 20 Mar 2024 08:31:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LUpO=K2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmr3N-0008LY-N0
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 08:12:05 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 89923dd7-e691-11ee-afdd-a90da7624cb6;
- Wed, 20 Mar 2024 09:12:04 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-56bb5d61c5bso147419a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 01:12:04 -0700 (PDT)
+ id 1rmrM9-0004ya-AV
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 08:31:29 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3e3c877c-e694-11ee-a1ee-f123f15fe8a2;
+ Wed, 20 Mar 2024 09:31:27 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a46cd9e7fcaso328270966b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 01:31:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cn25-20020a0564020cb900b00568c3a2f4f8sm4387488edb.74.2024.03.20.01.12.04
+ d26-20020a1709067f1a00b00a46a643b6fbsm4925045ejr.15.2024.03.20.01.31.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Mar 2024 01:12:04 -0700 (PDT)
+ Wed, 20 Mar 2024 01:31:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89923dd7-e691-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 3e3c877c-e694-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710922324; x=1711527124; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710923486; x=1711528286; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=/CGxf3MycNptbTWncpX1giDQU+gSfOXIouCwo19AQUo=;
-        b=XCermbZT4SCmbxM6Zi+emZbhhOVr6ZmR2kUNp/N9Cyefr1uhOkSuss4SDo05Prb+mk
-         jNAoNRQeoenOZ3WhqL3Jhj/aj3xvsRlEOScFG9jRfxzKM0lEyd7EOreblZdbxi0YYjXd
-         //LhzA9DpJOZTBLP65Qh6Bc9gd6paPF1XeuBmI2iu1wzqWXWNnhRFG2OBd8v4J0PJHIV
-         rYQTch4LsjWFXVu+Qb+8t346JbT8dFbE6LSdsidTmjk2US3Ad87l3Z1e7K9vYPriyFa7
-         JmKgPI8aIhg/WS0fZGXeiLo0gaJtZ8RKjhrESxQp+QdKE7infcjNXHfcaEIuaN9VI/Ft
-         wFmA==
+        bh=EKJnFkvSNBPT334XIQUQeW5rAknaRr4uKjD1bF7fAHs=;
+        b=LnoFC/Ks+IUbYWWqkKpQsUeLV7EFKHHyCg/E1pgFBZ3z3IJy6owYYbF4whbD+FX7mC
+         rCco2qaCxF0IK0+0ceCDZI7RjZ4O6F0+TstWsUhR3c03LslqvuDQc6/jbkJ3Nk6O2bnx
+         mqSO6VhxQzzDCu3bUM/+GFSnjlml5P8kEFJUbWY0Xg8/UuGe0SG5ebiLT06RXglPH2wq
+         l0+oFnwVOGcuPvUNsXRnGXTipXQTeKKEcPP/zyNlOyjN6M5ZdPeemK/pMpMH/UVNdJga
+         FNNQmtEwGK83IJE721BFTRWNwBNg9fwJZm4Axp1+MmPstXTs0y6GUUPkOAyF5HZ+X447
+         /guw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710922324; x=1711527124;
+        d=1e100.net; s=20230601; t=1710923486; x=1711528286;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/CGxf3MycNptbTWncpX1giDQU+gSfOXIouCwo19AQUo=;
-        b=oxJ4ZRAz1YN9doK99Lrxtk0Fj/3f4Y+PvY/uprZ2q3efjios4xo1umKeiOrx0dnS5l
-         ad5iYnNJUTKNQRF0/3wOHQ3oQ0R21gvupk5zBRY67fgz88ouiM7j1vPZkN+P46NFojlF
-         ZY36UweljwfuRCqvuRq66kpU2kVz10iNxhDdJFxn3h93N4zLYPSE2/fVYDbfPptq5QdB
-         9NNPaM2ueslSE6kwF6WGnUGRde3YiH+ukFKv/PuKThl5d6l3lKDZGaEgc8VF6z1UwGHq
-         b3Yi+yIz34SHz/5iQ45mi2SFas3KvsRdzaGL5KXjwH4IYULRjChKn62jpPWJv3gtx1mb
-         TKtg==
-X-Forwarded-Encrypted: i=1; AJvYcCUDuRtvaCSSsLUfUj0Dm7TxsEXy/ha9TK/XZ5F3l1Tml5bVRQdLPcGuwHXyjmFqSSzf44Jiy1SUi6l+K4xUJtLCHZFbIhFPUr3t03HhQKM=
-X-Gm-Message-State: AOJu0Yy4Gizw/TVANUw6y5u8HumTKPH2ABGrj3SQ3ellRc3iuGdhJTJ4
-	iUaxBtNYCO5xopj1JrdNvjs0Pns1EjqnJVTIFukmK/mtqlvYOUHOmjY2THC0UQ==
-X-Google-Smtp-Source: AGHT+IHkaX6ndr3rADLs8AsbvcWPacZ76T78O6OKZbga7mD21DLVR9sdWIe8mf952tdfcX2Ge5Tfug==
-X-Received: by 2002:a05:6402:159a:b0:568:9fc9:ec72 with SMTP id ij26-20020a056402159a00b005689fc9ec72mr780372edb.35.1710922324453;
-        Wed, 20 Mar 2024 01:12:04 -0700 (PDT)
-Message-ID: <e8898bca-7dd2-4e40-acc0-72c4d7da1d1d@suse.com>
-Date: Wed, 20 Mar 2024 09:12:03 +0100
+        bh=EKJnFkvSNBPT334XIQUQeW5rAknaRr4uKjD1bF7fAHs=;
+        b=QgWs0VYk+h6HZPp1AWQrFZgsE5EKW8vix6FansynKoCtdhEIIsXOYEq6zuDeAieRvF
+         widtLFd4HyYIpd6xjqRbrxbz15GM5AXRAYkEeP9rvld7+EzhluU4NIadawu44NDepyCq
+         aIWM81r4DXJWTyJq85jJkpkJ4U8ofDxwvApHrLMvL8Tju2NwxSUBO7wLMSo7rg9ZdA+p
+         XVMFsdO7bC31/d+v1EqTulKwSxjMAXyfNIS9m4oPi3c6wP+47azxaM2HO45i8eQNBA25
+         hQVzVCLu6B9zuSvSkou29rtxgyHR7p1JcWCt+porn0gLvrZlRMNTp5ahBSQ3jIWRZv61
+         0B2A==
+X-Forwarded-Encrypted: i=1; AJvYcCWtr9oAdJcofpT3XyuZEJZS8bWnntDRVyrprzrrmc3czATL1rwAb4AykTqTJCTKiTLUv5ST+YHXnF4gPan9GL7Tw5J7SMpnjIXuyNwjdRM=
+X-Gm-Message-State: AOJu0YxgVZxHTA9MGgPdOb556bX5uVCJNLZwzhlb509MCnxUyRXmkrPp
+	up0Yt7/BdvaAzKxLTd5xCnSocRsY8WN2qlkamaoXTug6AVf3cYIO77vglC5DZg==
+X-Google-Smtp-Source: AGHT+IH5v5P8qSn3E3i459hTEuflbj722KEwbN+Tg9NvRSGUzCYTzjv4V0dBXFyAm4HTP6HRXJG/vA==
+X-Received: by 2002:a17:907:111b:b0:a46:d61f:c561 with SMTP id qu27-20020a170907111b00b00a46d61fc561mr791049ejb.27.1710923486499;
+        Wed, 20 Mar 2024 01:31:26 -0700 (PDT)
+Message-ID: <45ab1427-dc17-4881-9941-6372d2e23107@suse.com>
+Date: Wed, 20 Mar 2024 09:31:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/features: More AMD features
+Subject: Re: [PATCH] xen/rwlock: Don't perpeuatite broken API in new logic
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240318181332.3817631-1-andrew.cooper3@citrix.com>
- <8eb3d0d4-daf2-40a4-83b6-d3726e02814f@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, George Dunlap
+ <George.Dunlap@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240319113020.3843309-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,42 +111,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8eb3d0d4-daf2-40a4-83b6-d3726e02814f@citrix.com>
+In-Reply-To: <20240319113020.3843309-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19.03.2024 18:40, Andrew Cooper wrote:
-> It occurs to me that I need this hunk too.
+On 19.03.2024 12:30, Andrew Cooper wrote:
+> The single user wants this the sane way around.  Write it as a normal static
+> inline just like rspin_lock().
 > 
-> diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
-> index 25d329ce486f..bf3f9ec01e6e 100755
-> --- a/xen/tools/gen-cpuid.py
-> +++ b/xen/tools/gen-cpuid.py
-> @@ -329,6 +329,10 @@ def crunch_numbers(state):
->          # In principle the TSXLDTRK insns could also be considered
-> independent.
->          RTM: [TSXLDTRK],
->  
-> +        # Enhanced Predictive Store-Forwarding is a informational note
-> on top
-> +        # of PSF.
-> +        PSFD: [EPSF],
-> +
->          # The ARCH_CAPS CPUID bit enumerates the availability of the
-> whole register.
->          ARCH_CAPS: list(range(RDCL_NO, RDCL_NO + 64)),
->  
-> 
-> To cause EPSF to disappear properly when levelling.
+> Fixes: cc3e8df542ed ("xen/spinlock: add rspin_[un]lock_irq[save|restore]()")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-What exactly is wrong with exposing EPSF when PSFD is not there? (The PPR
-I'm looking at has no mention of what exactly the bit means, and hence
-whether e.g. it indicates PSFD can be avoided in certain use cases.) When
-leveling across a pool, EPSF may need hiding, yes, but that would need to
-be a result of admin activity, not by introducing a fake dependency. Just
-consider a pool with PSFD supported everywhere, but not EPSF: The admin
-would then still need to take action to make sure EPSF is uniformly
-invisible to guests.
+Notwithstanding Jürgen's R-b I'd be quite a bit happier if (a) this and
+spin_lock_irqsave() remained consistent with one another or at least
+(b) the implications of doing the necessary transformation for the
+latter towards Linux compatibility were visible to have been considered,
+in particular with it in mind that Misra won't like
+
+#define spin_lock_irqsave(l, f)                               \
+    ({                                                        \
+        BUILD_BUG_ON(sizeof(f) != sizeof(unsigned long));     \
+        (f) = spin_lock_irqsave(l);                           \
+    })
+
+in linux-compat.h (and obviously with xen/spinlock.h included ahead of
+this).
 
 Jan
 
