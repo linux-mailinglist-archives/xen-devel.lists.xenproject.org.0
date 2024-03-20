@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BEBE881536
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 17:06:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696028.1086543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2DB4881538
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 17:08:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696033.1086562 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmySh-0007NK-Te; Wed, 20 Mar 2024 16:06:43 +0000
+	id 1rmyUL-0008S6-F1; Wed, 20 Mar 2024 16:08:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696028.1086543; Wed, 20 Mar 2024 16:06:43 +0000
+Received: by outflank-mailman (output) from mailman id 696033.1086562; Wed, 20 Mar 2024 16:08:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmySh-0007Kr-Qh; Wed, 20 Mar 2024 16:06:43 +0000
-Received: by outflank-mailman (input) for mailman id 696028;
- Wed, 20 Mar 2024 16:06:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LUpO=K2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmySg-0007Kf-Qk
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 16:06:42 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d68f4705-e6d3-11ee-afdd-a90da7624cb6;
- Wed, 20 Mar 2024 17:06:41 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-56890b533aaso7920428a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 09:06:41 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- i25-20020a05640200d900b00568803d97d1sm7114018edu.9.2024.03.20.09.06.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Mar 2024 09:06:40 -0700 (PDT)
+	id 1rmyUL-0008Q0-CF; Wed, 20 Mar 2024 16:08:25 +0000
+Received: by outflank-mailman (input) for mailman id 696033;
+ Wed, 20 Mar 2024 16:08:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ljj4=K2=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rmyUJ-0008PC-Sq
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 16:08:23 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 130dfcb0-e6d4-11ee-a1ee-f123f15fe8a2;
+ Wed, 20 Mar 2024 17:08:22 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-4146d750dcdso354595e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 09:08:22 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ v7-20020a05600c444700b0041469869d11sm2642895wmn.47.2024.03.20.09.08.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Mar 2024 09:08:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,180 +45,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d68f4705-e6d3-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 130dfcb0-e6d4-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710950800; x=1711555600; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=1QvQ1Bm2u56fcVPgTr3DjmeZKP5Tnu/+NIWA8hQqe8c=;
-        b=ZtFUcZr8RKSeNzEm80CyStWJUUFBMiYisdakOhwYKhpxjNaJ/CZ0LFXqdIHeyT97Xm
-         YS9axIrBwvKt05LyziK7ZpFRtkCW4H2C6WXHl4tmxMWRMUa8mozqo5tJqQqPXq9F/3si
-         pxfnCqhWKusYyg4wmwQjhdCjhSOIFnsOoHg5n2zdn7KZVEc8vjXahkUJNt6WoHSmEw1R
-         gWvCtuYFnx1WxLJ+58oAJvr51fphhH58/cIvkhOg1ptlxrltXlRV7suYLGuxlpjkxRkg
-         hnXWldcfNcv3POi6lWZ/YjPaBg4raAmtiQbDDoaanyc9O6V15jv8xuBw+Y2luWs9bIyW
-         QcDQ==
+        d=cloud.com; s=cloud; t=1710950902; x=1711555702; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=9ydCgfXZXN/lh3bnAqoOjUPtVfgXID7+JO/rNeRXEfg=;
+        b=Sw4ojcy1fpnR3appZX3Z19qxDvh3YpQ+sMJa2+JbFqfN2sxaCDP3DbPRw51fAJZrOy
+         4tXK2jFVZZ+/BjXdbyiFAEf6VoaYoG0gegCzlO4kYqRuRESqKiTkL+FER7jdaoUI0H4E
+         vyVcTu0WjUfyvXFn7CW16ac+YgG2GskLdDZUo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710950800; x=1711555600;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1710950902; x=1711555702;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1QvQ1Bm2u56fcVPgTr3DjmeZKP5Tnu/+NIWA8hQqe8c=;
-        b=eMtQw1erh5ITI3euIZKtoQAdWfZhOK66WyWg3vufq6iM4XbnEEffpR6ctI7UXnXYPJ
-         90RdRaDGAxwjjdVVe3cIiWVmqFMKRSZZkU5+yD2f1SrVzHIUuyK7Dlv1cbvl0WwXnbee
-         swpp3r+4ZVmJe3RDerVK53g51e/Coxiffapvy+iTygoxmWmYKo1Aag4ewzbmVqcos38O
-         ZLdKOnKHpSNJuGQyQRQFeVkJUDd9pOM7vX5xj9XzGT175SpFclCZ77HQsZToEsh136Ml
-         NxHPc83ZKPTxZbmEsYSjKCQncxAmUXNIYcsHZcRQS68wlsfwwfDPpCLfKxORB/obCnKG
-         8ggg==
-X-Forwarded-Encrypted: i=1; AJvYcCXlXEbNZwWXgAScB75A6FWtSg4gGDqbxvmEVsTnk6IRojB79PZL3PxfYXxR3Fc2VmpEEaqrrumNfsRYzmNEr8ABVH5WAiJ+TnWZqd52a28=
-X-Gm-Message-State: AOJu0YzJiTnu41dOk/swqv/hr+T+8gSVea57ZPn4GUiUkZ1wZm7S9w8X
-	6uB6CMMbnQ64jer18RHko6TTfmzlqQq60UjMmHBgHGYzQfzQPn8X/qEHNG0L4A==
-X-Google-Smtp-Source: AGHT+IEMxi2HZWx3gKO+FO8X24X73331h3K2FY36+EzK/HwMm2v6ZYi0s5Fpd0+Yh+d9cN1OuiTj8g==
-X-Received: by 2002:aa7:dac3:0:b0:56b:b5a2:f8bb with SMTP id x3-20020aa7dac3000000b0056bb5a2f8bbmr1079440eds.3.1710950800355;
-        Wed, 20 Mar 2024 09:06:40 -0700 (PDT)
-Message-ID: <bed6509b-d292-478d-a039-16c927515d35@suse.com>
-Date: Wed, 20 Mar 2024 17:06:39 +0100
+        bh=9ydCgfXZXN/lh3bnAqoOjUPtVfgXID7+JO/rNeRXEfg=;
+        b=drcRqaqKt5klx/nImeG4QI5sSMjKB3ecRnh+QAaluAPfIjLL0aDA9V+oKMY/cDPZQ6
+         fY8AHETqK07E+PfyRGgA35M2KMWa5kVPxN3K1PeJoAjZMPrLYuH+i8Rk/gFNZb/WwXH5
+         R/r9zBMpk4EGw4+T/bbDqdhZ50ljwVBbhgu7d8eCm+JwdJH5buy6x1p+hM0I48vk4vfP
+         2ckARFUJkyy/GgNWI/UfivUI+rRDKpn0i8KqtQ0ZWXc5XvRbEz92jHoHIVvfYWfI/yxE
+         aKsSz02B44Jkz+EzZCs7mYCkNRVbkNGWvPfOw2L4hsq0NXp888xgHTa7t+K1N0MQYhpr
+         FN9g==
+X-Gm-Message-State: AOJu0YyfSuzgLcJloRw7VstD5BsaXm/7zJlqWihBL1ApXgs8OPp+6Jx5
+	CZ8XJLg4Vg8bvGGAds/COc5jo58NWJnMPfmQXdIJc61htTF1rqo3aKixZ0m0XHw=
+X-Google-Smtp-Source: AGHT+IGpwx+I3CN3YLrc7zIzvUFeBYMTuvVJc90Jx1S+kBKlIQ6qwlWc3728h4Co9hIdC9w8efqDCw==
+X-Received: by 2002:a05:600c:4a96:b0:414:f4:c6c0 with SMTP id b22-20020a05600c4a9600b0041400f4c6c0mr82663wmp.20.1710950901790;
+        Wed, 20 Mar 2024 09:08:21 -0700 (PDT)
+Date: Wed, 20 Mar 2024 16:08:20 +0000
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: zithro / Cyril =?iso-8859-1?Q?R=E9bert?= <slack@rabbit.lu>
+Cc: xen-devel@lists.xenproject.org,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v2] docs/man: add shutdown reasons to xl (list) man page
+Message-ID: <c77ecb60-35c1-426d-bac5-f4892598c6b5@perard>
+References: <0a2fcad111622431b8cd54c69adc3dedd24fb572.1709910923.git.slack@rabbit.lu>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] xen: Switch to new TRACE() API
-Content-Language: en-US
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240318163552.3808695-1-andrew.cooper3@citrix.com>
- <20240318163552.3808695-6-andrew.cooper3@citrix.com>
- <dd9fb309-d89b-4658-8a1d-1c22758a6a95@suse.com>
- <CA+zSX=bFwRULcO-M6BPev4CnUN1YNQazZBN+=3vXc+RJ0=ULEQ@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CA+zSX=bFwRULcO-M6BPev4CnUN1YNQazZBN+=3vXc+RJ0=ULEQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <0a2fcad111622431b8cd54c69adc3dedd24fb572.1709910923.git.slack@rabbit.lu>
 
-On 20.03.2024 16:46, George Dunlap wrote:
-> On Wed, Mar 20, 2024 at 1:45â€¯PM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 18.03.2024 17:35, Andrew Cooper wrote:
->>> @@ -736,9 +736,19 @@ static void vlapic_update_timer(struct vlapic *vlapic, uint32_t lvtt,
->>>              delta = delta * vlapic->hw.timer_divisor / old_divisor;
->>>          }
->>>
->>> -        TRACE_2_LONG_3D(TRC_HVM_EMUL_LAPIC_START_TIMER, TRC_PAR_LONG(delta),
->>> -                        TRC_PAR_LONG(is_periodic ? period : 0),
->>> -                        vlapic->pt.irq);
->>> +        if ( unlikely(tb_init_done) )
->>> +        {
->>> +            struct {
->>> +                uint64_t delta, period;
->>> +                uint32_t irq;
->>> +            } __packed d = {
->>> +                .delta = delta,
->>> +                .period = is_periodic ? period : 0,
->>> +                .irq = vlapic->pt.irq,
->>> +            };
->>> +
->>> +            trace_time(TRC_HVM_EMUL_LAPIC_START_TIMER, sizeof(d), &d);
->>> +        }
->>
->> Instead of this open-coding, how about
->>
->>         if ( is_periodic )
->>             TRACE_TIME(TRC_HVM_EMUL_LAPIC_START_TIMER, delta, delta >> 32,
->>                        period, period >> 32, vlapic->pt.irq);
->>         else
->>             TRACE_TIME(TRC_HVM_EMUL_LAPIC_START_TIMER, delta, delta >> 32,
->>                        0, 0, vlapic->pt.irq);
->>
->> thus improving similarity / grep-ability with ...
-> 
-> Yuck -- I'm not keen on breaking the similarity, but I'm *really* not
-> a fan of duplicating code.
+On Fri, Mar 08, 2024 at 04:19:20PM +0100, zithro / Cyril Rébert wrote:
+> Questions (unblocking):
+>  - why a double space between all sentences ?
 
-Neither am I, just that ...
+It's an English thing maybe?
 
->  Both are kind of "code smell"-y to me, but I think the second seems worse.
+Wikipedia has an article about it: https://en.wikipedia.org/wiki/Sentence_spacing
+But actually, single space seems like it used to be a french thing, even
+called "French spacing":
+https://en.wikipedia.org/wiki/History_of_sentence_spacing#French_and_English_spacing
 
-... it was the other way around to me.
+I guess it doesn't really matter. I don't really pay attention to it
+anyway.
 
-> It sort of looks to me like the source of the problem is that the
-> `period` variable is overloaded somehow; in that it's used to update
-> some calculation even if !is_periodic, and so the two places it's used
-> as an actual period (the trace code, and the call to
-> `create_periodic_time()`) need to figure out if `periodic` is for them
-> to use or not.
-> 
-> What about adding a variable, "timer_period" for that purpose?
-> Something like the following?
+>  - how to get a "simple LF" ? Ie. I want to use <br>, not <p>
+>    (a simple <Enter> has no effect, a double renders a <p>)
 
-Yeah, why not.
+That doesn't look to be possible, unless you actually managed to write
+the paragraph for all targeted formats, with things like =begin html...,
+but that would probably make things more complicated that necessary.
 
-Jan
-
-> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-> index dcbcf4a1fe..ea14fc1587 100644
-> --- a/xen/arch/x86/hvm/vlapic.c
-> +++ b/xen/arch/x86/hvm/vlapic.c
-> @@ -729,6 +729,8 @@ static void vlapic_update_timer(struct vlapic
-> *vlapic, uint32_t lvtt,
-> 
->      if ( delta && (is_oneshot || is_periodic) )
->      {
-> +        uint64_t timer_period = 0;
+> ---
+> diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
+> index bed8393473..d37227ba58 100644
+> --- a/docs/man/xl.1.pod.in
+> +++ b/docs/man/xl.1.pod.in
+> @@ -370,12 +370,50 @@ scheduling by the Xen hypervisor.
+>  The guest OS has shut down (SCHEDOP_shutdown has been called) but the
+>  domain is not dying yet.
+>  
+> -=item B<c - crashed>
+> +There are six shutdown reasons, which will be displayed after the "s" : B<-rscwS>.
 > +
->          if ( vlapic->hw.timer_divisor != old_divisor )
->          {
->              period = (uint64_t)vlapic_get_reg(vlapic, APIC_TMICT)
-> @@ -736,12 +738,15 @@ static void vlapic_update_timer(struct vlapic
-> *vlapic, uint32_t lvtt,
->              delta = delta * vlapic->hw.timer_divisor / old_divisor;
->          }
-> 
-> -        TRACE_2_LONG_3D(TRC_HVM_EMUL_LAPIC_START_TIMER, TRC_PAR_LONG(delta),
-> -                        TRC_PAR_LONG(is_periodic ? period : 0),
-> -                        vlapic->pt.irq);
-> +        if ( is_periodic )
-> +            timer_period = period;
+> +Note that some states will only be displayed if "on_poweroff=preserve" is set in
+> +the config file, see L<xl.cfg(5)>).
 > +
-> +        TRACE_TIME(TRC_HVM_EMUL_LAPIC_START_TIMER, delta, delta >> 32,
-> +                   timer_period, timer_period >> 32,
-> +                   vlapic->pt.irq);
-> 
->          create_periodic_time(current, &vlapic->pt, delta,
-> -                             is_periodic ? period : 0, vlapic->pt.irq,
-> +                             timer_period, vlapic->pt.irq,
->                               is_periodic ? vlapic_pt_cb : NULL,
->                               &vlapic->timer_last_update, false);
-> 
-> 
-> As with Jan, I'd be OK with checking it in the way it is if you prefer, so:
-> 
-> Reviewed-by: George Dunlap <george.dunlap@cloud.com>
+> +=over 4
+> +
+> +=over 4
+> +
+> +=item B<s- : poweroff>
+> +
+> +The domain exited normally, it will get destroyed.
+> +
+> +=item B<sr : reboot>
+> +
+> +The domain will reboot.
 
+Well, that's not really true. I think to end up in this state, what
+happen is that the domain shutdown and ask for a reboot. It's normally
+the toolstack job to cleanup the domain then create a new domain for the
+guest. I guess you might see this state if you have "on_reboot=preserve"
+or you run `xl list` at the right time. Or the toolstack crashed and
+fail to kill the domain before a reboot. So maybe a better to have
+something like "The domain exited normally and ask for a reboot."
+
+Same things for the other entries (poweroff and watchdog). The status is
+just the current status of what is supposed to happen. But a few things
+might mean that the domain stay in that state unless the admin does
+something. This could be simply because there's "on_*=preserve" setting,
+the toolstack crashed or we just happen to look while the toolstack is
+cleaning thing up.
+
+> +=item B<ss : suspend>
+> +
+> +The domain is suspended to disk or to RAM. If suspended to disk, the domain will
+> +get destroyed.
+
+I think in that state, the domain is just suspended, maybe to RAM? I
+don't know if suspend to disk would end up in this state, my guess is
+the domain will go to "poweroff" instead. But for suspend to "RAM", I
+think the toolstack is supposed to save the guest memory and guest
+config somewhere, maybe even on a different host for live migration?
+
+This is a state that seems to happen as part of a live migration (or `xl
+save` I guess).
+
+I tried to suspend a guest (runnning `systemd suspend`), but xl never
+reported `ss`, because there's nothing to do I guess. So this state is
+probably really about migration.
+
+
+Thanks,
+
+-- 
+Anthony PERARD
 
