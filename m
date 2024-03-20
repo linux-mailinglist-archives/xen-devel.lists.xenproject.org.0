@@ -2,34 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 135AF880AE9
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 07:01:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.695686.1085584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A20A880B43
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 07:36:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.695691.1085595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmp0v-0002Df-Gm; Wed, 20 Mar 2024 06:01:25 +0000
+	id 1rmpY2-0006Ss-1H; Wed, 20 Mar 2024 06:35:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 695686.1085584; Wed, 20 Mar 2024 06:01:25 +0000
+Received: by outflank-mailman (output) from mailman id 695691.1085595; Wed, 20 Mar 2024 06:35:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmp0v-0002BT-E5; Wed, 20 Mar 2024 06:01:25 +0000
-Received: by outflank-mailman (input) for mailman id 695686;
- Wed, 20 Mar 2024 06:01:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iFPB=K2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rmp0t-0002BF-QO
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 06:01:23 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 465e7524-e67f-11ee-afdd-a90da7624cb6;
- Wed, 20 Mar 2024 07:01:22 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 612AD60DF0;
- Wed, 20 Mar 2024 06:01:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AF21C433C7;
- Wed, 20 Mar 2024 06:01:18 +0000 (UTC)
+	id 1rmpY1-0006Qr-US; Wed, 20 Mar 2024 06:35:37 +0000
+Received: by outflank-mailman (input) for mailman id 695691;
+ Wed, 20 Mar 2024 06:35:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9RIb=K2=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rmpY0-0006Ql-Lz
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 06:35:36 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0da2afef-e684-11ee-a1ee-f123f15fe8a2;
+ Wed, 20 Mar 2024 07:35:34 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-56b8248e2d8so3366577a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Mar 2024 23:35:33 -0700 (PDT)
+Received: from ?IPV6:2003:e5:873a:400:704b:6dbb:e7c0:786e?
+ (p200300e5873a0400704b6dbbe7c0786e.dip0.t-ipconnect.de.
+ [2003:e5:873a:400:704b:6dbb:e7c0:786e])
+ by smtp.gmail.com with ESMTPSA id
+ h7-20020a056402094700b00568abb329a3sm5555856edz.88.2024.03.19.23.35.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Mar 2024 23:35:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,246 +47,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 465e7524-e67f-11ee-afdd-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710914479;
-	bh=YEvskiJv4b5eMlWYh4pUDKefgzPN8ylcsJhfV6+5lT0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=IwkCDaAn4mXvnPqxyWqOIMNEzA3sRlJ8TOQ67D/ueHTkCFWG+mbyZFlRdPMFMSLn5
-	 NS8mKmrj5NdH/i9GXk94oIcOyaITXjbQXZU8GuMASZ5aCJOS6rkryyRYFxDGkkepEu
-	 pF2MKc0PpYoM1faB6JnquDnV1rPhZwqitWNXgGfPPvssi3exfYH7y5BDH8LtV52cjG
-	 ZxRYJKeGRDddXhYyrPBuonXJNX/rq33oft4SCXO91W4FVm5vwzJUh23q78KT922LuG
-	 /+dXAPOsutUOKumyX0gffDrUzCWYmDQI7v8xgoEpHN66fkBHiCRH9NB0TtejXaJh2+
-	 IeYnwQyQe5Mmg==
-Date: Tue, 19 Mar 2024 23:01:16 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
-    bertrand.marquis@arm.com, george.dunlap@citrix.com, julien@xen.org, 
-    michal.orzel@amd.com, roger.pau@citrix.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2] docs/misra: document the expected sizes of integer
- types
-In-Reply-To: <fadd30c9-440d-401d-bd05-7e1d965bbefe@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2403190815220.853156@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2403141516550.853156@ubuntu-linux-20-04-desktop> <6a76723e-ba47-40b3-8f33-d68030b14299@suse.com> <alpine.DEB.2.22.394.2403151658530.853156@ubuntu-linux-20-04-desktop> <7ab73379-b057-4568-9869-141cef185752@suse.com>
- <alpine.DEB.2.22.394.2403181735410.853156@ubuntu-linux-20-04-desktop> <fadd30c9-440d-401d-bd05-7e1d965bbefe@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 0da2afef-e684-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1710916533; x=1711521333; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+lDzr2w02rVl5i39iHJOGsPh/Br7Dg/rii9eZpfwt1M=;
+        b=EP60K0yNx+v9KEsT1x0SWrmKY97eQz0QDeB1QC0+X1VzcSdn61Ipn+cdzcQ4IZRGai
+         qS9B7z8s47oRIggCm8NoXTxGyp2Wcdi8TFLbLPaAYmO3KxbSzYt73gv2dt6dSAesN27N
+         gGoIWPzWDHMendGF4RtcJUC9vXi5OCx18+xNZ/VpzMDyfA+Vv47/2QmyBCMmZbO8bVUj
+         4yYwNBArRcayTzGXgYl2NLr6K5i+fBTB1XjP8Mi3K0Bc7y2TTYnKpc5bxyQrN/DF0MYY
+         AaYEvx/SqoXxvHsrDzly/TOLclqDQggMXZYLDzHm3EIaEqiYBJFUEQNg6L3Kml8xLiPV
+         3kQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710916533; x=1711521333;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+lDzr2w02rVl5i39iHJOGsPh/Br7Dg/rii9eZpfwt1M=;
+        b=e/8KLsKiKWf+knx0j7ypJnGfk0qnx9gbwb5OjnPUAcjPYkL9dPcAvRLXEztBAK8aJg
+         gMpUBM8rJMjKVTIypERBrpdQzsaNu/8QXvL48GdaPxdyjuBjLq3KvNME55wKmcKQFB5h
+         M+YUQH/lLEE+PwOlUqCpK8rIUFP9n96JsGj2dxKtk/G8enhZ7D0hHwNP0os3Ce8CIToo
+         CEd0aMWDdG8QMrqFKsYRXnS/ew5YN99T343g20sXt1K/0Rf3VGakyuobTSoWtHeFjuhE
+         rE/NiqWGXL+rQSGxxB3lv5y0wu3SHrO5Na45vVsrIyLtjZOR8xNfsAgGBoeAjWdFrVjy
+         2W3g==
+X-Forwarded-Encrypted: i=1; AJvYcCXTUX4gL8GF1lLE/N95TnWOcSJf2jm1FmwMPGrSvshenGxFmkMaQTKfUkRLUEpELJax94iA/ETDO8s+uBnbFL8XMC62kz8CStOWXgorNRE=
+X-Gm-Message-State: AOJu0Yz7YS9UTiLUa4ubTuKtHSKAWuer43lcedWxW1TurpLWTQub/U/5
+	4Nz4NvBbjRMYWmrbqODBEAtjPTK/uOwNKyk/HpywfKZBEFjGchbmV75qHVyro/Q=
+X-Google-Smtp-Source: AGHT+IETFzu+HFRx/soYUPuG6RGaeJvJMFpY5Cqy84nbvtlZhn5eXhYPgU4OZja5Xyjy4WHVr2r9DQ==
+X-Received: by 2002:a05:6402:5384:b0:568:ae7:bc0 with SMTP id ew4-20020a056402538400b005680ae70bc0mr12089603edb.34.1710916533023;
+        Tue, 19 Mar 2024 23:35:33 -0700 (PDT)
+Message-ID: <553a8bfb-94f3-4c3a-b1ae-17d0cb185737@suse.com>
+Date: Wed, 20 Mar 2024 07:35:32 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/rwlock: Don't perpeuatite broken API in new logic
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich
+ <JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>
+References: <20240319113020.3843309-1-andrew.cooper3@citrix.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <20240319113020.3843309-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 19 Mar 2024, Jan Beulich wrote:
-> On 19.03.2024 04:37, Stefano Stabellini wrote:
-> > On Mon, 18 Mar 2024, Jan Beulich wrote:
-> >> On 16.03.2024 01:07, Stefano Stabellini wrote:
-> >>> On Fri, 15 Mar 2024, Jan Beulich wrote:
-> >>>> On 14.03.2024 23:17, Stefano Stabellini wrote:
-> >>>>> Xen makes assumptions about the size of integer types on the various
-> >>>>> architectures. Document these assumptions.
-> >>>>
-> >>>> My prior reservation wrt exact vs minimum sizes remains.
-> >>>
-> >>> We have to specify the exact size. In practice the size is predetermined
-> >>> and exact with all our supported compilers given a architecture.
-> >>
-> >> But that's not the purpose of this document; if it was down to what
-> >> compilers offer, we could refer to compiler documentation (and iirc we
-> >> already do for various aspects). The purpose of this document, aiui,
-> >> is to document assumption we make in hypervisor code. And those should
-> >> be >=, not ==.
-> > 
-> > Well... I guess the two of us are making different assumptions then :-)
-> > 
-> > Which is the reason why documenting assumptions is so important. More at
-> > the bottom.
-> > 
-> > 
-> >>> Most importantly, unfortunately we use non-fixed-size integer types in
-> >>> C hypercall entry points and public ABIs. In my opinion, that is not
-> >>> acceptable.
-> >>
-> >> The problem is that I can't see the reason for you thinking so. The C
-> >> entry points sit past assembly code doing (required to do) necessary
-> >> adjustments, if any. If there was no assembly layer, whether to use
-> >> fixed with types for such parameters would depend on what the
-> >> architecture guarantees.
-> > 
-> > This could be the source of the disagreement. I see the little assembly
-> > code as not important, I consider it just like a little trampoline to
-> > me. As we describe the hypercalls in C header files, I consider the C
-> > functions the "official" hypercall entry points.
+On 19.03.24 12:30, Andrew Cooper wrote:
+> The single user wants this the sane way around.  Write it as a normal static
+> inline just like rspin_lock().
 > 
-> Why would that be? Any code we execute in Xen is relevant.
+> Fixes: cc3e8df542ed ("xen/spinlock: add rspin_[un]lock_irq[save|restore]()")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-There are a few reasons:
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
-- the public interface is described in a C header so it makes sense for
-  the corresponding implementation to be in C
-
-- the C entry point is often both the entry point in C and also common
-  code
-
-- depending on the architecture, there is typically always some minimal
-  assembly entry code to prepare the environment before we can jump into
-  C-land; still one wouldn't consider those minimal and routine assembly
-  operations to be a meaningful hypercall entry point corresponding to
-  the C declaration in the public headers
-
-- as per MISRA and also general good practice, we need the declaration
-  in the public header files to match the definition in C
+Maybe with the subject fixed (s/rwlock/spinlock/).
 
 
-> > Also, as this is an ABI, I consider mandatory to use clear width
-> > definitions of all the types (whether with this document or with
-> > fixed-width types, and fixed-width types are clearer and better) in both
-> > the C header files that describe the ABI interfaces, as well as the C
-> > entry points that corresponds to it. E.g. I think we have to use
-> > the same types in both do_sched_op and the hypercall description in
-> > xen/include/public/sched.h
-> 
-> There are two entirely separate aspects to the ABI: One is what we
-> document towards consumers of it. The other is entirely internal, i.e.
-> an implementation detail - how we actually consume the data.
-> Documenting fixed-width types towards consumers is probably okay,
-> albeit (see below) imo still not strictly necessary (for being
-> needlessly limiting).
+Juergen
 
-I don't see it this way.
-
-As the Xen public interface description is in C and used during the
-build, my opinion is that the public description and the C definition
-need to match.
-
-Also, I don't understand how you can say that public interfaces don't
-strictly necessarily have to use fixed-width types.
-
-Imagine that you use native types with different compilers that can
-actually output different width interger sizes (which is not possible
-today with gcc or clang). Imagine that a guest is written in a language
-other than C (e.g. Java) based on the public interface description. It
-cannot work correctly, can it?
-
-I don't see how we can possibly have a public interface with anything
-other than fixed-width integers.
-
-
-> >> As to public ABIs - that's structure definitions, and I agree we ought
-> >> to uniformly use fixed-width types there. We largely do; a few things
-> >> still require fixing.
-> > 
-> > +1
-> > 
-> > 
-> >>> We have two options:
-> >>>
-> >>> 1) we go with this document, and we clarify that even if we specify
-> >>>   "unsigned int", we actually mean a 32-bit integer
-> >>>
-> >>> 2) we change all our public ABIs and C hypercall entry points to use
-> >>>    fixed-size types (e.g. s/unsigned int/uint32_t/g)
-> >>>
-> >>> 2) is preferred because it is clearer but it is more work. So I went
-> >>> with 1). I also thought you would like 1) more.
-> >>
-> >> For ABIs (i.e. structures) we ought to be making that change anyway.
-> >> Leaving basic types in there is latently buggy.
-> > 
-> > I am glad we agree :-)
-> > 
-> > It is just that I also consinder the C hypercall entry points as part of
-> > the ABI
-> > 
-> > 
-> >> I'm happy to see a document like this added, for the purpose described
-> >> above. But to me 1) and 2) and largely independent of one another.
-> > 
-> > Good that you are also happy with a document like this.
-> > 
-> > The remaining question is: what about the rest of the C functions in Xen
-> > that are certainly not part of an ABI?
-> 
-> As per above - anything internal isn't part of the ABI, C entry points
-> for hypercall handlers included. All we need to ensure is that we consume
-> the data according to what the ABI sets forth.
-
-It doesn't look like we'll convince one another on this point. But let
-me try another way.
-
-In my view, having mismatched types between declaration and definition
-and having non-fixed-width types in C hypercall entry points is really
-bad for a number of reasons, among them:
-- correctness
-- risk of ABI breakage
-- mismatch of declaration and definition
-
-In your view, the drawback is not following the CODING_STYLE.
-
-The two points of views on this subject don't have the same to lose. If
-I were you, I would probably not invest my energy to defend the
-CODING_STYLE.
-
-
-> To use wording from George when he criticized my supposed lack of actual
-> arguments: While there's nothing technically wrong with using fixed
-> width types there (or in fact everywhere), there's also nothing technically
-> wrong with using plain C types there and almost everywhere else (ABI
-> structures excluded). With both technically equal, ./CODING_STYLE has the
-> only criteria to pick between the two. IOW that's what I view wrong in
-> George's argumentation: Demanding that I provide technical arguments when
-> the desire to use fixed width types for the purpose under discussion also
-> isn't backed by any.
-
-I don't think we are in violation of the CODING_STYLE as it explicitly
-accounts for exceptions. Public interfaces declarations and definitions
-(hypercalls C entry points included) are an exception.
-
-In my opinion, using fixed-width integers in public headers and C
-definitions (including C hypercall entry points) is top priority for
-correctness. Correctness is more important than style. So, if we need to
-change the CODING_STYLE to get there, let's change the CODING_STYLE.
-
-
-> > Those are less critical, still this document should apply uniformily to
-> > them too. I don't understand why you are making the >= width assumption
-> > you mentioned at the top of the file when actually it is impossible to
-> > exercise or test this assumption on any compiler or any architecture
-> > that works with Xen. If it cannot be enabled, it hasn't been tested, and
-> > it probably won't work.
-> 
-> Hmm, yes, that's one way to look at it. My perspective is different though:
-> By writing down assumptions that are more strict than necessary, we'd be
-> excluding ports to environments meeting the >= assumption, but not meeting
-> the == one. Unless of course you can point me at any place where - not
-> just by mistake / by being overly lax - we truly depend on the == that you
-> want to put in place. IOW yes, there likely would need to be adjustments
-> to code if such a port was to happen. Yet we shouldn't further harden
-> requirements that were never meant to be there.
-
-I have already shown that all the current implementations and tests only
-check for ==. In my opinion, this is sufficient evidence that >= is not
-supported.
-
-If you admit it probably wouldn't work without fixes today, would you
-security-support such a configuration? Would you safety-support it? I
-wouldn't want to buy a car running Xen compiled with a compiler using
-integer sizes different from the ones written in this document.
-
-Let me summarize our positions on these topics.
-
-Agreed points:
-- public interfaces should use fixed-width types
-- it is a good idea to have a document describing our assumptions about
-  integer types
-
-Open decision points and misalignments:
-- Should the C hypercall entry points match the public header
-  declarations and ideally use fixed-width integer types? 
-
-I'd say yes and I would argue for it
-
-- Should the document describing our assumptions about integer types
-  specify == (unsigned int == uint32_t) or >= (unsigned int >=
-  uint32_t)?
-
-I'd say specify == and I would argue for it
 
