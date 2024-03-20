@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E3838814B8
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 16:39:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696007.1086483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F03A8814CD
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Mar 2024 16:42:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696010.1086493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmy23-0006BN-LF; Wed, 20 Mar 2024 15:39:11 +0000
+	id 1rmy4s-0008LZ-2v; Wed, 20 Mar 2024 15:42:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696007.1086483; Wed, 20 Mar 2024 15:39:11 +0000
+Received: by outflank-mailman (output) from mailman id 696010.1086493; Wed, 20 Mar 2024 15:42:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rmy23-00069Y-IT; Wed, 20 Mar 2024 15:39:11 +0000
-Received: by outflank-mailman (input) for mailman id 696007;
- Wed, 20 Mar 2024 15:39:09 +0000
+	id 1rmy4r-0008JM-VV; Wed, 20 Mar 2024 15:42:05 +0000
+Received: by outflank-mailman (input) for mailman id 696010;
+ Wed, 20 Mar 2024 15:42:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LUpO=K2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rmy21-000682-CF
- for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 15:39:09 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1rmy4q-0008JC-Ub
+ for xen-devel@lists.xenproject.org; Wed, 20 Mar 2024 15:42:04 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd806087-e6cf-11ee-afdd-a90da7624cb6;
- Wed, 20 Mar 2024 16:39:08 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a46d0a8399aso185282366b.1
- for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 08:39:08 -0700 (PDT)
+ id 65d1cb2a-e6d0-11ee-afdd-a90da7624cb6;
+ Wed, 20 Mar 2024 16:42:03 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-56b8e4f38a2so3187020a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Mar 2024 08:42:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- dt22-20020a170906b79600b00a4669f6c2e2sm7364250ejb.44.2024.03.20.08.39.07
+ h6-20020a1709060f4600b00a468be342bfsm6185503ejj.136.2024.03.20.08.42.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Mar 2024 08:39:07 -0700 (PDT)
+ Wed, 20 Mar 2024 08:42:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd806087-e6cf-11ee-afdd-a90da7624cb6
+X-Inumbo-ID: 65d1cb2a-e6d0-11ee-afdd-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1710949148; x=1711553948; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1710949323; x=1711554123; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=sr6KrqljbfsGwtYhah3+YpUsKXZC0JiQScbtLwgpKMA=;
-        b=AmvcJXE3+t0IWNXnJ05zkpD0x9U/zvCDy93ubcVlMIhQIyTiw8t8c5hgjbYFdY196H
-         rKx4daNBuqBCBjpFE8iEMy+Im4MvUWipKX3jEThtet3rPrliY5qIimHDxoqWm5ZhTfcv
-         Glns/E4HcBx8kXg+Dd7iuUes5+EezvghhllaTzoO+WcXttCdQUl3QGHsOnhMumkDP4YS
-         MxQyXYfwL8mJUD0lskY0/UBK38c/kFMvp+tc10f1+9s/Fcwl3B1+piMnAcvQva3FPa41
-         zX3B2l0Oln8+d31xDwIT/YPfDDvgjCBd4ENfMxcCPK8ZcTzxzLjwlWDefGSqR9+Grq2f
-         ilTw==
+        bh=jbwI7wpXLk3zANzvhdPkPLuSuz1KVcG4KeWWJSNch8k=;
+        b=XtgQaTxnUJcaoXQMtomi9mkZHwePBiKTthLb/LJDi+eTPjle0Ef9HeGXddTQjOLGgE
+         c/V4LJPxn94fX+RjSnxNSa9qiCX4FjmwQJ4oTZIvSYTD8k5UM1b3BSP65pLVZOrkWOPL
+         DNqRRITUXfa457FOxbaOnjj/0fw8AZuXa4XClMgfZ/hKR+1XVr8ZY+Aj1GFCQN59Gou6
+         awC7YqiO2Pz8AMB5twY39dDp1hYKskvFKgJQYOUUHVdIOToPl7vR6ruryEwuY0eSi3Xl
+         g2eL7tQnrfkFajnVEvi7Ev+CqvYOO7FUn07xSBRp0e/NxixG5dMJZHcKTbRgnG4Sej61
+         5u1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710949148; x=1711553948;
+        d=1e100.net; s=20230601; t=1710949323; x=1711554123;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sr6KrqljbfsGwtYhah3+YpUsKXZC0JiQScbtLwgpKMA=;
-        b=hpO9/+A4gbH6CghePF+1A9k/pt1VwaBL9UGSxqBAhQ12zBH7DtTHnbJwTvM3qV6tgz
-         kBoJZSkBJiYURx73K1kfRgR8wWoriCf3Bdf2wG4nLT3o3QWUFk8pEP1lBtCpArJ6pywv
-         BJLe16EXEfz9ySJZnbJGgcwW4Ih5IkREv9ZHPLPg3D/WFJUNWZ5MpIFsFBxz0oyiLJb8
-         cP7/Jhvs7Xdp1H5Sgz9cHvjiimI3f10ljoWsLo09OTeMoMI4xsvR4vsMZhWN7AxN8Vcs
-         m++VM+HaWkQHdEEZL76fWuBtgKv8k59wqIJV5Uo0JMAk2mdr8eyzGgoezesuFnR5r/wd
-         rOgA==
-X-Forwarded-Encrypted: i=1; AJvYcCXwyfDAnCa58iDQQ7ym6vV5qXWvb2awQyPnId9neLSQcqt8Na2oqSnfTPlB0amfkHkunqYmNB6fVwMuuAo4YA1Cy555BJSsFalS0A9MFig=
-X-Gm-Message-State: AOJu0YyM7FR1TfKx09JlvAXlZ4cenwXgGVWcS/2tAUY66D1dlSnVlx0z
-	XkFZHO2Rz4fkioTBdlMxT5WRvSkTuFCT/sJ/CfKBPmYTJqqZDpAD3tVkwD9ijQ==
-X-Google-Smtp-Source: AGHT+IFsBa/nkQrm62YC41Vb9H8Z9+gkCInx2JlJdqtODLldg4dLfA5Pt6yPyq+Mt8F6S7wI8neiZg==
-X-Received: by 2002:a17:907:76c5:b0:a45:f9c5:3024 with SMTP id kf5-20020a17090776c500b00a45f9c53024mr37350ejc.11.1710949147752;
-        Wed, 20 Mar 2024 08:39:07 -0700 (PDT)
-Message-ID: <0f1dccc2-ef5e-40de-91de-c5ba70a09c42@suse.com>
-Date: Wed, 20 Mar 2024 16:39:06 +0100
+        bh=jbwI7wpXLk3zANzvhdPkPLuSuz1KVcG4KeWWJSNch8k=;
+        b=G94fSNxH42iaz91IF5msE9VOxw5Nr+wO5MLUvxGt3fvs/sWqeveWtx/eWK5jQY8tIF
+         3vm0ra2BEneSkMvn9kulHIjt5p4PSUDbMHe4xJ8LHRO/PEySziUyHDOKzIK+TrsJMgdQ
+         hpHGB6fjn93DsCtGSCn3P8t4x2OyFcf8y2KrwEESP+B5+ZlKuG6PoaDMKUhsN/B6fsk7
+         9UE8QMnk9lYDzxS1eif0KCf3C7INT3XyD7fbJ6C7IjykZu4r/Rn6Zm1DsoQEbwLbFph7
+         vhytGP3VoHgw85+2MuvT6s5FEujt8hkyZAArj99lg7S1LGD13HSdvQxOHbIYeEmvMFx8
+         17DQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXGuU7ZUR7bDXeYiCL1jOkxH/8aKKUxWCCELpu6rxYgQiqkZk33MOXYATwlTzG7K5wCO1PRihmPzhb60trdflXe9Ld0MJmE+p96HnVdrjQ=
+X-Gm-Message-State: AOJu0Yxu8k64czPsvoMEnXl/ScetT+FGzrMuHAaQj4CCyu0dwCakGTG6
+	g2Ryd/Hc4qE5Uo3DEbrnxCs0YM33ef17Ky5gYNfTK9w4ZsahtU6/Ie+7AxJEWA==
+X-Google-Smtp-Source: AGHT+IFBRSI7o5yP8EJ/68uDpNtxpyEhTm1yrWvIbgXoozKtKOfQptqYzmH9TP3fogHqV61kUtqKcQ==
+X-Received: by 2002:a17:906:6d59:b0:a46:e595:f357 with SMTP id a25-20020a1709066d5900b00a46e595f357mr3247536ejt.9.1710949322734;
+        Wed, 20 Mar 2024 08:42:02 -0700 (PDT)
+Message-ID: <a4d36c0f-d3a3-4d64-a62e-b631a4ece9a8@suse.com>
+Date: Wed, 20 Mar 2024 16:42:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 05/20] xen/bitops: implement fls{l}() in common logic
+Subject: Re: [PATCH v6 06/20] xen/bitops: put __ffs() and ffz() into linux
+ compatible header
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
@@ -90,10 +91,9 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
  Shawn Anastasio <sanastasio@raptorengineering.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
 References: <cover.1710517542.git.oleksii.kurochko@gmail.com>
- <e7fc769a4f08ca00972faf4ce99e562d2eb3c00c.1710517542.git.oleksii.kurochko@gmail.com>
+ <8bc35da4a9fd44d2dcf9677dcc99334eb7142581.1710517542.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,54 +118,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e7fc769a4f08ca00972faf4ce99e562d2eb3c00c.1710517542.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <8bc35da4a9fd44d2dcf9677dcc99334eb7142581.1710517542.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 15.03.2024 19:06, Oleksii Kurochko wrote:
-> Return type was left 'int' because of the following compilation error:
-> 
-> ./include/xen/kernel.h:18:21: error: comparison of distinct pointer types lacks a cast [-Werror]
->        18 |         (void) (&_x == &_y);            \
->           |                     ^~
->     common/page_alloc.c:1843:34: note: in expansion of macro 'min'
->      1843 |         unsigned int inc_order = min(MAX_ORDER, flsl(e - s) - 1);
-> 
-> generic_fls{l} was used instead of __builtin_clz{l}(x) as if x is 0,
-> the result in undefined.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-Assuming Andrew's pending change goes in as posted, I'm okay with this to
-(as simply following suit). Without that having happened, I can't very
-well offer an ack here. Just one nit:
-
-> --- a/xen/include/xen/bitops.h
-> +++ b/xen/include/xen/bitops.h
-> @@ -69,6 +69,30 @@ static inline int generic_flsl(unsigned long x)
+> --- a/xen/lib/find-next-bit.c
+> +++ b/xen/lib/find-next-bit.c
+> @@ -9,6 +9,7 @@
+>   * 2 of the License, or (at your option) any later version.
+>   */
+>  #include <xen/bitops.h>
+> +#include <xen/linux-compat.h>
 >  
->  #include <asm/bitops.h>
->  
-> +static always_inline __pure int fls(unsigned int x)
-> +{
-> +    if (__builtin_constant_p(x))
+>  #include <asm/byteorder.h>
 
-Style (missing blanks immediately inside the parentheses), also again ...
-
-> +        return generic_fls(x);
-> +
-> +#ifndef arch_fls
-> +#define arch_fls generic_fls
-> +#endif
-> +
-> +    return arch_fls(x);
-> +}
-> +
-> +static always_inline __pure int flsl(unsigned long x)
-> +{
-> +    if (__builtin_constant_p(x))
-
-... here.
+Hmm, no, a library source would better not include this header. Surely
+the ffz() can be taken care of locally here?
 
 Jan
 
