@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1C3F885CA5
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 16:53:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696461.1087423 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A6D7885CC4
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 16:57:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696464.1087433 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnKjE-0005pW-14; Thu, 21 Mar 2024 15:53:16 +0000
+	id 1rnKn0-0006Sk-H1; Thu, 21 Mar 2024 15:57:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696461.1087423; Thu, 21 Mar 2024 15:53:15 +0000
+Received: by outflank-mailman (output) from mailman id 696464.1087433; Thu, 21 Mar 2024 15:57:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnKjD-0005nN-UX; Thu, 21 Mar 2024 15:53:15 +0000
-Received: by outflank-mailman (input) for mailman id 696461;
- Thu, 21 Mar 2024 15:53:14 +0000
+	id 1rnKn0-0006Ql-DV; Thu, 21 Mar 2024 15:57:10 +0000
+Received: by outflank-mailman (input) for mailman id 696464;
+ Thu, 21 Mar 2024 15:57:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ILtd=K3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rnKjC-0005nB-NB
- for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 15:53:14 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1rnKmy-0006QC-AQ
+ for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 15:57:08 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1f26a6d9-e79b-11ee-afe0-a90da7624cb6;
- Thu, 21 Mar 2024 16:53:12 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-56b0af675deso1359530a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 08:53:12 -0700 (PDT)
+ id ab0f19b7-e79b-11ee-afe0-a90da7624cb6;
+ Thu, 21 Mar 2024 16:57:07 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5684db9147dso1260498a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 08:57:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x3-20020a05640226c300b0056851310a04sm19751edd.16.2024.03.21.08.53.11
+ s24-20020a508d18000000b0056a2cc5c868sm18057eds.72.2024.03.21.08.57.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Mar 2024 08:53:11 -0700 (PDT)
+ Thu, 21 Mar 2024 08:57:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f26a6d9-e79b-11ee-afe0-a90da7624cb6
+X-Inumbo-ID: ab0f19b7-e79b-11ee-afe0-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711036392; x=1711641192; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711036627; x=1711641427; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=qgj0ZJ8KZAy92Cb/7XwYPJOE6A/pJwKYnrMYa63ERBA=;
-        b=dYh0vg/QyYeGlELY/bL9S5NS2akOdGs4IA7mJ884m1v1oV6Y/cBg9qc4297wR2mjXE
-         jA7lzrRW7QiGDAkrj8iBxlxiR7i2jUd/qAJZAa9ZIugfAS9Fwlgd23BuUkpRn6qVDBHJ
-         BBBvEb2CcRh70Ali9gdTkGR6GyIuV2qSxTdTv9Ty0NB6b/bclqk1QEGM0/wN7MzEg25h
-         RudkHfAE4zPxpJ3vhm5t51Rz2BCRN/5Y6s83wcdbFkMPF7ZLtTCQdKjQBpHdQF+tTVFF
-         P6tiWb+28KxYCYTYcEV62CVHtlrcfGaRaenrmD7J091jogH4aGTgx5j1B7z4Dp9+tfjr
-         jk/A==
+        bh=bH2tQdROdE1XJnuc3haR/Rw5X+zMBpbGttw2yxStdVU=;
+        b=MX0q/GHAV/TQ4Cko8lJA0rnsbvNKPQNzxxUEoYEQwT9blkoyzITCvR9NsBCrS/PAe7
+         oeU9KcNAEHKq8MZO8zgXtGFn8q11sfKTet5l22UExMOODGKDxjVgKaXeF6344Z4tuuXG
+         02Ad28TfOLqJ1JDxei4MYc1z7S4qEKwe57uq4VLzk1mpzjX2f0qoR/hRqtBdtUIeTR0f
+         6zFsaQ0L6bN99eP8XpxyVjFQQyU75ubaTcYqsyqr5e5UOX+DeZ3ygQWFewdHZyOk54Yg
+         Csr9i4+Sx6dWnFVKkKTczwa/OHk7q6z9eJ7mMXsSpZ193kxX+9ginBSJCBgjM9rQh+PV
+         f3ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711036392; x=1711641192;
+        d=1e100.net; s=20230601; t=1711036627; x=1711641427;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qgj0ZJ8KZAy92Cb/7XwYPJOE6A/pJwKYnrMYa63ERBA=;
-        b=SYf6FeP7cEndRkpuWQvuXSuh1meZ82iheu9UetCPj6HijugOQBSBCywXK7w8W8RXM6
-         Y/2knfYHpmsW+i8aQdTs1sfyTtSzjDAT9rLR6dKQ4eZOpEgWpEXwjrU/azuO9e8gmi6u
-         Fuy3OmgntRaCEoPxaKb9RlS39BKa/3Q8AKWF9+CSM0FbODMfR1exIuFH2eF0/es6kdhC
-         ICYvD8Sz1PWL2DbyN4vcOJJjxnqFDRZLf8eY0RZIs1rshx4UDNhxm080fAYzc9yKnkSh
-         kwA7CdPvsssKaWC6RDMUmgxfUMBRIu+yMQbHf+Qpg/LNil9rmNtYfkVPlhrRAj0KNsAi
-         v/Aw==
-X-Forwarded-Encrypted: i=1; AJvYcCWG7c3t3peCoD4gwXiZL7EgXgKDK8Hwwc0F0fpBaD7bTpOMQV25jGQq6jYTwRsddt0xIH1vQBUgrDFnvewXbvjtLzTx0hrELnZ6Hch9X04=
-X-Gm-Message-State: AOJu0YzWeIKQHWBzO89qO98/EqCLHfv06AABN7kb4wYH57j0eo/7gp/+
-	rfRazX4u7k8UbM/I7QwsZijyU/iTEFHJcDlpPSvxeziEKfZtu9atJ5f6Y9DRIg==
-X-Google-Smtp-Source: AGHT+IEjyM7NWddGREwNi/evqBT8p1DomaLXw2yD4K6TA2EolVhHqm8bok99odJjK6b/gLUFYIGX8A==
-X-Received: by 2002:a05:6402:3789:b0:568:bda1:9640 with SMTP id et9-20020a056402378900b00568bda19640mr3733364edb.13.1711036392000;
-        Thu, 21 Mar 2024 08:53:12 -0700 (PDT)
-Message-ID: <2b4d6e96-0f04-4327-9875-cd0587931621@suse.com>
-Date: Thu, 21 Mar 2024 16:53:10 +0100
+        bh=bH2tQdROdE1XJnuc3haR/Rw5X+zMBpbGttw2yxStdVU=;
+        b=iQFAgE+RuKEa++T3FTgFSAf3HHVoddRZmsJjKoyiwNq0iWT8nNV0N7nOBzFQ/ulSIJ
+         Yk7AC8+caBfsQaMSAPyO0unf2H6X+dJwa9qQXpgZdnwTcmH99JKLa+APE593HmuwUuXr
+         8CvkEEUQs9zcDh2e1bRcjPwJVNpqRLT+fAdCiEYhcNwLcp8/N3qtBT0PwsEpNS899k5r
+         fqNa96exrUjoTplVSZQR4o1qayUWfY4PU/TbfpP5mb3NG5bJmBDU6nzDqOlXzlKhxxvi
+         iPDFbCboVS4W9gfeBhQGMGVSLlJqsTXeIB8kUaKieTMBt4O1HTNyOYBVmlhMVdMqVmQy
+         lI/A==
+X-Forwarded-Encrypted: i=1; AJvYcCXizQvAvIuPAb6jBymXt7paRr0VhQt8u3Hl9C9BW5UQwUd+npX9y1ta6uA2eZHJG7AzAdoOSjQytAJlDDZMuWbtvi/RoN1705JbOsxvwIA=
+X-Gm-Message-State: AOJu0YxQxKRgBdQwqPyTABbhTwPB4Jz4iC1tXLARBP/4MYxpDBh7waiN
+	VdzbL4DxRWAitXx1k7oARh7Vb7y4ss4QEJtib5ZDtMeApqzq2PAmTnmhlvOpHQ==
+X-Google-Smtp-Source: AGHT+IEobiYEqLZFbfW9djWqLoBbj/s2GIgtzBdF2fkaJYJJrI4znZtLOlfV+CDnMoYMSmniWa93Hw==
+X-Received: by 2002:a05:6402:388c:b0:568:a523:a66f with SMTP id fd12-20020a056402388c00b00568a523a66fmr15543528edb.39.1711036626745;
+        Thu, 21 Mar 2024 08:57:06 -0700 (PDT)
+Message-ID: <3ff10fdd-5a85-43b3-853a-fe69c7388ca9@suse.com>
+Date: Thu, 21 Mar 2024 16:57:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 01/14] xen/common: add cache coloring common code
+Subject: Re: [PATCH v7 04/14] xen/arm: add Dom0 cache coloring support
 Content-Language: en-US
 To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: Andrea Bastoni <andrea.bastoni@minervasys.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Marco Solieri <marco.solieri@minervasys.tech>,
+ xen-devel@lists.xenproject.org,
+ Andrea Bastoni <andrea.bastoni@minervasys.tech>
 References: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
- <20240315105902.160047-2-carlo.nonato@minervasys.tech>
- <05e4d3da-4130-4c57-9855-43b685ce5005@suse.com>
- <CAG+AhRU4W+umVhOHn0ZnHvex-rmEn4+T_mKVczYG4o52EV+YtA@mail.gmail.com>
+ <20240315105902.160047-5-carlo.nonato@minervasys.tech>
+ <fa879713-4eee-4905-83f9-6182924cddbb@suse.com>
+ <CAG+AhRW8xDun1WGimaqsaUR+YqL4vW-OmiDMQHCBxT=S+pgOwQ@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,66 +120,71 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAG+AhRU4W+umVhOHn0ZnHvex-rmEn4+T_mKVczYG4o52EV+YtA@mail.gmail.com>
+In-Reply-To: <CAG+AhRW8xDun1WGimaqsaUR+YqL4vW-OmiDMQHCBxT=S+pgOwQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21.03.2024 16:03, Carlo Nonato wrote:
-> On Tue, Mar 19, 2024 at 3:58 PM Jan Beulich <jbeulich@suse.com> wrote:
+On 21.03.2024 16:04, Carlo Nonato wrote:
+> On Tue, Mar 19, 2024 at 4:30 PM Jan Beulich <jbeulich@suse.com> wrote:
 >> On 15.03.2024 11:58, Carlo Nonato wrote:
 >>> --- a/docs/misc/xen-command-line.pandoc
 >>> +++ b/docs/misc/xen-command-line.pandoc
->>> @@ -1706,6 +1706,43 @@ This option is intended for debugging purposes only.  Enable MSR_DEBUGCTL.LBR
->>>  in hypervisor context to be able to dump the Last Interrupt/Exception To/From
->>>  record with other registers.
+>>> @@ -963,6 +963,15 @@ Controls for the dom0 IOMMU setup.
 >>>
->>> +### llc-coloring
->>> +> `= <boolean>`
+>>>  Specify a list of IO ports to be excluded from dom0 access.
+>>>
+>>> +### dom0-llc-colors
+>>> +> `= List of [ <integer> | <integer>-<integer> ]`
 >>> +
->>> +> Default: `false`
+>>> +> Default: `All available LLC colors`
 >>> +
->>> +Flag to enable or disable LLC coloring support at runtime. This option is
->>> +available only when `CONFIG_LLC_COLORING` is enabled. See the general
->>> +cache coloring documentation for more info.
->>> +
->>> +### llc-nr-ways
->>> +> `= <integer>`
->>> +
->>> +> Default: `Obtained from hardware`
->>> +
->>> +Specify the number of ways of the Last Level Cache. This option is available
->>> +only when `CONFIG_LLC_COLORING` is enabled. LLC size and number of ways are used
->>> +to find the number of supported cache colors. By default the value is
->>> +automatically computed by probing the hardware, but in case of specific needs,
->>> +it can be manually set. Those include failing probing and debugging/testing
->>> +purposes so that it's possibile to emulate platforms with different number of
->>> +supported colors. If set, also "llc-size" must be set, otherwise the default
->>> +will be used.
->>> +
->>> +### llc-size
->>> +> `= <size>`
->>> +
->>> +> Default: `Obtained from hardware`
->>> +
->>> +Specify the size of the Last Level Cache. This option is available only when
->>> +`CONFIG_LLC_COLORING` is enabled. LLC size and number of ways are used to find
->>> +the number of supported cache colors. By default the value is automatically
->>> +computed by probing the hardware, but in case of specific needs, it can be
->>> +manually set. Those include failing probing and debugging/testing purposes so
->>> +that it's possibile to emulate platforms with different number of supported
->>> +colors. If set, also "llc-nr-ways" must be set, otherwise the default will be
->>> +used.
+>>> +Specify dom0 LLC color configuration. This option is available only when
+>>> +`CONFIG_LLC_COLORING` is enabled. If the parameter is not set, all available
+>>> +colors are used.
 >>
->> Wouldn't it make sense to infer "llc-coloring" when both of the latter options
->> were supplied?
+>> My reservation towards this being a top-level option remains.
 > 
-> To me it looks a bit strange that specifying some attributes of the cache
-> automatically enables cache coloring. Also it would require some changes in
-> how to express the auto-probing for such attributes.
+> How can I turn this into a lower-level option? Moving it into "dom0=" doesn't
+> seem possible to me. How can I express a list (llc-colors) inside another list
+> (dom0)? dom0=llc-colors=0-3,12-15,other-param=... How can I stop parsing
+> before reaching other-param?
 
-Whereas to me it looks strange that, when having llc-size and llc-nr-ways
-provided, I'd need to add a 3rd option. What purpose other than enabling
-coloring could there be when specifying those parameters?
+For example by using a different separator:
+
+dom0=llc-colors=0-3+12-15,other-param=...
+
+>>> @@ -91,6 +164,61 @@ void cf_check domain_dump_llc_colors(const struct domain *d)
+>>>      print_colors(d->llc_colors, d->num_llc_colors);
+>>>  }
+>>>
+>>> +static int domain_set_default_colors(struct domain *d)
+>>> +{
+>>> +    unsigned int *colors = xmalloc_array(unsigned int, max_nr_colors);
+>>> +    unsigned int i;
+>>> +
+>>> +    if ( !colors )
+>>> +        return -ENOMEM;
+>>> +
+>>> +    printk(XENLOG_WARNING
+>>> +           "LLC color config not found for %pd, using all colors\n", d);
+>>> +
+>>> +    for ( i = 0; i < max_nr_colors; i++ )
+>>> +        colors[i] = i;
+>>> +
+>>> +    d->llc_colors = colors;
+>>> +    d->num_llc_colors = max_nr_colors;
+>>> +
+>>> +    return 0;
+>>> +}
+>>
+>> If this function is expected to actually come into play, wouldn't it
+>> make sense to set up such an array just once, and re-use it wherever
+>> necessary?
+> 
+> Then how to distinguish when to free it in domain_destroy() and when not to do
+> it?
+
+By checking against that one special array instance.
 
 Jan
 
