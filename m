@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71F11885772
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 11:29:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696308.1087136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB54F88578F
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 11:41:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696316.1087146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnFf0-0007ze-EX; Thu, 21 Mar 2024 10:28:34 +0000
+	id 1rnFrK-0003I0-Md; Thu, 21 Mar 2024 10:41:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696308.1087136; Thu, 21 Mar 2024 10:28:34 +0000
+Received: by outflank-mailman (output) from mailman id 696316.1087146; Thu, 21 Mar 2024 10:41:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnFf0-0007y4-Br; Thu, 21 Mar 2024 10:28:34 +0000
-Received: by outflank-mailman (input) for mailman id 696308;
- Thu, 21 Mar 2024 10:28:32 +0000
+	id 1rnFrK-0003GT-Jv; Thu, 21 Mar 2024 10:41:18 +0000
+Received: by outflank-mailman (input) for mailman id 696316;
+ Thu, 21 Mar 2024 10:41:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ILtd=K3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rnFey-0007v6-CS
- for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 10:28:32 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ id 1rnFrI-0003GL-CA
+ for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 10:41:16 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c357be32-e76d-11ee-afe0-a90da7624cb6;
- Thu, 21 Mar 2024 11:28:31 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-568a19fcc4eso434006a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 03:28:31 -0700 (PDT)
+ id 8ac267ac-e76f-11ee-afe0-a90da7624cb6;
+ Thu, 21 Mar 2024 11:41:15 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a46de423039so47841166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 03:41:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v17-20020a056402175100b005651ae4ac91sm7877339edx.41.2024.03.21.03.28.30
+ q1-20020a056402040100b00568d762cb5asm4702737edv.35.2024.03.21.03.41.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Mar 2024 03:28:30 -0700 (PDT)
+ Thu, 21 Mar 2024 03:41:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c357be32-e76d-11ee-afe0-a90da7624cb6
+X-Inumbo-ID: 8ac267ac-e76f-11ee-afe0-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711016910; x=1711621710; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711017674; x=1711622474; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=j4/qTjYH1DcwTd8nnRm9/64Pym/nMZHZd2o2KLS/ULM=;
-        b=KT++fGrhVVmyaZdDthcgZHRPnxm2Mv0u2Wa9nSB00BJOe7NkuB4bx9o81oGvnfLYOb
-         cRM8PMpMd2fI8fRIdrPtC1qFrP+nwrI8V0dboP5DLwG92CrCCG4OhvDIJfZA/5uRtfD2
-         rjja/bmuZ0WKmRTH2vBKKc/HcrvwIpQ2XqTUtW09h0uS8dH72rjQTFwZL+YNbQMqL/hF
-         OQjyY3hustY+rbPL4DPt5A+C9/2je5ZZbheWDZ6cuMr7zaVapufqSqVb6Rrw4R0yWx5U
-         0ZoqYrCHU0p4HygxMUkbX3tSRsDYDolk4rFkPc1//Lj3vn82wPxEui9bSjJYbDLdXdAU
-         SXTw==
+        bh=aQwUxv85k60jx5TCPnj8y+/xwbLQvv8der3jLm2oF+Y=;
+        b=Hni+ZtQPjrAYGqw1YlRNvDFrPneEMkBkTOK/KsDXg+ovmgN1oKvBxwTQsUYhYTEgUz
+         oHgVEuGOHwpdVgUV8tpEV7nl1WjFnlTyhzUPCu6jo65TUX4USoQmirdTle6IB1a8cGMp
+         kCtp9XOqs+xRUBdsLHxYDC1GKg/TptxbNyn0mTlVOHVd390HBomu2MngmbBD1VOCln72
+         zrvNg0eywWoB9r2SDkZr101wzZ+0nYmIytv2SCMPq6aEvIYDg82wsPCEEWx2NYByC8tB
+         k+IMDzCWfdDBTtjzkHk/hPSbDkExUhqKkojkrhttzl2lhE/JfYkALzKoxoFXHqe9wYGI
+         sNNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711016910; x=1711621710;
+        d=1e100.net; s=20230601; t=1711017674; x=1711622474;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j4/qTjYH1DcwTd8nnRm9/64Pym/nMZHZd2o2KLS/ULM=;
-        b=KaJV8fETT7P7p1yisoi7e5Oz/ii6kVSy4NAWDOjZEg8W+j6waOqt8aNqmg97UfOpQi
-         s29hwqz8ZG07CIkIAbecdptVrA4B40Qlzna+m8N/1BsLKhB14kVxn2B/qVc+X6QTB3OD
-         yF2hwmUL0UII8kKabWa2SS8NKidDDcgVpe72OFcv55ce5JQaM6RZm4AbwfpyCgDj8NQM
-         a2yGTbqyIagpjKM/YVdTIE+57xyjfUrAsZV4GqxeSVjevuGp/RCGRmzTL5gKzG5k/yIK
-         9UYTizWVkPOL0GvdewzAhAFqYxdQtj06LWlFHR1jYUTQS3+X8CkyarlCevsJaeVxGTdU
-         VCZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVWADzJPGqR094X1KBdsGka6uyv5h+u4iRn6Ti1Z2gpOST1UvFlo7vBuXd/cTYYP2CdiJ/1qn7JIOLPdZtUrrHkjZZ3HUXMH8HMjwJizJw=
-X-Gm-Message-State: AOJu0YxF0Nkd+41mzkK5VN8vPnBc99jfIm7HcZHUgQWI0Wsie2zSUF3z
-	reh5iPCs3hePNpWr6QjyYLe39VnZhr/QD/BQ+Tk3PMBwQrF4WERwhGjWspafVg==
-X-Google-Smtp-Source: AGHT+IE7XIzxMCsswS2aaOtbzCWPCCLvruC4rCngVjiIw6Zethxd4ob9oUolE4PZ8GGnkPtuqqBekg==
-X-Received: by 2002:a50:d75d:0:b0:568:d7fe:a768 with SMTP id i29-20020a50d75d000000b00568d7fea768mr1507405edj.25.1711016910561;
-        Thu, 21 Mar 2024 03:28:30 -0700 (PDT)
-Message-ID: <3fe788d3-3c49-4298-bd81-66fbb805bf91@suse.com>
-Date: Thu, 21 Mar 2024 11:28:29 +0100
+        bh=aQwUxv85k60jx5TCPnj8y+/xwbLQvv8der3jLm2oF+Y=;
+        b=UOrAMSwxldnK6TE8JywT2AeUWbyfIgr6DCIm4JhjGhKYoHHacf2jL3AxjAiQLSr2+I
+         cr12VhBUs7SPiBsDk3s91vBtS44tRoWojr6EzWHnIAw8VA/rI9akCqOpVR/RIRE9BR4t
+         MoZ8LJZ3X1snMUhubF8UQ/cDkAJSn6SjxochWyBabyJM07ZNa9Sqp/a2q/YadzqX7lQc
+         9UhCvXy4RGvywx1k6HfVeuJaHgd4OIcsohrpAyBg10tswPmNmeh+jtS483b0ke3dOuki
+         1oUFFulgEGr84mbz8TBXvmgnt7CrDeC2rV3xgD/1kNOWwH8CTS7z4uRfMjXQvXfecuAs
+         XGCA==
+X-Forwarded-Encrypted: i=1; AJvYcCV29qKffdKYX+71lMG09Ikdwn+5ScBDOXSKXcG9KA4eq5OsuxMopRju4Uc1Rv857Zddzsb2NTcJsekNSgM2vOVAO4DIt8iecwUrjdJBP1M=
+X-Gm-Message-State: AOJu0YxRQ1VpB/58c90fOn+mB/9gvqKIVhk8EdNCA86r1vdJTnRBUBpT
+	mlKWq7IBFH2JgXAtTbjl3uv9v9aDUd5wy1aUfn2LvdwuqyNLIqo/vbj8BCRzoQ==
+X-Google-Smtp-Source: AGHT+IGZvCNiVLqj8Et8fkvJhc/PjrGXQecbgdGxoAnjv2w2ewK6Xlgi0OwgbRSMmlufRyMvGQLbXw==
+X-Received: by 2002:a50:bae3:0:b0:56b:986b:b4e7 with SMTP id x90-20020a50bae3000000b0056b986bb4e7mr1502013ede.27.1711017674526;
+        Thu, 21 Mar 2024 03:41:14 -0700 (PDT)
+Message-ID: <6a9ab81f-451f-46bd-a875-b30eddc9a716@suse.com>
+Date: Thu, 21 Mar 2024 11:41:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 07/20] xen/riscv: introduce bitops.h
+Subject: Re: [XEN PATCH 2/3] AMD-Vi: Disable IOMMU if cx16 isn't supported
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1710517542.git.oleksii.kurochko@gmail.com>
- <14c91e2ba2aeb6e49f9f7e549232244719fa6959.1710517542.git.oleksii.kurochko@gmail.com>
- <9724aa80-106d-45ea-bad0-f0f2b83632eb@suse.com>
- <6f9811f714d9f207409260851f2fef1f62f9cba8.camel@gmail.com>
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <cover.1711016106.git.teddy.astie@vates.tech>
+ <9c825255af5d3973b29c85cb6856c67b69aa0e4a.1711016106.git.teddy.astie@vates.tech>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,74 +112,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6f9811f714d9f207409260851f2fef1f62f9cba8.camel@gmail.com>
+In-Reply-To: <9c825255af5d3973b29c85cb6856c67b69aa0e4a.1711016106.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 21.03.2024 11:07, Oleksii wrote:
-> On Wed, 2024-03-20 at 17:03 +0100, Jan Beulich wrote:
->> On 15.03.2024 19:06, Oleksii Kurochko wrote:
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/include/asm/bitops.h
->>> @@ -0,0 +1,144 @@
->>> +/* SPDX-License-Identifier: GPL-2.0 */
->>> +/* Copyright (C) 2012 Regents of the University of California */
->>> +
->>> +#ifndef _ASM_RISCV_BITOPS_H
->>> +#define _ASM_RISCV_BITOPS_H
->>> +
->>> +#include <asm/system.h>
->>> +
->>> +#define BITOP_BITS_PER_WORD BITS_PER_LONG
->>> +
->>> +#define BITOP_TYPE
->>> +typedef uint64_t bitops_uint_t;
->>> +
->>> +#include <asm-generic/bitops/bitops-bits.h>
->>> +
->>> +#define __set_bit(n, p)      set_bit(n, p)
->>> +#define __clear_bit(n, p)    clear_bit(n, p)
->>
->> If these cam with a TODO, I wouldn't say anything. But without I take
->> it
->> they're meant to remain that way, at which point I'd like to ask
->> about
->> the performance aspect: Surely the AMO insns are more expensive than
->> whatever more basic insns could be used instead? I'd even go as far
->> as
->> wondering whether
->>
->> #define __set_bit(n, p)      ((void)__test_and_set_bit(n, p))
->> #define __clear_bit(n, p)    ((void)__test_and_clear_bit(n, p))
->>
->> wouldn't be cheaper (the compiler would recognize the unused result
->> and eliminate its calculation, I'm pretty sure).
-> It was implemented using atomic ops because of Arm:
-> /*
->  * Non-atomic bit manipulation.
->  *
->  * Implemented using atomics to be interrupt safe. Could alternatively
->  * implement with local interrupt masking.
->  */
-> #define __set_bit(n,p)            set_bit(n,p)
-> #define __clear_bit(n,p)          clear_bit(n,p)
-> 
-> I though that the same comment is true for x86, but after your comment
-> I checked x86 implementation, I realized that x86 uses non-atomic
-> operations.
-> 
-> In this case, it seems to me there is a sense to use non-atomic for
-> RISC-V too.
+On 21.03.2024 11:28, Teddy Astie wrote:
+> No hardware has VT-d support while not having cx16 support, consider disabling IOMMU in this case to avoid potentially buggy code.
 
-Hmm, wait: There's an important difference between x86 on one side and
-Arm/RISC-V/PPC and various other more or less RISC-like ones on the other.
-x86 has read-modify-write (memory) insns. Therefore even without using
-their atomic (LOCKed) forms, they do the update atomically as far as the
-local CPU is concerned. That's not the case when you need to use a three
-(or more) step load-op-store sequence.
+VT-d? That's Intel, not AMD. Also alongside bare hardware you also want to
+not completely leave out Xen running virtualized itself.
 
-Had you retained Arm's comment, I probably wouldn't even have asked.
-Please add such a comment while sticking to this aliasing you have.
+As a nit, please limit description lines to 80 chars.
+
+> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> @@ -312,6 +312,12 @@ static int __init cf_check iov_detect(void)
+>          return -ENODEV;
+>      }
+>  
+> +    if ( unlikely(!cpu_has_cx16) )
+> +    {
+> +        printk("AMD-Vi: CPU doesn't support CMPXCHG16B, disabling\n");
+> +        return -ENOSYS;
+
+ENOSYS has a dedicated purpose and hence doesn't fit here. If no better
+suitable error code can be identified, ENODEV is perhaps what ought to be
+used.
+
+I'd also like to note that while this says 2/3, I can't spot any other
+part of such a 3-patch series anywhere. However, in particular
+https://lists.xen.org/archives/html/xen-devel/2024-03/threads.html looks
+to be lagging anyway.
+
+Further please note that maintainership recently has changed some; please
+make sure you use up-to-date information for composing the Cc: list.
 
 Jan
 
