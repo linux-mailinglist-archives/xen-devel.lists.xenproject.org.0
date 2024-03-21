@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E921C88550E
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 08:42:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696213.1086913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC037885534
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 08:56:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696223.1086933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnD40-0004P4-Jh; Thu, 21 Mar 2024 07:42:12 +0000
+	id 1rnDHI-0006vI-4X; Thu, 21 Mar 2024 07:55:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696213.1086913; Thu, 21 Mar 2024 07:42:12 +0000
+Received: by outflank-mailman (output) from mailman id 696223.1086933; Thu, 21 Mar 2024 07:55:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnD40-0004NX-Gi; Thu, 21 Mar 2024 07:42:12 +0000
-Received: by outflank-mailman (input) for mailman id 696213;
- Thu, 21 Mar 2024 07:42:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rnDHI-0006sX-0z; Thu, 21 Mar 2024 07:55:56 +0000
+Received: by outflank-mailman (input) for mailman id 696223;
+ Thu, 21 Mar 2024 07:55:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ILtd=K3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rnD3z-0004NR-1u
- for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 07:42:11 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85dc81ed-e756-11ee-afe0-a90da7624cb6;
- Thu, 21 Mar 2024 08:42:10 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-56bcede226eso139785a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 00:42:09 -0700 (PDT)
+ id 1rnDHG-0006sR-9I
+ for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 07:55:54 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 70421db6-e758-11ee-a1ee-f123f15fe8a2;
+ Thu, 21 Mar 2024 08:55:52 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a467d8efe78so73849766b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 00:55:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ht17-20020a170907609100b00a461b1e814asm8100759ejc.130.2024.03.21.00.42.08
+ f23-20020a170906049700b00a3efa4e033asm8181644eja.151.2024.03.21.00.55.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Mar 2024 00:42:08 -0700 (PDT)
+ Thu, 21 Mar 2024 00:55:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85dc81ed-e756-11ee-afe0-a90da7624cb6
+X-Inumbo-ID: 70421db6-e758-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711006929; x=1711611729; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711007752; x=1711612552; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=wcKuzrxoHdnias99bLqWOpEMPtTA0R5+Juke4jB9svk=;
-        b=ca53vl93Dc9Z+63ZR2nzNEnR3n1omrrAePAXtPv2jrVNa6RO+N7bs+RstWstMpzP5x
-         5eUmUBk4+c2W70MjDbrZ1hgDB3/u9rRYIdWK5hgrF2BXdWCYQ0G5QuZKjkS252yeovK0
-         9TxqQoFr1EVi3nshbXxAFo1ERuOXe10ePxzNyjCJvQdH+CAZH0Y/KkYuEfffAdd7Wfl1
-         iVMuIEG3TKuHGpOQ1NtZnoDi9tlRiAXbrP76XkknojWoh/IDDvIcv0XHcUTCahKZUAK4
-         YNVCXy524YNVomRxNTdxm3dabFGqeP22+s3maD7BognNVoUk9MBjBmlnL32bMIAb4hxd
-         iP4g==
+        bh=xFsfq2XdiK5U+JJvorNeH0Tn+9BirOXb7xnhq0Zatxk=;
+        b=USt0OaiyzTQ+8OhLVNx0zcRtJSMsrRY6NbvnzVKVMOK3221YJmVGuPHQsQJ2ST6Stp
+         DCK1B/JCCyLqt8A2sec2w4hu3XTx2j6uAFtSuWEcY07EOZJbRygTdE2mRBMno0ROzhQU
+         W8t3bqq7F2BTp5gZRdKnXhvrS3MH+QcUVHsnsBwkxbVzx6awRN+ag5ZeOpdhpkFLTUIm
+         ltLfdApWiR6sPhJDJX+wf3fR/yBqyaXRXBzwVLLuiDzthd3GFjU1VaOZPOnOLuiVZ9U5
+         inVWBv4SNttEfx1uteWHq3dVqKtJjumPkOrVAnk+BJ1DjkCrNZp6BKvpXcamHEqFDpX4
+         BfTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711006929; x=1711611729;
+        d=1e100.net; s=20230601; t=1711007752; x=1711612552;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wcKuzrxoHdnias99bLqWOpEMPtTA0R5+Juke4jB9svk=;
-        b=tToElFTyXK/jrLq9zz41xp0UK0rzWXtYw+V6HG3kyvNSIuiPDBw1mkvnKpWGEoBrXu
-         FIrJCGpFC34EHNQSBAR/MiIP9rDM+bFxf309PmAJ7eBGvEGYsqHXvc1wVKbABqyqlfEC
-         EBqG3z4OpXp0Xc8kVG4/uSpjXjjlzYPaRvU+szOYHohgOV0T8Hxm12oMurpOK7y7NwBm
-         B+5DGX24qmPD46gdcobS4h7mmJJfY7begUqRFQ2K9sKQ069Fyka+3JMVhj9pm9Efk7jc
-         loDNSza64bzYYp7Fk7ZuVEdbsdxNhGN5QVW3fJtCJLJ6XGJx1sGueLxxIvyRkcvVUSB/
-         G2mQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXqfPvnrwXg0kYUvtl3q3t+DJz11QYFbkx5wqHMTJ0ji4Je4BNUQLicpwtDVA8kY5DPorqCZ8fIBAAThfDPKAjyt3lxnN7/dEeNWUFIyFM=
-X-Gm-Message-State: AOJu0YxeUtj6wjMM/vbsw78p0GmjMu6a9h9g8kk6Ap5ZhosPa9Wxi1Q0
-	4c5g0McMG4amuU0YX2VD0PF8+cuc/xAvI1IDV+im/TFk56onafR1pGxrGxOwcw==
-X-Google-Smtp-Source: AGHT+IHlR0WzSjB8MsDETDN+9F6oXFfwD8Lag54vS6TclocPxK79uO2FGYTyvxc8jZlaY/rDuU4yfg==
-X-Received: by 2002:a17:907:6d1a:b0:a46:9ae2:1927 with SMTP id sa26-20020a1709076d1a00b00a469ae21927mr3243996ejc.67.1711006928969;
-        Thu, 21 Mar 2024 00:42:08 -0700 (PDT)
-Message-ID: <98996023-f47c-45fd-b804-77440f333fc6@suse.com>
-Date: Thu, 21 Mar 2024 08:42:07 +0100
+        bh=xFsfq2XdiK5U+JJvorNeH0Tn+9BirOXb7xnhq0Zatxk=;
+        b=SJ1e94GkBcFndPgUeg+i62rn52lF+C7Xnt+JWUngW1yjnqRW/+Kw2nZk1rJPHuYHmz
+         Dow3BdJEqv2EH0bfOwchm4pVQybDQy/1JJVlcn+2OLwE6vsDZf/eflY/XM1A9DlGVHsK
+         VuQe/S7k/WgdDQOn5Rq4B9/yIPqfKvmZ3me9Ts8CgvalOcE4mCOZay8WT2ExLlyN54Fa
+         VXwB/qtZ9VxRMMPvjyNd/35DkvrkmxpwOSDROLR52lDx63iy3ww8GU9plbdXO2odN9SX
+         GpM7nzNcUOUtoiEpzzXd6brqVoeCAdYISkB4FmcT21n309ye1D+26EkCOaLh3Ll6/0oV
+         3c8A==
+X-Forwarded-Encrypted: i=1; AJvYcCU0/LNGdSt7Ee13gLY5edmrHht/VZKC/pGe+11ZfFt1+yJfFqW7y2XREOhlWt7mBDzjYY4eHk8mQCEqjJg8IHfGlre6u5pVOMe0EQX2cz4=
+X-Gm-Message-State: AOJu0Yx870YIP3MusiDsyobLojMvTilsxZkhA/9XsYQ7v1Ib/g5you2C
+	F8tGOai/jPFThYlrwPrQh84BQBBjJBv4Klim58md1DoVPkC0ECRRWz8r2gNkMA==
+X-Google-Smtp-Source: AGHT+IG8IfST3nyvYoCRvu1RFNryBOvD6Ec4YJrORE4tPz0VspLqSPsClCE0/QoVMDG9t5ZZF20FHQ==
+X-Received: by 2002:a17:906:349a:b0:a46:dd30:7cb5 with SMTP id g26-20020a170906349a00b00a46dd307cb5mr5379016ejb.76.1711007751629;
+        Thu, 21 Mar 2024 00:55:51 -0700 (PDT)
+Message-ID: <68a00864-3bd3-445a-aa79-eb0511b4bea9@suse.com>
+Date: Thu, 21 Mar 2024 08:55:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/9] xen/device-tree: Move Arm's setup.c bootinfo
- functions to common
+Subject: Re: [PATCH] x86/vcpu: relax VCPUOP_initialise restriction for non-PV
+ vCPUs
 Content-Language: en-US
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
-Cc: tpearson@raptorengineering.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1710443965.git.sanastasio@raptorengineering.com>
- <039524d4157dddb2faf6887739a727f6e993b53f.1710443965.git.sanastasio@raptorengineering.com>
- <152e76ee-6e75-4881-aa88-313f0ae058be@suse.com>
- <8adb6bf8-9804-4313-b1e1-5cf96d643d5e@raptorengineering.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Roger Pau Monne <roger.pau@citrix.com>
+References: <20240320135720.68894-1-roger.pau@citrix.com>
+ <73314dc5-0145-4aa7-a3cd-23c943235392@suse.com>
+ <aec3917b-cda8-40ec-97d5-fe4ffb73c90d@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,57 +114,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8adb6bf8-9804-4313-b1e1-5cf96d643d5e@raptorengineering.com>
+In-Reply-To: <aec3917b-cda8-40ec-97d5-fe4ffb73c90d@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.03.2024 19:07, Shawn Anastasio wrote:
-> On 3/15/24 4:16 AM, Jan Beulich wrote:
->> On 14.03.2024 23:15, Shawn Anastasio wrote:
->>> Arm's setup.c contains a collection of functions for parsing memory map
->>> and other boot information from a device tree. Since these routines are
->>> generally useful on any architecture that supports device tree booting,
->>> move them into xen/common/device-tree.
->>>
->>> Suggested-by: Julien Grall <julien@xen.org>
->>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
->>> ---
->>>  MAINTAINERS                       |   1 +
->>>  xen/arch/arm/setup.c              | 419 --------------------------
->>>  xen/common/Makefile               |   1 +
->>>  xen/common/device-tree/Makefile   |   1 +
->>>  xen/common/device-tree/bootinfo.c | 469 ++++++++++++++++++++++++++++++
->>>  5 files changed, 472 insertions(+), 419 deletions(-)
->>>  create mode 100644 xen/common/device-tree/Makefile
->>>  create mode 100644 xen/common/device-tree/bootinfo.c
->>>
->>> diff --git a/MAINTAINERS b/MAINTAINERS
->>> index 56a6932037..e85fbe6737 100644
->>> --- a/MAINTAINERS
->>> +++ b/MAINTAINERS
->>> @@ -301,6 +301,7 @@ M:	Stefano Stabellini <sstabellini@kernel.org>
->>>  M:	Julien Grall <julien@xen.org>
->>>  S:	Supported
->>>  F:	xen/common/libfdt/
->>> +F:	xen/common/device-tree/setup.c
->>
->> Perhaps more generally
->>
->> F:	xen/common/device-tree/
->>
->> ?
->>
+On 20.03.2024 16:20, Andrew Cooper wrote:
+> On 20/03/2024 3:09 pm, Jan Beulich wrote:
+>> On 20.03.2024 14:57, Roger Pau Monne wrote:
+>>> There's no reason to force HVM guests to have a valid vcpu_info area when
+>>> initializing a vCPU, as the vCPU can also be brought online using the local
+>>> APIC, and on that path there's no requirement for vcpu_info to be setup ahead
+>>> of the bring up.  Note an HVM vCPU can operate normally without making use of
+>>> vcpu_info.
+>> While I'd agree if you started with "There's no real need to force ...", I
+>> still think there is a reason: If one wants to use paravirt interfaces (i.e.
+>> hypercalls), they would better do so consistently. After all there's also
+>> no need to use VCPUOP_initialise, yet you're not disabling its use.
 > 
-> This was done to allow bootfdt.c (next patch) to remain under ARM's
-> maintainership, which I believe was your suggestion in v2.
+> I firmly disagree.
 > 
-> Perhaps it would make sense to leave both setup.c and bootfdt.c under
-> ARM's maintainership, or would it be acceptable to move both to device
-> tree?
+> There are good reasons to use VCPUOP_initialise over INIT-SIPI-SIPI
+> (like avoiding 16bit mode - in the case we want it here, to fix APIC_ID
+> enumeration in a way that doesn't involve putting more complexity into
+> HVMLoader), and forcing us to set up a useless structure before we can
+> boot vCPU number 32 is just wrong.
 
-What exactly is wanted needs to be sorted by the maintainers (Arm / DT).
-To me, having everything DT under DT maintainership (which is a subset
-of Arm maintainers anyway) would make most sense.
+Just to mention it: I can certainly accept this as one possible valid
+viewpoint, and my looking at it differently is not an objection to the
+patch. It's just that the other aspect mentioned needs sorting (perhaps
+by just extending the patch description).
+
+> It was dumb to design a hypercall like this in the first place for PV
+> guests, and it definitely isn't OK to keep guests broken because of it.
+
+And again just to mention it: Originally, with a vCPU limit of 32, all
+vCPU-s would reliably have had vcpu_info (by way of that being embedded
+in shared_info). When raising the limit, the goal was to not chance
+overlooking any vcpu_info access in Xen. Hence why, instead of putting
+a NULL pointer there (or perhaps some non-canonical sentinel), the
+dummy approach was chosen. It then seemed quite desirable to prevent
+vCPU-s coming online without them first being detached from that dummy
+structure. And I think this firmly needs to continue to hold for PV.
 
 Jan
 
