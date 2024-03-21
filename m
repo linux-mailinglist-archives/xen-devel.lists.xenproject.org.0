@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C709A885FA5
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 18:23:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696535.1087519 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04E03885FAE
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 18:25:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696537.1087529 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnM7g-0002Vq-8R; Thu, 21 Mar 2024 17:22:36 +0000
+	id 1rnMAI-00033C-L5; Thu, 21 Mar 2024 17:25:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696535.1087519; Thu, 21 Mar 2024 17:22:36 +0000
+Received: by outflank-mailman (output) from mailman id 696537.1087529; Thu, 21 Mar 2024 17:25:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnM7g-0002TK-4a; Thu, 21 Mar 2024 17:22:36 +0000
-Received: by outflank-mailman (input) for mailman id 696535;
- Thu, 21 Mar 2024 17:22:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5xA2=K3=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rnM7f-0002TE-2C
- for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 17:22:35 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 99e7d172-e7a7-11ee-a1ee-f123f15fe8a2;
- Thu, 21 Mar 2024 18:22:32 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-568c714a9c7so1385578a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 10:22:32 -0700 (PDT)
+	id 1rnMAI-00030j-HD; Thu, 21 Mar 2024 17:25:18 +0000
+Received: by outflank-mailman (input) for mailman id 696537;
+ Thu, 21 Mar 2024 17:25:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rnMAG-00030Z-KK; Thu, 21 Mar 2024 17:25:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rnMAG-0006Z5-EX; Thu, 21 Mar 2024 17:25:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rnMAG-0000cx-5B; Thu, 21 Mar 2024 17:25:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rnMAG-0002Jb-4i; Thu, 21 Mar 2024 17:25:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,145 +42,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99e7d172-e7a7-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1711041752; x=1711646552; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=85TxGiwza99wtn1DtjT+K1IsWZir75NwRzw/vclyqSw=;
-        b=Nz8cLUpG80HNvqwfN3boLTbEJQ7oz5maV6SvlUwmvJz2zcdj2sIhtCIcXl84u7Esp4
-         cE4W3gA15FVOaieWg9qKcT9GbA/bVXRMcs/gJaX+EBh5DKNerOMSwQlWBNDXObZ+pwYO
-         pzkJ1Y18+5lyDGC+kOmnq4U2v/XEu/pKnfsP1CkAYYPrgA8XXD+14rJQFUrKW+4WiKpo
-         gv8dB/vZjtQUTU3rRFPOUresUEtXiC5E01hYtYt8kfHBwPmJZpSveuf+gMiL9aKVm9du
-         RG467dkAev5TzhM5utJ80BQXKMIy7nlOSp+3XnKmYvzyjL/mxwE3U8HbiCAogSCme+Bf
-         R8fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711041752; x=1711646552;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=85TxGiwza99wtn1DtjT+K1IsWZir75NwRzw/vclyqSw=;
-        b=IIGLDNuj4+P8GrTRXJwQ7GMh8419NAv2SnScC5vQSb3m3T+6TM3JoUOCnAPXdde07G
-         An2G5HcMIgBaFBhbRHcY+zA4+tjNsFBMBAn9Ewc8A2ooLWvwpf+zes4hTBcaXRFGISma
-         Brj7Gya9f/Nf7CpIxFzbK2f28pcThQWkYNq83kvjK47D+CFjHtqgIufksh4DBfuAfAgr
-         xZFfLsnwdQFQAYQZM5tbzKlugrbcCWaMJz4HlhnaVrkFeocFnC8Jf0xqiwKF8B9qlUll
-         FC3nQ4AuE0auyNx2olbH7hdlF5CUSnMEVX4h8fCv8Hh8NFhhfgBXRiaDf2wtBomsk7g0
-         5yAQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVcnsfl8ppz0z4yPgedjZ2thBjmwvBrsv8U1ed8iiF7bB0I3+QscYu7Hte3UKDXpzhyD2Msm9QlrnGCz4E+aEGzQNjEOVg1T2pdbab83hA=
-X-Gm-Message-State: AOJu0YxGK5y3v5l12XnE8XcaW89p7OcQTvqHROQLlFLlrWizExgDvYsq
-	P5jL2p+XcRBb7KowIdGPrO4rIHVVVc6dLU8mDd3BXCUXQC8PXA0MSZhFXiV1N9eSNcU3QSTxEHs
-	FIZx75HNtYMTjwCrn+ikn7FrVGmnia5f/+/wSvfPokM50c77KdOU74w==
-X-Google-Smtp-Source: AGHT+IFxuOPMnwTtSsJQyVHADhFPkyYr72krYF3I0RdJqX1e0mhpPGWYOFTIwmPFdtCA+AuIwdo1d+ErQBdUT5/3vno=
-X-Received: by 2002:a17:906:46cc:b0:a46:ed8d:9e44 with SMTP id
- k12-20020a17090646cc00b00a46ed8d9e44mr60122ejs.33.1711041751911; Thu, 21 Mar
- 2024 10:22:31 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
- <20240315105902.160047-2-carlo.nonato@minervasys.tech> <05e4d3da-4130-4c57-9855-43b685ce5005@suse.com>
- <CAG+AhRU4W+umVhOHn0ZnHvex-rmEn4+T_mKVczYG4o52EV+YtA@mail.gmail.com> <2b4d6e96-0f04-4327-9875-cd0587931621@suse.com>
-In-Reply-To: <2b4d6e96-0f04-4327-9875-cd0587931621@suse.com>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Thu, 21 Mar 2024 18:22:20 +0100
-Message-ID: <CAG+AhRUJiUrnD6Ovvvy0_Naa-RnOWuYPDZqPJx2-zd7eUa828Q@mail.gmail.com>
-Subject: Re: [PATCH v7 01/14] xen/common: add cache coloring common code
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrea Bastoni <andrea.bastoni@minervasys.tech>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=8guZZjlH0GJPfModEouOTDAyxBmoVrLUmwILUBUpVnA=; b=KqKUU5XPX6KO7yG4S/gBy4P32i
+	ZGRogLONhCcm0N6H1sSbN1zQDhWLVX57+K9UeDDe0DPNj1h09W/b9KVXuwbEJh33kiAn34mTJD4g8
+	K6F9WhKxrFCEYHlOCBMmOZbMPAgrsFVhxRiIJmM+9NzFZsQL+gIxmJwp7bzofE03iYPA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185125-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 185125: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=ee973396f008ff0de2836b7ca100ce822740fa41
+X-Osstest-Versions-That:
+    xen=eaafbd11344a8ec32309fe58a6e529fe1c34d62e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 21 Mar 2024 17:25:16 +0000
 
-Hi Jan,
+flight 185125 xen-unstable-smoke real [real]
+flight 185130 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185125/
+http://logs.test-lab.xenproject.org/osstest/logs/185130/
 
-On Thu, Mar 21, 2024 at 4:53=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 21.03.2024 16:03, Carlo Nonato wrote:
-> > On Tue, Mar 19, 2024 at 3:58=E2=80=AFPM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >> On 15.03.2024 11:58, Carlo Nonato wrote:
-> >>> --- a/docs/misc/xen-command-line.pandoc
-> >>> +++ b/docs/misc/xen-command-line.pandoc
-> >>> @@ -1706,6 +1706,43 @@ This option is intended for debugging purposes=
- only.  Enable MSR_DEBUGCTL.LBR
-> >>>  in hypervisor context to be able to dump the Last Interrupt/Exceptio=
-n To/From
-> >>>  record with other registers.
-> >>>
-> >>> +### llc-coloring
-> >>> +> `=3D <boolean>`
-> >>> +
-> >>> +> Default: `false`
-> >>> +
-> >>> +Flag to enable or disable LLC coloring support at runtime. This opti=
-on is
-> >>> +available only when `CONFIG_LLC_COLORING` is enabled. See the genera=
-l
-> >>> +cache coloring documentation for more info.
-> >>> +
-> >>> +### llc-nr-ways
-> >>> +> `=3D <integer>`
-> >>> +
-> >>> +> Default: `Obtained from hardware`
-> >>> +
-> >>> +Specify the number of ways of the Last Level Cache. This option is a=
-vailable
-> >>> +only when `CONFIG_LLC_COLORING` is enabled. LLC size and number of w=
-ays are used
-> >>> +to find the number of supported cache colors. By default the value i=
-s
-> >>> +automatically computed by probing the hardware, but in case of speci=
-fic needs,
-> >>> +it can be manually set. Those include failing probing and debugging/=
-testing
-> >>> +purposes so that it's possibile to emulate platforms with different =
-number of
-> >>> +supported colors. If set, also "llc-size" must be set, otherwise the=
- default
-> >>> +will be used.
-> >>> +
-> >>> +### llc-size
-> >>> +> `=3D <size>`
-> >>> +
-> >>> +> Default: `Obtained from hardware`
-> >>> +
-> >>> +Specify the size of the Last Level Cache. This option is available o=
-nly when
-> >>> +`CONFIG_LLC_COLORING` is enabled. LLC size and number of ways are us=
-ed to find
-> >>> +the number of supported cache colors. By default the value is automa=
-tically
-> >>> +computed by probing the hardware, but in case of specific needs, it =
-can be
-> >>> +manually set. Those include failing probing and debugging/testing pu=
-rposes so
-> >>> +that it's possibile to emulate platforms with different number of su=
-pported
-> >>> +colors. If set, also "llc-nr-ways" must be set, otherwise the defaul=
-t will be
-> >>> +used.
-> >>
-> >> Wouldn't it make sense to infer "llc-coloring" when both of the latter=
- options
-> >> were supplied?
-> >
-> > To me it looks a bit strange that specifying some attributes of the cac=
-he
-> > automatically enables cache coloring. Also it would require some change=
-s in
-> > how to express the auto-probing for such attributes.
->
-> Whereas to me it looks strange that, when having llc-size and llc-nr-ways
-> provided, I'd need to add a 3rd option. What purpose other than enabling
-> coloring could there be when specifying those parameters?
+Regressions :-(
 
-Ok, I probably misunderstood you. You mean just to assume llc-coloring=3Don
-when both llc-size and llc-nr-ways are present and not to remove
-llc-coloring completely, right? I'm ok with this.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 185109
 
-> Jan
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Thanks.
+version targeted for testing:
+ xen                  ee973396f008ff0de2836b7ca100ce822740fa41
+baseline version:
+ xen                  eaafbd11344a8ec32309fe58a6e529fe1c34d62e
+
+Last test of basis   185109  2024-03-20 09:03:31 Z    1 days
+Failing since        185120  2024-03-21 09:03:04 Z    0 days    2 attempts
+Testing same since   185125  2024-03-21 13:00:23 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Carlo Nonato <carlo.nonato@minervasys.tech>
+  Elliott Mitchell <ehem+xen@m5p.com>
+  Jan Beulich <jbeulich@suse.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Shawn Anastasio <sanastasio@raptorengineering.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit ee973396f008ff0de2836b7ca100ce822740fa41
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Mar 18 18:07:05 2024 +0000
+
+    x86/cpuid: More AMD features
+    
+    All of these are informational and require no further logic changes in Xen to
+    support.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 5205bda5f11cc03ca62ad2bb6c34bf738bbb3247
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Oct 22 14:53:26 2018 +0100
+
+    x86/p2m: Coding style cleanup
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 97b90f9bf2e5c93e0f61c927fa2bc8a56a213faa
+Author: Shawn Anastasio <sanastasio@raptorengineering.com>
+Date:   Thu Mar 21 09:49:20 2024 +0100
+
+    xen/ppc: Ensure ELF sections' physical load addresses start at 0x0
+    
+    Some boot mechanisms, including the new linux file_load kexec systemcall
+    used by system firmware v2.10 on RaptorCS systems will try to honor the
+    physical address field of the ELF LOAD section header, which will fail
+    when the address is based off of XEN_VIRT_START (0xc000000000000000).
+    
+    To ensure that the physical address of the LOAD section header starts at
+    0x0, move x86's DECL_SECTION macro to xen.lds.h and use it to declare
+    all sections.
+    
+    Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 10e8d824b76f55dde7c1793f48d76d4ff9df5e0a
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Thu Mar 21 09:48:49 2024 +0100
+
+    AMD/IOMMU: drop remaining guest-IOMMU bits too
+    
+    With a02174c6c885 ("amd/iommu: clean up unused guest iommu related
+    functions") having removed the sole place where d->g_iommu would be set
+    to non-NULL, guest_iommu_add_ppr_log() will unconditionally bail the
+    latest from its 2nd if(). With it dropped, all other stuff in the file
+    is unused, too. Delete iommu_guest.c altogether.
+    
+    Further delete struct guest{_buffer,_dev_table,_iommu{,_msi}} as well as
+    struct mmio_reg for being unused with the unused g_iommu also dropped
+    from struct arch_iommu.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit cc950c49ae6a6690f7fc3041a1f43122c250d250
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Thu Mar 21 09:48:10 2024 +0100
+
+    x86/PoD: tie together P2M update and increment of entry count
+    
+    When not holding the PoD lock across the entire region covering P2M
+    update and stats update, the entry count - if to be incorrect at all -
+    should indicate too large a value in preference to a too small one, to
+    avoid functions bailing early when they find the count is zero. However,
+    instead of moving the increment ahead (and adjust back upon failure),
+    extend the PoD-locked region.
+    
+    Fixes: 99af3cd40b6e ("x86/mm: Rework locking in the PoD layer")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: George Dunlap <george.dunlap@cloud.com>
+
+commit f5c2b6da26d9becd5a1a03fcd3e5c950301030a2
+Author: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date:   Thu Mar 21 09:47:21 2024 +0100
+
+    xen/page_alloc: introduce page flag to stop buddy merging
+    
+    Add a new PGC_no_buddy_merge flag that prevents the buddy algorithm in
+    free_heap_pages() from merging pages that have it set. As of now, only
+    PGC_static has this feature, but future work can extend it easier than
+    before.
+    
+    Suggested-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 75214d5e53f60a7b19e90ebdb090c20044a052ca
+Author: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date:   Thu Mar 21 09:46:42 2024 +0100
+
+    xen/page_alloc: introduce preserved page flags macro
+    
+    PGC_static and PGC_extra needs to be preserved when assigning a page.
+    Define a new macro that groups those flags and use it instead of or'ing
+    every time.
+    
+    To make preserved flags even more meaningful, they are kept also when
+    switching state in mark_page_free().
+    
+    Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 6eb13b6b1d984af87460f60f2c0cbc5c059b8402
+Author: Elliott Mitchell <ehem+xen@m5p.com>
+Date:   Thu Mar 21 09:46:13 2024 +0100
+
+    tools/xl_parse: remove message for tsc mode string
+    
+    Normal behavior is to be silent.  Generating a message for the preferred
+    input can be mistaken for an error.  As such remove this message to match
+    other conditions.
+    
+    Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
+    Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+(qemu changes not included)
 
