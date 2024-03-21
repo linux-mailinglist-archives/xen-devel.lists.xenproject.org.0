@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 731F1885CF2
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 17:06:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696472.1087452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1C59885D00
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 17:07:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696475.1087463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnKvE-0001XD-Kt; Thu, 21 Mar 2024 16:05:40 +0000
+	id 1rnKws-00029q-VM; Thu, 21 Mar 2024 16:07:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696472.1087452; Thu, 21 Mar 2024 16:05:40 +0000
+Received: by outflank-mailman (output) from mailman id 696475.1087463; Thu, 21 Mar 2024 16:07:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnKvE-0001Up-Hy; Thu, 21 Mar 2024 16:05:40 +0000
-Received: by outflank-mailman (input) for mailman id 696472;
- Thu, 21 Mar 2024 16:05:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wMOn=K3=actia.se=john.ernberg@srs-se1.protection.inumbo.net>)
- id 1rnKvD-0001Uc-9s
- for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 16:05:39 +0000
-Received: from mail.actia.se (mail.actia.se [212.181.117.226])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id db8faad9-e79c-11ee-afe0-a90da7624cb6;
- Thu, 21 Mar 2024 17:05:38 +0100 (CET)
-Received: from S036ANL.actianordic.se (10.12.31.117) by S036ANL.actianordic.se
- (10.12.31.117) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 21 Mar
- 2024 17:05:37 +0100
-Received: from S036ANL.actianordic.se ([fe80::e13e:1feb:4ea6:ec69]) by
- S036ANL.actianordic.se ([fe80::e13e:1feb:4ea6:ec69%4]) with mapi id
- 15.01.2507.037; Thu, 21 Mar 2024 17:05:37 +0100
+	id 1rnKws-000286-SJ; Thu, 21 Mar 2024 16:07:22 +0000
+Received: by outflank-mailman (input) for mailman id 696475;
+ Thu, 21 Mar 2024 16:07:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rnKwr-00027t-NY
+ for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 16:07:21 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rnKwq-0005Aq-6j; Thu, 21 Mar 2024 16:07:20 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rnKwp-0006wk-Qq; Thu, 21 Mar 2024 16:07:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,197 +39,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db8faad9-e79c-11ee-afe0-a90da7624cb6
-From: John Ernberg <john.ernberg@actia.se>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>, Julien Grall <julien@xen.org>
-CC: Peng Fan <peng.fan@nxp.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Jonas Blixt <jonas.blixt@actia.se>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 1/2] xen/arm: Add imx8q{m,x} platform glue
-Thread-Topic: [PATCH 1/2] xen/arm: Add imx8q{m,x} platform glue
-Thread-Index: AQHaVDuqVQ/kgxLZgUK/m8/hE0ez5bDzxxsAgAA1KwCAAVx5AIAAQjeAgAEdtQCAAyp5AIABm3uAgAZ8E4CAKNxDgIAApfwAgAKGQoCAAAbIgIAHmW8AgAtpcwCAABVOgIAA6xqAgACMuAA=
-Date: Thu, 21 Mar 2024 16:05:37 +0000
-Message-ID: <1f5eba1a-7dc3-41f2-8986-26452c264770@actia.se>
-References: <20240131114952.305805-1-john.ernberg@actia.se>
- <20240131114952.305805-2-john.ernberg@actia.se>
- <a2f726f5-df4c-4d15-90af-7d59c0f1f513@xen.org>
- <494d4961-ad8a-4d1d-aaa6-d1bfb9d6a137@actia.se>
- <167f0c7a-e037-446c-82f8-2584e35a7af1@xen.org>
- <a265ea2d-9b5f-4726-9395-448b1b669839@actia.se>
- <012b5f83-2f9b-4477-965e-07b8506c0052@xen.org>
- <DU0PR04MB94170CB1F77E3D594A6D0E9488402@DU0PR04MB9417.eurprd04.prod.outlook.com>
- <5a0c8f09-4f01-45e9-892c-86342c0d0ec5@xen.org>
- <08ae764c-3490-4dd1-ab70-7a855a98d16d@actia.se>
- <911ec1bb-3733-4f37-839e-673a88e408ff@actia.se>
- <ab61278a-f3f1-41de-a0b2-eca6f19be103@xen.org>
- <848794f3-a337-49d9-84db-a969970f071b@actia.se>
- <48038c7f-d7cd-4100-a41b-8042bcb93208@xen.org>
- <967020E7-3D03-416A-8BFC-6F4E4BD9D7B5@arm.com>
- <c17e0eeb-b679-4685-9ae9-6662c2035500@actia.se>
- <849f3f5a-b960-444a-a10e-1f2df36c22a7@xen.org>
- <2F07325F-428F-4570-BE14-B84DD0A1C9F7@arm.com>
-In-Reply-To: <2F07325F-428F-4570-BE14-B84DD0A1C9F7@arm.com>
-Accept-Language: en-US, sv-SE
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-originating-ip: [10.12.12.30]
-x-esetresult: clean, is OK
-x-esetid: 37303A2958D729556C7564
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <5E1D41425BFFE644BA2671FC5FD0606B@actia.se>
-Content-Transfer-Encoding: base64
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=F/PkWrzwrSixS7uLLJlAD0k4KULXola2wB/zeBUqPGs=; b=npHBUCPKxesxWqCj77HXmQz1ov
+	/bFPwNVkuVV/Q/q9Z8DWDsMYkLm2n1f6cRFpOqgxYwXlqtSW6g61oV7OACkj1AcQTaER6VITbTQGB
+	wMEjNSPM0Cdp4FLQBhNOelEdSaH1B+SJ7lJL3x6DfOZuCmSGIjmfCosgy3/eKYBaAckc=;
+Message-ID: <3f615066-a792-493f-ba33-7667a6557c23@xen.org>
+Date: Thu, 21 Mar 2024 16:07:17 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 08/14] xen/page_alloc: introduce preserved page flags
+ macro
+Content-Language: en-GB
+To: Carlo Nonato <carlo.nonato@minervasys.tech>,
+ xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
+ <20240315105902.160047-9-carlo.nonato@minervasys.tech>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20240315105902.160047-9-carlo.nonato@minervasys.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGkgQmVydHJhbmQsDQoNCk9uIDMvMjEvMjQgMDg6NDEsIEJlcnRyYW5kIE1hcnF1aXMgd3JvdGU6
-DQo+IEhpLA0KPiANCj4+IE9uIDIwIE1hciAyMDI0LCBhdCAxODo0MCwgSnVsaWVuIEdyYWxsIDxq
-dWxpZW5AeGVuLm9yZz4gd3JvdGU6DQo+Pg0KPj4gSGkgSm9obiwNCj4+DQo+PiBPbiAyMC8wMy8y
-MDI0IDE2OjI0LCBKb2huIEVybmJlcmcgd3JvdGU6DQo+Pj4gSGkgQmVydHJhbmQsDQo+Pj4gT24g
-My8xMy8yNCAxMTowNywgQmVydHJhbmQgTWFycXVpcyB3cm90ZToNCj4+Pj4gSGksDQo+Pj4+DQo+
-Pj4+PiBPbiA4IE1hciAyMDI0LCBhdCAxNTowNCwgSnVsaWVuIEdyYWxsIDxqdWxpZW5AeGVuLm9y
-Zz4gd3JvdGU6DQo+Pj4+Pg0KPj4+Pj4gSGkgSm9obiwNCj4+Pj4+DQo+Pj4+PiBUaGFuayB5b3Ug
-Zm9yIHRoZSByZXBseS4NCj4+Pj4+DQo+Pj4+PiBPbiAwOC8wMy8yMDI0IDEzOjQwLCBKb2huIEVy
-bmJlcmcgd3JvdGU6DQo+Pj4+Pj4gT24gMy83LzI0IDAwOjA3LCBKdWxpZW4gR3JhbGwgd3JvdGU6
-DQo+Pj4+Pj4+ICAgID4gUGluZyBvbiB0aGUgd2F0Y2hkb2cgZGlzY3Vzc2lvbiBiaXRzLg0KPj4+
-Pj4+Pg0KPj4+Pj4+PiBTb3JyeSBmb3IgdGhlIGxhdGUgcmVwbHkuDQo+Pj4+Pj4+DQo+Pj4+Pj4+
-IE9uIDA2LzAzLzIwMjQgMTM6MTMsIEpvaG4gRXJuYmVyZyB3cm90ZToNCj4+Pj4+Pj4+IE9uIDIv
-OS8yNCAxNDoxNCwgSm9obiBFcm5iZXJnIHdyb3RlOg0KPj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4+ICAg
-ICAgICogSU1YX1NJUF9USU1FUl8qOiAgVGhpcyBzZWVtcyB0byBiZSByZWxhdGVkIHRvIHRoZSB3
-YXRjaGRvZy4NCj4+Pj4+Pj4+Pj4gU2hvdWxkbid0IGRvbTAgcmVseSBvbiB0aGUgd2F0Y2hkb2cg
-cHJvdmlkZWQgYnkgWGVuIGluc3RlYWQ/IFNvIHRob3NlDQo+Pj4+Pj4+Pj4+IGNhbGwgd2lsbCBi
-ZSB1c2VkIGJ5IFhlbi4NCj4+Pj4+Pj4+Pg0KPj4+Pj4+Pj4+IFRoYXQgaXMgaW5kZWVkIGEgd2F0
-Y2hkb2cgU0lQLCBhbmQgYWxzbyBmb3Igc2V0dGluZyB0aGUgU29DIGludGVybmFsIFJUQw0KPj4+
-Pj4+Pj4+IGlmIGl0IGlzIGJlaW5nIHVzZWQuDQo+Pj4+Pj4+Pj4NCj4+Pj4+Pj4+PiBJIGxvb2tl
-ZCBhcm91bmQgaWYgdGhlcmUgd2FzIHByZXZpb3VzIGRpc2N1c3Npb24gYW5kIG9ubHkgcmVhbGx5
-DQo+Pj4+Pj4+Pj4gZm91bmQgWzNdLg0KPj4+Pj4+Pj4+IElzIHRoZSB4ZW4veGVuL2luY2x1ZGUv
-d2F0Y2hkb2cuaCBoZWFkZXIgbWVhbnQgdG8gYmUgZm9yIHRoaXMga2luZCBvZg0KPj4+Pj4+Pj4+
-IHdhdGNoZG9nIHN1cHBvcnQgb3IgaXMgdGhhdCBtb3JlIGZvciB0aGUgVk0gd2F0Y2hkb2c/IExv
-b2tpbmcgYXQgdGhlIHg4Ng0KPj4+Pj4+Pj4+IEFDUEkgTk1JIHdhdGNoZG9nIGl0IHNlZW1zIGxp
-a2UgdGhlIGZvcm1lciwgYnV0IEkgaGF2ZSBuZXZlciB3b3JrZWQgd2l0aA0KPj4+Pj4+Pj4+IHg4
-NiBub3IgQUNQSS4NCj4+Pj4+Pj4NCj4+Pj4+Pj4gaW5jbHVkZS93YXRjaGRvZy5oIGNvbnRhaW5z
-IGhlbHBlciB0byBjb25maWd1cmUgdGhlIHdhdGNoZG9nIGZvciBYZW4uIFdlDQo+Pj4+Pj4+IGFs
-c28gaGF2ZSBwZXItVk0gd2F0Y2hkb2cgYW5kIHRoaXMgaXMgY29uZmlndXJlZCBieSB0aGUgaHlw
-ZXJjYWxsDQo+Pj4+Pj4+IFNDSEVET1Bfd2F0Y2hkb2cuDQo+Pj4+Pj4+DQo+Pj4+Pj4+Pj4NCj4+
-Pj4+Pj4+PiBDdXJyZW50bHkgZm9yd2FyZGluZyBpdCB0byBEb20wIGhhcyBub3QgY2F1c2VkIGFu
-eSB3YXRjaGRvZyByZXNldHMgd2l0aA0KPj4+Pj4+Pj4+IG91ciB3YXRjaGRvZyB0aW1lb3V0IHNl
-dHRpbmdzLCBvdXIgc3BlY2lmaWMgRG9tMCBzZXR1cCBhbmQgVk0gY291bnQuDQo+Pj4+Pj4+DQo+
-Pj4+Pj4+IElJVUMsIHRoZSBTTUMgQVBJIGZvciB0aGUgd2F0Y2hkb2cgd291bGQgYmUgc2ltaWxh
-ciB0byB0aGUgQUNQSSBOTUkNCj4+Pj4+Pj4gd2F0Y2hkb2cuIFNvIEkgdGhpbmsgaXQgd291bGQg
-bWFrZSBtb3JlIHNlbnNlIGlmIHRoaXMgaXMgbm90IGV4cG9zZWQgdG8NCj4+Pj4+Pj4gZG9tMCAo
-ZXZlbiBpZiBYZW4gaXMgZG9pbmcgbm90aGluZyB3aXRoIGl0KS4NCj4+Pj4+Pj4NCj4+Pj4+Pj4g
-Q2FuIHlvdSB0cnkgdG8gaGlkZSB0aGUgU01DcyBhbmQgY2hlY2sgaWYgZG9tMCBzdGlsbCBiZWhh
-dmUgcHJvcGVybHk/DQo+Pj4+Pj4+DQo+Pj4+Pj4+IENoZWVycywNCj4+Pj4+Pj4NCj4+Pj4+PiBU
-aGlzIFNNQyBtYW5hZ2VzIGEgaGFyZHdhcmUgd2F0Y2hkb2csIGlmIGl0J3Mgbm90IHBpbmdlZCB3
-aXRoaW4gYQ0KPj4+Pj4+IHNwZWNpZmljIGludGVydmFsIHRoZSBlbnRpcmUgYm9hcmQgcmVzZXRz
-Lg0KPj4+Pj4NCj4+Pj4+IERvIHlvdSBrbm93IHdoYXQncyB0aGUgZGVmYXVsdCBpbnRlcnZhbD8g
-SXMgaXQgbGFyZ2UgZW5vdWdoIHNvIFhlbiArIGRvbTAgY2FuIGJvb3QgKGF0IGxlYXN0IHVwIHRv
-IHdoZW4gdGhlIHdhdGNoZG9nIGRyaXZlciBpcyBpbml0aWFsaXplZCk/DQo+Pj4+Pg0KPj4+Pj4+
-IElmIEkgYmxvY2sgdGhlIFNNQ3MgdGhlIHdhdGNoZG9nIGRyaXZlciBpbiBEb20wIHdpbGwgZmFp
-bCB0byBwaW5nIHRoZQ0KPj4+Pj4+IHdhdGNoZG9nLCB0cmlnZ2VyaW5nIGEgYm9hcmQgcmVzZXQg
-YmVjYXVzZSB0aGUgc3lzdGVtIGxvb2tzIHRvIGhhdmUNCj4+Pj4+PiBiZWNvbWUgdW5yZXNwb25z
-aXZlLiBUaGUgcmVhc29uIHRoaXMgcGF0Y2ggc2V0IHN0YXJ0ZWQgaXMgYmVjYXVzZSB3ZQ0KPj4+
-Pj4+IGNvdWxkbid0IHBpbmcgdGhlIHdhdGNoZG9nIHdoZW4gcnVubmluZyB3aXRoIFhlbi4NCj4+
-Pj4+PiBJbiBvdXIgc3BlY2lmaWMgc3lzdGVtIHRoZSBib290bG9hZGVyIGVuYWJsZXMgdGhlIHdh
-dGNoZG9nIGFzIGVhcmx5IGFzDQo+Pj4+Pj4gcG9zc2libGUgc28gdGhhdCB3ZSBjYW4gZ2V0IHdh
-dGNoZG9nIHByb3RlY3Rpb24gZm9yIGFzIG11Y2ggb2YgdGhlIGJvb3QNCj4+Pj4+PiBhcyB3ZSBw
-b3NzaWJseSBjYW4uDQo+Pj4+Pj4gU28sIGlmIHdlIGFyZSB0byBibG9jayB0aGUgU01DIGZyb20g
-RG9tMCwgdGhlbiBYZW4gbmVlZHMgdG8gdGFrZSBvdmVyDQo+Pj4+Pj4gdGhlIHBpbmdpbmcuIEl0
-IGNvdWxkIGJlIGltcGxlbWVudGVkIHNpbWlsYXJseSB0byB0aGUgTk1JIHdhdGNoZG9nLA0KPj4+
-Pj4+IGV4Y2VwdCB0aGF0IHRoZSBzeXN0ZW0gd2lsbCByZXNldCBpZiB0aGUgcGluZyBpcyBtaXNz
-ZWQgcmF0aGVyIHRoYW4NCj4+Pj4+PiBiYWNrdHJhY2UuDQo+Pj4+Pj4gSXQgd291bGQgYWxzbyBt
-ZWFuIHRoYXQgWGVuIHdpbGwgZ2V0IGEgd2hvbGUgd2F0Y2hkb2cgZHJpdmVyLWNhdGVnb3J5DQo+
-Pj4+Pj4gZHVlIHRvIHRoZSB3YXRjaGRvZyBiZWluZyB2ZW5kb3IgYW5kIHNvbWV0aW1lcyBldmVu
-IFNvQyBzcGVjaWZpYyB3aGVuIGl0DQo+Pj4+Pj4gY29tZXMgdG8gQXJtLg0KPj4+Pj4+IE15IHVu
-ZGVyc3RhbmRpbmcgb2YgdGhlIGRvbWFpbiB3YXRjaGRvZyBjb2RlIGlzIHRoYXQgdG9kYXkgdGhl
-IGRvbWFpbg0KPj4+Pj4+IG5lZWRzIHRvIGNhbGwgU0NIRURPUF93YXRjaGRvZyBhdCBsZWFzdCBv
-bmNlIHRvIHN0YXJ0IHRoZSB3YXRjaGRvZw0KPj4+Pj4+IHRpbWVyLiBTaW5jZSB3YXRjaGRvZyBw
-cm90ZWN0aW9uIHRocm91Z2ggdGhlIHdob2xlIGJvb3QgcHJvY2VzcyBpcw0KPj4+Pj4+IGRlc2ly
-YWJsZSB3ZSdkIG5lZWQgc29tZSBjb3JlIGNoYW5nZXMsIHN1Y2ggYXMgYW4gb3B0aW9uIHRvIHN0
-YXJ0IHRoZQ0KPj4+Pj4+IGRvbWFpbiB3YXRjaGRvZyBvbiBpbml0LiA+DQo+Pj4+Pj4gSXQncyBx
-dWl0ZSBhIGJpZyBjaGFuZ2UgdG8gbWFrZQ0KPj4+Pj4NCj4+Pj4+IEZvciBjbGFyaWZpY2F0aW9u
-LCBhYm92ZSB5b3Ugc2VlbSB0byBtZW50aW9uIHR3byBjaGFuZ2VzOg0KPj4+Pj4NCj4+Pj4+IDEp
-IEFsbG93IFhlbiB0byB1c2UgdGhlIEhXIHdhdGNoZG9nDQo+Pj4+PiAyKSBBbGxvdyB0aGUgZG9t
-YWluIHRvIHVzZSB0aGUgd2F0Y2hkb2cgZWFybHkNCj4+Pj4+DQo+Pj4+PiBJIGFtIGFzc3VtaW5n
-IGJ5IGJpZyBjaGFuZ2UsIHlvdSBhcmUgcmVmZXJyaW5nIHRvIDI/DQo+Pj4+Pg0KPj4+Pj4gLCB3
-aGlsZSBJIGFtIG5vdCBhZ2FpbnN0IGRvaW5nIGl0IGlmIGl0DQo+Pj4+Pj4gbWFrZXMgc2Vuc2Us
-IEkgbm93IHdvbmRlciBpZiBYZW4gc2hvdWxkIG1hbmFnZSBoYXJkd2FyZSB3YXRjaGRvZ3MuDQo+
-Pj4+Pj4gTG9va2luZyBhdCB0aGUgZG9tYWluIHdhdGNoZG9nIGNvZGUgaXQgbG9va3MgbGlrZSBp
-ZiBhIGRvbWFpbiBkb2VzIG5vdA0KPj4+Pj4+IGdldCBlbm91Z2ggZXhlY3V0aW9uIHRpbWUsIHRo
-ZSB3YXRjaGRvZyB3aWxsIG5vdCBiZSBwaW5nZWQgZW5vdWdoIGFuZA0KPj4+Pj4+IHRoZSBndWVz
-dCB3aWxsIGJlIHJlc2V0LiBTbyBlaXRoZXIgd2F0Y2hkb2cgYXBwcm9hY2ggcmVxdWlyZXMgRG9t
-MCB0bw0KPj4+Pj4+IGdldCBleGVjdXRpb24gdGltZS4gRG9tMCBhbHNvIG5lZWRzIHRvIHNlcnZp
-Y2UgYWxsIHRoZSBQViBiYWNrZW5kcyBpdCdzDQo+Pj4+Pj4gcmVzcG9uc2libGUgZm9yLiBJJ20g
-bm90IHN1cmUgaXQncyB2YWx1YWJsZSB0byBhZGQgYW5vdGhlciBsYXllciBvZg0KPj4+Pj4+IHdh
-dGNoZG9nIGZvciB0aGlzIHNjZW5hcmlvIGFzIHRoZSBlbmQgcmVzdWx0IChjaGVja2luZyB0aGF0
-IHRoZSBlbnRpcmUNCj4+Pj4+PiBzeXN0ZW0gd29ya3MpIGlzIGFjaGlldmVkIHdpdGhvdXQgaXQg
-YXMgd2VsbC4NCj4+Pj4+PiBTbywgYmVmb3JlIEkgdHJ5IHRvIGZpbmQgdGhlIHRpbWUgdG8gbWFr
-ZSBhIHByb3Bvc2FsIGZvciBtb3ZpbmcgdGhlDQo+Pj4+Pj4gaGFyZHdhcmUgd2F0Y2hkb2cgYml0
-IHRvIFhlbiwgZG8gd2UgcmVhbGx5IHdhbnQgaXQ/DQo+Pj4+Pg0KPj4+Pj4gVGhhbmtzIGZvciB0
-aGUgZGV0YWlscy4gR2l2ZW4gdGhhdCB0aGUgd2F0Y2hkb2cgaXMgZW5hYmxlZCBieSB0aGUgYm9v
-dGxvYWRlciwgSSB0aGluayB3ZSB3YW50IFhlbiB0byBkcml2ZSB0aGUgd2F0Y2hkb2cgZm9yIHR3
-byByZWFzb25zOg0KPj4+Pj4gMSkgSW4gdHJ1ZSBkb20wbGVzcyBlbnZpcm9ubWVudCwgZG9tMCB3
-b3VsZCBub3QgZXhpc3QNCj4+Pj4+IDIpIFlvdSBhcmUgcmVseWluZyBvbiBYZW4gKyBEb20wIHRv
-IGJvb3QgKG9yIGF0IGxlYXN0IGVub3VnaCB0byBnZXQgdGhlIHdhdGNoZG9nIHdvcmtpbmcpIHdp
-dGhpbiB0aGUgd2F0Y2hkb2cgaW50ZXJ2YWwuDQo+Pj4+DQo+Pj4+IERlZmluaXRlbHkgd2UgbmVl
-ZCB0byBjb25zaWRlciB0aGUgY2FzZSB3aGVyZSB0aGVyZSBpcyBubyBEb20wLg0KPj4+Pg0KPj4+
-PiBJIHRoaW5rIHRoZXJlIGFyZSBpbiBmYWN0IDMgZGlmZmVyZW50IHVzZSBjYXNlcyBoZXJlOg0K
-Pj4+PiAtIHdhdGNoZG9nIGZ1bGx5IGRyaXZlbiBpbiBhIGRvbWFpbiAoZG9tMCBvciBhbm90aGVy
-KTogd291bGQgd29yayBpZiBpdCBpcyBleHBlY3RlZA0KPj4+PiAgICAgdGhhdCBYZW4gKyBEb21h
-aW4gYm9vdCB0aW1lIGlzIHVuZGVyIHRoZSB3YXRjaGRvZyBpbml0aWFsIHJlZnJlc2ggcmF0ZS4g
-SSB0aGluayB0aGlzDQo+Pj4+ICAgICBjb3VsZCBtYWtlIHNlbnNlIG9uIHNvbWUgYXBwbGljYXRp
-b25zIHdoZXJlIHlvdXIgc3lzdGVtIGRlcGVuZHMgb24gYSBzcGVjaWZpYw0KPj4+PiAgICAgZG9t
-YWluIHRvIGJlIHByb3Blcmx5IGJvb3RlZCB0byB3b3JrLiBUaGlzIHdvdWxkIHJlcXVpcmUgYW4g
-aW5pdGlhbCByZWZyZXNoIHRpbWUNCj4+Pj4gICAgIGNvbmZpZ3VyYWJsZSBpbiB0aGUgYm9vdCBs
-b2FkZXIgcHJvYmFibHkuDQo+Pj4gVGhpcyBpcyBvdXIgdXNlLWNhc2UuIF4NCj4+PiBPdXIgZG9t
-MCBpcyBtb25pdG9yaW5nIGFuZCBtYW5hZ2luZyB0aGUgb3RoZXIgZG9tYWlucyBpbiBvdXIgc3lz
-dGVtLg0KPj4+IFdpdGhvdXQgZG9tMCB3b3JraW5nIHRoZSBzeXN0ZW0gaXNuJ3QgcmVhbGx5IHdv
-cmtpbmcgYXMgYSB3aG9sZS4NCj4+PiBASnVsaWVuOiBXb3VsZCB5b3UgYmUgb2sgd2l0aCB0aGUg
-cGF0Y2ggc2V0IGNvbnRpbnVpbmcgaW4gdGhlIGRpcmVjdGlvbg0KPj4+IG9mIHRoZQ0KPj4+IG9y
-aWdpbmFsIHByb3Bvc2FsLCBsZXR0aW5nIGFub3RoZXIgcGFydHkgKG9yIG1lIGF0IGEgbGF0ZXIg
-dGltZSkgaW1wbGVtZW50DQo+Pj4gdGhlIGZ1bGx5IGRyaXZlbiBieSBYZW4gb3B0aW9uPw0KPj4g
-SSBhbSBjb25jZXJuZWQgYWJvdXQgdGhpcyBwYXJ0aWN1bGFyIHBvaW50IGZyb20gQmVydHJhbmQ6
-DQo+Pg0KPj4gIndvdWxkIHdvcmsgaWYgaXQgaXMgZXhwZWN0ZWQgdGhhdCBYZW4gKyBEb21haW4g
-Ym9vdCB0aW1lIGlzIHVuZGVyIHRoZSB3YXRjaGRvZyBpbml0aWFsIHJlZnJlc2ggcmF0ZS4iDQo+
-Pg0KPj4gSG93IHdpbGwgYSB1c2VyIGJlIGFibGUgdG8gZmlndXJlIG91dCBob3cgdG8gaW5pdGlh
-bGx5IGNvbmZpZ3VyZSB0aGUgd2F0Y2hkb2c/IElzIHRoaXMgc29tZXRoaW5nIHlvdSBjYW4gZWFz
-aWx5IGNvbmZpZ3VyZSBpbiB0aGUgYm9vdGxvYWRlciBhdCBydW50aW1lPw0KDQpJZiB5b3UgZ28g
-dGhyb3VnaCB0aGUgdHJvdWJsZSBvZiBlbmFibGluZyB0aGUgd2F0Y2hkb2cgaW4gdGhlIGJvb3Rs
-b2FkZXIgeW91DQp1c3VhbGx5IGtub3cgd2hhdCB5b3UncmUgZG9pbmcgYW5kIHNldCB0aGUgdGlt
-ZW91dCB5b3Vyc2VsZi4NCg0KU2luY2Ugb3VyIHN5c3RlbXMgY2FuIGJlIG1vdW50ZWQgaW4gcmVh
-bGx5IGFubm95aW5nIGxvY2F0aW9ucyAoYm90aCBpbg0KaW5zdGFsbGF0aW9ucyBhbmQgd29ybGQt
-d2lzZSkgd2UgbmVlZCBhcyBtdWNoIGF1dG8tcmVjb3ZlcnkgYXMgcG9zc2libGUgdG8NCmF2b2lk
-IHBlb3BsZSBoYXZpbmcgdG8gdHJhdmVsIHRvIGNvbGxlY3QgYSB1bml0IHRoYXQganVzdCBuZWVk
-ZWQgYSByZXNldCBkdWUNCnRvIHNvbWUgdW5leHBlY3RlZCBvYnNjdXJlIGlzc3VlIGF0IHN0YXJ0
-dXAuDQo+IA0KPiBEZWZpbml0ZWx5IGhlcmUgaXQgd291bGQgYmUgYmV0dGVyIHRvIGhhdmUgdGhl
-IHdhdGNoZG9nIHR1cm5lZCBvZmYgYnkgZGVmYXVsdCBhbmQgZG9jdW1lbnQgaG93IHRvIGVuYWJs
-ZSBpdCBpbiB0aGUgZmlybXdhcmUuDQo+IA0KPiBFdmVuIGlmIGEgbG9uZyB0aW1lb3V0IGlzIGNv
-bmZpZ3VyZWQgYnkgZGVmYXVsdCwgYSB1c2VyIGNvdWxkIHJ1biBpbnRvIHRyb3VibGUgaWYgdXNp
-bmcgYSBsaW51eCB3aXRob3V0IHdhdGNoZG9nIG9yIG5vdCBydW5uaW5nIGxpbnV4IG9yIHVzaW5n
-IGRvbTBsZXNzIHdpdGhvdXQgYSBsaW51eCBoYXZpbmcgYWNjZXNzIHRvIGl0Lg0KPiBJIGFncmVl
-IHdpdGggSnVsaWVuIGhlcmUgdGhhdCB0aGUgY29uY2VybiBjb3VsZCBiZSB0aGF0IHVzZXJzIHdv
-dWxkIGNvbWUgdG8gdXMgaW5zdGVhZCBvZiBOWFAgaWYgdGhlcmUgaXMgc3lzdGVtIGlzIGRvaW5n
-IGEgcmVzZXQgd2l0aG91dCByZWFzb25zIGFmdGVyIHNvbWUgc2Vjb25kcyBvciBtaW51dGVzLg0K
-DQpJIGNvdWxkIGFkZCBteXNlbGYgYXMgYSByZXZpZXdlciBmb3IgdGhlIGlNWCBwYXJ0cyBpZiB0
-aGF0IGhlbHBzIHJvdXRpbmcgDQpzdWNoDQpxdWVzdGlvbnMgKGFuZCBmdXR1cmUgcGF0Y2hlcykg
-YWxzbyB0byBtZS4gV2UgaGF2ZSBleHBlcmllbmNlIHdpdGggdGhlIFFYUCwNCmFuZCB0aGUgUU0g
-KGZvciB0aGUgc3VwcG9ydGVkIHBhcnRzIGJ5IHRoaXMgcGF0Y2ggc2V0KSBpcyBpZGVudGljYWwu
-DQoNCldvdWxkIHRoYXQgaGVscCB3aXRoIHRoZSBjb25jZXJucz8NCg0KPiANCj4+DQo+Pg0KPj4g
-T3ZlcmFsbCwgSSBhbSBub3QgZm9yIHRoaXMgYXBwcm9hY2ggYXQgbGVhc3QgaW4gdGhlIGN1cnJl
-bnQgc3RhdHVzLiBJIHdvdWxkIGJlIG1vcmUgaW5jbGluZWQgaWYgdGhlcmUgYXJlIHNvbWUgZG9j
-dW1lbnRhdGlvbnMgZXhwbGFpbmluZyBob3cgdGhpcyBpcyBzdXBwb3NlZCB0byBiZSBjb25maWd1
-cmVkIG9uIE5YUCwgc28gb3RoZXJzIGNhbiB1c2UgdGhlIGNvZGUuDQo+Pg0KPj4gQW55d2F5LCB0
-aGlzIGlzIHdoeSB3ZSBoYXZlIG11bHRpcGxlIEFybSBtYWludGFpbmVycyBmb3IgdGhpcyBraW5k
-IG9mIHNpdHVhdGlvbi4gSWYgdGhleSBvdGhlciBhZ3JlZXMgd2l0aCB5b3UsIHRoZW4gdGhleSBj
-YW4gYWNrIHRoZSBwYXRjaCBhbmQgdGhpcyBjYW4gYmUgbWVyZ2VkLg0KPiANCj4gSSBhZ3JlZSB3
-aXRoIFN0ZWZhbm8gdGhhdCBpdCB3b3VsZCBiZSBnb29kIHRvIGhhdmUgdGhvc2UgYm9hcmQgc3Vw
-cG9ydGVkLg0KPiANCj4gT25lIHRoaW5nIGkgY291bGQgc3VnZ2VzdCB1bnRpbCB0aGVyZSBpcyBh
-IHdhdGNoZG9nIGRyaXZlciBpbnNpZGUgWGVuIGlzIHRvIGhhdmUgYSBjbGVhciBXYXJuaW5nIGF0
-IFhlbiBib290IG9uIHRob3NlIGJvYXJkcyBpbiB0aGUgY29uc29sZSBzbyB0aGF0IHdlIGNvdWxk
-IGF0IGxlYXN0IGlkZW50aWZ5IHRoZSByZWFzb24gZWFzaWx5IGlmIGEgcmVzZXQgb2NjdXJzIGZv
-ciBzb21lb25lLg0KDQpIb3cgZG8gb3RoZXIgU29DcyBkZWFsIHdpdGggdGhpcyBjdXJyZW50bHk/
-IFRoZSBpTVggU29DcyBhcmVuJ3QgdGhlIG9ubHkgDQpvbmVzDQp3aXRoIGEgd2F0Y2hkb2csIGp1
-c3QgdGhlIGZpcnN0IG9uZSBhZGRlZCB0byBYZW4gdGhhdCBwaW5ncyB0aGUgd2F0Y2hkb2cgDQpv
-dmVyDQphbiBTTUMuIFdoYXQgYWJvdXQgdGhlIE9NQVBzLCB0aGUgUi1DYXJzLCBYaWxpbngncywg
-RXh5bm9zJyBhbmQgc28gb24/DQoNClRoYW5rcyEgLy8gSm9obiBFcm5iZXJn
+(+ Roger)
+
+Hi Carlo,
+
+On 15/03/2024 10:58, Carlo Nonato wrote:
+> PGC_static and PGC_extra needs to be preserved when assigning a page.
+> Define a new macro that groups those flags and use it instead of or'ing
+> every time.
+> 
+> To make preserved flags even more meaningful, they are kept also when
+> switching state in mark_page_free().
+> 
+> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+
+This patch is introducing a regression in OSStest (and possibly gitlab?):
+
+Mar 21 12:00:29.533676 (XEN) pg[0] MFN 2211c5 c=0x2c00000000000000 o=0 
+v=0xe40000010007ffff t=0x24
+Mar 21 12:00:42.829785 (XEN) Xen BUG at common/page_alloc.c:1033
+Mar 21 12:00:42.829829 (XEN) ----[ Xen-4.19-unstable  x86_64  debug=y 
+Not tainted ]----
+Mar 21 12:00:42.829857 (XEN) CPU:    12
+Mar 21 12:00:42.841571 (XEN) RIP:    e008:[<ffff82d04022fe1f>] 
+common/page_alloc.c#alloc_heap_pages+0x37f/0x6e2
+Mar 21 12:00:42.841609 (XEN) RFLAGS: 0000000000010282   CONTEXT: 
+hypervisor (d0v8)
+Mar 21 12:00:42.853654 (XEN) rax: ffff83023e3ed06c   rbx: 
+000000000007ffff   rcx: 0000000000000028
+Mar 21 12:00:42.853689 (XEN) rdx: ffff83047bec7fff   rsi: 
+ffff83023e3ea3e8   rdi: ffff83023e3ea3e0
+Mar 21 12:00:42.865657 (XEN) rbp: ffff83047bec7c10   rsp: 
+ffff83047bec7b98   r8:  0000000000000000
+Mar 21 12:00:42.877647 (XEN) r9:  0000000000000001   r10: 
+000000000000000c   r11: 0000000000000010
+Mar 21 12:00:42.877682 (XEN) r12: 0000000000000001   r13: 
+0000000000000000   r14: ffff82e0044238a0
+Mar 21 12:00:42.889652 (XEN) r15: 0000000000000000   cr0: 
+0000000080050033   cr4: 0000000000372660
+Mar 21 12:00:42.901651 (XEN) cr3: 000000046fe34000   cr2: 00007fb72757610b
+Mar 21 12:00:42.901685 (XEN) fsb: 00007fb726def380   gsb: 
+ffff88801f200000   gss: 0000000000000000
+Mar 21 12:00:42.913646 (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000 
+ss: e010   cs: e008
+Mar 21 12:00:42.913680 (XEN) Xen code around <ffff82d04022fe1f> 
+(common/page_alloc.c#alloc_heap_pages+0x37f/0x6e2):
+Mar 21 12:00:42.925645 (XEN)  d1 1c 00 e8 ad dd 02 00 <0f> 0b 48 85 c9 
+79 36 0f 0b 41 89 cd 48 c7 47 f0
+Mar 21 12:00:42.937649 (XEN) Xen stack trace from rsp=ffff83047bec7b98:
+Mar 21 12:00:42.937683 (XEN)    0000000000000024 000000007bec7c20 
+0000000000000001 ffff83046ccda000
+Mar 21 12:00:42.949653 (XEN)    ffff82e000000021 0000000000000016 
+0000000000000000 0000000000000000
+Mar 21 12:00:42.949687 (XEN)    0000000000000000 0000000000000000 
+0000000000000028 0000000000000021
+Mar 21 12:00:42.961652 (XEN)    ffff83046ccda000 0000000000000000 
+00007d2000000000 ffff83047bec7c48
+Mar 21 12:00:42.961687 (XEN)    ffff82d0402302ff ffff83046ccda000 
+0000000000000100 0000000000000000
+Mar 21 12:00:42.973655 (XEN)    ffff82d0405f0080 00007d2000000000 
+ffff83047bec7c80 ffff82d0402f626c
+Mar 21 12:00:42.985656 (XEN)    ffff83046ccda000 ffff83046ccda640 
+0000000000000000 0000000000000000
+Mar 21 12:00:42.985690 (XEN)    ffff83046ccda220 ffff83047bec7cb0 
+ffff82d0402f65a0 ffff83046ccda000
+Mar 21 12:00:42.997662 (XEN)    0000000000000000 0000000000000000 
+0000000000000000 ffff83047bec7cc0
+Mar 21 12:00:43.009660 (XEN)    ffff82d040311f8a ffff83047bec7ce0 
+ffff82d0402bd543 ffff83046ccda000
+Mar 21 12:00:43.009695 (XEN)    ffff83047bec7dc8 ffff83047bec7d08 
+ffff82d04032c524 ffff83046ccda000
+Mar 21 12:00:43.021653 (XEN)    ffff83047bec7dc8 0000000000000002 
+ffff83047bec7d58 ffff82d040206750
+Mar 21 12:00:43.033642 (XEN)    0000000000000000 ffff82d040233fe5 
+ffff83047bec7d48 0000000000000000
+Mar 21 12:00:43.033678 (XEN)    0000000000000002 00007fb72767f010 
+ffff82d0405e9120 0000000000000001
+Mar 21 12:00:43.045654 (XEN)    ffff83047bec7e70 ffff82d040240728 
+0000000000000007 ffff83023e3b3000
+Mar 21 12:00:43.045690 (XEN)    0000000000000246 ffff83023e2efa90 
+ffff83023e38e000 ffff83023e2efb40
+Mar 21 12:00:43.057609 (XEN)    0000000000000007 ffff83023e3afb80 
+0000000000000206 ffff83047bec7dc0
+Mar 21 12:00:43.069662 (XEN)    0000001600000001 000000000000ffff 
+e75aaa8d0000000c ac0d6d864e487f62
+Mar 21 12:00:43.069697 (XEN)    000000037fa48d76 0000000200000000 
+ffffffff000003ff 00000002ffffffff
+Mar 21 12:00:43.081647 (XEN)    0000000000000000 00000000000001ff 
+0000000000000000 0000000000000000
+Mar 21 12:00:43.093646 (XEN) Xen call trace:
+Mar 21 12:00:43.093677 (XEN)    [<ffff82d04022fe1f>] R 
+common/page_alloc.c#alloc_heap_pages+0x37f/0x6e2
+Mar 21 12:00:43.093705 (XEN)    [<ffff82d0402302ff>] F 
+alloc_domheap_pages+0x17d/0x1e4
+Mar 21 12:00:43.105652 (XEN)    [<ffff82d0402f626c>] F 
+hap_set_allocation+0x73/0x23c
+Mar 21 12:00:43.105685 (XEN)    [<ffff82d0402f65a0>] F 
+hap_enable+0x138/0x33c
+Mar 21 12:00:43.117646 (XEN)    [<ffff82d040311f8a>] F 
+paging_enable+0x2d/0x45
+Mar 21 12:00:43.117679 (XEN)    [<ffff82d0402bd543>] F 
+hvm_domain_initialise+0x185/0x428
+Mar 21 12:00:43.129652 (XEN)    [<ffff82d04032c524>] F 
+arch_domain_create+0x3e7/0x4c1
+Mar 21 12:00:43.129687 (XEN)    [<ffff82d040206750>] F 
+domain_create+0x4cc/0x7e2
+Mar 21 12:00:43.141665 (XEN)    [<ffff82d040240728>] F 
+do_domctl+0x1850/0x192d
+Mar 21 12:00:43.141699 (XEN)    [<ffff82d04031a96a>] F 
+pv_hypercall+0x617/0x6b5
+Mar 21 12:00:43.153656 (XEN)    [<ffff82d0402012ca>] F 
+lstar_enter+0x13a/0x140
+Mar 21 12:00:43.153689 (XEN)
+Mar 21 12:00:43.153711 (XEN)
+Mar 21 12:00:43.153731 (XEN) ****************************************
+Mar 21 12:00:43.165647 (XEN) Panic on CPU 12:
+Mar 21 12:00:43.165678 (XEN) Xen BUG at common/page_alloc.c:1033
+Mar 21 12:00:43.165703 (XEN) ****************************************
+Mar 21 12:00:43.177633 (XEN)
+Mar 21 12:00:43.177662 (XEN) Manual reset required ('noreboot' specified)
+
+The code around the BUG is:
+
+         /* Reference count must continuously be zero for free pages. */
+         if ( (pg[i].count_info & ~PGC_need_scrub) != PGC_state_free )
+         {
+             printk(XENLOG_ERR
+                    "pg[%u] MFN %"PRI_mfn" c=%#lx o=%u v=%#lx t=%#x\n",
+                    i, mfn_x(page_to_mfn(pg + i)),
+                    pg[i].count_info, pg[i].v.free.order,
+                    pg[i].u.free.val, pg[i].tlbflush_timestamp);
+             BUG();
+         }
+
+Now that you are preserving some flags, you also want to modify the 
+condition. I haven't checked the rest of the code, so there might be 
+some adjustments necessary.
+
+For now I have reverted the patch to unblock the CI.
+
+Cheers,
+
+-- 
+Julien Grall
 
