@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 971EB8857A3
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 11:52:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696328.1087196 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 327ED8857C8
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 12:06:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696331.1087208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnG1Q-0007oI-3j; Thu, 21 Mar 2024 10:51:44 +0000
+	id 1rnGEs-0001eD-Bl; Thu, 21 Mar 2024 11:05:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696328.1087196; Thu, 21 Mar 2024 10:51:44 +0000
+Received: by outflank-mailman (output) from mailman id 696331.1087208; Thu, 21 Mar 2024 11:05:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnG1Q-0007lZ-0z; Thu, 21 Mar 2024 10:51:44 +0000
-Received: by outflank-mailman (input) for mailman id 696328;
- Thu, 21 Mar 2024 10:51:42 +0000
+	id 1rnGEs-0001ax-74; Thu, 21 Mar 2024 11:05:38 +0000
+Received: by outflank-mailman (input) for mailman id 696331;
+ Thu, 21 Mar 2024 11:05:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ILtd=K3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rnG1O-0007lT-Dv
- for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 10:51:42 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lbdV=K3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rnGEq-0001ar-UU
+ for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 11:05:36 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff594960-e770-11ee-a1ee-f123f15fe8a2;
- Thu, 21 Mar 2024 11:51:40 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-512f892500cso952779e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 03:51:40 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s10-20020a1709060c0a00b00a44899a44ddsm8449326ejf.11.2024.03.21.03.51.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Mar 2024 03:51:39 -0700 (PDT)
+ id f0be5665-e772-11ee-a1ee-f123f15fe8a2;
+ Thu, 21 Mar 2024 12:05:34 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4146a1ac117so5114985e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 04:05:34 -0700 (PDT)
+Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
+ q18-20020adff792000000b0033ec9b26b7asm16943227wrp.25.2024.03.21.04.05.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Mar 2024 04:05:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +44,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff594960-e770-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: f0be5665-e772-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711018300; x=1711623100; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=+3WxriO6Uu9DKi+i9uSCc9XftNbhqvLeJRBNd7zSoiQ=;
-        b=H2PwDRQDys5ufpJhx0jpS+FuwtnsM22hGNqJf9jOTjYzlGaWQhMSHwlJxT8Y+kR9Yv
-         AtDMRGJ2od+XZYbFS4mv3vt2JMbSsPOMAu0olQMlOUWnalKIDL5yK65lOmAY587Z+5sk
-         dXp+8AEH/kZYgIpokZY2pklvFuXVPFK1L9W3cTlurOrpxOlgsO5pO15zcXSWWhdrTpZY
-         oabiimJ15fBIDBwE8d6zkoXaVrZ4eVZXY/s+uveHgAgXuJqdul5DusPcf5Gq3v+vXQQK
-         zqLOi2H5ZF5lu/EPcdYbg0fLzcbRy+Tx+fyYs5sNsJu86mPzKNwgmqfX3CoiGDvXU2hr
-         tNzA==
+        d=citrix.com; s=google; t=1711019133; x=1711623933; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Q0RtmqqzFd4YUtX95+8cJsuMlOVlknAi1XayUzUdt2k=;
+        b=cISF5faALJ6IRD1WaDsUMTc4y040Qh8DVscH3aBH038IIvyQRYnIAk5L0rsgFCZYHo
+         jvn70fmnjbv7touRRM1lwfGmeb8I12aYKtuj2GEqG9BLbtpWCeGHPDHmBCk2p2cVEfDu
+         SNx/hLSNRs3hBX3cODZzC3fN/uU+nTfTb/UAc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711018300; x=1711623100;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+3WxriO6Uu9DKi+i9uSCc9XftNbhqvLeJRBNd7zSoiQ=;
-        b=mR+q5E4yF/2vS+wMS4nUDjnb+5kas7jkEWCSdeiRDRHTrEvNrOZKPuhmH0WazkbOge
-         Ol4d859z7UzilKbf+DW72+qMLCX4XGhFJ1qTstveV6lbHxJqrjwEn1nUVn7SjMTNznK7
-         l91VSYygAEQr2na9IMbNhBYSh5C4/0lx0JJG49J8/jIRVVmFK22P95C7SZgL6eY5ZX3d
-         k8nv7pGKYLM8EG+upkuWvlmpxKVcK29pQQXm0vidEt2ds8beF5HfO76dIXWeq5TKHnu4
-         pTp5zIwf5hJVNmtnfoCpI77COo+8wcoqAElRyv5W+o3nAaNdFtozQDpcNa1Gza/+LXvU
-         7bcg==
-X-Gm-Message-State: AOJu0Yz5h/H+AkrfaSkLVCCq+X6/pHzR6XGfaunehnLF91BWzGg3pPR1
-	foeiIgIOIudkZkEZuBE/i+9twOAwe59/zezZtJ5YkaTgoOgwtWizXWoteSqI0g==
-X-Google-Smtp-Source: AGHT+IHSWvoV0hKGUyBPLugS7SZ+eF7Mgt4TfisSQpQ82ky5i3H7PIz6IPWCSM3YJV1cdX05TIcg+w==
-X-Received: by 2002:a19:5e1e:0:b0:513:cc18:d4c6 with SMTP id s30-20020a195e1e000000b00513cc18d4c6mr1567047lfb.41.1711018299766;
-        Thu, 21 Mar 2024 03:51:39 -0700 (PDT)
-Message-ID: <3cff3eaa-f05f-4a93-ac24-31975856827f@suse.com>
-Date: Thu, 21 Mar 2024 11:51:38 +0100
+        d=1e100.net; s=20230601; t=1711019133; x=1711623933;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Q0RtmqqzFd4YUtX95+8cJsuMlOVlknAi1XayUzUdt2k=;
+        b=ipDtM0qjoV9ap6Iz0vyCYLqkrwBN0LfKj4zMHtgoOuRMFPr4RbZv4MC0g2Yd1knb0I
+         B3r2JnF5PbUgJkXTJegnWEpikSNNSZHdG2ske5cBt207Stk5auQj4ssHuD0ylIJDAUNC
+         va9BztloKfhM4D2b5AroiATrgA4e1Oj6/Hqwv2j98mYH2eSivRsf0OprZ7yqZP7b5IrH
+         vDRErFRcONioz6PmGoeLiS4LRPInEMv1ieVFhmhMCC9H18IGTUfq0lB6cXLXWvxbSyOS
+         qNXHd8CFoz8k+crvTPrUHR0q057AGSpXxdWLc96M0n7fxvUvsfRok6GuG7XomSowqDif
+         H6cw==
+X-Gm-Message-State: AOJu0YzsPyvXVVVqylpRqJjKwzaB2EpZP2jFpoba4iPiuaF4NsZ4Pv+g
+	+9VxXW6MNVw4qbDFDgv49Duv1Vfzeg0ZCbhQbsKXOpvXALm/4NvzrZabNb1qlRwxVPLHoRTeas5
+	4
+X-Google-Smtp-Source: AGHT+IGewDTEX5eCSP+WcLGjdD9PesY412II1Kwnpspv5QujOnEl8L9XgUrrHyPfl1vyfJM1XPIzXw==
+X-Received: by 2002:a05:600c:3149:b0:413:fdc2:d9da with SMTP id h9-20020a05600c314900b00413fdc2d9damr2144437wmo.12.1711019133582;
+        Thu, 21 Mar 2024 04:05:33 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] xen/console: add comment about external console lock helper
+Date: Thu, 21 Mar 2024 12:05:03 +0100
+Message-ID: <20240321110503.72916-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/3] VT-d: Disable IOMMU if cx16 isn't supported
-Content-Language: en-US
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <cover.1711016106.git.teddy.astie@vates.tech>
- <d7f4916c3cfee5fc62b6384559b614f0a7e562f1.1711016106.git.teddy.astie@vates.tech>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d7f4916c3cfee5fc62b6384559b614f0a7e562f1.1711016106.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 21.03.2024 11:28, Teddy Astie wrote:
-> No hardware has VT-d support while not having cx16 support, consider disabling IOMMU in this case to avoid potentially buggy code.
+The current console_lock_recursive_irqsave() implementation is not speculation
+safe, however it's only used to prevent interleaved output.  Note this in the
+function declaration in order for callers to be aware of the limitation.
 
-Like in patch 2 (which for whatever reason made it through quite a bit earlier),
-why "consider"? Your change does disable the IOMMU in that case, you don't merely
-consider doing so.
+No functional change.
 
-> @@ -394,8 +373,7 @@ static int ioapic_rte_to_remap_entry(struct vtd_iommu *iommu,
->      remap_rte->reserved = 0;
->      /* Indicate remap format. */
->      remap_rte->format = 1;
-> -
-> -    /* If cmpxchg16b is not available the caller must mask the IO-APIC pin. */
-> +    
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/include/xen/console.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Please don't introduce lines with trailing blanks.
+diff --git a/xen/include/xen/console.h b/xen/include/xen/console.h
+index 68759862e88d..6dfbade3ece3 100644
+--- a/xen/include/xen/console.h
++++ b/xen/include/xen/console.h
+@@ -20,6 +20,7 @@ void console_init_postirq(void);
+ void console_endboot(void);
+ int console_has(const char *device);
+ 
++/* Not speculation safe - only used to prevent interleaving of output. */
+ unsigned long console_lock_recursive_irqsave(void);
+ void console_unlock_recursive_irqrestore(unsigned long flags);
+ void console_force_unlock(void);
+-- 
+2.44.0
 
-> @@ -2630,6 +2598,15 @@ static int __init cf_check vtd_setup(void)
->      int ret;
->      bool reg_inval_supported = true;
->  
-> +    if ( unlikely(!cpu_has_cx16) )
-> +    {
-> +        printk(XENLOG_ERR VTDPREFIX
-> +               "IOMMU: CPU doesn't support CMPXCHG16B, disabling\n");
-> +
-> +        ret = -ENOSYS;
-> +        goto error;
-> +    }
-
-One thing I forgot to mention when replying to patch 2, applying here
-equally: vtd_setup() isn't necessarily the first bit of IOMMU setup done.
-For x2APIC enabling earlier calls out of x2apic_bsp_setup() exist, which
-also need taking care of.
-
-Jan
 
