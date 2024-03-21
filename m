@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B40D885632
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 10:08:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696261.1087027 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7418D885637
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 10:11:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696265.1087037 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnEOg-00053m-9Q; Thu, 21 Mar 2024 09:07:38 +0000
+	id 1rnERk-0006qD-PH; Thu, 21 Mar 2024 09:10:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696261.1087027; Thu, 21 Mar 2024 09:07:38 +0000
+Received: by outflank-mailman (output) from mailman id 696265.1087037; Thu, 21 Mar 2024 09:10:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnEOg-000517-6l; Thu, 21 Mar 2024 09:07:38 +0000
-Received: by outflank-mailman (input) for mailman id 696261;
- Thu, 21 Mar 2024 09:07:36 +0000
+	id 1rnERk-0006of-LR; Thu, 21 Mar 2024 09:10:48 +0000
+Received: by outflank-mailman (input) for mailman id 696265;
+ Thu, 21 Mar 2024 09:10:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GvWl=K3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rnEOe-00050u-Bh
- for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 09:07:36 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ <SRS0=lbdV=K3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rnERi-0006mF-Tm
+ for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 09:10:46 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 73eda7fa-e762-11ee-a1ee-f123f15fe8a2;
- Thu, 21 Mar 2024 10:07:33 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a46ba938de0so98033366b.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 02:07:33 -0700 (PDT)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- di9-20020a170906730900b00a462e166b9bsm8168704ejc.112.2024.03.21.02.07.31
+ id e61019c7-e762-11ee-a1ee-f123f15fe8a2;
+ Thu, 21 Mar 2024 10:10:44 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-414700cffd6so5633725e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 02:10:44 -0700 (PDT)
+Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
+ k4-20020adfe3c4000000b0033e48db23bdsm16685413wrm.100.2024.03.21.02.10.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Mar 2024 02:07:32 -0700 (PDT)
+ Thu, 21 Mar 2024 02:10:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +44,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73eda7fa-e762-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: e61019c7-e762-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1711012053; x=1711616853; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=eq9syIN272CbfFhniy4a+7MTtRGsuH0LlUnyFxg3v8M=;
-        b=Fpc9vDtFn6+MDr/nAoBrKLTKHlPDhcqq467EejDpCUSWReZsXPbJrLgNmwzx7ZUqe2
-         0lcPDDeOzPs4FllfVXh1A4qj4fP44ZK0UcO2WTuEN+gaC8r5Yb3+cVTFGarjwiaPHvI9
-         1gTUS3kvV3A+qzMDtrbwJgtB8ZCPK0u1yGQoJLV1SwoLwq9Q9pBj31MLqPj8Iej6Ixx/
-         4BzAwDDaJ5QP7lWVoVZJymY/pTN0/spHcA6L4r80s/K5HgsSVJR5Tx4sNEIwwQZPLJh4
-         Mqki3Rb8THGho1EqqyFdItPQm2tVQFwFs0BVjMSnq06M8G4vlX9QxSLyFLXS97hDy3NX
-         MwMw==
+        d=citrix.com; s=google; t=1711012244; x=1711617044; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=dxyRfSAZc2eKJn/fIAN0WDRa0aI5LU+mk7Q5QdRfDfg=;
+        b=fVWBFhnMn3SbV5Az2jfxUc74WqJRNppPz0ZqhWK6lf/LoZ/dI7xiQAP4gjemefG75Q
+         8yNTKBrhEu6wNMnU+QYvRSBYb4v5lFcx9lhkpRdakOYTDLQiIEImuwww6iMRq/m0Abzw
+         BoeQF+jbW2gmX4Eu0lP5gbs7W1W6RlweoswVk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711012053; x=1711616853;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=eq9syIN272CbfFhniy4a+7MTtRGsuH0LlUnyFxg3v8M=;
-        b=UX2vetG6nivyV3LQn4P001awXqhfdrTjSHHWgnBoiXFH+IDvfLT7b3+5kv/lwGYNe+
-         0MAFU6MA4MuQotpEqGceHbfJd3T2vCtc2e958OcTvRIym9sEaYZ77JgMZRNIVjrwX8lO
-         9Fvr8VPU6D2YbczwRz7/ck/29uVvRjenfPsVKbXnkFYVlGnWZve5oAB/PNwe+Aa0WPjU
-         6Df5rf+A+cZcew23N20PB0jz4gPyf4fey2vZYMQqqTlZXA2vlCL3zcPLTgLv6EYRjM5x
-         K+5eHgE8n4vK1qqtazAePcSBXZsOiZE+hFU82S2BDvs78knT+A8M1gi6t7eD8DuGbkbP
-         37ng==
-X-Forwarded-Encrypted: i=1; AJvYcCUpzgZVAfxTk4LiKh5Y8YOSLjClIbJG+Xu95pgHD5UMIgZ0zPxNfza94/ImE2ttd8QiMX5dwCuLsoI49J8390O0jCKyU3UjBf0nNBHOMSc=
-X-Gm-Message-State: AOJu0YxtCkEGoIQeunsrgjlqdJy7PFC0t/pZmcQbR8vZmptVvSLetwNw
-	Pj/iekVjXqmyTQmEWMuQgHk/8UdR73Ozb4qSGBSJhWG4SFMxyxvKm1p02ly2yM0=
-X-Google-Smtp-Source: AGHT+IFQ/NoqzPWooCFIYldznHaeO/OeD24p2EweEMAYM+IrycJaNLLdD03/xclGMDpOx1VZroyaWw==
-X-Received: by 2002:a17:906:19d6:b0:a46:d2eb:1792 with SMTP id h22-20020a17090619d600b00a46d2eb1792mr5760190ejd.65.1711012052617;
-        Thu, 21 Mar 2024 02:07:32 -0700 (PDT)
-Message-ID: <0f91f4c773f7001f8b25cd18b08704a8884b8b19.camel@gmail.com>
-Subject: Re: [PATCH v6 03/20] xen/riscv: introduce extenstion support check
- by compiler
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>,  George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Alistair Francis <alistair.francis@wdc.com>, Bob
- Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>,
- xen-devel@lists.xenproject.org
-Date: Thu, 21 Mar 2024 10:07:25 +0100
-In-Reply-To: <20240320-oak-uprising-db787f501695@spud>
-References: <cover.1710517542.git.oleksii.kurochko@gmail.com>
-	 <d4df95eb7a30df3f882b67f200964232fee9d6c1.1710517542.git.oleksii.kurochko@gmail.com>
-	 <6ddc9d8a-20e7-4e4d-ae1a-d2ea01479b38@suse.com>
-	 <04c1424cec1342dcfb849d361f5eb9f3e7f34734.camel@gmail.com>
-	 <20240320-oak-uprising-db787f501695@spud>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+        d=1e100.net; s=20230601; t=1711012244; x=1711617044;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=dxyRfSAZc2eKJn/fIAN0WDRa0aI5LU+mk7Q5QdRfDfg=;
+        b=IEjorjOTlEj3lxKP7R6hnmDsBIi6qrwVIYFINdXs4D9QIr+muTUYf/1vqnqBj6i3xl
+         1QPtes34iYq6hF4FzmgH6S0mZlnHjM5BbyLZP9MDh31c46k4hEBE+/s0KrY8oMcuFW85
+         br09z/7g0573wZqjMaRIcPkMYQWZ+czVQvinlABx6YLsgsnY7u/2UjHc8xF8Or9A9GAO
+         PKohHIzQ95sLmsk60CJTSl6YIbSqgAQbvDFyWJGWlDWmJ9i5ZHPERCf74CEyVhft9fH4
+         38w2DL8hCC56xzoR7dPSFSemdbCZIxuIlMLnDPnH3t94XnR/iIqKbdHDo0nIXn+ajrSl
+         /7Sw==
+X-Forwarded-Encrypted: i=1; AJvYcCUj++8YR8zHJGzkpVDukKw88nJrJ5a1uLoRWdGH3uIOciYoGDicPDhTBFVLqmpmrp/tXFLF7M66mDeNgcCyI08diEmajY7Lj4czysGZQwA=
+X-Gm-Message-State: AOJu0YxOmkiHdh58wq921gg+ooSFRl2xiQUWoy4AdXc2HaHqiJiHsE8O
+	WLyTXTeolEd6g5/KYMP8W0oazVsBhxBELlak17HjXitoTnZie65yjahu7ymX6Dw=
+X-Google-Smtp-Source: AGHT+IE+dWjIJYvCHxqO43kxoTmPDBNIVJCkdwZeePaMwRgq4zDfzgeNV7sJiS4wiRcBgkzcHQqMwQ==
+X-Received: by 2002:a05:600c:548c:b0:413:ff06:83cd with SMTP id iv12-20020a05600c548c00b00413ff0683cdmr3359546wmb.3.1711012244261;
+        Thu, 21 Mar 2024 02:10:44 -0700 (PDT)
+Date: Thu, 21 Mar 2024 10:10:43 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] x86/vcpu: relax VCPUOP_initialise restriction for non-PV
+ vCPUs
+Message-ID: <Zfv5k8jt0k7QHFxM@macbook>
+References: <20240320135720.68894-1-roger.pau@citrix.com>
+ <73314dc5-0145-4aa7-a3cd-23c943235392@suse.com>
+ <ZfsPAj-ggY6unQef@macbook>
+ <4cc5d746-a50c-4819-a56e-512abf797ef2@suse.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4cc5d746-a50c-4819-a56e-512abf797ef2@suse.com>
 
-On Wed, 2024-03-20 at 19:44 +0000, Conor Dooley wrote:
-> IIRC this only "works" because the OpenSBI devs assume that there are
-> no
-> non-normative behaviours and all CSRs have their ~God~ RVI defined
-> meanings. Reading a CSR to see if it traps is not behaviour you can
-> really
-> rely on unless the platform claims to support Sstrict - but Sstrict
-> you'd
-> have to detect from the DT so chicken and egg for you! It's one of
-> these
-> new "extensions" from the profiles spec, so it doesn't even have
-> support
-> in Linux's dt-bindings yet. Up to Xen devs if you guys want to make
-> the
-> same assumptions as OpenSBI. Linux doesn't and when we discussed this
-> not too long ago on the U-Boot ML in the context of the rng CSR it
-> was
-> also decided not to do make the assumption there either.
->=20
-> Personally I wonder if you can just apply the same policy here as you
-> did with Zbb in the other thread and assume that something with H
-> will
-> have Zihintpause and leave implementing a "fake" pause as an exercise
-> for someone that introduces such a system?
+On Thu, Mar 21, 2024 at 09:07:10AM +0100, Jan Beulich wrote:
+> On 20.03.2024 17:29, Roger Pau Monné wrote:
+> > On Wed, Mar 20, 2024 at 04:09:33PM +0100, Jan Beulich wrote:
+> >> On 20.03.2024 14:57, Roger Pau Monne wrote:
+> >>> There's no reason to force HVM guests to have a valid vcpu_info area when
+> >>> initializing a vCPU, as the vCPU can also be brought online using the local
+> >>> APIC, and on that path there's no requirement for vcpu_info to be setup ahead
+> >>> of the bring up.  Note an HVM vCPU can operate normally without making use of
+> >>> vcpu_info.
+> >>
+> >> While I'd agree if you started with "There's no real need to force ...", I
+> >> still think there is a reason: If one wants to use paravirt interfaces (i.e.
+> >> hypercalls), they would better do so consistently. After all there's also
+> >> no need to use VCPUOP_initialise, yet you're not disabling its use.
+> >>
+> >> As said in reply to Andrew's reply, besides acting as a sentinel that
+> >> structure instance also acts as a sink for Xen accesses to a vCPU's
+> >> vcpu_info. By removing the check, you switch that from being a safeguard to
+> >> being something that actually has to be expected to be accessed. Unless
+> >> you've audited all uses to prove that no such access exists.
+> > 
+> > I'm kind of lost in this last paragraph, how is that different than
+> > what currently happens when an HVM vCPU >= 32 is brought up using the
+> > lapic and has no vpcu_info mapped?
+> 
+> I think this aspect was simply missed back at the time. And I think it
+> wants mentioning explicitly to justify the change.
 
-If i understand you correctly, then it is done in this way now. Only
-build time check is done, but it would be nice also have some runtime
-check, and for now, for runtime the "check" is only exists in
-booting.txt where it mentioned that Xen expects from CPU to support
-some extenstions; otherwise "please implement the following functions".
+OK, I can add to the commit message:
 
-Anyway, at the moment, the best one runtime check which we can provide
-is detect availability of extensions from DT and what I mentioned in
-commit message.
+"Note an HVM vCPU can operate normally without making use of
+vcpu_info, and in fact does so when brought up from the local APIC."
 
-~ Oleksii
+> As said in reply to Andrew, I don't think the dummy structure can be got
+> rid of. Nor can the checks here be (easily) removed altogether, i.e. your
+> change cannot (easily) be extended to PV as well. Even conditional removal
+> of the structure in !PV builds would first require all vcpu_info accesses
+> to gain a suitable conditional. Which may be undesirable, as some of these
+> may be deemed fast paths.
+
+I didn't intended to do this here, as replied to Andrew.  If we want
+to get rid of the check for PV also it needs to be done in a different
+patch, and with a different justification and analysis.
+
+> > Also, from a quick look it seems like sites do check whether vcpu_info
+> > == dummy_vcpu_info, otherwise we would already be in trouble.
+> 
+> Such checks exist in code managing vcpu_info, but not - afaics - in places
+> actually accessing it.
+
+Quite possibly, I didn't look that close TBH, since my intention was
+not to remove dummy_vcpu_info.  I've noticed however that
+__update_vcpu_system_time() checks for v->vcpu_info_area.map == NULL,
+which is fine, but shouldn't it also check for v->vcpu_info_area.map
+== &dummy_vcpu_info, as it's pointless to update the vcpu system time
+if pointing to the dummy_vcpu_info?
+
+Thanks, Roger.
 
