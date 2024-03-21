@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A6D7885CC4
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 16:57:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696464.1087433 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0636A885CE6
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 17:04:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696468.1087442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnKn0-0006Sk-H1; Thu, 21 Mar 2024 15:57:10 +0000
+	id 1rnKtg-0000tf-5R; Thu, 21 Mar 2024 16:04:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696464.1087433; Thu, 21 Mar 2024 15:57:10 +0000
+Received: by outflank-mailman (output) from mailman id 696468.1087442; Thu, 21 Mar 2024 16:04:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnKn0-0006Ql-DV; Thu, 21 Mar 2024 15:57:10 +0000
-Received: by outflank-mailman (input) for mailman id 696464;
- Thu, 21 Mar 2024 15:57:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rnKtg-0000s4-2T; Thu, 21 Mar 2024 16:04:04 +0000
+Received: by outflank-mailman (input) for mailman id 696468;
+ Thu, 21 Mar 2024 16:04:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ILtd=K3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rnKmy-0006QC-AQ
- for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 15:57:08 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ab0f19b7-e79b-11ee-afe0-a90da7624cb6;
- Thu, 21 Mar 2024 16:57:07 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5684db9147dso1260498a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 08:57:07 -0700 (PDT)
+ id 1rnKte-0000ru-NN
+ for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 16:04:02 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a1747b28-e79c-11ee-a1ee-f123f15fe8a2;
+ Thu, 21 Mar 2024 17:04:00 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-56bcede226eso874514a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 09:04:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s24-20020a508d18000000b0056a2cc5c868sm18057eds.72.2024.03.21.08.57.06
+ m22-20020a50ef16000000b00569a2f698d7sm26271eds.49.2024.03.21.09.03.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Mar 2024 08:57:06 -0700 (PDT)
+ Thu, 21 Mar 2024 09:03:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab0f19b7-e79b-11ee-afe0-a90da7624cb6
+X-Inumbo-ID: a1747b28-e79c-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711036627; x=1711641427; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711037040; x=1711641840; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=bH2tQdROdE1XJnuc3haR/Rw5X+zMBpbGttw2yxStdVU=;
-        b=MX0q/GHAV/TQ4Cko8lJA0rnsbvNKPQNzxxUEoYEQwT9blkoyzITCvR9NsBCrS/PAe7
-         oeU9KcNAEHKq8MZO8zgXtGFn8q11sfKTet5l22UExMOODGKDxjVgKaXeF6344Z4tuuXG
-         02Ad28TfOLqJ1JDxei4MYc1z7S4qEKwe57uq4VLzk1mpzjX2f0qoR/hRqtBdtUIeTR0f
-         6zFsaQ0L6bN99eP8XpxyVjFQQyU75ubaTcYqsyqr5e5UOX+DeZ3ygQWFewdHZyOk54Yg
-         Csr9i4+Sx6dWnFVKkKTczwa/OHk7q6z9eJ7mMXsSpZ193kxX+9ginBSJCBgjM9rQh+PV
-         f3ig==
+        bh=M2AFIdCcA/T9XPCpHDgu1ZX7Nv4mvO8XCX39UZzBP9A=;
+        b=f+BQ772FzYoHpCevAho7XgSWtL7Vd0GVjNbQwSTeWW5rZSvGsT0xjzMC/oh8nTiJAW
+         PX71/aV0EGL9FGPkzAIdOsAprbxrDtNcjYBw3pxLXRWFqprho+M3dFfNAwWHETxG0/kj
+         zhgVty68XQ9O152UiK2YBHW1xH/ApfAnDFRN/e8XVJy5wd6txk2zVWJBxKwOH/r8yE0H
+         1p2XRekWpTD5IC6aNZOtXA+hiHCU1y3Sls5ZEHgptPjioAvClv2PHaupJcGMwpoieX/N
+         F4KzVX4dxkcGyLOVrQ1+eZQREl23t7ek4xD0O9OulrVLYOkcLKrwWvhwebJOtDVlEKUQ
+         2OGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711036627; x=1711641427;
+        d=1e100.net; s=20230601; t=1711037040; x=1711641840;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bH2tQdROdE1XJnuc3haR/Rw5X+zMBpbGttw2yxStdVU=;
-        b=iQFAgE+RuKEa++T3FTgFSAf3HHVoddRZmsJjKoyiwNq0iWT8nNV0N7nOBzFQ/ulSIJ
-         Yk7AC8+caBfsQaMSAPyO0unf2H6X+dJwa9qQXpgZdnwTcmH99JKLa+APE593HmuwUuXr
-         8CvkEEUQs9zcDh2e1bRcjPwJVNpqRLT+fAdCiEYhcNwLcp8/N3qtBT0PwsEpNS899k5r
-         fqNa96exrUjoTplVSZQR4o1qayUWfY4PU/TbfpP5mb3NG5bJmBDU6nzDqOlXzlKhxxvi
-         iPDFbCboVS4W9gfeBhQGMGVSLlJqsTXeIB8kUaKieTMBt4O1HTNyOYBVmlhMVdMqVmQy
-         lI/A==
-X-Forwarded-Encrypted: i=1; AJvYcCXizQvAvIuPAb6jBymXt7paRr0VhQt8u3Hl9C9BW5UQwUd+npX9y1ta6uA2eZHJG7AzAdoOSjQytAJlDDZMuWbtvi/RoN1705JbOsxvwIA=
-X-Gm-Message-State: AOJu0YxQxKRgBdQwqPyTABbhTwPB4Jz4iC1tXLARBP/4MYxpDBh7waiN
-	VdzbL4DxRWAitXx1k7oARh7Vb7y4ss4QEJtib5ZDtMeApqzq2PAmTnmhlvOpHQ==
-X-Google-Smtp-Source: AGHT+IEobiYEqLZFbfW9djWqLoBbj/s2GIgtzBdF2fkaJYJJrI4znZtLOlfV+CDnMoYMSmniWa93Hw==
-X-Received: by 2002:a05:6402:388c:b0:568:a523:a66f with SMTP id fd12-20020a056402388c00b00568a523a66fmr15543528edb.39.1711036626745;
-        Thu, 21 Mar 2024 08:57:06 -0700 (PDT)
-Message-ID: <3ff10fdd-5a85-43b3-853a-fe69c7388ca9@suse.com>
-Date: Thu, 21 Mar 2024 16:57:05 +0100
+        bh=M2AFIdCcA/T9XPCpHDgu1ZX7Nv4mvO8XCX39UZzBP9A=;
+        b=ZarebplZyU30ejYznLWos3Mgi8xT0W8fLSbEuf1gU6Ip1l7Gjsm5Jhn858gi9J8598
+         SMHb7TLR8OygmcFr+CRpV/Xbx6sryIQhEauoyycnqUuOQXRmMPCcM13ozy3MCGeFI+R8
+         /v6uAHr385AYwpvhdm6fbYMbE5oOT0xwuvhtYQiBaijHcB3JWFB2F1ThXCnv8rR/rxHT
+         qXtPKoLBaox5AT1nfEiee/RbUkjJ2TsO4XAaGieCkbemWPC3Lr5q/1DTemSRbDYy3qxs
+         jRuWXvgL4mhdGuvl384AW1YRm4NtjG3TNjYh7uRjODnItozcOO++FhxObgm58nuNEO2Z
+         7Bmg==
+X-Forwarded-Encrypted: i=1; AJvYcCXxlmGLn2tmdo5tjBtjgfbKJ07XvvLQfRx/F8QSOyx/yZfGzoMB3EDnTz/G3BytpKeh05/Rzb/4bblgeR2xVExLVTjOyc8EbfHzAJ1NM3s=
+X-Gm-Message-State: AOJu0YztYpCC6mmfM3hOTdah/1Xnkmfe2E+YPSqsRVtbW4erMgGG1Gov
+	OPKLUoxCuZ19CSpZ62PXSE5W2iaNVSZSwTwtFvyu0B5m5Uo4xl1LefqYtFXfeA==
+X-Google-Smtp-Source: AGHT+IEmDNwTz7WhbmompA0vh5i1mDCstUqa5eMSQCWUVWuFG2LhylHKAbSdd4T+nMB0ZEupkVYjJg==
+X-Received: by 2002:a05:6402:2219:b0:568:cec0:2f84 with SMTP id cq25-20020a056402221900b00568cec02f84mr3417791edb.22.1711037040135;
+        Thu, 21 Mar 2024 09:04:00 -0700 (PDT)
+Message-ID: <4e1f10e3-c2b5-49b9-830d-e7582c714d43@suse.com>
+Date: Thu, 21 Mar 2024 17:03:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 04/14] xen/arm: add Dom0 cache coloring support
+Subject: Re: [PATCH v7 10/14] xen: add cache coloring allocator for domains
 Content-Language: en-US
 To: Carlo Nonato <carlo.nonato@minervasys.tech>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -89,13 +89,11 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Marco Solieri <marco.solieri@minervasys.tech>,
- xen-devel@lists.xenproject.org,
- Andrea Bastoni <andrea.bastoni@minervasys.tech>
+ Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
 References: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
- <20240315105902.160047-5-carlo.nonato@minervasys.tech>
- <fa879713-4eee-4905-83f9-6182924cddbb@suse.com>
- <CAG+AhRW8xDun1WGimaqsaUR+YqL4vW-OmiDMQHCBxT=S+pgOwQ@mail.gmail.com>
+ <20240315105902.160047-11-carlo.nonato@minervasys.tech>
+ <fee07e30-e73a-4c1f-92f3-3e4ef7bc707a@suse.com>
+ <CAG+AhRXx-TL_Fto0TevZB5d1gc3iOq9OG8Ev1jTdELf1x4PJXQ@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,71 +118,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAG+AhRW8xDun1WGimaqsaUR+YqL4vW-OmiDMQHCBxT=S+pgOwQ@mail.gmail.com>
+In-Reply-To: <CAG+AhRXx-TL_Fto0TevZB5d1gc3iOq9OG8Ev1jTdELf1x4PJXQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21.03.2024 16:04, Carlo Nonato wrote:
-> On Tue, Mar 19, 2024 at 4:30 PM Jan Beulich <jbeulich@suse.com> wrote:
+On 21.03.2024 16:36, Carlo Nonato wrote:
+> On Tue, Mar 19, 2024 at 5:43 PM Jan Beulich <jbeulich@suse.com> wrote:
 >> On 15.03.2024 11:58, Carlo Nonato wrote:
->>> --- a/docs/misc/xen-command-line.pandoc
->>> +++ b/docs/misc/xen-command-line.pandoc
->>> @@ -963,6 +963,15 @@ Controls for the dom0 IOMMU setup.
->>>
->>>  Specify a list of IO ports to be excluded from dom0 access.
->>>
->>> +### dom0-llc-colors
->>> +> `= List of [ <integer> | <integer>-<integer> ]`
->>> +
->>> +> Default: `All available LLC colors`
->>> +
->>> +Specify dom0 LLC color configuration. This option is available only when
->>> +`CONFIG_LLC_COLORING` is enabled. If the parameter is not set, all available
->>> +colors are used.
->>
->> My reservation towards this being a top-level option remains.
-> 
-> How can I turn this into a lower-level option? Moving it into "dom0=" doesn't
-> seem possible to me. How can I express a list (llc-colors) inside another list
-> (dom0)? dom0=llc-colors=0-3,12-15,other-param=... How can I stop parsing
-> before reaching other-param?
-
-For example by using a different separator:
-
-dom0=llc-colors=0-3+12-15,other-param=...
-
->>> @@ -91,6 +164,61 @@ void cf_check domain_dump_llc_colors(const struct domain *d)
->>>      print_colors(d->llc_colors, d->num_llc_colors);
->>>  }
->>>
->>> +static int domain_set_default_colors(struct domain *d)
+>>> +static void __init init_color_heap_pages(struct page_info *pg,
+>>> +                                         unsigned long nr_pages)
 >>> +{
->>> +    unsigned int *colors = xmalloc_array(unsigned int, max_nr_colors);
 >>> +    unsigned int i;
+>>> +    bool need_scrub = opt_bootscrub == BOOTSCRUB_IDLE;
 >>> +
->>> +    if ( !colors )
->>> +        return -ENOMEM;
+>>> +    if ( buddy_alloc_size )
+>>> +    {
+>>> +        unsigned long buddy_pages = min(PFN_DOWN(buddy_alloc_size), nr_pages);
 >>> +
->>> +    printk(XENLOG_WARNING
->>> +           "LLC color config not found for %pd, using all colors\n", d);
+>>> +        init_heap_pages(pg, buddy_pages);
+>>
+>> There's a corner case where init_heap_pages() would break when passed 0
+>> as 2nd argument.
+> 
+> I don't see it. There's just a for-loop that would be skipped in that case...
+
+Look at the first comment in the function and the if() following it. I
+don't think that code would work very well when nr_pages == 0.
+
+>>> +static void dump_color_heap(void)
+>>> +{
+>>> +    unsigned int color;
 >>> +
->>> +    for ( i = 0; i < max_nr_colors; i++ )
->>> +        colors[i] = i;
->>> +
->>> +    d->llc_colors = colors;
->>> +    d->num_llc_colors = max_nr_colors;
->>> +
->>> +    return 0;
+>>> +    printk("Dumping color heap info\n");
+>>> +    for ( color = 0; color < get_max_nr_llc_colors(); color++ )
+>>> +        if ( free_colored_pages[color] > 0 )
+>>> +            printk("Color heap[%u]: %lu pages\n",
+>>> +                   color, free_colored_pages[color]);
 >>> +}
 >>
->> If this function is expected to actually come into play, wouldn't it
->> make sense to set up such an array just once, and re-use it wherever
->> necessary?
+>> While having all of the code above from here outside of any #ifdef is
+>> helpful to prevent unintended breakage when changes are made and tested
+>> only on non-Arm64 targets, I'd still like to ask: Halfway recent
+>> compilers manage to eliminate everything? I'd like to avoid e.g. x86
+>> being left with traces of coloring despite not being able at all to use
+>> it.
 > 
-> Then how to distinguish when to free it in domain_destroy() and when not to do
-> it?
+> I don't know the answer to this, sorry.
 
-By checking against that one special array instance.
+Yet it is important to have.
 
 Jan
 
