@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74D568858DD
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 13:10:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696371.1087250 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 088028858DE
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 13:11:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696374.1087260 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnHFf-0006hF-Nf; Thu, 21 Mar 2024 12:10:31 +0000
+	id 1rnHG6-00079i-0j; Thu, 21 Mar 2024 12:10:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696371.1087250; Thu, 21 Mar 2024 12:10:31 +0000
+Received: by outflank-mailman (output) from mailman id 696374.1087260; Thu, 21 Mar 2024 12:10:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnHFf-0006eq-L0; Thu, 21 Mar 2024 12:10:31 +0000
-Received: by outflank-mailman (input) for mailman id 696371;
- Thu, 21 Mar 2024 12:10:30 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rnHG5-00076f-Tq; Thu, 21 Mar 2024 12:10:57 +0000
+Received: by outflank-mailman (input) for mailman id 696374;
+ Thu, 21 Mar 2024 12:10:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rnHFe-0006ee-D2; Thu, 21 Mar 2024 12:10:30 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rnHFe-0000Dq-53; Thu, 21 Mar 2024 12:10:30 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rnHFd-0005fK-SG; Thu, 21 Mar 2024 12:10:29 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rnHFd-0007eN-Rj; Thu, 21 Mar 2024 12:10:29 +0000
+ (envelope-from <SRS0=ILtd=K3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rnHG4-00076Q-53
+ for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 12:10:56 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 10d435fb-e77c-11ee-a1ee-f123f15fe8a2;
+ Thu, 21 Mar 2024 13:10:54 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a4715d4c2cbso58111066b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 05:10:54 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ pv27-20020a170907209b00b00a46647b6496sm8399681ejb.155.2024.03.21.05.10.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Mar 2024 05:10:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,194 +45,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=MNENGrNRR8FW8kOQu92X1INbCq2XgDYf7PijS6IJ7Fg=; b=BOAZ5AThQM3dPHlG85T+gYMYlu
-	r0hkCU94JkT5tNTFPV00BfUHokpLBGbMqMKuZM2pzHzv0Mr2sUYXkhiSX2mIH7clx0TmXX0HOtWQj
-	IrWVvKiIRoj4MFMNT8tAIHOe5cNpPakWhBaNBHjlzXSPuLxBZHNvH7aZjOtnBrq9iolk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185120-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 10d435fb-e77c-11ee-a1ee-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1711023053; x=1711627853; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=XO9k/htEkRMqn/gfxjgK3aNYoKETEQEK/Fl7s4Vm5ws=;
+        b=IthY04j0ZcrynIQY41OS8kQA0c/2GHYHsyqpx72DkF8Ms0aeSbbD8iq6TDa9ZSF31r
+         3liCb/7PTySdXd5yi9BDVFaNCju4vIEwftZ4RXFpuwDUExU5Ikv233AcXflUSrhTMvfl
+         ZujK9NLpe63anrZV53g1lwe6KMzW4SWWU2oflZWcmZCRrTjSq+kCJz50XE4qKWoUnc1W
+         iTlLiXcALaeKTowPpsVSqhD46Ud4Zq+5Sk/XxQvLYBTcBFY6NqBOLeg9VEwVY/EgY0aP
+         h+kA5MuPqK9xZhrd1DxVOC5L6Xt6nCytocCkvPqCHEnAZS4p2zgJf01MpoFgqDOTvayR
+         aaEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1711023053; x=1711627853;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=XO9k/htEkRMqn/gfxjgK3aNYoKETEQEK/Fl7s4Vm5ws=;
+        b=EX+LkHsfWdOJpqaCwdqRkqbp7Hg7/AHh2fGqV+jbZWpJwfeUPfafHQch7Dv/CqSMd8
+         rF3gMAU1lDFCRh1EQuRUIznRgbVs0mrUoASWQMpkeufHeFCkJ8HsDuIl2PaJLRSuMsvV
+         H7Kb7xHxEm9iQ5J+phd8S0ZW57sKVr6aEEAWQjcroZjkMcWcpC4PpBllylAiNjyqFZXL
+         4aPkkqdk+E1LGuhIw1pdmDAs/xSz9BTnbcdAr94sWsclhXOnrvrOUy3/J1mMizjDqlkf
+         xPoSMtDBuHEwiFAjJPDHil7PkuBS+RJG208OiVxlWspvsEyuj4dzueBUAFDmHLwe+2YK
+         BWrQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVVILik1zwbaBrM8GdklhQK7mdecM5Ep8FZ5rtRWFUNLA07VKrbMNbfLKbfARddd0Dkc3f96XY7YZ9khdbFT7TFBpNq55c/ARyrg6cmR88=
+X-Gm-Message-State: AOJu0YzmaRtFOieuUUkYevQfJb82NV7oecVAdDzxpCAZedBA2m33wqfI
+	Xj33Aoqhy8MW21hvACdFFAd9lG9ri/On/4q0H2gO6/gkQ1087gkORnBx5a9qOA==
+X-Google-Smtp-Source: AGHT+IHz+gxleuGA1bMk/ILOUZ4m4koPgH5hSk8CX9Fcw/msQb6Y13nt8hYNoNsE1RNdBH6gRHqjLw==
+X-Received: by 2002:a17:907:86a5:b0:a46:967b:7c94 with SMTP id qa37-20020a17090786a500b00a46967b7c94mr14371351ejc.18.1711023053670;
+        Thu, 21 Mar 2024 05:10:53 -0700 (PDT)
+Message-ID: <c0abc6ed-c6b0-4591-8f6a-24c750b77fc1@suse.com>
+Date: Thu, 21 Mar 2024 13:10:52 +0100
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 185120: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=97b90f9bf2e5c93e0f61c927fa2bc8a56a213faa
-X-Osstest-Versions-That:
-    xen=eaafbd11344a8ec32309fe58a6e529fe1c34d62e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 21 Mar 2024 12:10:29 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/console: add comment about external console lock
+ helper
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20240321110503.72916-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240321110503.72916-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 185120 xen-unstable-smoke real [real]
-flight 185121 xen-unstable-smoke real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185120/
-http://logs.test-lab.xenproject.org/osstest/logs/185121/
+On 21.03.2024 12:05, Roger Pau Monne wrote:
+> The current console_lock_recursive_irqsave() implementation is not speculation
+> safe, however it's only used to prevent interleaved output.  Note this in the
+> function declaration in order for callers to be aware of the limitation.
+> 
+> No functional change.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 185109
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  97b90f9bf2e5c93e0f61c927fa2bc8a56a213faa
-baseline version:
- xen                  eaafbd11344a8ec32309fe58a6e529fe1c34d62e
-
-Last test of basis   185109  2024-03-20 09:03:31 Z    1 days
-Testing same since   185120  2024-03-21 09:03:04 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Carlo Nonato <carlo.nonato@minervasys.tech>
-  Elliott Mitchell <ehem+xen@m5p.com>
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Shawn Anastasio <sanastasio@raptorengineering.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-libvirt                                     pass    
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 97b90f9bf2e5c93e0f61c927fa2bc8a56a213faa
-Author: Shawn Anastasio <sanastasio@raptorengineering.com>
-Date:   Thu Mar 21 09:49:20 2024 +0100
-
-    xen/ppc: Ensure ELF sections' physical load addresses start at 0x0
-    
-    Some boot mechanisms, including the new linux file_load kexec systemcall
-    used by system firmware v2.10 on RaptorCS systems will try to honor the
-    physical address field of the ELF LOAD section header, which will fail
-    when the address is based off of XEN_VIRT_START (0xc000000000000000).
-    
-    To ensure that the physical address of the LOAD section header starts at
-    0x0, move x86's DECL_SECTION macro to xen.lds.h and use it to declare
-    all sections.
-    
-    Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 10e8d824b76f55dde7c1793f48d76d4ff9df5e0a
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Thu Mar 21 09:48:49 2024 +0100
-
-    AMD/IOMMU: drop remaining guest-IOMMU bits too
-    
-    With a02174c6c885 ("amd/iommu: clean up unused guest iommu related
-    functions") having removed the sole place where d->g_iommu would be set
-    to non-NULL, guest_iommu_add_ppr_log() will unconditionally bail the
-    latest from its 2nd if(). With it dropped, all other stuff in the file
-    is unused, too. Delete iommu_guest.c altogether.
-    
-    Further delete struct guest{_buffer,_dev_table,_iommu{,_msi}} as well as
-    struct mmio_reg for being unused with the unused g_iommu also dropped
-    from struct arch_iommu.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit cc950c49ae6a6690f7fc3041a1f43122c250d250
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Thu Mar 21 09:48:10 2024 +0100
-
-    x86/PoD: tie together P2M update and increment of entry count
-    
-    When not holding the PoD lock across the entire region covering P2M
-    update and stats update, the entry count - if to be incorrect at all -
-    should indicate too large a value in preference to a too small one, to
-    avoid functions bailing early when they find the count is zero. However,
-    instead of moving the increment ahead (and adjust back upon failure),
-    extend the PoD-locked region.
-    
-    Fixes: 99af3cd40b6e ("x86/mm: Rework locking in the PoD layer")
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: George Dunlap <george.dunlap@cloud.com>
-
-commit f5c2b6da26d9becd5a1a03fcd3e5c950301030a2
-Author: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date:   Thu Mar 21 09:47:21 2024 +0100
-
-    xen/page_alloc: introduce page flag to stop buddy merging
-    
-    Add a new PGC_no_buddy_merge flag that prevents the buddy algorithm in
-    free_heap_pages() from merging pages that have it set. As of now, only
-    PGC_static has this feature, but future work can extend it easier than
-    before.
-    
-    Suggested-by: Jan Beulich <jbeulich@suse.com>
-    Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 75214d5e53f60a7b19e90ebdb090c20044a052ca
-Author: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date:   Thu Mar 21 09:46:42 2024 +0100
-
-    xen/page_alloc: introduce preserved page flags macro
-    
-    PGC_static and PGC_extra needs to be preserved when assigning a page.
-    Define a new macro that groups those flags and use it instead of or'ing
-    every time.
-    
-    To make preserved flags even more meaningful, they are kept also when
-    switching state in mark_page_free().
-    
-    Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 6eb13b6b1d984af87460f60f2c0cbc5c059b8402
-Author: Elliott Mitchell <ehem+xen@m5p.com>
-Date:   Thu Mar 21 09:46:13 2024 +0100
-
-    tools/xl_parse: remove message for tsc mode string
-    
-    Normal behavior is to be silent.  Generating a message for the preferred
-    input can be mistaken for an error.  As such remove this message to match
-    other conditions.
-    
-    Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
-    Acked-by: Anthony PERARD <anthony.perard@citrix.com>
-(qemu changes not included)
 
