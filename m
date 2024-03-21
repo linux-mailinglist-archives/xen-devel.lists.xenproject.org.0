@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA9A0885543
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 09:09:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696236.1086953 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6352A8855A6
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Mar 2024 09:28:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696241.1086962 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnDUX-0001rg-VX; Thu, 21 Mar 2024 08:09:37 +0000
+	id 1rnDls-0004pT-CZ; Thu, 21 Mar 2024 08:27:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696236.1086953; Thu, 21 Mar 2024 08:09:37 +0000
+Received: by outflank-mailman (output) from mailman id 696241.1086962; Thu, 21 Mar 2024 08:27:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnDUX-0001pQ-SQ; Thu, 21 Mar 2024 08:09:37 +0000
-Received: by outflank-mailman (input) for mailman id 696236;
- Thu, 21 Mar 2024 08:09:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rnDls-0004nE-9s; Thu, 21 Mar 2024 08:27:32 +0000
+Received: by outflank-mailman (input) for mailman id 696241;
+ Thu, 21 Mar 2024 08:27:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ILtd=K3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rnDUW-0001pI-7l
- for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 08:09:36 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5a2063bb-e75a-11ee-a1ee-f123f15fe8a2;
- Thu, 21 Mar 2024 09:09:34 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a4675aaa2e8so87330166b.0
- for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 01:09:34 -0700 (PDT)
+ id 1rnDlq-0004n8-Gk
+ for xen-devel@lists.xenproject.org; Thu, 21 Mar 2024 08:27:30 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dacfcccb-e75c-11ee-afe0-a90da7624cb6;
+ Thu, 21 Mar 2024 09:27:29 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5684db9147dso627696a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Mar 2024 01:27:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x10-20020a1709060eea00b00a46d786365esm3143356eji.94.2024.03.21.01.09.33
+ pv27-20020a170907209b00b00a46647b6496sm8190088ejb.155.2024.03.21.01.27.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Mar 2024 01:09:33 -0700 (PDT)
+ Thu, 21 Mar 2024 01:27:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a2063bb-e75a-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: dacfcccb-e75c-11ee-afe0-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711008573; x=1711613373; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711009648; x=1711614448; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=dnEU5bnbob7D1jOsrxnf1DoG8D9eQYmIIlXmEYTuG4E=;
-        b=IgVtwCpqsCTR8ecdhZPnqyLiVvu7hGNafpG05JwvBmdSuXSSoIqZ/xmNqULtcMq7E/
-         x9jV2Vw/13rEUsQNif0iopyJx8BmJzab4GFEtNQrAFF3KgslkXaa1tvVB29bfBm8/W1u
-         nHfqa3jyk72wfaIAcGyFaZqbJO7tCI3Lvoi1fOwG6MH3FHh+JBFvz9zlozPPmv3NYIdW
-         /Ev9fZv7iBZ39QybDPZxTtoeU/jwEN8hDFd+btbeixsnAr5N511swjQuobcQd/438G/O
-         fbz3AHku7ME667uUOjYcN5GUT2qjvT9Sq2U5GOV2rYTnljeaMSND1daIay2/mKSzvrUf
-         joMw==
+        bh=yONgQlY29QaCZwciLdVKvhAm4X16I+Qq4iFHdblrY80=;
+        b=Pwo94cWKeRY45y02mfBGFRbR6EB6aChfMjA0QuqOvUju6TpLpY1b2WrJ7espXm2iWg
+         dI3WeqG1Hg5CdFLM+oWYJjiY3vRFuVS9eUj/XL+TNxExE8BbcfiYoTjCz31YsRH1rzFk
+         xg/u22FruG04Iee17GbmHjrcgpr6q34IovqJQGBmbqXC4tlJqSc1VoxUU9gSVRqh5QZ/
+         +GevXeouKSvNS5sugB+MKqn4DNEpHoO5aaS6TNgzYS1dlnKl/O5BfjbNbwbTfuCiWt0V
+         NH9wTbxIM4QYSIuJOZtaK9fxc0tiz0oPVMon8s9KGl+HCxcwUtlI2/23wlvbsTlX/LPN
+         tXjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711008573; x=1711613373;
+        d=1e100.net; s=20230601; t=1711009648; x=1711614448;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dnEU5bnbob7D1jOsrxnf1DoG8D9eQYmIIlXmEYTuG4E=;
-        b=SOGpE3T9sBtJ3heLqMNGh0JOqg2YLdmFQrZMLC9+4X1pwnuVEiOLIgmWRO833fQyCt
-         AkMsXUaEVgskfprfTet8qP6WhXVcDkiwtmtruA58rA7onpsKVa3TxfmnCdpRKZ2dQGqt
-         DqoAgVQU/J6cT0MlBctDfWyM+pfOPVItQBcL0BF/UCgiiAtsaO573XoHwvjzrH2uHQiB
-         CKMHEKC/l3mZ4an6CUpWu9aqU3W3Q0QqTBLp4IXn7cqufiijwNUtHmmrsW5UWK0q4oxv
-         Q8y0rNohXNVhBk3Sd6m/l3PLS6AnuSZtRi+kfnTXgzi6RhfVpsSmNjGwbLyfWqmV1sHn
-         b//w==
-X-Forwarded-Encrypted: i=1; AJvYcCXnJ2IM79w1DUDJX9el9Yw1cX2Sz+H0bBFz57hZXlDp3YgYMJ0my/n+Sn8kLwcuq34IwQjEyJnK5Qb5a+1mGjMe9gvIcVuWcNyUNsaZFW0=
-X-Gm-Message-State: AOJu0YyJNQgUHJBFngSYIoHPKmIzmYFqp6LuhWuQAShurkqjH9i9Z4Ra
-	Pd3fAh6l5m7rlRCMv6vyjzdFM9BGvj9MdqCbJJRHi4hpom5FMBHLQnDyhPklKQ==
-X-Google-Smtp-Source: AGHT+IHrwG2y+1MErksYWgPeDSd56uAnfznUyDt7bWONAVan4dlhsy7njChSCPCl6TiN3ULKjKc0Rw==
-X-Received: by 2002:a17:907:7d8e:b0:a46:ba8e:c22b with SMTP id oz14-20020a1709077d8e00b00a46ba8ec22bmr894977ejc.77.1711008573620;
-        Thu, 21 Mar 2024 01:09:33 -0700 (PDT)
-Message-ID: <d8b2bf3d-7656-4a60-9888-86755735e825@suse.com>
-Date: Thu, 21 Mar 2024 09:09:32 +0100
+        bh=yONgQlY29QaCZwciLdVKvhAm4X16I+Qq4iFHdblrY80=;
+        b=ZbotpeM7xow+iT0K8O1WV0AQc+FsJjYsoMYFTNi5l7pjYvxIhBHqvmDZI833ekixfm
+         ePUQI2a8q8YAYfJeNT767ghbJBgoR2s9sxz5R9qLaBCHELskslw/nM8kBRWg7Z2tS9LG
+         Lh6oGL4bayDnZorVBqmyuUqUcM4M5Kzi6rxi/I1HSoqFwgfOHGS2wYPRJZBRDE06aRgg
+         xxBn/PlYV8igAn9Rv6euoCEjLDAAz0OGYFtCZxvhtpgI+FDIr7jZBN6Oww3h4qwDX13k
+         nNmjt/1g6MFHyagJ/vZJakXllrlqp5WCTRRANtZSPgVq/HzaRxYAHWac9b2i3w4Jsx4M
+         NZfg==
+X-Forwarded-Encrypted: i=1; AJvYcCV/OAKAEzhBF1SCV7pSI9SsD0spYIUrSobksbXOWLkF6JtyeCXTpYZnQZ0AfJSRBunz0bcNTWVPzIua3MXJriz+PQiy9WcgBKjtzKv+06c=
+X-Gm-Message-State: AOJu0Yw2++Gcc3vaAbzdYH2FWjvCw/Aa08Ev2jXiYtGCEyxZ/Qt7FBhN
+	gPn7sv0Am4+gXt9pl4C4VsWy8Y90wSwOFkfJQg+WsPuHk0xUkFZIrirKiKqMag==
+X-Google-Smtp-Source: AGHT+IG3Avg0rzZ7esdT/n3cKxPKAr2f9cHH68qKCLyiJpNdezFRjV7uJEpuhKhbxfShRJ9I0/4DqQ==
+X-Received: by 2002:a17:907:7e94:b0:a46:ad7c:ccc7 with SMTP id qb20-20020a1709077e9400b00a46ad7cccc7mr10734178ejc.59.1711009648501;
+        Thu, 21 Mar 2024 01:27:28 -0700 (PDT)
+Message-ID: <198bade8-c6fc-4ae0-b721-3a9e2bd8acbe@suse.com>
+Date: Thu, 21 Mar 2024 09:27:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/2] automation/eclair: add deviation for MISRA C:2012
- Rule 17.1
+Subject: Re: [PATCH v2] docs/misra: document the expected sizes of integer
+ types
 Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com,
- Doug Goldstein <cardoe@cardoe.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1710923235.git.simone.ballarin@bugseng.com>
- <882b442c8c1f73f8116676ab9351defe5c9609ac.1710923235.git.simone.ballarin@bugseng.com>
- <9341a711-74c3-463f-8cc2-a54e19b4b2f4@suse.com>
- <alpine.DEB.2.22.394.2403201848340.1569010@ubuntu-linux-20-04-desktop>
+Cc: andrew.cooper3@citrix.com, bertrand.marquis@arm.com,
+ george.dunlap@citrix.com, julien@xen.org, michal.orzel@amd.com,
+ roger.pau@citrix.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2403141516550.853156@ubuntu-linux-20-04-desktop>
+ <6a76723e-ba47-40b3-8f33-d68030b14299@suse.com>
+ <alpine.DEB.2.22.394.2403151658530.853156@ubuntu-linux-20-04-desktop>
+ <7ab73379-b057-4568-9869-141cef185752@suse.com>
+ <alpine.DEB.2.22.394.2403181735410.853156@ubuntu-linux-20-04-desktop>
+ <fadd30c9-440d-401d-bd05-7e1d965bbefe@suse.com>
+ <alpine.DEB.2.22.394.2403190815220.853156@ubuntu-linux-20-04-desktop>
+ <87234837-9fb3-40a9-849d-8b8574f2661c@suse.com>
+ <alpine.DEB.2.22.394.2403201812380.1569010@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,74 +120,145 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2403201848340.1569010@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2403201812380.1569010@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21.03.2024 02:50, Stefano Stabellini wrote:
+On 21.03.2024 02:46, Stefano Stabellini wrote:
 > On Wed, 20 Mar 2024, Jan Beulich wrote:
->> On 20.03.2024 09:50, Simone Ballarin wrote:
->>> MISRA C:2012 Rule 17.1 states:
->>> The features of `<stdarg.h>' shall not be used
+>>> - the public interface is described in a C header so it makes sense for
+>>>   the corresponding implementation to be in C
 >>>
->>> The Xen community wants to avoid using variadic functions except for
->>> specific circumstances where it feels appropriate by strict code review.
+>>> - the C entry point is often both the entry point in C and also common
+>>>   code
 >>>
->>> Add deviation for functions related to console output (printk and similar).
+>>> - depending on the architecture, there is typically always some minimal
+>>>   assembly entry code to prepare the environment before we can jump into
+>>>   C-land; still one wouldn't consider those minimal and routine assembly
+>>>   operations to be a meaningful hypercall entry point corresponding to
+>>>   the C declaration in the public headers
 >>>
->>> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
->>> ---
->>>  .../eclair_analysis/ECLAIR/deviations.ecl     | 26 +++++++++++++++++++
->>>  docs/misra/deviations.rst                     |  5 ++++
->>>  2 files changed, 31 insertions(+)
->>>
->>> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> index 9ac3ee4dfd..7c3559a3a0 100644
->>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> @@ -382,6 +382,32 @@ explicit comment indicating the fallthrough intention is present."
->>>  -config=MC3R1.R16.6,switch_clauses+={deliberate, "default(0)"}
->>>  -doc_end
->>>  
->>> +#
->>> +# Series 17.
->>> +#
->>> +
->>> +-doc_begin="Functions related to console output are allowed to use the variadic features provided by stdarg.h."
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(debugtrace_printk)&&kind(function))))"}
+>>> - as per MISRA and also general good practice, we need the declaration
+>>>   in the public header files to match the definition in C
 >>
->> This isn't concole output related.
+>> Throughout, but especially with this last point, I feel there's confusion
+>> (not sure on which side): There are no declarations of hypercall functions
+>> in the public headers. Adding declarations there for the C entry points in
+>> Xen would actually be wrong, as we don't provide such functions anywhere
+>> (to consumers of the ABI).
 > 
-> Should we say "related to console output or tracing" ?
+> I am copy/pasting text from sched.h:
 > 
+>  * The prototype for this hypercall is:
+>  * ` long HYPERVISOR_sched_op(enum sched_op cmd, void *arg, ...)
+>  *
+>  * @cmd == SCHEDOP_??? (scheduler operation).
+>  * @arg == Operation-specific extra argument(s), as described below.
+>  * ...  == Additional Operation-specific extra arguments, described below.
+>  *
 > 
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(dt_dprintk)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(printk)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(guest_printk)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(panic)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(dprintk)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(gdprintk)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(snprintf)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(scnprintf)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(xasprintf)&&kind(function))))"}
->>
->> These three and ...
->>
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(mm_printk)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(dbgp_printk)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(elf_call_log_callback)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(vsnprintf)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(vscnprintf)&&kind(function))))"}
->>> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(xvasprintf)&&kind(function))))"}
->>
->> ... these three aren't either.
+> from event_channel.h:
 > 
-> Maybe it is better to write it as:
+>  * ` enum neg_errnoval
+>  * ` HYPERVISOR_event_channel_op(enum event_channel_op cmd, void *args)
+>  * `
+>  * @cmd  == EVTCHNOP_* (event-channel operation).
+>  * @args == struct evtchn_* Operation-specific extra arguments (NULL if none).
 > 
-> "Functions related printk, logging and tracing are allowed..."
+> These are the hypercall declarations in public headers. Although they
+> are comments, they are the only description of the ABI that we have (as
+> far as I know). They are in C and use C types. 
 
-How about simply saying "printf()-like functions"? In what you suggest,
-sprintf() and friends would still not be covered.
+From their use of enum alone they don't qualify as declarations. They're
+imo merely meant to provide minimal guidelines.
+
+>>>>>>> We have two options:
+>>>>>>>
+>>>>>>> 1) we go with this document, and we clarify that even if we specify
+>>>>>>>   "unsigned int", we actually mean a 32-bit integer
+>>>>>>>
+>>>>>>> 2) we change all our public ABIs and C hypercall entry points to use
+>>>>>>>    fixed-size types (e.g. s/unsigned int/uint32_t/g)
+>>>>>>>
+>>>>>>> 2) is preferred because it is clearer but it is more work. So I went
+>>>>>>> with 1). I also thought you would like 1) more.
+>>>>>>
+>>>>>> For ABIs (i.e. structures) we ought to be making that change anyway.
+>>>>>> Leaving basic types in there is latently buggy.
+>>>>>
+>>>>> I am glad we agree :-)
+>>>>>
+>>>>> It is just that I also consinder the C hypercall entry points as part of
+>>>>> the ABI
+>>>>>
+>>>>>
+>>>>>> I'm happy to see a document like this added, for the purpose described
+>>>>>> above. But to me 1) and 2) and largely independent of one another.
+>>>>>
+>>>>> Good that you are also happy with a document like this.
+>>>>>
+>>>>> The remaining question is: what about the rest of the C functions in Xen
+>>>>> that are certainly not part of an ABI?
+>>>>
+>>>> As per above - anything internal isn't part of the ABI, C entry points
+>>>> for hypercall handlers included. All we need to ensure is that we consume
+>>>> the data according to what the ABI sets forth.
+>>>
+>>> It doesn't look like we'll convince one another on this point. But let
+>>> me try another way.
+>>>
+>>> In my view, having mismatched types between declaration and definition
+>>> and having non-fixed-width types in C hypercall entry points is really
+>>> bad for a number of reasons, among them:
+>>> - correctness
+>>> - risk of ABI breakage
+>>> - mismatch of declaration and definition
+>>
+>> What mismatches are you talking about? There's nothing mismatched now,
+>> and there cannot be any mismatch, because the consumers of the ABI don't
+>> call Xen functions directly.
+> 
+> Let me make an example:
+> 
+> - public header saying enum event_channel_op cmd
+> - <assembly>
+> - do_event_channel_op(int cmd, ...)
+> 
+> Do you think this is all good?
+> 
+> There are two pretty serious problems here:
+> - enum and int are not the same type
+
+See above. The issue I have with this is use of plain "int". Technically
+that's not a problem either, but aiui we're aiming to use "unsigned int"
+when negative values aren't possible.
+
+And note that it was in 2012 when "int" there was changed to "enum", in an
+effort to document things better.
+
+> - enum and int are not fixed-width
+
+Which I don't view as a problem, thanks to the assembly sitting in between.
+
+> Don't you think it should be:
+> 
+> - public header saying uint32_t cmd in a comment
+> - <assembly>
+> - do_something_op(uint32_t cmd, ...)
+
+The public header should say whatever is best suited to not misguide
+people writing actual prototypes for their functions. I wouldn't mind
+uint32_t being stated there. That has no influence whatsoever on
+do_<something>_op(), though.
+
+> Or possibly unsigned long depending on the parameter.
+
+You're contradicting yourself: You mean to advocate for fixed-width types,
+yet then you suggest "unsigned long". Perhaps because you realized that
+there's no single fixed-width type fitting "unsigned long" for all
+architectures. xen_ulong_t would likely come closest, but would - aiui -
+still not be suitable for Arm32 when used in hypercall (handler)
+prototypes; it's suitable for use (again) only in structure definitions.
 
 Jan
 
