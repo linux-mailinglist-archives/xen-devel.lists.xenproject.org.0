@@ -2,33 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7874886F70
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Mar 2024 16:08:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696926.1088160 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47D1D886F76
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Mar 2024 16:09:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696931.1088170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rngUm-0006RG-J2; Fri, 22 Mar 2024 15:07:48 +0000
+	id 1rngWZ-00076V-0y; Fri, 22 Mar 2024 15:09:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696926.1088160; Fri, 22 Mar 2024 15:07:48 +0000
+Received: by outflank-mailman (output) from mailman id 696931.1088170; Fri, 22 Mar 2024 15:09:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rngUm-0006Od-GE; Fri, 22 Mar 2024 15:07:48 +0000
-Received: by outflank-mailman (input) for mailman id 696926;
- Fri, 22 Mar 2024 15:07:47 +0000
+	id 1rngWY-00073l-Ua; Fri, 22 Mar 2024 15:09:38 +0000
+Received: by outflank-mailman (input) for mailman id 696931;
+ Fri, 22 Mar 2024 15:09:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jjfM=K4=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rngUk-0006OX-S6
- for xen-devel@lists.xenproject.org; Fri, 22 Mar 2024 15:07:46 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ <SRS0=GlD6=K4=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rngWX-00073f-2k
+ for xen-devel@lists.xenproject.org; Fri, 22 Mar 2024 15:09:37 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2407::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eec3f16e-e85d-11ee-a1ee-f123f15fe8a2;
- Fri, 22 Mar 2024 16:07:43 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a47062136c0so281106566b.2
- for <xen-devel@lists.xenproject.org>; Fri, 22 Mar 2024 08:07:43 -0700 (PDT)
+ id 3062944b-e85e-11ee-a1ee-f123f15fe8a2;
+ Fri, 22 Mar 2024 16:09:34 +0100 (CET)
+Received: from PR0P264CA0090.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:18::30)
+ by DM4PR12MB6160.namprd12.prod.outlook.com (2603:10b6:8:a7::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.24; Fri, 22 Mar
+ 2024 15:09:30 +0000
+Received: from SN1PEPF00026369.namprd02.prod.outlook.com
+ (2603:10a6:100:18:cafe::aa) by PR0P264CA0090.outlook.office365.com
+ (2603:10a6:100:18::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
+ Transport; Fri, 22 Mar 2024 15:09:29 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF00026369.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7409.10 via Frontend Transport; Fri, 22 Mar 2024 15:09:29 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 22 Mar
+ 2024 10:09:27 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Fri, 22 Mar 2024 10:09:26 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,214 +59,288 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eec3f16e-e85d-11ee-a1ee-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1711120062; x=1711724862; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9GPIzfg3Tdo4oOPyNmPnGuswh61zm6kAYYK5uEDnjsU=;
-        b=YaAh0aCaz/g5zkXQRXoR7vJyf7ruUc92QwNRwLPJX8GKblHlHFGt47l53rPjyX/4ht
-         lNTTyUGZjC3guYtD3VLrV8YBNh30RkIct/va66C5Vae7GhcnTIbfDujSpuIOuJGzcTRn
-         nBMgdJe6UCG7X34Mnx+oMxu4XaveY0AqffTKSBBnV7poE6zAhVH02hR5TYYWs3bzkEQs
-         7hyf8wPUcfxq6TOcnLbTxpeRhDjFooIOCwHfmwYIs6gF4UAls1TuX8Y/vqoVaemeVC7G
-         JT/D4GVZDL6vL1BH9rBr2HghlyLsl1zucEJKzXrjZOPKM/HZ1kIRC120VZ769L8dHE1C
-         xccw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711120062; x=1711724862;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9GPIzfg3Tdo4oOPyNmPnGuswh61zm6kAYYK5uEDnjsU=;
-        b=xEpE6vT/R1P3hyp+Qlb5v78r/0uB/f4TyB66705sMUhxn9hJNbJpcEi9RTrWlFNfna
-         N1gEauBnvADHlBrYMTG0JvvDNXX/4ffinzmcwug4CxpTeDhCqe4ZEuVML0oUEhuVurrj
-         f0btdY9RhxfFyT+tbO9QiNbLlcfzSNsmu0vaOcTvWiEoAdjqiu4tCCmcXvxwlYBWsIXB
-         +uJ3DpHC+mS1cg6BPd3qx0/7rVRMbx+y8K1EGNirFyS1iXWIZQKg6u1BYUI5aB/0Mq51
-         pRtRppDxhSyBeTdA3+VVxxTnfxQupQlm3HrLHL41WUZMztCZc04GRZJt1ISrfU2qQ/7Z
-         WJSA==
-X-Forwarded-Encrypted: i=1; AJvYcCXnmzEWhn7OXy43IGgDddfiIBCF0IpUsiaysFRyaQXS96bcrP00TbjoM7wMUatcZTnllW1y1MedNW+vvZKu/HzNLWltV0fDenmuAKgA9Es=
-X-Gm-Message-State: AOJu0Yx2dU0fQ/2jhxhPnLzJ8XnDO4Y5UWRqdJWhh5pjfSbtDJgJS00s
-	hw4vzSOi8g6Fdm2u4sSsvPS0qV5eoLhT8mBHxdz/qtXFqw5M6eDvvh20bklAhulL/1p4ln8Sj/h
-	clSDDaPgcOkNkB8Jr3cyBJ6/shUdsUf4xLBd9xw==
-X-Google-Smtp-Source: AGHT+IGYJt56ZWt40So5HCR5pVTvACYWOQi8ATGGrtWIgkLAnWWST3fiFbb94xQaVQLIOGRuMFwZNH8jCvTYpUD4HAc=
-X-Received: by 2002:a17:906:b808:b0:a47:347f:f0fd with SMTP id
- dv8-20020a170906b80800b00a47347ff0fdmr1162234ejb.53.1711120062621; Fri, 22
- Mar 2024 08:07:42 -0700 (PDT)
+X-Inumbo-ID: 3062944b-e85e-11ee-a1ee-f123f15fe8a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ei/A0iEx4xr4Ua8XSlgmqO4vrkggFR/mu/qZWokazr+28TjyVsB65/20viKFskU3nIfiPZRa18d7mppJjWDqxKqxn4zLhU2ERszP3q54kPdysDQFzOL0UI73cnmgcB3HD/1rX/ECMXbRBlnUUidpNVN58KiQ5ec5S/uRogD99kswSbsFCwNHg6Qzs4UdgwQnmwFtm3jXUY3U4VR40DGR4R3R3q8E8HAz6srtovsOlcDppdt0GIUkbrvHkQnARCGO7BZsldFqRbWc4vGfmhms5bBzJpjS0jgvgnbTmYr/d6AMqXpgK7NmKF4hGhmLggxAfgHnYmyxLpEWzWCXdxItRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lan5XMue9Z2MeH7IagdyYeJt/D0KfB5exFiH/6YnwcM=;
+ b=ELzGvTfwBK2N7reUQ+QBqmt6ZeKo4GcVB1pYcWNWYE0/BfPcKOD3VHdMyHGXSRCNVEWBk47lFerCk3dheyarLK0pcBD50zAw7d3YWSu+WZcC2ZDaHUXEzSlUaV1ofEvmlWtt16ijTZdhF6BttuCWqkAcLuopNqy+xTdKenNltWoEV4Vx3DucmiG9az+C3g2e3CTqlOhK++VCtbr3sRNQggAeDr+bUGEoOzo+NkPG8lnV9CzN2tink64pUeEvGUMFzK7DkJNAmr9jO8o+HZy7CzYBKxtZvNgkOXHvFBYgUF0ujHges5MzxU4hfMPiLXxG5ZOv2/8UV6TBhq9VL3lvqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lan5XMue9Z2MeH7IagdyYeJt/D0KfB5exFiH/6YnwcM=;
+ b=2PInbwcq0BHClIT4p0S3peZQ10KRpIAs9JrqvuTE2WupvSwjfooOh3TsAM3mmQ6+VKoW3Tr+REaOslQItEnTfagDUIf/1oMvLEdBsyStzLbKoIH1VpJTYPo5Zdxz0kR3UA/b2XrM5rAgDVYvZCyU4Np2OItbuumPVSD673/evKw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <9edf6716-77d9-445a-8f65-0914ffb97e3f@amd.com>
+Date: Fri, 22 Mar 2024 16:09:26 +0100
 MIME-Version: 1.0
-References: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
- <20240315105902.160047-9-carlo.nonato@minervasys.tech> <3f615066-a792-493f-ba33-7667a6557c23@xen.org>
- <9e0f7ff3-5457-41e4-a1e4-bf75804fb900@xen.org> <255be735-f9fe-4e39-a24e-2f6aff91acc5@suse.com>
-In-Reply-To: <255be735-f9fe-4e39-a24e-2f6aff91acc5@suse.com>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Fri, 22 Mar 2024 16:07:31 +0100
-Message-ID: <CAG+AhRWMh2quv3SNPJQ61au=e6gtdXUO7j-XVYV6chDmktqkvA@mail.gmail.com>
-Subject: Re: [PATCH v7 08/14] xen/page_alloc: introduce preserved page flags macro
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	xen-devel@lists.xenproject.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 09/11] xen/arm: remove shm holes for extended regions
+Content-Language: en-US
+To: Luca Fancellu <luca.fancellu@arm.com>, <xen-devel@lists.xenproject.org>
+CC: Penny Zheng <Penny.Zheng@arm.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240312130331.78418-1-luca.fancellu@arm.com>
+ <20240312130331.78418-10-luca.fancellu@arm.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240312130331.78418-10-luca.fancellu@arm.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026369:EE_|DM4PR12MB6160:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20399999-8153-4a68-93de-08dc4a821257
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	AF+sLU1pfo2KWnq7HbcBhk8jj3yrbWOqjpuRtasDoA47NbNbx9aKv0fZihAIdmW4K9wK8zwUOIgSvtO3Q0qrW/jhiJLXG7YoVz1mV12q/sr/xlDqJW5aow1zR+JB0Ulut/n/a+wVBSTGIAMCvcbDDMsCdtvAD4LVpcoVH56AIktqhhOGD1pYOIw4BlD0G5pdoZz3CuX+sJfEOzZ+D54CveEaiiJeimLU1NhZXdTRSWk8ex9ZiQRsEDpPM/CFfAN5WWuvj1ClcMm+0WnL5VC5kDPWTqq63Vgt6BHSrt9G3+jnLgBx5XEcRqHk/tfNDg2KEvtxD7DAF5RVg0NX/Z9w1RQVUTjz2eJ512uuEiFFuARsLAd14KUODpMIAGe2pP0yaBxUTegW86U9+bF9F6PqfUrDqKXNvH5CDxgSwLDBEInm4tsJ0EyF4qPdYVHVqdmpxZ6CfctJTNllVO7gqiO7sKhqpcX5d/Wublf9Yq7+7FTb5Fotl0phyUzsS75fu28wgCkQcBfFMz5GlHTOIJefxnQo/j1bg3FV0bJfilB4exEeKx6VVEpVrSeMw9eByoyFSPsY/CRP5o3Fytb/TfRbfxL3X2BL+hMoDKsrwCtEaEt9VA8Dat1NSoT9JaQWamfOzKoVA+U+8Rbzgec1o4Tv3RD9j9CTn1MVwH9dwkaE4eakwkGQo+4gkWrefMKfJhMWNSP2Ovd2AJ2uf2deN9uLDw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(82310400014)(1800799015)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2024 15:09:29.1357
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20399999-8153-4a68-93de-08dc4a821257
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF00026369.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6160
 
-Hi guys,
+Hi Luca,
 
-On Thu, Mar 21, 2024 at 5:23=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 21.03.2024 17:10, Julien Grall wrote:
-> > On 21/03/2024 16:07, Julien Grall wrote:
-> >> On 15/03/2024 10:58, Carlo Nonato wrote:
-> >>> PGC_static and PGC_extra needs to be preserved when assigning a page.
-> >>> Define a new macro that groups those flags and use it instead of or'i=
-ng
-> >>> every time.
-> >>>
-> >>> To make preserved flags even more meaningful, they are kept also when
-> >>> switching state in mark_page_free().
-> >>>
-> >>> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-> >>
-> >> This patch is introducing a regression in OSStest (and possibly gitlab=
-?):
-> >>
-> >> Mar 21 12:00:29.533676 (XEN) pg[0] MFN 2211c5 c=3D0x2c00000000000000 o=
-=3D0
-> >> v=3D0xe40000010007ffff t=3D0x24
-> >> Mar 21 12:00:42.829785 (XEN) Xen BUG at common/page_alloc.c:1033
-> >> Mar 21 12:00:42.829829 (XEN) ----[ Xen-4.19-unstable  x86_64  debug=3D=
-y
-> >> Not tainted ]----
-> >> Mar 21 12:00:42.829857 (XEN) CPU:    12
-> >> Mar 21 12:00:42.841571 (XEN) RIP:    e008:[<ffff82d04022fe1f>]
-> >> common/page_alloc.c#alloc_heap_pages+0x37f/0x6e2
-> >> Mar 21 12:00:42.841609 (XEN) RFLAGS: 0000000000010282   CONTEXT:
-> >> hypervisor (d0v8)
-> >> Mar 21 12:00:42.853654 (XEN) rax: ffff83023e3ed06c   rbx:
-> >> 000000000007ffff   rcx: 0000000000000028
-> >> Mar 21 12:00:42.853689 (XEN) rdx: ffff83047bec7fff   rsi:
-> >> ffff83023e3ea3e8   rdi: ffff83023e3ea3e0
-> >> Mar 21 12:00:42.865657 (XEN) rbp: ffff83047bec7c10   rsp:
-> >> ffff83047bec7b98   r8:  0000000000000000
-> >> Mar 21 12:00:42.877647 (XEN) r9:  0000000000000001   r10:
-> >> 000000000000000c   r11: 0000000000000010
-> >> Mar 21 12:00:42.877682 (XEN) r12: 0000000000000001   r13:
-> >> 0000000000000000   r14: ffff82e0044238a0
-> >> Mar 21 12:00:42.889652 (XEN) r15: 0000000000000000   cr0:
-> >> 0000000080050033   cr4: 0000000000372660
-> >> Mar 21 12:00:42.901651 (XEN) cr3: 000000046fe34000   cr2: 00007fb72757=
-610b
-> >> Mar 21 12:00:42.901685 (XEN) fsb: 00007fb726def380   gsb:
-> >> ffff88801f200000   gss: 0000000000000000
-> >> Mar 21 12:00:42.913646 (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000
-> >> ss: e010   cs: e008
-> >> Mar 21 12:00:42.913680 (XEN) Xen code around <ffff82d04022fe1f>
-> >> (common/page_alloc.c#alloc_heap_pages+0x37f/0x6e2):
-> >> Mar 21 12:00:42.925645 (XEN)  d1 1c 00 e8 ad dd 02 00 <0f> 0b 48 85 c9
-> >> 79 36 0f 0b 41 89 cd 48 c7 47 f0
-> >> Mar 21 12:00:42.937649 (XEN) Xen stack trace from rsp=3Dffff83047bec7b=
-98:
-> >> Mar 21 12:00:42.937683 (XEN)    0000000000000024 000000007bec7c20
-> >> 0000000000000001 ffff83046ccda000
-> >> Mar 21 12:00:42.949653 (XEN)    ffff82e000000021 0000000000000016
-> >> 0000000000000000 0000000000000000
-> >> Mar 21 12:00:42.949687 (XEN)    0000000000000000 0000000000000000
-> >> 0000000000000028 0000000000000021
-> >> Mar 21 12:00:42.961652 (XEN)    ffff83046ccda000 0000000000000000
-> >> 00007d2000000000 ffff83047bec7c48
-> >> Mar 21 12:00:42.961687 (XEN)    ffff82d0402302ff ffff83046ccda000
-> >> 0000000000000100 0000000000000000
-> >> Mar 21 12:00:42.973655 (XEN)    ffff82d0405f0080 00007d2000000000
-> >> ffff83047bec7c80 ffff82d0402f626c
-> >> Mar 21 12:00:42.985656 (XEN)    ffff83046ccda000 ffff83046ccda640
-> >> 0000000000000000 0000000000000000
-> >> Mar 21 12:00:42.985690 (XEN)    ffff83046ccda220 ffff83047bec7cb0
-> >> ffff82d0402f65a0 ffff83046ccda000
-> >> Mar 21 12:00:42.997662 (XEN)    0000000000000000 0000000000000000
-> >> 0000000000000000 ffff83047bec7cc0
-> >> Mar 21 12:00:43.009660 (XEN)    ffff82d040311f8a ffff83047bec7ce0
-> >> ffff82d0402bd543 ffff83046ccda000
-> >> Mar 21 12:00:43.009695 (XEN)    ffff83047bec7dc8 ffff83047bec7d08
-> >> ffff82d04032c524 ffff83046ccda000
-> >> Mar 21 12:00:43.021653 (XEN)    ffff83047bec7dc8 0000000000000002
-> >> ffff83047bec7d58 ffff82d040206750
-> >> Mar 21 12:00:43.033642 (XEN)    0000000000000000 ffff82d040233fe5
-> >> ffff83047bec7d48 0000000000000000
-> >> Mar 21 12:00:43.033678 (XEN)    0000000000000002 00007fb72767f010
-> >> ffff82d0405e9120 0000000000000001
-> >> Mar 21 12:00:43.045654 (XEN)    ffff83047bec7e70 ffff82d040240728
-> >> 0000000000000007 ffff83023e3b3000
-> >> Mar 21 12:00:43.045690 (XEN)    0000000000000246 ffff83023e2efa90
-> >> ffff83023e38e000 ffff83023e2efb40
-> >> Mar 21 12:00:43.057609 (XEN)    0000000000000007 ffff83023e3afb80
-> >> 0000000000000206 ffff83047bec7dc0
-> >> Mar 21 12:00:43.069662 (XEN)    0000001600000001 000000000000ffff
-> >> e75aaa8d0000000c ac0d6d864e487f62
-> >> Mar 21 12:00:43.069697 (XEN)    000000037fa48d76 0000000200000000
-> >> ffffffff000003ff 00000002ffffffff
-> >> Mar 21 12:00:43.081647 (XEN)    0000000000000000 00000000000001ff
-> >> 0000000000000000 0000000000000000
-> >> Mar 21 12:00:43.093646 (XEN) Xen call trace:
-> >> Mar 21 12:00:43.093677 (XEN)    [<ffff82d04022fe1f>] R
-> >> common/page_alloc.c#alloc_heap_pages+0x37f/0x6e2
-> >> Mar 21 12:00:43.093705 (XEN)    [<ffff82d0402302ff>] F
-> >> alloc_domheap_pages+0x17d/0x1e4
-> >> Mar 21 12:00:43.105652 (XEN)    [<ffff82d0402f626c>] F
-> >> hap_set_allocation+0x73/0x23c
-> >> Mar 21 12:00:43.105685 (XEN)    [<ffff82d0402f65a0>] F
-> >> hap_enable+0x138/0x33c
-> >> Mar 21 12:00:43.117646 (XEN)    [<ffff82d040311f8a>] F
-> >> paging_enable+0x2d/0x45
-> >> Mar 21 12:00:43.117679 (XEN)    [<ffff82d0402bd543>] F
-> >> hvm_domain_initialise+0x185/0x428
-> >> Mar 21 12:00:43.129652 (XEN)    [<ffff82d04032c524>] F
-> >> arch_domain_create+0x3e7/0x4c1
-> >> Mar 21 12:00:43.129687 (XEN)    [<ffff82d040206750>] F
-> >> domain_create+0x4cc/0x7e2
-> >> Mar 21 12:00:43.141665 (XEN)    [<ffff82d040240728>] F
-> >> do_domctl+0x1850/0x192d
-> >> Mar 21 12:00:43.141699 (XEN)    [<ffff82d04031a96a>] F
-> >> pv_hypercall+0x617/0x6b5
-> >> Mar 21 12:00:43.153656 (XEN)    [<ffff82d0402012ca>] F
-> >> lstar_enter+0x13a/0x140
-> >> Mar 21 12:00:43.153689 (XEN)
-> >> Mar 21 12:00:43.153711 (XEN)
-> >> Mar 21 12:00:43.153731 (XEN) ****************************************
-> >> Mar 21 12:00:43.165647 (XEN) Panic on CPU 12:
-> >> Mar 21 12:00:43.165678 (XEN) Xen BUG at common/page_alloc.c:1033
-> >> Mar 21 12:00:43.165703 (XEN) ****************************************
-> >> Mar 21 12:00:43.177633 (XEN)
-> >> Mar 21 12:00:43.177662 (XEN) Manual reset required ('noreboot' specifi=
-ed)
-> >>
-> >> The code around the BUG is:
-> >>
-> >>          /* Reference count must continuously be zero for free pages. =
-*/
-> >>          if ( (pg[i].count_info & ~PGC_need_scrub) !=3D PGC_state_free=
- )
-> >>          {
-> >>              printk(XENLOG_ERR
-> >>                     "pg[%u] MFN %"PRI_mfn" c=3D%#lx o=3D%u v=3D%#lx t=
-=3D%#x\n",
-> >>                     i, mfn_x(page_to_mfn(pg + i)),
-> >>                     pg[i].count_info, pg[i].v.free.order,
-> >>                     pg[i].u.free.val, pg[i].tlbflush_timestamp);
-> >>              BUG();
-> >>          }
-> >>
-> >> Now that you are preserving some flags, you also want to modify the
-> >> condition. I haven't checked the rest of the code, so there might be
-> >> some adjustments necessary.
-> >
-> > Actually maybe the condition should not be adjusted. I think it would b=
-e
-> > wrong if a free pages has the flag PGC_extra set. Any thoughts?
->
-> I agree, yet I'm inclined to say PGC_extra should have been cleared
-> before trying to free the page.
+NIT: title s/for/from?
 
-So what to do now? Should I drop this commit?
+On 12/03/2024 14:03, Luca Fancellu wrote:
+> 
+> 
+> From: Penny Zheng <Penny.Zheng@arm.com>
+> 
+> Static shared memory acts as reserved memory in guest, so it shall be
+> excluded from extended regions.
+> 
+> Extended regions are taken care of under three different scenarios:
+> normal DomU, direct-map domain with iommu on, and direct-map domain
+> with iommu off.
+> 
+> For normal DomU, we create a new function "remove_shm_holes_for_domU",
+> to firstly transfer original outputs into the format of
+> "struct rangeset", then use "remove_shm_from_rangeset" to remove static
+> shm from them.
+> 
+> For direct-map domain with iommu on, after we get guest shm info from "kinfo",
+> we use "remove_shm_from_rangeset" to remove static shm.
+> 
+> For direct-map domain with iommu off, as static shm has already been taken
+> care of through reserved memory banks, we do nothing.
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+> v1:
+>  - Rework of https://patchwork.kernel.org/project/xen-devel/patch/20231206090623.1932275-8-Penny.Zheng@arm.com/
+> ---
+>  xen/arch/arm/domain_build.c             | 16 ++++-
+>  xen/arch/arm/include/asm/domain_build.h |  2 +
+>  xen/arch/arm/include/asm/static-shmem.h | 18 ++++++
+>  xen/arch/arm/static-shmem.c             | 86 +++++++++++++++++++++++++
+>  4 files changed, 119 insertions(+), 3 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 9fad9e8b2c40..740c483ea2db 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -817,8 +817,8 @@ int __init make_memory_node(const struct domain *d,
+>      return res;
+>  }
+> 
+> -static int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
+> -                                  void *data)
+> +int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
+> +                           void *data)
+>  {
+>      struct membanks *ext_regions = data;
+>      paddr_t start, size;
+> @@ -969,6 +969,8 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
+>   * - MMIO
+>   * - Host RAM
+>   * - PCI aperture
+> + * - Static shared memory regions, which are described by special property
+> + *   "xen,domain-shared-memory-v1"
+I'm not sure if providing a compatible here makes sense. If at all, I would put "xen,shared-mem" which holds the addresses.
 
-Thanks.
+>   */
+>  static int __init find_memory_holes(const struct kernel_info *kinfo,
+>                                      struct membanks *ext_regions)
+> @@ -985,6 +987,11 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
+>      if ( !mem_holes )
+>          return -ENOMEM;
+> 
+> +    /* Remove static shared memory regions */
+> +    res = remove_shm_from_rangeset(kinfo, mem_holes);
+> +    if ( res )
+> +        goto out;
+How can you remove from a rangeset without first adding to it?
+This should be moved after rangeset_add_range().
+Also, usually (and this is the case in this function) we pass frames
+to rangeset and not addresses (argument is of type ul). However...
+
+> +
+>      /* Start with maximum possible addressable physical memory range */
+>      start = 0;
+>      end = (1ULL << p2m_ipa_bits) - 1;
+> @@ -1089,7 +1096,10 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
+>          res = 0;
+>      }
+> 
+> -    return res;
+> +    if ( res )
+> +        return res;
+> +
+> +    return remove_shm_holes_for_domU(kinfo, ext_regions);
+>  }
+> 
+>  int __init make_hypervisor_node(struct domain *d,
+> diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
+> index a6f276cc4263..026d975da28e 100644
+> --- a/xen/arch/arm/include/asm/domain_build.h
+> +++ b/xen/arch/arm/include/asm/domain_build.h
+> @@ -51,6 +51,8 @@ static inline int prepare_acpi(struct domain *d, struct kernel_info *kinfo)
+>  int prepare_acpi(struct domain *d, struct kernel_info *kinfo);
+>  #endif
+> 
+> +int add_ext_regions(unsigned long s_gfn, unsigned long e_gfn, void *data);
+> +
+>  #endif
+> 
+>  /*
+> diff --git a/xen/arch/arm/include/asm/static-shmem.h b/xen/arch/arm/include/asm/static-shmem.h
+> index c6fac9906656..2f70aed53ac7 100644
+> --- a/xen/arch/arm/include/asm/static-shmem.h
+> +++ b/xen/arch/arm/include/asm/static-shmem.h
+> @@ -29,6 +29,12 @@ void early_print_info_shmem(void);
+> 
+>  void init_sharedmem_pages(void);
+> 
+> +int remove_shm_from_rangeset(const struct kernel_info *kinfo,
+> +                             struct rangeset *rangeset);
+> +
+> +int remove_shm_holes_for_domU(const struct kernel_info *kinfo,
+> +                              struct membanks *ext_regions);
+> +
+>  #else /* !CONFIG_STATIC_SHM */
+> 
+>  static inline int make_resv_memory_node(const struct domain *d,
+> @@ -61,6 +67,18 @@ static inline void early_print_info_shmem(void) {};
+> 
+>  static inline void init_sharedmem_pages(void) {};
+> 
+> +static inline int remove_shm_from_rangeset(const struct kernel_info *kinfo,
+> +                                           struct rangeset *rangeset)
+> +{
+> +    return 0;
+> +}
+> +
+> +static inline int remove_shm_holes_for_domU(const struct kernel_info *kinfo,
+> +                                            struct membanks *ext_regions)
+> +{
+> +    return 0;
+> +}
+> +
+>  #endif /* CONFIG_STATIC_SHM */
+> 
+>  #endif /* __ASM_STATIC_SHMEM_H_ */
+> diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
+> index 6143f52cb991..b3e2105dd3f2 100644
+> --- a/xen/arch/arm/static-shmem.c
+> +++ b/xen/arch/arm/static-shmem.c
+> @@ -1,6 +1,7 @@
+>  /* SPDX-License-Identifier: GPL-2.0-only */
+> 
+>  #include <xen/libfdt/libfdt.h>
+> +#include <xen/rangeset.h>
+>  #include <xen/sched.h>
+> 
+>  #include <asm/domain_build.h>
+> @@ -564,6 +565,91 @@ void __init init_sharedmem_pages(void)
+>          init_staticmem_bank(&shmem->bank[bank]);
+>  }
+> 
+> +int __init remove_shm_from_rangeset(const struct kernel_info *kinfo,
+> +                                    struct rangeset *rangeset)
+> +{
+> +    const struct membanks *shm_mem = &kinfo->shm_mem.common;
+> +    unsigned int i;
+> +
+> +    /* Remove static shared memory regions */
+> +    for ( i = 0; i < shm_mem->nr_banks; i++ )
+> +    {
+> +        paddr_t start, end;
+... here, these hold physical addresses and...
+
+> +        int res;
+> +
+> +        start = shm_mem->bank[i].start;
+> +        end = shm_mem->bank[i].start + shm_mem->bank[i].size - 1;
+> +        res = rangeset_remove_range(rangeset, start, end);
+you will end up in a mix which won't work. Switch to PFN_DOWN()
+
+> +        if ( res )
+What's the point of res variable if it is not printed below?
+
+> +        {
+> +            printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+> +                   start, end);
+> +            return -EINVAL;
+> +        }
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +int __init remove_shm_holes_for_domU(const struct kernel_info *kinfo,
+> +                                     struct membanks *ext_regions)
+> +{
+> +    const struct membanks *shm_mem = &kinfo->shm_mem.common;
+> +    struct rangeset *guest_holes;
+> +    unsigned int i;
+> +    paddr_t start;
+> +    paddr_t end;
+> +    int res;
+> +
+> +    /* No static shared memory region. */
+> +    if ( shm_mem->nr_banks == 0 )
+> +        return 0;
+> +
+> +    dt_dprintk("Remove static shared memory holes for extended regions of DomU\n");
+> +
+> +    guest_holes = rangeset_new(NULL, NULL, 0);
+> +    if ( !guest_holes )
+> +        return -ENOMEM;
+> +
+> +    /* Copy extended regions sets into the rangeset */
+> +    for ( i = 0; i < ext_regions->nr_banks; i++ )
+> +    {
+> +        start = ext_regions->bank[i].start;
+> +        end = start + ext_regions->bank[i].size - 1;
+> +
+> +        res = rangeset_add_range(guest_holes, start, end);
+Ditto, PFN_DOWN().
+
+~Michal
 
