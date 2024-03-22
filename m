@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C98C8867C0
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Mar 2024 09:01:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696692.1087799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE4108867E2
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Mar 2024 09:04:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696694.1087810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnZpp-0007N7-HK; Fri, 22 Mar 2024 08:01:05 +0000
+	id 1rnZsp-00084U-01; Fri, 22 Mar 2024 08:04:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696692.1087799; Fri, 22 Mar 2024 08:01:05 +0000
+Received: by outflank-mailman (output) from mailman id 696694.1087810; Fri, 22 Mar 2024 08:04:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnZpp-0007LZ-Ee; Fri, 22 Mar 2024 08:01:05 +0000
-Received: by outflank-mailman (input) for mailman id 696692;
- Fri, 22 Mar 2024 08:01:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rnZso-00082x-SL; Fri, 22 Mar 2024 08:04:10 +0000
+Received: by outflank-mailman (input) for mailman id 696694;
+ Fri, 22 Mar 2024 08:04:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bHXv=K4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rnZpn-0007LT-7y
- for xen-devel@lists.xenproject.org; Fri, 22 Mar 2024 08:01:03 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 537b7f26-e822-11ee-afe0-a90da7624cb6;
- Fri, 22 Mar 2024 09:01:02 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a471f77bf8eso123320766b.2
- for <xen-devel@lists.xenproject.org>; Fri, 22 Mar 2024 01:01:02 -0700 (PDT)
+ id 1rnZso-00082p-7K
+ for xen-devel@lists.xenproject.org; Fri, 22 Mar 2024 08:04:10 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c05206bc-e822-11ee-a1ee-f123f15fe8a2;
+ Fri, 22 Mar 2024 09:04:05 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-56bdc2a2c96so833915a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Mar 2024 01:04:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x19-20020a170906299300b00a46a2ac0dbasm728592eje.197.2024.03.22.01.01.01
+ b12-20020a0564021f0c00b00568299df7f0sm753195edb.1.2024.03.22.01.04.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Mar 2024 01:01:01 -0700 (PDT)
+ Fri, 22 Mar 2024 01:04:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 537b7f26-e822-11ee-afe0-a90da7624cb6
+X-Inumbo-ID: c05206bc-e822-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711094462; x=1711699262; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711094647; x=1711699447; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1qtQH0sSUATxal0L789QdEHYXyPfcvXqfHEhjx3+QjU=;
-        b=Lm6nRmHkHvc2n6+UIzj+zC90rUa/DqtMibbIuKni784R80N75Z5Zv3W8jokBYqFBN1
-         Bdq65fO+Gcl4f7aLQuHUA3OZ0r0LHbzi4dWBNsNaIk7GwdNGKhp4VewjUhWOnGnXeFsH
-         TtkdHmW5uGfQYqsliuECyij026veq2H/p50CztMAdYXAlamaeQtPkUTKAAmBvMws2CsR
-         MB9Klx8bAuu64S7N8/UIOpIj37RqpPht4Be/pDXIVHaNS8w/7AnMrrIo9Dlje6sV19XR
-         HdileNeou91Tm1zIvgmyDDJ/KzaGL6X8TJMqn42Y1yt4IQbfyBCNbOFojOUWDFD7/QGs
-         jPwQ==
+        bh=TusoSPZpWXAYeArHXRaN19wVsXpDy9CbKEn5rcCCNdk=;
+        b=VfTLPeln1yobaDGTUHo33tdjkdBnWJCzLaq1smcJZuVhHOq1fbzCLyEQdu0knC9Rqp
+         l066Y9xU0OHF9UFr0CIjpt/bXlxLudNGsopcxGjjP0Nq/Y3e/+dxpuvIJX/Df/6sb7dU
+         x4ySGKL7PFYzatrwTMlqKOwrTZKrruX6JlVcPYM5t52lmFcpBvL48C0OrHvVzSkENl1e
+         hUVdCAg1gEH62OJhs9XUM8UbnPNbXZZntg+lN9rTkVjmbAnPkPIryG+/d38MknaRwIuV
+         v9G/kvke0jAozKW1/UF9FOJi3HHzSGTdXyWjtATFV/viLkNwqAB4EO0jKUcGc4jx+57z
+         KA5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711094462; x=1711699262;
+        d=1e100.net; s=20230601; t=1711094647; x=1711699447;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1qtQH0sSUATxal0L789QdEHYXyPfcvXqfHEhjx3+QjU=;
-        b=om6X1vTpSyJl5KTOPgmnzF1rTWjv/+4MGLYZfv+KMIF3ffscG0IfLj2W9IXc0NJfb2
-         KUGKylk/5PM75h/bYPwXFj3qpyAcfblSRgFJkj0sS3HZCf5y8T8mw2ks5NQJ3wb/NBDO
-         22rhDWpzmiLhGYVVPHZteFdOAK+OZW7QV9YEmRFFJTfxLHzXtBFUxQrhPAY+JoJMIGUK
-         XPk4ZUgQ7FFeOre0DQ/2IrPyqucPbVkHrdl7GtqsYUeEWoca7STE28ihVlOagUxe5byK
-         37h1ZIpPf4R/g7IAtEyil+MBXCpZ4ohh2ElSk103JGW6oiln+dqEG9ewic8rtKhb3+FV
-         q4vw==
-X-Forwarded-Encrypted: i=1; AJvYcCXWgBBvABwwIVM6KIuDxEWo1AJqjZupnkP2fEZQ89UHgVz60VEszBu+2kUg9EWy2tbPaN5R8x2skWXbcPyqtZRt1457jqc7Nqu5AyM1VYU=
-X-Gm-Message-State: AOJu0YxrLv9jMveTOkrJmBLvwZQWVA6WxM81EYVaabXXjV2FZ//dUK/z
-	3OI2D0szITLL6lmYETVfrpBXCrfu3iT6NbzSa5JMZfwc3Wz8lhwb8nrjTeDNqw==
-X-Google-Smtp-Source: AGHT+IE6+WUqQQ5bKRNRF05eTh6gNQuJnXZx3CkNfXarpaR0WUCXMaBx++LNXEkUDG1/lo2iaXjJMQ==
-X-Received: by 2002:a17:906:af0f:b0:a46:8d95:ff7e with SMTP id lx15-20020a170906af0f00b00a468d95ff7emr1156462ejb.21.1711094461866;
-        Fri, 22 Mar 2024 01:01:01 -0700 (PDT)
-Message-ID: <3a98757d-998e-4731-a508-5e7e1fc5aef2@suse.com>
-Date: Fri, 22 Mar 2024 09:01:00 +0100
+        bh=TusoSPZpWXAYeArHXRaN19wVsXpDy9CbKEn5rcCCNdk=;
+        b=Dgpab0ETdRGuvw6BSOEGRBTOF6XQutLT7kOd53sLUMwjSUQ9uTw+Oj2GswkfIQeg8e
+         /JqIXiRM1+aqLCGRS19Z4NasJUMM5dMuPMoMxuASFeOqXsL4PUU7NmJgfEAb2DRWq/I6
+         44B1l5EKIEKTSmYKn5HuVrDkQyI//OquyeyBu5r5BcVShTGq9yFeKU1TphrHKUs6nf2j
+         JaQZg8PaR33LkakpNxVibwwpoho3Y8oYG33lXw0Uw4hQ+tLbH8f8QBshNL6SaLtXVILB
+         kvIvnJZi/Bx2VWi+CpzsQ0iXRhYXf37TPNlMIq/3AV59eePT+NjWvQELKgZq9N1yZCfX
+         VkgQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWnbNPXyMSE/ogg/z+qJ2SNIdID1xskoHvSl4iCpq4heEXhrQbxk8Pm8euEIEVSbPX0jM6G/k30A7d7QTy+2H72fYGSDkW8Zj4I5jaPhx0=
+X-Gm-Message-State: AOJu0YzWbefGudU9cqhYcy1rxUr47G2kP66lf2tIIF4sHNMLslghf4og
+	dVrNayMlBlD4yyz2YFw/Hy44JuBIs6q2WRB0SbnF2FX87VykjTgqKAiRmfHEN6cY8a/3NpH7dSk
+	=
+X-Google-Smtp-Source: AGHT+IHX6oz4s6YHw/uR1W7YAP5t8PQKjHCqhyY1tMgbgGPT/tG8wIDHk8zzEPesaTVt+9YXxT2wqQ==
+X-Received: by 2002:a50:d641:0:b0:564:5150:76a2 with SMTP id c1-20020a50d641000000b00564515076a2mr1035223edj.4.1711094647449;
+        Fri, 22 Mar 2024 01:04:07 -0700 (PDT)
+Message-ID: <6e8007b9-e1e9-4f3e-bef9-49a905d68fbf@suse.com>
+Date: Fri, 22 Mar 2024 09:04:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] EFI: Introduce inline stub for efi_enabled on !X86
- && !ARM
+Subject: Re: [PATCH v3 4/9] xen/ppc: Update setup.h with required definitions
+ for bootfdt
 Content-Language: en-US
 To: Shawn Anastasio <sanastasio@raptorengineering.com>
-Cc: tpearson@raptorengineering.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Cc: tpearson@raptorengineering.com, xen-devel@lists.xenproject.org
 References: <cover.1710443965.git.sanastasio@raptorengineering.com>
- <39069a589f9c4dc0db9b01b7412c1a99bea55f37.1710443965.git.sanastasio@raptorengineering.com>
+ <2c14419bd9fbd5307fe4d5b079a9927e4d3ec9fc.1710443965.git.sanastasio@raptorengineering.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,28 +112,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <39069a589f9c4dc0db9b01b7412c1a99bea55f37.1710443965.git.sanastasio@raptorengineering.com>
+In-Reply-To: <2c14419bd9fbd5307fe4d5b079a9927e4d3ec9fc.1710443965.git.sanastasio@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 14.03.2024 23:15, Shawn Anastasio wrote:
-> --- a/xen/include/xen/efi.h
-> +++ b/xen/include/xen/efi.h
-> @@ -31,7 +31,15 @@ union compat_pf_efi_info;
->  struct xenpf_efi_runtime_call;
->  struct compat_pf_efi_runtime_call;
+> --- a/xen/arch/ppc/include/asm/setup.h
+> +++ b/xen/arch/ppc/include/asm/setup.h
+> @@ -3,4 +3,116 @@
 >  
-> +#if defined(CONFIG_X86) || defined(CONFIG_ARM)
->  bool efi_enabled(unsigned int feature);
-> +#else
-> +static inline bool efi_enabled(unsigned int feature)
-> +{
-> +    return false;
-> +}
-> +#endif
+>  #define max_init_domid (0)
+>  
+> +#include <public/version.h>
+> +#include <asm/p2m.h>
+> +#include <xen/device_tree.h>
 
-While fine as is for now, surely Arm32 could benefit from the inline stub,
-too.
+Besides this not matching our aimed-at ordering (at least asm/ after xen/),
+what for do you need asm/p2m.h here in the first place?
 
 Jan
 
