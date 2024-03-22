@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4606886777
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Mar 2024 08:26:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696666.1087760 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE3E0886778
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Mar 2024 08:26:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696669.1087770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnZHE-0006q1-OP; Fri, 22 Mar 2024 07:25:20 +0000
+	id 1rnZIJ-0007Ja-WD; Fri, 22 Mar 2024 07:26:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696666.1087760; Fri, 22 Mar 2024 07:25:20 +0000
+Received: by outflank-mailman (output) from mailman id 696669.1087770; Fri, 22 Mar 2024 07:26:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnZHE-0006nY-L9; Fri, 22 Mar 2024 07:25:20 +0000
-Received: by outflank-mailman (input) for mailman id 696666;
- Fri, 22 Mar 2024 07:25:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rnZIJ-0007I1-Ta; Fri, 22 Mar 2024 07:26:27 +0000
+Received: by outflank-mailman (input) for mailman id 696669;
+ Fri, 22 Mar 2024 07:26:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bHXv=K4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rnZHD-0006n9-RG
- for xen-devel@lists.xenproject.org; Fri, 22 Mar 2024 07:25:19 +0000
+ id 1rnZIJ-0007Hi-56
+ for xen-devel@lists.xenproject.org; Fri, 22 Mar 2024 07:26:27 +0000
 Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
  [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 53219131-e81d-11ee-a1ee-f123f15fe8a2;
- Fri, 22 Mar 2024 08:25:17 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7db527ef-e81d-11ee-afe0-a90da7624cb6;
+ Fri, 22 Mar 2024 08:26:25 +0100 (CET)
 Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-56bcb9640bbso1817870a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 22 Mar 2024 00:25:14 -0700 (PDT)
+ 4fb4d7f45d1cf-56890b533aaso2139107a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Mar 2024 00:26:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- q2-20020a1709066b0200b00a46c1dd36f0sm716150ejr.173.2024.03.22.00.25.13
+ q2-20020a1709066b0200b00a46c1dd36f0sm716150ejr.173.2024.03.22.00.26.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Mar 2024 00:25:13 -0700 (PDT)
+ Fri, 22 Mar 2024 00:26:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53219131-e81d-11ee-a1ee-f123f15fe8a2
+X-Inumbo-ID: 7db527ef-e81d-11ee-afe0-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711092314; x=1711697114; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711092385; x=1711697185; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=7cqkKgy/Zn5jpOfJ1bdQHTOWUGXi+4Jyp41xQHSCUbw=;
-        b=fHa2dfwlFHI7cwsln47G1+zg6FOR0y4L6wpwPQmHxgiEmZ0wqW53m2epcjOYMerYUT
-         K1iFLNIdSmrBz0++It2DRsoiY1GQY+gsfTe0ZU66Pd48pe5DrK3MbLI/q2TntDCOhcvX
-         yfD598Yk2cLhLuiCWroS2BwycxK6rSiPxgURBUPM1XYS8vNsE8QR+EjnWHkEI8mSEIdM
-         kRcM4n2MjYx+3eMzCDpQIdNKFK7aJnR080Ge0EidUTd7fOtRfWP/LiRbSjNZ0eB6uM4M
-         aq2EVuF64J7sGpjHJyMlYYN4GjtbKUT7aI3xaT1jCwh+djoxVqf+D8GzMAiadoonSLAz
-         jhFw==
+        bh=eQMZ8de7SAwPfLPn7Gq5ffe7xaOgBVkw3zMTnDc8cMI=;
+        b=RGALkCx2VQ9SYQ8hwcXPukfds8Z0gBAu/K/AKT8RJS/qp9hTjVUCFlkdn9pwcZpYqV
+         n8Iq1rW0XSfKgJdFPMCr2uuJRmH3Slxb4HXYBQbaxi/A1WMOI6nm3TA//goTWBOtflmV
+         QmhOYfovP6RRRVIGEck5reTNBGw6z3jyl7TtaRshsz2zwCidTZGyAPuA/642K5T3R5hs
+         CDgRVNPwj7BPtM+N+HY1OsaZbk25EfKZPt5eeZ2cz1VFsr9etKUYx+IUAHEZmhdbklOC
+         LfsX/cJCvBxP5ZEY0PXA5T3Ud9Hek5IbbNTJmLy91L2zCBD776b+Lnmr1sHavzMh8+kT
+         8y3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711092314; x=1711697114;
+        d=1e100.net; s=20230601; t=1711092385; x=1711697185;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7cqkKgy/Zn5jpOfJ1bdQHTOWUGXi+4Jyp41xQHSCUbw=;
-        b=QnMTHILwFjAg9DShxE2fBHExSTpQymRHIoohQr76hb9FnQzL8ZMCzjQZDuVR3cXYN0
-         QLBdvPNzh1ODwENQDEJDgyn+RNDsd0ISWVU5UgYAbt6c352fSUpVY4rqp9MgroZmv5nx
-         6fwNzPKFe/qWm91wARXIMqvgp41J2/H/ofW/Y7KSHDEUwlxu7rjl9csSBPThkouhNCHv
-         npO5+8p3qzUyZzeOcOGDJGo5thIHe+XF1ArjcCed43Mkf9LsPpDiIU+2KuJDyX8xLnxT
-         T6UvbAnVGiEoWOncCBsHHp1cUI3z07r8wBY4V3gwFov7jEuCeH5B0x7ZHU02sqNzfZRQ
-         x5AA==
-X-Forwarded-Encrypted: i=1; AJvYcCXph7gpUVu/f6HNnfuZqdmSts7vLeYRiO6VnZ1guo0/1qyVg5Qq/uI6ez9iFvc+uUyXWNMwvsKj6qHBU0xK0wfKb87cYDJP+8vwdCEipeI=
-X-Gm-Message-State: AOJu0YxzCwmaiUY6+EwHOoHFNiteVy8doxHp7gcgkrEPABoyZnQTLX6H
-	ZBmv2FbbSTHFlVQU0kckCFi68slPQR8GeY/Dc4X1ULtq2ANhHkQmJkT5Dl6cPA==
-X-Google-Smtp-Source: AGHT+IHpOvuBsz1f7Yx87k/CnN+8q+mTbCMZBxGVLhIyJlGi+0/azOJuQc7wUKnE67l301nD52YpbA==
-X-Received: by 2002:a17:906:714d:b0:a46:ba19:2e99 with SMTP id z13-20020a170906714d00b00a46ba192e99mr999886ejj.26.1711092313665;
-        Fri, 22 Mar 2024 00:25:13 -0700 (PDT)
-Message-ID: <cbcbeace-7d19-4e73-a12b-d2bcbc3b51f3@suse.com>
-Date: Fri, 22 Mar 2024 08:25:12 +0100
+        bh=eQMZ8de7SAwPfLPn7Gq5ffe7xaOgBVkw3zMTnDc8cMI=;
+        b=wAFsNl7+tiiU0StxY+NGwI7Ymk7Q8mHjDRPLERypfO1lIgnqZdbJOQ9Jo6fDZm/PYn
+         THQt5VWMKV1DXSYxjogzXSRF+dtCMRXxwD/C5ICksqLND3e73spydyCrgrgzDBFrD+pj
+         6ZcAZvPP2UHPitqmbXa6ZQqbYyw/e49GCHjDFN2xPbIMebYQmvk+pIMgcOYWN9tThr4Y
+         dM8F0kOBTdv9F9ocRLaY7B6D/CgWCXzD8EJgckK2li7BJ7Tjcl7D0qIs6pKicZUeph52
+         Adeya8UDA2gATMK54XmjUuI6Dza3w7ObEI2LJXTapQcT6/gxcdDOqHuRiKEz5fKLFbju
+         MZ2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUyTEYAwL3dnqqg7G1JerNzGXAmXq27ni2m9+lCM1CCMHCAxwcOri9Z3nmpVpW/aSw8AmNqd3VpGuYHA+VhZ7JAvaJUA+qCF82K3xnEOKM=
+X-Gm-Message-State: AOJu0Yy8Tz0TDutuZw23AKxmx0Thxj+1WQk/9RkWDSRrEsosGwym7t+U
+	qNoNn+sCO6Gw9dTyubzhqLWgVFrrTNePj+f3Ha2ZKGCRf+W8wKtAKJC5dN1HFw==
+X-Google-Smtp-Source: AGHT+IGrY0rpGEGZNbwFoDsaMbHyOVkCeJZ25gzMOEvjS53DH2f4Gqh20iTdn0baU8N2NiVpdnt7wg==
+X-Received: by 2002:a17:906:2553:b0:a47:2087:c26f with SMTP id j19-20020a170906255300b00a472087c26fmr992755ejb.73.1711092385357;
+        Fri, 22 Mar 2024 00:26:25 -0700 (PDT)
+Message-ID: <22ab32bb-b0d0-4d68-8918-5fcb42cc0f88@suse.com>
+Date: Fri, 22 Mar 2024 08:26:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 01/14] xen/common: add cache coloring common code
+Subject: Re: [PATCH v7 04/14] xen/arm: add Dom0 cache coloring support
 Content-Language: en-US
 To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: Andrea Bastoni <andrea.bastoni@minervasys.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Marco Solieri <marco.solieri@minervasys.tech>,
+ xen-devel@lists.xenproject.org,
+ Andrea Bastoni <andrea.bastoni@minervasys.tech>
 References: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
- <20240315105902.160047-2-carlo.nonato@minervasys.tech>
- <05e4d3da-4130-4c57-9855-43b685ce5005@suse.com>
- <CAG+AhRU4W+umVhOHn0ZnHvex-rmEn4+T_mKVczYG4o52EV+YtA@mail.gmail.com>
- <2b4d6e96-0f04-4327-9875-cd0587931621@suse.com>
- <CAG+AhRUJiUrnD6Ovvvy0_Naa-RnOWuYPDZqPJx2-zd7eUa828Q@mail.gmail.com>
+ <20240315105902.160047-5-carlo.nonato@minervasys.tech>
+ <fa879713-4eee-4905-83f9-6182924cddbb@suse.com>
+ <CAG+AhRW8xDun1WGimaqsaUR+YqL4vW-OmiDMQHCBxT=S+pgOwQ@mail.gmail.com>
+ <3ff10fdd-5a85-43b3-853a-fe69c7388ca9@suse.com>
+ <CAG+AhRUzj+hY0+F-zCSaq5nkC5CTLRdtcbmtr7PZEQKrdMWWWQ@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,78 +122,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAG+AhRUJiUrnD6Ovvvy0_Naa-RnOWuYPDZqPJx2-zd7eUa828Q@mail.gmail.com>
+In-Reply-To: <CAG+AhRUzj+hY0+F-zCSaq5nkC5CTLRdtcbmtr7PZEQKrdMWWWQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21.03.2024 18:22, Carlo Nonato wrote:
-> Hi Jan,
-> 
-> On Thu, Mar 21, 2024 at 4:53 PM Jan Beulich <jbeulich@suse.com> wrote:
+On 21.03.2024 18:31, Carlo Nonato wrote:
+> On Thu, Mar 21, 2024 at 4:57 PM Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> On 21.03.2024 16:03, Carlo Nonato wrote:
->>> On Tue, Mar 19, 2024 at 3:58 PM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 21.03.2024 16:04, Carlo Nonato wrote:
+>>> On Tue, Mar 19, 2024 at 4:30 PM Jan Beulich <jbeulich@suse.com> wrote:
 >>>> On 15.03.2024 11:58, Carlo Nonato wrote:
 >>>>> --- a/docs/misc/xen-command-line.pandoc
 >>>>> +++ b/docs/misc/xen-command-line.pandoc
->>>>> @@ -1706,6 +1706,43 @@ This option is intended for debugging purposes only.  Enable MSR_DEBUGCTL.LBR
->>>>>  in hypervisor context to be able to dump the Last Interrupt/Exception To/From
->>>>>  record with other registers.
+>>>>> @@ -963,6 +963,15 @@ Controls for the dom0 IOMMU setup.
 >>>>>
->>>>> +### llc-coloring
->>>>> +> `= <boolean>`
+>>>>>  Specify a list of IO ports to be excluded from dom0 access.
+>>>>>
+>>>>> +### dom0-llc-colors
+>>>>> +> `= List of [ <integer> | <integer>-<integer> ]`
 >>>>> +
->>>>> +> Default: `false`
+>>>>> +> Default: `All available LLC colors`
 >>>>> +
->>>>> +Flag to enable or disable LLC coloring support at runtime. This option is
->>>>> +available only when `CONFIG_LLC_COLORING` is enabled. See the general
->>>>> +cache coloring documentation for more info.
->>>>> +
->>>>> +### llc-nr-ways
->>>>> +> `= <integer>`
->>>>> +
->>>>> +> Default: `Obtained from hardware`
->>>>> +
->>>>> +Specify the number of ways of the Last Level Cache. This option is available
->>>>> +only when `CONFIG_LLC_COLORING` is enabled. LLC size and number of ways are used
->>>>> +to find the number of supported cache colors. By default the value is
->>>>> +automatically computed by probing the hardware, but in case of specific needs,
->>>>> +it can be manually set. Those include failing probing and debugging/testing
->>>>> +purposes so that it's possibile to emulate platforms with different number of
->>>>> +supported colors. If set, also "llc-size" must be set, otherwise the default
->>>>> +will be used.
->>>>> +
->>>>> +### llc-size
->>>>> +> `= <size>`
->>>>> +
->>>>> +> Default: `Obtained from hardware`
->>>>> +
->>>>> +Specify the size of the Last Level Cache. This option is available only when
->>>>> +`CONFIG_LLC_COLORING` is enabled. LLC size and number of ways are used to find
->>>>> +the number of supported cache colors. By default the value is automatically
->>>>> +computed by probing the hardware, but in case of specific needs, it can be
->>>>> +manually set. Those include failing probing and debugging/testing purposes so
->>>>> +that it's possibile to emulate platforms with different number of supported
->>>>> +colors. If set, also "llc-nr-ways" must be set, otherwise the default will be
->>>>> +used.
+>>>>> +Specify dom0 LLC color configuration. This option is available only when
+>>>>> +`CONFIG_LLC_COLORING` is enabled. If the parameter is not set, all available
+>>>>> +colors are used.
 >>>>
->>>> Wouldn't it make sense to infer "llc-coloring" when both of the latter options
->>>> were supplied?
+>>>> My reservation towards this being a top-level option remains.
 >>>
->>> To me it looks a bit strange that specifying some attributes of the cache
->>> automatically enables cache coloring. Also it would require some changes in
->>> how to express the auto-probing for such attributes.
+>>> How can I turn this into a lower-level option? Moving it into "dom0=" doesn't
+>>> seem possible to me. How can I express a list (llc-colors) inside another list
+>>> (dom0)? dom0=llc-colors=0-3,12-15,other-param=... How can I stop parsing
+>>> before reaching other-param?
 >>
->> Whereas to me it looks strange that, when having llc-size and llc-nr-ways
->> provided, I'd need to add a 3rd option. What purpose other than enabling
->> coloring could there be when specifying those parameters?
+>> For example by using a different separator:
+>>
+>> dom0=llc-colors=0-3+12-15,other-param=...
 > 
-> Ok, I probably misunderstood you. You mean just to assume llc-coloring=on
-> when both llc-size and llc-nr-ways are present and not to remove
-> llc-coloring completely, right?
+> Ok, but that would mean to change the implementation of the parsing function
+> and to adopt this syntax also in other places, something that I would've
+> preferred to avoid. Anyway I'll follow your suggestion.
 
-Yes. The common thing, after all, will be to just have llc-coloring on the
-command line.
+Well, this is all used by Arm only for now. You will want to make sure Arm
+folks are actually okay with this alternative approach.
 
 Jan
 
