@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56B0F886A61
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Mar 2024 11:32:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696758.1087945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3088886A96
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Mar 2024 11:42:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696764.1087955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rncCM-0001kM-WF; Fri, 22 Mar 2024 10:32:31 +0000
+	id 1rncLi-0003oF-0N; Fri, 22 Mar 2024 10:42:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696758.1087945; Fri, 22 Mar 2024 10:32:30 +0000
+Received: by outflank-mailman (output) from mailman id 696764.1087955; Fri, 22 Mar 2024 10:42:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rncCM-0001iC-TE; Fri, 22 Mar 2024 10:32:30 +0000
-Received: by outflank-mailman (input) for mailman id 696758;
- Fri, 22 Mar 2024 10:32:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L8LS=K4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rncCM-0001i6-7V
- for xen-devel@lists.xenproject.org; Fri, 22 Mar 2024 10:32:30 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7ba99201-e837-11ee-afe0-a90da7624cb6;
- Fri, 22 Mar 2024 11:32:29 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-513e10a4083so2205721e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 22 Mar 2024 03:32:29 -0700 (PDT)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- dx6-20020a0565122c0600b005159707b939sm295923lfb.44.2024.03.22.03.32.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Mar 2024 03:32:27 -0700 (PDT)
+	id 1rncLh-0003lE-TW; Fri, 22 Mar 2024 10:42:09 +0000
+Received: by outflank-mailman (input) for mailman id 696764;
+ Fri, 22 Mar 2024 10:42:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bHXv=K4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rncLh-0003l8-18
+ for xen-devel@lists.xenproject.org; Fri, 22 Mar 2024 10:42:09 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d38c8c14-e838-11ee-a1ee-f123f15fe8a2;
+ Fri, 22 Mar 2024 11:42:06 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a46ba938de0so275418866b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Mar 2024 03:42:06 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ pk2-20020a170906d7a200b00a471c6b3211sm879119ejb.175.2024.03.22.03.42.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 22 Mar 2024 03:42:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,256 +45,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ba99201-e837-11ee-afe0-a90da7624cb6
+X-Inumbo-ID: d38c8c14-e838-11ee-a1ee-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1711103548; x=1711708348; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=a9u7Q9QiS3vgg2KxcO4qw6TQI1IAv/H/ixv3P8r+ISc=;
-        b=A/1N7OH3cJzjNrAWLrK2VAUvgsw2F/5u1vNMPhnPS7IKCZKwlPwWKEWHnwJgsmRBpd
-         hEEmmsNJzvlTfR2a9UlbAz/40xmCAirD0M3W1WPdwhk26ij1P2pIgXb1/3m82FOW/5mR
-         RMtPqIk/fu7J1RdMnK1MwlAlStFEjkUaa8r1UpIvRmtrVJwed2DyTImnplY6suDRRTu/
-         Nf37yTb2+c104qp7CyXpM1AjK9sybaGSSZWFH9UQ7CGvb+1kcMpQkgnINjX3nU8a6TEs
-         t9A7++2WijHJojjDpF+Y0h9UMLrSvKNUTpMPy9Maql2+ZkbaGANvKS1TDvT+7Kszr0VG
-         wGGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711103548; x=1711708348;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1711104125; x=1711708925; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=a9u7Q9QiS3vgg2KxcO4qw6TQI1IAv/H/ixv3P8r+ISc=;
-        b=oqgX1MkrP1KvwCn/qXSVeR7vlxt62HIYPv/ypHSnnCKJzjiQ7iureVoIgwjdg5raEZ
-         LEeC7Qy8snOp2JATV1pMELJn+zduAt2qZRIczedAn/8P4uiZ//eGE5X8RC2Ek/NKzEED
-         KO4/D8cziRmgJqLs9+J5Ts6JlkVy4EiYG0DbsUE3tC2v9eQuvKVoELbG6zxYLoW6ewKu
-         iSUe2X1DxN8WEz5NHWUJxj2MR7t/g49wba7TKJXuiG5J2K08P1pNrYq/m/D/J+I5jeOU
-         IdCVBfET47sbJG0jhOpijUephf3Hdst/1FWZ5rBRNDylCN3fO1SdKo7jkbperAqvPgAz
-         qymg==
-X-Forwarded-Encrypted: i=1; AJvYcCVFuWk958/AGscGzfGF1UQlWg2BjgnkH3A2/E+q4SVFlqDkHLYO/kvA7KBt9ocZGppC7X/8V6O+v7dVGnDde+FdujrhE1P3n6xJi67RrPw=
-X-Gm-Message-State: AOJu0YxKyWVTbcgU+przxGLAYqpBVvkby+4WqNeSfm5poZlwj/b860Hb
-	Ee8dzICbmrVg7J/ePSkp6am1YopSbdgv0li/5/FP/L3VzZv7K7u/
-X-Google-Smtp-Source: AGHT+IFA7cbMuM/T25fkygNUP4s7WTFyMDH46Nedh12v7PYmENn6H2bWV8A+emF5+8P5sNfNE4zMmw==
-X-Received: by 2002:a19:5e19:0:b0:513:5e6b:a191 with SMTP id s25-20020a195e19000000b005135e6ba191mr1334564lfb.50.1711103548226;
-        Fri, 22 Mar 2024 03:32:28 -0700 (PDT)
-Message-ID: <ce522fd6be6169296789efd35ed8af18967f2958.camel@gmail.com>
-Subject: Re: [PATCH v6 08/20] xen/riscv: introduce cmpxchg.h
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
- xen-devel@lists.xenproject.org
-Date: Fri, 22 Mar 2024 11:32:27 +0100
-In-Reply-To: <6f73368c-ea73-4d86-a6a1-8f9784c4b01f@suse.com>
-References: <cover.1710517542.git.oleksii.kurochko@gmail.com>
-	 <bf65ce1ff5f683cc6b638fa7de0c54d5e0aead33.1710517542.git.oleksii.kurochko@gmail.com>
-	 <6f73368c-ea73-4d86-a6a1-8f9784c4b01f@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+        bh=v1dJ1UrBAIQsxiQ+U2xQ2kU0tpjpVaJNO0/8/hVzi6M=;
+        b=bJ0zbaT0TfJUZN2IEsCoMWUBXRsyX+X7CoutTqNFBdQ6qMIA/jl+4ibpMKsSPtvpX6
+         xRFEkd218KaTV1HzoNURhyeEiG8H62+37YyTNn0msIGF4QvgPpmjMrwu42P0D6uUVSuq
+         NsqQgWEUDupbYBHOBPtB+7EZZPh6jDqsAya5y07FlLXrkSzOWUUBGygn7MRgV1bxKpqC
+         SOGe8wu7yrnq0hQlETRVknWJ7Ao0D08lKajafspNvHPOgUfv51chDZMtAQgtbnIE+iBk
+         a/Ujr/Q0AFURDEdajSExYZ6Uor71inmXmuLYXRZvqZxlwOms2lIJNA/1CYnzpXUBOkXg
+         EPjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1711104125; x=1711708925;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=v1dJ1UrBAIQsxiQ+U2xQ2kU0tpjpVaJNO0/8/hVzi6M=;
+        b=JotcHMVpH5A2v5dmsLU4dnqNfd/VkpoB8Fo+sj3TF4OZHcIPtVXIc7f8CvXUqOxk4B
+         WLd1Zq4J9/roEc8CMcfKGf6d9z7QhUz0DJVQgY+CuYaJf5ZMISzl1hJJagEoHXjAXzz9
+         mNUXxFQ7EBuWwO+ilomZ403StB4kNQ3E8+K15WsE487AmpeCSaLgoYFbVGEuP7f9oo/o
+         6oojFEdgXIZ3swJvtEx23/gLH2gJahpRIzVZiBiBtnZPom62TF52FiNM559R9fKxgbx9
+         1m3fkxAT8UVZgirMVt5zcxRObd5wEMm5UUmTIIGJtgJEm+sT7jxAWH8cJAeT8B1/mx6Y
+         uFqg==
+X-Forwarded-Encrypted: i=1; AJvYcCWoPi/f9c7/XP9licXSlTi3tNPBzLBc+XVowJMa4dEwL8LQ0xPAh3ULjtt9+c6hdicVXg0DVUAewE/kUmAIfqxjwGzQ+vgUbpRqUAVCQ4E=
+X-Gm-Message-State: AOJu0Yw3E0fZDbim5YyugkWzPq7t1RFAB4A6em8DUW1/yyA8WDK4PEcV
+	QYAYV4/x/7zNmlqZAgQ7illWlNf4XqeIATsH+aMXyMENmiHBd79tEX4xLalcWg==
+X-Google-Smtp-Source: AGHT+IGfyv7YqHl8PJbfweGRlx5EO50H9RpHsCVAcObUoKVB/sNET82a9ehcYQu6KTsVjHu1pxtENw==
+X-Received: by 2002:a17:907:7ea1:b0:a47:2d4f:6fad with SMTP id qb33-20020a1709077ea100b00a472d4f6fadmr1449721ejc.39.1711104125557;
+        Fri, 22 Mar 2024 03:42:05 -0700 (PDT)
+Message-ID: <a240f07f-a6f9-447e-b607-c3769e1f7af8@suse.com>
+Date: Fri, 22 Mar 2024 11:42:03 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 08/20] xen/riscv: introduce cmpxchg.h
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1710517542.git.oleksii.kurochko@gmail.com>
+ <bf65ce1ff5f683cc6b638fa7de0c54d5e0aead33.1710517542.git.oleksii.kurochko@gmail.com>
+ <6f73368c-ea73-4d86-a6a1-8f9784c4b01f@suse.com>
+ <ce522fd6be6169296789efd35ed8af18967f2958.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ce522fd6be6169296789efd35ed8af18967f2958.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2024-03-21 at 13:07 +0100, Jan Beulich wrote:
-> On 15.03.2024 19:06, Oleksii Kurochko wrote:
-> > The header was taken from Linux kernl 6.4.0-rc1.
-> >=20
-> > Addionally, were updated:
-> > * add emulation of {cmp}xchg for 1/2 byte types using 32-bit atomic
-> > =C2=A0 access.
-> > * replace tabs with spaces
-> > * replace __* variale with *__
-> > * introduce generic version of xchg_* and cmpxchg_*.
-> > * drop {cmp}xchg{release,relaxed,acquire} as Xen doesn't use them
->=20
-> With this, ...
->=20
-> > * drop barries and use instruction suffixices instead ( .aq, .rl,
-> > .aqrl )
-> >=20
-> > Implementation of 4- and 8-byte cases were updated according to the
-> > spec:
-> > ```
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 ....
-> > Linux Construct=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RVWMO A=
-MO Mapping
-> > atomic <op> relaxed=C2=A0=C2=A0=C2=A0=C2=A0 amo<op>.{w|d}
-> > atomic <op> acquire=C2=A0=C2=A0=C2=A0=C2=A0 amo<op>.{w|d}.aq
-> > atomic <op> release=C2=A0=C2=A0=C2=A0=C2=A0 amo<op>.{w|d}.rl
-> > atomic <op>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 amo<op>.{w|d}.aqrl
-> > Linux Construct=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RVWMO L=
-R/SC Mapping
-> > atomic <op> relaxed=C2=A0=C2=A0=C2=A0=C2=A0 loop: lr.{w|d}; <op>; sc.{w=
-|d}; bnez loop
-> > atomic <op> acquire=C2=A0=C2=A0=C2=A0=C2=A0 loop: lr.{w|d}.aq; <op>; sc=
-.{w|d}; bnez
-> > loop
-> > atomic <op> release=C2=A0=C2=A0=C2=A0=C2=A0 loop: lr.{w|d}; <op>; sc.{w=
-|d}.aqrl=E2=88=97 ; bnez
-> > loop OR
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fence=
-.tso; loop: lr.{w|d}; <op>; sc.{w|d}=E2=88=97
-> > ; bnez loop
-> > atomic <op>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 loop: lr.{w|d}.aq; <op>; sc.{w|d}.aqrl;
-> > bnez loop
-> >=20
-> > Table A.5: Mappings from Linux memory primitives to RISC-V
-> > primitives
-> >=20
-> > ```
->=20
-> ... I consider quoting this table in full, without any further
-> remarks, as
-> confusing: Three of the lines each are inapplicable now, aiui.
-I'll shorten the table then.
+On 22.03.2024 11:32, Oleksii wrote:
+> On Thu, 2024-03-21 at 13:07 +0100, Jan Beulich wrote:
+>> On 15.03.2024 19:06, Oleksii Kurochko wrote:
+>>> The header was taken from Linux kernl 6.4.0-rc1.
+>>>
+>>> Addionally, were updated:
+>>> * add emulation of {cmp}xchg for 1/2 byte types using 32-bit atomic
+>>>   access.
+>>> * replace tabs with spaces
+>>> * replace __* variale with *__
+>>> * introduce generic version of xchg_* and cmpxchg_*.
+>>> * drop {cmp}xchg{release,relaxed,acquire} as Xen doesn't use them
+>>
+>> With this, ...
+>>
+>>> * drop barries and use instruction suffixices instead ( .aq, .rl,
+>>> .aqrl )
+>>>
+>>> Implementation of 4- and 8-byte cases were updated according to the
+>>> spec:
+>>> ```
+>>>               ....
+>>> Linux Construct         RVWMO AMO Mapping
+>>> atomic <op> relaxed     amo<op>.{w|d}
+>>> atomic <op> acquire     amo<op>.{w|d}.aq
+>>> atomic <op> release     amo<op>.{w|d}.rl
+>>> atomic <op>             amo<op>.{w|d}.aqrl
+>>> Linux Construct         RVWMO LR/SC Mapping
+>>> atomic <op> relaxed     loop: lr.{w|d}; <op>; sc.{w|d}; bnez loop
+>>> atomic <op> acquire     loop: lr.{w|d}.aq; <op>; sc.{w|d}; bnez
+>>> loop
+>>> atomic <op> release     loop: lr.{w|d}; <op>; sc.{w|d}.aqrl∗ ; bnez
+>>> loop OR
+>>>                         fence.tso; loop: lr.{w|d}; <op>; sc.{w|d}∗
+>>> ; bnez loop
+>>> atomic <op>             loop: lr.{w|d}.aq; <op>; sc.{w|d}.aqrl;
+>>> bnez loop
+>>>
+>>> Table A.5: Mappings from Linux memory primitives to RISC-V
+>>> primitives
+>>>
+>>> ```
+>>
+>> ... I consider quoting this table in full, without any further
+>> remarks, as
+>> confusing: Three of the lines each are inapplicable now, aiui.
+> I'll shorten the table then.
+> 
+>>
+>> Further what are the two * telling us? Quite likely they aren't there
+>> just
+>> accidentally.
+>>
+>> Finally, why sc.{w|d}.aqrl when in principle one would expect just
+>> sc.{w|d}.rl?
+> Because according to the last line of table A.5:
+>     atomic <op>             loop: lr.{w|d}.aq; <op>; sc.{w|d}.aqrl;
+> Here it is used sc.{w|d}.aqrl form, so I decided to stick to the what
+> is mentioned in the table.
 
->=20
-> Further what are the two * telling us? Quite likely they aren't there
-> just
-> accidentally.
->=20
-> Finally, why sc.{w|d}.aqrl when in principle one would expect just
-> sc.{w|d}.rl?
-Because according to the last line of table A.5:
-    atomic <op>             loop: lr.{w|d}.aq; <op>; sc.{w|d}.aqrl;
-Here it is used sc.{w|d}.aqrl form, so I decided to stick to the what
-is mentioned in the table.
+I understand it's mentioned that way in the table. But it being that way
+is not explained anywhere. Hence my "Why?"
 
->=20
-> > +})
-> > +
-> > +static always_inline unsigned long __xchg(volatile void *ptr,
-> > unsigned long new, int size)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 unsigned long ret;
-> > +
-> > +=C2=A0=C2=A0=C2=A0 switch ( size )
-> > +=C2=A0=C2=A0=C2=A0 {
-> > +=C2=A0=C2=A0=C2=A0 case 1:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D emulate_xchg_1_2((v=
-olatile uint8_t *)ptr, new,
-> > ".aq", ".aqrl");
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
-> > +=C2=A0=C2=A0=C2=A0 case 2:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D emulate_xchg_1_2((v=
-olatile uint16_t *)ptr, new,
-> > ".aq", ".aqrl");
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
-> > +=C2=A0=C2=A0=C2=A0 case 4:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __amoswap_generic((volatile=
- uint32_t *)ptr, new, ret,
-> > ".w.aqrl");
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
-> > +#ifndef CONFIG_32BIT
->=20
-> There's no 32BIT Kconfig symbol; all we have is a 64BIT one.
-I meant here CONFIG_RISCV_32.
+>>> +    __typeof__(*(ptr)) old__ = (__typeof__(*(ptr)))(old); \
+>>> +    __typeof__(*(ptr)) new__ = (__typeof__(*(ptr)))(new); \
+>>
+>> The casts aren't very nice to have here; I take they're needed for
+>> cmpxchg_ptr() to compile?
+> Not really, I have not faced an compilation issue.
+> The reason why it was added is that lr instruction places the sign-
+> extended value in destination register, but if not to do cast value for
+> old and new were generated without sign extension, so, for example:
+>    u32= 0xbbbbbbbb;
+>    cmpxchg(&u32, 0xbbbbbbbb, 0xCCCCCCCC), u32);
+> Will fail because after:
+>        "0: lr" lr_sfx " %0, %2\n" 
+> in %0 we will have 0xFFFFFFFFBBBBBBBB, but in %3 we will have
+> 0xBBBBBBBB, so
+>        bne  %0, %z3, 1f\n"
+> %0 and %3 are always inequal in case when the most significat bit of
+> value read from %2 has 1.
 
->=20
-> > +=C2=A0=C2=A0=C2=A0 case 8:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __amoswap_generic((volatile=
- uint64_t *)ptr, new, ret,
-> > ".d.aqrl");
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
-> > +#endif
-> > +=C2=A0=C2=A0=C2=A0 default:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 STATIC_ASSERT_UNREACHABLE()=
-;
-> > +=C2=A0=C2=A0=C2=A0 }
-> > +
-> > +=C2=A0=C2=A0=C2=A0 return ret;
-> > +}
-> > +
-> > +#define xchg(ptr, x) \
-> > +({ \
-> > +=C2=A0=C2=A0=C2=A0 __typeof__(*(ptr)) n_ =3D (x); \
-> > +=C2=A0=C2=A0=C2=A0 (__typeof__(*(ptr))) \
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __xchg((ptr), (unsigned lon=
-g)(n_), sizeof(*(ptr))); \
->=20
-> Nit: While excess parentheses "only" harm readability, they would
-> nevertheless better be omitted (here: the first argument passed).
->=20
-> > +})
-> > +
-> > +#define __generic_cmpxchg(ptr, old, new, ret, lr_sfx, sc_sfx)	\
-> > + ({ \
-> > +=C2=A0=C2=A0=C2=A0 register unsigned int rc; \
->=20
-> Nit: We don't normally use "register", unless accompanied by asm()
-> tying
-> a variable to a specific one.
->=20
-> > +=C2=A0=C2=A0=C2=A0 __typeof__(*(ptr)) old__ =3D (__typeof__(*(ptr)))(o=
-ld); \
-> > +=C2=A0=C2=A0=C2=A0 __typeof__(*(ptr)) new__ =3D (__typeof__(*(ptr)))(n=
-ew); \
->=20
-> The casts aren't very nice to have here; I take they're needed for
-> cmpxchg_ptr() to compile?
-Not really, I have not faced an compilation issue.
-The reason why it was added is that lr instruction places the sign-
-extended value in destination register, but if not to do cast value for
-old and new were generated without sign extension, so, for example:
-   u32=3D 0xbbbbbbbb;
-   cmpxchg(&u32, 0xbbbbbbbb, 0xCCCCCCCC), u32);
-Will fail because after:
-       "0: lr" lr_sfx " %0, %2\n"=20
-in %0 we will have 0xFFFFFFFFBBBBBBBB, but in %3 we will have
-0xBBBBBBBB, so
-       bne  %0, %z3, 1f\n"
-%0 and %3 are always inequal in case when the most significat bit of
-value read from %2 has 1.
+I'm afraid I don't follow: It's the type conversion you're after, but
+that would happen also with the casts omitted.
 
-But now I realized that it would be better just to use a mask and not
-be dependent from compiler code generation, so it would be better to in
-the following way ( of course, the macros should be updated accordingly
-to remarks you give me ):
-   #define __generic_cmpxchg(ptr, old, new, ret, lr_sfx, sc_sfx)	\
-    ({ \
-       register unsigned int rc; \
-       unsigned long mask =3D GENMASK(((sizeof(*(ptr))) * BITS_PER_BYTE)
-   - 1, 0); \
-       asm volatile( \
-           "0: lr" lr_sfx " %0, %2\n" \
-           "   and  %0, %0, %z[mask]\n" \
-           "   bne  %0, %z3, 1f\n" \
-           "   sc" sc_sfx " %1, %z4, %2\n" \
-           "   bnez %1, 0b\n" \
-           "1:\n" \
-           : "=3D&r" (ret), "=3D&r" (rc), "+A" (*ptr) \
-           : "rJ" (old), "rJ" (new), [mask] "rJ" (mask)  \
-           : "memory"); \
-    })
-  =20
->=20
-> > +=C2=A0=C2=A0=C2=A0 asm volatile( \
->=20
-> Nit: Missing blank once again. Would be really nice if you could go
-> through and sort this uniformly for the series.
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "0: lr" lr_sfx " %0, %2\n" =
-\
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "=C2=A0=C2=A0 bne=C2=A0 %0,=
- %z3, 1f\n" \
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "=C2=A0=C2=A0 sc" sc_sfx " =
-%1, %z4, %2\n" \
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "=C2=A0=C2=A0 bnez %1, 0b\n=
-" \
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "1:\n" \
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "=3D&r" (ret), "=3D&r" (r=
-c), "+A" (*ptr) \
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "rJ" (old__), "rJ" (new__=
-) \
->=20
-> Please could I talk you into using named operands here, too?
-Sure, I will add them.
+> But now I realized that it would be better just to use a mask and not
+> be dependent from compiler code generation, so it would be better to in
+> the following way ( of course, the macros should be updated accordingly
+> to remarks you give me ):
+>    #define __generic_cmpxchg(ptr, old, new, ret, lr_sfx, sc_sfx)	\
+>     ({ \
+>        register unsigned int rc; \
+>        unsigned long mask = GENMASK(((sizeof(*(ptr))) * BITS_PER_BYTE)
+>    - 1, 0); \
+>        asm volatile( \
+>            "0: lr" lr_sfx " %0, %2\n" \
+>            "   and  %0, %0, %z[mask]\n" \
+>            "   bne  %0, %z3, 1f\n" \
+>            "   sc" sc_sfx " %1, %z4, %2\n" \
+>            "   bnez %1, 0b\n" \
+>            "1:\n" \
+>            : "=&r" (ret), "=&r" (rc), "+A" (*ptr) \
+>            : "rJ" (old), "rJ" (new), [mask] "rJ" (mask)  \
+>            : "memory"); \
+>     })
 
-~ Oleksii
+It'll be up to you whether to switch to such an alternative.
 
+Jan
 
