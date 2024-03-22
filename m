@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C290887031
+	by mail.lfdr.de (Postfix) with ESMTPS id 93B73887034
 	for <lists+xen-devel@lfdr.de>; Fri, 22 Mar 2024 17:02:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696956.1088240 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.696957.1088255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnhLR-0001p7-Pk; Fri, 22 Mar 2024 16:02:13 +0000
+	id 1rnhLT-0002Fm-8O; Fri, 22 Mar 2024 16:02:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696956.1088240; Fri, 22 Mar 2024 16:02:13 +0000
+Received: by outflank-mailman (output) from mailman id 696957.1088255; Fri, 22 Mar 2024 16:02:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnhLR-0001jR-JI; Fri, 22 Mar 2024 16:02:13 +0000
-Received: by outflank-mailman (input) for mailman id 696956;
- Fri, 22 Mar 2024 16:02:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rnhLS-0002AK-W1; Fri, 22 Mar 2024 16:02:15 +0000
+Received: by outflank-mailman (input) for mailman id 696957;
+ Fri, 22 Mar 2024 16:02:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kYs8=K4=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rnhLQ-0000WB-DO
- for xen-devel@lists.xenproject.org; Fri, 22 Mar 2024 16:02:12 +0000
+ id 1rnhLR-0000W5-62
+ for xen-devel@lists.xenproject.org; Fri, 22 Mar 2024 16:02:13 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a922712-e865-11ee-afe0-a90da7624cb6;
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8af4cae7-e865-11ee-a1ee-f123f15fe8a2;
  Fri, 22 Mar 2024 17:02:11 +0100 (CET)
 Received: from nico.bugseng.com (unknown [46.228.253.194])
- by support.bugseng.com (Postfix) with ESMTPSA id 521E24EE0C92;
+ by support.bugseng.com (Postfix) with ESMTPSA id EB4364EE074B;
  Fri, 22 Mar 2024 17:02:10 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a922712-e865-11ee-afe0-a90da7624cb6
+X-Inumbo-ID: 8af4cae7-e865-11ee-a1ee-f123f15fe8a2
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: nicola.vetrini@bugseng.com,
 	xen-devel@lists.xenproject.org
@@ -52,10 +52,11 @@ Cc: sstabellini@kernel.org,
 	andrew.cooper3@citrix.com,
 	roger.pau@citrix.com,
 	bertrand.marquis@arm.com,
-	julien@xen.org
-Subject: [XEN PATCH 06/11] xen/efi: address violations of MISRA C Rule 20.7
-Date: Fri, 22 Mar 2024 17:01:55 +0100
-Message-Id: <2d3842a990189c37fa12672994b779ad42975235.1711118582.git.nicola.vetrini@bugseng.com>
+	julien@xen.org,
+	George Dunlap <george.dunlap@citrix.com>
+Subject: [XEN PATCH 07/11] xen/page_alloc: address violations of MISRA C Rule 20.7
+Date: Fri, 22 Mar 2024 17:01:56 +0100
+Message-Id: <ead692e7a9f7f21ae54448073af8b64a40f2ddfe.1711118582.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1711118582.git.nicola.vetrini@bugseng.com>
 References: <cover.1711118582.git.nicola.vetrini@bugseng.com>
@@ -72,23 +73,22 @@ No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/include/efi/efiapi.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ xen/common/page_alloc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/include/efi/efiapi.h b/xen/include/efi/efiapi.h
-index a616d1238aa4..6d4d4e340d9e 100644
---- a/xen/include/efi/efiapi.h
-+++ b/xen/include/efi/efiapi.h
-@@ -63,7 +63,8 @@ EFI_STATUS
-     OUT UINT32                      *DescriptorVersion
-     );
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 28c510d6669b..82dc55829f78 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -150,7 +150,7 @@
+ #include <asm/paging.h>
+ #else
+ #define p2m_pod_offline_or_broken_hit(pg) 0
+-#define p2m_pod_offline_or_broken_replace(pg) BUG_ON(pg != NULL)
++#define p2m_pod_offline_or_broken_replace(pg) BUG_ON((pg) != NULL)
+ #endif
  
--#define NextMemoryDescriptor(Ptr,Size)  ((EFI_MEMORY_DESCRIPTOR *) (((UINT8 *) Ptr) + Size))
-+#define NextMemoryDescriptor(Ptr,Size)  ((EFI_MEMORY_DESCRIPTOR *) \
-+                                         ((UINT8 *)(Ptr) + (Size)))
- 
- 
- typedef
+ #ifndef PGC_static
 -- 
 2.34.1
 
