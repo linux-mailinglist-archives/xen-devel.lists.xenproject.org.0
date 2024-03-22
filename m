@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B47A98867AA
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Mar 2024 08:56:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.696683.1087790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C98C8867C0
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Mar 2024 09:01:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.696692.1087799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnZkw-0004y4-GG; Fri, 22 Mar 2024 07:56:02 +0000
+	id 1rnZpp-0007N7-HK; Fri, 22 Mar 2024 08:01:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 696683.1087790; Fri, 22 Mar 2024 07:56:02 +0000
+Received: by outflank-mailman (output) from mailman id 696692.1087799; Fri, 22 Mar 2024 08:01:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rnZkw-0004vT-D7; Fri, 22 Mar 2024 07:56:02 +0000
-Received: by outflank-mailman (input) for mailman id 696683;
- Fri, 22 Mar 2024 07:56:01 +0000
+	id 1rnZpp-0007LZ-Ee; Fri, 22 Mar 2024 08:01:05 +0000
+Received: by outflank-mailman (input) for mailman id 696692;
+ Fri, 22 Mar 2024 08:01:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bHXv=K4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rnZkv-0004vN-Bj
- for xen-devel@lists.xenproject.org; Fri, 22 Mar 2024 07:56:01 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1rnZpn-0007LT-7y
+ for xen-devel@lists.xenproject.org; Fri, 22 Mar 2024 08:01:03 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9e97d003-e821-11ee-afe0-a90da7624cb6;
- Fri, 22 Mar 2024 08:56:00 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a44665605f3so212122266b.2
- for <xen-devel@lists.xenproject.org>; Fri, 22 Mar 2024 00:55:58 -0700 (PDT)
+ id 537b7f26-e822-11ee-afe0-a90da7624cb6;
+ Fri, 22 Mar 2024 09:01:02 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a471f77bf8eso123320766b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Mar 2024 01:01:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- z27-20020a170906715b00b00a470dfe7e06sm733098ejj.118.2024.03.22.00.55.57
+ x19-20020a170906299300b00a46a2ac0dbasm728592eje.197.2024.03.22.01.01.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Mar 2024 00:55:58 -0700 (PDT)
+ Fri, 22 Mar 2024 01:01:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e97d003-e821-11ee-afe0-a90da7624cb6
+X-Inumbo-ID: 537b7f26-e822-11ee-afe0-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711094158; x=1711698958; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711094462; x=1711699262; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=YFxXQpkh7JGNlEyCKQ+2+VA78aIIL4f5uVYsQolcK+0=;
-        b=fjzyu7kZZHEWvfv/ABGBQf45U9Nu4touu3KoAa11FDV4sNsRdnhkhOCkd0kzYoS0vi
-         I8tN/37pU9ZLRqFfSC2Zd5V5JvRgR6srrsLIthHE/q2xZCVRu0MmsjPxIqAORs1WmAXu
-         WdBgDw6mY0zwTEHFUuibqBefTkCxufkDTSTLmn5ltwjX5qVzPWz9JvswfxRUD8PEu4Lr
-         KjnJkplBpKmxAlkOWtcC3QTjGDd9Huj7W8dW0v9OHbz7hX8h/BBjMsY51GChPG7FoOhF
-         B4V0T0zDqkjh0G1E7BedEURmNdK6w6N0GuQJPtRoVGZjjctHXyALLxKgJjsJtM3SEpcd
-         3O3g==
+        bh=1qtQH0sSUATxal0L789QdEHYXyPfcvXqfHEhjx3+QjU=;
+        b=Lm6nRmHkHvc2n6+UIzj+zC90rUa/DqtMibbIuKni784R80N75Z5Zv3W8jokBYqFBN1
+         Bdq65fO+Gcl4f7aLQuHUA3OZ0r0LHbzi4dWBNsNaIk7GwdNGKhp4VewjUhWOnGnXeFsH
+         TtkdHmW5uGfQYqsliuECyij026veq2H/p50CztMAdYXAlamaeQtPkUTKAAmBvMws2CsR
+         MB9Klx8bAuu64S7N8/UIOpIj37RqpPht4Be/pDXIVHaNS8w/7AnMrrIo9Dlje6sV19XR
+         HdileNeou91Tm1zIvgmyDDJ/KzaGL6X8TJMqn42Y1yt4IQbfyBCNbOFojOUWDFD7/QGs
+         jPwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711094158; x=1711698958;
+        d=1e100.net; s=20230601; t=1711094462; x=1711699262;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YFxXQpkh7JGNlEyCKQ+2+VA78aIIL4f5uVYsQolcK+0=;
-        b=L0uy4Uirls/Sp2MZiqFcZ6XRqwv6ck7+7X57plmAnQaDitncEsy6nmF56z0tnzkC1s
-         NfVHA+mItfJpJemEhktSWE62k1J83G11EsbAbR4orQwgLAxb08laTWJcVEknalz9qOvu
-         zRf+7fvGoH2sNr9NDmesV1kAUqvXKgBVQXvKy/NuaYaPPkmOexDfCfH+vuUYoFbJYXFL
-         F4xB8n3eHSJsXWZtww3zJOyWgk1iPSkO7FDWOGovKEullRrT+FzeKEXfGYhNwgY5hUvP
-         IHpEvipcO03EjlSuq+bI2ee3e+UdGTiMeiT8cSEb12eJrA/3DBJAYvxgsEU2IgrAeglp
-         WZwg==
-X-Forwarded-Encrypted: i=1; AJvYcCXSjfNeNKVm/BEMPxSfbKxL3U5z5t46qtDW/e6fHin1ch5mO1CQIHYBAbOVG4mvjQBMKZb9hTj9AbOt9JP8pimUHdbNiVzYPOCWo49O3/4=
-X-Gm-Message-State: AOJu0YyztZbGWU9KTYwklS5vl6TvcUgVLHUo4hEa8+YKdc8TLDl3Tzgi
-	3CVt2Qp7i47J8KGdOTBErLIFpfh3/eOWzkvMX8PGI4LvRtUeB/syGBMGP7BaIQ==
-X-Google-Smtp-Source: AGHT+IE/H8K8ML+12BQz94m7zC/R1jnshkZPpeOUkZc4s4yW+jrRZie0WdZEuXIofG0xwfz1bLDJRw==
-X-Received: by 2002:a17:906:d9ca:b0:a47:ae0:160 with SMTP id qk10-20020a170906d9ca00b00a470ae00160mr1130903ejb.73.1711094158328;
-        Fri, 22 Mar 2024 00:55:58 -0700 (PDT)
-Message-ID: <4268b0de-e959-42aa-bc5c-0c48a359ea1d@suse.com>
-Date: Fri, 22 Mar 2024 08:55:56 +0100
+        bh=1qtQH0sSUATxal0L789QdEHYXyPfcvXqfHEhjx3+QjU=;
+        b=om6X1vTpSyJl5KTOPgmnzF1rTWjv/+4MGLYZfv+KMIF3ffscG0IfLj2W9IXc0NJfb2
+         KUGKylk/5PM75h/bYPwXFj3qpyAcfblSRgFJkj0sS3HZCf5y8T8mw2ks5NQJ3wb/NBDO
+         22rhDWpzmiLhGYVVPHZteFdOAK+OZW7QV9YEmRFFJTfxLHzXtBFUxQrhPAY+JoJMIGUK
+         XPk4ZUgQ7FFeOre0DQ/2IrPyqucPbVkHrdl7GtqsYUeEWoca7STE28ihVlOagUxe5byK
+         37h1ZIpPf4R/g7IAtEyil+MBXCpZ4ohh2ElSk103JGW6oiln+dqEG9ewic8rtKhb3+FV
+         q4vw==
+X-Forwarded-Encrypted: i=1; AJvYcCXWgBBvABwwIVM6KIuDxEWo1AJqjZupnkP2fEZQ89UHgVz60VEszBu+2kUg9EWy2tbPaN5R8x2skWXbcPyqtZRt1457jqc7Nqu5AyM1VYU=
+X-Gm-Message-State: AOJu0YxrLv9jMveTOkrJmBLvwZQWVA6WxM81EYVaabXXjV2FZ//dUK/z
+	3OI2D0szITLL6lmYETVfrpBXCrfu3iT6NbzSa5JMZfwc3Wz8lhwb8nrjTeDNqw==
+X-Google-Smtp-Source: AGHT+IE6+WUqQQ5bKRNRF05eTh6gNQuJnXZx3CkNfXarpaR0WUCXMaBx++LNXEkUDG1/lo2iaXjJMQ==
+X-Received: by 2002:a17:906:af0f:b0:a46:8d95:ff7e with SMTP id lx15-20020a170906af0f00b00a468d95ff7emr1156462ejb.21.1711094461866;
+        Fri, 22 Mar 2024 01:01:01 -0700 (PDT)
+Message-ID: <3a98757d-998e-4731-a508-5e7e1fc5aef2@suse.com>
+Date: Fri, 22 Mar 2024 09:01:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/9] xen/device-tree: Move Arm's setup.c bootinfo
- functions to common
+Subject: Re: [PATCH v3 1/9] EFI: Introduce inline stub for efi_enabled on !X86
+ && !ARM
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
+To: Shawn Anastasio <sanastasio@raptorengineering.com>
 Cc: tpearson@raptorengineering.com, Andrew Cooper
  <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- xen-devel@lists.xenproject.org
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <cover.1710443965.git.sanastasio@raptorengineering.com>
- <039524d4157dddb2faf6887739a727f6e993b53f.1710443965.git.sanastasio@raptorengineering.com>
- <19c4d0c2-c69c-4310-bf02-28d3894f8006@xen.org>
+ <39069a589f9c4dc0db9b01b7412c1a99bea55f37.1710443965.git.sanastasio@raptorengineering.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,30 +114,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <19c4d0c2-c69c-4310-bf02-28d3894f8006@xen.org>
+In-Reply-To: <39069a589f9c4dc0db9b01b7412c1a99bea55f37.1710443965.git.sanastasio@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21.03.2024 18:47, Julien Grall wrote:
-> On 14/03/2024 22:15, Shawn Anastasio wrote:
->> Arm's setup.c contains a collection of functions for parsing memory map
->> and other boot information from a device tree. Since these routines are
->> generally useful on any architecture that supports device tree booting,
->> move them into xen/common/device-tree.
->>
->> Suggested-by: Julien Grall <julien@xen.org>
->> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
->> ---
->>   MAINTAINERS                       |   1 +
->>   xen/arch/arm/setup.c              | 419 --------------------------
->>   xen/common/Makefile               |   1 +
->>   xen/common/device-tree/Makefile   |   1 +
->>   xen/common/device-tree/bootinfo.c | 469 ++++++++++++++++++++++++++++++
-> 
-> The new bootinfo.c is exported quite a few functions. Please introduce
-> an generic header with the associated functions/structures.
+On 14.03.2024 23:15, Shawn Anastasio wrote:
+> --- a/xen/include/xen/efi.h
+> +++ b/xen/include/xen/efi.h
+> @@ -31,7 +31,15 @@ union compat_pf_efi_info;
+>  struct xenpf_efi_runtime_call;
+>  struct compat_pf_efi_runtime_call;
+>  
+> +#if defined(CONFIG_X86) || defined(CONFIG_ARM)
+>  bool efi_enabled(unsigned int feature);
+> +#else
+> +static inline bool efi_enabled(unsigned int feature)
+> +{
+> +    return false;
+> +}
+> +#endif
 
-By "generic" you don't mean a header in asm-generic/, do you?
+While fine as is for now, surely Arm32 could benefit from the inline stub,
+too.
 
 Jan
 
