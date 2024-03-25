@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 034298897EC
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 10:23:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697625.1088559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99AA088980C
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 10:25:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.697626.1088569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rogXx-0005bW-Bx; Mon, 25 Mar 2024 09:23:13 +0000
+	id 1rogaI-00068J-N4; Mon, 25 Mar 2024 09:25:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697625.1088559; Mon, 25 Mar 2024 09:23:13 +0000
+Received: by outflank-mailman (output) from mailman id 697626.1088569; Mon, 25 Mar 2024 09:25:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rogXx-0005Zq-8I; Mon, 25 Mar 2024 09:23:13 +0000
-Received: by outflank-mailman (input) for mailman id 697625;
- Mon, 25 Mar 2024 09:23:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rogaI-00066m-K6; Mon, 25 Mar 2024 09:25:38 +0000
+Received: by outflank-mailman (input) for mailman id 697626;
+ Mon, 25 Mar 2024 09:25:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x9L4=K7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rogXw-0005Zk-R1
- for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 09:23:12 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4c465cdb-ea89-11ee-a1ef-f123f15fe8a2;
- Mon, 25 Mar 2024 10:23:10 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-56845954ffeso5554479a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 02:23:10 -0700 (PDT)
+ id 1rogaH-00066g-Cz
+ for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 09:25:37 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a3108187-ea89-11ee-afe3-a90da7624cb6;
+ Mon, 25 Mar 2024 10:25:36 +0100 (CET)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-513ccc70a6dso6983019e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 02:25:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- i2-20020a17090639c200b00a471cbc4ddbsm2852188eje.26.2024.03.25.02.23.09
+ y4-20020a1709060a8400b00a46bec6da9fsm2829237ejf.203.2024.03.25.02.25.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Mar 2024 02:23:10 -0700 (PDT)
+ Mon, 25 Mar 2024 02:25:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c465cdb-ea89-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: a3108187-ea89-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711358590; x=1711963390; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711358736; x=1711963536; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=GAfcqGCRxepAg7AVdXv8r0pD9kLR3bV2QzuVMdtPw64=;
-        b=K+Zz0/5B8DhHHSLAo8Qsb1ERQBu+teJ6y0FHd4vA9Yu/sb5iRHLWDHPyEVYPZl4phd
-         lPg1K8kMUO+NDkP6okgEcOHcKKTEO4+vwgfKtPzp/UkmryXkp66mOsVZy7hEp/6TcImx
-         SCZgwEJ4+nniKwCXyaCO7POjg0SRM1yBlypHWDmgYxblp26bCoTErfYgqyEhyqD+725a
-         ECtF1N6QZPrbSKZMjaswNJVPa7L+h42ruCUjht4uKHaweUPqjnq+8orZRBHoAVf1+TIc
-         8MlIzrVDSn9zc3u6uHXNcxYmvXJ5BvSRQykZY7KL5NzabRaWLdMF1wqlOlmSCkgtFZgJ
-         Zqdw==
+        bh=kznjib0G8AwkMhdOq/UeLdrZcZUiMNdPT+KZdSJAyc8=;
+        b=Tedbn79cWcUddWE6UjOXX3pZdbj7ppqDSszgFOeaebCsGrRDxVbWJdNpUgF+0jFB7w
+         CZfABWKdK28DjTF6lA1sBVsnc8AfL1sJSL5if+xPi9ARU+hSesNlTJ4pFq3bPovCUEgO
+         34b60PqG3pPYTYT17xnmKBhN2Ra2V7hrKUp/pCwwtolvouBzj5huaUi/3eNKyieD0R84
+         IiOu56FE98WqULyymvXOmDKM80e87pI9UEM40YwhAsCzpccQ1DmkOnR+Gr4qIKz/hHJ8
+         6m//TSkJsU+1Is5Pm3mQmjrrRgiP2rlvD5wloFUB3L096BtCRvkXFO4zvDW6VM7O+R2W
+         Ml2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711358590; x=1711963390;
+        d=1e100.net; s=20230601; t=1711358736; x=1711963536;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GAfcqGCRxepAg7AVdXv8r0pD9kLR3bV2QzuVMdtPw64=;
-        b=E3wSGQrEx1M0u8HDQ7AdTwDh04jiWecvsGAZT+c138aRQIn0RMvCmyKfweAhD7FHHN
-         WV/t01fRDtew8MW4ODIgygGMNE3WlRFkyCnPUe3ZvlQ8jKq304ZIxs1KKPjlvxV/CvQO
-         3UkSWfq0oBmaStk2NdXJg4iMhejPuB5eEVowutjBe8+ob34UOTEaGCN+GJY/ifhqeWFv
-         rSnmVSYudGojpDOmlq0nJJCh30KtTqWpe2f0N7O0NIdZTOL67dtWkMa6Upo7qwBiY87t
-         hnEp6E/BAaN+0X7ehSQo10J3PwfxmsSxplSfTVd8jsfRlolrkYWEKdXvtoDXd2V4p20z
-         DAgw==
-X-Forwarded-Encrypted: i=1; AJvYcCWDW/cfU8W8BnIevv20OdnDjIhgyfPex5eawyb7q4an28Pf/JoUfNzF0P1jSmxseOEQ/XJzlMuwGWqEYs/cid66OCP7ShLqCxZ9Co80XmU=
-X-Gm-Message-State: AOJu0YxmldJBaYVrmvWBKYpjn8BK7WuwY90Ra/vYnrme2fKsN9QMQT70
-	SsYh0bcFHPAppmATibBfZqhEMTgu5cjSziQWWROpXf4e7X+b9y93a4efSI+3+Q==
-X-Google-Smtp-Source: AGHT+IHVlE1UYgmkyxYr//Grmdv30ddMt9o/VrIzo6tqQhiGVTUhuK5pi+N5N2KkcCXC2wGFrEHQrQ==
-X-Received: by 2002:a17:906:dacd:b0:a4d:2021:32e5 with SMTP id xi13-20020a170906dacd00b00a4d202132e5mr223038ejb.50.1711358590266;
-        Mon, 25 Mar 2024 02:23:10 -0700 (PDT)
-Message-ID: <80f05150-2c7f-400e-bbea-c48f2ee81d46@suse.com>
-Date: Mon, 25 Mar 2024 10:23:09 +0100
+        bh=kznjib0G8AwkMhdOq/UeLdrZcZUiMNdPT+KZdSJAyc8=;
+        b=mwUU4B2HGuIF80Z4G2okQSYaipbrVU8L9ukYSu+v9pDPsu2yMIqQ1QqC8DCXBoao/k
+         LLthRNWQtLkxnJhEom5IAhdxyTHvZ2DX5JDbxQ0Gv8iY6qkQ4KGlcLc6SJ4Z3vs0LYls
+         JYybd/vicn42fJotJ52UPmMWCWU+cOr6VVrPDIiLVHeatQthBSSySsKXXXerDZ9szE4Q
+         OPIWN+1qVJHpnPMiza/YYk8Go1S5109uavz46OYCc1/xHbQqVItfKIe7CnMkFsHuMReF
+         fqSCqrKFTXl5Hel3EJ7jJoChH59M051W8ocb1GzBct3pCT+RvFOBdch7Vkd3c+1m4oqr
+         dv4A==
+X-Forwarded-Encrypted: i=1; AJvYcCWbo8Ew+k5tgQFz5NTmPtA1b+avwwiMd3Yi1GlpkVY8okNfLINX8mD3hUqP/gyGJlWBf/pZrpy6p9Whk9GoQ2NftgZG2tKDBh8zXgWM3lA=
+X-Gm-Message-State: AOJu0Yyu5Tn7snSz2f4vYNgc8qoQmg+RgnvRHGb6tIh7Y0pD1jLGWwjW
+	z4TG4ZJArwaYb+875SXTSR7t3BsOlYWVirrgqyrR963ywZ//+ZcIoLIMt+26Ew==
+X-Google-Smtp-Source: AGHT+IGYk8B2oGXMErBDFSXbGDMwMAbn3XVEL0PebZhGV8qHRxS6Nqu5tidnna3KjA1zWfpWZfel/A==
+X-Received: by 2002:a19:3807:0:b0:513:e4e0:8e12 with SMTP id f7-20020a193807000000b00513e4e08e12mr5091797lfa.12.1711358735838;
+        Mon, 25 Mar 2024 02:25:35 -0700 (PDT)
+Message-ID: <afa5ab91-1ea2-4e5d-aada-7f6c64c142b1@suse.com>
+Date: Mon, 25 Mar 2024 10:25:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 05/11] xen: address MISRA C Rule 20.7 violation in
- generated hypercall
+Subject: Re: [XEN PATCH 06/11] xen/efi: address violations of MISRA C Rule
+ 20.7
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  ayan.kumar.halder@amd.com, consulting@bugseng.com,
  andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- julien@xen.org, George Dunlap <george.dunlap@citrix.com>,
- xen-devel@lists.xenproject.org
+ julien@xen.org, xen-devel@lists.xenproject.org
 References: <cover.1711118582.git.nicola.vetrini@bugseng.com>
- <323c77d56f8dcbd6bf8f60c84aacff162265807e.1711118582.git.nicola.vetrini@bugseng.com>
+ <2d3842a990189c37fa12672994b779ad42975235.1711118582.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,7 +114,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <323c77d56f8dcbd6bf8f60c84aacff162265807e.1711118582.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <2d3842a990189c37fa12672994b779ad42975235.1711118582.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -130,7 +129,25 @@ On 22.03.2024 17:01, Nicola Vetrini wrote:
 > 
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Seeing this is again touching an imported header, we finally need to settle
+on where to draw the line. The way this is going is that you're proposing
+many small changes which individually all look "small enough". Yet when
+doing so for long enough, the entire header may end up different from its
+original.
 
+Jan
+
+> --- a/xen/include/efi/efiapi.h
+> +++ b/xen/include/efi/efiapi.h
+> @@ -63,7 +63,8 @@ EFI_STATUS
+>      OUT UINT32                      *DescriptorVersion
+>      );
+>  
+> -#define NextMemoryDescriptor(Ptr,Size)  ((EFI_MEMORY_DESCRIPTOR *) (((UINT8 *) Ptr) + Size))
+> +#define NextMemoryDescriptor(Ptr,Size)  ((EFI_MEMORY_DESCRIPTOR *) \
+> +                                         ((UINT8 *)(Ptr) + (Size)))
+>  
+>  
+>  typedef
 
 
