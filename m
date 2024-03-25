@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9470E88A6E4
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 16:39:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697794.1088926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABA8588A755
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 16:45:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.697800.1088937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1romPq-00086m-DL; Mon, 25 Mar 2024 15:39:14 +0000
+	id 1romVM-0001Xn-1G; Mon, 25 Mar 2024 15:44:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697794.1088926; Mon, 25 Mar 2024 15:39:14 +0000
+Received: by outflank-mailman (output) from mailman id 697800.1088937; Mon, 25 Mar 2024 15:44:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1romPq-00084q-AX; Mon, 25 Mar 2024 15:39:14 +0000
-Received: by outflank-mailman (input) for mailman id 697794;
- Mon, 25 Mar 2024 15:39:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=x9L4=K7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1romPp-00084k-3j
- for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 15:39:13 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d32b72ef-eabd-11ee-afe3-a90da7624cb6;
- Mon, 25 Mar 2024 16:39:11 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-515a86daf09so2017311e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 08:39:11 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k11-20020a1709067acb00b00a4a36e4c3fbsm1089189ejo.182.2024.03.25.08.39.09
+	id 1romVL-0001VU-U1; Mon, 25 Mar 2024 15:44:55 +0000
+Received: by outflank-mailman (input) for mailman id 697800;
+ Mon, 25 Mar 2024 15:44:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=O34W=K7=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1romVK-0001VO-11
+ for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 15:44:54 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9e93f526-eabe-11ee-a1ef-f123f15fe8a2;
+ Mon, 25 Mar 2024 16:44:52 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-56bb22ff7baso5279404a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 08:44:52 -0700 (PDT)
+Received: from [10.80.5.21] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ t25-20020a056402241900b0056bd13ce50esm3066658eda.44.2024.03.25.08.44.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Mar 2024 08:39:09 -0700 (PDT)
+ Mon, 25 Mar 2024 08:44:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,264 +45,320 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d32b72ef-eabd-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: 9e93f526-eabe-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711381150; x=1711985950; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=cloud.com; s=cloud; t=1711381491; x=1711986291; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=wfnK3jW8pfZ76J+659Erv1jkv6D8oNEGgAQsZk2zsxs=;
-        b=ZNLAbRl4WP8wxDTLuWBZG4b2ch54hlBUaUUZR+WU3DTqPxk56rzvjYV96gTNLpcs/3
-         VpXux+d9YU8ZQEw9f8ZBlagLEMu88Cz2uwK0n5Rve7gMGaxVxGuv1/VxQmcpiPzvELUk
-         0bRLTUcyCGJoki1FAbMs1VElxkPfYDY+GqvdL50qN36Wc45mAyOUWwoxRr3IrXkIxPG8
-         Io0rzP6NKKVv5erDDZyl2RD2Plo8P5pS8KdF1BT04SvqCR4a++q4OZ9SH4/Eiv6N5YCJ
-         yDl3HuhGiPTl6TAorgTJIFmmH0DfdxIqNlkq+++vj0/A8XDdg0WrqGFO7hUVRIn8FVCx
-         emMg==
+        bh=pif++eEEYvvEp58HeT4WvtkGCSD1np+rt0TaXbTQYqw=;
+        b=HHkaIvOqnCVz7ZLtGqi+VPd1OuPO8eaTx2z7pxBDgHoGSTPcfVDXNeHKkg3e86rKgH
+         mDoDRl2yQh3qeI4FuLB1vf8EG27fzOxoHxnkcNbkGPmGSCkShLBq07a+QLvI564XA5Fo
+         b27OkLla/gykzAom3Bkui+4xXjnOi9HO8VsZ8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711381150; x=1711985950;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1711381491; x=1711986291;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wfnK3jW8pfZ76J+659Erv1jkv6D8oNEGgAQsZk2zsxs=;
-        b=oDPQENDRQZp2oFCon6QsEOuYRL3fh0Bw8Lbw2hTOJ5gcMjDis5CSbPt83PzRunDXAr
-         Ha2zbd0Y5D676JcZlUzYSKLOzuu13uh5fh1QZ2Eg4GxgetEODNjIluMu2X3q4Uxpdb78
-         LizTF3nvbwAkuAWnPlVJJRa1L/e+JCs4aSqPVSWVoafjB3XCEpwQcgkurpj5qksBv1HN
-         2H7A5G615VuH5nPqBwdf6UTXbfbjpSjRqW8MVAdVEGnSimKKzXEBgaoeoMZLckHjvHnT
-         AsfQR1qKGmX5p34C+cs2yNUQfbhk1m8M4qsrNOWEal/WNH5Je1cAB3XN2xvtklAYC5s3
-         N0hw==
-X-Forwarded-Encrypted: i=1; AJvYcCVbO9Y3dmg1fP1XpkfNjmnWynxwPqCPs2EBFpV/hs9dzFuqPZcnnskJs07pzUKf3Cm2Hbb82QLBLiIDAxFjMcMyTSaWgJEuvEm8wT3KXWw=
-X-Gm-Message-State: AOJu0YzMS4ZSFmWcHFIUV187I5xTLVXOYRZs/Q/NESmgoJO5Kwe4dyCL
-	jvUn52D8yzs1npEZi7vC2gEZYH5LohNh9MImeflPEAuPJKFHYKs1tqwdi6WqTQ==
-X-Google-Smtp-Source: AGHT+IFo01yy2+F2mDoW8OCiTTkAD/qXP/cwIsd5WWOmsIPCFqd/MkEkMo6CJD9K5dFJEP09OjBZZQ==
-X-Received: by 2002:ac2:4db6:0:b0:514:88df:88b9 with SMTP id h22-20020ac24db6000000b0051488df88b9mr4686201lfe.45.1711381150234;
-        Mon, 25 Mar 2024 08:39:10 -0700 (PDT)
-Message-ID: <beab0b2a-b8ff-475c-885f-dec8518b9a8f@suse.com>
-Date: Mon, 25 Mar 2024 16:39:09 +0100
+        bh=pif++eEEYvvEp58HeT4WvtkGCSD1np+rt0TaXbTQYqw=;
+        b=LdgboVwpzU2c7pWMY7cZdx6M1EXsKoD7ecF99FK2gHXj0JLUgWM0sdkzgG1WkeLt10
+         8nBG0SN3eUUdDEcmt0iskDRBdznw26F+dpGyY5reMpoXglzvi/aOzYy26PgcBDeJsp2S
+         q+OZI5S8slGyLhFrEAcsHpdED3nOBVYdTVlUth8lcG6WxkjVi2pzDOBrErjh6QpVsEyT
+         /G+KCIp6BCrNX6rXWc3up6N83VpDL9hxS/YDH9U1l7jjOXbL8HTIdgm0ziL+Dbf01P0Y
+         TOeu5jEgAh5ipM/Z0sNrXhrwEbfq+9fTzn+7B0hqeVKPETozweF64SQh81G+CgsBwKDq
+         nPlw==
+X-Gm-Message-State: AOJu0Yws5/R/t9cPRlMOU0qCRrQs2qLbFf/xVrbCmgWJ7FF+DHksUI1E
+	baFRGAclvD558O4E7SCBMd+pZR3Z3ubUBotrLfoMnV5TdMdfg9khWks2yGKmFoQ=
+X-Google-Smtp-Source: AGHT+IGFk/cyBAn+F511ANUmWb04LwZszBbBkWsY9Sjwyu/Xlr3YG2819EtI0fl2hGavl4vHYIK+vg==
+X-Received: by 2002:a50:ab51:0:b0:56b:eb90:f3a2 with SMTP id t17-20020a50ab51000000b0056beb90f3a2mr4278952edc.16.1711381491339;
+        Mon, 25 Mar 2024 08:44:51 -0700 (PDT)
+Message-ID: <0d0b0174-48dd-4b26-8b54-6eefefac33f6@cloud.com>
+Date: Mon, 25 Mar 2024 15:44:50 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 9/9] xen/ppc: mm-radix: Allocate all paging structures
- at runtime
-Content-Language: en-US
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
-Cc: tpearson@raptorengineering.com, xen-devel@lists.xenproject.org
-References: <cover.1710443965.git.sanastasio@raptorengineering.com>
- <00f22a6a08451614179219fd430539fbb1e6e8cf.1710443965.git.sanastasio@raptorengineering.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <00f22a6a08451614179219fd430539fbb1e6e8cf.1710443965.git.sanastasio@raptorengineering.com>
+Subject: Re: [PATCH 1/6] xen/x86: Add initial x2APIC ID to the per-vLAPIC save
+ area
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>
+References: <20240109153834.4192-1-alejandro.vallejo@cloud.com>
+ <20240109153834.4192-2-alejandro.vallejo@cloud.com>
+ <Zfm7U7XMzbR6D1qN@macbook>
+Content-Language: en-GB
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+In-Reply-To: <Zfm7U7XMzbR6D1qN@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.03.2024 23:15, Shawn Anastasio wrote:
-> --- a/xen/arch/ppc/mm-radix.c
-> +++ b/xen/arch/ppc/mm-radix.c
-> @@ -21,69 +21,101 @@ void enable_mmu(void);
->  #define radix_dprintk(...)
->  #endif
-> 
-> -#define INITIAL_LVL1_PD_COUNT      1
-> -#define INITIAL_LVL2_LVL3_PD_COUNT 2
-> -#define INITIAL_LVL4_PT_COUNT      256
-> -
-> -static size_t __initdata initial_lvl1_pd_pool_used;
-> -static struct lvl1_pd initial_lvl1_pd_pool[INITIAL_LVL1_PD_COUNT];
-> -
-> -static size_t __initdata initial_lvl2_lvl3_pd_pool_used;
-> -static struct lvl2_pd initial_lvl2_lvl3_pd_pool[INITIAL_LVL2_LVL3_PD_COUNT];
-> -
-> -static size_t __initdata initial_lvl4_pt_pool_used;
-> -static struct lvl4_pt initial_lvl4_pt_pool[INITIAL_LVL4_PT_COUNT];
-> -
-> -/* Only reserve minimum Partition and Process tables  */
->  #define PATB_SIZE_LOG2 16 /* Only supported partition table size on POWER9 */
->  #define PATB_SIZE      (1UL << PATB_SIZE_LOG2)
-> -#define PRTB_SIZE_LOG2 12
-> +#define PRTB_SIZE_LOG2 24 /* Maximum process table size on POWER9 */
->  #define PRTB_SIZE      (1UL << PRTB_SIZE_LOG2)
-> 
-> -static struct patb_entry
-> -    __aligned(PATB_SIZE) initial_patb[PATB_SIZE / sizeof(struct patb_entry)];
-> +static struct patb_entry *initial_patb;
-> +static struct prtb_entry *initial_prtb;
-> 
-> -static struct prtb_entry
-> -    __aligned(PRTB_SIZE) initial_prtb[PRTB_SIZE / sizeof(struct prtb_entry)];
-> +static mfn_t __initdata min_alloc_mfn = {-1};
-> +static mfn_t __initdata max_alloc_mfn = {0};
-> 
-> -static __init struct lvl1_pd *lvl1_pd_pool_alloc(void)
-> +/*
-> + * A thin wrapper for alloc_boot_pages that keeps track of the maximum and
-> + * minimum mfns that have been allocated. This information is used by
-> + * setup_initial_mapping to include the allocated pages in the initial
-> + * page mapping.
-> + */
-> +static mfn_t __init initial_page_alloc(unsigned long nr_pfns,
-> +                                       unsigned long pfn_align)
->  {
-> -    if ( initial_lvl1_pd_pool_used >= INITIAL_LVL1_PD_COUNT )
-> -    {
-> -        early_printk("Ran out of space for LVL1 PD!\n");
-> -        die();
-> -    }
-> +    mfn_t mfn_first, mfn_last;
-> 
-> -    return &initial_lvl1_pd_pool[initial_lvl1_pd_pool_used++];
-> -}
-> +    mfn_first = alloc_boot_pages(nr_pfns, pfn_align);
-> +    mfn_last = _mfn(mfn_x(mfn_first) + nr_pfns - 1);
+Hi,
 
-Please can you use mfn_add() here?
+I'll answer the policy-related feedback in the next email, as you
+corrected yourself for that.
 
-> -static __init struct lvl2_pd *lvl2_pd_pool_alloc(void)
-> -{
-> -    if ( initial_lvl2_lvl3_pd_pool_used >= INITIAL_LVL2_LVL3_PD_COUNT )
-> -    {
-> -        early_printk("Ran out of space for LVL2/3 PD!\n");
-> -        die();
-> -    }
-> +    min_alloc_mfn = _mfn(min(mfn_x(min_alloc_mfn), mfn_x(mfn_first)));
-> +    max_alloc_mfn = _mfn(max(mfn_x(max_alloc_mfn), mfn_x(mfn_last)));
-
-Together with the comment ahead of the function - is there some kind of
-assumption here that this range won't span almost all of system memory?
-E.g. expecting allocations to be almost contiguous? If so, I wonder how
-reliable this is, and whether using a rangeset wouldn't be better here.
-
-> @@ -105,81 +138,47 @@ static void __init setup_initial_mapping(struct lvl1_pd *lvl1,
->          die();
->      }
+On 19/03/2024 16:20, Roger Pau Monné wrote:
+> On Tue, Jan 09, 2024 at 03:38:29PM +0000, Alejandro Vallejo wrote:
+>> This allows the initial x2APIC ID to be sent on the migration stream. The
+>> hardcoded mapping x2apic_id=2*vcpu_id is maintained for the time being.
+>> Given the vlapic data is zero-extended on restore, fix up migrations from
+>> hosts without the field by setting it to the old convention if zero.
+>>
+>> x2APIC IDs are calculated from the CPU policy where the guest topology is
+>> defined. For the time being, the function simply returns the old
+>> relationship, but will eventually return results consistent with the
+>> topology.
+>>
+>> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+>> ---
+>>  xen/arch/x86/cpuid.c                   | 20 ++++---------------
+>>  xen/arch/x86/domain.c                  |  3 +++
+>>  xen/arch/x86/hvm/vlapic.c              | 27 ++++++++++++++++++++++++--
+>>  xen/arch/x86/include/asm/hvm/vlapic.h  |  2 ++
+>>  xen/include/public/arch-x86/hvm/save.h |  2 ++
+>>  xen/include/xen/lib/x86/cpu-policy.h   |  9 +++++++++
+>>  xen/lib/x86/policy.c                   | 11 +++++++++++
+>>  7 files changed, 56 insertions(+), 18 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+>> index 7290a979c6..6e259785d0 100644
+>> --- a/xen/arch/x86/cpuid.c
+>> +++ b/xen/arch/x86/cpuid.c
+>> @@ -139,10 +139,9 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+>>          const struct cpu_user_regs *regs;
+>>  
+>>      case 0x1:
+>> -        /* TODO: Rework topology logic. */
+>>          res->b &= 0x00ffffffu;
+>>          if ( is_hvm_domain(d) )
+>> -            res->b |= (v->vcpu_id * 2) << 24;
+>> +            res->b |= SET_xAPIC_ID(vlapic_x2apic_id(vcpu_vlapic(v)));
 > 
-> +    /* Identity map Xen itself */
->      for ( page_addr = map_start; page_addr < map_end; page_addr += PAGE_SIZE )
->      {
-> -        struct lvl2_pd *lvl2;
-> -        struct lvl3_pd *lvl3;
-> -        struct lvl4_pt *lvl4;
-> -        pde_t *pde;
-> -        pte_t *pte;
-> -
-> -        /* Allocate LVL 2 PD if necessary */
-> -        pde = pt_entry(lvl1, page_addr);
-> -        if ( !pde_is_valid(*pde) )
-> -        {
-> -            lvl2 = lvl2_pd_pool_alloc();
-> -            *pde = paddr_to_pde(__pa(lvl2), PDE_VALID,
-> -                                XEN_PT_ENTRIES_LOG2_LVL_2);
-> -        }
-> -        else
-> -            lvl2 = __va(pde_to_paddr(*pde));
-> +        unsigned long flags;
+> SET_xAPIC_ID() was intended to be used with the APIC_ID register,
+> which also shifts the ID.  Not sure it's logically correct to use
+> here, even if functionally equivalent (as is shifts left by 24).
+Ack.
+
 > 
-> -        /* Allocate LVL 3 PD if necessary */
-> -        pde = pt_entry(lvl2, page_addr);
-> -        if ( !pde_is_valid(*pde) )
-> +        if ( is_kernel_text(page_addr) || is_kernel_inittext(page_addr) )
->          {
-> -            lvl3 = lvl3_pd_pool_alloc();
-> -            *pde = paddr_to_pde(__pa(lvl3), PDE_VALID,
-> -                                XEN_PT_ENTRIES_LOG2_LVL_3);
-> +            radix_dprintk("%016lx being marked as TEXT (RX)\n", page_addr);
-> +            flags = PTE_XEN_RX;
->          }
-> -        else
-> -            lvl3 = __va(pde_to_paddr(*pde));
-> -
-> -        /* Allocate LVL 4 PT if necessary */
-> -        pde = pt_entry(lvl3, page_addr);
-> -        if ( !pde_is_valid(*pde) )
-> +        else if ( is_kernel_rodata(page_addr) )
->          {
-> -            lvl4 = lvl4_pt_pool_alloc();
-> -            *pde = paddr_to_pde(__pa(lvl4), PDE_VALID,
-> -                                XEN_PT_ENTRIES_LOG2_LVL_4);
-> +            radix_dprintk("%016lx being marked as RODATA (RO)\n", page_addr);
-> +            flags = PTE_XEN_RO;
->          }
->          else
-> -            lvl4 = __va(pde_to_paddr(*pde));
-> -
-> -        /* Finally, create PTE in LVL 4 PT */
-> -        pte = pt_entry(lvl4, page_addr);
-> -        if ( !pte_is_valid(*pte) )
->          {
-> -            unsigned long paddr = (page_addr - map_start) + phys_base;
-> -            unsigned long flags;
-> -
-> -            radix_dprintk("%016lx being mapped to %016lx\n", paddr, page_addr);
-> -            if ( is_kernel_text(page_addr) || is_kernel_inittext(page_addr) )
-> -            {
-> -                radix_dprintk("%016lx being marked as TEXT (RX)\n", page_addr);
-> -                flags = PTE_XEN_RX;
-> -            }
-> -            else if ( is_kernel_rodata(page_addr) )
-> -            {
-> -                radix_dprintk("%016lx being marked as RODATA (RO)\n", page_addr);
-> -                flags = PTE_XEN_RO;
-> -            }
-> -            else
-> -            {
-> -                radix_dprintk("%016lx being marked as DEFAULT (RW)\n", page_addr);
-> -                flags = PTE_XEN_RW;
-> -            }
-> -
-> -            *pte = paddr_to_pte(paddr, flags);
-> -            radix_dprintk("%016lx is the result of PTE map\n",
-> -                paddr_to_pte(paddr, flags).pte);
-> -        }
-> -        else
-> -        {
-> -            early_printk("BUG: Tried to create PTE for already-mapped page!");
-> -            die();
-> +            radix_dprintk("%016lx being marked as DEFAULT (RW)\n", page_addr);
-> +            flags = PTE_XEN_RW;
->          }
-> +
-> +        map_page_initial(lvl1, page_addr, (page_addr - map_start) + phys_base, flags);
-> +    }
-> +
-> +    previous_max_alloc_mfn = max_alloc_mfn;
-> +
-> +    /*
-> +     * Identity map all pages we've allocated for paging structures. This act
-> +     * itself will allocate more pages, so continue until we've mapped from
-> +     * `max_alloc_mfn` down to `min_alloc_mfn`. This assumes that the heap grows
-> +     * downwards, which matches the behavior of alloc_boot_pages.
-> +     */
-> +    for ( page_addr = (vaddr_t)__va(mfn_to_maddr(max_alloc_mfn));
-> +          mfn_to_maddr(min_alloc_mfn) <= __pa(page_addr);
-> +          page_addr -= PAGE_SIZE)
-> +    {
-> +        map_page_initial(lvl1, page_addr, __pa(page_addr), PTE_XEN_RW);
->      }
-> +
-> +    if ( mfn_x(previous_max_alloc_mfn) != mfn_x(max_alloc_mfn) )
-> +        panic("Early page heap unexpectedly grew upwards\n");
->  }
+>>  
+>>          /* TODO: Rework vPMU control in terms of toolstack choices. */
+>>          if ( vpmu_available(v) &&
+>> @@ -311,20 +310,9 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+>>          break;
+>>  
+>>      case 0xb:
+>> -        /*
+>> -         * In principle, this leaf is Intel-only.  In practice, it is tightly
+>> -         * coupled with x2apic, and we offer an x2apic-capable APIC emulation
+>> -         * to guests on AMD hardware as well.
+>> -         *
+>> -         * TODO: Rework topology logic.
+>> -         */
+>> -        if ( p->basic.x2apic )
+>> -        {
+>> -            *(uint8_t *)&res->c = subleaf;
+>> -
+>> -            /* Fix the x2APIC identifier. */
+>> -            res->d = v->vcpu_id * 2;
+>> -        }
+>> +        /* ecx != 0 if the subleaf is implemented */
+>> +        if ( res->c && p->basic.x2apic )
+>> +            res->d = vlapic_x2apic_id(vcpu_vlapic(v));
+> 
+> This needs to be protected so it's reachable by HVM guests only,
+> otherwise you will dereference v->arch.hvm.vlapic on a PV vCPU if it
+> happens to have p->basic.x2apic set.
+Very true. Ack.
 
-Oh, yet another assumption on allocator behavior.
+> 
+> Why not just return the x2apic_id field from the cpu_policy object?
+> (topo.subleaf[X].x2apic_id)
+> 
+> Also, I'm not sure I get why the setting of res->d is gated on res->c
+> != 0, won't res->c be 0 when the guest %ecx is 0, yet %edx must be
+> valid for all %ecx inputs, the SDM states:
+> 
+> "The EDX output of leaf 0BH is always valid and does not vary with
+> input value in ECX."
+> 
+> I think you need to keep the previous logic that doesn't gate setting
+> ->d on anything other than p->basic.x2apic.
+> 
 
-Jan
+Ack.
+
+Real HW says you're right. Oddly enough that quote is (AFAICS) for leaf
+1FH, but it appears to also hold for 0BH.
+
+
+>>          break;
+>>  
+>>      case XSTATE_CPUID:
+>> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+>> index 8a31d18f69..e0c7ed8d5d 100644
+>> --- a/xen/arch/x86/domain.c
+>> +++ b/xen/arch/x86/domain.c
+>> @@ -288,7 +288,10 @@ void update_guest_memory_policy(struct vcpu *v,
+>>  static void cpu_policy_updated(struct vcpu *v)
+>>  {
+>>      if ( is_hvm_vcpu(v) )
+>> +    {
+>>          hvm_cpuid_policy_changed(v);
+>> +        vlapic_cpu_policy_changed(v);
+>> +    }
+>>  }
+>>  
+>>  void domain_cpu_policy_changed(struct domain *d)
+>> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+>> index cdb69d9742..f500d66543 100644
+>> --- a/xen/arch/x86/hvm/vlapic.c
+>> +++ b/xen/arch/x86/hvm/vlapic.c
+>> @@ -1069,7 +1069,7 @@ static uint32_t x2apic_ldr_from_id(uint32_t id)
+>>  static void set_x2apic_id(struct vlapic *vlapic)
+>>  {
+>>      const struct vcpu *v = vlapic_vcpu(vlapic);
+>> -    uint32_t apic_id = v->vcpu_id * 2;
+>> +    uint32_t apic_id = vlapic->hw.x2apic_id;
+>>      uint32_t apic_ldr = x2apic_ldr_from_id(apic_id);
+>>  
+>>      /*
+>> @@ -1083,6 +1083,22 @@ static void set_x2apic_id(struct vlapic *vlapic)
+>>      vlapic_set_reg(vlapic, APIC_LDR, apic_ldr);
+>>  }
+>>  
+>> +void vlapic_cpu_policy_changed(struct vcpu *v)
+>> +{
+>> +    struct vlapic *vlapic = vcpu_vlapic(v);
+>> +    struct cpu_policy *cp = v->domain->arch.cpu_policy;
+>> +
+>> +    /*
+>> +     * Don't override the initial x2APIC ID if we have migrated it or
+>> +     * if the domain doesn't have vLAPIC at all.
+>> +     */
+>> +    if ( !has_vlapic(v->domain) || vlapic->loaded.hw )
+>> +        return;
+>> +
+>> +    vlapic->hw.x2apic_id = x86_x2apic_id_from_vcpu_id(cp, v->vcpu_id);
+>> +    vlapic_set_reg(vlapic, APIC_ID, SET_xAPIC_ID(vlapic->hw.x2apic_id));
+>> +}
+>> +
+>>  int guest_wrmsr_apic_base(struct vcpu *v, uint64_t val)
+>>  {
+>>      const struct cpu_policy *cp = v->domain->arch.cpu_policy;
+>> @@ -1449,7 +1465,7 @@ void vlapic_reset(struct vlapic *vlapic)
+>>      if ( v->vcpu_id == 0 )
+>>          vlapic->hw.apic_base_msr |= APIC_BASE_BSP;
+>>  
+>> -    vlapic_set_reg(vlapic, APIC_ID, (v->vcpu_id * 2) << 24);
+>> +    vlapic_set_reg(vlapic, APIC_ID, SET_xAPIC_ID(vlapic->hw.x2apic_id));
+>>      vlapic_do_init(vlapic);
+>>  }
+>>  
+>> @@ -1514,6 +1530,13 @@ static void lapic_load_fixup(struct vlapic *vlapic)
+>>      const struct vcpu *v = vlapic_vcpu(vlapic);
+>>      uint32_t good_ldr = x2apic_ldr_from_id(vlapic->loaded.id);
+>>  
+>> +    /*
+>> +     * Guest with hardcoded assumptions about x2apic_id <-> vcpu_id
+>> +     * mappings. Recreate the mapping it used to have in old host.
+> 
+> Wouldn't it be more appropriate to state "Loading record without
+> hw.x2apic_id in the save stream, calculate using the vcpu_id * 2
+> relation" or some such.>
+> Current comment makes it looks like the guest has some kind of
+> restriction with this relation, but that's just an internal Xen
+> limitation.
+
+Sure.
+
+> 
+>> +     */
+>> +    if ( !vlapic->hw.x2apic_id )
+>> +        vlapic->hw.x2apic_id = v->vcpu_id * 2;
+>> +
+>>      /* Skip fixups on xAPIC mode, or if the x2APIC LDR is already correct */
+>>      if ( !vlapic_x2apic_mode(vlapic) ||
+>>           (vlapic->loaded.ldr == good_ldr) )
+>> diff --git a/xen/arch/x86/include/asm/hvm/vlapic.h b/xen/arch/x86/include/asm/hvm/vlapic.h
+>> index 88ef945243..e8d41313ab 100644
+>> --- a/xen/arch/x86/include/asm/hvm/vlapic.h
+>> +++ b/xen/arch/x86/include/asm/hvm/vlapic.h
+>> @@ -44,6 +44,7 @@
+>>  #define vlapic_xapic_mode(vlapic)                               \
+>>      (!vlapic_hw_disabled(vlapic) && \
+>>       !((vlapic)->hw.apic_base_msr & APIC_BASE_EXTD))
+>> +#define vlapic_x2apic_id(vlapic) ((vlapic)->hw.x2apic_id)
+>>  
+>>  /*
+>>   * Generic APIC bitmap vector update & search routines.
+>> @@ -107,6 +108,7 @@ int vlapic_ack_pending_irq(struct vcpu *v, int vector, bool force_ack);
+>>  
+>>  int  vlapic_init(struct vcpu *v);
+>>  void vlapic_destroy(struct vcpu *v);
+>> +void vlapic_cpu_policy_changed(struct vcpu *v);
+>>  
+>>  void vlapic_reset(struct vlapic *vlapic);
+>>  
+>> diff --git a/xen/include/public/arch-x86/hvm/save.h b/xen/include/public/arch-x86/hvm/save.h
+>> index 7ecacadde1..1c2ec669ff 100644
+>> --- a/xen/include/public/arch-x86/hvm/save.h
+>> +++ b/xen/include/public/arch-x86/hvm/save.h
+>> @@ -394,6 +394,8 @@ struct hvm_hw_lapic {
+>>      uint32_t             disabled; /* VLAPIC_xx_DISABLED */
+>>      uint32_t             timer_divisor;
+>>      uint64_t             tdt_msr;
+>> +    uint32_t             x2apic_id;
+>> +    uint32_t             rsvd_zero;
+> 
+> Do we really to add a new field, couldn't we get the lapic IDs from
+> the cpu_policy>
+>>  };
+>>  
+>>  DECLARE_HVM_SAVE_TYPE(LAPIC, 5, struct hvm_hw_lapic);
+>> diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
+>> index d5e447e9dc..14724cedff 100644
+>> --- a/xen/include/xen/lib/x86/cpu-policy.h
+>> +++ b/xen/include/xen/lib/x86/cpu-policy.h
+>> @@ -542,6 +542,15 @@ int x86_cpu_policies_are_compatible(const struct cpu_policy *host,
+>>                                      const struct cpu_policy *guest,
+>>                                      struct cpu_policy_errors *err);
+>>  
+>> +/**
+>> + * Calculates the x2APIC ID of a vCPU given a CPU policy
+>> + *
+>> + * @param p          CPU policy of the domain.
+>> + * @param vcpu_id    vCPU ID of the vCPU.
+>> + * @returns x2APIC ID of the vCPU.
+>> + */
+>> +uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t vcpu_id);
+>> +
+>>  #endif /* !XEN_LIB_X86_POLICIES_H */
+>>  
+>>  /*
+>> diff --git a/xen/lib/x86/policy.c b/xen/lib/x86/policy.c
+>> index f033d22785..a3b24e6879 100644
+>> --- a/xen/lib/x86/policy.c
+>> +++ b/xen/lib/x86/policy.c
+>> @@ -2,6 +2,17 @@
+>>  
+>>  #include <xen/lib/x86/cpu-policy.h>
+>>  
+>> +uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t vcpu_id)
+>> +{
+>> +    /*
+>> +     * TODO: Derive x2APIC ID from the topology information inside `p`
+>> +     *       rather than from vCPU ID. This bodge is a temporary measure
+>> +     *       until all infra is in place to retrieve or derive the initial
+>> +     *       x2APIC ID from migrated domains.
+>> +     */
+>> +    return vcpu_id * 2;
+> 
+> As noted above, won't a suitable initial step would be to populate the
+> apic_id and x2apic_id fields in struct cpu_policy with this relation
+> (x{,2}apic_id == vcpu_id * 2), and avoid this extra handler?
+> 
+> Thanks, Roger.
+
+Cheers,
+Alejandro
+
 
