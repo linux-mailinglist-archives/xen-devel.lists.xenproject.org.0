@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E32C889818
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 10:27:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697631.1088578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89FEA889867
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 10:38:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.697644.1088592 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rogcB-0006fM-1e; Mon, 25 Mar 2024 09:27:35 +0000
+	id 1rogmP-0000aQ-3H; Mon, 25 Mar 2024 09:38:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697631.1088578; Mon, 25 Mar 2024 09:27:35 +0000
+Received: by outflank-mailman (output) from mailman id 697644.1088592; Mon, 25 Mar 2024 09:38:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rogcA-0006dr-Ur; Mon, 25 Mar 2024 09:27:34 +0000
-Received: by outflank-mailman (input) for mailman id 697631;
- Mon, 25 Mar 2024 09:27:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rogmP-0000Y3-0X; Mon, 25 Mar 2024 09:38:09 +0000
+Received: by outflank-mailman (input) for mailman id 697644;
+ Mon, 25 Mar 2024 09:38:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x9L4=K7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rogc9-0006di-HG
- for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 09:27:33 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e7b5a8db-ea89-11ee-a1ef-f123f15fe8a2;
- Mon, 25 Mar 2024 10:27:31 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-56829f41f81so5045717a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 02:27:31 -0700 (PDT)
+ id 1rogmN-0000Xd-HO
+ for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 09:38:07 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 61fb70fb-ea8b-11ee-afe3-a90da7624cb6;
+ Mon, 25 Mar 2024 10:38:06 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a468004667aso558711766b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 02:38:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v17-20020aa7d9d1000000b00569aed32c32sm2786770eds.75.2024.03.25.02.27.30
+ w17-20020a170906385100b00a46d8e5a031sm2837813ejc.209.2024.03.25.02.38.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Mar 2024 02:27:30 -0700 (PDT)
+ Mon, 25 Mar 2024 02:38:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7b5a8db-ea89-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 61fb70fb-ea8b-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711358851; x=1711963651; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711359486; x=1711964286; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Q5v05DNnxs6PLE79qJAwhDX8JtgpYeGz+J8/mIxNXFI=;
-        b=MFwjzeAN+pk/aM1kBDBLfRm8VVd9W09IzAlnK6ffmp+Q1R2YEaVxyQsCRgJxXUW8yM
-         +Gj7xmML+0MZwg6dHH9izDvaFQyIcXSrs8tBUB5UYt/ICOWBWSRmn+x9pAbuN8kOeztw
-         tEDrJ5DKXc7gED+hvvNgPyQIzCB2bu++8dPJm32YBHv6qNm1FvBx69jsLlRIfGTB5lpw
-         VH0kjqgqhLjglB6t5yxC1iIHUqlkwwd0eLyqIM7OkN1mwh2Dlrxzg4s5zPGKsrAsNW13
-         XXbD5CSvJeTugFMkJm3p4mzAzTCihKJuUN4BWlVTxQJ3cz5PxaSNJr6HO4aDuaJztUAf
-         rYfQ==
+        bh=6vwaw3dVIguQ9/7TLOaJw0+8ePZ6Q+QR/NoqSGh05YE=;
+        b=beuG3E8Xj1h9DTiLWMCNbHzuZIwdMdJMSuNorhKEUS0QmBOvHK2rhrky4+A5oayilO
+         6MUJXTf6eUuYAlyAO/4CAfXW8xLWWGDYOuH2eA21CMxRUJoYI7DbZos7B8LdMZMXDPRg
+         /uV3bXrd5KiAQkeaLt7Q1ZZOm9wfPWhT11pzJ69WfMfTrJVTlTF5xfpmLA4iFgS0Lclw
+         rrvc/6cNu1AV+HF6qa8dkfnWDejhZbf5M8LFcpe+otQDVvVEwyviL/pMjQEFwU8BXdGK
+         c/zSYWx/YlyDLYnaUka9cWG9R7Lidnc5xIdTwkhWTdw9TLfh8bIewHPmdn38oWLXJUFc
+         Bupw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711358851; x=1711963651;
+        d=1e100.net; s=20230601; t=1711359486; x=1711964286;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q5v05DNnxs6PLE79qJAwhDX8JtgpYeGz+J8/mIxNXFI=;
-        b=sazFy+TAhExWeB7B6U4OnwlTXQ6IHhKgSFGYql4v537mVD3+/SqJInYILoOBtqYAAA
-         kX4y0dkHvsSC3ZHgDU//XK2bYGAKXXqmi+B0dUIaFP+yaLsgEcxHDK68XQ4NmV99HIJh
-         fa3w7GfCoFgRFO2h8aBbs2Sgt+dOPVve/T1OVFbZhBg6GH1JMVLVOjWaMzmlu4yDWO5A
-         AI+rW9ZDzneCK0B54ZaRQoRpaVBHZOssH+6YbD8aSTw4tDVzVnfjfA2oIedwJZrc+JAg
-         0V1p8lZRUrqFCgfk64puZy48vbBe8asTTx+mzhtM35hlZtKlxI41TqO8+hI1N19P5lWr
-         L8lg==
-X-Forwarded-Encrypted: i=1; AJvYcCWepX8ROZvoQYBpdSU0Ozk8pMSp8JE9XS4sF5QDUzt7SgJKoT6t3uRb4z1D+JDBrXWCEIFQWQ7gtYnL8qB+o32QTmTVxiV0pE+s54pJ08o=
-X-Gm-Message-State: AOJu0YxBOKyyoCO+GfZYva9YmG2N74T3T1Br8DWN+7kvEUTeD26iKXxl
-	EYkO+cVz7sPe+68Jrw/BTOdxZGJhIu7d0e4FZa46D4saCZKoBB57MsD3Mwf8QQ==
-X-Google-Smtp-Source: AGHT+IHvMZtZuTL0Y7mjYyTzcbjiT0EUH8mHymiXHH2eqXMZgcb6Gn2Suh2Wx12+kleHh3Ry1hHpeA==
-X-Received: by 2002:a50:c316:0:b0:56b:b0aa:5103 with SMTP id a22-20020a50c316000000b0056bb0aa5103mr3886006edb.5.1711358851093;
-        Mon, 25 Mar 2024 02:27:31 -0700 (PDT)
-Message-ID: <e013539a-b199-4e0f-90c7-835c9774fe17@suse.com>
-Date: Mon, 25 Mar 2024 10:27:30 +0100
+        bh=6vwaw3dVIguQ9/7TLOaJw0+8ePZ6Q+QR/NoqSGh05YE=;
+        b=Qs+mYrby2k4ARJoUHtG3vI/F7TeJZtp+CY09PAWCC3acvYQ/yE6b2hNtmavX3HKypS
+         6YhmRb/V8t7lFZUZ9UstOa0f7k//LVGp4lDIR1Zef3/TYIM2160GjYGKvWPGj8OG5YjC
+         77xs038TV/p35YB81ggvgMxR6eZs57PpYS40u02dfWkqQPnNXUyBKvholw38jBYXyCU+
+         yusQ39zwR3sXlfo/My4LKAtv8z/hui5j7kmlq40K67WTVPc50i8hU145pTCjCK20RnCZ
+         Dun5i4D+NhypmHSxfDtWwiWjxx/QoQ/A0aVAy3IGxvm90PtG8atd5Gr2CJMoLtv2YQ1x
+         O7jQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUAprec8hwN/QXJBvx5BeGhp0WQc69XikJ42QdarPHQfXeTtQUUHe+B+t7VctE0CykIWTpRC7KmjsZPs/Fi1KRLJk0M1O/cxErAWmDJ5vg=
+X-Gm-Message-State: AOJu0YxldAXirn2jYjBgNHK5bQTJDgO4IvDhIWZkJpkQkpmfGkhTNX1R
+	xwYDjNvaa+0j4fXR1Yx22nLLa7hGrPzl+GnrifrnOOdECfxDL6W5sY4af4BbwA==
+X-Google-Smtp-Source: AGHT+IG1obWENz1W09UCCvPX6NOT9QiiG2Z4mMTw/utSz/9xf9a2VylJp0cIfXGvEbGiMM3L46HfuA==
+X-Received: by 2002:a17:906:1401:b0:a46:635b:bb3e with SMTP id p1-20020a170906140100b00a46635bbb3emr3587557ejc.52.1711359485820;
+        Mon, 25 Mar 2024 02:38:05 -0700 (PDT)
+Message-ID: <072aa89b-2a03-4823-af72-28a2a882b373@suse.com>
+Date: Mon, 25 Mar 2024 10:38:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 07/11] xen/page_alloc: address violations of MISRA C
- Rule 20.7
+Subject: Re: [XEN PATCH 08/11] x86/altcall: address violations of MISRA C Rule
+ 20.7
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  ayan.kumar.halder@amd.com, consulting@bugseng.com,
  andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- julien@xen.org, George Dunlap <george.dunlap@citrix.com>,
- xen-devel@lists.xenproject.org
+ julien@xen.org, xen-devel@lists.xenproject.org
 References: <cover.1711118582.git.nicola.vetrini@bugseng.com>
- <ead692e7a9f7f21ae54448073af8b64a40f2ddfe.1711118582.git.nicola.vetrini@bugseng.com>
+ <653ead65966226f50b0e4ae0268912c9710f9dba.1711118582.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,31 +114,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ead692e7a9f7f21ae54448073af8b64a40f2ddfe.1711118582.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <653ead65966226f50b0e4ae0268912c9710f9dba.1711118582.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 22.03.2024 17:01, Nicola Vetrini wrote:
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -150,7 +150,7 @@
->  #include <asm/paging.h>
->  #else
->  #define p2m_pod_offline_or_broken_hit(pg) 0
+> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
+> of macro parameters shall be enclosed in parentheses". Therefore, some
+> macro definitions should gain additional parentheses to ensure that all
+> current and future users will be safe with respect to expansions that
+> can possibly alter the semantics of the passed-in macro parameter.
+> 
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Seeing this in context: Does Misra also have a rule demanding evaluation
-of macro arguments?
+Hmm. These macros are, at least in part, hard to read already. The added
+parentheses, while necessary when following the rule to the letter, are
+making things worse, even if just slightly. I therefore have a proposal /
+question:
 
-> -#define p2m_pod_offline_or_broken_replace(pg) BUG_ON(pg != NULL)
-> +#define p2m_pod_offline_or_broken_replace(pg) BUG_ON((pg) != NULL)
+> --- a/xen/arch/x86/include/asm/alternative.h
+> +++ b/xen/arch/x86/include/asm/alternative.h
+> @@ -243,28 +243,28 @@ extern void alternative_branches(void);
+>  
+>  #define alternative_vcall0(func) ({             \
+>      ALT_CALL_NO_ARG1;                           \
+> -    (void)sizeof(func());                       \
+> +    (void)sizeof((func)());                     \
 
-Or easier
+Like this, all that's touched here are (syntactical, but not real) function
+invocations. Function calls, like all postfix operators, are highest
+precedence. Hence by omitting parentheses in that case no breakage can
+happen as a result: If the passed expression is another postfix one, that'll
+be evaluated first anyway. If any other expression is passed (aside primary
+ones, of course), that'll be evaluated afterwards only due to being lower
+precedence, irrespective of the presence/absence of parentheses.
 
-#define p2m_pod_offline_or_broken_replace(pg) BUG_ON(pg)
-
-?
+Therefore, where harmful to readability, can we perhaps leave postfix
+expressions alone?
 
 Jan
-
-
 
