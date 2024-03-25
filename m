@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ED6D88931A
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 08:20:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697581.1088449 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9FBF889416
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 08:46:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.697586.1088459 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1roecN-0007tC-R5; Mon, 25 Mar 2024 07:19:39 +0000
+	id 1rof1u-0003JH-UT; Mon, 25 Mar 2024 07:46:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697581.1088449; Mon, 25 Mar 2024 07:19:39 +0000
+Received: by outflank-mailman (output) from mailman id 697586.1088459; Mon, 25 Mar 2024 07:46:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1roecN-0007r0-ND; Mon, 25 Mar 2024 07:19:39 +0000
-Received: by outflank-mailman (input) for mailman id 697581;
- Mon, 25 Mar 2024 07:19:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rof1u-0003H7-R8; Mon, 25 Mar 2024 07:46:02 +0000
+Received: by outflank-mailman (input) for mailman id 697586;
+ Mon, 25 Mar 2024 07:46:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x9L4=K7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1roecM-0007qu-Jr
- for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 07:19:38 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 07de3e36-ea78-11ee-a1ef-f123f15fe8a2;
- Mon, 25 Mar 2024 08:19:34 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a466fc8fcccso522224466b.1
- for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 00:19:34 -0700 (PDT)
+ id 1rof1t-0003H1-D3
+ for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 07:46:01 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b8fe43e5-ea7b-11ee-afe3-a90da7624cb6;
+ Mon, 25 Mar 2024 08:46:00 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-51381021af1so6146273e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 00:46:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- y4-20020a1709060a8400b00a46bec6da9fsm2719970ejf.203.2024.03.25.00.19.33
+ n19-20020a170906119300b00a4660b63502sm2787957eja.12.2024.03.25.00.45.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Mar 2024 00:19:33 -0700 (PDT)
+ Mon, 25 Mar 2024 00:45:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07de3e36-ea78-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: b8fe43e5-ea7b-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711351174; x=1711955974; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711352759; x=1711957559; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=mm1gw2ECZDbis5ZwKJcUwi50GULtM/d805mZIANAhvU=;
-        b=OREVHkzUOzmSEPDO/5vwMcXqrd2IbpkWJfLUkYIDC+YvFgTsNybeOfqvMzF81FXHLF
-         iDVwGYqMCEZ6wyqb8OXpmWu8ADVRZ0cVHiBIzTg63u//eZG6YkhqXbOqnm+HmknERzam
-         ii56rH9wQsQGmyqb0ZVOVcieu/AH2vG9VVnsevTY9VeZPQAWJMwwC8MLiKoNZaKGB4vY
-         +zb+pExx6DK+fEBMpcD0Xeh83zhcAEZ0bARDVJjZY4YwQJhTI1Gjsbja94d8hH/BUeVx
-         4HuAJg3i09S2eU0sZ0Wq3+pnmnff2svIzuDm/FogB0nO7jqfo9wmJN9xNhmSvdBvoTKM
-         GA8w==
+        bh=yb8CcBgcLohDb7X/nt8CRDOZcP5NhK4eWvJ8+1TfBPY=;
+        b=UaPfIpjMB9oNCYAA4KpoRfNNj8YefWb3MHJWYcBwojXT7fr762bhJMfOc+J+rlVTcR
+         YN6p9zFYs0aHp4vJ81YJIsLncC8/9ybQNEwyTYejF9GpV4CMyyrWr3X4m8I3TcNLFoZ6
+         2A4np5mikQyOZW4r7LqVvXe1RvmEy62eloQCWg/gPV04rnIbVzkH4se1aq3cNAVgANPX
+         C5uzhGD8umdiefmLcyu6fptcA5l9lV5qnJLeFn9qXDVwaeZspZJgXQ5MQOU4Gv9HDQRW
+         618hz9GriQP6OukE7vCJPJr7RynfAairXqgsO5vEFsUJXMW06t8ZwlXelQklyj1uh5Zw
+         ogdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711351174; x=1711955974;
+        d=1e100.net; s=20230601; t=1711352759; x=1711957559;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mm1gw2ECZDbis5ZwKJcUwi50GULtM/d805mZIANAhvU=;
-        b=d8MlL1nMKKKwgnI1aT1hY8+Vqw9ZTAyrGZn2V7VCMM0aFvPB9VhPxN9fx2B+rYs6Rt
-         DTyDh107YXg/SCyS7vS3z9k64emDI1AhqJnHSh2kci694WnFuTVtWQ2MppuFluODgpM2
-         SV8sQsJVzgxoE+9HdF033k3HOrmnY/+hANQdpisoYsa4iRKWShzeA+v40lEFgy3OHtWc
-         M3nnP5Ygxx24m2qzQ+Vet1EbF3ZSxq43b0PX6SO4Vd3vHrKDxN7M9O6xoO/u2fx4Fc3Y
-         NiWjd+/ANGIUHrDtM3SnyqCGsEdEKmpG/812QXffggkSHGeY8Z9CsUjKB0sQ3cPOUxCw
-         p1vQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW8OMO3k7WmrecsNhsCzU3sDKxQmukiYu1j831Yavy8BhfCtA13uagxnFOoWPFWPFwfaHbSoiN/1+BcwnbHCs+dHxuDtMtGt5mvhuvmVN0=
-X-Gm-Message-State: AOJu0YxPdcPkzzH7RgSnv52JNSrp/ASHZpDCsD8cdWVoOdT2VvonjcmT
-	nvA/g6CF12IwEdrRsrPids7MFZ926KjTExXWUaZQnZ8k1d3UeDdCXAveZYRIxQ==
-X-Google-Smtp-Source: AGHT+IHjZJsf1abORytkCGlcCovBSEc8rsfBM+s+GeMZ6yy8XsiVbvFNrzALo5G3s14X8Gs4KaADDA==
-X-Received: by 2002:a17:906:408f:b0:a47:2036:dbc4 with SMTP id u15-20020a170906408f00b00a472036dbc4mr3591164ejj.25.1711351174158;
-        Mon, 25 Mar 2024 00:19:34 -0700 (PDT)
-Message-ID: <3427132d-9458-4447-b667-d2ef3c1f0569@suse.com>
-Date: Mon, 25 Mar 2024 08:19:35 +0100
+        bh=yb8CcBgcLohDb7X/nt8CRDOZcP5NhK4eWvJ8+1TfBPY=;
+        b=AcbPlo7pPE8bfsix8EG13QPDfFmJAyL2ne5w1Mkxaz/9s0+7Cz6feEN+UBMpQzTz8+
+         4ANdnpZqlU8AEfkDCxRFcoBj3RMIzHLsNcpnya0lQLUTeD6htpK2IUT/wifVIR2jk3PS
+         3GAZbN/uyMk4eqwUcuOl40gsvG9f+nefkhS36j33NwmO+Oamc2AE7G6AnwA9i1SrO0SY
+         ihNUdcqQXQ+7mZEGOg9O5sR6+Q9bAw6/yJADlzNyMiDS07uE2wBW3JB/sRLCYK/SPSxT
+         uBu7BEfJSMekYis561Pt9XRsKXUat7xy/KdoSgRIZkbk6J5akaKE+0i2Kgck5Vzx03d9
+         2FOA==
+X-Forwarded-Encrypted: i=1; AJvYcCXZ3xeewSbzO9RBJK0131B4Tfp8+btESSnOPcXThi7b299snndcQ83i/6gRZL3sGZV6ranx3TbLQkJb9WHGN/MY+17AeGEvuZtzWnG1+gc=
+X-Gm-Message-State: AOJu0Yy5wwpFaYPunEH2tJkE/c3xgjDxo5oXITWp4oUg8Ld63jwPJ5Bm
+	9eLhN1NLzpY4JvP4hYU5vUL2fUsBozE6MN/qc/7o1fQx3f4ey6YHN8Tnvm6CKw==
+X-Google-Smtp-Source: AGHT+IEltR00OIpIpmIOnz13CIUGNx3hzKHB7smB3WtwDwQpfqeODvSp1271FCXvqFSDH9KNXBuDNg==
+X-Received: by 2002:ac2:446b:0:b0:515:8dd3:e94d with SMTP id y11-20020ac2446b000000b005158dd3e94dmr3949052lfl.68.1711352759472;
+        Mon, 25 Mar 2024 00:45:59 -0700 (PDT)
+Message-ID: <b0e4d3e0-f760-4ba2-a90b-f8c5ddb676ad@suse.com>
+Date: Mon, 25 Mar 2024 08:46:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 08/14] xen/page_alloc: introduce preserved page flags
- macro
+Subject: Re: [PATCH v3 3/3] x86/PVH: Support relocatable dom0 kernels
 Content-Language: en-US
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-References: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
- <20240315105902.160047-9-carlo.nonato@minervasys.tech>
- <3f615066-a792-493f-ba33-7667a6557c23@xen.org>
- <9e0f7ff3-5457-41e4-a1e4-bf75804fb900@xen.org>
- <255be735-f9fe-4e39-a24e-2f6aff91acc5@suse.com>
- <CAG+AhRWMh2quv3SNPJQ61au=e6gtdXUO7j-XVYV6chDmktqkvA@mail.gmail.com>
+References: <20240319205849.115884-1-jason.andryuk@amd.com>
+ <20240319205849.115884-4-jason.andryuk@amd.com>
+ <ad5ef9ee-d509-435d-943c-8d7005c823d2@suse.com>
+ <183f17a2-cc7b-46c6-81b5-ac1f5daacb7b@amd.com>
+ <63cad597-b48f-43df-8d53-0ee8c1aa744d@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,162 +117,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAG+AhRWMh2quv3SNPJQ61au=e6gtdXUO7j-XVYV6chDmktqkvA@mail.gmail.com>
+In-Reply-To: <63cad597-b48f-43df-8d53-0ee8c1aa744d@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 22.03.2024 16:07, Carlo Nonato wrote:
-> Hi guys,
+On 22.03.2024 15:24, Jason Andryuk wrote:
+> On 2024-03-21 09:45, Jason Andryuk wrote:
+>> On 2024-03-20 10:39, Jan Beulich wrote:
+>>> On 19.03.2024 21:58, Jason Andryuk wrote:
 > 
-> On Thu, Mar 21, 2024 at 5:23 PM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 21.03.2024 17:10, Julien Grall wrote:
->>> On 21/03/2024 16:07, Julien Grall wrote:
->>>> On 15/03/2024 10:58, Carlo Nonato wrote:
->>>>> PGC_static and PGC_extra needs to be preserved when assigning a page.
->>>>> Define a new macro that groups those flags and use it instead of or'ing
->>>>> every time.
->>>>>
->>>>> To make preserved flags even more meaningful, they are kept also when
->>>>> switching state in mark_page_free().
->>>>>
->>>>> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
->>>>
->>>> This patch is introducing a regression in OSStest (and possibly gitlab?):
->>>>
->>>> Mar 21 12:00:29.533676 (XEN) pg[0] MFN 2211c5 c=0x2c00000000000000 o=0
->>>> v=0xe40000010007ffff t=0x24
->>>> Mar 21 12:00:42.829785 (XEN) Xen BUG at common/page_alloc.c:1033
->>>> Mar 21 12:00:42.829829 (XEN) ----[ Xen-4.19-unstable  x86_64  debug=y
->>>> Not tainted ]----
->>>> Mar 21 12:00:42.829857 (XEN) CPU:    12
->>>> Mar 21 12:00:42.841571 (XEN) RIP:    e008:[<ffff82d04022fe1f>]
->>>> common/page_alloc.c#alloc_heap_pages+0x37f/0x6e2
->>>> Mar 21 12:00:42.841609 (XEN) RFLAGS: 0000000000010282   CONTEXT:
->>>> hypervisor (d0v8)
->>>> Mar 21 12:00:42.853654 (XEN) rax: ffff83023e3ed06c   rbx:
->>>> 000000000007ffff   rcx: 0000000000000028
->>>> Mar 21 12:00:42.853689 (XEN) rdx: ffff83047bec7fff   rsi:
->>>> ffff83023e3ea3e8   rdi: ffff83023e3ea3e0
->>>> Mar 21 12:00:42.865657 (XEN) rbp: ffff83047bec7c10   rsp:
->>>> ffff83047bec7b98   r8:  0000000000000000
->>>> Mar 21 12:00:42.877647 (XEN) r9:  0000000000000001   r10:
->>>> 000000000000000c   r11: 0000000000000010
->>>> Mar 21 12:00:42.877682 (XEN) r12: 0000000000000001   r13:
->>>> 0000000000000000   r14: ffff82e0044238a0
->>>> Mar 21 12:00:42.889652 (XEN) r15: 0000000000000000   cr0:
->>>> 0000000080050033   cr4: 0000000000372660
->>>> Mar 21 12:00:42.901651 (XEN) cr3: 000000046fe34000   cr2: 00007fb72757610b
->>>> Mar 21 12:00:42.901685 (XEN) fsb: 00007fb726def380   gsb:
->>>> ffff88801f200000   gss: 0000000000000000
->>>> Mar 21 12:00:42.913646 (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000
->>>> ss: e010   cs: e008
->>>> Mar 21 12:00:42.913680 (XEN) Xen code around <ffff82d04022fe1f>
->>>> (common/page_alloc.c#alloc_heap_pages+0x37f/0x6e2):
->>>> Mar 21 12:00:42.925645 (XEN)  d1 1c 00 e8 ad dd 02 00 <0f> 0b 48 85 c9
->>>> 79 36 0f 0b 41 89 cd 48 c7 47 f0
->>>> Mar 21 12:00:42.937649 (XEN) Xen stack trace from rsp=ffff83047bec7b98:
->>>> Mar 21 12:00:42.937683 (XEN)    0000000000000024 000000007bec7c20
->>>> 0000000000000001 ffff83046ccda000
->>>> Mar 21 12:00:42.949653 (XEN)    ffff82e000000021 0000000000000016
->>>> 0000000000000000 0000000000000000
->>>> Mar 21 12:00:42.949687 (XEN)    0000000000000000 0000000000000000
->>>> 0000000000000028 0000000000000021
->>>> Mar 21 12:00:42.961652 (XEN)    ffff83046ccda000 0000000000000000
->>>> 00007d2000000000 ffff83047bec7c48
->>>> Mar 21 12:00:42.961687 (XEN)    ffff82d0402302ff ffff83046ccda000
->>>> 0000000000000100 0000000000000000
->>>> Mar 21 12:00:42.973655 (XEN)    ffff82d0405f0080 00007d2000000000
->>>> ffff83047bec7c80 ffff82d0402f626c
->>>> Mar 21 12:00:42.985656 (XEN)    ffff83046ccda000 ffff83046ccda640
->>>> 0000000000000000 0000000000000000
->>>> Mar 21 12:00:42.985690 (XEN)    ffff83046ccda220 ffff83047bec7cb0
->>>> ffff82d0402f65a0 ffff83046ccda000
->>>> Mar 21 12:00:42.997662 (XEN)    0000000000000000 0000000000000000
->>>> 0000000000000000 ffff83047bec7cc0
->>>> Mar 21 12:00:43.009660 (XEN)    ffff82d040311f8a ffff83047bec7ce0
->>>> ffff82d0402bd543 ffff83046ccda000
->>>> Mar 21 12:00:43.009695 (XEN)    ffff83047bec7dc8 ffff83047bec7d08
->>>> ffff82d04032c524 ffff83046ccda000
->>>> Mar 21 12:00:43.021653 (XEN)    ffff83047bec7dc8 0000000000000002
->>>> ffff83047bec7d58 ffff82d040206750
->>>> Mar 21 12:00:43.033642 (XEN)    0000000000000000 ffff82d040233fe5
->>>> ffff83047bec7d48 0000000000000000
->>>> Mar 21 12:00:43.033678 (XEN)    0000000000000002 00007fb72767f010
->>>> ffff82d0405e9120 0000000000000001
->>>> Mar 21 12:00:43.045654 (XEN)    ffff83047bec7e70 ffff82d040240728
->>>> 0000000000000007 ffff83023e3b3000
->>>> Mar 21 12:00:43.045690 (XEN)    0000000000000246 ffff83023e2efa90
->>>> ffff83023e38e000 ffff83023e2efb40
->>>> Mar 21 12:00:43.057609 (XEN)    0000000000000007 ffff83023e3afb80
->>>> 0000000000000206 ffff83047bec7dc0
->>>> Mar 21 12:00:43.069662 (XEN)    0000001600000001 000000000000ffff
->>>> e75aaa8d0000000c ac0d6d864e487f62
->>>> Mar 21 12:00:43.069697 (XEN)    000000037fa48d76 0000000200000000
->>>> ffffffff000003ff 00000002ffffffff
->>>> Mar 21 12:00:43.081647 (XEN)    0000000000000000 00000000000001ff
->>>> 0000000000000000 0000000000000000
->>>> Mar 21 12:00:43.093646 (XEN) Xen call trace:
->>>> Mar 21 12:00:43.093677 (XEN)    [<ffff82d04022fe1f>] R
->>>> common/page_alloc.c#alloc_heap_pages+0x37f/0x6e2
->>>> Mar 21 12:00:43.093705 (XEN)    [<ffff82d0402302ff>] F
->>>> alloc_domheap_pages+0x17d/0x1e4
->>>> Mar 21 12:00:43.105652 (XEN)    [<ffff82d0402f626c>] F
->>>> hap_set_allocation+0x73/0x23c
->>>> Mar 21 12:00:43.105685 (XEN)    [<ffff82d0402f65a0>] F
->>>> hap_enable+0x138/0x33c
->>>> Mar 21 12:00:43.117646 (XEN)    [<ffff82d040311f8a>] F
->>>> paging_enable+0x2d/0x45
->>>> Mar 21 12:00:43.117679 (XEN)    [<ffff82d0402bd543>] F
->>>> hvm_domain_initialise+0x185/0x428
->>>> Mar 21 12:00:43.129652 (XEN)    [<ffff82d04032c524>] F
->>>> arch_domain_create+0x3e7/0x4c1
->>>> Mar 21 12:00:43.129687 (XEN)    [<ffff82d040206750>] F
->>>> domain_create+0x4cc/0x7e2
->>>> Mar 21 12:00:43.141665 (XEN)    [<ffff82d040240728>] F
->>>> do_domctl+0x1850/0x192d
->>>> Mar 21 12:00:43.141699 (XEN)    [<ffff82d04031a96a>] F
->>>> pv_hypercall+0x617/0x6b5
->>>> Mar 21 12:00:43.153656 (XEN)    [<ffff82d0402012ca>] F
->>>> lstar_enter+0x13a/0x140
->>>> Mar 21 12:00:43.153689 (XEN)
->>>> Mar 21 12:00:43.153711 (XEN)
->>>> Mar 21 12:00:43.153731 (XEN) ****************************************
->>>> Mar 21 12:00:43.165647 (XEN) Panic on CPU 12:
->>>> Mar 21 12:00:43.165678 (XEN) Xen BUG at common/page_alloc.c:1033
->>>> Mar 21 12:00:43.165703 (XEN) ****************************************
->>>> Mar 21 12:00:43.177633 (XEN)
->>>> Mar 21 12:00:43.177662 (XEN) Manual reset required ('noreboot' specified)
->>>>
->>>> The code around the BUG is:
->>>>
->>>>          /* Reference count must continuously be zero for free pages. */
->>>>          if ( (pg[i].count_info & ~PGC_need_scrub) != PGC_state_free )
->>>>          {
->>>>              printk(XENLOG_ERR
->>>>                     "pg[%u] MFN %"PRI_mfn" c=%#lx o=%u v=%#lx t=%#x\n",
->>>>                     i, mfn_x(page_to_mfn(pg + i)),
->>>>                     pg[i].count_info, pg[i].v.free.order,
->>>>                     pg[i].u.free.val, pg[i].tlbflush_timestamp);
->>>>              BUG();
->>>>          }
->>>>
->>>> Now that you are preserving some flags, you also want to modify the
->>>> condition. I haven't checked the rest of the code, so there might be
->>>> some adjustments necessary.
+>>>> @@ -536,6 +565,10 @@ elf_errorstatus elf_xen_parse(struct elf_binary 
+>>>> *elf,
+>>>>       parms->p2m_base = UNSET_ADDR;
+>>>>       parms->elf_paddr_offset = UNSET_ADDR;
+>>>>       parms->phys_entry = UNSET_ADDR32;
+>>>> +    parms->phys_min = 0;
+>>>> +    parms->phys_max = 0xffffffff;
+>>>> +    parms->phys_align = 0x200000;
 >>>
->>> Actually maybe the condition should not be adjusted. I think it would be
->>> wrong if a free pages has the flag PGC_extra set. Any thoughts?
->>
->> I agree, yet I'm inclined to say PGC_extra should have been cleared
->> before trying to free the page.
+>>> I think this wants to be MB(2) (requiring a pre-patch to centralize MB()
+>>> in the tool stack to tools/include/xen-tools/common-macros.h). And I
+>>> further think this needs to be an arch-specific constant, even if right
+>>> now the note is expected to be present only for x86. Which then also
+>>> needs saying ...
 > 
-> So what to do now? Should I drop this commit?
+> Are you thinking something like the following in libelf-dominfo.c:
+> 
+> #define X86_PHYS_ALIGN_DEFAULT MB(2)
+> #define X86_PHYS_MAX_DEFAULT (GB(4) - 1)
+> 
+> and setting as:
+> parms->phys_max = X86_PHYS_MAX_DEFAULT;
+> parms->phys_align = X86_PHYS_ALIGN_DEFAULT;
+> 
+> libelf is arch neutral, so there isn't a natural place to introduce 
+> arch-specific defines.  Or were you looking for each arch to set it?  We 
+> only care about x86 right now, so we can do something like:
+> 
+> #if x86
+> #define ARCH_PHYS_MAX_DEFAULT   (GB(4) - 1)
+> #define ARCH_PHYS_ALIGN_DEFAULT MB(2)
+> #else
+> #define ARCH_PHYS_MAX_DEFAULT   0
+> #define ARCH_PHYS_ALIGN_DEFAULT 0
+> #endif
 
-No, we need to get to the root of the issue. Since osstest has hit it quite
-easily as it seems, I'm somewhat surprised you didn't hit it in your testing.
-In any event, as per my earlier reply, my present guess is that your change
-has merely uncovered a previously latent issue elsewhere.
+More like the latter. The former only if the phys_* fields themselves were
+to also become x86-only.
+
+As you say, libelf in its present shape doesn't easily lend itself to such
+arch-specifics.
 
 Jan
 
