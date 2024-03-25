@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BC60889467
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 08:56:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697590.1088469 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFB8C889487
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 09:01:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.697598.1088478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rofBX-00052X-QO; Mon, 25 Mar 2024 07:55:59 +0000
+	id 1rofG4-0007GX-Ml; Mon, 25 Mar 2024 08:00:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697590.1088469; Mon, 25 Mar 2024 07:55:59 +0000
+Received: by outflank-mailman (output) from mailman id 697598.1088478; Mon, 25 Mar 2024 08:00:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rofBX-000510-N5; Mon, 25 Mar 2024 07:55:59 +0000
-Received: by outflank-mailman (input) for mailman id 697590;
- Mon, 25 Mar 2024 07:55:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rofG4-0007E4-K8; Mon, 25 Mar 2024 08:00:40 +0000
+Received: by outflank-mailman (input) for mailman id 697598;
+ Mon, 25 Mar 2024 08:00:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x9L4=K7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rofBW-00050u-4m
- for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 07:55:58 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1c06950e-ea7d-11ee-a1ef-f123f15fe8a2;
- Mon, 25 Mar 2024 08:55:55 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a2f22bfb4e6so524286566b.0
- for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 00:55:55 -0700 (PDT)
+ id 1rofG3-0007Dy-HA
+ for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 08:00:39 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c47c5de0-ea7d-11ee-afe3-a90da7624cb6;
+ Mon, 25 Mar 2024 09:00:38 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-56be32b9775so3274897a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 01:00:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l13-20020a1709061c4d00b00a473780b012sm2747544ejg.156.2024.03.25.00.55.54
+ m10-20020a50cc0a000000b0056b0af78d80sm2693558edi.34.2024.03.25.01.00.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Mar 2024 00:55:55 -0700 (PDT)
+ Mon, 25 Mar 2024 01:00:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c06950e-ea7d-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: c47c5de0-ea7d-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711353355; x=1711958155; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711353638; x=1711958438; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=lZvfPwCaeoSaUbow16/njPd6dB4EK4YynekTWLX4jqs=;
-        b=A90efINCpCmT5DcRGqKL10rtXMoDBGFOJ2LvL2eX8Ca9APIYgC1VNUJcLTmadZ0/PM
-         xSuOpfwujRYItgqlTORAkEZv35F/GnyZQYAeu2R0S90dGurweS0JRuldmV/kj1y6Goxg
-         wynTXA2BoNq0h3WtE26hvJvat84ABbeTh87CBOZOMkSbLtcJ6Ql7UYn760bzlsjmgUvg
-         YKBdASNFYWEgKsLZAArv3KwjzPpdQ7vxtMKg3/4WBjVu+vGpA+G1KercF5LayxdKbS3Z
-         u+ukqCw+4FAt993qMz5MSBpXSTiUQIl201/N4+p1vpxiF5GylUkEqDg2fTqTvYQ7K1Hy
-         +xcw==
+        bh=T3xtqaI6E5IJGgpu63j4LIE+WzlbHTlvZqtf48fDVaY=;
+        b=CIx36ZFNIbDr0fGn6JAMiLhxnculB81+XxI646QfK6LBVCr9FU2QKrei/ftQ8pGDnL
+         Y6wzB7reyrXRSI7o2yLD8UFtHWbxhC7i6mn4XpNTS04O9qcg4RG6AKcjcivz1tIRPxyX
+         hl4Lz+Q1zMAbncFIA261afhCRXsdgOUNVRYBU6Y1xPwjLQptje8WR4DQy4GKwx5TUiVZ
+         Ct+QwljvsLllwEkNfFIpnlXIqFE0MwtbtH+Kuh/mMAFHbXvvk4r4stxbafW6u/TIOPFW
+         OkbVUpsraNldnfoaTHVaOLle6pnsS9ymlgDvupbcZSu9BBMTHix6HmxlTyHzHxzpfBpf
+         jmTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711353355; x=1711958155;
+        d=1e100.net; s=20230601; t=1711353638; x=1711958438;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lZvfPwCaeoSaUbow16/njPd6dB4EK4YynekTWLX4jqs=;
-        b=EMA/4ZLeTfErV6pMW/6+HMaa7INK3biPFkU9KeyxY9VZnB/oZKAG9h+t515SGDNQz3
-         wz4z97h0eGYp8Gv2mAFSXPKVsYWAAN0LVxYIj1uHpDrGYHwzXI39p5mHBkJIeBusnCO/
-         FwfRNlGndZP1cW1W8MBFwxQwMPfp35Q0NIft7BHw8D1utjnIzJhxEUy8cExAYOqxuQHs
-         cMfqF9Hgea/yYZ3R8n40X3f5g1bl7P7UFvqc8pEXwITIp/IS/lOvI/jqfqhnwYQ3Gctk
-         NEQb8SsEskF2bjbor/FdIad16fI/YAyChj0g2RhpftC4QaTGrPKXGJQ0R9zN9cQmAhO8
-         wk2Q==
-X-Gm-Message-State: AOJu0YxmugjTsu0AU/5S03FEhs3A1zaBgefi/3Zx/nQpeRF0/K6U/P3p
-	/zbHfZwHGdMcHmm0+kRJ1vBNI3ud0v7QWvGmfDn2GxB8xNGp64StrP+1g+ZJXQ==
-X-Google-Smtp-Source: AGHT+IFEa7hx+xCjIU6B5shUkk9swU937qkHsPDzRvGy/rCbNFgQ38Fg6xmkXbIapZRoNKl75xBALg==
-X-Received: by 2002:a17:906:f9d8:b0:a47:499b:d735 with SMTP id lj24-20020a170906f9d800b00a47499bd735mr3197856ejb.14.1711353355246;
-        Mon, 25 Mar 2024 00:55:55 -0700 (PDT)
-Message-ID: <e9b1c9c4-523b-481b-946e-37c7c18ea1d2@suse.com>
-Date: Mon, 25 Mar 2024 08:55:56 +0100
+        bh=T3xtqaI6E5IJGgpu63j4LIE+WzlbHTlvZqtf48fDVaY=;
+        b=Grt6M2oLMJmY36TRMlcxDD848rnvQiYq35RIoq1Isgdle/mDuSXSlxP3sqkHsSRfBx
+         NUqN23dnv+U2VH+kRk+Y7uZEeAOKnIrLFyLWjC5zE61p6ramvaEeeE2dut4sGlp2RJRE
+         A2rWNqGIpLqI3Bo9+MOFD6qbYr8QY6Ot7i+T20GeU1ZiahHvtNr2X2A8JsYTcfhtjGB1
+         4csW+/RqmBd+n7sM+aUTNob6vkradSYs+ZrhstIY2YOSOK8eURr0QV+e6nH7K66N2AWU
+         RydfaadExKFRy5ZWRn1Jd9+Aa1jidc5RhKCODJt512er6avpJg+GV3HPj/9jMuWTrfG4
+         6Vqw==
+X-Forwarded-Encrypted: i=1; AJvYcCUM/HtSgVHe89W7qcJg+NS+UuZ32+6xjx12x5CkBnH7xs5ZQS/3+9EeNn9ECoQ4GyOihT00oGz37zwRw3k/mkpjW+kLe3phdBgV/ZcT1yk=
+X-Gm-Message-State: AOJu0Yz0EDZKNH82OrZJqy8Ws7C/4FROjO2y/f24FW5kZ4dg/DwMbgHC
+	50QhyqJyci64A4FLpSL0mkhDsjb1aST6e64bV7wCZ0REFI0IMCSc62CWQmWErA==
+X-Google-Smtp-Source: AGHT+IEQbRbOqCds/lpBopflOuZv0IISC88KF2F+p2wSu0sJEKG3gHaoJeYRUpgJgIz+ZCrKpIrPhw==
+X-Received: by 2002:a50:9fa5:0:b0:568:1444:a828 with SMTP id c34-20020a509fa5000000b005681444a828mr3726915edf.37.1711353637983;
+        Mon, 25 Mar 2024 01:00:37 -0700 (PDT)
+Message-ID: <9a9464de-f288-4f98-a194-22def7f2c4be@suse.com>
+Date: Mon, 25 Mar 2024 09:00:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Serious AMD-Vi(?) issue
+Subject: Re: [XEN PATCH 00/11] address some violations of MISRA C Rule 20.7
 Content-Language: en-US
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Kelly Choi <kelly.choi@cloud.com>
-References: <ZbLDlRi0vctlhsNp@mattapan.m5p.com>
- <ZcqoVBnsgUJw8G0l@mattapan.m5p.com> <ZfiY7/FBTwPQlfYi@mattapan.m5p.com>
- <CAO-mL=xndFd7xTU4Q+9hjLL-7zqZUGjYcp3_REa6QqXvtyAEYg@mail.gmail.com>
- <Zf3aWXfCANR7zXj8@mattapan.m5p.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
+ julien@xen.org, George Dunlap <george.dunlap@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1711118582.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,57 +115,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zf3aWXfCANR7zXj8@mattapan.m5p.com>
+In-Reply-To: <cover.1711118582.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.03.2024 20:22, Elliott Mitchell wrote:
-> On Fri, Mar 22, 2024 at 04:41:45PM +0000, Kelly Choi wrote:
->>
->> I can see you've recently engaged with our community with some issues you'd
->> like help with.
->> We love the fact you are participating in our project, however, our
->> developers aren't able to help if you do not provide the specific details.
+On 22.03.2024 17:01, Nicola Vetrini wrote:
+> Hi all,
 > 
-> Please point to specific details which have been omitted.  Fairly little
-> data has been provided as fairly little data is available.  The primary
-> observation is large numbers of:
+> this series aims to refactor some macros that cause violations of MISRA C Rule
+> 20.7 ("Expressions resulting from the expansion of macro parameters shall be
+> enclosed in parentheses"). All the macros touched by these patches are in some
+> way involved in violations, and the strategy adopted to bring them into
+> compliance is to add parentheses around macro arguments where needed.
 > 
-> (XEN) AMD-Vi: IO_PAGE_FAULT: DDDD:bb:dd.f d0 addr ffffff???????000 flags 0x8 I
+> Given that the community has previously requested a deviation from the rule, as
+> stated in docs/misra/deviations.rst, and reported below for convenience [1],
+> some macro parameters do not need any adjusting (e.g., when used as lhs to
+> an assignment in statement expressions).
 > 
-> Lines in Xen's ring buffer.
+> Patch 1 is taken, with adjustments, from [2]. Patches 2 and 3 are taken from [3]
+> without any modifications. All other patches are new in this series and are
+> pairwise indipendent.
+> 
+> [1] - Code violating Rule 20.7 is safe when macro parameters are used:
+>        (1) as function arguments;
+>        (2) as macro arguments;
+>        (3) as array indices;
+>        (4) as lhs in assignments.
+> 
+> [2] https://lore.kernel.org/xen-devel/b93a64b93ef4210f5fe96368c2522e5e71e9c87c.1709896401.git.nicola.vetrini@bugseng.com/
+> [3] https://lore.kernel.org/xen-devel/cover.1710762555.git.nicola.vetrini@bugseng.com/
+> 
+> Nicola Vetrini (11):
+>   xen/list: address violations of MISRA C Rule 20.7
+>   xen/xsm: add parentheses to comply with MISRA C Rule 20.7
+>   xen/efi: efibind: address violations of MISRA C Rule 20.7
+>   xentrace: address violation of MISRA C Rule 20.7
+>   xen: address MISRA C Rule 20.7 violation in generated hypercall
+>   xen/efi: address violations of MISRA C Rule 20.7
+>   xen/page_alloc: address violations of MISRA C Rule 20.7
+>   x86/altcall: address violations of MISRA C Rule 20.7
+>   x86/msi: address violation of MISRA C Rule 20.7 and coding style
+>   x86/hvm: address violations of Rule 20.7
+>   x86/public: hvm: address violations of MISRA C Rule 20.7
 
-Yet this is (part of) the problem: By providing only the messages that appear
-relevant to you, you imply that you know that no other message is in any way
-relevant. That's judgement you'd better leave to people actually trying to
-investigate. Unless of course you were proposing an actual code change, with
-suitable justification.
-
-In fact when running into trouble, the usual course of action would be to
-increase verbosity in both hypervisor and kernel, just to make sure no
-potentially relevant message is missed.
-
->  I recall spotting 3 messages from Linux's
-> SATA driver (which weren't saved due to other causes being suspected),
-> which would likely be associated with hundreds or thousands of the above
-> log messages.  I never observed any messages from the NVMe subsystem
-> during that phase.
-> 
-> The most overt sign was telling the Linux kernel to scan for
-> inconsistencies and the kernel finding some.  The domain didn't otherwise
-> appear to notice trouble.
-> 
-> This is from memory, it would take some time to discover whether any
-> messages were missed.  Present mitigation action is inhibiting the
-> messages, but the trouble is certainly still lurking.
-
-Iirc you were considering whether any of this might be a timing issue. Yet
-beyond voicing that suspicion, you didn't provide any technical details as
-to why you think so. Such technical details would include taking into
-account how IOMMU mappings and associated IOMMU TLB flushing are carried
-out. Right now, to me at least, your speculation in this regard fails
-basic sanity checking. Therefore the scenario that you're thinking of
-would need better describing, imo.
+Just to clarify: While most of the patches here are new, two(?) I think
+were submitted before. As such, to indicate that, the series as a whole
+would want to be tagged v2.
 
 Jan
 
