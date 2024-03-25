@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DDF1889873
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 10:39:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697652.1088652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFD26889988
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 11:12:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.697680.1088693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rognX-0002Ry-Um; Mon, 25 Mar 2024 09:39:19 +0000
+	id 1rohIe-00048q-Fe; Mon, 25 Mar 2024 10:11:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697652.1088652; Mon, 25 Mar 2024 09:39:19 +0000
+Received: by outflank-mailman (output) from mailman id 697680.1088693; Mon, 25 Mar 2024 10:11:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rognX-0002Nk-Oh; Mon, 25 Mar 2024 09:39:19 +0000
-Received: by outflank-mailman (input) for mailman id 697652;
- Mon, 25 Mar 2024 09:39:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lWJZ=K7=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1rognV-000193-9s
- for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 09:39:17 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8bbe3675-ea8b-11ee-afe3-a90da7624cb6;
- Mon, 25 Mar 2024 10:39:16 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-56c0652d37aso1717002a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 02:39:16 -0700 (PDT)
-Received: from rayden.urgonet (h-217-31-164-171.A175.priv.bahnhof.se.
- [217.31.164.171]) by smtp.gmail.com with ESMTPSA id
- bw26-20020a170906c1da00b00a4650ec48d0sm2891067ejb.140.2024.03.25.02.39.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Mar 2024 02:39:15 -0700 (PDT)
+	id 1rohIe-000474-Ap; Mon, 25 Mar 2024 10:11:28 +0000
+Received: by outflank-mailman (input) for mailman id 697680;
+ Mon, 25 Mar 2024 10:11:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rohId-00046u-6Z; Mon, 25 Mar 2024 10:11:27 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rohId-0007WM-0c; Mon, 25 Mar 2024 10:11:27 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rohIc-0002K8-MY; Mon, 25 Mar 2024 10:11:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rohIc-0000Yt-MB; Mon, 25 Mar 2024 10:11:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,138 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bbe3675-ea8b-11ee-afe3-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1711359555; x=1711964355; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=R//dqaezYULgu2Zm/BSccIHOclqXeRZ8nf6tghKZQ5k=;
-        b=qMYZmF6oVlXJqcG0QDCjjaSzW1Xgjn89xzHduMJ3p1I7irq19zN1tFgWeVyOo5uzK/
-         u0beJcrkGD7KHQmsyWLafnUfUGPuptioju1gdlGch5n3PFkXAAr2Zzy8L6/jCHhDFHhk
-         FlE1a0T8mhQ/grkWCvvsYuHXBtdMnUl+GSvoRpWhNAOo1dQfiioHmTPvKZ3aksUCJn4V
-         t28JfW/jSsboV+3Ph5nWHwTd2iNptvE335tCzMjoqTVl2SXwjiWNtUr0eL7vjgh5bfUO
-         EBj3WYJhn6W3KWekKYKSv5AAAc49wDwOj0zM+WBw4pL7vDeGGcPDk8tugXVKmHpHmxGS
-         5Tsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711359555; x=1711964355;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=R//dqaezYULgu2Zm/BSccIHOclqXeRZ8nf6tghKZQ5k=;
-        b=jeRgnkzL2qWCx5zDpluExoqwAOxpXOMBWHjOG0s/bRTM9E0hyEF1GhcE5kTdrBhIak
-         d+OeyVKRRvjYUrbcHFQmzYhOAJM1zRjeEtYD3V9ncLTVWAYtBSuf/kZ7rI8kUArjoB9/
-         b0EheR/ygs4C5EDbW4GKIvxzpwI5aJGIrRwUmUaYszYGhnkmM9+vXDXH/6Je4D0WQ7y3
-         tcJSZsGzBOb6ccSX6X3QDr2xtfzFzDvwIGC1hdko2a5uBVWJf1B5nGdgBoBh016FpsXJ
-         ZMb183u7kdyahbiSfr0EhJqgCRV+8c5ym2+HBFwytR5BTNE7DX1YZeetB85XypiNdUtX
-         PmRw==
-X-Gm-Message-State: AOJu0Yy8au7oOFTQtF4Zb2ltoX4SvtCpOSe3sYWusAVpu4CkfYSL/+RX
-	hkuA5aLR0oSqFDQkaYzP//kM1I+ZUKzyYeCj9mVG0vIfMoSnWecrwHtWgKcbAvT6lR+WGGbvCzD
-	N
-X-Google-Smtp-Source: AGHT+IHp+/+QUpPfntMFxFrKsbtXhYig9yZ1giP9wj9Kd44YJk/MCgWMOMMAmO3Q/Q0QMZLd9qU6Sw==
-X-Received: by 2002:a17:906:4a12:b0:a47:3a99:87c with SMTP id w18-20020a1709064a1200b00a473a99087cmr4982726eju.18.1711359555664;
-        Mon, 25 Mar 2024 02:39:15 -0700 (PDT)
-From: Jens Wiklander <jens.wiklander@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=kYxl7vZ40ZJCf/p3IYhB3lYQt0v7VdKeOc1qE7LUU20=; b=GAIS9rHE8bxzYkc7NU3UJQUEWJ
+	z0xtujfV6WjmtNreD0WwzZN+iCy6w8rds13f+cFcy017FCaLaNtCwmSSoTnvNg32LXxfKtgN8rxXS
+	CHY5Jxdmq5QJH8mg2Tt6ztufcKKpl/+y2aDDPvsJHO2alRx7+bkh0qUWcRzyiy8jKh/Q=;
 To: xen-devel@lists.xenproject.org
-Cc: patches@linaro.org,
-	Jens Wiklander <jens.wiklander@linaro.org>,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: [XEN PATCH 6/6] xen/arm: ffa: support FFA_FEATURES
-Date: Mon, 25 Mar 2024 10:39:04 +0100
-Message-Id: <20240325093904.3466092-7-jens.wiklander@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240325093904.3466092-1-jens.wiklander@linaro.org>
-References: <20240325093904.3466092-1-jens.wiklander@linaro.org>
-MIME-Version: 1.0
+Message-ID: <osstest-185156-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 185156: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=cf58f47623c40a66b160face4f04e08efb4c7f5b
+X-Osstest-Versions-That:
+    ovmf=7f1ffba5de3d9840dbeeba20fba165f2fb724941
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 25 Mar 2024 10:11:26 +0000
 
-Add support for the mandatory FF-A ABI function FFA_FEATURES.
+flight 185156 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185156/
 
-Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
----
- xen/arch/arm/tee/ffa.c | 57 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 cf58f47623c40a66b160face4f04e08efb4c7f5b
+baseline version:
+ ovmf                 7f1ffba5de3d9840dbeeba20fba165f2fb724941
 
-diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index 4f7775b8c890..8665201e34a9 100644
---- a/xen/arch/arm/tee/ffa.c
-+++ b/xen/arch/arm/tee/ffa.c
-@@ -192,6 +192,60 @@ out:
-                  resp.a7 & mask);
- }
- 
-+static void handle_features(struct cpu_user_regs *regs)
-+{
-+    uint32_t a1 = get_user_reg(regs, 1);
-+    unsigned int n;
-+
-+    for ( n = 2; n <= 7; n++ )
-+    {
-+        if ( get_user_reg(regs, n) )
-+        {
-+            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-+            return;
-+        }
-+    }
-+
-+    switch ( a1 )
-+    {
-+    case FFA_ERROR:
-+    case FFA_VERSION:
-+    case FFA_SUCCESS_32:
-+    case FFA_SUCCESS_64:
-+    case FFA_FEATURES:
-+    case FFA_ID_GET:
-+    case FFA_RX_RELEASE:
-+    case FFA_RXTX_UNMAP:
-+    case FFA_MEM_RECLAIM:
-+    case FFA_PARTITION_INFO_GET:
-+    case FFA_MSG_SEND_DIRECT_REQ_32:
-+    case FFA_MSG_SEND_DIRECT_REQ_64:
-+        ffa_set_regs_success(regs, 0, 0);
-+        break;
-+    case FFA_MEM_SHARE_64:
-+    case FFA_MEM_SHARE_32:
-+        /*
-+         * We currently don't support dynamically allocated buffers. Report
-+         * that with 0 in bit[0] of w2.
-+         */
-+        ffa_set_regs_success(regs, 0, 0);
-+        break;
-+    case FFA_RXTX_MAP_64:
-+    case FFA_RXTX_MAP_32:
-+        /*
-+         * We currently support 4k pages only, report that as 00 in
-+         * bit[0:1] in w0. This needs to be revised if Xen page size
-+         * differs from FFA_PAGE_SIZE (SZ_4K).
-+         */
-+        BUILD_BUG_ON(PAGE_SIZE != FFA_PAGE_SIZE);
-+        ffa_set_regs_success(regs, 0, 0);
-+        break;
-+    default:
-+        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-+        break;
-+    }
-+}
-+
- static bool ffa_handle_call(struct cpu_user_regs *regs)
- {
-     uint32_t fid = get_user_reg(regs, 0);
-@@ -212,6 +266,9 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
-     case FFA_ID_GET:
-         ffa_set_regs_success(regs, ffa_get_vm_id(d), 0);
-         return true;
-+    case FFA_FEATURES:
-+        handle_features(regs);
-+        return true;
-     case FFA_RXTX_MAP_32:
-     case FFA_RXTX_MAP_64:
-         e = ffa_handle_rxtx_map(fid, get_user_reg(regs, 1),
--- 
-2.34.1
+Last test of basis   185138  2024-03-22 05:12:55 Z    3 days
+Testing same since   185156  2024-03-25 08:12:54 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <AbdulLateef.Attar@amd.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   7f1ffba5de..cf58f47623  cf58f47623c40a66b160face4f04e08efb4c7f5b -> xen-tested-master
 
