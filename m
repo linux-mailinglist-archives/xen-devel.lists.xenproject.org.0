@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D57EC88A65F
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 16:24:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697786.1088898 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F28E88A691
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 16:30:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.697789.1088907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1romBd-0004uK-Lg; Mon, 25 Mar 2024 15:24:33 +0000
+	id 1romGp-0005rF-7J; Mon, 25 Mar 2024 15:29:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697786.1088898; Mon, 25 Mar 2024 15:24:33 +0000
+Received: by outflank-mailman (output) from mailman id 697789.1088907; Mon, 25 Mar 2024 15:29:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1romBd-0004r7-I2; Mon, 25 Mar 2024 15:24:33 +0000
-Received: by outflank-mailman (input) for mailman id 697786;
- Mon, 25 Mar 2024 15:24:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1romGp-0005pR-4X; Mon, 25 Mar 2024 15:29:55 +0000
+Received: by outflank-mailman (input) for mailman id 697789;
+ Mon, 25 Mar 2024 15:29:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x9L4=K7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1romBc-0004r1-Dx
- for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 15:24:32 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c570c38b-eabb-11ee-a1ef-f123f15fe8a2;
- Mon, 25 Mar 2024 16:24:30 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-56bf6591865so3135865a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 08:24:28 -0700 (PDT)
+ id 1romGn-0005pL-L0
+ for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 15:29:53 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 866ec6bb-eabc-11ee-afe3-a90da7624cb6;
+ Mon, 25 Mar 2024 16:29:52 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a467d8efe78so533079866b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 08:29:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 8-20020a170906308800b00a4652efd795sm3137795ejv.83.2024.03.25.08.24.27
+ s10-20020a170906354a00b00a47a33b3aa2sm1634987eja.157.2024.03.25.08.29.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Mar 2024 08:24:27 -0700 (PDT)
+ Mon, 25 Mar 2024 08:29:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c570c38b-eabb-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 866ec6bb-eabc-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711380268; x=1711985068; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711380592; x=1711985392; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=EYo/I9l9EypwVCPAeKyFM3D59t3JwJaIWWILJVcw/Ag=;
-        b=PLFfxm9xY2oTF8eObk1bPsa3mui+PxB7BmWPtWExAwWvyQ+tIbwNV9PtwNQAH/RBU7
-         dCavlyL9hNlQ5gUqSO3B8wryXMRAiIvRgCojfzwNLGScdFL/nJKXals3s1MxI0g8lL3/
-         7a9xrvLGVfZsUZ9K4hS88FOetckmGUf2doqiarbCiORojfWv1f3EZQMNY1t7EE/hwE3m
-         7YrMGi/HZgz2BOctL5XnyfWqHBewuJctFbwiO713OoKsgpiuibr58kMVz2Nre6XkA/X+
-         6/g6Zg0ws5W2Mwz29VT7OAPnaKYoyatqc9vcgFXf1pKjOrsFoMOV8xHjmIGx6QgyxNrc
-         TaWw==
+        bh=hseUhSsmJKVNraENiB+Z6BqcV/Ua5vxGM6CtyHtBBS4=;
+        b=HxV0y+adbH/CWMFm8zIA7SPt8TcCF/2mDhzaBH/9YReruLxLkE8HgJ82fak+FNBbZ9
+         2Z7aMDhaQEsPTrXwKoGRj2fNtGtLoGrWDSUzR4Kf7P/rw956HeEnjya5node1sa6Vzhz
+         iCOmRNSWKMEZBAW+1sojr8LvINbzm8cA9w78t1RgPtW4DgTwcVswnYtyllaxoqX7TeYB
+         NVkUu5J3cvvz1c7Na5Oj02lgeMBlEbRGNV2ifZ08svnshMTaVqW4yrOTLIjV245fgR/j
+         TnHZWA1HVtnbNwPuOqi8kJ82AJlW81OoQaI2F4wYp4ni4wotlmokoBHRnDtOd5jkFU44
+         6SSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711380268; x=1711985068;
+        d=1e100.net; s=20230601; t=1711380592; x=1711985392;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EYo/I9l9EypwVCPAeKyFM3D59t3JwJaIWWILJVcw/Ag=;
-        b=ogxWYf/NamyhmL5hSkAIUdpwQb0ld5B/ar9q5tv0CrbUoO56Fmvh0kjFm/cvjZANhi
-         i35J8ug+u516kMQA594nantDMqnz1rkfwUdau9cYmJv7NE08x1acwL2X1xZyq4bfdTrv
-         qUzzSqHeL87R+0D2ZnyGetpo+xF8CwFt+OZqrP08dXniw3wusC5YY3pwG6JKQUQAPSug
-         NzytlMdDd+bs9xzn4Ehg1E57ML6YbSGJqnbUibp/3VJZdX4qtIe2AVArr/9VILWD/Xq6
-         sNCe7cb94Ik3yH6PELwwVtNUyuQFxkacWJ2XTgn1eHEbgmi75T8jUT5q/lZzVcy5P2fl
-         /FOw==
-X-Forwarded-Encrypted: i=1; AJvYcCXUzlpaMi/zsKqsRTRmlNmXB+R9OqhgSdvuUNsH9Bi5rezzIuYZfNMg//Cr5THzoqvsfRpYZltTYDDFLr693zkeJLYxu3gR2x2wVAuQcH4=
-X-Gm-Message-State: AOJu0YxrD9y39MjrWCrhqGWOSUcP3WOzl1cXfJWaRybWkavlzhPk2r20
-	ohpXMZ6o7awMdvQYmtZUylIoL548x+OBsKiu71m2z+p+QdQSm8Auaoo082jD1g==
-X-Google-Smtp-Source: AGHT+IEIGMHGuZB3lRbQfRXhxDRwJpthoqR1jHb9vfXCm6QOxrzyE0iDWDKieaP2LPTnyri+GDGUPA==
-X-Received: by 2002:a17:906:fa14:b0:a46:c8e3:c9b9 with SMTP id lo20-20020a170906fa1400b00a46c8e3c9b9mr4521728ejb.42.1711380268212;
-        Mon, 25 Mar 2024 08:24:28 -0700 (PDT)
-Message-ID: <aaaaa735-ce88-42a3-9a2c-22de7f5eeb32@suse.com>
-Date: Mon, 25 Mar 2024 16:24:26 +0100
+        bh=hseUhSsmJKVNraENiB+Z6BqcV/Ua5vxGM6CtyHtBBS4=;
+        b=rG4YIfshhpVuEBw3afcHJhOKkRUYpQZKtZKbRu6cfv1i4NRofYYu7hi2IMDCpfY5mN
+         mno/RnYitoZEvJNBe+fd/paxBfyyyCl4KIMLHD1AI/mz3ZSIHagcZT8Hg1T4eF/2wp7V
+         k2+eDboYBOBkYTDYF+eaX0Dz6HndBwS3QhI0VVQgCwCgiyzugxKPi1BFlY/BU9Pf357V
+         9tynSdHB6dFGvZuMNj9TStO6x7tXatquqyqP98stPXLr5m8Dmz9dPsT74W4qfaJRbESq
+         NxuFnmEXmmlJKQKDaTQ2a1sp64UXtUxS4IMT9wPI3jPfkv4opnvTp5IkEd2/OPl4gsYd
+         GKxw==
+X-Forwarded-Encrypted: i=1; AJvYcCUxUFo+gWlftub0j0txjQPr7qf3cNXg4NSVDYirqK4kA9Wi5YBo7Uw/ckcKKRhLuCA8wMQSpNh/Eoeuwks41jHyQ8Db1Y4+9TbrBgl9G9w=
+X-Gm-Message-State: AOJu0Yzd80aSgTK8kOXPrn/OncJReVi2JMqE6Mrh5Nj4x0AgnD22B7CY
+	4BF41KrZVVLC65oJC0DreINZYfuTrfaKE+kvwytA3P2Ukfxkbru+L/uyIcUmdQ==
+X-Google-Smtp-Source: AGHT+IE+CC1m0t0JPKIcrcUtfVL1KYYF1qeX3Bx6PJ9O1BMMFf800uv4FwzOPwZtjdFE5ruEOWAOdA==
+X-Received: by 2002:a17:906:c190:b0:a46:22a3:479f with SMTP id g16-20020a170906c19000b00a4622a3479fmr5794928ejz.21.1711380592182;
+        Mon, 25 Mar 2024 08:29:52 -0700 (PDT)
+Message-ID: <9d62ae85-87e2-4645-a43d-1a978c8083fc@suse.com>
+Date: Mon, 25 Mar 2024 16:29:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/9] xen/ppc: Introduce stub asm/static-shmem.h
+Subject: Re: [PATCH v3 8/9] xen/ppc: mm-radix: Replace debug printing code
+ with printk
 Content-Language: en-US
 To: Shawn Anastasio <sanastasio@raptorengineering.com>
 Cc: tpearson@raptorengineering.com, xen-devel@lists.xenproject.org
 References: <cover.1710443965.git.sanastasio@raptorengineering.com>
- <0cf8286269a1c5cdc63e2c19d832a4923cd14f39.1710443965.git.sanastasio@raptorengineering.com>
+ <c96e022413f73a531d078db5540a90113e138241.1710443965.git.sanastasio@raptorengineering.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,35 +111,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0cf8286269a1c5cdc63e2c19d832a4923cd14f39.1710443965.git.sanastasio@raptorengineering.com>
+In-Reply-To: <c96e022413f73a531d078db5540a90113e138241.1710443965.git.sanastasio@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 14.03.2024 23:15, Shawn Anastasio wrote:
-> Required for bootfdt.c to build.
+> Now that we have common code building, there's no need to keep the old
+> itoa64+debug print function in mm-radix.c
 > 
 > Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-As a temporary workaround this may be okay, but was the alternative
-considered to properly provide stubs in a single central place for
-anything !CONFIG_STATIC_SHM?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Just to clarify: Is this dependent upon any of the earlier patches in this
+series? If not, it could be committed right away.
 
 Jan
-
-> --- /dev/null
-> +++ b/xen/arch/ppc/include/asm/static-shmem.h
-> @@ -0,0 +1,12 @@
-> +/* SPDX-License-Identifier:  GPL-2.0-only */
-> +
-> +#ifndef __ASM_PPC_STATIC_SHMEM_H__
-> +#define __ASM_PPC_STATIC_SHMEM_H__
-> +
-> +static inline int process_shm_node(const void *fdt, int node,
-> +                                   uint32_t address_cells, uint32_t size_cells)
-> +{
-> +    return -EINVAL;
-> +}
-> +
-> +#endif /* __ASM_PPC_STATIC_SHMEM_H__ */
-
 
