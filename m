@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 783978899D7
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 11:17:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697683.1088703 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D956889AA1
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 11:32:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.697687.1088712 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rohOJ-0004jF-1G; Mon, 25 Mar 2024 10:17:19 +0000
+	id 1rohcJ-0008UV-4W; Mon, 25 Mar 2024 10:31:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697683.1088703; Mon, 25 Mar 2024 10:17:19 +0000
+Received: by outflank-mailman (output) from mailman id 697687.1088712; Mon, 25 Mar 2024 10:31:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rohOI-0004hV-US; Mon, 25 Mar 2024 10:17:18 +0000
-Received: by outflank-mailman (input) for mailman id 697683;
- Mon, 25 Mar 2024 10:17:17 +0000
+	id 1rohcJ-0008Sl-1o; Mon, 25 Mar 2024 10:31:47 +0000
+Received: by outflank-mailman (input) for mailman id 697687;
+ Mon, 25 Mar 2024 10:31:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x9L4=K7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rohOH-0004hP-SX
- for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 10:17:17 +0000
+ id 1rohcI-0008Sf-7t
+ for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 10:31:46 +0000
 Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
  [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id da6d4915-ea90-11ee-afe3-a90da7624cb6;
- Mon, 25 Mar 2024 11:17:15 +0100 (CET)
+ id e094ef5a-ea92-11ee-afe3-a90da7624cb6;
+ Mon, 25 Mar 2024 11:31:45 +0100 (CET)
 Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-56c12c73ed8so917904a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 03:17:15 -0700 (PDT)
+ 4fb4d7f45d1cf-5684db9147dso4797588a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 03:31:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fd20-20020a056402389400b0056be0d1cd83sm2784122edb.97.2024.03.25.03.17.14
+ r10-20020a508d8a000000b0056ba017ca7fsm2767231edh.87.2024.03.25.03.31.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Mar 2024 03:17:15 -0700 (PDT)
+ Mon, 25 Mar 2024 03:31:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da6d4915-ea90-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: e094ef5a-ea92-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711361835; x=1711966635; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jmhhDUrgoZx/6SWnfQp+/r4QZSDmInPKyhk3TTbH2e8=;
-        b=PSYoiM/jCN4pgZ8wjaeK3LrlF7E2USlJWKs9NOUyd/Wdc7OgCty89SMpJmeqxBOEpm
-         RAUwnYggP/KruaOtPsfaHrXqWl4CLiDd4S9is06FDY8kFyBRYo9FGp4wsZzf5GQ10e09
-         o7ZfCQIidG12CypEa74El1XwKuHcN3q+Xr4ZigNCp/gDRe3+FwxTngSP2PfWuNtbcskh
-         HRXIJH7MLjka3ZDjuwsgmXOI1+FNacRGC84c9fEcf/ro/mxdgURFl71SCKuMkt4wz0K4
-         P8kBaD0xRqC9qLc0l5AT6ZSar/XsNfa1hPFw93lPexDe5Na8I4xwVNSGQ9vbcs3B6ZRK
-         gO0g==
+        d=suse.com; s=google; t=1711362704; x=1711967504; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=kQ0545G1JCpez8HYFxvWrnz/2I+hE/zYwBuCVnrnlB4=;
+        b=HwN0rgrsZf+06kaCkoHqc9Xo9b34dHxcD7QresPnvJlFMng4IjSU38HUeoBaLKJ1m2
+         +W43qP8+63o9uwhuNV48SCFn4x+4mYHnJU2XvbTJ3X8N3F3CTKbyon74yKWFsjRCvJDL
+         jf8Ki3MpAnIPZ7wy4gUwISwEqvwceIAF9NtAwu9LZsuU1Lxhz34YPzaJCKI5Qh8ge+Mj
+         rWi2aaDscOeByPW7mnUp1LoS3dqgUItUEyj62uXSV/g8V3HkvNwJiyIcca3+ZXtai0W9
+         gqaFEBUmUu1EdX360W9+syNxplKxc6IabO+oL+lppB+rb9jLT+2M1Gep90axdfBJO28i
+         1rYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711361835; x=1711966635;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jmhhDUrgoZx/6SWnfQp+/r4QZSDmInPKyhk3TTbH2e8=;
-        b=OrVS09cJlueyf+rfl92ancwi9t8eDrWZXHgopB5PELG5IzQFwbTzGl5bJ0y/RWur1N
-         k1paK7d3/N/KY6xOXmT/oflKojZ3SA42u9/amvoGJMwHz2stUrUn7hKWreIoA688zuW2
-         fRaSqQJSsERxeGQyPGHpfG+1Wkt5r2jBdDVONIjOu0oRDeYRNURLZth8vhvFqNhmFpj9
-         iv1qmMvRW136lLoRDdlZO7vOQvobDlOeZgtaX3HiC7rVg3ynJEcw8D8v6FR10FN+ANPc
-         iTit/bJ8jK8XYTyoTsCzQwU9Blvf2v8KkBt0e2TzhJnHsICBC34hMzRds7RnMqJM2i1A
-         zAyw==
-X-Forwarded-Encrypted: i=1; AJvYcCX0J8n806zznuaUJZBZGlWzCizOTAeSyV8G/96bDY0Qw5A5htraLVuClbA7BMp0OnrVvL0De8AVXimS0l+dCu0/nfUFnbY11qI3oYEjdWQ=
-X-Gm-Message-State: AOJu0YzjGqN9HxIVNpof7CNI3Mo2jnFwF1IXiRN5ZuKUlAvp9hkJBSxM
-	z8SMq/fhIMq+HmkMoecCSceH6RzF9NvvhEdKbkUDCPvMjakBhd4XyNDn+gSTHQ==
-X-Google-Smtp-Source: AGHT+IG9jaBlqDOGuRNFZeSLQnIQfedFcTBXFJma0CZ9AaOTjuOE08MUzx96uK2t9Jhf0A9KH+HwoA==
-X-Received: by 2002:a50:cdde:0:b0:56b:9162:8e6 with SMTP id h30-20020a50cdde000000b0056b916208e6mr4817414edj.18.1711361835492;
-        Mon, 25 Mar 2024 03:17:15 -0700 (PDT)
-Message-ID: <0aa5a1a8-2b7d-4cdd-bcf1-530bedcd09a9@suse.com>
-Date: Mon, 25 Mar 2024 11:17:14 +0100
+        d=1e100.net; s=20230601; t=1711362704; x=1711967504;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kQ0545G1JCpez8HYFxvWrnz/2I+hE/zYwBuCVnrnlB4=;
+        b=ZeIZo+kcw8H8zv+t+Yjo9fcCh6AeSqalyl08LK3GlCjA9vreyT+MaXykWOjCqcXbud
+         8myehuzcUPCKo2SOF2W5joCRtceUCbevddegbLwNM0VnMYWp0rHW2XCY7Ci5yomW4Mud
+         /2kR697INY0k63MK+sSUcwaTsyXsliYB1iv0iAQK7MXm4uHarrG9QD+0WVzbjU8wl3dH
+         hgCgGIuVgRZNQluNkJEWVzcClWCFq6Aw6xCIccsPdwcw3pIcTJgoJ4Ln1N/6pkTXHEpX
+         z69Tf2WoT3RBBq92KiCRrw4AuDwcrM4S2XgyHkcEB7z+YlaHcO8EJNres+5moGzJ+PCV
+         Uo2w==
+X-Forwarded-Encrypted: i=1; AJvYcCWKhsMQa1ejstlhmI3UzC9k7T+a4Q17DRSLGwcRT+QsJ+qVlBHBjysOmdZIXb+BOdn846ZtDMRDBgjfbnGBbiv+2EpS9fJXMRLsDdqkoHQ=
+X-Gm-Message-State: AOJu0Yy0+PJXgC76ZDb35PI0KlaF3i9BJx7G32snB289tJxNu/SS6bu0
+	3QQzn9MOoa8FGGv+OkCFDPR+YknNwMk6paa6IPvPMZwb1NTdV+xwx7xxm07czA==
+X-Google-Smtp-Source: AGHT+IEcp5ycQyo2VBcv3rPPJY3x14ECmy4D1uoWewt+ONQsu3yS4MB7MQi2DNmT/aI3pfzJxkDlJQ==
+X-Received: by 2002:a05:6402:202a:b0:56c:be3:7cef with SMTP id ay10-20020a056402202a00b0056c0be37cefmr1924420edb.11.1711362704526;
+        Mon, 25 Mar 2024 03:31:44 -0700 (PDT)
+Message-ID: <6d8d5bf3-3e16-435b-8701-ea57c8e01a08@suse.com>
+Date: Mon, 25 Mar 2024 11:31:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/vcpu: relax VCPUOP_initialise restriction for non-PV
- vCPUs
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v2 (resend) 00/27] Remove the directmap
+To: Elias El Yandouzi <eliasely@amazon.com>
+Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Lukasz Hawrylko <lukasz@hawrylko.pl>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
  xen-devel@lists.xenproject.org
-References: <20240320135720.68894-1-roger.pau@citrix.com>
+References: <20240116192611.41112-1-eliasely@amazon.com>
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,26 +121,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240320135720.68894-1-roger.pau@citrix.com>
+In-Reply-To: <20240116192611.41112-1-eliasely@amazon.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 20.03.2024 14:57, Roger Pau Monne wrote:
-> There's no reason to force HVM guests to have a valid vcpu_info area when
-> initializing a vCPU, as the vCPU can also be brought online using the local
-> APIC, and on that path there's no requirement for vcpu_info to be setup ahead
-> of the bring up.  Note an HVM vCPU can operate normally without making use of
-> vcpu_info.
+On 16.01.2024 20:25, Elias El Yandouzi wrote:
+> Elias El Yandouzi (3):
+>   xen/x86: Add build assertion for fixmap entries
+>   Rename mfn_to_virt() calls
+>   Rename maddr_to_virt() calls
 > 
-> Restrict the check against dummy_vcpu_info to only apply to PV guests.
+> Hongyan Xia (13):
+>   acpi: vmap pages in acpi_os_alloc_memory
+>   xen/numa: vmap the pages for memnodemap
+>   x86/srat: vmap the pages for acpi_slit
+>   x86: Map/unmap pages in restore_all_guests
+>   x86/pv: Rewrite how building PV dom0 handles domheap mappings
+>   x86/pv: Map L4 page table for shim domain
+>   x86/mapcache: Initialise the mapcache for the idle domain
+>   x86: Add a boot option to enable and disable the direct map
+>   x86/domain_page: Remove the fast paths when mfn is not in the
+>     directmap
+>   xen/page_alloc: Add a path for xenheap when there is no direct map
+>   x86/setup: Leave early boot slightly earlier
+>   x86/setup: vmap heap nodes when they are outside the direct map
+>   x86/setup: Do not create valid mappings when directmap=no
 > 
-> Fixes: 192df6f9122d ('x86: allow HVM guests to use hypercalls to bring up vCPUs')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Julien Grall (8):
+>   xen/vmap: Check the page has been mapped in vm_init_type()
+>   xen/vmap: Introduce vmap_size() and use it
+>   xen/arm: fixmap: Rename the fixmap slots to follow the x86 convention
+>   xen/x86: Add support for the PMAP
+>   xen/arm32: mm: Rename 'first' to 'root' in init_secondary_pagetables()
+>   xen/arm64: mm: Use per-pCPU page-tables
+>   xen/arm64: Implement a mapcache for arm64
+>   xen/arm64: Allow the admin to enable/disable the directmap
+> 
+> Wei Liu (3):
+>   x86/setup: Move vm_init() before acpi calls
+>   x86/pv: Domheap pages should be mapped while relocating initrd
+>   x86: Lift mapcache variable to the arch level
 
-Despite the Fixes: tag I have to admit I'm uncertain of backporting here.
-HVM guests need to be prepared anyway that they may be denied use of this
-sub-op without first setting up vCPU info.
+Just to mention it explicitly: Before hearing back on the comments given up
+to patch 13 I'm not intending to put time into looking at the remaining
+patches in this series.
 
 Jan
-
 
