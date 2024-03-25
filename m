@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A46AB88A5F2
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 16:12:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697778.1088877 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D643C88A637
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Mar 2024 16:19:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.697783.1088887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rolzE-0002WX-A0; Mon, 25 Mar 2024 15:11:44 +0000
+	id 1rom6s-0003O6-2J; Mon, 25 Mar 2024 15:19:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697778.1088877; Mon, 25 Mar 2024 15:11:44 +0000
+Received: by outflank-mailman (output) from mailman id 697783.1088887; Mon, 25 Mar 2024 15:19:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rolzE-0002V0-7P; Mon, 25 Mar 2024 15:11:44 +0000
-Received: by outflank-mailman (input) for mailman id 697778;
- Mon, 25 Mar 2024 15:11:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KMIF=K7=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rolzD-0002Uu-Gr
- for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 15:11:43 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fc07fdf8-eab9-11ee-a1ef-f123f15fe8a2;
- Mon, 25 Mar 2024 16:11:41 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4148c04396dso2944675e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 08:11:41 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- bf12-20020a0560001ccc00b0033e745b8bcfsm9742542wrb.88.2024.03.25.08.11.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Mar 2024 08:11:40 -0700 (PDT)
+	id 1rom6r-0003Lu-Vw; Mon, 25 Mar 2024 15:19:37 +0000
+Received: by outflank-mailman (input) for mailman id 697783;
+ Mon, 25 Mar 2024 15:19:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=x9L4=K7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rom6r-0003Lo-0M
+ for xen-devel@lists.xenproject.org; Mon, 25 Mar 2024 15:19:37 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 16acb7f2-eabb-11ee-afe3-a90da7624cb6;
+ Mon, 25 Mar 2024 16:19:35 +0100 (CET)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-515a68d45faso1844008e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Mar 2024 08:19:35 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ m10-20020a170906234a00b00a46ee3c31afsm3112270eja.154.2024.03.25.08.19.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Mar 2024 08:19:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc07fdf8-eab9-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 16acb7f2-eabb-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1711379501; x=1711984301; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=LR1gIfisqV2Ai3B2/p8+IhtMSDuKYubozQErFrhg05A=;
-        b=HIEPXOCUZ9d/DQMiEBcSOYU4eTpnIVoybqi2tkXBUWogbipLJI8PehvTv0mvy3r48p
-         1KM+REDvX9KgRx/4albTqqoU0Gcw7yRRWduVMAQXa96QQTORGD+VpbwNy3K7YrtCt1Cc
-         DJJE2x8SFJ2cOYsEmOnw7K1Pt+x4yIFU7H4BU=
+        d=suse.com; s=google; t=1711379975; x=1711984775; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YkD5xjq/lPrBeG2KyUl1he/l9o1Obf7BcHZmc61sR2A=;
+        b=fafIrFCPR7tabjClRLyYZEDRvxn3oheKR4HiKWGYrgNtDFB4tYz7QJA2Fnru5kkaCV
+         tvWZXVldyLyUxmDA4g6/azDeuyy9f8HKnFEa0Gr03hOKxm7K1fTtWEL8NSf6SW0oZ7Sh
+         9RdciXxoqP+vQxwsUFg0CyMcnsrgCj+UA5FqJds9GVgTPi5Db5IcDppNLheTpOBmSb7X
+         G1f8in9Yy5IQPE7xu2d+W/N/4SilKgPj1vH5bstztPbu6SJGacRe84t78FLQGb9sjo1P
+         wvw2e3dTwr0L+FLB432bV4cONaNlXgrRLegOthhDH2Y04/hI0IlNOL/9wviTLiXpRHnB
+         exng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711379501; x=1711984301;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1711379975; x=1711984775;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LR1gIfisqV2Ai3B2/p8+IhtMSDuKYubozQErFrhg05A=;
-        b=eEN8uxIq4eMNM/bNBmISMwyRvQxlfYT8ViLBwrly+zovdXdUqpcmV0YFzVm0h1H79Q
-         f4xkrQ5uq38jY/IB1N6X1zIW+a+LiB0zkGmz4/uSPWc1qojuWT+eCnPoiN/BBa9vVNOn
-         CsOqLDVKbQtNfHXXHLEqHXOtM5dmUewPDAEp0yV/MPsDtCPo+B3ufJHcj8SQO4hMZ34l
-         N/THPpLpHXH4Nl+Y2cDbQWAmsLrUwVof4oTWyFRAoxftrZZY8SWFcP/JjMYKlZHZodtN
-         VIbkm0fpWd7RyRPfmHT/7h787opKCtfMiHe/CeVAAqzP9E3gHaJzIkQ5jRReMeC5jQvP
-         pvwQ==
-X-Gm-Message-State: AOJu0YzC0YG4b8ng1GXej6i28sTELZEPfQSKLATg1sP72/fqX1jtChSN
-	3bMYN65ZfC30bewlS272epQ/bQ2kJoRApAUY8mOIsCOtGRsEDcGKREq1TPxipIE=
-X-Google-Smtp-Source: AGHT+IHILC5kHaXsTbpE5RfJZWb7Yjx1c8xOuVTdAsvya6sIvr5JZSj5PNIiyirtFdSvM4ecQLBt3A==
-X-Received: by 2002:a05:600c:198c:b0:414:48f:a7ab with SMTP id t12-20020a05600c198c00b00414048fa7abmr4945999wmq.30.1711379500813;
-        Mon, 25 Mar 2024 08:11:40 -0700 (PDT)
-Date: Mon, 25 Mar 2024 15:11:39 +0000
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: =?iso-8859-1?Q?Rafa=EBl?= Kooi <rafael_andreas@hotmail.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v2 1/1] tools: init scripts: Add missing
- XENCONSOLED_ARGS variable
-Message-ID: <9b762ce5-ddd4-4213-af34-6364cd1fa74e@perard>
-References: <cover.1710920673.git.rafael_andreas@hotmail.com>
- <DU0P192MB1700AA0337B5E6598E23EE0AE3332@DU0P192MB1700.EURP192.PROD.OUTLOOK.COM>
- <a7055af9-fae4-46d1-bf10-5d6ccf0747c3@perard>
- <DU0P192MB1700FAE0D0CC005546F5363EE3362@DU0P192MB1700.EURP192.PROD.OUTLOOK.COM>
+        bh=YkD5xjq/lPrBeG2KyUl1he/l9o1Obf7BcHZmc61sR2A=;
+        b=Y/MVpcj46nZJ7GPthiVtfGd3EoP16I8iWDOyJmVLlzpQmvP3RqOHwcdrWn4EgUEgQX
+         jq3NV2ib3+M8tDfjR6XocEJ7G8Lxm/VS9Xyc63CdX9tk1UoybB2z570egNdK1+fzoeUb
+         kzl5gYM+Pbo4Kvf/Ev2p0pk1LlE1vYEktL0LX/0F12t8fo50ec97ej4Zq5/UV+5Qh5CV
+         RAWjYMxIEDXtVsZD7hqM73gigSamfh+z6NLlCHIFrzIuvkwttosHHDmM8apoxrBefi+r
+         YEx3sr+A3aZphR15wYyTrie4cy08R3ygpT/nlJronC0dpfcWVFR0Sq+BqBzXEPJC0oRc
+         gWHg==
+X-Forwarded-Encrypted: i=1; AJvYcCUlcikMF364GoaSa0ofXQOjwhmdkNae9QECdZZ/xr0JL/Af6zRbMTbhvim7CaEbvJXx5yfciN76kyuwM5Nbzz94zu14gz2sPdB1uAsNvKA=
+X-Gm-Message-State: AOJu0Yyxjnvt6IWwODvHBEMQgcaBggwiBpCbvO/vwzUbyjSyo6WLWu0y
+	ukIpcCT/L0Q0xwTx9p1CgY44qmOTowVctHoEbUf2RyX+k9WrGHIID1Q+mJ/C8Q==
+X-Google-Smtp-Source: AGHT+IF6+t7EsKL4ves9dwN5Bf851GclUKe5HUVTqNZRakjJFPwWVQIJhUW+z0Xq+LRlX1gDHJbcFA==
+X-Received: by 2002:a05:6512:4845:b0:514:b4ca:f478 with SMTP id ep5-20020a056512484500b00514b4caf478mr4575458lfb.39.1711379975128;
+        Mon, 25 Mar 2024 08:19:35 -0700 (PDT)
+Message-ID: <a6147b83-97e8-4c73-982c-221178b951f5@suse.com>
+Date: Mon, 25 Mar 2024 16:19:33 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DU0P192MB1700FAE0D0CC005546F5363EE3362@DU0P192MB1700.EURP192.PROD.OUTLOOK.COM>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/9] xen/asm-generic: Introduce generic acpi.h
+Content-Language: en-US
+To: Shawn Anastasio <sanastasio@raptorengineering.com>
+Cc: tpearson@raptorengineering.com, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1710443965.git.sanastasio@raptorengineering.com>
+ <794e46b16475c0b4f482cdc8560ebb2f37875715.1710443965.git.sanastasio@raptorengineering.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <794e46b16475c0b4f482cdc8560ebb2f37875715.1710443965.git.sanastasio@raptorengineering.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Mar 25, 2024 at 12:09:40PM +0100, Rafaël Kooi wrote:
-> Makes sense. To be honest I don't even know what arguments one would pass
-> to xenconsoled other than setting the log level to begin with. I would
-> assume this to be a niche enough use case where very few users would be
-> affected if we do decided to remove the variable. Maybe we could opt to
-> advertise it as something that we will be removing in a later release?
+On 14.03.2024 23:15, Shawn Anastasio wrote:
+> Introduce a generic acpi.h header that provides the required definitions
+> to allow files including xen/acpi.h to be compiled. The definitions were
+> largely derived from the !CONFIG_ACPI parts of ARM's acpi.h.
 
-I think it's fine to leave the variable where it is. On a systemd service
-file, it's kind of nice to be able to add new arguments without
-overwriting the whole command, as it means that we get the command line
-on an update if it changed.
+As said a couple of times in discussion with Oleksii on his work towards
+populating asm-generic/, I view a use like this as an abuse of this
+asm-generic machinery. Instead imo said !CONFIG_ACPI parts from Arm's header
+want moving to xen/acpi.h, eliminating the need for asm/acpi.h for
+architectures / configurations not supporting ACPI. Much like was done
+with e.g. xen/numa.h.
 
-Cheers,
+Jan
 
--- 
-Anthony PERARD
+> --- a/xen/arch/ppc/include/asm/Makefile
+> +++ b/xen/arch/ppc/include/asm/Makefile
+> @@ -1,4 +1,5 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+> +generic-y += acpi.h
+>  generic-y += altp2m.h
+>  generic-y += device.h
+>  generic-y += div64.h
+> --- /dev/null
+> +++ b/xen/include/asm-generic/acpi.h
+> @@ -0,0 +1,20 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef __ASM_GENERIC_ACPI_H
+> +#define __ASM_GENERIC_ACPI_H
+> +
+> +#include <asm/page.h>
+> +#include <xen/types.h>
+> +
+> +#ifdef CONFIG_ACPI
+> +#error "asm-generic acpi.h can't be used with CONFIG_ACPI set"
+> +#endif
+> +
+> +#define COMPILER_DEPENDENT_INT64   int64_t
+> +#define COMPILER_DEPENDENT_UINT64  uint64_t
+> +#define ACPI_MAP_MEM_ATTR          PAGE_HYPERVISOR
+> +
+> +#define acpi_disabled (true)
+> +#define disable_acpi()
+> +#define enable_acpi()
+> +
+> +#endif /* __ASM_GENERIC_ACPI_H */
+
 
