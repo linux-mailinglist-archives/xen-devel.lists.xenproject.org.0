@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33F7C88BB09
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 08:17:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697929.1089187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA42C88BB3F
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 08:31:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.697934.1089197 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rp135-0008Ko-2H; Tue, 26 Mar 2024 07:16:43 +0000
+	id 1rp1Gm-0002kW-5n; Tue, 26 Mar 2024 07:30:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697929.1089187; Tue, 26 Mar 2024 07:16:43 +0000
+Received: by outflank-mailman (output) from mailman id 697934.1089197; Tue, 26 Mar 2024 07:30:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rp134-0008Im-VZ; Tue, 26 Mar 2024 07:16:42 +0000
-Received: by outflank-mailman (input) for mailman id 697929;
- Tue, 26 Mar 2024 07:16:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rp1Gm-0002iz-30; Tue, 26 Mar 2024 07:30:52 +0000
+Received: by outflank-mailman (input) for mailman id 697934;
+ Tue, 26 Mar 2024 07:30:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NDFk=LA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rp134-0008Ig-Aw
- for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 07:16:42 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca1fd531-eb40-11ee-a1ef-f123f15fe8a2;
- Tue, 26 Mar 2024 08:16:40 +0100 (CET)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2d28051376eso96243151fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 26 Mar 2024 00:16:40 -0700 (PDT)
+ id 1rp1Gk-0002it-Tx
+ for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 07:30:50 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c4b31124-eb42-11ee-afe3-a90da7624cb6;
+ Tue, 26 Mar 2024 08:30:49 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a467d8efe78so615122466b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Mar 2024 00:30:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- o1-20020a1709061d4100b00a46b4c09670sm3861077ejh.131.2024.03.26.00.16.11
+ m21-20020a17090679d500b00a4739efd7cesm3946656ejo.60.2024.03.26.00.30.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Mar 2024 00:16:11 -0700 (PDT)
+ Tue, 26 Mar 2024 00:30:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca1fd531-eb40-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: c4b31124-eb42-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711437399; x=1712042199; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711438249; x=1712043049; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=j0fpi6fkdr8wOE7Wb0Lo5jHxkynaY+qqzi3trvAnl7Q=;
-        b=fBXS4AcFYR2PVaY0GfSAGHHsHc8AuyWU2Ciqahu8KV+m1IxSt5LZYpRffwFHGkvMLq
-         K/aXYCMSxhL8wPg6EyVkOmvWFoQUgGlj/s+J05NCjrHmZtvkvASydKEF5kuhVM1XQ46j
-         5SjuZr/uglR6ivUJ5Evt/gY7iJLOhH/PTwr2ycAqEnyTcIhfzlIxBqtguZ1fb7GkSh5w
-         oD5MgWIWuAUntj10hHU0Df2mHECTa/W07peBmtf4MdRpE6f2CKXbzHBBj39c3KmYbtrI
-         0cQSiNQQgkZGz5Ro39UAc1193ZLMN0TGTll04pfJg1RJuV6JTMrAquL0C2wQxWHw1e//
-         Ok7Q==
+        bh=vY6lfL+FD2/BZpYC8TH1rYKbp15hqcnqajBcGqcjOzw=;
+        b=Alt2hDJgN3sH6Q6bHOxpF/yBwOTd7SJ3YuwHfpOc2SlVnQyIEw9chb3fM5mPGlMWF3
+         zPhd4F4yv9Eon9JaKiKLq3u0taTsRlqZQZUCt7rM6Q9wmXVfKEJEvaNK/lhIuBuNJvJs
+         Xr2yVzERvDJ6R0h69DLMZ/FTCSy8QQEyvbVIagrs/XW3ik9/mokK76EDcPFEVpME93XT
+         RE9BW1rs7s6kkm64TCZORJ7BDg5jORR5gW+umYIikBCHF2s5eJn1ZKWjDDPScOG6HqMv
+         /ZVJ/DVEAU6mbiUiHngQWji/ijbjI7OiWx+5Xra7ptSCnTaM+nhFzGeklEyKqxes77hN
+         y7Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711437399; x=1712042199;
+        d=1e100.net; s=20230601; t=1711438249; x=1712043049;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j0fpi6fkdr8wOE7Wb0Lo5jHxkynaY+qqzi3trvAnl7Q=;
-        b=hM6RiZk2Se+jezJ7Qd32p9fSPBDv8BpOnW8cetUv//ItzmpBE9YudJLIwwNjzHHm+W
-         +71VpE0QghUHb1DSXfLQjcfGFH+jO/iEkB5R+VQIM8fJd5bbg7lrOfY6BzvgxcjTDJl8
-         LHdwfKOK8ghv/4ioKavjeLxXP4PKtofVPEV2jwlQHd8kDnFTyh3ElkzWJSDgfDjSgV8F
-         2AjT7lBZZlQKSu3iN6Fv5i6ufjBYt9y53wq3Dq4F08PPmspom59ViSxYbpS0zaKH2TOk
-         JFd4zuhhcIE3iUmNm1J+ke4oJoHPbgnhPBtPL5BzZUQ9a4SNLv5ciAa/arxRjaXBM0Qa
-         LS5Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUbUe7+h3pe9mxRdwcMEcQOFY9WmU5Tcr2Zh6x4Dntil3Vr3Anw0ips6Xnvsftvpif6Nw5PeYdHGVmvUtufRqc5TOR8CU/2CEolE6dPBKY=
-X-Gm-Message-State: AOJu0YzbZRRFqrO7wr92RV/Ja3cyw0Up1clMN8xCU5zN7T3E/1B855sn
-	z8BJrKJkB/3M6OLpPSGilB5O0MDt496NYRjN3JBx0KckWLC+ZkE7VYlSLkNZl8MV4TsUCNtcSWA
-	=
-X-Google-Smtp-Source: AGHT+IFYGaFReatHIA/LQ/B6eMCy0VXk52Hu6A0IvtFwAg+xs4+uIYszzOLQ2I+spECAGvdypUX5bA==
-X-Received: by 2002:a05:6512:21c:b0:513:e031:739a with SMTP id a28-20020a056512021c00b00513e031739amr7261843lfo.22.1711437373372;
-        Tue, 26 Mar 2024 00:16:13 -0700 (PDT)
-Message-ID: <cbaec357-f7c6-4770-b7c6-45246b7c92cd@suse.com>
-Date: Tue, 26 Mar 2024 08:16:10 +0100
+        bh=vY6lfL+FD2/BZpYC8TH1rYKbp15hqcnqajBcGqcjOzw=;
+        b=l1qAKRqEbzBdD8rNwU5OkY8dOErVopGLx9a38lNq9dKEN2Cm4XQVhJ00IfCK+45WYp
+         5PBVIUt3eG5NevW6FSVDObHbt8x4ezLIlC/g7xFs0CYEHy4y3sLtwMLyvFyXqWhA5FJ8
+         ydvLz/c3VpPseLbY+ahT3Y3DXyqLOnJV17NQlKW1g9cm7ftWkHouYK35EMDFy/gSo6XW
+         vRsYpWH487moLpFIwCPo7y2Qa56OICZo3Tr/Gz6mWo4NeozZ/fwUrLSPtPYSkGTSIh8j
+         e24bRv7sXnWpp1QHhxBTzRhmBTf/oV9JRRrS3Vc4FCgjXQQtxhu97y3MVzd9fwl+NGfH
+         eeHg==
+X-Forwarded-Encrypted: i=1; AJvYcCXT53gRjZA5/ilFHHRzHnD5352D83+TaZkwCth6yk1ITXBushdDKdawI+bolTxDl24tgN+OwJeAjAKDNHUb3mVynzM6nEaz47OSLFYar0M=
+X-Gm-Message-State: AOJu0YyIxVe0zgxHF1vuUrBf/wcOCOVRxgPcq5tGpJMKt+fP5DFb+nzM
+	GrWoE/Q1Xq22u3WYvXIPfZTUL36AJb5ddg2Xwc6OXrAteoH13iScRBkvf0Y1rg==
+X-Google-Smtp-Source: AGHT+IFuPHrzEvS6fePHcXM5JcU5A75Uvc6euw9Oh3jUe6qCu7nsExuaixLLYdmTq1KuwIafsHOOTg==
+X-Received: by 2002:a17:906:2555:b0:a46:420f:8ecb with SMTP id j21-20020a170906255500b00a46420f8ecbmr5593295ejb.62.1711438249215;
+        Tue, 26 Mar 2024 00:30:49 -0700 (PDT)
+Message-ID: <2d39b5da-8d9f-41de-a0aa-25f0d9ac8f31@suse.com>
+Date: Tue, 26 Mar 2024 08:30:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] xen/x86: Add initial x2APIC ID to the per-vLAPIC save
- area
+Subject: Re: [PATCH v4 3/5] tools: Move MB/GB() to common-macros.h
 Content-Language: en-US
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240109153834.4192-1-alejandro.vallejo@cloud.com>
- <20240109153834.4192-2-alejandro.vallejo@cloud.com>
- <2e7fe91e-b483-4d61-9783-0cfa3753911f@suse.com>
- <19a4cf14-92c9-47e5-b8f0-f07a92a1ffd8@cloud.com>
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+References: <20240325204515.250203-1-jason.andryuk@amd.com>
+ <20240325204515.250203-4-jason.andryuk@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,64 +113,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <19a4cf14-92c9-47e5-b8f0-f07a92a1ffd8@cloud.com>
+In-Reply-To: <20240325204515.250203-4-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.03.2024 19:00, Alejandro Vallejo wrote:
-> On 25/03/2024 16:45, Jan Beulich wrote:
->> On 09.01.2024 16:38, Alejandro Vallejo wrote:
->>> @@ -1514,6 +1530,13 @@ static void lapic_load_fixup(struct vlapic *vlapic)
->>>      const struct vcpu *v = vlapic_vcpu(vlapic);
->>>      uint32_t good_ldr = x2apic_ldr_from_id(vlapic->loaded.id);
->>>  
->>> +    /*
->>> +     * Guest with hardcoded assumptions about x2apic_id <-> vcpu_id
->>> +     * mappings. Recreate the mapping it used to have in old host.
->>> +     */
->>> +    if ( !vlapic->hw.x2apic_id )
->>> +        vlapic->hw.x2apic_id = v->vcpu_id * 2;
->>
->> This looks to depend upon it only ever being vCPU which may get a (new
->> style) APIC ID of 0. I think such at least wants mentioning in the
->> comment.
+On 25.03.2024 21:45, Jason Andryuk wrote:
+> Consolidate to a single set of common macros for tools.
 > 
-> I don't quite follow you, I'm afraid. There is an implicit control flow
-> assumption that I can extract into a comment (I assume you were going
-> for that angle?). The implicit assumption that "vCPU0 always has
-> APIC_ID=0", which makes vCPU0 go through that path even when no
-> corrections are necessary. It's benign because it resolves to APIC_ID 0.
+> MB() will gain another use in libelf, so this movement makes it
+> available.
 > 
-> Is that what you meant? If so, I'll add it to v2.
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 
-Yes, and even in your reply you make the same assumption without further
-explanation. It does not go without saying that vCPU 0 necessarily has
-APIC ID 0. On bare metal that may be what one can typically observe, but
-I'm unaware of any architectural guarantees to this effect.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+(and perhaps also Requested-by: or some such)
 
->>> --- a/xen/include/public/arch-x86/hvm/save.h
->>> +++ b/xen/include/public/arch-x86/hvm/save.h
->>> @@ -394,6 +394,8 @@ struct hvm_hw_lapic {
->>>      uint32_t             disabled; /* VLAPIC_xx_DISABLED */
->>>      uint32_t             timer_divisor;
->>>      uint64_t             tdt_msr;
->>> +    uint32_t             x2apic_id;
->>> +    uint32_t             rsvd_zero;
->>>  };
->>
->> I can't spot any checking of this last field indeed being zero.
-> 
-> Huh. I was sure I zeroed that on vlapic_init(), but it must've been on a
-> previous discarded series. Good catch.
-
-No, explicit zeroing isn't needed, simply because all of struct vcpu
-starts out zeroed.
-
-> Do we also want a check on migrate so a migration from a future Xen in
-> which it's not zero fails?
-
-It's really only this that I meant. Recall we now even have a dedicated
-checking hook, running ahead of any state loading.
-
-Jan
 
