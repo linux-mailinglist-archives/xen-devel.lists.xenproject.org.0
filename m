@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A27588C366
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 14:31:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698088.1089415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6C3988C3AD
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 14:40:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698091.1089426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rp6sT-0005Qj-JL; Tue, 26 Mar 2024 13:30:09 +0000
+	id 1rp72D-0007dC-FA; Tue, 26 Mar 2024 13:40:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698088.1089415; Tue, 26 Mar 2024 13:30:09 +0000
+Received: by outflank-mailman (output) from mailman id 698091.1089426; Tue, 26 Mar 2024 13:40:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rp6sT-0005OS-Go; Tue, 26 Mar 2024 13:30:09 +0000
-Received: by outflank-mailman (input) for mailman id 698088;
- Tue, 26 Mar 2024 13:30:08 +0000
+	id 1rp72D-0007bA-CG; Tue, 26 Mar 2024 13:40:13 +0000
+Received: by outflank-mailman (input) for mailman id 698091;
+ Tue, 26 Mar 2024 13:40:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NDFk=LA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rp6sS-0005Mm-6t
- for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 13:30:08 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ id 1rp72B-0007b2-Tn
+ for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 13:40:11 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f54e563b-eb74-11ee-a1ef-f123f15fe8a2;
- Tue, 26 Mar 2024 14:30:06 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-56b8e4f38a2so7105285a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 26 Mar 2024 06:30:06 -0700 (PDT)
+ id 5c774a6c-eb76-11ee-a1ef-f123f15fe8a2;
+ Tue, 26 Mar 2024 14:40:08 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a4a387ff7acso253526266b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Mar 2024 06:40:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k18-20020a1709060cb200b00a455d78be5bsm4222735ejh.9.2024.03.26.06.30.04
+ k18-20020a1709060cb200b00a455d78be5bsm4231683ejh.9.2024.03.26.06.40.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Mar 2024 06:30:05 -0700 (PDT)
+ Tue, 26 Mar 2024 06:40:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f54e563b-eb74-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 5c774a6c-eb76-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711459805; x=1712064605; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711460408; x=1712065208; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=fwgQQBmfLrCnvgHbA6SDQOn+05jz7V40LGNuVpzMnMI=;
-        b=cRILbYiAMVGWkxoijHiRSV2kI/vjeklghBlFzzLxRKxID1j6YttSVKJylNZuIBnDPg
-         mvVMx8JQl9XIpyny4Wue0B8nATBzHiXZNhNQ51tCZqrzYB0xj5Mw9EuQusjbTO8G41DS
-         z57IcPvRzAW5N6s9DbipanOnWPnliLfre77uZGl4WZjYU2VaSOzNPM8IW8FpG6Rn7WlM
-         7ESTsnha5oSfVvcVKZ/w5UdOfiyskswwS12nLfKrs8BZQmuwiLkHGX+bw4Nm/IHA4xUe
-         UZhOMkTmKawOIjyimQS8uMNaHPGOtY+u5cd1ud6o05RZ23VLdikedh1TGUje07HqO2hs
-         qg8g==
+        bh=Tg4pmVtm0wTT/oaYBTUaW3mAFjbFCuxbtaRqrXwufLs=;
+        b=eg7xzmCOZ6yVWbGswmnlu+leCZZyW0NKxSXOT/sV8g1QXQJ1l7DJoVBoYA8joyU+Gb
+         r7u6Ao5MfXd+nEmAkJ6n1Vb1surt7yioWa11vwzRw4zNyAuZnExIms4iENs66wrWcQcg
+         8ElDE282WA0myYJjgmAwmFErjdSW3wy412QI152kSB2BMcee9Oyd5G87REKpyj/bvzgf
+         RqTdjvgmxzr8YLxRd+s00SAGF8zyAUH3YQSxZBYgMs5E5hzYfURdmDDui2l7bDWM6w/v
+         fZ9ZYsElZvBVreHAMJqcZqnF8MvNJ8PxgQ855V72YToTCIv5H7k1Yv+9/DYLDqhV71d4
+         94tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711459805; x=1712064605;
+        d=1e100.net; s=20230601; t=1711460408; x=1712065208;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fwgQQBmfLrCnvgHbA6SDQOn+05jz7V40LGNuVpzMnMI=;
-        b=dqvLR4YG0iW4SLzJ6v7mv/WIL9v2xTj1f+DffYjOMAfshAjD8G0sN5aHspdOfFv51y
-         5w6mhDiO2UgnWG7kRH6pgSS2NSME4TQfPMKuwj0lK5rVc/XIFRxCs258Abq4+6kH83DY
-         qisA43DMVzJ5BPdxn+AXHPugngNa5i7KNaP0JOQ38Ow2HHjfZuxr+/ThSWzGTkH70Paf
-         a3azYfsAR7UnnSRsqdQYQ3nByfyQeh41baOF9hvZf/uE5hgP2L4lIGdBCBlpDlLEmvyZ
-         DpRnZF4FQxYP9iADtTET1ZYy/6F7CPs6EaKOCVPXXxOgObLYvSzpq84nmV5SQ3nYlirz
-         Tz3w==
-X-Forwarded-Encrypted: i=1; AJvYcCWnNmGHkI2/YLdiAi3scTduO2IEUmGWVRYVTQtwtGgiLOR05vLGdYTRan9QatzqTMB2qPOSDLzUcqo/0WAUosbQ6WbxRE2CoNmTsnnB8qM=
-X-Gm-Message-State: AOJu0Yw92xMHfY10M4ek2DOqoxU1WIqslurCFJ7dQg2PC7opQMv1GLjq
-	aH3PXXbzIiUG5R4cdt4A+jbkr8HwIF32o20tF7RC/jsrJT1A2qn+y2dDiqGUOg==
-X-Google-Smtp-Source: AGHT+IEenydUmc1YwkZ8vVOJ+pdqij8XdTV8qTJI0OUe+kQXldFjEeeUQ2hftFj6B/DTp5KgKLdQ/g==
-X-Received: by 2002:a17:906:e296:b0:a47:355f:6dd1 with SMTP id gg22-20020a170906e29600b00a47355f6dd1mr915615ejb.6.1711459805618;
-        Tue, 26 Mar 2024 06:30:05 -0700 (PDT)
-Message-ID: <5b9d07ad-159d-4384-924e-e772e6ec4ede@suse.com>
-Date: Tue, 26 Mar 2024 14:30:03 +0100
+        bh=Tg4pmVtm0wTT/oaYBTUaW3mAFjbFCuxbtaRqrXwufLs=;
+        b=Ire/ty4EE62BGKx/7KxEHuqXDqb6WYJ+yoJx199Rw87rsmpYfLCQRbB/XgOPkIHniM
+         B4BUof0vV79cuQm+O6rKO2WtBti/4oglNPFjUR6IOQill78vNUZ1er7uzwFWq4o1q3lX
+         c9Kze6YSQEjwr5SUgC5XOlhPL2zt+dZ4eC1a/lbok8CBsQDzeCvV66tih2l+T97q6IcE
+         ShU3+1LSU9Azbpmoun2gM5YJD6TfEuMbz2nQlj9BtKZkbbdBx57tZcjglBFESbAH6XKm
+         nCHYMhpQeLkJ5H5z1CE6N0Om7HksRAzNdGRfHv2Odm4lDvZg9AXpCgstj4fB5MX5Sb8f
+         opQw==
+X-Forwarded-Encrypted: i=1; AJvYcCUrNu5nlJJDcQxovqzOpf+PSzd735O0Lr3FeomLN+/8deRpNsEMNjr/U6VrvGqiV1n1osRLxzNMqNL5DdYI5fXrXtbisuQTqPV2YL/yZMw=
+X-Gm-Message-State: AOJu0YwI02DpRv1+X3Yxunew+9tJtZavMze7RF7SaR1MgUyza1TDO3Vi
+	MA+hNkvd1Q/1W+pa/QDZU0PqTRUsRh5nrdktW/v14QTCktWu0s1UvsK6zsgGpw==
+X-Google-Smtp-Source: AGHT+IGLFmztb+e5weZ9ebVyGjnGCgYS+pjJkXdwKwl9/DFPC0AXMNQybaT+3iv3XGS6ZB6LXj1jcw==
+X-Received: by 2002:a17:906:a859:b0:a47:53c9:f5b with SMTP id dx25-20020a170906a85900b00a4753c90f5bmr950726ejb.65.1711460408191;
+        Tue, 26 Mar 2024 06:40:08 -0700 (PDT)
+Message-ID: <b2090ccf-c920-4f71-bbb3-bfca15f76a83@suse.com>
+Date: Tue, 26 Mar 2024 14:40:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 5/5] x86/PVH: Support relocatable dom0 kernels
@@ -122,20 +122,66 @@ Content-Transfer-Encoding: 7bit
 On 26.03.2024 14:24, Jason Andryuk wrote:
 > On 2024-03-26 03:50, Jan Beulich wrote:
 >> On 25.03.2024 21:45, Jason Andryuk wrote:
->>> + *  - a minimum address for the start of the image (default 0)
->>> + *  - a required start alignment (default 0x200000)
->>> + *
->>> + *  This note is only valid for x86 binaries.
+>>> @@ -227,6 +239,27 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
+>>>       case XEN_ELFNOTE_PHYS32_ENTRY:
+>>>           parms->phys_entry = val;
+>>>           break;
+>>> +
+>>> +    case XEN_ELFNOTE_PHYS32_RELOC:
+>>> +        parms->phys_reloc = true;
+>>> +
+>>> +        if ( descsz >= 4 )
+>>> +        {
+>>> +            parms->phys_max = elf_note_numeric_array(elf, note, 4, 0);
+>>> +            elf_msg(elf, " = max: %#"PRIx32, parms->phys_max);
 >>
->> Maybe s/valid/recognized/ (or honored or some such)?
+>> As indicated before, I consider the = here a little odd.
 > 
-> Would a comment at the top of the file saying Notes are only used with 
-> x86 be better instead of this one-off comment?  Roger already said that, 
-> and elf_xen_note_check() has a successful early exit with "ELF: Not 
-> bothering with notes on ARM\n"
+> I retained = for consistency with other notes:
+> ELF: note: PHYS32_RELOC = max: 0x40000000 min: 0x1000000 align: 0x200000
+> ELF: note: PHYS32_ENTRY = 0x1000000
+> ELF: note: GUEST_OS = "linux"
+> 
+> I guess whitespace and labels makes it clear, so I'll drop the '='.
+> 
+>>> +        }
+>>> +        if ( descsz >= 8 )
+>>> +        {
+>>> +            parms->phys_min = elf_note_numeric_array(elf, note, 4, 1);
+>>> +            elf_msg(elf, " min: %#"PRIx32, parms->phys_min);
+>>> +        }
+>>> +        if ( descsz >= 12 )
+>>> +        {
+>>> +            parms->phys_align = elf_note_numeric_array(elf, note, 4, 2);
+>>> +            elf_msg(elf, " align: %#"PRIx32, parms->phys_align);
+>>> +        }
+>>
+>> I'd like us to reconsider this ordering: I'm inclined to say that MAX isn't
+>> the most likely one a guest may find a need to use. Instead I'd expect both
+>> MIN and ALIGN wanting to be given higher priority; what I'm less certain
+>> about is the ordering between the two. To keep MIN and MAX adjacent, how
+>> about ALIGN, MIN, MAX?
+> 
+> ALIGN, MIN, MAX works for me.
+> 
+> On the Linux side, I'm expecting them all to be set:
+> ALIGN = CONFIG_PHYSICAL_ALIGN
+> MIN = LOAD_PHYSICAL_ADDR
+> MAX = KERNEL_IMAGE_SIZE
+> 
+> You need enough identity page tables to cover up to MAX. 
+> LOAD_PHYSICAL_ADDR is used as a minimum, so requesting placement above 
+> MIN makes sense to me.
 
-If truly none of the notes are of interest for Arm, then yes, such a more
-general comment would likely make sense.
+Hmm, setting MIN like this means moving down is precluded. Why would it
+not be possible to move a kernel to lower than the default of 16M, when
+CONFIG_PHYSICAL_START can be as low as 0? (In fact, I doubt 0 would work
+if chosen, but 2M surely does work, as I build some of my Dom0 kernels
+that way.)
+
+MAX, otoh, I guess really wants setting as you say, for KERNEL_IMAGE_SIZE
+actually being commented upon as mis-named. Just that it now really wants
+to be KERNEL_IMAGE_SIZE-1.
 
 Jan
 
