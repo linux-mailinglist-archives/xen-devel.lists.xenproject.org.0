@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 012CE88BF7E
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 11:31:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697994.1089297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A434D88C009
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 11:58:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698004.1089319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rp44w-0007XL-8i; Tue, 26 Mar 2024 10:30:50 +0000
+	id 1rp4Ur-0002Uc-Oo; Tue, 26 Mar 2024 10:57:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697994.1089297; Tue, 26 Mar 2024 10:30:50 +0000
+Received: by outflank-mailman (output) from mailman id 698004.1089319; Tue, 26 Mar 2024 10:57:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rp44w-0007VQ-5b; Tue, 26 Mar 2024 10:30:50 +0000
-Received: by outflank-mailman (input) for mailman id 697994;
- Tue, 26 Mar 2024 10:30:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rp4Ur-0002Nn-L3; Tue, 26 Mar 2024 10:57:37 +0000
+Received: by outflank-mailman (input) for mailman id 698004;
+ Tue, 26 Mar 2024 10:57:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2PUu=LA=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rp44u-0007VC-2U
- for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 10:30:48 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e7c0b778-eb5b-11ee-afe3-a90da7624cb6;
- Tue, 26 Mar 2024 11:30:46 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 31E544EE0739;
- Tue, 26 Mar 2024 11:30:45 +0100 (CET)
+ <SRS0=Y6Ae=LA=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1rp4Uq-0002JT-AZ
+ for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 10:57:36 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a66a23db-eb5f-11ee-a1ef-f123f15fe8a2;
+ Tue, 26 Mar 2024 11:57:34 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a46cca2a979so313226766b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Mar 2024 03:57:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,102 +40,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7c0b778-eb5b-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: a66a23db-eb5f-11ee-a1ef-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1711450653; x=1712055453; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Lh6B8CHuzyOOd1+Ai6KB5EaERHcxQgMVWPPoH2rBX/0=;
+        b=iW2+K23Od2YpCrQ4xMxdXtWNd32YMR+vkX9yUSBvzuOmBHupnBpRwWjjib8cw7HdVW
+         qcJuYo0kWrqBgrGze6HXKD7uVNyw2YQCSJ25ManWDrT+PcnMYfjnyzVEXUkJDL0DRjz4
+         bc/kkdK2wJS6A8gt6W9AerwjTlcmmZNC8qfmQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1711450653; x=1712055453;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Lh6B8CHuzyOOd1+Ai6KB5EaERHcxQgMVWPPoH2rBX/0=;
+        b=tafUbTqX0kqgA6mPONhwAFy7IMKOhuF2c3W6TwpAPvbMdsma18mYhzqx25Vb0PAVJL
+         SAYbwlGJXJSpcz6lZYHwsrud/QkT0HgNwEtrLyLMgwRD8RcBavKyOE3oLp46R/q7irke
+         49QB2z8vB3SXKFNc4vxTj3j+TVeoSLvwnYgiWLA6no1qvgHWzaW4nba8f8aCO7X/yH/5
+         En8nnZ4DSAHZe4kKVlPHuItL1PnpCOomka421mCX8gjDshY59UzKGF/N/QizvqQZFyBF
+         SHoh1fRQusOMZCGISJJGPMOA3cYEKRCfej1JXytYBCdKiIdgteNHwpL24KMtZpuAfiUv
+         7DNQ==
+X-Gm-Message-State: AOJu0YymsUY5kYzs6hoHZ2d6XyrV3Vjf4CXpk4JGqrN4iEcu5AAzwwZR
+	OUzfJFOWiExvvHoM8i3b+s6nJu5yu9o/6lyyMLQh0vsuzoueOdI2wppS8tXUH5leAlx4Z0BFpTe
+	vQcIH/DIS6bk6FqpNw941f+PancDF+Fb8+Z4+Py3e7eX0jzRyfD98Nw==
+X-Google-Smtp-Source: AGHT+IFLCUe8qdyPQRnk9kvh8FnKocukw1RUsoSwW2IG35UNzuxL1QyR9FTIFi1BLSbZ4ZErLTpxnDlyehLiUey/sXc=
+X-Received: by 2002:a50:d651:0:b0:566:ab2b:e1ce with SMTP id
+ c17-20020a50d651000000b00566ab2be1cemr8266493edj.18.1711450653418; Tue, 26
+ Mar 2024 03:57:33 -0700 (PDT)
 MIME-Version: 1.0
-Date: Tue, 26 Mar 2024 11:30:45 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- julien@xen.org, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 08/11] x86/altcall: address violations of MISRA C Rule
- 20.7
-In-Reply-To: <b1777a3a-d468-40ea-aa5b-79d506a24abf@suse.com>
-References: <cover.1711118582.git.nicola.vetrini@bugseng.com>
- <653ead65966226f50b0e4ae0268912c9710f9dba.1711118582.git.nicola.vetrini@bugseng.com>
- <072aa89b-2a03-4823-af72-28a2a882b373@suse.com>
- <bacda1cba33d40092209d30f48cb9c3b@bugseng.com>
- <b1777a3a-d468-40ea-aa5b-79d506a24abf@suse.com>
-Message-ID: <7394d0e65c4de7399bbace9e9a3fe38f@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Tue, 26 Mar 2024 10:56:57 +0000
+Message-ID: <CAO-mL=zPdh_d6nbwU4aKKE0FCKnL74TDJmc9mzEjqi_iX23n1g@mail.gmail.com>
+Subject: Join the conversation on Matrix
+To: xen-devel <xen-devel@lists.xenproject.org>, xen-users@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="0000000000003f8e9e06148e284e"
 
-On 2024-03-25 15:58, Jan Beulich wrote:
-> On 25.03.2024 15:47, Nicola Vetrini wrote:
->> On 2024-03-25 10:38, Jan Beulich wrote:
->>> On 22.03.2024 17:01, Nicola Vetrini wrote:
->>>> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
->>>> of macro parameters shall be enclosed in parentheses". Therefore, 
->>>> some
->>>> macro definitions should gain additional parentheses to ensure that
->>>> all
->>>> current and future users will be safe with respect to expansions 
->>>> that
->>>> can possibly alter the semantics of the passed-in macro parameter.
->>>> 
->>>> No functional change.
->>>> 
->>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>> 
->>> Hmm. These macros are, at least in part, hard to read already. The
->>> added
->>> parentheses, while necessary when following the rule to the letter, 
->>> are
->>> making things worse, even if just slightly. I therefore have a 
->>> proposal
->>> /
->>> question:
->>> 
->>>> --- a/xen/arch/x86/include/asm/alternative.h
->>>> +++ b/xen/arch/x86/include/asm/alternative.h
->>>> @@ -243,28 +243,28 @@ extern void alternative_branches(void);
->>>> 
->>>>  #define alternative_vcall0(func) ({             \
->>>>      ALT_CALL_NO_ARG1;                           \
->>>> -    (void)sizeof(func());                       \
->>>> +    (void)sizeof((func)());                     \
->>> 
->>> Like this, all that's touched here are (syntactical, but not real)
->>> function
->>> invocations. Function calls, like all postfix operators, are highest
->>> precedence. Hence by omitting parentheses in that case no breakage 
->>> can
->>> happen as a result: If the passed expression is another postfix one,
->>> that'll
->>> be evaluated first anyway. If any other expression is passed (aside
->>> primary
->>> ones, of course), that'll be evaluated afterwards only due to being
->>> lower
->>> precedence, irrespective of the presence/absence of parentheses.
->>> 
->>> Therefore, where harmful to readability, can we perhaps leave postfix
->>> expressions alone?
->> 
->> While I can understand the benefits of this, and the reasoning on
->> postfix expressions, what about, for instance (modulo the actual
->> invocation, this is just an example)
->> 
->> alternative_vcall0(2 + f) or similar scenarios?
-> 
-> Any kind of such expression will break with alternative_callN()'s
-> using of [addr] "i" (&(func)) as an asm() operand. Which clarifies
-> that even of the postfix expressions only some (in particular not
-> increment, decrement, and function call) could potentially be used
-> with the altcall machinery.
-> 
-> That said, you have a point in (indirectly) expressing that my
-> earlier description wasn't quite right (as in: too generic, when
-> it really needs tying to the specific case here).
-> 
-> Jan
+--0000000000003f8e9e06148e284e
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Ok, I see what you meant now. I'll deviate these two macros.
+Hello Xen Community,
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+We welcome all new and existing members to join the conversation.
+
+Other than mailing lists, most of us are active on Matrix.
+
+Join us below:
+
+*XenProject* <https://matrix.to/#/#XenProject:matrix.org>
+For general queries and updates about the software. This channel is mainly
+for users and community members.
+
+*XenDevel* <https://matrix.to/#/#XenDevel:matrix.org>
+For developers =E2=80=93 if you have submitted patches to the developer mai=
+ling
+lists or are otherwise active on them, this channel is for you. It=E2=80=99=
+s also
+the best place to ask development-related questions to the Xen Project.
+
+*XenSocial* <https://matrix.to/#/#XenSocial:matrix.org>
+For community introductions, tech news, and your watercooler chats.
+
+Don't forget to introduce yourself!
+
+Many thanks,
+Kelly Choi
+
+Community Manager
+Xen Project
+
+--0000000000003f8e9e06148e284e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hello Xen Community,<div><br></div><div>We welcome all new=
+ and existing members to join the conversation.</div><div><br></div><div>Ot=
+her than mailing lists, most of us are active on Matrix.=C2=A0</div><div><b=
+r></div><div>Join us below:</div><div><br></div><div><a href=3D"https://mat=
+rix.to/#/#XenProject:matrix.org"><b>XenProject</b></a></div><div>For genera=
+l queries and updates about the software. This channel is mainly for users =
+and community members.</div><div><br></div><div><a href=3D"https://matrix.t=
+o/#/#XenDevel:matrix.org"><b>XenDevel</b></a></div><div>For developers =E2=
+=80=93 if you have submitted patches to the developer mailing lists or are =
+otherwise active on them, this channel is for you. It=E2=80=99s also the be=
+st place to ask development-related questions to the Xen Project.</div><div=
+><br></div><div><a href=3D"https://matrix.to/#/#XenSocial:matrix.org"><b>Xe=
+nSocial</b></a></div><div>For community introductions, tech news, and your =
+watercooler chats.</div><div><br></div><div>Don&#39;t forget to introduce y=
+ourself!</div><div><br></div><div>Many thanks,</div><div><div><div dir=3D"l=
+tr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=
+=3D"ltr"><div>Kelly Choi</div><div><br></div><div><div style=3D"color:rgb(1=
+36,136,136)">Community Manager</div><div style=3D"color:rgb(136,136,136)">X=
+en Project=C2=A0<br></div></div></div></div></div></div></div>
+
+--0000000000003f8e9e06148e284e--
 
