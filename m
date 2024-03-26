@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F148888D038
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 22:39:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698214.1089729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 071B788D04C
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 22:47:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698231.1089738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpEVl-0007Fa-Oo; Tue, 26 Mar 2024 21:39:13 +0000
+	id 1rpEdV-0001xd-Kp; Tue, 26 Mar 2024 21:47:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698214.1089729; Tue, 26 Mar 2024 21:39:13 +0000
+Received: by outflank-mailman (output) from mailman id 698231.1089738; Tue, 26 Mar 2024 21:47:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpEVl-0007Ch-IF; Tue, 26 Mar 2024 21:39:13 +0000
-Received: by outflank-mailman (input) for mailman id 698214;
- Tue, 26 Mar 2024 21:39:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rpEdV-0001up-Hq; Tue, 26 Mar 2024 21:47:13 +0000
+Received: by outflank-mailman (input) for mailman id 698231;
+ Tue, 26 Mar 2024 21:47:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qfY0=LA=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1rpEVk-0005qH-7C
- for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 21:39:12 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20600.outbound.protection.outlook.com
- [2a01:111:f403:2409::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 471d072e-ebb9-11ee-a1ef-f123f15fe8a2;
- Tue, 26 Mar 2024 22:39:10 +0100 (CET)
-Received: from BYAPR01CA0071.prod.exchangelabs.com (2603:10b6:a03:94::48) by
- IA0PR12MB8931.namprd12.prod.outlook.com (2603:10b6:208:48a::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.32; Tue, 26 Mar
- 2024 21:39:06 +0000
-Received: from SJ5PEPF000001D1.namprd05.prod.outlook.com
- (2603:10b6:a03:94:cafe::61) by BYAPR01CA0071.outlook.office365.com
- (2603:10b6:a03:94::48) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
- Transport; Tue, 26 Mar 2024 21:39:06 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ5PEPF000001D1.mail.protection.outlook.com (10.167.242.53) with Microsoft
+ id 1rpEdT-0001uj-As
+ for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 21:47:11 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2062d.outbound.protection.outlook.com
+ [2a01:111:f400:7ea9::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 656ade44-ebba-11ee-afe3-a90da7624cb6;
+ Tue, 26 Mar 2024 22:47:09 +0100 (CET)
+Received: from SJ0PR05CA0046.namprd05.prod.outlook.com (2603:10b6:a03:33f::21)
+ by CH2PR12MB4136.namprd12.prod.outlook.com (2603:10b6:610:a4::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.33; Tue, 26 Mar
+ 2024 21:47:06 +0000
+Received: from DS1PEPF0001709B.namprd05.prod.outlook.com
+ (2603:10b6:a03:33f:cafe::24) by SJ0PR05CA0046.outlook.office365.com
+ (2603:10b6:a03:33f::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.12 via Frontend
+ Transport; Tue, 26 Mar 2024 21:47:05 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0001709B.mail.protection.outlook.com (10.167.18.105) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Tue, 26 Mar 2024 21:39:05 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7409.10 via Frontend Transport; Tue, 26 Mar 2024 21:47:04 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 26 Mar
- 2024 16:39:04 -0500
+ 2024 16:47:04 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 26 Mar
- 2024 14:39:03 -0700
+ 2024 14:47:03 -0700
 Received: from fedora.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 26 Mar 2024 16:39:03 -0500
+ Transport; Tue, 26 Mar 2024 16:47:03 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,38 +63,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 471d072e-ebb9-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 656ade44-ebba-11ee-afe3-a90da7624cb6
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vk4tTFBwzfm3WrZwxh1fbXAgp0oFWVzVwG9sGFHrwwedZXpFIM89Jghyp7xdDYSsiU9yRBiyRyr/1w23KxOil5au5bOHTmjgrVp+K6VvfOhA+urA2lacNhbrKE7WVW9ZIumBYHGfc7WTvT1ZELSnJdD2mElKKye+wVDpV9HuCfC7Em0tVbdNHBw3py50SD+j6ix+eozFb+A0ahrdAk5ohjkatEsMyNAPZGNYXeE4r1nX3cxWS5R4oVuepzRGtk1VJ+6ejwSr5v+Bnzflo0aV7b1DGM2qo/o7J96T+ZNBUgFCBsJSNVumiJVleGNkku8/5HZhRnu7f8ItEWsqqFbsuQ==
+ b=EIGkrGhWmpvynLcicn4Lxei9AbDz49sPDP7jLgZ3ju0iISR41C4GL531YkXNRJ8dkeGUPonBLbl7B1flA8MkZfmqAEZqEwu6N0ExtRk2xA8IPgpVQvw820rPxh2VmxwmQSMPj7Pf+rRDXlpVtMZN0uK7cp9/HC6On/1YOtoy4mpKWGIadLHI7+HTYY3Hs34eQxrqOOmuM1FYtW/gIE0whSlB0iQZAJ9YLv1zE1c1UjttrkOrOtc8jihm/ybqfIENLzcuB8WKWofcipMtChm4swxAd/4iSyXH0+Y1DRLKzr1MJxrfcnbdy76qO9+xdWdZ3bkHAMAG4pzIZptLyS8QXw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f1Kzo5ZXCrluOqITBGR/d/TY+cxOJ4iyMxaQjfrpEA8=;
- b=cmQo1NiiClGGSkJL41cLXbuGCKhx3iMh71jdyFIlgRwSaNGcaiarMt2HbsMaO8qLiqbEmHvW2Is52t+i8zllBjY4INeroOw/WRMce4++h7QMTXJVr3MWimCuV1HcoNb/EhHAoCeHdTN8w50WcY5QfG+kdvVnc/+GQC5b12Z6fOkwzV8pl+714Ji6SlQvJ28AY63hL75HnuG/UZsHoUXZJKAabQQVaqCN6QsrnqQtOYRtmj5Sii1ZOf2TlyFh6NSwfkixU3IZiOnsWpkDzs8fts6L9KSm4WENBtfR2nwoKcs/XNCxgvyTeNs+joCkItmIWuQnyrNB8/olAO0NbpDCsg==
+ bh=WrdRcWgadoJZx7idcbsBD1hlDQIwTc10NcY4KAVoW78=;
+ b=a8Rb7DNm7rIuQ1JUh1cnCkzxBgtNfcO6wPKGyUwoVt54c0WYALL5wvKPstUngPG7bzcR5xEF8rjW0DD/87C6NbQCiyC8ER4uqbIX96O0e7QvGxOobZu2RQ1a8jQdwvtUzBr8dUHbyQvCLlkR7pTMVNVBNObxmgIDIHXal/XthZfrB376zZevI8IAJ2sxFKBrHIuot9rtPWKbwVWZoAHSs60ZL0FJq6kEgDc/APMG+UqXS4DGlFOuJGd7a41qz8jv1cBtV7kIhrl2hDxFsc4nrdPgbIgYeAJlPuvjsdUSZDrvQX79jTmwEiBWuZnbyRtdze4eSC+WLfsGslRSUpIFpA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f1Kzo5ZXCrluOqITBGR/d/TY+cxOJ4iyMxaQjfrpEA8=;
- b=FGgP/CnARkBExCjDgJraLLFw/IP2dpA17ANPG80OF0nrhuYt5EVoBjs0lbym+oH+L9Yu6O/VZmQXr08GgQ+jWtbR8sDYIY74jOrAEWuZphx0nOh611WdhcDBYihAQHKuZ0bSDH4EpfjEGuISAlBF51deQOYC4CYb5Odf57MTFZA=
+ bh=WrdRcWgadoJZx7idcbsBD1hlDQIwTc10NcY4KAVoW78=;
+ b=k300JpgyDKNP1QncUEPfskJJpjLIoYWFMqTsuDTM2+7DLJuE3SltN8jedVQctYeiIaibLT2qIH1Kr3tTnQC9OWa+gig4LV5UI0xPx+IXmCKEq32qsqDpImIYRjScXLWn381hM6pZCQUiF7LcLu1Las6kvikujCutcIUr85dHyNE=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Jason Andryuk <jason.andryuk@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Jason Andryuk <jason.andryuk@amd.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>
-Subject: [PATCH v5 6/6] x86/PVH: Support relocatable dom0 kernels
-Date: Tue, 26 Mar 2024 17:38:47 -0400
-Message-ID: <20240326213847.3944-7-jason.andryuk@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Juergen
+ Gross" <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jason
+ Andryuk <jason.andryuk@amd.com>
+Subject: [PATCH v5] RFC: x86/pvh: Make Xen PVH entrypoint PIC for x86-64
+Date: Tue, 26 Mar 2024 17:47:01 -0400
+Message-ID: <20240326214701.7015-1-jason.andryuk@amd.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240326213847.3944-1-jason.andryuk@amd.com>
 References: <20240326213847.3944-1-jason.andryuk@amd.com>
@@ -103,356 +102,356 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D1:EE_|IA0PR12MB8931:EE_
-X-MS-Office365-Filtering-Correlation-Id: 000b88ba-4044-4e0e-5be5-08dc4ddd299b
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709B:EE_|CH2PR12MB4136:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ca7d519-6fea-431a-54e6-08dc4dde4717
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	6aH2XGw6pkh7K6z0hRVr24oMv/ZmJlgQIX2OdfBD8hHfq+36tIH7rjDHqdpOcmKlPQ2LdHTguzHE9IClSG16gElVyVKMg7zXdTF6Pf6a4d6fsHCKVcCuoFapLkScAwJubVibaz4+IXXE4bUkujnaaAN2OBIX7ENKRlc1XdJFzQATX5Gzw+1z2+he5G88LsMF0r4jSllw77PSVaQ8dYqsCFp+VVXEmKaI/4xZFIEI7cwdXEaIhnuSFpKRnHg/wNc+brETztdEA6YLaBuL7zDMZcJDW8Wd7QpT1jyDmYSKwW8TS/ZfEGYfQsI6IaoJZCA7NZ/zt9nXcnxbbY+AKH/8hwb5ncVeqTqYQpN6VH06zvgUizyBGXq4svXMMXccttiJeW3SnG4y25clGsNsTQ+2qm0p/buemwHG6re2xrnC5XJh1oKW8CvNCkSpsk9vUkiKBPqDTRI7OtujMLfY1pvP40endqk9rE9ZzfXP0Nhav7akOJRbcP1pBqEyXFsdcs29h4JrD8DLgTikXXUaEi8PXhbEHcTbF1zXuMTii5I8qTVqXbTukhqwpe4jXrW3/a5ImbXeluh6VYSPPJnue6mVZX4+Slsg70FFCMrZoJcAV9WYd6AGM7Q4RAWB2o+ZIxaOamKPnIb7Bk70mfNQL0gUirGtWprr0yEM/DeLzk7S5OGLpDEnNuY1MAlz6oO8+D63DMsLA2DysFCAVDOwom0pNKFrzQoOLCsQjADSS2Yn6OmwVTsRiLW7X/lebB/DOERV
+	4kSDNCS93tjvfNSdnQQQLH42Le67hEn6T+nB9/sH5h+H6jHkxf5MJ2Uh18k6p221W8o67GPIQ7QuNZctleEcvM0Tbpp3xH5NRbRPzPycFivHbHY1VH/LfKZXGZ4D3DUle3gbPbEVrtdMbhr0YE/jMYuU+Y4miqd9ks4oIpVE7pzYUjOaYMGgEI45rh/6LDur7eCU0lxlO1vJriAZKWIT252quRrJ3nJd9hhZWZ4EmDVgDVSOtoe61FIpiv6oj3KqLubZrpt20UPPrCoIZVBaUKMLBXdcrNrQIiEBmjeZ0Lvp+JlnPnUm87aXcoiAqABL6Ph6fM8hl8xf/xBM0xAjIcN6c3+qE4WtAZooimVLVodOuE+YlZ8yevHuktyqkHZ1SKnfjpDKQkZ/mn/BGpQmefvg3gdpuzMTDv0y+JGQ2PXYhi4Hl4/xhXg6DYyGQl2VuoEx7ukM985v9cWvqz1d7eDaVkvCVxmvuL5AyFp4XZY7NRLYWnCXvX9R15fZLZAWzpw1leqDiJP0m6DqXa7QPjfgUf993BQ8o8JihRfXMXP7TWqhhU2+p7uGBtiNfGeNjkV1vVIqHUTC7swGNX0aE1fnRsJCGKFcRptr/GTcDv0AgMeKfSUVEWMe3y+RHpBW4ImTrnBVOSwBL9VnLXQMAwKU2ugpNemLtyJXHo8X2UyxirPOjrrjA70cQEIDIX7EsgXK2QMh0By+lLnorrFwUVdQYReb7GYBXaGHzRhRDfedXKrj2xybgtQ1UVwbjV3M
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400014)(376005)(1800799015);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(82310400014)(36860700004)(376005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2024 21:39:05.8582
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2024 21:47:04.9620
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 000b88ba-4044-4e0e-5be5-08dc4ddd299b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ca7d519-6fea-431a-54e6-08dc4dde4717
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001D1.namprd05.prod.outlook.com
+	DS1PEPF0001709B.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8931
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4136
 
-Xen tries to load a PVH dom0 kernel at the fixed guest physical address
-from the elf headers.  For Linux, this defaults to 0x1000000 (16MB), but
-it can be configured.
+The Xen PVH entrypoint is 32bit non-PIC code running at a default load
+address of 0x1000000 (16MB) (CONFIG_PHYSICAL_START).  Xen loads the
+kernel at that physical address inside the PVH container.
 
-Unfortunately there exist firmwares that have reserved regions at this
-address, so Xen fails to load the dom0 kernel since it's not RAM.
+When running a PVH Dom0, the system reserved addresses are mapped 1-1
+into the PVH container.  There exist system firmwares (Coreboot/EDK2)
+with reserved memory at 16MB.  This creates a conflict where the PVH
+kernel cannot be loaded at that address.
 
-The PVH entry code is not relocatable - it loads from absolute
-addresses, which fail when the kernel is loaded at a different address.
-With a suitably modified kernel, a reloctable entry point is possible.
+Modify the PVH entrypoint to be position-indepedent to allow flexibility
+in load address.  Only the 64bit entry path is converted.  A 32bit
+kernel is not PIC, so calling into other parts of the kernel, like
+xen_prepare_pvh() and mk_pgtable_32(), don't work properly when
+relocated.
 
-Add XEN_ELFNOTE_PHYS32_RELOC which specifies optional alignment,
-minimum, and maximum addresses needed for the kernel.  The presence of
-the NOTE indicates the kernel supports a relocatable entry path.
+Initial PVH entry runs at the physical addresses and then transitions to
+the identity mapped address.  While executing xen_prepare_pvh() calls
+through pv_ops function pointers transition to the high mapped
+addresses.  Additionally, __va() is called on some hvm_start_info
+physical addresses, we need the directmap address range is used.  So we
+need to run page tables with all of those ranges mapped.
 
-Change the loading to check for an acceptable load address.  If the
-kernel is relocatable, support finding an alternate load address.
+Modifying init_top_pgt tables ran into issue since
+startup_64/__startup_64() will modify those page tables again.  Use a
+dedicated set of page tables - pvh_init_top_pgt  - for the PVH entry to
+avoid unwanted interactions.
 
-The primary motivation for an explicit align field is that Linux has a
-configurable CONFIG_PHYSICAL_ALIGN field.  This value is present in the
-bzImage setup header, but not the ELF program headers p_align, which
-report 2MB even when CONFIG_PHYSICAL_ALIGN is greater.  Since a kernel
-is only considered relocatable if the PHYS32_RELOC elf note is present,
-the alignment contraints can just be specified within the note instead
-of searching for an alignment value via a heuristic.
+In xen_pvh_init(), __pa() is called to find the physical address of the
+hypercall page.  Set phys_base temporarily before calling into
+xen_prepare_pvh(), which calls xen_pvh_init(), and clear it afterwards.
+__startup_64() assumes phys_base is zero and adds load_delta to it.  If
+phys_base is already set, the calculation results in an incorrect cr3.
 
-libelf-private.h includes common-macros.h to satisfy the fuzzer build.
+TODO: Sync elfnote.h from xen.git commit xxxxxxxxxx when it is
+commited.
 
-Link: https://gitlab.com/xen-project/xen/-/issues/180
 Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 ---
-ELF Note printing looks like:
-(XEN) ELF: note: PHYS32_RELOC align: 0x200000 min: 0x1000000 max: 0x3fffffff
+Put this out as an example for the Xen modifications
 
-v2:
-Use elfnote for min, max & align - use 64bit values.
-Print original and relocated memory addresses
-Use check_and_adjust_load_address() name
-Return relocated base instead of offset
-Use PAGE_ALIGN
-Don't load above max_phys (expected to be 4GB in kernel elf note)
-Use single line comments
-Exit check_load_address loop earlier
-Add __init to find_kernel_memory()
+Instead of setting and clearing phys_base, add a dedicated variable?
+Clearing phys_base is a little weird, but it leaves the kernel more
+consistent when running non-entry code.
 
-v3:
-Remove kernel_start/end page rounding
-Change loop comment to rely on a sorted memory map.
-Reorder E820_RAM check first
-Use %p for dest_base
-Use PRIpaddr
-Use 32bit phys_min/max/align
-Consolidate to if ( x || y ) continue
-Use max_t
-Add parms->phys_reloc
-Use common "%pd kernel: " prefix for messages
-Re-order phys_entry assignment
-Print range ends inclusively
-Remove extra "Unable to load kernel" message
-s/PVH_RELOCATION/PHYS32_RELOC/
-Make PHYS32_RELOC contents optional
-Use 2MB default alignment
-Update ELF Note comment
-Update XEN_ELFNOTE_MAX
-
-v4:
-Cast dest_base to uintptr_t
-Use local start variable
-Mention e820 requiring adjacent entries merged
-Remove extra whitespace
-Re-word elfnote comment & mention x86
-Use ELFNOTE_NAME
-Return -ENOSPC
-Use ! instead of == 0
-Check kend - 1 to avoid off by one
-libelf: Use MB/GB() to define the size.
-Use ARCH_PHYS_* defines
-
-v5:
-Place kernel in higher memory addresses
-Remove stray semicolons
-ELFNOTE_NAME comment about newline
-Make PHYS32_RELOC element order align, min, max
-Re-word PHYS32_RELOC comment
-Move phys_align next to other bool variables
+Make __startup_64() exit if phys_base is already set to allow calling
+multiple times, and use that and init_top_pgt instead of adding
+additional page tables?  That won't work.  __startup_64 is 64bit code,
+and pvh needs to create page tables in 32bit code before it can
+transition to 64bit long mode.  Hence it can't be re-used to relocate
+page tables.
 ---
- xen/arch/x86/hvm/dom0_build.c      | 100 +++++++++++++++++++++++++++++
- xen/common/libelf/libelf-dominfo.c |  41 +++++++++++-
- xen/common/libelf/libelf-private.h |   1 +
- xen/include/public/elfnote.h       |  16 ++++-
- xen/include/xen/libelf.h           |   4 ++
- 5 files changed, 159 insertions(+), 3 deletions(-)
+ arch/x86/platform/pvh/head.S    | 184 +++++++++++++++++++++++++++++---
+ include/xen/interface/elfnote.h |  18 +++-
+ 2 files changed, 189 insertions(+), 13 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
-index 0ceda4140b..b34cb638da 100644
---- a/xen/arch/x86/hvm/dom0_build.c
-+++ b/xen/arch/x86/hvm/dom0_build.c
-@@ -537,6 +537,103 @@ static paddr_t __init find_memory(
-     return INVALID_PADDR;
- }
+diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
+index f7235ef87bc3..13cfd4a35462 100644
+--- a/arch/x86/platform/pvh/head.S
++++ b/arch/x86/platform/pvh/head.S
+@@ -50,11 +50,32 @@
+ #define PVH_CS_SEL		(PVH_GDT_ENTRY_CS * 8)
+ #define PVH_DS_SEL		(PVH_GDT_ENTRY_DS * 8)
  
-+static bool __init check_load_address(
-+    const struct domain *d, const struct elf_binary *elf)
-+{
-+    paddr_t kernel_start = (uintptr_t)elf->dest_base;
-+    paddr_t kernel_end = kernel_start + elf->dest_size;
-+    unsigned int i;
++#define rva(x) ((x) - pvh_start_xen)
 +
-+    /* Relies on a sorted memory map with adjacent entries merged. */
-+    for ( i = 0; i < d->arch.nr_e820; i++ )
-+    {
-+        paddr_t start = d->arch.e820[i].addr;
-+        paddr_t end = start + d->arch.e820[i].size;
-+
-+        if ( start >= kernel_end )
-+            return false;
-+
-+        if ( d->arch.e820[i].type == E820_RAM &&
-+             start <= kernel_start &&
-+             end >= kernel_end )
-+            return true;
-+    }
-+
-+    return false;
-+}
-+
-+/* Find an e820 RAM region that fits the kernel at a suitable alignment. */
-+static paddr_t __init find_kernel_memory(
-+    const struct domain *d, struct elf_binary *elf,
-+    const struct elf_dom_parms *parms)
-+{
-+    paddr_t kernel_size = elf->dest_size;
-+    int i;
-+
-+    /* Search backwards to find the highest address. */
-+    for ( i = d->arch.nr_e820 - 1; i >= 0 ; i-- )
-+    {
-+        paddr_t start = d->arch.e820[i].addr;
-+        paddr_t end = start + d->arch.e820[i].size;
-+        paddr_t kstart, kend;
-+
-+        if ( d->arch.e820[i].type != E820_RAM ||
-+             d->arch.e820[i].size < kernel_size )
-+            continue;
-+
-+        if ( start > parms->phys_max )
-+            continue;
-+
-+        if ( end - 1 > parms->phys_max )
-+            end = parms->phys_max + 1;
-+
-+        kstart = (end - kernel_size) & ~(parms->phys_align - 1);
-+        kend = kstart + kernel_size;
-+
-+        if ( kstart < parms->phys_min )
-+            return 0;
-+
-+        if ( kstart >= start && kend <= end )
-+            return kstart;
-+    }
-+
-+    return 0;
-+}
-+
-+/* Check the kernel load address, and adjust if necessary and possible. */
-+static bool __init check_and_adjust_load_address(
-+    const struct domain *d, struct elf_binary *elf, struct elf_dom_parms *parms)
-+{
-+    paddr_t reloc_base;
-+
-+    if ( check_load_address(d, elf) )
-+        return true;
-+
-+    if ( !parms->phys_reloc )
-+    {
-+        printk("%pd kernel: Address conflict and not relocatable\n", d);
-+        return false;
-+    }
-+
-+    reloc_base = find_kernel_memory(d, elf, parms);
-+    if ( !reloc_base )
-+    {
-+        printk("%pd kernel: Failed find a load address\n", d);
-+        return false;
-+    }
-+
-+    if ( opt_dom0_verbose )
-+        printk("%pd kernel: Moving [%p, %p] -> [%"PRIpaddr", %"PRIpaddr"]\n", d,
-+               elf->dest_base, elf->dest_base + elf->dest_size - 1,
-+               reloc_base, reloc_base + elf->dest_size - 1);
-+
-+    parms->phys_entry = reloc_base +
-+                            (parms->phys_entry - (uintptr_t)elf->dest_base);
-+    elf->dest_base = (char *)reloc_base;
-+
-+    return true;
-+}
-+
- static int __init pvh_load_kernel(struct domain *d, const module_t *image,
-                                   unsigned long image_headroom,
-                                   module_t *initrd, void *image_base,
-@@ -585,6 +682,9 @@ static int __init pvh_load_kernel(struct domain *d, const module_t *image,
-     elf.dest_base = (void *)(parms.virt_kstart - parms.virt_base);
-     elf.dest_size = parms.virt_kend - parms.virt_kstart;
+ SYM_CODE_START_LOCAL(pvh_start_xen)
+ 	UNWIND_HINT_END_OF_STACK
+ 	cld
  
-+    if ( !check_and_adjust_load_address(d, &elf, &parms) )
-+        return -ENOSPC;
+-	lgdt (_pa(gdt))
++	/*
++	 * See the comment for startup_32 for more details.  We need to
++	 * execute a call to get the execution address to be position
++	 * independent, but we don't have a stack.  Save and restore the
++	 * magic field of start_info in ebx, and use that as the stack.
++	 */
++	mov	(%ebx), %eax
++	leal	4(%ebx), %esp
++	ANNOTATE_INTRA_FUNCTION_CALL
++	call	1f
++1:	popl	%ebp
++	mov	%eax, (%ebx)
++	subl	$ rva(1b), %ebp
++	movl	$0, %esp
 +
-     elf_set_vcpu(&elf, v);
-     rc = elf_load_binary(&elf);
-     if ( rc < 0 )
-diff --git a/xen/common/libelf/libelf-dominfo.c b/xen/common/libelf/libelf-dominfo.c
-index 77bd582a37..08573c51e0 100644
---- a/xen/common/libelf/libelf-dominfo.c
-+++ b/xen/common/libelf/libelf-dominfo.c
-@@ -17,6 +17,16 @@
++	leal	rva(gdt)(%ebp), %eax
++	movl	%eax, %ecx
++	leal	rva(gdt_start)(%ebp), %ecx
++	movl	%ecx, 2(%eax)
++	lgdt	(%eax)
  
- #include "libelf-private.h"
+ 	mov $PVH_DS_SEL,%eax
+ 	mov %eax,%ds
+@@ -62,14 +83,14 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
+ 	mov %eax,%ss
  
-+#if defined(__i386__) || defined(__x86_64__)
-+#define ARCH_PHYS_ALIGN_DEFAULT MB(2)
-+#define ARCH_PHYS_MIN_DEFAULT   0
-+#define ARCH_PHYS_MAX_DEFAULT   (GB(4) - 1)
-+#else
-+#define ARCH_PHYS_ALIGN_DEFAULT 0
-+#define ARCH_PHYS_MIN_DEFAULT   0
-+#define ARCH_PHYS_MAX_DEFAULT   0
+ 	/* Stash hvm_start_info. */
+-	mov $_pa(pvh_start_info), %edi
++	leal rva(pvh_start_info)(%ebp), %edi
+ 	mov %ebx, %esi
+-	mov _pa(pvh_start_info_sz), %ecx
++	movl rva(pvh_start_info_sz)(%ebp), %ecx
+ 	shr $2,%ecx
+ 	rep
+ 	movsl
+ 
+-	mov $_pa(early_stack_end), %esp
++	leal rva(early_stack_end)(%ebp), %esp
+ 
+ 	/* Enable PAE mode. */
+ 	mov %cr4, %eax
+@@ -83,29 +104,83 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
+ 	btsl $_EFER_LME, %eax
+ 	wrmsr
+ 
++	mov %ebp, %ebx
++	subl $LOAD_PHYSICAL_ADDR, %ebx /* offset */
++	jz .Lpagetable_done
++
++	/* Fixup page-tables for relocation. */
++	leal rva(pvh_init_top_pgt)(%ebp), %edi
++	movl $512, %ecx
++2:
++	movl 0x00(%edi), %eax
++	addl 0x04(%edi), %eax
++	jz 1f
++	addl %ebx, 0x00(%edi)
++1:
++	addl $8, %edi
++	decl %ecx
++	jnz 2b
++
++	/* L3 ident has a single entry. */
++	leal rva(pvh_level3_ident_pgt)(%ebp), %edi
++	addl %ebx, 0x00(%edi)
++
++	leal rva(pvh_level3_kernel_pgt)(%ebp), %edi
++	addl %ebx, (4096 - 16)(%edi)
++	addl %ebx, (4096 - 8)(%edi)
++
++	/* pvh_level2_ident_pgt is fine - large pages */
++
++	/* pvh_level2_kernel_pgt needs adjustment - large pages */
++	leal rva(pvh_level2_kernel_pgt)(%ebp), %edi
++	movl $512, %ecx
++2:
++	movl 0x00(%edi), %eax
++	addl 0x04(%edi), %eax
++	jz 1f
++	addl %ebx, 0x00(%edi)
++1:
++	addl $8, %edi
++	decl %ecx
++	jnz 2b
++
++.Lpagetable_done:
+ 	/* Enable pre-constructed page tables. */
+-	mov $_pa(init_top_pgt), %eax
++	leal rva(pvh_init_top_pgt)(%ebp), %eax
+ 	mov %eax, %cr3
+ 	mov $(X86_CR0_PG | X86_CR0_PE), %eax
+ 	mov %eax, %cr0
+ 
+ 	/* Jump to 64-bit mode. */
+-	ljmp $PVH_CS_SEL, $_pa(1f)
++	pushl $PVH_CS_SEL
++	leal  rva(1f)(%ebp), %eax
++	pushl %eax
++	lretl
+ 
+ 	/* 64-bit entry point. */
+ 	.code64
+ 1:
+ 	/* Set base address in stack canary descriptor. */
+ 	mov $MSR_GS_BASE,%ecx
+-	mov $_pa(canary), %eax
++	leal rva(canary)(%ebp), %eax
+ 	xor %edx, %edx
+ 	wrmsr
+ 
++	/* Calculate load offset from LOAD_PHYSICAL_ADDR and store in
++	 * phys_base.  __pa() needs phys_base set to calculate the the
++	 * hypercall page in xen_pvh_init(). */
++	movq %rbp, %rbx
++	subq $LOAD_PHYSICAL_ADDR, %rbx
++	movq %rbx, phys_base(%rip)
+ 	call xen_prepare_pvh
++	/* Clear phys_base.  startup_64/__startup_64 will *add* to its value,
++	   so start from 0. */
++	xor  %rbx, %rbx
++	movq %rbx, phys_base(%rip)
+ 
+ 	/* startup_64 expects boot_params in %rsi. */
+-	mov $_pa(pvh_bootparams), %rsi
+-	mov $_pa(startup_64), %rax
++	lea rva(pvh_bootparams)(%ebp), %rsi
++	lea rva(startup_64)(%ebp), %rax
+ 	ANNOTATE_RETPOLINE_SAFE
+ 	jmp *%rax
+ 
+@@ -137,13 +212,14 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
+ 
+ 	ljmp $PVH_CS_SEL, $_pa(startup_32)
+ #endif
++
+ SYM_CODE_END(pvh_start_xen)
+ 
+ 	.section ".init.data","aw"
+ 	.balign 8
+ SYM_DATA_START_LOCAL(gdt)
+-	.word gdt_end - gdt_start
+-	.long _pa(gdt_start)
++	.word gdt_end - gdt_start - 1
++	.long _pa(gdt_start) /* x86-64 will overwrite if relocated. */
+ 	.word 0
+ SYM_DATA_END(gdt)
+ SYM_DATA_START_LOCAL(gdt_start)
+@@ -163,5 +239,89 @@ SYM_DATA_START_LOCAL(early_stack)
+ 	.fill BOOT_STACK_SIZE, 1, 0
+ SYM_DATA_END_LABEL(early_stack, SYM_L_LOCAL, early_stack_end)
+ 
++#ifdef CONFIG_X86_64
++/*
++ * We are not able to switch in one step to the final KERNEL ADDRESS SPACE
++ * because we need identity-mapped pages.
++ */
++#define l4_index(x)     (((x) >> 39) & 511)
++#define pud_index(x)    (((x) >> PUD_SHIFT) & (PTRS_PER_PUD-1))
++
++L4_PAGE_OFFSET  = l4_index(__PAGE_OFFSET_BASE_L4)
++L4_START_KERNEL = l4_index(__START_KERNEL_map)
++L3_START_KERNEL = pud_index(__START_KERNEL_map)
++
++#define SYM_DATA_START_PAGE_ALIGNED(name)			\
++	SYM_START(name, SYM_L_GLOBAL, .balign PAGE_SIZE)
++
++/* Automate the creation of 1 to 1 mapping pmd entries */
++#define PMDS(START, PERM, COUNT)			\
++	i = 0 ;						\
++	.rept (COUNT) ;					\
++	.quad	(START) + (i << PMD_SHIFT) + (PERM) ;	\
++	i = i + 1 ;					\
++	.endr
++
++/*
++ * Xen PVH needs a set of identity mapped and kernel high mapping
++ * page tables.  pvh_start_xen starts running on the identity mapped
++ * page tables, but xen_prepare_pvh calls into the high mapping.
++ * These page tables need to be relocatable and are only used until
++ * startup_64 transitions to init_top_pgt.
++ */
++SYM_DATA_START_PAGE_ALIGNED(pvh_init_top_pgt)
++	.quad   pvh_level3_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
++	.org    pvh_init_top_pgt + L4_PAGE_OFFSET*8, 0
++	.quad   pvh_level3_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
++	.org    pvh_init_top_pgt + L4_START_KERNEL*8, 0
++	/* (2^48-(2*1024*1024*1024))/(2^39) = 511 */
++	.quad   pvh_level3_kernel_pgt - __START_KERNEL_map + _PAGE_TABLE_NOENC
++SYM_DATA_END(pvh_init_top_pgt)
++
++SYM_DATA_START_PAGE_ALIGNED(pvh_level3_ident_pgt)
++	.quad	pvh_level2_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
++	.fill	511, 8, 0
++SYM_DATA_END(pvh_level3_ident_pgt)
++SYM_DATA_START_PAGE_ALIGNED(pvh_level2_ident_pgt)
++	/*
++	 * Since I easily can, map the first 1G.
++	 * Don't set NX because code runs from these pages.
++	 *
++	 * Note: This sets _PAGE_GLOBAL despite whether
++	 * the CPU supports it or it is enabled.  But,
++	 * the CPU should ignore the bit.
++	 */
++	PMDS(0, __PAGE_KERNEL_IDENT_LARGE_EXEC, PTRS_PER_PMD)
++SYM_DATA_END(pvh_level2_ident_pgt)
++SYM_DATA_START_PAGE_ALIGNED(pvh_level3_kernel_pgt)
++	.fill	L3_START_KERNEL,8,0
++	/* (2^48-(2*1024*1024*1024)-((2^39)*511))/(2^30) = 510 */
++	.quad	pvh_level2_kernel_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
++	.quad	0 /* no fixmap */
++SYM_DATA_END(pvh_level3_kernel_pgt)
++
++SYM_DATA_START_PAGE_ALIGNED(pvh_level2_kernel_pgt)
++	/*
++	 * Kernel high mapping.
++	 *
++	 * The kernel code+data+bss must be located below KERNEL_IMAGE_SIZE in
++	 * virtual address space, which is 1 GiB if RANDOMIZE_BASE is enabled,
++	 * 512 MiB otherwise.
++	 *
++	 * (NOTE: after that starts the module area, see MODULES_VADDR.)
++	 *
++	 * This table is eventually used by the kernel during normal runtime.
++	 * Care must be taken to clear out undesired bits later, like _PAGE_RW
++	 * or _PAGE_GLOBAL in some cases.
++	 */
++	PMDS(0, __PAGE_KERNEL_LARGE_EXEC, KERNEL_IMAGE_SIZE/PMD_SIZE)
++SYM_DATA_END(pvh_level2_kernel_pgt)
++
++	ELFNOTE(Xen, XEN_ELFNOTE_PHYS32_RELOC,
++		     .long CONFIG_PHYSICAL_ALIGN;
++		     .long LOAD_PHYSICAL_ADDR;
++		     .long KERNEL_IMAGE_SIZE - 1)
 +#endif
 +
- /* ------------------------------------------------------------------------ */
- /* xen features                                                             */
- 
-@@ -125,6 +135,7 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
-         [XEN_ELFNOTE_SUSPEND_CANCEL] = { "SUSPEND_CANCEL", ELFNOTE_INT },
-         [XEN_ELFNOTE_MOD_START_PFN] = { "MOD_START_PFN", ELFNOTE_INT },
-         [XEN_ELFNOTE_PHYS32_ENTRY] = { "PHYS32_ENTRY", ELFNOTE_INT },
-+        [XEN_ELFNOTE_PHYS32_RELOC] = { "PHYS32_RELOC", ELFNOTE_NAME },
-     };
- /* *INDENT-ON* */
- 
-@@ -132,6 +143,7 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
-     uint64_t val = 0;
-     unsigned int i;
-     unsigned type = elf_uval(elf, note, type);
-+    unsigned descsz = elf_uval(elf, note, descsz);
- 
-     if ( (type >= sizeof(note_desc) / sizeof(note_desc[0])) ||
-          (note_desc[type].name == NULL) )
-@@ -160,8 +172,8 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
-         break;
- 
-     case ELFNOTE_NAME:
--        /* ELFNOTE_NAME has a newline printed at the end of the function to
--         * optionally allow printing customized details. */
-+        /* ELFNOTE_NAME has a newline printed at the end of the function and
-+         * optionally allows printing custom formatted details below. */
-         elf_msg(elf, "ELF: note: %s", note_desc[type].name);
-         break;
-     }
-@@ -229,6 +241,27 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
-     case XEN_ELFNOTE_PHYS32_ENTRY:
-         parms->phys_entry = val;
-         break;
-+
-+    case XEN_ELFNOTE_PHYS32_RELOC:
-+        parms->phys_reloc = true;
-+
-+        if ( descsz >= 4 )
-+        {
-+            parms->phys_align = elf_note_numeric_array(elf, note, 4, 0);
-+            elf_msg(elf, " align: %#"PRIx32, parms->phys_align);
-+        }
-+        if ( descsz >= 8 )
-+        {
-+            parms->phys_min = elf_note_numeric_array(elf, note, 4, 1);
-+            elf_msg(elf, " min: %#"PRIx32, parms->phys_min);
-+        }
-+        if ( descsz >= 12 )
-+        {
-+            parms->phys_max = elf_note_numeric_array(elf, note, 4, 2);
-+            elf_msg(elf, " max: %#"PRIx32, parms->phys_max);
-+        }
-+
-+        break;
-     }
- 
-     if ( note_desc[type].type == ELFNOTE_NAME)
-@@ -544,6 +577,10 @@ elf_errorstatus elf_xen_parse(struct elf_binary *elf,
-     parms->p2m_base = UNSET_ADDR;
-     parms->elf_paddr_offset = UNSET_ADDR;
-     parms->phys_entry = UNSET_ADDR32;
-+    parms->phys_align = ARCH_PHYS_ALIGN_DEFAULT;
-+    parms->phys_min = ARCH_PHYS_MIN_DEFAULT;
-+    parms->phys_max = ARCH_PHYS_MAX_DEFAULT;
-+    parms->phys_reloc = false;
- 
-     /* Find and parse elf notes. */
-     count = elf_phdr_count(elf);
-diff --git a/xen/common/libelf/libelf-private.h b/xen/common/libelf/libelf-private.h
-index 47db679966..98cac65bc5 100644
---- a/xen/common/libelf/libelf-private.h
-+++ b/xen/common/libelf/libelf-private.h
-@@ -71,6 +71,7 @@
- #endif
- #include <xen/elfnote.h>
- #include <xen/libelf/libelf.h>
-+#include <xen-tools/common-macros.h>
- 
- #ifndef FUZZ_NO_LIBXC
- #include "xenctrl.h"
-diff --git a/xen/include/public/elfnote.h b/xen/include/public/elfnote.h
-index 1d84b05f44..a2f89bdc40 100644
---- a/xen/include/public/elfnote.h
-+++ b/xen/include/public/elfnote.h
-@@ -196,10 +196,24 @@
+ 	ELFNOTE(Xen, XEN_ELFNOTE_PHYS32_ENTRY,
+-	             _ASM_PTR (pvh_start_xen - __START_KERNEL_map))
++	             .long (pvh_start_xen - __START_KERNEL_map))
+diff --git a/include/xen/interface/elfnote.h b/include/xen/interface/elfnote.h
+index 38deb1214613..9ebd4e79bb41 100644
+--- a/include/xen/interface/elfnote.h
++++ b/include/xen/interface/elfnote.h
+@@ -185,9 +185,25 @@
   */
  #define XEN_ELFNOTE_PHYS32_ENTRY 18
  
 +/*
 + * Physical loading constraints for PVH kernels
 + *
++ * Used to place constraints on the guest physical loading addresses and
++ * alignment for a PVH kernel.
++ *
 + * The presence of this note indicates the kernel supports relocating itself.
 + *
-+ * The note may include up to three 32bit values to place constraints on the
-+ * guest physical loading addresses and alignment for a PVH kernel.  Values
-+ * are read in the following order:
-+ *  - a required start alignment (default 0x200000)
++ * The note may include up to three 32bit values in the following order:
++ *  - a maximum address for the entire image to be loaded below (default
++ *      0xffffffff)
 + *  - a minimum address for the start of the image (default 0)
-+ *  - a maximum address for the last byte of the image (default 0xffffffff)
++ *  - a required start alignment (default 0x200000)
 + */
 +#define XEN_ELFNOTE_PHYS32_RELOC 19
 +
@@ -462,30 +461,7 @@ index 1d84b05f44..a2f89bdc40 100644
 -#define XEN_ELFNOTE_MAX XEN_ELFNOTE_PHYS32_ENTRY
 +#define XEN_ELFNOTE_MAX XEN_ELFNOTE_PHYS32_RELOC
  
- /*
-  * System information exported through crash notes.
-diff --git a/xen/include/xen/libelf.h b/xen/include/xen/libelf.h
-index 1c77e3df31..00e02c27cc 100644
---- a/xen/include/xen/libelf.h
-+++ b/xen/include/xen/libelf.h
-@@ -425,6 +425,7 @@ struct elf_dom_parms {
-     enum xen_pae_type pae;
-     bool bsd_symtab;
-     bool unmapped_initrd;
-+    bool phys_reloc;
-     uint64_t virt_base;
-     uint64_t virt_entry;
-     uint64_t virt_hypercall;
-@@ -434,6 +435,9 @@ struct elf_dom_parms {
-     uint32_t f_supported[XENFEAT_NR_SUBMAPS];
-     uint32_t f_required[XENFEAT_NR_SUBMAPS];
-     uint32_t phys_entry;
-+    uint32_t phys_align;
-+    uint32_t phys_min;
-+    uint32_t phys_max;
- 
-     /* calculated */
-     uint64_t virt_kstart;
+ #endif /* __XEN_PUBLIC_ELFNOTE_H__ */
 -- 
 2.44.0
 
