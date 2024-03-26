@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4859B88BBAA
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 08:50:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697938.1089207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A26FD88BBB7
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 08:52:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.697940.1089216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rp1ZU-0005eB-Nw; Tue, 26 Mar 2024 07:50:12 +0000
+	id 1rp1bC-00068q-0R; Tue, 26 Mar 2024 07:51:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697938.1089207; Tue, 26 Mar 2024 07:50:12 +0000
+Received: by outflank-mailman (output) from mailman id 697940.1089216; Tue, 26 Mar 2024 07:51:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rp1ZU-0005bL-JR; Tue, 26 Mar 2024 07:50:12 +0000
-Received: by outflank-mailman (input) for mailman id 697938;
- Tue, 26 Mar 2024 07:50:11 +0000
+	id 1rp1bB-00067J-Td; Tue, 26 Mar 2024 07:51:57 +0000
+Received: by outflank-mailman (input) for mailman id 697940;
+ Tue, 26 Mar 2024 07:51:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NDFk=LA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rp1ZT-0005bF-2t
- for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 07:50:11 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1rp1bA-00067D-1h
+ for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 07:51:56 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7825fa13-eb45-11ee-afe3-a90da7624cb6;
- Tue, 26 Mar 2024 08:50:09 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-55a179f5fa1so6642592a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 26 Mar 2024 00:50:09 -0700 (PDT)
+ id b7111c04-eb45-11ee-afe3-a90da7624cb6;
+ Tue, 26 Mar 2024 08:51:55 +0100 (CET)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-513ccc70a6dso8937963e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Mar 2024 00:51:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ef3-20020a05640228c300b0056bfb4a94e9sm3400666edb.59.2024.03.26.00.50.08
+ v5-20020a1709061dc500b00a46e2f89a9csm3919559ejh.32.2024.03.26.00.51.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Mar 2024 00:50:08 -0700 (PDT)
+ Tue, 26 Mar 2024 00:51:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7825fa13-eb45-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: b7111c04-eb45-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711439409; x=1712044209; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711439515; x=1712044315; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=f/jmwi6rAQXG/0H9SKQLSZy/Ddk3hDPj7z/9OHxZvmk=;
-        b=YeIYakldCyl+VQcY7HhjP9+EsiMjGWPOfjds8Eb4kdZpH3sZP/VRGafITzRcE8T/zb
-         rXoudVMZ/TtrgoCrVe+ZlA917mx+HBh6sgBGIVLc5j8jLUALquSqf+yXoOOjBpvx1UXc
-         vkr+JZT9inQ3hDOizqeo1i/pl8QEv228zQJdnhyR3ymQGUgcHYVrZ27yZlv/Zc9zbkzb
-         ebt/Z+N03An+/GzM8A0SbLZVETvsojRCV9xINimGhjBnS8H50Zk8/Xpa9f+TGq85bl2I
-         GgpMnUx4Qk1hSbJ68pqrOkof+cdalCP9jyc56CWgrkh3KbcHejCpwVUBmkUgcYLts6bn
-         0ZdQ==
+        bh=nY62mL7e9ntXnjEq/w6d5JyG5A14j1SSjlMr7TSXSvQ=;
+        b=BvY5qdMlP24WQLvjQ6Z45g1wGKuG2J38rnbOc0Zk0iKaUYvqeEnH3Vse9+uS8oZ+Hf
+         JNPXfPEa2b0vqKzmtnBe4eK0xO4Y7AvR+uKph+axlb2w+fsnF932Pwy6BAjPJKEPiSE0
+         oFRK4QvoDgXaJHcCOd6H/7tnDqUberKmtbvx4vtToEzjtjWmMZajd5YX1pWo8PyhJLLJ
+         FP6cg0Tl2jVTyyGFWtUfHGKJREu+6newtD4ikM0tH1zobycPeYrNbyg0fa3/88TsKuwX
+         x56GOV87mDGLBtfN3biRbxklRrQ9o3+3Mh0efWNPibGJUrj6H5PL1lcIrRYAbe4i6Qfm
+         oFVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711439409; x=1712044209;
+        d=1e100.net; s=20230601; t=1711439515; x=1712044315;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=f/jmwi6rAQXG/0H9SKQLSZy/Ddk3hDPj7z/9OHxZvmk=;
-        b=c8HVR9BxM8sMdnF5ByJfZgO9SdhTFkq/kSo01lhpqxkxiXJfxxOW+ffv6uKXqXE+Qz
-         swIhLmB5jAtOV0X0rOtE6ud+E5rHvqoDUpHwljRX1bLu4N734fIr0iIlx6IYwOa3chr2
-         wPfy5ajvzMQmSwLZ8u6RR1qNfYuAqMM78ek+wM9+4DHNBPzxu6hEp4Cs1be3Ok+RX8bT
-         21wYg6TE5Kp6vvaR/ZlaFf6Q1NiOOGPvJP2GaKOg8DGsQuHQfOAGAHmGCGNp8GwRtXoR
-         PlX/y72d4EsoWz8fTbsGme3V5O/uwllbqCUcRwoW8e7qOkiYAZ9H4roNJfN6nY4ePS/H
-         w6ig==
-X-Forwarded-Encrypted: i=1; AJvYcCVcf/3OW+/EIVNValkcQBuYoUIW6efsP8ZR6jTdGVvh3/Y8Sg2MLlhDlUGrCVO/Hh1RvfXtZzCOY2vQtZvtJeKRtFxOCT5b27tT68KlzM8=
-X-Gm-Message-State: AOJu0YyV6v3EgwoS9v3RF3nHEAZuMOI7d8gZOfAfoqPZpQ8LbyXQzzhI
-	I7XrbM08qoEmZHXuILShV6EAZOVcdWrtjMAFTV1Dyrg82iAR7mlJjTENQU89iOtXey2Enu6yzDI
-	=
-X-Google-Smtp-Source: AGHT+IHVuPyI/ClmafiKfWlADKP95sUlVrInKalfasJJi55vx8p9g4k30SwpFGD5vMAFT6ASfaBmjQ==
-X-Received: by 2002:a50:9341:0:b0:566:e3c7:921f with SMTP id n1-20020a509341000000b00566e3c7921fmr7865313eda.22.1711439409197;
-        Tue, 26 Mar 2024 00:50:09 -0700 (PDT)
-Message-ID: <770d3292-34cf-4e21-acb6-bd1f9caf5fef@suse.com>
-Date: Tue, 26 Mar 2024 08:50:07 +0100
+        bh=nY62mL7e9ntXnjEq/w6d5JyG5A14j1SSjlMr7TSXSvQ=;
+        b=gB+EZBEdm0qetfThmB+3dP2tR50CM6l0v7EtnebJ4hZzBTLCYOR4qwk/HZK5x+0ts5
+         DnVoH6/mjMNO61A/zFMfsqJ+/0tCYYFfAJHp+vKSCjeTk9SvQoydLYDbooOgsmjH6fR3
+         VMsQSdkiM6r08H2FV62KATtdzoOzxmaBgSsTWkBHILFqAYWQuHNwGxozdt07cqOfqsDL
+         LA8HgEzaIWwNSlZ4KaeaYk2BTJ646dCSGGBNECgjKRbbNvATSuBGlPLsRdpk5UtbN837
+         2dhbWFyTled3BghGcz85fUzCU5QrXRbbNeYJDs9W4b0kP13B+uuInE3q5ENtdLlAo4km
+         E8Sw==
+X-Forwarded-Encrypted: i=1; AJvYcCWpRMZ7GIAQO7jlDT81oRszh7aiA5zf+7R8M3RMjuv+3ra//mZaHM1khOWwS/YSDzSY29pxAS/iHXE5sZzZ3Eo8XSqm0JOIwLREyr0Ernw=
+X-Gm-Message-State: AOJu0YzZvrZ3wELvuAE4qVTiatawXLWKT7fyqn7gPYwKco9aqMHzwLqp
+	XWUe/9ugRk8s4oFE9c6OMmTVw6JVlICzW1FPXaGBkjscLj7SLZ/6Pkvbhrw6sg==
+X-Google-Smtp-Source: AGHT+IFjpbyPg8uCPw4em4hExXOf11NkBqohnkarrkSXUG/+JnUe2XFqBK0iqhf43CQe6caBer0K1A==
+X-Received: by 2002:ac2:504c:0:b0:513:c223:f0e4 with SMTP id a12-20020ac2504c000000b00513c223f0e4mr7701277lfm.10.1711439514776;
+        Tue, 26 Mar 2024 00:51:54 -0700 (PDT)
+Message-ID: <ba79188b-58c4-4953-8303-6d97f6c1f844@suse.com>
+Date: Tue, 26 Mar 2024 08:51:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/5] x86/PVH: Support relocatable dom0 kernels
+Subject: Re: [PATCH v4 4/5] libelf: Expand ELF note printing
 Content-Language: en-US
 To: Jason Andryuk <jason.andryuk@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20240325204515.250203-1-jason.andryuk@amd.com>
- <20240325204515.250203-6-jason.andryuk@amd.com>
+ <20240325204515.250203-5-jason.andryuk@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,123 +112,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240325204515.250203-6-jason.andryuk@amd.com>
+In-Reply-To: <20240325204515.250203-5-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 25.03.2024 21:45, Jason Andryuk wrote:
-> +/* Find an e820 RAM region that fits the kernel at a suitable alignment. */
-> +static paddr_t __init find_kernel_memory(
-> +    const struct domain *d, struct elf_binary *elf,
-> +    const struct elf_dom_parms *parms)
-> +{
-> +    paddr_t kernel_size = elf->dest_size;
-> +    unsigned int i;
+> @@ -145,13 +150,18 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
+>          elf_msg(elf, "ELF: note: %s = \"%s\"\n", note_desc[type].name, str);
+>          parms->elf_notes[type].type = XEN_ENT_STR;
+>          parms->elf_notes[type].data.str = str;
+> -    }
+> -    else
+> -    {
+> +        break;
 > +
-> +    for ( i = 0; i < d->arch.nr_e820; i++ )
-> +    {
-> +        paddr_t start = d->arch.e820[i].addr;
-> +        paddr_t end = start + d->arch.e820[i].size;
-> +        paddr_t kstart, kend;
+> +    case ELFNOTE_INT:
+>          val = elf_note_numeric(elf, note);
+>          elf_msg(elf, "ELF: note: %s = %#" PRIx64 "\n", note_desc[type].name, val);
+>          parms->elf_notes[type].type = XEN_ENT_LONG;
+>          parms->elf_notes[type].data.num = val;
+> +        break;
 > +
-> +        if ( d->arch.e820[i].type != E820_RAM ||
-> +             d->arch.e820[i].size < kernel_size )
-> +            continue;
-> +
-> +        kstart = ROUNDUP(start, parms->phys_align);
-> +        kstart = max_t(paddr_t, kstart, parms->phys_min);
-> +        kend = kstart + kernel_size;
-> +
-> +        if ( kend - 1 > parms->phys_max )
-> +            return 0;
-> +
-> +        if ( kend <= end )
-> +            return kstart;
+> +    case ELFNOTE_NAME:
+> +        elf_msg(elf, "ELF: note: %s", note_desc[type].name);
+> +        break;
 
-IOW within a suitable region the lowest suitable part is selected. Often
-low memory is deemed more precious than higher one, so if this choice is
-indeed intentional, I'd like to ask for a brief comment towards the
-reasons.
-
-> --- a/xen/common/libelf/libelf-dominfo.c
-> +++ b/xen/common/libelf/libelf-dominfo.c
-> @@ -17,6 +17,16 @@
->  
->  #include "libelf-private.h"
->  
-> +#if defined(__i386__) || defined(__x86_64__)
-> +#define ARCH_PHYS_MIN_DEFAULT   0;
-> +#define ARCH_PHYS_MAX_DEFAULT   (GB(4) - 1);
-> +#define ARCH_PHYS_ALIGN_DEFAULT MB(2);
-> +#else
-> +#define ARCH_PHYS_MIN_DEFAULT   0;
-> +#define ARCH_PHYS_MAX_DEFAULT   0;
-> +#define ARCH_PHYS_ALIGN_DEFAULT 0;
-> +#endif
-
-None of the semicolons should really be here.
-
-> @@ -227,6 +239,27 @@ elf_errorstatus elf_xen_parse_note(struct elf_binary *elf,
->      case XEN_ELFNOTE_PHYS32_ENTRY:
->          parms->phys_entry = val;
->          break;
-> +
-> +    case XEN_ELFNOTE_PHYS32_RELOC:
-> +        parms->phys_reloc = true;
-> +
-> +        if ( descsz >= 4 )
-> +        {
-> +            parms->phys_max = elf_note_numeric_array(elf, note, 4, 0);
-> +            elf_msg(elf, " = max: %#"PRIx32, parms->phys_max);
-
-As indicated before, I consider the = here a little odd.
-
-> +        }
-> +        if ( descsz >= 8 )
-> +        {
-> +            parms->phys_min = elf_note_numeric_array(elf, note, 4, 1);
-> +            elf_msg(elf, " min: %#"PRIx32, parms->phys_min);
-> +        }
-> +        if ( descsz >= 12 )
-> +        {
-> +            parms->phys_align = elf_note_numeric_array(elf, note, 4, 2);
-> +            elf_msg(elf, " align: %#"PRIx32, parms->phys_align);
-> +        }
-
-I'd like us to reconsider this ordering: I'm inclined to say that MAX isn't
-the most likely one a guest may find a need to use. Instead I'd expect both
-MIN and ALIGN wanting to be given higher priority; what I'm less certain
-about is the ordering between the two. To keep MIN and MAX adjacent, how
-about ALIGN, MIN, MAX?
-
-> --- a/xen/include/public/elfnote.h
-> +++ b/xen/include/public/elfnote.h
-> @@ -194,10 +194,27 @@
->   */
->  #define XEN_ELFNOTE_PHYS32_ENTRY 18
->  
-> +/*
-> + * Physical loading constraints for PVH kernels
-> + *
-> + * The presence of this note indicates the kernel supports relocating itself.
-> + *
-> + * The note may include up to three 32bit values to place constraints on the
-> + * guest physical loading addresses and alignment for a PVH kernel.  Values
-> + * are read in the following order:
-> + *  - a maximum address for the entire image to be loaded below (default
-> + *      0xffffffff)
-
-"below" isn't exactly true anymore with this now being an inclusive value.
-Perhaps "up to", or perhaps more of a re-wording.
-
-I also think the wrapped line's indentation is too deep (by 2 blanks).
-
-> + *  - a minimum address for the start of the image (default 0)
-> + *  - a required start alignment (default 0x200000)
-> + *
-> + *  This note is only valid for x86 binaries.
-
-Maybe s/valid/recognized/ (or honored or some such)?
+As indicated before, I think a brief comment is warranted here towards
+the seemingly missing newline. With that added
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
