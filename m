@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CEB788CA08
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 18:02:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698178.1089605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 450B988CA29
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 18:05:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698182.1089616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpABb-0001vI-AV; Tue, 26 Mar 2024 17:02:07 +0000
+	id 1rpAEO-0002Uj-OJ; Tue, 26 Mar 2024 17:05:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698178.1089605; Tue, 26 Mar 2024 17:02:07 +0000
+Received: by outflank-mailman (output) from mailman id 698182.1089616; Tue, 26 Mar 2024 17:05:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpABb-0001tF-7t; Tue, 26 Mar 2024 17:02:07 +0000
-Received: by outflank-mailman (input) for mailman id 698178;
- Tue, 26 Mar 2024 17:02:06 +0000
+	id 1rpAEO-0002S3-Kx; Tue, 26 Mar 2024 17:05:00 +0000
+Received: by outflank-mailman (input) for mailman id 698182;
+ Tue, 26 Mar 2024 17:04:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NDFk=LA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rpABa-0001t9-M3
- for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 17:02:06 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1rpAEN-0002RU-TU
+ for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 17:04:59 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 926fbf4b-eb92-11ee-afe3-a90da7624cb6;
- Tue, 26 Mar 2024 18:02:05 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-56be32b9775so5618914a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 26 Mar 2024 10:02:05 -0700 (PDT)
+ id fa31d948-eb92-11ee-afe3-a90da7624cb6;
+ Tue, 26 Mar 2024 18:04:59 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a4702457ccbso742881566b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Mar 2024 10:04:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- f2-20020a50d542000000b00568c2ea2cefsm4535247edj.51.2024.03.26.10.02.03
+ jy12-20020a170907762c00b00a46ab3adea5sm4421333ejc.113.2024.03.26.10.04.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Mar 2024 10:02:04 -0700 (PDT)
+ Tue, 26 Mar 2024 10:04:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 926fbf4b-eb92-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: fa31d948-eb92-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711472524; x=1712077324; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711472698; x=1712077498; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=y1B8qLTsvJuggG/6NUKRHlPw7/Jff/UNOH2aXWdvsY8=;
-        b=YMlL1+4mnE7Y8ZDIEVt6FCQE8ROIhFNsd3jbBECRFtFcMOi0/lPtDyL3TtVTXG4lAe
-         r6nSfu+ikyBKDFRA3vqbMUCr7uL2pQ9vGT6NdHZWxNt2TrSXzc4FHS9jtVHpMq5SN49o
-         VwjI/gnXtfeiT5/KOV3/eHKlo/tDgA/MMunqyUFhTzsVXmEQPgPN+rckX7pylhZrP/zn
-         FYckiudZ3mTdpqpABiKQewautPDY+JB4frMLJX75Nu9xtzR7cArwoIWFNbDiDTDuMunc
-         YBb5gbH6+CpJmShgLbX3Rhurkf5yieMK5tERdJuC6Sbcq4K7FNWtaxsYE94hRMvtdnNh
-         PXHQ==
+        bh=uuzKZXxFf1+GQZFr7QU0Vuyclxmq77t6KiD8r093TN4=;
+        b=SR4JQMVvKmCAwb05ZwD/gPJzSHEcU3b1f9bPNYnv6s1zo+uWatVVpMdkQFjmx8UEsY
+         EpuyTtAjz2tNWpzObCTgCT19UjfWpD9knj+q0atmApgliQ8wjKh/svx79unB187ePZ7Z
+         qYpDyTwYENLFvnLo4DGtA4GwDRvfHwrw8vUIOPeSsTw2GhvOfpR2YWLV4CLNm2sgzazU
+         c8MnP4+kcR5QIn98RpBpzmqPfy3hRb2frcVW5CEF48FR3VxhXC8JpWdf4AGeBVG7DxIO
+         OLK0Uy3ctEtfLDitnEVbgQeQisAc2lsFuzcz+ozMVMttKkh0/Z5FiqYuRI9ove8fDuhy
+         Bwlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711472524; x=1712077324;
+        d=1e100.net; s=20230601; t=1711472698; x=1712077498;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=y1B8qLTsvJuggG/6NUKRHlPw7/Jff/UNOH2aXWdvsY8=;
-        b=jBRS3aDnwqKmTpN1nPjuWS0LPT5SSDu9HInXcflGUsdcyS3ijZYLZQMWDcuslj2bIB
-         HW7522eI0fWUGiCJWOwkE2wSZCJJKuaaxcSdCIYbJ5HE6gwtIzPHHOpxG2LL31onLs3K
-         bHiXan0QA5Q8El+D/zFDIO43Y+L1Y3DhFG22PwzsmQRUx83A+kPRdnaWFZrTll9OkOHT
-         r9WI0Y38n3J5YsWZru7E3BfScz2Qtb7TlZSuspJgrUBqlHseijs98BMw6QJfGepW/47d
-         xnDIUZLES9ViV0ho6hH7ige7sg81rGSHB2mbhIXF3slfn3RlTLbNnNim1s98kg1GiSH2
-         noDg==
-X-Forwarded-Encrypted: i=1; AJvYcCWjHUl9NNcr0TNPsq964oE7dFRgGcrlKbmlGT5X+27GuKyItcHa1dJ8jfAHS23UB8rzTWbcMFwyuvRn/+D5PNNhbLUCJT7VSJ77W3il9rE=
-X-Gm-Message-State: AOJu0YyBR4uz10+XwfKBdrw53cTURDoqTwVhpdwGjbOF+n6icza+/wjv
-	tDFRRf7+Tq9LD86TJQHcx+ehYNiRjF/scoykNAXfNoaw+tDgFAf65iq2bu8wJQ==
-X-Google-Smtp-Source: AGHT+IGFW/wqKA+KYrdIuXIeBQwxbKPLldzmtxtdejKcgg+hLSzTmMJ/lH+o9G3RLx38cKaFGUBJWw==
-X-Received: by 2002:a50:d51c:0:b0:56b:f5ae:ae58 with SMTP id u28-20020a50d51c000000b0056bf5aeae58mr1384154edi.29.1711472524408;
-        Tue, 26 Mar 2024 10:02:04 -0700 (PDT)
-Message-ID: <c3b4bacd-47c8-403c-ab5c-7a3adf39eeeb@suse.com>
-Date: Tue, 26 Mar 2024 18:02:03 +0100
+        bh=uuzKZXxFf1+GQZFr7QU0Vuyclxmq77t6KiD8r093TN4=;
+        b=TL92eqMQN/Wn9LFravgqEKZ2AyJaLv6sx5EFV1fL25V/xfmfNX3jUcMmlxKMhVQ38e
+         KMN3bS1Hdo0MfCLnCoMm/VvdAOFZh1krTrMXlkQVUg6hseaP9KRGW29ACvZwpskAVGc/
+         smbYoozuzfVHdFrImekpuFH5YtlrgOIzq5y8p7Ee8kQaYgUEs88g40eLTRVt2IWdybBj
+         4/5nthNcbhSO3Y60lTSngyNKB1z6R7f+HupWmcuc+GIcoMi4alsIMpxcXmftH/BcD+J6
+         PmBvGD2vjyzjXc53ixUOubrKF5XjsLQoksOqlKbTU20baVSCrvOPXHO8zZ+9L16sbL65
+         Ackw==
+X-Forwarded-Encrypted: i=1; AJvYcCUw7oqttyxv/Bn/7x/WKC2z0O3yzbdQXJlc1631MXqJ83vHfYfbzftf3C7EHyAd0s9JVPAk8H3qigtbqtqDbQIeGPVyG0M458v6XduNKNU=
+X-Gm-Message-State: AOJu0YxdKNaRvJhWLZO/ZGY37Yv3/o4jBb+4o8sxDbMt2ohCGLPdIpAY
+	FsN+CacYqoexNLbWhdUf8LQtuQ7Ej3PeeosstQPaqNV4HxJWtHXAnoKLQNenMw==
+X-Google-Smtp-Source: AGHT+IGxAwXxM6QM9qn1kaONeqAZchDBFk6O9UGjcc767t+hOvMBcOI7ZzpyA9mHLiFosWU3mjmKnQ==
+X-Received: by 2002:a17:906:b243:b0:a47:1d01:bb8f with SMTP id ce3-20020a170906b24300b00a471d01bb8fmr6011171ejb.31.1711472698161;
+        Tue, 26 Mar 2024 10:04:58 -0700 (PDT)
+Message-ID: <f7bde6a7-1e48-4074-b8f5-094fa0d6a593@suse.com>
+Date: Tue, 26 Mar 2024 18:04:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] xen/x86: Add topology generator
+Subject: Re: [PATCH v7 08/14] xen/page_alloc: introduce preserved page flags
+ macro
 Content-Language: en-US
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240109153834.4192-1-alejandro.vallejo@cloud.com>
- <20240109153834.4192-7-alejandro.vallejo@cloud.com>
+ xen-devel@lists.xenproject.org
+References: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
+ <20240315105902.160047-9-carlo.nonato@minervasys.tech>
+ <3f615066-a792-493f-ba33-7667a6557c23@xen.org>
+ <9e0f7ff3-5457-41e4-a1e4-bf75804fb900@xen.org>
+ <255be735-f9fe-4e39-a24e-2f6aff91acc5@suse.com>
+ <CAG+AhRWMh2quv3SNPJQ61au=e6gtdXUO7j-XVYV6chDmktqkvA@mail.gmail.com>
+ <3427132d-9458-4447-b667-d2ef3c1f0569@suse.com>
+ <CAG+AhRXE7cMNnDNxZeF=o7wBXKUtwvMj6Y5oRy-UrpDyAfM5Cw@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,168 +121,167 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240109153834.4192-7-alejandro.vallejo@cloud.com>
+In-Reply-To: <CAG+AhRXE7cMNnDNxZeF=o7wBXKUtwvMj6Y5oRy-UrpDyAfM5Cw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09.01.2024 16:38, Alejandro Vallejo wrote:
-> --- a/tools/include/xenguest.h
-> +++ b/tools/include/xenguest.h
-> @@ -843,5 +843,20 @@ enum xc_static_cpu_featuremask {
->      XC_FEATUREMASK_HVM_HAP_DEF,
->  };
->  const uint32_t *xc_get_static_cpu_featuremask(enum xc_static_cpu_featuremask);
-> +
-> +/**
-> + * Synthesise topology information in `p` given high-level constraints
-> + *
-> + * Topology is given in various fields accross several leaves, some of
-> + * which are vendor-specific. This function uses the policy itself to
-> + * derive such leaves from threads/core and cores/package.
-> + *
-> + * @param p                   CPU policy of the domain.
-> + * @param threads_per_core    threads/core. Doesn't need to be a power of 2.
-> + * @param cores_per_package   cores/package. Doesn't need to be a power of 2.
-> + */
-> +void xc_topo_from_parts(struct cpu_policy *p,
-> +                        uint32_t threads_per_core, uint32_t cores_per_pkg);
+On 26.03.2024 17:39, Carlo Nonato wrote:
+> On Mon, Mar 25, 2024 at 8:19 AM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 22.03.2024 16:07, Carlo Nonato wrote:
+>>> On Thu, Mar 21, 2024 at 5:23 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 21.03.2024 17:10, Julien Grall wrote:
+>>>>> On 21/03/2024 16:07, Julien Grall wrote:
+>>>>>> On 15/03/2024 10:58, Carlo Nonato wrote:
+>>>>>>> PGC_static and PGC_extra needs to be preserved when assigning a page.
+>>>>>>> Define a new macro that groups those flags and use it instead of or'ing
+>>>>>>> every time.
+>>>>>>>
+>>>>>>> To make preserved flags even more meaningful, they are kept also when
+>>>>>>> switching state in mark_page_free().
+>>>>>>>
+>>>>>>> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+>>>>>>
+>>>>>> This patch is introducing a regression in OSStest (and possibly gitlab?):
+>>>>>>
+>>>>>> Mar 21 12:00:29.533676 (XEN) pg[0] MFN 2211c5 c=0x2c00000000000000 o=0
+>>>>>> v=0xe40000010007ffff t=0x24
+>>>>>> Mar 21 12:00:42.829785 (XEN) Xen BUG at common/page_alloc.c:1033
+>>>>>> Mar 21 12:00:42.829829 (XEN) ----[ Xen-4.19-unstable  x86_64  debug=y
+>>>>>> Not tainted ]----
+>>>>>> Mar 21 12:00:42.829857 (XEN) CPU:    12
+>>>>>> Mar 21 12:00:42.841571 (XEN) RIP:    e008:[<ffff82d04022fe1f>]
+>>>>>> common/page_alloc.c#alloc_heap_pages+0x37f/0x6e2
+>>>>>> Mar 21 12:00:42.841609 (XEN) RFLAGS: 0000000000010282   CONTEXT:
+>>>>>> hypervisor (d0v8)
+>>>>>> Mar 21 12:00:42.853654 (XEN) rax: ffff83023e3ed06c   rbx:
+>>>>>> 000000000007ffff   rcx: 0000000000000028
+>>>>>> Mar 21 12:00:42.853689 (XEN) rdx: ffff83047bec7fff   rsi:
+>>>>>> ffff83023e3ea3e8   rdi: ffff83023e3ea3e0
+>>>>>> Mar 21 12:00:42.865657 (XEN) rbp: ffff83047bec7c10   rsp:
+>>>>>> ffff83047bec7b98   r8:  0000000000000000
+>>>>>> Mar 21 12:00:42.877647 (XEN) r9:  0000000000000001   r10:
+>>>>>> 000000000000000c   r11: 0000000000000010
+>>>>>> Mar 21 12:00:42.877682 (XEN) r12: 0000000000000001   r13:
+>>>>>> 0000000000000000   r14: ffff82e0044238a0
+>>>>>> Mar 21 12:00:42.889652 (XEN) r15: 0000000000000000   cr0:
+>>>>>> 0000000080050033   cr4: 0000000000372660
+>>>>>> Mar 21 12:00:42.901651 (XEN) cr3: 000000046fe34000   cr2: 00007fb72757610b
+>>>>>> Mar 21 12:00:42.901685 (XEN) fsb: 00007fb726def380   gsb:
+>>>>>> ffff88801f200000   gss: 0000000000000000
+>>>>>> Mar 21 12:00:42.913646 (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000
+>>>>>> ss: e010   cs: e008
+>>>>>> Mar 21 12:00:42.913680 (XEN) Xen code around <ffff82d04022fe1f>
+>>>>>> (common/page_alloc.c#alloc_heap_pages+0x37f/0x6e2):
+>>>>>> Mar 21 12:00:42.925645 (XEN)  d1 1c 00 e8 ad dd 02 00 <0f> 0b 48 85 c9
+>>>>>> 79 36 0f 0b 41 89 cd 48 c7 47 f0
+>>>>>> Mar 21 12:00:42.937649 (XEN) Xen stack trace from rsp=ffff83047bec7b98:
+>>>>>> Mar 21 12:00:42.937683 (XEN)    0000000000000024 000000007bec7c20
+>>>>>> 0000000000000001 ffff83046ccda000
+>>>>>> Mar 21 12:00:42.949653 (XEN)    ffff82e000000021 0000000000000016
+>>>>>> 0000000000000000 0000000000000000
+>>>>>> Mar 21 12:00:42.949687 (XEN)    0000000000000000 0000000000000000
+>>>>>> 0000000000000028 0000000000000021
+>>>>>> Mar 21 12:00:42.961652 (XEN)    ffff83046ccda000 0000000000000000
+>>>>>> 00007d2000000000 ffff83047bec7c48
+>>>>>> Mar 21 12:00:42.961687 (XEN)    ffff82d0402302ff ffff83046ccda000
+>>>>>> 0000000000000100 0000000000000000
+>>>>>> Mar 21 12:00:42.973655 (XEN)    ffff82d0405f0080 00007d2000000000
+>>>>>> ffff83047bec7c80 ffff82d0402f626c
+>>>>>> Mar 21 12:00:42.985656 (XEN)    ffff83046ccda000 ffff83046ccda640
+>>>>>> 0000000000000000 0000000000000000
+>>>>>> Mar 21 12:00:42.985690 (XEN)    ffff83046ccda220 ffff83047bec7cb0
+>>>>>> ffff82d0402f65a0 ffff83046ccda000
+>>>>>> Mar 21 12:00:42.997662 (XEN)    0000000000000000 0000000000000000
+>>>>>> 0000000000000000 ffff83047bec7cc0
+>>>>>> Mar 21 12:00:43.009660 (XEN)    ffff82d040311f8a ffff83047bec7ce0
+>>>>>> ffff82d0402bd543 ffff83046ccda000
+>>>>>> Mar 21 12:00:43.009695 (XEN)    ffff83047bec7dc8 ffff83047bec7d08
+>>>>>> ffff82d04032c524 ffff83046ccda000
+>>>>>> Mar 21 12:00:43.021653 (XEN)    ffff83047bec7dc8 0000000000000002
+>>>>>> ffff83047bec7d58 ffff82d040206750
+>>>>>> Mar 21 12:00:43.033642 (XEN)    0000000000000000 ffff82d040233fe5
+>>>>>> ffff83047bec7d48 0000000000000000
+>>>>>> Mar 21 12:00:43.033678 (XEN)    0000000000000002 00007fb72767f010
+>>>>>> ffff82d0405e9120 0000000000000001
+>>>>>> Mar 21 12:00:43.045654 (XEN)    ffff83047bec7e70 ffff82d040240728
+>>>>>> 0000000000000007 ffff83023e3b3000
+>>>>>> Mar 21 12:00:43.045690 (XEN)    0000000000000246 ffff83023e2efa90
+>>>>>> ffff83023e38e000 ffff83023e2efb40
+>>>>>> Mar 21 12:00:43.057609 (XEN)    0000000000000007 ffff83023e3afb80
+>>>>>> 0000000000000206 ffff83047bec7dc0
+>>>>>> Mar 21 12:00:43.069662 (XEN)    0000001600000001 000000000000ffff
+>>>>>> e75aaa8d0000000c ac0d6d864e487f62
+>>>>>> Mar 21 12:00:43.069697 (XEN)    000000037fa48d76 0000000200000000
+>>>>>> ffffffff000003ff 00000002ffffffff
+>>>>>> Mar 21 12:00:43.081647 (XEN)    0000000000000000 00000000000001ff
+>>>>>> 0000000000000000 0000000000000000
+>>>>>> Mar 21 12:00:43.093646 (XEN) Xen call trace:
+>>>>>> Mar 21 12:00:43.093677 (XEN)    [<ffff82d04022fe1f>] R
+>>>>>> common/page_alloc.c#alloc_heap_pages+0x37f/0x6e2
+>>>>>> Mar 21 12:00:43.093705 (XEN)    [<ffff82d0402302ff>] F
+>>>>>> alloc_domheap_pages+0x17d/0x1e4
+>>>>>> Mar 21 12:00:43.105652 (XEN)    [<ffff82d0402f626c>] F
+>>>>>> hap_set_allocation+0x73/0x23c
+>>>>>> Mar 21 12:00:43.105685 (XEN)    [<ffff82d0402f65a0>] F
+>>>>>> hap_enable+0x138/0x33c
+>>>>>> Mar 21 12:00:43.117646 (XEN)    [<ffff82d040311f8a>] F
+>>>>>> paging_enable+0x2d/0x45
+>>>>>> Mar 21 12:00:43.117679 (XEN)    [<ffff82d0402bd543>] F
+>>>>>> hvm_domain_initialise+0x185/0x428
+>>>>>> Mar 21 12:00:43.129652 (XEN)    [<ffff82d04032c524>] F
+>>>>>> arch_domain_create+0x3e7/0x4c1
+>>>>>> Mar 21 12:00:43.129687 (XEN)    [<ffff82d040206750>] F
+>>>>>> domain_create+0x4cc/0x7e2
+>>>>>> Mar 21 12:00:43.141665 (XEN)    [<ffff82d040240728>] F
+>>>>>> do_domctl+0x1850/0x192d
+>>>>>> Mar 21 12:00:43.141699 (XEN)    [<ffff82d04031a96a>] F
+>>>>>> pv_hypercall+0x617/0x6b5
+>>>>>> Mar 21 12:00:43.153656 (XEN)    [<ffff82d0402012ca>] F
+>>>>>> lstar_enter+0x13a/0x140
+>>>>>> Mar 21 12:00:43.153689 (XEN)
+>>>>>> Mar 21 12:00:43.153711 (XEN)
+>>>>>> Mar 21 12:00:43.153731 (XEN) ****************************************
+>>>>>> Mar 21 12:00:43.165647 (XEN) Panic on CPU 12:
+>>>>>> Mar 21 12:00:43.165678 (XEN) Xen BUG at common/page_alloc.c:1033
+>>>>>> Mar 21 12:00:43.165703 (XEN) ****************************************
+>>>>>> Mar 21 12:00:43.177633 (XEN)
+>>>>>> Mar 21 12:00:43.177662 (XEN) Manual reset required ('noreboot' specified)
+>>>>>>
+>>>>>> The code around the BUG is:
+>>>>>>
+>>>>>>          /* Reference count must continuously be zero for free pages. */
+>>>>>>          if ( (pg[i].count_info & ~PGC_need_scrub) != PGC_state_free )
+>>>>>>          {
+>>>>>>              printk(XENLOG_ERR
+>>>>>>                     "pg[%u] MFN %"PRI_mfn" c=%#lx o=%u v=%#lx t=%#x\n",
+>>>>>>                     i, mfn_x(page_to_mfn(pg + i)),
+>>>>>>                     pg[i].count_info, pg[i].v.free.order,
+>>>>>>                     pg[i].u.free.val, pg[i].tlbflush_timestamp);
+>>>>>>              BUG();
+>>>>>>          }
+>>>>>>
+>>>>>> Now that you are preserving some flags, you also want to modify the
+>>>>>> condition. I haven't checked the rest of the code, so there might be
+>>>>>> some adjustments necessary.
+>>>>>
+>>>>> Actually maybe the condition should not be adjusted. I think it would be
+>>>>> wrong if a free pages has the flag PGC_extra set. Any thoughts?
+>>>>
+>>>> I agree, yet I'm inclined to say PGC_extra should have been cleared
+>>>> before trying to free the page.
+>>>
+>>> So what to do now? Should I drop this commit?
+>>
+>> No, we need to get to the root of the issue. Since osstest has hit it quite
+>> easily as it seems, I'm somewhat surprised you didn't hit it in your testing.
+>> In any event, as per my earlier reply, my present guess is that your change
+>> has merely uncovered a previously latent issue elsewhere.
+> 
+> Ok, what about removing PGC_extra in free_heap_pages() before the
+> mark_page_free() call?
 
-Do we really want to constrain things to just two (or in fact any fixed number
-of) levels? Iirc on AMD there already can be up to 4.
-
-> @@ -1028,3 +976,89 @@ bool xc_cpu_policy_is_compatible(xc_interface *xch, xc_cpu_policy_t *host,
->  
->      return false;
->  }
-> +
-> +static uint32_t order(uint32_t n)
-> +{
-> +    return 32 - __builtin_clz(n);
-> +}
-
-This isn't really portable. __builtin_clz() takes an unsigned int, which may
-in principle be wider than 32 bits. I also can't see a reason for the
-function to have a fixed-width return type. Perhaps
-
-static unsigned int order(unsigned int n)
-{
-    return sizeof(n) * CHAR_BIT - __builtin_clz(n);
-}
-
-?
-
-> +void xc_topo_from_parts(struct cpu_policy *p,
-> +                        uint32_t threads_per_core, uint32_t cores_per_pkg)
-> +{
-> +    uint32_t threads_per_pkg = threads_per_core * cores_per_pkg;
-> +    uint32_t apic_id_size;
-> +
-> +    if ( p->basic.max_leaf < 0xb )
-> +        p->basic.max_leaf = 0xb;
-> +
-> +    memset(p->topo.raw, 0, sizeof(p->topo.raw));
-> +
-> +    /* thread level */
-> +    p->topo.subleaf[0].nr_logical = threads_per_core;
-> +    p->topo.subleaf[0].id_shift = 0;
-> +    p->topo.subleaf[0].level = 0;
-> +    p->topo.subleaf[0].type = 1;
-> +    if ( threads_per_core > 1 )
-> +        p->topo.subleaf[0].id_shift = order(threads_per_core - 1);
-> +
-> +    /* core level */
-> +    p->topo.subleaf[1].nr_logical = cores_per_pkg;
-> +    if ( p->x86_vendor == X86_VENDOR_INTEL )
-> +        p->topo.subleaf[1].nr_logical = threads_per_pkg;
-
-Same concern as in the other patch regarding "== Intel".
-
-> +    p->topo.subleaf[1].id_shift = p->topo.subleaf[0].id_shift;
-> +    p->topo.subleaf[1].level = 1;
-> +    p->topo.subleaf[1].type = 2;
-> +    if ( cores_per_pkg > 1 )
-> +        p->topo.subleaf[1].id_shift += order(cores_per_pkg - 1);
-
-Don't you want to return an error when any of the X_per_Y values is 0?
-
-> +    apic_id_size = p->topo.subleaf[1].id_shift;
-> +
-> +    /*
-> +     * Contrary to what the name might seem to imply. HTT is an enabler for
-> +     * SMP and there's no harm in setting it even with a single vCPU.
-> +     */
-> +    p->basic.htt = true;
-> +
-> +    p->basic.lppp = 0xff;
-> +    if ( threads_per_pkg < 0xff )
-> +        p->basic.lppp = threads_per_pkg;
-> +
-> +    switch ( p->x86_vendor )
-> +    {
-> +        case X86_VENDOR_INTEL:
-> +            struct cpuid_cache_leaf *sl = p->cache.subleaf;
-> +            for ( size_t i = 0; sl->type &&
-> +                                i < ARRAY_SIZE(p->cache.raw); i++, sl++ )
-> +            {
-> +                sl->cores_per_package = cores_per_pkg - 1;
-> +                sl->threads_per_cache = threads_per_core - 1;
-
-IOW the names in struct cpuid_cache_leaf aren't quite correct.
-
-> +                if ( sl->type == 3 /* unified cache */ )
-> +                    sl->threads_per_cache = threads_per_pkg - 1;
-> +            }
-> +            break;
-> +
-> +        case X86_VENDOR_AMD:
-> +        case X86_VENDOR_HYGON:
-> +            /* Expose p->basic.lppp */
-> +            p->extd.cmp_legacy = true;
-> +
-> +            /* Clip NC to the maximum value it can hold */
-> +            p->extd.nc = 0xff;
-> +            if ( threads_per_pkg <= 0xff )
-> +                p->extd.nc = threads_per_pkg - 1;
-> +
-> +            /* TODO: Expose leaf e1E */
-> +            p->extd.topoext = false;
-> +
-> +            /*
-> +             * Clip APIC ID to 8, as that's what high core-count machines do
-
-Nit: "... to 8 bits, ..."
-
-> +             *
-> +             * That what AMD EPYC 9654 does with >256 CPUs
-> +             */
-> +            p->extd.apic_id_size = 8;
-> +            if ( apic_id_size < 8 )
-> +                p->extd.apic_id_size = apic_id_size;
-
-Use min(), with apic_id_size's type suitably adjusted?
-
-> --- a/xen/arch/x86/cpu-policy.c
-> +++ b/xen/arch/x86/cpu-policy.c
-> @@ -278,9 +278,6 @@ static void recalculate_misc(struct cpu_policy *p)
->  
->      p->basic.raw[0x8] = EMPTY_LEAF;
->  
-> -    /* TODO: Rework topology logic. */
-> -    memset(p->topo.raw, 0, sizeof(p->topo.raw));
-> -
->      p->basic.raw[0xc] = EMPTY_LEAF;
->  
->      p->extd.e1d &= ~CPUID_COMMON_1D_FEATURES;
-> @@ -387,6 +384,9 @@ static void __init calculate_host_policy(void)
->      recalculate_xstate(p);
->      recalculate_misc(p);
->  
-> +    /* Wipe host topology. Toolstack is expected to synthesise a sensible one */
-> +    memset(p->topo.raw, 0, sizeof(p->topo.raw));
-
-I don't think this should be zapped from the host policy. It wants zapping
-from the guest ones instead, imo. The host policy may (will) want using in
-Xen itself, and hence it should reflect reality.
+Question is: How would you justify such a change? IOW I'm not convinced
+(yet) this wants doing there.
 
 Jan
 
