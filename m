@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA15E88BCDE
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 09:55:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.697969.1089247 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D41A988BD62
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Mar 2024 10:14:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.697972.1089258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rp2ZA-0008LE-K6; Tue, 26 Mar 2024 08:53:56 +0000
+	id 1rp2sS-0003Ht-67; Tue, 26 Mar 2024 09:13:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 697969.1089247; Tue, 26 Mar 2024 08:53:56 +0000
+Received: by outflank-mailman (output) from mailman id 697972.1089258; Tue, 26 Mar 2024 09:13:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rp2ZA-0008Jh-Gx; Tue, 26 Mar 2024 08:53:56 +0000
-Received: by outflank-mailman (input) for mailman id 697969;
- Tue, 26 Mar 2024 08:53:54 +0000
+	id 1rp2sS-0003Eg-39; Tue, 26 Mar 2024 09:13:52 +0000
+Received: by outflank-mailman (input) for mailman id 697972;
+ Tue, 26 Mar 2024 09:13:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DPpp=LA=damsy.net=pierre-eric@srs-se1.protection.inumbo.net>)
- id 1rp2Z7-0008Jb-Jw
- for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 08:53:54 +0000
-Received: from mail.damsy.net (mail.damsy.net [85.90.245.9])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=NDFk=LA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rp2sR-0003Ea-7n
+ for xen-devel@lists.xenproject.org; Tue, 26 Mar 2024 09:13:51 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5dc1ba34-eb4e-11ee-a1ef-f123f15fe8a2;
- Tue, 26 Mar 2024 09:53:51 +0100 (CET)
+ id 27d251f1-eb51-11ee-a1ef-f123f15fe8a2;
+ Tue, 26 Mar 2024 10:13:49 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a450bedffdfso605585466b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Mar 2024 02:13:48 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ k18-20020a1709060cb200b00a455d78be5bsm3995703ejh.9.2024.03.26.02.13.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Mar 2024 02:13:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,123 +45,212 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5dc1ba34-eb4e-11ee-a1ef-f123f15fe8a2
-Message-ID: <20ca2a39-cf41-4a7b-8c94-c4e193018147@damsy.net>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=damsy.net; s=201803;
-	t=1711443228;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xFjPbfFF8Mxh31f2Q1P0/8J/bltLrrx4Y06I0UEXuv8=;
-	b=dnaIRgc23uUz3xOG60/r013Vp2tnh7Wlez3aTAw55DqebDQn1DXohc6w+WiJ7P9fqvUm3n
-	ErhlNgNpy2Hwz6flWDNTXLr3nIIXrU9iTsHpXQiODCsRNfqVpI30wW8zVsA8sAg4V8n4yk
-	b0nhMtG/5G3Pd2EFbgw9fwHwhSZ2xYfBJAVpKfbsw9yNGnBTGh9g3bo7ZczCj8D+jaVjPs
-	lEkfVHNJNMQhykAbJm1fg5zwkB8ZNmWoxN08e7ANWkqJ/YiMvg9eHjOpMxVY3BWdM2GW0b
-	P1Xm3wgh44ETKCBHNLg2G+KQpcVwKZQ0yEk//+xOVWxhjM620qw5kgdQAweJvw==
-Date: Tue, 26 Mar 2024 09:53:47 +0100
+X-Inumbo-ID: 27d251f1-eb51-11ee-a1ef-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1711444428; x=1712049228; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Jepw7wLR0iwECnFAAX4iH8JzmbdW3yPW366bFphKlX8=;
+        b=D7gW2D1qhUZuhxoR5pcYJ0mTjB4WWTBUolqHu7bXTY+Y012VrrO+P7U3oKfhjCPJjP
+         LqPkB9kelhOXnj7DxBbIC/HfH3BA/UkmHcqcSCW8xFp5AejCo04OWb19hooqKmkwhE7T
+         NSuBFWsb10mt4w6AFDqJzcvHmho5HEBqNqrHh6gtqE3yLjJPBj7MzjVVWO+8GXtlYSDv
+         vkt6CbP7KHG+/6uGhdNAtXCNkYn1YYe3YcoetC3QkofebNQRaWj/MAj9AteE4hdUqTnP
+         wLTcpOuDsRtJ013JvJfQTo3hDRWeyKyyBwEfKCQbosHTZhuikjbEdLuTNPhcu1uz1F9O
+         h3GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1711444428; x=1712049228;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Jepw7wLR0iwECnFAAX4iH8JzmbdW3yPW366bFphKlX8=;
+        b=EJi7B4H7nb3Vm345zzZLHJRgj/m3Ggf2t5BIry+6/va8CxNm/hdP8c7dcM5g1RtLrB
+         JOM+TnRC082thE2UGQC3zpgrhTbRANtokWG72mSIQgDm20H6dJC37jtXPCb/g+hHmQ4n
+         8mEHZWiFwW2uyXPeB5EN2vwjN8Fuac3ZgS9inZr3bXDs4I1JJX4ap7zqsL8m5/MAhEy5
+         J+t4x0yRbHkJz7CjsAycAWUYzM6hNB9p0m12hBJQqrttgGP1gqG2jke/WPMmAW4LOwLx
+         u1+8kWKBfoCkThrIZnuMfGUOiMkkokoyoXWj8kOsiQ8D9/h3eoKEIuNsG5mvNmNsZh5q
+         QciQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXSOHbPvvkXBMf/SuPciphGTbLox41FTr9dYomXkkNncZN+245PvQIn7J5j7CvE0PkbC1SKO+pBlG4OSpBMcLBr3Hpuh3vEv5M9FfOjieo=
+X-Gm-Message-State: AOJu0YwN0QABehXJWDRdK+ctbOx1pR5y617bznoHXYrVDpSdw4CdFryU
+	pdI17lrtgCWFITegTMc+WdNdbF0uBTkqm04TfYKI4cyP4aEXqtdxbxHgLG/lEA==
+X-Google-Smtp-Source: AGHT+IFqAnvDd3bu4CNbIJQukQwfj3N3vBm5idyKfXXEI4K1s93hRkZ+3d195PX5XvLw5MZI/QX9Mg==
+X-Received: by 2002:a17:906:f287:b0:a47:4836:6609 with SMTP id gu7-20020a170906f28700b00a4748366609mr436099ejb.60.1711444428304;
+        Tue, 26 Mar 2024 02:13:48 -0700 (PDT)
+Message-ID: <c03d96b2-ad9c-4fa7-b7bb-fb453dbb9c5e@suse.com>
+Date: Tue, 26 Mar 2024 10:13:47 +0100
 MIME-Version: 1.0
-Subject: Re: [PATCH v6 10/11] virtio-gpu: Initialize Venus
-To: Huang Rui <ray.huang@amd.com>,
- =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@gmail.com>
-Cc: Akihiko Odaki <akihiko.odaki@daynix.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Antonio Caggiano <quic_acaggian@quicinc.com>,
- "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
- Robert Beckett <bob.beckett@collabora.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- "ernunes@redhat.com" <ernunes@redhat.com>, Alyssa Ross <hi@alyssa.is>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Stabellini, Stefano" <stefano.stabellini@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
- "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>,
- "Huang, Honglei1" <Honglei1.Huang@amd.com>,
- "Zhang, Julia" <Julia.Zhang@amd.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>,
- Antonio Caggiano <antonio.caggiano@collabora.com>
-References: <20231219075320.165227-1-ray.huang@amd.com>
- <20231219075320.165227-11-ray.huang@amd.com>
- <CAJ+F1C+gQ7kwAD=Tv7uAgKtgA57wPkZcE_zadAogtMUEFUmFnQ@mail.gmail.com>
- <ZdhiO0ZEZS9lmAeo@amd.com>
-Content-Language: fr
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <ZdhiO0ZEZS9lmAeo@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/spec-ctrl: Support for SRSO_US_NO and SRSO_MSR_FIX
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240325181830.638680-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240325181830.638680-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 25.03.2024 19:18, Andrew Cooper wrote:
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -2377,7 +2377,8 @@ By default SSBD will be mitigated at runtime (i.e `ssbd=runtime`).
+>  >              {msr-sc,rsb,verw,ibpb-entry}=<bool>|{pv,hvm}=<bool>,
+>  >              bti-thunk=retpoline|lfence|jmp, {ibrs,ibpb,ssbd,psfd,
+>  >              eager-fpu,l1d-flush,branch-harden,srb-lock,
+> ->              unpriv-mmio,gds-mit,div-scrub,lock-harden}=<bool> ]`
+> +>              unpriv-mmio,gds-mit,div-scrub,lock-harden,
+> +>              bp-spec-reduce}=<bool> ]`
+>  
+>  Controls for speculative execution sidechannel mitigations.  By default, Xen
+>  will pick the most appropriate mitigations based on compiled in support,
+> @@ -2509,6 +2510,12 @@ boolean can be used to force or prevent Xen from using speculation barriers to
+>  protect lock critical regions.  This mitigation won't be engaged by default,
+>  and needs to be explicitly enabled on the command line.
+>  
+> +On hardware supporting SRSO_MSR_FIX, the `bp-spec-reduce=` option can be used
+> +to force or prevent Xen from using MSR_BP_CFG.BP_SPEC_REDUCE to mitigate the
+> +SRSO (Speculative Return Stack Overflow) vulnerability.
 
+"... against HVM guests" to avoid things being left ambiguous, and to also ...
 
-Le 23/02/2024 à 10:15, Huang Rui a écrit :
-> On Tue, Jan 02, 2024 at 09:33:11PM +0800, Marc-André Lureau wrote:
->> Hi
->>
->> On Tue, Dec 19, 2023 at 11:55 AM Huang Rui <ray.huang@amd.com> wrote:
->>>
->>> From: Antonio Caggiano <antonio.caggiano@collabora.com>
->>>
->>> Request Venus when initializing VirGL.
->>>
->>> Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
->>> Signed-off-by: Huang Rui <ray.huang@amd.com>
->>> ---
->>>
->>> Changes in v6:
->>> - Remove the unstable API flags check because virglrenderer is already 1.0.
->>> - Squash the render server flag support into "Initialize Venus".
->>>
->>>   hw/display/virtio-gpu-virgl.c | 4 ++++
->>>   1 file changed, 4 insertions(+)
->>>
->>> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
->>> index f35a751824..c523a6717a 100644
->>> --- a/hw/display/virtio-gpu-virgl.c
->>> +++ b/hw/display/virtio-gpu-virgl.c
->>> @@ -964,6 +964,10 @@ int virtio_gpu_virgl_init(VirtIOGPU *g)
->>>       }
->>>   #endif
->>>
->>> +#ifdef VIRGL_RENDERER_VENUS
->>> +    flags |= VIRGL_RENDERER_VENUS | VIRGL_RENDERER_RENDER_SERVER;
->>> +#endif
->>> +
->>
->> I wonder if it's a good idea to initialize venus by default. It
->> doesn't seem to require vulkan during initialization, but this may
->> evolve. Make it optional?
->>
-> 
-> I am fine. In fact, vulkan is widely used for graphic area such as gaming,
-> compute, VR/AR, etc.
+>  By default, Xen will
+> +use bp-spec-reduce when available, as it preferable to using `ibpb-entry=hvm`
+> +to mitigate SRSO.
 
-Actually, making it optional is useful because Venus support is optional in
-virglrenderer (= having VIRGL_RENDERER_VENUS defined doesn't mean that
-Venus is supported).
+... correlate with the `ibpb-entry=hvm` here?
 
-Thanks,
-Pierre-Eric
+Maybe at the start of the paragraph also add "AMD"?
 
+> --- a/xen/arch/x86/cpu/amd.c
+> +++ b/xen/arch/x86/cpu/amd.c
+> @@ -1009,16 +1009,31 @@ static void cf_check fam17_disable_c6(void *arg)
+>  	wrmsrl(MSR_AMD_CSTATE_CFG, val & mask);
+>  }
+>  
+> -static void amd_check_erratum_1485(void)
+> +static void amd_check_bp_cfg(void)
+>  {
+> -	uint64_t val, chickenbit = (1 << 5);
+> +	uint64_t val, new = 0;
+>  
+> -	if (cpu_has_hypervisor || boot_cpu_data.x86 != 0x19 || !is_zen4_uarch())
+> +	/*
+> +	 * AMD Erratum #1485.  Set bit 5, as instructed.
+> +	 */
+> +	if (!cpu_has_hypervisor && boot_cpu_data.x86 == 0x19 && is_zen4_uarch())
+> +		new |= (1 << 5);
+> +
+> +	/*
+> +	 * On hardware supporting SRSO_MSR_FIX, we prefer BP_SPEC_REDUCE to
+> +	 * IBPB-on-entry to mitigate SRSO for HVM guests.
+> +	 */
+> +	if (IS_ENABLED(CONFIG_HVM) && boot_cpu_has(X86_FEATURE_SRSO_US_NO) &&
+> +            opt_bp_spec_reduce)
 
-> 
-> Thanks,
-> Ray
-> 
->>>       ret = virgl_renderer_init(g, flags, &virtio_gpu_3d_cbs);
->>>       if (ret != 0) {
->>>           error_report("virgl could not be initialized: %d", ret);
->>> --
->>> 2.25.1
->>>
->>
->>
->> -- 
->> Marc-André Lureau
-> 
+Nit: Indentation is odd here (wants to be a tab followed by a few spaces).
+
+> +		new |= BP_CFG_SPEC_REDUCE;
+
+I take it that this goes from the assumption that it is deemed pretty unlikely
+that nowadays people would only run PV guests on a host? Otherwise, assuming
+that - like almost any such mitigation - its use costs performance, enabling
+the mitigation only as long as there are any HVM guests around might be better.
+
+> +	/* Avoid reading BP_CFG if we don't intend to change anything. */
+> +	if (!new)
+>  		return;
+>  
+>  	rdmsrl(MSR_AMD64_BP_CFG, val);
+>  
+> -	if (val & chickenbit)
+> +	if ((val & new) == new)
+>  		return;
+
+Since bits may also need turning off:
+
+	if (!((val ^ new) & (BP_CFG_SPEC_REDUCE | (1 << 5))))
+		return;
+
+and the !new early-out dropped, too? Looks like this wasn't quite right
+before, either. 
+
+> @@ -1078,22 +1082,41 @@ static void __init ibpb_calculations(void)
+>           * Confusion.  Mitigate with IBPB-on-entry.
+>           */
+>          if ( !boot_cpu_has(X86_FEATURE_BTC_NO) )
+> -            def_ibpb_entry = true;
+> +            def_ibpb_entry_pv = def_ibpb_entry_hvm = true;
+>  
+>          /*
+> -         * Further to BTC, Zen3/4 CPUs suffer from Speculative Return Stack
+> -         * Overflow in most configurations.  Mitigate with IBPB-on-entry if we
+> -         * have the microcode that makes this an effective option.
+> +         * Further to BTC, Zen3 and later CPUs suffer from Speculative Return
+> +         * Stack Overflow in most configurations.  Mitigate with IBPB-on-entry
+> +         * if we have the microcode that makes this an effective option,
+> +         * except where there are other mitigating factors available.
+>           */
+
+Hmm, is "Zen3 and later" really appropriate? Isn't your "speculative coding"
+remark related to perhaps both of the new bits becoming available on Zen5
+(meaning that the vulnerability would be limited to the guest/host boundary,
+as long as the MSR-based mitigation isn't used)?
+
+>          if ( !boot_cpu_has(X86_FEATURE_SRSO_NO) &&
+>               boot_cpu_has(X86_FEATURE_IBPB_BRTYPE) )
+> -            def_ibpb_entry = true;
+> +        {
+> +            /*
+> +             * SRSO_U/S_NO is a subset of SRSO_NO, identifying that SRSO isn't
+> +             * possible across the user/supervisor boundary.  We only need to
+> +             * use IBPB-on-entry for PV guests on hardware which doesn't
+> +             * enumerate SRSO_US_NO.
+> +             */
+> +            if ( !boot_cpu_has(X86_FEATURE_SRSO_US_NO) )
+> +                def_ibpb_entry_pv = true;
+
+opt_rsb_pv continues to take opt_pv32 into account, despite us having
+removed security support for 32-bit PV guests (by wording that's sadly a
+little ambiguous). Shouldn't that be done here too then, seeing that the
+flag only covers transitions from ring3?
+
+> --- a/xen/include/public/arch-x86/cpufeatureset.h
+> +++ b/xen/include/public/arch-x86/cpufeatureset.h
+> @@ -304,7 +304,9 @@ XEN_CPUFEATURE(FSRSC,              11*32+19) /*A  Fast Short REP SCASB */
+>  XEN_CPUFEATURE(AMD_PREFETCHI,      11*32+20) /*A  PREFETCHIT{0,1} Instructions */
+>  XEN_CPUFEATURE(SBPB,               11*32+27) /*A  Selective Branch Predictor Barrier */
+>  XEN_CPUFEATURE(IBPB_BRTYPE,        11*32+28) /*A  IBPB flushes Branch Type predictions too */
+> -XEN_CPUFEATURE(SRSO_NO,            11*32+29) /*A  Hardware not vulenrable to Speculative Return Stack Overflow */
+> +XEN_CPUFEATURE(SRSO_NO,            11*32+29) /*A  Hardware not vulnerable to Speculative Return Stack Overflow */
+> +XEN_CPUFEATURE(SRSO_US_NO,         11*32+30) /*A  Hardware not vulnerable to SRSO across the User/Supervisor boundary */
+
+Can we validly expose this to 64-bit PV guests, where there's no CPL
+boundary? Or else isn't my "x86/PV: issue branch prediction barrier
+when switching 64-bit guest to kernel mode" needed as a prereq?
+
+Jan
 
