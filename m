@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80CDD88D9B3
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 10:00:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698358.1089969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01C6388DA4A
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 10:32:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698365.1089979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpP8L-0005PS-TG; Wed, 27 Mar 2024 08:59:45 +0000
+	id 1rpPcy-0002Oc-ET; Wed, 27 Mar 2024 09:31:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698358.1089969; Wed, 27 Mar 2024 08:59:45 +0000
+Received: by outflank-mailman (output) from mailman id 698365.1089979; Wed, 27 Mar 2024 09:31:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpP8L-0005NO-PZ; Wed, 27 Mar 2024 08:59:45 +0000
-Received: by outflank-mailman (input) for mailman id 698358;
- Wed, 27 Mar 2024 08:59:44 +0000
+	id 1rpPcy-0002M6-7y; Wed, 27 Mar 2024 09:31:24 +0000
+Received: by outflank-mailman (input) for mailman id 698365;
+ Wed, 27 Mar 2024 09:31:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zox+=LB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rpP8K-0005NE-DF
- for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 08:59:44 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ <SRS0=QT9J=LB=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1rpPcw-0002Ll-L2
+ for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 09:31:22 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 599c9fc9-ec18-11ee-a1ef-f123f15fe8a2;
- Wed, 27 Mar 2024 09:59:42 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-41494c0405eso2033955e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 27 Mar 2024 01:59:42 -0700 (PDT)
-Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
- r3-20020a05600c35c300b004147b824b08sm1491346wmq.7.2024.03.27.01.59.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Mar 2024 01:59:41 -0700 (PDT)
+ id c5577440-ec1c-11ee-a1ef-f123f15fe8a2;
+ Wed, 27 Mar 2024 10:31:21 +0100 (CET)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-515a97846b5so3791908e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Mar 2024 02:31:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,90 +40,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 599c9fc9-ec18-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: c5577440-ec1c-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1711529981; x=1712134781; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=F+bA0/25eIV49S9l0uuiMQg7gB/Ls5scBx+vVk8xCtQ=;
-        b=CbCn75bBxcy4Mdc/vYacNv24FiHpuPSkvfqUdb7KJCux4FsS1dGqjtsC3x8YFYgT5a
-         6CMNAc3fCyXvmnHxUVxZNU1VGpEGd9J5mxwMcn++Yc0bEDI6lYl8tv6UXUKLcPG6RBJn
-         AfGHaYNL+d3sEkRueJO7r92PZ3AbtMjplwfw0=
+        d=cloud.com; s=cloud; t=1711531880; x=1712136680; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=koxJKxoDPOt/Mr2zX1QIjQHPKfAETTJMiwi2l5XKzng=;
+        b=eWO9xA1QPUsTTqKEqpx59ZCSxUXppRdX53TJBHbYcLM9Z9+bephPnS6vTajAN/MP7I
+         P3ZC3VAFJYqdCCdnRezVguxz3Kps0D0iTdJPymULxbeMz1MXhAyw6VZHVgAsMtKnrIie
+         t2zjgHLR66WBYjU2pD3ht164A2pYWIhfJn1RE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711529981; x=1712134781;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=F+bA0/25eIV49S9l0uuiMQg7gB/Ls5scBx+vVk8xCtQ=;
-        b=fz6FNqILWr96IrMvbYMLfXUH4wVXSr/8RICDjWCMfzHcRl6qfTa/DRjSA+bgTWfm6T
-         rkxj40RMx/xXWuH2ul48FielKIEYaCGJBKB04hHZStMUW0FKbzJNNlxrKdAjTrJHjGXN
-         dB/Q7mXrXF1dXVQlv2MPxOhFFG2eplNYQxiQoOXQTQJgtHYBZKXVFFvq7z4wjEqT6KNv
-         c37Y/H2IJtm0XuwcKgh+0SeT/N6wlTv5n1Fsf9eeBrctBmtXwNR+PMxAg1LuhjdTAIDx
-         CQcA/HbnAq3fqoz127yTTplPjaLLnX+y/Z+k74tULXgoXz4AArY7x7Fa1ep9+hSMWgCz
-         ifpw==
-X-Forwarded-Encrypted: i=1; AJvYcCWASMfczliq0jgpFkNj0GxLo0kD9idPOYCGZRdbFub2Rx9w0yaIOTPG88SKFwDaNZbPl1ihkfNlmJqj7kd4QW46TbCMOi9pz5Gfhe0y9AE=
-X-Gm-Message-State: AOJu0Yx5Bs7EX15S1Brv08ZQClHIWLaxMOvtUZDCaQjTXYkWP5db+12A
-	34l/Bmhohfr7uGdhqMIIc/HsXYCkhUk8jKQ7NAfOGOH1UHmq2jwrv0BTO4FTTcU=
-X-Google-Smtp-Source: AGHT+IEHPAopP+1Vft3DJ0tcDiGW9y8/DBB/1K00V9wUmdfLcN3YUHlSbdSM0eorHGm9uaBIgbi2QA==
-X-Received: by 2002:a05:600c:4487:b0:414:729:1189 with SMTP id e7-20020a05600c448700b0041407291189mr3831476wmo.21.1711529981570;
-        Wed, 27 Mar 2024 01:59:41 -0700 (PDT)
-Date: Wed, 27 Mar 2024 09:59:40 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v5 1/6] Revert "xen/x86: bzImage parse kernel_alignment"
-Message-ID: <ZgPf_I2CJ7358jbZ@macbook>
-References: <20240326213847.3944-1-jason.andryuk@amd.com>
- <20240326213847.3944-2-jason.andryuk@amd.com>
- <f1940242-0259-4b4c-baff-2fa73435d1b9@suse.com>
+        d=1e100.net; s=20230601; t=1711531880; x=1712136680;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=koxJKxoDPOt/Mr2zX1QIjQHPKfAETTJMiwi2l5XKzng=;
+        b=fVYlUMIxJYg8oanfOtJUrqqE+YqR9SKWFnbzX+QbSS3OjCqoJFJ9mQEuOZ4RKmfw4s
+         DQAqcJ5Ko358byVgCC4hbTuHINcFKXcDP/igtvrEKNmlEMiH2m2T/QZaQMjiw8fo6P3/
+         gU2j9zo0ShjLf1jaX+stdSwGX7jkiJvyIBzciF7ZlfLHhvRTYr+xEjI9+uiVGIHHpEpg
+         oJC5pg72IapbBFHTsUPTzIHiKDf++2crZa0Lw+WXLESMPO4BSPhY261pHjlxoHtgdTX3
+         1O/jR+arXZsisvPn+Kbt8Ie3VwDv7pl/7uFEDOKoDSrUL3tpnYHRe6V4y6A7xukZRFSz
+         WfZw==
+X-Gm-Message-State: AOJu0YwYbBngKljmF+x3ONPT8gP3GB/r4bExIgToa0SM/SyeB+Kv360n
+	XeS+Iyhk3FvnKnGC/re5OVZksB8KeIKRNPXVlvDchWCExvhMEAj7WLxPLvAuOwu0/gFGgnoD625
+	Nm6LwULNh42WT+L8WqJUILtiknndcD6TE58O1d35s1Awnj0B7uD9DSQ==
+X-Google-Smtp-Source: AGHT+IGMTlNdvpN2NyBi2+ESVNeUV8/1H9Zc6V7OoCi5BOuPG3UHbaFFD3qNXWDbJfwqfZ2aiK1dJlA0bUiTdjj3bxA=
+X-Received: by 2002:ac2:5b43:0:b0:513:c957:ea4d with SMTP id
+ i3-20020ac25b43000000b00513c957ea4dmr459238lfp.43.1711531879990; Wed, 27 Mar
+ 2024 02:31:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f1940242-0259-4b4c-baff-2fa73435d1b9@suse.com>
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Wed, 27 Mar 2024 09:30:00 +0000
+Message-ID: <CAO-mL=w6CsQw4G7BOC+8EKELVNZbJBiVpntc1ib-Jyf6kt1PCA@mail.gmail.com>
+Subject: Xen Summit Early Bird Rates - Ends 31st March 2024!
+To: xen-devel <xen-devel@lists.xenproject.org>, xen-users@lists.xenproject.org, 
+	xen-announce@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000bab4a00614a111d0"
 
-On Wed, Mar 27, 2024 at 08:22:41AM +0100, Jan Beulich wrote:
-> On 26.03.2024 22:38, Jason Andryuk wrote:
-> > A new ELF note will specify the alignment for a relocatable PVH kernel.
-> > ELF notes are suitable for vmlinux and other ELF files, so this
-> > Linux-specific bzImage parsing in unnecessary.
-> > 
-> > This reverts commit c44cac229067faeec8f49247d1cf281723ac2d40.
-> > 
-> > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> 
-> Since you keep re-sending this: In private discussion Roger has indicated
-> that, like me, he too would prefer falling back to the ELF data, before
-> falling back to the arch default (Roger, please correct me if I got it
-> wrong). That would make it necessary that the change you're proposing to
-> revert here is actually kept.
+--000000000000bab4a00614a111d0
+Content-Type: text/plain; charset="UTF-8"
 
-Sorry, was meaning to reply yesterday but Jason is very fast at
-sending new version so I'm always one version behind.
+Hey everyone,
 
-IMO the order: ELF note, PHDR alignment, arch default should be the
-preferred one.
+We've just announced our schedule for Xen Summit 2024 and can't wait to see
+you all.
 
-> Or wait - what you're reverting is taking the alignment out of the
-> bzImage header. I don't expect the BSDs to use that protocol; aiui that's
-> entirely Linux-specific.
+*Make sure to grab your early-rate tickets today, these end on 31st March
+2024! *
+Academics can also attend the event for free.
 
-Yeah, I don't have strong opinions in keeping this, we already do
-bzImage parsing, so we might as well attempt to fetch the alignment
-from there if correct:
+Tickets:
+https://events.linuxfoundation.org/xen-project-summit/register/
 
-ELF note, bzImage kernel_alignment, ELF PHDR alignment, arch default
+Schedule:
+https://events.linuxfoundation.org/xen-project-summit/program/schedule/
 
-> I further meanwhile realized that consulting the ELF phdrs may also be
-> ambiguous, as there may be more than one. I guess it would need to be the
-> maximum of all of them then.
+See you all there!
 
-My suggestion (not sure if I mentioned this before) was to use the
-alignment of the first LOAD PHDR, which is the one that defines the
-value of the dest_base field used as the image load start address.
+Many thanks,
+Kelly Choi
 
-Using the maximum of all load PHDRs might be safer.
+Community Manager
+Xen Project
 
-Thanks, Roger.
+--000000000000bab4a00614a111d0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hey everyone,</div><div><br></div>We&#39;ve just anno=
+unced our schedule for Xen Summit 2024 and can&#39;t wait to see you all.<d=
+iv><b><br></b></div><div><b>Make sure to grab your early-rate tickets today=
+,=C2=A0these end on 31st March 2024!=C2=A0</b></div><div>Academics can also=
+ attend the event for free.=C2=A0</div><div><br></div><div>Tickets:=C2=A0</=
+div><div><a href=3D"https://events.linuxfoundation.org/xen-project-summit/r=
+egister/">https://events.linuxfoundation.org/xen-project-summit/register/</=
+a></div><div><br></div><div>Schedule:</div><div><a href=3D"https://events.l=
+inuxfoundation.org/xen-project-summit/program/schedule/">https://events.lin=
+uxfoundation.org/xen-project-summit/program/schedule/</a><br></div><div><br=
+></div><div>See you all there!</div><div><br clear=3D"all"><div><div dir=3D=
+"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=
+=3D"ltr"><div>Many thanks,</div><div>Kelly Choi</div><div><br></div><div><d=
+iv style=3D"color:rgb(136,136,136)">Community Manager</div><div style=3D"co=
+lor:rgb(136,136,136)">Xen Project=C2=A0<br></div></div></div></div></div></=
+div></div>
+
+--000000000000bab4a00614a111d0--
 
