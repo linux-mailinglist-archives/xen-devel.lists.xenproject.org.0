@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24C6288D89E
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 09:20:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698339.1089909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E80F488D8F6
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 09:27:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698354.1089959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpOVx-0007NX-B5; Wed, 27 Mar 2024 08:20:05 +0000
+	id 1rpOcw-0000EA-ES; Wed, 27 Mar 2024 08:27:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698339.1089909; Wed, 27 Mar 2024 08:20:05 +0000
+Received: by outflank-mailman (output) from mailman id 698354.1089959; Wed, 27 Mar 2024 08:27:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpOVx-0007LC-7u; Wed, 27 Mar 2024 08:20:05 +0000
-Received: by outflank-mailman (input) for mailman id 698339;
- Wed, 27 Mar 2024 08:20:04 +0000
+	id 1rpOcw-0000BD-BH; Wed, 27 Mar 2024 08:27:18 +0000
+Received: by outflank-mailman (input) for mailman id 698354;
+ Wed, 27 Mar 2024 08:27:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cRKJ=LB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rpOVw-0006xf-HP
- for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 08:20:04 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lAEl=LB=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rpOcu-0000B7-RT
+ for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 08:27:16 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20601.outbound.protection.outlook.com
+ [2a01:111:f403:240a::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ce8a0d81-ec12-11ee-a1ef-f123f15fe8a2;
- Wed, 27 Mar 2024 09:20:01 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-56c4030a6easo241815a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 27 Mar 2024 01:20:01 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m5-20020a170906720500b00a4df01f4232sm1851904ejk.189.2024.03.27.01.20.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Mar 2024 01:20:00 -0700 (PDT)
+ id cfcd0a51-ec13-11ee-a1ef-f123f15fe8a2;
+ Wed, 27 Mar 2024 09:27:14 +0100 (CET)
+Received: from BN0PR07CA0017.namprd07.prod.outlook.com (2603:10b6:408:141::31)
+ by PH7PR12MB7019.namprd12.prod.outlook.com (2603:10b6:510:1b9::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.33; Wed, 27 Mar
+ 2024 08:27:08 +0000
+Received: from BN3PEPF0000B078.namprd04.prod.outlook.com
+ (2603:10b6:408:141:cafe::70) by BN0PR07CA0017.outlook.office365.com
+ (2603:10b6:408:141::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
+ Transport; Wed, 27 Mar 2024 08:27:07 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B078.mail.protection.outlook.com (10.167.243.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7409.10 via Frontend Transport; Wed, 27 Mar 2024 08:27:07 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 27 Mar
+ 2024 03:27:04 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 27 Mar
+ 2024 03:27:04 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Wed, 27 Mar 2024 03:27:02 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,100 +63,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce8a0d81-ec12-11ee-a1ef-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711527601; x=1712132401; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=dbdQ/uvnHSq8FwOCP2tDQ95vkaM+LDk1v7I85aR2ELw=;
-        b=a7HNHjRgkKehB2LImz3Tt87MQQ5VLCWXMdX3GfXnPIch9fPIWQRLkbpYLw7p6adfRR
-         8halG8qd1PSkMq4YdtMckz9FjEVN/0COR7g1eTnn2l/DDoM/yA1i+lpiJxLUmqgBJWPa
-         A01iRvxUPDVXSnvZYm6Sb+ksAUuWYQxzmr239T9bneOwLuDeEP1YsJFJjKusdXfaXAS0
-         E0LBLLKq6Eqpk3ZAG+LbhE6GNbjGPRcmE68RLV+9Ou8pFsWQ9YDJTlB8PN5FgTKxbh67
-         PMol4OLzNNP8G7V1V7JgS0/BYAefXJPl+dSDAjrpD5Wh6Tg5/Ds/cVkYyCw/VLEHWxaG
-         l9lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711527601; x=1712132401;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dbdQ/uvnHSq8FwOCP2tDQ95vkaM+LDk1v7I85aR2ELw=;
-        b=g+GwqiZ7j+ePtQ+pexPDPAChbNkA3CxILCLCIZRXlX5lTdAq8Q/sh9WDMVYEatf1w9
-         JRwCPh0y7+9J4PdhcLbDzEhrEzo+cBDGFJyzfjaW01jBZweI5Vzlq7/QwcrHVHVKVWr2
-         Obf+3UbpaHiHe3eEvF6DBrwhB9/DH4IqSw619f1Ei+pltTZXmZ6VdWoyfSpoubvvbeen
-         leWJAPjZY+s1HFDQiPuhCesD5BNL/dUsovy3a3zQIBWAHgkft2Bdy522ZPhpWbfL9nIX
-         M4IYiIGmSVIuMGlh7SeHabWAFNHwt1cH63XnlN2wn6ih3vUKEFGoC/D0CPktxTbBYomj
-         rELA==
-X-Forwarded-Encrypted: i=1; AJvYcCX5dM3G29fL9eLp3W2/6JAZRuRmTZxHUSwAtZcOCy57d2ImUzA1jynuGNl6nwaThX7BZFZdOs6AgchxD3dgEEPjPUYw6f/BScJ4yu7Qov0=
-X-Gm-Message-State: AOJu0Yytjn1/NjVvXbynp99UQXONILBbFWb+gIm/V8ryQRL0+Gk6psES
-	+H9fY+MIj8ox+EMLJsrw527Hh5AtQfyY0ziGlazwiM8/Q2rRmhQjhN/4MEzCUA==
-X-Google-Smtp-Source: AGHT+IFIpHkwPppZIaj9IblhQ1CjaPrqMxmg7azN1JlKqvIo35cVX0jiKmcqj239bcv3L4fnWPaZew==
-X-Received: by 2002:a17:906:a255:b0:a46:7323:6ab3 with SMTP id bi21-20020a170906a25500b00a4673236ab3mr1297907ejb.49.1711527600834;
-        Wed, 27 Mar 2024 01:20:00 -0700 (PDT)
-Message-ID: <45c20ffd-f0c0-4521-8221-c3384cd5f7c5@suse.com>
-Date: Wed, 27 Mar 2024 09:20:00 +0100
+X-Inumbo-ID: cfcd0a51-ec13-11ee-a1ef-f123f15fe8a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Owl561qJuf4oC8K58KA/OwuxUdZyW/Wp22TThoY3g9+T858f+WJWOmPbnUz7+M741nAS5D9aQsaJBSYKny1vW1FOd9eZVUEYrVhH5Tpbb5UURDwWULEzk0OZb4ARKwp685RRhi+5uCmzKcTDCNTJX8YsY+nLbsEeIqZUwZ47asRa+PR+F9Tk+S5kEZdcMql05BzbjEwccH/DFcNn2bJajlyFSF8QjUce2CX+ZHZXbvf0Rh7i0u9fioKzKabv/utpbs4GEe4Guwk+28hVcPTV3S5ZafoNKSXmmEgAv8HTM5RwF4X2tOvHZP3zAOVzCin1MiBCnsn8AMw2QaoUPHE7Gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8hdwUDH+LOMuz2G4XNxJl8/mIOZLll89oCdGwJEamxk=;
+ b=nzQx/moVUBUrbIoEy/f5PuyDclOsoa4wwU9EFwgwqQCNj7YQgsiEnyImNKWxqRnoECN8viWsUcRMzrapEGYYWNlHBqQRNhobR2WGX/Gbe1BLGS4+HRrL8+rtbjbwzSltbPwzy5hT34lxM/KhqbfNbmNAHKauezLZWyLLddCfC7gAA3SKhpGbdqYHE3Fh0SDRigOabAy5E7Gl9e7gGIyfFwteRo9xQq1HRvHmTJJkGggJi3YM3+jS+Xiadx/Ovh/ggNMEZYU8ZY9EX7bzUoyc8MajvDHjWXCZP7HgBq1ke2w6SRES5AD7H6mAD2hXx33h38jkoXLc7ehIdaLJuENZsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8hdwUDH+LOMuz2G4XNxJl8/mIOZLll89oCdGwJEamxk=;
+ b=rOP5BKv4ZX5sxV1uX8VN2ucmj+MOXzcIqnlP0aLVSo8OTmlQeq8RcX1VpLgn/iAfBoK5tZP7V29Ul0ty7TUsEhl6A7TbZM38QW5AY0pj9p6YnJcINZJySZmhVJKQV0Lue1DZGMFd8rU9fBJKX+CmE2adJoJxaPNFLEe+46+HERo=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <8108074a-f4a3-4134-bfcb-410fc73b371e@amd.com>
+Date: Wed, 27 Mar 2024 09:27:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] RFC: x86/pvh: Make Xen PVH entrypoint PIC for x86-64
+Subject: Re: [PATCH 11/11] xen/arm: List static shared memory regions as
+ /memory nodes
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240312130331.78418-1-luca.fancellu@arm.com>
+ <20240312130331.78418-12-luca.fancellu@arm.com>
+ <3a9e8323-9eb3-4c06-9ef1-e85c8bf2aefd@amd.com>
+ <B338349C-76A3-48C3-97B8-98D0CC9C1A72@arm.com>
 Content-Language: en-US
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org
-References: <20240326213847.3944-1-jason.andryuk@amd.com>
- <20240326214701.7015-1-jason.andryuk@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240326214701.7015-1-jason.andryuk@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <B338349C-76A3-48C3-97B8-98D0CC9C1A72@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|PH7PR12MB7019:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7aff7a80-81d8-45a7-1675-08dc4e37b0d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	FcaIhQC84sqIIRK8RxYNL1MENzVF26AuyfVJ5oPAen1s6MIhnV8SZmy2FwaAcI/bf29TW4GuDy03wPT+qE21qg7PpABqtSl0IA2sHheFTsvCoyilF/vK8uYYZ+czun0pBBrqRt1PD0BAz/yCqGCfzn2HnF/KhUV0tz6uDqIgJTy/agWQFkFvYNKpToXxRZ1aYOkKro2Sji/q/LmR6QUuq8JuEwwLg63gy5sBTCWCS3pEUfngn5tzYb1+o4cB3u5GtTgEL2SGHL8sVgZQ9DSPdiGUDWP4EKn9bvYxZYIlzlC/3CZBL+MEqvSoYl4pMHkxIThaoTwooO+iuCJr4s4jfqdLfcoixgx6t2Tv6HLWFBaXz8p/FbBIlp1HbRdXVVLnk0jzlg0XEqx9C4s3h5JIN248E/YDMLFfDz5QPSZNg+XNMA8gf1t8fxOwHgs33nsIVfJ8evI6K2JEtrXOcVawINlk+HDVNrfhC9NzENCDTp3CgJRkV2v7oWByaxwOIP0hmWCHKS5w5N6OlfPHs0D+9kt47LRfJjfAGFjtLRBhVgDSBZFFs52v2NzjJOkXvAbWFQi86fpYMHFp1CcF6sdVUByipKKaBScCdryvFC7ln2WnPoVwfU4zRZoqlYTtkaLKvpquVtMDEhzYE6GGqzCFQ9LXzLVcVaZUG1AgHT1/ZdTExFvpBugtxQEcIOTz9xEgeVdYQbBLMSu/wob4W/qKAkHxk+Hg5fgL28Dp3S7XjQdbEMAiZmlde+Vvc6BiFr63
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(376005)(36860700004)(82310400014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2024 08:27:07.6287
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7aff7a80-81d8-45a7-1675-08dc4e37b0d6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B078.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7019
 
-On 26.03.2024 22:47, Jason Andryuk wrote:
-> --- a/include/xen/interface/elfnote.h
-> +++ b/include/xen/interface/elfnote.h
-> @@ -185,9 +185,25 @@
->   */
->  #define XEN_ELFNOTE_PHYS32_ENTRY 18
->  
-> +/*
-> + * Physical loading constraints for PVH kernels
-> + *
-> + * Used to place constraints on the guest physical loading addresses and
-> + * alignment for a PVH kernel.
-> + *
-> + * The presence of this note indicates the kernel supports relocating itself.
-> + *
-> + * The note may include up to three 32bit values in the following order:
-> + *  - a maximum address for the entire image to be loaded below (default
-> + *      0xffffffff)
-> + *  - a minimum address for the start of the image (default 0)
-> + *  - a required start alignment (default 0x200000)
+Hi Luca,
 
-This looks to be stale now.
+On 26/03/2024 15:19, Luca Fancellu wrote:
+> 
+> 
+>> On 25 Mar 2024, at 08:58, Michal Orzel <michal.orzel@amd.com> wrote:
+>>
+>> Hi Luca,
+>>
+> 
+> Hi Michal,
+> 
+>> On 12/03/2024 14:03, Luca Fancellu wrote:
+>>>
+>>>
+>>> Currently Xen is not exporting the static shared memory regions
+>>> to the device tree as /memory node, this commit is fixing this
+>>> issue.
+>> Looking at the implementation, you will always call make_shm_memory_node() twice. For the first
+>> time, to create /memory node and for the second time to create entry under /reserved-memory. Also,
+>> you will create a separate /memory node for every single shmem region instead of combining them
+>> in a single /memory region like make_memory_node() would do. Can't we reuse this function for simplicity?
+> 
+> You mean using make_memory_node() to populate /reserved-memory and /memory? I feel they are very different
+> In terms of properties to be created, so I don’t think we should create a make_memory_node() that does both.
+> 
+> Otherwise if you were suggesting to modify make_memory_node() only for what concerns the /memory nodes,
+yes, this is what I meant
 
-Jan
+> it might be feasible, however there are some parts that need to be skipped with some flags (all the code accessing .type
+> member), if I understand correctly you like this function because it doesn’t create one node for every bank, but it creates
+> reg addresses instead, in that case I could modify the current make_shm_memory_node() to do the same.
+My concern is that we will have 2 functions to create memory nodes instead of one that can be reused. I know the issue is with
+.type member. If skipping results in a worse code, then I'm ok with make_shm_memory_node() used for 2 purposes (would it be possible
+to create /memory and entry under /reserved in the same call to a function?).
+
+> 
+>>
+>> Also, afaict it is not forbidden to specify shmem range (correct me if I'm wrong), where guest address will be
+>> within with RAM allocated by Xen (e.g. GPA RAM range 0x40000000 - 0x60000000 and shmem is at 0x50000000). In this case,
+>> you would create yet another /memory node that would result in overlap (i.e. more than one /memory node specifying the same range).
+> 
+> This is a good point I didn’t think about, yes currently the code is creating overlapping nodes in that case, wow so it means I
+> need to compute the non overlapping regions and emit a /memory node then! :) ouch
+> 
+> Please let me know if I understood correctly your comments.
+> 
+> Cheers,
+> Luca
+> 
+>>
+>> ~Michal
+> 
+
+~Michal
 
 
