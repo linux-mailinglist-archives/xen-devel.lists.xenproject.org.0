@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ED6D88E4A3
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 15:08:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698572.1090410 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69FDA88E4F7
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 15:16:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698574.1090421 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpTwz-0004bd-M7; Wed, 27 Mar 2024 14:08:21 +0000
+	id 1rpU44-0006gU-Cb; Wed, 27 Mar 2024 14:15:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698572.1090410; Wed, 27 Mar 2024 14:08:21 +0000
+Received: by outflank-mailman (output) from mailman id 698574.1090421; Wed, 27 Mar 2024 14:15:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpTwz-0004Yq-JI; Wed, 27 Mar 2024 14:08:21 +0000
-Received: by outflank-mailman (input) for mailman id 698572;
- Wed, 27 Mar 2024 14:08:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rpU44-0006ea-9c; Wed, 27 Mar 2024 14:15:40 +0000
+Received: by outflank-mailman (input) for mailman id 698574;
+ Wed, 27 Mar 2024 14:15:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fWcJ=LB=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1rpTwx-0004Yj-Hx
- for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 14:08:19 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20600.outbound.protection.outlook.com
- [2a01:111:f403:2408::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 75068542-ec43-11ee-afe3-a90da7624cb6;
- Wed, 27 Mar 2024 15:08:18 +0100 (CET)
-Received: from BL6PEPF00013E02.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:22e:400:0:1001:0:18) by IA0PR12MB8304.namprd12.prod.outlook.com
- (2603:10b6:208:3dc::13) with Microsoft SMTP Server (version=TLS1_2,
+ id 1rpU43-0006eU-BD
+ for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 14:15:39 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2417::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7af123f7-ec44-11ee-a1ef-f123f15fe8a2;
+ Wed, 27 Mar 2024 15:15:37 +0100 (CET)
+Received: from MN2PR15CA0063.namprd15.prod.outlook.com (2603:10b6:208:237::32)
+ by SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.33; Wed, 27 Mar
- 2024 14:08:12 +0000
-Received: from MN1PEPF0000ECD6.namprd02.prod.outlook.com
- (2a01:111:f403:f902::2) by BL6PEPF00013E02.outlook.office365.com
- (2603:1036:903:4::4) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 14:15:33 +0000
+Received: from BL02EPF0001A101.namprd05.prod.outlook.com
+ (2603:10b6:208:237:cafe::b) by MN2PR15CA0063.outlook.office365.com
+ (2603:10b6:208:237::32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
- Transport; Wed, 27 Mar 2024 14:08:12 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD6.mail.protection.outlook.com (10.167.242.135) with Microsoft
+ Transport; Wed, 27 Mar 2024 14:15:33 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Wed, 27 Mar 2024 14:08:12 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7409.10 via Frontend Transport; Wed, 27 Mar 2024 14:15:33 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 27 Mar
- 2024 09:08:11 -0500
+ 2024 09:15:32 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 27 Mar
+ 2024 07:15:32 -0700
 Received: from [172.31.131.34] (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 27 Mar 2024 09:08:11 -0500
+ Transport; Wed, 27 Mar 2024 09:15:32 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,135 +63,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75068542-ec43-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: 7af123f7-ec44-11ee-a1ef-f123f15fe8a2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CWjSL4I0p2peiPXd3ZsMCu86SXaIGNYg2yDqgzCBClmyEH0Bn9ga+ABALtaRklnw1/yUqLrLohid9SSilfR0F2eiBKqPA7U1AcNgpFp3szLGFFE9tpQi8a+W2GNtD5ybbR6EirCJiUv7tThj3b6MmE4hNZiDDcgUMGbmxQLOXwKJzGAfk+1jk2Yc82jcoMMMn0Snl6Ij0ZfX7xC3VzValKILDCurBeuZZQOOSGMQhfqKas98/nQEYjCvRA4TPxiiCKtlo59hs/T9Ah6UNSoPilMptLY8dW/84WuF44Yhtbj9Fv9Kr0Xq4vTkeRyxw6ef/pPmhAnrUBuYFWr591pV/Q==
+ b=N3hJKTK3tGj6cc5mFgSXtn5x8O7HgCpvIYr0wHnSDxIeDhHhBkHmDf5qFInAOtAAReLnpLJF2Ua8fMD1RZWNSTkydXpU8njFzpcQ/BKHAip2kotKYDV+xqW56jm4y+2c0EB0efqvmdgIMazR5CwpcphGzuWOzzTk9dPJa+TOJonR3Sj/Q9O7m5JV5Jiy+fl5MeWXFCn4AcVnDnOBxi9ykHEa9L6dj9l8hXb4TBVh1mE5H5bGB8EAk6aExuajFVnZbjykEEvDHnqgnWU7Z1RajdupQOuWvoK+KB6BaV+DQ5n8N1RMIxxzclk2p91yQ/8C1sZ1au3wqmnnMtbULCXj8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=16qKNtbkc9g/1KJXvwrpzznQgGuIgTUzRb6eKhsvyCo=;
- b=Z7EqjUbinC05FOs/TF/UimUiu/Xd7IbqICwKkRIYsShTCf49a3LI3o5RpNByZXn6tHCRt8KuQHBgHUh/JfDlVuvp278+Qu2eh4HmGy8dthluaeBvdqVm3gNSrKi82aoxo6NDMSMk+HOggnDyNud4ucXPVMr3NoO+9ec5QwyS4dWHTdFwOZi8WwP33oH8n2HfBYGxtDIMi/hJd0lebMNADIZNLMOYXego33ObfiWeVPNW2J8hFnPSiD+mkXpHHlVNPx3tmcsqhEQ+4XZ8Ks4ENO3cUeASFieVnCMRsxroKztuMERs/vhEBi2seiDJU1Y+wrobvwwC9BR8fcvBpRVLyA==
+ bh=kNHdxsz/A+O0scydcjNzdJegkiK444ynTZTaIymkn3k=;
+ b=Jmi1P5Hxs0cWCqkkrKCQx5W/NIZiZLvZaEXgP2u+KZJ8ni93Ga43SCemFRhRpppANANRT7F5/PkgUD5F6A8FDs85t4Dr25Qbw5aS4ht3m1adKawwsH6zWnu9Gi3ZEFE1gOLfPKaLDLfrAbTdWX+dkgdE0yLhhkBmUPYSRlYJfWyjHuY2YEDYnvUkXVGmKbbBAblj9l6YRo7Xlf98pICz+n9qrVdAKOdQKqe6TaOgNyjnkilfxTkN2DNCf8mrYktbcMk5kqOjIanlCDsvXfkXCUfJ4Q6yIXBjhqSr/4NHRkwsYH0mVIOf/GNbKWMohj3mNAwXcieDSzz29OvaBj6oqQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=16qKNtbkc9g/1KJXvwrpzznQgGuIgTUzRb6eKhsvyCo=;
- b=rTMMyLkJtmjYVVTgoKaCZemxfwsWOqpzAZA6a9BuzD4CqnttW+GZNAE6tQhKkRdHmHRBYTX+MWMYABtQI78QU1St8ixSQllDpUlQsljA5M1Hh9YynqCP+CkfQI8tvXEtv3gxAh4B3AECleWNNnyrURR4TcyWOVFhROnd82qtYyU=
+ bh=kNHdxsz/A+O0scydcjNzdJegkiK444ynTZTaIymkn3k=;
+ b=gmaL8anfJkKhLdS+foO4Ptfd5T9xkhmhNj1XoVghN+NIsU8FuiCu8/SXGWERfk06s4uOAlb++2g2tOe0cokGR575QFHmvZDBfXvn71ba8IS6AFhhu4P6VeXwA4rXIf6NjvT8VRNZ2KKfv+V98t3rSyO+tiDzWfnbWCi+eJ74sGY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <09c73d19-dda8-44a3-be4f-1644a2bd1a4c@amd.com>
-Date: Wed, 27 Mar 2024 10:08:12 -0400
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <67cf20aa-a55a-496c-b3cc-bf5317ba98be@amd.com>
+Date: Wed, 27 Mar 2024 10:15:30 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/6] Revert "xen/x86: bzImage parse kernel_alignment"
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v5] RFC: x86/pvh: Make Xen PVH entrypoint PIC for x86-64
+To: Jan Beulich <jbeulich@suse.com>
+CC: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Juergen Gross <jgross@suse.com>, Boris Ostrovsky
+	<boris.ostrovsky@oracle.com>, <xen-devel@lists.xenproject.org>
 References: <20240326213847.3944-1-jason.andryuk@amd.com>
- <20240326213847.3944-2-jason.andryuk@amd.com>
- <f1940242-0259-4b4c-baff-2fa73435d1b9@suse.com> <ZgPf_I2CJ7358jbZ@macbook>
+ <20240326214701.7015-1-jason.andryuk@amd.com>
+ <45c20ffd-f0c0-4521-8221-c3384cd5f7c5@suse.com>
 Content-Language: en-US
 From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <ZgPf_I2CJ7358jbZ@macbook>
+In-Reply-To: <45c20ffd-f0c0-4521-8221-c3384cd5f7c5@suse.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
+Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD6:EE_|IA0PR12MB8304:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1dc2d716-3f1c-4232-e2f3-08dc4e6756d7
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|SN7PR12MB7835:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65d70ed1-16ab-4054-45cb-08dc4e685d6e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	nxAvRMgRl5xT2p0eDWQXAoMOoCa5yFjlMD7sIvK1B93jruEWFxfcdOMprLG24hWojcwfUXWsvOVOYDIi7MiMiTUXQmtVFwFA1OSBJCCyLx5H3Qn5IEApml00NBX51XjPfBZNbypI4KzZtB2+ON3uRgkSbxpRL2uvxeztXc5WD3dUwD+O27Rh4xm4LasG6dvomtv9R0xuZDaskxW/IDFWXwGSoB9H0ATevyS/Jk7EqsqOBl9Il3wv1vHo4oodbgt0w6DY/hVBwEVRtuJARL3h5hqUVpjbQC1ZuO3ssxH+hfcocG9EgTLr/P7nnfr7ngOH5NG3ezL5j3W2YotZV8EKB7FcRgZb9tLgdscNp9hQFCVU6KmVxji5UaGQoY7MYGoZDZDLNYvNycT9EQ08Ufeq7sbIoTPNNStz62HdHMs2ykE+P4a5s0YMgbWH6UJgCCpB3DNIl2p8+odGX259pxVGI3GCZJAmqf2jOJ7ti4eNRtyeJzEr6Ie+Gyk2y27uJWHa6TrKTY06D8qmT4AKTeN+w22RJkfIjiriPJwS/WxnjXPeg3BFSHTSatEFBaWnVOTJVhaaobbae2N0Hcx7ciRrzOMAsCXUA/YUaBPLRnhQR5gv7xYzQ98bPMrf7Fr5x1frpdCna/nw00mk9xArRncKjtsquddkhY5YICLnjdbLsrWN8Lx/rNRxzphRvtY2iRA7W5N66MbU1P+RxP+2SlRuoFzM45i343reB4lz9TkJ48wwElcmBaYjSXBfSU9wLhGe
+	hUXtLG5KV5a4ArveoAGN6eevzF3zc2OzBObBl4F83lcGVjU8OSF1freR046Hql/GPsKTty/yUIo17unnNgaXno/uF0YEPNcSZJToDERTPFREmQzr+tmSlhfm+KrqyXqSsbXqxFI1dUrZSKQa2k32KJEB3r8W7BjNdDPoIW4GlEfCTk9aRbbqOzZ4PwYSJtLFNHe25ODsRkA8O1u01UPiD9oyzik+wnf5OGI2pKxNYauJss5W/nwDjsp3i0Y58rNQDXIhXFuDaWF6qJj22gyr1OEPMnRW5ZMSiQB6GcnTjsTtOmqLBZcquE6S3ZmSsI+1kzqWAK2Zjt0Q9JQCwoXcE0IugwvFP9fVTUNLk9zFZ7xuB1jRN+dyZgO3mnLvb38iDSY3O5UU7SUbrn2T4Ga/PH4slg5U0/e7rF4bTPa2+8YZ+oZP1eQbnztQfZuemkWOQKrHfXiL1NM/+t+omySYpn9ZXeSV73zr9Eavh5uimtO2wjLRrZjMouGMz9U+uaAtLcXGZlRuAXbd5kPs7rdPZMw/nCKkOmNOwzuZjIy1knzr+e0zxV0Z35X9dzvb7YGmuU40hRVGtJUQvWOtWuCVZ+wd8DGTjTzIF0n9uT+iXpC/jeWYITKEE7XwdVXDyLn1KQYCtEgRzRJ30GkPmVK/PaJhwNdYlCn1GJ0l3LC7DzLEnmW3TioIDYoy+XuYixgc465K+ctxrp3zrkQWOwzE5JHy0nOL/zmWxY+FmDQwh55U9TeVSoDaf9lhtJrgTnnZ
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(82310400014)(36860700004)(1800799015);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(36860700004)(82310400014)(376005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2024 14:08:12.4885
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2024 14:15:33.0372
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1dc2d716-3f1c-4232-e2f3-08dc4e6756d7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65d70ed1-16ab-4054-45cb-08dc4e685d6e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD6.namprd02.prod.outlook.com
+	BL02EPF0001A101.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8304
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7835
 
-On 2024-03-27 04:59, Roger Pau Monné wrote:
-> On Wed, Mar 27, 2024 at 08:22:41AM +0100, Jan Beulich wrote:
->> On 26.03.2024 22:38, Jason Andryuk wrote:
->>> A new ELF note will specify the alignment for a relocatable PVH kernel.
->>> ELF notes are suitable for vmlinux and other ELF files, so this
->>> Linux-specific bzImage parsing in unnecessary.
->>>
->>> This reverts commit c44cac229067faeec8f49247d1cf281723ac2d40.
->>>
->>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>
->> Since you keep re-sending this: In private discussion Roger has indicated
->> that, like me, he too would prefer falling back to the ELF data, before
->> falling back to the arch default (Roger, please correct me if I got it
->> wrong). That would make it necessary that the change you're proposing to
->> revert here is actually kept.
+On 2024-03-27 04:20, Jan Beulich wrote:
+> On 26.03.2024 22:47, Jason Andryuk wrote:
+>> --- a/include/xen/interface/elfnote.h
+>> +++ b/include/xen/interface/elfnote.h
+>> @@ -185,9 +185,25 @@
+>>    */
+>>   #define XEN_ELFNOTE_PHYS32_ENTRY 18
+>>   
+>> +/*
+>> + * Physical loading constraints for PVH kernels
+>> + *
+>> + * Used to place constraints on the guest physical loading addresses and
+>> + * alignment for a PVH kernel.
+>> + *
+>> + * The presence of this note indicates the kernel supports relocating itself.
+>> + *
+>> + * The note may include up to three 32bit values in the following order:
+>> + *  - a maximum address for the entire image to be loaded below (default
+>> + *      0xffffffff)
+>> + *  - a minimum address for the start of the image (default 0)
+>> + *  - a required start alignment (default 0x200000)
 > 
-> Sorry, was meaning to reply yesterday but Jason is very fast at
-> sending new version so I'm always one version behind.
+> This looks to be stale now.
 
-:)
+Yes - I did not update this file.
 
-I was hoping to finish this up and get it in...
+The patch is functional as the ELF Note fields in 
+arch/x86/platform/pvh/head.S were re-ordered to match the Xen side.
 
-> IMO the order: ELF note, PHDR alignment, arch default should be the
-> preferred one.
-> 
->> Or wait - what you're reverting is taking the alignment out of the
->> bzImage header. I don't expect the BSDs to use that protocol; aiui that's
->> entirely Linux-specific.
-> 
-> Yeah, I don't have strong opinions in keeping this, we already do
-> bzImage parsing, so we might as well attempt to fetch the alignment
-> from there if correct:
-> 
-> ELF note, bzImage kernel_alignment, ELF PHDR alignment, arch default
-
-I'm not sure how to handle ELF PHDR vs. arch default.  ELF PHDR will 
-always be set, AFAIU.  Should that always be respected, which means we 
-don't need an arch default?
-
-To include arch default, it would be something like this:
-
-     if ( parms->phys_align != UNSET_ADDR )
-         align = parms->phys_align;
-     else if ( bz_align )
-         align = bz_align;
-     else if ( elf->palign > PHYS32_RELOC_ALIGN_DEFAULT )
-         align = elf->palign;
-     else
-         align = PHYS32_RELOC_ALIGN_DEFAULT;
-
-
->> I further meanwhile realized that consulting the ELF phdrs may also be
->> ambiguous, as there may be more than one. I guess it would need to be the
->> maximum of all of them then.
-> 
-> My suggestion (not sure if I mentioned this before) was to use the
-> alignment of the first LOAD PHDR, which is the one that defines the
-> value of the dest_base field used as the image load start address.
-> 
-> Using the maximum of all load PHDRs might be safer.
-
-I'll find the maximum.
-
-Thanks,
+Regards,
 Jason
 
