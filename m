@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C90D88D4D5
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 03:57:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698295.1089818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 156AC88D4E5
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 04:06:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698299.1089828 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpJTr-0002d3-E2; Wed, 27 Mar 2024 02:57:35 +0000
+	id 1rpJcV-0004fR-AM; Wed, 27 Mar 2024 03:06:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698295.1089818; Wed, 27 Mar 2024 02:57:35 +0000
+Received: by outflank-mailman (output) from mailman id 698299.1089828; Wed, 27 Mar 2024 03:06:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpJTr-0002a0-BJ; Wed, 27 Mar 2024 02:57:35 +0000
-Received: by outflank-mailman (input) for mailman id 698295;
- Wed, 27 Mar 2024 02:57:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rpJcV-0004d9-7D; Wed, 27 Mar 2024 03:06:31 +0000
+Received: by outflank-mailman (input) for mailman id 698299;
+ Wed, 27 Mar 2024 03:06:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Klda=LB=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1rpJTq-0002Zs-BR
- for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 02:57:34 +0000
+ id 1rpJcT-0004d3-G5
+ for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 03:06:29 +0000
 Received: from fout3-smtp.messagingengine.com (fout3-smtp.messagingengine.com
- [103.168.172.146]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1a81304-ebe5-11ee-afe3-a90da7624cb6;
- Wed, 27 Mar 2024 03:57:33 +0100 (CET)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailfout.nyi.internal (Postfix) with ESMTP id 43DC413800E8;
- Tue, 26 Mar 2024 22:57:32 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Tue, 26 Mar 2024 22:57:32 -0400
+ [103.168.172.146]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 003d2dd1-ebe7-11ee-a1ef-f123f15fe8a2;
+ Wed, 27 Mar 2024 04:06:27 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailfout.nyi.internal (Postfix) with ESMTP id 73D7713800CD;
+ Tue, 26 Mar 2024 23:06:26 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Tue, 26 Mar 2024 23:06:26 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 26 Mar 2024 22:57:30 -0400 (EDT)
+ 26 Mar 2024 23:06:24 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,187 +43,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1a81304-ebe5-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: 003d2dd1-ebe7-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1711508252;
-	 x=1711594652; bh=wfnlGUJ0PBfBfvaHMqLjqgg0lOPYtgwaj/UjhR9komE=; b=
-	hNR1e2rivoHaavJBjpZnQr/q7bYcGa7TShVAu2s7WpEQM66JRYgVW2K7QUSHzaJj
-	hnItgtzrWyG8uzs3oTSlbKiXcvAj6C7CQpk2ksBYzxaj9JZX4W/UkFILxjXYcjMi
-	6Fg3Ghc32lRZ81Yz43bf2+TWJizmJ/eDnVWE1k32pbfjoCnnMW2E4mvnrwU2uZAR
-	MoeYt+UYVHX9oxOBX59lcuUpFTUHveFJQ3sFP1PKX7gUxzL3DBns3PU6dYR4oeye
-	Lwf0nDe4aCO/FDpmTwSiknQP6c7MsZG7hYAtueBQ8XjNg4LzFqzIuAdIVK/7t9+a
-	omSYhAoeXLGua7Po3ATbYQ==
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1711508786; x=1711595186; bh=mH7qGKH3fb
+	CivyC7O2Hbv2OPHkXyD7Im69azzuDMjbE=; b=ZOf9lyc6/HjY/wuJnLbLX2/GwE
+	qfPsmb3WdAfan/JK7nNyrDQP5q6PnCDsFHyaLmzJ3zbXLXxnEqMa6lVrfZ3elMjg
+	fekxlhfHdxlT7X5ik8oOmBMG702yFK3Fq0aa7MBaFxSgqxAYzqgHaDm25+HwTxON
+	LwccVvhRoHocKX622oE87/9bINdRO8OuFUn0FuK4zp9OoTiLqUO2HmJbV7m560vF
+	AArUt37PO3QVH6Ucixr34asDAOLv/rqPHDttCsN2O3lWl7aJ83/0Tl0DISGlSQ/G
+	vfooRoNQn76qUTWFQSk95LWXcrU13DxyITj/i0ab7kUmZr0pKkAfe9X50T/g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1711508252; x=1711594652; bh=wfnlGUJ0PBfBfvaHMqLjqgg0lOPY
-	tgwaj/UjhR9komE=; b=P23ruSVJ2hYFxa/BAEzHxIGMGLLwD8lt9niTeI+EluQb
-	CQiKKMPVo+FncBGhIc+UcJ3RO/XErZWHYOF0r7B9D8+Ivckc2o/reJMnsCos1BM6
-	Mach0UKrdex1NBuACq8zZqpQoQnztEk9Be2klViEp7brElOl4QvTGIjSK/jcJTvt
-	LrnFF0KMttjHdmn3fY5sIlV7J3uku9ti9q6FPLsuRHhAoBQ0MeiJixbbf3X8g1j5
-	eICRXxwkSXslUJAtm3IzY8zv6vunVFuIVtuCCWIG4+rQxZd4HYCV6sH5VhDb4dUV
-	PseZPhUSW96bIEOu8rCkz2Jv1VMw8K6eqAji+peirg==
-X-ME-Sender: <xms:HIsDZqg1XTkpOC14GD5ZEhD6O9WVhzzA0ndZoOb175Y5S3-2hr4xMA>
-    <xme:HIsDZrDkupkGwyPNGF5hC3behLbsjrs_Z_AoaEl-ZnFrbFBGu7R8t74glnIuBB-gT
-    PUTj_IAbS-BKg>
-X-ME-Received: <xmr:HIsDZiHXqcfdnfeeNfCdpqfjYcMGXRK0BR-CJBONQWYJrgKP_nc4i9jBvd8EVNKi41CsUek1X2oAP6CnoeKXmFz7H_s1OSjzxA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledruddugedgheegucetufdoteggodetrfdotf
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1711508786; x=
+	1711595186; bh=mH7qGKH3fbCivyC7O2Hbv2OPHkXyD7Im69azzuDMjbE=; b=n
+	e3hzTjafh0pQimzREXXjk4LxZqrkNunjuhCA9UwpwTfpDFt6BYsC7eRNo3Pm2gVU
+	T9Gl6zemCY5luFdxvXaehc862Ik/eEflHH0VF4trhtAmDu16iW8zaCVGI6LCUVy8
+	l0ViZKriTCHtgKx1b2JZP62y0jzuxadjgAdNViWY8g+CnInOYw3ZbCNZH9tSoUJI
+	/b10Lx2SXEdFaC5JwU5VDXK5LcOIrTnmK8DI56mKTmjDcolnsQxl0QWoh+5N9sl5
+	YevkOOcJsBXcZ08zIaGuFvFhKMuxHYxmsauyyA5a8N/UfbzwDqMr/FfKG8zwgQRX
+	TKvapsNXH5GuDIZkhuy6A==
+X-ME-Sender: <xms:MY0DZhKuI7yUsOyDEfy6j-84ENrfBoT0RH0fZWuMxarBn4dvXQ0keg>
+    <xme:MY0DZtJlI4arqU6pMh_XheXHyCUnD_ijcwSh6GiCUmZDvmW6wxqxc_J8xKYdrdzEi
+    8z1HMI8bgFTDA>
+X-ME-Received: <xmr:MY0DZptehdtUn7KU4swaQyd5ykHrZFqpuHavwCM-_guSHKqThW5yNhBvtisKrq75FNnhcWbo5eLQcPGq6BeRUTFS8CjJvnicLnLvMvFhoo9zKkN5WAw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledruddugedgheeiucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:HIsDZjSr588ezEdpy83yPJ5ujr44O0-U1S2_0IeMazblKvxuCN0ZgQ>
-    <xmx:HIsDZnxhqNGsKHmNbKGRx1XOOMNiftlTzeh_JXSXsMx5bLGMPpjV4w>
-    <xmx:HIsDZh6GfXOXj8sPZJ3_aakMZOmRa76a31Z4grzMAeLjFkmFAHggzw>
-    <xmx:HIsDZkygNg2C90ROlXr04sI5ojlPt9iMfya9DHuEXiyYVHGmQNrMgQ>
-    <xmx:HIsDZvcAzsk3_5myHcnfM2XiC0lZSCpHWNAO8KauSHOK-juxRQyXxw>
+    cujfgurhephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforghr
+    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
+    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
+    ueduhefgvdefheehudejheefudevueeghfekhfehleegveduteeuiedugffgffenucevlh
+    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
+    khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:Mo0DZib2jzD1Um_BjMVpKPIV1rPQ0ilBlB4411Zq5BmsvNqQNy_K_Q>
+    <xmx:Mo0DZoa2vR8Mu19ip-g6SA7y2NnbAeaWWCtLCvxTqGiPqUFnwLGGUA>
+    <xmx:Mo0DZmC3Me4IlH2JtSLC3gmmtkKvO56Tv3vh6Y_5xtoDZXVFUuDjnQ>
+    <xmx:Mo0DZmblCNVCpDPUmPPZxT_VUw6QrxkwPFeyLs7nmVNxApMeKaEE1A>
+    <xmx:Mo0DZiBiJDTMDcoPuxI5mcvjNJtag92ejgFlslpHTq3rFJByNQu0fA>
 Feedback-ID: i1568416f:Fastmail
-Date: Wed, 27 Mar 2024 03:57:27 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: qemu-devel@nongnu.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
 	Paul Durrant <paul@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v3 1/2] IOMMU: store name for extra reserved device memory
-Message-ID: <ZgOLGAMP26EAiD5-@mail-itl>
-References: <20240327025454.514521-1-marmarek@invisiblethingslab.com>
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
+Subject: [PATCH v3 1/2] hw/xen: detect when running inside stubdomain
+Date: Wed, 27 Mar 2024 04:05:14 +0100
+Message-ID: <e66aa97dca5120f22e015c19710b2ff04f525720.1711506237.git-series.marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.527f002866de2be7c275c5000b6e5edfeb7e8368.1711506237.git-series.marmarek@invisiblethingslab.com>
+References: <cover.527f002866de2be7c275c5000b6e5edfeb7e8368.1711506237.git-series.marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="v8NolazHSRHhgtQS"
-Content-Disposition: inline
-In-Reply-To: <20240327025454.514521-1-marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Introduce global xen_is_stubdomain variable when qemu is running inside
+a stubdomain instead of dom0. This will be relevant for subsequent
+patches, as few things like accessing PCI config space need to be done
+differently.
 
---v8NolazHSRHhgtQS
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 Mar 2024 03:57:27 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v3 1/2] IOMMU: store name for extra reserved device memory
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
+Changes in v3:
+- move to xen_hvm_init_pc()
+- coding style
+Changes in v2:
+- use sigend int for domid to match xenstore_read_int() types
+- fix code style
+---
+ hw/i386/xen/xen-hvm.c | 22 ++++++++++++++++++++++
+ include/hw/xen/xen.h  |  1 +
+ system/globals.c      |  1 +
+ 3 files changed, 24 insertions(+)
 
-On Wed, Mar 27, 2024 at 03:53:10AM +0100, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> It will be useful for error reporting in a subsequent patch.
->=20
-> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
-ab.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-
-This one is already applied, sorry for re-send.
-
-> ---
-> New in v2
-> ---
->  xen/drivers/char/xhci-dbc.c     | 3 ++-
->  xen/drivers/passthrough/iommu.c | 5 ++++-
->  xen/include/xen/iommu.h         | 3 ++-
->  3 files changed, 8 insertions(+), 3 deletions(-)
->=20
-> diff --git a/xen/drivers/char/xhci-dbc.c b/xen/drivers/char/xhci-dbc.c
-> index 3bf389be7d0b..8e2037f1a5f7 100644
-> --- a/xen/drivers/char/xhci-dbc.c
-> +++ b/xen/drivers/char/xhci-dbc.c
-> @@ -1421,7 +1421,8 @@ void __init xhci_dbc_uart_init(void)
->          iommu_add_extra_reserved_device_memory(
->                  PFN_DOWN(virt_to_maddr(&dbc_dma_bufs)),
->                  PFN_UP(sizeof(dbc_dma_bufs)),
-> -                uart->dbc.sbdf);
-> +                uart->dbc.sbdf,
-> +                "XHCI console");
->          serial_register_uart(SERHND_XHCI, &dbc_uart_driver, &dbc_uart);
->      }
->  }
-> diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/io=
-mmu.c
-> index 996c31be1284..03587c0cd680 100644
-> --- a/xen/drivers/passthrough/iommu.c
-> +++ b/xen/drivers/passthrough/iommu.c
-> @@ -682,6 +682,7 @@ struct extra_reserved_range {
->      unsigned long start;
->      unsigned long nr;
->      pci_sbdf_t sbdf;
-> +    const char *name;
->  };
->  static unsigned int __initdata nr_extra_reserved_ranges;
->  static struct extra_reserved_range __initdata
-> @@ -689,7 +690,8 @@ static struct extra_reserved_range __initdata
-> =20
->  int __init iommu_add_extra_reserved_device_memory(unsigned long start,
->                                                    unsigned long nr,
-> -                                                  pci_sbdf_t sbdf)
-> +                                                  pci_sbdf_t sbdf,
-> +                                                  const char *name)
->  {
->      unsigned int idx;
-> =20
-> @@ -700,6 +702,7 @@ int __init iommu_add_extra_reserved_device_memory(uns=
-igned long start,
->      extra_reserved_ranges[idx].start =3D start;
->      extra_reserved_ranges[idx].nr =3D nr;
->      extra_reserved_ranges[idx].sbdf =3D sbdf;
-> +    extra_reserved_ranges[idx].name =3D name;
-> =20
->      return 0;
->  }
-> diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-> index 9621459c63ee..b7829dff4588 100644
-> --- a/xen/include/xen/iommu.h
-> +++ b/xen/include/xen/iommu.h
-> @@ -329,7 +329,8 @@ struct iommu_ops {
->   */
->  extern int iommu_add_extra_reserved_device_memory(unsigned long start,
->                                                    unsigned long nr,
-> -                                                  pci_sbdf_t sbdf);
-> +                                                  pci_sbdf_t sbdf,
-> +                                                  const char *name);
->  /*
->   * To be called by specific IOMMU driver during initialization,
->   * to fetch ranges registered with iommu_add_extra_reserved_device_memor=
-y().
-> --=20
-> 2.43.0
->=20
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---v8NolazHSRHhgtQS
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmYDixgACgkQ24/THMrX
-1yxn1ggAhHmSiOVbErVsjrtLSxL6YMCr/2cB9EV7ru/8UXSEi5ysQbo3ATvxCNdX
-/p9mz64eMGXGXQTAxrqWTBK6V0kX9ssvsOihSAF4UbtVbF/ESskIN2ThRtj5tMyQ
-OMc6nQPWfarPYaa4klwiAsmYC3IDeV1lza1mlwlkPvPhpasWzkkskim8hgTSbXPr
-zB5nzQ8vK14nGjvaYTpGz016xF0/aO3d9+92l/XWnvGDSmDtuFv85mhRO/lFmA0X
-1bGCnVMAeWbk8S8SuO/MSVlv8j8C/b420uiwL9JNKQYaFPW2aX0X7RszS3i82Zqq
-bwpYSV7mIdLAW95zlXvm7ljQY3fdRw==
-=1MrU
------END PGP SIGNATURE-----
-
---v8NolazHSRHhgtQS--
+diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
+index 7745cb3..3291c17 100644
+--- a/hw/i386/xen/xen-hvm.c
++++ b/hw/i386/xen/xen-hvm.c
+@@ -583,6 +583,26 @@ static void xen_wakeup_notifier(Notifier *notifier, void *data)
+     xc_set_hvm_param(xen_xc, xen_domid, HVM_PARAM_ACPI_S_STATE, 0);
+ }
+ 
++static bool xen_check_stubdomain(struct xs_handle *xsh)
++{
++    char *dm_path = g_strdup_printf(
++        "/local/domain/%d/image/device-model-domid", xen_domid);
++    char *val;
++    int32_t dm_domid;
++    bool is_stubdom = false;
++
++    val = xs_read(xsh, 0, dm_path, NULL);
++    if (val) {
++        if (sscanf(val, "%d", &dm_domid) == 1) {
++            is_stubdom = dm_domid != 0;
++        }
++        free(val);
++    }
++
++    g_free(dm_path);
++    return is_stubdom;
++}
++
+ void xen_hvm_init_pc(PCMachineState *pcms, MemoryRegion **ram_memory)
+ {
+     MachineState *ms = MACHINE(pcms);
+@@ -595,6 +615,8 @@ void xen_hvm_init_pc(PCMachineState *pcms, MemoryRegion **ram_memory)
+ 
+     xen_register_ioreq(state, max_cpus, &xen_memory_listener);
+ 
++    xen_is_stubdomain = xen_check_stubdomain(state->xenstore);
++
+     QLIST_INIT(&xen_physmap);
+     xen_read_physmap(state);
+ 
+diff --git a/include/hw/xen/xen.h b/include/hw/xen/xen.h
+index 37ecc91..ecb89ec 100644
+--- a/include/hw/xen/xen.h
++++ b/include/hw/xen/xen.h
+@@ -36,6 +36,7 @@ enum xen_mode {
+ extern uint32_t xen_domid;
+ extern enum xen_mode xen_mode;
+ extern bool xen_domid_restrict;
++extern bool xen_is_stubdomain;
+ 
+ int xen_pci_slot_get_pirq(PCIDevice *pci_dev, int irq_num);
+ int xen_set_pci_link_route(uint8_t link, uint8_t irq);
+diff --git a/system/globals.c b/system/globals.c
+index e353584..d602a04 100644
+--- a/system/globals.c
++++ b/system/globals.c
+@@ -60,6 +60,7 @@ bool qemu_uuid_set;
+ uint32_t xen_domid;
+ enum xen_mode xen_mode = XEN_DISABLED;
+ bool xen_domid_restrict;
++bool xen_is_stubdomain;
+ struct evtchn_backend_ops *xen_evtchn_ops;
+ struct gnttab_backend_ops *xen_gnttab_ops;
+ struct foreignmem_backend_ops *xen_foreignmem_ops;
+-- 
+git-series 0.9.1
 
