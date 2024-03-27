@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 907C388D4E6
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 04:06:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698300.1089839 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9645488D710
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 08:17:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698310.1089849 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpJcX-0004tL-Fm; Wed, 27 Mar 2024 03:06:33 +0000
+	id 1rpNVX-0002pX-TU; Wed, 27 Mar 2024 07:15:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698300.1089839; Wed, 27 Mar 2024 03:06:33 +0000
+Received: by outflank-mailman (output) from mailman id 698310.1089849; Wed, 27 Mar 2024 07:15:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpJcX-0004rk-Cx; Wed, 27 Mar 2024 03:06:33 +0000
-Received: by outflank-mailman (input) for mailman id 698300;
- Wed, 27 Mar 2024 03:06:31 +0000
+	id 1rpNVX-0002nx-PU; Wed, 27 Mar 2024 07:15:35 +0000
+Received: by outflank-mailman (input) for mailman id 698310;
+ Wed, 27 Mar 2024 07:15:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Klda=LB=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1rpJcV-0004d3-7p
- for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 03:06:31 +0000
-Received: from fout3-smtp.messagingengine.com (fout3-smtp.messagingengine.com
- [103.168.172.146]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0177300e-ebe7-11ee-a1ef-f123f15fe8a2;
- Wed, 27 Mar 2024 04:06:29 +0100 (CET)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.48])
- by mailfout.nyi.internal (Postfix) with ESMTP id C74C81380165;
- Tue, 26 Mar 2024 23:06:28 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Tue, 26 Mar 2024 23:06:28 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 26 Mar 2024 23:06:27 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=cRKJ=LB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rpNVW-0002np-AX
+ for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 07:15:34 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cb577774-ec09-11ee-a1ef-f123f15fe8a2;
+ Wed, 27 Mar 2024 08:15:30 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a46cd9e7fcaso763658466b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Mar 2024 00:15:31 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ m22-20020a1709061ed600b00a46bef6f920sm5100486ejj.102.2024.03.27.00.15.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 Mar 2024 00:15:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,213 +45,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0177300e-ebe7-11ee-a1ef-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1711508788; x=1711595188; bh=MbWNAocmC2
-	tXBNyeSris83Z/pJQ9bxIJsFcp7jvH5XI=; b=B9XiLJ1Neg+S24LlG51xvdKE3F
-	09Eso1tQ6eMCxdX8xfVx09URS4QDwDXRVh0fyn7FIxabsDhRjzljbNXrF0Lq2rTG
-	cPi2Xo6LK3zo9eaBCWpFzZVIpvSTNQ65CN69nb8TfJXc/V9uJYnTOLjLWAk8iphm
-	IHDf6Ep3ZzOWL+rwAKMeQBR0cDJ7QPw/Cg8axiXh7jb6cfLN1n3ZF0jrEKikMYCg
-	Fgni1Mrx7OgrHfiOHwKcoi7z4gAbtX6pAsuCE3qlxdvXp1ew0m6HY6bmMEI6Mgj2
-	nvJrKwskZcdUm0fhlo96QhwCPz09U0RvGj2+VF8ooZNuIOfg136ADQP87I6w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1711508788; x=
-	1711595188; bh=MbWNAocmC2tXBNyeSris83Z/pJQ9bxIJsFcp7jvH5XI=; b=x
-	rn9Iqc7z00/ieKDGMeEHf1xO9LKYNU0XBssT6keiTb7RQ9Hws4K0T5mPmvSejNv/
-	UXTuHacyb1TwViEI0fJ0LLH/7qJxA0aVOmxvN03bxmQgPWvAMIAYBcmmNtRC2d8s
-	zksfLwnyJDoYRjl/5UeEpBCPuzYCS0FdYMTqZUOBd6gf5j9iAGQdwV0gYdqX+kVl
-	L2yHAJJt4cyCM7XKkW4gATx7UOSnPXwNjjA6MVafYQUVfUQJd42VMB1GW4jS85wL
-	awikQIvHhpI/gObFsUMzSqsvgopC+osgLzTtFcWNSPvWE0nzLQZVGTDhyvwAng7N
-	xkQguMh4PqLAY/npi3PpA==
-X-ME-Sender: <xms:NI0DZkB1xmdqAqKokIWOE8rKVeKXURKjVHxzPc6gvmKyDuGuBGEx9A>
-    <xme:NI0DZmiIzVsUYz8nmb9afgtisHplZX5S89WJ45DG2JEg5aEkHMv31pkQn4K5SDSN5
-    vW7lZ0JZXU4JA>
-X-ME-Received: <xmr:NI0DZnncUKYLrK2UbFq6A172gjI1Nm5zNdR_404pJvAcfYrtWK43ptApltTdXV5qOyTIn6tAKvSX1MRBasy2-ghLgBlRZWmC0EJPw3fMdGYykUAhJeY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledruddugedgheeiucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforghr
-    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
-    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
-    ueduhefgvdefheehudejheefudevueeghfekhfehleegveduteeuiedugffgffenucevlh
-    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
-    khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:NI0DZqwB8ug52_A0qWQcpdxwao7sxhvMmNPttlgikr4gASNFw1l7CA>
-    <xmx:NI0DZpQCX4tX0DZxHt7entbKHNbZg7slS11YUqGe49UkMqbGlv1inw>
-    <xmx:NI0DZlatG-0aai-WFvhZ2vxilJWt7IfYsx-vWj1NounPZlWSq9JQdg>
-    <xmx:NI0DZiSjaaSdxjRzuk8xlhig814J8CPPR6opw-nJkRdd5CL2Hwp05w>
-    <xmx:NI0DZoGqu7ISBtsYqlNC5hDnT1y_peCtCnt1g79kFsPQSjWEnwhWOw>
-Feedback-ID: i1568416f:Fastmail
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: qemu-devel@nongnu.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [PATCH v3 2/2] xen: fix stubdom PCI addr
-Date: Wed, 27 Mar 2024 04:05:15 +0100
-Message-ID: <35049e99da634a74578a1ff2cb3ae4cc436ede33.1711506237.git-series.marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.527f002866de2be7c275c5000b6e5edfeb7e8368.1711506237.git-series.marmarek@invisiblethingslab.com>
-References: <cover.527f002866de2be7c275c5000b6e5edfeb7e8368.1711506237.git-series.marmarek@invisiblethingslab.com>
+X-Inumbo-ID: cb577774-ec09-11ee-a1ef-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1711523730; x=1712128530; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=us3vri0WL6DcRRT+Qz6GKdNEgSMy7Gk8UhBt4VZBaDQ=;
+        b=AI8h6vPvWWheJoX2gDGm0v6GS3lXEf0ZHLeLwQKzLRtYLN2vaTUQd5bJpyyNEyERvE
+         EB6SCk2L7gTxVDa5JfwcYbOOG3K3HQ/R6qHaF/8w5+Bt3N+UlLhwU2gdz45OkaVLp73C
+         61wcFxYIs2HY5LY0x+hRzghvGYI9zw7NevwTaI0hTHjoTSbTssw8MT3x6GfYGVStUFAR
+         w9oInpxFCAaVqCSSRwqyjSqiJ5hze3dKDVuOG7d5tkofZFPpZK1QNLSPCj3UdDsV35vy
+         BmhBFt5fuQ4DgVWt+A7f822BTBPASva5dIMik07UeKY+nyBVeeIbIVHlyXM+keD37+AQ
+         P1Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1711523730; x=1712128530;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=us3vri0WL6DcRRT+Qz6GKdNEgSMy7Gk8UhBt4VZBaDQ=;
+        b=uxOvF/X4Yfr6RkNvvnSkcakFYzHVLQbkI6kFkrGuNW8oYPg+yuWByWek9zmUj/jEUv
+         6VJh/NtUMHYgm4INJ3JBETu+8/p799EpJS+X6N6HyZ6z2jenj0m+IFLQM2SvSReQMQW7
+         AoQ9swJKAn6T5oIsBtBC7hfcx5pvzGvjoHFHMLWnA9E+Jg3nSo3PEMV8KYLUr1Skh4BD
+         kMsZbB8DVCs21ra7tOcobs28kPZjhu7wTs5reUDqygQuxMvgvFRX4wruDslkAJlpVF9O
+         APvp6XAIHsv4IdwmekGn0zOAxELzP0Gq6KBQzoOi/mj9b6xdfN650CqeIChHd2C90kIe
+         Oa/Q==
+X-Gm-Message-State: AOJu0Yxb0voaJUWL5060MRAMSaPj2+mL/weiy2mC/mv4ucxySYhWaTvD
+	QZli/Tbl9cHwcwxmhYuMBi+mJS2Q6IiNngNi7+CDfXRhF++8SOsRvPYdm5AbZQ==
+X-Google-Smtp-Source: AGHT+IHOO2TRxPsinQvFcUlHEbIjARG7G9DIoydtkKZCeqgGiLZjMyIHE9KQHCLQMqvzkRmXKoNmIw==
+X-Received: by 2002:a17:906:5943:b0:a45:f352:73b0 with SMTP id g3-20020a170906594300b00a45f35273b0mr260881ejr.65.1711523730528;
+        Wed, 27 Mar 2024 00:15:30 -0700 (PDT)
+Message-ID: <fcd2183e-d506-4683-ace1-73978002c93b@suse.com>
+Date: Wed, 27 Mar 2024 08:15:29 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/vcpu: relax VCPUOP_initialise restriction for non-PV
+ vCPUs
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20240320135720.68894-1-roger.pau@citrix.com>
+ <1304a0d2-ff17-4823-9d31-c32eb7b79f30@citrix.com> <ZfryIBR6RECujayD@macbook>
+ <815d5bd4-18af-4f5f-b6a5-6302a1d682a2@citrix.com>
+ <d3679e6c-f877-4198-8423-26e9734bdd44@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <d3679e6c-f877-4198-8423-26e9734bdd44@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When running in a stubdomain, the config space access via sysfs needs to
-use BDF as seen inside stubdomain (connected via xen-pcifront), which is
-different from the real BDF. For other purposes (hypercall parameters
-etc), the real BDF needs to be used.
-Get the in-stubdomain BDF by looking up relevant PV PCI xenstore
-entries.
+On 26.03.2024 23:08, Julien Grall wrote:
+> Hi Andrew,
+> 
+> On 20/03/2024 14:39, Andrew Cooper wrote:
+>> On 20/03/2024 2:26 pm, Roger Pau Monné wrote:
+>>> On Wed, Mar 20, 2024 at 02:06:27PM +0000, Andrew Cooper wrote:
+>>>> On 20/03/2024 1:57 pm, Roger Pau Monne wrote:
+>>>>> There's no reason to force HVM guests to have a valid vcpu_info area when
+>>>>> initializing a vCPU, as the vCPU can also be brought online using the local
+>>>>> APIC, and on that path there's no requirement for vcpu_info to be setup ahead
+>>>>> of the bring up.  Note an HVM vCPU can operate normally without making use of
+>>>>> vcpu_info.
+>>>>>
+>>>>> Restrict the check against dummy_vcpu_info to only apply to PV guests.
+>>>>>
+>>>>> Fixes: 192df6f9122d ('x86: allow HVM guests to use hypercalls to bring up vCPUs')
+>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>> Thanks for looking into this.  But, do we actually need to force this on
+>>>> PV either?
+>>> Possibly, having now taken a look at the users it does seem they could
+>>> cope with unpopulated vcpu_info_area.
+>>>
+>>> Part of my understanding was that this was some kind of courtesy to PV
+>>> guests in order to prevent starting them without a vcpu_info, which
+>>> strictly speaking is not mandatory, but otherwise the guest vCPU won't
+>>> be able to receive interrupts, not even IPIs.
+>>
+>> That's more of a stick than a carrot... "you must set up the area of a
+>> CPU before you can bring it online". Except as we've seen, HVM has been
+>> fine all along without it.
+>>>> The only interesting user of dummy_vcpu_info now is vcpu_info_populate()
+>>>> which can cope with any arbitrary vCPU.
+>>>>
+>>>> I have a suspicion that we can (now) delete these two checks, delete the
+>>>> dummy_vcpu_info object, and use a regular NULL pointer in
+>>>> vcpu_info_{populate,reset}(), and in doing so, remove one of the bigger
+>>>> pieces of PV-absurdity from Xen.
+>>> I was expecting this to be something we can backport.  OTOH removing
+>>> the check completely (or even getting rid of dummy_vcpu_info) is not
+>>> something that we would want to backport.
+>>>
+>>> I would rather do the removal of dummy_vcpu_info as followup work.
+>>
+>> I was worried about ARM with your patch, because it's spelt HVM there,
+>> rather than PV.
+>>
+>> However, I'd forgotten that ARM's do_vcpu_op() filters ops down to just
+>> VCPUOP_register_{vcpu_info,runstate_memory_area} so VCPUOP_initialise
+>> isn't reachable.
+>>
+>> Therefore, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>
+>> It also means ARM can't use any of the PHYS registration yet...
+> 
+> Whoops. I don't think this was intended. Jan, I don't seem to find any 
+> use in Linux. Do you have any patches you could share?
 
-Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
----
-Changes in v3:
-- reduce 'path' size
-- add two missing error_setg() calls
-- coding style
-Changes in v2:
-- use xs_node_scanf
-- use %d instead of %u to read values written as %d
-- add a comment from another iteration of this patch by Jason Andryuk
----
- hw/xen/xen-host-pci-device.c | 76 ++++++++++++++++++++++++++++++++++++-
- hw/xen/xen-host-pci-device.h |  6 +++-
- 2 files changed, 81 insertions(+), 1 deletion(-)
+No, I don't. I did all development with hacked up XTF tests, and I was
+expecting Linux folks to be looking into making use of the new subops.
 
-diff --git a/hw/xen/xen-host-pci-device.c b/hw/xen/xen-host-pci-device.c
-index 8c6e9a1..eaf32f2 100644
---- a/hw/xen/xen-host-pci-device.c
-+++ b/hw/xen/xen-host-pci-device.c
-@@ -9,6 +9,8 @@
- #include "qemu/osdep.h"
- #include "qapi/error.h"
- #include "qemu/cutils.h"
-+#include "hw/xen/xen-legacy-backend.h"
-+#include "hw/xen/xen-bus-helper.h"
- #include "xen-host-pci-device.h"
- 
- #define XEN_HOST_PCI_MAX_EXT_CAP \
-@@ -33,13 +35,73 @@
- #define IORESOURCE_PREFETCH     0x00001000      /* No side effects */
- #define IORESOURCE_MEM_64       0x00100000
- 
-+/*
-+ * Non-passthrough (dom0) accesses are local PCI devices and use the given BDF
-+ * Passthough (stubdom) accesses are through PV frontend PCI device.  Those
-+ * either have a BDF identical to the backend's BDF (xen-backend.passthrough=1)
-+ * or a local virtual BDF (xen-backend.passthrough=0)
-+ *
-+ * We are always given the backend's BDF and need to lookup the appropriate
-+ * local BDF for sysfs access.
-+ */
-+static void xen_host_pci_fill_local_addr(XenHostPCIDevice *d, Error **errp)
-+{
-+    unsigned int num_devs, len, i;
-+    unsigned int domain, bus, dev, func;
-+    char *be_path = NULL;
-+    char path[16];
-+
-+    be_path = qemu_xen_xs_read(xenstore, 0, "device/pci/0/backend", &len);
-+    if (!be_path) {
-+        error_setg(errp, "Failed to read device/pci/0/backend");
-+        goto out;
-+    }
-+
-+    if (xs_node_scanf(xenstore, 0, be_path, "num_devs", NULL,
-+                      "%d", &num_devs) != 1) {
-+        error_setg(errp, "Failed to read or parse %s/num_devs", be_path);
-+        goto out;
-+    }
-+
-+    for (i = 0; i < num_devs; i++) {
-+        snprintf(path, sizeof(path), "dev-%d", i);
-+        if (xs_node_scanf(xenstore, 0, be_path, path, NULL,
-+                          "%x:%x:%x.%x", &domain, &bus, &dev, &func) != 4) {
-+            error_setg(errp, "Failed to read or parse %s/%s", be_path, path);
-+            goto out;
-+        }
-+        if (domain != d->domain ||
-+                bus != d->bus ||
-+                dev != d->dev ||
-+                func != d->func)
-+            continue;
-+        snprintf(path, sizeof(path), "vdev-%d", i);
-+        if (xs_node_scanf(xenstore, 0, be_path, path, NULL,
-+                          "%x:%x:%x.%x", &domain, &bus, &dev, &func) != 4) {
-+            error_setg(errp, "Failed to read or parse %s/%s", be_path, path);
-+            goto out;
-+        }
-+        d->local_domain = domain;
-+        d->local_bus = bus;
-+        d->local_dev = dev;
-+        d->local_func = func;
-+        goto out;
-+    }
-+    error_setg(errp, "Failed to find PCI device %x:%x:%x.%x in xenstore",
-+               d->domain, d->bus, d->dev, d->func);
-+
-+out:
-+    free(be_path);
-+}
-+
- static void xen_host_pci_sysfs_path(const XenHostPCIDevice *d,
-                                     const char *name, char *buf, ssize_t size)
- {
-     int rc;
- 
-     rc = snprintf(buf, size, "/sys/bus/pci/devices/%04x:%02x:%02x.%d/%s",
--                  d->domain, d->bus, d->dev, d->func, name);
-+                  d->local_domain, d->local_bus, d->local_dev, d->local_func,
-+                  name);
-     assert(rc >= 0 && rc < size);
- }
- 
-@@ -342,6 +404,18 @@ void xen_host_pci_device_get(XenHostPCIDevice *d, uint16_t domain,
-     d->dev = dev;
-     d->func = func;
- 
-+    if (xen_is_stubdomain) {
-+        xen_host_pci_fill_local_addr(d, errp);
-+        if (*errp) {
-+            goto error;
-+        }
-+    } else {
-+        d->local_domain = d->domain;
-+        d->local_bus = d->bus;
-+        d->local_dev = d->dev;
-+        d->local_func = d->func;
-+    }
-+
-     xen_host_pci_config_open(d, errp);
-     if (*errp) {
-         goto error;
-diff --git a/hw/xen/xen-host-pci-device.h b/hw/xen/xen-host-pci-device.h
-index 4d8d34e..270dcb2 100644
---- a/hw/xen/xen-host-pci-device.h
-+++ b/hw/xen/xen-host-pci-device.h
-@@ -23,6 +23,12 @@ typedef struct XenHostPCIDevice {
-     uint8_t dev;
-     uint8_t func;
- 
-+    /* different from the above in case of stubdomain */
-+    uint16_t local_domain;
-+    uint8_t local_bus;
-+    uint8_t local_dev;
-+    uint8_t local_func;
-+
-     uint16_t vendor_id;
-     uint16_t device_id;
-     uint32_t class_code;
--- 
-git-series 0.9.1
+Jan
+
+> I would like to 
+> give a try on Arm before sending a patch?
+> 
+> Cheers,
+> 
+
 
