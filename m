@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E7CC88D89D
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 09:19:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698337.1089898 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24C6288D89E
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 09:20:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698339.1089909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpOUe-0005uQ-1N; Wed, 27 Mar 2024 08:18:44 +0000
+	id 1rpOVx-0007NX-B5; Wed, 27 Mar 2024 08:20:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698337.1089898; Wed, 27 Mar 2024 08:18:44 +0000
+Received: by outflank-mailman (output) from mailman id 698339.1089909; Wed, 27 Mar 2024 08:20:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpOUd-0005s9-UW; Wed, 27 Mar 2024 08:18:43 +0000
-Received: by outflank-mailman (input) for mailman id 698337;
- Wed, 27 Mar 2024 08:18:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rpOVx-0007LC-7u; Wed, 27 Mar 2024 08:20:05 +0000
+Received: by outflank-mailman (input) for mailman id 698339;
+ Wed, 27 Mar 2024 08:20:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=cRKJ=LB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rpOUc-0005s3-ST
- for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 08:18:42 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9efb5206-ec12-11ee-afe3-a90da7624cb6;
- Wed, 27 Mar 2024 09:18:41 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a46a7208eedso870773866b.0
- for <xen-devel@lists.xenproject.org>; Wed, 27 Mar 2024 01:18:41 -0700 (PDT)
+ id 1rpOVw-0006xf-HP
+ for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 08:20:04 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ce8a0d81-ec12-11ee-a1ef-f123f15fe8a2;
+ Wed, 27 Mar 2024 09:20:01 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-56c4030a6easo241815a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Mar 2024 01:20:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m5-20020a170906720500b00a4df01f4232sm1851904ejk.189.2024.03.27.01.18.40
+ m5-20020a170906720500b00a4df01f4232sm1851904ejk.189.2024.03.27.01.20.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Mar 2024 01:18:40 -0700 (PDT)
+ Wed, 27 Mar 2024 01:20:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9efb5206-ec12-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: ce8a0d81-ec12-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711527521; x=1712132321; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1711527601; x=1712132401; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=g92gV5bK1TC6T/7m7x8stFN6RuCEj8I9N4+i0a1FKXw=;
-        b=PYpu4l48c4NvrcYmZMwgQ4+li820a5P2BliutezOVQKnU6bXcaa4U1FOmlVwMU7WOT
-         bz4RoKVo/iYrb1eFyChREo+rVCcuNd3J0CBWPS8sUOACUamd+wWrr4YV1V8SHuZDb+9k
-         zNLj64RmNt9LzdL+5LTS//Bwgqtxb3QGmsF7b6G+5c1gffkds+MwvJrObXGiULtH4TGJ
-         6hObtNFXj0FKtBsPnc8aZdZL78QL3V3gToD2LNT/6mqJ7Ju1WlBmFaEH+NOJOE+JdohU
-         P2gJGCCT+QZjzj32LB9KHDFVpH4Lh5KmvjvMhi2SnQ2DDQlvbOs+Mvcepe/334WOjpSJ
-         8afw==
+        bh=dbdQ/uvnHSq8FwOCP2tDQ95vkaM+LDk1v7I85aR2ELw=;
+        b=a7HNHjRgkKehB2LImz3Tt87MQQ5VLCWXMdX3GfXnPIch9fPIWQRLkbpYLw7p6adfRR
+         8halG8qd1PSkMq4YdtMckz9FjEVN/0COR7g1eTnn2l/DDoM/yA1i+lpiJxLUmqgBJWPa
+         A01iRvxUPDVXSnvZYm6Sb+ksAUuWYQxzmr239T9bneOwLuDeEP1YsJFJjKusdXfaXAS0
+         E0LBLLKq6Eqpk3ZAG+LbhE6GNbjGPRcmE68RLV+9Ou8pFsWQ9YDJTlB8PN5FgTKxbh67
+         PMol4OLzNNP8G7V1V7JgS0/BYAefXJPl+dSDAjrpD5Wh6Tg5/Ds/cVkYyCw/VLEHWxaG
+         l9lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711527521; x=1712132321;
+        d=1e100.net; s=20230601; t=1711527601; x=1712132401;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=g92gV5bK1TC6T/7m7x8stFN6RuCEj8I9N4+i0a1FKXw=;
-        b=VgJ5ULTiQWPOw+6RcDyUWnREeC/daJdSbF6hSSI/PQISYuf8ovDxxYup9QIVmArssD
-         ohHCZ8qA5WMKYTkPufIjE4R4vdVP2JyqhZ6gJcno+4/gCZm+gMsEItbbcCkecKvB3rWT
-         hhGdJjUtBHpww/f17QFLQ8K0B05KsgCjpnMROiOJV7mxAu9Mvxe529/Tu9V5cyTK0lqa
-         rH0aVDF1pWz9MxJNHBNAedjyYORunfLFm5G/LUOrW19+0lNHwWuLPt75/gYL7yYYlMvU
-         T1YWQLYljGlgewsveXvZqqrVMgARFg9PZN/fAh3n9UX4Vb9vbdsxA3culqLEyGbQWPCo
-         vbxQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXkMf2v82/E3kjzEWfWh+1TVmPrP42adcMAqWglvFU352TUuh7lHagJHN6n5kOO4BUFvbmSzliUk0xWAsQ2LeHyvxRYo9mzMA86P7wutmo=
-X-Gm-Message-State: AOJu0YyIV/HkJyEFIYyER6a/VJ5YXqtjjbArZZqM8D6/MqatT2E51M4s
-	qMb4f5+iiRy3hsAa5xAsG5Jz/9p9q3QUE5gUIp6DLIi2tOpd1gjy3lef2hD1Ew==
-X-Google-Smtp-Source: AGHT+IHgeDP+HST5ioVm6VVAw+gxTJtMu96D/2cEFCBVpKdL0S30qLeBouBUW4miFov93Vyf7pyBag==
-X-Received: by 2002:a17:906:8c3:b0:a47:3312:b32a with SMTP id o3-20020a17090608c300b00a473312b32amr2458089eje.58.1711527521160;
-        Wed, 27 Mar 2024 01:18:41 -0700 (PDT)
-Message-ID: <81af5825-cb82-4f91-b7ba-0fba995d24d1@suse.com>
-Date: Wed, 27 Mar 2024 09:18:39 +0100
+        bh=dbdQ/uvnHSq8FwOCP2tDQ95vkaM+LDk1v7I85aR2ELw=;
+        b=g+GwqiZ7j+ePtQ+pexPDPAChbNkA3CxILCLCIZRXlX5lTdAq8Q/sh9WDMVYEatf1w9
+         JRwCPh0y7+9J4PdhcLbDzEhrEzo+cBDGFJyzfjaW01jBZweI5Vzlq7/QwcrHVHVKVWr2
+         Obf+3UbpaHiHe3eEvF6DBrwhB9/DH4IqSw619f1Ei+pltTZXmZ6VdWoyfSpoubvvbeen
+         leWJAPjZY+s1HFDQiPuhCesD5BNL/dUsovy3a3zQIBWAHgkft2Bdy522ZPhpWbfL9nIX
+         M4IYiIGmSVIuMGlh7SeHabWAFNHwt1cH63XnlN2wn6ih3vUKEFGoC/D0CPktxTbBYomj
+         rELA==
+X-Forwarded-Encrypted: i=1; AJvYcCX5dM3G29fL9eLp3W2/6JAZRuRmTZxHUSwAtZcOCy57d2ImUzA1jynuGNl6nwaThX7BZFZdOs6AgchxD3dgEEPjPUYw6f/BScJ4yu7Qov0=
+X-Gm-Message-State: AOJu0Yytjn1/NjVvXbynp99UQXONILBbFWb+gIm/V8ryQRL0+Gk6psES
+	+H9fY+MIj8ox+EMLJsrw527Hh5AtQfyY0ziGlazwiM8/Q2rRmhQjhN/4MEzCUA==
+X-Google-Smtp-Source: AGHT+IFIpHkwPppZIaj9IblhQ1CjaPrqMxmg7azN1JlKqvIo35cVX0jiKmcqj239bcv3L4fnWPaZew==
+X-Received: by 2002:a17:906:a255:b0:a46:7323:6ab3 with SMTP id bi21-20020a170906a25500b00a4673236ab3mr1297907ejb.49.1711527600834;
+        Wed, 27 Mar 2024 01:20:00 -0700 (PDT)
+Message-ID: <45c20ffd-f0c0-4521-8221-c3384cd5f7c5@suse.com>
+Date: Wed, 27 Mar 2024 09:20:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 11/11] x86/public: hvm: address violations of MISRA C
- Rule 20.7
+Subject: Re: [PATCH v5] RFC: x86/pvh: Make Xen PVH entrypoint PIC for x86-64
 Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- julien@xen.org, xen-devel@lists.xenproject.org
-References: <cover.1711118582.git.nicola.vetrini@bugseng.com>
- <d9342b2a0390cf3128487cfe885940682bf9442e.1711118582.git.nicola.vetrini@bugseng.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org
+References: <20240326213847.3944-1-jason.andryuk@amd.com>
+ <20240326214701.7015-1-jason.andryuk@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,35 +112,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d9342b2a0390cf3128487cfe885940682bf9442e.1711118582.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <20240326214701.7015-1-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.03.2024 17:02, Nicola Vetrini wrote:
-> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
-> of macro parameters shall be enclosed in parentheses". Therefore, some
-> macro definitions should gain additional parentheses to ensure that all
-> current and future users will be safe with respect to expansions that
-> can possibly alter the semantics of the passed-in macro parameter.
-> 
-> No functional change.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 26.03.2024 22:47, Jason Andryuk wrote:
+> --- a/include/xen/interface/elfnote.h
+> +++ b/include/xen/interface/elfnote.h
+> @@ -185,9 +185,25 @@
+>   */
+>  #define XEN_ELFNOTE_PHYS32_ENTRY 18
+>  
+> +/*
+> + * Physical loading constraints for PVH kernels
+> + *
+> + * Used to place constraints on the guest physical loading addresses and
+> + * alignment for a PVH kernel.
+> + *
+> + * The presence of this note indicates the kernel supports relocating itself.
+> + *
+> + * The note may include up to three 32bit values in the following order:
+> + *  - a maximum address for the entire image to be loaded below (default
+> + *      0xffffffff)
+> + *  - a minimum address for the start of the image (default 0)
+> + *  - a required start alignment (default 0x200000)
 
-Btw, I've taken the liberty to drop the (secondary) hvm: prefix from the
-subject; I can't ...
-
-> --- a/xen/include/public/arch-x86/xen.h
-> +++ b/xen/include/public/arch-x86/xen.h
-> @@ -36,7 +36,7 @@
->  #define __XEN_GUEST_HANDLE(name)        __guest_handle_ ## name
->  #define XEN_GUEST_HANDLE(name)          __XEN_GUEST_HANDLE(name)
->  #define XEN_GUEST_HANDLE_PARAM(name)    XEN_GUEST_HANDLE(name)
-> -#define set_xen_guest_handle_raw(hnd, val)  do { (hnd).p = val; } while (0)
-> +#define set_xen_guest_handle_raw(hnd, val)  do { (hnd).p = (val); } while (0)
->  #define set_xen_guest_handle(hnd, val) set_xen_guest_handle_raw(hnd, val)
-
-... spot anything HVM-specific in this change.
+This looks to be stale now.
 
 Jan
+
 
