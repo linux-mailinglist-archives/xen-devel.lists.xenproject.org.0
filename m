@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6203488E8A1
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 16:23:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698608.1090541 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2953988E8A4
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 16:23:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698613.1090551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpV7N-0001Qg-6I; Wed, 27 Mar 2024 15:23:09 +0000
+	id 1rpV7R-0001pe-F2; Wed, 27 Mar 2024 15:23:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698608.1090541; Wed, 27 Mar 2024 15:23:09 +0000
+Received: by outflank-mailman (output) from mailman id 698613.1090551; Wed, 27 Mar 2024 15:23:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpV7N-0001OE-3Z; Wed, 27 Mar 2024 15:23:09 +0000
-Received: by outflank-mailman (input) for mailman id 698608;
- Wed, 27 Mar 2024 15:23:07 +0000
+	id 1rpV7R-0001ng-B9; Wed, 27 Mar 2024 15:23:13 +0000
+Received: by outflank-mailman (input) for mailman id 698613;
+ Wed, 27 Mar 2024 15:23:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kcEO=LB=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rpV7K-0007Qx-V9
- for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 15:23:06 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
+ id 1rpV7Q-0007Qx-PB
+ for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 15:23:12 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e9177cc7-ec4d-11ee-afe3-a90da7624cb6;
- Wed, 27 Mar 2024 16:23:06 +0100 (CET)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
+ id ec779207-ec4d-11ee-afe3-a90da7624cb6;
+ Wed, 27 Mar 2024 16:23:12 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0E8FD20CDD;
- Wed, 27 Mar 2024 15:23:06 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A84AC38B63;
+ Wed, 27 Mar 2024 15:23:11 +0000 (UTC)
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id C747A13215;
- Wed, 27 Mar 2024 15:23:05 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 6FBC813215;
+ Wed, 27 Mar 2024 15:23:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap2.dmz-prg2.suse.org with ESMTPSA id qHk9L9k5BGZafgAAn2gu4w
- (envelope-from <jgross@suse.com>); Wed, 27 Mar 2024 15:23:05 +0000
+ by imap2.dmz-prg2.suse.org with ESMTPSA id +KvmGd85BGaWfgAAn2gu4w
+ (envelope-from <jgross@suse.com>); Wed, 27 Mar 2024 15:23:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,25 +52,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9177cc7-ec4d-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: ec779207-ec4d-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1711552986; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1711552991; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=BqLZjhhBHT3mnXz0DltiWo9mb+SXQAswcBtFsIHNjqU=;
-	b=eCXUM4ctFmRMh/J+LAGK+4e1y6KxkqEmjC1ysplW7YQaysPSYjXGtyhqKUD1gvSekLojS1
-	0OBAg7wu6A+GkGTa26PDu6zJer/uDcsAX2adBHRNJGOXA1RrDK6pZ16WetQp//PapgewKy
-	0O83/8aW6LWvhU/Wi0CV0c7dPXKkSJc=
+	bh=oXjtiiPFLzYFznlWn/C8ZCBcRUde7S7BFmz8pb92S3c=;
+	b=YFINieC/XziGqNKvYCJxQsWesX9OVovupGp2FPfPA9gmhSpr5N84y4kzTsF4iZbAptFuUZ
+	xtciKUEtp8KiqhKSYoUn+5m9GIXPXHJHy5ymQYP7rr5g4qPH1mOjC2UQu4MCS24jiPq5Ev
+	HOHWXU2XLs9a1zTsQX62+JfG6jEJQ5c=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1711552986; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1711552991; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=BqLZjhhBHT3mnXz0DltiWo9mb+SXQAswcBtFsIHNjqU=;
-	b=eCXUM4ctFmRMh/J+LAGK+4e1y6KxkqEmjC1ysplW7YQaysPSYjXGtyhqKUD1gvSekLojS1
-	0OBAg7wu6A+GkGTa26PDu6zJer/uDcsAX2adBHRNJGOXA1RrDK6pZ16WetQp//PapgewKy
-	0O83/8aW6LWvhU/Wi0CV0c7dPXKkSJc=
+	bh=oXjtiiPFLzYFznlWn/C8ZCBcRUde7S7BFmz8pb92S3c=;
+	b=YFINieC/XziGqNKvYCJxQsWesX9OVovupGp2FPfPA9gmhSpr5N84y4kzTsF4iZbAptFuUZ
+	xtciKUEtp8KiqhKSYoUn+5m9GIXPXHJHy5ymQYP7rr5g4qPH1mOjC2UQu4MCS24jiPq5Ev
+	HOHWXU2XLs9a1zTsQX62+JfG6jEJQ5c=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -79,118 +79,126 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v6 6/8] xen/spinlock: support higher number of cpus
-Date: Wed, 27 Mar 2024 16:22:27 +0100
-Message-Id: <20240327152229.25847-7-jgross@suse.com>
+Subject: [PATCH v6 7/8] xen/rwlock: raise the number of possible cpus
+Date: Wed, 27 Mar 2024 16:22:28 +0100
+Message-Id: <20240327152229.25847-8-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20240327152229.25847-1-jgross@suse.com>
 References: <20240327152229.25847-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: 3.70
-X-Spamd-Result: default: False [3.70 / 50.00];
+X-Spam-Score: 1.49
+X-Spam-Flag: NO
+X-Spamd-Bar: +
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b="YFINieC/"
+X-Spamd-Result: default: False [1.49 / 50.00];
+	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	 FROM_HAS_DN(0.00)[];
 	 TO_DN_SOME(0.00)[];
 	 R_MISSING_CHARSET(2.50)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
 	 BROKEN_CONTENT_TYPE(1.50)[];
-	 RCVD_COUNT_THREE(0.00)[3];
+	 DWL_DNSWL_MED(-2.00)[suse.com:dkim];
 	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 DKIM_TRACE(0.00)[suse.com:+];
+	 MX_GOOD(-0.01)[];
 	 RCPT_COUNT_SEVEN(0.00)[7];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
 	 FROM_EQ_ENVFROM(0.00)[];
 	 MIME_TRACE(0.00)[0:+];
-	 ARC_NA(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 MIME_GOOD(-0.10)[text/plain];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 RCVD_TLS_ALL(0.00)[]
-X-Spam-Level: ***
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spam-Flag: NO
+	 RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	 RCVD_TLS_ALL(0.00)[];
+	 RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:98:from]
+X-Spam-Level: *
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: A84AC38B63
 
-Allow 16 bits per cpu number, which is the limit imposed by
-spinlock_tickets_t.
+The rwlock handling is limiting the number of cpus to 4095 today. The
+main reason is the use of the atomic_t data type for the main lock
+handling, which needs 2 bits for the locking state (writer waiting or
+write locked), 12 bits for the id of a possible writer, and a 12 bit
+counter for readers. The limit isn't 4096 due to an off by one sanity
+check.
 
-This will allow up to 65535 cpus, while increasing only the size of
-recursive spinlocks in debug builds from 8 to 12 bytes.
+The atomic_t data type is 32 bits wide, so in theory 15 bits for the
+writer's cpu id and 15 bits for the reader count seem to be fine, but
+via read_trylock() more readers than cpus are possible.
 
-The current Xen limit of 4095 cpus is imposed by SPINLOCK_CPU_BITS
-being 12. There are machines available with more cpus than the current
-Xen limit, so it makes sense to have the possibility to use more cpus.
+This means that it is possible to raise the number of cpus to 16384
+without changing the rwlock_t data structure. In order to avoid the
+reader count wrapping to zero, don't let read_trylock() succeed in case
+the highest bit of the reader's count is set already. This leaves enough
+headroom for non-recursive readers to enter without risking a wrap.
+
+While at it calculate _QW_CPUMASK and _QR_SHIFT from _QW_SHIFT and
+add a sanity check for not overflowing the atomic_t data type.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V5:
-- keep previous recursion limit (Julien Grall)
+- new patch
 V6:
-- use unsigned int instead of uint32_t (Jan Beulich)
+- add comment to _can_read_lock() (Jan Beulich)
 ---
- xen/common/spinlock.c      |  2 ++
- xen/include/xen/spinlock.h | 20 ++++++++++----------
- 2 files changed, 12 insertions(+), 10 deletions(-)
+ xen/include/xen/rwlock.h | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
-index 7ccb725171..5aa9ba6188 100644
---- a/xen/common/spinlock.c
-+++ b/xen/common/spinlock.c
-@@ -485,7 +485,9 @@ bool _rspin_trylock(rspinlock_t *lock)
+diff --git a/xen/include/xen/rwlock.h b/xen/include/xen/rwlock.h
+index 65d88b0ef4..232782801d 100644
+--- a/xen/include/xen/rwlock.h
++++ b/xen/include/xen/rwlock.h
+@@ -23,12 +23,12 @@ typedef struct {
+ #define rwlock_init(l) (*(l) = (rwlock_t)RW_LOCK_UNLOCKED)
  
-     /* Don't allow overflow of recurse_cpu field. */
-     BUILD_BUG_ON(NR_CPUS > SPINLOCK_NO_CPU);
-+    BUILD_BUG_ON(SPINLOCK_CPU_BITS > sizeof(lock->recurse_cpu) * 8);
-     BUILD_BUG_ON(SPINLOCK_RECURSE_BITS < 3);
-+    BUILD_BUG_ON(SPINLOCK_MAX_RECURSE > ((1u << SPINLOCK_RECURSE_BITS) - 1));
+ /* Writer states & reader shift and bias. */
+-#define    _QW_CPUMASK  0xfffU             /* Writer CPU mask */
+-#define    _QW_SHIFT    12                 /* Writer flags shift */
+-#define    _QW_WAITING  (1U << _QW_SHIFT)  /* A writer is waiting */
+-#define    _QW_LOCKED   (3U << _QW_SHIFT)  /* A writer holds the lock */
+-#define    _QW_WMASK    (3U << _QW_SHIFT)  /* Writer mask */
+-#define    _QR_SHIFT    14                 /* Reader count shift */
++#define    _QW_SHIFT    14                      /* Writer flags shift */
++#define    _QW_CPUMASK  ((1U << _QW_SHIFT) - 1) /* Writer CPU mask */
++#define    _QW_WAITING  (1U << _QW_SHIFT)       /* A writer is waiting */
++#define    _QW_LOCKED   (3U << _QW_SHIFT)       /* A writer holds the lock */
++#define    _QW_WMASK    (3U << _QW_SHIFT)       /* Writer mask */
++#define    _QR_SHIFT    (_QW_SHIFT + 2)         /* Reader count shift */
+ #define    _QR_BIAS     (1U << _QR_SHIFT)
  
-     check_lock(&lock->debug, true);
+ void queue_read_lock_slowpath(rwlock_t *lock);
+@@ -36,14 +36,21 @@ void queue_write_lock_slowpath(rwlock_t *lock);
  
-diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
-index 3a4092626c..db00a24646 100644
---- a/xen/include/xen/spinlock.h
-+++ b/xen/include/xen/spinlock.h
-@@ -8,16 +8,16 @@
- #include <asm/system.h>
- #include <asm/spinlock.h>
+ static inline bool _is_write_locked_by_me(unsigned int cnts)
+ {
+-    BUILD_BUG_ON(_QW_CPUMASK < NR_CPUS);
++    BUILD_BUG_ON((_QW_CPUMASK + 1) < NR_CPUS);
++    BUILD_BUG_ON(NR_CPUS * _QR_BIAS > INT_MAX);
+     return (cnts & _QW_WMASK) == _QW_LOCKED &&
+            (cnts & _QW_CPUMASK) == smp_processor_id();
+ }
  
--#define SPINLOCK_CPU_BITS  12
-+#define SPINLOCK_CPU_BITS  16
+ static inline bool _can_read_lock(unsigned int cnts)
+ {
+-    return !(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts);
++    /*
++     * If write locked by the caller, no other readers are possible.
++     * Not allowing the lock holder to read_lock() another 32768 times ought
++     * to be fine.
++     */
++    return cnts <= INT_MAX &&
++           (!(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts));
+ }
  
- #ifdef CONFIG_DEBUG_LOCKS
- union lock_debug {
--    uint16_t val;
--#define LOCK_DEBUG_INITVAL 0xffff
-+    uint32_t val;
-+#define LOCK_DEBUG_INITVAL 0xffffffff
-     struct {
--        uint16_t cpu:SPINLOCK_CPU_BITS;
--#define LOCK_DEBUG_PAD_BITS (14 - SPINLOCK_CPU_BITS)
--        uint16_t :LOCK_DEBUG_PAD_BITS;
-+        unsigned int cpu:SPINLOCK_CPU_BITS;
-+#define LOCK_DEBUG_PAD_BITS (30 - SPINLOCK_CPU_BITS)
-+        unsigned int :LOCK_DEBUG_PAD_BITS;
-         bool irq_safe:1;
-         bool unseen:1;
-     };
-@@ -211,11 +211,11 @@ typedef struct spinlock {
- 
- typedef struct rspinlock {
-     spinlock_tickets_t tickets;
--    uint16_t recurse_cpu:SPINLOCK_CPU_BITS;
-+    uint16_t recurse_cpu;
- #define SPINLOCK_NO_CPU        ((1u << SPINLOCK_CPU_BITS) - 1)
--#define SPINLOCK_RECURSE_BITS  (16 - SPINLOCK_CPU_BITS)
--    uint16_t recurse_cnt:SPINLOCK_RECURSE_BITS;
--#define SPINLOCK_MAX_RECURSE   ((1u << SPINLOCK_RECURSE_BITS) - 1)
-+#define SPINLOCK_RECURSE_BITS  8
-+    uint8_t recurse_cnt;
-+#define SPINLOCK_MAX_RECURSE   15
-     union lock_debug debug;
- #ifdef CONFIG_DEBUG_LOCK_PROFILE
-     struct lock_profile *profile;
+ /*
 -- 
 2.35.3
 
