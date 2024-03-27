@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7588988E8B6
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 16:24:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698619.1090571 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93F6488E909
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 16:29:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698631.1090581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpV8J-0003gj-Uy; Wed, 27 Mar 2024 15:24:07 +0000
+	id 1rpVDY-0004pa-LL; Wed, 27 Mar 2024 15:29:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698619.1090571; Wed, 27 Mar 2024 15:24:07 +0000
+Received: by outflank-mailman (output) from mailman id 698631.1090581; Wed, 27 Mar 2024 15:29:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpV8J-0003ek-Rt; Wed, 27 Mar 2024 15:24:07 +0000
-Received: by outflank-mailman (input) for mailman id 698619;
- Wed, 27 Mar 2024 15:24:06 +0000
+	id 1rpVDY-0004nA-I9; Wed, 27 Mar 2024 15:29:32 +0000
+Received: by outflank-mailman (input) for mailman id 698631;
+ Wed, 27 Mar 2024 15:29:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Df3K=LB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rpV8I-0003eM-53
- for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 15:24:06 +0000
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
- [2607:f8b0:4864:20::833])
+ <SRS0=Cny1=LB=cloud.com=christian.lindig@srs-se1.protection.inumbo.net>)
+ id 1rpVDX-0004n4-Af
+ for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 15:29:31 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0bdb895d-ec4e-11ee-afe3-a90da7624cb6;
- Wed, 27 Mar 2024 16:24:05 +0100 (CET)
-Received: by mail-qt1-x833.google.com with SMTP id
- d75a77b69052e-4317fbb669cso4404461cf.2
- for <xen-devel@lists.xenproject.org>; Wed, 27 Mar 2024 08:24:05 -0700 (PDT)
-Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- ci7-20020a05622a260700b00430d8e11bebsm4828495qtb.64.2024.03.27.08.24.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Mar 2024 08:24:03 -0700 (PDT)
+ id ce096217-ec4e-11ee-afe3-a90da7624cb6;
+ Wed, 27 Mar 2024 16:29:30 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a46f0da1b4fso880731066b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Mar 2024 08:29:30 -0700 (PDT)
+Received: from smtpclient.apple ([160.101.139.1])
+ by smtp.gmail.com with ESMTPSA id
+ j16-20020a170906411000b00a4655976025sm5546248ejk.82.2024.03.27.08.29.29
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 27 Mar 2024 08:29:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0bdb895d-ec4e-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: ce096217-ec4e-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1711553044; x=1712157844; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NSPFOYxauzNkJoM3JrPrvyYTOjlfuIGvvhyRlKI24pQ=;
-        b=KNG7Y6aAKPXZos4SgWuYLvi9XtVBb1YmCwx0HmkCjzABQKIlgqpSquUB/Wm0H36IRt
-         UxRpBZbbm8RT2eI2+wQpevHMaIrhMT7YbA6mL31ZyAGTKRIhPBInLNmQxJ+T9QF6RWCF
-         ok14G7GhVUNXXcSHOnEkTgfxHW+rMOQd9UJy4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711553044; x=1712157844;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1711553370; x=1712158170; darn=lists.xenproject.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NSPFOYxauzNkJoM3JrPrvyYTOjlfuIGvvhyRlKI24pQ=;
-        b=JNCOZ0fIhBECTQjNpSs4Y07oZrMjwtVf+mGdCR0CXide/AKLmL5XaJf3V0Psz9PAlc
-         NOTaM4At2ChNzCs4q0sPe8D29csFrxJ96Qa0dS9jVo7CJqpYkPOJU8f27Cn3rJP6BOPE
-         7vBarqWzv4XKbHMs4LuKznggeBJ5d+0iQDTjWX3YsHsu+vmYxVinfJLf5VNdZRcUnAlX
-         wsNq3bDmjGCT8+1IkuR8oX3lR9pPX2LC3ADPyh9H8vSN1oeZlot4eQL8ErtnDeHrTVc9
-         uq2MItaaIOarJRSjev8xHMPq4aGB0LtUMdrVkNKU5w9tyK5QW8P80ciO8VrctwYFyBwI
-         TwCQ==
-X-Gm-Message-State: AOJu0YyTY/zOC+3YYbW6dZnDAtqbO5Ogbn/fohjE9iVqU75gNowZySaF
-	jhG8IYbVMfvZ9XZunYwqEXODtW8OdPso6exrjjDAUJVPS1s72arLMNdb5IRpHS1g2ZRDY97QfMf
-	OiG0=
-X-Google-Smtp-Source: AGHT+IHNu0z2dJrl/U2WOT1ydfNygg/xrYmuJllvcxefz8AGN/rBoaZGMq9FSQJuTJ5qgKxfwLS/Jw==
-X-Received: by 2002:a05:622a:387:b0:431:376a:1eb5 with SMTP id j7-20020a05622a038700b00431376a1eb5mr6896370qtx.31.1711553044132;
-        Wed, 27 Mar 2024 08:24:04 -0700 (PDT)
-Message-ID: <ab874064-8cce-4a89-8eb1-5e43edeff7ba@citrix.com>
-Date: Wed, 27 Mar 2024 15:24:01 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/oxenstored: Re-format
-To: Edwin Torok <edwin.torok@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Christian Lindig <christian.lindig@citrix.com>,
- Rob Hoes <Rob.Hoes@citrix.com>
-References: <20240226104829.1044479-1-andrew.cooper3@citrix.com>
- <CAEfZLvnc+cf6XRqKNcaymd_7pDgw-1Lu10sjDr_jpzNuNhc3YQ@mail.gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <CAEfZLvnc+cf6XRqKNcaymd_7pDgw-1Lu10sjDr_jpzNuNhc3YQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+        bh=bDI/GjmcSQUKjpBzVonLr28hXzTP6U8GNPFMf2MZnuE=;
+        b=CBmx227J7vZ0qIwDniK5qVjiBiPy9mKvnNMe28tJs6BojWmf4wA0zVglKs+w7f3TuA
+         euNfO3FADd8iYd7jlhKJpUt5Va4O8ovXJ0BjkqcaEBiEhfwc2b0NoRVy992GkML5jX/3
+         HxVuc1RbkJhoraEs62djymyazHAZHF3pewQIU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1711553370; x=1712158170;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=bDI/GjmcSQUKjpBzVonLr28hXzTP6U8GNPFMf2MZnuE=;
+        b=JyXSPE1KZar/wZoH03z5twEkjC68MybeCg3YmyjXXAQeCFYky9Y7TANChI5X/9Scuf
+         LFwLmePomM0kp44K+mCYabdWA3S4SUtT6NdQR3OOSoYKT0Au5B+Vyt77OZOnaOfVONrI
+         PG37Cnsng02gBXqQYN+S3QT6vMQViLoF7cdaEKCcVg/nnLJYLq3dhT9ib5piJ7y9YM7R
+         2nR2+PkrAmjrP1JnKEfZIY+WtfoA1fgtk3eH43keHJxLdssHYUQcYS1bpaQa74cufnmC
+         HHZ5kIWSxX1e2o4TLHqDm4KZCrHTtShUKQaMWig8tD0CVzmv6uLuv33GyEIhdAZYosdE
+         jbBA==
+X-Forwarded-Encrypted: i=1; AJvYcCVbrBwFMvg4DD+or1kxqU1KRrAoLdThlKh+k/3NDpYurqo5bFqGQdFeeXYl/p2wO3J92EW0hoYpuiI5AQHS2K9nYw7gCwjSbPxsXUobo00=
+X-Gm-Message-State: AOJu0YyVrNLCSRDK5hngyZjOMSdZr49Hvr7kY/Iy4pmrNKwX9yfLjOEV
+	t74hlWLcO8QjqyAATgG3RaxpwYIRJUuMGegYwrE/IgdWT5IozqncyHHVdURAfbg=
+X-Google-Smtp-Source: AGHT+IFs1t00YIQ9M+P5FFPZF5nJ+3cPn451JDwrv0ntl1Iho9b6LlmCt8qP0Qj7MgZ+/Yy/PfBDlA==
+X-Received: by 2002:a17:906:3ad5:b0:a46:5d40:eb97 with SMTP id z21-20020a1709063ad500b00a465d40eb97mr2078171ejd.70.1711553369957;
+        Wed, 27 Mar 2024 08:29:29 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.200.91.1.1\))
+Subject: Re: preparations for 4.17.4
+From: Christian Lindig <christian.lindig@cloud.com>
+In-Reply-To: <8fbb0ac1-e72b-4532-8d46-d79b751d8c96@citrix.com>
+Date: Wed, 27 Mar 2024 15:29:18 +0000
+Cc: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Julien Grall <julien@xen.org>,
+ Kelly Choi <kelly.choi@cloud.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ David Scott <dave@recoil.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <AA44D427-4483-41DC-AA2A-469E41AC5246@cloud.com>
+References: <b726b105-9204-4a72-8fbc-ceaa8e74f3ec@suse.com>
+ <6feb56fe-769d-4809-b16f-6fc4d5477747@citrix.com>
+ <93172b11-c737-400e-9d2e-daafee8f1cbc@citrix.com>
+ <c08666ad-2baa-407f-943a-a47d1aba345f@suse.com>
+ <8fbb0ac1-e72b-4532-8d46-d79b751d8c96@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+X-Mailer: Apple Mail (2.3774.200.91.1.1)
 
-On 27/03/2024 3:11 pm, Edwin Torok wrote:
-> On Mon, Feb 26, 2024 at 10:48 AM Andrew Cooper
-> <andrew.cooper3@citrix.com> wrote:
->> Rerun make format.
-> Looks good, although not sure whether whitespace will be correctly
-> preserved in email, recommend using git to push the changes.
-> Reviewed-by: Edwin Török <edwin.torok@cloud.com>
 
-Thanks.  Don't worry about the patch workflow.
 
-~Andrew
+> On 27 Mar 2024, at 14:42, Andrew Cooper <andrew.cooper3@citrix.com> =
+wrote:
+>=20
+> On 27/03/2024 2:06 pm, Jan Beulich wrote:
+>> On 27.03.2024 15:01, Andrew Cooper wrote:
+>>> It occurs to me that these want considering:
+>>>=20
+>>> b6cf604207fd - tools/oxenstored: Use Map instead of Hashtbl for =
+quotas
+>>> 098d868e52ac - tools/oxenstored: Make Quota.t pure
+>>>=20
+>>> while 4.17 is still in general support.  These came from a =
+performance
+>>> regression we investigated.
+>>>=20
+>>> I've done the backport to 4.17 and they're not entirely trivial =
+(owing
+>>> to the major source reformat in 4.18) so can commit them if you'd =
+prefer.
+>> Didn't you bring these up for 4.18.1 already, and I said that I'd =
+leave
+>> this for the maintainers to decide? Same here, in any event. Cc-ing =
+them
+>> both, just in case.
+>=20
+> I could have sworn that I remembered requested this before, but =
+couldn't
+> remember where.
+>=20
+> I'll see about poking people for an answer.
+>=20
+> ~Andrew
+
+I understand we have backport; so I support upstreaming it.=20
+
+=E2=80=94 C=
 
