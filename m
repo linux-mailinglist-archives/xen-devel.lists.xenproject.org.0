@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E10D788E53F
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 15:19:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698580.1090431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1915E88E5E5
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Mar 2024 15:28:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698584.1090440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpU7i-0007tN-Va; Wed, 27 Mar 2024 14:19:26 +0000
+	id 1rpUFl-0001rg-NW; Wed, 27 Mar 2024 14:27:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698580.1090431; Wed, 27 Mar 2024 14:19:26 +0000
+Received: by outflank-mailman (output) from mailman id 698584.1090440; Wed, 27 Mar 2024 14:27:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpU7i-0007rP-SK; Wed, 27 Mar 2024 14:19:26 +0000
-Received: by outflank-mailman (input) for mailman id 698580;
- Wed, 27 Mar 2024 14:19:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cRKJ=LB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rpU7h-0007rF-KG
- for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 14:19:25 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 02894f77-ec45-11ee-a1ef-f123f15fe8a2;
- Wed, 27 Mar 2024 15:19:23 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a46a7208eedso926208966b.0
- for <xen-devel@lists.xenproject.org>; Wed, 27 Mar 2024 07:19:23 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- w2-20020a1709067c8200b00a4720ce2e75sm5453491ejo.129.2024.03.27.07.19.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Mar 2024 07:19:22 -0700 (PDT)
+	id 1rpUFl-0001q9-Kk; Wed, 27 Mar 2024 14:27:45 +0000
+Received: by outflank-mailman (input) for mailman id 698584;
+ Wed, 27 Mar 2024 14:27:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lksO=LB=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rpUFk-0001q3-Cp
+ for xen-devel@lists.xenproject.org; Wed, 27 Mar 2024 14:27:44 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2c85596b-ec46-11ee-afe3-a90da7624cb6;
+ Wed, 27 Mar 2024 15:27:43 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-515c198e835so372854e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Mar 2024 07:27:43 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ jw24-20020a170906e95800b00a49856ae93asm3739062ejb.198.2024.03.27.07.27.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Mar 2024 07:27:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,158 +45,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02894f77-ec45-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 2c85596b-ec46-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711549163; x=1712153963; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IzySVz8jHI3rWBmAmd7slHPi22PNQrHAEXn3r2NXpDQ=;
-        b=GB2BZyYQ7vfxrulcwrT3fQ9Ile8oK/iWRMElLTw423YlkJPw6DdgMsm09Rn/1sc7+t
-         5MH/VSqqBeoOwk4SonORI4msNPqFSPbCQgvMsI021y70O4JDmpn/zSDDUud+XYUfL1BE
-         VsiV/ki16onv2Ukakb95taIiXYOgnwdulmtkxSndRMrxHed2PBSPjkgA4+VKJG7QAIlW
-         1jGaGkD4juoMZMUrVzEZgc9JteAfZ4CedpD99Su/7/fD7Nsp8nJYMRYq2FfkfFMIlRRg
-         j+Zx3BJ7jZvCmx3e5bNh61UHazehtxL3Pq7TflXu0rEh71AbQJNMbhxQxJxKgN6BUeWV
-         H0uw==
+        d=cloud.com; s=cloud; t=1711549663; x=1712154463; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=6s9TY9/Cn4vJqrwwNmvG7/hGbs5cbUMGy83r/DdqAYU=;
+        b=dMOmXAYnPmBrgmiBOAQLeLAlJ5Cd0yfJ0k5yEkljdGMFGw5AtD1CykvVwMdmCVn+o0
+         TDPlNmTXQWsz8rnyD6vAk4BTdnXP36abuZWRKfwfCx73MIcSfy59o80TB+ugbVNeRrFo
+         txr5tHiKJ4ZPWY6xGDu+YfgSRKJYoXWPDfC4w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711549163; x=1712153963;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1711549663; x=1712154463;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IzySVz8jHI3rWBmAmd7slHPi22PNQrHAEXn3r2NXpDQ=;
-        b=Jtzq+9uEbelT0nACtCf0/myyHR4zY6NJWBPsr6vS2arOH69fHEaCYKDaPxWIyY/gfH
-         uNfyk8xaxiTpdIHX8+1SLLCbMevu9rA211z1xcc6YEvBR/ykgCN1W27LAdVDZMS6d5qH
-         J2MrwyVU5DJWFrEz+qAGuySi8UIpRgRFU5rg8DFBeP5NSaTcXs8SBvJT3ZcRGxJabG+t
-         4ivxYbnRj2Dh7B/G6IhpXCLLnMBzcKpMSZqPG8Tu6gZsB3I/sJs4TRcv727bMIhoocxw
-         Eo075MLRXa4bHUFN/a2s2dsnpFBeZxF+X8PjBNxaSKBocUi+0it9LdWzsphlUjkcsujr
-         Ossg==
-X-Forwarded-Encrypted: i=1; AJvYcCVDGmvEnrQZczrOOq1jYI4GuKyTNZychmEI7pXe3IU61O2XYVp5/QpRGEIvZK+FO6K03L88R9xvrmy8Cihh9gFphhlWGtT7A/91kdd3vD8=
-X-Gm-Message-State: AOJu0YxMLczsStVNEhur6lg1GPYBQ4E0HcqWp3shSmRyKbxdOatWXPGi
-	bP9nKkkrQWUaWU2kvsQlTM/+f13EsB0GQ7gExsleIjdCXrca8tRz3G3ETm2qnA==
-X-Google-Smtp-Source: AGHT+IETV6LlyH64QTtctYTBAnJxPxxa0VhxGCRMOVDYxwqO88orE7/mQ7EeZmsP5brbItOGhkzGUQ==
-X-Received: by 2002:a17:907:31ce:b0:a4d:fe8f:bb93 with SMTP id xf14-20020a17090731ce00b00a4dfe8fbb93mr2391989ejb.30.1711549163038;
-        Wed, 27 Mar 2024 07:19:23 -0700 (PDT)
-Message-ID: <92754a17-fe02-4050-9ca5-5a1ded3483dc@suse.com>
-Date: Wed, 27 Mar 2024 15:19:21 +0100
+        bh=6s9TY9/Cn4vJqrwwNmvG7/hGbs5cbUMGy83r/DdqAYU=;
+        b=QNFYymALNI332gH0b4zEtuN9D1LeRbujqo+KnUyDGFGka6CwBdRRTJzQHmuW6C9EXt
+         eh20XIkvFP45ZNCnup9yg8dHFXY+pYCXdBePcvZ8AT4NG48+zDcpNkDFVxHQJY8acoYF
+         sk25ejTGqGCUjx79b6tuJttiJTA1QQ9n3BVzVfVxIGfZzDvMRbILIgD7cj9kgqXA2Kv+
+         xvk+7Ulv/eWRdejZNlv3hWN2Uc71wKXwRpU/idTqPsNX+p+RCLXkLAAmuOmGYTcwi33n
+         GH51EdTa+MXK1amWswr3gTbr5OYDlW2Bny9+dBtCOTQxohhi7yCu/YDtNERogSjaazch
+         9T3g==
+X-Forwarded-Encrypted: i=1; AJvYcCUNlGM+d2HfJ7fC/oerzDv+eoAwtbsWXO6GzWJT1n42WCLXlLR1GKSUlV9EUYUo0B5/Lcob/GZWx72gMIeIrA33cVAaM9E2SDC9ALt0dec=
+X-Gm-Message-State: AOJu0YwOzts0TXUbaPu8kI8x0JcerI6a2cXWOt5SCw0KIefaTpu/fbpS
+	tQa7Ne2m+eEu2rZIIaIcduHFWDdWWJYXiyBOK+9cEbsuytvBU5DcUGVHaPk0m8Q=
+X-Google-Smtp-Source: AGHT+IGfOGc5SfDKXbq/6cWQXWrbWdawL9QipNh4y7lGdJ/Uq0Y4kUnfad0T2fo+7kdSA94cBcA4PA==
+X-Received: by 2002:a05:6512:6c3:b0:515:ba94:8929 with SMTP id u3-20020a05651206c300b00515ba948929mr4374913lff.32.1711549662886;
+        Wed, 27 Mar 2024 07:27:42 -0700 (PDT)
+Date: Wed, 27 Mar 2024 14:27:41 +0000
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
+Cc: David Woodhouse <dwmw@amazon.co.uk>, qemu-devel@nongnu.org,
+	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+	Paul Durrant <paul@xen.org>, qemu-arm@nongnu.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	xen-devel@lists.xenproject.org, qemu-block@nongnu.org,
+	kvm@vger.kernel.org, Thomas Huth <thuth@redhat.com>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
+Subject: Re: [PATCH-for-9.0 v2 12/19] hw/xen: Merge 'hw/xen/arch_hvm.h' in
+ 'hw/xen/xen-hvm-common.h'
+Message-ID: <8829dd17-308b-45fe-8d48-a980470316e8@perard>
+References: <20231114143816.71079-1-philmd@linaro.org>
+ <20231114143816.71079-13-philmd@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/6] Revert "xen/x86: bzImage parse kernel_alignment"
-Content-Language: en-US
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20240326213847.3944-1-jason.andryuk@amd.com>
- <20240326213847.3944-2-jason.andryuk@amd.com>
- <f1940242-0259-4b4c-baff-2fa73435d1b9@suse.com> <ZgPf_I2CJ7358jbZ@macbook>
- <09c73d19-dda8-44a3-be4f-1644a2bd1a4c@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <09c73d19-dda8-44a3-be4f-1644a2bd1a4c@amd.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20231114143816.71079-13-philmd@linaro.org>
 
-On 27.03.2024 15:08, Jason Andryuk wrote:
-> On 2024-03-27 04:59, Roger Pau MonnÃ© wrote:
->> On Wed, Mar 27, 2024 at 08:22:41AM +0100, Jan Beulich wrote:
->>> On 26.03.2024 22:38, Jason Andryuk wrote:
->>>> A new ELF note will specify the alignment for a relocatable PVH kernel.
->>>> ELF notes are suitable for vmlinux and other ELF files, so this
->>>> Linux-specific bzImage parsing in unnecessary.
->>>>
->>>> This reverts commit c44cac229067faeec8f49247d1cf281723ac2d40.
->>>>
->>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>>
->>> Since you keep re-sending this: In private discussion Roger has indicated
->>> that, like me, he too would prefer falling back to the ELF data, before
->>> falling back to the arch default (Roger, please correct me if I got it
->>> wrong). That would make it necessary that the change you're proposing to
->>> revert here is actually kept.
->>
->> Sorry, was meaning to reply yesterday but Jason is very fast at
->> sending new version so I'm always one version behind.
+On Tue, Nov 14, 2023 at 03:38:08PM +0100, Philippe Mathieu-Daudé wrote:
+> We don't need a target-specific header for common target-specific
+> prototypes. Declare xen_arch_handle_ioreq() and xen_arch_set_memory()
+> in "hw/xen/xen-hvm-common.h".
 > 
-> :)
-> 
-> I was hoping to finish this up and get it in...
-> 
->> IMO the order: ELF note, PHDR alignment, arch default should be the
->> preferred one.
->>
->>> Or wait - what you're reverting is taking the alignment out of the
->>> bzImage header. I don't expect the BSDs to use that protocol; aiui that's
->>> entirely Linux-specific.
->>
->> Yeah, I don't have strong opinions in keeping this, we already do
->> bzImage parsing, so we might as well attempt to fetch the alignment
->> from there if correct:
->>
->> ELF note, bzImage kernel_alignment, ELF PHDR alignment, arch default
-> 
-> I'm not sure how to handle ELF PHDR vs. arch default.  ELF PHDR will 
-> always be set, AFAIU.  Should that always be respected, which means we 
-> don't need an arch default?
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
+> Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 
-A value of 0 (and 1) is specifically permitted, to indicate no alignment.
-We may take 0 to mean default, but what you suggest below is another
-plausible approach. Yet another might be to take anything below PAGE_SIZE
-as "use default".
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 
-> To include arch default, it would be something like this:
-> 
->      if ( parms->phys_align != UNSET_ADDR )
->          align = parms->phys_align;
->      else if ( bz_align )
->          align = bz_align;
+Thanks,
 
-Why do you include bz again here? Didn't you previously indicate the
-header field can't be relied upon? Which is also why, finally, I committed
-this revert earlier today.
-
-Jan
-
->      else if ( elf->palign > PHYS32_RELOC_ALIGN_DEFAULT )
->          align = elf->palign;
->      else
->          align = PHYS32_RELOC_ALIGN_DEFAULT;
-> 
-> 
->>> I further meanwhile realized that consulting the ELF phdrs may also be
->>> ambiguous, as there may be more than one. I guess it would need to be the
->>> maximum of all of them then.
->>
->> My suggestion (not sure if I mentioned this before) was to use the
->> alignment of the first LOAD PHDR, which is the one that defines the
->> value of the dest_base field used as the image load start address.
->>
->> Using the maximum of all load PHDRs might be safer.
-> 
-> I'll find the maximum.
-> 
-> Thanks,
-> Jason
-
+-- 
+Anthony PERARD
 
