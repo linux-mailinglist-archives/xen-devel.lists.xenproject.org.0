@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2CC088FD69
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 11:50:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698889.1091117 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F216588FD98
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 11:58:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698898.1091144 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpnKs-0004gI-IE; Thu, 28 Mar 2024 10:50:18 +0000
+	id 1rpnS7-0005dS-IX; Thu, 28 Mar 2024 10:57:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698889.1091117; Thu, 28 Mar 2024 10:50:18 +0000
+Received: by outflank-mailman (output) from mailman id 698898.1091144; Thu, 28 Mar 2024 10:57:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpnKs-0004eE-FM; Thu, 28 Mar 2024 10:50:18 +0000
-Received: by outflank-mailman (input) for mailman id 698889;
- Thu, 28 Mar 2024 10:50:17 +0000
+	id 1rpnS7-0005aF-Fw; Thu, 28 Mar 2024 10:57:47 +0000
+Received: by outflank-mailman (input) for mailman id 698898;
+ Thu, 28 Mar 2024 10:57:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cj01=LC=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1rpnKr-0004e8-Lz
- for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 10:50:17 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=hucl=LC=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1rpnS5-0005a8-LI
+ for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 10:57:45 +0000
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
+ [2607:f8b0:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f66ca5dc-ecf0-11ee-afe3-a90da7624cb6;
- Thu, 28 Mar 2024 11:50:16 +0100 (CET)
-Received: from [192.168.1.175] (unknown [176.206.12.122])
- by support.bugseng.com (Postfix) with ESMTPSA id EE84C4EE0737;
- Thu, 28 Mar 2024 11:50:15 +0100 (CET)
+ id 01128f8a-ecf2-11ee-afe3-a90da7624cb6;
+ Thu, 28 Mar 2024 11:57:44 +0100 (CET)
+Received: by mail-ot1-x32a.google.com with SMTP id
+ 46e09a7af769-6e6a9e2e2b6so424753a34.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 03:57:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,120 +40,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f66ca5dc-ecf0-11ee-afe3-a90da7624cb6
-Message-ID: <175b2ffe-a75f-4ecd-82e6-8a130a4ec22d@bugseng.com>
-Date: Thu, 28 Mar 2024 11:50:15 +0100
+X-Inumbo-ID: 01128f8a-ecf2-11ee-afe3-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1711623463; x=1712228263; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FhtDKIuK2M8Bo9W+lzZdZiI3O9xoxqV6+wkF/KfzFoA=;
+        b=NgT8BKiUbQzKanHMu/+moj929ISUUE4D/NDMHUFH8rK0UxptkDeiV69Pm1h1wZBaut
+         QtYSdz1ef+vA4Z1T13cHrjQVy3hCZAwfQmKl9YBLqZJHQhjZX32WTbJf04MkuIcEWH6i
+         MZO6f+fmedqsHCt3pyiF1BPG4hEESBweTeHn8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1711623463; x=1712228263;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=FhtDKIuK2M8Bo9W+lzZdZiI3O9xoxqV6+wkF/KfzFoA=;
+        b=mlaqHW6xgnFm/3LJFgk83DTXxVj+0VbCsmKOjQ/8X0Te/fAYY4HFGIFqQh4Zs63vdq
+         b0taUkuqqVsbrIPZuQTIaRWUFU5mm2YDLc6ZxlytG7gxoTj1J7qylNkNrJyx91IpBat8
+         UPIjSnMS54z/XmL2Q5EDzGKns5j7Sj1zr5fqoPWcKttzGtYeAN6wy1WLgfuOEhjEWCGo
+         3wqJow63nOyb0v4Gx/AHh+EyTJkXz7xnBIJZyHAONOmSOm+W//cszEsbUPmOc2D2ayw3
+         uFs1bubTBtU23k2FKYKslE7XiciX+5I6GHNnOOUENJlJgGdHZ7KJG+GDCnxt1c6wZshS
+         gaaQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUgJ7cwp3O5AlcwvbvOp3317ArMG61h6xr7Bjx7T+Bh084tfVEhh+xAnvGWNFarWJjshZpEb19dc1dKIpJMkzkAAng7uIUjrL0fZ4U0GAE=
+X-Gm-Message-State: AOJu0Yzn0fRWiCOGdQkRpGr7eU6UY65MkC62bXz7KoPtgA5jWtgZ+ge2
+	IiZBvPc21HEyX5hKCL4YJmhXngvIDMkDNXD9ccsxmPVjiTe5Dcf1S11ap3FDwLP9wohumQ7AcSW
+	SiwMxjJG6AR0dXXePHp7Jnq+m+ylHJ+GcN8o1HA==
+X-Google-Smtp-Source: AGHT+IFX2CPh4cCr3o9H1bDrJgbL6bJQAjkK76rczyRNo/qKvUZ7Oz2i82gtFGelIEHHFhv+sEpdNW628zrt/SJlTd8=
+X-Received: by 2002:a05:6871:7813:b0:229:f31d:8c3 with SMTP id
+ oy19-20020a056871781300b00229f31d08c3mr1524451oac.50.1711623463250; Thu, 28
+ Mar 2024 03:57:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 2/2] MISRA C Rule 20.7 states: "The features of
- `<stdarg.h>' shall not be used"
-Content-Language: en-US
+References: <20240313122454.965566-1-george.dunlap@cloud.com>
+ <20240313122454.965566-4-george.dunlap@cloud.com> <7a5b3ec3-c122-479a-b714-529e150bf4c0@suse.com>
+ <CA+zSX=ZE6uLf12o3WDUpNuZ6Kost=JEfWH0HugGqD43QGPsJ1A@mail.gmail.com> <f4f33db5-a49d-4706-8b55-cfcad916e8cb@suse.com>
+In-Reply-To: <f4f33db5-a49d-4706-8b55-cfcad916e8cb@suse.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Thu, 28 Mar 2024 10:57:29 +0000
+Message-ID: <CA+zSX=ZUfcL-HA_ygLxHkuvmWUu4hdk36Cc+CZPwfsK5akNUSA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] svm/nestedsvm: Introduce nested capabilities bit
 To: Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1711621080.git.simone.ballarin@bugseng.com>
- <97008d1b28eb922b3c0041830b09e827396aa0ec.1711621080.git.simone.ballarin@bugseng.com>
- <aa78458b-c106-41fd-bb7b-c088e7a74fdf@suse.com>
-From: Simone Ballarin <simone.ballarin@bugseng.com>
-Organization: BUGSENG
-In-Reply-To: <aa78458b-c106-41fd-bb7b-c088e7a74fdf@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 28/03/24 11:31, Jan Beulich wrote:
-> On 28.03.2024 11:29, Simone Ballarin wrote:
->> The Xen community wants to avoid using variadic functions except for
->> specific circumstances where it feels appropriate by strict code review.
-> 
-> In the title, s/20.7/17.1/ I suppose?
-> 
-> Jan
-> 
->> Functions hypercall_create_continuation and hypercall_xlat_continuation
->> are internal helper functions made to break long running hypercalls into
->> multiple calls. They take a variable number of arguments depending on the
->> original hypercall they are trying to continue.
->>
->> Add SAF deviations for the aforementioned functions.
->>
->> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
->>
->> ---
->> Changes in v3:
->> - rebase: change SAF-3-safe to SAF-4-safe.
->> Changes in v2:
->> - replaced "special hypercalls" with "internal helper functions".
->> ---
->>   docs/misra/safe.json     | 8 ++++++++
->>   xen/arch/arm/domain.c    | 1 +
->>   xen/arch/x86/hypercall.c | 2 ++
->>   3 files changed, 11 insertions(+)
->>
->> diff --git a/docs/misra/safe.json b/docs/misra/safe.json
->> index d361d0e65c..fe2bc18509 100644
->> --- a/docs/misra/safe.json
->> +++ b/docs/misra/safe.json
->> @@ -36,6 +36,14 @@
->>           },
->>           {
->>               "id": "SAF-4-safe",
->> +            "analyser": {
->> +                "eclair": "MC3R1.R17.1"
->> +            },
->> +            "name": "Rule 17.1: internal helper functions made to break long running hypercalls into multiple calls.",
->> +            "text": "They need to take a variable number of arguments depending on the original hypercall they are trying to continue."
->> +        },
->> +        {
->> +            "id": "SAF-5-safe",
->>               "analyser": {},
->>               "name": "Sentinel",
->>               "text": "Next ID to be used"
->> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
->> index f38cb5e04c..34cbfe699a 100644
->> --- a/xen/arch/arm/domain.c
->> +++ b/xen/arch/arm/domain.c
->> @@ -382,6 +382,7 @@ unsigned long hypercall_create_continuation(
->>       const char *p = format;
->>       unsigned long arg, rc;
->>       unsigned int i;
->> +    /* SAF-4-safe allowed variadic function */
->>       va_list args;
->>   
->>       current->hcall_preempted = true;
->> diff --git a/xen/arch/x86/hypercall.c b/xen/arch/x86/hypercall.c
->> index 01cd73040d..133e9f221c 100644
->> --- a/xen/arch/x86/hypercall.c
->> +++ b/xen/arch/x86/hypercall.c
->> @@ -31,6 +31,7 @@ unsigned long hypercall_create_continuation(
->>       const char *p = format;
->>       unsigned long arg;
->>       unsigned int i;
->> +    /* SAF-4-safe allowed variadic function */
->>       va_list args;
->>   
->>       curr->hcall_preempted = true;
->> @@ -115,6 +116,7 @@ int hypercall_xlat_continuation(unsigned int *id, unsigned int nr,
->>       struct cpu_user_regs *regs;
->>       unsigned int i, cval = 0;
->>       unsigned long nval = 0;
->> +    /* SAF-4-safe allowed variadic function */
->>       va_list args;
->>   
->>       ASSERT(nr <= ARRAY_SIZE(mcs->call.args));
-> 
-> 
+On Thu, Mar 28, 2024 at 6:44=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+> > As to why to have each vendor independent code check for HAP -- there
+> > are in fact two implementations of the code; it's nice to be able to
+> > look in one place for each implementation to determine the
+> > requirements.  Additionally, it would be possible, in the future, for
+> > one of the nested virt implementations to enable shadow mode, while
+> > the other one didn't.  The current arrangement makes that easy.
+>
+> Well, first - how likely is this, when instead we've been considering
+> whether we could get rid of shadow mode? And then this is balancing
+> between ease of future changes vs avoiding redundancy where it can be
+> avoided. I'm not going to insist on centralizing the HAP check, but I
+> certainly wanted the option to be considered.
 
-Yes, sorry.
+I considered it before replying to you; so consider it considered. :-)
 
--- 
-Simone Ballarin, M.Sc.
+> >>> --- a/xen/arch/x86/hvm/nestedhvm.c
+> >>> +++ b/xen/arch/x86/hvm/nestedhvm.c
+> >>> @@ -150,6 +150,16 @@ static int __init cf_check nestedhvm_setup(void)
+> >>>      __clear_bit(0x80, shadow_io_bitmap[0]);
+> >>>      __clear_bit(0xed, shadow_io_bitmap[1]);
+> >>>
+> >>> +    /*
+> >>> +     * NB this must be called after all command-line processing has =
+been
+> >>> +     * done, so that if (for example) HAP is disabled, nested virt i=
+s
+> >>> +     * disabled as well.
+> >>> +     */
+> >>> +    if ( cpu_has_vmx )
+> >>> +        start_nested_vmx(&hvm_funcs);
+> >>> +    else if ( cpu_has_svm )
+> >>> +        start_nested_svm(&hvm_funcs);
+> >>
+> >> Instead of passing the pointer, couldn't you have the functions return
+> >> bool, and then set hvm_funcs.caps.nested_virt from that? Passing that
+> >> pointer looks somewhat odd to me.
+> >
+> > For one, it makes start_nested_XXX symmetric to start_XXX, which also
+> > has access to the full hvm_funcs structure (albeit in the former case
+> > because it's creating the structure).
+>
+> This last aspect is the crucial aspect: start{svm,vmx}() are indeed quite
+> special because of this. Everywhere else we have accessor helpers when
+> hvm_funcs needs consulting, e.g. ...
+>
+> >  For two, both of them need to read caps.hap.
+>
+> ... caps _reads_ would want using (an) accessor(s), too.
+>
+> >  For three, it's just more flexible -- there may be
+> > future things that we want to modify in the start_nested_*()
+> > functions.  If we did as you suggest, and then added (say)
+> > caps.nested_virt_needs_hap, then we'd either need to add a second
+> > function, or refactor it to look like this.
+>
+> Right, I can see this as an argument when taking, as you do, speculation
+> on future needs into account. Albeit I'm then inclined to say that even
+> such modifications may better be done through accessor helpers.
 
-Field Application Engineer, BUGSENG (https://bugseng.com)
+Why access it through accessor helpers?
 
+I consider that it's the SVM and VMX "construction/setup" code
+respectively which "own" hvm_funcs (as evidenced by the fact that they
+create the structures and then return them); and I consider the
+start_nested_{vmx/svm} to be a part of the same code; so I consider it
+valid for them to have direct access to the structure.
+
+> >> Is there a reason to use direct calls here rather than a true hook
+> >> (seeing that hvm_funcs must have been populated by the time we make it
+> >> here)? I understand we're (remotely) considering to switch away from
+> >> using hooks at some point, but right now this feels somewhat
+> >> inconsistent if not further justified.
+> >
+> > Again it mimics the calls to start_vmx/svm in hvm_enable.  But I could
+> > look at adding a function pointer to see if it works.
+>
+> Andrew - do you have any input here towards those somewhat vague plans
+> of getting rid of the hook functions? I guess they're more relevant in
+> places where we can't easily use the altcall machinery (i.e. not here).
+
+Rather than do all that work collecting information, why don't we just
+check it in as it is?  Obviously if we're thinking about getting rid
+of hook functions at some point anyway, it can't be all that bad.
+There is an aesthetic justification for the lack of hook, in that it's
+similar to the start_vmx/svm() functions.
+
+So far I really don't think the remaining "open" changes we're
+discussing are worth either of our efforts.  I don't plan to make any
+of these changes unless another x86 maintainer seconds your request
+(or you can convince me they're worth making).
+
+(The other two changes -- correcting the function name in the commit
+message, and removing the extra blank line -- I've already changed
+locally, so could check in with your ack.)
+
+ -George
 
