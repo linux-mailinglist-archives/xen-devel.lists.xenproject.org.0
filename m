@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11B1E88F83F
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 07:57:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698813.1091006 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AA8F88FB91
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 10:33:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698847.1091017 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpjhZ-0004sb-2N; Thu, 28 Mar 2024 06:57:29 +0000
+	id 1rpm6S-00056d-Tp; Thu, 28 Mar 2024 09:31:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698813.1091006; Thu, 28 Mar 2024 06:57:29 +0000
+Received: by outflank-mailman (output) from mailman id 698847.1091017; Thu, 28 Mar 2024 09:31:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpjhY-0004qM-Vm; Thu, 28 Mar 2024 06:57:28 +0000
-Received: by outflank-mailman (input) for mailman id 698813;
- Thu, 28 Mar 2024 06:57:27 +0000
+	id 1rpm6S-00054R-QN; Thu, 28 Mar 2024 09:31:20 +0000
+Received: by outflank-mailman (input) for mailman id 698847;
+ Thu, 28 Mar 2024 09:31:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Dwcp=LC=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1rpjhX-0004Yt-Jj
- for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 06:57:27 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20601.outbound.protection.outlook.com
- [2a01:111:f403:2417::601])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JFXD=LC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rpm6R-00054K-Fu
+ for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 09:31:19 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6f2f7652-ecd0-11ee-afe3-a90da7624cb6;
- Thu, 28 Mar 2024 07:57:26 +0100 (CET)
-Received: from BN0PR04CA0209.namprd04.prod.outlook.com (2603:10b6:408:e9::34)
- by CY8PR12MB7491.namprd12.prod.outlook.com (2603:10b6:930:92::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.32; Thu, 28 Mar
- 2024 06:57:23 +0000
-Received: from BN2PEPF000044A8.namprd04.prod.outlook.com
- (2603:10b6:408:e9:cafe::89) by BN0PR04CA0209.outlook.office365.com
- (2603:10b6:408:e9::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
- Transport; Thu, 28 Mar 2024 06:57:23 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF000044A8.mail.protection.outlook.com (10.167.243.102) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Thu, 28 Mar 2024 06:57:23 +0000
-Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 28 Mar
- 2024 01:57:19 -0500
+ id ed8088fe-ece5-11ee-afe3-a90da7624cb6;
+ Thu, 28 Mar 2024 10:31:17 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-56bf6591865so1108604a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 02:31:17 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ef15-20020a05640228cf00b0056c1380a972sm601476edb.74.2024.03.28.02.31.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Mar 2024 02:31:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,148 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f2f7652-ecd0-11ee-afe3-a90da7624cb6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T8ZwyuesJuJVxj7aTbKoozNC3lLg7uvihA4ORfeEgRun6YVEmCm3zTZ2/xTQBMkuKvoEBcjxBsK3dEDIZAJhsml4rWfsJQsW7MQFxK1bYgja+U4XmaVGciqCygTkr5vaUnwVp8nVgZEVa7W8zPabK/gDq3nHUIrmj7GM4euO2oE8UrsbKQ5vKkvYsz+KHFiBWI1aGEFaUfnJS18JQtMnKmZ0I75YtU2CR4ztD2xXQj38+2n/jAfDvQn4JwEaRrgfLdZMgc/j++tiLU+NgrcPyvm8L5jOkzcYDlif44w0ShQUKnRTYvgv6y46f8tSMy6A8PvbnW4ulm+gQH1to9Kpdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jf1xx5lV5VxtmOYsSVAPqZLI4ppEFbCrYV78JIY1Svg=;
- b=nRbk0dXJMw2/7C/g6NC8tvbDl8mcSd1/ijXJjLnAX09y/uhx3TK1/hTvkXXz4y/KEQi7s1SnFA5pvFPQGdTJ+P2VKIs2Jx3LPNdRXATkixJmCZt6XgvH3srHGe253ymFchwui3LVz5QngNP4K4XcyExA+Wv16NAd39dl1dXwETmBqEdn1blTiwP22Nl028Dobt71HRGz5NFgDr0cHEoA5OyvwKp47O72Aayr5S4dxuWIINMmFyt9B66/KbvezLTltrXAauabkfiH8N0XZ0uT33tnWAaCOghC+OLFswO5VQz5cHK+N32DwBPeDijD4SJb94jtUZw3MSVu5hLwuNoPwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jf1xx5lV5VxtmOYsSVAPqZLI4ppEFbCrYV78JIY1Svg=;
- b=iwikHwlMNoNL9O5hYq9ycZC2a1D2nfU7zTXR+L7NIomMjp5arfI/e2wIShAPcRiviOZwsg0dUW+Rs7OHQvNIByOWywWQFVMnl5gvrZkreT3K5E0+ZfzHtWwl/FNbAa1lPRidayGWKaYdDgVhJUTyuvyC3q+giSRa3/4CT8KCRF4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jiqian Chen <Jiqian.Chen@amd.com>
-To: Juergen Gross <jgross@suse.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, Boris Ostrovsky
-	<boris.ostrovsky@oracle.com>, Bjorn Helgaas <bhelgaas@google.com>, "Rafael J
- . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-acpi@vger.kernel.org>, "Stewart
- Hildebrand" <Stewart.Hildebrand@amd.com>, Huang Rui <Ray.Huang@amd.com>,
-	Jiqian Chen <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>
-Subject: [RFC KERNEL PATCH v5 3/3] PCI/sysfs: Add gsi sysfs for pci_dev
-Date: Thu, 28 Mar 2024 14:56:46 +0800
-Message-ID: <20240328065646.354782-4-Jiqian.Chen@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240328065646.354782-1-Jiqian.Chen@amd.com>
-References: <20240328065646.354782-1-Jiqian.Chen@amd.com>
+X-Inumbo-ID: ed8088fe-ece5-11ee-afe3-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1711618277; x=1712223077; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=jq+PqoYN8UPKZoful/+v/XUaP4MGZA3H0thHS9iahjk=;
+        b=RxFZBBWFc+3mINBVF86tchCwnLHSYUcI0nHqziPNMUOsNlyXZba9EgsTe/qgg1SIV2
+         fupmre8xTTaPF8Sj+eYUxOFi3xK/eY+0UjajUicF0ouSEen7DZch8JL21casOegrj80o
+         VOZmYBdu61M9tF9MbZTf6kyvJjaZrqjzXROOSsmbZBx+CwS95qx55/mZLKbCBJ7wliuD
+         Kk0NUcM2laI9iBF6NuHWe7JJ3h01QAztQtN8LyGcDGK8imoHVYCSAYDD07kf+74XYQXP
+         7iU7CL1YMWrJdMhk8o3yOIu5ZXJlEI/2kMqgrnJYH/kbzAa+Di04lYcp/pRcL60FG7c0
+         lc4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1711618277; x=1712223077;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jq+PqoYN8UPKZoful/+v/XUaP4MGZA3H0thHS9iahjk=;
+        b=rfcKMO8ZM1psQ7fXuPeeAsbDwrEVbFM4yvstTev8k3DOZHJAuxb19bYOUSXHJAxIBG
+         MVbfAndjyexsLbvt8o8PteOsqqstcIb2Yr39jcFTEMjRiFAMSsgUpq6T6QYKTGx0d8gj
+         LO+By1eKjtKoEI9JlAgvBhIp85PZijn+QEZrglVsFKfynuuuQamAPuxR0Y1LYg14pWRb
+         mg8YH0OrJ2pq7xOb93IwYMOzx3rjYBMtBtKeqaH/IBA+WhNbV6F11tNMNbS7gt0NjpQU
+         7ZmI6UJd7tSX0HuHM35sG5Mwcwfm3EvT4nCSHmmYNb/BISxN1P+182bWVJ2HffelknA+
+         7OqQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXkEdKx81s8GoKAAVnYewwQopGaDtaW9lfX7HIsyxgYq14cknzr/7ibrEGl30p5NiHKsj2KsxYpmOM+aVWsjYkNUI8gKi/AU7AXqHDgsfo=
+X-Gm-Message-State: AOJu0YwejyqFbk1LQ+hB7vmy6iWJoNYeJlKr4hPdQDx2LMb2sOO1vLU3
+	o5FaZ18bFiYCmGr0ep+R7EsZ4KZllArFjkV6l3PDqMp6iq19BJEdUAQdyCIb7g==
+X-Google-Smtp-Source: AGHT+IGSjy1EWlI3uBlgjW001BPNTf0X0SvCS3RNB1Rgv9F7IcS6d+OZ++XEpXk+rD/LwNHRbmYvrw==
+X-Received: by 2002:a50:9344:0:b0:56c:2785:ca34 with SMTP id n4-20020a509344000000b0056c2785ca34mr1664512eda.5.1711618276900;
+        Thu, 28 Mar 2024 02:31:16 -0700 (PDT)
+Message-ID: <21da34a4-d946-47d0-86a6-b184fd010c94@suse.com>
+Date: Thu, 28 Mar 2024 10:31:15 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A8:EE_|CY8PR12MB7491:EE_
-X-MS-Office365-Filtering-Correlation-Id: c23643eb-95a2-491b-320b-08dc4ef451e0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ok86Jtt3hNQ0yDEtPHNYn17A7VRXH+3a0mn3RMz56+N6/DwEA3d0AHHZUgzLxuawYnjjaMzmcxaiZdNDIa3eT14qFvfdOtw+HPKhmcbQnG9IJJsNlUHYJz2G6UFU+6wTbqPH/Zoj31OZeZseSW3zKZ9Zk6aZF0eLxlIfR/Q5xnT92ozB9DS2VLsR92a59sx3rRYb86MKkZYPDs422YGJPcj6L4bbTQLLE6q9JGma8ja3DWkyYFZxx5vrvPg+f8sFnOPPk+K1wiTPa3O8MIALyvRovy0B4L5gPyUS9tEITawGOXE4lbMDOZbBLe7GFqbi+vhv5dHwVgYEcmnJLlQj/1Q78utkH+ZvYOvGZswp0O7LBCINDgtTG/mJNk6iVexnbNvybzFLeZ8dZubft42+qKSX3R1gJT6femgaa1sTFzMHo4jsjecBN7BaZL+AS9n/1lwuFoGSPsbddpFAwzh0pH3vL/GBcRdyVM2GA+xyBTRFS3SDbiz2CA7fPt2J79+vh1iucrrAIoCNY/5gSGamGZjSYyiwYlHaqTqWKL1Pi+PMM7E8bFmlHe3AiadIwQG05ii9WLkgttJHtFUU4yVAXDGOKkA1Yz/k3MGn+qJLmMLeRKa1k38Jla8WZCjPjRmbAM1rAwlbC20s5Uds+i3wqEihVFTbkCpis76qK1YWkkFzn3+uBoQyGMIkL3Ta5zZMYwEDA5UKT0Y89aWZ4BNLZhJHhcCVhes6eGOR2bSFesOxJIESgvbrH2D/WzM3vVry
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(7416005)(1800799015)(82310400014)(376005)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2024 06:57:23.1933
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c23643eb-95a2-491b-320b-08dc4ef451e0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044A8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7491
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] tools/misc: rework xenwatchdogd signal handling
+To: leigh@solinno.co.uk
+Cc: andrew.cooper3@citrix.com, anthony.perard@citrix.com, slack@rabbit.lu,
+ xen-devel@lists.xenproject.org
+References: <55416d60-cae7-4e79-8bde-bc07ee9e3830@suse.com>
+ <20240327181353.10951-1-leigh@solinno.co.uk>
+ <20240327181353.10951-3-leigh@solinno.co.uk>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240327181353.10951-3-leigh@solinno.co.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-There is a need for some scenarios to use gsi sysfs.
-For example, when xen passthrough a device to dumU, it will
-use gsi to map pirq, but currently userspace can't get gsi
-number.
-So, add gsi sysfs for that and for other potential scenarios.
+On 27.03.2024 19:13, leigh@solinno.co.uk wrote:
+> From: Leigh Brown <leigh@solinno.co.uk>
+> 
+> Rework xenwatchdogd signal handling to do the minimum in the signal
+> handler. This is a very minor enhancement.
+> ---
+>  tools/misc/xenwatchdogd.c | 20 ++++++++++++--------
+>  1 file changed, 12 insertions(+), 8 deletions(-)
 
-Co-developed-by: Huang Rui <ray.huang@amd.com>
-Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
----
-RFC: No feasible suggestions were obtained in the discussion of v4.
-Discussions are still needed where/how to expose the gsi.
-Looking forward to get more comments and suggestions from PCI/ACPI Maintainers.
+Throughout the series Signed-off-by: are missing from both you and Leigh.
+The latter you may of course add only in case of this either having been
+provided earlier (and dropped for an unknown reason), or with respective
+agreement.
 
----
- drivers/acpi/pci_irq.c  |  1 +
- drivers/pci/pci-sysfs.c | 11 +++++++++++
- include/linux/pci.h     |  2 ++
- 3 files changed, 14 insertions(+)
+> --- a/tools/misc/xenwatchdogd.c
+> +++ b/tools/misc/xenwatchdogd.c
+> @@ -9,9 +9,11 @@
+>  #include <unistd.h>
+>  #include <signal.h>
+>  #include <stdio.h>
+> +#include <stdbool.h>
+>  
+>  xc_interface *h;
+> -int id = 0;
+> +bool safeexit = false;
+> +bool done = false;
 
-diff --git a/drivers/acpi/pci_irq.c b/drivers/acpi/pci_irq.c
-index 630fe0a34bc6..739a58755df2 100644
---- a/drivers/acpi/pci_irq.c
-+++ b/drivers/acpi/pci_irq.c
-@@ -449,6 +449,7 @@ int acpi_pci_irq_enable(struct pci_dev *dev)
- 		kfree(entry);
- 		return 0;
- 	}
-+	dev->gsi = gsi;
- 
- 	rc = acpi_register_gsi(&dev->dev, gsi, triggering, polarity);
- 	if (rc < 0) {
-diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
-index 2321fdfefd7d..c51df88d079e 100644
---- a/drivers/pci/pci-sysfs.c
-+++ b/drivers/pci/pci-sysfs.c
-@@ -71,6 +71,16 @@ static ssize_t irq_show(struct device *dev,
- }
- static DEVICE_ATTR_RO(irq);
- 
-+static ssize_t gsi_show(struct device *dev,
-+			struct device_attribute *attr,
-+			char *buf)
-+{
-+	struct pci_dev *pdev = to_pci_dev(dev);
-+
-+	return sysfs_emit(buf, "%u\n", pdev->gsi);
-+}
-+static DEVICE_ATTR_RO(gsi);
-+
- static ssize_t broken_parity_status_show(struct device *dev,
- 					 struct device_attribute *attr,
- 					 char *buf)
-@@ -596,6 +606,7 @@ static struct attribute *pci_dev_attrs[] = {
- 	&dev_attr_revision.attr,
- 	&dev_attr_class.attr,
- 	&dev_attr_irq.attr,
-+	&dev_attr_gsi.attr,
- 	&dev_attr_local_cpus.attr,
- 	&dev_attr_local_cpulist.attr,
- 	&dev_attr_modalias.attr,
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 7ab0d13672da..457043cfdfce 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -529,6 +529,8 @@ struct pci_dev {
- 
- 	/* These methods index pci_reset_fn_methods[] */
- 	u8 reset_methods[PCI_NUM_RESET_METHODS]; /* In priority order */
-+
-+	unsigned int	gsi;
- };
- 
- static inline struct pci_dev *pci_physfn(struct pci_dev *dev)
--- 
-2.34.1
+Seeing the subsequent patch adding static, please don't introduce new
+non-static items.
 
+Jan
 
