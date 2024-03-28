@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ADE4890622
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 17:48:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.699134.1091735 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B968889073D
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 18:33:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.699140.1091745 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpsue-0003lK-0d; Thu, 28 Mar 2024 16:47:36 +0000
+	id 1rptbz-00077y-9f; Thu, 28 Mar 2024 17:32:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699134.1091735; Thu, 28 Mar 2024 16:47:35 +0000
+Received: by outflank-mailman (output) from mailman id 699140.1091745; Thu, 28 Mar 2024 17:32:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpsud-0003jI-UJ; Thu, 28 Mar 2024 16:47:35 +0000
-Received: by outflank-mailman (input) for mailman id 699134;
- Thu, 28 Mar 2024 16:47:34 +0000
+	id 1rptbz-000761-70; Thu, 28 Mar 2024 17:32:23 +0000
+Received: by outflank-mailman (input) for mailman id 699140;
+ Thu, 28 Mar 2024 17:32:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JFXD=LC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rpsuc-0003j9-DC
- for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 16:47:34 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ab0Y=LC=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rptbx-00075v-Bi
+ for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 17:32:21 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id def5b1af-ed22-11ee-a1ef-f123f15fe8a2;
- Thu, 28 Mar 2024 17:47:32 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-515c198e835so1338355e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 09:47:32 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g20-20020aa7c594000000b0056be0d1cd83sm1001487edq.97.2024.03.28.09.47.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Mar 2024 09:47:31 -0700 (PDT)
+ id 208c8110-ed29-11ee-a1ef-f123f15fe8a2;
+ Thu, 28 Mar 2024 18:32:19 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-56890b533aaso1395400a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 10:32:19 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ dl5-20020a170907944500b00a4e28b2639asm490385ejc.209.2024.03.28.10.32.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Mar 2024 10:32:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: def5b1af-ed22-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 208c8110-ed29-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1711644451; x=1712249251; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NUSGp53zXS39twOaD8q2rRDIA05UIMipu8a42ZE1VMM=;
-        b=HNm4UZdABEBOiaG1sjqrxmt9qTI40fLf+uhUem8YARzE7KNnDruiBkP07wgmLBLR7f
-         z5Jo7oV8TZCWomWYJdn/9Ww2HFbuK/CbGYAgkKKlQKEUrTi1oRygAmycLmTpXOxblKHM
-         NFhqfqX7h7c6SXGH0do04pT97D2lOUZtZche5i3KVjVVYjTji61ewJclj4ouY5g0Gg+V
-         WfkAue54ZhCKoUmUm1DVQ7tOQR13Ocvisc1MFlsddPGYnrc+BjCWJoSefrjG0ksbu3rh
-         Q0ndTLK8WFzPBkqw1QhFJM7XrqNFnh07s6ttuv3Dfq8qz1uN4AhRO0XtKPWMxG56LNuc
-         wWTQ==
+        d=cloud.com; s=cloud; t=1711647139; x=1712251939; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Pdr6uR7LCJjvjFILccCpwKZPipHQau/u+1nfVS9NK3E=;
+        b=j0kMfOxYB2wQ7oCUK7TbO1JtRRoZqGUBfkgAJiuabYM9FlXC4M5kh+jWT3v9qD1DC9
+         ZcVZxzmoE/lTd8s2PNIHkhSODFPkwBQQLiFz/NYw4xX+i5rUxhvmo6sWJ6tj/x08qfIW
+         TcX6CKTU4J90qFPShkBAmsrkrxQRneDZwI9sE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711644451; x=1712249251;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1711647139; x=1712251939;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NUSGp53zXS39twOaD8q2rRDIA05UIMipu8a42ZE1VMM=;
-        b=HHdM5KyHhZFNyRNkeRpNUNOW3j6OI6Yumms1QaplCCC8GwD83cNiHjQTLtWua6pLbZ
-         G+IxxU+Jl8aXOtflLuZ0qPemg9fEMwbon4RnszIXc9+kk2fGp3V3a07HgwwX5FEimiUM
-         VocfPiEON7ZHO/PvkWG865vaNvorz4oMT1G/jKcu2fpb/krvQ4j2rQ38jiBd2XBk1MaR
-         9S4J3NFnjtIcfTsM2trd3kgD4TBcK++e03YG5Ae6yU1amPqY+CWqB5k1eIxoN4Kdkupl
-         irazxV8chW7n67rfxLOJIPSYXZSBsJ7pilTqil90TJ9wB3Fu9FhkmkglkhqPQ9J8RsSh
-         ytxA==
-X-Forwarded-Encrypted: i=1; AJvYcCVWlZt/ZSEcEsWFs2CuQnsO0qjCod0g+hu/+ZnsSpwFC2lTU+6dENGl9CRLEiXEIkh7VC8pFIZg9/qzfJXwkipnNaN74WRdcEm4NyqPEvE=
-X-Gm-Message-State: AOJu0Yzh0UGjodG6x9dkAqqKn2wiJfXxgPIxgliapIt/ztOo5c5l39Qu
-	C2nljXaT8xxeydVkEl37BG/jxRGHWIPicsWX6U0xAowEihfMcy9UQaoKsJMWpQ==
-X-Google-Smtp-Source: AGHT+IExHL+oouEiy81wXQ5PnTIbAhvsq/MsNh7tI21p2SS1p+Owbw6bCD21OJ2pn1jWrZ88i7ymlg==
-X-Received: by 2002:a19:9117:0:b0:515:9abe:67c0 with SMTP id t23-20020a199117000000b005159abe67c0mr2212511lfd.58.1711644451634;
-        Thu, 28 Mar 2024 09:47:31 -0700 (PDT)
-Message-ID: <f2297a46-4d19-4b98-b986-e05ac9f7a2c5@suse.com>
-Date: Thu, 28 Mar 2024 17:47:30 +0100
+        bh=Pdr6uR7LCJjvjFILccCpwKZPipHQau/u+1nfVS9NK3E=;
+        b=o6174CWfW44kvArRHKaMFpgULV6CVWbJDjsCdCWL7yr2fhVbPcQexsUpqfcnFiY+Dl
+         8Us8qIH1NWol2FA5A/4C03HDI/Q2ToDUtYHmB22HbSExUPlYnNaGKE6Ey6ja/Z2H+K9G
+         HaasJuJJc4YolQD2vFlIpJF49f47x88WBKutj34za3HLdMt+iqhcjrNv7XBisiQ2Q6ev
+         EWYw0mPuAZi2KsTSknGDcWdoTslZt3egBNj0uY33agvfedCLXOlUFHKZzFwrDk7oV3qY
+         7CxM6+5Q+fY1PCK+2tNixUujJRrVgX/WKW8mCouCdxL9sJsHp8iPbxi1G0YsNiPUf2vK
+         K5uA==
+X-Gm-Message-State: AOJu0YweEqkJaYCbr9/dECer/tbTB6Hzu+pqQcr1hqmcwIhZznRjlO6U
+	naFMQxfm24WC3Sqm5zgH3O53YNwZnyyc9l4CTPoTTd6Ab+p1lD0axnk5CWkST+s=
+X-Google-Smtp-Source: AGHT+IEMZYyEjAzpFjP3n8C915PTFs+IX5VRjRi2fjWqFlTHsgbB9hBweHiUxIkE1fO79jlV+/ccpg==
+X-Received: by 2002:a17:906:e299:b0:a4e:233b:e470 with SMTP id gg25-20020a170906e29900b00a4e233be470mr1467475ejb.53.1711647138578;
+        Thu, 28 Mar 2024 10:32:18 -0700 (PDT)
+Date: Thu, 28 Mar 2024 17:32:17 +0000
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+	Huang Rui <Ray.Huang@amd.com>
+Subject: Re: [RFC XEN PATCH v6 4/5] libxl: Use gsi instead of irq for mapping
+ pirq
+Message-ID: <81c6e63f-b493-4bbd-a91a-ec0e04cc69e2@perard>
+References: <20240328063402.354496-1-Jiqian.Chen@amd.com>
+ <20240328063402.354496-5-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/4] libelf: Store maximum PHDR p_align
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240327215102.136001-1-jason.andryuk@amd.com>
- <20240327215102.136001-4-jason.andryuk@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240327215102.136001-4-jason.andryuk@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240328063402.354496-5-Jiqian.Chen@amd.com>
 
-On 27.03.2024 22:51, Jason Andryuk wrote:
-> --- a/xen/common/libelf/libelf-loader.c
-> +++ b/xen/common/libelf/libelf-loader.c
-> @@ -468,6 +468,7 @@ void elf_parse_binary(struct elf_binary *elf)
->  {
->      ELF_HANDLE_DECL(elf_phdr) phdr;
->      uint64_t low = -1, high = 0, paddr, memsz;
-> +    uint64_t max_align = 0, palign;
->      unsigned i, count;
+On Thu, Mar 28, 2024 at 02:34:01PM +0800, Jiqian Chen wrote:
+> diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
+> index 96cb4da0794e..2cec83e0b734 100644
+> --- a/tools/libs/light/libxl_pci.c
+> +++ b/tools/libs/light/libxl_pci.c
+> @@ -1478,8 +1478,14 @@ static void pci_add_dm_done(libxl__egc *egc,
+>      fclose(f);
+>      if (!pci_supp_legacy_irq())
+>          goto out_no_irq;
+> -    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
+> +    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/gsi", pci->domain,
+>                                  pci->bus, pci->dev, pci->func);
+> +    r = access(sysfs_path, F_OK);
+> +    if (r && errno == ENOENT) {
+> +        /* To compitable with old version of kernel, still need to use irq */
+
+There's a typo, this would be "To be compatible ...". Also maybe
+something like "Fallback to "/irq" for compatibility with old version of
+the kernel." might sound better.
+
+> +        sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
+> +                               pci->bus, pci->dev, pci->func);
+> +    }
+>      f = fopen(sysfs_path, "r");
+>      if (f == NULL) {
+>          LOGED(ERROR, domainid, "Couldn't open %s", sysfs_path);
+> @@ -2229,9 +2235,15 @@ skip_bar:
+>      if (!pci_supp_legacy_irq())
+>          goto skip_legacy_irq;
 >  
->      count = elf_phdr_count(elf);
-> @@ -481,17 +482,23 @@ void elf_parse_binary(struct elf_binary *elf)
->              continue;
->          paddr = elf_uval(elf, phdr, p_paddr);
->          memsz = elf_uval(elf, phdr, p_memsz);
-> -        elf_msg(elf, "ELF: phdr: paddr=%#" PRIx64 " memsz=%#" PRIx64 "\n",
-> -                paddr, memsz);
-> +        palign = elf_uval(elf, phdr, p_align);
-> +        elf_msg(elf,
-> +                "ELF: phdr: paddr=%#" PRIx64 " memsz=%#" PRIx64 " palign=%#" PRIx64 "\n",
-> +                paddr, memsz, palign);
->          if ( low > paddr )
->              low = paddr;
->          if ( high < paddr + memsz )
->              high = paddr + memsz;
-> +        if ( max_align < palign )
-> +            max_align = palign;
->      }
->      elf->pstart = low;
->      elf->pend = high;
-> -    elf_msg(elf, "ELF: memory: %#" PRIx64 " -> %#" PRIx64 "\n",
-> -            elf->pstart, elf->pend);
-> +    elf->palign = max_align;
-> +    elf_msg(elf,
-> +            "ELF: memory: %#" PRIx64 " -> %#" PRIx64 " align:%#" PRIx64 "\n",
-> +            elf->pstart, elf->pend, elf->palign);
->  }
+> -    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
+> +    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/gsi", pci->domain,
+>                             pci->bus, pci->dev, pci->func);
+>  
+> +    rc = access(sysfs_path, F_OK);
 
-Hmm, it's just this final logging change which I'm a little concerned by:
-Having looked at Linux'es phdr, I noticed that the addresses there aren't
-necessarily matching the corresponding alignment. Therefore I'm a little
-concerned that the output here might raise questions when people see
-seemingly inconsistent values in the log. Could you/we at least make it
-read like e.g. "align (max): ..."?
+Please, don't use the variable `rc` here, this one is reserved for libxl
+error/return code in libxl. Introduce `int r` instead.
 
-Jan
+> +    if (rc && errno == ENOENT) {
+> +        /* To compitable with old version of kernel, still need to use irq */
+> +        sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
+> +                               pci->bus, pci->dev, pci->func);
+> +    }
+>      f = fopen(sysfs_path, "r");
+>      if (f == NULL) {
+>          LOGED(ERROR, domid, "Couldn't open %s", sysfs_path);
+
+With those two things fixed: Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+
+Thanks,
+
+-- 
+Anthony PERARD
 
