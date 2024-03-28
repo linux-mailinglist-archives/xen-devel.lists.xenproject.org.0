@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEA26890441
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 17:00:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.699030.1091509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 391D9890460
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 17:01:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.699038.1091555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpsA0-0006aa-5G; Thu, 28 Mar 2024 15:59:24 +0000
+	id 1rpsC7-0001AV-5Q; Thu, 28 Mar 2024 16:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699030.1091509; Thu, 28 Mar 2024 15:59:24 +0000
+Received: by outflank-mailman (output) from mailman id 699038.1091555; Thu, 28 Mar 2024 16:01:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpsA0-0006YN-2d; Thu, 28 Mar 2024 15:59:24 +0000
-Received: by outflank-mailman (input) for mailman id 699030;
- Thu, 28 Mar 2024 15:59:23 +0000
+	id 1rpsC7-00017v-2a; Thu, 28 Mar 2024 16:01:35 +0000
+Received: by outflank-mailman (input) for mailman id 699038;
+ Thu, 28 Mar 2024 16:01:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Yxy0=LC=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1rps7I-0001AK-SM
- for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 15:56:36 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1rps7O-0001AK-Oe
+ for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 15:56:42 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1831ad9-ed1b-11ee-afe3-a90da7624cb6;
- Thu, 28 Mar 2024 16:56:36 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5684db9147dso1315122a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 08:56:36 -0700 (PDT)
+ id c50d2a0f-ed1b-11ee-afe3-a90da7624cb6;
+ Thu, 28 Mar 2024 16:56:42 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-56c36f8f932so3857578a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 08:56:42 -0700 (PDT)
 Received: from m1x-phil.lan (pas38-h02-176-184-5-52.dsl.sta.abo.bbox.fr.
  [176.184.5.52]) by smtp.gmail.com with ESMTPSA id
- l13-20020a056402028d00b0056bfa6ad5eesm959518edv.91.2024.03.28.08.56.34
+ dr3-20020a170907720300b00a4a38d10801sm896023ejc.35.2024.03.28.08.56.40
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 28 Mar 2024 08:56:35 -0700 (PDT)
+ Thu, 28 Mar 2024 08:56:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,37 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1831ad9-ed1b-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: c50d2a0f-ed1b-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1711641396; x=1712246196; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1711641402; x=1712246202; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mvS5b4mOvRgBMXReEbw8mHkHwY6O9r1j8WjPX6hg3zo=;
-        b=gnpdPFgLW51sHyUyoXDwAOZDvI82FBpxhPc1kJVd0P9OD+7e9BhtZVFFO40jzchbss
-         VkTI4CekE0NeVoVzrAAMMTZlO7irkRt417toCdVs0Vd/bsP0bMwgf9T0O5sc8zm9D62u
-         qrgU5PVgvyyOkWhdTvcodVbGc1u2IKv1/J/l1pa4Db+oT20L3G9hUzbb6y+djmif+EPQ
-         Vmw/yflu4lHS5lPkcqIgqElyt0VpedKVGk9VbTOk+vOjWPuFHrPNO/CnHFeXOd+eVUV9
-         /2RhBmvOtqeWCF7ol7JeHxDXkovaoPgReWAHhYGLVPpOO0F3dSLOsZgF7MLn2H1Nb/EW
-         DJlQ==
+        bh=muQ9YYs1garpvhloVWRUiLPzA6iwq65Rr1SdS4smlFw=;
+        b=RWcLFlwpxKOxRVTv6vZ42+0EO6VG+UqgRYg/Yo3diAdm7VfxfYajPuiS/IWOCVx9n4
+         gnavJs7860POBYvxnh+h48KI8/oAOCLgxg0TTSdlKVlF/tBxBic+H4q277gRJo0Ttt/5
+         tOlM632xJ5ggf6c3ohagfDn4o+Tz6uZ3eMVSVAkrCe7MVVtXjpsXnLAhTSvcin/6TK36
+         5j8Kxl7K+FkF+FIbIShxCzT048BX4Gy2hwDeNN45OHLlzIrcqbsLJMFCXBDx6aj8Bn/O
+         09/dy7b9LgaS+poSbdkLS+YB5MZ5M2UmayC4VA04XSbN30OqYG6oC16p7pBeRY7SdwPQ
+         UaFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711641396; x=1712246196;
+        d=1e100.net; s=20230601; t=1711641402; x=1712246202;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=mvS5b4mOvRgBMXReEbw8mHkHwY6O9r1j8WjPX6hg3zo=;
-        b=shV4e98lHzsq7+CX3Itr+Kbug4Fk5fGKUZne70K11rMq0F8smHLE9ZsEXiui9cNhLA
-         UfXKo8Nw8j4b428R0Wdmf8VXhnKSemzCfl6N1M0eOCtoeZxLV7jXrACdc7TRogD+9J2N
-         XQn+RmjOTx9LeBFWjB6R4CYeUZW9POh2Tw1uEibBKpvUkZ7KXnK0TQ1PdLtEs1sLVBY1
-         /I2w0ioZch9RhCO+/zC37LTngmtZjc244Qv2V5gqmtHsuQVex06kvI6/UU5ZeyNFYS5B
-         LZ2uBvlgu3yUHENyvwEfFcNSpc29QIXLMX5E06jhQ6oZ3wYX5yRME4Ab+VHP6ipyhFKX
-         glFw==
-X-Forwarded-Encrypted: i=1; AJvYcCXaTin6EX8lHgqxMhVP4ars4fwYtjb0qhSlBsAdZg1ACdjn52ZiPyOPEO+/iFfJhw+reMN/aTHJ22JPW1lmccojQ3JYCyx46owPXSB2K2E=
-X-Gm-Message-State: AOJu0Ywf63NaRPxaZc34WS2tG+Qy7tArtsPKxB15XqQIZIlBIfu++SMf
-	w42N1fUwhYXuWk34+m7ObYI4QqZwaj2WQ9SVDIT4OQJYMQgSWM1WvKG3QoRfILs=
-X-Google-Smtp-Source: AGHT+IHfWPHo1qaEN4DNEm3R8wOVj4A4iUDXGogGmGPb4Wx0aiRPAERFSIayiOeRYDhmlaAPcH41sw==
-X-Received: by 2002:a50:d6d7:0:b0:568:a9f3:b3fb with SMTP id l23-20020a50d6d7000000b00568a9f3b3fbmr2267809edj.8.1711641395712;
-        Thu, 28 Mar 2024 08:56:35 -0700 (PDT)
+        bh=muQ9YYs1garpvhloVWRUiLPzA6iwq65Rr1SdS4smlFw=;
+        b=L2Sokzu5ITWusGqpR5j2WJ8y0jLddOsJrDXnyfTaxX1Y36mW/XT4Q7SmPE8+kouH47
+         sN4DFGt/JXON5fe28/TcM25sKvhPC5wakW2AKpTF95a4UBSM/CoQR7dsjpYIWrnJElye
+         f85StrGViMWCN1LJPykCCRQ0Tp8RKCnrBUffMOMaSNLV4rf2r3dv+lJtNx3GYATuiLOL
+         YDowCuRF0kk7gObdsRxo/snFtTgMAahQ7AIyCW+s48kGvdnvTO2Ki57fJ/80cQI6DOqy
+         WajyDsF+M67g3tW7+QCs4sgyVJyq8N603hRJ3ZTeF6C2/WlUKZOTNZp5huOK5ONH8rtk
+         B/AQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVZMbbauBFZmg6AxeTvF30z3sEOlK8XJESSEucBgYW3cUc/Nc6P/okyFi+ur6FBiirenzkquMWv20idlGjLx1O5jMuvOc8N6Oq/WcHG/Oc=
+X-Gm-Message-State: AOJu0Yz8RUc58JbX1bPWWHAhSWMuHzSbAaa+XbVqMjDM/cGRFQOgBt6K
+	riwPjbXyyIyDaQTYevkrZOXM6MIVFhceYi411fr8e6ibQwa+Y7E1r8ckVb5tH8o=
+X-Google-Smtp-Source: AGHT+IFXbYhPHZn5NXBz7Ikr8yC8QHRf+1TONIhT4Hw3waF5CP4z/i4EhLM/5gQv8lw+8vgiP63smA==
+X-Received: by 2002:a17:906:714a:b0:a4e:f91:4694 with SMTP id z10-20020a170906714a00b00a4e0f914694mr2568225ejj.27.1711641401851;
+        Thu, 28 Mar 2024 08:56:41 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -91,9 +91,9 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	Anthony Perard <anthony.perard@citrix.com>,
 	Ani Sinha <anisinha@redhat.com>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [RFC PATCH-for-9.1 18/29] hw/i386/pc: Inline has_reserved_memory()
-Date: Thu, 28 Mar 2024 16:54:26 +0100
-Message-ID: <20240328155439.58719-19-philmd@linaro.org>
+Subject: [RFC PATCH-for-9.1 19/29] hw/i386/pc: Pass PcPciMachineState argument to CXL helpers
+Date: Thu, 28 Mar 2024 16:54:27 +0100
+Message-ID: <20240328155439.58719-20-philmd@linaro.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20240328155439.58719-1-philmd@linaro.org>
 References: <20240328155439.58719-1-philmd@linaro.org>
@@ -101,115 +101,67 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-All PCI-based machines have the has_reserved_memory
-field set to %true. Simplify by using an inlined helper
-checking whether the machine is PCI-based or not.
+Since CXL helpers expect a PCI-based machine, we
+can directly pass them a PcPciMachineState argument.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- include/hw/i386/pc.h |  1 -
- hw/i386/pc.c         | 17 ++++++++++-------
- hw/i386/pc_piix.c    |  1 -
- 3 files changed, 10 insertions(+), 9 deletions(-)
+ hw/i386/pc.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/include/hw/i386/pc.h b/include/hw/i386/pc.h
-index 758dd5f29b..df4c813854 100644
---- a/include/hw/i386/pc.h
-+++ b/include/hw/i386/pc.h
-@@ -91,7 +91,6 @@ typedef struct PCMachineClass {
-     SmbiosEntryPointType default_smbios_ep_type;
- 
-     /* RAM / address space compat: */
--    bool has_reserved_memory;
-     bool broken_reserved_end;
-     bool enforce_amd_1tb_hole;
- 
 diff --git a/hw/i386/pc.c b/hw/i386/pc.c
-index 093a7c35f7..e36d76656b 100644
+index e36d76656b..d8e91d18b8 100644
 --- a/hw/i386/pc.c
 +++ b/hw/i386/pc.c
-@@ -671,6 +671,11 @@ void xen_load_linux(PCMachineState *pcms)
- #define PC_ROM_ALIGN       0x800
- #define PC_ROM_SIZE        (PC_ROM_MAX - PC_ROM_MIN_VGA)
+@@ -705,14 +705,14 @@ static void pc_get_device_memory_range(PCMachineState *pcms,
+     *device_mem_size = size;
+ }
  
-+static bool has_reserved_memory(PCMachineState *pcms)
-+{
-+    return pc_machine_is_pci_enabled(pcms);
-+}
-+
- static hwaddr pc_above_4g_end(PCMachineState *pcms)
+-static uint64_t pc_get_cxl_range_start(PCMachineState *pcms)
++static uint64_t pc_get_cxl_range_start(PcPciMachineState *ppms)
  {
-     X86MachineState *x86ms = X86_MACHINE(pcms);
-@@ -702,12 +707,11 @@ static void pc_get_device_memory_range(PCMachineState *pcms,
- 
- static uint64_t pc_get_cxl_range_start(PCMachineState *pcms)
- {
--    PCMachineClass *pcmc = PC_MACHINE_GET_CLASS(pcms);
++    PCMachineState *pcms = PC_MACHINE(ppms);
      MachineState *ms = MACHINE(pcms);
      hwaddr cxl_base;
      ram_addr_t size;
  
--    if (pcmc->has_reserved_memory &&
-+    if (has_reserved_memory(pcms) &&
-         (ms->ram_size < ms->maxram_size)) {
+-    if (has_reserved_memory(pcms) &&
+-        (ms->ram_size < ms->maxram_size)) {
++    if ((ms->ram_size < ms->maxram_size)) {
          pc_get_device_memory_range(pcms, &cxl_base, &size);
          cxl_base += size;
-@@ -760,7 +764,7 @@ static hwaddr pc_max_used_gpa(PCMachineState *pcms, uint64_t pci_hole64_size)
-      * calculating the highest possible GPA so that we can properly report
-      * if someone configures them on a CPU that cannot possibly address them.
-      */
--    if (pcmc->has_reserved_memory &&
-+    if (has_reserved_memory(pcms) &&
-         (ms->ram_size < ms->maxram_size)) {
-         hwaddr devmem_start;
-         ram_addr_t devmem_size;
-@@ -891,7 +895,7 @@ void pc_memory_init(PCMachineState *pcms,
-         e820_add_entry(pcms->sgx_epc.base, pcms->sgx_epc.size, E820_RESERVED);
-     }
+     } else {
+@@ -722,10 +722,9 @@ static uint64_t pc_get_cxl_range_start(PCMachineState *pcms)
+     return cxl_base;
+ }
  
--    if (!pcmc->has_reserved_memory &&
-+    if (!has_reserved_memory(pcms) &&
-         (machine->ram_slots ||
-          (machine->maxram_size > machine->ram_size))) {
+-static uint64_t pc_get_cxl_range_end(PCMachineState *pcms)
++static uint64_t pc_get_cxl_range_end(PcPciMachineState *ppms)
+ {
+-    PcPciMachineState *ppms = PC_PCI_MACHINE(pcms);
+-    uint64_t start = pc_get_cxl_range_start(pcms) + MiB;
++    uint64_t start = pc_get_cxl_range_start(ppms) + MiB;
  
-@@ -901,7 +905,7 @@ void pc_memory_init(PCMachineState *pcms,
-     }
+     if (ppms->cxl_devices_state.fixed_windows) {
+         GList *it;
+@@ -937,7 +936,7 @@ void pc_memory_init(PCMachineState *pcms,
+         MemoryRegion *mr = &ppms->cxl_devices_state.host_mr;
+         hwaddr cxl_size = MiB;
  
-     /* initialize device memory address space */
--    if (pcmc->has_reserved_memory &&
-+    if (has_reserved_memory(pcms) &&
-         (machine->ram_size < machine->maxram_size)) {
-         ram_addr_t device_mem_size;
-         hwaddr device_mem_base;
-@@ -1024,7 +1028,7 @@ uint64_t pc_pci_hole64_start(void)
+-        cxl_base = pc_get_cxl_range_start(pcms);
++        cxl_base = pc_get_cxl_range_start(ppms);
+         memory_region_init(mr, OBJECT(machine), "cxl_host_reg", cxl_size);
+         memory_region_add_subregion(system_memory, cxl_base, mr);
+         cxl_resv_end = cxl_base + cxl_size;
+@@ -1027,7 +1026,7 @@ uint64_t pc_pci_hole64_start(void)
+     ram_addr_t size = 0;
  
      if (ppms->cxl_devices_state.is_enabled) {
-         hole64_start = pc_get_cxl_range_end(pcms);
--    } else if (pcmc->has_reserved_memory && (ms->ram_size < ms->maxram_size)) {
-+    } else if (has_reserved_memory(pcms) && (ms->ram_size < ms->maxram_size)) {
+-        hole64_start = pc_get_cxl_range_end(pcms);
++        hole64_start = pc_get_cxl_range_end(ppms);
+     } else if (has_reserved_memory(pcms) && (ms->ram_size < ms->maxram_size)) {
          pc_get_device_memory_range(pcms, &hole64_start, &size);
          if (!pcmc->broken_reserved_end) {
-             hole64_start += size;
-@@ -1752,7 +1756,6 @@ static void pc_machine_class_init(ObjectClass *oc, void *data)
-     HotplugHandlerClass *hc = HOTPLUG_HANDLER_CLASS(oc);
- 
-     pcmc->smbios_defaults = true;
--    pcmc->has_reserved_memory = true;
-     pcmc->enforce_amd_1tb_hole = true;
-     pcmc->pvh_enabled = true;
-     pcmc->kvmclock_create_always = true;
-diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-index 0bc14da768..e6178f8653 100644
---- a/hw/i386/pc_piix.c
-+++ b/hw/i386/pc_piix.c
-@@ -830,7 +830,6 @@ static void isapc_machine_options(MachineClass *m)
-     m->rom_file_has_mr = false;
-     pcmc->smbios_defaults = false;
-     pcmc->smbios_legacy_mode = true;
--    pcmc->has_reserved_memory = false;
-     m->default_nic = "ne2k_isa";
-     m->default_cpu_type = X86_CPU_TYPE_NAME("486");
-     m->no_parallel = !module_object_class_by_name(TYPE_ISA_PARALLEL);
 -- 
 2.41.0
 
