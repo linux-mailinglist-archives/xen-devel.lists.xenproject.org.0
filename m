@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0E00890829
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 19:21:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.699153.1091786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B2D389087E
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 19:46:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.699161.1091799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpuNB-0003EN-GD; Thu, 28 Mar 2024 18:21:09 +0000
+	id 1rpul2-00040n-Ew; Thu, 28 Mar 2024 18:45:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699153.1091786; Thu, 28 Mar 2024 18:21:09 +0000
+Received: by outflank-mailman (output) from mailman id 699161.1091799; Thu, 28 Mar 2024 18:45:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpuNB-0003CJ-De; Thu, 28 Mar 2024 18:21:09 +0000
-Received: by outflank-mailman (input) for mailman id 699153;
- Thu, 28 Mar 2024 18:21:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rpuN9-0003CB-GO
- for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 18:21:07 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rpuN6-0000dJ-9o; Thu, 28 Mar 2024 18:21:04 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rpuN5-0004YG-VW; Thu, 28 Mar 2024 18:21:04 +0000
+	id 1rpul2-0003yz-Ay; Thu, 28 Mar 2024 18:45:48 +0000
+Received: by outflank-mailman (input) for mailman id 699161;
+ Thu, 28 Mar 2024 18:45:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WMz/=LC=eik.bme.hu=balaton@srs-se1.protection.inumbo.net>)
+ id 1rpul0-0003xa-DF
+ for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 18:45:46 +0000
+Received: from zero.eik.bme.hu (zero.eik.bme.hu [152.66.115.2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 61eff8e7-ed33-11ee-a1ef-f123f15fe8a2;
+ Thu, 28 Mar 2024 19:45:44 +0100 (CET)
+Received: from zero.eik.bme.hu (localhost [127.0.0.1])
+ by zero.eik.bme.hu (Postfix) with ESMTP id E86084E6061;
+ Thu, 28 Mar 2024 19:45:42 +0100 (CET)
+Received: from zero.eik.bme.hu ([127.0.0.1])
+ by zero.eik.bme.hu (zero.eik.bme.hu [127.0.0.1]) (amavisd-new, port 10028)
+ with ESMTP id E4w3I916cRnf; Thu, 28 Mar 2024 19:45:40 +0100 (CET)
+Received: by zero.eik.bme.hu (Postfix, from userid 432)
+ id F0B8B4E605E; Thu, 28 Mar 2024 19:45:40 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by zero.eik.bme.hu (Postfix) with ESMTP id EE2307456B4;
+ Thu, 28 Mar 2024 19:45:40 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,101 +47,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=LVwuqNbWmNIdQGMsknjb9crp53/xlgANmbKy0dpt2+o=; b=GofVg9DJkdDTqenEzPzmTvglVJ
-	IDAhhcL/oQEbB6+43dsBnQHwoMso6uDz+096ZVxX3xVp9I5CWRysH4Aj/54tPNjAcpiMYDcyU+9tD
-	CuYZ9vp5QMb40wI1vX4LGYjuUtue2E8d3wLm9UjBVzaYBIeRmwoTVXQ/WYcRtlDFgidA=;
-Message-ID: <d226de71-22b9-46fa-8e6e-c6bd0c243140@xen.org>
-Date: Thu, 28 Mar 2024 18:21:02 +0000
+X-Inumbo-ID: 61eff8e7-ed33-11ee-a1ef-f123f15fe8a2
+X-Virus-Scanned: amavisd-new at eik.bme.hu
+Date: Thu, 28 Mar 2024 19:45:40 +0100 (CET)
+From: BALATON Zoltan <balaton@eik.bme.hu>
+To: =?ISO-8859-15?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>
+cc: qemu-devel@nongnu.org, Richard Henderson <richard.henderson@linaro.org>, 
+    Eduardo Habkost <eduardo@habkost.net>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Bernhard Beschow <shentey@gmail.com>, 
+    Thomas Huth <thuth@redhat.com>, 
+    Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, 
+    "Michael S. Tsirkin" <mst@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+    Igor Mammedov <imammedo@redhat.com>, 
+    Anthony Perard <anthony.perard@citrix.com>, 
+    Ani Sinha <anisinha@redhat.com>
+Subject: Re: [RFC PATCH-for-9.1 09/29] hw/i386/pc: Pass PCMachineState argument
+ to acpi_setup()
+In-Reply-To: <20240328155439.58719-10-philmd@linaro.org>
+Message-ID: <04b9fcde-31f1-dfa8-8c4e-a666d0d873d8@eik.bme.hu>
+References: <20240328155439.58719-1-philmd@linaro.org> <20240328155439.58719-10-philmd@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 08/14] xen/page_alloc: introduce preserved page flags
- macro
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-To: Jan Beulich <jbeulich@suse.com>,
- Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20240315105902.160047-1-carlo.nonato@minervasys.tech>
- <20240315105902.160047-9-carlo.nonato@minervasys.tech>
- <3f615066-a792-493f-ba33-7667a6557c23@xen.org>
- <9e0f7ff3-5457-41e4-a1e4-bf75804fb900@xen.org>
- <255be735-f9fe-4e39-a24e-2f6aff91acc5@suse.com>
- <CAG+AhRWMh2quv3SNPJQ61au=e6gtdXUO7j-XVYV6chDmktqkvA@mail.gmail.com>
- <3427132d-9458-4447-b667-d2ef3c1f0569@suse.com>
- <CAG+AhRXE7cMNnDNxZeF=o7wBXKUtwvMj6Y5oRy-UrpDyAfM5Cw@mail.gmail.com>
- <f7bde6a7-1e48-4074-b8f5-094fa0d6a593@suse.com>
- <fbc17f7a-b07d-4508-902f-9fc021bc9a19@xen.org>
- <CAG+AhRW2=kaxsAJ6JO+j6xy4C8Mv81j9hb=muZKT30O+Zdp0Vw@mail.gmail.com>
- <54156e94-3630-49b1-8a22-5cd4206d565f@xen.org>
- <fe433260-c8c9-419d-8b05-50e2cc50d127@suse.com>
- <cdee3c70-c1cc-4787-8d75-ac00c95463b7@xen.org>
-In-Reply-To: <cdee3c70-c1cc-4787-8d75-ac00c95463b7@xen.org>
+Content-Type: multipart/mixed; boundary="3866299591-534400419-1711651540=:36462"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--3866299591-534400419-1711651540=:36462
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 8BIT
 
-Hi,
+On Thu, 28 Mar 2024, Philippe Mathieu-Daudé wrote:
+> acpi_setup() caller knows about the machine state, so pass
+> it as argument to avoid a qdev_get_machine() call.
+>
+> We already resolved X86_MACHINE(pcms) as 'x86ms' so use the
+> latter.
+>
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> ---
+> hw/i386/acpi-build.h | 3 ++-
+> hw/i386/acpi-build.c | 5 ++---
+> hw/i386/pc.c         | 2 +-
+> 3 files changed, 5 insertions(+), 5 deletions(-)
+>
+> diff --git a/hw/i386/acpi-build.h b/hw/i386/acpi-build.h
+> index 0dce155c8c..31de5bddbd 100644
+> --- a/hw/i386/acpi-build.h
+> +++ b/hw/i386/acpi-build.h
+> @@ -2,6 +2,7 @@
+> #ifndef HW_I386_ACPI_BUILD_H
+> #define HW_I386_ACPI_BUILD_H
+> #include "hw/acpi/acpi-defs.h"
+> +#include "hw/i386/pc.h"
+>
+> extern const struct AcpiGenericAddress x86_nvdimm_acpi_dsmio;
+>
+> @@ -9,7 +10,7 @@ extern const struct AcpiGenericAddress x86_nvdimm_acpi_dsmio;
+> #define ACPI_PCIHP_SEJ_BASE 0x8
+> #define ACPI_PCIHP_BNMR_BASE 0x10
+>
+> -void acpi_setup(void);
+> +void acpi_setup(PCMachineState *pcms);
 
-Replying to myself.
+This is changed to PcPciMachineState * in a following patch so can't you 
+already introduce it here to avoid some churn?
 
-On 27/03/2024 13:48, Julien Grall wrote:
-> On 27/03/2024 13:38, Jan Beulich wrote:
->> On 27.03.2024 14:28, Julien Grall wrote:
->>> Hi Carlo,
->>>
->>> On 27/03/2024 11:10, Carlo Nonato wrote:
->>>> Hi guys,
->>>>
->>>>> Question is: How would you justify such a change? IOW I'm not 
->>>>> convinced
->>>>> (yet) this wants doing there.
->>>>
->>>> You mean in this series?
->>>>
->>>>> Looking at the code, the flag is originally set in
->>>>> alloc_domheap_pages(). So I guess it would make sense to do it in
->>>>> free_domheap_pages().
->>>>
->>>> We don't hold the heap_lock there.
->>> Regardless of the safety question (I will answer below), count_info is
->>> not meant to be protected by heap_lock. The lock is protecting the heap
->>> and ensure we are not corrupting them when there are concurrent call to
->>> free_heap_pages().
->>>
->>>   > Is it safe to change count_info without it?
->>>
->>> count_info is meant to be accessed locklessly. The flag PGC_extra cannot
->>> be set/clear concurrently because you can't allocate a page that has not
->>> yet been freed.
->>>
->>> So it would be fine to use clear_bit(..., ...);
->>
->> Actually we hardly ever use clear_bit() on count_info. Normally we use
->> ordinary C operators.
-> 
-> I knew you would say that. I am not convince it is safe to always using 
-> count_info without any atomic operations. But I never got around to 
-> check all them.
-> 
->> Atomic (and otherwise lockless) updates are useful
->> only if done like this everywhere.
-> 
-> You are right. But starting to use the bitops is not going to hurt 
-> anyone (other than maybe performance, but once we convert all of them, 
-> then this will become moot). In fact, it helps start to slowly move 
-> towards the aim to have count_info safe.
+Regards,
+BALATON Zoltan
 
-I think I managed to convince myself that, count_info |= ... is fine in 
-this case and no locking is necessary.
-
-Cheers,
-
--- 
-Julien Grall
+> Object *acpi_get_i386_pci_host(void);
+>
+> #endif
+> diff --git a/hw/i386/acpi-build.c b/hw/i386/acpi-build.c
+> index 6e8e32e5d2..e702d5e9d2 100644
+> --- a/hw/i386/acpi-build.c
+> +++ b/hw/i386/acpi-build.c
+> @@ -2749,9 +2749,8 @@ static const VMStateDescription vmstate_acpi_build = {
+>     },
+> };
+>
+> -void acpi_setup(void)
+> +void acpi_setup(PCMachineState *pcms)
+> {
+> -    PCMachineState *pcms = PC_MACHINE(qdev_get_machine());
+>     X86MachineState *x86ms = X86_MACHINE(pcms);
+>     AcpiBuildTables tables;
+>     AcpiBuildState *build_state;
+> @@ -2771,7 +2770,7 @@ void acpi_setup(void)
+>         return;
+>     }
+>
+> -    if (!x86_machine_is_acpi_enabled(X86_MACHINE(pcms))) {
+> +    if (!x86_machine_is_acpi_enabled(x86ms)) {
+>         ACPI_BUILD_DPRINTF("ACPI disabled. Bailing out.\n");
+>         return;
+>     }
+> diff --git a/hw/i386/pc.c b/hw/i386/pc.c
+> index 6d87d1d4c2..dfc0247bb6 100644
+> --- a/hw/i386/pc.c
+> +++ b/hw/i386/pc.c
+> @@ -601,7 +601,7 @@ void pc_machine_done(Notifier *notifier, void *data)
+>     /* set the number of CPUs */
+>     x86_rtc_set_cpus_count(x86ms->rtc, x86ms->boot_cpus);
+>
+> -    acpi_setup();
+> +    acpi_setup(pcms);
+>     if (x86ms->fw_cfg) {
+>         fw_cfg_build_smbios(pcms, x86ms->fw_cfg, pcms->smbios_entry_point_type);
+>         fw_cfg_build_feature_control(MACHINE(pcms), x86ms->fw_cfg);
+>
+--3866299591-534400419-1711651540=:36462--
 
