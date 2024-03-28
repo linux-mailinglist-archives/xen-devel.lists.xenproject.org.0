@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7BED8902A0
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 16:06:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698944.1091210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0FC18902AA
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 16:09:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698947.1091220 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rprKO-0006yU-BG; Thu, 28 Mar 2024 15:06:04 +0000
+	id 1rprNL-0007Zp-O0; Thu, 28 Mar 2024 15:09:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698944.1091210; Thu, 28 Mar 2024 15:06:04 +0000
+Received: by outflank-mailman (output) from mailman id 698947.1091220; Thu, 28 Mar 2024 15:09:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rprKO-0006wp-7V; Thu, 28 Mar 2024 15:06:04 +0000
-Received: by outflank-mailman (input) for mailman id 698944;
- Thu, 28 Mar 2024 15:06:02 +0000
+	id 1rprNL-0007Wf-L7; Thu, 28 Mar 2024 15:09:07 +0000
+Received: by outflank-mailman (input) for mailman id 698947;
+ Thu, 28 Mar 2024 15:09:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jyVg=LC=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1rprKM-0006wj-Ss
- for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 15:06:02 +0000
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [2607:f8b0:4864:20::634])
+ id 1rprNK-0007WX-1s
+ for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 15:09:06 +0000
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [2607:f8b0:4864:20::f35])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id afc8b6ea-ed14-11ee-a1ef-f123f15fe8a2;
- Thu, 28 Mar 2024 16:06:00 +0100 (CET)
-Received: by mail-pl1-x634.google.com with SMTP id
- d9443c01a7336-1e21d1e8307so3614555ad.2
- for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 08:06:00 -0700 (PDT)
+ id 1cfad02c-ed15-11ee-a1ef-f123f15fe8a2;
+ Thu, 28 Mar 2024 16:09:04 +0100 (CET)
+Received: by mail-qv1-xf35.google.com with SMTP id
+ 6a1803df08f44-696499bd61eso7585436d6.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 08:09:04 -0700 (PDT)
+Received: from rossla-lxenia.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ 4-20020a0562140d0400b00690bfb6aac7sm722826qvh.51.2024.03.28.08.09.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Mar 2024 08:09:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,103 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afc8b6ea-ed14-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 1cfad02c-ed15-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1711638359; x=1712243159; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/7REdIHOe+En6wvFNrerIGdNSVbHu6MdMdVBnIGdNlA=;
-        b=qXLjWHuHvKWlFz7Lmj+ARpcpGFihcEnpSZFnM/2cJIdI3a9d1tGfb7dhWN92B6Lxp5
-         kfkOaXH7sW98xHOMflmlMIDCjujdMB61Qi0E5TmJNVGSX7xERlFyO+j1p7A+Fo/1Tqi9
-         GA3nST42etjESH5jPEdeVozaXUFQF2zqvc5hg=
+        d=citrix.com; s=google; t=1711638542; x=1712243342; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RTkiM6vXFtQFsCu0X4ejO2hYV6vHlc9WzpCQvZsNC4w=;
+        b=g+tUxEqI5TjjyrOApQf4gwui4tvZ1wOyM8Ggj4KaOR6XvK5GANAUYx12k15WJ73WF3
+         QQxVEqnzCmLJT3j/60X9cRpCuNyMCmvImU+roqIyHEFwtyXOmRAJyKtnLDuFPr9+QsDy
+         H4z/if900NIyVXRFZYhBezKj6ZJ8GsZT+NQKk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711638359; x=1712243159;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/7REdIHOe+En6wvFNrerIGdNSVbHu6MdMdVBnIGdNlA=;
-        b=IZRH7Liy57uFMOYS69IHZtDpcxJCc+yhyjeJ/rCVyanh14DFtu0bPK+8hCFoQOedMA
-         nTg8Vlj+iHORUV9SQTnDJTvaQdwVJmbv/AiC4N33PyHbnn6rQKzAWuegkuz5yg4rc7Tg
-         uWP6UZBFWpwrqsLfwx4cM4na/FSm6oggllPxcsgPjj13ZlgsuZ5poRhpBo7byj3wPUxm
-         Yzpi2oSw8iePK0blxCkXpiDjqoMKdjAFAzRo3WiPjXo0zvpWejNF7ua2RlMiJpdIGxkL
-         PRHG04TuYhErc/1pvcfE6nc3hlTqlBo5zUdrNnjO0XV6u2JVINzq465QlyxPnVxRK4r/
-         9YSA==
-X-Forwarded-Encrypted: i=1; AJvYcCU3stpngLV+S3XFYvJNAFg+rsNzaRcVusRXRcaFtiLvJbmaqLq6pxL7VxD6g0fugT2ZYuHvJYxuLLXuUXHxes5CFKckVpymBX9bsks8YRA=
-X-Gm-Message-State: AOJu0YyT+pAfNbsHjHjiT6PRhF31hvCLiu/usk1iu5IrTqdr6g9f49Md
-	08SMNp4vFp6cLDHGNMW0RDE6ImWR7p8sx2Scvl5ng+wOg1FqAkcA3DnQAcnxE9/DliuT+HBqQSK
-	zxdmCtVtVLk9NxPlc49lXM8uHSUq3dHQr09ca
-X-Google-Smtp-Source: AGHT+IGvI9UkOFFAsRmdvHTRKgZ0gtGVBFyuXu3T+Ew6jFYGp3QeudPmLyCv/+WaK33QtG8mGzefV5AK21bmWCq221c=
-X-Received: by 2002:a17:903:11d1:b0:1e0:f51b:12e2 with SMTP id
- q17-20020a17090311d100b001e0f51b12e2mr3556311plh.2.1711638359254; Thu, 28 Mar
- 2024 08:05:59 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240313150748.791236-1-ross.lagerwall@citrix.com>
- <20240313150748.791236-3-ross.lagerwall@citrix.com> <Zflj1gEwdeAU45US@macbook>
-In-Reply-To: <Zflj1gEwdeAU45US@macbook>
+        d=1e100.net; s=20230601; t=1711638542; x=1712243342;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RTkiM6vXFtQFsCu0X4ejO2hYV6vHlc9WzpCQvZsNC4w=;
+        b=kbn8aKqRjBfarQCzCBFkdQC09P0xAzTpogYeRm+LlQ81XnlMdPCU5ixrZ+O+SdrbiL
+         y5dxM3Gk1xo7HHhdmzWzhchRqjOYlIAH74XP2sfN9s+M13iOAdO1fO/y60+B7miOme7V
+         gmVr0JC8tGoSCRcd/KN7SrVSlRMshGr271W4hn3zCcy/BAfmZafLERT4RXRlCoN1XtZU
+         me2IvJyHonTTHn2hIb1h8/7PueCskLa4bvi8gvA8NYM4jx9O9Sddj6m9kxhTI+77G8Lg
+         ztmQyWCjFbFlXi3I4oA/o3yRmyq0CN+1QrlVj9fZpfClykuNqA7HwBQlTQhDiteh6xYU
+         MtrQ==
+X-Gm-Message-State: AOJu0YxHpdosvOaG6xJCxm5zK1S9DBoN87L76Xi2YxLbSzo8Ycyrj+Q/
+	1HKwkonLiQzKeFAgwEZj8gAjcpMHWwxPl91qzLUGDcRwTKEnvBWERRYQZefI+OoXhpMjxm5dZO/
+	TgQ==
+X-Google-Smtp-Source: AGHT+IH53j3UHtxlBcXfIUmAiCXlmNL2FpfZKgl4bvEiYcHXmk9lQfHTKhaDbj7nh4q7fy+lPvzQ+Q==
+X-Received: by 2002:a0c:e805:0:b0:696:8234:3ab with SMTP id y5-20020a0ce805000000b00696823403abmr2707085qvn.49.1711638541872;
+        Thu, 28 Mar 2024 08:09:01 -0700 (PDT)
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Thu, 28 Mar 2024 15:05:47 +0000
-Message-ID: <CAG7k0Eq8WFSysMLsg-=FA1GtSR82afXEfHP+cv6gZ_NGn8LrAg@mail.gmail.com>
-Subject: Re: [PATCH 2/7] multiboot2: Allow 64-bit entry tags
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: grub-devel@gnu.org, xen-devel@lists.xenproject.org, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Daniel Kiper <daniel.kiper@oracle.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To: xen-devel@lists.xenproject.org
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 0/2] x86: Multiboot PE support
+Date: Thu, 28 Mar 2024 15:11:04 +0000
+Message-ID: <20240328151106.1451104-1-ross.lagerwall@citrix.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Mar 19, 2024 at 10:07=E2=80=AFAM Roger Pau Monn=C3=A9 <roger.pau@ci=
-trix.com> wrote:
->
-> On Wed, Mar 13, 2024 at 03:07:43PM +0000, Ross Lagerwall wrote:
-> > Binaries may be built with entry points above 4G. While bootloaders may
-> > relocate them below 4G, it should be possible for the binary to specify
-> > those entry points. Therefore, extend the multiboot2 protocol such that
-> > 64 bit addresses are allowed for entry points. The extension is done in
-> > a backwards-compatible way.
-> >
-> > Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> > ---
-> >  doc/multiboot.texi | 32 +++++++++++++++++++-------------
-> >  doc/multiboot2.h   |  6 +++++-
-> >  2 files changed, 24 insertions(+), 14 deletions(-)
-> >
-> > diff --git a/doc/multiboot.texi b/doc/multiboot.texi
-> > index d12719c744eb..049afab53c1f 100644
-> > --- a/doc/multiboot.texi
-> > +++ b/doc/multiboot.texi
-> > @@ -522,12 +522,12 @@ header.
-> >
-> >  @example
-> >  @group
-> > -        +-------------------+
-> > -u16     | type =3D 3          |
-> > -u16     | flags             |
-> > -u32     | size              |
-> > -u32     | entry_addr        |
-> > -        +-------------------+
-> > +          +-------------------+
-> > +u16       | type =3D 3          |
-> > +u16       | flags             |
-> > +u32       | size              |
-> > +u32 / u64 | entry_addr        |
-> > +          +-------------------+
->
-> I might be confused, but this entry point is used in 32bit protected
-> mode, and hence a 64bit value is simply impossible to use according to
-> the protocol in "3.3 I386 machine state".
->
-> Unless that section is expanded to describe other protocols that use
-> the entry address in a way where 64bits could be meaningful it seems
-> pointless to expand the field.
+Hi,
 
-I changed this because the same binary is being used for both BIOS boot
-and UEFI boot, therefore it may have a base address above 4 GiB.
-Despite that, it is expected that GRUB would relocate the binary below
-4 GiB so BIOS boot would still work.
+This patches series implements support for building a multiboot-capable
+PE binary in addition to the existing xen.efi and xen.gz. The purpose of
+this is to allow the same binary to be booted using BIOS, UEFI, and UEFI
+with Secure Boot verification just like it can be done with a Linux
+kernel. It also means that it is possible to enable Secure Boot while
+still retaining the flexibility of a full bootloader like GRUB2 - not
+currently possible when using xen.efi.
 
-However, on reflection this is kind of nasty. I've managed to build Xen
-in such a way that this is no longer needed so I can drop this change
-from the next version of this series.
+This requires a multiboot2 loader that supports loading PE binaries.
+Changes to implement this in GRUB will be sent in a separate series.
 
 Ross
+
+Changed in v2:
+
+* Adjusted for changes to the proposed multiboot2 spec changes. In
+  particular, there are no new multiboot2 tags needed.
+* Unconditionally build a new binary rather than adding a build option.
+* Avoid compressing it since this makes verification more difficult.
+* Build the new binary as a modification of xen.efi rather than
+  relinking from scratch.
+
+Ross Lagerwall (2):
+  x86: Add support for building a multiboot2 PE binary
+  x86: Call Shim Verify in the multiboot2 path
+
+ .gitignore                        |  2 +
+ xen/Makefile                      |  1 +
+ xen/arch/x86/Makefile             | 16 ++++++-
+ xen/arch/x86/boot/head.S          |  4 +-
+ xen/arch/x86/efi/efi-boot.h       | 65 +++++++++++++++++++++++++-
+ xen/arch/x86/efi/modify-mbi-exe.c | 77 +++++++++++++++++++++++++++++++
+ 6 files changed, 162 insertions(+), 3 deletions(-)
+ create mode 100644 xen/arch/x86/efi/modify-mbi-exe.c
+
+-- 
+2.43.0
+
 
