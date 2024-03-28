@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B07B58904AC
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 17:12:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.699090.1091646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 102D98904A2
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 17:09:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.699081.1091615 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpsMS-0000Ku-DG; Thu, 28 Mar 2024 16:12:16 +0000
+	id 1rpsJu-0005s2-EA; Thu, 28 Mar 2024 16:09:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699090.1091646; Thu, 28 Mar 2024 16:12:16 +0000
+Received: by outflank-mailman (output) from mailman id 699081.1091615; Thu, 28 Mar 2024 16:09:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpsMS-0000I6-A4; Thu, 28 Mar 2024 16:12:16 +0000
-Received: by outflank-mailman (input) for mailman id 699090;
- Thu, 28 Mar 2024 16:12:14 +0000
+	id 1rpsJu-0005q6-B8; Thu, 28 Mar 2024 16:09:38 +0000
+Received: by outflank-mailman (input) for mailman id 699081;
+ Thu, 28 Mar 2024 16:09:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Yxy0=LC=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1rps7n-0001AK-EE
- for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 15:57:07 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1rps7t-0001AK-RP
+ for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 15:57:13 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d3c5034c-ed1b-11ee-afe3-a90da7624cb6;
- Thu, 28 Mar 2024 16:57:06 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a466a27d30aso140700166b.1
- for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 08:57:06 -0700 (PDT)
+ id d79ff39e-ed1b-11ee-afe3-a90da7624cb6;
+ Thu, 28 Mar 2024 16:57:13 +0100 (CET)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2d485886545so17750501fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 08:57:13 -0700 (PDT)
 Received: from m1x-phil.lan (pas38-h02-176-184-5-52.dsl.sta.abo.bbox.fr.
  [176.184.5.52]) by smtp.gmail.com with ESMTPSA id
- f8-20020a17090624c800b00a46fbff47a6sm891626ejb.168.2024.03.28.08.57.04
+ lh23-20020a170906f8d700b00a46ab5aaffcsm898765ejb.178.2024.03.28.08.57.11
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 28 Mar 2024 08:57:06 -0700 (PDT)
+ Thu, 28 Mar 2024 08:57:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,37 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3c5034c-ed1b-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: d79ff39e-ed1b-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1711641426; x=1712246226; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1711641433; x=1712246233; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4BSXB7GHW5TBQXIjnxuyxFyj9B1iDsM8cHi/htTyRxs=;
-        b=H/TUrYVppdn7LmwRGsgx2j1wQU1h58w8/D/39uon7Jhk6b7slCRn97xbTg/LKyZoVY
-         VJBJXV9OnD3YoJ3XiVC8kZxVxyNX/BZaTexO0SWUHL30WB0K8btFK3HGKLNjCq8ztgna
-         vUnz/75nWBTquQnVecf1GUicG7lMFGgIuqkl0HYQFspy7CXJola8DESy+ff6OEqY1/Hk
-         G26nvrb01XzF71lPtamFgGQum8MDO3xo4XW/cy62T1HEMhruqv3jF5vbEiJmJubnKesE
-         RmmIFPNbVgBM55MOyFb8m6qqX4T6/8hCwqt2xi5hgXb92SfTNV9PtYsTciLDDy2gcHBK
-         NnVA==
+        bh=Jd0AyxLTXxReg2ZsCl/5FvAkstq2JBvxx9RU6rO30AU=;
+        b=OcRZeKwc5MAFrMjXvdeEeYyW5w79qP/SrZQlhZUXnYIuFhKrbRm1BkkR1TMsHtlqfL
+         9clYB9IQxvJsHjcpBgRd26Cv5BPzgNbCjb48zDVZZcvix0wrRtWnH8XmEWSMgmmw/p3u
+         TdVnPbrx+xJVDJHzuf79mYPxXboEDcSr/DYOgvCVPGsbihlgKwPuTi8308WYy1ptA358
+         HLHeduXayJzVXlqcYIGfGwaz1XTdeOo1hKFWYdlTfqLqW5JYI1Wl1iNsygKHObIuijEG
+         xjt2eof+n0Dxw3UayP6q5Pxb/VEy8mM7lukfy31RyuNQzaQrtcRzw7omLdGJfx4MAUcs
+         nu6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711641426; x=1712246226;
+        d=1e100.net; s=20230601; t=1711641433; x=1712246233;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=4BSXB7GHW5TBQXIjnxuyxFyj9B1iDsM8cHi/htTyRxs=;
-        b=lttiTexABxs/MZ1G9wVhWkn3X6mdCF/63J+2oCOb0SdU3eM4hxen8tIVBXc2bKYz8D
-         c+IgbGvXXAVZoJhPci/GaXb7KaPfS1zoI5lOYpGkTIAyPZdeHlmYmL/iw5siZw7vEmz7
-         02YJp3LP38zW/5TeRLnzD2ibieu4243U4q4He8W08qJdg6SW+2dazjuEZOBThProxg7e
-         2qBl+1oxiCUKLS+fZYobgtVYvuB81xqDv+iyNlTMMvo30nQDGj0vqKO9sLX8w++BvpUn
-         AXZzEVTUGrbJdILxL42P5u1jpz6B5QeppuIogR84h5wucdKLB0GPizkVtK0gHqoWkZch
-         inww==
-X-Forwarded-Encrypted: i=1; AJvYcCWdjweH8hCNV+vAtH7CnsX7fF0Ea6497PBY8wQGDvWS8rzMHqkFs4OkBxh9rtfVxn9mz6PofYakHxzHHDo6QNUGHNZnpXsFWlMGv/EeO8c=
-X-Gm-Message-State: AOJu0Yy0JqKG5kgPIqm7Q+2R18VwWwABH/w+tWxO8OqlpsrGwi4PrYWk
-	+fBqx38XNPRz22s+Gsc2a43dl0p8gkE4jwgjLYhnfBrKGsOLyUav6NC1HrayfiA=
-X-Google-Smtp-Source: AGHT+IFF/skKWHNCTMPwJb+B2ckteIOxmThfN9+aMTRN8D0HIEaksr7NEcZ4nuV98VsFYsHsSKmB9w==
-X-Received: by 2002:a17:906:b112:b0:a47:1fe8:9825 with SMTP id u18-20020a170906b11200b00a471fe89825mr2020350ejy.32.1711641426506;
-        Thu, 28 Mar 2024 08:57:06 -0700 (PDT)
+        bh=Jd0AyxLTXxReg2ZsCl/5FvAkstq2JBvxx9RU6rO30AU=;
+        b=cV+mnpKPhW3T2JQRoeQDvrew9UJ5Azol4xoX0DS+uXrrIsLAeZ/TJi5n2jUPNXTBBm
+         Rrnv3dzhPXqrjUgS02b47RuZQFxPgubqQuGGgKsGsmj4Y1I6acNRTMfpbwfKkSiGLf7Y
+         HEYUP2nWr5xmi6N4RGJgcvdQHI3aOA4RJSMOZxfgDxH3huR0IDCc980ygF2Psnt5AI/z
+         fq0w/JKNiDA3l8smijA7TYL9b9t1TgVbd/19XgKHiICePyNArj0Kuzm99XAu6hqbZCRu
+         OtTWGpNBqlzJGnd1NMKZnnCx0IKCzpxA9ym3+Zn1dn3YpO14k8D7FIRZi4rkhoc4hvVb
+         DFDg==
+X-Forwarded-Encrypted: i=1; AJvYcCXAOVhkwWZ+fhYE7fzPWKSvWOHFcuxFKQ+jLT3c+Sh5n6Mh/hVHb8OLQOvOC3+jj7nRQsRnc1Fd5OWdnibq8b5SmLcrXDsuxSS7YSxnWRg=
+X-Gm-Message-State: AOJu0YwkLSp2tTyLgOX2pJy5dCjvijDMekg9bsncpjvASmDcC7DLWbvK
+	wsY0pmJduB/0WZye9Q88s8BG3WCKqa/jpenkJ/2vgvqKi7Uphp6C+T8PINpbxVQ=
+X-Google-Smtp-Source: AGHT+IFp7sCXvlR7d3Mf8BzIjVT/t0rldZPHgrIbP67RUd/bNvgi6xSgjnnhBTrJNCeF2G5tN//CLg==
+X-Received: by 2002:a2e:a289:0:b0:2d3:5020:17e5 with SMTP id k9-20020a2ea289000000b002d3502017e5mr3152074lja.36.1711641432888;
+        Thu, 28 Mar 2024 08:57:12 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -91,9 +91,9 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	Anthony Perard <anthony.perard@citrix.com>,
 	Ani Sinha <anisinha@redhat.com>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [RFC PATCH-for-9.1 23/29] hw/i386/fw_cfg: Inline smbios_defaults()
-Date: Thu, 28 Mar 2024 16:54:31 +0100
-Message-ID: <20240328155439.58719-24-philmd@linaro.org>
+Subject: [RFC PATCH-for-9.1 24/29] hw/i386/fw_cfg: Inline smbios_legacy_mode()
+Date: Thu, 28 Mar 2024 16:54:32 +0100
+Message-ID: <20240328155439.58719-25-philmd@linaro.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20240328155439.58719-1-philmd@linaro.org>
 References: <20240328155439.58719-1-philmd@linaro.org>
@@ -101,79 +101,80 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-All PCI-based machines have the smbios_defaults field
-set to %true. Simplify by using an inlined helper
-checking whether the machine is PCI-based or not.
+All PCI-based machines have the smbios_legacy_mode
+field set to %false. Simplify by using an inlined
+helper checking whether the machine is PCI-based or
+not.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
  include/hw/i386/pc.h | 1 -
- hw/i386/fw_cfg.c     | 7 ++++++-
- hw/i386/pc.c         | 1 -
- hw/i386/pc_piix.c    | 1 -
- 4 files changed, 6 insertions(+), 4 deletions(-)
+ hw/i386/fw_cfg.c     | 8 ++++++--
+ hw/i386/pc_piix.c    | 2 --
+ 3 files changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/include/hw/i386/pc.h b/include/hw/i386/pc.h
-index 7da0bc8aa4..6a6a8df005 100644
+index 6a6a8df005..6510914803 100644
 --- a/include/hw/i386/pc.h
 +++ b/include/hw/i386/pc.h
 @@ -86,7 +86,6 @@ typedef struct PCMachineClass {
      int default_cpu_version;
  
      /* SMBIOS compat: */
--    bool smbios_defaults;
-     bool smbios_legacy_mode;
+-    bool smbios_legacy_mode;
      SmbiosEntryPointType default_smbios_ep_type;
  
+     /* RAM / address space compat: */
 diff --git a/hw/i386/fw_cfg.c b/hw/i386/fw_cfg.c
-index 14a7dfbdc9..f60390ed56 100644
+index f60390ed56..ffa60a4a33 100644
 --- a/hw/i386/fw_cfg.c
 +++ b/hw/i386/fw_cfg.c
-@@ -49,6 +49,11 @@ const char *fw_cfg_arch_key_name(uint16_t key)
+@@ -54,6 +54,11 @@ static bool smbios_defaults(PCMachineState *pcms)
+     return pc_machine_is_pci_enabled(pcms);
  }
  
- #ifdef CONFIG_SMBIOS
-+static bool smbios_defaults(PCMachineState *pcms)
++static bool smbios_legacy_mode(PCMachineState *pcms)
 +{
-+    return pc_machine_is_pci_enabled(pcms);
++    return !pc_machine_is_pci_enabled(pcms);
 +}
 +
  void fw_cfg_build_smbios(PCMachineState *pcms, FWCfgState *fw_cfg,
                           SmbiosEntryPointType ep_type)
  {
-@@ -61,7 +66,7 @@ void fw_cfg_build_smbios(PCMachineState *pcms, FWCfgState *fw_cfg,
+@@ -62,7 +67,6 @@ void fw_cfg_build_smbios(PCMachineState *pcms, FWCfgState *fw_cfg,
+     struct smbios_phys_mem_area *mem_array;
+     unsigned i, array_count;
+     MachineState *ms = MACHINE(pcms);
+-    PCMachineClass *pcmc = PC_MACHINE_GET_CLASS(pcms);
      MachineClass *mc = MACHINE_GET_CLASS(pcms);
      X86CPU *cpu = X86_CPU(ms->possible_cpus->cpus[0].cpu);
  
--    if (pcmc->smbios_defaults) {
-+    if (smbios_defaults(pcms)) {
-         /* These values are guest ABI, do not change */
-         smbios_set_defaults("QEMU", mc->desc, mc->name);
-     }
-diff --git a/hw/i386/pc.c b/hw/i386/pc.c
-index b83abee8e9..7a758a2e84 100644
---- a/hw/i386/pc.c
-+++ b/hw/i386/pc.c
-@@ -1754,7 +1754,6 @@ static void pc_machine_class_init(ObjectClass *oc, void *data)
-     PCMachineClass *pcmc = PC_MACHINE_CLASS(oc);
-     HotplugHandlerClass *hc = HOTPLUG_HANDLER_CLASS(oc);
+@@ -74,7 +78,7 @@ void fw_cfg_build_smbios(PCMachineState *pcms, FWCfgState *fw_cfg,
+     /* tell smbios about cpuid version and features */
+     smbios_set_cpuid(cpu->env.cpuid_version, cpu->env.features[FEAT_1_EDX]);
  
--    pcmc->smbios_defaults = true;
-     pcmc->enforce_amd_1tb_hole = true;
-     pcmc->pvh_enabled = true;
-     pcmc->kvmclock_create_always = true;
+-    if (pcmc->smbios_legacy_mode) {
++    if (smbios_legacy_mode(pcms)) {
+         smbios_tables = smbios_get_table_legacy(&smbios_tables_len,
+                                                 &error_fatal);
+         fw_cfg_add_bytes(fw_cfg, FW_CFG_SMBIOS_ENTRIES,
 diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-index e6178f8653..70dc8686f9 100644
+index 70dc8686f9..4f07476cfa 100644
 --- a/hw/i386/pc_piix.c
 +++ b/hw/i386/pc_piix.c
-@@ -828,7 +828,6 @@ static void isapc_machine_options(MachineClass *m)
+@@ -823,12 +823,10 @@ DEFINE_I440FX_MACHINE(v2_4, "pc-i440fx-2.4", NULL,
+ #ifdef CONFIG_ISAPC
+ static void isapc_machine_options(MachineClass *m)
+ {
+-    PCMachineClass *pcmc = PC_MACHINE_CLASS(m);
+     m->desc = "ISA-only PC";
      m->max_cpus = 1;
      m->option_rom_has_mr = true;
      m->rom_file_has_mr = false;
--    pcmc->smbios_defaults = false;
-     pcmc->smbios_legacy_mode = true;
+-    pcmc->smbios_legacy_mode = true;
      m->default_nic = "ne2k_isa";
      m->default_cpu_type = X86_CPU_TYPE_NAME("486");
+     m->no_parallel = !module_object_class_by_name(TYPE_ISA_PARALLEL);
 -- 
 2.41.0
 
