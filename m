@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76D18890A4A
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 20:57:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.699171.1091828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C51C890A61
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 20:58:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.699175.1091839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpvqk-0001Cy-P5; Thu, 28 Mar 2024 19:55:46 +0000
+	id 1rpvtY-0001rC-9q; Thu, 28 Mar 2024 19:58:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699171.1091828; Thu, 28 Mar 2024 19:55:46 +0000
+Received: by outflank-mailman (output) from mailman id 699175.1091839; Thu, 28 Mar 2024 19:58:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpvqk-0001AB-M6; Thu, 28 Mar 2024 19:55:46 +0000
-Received: by outflank-mailman (input) for mailman id 699171;
- Thu, 28 Mar 2024 19:55:45 +0000
+	id 1rpvtY-0001p5-5y; Thu, 28 Mar 2024 19:58:40 +0000
+Received: by outflank-mailman (input) for mailman id 699175;
+ Thu, 28 Mar 2024 19:58:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3Cl4=LC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rpvqj-0001A5-FS
- for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 19:55:45 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1rpvtW-0001ov-P3
+ for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 19:58:38 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2947a782-ed3d-11ee-afe3-a90da7624cb6;
- Thu, 28 Mar 2024 20:55:44 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4154d24cc77so684525e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 12:55:43 -0700 (PDT)
+ id 91107bf7-ed3d-11ee-afe3-a90da7624cb6;
+ Thu, 28 Mar 2024 20:58:37 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-415482307b0so7170415e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 12:58:37 -0700 (PDT)
 Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- bq21-20020a5d5a15000000b00341cb22a8d4sm2523839wrb.108.2024.03.28.12.55.41
+ je4-20020a05600c1f8400b0041496734318sm5163928wmb.24.2024.03.28.12.58.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Mar 2024 12:55:42 -0700 (PDT)
+ Thu, 28 Mar 2024 12:58:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2947a782-ed3d-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: 91107bf7-ed3d-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1711655743; x=1712260543; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1711655917; x=1712260717; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=s/IDWIb0SW/9AwfUtyXDUxnhS3iY9i8OmmoOsMrW3rw=;
-        b=Joh588nFHaMeMgr8moGYz63A16n8mOoAxiy3JCFmSTB4UxWKxJCCVNoCNq5CvwBDgU
-         3VMwFMAiqPyvmSI3Z/GehAeRrjDaD4/n738NIjroh9S8ad/V01NAfehn4VaRwT3UBCQ3
-         Md31up1SeRGk6P5VmMUQ1D/gxZo8M3sX/UVHk=
+        bh=CbSmQlQpQISY33MaUOcZK/Zi3//tWlvqA1u6OjUNI7A=;
+        b=m0N7xOt+Cj7AsnoJ1XWpK41GVfI5YOPzwPAKCKYqJ4e2Ff2x2380fW77AuVX/r6EZg
+         qjedz5QIhQWL/RiMsPhDd97KBJ6rn1JQLjfnUayx3bUI9mZLyApSSsAieM9eJcKv9HNc
+         7wrOUAGCEJCTD+edA6DS2QMd+dL7UOe8lCa4c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711655743; x=1712260543;
+        d=1e100.net; s=20230601; t=1711655917; x=1712260717;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=s/IDWIb0SW/9AwfUtyXDUxnhS3iY9i8OmmoOsMrW3rw=;
-        b=KzDkVSSur7s/QnoONkiMCt0Q3Evu0vzXgjxpiSrakcurau5jVHsgNAM1jjnSsCrlse
-         5SbnAsW2j1T8SwpKfsvDTEw/mzk00t3so6gIrJunuK4iAOEcQY8dI4mf+l0lP+bdnnXy
-         FJrRPxYMhGvqkshKA3IdXKzRf/vuYGGTZ105fPYuCvqkpELpEofC9s+7zg8Ckl6GL1eW
-         p/HCrGdwv9iLO7kzVTmQdHbXOGgZL1jEZ4YAGCdtawVhZErrmFHcKRYDZKeNQbRIXqVR
-         Iuf7nhdOMBIZrl5dRUNpvJqXuT7SUR9nLjVcX2iTRBpagPGpHOaxwyF3sI0u+mjvCFve
-         aQvQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX2tGSC+p1mGiPfHCmLINDmSpT6WtDDvn2rw49qZjkUW4tompuZBHZ9/P5+59ApSz9Z2KQzhfbnKglG3rHdN/keiLuDO2sKm+8AQJkrIO4=
-X-Gm-Message-State: AOJu0YwTVsdx18DuqZG8wGz8raf4yWWLrK9FOzaHuWyvEx8JW0SUMBOM
-	q05CDLyhIMFtw6xHYnrBUKc7bngV6rVtcxCLoRDPdJvimOaA75I7hqK7iry11UEUSVLKmrRlLry
-	2Cbc=
-X-Google-Smtp-Source: AGHT+IFzacOYI2OJoZDJ5c2kX9wF4hZCfGhQLSK6M5dF0WbDQ9QHurO7sRCJ7ryML1IGEVjOMtyrPw==
-X-Received: by 2002:a5d:4d07:0:b0:341:cf9b:c8e with SMTP id z7-20020a5d4d07000000b00341cf9b0c8emr45383wrt.50.1711655743040;
-        Thu, 28 Mar 2024 12:55:43 -0700 (PDT)
-Message-ID: <ff5e2e70-a8d1-49cd-a15d-eb65a58eab34@citrix.com>
-Date: Thu, 28 Mar 2024 19:55:41 +0000
+        bh=CbSmQlQpQISY33MaUOcZK/Zi3//tWlvqA1u6OjUNI7A=;
+        b=DJ8ESer3rSE6zr9wXy9pCMU/za/2EauE9ltkiwRBp6C3q/QSA9Z2h89APkqsa0jdKj
+         bWjMfrQ2n5aSnJN4XNQU9bsgxOEDTgMBtO+QhRSUKenTZ+Qq5yPgQNujwwT7peMUeOXG
+         0bhVG9msowj9cWmHI0bouu4rFmci5seKk5vLzqx0yaVCbvQMPRObRGQO72Ae+0CegneS
+         tkfm+T6C/eu3HhP0yFCK5RzyF64Wc5GR8EBvd8EUdiPh1usXTZlz8Y963frtMtbQj+6z
+         UmEaD3yqUzbTgSQDpJPZ5B3Y03DlPX/s0lJwRF7PmT1Dywy+kVPWlyH0NGIRC1//dU10
+         zwGA==
+X-Forwarded-Encrypted: i=1; AJvYcCUzDoFRxlCzTgq7VLWGLf5AN2cBhAJjuFDviNNUV+wcLX/XRkIcUXY3A7VuEUlfxWy32v/dg0OURlqiYicEVeoGa4X7fFijaOfMLwzusvo=
+X-Gm-Message-State: AOJu0Yzr/0CEgIYPwxEiXM46vrmb3HXGNJPi6sLhc3ABhspdjRcZT26K
+	gBcvw3JPNF8T6bIU3XKVa+SM9HzjIOmMyEovmXh4sFYefhIwgykv77b86HjPHL4=
+X-Google-Smtp-Source: AGHT+IGojQGFJyCdnoBF3eHGUOHyvBjTmIjjYRw5p1GWr/B44TxyAhGZ/w4YgX5k6QCsXcFRyRCvHg==
+X-Received: by 2002:a1c:790c:0:b0:415:4b4b:1e03 with SMTP id l12-20020a1c790c000000b004154b4b1e03mr337375wme.19.1711655917313;
+        Thu, 28 Mar 2024 12:58:37 -0700 (PDT)
+Message-ID: <9d8af8b5-2a14-44bc-89c6-b616e79cb259@citrix.com>
+Date: Thu, 28 Mar 2024 19:58:36 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/video: add boot_video_info offset generation to
- asm-offsets
+Subject: Re: [PATCH 2/2] x86/video: do not assume a video mode to be
+ unconditionally present
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>
 References: <20240328153523.4155-1-roger.pau@citrix.com>
- <20240328153523.4155-2-roger.pau@citrix.com>
+ <20240328153523.4155-3-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,126 +129,39 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240328153523.4155-2-roger.pau@citrix.com>
+In-Reply-To: <20240328153523.4155-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 28/03/2024 3:35 pm, Roger Pau Monne wrote:
-> Currently the offsets into the boot_video_info struct are manually encoded in
-> video.S, which is fragile.  Generate them in asm-offsets.c and switch the
-> current code to use those instead.
+> There's no reason to assume VGA text mode 3 to be unconditionally available.
+> With the addition of booting Xen itself in PVH mode there's a boot path that
+> explicitly short-circuits all the real-mode logic, including the VGA detection.
 >
-> No functional change intended.
+> Leave the default user selected mode as text mode 3 in boot_vid_mode, but do
+> not populate boot_vid_info with any default settings.  It will either be
+> populated by the real-mode video detection code, or left zeroed in case
+> real-mode code is skipped.
 >
+> Note that only PVH skips the real-mode portion of the boot trampoline,
+> otherwise the only way to skip it is to set `no-real-mode` on the command line,
+> and the description for the option already notes that VGA would be disabled as
+> a result of skipping real-mode bootstrap.
+
+IIRC, Grub defaults to using no-real-mode for xen.efi.  It's definitely
+a common option to find used in practice.
+
+>
+> This fixes Xen incorrectly reporting:
+>
+> (XEN) Video information:
+> (XEN)  VGA is text mode 80x25, font 8x16
+>
+> When booted as a PVH guest.
+>
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-R-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Thanks for looking at this.  As you're touching these lines, there are a
-few style fixes.
-
-> diff --git a/xen/arch/x86/boot/video.S b/xen/arch/x86/boot/video.S
-> index 0ae04f270f8c..a4b25a3b34d1 100644
-> --- a/xen/arch/x86/boot/video.S
-> +++ b/xen/arch/x86/boot/video.S
-> @@ -26,32 +26,13 @@
->  /* Force 400 scan lines for standard modes (hack to fix bad BIOS behaviour */
->  #undef CONFIG_VIDEO_400_HACK
->  
-> -/* Positions of various video parameters passed to the kernel */
-> -/* (see also include/linux/tty.h) */
-> -#define PARAM_CURSOR_POS        0x00
-> -#define PARAM_VIDEO_MODE        0x02
-> -#define PARAM_VIDEO_COLS        0x03
-> -#define PARAM_VIDEO_LINES       0x04
-> -#define PARAM_HAVE_VGA          0x05
-> -#define PARAM_FONT_POINTS       0x06
-> -#define PARAM_CAPABILITIES      0x08
-> -#define PARAM_LFB_LINELENGTH    0x0c
-> -#define PARAM_LFB_WIDTH         0x0e
-> -#define PARAM_LFB_HEIGHT        0x10
-> -#define PARAM_LFB_DEPTH         0x12
-> -#define PARAM_LFB_BASE          0x14
-> -#define PARAM_LFB_SIZE          0x18
-> -#define PARAM_LFB_COLORS        0x1c
-> -#define PARAM_VESAPM_SEG        0x24
-> -#define PARAM_VESAPM_OFF        0x26
-> -#define PARAM_VESA_ATTRIB       0x28
->  #define _param(param) bootsym(boot_vid_info)+(param)
->  
->  video:  xorw    %ax, %ax
->          movw    %ax, %gs        # GS is zero
->          cld
->          call    basic_detect    # Basic adapter type testing (EGA/VGA/MDA/CGA)
-> -        cmpb    $0,_param(PARAM_HAVE_VGA)
-> +        cmpb    $0,_param(BVI_have_vga)
-
-Space
-
-> @@ -160,16 +141,16 @@ mopar_gr:
->  dac_set:
->  # set color size to DAC size
->          movzbw  bootsym(dac_size), %ax
-> -        movb    %al, _param(PARAM_LFB_COLORS+0)
-> -        movb    %al, _param(PARAM_LFB_COLORS+2)
-> -        movb    %al, _param(PARAM_LFB_COLORS+4)
-> -        movb    %al, _param(PARAM_LFB_COLORS+6)
-> +        movb    %al, _param(BVI_lfb_colors+0)
-> +        movb    %al, _param(BVI_lfb_colors+2)
-> +        movb    %al, _param(BVI_lfb_colors+4)
-> +        movb    %al, _param(BVI_lfb_colors+6)
-
-Spaces
-
-> diff --git a/xen/arch/x86/x86_64/asm-offsets.c b/xen/arch/x86/x86_64/asm-offsets.c
-> index d8903a3ce9c7..91da6b9d3885 100644
-> --- a/xen/arch/x86/x86_64/asm-offsets.c
-> +++ b/xen/arch/x86/x86_64/asm-offsets.c
-> @@ -16,6 +16,10 @@
->  #include <xen/multiboot.h>
->  #include <xen/multiboot2.h>
->  
-> +#ifdef CONFIG_VIDEO
-> +# include "../boot/video.h"
-> +#endif
-> +
->  #define DEFINE(_sym, _val)                                                 \
->      asm volatile ( "\n.ascii\"==>#define " #_sym " %0 /* " #_val " */<==\""\
->                     :: "i" (_val) )
-> @@ -208,4 +212,26 @@ void __dummy__(void)
->  
->      OFFSET(DOMAIN_vm_assist, struct domain, vm_assist);
->      BLANK();
-> +
-> +#ifdef CONFIG_VIDEO
-> +    DEFINE(BVI_size, sizeof(struct boot_video_info));
-> +    OFFSET(BVI_cursor_pos, struct boot_video_info, orig_x);
-> +    OFFSET(BVI_video_mode, struct boot_video_info, orig_video_mode);
-> +    OFFSET(BVI_video_cols, struct boot_video_info, orig_video_cols);
-> +    OFFSET(BVI_video_lines, struct boot_video_info, orig_video_lines);
-> +    OFFSET(BVI_have_vga, struct boot_video_info, orig_video_isVGA);
-> +    OFFSET(BVI_font_points, struct boot_video_info, orig_video_points);
-> +    OFFSET(BVI_capabilities, struct boot_video_info, capabilities);
-> +    OFFSET(BVI_lfb_linelength, struct boot_video_info, lfb_linelength);
-> +    OFFSET(BVI_lfb_width, struct boot_video_info, lfb_width);
-> +    OFFSET(BVI_lfb_height, struct boot_video_info, lfb_height);
-> +    OFFSET(BVI_lfb_depth, struct boot_video_info, lfb_depth);
-> +    OFFSET(BVI_lfb_base, struct boot_video_info, lfb_base);
-> +    OFFSET(BVI_lfb_size, struct boot_video_info, lfb_size);
-> +    OFFSET(BVI_lfb_colors, struct boot_video_info, colors);
-> +    OFFSET(BVI_vesapm_seg, struct boot_video_info, vesapm.seg);
-> +    OFFSET(BVI_vesapm_off, struct boot_video_info, vesapm.off);
-> +    OFFSET(BVI_vesa_attrib, struct boot_video_info, vesa_attrib);
-> +    BLANK();
-> +#endif /* CONFIG_VIDEO */
-
-BVI_size traditionally goes last.  MB2 (which I guess you copied?) is a
-little odd.
-
-I'd like to start vertically aligning this for readability, like I
-started with EFRAME_*.
-
-Happy to fold of all of these tweaks on commit.
-
-~Andrew
+Reivewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
