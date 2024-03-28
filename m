@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 019968904A4
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 17:10:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.699083.1091626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E333D8904B1
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 17:12:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.699093.1091656 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpsKY-0007Ik-Na; Thu, 28 Mar 2024 16:10:18 +0000
+	id 1rpsMs-0000rZ-KP; Thu, 28 Mar 2024 16:12:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699083.1091626; Thu, 28 Mar 2024 16:10:18 +0000
+Received: by outflank-mailman (output) from mailman id 699093.1091656; Thu, 28 Mar 2024 16:12:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rpsKY-0007HB-JT; Thu, 28 Mar 2024 16:10:18 +0000
-Received: by outflank-mailman (input) for mailman id 699083;
- Thu, 28 Mar 2024 16:10:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rpsMs-0000pS-HY; Thu, 28 Mar 2024 16:12:42 +0000
+Received: by outflank-mailman (input) for mailman id 699093;
+ Thu, 28 Mar 2024 16:12:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Yxy0=LC=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1rps70-0001AK-Ev
- for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 15:56:18 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b668fd9e-ed1b-11ee-afe3-a90da7624cb6;
- Thu, 28 Mar 2024 16:56:17 +0100 (CET)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-513ccc70a6dso1820969e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 08:56:17 -0700 (PDT)
+ id 1rps77-00071m-G7
+ for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 15:56:25 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ba189f94-ed1b-11ee-a1ef-f123f15fe8a2;
+ Thu, 28 Mar 2024 16:56:23 +0100 (CET)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-513ccc70a6dso1821156e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 08:56:23 -0700 (PDT)
 Received: from m1x-phil.lan (pas38-h02-176-184-5-52.dsl.sta.abo.bbox.fr.
  [176.184.5.52]) by smtp.gmail.com with ESMTPSA id
- z1-20020a170906668100b00a474b7bbc76sm886773ejo.56.2024.03.28.08.56.15
+ i23-20020a170906265700b00a4749a1de50sm911948ejc.176.2024.03.28.08.56.21
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 28 Mar 2024 08:56:16 -0700 (PDT)
+ Thu, 28 Mar 2024 08:56:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,37 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b668fd9e-ed1b-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: ba189f94-ed1b-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1711641377; x=1712246177; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1711641383; x=1712246183; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=a1jNCFtYZSmUOBchzYP/5PRkNu6FHAH8wzcx932FlSY=;
-        b=EnaYBR8QzWipKM3eSIDrpfuOaiM8XXi6t/yfp5CwmfQmz0eRBAb+c+F9aaZGDPChM3
-         s+WJBI5fmM/UsErX487wD4t04BKZF2JriYLmcwEq6Qv8vvCsgjXp95GOvum9SFNp6HN+
-         wHZh6sLN9cERnHueMgL/sVCwcRVGmMX1rP/KijDjjkz6ZzdzzYvLKgTC2DZAOL3ozqTE
-         kXbuiVdGiOIjg+D7n8wUW4iSa8nfJvcsC8uq/KU3jeEa9WPSAl8eHoEw/DqQweplx/N6
-         b5kANDtPnfczJq0Zwa5I+gjp3KuHCxqTB/QgX8pFdf9xIxHa7uHs9ubiELehG00L3TkJ
-         aqug==
+        bh=YADozrynE6WAolQE0PpJsPO9+XRuTB0w7hXGd8JOVMk=;
+        b=t+/1N04qiasqsLsW1lgmgpEzggXkQbmk+oQ1NJhOyjhH0YcvmjGTucJMeeT8eBUPFq
+         IKeUNuKpBY1tycbKrGhB8bFrGRDwZSldhAImr+KZainvMB2DKkCwP2Huxkvzq6L3KvUf
+         OmSyAf7lS307LtfbyDepTokbaVt3z3IUmC6VkYgSYzYuUDQrwDbP+0d9y9UMRVIqwVWX
+         zcA3jxx0wh2Ux5QXvYzm1kciPjlNxM0t2H+zn9fMJ00MTFdnhLVGw39uEDZS4Jl/De5Y
+         VzAsc4jyPlvNfw5nvj9rBt5xZjEB1PPFMrcYul712K/zGc66mvBzIo/6toieFCmTuIi5
+         8ing==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711641377; x=1712246177;
+        d=1e100.net; s=20230601; t=1711641383; x=1712246183;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=a1jNCFtYZSmUOBchzYP/5PRkNu6FHAH8wzcx932FlSY=;
-        b=I+E8ZEd7ZwpVY92fHDRtTEvQkXgEPKTwoBeW3GsAMnoNMfpv5mDEySfP9b3rA8Rxco
-         FLmF4MaA3zeUmERn/MeKyPDASMMq1hXZUcHWpfIawon6BKTaKTexpgsnXe4WihwIiFIi
-         ZywW+p26XQgmb+jEih3Y6wJd1SAR3Flma128wZfTaz3dHzualQojpRfINUEtxmVouLGU
-         Slx4Lq5Q057OtJsyCXMy0ZwOIXecKuB2FmeZTgCEhFfkDKe8HFzRMcax3Hw7POR4nOnL
-         fuReGtRI+klbtRDvDVuZW9XddNQu7jUyPjsmiIX32wBFkVoKJJc3+kdxny3n0lprZZ6N
-         YyFg==
-X-Forwarded-Encrypted: i=1; AJvYcCUA3r2OnEEmUQB7bkym5uN2z0aLyC6uNUVbZxrHaouoTfhRoqEeWPitmGnJkFIeQEecfehagz56LJDiXeZtWFB6ClZrV5enV4uVrwHCm9M=
-X-Gm-Message-State: AOJu0YxIfYNxrb1DsBADCZJl/llhPi71Fer28/g7SOhiZwOaFjWBMsEV
-	cBj8/IWtezdhtvKDuheLc7r2boVCcmd2yz+Do2tM91Nf6MMeMBxqqWznA3i/zQk=
-X-Google-Smtp-Source: AGHT+IHXj5Yz165xDmy5t4NF8sNvW6bTjTmkAtHF7KcewPKZsVQV788UJXIfXnYu/c9dgv0TxzoB4g==
-X-Received: by 2002:a05:6512:110a:b0:515:c882:c44a with SMTP id l10-20020a056512110a00b00515c882c44amr2329607lfg.39.1711641377096;
-        Thu, 28 Mar 2024 08:56:17 -0700 (PDT)
+        bh=YADozrynE6WAolQE0PpJsPO9+XRuTB0w7hXGd8JOVMk=;
+        b=aRnAOmSTY0S9nWMix/CY6m/mbmG/eZgdFvmLyczqTJNtH8tYWN8Y9VjMahrMudSR9j
+         KFKQriAmQIngs4OHBkOUDNCXkLy0Vo9rRNe5EznpvWmPSXjbhO3QO9+/g+cCcuK5B6Pe
+         RebLECxBlD8+hm7+UPg4EjWgkCXUe13NMGxUd5qsDWnB9BqR6yRVDU97J7TSZPrl29y/
+         idRQ0rXhkNs6186kJ8A6lnMh6Xm30RVKGTTao4jCYhk5x9b0QbHvWVZCAaL2+QVAPHnQ
+         g0wBdLpSsOcZ9B0DlMeeh50PJQ/rQyoiL2ibu7aMQ/bunh3h/EnOJDPg6e0/D9eIoyGp
+         /0Hw==
+X-Forwarded-Encrypted: i=1; AJvYcCX6L2J7bRd4C7QUV46BxOJFaZIGVRyeU28Ofq4oS/PfwEGEyz3kPPv/hW8pxMxaq00Y07pYr6+lM1doBvIBOuT6qts5jNOnjvbVwzcDJcA=
+X-Gm-Message-State: AOJu0YxP05X8BH+CYOjCT9bK+3d1BzZZZzjbwrsoiP184pxD3vG4c2PZ
+	D6iqMUSAIIDmXG36hvleZMBZ17Fjw9ub8fqMF4e/aGGalmQrxnBsT/O9ptjwR1E=
+X-Google-Smtp-Source: AGHT+IFET2qLkxCYJlLAe5wqUF2LJxJCZxdIrO9Tbo3cYr9nsR7BCDgXHuGLT1xPB8OJyuTlfGMDhg==
+X-Received: by 2002:a05:6512:78f:b0:513:e643:cd12 with SMTP id x15-20020a056512078f00b00513e643cd12mr2537328lfr.26.1711641383341;
+        Thu, 28 Mar 2024 08:56:23 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -91,9 +91,9 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	Anthony Perard <anthony.perard@citrix.com>,
 	Ani Sinha <anisinha@redhat.com>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [RFC PATCH-for-9.1 15/29] hw/i386/pc: Move FW/pflash related fields to PcPciMachineState
-Date: Thu, 28 Mar 2024 16:54:23 +0100
-Message-ID: <20240328155439.58719-16-philmd@linaro.org>
+Subject: [RFC PATCH-for-9.1 16/29] hw/i386/pc: Move south-bridge related fields to PcPciMachine
+Date: Thu, 28 Mar 2024 16:54:24 +0100
+Message-ID: <20240328155439.58719-17-philmd@linaro.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20240328155439.58719-1-philmd@linaro.org>
 References: <20240328155439.58719-1-philmd@linaro.org>
@@ -101,318 +101,135 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Only PCI-based machines use the set of parallel flash devices.
-Move the fields from PCMachineState to PcPciMachineState.
-Directly pass a PcPciMachineState argument to the
-pc_system_flash/fw methods.
+South bridge type is only relevant for the i440fx/piix
+machine, which is PCI-based.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- include/hw/i386/pc.h | 10 ++++----
- hw/i386/pc.c         | 25 +++++++++---------
- hw/i386/pc_piix.c    |  3 ++-
- hw/i386/pc_sysfw.c   | 60 +++++++++++++++++++-------------------------
- 4 files changed, 45 insertions(+), 53 deletions(-)
+ include/hw/i386/pc.h |  8 ++++----
+ hw/i386/pc.c         |  3 ++-
+ hw/i386/pc_piix.c    | 12 ++++++------
+ 3 files changed, 12 insertions(+), 11 deletions(-)
 
 diff --git a/include/hw/i386/pc.h b/include/hw/i386/pc.h
-index 67f8f4730b..668347c248 100644
+index 668347c248..2db2aa03d3 100644
 --- a/include/hw/i386/pc.h
 +++ b/include/hw/i386/pc.h
-@@ -30,7 +30,6 @@ typedef struct PCMachineState {
-     /* Pointers to devices and objects: */
-     PCIBus *pcibus;
-     I2CBus *smbus;
--    PFlashCFI01 *flash[2];
-     ISADevice *pcspk;
-     DeviceState *iommu;
-     BusState *idebus[MAX_IDE_BUS];
-@@ -47,7 +46,6 @@ typedef struct PCMachineState {
-     bool i8042_enabled;
-     bool default_bus_bypass_iommu;
-     bool fd_bootchk;
--    uint64_t max_fw_size;
+@@ -38,7 +38,6 @@ typedef struct PCMachineState {
+     uint64_t max_ram_below_4g;
+     OnOffAuto vmport;
+     SmbiosEntryPointType smbios_entry_point_type;
+-    const char *south_bridge;
  
-     /* ACPI Memory hotplug IO base address */
-     hwaddr memhp_io_base;
-@@ -61,7 +59,9 @@ typedef struct PcPciMachineState {
+     bool smbus_enabled;
+     bool sata_enabled;
+@@ -59,6 +58,7 @@ typedef struct PcPciMachineState {
      Notifier machine_done;
  
      bool acpi_build_enabled;
-+    uint64_t max_fw_size;
++    const char *southbridge_typename;
+     uint64_t max_fw_size;
  
-+    PFlashCFI01 *flash[2];
-     CXLState cxl_devices_state;
- } PcPciMachineState;
+     PFlashCFI01 *flash[2];
+@@ -88,9 +88,6 @@ typedef struct PcPciMachineState {
+ typedef struct PCMachineClass {
+     X86MachineClass parent_class;
  
-@@ -184,9 +184,9 @@ void pc_i8259_create(ISABus *isa_bus, qemu_irq *i8259_irqs);
- #define TYPE_PORT92 "port92"
+-    /* Device configuration: */
+-    const char *default_south_bridge;
+-
+     /* Compat options: */
  
- /* pc_sysfw.c */
--void pc_system_flash_create(PCMachineState *pcms);
--void pc_system_flash_cleanup_unused(PCMachineState *pcms);
--void pc_system_firmware_init(PCMachineState *pcms, MemoryRegion *rom_memory);
-+void pc_system_flash_create(PcPciMachineState *ppms);
-+void pc_system_flash_cleanup_unused(PcPciMachineState *ppms);
-+void pc_system_firmware_init(PcPciMachineState *ppms, MemoryRegion *rom_memory);
- bool pc_system_ovmf_table_find(const char *entry, uint8_t **data,
-                                int *data_len);
- void pc_system_parse_ovmf_flash(uint8_t *flash_ptr, size_t flash_size);
+     /* Default CPU model version.  See x86_cpu_set_default_version(). */
+@@ -126,6 +123,9 @@ typedef struct PCMachineClass {
+ typedef struct PcPciMachineClass {
+     PCMachineClass parent_class;
+ 
++    /* Device configuration: */
++    const char *default_southbridge_typename;
++
+     /* ACPI compat: */
+     int pci_root_uid;
+ } PcPciMachineClass;
 diff --git a/hw/i386/pc.c b/hw/i386/pc.c
-index 33724791fd..5753a3ff0b 100644
+index 5753a3ff0b..dd44df0470 100644
 --- a/hw/i386/pc.c
 +++ b/hw/i386/pc.c
-@@ -957,7 +957,7 @@ void pc_memory_init(PCMachineState *pcms,
+@@ -1667,7 +1667,6 @@ static void pc_machine_initfn(Object *obj)
+ #endif /* CONFIG_VMPORT */
+     pcms->max_ram_below_4g = 0; /* use default */
+     pcms->smbios_entry_point_type = pcmc->default_smbios_ep_type;
+-    pcms->south_bridge = pcmc->default_south_bridge;
  
-     /* Initialize PC system firmware */
-     if (pci_enabled) {
--        pc_system_firmware_init(pcms, rom_memory);
-+        pc_system_firmware_init(ppms, rom_memory);
-     } else {
-         x86_bios_rom_init(machine, "bios.bin", rom_memory, true);
+     pcms->smbus_enabled = true;
+     pcms->sata_enabled = true;
+@@ -1689,9 +1688,11 @@ static void pc_machine_initfn(Object *obj)
+ static void pc_pci_machine_initfn(Object *obj)
+ {
+     PcPciMachineState *ppms = PC_PCI_MACHINE(obj);
++    PcPciMachineClass *ppmc = PC_PCI_MACHINE_GET_CLASS(ppms);
+ 
+     ppms->acpi_build_enabled = true;
+     ppms->max_fw_size = 8 * MiB;
++    ppms->southbridge_typename = ppmc->default_southbridge_typename;
+ 
+     pc_system_flash_create(ppms);
+     cxl_machine_init(obj, &ppms->cxl_devices_state);
+diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
+index 6b3403d0bd..2043a7022a 100644
+--- a/hw/i386/pc_piix.c
++++ b/hw/i386/pc_piix.c
+@@ -243,7 +243,7 @@ static void pc_init1(MachineState *machine, const char *pci_type)
+         DeviceState *dev;
+         size_t i;
+ 
+-        pci_dev = pci_new_multifunction(-1, pcms->south_bridge);
++        pci_dev = pci_new_multifunction(-1, ppms->southbridge_typename);
+         object_property_set_bool(OBJECT(pci_dev), "has-usb",
+                                  machine_usb(machine), &error_abort);
+         object_property_set_bool(OBJECT(pci_dev), "has-acpi",
+@@ -385,12 +385,12 @@ static const QEnumLookup PCSouthBridgeOption_lookup = {
+ 
+ static int pc_get_south_bridge(Object *obj, Error **errp)
+ {
+-    PCMachineState *pcms = PC_MACHINE(obj);
++    PcPciMachineState *ppms = PC_PCI_MACHINE(obj);
+     int i;
+ 
+     for (i = 0; i < PCSouthBridgeOption_lookup.size; i++) {
+         if (g_strcmp0(PCSouthBridgeOption_lookup.array[i],
+-                      pcms->south_bridge) == 0) {
++                      ppms->southbridge_typename) == 0) {
+             return i;
+         }
      }
-@@ -1617,8 +1617,8 @@ static void pc_machine_get_max_fw_size(Object *obj, Visitor *v,
-                                        const char *name, void *opaque,
-                                        Error **errp)
- {
--    PCMachineState *pcms = PC_MACHINE(obj);
--    uint64_t value = pcms->max_fw_size;
-+    PcPciMachineState *ppms = PC_PCI_MACHINE(obj);
-+    uint64_t value = ppms->max_fw_size;
+@@ -401,7 +401,7 @@ static int pc_get_south_bridge(Object *obj, Error **errp)
  
-     visit_type_size(v, name, &value, errp);
- }
-@@ -1627,7 +1627,7 @@ static void pc_machine_set_max_fw_size(Object *obj, Visitor *v,
-                                        const char *name, void *opaque,
-                                        Error **errp)
+ static void pc_set_south_bridge(Object *obj, int value, Error **errp)
  {
 -    PCMachineState *pcms = PC_MACHINE(obj);
 +    PcPciMachineState *ppms = PC_PCI_MACHINE(obj);
-     uint64_t value;
  
-     if (!visit_type_size(v, name, &value, errp)) {
-@@ -1651,7 +1651,7 @@ static void pc_machine_set_max_fw_size(Object *obj, Visitor *v,
+     if (value < 0) {
+         error_setg(errp, "Value can't be negative");
+@@ -413,7 +413,7 @@ static void pc_set_south_bridge(Object *obj, int value, Error **errp)
          return;
      }
  
--    pcms->max_fw_size = value;
-+    ppms->max_fw_size = value;
+-    pcms->south_bridge = PCSouthBridgeOption_lookup.array[value];
++    ppms->southbridge_typename = PCSouthBridgeOption_lookup.array[value];
  }
  
+ /* Looking for a pc_compat_2_4() function? It doesn't exist.
+@@ -472,7 +472,7 @@ static void pc_i440fx_machine_options(MachineClass *m)
+     PcPciMachineClass *ppmc = PC_PCI_MACHINE_CLASS(m);
+     ObjectClass *oc = OBJECT_CLASS(m);
  
-@@ -1672,7 +1672,6 @@ static void pc_machine_initfn(Object *obj)
-     pcms->smbus_enabled = true;
-     pcms->sata_enabled = true;
-     pcms->i8042_enabled = true;
--    pcms->max_fw_size = 8 * MiB;
- #ifdef CONFIG_HPET
-     pcms->hpet_enabled = true;
- #endif
-@@ -1692,8 +1691,9 @@ static void pc_pci_machine_initfn(Object *obj)
-     PcPciMachineState *ppms = PC_PCI_MACHINE(obj);
+-    pcmc->default_south_bridge = TYPE_PIIX3_DEVICE;
++    ppmc->default_southbridge_typename = TYPE_PIIX3_DEVICE;
+     ppmc->pci_root_uid = 0;
+     pcmc->default_cpu_version = 1;
  
-     ppms->acpi_build_enabled = true;
-+    ppms->max_fw_size = 8 * MiB;
- 
--    pc_system_flash_create(PC_MACHINE(obj));
-+    pc_system_flash_create(ppms);
-     cxl_machine_init(obj, &ppms->cxl_devices_state);
- 
-     ppms->machine_done.notify = pc_pci_machine_done;
-@@ -1815,12 +1815,6 @@ static void pc_machine_class_init(ObjectClass *oc, void *data)
-         pc_machine_get_default_bus_bypass_iommu,
-         pc_machine_set_default_bus_bypass_iommu);
- 
--    object_class_property_add(oc, PC_MACHINE_MAX_FW_SIZE, "size",
--        pc_machine_get_max_fw_size, pc_machine_set_max_fw_size,
--        NULL, NULL);
--    object_class_property_set_description(oc, PC_MACHINE_MAX_FW_SIZE,
--        "Maximum combined firmware size");
--
-     object_class_property_add(oc, PC_MACHINE_SMBIOS_EP, "str",
-         pc_machine_get_smbios_ep, pc_machine_set_smbios_ep,
-         NULL, NULL);
-@@ -1834,6 +1828,11 @@ static void pc_machine_class_init(ObjectClass *oc, void *data)
- 
- static void pc_pci_machine_class_init(ObjectClass *oc, void *data)
- {
-+    object_class_property_add(oc, PC_MACHINE_MAX_FW_SIZE, "size",
-+                              pc_machine_get_max_fw_size,
-+                              pc_machine_set_max_fw_size, NULL, NULL);
-+    object_class_property_set_description(oc, PC_MACHINE_MAX_FW_SIZE,
-+                                          "Maximum combined firmware size");
- }
- 
- bool pc_machine_is_pci_enabled(PCMachineState *pcms)
-diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-index 7aa2598e10..6b3403d0bd 100644
---- a/hw/i386/pc_piix.c
-+++ b/hw/i386/pc_piix.c
-@@ -118,6 +118,7 @@ static void pc_init1(MachineState *machine, const char *pci_type)
-     ram_addr_t lowmem;
-     uint64_t hole64_size = 0;
-     bool pci_enabled = pc_machine_is_pci_enabled(pcms);
-+    PcPciMachineState *ppms = pci_enabled ? PC_PCI_MACHINE(pcms) : NULL;
- 
-     /*
-      * Calculate ram split, for memory below and above 4G.  It's a bit
-@@ -228,7 +229,7 @@ static void pc_init1(MachineState *machine, const char *pci_type)
-         assert(machine->ram_size == x86ms->below_4g_mem_size +
-                                     x86ms->above_4g_mem_size);
- 
--        pc_system_flash_cleanup_unused(pcms);
-+        pc_system_flash_cleanup_unused(ppms);
-         if (machine->kernel_filename != NULL) {
-             /* For xen HVM direct kernel boot, load linux here */
-             xen_load_linux(pcms);
-diff --git a/hw/i386/pc_sysfw.c b/hw/i386/pc_sysfw.c
-index 167ff24fcb..54d15afa49 100644
---- a/hw/i386/pc_sysfw.c
-+++ b/hw/i386/pc_sysfw.c
-@@ -71,7 +71,7 @@ static void pc_isa_bios_init(MemoryRegion *rom_memory,
-     memory_region_set_readonly(isa_bios, true);
- }
- 
--static PFlashCFI01 *pc_pflash_create(PCMachineState *pcms,
-+static PFlashCFI01 *pc_pflash_create(PcPciMachineState *ppms,
-                                      const char *name,
-                                      const char *alias_prop_name)
- {
-@@ -80,8 +80,8 @@ static PFlashCFI01 *pc_pflash_create(PCMachineState *pcms,
-     qdev_prop_set_uint64(dev, "sector-length", FLASH_SECTOR_SIZE);
-     qdev_prop_set_uint8(dev, "width", 1);
-     qdev_prop_set_string(dev, "name", name);
--    object_property_add_child(OBJECT(pcms), name, OBJECT(dev));
--    object_property_add_alias(OBJECT(pcms), alias_prop_name,
-+    object_property_add_child(OBJECT(ppms), name, OBJECT(dev));
-+    object_property_add_alias(OBJECT(ppms), alias_prop_name,
-                               OBJECT(dev), "drive");
-     /*
-      * The returned reference is tied to the child property and
-@@ -91,28 +91,24 @@ static PFlashCFI01 *pc_pflash_create(PCMachineState *pcms,
-     return PFLASH_CFI01(dev);
- }
- 
--void pc_system_flash_create(PCMachineState *pcms)
-+void pc_system_flash_create(PcPciMachineState *ppms)
- {
--    assert(pc_machine_is_pci_enabled(pcms));
--
--    pcms->flash[0] = pc_pflash_create(pcms, "system.flash0", "pflash0");
--    pcms->flash[1] = pc_pflash_create(pcms, "system.flash1", "pflash1");
-+    ppms->flash[0] = pc_pflash_create(ppms, "system.flash0", "pflash0");
-+    ppms->flash[1] = pc_pflash_create(ppms, "system.flash1", "pflash1");
- }
- 
--void pc_system_flash_cleanup_unused(PCMachineState *pcms)
-+void pc_system_flash_cleanup_unused(PcPciMachineState *ppms)
- {
-     char *prop_name;
-     int i;
- 
--    assert(pc_machine_is_pci_enabled(pcms));
--
--    for (i = 0; i < ARRAY_SIZE(pcms->flash); i++) {
--        if (!qdev_is_realized(DEVICE(pcms->flash[i]))) {
-+    for (i = 0; i < ARRAY_SIZE(ppms->flash); i++) {
-+        if (!qdev_is_realized(DEVICE(ppms->flash[i]))) {
-             prop_name = g_strdup_printf("pflash%d", i);
--            object_property_del(OBJECT(pcms), prop_name);
-+            object_property_del(OBJECT(ppms), prop_name);
-             g_free(prop_name);
--            object_unparent(OBJECT(pcms->flash[i]));
--            pcms->flash[i] = NULL;
-+            object_unparent(OBJECT(ppms->flash[i]));
-+            ppms->flash[i] = NULL;
-         }
-     }
- }
-@@ -130,7 +126,7 @@ void pc_system_flash_cleanup_unused(PCMachineState *pcms)
-  * pc_isa_bios_init().  Merging several flash devices for isa-bios is
-  * not supported.
-  */
--static void pc_system_flash_map(PCMachineState *pcms,
-+static void pc_system_flash_map(PcPciMachineState *ppms,
-                                 MemoryRegion *rom_memory)
- {
-     hwaddr total_size = 0;
-@@ -142,10 +138,8 @@ static void pc_system_flash_map(PCMachineState *pcms,
-     void *flash_ptr;
-     int flash_size;
- 
--    assert(pc_machine_is_pci_enabled(pcms));
--
--    for (i = 0; i < ARRAY_SIZE(pcms->flash); i++) {
--        system_flash = pcms->flash[i];
-+    for (i = 0; i < ARRAY_SIZE(ppms->flash); i++) {
-+        system_flash = ppms->flash[i];
-         blk = pflash_cfi01_get_blk(system_flash);
-         if (!blk) {
-             break;
-@@ -166,10 +160,10 @@ static void pc_system_flash_map(PCMachineState *pcms,
-         }
-         if ((hwaddr)size != size
-             || total_size > HWADDR_MAX - size
--            || total_size + size > pcms->max_fw_size) {
-+            || total_size + size > ppms->max_fw_size) {
-             error_report("combined size of system firmware exceeds "
-                          "%" PRIu64 " bytes",
--                         pcms->max_fw_size);
-+                         ppms->max_fw_size);
-             exit(1);
-         }
- 
-@@ -194,23 +188,21 @@ static void pc_system_flash_map(PCMachineState *pcms,
-     }
- }
- 
--void pc_system_firmware_init(PCMachineState *pcms,
-+void pc_system_firmware_init(PcPciMachineState *ppms,
-                              MemoryRegion *rom_memory)
- {
-     int i;
--    BlockBackend *pflash_blk[ARRAY_SIZE(pcms->flash)];
--
--    assert(pc_machine_is_pci_enabled(pcms));
-+    BlockBackend *pflash_blk[ARRAY_SIZE(ppms->flash)];
- 
-     /* Map legacy -drive if=pflash to machine properties */
--    for (i = 0; i < ARRAY_SIZE(pcms->flash); i++) {
--        pflash_cfi01_legacy_drive(pcms->flash[i],
-+    for (i = 0; i < ARRAY_SIZE(ppms->flash); i++) {
-+        pflash_cfi01_legacy_drive(ppms->flash[i],
-                                   drive_get(IF_PFLASH, 0, i));
--        pflash_blk[i] = pflash_cfi01_get_blk(pcms->flash[i]);
-+        pflash_blk[i] = pflash_cfi01_get_blk(ppms->flash[i]);
-     }
- 
-     /* Reject gaps */
--    for (i = 1; i < ARRAY_SIZE(pcms->flash); i++) {
-+    for (i = 1; i < ARRAY_SIZE(ppms->flash); i++) {
-         if (pflash_blk[i] && !pflash_blk[i - 1]) {
-             error_report("pflash%d requires pflash%d", i, i - 1);
-             exit(1);
-@@ -219,7 +211,7 @@ void pc_system_firmware_init(PCMachineState *pcms,
- 
-     if (!pflash_blk[0]) {
-         /* Machine property pflash0 not set, use ROM mode */
--        x86_bios_rom_init(MACHINE(pcms), "bios.bin", rom_memory, false);
-+        x86_bios_rom_init(MACHINE(ppms), "bios.bin", rom_memory, false);
-     } else {
-         if (kvm_enabled() && !kvm_readonly_mem_enabled()) {
-             /*
-@@ -231,10 +223,10 @@ void pc_system_firmware_init(PCMachineState *pcms,
-             exit(1);
-         }
- 
--        pc_system_flash_map(pcms, rom_memory);
-+        pc_system_flash_map(ppms, rom_memory);
-     }
- 
--    pc_system_flash_cleanup_unused(pcms);
-+    pc_system_flash_cleanup_unused(ppms);
- }
- 
- void x86_firmware_configure(void *ptr, int size)
 -- 
 2.41.0
 
