@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B968889073D
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 18:33:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.699140.1091745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 868038907B7
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 18:54:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.699143.1091756 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rptbz-00077y-9f; Thu, 28 Mar 2024 17:32:23 +0000
+	id 1rptx4-0007R2-0l; Thu, 28 Mar 2024 17:54:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699140.1091745; Thu, 28 Mar 2024 17:32:23 +0000
+Received: by outflank-mailman (output) from mailman id 699143.1091756; Thu, 28 Mar 2024 17:54:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rptbz-000761-70; Thu, 28 Mar 2024 17:32:23 +0000
-Received: by outflank-mailman (input) for mailman id 699140;
- Thu, 28 Mar 2024 17:32:21 +0000
+	id 1rptx3-0007OJ-U7; Thu, 28 Mar 2024 17:54:09 +0000
+Received: by outflank-mailman (input) for mailman id 699143;
+ Thu, 28 Mar 2024 17:54:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ab0Y=LC=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rptbx-00075v-Bi
- for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 17:32:21 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1rptx2-0007OD-Os
+ for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 17:54:08 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 208c8110-ed29-11ee-a1ef-f123f15fe8a2;
- Thu, 28 Mar 2024 18:32:19 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-56890b533aaso1395400a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 10:32:19 -0700 (PDT)
+ id 2bcc8edd-ed2c-11ee-a1ef-f123f15fe8a2;
+ Thu, 28 Mar 2024 18:54:06 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-414866f92beso8684385e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 10:54:06 -0700 (PDT)
 Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- dl5-20020a170907944500b00a4e28b2639asm490385ejc.209.2024.03.28.10.32.17
+ h16-20020adff4d0000000b0033e72e104c5sm2285714wrp.34.2024.03.28.10.54.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Mar 2024 10:32:18 -0700 (PDT)
+ Thu, 28 Mar 2024 10:54:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +45,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 208c8110-ed29-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 2bcc8edd-ed2c-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1711647139; x=1712251939; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1711648446; x=1712253246; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Pdr6uR7LCJjvjFILccCpwKZPipHQau/u+1nfVS9NK3E=;
-        b=j0kMfOxYB2wQ7oCUK7TbO1JtRRoZqGUBfkgAJiuabYM9FlXC4M5kh+jWT3v9qD1DC9
-         ZcVZxzmoE/lTd8s2PNIHkhSODFPkwBQQLiFz/NYw4xX+i5rUxhvmo6sWJ6tj/x08qfIW
-         TcX6CKTU4J90qFPShkBAmsrkrxQRneDZwI9sE=
+        bh=lvbGGP481GShGw2Ixv/G+6iddI9tX03SDqf7LmF6gpY=;
+        b=MUUiBEs1MsmXqznprxvQ74MGRSnURDWT0AnjIzeK+dpjCPNrgvaDSFBmMVvi2fToJ/
+         GAQHjO+ix3Z4vt/8CbqlfRCdGJdlLMiMqqld9yjIJSB4tpHLrl50ztF612OroXpX+MYd
+         zT+6TfpDQKBWiqtOGUCoxu+GFUX2hqpMupwjc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711647139; x=1712251939;
+        d=1e100.net; s=20230601; t=1711648446; x=1712253246;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Pdr6uR7LCJjvjFILccCpwKZPipHQau/u+1nfVS9NK3E=;
-        b=o6174CWfW44kvArRHKaMFpgULV6CVWbJDjsCdCWL7yr2fhVbPcQexsUpqfcnFiY+Dl
-         8Us8qIH1NWol2FA5A/4C03HDI/Q2ToDUtYHmB22HbSExUPlYnNaGKE6Ey6ja/Z2H+K9G
-         HaasJuJJc4YolQD2vFlIpJF49f47x88WBKutj34za3HLdMt+iqhcjrNv7XBisiQ2Q6ev
-         EWYw0mPuAZi2KsTSknGDcWdoTslZt3egBNj0uY33agvfedCLXOlUFHKZzFwrDk7oV3qY
-         7CxM6+5Q+fY1PCK+2tNixUujJRrVgX/WKW8mCouCdxL9sJsHp8iPbxi1G0YsNiPUf2vK
-         K5uA==
-X-Gm-Message-State: AOJu0YweEqkJaYCbr9/dECer/tbTB6Hzu+pqQcr1hqmcwIhZznRjlO6U
-	naFMQxfm24WC3Sqm5zgH3O53YNwZnyyc9l4CTPoTTd6Ab+p1lD0axnk5CWkST+s=
-X-Google-Smtp-Source: AGHT+IEMZYyEjAzpFjP3n8C915PTFs+IX5VRjRi2fjWqFlTHsgbB9hBweHiUxIkE1fO79jlV+/ccpg==
-X-Received: by 2002:a17:906:e299:b0:a4e:233b:e470 with SMTP id gg25-20020a170906e29900b00a4e233be470mr1467475ejb.53.1711647138578;
-        Thu, 28 Mar 2024 10:32:18 -0700 (PDT)
-Date: Thu, 28 Mar 2024 17:32:17 +0000
+        bh=lvbGGP481GShGw2Ixv/G+6iddI9tX03SDqf7LmF6gpY=;
+        b=O4k0ltlE38pyOOU+k6dunsuVSFZIecMSLCyqEKmwJI8o80/JP43gP3CyaCBmwLR79z
+         5D1yXKSb49DFbg5TU0+zOzl5O18VNaLllK5fxOAqpl0VtCArETZtMY5efwxobngdhzzj
+         Ag6W8X5BC2OpsnOjM9l0aIQ/1nRYF4O2BxPMSIKUZc+Q3X0INExxxev99hKIYlopRJyb
+         5DLg2PQ6UmOOfkdSChI2X43C6SnNNq1d3zRaTBeprnLT0sLmBOCeHZDo9VY1NLvfMo7Y
+         R1sfmLU5EtYILbnFdYCY1xJQPNcln5wzZ4OLgaO+w5IGDc0uC4XVKS1jhvBCr0MzmU7B
+         hrXQ==
+X-Gm-Message-State: AOJu0YwaxPIU3z7X262/Ggokeyfgr724NRNDiyXc+fpQjRmFSwZ678qH
+	5PrK6W4aK4VziTP+NKwbZASIFvaVv/v2HoXRd4wdIwvk52kwHjWeJX9JtzcMxT7BB13x2dyfP10
+	I
+X-Google-Smtp-Source: AGHT+IFlupp7g84BElUQl+bJ8RjExf9x0KikAwip0H3Ekf+iWdz4UPk703nfkT3KCDtZUKDYVHSlJg==
+X-Received: by 2002:a5d:4cc8:0:b0:33e:c0a9:79c with SMTP id c8-20020a5d4cc8000000b0033ec0a9079cmr2654116wrt.23.1711648445764;
+        Thu, 28 Mar 2024 10:54:05 -0700 (PDT)
+Date: Thu, 28 Mar 2024 17:54:04 +0000
 From: Anthony PERARD <anthony.perard@cloud.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
-	Huang Rui <Ray.Huang@amd.com>
-Subject: Re: [RFC XEN PATCH v6 4/5] libxl: Use gsi instead of irq for mapping
- pirq
-Message-ID: <81c6e63f-b493-4bbd-a91a-ec0e04cc69e2@perard>
-References: <20240328063402.354496-1-Jiqian.Chen@amd.com>
- <20240328063402.354496-5-Jiqian.Chen@amd.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>
+Subject: Re: [OSSTEST PATCH 00/36] Switch to Debian Bookworm
+Message-ID: <93b8a3e8-2866-42ca-9132-1527d82928e9@perard>
+References: <20240318165545.3898-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240328063402.354496-5-Jiqian.Chen@amd.com>
+In-Reply-To: <20240318165545.3898-1-anthony.perard@citrix.com>
 
-On Thu, Mar 28, 2024 at 02:34:01PM +0800, Jiqian Chen wrote:
-> diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-> index 96cb4da0794e..2cec83e0b734 100644
-> --- a/tools/libs/light/libxl_pci.c
-> +++ b/tools/libs/light/libxl_pci.c
-> @@ -1478,8 +1478,14 @@ static void pci_add_dm_done(libxl__egc *egc,
->      fclose(f);
->      if (!pci_supp_legacy_irq())
->          goto out_no_irq;
-> -    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
-> +    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/gsi", pci->domain,
->                                  pci->bus, pci->dev, pci->func);
-> +    r = access(sysfs_path, F_OK);
-> +    if (r && errno == ENOENT) {
-> +        /* To compitable with old version of kernel, still need to use irq */
+On Mon, Mar 18, 2024 at 04:55:09PM +0000, Anthony PERARD wrote:
+> I intend to push this series in two waves.
+> 
+> First, push up to commit "Temporally switch "qemu-mainline" branch to
+> Bookworm". This is to test that osstest still works fine if we need to use
+> "buster" for a branch. Also upstream QEMU doesn't build on buster anymore, so
+> I've included a commit to use bookworm for it.
+> 
+> Second, push the remaning two patches, at least a week later, which will switch
+> the default debian suite.
+> 
+> Anthony PERARD (36):
+>   production-config: Add bookworm debian install media filename
+>   ts-xen-build-prep: Only force git protocol v2 on buster
+>   mgi-common: Fix fetch_debian_package error message
+>   mg-debian-installer-update: Download non-free firmware from new repo.
+>   ts-host-install: fix ntp.conf path on bookworm
+>   ts-host-install: fix ntp server setting
+>   ts-host-install: Restart ntp service
+>   preseed_create: Use new "d-i grub-installer/update-nvram" for UEFI
+>     installation
+>   preseed_create: osstest-erase-other-disks: workaround creating
+>     /dev/sdXD files
+>   preseed_create: Workaround fail grub-install on arndale
+>   ts-host-install,preseed_create: Do lvm vgextend at install time
+>   di_installcmdline_core: Add link_wait_timeout to install cmdline
+>   Disable persistent net generator on Bookworm
+>   preseed_base, ts-host-install: Change NIC NamePolicy to "mac"
+>   ts-xen-build-prep: Change package selection for Bookworm
+>   bl_getmenu_open: Read grub.cfg as root
+>   target_editfile: Use the same user to retrieve and send
+>   ts-xen-install: remove "libc6-xen" package installation
+>   overlay-bookworm: Import grub's 20_linux_xen from Debian Bookworm
+>   overlay-bookworm: 20_linux_xen: Fix XSM entries generation
+>   ts-xtf-install: Install python symlink
+>   setupboot_grub2: Parse arm64 uefi grub verbes
+>   bookworm: Extend ARM clock workaround
+>   ts-nested-setup, setup l1 lvm volume groupe in guest
+>   ts-leak-check: add new name for udevd workers
+>   ts-debian-hvm-install: Allow udev failure in install media
+>   ts-debian-fixup: Fix nic names for bookworm
+>   ts-debian-install: keep avoiding to use pygrub
+>   ts-debian-hvm-install: Increase min guest ram size
+>   bookworm: Extend guest bootloader workaround
+>   ts-debian-*-install: Replace dots in hostnames by dashs
+>   ts-xen-install: Fix bridge setup, ask to copy MAC addr
+>   make-flight: Keep using buster for L2 guest in nested tests
 
-There's a typo, this would be "To be compatible ...". Also maybe
-something like "Fallback to "/irq" for compatibility with old version of
-the kernel." might sound better.
+I've pushed up to here. I'll push the last two patches later.
 
-> +        sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
-> +                               pci->bus, pci->dev, pci->func);
-> +    }
->      f = fopen(sysfs_path, "r");
->      if (f == NULL) {
->          LOGED(ERROR, domainid, "Couldn't open %s", sysfs_path);
-> @@ -2229,9 +2235,15 @@ skip_bar:
->      if (!pci_supp_legacy_irq())
->          goto skip_legacy_irq;
->  
-> -    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
-> +    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/gsi", pci->domain,
->                             pci->bus, pci->dev, pci->func);
->  
-> +    rc = access(sysfs_path, F_OK);
+>   Temporally switch "qemu-mainline" branch to Bookworm
 
-Please, don't use the variable `rc` here, this one is reserved for libxl
-error/return code in libxl. Introduce `int r` instead.
+And I'll drop this one.
 
-> +    if (rc && errno == ENOENT) {
-> +        /* To compitable with old version of kernel, still need to use irq */
-> +        sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
-> +                               pci->bus, pci->dev, pci->func);
-> +    }
->      f = fopen(sysfs_path, "r");
->      if (f == NULL) {
->          LOGED(ERROR, domid, "Couldn't open %s", sysfs_path);
+>   Switch to Debian Bookworm as default suite
+>   make-hosts-flight: default to bookworm
 
-With those two things fixed: Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 
-Thanks,
+Cheers,
 
 -- 
 Anthony PERARD
