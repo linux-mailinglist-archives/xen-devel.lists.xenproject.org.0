@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7F008902BD
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 16:11:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.698957.1091280 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57A328902C9
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Mar 2024 16:14:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.698964.1091289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rprPF-0002NG-Gl; Thu, 28 Mar 2024 15:11:05 +0000
+	id 1rprS5-000472-Sd; Thu, 28 Mar 2024 15:14:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 698957.1091280; Thu, 28 Mar 2024 15:11:05 +0000
+Received: by outflank-mailman (output) from mailman id 698964.1091289; Thu, 28 Mar 2024 15:14:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rprPF-0002M0-Cc; Thu, 28 Mar 2024 15:11:05 +0000
-Received: by outflank-mailman (input) for mailman id 698957;
- Thu, 28 Mar 2024 15:11:03 +0000
+	id 1rprS5-00044z-PP; Thu, 28 Mar 2024 15:14:01 +0000
+Received: by outflank-mailman (input) for mailman id 698964;
+ Thu, 28 Mar 2024 15:14:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jyVg=LC=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1rprPD-0001mV-3O
- for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 15:11:03 +0000
-Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
- [2607:f8b0:4864:20::82f])
+ <SRS0=Ab0Y=LC=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rprS4-00044r-S1
+ for xen-devel@lists.xenproject.org; Thu, 28 Mar 2024 15:14:00 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 63cdc1a3-ed15-11ee-afe3-a90da7624cb6;
- Thu, 28 Mar 2024 16:11:02 +0100 (CET)
-Received: by mail-qt1-x82f.google.com with SMTP id
- d75a77b69052e-43107ccd7b9so5577561cf.3
- for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 08:11:02 -0700 (PDT)
-Received: from rossla-lxenia.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- cr7-20020a05622a428700b004313f54aaa9sm696300qtb.5.2024.03.28.08.11.00
+ id cd9c9e94-ed15-11ee-afe3-a90da7624cb6;
+ Thu, 28 Mar 2024 16:13:59 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-33ec7e38b84so704405f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Mar 2024 08:13:59 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ ea2-20020a0560000ec200b003432d79876esm1947746wrb.97.2024.03.28.08.13.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Mar 2024 08:11:00 -0700 (PDT)
+ Thu, 28 Mar 2024 08:13:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,76 +45,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63cdc1a3-ed15-11ee-afe3-a90da7624cb6
+X-Inumbo-ID: cd9c9e94-ed15-11ee-afe3-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1711638661; x=1712243461; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=U2qmXAF7kH+Xo7dcYPNWV07zKXcD5akVAYdTNUPm5Ak=;
-        b=bNoRIdajri1wVAtu80pzggb6o6axyqxWdnp5Bsa62pAuNgE8SvMNaWbtgjX00lXnI5
-         JcXm3jwPTPuJOdlxjmvFNw3H6JYkg9B1rAgNPISh5hKvZHUMa+0bO4x5GP+Us0RVmfXb
-         a3tDWxrWiG55E38ofCUADCL9vBvt++XjBZBOY=
+        d=cloud.com; s=cloud; t=1711638839; x=1712243639; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Vutwe9uQNhqbkQuib/VJsrR0Y5T7DY7pGtessWbxb5I=;
+        b=PXFNm+mdpPm+wcgd/2Pj9+1P2tkID0md+7edaUTcxPIsxNRzcBIO7joqFf1H5BA17Q
+         SvY0vz9JlcleWqC6AtqP0Tjm0s7t/h4+JiE7WMbgA/CYVLDpBhUwi3BqbkIFC+209cab
+         nalhVsm7U0cb+JPZ14uxr/rySo5JrJtudGSUE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711638661; x=1712243461;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=U2qmXAF7kH+Xo7dcYPNWV07zKXcD5akVAYdTNUPm5Ak=;
-        b=WLq9Shx+wr41UPL8YlP+FSeMYrpbIu1ozKHIp1KSBpAyAFpyceuwLySs6SghtaXYua
-         J3JC7CFne5wHVA6oNl4hTwowF3SvfEllllwpHSWbrXiu99gK67JXJbXlDb9Z7vafBaiE
-         Lp04YlAyPnXk3AeAJVYudDMGYeKy/sUeqNlmcicIifWFnGqMqdGJeWWnuQnSB5nX2J+8
-         sGhu1bSd5yIcGd1Cy31EpSmNRDKk9LrylF/YgIgzET5XZVMdvHWpo0tsE9GGBYQEd5N3
-         aebN0+V/bMTE5stGVhPXJmboj7pHgRjR5+mFICtTkV0spwb622kz/2iftm8SG9KxJjMf
-         bltQ==
-X-Gm-Message-State: AOJu0YyepdaONKwYikXJMHD1REyWMuKQUmMi37BoVvCOU0J7Qh6I2boQ
-	jxy1LP0otEu3WLki2zJ94JHlQW2aTYo2+d+mYvZbvrTReazfbJW4d21Qzu4IkQ==
-X-Google-Smtp-Source: AGHT+IHRgh7LeGuGdwNldABcb1tIrGf4GrwtRM68IhGmhRZqpwgzTkw0Gpe38tSy6CDtLxe8+DQwvA==
-X-Received: by 2002:ac8:5c8c:0:b0:430:e2cb:9a54 with SMTP id r12-20020ac85c8c000000b00430e2cb9a54mr3266954qta.12.1711638661506;
-        Thu, 28 Mar 2024 08:11:01 -0700 (PDT)
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-To: grub-devel@gnu.org
-Cc: xen-devel@lists.xenproject.org,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Daniel Kiper <daniel.kiper@oracle.com>,
-	Daniel Kiper <dkiper@net-space.pl>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 3/3] efi: Allow loading multiboot modules without verification
-Date: Thu, 28 Mar 2024 15:13:02 +0000
-Message-ID: <20240328151302.1451158-4-ross.lagerwall@citrix.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240328151302.1451158-1-ross.lagerwall@citrix.com>
-References: <20240328151302.1451158-1-ross.lagerwall@citrix.com>
+        d=1e100.net; s=20230601; t=1711638839; x=1712243639;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Vutwe9uQNhqbkQuib/VJsrR0Y5T7DY7pGtessWbxb5I=;
+        b=eEqY4Xsh4Qyw3pFkAVUBon4/nXygvQCOq5kEspc5XlkCshZb0yFwwRlqAhB/v0sHIt
+         osTVrF/vdLS2m/GaRjPEMGUhT0MVQmjJDVq2TV9wQD8JQwWNwUqR1AqVAmjHAgenGB13
+         oc3IrGxzrCwDZ0mk8XK4cACNt5hzGp5kDehmAnwMIGchKACUcEvwTdXv+1oUL4DT0zNa
+         EMW7EbdSp05iG8ncw2r2qkzjbWeZ8KJFMie0nS+MEBciGQgS7fJk+KSOf2nHsPHnbctd
+         AC7FUvKNxjsbDi3yGwJ1eUqJsK5YPMcUDzLaLypRFtCbqrdwfCNCHRzKAmHBbiUP8kO6
+         OeJg==
+X-Forwarded-Encrypted: i=1; AJvYcCWWh+DTXPne/N+TjmgXI1m5uJGxHJFd2HUAObMTD97dcRoiO4yUBiDCKy4gUE7dcjYO5vbcawPA9NKLCa2IVHhh9OXeW05dk2XEApc8T50=
+X-Gm-Message-State: AOJu0YzHTQPLbIEqtqWgfNBDeUntdvzBdW9ur8e7JH2t7UvhQIc7eFIt
+	us80uc0xnUEdaZiUhrIM+TOURpQVCunD//DtcjSqJxW+x0yAwDF0I2Nb7erGbsI=
+X-Google-Smtp-Source: AGHT+IGqAinQBfrXGU5/mTtpVN5DvsCj7MjTmxxo3BTpBz9VwcwzSMIjsSrbfaQrLhnH/z44soQEMQ==
+X-Received: by 2002:adf:e9cf:0:b0:341:bf20:c840 with SMTP id l15-20020adfe9cf000000b00341bf20c840mr2502075wrn.11.1711638839070;
+        Thu, 28 Mar 2024 08:13:59 -0700 (PDT)
+Date: Thu, 28 Mar 2024 15:13:51 +0000
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
+Cc: David Woodhouse <dwmw@amazon.co.uk>, qemu-devel@nongnu.org,
+	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+	Paul Durrant <paul@xen.org>, qemu-arm@nongnu.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	xen-devel@lists.xenproject.org, qemu-block@nongnu.org,
+	kvm@vger.kernel.org, Thomas Huth <thuth@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>
+Subject: Re: [PATCH-for-9.0 v2 19/19] hw/xen: Have most of Xen files become
+ target-agnostic
+Message-ID: <83ff9fec-2ac1-418f-ac76-2256d03e676e@perard>
+References: <20231114143816.71079-1-philmd@linaro.org>
+ <20231114143816.71079-20-philmd@linaro.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20231114143816.71079-20-philmd@linaro.org>
 
-GRUB doesn't do anything with multiboot modules except loading them and
-passing a pointer to the multiboot kernel. Therefore GRUB itself doesn't
-need to verify the module. Multiboot modules may contain code that needs
-to be verified. If this is the case, the expectation is that the
-multiboot kernel verifies the modules. For example, with Xen, the first
-multiboot module contains the dom0 kernel binary and Xen verifies it
-before starting it.
+On Tue, Nov 14, 2023 at 03:38:15PM +0100, Philippe Mathieu-Daudé wrote:
+> Previous commits re-organized the target-specific bits
+> from Xen files. We can now build the common files once
+> instead of per-target.
+> 
+> Only 4 files call libxen API (thus its CPPFLAGS):
+> - xen-hvm-common.c,
+> - xen_pt.c, xen_pt_graphics.c, xen_pt_msi.c
+> 
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> ---
+> Reworked since v1 so dropping David's R-b tag.
+> ---
+>  accel/xen/meson.build          |  2 +-
+>  hw/block/dataplane/meson.build |  2 +-
+>  hw/xen/meson.build             | 21 ++++++++++-----------
+>  3 files changed, 12 insertions(+), 13 deletions(-)
+> 
+> diff --git a/accel/xen/meson.build b/accel/xen/meson.build
+> index 002bdb03c6..455ad5d6be 100644
+> --- a/accel/xen/meson.build
+> +++ b/accel/xen/meson.build
+> @@ -1 +1 @@
+> -specific_ss.add(when: 'CONFIG_XEN', if_true: files('xen-all.c'))
+> +system_ss.add(when: 'CONFIG_XEN', if_true: files('xen-all.c'))
+> diff --git a/hw/block/dataplane/meson.build b/hw/block/dataplane/meson.build
+> index 025b3b061b..4d8bcb0bb9 100644
+> --- a/hw/block/dataplane/meson.build
+> +++ b/hw/block/dataplane/meson.build
+> @@ -1,2 +1,2 @@
+>  system_ss.add(when: 'CONFIG_VIRTIO_BLK', if_true: files('virtio-blk.c'))
+> -specific_ss.add(when: 'CONFIG_XEN_BUS', if_true: files('xen-block.c'))
+> +system_ss.add(when: 'CONFIG_XEN_BUS', if_true: files('xen-block.c'))
+> diff --git a/hw/xen/meson.build b/hw/xen/meson.build
+> index d887fa9ba4..403cab49cf 100644
+> --- a/hw/xen/meson.build
+> +++ b/hw/xen/meson.build
+> @@ -7,26 +7,25 @@ system_ss.add(when: ['CONFIG_XEN_BUS'], if_true: files(
+>    'xen_pvdev.c',
+>  ))
+>  
+> -system_ss.add(when: ['CONFIG_XEN', xen], if_true: files(
+> +system_ss.add(when: ['CONFIG_XEN'], if_true: files(
+>    'xen-operations.c',
+> -))
+> -
+> -xen_specific_ss = ss.source_set()
+> -xen_specific_ss.add(files(
+>    'xen-mapcache.c',
+> +))
+> +system_ss.add(when: ['CONFIG_XEN', xen], if_true: files(
+>    'xen-hvm-common.c',
+>  ))
+> +
+>  if have_xen_pci_passthrough
+> -  xen_specific_ss.add(files(
+> +  system_ss.add(when: ['CONFIG_XEN'], if_true: files(
+>      'xen-host-pci-device.c',
+> -    'xen_pt.c',
+>      'xen_pt_config_init.c',
+> -    'xen_pt_graphics.c',
+>      'xen_pt_load_rom.c',
+> +  ))
+> +  system_ss.add(when: ['CONFIG_XEN', xen], if_true: files(
+> +    'xen_pt.c',
+> +    'xen_pt_graphics.c',
 
-Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
----
- grub-core/kern/efi/sb.c | 1 +
- 1 file changed, 1 insertion(+)
+How is it useful to separate those source files? In the commit
+description, there's a talk about "CPPFLAGS", but having `when: [xen]`
+doesn't change the flags used to build those objects, so the talk about
+"CPPFLAGS" is confusing.
+Second, if for some reason the dependency `xen` is false, but
+`CONFIG_XEN` is true, then we wouldn't be able to build QEMU. Try
+linking a binary with "xen_pt_config_init.o" but without "xen_pt.o",
+that's not going to work. So even if that first source file doesn't
+directly depend on the Xen libraries, it depends on "xen_pt.o" which
+depends on the Xen libraries. So ultimately, I think all those source
+files should have the same condition: ['CONFIG_XEN', xen].
 
-diff --git a/grub-core/kern/efi/sb.c b/grub-core/kern/efi/sb.c
-index 8d3e413608bb..f76290d65e9f 100644
---- a/grub-core/kern/efi/sb.c
-+++ b/grub-core/kern/efi/sb.c
-@@ -171,6 +171,7 @@ shim_lock_verifier_init (grub_file_t io __attribute__ ((unused)),
-     case GRUB_FILE_TYPE_LOADENV:
-     case GRUB_FILE_TYPE_SAVEENV:
-     case GRUB_FILE_TYPE_VERIFY_SIGNATURE:
-+    case GRUB_FILE_TYPE_MULTIBOOT_MODULE:
-       *flags = GRUB_VERIFY_FLAGS_SKIP_VERIFICATION;
-       return GRUB_ERR_NONE;
- 
+I've only checked the xen_pt* source files, I don't know if the same
+applies to "xen-operations.c" or "xen-mapcache.c".
+
+Beside this, QEMU built with Xen support still seems to works fine, so
+adding the objects to `system_ss` instead of `specific_ss` seems
+alright.
+
+Thanks,
+
 -- 
-2.43.0
-
+Anthony PERARD
 
