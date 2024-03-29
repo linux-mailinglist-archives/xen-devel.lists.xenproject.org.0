@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 038DB891321
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Mar 2024 06:16:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.699241.1091973 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6623891580
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Mar 2024 10:12:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.699277.1091983 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rq4af-0003IK-8Y; Fri, 29 Mar 2024 05:15:45 +0000
+	id 1rq8H2-0000zc-PW; Fri, 29 Mar 2024 09:11:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699241.1091973; Fri, 29 Mar 2024 05:15:45 +0000
+Received: by outflank-mailman (output) from mailman id 699277.1091983; Fri, 29 Mar 2024 09:11:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rq4af-0003Fq-57; Fri, 29 Mar 2024 05:15:45 +0000
-Received: by outflank-mailman (input) for mailman id 699241;
- Fri, 29 Mar 2024 05:15:44 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rq4ae-0003Fe-Fn; Fri, 29 Mar 2024 05:15:44 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rq4ae-0004Jb-1P; Fri, 29 Mar 2024 05:15:44 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rq4ad-0005E5-NL; Fri, 29 Mar 2024 05:15:43 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rq4ad-00066g-Mt; Fri, 29 Mar 2024 05:15:43 +0000
+	id 1rq8H2-0000x8-Mj; Fri, 29 Mar 2024 09:11:44 +0000
+Received: by outflank-mailman (input) for mailman id 699277;
+ Fri, 29 Mar 2024 09:11:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LGMC=LD=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rq8H1-0000ww-Cc
+ for xen-devel@lists.xenproject.org; Fri, 29 Mar 2024 09:11:43 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5aeb5857-edac-11ee-a1ef-f123f15fe8a2;
+ Fri, 29 Mar 2024 10:11:41 +0100 (CET)
+Received: from nico.bugseng.com (unknown [176.206.12.122])
+ by support.bugseng.com (Postfix) with ESMTPSA id C1AE34EE073F;
+ Fri, 29 Mar 2024 10:11:38 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +39,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=f8l3hhpc3xRb/Pcj9+1/azqhdMWUgwd3cNqfpCXlNjI=; b=CT7/rarw9QowydEIp4fPt5Sm+o
-	ohcwZOuqNxxdgG1xl5kFfUz97W7JAP3vNs0cKqshb5FypaYuQoVYzzUXCVaZeUeQFDEA24z/ozJL3
-	lEfuFaLdHMTY2MI+8H4s2vEn4/mq2RqCQWmv9iXCv6lO1hCFTvpdWm6MnTjK4MefIVmo=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185198-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5aeb5857-edac-11ee-a1ef-f123f15fe8a2
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: nicola.vetrini@bugseng.com,
+	xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	bertrand.marquis@arm.com,
+	julien@xen.org,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	George Dunlap <george.dunlap@citrix.com>
+Subject: [XEN PATCH v3 0/7] address violations of MISRA C Rule 20.7 
+Date: Fri, 29 Mar 2024 10:11:28 +0100
+Message-Id: <cover.1711700095.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [ovmf test] 185198: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=7fde22823d64cb7b9f2a65bb87ffb7581f5ff84e
-X-Osstest-Versions-That:
-    ovmf=cf58f47623c40a66b160face4f04e08efb4c7f5b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 Mar 2024 05:15:43 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 185198 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185198/
+Hi all,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 7fde22823d64cb7b9f2a65bb87ffb7581f5ff84e
-baseline version:
- ovmf                 cf58f47623c40a66b160face4f04e08efb4c7f5b
+this series aims to refactor some macros that cause violations of MISRA C Rule
+20.7 ("Expressions resulting from the expansion of macro parameters shall be
+enclosed in parentheses"). All the macros touched by these patches are in some
+way involved in violations, and the strategy adopted to bring them into
+compliance is to add parentheses around macro arguments where needed.
 
-Last test of basis   185156  2024-03-25 08:12:54 Z    3 days
-Testing same since   185198  2024-03-29 03:14:32 Z    0 days    1 attempts
+Deviations from the rule have been amended to encompass also direct use in
+initializer lists of macro arguments.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Wenxing Hou <wenxing.hou@intel.com>
+Patch 1 is taken, with adjustments, from the earlier series (which was
+incorrectly tagged as v1). All other patches are new in this series and are
+pairwise indipendent.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+Nicola Vetrini (7):
+  x86/msi: address violation of MISRA C Rule 20.7 and coding style
+  arm/public: address violations of MISRA C Rule 20.7
+  x86/vPMU: address violations of MISRA C Rule 20.7
+  x86/hvm: address violations of MISRA C Rule 20.7
+  automation/eclair: add deviations for Rule 20.7
+  xen/mm: address violations of MISRA C Rule 20.7
+  x86/amd: address violations of MISRA C Rule 20.7
 
+ .../eclair_analysis/ECLAIR/deviations.ecl     | 25 +++++++++-
+ docs/misra/deviations.rst                     | 14 +++++-
+ docs/misra/rules.rst                          |  2 +-
+ xen/arch/x86/hvm/domain.c                     |  6 +--
+ xen/arch/x86/include/asm/amd.h                |  3 +-
+ xen/arch/x86/include/asm/msi.h                | 49 ++++++++++---------
+ xen/arch/x86/include/asm/vpmu.h               |  4 +-
+ xen/include/public/arch-arm.h                 |  2 +-
+ xen/include/xen/mm.h                          | 14 +++---
+ 9 files changed, 77 insertions(+), 42 deletions(-)
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+-- 
+2.34.1
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   cf58f47623..7fde22823d  7fde22823d64cb7b9f2a65bb87ffb7581f5ff84e -> xen-tested-master
 
