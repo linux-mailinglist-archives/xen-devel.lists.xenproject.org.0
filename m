@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 387A8891643
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Mar 2024 10:48:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.699308.1092063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEA8689169F
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Mar 2024 11:20:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.699320.1092074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rq8q9-0000VU-Nu; Fri, 29 Mar 2024 09:48:01 +0000
+	id 1rq9Kf-000564-1o; Fri, 29 Mar 2024 10:19:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699308.1092063; Fri, 29 Mar 2024 09:48:01 +0000
+Received: by outflank-mailman (output) from mailman id 699320.1092074; Fri, 29 Mar 2024 10:19:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rq8q9-0000Sf-LH; Fri, 29 Mar 2024 09:48:01 +0000
-Received: by outflank-mailman (input) for mailman id 699308;
- Fri, 29 Mar 2024 09:48:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rq9Ke-00052u-VP; Fri, 29 Mar 2024 10:19:32 +0000
+Received: by outflank-mailman (input) for mailman id 699320;
+ Fri, 29 Mar 2024 10:19:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3Z7A=LD=gmail.com=arthurborsboom@srs-se1.protection.inumbo.net>)
- id 1rq8q8-0000SZ-1Q
- for xen-devel@lists.xenproject.org; Fri, 29 Mar 2024 09:48:00 +0000
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [2607:f8b0:4864:20::102d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b65c7dd-edb1-11ee-a1ef-f123f15fe8a2;
- Fri, 29 Mar 2024 10:47:57 +0100 (CET)
-Received: by mail-pj1-x102d.google.com with SMTP id
- 98e67ed59e1d1-29df3333d30so1373865a91.1
- for <xen-devel@lists.xenproject.org>; Fri, 29 Mar 2024 02:47:57 -0700 (PDT)
+ <SRS0=7pRM=LD=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
+ id 1rq9Kd-00052o-E1
+ for xen-devel@lists.xenproject.org; Fri, 29 Mar 2024 10:19:31 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d31a062b-edb5-11ee-afe3-a90da7624cb6;
+ Fri, 29 Mar 2024 11:19:29 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 5D74BCE28DA;
+ Fri, 29 Mar 2024 10:19:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8B3C433C7;
+ Fri, 29 Mar 2024 10:19:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,100 +42,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b65c7dd-edb1-11ee-a1ef-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1711705675; x=1712310475; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Oh0leBodThLl+/WwZkKWIFfNI0+ZRn+gaWdkMtSiKdY=;
-        b=UCWTwZkAfvzF2I6sOa/bMrIIsGL0Wh8zXvmVgCnMYF4qwy60f+AM3yBGdj8ApbrwT0
-         RZDUEw1uYAiOm8flpP9Ek+RqA3FHzncW6YV/hvskaKJLJnDEmLA/O6wpDeXSo7EyKfIR
-         y2PpQj/tZzJoLxqnzanLCNeEQ3q90Mft6d7wuCi+3K818TPqnR19fq2AS4Z5dPzZMcMv
-         GJrWJkRyNOWkBm0btsqCI7QjFgdrmcQkWHkNnPj9adNxhL3/Hon+7BLY4GLRx6WnlaEQ
-         xTulgOArNs8tC3Fhwj/YtxSrmhDmRw5GNB+gkIcd61MWH5FGdurmAm9gcLQIQAawuLAY
-         JAHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711705675; x=1712310475;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Oh0leBodThLl+/WwZkKWIFfNI0+ZRn+gaWdkMtSiKdY=;
-        b=CBpKEEnMHxVlhGVmLzbjyKlXJq6csdrT8jwyhC9IPqzze6xwOJ9rfgyYGi3A2iKCyo
-         fFvrBBck4u7eW+YlagHAbW9XCWoOaxWjJAfwMiaGOatensIUvtAs/0o2aJRTcBASHwEm
-         VaTgCy773Hpw42pK2cNsxbAbxvccD5jPg5Aq4RqANdF4EWsaeW2M8FWo3khUIQ9lHjLL
-         qDvuk0tCNRR85/YVSDANL3a48PxbWUknturBwGY/qAK+d1WiVix2yTL4fzPEfgBnV1p4
-         cZYIPGaY6r/VpS5LAQ2gsTRtGYQetWGeeObsGPr1FMBvyiW8++VAtXBnA9vmT9sqQMN/
-         72xQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX5rrgdiRld+OUc4mGAjKma9v8MCoLncAcD/HLSVwFWuK1YYb8B+XFzCqy5HrigaccuEc520rsut4XKLq7K0Q2ouJWZM3tywq9fPtiFQIw=
-X-Gm-Message-State: AOJu0Ywsg0S3xIGjCK9r9Bek6zKAuG8ZmntsbyotXQBZ9Os4cb1r5MVA
-	mGLKy+gWmQtr4bTVLO/dhzaS+q2hvZDjmHBDuyK4U4CV/GDE1Yr+1hLEO7g6wOrAGH4HvYRGlUm
-	OrcmxaH5jQk7nMKNq7loz0FLWXSY=
-X-Google-Smtp-Source: AGHT+IHvdVFM6Yhn09w77HGK7jsfikHdUEX+kciFWiqwEiPVYac73i21jJYp0yxoHddRUojLc67TTiKVW5Q2aJI0SQo=
-X-Received: by 2002:a17:90a:f3c6:b0:29f:f6c7:1ace with SMTP id
- ha6-20020a17090af3c600b0029ff6c71acemr1697823pjb.32.1711705675399; Fri, 29
- Mar 2024 02:47:55 -0700 (PDT)
+X-Inumbo-ID: d31a062b-edb5-11ee-afe3-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1711707563;
+	bh=YKi4gOrn9DGeJgVs3gZWjPTkOjRhWQkQ0AhfqNFExlg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Z8R+Vk9AaVETwWhRaEMlScRY8lYNj5Vjj5HXh5+UfgzyDFzsNyncqajG1/O+QJ4+q
+	 UiqGM7PveSSoOuk4zROteC9zZMoQ49sxqIGCp9U1CD7P/eNV24eFABJm2R3108fX0r
+	 rkdpJuStXtuOyvOmJ0FwjFlEDS3fwfgoq6hRGTmE=
+Date: Fri, 29 Mar 2024 11:19:15 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Andrew Paniakin <apanyaki@amazon.com>
+Cc: stable@vger.kernel.org, Benjamin Herrenschmidt <benh@amazon.com>,
+	Maximilian Heyne <mheyne@amazon.de>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Sasha Levin <sashal@kernel.org>, Julien Grall <jgrall@amazon.com>,
+	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5.4] xen/events: close evtchn after mapping cleanup
+Message-ID: <2024032905-divisibly-unarmored-f080@gregkh>
+References: <20240303044539.2673085-1-apanyaki@amazon.com>
 MIME-Version: 1.0
-References: <171154167446.2671062.9127105384591237363.stgit@firesoul>
-In-Reply-To: <171154167446.2671062.9127105384591237363.stgit@firesoul>
-From: Arthur Borsboom <arthurborsboom@gmail.com>
-Date: Fri, 29 Mar 2024 10:47:39 +0100
-Message-ID: <CALUcmU=xOR1j9Asdv0Ny7x=o4Ckz80mDjbuEnJC0Z_Aepu0Zzw@mail.gmail.com>
-Subject: Re: [PATCH net] xen-netfront: Add missing skb_mark_for_recycle
-To: Jesper Dangaard Brouer <hawk@kernel.org>
-Cc: netdev@vger.kernel.org, Ilias Apalodimas <ilias.apalodimas@linaro.org>, wei.liu@kernel.org, 
-	paul@xen.org, Jakub Kicinski <kuba@kernel.org>, kirjanov@gmail.com, dkirjanov@suse.de, 
-	kernel-team@cloudflare.com, security@xenproject.org, 
-	andrew.cooper3@citrix.com, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240303044539.2673085-1-apanyaki@amazon.com>
 
-On Wed, 27 Mar 2024 at 13:15, Jesper Dangaard Brouer <hawk@kernel.org> wrote:
->
-> Notice that skb_mark_for_recycle() is introduced later than fixes tag in
-> 6a5bcd84e886 ("page_pool: Allow drivers to hint on SKB recycling").
->
-> It is believed that fixes tag were missing a call to page_pool_release_page()
-> between v5.9 to v5.14, after which is should have used skb_mark_for_recycle().
-> Since v6.6 the call page_pool_release_page() were removed (in 535b9c61bdef
-> ("net: page_pool: hide page_pool_release_page()") and remaining callers
-> converted (in commit 6bfef2ec0172 ("Merge branch
-> 'net-page_pool-remove-page_pool_release_page'")).
->
-> This leak became visible in v6.8 via commit dba1b8a7ab68 ("mm/page_pool: catch
-> page_pool memory leaks").
->
-> Fixes: 6c5aa6fc4def ("xen networking: add basic XDP support for xen-netfront")
-> Reported-by: Arthur Borsboom <arthurborsboom@gmail.com>
-> Signed-off-by: Jesper Dangaard Brouer <hawk@kernel.org>
+On Sat, Mar 02, 2024 at 08:45:39PM -0800, Andrew Paniakin wrote:
+> From: Andrew Panyakin <apanyaki@amazon.com>
+> 
+> From: Maximilian Heyne <mheyne@amazon.de>
+> 
+> Commit fa765c4b4aed2d64266b694520ecb025c862c5a9 upstream
+> 
+> shutdown_pirq and startup_pirq are not taking the
+> irq_mapping_update_lock because they can't due to lock inversion. Both
+> are called with the irq_desc->lock being taking. The lock order,
+> however, is first irq_mapping_update_lock and then irq_desc->lock.
+> 
+> This opens multiple races:
+> - shutdown_pirq can be interrupted by a function that allocates an event
+>   channel:
+> 
+>   CPU0                        CPU1
+>   shutdown_pirq {
+>     xen_evtchn_close(e)
+>                               __startup_pirq {
+>                                 EVTCHNOP_bind_pirq
+>                                   -> returns just freed evtchn e
+>                                 set_evtchn_to_irq(e, irq)
+>                               }
+>     xen_irq_info_cleanup() {
+>       set_evtchn_to_irq(e, -1)
+>     }
+>   }
+> 
+>   Assume here event channel e refers here to the same event channel
+>   number.
+>   After this race the evtchn_to_irq mapping for e is invalid (-1).
+> 
+> - __startup_pirq races with __unbind_from_irq in a similar way. Because
+>   __startup_pirq doesn't take irq_mapping_update_lock it can grab the
+>   evtchn that __unbind_from_irq is currently freeing and cleaning up. In
+>   this case even though the event channel is allocated, its mapping can
+>   be unset in evtchn_to_irq.
+> 
+> The fix is to first cleanup the mappings and then close the event
+> channel. In this way, when an event channel gets allocated it's
+> potential previous evtchn_to_irq mappings are guaranteed to be unset already.
+> This is also the reverse order of the allocation where first the event
+> channel is allocated and then the mappings are setup.
+> 
+> On a 5.10 kernel prior to commit 3fcdaf3d7634 ("xen/events: modify internal
+> [un]bind interfaces"), we hit a BUG like the following during probing of NVMe
+> devices. The issue is that during nvme_setup_io_queues, pci_free_irq
+> is called for every device which results in a call to shutdown_pirq.
+> With many nvme devices it's therefore likely to hit this race during
+> boot because there will be multiple calls to shutdown_pirq and
+> startup_pirq are running potentially in parallel.
+> 
+>   ------------[ cut here ]------------
+>   blkfront: xvda: barrier or flush: disabled; persistent grants: enabled; indirect descriptors: enabled; bounce buffer: enabled
+>   kernel BUG at drivers/xen/events/events_base.c:499!
+>   invalid opcode: 0000 [#1] SMP PTI
+>   CPU: 44 PID: 375 Comm: kworker/u257:23 Not tainted 5.10.201-191.748.amzn2.x86_64 #1
+>   Hardware name: Xen HVM domU, BIOS 4.11.amazon 08/24/2006
+>   Workqueue: nvme-reset-wq nvme_reset_work
+>   RIP: 0010:bind_evtchn_to_cpu+0xdf/0xf0
+>   Code: 5d 41 5e c3 cc cc cc cc 44 89 f7 e8 2b 55 ad ff 49 89 c5 48 85 c0 0f 84 64 ff ff ff 4c 8b 68 30 41 83 fe ff 0f 85 60 ff ff ff <0f> 0b 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 0f 1f 44 00 00
+>   RSP: 0000:ffffc9000d533b08 EFLAGS: 00010046
+>   RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000006
+>   RDX: 0000000000000028 RSI: 00000000ffffffff RDI: 00000000ffffffff
+>   RBP: ffff888107419680 R08: 0000000000000000 R09: ffffffff82d72b00
+>   R10: 0000000000000000 R11: 0000000000000000 R12: 00000000000001ed
+>   R13: 0000000000000000 R14: 00000000ffffffff R15: 0000000000000002
+>   FS:  0000000000000000(0000) GS:ffff88bc8b500000(0000) knlGS:0000000000000000
+>   CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>   CR2: 0000000000000000 CR3: 0000000002610001 CR4: 00000000001706e0
+>   DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+>   DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+>   Call Trace:
+>    ? show_trace_log_lvl+0x1c1/0x2d9
+>    ? show_trace_log_lvl+0x1c1/0x2d9
+>    ? set_affinity_irq+0xdc/0x1c0
+>    ? __die_body.cold+0x8/0xd
+>    ? die+0x2b/0x50
+>    ? do_trap+0x90/0x110
+>    ? bind_evtchn_to_cpu+0xdf/0xf0
+>    ? do_error_trap+0x65/0x80
+>    ? bind_evtchn_to_cpu+0xdf/0xf0
+>    ? exc_invalid_op+0x4e/0x70
+>    ? bind_evtchn_to_cpu+0xdf/0xf0
+>    ? asm_exc_invalid_op+0x12/0x20
+>    ? bind_evtchn_to_cpu+0xdf/0xf0
+>    ? bind_evtchn_to_cpu+0xc5/0xf0
+>    set_affinity_irq+0xdc/0x1c0
+>    irq_do_set_affinity+0x1d7/0x1f0
+>    irq_setup_affinity+0xd6/0x1a0
+>    irq_startup+0x8a/0xf0
+>    __setup_irq+0x639/0x6d0
+>    ? nvme_suspend+0x150/0x150
+>    request_threaded_irq+0x10c/0x180
+>    ? nvme_suspend+0x150/0x150
+>    pci_request_irq+0xa8/0xf0
+>    ? __blk_mq_free_request+0x74/0xa0
+>    queue_request_irq+0x6f/0x80
+>    nvme_create_queue+0x1af/0x200
+>    nvme_create_io_queues+0xbd/0xf0
+>    nvme_setup_io_queues+0x246/0x320
+>    ? nvme_irq_check+0x30/0x30
+>    nvme_reset_work+0x1c8/0x400
+>    process_one_work+0x1b0/0x350
+>    worker_thread+0x49/0x310
+>    ? process_one_work+0x350/0x350
+>    kthread+0x11b/0x140
+>    ? __kthread_bind_mask+0x60/0x60
+>    ret_from_fork+0x22/0x30
+>   Modules linked in:
+>   ---[ end trace a11715de1eee1873 ]---
+> 
+> Fixes: d46a78b05c0e ("xen: implement pirq type event channels")
+> Co-debugged-by: Andrew Panyakin <apanyaki@amazon.com>
+> Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
+> [apanyaki: backport to v5.4-stable]
+> Signed-off-by: Andrew Paniakin <apanyaki@amazon.com>
 > ---
-> Compile tested only, can someone please test this
+> Compare to upstream patch this one does not have close_evtchn flag
+> because there is no need to handle static event channels.
+> This feature was added only in 58f6259b7a08f ("xen/evtchn: Introduce new
+> IOCTL to bind static evtchn")
 
-I have tested this patch on Xen 4.18.1 with VM (Arch Linux) kernel 6.9.0-rc1.
+All now qeued up, thanks.
 
-Without the patch there are many trace traces and cloning the Linux
-mainline git repository resulted in failures (same with kernel 6.8.1).
-The patched kernel 6.9.0-rc1 performs as expected; cloning the git
-repository was successful and no kernel traces observed.
-Hereby my tested by:
-
-Tested-by: Arthur Borsboom <arthurborsboom@gmail.com>
-
-
-
->  drivers/net/xen-netfront.c |    1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
-> index ad29f370034e..8d2aee88526c 100644
-> --- a/drivers/net/xen-netfront.c
-> +++ b/drivers/net/xen-netfront.c
-> @@ -285,6 +285,7 @@ static struct sk_buff *xennet_alloc_one_rx_buffer(struct netfront_queue *queue)
->                 return NULL;
->         }
->         skb_add_rx_frag(skb, 0, page, 0, 0, PAGE_SIZE);
-> +       skb_mark_for_recycle(skb);
->
->         /* Align ip header to a 16 bytes boundary */
->         skb_reserve(skb, NET_IP_ALIGN);
->
->
+greg k-h
 
