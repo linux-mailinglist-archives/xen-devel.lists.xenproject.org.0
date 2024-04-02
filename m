@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8F228957E1
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 17:10:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700199.1092949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F4C1895833
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 17:30:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700203.1092960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrfmP-0007LV-QP; Tue, 02 Apr 2024 15:10:29 +0000
+	id 1rrg4X-0001dC-F9; Tue, 02 Apr 2024 15:29:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700199.1092949; Tue, 02 Apr 2024 15:10:29 +0000
+Received: by outflank-mailman (output) from mailman id 700203.1092960; Tue, 02 Apr 2024 15:29:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrfmP-0007Jo-NZ; Tue, 02 Apr 2024 15:10:29 +0000
-Received: by outflank-mailman (input) for mailman id 700199;
- Tue, 02 Apr 2024 15:10:28 +0000
+	id 1rrg4X-0001b2-C5; Tue, 02 Apr 2024 15:29:13 +0000
+Received: by outflank-mailman (input) for mailman id 700203;
+ Tue, 02 Apr 2024 15:29:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=l5ae=LH=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rrfmO-0007Ji-UC
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 15:10:28 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1rrg4W-0001Zf-Fn
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 15:29:12 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22d5b6ba-f103-11ee-a1ef-f123f15fe8a2;
- Tue, 02 Apr 2024 17:10:26 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a468226e135so636804666b.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 08:10:26 -0700 (PDT)
+ id bf2c6b51-f105-11ee-a1ef-f123f15fe8a2;
+ Tue, 02 Apr 2024 17:29:08 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-568c714a9c7so6271216a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 08:29:08 -0700 (PDT)
 Received: from ?IPV6:2003:e5:873a:400:704b:6dbb:e7c0:786e?
  (p200300e5873a0400704b6dbbe7c0786e.dip0.t-ipconnect.de.
  [2003:e5:873a:400:704b:6dbb:e7c0:786e])
  by smtp.gmail.com with ESMTPSA id
- m24-20020a1709060d9800b00a46be5c78f4sm6713514eji.142.2024.04.02.08.10.25
+ z19-20020a170906669300b00a4e299dea48sm6091258ejo.199.2024.04.02.08.29.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 08:10:26 -0700 (PDT)
+ Tue, 02 Apr 2024 08:29:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,102 +47,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22d5b6ba-f103-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: bf2c6b51-f105-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712070626; x=1712675426; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712071747; x=1712676547; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=DYP8/I4Ll0Z6yAcTc58VN9ImH6/L6Y/xoyTH1SZzcHc=;
-        b=gc/tqeztnzahWTimrDovFEqf52RuhEj1R1TnaSbQpO2rRvui92CoZpxWj8gYAq/WN9
-         nm/3MIy5mxx1cOnoji4Ysx93L/XNIG8uLhaw6abWiKOi/VaCVgl5RksBV7bwmcCTHPOj
-         z6MLgkD6PVQWTkUv6DRQePxVRWXbpZFUjjByTSmdzfeXBILOLIEqN52o0tWBUbbOnyS/
-         V/a/Tmafel5a14ED61UvvNR417LEu1uAS3ea5fNvVUiTwgoN/oqr/rH6/TKesC/P/taN
-         CRqrRseVDODmm44TPtOdjov4JvK2Y+a2ilQNDP1YRXmt0/3DGC6E2faafNVPlz0c+CKG
-         /GDw==
+        bh=1/QljjjALfTRpeEJgh1rcbafvSyAA7R1aCImlaqo454=;
+        b=Ar6yFDgtH193WpY5FO9KhJ81+T8/KYU42HXC8EzJBuXfFWABU0AB7o+jBywIHVOcMF
+         xac7qiwatpomyx8PHM2qn8uCFzDxhgdSH8EsgYIXvd2UvNRtOdQBjvvxrbOsqaAhxR/b
+         9/KCTeS2n1nZ6+PGu4VjRdI2TLizt/m5E9go8RFxQqxOY6XVuTw1iC4bClKfv4VK1U2Q
+         tuEEny/uF9o/qp7Dj8KkDlErSYAnpp6+puKGefG99+I8yohvaXBIc5hzGYkVBZ/tg3g4
+         kwmexBYMYxL/kGKeHYK1M88kGDDQqZgVtfkrl/LgHPLe4VZxN1wXcbXYvdJ7YZzEVQsl
+         4G+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712070626; x=1712675426;
+        d=1e100.net; s=20230601; t=1712071747; x=1712676547;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DYP8/I4Ll0Z6yAcTc58VN9ImH6/L6Y/xoyTH1SZzcHc=;
-        b=LgKo/6mDNC+3sP19tt+n6SswoyDMhZvI4NG0lOSp+wDV45IRBKN8yKsF9SpDPVGOkI
-         xxwRYm8aL4auOW4Gk6/jgA8Hn1xSlY8VeJXO5Z8DGs8CbbscDr3KIex1unhki3GPPEnB
-         p6amHyu0PlINSVbd+Xo9SbzkU5kMmMVXHdOaE4a/fCxqethFsLixhO0NuVzya+KFHucd
-         mxwYmHUr/eL/X39Tir4glSJbO1qec2qVTqaK5VSiV0ig3FhiwjoOL2nNheFNDjOWS1r4
-         j+C4LxOiWFml4w/0yZao/oqE3BpqB3i/lqbUM9+J1jOHVIVA7BsOabAD4QwUPhH6DLYm
-         ni2w==
-X-Forwarded-Encrypted: i=1; AJvYcCVsA+MC0XhvQZ18ocUQ/zbQ9R1Y/Er4Zvb0vB9BTxympUrgJwznRgVnvxKGBQpN58xXVelSnhh7aCazu8+/pj2BMQh1NNWwf2/vMIz49l4=
-X-Gm-Message-State: AOJu0YzCRi5wVsaOMksP2rmsa2/THXOnSKthuqxa3O6VeVrm9e4ew8Eq
-	bvMK0tPidueUN2LEUpMTfsMemTfXnBz5R8NUDFGT7eITJSfgtQO/tmFjd+eI2+A=
-X-Google-Smtp-Source: AGHT+IEcAOLcnLFzWwWmClsgn9WW7EH5SWQZOfQRqMSxZ6NYBV4tt+1kiLiMaEwzP5EFlpAj/kKl6w==
-X-Received: by 2002:a17:906:512:b0:a4d:f98e:dc3e with SMTP id j18-20020a170906051200b00a4df98edc3emr7925616eja.12.1712070626257;
-        Tue, 02 Apr 2024 08:10:26 -0700 (PDT)
-Message-ID: <b7f0f386-f367-4b76-beac-1521a89c200b@suse.com>
-Date: Tue, 2 Apr 2024 17:10:25 +0200
+        bh=1/QljjjALfTRpeEJgh1rcbafvSyAA7R1aCImlaqo454=;
+        b=mQGJC/kovSnp+evDY6EzsM1hd/75zmAycobLOG2Z3jiyiBTgZQh81zN2YRwgDyVRu5
+         qBs7elmjpmwwPDcpXMKga64IbZdB1V7opUqC1G3fIEXGV/OzdMLWYaLsiDwjOIMgc5Z9
+         ZOlwI9dHAv3UCMqsv2iNFyT1oEPD1+6J4hBry5CLPHXdzbLVCl3pUukMZrk9x1k+NcEa
+         PaCQjSFT7lxhOt5zaa39Bopq7eaxZIdLNQUzNpAYkMSPus9LclDaD+t+ETKX+Tb94+IU
+         R1wR+cGr6nhhla87O4pgsu5eMljzyTlR0E3RKpJ+W3g92wNqrx5FY2ZYPjfOTB1GFm9i
+         Okcg==
+X-Forwarded-Encrypted: i=1; AJvYcCWLgsGb2Mf88qV9vLWByMpzoEYMaI8kbPIHkj9bPNVEfpGisZAf5oTXOh1VwL9AwCJYTQXX5fwGNR1ltokV7yQ2/ZTObXIj3tYv+0vdKlU=
+X-Gm-Message-State: AOJu0Yx9rXpUUonpKC1xuMfZ1nEapTCfDqAnW05/4WoHOE9fpcquNudu
+	eykepg5ZGqNr5Pzv+XnPsRG6g2a0I4wuQwt8eU2My++uBGJ4LSp7sMjrVmlbz9U=
+X-Google-Smtp-Source: AGHT+IGAWxX5Gemnxbp4jp9SIBGErwqjwv+OGJ5uSe7svP8B9lFU5LluzF9+5OwUvICuwRyXiCTgvg==
+X-Received: by 2002:a17:906:160c:b0:a4e:8c19:2ceb with SMTP id m12-20020a170906160c00b00a4e8c192cebmr1333228ejd.6.1712071747493;
+        Tue, 02 Apr 2024 08:29:07 -0700 (PDT)
+Message-ID: <afef3207-deff-4eb0-ae28-49b49cbcd2be@suse.com>
+Date: Tue, 2 Apr 2024 17:29:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 6/8] xen/spinlock: support higher number of cpus
+Subject: Re: [PATCH v6 7/8] xen/rwlock: raise the number of possible cpus
 Content-Language: en-US
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20240327152229.25847-1-jgross@suse.com>
- <20240327152229.25847-7-jgross@suse.com>
- <6b5316a3-2920-4589-9e91-2de148c482db@suse.com>
+ <20240327152229.25847-8-jgross@suse.com>
+ <7e94482d-2c03-41ac-827f-af92a94796af@suse.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <6b5316a3-2920-4589-9e91-2de148c482db@suse.com>
+In-Reply-To: <7e94482d-2c03-41ac-827f-af92a94796af@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02.04.24 16:42, Jan Beulich wrote:
+On 02.04.24 16:52, Jan Beulich wrote:
 > On 27.03.2024 16:22, Juergen Gross wrote:
->> Allow 16 bits per cpu number, which is the limit imposed by
->> spinlock_tickets_t.
->>
->> This will allow up to 65535 cpus, while increasing only the size of
->> recursive spinlocks in debug builds from 8 to 12 bytes.
->>
->> The current Xen limit of 4095 cpus is imposed by SPINLOCK_CPU_BITS
->> being 12. There are machines available with more cpus than the current
->> Xen limit, so it makes sense to have the possibility to use more cpus.
->>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
-> 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> albeit I have to say that I'm not entirely convinced of ...
-> 
->> --- a/xen/common/spinlock.c
->> +++ b/xen/common/spinlock.c
->> @@ -485,7 +485,9 @@ bool _rspin_trylock(rspinlock_t *lock)
+>> @@ -36,14 +36,21 @@ void queue_write_lock_slowpath(rwlock_t *lock);
 >>   
->>       /* Don't allow overflow of recurse_cpu field. */
->>       BUILD_BUG_ON(NR_CPUS > SPINLOCK_NO_CPU);
->> +    BUILD_BUG_ON(SPINLOCK_CPU_BITS > sizeof(lock->recurse_cpu) * 8);
->>       BUILD_BUG_ON(SPINLOCK_RECURSE_BITS < 3);
->> +    BUILD_BUG_ON(SPINLOCK_MAX_RECURSE > ((1u << SPINLOCK_RECURSE_BITS) - 1));
+>>   static inline bool _is_write_locked_by_me(unsigned int cnts)
+>>   {
+>> -    BUILD_BUG_ON(_QW_CPUMASK < NR_CPUS);
+>> +    BUILD_BUG_ON((_QW_CPUMASK + 1) < NR_CPUS);
+>> +    BUILD_BUG_ON(NR_CPUS * _QR_BIAS > INT_MAX);
+>>       return (cnts & _QW_WMASK) == _QW_LOCKED &&
+>>              (cnts & _QW_CPUMASK) == smp_processor_id();
+>>   }
 >>   
->>       check_lock(&lock->debug, true);
+>>   static inline bool _can_read_lock(unsigned int cnts)
+>>   {
+>> -    return !(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts);
+>> +    /*
+>> +     * If write locked by the caller, no other readers are possible.
+>> +     * Not allowing the lock holder to read_lock() another 32768 times ought
+>> +     * to be fine.
+>> +     */
+>> +    return cnts <= INT_MAX &&
+>> +           (!(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts));
+>>   }
 > 
-> ... the two additions here: The two checks we had verify independent
-> properties, whereas the new ones basically check that struct rspinlock
-> and its associated #define-s were got right. We don't check such
-> elsewhere, I don't think.
+> What is the 32768 in the comment relating to? INT_MAX is quite a bit higher,
+> yet the comparison against it is the only thing you add. Whereas the reader
+> count is, with the sign bit unused, 17 bits, though (bits 14..30). I think
 
-I think we do.
+You missed:
 
-What about:
-   BUILD_BUG_ON(sizeof(hwp_req) != sizeof(hwp_req.raw))
-checking that two union elements are of the same size (and both elements don't
-contain any other structs).
+#define    _QR_SHIFT    (_QW_SHIFT + 2)         /* Reader count shift */
 
-Additionally it is not obvious at a first glance that SPINLOCK_CPU_BITS defined
-in line 11 is relevant for the definition of recurse_cpu in line 217.
+So the reader's shift is 16, resulting in 15 bits for the reader count.
 
-Regarding the second added BUILD_BUG_ON() there was a comment by Julien related
-to the definition of SPINLOCK_MAX_RECURSE in V4 of this patch. We settled to use
-the current form including the added BUILD_BUG_ON().
+> even in such a comment rather than using a literal number the corresponding
+> expression would better be stated.
+
+Hmm, you mean replacing the 32768 with INT_MAX >> _QR_SHIFT? This would be
+fine with me.
 
 
 Juergen
