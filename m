@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF6B6894BB7
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 08:46:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.699981.1092420 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C818F894BB9
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 08:46:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.699984.1092431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrXso-0005Bj-IE; Tue, 02 Apr 2024 06:44:34 +0000
+	id 1rrXuY-0005kV-W4; Tue, 02 Apr 2024 06:46:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699981.1092420; Tue, 02 Apr 2024 06:44:34 +0000
+Received: by outflank-mailman (output) from mailman id 699984.1092431; Tue, 02 Apr 2024 06:46:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrXso-0005A8-ES; Tue, 02 Apr 2024 06:44:34 +0000
-Received: by outflank-mailman (input) for mailman id 699981;
- Tue, 02 Apr 2024 06:44:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rrXuY-0005ig-Se; Tue, 02 Apr 2024 06:46:22 +0000
+Received: by outflank-mailman (input) for mailman id 699984;
+ Tue, 02 Apr 2024 06:46:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hiiI=LH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrXsm-0005A2-Uk
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 06:44:33 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7503cfad-f0bc-11ee-a1ef-f123f15fe8a2;
- Tue, 02 Apr 2024 08:44:30 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-341cf28e013so3405512f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Apr 2024 23:44:30 -0700 (PDT)
+ id 1rrXuX-0005ia-LJ
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 06:46:21 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b6b364b9-f0bc-11ee-afe5-a90da7624cb6;
+ Tue, 02 Apr 2024 08:46:20 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4161bd0a4ecso1232725e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Apr 2024 23:46:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g4-20020a5d4884000000b0033e7603987dsm13300991wrq.12.2024.04.01.23.44.29
+ t1-20020adfe441000000b0033e756ed840sm13292799wrm.47.2024.04.01.23.46.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Apr 2024 23:44:29 -0700 (PDT)
+ Mon, 01 Apr 2024 23:46:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7503cfad-f0bc-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: b6b364b9-f0bc-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712040270; x=1712645070; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712040380; x=1712645180; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=KbBcv4vM9cxCoUaNPtf6jm5Arz9yTd2IuVeBEzNAVIc=;
-        b=GpTf32ZI5w8f29HSa3RlTs5T6tT3HyYUJfoL6KWzB2pgScpQgu2was7GcM6oowsANt
-         wpm/6N9LJlFbQd3/0dXzlz+x4i0uQ2tDEJgkDasyO7J+wUppAmxJOJ4VKTdScLyoLsi3
-         FyHD0jzd66QjLvhNamKf/ZNAopOowuhhsbVYElxwi4YulU7Lx/ojzqfoU5rLwSnyOapV
-         0pbxDeSxcYS3ZDCXFWWd/FmUUaxC0XPhkt6HKLDI4KSWGHxqmEQoq2xxl4sts6bN3vKC
-         jbjIQuOdPIlhxmvaVucBiI12hPiUdIqW3NmAzlvJUvMJLjWA2FMZHp/jH4TioDzGM4Na
-         R4rw==
+        bh=IjZTJ9wQXvMBGOs8OL3MPHrmrDRcsnrJnMq0g2Y/4Bw=;
+        b=UV7xvzF3XGEAkQ35QxFoTPO3qms41wcraQYAb8RZbHMv3vfjWUoI528zdFTa1XTLwI
+         wQNSrnMidiYY0nZgfYIPt1GuIEIqEq4g68ONUQeOSqQDAjgRAJjwqrufiaTsZwarR2XG
+         4owGF1T+VNCO8aPuBPkm0CApkeNEz41EBoek6OFAu0zZLa/jnTNdCwO/UjxTcY/0U2il
+         QPnzDnY1zrWYHwGmlAsbuUhE2B+uOxVy45mq2OWDUU6V0TPrkhWPn+0ouk4R9TFVxlVd
+         njla4ODMR5T4/ebitxMHtd3R+Dt+0xS3smzRqjkAVgTFMiCeiRJEZNCZpWhAtHk85Wab
+         8gwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712040270; x=1712645070;
+        d=1e100.net; s=20230601; t=1712040380; x=1712645180;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KbBcv4vM9cxCoUaNPtf6jm5Arz9yTd2IuVeBEzNAVIc=;
-        b=PqglMiUk4KCh/W74ngX7Ou+gRW7h79jOSiRiQGbU9DTh4ElqP/vQyXJll6mYe+h0k9
-         6fuLfq1/3IjMBsvZLJfJ422iXK0BFfNPlSDvlGlCGyT/wNvumAxSWrr+DDHkMEQnYRcb
-         hrbBJ97gOocNfGRpBhaoN54kIknBO9bFDeVekqp1FB5nF7cfAVCLIJODydvHfSknIzoe
-         0OoIqK+mRGYQeHV1smG+ZH3Wz5pfZHg8iyXNIHxwctsAqPqdwWvcknbjdbQkmWOxxp0Z
-         xrSeLaDPVsDTIGFh75yeLmqAeER/0kqREgb36SqjlGBZfH8D1LgE+GqtIpcSlapnHL+L
-         TXRw==
-X-Forwarded-Encrypted: i=1; AJvYcCWB1OyhE2weCJLb5kkTkItMO7EtIbGqYXCPljc8hwq2kvWyWo9UyVlOAeM+MGuExxjIgUr2HddP6ms+CWdc3L9kU2ay7zgr5AUUpKRyAEE=
-X-Gm-Message-State: AOJu0YyqXxteLPYCH5XUU5vBPxHvYTV8Ok5mFBRgmKEoAB8ozxSKP3cB
-	wlmS2q6JKbBavM+BrdnhRZyUIWVMwU8otrxtcv7W4KzyfJZvGlUcyoQFNnJ6eg==
-X-Google-Smtp-Source: AGHT+IGEfeHtOJTOECClQGUd5SalbfLPF3rtN4R8CPdy4hTqWOQTa22pKRjv2YzD4yaB8QNn7ZmRrA==
-X-Received: by 2002:a05:6000:110e:b0:341:7e10:1a1e with SMTP id z14-20020a056000110e00b003417e101a1emr9226059wrw.60.1712040269822;
-        Mon, 01 Apr 2024 23:44:29 -0700 (PDT)
-Message-ID: <514380b9-d7ba-466b-b992-28bb1953a6ae@suse.com>
-Date: Tue, 2 Apr 2024 08:44:33 +0200
+        bh=IjZTJ9wQXvMBGOs8OL3MPHrmrDRcsnrJnMq0g2Y/4Bw=;
+        b=iuQGVbq3mSdEnNVeHy7fpUWCH5HncS0U4UhfY90S42le0DTRpynQA4sQsv0xaynV0i
+         Ld6xaOo1ptxdRkepkKogwG/5S5DhCKK76RHtHERnD2AETNvS1dJQnxPK09OwDbJQ6/m8
+         I1ZChyiv4MTDtjQigS8oBLS0A9YnOe3QrFpigBDJoNaysehli1vJlaEi24e38SW0vMMk
+         ufSedXRT4t55QDhaU0cpfzKq/22w+pm6GiKP+n0iDBtVVI6PNIp9JXEm3lmlL91fW809
+         +2lqVtd0w6dwTLeGQ2PVOEE5tySGoZQpCka1/PTmDfUsOGDNSnGruaJ78c9Nu4xouOmu
+         Gb9g==
+X-Forwarded-Encrypted: i=1; AJvYcCX1qXFHI8y7l70jwRASt24NU/HCJq/L5Q8d4mTdNfxcREMo0Ftsvh3XR6ARD3Yu/Y2C3ashtLqgstaiiFiH217tJvcOMc5tyhr/0SEpw54=
+X-Gm-Message-State: AOJu0Yx0U4tPU7fY6zStCKLMMHQIV9r5TqaBvPiKE9wDFaKwgIV47Pyp
+	OoPP8ISrRgN57y01iuxEnD1IBnmKyMSLppjDKsDHBWAjguuOq/QFSfT8bZPJZQ==
+X-Google-Smtp-Source: AGHT+IGNLPqTmaWvBmj1dDmB516BIccvjIzkVSpZAhl/4Kg55cX0ImjzLFIm5AU1ID/FYizYz+Mt8A==
+X-Received: by 2002:a05:600c:3007:b0:415:589b:c01c with SMTP id j7-20020a05600c300700b00415589bc01cmr5854087wmh.23.1712040380129;
+        Mon, 01 Apr 2024 23:46:20 -0700 (PDT)
+Message-ID: <050a155f-325b-4b70-b954-bcdb3a64fbaa@suse.com>
+Date: Tue, 2 Apr 2024 08:46:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/4] libelf: Store maximum PHDR p_align
+Subject: Re: [PATCH v6 06/20] xen/bitops: put __ffs() and ffz() into linux
+ compatible header
 Content-Language: en-US
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240327215102.136001-1-jason.andryuk@amd.com>
- <20240327215102.136001-4-jason.andryuk@amd.com>
- <f2297a46-4d19-4b98-b986-e05ac9f7a2c5@suse.com>
- <d6927896-0168-4620-b10a-8d6304b4d6eb@amd.com>
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
+References: <cover.1710517542.git.oleksii.kurochko@gmail.com>
+ <8bc35da4a9fd44d2dcf9677dcc99334eb7142581.1710517542.git.oleksii.kurochko@gmail.com>
+ <a4d36c0f-d3a3-4d64-a62e-b631a4ece9a8@suse.com>
+ <827d3d8ee11bd4a3c20dbee936132df231db1e73.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,73 +120,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d6927896-0168-4620-b10a-8d6304b4d6eb@amd.com>
+In-Reply-To: <827d3d8ee11bd4a3c20dbee936132df231db1e73.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 29.03.2024 15:41, Jason Andryuk wrote:
-> On 2024-03-28 12:47, Jan Beulich wrote:
->> On 27.03.2024 22:51, Jason Andryuk wrote:
->>> --- a/xen/common/libelf/libelf-loader.c
->>> +++ b/xen/common/libelf/libelf-loader.c
->>> @@ -468,6 +468,7 @@ void elf_parse_binary(struct elf_binary *elf)
->>>   {
->>>       ELF_HANDLE_DECL(elf_phdr) phdr;
->>>       uint64_t low = -1, high = 0, paddr, memsz;
->>> +    uint64_t max_align = 0, palign;
->>>       unsigned i, count;
->>>   
->>>       count = elf_phdr_count(elf);
->>> @@ -481,17 +482,23 @@ void elf_parse_binary(struct elf_binary *elf)
->>>               continue;
->>>           paddr = elf_uval(elf, phdr, p_paddr);
->>>           memsz = elf_uval(elf, phdr, p_memsz);
->>> -        elf_msg(elf, "ELF: phdr: paddr=%#" PRIx64 " memsz=%#" PRIx64 "\n",
->>> -                paddr, memsz);
->>> +        palign = elf_uval(elf, phdr, p_align);
->>> +        elf_msg(elf,
->>> +                "ELF: phdr: paddr=%#" PRIx64 " memsz=%#" PRIx64 " palign=%#" PRIx64 "\n",
->>> +                paddr, memsz, palign);
->>>           if ( low > paddr )
->>>               low = paddr;
->>>           if ( high < paddr + memsz )
->>>               high = paddr + memsz;
->>> +        if ( max_align < palign )
->>> +            max_align = palign;
->>>       }
->>>       elf->pstart = low;
->>>       elf->pend = high;
->>> -    elf_msg(elf, "ELF: memory: %#" PRIx64 " -> %#" PRIx64 "\n",
->>> -            elf->pstart, elf->pend);
->>> +    elf->palign = max_align;
->>> +    elf_msg(elf,
->>> +            "ELF: memory: %#" PRIx64 " -> %#" PRIx64 " align:%#" PRIx64 "\n",
->>> +            elf->pstart, elf->pend, elf->palign);
->>>   }
+On 29.03.2024 19:23, Oleksii wrote:
+> On Wed, 2024-03-20 at 16:42 +0100, Jan Beulich wrote:
+>> On 15.03.2024 19:06, Oleksii Kurochko wrote:
+>>> --- a/xen/lib/find-next-bit.c
+>>> +++ b/xen/lib/find-next-bit.c
+>>> @@ -9,6 +9,7 @@
+>>>   * 2 of the License, or (at your option) any later version.
+>>>   */
+>>>  #include <xen/bitops.h>
+>>> +#include <xen/linux-compat.h>
+>>>  
+>>>  #include <asm/byteorder.h>
 >>
->> Hmm, it's just this final logging change which I'm a little concerned by:
->> Having looked at Linux'es phdr, I noticed that the addresses there aren't
->> necessarily matching the corresponding alignment. Therefore I'm a little
->> concerned that the output here might raise questions when people see
->> seemingly inconsistent values in the log. Could you/we at least make it
->> read like e.g. "align (max): ..."?
-> 
-> max_align?
-> 
-> Looking at my test vmlinux, it looks like PHDR 0 (.text) and PHDR 1 
-> (.data) are aligned.  It's the PHDR 2 (.init) that isn't aligned.  Is 
-> that what you see?
-> 
-> This line is already printing the min and max across all the PHDRs, so 
-> it would only look confusing if the start didn't match the align.
-> 
-> I'm not sure how useful it is to print the alignment, and I considered 
-> not printing it.  It's only used with PVH Dom0 right now, so it's not 
-> relevant in most cases.
+>> Hmm, no, a library source would better not include this header.
+>> Surely
+>> the ffz() can be taken care of locally here?
+> Except that __ffs() from xen/linux-compat.h is used in find-next-bit.c,
+> so it seems that it is still need to include the header.
 
-Well, yes, not printing the alignment would be fine with me. I just didn't
-suggest that as an alternative since I was assuming you put its printing
-there for a reason.
+Hmm, no - that __ffs() use, if we mean that to become a Linux compat thing
+only, should then be replaced (or covered locally), too, imo.
 
 Jan
 
