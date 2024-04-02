@@ -2,52 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 118BA894C9B
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 09:24:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700004.1092540 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A6CE894C9F
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 09:26:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700015.1092551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrYVc-0006ln-66; Tue, 02 Apr 2024 07:24:40 +0000
+	id 1rrYX4-0008Ou-Kt; Tue, 02 Apr 2024 07:26:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700004.1092540; Tue, 02 Apr 2024 07:24:40 +0000
+Received: by outflank-mailman (output) from mailman id 700015.1092551; Tue, 02 Apr 2024 07:26:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrYVc-0006hc-1M; Tue, 02 Apr 2024 07:24:40 +0000
-Received: by outflank-mailman (input) for mailman id 700004;
- Tue, 02 Apr 2024 07:24:38 +0000
+	id 1rrYX4-0008Mk-H7; Tue, 02 Apr 2024 07:26:10 +0000
+Received: by outflank-mailman (input) for mailman id 700015;
+ Tue, 02 Apr 2024 07:26:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m3oM=LH=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rrYVZ-0003jQ-QU
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 07:24:37 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20601.outbound.protection.outlook.com
- [2a01:111:f403:2416::601])
+ <SRS0=64iE=LH=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1rrYX2-0008MS-SW
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 07:26:08 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2613::600])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0df3a58d-f0c2-11ee-a1ef-f123f15fe8a2;
- Tue, 02 Apr 2024 09:24:35 +0200 (CEST)
-Received: from SJ0PR13CA0155.namprd13.prod.outlook.com (2603:10b6:a03:2c7::10)
- by CH3PR12MB7500.namprd12.prod.outlook.com (2603:10b6:610:148::17)
+ id 440374fb-f0c2-11ee-a1ef-f123f15fe8a2;
+ Tue, 02 Apr 2024 09:26:05 +0200 (CEST)
+Received: from DU7P195CA0013.EURP195.PROD.OUTLOOK.COM (2603:10a6:10:54d::8) by
+ AS8PR08MB9552.eurprd08.prod.outlook.com (2603:10a6:20b:61b::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Tue, 2 Apr
+ 2024 07:26:02 +0000
+Received: from DU6PEPF0000A7E4.eurprd02.prod.outlook.com
+ (2603:10a6:10:54d:cafe::fa) by DU7P195CA0013.outlook.office365.com
+ (2603:10a6:10:54d::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46 via Frontend
+ Transport; Tue, 2 Apr 2024 07:26:02 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DU6PEPF0000A7E4.mail.protection.outlook.com (10.167.8.44) with
+ Microsoft SMTP
+ Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.7452.22 via
+ Frontend Transport; Tue, 2 Apr 2024 07:26:02 +0000
+Received: ("Tessian outbound dc0a9029eb2c:v300");
+ Tue, 02 Apr 2024 07:26:02 +0000
+Received: from 43dae0d61d56.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ DE367D52-CCF8-46B1-A704-1113E6DBC35D.1; 
+ Tue, 02 Apr 2024 07:25:56 +0000
+Received: from EUR03-AM7-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 43dae0d61d56.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 02 Apr 2024 07:25:56 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
+ by AS8PR08MB9744.eurprd08.prod.outlook.com (2603:10a6:20b:614::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Tue, 2 Apr
- 2024 07:24:31 +0000
-Received: from MWH0EPF000A6735.namprd04.prod.outlook.com
- (2603:10b6:a03:2c7:cafe::df) by SJ0PR13CA0155.outlook.office365.com
- (2603:10b6:a03:2c7::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.25 via Frontend
- Transport; Tue, 2 Apr 2024 07:24:31 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000A6735.mail.protection.outlook.com (10.167.249.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Tue, 2 Apr 2024 07:24:30 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 2 Apr
- 2024 02:24:27 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 2 Apr 2024 02:24:25 -0500
+ 2024 07:25:54 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::7fb0:6621:56b:22d5]) by DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::7fb0:6621:56b:22d5%3]) with mapi id 15.20.7409.042; Tue, 2 Apr 2024
+ 07:25:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,336 +72,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0df3a58d-f0c2-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 440374fb-f0c2-11ee-a1ef-f123f15fe8a2
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=m1hOPUegJsJTmGnR9dgoun6jNfNh7zX6i1O3eipE+TghrtddQIaA6n1VFc5JvtPaJLAkagKklWRXKRaBaYxHeoUt/4jYpSaznzRumwOzGsF8qalX/AbK6pTPmz6mMjeTS+XJEtnGDUOFzytAatZn5+y5YlpYWW/F5wAoJgD1VnSJl2k6nc+5SPVVgf0Qv6nuqcveofGMmcO59MPZw7I1YOjOLzRVnFX2+QYRyqjGE0vBL1Y3SOIY4Z6dn8tbocwOFlF0/7ZwMP1zjtH0zUFmRxvaMebb6ikfT3hLihPivqPU3qMtwf4+QxZn9MDaK5KVt3wDRzXsgyyPIs/xY5w7mw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8ptpqj4SPJHm9E9/gMaEyHTmgbUb3oIYsccF4bAMdS0=;
+ b=h1UU1hm1nosWOQIfcBxapr4mYmdiDNql05jvjyFdN2vWeybiSM+08+qaRq2NHpWjjWegkc8F+Z0ouM3i4pMaq+PcGJHyuHqPpgd6txeVLKNu/MlqOqwgYcZd8wvieIoVhUaTL+K68KJjxo+tkKzSgkc4iGfMEg42pmsvwEjnDCzTVpU/anlWyqb110hy185jFIKkrZryVyPQ62L2CwUuP59pD1yvYdt+FJgFVejKCNbPDKXMz9QA91Jq6bLPakTlmulj3yCZ/1N1IPwluvt9w/pyr4MMtL7pnmp1ptCeHtLE99dIKhI1LJ1fEXqrMLHSZqs9tn0ZgbGAqbIMBem5+g==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8ptpqj4SPJHm9E9/gMaEyHTmgbUb3oIYsccF4bAMdS0=;
+ b=JKLVleO/RNiZwpX2QMgTN+hf8Cugj0IL/OexLT3K/8SVPeWIfjUekpkT6wL3xXsbNaPDxFcgvwUBRHeGqH7TW+SiJ4FdUXMeA2M8gCGwOqyqgxn67mYMgK6qSBaco13YLjxc10tNqeA0ZS2IKiZUrOiYYZC5o1jE5bnEbFRHOyU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: ca3d8ca3b95e5999
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nVm/9qAABP1MCgARLU5JQYYV2eOa9lY+FCMiu5CBUlcm6PztozyWfwC4xnd4BdwUq1px6FVModD8b9eyKwEOUISzdxeimDDAItjrGyVh5RZN8H64sOLXY6ZcAt8IDbaERim/o/9Du09R/1Kcv18GFdeshYlqL6dpkq13cDvZ06bvxf7aKJBctfJWv7q+DHeBOktDFB7m3lw4ZBy5Huh5o5Mul6QYxfX0WzkM1mmVMNuXbK5qeCfm/4U9R074Yli5WeZVlxc63J2cufZE/HcR7R2HqFFSWZhgeQLEkvC7GpbNwPEFiEHwJjcRRrfusBaQVxEEgs+w9kIoRtFoNgWvMw==
+ b=KriUs9lTflc8Rn+5wv1BufaTwtSjMuuO0qtEKWGa6gDAjG1bmASJ67SZR2gfKTNPcumhbTHa1o+bN0OQLqODHNe3vAxgkOfLwvsSIp232uPEh4V7P+FdgHDpRyaYDNrmEbMrmugUKboiCeD2wqTdoeMheFFJVTDrxncK513e2ooe4YP3DznAD5x2rzj3GAx1bmMtTMzH8VH6arW+OjiXypLR0e5z1Vi8NV/JhP97WNWDAlNxiUngrdqfzbrkSF308HJoczJLsuQVr56ezdtWpBfiif3ljQyMhO7tQ+gK5bPKKWuBn+rhR1+SLEL/f25HK08Exh4ftD7L9oMzo0IbAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tXNxJhuBaXSFA5QS+l+dNL67WxWcquNUnuCC7uV8B4w=;
- b=WgYt8sFRSHhPvyAAlZyTUsR8f3UrSXmikAsienTOqVRLBBk0ug+KZrEQ2Psn6Z/JG5EH9elIW4w4zB7lpqqHoU1b1mLUd8lTCoqSKSlLPgUmX96CEwEqxwYxEsfeX/d2xx37+p75XxFosovJ8nBs1pWfwpBqybAr/zzNBmGVqipbvmV7h86lNawExELUJynvpP8SPBOgt0QtJP9cNzd9/xsoeX5rrZqntu+UaKMZ05ajoQcnuwj+m1WuAy5lnwAr6NQdFp05f/xcA5uvVTxkTCnRVH/LrRZ5stsvZ37adufMU+NjP6lP3JOmY5cgVJOxC9iu1sA3tF3svBSLs9L3mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=actia.se smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=8ptpqj4SPJHm9E9/gMaEyHTmgbUb3oIYsccF4bAMdS0=;
+ b=MD+2/CIkC7i96I4g6mrNqLzbPk0L7KvIZkm8vCHBmKf5V9DDCCAVbLpUkGyfrlpNXAhdh4kM0bfBPqzZOr02eIfjy1xF88Djt9C+ddN8Sfq8jQ3BDEgvZJm2lFJdCBgUpDha7YhfM64iVxvjzI5zEyPrG6kl5Pboj8DMq5ybPq6kTvnca1mTCNd7mbUP4XF9opXH57Dli4iqKEFSMh8NSgTXLANpwqiMIIaQ3chEBYFLm/b4QTquczhBAdxwrA2pbshAPD6zjXi4SK7HSDDVaYs0Jp2Nn3CAmBPGQclv+uXLpjd3qjdU6hIBeau/i5nNdHIjMSU1dthBOlWrlRkRZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tXNxJhuBaXSFA5QS+l+dNL67WxWcquNUnuCC7uV8B4w=;
- b=MqhBfQWdzC+u5/iiOn0ptQRPaO01hEan7u5PPr+7Lj1BUp/QVoGmTUJziziW+O4M3fvyg/w9D2X/loHaN/KuMFFSxLmPU9wkLGHyO8sj15yExXlqy6y0+bkpZDgzt2nffrifs2lhH5zrbjuKESzPTV0/H2H4FljbHc0XmuygNw0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <8259527d-fc75-4f6d-8a0e-00f509a52c58@amd.com>
-Date: Tue, 2 Apr 2024 09:24:20 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] xen/arm: Add imx8q{m,x} platform glue
-To: John Ernberg <john.ernberg@actia.se>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Peng Fan
-	<peng.fan@nxp.com>, Jonas Blixt <jonas.blixt@actia.se>
-References: <20240328163351.64808-1-john.ernberg@actia.se>
- <20240328163351.64808-2-john.ernberg@actia.se>
+ bh=8ptpqj4SPJHm9E9/gMaEyHTmgbUb3oIYsccF4bAMdS0=;
+ b=JKLVleO/RNiZwpX2QMgTN+hf8Cugj0IL/OexLT3K/8SVPeWIfjUekpkT6wL3xXsbNaPDxFcgvwUBRHeGqH7TW+SiJ4FdUXMeA2M8gCGwOqyqgxn67mYMgK6qSBaco13YLjxc10tNqeA0ZS2IKiZUrOiYYZC5o1jE5bnEbFRHOyU=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: Jens Wiklander <jens.wiklander@linaro.org>, Xen-devel
+	<xen-devel@lists.xenproject.org>, "patches@linaro.org" <patches@linaro.org>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>
+Subject: Re: [XEN PATCH 3/6] xen/arm: ffa: separate memory sharing routines
+Thread-Topic: [XEN PATCH 3/6] xen/arm: ffa: separate memory sharing routines
+Thread-Index: AQHafphXShQMyqELBEGnpkE0sEGolbFLm16AgAHad4CAByrsAA==
+Date: Tue, 2 Apr 2024 07:25:54 +0000
+Message-ID: <6B13FCBA-E23A-4188-A2E9-7C198D45210C@arm.com>
+References: <20240325093904.3466092-1-jens.wiklander@linaro.org>
+ <20240325093904.3466092-4-jens.wiklander@linaro.org>
+ <F5023C5E-4563-4643-865B-601B022F7AC8@arm.com>
+ <e43bee20-3307-4646-ac1b-a794e8211b4b@xen.org>
+In-Reply-To: <e43bee20-3307-4646-ac1b-a794e8211b4b@xen.org>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20240328163351.64808-2-john.ernberg@actia.se>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6735:EE_|CH3PR12MB7500:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6c93931-4359-4880-3cab-08dc52e5efc8
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3774.200.91.1.1)
+x-ms-traffictypediagnostic:
+	DB9PR08MB6588:EE_|AS8PR08MB9744:EE_|DU6PEPF0000A7E4:EE_|AS8PR08MB9552:EE_
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ kOMVx4jFnhkG0XNNhWF8g4x563ZyKmJ48M1kUJDdJwlPBNehpU7kkTbQaZlJ8iHv/iP8fEjzFCIiTnM1DfcV/fz3LIYNX/BukxKU8N5sat/bDIr4hjURq4gddpG3knwbJHfaMcqMskB/sBFJejthDAK+dyZ0/VZ+fEUruax0jF7Ugn1/kkFnNNLi0iCHd+DAPdAk67gjoi1whNKKWy5rogdJteQJpYtGhAI+ReCPbJzMDxJCUnSyvou/EymE1nbQtR9IBGVNE+yZCmQLgS13GEYH2uKE5ZEzYfS+mADs6nKs36buQ4C/yq5xUGa+y0f0mJClMnqGTBv3CXxI6VG/qefx5WcM5Gwng/1JVl+1niEHNFheRUmL/sHHRMF/jRfep62r/UeoWJQStv3eySq0X7gAxb97TtzjNdBiK+A8lb7O2Dri56NDWLhRqwDvsun11fVXJXEQOOFk3YTsG6MlkIb4yOqm62iJSqm0OQcnOnGwO8tRFV0iuQk1L/YpBUR+DUl82YMogYUikW7CnUIDkEtbwwQ6LXaShBZ0hh6xDq3irJwWzoOGi+xU7kzmRl2oINe9acZ5jM3LYio+CitNf7BgKS7NOMQbMy8fNTJgN6BXZv7699+dVuXv+iwIhuZ988Jbkqjo7xx0fi+0NARdLfSC73Fcsx6NaR9pXcf0UZM=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(1800799015)(366007);DIR:OUT;SFP:1102;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <0D6B45366E1807409CB6CC2EF8DC1658@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9744
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DU6PEPF0000A7E4.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a9b8c7c0-88aa-4d85-b413-08dc52e6269c
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	KsAYMxtcxq4gEkmV1UAVqGcLkvlQZFz9ezQnzSqrBAl03SLMRH6bzJT2xrGhltSOskPtHCHA+a4RmJEcFS6XnKTWbhm43azb5s0NMpcO/9tq6RnOD63iv33vni6TfSYlqXjfTBPE8H75Mz+LuqH8HE7c9ahTBgzJ76dtPgwG2y0dU+XpJgyo6fv7H9jhjT1Ci9/BMgoIBBqPgrGFiSt5Mxa9Nrbi14LdOC0P5WeBf7870DpYe341x3fubQmWdunOhrB35Fp2WkW53obBQJdtkVe0Ym2ap+xYJEtzDk+mVoEpFMsqB4LRMVlYVjyecfk4k/sZ5hHm8BByiUnEoNPVTCIlVBM+jhppoJyTIzKWtEgrpXg+Y0DIwbRbAOoKTo19EKpR1YPFHzgRHzrZro9Df6J6gRAN4EDPXbC+YjZEKAIcQovXru+ES9E5hx90otEQOz3b86yU+MIh7gMXbhOKB9mIbnb49V0bdOwwbwSOw2rCCvB7/3Y0m89XARDfXmtserWoeGN8qRx9v8821qyN1AmOiTEGjVEopCBncIskJosYXi3mwdfP3DCItfe+9bKfima3Si1mMfoCOAVJZvc6ZK2CTNE3APJ9DPRO3zXGy31bJwpBYcdfVD0A+zeqc3pldiNCYyn0mMl9Wpl0rAKUWpYEqi5YIWxnflfVh89jNgZT8f0umAr4wAJpNWcH6+HXPVIh5ZNcxxVjea0wtKubLQ==
+	tOaXSnjEyZojmjvgx3vougdGC6DTSCr9xuV3cHwpxKnflZrL37r5MgwBK9RiAGAKJLQtHC6xhFFeczc6LbuNWreAhjqFNbeHNI1ZA71mJoZpiMBpJCfk63UWJjoCytVD2NWZRaAQDZL7pPqI0UsKl1c7CvmWwxYiQRzsIfeM/nG9YR8HlTkQzTudBkCv9cZgeEiCNDB9vSxDhIMpxI9GLNG0ClvntHN53U9Tx3pH1C9DGDDQ/lIvhelFHEW+pxANjgC7SJkuL4kAV/vMt7HSWwQPY+vGTKFmbPjh3pwaN55O2QSGDxOwbBWAmJkio9+EHBSGVALyPtUx1sFpc8D5zq/YcO2a/J8Yq9nj7JKdThBezExpEtBRnmsorf3De1OZ32K3I4sp9qEORGknbGRk5kTh7wCXqo+vtC9bQ61WZX9Bc1biQUjW89ZG8GKthX9O8CEEv4OQjzhuN8bk9MIfnU2BP35vDfvZGotTtxLWlrnEV8nNFtp7VVbJHVi/U0jXW+jtq3FwUAjmyPPzgNwmPunqKFtGA+TkrcijVG0PDD2kIK983BE0gjpK102QY/BMO11/ciz7d7mevDn/CNJtSwODEtpjDNE/QSaC9HhY+O9H5IW/z+WQiEyuXRyPd2Ik3pRu7uc+0hJ0b8gSvOqnWpCmvEtNAlviuJnfVtZutue5l/4SOBYhwey2MCmq3IAUROXWHUdwyrzNU7ZEoLY2UdAf/C4m/qnZ/XBt17gAnz/23nvN0Ok3A2rbUBW69e/9
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400014)(7416005)(376005)(1800799015);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2024 07:24:30.1446
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(1800799015)(376005)(36860700004)(82310400014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2024 07:26:02.3371
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6c93931-4359-4880-3cab-08dc52e5efc8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9b8c7c0-88aa-4d85-b413-08dc52e6269c
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000A6735.namprd04.prod.outlook.com
+	DU6PEPF0000A7E4.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7500
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9552
 
-Hi John,
+Hi Julien,
 
-On 28/03/2024 17:34, John Ernberg wrote:
-> 
-> 
-> When using Linux for dom0 there are a bunch of drivers that need to do SMC
-> SIP calls into the firmware to enable certain hardware bits like the
-> watchdog.
-> 
-> Provide a basic platform glue that implements the needed SMC forwarding.
-> 
-> The format of these calls are as follows:
->  - reg 0: function ID
->  - reg 1: subfunction ID (when there's a subfunction)
->  remaining regs: args
-> 
-> For now we only allow Dom0 to make these calls as they are all managing
-> hardware. There is no specification for these SIP calls, the IDs and names
-> have been extracted from the upstream linux kernel and the vendor kernel.
-> 
-> Most of the SIP calls are only available for the iMX8M series of SoCs, so
-> they are easy to reject and they need to be revisited when iMX8M series
-> support is added.
-I just realized that you pinged me in v2 for clarification, sorry I missed that.
-I still believe we shouldn't list FIDs that are meant for IMX8M, given that
-the driver is written for IMX8QM/QXP.
+> On 28 Mar 2024, at 18:58, Julien Grall <julien@xen.org> wrote:
+>=20
+> Hi Bertrand,
+>=20
+> On 27/03/2024 13:40, Bertrand Marquis wrote:
+>> Hi Jens,
+>>> On 25 Mar 2024, at 10:39, Jens Wiklander <jens.wiklander@linaro.org> wr=
+ote:
+>>>=20
+>>> Move memory sharing routines into a separate file for easier navigation
+>>> in the source code.
+>>>=20
+>>> Add ffa_shm_domain_destroy() to isolate the ffa_shm things in
+>>> ffa_domain_teardown_continue().
+>>>=20
+>>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+>> With the copyright date mentioned after fixed (which can be done on comm=
+it):
+>> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com
+>=20
+> I have fixed and committed the series. However, it wasn't trivial to find=
+ the comment in your reply. In the future, can you try to trim your reply?
 
-> 
-> From the other calls we can reject CPUFREQ because Dom0 cannot make an
-> informed decision regarding CPU frequency scaling, WAKEUP_SRC is to wake
-> up from suspend, which Xen doesn't support at this time.
-> 
-> This leaves the TIME SIP, OTP SIPs, BUILDINFO SIP and TEMP ALARM SIP, which
-> for now are allowed to Dom0.
-> 
-> NOTE: This code is based on code found in NXP Xen tree located here:
-> https://github.com/nxp-imx/imx-xen/blob/lf-5.10.y_4.13/xen/arch/arm/platforms/imx8qm.c
-> 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> [jernberg: Add SIP call filtering]
-> Signed-off-by: John Ernberg <john.ernberg@actia.se>
-> 
-> ---
-> 
-> v3:
->  - Adhere to style guidelines for line length and label indentation (Michal Orzel)
->  - Use smccc macros to build the SIP function identifier (Michal Orzel)
->  - Adjust platform name to be specific to QM and QXP variants (Michal Orzel)
->  - Pick up additional SIPs which may be used by other Linux versions - for review purposes
->  - Changes to the commit message due to above
-> 
-> v2:
->  - Reword the commit message to be a bit clearer
->  - Include the link previously added as a context note to the commit message (Julien Grall)
->  - Add Pengs signed off (Julien Grall, Peng Fan)
->  - Add basic SIP call filter (Julien Grall)
->  - Expand the commit message a whole bunch because of the changes to the code
-> ---
->  xen/arch/arm/platforms/Makefile |   1 +
->  xen/arch/arm/platforms/imx8qm.c | 168 ++++++++++++++++++++++++++++++++
->  2 files changed, 169 insertions(+)
->  create mode 100644 xen/arch/arm/platforms/imx8qm.c
-> 
-> diff --git a/xen/arch/arm/platforms/Makefile b/xen/arch/arm/platforms/Makefile
-> index 8632f4115f..bec6e55d1f 100644
-> --- a/xen/arch/arm/platforms/Makefile
-> +++ b/xen/arch/arm/platforms/Makefile
-> @@ -9,5 +9,6 @@ obj-$(CONFIG_ALL_PLAT)   += sunxi.o
->  obj-$(CONFIG_ALL64_PLAT) += thunderx.o
->  obj-$(CONFIG_ALL64_PLAT) += xgene-storm.o
->  obj-$(CONFIG_ALL64_PLAT) += brcm-raspberry-pi.o
-> +obj-$(CONFIG_ALL64_PLAT) += imx8qm.o
->  obj-$(CONFIG_MPSOC_PLATFORM)  += xilinx-zynqmp.o
->  obj-$(CONFIG_MPSOC_PLATFORM)  += xilinx-zynqmp-eemi.o
-> diff --git a/xen/arch/arm/platforms/imx8qm.c b/xen/arch/arm/platforms/imx8qm.c
-> new file mode 100644
-> index 0000000000..0992475474
-> --- /dev/null
-> +++ b/xen/arch/arm/platforms/imx8qm.c
-> @@ -0,0 +1,168 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * xen/arch/arm/platforms/imx8qm.c
-> + *
-> + * i.MX 8QM setup
-> + *
-> + * Copyright (c) 2016 Freescale Inc.
-> + * Copyright 2018-2019 NXP
-> + *
-> + *
-> + * Peng Fan <peng.fan@nxp.com>
-> + */
-> +
-> +#include <xen/sched.h>
-> +#include <asm/platform.h>
-> +#include <asm/smccc.h>
-> +
-> +static const char * const imx8qm_dt_compat[] __initconst =
-> +{
-> +    "fsl,imx8qm",
-> +    "fsl,imx8qxp",
-> +    NULL
-> +};
-> +
-> +#define IMX_SIP_FID(fid) \
-> +    ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL, \
-> +                       ARM_SMCCC_CONV_64, \
-> +                       ARM_SMCCC_OWNER_SIP, \
-> +                       fid)
-macro parameter should be enclosed within parenthesis
+Thanks a lot and very sorry for that, I will remember to trim next time.
 
-> +
-> +#define IMX_SIP_F_GPC            0x0000
-> +#define IMX_SIP_F_CPUFREQ        0x0001
-> +#define IMX_SIP_F_TIME           0x0002
-> +#define IMX_SIP_F_BUILDINFO      0x0003
-> +#define IMX_SIP_F_DDR_DVFS       0x0004
-> +#define IMX_SIP_F_SRC            0x0005
-> +#define IMX_SIP_F_GET_SOC_INFO   0x0006
-> +#define IMX_SIP_F_NOC            0x0008
-> +#define IMX_SIP_F_WAKEUP_SRC     0x0009
-> +#define IMX_SIP_F_OTP_READ       0x000A
-> +#define IMX_SIP_F_OTP_WRITE      0x000B
-> +#define IMX_SIP_F_SET_TEMP_ALARM 0x000C
-Is there specific reason for leading zeros?
+Cheers
+Bertrand
 
-> +
-> +#define IMX_SIP_TIME_SF_RTC_SET_TIME     0x00
-> +#define IMX_SIP_TIME_SF_WDOG_START       0x01
-> +#define IMX_SIP_TIME_SF_WDOG_STOP        0x02
-> +#define IMX_SIP_TIME_SF_WDOG_SET_ACT     0x03
-> +#define IMX_SIP_TIME_SF_WDOG_PING        0x04
-> +#define IMX_SIP_TIME_SF_WDOG_SET_TIMEOUT 0x05
-> +#define IMX_SIP_TIME_SF_WDOG_GET_STAT    0x06
-> +#define IMX_SIP_TIME_SF_WDOG_SET_PRETIME 0x07
-> +
-> +static bool imx8qm_is_sip_time_call_ok(uint32_t subfunction_id)
-> +{
-> +    switch ( subfunction_id )
-> +    {
-> +    case IMX_SIP_TIME_SF_RTC_SET_TIME:
-> +        return true;
-> +    case IMX_SIP_TIME_SF_WDOG_START:
-> +    case IMX_SIP_TIME_SF_WDOG_STOP:
-> +    case IMX_SIP_TIME_SF_WDOG_SET_ACT:
-> +    case IMX_SIP_TIME_SF_WDOG_PING:
-> +    case IMX_SIP_TIME_SF_WDOG_SET_TIMEOUT:
-> +    case IMX_SIP_TIME_SF_WDOG_GET_STAT:
-> +    case IMX_SIP_TIME_SF_WDOG_SET_PRETIME:
-> +        return true;
-> +    default:
-> +        printk(XENLOG_WARNING "imx8qm: smc: time: Unknown subfunction id %x\n",
-gprintk
+>=20
+> Cheers,
+>=20
+> --=20
+> Julien Grall
 
-> +               subfunction_id);
-> +        return false;
-> +    }
-> +}
-> +
-> +static bool imx8qm_smc(struct cpu_user_regs *regs)
-> +{
-> +    uint32_t function_id = get_user_reg(regs, 0);
-> +    uint32_t subfunction_id = get_user_reg(regs, 1);
-> +    struct arm_smccc_res res;
-> +
-> +    if ( !cpus_have_const_cap(ARM_SMCCC_1_1) )
-> +    {
-> +        printk_once(XENLOG_WARNING "no SMCCC 1.1 support. Disabling firmware calls\n");
-NIT: you can move string within quotes to the next line to avoid exceeding 80 chars.
-Also, all the other messages are prepended with "imx8qm: smc:" so better be consistent.
-
-> +
-> +        return false;
-> +    }
-> +
-> +    /* Only hardware domain may use the SIP calls */
-> +    if ( !is_hardware_domain(current->domain) )
-> +    {
-> +        gprintk(XENLOG_WARNING, "imx8qm: smc: No access\n");
-Here you use gprintk, but ...
-
-> +        return false;
-> +    }
-> +
-> +    switch ( function_id )
-> +    {
-> +    /* Only available on imx8m series */
-> +    case IMX_SIP_FID(IMX_SIP_F_GPC):
-> +        return false;
-> +    case IMX_SIP_FID(IMX_SIP_F_CPUFREQ):
-> +        /* Hardware domain can't take any informed decision here */
-> +        return false;
-> +    case IMX_SIP_FID(IMX_SIP_F_BUILDINFO):
-> +        goto allow_call;
-> +    case IMX_SIP_FID(IMX_SIP_F_TIME):
-> +        if ( imx8qm_is_sip_time_call_ok(subfunction_id) )
-> +            goto allow_call;
-> +        return false;
-> +    /* Only available on imx8m series */
-> +    case IMX_SIP_FID(IMX_SIP_F_DDR_DVFS):
-> +        return false;
-> +    /* Only available on imx8m series */
-> +    case IMX_SIP_FID(IMX_SIP_F_SRC):
-> +        return false;
-> +    /* Only available on imx8m series */
-> +    case IMX_SIP_FID(IMX_SIP_F_GET_SOC_INFO):
-> +        return false;
-> +    /* Only available on imx8m series */
-> +    case IMX_SIP_FID(IMX_SIP_F_NOC):
-> +        return false;
-> +    /* Xen doesn't have suspend support */
-> +    case IMX_SIP_FID(IMX_SIP_F_WAKEUP_SRC):
-> +        return false;
-> +    case IMX_SIP_FID(IMX_SIP_F_OTP_READ):
-> +        /* subfunction_id is the fuse number, no sensible check possible */
-> +        goto allow_call;
-> +    case IMX_SIP_FID(IMX_SIP_F_OTP_WRITE):
-> +        /* subfunction_id is the fuse number, no sensible check possible */
-> +        goto allow_call;
-> +    case IMX_SIP_FID(IMX_SIP_F_SET_TEMP_ALARM):
-> +        goto allow_call;
-> +    default:
-> +        printk(XENLOG_WARNING "imx8qm: smc: Unknown function id %x\n",
-... here you don't.
-
-> +               function_id);
-> +        return false;
-> +    }
-> +
-> + allow_call:
-> +    arm_smccc_1_1_smc(function_id,
-> +                      subfunction_id,
-> +                      get_user_reg(regs, 2),
-> +                      get_user_reg(regs, 3),
-> +                      get_user_reg(regs, 4),
-> +                      get_user_reg(regs, 5),
-> +                      get_user_reg(regs, 6),
-> +                      get_user_reg(regs, 7),
-> +                      &res);
-> +
-> +    set_user_reg(regs, 0, res.a0);
-> +    set_user_reg(regs, 1, res.a1);
-> +    set_user_reg(regs, 2, res.a2);
-> +    set_user_reg(regs, 3, res.a3);
-> +
-> +    return true;
-> +}
-> +
-> +PLATFORM_START(imx8qm, "i.MX 8Q{M,XP}")
-> +    .compatible = imx8qm_dt_compat,
-> +    .smc = imx8qm_smc,
-> +PLATFORM_END
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> --
-> 2.44.0
-
-
-~Michal
 
