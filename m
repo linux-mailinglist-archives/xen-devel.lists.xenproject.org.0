@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1633895697
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 16:28:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700158.1092818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 024308956D6
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 16:34:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700168.1092856 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrf6N-00035B-31; Tue, 02 Apr 2024 14:27:03 +0000
+	id 1rrfDV-0005CB-6D; Tue, 02 Apr 2024 14:34:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700158.1092818; Tue, 02 Apr 2024 14:27:03 +0000
+Received: by outflank-mailman (output) from mailman id 700168.1092856; Tue, 02 Apr 2024 14:34:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrf6M-00032W-VO; Tue, 02 Apr 2024 14:27:02 +0000
-Received: by outflank-mailman (input) for mailman id 700158;
- Tue, 02 Apr 2024 14:27:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rrfDV-00059q-2y; Tue, 02 Apr 2024 14:34:25 +0000
+Received: by outflank-mailman (input) for mailman id 700168;
+ Tue, 02 Apr 2024 14:34:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hiiI=LH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrf6L-00032Q-Au
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 14:27:01 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 102196d3-f0fd-11ee-a1ef-f123f15fe8a2;
- Tue, 02 Apr 2024 16:26:58 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-41551639550so23736175e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 07:26:58 -0700 (PDT)
+ id 1rrfDT-00059Z-MF
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 14:34:23 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 18d098f0-f0fe-11ee-afe5-a90da7624cb6;
+ Tue, 02 Apr 2024 16:34:22 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4156a2aeb43so14469405e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 07:34:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m4-20020a05600c3b0400b004161b8a0310sm2033817wms.1.2024.04.02.07.26.57
+ j7-20020adfc687000000b0033ec9ddc638sm14297152wrg.31.2024.04.02.07.34.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 07:26:57 -0700 (PDT)
+ Tue, 02 Apr 2024 07:34:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 102196d3-f0fd-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 18d098f0-f0fe-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712068018; x=1712672818; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712068462; x=1712673262; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=wzxpG2Ya5qQeR15yEUxgi6nrHt/+Xq+Oi+qPIO5Dgog=;
-        b=bYlzPQkni7Eq3pFhgjWhKiILP7XZY/Yvkl38E7OXw8jCA+q+or2tos5jG2uFUoHosk
-         N9v/QC0c6a/dGC5cQVE/8cJq1ImeTwPJKNhFX/Y++MeyOaYSHlXqVbZHHBPUONwts8NX
-         xoMRduaANAYQR5He3S9ntYXOp88xKYRl04+KtdlbH4sFb9UYhZ22/chMXD6W/R32Wfri
-         dXnqIIPT+ZVbVf6/eBE0oJU4KLg5p4mk3Sl7xBuhYS3xiawsUuTmQAqRTNyEvr3ctV6d
-         8qquAQ/8BEbH0NYsAA9dApKNFcaCWzCXy/q+hzBgwNzvhOtRTTDRKRntCkkOLBlNMVqP
-         tSkg==
+        bh=NCuwUsr7wwEHSPixRvAPKuDTqGjlvcbwydfybkudV/c=;
+        b=cm+X/Sff/NBdLNE8IGYOG3jVOWuxUZrBQKFL6o2+8tWMoyeo/P8ZHkkVX3fCINnY9b
+         XdIbJX5e88EJsedddI+LMf62VbsMIn9LUr5dssmZdjVGYgpWHo/FE7HP+9lha9RFkBSo
+         tH8Ge2atoWFBYX+p6xfQFeeqA1dvl5wD7ngcgd03r0PoGTXa7jYYbyfVKGxksH3k9Gia
+         RF5XDp5RcMLSjCpJHFLswJXbwdAQEIrXu8qTxxgO4kCnnn/InHzYyD4hv2Boxf1bHS/d
+         dStlWktr2gRHvnm4Qvx3FypT3d/HwRtLftzaFfsFBkDqfWKsuB1semUI/tbPTsTzcMzQ
+         yYRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712068018; x=1712672818;
+        d=1e100.net; s=20230601; t=1712068462; x=1712673262;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wzxpG2Ya5qQeR15yEUxgi6nrHt/+Xq+Oi+qPIO5Dgog=;
-        b=T/p0tSu/Y4jBPeC5l7Lco0bZT+6kMmKOARJ5NDnVW5JOHE9SFj1UotuGkvvRvjRhHP
-         IStLEXAILhvJaCbyKBVRtfOCrDWG1VapvcAyL9E99TVruSpzDZB2DyNkZGA1Zky/pBxG
-         QgSIRvuoHSvvo9EHiA302ER/7cJeoknLEohohbaBBqFVMoIeT7+6lDggcqo10H/Jhol4
-         Ppv5n67fgKnsliGfjs1pJPstMmlRYPX38hPh8sWaePIM3Rmv/19lWC72pxfze4FR1+6a
-         618y8mUV4RZ+3Q+dVrp1Ksl9QscnBDsAekiDvTzHOHapB3GHQqmmhxPBbaEkcccIO9Wb
-         d1hQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUYY6GU545rZCrcZHY6jtlgZ158T1K3j9S8ebHVnx85G9GYk8wiWjzh2z7MCnXo2yNuYUk+IEy8vibsCsnIkt4RGRT+nJ9PTyDPrZbtxl0=
-X-Gm-Message-State: AOJu0YxBFyixncnXk1TBZXwUpU7rlpr/WQx3OLg7rnS8PyM4frpEr3i9
-	99DVCzEWMauIw1oG7KVuvD9xuuvMiFqtPGjd16rFkXbK0CFWAuDLiqfx48uLQQ==
-X-Google-Smtp-Source: AGHT+IFo50HgriDw0bLwAotDWVXiiOhMwczpWRUiMXC10HqViFJs07SlpQ5SsdaGF2QZOXCAXMlXkQ==
-X-Received: by 2002:a05:600c:1c99:b0:414:8a28:6c89 with SMTP id k25-20020a05600c1c9900b004148a286c89mr10739677wms.31.1712068017862;
-        Tue, 02 Apr 2024 07:26:57 -0700 (PDT)
-Message-ID: <f3ef0c54-e3e0-416c-953d-00c4df0c5d82@suse.com>
-Date: Tue, 2 Apr 2024 16:26:56 +0200
+        bh=NCuwUsr7wwEHSPixRvAPKuDTqGjlvcbwydfybkudV/c=;
+        b=CSHbTzM+SEMlrMQRCTYwo/UjaP+WQXrTD5j+TYcrRsEXlF4XV+qGCZ4FLnBoMvLgTV
+         /mwM45DHk+vyJKLVQK5sDzqhGoPfgmgeUyuVtHsiK2YgaSa0Z+mSETh8FrxRlOHIgBKN
+         7RiUsiKF2faQulDMScEsoNlJ9eiuf32k01ZIXv1/CxqsTUCkp8mKmoZgtezN6FtuTiuY
+         r0QGrS6udCq+XCVC/+yDETbmiAMKIauPkQlllXecOZenFfLFwl8iLhqXHBGQuJOat9+o
+         9fJKbZr3IwKMQi52lt87Hs1dGQzkRwUfaF8OixgG0/dycp263/Qri+dpiRwJsnbMUosV
+         GSiA==
+X-Forwarded-Encrypted: i=1; AJvYcCUAaxZr7l1fUs9FwBeYmVbcVBPhhWJob88eI3vm3cQOu1MP0SReeVBmXVhgvCWhv4I6hqHv0WfV1qvmDjVfZnY2dc/J1uD3qsYBXy1XxhQ=
+X-Gm-Message-State: AOJu0Yz4REPBe27krDmZz0oSNtX1/GsDaJNNnfT47qeNMqNmwL5HHNcz
+	yeT8FJaeLFPqfBrBMnjyGl6tbWlskJL6alIyM/qM4YsORDL52S0kgmsI1tGzOw==
+X-Google-Smtp-Source: AGHT+IHWVV7ZCmImhgx4G7BkQx41Yrh1MTFJCaii7Lke5l7MqA4SPABoiltTosTW8T0/9HTLKivYSg==
+X-Received: by 2002:a05:600c:3556:b0:414:f58:a086 with SMTP id i22-20020a05600c355600b004140f58a086mr9862237wmq.6.1712068461963;
+        Tue, 02 Apr 2024 07:34:21 -0700 (PDT)
+Message-ID: <46a99837-fbb4-4dc9-a78c-634bee5c00a5@suse.com>
+Date: Tue, 2 Apr 2024 16:34:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: preparations for 4.17.4
+Subject: Re: [PATCH v6 4/4] x86/PVH: Support relocatable dom0 kernels
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>,
- Kelly Choi <kelly.choi@cloud.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <b726b105-9204-4a72-8fbc-ceaa8e74f3ec@suse.com>
- <6feb56fe-769d-4809-b16f-6fc4d5477747@citrix.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20240327215102.136001-1-jason.andryuk@amd.com>
+ <20240327215102.136001-5-jason.andryuk@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,72 +113,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6feb56fe-769d-4809-b16f-6fc4d5477747@citrix.com>
+In-Reply-To: <20240327215102.136001-5-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27.03.2024 13:33, Andrew Cooper wrote:
-> 1) livepatching of .rodata:
-> 
-> 989556c6f8ca - xen/virtual-region: Rename the start/end fields
-> ef969144a425 - xen/virtual-region: Include rodata pointers
-> b083b1c393dc - x86/livepatch: Relax permissions on rodata too
-> 
-> And technically "x86/mm: fix detection of last L1 entry in
-> modify_xen_mappings_lite()" too but you've already backported this one.
-> 
-> Patching .rodata worked before Xen 4.17, and was broken (left as a TODO)
-> when I adjusted Xen to stop using CR0.WP=0 for patching.
-> 
-> 
-> 2) Policy fixes:
-> 
-> e2d8a6522516 - x86/cpu-policy: Fix visibility of HTT/CMP_LEGACY in max
-> policies
-> 
-> This is a real bugfix for a real regression we found updating from Xen
-> 4.13 -> 4.17.  It has a dependency on
-> 
-> 5420aa165dfa - x86/cpu-policy: Hide x2APIC from PV guests
-> 
-> which I know you had more concern with.  FWIW, I'm certain its a good
-> fix, and should be backported.
-> 
-> 
-> 3) Test fixes:
-> 
-> 0263dc9069dd - tests/resource: Fix HVM guest in !SHADOW builds
-> 
-> It's minor, but does make a difference for those of us who run these
-> tests regularly.
-> 
-> 
-> 4) Watchdog fixes:
-> 
-> 9e18f339830c - x86/boot: Improve the boot watchdog determination of
-> stuck cpus
-> 131892e0dcc1 - x86/boot: Support the watchdog on newer AMD systems
-> 
-> You took "x86/boot: Fix setup_apic_nmi_watchdog() to fail more cleanly"
-> and the first of the two patches is in the same category IMO.  The
-> second I also feel ok to take for the in-support releases, particularly
-> as all it is doing is dropping a family list.
+On 27.03.2024 22:51, Jason Andryuk wrote:
+> v6:
+> Select alignment from, in order, Note, PHDRs, then default
 
-I've pushed all of the above.
+The comment in the public header also needs to reflect this change.
 
-> 5) Ucode scan stability  (For 4.18 only)
-> 
-> Xen 4.18 had "x86/ucode: Refresh raw CPU policy after microcode load" in
-> it's .0 release, so should also gain:
-> 
-> cf7fe8b72dea - x86/ucode: Fix stability of the raw CPU Policy rescan
+> +static bool __init check_and_adjust_load_address(
+> +    const struct domain *d, struct elf_binary *elf, struct elf_dom_parms *parms)
+> +{
+> +    paddr_t reloc_base;
+> +
+> +    if ( check_load_address(d, elf) )
+> +        return true;
+> +
+> +    if ( !parms->phys_reloc )
+> +    {
+> +        printk("%pd kernel: Address conflict and not relocatable\n", d);
+> +        return false;
+> +    }
+> +
+> +    reloc_base = find_kernel_memory(d, elf, parms);
+> +    if ( !reloc_base )
+> +    {
+> +        printk("%pd kernel: Failed find a load address\n", d);
+> +        return false;
+> +    }
+> +
+> +    if ( opt_dom0_verbose )
+> +        printk("%pd kernel: Moving [%p, %p] -> [%"PRIpaddr", %"PRIpaddr"]\n", d,
+> +               elf->dest_base, elf->dest_base + elf->dest_size - 1,
+> +               reloc_base, reloc_base + elf->dest_size - 1);
+> +
+> +    parms->phys_entry = reloc_base +
+> +                            (parms->phys_entry - (uintptr_t)elf->dest_base);
 
-This already is in 4.18.1, ...
+I think this would be easier to read as
 
-> I've only noticed because I've got them both backported to 4.17 in
-> XenServer, but I don't think upstream wants to take that route.
+    parms->phys_entry =
+        reloc_base + (parms->phys_entry - (uintptr_t)elf->dest_base);
 
-... while, as you suggest, not (and not intended to be) in 4.17.
+Everything else looks good to me now.
 
 Jan
 
