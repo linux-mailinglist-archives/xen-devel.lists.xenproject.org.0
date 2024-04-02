@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 436CB895871
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 17:44:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700206.1092970 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F96C89588C
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 17:47:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700209.1092979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrgIa-0005LA-L5; Tue, 02 Apr 2024 15:43:44 +0000
+	id 1rrgLf-0005tK-3J; Tue, 02 Apr 2024 15:46:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700206.1092970; Tue, 02 Apr 2024 15:43:44 +0000
+Received: by outflank-mailman (output) from mailman id 700209.1092979; Tue, 02 Apr 2024 15:46:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrgIa-0005It-IV; Tue, 02 Apr 2024 15:43:44 +0000
-Received: by outflank-mailman (input) for mailman id 700206;
- Tue, 02 Apr 2024 15:43:43 +0000
+	id 1rrgLf-0005qW-0h; Tue, 02 Apr 2024 15:46:55 +0000
+Received: by outflank-mailman (input) for mailman id 700209;
+ Tue, 02 Apr 2024 15:46:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wy/k=LH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rrgIZ-0005In-C0
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 15:43:43 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hiiI=LH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rrgLd-0005qP-3D
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 15:46:53 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c83ef631-f107-11ee-afe5-a90da7624cb6;
- Tue, 02 Apr 2024 17:43:42 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-568c714a9c7so6296773a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 08:43:42 -0700 (PDT)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- el11-20020a056402360b00b0056c249798absm6843594edb.71.2024.04.02.08.43.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Apr 2024 08:43:40 -0700 (PDT)
+ id 3950fd7a-f108-11ee-afe5-a90da7624cb6;
+ Tue, 02 Apr 2024 17:46:52 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-415523d9824so34582285e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 08:46:52 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ g18-20020a05600c4ed200b0041495d17992sm18348202wmq.34.2024.04.02.08.46.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Apr 2024 08:46:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,135 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c83ef631-f107-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 3950fd7a-f108-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712072621; x=1712677421; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OEDeQcW/fDOrd6H55FSVnSBzli8SzV2bo6GaPe7rMAc=;
-        b=IkCD5vKdtyHf9d6DnSjcgqCLCxRW81qjZok0eGi1yu+UHRmi5MyQq5TL1Oz2MHV1Sq
-         XTuqIixhomsSpha1Aq/82fe6qE+G77N4vAYcbL+i1QUqJR4G8lLeCJxgQanxuru8JYqv
-         Vnbh4DfndULrwMwrL5Rz77DXt19aU3R9zxVmY=
+        d=suse.com; s=google; t=1712072811; x=1712677611; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Hb9FHbLzj93PJKPlOi0wLq8nP32v+TwHZABSP2UcDcM=;
+        b=EryP2KZtTr4Yi0PRs1HcxK7yqRmwheyZBXqVE+5ZTHWuT983E4+4Do7qmftLVhcERU
+         0KFScqLyZ96xMikluAYVrAO8bzCdqFniTmS3HL0hpMdO+A8yRRplcMwbmjVmea4MtI7S
+         2H0YxGCYvGvbpu/+yFKdDXGZWR5Y9QLLBtTw5vSGouHvSBwf96w/N8rrACnIsPO01CSO
+         quh9V3KVTG0pKob+87XmUScAz8LXlGlfp1hwr38UX8eCdlSj9dBSzQP9L4nMyWEFGTBz
+         nU0L0dKmcNimv17UvKCwSxN+vlNUDk+numlSnvVO0sAuFoV/7J8oZqezhvDQaJqSVIcC
+         KkXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712072621; x=1712677421;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OEDeQcW/fDOrd6H55FSVnSBzli8SzV2bo6GaPe7rMAc=;
-        b=PTtNiL1QfV4PxNTbLBVLPNq3N5vzq9fwJRwBKUGfD46KNjLXfakEySEtlJ4zrGzjV2
-         quBFxFK3MvT102v9glGdTX6m5vTawFUcPFdLue0Vcei9Q+LSldaH5fQHcePh0fGHYhHW
-         Pz6iVXRFFMgen3s6AdZpoq4M9yPtgc0rO91raPdK/iNCv17wij6oWDbuV6Sa87BZ05DG
-         bdfiEf7cD//l2vhT81tp4vBxVaMd0fGxp/fcb9o68LylzSBkc5asHEm70FazyJDebmjZ
-         FgjN5cKw7pXproq7e2/SDAhCYnbZMXr6Swa2K4PDZl2vWRDLnAchq+ZgAJTn8y+O7Z4c
-         O6IQ==
-X-Gm-Message-State: AOJu0YxZFwg+DIEMDKUSY+/obzCYEraXKVRIKUp5Bmwfv3QtOzfo1/8y
-	gmO3qYpPBMecRikzKisGxBaS6VfC3i3U0DbtMfAdAPgivkXE1YUNhasbVvYgs/ku+VNwdY6oRqz
-	kI4Y=
-X-Google-Smtp-Source: AGHT+IHcVnW2eMTVQ0IZixRTjT0hnujVt6ViGoqbTtGm0/1V6/Y9yeKdNODXbi+0C7JGhu/FyqCf7A==
-X-Received: by 2002:a05:6402:2114:b0:56c:d44:f1c3 with SMTP id bl20-20020a056402211400b0056c0d44f1c3mr10180759edb.25.1712072621305;
-        Tue, 02 Apr 2024 08:43:41 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Roberto Bagnara <roberto.bagnara@bugseng.com>,
-	"consulting @ bugseng . com" <consulting@bugseng.com>
-Subject: [PATCH] x86: Address MISRA Rule 13.6
-Date: Tue,  2 Apr 2024 16:43:39 +0100
-Message-Id: <20240402154339.2448435-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+        d=1e100.net; s=20230601; t=1712072811; x=1712677611;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Hb9FHbLzj93PJKPlOi0wLq8nP32v+TwHZABSP2UcDcM=;
+        b=sf8OG+i1iCReSR+9Im4zaDXP2Wm7kEgm6/c3DBBX2J7OnCpcnQRymo7eyDvmJ/TVYP
+         Ly4W8yXekhW7WSEnhatMd5D+2wZB5bZMIrl8EGbmab4Zlz2iFwjkQiofLqPT+ctWbZyk
+         2CdfbqLDq0xbBQJFbK8eEfRqHL6xKRqODFGQqdQHdw2W4nUESJaEm+mGkdaTqImAvVkb
+         o8BL2p+da7jfJ+bKD6a4gXfebCyGhElc8ti8PbW0iuYX8R5C9uiCK9Qayglk1qwMPkcz
+         kVa0XVUfW6d8xoXlH6ACO5UIGwQd+6IfYYvTFx/q4oI5cd1cOoLrmETlQLGV6yRPxES4
+         QzbQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX7KMyMTQKoimKSZKgi3Bv514oR3H7TQZFda5qENvIM6pgSJE6h/Qbuy2lfHjoipc8yz/7Kf+IHUOLn4cYM6jy19V7cd0g5VKbfkBApJZU=
+X-Gm-Message-State: AOJu0YylybbBN9T9b+NHDJSyABTZyXEdhbHWNU9hA0KDqS5QAlxAVOWA
+	LA18gmul+A1SII0i39tIjYqH5xiABV5Ton0S4NhQY2GWnAP/XwiDQJr1d0VD3w==
+X-Google-Smtp-Source: AGHT+IHKaT3BbnN2Ai17O3v5VOdwD5zrqjjJD+uo6OAZfnl6nTewrIAtL+mAxMXUt4kgk0qtZljHLw==
+X-Received: by 2002:a05:600c:230f:b0:413:ee4a:c9a7 with SMTP id 15-20020a05600c230f00b00413ee4ac9a7mr2019512wmo.20.1712072811490;
+        Tue, 02 Apr 2024 08:46:51 -0700 (PDT)
+Message-ID: <35fc596e-8134-4471-83d4-40b01f5821bf@suse.com>
+Date: Tue, 2 Apr 2024 17:46:50 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86: Address MISRA Rule 13.6
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240402154339.2448435-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240402154339.2448435-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-MISRA Rule 13.6 doesn't like having an expression in a sizeof() which
-potentially has side effects.
+On 02.04.2024 17:43, Andrew Cooper wrote:
+> MISRA Rule 13.6 doesn't like having an expression in a sizeof() which
+> potentially has side effects.
+> 
+> Address several violations by pulling the expression out into a local
+> variable.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Address several violations by pulling the expression out into a local
-variable.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with one caveat:
 
-No functional change.
+> --- a/xen/arch/x86/irq.c
+> +++ b/xen/arch/x86/irq.c
+> @@ -1150,8 +1150,9 @@ static void cf_check irq_guest_eoi_timer_fn(void *data)
+>      {
+>          struct domain *d = action->guest[i];
+>          unsigned int pirq = domain_irq_to_pirq(d, irq);
+> +        struct pirq *pirq_info = pirq_info(d, pirq);
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
-CC: consulting@bugseng.com <consulting@bugseng.com>
+Misra won't like the var's name matching the macro's. Can we go with just
+"info"?
 
-Slightly RFC.
----
- xen/arch/x86/irq.c                       | 3 ++-
- xen/arch/x86/time.c                      | 6 ++++--
- xen/drivers/passthrough/amd/iommu_intr.c | 3 ++-
- 3 files changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-index 0487f734a5d2..d73f687f7617 100644
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -1150,8 +1150,9 @@ static void cf_check irq_guest_eoi_timer_fn(void *data)
-     {
-         struct domain *d = action->guest[i];
-         unsigned int pirq = domain_irq_to_pirq(d, irq);
-+        struct pirq *pirq_info = pirq_info(d, pirq);
- 
--        if ( test_and_clear_bool(pirq_info(d, pirq)->masked) )
-+        if ( test_and_clear_bool(pirq_info->masked) )
-             action->in_flight--;
-     }
- 
-diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
-index 60870047894b..6f136f4b14bf 100644
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -2503,7 +2503,9 @@ static long cmos_utc_offset; /* in seconds */
- 
- int time_suspend(void)
- {
--    if ( smp_processor_id() == 0 )
-+    unsigned int cpu = smp_processor_id();
-+
-+    if ( cpu == 0 )
-     {
-         cmos_utc_offset = -get_wallclock_time();
-         cmos_utc_offset += get_sec();
-@@ -2514,7 +2516,7 @@ int time_suspend(void)
-     }
- 
-     /* Better to cancel calibration timer for accuracy. */
--    clear_bit(TIME_CALIBRATE_SOFTIRQ, &softirq_pending(smp_processor_id()));
-+    clear_bit(TIME_CALIBRATE_SOFTIRQ, &softirq_pending(cpu));
- 
-     return 0;
- }
-diff --git a/xen/drivers/passthrough/amd/iommu_intr.c b/xen/drivers/passthrough/amd/iommu_intr.c
-index d9eefcd8e411..7fc796dec25b 100644
---- a/xen/drivers/passthrough/amd/iommu_intr.c
-+++ b/xen/drivers/passthrough/amd/iommu_intr.c
-@@ -183,6 +183,7 @@ static void free_intremap_entry(const struct amd_iommu *iommu,
-                                 unsigned int bdf, unsigned int index)
- {
-     union irte_ptr entry = get_intremap_entry(iommu, bdf, index);
-+    struct ivrs_mappings *ivrs = get_ivrs_mappings(iommu->seg);
- 
-     if ( iommu->ctrl.ga_en )
-     {
-@@ -201,7 +202,7 @@ static void free_intremap_entry(const struct amd_iommu *iommu,
-     else
-         ACCESS_ONCE(entry.ptr32->raw) = 0;
- 
--    __clear_bit(index, get_ivrs_mappings(iommu->seg)[bdf].intremap_inuse);
-+    __clear_bit(index, ivrs[bdf].intremap_inuse);
- }
- 
- static void update_intremap_entry(const struct amd_iommu *iommu,
-
-base-commit: 7a09966e7b2823b70f6d56d0cf66c11124f4a3c1
--- 
-2.30.2
-
+Jan
 
