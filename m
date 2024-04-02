@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBF74895793
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 16:55:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700185.1092910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2593895795
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 16:56:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700188.1092919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrfXy-0002Hq-SH; Tue, 02 Apr 2024 14:55:34 +0000
+	id 1rrfZ6-0002qP-5R; Tue, 02 Apr 2024 14:56:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700185.1092910; Tue, 02 Apr 2024 14:55:34 +0000
+Received: by outflank-mailman (output) from mailman id 700188.1092919; Tue, 02 Apr 2024 14:56:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrfXy-0002Fu-PG; Tue, 02 Apr 2024 14:55:34 +0000
-Received: by outflank-mailman (input) for mailman id 700185;
- Tue, 02 Apr 2024 14:55:33 +0000
+	id 1rrfZ6-0002mu-2g; Tue, 02 Apr 2024 14:56:44 +0000
+Received: by outflank-mailman (input) for mailman id 700188;
+ Tue, 02 Apr 2024 14:56:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hiiI=LH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrfXx-0002Fo-Ek
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 14:55:33 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1rrfZ5-0002mm-4o
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 14:56:43 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0dbd65b4-f101-11ee-afe5-a90da7624cb6;
- Tue, 02 Apr 2024 16:55:32 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-4155819f710so24768565e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 07:55:32 -0700 (PDT)
+ id 3756d458-f101-11ee-afe5-a90da7624cb6;
+ Tue, 02 Apr 2024 16:56:42 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3436b096690so543765f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 07:56:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- di6-20020a0560000ac600b00341c9956dc9sm14412688wrb.68.2024.04.02.07.55.31
+ di6-20020a0560000ac600b00341c9956dc9sm14412688wrb.68.2024.04.02.07.56.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 07:55:31 -0700 (PDT)
+ Tue, 02 Apr 2024 07:56:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dbd65b4-f101-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 3756d458-f101-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712069732; x=1712674532; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712069802; x=1712674602; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ieHwwz3BalsogdGLLvzCYVq9qVeE0Nj7lICPmpVo6zk=;
-        b=WUO2/ty6ZLLK7jCpIUeAnYRW5DeP7jyJfr9rIoDjjYyMLS0RFowBL1vBeHqwCxV0FH
-         4dk+EopmGwyyOEc1kQ+H2Edd1l0qeHNVI94Wz82kpdq/K4S+36plZ42YLWhm8AXGi/mH
-         VSvcrbZcM1erneBVHDvt1q6bxs3xNVqxzpdpao+ETL71PHcUAeS6GFF/xyc//ECBgxiB
-         7omW3omQ+3SaM/hmovO8siS9bv1CZqzpPhefVMOmtBrSR8F1XaZ0+kTiKb0kVuBS1Vwt
-         EoFNwthyZtLgWrN69SOc2IxWlML/xPyCp8LVjw/IhXAOXXsunUxm2jbsK4LqIWmSWQ7y
-         L/Nw==
+        bh=KZ3AkmtJCFCb0vYZlX14FdmIoXjJYTOwkamGysIzNlI=;
+        b=IMVyuj1tkzTbXj2+jneg5carOnzwS7TtakOn3W6wyB5RdelP3d2ha68Ojw9JWSLaiQ
+         PCh16f9J2vXohECTafAbFsJNbbDTHnFbclEmaXaxXTD4oXCtpDTvv79/75+hs1vp80ch
+         yTDuuTAgJcqQBzh6Ai2a8jHA9dZcViNKv+6DBRDL05w0g843IU8rKAlzlAUan2bZaY1I
+         iiUYOJtfer6YlcSJdhV2HGvg6tVC2Co9JULOmfV3pxPfXkcU3ixiKGNjTV3d99mX8Obo
+         EIPRCB5AOy7QgaOyg1XbEreM+aZI9Bo/zJ0Aaf/I2P1meriDjaDxAeEQYoOh31DFrASS
+         uUJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712069732; x=1712674532;
+        d=1e100.net; s=20230601; t=1712069802; x=1712674602;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ieHwwz3BalsogdGLLvzCYVq9qVeE0Nj7lICPmpVo6zk=;
-        b=XBeWAkDPA82Fxr5UoY/dPC/RbyxZlow0+HR5JmmUYkwJ95auOqMUxEDBbXvo0MNm0G
-         cQHFBy0n3+d3hB/tlFlVsmw6XFq4vodRYaG3LJ+K5CnhM57ZVJy4zGo1WAjgFrtzl2WN
-         Auza279Ly/4EDb/mKyzQjlpHZbvC1DQOg7NzA3p180BACmYkL1fvMko8dQdgQdqC5kdH
-         03gi1oZa0W2Hr9q6neLy1sD0ijwgPlqPWeFd4hO/hOOFHrzE6dUYUnLUJgTq/eOvUx2K
-         IUgGfSSL5aQJYRGQnuYwFKqMhK4JfG9bHXLiTJjZ9YHYbXH38gwzoVjxkL4UL5Z8MCuc
-         RiVA==
-X-Forwarded-Encrypted: i=1; AJvYcCX8Wzg7ZO3Z2hizQqczAXOtSlHapnRO2nr8zzpNYoZWRhE6ZGup2jwQHxeu/cuBe6IxbznkV9JBKDbEL0T258I3gQZMDzjzz1OISixsO6M=
-X-Gm-Message-State: AOJu0YyuGXklVOUvuBXD8NfUQdlS1vcQ5U/k/Q3IKtjkbBiLwDPOr6zv
-	bqQ7E/OQzaUaaRGeOa3ENkl6Wwmdhy3O6Rk3rU2zgAUnRRmVmPOSzWPL4zduqA==
-X-Google-Smtp-Source: AGHT+IFWcVfCnyl3l0VSBeBS6iGfe0EjGZa/2ggN8KeqC00NvOC2BKyx3OKacn4lYD4UdaZfHY0EoQ==
-X-Received: by 2002:adf:a35e:0:b0:343:65a9:30ff with SMTP id d30-20020adfa35e000000b0034365a930ffmr1642051wrb.37.1712069731936;
-        Tue, 02 Apr 2024 07:55:31 -0700 (PDT)
-Message-ID: <71cd43e8-9841-4403-9af9-36efcb798fc9@suse.com>
-Date: Tue, 2 Apr 2024 16:55:30 +0200
+        bh=KZ3AkmtJCFCb0vYZlX14FdmIoXjJYTOwkamGysIzNlI=;
+        b=QVIELgVBhbvw3VCllTEDqKokrgnK6w1ZDghImx/dFITO3HjmY4HYMjfFxk3D/wFAbJ
+         Imgl+npL6ynlZVSD315+2i8yUFaaYFAvv9VD0h2dSiMEQ2OCXB0Ka0HXbVK3eNQcMzme
+         zD05jjK3ZF1trUQiBpjGjwcailw0nURXeIfIQ9zz8/NCMZBTWmE9IMH0pd9NVkbYKRLs
+         x4+M+zD+gVbzJKIbBHJERCIV/xza/8+A8tZGncRP9p2x0yjRfKY46HKnoC0qt6du1LW0
+         tM7KDi6Lqi7aoEBko86B9tVSKkpn7An3cC8m1Ko2enbE8t+LLXbzC2inwWC1mlQo5D6p
+         8u/g==
+X-Forwarded-Encrypted: i=1; AJvYcCVvBMBt19IqR8FqYOpqQakr0Fxr/yyJz/Z2fvX5Y1kPqz6o1IFimLEW0O9lZwbjil2E9OYBmbBO6iMu4vv6SCH9VfJ2RKreViKvg/8zG+I=
+X-Gm-Message-State: AOJu0YxEaMLgPeXIk1PUvICgThdyk9/zimFF34sUqyRfic5AtZVXke9G
+	2NKMM1vOtDlhupwYYnW7bsIOsT+MOLHGwCKkRMuTMsTv5dRI64jUffiru7P3Ag==
+X-Google-Smtp-Source: AGHT+IHdBe/U/lEJDnWWd0FJhYPGXYijP81AC89b6fuG4KA1nlo1bpq2+CiP2bKN4MWPwRRkYds5LQ==
+X-Received: by 2002:a05:6000:510:b0:341:c0b8:e660 with SMTP id a16-20020a056000051000b00341c0b8e660mr9785540wrf.1.1712069801777;
+        Tue, 02 Apr 2024 07:56:41 -0700 (PDT)
+Message-ID: <77854c5d-37b5-4f85-bbfd-d2a5c16245dd@suse.com>
+Date: Tue, 2 Apr 2024 16:56:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 4/7] x86/hvm: address violations of MISRA C Rule
+Subject: Re: [XEN PATCH v3 6/7] xen/mm: address violations of MISRA C Rule
  20.7
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
  julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 References: <cover.1711700095.git.nicola.vetrini@bugseng.com>
- <ae50d853bbf20a74d2693a5d52f36d216c59213f.1711700095.git.nicola.vetrini@bugseng.com>
+ <9fade8c540f19876fe7928ab91398bd5e94594b4.1711700095.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,7 +114,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ae50d853bbf20a74d2693a5d52f36d216c59213f.1711700095.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <9fade8c540f19876fe7928ab91398bd5e94594b4.1711700095.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -131,28 +130,6 @@ On 29.03.2024 10:11, Nicola Vetrini wrote:
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
-albeit once again ...
 
-> --- a/xen/arch/x86/hvm/domain.c
-> +++ b/xen/arch/x86/hvm/domain.c
-> @@ -132,9 +132,9 @@ int arch_set_info_hvm_guest(struct vcpu *v, const struct vcpu_hvm_context *ctx)
->      s = (struct segment_register)                                           \
->          { 0, { (r)->s ## _ar }, (r)->s ## _limit, (r)->s ## _base };        \
->      /* Set accessed / busy bit for present segments. */                     \
-> -    if ( s.p )                                                              \
-> -        s.type |= (x86_seg_##s != x86_seg_tr ? 1 : 2);                      \
-> -    check_segment(&s, x86_seg_ ## s); })
-> +    if ( (s).p )                                                            \
-> +        (s).type |= (x86_seg_##s != x86_seg_tr ? 1 : 2);                    \
-
-... addressing the style issue (blanks around ##) while touching code would have
-been nice.
-
-Jan
-
-> +    check_segment(&(s), x86_seg_ ## s); })
->  
->          rc = SEG(cs, regs);
->          rc |= SEG(ds, regs);
 
 
