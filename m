@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A447894EF0
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 11:44:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700069.1092640 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE62F894F07
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 11:49:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700073.1092651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rragH-0007Zk-Nf; Tue, 02 Apr 2024 09:43:49 +0000
+	id 1rralc-0008Nr-Af; Tue, 02 Apr 2024 09:49:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700069.1092640; Tue, 02 Apr 2024 09:43:49 +0000
+Received: by outflank-mailman (output) from mailman id 700073.1092651; Tue, 02 Apr 2024 09:49:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rragH-0007Wp-L3; Tue, 02 Apr 2024 09:43:49 +0000
-Received: by outflank-mailman (input) for mailman id 700069;
- Tue, 02 Apr 2024 09:43:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rralc-0008L5-84; Tue, 02 Apr 2024 09:49:20 +0000
+Received: by outflank-mailman (input) for mailman id 700073;
+ Tue, 02 Apr 2024 09:49:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hiiI=LH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rragF-0007Wj-VU
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 09:43:47 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f93586f-f0d5-11ee-a1ef-f123f15fe8a2;
- Tue, 02 Apr 2024 11:43:45 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-415515178ceso23585315e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 02:43:45 -0700 (PDT)
+ id 1rrala-0008Kz-GU
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 09:49:18 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 45614a9b-f0d6-11ee-afe5-a90da7624cb6;
+ Tue, 02 Apr 2024 11:49:17 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-41569f1896dso9611655e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 02:49:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m6-20020a05600c4f4600b004147db8a91asm20541587wmq.40.2024.04.02.02.43.44
+ h17-20020a05600c351100b00414854cd257sm17317950wmq.20.2024.04.02.02.49.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 02:43:44 -0700 (PDT)
+ Tue, 02 Apr 2024 02:49:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f93586f-f0d5-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 45614a9b-f0d6-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712051025; x=1712655825; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=m7JX+nqVaEyKH5zglSH0f6PgIaauSCZx8dBDeFNQ2+U=;
-        b=HrR2lBfc012Fa31Rn6LUGyOBsKT+MFOV1T0QBUbUx02bcENaC55PiuqTSxp/lIOdUR
-         TKcT64Kh30wUGu9nfOUM8cKva5h0K0EgA+4DAaKYu1c7tPH0vtQVwiPXLz9a4JuKMtkd
-         ILUMWY6TSKKcnBSGoKw0LS36G88qPIMSQLvLU1Y4NNlTwMZaq1KHx408exWi6aOn8Umo
-         t/0GVYxGKV1Xm/zJH/o2QyZ+r8XUW1vnCDoYz6T4TrMeFUwQvx60gSTiu7DuFpL339+o
-         r+KgiFQMopyipNt6beg/H9p0oTxNxbHLMc9i+0NmMu7AElERyW6+3/DKFxAMGaHatZjD
-         mxtA==
+        d=suse.com; s=google; t=1712051357; x=1712656157; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=H7IqR5YWRvrR8kDc3STvHqfVm8cwbEoxdZmlHAHht5U=;
+        b=dBzxNAoQfJ1RUuwUEx88FvDnsfJTQdgcIXRATry2DksFXTnOZ/+GEAwBJZ5hiVVKVw
+         iAgI+n7pTNSB5hvRtEbEANz8MCD/HArL0RtRkqSdmt6l9xM6q/Ll3RxhCVZXKBmnC3HL
+         972kqEXeXK79yPskgUs3iyAhe9/m00nUXIfB4+e+5wFKy+U9wByvl+wyFcle73Keu5dx
+         8h8ZM7YYrldZu9I+ixr21JbdDO7Hhlj+QH/0kJSM2htpT6HVaP3cAb31aPzXlJhskaY/
+         5ULQ40dmPe1yfbfum1uZcBJ+eZuuOgvL9gm5UGLlJQ47Y31EG/1jyccXK3QRFSXITJn3
+         KFWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712051025; x=1712655825;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=m7JX+nqVaEyKH5zglSH0f6PgIaauSCZx8dBDeFNQ2+U=;
-        b=XogbgQLpLWnHoqL4OZTVZTaJYyLVUZFZY9Sm8Q83lPYtCm0GWvI0fKi8UgQMf8m8is
-         cj0yGrY9SmdDczK5UDIBf+U66fgaanCiwnT8tCKeHGyaEpBD3+aLjfrgCbsOmv/CgnG2
-         EeWDCKXUiv4qNFoCmVs9fh/TjJwFZM4nrG4qQFCoZ51c7D9iSF8G8z01D6XmiUaB++6K
-         hZ46Dk/xAU6jvbXz99gGmvXpq8GksGVty02PC8R4clHDMgTnbjlmqJpspPzUuGeWEMPJ
-         ZNLhE/YuKigxfRyvCWUsfIyrzDObVjeVOPhHSUjbzEXMjDAbKMKiNg303RGvKMAPhS+j
-         PxiA==
-X-Forwarded-Encrypted: i=1; AJvYcCUd05rAOF2sUGsFki7xOIdsejePXp9hwaj1Ed6jvqaOvvHKzwJbIgUfj2ap3Iw62N17rA+I7GUGemCwfwusNZcLohBu9EcpM+x5YjWTV48=
-X-Gm-Message-State: AOJu0Yw5/4SejQxIDGENUqG7iMrgASlVtW8ss6x+CeN1NwzXBNN/NkKP
-	mo+RM2/7Ny0T/R+b//4c3/OkwqAlUBYOst4myBy0YM5SQzls5zbTfzdRuFXVIg==
-X-Google-Smtp-Source: AGHT+IGO3AGxrzcf6dY3W9P/rHABlERuHcXBUsShWYp5b19p0XFQzi1Wif1iVI4Lmead35p2ARvLcA==
-X-Received: by 2002:a05:600c:358b:b0:414:8e02:e432 with SMTP id p11-20020a05600c358b00b004148e02e432mr8556624wmq.7.1712051025024;
-        Tue, 02 Apr 2024 02:43:45 -0700 (PDT)
-Message-ID: <02d072e2-6bf4-4024-b7b6-d5aa0ec13bc1@suse.com>
-Date: Tue, 2 Apr 2024 11:43:49 +0200
+        d=1e100.net; s=20230601; t=1712051357; x=1712656157;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=H7IqR5YWRvrR8kDc3STvHqfVm8cwbEoxdZmlHAHht5U=;
+        b=hdyHy/ocNOwPFG31Lbsl3fhz6dDrvVYZZDduFk0BiE8w+xYps5lN/4pCYjgarCI7Eo
+         qXvJXLpEXdnFKbRaZWjkL+/XXDxHIBnkEUq5kggr+XrJwnEIJsdnRg/OWUHOmatCWDmY
+         D8imfpfXLi6SxQgdN5WZmJ1v2TBry3gwtMq6n6NuYiCioomTn2meLcoE8oChg+QK8YE7
+         G3aF8GCk2tSIMgOHwmIAC4e7IAxtI2DCFWkWdIOXXV4f+9Z44GGJGT0kiT+Esv0V5iFt
+         B5dIDhBbthp2V51SNz9GVZBAQRTyF7jfIL3wwUKHeL0fBdgXCv7ftEyrIyU7tsbk9v5V
+         O31g==
+X-Forwarded-Encrypted: i=1; AJvYcCWKOrDl24BZVZU+zJVsXC4yEm31YLOg22gayxrtxdWRSkhz6IoKwbpCetjBkT/53+asyFaeazWX3O6fMpc3BCFa1uBzDU9PHFbgfyIaWVw=
+X-Gm-Message-State: AOJu0YxU6KhElscTR2hgTUWr5H3D4xlMrc22FTeA6oA26RkxPyTwdOXc
+	J+vZifu51GLDSzpIzppZwnS1sAAB0nyrQBA/yvkECRSEAt4/OFRNnErc7WFMIg==
+X-Google-Smtp-Source: AGHT+IE3jgYLV5ejelrHmvQuQVgEY7ms6iHG/kI266iBD1uyCjsYzFikBo/1VpaAUA+3hJ8V+ko1xg==
+X-Received: by 2002:a05:600c:a01:b0:414:1363:53a4 with SMTP id z1-20020a05600c0a0100b00414136353a4mr8273628wmp.15.1712051356835;
+        Tue, 02 Apr 2024 02:49:16 -0700 (PDT)
+Message-ID: <87601c5e-2ee3-4d3f-b4eb-0f509bcf1c2b@suse.com>
+Date: Tue, 2 Apr 2024 11:49:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/video: add boot_video_info offset generation to
- asm-offsets
+Subject: Re: [PATCH 2/2] x86/video: do not assume a video mode to be
+ unconditionally present
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20240328153523.4155-1-roger.pau@citrix.com>
- <20240328153523.4155-2-roger.pau@citrix.com>
- <473870c9-1134-4f17-b063-68ac93ad28e0@suse.com>
+ <20240328153523.4155-3-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -113,36 +111,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <473870c9-1134-4f17-b063-68ac93ad28e0@suse.com>
+In-Reply-To: <20240328153523.4155-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.04.2024 11:38, Jan Beulich wrote:
-> On 28.03.2024 16:35, Roger Pau Monne wrote:
->> Currently the offsets into the boot_video_info struct are manually encoded in
->> video.S, which is fragile.  Generate them in asm-offsets.c and switch the
->> current code to use those instead.
+On 28.03.2024 16:35, Roger Pau Monne wrote:
+> There's no reason to assume VGA text mode 3 to be unconditionally available.
+> With the addition of booting Xen itself in PVH mode there's a boot path that
+> explicitly short-circuits all the real-mode logic, including the VGA detection.
 > 
-> Just to mention it (without asking for immediate action): Defining boot_vid_info
-> in assembly code then is as fragile. Moving to C would likely be problematic
-> because it needs to be in the trampoline range. But at least its size should (at
-> some point) perhaps better be tied to the C struct's sizeof().
+> Leave the default user selected mode as text mode 3 in boot_vid_mode, but do
+> not populate boot_vid_info with any default settings.  It will either be
+> populated by the real-mode video detection code, or left zeroed in case
+> real-mode code is skipped.
+> 
+> Note that only PVH skips the real-mode portion of the boot trampoline,
+> otherwise the only way to skip it is to set `no-real-mode` on the command line,
+> and the description for the option already notes that VGA would be disabled as
+> a result of skipping real-mode bootstrap.
+> 
+> This fixes Xen incorrectly reporting:
+> 
+> (XEN) Video information:
+> (XEN)  VGA is text mode 80x25, font 8x16
+> 
+> When booted as a PVH guest.
 
-Actually I overlooked that you partly do this. The use of BVI_capabilities there
-looks odd to me, though. Why not
+And what effect does this have on a bare-metal boot with no-real-mode in use?
+The default on x86 hardware still is that in the absence of other information,
+a VGA of some kind can be assumed to be there. Yes, there are headless
+systems, but better assume VGA is there when there's not than the other way
+around.
 
-        .space  BVI_size - (. - boot_vid_info)
-
-? I realize it becomes just BVI_size in patch 2, but I have some question there,
-too.
+What I would have expected is for the PVH boot path to clear boot_vid_info.
 
 Jan
-
-> The fields, with
-> some effort, could also be converted using the new BVI_* constants. That would
-> still leave the field sizes; maybe those could at least be cross-checked by some
-> BUILD_BUG_ONs.
-> 
-> Jan
-
 
