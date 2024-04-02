@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 024308956D6
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 16:34:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700168.1092856 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30D018956F7
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 16:37:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700172.1092869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrfDV-0005CB-6D; Tue, 02 Apr 2024 14:34:25 +0000
+	id 1rrfGF-0005lH-Jr; Tue, 02 Apr 2024 14:37:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700168.1092856; Tue, 02 Apr 2024 14:34:25 +0000
+Received: by outflank-mailman (output) from mailman id 700172.1092869; Tue, 02 Apr 2024 14:37:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrfDV-00059q-2y; Tue, 02 Apr 2024 14:34:25 +0000
-Received: by outflank-mailman (input) for mailman id 700168;
- Tue, 02 Apr 2024 14:34:23 +0000
+	id 1rrfGF-0005j0-H8; Tue, 02 Apr 2024 14:37:15 +0000
+Received: by outflank-mailman (input) for mailman id 700172;
+ Tue, 02 Apr 2024 14:37:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hiiI=LH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrfDT-00059Z-MF
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 14:34:23 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1rrfGE-0005is-3i
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 14:37:14 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 18d098f0-f0fe-11ee-afe5-a90da7624cb6;
- Tue, 02 Apr 2024 16:34:22 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4156a2aeb43so14469405e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 07:34:22 -0700 (PDT)
+ id 7e85de9e-f0fe-11ee-afe5-a90da7624cb6;
+ Tue, 02 Apr 2024 16:37:13 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-41551500a7eso25584945e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 07:37:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j7-20020adfc687000000b0033ec9ddc638sm14297152wrg.31.2024.04.02.07.34.21
+ l41-20020a05600c1d2900b0041562a58b75sm7823558wms.13.2024.04.02.07.37.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 07:34:21 -0700 (PDT)
+ Tue, 02 Apr 2024 07:37:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18d098f0-f0fe-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 7e85de9e-f0fe-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712068462; x=1712673262; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712068632; x=1712673432; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=NCuwUsr7wwEHSPixRvAPKuDTqGjlvcbwydfybkudV/c=;
-        b=cm+X/Sff/NBdLNE8IGYOG3jVOWuxUZrBQKFL6o2+8tWMoyeo/P8ZHkkVX3fCINnY9b
-         XdIbJX5e88EJsedddI+LMf62VbsMIn9LUr5dssmZdjVGYgpWHo/FE7HP+9lha9RFkBSo
-         tH8Ge2atoWFBYX+p6xfQFeeqA1dvl5wD7ngcgd03r0PoGTXa7jYYbyfVKGxksH3k9Gia
-         RF5XDp5RcMLSjCpJHFLswJXbwdAQEIrXu8qTxxgO4kCnnn/InHzYyD4hv2Boxf1bHS/d
-         dStlWktr2gRHvnm4Qvx3FypT3d/HwRtLftzaFfsFBkDqfWKsuB1semUI/tbPTsTzcMzQ
-         yYRg==
+        bh=q5q0QiQ4WmL4gl68yAGoMWoGDDZ7DDVhGUn1x7Lp9/Y=;
+        b=MWvYyDoQFdSPeQ948BCUSNMqbFzQkC89RvtLCPC5icfkqdguPc5Pn/xjAFxCi6DYWW
+         dtXRBWwJs1UYiztUeLBTrnpKakZ7hj7E9dW7n91urxri9iNL3mk1K+CWCK+fVHWOW+OA
+         KgZJdPPRjJSqRktUZb8INH+MXT8I+1IKjZ5uiW+zpjhm9owvCX81qWkGwLA6C3EwMfFD
+         rmfKCiSMoXkrYZTGKtSTA7qVfPrk9WEjrbwU5wqcjg+LXfi+iMrS0KvV0isw9KoHG0/t
+         LBfy3QcPZSOFxCIpBm8iHAZsGzfcCsX6TgQsXASO8w7Wd4fK6kUqE6k37cPVC2tH8sts
+         5WJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712068462; x=1712673262;
+        d=1e100.net; s=20230601; t=1712068632; x=1712673432;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=NCuwUsr7wwEHSPixRvAPKuDTqGjlvcbwydfybkudV/c=;
-        b=CSHbTzM+SEMlrMQRCTYwo/UjaP+WQXrTD5j+TYcrRsEXlF4XV+qGCZ4FLnBoMvLgTV
-         /mwM45DHk+vyJKLVQK5sDzqhGoPfgmgeUyuVtHsiK2YgaSa0Z+mSETh8FrxRlOHIgBKN
-         7RiUsiKF2faQulDMScEsoNlJ9eiuf32k01ZIXv1/CxqsTUCkp8mKmoZgtezN6FtuTiuY
-         r0QGrS6udCq+XCVC/+yDETbmiAMKIauPkQlllXecOZenFfLFwl8iLhqXHBGQuJOat9+o
-         9fJKbZr3IwKMQi52lt87Hs1dGQzkRwUfaF8OixgG0/dycp263/Qri+dpiRwJsnbMUosV
-         GSiA==
-X-Forwarded-Encrypted: i=1; AJvYcCUAaxZr7l1fUs9FwBeYmVbcVBPhhWJob88eI3vm3cQOu1MP0SReeVBmXVhgvCWhv4I6hqHv0WfV1qvmDjVfZnY2dc/J1uD3qsYBXy1XxhQ=
-X-Gm-Message-State: AOJu0Yz4REPBe27krDmZz0oSNtX1/GsDaJNNnfT47qeNMqNmwL5HHNcz
-	yeT8FJaeLFPqfBrBMnjyGl6tbWlskJL6alIyM/qM4YsORDL52S0kgmsI1tGzOw==
-X-Google-Smtp-Source: AGHT+IHWVV7ZCmImhgx4G7BkQx41Yrh1MTFJCaii7Lke5l7MqA4SPABoiltTosTW8T0/9HTLKivYSg==
-X-Received: by 2002:a05:600c:3556:b0:414:f58:a086 with SMTP id i22-20020a05600c355600b004140f58a086mr9862237wmq.6.1712068461963;
-        Tue, 02 Apr 2024 07:34:21 -0700 (PDT)
-Message-ID: <46a99837-fbb4-4dc9-a78c-634bee5c00a5@suse.com>
-Date: Tue, 2 Apr 2024 16:34:20 +0200
+        bh=q5q0QiQ4WmL4gl68yAGoMWoGDDZ7DDVhGUn1x7Lp9/Y=;
+        b=goF5CW3zpILIs1xzaNSc3CM/l7IrvCLQMDN5nQenT+IQx0gPM3x1xB3HoVHYNRSpl/
+         kM1zyDJ2MwmhNxg5AUOBacPpWrXrdI8GJJGLA8FlyWJ2M4z09CFCtO5HtHJpZ2nWECxu
+         h+Xe+xiwTcted2GZmldMf9jNiiVCWARcr8YUtzmSo75OrWnhUt9ExWX6E2wNA33fv0g8
+         E9E3F2olJMBdJqipB76uQycopheVBW0xLZZ4TOOHE158hM3nl4Yw9gJkOtrDeVwIhkQH
+         ycKvcxa59DB2XfdzzNZvTZjwiCwVCiEgXqGaxGFoZ2F9+3Z2UoTz9VwmJUCHNGrFI1Ln
+         p51w==
+X-Forwarded-Encrypted: i=1; AJvYcCW6AamTpi88wqiVOLXCP4WNWMcLonhEg22izvPFKw0yeJd/ls86C4xQ0LnfJrLATvODkqda1W2l33LdmNrUoQkxjrZxhl4FY3slYpz62Tc=
+X-Gm-Message-State: AOJu0Ywhr4cwFFGxAS8KkIdn2aE6os4+RDeM4ozj5+A8RGoMPXpcCwrg
+	9BOv6p8WxqbYbG2ho9rZ16WHWhMuOo+9tbc8r8ZmDZe/TpzXYh1+EBcVnyN/Pg==
+X-Google-Smtp-Source: AGHT+IFlDUklR6p5lScuL8EjrjIDc7UBw4/OBqrXqMczj6SJ1AY93hRGrpiAFixNOWCxU3aMUsyJ2A==
+X-Received: by 2002:a05:600c:3502:b0:414:8065:2d25 with SMTP id h2-20020a05600c350200b0041480652d25mr9619665wmq.38.1712068632681;
+        Tue, 02 Apr 2024 07:37:12 -0700 (PDT)
+Message-ID: <d8d0a23d-3f00-4bad-9c3d-f81c0d172d95@suse.com>
+Date: Tue, 2 Apr 2024 16:37:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/4] x86/PVH: Support relocatable dom0 kernels
+Subject: Re: [PATCH v6 3/8] xen/spinlock: add missing rspin_is_locked() and
+ rspin_barrier()
 Content-Language: en-US
-To: Jason Andryuk <jason.andryuk@amd.com>
+To: Juergen Gross <jgross@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240327215102.136001-1-jason.andryuk@amd.com>
- <20240327215102.136001-5-jason.andryuk@amd.com>
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <20240327152229.25847-1-jgross@suse.com>
+ <20240327152229.25847-4-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,51 +115,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240327215102.136001-5-jason.andryuk@amd.com>
+In-Reply-To: <20240327152229.25847-4-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.03.2024 22:51, Jason Andryuk wrote:
-> v6:
-> Select alignment from, in order, Note, PHDRs, then default
+On 27.03.2024 16:22, Juergen Gross wrote:
+> Add rspin_is_locked() and rspin_barrier() in order to prepare differing
+> spinlock_t and rspinlock_t types.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-The comment in the public header also needs to reflect this change.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> +static bool __init check_and_adjust_load_address(
-> +    const struct domain *d, struct elf_binary *elf, struct elf_dom_parms *parms)
-> +{
-> +    paddr_t reloc_base;
-> +
-> +    if ( check_load_address(d, elf) )
-> +        return true;
-> +
-> +    if ( !parms->phys_reloc )
-> +    {
-> +        printk("%pd kernel: Address conflict and not relocatable\n", d);
-> +        return false;
-> +    }
-> +
-> +    reloc_base = find_kernel_memory(d, elf, parms);
-> +    if ( !reloc_base )
-> +    {
-> +        printk("%pd kernel: Failed find a load address\n", d);
-> +        return false;
-> +    }
-> +
-> +    if ( opt_dom0_verbose )
-> +        printk("%pd kernel: Moving [%p, %p] -> [%"PRIpaddr", %"PRIpaddr"]\n", d,
-> +               elf->dest_base, elf->dest_base + elf->dest_size - 1,
-> +               reloc_base, reloc_base + elf->dest_size - 1);
-> +
-> +    parms->phys_entry = reloc_base +
-> +                            (parms->phys_entry - (uintptr_t)elf->dest_base);
 
-I think this would be easier to read as
-
-    parms->phys_entry =
-        reloc_base + (parms->phys_entry - (uintptr_t)elf->dest_base);
-
-Everything else looks good to me now.
-
-Jan
 
