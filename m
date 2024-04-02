@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 986CD89579B
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 16:58:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700190.1092930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E063E8957B9
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 17:05:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700196.1092940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrfa2-0003MK-EM; Tue, 02 Apr 2024 14:57:42 +0000
+	id 1rrfhT-0005Zs-5C; Tue, 02 Apr 2024 15:05:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700190.1092930; Tue, 02 Apr 2024 14:57:42 +0000
+Received: by outflank-mailman (output) from mailman id 700196.1092940; Tue, 02 Apr 2024 15:05:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrfa2-0003Jj-Ag; Tue, 02 Apr 2024 14:57:42 +0000
-Received: by outflank-mailman (input) for mailman id 700190;
- Tue, 02 Apr 2024 14:57:40 +0000
+	id 1rrfhT-0005Xw-2B; Tue, 02 Apr 2024 15:05:23 +0000
+Received: by outflank-mailman (input) for mailman id 700196;
+ Tue, 02 Apr 2024 15:05:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hiiI=LH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrfa0-0003JY-U9
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 14:57:40 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1rrfhR-0005Xq-Gk
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 15:05:21 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 59bb19c0-f101-11ee-afe5-a90da7624cb6;
- Tue, 02 Apr 2024 16:57:40 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-41569865b2fso13543435e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 07:57:39 -0700 (PDT)
+ id 6c11c48b-f102-11ee-afe5-a90da7624cb6;
+ Tue, 02 Apr 2024 17:05:20 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-415db53d905so6866025e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 08:05:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- di6-20020a0560000ac600b00341c9956dc9sm14412688wrb.68.2024.04.02.07.57.38
+ l2-20020a5d4bc2000000b0033e7e9c8657sm14411487wrt.45.2024.04.02.08.05.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 07:57:39 -0700 (PDT)
+ Tue, 02 Apr 2024 08:05:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59bb19c0-f101-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 6c11c48b-f102-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712069859; x=1712674659; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712070319; x=1712675119; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=KZ3AkmtJCFCb0vYZlX14FdmIoXjJYTOwkamGysIzNlI=;
-        b=fFyV2pp4guqowwILuLRvHC5nYk4G3brz+IInEF7CYkU/kl2cug7Ie7fur/7W08yIg4
-         NlW+/kW3hy+paCvuI0Fmn0CjXI3SHqZmHW4FwEjKOHp07ehhSKWyuwjluT4zKjBHecik
-         M7ZLB0YSqkH0HbVJOCRm2VllokuKOsabe3t2ZaTWPZTFtWynL1MJhq41fUCfpL8KKYTg
-         9acxXzi2oaBn/BKVGfqZXQvdT+sguo5e8C1R+KXbQkFqDGxML0WceguU8p4UUYAQq9qY
-         OuIvxY4WHibDltX6xnC1TtW5pWeqSmRRLlJ3o0XmsM4CZfcvqduK4bgqlhGdIj0NDHYr
-         Fm+A==
+        bh=CWcuMv44nSFhDFTIGIZoD0Y9dobFaXPqokLynMS2ZKk=;
+        b=b8vFhxkYU+alQn1NeHEzgOUfPzeTHYoI1kEsypqBx22ztedHlwDNP7ZXciH+rPmoAp
+         MG45PIC0RLaynXH3iLQSzKLHsJi95v9kVCd+EOp5vfq8QkF0eTDvFlgLxzRWNlQeFX/s
+         Kshm+upTCroFrzY+gzwm9dlpg8qwH+Ldej0lhthibTX2U3bDpTB2ucQ6nYid9tknsd6k
+         Q68WrGJXf8KPClzIz3aibVMjZTM6Joh+MLZ+OGKsYQpCjw3PPCvHLnO8vQgFgKAf0GwQ
+         qqP6Sihd8Alxxp1+yW4bmgouY6sMPcOJmi18ygrNi8vcte5JNHJ0UEkMZWiCeteT5zvX
+         ZDSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712069859; x=1712674659;
+        d=1e100.net; s=20230601; t=1712070319; x=1712675119;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KZ3AkmtJCFCb0vYZlX14FdmIoXjJYTOwkamGysIzNlI=;
-        b=wOuhjW2ThGNlRlUpBNLujzPDDT2Yr+tWN/7UfjbcyndrubB0IS3n/9D+mopohRvGyQ
-         dW3jAy7BLzy6YVIxgw1k4w2bTKr51sAGETIMZ2c3E5QnrLG9o7LFEkbVH8mn0ep7cMSz
-         D8Rv5Sc3CaIyngg/AgI0BSlMI5G/cLFG9+Y2D4I0i9hYve72uYqy9xcUVqSOPq9JNRM3
-         1Vmy8o9j1yLwUVtAFfy5BZ2u3PtjC5/MOfD3MM3j9ZlZqDEvdSZppmscCBWqsaEHMLwm
-         KrcaETbEYYaLvHfCKU25a1A40RU3nsXrdyaaJKCP/8rggd2FvUlI40Pb4//GxPYPUbl+
-         SugA==
-X-Forwarded-Encrypted: i=1; AJvYcCXG4xhbd0r+KIqgGyUH4wfr+Nt038KAsxgg29h+qI+ZH/nA//LB++7NV5oDBvJiIFCwWJ6DZ8/Dt+Wxuu1oliMTcqPQVk5kuMnyfcZGbbc=
-X-Gm-Message-State: AOJu0YyONE2oOmZvI7BtklOsjdioZDlLBL+HEq2iKRScspvXpfb3YwCz
-	UK6Vi9CuhfwaThFA8CTXR3AYeiZAeti0N5J4Im8z8lN6v40vWjVTUoILaEJxlg==
-X-Google-Smtp-Source: AGHT+IFm+dYubbfXenSM6aaEHHt/ZFuNwmq1LNyv3Q8Hej0lt6++RaMMjnC/E8Yiap2vUH+P0obyIA==
-X-Received: by 2002:a5d:68ca:0:b0:343:63c4:809d with SMTP id p10-20020a5d68ca000000b0034363c4809dmr1222358wrw.18.1712069859316;
-        Tue, 02 Apr 2024 07:57:39 -0700 (PDT)
-Message-ID: <d720714e-d5e9-4467-9532-f34ae71ed1b7@suse.com>
-Date: Tue, 2 Apr 2024 16:57:38 +0200
+        bh=CWcuMv44nSFhDFTIGIZoD0Y9dobFaXPqokLynMS2ZKk=;
+        b=LQsXOWGPiQ1zJ7pJrVXLhApM3FcMHY7A4PaSTq0w8986MU5CCWTID2Ok6sb9cjWHta
+         z0vZlPx4KzDvgD7Nm5jTyPl+uAljC4k8ipgasBjmMq27fvKSIX0GYzbH9uUpSeYNsOq3
+         ZKvL154oPPlyYNJZi9SjD8h9hWNWn/9tM6Eifv3SO9HJJ9LZFM50/R1NfG+LWw5v+ijr
+         0d+FaLqUHw+ySXMvZtzvD4Wgg0jAYU8VpCOsCel4/JXhpiJ+o3IeXAf/fJQzTuOXQnCl
+         MHwwdHcXs6856xmOg6z0O3OgV9+OGDHW6pW40L0vfsKSa3B4QqVi/uLkWYqJr0ooug2r
+         0BQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUHr+Czp0WvqYZxbA3eEj1TawS2o2KiGBZaIccpBOiUxFXIR4KbhGO86pARMyn/kk3GNB/V04dSs7zTqu5km8nkvF0DP44ll3EsEJSYe98=
+X-Gm-Message-State: AOJu0YwAb0rL5SiCBl0yFePQ9p8ZTOtPqqhxDgsZQt0ZnH2SgyUFkm/K
+	fOm86A0VyV6bDs2sDuZcLU7gPAhCGMYIiY9ieUfcGsmY/ER88RlAIBkjrjDiGA==
+X-Google-Smtp-Source: AGHT+IErliSxjw161tgbVH3e/vbNONDa+nfK+DPvoYJi15hdbleWG6wKThMwIwTu/TWTFcm3Yx+Hog==
+X-Received: by 2002:a05:6000:188d:b0:343:4b39:9db5 with SMTP id a13-20020a056000188d00b003434b399db5mr5932047wri.56.1712070319618;
+        Tue, 02 Apr 2024 08:05:19 -0700 (PDT)
+Message-ID: <c958ad3e-5371-4a4e-81b5-8c313ac83258@suse.com>
+Date: Tue, 2 Apr 2024 17:05:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 7/7] x86/amd: address violations of MISRA C Rule
- 20.7
+Subject: Re: [XEN PATCH v3 1/7] x86/msi: address violation of MISRA C Rule
+ 20.7 and coding style
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
@@ -90,7 +90,7 @@ Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1711700095.git.nicola.vetrini@bugseng.com>
- <aa2c6d47927f76b12d1f30dc2eb1a6f15ba34dea.1711700095.git.nicola.vetrini@bugseng.com>
+ <2f2c865f20d0296e623f1d65bed25c083f5dd497.1711700095.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,7 +115,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aa2c6d47927f76b12d1f30dc2eb1a6f15ba34dea.1711700095.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <2f2c865f20d0296e623f1d65bed25c083f5dd497.1711700095.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -126,11 +126,83 @@ On 29.03.2024 10:11, Nicola Vetrini wrote:
 > current and future users will be safe with respect to expansions that
 > can possibly alter the semantics of the passed-in macro parameter.
 > 
+> While at it, the style of these macros has been somewhat uniformed.
+> 
 > No functional change.
 > 
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+> Changes in v2:
+> - Make the style change more consistent
+> ---
+>  xen/arch/x86/include/asm/msi.h | 49 +++++++++++++++++-----------------
+>  1 file changed, 25 insertions(+), 24 deletions(-)
+> 
+> diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
+> index 997ccb87be0c..bd110c357ce4 100644
+> --- a/xen/arch/x86/include/asm/msi.h
+> +++ b/xen/arch/x86/include/asm/msi.h
+> @@ -147,33 +147,34 @@ int msi_free_irq(struct msi_desc *entry);
+>   */
+>  #define NR_HP_RESERVED_VECTORS 	20
+>  
+> -#define msi_control_reg(base)		(base + PCI_MSI_FLAGS)
+> -#define msi_lower_address_reg(base)	(base + PCI_MSI_ADDRESS_LO)
+> -#define msi_upper_address_reg(base)	(base + PCI_MSI_ADDRESS_HI)
+> -#define msi_data_reg(base, is64bit)	\
+> -	( (is64bit == 1) ? base+PCI_MSI_DATA_64 : base+PCI_MSI_DATA_32 )
+> -#define msi_mask_bits_reg(base, is64bit) \
+> -	( (is64bit == 1) ? base+PCI_MSI_MASK_BIT : base+PCI_MSI_MASK_BIT-4)
+> +#define msi_control_reg(base)        ((base) + PCI_MSI_FLAGS)
+> +#define msi_lower_address_reg(base)  ((base) + PCI_MSI_ADDRESS_LO)
+> +#define msi_upper_address_reg(base)  ((base) + PCI_MSI_ADDRESS_HI)
+> +#define msi_data_reg(base, is64bit) \
+> +    (((is64bit) == 1) ? (base) + PCI_MSI_DATA_64 : (base) + PCI_MSI_DATA_32)
+> +#define msi_mask_bits_reg(base, is64bit)                \
+> +    (((is64bit) == 1) ? (base) + PCI_MSI_MASK_BIT       \
+> +                      : (base) + PCI_MSI_MASK_BIT - 4)
+>  #define msi_pending_bits_reg(base, is64bit) \
+> -	((base) + PCI_MSI_MASK_BIT + ((is64bit) ? 4 : 0))
+> -#define msi_disable(control)		control &= ~PCI_MSI_FLAGS_ENABLE
+> +    ((base) + PCI_MSI_MASK_BIT + ((is64bit) ? 4 : 0))
+> +#define msi_disable(control)         ({ (control) &= ~PCI_MSI_FLAGS_ENABLE })
+>  #define multi_msi_capable(control) \
+> -	(1 << ((control & PCI_MSI_FLAGS_QMASK) >> 1))
+> +    (1 << (((control) & PCI_MSI_FLAGS_QMASK) >> 1))
+>  #define multi_msi_enable(control, num) \
+> -	control |= (((fls(num) - 1) << 4) & PCI_MSI_FLAGS_QSIZE);
+> -#define is_64bit_address(control)	(!!(control & PCI_MSI_FLAGS_64BIT))
+> -#define is_mask_bit_support(control)	(!!(control & PCI_MSI_FLAGS_MASKBIT))
+> -#define msi_enable(control, num) multi_msi_enable(control, num); \
+> -	control |= PCI_MSI_FLAGS_ENABLE
+> -
+> -#define msix_control_reg(base)		(base + PCI_MSIX_FLAGS)
+> -#define msix_table_offset_reg(base)	(base + PCI_MSIX_TABLE)
+> -#define msix_pba_offset_reg(base)	(base + PCI_MSIX_PBA)
+> -#define msix_enable(control)	 	control |= PCI_MSIX_FLAGS_ENABLE
+> -#define msix_disable(control)	 	control &= ~PCI_MSIX_FLAGS_ENABLE
+> -#define msix_table_size(control) 	((control & PCI_MSIX_FLAGS_QSIZE)+1)
+> -#define msix_unmask(address)	 	(address & ~PCI_MSIX_VECTOR_BITMASK)
+> -#define msix_mask(address)		(address | PCI_MSIX_VECTOR_BITMASK)
+> +    ({ (control) |= (((fls(num) - 1) << 4) & PCI_MSI_FLAGS_QSIZE) })
+> +#define is_64bit_address(control)    (!!((control) & PCI_MSI_FLAGS_64BIT))
+> +#define is_mask_bit_support(control) (!!((control) & PCI_MSI_FLAGS_MASKBIT))
+> +#define msi_enable(control, num)     ({ multi_msi_enable(control, num); \
+> +                                        (control) |= PCI_MSI_FLAGS_ENABLE })
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Neither this nor ...
 
+> +#define msix_control_reg(base)       ((base) + PCI_MSIX_FLAGS)
+> +#define msix_table_offset_reg(base)  ((base) + PCI_MSIX_TABLE)
+> +#define msix_pba_offset_reg(base)    ((base) + PCI_MSIX_PBA)
+> +#define msix_enable(control)         ({ (control) |= PCI_MSIX_FLAGS_ENABLE })
+> +#define msix_disable(control)        ({ (control) &= ~PCI_MSIX_FLAGS_ENABLE })
 
+... these would compile afaict, if  they were used.
+
+Once again - before fiddling with these we need to settle on which of these
+we want to keep (and then also use, rather than open-coding), and which to
+drop (instead of massaging).
+
+Jan
 
