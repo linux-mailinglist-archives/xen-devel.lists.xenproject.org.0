@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E364895726
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 16:42:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700176.1092880 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB67B895782
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 16:53:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700180.1092891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrfL8-0007dz-66; Tue, 02 Apr 2024 14:42:18 +0000
+	id 1rrfV1-0001AB-46; Tue, 02 Apr 2024 14:52:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700176.1092880; Tue, 02 Apr 2024 14:42:18 +0000
+Received: by outflank-mailman (output) from mailman id 700180.1092891; Tue, 02 Apr 2024 14:52:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrfL8-0007bN-2u; Tue, 02 Apr 2024 14:42:18 +0000
-Received: by outflank-mailman (input) for mailman id 700176;
- Tue, 02 Apr 2024 14:42:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rrfV1-00017g-0c; Tue, 02 Apr 2024 14:52:31 +0000
+Received: by outflank-mailman (input) for mailman id 700180;
+ Tue, 02 Apr 2024 14:52:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hiiI=LH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrfL6-0007aw-CW
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 14:42:16 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32b1bf8b-f0ff-11ee-afe5-a90da7624cb6;
- Tue, 02 Apr 2024 16:42:15 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-341ccef5058so3844148f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 07:42:15 -0700 (PDT)
+ id 1rrfUz-00017a-M1
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 14:52:29 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9f81d904-f100-11ee-a1ef-f123f15fe8a2;
+ Tue, 02 Apr 2024 16:52:27 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-416200b3caaso7805e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 07:52:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ce8-20020a5d5e08000000b003433e4c6d43sm10732204wrb.32.2024.04.02.07.42.14
+ r7-20020adfab47000000b0033e43756d11sm14477935wrc.85.2024.04.02.07.52.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 07:42:14 -0700 (PDT)
+ Tue, 02 Apr 2024 07:52:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32b1bf8b-f0ff-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 9f81d904-f100-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712068935; x=1712673735; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712069547; x=1712674347; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=BbtDSVkRJlTre2HCv5Rz7a7kCOdzj45aT4SH9es8O+U=;
-        b=Ql1WcBZoO45o+QBS7rVMGsbgbDBjQhw6ov8o3nwuuoUso5ImZn1glLYvX11fDf8YcQ
-         BWzV5ZaPfs4x2iLnJVXZI+aTF6jAmFVPkMHZP4k5ubo4XQqDuhYkqWjCoXvVyLYxeYel
-         33NleS/QK1OC9FG9usjmNBRbWUa9o/3ILYBBg7F3bib4N4aJV3B9GLlkb+dvucY3OQxn
-         tG3Gt31Noj2sraKFnMjE/ZBBqbeXXcV5DssWu3hq7+b/sO5/nHHRAlnFpnSbJcJTOxsF
-         Fn1111YBD6quBi46yQoi4jHBfY5MZCNx/yF+qr3p7lyx6HkZawmQgsnkCXq+GY4H+d0K
-         OTuw==
+        bh=nci9zZE4Di+fsi7I0pp4pMvTXlu98LFwAXsmUQYtoYA=;
+        b=DT0K472S8uuEbUK1A22x4lwcrX4tjyABcRlSspwaxngc02GW+WIu9y4sIOpGhIBRBJ
+         dGeyEK6qKJ3M5dTwtvX3+keG7zLLd/4IjQmcJ5Te2ss3aIAkTrvUpRWgE+/IkS0DOHUw
+         jmjdWgGf+ScFS3AWDMMvL+1OTVieT1/SOwHmp0cVUhGhj9lkFVpMmBhUmmJKuwkNtYtr
+         R3x2TZTYxSJRrmpZ1iZyTQEK2spUjW6pioXObZ+53Gb2R5fioV73n0fo7lBjiALzgkS5
+         wqMRc3CdS6ITaSu/fD/Zg82/L2QsM2O+SFRpHN7tEED3XKUTVZzAAt4lvSpzon87Xkmt
+         wFWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712068935; x=1712673735;
+        d=1e100.net; s=20230601; t=1712069547; x=1712674347;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BbtDSVkRJlTre2HCv5Rz7a7kCOdzj45aT4SH9es8O+U=;
-        b=AIpgiTLPZ6VrC8rhIdcX5vDXLJoqMepO3kFDQSR/uADIAYCXDP0w+IWAiMbn5OZK7T
-         8DyvLteLcCvDIVgZZhitACm6LwVeV1BTEfuwipzNCuaTJ1Z30+yBrnqVpfGmdWOw6Fjw
-         GgMBOdKc7GI/hhM5LKgSheEqSyhKcIdlZxdn3jIqmTcTT7eVljbl8dLon6EceSoYO8a2
-         AQ3ZcdpCKlQP7E22pqSudEsqfYK4BNYAOrSWFpX4Zu5kPuLBMA/wuOxA4TBD8Sh6uYTQ
-         gHrtirq51a4wBWcpp1X214BTsYZQG2vGEMx6UzybIieBBxvinBVOnxZLzqIWOQXeZOLz
-         QAFw==
-X-Forwarded-Encrypted: i=1; AJvYcCWssLi2tOEPoAcz/VsuJhfYgQnHPq9ABPopWUufmu8G+aIARyzzy2dd9JjSJKxJ52bsmC/ECanvcrn+0dc2M4t4fWrEjYHz+X0bLr2GoeU=
-X-Gm-Message-State: AOJu0YwHmiuZB5S1jcW2fMS4eWTKwp0cnB5ITp8ANpmnk1aJjp/5LPc4
-	+tkwp0OoNiH0lczBZ+2YfQp0UWz6u3fIaAxwK9l5ym5uQWEcFxmXxqSXcMRYqA==
-X-Google-Smtp-Source: AGHT+IEl5Vb2LDHpesJ16PkNSA0VtjulmPcX0CQ4/5ycXuFN1A2d3zYWFnhGWXfGz48OYt0KWjm4sA==
-X-Received: by 2002:adf:f306:0:b0:33d:269e:132a with SMTP id i6-20020adff306000000b0033d269e132amr8985241wro.15.1712068934915;
-        Tue, 02 Apr 2024 07:42:14 -0700 (PDT)
-Message-ID: <6b5316a3-2920-4589-9e91-2de148c482db@suse.com>
-Date: Tue, 2 Apr 2024 16:42:13 +0200
+        bh=nci9zZE4Di+fsi7I0pp4pMvTXlu98LFwAXsmUQYtoYA=;
+        b=k4x7e58wFj1J8f9w5ZZ4lkq3YoU/nTOSA1advKwl0wPh0XrhCMB82dx62H1jjRcDut
+         9+2eDaIvB88fiKbit8huqCSD67dycUBNYxc68hNa1dcRhk4D6HlZDPE6/VGS93tQQAMn
+         9no+ftGN9k1hYF4DEDH+MDdQn2UPmHp6v8Z/69PREopyYDOD9JsgVVWpTi98jocq8DDo
+         qzz8xs9JjMb/r1cJmaRqCxoqw6rXm6RvMfJ1j3wlCDKtVSSbGk5RuoOXivR/4PeSOx34
+         T56bSw1xSf5bdpcMcilbGfeeAcLEDiB5H9bdkD130WyP1xsfSYbYzzopKiF4qU6gaFDg
+         fBpg==
+X-Forwarded-Encrypted: i=1; AJvYcCV2AmvH9yofDF3zSkm3r44HAoL3xhwrPZ3IqQomfr+RautWHyP6Whto2/Zyo0oTQeZfEruxGTRwuKGt3N50rzk8r9Or4AK6vJV6T9AMd1c=
+X-Gm-Message-State: AOJu0YzTB5IwVtCs0x3tRJJfHx4Jj0k8mahy/EYXF/r7MZYtSg+1x7si
+	KuwtxMo1+Kn6R3yE3q9LkD8rluvteErA4o/HLgEk7nBOa3VvnVjqPs1XlX3OYQ==
+X-Google-Smtp-Source: AGHT+IF5ISvCldfn4cXBSMbt2GUj6XT+f6uJxOH6foQEVrwStluaCAWKKV7I5rpcoiiZdLvybIW4Fg==
+X-Received: by 2002:a05:600c:154b:b0:413:133c:b9c8 with SMTP id f11-20020a05600c154b00b00413133cb9c8mr8685755wmg.33.1712069547008;
+        Tue, 02 Apr 2024 07:52:27 -0700 (PDT)
+Message-ID: <7e94482d-2c03-41ac-827f-af92a94796af@suse.com>
+Date: Tue, 2 Apr 2024 16:52:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 6/8] xen/spinlock: support higher number of cpus
+Subject: Re: [PATCH v6 7/8] xen/rwlock: raise the number of possible cpus
 Content-Language: en-US
 To: Juergen Gross <jgross@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20240327152229.25847-1-jgross@suse.com>
- <20240327152229.25847-7-jgross@suse.com>
+ <20240327152229.25847-8-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,42 +112,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240327152229.25847-7-jgross@suse.com>
+In-Reply-To: <20240327152229.25847-8-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 27.03.2024 16:22, Juergen Gross wrote:
-> Allow 16 bits per cpu number, which is the limit imposed by
-> spinlock_tickets_t.
-> 
-> This will allow up to 65535 cpus, while increasing only the size of
-> recursive spinlocks in debug builds from 8 to 12 bytes.
-> 
-> The current Xen limit of 4095 cpus is imposed by SPINLOCK_CPU_BITS
-> being 12. There are machines available with more cpus than the current
-> Xen limit, so it makes sense to have the possibility to use more cpus.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-albeit I have to say that I'm not entirely convinced of ...
-
-> --- a/xen/common/spinlock.c
-> +++ b/xen/common/spinlock.c
-> @@ -485,7 +485,9 @@ bool _rspin_trylock(rspinlock_t *lock)
+> @@ -36,14 +36,21 @@ void queue_write_lock_slowpath(rwlock_t *lock);
 >  
->      /* Don't allow overflow of recurse_cpu field. */
->      BUILD_BUG_ON(NR_CPUS > SPINLOCK_NO_CPU);
-> +    BUILD_BUG_ON(SPINLOCK_CPU_BITS > sizeof(lock->recurse_cpu) * 8);
->      BUILD_BUG_ON(SPINLOCK_RECURSE_BITS < 3);
-> +    BUILD_BUG_ON(SPINLOCK_MAX_RECURSE > ((1u << SPINLOCK_RECURSE_BITS) - 1));
+>  static inline bool _is_write_locked_by_me(unsigned int cnts)
+>  {
+> -    BUILD_BUG_ON(_QW_CPUMASK < NR_CPUS);
+> +    BUILD_BUG_ON((_QW_CPUMASK + 1) < NR_CPUS);
+> +    BUILD_BUG_ON(NR_CPUS * _QR_BIAS > INT_MAX);
+>      return (cnts & _QW_WMASK) == _QW_LOCKED &&
+>             (cnts & _QW_CPUMASK) == smp_processor_id();
+>  }
 >  
->      check_lock(&lock->debug, true);
+>  static inline bool _can_read_lock(unsigned int cnts)
+>  {
+> -    return !(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts);
+> +    /*
+> +     * If write locked by the caller, no other readers are possible.
+> +     * Not allowing the lock holder to read_lock() another 32768 times ought
+> +     * to be fine.
+> +     */
+> +    return cnts <= INT_MAX &&
+> +           (!(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts));
+>  }
 
-... the two additions here: The two checks we had verify independent
-properties, whereas the new ones basically check that struct rspinlock
-and its associated #define-s were got right. We don't check such
-elsewhere, I don't think.
+What is the 32768 in the comment relating to? INT_MAX is quite a bit higher,
+yet the comparison against it is the only thing you add. Whereas the reader
+count is, with the sign bit unused, 17 bits, though (bits 14..30). I think
+even in such a comment rather than using a literal number the corresponding
+expression would better be stated.
 
 Jan
 
