@@ -2,34 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33DC8896006
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 01:23:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700244.1093073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A12FC89602E
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 01:32:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700247.1093083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrnRz-0005QY-1z; Tue, 02 Apr 2024 23:21:55 +0000
+	id 1rrnbb-00071f-TE; Tue, 02 Apr 2024 23:31:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700244.1093073; Tue, 02 Apr 2024 23:21:55 +0000
+Received: by outflank-mailman (output) from mailman id 700247.1093083; Tue, 02 Apr 2024 23:31:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrnRy-0005NZ-UW; Tue, 02 Apr 2024 23:21:54 +0000
-Received: by outflank-mailman (input) for mailman id 700244;
- Tue, 02 Apr 2024 23:21:52 +0000
+	id 1rrnbb-0006zU-QO; Tue, 02 Apr 2024 23:31:51 +0000
+Received: by outflank-mailman (input) for mailman id 700247;
+ Tue, 02 Apr 2024 23:31:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Fe4w=LH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rrnRw-0005NT-Sh
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 23:21:52 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c75e77e7-f147-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 01:21:50 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 61771CE1E5D;
- Tue,  2 Apr 2024 23:21:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACAB8C433C7;
- Tue,  2 Apr 2024 23:21:42 +0000 (UTC)
+ <SRS0=04u5=LH=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1rrnba-0006zO-Eo
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 23:31:50 +0000
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2b4f70e1-f149-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 01:31:47 +0200 (CEST)
+Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
+ [209.85.219.173]) by mx.zohomail.com
+ with SMTPS id 1712100701439131.51364823275435;
+ Tue, 2 Apr 2024 16:31:41 -0700 (PDT)
+Received: by mail-yb1-f173.google.com with SMTP id
+ 3f1490d57ef6-dcc84ae94c1so5427910276.1
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 16:31:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,56 +43,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c75e77e7-f147-11ee-a1ef-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712100103;
-	bh=CxiARtPXVyYs3sl9Wqk24XA1llUNiyPjEbjht2Ja6pw=;
-	h=Date:From:To:cc:Subject:From;
-	b=BDdy8vtPOCL2g9E8uhMEVXNGgL8gvIV5++zjj2LXjKp0bhjIaiJliWBdz7QV/gQLs
-	 rWdMfitdIzvV0i4RZHADcaUzjEtAcQL2rADcAO4D6vLz0INF03ffwr9FfdY0Xh/Rq8
-	 ioPFRg9z6m8svARslwghL3afvibwTrgqgWadW6lcbYaQWNi/o2YY3HtVgIfJp8tcM4
-	 rM78d/GgUYtOhuUxvNwkzM0Sdu5a0gPZun2RaR0jsbsKYbSmOvFGZazPYYkiZfNZdr
-	 ZoO15flEUbtbzwNB1prDxyu51IUhP2OoOk8xuF0am8ik4v5ynzjjjw7cYG/o5wsUOX
-	 VCMOLzkuhjEqg==
-Date: Tue, 2 Apr 2024 16:21:41 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: xen-devel@lists.xenproject.org
-cc: sstabellini@kernel.org, Jan Beulich <jbeulich@suse.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>
-Subject: [PATCH] docs/misra: add 13.6 to rules.rst
-Message-ID: <alpine.DEB.2.22.394.2404021618030.2245130@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 2b4f70e1-f149-11ee-a1ef-f123f15fe8a2
+ARC-Seal: i=1; a=rsa-sha256; t=1712100703; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=kpAlG4aHUz1tJ+ouBK+2znL5bFS/px2v/6EXZuN7HST0vU+ycGf32/IGFfYbjQIvlQ+rFl0ogZMehvocNKQQjRBLPG6l1RZAA7VLEyIIj2uWGeXbSmclbBt2Iax0lkb0GMaD2kq/GpKekzuz3MYvWh0X+APvjOh0OZ1JphFSh4E=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1712100703; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=EYP8PWl+bK+SJNmCjUrcXX7Vqb5dR3fFTMsCwEA/OaI=; 
+	b=HZAewB5MHxN72CK/ojIA462EUD1CIsthTBWh90VgVa8nnbBSyVBScjBdESdieGbt/2pqj+C+VSbz3xT1Fx5i3XVX0OtN3giY7YMXCA+DE2dYh27TgTjV0gyPa6vwGX9MiaRi98iffaaSMZFarI57RMX16sgfEjKIQW5ApUoXHik=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712100703;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=EYP8PWl+bK+SJNmCjUrcXX7Vqb5dR3fFTMsCwEA/OaI=;
+	b=b7R5xdzBWUomqYCQ7U77pPdsHvStqoEXBQDAiZf3XYzKeYQo3YSqeg0GuHNOwECQ
+	hyeKX4sv+MHsXMNp5aIwFf4k50G00r+4eFTJExLBubbtRLQSxg15vxBH1mCSnzt3lKs
+	oRNiImGKCC84CGJT5zTR2i4XXnFjBdDhVev7JWz8=
+X-Gm-Message-State: AOJu0YwH8yFkh24oxH1v/FTDKbNIddzrhcW17QM5qlp2akrpDlsTloE1
+	GKzzSJGYWfv+JJ2Y9BMjHgfuGgCVMIirOMJSYh4OTMoEGJADAW3aPpahqLLjkLigqie20vG9YsT
+	Sktmn1c4GRrggHX8mqbujgU4IT/c=
+X-Google-Smtp-Source: AGHT+IGtZ3uuwztVzjIZDtYOR4TYAnkni6ePM0Wwl2Doh26QMV67sf7TgkvusyQxNLLsuLi7vCyQPTYDlyM8d51hvlM=
+X-Received: by 2002:a25:9e0b:0:b0:dcd:40fa:7bd0 with SMTP id
+ m11-20020a259e0b000000b00dcd40fa7bd0mr11766124ybq.3.1712100700413; Tue, 02
+ Apr 2024 16:31:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <cover.1712042178.git.federico.serafini@bugseng.com> <fcf24478d1f56c6159489fe65f8b8be2c07beab3.1712042178.git.federico.serafini@bugseng.com>
+In-Reply-To: <fcf24478d1f56c6159489fe65f8b8be2c07beab3.1712042178.git.federico.serafini@bugseng.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Tue, 2 Apr 2024 19:31:04 -0400
+X-Gmail-Original-Message-ID: <CABfawh=HW14N8-A9MBrF+R5RtLkhvK8PYX9V-+xMCXHOQkjcng@mail.gmail.com>
+Message-ID: <CABfawh=HW14N8-A9MBrF+R5RtLkhvK8PYX9V-+xMCXHOQkjcng@mail.gmail.com>
+Subject: Re: [XEN PATCH 6/7] xen/vm-event: address a violation of MISRA C:2012
+ Rule 16.3
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-As agreed during MISRA C meetings, add Rule 13.6 to rules.rst.
+On Tue, Apr 2, 2024 at 3:24=E2=80=AFAM Federico Serafini
+<federico.serafini@bugseng.com> wrote:
+>
+> Add break statement to address a violation of MISRA C:2012 Rule 16.3
+> ("An unconditional `break' statement shall terminate every
+> switch-clause ").
+>
+> No functional change.
+>
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
-There was a request to expand the scope to also include alignof and
-typeof. Depending on whether the MISRA C scanners support it, and under
-which rules violations will be listed, rules.rst will be updated
-accordingly (either updating the notes section of 13.6 or adding a new
-entry.)
-
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index 1e134ccebc..415b5b63c3 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -445,6 +445,12 @@ maintainers if you want to suggest a change.
-      - Initializer lists shall not contain persistent side effects
-      -
- 
-+   * - `Rule 13.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_06.c>`_
-+     - Required
-+     - The operand of the sizeof operator shall not contain any
-+       expression which has potential side-effects
-+     -
-+
-    * - `Rule 14.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_14_01.c>`_
-      - Required
-      - A loop counter shall not have essentially floating type
+Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
 
