@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6443F893EB5
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Apr 2024 18:07:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.699926.1092400 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D481894903
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 03:52:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.699973.1092410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrKAZ-00045x-Uc; Mon, 01 Apr 2024 16:05:59 +0000
+	id 1rrTIN-0007Wh-9r; Tue, 02 Apr 2024 01:50:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699926.1092400; Mon, 01 Apr 2024 16:05:59 +0000
+Received: by outflank-mailman (output) from mailman id 699973.1092410; Tue, 02 Apr 2024 01:50:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrKAZ-00043y-Rx; Mon, 01 Apr 2024 16:05:59 +0000
-Received: by outflank-mailman (input) for mailman id 699926;
- Mon, 01 Apr 2024 16:05:58 +0000
+	id 1rrTIN-0007UN-6L; Tue, 02 Apr 2024 01:50:39 +0000
+Received: by outflank-mailman (input) for mailman id 699973;
+ Tue, 02 Apr 2024 01:50:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2p3z=LG=huawei.com=jonathan.cameron@srs-se1.protection.inumbo.net>)
- id 1rrKAY-00043s-Nc
- for xen-devel@lists.xenproject.org; Mon, 01 Apr 2024 16:05:58 +0000
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
- [185.176.79.56]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8c8c5d4-f041-11ee-afe5-a90da7624cb6;
- Mon, 01 Apr 2024 18:05:57 +0200 (CEST)
-Received: from mail.maildlp.com (unknown [172.18.186.216])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4V7bNH6t7Jz6K7JS;
- Tue,  2 Apr 2024 00:01:19 +0800 (CST)
-Received: from lhrpeml500005.china.huawei.com (unknown [7.191.163.240])
- by mail.maildlp.com (Postfix) with ESMTPS id EB0981400D9;
- Tue,  2 Apr 2024 00:05:54 +0800 (CST)
-Received: from localhost (10.48.156.172) by lhrpeml500005.china.huawei.com
- (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.35; Mon, 1 Apr
- 2024 17:05:54 +0100
+ <SRS0=Fe4w=LH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rrTIL-0007UH-Hu
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 01:50:37 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 64d68149-f093-11ee-afe5-a90da7624cb6;
+ Tue, 02 Apr 2024 03:50:35 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id CDDF5CE16D8;
+ Tue,  2 Apr 2024 01:50:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED513C433C7;
+ Tue,  2 Apr 2024 01:50:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,46 +42,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8c8c5d4-f041-11ee-afe5-a90da7624cb6
-Date: Mon, 1 Apr 2024 17:05:53 +0100
-From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
-To: Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
-CC: <qemu-devel@nongnu.org>, Richard Henderson <richard.henderson@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>, Stefano Stabellini
-	<sstabellini@kernel.org>, <xen-devel@lists.xenproject.org>, Bernhard Beschow
-	<shentey@gmail.com>, Thomas Huth <thuth@redhat.com>, Marcel Apfelbaum
-	<marcel.apfelbaum@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>, "Paolo
- Bonzini" <pbonzini@redhat.com>, Igor Mammedov <imammedo@redhat.com>, "Anthony
- Perard" <anthony.perard@citrix.com>, Ani Sinha <anisinha@redhat.com>
-Subject: Re: [RFC PATCH-for-9.1 08/29] hw/i386/pc: Move CXLState to
- PcPciMachineState
-Message-ID: <20240401170553.00000ba3@Huawei.com>
-In-Reply-To: <20240328155439.58719-9-philmd@linaro.org>
-References: <20240328155439.58719-1-philmd@linaro.org>
-	<20240328155439.58719-9-philmd@linaro.org>
-Organization: Huawei Technologies Research and Development (UK) Ltd.
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
+X-Inumbo-ID: 64d68149-f093-11ee-afe5-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1712022632;
+	bh=BY4sc7J8SdkoUrlaF2s3gSAZDgnVGRRsogcFghic8OE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=PFJ9oThvH5EdawpgK/0edWi3jHU8qiSa8SUkjP4aZEnWcVN1NqaeovvlghULRUQrj
+	 Auy80WGntWYNDUviBjiRO/s0dcssnGyhs6H52kLi458ZhxEC5ziomRLRWAq1fwgSH6
+	 0d/5zs5Q8RDLvToNHKblLtg55RenTXvvZUvSe7KqOuMhLIWJMd8fmDZ3wJJvu9d0Jo
+	 kyhWdRsoOTXTxE75elb4wHdHJBKSaWoAd+zmo8ki7z62fbqKITAC8J2qVQUikiIdSz
+	 ucooEdhEoz3AI/G4yBnHpjZj9rIk40RKWFp9G9x1P6aA3agSiUB8ew/AHtcoOznj90
+	 sIBVamZcrtkiQ==
+Date: Mon, 1 Apr 2024 18:50:28 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Jan Beulich <jbeulich@suse.com>, andrew.cooper3@citrix.com, 
+    bertrand.marquis@arm.com, george.dunlap@citrix.com, michal.orzel@amd.com, 
+    roger.pau@citrix.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] docs/misra: document the expected sizes of integer
+ types
+In-Reply-To: <a5c01d46-eb46-49d1-8ffd-98b6d1680daa@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2404011833450.2245130@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2403141516550.853156@ubuntu-linux-20-04-desktop> <6a76723e-ba47-40b3-8f33-d68030b14299@suse.com> <alpine.DEB.2.22.394.2403151658530.853156@ubuntu-linux-20-04-desktop> <7ab73379-b057-4568-9869-141cef185752@suse.com>
+ <alpine.DEB.2.22.394.2403181735410.853156@ubuntu-linux-20-04-desktop> <fadd30c9-440d-401d-bd05-7e1d965bbefe@suse.com> <alpine.DEB.2.22.394.2403190815220.853156@ubuntu-linux-20-04-desktop> <87234837-9fb3-40a9-849d-8b8574f2661c@suse.com>
+ <alpine.DEB.2.22.394.2403201812380.1569010@ubuntu-linux-20-04-desktop> <198bade8-c6fc-4ae0-b721-3a9e2bd8acbe@suse.com> <alpine.DEB.2.22.394.2403211140540.1569010@ubuntu-linux-20-04-desktop> <a5c01d46-eb46-49d1-8ffd-98b6d1680daa@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [10.48.156.172]
-X-ClientProxiedBy: lhrpeml100003.china.huawei.com (7.191.160.210) To
- lhrpeml500005.china.huawei.com (7.191.163.240)
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 28 Mar 2024 16:54:16 +0100
-Philippe Mathieu-Daud=E9 <philmd@linaro.org> wrote:
+On Thu, 21 Mar 2024, Julien Grall wrote:
+> Hi Stefano,
+> 
+> I haven't fully read the thread. But I wanted to clarify something.
+> 
+> On 21/03/2024 19:03, Stefano Stabellini wrote:
+> > > > Or possibly unsigned long depending on the parameter.
+> > > 
+> > > You're contradicting yourself: You mean to advocate for fixed-width types,
+> > > yet then you suggest "unsigned long".
+> > 
+> > No. I explained it in another thread a couple of days ago. There are
+> > cases where we have fixed-width types but the type changes by
+> > architecture: 32-bit for 32-bit archs and 64-bit for 64-bit archs.
+> > Rather than having #ifdefs, which is also an option, that is the one
+> > case where using "unsigned long" could be a decent compromise. In this
+> > context "unsigned long" means register size (on ARM we even have
+> > register_t). Once you pick an architecture, the size is actually meant
+> > to be fixed. In fact, it is specified in this document. Which is one of
+> > the reasons why we have to use == in this document and not >=. In
+> > general, fixed-width types like uint32_t are better because they are
+> > clearer and unambiguous. When possible I think they should be our first
+> > choice in ABIs.
+> 
+> "unsigned long" is not fixed in a given architecture. It will change base on
+> the data model used by the OS. For instance, for Arm 64-bit, we have 3 models:
+> ILP32, LP64, LLP64. Only on LP64, 'unsigned long' is 32-bit.
+> 
+> So effectively unsigned long can't be used in the ABI.
 
-> CXL depends on PCIe, which isn't available on non-PCI
-> machines such the ISA-only PC one.
-> Move CXLState to PcPciMachineState, and move the CXL
-> specific calls to pc_pci_machine_initfn() and
-> pc_pci_machine_done().
->=20
-> Signed-off-by: Philippe Mathieu-Daud=E9 <philmd@linaro.org>
+If someone sees "unsigned long" in the public headers to define a public
+Xen ABI, they would need to refer to this document to understand what
+"unsigned long" really means, which specifies size and alignment of
+"unsigned long" based on the architecture. In other words, this document
+mandates LP64 (at least for safety configuration, given that nothing
+else is tested).
 
-LGTM as a change on it's own - I've not reviewed the series
-in general though, hence just an ack as an rb feels too strong.
-
-Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-
+This is the reason why ideally we wouldn't have any "unsigned long" in
+the Xen ABI at all. They are not as clear as explicitly-sized integers
+(e.g. uint32_t). In an ideal world, we would use explicitly-sized
+integers for everything in public ABIs.
 
