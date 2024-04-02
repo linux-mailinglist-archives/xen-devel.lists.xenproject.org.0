@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED87A894C23
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 09:06:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.699988.1092442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B7ED894C94
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 09:24:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.699996.1092460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrYDM-0000GP-Hv; Tue, 02 Apr 2024 07:05:48 +0000
+	id 1rrYVK-0003l4-DA; Tue, 02 Apr 2024 07:24:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699988.1092442; Tue, 02 Apr 2024 07:05:48 +0000
+Received: by outflank-mailman (output) from mailman id 699996.1092460; Tue, 02 Apr 2024 07:24:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrYDM-0000D7-F9; Tue, 02 Apr 2024 07:05:48 +0000
-Received: by outflank-mailman (input) for mailman id 699988;
- Tue, 02 Apr 2024 07:05:47 +0000
+	id 1rrYVK-0003jT-A9; Tue, 02 Apr 2024 07:24:22 +0000
+Received: by outflank-mailman (input) for mailman id 699996;
+ Tue, 02 Apr 2024 07:24:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hiiI=LH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrYDL-0000Cz-KX
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 07:05:47 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Tdu6=LH=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1rrYVI-0003jD-Vq
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 07:24:20 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6d91fca1-f0bf-11ee-afe5-a90da7624cb6;
- Tue, 02 Apr 2024 09:05:46 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3417a3151c4so4467526f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 00:05:46 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a9-20020a056000050900b00341d7596ec0sm13316241wrf.15.2024.04.02.00.05.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 00:05:45 -0700 (PDT)
+ id 051b12de-f0c2-11ee-afe5-a90da7624cb6;
+ Tue, 02 Apr 2024 09:24:19 +0200 (CEST)
+Received: from truciolo.homenet.telecomitalia.it
+ (host-82-59-164-46.retail.telecomitalia.it [82.59.164.46])
+ by support.bugseng.com (Postfix) with ESMTPSA id B720E4EE0739;
+ Tue,  2 Apr 2024 09:24:18 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +40,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d91fca1-f0bf-11ee-afe5-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712041546; x=1712646346; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=SVvxaV5V4OJsKQ2BijM4y9AchUy1JzHb2C+BY6EWdL4=;
-        b=FJgaOAbfFNZR+Tub4It8G/op45gW8y60hkSYKS7W6W2kNthR7LHJlxmr9H9rAaE2n3
-         FNxsKxok1gaclKX+lvARD7OXrWUtt4hmBoUj/6TnhnhW+YavcpBHhpk+A1H+9/P6BGIR
-         M+fmrWial13adGBB0aDOzX80cse4v2gqyZKK5iO4pBTC2F2NKrmmpUK4S32i3iS7nciJ
-         ODuxGUOotKbcGpwOlsu/i40IAE34goP7b+7IU3PbJ2FbtcD+jj+NoJhzAvp/2JLJWJ4e
-         q9F5TR/UKsTfk3O/yUE33bEMNXUnG1olaR8K5rQ6AavJqff9gOEKnA6B9nHMoerzqga1
-         uEWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712041546; x=1712646346;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=SVvxaV5V4OJsKQ2BijM4y9AchUy1JzHb2C+BY6EWdL4=;
-        b=EQH/DO+3pgFjK7xVOTDqHoiGut+/3dU+ZVNuvy8IRVHhMEzmL31Hov/tohgGvL5wzu
-         njlE+EF/QamIJaKgX7QzbjomOP5nykqJYx1aUla8Qi+KOSW/stbXGVOxTPdI9BzHeQp/
-         xJwd3jmknST6uK5HQ2Wvlgv9C7PKJ/qjBPrIRvS6n0gp1VvTxa/2QK8NL5WkI4RD7bHG
-         rylxB9+9yrNTCkOjQaDdIG6ibUrcF9T0BUvLoPw16lkO6dKLgUYgWoM5kiPDWxD9izbc
-         Viug/6DYZf3S6jFDNji3lHmQwfYZPViRPOdKggm62im6GKSIkAaVEJcoKxGWT2ydE6kL
-         0Dug==
-X-Forwarded-Encrypted: i=1; AJvYcCVcdGihzTTO8iGFYx41PyL1oxJDwgBeXFfPN9vvlXiYJrgkjqeLGHsCPyUWaXC1oSoIvVohC26PQJlr/nn87Wm6njvx0B3O4Y5j05P6OgQ=
-X-Gm-Message-State: AOJu0Yzp2Kr5EryIFJSh/Xa8RnriKUBdGK8hWY3fxjCLGvY93IZK8YwN
-	0E6QkE7vpSMCCD4B+bkaCQLxtcReenQxfbf6rZLwJ+8cMNKV+P0gCvQYBvxrIA==
-X-Google-Smtp-Source: AGHT+IGBV5vgweKBJzAXf+BdXvBCQU8sRxkfS13yL6UDLAxH0n5pjPjvXqM5NVyr2csHAPEFbkCCgg==
-X-Received: by 2002:adf:fed1:0:b0:343:6551:935 with SMTP id q17-20020adffed1000000b0034365510935mr570640wrs.66.1712041545801;
-        Tue, 02 Apr 2024 00:05:45 -0700 (PDT)
-Message-ID: <d9e3b7c4-d8be-4642-9212-b48ae885b46a@suse.com>
-Date: Tue, 2 Apr 2024 09:05:49 +0200
+X-Inumbo-ID: 051b12de-f0c2-11ee-afe5-a90da7624cb6
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>
+Subject: [XEN PATCH 0/7] xen: address violations of MISRA C:2012 Rule 16.3
+Date: Tue,  2 Apr 2024 09:22:03 +0200
+Message-Id: <cover.1712042178.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] xen/memory, tools: Make init-dom0less consume
- XEN_DOMCTL_get_mem_map
-Content-Language: en-US
-To: Henry Wang <xin.wang2@amd.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alec Kwapis <alec.kwapis@medtronic.com>, xen-devel@lists.xenproject.org
-References: <20240308015435.4044339-1-xin.wang2@amd.com>
- <20240308015435.4044339-6-xin.wang2@amd.com>
- <1cb8bca3-58b6-4a8d-ac46-8338ea5807e7@suse.com>
- <b1393dbe-42c2-4839-8ca3-7dc71fe72969@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b1393dbe-42c2-4839-8ca3-7dc71fe72969@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 29.03.2024 06:11, Henry Wang wrote:
-> On 3/12/2024 1:07 AM, Jan Beulich wrote:
->>> +/*
->>> + * Flag to force populate physmap to use pages from domheap instead of 1:1
->>> + * or static allocation.
->>> + */
->>> +#define XENMEMF_force_heap_alloc  (1<<19)
->>>   #endif
->> If this is for populate_physmap only, then other sub-ops need to reject
->> its use.
->>
->> I have to admit I'm a little wary of allocating another flag here and ...
->>
->>> --- a/xen/include/xen/mm.h
->>> +++ b/xen/include/xen/mm.h
->>> @@ -205,6 +205,8 @@ struct npfec {
->>>   #define  MEMF_no_icache_flush (1U<<_MEMF_no_icache_flush)
->>>   #define _MEMF_no_scrub    8
->>>   #define  MEMF_no_scrub    (1U<<_MEMF_no_scrub)
->>> +#define _MEMF_force_heap_alloc 9
->>> +#define  MEMF_force_heap_alloc (1U<<_MEMF_force_heap_alloc)
->>>   #define _MEMF_node        16
->>>   #define  MEMF_node_mask   ((1U << (8 * sizeof(nodeid_t))) - 1)
->>>   #define  MEMF_node(n)     ((((n) + 1) & MEMF_node_mask) << _MEMF_node)
->> ... here - we don't have that many left. Since other sub-ops aren't
->> intended to support this flag, did you consider adding another (perhaps
->> even arch-specific) sub-op instead?
-> 
-> While revisiting this comment when trying to come up with a V3, I 
-> realized adding a sub-op here in the same level as 
-> XENMEM_populate_physmap will basically duplicate the function 
-> populate_physmap() with just the "else" (the non-1:1 allocation) part, 
-> also a similar xc_domain_populate_physmap_exact() & co will be needed 
-> from the toolstack side to call the new sub-op. So I am having the 
-> concern of the duplication of code and not sure if I understand you 
-> correctly. Would you please elaborate a bit more or clarify if I 
-> understand you correctly? Thanks!
+This patch series addresses some violations of Rule 16.3 by adding the missing
+break statements and pseudo-keyword fallthrough.
 
-Well, the goal is to avoid both code duplication and introduction of a new,
-single-use flag. The new sub-op suggestion, I realize now, would mainly have
-helped with avoiding the new flag in the public interface. That's still
-desirable imo. Internally, have you checked which MEMF_* are actually used
-by populate_physmap()? Briefly looking, e.g. MEMF_no_dma and MEMF_no_refcount
-aren't. It therefore would be possible to consider re-purposing one that
-isn't (likely to be) used there. Of course doing so requires care to avoid
-passing that flag down to other code (page_alloc.c functions in particular),
-where the meaning would be the original one.
+Federico Serafini (7):
+  xen/domctl: address a violation of MISRA C:2012 Rule 16.3
+  console: address a violation of MISRA C:2012 Rule 16.3
+  xen/sched: address a violation of MISRA C:2012 Rule 16.3
+  xen/evtchn: address a violation of MISRA C:2012 Rule 16.3
+  xen/sched: address a violation of MISRA C:2012 Rule 16.3
+  xen/vm-event: address a violation of MISRA C:2012 Rule 16.3
+  vsprintf: address violations of MISRA C:2012 Rule 16.3
 
-Jan
+ xen/common/domctl.c        | 1 +
+ xen/common/event_channel.c | 1 +
+ xen/common/sched/core.c    | 1 +
+ xen/common/sched/credit2.c | 2 +-
+ xen/common/vm_event.c      | 1 +
+ xen/common/vsprintf.c      | 6 +++++-
+ xen/drivers/char/console.c | 2 ++
+ 7 files changed, 12 insertions(+), 2 deletions(-)
 
-Jan
+-- 
+2.34.1
+
 
