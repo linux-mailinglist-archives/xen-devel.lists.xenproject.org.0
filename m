@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C818F894BB9
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 08:46:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.699984.1092431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED87A894C23
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 09:06:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.699988.1092442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrXuY-0005kV-W4; Tue, 02 Apr 2024 06:46:22 +0000
+	id 1rrYDM-0000GP-Hv; Tue, 02 Apr 2024 07:05:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 699984.1092431; Tue, 02 Apr 2024 06:46:22 +0000
+Received: by outflank-mailman (output) from mailman id 699988.1092442; Tue, 02 Apr 2024 07:05:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrXuY-0005ig-Se; Tue, 02 Apr 2024 06:46:22 +0000
-Received: by outflank-mailman (input) for mailman id 699984;
- Tue, 02 Apr 2024 06:46:21 +0000
+	id 1rrYDM-0000D7-F9; Tue, 02 Apr 2024 07:05:48 +0000
+Received: by outflank-mailman (input) for mailman id 699988;
+ Tue, 02 Apr 2024 07:05:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hiiI=LH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrXuX-0005ia-LJ
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 06:46:21 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1rrYDL-0000Cz-KX
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 07:05:47 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b6b364b9-f0bc-11ee-afe5-a90da7624cb6;
- Tue, 02 Apr 2024 08:46:20 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4161bd0a4ecso1232725e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 01 Apr 2024 23:46:20 -0700 (PDT)
+ id 6d91fca1-f0bf-11ee-afe5-a90da7624cb6;
+ Tue, 02 Apr 2024 09:05:46 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3417a3151c4so4467526f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 00:05:46 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- t1-20020adfe441000000b0033e756ed840sm13292799wrm.47.2024.04.01.23.46.19
+ a9-20020a056000050900b00341d7596ec0sm13316241wrf.15.2024.04.02.00.05.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Apr 2024 23:46:19 -0700 (PDT)
+ Tue, 02 Apr 2024 00:05:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6b364b9-f0bc-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 6d91fca1-f0bf-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712040380; x=1712645180; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712041546; x=1712646346; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=IjZTJ9wQXvMBGOs8OL3MPHrmrDRcsnrJnMq0g2Y/4Bw=;
-        b=UV7xvzF3XGEAkQ35QxFoTPO3qms41wcraQYAb8RZbHMv3vfjWUoI528zdFTa1XTLwI
-         wQNSrnMidiYY0nZgfYIPt1GuIEIqEq4g68ONUQeOSqQDAjgRAJjwqrufiaTsZwarR2XG
-         4owGF1T+VNCO8aPuBPkm0CApkeNEz41EBoek6OFAu0zZLa/jnTNdCwO/UjxTcY/0U2il
-         QPnzDnY1zrWYHwGmlAsbuUhE2B+uOxVy45mq2OWDUU6V0TPrkhWPn+0ouk4R9TFVxlVd
-         njla4ODMR5T4/ebitxMHtd3R+Dt+0xS3smzRqjkAVgTFMiCeiRJEZNCZpWhAtHk85Wab
-         8gwg==
+        bh=SVvxaV5V4OJsKQ2BijM4y9AchUy1JzHb2C+BY6EWdL4=;
+        b=FJgaOAbfFNZR+Tub4It8G/op45gW8y60hkSYKS7W6W2kNthR7LHJlxmr9H9rAaE2n3
+         FNxsKxok1gaclKX+lvARD7OXrWUtt4hmBoUj/6TnhnhW+YavcpBHhpk+A1H+9/P6BGIR
+         M+fmrWial13adGBB0aDOzX80cse4v2gqyZKK5iO4pBTC2F2NKrmmpUK4S32i3iS7nciJ
+         ODuxGUOotKbcGpwOlsu/i40IAE34goP7b+7IU3PbJ2FbtcD+jj+NoJhzAvp/2JLJWJ4e
+         q9F5TR/UKsTfk3O/yUE33bEMNXUnG1olaR8K5rQ6AavJqff9gOEKnA6B9nHMoerzqga1
+         uEWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712040380; x=1712645180;
+        d=1e100.net; s=20230601; t=1712041546; x=1712646346;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IjZTJ9wQXvMBGOs8OL3MPHrmrDRcsnrJnMq0g2Y/4Bw=;
-        b=iuQGVbq3mSdEnNVeHy7fpUWCH5HncS0U4UhfY90S42le0DTRpynQA4sQsv0xaynV0i
-         Ld6xaOo1ptxdRkepkKogwG/5S5DhCKK76RHtHERnD2AETNvS1dJQnxPK09OwDbJQ6/m8
-         I1ZChyiv4MTDtjQigS8oBLS0A9YnOe3QrFpigBDJoNaysehli1vJlaEi24e38SW0vMMk
-         ufSedXRT4t55QDhaU0cpfzKq/22w+pm6GiKP+n0iDBtVVI6PNIp9JXEm3lmlL91fW809
-         +2lqVtd0w6dwTLeGQ2PVOEE5tySGoZQpCka1/PTmDfUsOGDNSnGruaJ78c9Nu4xouOmu
-         Gb9g==
-X-Forwarded-Encrypted: i=1; AJvYcCX1qXFHI8y7l70jwRASt24NU/HCJq/L5Q8d4mTdNfxcREMo0Ftsvh3XR6ARD3Yu/Y2C3ashtLqgstaiiFiH217tJvcOMc5tyhr/0SEpw54=
-X-Gm-Message-State: AOJu0Yx0U4tPU7fY6zStCKLMMHQIV9r5TqaBvPiKE9wDFaKwgIV47Pyp
-	OoPP8ISrRgN57y01iuxEnD1IBnmKyMSLppjDKsDHBWAjguuOq/QFSfT8bZPJZQ==
-X-Google-Smtp-Source: AGHT+IGNLPqTmaWvBmj1dDmB516BIccvjIzkVSpZAhl/4Kg55cX0ImjzLFIm5AU1ID/FYizYz+Mt8A==
-X-Received: by 2002:a05:600c:3007:b0:415:589b:c01c with SMTP id j7-20020a05600c300700b00415589bc01cmr5854087wmh.23.1712040380129;
-        Mon, 01 Apr 2024 23:46:20 -0700 (PDT)
-Message-ID: <050a155f-325b-4b70-b954-bcdb3a64fbaa@suse.com>
-Date: Tue, 2 Apr 2024 08:46:23 +0200
+        bh=SVvxaV5V4OJsKQ2BijM4y9AchUy1JzHb2C+BY6EWdL4=;
+        b=EQH/DO+3pgFjK7xVOTDqHoiGut+/3dU+ZVNuvy8IRVHhMEzmL31Hov/tohgGvL5wzu
+         njlE+EF/QamIJaKgX7QzbjomOP5nykqJYx1aUla8Qi+KOSW/stbXGVOxTPdI9BzHeQp/
+         xJwd3jmknST6uK5HQ2Wvlgv9C7PKJ/qjBPrIRvS6n0gp1VvTxa/2QK8NL5WkI4RD7bHG
+         rylxB9+9yrNTCkOjQaDdIG6ibUrcF9T0BUvLoPw16lkO6dKLgUYgWoM5kiPDWxD9izbc
+         Viug/6DYZf3S6jFDNji3lHmQwfYZPViRPOdKggm62im6GKSIkAaVEJcoKxGWT2ydE6kL
+         0Dug==
+X-Forwarded-Encrypted: i=1; AJvYcCVcdGihzTTO8iGFYx41PyL1oxJDwgBeXFfPN9vvlXiYJrgkjqeLGHsCPyUWaXC1oSoIvVohC26PQJlr/nn87Wm6njvx0B3O4Y5j05P6OgQ=
+X-Gm-Message-State: AOJu0Yzp2Kr5EryIFJSh/Xa8RnriKUBdGK8hWY3fxjCLGvY93IZK8YwN
+	0E6QkE7vpSMCCD4B+bkaCQLxtcReenQxfbf6rZLwJ+8cMNKV+P0gCvQYBvxrIA==
+X-Google-Smtp-Source: AGHT+IGBV5vgweKBJzAXf+BdXvBCQU8sRxkfS13yL6UDLAxH0n5pjPjvXqM5NVyr2csHAPEFbkCCgg==
+X-Received: by 2002:adf:fed1:0:b0:343:6551:935 with SMTP id q17-20020adffed1000000b0034365510935mr570640wrs.66.1712041545801;
+        Tue, 02 Apr 2024 00:05:45 -0700 (PDT)
+Message-ID: <d9e3b7c4-d8be-4642-9212-b48ae885b46a@suse.com>
+Date: Tue, 2 Apr 2024 09:05:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 06/20] xen/bitops: put __ffs() and ffz() into linux
- compatible header
+Subject: Re: [PATCH v2 5/5] xen/memory, tools: Make init-dom0less consume
+ XEN_DOMCTL_get_mem_map
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+To: Henry Wang <xin.wang2@amd.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-References: <cover.1710517542.git.oleksii.kurochko@gmail.com>
- <8bc35da4a9fd44d2dcf9677dcc99334eb7142581.1710517542.git.oleksii.kurochko@gmail.com>
- <a4d36c0f-d3a3-4d64-a62e-b631a4ece9a8@suse.com>
- <827d3d8ee11bd4a3c20dbee936132df231db1e73.camel@gmail.com>
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alec Kwapis <alec.kwapis@medtronic.com>, xen-devel@lists.xenproject.org
+References: <20240308015435.4044339-1-xin.wang2@amd.com>
+ <20240308015435.4044339-6-xin.wang2@amd.com>
+ <1cb8bca3-58b6-4a8d-ac46-8338ea5807e7@suse.com>
+ <b1393dbe-42c2-4839-8ca3-7dc71fe72969@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,31 +117,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <827d3d8ee11bd4a3c20dbee936132df231db1e73.camel@gmail.com>
+In-Reply-To: <b1393dbe-42c2-4839-8ca3-7dc71fe72969@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 29.03.2024 19:23, Oleksii wrote:
-> On Wed, 2024-03-20 at 16:42 +0100, Jan Beulich wrote:
->> On 15.03.2024 19:06, Oleksii Kurochko wrote:
->>> --- a/xen/lib/find-next-bit.c
->>> +++ b/xen/lib/find-next-bit.c
->>> @@ -9,6 +9,7 @@
->>>   * 2 of the License, or (at your option) any later version.
->>>   */
->>>  #include <xen/bitops.h>
->>> +#include <xen/linux-compat.h>
->>>  
->>>  #include <asm/byteorder.h>
+On 29.03.2024 06:11, Henry Wang wrote:
+> On 3/12/2024 1:07 AM, Jan Beulich wrote:
+>>> +/*
+>>> + * Flag to force populate physmap to use pages from domheap instead of 1:1
+>>> + * or static allocation.
+>>> + */
+>>> +#define XENMEMF_force_heap_alloc  (1<<19)
+>>>   #endif
+>> If this is for populate_physmap only, then other sub-ops need to reject
+>> its use.
 >>
->> Hmm, no, a library source would better not include this header.
->> Surely
->> the ffz() can be taken care of locally here?
-> Except that __ffs() from xen/linux-compat.h is used in find-next-bit.c,
-> so it seems that it is still need to include the header.
+>> I have to admit I'm a little wary of allocating another flag here and ...
+>>
+>>> --- a/xen/include/xen/mm.h
+>>> +++ b/xen/include/xen/mm.h
+>>> @@ -205,6 +205,8 @@ struct npfec {
+>>>   #define  MEMF_no_icache_flush (1U<<_MEMF_no_icache_flush)
+>>>   #define _MEMF_no_scrub    8
+>>>   #define  MEMF_no_scrub    (1U<<_MEMF_no_scrub)
+>>> +#define _MEMF_force_heap_alloc 9
+>>> +#define  MEMF_force_heap_alloc (1U<<_MEMF_force_heap_alloc)
+>>>   #define _MEMF_node        16
+>>>   #define  MEMF_node_mask   ((1U << (8 * sizeof(nodeid_t))) - 1)
+>>>   #define  MEMF_node(n)     ((((n) + 1) & MEMF_node_mask) << _MEMF_node)
+>> ... here - we don't have that many left. Since other sub-ops aren't
+>> intended to support this flag, did you consider adding another (perhaps
+>> even arch-specific) sub-op instead?
+> 
+> While revisiting this comment when trying to come up with a V3, I 
+> realized adding a sub-op here in the same level as 
+> XENMEM_populate_physmap will basically duplicate the function 
+> populate_physmap() with just the "else" (the non-1:1 allocation) part, 
+> also a similar xc_domain_populate_physmap_exact() & co will be needed 
+> from the toolstack side to call the new sub-op. So I am having the 
+> concern of the duplication of code and not sure if I understand you 
+> correctly. Would you please elaborate a bit more or clarify if I 
+> understand you correctly? Thanks!
 
-Hmm, no - that __ffs() use, if we mean that to become a Linux compat thing
-only, should then be replaced (or covered locally), too, imo.
+Well, the goal is to avoid both code duplication and introduction of a new,
+single-use flag. The new sub-op suggestion, I realize now, would mainly have
+helped with avoiding the new flag in the public interface. That's still
+desirable imo. Internally, have you checked which MEMF_* are actually used
+by populate_physmap()? Briefly looking, e.g. MEMF_no_dma and MEMF_no_refcount
+aren't. It therefore would be possible to consider re-purposing one that
+isn't (likely to be) used there. Of course doing so requires care to avoid
+passing that flag down to other code (page_alloc.c functions in particular),
+where the meaning would be the original one.
+
+Jan
 
 Jan
 
