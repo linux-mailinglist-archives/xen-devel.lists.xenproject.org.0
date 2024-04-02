@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB67B895782
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 16:53:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700180.1092891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 977C089578A
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Apr 2024 16:53:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700182.1092901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrfV1-0001AB-46; Tue, 02 Apr 2024 14:52:31 +0000
+	id 1rrfWD-0001hZ-FB; Tue, 02 Apr 2024 14:53:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700180.1092891; Tue, 02 Apr 2024 14:52:31 +0000
+Received: by outflank-mailman (output) from mailman id 700182.1092901; Tue, 02 Apr 2024 14:53:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrfV1-00017g-0c; Tue, 02 Apr 2024 14:52:31 +0000
-Received: by outflank-mailman (input) for mailman id 700180;
- Tue, 02 Apr 2024 14:52:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rrfWD-0001eG-BG; Tue, 02 Apr 2024 14:53:45 +0000
+Received: by outflank-mailman (input) for mailman id 700182;
+ Tue, 02 Apr 2024 14:53:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hiiI=LH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrfUz-00017a-M1
- for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 14:52:29 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9f81d904-f100-11ee-a1ef-f123f15fe8a2;
- Tue, 02 Apr 2024 16:52:27 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-416200b3caaso7805e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 07:52:27 -0700 (PDT)
+ id 1rrfWB-0001e6-4t
+ for xen-devel@lists.xenproject.org; Tue, 02 Apr 2024 14:53:43 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cc15c6e0-f100-11ee-afe5-a90da7624cb6;
+ Tue, 02 Apr 2024 16:53:42 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4161b7d15c0so5202035e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 07:53:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- r7-20020adfab47000000b0033e43756d11sm14477935wrc.85.2024.04.02.07.52.26
+ r7-20020adfab47000000b0033e43756d11sm14477935wrc.85.2024.04.02.07.53.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 07:52:26 -0700 (PDT)
+ Tue, 02 Apr 2024 07:53:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f81d904-f100-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: cc15c6e0-f100-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712069547; x=1712674347; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712069622; x=1712674422; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=nci9zZE4Di+fsi7I0pp4pMvTXlu98LFwAXsmUQYtoYA=;
-        b=DT0K472S8uuEbUK1A22x4lwcrX4tjyABcRlSspwaxngc02GW+WIu9y4sIOpGhIBRBJ
-         dGeyEK6qKJ3M5dTwtvX3+keG7zLLd/4IjQmcJ5Te2ss3aIAkTrvUpRWgE+/IkS0DOHUw
-         jmjdWgGf+ScFS3AWDMMvL+1OTVieT1/SOwHmp0cVUhGhj9lkFVpMmBhUmmJKuwkNtYtr
-         R3x2TZTYxSJRrmpZ1iZyTQEK2spUjW6pioXObZ+53Gb2R5fioV73n0fo7lBjiALzgkS5
-         wqMRc3CdS6ITaSu/fD/Zg82/L2QsM2O+SFRpHN7tEED3XKUTVZzAAt4lvSpzon87Xkmt
-         wFWA==
+        bh=KZ3AkmtJCFCb0vYZlX14FdmIoXjJYTOwkamGysIzNlI=;
+        b=AJHlTymkjkHp15YrPsxV8AsPyy6uWhaSS7g6DV/eSlloZaVXYArTHYl+AZBtggOjbd
+         /ZKWdNVWcd4dXnwHZR4IB0JEFXwJAoOav4OdD+Mdbigm2YMm12jjqQRJs6ULMCQnimdU
+         7lXJe0ygNSkpgi3v45A4+LjeThblM3mntsxsvWHxdJggld2cTyC83lTCnjetFNJHTi78
+         ucxTytke1fbXTCG1ytofWcBTyGFCYw2wh0LfHD2B8ylH5NqIeVnXyE83hxinU3t8Q+B0
+         e+mIh3vIwc8X+sHQVhwOIA03e6URTNWMCapZJxpw96LB5BtN9qOGqkHALFWx9pe+EUcW
+         pLIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712069547; x=1712674347;
+        d=1e100.net; s=20230601; t=1712069622; x=1712674422;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nci9zZE4Di+fsi7I0pp4pMvTXlu98LFwAXsmUQYtoYA=;
-        b=k4x7e58wFj1J8f9w5ZZ4lkq3YoU/nTOSA1advKwl0wPh0XrhCMB82dx62H1jjRcDut
-         9+2eDaIvB88fiKbit8huqCSD67dycUBNYxc68hNa1dcRhk4D6HlZDPE6/VGS93tQQAMn
-         9no+ftGN9k1hYF4DEDH+MDdQn2UPmHp6v8Z/69PREopyYDOD9JsgVVWpTi98jocq8DDo
-         qzz8xs9JjMb/r1cJmaRqCxoqw6rXm6RvMfJ1j3wlCDKtVSSbGk5RuoOXivR/4PeSOx34
-         T56bSw1xSf5bdpcMcilbGfeeAcLEDiB5H9bdkD130WyP1xsfSYbYzzopKiF4qU6gaFDg
-         fBpg==
-X-Forwarded-Encrypted: i=1; AJvYcCV2AmvH9yofDF3zSkm3r44HAoL3xhwrPZ3IqQomfr+RautWHyP6Whto2/Zyo0oTQeZfEruxGTRwuKGt3N50rzk8r9Or4AK6vJV6T9AMd1c=
-X-Gm-Message-State: AOJu0YzTB5IwVtCs0x3tRJJfHx4Jj0k8mahy/EYXF/r7MZYtSg+1x7si
-	KuwtxMo1+Kn6R3yE3q9LkD8rluvteErA4o/HLgEk7nBOa3VvnVjqPs1XlX3OYQ==
-X-Google-Smtp-Source: AGHT+IF5ISvCldfn4cXBSMbt2GUj6XT+f6uJxOH6foQEVrwStluaCAWKKV7I5rpcoiiZdLvybIW4Fg==
-X-Received: by 2002:a05:600c:154b:b0:413:133c:b9c8 with SMTP id f11-20020a05600c154b00b00413133cb9c8mr8685755wmg.33.1712069547008;
-        Tue, 02 Apr 2024 07:52:27 -0700 (PDT)
-Message-ID: <7e94482d-2c03-41ac-827f-af92a94796af@suse.com>
-Date: Tue, 2 Apr 2024 16:52:26 +0200
+        bh=KZ3AkmtJCFCb0vYZlX14FdmIoXjJYTOwkamGysIzNlI=;
+        b=Vrmnt9gyKSFXVU9D4RPfcOqqq0014QvEo/n4Y0BQYraDX7HZv5qAcaahV6nLTO6EvF
+         ONWZeaYP6KwuTgT0fden83+W9z+Go/33QEqUx0v+J82UpFy51kY2IJN3nvQWNu0h9aLt
+         83agPUWyL7kDvK+IEuxQZvSX9b4bEtPzTQbBsOu2V0CMWJI96B0iKW9ELk0ip+4lp+4F
+         yce8njgRhUA1wLzwMoUGkU9+eMWNQeHg64pgdeLu5XSueK5Ejz1PHqWmD+mkvtcw399o
+         XbMCiby7KMD0GmImUbcjn+a4RhvlDa21cy8xDpa6hOarBjP35zOioVWtzXBhxyml3oXQ
+         uCAw==
+X-Forwarded-Encrypted: i=1; AJvYcCUv6oZzfycZ7aDwVvNrK+a3vMavf8mwoWUz+YBdZzXf+lZuHrt7+1sliQlnwcc/UXlZVYx2PPK9qJ18HLmJKhyCkhW3hHLXbL6oKx9XjsQ=
+X-Gm-Message-State: AOJu0Yz8Ef6RC484RonjEbozJXt6TYNabaiCrq/LJEvHVyGxcXlD5GaB
+	zEqKgomeOgdwn+X3VgfaM+Y2d7HZ4Efq54s6QmO3hArPnxrIKtgdqUie1O8bpA==
+X-Google-Smtp-Source: AGHT+IG8aHMl2FHyQdVYGLFQqXVKMyTP7Bi6kHBf6o18hiow6oX6yT0beIaYaNRtYQDIGrh3COCk7Q==
+X-Received: by 2002:a05:6000:52:b0:343:826a:7a36 with SMTP id k18-20020a056000005200b00343826a7a36mr109489wrx.58.1712069621840;
+        Tue, 02 Apr 2024 07:53:41 -0700 (PDT)
+Message-ID: <86a662e6-712f-4eb3-954e-49cbbb968fe9@suse.com>
+Date: Tue, 2 Apr 2024 16:53:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 7/8] xen/rwlock: raise the number of possible cpus
+Subject: Re: [XEN PATCH v3 3/7] x86/vPMU: address violations of MISRA C Rule
+ 20.7
 Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240327152229.25847-1-jgross@suse.com>
- <20240327152229.25847-8-jgross@suse.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
+ julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1711700095.git.nicola.vetrini@bugseng.com>
+ <b7d750f92da63893e9699e2924eb12d3efa251b2.1711700095.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,39 +115,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240327152229.25847-8-jgross@suse.com>
+In-Reply-To: <b7d750f92da63893e9699e2924eb12d3efa251b2.1711700095.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.03.2024 16:22, Juergen Gross wrote:
-> @@ -36,14 +36,21 @@ void queue_write_lock_slowpath(rwlock_t *lock);
->  
->  static inline bool _is_write_locked_by_me(unsigned int cnts)
->  {
-> -    BUILD_BUG_ON(_QW_CPUMASK < NR_CPUS);
-> +    BUILD_BUG_ON((_QW_CPUMASK + 1) < NR_CPUS);
-> +    BUILD_BUG_ON(NR_CPUS * _QR_BIAS > INT_MAX);
->      return (cnts & _QW_WMASK) == _QW_LOCKED &&
->             (cnts & _QW_CPUMASK) == smp_processor_id();
->  }
->  
->  static inline bool _can_read_lock(unsigned int cnts)
->  {
-> -    return !(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts);
-> +    /*
-> +     * If write locked by the caller, no other readers are possible.
-> +     * Not allowing the lock holder to read_lock() another 32768 times ought
-> +     * to be fine.
-> +     */
-> +    return cnts <= INT_MAX &&
-> +           (!(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts));
->  }
+On 29.03.2024 10:11, Nicola Vetrini wrote:
+> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
+> of macro parameters shall be enclosed in parentheses". Therefore, some
+> macro definitions should gain additional parentheses to ensure that all
+> current and future users will be safe with respect to expansions that
+> can possibly alter the semantics of the passed-in macro parameter.
+> 
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-What is the 32768 in the comment relating to? INT_MAX is quite a bit higher,
-yet the comparison against it is the only thing you add. Whereas the reader
-count is, with the sign bit unused, 17 bits, though (bits 14..30). I think
-even in such a comment rather than using a literal number the corresponding
-expression would better be stated.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
