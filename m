@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48ED2897646
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 19:19:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700621.1094058 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CA1C897926
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 21:42:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700628.1094071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs4Gv-0005zL-N9; Wed, 03 Apr 2024 17:19:37 +0000
+	id 1rs6UG-0005l1-Od; Wed, 03 Apr 2024 19:41:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700621.1094058; Wed, 03 Apr 2024 17:19:37 +0000
+Received: by outflank-mailman (output) from mailman id 700628.1094071; Wed, 03 Apr 2024 19:41:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs4Gv-0005t9-KL; Wed, 03 Apr 2024 17:19:37 +0000
-Received: by outflank-mailman (input) for mailman id 700621;
- Wed, 03 Apr 2024 17:19:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rs6UG-0005ix-Ky; Wed, 03 Apr 2024 19:41:32 +0000
+Received: by outflank-mailman (input) for mailman id 700628;
+ Wed, 03 Apr 2024 19:41:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YTxZ=LI=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1rs4Gu-0004uM-SI
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 17:19:36 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 56db034d-f1de-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 19:19:34 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3F1BE612F2;
- Wed,  3 Apr 2024 17:19:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99249C433F1;
- Wed,  3 Apr 2024 17:19:31 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rs6UF-0005ij-HV; Wed, 03 Apr 2024 19:41:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rs6UF-00051D-El; Wed, 03 Apr 2024 19:41:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rs6UF-00007n-0p; Wed, 03 Apr 2024 19:41:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rs6UF-00087x-0L; Wed, 03 Apr 2024 19:41:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,358 +42,530 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56db034d-f1de-11ee-a1ef-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712164772;
-	bh=8B1t4Px7dkhdKrJe3fy8ag6ypD3rsqA0jxk4Kv1UpP8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GzwJjvCqEeVJI80ExCmfG1Opdsd1Pq+Fs4e+Qx9fV7FAYZe4fuPpD8zGkjbqSQaMp
-	 Qdk/Fb2hS6TYsscuUziZs3BmSiB1vE69I/bnycpDnceYA80p6NTaVkEvOj/Fc9LLRg
-	 mzWNJdwUik2xRmfieJIblYRbKh7uVaLNoY6H0qanIrlcHW4a//Yuy8gFWpipsl1FAz
-	 VsCVEikNxuUGONYBAJ/VxslE6AE8rLGWUWu7eq+vArUfa/qYvpqvUpeqB+riLN3nAy
-	 JHC8mENhx2vddIrtAHx1SEJt73NN5pBGgFMYXfbXR3pw6vxRQyvkFV3R/Hbd89/97D
-	 qoWsJGQgsV8tA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Sasha Levin <sashal@kernel.org>,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	sstabellini@kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 6.1 11/15] x86/xen: attempt to inflate the memory balloon on PVH
-Date: Wed,  3 Apr 2024 13:18:55 -0400
-Message-ID: <20240403171909.345570-11-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240403171909.345570-1-sashal@kernel.org>
-References: <20240403171909.345570-1-sashal@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.84
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=QJq/I/9qksQEnMma2Ka3iaHVEpeF5myeGFEkCIUVlEg=; b=DBC2DHWvMs7hZYsyo7I/OYyRde
+	nDbq0zevxJNoVY+ZFu3pZx1fjQmkklJBDGqzP9DPLqZIGeLwL5tzT/nIgRvQgMExq83J7ITiBLLtQ
+	33+sJIaWtYg6u5J+DPnw2gicBuTcUrRJoX+zDbLjoCjuHEM/EMkBRk9uudpGwvxZF0HQ=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185227-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-6.1 test] 185227: regressions - FAIL
+X-Osstest-Failures:
+    linux-6.1:build-arm64:xen-build:fail:regression
+    linux-6.1:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    linux-6.1:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
+    linux-6.1:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-6.1:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-6.1:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    linux-6.1:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    linux-6.1:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    linux-6.1:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    linux-6.1:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    linux-6.1:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-6.1:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-6.1:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-6.1:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-6.1:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=347385861c50adc8d4801d4b899eded38a2f04cd
+X-Osstest-Versions-That:
+    linux=e5cd595e23c1a075359a337c0e5c3a4f2dc28dd1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 03 Apr 2024 19:41:31 +0000
 
-From: Roger Pau Monne <roger.pau@citrix.com>
+flight 185227 linux-6.1 real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185227/
 
-[ Upstream commit 38620fc4e8934f1801c7811ef39a041914ac4c1d ]
+Regressions :-(
 
-When running as PVH or HVM Linux will use holes in the memory map as scratch
-space to map grants, foreign domain pages and possibly miscellaneous other
-stuff.  However the usage of such memory map holes for Xen purposes can be
-problematic.  The request of holesby Xen happen quite early in the kernel boot
-process (grant table setup already uses scratch map space), and it's possible
-that by then not all devices have reclaimed their MMIO space.  It's not
-unlikely for chunks of Xen scratch map space to end up using PCI bridge MMIO
-window memory, which (as expected) causes quite a lot of issues in the system.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64                   6 xen-build                fail REGR. vs. 185167
 
-At least for PVH dom0 we have the possibility of using regions marked as
-UNUSABLE in the e820 memory map.  Either if the region is UNUSABLE in the
-native memory map, or it has been converted into UNUSABLE in order to hide RAM
-regions from dom0, the second stage translation page-tables can populate those
-areas without issues.
+Tests which did not succeed, but are not blocking:
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185167
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 185167
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 185167
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 185167
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 185167
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 185167
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
 
-PV already has this kind of logic, where the balloon driver is inflated at
-boot.  Re-use the current logic in order to also inflate it when running as
-PVH.  onvert UNUSABLE regions up to the ratio specified in EXTRA_MEM_RATIO to
-RAM, while reserving them using xen_add_extra_mem() (which is also moved so
-it's no longer tied to CONFIG_PV).
+version targeted for testing:
+ linux                347385861c50adc8d4801d4b899eded38a2f04cd
+baseline version:
+ linux                e5cd595e23c1a075359a337c0e5c3a4f2dc28dd1
 
-[jgross: fixed build for CONFIG_PVH without CONFIG_XEN_PVH]
+Last test of basis   185167  2024-03-26 22:43:26 Z    7 days
+Testing same since   185227  2024-04-03 13:42:39 Z    0 days    1 attempts
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Link: https://lore.kernel.org/r/20240220174341.56131-1-roger.pau@citrix.com
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/x86/include/asm/xen/hypervisor.h |  5 ++
- arch/x86/platform/pvh/enlighten.c     |  3 ++
- arch/x86/xen/enlighten.c              | 32 +++++++++++++
- arch/x86/xen/enlighten_pvh.c          | 68 +++++++++++++++++++++++++++
- arch/x86/xen/setup.c                  | 44 -----------------
- arch/x86/xen/xen-ops.h                | 14 ++++++
- drivers/xen/balloon.c                 |  2 -
- 7 files changed, 122 insertions(+), 46 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  "Andrey Jr. Melnikov" <temnota.am@gmail.com>
+  "Huang, Ying" <ying.huang@intel.com>
+  "Rafael J. Wysocki" <rafael@kernel.org>
+  Adamos Ttofari <attofari@amazon.de>
+  Adrian Hunter <adrian.hunter@intel.com>
+  Alan Stern <stern@rowland.harvard.edu>
+  Alex Deucher <alexander.deucher@amd.com>
+  Alex Hung <alex.hung@amd.com>
+  Alex Williamson <alex.williamson@redhat.com>
+  Alexander Aring <aahringo@redhat.com>
+  Alexander Stein <alexander.stein@ew.tq-group.com>
+  Alexander Usyskin <alexander.usyskin@intel.com>
+  Alexei Starovoitov <ast@kernel.org>
+  Amit Pundir <amit.pundir@linaro.org>
+  Andi Shyti <andi.shyti@kernel.org>
+  Andi Shyti <andi.shyti@linux.intel.com>
+  Andreas Larsson <andreas@gaisler.com>
+  Andrew Morton <akpm@linux-foundation.org>
+  Andrey Jr. Melnikov <temnota.am@gmail.com>
+  André Rösti <an.roesti@gmail.com>
+  Andy Chi <andy.chi@canonical.com>
+  Anton Altaparmakov <anton@tuxera.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Arend van Spriel <arend.vanspriel@broadcom.com>
+  Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+  Arnd Bergmann <arnd@arndb.de>
+  Arseniy Krasnov <avkrasnov@salutedevices.com>
+  Aurélien Jacobs <aurel@gnuage.org>
+  Baokun Li <libaokun1@huawei.com>
+  Bart Van Assche <bvanassche@acm.org>
+  Biju Das <biju.das.jz@bp.renesas.com>
+  Bikash Hazarika <bhazarika@marvell.com>
+  Bjorn Andersson <andersson@kernel.org>
+  Bjorn Helgaas <bhelgaas@google.com>
+  Borislav Petkov (AMD) <bp@alien8.de>
+  Borislav Petkov <bp@suse.de>
+  Cameron Williams <cang1@live.co.uk>
+  Casey Schaufler <casey@schaufler-ca.com>
+  Chang S. Bae <chang.seok.bae@intel.com>
+  Charan Teja Kalla <quic_charante@quicinc.com>
+  Charlie Jenkins <charlie@rivosinc.com>
+  Chengming Zhou <zhouchengming@bytedance.com>
+  Chris Wilson <chris@chris-wilson.co.uk>
+  Christian A. Ehrhardt <lk@c--e.de>
+  Christian Brauner <brauner@kernel.org>
+  Christian Gmeiner <cgmeiner@igalia.com>
+  Christian Häggström <christian.haggstrom@orexplore.com>
+  Christoph Hellwig <hch@lst.de>
+  Christoph Niedermaier <cniedermaier@dh-electronics.com>
+  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+  Chuck Lever <chuck.lever@oracle.com>
+  Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+  Claus Hansen Ries <chr@terma.com>
+  Clayton Craft <clayton@craftyguy.net>
+  Conrad Kostecki <conikost@gentoo.org>
+  Cosmin Tanislav <demonsingur@gmail.com>
+  Damian Muszynski <damian.muszynski@intel.com>
+  Damien Le Moal <dlemoal@kernel.org>
+  Dan Carpenter <dan.carpenter@linaro.org>
+  Daniel Lezcano <daniel.lezcano@linaro.org>
+  Daniel Vogelbacher <daniel@chaospixel.com>
+  Daniel Wheeler <daniel.wheeler@amd.com>
+  Danil Rybakov <danilrybakov249@gmail.com>
+  Danilo Krummrich <dakr@redhat.com>
+  Dave Hansen <dave.hansen@linux.intel.com>
+  David Hildenbrand <david@redhat.com>
+  David Laight <david.laight@aculab.com>
+  David S. Miller <davem@davemloft.net>
+  David Sterba <dsterba@suse.com>
+  David Woodhouse <dwmw@amazon.co.uk>
+  Dirk Behme <dirk.behme@de.bosch.com>
+  Dominique Martinet <dominique.martinet@atmark-techno.com>
+  Duje Mihanović <duje.mihanovic@skole.hr>
+  Duoming Zhou <duoming@zju.edu.cn>
+  Eric Huang <jinhuieric.huang@amd.com>
+  Eugene Korenevsky <ekorenevsky@astralinux.ru>
+  Fedor Pchelkin <pchelkin@ispras.ru>
+  Felix Fietkau <nbd@nbd.name>
+  Filipe Manana <fdmanana@suse.com>
+  Florian Fainelli <florian.fainelli@broadcom.com>
+  Francesco Dolcini <francesco.dolcini@toradex.com>
+  Gabor Juhos <j4g8y7@gmail.com>
+  Geliang Tang <tanggeliang@kylinos.cn>
+  Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+  Greg Edwards <gedwards@ddn.com>
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+  Greg Thelen <gthelen@google.com>
+  Guenter Roeck <linux@roeck-us.net>
+  Gui-Dong Han <2045gemini@gmail.com>
+  Guilherme G. Piccoli <gpiccoli@igalia.com>
+  Hans de Goede <hdegoede@redhat.com>
+  Hans Verkuil <hverkuil-cisco@xs4all.nl>
+  Harald Freudenberger <freude@linux.ibm.com>
+  Heiko Carstens <hca@linux.ibm.com>
+  Heiner Kallweit <hkallweit1@gmail.com>
+  Helge Deller <deller@gmx.de>
+  Herbert Xu <herbert@gondor.apana.org.au>
+  Hidenori Kobayashi <hidenorik@chromium.org>
+  Hongchen Zhang <zhanghongchen@loongson.cn>
+  Huacai Chen <chenhuacai@loongson.cn>
+  Huang Ying <ying.huang@intel.com>
+  Hugo Villeneuve <hvilleneuve@dimonoff.com>
+  Ingo Molnar <mingo@kernel.org>
+  Jaegeuk Kim <jaegeuk@kernel.org>
+  Jakub Kicinski <kuba@kernel.org>
+  Jameson Thies <jthies@google.com>
+  Jan Kara <jack@suse.cz>
+  Jani Nikula <jani.nikula@intel.com>
+  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+  Jason A. Donenfeld <Jason@zx2c4.com>
+  Jason Gunthorpe <jgg@nvidia.com>
+  Jeff Layton <jlayton@kernel.org>
+  Jens Axboe <axboe@kernel.dk>
+  Jens Wiklander <jens.wiklander@linaro.org>
+  Jerome Brunet <jbrunet@baylibre.com>
+  Jiawei Wang <me@jwang.link>
+  Jim Mattson <jmattson@google.com>
+  Jinghao Jia <jinghao7@illinois.edu>
+  Joakim Zhang <joakim.zhang@cixtech.com>
+  Jocelyn Falempe <jfalempe@redhat.com>
+  Johan Hovold <johan@kernel.org>
+  Johannes Berg <johannes.berg@intel.com>
+  Johannes Thumshirn <johannes.thumshirn@wdc.com>
+  John David Anglin <dave.anglin@bell.net>
+  John Ogness <john.ogness@linutronix.de>
+  John Sperbeck <jsperbeck@google.com>
+  Jon Hunter <jonathanh@nvidia.com>
+  Jonathan Cameron <Jonathan.Cameron@huawei.com>
+  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+  Josef Bacik <josef@toxicpanda.com>
+  Josua Mayer <josua@solid-run.com>
+  Kai-Heng Feng <kai.heng.feng@canonical.com>
+  Kailang Yang <kailang@realtek.com>
+  Kalle Valo <kvalo@kernel.org>
+  Karthikeyan Ramasubramanian <kramasub@chromium.org>
+  Kazuma Kondo <kazuma-kondo@nec.com>
+  Kees Cook <keescook@chromium.org>
+  Kelsey Steele <kelseysteele@linux.microsoft.com>
+  Kevin Loughlin <kevinloughlin@google.com>
+  Kim Phillips <kim.phillips@amd.com>
+  KONDO KAZUMA(近藤　和真) <kazuma-kondo@nec.com>
+  Krishna chaitanya chundru <quic_krichai@quicinc.com>
+  Krishna Kurapati <quic_kriskura@quicinc.com>
+  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+  Krzysztof Wilczyński <kwilczynski@kernel.org>
+  Kyle Tso <kyletso@google.com>
+  Ladislav Michl <ladis@linux-mips.org>
+  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+  Lee Jones <lee@kernel.org>
+  Leo Ma <hanghong.ma@amd.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Linux Kernel Functional Testing <lkft@linaro.org>
+  Lorenzo Pieralisi <lpieralisi@kernel.org>
+  Lucas Stach <l.stach@pengutronix.de>
+  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+  Ma Jun <Jun.Ma2@amd.com>
+  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+  Mano Ségransan <mano.segransan@protonmail.com>
+  Marek Szyprowski <m.szyprowski@samsung.com>
+  Marios Makassikis <mmakassikis@freebox.fr>
+  Mark Brown <broonie@kernel.org>
+  Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+  Martin K. Petersen <martin.petersen@oracle.com>
+  Masahiro Yamada <masahiroy@kernel.org>
+  Masami Hiramatsu (Google) <mhiramat@kernel.org>
+  Mateusz Jończyk <mat.jonczyk@o2.pl>
+  Mathias Nyman <mathias.nyman@linux.intel.com>
+  Mathieu Poirier <mathieu.poirier@linaro.org>
+  Matthew Wilcox (Oracle) <willy@infradead.org>
+  Matthieu Baerts (NGI0) <matttbe@kernel.org>
+  Maulik Shah <quic_mkshah@quicinc.com>
+  Max Filippov <jcmvbkbc@gmail.com>
+  Maxime Ripard <mripard@kernel.org>
+  Maximilian Heyne <mheyne@amazon.de>
+  Mel Gorman <mgorman@techsingularity.net>
+  Michael Ellerman <mpe@ellerman.id.au>
+  Michael Kelley <mhklinux@outlook.com>
+  Mickaël Salaün <mic@digikod.net>
+  Mike Snitzer <snitzer@kernel.org>
+  Mikko Rapeli <mikko.rapeli@linaro.org>
+  Miklos Szeredi <mszeredi@redhat.com>
+  Mikulas Patocka <mpatocka@redhat.com>
+  Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>
+  Miquel Raynal <miquel.raynal@bootlin.com>
+  Miri Korenblit <miriam.rachel.korenblit@intel.com>
+  Muhammad Usama Anjum <usama.anjum@collabora.com>
+  Namjae Jeon <linkinjeon@kernel.org>
+  Natanael Copa <ncopa@alpinelinux.org>
+  Nathan Chancellor <nathan@kernel.org>
+  Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
+  Nicolas Pitre <nico@fluxnic.net>
+  Nicolin Chen <nicolinc@nvidia.com>
+  Nikhil V <quic_nprakash@quicinc.com>
+  Niklas Cassel <cassel@kernel.org>
+  Nilesh Javali <njavali@marvell.com>
+  Nirmoy Das <nirmoy.das@intel.com>
+  OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+  Oleksandr Tymoshenko <ovt@google.com>
+  Oliver Neukum <oneukum@suse.com>
+  Pablo Neira Ayuso <pablo@netfilter.org>
+  Paolo Abeni <pabeni@redhat.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Paul Menzel <pmenzel@molgen.mpg.de>
+  Paul Menzel <pmenzel@molgen.mpg.de> # Dell XPS 15 7590
+  Pavel Machek (CIP) <pavel@denx.de>
+  Peter Collingbourne <pcc@google.com>
+  Petr Mladek <pmladek@suse.com>
+  Philip Yang <Philip.Yang@amd.com>
+  Philipp Stanner <pstanner@redhat.com>
+  Philipp Zabel <p.zabel@pengutronix.de>
+  Prashanth K <quic_prashk@quicinc.com>
+  Qiang Zhang <qiang4.zhang@intel.com>
+  Qingliang Li <qingliang.li@mediatek.com>
+  Qu Wenruo <wqu@suse.com>
+  Quinn Tran <qutran@marvell.com>
+  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  Rafael J. Wysocki <rafael@kernel.org>
+  Randy Dunlap <rdunlap@infradead.org>
+  Randy Dunlap <rdunlap@infradead.org> # build-tested
+  Reinette Chatre <reinette.chatre@intel.com>
+  Richard Weinberger <richard@nod.at>
+  Rickard x Andersson <rickaran@axis.com>
+  Ricky Wu <ricky_wu@realtek.com>
+  Rob Herring <robh@kernel.org>
+  Roberto Sassu <roberto.sassu@huawei.com>
+  Robin Murphy <robin.murphy@arm.com>
+  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+  Rodrigo Vivi <rodrigo.vivi@intel.com>
+  Roger Quadros <rogerq@kernel.org>
+  Romain Naour <romain.naour@skf.com>
+  Ron Economos <re@w6rz.net>
+  Rui Wang <wangrui@loongson.cn>
+  Ryan Roberts <ryan.roberts@arm.com>
+  Ryusuke Konishi <konishi.ryusuke@gmail.com>
+  Sabrina Dubroca <sd@queasysnail.net>
+  Sakari Ailus <sakari.ailus@linux.intel.com>
+  Salvatore Bonaccorso <carnil@debian.org>
+  Sam Ravnborg <sam@ravnborg.org>
+  Samuel Thibault <samuel.thibault@ens-lyon.org>
+  Sasha Levin <sashal@kernel.org>
+  Saurav Kashyap <skashyap@marvell.com>
+  Sean Anderson <sean.anderson@linux.dev>
+  Sean Christopherson <seanjc@google.com>
+  SeongJae Park <sj@kernel.org>
+  Sherry Sun <sherry.sun@nxp.com>
+  Shivnandan Kumar <quic_kshivnan@quicinc.com>
+  Shuah Khan <skhan@linuxfoundation.org>
+  Song Liu <song@kernel.org>
+  Souradeep Chakrabarti <schakrabarti@linux.microsoft.com>
+  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+  Srish Srinivasan <srish.srinivasan@broadcom.com>
+  Srivathsa Dara <srivathsa.d.dara@oracle.com>
+  Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
+  Stefan Schmidt <stefan@datenfreihafen.org>
+  Steffen Klassert <steffen.klassert@secunet.com>
+  Steve French <stfrench@microsoft.com>
+  Steven Rostedt (Google) <rostedt@goodmis.org>
+  Steven Rostedt <rostedt@goodmis.org>
+  Sumit Garg <sumit.garg@linaro.org>
+  Sunmin Jeong <s_min.jeong@samsung.com>
+  Svyatoslav Pankratov <svyatoslav.pankratov@intel.com>
+  Takashi Iwai <tiwai@suse.de>
+  Theodore Ts'o <tytso@mit.edu>
+  Thomas Gleixner <tglx@linutronix.de>
+  Thomas Zimmermann <tzimmermann@suse.de>
+  Tomas Winkler <tomas.winkler@intel.com>
+  Tony Battersby <tonyb@cybernetics.com>
+  Tor Vic <torvic9@mailbox.org>
+  Toru Katagiri <Toru.Katagiri@tdk.com>
+  Trond Myklebust <trond.myklebust@hammerspace.com>
+  Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+  Ulf Hansson <ulf.hansson@linaro.org>
+  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+  Ville Syrjälä <ville.syrjala@linux.intel.com>
+  Viresh Kumar <viresh.kumar@linaro.org>
+  Vladimir Oltean <vladimir.oltean@nxp.com>
+  Vlastimil Babka <vbabka@suse.cz>
+  Wayne Chang <waynec@nvidia.com>
+  Wayne Lin <wayne.lin@amd.com>
+  Wei Liu <wei.liu@kernel.org>
+  Weitao Wang <WeitaoWang-oc@zhaoxin.com>
+  Will Deacon <will@kernel.org>
+  Wolfram Sang <wsa+renesas@sang-engineering.com>
+  Xiao Ni <xni@redhat.com>
+  Xing Li <lixing@loongson.cn>
+  Xingui Yang <yangxingui@huawei.com>
+  yangerkun <yangerkun@huawei.com>
+  Yann Sionneau <ysionneau@kalrayinc.com>
+  Ye Zhang <ye.zhang@rock-chips.com>
+  Yishai Hadas <yishaih@nvidia.com>
+  Yonghong Song <yonghong.song@linux.dev>
+  Yu Kuai <yukuai3@huawei.com>
+  yuan linyu <yuanlinyu@hihonor.com>
+  Zack Rusin <zack.rusin@broadcom.com>
+  Zhang Yi <yi.zhang@huawei.com>
+  Zheng Wang <zyytlz.wz@163.com>
+  Zi Yan <ziy@nvidia.com>
+  Zoltan HERPAI <wigyori@uid0.hu>
 
-diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
-index 16f548a661cf6..b3bfefdb7793a 100644
---- a/arch/x86/include/asm/xen/hypervisor.h
-+++ b/arch/x86/include/asm/xen/hypervisor.h
-@@ -59,6 +59,11 @@ void xen_arch_unregister_cpu(int num);
- #ifdef CONFIG_PVH
- void __init xen_pvh_init(struct boot_params *boot_params);
- void __init mem_map_via_hcall(struct boot_params *boot_params_p);
-+#ifdef CONFIG_XEN_PVH
-+void __init xen_reserve_extra_memory(struct boot_params *bootp);
-+#else
-+static inline void xen_reserve_extra_memory(struct boot_params *bootp) { }
-+#endif
- #endif
- 
- #endif /* _ASM_X86_XEN_HYPERVISOR_H */
-diff --git a/arch/x86/platform/pvh/enlighten.c b/arch/x86/platform/pvh/enlighten.c
-index ed0442e354344..f15dc1e3ad7dd 100644
---- a/arch/x86/platform/pvh/enlighten.c
-+++ b/arch/x86/platform/pvh/enlighten.c
-@@ -74,6 +74,9 @@ static void __init init_pvh_bootparams(bool xen_guest)
- 	} else
- 		xen_raw_printk("Warning: Can fit ISA range into e820\n");
- 
-+	if (xen_guest)
-+		xen_reserve_extra_memory(&pvh_bootparams);
-+
- 	pvh_bootparams.hdr.cmd_line_ptr =
- 		pvh_start_info.cmdline_paddr;
- 
-diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
-index 3c61bb98c10e2..a01ca255b0c64 100644
---- a/arch/x86/xen/enlighten.c
-+++ b/arch/x86/xen/enlighten.c
-@@ -6,6 +6,7 @@
- #include <linux/console.h>
- #include <linux/cpu.h>
- #include <linux/kexec.h>
-+#include <linux/memblock.h>
- #include <linux/slab.h>
- #include <linux/panic_notifier.h>
- 
-@@ -350,3 +351,34 @@ void xen_arch_unregister_cpu(int num)
- }
- EXPORT_SYMBOL(xen_arch_unregister_cpu);
- #endif
-+
-+/* Amount of extra memory space we add to the e820 ranges */
-+struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
-+
-+void __init xen_add_extra_mem(unsigned long start_pfn, unsigned long n_pfns)
-+{
-+	unsigned int i;
-+
-+	/*
-+	 * No need to check for zero size, should happen rarely and will only
-+	 * write a new entry regarded to be unused due to zero size.
-+	 */
-+	for (i = 0; i < XEN_EXTRA_MEM_MAX_REGIONS; i++) {
-+		/* Add new region. */
-+		if (xen_extra_mem[i].n_pfns == 0) {
-+			xen_extra_mem[i].start_pfn = start_pfn;
-+			xen_extra_mem[i].n_pfns = n_pfns;
-+			break;
-+		}
-+		/* Append to existing region. */
-+		if (xen_extra_mem[i].start_pfn + xen_extra_mem[i].n_pfns ==
-+		    start_pfn) {
-+			xen_extra_mem[i].n_pfns += n_pfns;
-+			break;
-+		}
-+	}
-+	if (i == XEN_EXTRA_MEM_MAX_REGIONS)
-+		printk(KERN_WARNING "Warning: not enough extra memory regions\n");
-+
-+	memblock_reserve(PFN_PHYS(start_pfn), PFN_PHYS(n_pfns));
-+}
-diff --git a/arch/x86/xen/enlighten_pvh.c b/arch/x86/xen/enlighten_pvh.c
-index ada3868c02c23..c28f073c1df52 100644
---- a/arch/x86/xen/enlighten_pvh.c
-+++ b/arch/x86/xen/enlighten_pvh.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- #include <linux/acpi.h>
- #include <linux/export.h>
-+#include <linux/mm.h>
- 
- #include <xen/hvc-console.h>
- 
-@@ -72,3 +73,70 @@ void __init mem_map_via_hcall(struct boot_params *boot_params_p)
- 	}
- 	boot_params_p->e820_entries = memmap.nr_entries;
- }
-+
-+/*
-+ * Reserve e820 UNUSABLE regions to inflate the memory balloon.
-+ *
-+ * On PVH dom0 the host memory map is used, RAM regions available to dom0 are
-+ * located as the same place as in the native memory map, but since dom0 gets
-+ * less memory than the total amount of host RAM the ranges that can't be
-+ * populated are converted from RAM -> UNUSABLE.  Use such regions (up to the
-+ * ratio signaled in EXTRA_MEM_RATIO) in order to inflate the balloon driver at
-+ * boot.  Doing so prevents the guest (even if just temporary) from using holes
-+ * in the memory map in order to map grants or foreign addresses, and
-+ * hopefully limits the risk of a clash with a device MMIO region.  Ideally the
-+ * hypervisor should notify us which memory ranges are suitable for creating
-+ * foreign mappings, but that's not yet implemented.
-+ */
-+void __init xen_reserve_extra_memory(struct boot_params *bootp)
-+{
-+	unsigned int i, ram_pages = 0, extra_pages;
-+
-+	for (i = 0; i < bootp->e820_entries; i++) {
-+		struct boot_e820_entry *e = &bootp->e820_table[i];
-+
-+		if (e->type != E820_TYPE_RAM)
-+			continue;
-+		ram_pages += PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr);
-+	}
-+
-+	/* Max amount of extra memory. */
-+	extra_pages = EXTRA_MEM_RATIO * ram_pages;
-+
-+	/*
-+	 * Convert UNUSABLE ranges to RAM and reserve them for foreign mapping
-+	 * purposes.
-+	 */
-+	for (i = 0; i < bootp->e820_entries && extra_pages; i++) {
-+		struct boot_e820_entry *e = &bootp->e820_table[i];
-+		unsigned long pages;
-+
-+		if (e->type != E820_TYPE_UNUSABLE)
-+			continue;
-+
-+		pages = min(extra_pages,
-+			PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr));
-+
-+		if (pages != (PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr))) {
-+			struct boot_e820_entry *next;
-+
-+			if (bootp->e820_entries ==
-+			    ARRAY_SIZE(bootp->e820_table))
-+				/* No space left to split - skip region. */
-+				continue;
-+
-+			/* Split entry. */
-+			next = e + 1;
-+			memmove(next, e,
-+				(bootp->e820_entries - i) * sizeof(*e));
-+			bootp->e820_entries++;
-+			next->addr = PAGE_ALIGN(e->addr) + PFN_PHYS(pages);
-+			e->size = next->addr - e->addr;
-+			next->size -= e->size;
-+		}
-+		e->type = E820_TYPE_RAM;
-+		extra_pages -= pages;
-+
-+		xen_add_extra_mem(PFN_UP(e->addr), pages);
-+	}
-+}
-diff --git a/arch/x86/xen/setup.c b/arch/x86/xen/setup.c
-index 8db26f10fb1d9..72ab4a2f029bb 100644
---- a/arch/x86/xen/setup.c
-+++ b/arch/x86/xen/setup.c
-@@ -37,9 +37,6 @@
- 
- #define GB(x) ((uint64_t)(x) * 1024 * 1024 * 1024)
- 
--/* Amount of extra memory space we add to the e820 ranges */
--struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
--
- /* Number of pages released from the initial allocation. */
- unsigned long xen_released_pages;
- 
-@@ -60,18 +57,6 @@ static struct {
- } xen_remap_buf __initdata __aligned(PAGE_SIZE);
- static unsigned long xen_remap_mfn __initdata = INVALID_P2M_ENTRY;
- 
--/*
-- * The maximum amount of extra memory compared to the base size.  The
-- * main scaling factor is the size of struct page.  At extreme ratios
-- * of base:extra, all the base memory can be filled with page
-- * structures for the extra memory, leaving no space for anything
-- * else.
-- *
-- * 10x seems like a reasonable balance between scaling flexibility and
-- * leaving a practically usable system.
-- */
--#define EXTRA_MEM_RATIO		(10)
--
- static bool xen_512gb_limit __initdata = IS_ENABLED(CONFIG_XEN_512GB);
- 
- static void __init xen_parse_512gb(void)
-@@ -92,35 +77,6 @@ static void __init xen_parse_512gb(void)
- 	xen_512gb_limit = val;
- }
- 
--static void __init xen_add_extra_mem(unsigned long start_pfn,
--				     unsigned long n_pfns)
--{
--	int i;
--
--	/*
--	 * No need to check for zero size, should happen rarely and will only
--	 * write a new entry regarded to be unused due to zero size.
--	 */
--	for (i = 0; i < XEN_EXTRA_MEM_MAX_REGIONS; i++) {
--		/* Add new region. */
--		if (xen_extra_mem[i].n_pfns == 0) {
--			xen_extra_mem[i].start_pfn = start_pfn;
--			xen_extra_mem[i].n_pfns = n_pfns;
--			break;
--		}
--		/* Append to existing region. */
--		if (xen_extra_mem[i].start_pfn + xen_extra_mem[i].n_pfns ==
--		    start_pfn) {
--			xen_extra_mem[i].n_pfns += n_pfns;
--			break;
--		}
--	}
--	if (i == XEN_EXTRA_MEM_MAX_REGIONS)
--		printk(KERN_WARNING "Warning: not enough extra memory regions\n");
--
--	memblock_reserve(PFN_PHYS(start_pfn), PFN_PHYS(n_pfns));
--}
--
- static void __init xen_del_extra_mem(unsigned long start_pfn,
- 				     unsigned long n_pfns)
- {
-diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
-index b2b2f4315b78d..8c715a4f06c02 100644
---- a/arch/x86/xen/xen-ops.h
-+++ b/arch/x86/xen/xen-ops.h
-@@ -162,4 +162,18 @@ void xen_hvm_post_suspend(int suspend_cancelled);
- static inline void xen_hvm_post_suspend(int suspend_cancelled) {}
- #endif
- 
-+/*
-+ * The maximum amount of extra memory compared to the base size.  The
-+ * main scaling factor is the size of struct page.  At extreme ratios
-+ * of base:extra, all the base memory can be filled with page
-+ * structures for the extra memory, leaving no space for anything
-+ * else.
-+ *
-+ * 10x seems like a reasonable balance between scaling flexibility and
-+ * leaving a practically usable system.
-+ */
-+#define EXTRA_MEM_RATIO		(10)
-+
-+void xen_add_extra_mem(unsigned long start_pfn, unsigned long n_pfns);
-+
- #endif /* XEN_OPS_H */
-diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-index 617a7f4f07a80..4e23b398e2882 100644
---- a/drivers/xen/balloon.c
-+++ b/drivers/xen/balloon.c
-@@ -691,7 +691,6 @@ EXPORT_SYMBOL(xen_free_ballooned_pages);
- 
- static void __init balloon_add_regions(void)
- {
--#if defined(CONFIG_XEN_PV)
- 	unsigned long start_pfn, pages;
- 	unsigned long pfn, extra_pfn_end;
- 	unsigned int i;
-@@ -715,7 +714,6 @@ static void __init balloon_add_regions(void)
- 
- 		balloon_stats.total_pages += extra_pfn_end - start_pfn;
- 	}
--#endif
- }
- 
- static int __init balloon_init(void)
--- 
-2.43.0
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  fail    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     blocked 
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      blocked 
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 8551 lines long.)
 
