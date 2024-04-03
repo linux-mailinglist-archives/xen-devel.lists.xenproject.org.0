@@ -2,52 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEE3D896BC8
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 12:13:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700388.1093437 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93EC8896BFB
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 12:20:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700392.1093447 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrxbD-0005lv-M1; Wed, 03 Apr 2024 10:12:07 +0000
+	id 1rrxjB-0007Tk-Hr; Wed, 03 Apr 2024 10:20:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700388.1093437; Wed, 03 Apr 2024 10:12:07 +0000
+Received: by outflank-mailman (output) from mailman id 700392.1093447; Wed, 03 Apr 2024 10:20:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrxbD-0005jG-JG; Wed, 03 Apr 2024 10:12:07 +0000
-Received: by outflank-mailman (input) for mailman id 700388;
- Wed, 03 Apr 2024 10:12:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rrxjB-0007Qn-FA; Wed, 03 Apr 2024 10:20:21 +0000
+Received: by outflank-mailman (input) for mailman id 700392;
+ Wed, 03 Apr 2024 10:20:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eUqh=LI=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rrxbC-0005jA-In
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 10:12:06 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20601.outbound.protection.outlook.com
- [2a01:111:f403:2417::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9ee8403e-f1a2-11ee-afe5-a90da7624cb6;
- Wed, 03 Apr 2024 12:12:04 +0200 (CEST)
-Received: from CH2PR05CA0002.namprd05.prod.outlook.com (2603:10b6:610::15) by
- DS0PR12MB7560.namprd12.prod.outlook.com (2603:10b6:8:133::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7409.46; Wed, 3 Apr 2024 10:12:02 +0000
-Received: from DS3PEPF000099D4.namprd04.prod.outlook.com
- (2603:10b6:610:0:cafe::4f) by CH2PR05CA0002.outlook.office365.com
- (2603:10b6:610::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.25 via Frontend
- Transport; Wed, 3 Apr 2024 10:12:02 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099D4.mail.protection.outlook.com (10.167.17.5) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Wed, 3 Apr 2024 10:12:01 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Apr
- 2024 05:12:00 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 3 Apr 2024 05:11:58 -0500
+ <SRS0=YDNC=LI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rrxjA-0007Ob-BI
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 10:20:20 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c4448e7d-f1a3-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 12:20:17 +0200 (CEST)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-513e25afabaso6870175e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 03:20:17 -0700 (PDT)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ k33-20020a0565123da100b00516a18f9080sm1161237lfv.257.2024.04.03.03.20.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 03 Apr 2024 03:20:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,230 +44,259 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ee8403e-f1a2-11ee-afe5-a90da7624cb6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ebIAevk94pHslbS4NYiogZTousZ3EZLyZH+gq5QNtMHfvgXyTmFOUb0POSP1jJGWH0Vv1RCeb79XQO4uMlNGgRgvlzmkpsbY/79DEJjVP7lPhwI+bvjFihuSxGH5POV8OB+IEvm7LXnMiOzAFNecrjfjRaphNSiEv4xmZOp6fLm9wBrs5o+e6+J+GNfnQi1qdwjpzmmJHmmBexKlLLTOC/8fHQcZqvGiu82BnbGwiPtnGV7VGwcrTXUJG2e+fdSAZs4OfiRrWYDkgAVEIxQLKQoM4PC300s7jjwW06+jShDfWz0rheXU9L29Y5hSp+FjH1PWa52YIGCT+zK3IeqF6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nVZ8rFge6bNbG4lQdbguvKaDyYYtOn2T9lyT+8vv8dI=;
- b=Lmfwt/0S+uiB558jz3zd41bfV+BQbPaFnPSAYWnPTfTYwcdQ0lxL8P45agUSx0CWU+ubuwgL59thhZynWn8jOzTgaLpIrioTaXg59+X4hji+d68h0/56o7a905bETCpDMBzM2fV2rF0bdQ4K2I78gylIkZ92plEMB4epP2Vre2YP0/vzHs55HAyq/NEacEjvBQH+VzFgJbSM7qgvh8agISjSoUtWFHvUvfzsoSFEz6RwZ0xM5GX9euEjW/dcM+jgppzMvJvqzqapGJx2JnWhNe/I3/UNf1USCs0Eusn20n207KbUS3Qr51QSAK0gqpvo13WAqwGWX7AhCTL7CSElYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nVZ8rFge6bNbG4lQdbguvKaDyYYtOn2T9lyT+8vv8dI=;
- b=AoV+Zy+NSX7rwol0MzOe31DJjMvcQOQMVQk5tX8PJFvd6EBATQ7sBkvBPzpSPV8NzG7ZPeewkUx/4KRlEx15SwtAI8IhwObgcJUx1llEDJYic/matH2RS4EnwErtqueUyTmDJQcsuDMDXKr2WvFrCBsKz6QaIUfBj6Pu6LqjOB8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <5151abab-93a9-4b3f-8d69-c45e3cfc663c@amd.com>
-Date: Wed, 3 Apr 2024 12:11:57 +0200
+X-Inumbo-ID: c4448e7d-f1a3-11ee-a1ef-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1712139616; x=1712744416; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=j0ePPzmBCNAzfDH8XK7KhsPHe5KSob1zyk5Ryt3vSRA=;
+        b=bgMQ4P213DMYzESjmoIb+qx4niZFZxydUH/LTt64JduPi9EtP9OWHm4O6ssXRkG9fP
+         0ji+dojOzfIIZmmA9xWp8ZkLK6RDqBnfDA/Vw3x3TKVInuFDmtcz940ld2ltTzXFy65u
+         eSKl5AlIho2BK6hOYm8ScAlclp2zj/Aiq/X/Pq+HKhWOxNqj4Wcbn3lgHLFFVE2+fX4q
+         0lmCjVLDAt5RZIeWReDl95Xu1uRCwBhP2gKkpIJ0CdU50slO4bvsiPp6ic+UJulRBqpQ
+         zqwPqW6o/ubcrPJHOrSAuCt0IRBQlM0jdJtFwdo7H5LCGQtxWedxx/y7RB75ZZmHkuYx
+         ki/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712139616; x=1712744416;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=j0ePPzmBCNAzfDH8XK7KhsPHe5KSob1zyk5Ryt3vSRA=;
+        b=EX6XILOpQr/bruUm/rkcx5GF7MemNhEkrNdfGyR4R+3WRTRKgCi3vJCI0maKqVHj9m
+         s0O/NDGUBpz6K1RcAt3obO1hFpZDut8HxxX8RiA7yLFaHqECsF8Te3GJ3/4fxSAMKYzE
+         Ldu4GzEt2RczXcRCElQZgRHz2PMWYRg+6G+DEcgrzXlPe5jbLNUzuIHy50RzMAVa7zRG
+         py9ieLsNIvYHxD+kqDXv4xIqnd/NNbQpJadeW7e4rjsGvCxDyOIFQ5L1Xf86ZZ2OpCvn
+         bljEBx+r3CIxmTgzYqD/7BsCHW3NgqHWKtDMoAhfFKeCKbjsakk0Dojo6DX+khF7b1m+
+         +ohg==
+X-Gm-Message-State: AOJu0YzyEUVrgUt7EIl8V173F77PTkhgbAyxguqCYKBfOv8bIukfG0D3
+	9MyYCNgwMI3C9X8YU17oWdpw2SAXn0yH7+rvGGZ0/plpWnFaVoFJgorz7wsm
+X-Google-Smtp-Source: AGHT+IEJwwljXy4wpeYy82TREFzZE2xLQLbzYiGKa/WizeST1ZRyMLG1eUoAozHwRPERwZbnfdJTJg==
+X-Received: by 2002:ac2:420a:0:b0:514:cbee:a261 with SMTP id y10-20020ac2420a000000b00514cbeea261mr9750909lfh.27.1712139615859;
+        Wed, 03 Apr 2024 03:20:15 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Rahul Singh <rahul.singh@arm.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>
+Subject: [PATCH v7 00/19] Enable build of full Xen for RISC-V
+Date: Wed,  3 Apr 2024 12:19:53 +0200
+Message-ID: <cover.1712137031.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/arm: Add i.MX UART early printk support
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Peng Fan <peng.fan@nxp.com>
-References: <20240402120557.1822253-1-olekstysh@gmail.com>
- <20240402120557.1822253-2-olekstysh@gmail.com>
-Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20240402120557.1822253-2-olekstysh@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099D4:EE_|DS0PR12MB7560:EE_
-X-MS-Office365-Filtering-Correlation-Id: 91834826-8089-4094-0749-08dc53c6813a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ptiEoUyeHqFcwk3qgMvvsxzNm261w3Yrwo8uTpUx5nGLBNjrwoI6F6+Nbcl9Lfm4G8erBbjgFrgrOcujsrtj0cjRl2Nh5UEehNPCy6HoHiHPI+3rfTLGF6HjX1kK3+ycjrxUOC0RxgtQ00rh+EW6SNqyBZbsgTfmYTGRbhG5gt/xUbZWqp9jCC7CKz3O/NbsnkclgKuhzbFMnfOiWk7pIVj7rnJROwEoTy1TjuIcPWLhkfc2Dz/TlYWi6ITEP0KMJ6Ko8KeYrtGZCdiT9chvkLZxKOxPuQeN/mie4ASFhLplDS6mmHLcrU90akUxa5U7pgIbQDYvd/xUKqYkZ9I7h7NWPkVcdRMNzlpAQ9ciR6dhSDcWOZEvbNxX5SjJgjipIxp+4brv2qtKdTyThyzLNOqyc+8SYkwSSkVSF/pIxKrBcXDQR1dGMouO2b8YrHYsXA4GO5h+bESDaE6AQ9nqFELp6+QcpjvodJEREdMlpJ5ohdoBDX7Nig1FIDgBxLiK/Bl/CJbtOD7wAAvjnpjGX6mCBEp3p4l2H9+AzsRT0bJ9VNs0e2vEpw6gulwzZVa/bGXtdWO3J9N7VG8bvG1zCFIYSQnhMnyTvAM/O91UZtxI5dJF8oIh58OftS5uKE8mOUymHQ9oVa8CWr2VMmIplmxBH0hgPShHFrZQvLEUvLTWKOj0/VYC+mathBBakbeylJ4/AwrPyA1YWRiFeOwbMh160Jo8BlWuUQmojqG/+rYzHU2pZQha82H4rMr2mRum
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(1800799015)(82310400014)(376005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 10:12:01.4117
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91834826-8089-4094-0749-08dc53c6813a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099D4.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7560
+Content-Transfer-Encoding: 8bit
 
-Hi Oleksandr,
+This patch series performs all of the additions necessary to drop the
+build overrides for RISCV and enable the full Xen build. Except in cases
+where compatibile implementations already exist (e.g. atomic.h and
+bitops.h), the newly added definitions are simple.
 
-On 02/04/2024 14:05, Oleksandr Tyshchenko wrote:
-> 
-> 
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> Tested on i.MX 8M Mini only, but I guess, it should be
-> suitable for other i.MX8M* SoCs (those UART device tree nodes
-> contain "fsl,imx6q-uart" compatible string).
-Please use imperative mood in commit msg. I would mention also that you are adding
-macros that will be used by the runtime driver.
+The patch series is based on the following patch series:
+- [PATCH 0/7] xen/bitops: Reduce the mess, starting with ffs() [1]
+- [PATCH] move __read_mostly to xen/cache.h  [2]
+- [XEN PATCH v2 1/3] xen: introduce STATIC_ASSERT_UNREACHABLE() [3]
 
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> ---
-> I selected the following configs for enabling early printk:
-> 
->  CONFIG_EARLY_UART_CHOICE_IMX_UART=y
->  CONFIG_EARLY_UART_IMX_UART=y
->  CONFIG_EARLY_PRINTK=y
->  CONFIG_EARLY_UART_BASE_ADDRESS=0x30890000
->  CONFIG_EARLY_PRINTK_INC="debug-imx-uart.inc"
-> ---
-> ---
->  xen/arch/arm/Kconfig.debug            | 14 +++++
->  xen/arch/arm/arm64/debug-imx-uart.inc | 38 ++++++++++++++
->  xen/arch/arm/include/asm/imx-uart.h   | 76 +++++++++++++++++++++++++++
->  3 files changed, 128 insertions(+)
->  create mode 100644 xen/arch/arm/arm64/debug-imx-uart.inc
->  create mode 100644 xen/arch/arm/include/asm/imx-uart.h
-> 
-> diff --git a/xen/arch/arm/Kconfig.debug b/xen/arch/arm/Kconfig.debug
-> index eec860e88e..a15d08f214 100644
-> --- a/xen/arch/arm/Kconfig.debug
-> +++ b/xen/arch/arm/Kconfig.debug
-> @@ -68,6 +68,16 @@ choice
->                         provide the parameters for the i.MX LPUART rather than
->                         selecting one of the platform specific options below if
->                         you know the parameters for the port.
-> +       config EARLY_UART_CHOICE_IMX_UART
-> +               select EARLY_UART_IMX_UART
-> +               depends on ARM_64
-> +               bool "Early printk via i.MX UART"
-> +               help
-> +                       Say Y here if you wish the early printk to direct their
-Do not take example from surrounding code. help text should be indented by 2 tabs and 2 spaces here.
 
-> +                       output to a i.MX UART. You can use this option to
-> +                       provide the parameters for the i.MX UART rather than
-> +                       selecting one of the platform specific options below if
-> +                       you know the parameters for the port.
->         config EARLY_UART_CHOICE_MESON
->                 select EARLY_UART_MESON
->                 depends on ARM_64
-> @@ -199,6 +209,9 @@ config EARLY_UART_EXYNOS4210
->  config EARLY_UART_IMX_LPUART
->         select EARLY_PRINTK
->         bool
-> +config EARLY_UART_IMX_UART
-> +       select EARLY_PRINTK
-> +       bool
->  config EARLY_UART_MESON
->         select EARLY_PRINTK
->         bool
-> @@ -304,6 +317,7 @@ config EARLY_PRINTK_INC
->         default "debug-cadence.inc" if EARLY_UART_CADENCE
->         default "debug-exynos4210.inc" if EARLY_UART_EXYNOS4210
->         default "debug-imx-lpuart.inc" if EARLY_UART_IMX_LPUART
-> +       default "debug-imx-uart.inc" if EARLY_UART_IMX_UART
->         default "debug-meson.inc" if EARLY_UART_MESON
->         default "debug-mvebu.inc" if EARLY_UART_MVEBU
->         default "debug-pl011.inc" if EARLY_UART_PL011
-> diff --git a/xen/arch/arm/arm64/debug-imx-uart.inc b/xen/arch/arm/arm64/debug-imx-uart.inc
-> new file mode 100644
-> index 0000000000..27a68b1ed5
-> --- /dev/null
-> +++ b/xen/arch/arm/arm64/debug-imx-uart.inc
-> @@ -0,0 +1,38 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * xen/arch/arm/arm64/debug-imx-uart.inc
-> + *
-> + * i.MX8M* specific debug code
-> + *
-> + * Copyright (C) 2024 EPAM Systems Inc.
-> + */
-> +
-> +#include <asm/imx-uart.h>
-> +
-> +/*
-> + * Wait UART to be ready to transmit
-> + * rb: register which contains the UART base address
-> + * rc: scratch register
-> + */
-> +.macro early_uart_ready xb, c
-> +1:
-> +        ldr   w\c, [\xb, #IMX21_UTS] /* <- Test register */
-> +        tst   w\c, #UTS_TXFULL       /* Check TxFIFO FULL bit */
-> +        bne   1b                     /* Wait for the UART to be ready */
-> +.endm
-> +
-> +/*
-> + * UART transmit character
-> + * rb: register which contains the UART base address
-> + * rt: register which contains the character to transmit
-> + */
-> +.macro early_uart_transmit xb, wt
-> +        str   \wt, [\xb, #URTX0] /* -> Transmitter Register */
-> +.endm
-> +
-> +/*
-> + * Local variables:
-> + * mode: ASM
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/arch/arm/include/asm/imx-uart.h b/xen/arch/arm/include/asm/imx-uart.h
-> new file mode 100644
-> index 0000000000..413a81dd44
-> --- /dev/null
-> +++ b/xen/arch/arm/include/asm/imx-uart.h
-> @@ -0,0 +1,76 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * xen/arch/arm/include/asm/imx-uart.h
-> + *
-> + * Common constant definition between early printk and the UART driver
-> + *
-> + * Copyright (C) 2024 EPAM Systems Inc.
-> + */
-> +
-> +#ifndef __ASM_ARM_IMX_UART_H__
-> +#define __ASM_ARM_IMX_UART_H__
-> +
-> +/* 32-bit register definition */
-> +#define URXD0        (0x00) /* Receiver Register */
-There is no need to surround these values
+Right now, the patch series doesn't have a direct dependency on [2] and it
+provides __read_mostly in the patch:
+    [PATCH v3 26/34] xen/riscv: add definition of __read_mostly
+However, it will be dropped as soon as [2] is merged or at least when the
+final version of the patch [2] is provided.
 
-> +#define URTX0        (0x40) /* Transmitter Register */
-> +#define UCR1         (0x80) /* Control Register 1 */
-> +#define UCR2         (0x84) /* Control Register 2 */
-> +#define UCR3         (0x88) /* Control Register 3 */
+[1] https://lore.kernel.org/xen-devel/20240313172716.2325427-1-andrew.cooper3@citrix.com/T/#t
+[2] https://lore.kernel.org/xen-devel/f25eb5c9-7c14-6e23-8535-2c66772b333e@suse.com/
+[3] https://lore.kernel.org/xen-devel/42fc6ae8d3eb802429d29c774502ff232340dc84.1706259490.git.federico.serafini@bugseng.com/
 
-> +#define UCR4         (0x8c) /* Control Register 4 */
-> +#define UFCR         (0x90) /* FIFO Control Register */
-> +#define USR1         (0x94) /* Status Register 1 */
-> +#define USR2         (0x98) /* Status Register 2 */
-> +#define IMX21_UTS    (0xb4) /* Test Register */
-> +
-> +#define URXD_ERR        BIT(14, UL) /* Error detect */
-> +#define URXD_RX_DATA    GENMASK(7, 0) /* Received data mask */
-> +
-> +#define UCR1_TRDYEN      BIT(13, UL) /* Transmitter ready interrupt enable */
-> +#define UCR1_RRDYEN      BIT(9, UL) /* Receiver ready interrupt enable */
-NIT: please align comments within a block
+---
+Changes in V7:
+ - Patch was merged to staging:
+   [PATCH v6 15/20] xen/riscv: add minimal stuff to processor.h to build full Xen.
+ - Other changes are specific to specific patches. Please look at changes for
+   specific patch.
+---
+Changes in V6:
+ - Update the cover letter message: drop already merged dependecies and add
+   a new one.
+ - Patches were merged to staging:
+   - [PATCH v5 02/23] xen/riscv: use some asm-generic headers ( even v4 was
+     merged to staging branch, I just wasn't apply changes on top of the latest staging branch )
+   - [PATCH v5 03/23] xen/riscv: introduce nospec.h
+   - [PATCH v5 10/23] xen/riscv: introduces acrquire, release and full barriers
+ - Introduce new patches:
+   - xen/riscv: introduce extenstion support check by compiler
+   - xen/bitops: put __ffs() and ffz() into linux compatible header
+   - xen/bitops: implement fls{l}() in common logic
+ - The following patches were dropped:
+   - drop some patches related to bitops operations as they were introduced in another
+     patch series [...]
+   - introduce new version for generic __ffs(), ffz() and fls{l}().
+ - Merge patch from patch series "[PATCH v9 0/7]  Introduce generic headers" to this patch
+   series as only one patch left in the generic headers patch series and it is more about
+   RISC-V.
+ - Other changes are specific to specific patches. please look at specific patch.
+---
+Changes in V5:
+ - Update the cover letter as one of the dependencies were merged to staging.
+ - Was introduced asm-generic for atomic ops and separate patches for asm-generic bit ops
+ - Moved fence.h to separate patch to deal with some patches dependecies on fence.h
+ - Patches were dropped as they were merged to staging:
+   * [PATCH v4 03/30] xen: add support in public/hvm/save.h for PPC and RISC-V
+   * [PATCH v4 04/30] xen/riscv: introduce cpufeature.h
+   * [PATCH v4 05/30] xen/riscv: introduce guest_atomics.h
+   * [PATCH v4 06/30] xen: avoid generation of empty asm/iommu.h
+   * [PATCH v4 08/30] xen/riscv: introduce setup.h
+   * [PATCH v4 10/30] xen/riscv: introduce flushtlb.h
+   * [PATCH v4 11/30] xen/riscv: introduce smp.h
+   * [PATCH v4 15/30] xen/riscv: introduce irq.h
+   * [PATCH v4 16/30] xen/riscv: introduce p2m.h
+   * [PATCH v4 17/30] xen/riscv: introduce regs.h
+   * [PATCH v4 18/30] xen/riscv: introduce time.h
+   * [PATCH v4 19/30] xen/riscv: introduce event.h
+   * [PATCH v4 22/30] xen/riscv: define an address of frame table
+ - Other changes are specific to specific patches. please look at specific patch
+---
+Changes in V4:
+ - Update the cover letter message: new patch series dependencies.
+ - Some patches were merged to staging, so they were dropped in this patch series:
+     [PATCH v3 09/34] xen/riscv: introduce system.h
+     [PATCH v3 18/34] xen/riscv: introduce domain.h
+     [PATCH v3 19/34] xen/riscv: introduce guest_access.h
+ - Was sent out of this patch series:
+     [PATCH v3 16/34] xen/lib: introduce generic find next bit operations
+ - [PATCH v3 17/34] xen/riscv: add compilation of generic find-next-bit.c was
+   droped as CONFIG_GENERIC_FIND_NEXT_BIT was dropped.
+ - All other changes are specific to a specific patch.
+---
+Changes in V3:
+ - Update the cover letter message
+ - The following patches were dropped as they were merged to staging:
+    [PATCH v2 03/39] xen/riscv:introduce asm/byteorder.h
+    [PATCH v2 04/39] xen/riscv: add public arch-riscv.h
+    [PATCH v2 05/39] xen/riscv: introduce spinlock.h
+    [PATCH v2 20/39] xen/riscv: define bug frame tables in xen.lds.S
+    [PATCH v2 34/39] xen: add RISCV support for pmu.h
+    [PATCH v2 35/39] xen: add necessary headers to common to build full Xen for RISC-V
+ - Instead of the following patches were introduced new:
+    [PATCH v2 10/39] xen/riscv: introduce asm/iommu.h
+    [PATCH v2 11/39] xen/riscv: introduce asm/nospec.h
+ - remove "asm/"  for commit messages which start with "xen/riscv:"
+ - code style updates.
+ - add emulation of {cmp}xchg_* for 1 and 2 bytes types.
+ - code style fixes.
+ - add SPDX and footer for the newly added headers.
+ - introduce generic find-next-bit.c.
+ - some other mionor changes. ( details please find in a patch )
+---
+Changes in V2:
+  - Drop the following patches as they are the part of [2]:
+      [PATCH v1 06/57] xen/riscv: introduce paging.h
+      [PATCH v1 08/57] xen/riscv: introduce asm/device.h
+      [PATCH v1 10/57] xen/riscv: introduce asm/grant_table.h
+      [PATCH v1 12/57] xen/riscv: introduce asm/hypercall.h
+      [PATCH v1 13/57] xen/riscv: introduce asm/iocap.h
+      [PATCH v1 15/57] xen/riscv: introduce asm/mem_access.h
+      [PATCH v1 18/57] xen/riscv: introduce asm/random.h
+      [PATCH v1 21/57] xen/riscv: introduce asm/xenoprof.h
+      [PATCH v1 24/57] xen/riscv: introduce asm/percpu.h
+      [PATCH v1 29/57] xen/riscv: introduce asm/hardirq.h
+      [PATCH v1 33/57] xen/riscv: introduce asm/altp2m.h
+      [PATCH v1 38/57] xen/riscv: introduce asm/monitor.h
+      [PATCH v1 39/57] xen/riscv: introduce asm/numa.h
+      [PATCH v1 42/57] xen/riscv: introduce asm/softirq.h
+  - xen/lib.h in most of the cases were changed to xen/bug.h as
+    mostly functionilty of bug.h is used.
+  - align arch-riscv.h with Arm's version of it.
+  - change the Author of commit with introduction of asm/atomic.h.
+  - update some definition from spinlock.h.
+  - code style changes.
+---
 
-Other than that:
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Oleksii Kurochko (19):
+  automation: introduce fixed randconfig for RISC-V
+  xen/riscv: disable unnecessary configs
+  xen/riscv: introduce extenstion support check by compiler
+  xen: introduce generic non-atomic test_*bit()
+  xen/bitops: implement fls{l}() in common logic
+  xen/bitops: put __ffs() into linux compatible header
+  xen/riscv: introduce bitops.h
+  xen/riscv: introduce cmpxchg.h
+  xen/riscv: introduce io.h
+  xen/riscv: introduce atomic.h
+  xen/riscv: introduce monitor.h
+  xen/riscv: add definition of __read_mostly
+  xen/riscv: add required things to current.h
+  xen/riscv: add minimal stuff to page.h to build full Xen
+  xen/riscv: add minimal stuff to mm.h to build full Xen
+  xen/riscv: introduce vm_event_*() functions
+  xen/riscv: add minimal amount of stubs to build full Xen
+  xen/riscv: enable full Xen build
+  xen/README: add compiler and binutils versions for RISC-V64
 
-~Michal
+ README                                  |   4 +
+ automation/gitlab-ci/build.yaml         |  19 +-
+ docs/misc/riscv/booting.txt             |  16 +
+ xen/arch/arm/arm64/livepatch.c          |   1 -
+ xen/arch/arm/include/asm/arm32/bitops.h |   2 +-
+ xen/arch/arm/include/asm/arm64/bitops.h |  27 +-
+ xen/arch/arm/include/asm/bitops.h       |  74 +----
+ xen/arch/ppc/include/asm/bitops.h       |  76 -----
+ xen/arch/ppc/include/asm/page.h         |   2 +-
+ xen/arch/ppc/mm-radix.c                 |   2 +-
+ xen/arch/riscv/Makefile                 |  18 +-
+ xen/arch/riscv/arch.mk                  |  19 +-
+ xen/arch/riscv/configs/tiny64_defconfig |  11 +-
+ xen/arch/riscv/early_printk.c           | 168 ----------
+ xen/arch/riscv/include/asm/atomic.h     | 261 +++++++++++++++
+ xen/arch/riscv/include/asm/bitops.h     | 146 +++++++++
+ xen/arch/riscv/include/asm/cache.h      |   2 +
+ xen/arch/riscv/include/asm/cmpxchg.h    | 227 +++++++++++++
+ xen/arch/riscv/include/asm/config.h     |   2 +
+ xen/arch/riscv/include/asm/current.h    |  19 ++
+ xen/arch/riscv/include/asm/io.h         | 168 ++++++++++
+ xen/arch/riscv/include/asm/mm.h         | 240 ++++++++++++++
+ xen/arch/riscv/include/asm/monitor.h    |  26 ++
+ xen/arch/riscv/include/asm/page.h       |  19 ++
+ xen/arch/riscv/mm.c                     |  52 ++-
+ xen/arch/riscv/setup.c                  |  10 +-
+ xen/arch/riscv/stubs.c                  | 415 ++++++++++++++++++++++++
+ xen/arch/riscv/traps.c                  |  25 ++
+ xen/arch/riscv/vm_event.c               |  19 ++
+ xen/arch/x86/include/asm/bitops.h       |  34 +-
+ xen/common/bitops.c                     |  22 ++
+ xen/drivers/passthrough/arm/smmu-v3.c   |   2 +
+ xen/include/asm-generic/atomic-ops.h    |  97 ++++++
+ xen/include/xen/bitops.h                | 154 +++++++++
+ xen/include/xen/linux-compat.h          |   2 +
+ xen/lib/find-next-bit.c                 |   3 +
+ 36 files changed, 1999 insertions(+), 385 deletions(-)
+ create mode 100644 docs/misc/riscv/booting.txt
+ create mode 100644 xen/arch/riscv/include/asm/atomic.h
+ create mode 100644 xen/arch/riscv/include/asm/bitops.h
+ create mode 100644 xen/arch/riscv/include/asm/cmpxchg.h
+ create mode 100644 xen/arch/riscv/include/asm/io.h
+ create mode 100644 xen/arch/riscv/include/asm/monitor.h
+ create mode 100644 xen/arch/riscv/stubs.c
+ create mode 100644 xen/arch/riscv/vm_event.c
+ create mode 100644 xen/include/asm-generic/atomic-ops.h
+
+-- 
+2.43.0
+
 
