@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22FF189739B
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 17:12:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700592.1093968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C61689742C
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 17:39:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700595.1093978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs2HQ-0003LY-QZ; Wed, 03 Apr 2024 15:12:00 +0000
+	id 1rs2hB-0007tZ-RH; Wed, 03 Apr 2024 15:38:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700592.1093968; Wed, 03 Apr 2024 15:12:00 +0000
+Received: by outflank-mailman (output) from mailman id 700595.1093978; Wed, 03 Apr 2024 15:38:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs2HQ-0003K0-NV; Wed, 03 Apr 2024 15:12:00 +0000
-Received: by outflank-mailman (input) for mailman id 700592;
- Wed, 03 Apr 2024 15:11:59 +0000
+	id 1rs2hB-0007rX-Ny; Wed, 03 Apr 2024 15:38:37 +0000
+Received: by outflank-mailman (input) for mailman id 700595;
+ Wed, 03 Apr 2024 15:38:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c57l=LI=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rs2HP-0003Ju-5A
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 15:11:59 +0000
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [2001:4860:4864:20::2d])
+ <SRS0=yPGy=LI=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rs2hA-0007oM-22
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 15:38:36 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8342e5a8-f1cc-11ee-afe5-a90da7624cb6;
- Wed, 03 Apr 2024 17:11:58 +0200 (CEST)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-22988692021so407413fac.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 08:11:58 -0700 (PDT)
+ id 3b22b84f-f1d0-11ee-afe5-a90da7624cb6;
+ Wed, 03 Apr 2024 17:38:34 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3437d3db788so843275f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 08:38:34 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ q4-20020adfab04000000b00343a3e62997sm991281wrc.50.2024.04.03.08.38.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 03 Apr 2024 08:38:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,92 +45,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8342e5a8-f1cc-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 3b22b84f-f1d0-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1712157117; x=1712761917; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DPDJ0BUB/rDc7HOtMUix5dHRcfPqrkvjL7SQSWnlofk=;
-        b=ctMqLedWSPrPlI1J1aBzV6O3a+iJyJbxX+n38T4PoDfyoAOOBLeBfRi3DNBGeQV24v
-         OSfusmUhqxQQCVZJ3sW3R/3bMWANKxNuiEWyp0DClAPLLe+yqMNRV80liM++arQMX2YM
-         lnh6zbDJ4XiZomYpeWICYeQ7XxtzVmJw317KA=
+        d=cloud.com; s=cloud; t=1712158714; x=1712763514; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=McZLVRCOssNn1B5GeXV8ZbbcBKqz5IaOwviQeH7wZuY=;
+        b=CpRbYg+2j1cj8LPM7BpcL6Wg7h1BKWPNZhRjOAj2GEF0dFaJ/Puk4o9NCgtGbSr/tg
+         JV+j9SpTnoirPcJaJ0d4/TUIBkG34ViIa4ZAda0kP5tBsDziuNGi2nCAsATxb5Y3wz7k
+         l0JNTpSMVr9TxAVygBJXPPsdjyHP+UjT1aUew=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712157117; x=1712761917;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DPDJ0BUB/rDc7HOtMUix5dHRcfPqrkvjL7SQSWnlofk=;
-        b=MSxmHRDt7odQRnojBpmNYIeqMSAW1m1V6ayT4p7NhYRZtpbqAewHFJPmtcTkESrMEw
-         tSrdknjqKAlghNZN6HJY+cb7NSdKQKS9YJlBwvqHPp8kH8QbAv32P4Hb1/kVfd2jF1i3
-         6mXQdxJ/qMct2mZFL8LdxSaJ5nqvk8c6+2RnVbojsgQs23uuy07WU2RGkkH/V0Td88K1
-         BW/i3cbE8kLxJNn4/BqrBprIwyrFHri4rspziQFfrILLmA+6KvsjgcEFMhXwEKS7kjbp
-         0zCpnLQWuuYQ6XqmDVYjch+cCh4HMkdSzJbBEcOmLcbNnmR23H6+tV/Voc65XLUiP5b+
-         iJNw==
-X-Forwarded-Encrypted: i=1; AJvYcCWnmV3wiMqfgynHsFaWX/SPLC8oWbKHCVTBBdwffippl3FFMscmZTtJO0yP9kzG9Xy4qPL29DCVNxaAYpICduITkyUYNvC1364txP1lrjs=
-X-Gm-Message-State: AOJu0Yx8MfIxY5n/Ajn7HMLDACT+51wmf64PRqQgnLUDYQ050jWGcbGE
-	4D86gIUutPBjcq8XXSfWEabrCrUjRFrZszBIIz6M477BQIG0uLNZkp7CKMbrcvQe8qjwVbjzo/e
-	sZjPai44zyeKxJmiJviX2Qz44RMn450PUixXFqg==
-X-Google-Smtp-Source: AGHT+IH2ekgReYg7I2ZjStsBHa5zVhounqfchGCEV9Z71EtjUNl63EycvzrkVnZ5r/iCiWACeqIaYkMzNfjxx4i649w=
-X-Received: by 2002:a05:6871:58e:b0:22e:74a1:2ac5 with SMTP id
- u14-20020a056871058e00b0022e74a12ac5mr1025585oan.7.1712157116783; Wed, 03 Apr
- 2024 08:11:56 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1712158714; x=1712763514;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=McZLVRCOssNn1B5GeXV8ZbbcBKqz5IaOwviQeH7wZuY=;
+        b=C7B//uu28GBlGSHHgAVjPezaLCzMKMVEmIKNVHmE6sxsoSnQ+OC215rN9Kfki2ScuI
+         gEjIf+VOD2vagbh8BpTjWpEStjZlNCgxIX/ywfh4jPy+vXWkTf7p71own9vCUFuxKHW0
+         aYWRkTGvK+1NFMRHP+keEuhfxpoOsCeajLd7fA5qsU2QnHok23VN1mqa3SZ9H1/7MpgY
+         8ZHyPHfa1jTOYWr4KdP3JQHwsgFdalN2P/tZCKw+XUGcpF+lhk1pvzkTRtnVpUKxCRW8
+         RG88oZtTu++2T8JKMzpvp58ihaoq+ksaYESuMwkjmGA9BBqlJh0WPEJQQ/qCrHDAhnDO
+         QUbQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWlLw6l9ULBoQk8bG5IVhPR+RH9G2MfV7MB5wQJ5MreTbR5LLlUfUopIHm2uYLFinoXG69YiZbIHP9/rsIkPyui3l4R+AfUJLYuR4TAFVY=
+X-Gm-Message-State: AOJu0YyGw8zRHfbQdg11Q9HW+oQ9otPC6LCckvpAmAcbFVVRXYc4Jzh3
+	8c81VXhJ17hivojs9MoEqmzuPECV/mrs6cMIjeXXgESetYqqLHwDys4OZJeH7uo=
+X-Google-Smtp-Source: AGHT+IHMprkau44Qe3lFKQrt/13mkFPfzfcO0cjJA2aZFWBVL3kgVYar/XjBSEoCPGmmrtjU5kfiyQ==
+X-Received: by 2002:a5d:64ca:0:b0:343:a2fb:92aa with SMTP id f10-20020a5d64ca000000b00343a2fb92aamr1108402wri.71.1712158713865;
+        Wed, 03 Apr 2024 08:38:33 -0700 (PDT)
+Date: Wed, 3 Apr 2024 16:38:32 +0100
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 1/2] hw/xen: detect when running inside stubdomain
+Message-ID: <ec141587-4d49-403b-b773-26b9087d5b04@perard>
+References: <cover.527f002866de2be7c275c5000b6e5edfeb7e8368.1711506237.git-series.marmarek@invisiblethingslab.com>
+ <e66aa97dca5120f22e015c19710b2ff04f525720.1711506237.git-series.marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
-References: <alpine.DEB.2.22.394.2311221331130.2053963@ubuntu-linux-20-04-desktop>
- <5a8f90d6-6502-4d93-9fd7-45fea0ede24a@suse.com> <alpine.DEB.2.22.394.2403081758400.853156@ubuntu-linux-20-04-desktop>
- <CA+zSX=aiqacW+QLM+KX-CcAo3DVnN+Kn7vQsOOKGK3qQOqXvBA@mail.gmail.com>
- <a2485ac6-19ac-42ce-b8cf-6f8408483521@xen.org> <alpine.DEB.2.22.394.2403141711460.853156@ubuntu-linux-20-04-desktop>
- <e57a3c03-fcbc-4a5a-8b23-b9b9448de2be@suse.com> <CA+zSX=anV+h8a8Ynq1Eh+PmtmgiSj8ruRfBbhLrhMbrNn+ED0w@mail.gmail.com>
- <63891474-1dc4-4c86-aaf4-cc4d4c53a0ae@suse.com> <CA+zSX=bu-gRYUYOKMRp5kJ02ExdrtFEHTgXapwTVotm5cK2dfw@mail.gmail.com>
- <d05be83a-e7f1-4c2f-afda-42deee9be203@suse.com> <3f27abc3-9809-4637-a29c-8aeafcd29ade@xen.org>
- <7109ef7e-040c-4d11-ba4b-d898ed2530ff@suse.com> <CA+zSX=bGfc+dsZjg4xmW2fgsnFQLSAh1ChOY3jYU_AD5SJw_7w@mail.gmail.com>
- <5128255f-fe52-4425-b168-34946c0c901e@suse.com> <alpine.DEB.2.22.394.2403181752370.853156@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2403181752370.853156@ubuntu-linux-20-04-desktop>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Wed, 3 Apr 2024 16:11:45 +0100
-Message-ID: <CA+zSX=ZGG+D3FaCRuxmJygWzwc3KdSYiJKzrp4HLeHxG-stHKA@mail.gmail.com>
-Subject: Re: [PATCH] do_multicall and MISRA Rule 8.3
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, federico.serafini@bugseng.com, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org, 
-	michal.orzel@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e66aa97dca5120f22e015c19710b2ff04f525720.1711506237.git-series.marmarek@invisiblethingslab.com>
 
-On Tue, Mar 19, 2024 at 3:39=E2=80=AFAM Stefano Stabellini
-<sstabellini@kernel.org> wrote:
-> > The main use of fixed width types, to me, is in interface structure
-> > definitions - between Xen and hardware / firmware, or in hypercall
-> > structures. I'm afraid I have a hard time seeing good uses outside of
-> > that. Even in inline assembly, types of variables used for inputs or
-> > outputs don't strictly need to be fixed-width; I can somewhat accept
-> > their use there for documentation purposes.
->
->
-> Non-ABI interfaces are OK with native types.
->
-> Our ABI interfaces are, for better or for worse, described using C
-> header files. Looking at these header files, it should be clear the size
-> and alignment of all integer parameters.
->
-> To that end, I think we should use fixed-width types in all ABIs,
-> including hypercall entry points. In my opinion, C hypercall entry
-> points are part of the ABI and should match the integer types used in
-> the public header files. I don't consider the little assembly code on
-> hypercall entry as important.
+On Wed, Mar 27, 2024 at 04:05:14AM +0100, Marek Marczykowski-Górecki wrote:
+> Introduce global xen_is_stubdomain variable when qemu is running inside
+> a stubdomain instead of dom0. This will be relevant for subsequent
+> patches, as few things like accessing PCI config space need to be done
+> differently.
+> 
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-So as Jan pointed out in the recent call, the "actual" ABI is
-"register X, Y, Z are arguments 1-3".  The key thing for me then is
-whether it's clear what values in register X are acceptable.  If the C
-function implementing the hypercall has an argument of type "unsigned
-int", is it clear what values the guest is allowed to be put into the
-corresponding register, and how they'll be interpreted, as opposed to
-"unsigned long"?
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 
-If we can document the expectations, for each architecture, for how
-the "native types" map to sizes, then I think that should be
-sufficient.
+Thanks,
 
- -George
+
+-- 
+Anthony PERARD
 
