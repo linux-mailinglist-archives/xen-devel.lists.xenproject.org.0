@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F100C897631
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 19:18:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700616.1094038 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC0B789763B
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 19:19:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700619.1094048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs4F4-0004M6-0q; Wed, 03 Apr 2024 17:17:42 +0000
+	id 1rs4GD-0004wq-DM; Wed, 03 Apr 2024 17:18:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700616.1094038; Wed, 03 Apr 2024 17:17:41 +0000
+Received: by outflank-mailman (output) from mailman id 700619.1094048; Wed, 03 Apr 2024 17:18:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs4F3-0004K0-Tf; Wed, 03 Apr 2024 17:17:41 +0000
-Received: by outflank-mailman (input) for mailman id 700616;
- Wed, 03 Apr 2024 17:17:40 +0000
+	id 1rs4GD-0004uU-AA; Wed, 03 Apr 2024 17:18:53 +0000
+Received: by outflank-mailman (input) for mailman id 700619;
+ Wed, 03 Apr 2024 17:18:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YTxZ=LI=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1rs4F2-0004Jt-Ss
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 17:17:40 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1rs4GB-0004uM-Kz
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 17:18:51 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 117d7547-f1de-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 19:17:38 +0200 (CEST)
+ id 3b4f340c-f1de-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 19:18:48 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2D20C612F2;
- Wed,  3 Apr 2024 17:17:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FBD3C43399;
- Wed,  3 Apr 2024 17:17:34 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id CC102CE2BC3;
+ Wed,  3 Apr 2024 17:18:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB228C433C7;
+ Wed,  3 Apr 2024 17:18:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 117d7547-f1de-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 3b4f340c-f1de-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712164655;
-	bh=I5I/tcSmeKF5ifh3GxWXCl1DiaHE8jW3HXlBzvcXZe8=;
+	s=k20201202; t=1712164722;
+	bh=3AAtuv1sdW29VOPvcKFQGUfAJApgpG6IHRwte9triro=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=klBRL2UR2PK0KKEY0y3846shtDB6Pmc1mETxmzmku5SGhPUhhR8jH2wJS0p9jbXHX
-	 Nu+w2PZpht76+fYeST7Ai9ryQPKH8huV5Cz6QlONbTHgXRwG2LtMmEUCIX4s78COwu
-	 8genAxwiCeZYWPffqLFApwH+0Vb3QANE6e9j+2b15QgbxY/mrGWaw6juiv0qyX40KA
-	 2oG4IO4ipDtVtiw5mlG4DJ4F8piQ1y+FCp2fcdFQK00AwSE7XP6/LSok0ba2fuKJS/
-	 bZmLQJaCfZksxLf5feyTbrWeG2DsGykkdBgXTApiV1GqfXZZm044JCRQQuR3ksRymD
-	 +LVSdYjDjUhrQ==
+	b=CDak0158x04VbSxtu374bEE1blW1u0B1Ubf4Glxg7rLul/DqFA5gsNZx8EIHv/laY
+	 aUD2F9ho5cjKiNOoe4uMJ7mdQYk7AvseLOvKUWjawIeTRhuY93GxuETcGGnL4I6mvz
+	 I4BnpSZtoZkPOiYn8uzw7oOrNVrfUQ48rCVICIdWxgrirTx+iATMpqCTJQq9MEdlsl
+	 i1qnWjKfJqnjU7t/hS63l2/ni5Z5PpPk0eBtsKMXpIfFi+HDdkN3H6jJpI7zmfcjW8
+	 LNBvFD3/s1sO50aPm8flQjm6jrsNR5Apfghm4FVlklROmruKEiQoAjAJKZyc8R5lJU
+	 LApmyAAzEvCgQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -65,17 +66,17 @@ Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	x86@kernel.org,
 	sstabellini@kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 6.8 18/28] x86/xen: attempt to inflate the memory balloon on PVH
-Date: Wed,  3 Apr 2024 13:16:20 -0400
-Message-ID: <20240403171656.335224-18-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 13/20] x86/xen: attempt to inflate the memory balloon on PVH
+Date: Wed,  3 Apr 2024 13:17:54 -0400
+Message-ID: <20240403171815.342668-13-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240403171656.335224-1-sashal@kernel.org>
-References: <20240403171656.335224-1-sashal@kernel.org>
+In-Reply-To: <20240403171815.342668-1-sashal@kernel.org>
+References: <20240403171815.342668-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.8.3
+X-stable-base: Linux 6.6.24
 Content-Transfer-Encoding: 8bit
 
 From: Roger Pau Monne <roger.pau@citrix.com>
@@ -373,10 +374,10 @@ index a87ab36889e76..79cf93f2c92f1 100644
 +
  #endif /* XEN_OPS_H */
 diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-index 976c6cdf9ee67..aaf2514fcfa46 100644
+index 586a1673459eb..db61bcb3aab17 100644
 --- a/drivers/xen/balloon.c
 +++ b/drivers/xen/balloon.c
-@@ -672,7 +672,6 @@ EXPORT_SYMBOL(xen_free_ballooned_pages);
+@@ -673,7 +673,6 @@ EXPORT_SYMBOL(xen_free_ballooned_pages);
  
  static void __init balloon_add_regions(void)
  {
@@ -384,7 +385,7 @@ index 976c6cdf9ee67..aaf2514fcfa46 100644
  	unsigned long start_pfn, pages;
  	unsigned long pfn, extra_pfn_end;
  	unsigned int i;
-@@ -696,7 +695,6 @@ static void __init balloon_add_regions(void)
+@@ -697,7 +696,6 @@ static void __init balloon_add_regions(void)
  
  		balloon_stats.total_pages += extra_pfn_end - start_pfn;
  	}
