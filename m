@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC0B789763B
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 19:19:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700619.1094048 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48ED2897646
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 19:19:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700621.1094058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs4GD-0004wq-DM; Wed, 03 Apr 2024 17:18:53 +0000
+	id 1rs4Gv-0005zL-N9; Wed, 03 Apr 2024 17:19:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700619.1094048; Wed, 03 Apr 2024 17:18:53 +0000
+Received: by outflank-mailman (output) from mailman id 700621.1094058; Wed, 03 Apr 2024 17:19:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs4GD-0004uU-AA; Wed, 03 Apr 2024 17:18:53 +0000
-Received: by outflank-mailman (input) for mailman id 700619;
- Wed, 03 Apr 2024 17:18:51 +0000
+	id 1rs4Gv-0005t9-KL; Wed, 03 Apr 2024 17:19:37 +0000
+Received: by outflank-mailman (input) for mailman id 700621;
+ Wed, 03 Apr 2024 17:19:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YTxZ=LI=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1rs4GB-0004uM-Kz
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 17:18:51 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
+ id 1rs4Gu-0004uM-SI
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 17:19:36 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3b4f340c-f1de-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 19:18:48 +0200 (CEST)
+ id 56db034d-f1de-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 19:19:34 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id CC102CE2BC3;
- Wed,  3 Apr 2024 17:18:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB228C433C7;
- Wed,  3 Apr 2024 17:18:40 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3F1BE612F2;
+ Wed,  3 Apr 2024 17:19:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99249C433F1;
+ Wed,  3 Apr 2024 17:19:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b4f340c-f1de-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 56db034d-f1de-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712164722;
-	bh=3AAtuv1sdW29VOPvcKFQGUfAJApgpG6IHRwte9triro=;
+	s=k20201202; t=1712164772;
+	bh=8B1t4Px7dkhdKrJe3fy8ag6ypD3rsqA0jxk4Kv1UpP8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=CDak0158x04VbSxtu374bEE1blW1u0B1Ubf4Glxg7rLul/DqFA5gsNZx8EIHv/laY
-	 aUD2F9ho5cjKiNOoe4uMJ7mdQYk7AvseLOvKUWjawIeTRhuY93GxuETcGGnL4I6mvz
-	 I4BnpSZtoZkPOiYn8uzw7oOrNVrfUQ48rCVICIdWxgrirTx+iATMpqCTJQq9MEdlsl
-	 i1qnWjKfJqnjU7t/hS63l2/ni5Z5PpPk0eBtsKMXpIfFi+HDdkN3H6jJpI7zmfcjW8
-	 LNBvFD3/s1sO50aPm8flQjm6jrsNR5Apfghm4FVlklROmruKEiQoAjAJKZyc8R5lJU
-	 LApmyAAzEvCgQ==
+	b=GzwJjvCqEeVJI80ExCmfG1Opdsd1Pq+Fs4e+Qx9fV7FAYZe4fuPpD8zGkjbqSQaMp
+	 Qdk/Fb2hS6TYsscuUziZs3BmSiB1vE69I/bnycpDnceYA80p6NTaVkEvOj/Fc9LLRg
+	 mzWNJdwUik2xRmfieJIblYRbKh7uVaLNoY6H0qanIrlcHW4a//Yuy8gFWpipsl1FAz
+	 VsCVEikNxuUGONYBAJ/VxslE6AE8rLGWUWu7eq+vArUfa/qYvpqvUpeqB+riLN3nAy
+	 JHC8mENhx2vddIrtAHx1SEJt73NN5pBGgFMYXfbXR3pw6vxRQyvkFV3R/Hbd89/97D
+	 qoWsJGQgsV8tA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -66,17 +65,17 @@ Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	x86@kernel.org,
 	sstabellini@kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 6.6 13/20] x86/xen: attempt to inflate the memory balloon on PVH
-Date: Wed,  3 Apr 2024 13:17:54 -0400
-Message-ID: <20240403171815.342668-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 11/15] x86/xen: attempt to inflate the memory balloon on PVH
+Date: Wed,  3 Apr 2024 13:18:55 -0400
+Message-ID: <20240403171909.345570-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240403171815.342668-1-sashal@kernel.org>
-References: <20240403171815.342668-1-sashal@kernel.org>
+In-Reply-To: <20240403171909.345570-1-sashal@kernel.org>
+References: <20240403171909.345570-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.24
+X-stable-base: Linux 6.1.84
 Content-Transfer-Encoding: 8bit
 
 From: Roger Pau Monne <roger.pau@citrix.com>
@@ -122,10 +121,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  7 files changed, 122 insertions(+), 46 deletions(-)
 
 diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
-index a9088250770f2..64fbd2dbc5b76 100644
+index 16f548a661cf6..b3bfefdb7793a 100644
 --- a/arch/x86/include/asm/xen/hypervisor.h
 +++ b/arch/x86/include/asm/xen/hypervisor.h
-@@ -62,6 +62,11 @@ void xen_arch_unregister_cpu(int num);
+@@ -59,6 +59,11 @@ void xen_arch_unregister_cpu(int num);
  #ifdef CONFIG_PVH
  void __init xen_pvh_init(struct boot_params *boot_params);
  void __init mem_map_via_hcall(struct boot_params *boot_params_p);
@@ -136,9 +135,9 @@ index a9088250770f2..64fbd2dbc5b76 100644
 +#endif
  #endif
  
- /* Lazy mode for batching updates / context switch */
+ #endif /* _ASM_X86_XEN_HYPERVISOR_H */
 diff --git a/arch/x86/platform/pvh/enlighten.c b/arch/x86/platform/pvh/enlighten.c
-index 00a92cb2c8147..a12117f3d4de7 100644
+index ed0442e354344..f15dc1e3ad7dd 100644
 --- a/arch/x86/platform/pvh/enlighten.c
 +++ b/arch/x86/platform/pvh/enlighten.c
 @@ -74,6 +74,9 @@ static void __init init_pvh_bootparams(bool xen_guest)
@@ -282,10 +281,10 @@ index ada3868c02c23..c28f073c1df52 100644
 +	}
 +}
 diff --git a/arch/x86/xen/setup.c b/arch/x86/xen/setup.c
-index b3e37961065a2..380591028cb8f 100644
+index 8db26f10fb1d9..72ab4a2f029bb 100644
 --- a/arch/x86/xen/setup.c
 +++ b/arch/x86/xen/setup.c
-@@ -38,9 +38,6 @@
+@@ -37,9 +37,6 @@
  
  #define GB(x) ((uint64_t)(x) * 1024 * 1024 * 1024)
  
@@ -295,7 +294,7 @@ index b3e37961065a2..380591028cb8f 100644
  /* Number of pages released from the initial allocation. */
  unsigned long xen_released_pages;
  
-@@ -64,18 +61,6 @@ static struct {
+@@ -60,18 +57,6 @@ static struct {
  } xen_remap_buf __initdata __aligned(PAGE_SIZE);
  static unsigned long xen_remap_mfn __initdata = INVALID_P2M_ENTRY;
  
@@ -314,7 +313,7 @@ index b3e37961065a2..380591028cb8f 100644
  static bool xen_512gb_limit __initdata = IS_ENABLED(CONFIG_XEN_512GB);
  
  static void __init xen_parse_512gb(void)
-@@ -96,35 +81,6 @@ static void __init xen_parse_512gb(void)
+@@ -92,35 +77,6 @@ static void __init xen_parse_512gb(void)
  	xen_512gb_limit = val;
  }
  
@@ -351,10 +350,10 @@ index b3e37961065a2..380591028cb8f 100644
  				     unsigned long n_pfns)
  {
 diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
-index a87ab36889e76..79cf93f2c92f1 100644
+index b2b2f4315b78d..8c715a4f06c02 100644
 --- a/arch/x86/xen/xen-ops.h
 +++ b/arch/x86/xen/xen-ops.h
-@@ -163,4 +163,18 @@ void xen_hvm_post_suspend(int suspend_cancelled);
+@@ -162,4 +162,18 @@ void xen_hvm_post_suspend(int suspend_cancelled);
  static inline void xen_hvm_post_suspend(int suspend_cancelled) {}
  #endif
  
@@ -374,10 +373,10 @@ index a87ab36889e76..79cf93f2c92f1 100644
 +
  #endif /* XEN_OPS_H */
 diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-index 586a1673459eb..db61bcb3aab17 100644
+index 617a7f4f07a80..4e23b398e2882 100644
 --- a/drivers/xen/balloon.c
 +++ b/drivers/xen/balloon.c
-@@ -673,7 +673,6 @@ EXPORT_SYMBOL(xen_free_ballooned_pages);
+@@ -691,7 +691,6 @@ EXPORT_SYMBOL(xen_free_ballooned_pages);
  
  static void __init balloon_add_regions(void)
  {
@@ -385,7 +384,7 @@ index 586a1673459eb..db61bcb3aab17 100644
  	unsigned long start_pfn, pages;
  	unsigned long pfn, extra_pfn_end;
  	unsigned int i;
-@@ -697,7 +696,6 @@ static void __init balloon_add_regions(void)
+@@ -715,7 +714,6 @@ static void __init balloon_add_regions(void)
  
  		balloon_stats.total_pages += extra_pfn_end - start_pfn;
  	}
