@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78440896558
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 09:06:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700324.1093281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A66DE896587
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 09:11:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700326.1093292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rruhc-0005n9-3V; Wed, 03 Apr 2024 07:06:32 +0000
+	id 1rruli-0007cn-Js; Wed, 03 Apr 2024 07:10:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700324.1093281; Wed, 03 Apr 2024 07:06:32 +0000
+Received: by outflank-mailman (output) from mailman id 700326.1093292; Wed, 03 Apr 2024 07:10:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rruhc-0005lK-0x; Wed, 03 Apr 2024 07:06:32 +0000
-Received: by outflank-mailman (input) for mailman id 700324;
- Wed, 03 Apr 2024 07:06:30 +0000
+	id 1rruli-0007bZ-Gm; Wed, 03 Apr 2024 07:10:46 +0000
+Received: by outflank-mailman (input) for mailman id 700326;
+ Wed, 03 Apr 2024 07:10:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rruha-0005lE-Sm
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 07:06:30 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1rrulg-0007bR-JX
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 07:10:44 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b0e3cfa6-f188-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 09:06:28 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-41569f1896dso17153085e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 00:06:28 -0700 (PDT)
+ id 4874c998-f189-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 09:10:42 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-516ab4b3251so2736688e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 00:10:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- u22-20020a05600c139600b004148d7b889asm23738954wmf.8.2024.04.03.00.06.27
+ t12-20020adfe10c000000b0033e9d9f891csm16304560wrz.58.2024.04.03.00.10.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Apr 2024 00:06:27 -0700 (PDT)
+ Wed, 03 Apr 2024 00:10:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0e3cfa6-f188-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 4874c998-f189-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712127988; x=1712732788; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712128242; x=1712733042; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=IgozsyAWNQWkxwzyx5s9x4dde7if6pY86JHv3Q/QFpo=;
-        b=VLJ0ER8/IumWMHcYfWlg3hW/Cv8Vj38trV2p1a2Gr1ztEuKqEW0JA99q2593TiCsG9
-         3FE7u2P+YMnLQVpto1lunbboSf5zaNu3VUIAf7lCVrcONrMFqVDUe+v3E1pMCU50BCOw
-         FuU4ezPRo/ix27smSXaYRnPHsriORZ+9RB4aMXzDuU2AgSwKy09XYUDqo0sPLtLx6ZXx
-         5UrkE0t60XISgyikPgj5dtS6RAOWR0Hc7PzEUaAkf24nGQ5/yIdkqp06Ld2OrmePXQk4
-         sBfMgxdaMR2qVtC4ofTta3egnNxse8zaSi7alfx7DrsfFVAbj+Kuq5nKmMCllBLAa56G
-         Oyeg==
+        bh=h9OF+6JDhc7gnTEjSdyUQx3lEKPLQAuMUaXZrLAt6fY=;
+        b=Ecti0A5Sd9WlyOe3jPZz50XEX2AonmzczLEMdlZA0ThEr6sEv7BoWezY/jaqwI4sTQ
+         hlHTu0n3C24EaKgiyuk/TSLulvftIuwzsAAqpji0pNpqQUc1Yh3rcSEORVPIWMJFFSfR
+         eYleQBrRzqxu54OMnblIdKsO9x/bdDcp9EhqEnW38aQEsxBhojaH/quPj7tbVqa4J+jh
+         aK74fcWuAzyZZvR7/CTTWLb49zGc+3Q61hE55sZP97fROD2lcLEOTFNDsPKU1tWrEQps
+         ul6oqCeubu6RmIQKLpIgwCZrkssE0Vu+CjXxXqQfCwW9C0fewoFflbHv111CncKA1jvT
+         euNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712127988; x=1712732788;
+        d=1e100.net; s=20230601; t=1712128242; x=1712733042;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IgozsyAWNQWkxwzyx5s9x4dde7if6pY86JHv3Q/QFpo=;
-        b=gRgACls4vLR7kYtaTGpMAZAbiMsH/PVtbHTqwWLPeNjoXMjr2ksX5JJTxegUjKa++c
-         +an9KD8MVMpqwej7LV7GncHx2lnC4DjMR42vkPbfDBzxDjqmpu17i0tge5/Qj+d8b5Xi
-         gKdAhX+XM9xolu+PJmWawjDCqvEGLwHnoTqrCV4zpBr+WTXPm1WN6xITgZo7udegyMCM
-         ZzlDVpU7VO3Kan6x86tm7JCL/V/QynARN+/oOFxlacXn1aQ9OjR4WTzlAKCKq+vwDMkF
-         6+XjgPALp76APxJamiCZ1UyhwRnmlVD+7S3i1KMFgjBwPCcw6NWRmMG3bFrbCys/eVSn
-         cJSA==
-X-Forwarded-Encrypted: i=1; AJvYcCVSXej4olR7AqkV/+A2P2OGYpJRtsenijPjuLu3z0vUdQUFr76axyRIorTQ6u9KkLSW7PgwTN5dpFbj45MIW3OO8e76BeD+HgO60mYE1Qw=
-X-Gm-Message-State: AOJu0Yxdu2whkxuATweuIJsmVXZjEoJNX3cr0uEfOUyVu/56BB9XeDwn
-	5Vahea43z5gV9QKtkj+/uysnHfA1CRRN5Qakxt3VDY0LQxlgxAc4I2y3KNnpYQ==
-X-Google-Smtp-Source: AGHT+IE/j+ktN2JCUyNcIT00TK6qNNSFdkGRfF30DfNUz3HMOvHo9ZoCOg5EWjOeRH6OmNCVZDfUmQ==
-X-Received: by 2002:a05:600c:3514:b0:413:3160:840f with SMTP id h20-20020a05600c351400b004133160840fmr10352088wmq.0.1712127987699;
-        Wed, 03 Apr 2024 00:06:27 -0700 (PDT)
-Message-ID: <23612847-e364-47cc-a1ca-a571431a3996@suse.com>
-Date: Wed, 3 Apr 2024 09:06:26 +0200
+        bh=h9OF+6JDhc7gnTEjSdyUQx3lEKPLQAuMUaXZrLAt6fY=;
+        b=AFyAdtvAL/rwO+nIuX36+hYqsFFD4BvVFbBlC+PYr4VT8Nzpzi/Jl6fYU6SiFT+vHv
+         OGW/qMh1aoIsen3TaIEh6V0zfbO+OYD0pu1xC9fB2Ep5yQJJxUX5EW3SvFkAhPYUhPgf
+         6jwYGGflEiKdST5yp8rgqJ7LOwgvMvhZRjWPZh+Oi1kq7m/FUtkJMIFoddkZsIxH9IlM
+         hfYM67AKKv01xt4vW2X/Z7ElYHO2IV8p7svGzaeBLAsPW4qqVojytheIdETFhs/nNLeT
+         Z6Lbg1F8m1E80L4dgRWG5AYSbRaimAX5ROaiaok+EN05/dahtvZb6uYs9kVzCQuHBtiI
+         zuyA==
+X-Forwarded-Encrypted: i=1; AJvYcCWUED5e1JbjDemiSuFAoigwqiBpH+gs3VVGNQgg9Rz6TJXQkOKDiMdqW/cK6qWpsntLtivwbhEIxEO0ZlUdqg/AAcrUyI6lxtikC+nXJtg=
+X-Gm-Message-State: AOJu0Yxv63F2CJU+ez03PX0Jy+QUfnNFih0nqer5tYZeWC3n6OUkP+d1
+	8DhCL8RkDGCjRtlY5KxXPVGJJGGxoFnJTGqGFiyhh+NQ7YJrtaLhDYcpV64eIoQarOmDANKp/R0
+	=
+X-Google-Smtp-Source: AGHT+IFCaJfHk/kRA1edlyH+Qao3PbsTLUxC+BmRUP/OvwPSJfx70dLeMBQ6aj5QZ+uSM+lg0IZsCg==
+X-Received: by 2002:a19:4359:0:b0:513:b159:e711 with SMTP id m25-20020a194359000000b00513b159e711mr11159973lfj.4.1712128241881;
+        Wed, 03 Apr 2024 00:10:41 -0700 (PDT)
+Message-ID: <0d7daae5-97c3-4982-8301-7ed2fda24ff9@suse.com>
+Date: Wed, 3 Apr 2024 09:10:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 7/7] vsprintf: address violations of MISRA C:2012 Rule
- 16.3
+Subject: Re: [PATCH v3 2/2] drivers/char: mark extra reserved device memory in
+ memory map
 Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1712042178.git.federico.serafini@bugseng.com>
- <b1f2dc6467571090f882ce7c0611db13a8c63555.1712042178.git.federico.serafini@bugseng.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240327025454.514521-1-marmarek@invisiblethingslab.com>
+ <20240327025454.514521-2-marmarek@invisiblethingslab.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,45 +114,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b1f2dc6467571090f882ce7c0611db13a8c63555.1712042178.git.federico.serafini@bugseng.com>
+In-Reply-To: <20240327025454.514521-2-marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02.04.2024 09:22, Federico Serafini wrote:
-> MISRA C:2012 Rule 16.3 states: "An unconditional `break' statement
-> shall terminate every switch-clause".
+On 27.03.2024 03:53, Marek Marczykowski-Górecki wrote:
+> The IOMMU driver checks if RMRR/IVMD are marked as reserved in memory
+> map. This should be true for addresses coming from the firmware, but
+> when extra pages used by Xen itself are included in the mapping, those
+> are taken from usable RAM used. Mark those pages as reserved too.
 > 
-> Add break statement to address violations of the rule or add
-> pseudo-keyword fallthrough to meet the requirements to deviate it.
+> Not marking the pages as reserved didn't caused issues before due to
+> another a bug in IOMMU driver code, that was fixed in 83afa3135830
+> ("amd-vi: fix IVMD memory type checks").
+> 
+> Failing to reserve memory will lead to panic in IOMMU setup code. And
+> not including the page in IOMMU mapping will lead to broken console (due
+> to IOMMU faults). The pages chosen by the XHCI console driver should
+> still be usable by the CPU though, and the console code already can deal
+> with too slow console by dropping characters (and console not printing
+> anything is a special case of "slow"). When reserving fails print an error
+> message showing which pages failed and who requested them. This should
+> be enough hint to find why XHCI console doesn't work.
+> 
+> Fixes: 3a1a7b809ffa "drivers/char: mark DMA buffers as reserved for the XHCI"
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-While the latter half of the sentence properly describes the latter
-two of the hunks, the former half doesn't match the former two hunks
-at all:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/common/vsprintf.c
-> +++ b/xen/common/vsprintf.c
-> @@ -377,7 +377,7 @@ static char *pointer(char *str, const char *end, const char **fmt_ptr,
->              str = number(str, end, hex_buffer[i], 16, 2, -1, ZEROPAD);
->  
->              if ( ++i == field_width )
-> -                return str;
-> +                break;
 
-This "break" is inside for(), not switch().
-
-> @@ -386,6 +386,8 @@ static char *pointer(char *str, const char *end, const char **fmt_ptr,
->                  ++str;
->              }
->          }
-> +
-> +        return str;
->      }
-
-And this "return" is what now "delimits" case 'h' of the switch(). The
-original situation therefore was that the for() could not be exited by
-other than the "return" inside. The supposedly missing "break" in that
-arrangement would have been "unreachable code", i.e. violate another
-rule. Hence the (undescribed) further re-arrangement.
-
-Jan
 
