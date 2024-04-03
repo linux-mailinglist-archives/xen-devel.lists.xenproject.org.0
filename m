@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEE00896C66
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 12:29:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700430.1093607 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C215896C0C
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 12:20:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700408.1093588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrxsG-000832-Qf; Wed, 03 Apr 2024 10:29:44 +0000
+	id 1rrxjV-0003dG-Sx; Wed, 03 Apr 2024 10:20:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700430.1093607; Wed, 03 Apr 2024 10:29:44 +0000
+Received: by outflank-mailman (output) from mailman id 700408.1093588; Wed, 03 Apr 2024 10:20:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrxsG-00080u-NH; Wed, 03 Apr 2024 10:29:44 +0000
-Received: by outflank-mailman (input) for mailman id 700430;
- Wed, 03 Apr 2024 10:29:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rrxjV-0003Xz-Lk; Wed, 03 Apr 2024 10:20:41 +0000
+Received: by outflank-mailman (input) for mailman id 700408;
+ Wed, 03 Apr 2024 10:20:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YDNC=LI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rrxjT-0007Ob-J1
+ id 1rrxjT-0007Ql-7i
  for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 10:20:39 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d0a721dd-f1a3-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 12:20:37 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-513d3746950so7685294e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 03:20:37 -0700 (PDT)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d1283e10-f1a3-11ee-afe5-a90da7624cb6;
+ Wed, 03 Apr 2024 12:20:38 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-513d23be0b6so6716236e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 03:20:38 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- k33-20020a0565123da100b00516a18f9080sm1161237lfv.257.2024.04.03.03.20.35
+ k33-20020a0565123da100b00516a18f9080sm1161237lfv.257.2024.04.03.03.20.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Apr 2024 03:20:35 -0700 (PDT)
+ Wed, 03 Apr 2024 03:20:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,337 +44,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0a721dd-f1a3-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: d1283e10-f1a3-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712139636; x=1712744436; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1712139638; x=1712744438; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uOVqQfR57MWTh7AY+Vja1u38euiVWOG4QoZ0H9d02nE=;
-        b=DJiHXmRLIVCkEZJOPU/JSzr4SxjN9aAsPq2uhYXTJ51ObdNhIs5CO0edvs//tpRSYv
-         NIaASosOK1jcRrRMRFDD6703fpaX73bKHEe6UzmY+fGADydB5KrizFClj4MVPLH3uOnT
-         C4KbwScO0/BmUfPZXOyaPnxz2IGC6OsD+S8iNWxEml7F7WH+fX4JjXWWMJxPtPDtuAO/
-         cEW04TvY4d7CxK5L0JZanW7M/NqNTNSKIYP/klCZFt0kySf5vnanwTHyvzGMPv5V5VQo
-         djIaMsYTWHYrupfpoUeqMA1w9QoMz87Lc1IFI3yh6P3zPBK84yS5Fe3oH0JRnYUgZfzf
-         5b2g==
+        bh=1uIerHkh9A9c5ske6Nc8FntObOiI9Swd+Fna5hAuyNg=;
+        b=YDTCer0kRP/4zEULk+UEXHvsD33dsJFiUf8V/d+B8usCBGapQnerUG1Tldf7oh2J7z
+         Hv0xXWVpCUwURK44+9anYobL2jen3MuTV+37l6H1nOqydW06kbqu6TNvuNXf/oUAdG+h
+         aZW+1UsVeT5pg/uxfX/FrXjnFT72zSCD36Te0cG9bi1vBUuMALEVCwJTQ8Aw/yOEBRFB
+         gf0BOxyuN28PGx0XH7+gE16IUHSlJ92jryIkcaJsqirxbKo/NCp6Fk41cGXsEtGdCoDC
+         OITZqrbMFdTBajTy6U4IkLU0Nr3JP7EdWHIG3YvPG1iTeqoZ/uwBaXDbeQKsX+25WATI
+         c5AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712139636; x=1712744436;
+        d=1e100.net; s=20230601; t=1712139638; x=1712744438;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=uOVqQfR57MWTh7AY+Vja1u38euiVWOG4QoZ0H9d02nE=;
-        b=rtQtSws1/1lJS5a7cLdZeykH58pDe1puRgs32diIk1/Y/+DJHQvFViOp+VSpsgXG6A
-         rWVtSP+V9cbqWc2JgV6RDUFhfmeilgQFt5SaLKdXgZZ3stf1SRL48OcMu//oCMcHzPKn
-         nRuxfk3Uf8hWSpb3oahnK9hjonyhhv5NwGeHmgDmw87kmg4o9nqC5MisXis9NtE8PMry
-         0+mr5xzacsJhO3KzNhm4lvCQ1af+f9XFxd6oZvC/1b01oHbfoUXLnbqZmYfVzEzHsPjo
-         FvuyH0b8l08Ic7dfET2/9IHFsAjkb3Mk6CZAshXa7V7nhKwsGaqimS0vf8YWlxXpCmIk
-         PgWQ==
-X-Gm-Message-State: AOJu0YwzSskAkGkXT6YnYGpj4Y1PhODGxuKt6TcYSYsDOxZnK4okLGNt
-	8ynYvs8r1v3lSDj4UEVTlVJ/2TVdqhyU/hxoXaOCmLlZAEJG4v+CpTYHoqQ/
-X-Google-Smtp-Source: AGHT+IHGb+UEeJtU8cfi0+0Y8euhSdr2JoFc7fXBFZIRj50C11U0Lf18mXT4T99kWAEDw3v9+HPxNg==
-X-Received: by 2002:a05:6512:92d:b0:513:bc95:50c3 with SMTP id f13-20020a056512092d00b00513bc9550c3mr8562431lft.12.1712139636603;
-        Wed, 03 Apr 2024 03:20:36 -0700 (PDT)
+        bh=1uIerHkh9A9c5ske6Nc8FntObOiI9Swd+Fna5hAuyNg=;
+        b=FIafgRyQb81XWnHkljxN6Be2ZNAte/BP/ZI1x+/FyVWueXCKS5VKkqqUVudCZto8Qc
+         dbRuwZkOFEu7/53MrdSLe7dq+Ofz7+x1PRSX7lOdfRrvNmwn8U30nl6F9M4P+K7NB0hO
+         O83hib7CIzBhZh/5ZctqoB/NgkFVOjhLpai9U7HrVqq+DnAvKc6u0ktOFgJtCl/WXw5t
+         uFmaOcHbaX9CSR4XU/tlxF1XlQJtlfo9iXYlURa5VqxHspPKqWs235od1X3wSAC9WgYe
+         9ozIJd+T39hBelHoWrb0K0qfnu/R2Bfbhj4RVgZ/2z6xMEkeMoTxcLORJ+ny5FalRg+n
+         OUQw==
+X-Gm-Message-State: AOJu0YzmkZ0NBOpoxqCFAEK96PK1PF2rmSq+eKJ+vey2JhE6zimRghGA
+	qttp0gO/qGPhhVhd7SvdK+QokclUK61cNK5jnadh6O6/hnvQOCU9nemEafz6
+X-Google-Smtp-Source: AGHT+IEdR4O/b27hy5U2edMxTsPPem8gnsj79y60DBp7900vWv8tAA5iRg5YqfgHct+76zSIpe2oAA==
+X-Received: by 2002:a05:6512:e96:b0:513:cdff:d765 with SMTP id bi22-20020a0565120e9600b00513cdffd765mr16965612lfb.59.1712139637968;
+        Wed, 03 Apr 2024 03:20:37 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v7 18/19] xen/riscv: enable full Xen build
-Date: Wed,  3 Apr 2024 12:20:11 +0200
-Message-ID: <cf2bf628e975e9d110be74896c3392e2d96439a1.1712137031.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v7 19/19] xen/README: add compiler and binutils versions for RISC-V64
+Date: Wed,  3 Apr 2024 12:20:12 +0200
+Message-ID: <8c1787554dd79e7beffce44d8d6467343e5ca830.1712137031.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1712137031.git.oleksii.kurochko@gmail.com>
 References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+This patch doesn't represent a strict lower bound for GCC and
+GNU Binutils; rather, these versions are specifically employed by
+the Xen RISC-V container and are anticipated to undergo continuous
+testing. Older GCC and GNU Binutils would work,
+but this is not a guarantee.
+
+While it is feasible to utilize Clang, it's important to note that,
+currently, there is no Xen RISC-V CI job in place to verify the
+seamless functioning of the build with Clang.
+
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in V5-V7:
  - Nothing changed. Only rebase.
 ---
-Changes in V4:
- - drop stubs for irq_actor_none() and irq_actor_none() as common/irq.c is compiled now.
- - drop defintion of max_page in stubs.c as common/page_alloc.c is compiled now.
- - drop printk() related changes in riscv/early_printk.c as common version will be used.
+ Changes in V6:
+  - update the message in README.
 ---
-Changes in V3:
- - Reviewed-by: Jan Beulich <jbeulich@suse.com>
- - unrealted change dropped in tiny64_defconfig
+ Changes in V5:
+  - update the commit message and README file with additional explanation about GCC and
+    GNU Binutils version. Additionally, it was added information about Clang.
 ---
-Changes in V2:
- - Nothing changed. Only rebase.
+ Changes in V4:
+  - Update version of GCC (12.2) and GNU Binutils (2.39) to the version
+    which are in Xen's contrainter for RISC-V
 ---
- xen/arch/riscv/Makefile       |  16 +++-
- xen/arch/riscv/arch.mk        |   4 -
- xen/arch/riscv/early_printk.c | 168 ----------------------------------
- xen/arch/riscv/stubs.c        |  24 -----
- 4 files changed, 15 insertions(+), 197 deletions(-)
+ Changes in V3:
+  - new patch
+---
+ README | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index 60afbc0ad9..81b77b13d6 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -12,10 +12,24 @@ $(TARGET): $(TARGET)-syms
- 	$(OBJCOPY) -O binary -S $< $@
- 
- $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
--	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) -o $@
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< \
-+	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
-+	$(NM) -pa --format=sysv $(dot-target).0 \
-+		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-+		> $(dot-target).0.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).0.o
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< \
-+	    $(dot-target).0.o -o $(dot-target).1
-+	$(NM) -pa --format=sysv $(dot-target).1 \
-+		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-+		> $(dot-target).1.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).1.o
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) \
-+	    $(dot-target).1.o -o $@
- 	$(NM) -pa --format=sysv $@ \
- 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
- 		> $@.map
-+	rm -f $(@D)/.$(@F).[0-9]*
- 
- $(obj)/xen.lds: $(src)/xen.lds.S FORCE
- 	$(call if_changed_dep,cpp_lds_S)
-diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
-index 24a7461bcc..517bb662e4 100644
---- a/xen/arch/riscv/arch.mk
-+++ b/xen/arch/riscv/arch.mk
-@@ -24,7 +24,3 @@ extensions := $(subst $(space),,$(extensions))
- # -mcmodel=medlow would force Xen into the lower half.
- 
- CFLAGS += $(riscv-generic-flags)$(extensions) -mstrict-align -mcmodel=medany
--
--# TODO: Drop override when more of the build is working
--override ALL_OBJS-y = arch/$(SRCARCH)/built_in.o
--override ALL_LIBS-y =
-diff --git a/xen/arch/riscv/early_printk.c b/xen/arch/riscv/early_printk.c
-index 60742a042d..610c814f54 100644
---- a/xen/arch/riscv/early_printk.c
-+++ b/xen/arch/riscv/early_printk.c
-@@ -40,171 +40,3 @@ void early_printk(const char *str)
-         str++;
-     }
- }
--
--/*
-- * The following #if 1 ... #endif should be removed after printk
-- * and related stuff are ready.
-- */
--#if 1
--
--#include <xen/stdarg.h>
--#include <xen/string.h>
--
--/**
-- * strlen - Find the length of a string
-- * @s: The string to be sized
-- */
--size_t (strlen)(const char * s)
--{
--    const char *sc;
--
--    for (sc = s; *sc != '\0'; ++sc)
--        /* nothing */;
--    return sc - s;
--}
--
--/**
-- * memcpy - Copy one area of memory to another
-- * @dest: Where to copy to
-- * @src: Where to copy from
-- * @count: The size of the area.
-- *
-- * You should not use this function to access IO space, use memcpy_toio()
-- * or memcpy_fromio() instead.
-- */
--void *(memcpy)(void *dest, const void *src, size_t count)
--{
--    char *tmp = (char *) dest, *s = (char *) src;
--
--    while (count--)
--        *tmp++ = *s++;
--
--    return dest;
--}
--
--int vsnprintf(char* str, size_t size, const char* format, va_list args)
--{
--    size_t i = 0; /* Current position in the output string */
--    size_t written = 0; /* Total number of characters written */
--    char* dest = str;
--
--    while ( format[i] != '\0' && written < size - 1 )
--    {
--        if ( format[i] == '%' )
--        {
--            i++;
--
--            if ( format[i] == '\0' )
--                break;
--
--            if ( format[i] == '%' )
--            {
--                if ( written < size - 1 )
--                {
--                    dest[written] = '%';
--                    written++;
--                }
--                i++;
--                continue;
--            }
--
--            /*
--             * Handle format specifiers.
--             * For simplicity, only %s and %d are implemented here.
--             */
--
--            if ( format[i] == 's' )
--            {
--                char* arg = va_arg(args, char*);
--                size_t arglen = strlen(arg);
--
--                size_t remaining = size - written - 1;
--
--                if ( arglen > remaining )
--                    arglen = remaining;
--
--                memcpy(dest + written, arg, arglen);
--
--                written += arglen;
--                i++;
--            }
--            else if ( format[i] == 'd' )
--            {
--                int arg = va_arg(args, int);
--
--                /* Convert the integer to string representation */
--                char numstr[32]; /* Assumes a maximum of 32 digits */
--                int numlen = 0;
--                int num = arg;
--                size_t remaining;
--
--                if ( arg < 0 )
--                {
--                    if ( written < size - 1 )
--                    {
--                        dest[written] = '-';
--                        written++;
--                    }
--
--                    num = -arg;
--                }
--
--                do
--                {
--                    numstr[numlen] = '0' + num % 10;
--                    num = num / 10;
--                    numlen++;
--                } while ( num > 0 );
--
--                /* Reverse the string */
--                for (int j = 0; j < numlen / 2; j++)
--                {
--                    char tmp = numstr[j];
--                    numstr[j] = numstr[numlen - 1 - j];
--                    numstr[numlen - 1 - j] = tmp;
--                }
--
--                remaining = size - written - 1;
--
--                if ( numlen > remaining )
--                    numlen = remaining;
--
--                memcpy(dest + written, numstr, numlen);
--
--                written += numlen;
--                i++;
--            }
--        }
--        else
--        {
--            if ( written < size - 1 )
--            {
--                dest[written] = format[i];
--                written++;
--            }
--            i++;
--        }
--    }
--
--    if ( size > 0 )
--        dest[written] = '\0';
--
--    return written;
--}
--
--void printk(const char *format, ...)
--{
--    static char buf[1024];
--
--    va_list args;
--    va_start(args, format);
--
--    (void)vsnprintf(buf, sizeof(buf), format, args);
--
--    early_printk(buf);
--
--    va_end(args);
--}
--
--#endif
--
-diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-index 8285bcffef..bda35fc347 100644
---- a/xen/arch/riscv/stubs.c
-+++ b/xen/arch/riscv/stubs.c
-@@ -24,12 +24,6 @@ DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_core_mask);
- 
- nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
- 
--/*
-- * max_page is defined in page_alloc.c which isn't complied for now.
-- * definition of max_page will be remove as soon as page_alloc is built.
-- */
--unsigned long __read_mostly max_page;
--
- /* time.c */
- 
- unsigned long __ro_after_init cpu_khz;  /* CPU clock frequency in kHz. */
-@@ -419,21 +413,3 @@ void __cpu_die(unsigned int cpu)
- {
-     BUG_ON("unimplemented");
- }
--
--/*
-- * The following functions are defined in common/irq.c, but common/irq.c isn't
-- * built for now. These changes will be removed there when common/irq.c is
-- * ready.
-- */
--
--void cf_check irq_actor_none(struct irq_desc *desc)
--{
--    BUG_ON("unimplemented");
--}
--
--unsigned int cf_check irq_startup_none(struct irq_desc *desc)
--{
--    BUG_ON("unimplemented");
--
--    return 0;
--}
+diff --git a/README b/README
+index c8a108449e..30da5ff9c0 100644
+--- a/README
++++ b/README
+@@ -48,6 +48,10 @@ provided by your OS distributor:
+       - For ARM 64-bit:
+         - GCC 5.1 or later
+         - GNU Binutils 2.24 or later
++      - For RISC-V 64-bit:
++        - GCC 12.2 or later
++        - GNU Binutils 2.39 or later
++          Older GCC and GNU Binutils would work, but this is not a guarantee.
+     * POSIX compatible awk
+     * Development install of zlib (e.g., zlib-dev)
+     * Development install of Python 2.7 or later (e.g., python-dev)
 -- 
 2.43.0
 
