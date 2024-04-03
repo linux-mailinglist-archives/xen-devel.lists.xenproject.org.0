@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76F8B8971D4
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 16:00:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700555.1093888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25E298971F6
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 16:08:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700558.1093897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs19h-0001Jx-1y; Wed, 03 Apr 2024 13:59:57 +0000
+	id 1rs1Ha-0003VV-Qh; Wed, 03 Apr 2024 14:08:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700555.1093888; Wed, 03 Apr 2024 13:59:57 +0000
+Received: by outflank-mailman (output) from mailman id 700558.1093897; Wed, 03 Apr 2024 14:08:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs19g-0001Hv-VA; Wed, 03 Apr 2024 13:59:56 +0000
-Received: by outflank-mailman (input) for mailman id 700555;
- Wed, 03 Apr 2024 13:59:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rs1Ha-0003TO-Nu; Wed, 03 Apr 2024 14:08:06 +0000
+Received: by outflank-mailman (input) for mailman id 700558;
+ Wed, 03 Apr 2024 14:08:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pg83=LI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rs19g-0001Hp-6K
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 13:59:56 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 72a8b18d-f1c2-11ee-afe5-a90da7624cb6;
- Wed, 03 Apr 2024 15:59:54 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-56e0a8733d8so685985a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 06:59:54 -0700 (PDT)
+ id 1rs1HZ-0003TI-73
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 14:08:05 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 95eab264-f1c3-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 16:08:03 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2d700beb60bso107274181fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 07:08:03 -0700 (PDT)
 Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- cx23-20020a05640222b700b0056e064a6d2dsm822357edb.2.2024.04.03.06.59.53
+ bi2-20020a170907368200b00a4e86dd231dsm2154694ejc.42.2024.04.03.07.08.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Apr 2024 06:59:53 -0700 (PDT)
+ Wed, 03 Apr 2024 07:08:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72a8b18d-f1c2-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 95eab264-f1c3-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712152794; x=1712757594; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1712153283; x=1712758083; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9lFbRJEsVJdda1miBZgOS5YWSai3mVfErmQ/bnpAQlU=;
-        b=mA9+T0wnkdixbxan1v363K59NYpBzTe4Rod4Z0/RRN9V37TokGbVvoKdca/Pl2Pz0V
-         FHPexxm45Z584GKtUQ/x0dDpD02FyToNNrG0Lnu55rKSVcvljtxKMKiWkE0UwllWnj3y
-         uIHtmIL7/0K6hUr9b6j8QFIXhjD3JZJfbkanc=
+        bh=7ZHSSjzkoooPdOF46z3ZebLhP62bZRpoSNsCXg0WE5s=;
+        b=n10eiq/wVFPZkFwLjrp2Thmf3rNabhhGiVVkWo7gsV23SAg1BqTR9Be4bn2jr/WJG0
+         bGccbuoLEg6T7hUzI3a2bsPvESJJshl8iWA9lkx+Aa5Yg5mlnlFqJWvYS1yHM9haTBOp
+         KXyooQWaZG8D71dGn30QKzsTTL29MxFwqfSNg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712152794; x=1712757594;
+        d=1e100.net; s=20230601; t=1712153283; x=1712758083;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9lFbRJEsVJdda1miBZgOS5YWSai3mVfErmQ/bnpAQlU=;
-        b=Q+0yiZNIpKLFxkXq44rjSsN2iDVqAI2pkF6SzTgEH/Q6N+xXcWDOy3QLeZFIAoXoBQ
-         wFTcmVxekMbb9rX9vQgPedyPHBISehchxhPs08YOLbEatduPgPVbAZqEdoFOfaDzzM2R
-         4TX68Iivzf8ZDBebbq/nSFFjrKR4HHg5ESQw9CVP0o+DV2S6Dvj6vQ0GA5mh8+sYDAx5
-         sp/29GH3pPGZOzISYJEOftTgNXuU9Snv6qhxnPZfZwG6ZImzkKEOeDqc+wx/BhE9rkba
-         YTGR7RoU5lMk8hMkecPeqeTLaS9xaci2JhYvPmTXr3cYZnQUo/mBoERrp0gSqh5SNdOq
-         Ftcw==
-X-Forwarded-Encrypted: i=1; AJvYcCWKvhhKG4zjhhD0UKGf50NJaGI7DjawPkw2TZuXeIc4CR9v0WecTKJlIISqKkh2A5GlRs3WWzzjuEITu+LlIS0RBY9ltiFZ1G9fn6vqbm4=
-X-Gm-Message-State: AOJu0YzxZxlQDmq/4XfVNYSuuEH7U7FLnVsrNtxODfTQTcgN55q7oSBU
-	kv4PuyOBRwyFnlaDTDRg+wEHyYD6hpADNIGEWarCPjGAQPZl1b70eZ3eetow/SQ=
-X-Google-Smtp-Source: AGHT+IHKS2MzbQFaMNQVgSdill2f5hBV5z4j08gTtFpp/Nr9vPFiNnzTJORS1acaB4yetF8xxza+2A==
-X-Received: by 2002:a50:d501:0:b0:56e:bad:36b with SMTP id u1-20020a50d501000000b0056e0bad036bmr879142edi.21.1712152794056;
-        Wed, 03 Apr 2024 06:59:54 -0700 (PDT)
-Message-ID: <018e20ba-f15b-48e7-9333-19f6e570d55f@citrix.com>
-Date: Wed, 3 Apr 2024 14:59:52 +0100
+        bh=7ZHSSjzkoooPdOF46z3ZebLhP62bZRpoSNsCXg0WE5s=;
+        b=XyvQBreX2abdppQTGtz5T0OxX1+8PrJojWsMpByIH2fHczmT7Vwe9isetjhhxw+N0J
+         uXzr5v9vlU5vnBQkQQezYvbcXInPC5cYC+BOqGCngHultw59G4ybQ9lm97d9V6UgHwnT
+         Gi+WUlqoVNthsCrqNeRdK5twrpIGXeqkG28cWmJ/sF8Uv9Yi06egHY7gb/9OW2yVQSSk
+         HMwgZv3jAkdC+CJ0Bzk/s+64NH2Y3S1A/RFMS9dpd/nbfUiURbMd0x92coP518amGnTk
+         rF36OzWxlB0VTvoPIYkeZXlDa/9DSvoH7iB4k8NABkvEGoo68mJHIuO0Tcto+y2gvc0d
+         JNfw==
+X-Forwarded-Encrypted: i=1; AJvYcCUNUnb1dhnNg3HyFGusMHzviBK1C+LFQRL/vScF/NzmskNuHSRK8nVlmnP3QpF9BMIbuSbog9LQu7rJZ1F8K3NBD1Y0LLAqOLi3AnMrFPk=
+X-Gm-Message-State: AOJu0YwUgSvkJhv2Ea8yoRwU8RiZdgQigARh5G8u7nCGfC6KkGAjm/DA
+	cj9RbPrgPPl8htPiCblEBC2brFhKrbG7CN7mIlOMjQXafpSmZ5J6LVPfGeZ0gG0=
+X-Google-Smtp-Source: AGHT+IHUtlStKODWpcEjeDtszNsdsvuuyCQWBfbTvlzrc3C0d/xTzmhr7WsmuoBgbUZ7T4eoySHhCA==
+X-Received: by 2002:a2e:b1d1:0:b0:2d8:1276:33bb with SMTP id e17-20020a2eb1d1000000b002d8127633bbmr3824003lja.18.1712153282610;
+        Wed, 03 Apr 2024 07:08:02 -0700 (PDT)
+Message-ID: <c28a3b6d-cfef-4b4e-9ddf-641142f2ea9c@citrix.com>
+Date: Wed, 3 Apr 2024 15:08:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/include: move definition of ASM_INT() to
- xen/linkage.h
-To: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20240403120323.18433-1-jgross@suse.com>
- <e401ffe1-de4b-4548-8eba-feb7e85c9971@suse.com>
+Subject: Re: preparations for 4.17.4
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>,
+ Kelly Choi <kelly.choi@cloud.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <b726b105-9204-4a72-8fbc-ceaa8e74f3ec@suse.com>
+ <6feb56fe-769d-4809-b16f-6fc4d5477747@citrix.com>
+ <f3ef0c54-e3e0-416c-953d-00c4df0c5d82@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,55 +132,81 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e401ffe1-de4b-4548-8eba-feb7e85c9971@suse.com>
+In-Reply-To: <f3ef0c54-e3e0-416c-953d-00c4df0c5d82@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/04/2024 1:51 pm, Jan Beulich wrote:
-> On 03.04.2024 14:03, Juergen Gross wrote:
->> ASM_INT() is defined in arch/[arm|x86]/include/asm/asm_defns.h in
->> exactly the same way. Instead of replicating this definition for riscv
->> and ppc, move it to include/xen/linkage.h, where other arch agnostic
->> definitions for assembler code are living already.
-> And this is why I didn't make a change right away, back when noticing the
-> duplication: Arch-agnostic really means ...
+On 02/04/2024 3:26 pm, Jan Beulich wrote:
+> On 27.03.2024 13:33, Andrew Cooper wrote:
+>> 1) livepatching of .rodata:
+>>
+>> 989556c6f8ca - xen/virtual-region: Rename the start/end fields
+>> ef969144a425 - xen/virtual-region: Include rodata pointers
+>> b083b1c393dc - x86/livepatch: Relax permissions on rodata too
+>>
+>> And technically "x86/mm: fix detection of last L1 entry in
+>> modify_xen_mappings_lite()" too but you've already backported this one.
+>>
+>> Patching .rodata worked before Xen 4.17, and was broken (left as a TODO)
+>> when I adjusted Xen to stop using CR0.WP=0 for patching.
+>>
+>>
+>> 2) Policy fixes:
+>>
+>> e2d8a6522516 - x86/cpu-policy: Fix visibility of HTT/CMP_LEGACY in max
+>> policies
+>>
+>> This is a real bugfix for a real regression we found updating from Xen
+>> 4.13 -> 4.17.  It has a dependency on
+>>
+>> 5420aa165dfa - x86/cpu-policy: Hide x2APIC from PV guests
+>>
+>> which I know you had more concern with.  FWIW, I'm certain its a good
+>> fix, and should be backported.
+>>
+>>
+>> 3) Test fixes:
+>>
+>> 0263dc9069dd - tests/resource: Fix HVM guest in !SHADOW builds
+>>
+>> It's minor, but does make a difference for those of us who run these
+>> tests regularly.
+>>
+>>
+>> 4) Watchdog fixes:
+>>
+>> 9e18f339830c - x86/boot: Improve the boot watchdog determination of
+>> stuck cpus
+>> 131892e0dcc1 - x86/boot: Support the watchdog on newer AMD systems
+>>
+>> You took "x86/boot: Fix setup_apic_nmi_watchdog() to fail more cleanly"
+>> and the first of the two patches is in the same category IMO.  The
+>> second I also feel ok to take for the in-support releases, particularly
+>> as all it is doing is dropping a family list.
+> I've pushed all of the above.
+
+Thanks.
+
 >
->> --- a/xen/include/xen/linkage.h
->> +++ b/xen/include/xen/linkage.h
->> @@ -60,6 +60,8 @@
->>  #define DATA_LOCAL(name, align...) \
->>          SYM(name, DATA, LOCAL, LASTARG(DATA_ALIGN, ## align), DATA_FILL)
->>  
->> +#define ASM_INT(label, val)    DATA(label, 4) .long (val); END(label)
-> ... to avoid .long [1]. There's no arch-independent aspect guaranteeing
-> that what .long emits matches "unsigned int" as used e.g. in the
-> declaration of xen_config_data_size.
+>> 5) Ucode scan stability  (For 4.18 only)
+>>
+>> Xen 4.18 had "x86/ucode: Refresh raw CPU policy after microcode load" in
+>> it's .0 release, so should also gain:
+>>
+>> cf7fe8b72dea - x86/ucode: Fix stability of the raw CPU Policy rescan
+> This already is in 4.18.1, ...
+>
+>> I've only noticed because I've got them both backported to 4.17 in
+>> XenServer, but I don't think upstream wants to take that route.
+> ... while, as you suggest, not (and not intended to be) in 4.17.
 
-I'd forgotten that point, but I don't think it's a good reason force
-every architecture to implement the same thing.
+Oh, so it is.  Although comparing my backport to what you put into 4.18,
+you also want
 
-Borrowing a trick from the alternatives, what about this as a sanity check?
+930605f155cc - x86/ucode: Remove accidentally introduced tabs
 
-diff --git a/xen/tools/binfile b/xen/tools/binfile
-index 0299326ccc3f..21593debc872 100755
---- a/xen/tools/binfile
-+++ b/xen/tools/binfile
-@@ -35,4 +35,10 @@ DATA($varname, 1 << $align)
- END($varname)
- 
-         ASM_INT(${varname}_size, .Lend - $varname)
-+.Lsize_end:
-+
-+        .section .discard
-+        # Build assert sizeof(ASM_INT) == 4
-+        .byte 0xff - ((.Lsize_end - ${varname}_size) == 4)
-+
- EOF
-
-
-Ideally we'd want BYTES_PER_INT here but it turns out that doesn't exist
-in Xen.  If we find an architecture where .long isn't the right thing,
-we can make ASM_INT optionally arch-specific.
+which I apparently folded into my 4.17 backport.  I have a feeling I
+noticed at the point of doing the backport.
 
 ~Andrew
 
