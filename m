@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CA5C8975F5
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 19:10:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700612.1094028 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F100C897631
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 19:18:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700616.1094038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs47O-0002U3-7g; Wed, 03 Apr 2024 17:09:46 +0000
+	id 1rs4F4-0004M6-0q; Wed, 03 Apr 2024 17:17:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700612.1094028; Wed, 03 Apr 2024 17:09:46 +0000
+Received: by outflank-mailman (output) from mailman id 700616.1094038; Wed, 03 Apr 2024 17:17:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs47O-0002RX-4l; Wed, 03 Apr 2024 17:09:46 +0000
-Received: by outflank-mailman (input) for mailman id 700612;
- Wed, 03 Apr 2024 17:09:45 +0000
+	id 1rs4F3-0004K0-Tf; Wed, 03 Apr 2024 17:17:41 +0000
+Received: by outflank-mailman (input) for mailman id 700616;
+ Wed, 03 Apr 2024 17:17:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pg83=LI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rs47N-0002RQ-0X
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 17:09:45 +0000
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [2607:f8b0:4864:20::732])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YTxZ=LI=kernel.org=sashal@srs-se1.protection.inumbo.net>)
+ id 1rs4F2-0004Jt-Ss
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 17:17:40 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f64567f8-f1dc-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 19:09:42 +0200 (CEST)
-Received: by mail-qk1-x732.google.com with SMTP id
- af79cd13be357-78c4db9fc7fso1814285a.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 10:09:42 -0700 (PDT)
-Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- h29-20020a05620a21dd00b00789f57cadc5sm5226649qka.10.2024.04.03.10.09.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Apr 2024 10:09:40 -0700 (PDT)
+ id 117d7547-f1de-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 19:17:38 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2D20C612F2;
+ Wed,  3 Apr 2024 17:17:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FBD3C43399;
+ Wed,  3 Apr 2024 17:17:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +41,358 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f64567f8-f1dc-11ee-a1ef-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712164182; x=1712768982; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RtCQ3SEZFvFduHxvG7MjzrR+Ao+Pj4RDQo++byLROnk=;
-        b=ErFpGTejW+ji3MJxl6Uxk5kJ7EJIWQ1aIv6u8H96mChclY3SinpPHfVLB8te99CAL9
-         0dat+1ve0aS3Du252skl0pN30b503T8zHzumNphLpXwZNOtSWCTCkA094VhQeilr8Aki
-         miKcKvu4eCm54IVcE8aCewqmysBC1Qd7FHjYc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712164182; x=1712768982;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=RtCQ3SEZFvFduHxvG7MjzrR+Ao+Pj4RDQo++byLROnk=;
-        b=J7JxC2g6YzRPNLzbWEV8hkGmqke4fytcXuqQm4dIgpM/Z3CdjCm1Mjk05nh3wjzAMF
-         xUD9CJP6NimW4RMHGErNqxxmXC8U7vHzQ4cHKQ3oHnuC3cmlkLhXq0Udf+89+qMsMbvU
-         qgOzdghWE7mh4LB8hdoB2Skf83rv6tGv5Ol3x6N+e5XlGO/GtHvGrImH2QQFphaLL8zF
-         K3+OVlJu7BJM/DwV2jBduX4hohaLsrmlp9YXPTUVytlqVI04dlo5MRpJjcL/97YCXyt5
-         lnGso2ZePhGbRxfCRbQMIxoYHkspPohA8f7fGkqC00/j2EYU7zliMTmE66XDiWKu9LgG
-         GdYg==
-X-Forwarded-Encrypted: i=1; AJvYcCUA7UqAOPQ233apM/FaRMkO18U4irZ3pYVadkmJkW6B7fR3/BPF31DJPyAMNdmgW6UE6etzBVGOrjsMB9aDXZ+j5Wh3GJFWHar7uJJQvn0=
-X-Gm-Message-State: AOJu0YwZ3FICk3PdLzv68m+5qMCz5S76eIHoA/TccXmRTnZv0NEL5Wb+
-	D8gBBPZLE2Vz8tBXARrx79qW/4y9L+x5I5oil0nZuQDe4RPsmu0W8GOXYAcNARb+hz13uNzgXEn
-	AEXc=
-X-Google-Smtp-Source: AGHT+IFoa0IJOEDT3d9T5CWpBXNWd4E5ZCNJilfawYhDZBm6oXXNO5tqOk/sS2h1G4hwamcwnpZc2w==
-X-Received: by 2002:a05:620a:832f:b0:78a:74b3:a0f6 with SMTP id pa47-20020a05620a832f00b0078a74b3a0f6mr6345qkn.25.1712164181592;
-        Wed, 03 Apr 2024 10:09:41 -0700 (PDT)
-Message-ID: <72fd90fe-c1fa-431c-9ccb-c68ffb56ff76@citrix.com>
-Date: Wed, 3 Apr 2024 18:09:38 +0100
+X-Inumbo-ID: 117d7547-f1de-11ee-a1ef-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1712164655;
+	bh=I5I/tcSmeKF5ifh3GxWXCl1DiaHE8jW3HXlBzvcXZe8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=klBRL2UR2PK0KKEY0y3846shtDB6Pmc1mETxmzmku5SGhPUhhR8jH2wJS0p9jbXHX
+	 Nu+w2PZpht76+fYeST7Ai9ryQPKH8huV5Cz6QlONbTHgXRwG2LtMmEUCIX4s78COwu
+	 8genAxwiCeZYWPffqLFApwH+0Vb3QANE6e9j+2b15QgbxY/mrGWaw6juiv0qyX40KA
+	 2oG4IO4ipDtVtiw5mlG4DJ4F8piQ1y+FCp2fcdFQK00AwSE7XP6/LSok0ba2fuKJS/
+	 bZmLQJaCfZksxLf5feyTbrWeG2DsGykkdBgXTApiV1GqfXZZm044JCRQQuR3ksRymD
+	 +LVSdYjDjUhrQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Sasha Levin <sashal@kernel.org>,
+	tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	sstabellini@kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH AUTOSEL 6.8 18/28] x86/xen: attempt to inflate the memory balloon on PVH
+Date: Wed,  3 Apr 2024 13:16:20 -0400
+Message-ID: <20240403171656.335224-18-sashal@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240403171656.335224-1-sashal@kernel.org>
+References: <20240403171656.335224-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: text-tsx fails on Intel core 8th gen system
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
-References: <Zg1stUacaDBkyDOn@mail-itl>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <Zg1stUacaDBkyDOn@mail-itl>
 Content-Type: text/plain; charset=UTF-8
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.8.3
 Content-Transfer-Encoding: 8bit
 
-On 03/04/2024 3:50 pm, Marek Marczykowski-Górecki wrote:
-> Hi,
->
-> I've noticed that tools/tests/tsx/test-tsx fails on a system with Intel
-> Core i7-8750H. Specific error I get:
->
->     [user@dom0 tsx]$ ./test-tsx 
->     TSX tests
->       Got 16 CPUs
->     Testing MSR_TSX_FORCE_ABORT consistency
->       CPU0 val 0
->     Testing MSR_TSX_CTRL consistency
->     Testing MSR_MCU_OPT_CTRL consistency
->       CPU0 val 0
->     Testing RTM behaviour
->       Got #UD
->       Host reports RTM, but appears unavailable
+From: Roger Pau Monne <roger.pau@citrix.com>
 
-Hmm - I should make this failure report more obviously distinguishable
-from the general logging.
+[ Upstream commit 38620fc4e8934f1801c7811ef39a041914ac4c1d ]
 
-This is reporting a consistency-check failure, with a mismatch between
-actual-behaviour and what's in CPUID (host policy in practice).
+When running as PVH or HVM Linux will use holes in the memory map as scratch
+space to map grants, foreign domain pages and possibly miscellaneous other
+stuff.  However the usage of such memory map holes for Xen purposes can be
+problematic.  The request of holesby Xen happen quite early in the kernel boot
+process (grant table setup already uses scratch map space), and it's possible
+that by then not all devices have reclaimed their MMIO space.  It's not
+unlikely for chunks of Xen scratch map space to end up using PCI bridge MMIO
+window memory, which (as expected) causes quite a lot of issues in the system.
 
-This is CoffeeLake, and was one of the CPUs which had TSX taken out, but
-something looks wonky.
+At least for PVH dom0 we have the possibility of using regions marked as
+UNUSABLE in the e820 memory map.  Either if the region is UNUSABLE in the
+native memory map, or it has been converted into UNUSABLE in order to hide RAM
+regions from dom0, the second stage translation page-tables can populate those
+areas without issues.
 
+PV already has this kind of logic, where the balloon driver is inflated at
+boot.  Re-use the current logic in order to also inflate it when running as
+PVH.  onvert UNUSABLE regions up to the ratio specified in EXTRA_MEM_RATIO to
+RAM, while reserving them using xen_add_extra_mem() (which is also moved so
+it's no longer tied to CONFIG_PV).
 
-> When I try it on a newer system (11th gen) then it works fine (exit code
-> 0, just "Got #UD", no "Host reports RTM, but appears unavailable" line).
+[jgross: fixed build for CONFIG_PVH without CONFIG_XEN_PVH]
 
-RocketLake was after the decision to remove TSX from the client line, so
-will either genuinely not have the silicon, or it should be properly
-fused out.
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Link: https://lore.kernel.org/r/20240220174341.56131-1-roger.pau@citrix.com
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/include/asm/xen/hypervisor.h |  5 ++
+ arch/x86/platform/pvh/enlighten.c     |  3 ++
+ arch/x86/xen/enlighten.c              | 32 +++++++++++++
+ arch/x86/xen/enlighten_pvh.c          | 68 +++++++++++++++++++++++++++
+ arch/x86/xen/setup.c                  | 44 -----------------
+ arch/x86/xen/xen-ops.h                | 14 ++++++
+ drivers/xen/balloon.c                 |  2 -
+ 7 files changed, 122 insertions(+), 46 deletions(-)
 
-Anyway, back to CoffeeLake.
+diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
+index a9088250770f2..64fbd2dbc5b76 100644
+--- a/arch/x86/include/asm/xen/hypervisor.h
++++ b/arch/x86/include/asm/xen/hypervisor.h
+@@ -62,6 +62,11 @@ void xen_arch_unregister_cpu(int num);
+ #ifdef CONFIG_PVH
+ void __init xen_pvh_init(struct boot_params *boot_params);
+ void __init mem_map_via_hcall(struct boot_params *boot_params_p);
++#ifdef CONFIG_XEN_PVH
++void __init xen_reserve_extra_memory(struct boot_params *bootp);
++#else
++static inline void xen_reserve_extra_memory(struct boot_params *bootp) { }
++#endif
+ #endif
+ 
+ /* Lazy mode for batching updates / context switch */
+diff --git a/arch/x86/platform/pvh/enlighten.c b/arch/x86/platform/pvh/enlighten.c
+index 00a92cb2c8147..a12117f3d4de7 100644
+--- a/arch/x86/platform/pvh/enlighten.c
++++ b/arch/x86/platform/pvh/enlighten.c
+@@ -74,6 +74,9 @@ static void __init init_pvh_bootparams(bool xen_guest)
+ 	} else
+ 		xen_raw_printk("Warning: Can fit ISA range into e820\n");
+ 
++	if (xen_guest)
++		xen_reserve_extra_memory(&pvh_bootparams);
++
+ 	pvh_bootparams.hdr.cmd_line_ptr =
+ 		pvh_start_info.cmdline_paddr;
+ 
+diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
+index 3c61bb98c10e2..a01ca255b0c64 100644
+--- a/arch/x86/xen/enlighten.c
++++ b/arch/x86/xen/enlighten.c
+@@ -6,6 +6,7 @@
+ #include <linux/console.h>
+ #include <linux/cpu.h>
+ #include <linux/kexec.h>
++#include <linux/memblock.h>
+ #include <linux/slab.h>
+ #include <linux/panic_notifier.h>
+ 
+@@ -350,3 +351,34 @@ void xen_arch_unregister_cpu(int num)
+ }
+ EXPORT_SYMBOL(xen_arch_unregister_cpu);
+ #endif
++
++/* Amount of extra memory space we add to the e820 ranges */
++struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
++
++void __init xen_add_extra_mem(unsigned long start_pfn, unsigned long n_pfns)
++{
++	unsigned int i;
++
++	/*
++	 * No need to check for zero size, should happen rarely and will only
++	 * write a new entry regarded to be unused due to zero size.
++	 */
++	for (i = 0; i < XEN_EXTRA_MEM_MAX_REGIONS; i++) {
++		/* Add new region. */
++		if (xen_extra_mem[i].n_pfns == 0) {
++			xen_extra_mem[i].start_pfn = start_pfn;
++			xen_extra_mem[i].n_pfns = n_pfns;
++			break;
++		}
++		/* Append to existing region. */
++		if (xen_extra_mem[i].start_pfn + xen_extra_mem[i].n_pfns ==
++		    start_pfn) {
++			xen_extra_mem[i].n_pfns += n_pfns;
++			break;
++		}
++	}
++	if (i == XEN_EXTRA_MEM_MAX_REGIONS)
++		printk(KERN_WARNING "Warning: not enough extra memory regions\n");
++
++	memblock_reserve(PFN_PHYS(start_pfn), PFN_PHYS(n_pfns));
++}
+diff --git a/arch/x86/xen/enlighten_pvh.c b/arch/x86/xen/enlighten_pvh.c
+index ada3868c02c23..c28f073c1df52 100644
+--- a/arch/x86/xen/enlighten_pvh.c
++++ b/arch/x86/xen/enlighten_pvh.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #include <linux/acpi.h>
+ #include <linux/export.h>
++#include <linux/mm.h>
+ 
+ #include <xen/hvc-console.h>
+ 
+@@ -72,3 +73,70 @@ void __init mem_map_via_hcall(struct boot_params *boot_params_p)
+ 	}
+ 	boot_params_p->e820_entries = memmap.nr_entries;
+ }
++
++/*
++ * Reserve e820 UNUSABLE regions to inflate the memory balloon.
++ *
++ * On PVH dom0 the host memory map is used, RAM regions available to dom0 are
++ * located as the same place as in the native memory map, but since dom0 gets
++ * less memory than the total amount of host RAM the ranges that can't be
++ * populated are converted from RAM -> UNUSABLE.  Use such regions (up to the
++ * ratio signaled in EXTRA_MEM_RATIO) in order to inflate the balloon driver at
++ * boot.  Doing so prevents the guest (even if just temporary) from using holes
++ * in the memory map in order to map grants or foreign addresses, and
++ * hopefully limits the risk of a clash with a device MMIO region.  Ideally the
++ * hypervisor should notify us which memory ranges are suitable for creating
++ * foreign mappings, but that's not yet implemented.
++ */
++void __init xen_reserve_extra_memory(struct boot_params *bootp)
++{
++	unsigned int i, ram_pages = 0, extra_pages;
++
++	for (i = 0; i < bootp->e820_entries; i++) {
++		struct boot_e820_entry *e = &bootp->e820_table[i];
++
++		if (e->type != E820_TYPE_RAM)
++			continue;
++		ram_pages += PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr);
++	}
++
++	/* Max amount of extra memory. */
++	extra_pages = EXTRA_MEM_RATIO * ram_pages;
++
++	/*
++	 * Convert UNUSABLE ranges to RAM and reserve them for foreign mapping
++	 * purposes.
++	 */
++	for (i = 0; i < bootp->e820_entries && extra_pages; i++) {
++		struct boot_e820_entry *e = &bootp->e820_table[i];
++		unsigned long pages;
++
++		if (e->type != E820_TYPE_UNUSABLE)
++			continue;
++
++		pages = min(extra_pages,
++			PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr));
++
++		if (pages != (PFN_DOWN(e->addr + e->size) - PFN_UP(e->addr))) {
++			struct boot_e820_entry *next;
++
++			if (bootp->e820_entries ==
++			    ARRAY_SIZE(bootp->e820_table))
++				/* No space left to split - skip region. */
++				continue;
++
++			/* Split entry. */
++			next = e + 1;
++			memmove(next, e,
++				(bootp->e820_entries - i) * sizeof(*e));
++			bootp->e820_entries++;
++			next->addr = PAGE_ALIGN(e->addr) + PFN_PHYS(pages);
++			e->size = next->addr - e->addr;
++			next->size -= e->size;
++		}
++		e->type = E820_TYPE_RAM;
++		extra_pages -= pages;
++
++		xen_add_extra_mem(PFN_UP(e->addr), pages);
++	}
++}
+diff --git a/arch/x86/xen/setup.c b/arch/x86/xen/setup.c
+index b3e37961065a2..380591028cb8f 100644
+--- a/arch/x86/xen/setup.c
++++ b/arch/x86/xen/setup.c
+@@ -38,9 +38,6 @@
+ 
+ #define GB(x) ((uint64_t)(x) * 1024 * 1024 * 1024)
+ 
+-/* Amount of extra memory space we add to the e820 ranges */
+-struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
+-
+ /* Number of pages released from the initial allocation. */
+ unsigned long xen_released_pages;
+ 
+@@ -64,18 +61,6 @@ static struct {
+ } xen_remap_buf __initdata __aligned(PAGE_SIZE);
+ static unsigned long xen_remap_mfn __initdata = INVALID_P2M_ENTRY;
+ 
+-/*
+- * The maximum amount of extra memory compared to the base size.  The
+- * main scaling factor is the size of struct page.  At extreme ratios
+- * of base:extra, all the base memory can be filled with page
+- * structures for the extra memory, leaving no space for anything
+- * else.
+- *
+- * 10x seems like a reasonable balance between scaling flexibility and
+- * leaving a practically usable system.
+- */
+-#define EXTRA_MEM_RATIO		(10)
+-
+ static bool xen_512gb_limit __initdata = IS_ENABLED(CONFIG_XEN_512GB);
+ 
+ static void __init xen_parse_512gb(void)
+@@ -96,35 +81,6 @@ static void __init xen_parse_512gb(void)
+ 	xen_512gb_limit = val;
+ }
+ 
+-static void __init xen_add_extra_mem(unsigned long start_pfn,
+-				     unsigned long n_pfns)
+-{
+-	int i;
+-
+-	/*
+-	 * No need to check for zero size, should happen rarely and will only
+-	 * write a new entry regarded to be unused due to zero size.
+-	 */
+-	for (i = 0; i < XEN_EXTRA_MEM_MAX_REGIONS; i++) {
+-		/* Add new region. */
+-		if (xen_extra_mem[i].n_pfns == 0) {
+-			xen_extra_mem[i].start_pfn = start_pfn;
+-			xen_extra_mem[i].n_pfns = n_pfns;
+-			break;
+-		}
+-		/* Append to existing region. */
+-		if (xen_extra_mem[i].start_pfn + xen_extra_mem[i].n_pfns ==
+-		    start_pfn) {
+-			xen_extra_mem[i].n_pfns += n_pfns;
+-			break;
+-		}
+-	}
+-	if (i == XEN_EXTRA_MEM_MAX_REGIONS)
+-		printk(KERN_WARNING "Warning: not enough extra memory regions\n");
+-
+-	memblock_reserve(PFN_PHYS(start_pfn), PFN_PHYS(n_pfns));
+-}
+-
+ static void __init xen_del_extra_mem(unsigned long start_pfn,
+ 				     unsigned long n_pfns)
+ {
+diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
+index a87ab36889e76..79cf93f2c92f1 100644
+--- a/arch/x86/xen/xen-ops.h
++++ b/arch/x86/xen/xen-ops.h
+@@ -163,4 +163,18 @@ void xen_hvm_post_suspend(int suspend_cancelled);
+ static inline void xen_hvm_post_suspend(int suspend_cancelled) {}
+ #endif
+ 
++/*
++ * The maximum amount of extra memory compared to the base size.  The
++ * main scaling factor is the size of struct page.  At extreme ratios
++ * of base:extra, all the base memory can be filled with page
++ * structures for the extra memory, leaving no space for anything
++ * else.
++ *
++ * 10x seems like a reasonable balance between scaling flexibility and
++ * leaving a practically usable system.
++ */
++#define EXTRA_MEM_RATIO		(10)
++
++void xen_add_extra_mem(unsigned long start_pfn, unsigned long n_pfns);
++
+ #endif /* XEN_OPS_H */
+diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
+index 976c6cdf9ee67..aaf2514fcfa46 100644
+--- a/drivers/xen/balloon.c
++++ b/drivers/xen/balloon.c
+@@ -672,7 +672,6 @@ EXPORT_SYMBOL(xen_free_ballooned_pages);
+ 
+ static void __init balloon_add_regions(void)
+ {
+-#if defined(CONFIG_XEN_PV)
+ 	unsigned long start_pfn, pages;
+ 	unsigned long pfn, extra_pfn_end;
+ 	unsigned int i;
+@@ -696,7 +695,6 @@ static void __init balloon_add_regions(void)
+ 
+ 		balloon_stats.total_pages += extra_pfn_end - start_pfn;
+ 	}
+-#endif
+ }
+ 
+ static int __init balloon_init(void)
+-- 
+2.43.0
 
-The Raw policy shows rtm-always-abort and tsx-force-abort.  Test-tsx
-says the value in MSR_TSX_FORCE_ABORT is 0, but that shouldn't be the
-case seeing as the RTM/HLE bits are hidden in real CPUID, but the
-CPUID_HIDE bit is clear.
-
-We do intentionally force RTM_ALWAYS_ABORT in some cases, because it
-self-hides in some cases.  I wonder if we've got bug in that path.
-
-From the state in Raw, we then synthesise HLE/RTM in the Host policy
-because MSR_TSX_FORCE_ABORT only exists on TSX-capable systems. 
-However, if XBEGIN is really #UD-ing, we can't offer it as an opt-in to
-guests.
-
-Let me see about putting some debugging together.
-
-~Andrew
 
