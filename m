@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC8C889647A
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 08:23:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700299.1093210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E40889647B
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 08:24:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700301.1093219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rru1C-0004M8-H0; Wed, 03 Apr 2024 06:22:42 +0000
+	id 1rru2N-0004rT-QY; Wed, 03 Apr 2024 06:23:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700299.1093210; Wed, 03 Apr 2024 06:22:42 +0000
+Received: by outflank-mailman (output) from mailman id 700301.1093219; Wed, 03 Apr 2024 06:23:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rru1C-0004JT-DL; Wed, 03 Apr 2024 06:22:42 +0000
-Received: by outflank-mailman (input) for mailman id 700299;
- Wed, 03 Apr 2024 06:22:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rru2N-0004pV-Mz; Wed, 03 Apr 2024 06:23:55 +0000
+Received: by outflank-mailman (input) for mailman id 700301;
+ Wed, 03 Apr 2024 06:23:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rru1A-0004JM-V5
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 06:22:40 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 923c0e00-f182-11ee-afe5-a90da7624cb6;
- Wed, 03 Apr 2024 08:22:39 +0200 (CEST)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2d6fc3adaacso84975051fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 23:22:39 -0700 (PDT)
+ id 1rru2M-0004pJ-FV
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 06:23:54 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bc61a616-f182-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 08:23:50 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4156a2aeb43so20694645e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 23:23:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n14-20020a05600c4f8e00b0041493e21844sm23544947wmq.27.2024.04.02.23.22.38
+ n14-20020a05600c4f8e00b0041493e21844sm23544947wmq.27.2024.04.02.23.23.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 23:22:38 -0700 (PDT)
+ Tue, 02 Apr 2024 23:23:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 923c0e00-f182-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: bc61a616-f182-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712125359; x=1712730159; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712125430; x=1712730230; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=0fFHzLQuRZ2Hw0yUVk33aqddMrBE4fTv8Tz8AlrAmOo=;
-        b=NVBz/b/BUP8U8mVwVqcqeoLSpSOd1//jkbWJluHd3ip4+dZ08vEUURQvcGIgFo1Mue
-         SasEHi01tXd39p6trgY24WHWLDvP0xenCITxvjHv/JzPO6sMBv4tPK619esC1eD8FgzP
-         M0m3PAwQ//ufYxigbyl8PVMeEatHHmZvA2xNkxp/7f3sjsh3DcphtgZvDyJUtHJgQM7i
-         40B7ScyQ4Jqy2U6zF2GS+IlbswTAjwZ62IlhapO9lUiu0Zxn8dNBNZVi5B1Nvdk1zomK
-         zgYPGcV6QuUEhUA+BuO1b7qx/9vS2ae8WVzVNDGDDyVQ2eRidPwn+AJcW1zvyUfzNGYI
-         3QOw==
+        bh=eU4Kvxa6S2lNftq7OIqQb8wRacONrsh7tQKm0bDHwbE=;
+        b=Rpts7wbEasp9lF7ic2jPZ6pGpunqMA+wkK30P2VHWdEykXX4hXfXzFuMOvxVQgXvDw
+         V7g3VZVYQYr+oxUyD7YN4wW32n137ceAUizOE78wGwHNtljZK7+BIpY9lqog0aXYL/j0
+         hjln/q4f5wwXwh/At+LNVGICCKxqnljfGji3jotOEmmLlQ4FJKnvrd3AWXmmc/n2eDsJ
+         6tN4izqVtD+6ymsTFavj9lKmLc4HQQ4iKmkM5Lnxy19KKmF6BxhsfN2iwU1lKs6dAzbQ
+         +T3NpkTYr3tmJ0/Fii0lIwh7dxtA9ymvwaW/hSc2vMHHu5JvEcOQtS7IZsDXKoMmb6Tb
+         Ptiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712125359; x=1712730159;
+        d=1e100.net; s=20230601; t=1712125430; x=1712730230;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0fFHzLQuRZ2Hw0yUVk33aqddMrBE4fTv8Tz8AlrAmOo=;
-        b=n9es8tFJ4qkTBlQtn7WEtdukDv8hgcI/iPKMFkb5UiuO5hWiRqqZjx0UWFiaEEfPFm
-         0MOB41tBEhKySYcDfioBK1VwO+2qJSAz4vPJPSI1s2JsMI9YDDsR30r5lH4IDCzQc3l+
-         2tyjHkz0BC3Lnp3OjKPBT3gelrBvikUBs0k89Q4EYksIyAQe4hyRuzXTsLgQJQ1F9sQd
-         0DUP4KDuNyLYhM1J6QmHopRgMQrpIP0hOTv0Fwr+2Ymn4PsJXaiTuCkz/f/fhAFeyriv
-         tjHbdq3QqsoBL1ukXroy0dxBTqoOCdX1432BrbnHAOYFTS4V/sNpzZ34hErfKHIMKzrS
-         iPrQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUfcgiciExXyjuvXtHdaGviNcBTlPlYBqnLgBXqhbVqlCwnLgvdITIfxa53uFLCfDqsW5B2UZrVZ7StQdMJRH710r8S2Z92iwE3UKXtiAk=
-X-Gm-Message-State: AOJu0Yw5NjNlfJcJ0Hcz6SP6qYAU23/Dvq0To3HDbbELpIu+hSnXXOSd
-	lBPXSt7KGzd3gb9FJuA4yk3oHCC/Ju+KcGjNH5UHiohQyD5xmsCd+i11Od7M8g==
-X-Google-Smtp-Source: AGHT+IFYUo22jsA8wQvdXJLe6s2/pjHT+Y7/aJf8mJYFaDVaeA6xIP6UwtA67rqzfkPYJFiJdWjRWA==
-X-Received: by 2002:a2e:bb95:0:b0:2d8:f3b:d026 with SMTP id y21-20020a2ebb95000000b002d80f3bd026mr5078463lje.14.1712125359164;
-        Tue, 02 Apr 2024 23:22:39 -0700 (PDT)
-Message-ID: <217fdbe4-a4ba-4bea-b044-5677bf87717b@suse.com>
-Date: Wed, 3 Apr 2024 08:22:38 +0200
+        bh=eU4Kvxa6S2lNftq7OIqQb8wRacONrsh7tQKm0bDHwbE=;
+        b=iA8QvlZfTTB+48IM11v37EORaoA1AgtfWNl76Sr6w0jgQME07wOTl43iLCRHR6lYw+
+         uKMsjt/hPOagR7d+QCrwRt7ZzCnMrgNli+69nvd3ngivMF8waTFVQ/N77YV6Ty2Weuqx
+         DK4LAR+WaSinQPO/AzLM3/VaATJAM3+Qzb28EkFswTR+Qbk+vkLQmi9ml10mgfvQeAmm
+         5Ntq8y5TGDjOMKaKs+pFOiC8yO+xSyflZx7uhGsoI+odDh/Q+ulh1WWgQif6Dl6Vs588
+         pnTkIbwNGnQh0I7E1BK6kbcUu7Fn/BKlKf9wCUiAX5pkxH1xVtr2uRzyX28SUZ/EUUhw
+         YSpQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWCgQBqBvjrQoJAqJwQsD4r4ai1UczRIrLfZHKHWr+y8eK4c5m+P43715mRLsvxueyt/i41+tA83QaO/pkJBUfwxbt6PwQGSlJyU7tA5bM=
+X-Gm-Message-State: AOJu0YzYGgS/TZc3BZahBfHCgzF9GVL288QjHY1yeYZ24ri5aPqFP1RO
+	LLfOI1SXNF0oa5LCi7D9YHSqiMSNupocbqUF9HUMNvx4gBd28tspaCh9VyC3og==
+X-Google-Smtp-Source: AGHT+IFvx7H7X8Nynz+GB0ZmDp5803V4jeg/CzZkv1SkXtGlWrNw4ltzFmf/d1JbHeFrf1kfBL2k+A==
+X-Received: by 2002:a05:600c:4688:b0:414:63c2:23cc with SMTP id p8-20020a05600c468800b0041463c223ccmr12960931wmo.2.1712125430022;
+        Tue, 02 Apr 2024 23:23:50 -0700 (PDT)
+Message-ID: <1776a07f-d4fc-4528-b6c4-bb0f2432524e@suse.com>
+Date: Wed, 3 Apr 2024 08:23:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/misra: add 13.6 to rules.rst
+Subject: Re: [XEN PATCH 1/7] xen/domctl: address a violation of MISRA C:2012
+ Rule 16.3
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2404021618030.2245130@ubuntu-linux-20-04-desktop>
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1712042178.git.federico.serafini@bugseng.com>
+ <c730993f757afcaeb327e7fb8528b70b716cd5db.1712042178.git.federico.serafini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,42 +113,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2404021618030.2245130@ubuntu-linux-20-04-desktop>
+In-Reply-To: <c730993f757afcaeb327e7fb8528b70b716cd5db.1712042178.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03.04.2024 01:21, Stefano Stabellini wrote:
-> As agreed during MISRA C meetings, add Rule 13.6 to rules.rst.
+On 02.04.2024 09:22, Federico Serafini wrote:
+> Add break statement to address a violation of MISRA C:2012 Rule 16.3
+> ("An unconditional `break' statement shall terminate every
+> switch-clause ").
 > 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> ---
-> There was a request to expand the scope to also include alignof and
-> typeof. Depending on whether the MISRA C scanners support it, and under
-> which rules violations will be listed, rules.rst will be updated
-> accordingly (either updating the notes section of 13.6 or adding a new
-> entry.)
+> No functional change.
+> 
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-Hmm. Imo ...
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -445,6 +445,12 @@ maintainers if you want to suggest a change.
->       - Initializer lists shall not contain persistent side effects
->       -
->  
-> +   * - `Rule 13.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_06.c>`_
-> +     - Required
-> +     - The operand of the sizeof operator shall not contain any
-> +       expression which has potential side-effects
-> +     -
 
-... a note to this effect should be put here right away. We _want_ to
-respect the rule for the other two similar keywords, after all. What we
-don't know at this point is whether we can get help towards this from
-Eclair.
-
-With such a note added:
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
 
