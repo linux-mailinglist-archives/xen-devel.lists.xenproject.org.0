@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98E67896474
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 08:17:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700296.1093200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC8C889647A
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 08:23:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700299.1093210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrtvT-0002fH-RT; Wed, 03 Apr 2024 06:16:47 +0000
+	id 1rru1C-0004M8-H0; Wed, 03 Apr 2024 06:22:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700296.1093200; Wed, 03 Apr 2024 06:16:47 +0000
+Received: by outflank-mailman (output) from mailman id 700299.1093210; Wed, 03 Apr 2024 06:22:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrtvT-0002c2-ND; Wed, 03 Apr 2024 06:16:47 +0000
-Received: by outflank-mailman (input) for mailman id 700296;
- Wed, 03 Apr 2024 06:16:45 +0000
+	id 1rru1C-0004JT-DL; Wed, 03 Apr 2024 06:22:42 +0000
+Received: by outflank-mailman (input) for mailman id 700299;
+ Wed, 03 Apr 2024 06:22:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrtvR-0002bw-OR
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 06:16:45 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1rru1A-0004JM-V5
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 06:22:40 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id be7875a6-f181-11ee-afe5-a90da7624cb6;
- Wed, 03 Apr 2024 08:16:44 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4155819f710so30722115e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 23:16:44 -0700 (PDT)
+ id 923c0e00-f182-11ee-afe5-a90da7624cb6;
+ Wed, 03 Apr 2024 08:22:39 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2d6fc3adaacso84975051fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 23:22:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- c9-20020a7bc2a9000000b0041552dbc539sm15698389wmk.11.2024.04.02.23.16.43
+ n14-20020a05600c4f8e00b0041493e21844sm23544947wmq.27.2024.04.02.23.22.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 23:16:43 -0700 (PDT)
+ Tue, 02 Apr 2024 23:22:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be7875a6-f181-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 923c0e00-f182-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712125004; x=1712729804; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712125359; x=1712730159; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=WuJuUx2l0VlKDbmQNl6+uYlnFj0wTGN2ZPfSZUbqi00=;
-        b=DC0V/AdzoEFLzBsu4ZqLvdA1hQohNq8mubZSFGKayzhErJCl3pstMoc7pJvd1KReTj
-         aHSDaL8Yaou2nUjbP1upR4HjvcHbVjJ5T1W0FiMYfXX2uG8VWgspf6I4ZXcC1mVMOh8U
-         OLtN6Ji5IzaWY8Nw3ajysT6Hc+DEYKpoKUe02Sy+1tsFO3qUuaRQJoIQ1H+WxT3iWczg
-         Zo05VHUka1gAkSRNoRbypq2e1Ehp/Sl4RNfZGe9qRTRvUGi/upYvnxuuvyLB0DZjYr7r
-         iFm+ml+yEMggk1epD4v0kF8tuvK7RDUJIpjohLtxV48CEBFxgRcMLELQnkRr3OgacbIc
-         xpKw==
+        bh=0fFHzLQuRZ2Hw0yUVk33aqddMrBE4fTv8Tz8AlrAmOo=;
+        b=NVBz/b/BUP8U8mVwVqcqeoLSpSOd1//jkbWJluHd3ip4+dZ08vEUURQvcGIgFo1Mue
+         SasEHi01tXd39p6trgY24WHWLDvP0xenCITxvjHv/JzPO6sMBv4tPK619esC1eD8FgzP
+         M0m3PAwQ//ufYxigbyl8PVMeEatHHmZvA2xNkxp/7f3sjsh3DcphtgZvDyJUtHJgQM7i
+         40B7ScyQ4Jqy2U6zF2GS+IlbswTAjwZ62IlhapO9lUiu0Zxn8dNBNZVi5B1Nvdk1zomK
+         zgYPGcV6QuUEhUA+BuO1b7qx/9vS2ae8WVzVNDGDDyVQ2eRidPwn+AJcW1zvyUfzNGYI
+         3QOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712125004; x=1712729804;
+        d=1e100.net; s=20230601; t=1712125359; x=1712730159;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WuJuUx2l0VlKDbmQNl6+uYlnFj0wTGN2ZPfSZUbqi00=;
-        b=iz0MbXx0AR8m0BgCbKz3Kr7H9v7jF08i8ptcPrDNbtlLFJSaRtlqD2NVhJsnxkqvJH
-         ufMtwKG/3JMUHI1n6+yBPpFA8bSLftwp3XITLldUcMIhd9FpckZZDiHEHvCuSEpwZUg+
-         SWj0ihGTbH8+Ypxlt1YD7ajCoMlhA+uMIGQXYBZ42ZC6RTsacDqFujTvfADmKDJQChgN
-         e4K+QLrTyTkkAWUpbzX9/hb0Dw0v9qJtdcn7/Uqdkuxn0WONvpF94Selfy9aGTONO+6k
-         Vq/t7it9d3r8xmRiaUrGaNj7wpemPu+ez3YdXkJys2xU/KDBjEvgeNxFHSFNDcf60YCe
-         QV7g==
-X-Forwarded-Encrypted: i=1; AJvYcCUE3CC5irDLVVF8Z19YvI7kl/weyp4e6TJuQ2YUGap0sFlM9sE/7X5ggkAFKKaoX9gBy0IXImmN5mAEKqo4+SJhgifCIHhYEWcUN61Az40=
-X-Gm-Message-State: AOJu0YwaDTPQZ9GM9S+RyYCO4yudzmWGHtK8AJiH7H5F6JaosyQGd4Gd
-	NO2iv2XWzWiz3ukbqerAG+z568zQGkN51K6sQW+F2r/VrOCRe2pW6ZbyA1hRKw==
-X-Google-Smtp-Source: AGHT+IECTzS/zYWXy3RdL/acP/j3FfACMN5OBQVhZHjxEf+sTpe5fFpQoOm0Fap0kOuDAEaymK5s7A==
-X-Received: by 2002:a05:600c:35c1:b0:415:6b9a:326d with SMTP id r1-20020a05600c35c100b004156b9a326dmr5014667wmq.4.1712125003897;
-        Tue, 02 Apr 2024 23:16:43 -0700 (PDT)
-Message-ID: <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
-Date: Wed, 3 Apr 2024 08:16:42 +0200
+        bh=0fFHzLQuRZ2Hw0yUVk33aqddMrBE4fTv8Tz8AlrAmOo=;
+        b=n9es8tFJ4qkTBlQtn7WEtdukDv8hgcI/iPKMFkb5UiuO5hWiRqqZjx0UWFiaEEfPFm
+         0MOB41tBEhKySYcDfioBK1VwO+2qJSAz4vPJPSI1s2JsMI9YDDsR30r5lH4IDCzQc3l+
+         2tyjHkz0BC3Lnp3OjKPBT3gelrBvikUBs0k89Q4EYksIyAQe4hyRuzXTsLgQJQ1F9sQd
+         0DUP4KDuNyLYhM1J6QmHopRgMQrpIP0hOTv0Fwr+2Ymn4PsJXaiTuCkz/f/fhAFeyriv
+         tjHbdq3QqsoBL1ukXroy0dxBTqoOCdX1432BrbnHAOYFTS4V/sNpzZ34hErfKHIMKzrS
+         iPrQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUfcgiciExXyjuvXtHdaGviNcBTlPlYBqnLgBXqhbVqlCwnLgvdITIfxa53uFLCfDqsW5B2UZrVZ7StQdMJRH710r8S2Z92iwE3UKXtiAk=
+X-Gm-Message-State: AOJu0Yw5NjNlfJcJ0Hcz6SP6qYAU23/Dvq0To3HDbbELpIu+hSnXXOSd
+	lBPXSt7KGzd3gb9FJuA4yk3oHCC/Ju+KcGjNH5UHiohQyD5xmsCd+i11Od7M8g==
+X-Google-Smtp-Source: AGHT+IFYUo22jsA8wQvdXJLe6s2/pjHT+Y7/aJf8mJYFaDVaeA6xIP6UwtA67rqzfkPYJFiJdWjRWA==
+X-Received: by 2002:a2e:bb95:0:b0:2d8:f3b:d026 with SMTP id y21-20020a2ebb95000000b002d80f3bd026mr5078463lje.14.1712125359164;
+        Tue, 02 Apr 2024 23:22:39 -0700 (PDT)
+Message-ID: <217fdbe4-a4ba-4bea-b044-5677bf87717b@suse.com>
+Date: Wed, 3 Apr 2024 08:22:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
- event channels"
+Subject: Re: [PATCH] docs/misra: add 13.6 to rules.rst
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Daniel Smith <dpsmith@apertussolutions.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2404021618030.2245130@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,36 +112,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
+In-Reply-To: <alpine.DEB.2.22.394.2404021618030.2245130@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.04.2024 19:06, Andrew Cooper wrote:
-> The commit makes a claim without any kind of justification.
+On 03.04.2024 01:21, Stefano Stabellini wrote:
+> As agreed during MISRA C meetings, add Rule 13.6 to rules.rst.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> ---
+> There was a request to expand the scope to also include alignof and
+> typeof. Depending on whether the MISRA C scanners support it, and under
+> which rules violations will be listed, rules.rst will be updated
+> accordingly (either updating the notes section of 13.6 or adding a new
+> entry.)
 
-Well, what does "have no business" leave open?
+Hmm. Imo ...
 
-> The claim is false, and the commit broke lsevtchn in dom0.
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -445,6 +445,12 @@ maintainers if you want to suggest a change.
+>       - Initializer lists shall not contain persistent side effects
+>       -
+>  
+> +   * - `Rule 13.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_06.c>`_
+> +     - Required
+> +     - The operand of the sizeof operator shall not contain any
+> +       expression which has potential side-effects
+> +     -
 
-Or alternatively lsevtchn was doing something that was never meant to work
-(from Xen's perspective).
+... a note to this effect should be put here right away. We _want_ to
+respect the rule for the other two similar keywords, after all. What we
+don't know at this point is whether we can get help towards this from
+Eclair.
 
->  It is also quite
-> obvious from XSM_TARGET that it has broken device model stubdoms too.
-
-Why would that be "obvious"? What business would a stubdom have to look at
-Xen's side of an evtchn?
-
-> Whether to return information about a xen-owned evtchn is a matter of policy,
-> and it's not acceptable to short circuit the XSM on the matter.
-
-I can certainly accept this as one possible view point. As in so many cases
-I'm afraid I dislike you putting it as if it was the only possible one.
-
-In summary: The supposed justification you claim is missing in the original
-change is imo also missing here then: What business would any entity in the
-system have to look at Xen's side of an event channel? Back at the time, 3
-people agreed that it's "none".
+With such a note added:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
