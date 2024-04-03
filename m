@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E641B896E82
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 13:53:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700492.1093748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3AEC896E84
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 13:54:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700495.1093758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrzAz-0003Kl-TG; Wed, 03 Apr 2024 11:53:09 +0000
+	id 1rrzBv-0003w5-9S; Wed, 03 Apr 2024 11:54:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700492.1093748; Wed, 03 Apr 2024 11:53:09 +0000
+Received: by outflank-mailman (output) from mailman id 700495.1093758; Wed, 03 Apr 2024 11:54:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrzAz-0003Ie-PM; Wed, 03 Apr 2024 11:53:09 +0000
-Received: by outflank-mailman (input) for mailman id 700492;
- Wed, 03 Apr 2024 11:53:08 +0000
+	id 1rrzBv-0003tf-5b; Wed, 03 Apr 2024 11:54:07 +0000
+Received: by outflank-mailman (input) for mailman id 700495;
+ Wed, 03 Apr 2024 11:54:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrzAy-0003IU-Dy
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 11:53:08 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1rrzBu-0003tZ-9b
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 11:54:06 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bbc024d7-f1b0-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 13:53:06 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4156a2aeb43so23132175e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 04:53:06 -0700 (PDT)
+ id de4f33a4-f1b0-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 13:54:04 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-416254f2312so1701555e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 04:54:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p12-20020a05600c468c00b00413eb5aa694sm21401196wmo.38.2024.04.03.04.53.05
+ p12-20020a05600c468c00b00413eb5aa694sm21401196wmo.38.2024.04.03.04.54.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Apr 2024 04:53:05 -0700 (PDT)
+ Wed, 03 Apr 2024 04:54:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbc024d7-f1b0-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: de4f33a4-f1b0-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712145186; x=1712749986; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712145244; x=1712750044; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=FhSjVM4LwpP0o1bn5OoO/DKBjeb23w4eSCSeXB0r4v8=;
-        b=TzHnT1kUDWzUB0g29IInwcjs9vk1AKaTNJYOJQ5UZ1RDQq0lvnzjOepCM6QGKUfB/N
-         yNgB35PfUOHDL0rWx02Rwg1f1GuZ5AxLksU3KkeffH038LCGXCFZp7EAiTBgWVXkths2
-         oOdFgozcUkCWutRHALAd2muXqJBA9Q3SbyPI+MWBKMcasiL/1Xxc5exFJ/weYqRolaVX
-         StwDwHNXxVp2LvVqZg2DZTR2L2bxd77ehqhRTq/R+XpdE6bypU5S2yj2uqM06iCP50Ls
-         ZcDA0Q+gHFfBsHx9QN6A0TH5Uifm9S2AKrkRwUpG6JMWlgyEb9IxnjLGxnKZaqz4+HG+
-         m5qw==
+        bh=Ac1nCRLJzIkJPYlolYpu43UN/U6/d09aEgVTr4LxfDQ=;
+        b=FANczhlRYFSk0/997OXW95UR/1XkmoTFPwUnBNxncFCcdr85ZlIlFvhijelbOnbO1k
+         yvSJQFLpOWJuANRU3RbVp9P86skF8tnhOcB9/mv0kaiwfE85RIChipe+dKbOhX5atMgm
+         K2+G+92khIc/XXmp2kNHkhshvKWfAI7St3gXhHO31TGE0HsTf2xpKAa/43QViJR1wPrB
+         hZsWRw/P9Hy2pBtEfliIyxA+IPTX5O6yFPN6dQ03i5lUwSscDEDCD4VRDI2btPwmla0b
+         TDXl9ZlGdsBWtcnzfFKlt9snEm73/EZ18cMv/Yvgd1GmEv596v+/AYALnwkif343q9OH
+         VSvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712145186; x=1712749986;
+        d=1e100.net; s=20230601; t=1712145244; x=1712750044;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FhSjVM4LwpP0o1bn5OoO/DKBjeb23w4eSCSeXB0r4v8=;
-        b=KjTgom7aPa9KW03XQebqFoxhGJPMHY1o0O/XQhdGByzAinxD6yeW8+LuO/rGdeOf+9
-         1T3OhwrsE0qeNPaIq7TJ6wOAx9HFsT4GT3oedN/UR5vGyGatievzHF4rnQYhyb2pL2zv
-         hXFyTyGNA6f/t+wnJAarIWKn0+NryK8QnYPzqKQbI/V7lqtKlxTf6iDZVwDbJMc7dYrZ
-         mZoJeKaUmlYgtm2Lyi2Tx1U2VT35K3pfAzWgi636ApweVB2ekkzZdmVeE5ev1qpKUBXQ
-         USyBvGwWZFUcpGzME61+H/m03JPHDrcl/W77m/CdmYW3OSxHmroKYHOGoYLMDDp1epqn
-         tEUg==
-X-Forwarded-Encrypted: i=1; AJvYcCU9G0GOsSEL55/9FMAwMAMIb3cW4668ZwxJQRUrLj4AHKIvXp7TocDurUUpgC0SMb2d8M90O7riywR5w/ayrgeG48GPlKtEqD0X5AJjP0w=
-X-Gm-Message-State: AOJu0Yzjs1qCpFv/1SGWwOPJphEcBZkWJBPMD65FOFPTVjC6n+tJZd7X
-	EPJ29R9aiO7YollTS69+2LBq5vM4LusONwfQx8/dz2SM0S0Y/M1aVecS9+soFQ==
-X-Google-Smtp-Source: AGHT+IFDWN6/KDbUbiGtdA8KfmxGk6uMQABmm9AXcty+aTYgTqoEb9MbJS55tUDPdFUwu2ar64r5bw==
-X-Received: by 2002:a05:600c:5606:b0:415:52df:4db1 with SMTP id jr6-20020a05600c560600b0041552df4db1mr12170950wmb.7.1712145185717;
-        Wed, 03 Apr 2024 04:53:05 -0700 (PDT)
-Message-ID: <7593c2e7-57ee-42eb-8d38-a3aa177d3420@suse.com>
-Date: Wed, 3 Apr 2024 13:53:04 +0200
+        bh=Ac1nCRLJzIkJPYlolYpu43UN/U6/d09aEgVTr4LxfDQ=;
+        b=G0JyioBc4KsNWIGEXrtFkGG3b14U5iN9AijFl/O/eNQxUDFbr6937P5SmdR5Jd+x7Q
+         2l8VO6K52eYuY2YPSFg/JyEjYtUYVLqnBtApD3js+QfCLs4PhYtCbCNY7z/U0w1H5p4v
+         XUwt8lW/jkW4L4u2Rjj6KW+SyKtnRp414clPfMAZfQQQfLag+bHUlmWMUYK6MJHgJg9B
+         vtwt1q/vsZzSgIBQDMkZYPPmaA9jRh5tqM52KxPnfOB4QABjTP1n2ZT6uZuj55Xhuz0o
+         KReuAy3VlW3ZmCGWor0FfsqBhv1OqAAEhYAmu0pi5E8IMVPORrN5Hp1mVD2mSdGCRfHE
+         6NMA==
+X-Forwarded-Encrypted: i=1; AJvYcCU2EYH0WArkxgCg+0W/Bx6TFHUjiAXSGPoB1NXygutHY66Z9U3z+0pqPZ33OvRplk0CKnPO43Oij2NeOegMCsPPGXb984C8CqcXMmBLFyQ=
+X-Gm-Message-State: AOJu0YyRZITMdJKHpxwF2fCFsqDtSLntUmY63qa9AcTAhWh6iJss4+6X
+	kHHdUopjzN25+RjfKF4ncuGuEp3rg69rSuFP9yk6hNH4y3qjmOOc6TxM0FZHvg==
+X-Google-Smtp-Source: AGHT+IFridJIaqsdJWailYwm5lIZVriSU8n2O15d73SqH+o8wdXHfuT81x3McmAZlcDFb9L2XuSzNg==
+X-Received: by 2002:a7b:ca46:0:b0:414:9072:98dc with SMTP id m6-20020a7bca46000000b00414907298dcmr14745624wml.41.1712145243874;
+        Wed, 03 Apr 2024 04:54:03 -0700 (PDT)
+Message-ID: <3b8ec757-d2f3-4143-a843-de8c6d51944d@suse.com>
+Date: Wed, 3 Apr 2024 13:54:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 02/19] xen/riscv: disable unnecessary configs
+Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
+ event channels"
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
- <c2ba247adce76c69ecd6400d791db36495b85b75.1712137031.git.oleksii.kurochko@gmail.com>
- <e3da3546-f2a7-4eab-b157-51b6570dcbf9@suse.com>
- <77d63eccd4906ebbb3a5add624490cc25b2cba0c.camel@gmail.com>
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
+ <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
+ <f2b596e6-0aec-4948-ad7a-aa38adaa7dcc@suse.com>
+ <3aa0893b-7efd-4ca1-a405-e897edc7402f@apertussolutions.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,71 +116,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <77d63eccd4906ebbb3a5add624490cc25b2cba0c.camel@gmail.com>
+In-Reply-To: <3aa0893b-7efd-4ca1-a405-e897edc7402f@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 03.04.2024 12:54, Oleksii wrote:
-> On Wed, 2024-04-03 at 12:28 +0200, Jan Beulich wrote:
->> On 03.04.2024 12:19, Oleksii Kurochko wrote:
->>> This patch disables unnecessary configs for two cases:
->>> 1. By utilizing EXTRA_FIXED_RANDCONFIG for randconfig builds
->>> (GitLab CI jobs).
->>> 2. By using tiny64_defconfig for non-randconfig builds.
+On 03.04.2024 13:50, Daniel P. Smith wrote:
+> On 4/3/24 02:52, Jan Beulich wrote:
+>> On 03.04.2024 08:16, Jan Beulich wrote:
+>>> On 02.04.2024 19:06, Andrew Cooper wrote:
+>>>> Whether to return information about a xen-owned evtchn is a matter of policy,
+>>>> and it's not acceptable to short circuit the XSM on the matter.
 >>>
->>> Only configs which lead to compilation issues were disabled.
->>>
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> ---
->>> Changes in V7:
->>>  - Disable only configs which cause compilation issues.
+>>> I can certainly accept this as one possible view point. As in so many cases
+>>> I'm afraid I dislike you putting it as if it was the only possible one.
 >>
->> Since the description doesn't go into details: While I can see that
->> PERF_COUNTERS and LIVEPATCH may require (a little / some more) extra
->> work, are HYPFS, ARGO, and XSM really causing issues?
-> For Argo, I recieved the following compilation errors:
->    common/argo.c:1416:5: error: unknown type name 'p2m_type_t'; did you
->    mean 'hvmmem_type_t'?
->     1416 |     p2m_type_t p2mt;
->          |     ^~~~~~~~~~
->          |     hvmmem_type_t
->    common/argo.c:1419:11: error: implicit declaration of function
->    'check_get_page_from_gfn' [-Werror=implicit-function-declaration]
->     1419 |     ret = check_get_page_from_gfn(d, gfn, false, &p2mt, &page);
->          |           ^~~~~~~~~~~~~~~~~~~~~~~
->    common/argo.c:1427:10: error: 'p2m_ram_rw' undeclared (first use in
->    this function)
->     1427 |     case p2m_ram_rw:
->    
-> It seems it should be included xen/p2m-common.h and asm/p2m.h in
-> common/argo.c.
+>> Further to this: Is there even a way to express the same denial in XSM?
+>> alloc_unbound_xen_event_channel() doesn't specifically "mark" such a
+>> channel, and (yes, it could in principle be open-coded in Flask code)
+>> consumer_is_xen() is private to event_channel.c. I also dare to question
+>> whether in SILO mode status information like this should be available.
 > 
-> For CONFIG_HYPFS_CONFIG ( there is no issue with CONFIG_HYPFS,
-> overlooked that ):
->    common/config_data.S:1:10: fatal error: asm/asm_defns.h: No such file
->    or directory
->        1 | #include <asm/asm_defns.h>
->    
-> 
-> For XSM, I recieved the following error:
-> 
->    xsm/xsm_core.c:79:19: error: 'xsm_core_init' defined but not used [-
->    Werror=unused-function]
->       79 | static int __init xsm_core_init(const void *policy_buffer,
->    size_t policy_size)
-> 
-> I'll add an information with compilation errors to the commit message.
+> To build on the previous response: if the natural failure return value 
+> is -EACCESS in response to a domain resource access attempt, then the 
+> probability is extremely high that it should be implemented under a XSM 
+> hook and not hard-coded into the resource logic.
 
-No need to quote full compiler diagnostics, but a hint at the problems
-at least. That said, perhaps we want to rather sort the issues than
-disable building stuff that sooner or later you will want to build
-anyway. For hypfs we look to have an approach already. For Argo what
-you suggest makes sense to me; it might be nice to understand where
-the P2M headers needed are coming from on x86 and Arm. Ideally common
-code .c files wouldn't include asm/*.h.
-
-For XSM I'm a little puzzled: Shouldn't RISC-V have HAS_DEVICE_TREE=y?
-Then xsm_core_init() would have a caller.
+Possibly. But first of all - could you answer the earlier question I raised?
 
 Jan
 
