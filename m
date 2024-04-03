@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22D46896F55
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 14:51:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700532.1093832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D1FD896FA0
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 14:58:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700538.1093847 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs05B-00035s-48; Wed, 03 Apr 2024 12:51:13 +0000
+	id 1rs0BY-0004CD-S9; Wed, 03 Apr 2024 12:57:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700532.1093832; Wed, 03 Apr 2024 12:51:13 +0000
+Received: by outflank-mailman (output) from mailman id 700538.1093847; Wed, 03 Apr 2024 12:57:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs05B-000300-1E; Wed, 03 Apr 2024 12:51:13 +0000
-Received: by outflank-mailman (input) for mailman id 700532;
- Wed, 03 Apr 2024 12:51:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rs05A-0002yG-3l
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 12:51:12 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d85ba635-f1b8-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 14:51:10 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a4715991c32so822382066b.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 05:51:10 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- zh11-20020a170906880b00b00a4e48e52ecbsm5474318ejb.198.2024.04.03.05.51.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Apr 2024 05:51:09 -0700 (PDT)
+	id 1rs0BY-00049O-PW; Wed, 03 Apr 2024 12:57:48 +0000
+Received: by outflank-mailman (input) for mailman id 700538;
+ Wed, 03 Apr 2024 12:57:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yPGy=LI=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rs0BX-00049F-8K
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 12:57:47 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c3fa8e34-f1b9-11ee-afe5-a90da7624cb6;
+ Wed, 03 Apr 2024 14:57:45 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-41551500a7eso33692985e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 05:57:45 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ e1-20020adff341000000b0033dd2a7167fsm17160055wrp.29.2024.04.03.05.57.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 03 Apr 2024 05:57:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,112 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d85ba635-f1b8-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: c3fa8e34-f1b9-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712148670; x=1712753470; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZUH9yNa4cQm5NHvZ1ozQEBsidr2IAZzn9EATZUwM5fo=;
-        b=c/1eJGeFqS3T2b1+hUkAzlDcGw8q5Rli/TWAcaiI10uGCbMSEt/j4s6XyD1eVpCHkm
-         dIuuerdk1LyeiSFaduTrOxOOQRe1az+B8QhDMbxEXziC93bsTm6zBSLVSx8VM+NhWi8U
-         VUpLtq53Wn9zwMYsqJSLIWh8ChYhMbFDZUaGnCo2lg/XUBwnuw5uMRILpMOY6xcFLcy/
-         SvTbXZXQXCeSl67q6Gffd+/iUVRuIL3XWJZUIetchD+JnZ1YBvBnNTl1a7DjhtwGIJps
-         yJGykaUMEPWaKDLaG4H7IJHB1itOwEj9IQt9f+N7WLHPrYLhWKLCzgADvJME4km+UBE0
-         xgiw==
+        d=cloud.com; s=cloud; t=1712149065; x=1712753865; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=BP3JPiBSmq9mmOmJ6D9UZqPYkI3neeLrCDzoLgBCgj0=;
+        b=kyui8vFxnb6ocXFWlBKp9akAkUvs5YOnh+HQdfR7ZgBZCLh2Y++6rVuab0FUpklsR3
+         VOPvBIdAjVCe/Hp1M5tnVnbUfmxBkEL90Mzo8ie0UxVxva8g5sQ7729vX/FlpZjjFLck
+         PHh76q/1mB20An0CSBK9mX8JRtuGTGSSaQ/q4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712148670; x=1712753470;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZUH9yNa4cQm5NHvZ1ozQEBsidr2IAZzn9EATZUwM5fo=;
-        b=dyo2DRqqVk71CBhIvlXGKqDGVWKLo06AuSRnPGBVSbDkmPJoU1enMDjljisSkDbDnx
-         fJNAPAw3OrKmgy4sEKD6W8Y7eW/CRN0hCsikLIJ3Sgdtcug8O5pwWPaUAT4PZH8eYaqV
-         zcGt+uYgdTs+fT2ENW2A0/vGBkE7+WxzXMd/iq3pQ+uEBRsaHtUyoJohw6wNiRYsMRYE
-         5IJvDKLafeOkMvTi9D0G5u1PWbqAPd6Wt9AA4R/eQJH3dM258QNP+Sk9jHjjSexnbrcr
-         5TGOI1W0DNCWJYtyxU+7i/SPu7yyt91mqwlOWWddm9IuPPFUGvRtUtoyYHpZaLoWiu3J
-         O0Ng==
-X-Forwarded-Encrypted: i=1; AJvYcCUq3tBybeUOnKZ8GVbTPpZfZLF0EQ98Tu5yHRJBnyVdHlEUFVBB0gCA2kygfR8L74d1XtqGSX2LREEW+R3OlIKVOAf35IbGmOF6AwYCSi8=
-X-Gm-Message-State: AOJu0Yx7U3c9nJ8t3bhub4PpbJbN5WjCmU9qDCPYFnmu9/grIeqSJOdZ
-	iRdwS5Y2yXkWL9EQyimS3+46oNxB+QZEI7LtXFjVJTl7ab7vCIs6/WWsHdEWAA==
-X-Google-Smtp-Source: AGHT+IHzFGlIv9tCw5svXFKY+i4CtNpZX/S/mYhLRyOqCw83vRLT3tmFj+mZ4s+Myh6fWrVwGTQXGA==
-X-Received: by 2002:a17:907:3ea2:b0:a4e:5672:440 with SMTP id hs34-20020a1709073ea200b00a4e56720440mr8789543ejc.21.1712148669765;
-        Wed, 03 Apr 2024 05:51:09 -0700 (PDT)
-Message-ID: <e401ffe1-de4b-4548-8eba-feb7e85c9971@suse.com>
-Date: Wed, 3 Apr 2024 14:51:08 +0200
+        d=1e100.net; s=20230601; t=1712149065; x=1712753865;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BP3JPiBSmq9mmOmJ6D9UZqPYkI3neeLrCDzoLgBCgj0=;
+        b=JdZZ9Q0bGvYSQA98D6tgOh4MJbU57/u0sDwsiVaXLpMhdiDBcT6jRV9GhuPDB9uXgo
+         Cv0vBbd98Vwq+mw0ro/aZDGkMmsT9xxDn9Rv34W7Pxl94XvRbM3roZ+nm/zK1FkNIN7s
+         6K6bkCxnUPogf8WixuLUJ9Hn7hS4GSdwWa45goFYBW/Kad1q2MS9arxU8cQqCWG8E+Io
+         Y1VuMX1XMd4gqUnShumJf3fW3Dvvz1wPnsLimWyti5OaMMbSFibo8HeBF5vhddd0jmSd
+         lgtr0/UVdPve2YUQebOBQKjoElgCptFWzG+xl99F1B6wY736H9MtAO7bEgd7X69q4mER
+         DZig==
+X-Gm-Message-State: AOJu0YzVtO6HKxmfkWCAQYDs1AYgdTnc7skjMEYIWt1LuXm+0mIfqpQj
+	uXRr9GLsUk/+a/SAuRt8ISwrZqUVrIX1dLGuA7shtGpbadUBXGHomZ9IGnIZThk=
+X-Google-Smtp-Source: AGHT+IFKlvnYSinrx0Q2r2zXVxA2Ao4QwDbBxnOPdT1Ttf0fwj1jNtFJw2/zqCDCyoH7C/wUtBeWnA==
+X-Received: by 2002:a05:600c:3502:b0:414:8065:2d25 with SMTP id h2-20020a05600c350200b0041480652d25mr11670715wmq.38.1712149065013;
+        Wed, 03 Apr 2024 05:57:45 -0700 (PDT)
+Date: Wed, 3 Apr 2024 13:57:44 +0100
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v6 2/4] tools: Move MB/GB() to common-macros.h
+Message-ID: <079b0891-02d0-4bb1-87c8-ba249ca4025c@perard>
+References: <20240327215102.136001-1-jason.andryuk@amd.com>
+ <20240327215102.136001-3-jason.andryuk@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/include: move definition of ASM_INT() to
- xen/linkage.h
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20240403120323.18433-1-jgross@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240403120323.18433-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240327215102.136001-3-jason.andryuk@amd.com>
 
-On 03.04.2024 14:03, Juergen Gross wrote:
-> ASM_INT() is defined in arch/[arm|x86]/include/asm/asm_defns.h in
-> exactly the same way. Instead of replicating this definition for riscv
-> and ppc, move it to include/xen/linkage.h, where other arch agnostic
-> definitions for assembler code are living already.
+On Wed, Mar 27, 2024 at 05:51:00PM -0400, Jason Andryuk wrote:
+> Consolidate to a single set of common macros for tools.
+> 
+> MB() will gain another use in libelf, so this movement makes it
+> available.
+> 
+> Requested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> ---
 
-And this is why I didn't make a change right away, back when noticing the
-duplication: Arch-agnostic really means ...
+So, this patch fixes potential use issues with the macros in hvmloader
+and init-xenstore-domain. While it's not perfect, it still better.
 
-> --- a/xen/include/xen/linkage.h
-> +++ b/xen/include/xen/linkage.h
-> @@ -60,6 +60,8 @@
->  #define DATA_LOCAL(name, align...) \
->          SYM(name, DATA, LOCAL, LASTARG(DATA_ALIGN, ## align), DATA_FILL)
+I'll try "MB(memory + 0)" with the different macros:
+
+
+> diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader/util.h
+> index 87be213dec..14078bde1e 100644
+> --- a/tools/firmware/hvmloader/util.h
+> +++ b/tools/firmware/hvmloader/util.h
+> @@ -38,9 +38,6 @@ void __bug(const char *file, int line) __attribute__((noreturn));
+>  #define BUG() __bug(__FILE__, __LINE__)
+>  #define BUG_ON(p) do { if (p) BUG(); } while (0)
 >  
-> +#define ASM_INT(label, val)    DATA(label, 4) .long (val); END(label)
+> -#define MB(mb) (mb##ULL << 20)
+> -#define GB(gb) (gb##ULL << 30)
 
-... to avoid .long [1]. There's no arch-independent aspect guaranteeing
-that what .long emits matches "unsigned int" as used e.g. in the
-declaration of xen_config_data_size. The arch-agnostic directives are
-.dc.l and friends. Sadly Clang looks to support this only starting with
-version 4.
+With this change we have this change for MB(memory + 0) when applied:
+-  (memory + 0ULL << 20)
++  ((memory + 0ULL) << 20)
 
-Nevertheless, seeing that Andrew ack-ed the change already, it's perhaps
-good enough for the moment. If an obscure port appeared, the further
-abstraction could be taken care of by them.
+>  static inline int test_bit(unsigned int b, const void *p)
+>  {
+>      return !!(((const uint8_t *)p)[b>>3] & (1u<<(b&7)));
+> diff --git a/tools/helpers/init-xenstore-domain.c b/tools/helpers/init-xenstore-domain.c
+> index 5405842dfe..f38ba8d6b5 100644
+> --- a/tools/helpers/init-xenstore-domain.c
+> +++ b/tools/helpers/init-xenstore-domain.c
+> @@ -20,7 +20,6 @@
+>  #include "init-dom-json.h"
+>  
+>  #define LAPIC_BASE_ADDRESS  0xfee00000UL
+> -#define GB(x)               ((uint64_t)x << 30)
 
-Jan
+With this change we have this change for GB(memory + 0) when applied:
+-  ((uint64_t)memory + 0 << 30)
++  ((memory + 0ULL) << 30)
 
-[1] Note how in gas doc .long refers to .int, .int says "32-bit", just
-to then have a special case of H8/300 emitting 16-bit values. Things
-must have been confusing enough for someone to come and add .dc.?.
+
+So overall, patch makes things better and less duplication:
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+
+Thanks,
+
+-- 
+Anthony PERARD
 
