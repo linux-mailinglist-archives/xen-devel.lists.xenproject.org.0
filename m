@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2D5589735F
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 17:04:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700589.1093957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22FF189739B
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 17:12:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700592.1093968 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs2A5-0000xT-3M; Wed, 03 Apr 2024 15:04:25 +0000
+	id 1rs2HQ-0003LY-QZ; Wed, 03 Apr 2024 15:12:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700589.1093957; Wed, 03 Apr 2024 15:04:25 +0000
+Received: by outflank-mailman (output) from mailman id 700592.1093968; Wed, 03 Apr 2024 15:12:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs2A5-0000vv-0h; Wed, 03 Apr 2024 15:04:25 +0000
-Received: by outflank-mailman (input) for mailman id 700589;
- Wed, 03 Apr 2024 15:04:24 +0000
+	id 1rs2HQ-0003K0-NV; Wed, 03 Apr 2024 15:12:00 +0000
+Received: by outflank-mailman (input) for mailman id 700592;
+ Wed, 03 Apr 2024 15:11:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rs2A3-0000vp-VD
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 15:04:23 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=c57l=LI=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1rs2HP-0003Ju-5A
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 15:11:59 +0000
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [2001:4860:4864:20::2d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 73d132dc-f1cb-11ee-afe5-a90da7624cb6;
- Wed, 03 Apr 2024 17:04:22 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a47385a4379so206085566b.0
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 08:04:22 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g16-20020a170906539000b00a46dd1f7dc1sm7827794ejo.92.2024.04.03.08.04.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Apr 2024 08:04:21 -0700 (PDT)
+ id 8342e5a8-f1cc-11ee-afe5-a90da7624cb6;
+ Wed, 03 Apr 2024 17:11:58 +0200 (CEST)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-22988692021so407413fac.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 08:11:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +40,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73d132dc-f1cb-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 8342e5a8-f1cc-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712156661; x=1712761461; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=J0lIHadVjTx24honbCAGDQ8HCreWm6KTJx6ajbE8yHE=;
-        b=XzHwqd77zf0ty79bzG8IcZqAbUyQ+DCO5H6fjjvoajI3ABwCD3OCb/PxECCjbm8eRX
-         G/R+3rsUxQpxV9Om2F+h02n5TmQyS0pgpK2TDN+FBRI8Y7s36XLj7HS6mdslqSM5/nbS
-         LVByYHAvtq9U7fMG4GS59wRREqB72ZgnAbVzZM4VlcGuCauSwoyV5jkCeL6i+e0mZpfE
-         glF6eAOYy3ktQOgnzSV1RNOjSjXt8hsi8SBtRLHId9o1El0hYoaolSCHMFGpUTOwiBr3
-         XU6HTSLnwye2IIj/Gj60zrlagxdOZ2nEkCGXRbJZNJRfTDkHcFn5n/UGrcYKDoF1jpBT
-         EkSg==
+        d=cloud.com; s=cloud; t=1712157117; x=1712761917; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DPDJ0BUB/rDc7HOtMUix5dHRcfPqrkvjL7SQSWnlofk=;
+        b=ctMqLedWSPrPlI1J1aBzV6O3a+iJyJbxX+n38T4PoDfyoAOOBLeBfRi3DNBGeQV24v
+         OSfusmUhqxQQCVZJ3sW3R/3bMWANKxNuiEWyp0DClAPLLe+yqMNRV80liM++arQMX2YM
+         lnh6zbDJ4XiZomYpeWICYeQ7XxtzVmJw317KA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712156661; x=1712761461;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=J0lIHadVjTx24honbCAGDQ8HCreWm6KTJx6ajbE8yHE=;
-        b=ZdZy1pE4Wu9r/fWaeY5P5nIl/N3X0cOgfvP1nW270JHZefbP/fB2lskyw1kbfKAt44
-         FUhS2wjMCUS6k1F+KeQne5dWsHz2w8l09iGSbU+e2djt6eSaUXtJNrPyyBrvg9R7BZMc
-         gtGi/C7UsnWLl7jU6aPOCvSRjZTf20Xhtod7FVRPOWzTjnWhF5gyDHM/mMwOn0Ykai3F
-         V3otSpfr1gU7qGm1lUy9XHcYlE59w5NdUtnM0AqQmoKFdhG8//tydhw8AuQ52K+y0lLg
-         ZgnOYhgNZ20BqcWaNkx8Nqz4yOrOfIivPYtdYkabveRtOaPqmFOxSUwNYHZZf0JUHMF/
-         PWwQ==
-X-Gm-Message-State: AOJu0Yxq/Ap2N99WM/1y3PCkGURB9CZ4hdzZuqzJPTi7mGZa7x3IXtz5
-	1ObzdfWyinhg5TMCbTHIdW48UElmV+Epaz+SBuIOFQTLkNGwLn0Sas0UaIs8+Zby/U7PqAds+/A
-	=
-X-Google-Smtp-Source: AGHT+IHJScxu3NgkmGVx9d/VuRlGvAXkfcudua80j9FDdstH/sBFFZEDPFG91n18VZ4Te8GWLYhRKA==
-X-Received: by 2002:a17:906:6bd5:b0:a4e:68af:b1d8 with SMTP id t21-20020a1709066bd500b00a4e68afb1d8mr2668131ejs.2.1712156661505;
-        Wed, 03 Apr 2024 08:04:21 -0700 (PDT)
-Message-ID: <8c7ffed8-4faa-4dd3-8a41-d436ba49898b@suse.com>
-Date: Wed, 3 Apr 2024 17:04:20 +0200
+        d=1e100.net; s=20230601; t=1712157117; x=1712761917;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=DPDJ0BUB/rDc7HOtMUix5dHRcfPqrkvjL7SQSWnlofk=;
+        b=MSxmHRDt7odQRnojBpmNYIeqMSAW1m1V6ayT4p7NhYRZtpbqAewHFJPmtcTkESrMEw
+         tSrdknjqKAlghNZN6HJY+cb7NSdKQKS9YJlBwvqHPp8kH8QbAv32P4Hb1/kVfd2jF1i3
+         6mXQdxJ/qMct2mZFL8LdxSaJ5nqvk8c6+2RnVbojsgQs23uuy07WU2RGkkH/V0Td88K1
+         BW/i3cbE8kLxJNn4/BqrBprIwyrFHri4rspziQFfrILLmA+6KvsjgcEFMhXwEKS7kjbp
+         0zCpnLQWuuYQ6XqmDVYjch+cCh4HMkdSzJbBEcOmLcbNnmR23H6+tV/Voc65XLUiP5b+
+         iJNw==
+X-Forwarded-Encrypted: i=1; AJvYcCWnmV3wiMqfgynHsFaWX/SPLC8oWbKHCVTBBdwffippl3FFMscmZTtJO0yP9kzG9Xy4qPL29DCVNxaAYpICduITkyUYNvC1364txP1lrjs=
+X-Gm-Message-State: AOJu0Yx8MfIxY5n/Ajn7HMLDACT+51wmf64PRqQgnLUDYQ050jWGcbGE
+	4D86gIUutPBjcq8XXSfWEabrCrUjRFrZszBIIz6M477BQIG0uLNZkp7CKMbrcvQe8qjwVbjzo/e
+	sZjPai44zyeKxJmiJviX2Qz44RMn450PUixXFqg==
+X-Google-Smtp-Source: AGHT+IH2ekgReYg7I2ZjStsBHa5zVhounqfchGCEV9Z71EtjUNl63EycvzrkVnZ5r/iCiWACeqIaYkMzNfjxx4i649w=
+X-Received: by 2002:a05:6871:58e:b0:22e:74a1:2ac5 with SMTP id
+ u14-20020a056871058e00b0022e74a12ac5mr1025585oan.7.1712157116783; Wed, 03 Apr
+ 2024 08:11:56 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: text-tsx fails on Intel core 8th gen system
-Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-References: <Zg1stUacaDBkyDOn@mail-itl>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zg1stUacaDBkyDOn@mail-itl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <alpine.DEB.2.22.394.2311221331130.2053963@ubuntu-linux-20-04-desktop>
+ <5a8f90d6-6502-4d93-9fd7-45fea0ede24a@suse.com> <alpine.DEB.2.22.394.2403081758400.853156@ubuntu-linux-20-04-desktop>
+ <CA+zSX=aiqacW+QLM+KX-CcAo3DVnN+Kn7vQsOOKGK3qQOqXvBA@mail.gmail.com>
+ <a2485ac6-19ac-42ce-b8cf-6f8408483521@xen.org> <alpine.DEB.2.22.394.2403141711460.853156@ubuntu-linux-20-04-desktop>
+ <e57a3c03-fcbc-4a5a-8b23-b9b9448de2be@suse.com> <CA+zSX=anV+h8a8Ynq1Eh+PmtmgiSj8ruRfBbhLrhMbrNn+ED0w@mail.gmail.com>
+ <63891474-1dc4-4c86-aaf4-cc4d4c53a0ae@suse.com> <CA+zSX=bu-gRYUYOKMRp5kJ02ExdrtFEHTgXapwTVotm5cK2dfw@mail.gmail.com>
+ <d05be83a-e7f1-4c2f-afda-42deee9be203@suse.com> <3f27abc3-9809-4637-a29c-8aeafcd29ade@xen.org>
+ <7109ef7e-040c-4d11-ba4b-d898ed2530ff@suse.com> <CA+zSX=bGfc+dsZjg4xmW2fgsnFQLSAh1ChOY3jYU_AD5SJw_7w@mail.gmail.com>
+ <5128255f-fe52-4425-b168-34946c0c901e@suse.com> <alpine.DEB.2.22.394.2403181752370.853156@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2403181752370.853156@ubuntu-linux-20-04-desktop>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Wed, 3 Apr 2024 16:11:45 +0100
+Message-ID: <CA+zSX=ZGG+D3FaCRuxmJygWzwc3KdSYiJKzrp4HLeHxG-stHKA@mail.gmail.com>
+Subject: Re: [PATCH] do_multicall and MISRA Rule 8.3
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, federico.serafini@bugseng.com, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org, 
+	michal.orzel@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 03.04.2024 16:50, Marek Marczykowski-Górecki wrote:
-> Hi,
-> 
-> I've noticed that tools/tests/tsx/test-tsx fails on a system with Intel
-> Core i7-8750H. Specific error I get:
-> 
->     [user@dom0 tsx]$ ./test-tsx 
->     TSX tests
->       Got 16 CPUs
->     Testing MSR_TSX_FORCE_ABORT consistency
->       CPU0 val 0
->     Testing MSR_TSX_CTRL consistency
->     Testing MSR_MCU_OPT_CTRL consistency
->       CPU0 val 0
->     Testing RTM behaviour
->       Got #UD
->       Host reports RTM, but appears unavailable
+On Tue, Mar 19, 2024 at 3:39=E2=80=AFAM Stefano Stabellini
+<sstabellini@kernel.org> wrote:
+> > The main use of fixed width types, to me, is in interface structure
+> > definitions - between Xen and hardware / firmware, or in hypercall
+> > structures. I'm afraid I have a hard time seeing good uses outside of
+> > that. Even in inline assembly, types of variables used for inputs or
+> > outputs don't strictly need to be fixed-width; I can somewhat accept
+> > their use there for documentation purposes.
+>
+>
+> Non-ABI interfaces are OK with native types.
+>
+> Our ABI interfaces are, for better or for worse, described using C
+> header files. Looking at these header files, it should be clear the size
+> and alignment of all integer parameters.
+>
+> To that end, I think we should use fixed-width types in all ABIs,
+> including hypercall entry points. In my opinion, C hypercall entry
+> points are part of the ABI and should match the integer types used in
+> the public header files. I don't consider the little assembly code on
+> hypercall entry as important.
 
-Isn't this ...
+So as Jan pointed out in the recent call, the "actual" ABI is
+"register X, Y, Z are arguments 1-3".  The key thing for me then is
+whether it's clear what values in register X are acceptable.  If the C
+function implementing the hypercall has an argument of type "unsigned
+int", is it clear what values the guest is allowed to be put into the
+corresponding register, and how they'll be interpreted, as opposed to
+"unsigned long"?
 
->     Testing PV default/max policies
->       Max: RTM 1, HLE 1, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->       Def: RTM 0, HLE 0, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->       HLE/RTM offered to guests despite not being available
->     Testing HVM default/max policies
->       Max: RTM 1, HLE 1, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->       Def: RTM 0, HLE 0, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->       HLE/RTM offered to guests despite not being available
->     Testing PV guest
->       Created d8
->       Cur: RTM 0, HLE 0, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->       Cur: RTM 1, HLE 1, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->     Testing HVM guest
->       Created d9
->       Cur: RTM 0, HLE 0, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->       Cur: RTM 1, HLE 1, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->     [user@dom0 tsx]$ echo $?
->     1
+If we can document the expectations, for each architecture, for how
+the "native types" map to sizes, then I think that should be
+sufficient.
 
-... the reason for this?
-
-Jan
+ -George
 
