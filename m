@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCA0A896459
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 08:05:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700293.1093189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98E67896474
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 08:17:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700296.1093200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrtkS-00010X-PW; Wed, 03 Apr 2024 06:05:24 +0000
+	id 1rrtvT-0002fH-RT; Wed, 03 Apr 2024 06:16:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700293.1093189; Wed, 03 Apr 2024 06:05:24 +0000
+Received: by outflank-mailman (output) from mailman id 700296.1093200; Wed, 03 Apr 2024 06:16:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrtkS-0000xu-Mg; Wed, 03 Apr 2024 06:05:24 +0000
-Received: by outflank-mailman (input) for mailman id 700293;
- Wed, 03 Apr 2024 06:05:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rrtvT-0002c2-ND; Wed, 03 Apr 2024 06:16:47 +0000
+Received: by outflank-mailman (input) for mailman id 700296;
+ Wed, 03 Apr 2024 06:16:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrtkQ-0000xj-Kc
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 06:05:22 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 26c06ea5-f180-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 08:05:20 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-34356f794a5so1739276f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 23:05:20 -0700 (PDT)
+ id 1rrtvR-0002bw-OR
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 06:16:45 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id be7875a6-f181-11ee-afe5-a90da7624cb6;
+ Wed, 03 Apr 2024 08:16:44 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4155819f710so30722115e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 23:16:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v3-20020a5d59c3000000b00341cc9c1871sm16477888wry.0.2024.04.02.23.05.19
+ c9-20020a7bc2a9000000b0041552dbc539sm15698389wmk.11.2024.04.02.23.16.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 23:05:19 -0700 (PDT)
+ Tue, 02 Apr 2024 23:16:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26c06ea5-f180-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: be7875a6-f181-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712124320; x=1712729120; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712125004; x=1712729804; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=l2dnsa0Yzg9Sq6N1p/S7fALjG1opHHlRs0IiPclbh7w=;
-        b=e1xjklFHDu1ZnrwERy3RjNqgwqOQhHPg1q1iiZK1Q8gVfglBMKICihbqsvPfAA/5zq
-         Gf27MNn6U9IaY1BytWnORZC6yybzR2jA8QDpQ8WBTpAQ51bX9xSO4KCjsnRh9qUC/x5/
-         b5ntlZtjAFFPQtfTXBQJyQnKYDJ4qosmKBqRYEHtkvC4c8PT1u/OV+Dr1yDfJlT3VBnR
-         azU+RiiSORb+NbpYIt4wPthz1HM41Vd3RATjUEO14V9sjRjHq/GcQpRW2n6Hjm1GkgAZ
-         fzQ7JV2GZQbvkFQPA/JSlk/ihDX941RaOo5BTi3oKw+YXW0CPBZcSpHc9XRsrWazDcu0
-         K33A==
+        bh=WuJuUx2l0VlKDbmQNl6+uYlnFj0wTGN2ZPfSZUbqi00=;
+        b=DC0V/AdzoEFLzBsu4ZqLvdA1hQohNq8mubZSFGKayzhErJCl3pstMoc7pJvd1KReTj
+         aHSDaL8Yaou2nUjbP1upR4HjvcHbVjJ5T1W0FiMYfXX2uG8VWgspf6I4ZXcC1mVMOh8U
+         OLtN6Ji5IzaWY8Nw3ajysT6Hc+DEYKpoKUe02Sy+1tsFO3qUuaRQJoIQ1H+WxT3iWczg
+         Zo05VHUka1gAkSRNoRbypq2e1Ehp/Sl4RNfZGe9qRTRvUGi/upYvnxuuvyLB0DZjYr7r
+         iFm+ml+yEMggk1epD4v0kF8tuvK7RDUJIpjohLtxV48CEBFxgRcMLELQnkRr3OgacbIc
+         xpKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712124320; x=1712729120;
+        d=1e100.net; s=20230601; t=1712125004; x=1712729804;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=l2dnsa0Yzg9Sq6N1p/S7fALjG1opHHlRs0IiPclbh7w=;
-        b=m9agsB3M9RNVbU2J0EkHb5HJ+JXyP7lHKFAPqYbQJQIWfSCEmQjAr8SviCdPpc+nXp
-         UusmbDmzYdTz8SX4U2fq4asiw7mUHiTCVWeDPASJl/V2CzYORoAF3GyMSOTfcIz4/sG7
-         36RN7FLrgyOggevsOKxknWqGESpsD44iQ0Bl/c0mDJOxKZgW7defFgafU6v9dkPWsC8w
-         aHTTGmVYskcICl2Rk4omrd40RDeaIZdNdnzCfgG2CLNOnkGUOjf8+CPTT5lC5pZCghaW
-         l6WkjsuL58K28SyGuCyeBYhBCmxZGw/dLoht3KnBjqszzsAWyY3kxeJG5wgGl9eb+1by
-         kJyw==
-X-Forwarded-Encrypted: i=1; AJvYcCWwvdpVCAcMhBANXuwbt8TFAIGIIkZ35jRxt2nHmUvhgAipWLIgAYLv1Brw+pvUaM0JpA6WgrzpHFUHIQvzoHYa4itD0BH6t4loFvHhZlc=
-X-Gm-Message-State: AOJu0YyzUgaAJKXAuwJq59WSfQ5/7rdC56XCyY39nfc5sQ4r+pVmHmws
-	TjiHhbutwIk1im2zsQQE0edXuaRrpr0YjeHNqY+4OBPuAWWWwpPtzrWrZY88Sg==
-X-Google-Smtp-Source: AGHT+IHb0iivp+TeTVZu09YtqsE6BAn5Ls7uyqzjq5tkZGjmap4LLq+f4V9K5RQHFhXSAoR/rQwyCQ==
-X-Received: by 2002:a5d:47a4:0:b0:341:c14b:598a with SMTP id 4-20020a5d47a4000000b00341c14b598amr4293998wrb.23.1712124319909;
-        Tue, 02 Apr 2024 23:05:19 -0700 (PDT)
-Message-ID: <de005820-1965-4e5f-b797-0fbcdc87c870@suse.com>
-Date: Wed, 3 Apr 2024 08:05:18 +0200
+        bh=WuJuUx2l0VlKDbmQNl6+uYlnFj0wTGN2ZPfSZUbqi00=;
+        b=iz0MbXx0AR8m0BgCbKz3Kr7H9v7jF08i8ptcPrDNbtlLFJSaRtlqD2NVhJsnxkqvJH
+         ufMtwKG/3JMUHI1n6+yBPpFA8bSLftwp3XITLldUcMIhd9FpckZZDiHEHvCuSEpwZUg+
+         SWj0ihGTbH8+Ypxlt1YD7ajCoMlhA+uMIGQXYBZ42ZC6RTsacDqFujTvfADmKDJQChgN
+         e4K+QLrTyTkkAWUpbzX9/hb0Dw0v9qJtdcn7/Uqdkuxn0WONvpF94Selfy9aGTONO+6k
+         Vq/t7it9d3r8xmRiaUrGaNj7wpemPu+ez3YdXkJys2xU/KDBjEvgeNxFHSFNDcf60YCe
+         QV7g==
+X-Forwarded-Encrypted: i=1; AJvYcCUE3CC5irDLVVF8Z19YvI7kl/weyp4e6TJuQ2YUGap0sFlM9sE/7X5ggkAFKKaoX9gBy0IXImmN5mAEKqo4+SJhgifCIHhYEWcUN61Az40=
+X-Gm-Message-State: AOJu0YwaDTPQZ9GM9S+RyYCO4yudzmWGHtK8AJiH7H5F6JaosyQGd4Gd
+	NO2iv2XWzWiz3ukbqerAG+z568zQGkN51K6sQW+F2r/VrOCRe2pW6ZbyA1hRKw==
+X-Google-Smtp-Source: AGHT+IECTzS/zYWXy3RdL/acP/j3FfACMN5OBQVhZHjxEf+sTpe5fFpQoOm0Fap0kOuDAEaymK5s7A==
+X-Received: by 2002:a05:600c:35c1:b0:415:6b9a:326d with SMTP id r1-20020a05600c35c100b004156b9a326dmr5014667wmq.4.1712125003897;
+        Tue, 02 Apr 2024 23:16:43 -0700 (PDT)
+Message-ID: <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
+Date: Wed, 3 Apr 2024 08:16:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 7/8] xen/rwlock: raise the number of possible cpus
+Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
+ event channels"
 Content-Language: en-US
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240327152229.25847-1-jgross@suse.com>
- <20240327152229.25847-8-jgross@suse.com>
- <7e94482d-2c03-41ac-827f-af92a94796af@suse.com>
- <afef3207-deff-4eb0-ae28-49b49cbcd2be@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Daniel Smith <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,58 +113,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <afef3207-deff-4eb0-ae28-49b49cbcd2be@suse.com>
+In-Reply-To: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 02.04.2024 17:29, Jürgen Groß wrote:
-> On 02.04.24 16:52, Jan Beulich wrote:
->> On 27.03.2024 16:22, Juergen Gross wrote:
->>> @@ -36,14 +36,21 @@ void queue_write_lock_slowpath(rwlock_t *lock);
->>>   
->>>   static inline bool _is_write_locked_by_me(unsigned int cnts)
->>>   {
->>> -    BUILD_BUG_ON(_QW_CPUMASK < NR_CPUS);
->>> +    BUILD_BUG_ON((_QW_CPUMASK + 1) < NR_CPUS);
->>> +    BUILD_BUG_ON(NR_CPUS * _QR_BIAS > INT_MAX);
->>>       return (cnts & _QW_WMASK) == _QW_LOCKED &&
->>>              (cnts & _QW_CPUMASK) == smp_processor_id();
->>>   }
->>>   
->>>   static inline bool _can_read_lock(unsigned int cnts)
->>>   {
->>> -    return !(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts);
->>> +    /*
->>> +     * If write locked by the caller, no other readers are possible.
->>> +     * Not allowing the lock holder to read_lock() another 32768 times ought
->>> +     * to be fine.
->>> +     */
->>> +    return cnts <= INT_MAX &&
->>> +           (!(cnts & _QW_WMASK) || _is_write_locked_by_me(cnts));
->>>   }
->>
->> What is the 32768 in the comment relating to? INT_MAX is quite a bit higher,
->> yet the comparison against it is the only thing you add. Whereas the reader
->> count is, with the sign bit unused, 17 bits, though (bits 14..30). I think
-> 
-> You missed:
-> 
-> #define    _QR_SHIFT    (_QW_SHIFT + 2)         /* Reader count shift */
+On 02.04.2024 19:06, Andrew Cooper wrote:
+> The commit makes a claim without any kind of justification.
 
-Oops. No I idea how I managed to skip this, when something like this was
-exactly what I was expecting to find.
+Well, what does "have no business" leave open?
 
-> So the reader's shift is 16, resulting in 15 bits for the reader count.
-> 
->> even in such a comment rather than using a literal number the corresponding
->> expression would better be stated.
-> 
-> Hmm, you mean replacing the 32768 with INT_MAX >> _QR_SHIFT? This would be
-> fine with me.
+> The claim is false, and the commit broke lsevtchn in dom0.
 
-Happy to do so while committing, provided earlier patches get unblocked
-first:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Or alternatively lsevtchn was doing something that was never meant to work
+(from Xen's perspective).
+
+>  It is also quite
+> obvious from XSM_TARGET that it has broken device model stubdoms too.
+
+Why would that be "obvious"? What business would a stubdom have to look at
+Xen's side of an evtchn?
+
+> Whether to return information about a xen-owned evtchn is a matter of policy,
+> and it's not acceptable to short circuit the XSM on the matter.
+
+I can certainly accept this as one possible view point. As in so many cases
+I'm afraid I dislike you putting it as if it was the only possible one.
+
+In summary: The supposed justification you claim is missing in the original
+change is imo also missing here then: What business would any entity in the
+system have to look at Xen's side of an event channel? Back at the time, 3
+people agreed that it's "none".
 
 Jan
 
