@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2A1A897443
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 17:44:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700597.1093989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 930E9897451
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 17:47:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700600.1093998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs2mE-0001Zp-DN; Wed, 03 Apr 2024 15:43:50 +0000
+	id 1rs2pD-00027T-Qs; Wed, 03 Apr 2024 15:46:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700597.1093989; Wed, 03 Apr 2024 15:43:50 +0000
+Received: by outflank-mailman (output) from mailman id 700600.1093998; Wed, 03 Apr 2024 15:46:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs2mE-0001Wc-AF; Wed, 03 Apr 2024 15:43:50 +0000
-Received: by outflank-mailman (input) for mailman id 700597;
- Wed, 03 Apr 2024 15:43:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rs2pD-00024q-NL; Wed, 03 Apr 2024 15:46:55 +0000
+Received: by outflank-mailman (input) for mailman id 700600;
+ Wed, 03 Apr 2024 15:46:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yPGy=LI=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rs2mC-0001WW-Jg
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 15:43:48 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f5d4de71-f1d0-11ee-afe5-a90da7624cb6;
- Wed, 03 Apr 2024 17:43:47 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-41624fe4194so4268515e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 08:43:47 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- fm15-20020a05600c0c0f00b00416253a0dbdsm1325954wmb.36.2024.04.03.08.43.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Apr 2024 08:43:46 -0700 (PDT)
+ <SRS0=PE2n=LI=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1rs2pD-00024X-4I
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 15:46:55 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6486e10f-f1d1-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 17:46:53 +0200 (CEST)
+Received: from [192.168.1.18] (host-82-59-164-46.retail.telecomitalia.it
+ [82.59.164.46])
+ by support.bugseng.com (Postfix) with ESMTPSA id C125A4EE073C;
+ Wed,  3 Apr 2024 17:46:52 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +40,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5d4de71-f1d0-11ee-afe5-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1712159027; x=1712763827; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Y9Sp/OHQl7LX0HvfCuA51fjMs6lNI8EXuXJQcWV9ReA=;
-        b=YqIWmimFJIGnS7iNXks0CdEfB/7k2Lo6z1ZJuRWCAB2FDpvY8KMo7JXj3FhLmnfKh6
-         qY1/SAIQ8urABYagrfrm646U7elUggaJpd8tay+Q5SPBhWBUtARUte9Kpmt0bl3p1l3v
-         D7wrexUnm/qYn2KY9EVzP6WmCHLAtSB+KrX9U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712159027; x=1712763827;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Y9Sp/OHQl7LX0HvfCuA51fjMs6lNI8EXuXJQcWV9ReA=;
-        b=A4wIypaxOiOWeoDc6IRkRnczaUH2DdK5PiNa89lrigCJO7C7oHRbhWs6bUPu4NOH+m
-         WslLNqNjoeR0gJ6tXFVTk6L1CWtq57JvV3wZPEEgbjon8SqugSMpEusa0D6H4ya1mF3D
-         jvT2A1PWVVI0jlVmSi3/3l64U3d2kPFKo8D0ea9U2WB29Uy9eZEFnZZRE5CUx5bE8xwg
-         9yJ4GcFeDibT9xda+st0dqPHouJ4ZME6Exjuliu1wR3EclcRBG2cFRTHNb+cp85OqAnj
-         1IfQEV+5m6eR4jRjMMXWkQTtS9+ncAGWlq7eThXS6hrHIXzBZY0zjzAPTy/Uyrpl1HBx
-         BY0g==
-X-Forwarded-Encrypted: i=1; AJvYcCUq/1zyA9dXowKQj20vbN9SY8GaxUox5U4uY9Z3F36pe+X4Hshy+GVafOn5Mpq6p6tSHLddAoc+Lv1BWeiCFozAYGzRE/B2aqe+IVJuycU=
-X-Gm-Message-State: AOJu0YwrMUFHMr8jY3AgJJt7mKHcpwYoirmVBKZBoDbGQntPyVwTHb44
-	ig9G5nrKeRlLFkoYcs0FS11g4fcoXln8X3wHmDw1KyfiUvxpmm6SiTnxHyw7KiU=
-X-Google-Smtp-Source: AGHT+IF5b8HjXApAcpQwe/1kkOZl1c5PJHbxIW52Fl5orkLlISVOTSBTRKkbtyWMo1dODw/9n2ekQA==
-X-Received: by 2002:a05:600c:3c88:b0:414:7e73:1f5b with SMTP id bg8-20020a05600c3c8800b004147e731f5bmr28842wmb.4.1712159027053;
-        Wed, 03 Apr 2024 08:43:47 -0700 (PDT)
-Date: Wed, 3 Apr 2024 16:43:46 +0100
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
-Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
-	Paul Durrant <paul@xen.org>,
-	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 2/2] xen: fix stubdom PCI addr
-Message-ID: <a7ebf899-1078-47b0-bf03-ba5503dba0e8@perard>
-References: <cover.527f002866de2be7c275c5000b6e5edfeb7e8368.1711506237.git-series.marmarek@invisiblethingslab.com>
- <35049e99da634a74578a1ff2cb3ae4cc436ede33.1711506237.git-series.marmarek@invisiblethingslab.com>
+X-Inumbo-ID: 6486e10f-f1d1-11ee-a1ef-f123f15fe8a2
+Message-ID: <eed0727e-2c04-4783-9498-d39f72c44eeb@bugseng.com>
+Date: Wed, 3 Apr 2024 17:46:52 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86: Address MISRA Rule 13.6
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240402154339.2448435-1-andrew.cooper3@citrix.com>
+ <35fc596e-8134-4471-83d4-40b01f5821bf@suse.com>
+ <6ac9cb14-2e68-41d6-b061-c7caa74fde5b@citrix.com>
+ <5f5b2904-48ca-493a-a353-4c2f9038f5d3@suse.com>
+ <67ae7299-4c45-49e8-9055-101334906f80@citrix.com>
+Content-Language: en-US, it
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG
+In-Reply-To: <67ae7299-4c45-49e8-9055-101334906f80@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <35049e99da634a74578a1ff2cb3ae4cc436ede33.1711506237.git-series.marmarek@invisiblethingslab.com>
 
-On Wed, Mar 27, 2024 at 04:05:15AM +0100, Marek Marczykowski-Górecki wrote:
-> When running in a stubdomain, the config space access via sysfs needs to
-> use BDF as seen inside stubdomain (connected via xen-pcifront), which is
-> different from the real BDF. For other purposes (hypercall parameters
-> etc), the real BDF needs to be used.
-> Get the in-stubdomain BDF by looking up relevant PV PCI xenstore
-> entries.
+On 02/04/24 18:09, Andrew Cooper wrote:
+> On 02/04/2024 5:06 pm, Jan Beulich wrote:
+>> On 02.04.2024 17:54, Andrew Cooper wrote:
+>>> On 02/04/2024 4:46 pm, Jan Beulich wrote:
+>>>> On 02.04.2024 17:43, Andrew Cooper wrote:
+>>>>> MISRA Rule 13.6 doesn't like having an expression in a sizeof() which
+>>>>> potentially has side effects.
+>>>>>
+>>>>> Address several violations by pulling the expression out into a local
+>>>>> variable.
+>>>>>
+>>>>> No functional change.
+>>>>>
+>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>> with one caveat:
+>>>>
+>>>>> --- a/xen/arch/x86/irq.c
+>>>>> +++ b/xen/arch/x86/irq.c
+>>>>> @@ -1150,8 +1150,9 @@ static void cf_check irq_guest_eoi_timer_fn(void *data)
+>>>>>       {
+>>>>>           struct domain *d = action->guest[i];
+>>>>>           unsigned int pirq = domain_irq_to_pirq(d, irq);
+>>>>> +        struct pirq *pirq_info = pirq_info(d, pirq);
+>>>> Misra won't like the var's name matching the macro's. Can we go with just
+>>>> "info"?
+>>> Ah - missed that.
+>>>
+>>> I can name it to just info, but I considered "struct pirq *info" to be a
+>>> little odd.
+>> I agree, but what do you do with another "pirq" already there.
+>>
+>> Or wait, what about
+>>
+>>          struct pirq *pirq = pirq_info(d, domain_irq_to_pirq(d, irq));
+>>
+>> ?
 > 
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> That should work.Â  I'll switch to this locally, and wait for the
+> feedback on whether the patch works for 13.6.
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-
-Thanks,
+I confirm that both versions of the patch address some violations of
+13.6.
 
 -- 
-Anthony PERARD
+Federico Serafini, M.Sc.
+
+Software Engineer, BUGSENG (http://bugseng.com)
 
