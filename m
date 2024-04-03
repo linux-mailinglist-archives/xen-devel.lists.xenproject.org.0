@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB236896C80
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 12:32:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700445.1093638 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B62A8896C86
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 12:32:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700448.1093648 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrxuV-0002Pz-Oj; Wed, 03 Apr 2024 10:32:03 +0000
+	id 1rrxv3-0003Ag-0B; Wed, 03 Apr 2024 10:32:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700445.1093638; Wed, 03 Apr 2024 10:32:03 +0000
+Received: by outflank-mailman (output) from mailman id 700448.1093648; Wed, 03 Apr 2024 10:32:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrxuV-0002My-LO; Wed, 03 Apr 2024 10:32:03 +0000
-Received: by outflank-mailman (input) for mailman id 700445;
- Wed, 03 Apr 2024 10:32:02 +0000
+	id 1rrxv2-00038k-TB; Wed, 03 Apr 2024 10:32:36 +0000
+Received: by outflank-mailman (input) for mailman id 700448;
+ Wed, 03 Apr 2024 10:32:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YDNC=LI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rrxuU-0002ML-Nr
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 10:32:02 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rrxv2-0002ML-0q
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 10:32:36 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 679c1c5c-f1a5-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 12:32:00 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-51381021af1so8628242e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 03:32:00 -0700 (PDT)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- t3-20020a192d43000000b00515b5cd2361sm2012048lft.164.2024.04.03.03.31.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Apr 2024 03:31:59 -0700 (PDT)
+ id 7ba9982b-f1a5-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 12:32:34 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2d68c6a4630so64355741fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 03:32:34 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ay15-20020a5d6f0f000000b003434c764f01sm8470589wrb.107.2024.04.03.03.32.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 03 Apr 2024 03:32:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 679c1c5c-f1a5-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 7ba9982b-f1a5-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712140320; x=1712745120; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=nzlgtb580luOjYNUllOGwmtHYFxNtC+MZM4d/MnUQKw=;
-        b=OLUILpinro7DpkrwhFDpendBFsia+n8k6WNTgxMg6FAhstfyt7me9l/ih+MSNCm7JP
-         POszmV0wEfxG5YMNrESYWy/ckyiRFV8ICvpMOkD+oJX34osaFchqLeOsDPmDrGKcXU3l
-         8kOSYapQN2b9hY+h23r5e7Yp0YMoVOMnHHImRwHmXrcuCf858u6BwYAfTep7TowptAOw
-         2PgdkJfl5S7f8FV3H3LnSAujLuCQlFJxEda1EolhbC47wA+4/BSgifCa/KsNi4NDeLvf
-         DFI3WZpBgFhKIB0m8YGcaFnF99ae7lmPKqw99h0bZKH1mSuWIBeQYq36yRiecjlesTix
-         Tcww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712140320; x=1712745120;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1712140354; x=1712745154; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=nzlgtb580luOjYNUllOGwmtHYFxNtC+MZM4d/MnUQKw=;
-        b=cibi2w+Zn1Yp4qxRc4h03yN0bYlxiUqJs7uDaP1yPq4dw9Rc7cyNw9pickUHeIKxFY
-         6VPw6XNpYwV8v0ZZpwgMoaRhAQTt/l/b9FXBJKapLRSb5o9/OTqEpuw7l8qJGx8zV7ZX
-         NcpiFP54+ACOy7ODY/Qf3MgyNYokHvLgXsHUT7it7x3q02QaRLeUkdeys+b8kDKOIn5/
-         L2WiAmdp8SMASmtV7oT5G5qJfKzn5O31IywwnM0fnnU6uR/g4PG7my7BGU2HjJClMoVI
-         WxVt6R5IQYf0EvYRKT4va0Bt17r3DcVsBNq7l+VPpOBMwLyuBYyIEiggkvNn5sf0WQky
-         IYyw==
-X-Forwarded-Encrypted: i=1; AJvYcCWJSScSQSrfm7BdQDm6d3Ac1qdEtpu7Zh14TFWCYeqI7xmCpt4LGsvVrMAMSP8sIrrcFPySpXqOcpDbt/Mx62/zAuAi3RoYvn7jtSQqViE=
-X-Gm-Message-State: AOJu0Yxz1eyfh3ogOIJhAH61XmfXhAzf6ygDDCh8WAkRSN87xgQQsdAK
-	Xxug51nHZ3FpHg1IDLAUeteXlOTqP84+/mEIxuTSWTPDbZmX3YZ0
-X-Google-Smtp-Source: AGHT+IF1XQCYvZCZN7iDe3k75stAfGwli+GSSwgMHS6ezLj2VS9ZKwZUWpcJCRbIem5aF3nvAFucfA==
-X-Received: by 2002:a19:3802:0:b0:513:cc18:d4c6 with SMTP id f2-20020a193802000000b00513cc18d4c6mr3955988lfa.41.1712140319969;
-        Wed, 03 Apr 2024 03:31:59 -0700 (PDT)
-Message-ID: <f9c57e31ed3caa6f8caec3300b88031963cdaf4a.camel@gmail.com>
-Subject: Re: [PATCH 4/4] xen/virtual-region: Drop setup_virtual_regions()
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>
-Cc: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand
- Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>, Konrad Rzeszutek Wilk
- <konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Date: Wed, 03 Apr 2024 12:31:58 +0200
-In-Reply-To: <14accd85-d549-4551-a95c-6c8bcee92db5@citrix.com>
-References: <20240318110442.3653997-1-andrew.cooper3@citrix.com>
-	 <20240318110442.3653997-5-andrew.cooper3@citrix.com>
-	 <047ecaf2-66c6-4d07-ab14-9c50acfc1f9a@suse.com>
-	 <14accd85-d549-4551-a95c-6c8bcee92db5@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+        bh=QnG6JXgzmUiHuTzyCN5BwALIGxGYJ6ND+KL5cUC8M64=;
+        b=OjY5KOP0KRBa9a2CyM9OTXbaO2oZtZGA7Giqz1+9a719ODgTRPKs8W+eU9tXWFffCr
+         EghbymX0wmKt7zWUG6zGxJEQOGtyckyhvIFBQZjLOuV6yFxV49/ENLiEwz/nxPNFzuDi
+         /+yMG93P0dG6DvSCaAIdbSoYhjefsmxvzlI0BlqkvgZePv0MHuCETnFhjKcgFGHNpwST
+         gAjxpRDZ5jKT30vu918v8ZyUuDig/fQMjC+bhG6fWDUy3S2GLO4nPTCvxiTmKoQttP7c
+         FNnDz82h/7N/u0UOMJm9eXH1yugFKVROY5Yon9rZW9vibwrkQPU6eL/0ViF3HRyXS12P
+         A0+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712140354; x=1712745154;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=QnG6JXgzmUiHuTzyCN5BwALIGxGYJ6ND+KL5cUC8M64=;
+        b=OS55vSMLpmSO2D7y5D38jsVBR8k+Fo/mOH3sLGd7iOhR3GdwVP46JOj7Kqh88fMqSu
+         oBfpu/GZscidKKabW53s/lh1a+HZFZJ3WBIpiMskIi8SPI7MB3lCDIaPLrmuO9nt0ruG
+         ONBSU9wziz9AvgVu/HmUASJfNBNtNyOcrJbilpBpkBnYt28+ThxbLo+yRSSUcjaeKheq
+         A4nVoG5nhyS/bGImvh98NQ1KhE6T9tWYB8ZoIM5QnQBG2vetmaNFYTBHX9mzApnpPsI2
+         jE4mHXfIdMmXU9oAeseEneDp5BQUtDjppX2Bu/I6LdPwOmGGc1t017D/WZiQcs2u87PP
+         pvLQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXboH0YcJopOAK1xu/Wg5WJAcdxZPCrTVe2T27nsAubt8Cmg2yBXqTdzsK9/++u9wInxLPHx9TSsU5XjDGE1AhmK80a2+eT0gfBoplXc0o=
+X-Gm-Message-State: AOJu0YxXtqBJ6moKRjxUGu4FbSTIap2hlET9TyB/ZgVnkmno9LI6rPL9
+	qHFr0zCFFJ5pCbK8meZwjKUXiwCbbXOcrlfHxGnBsO0MaT14ON7XTNWpUPsRUA==
+X-Google-Smtp-Source: AGHT+IH5zFvVp9DD+mZjdUWw7ZiktALKcb8oZB75WhO3Xy7luy1mKRHTVHxkLpjCWrjF18pqJB5WAw==
+X-Received: by 2002:a2e:a592:0:b0:2d4:668f:baac with SMTP id m18-20020a2ea592000000b002d4668fbaacmr12573545ljp.28.1712140353692;
+        Wed, 03 Apr 2024 03:32:33 -0700 (PDT)
+Message-ID: <68375b35-c611-411d-99f0-c71b48cc5ba2@suse.com>
+Date: Wed, 3 Apr 2024 12:32:32 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 03/19] xen/riscv: introduce extenstion support check by
+ compiler
+Content-Language: en-US
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
+ <0c9b0317d0fc4f93bf5cc0893d480853110b8287.1712137031.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <0c9b0317d0fc4f93bf5cc0893d480853110b8287.1712137031.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2024-03-18 at 13:49 +0000, Andrew Cooper wrote:
-> On 18/03/2024 1:29 pm, Jan Beulich wrote:
-> > On 18.03.2024 12:04, Andrew Cooper wrote:
-> > > --- a/xen/common/virtual_region.c
-> > > +++ b/xen/common/virtual_region.c
-> > > @@ -39,6 +39,11 @@ static struct virtual_region core =3D {
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { __start_bug_frames=
-_2, __stop_bug_frames_2 },
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { __start_bug_frames=
-_3, __stop_bug_frames_3 },
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 },
-> > > +
-> > > +#ifdef CONFIG_X86
-> > > +=C2=A0=C2=A0=C2=A0 .ex =3D __start___ex_table,
-> > > +=C2=A0=C2=A0=C2=A0 .ex_end =3D __stop___ex_table,
-> > > +#endif
-> > > =C2=A0};
-> > > =C2=A0
-> > > =C2=A0/* Becomes irrelevant when __init sections are cleared. */
-> > > @@ -57,6 +62,11 @@ static struct virtual_region core_init
-> > > __initdata =3D {
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { __start_bug_frames=
-_2, __stop_bug_frames_2 },
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { __start_bug_frames=
-_3, __stop_bug_frames_3 },
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 },
-> > > +
-> > > +#ifdef CONFIG_X86
-> > > +=C2=A0=C2=A0=C2=A0 .ex =3D __start___ex_table,
-> > > +=C2=A0=C2=A0=C2=A0 .ex_end =3D __stop___ex_table,
-> > > +#endif
-> > > =C2=A0};
-> > My main reservation here is this x86-specific code in a common
-> > file.
-> > Are we certain both RISC-V and PPC will get away without needing to
-> > touch this? If so, I might consider ack-ing. But really I'd prefer
-> > if
-> > this could be minimally abstracted, via e.g. CONFIG_HAS_EXTABLE
-> > (selected by x86 only for now).
->=20
-> This isn't the first bit of CONFIG_X86 in this file.=C2=A0 However, I'd
-> not
-> spotted that we have CONFIG_HAS_EX_TABLE already.=C2=A0 I can swap.
->=20
-> As to extable on other architectures, that's not something I can
-> answer,
-> although it's not something I can see in Oleksii's or Shawn's series
-> so far.
-That's correct for RISC-V. Currently, I'm not utilizing
-__start___ex_table/__stop___ex_table, and setup_virtual_regions() is
-called with setup_virtual_regions(NULL, NULL).
+On 03.04.2024 12:19, Oleksii Kurochko wrote:
+> Currently, RISC-V requires two extensions: _zbb and _zihintpause.
+> 
+> This patch introduces a compiler check to check if these extensions
+> are supported.
+> Additionally, it introduces the riscv/booting.txt file, which contains
+> information about the extensions that should be supported by the platform.
+> 
+> In the future, a feature will be introduced to check whether an extension
+> is supported at runtime.
+> However, this feature requires functionality for parsing device tree
+> source (DTS), which is not yet available.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-~ Oleksii
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+However, ...
+
+> --- a/xen/arch/riscv/arch.mk
+> +++ b/xen/arch/riscv/arch.mk
+> @@ -3,16 +3,27 @@
+>  
+>  $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+>  
+> -CFLAGS-$(CONFIG_RISCV_64) += -mabi=lp64
+> +riscv-abi-$(CONFIG_RISCV_32) := -mabi=ilp32
+> +riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
+>  
+>  riscv-march-$(CONFIG_RISCV_ISA_RV64G) := rv64g
+>  riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
+>  
+> +riscv-generic-flags := $(riscv-abi-y) -march=$(riscv-march-y)
+> +
+> +zbb := $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"",_zbb)
+> +zihintpause := $(call as-insn,\
+> +               $(CC) $(riscv-generic-flags)_zihintpause,"pause",_zihintpause)
+
+... this would better be indented thus
+
+zihintpause := $(call as-insn, \
+                      $(CC) $(riscv-generic-flags)_zihintpause,"pause",_zihintpause)
+
+to make nesting entirely obvious. I guess I'll table the liberty to adjust
+while committing.
+
+I'd also like to note that this is specifically not what I had suggested.
+But it at least improves readability.
+
+Jan
 
