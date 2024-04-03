@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3AEC896E84
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 13:54:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700495.1093758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D819A896EA0
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 14:04:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700511.1093767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrzBv-0003w5-9S; Wed, 03 Apr 2024 11:54:07 +0000
+	id 1rrzL0-0006UN-9v; Wed, 03 Apr 2024 12:03:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700495.1093758; Wed, 03 Apr 2024 11:54:07 +0000
+Received: by outflank-mailman (output) from mailman id 700511.1093767; Wed, 03 Apr 2024 12:03:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrzBv-0003tf-5b; Wed, 03 Apr 2024 11:54:07 +0000
-Received: by outflank-mailman (input) for mailman id 700495;
- Wed, 03 Apr 2024 11:54:06 +0000
+	id 1rrzL0-0006Rr-79; Wed, 03 Apr 2024 12:03:30 +0000
+Received: by outflank-mailman (input) for mailman id 700511;
+ Wed, 03 Apr 2024 12:03:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrzBu-0003tZ-9b
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 11:54:06 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ (envelope-from <SRS0=9Pv4=LI=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rrzKz-0006QS-25
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 12:03:29 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [2a07:de40:b251:101:10:150:64:1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id de4f33a4-f1b0-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 13:54:04 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-416254f2312so1701555e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 04:54:04 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p12-20020a05600c468c00b00413eb5aa694sm21401196wmo.38.2024.04.03.04.54.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Apr 2024 04:54:03 -0700 (PDT)
+ id 2db74c70-f1b2-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 14:03:27 +0200 (CEST)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9BAC6352EB;
+ Wed,  3 Apr 2024 12:03:26 +0000 (UTC)
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 391961331E;
+ Wed,  3 Apr 2024 12:03:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap2.dmz-prg2.suse.org with ESMTPSA id /002DI5FDWYaLgAAn2gu4w
+ (envelope-from <jgross@suse.com>); Wed, 03 Apr 2024 12:03:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +52,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de4f33a4-f1b0-11ee-a1ef-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712145244; x=1712750044; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ac1nCRLJzIkJPYlolYpu43UN/U6/d09aEgVTr4LxfDQ=;
-        b=FANczhlRYFSk0/997OXW95UR/1XkmoTFPwUnBNxncFCcdr85ZlIlFvhijelbOnbO1k
-         yvSJQFLpOWJuANRU3RbVp9P86skF8tnhOcB9/mv0kaiwfE85RIChipe+dKbOhX5atMgm
-         K2+G+92khIc/XXmp2kNHkhshvKWfAI7St3gXhHO31TGE0HsTf2xpKAa/43QViJR1wPrB
-         hZsWRw/P9Hy2pBtEfliIyxA+IPTX5O6yFPN6dQ03i5lUwSscDEDCD4VRDI2btPwmla0b
-         TDXl9ZlGdsBWtcnzfFKlt9snEm73/EZ18cMv/Yvgd1GmEv596v+/AYALnwkif343q9OH
-         VSvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712145244; x=1712750044;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ac1nCRLJzIkJPYlolYpu43UN/U6/d09aEgVTr4LxfDQ=;
-        b=G0JyioBc4KsNWIGEXrtFkGG3b14U5iN9AijFl/O/eNQxUDFbr6937P5SmdR5Jd+x7Q
-         2l8VO6K52eYuY2YPSFg/JyEjYtUYVLqnBtApD3js+QfCLs4PhYtCbCNY7z/U0w1H5p4v
-         XUwt8lW/jkW4L4u2Rjj6KW+SyKtnRp414clPfMAZfQQQfLag+bHUlmWMUYK6MJHgJg9B
-         vtwt1q/vsZzSgIBQDMkZYPPmaA9jRh5tqM52KxPnfOB4QABjTP1n2ZT6uZuj55Xhuz0o
-         KReuAy3VlW3ZmCGWor0FfsqBhv1OqAAEhYAmu0pi5E8IMVPORrN5Hp1mVD2mSdGCRfHE
-         6NMA==
-X-Forwarded-Encrypted: i=1; AJvYcCU2EYH0WArkxgCg+0W/Bx6TFHUjiAXSGPoB1NXygutHY66Z9U3z+0pqPZ33OvRplk0CKnPO43Oij2NeOegMCsPPGXb984C8CqcXMmBLFyQ=
-X-Gm-Message-State: AOJu0YyRZITMdJKHpxwF2fCFsqDtSLntUmY63qa9AcTAhWh6iJss4+6X
-	kHHdUopjzN25+RjfKF4ncuGuEp3rg69rSuFP9yk6hNH4y3qjmOOc6TxM0FZHvg==
-X-Google-Smtp-Source: AGHT+IFridJIaqsdJWailYwm5lIZVriSU8n2O15d73SqH+o8wdXHfuT81x3McmAZlcDFb9L2XuSzNg==
-X-Received: by 2002:a7b:ca46:0:b0:414:9072:98dc with SMTP id m6-20020a7bca46000000b00414907298dcmr14745624wml.41.1712145243874;
-        Wed, 03 Apr 2024 04:54:03 -0700 (PDT)
-Message-ID: <3b8ec757-d2f3-4143-a843-de8c6d51944d@suse.com>
-Date: Wed, 3 Apr 2024 13:54:03 +0200
+X-Inumbo-ID: 2db74c70-f1b2-11ee-a1ef-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1712145806; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=ALBXX2h29kaal0zut6fsz331fhTeZZzw/PmHUZrSAKw=;
+	b=NudtQZM+Bqm4jkrmH+0SnhqqmSkvRHR/+8eZWk29OGAZnldGKMWMGBdfpdO+j6hr0iGVwc
+	6jHnUDlOFrHBHUDPfQZZ+IIiE0FXtFgtCH3rZe93u/LK/OHTmRau4dD2/PqEabAvQZJC4k
+	80rQE2eqzVGqjbC1Biis9k662plI60E=
+Authentication-Results: smtp-out1.suse.de;
+	none
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] xen/include: move definition of ASM_INT() to xen/linkage.h
+Date: Wed,  3 Apr 2024 14:03:23 +0200
+Message-Id: <20240403120323.18433-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
- event channels"
-Content-Language: en-US
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
- <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
- <f2b596e6-0aec-4948-ad7a-aa38adaa7dcc@suse.com>
- <3aa0893b-7efd-4ca1-a405-e897edc7402f@apertussolutions.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3aa0893b-7efd-4ca1-a405-e897edc7402f@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.998];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap2.dmz-prg2.suse.org:rdns,imap2.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 03.04.2024 13:50, Daniel P. Smith wrote:
-> On 4/3/24 02:52, Jan Beulich wrote:
->> On 03.04.2024 08:16, Jan Beulich wrote:
->>> On 02.04.2024 19:06, Andrew Cooper wrote:
->>>> Whether to return information about a xen-owned evtchn is a matter of policy,
->>>> and it's not acceptable to short circuit the XSM on the matter.
->>>
->>> I can certainly accept this as one possible view point. As in so many cases
->>> I'm afraid I dislike you putting it as if it was the only possible one.
->>
->> Further to this: Is there even a way to express the same denial in XSM?
->> alloc_unbound_xen_event_channel() doesn't specifically "mark" such a
->> channel, and (yes, it could in principle be open-coded in Flask code)
->> consumer_is_xen() is private to event_channel.c. I also dare to question
->> whether in SILO mode status information like this should be available.
-> 
-> To build on the previous response: if the natural failure return value 
-> is -EACCESS in response to a domain resource access attempt, then the 
-> probability is extremely high that it should be implemented under a XSM 
-> hook and not hard-coded into the resource logic.
+ASM_INT() is defined in arch/[arm|x86]/include/asm/asm_defns.h in
+exactly the same way. Instead of replicating this definition for riscv
+and ppc, move it to include/xen/linkage.h, where other arch agnostic
+definitions for assembler code are living already.
 
-Possibly. But first of all - could you answer the earlier question I raised?
+Adapt the generation of assembler sources via tools/binfile to include
+the new home of ASM_INT().
 
-Jan
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ xen/arch/arm/include/asm/asm_defns.h | 3 ---
+ xen/arch/x86/include/asm/asm_defns.h | 3 ---
+ xen/include/xen/linkage.h            | 2 ++
+ xen/tools/binfile                    | 2 +-
+ 4 files changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/xen/arch/arm/include/asm/asm_defns.h b/xen/arch/arm/include/asm/asm_defns.h
+index c489547d29..47efdf5234 100644
+--- a/xen/arch/arm/include/asm/asm_defns.h
++++ b/xen/arch/arm/include/asm/asm_defns.h
+@@ -28,9 +28,6 @@
+ label:  .asciz msg;                             \
+ .popsection
+ 
+-#define ASM_INT(label, val)                 \
+-    DATA(label, 4) .long (val); END(label)
+-
+ #endif /* __ARM_ASM_DEFNS_H__ */
+ /*
+  * Local variables:
+diff --git a/xen/arch/x86/include/asm/asm_defns.h b/xen/arch/x86/include/asm/asm_defns.h
+index a69fae78b1..0a3ff70566 100644
+--- a/xen/arch/x86/include/asm/asm_defns.h
++++ b/xen/arch/x86/include/asm/asm_defns.h
+@@ -351,9 +351,6 @@ static always_inline void stac(void)
+ 4:  .p2align 2                            ; \
+     .popsection
+ 
+-#define ASM_INT(label, val)                 \
+-    DATA(label, 4) .long (val); END(label)
+-
+ #define ASM_CONSTANT(name, value)                \
+     asm ( ".equ " #name ", %P0; .global " #name  \
+           :: "i" ((value)) );
+diff --git a/xen/include/xen/linkage.h b/xen/include/xen/linkage.h
+index 478b1d7287..3d401b88c1 100644
+--- a/xen/include/xen/linkage.h
++++ b/xen/include/xen/linkage.h
+@@ -60,6 +60,8 @@
+ #define DATA_LOCAL(name, align...) \
+         SYM(name, DATA, LOCAL, LASTARG(DATA_ALIGN, ## align), DATA_FILL)
+ 
++#define ASM_INT(label, val)    DATA(label, 4) .long (val); END(label)
++
+ #endif /*  __ASSEMBLY__ */
+ 
+ #endif /* __LINKAGE_H__ */
+diff --git a/xen/tools/binfile b/xen/tools/binfile
+index 099d7eda9a..0299326ccc 100755
+--- a/xen/tools/binfile
++++ b/xen/tools/binfile
+@@ -25,7 +25,7 @@ binsource=$2
+ varname=$3
+ 
+ cat <<EOF >$target
+-#include <asm/asm_defns.h>
++#include <xen/linkage.h>
+ 
+         .section $section.rodata, "a", %progbits
+ 
+-- 
+2.35.3
+
 
