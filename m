@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E492E896EA4
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 14:05:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700513.1093778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34719896ECB
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 14:19:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700518.1093787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrzMt-00078h-KU; Wed, 03 Apr 2024 12:05:27 +0000
+	id 1rrzZt-0001gv-Nj; Wed, 03 Apr 2024 12:18:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700513.1093778; Wed, 03 Apr 2024 12:05:27 +0000
+Received: by outflank-mailman (output) from mailman id 700518.1093787; Wed, 03 Apr 2024 12:18:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrzMt-000765-HS; Wed, 03 Apr 2024 12:05:27 +0000
-Received: by outflank-mailman (input) for mailman id 700513;
- Wed, 03 Apr 2024 12:05:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rrzMs-00075z-Ay
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 12:05:26 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 738734d1-f1b2-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 14:05:24 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-34373f95c27so1065855f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 05:05:24 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- dw14-20020a0560000dce00b0034174875850sm17043347wrb.70.2024.04.03.05.05.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Apr 2024 05:05:23 -0700 (PDT)
+	id 1rrzZt-0001eQ-KI; Wed, 03 Apr 2024 12:18:53 +0000
+Received: by outflank-mailman (input) for mailman id 700518;
+ Wed, 03 Apr 2024 12:18:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YDNC=LI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rrzZt-0001eK-5d
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 12:18:53 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 54e80b52-f1b4-11ee-afe5-a90da7624cb6;
+ Wed, 03 Apr 2024 14:18:51 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a4715991c32so817206166b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 05:18:51 -0700 (PDT)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ s12-20020a170906a18c00b00a4672fb2a03sm7740552ejy.10.2024.04.03.05.18.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 03 Apr 2024 05:18:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,152 +45,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 738734d1-f1b2-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 54e80b52-f1b4-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712145923; x=1712750723; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=sUz8kAPEFVaYXoITMPkzCto75xeKikk0+rXAqqfLx2M=;
-        b=DYpJNNYZeqGdpXE9X0UnH/Y5fZF1cMXydXeP8xA0rA7bwTzVv/dXBlIcdEHfL6LHgX
-         PGGhLpTNE0x/QqN3iMye9igfnsuzyzmSZcrgkViiBi0qiGaCYIGu/x/juTtnFQRc2W0x
-         hqWnnx1dxkLbsY2InYSLPODOJFUuhpZZkU32Ay8hkRc26fy2dkkjtCzst6eDvXbQ6wbt
-         1sy6aer1/xJRcwHcnYiexaBGqXbcDsEQYZY0dwoQaKgw8JCNm+pS88vY7PE/ft8/2FSD
-         U9boSOxV4zZKe5w2jG2ZR8CZRegfa7e/Xv2zirxzz9UuBRrRUmkbg97eEQHB6VTmGSdM
-         aUpA==
+        d=gmail.com; s=20230601; t=1712146730; x=1712751530; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
+         :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=L4AiNrkxX5H2YmpgV2jGOL8k8M+RZPdPK6HaaXIaoIw=;
+        b=Lmm9FC5e0j/S4L/vBaBj2jpZNAz5ZijzUiL9cOFIVvIerDcK8FoKI7hPYti+1MBxdj
+         E4oV9aSUPrwi4/QkmZHCYpY81tuLLLBmC+fhagf5oOc5F69Y+3FAprMRyMozJd18O2NT
+         VzXPSmd2hZyWcqamCD0I5VMHXY6/PWpBh0s7VxHz1TVmXSJxblyQvz9cgEPnKtLYvc1+
+         NwZTVh4RHJ9sELRkDfQDjCKrmKCtde6pPmbvp1dvfZo0IU5F4BVv4YjIp9d2IL4HcTjX
+         2ISmO4NQFPL1koXYJYTA+yIunrq4gsLIiF5YFevTAI5MMZ3EKAEWGt44lAvmJ98aUMiR
+         +lYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712145923; x=1712750723;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sUz8kAPEFVaYXoITMPkzCto75xeKikk0+rXAqqfLx2M=;
-        b=Oe2J3mKkS7uKG/4hUZOUrFyJXOMbt/rmVM9Sz54QCPQHZaJKOAB42jI8yiaoP6XuA8
-         eE02mcyYwNPsE45gVCaWOEGmDdob4H25aJ0v4lEE6fGWhPnKBL7FOxY2Iv9kgFhW7Uh8
-         8xyI28NHLUtvmClhaG+1g0C/OE61lQ3dHAUT5WnI5HmQOv+9vunb1A/SBV5O4KDUg0Rm
-         5P/nRoXEJMTH3jwdcreG2ICarbur8GL+HgWJ4gb+UGtPffqZQzaSEb2AlAYIAZhkdCmQ
-         dEeYw/K5qp/JS/NEdcAO++X4wNULorWm72BzptIeDrePzzcXIlPsEqZKTKDaMpLuyTQZ
-         yVWw==
-X-Forwarded-Encrypted: i=1; AJvYcCUl04HmwLOBio8HP76HOBrTEvBXTQq/2voRQfg4tXWMTpfp31BX8pnohcXBSQqkACUOZX+myH4i2y9UzttWSS4pldcAnf6gR89B0hrXvJE=
-X-Gm-Message-State: AOJu0Yy+AzZ9YxxWooyEEHCKupmnQzpNiYFzOaZu2OpkSjpiiSgN6efA
-	GmzKu7eXtwy8zf1l5NEet9ZgPd6MoCXE6O0s2G77CTtyWfjwxvyzumK/1puvTA==
-X-Google-Smtp-Source: AGHT+IEOXAxEy8VyEQA4JkF3uAz0CmNBvL1ovJPNHQAGonH1J7Rqjwl3P3V3v5KbeSdxWbfAyBy0ZQ==
-X-Received: by 2002:a5d:5888:0:b0:341:c766:fbc9 with SMTP id n8-20020a5d5888000000b00341c766fbc9mr11446456wrf.1.1712145923510;
-        Wed, 03 Apr 2024 05:05:23 -0700 (PDT)
-Message-ID: <d86e7a86-cd2a-4b0c-b269-6b4e9b2edff3@suse.com>
-Date: Wed, 3 Apr 2024 14:05:22 +0200
+        d=1e100.net; s=20230601; t=1712146730; x=1712751530;
+        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
+         :subject:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=L4AiNrkxX5H2YmpgV2jGOL8k8M+RZPdPK6HaaXIaoIw=;
+        b=q2PMxylK6b29TFFdVPUW8Bw8Q7Nk0gbcRnIo72mA4yRwnBBD7wrC+6nVpJuibyuCjH
+         uWaev87m4DGrIPJpYGPK5wsI5lMXF8nQvB9I9oyigbXng2XOL6Xqf8uxWzdAmnKre+OX
+         jEhT/7PVBxJnJtVyIzXtlSlXh+cKNm5oyd6GIscQrFt+35hIG6F0UDREv7EqpHQEVWpi
+         HfZNW/FKfT/DJwzQkxG9UA823Pd+c1IvbM1iaB59ZBrftw67ylLSSfpXfN3MxgkpR0CO
+         Z57cHLgqLnDGR4gm+6Q2sqE3sZP6f+tAb9A3sJwYG6gtB/PUN9m8y/WbNJhmOG1l+Rmm
+         M4CQ==
+X-Gm-Message-State: AOJu0YyqQObFbbuE8DRi12OcjlvLienYIDRtjkGKAtFMN0WQBuAd5Un2
+	URHbNCXvaibuYR3ljveU+8Auhvs/2eP6kuKxfZJkb7nOR9+CyibjHYLthu1t
+X-Google-Smtp-Source: AGHT+IGxS6uh+JQoGWkBPyukxW298Heuv7I/az6hbKmLIgpnr9OEVZK4HfZPr9LeeVezsiJXsdhuWQ==
+X-Received: by 2002:a17:906:abc1:b0:a47:533f:2d0f with SMTP id kq1-20020a170906abc100b00a47533f2d0fmr9358482ejb.66.1712146730184;
+        Wed, 03 Apr 2024 05:18:50 -0700 (PDT)
+Message-ID: <2b03174eb033dfaacdff2cc76a281575d2922d2f.camel@gmail.com>
+Subject: Xen 4.19 release status tracking list [ April ]
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: committers@xenproject.org, community.manager@xenproject.org, Kelly Choi
+	 <kelly.choi@cloud.com>
+Date: Wed, 03 Apr 2024 14:18:48 +0200
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
- event channels"
-Content-Language: en-US
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
- <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
- <2df1e3ef-32c5-45c3-af1b-e9473a4e9120@apertussolutions.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2df1e3ef-32c5-45c3-af1b-e9473a4e9120@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 03.04.2024 13:10, Daniel P. Smith wrote:
-> On 4/3/24 02:16, Jan Beulich wrote:
->> On 02.04.2024 19:06, Andrew Cooper wrote:
->>> The commit makes a claim without any kind of justification.
->>
->> Well, what does "have no business" leave open?
-> 
-> Why does it not have any business? Why should a domain that creates an 
-> event channel not be able to inquire about its status?
+Hello everyone,
 
-Event channels we talk about here are created via
-alloc_unbound_xen_event_channel(). IOW it's not any domain creating them.
-Once connected, the respective domain is of course fine to query its end
-of the channel.
+I would like to share with you a list for status tracking based on Xen
+ML and community members comments:
 
->>> The claim is false, and the commit broke lsevtchn in dom0.
->>
->> Or alternatively lsevtchn was doing something that was never meant to work
->> (from Xen's perspective).
-> 
-> Again, you have not said why this is a problem. What concern does it 
-> create? Does it open the door for access elevation, resource 
-> deprivation, or some other malicious behaviors?
+*** Arm ***:
+  * [PATCH v7 00/14] Arm cache coloring [
+https://patchew.org/Xen/20240315105902.160047-1-carlo.nonato@minervasys.tec=
+h/
+]:
+    - new patch series version [v7] was sent
 
-It exposes information that perhaps better wouldn't be exposed. Imo if
-Xen owned resource state is of interest, it would want exposing via
-hypfs.
+  * [PATCH v13 00/14] PCI devices passthrough on Arm, part 3 [
+https://lore.kernel.org/xen-devel/20240202213321.1920347-1-stewart.hildebra=
+nd@amd.com/
+]
+ =20
+  * [PATCH v3 0/4] DOMCTL-based guest magic region allocation for 11
+domUs [
+https://patchew.org/Xen/20240403081626.375313-1-xin.wang2@amd.com/ ]
+ =20
+  * [XEN v6 0/3] xen/arm: Add emulation of Debug Data Transfer
+Registers [
+https://patchew.org/Xen/20240307123943.1991755-1-ayan.kumar.halder@amd.com/
+]
 
->>>   It is also quite
->>> obvious from XSM_TARGET that it has broken device model stubdoms too.
->>
->> Why would that be "obvious"? What business would a stubdom have to look at
->> Xen's side of an evtchn?
-> 
-> Again, you have not expressed why it shouldn't be able to do so.
 
-See above - not its resource, nor its guest's.
+*** PPC ***:
+  * [PATCH v3 0/9] Early Boot Allocation on Power [
+https://patchew.org/Xen/cover.1710443965.git.sanastasio@raptorengineering.c=
+om/
+]:
+    new patch series version [v3] was sent
 
->>> Whether to return information about a xen-owned evtchn is a matter of policy,
->>> and it's not acceptable to short circuit the XSM on the matter.
->>
->> I can certainly accept this as one possible view point. As in so many cases
->> I'm afraid I dislike you putting it as if it was the only possible one.
-> 
-> In fact, this commit is in violation of the XSM. It hard-codes a 
-> resource access check outside XSM, thus breaking the fine-grained access 
-> control of FLASK.
+*** RISC-V ***:
+  * [PATCH v4 05/23]  Enable build of full Xen for RISC-V [
+https://lore.kernel.org/xen-devel/cover.1708962629.git.oleksii.kurochko@gma=
+il.com/
+]:
+    - one patch of the patch series was merged
+    - new patch series version [v7] were sent
 
-Perhaps; see below and see the question raised in the subsequent reply
-to the patch.
 
->> In summary: The supposed justification you claim is missing in the original
->> change is imo also missing here then: What business would any entity in the
->> system have to look at Xen's side of an event channel? Back at the time, 3
->> people agreed that it's "none".
-> 
-> As stated, you provided no reason or justification for "has no business" 
-> and by face value is an opinion that a few people agreed with. As for 
-> why, there could be a myriad number of reasons a domain may want to 
-> check the status of an interface it has with the hypervisor. From just 
-> logging its state for debug to throttling attempts at sending an event. 
-> So why, from a security/access control decision, does this access have 
-> to absolutely blocked, even from FLASK?
+*** x86 ***:
+  * [PATCH 0/4] iommu/x86: fixes/improvements for unity range checks [
+https://lore.kernel.org/xen-devel/20240201170159.66330-1-roger.pau@citrix.c=
+om/
+]:=20
+    - almost patch series have been merged already except the patch:
+        [PATCH 4/4] iommu/x86: make unity range checking more strict
 
-I didn't say it absolutely needs to be blocked. I'm okay to become
-convinced otherwise. But in the description complaining about lack of
-reasons in the 3-4 year old change, just to then again not provide any
-reasons looks "interesting" to me. (And no, just to take that example,
-lsevtchn not working anymore on such channels is not on its own a
-reason. As indicated, it may well be that conceptually it was never
-supposed to be able to have access to this information. The latest not
-anymore when hypfs was introduced.)
+  * [PATCH 0/8] x86: support AVX10.1 [
+https://lore.kernel.org/xen-devel/298db76f-d0ee-4d47-931f-1baa1a7546cf@suse=
+.com/
+]
+ =20
+  * APX support?
 
-Jan
+  * [PATCH v4 0/8] x86emul: misc additions [
+https://lore.kernel.org/xen-devel/9dd23064-c79e-4a50-9c71-c0e73b189944@suse=
+.com/
+]
+   =20
+  * [PATCH 0/7] VT-d: SATC handling and ATS tidying [
+https://lore.kernel.org/xen-devel/25506838-b818-4686-8c16-3a198338af44@suse=
+.com/
+]
+
+  * [XEN PATCH 0/9] x86: parallelize AP bring-up during boot [
+https://lore.kernel.org/xen-devel/cover.1699982111.git.krystian.hebel@3mdeb=
+.com/
+]
+
+  * [PATCH v2 00/12] x86: memcpy() / memset() (non-)ERMS flavors plus
+fallout [
+https://lore.kernel.org/xen-devel/8f56a8f4-0482-932f-96a9-c791bebb4610@suse=
+.com/
+]
+    - 6/12 are merged.
+ =20
+  * [PATCH v6 0/4] x86/pvh: Support relocating dom0 kernel [
+https://patchew.org/Xen/20240327215102.136001-1-jason.andryuk@amd.com/
+]
+ =20
+  * x86/spec-ctrl: IBPB improvements [
+https://patchew.org/Xen/06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com/
+]
+
+
+*** common ***:
+  * annotate entry points with type and size" series:
+    The bulk of this has gone in, but there'll want to be follow-ups.
+
+  * [PATCH v2 (resend) 00/27] Remove the directmap [
+https://lore.kernel.org/xen-devel/20240116192611.41112-1-eliasely@amazon.co=
+m/
+]
+    - 7/27 were merged.
+=20
+  * [PATCH] move __read_mostly to xen/cache.h [
+https://lore.kernel.org/xen-devel/f25eb5c9-7c14-6e23-8535-2c66772b333e@suse=
+.com/
+]
+
+  * [XEN PATCH v2 1/3] xen: introduce STATIC_ASSERT_UNREACHABLE() [
+https://lore.kernel.org/xen-devel/42fc6ae8d3eb802429d29c774502ff232340dc84.=
+1706259490.git.federico.serafini@bugseng.com/
+]
+
+  * MISRA rules updates:
+   - [PATCH v2] docs/misra/rules.rst update [
+https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2402131431070.1925432=
+@ubuntu-linux-20-04-desktop/T/#maded3df1bebe68d0fe53c73e89f996ec395a39e5
+]: 1/3 were merged.
+
+   - [XEN PATCH v3 0/7] address violations of MISRA C Rule 20.7[
+https://patchew.org/Xen/cover.1711700095.git.nicola.vetrini@bugseng.com/
+]: new patch series version (v3) were sent.
+
+   - [XEN PATCH v3 00/16] xen: address violation of MISRA C:2012
+Directive 4.10 [
+https://patchew.org/Xen/cover.1710145041.git.simone.ballarin@bugseng.com/
+]: 2/16 were merged.
+
+  * [PATCH v6 00/8] xen/spinlock: make recursive spinlocks a dedicated
+type [ https://patchew.org/Xen/20240327152229.25847-1-jgross@suse.com/
+]:
+    - new patch series version were sent
+   =20
+  * [PATCH 0/7] GRUB: Supporting Secure Boot of xen.gz [
+https://patchew.org/Xen/20240313150748.791236-1-ross.lagerwall@citrix.com/
+]:
+   =20
+  * [PATCH v5 0/7] MSI-X support with qemu in stubdomain, and other
+related changes:
+=20
+  * [PATCH 0/7] xen/bitops: Reduce the mess, starting with ffs() [
+https://patchew.org/Xen/20240313172716.2325427-1-andrew.cooper3@citrix.com/
+]:
+ =20
+  * [PATCH 0/7] xen/trace: Treewide API cleanup [
+https://patchew.org/Xen/20240318163552.3808695-1-andrew.cooper3@citrix.com/
+]:
+ =20
+  * [PATCH v2 0/6] xenwatchdogd bugfixes and enhancements
+
+  * [RFC XEN PATCH v6 0/5] Support device passthrough when dom0 is PVH
+on Xen [
+https://patchew.org/Xen/20240328063402.354496-1-Jiqian.Chen@amd.com/ ]
+
+
+*** Completed ***:
+  *** Arm ***:
+     * xen/arm64: Rework the MMU-off code (idmap) so it is self-
+contained
+
+  *** x86 ***:
+     * tools: enable xenstore-stubdom to use 9pfs
+
+  *** common ***:
+     * NUMA: no need for asm/numa.h when !NUMA
+     * xen: move BUG_ON(), WARN_ON(), ASSERT(), ASSERT_UNREACHABLE() to
+xen/bug.h
+     * xen/lib: introduce generic find next bit operations
+     * Introduce generic headers=20
+     * xen/livepatch: fixes for the pre-apply / post-revert hooks
+     * limit passing around of cpu_user_regs
+
+Please reply with items you would like to see in 4.19 so that people
+know what is happening and prioritize accordingly.
+You're welcome to provide a description and use cases of the feature
+you're working on.
+
+Have a nice week!
+
+Best regards,
+ Oleksii
 
