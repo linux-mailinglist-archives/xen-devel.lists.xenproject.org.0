@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C648897115
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 15:31:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700545.1093867 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12285897146
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 15:35:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700548.1093877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs0hu-0004Ne-KS; Wed, 03 Apr 2024 13:31:14 +0000
+	id 1rs0m2-0004xT-45; Wed, 03 Apr 2024 13:35:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700545.1093867; Wed, 03 Apr 2024 13:31:14 +0000
+Received: by outflank-mailman (output) from mailman id 700548.1093877; Wed, 03 Apr 2024 13:35:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rs0hu-0004LU-Hu; Wed, 03 Apr 2024 13:31:14 +0000
-Received: by outflank-mailman (input) for mailman id 700545;
- Wed, 03 Apr 2024 13:31:12 +0000
+	id 1rs0m2-0004vs-18; Wed, 03 Apr 2024 13:35:30 +0000
+Received: by outflank-mailman (input) for mailman id 700548;
+ Wed, 03 Apr 2024 13:35:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=g+Gt=LI=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1rs0hs-0004LM-JD
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 13:31:12 +0000
+ id 1rs0m0-0004vm-4o
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 13:35:28 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e51b356-f1be-11ee-afe5-a90da7624cb6;
- Wed, 03 Apr 2024 15:31:11 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1712151064755188.14610449192196;
- Wed, 3 Apr 2024 06:31:04 -0700 (PDT)
+ id 0734d5a9-f1bf-11ee-afe5-a90da7624cb6;
+ Wed, 03 Apr 2024 15:35:27 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1712151321823908.6436745542595;
+ Wed, 3 Apr 2024 06:35:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,42 +38,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e51b356-f1be-11ee-afe5-a90da7624cb6
-ARC-Seal: i=1; a=rsa-sha256; t=1712151066; cv=none; 
+X-Inumbo-ID: 0734d5a9-f1bf-11ee-afe5-a90da7624cb6
+ARC-Seal: i=1; a=rsa-sha256; t=1712151323; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=YZcPye6AqfUaWsg0teZxQSvw1HlUma9o9iSy7M9mGpi87DjcGG9sPgd9Yx2P++iEqcpUnLfeZn+JcKXtMAuElD2PKCzbrIPmdOhd8hJKs9aHePgDiPgSix5sV1a7/9paVZm694dIhX4UFYrTMaqNb2FnBxYy82nFuGLQi6RYhOo=
+	b=T2d9diPrIwfJsOwK7NyKNNR5oF8tFCja1slxo9Q4RtoQXqWbWGd7+cr5X6wyFVobCGnIJXVB+tjGPnCDTdR6WXRB9O+Qu9kZeiIWwfI6RRzYkheEcd6cVjtEV/TJYIzDJhmVvDgM/VbqYoMH0LQbnITS+yQWHc0HMe1PbF3If0A=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1712151066; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=jGb0wbnB4CIEWPYCV1GMNzIV1Nr5eSQsU2upTXfOHHI=; 
-	b=PwyTUnuF/D6edtQIs8AVql95/r2q1sScPK2erpuZBlBbUp5/rx6xftmpZWGmozh4DqdWweHBzc6iQlO2Ox87gmKXX46Iz6SxC/ogqfiB+yHzFoYrjEYx15O9oTjhE60a+2uSmQ2tB+n1FA/IVYWKpg/B1Zn+WmJiP0m8E9Iwz9o=
+	t=1712151323; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=/MO9bX1PzD/CubB0FQOA3VV0mnrAnV0VNXvlK9zdKts=; 
+	b=QHa6wQRkKXyvvmFZ5w+cF0kTkVDJqRFS6sZA5oWwvBEFMqnNUO/9XOBcGqwX20J7WyPRPmhcWX+weACsrgh36TrmVBnHELuu1Vv9rKyDJ5w7IqYaeC5XrTpRG8kAu3GZbC+nvulAvzoyiG1FxRoLp/VfV653F8zNBwGPhzTauF8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712151066;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712151323;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=jGb0wbnB4CIEWPYCV1GMNzIV1Nr5eSQsU2upTXfOHHI=;
-	b=Eyd9g2dSZzMN/KYbRvY2z/t17iX7tDIy3usoQ4o9V4FYDnXmNkKubXi5v+qfT5Re
-	kVlxz5wRCMK6dbaoHuKwnbN4K9/zzZ0IYB4VAANVbRjutGK0thdqfOhxgNEc+AICaS3
-	BfpQdzf1TxARiAL4Xywvq820L3Xar+t0PDF4c1OU=
-Message-ID: <accf801d-a74b-41c3-a67f-bcbe622e4e34@apertussolutions.com>
-Date: Wed, 3 Apr 2024 09:31:03 -0400
+	bh=/MO9bX1PzD/CubB0FQOA3VV0mnrAnV0VNXvlK9zdKts=;
+	b=G1kanYFG/3yDJWOhAlZHONQwitOQBljtJo3W4hS7yspwTv9vaxzsKb7cAcUymRYS
+	noYk0BcJL3JEzBpYpA9oSvGWD5ZIArceCuChNUNfP29Fool5/OzvqQsfvUMEV9I5MwL
+	i4uDeTepls1yTyjOZS7dNBAlPNwyMvm+3xrufD+k=
+Message-ID: <e10a05b3-5b55-423e-8ebf-ebc745cc2649@apertussolutions.com>
+Date: Wed, 3 Apr 2024 09:35:19 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
  event channels"
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich
+ <JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>
 References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
- <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
- <f2b596e6-0aec-4948-ad7a-aa38adaa7dcc@suse.com>
- <3aa0893b-7efd-4ca1-a405-e897edc7402f@apertussolutions.com>
- <3b8ec757-d2f3-4143-a843-de8c6d51944d@suse.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -106,40 +102,53 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <3b8ec757-d2f3-4143-a843-de8c6d51944d@suse.com>
+In-Reply-To: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 4/3/24 07:54, Jan Beulich wrote:
-> On 03.04.2024 13:50, Daniel P. Smith wrote:
->> On 4/3/24 02:52, Jan Beulich wrote:
->>> On 03.04.2024 08:16, Jan Beulich wrote:
->>>> On 02.04.2024 19:06, Andrew Cooper wrote:
->>>>> Whether to return information about a xen-owned evtchn is a matter of policy,
->>>>> and it's not acceptable to short circuit the XSM on the matter.
->>>>
->>>> I can certainly accept this as one possible view point. As in so many cases
->>>> I'm afraid I dislike you putting it as if it was the only possible one.
->>>
->>> Further to this: Is there even a way to express the same denial in XSM?
->>> alloc_unbound_xen_event_channel() doesn't specifically "mark" such a
->>> channel, and (yes, it could in principle be open-coded in Flask code)
->>> consumer_is_xen() is private to event_channel.c. I also dare to question
->>> whether in SILO mode status information like this should be available.
->>
->> To build on the previous response: if the natural failure return value
->> is -EACCESS in response to a domain resource access attempt, then the
->> probability is extremely high that it should be implemented under a XSM
->> hook and not hard-coded into the resource logic.
+On 4/2/24 13:06, Andrew Cooper wrote:
+> The commit makes a claim without any kind of justification.
 > 
-> Possibly. But first of all - could you answer the earlier question I raised?
+> The claim is false, and the commit broke lsevtchn in dom0.  It is also quite
+> obvious from XSM_TARGET that it has broken device model stubdoms too.
+> 
+> Whether to return information about a xen-owned evtchn is a matter of policy,
+> and it's not acceptable to short circuit the XSM on the matter.
+> 
+> This reverts commit f60ab5337f968e2f10c639ab59db7afb0fe4f7c3.
+> 
+> Fixes: f60ab5337f96 ("evtchn: refuse EVTCHNOP_status for Xen-bound event channels")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: George Dunlap <George.Dunlap@citrix.com>
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Daniel Smith <dpsmith@apertussolutions.com>
+> ---
+>   xen/common/event_channel.c | 6 ------
+>   1 file changed, 6 deletions(-)
+> 
+> diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+> index 20f586cf5ecd..ae6c2f902645 100644
+> --- a/xen/common/event_channel.c
+> +++ b/xen/common/event_channel.c
+> @@ -1040,12 +1040,6 @@ int evtchn_status(evtchn_status_t *status)
+>   
+>       read_lock(&d->event_lock);
+>   
+> -    if ( consumer_is_xen(chn) )
+> -    {
+> -        rc = -EACCES;
+> -        goto out;
+> -    }
+> -
+>       rc = xsm_evtchn_status(XSM_TARGET, d, chn);
+>       if ( rc )
+>           goto out;
+> 
+> base-commit: 7a09966e7b2823b70f6d56d0cf66c11124f4a3c1
 
-Don't need to, this change subverts/violates the access control 
-framework. If the desire is to make this access decision for the 
-default/dummy policy, then codify it there. Otherwise I will be ack'ing 
-this change since it is access control and falls under the purview of XSM.
-
-v/r,
-dps
+Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
