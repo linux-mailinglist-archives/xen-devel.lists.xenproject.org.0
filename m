@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B623E89647F
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 08:24:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700303.1093228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D953D896493
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 08:33:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700309.1093238 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rru32-0005MI-1C; Wed, 03 Apr 2024 06:24:36 +0000
+	id 1rruBT-0007LA-R3; Wed, 03 Apr 2024 06:33:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700303.1093228; Wed, 03 Apr 2024 06:24:36 +0000
+Received: by outflank-mailman (output) from mailman id 700309.1093238; Wed, 03 Apr 2024 06:33:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rru31-0005KC-Ut; Wed, 03 Apr 2024 06:24:35 +0000
-Received: by outflank-mailman (input) for mailman id 700303;
- Wed, 03 Apr 2024 06:24:34 +0000
+	id 1rruBT-0007JS-OC; Wed, 03 Apr 2024 06:33:19 +0000
+Received: by outflank-mailman (input) for mailman id 700309;
+ Wed, 03 Apr 2024 06:33:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rru30-0005Jy-85
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 06:24:34 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1rruBR-0007JM-Nk
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 06:33:17 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d54311a7-f182-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 08:24:32 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-4161eb1aea7so7472985e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 23:24:32 -0700 (PDT)
+ id 0d2d8026-f184-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 08:33:15 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-516be63af88so377743e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 23:33:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n14-20020a05600c4f8e00b0041493e21844sm23544947wmq.27.2024.04.02.23.24.31
+ fm18-20020a05600c0c1200b004161df7c9dbsm3366892wmb.32.2024.04.02.23.33.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 23:24:31 -0700 (PDT)
+ Tue, 02 Apr 2024 23:33:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d54311a7-f182-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 0d2d8026-f184-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712125472; x=1712730272; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712125995; x=1712730795; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=eU4Kvxa6S2lNftq7OIqQb8wRacONrsh7tQKm0bDHwbE=;
-        b=HVRlrO3N79X8l3L1NA8M4cQ4Z/agbYccavcwJyvKGuU4azIwP2GSYVt2bHkk+QmNX5
-         +B8fmzE9vIII4TQESLHeOPqbCoqvPDCqdwxlcSaJxxJ5WiJYfLl/LjrEBOLS+3wfc2d0
-         epU7RucEqs/WtDhE68XHvQfXjcjYC5aBrEMGzMHTkQU7fluBt6htc2J1L+HKJpmerMd9
-         YPIHxWREgpjBT+9/Xc4tLhvSxyUHK1wWKlgWDO0E4YUxknpv0Fn+ui9M4CdFxvlqeyHy
-         m6J/gN28bsUTwpRmVqJ2ANa8k49ftxD+Y9EsQ/cZv1I6ZJ3KZXq6J7MvEUuC14UP+Nmt
-         xhIg==
+        bh=nad+2Bc6gc43hIHI2DHPViTbwfGiH8lFaSB2NR0MYMI=;
+        b=H4jE6tUxB5I0b9AL80LHxcx7UNICaJKMk7mMUp/mQKYi7dCJgqLW1Zs0gp4LQpjQ3h
+         6AfLXrb/BBnhnLWM+lPJ5lMXbIbnOvQSmwlyA7B+bSVsXsT9Cm1aS3XnRoZSfGk7dPh0
+         Fk5sJqATZ4Y8eYC3IoZz4R7SiJUPTT9StiWZ64UM3XRawEitKXxC0TbLbq25BuPP24t3
+         YkhknkDYJXasT3Q7PvNX3DqNGNru2YWsTLLRavsxuE1WRIqZrGRN7CxoWRkAUfYYJhUT
+         pIOM9SCF3Aq1EdgbQyUe+zhgWR6TNkMxhCXRSEaVy7Kum8ApYZDihxRhSJKAg2y6msoW
+         4ujw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712125472; x=1712730272;
+        d=1e100.net; s=20230601; t=1712125995; x=1712730795;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eU4Kvxa6S2lNftq7OIqQb8wRacONrsh7tQKm0bDHwbE=;
-        b=ZAubwShLh7USJRmpDR/h/B0UoTssFctIxBVES1iER6sLESvbKY/AhwDCLkqmOeZ9I6
-         lWxZdX6tP9zwglRs3MpnKorf020OjaoVj706GoyClC653rqS26vB0HtvmhRGVeyZvMtP
-         G+hxk9cezZlAkZ2E++PGJAwmyNj40mKQ3lh+vJa2WkRK0t4VYdJiqeUVFaPDPn0dVzyM
-         HRjPHU+O5UItAnSPOagrxFdf/CAHld+ExF3J5qYVKvkqmy6u/Wdjeurp9a4ucC9rhnkj
-         vtPZxV1lsnw84hSy3hANYwabSH1ScbDzGBteKup45plpF9Jci9f3+e9ep4vuBidw56qW
-         bxLw==
-X-Forwarded-Encrypted: i=1; AJvYcCVaDngMM+SgkTKsxzHhQdPKzp2bMo4Lfj2LBlktLfQvur02KtF4t7iZleNYjm/0X+t47fHpx3Fjx8ihKXOcrwbDyr/SaWqna2v52eelXiM=
-X-Gm-Message-State: AOJu0YwG3qxYOYN9fMJKIdYdzd+q/ymSfuZzKa71BW8ehsnvH2HGhhs8
-	axS8RY59VXgmJiaROGyvk/i+DX4RIKsS1mDfOPQuBiFW7+cN4GZHBHJ15jV2hgfT2d8vPKF+3NI
-	=
-X-Google-Smtp-Source: AGHT+IHk3Bvj39nBCbfEToUPc+0SIJliAThkkQCc1C92nP+WtUzRw1knSc/6iRFQ9OcEcLXSwoQ2Jw==
-X-Received: by 2002:a7b:cd96:0:b0:414:8870:9c1a with SMTP id y22-20020a7bcd96000000b0041488709c1amr1341950wmj.7.1712125471853;
-        Tue, 02 Apr 2024 23:24:31 -0700 (PDT)
-Message-ID: <efc51a75-b9ed-42f8-ba89-e4f39554a830@suse.com>
-Date: Wed, 3 Apr 2024 08:24:31 +0200
+        bh=nad+2Bc6gc43hIHI2DHPViTbwfGiH8lFaSB2NR0MYMI=;
+        b=MbG6w2N5Z1BAkwsNMczf7TsKOSH5tlVYNLO00Odi33i+ekLuMPAHGIAPF0IraMuKIW
+         EqXs/PCaPvLNSC8zTLOMMEFA2O5KWfpsjaPoyo0XrVtCr02VddbYODwiOzhpAzrGAwD3
+         2KozJKfPftVm10uMS+7di7b7QrFN1djbi2FU070QI0DZ40aFTPoUBw4xnmDj1qf//M3a
+         xpN0Wj0Vqs7pwTJvftROwGiFQ62AvnBJS4z58nMbYhW+mrtjXXSFzcqjOo3IH50nIUh7
+         DP+f1V50HMsY3AtTWmvruhHZtEr3wLZBxUcZunVY+/HMKH2QtFP8GM8YTkoUrYYoDHDx
+         ou9w==
+X-Forwarded-Encrypted: i=1; AJvYcCVn7HZ8ExwATvSWg+7c442Dxdxvt6HzIvnm3Kp0sygNAUr4AO1fstbzc8D8Lw7y0sX33oQQdkPjwHYJ/1Jzc6EDFB00Ut7ttuLC8eqYxSQ=
+X-Gm-Message-State: AOJu0Ywty7BGdiT8ex+gaZiP3vx1lh/b7WcnQjuxpOPZ7SDQKaMT3A7v
+	xAA64n9NNt3t4O7mnGZJS2p07TN64jloIsn9a1a8+Xr4zkivgz4PNhNbyXFBgA==
+X-Google-Smtp-Source: AGHT+IGiyYJDDuAEgf80wIO5hcmhfmk94DdpX9aCeqocf6HsaX+s/Ols1+HymZHqq23pJfKJ9j24uQ==
+X-Received: by 2002:a05:651c:19a6:b0:2d8:3a46:8ab6 with SMTP id bx38-20020a05651c19a600b002d83a468ab6mr1074549ljb.17.1712125994933;
+        Tue, 02 Apr 2024 23:33:14 -0700 (PDT)
+Message-ID: <28786c5b-c625-4754-980d-c9a0fdc49c37@suse.com>
+Date: Wed, 3 Apr 2024 08:33:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 2/7] console: address a violation of MISRA C:2012 Rule
- 16.3
+Subject: Re: [XEN PATCH 3/7] xen/sched: address a violation of MISRA C:2012
+ Rule 16.3
 Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+To: Federico Serafini <federico.serafini@bugseng.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: consulting@bugseng.com, George Dunlap <george.dunlap@citrix.com>,
+ xen-devel@lists.xenproject.org, Dario Faggioli <dfaggioli@suse.com>
 References: <cover.1712042178.git.federico.serafini@bugseng.com>
- <c1dbd9f26ad88f667075926e85dc971c41c7d5d4.1712042178.git.federico.serafini@bugseng.com>
+ <8f91430e37594831dd8d92ab630477be88417b49.1712042178.git.federico.serafini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,20 +113,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c1dbd9f26ad88f667075926e85dc971c41c7d5d4.1712042178.git.federico.serafini@bugseng.com>
+In-Reply-To: <8f91430e37594831dd8d92ab630477be88417b49.1712042178.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 02.04.2024 09:22, Federico Serafini wrote:
-> Add break statement to address a violation of MISRA C:2012 Rule 16.3
-> ("An unconditional `break' statement shall terminate every
-> switch-clause ").
+> Use pseudo-keyword fallthrough to meet the requirements to deviate
+> MISRA C:2012 Rule 16.3 ("An unconditional `break' statement shall
+> terminate every switch-clause").
 > 
 > No functional change.
 > 
 > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> ---
+>  xen/common/sched/credit2.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
+> index c76330d79d..0962b52415 100644
+> --- a/xen/common/sched/credit2.c
+> +++ b/xen/common/sched/credit2.c
+> @@ -3152,8 +3152,8 @@ static int cf_check csched2_sys_cntl(
+>              printk(XENLOG_INFO "Disabling context switch rate limiting\n");
+>          prv->ratelimit_us = params->ratelimit_us;
+>          write_unlock_irqrestore(&prv->lock, flags);
+> +        fallthrough;
+>  
+> -    /* FALLTHRU */
+>      case XEN_SYSCTL_SCHEDOP_getinfo:
+>          params->ratelimit_us = prv->ratelimit_us;
+>          break;
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Hmm, the description doesn't say what's wrong with the comment. Furthermore
+docs/misra/rules.rst doesn't mention "fallthrough" at all, nor the
+alternative of using comments. I notice docs/misra/deviations.rst does, and
+there the specific comment used here isn't covered. That would want saying
+in the description.
 
+Stefano (and others) - in this context it becomes noticeable that having
+stuff scattered across multiple doc files isn't necessarily helpful. Other
+permissible keywords are mentioned in rules.rst. The pseudo-keyword
+"fallthrough" as well as comments are mentioned on deviations.rst. Could
+you remind me of the reason(s) why things aren't recorded in a single,
+central place?
 
+Jan
 
