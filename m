@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46C5D896833
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 10:17:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700369.1093427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEE3D896BC8
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 12:13:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700388.1093437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrvnm-00055v-L1; Wed, 03 Apr 2024 08:16:58 +0000
+	id 1rrxbD-0005lv-M1; Wed, 03 Apr 2024 10:12:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700369.1093427; Wed, 03 Apr 2024 08:16:58 +0000
+Received: by outflank-mailman (output) from mailman id 700388.1093437; Wed, 03 Apr 2024 10:12:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrvnm-00053Z-Hs; Wed, 03 Apr 2024 08:16:58 +0000
-Received: by outflank-mailman (input) for mailman id 700369;
- Wed, 03 Apr 2024 08:16:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pmYG=LI=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1rrvnk-0003ko-Ht
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 08:16:56 +0000
+	id 1rrxbD-0005jG-JG; Wed, 03 Apr 2024 10:12:07 +0000
+Received: by outflank-mailman (input) for mailman id 700388;
+ Wed, 03 Apr 2024 10:12:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eUqh=LI=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rrxbC-0005jA-In
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 10:12:06 +0000
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20600.outbound.protection.outlook.com
- [2a01:111:f403:2417::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 874e9ba1-f192-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 10:16:54 +0200 (CEST)
-Received: from SA0PR11CA0185.namprd11.prod.outlook.com (2603:10b6:806:1bc::10)
- by PH8PR12MB6843.namprd12.prod.outlook.com (2603:10b6:510:1ca::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 3 Apr
- 2024 08:16:48 +0000
-Received: from SN1PEPF000252A4.namprd05.prod.outlook.com
- (2603:10b6:806:1bc:cafe::a0) by SA0PR11CA0185.outlook.office365.com
- (2603:10b6:806:1bc::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46 via Frontend
- Transport; Wed, 3 Apr 2024 08:16:48 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SN1PEPF000252A4.mail.protection.outlook.com (10.167.242.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Wed, 3 Apr 2024 08:16:48 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ (mail-dm6nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2417::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9ee8403e-f1a2-11ee-afe5-a90da7624cb6;
+ Wed, 03 Apr 2024 12:12:04 +0200 (CEST)
+Received: from CH2PR05CA0002.namprd05.prod.outlook.com (2603:10b6:610::15) by
+ DS0PR12MB7560.namprd12.prod.outlook.com (2603:10b6:8:133::17) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7409.46; Wed, 3 Apr 2024 10:12:02 +0000
+Received: from DS3PEPF000099D4.namprd04.prod.outlook.com
+ (2603:10b6:610:0:cafe::4f) by CH2PR05CA0002.outlook.office365.com
+ (2603:10b6:610::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.25 via Frontend
+ Transport; Wed, 3 Apr 2024 10:12:02 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS3PEPF000099D4.mail.protection.outlook.com (10.167.17.5) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Wed, 3 Apr 2024 10:12:01 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Apr
- 2024 03:16:47 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Apr
- 2024 03:16:46 -0500
-Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 2024 05:12:00 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 3 Apr 2024 03:16:44 -0500
+ Transport; Wed, 3 Apr 2024 05:11:58 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,267 +59,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 874e9ba1-f192-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 9ee8403e-f1a2-11ee-afe5-a90da7624cb6
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Sa6LYU84AWDFBSiSpcF74ogajYLqBh6evBPiWWAtwLc/Af1M3qscwK1+/Xy/aa5wnj2o18qBHjVt4xQwwNNMCwfxKmqLngZ8tdZL5Y/51Lmmwdn9b7Db0V/yoBIpKhDD98MKsNj0e4oyKq1nPSAP4nvaGBkJP8s6xodcVhCBSS7dD8+dMIJwCiPCwgn5wCmokEtNazsY0O0Hej8XEcEsdhFnuux/qTR1FqzEDRKmKaqfszl4yX9kvGvHR8diLEtG9+IoNQfGyuxaOXloLTUS70abK3E2YQ001pJOGEJOcd3hWkr3OHMlSGjsNcLpO909c18j029Pyty1VBxB0+vFMQ==
+ b=ebIAevk94pHslbS4NYiogZTousZ3EZLyZH+gq5QNtMHfvgXyTmFOUb0POSP1jJGWH0Vv1RCeb79XQO4uMlNGgRgvlzmkpsbY/79DEJjVP7lPhwI+bvjFihuSxGH5POV8OB+IEvm7LXnMiOzAFNecrjfjRaphNSiEv4xmZOp6fLm9wBrs5o+e6+J+GNfnQi1qdwjpzmmJHmmBexKlLLTOC/8fHQcZqvGiu82BnbGwiPtnGV7VGwcrTXUJG2e+fdSAZs4OfiRrWYDkgAVEIxQLKQoM4PC300s7jjwW06+jShDfWz0rheXU9L29Y5hSp+FjH1PWa52YIGCT+zK3IeqF6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FGmVvVfqXC9aW1ilmIMsYNtDyW2xCIUX5WJMDblARw8=;
- b=IAJiDqlSH5wbGuCUDwztSx5zuoKI383Yv3WQGzxjGwfxVE+4xDgacumwy0Dti9ZCXTAKrR+j5Cqm1G8iBRbB/ulOZn8R0VmgCLh0f/3auYeDwI2/wcNDKbXNKMHZ6ZjRhucfK51/Qnvhb8S4YCinYljcwYmYM+qvkqufHKQSRy4ORcjcPUy4qt4XaZJ8mfsB8zsZadZO1hVw8abIqEoaNrlFvVgeRDzmOJNbRgQ6rKTmAxjtt1L8o1+vbs+WAJgtSIR5D2PxnPDvjF4zcczKM+279zVgrZHqDSNlrBxeadsSnJEhasZYt69IDFSjdW5obgO7vDFeDv+f+fnOQb9z+w==
+ bh=nVZ8rFge6bNbG4lQdbguvKaDyYYtOn2T9lyT+8vv8dI=;
+ b=Lmfwt/0S+uiB558jz3zd41bfV+BQbPaFnPSAYWnPTfTYwcdQ0lxL8P45agUSx0CWU+ubuwgL59thhZynWn8jOzTgaLpIrioTaXg59+X4hji+d68h0/56o7a905bETCpDMBzM2fV2rF0bdQ4K2I78gylIkZ92plEMB4epP2Vre2YP0/vzHs55HAyq/NEacEjvBQH+VzFgJbSM7qgvh8agISjSoUtWFHvUvfzsoSFEz6RwZ0xM5GX9euEjW/dcM+jgppzMvJvqzqapGJx2JnWhNe/I3/UNf1USCs0Eusn20n207KbUS3Qr51QSAK0gqpvo13WAqwGWX7AhCTL7CSElYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FGmVvVfqXC9aW1ilmIMsYNtDyW2xCIUX5WJMDblARw8=;
- b=DC+z/blDlBnbk0u476Xmwf2HJ3wz05fuqZ1W8woHsU/4Odf9txn+9qMI/9sMCkemo8/NyaIdT4m5atalyiUNvD/GR8A2qwpkTKKZ52BP/1/g2uXF/FxFZExPNB+dHEpBoXMPIzZfKi/yRNiSg25utuuiiYiMp45Z7un+1a5LXrM=
+ bh=nVZ8rFge6bNbG4lQdbguvKaDyYYtOn2T9lyT+8vv8dI=;
+ b=AoV+Zy+NSX7rwol0MzOe31DJjMvcQOQMVQk5tX8PJFvd6EBATQ7sBkvBPzpSPV8NzG7ZPeewkUx/4KRlEx15SwtAI8IhwObgcJUx1llEDJYic/matH2RS4EnwErtqueUyTmDJQcsuDMDXKr2WvFrCBsKz6QaIUfBj6Pu6LqjOB8=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Henry Wang <xin.wang2@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Henry Wang <xin.wang2@amd.com>, Anthony PERARD
-	<anthony.perard@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	Alec Kwapis <alec.kwapis@medtronic.com>
-Subject: [PATCH v3 4/4] xen/memory, tools: Avoid hardcoding GUEST_MAGIC_BASE in init-dom0less
-Date: Wed, 3 Apr 2024 16:16:26 +0800
-Message-ID: <20240403081626.375313-5-xin.wang2@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240403081626.375313-1-xin.wang2@amd.com>
-References: <20240403081626.375313-1-xin.wang2@amd.com>
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <5151abab-93a9-4b3f-8d69-c45e3cfc663c@amd.com>
+Date: Wed, 3 Apr 2024 12:11:57 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: xin.wang2@amd.com does not designate
- permitted sender hosts)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] xen/arm: Add i.MX UART early printk support
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Peng Fan <peng.fan@nxp.com>
+References: <20240402120557.1822253-1-olekstysh@gmail.com>
+ <20240402120557.1822253-2-olekstysh@gmail.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240402120557.1822253-2-olekstysh@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A4:EE_|PH8PR12MB6843:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5813296-4c82-4011-b348-08dc53b668bf
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099D4:EE_|DS0PR12MB7560:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91834826-8089-4094-0749-08dc53c6813a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	ttyDtU69rcLz8hpXDIA50TV/L3fIVrfK1lFCpjVBsOnfXgSYWAmDwI8092EWRQ4A4e0MFuglZWjzyhfxJOq2NB3dsreFZS4mvrFVy0hQ5HCi8tm5mlwstQfwRli6k9iB26l0+dvFJtuvlaDLG6MTlO4Lspd9p8TZBGFWctGBtQWypjNxP6rpXEtt+UkNKKBsGIyBMBgiC0pEP30LnqIcqYxLHANImOQU0JJG50R1Xn91Ka1QS6Jb7yKAO9OZAPnBPGdQV7Jl2CkXBAkIS5LvZEk0dyi2Jolznjy0usIm7NMUas4p4N/1Z4R18v0PvRpIsIef/N5Ge3It+5vUewviGe3HlVuB5mVG5LQkE9LNmnb8mJZx4GPAwPXb/HZ0AWMnotbrBtdrZ3aUpjuGcpxoHMdfDjZLp0Y0SwXulPlgqSIbFj9OpnsmZKVDcvxJqBdov6IWaC7KQnyjt6PbmS1E3MA+v2/e+vXxp9z4g0fuf0SugXsFBBbBdcoSHyJzsdG/dD9++SmJnYCRzYcQt3BFqks9ujA+3LGu1MR7m2SawbZ+PMipCLGGMtCeW/ie3icbjWyLg9rMtWoHGjcPV1DhyGRRBfxb8XLZ6ovBrkXpzsq6wjM5o89h/fXWjAG8mibsFzM+aIjFtMtGvsZHwj48CX6SxCsTyEHQ+Ild5Il4TRiLOBOJSMCEgOgVZmUMkQLSh+XLEmbR3U/WoNfh2i5Ig2+w7N9Pdh3ieuyha/KnqFbFvJx0oIjZPnTLrJGy5Ksa
+	ptiEoUyeHqFcwk3qgMvvsxzNm261w3Yrwo8uTpUx5nGLBNjrwoI6F6+Nbcl9Lfm4G8erBbjgFrgrOcujsrtj0cjRl2Nh5UEehNPCy6HoHiHPI+3rfTLGF6HjX1kK3+ycjrxUOC0RxgtQ00rh+EW6SNqyBZbsgTfmYTGRbhG5gt/xUbZWqp9jCC7CKz3O/NbsnkclgKuhzbFMnfOiWk7pIVj7rnJROwEoTy1TjuIcPWLhkfc2Dz/TlYWi6ITEP0KMJ6Ko8KeYrtGZCdiT9chvkLZxKOxPuQeN/mie4ASFhLplDS6mmHLcrU90akUxa5U7pgIbQDYvd/xUKqYkZ9I7h7NWPkVcdRMNzlpAQ9ciR6dhSDcWOZEvbNxX5SjJgjipIxp+4brv2qtKdTyThyzLNOqyc+8SYkwSSkVSF/pIxKrBcXDQR1dGMouO2b8YrHYsXA4GO5h+bESDaE6AQ9nqFELp6+QcpjvodJEREdMlpJ5ohdoBDX7Nig1FIDgBxLiK/Bl/CJbtOD7wAAvjnpjGX6mCBEp3p4l2H9+AzsRT0bJ9VNs0e2vEpw6gulwzZVa/bGXtdWO3J9N7VG8bvG1zCFIYSQnhMnyTvAM/O91UZtxI5dJF8oIh58OftS5uKE8mOUymHQ9oVa8CWr2VMmIplmxBH0hgPShHFrZQvLEUvLTWKOj0/VYC+mathBBakbeylJ4/AwrPyA1YWRiFeOwbMh160Jo8BlWuUQmojqG/+rYzHU2pZQha82H4rMr2mRum
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400014)(1800799015)(376005);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(1800799015)(82310400014)(376005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 08:16:48.3971
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 10:12:01.4117
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5813296-4c82-4011-b348-08dc53b668bf
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91834826-8089-4094-0749-08dc53c6813a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000252A4.namprd05.prod.outlook.com
+	DS3PEPF000099D4.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6843
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7560
 
-Currently the GUEST_MAGIC_BASE in the init-dom0less application is
-hardcoded, which will lead to failures for 1:1 direct-mapped Dom0less
-DomUs.
+Hi Oleksandr,
 
-Instead of hardcoding the guest magic pages region, use the
-XEN_DOMCTL_get_mem_map domctl to get the start address of the guest
-magic pages region. Add the (XEN)MEMF_force_heap_alloc memory
-flags to force populate_physmap() to allocate page from domheap
-instead of using 1:1 or static allocated pages to map the magic pages.
+On 02/04/2024 14:05, Oleksandr Tyshchenko wrote:
+> 
+> 
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> Tested on i.MX 8M Mini only, but I guess, it should be
+> suitable for other i.MX8M* SoCs (those UART device tree nodes
+> contain "fsl,imx6q-uart" compatible string).
+Please use imperative mood in commit msg. I would mention also that you are adding
+macros that will be used by the runtime driver.
 
-Reported-by: Alec Kwapis <alec.kwapis@medtronic.com>
-Signed-off-by: Henry Wang <xin.wang2@amd.com>
----
-v3:
-- Don't ignore the error from xc_get_domain_mem_map().
-- Re-purposing the _MEMF_no_refcount as _MEMF_force_heap_alloc to
-  avoid introduction of a new, single-use flag.
-- Reject other reservation sub-ops to use the newly added flag.
-- Replace all the GUEST_MAGIC_BASE usages.
-v2:
-- New patch
----
- tools/helpers/init-dom0less.c | 36 +++++++++++++++++++++++++----------
- xen/common/memory.c           | 22 +++++++++++++++++++--
- xen/include/public/memory.h   |  5 +++++
- xen/include/xen/mm.h          |  7 +++++++
- 4 files changed, 58 insertions(+), 12 deletions(-)
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+> I selected the following configs for enabling early printk:
+> 
+>  CONFIG_EARLY_UART_CHOICE_IMX_UART=y
+>  CONFIG_EARLY_UART_IMX_UART=y
+>  CONFIG_EARLY_PRINTK=y
+>  CONFIG_EARLY_UART_BASE_ADDRESS=0x30890000
+>  CONFIG_EARLY_PRINTK_INC="debug-imx-uart.inc"
+> ---
+> ---
+>  xen/arch/arm/Kconfig.debug            | 14 +++++
+>  xen/arch/arm/arm64/debug-imx-uart.inc | 38 ++++++++++++++
+>  xen/arch/arm/include/asm/imx-uart.h   | 76 +++++++++++++++++++++++++++
+>  3 files changed, 128 insertions(+)
+>  create mode 100644 xen/arch/arm/arm64/debug-imx-uart.inc
+>  create mode 100644 xen/arch/arm/include/asm/imx-uart.h
+> 
+> diff --git a/xen/arch/arm/Kconfig.debug b/xen/arch/arm/Kconfig.debug
+> index eec860e88e..a15d08f214 100644
+> --- a/xen/arch/arm/Kconfig.debug
+> +++ b/xen/arch/arm/Kconfig.debug
+> @@ -68,6 +68,16 @@ choice
+>                         provide the parameters for the i.MX LPUART rather than
+>                         selecting one of the platform specific options below if
+>                         you know the parameters for the port.
+> +       config EARLY_UART_CHOICE_IMX_UART
+> +               select EARLY_UART_IMX_UART
+> +               depends on ARM_64
+> +               bool "Early printk via i.MX UART"
+> +               help
+> +                       Say Y here if you wish the early printk to direct their
+Do not take example from surrounding code. help text should be indented by 2 tabs and 2 spaces here.
 
-diff --git a/tools/helpers/init-dom0less.c b/tools/helpers/init-dom0less.c
-index fee93459c4..8eec4d1f49 100644
---- a/tools/helpers/init-dom0less.c
-+++ b/tools/helpers/init-dom0less.c
-@@ -19,24 +19,43 @@
- #define XENSTORE_PFN_OFFSET 1
- #define STR_MAX_LENGTH 128
- 
-+static xen_pfn_t xs_page_base;
-+static xen_pfn_t xs_page_p2m;
-+
- static int alloc_xs_page(struct xc_interface_core *xch,
-                          libxl_dominfo *info,
-                          uint64_t *xenstore_pfn)
- {
--    int rc;
--    const xen_pfn_t base = GUEST_MAGIC_BASE >> XC_PAGE_SHIFT;
--    xen_pfn_t p2m = (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) + XENSTORE_PFN_OFFSET;
-+    int rc, i;
-+    uint32_t nr_regions = XEN_MAX_MEM_REGIONS;
-+    struct xen_mem_region mem_regions[XEN_MAX_MEM_REGIONS] = {0};
-+
-+    rc = xc_get_domain_mem_map(xch, info->domid, mem_regions, &nr_regions);
-+    if (rc < 0)
-+        return rc;
-+
-+    for ( i = 0; i < nr_regions; i++ )
-+    {
-+        if ( mem_regions[i].type == GUEST_MEM_REGION_MAGIC )
-+        {
-+            xs_page_base = mem_regions[i].start >> XC_PAGE_SHIFT;
-+            xs_page_p2m = (mem_regions[i].start >> XC_PAGE_SHIFT) +
-+                          XENSTORE_PFN_OFFSET;
-+        }
-+    }
- 
-     rc = xc_domain_setmaxmem(xch, info->domid,
-                              info->max_memkb + (XC_PAGE_SIZE/1024));
-     if (rc < 0)
-         return rc;
- 
--    rc = xc_domain_populate_physmap_exact(xch, info->domid, 1, 0, 0, &p2m);
-+    rc = xc_domain_populate_physmap_exact(xch, info->domid, 1, 0,
-+                                          XENMEMF_force_heap_alloc,
-+                                          &xs_page_p2m);
-     if (rc < 0)
-         return rc;
- 
--    *xenstore_pfn = base + XENSTORE_PFN_OFFSET;
-+    *xenstore_pfn = xs_page_base + XENSTORE_PFN_OFFSET;
-     rc = xc_clear_domain_page(xch, info->domid, *xenstore_pfn);
-     if (rc < 0)
-         return rc;
-@@ -145,8 +164,7 @@ static int create_xenstore(struct xs_handle *xsh,
-     rc = snprintf(target_memkb_str, STR_MAX_LENGTH, "%"PRIu64, info->current_memkb);
-     if (rc < 0 || rc >= STR_MAX_LENGTH)
-         return rc;
--    rc = snprintf(ring_ref_str, STR_MAX_LENGTH, "%lld",
--                  (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) + XENSTORE_PFN_OFFSET);
-+    rc = snprintf(ring_ref_str, STR_MAX_LENGTH, "%"PRIu_xen_pfn, xs_page_p2m);
-     if (rc < 0 || rc >= STR_MAX_LENGTH)
-         return rc;
-     rc = snprintf(xenstore_port_str, STR_MAX_LENGTH, "%u", xenstore_port);
-@@ -282,9 +300,7 @@ static int init_domain(struct xs_handle *xsh,
-     if (rc)
-         err(1, "writing to xenstore");
- 
--    rc = xs_introduce_domain(xsh, info->domid,
--            (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) + XENSTORE_PFN_OFFSET,
--            xenstore_evtchn);
-+    rc = xs_introduce_domain(xsh, info->domid, xs_page_p2m, xenstore_evtchn);
-     if (!rc)
-         err(1, "xs_introduce_domain");
-     return 0;
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index b3b05c2ec0..4f8c665870 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -219,7 +219,8 @@ static void populate_physmap(struct memop_args *a)
-         }
-         else
-         {
--            if ( is_domain_direct_mapped(d) )
-+            if ( is_domain_direct_mapped(d) &&
-+                 !(a->memflags & MEMF_force_heap_alloc) )
-             {
-                 mfn = _mfn(gpfn);
- 
-@@ -246,7 +247,8 @@ static void populate_physmap(struct memop_args *a)
- 
-                 mfn = _mfn(gpfn);
-             }
--            else if ( is_domain_using_staticmem(d) )
-+            else if ( is_domain_using_staticmem(d) &&
-+                      !(a->memflags & MEMF_force_heap_alloc) )
-             {
-                 /*
-                  * No easy way to guarantee the retrieved pages are contiguous,
-@@ -271,6 +273,14 @@ static void populate_physmap(struct memop_args *a)
-             }
-             else
-             {
-+                /*
-+                 * Avoid passing MEMF_force_heap_alloc down to
-+                 * alloc_domheap_pages() where the meaning would be the
-+                 * original MEMF_no_refcount.
-+                 */
-+                if ( unlikely(a->memflags & MEMF_force_heap_alloc) )
-+                    clear_bit(_MEMF_force_heap_alloc, &a->memflags);
-+
-                 page = alloc_domheap_pages(d, a->extent_order, a->memflags);
- 
-                 if ( unlikely(!page) )
-@@ -1408,6 +1418,10 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-         if ( copy_from_guest(&reservation, arg, 1) )
-             return start_extent;
- 
-+        if ( op != XENMEM_populate_physmap
-+             && (reservation.mem_flags & XENMEMF_force_heap_alloc) )
-+            return -EINVAL;
-+
-         /* Is size too large for us to encode a continuation? */
-         if ( reservation.nr_extents > (UINT_MAX >> MEMOP_EXTENT_SHIFT) )
-             return start_extent;
-@@ -1433,6 +1447,10 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-              && (reservation.mem_flags & XENMEMF_populate_on_demand) )
-             args.memflags |= MEMF_populate_on_demand;
- 
-+        if ( op == XENMEM_populate_physmap
-+             && (reservation.mem_flags & XENMEMF_force_heap_alloc) )
-+            args.memflags |= MEMF_force_heap_alloc;
-+
-         if ( xsm_memory_adjust_reservation(XSM_TARGET, curr_d, d) )
-         {
-             rcu_unlock_domain(d);
-diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
-index 5e545ae9a4..2a1bfa5bfa 100644
---- a/xen/include/public/memory.h
-+++ b/xen/include/public/memory.h
-@@ -41,6 +41,11 @@
- #define XENMEMF_exact_node(n) (XENMEMF_node(n) | XENMEMF_exact_node_request)
- /* Flag to indicate the node specified is virtual node */
- #define XENMEMF_vnode  (1<<18)
-+/*
-+ * Flag to force populate physmap to use pages from domheap instead of 1:1
-+ * or static allocation.
-+ */
-+#define XENMEMF_force_heap_alloc  (1<<19)
- #endif
- 
- struct xen_memory_reservation {
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index 3e84960a36..0f65d84532 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -192,6 +192,13 @@ struct npfec {
- /* memflags: */
- #define _MEMF_no_refcount 0
- #define  MEMF_no_refcount (1U<<_MEMF_no_refcount)
-+/*
-+ * Alias of _MEMF_no_refcount to avoid introduction of a new, single-use flag.
-+ * This flag should be used for populate_physmap() only as a re-purposing of
-+ * _MEMF_no_refcount to force a non-1:1 allocation from domheap.
-+ */
-+#define _MEMF_force_heap_alloc _MEMF_no_refcount
-+#define  MEMF_force_heap_alloc (1U<<_MEMF_force_heap_alloc)
- #define _MEMF_populate_on_demand 1
- #define  MEMF_populate_on_demand (1U<<_MEMF_populate_on_demand)
- #define _MEMF_no_dma      3
--- 
-2.34.1
+> +                       output to a i.MX UART. You can use this option to
+> +                       provide the parameters for the i.MX UART rather than
+> +                       selecting one of the platform specific options below if
+> +                       you know the parameters for the port.
+>         config EARLY_UART_CHOICE_MESON
+>                 select EARLY_UART_MESON
+>                 depends on ARM_64
+> @@ -199,6 +209,9 @@ config EARLY_UART_EXYNOS4210
+>  config EARLY_UART_IMX_LPUART
+>         select EARLY_PRINTK
+>         bool
+> +config EARLY_UART_IMX_UART
+> +       select EARLY_PRINTK
+> +       bool
+>  config EARLY_UART_MESON
+>         select EARLY_PRINTK
+>         bool
+> @@ -304,6 +317,7 @@ config EARLY_PRINTK_INC
+>         default "debug-cadence.inc" if EARLY_UART_CADENCE
+>         default "debug-exynos4210.inc" if EARLY_UART_EXYNOS4210
+>         default "debug-imx-lpuart.inc" if EARLY_UART_IMX_LPUART
+> +       default "debug-imx-uart.inc" if EARLY_UART_IMX_UART
+>         default "debug-meson.inc" if EARLY_UART_MESON
+>         default "debug-mvebu.inc" if EARLY_UART_MVEBU
+>         default "debug-pl011.inc" if EARLY_UART_PL011
+> diff --git a/xen/arch/arm/arm64/debug-imx-uart.inc b/xen/arch/arm/arm64/debug-imx-uart.inc
+> new file mode 100644
+> index 0000000000..27a68b1ed5
+> --- /dev/null
+> +++ b/xen/arch/arm/arm64/debug-imx-uart.inc
+> @@ -0,0 +1,38 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * xen/arch/arm/arm64/debug-imx-uart.inc
+> + *
+> + * i.MX8M* specific debug code
+> + *
+> + * Copyright (C) 2024 EPAM Systems Inc.
+> + */
+> +
+> +#include <asm/imx-uart.h>
+> +
+> +/*
+> + * Wait UART to be ready to transmit
+> + * rb: register which contains the UART base address
+> + * rc: scratch register
+> + */
+> +.macro early_uart_ready xb, c
+> +1:
+> +        ldr   w\c, [\xb, #IMX21_UTS] /* <- Test register */
+> +        tst   w\c, #UTS_TXFULL       /* Check TxFIFO FULL bit */
+> +        bne   1b                     /* Wait for the UART to be ready */
+> +.endm
+> +
+> +/*
+> + * UART transmit character
+> + * rb: register which contains the UART base address
+> + * rt: register which contains the character to transmit
+> + */
+> +.macro early_uart_transmit xb, wt
+> +        str   \wt, [\xb, #URTX0] /* -> Transmitter Register */
+> +.endm
+> +
+> +/*
+> + * Local variables:
+> + * mode: ASM
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/include/asm/imx-uart.h b/xen/arch/arm/include/asm/imx-uart.h
+> new file mode 100644
+> index 0000000000..413a81dd44
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/imx-uart.h
+> @@ -0,0 +1,76 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * xen/arch/arm/include/asm/imx-uart.h
+> + *
+> + * Common constant definition between early printk and the UART driver
+> + *
+> + * Copyright (C) 2024 EPAM Systems Inc.
+> + */
+> +
+> +#ifndef __ASM_ARM_IMX_UART_H__
+> +#define __ASM_ARM_IMX_UART_H__
+> +
+> +/* 32-bit register definition */
+> +#define URXD0        (0x00) /* Receiver Register */
+There is no need to surround these values
 
+> +#define URTX0        (0x40) /* Transmitter Register */
+> +#define UCR1         (0x80) /* Control Register 1 */
+> +#define UCR2         (0x84) /* Control Register 2 */
+> +#define UCR3         (0x88) /* Control Register 3 */
+
+> +#define UCR4         (0x8c) /* Control Register 4 */
+> +#define UFCR         (0x90) /* FIFO Control Register */
+> +#define USR1         (0x94) /* Status Register 1 */
+> +#define USR2         (0x98) /* Status Register 2 */
+> +#define IMX21_UTS    (0xb4) /* Test Register */
+> +
+> +#define URXD_ERR        BIT(14, UL) /* Error detect */
+> +#define URXD_RX_DATA    GENMASK(7, 0) /* Received data mask */
+> +
+> +#define UCR1_TRDYEN      BIT(13, UL) /* Transmitter ready interrupt enable */
+> +#define UCR1_RRDYEN      BIT(9, UL) /* Receiver ready interrupt enable */
+NIT: please align comments within a block
+
+Other than that:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+
+~Michal
 
