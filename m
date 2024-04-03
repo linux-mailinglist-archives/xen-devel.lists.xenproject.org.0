@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 279508964F8
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 08:53:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700317.1093262 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95EE9896505
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 08:55:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700319.1093271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rruUr-0002zV-RL; Wed, 03 Apr 2024 06:53:21 +0000
+	id 1rruX6-0003YS-6X; Wed, 03 Apr 2024 06:55:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700317.1093262; Wed, 03 Apr 2024 06:53:21 +0000
+Received: by outflank-mailman (output) from mailman id 700319.1093271; Wed, 03 Apr 2024 06:55:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rruUr-0002ws-O5; Wed, 03 Apr 2024 06:53:21 +0000
-Received: by outflank-mailman (input) for mailman id 700317;
- Wed, 03 Apr 2024 06:53:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rruX6-0003W4-3n; Wed, 03 Apr 2024 06:55:40 +0000
+Received: by outflank-mailman (input) for mailman id 700319;
+ Wed, 03 Apr 2024 06:55:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rruUq-0002wi-Aq
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 06:53:20 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d9faaa7e-f186-11ee-a1ef-f123f15fe8a2;
- Wed, 03 Apr 2024 08:53:18 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-4155819f710so30955395e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 23:53:18 -0700 (PDT)
+ id 1rruX4-0003Vu-P8
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 06:55:38 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2d28f4fc-f187-11ee-afe5-a90da7624cb6;
+ Wed, 03 Apr 2024 08:55:37 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-416244fd0a2so1080165e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Apr 2024 23:55:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p18-20020a05600c359200b0041543b57ca2sm20552871wmq.21.2024.04.02.23.53.17
+ h17-20020a05600c351100b00414854cd257sm20410530wmq.20.2024.04.02.23.55.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 23:53:17 -0700 (PDT)
+ Tue, 02 Apr 2024 23:55:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9faaa7e-f186-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 2d28f4fc-f187-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712127197; x=1712731997; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712127337; x=1712732137; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=eU4Kvxa6S2lNftq7OIqQb8wRacONrsh7tQKm0bDHwbE=;
-        b=NW9HaT3qwWnFm1vNaorcIGmK6baMD+BEhPeYhXpRlFX6t8eQuCk61mDkLneYTV5GFV
-         HhCV1R8XeaUKTV+5JVbAmUNWg5pQkX+kXSRKfaodRPd60wgd7W0S9xn6ha6SRDb13zE6
-         dEXnfxu+cn0J0GbDjxg8ORoGrs137PZtdK0VcigTzHymu7/2gEFsbFN9a4Jz5z3vwAN9
-         /RfdhAgYzGaxBv/V9oU0d1hthRWXEkTIBg1ZZLa+GVdsLPA9mljK6uOY/2VmFw2vWNKC
-         amkRmwvUYNhm5QVmHAO/bq8Nv8oreHsfpjduGFFtJFkSeFHAaDzBBPpSLj/oZXPdhfBP
-         Mw+Q==
+        bh=5Kef/d3tMIbcZQaqRN6AzbgcCviyUkbCX4ke4qqzSIc=;
+        b=f0KehkuotzasUFLn0DS2OoBAKCXZiOj/IFSsfk1EKsPwuTHlcH36f+e93myEMK/MpH
+         6Jr/LYId2pl77EA70NpwwyKbbOxQhouZ24HjgvJ4wRYXVA4mPvmvfdXKJlWKMSOlI1c6
+         f3XSd8To6Cz7rsLQ1rygef7aPivh2BsoHxGdwX6LEzFrRdjahifpAfL2MAzMcLOWstSg
+         mxvTy7dF4Huo4p2luNlAFkogOjhicDCcy3ANPZqmamROLzjpH1GhhOdgf2noh/7n6npi
+         PBClEwc4PeQIyWCxb6qIMpxSzpcQwbtLhX9oYqy++DUG5dHde1Fvdo1tRRTLqf+m7Eu5
+         4spg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712127197; x=1712731997;
+        d=1e100.net; s=20230601; t=1712127337; x=1712732137;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eU4Kvxa6S2lNftq7OIqQb8wRacONrsh7tQKm0bDHwbE=;
-        b=xGety241hQp1d+SY9EWtHx0WdG7L8nTJiiwqpOWR0EH75r30hSzxnwiKaqAyvGwk20
-         6YkR8sQZwxpeOPkDruCUiRDT/TPBAdr/Bzuro17m4PStJ6dJlnlI2w3WkC/GM/1xly7+
-         BFkcGK21oidilcvFRbacMKZAmvKOiqT399LSJfrc1f95EnI48X54Khjm979krKmdJWUE
-         fMpwZLdjk5Gy2RVytGhgqB0JrNVxJ09rU7sKLOn2DpqFCOtBQqQ4HQE3zHRb4cvK9wad
-         7vfc/yEJQsIsFgrDN+ZRKAPvPQ8iDPbIhSu60a0zZJRYlxDF9acfELk5e0XYRy3Ib9Kg
-         lCMg==
-X-Forwarded-Encrypted: i=1; AJvYcCUXygelt99krXUl2n2pZor+SeIYDEteAakAa+N4+ND3aCOcYUT7zIE8EKA8mn25qtqHYPd4c1FHN+/DAV48yHbwrvS3An0m+HXpNRaagrY=
-X-Gm-Message-State: AOJu0Yy0lwJtMJjP8HCYfWdixapvm7j2n+Nm2J6Wti44LF4QLT7Vk5XE
-	1/qwiera2fvzH10huPk6wDXh0/XrdGmazKj9EUR8zslrKwrDEhq4fAiF4Gi/Zg==
-X-Google-Smtp-Source: AGHT+IFetfrdk6iobUzCIgBTV3irAHyOpG8VlWQElRZK8Csygfa8o5fD6xypuvqGizwBBvU79LBb4g==
-X-Received: by 2002:a05:600c:1c1f:b0:415:6ad6:cc27 with SMTP id j31-20020a05600c1c1f00b004156ad6cc27mr5178778wms.24.1712127197680;
-        Tue, 02 Apr 2024 23:53:17 -0700 (PDT)
-Message-ID: <c6a89dfa-933e-4e90-a951-ebfba26b428f@suse.com>
-Date: Wed, 3 Apr 2024 08:53:17 +0200
+        bh=5Kef/d3tMIbcZQaqRN6AzbgcCviyUkbCX4ke4qqzSIc=;
+        b=d/GyDeX9OSE1en/lXmwvP5YbpP90jgmH0mOk2QdJmYKljy6/2R8WisQov+JFbKbzXw
+         L9vpSY4CNcg+r2qGYuf4PPnE3hIMXpgBu/wEjY7cgTgeYVXhXp/q2Apr8gKfRF7iQfrR
+         tZztpWg4ldii5ZM8tXRzZwHDBMrh+/Rg+k2bJJnNsR8RnxyaIvLn81l+uiclXmGhsUyX
+         6v0XBfEu9BtGoAa6hqgJikJAJMlhhkhiJcWif5SJ7qPFJQZMhO0bfjOt2nDSn7aeyJkI
+         O3lKta2WoJddjik4pLYjImHYoLXrVCTn5Tll46Mz+V64QZ44VTvOiVj8MN28W0ZfZJsO
+         +p8w==
+X-Forwarded-Encrypted: i=1; AJvYcCUxird7xH07M97Xptp6uw8Kax9+oe/bjvTGwelyK8E0+zo2N2TMpNoJpCeq4PUMZQ1DtQ+sNL/yVmx//g0v2BCOn8ggpH8FcJjfcRX3Ej8=
+X-Gm-Message-State: AOJu0YykeFULB12DX9qC2ct1CdpC9CQ8Bp9e9c7eu4S1cQDAa1QqJf2T
+	8TW722ySmK3lH6HwH//n+GjrK3ZP7rU0c1Q1bTj6X3qQqAAPBQrd0SkoAEFcNA==
+X-Google-Smtp-Source: AGHT+IEcshKCY25LvoJYWJoy2COt3N751HM4Xub5+mW332oT1SIxTF3n+Ez06VcBA/UaWi0kzWp44w==
+X-Received: by 2002:a05:600c:1f85:b0:414:5ec3:8fcb with SMTP id je5-20020a05600c1f8500b004145ec38fcbmr12145074wmb.23.1712127337403;
+        Tue, 02 Apr 2024 23:55:37 -0700 (PDT)
+Message-ID: <4fa4c9e5-4948-4636-a58a-1a21a076d47f@suse.com>
+Date: Wed, 3 Apr 2024 08:55:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 4/7] xen/evtchn: address a violation of MISRA C:2012
+Subject: Re: [XEN PATCH 5/7] xen/sched: address a violation of MISRA C:2012
  Rule 16.3
 Content-Language: en-US
 To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, George Dunlap <george.dunlap@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
 References: <cover.1712042178.git.federico.serafini@bugseng.com>
- <98c4197ab3bcf82d0055836cf950f1268dbcc91c.1712042178.git.federico.serafini@bugseng.com>
+ <dcb134b4094104632b05270f01accebcf7c04c4e.1712042178.git.federico.serafini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,7 +112,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <98c4197ab3bcf82d0055836cf950f1268dbcc91c.1712042178.git.federico.serafini@bugseng.com>
+In-Reply-To: <dcb134b4094104632b05270f01accebcf7c04c4e.1712042178.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -128,5 +127,9 @@ On 02.04.2024 09:22, Federico Serafini wrote:
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
+However, this is the 2nd patch in this series with exactly the same title.
+Going just from titles, one option would be to fold both. The other option
+would be to change the title prefix of patch 3 to "xen/credit2:".
 
+Jan
 
