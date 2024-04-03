@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0EB389682E
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 10:17:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700366.1093408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5156896831
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Apr 2024 10:17:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700367.1093418 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrvnd-0004JZ-2t; Wed, 03 Apr 2024 08:16:49 +0000
+	id 1rrvnh-0004eu-DN; Wed, 03 Apr 2024 08:16:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700366.1093408; Wed, 03 Apr 2024 08:16:49 +0000
+Received: by outflank-mailman (output) from mailman id 700367.1093418; Wed, 03 Apr 2024 08:16:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rrvnc-0004Gc-U6; Wed, 03 Apr 2024 08:16:48 +0000
-Received: by outflank-mailman (input) for mailman id 700366;
- Wed, 03 Apr 2024 08:16:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rrvnh-0004df-92; Wed, 03 Apr 2024 08:16:53 +0000
+Received: by outflank-mailman (input) for mailman id 700367;
+ Wed, 03 Apr 2024 08:16:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pmYG=LI=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1rrvnb-0003T4-Jd
- for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 08:16:47 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20601.outbound.protection.outlook.com
- [2a01:111:f403:2416::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 82a1d1de-f192-11ee-afe5-a90da7624cb6;
- Wed, 03 Apr 2024 10:16:46 +0200 (CEST)
-Received: from BL1PR13CA0337.namprd13.prod.outlook.com (2603:10b6:208:2c6::12)
- by SJ0PR12MB5635.namprd12.prod.outlook.com (2603:10b6:a03:42a::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ id 1rrvnf-0003ko-Bx
+ for xen-devel@lists.xenproject.org; Wed, 03 Apr 2024 08:16:51 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:200a::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 843ab91d-f192-11ee-a1ef-f123f15fe8a2;
+ Wed, 03 Apr 2024 10:16:49 +0200 (CEST)
+Received: from SA1PR05CA0005.namprd05.prod.outlook.com (2603:10b6:806:2d2::7)
+ by DM4PR12MB6613.namprd12.prod.outlook.com (2603:10b6:8:b8::21) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 3 Apr
- 2024 08:16:43 +0000
-Received: from MN1PEPF0000ECD4.namprd02.prod.outlook.com
- (2603:10b6:208:2c6:cafe::f4) by BL1PR13CA0337.outlook.office365.com
- (2603:10b6:208:2c6::12) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 08:16:46 +0000
+Received: from SN1PEPF0002529D.namprd05.prod.outlook.com
+ (2603:10b6:806:2d2:cafe::6e) by SA1PR05CA0005.outlook.office365.com
+ (2603:10b6:806:2d2::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.26 via Frontend
- Transport; Wed, 3 Apr 2024 08:16:42 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD4.mail.protection.outlook.com (10.167.242.132) with Microsoft
+ Transport; Wed, 3 Apr 2024 08:16:45 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SN1PEPF0002529D.mail.protection.outlook.com (10.167.242.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Wed, 3 Apr 2024 08:16:42 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7452.22 via Frontend Transport; Wed, 3 Apr 2024 08:16:45 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Apr
- 2024 03:16:41 -0500
+ 2024 03:16:44 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Apr
- 2024 03:16:41 -0500
+ 2024 03:16:43 -0500
 Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 3 Apr 2024 03:16:38 -0500
+ Transport; Wed, 3 Apr 2024 03:16:42 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,37 +63,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82a1d1de-f192-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 843ab91d-f192-11ee-a1ef-f123f15fe8a2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dah/sfWZuczEgbktwmaDgkik7ZDifEcYoxpkHZmlesS1fyvtRl1kUTQieJCbuJcN2ZGhtTMtqEUDuerA+oRYe43WbvCYA4Q/KzpJkW6ku/AFAx/3ILzaLP1QMc6y7c5NbuCSH8NDEIYbfJGo987jbBMrYwqJZ+M8wXRfEMXVaRA0faIwmz35lb+ldDP/yU/UvbR2nWakwWUk15LHoi8k1J2ByTHjz4kVX0AV7RlKZ8pSS8UpXMhzY/bBKB4cw2+ki+HQMoiG0e46a/zqUFgwgFd73iP7jwRRvrPdFlKDX+71LN2pNv1HoH3F9gULecndu1lKEyAAp+ElcENVOVzfKA==
+ b=LULCcn6+rOC2LNUuUCyXxHMIkQd25SZuqUtg5aACubRfFayhCq+1BcfG1rufZBZ4d4Yb15bdn3Put5UW4g9FKMXdUVlS/g7fK3xIU6xXBHWYCOZsDxrXc9M8/OoWyhkXwOIdYDCQdefOn5QVZFpLDV3ogW9cIQtu0h3anlINzvp0+RTFnIrWySge+/EFgIu1Z6INCojaU3NemqOMFNwWPU+uxI7IhSUAa+W17v+c05inRdKur4XliU7hiaORA30pZW7LbPCGUiBK7J2XX7L0lkMJwVacD5uFDk4wpEvW3TbP8OwPNwlFE4/nHnk5qqzSCnrI0jOYNtFEZ0IrYmb27A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jrt2TDWyGFwLDPyE7dfhD/sOOfaMOtdFsjXTWYKEeiE=;
- b=CldmWVyEqIz1m0w/TWZLovaRI40mn7hLJL/dVsODPTB007WZtzFDXKSyysBNYpdJhi2RmFwi9rCK665ZhiYZRTSXK2StpyF9H6WwBcDQm/CwnMsgxnEVN/RGUGfY7+onNH7JKIxrjuVBexcJhjmS6YmzpIxFi3JbgiKH8vH9/jkUvSKR3E8m02gCpZSc5RnadFaSK+IOc/ppdoAx4dVmgeKl/pwTUJI78nfgX+UQhEBdLIPYszoILQBYqyFzUVvlVakNrsJuMvVYf8L2yzYPZpAKv8gPTGK8d2nJEHCFald8+LRfAA7A1Oey0MWJmNj2lbGp5uVlcEbItdC3c6nqQg==
+ bh=mNRwPpFg2SQ6Km3yJhJpLVDrBZXI0Pb6KKElu/5Go2U=;
+ b=kbL89FLmbWi/psSO71FsPgXAYZzSl471qK7X+nanSqg4diY5JdqLjwONlIHynKHzX9VqNp3k1NO38V189XI74SnXU4euFd/WhBXygfF32S7hHZjuKJ8tqQ1CjQGXJVAR/1rSSbTf4rD0nWrGYvl8wWeuLa2xW+8zLNW2x0dVAnX917kP9HDrvA2NBdzLVOueeB/jx9oKJJZpE7Xj33A6t3hsKDojaDouzzLxWkSFRQ6r2mT+0d1GvoxD/Kd6Td0lnsgENiPfyzyDVr2YMnqMRV/WlZTFc3EU7CEKeP9b3j6p0cN4q5nmZNYweCbW6FEcMry1cFKkuxHTYGnxOlJZTA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jrt2TDWyGFwLDPyE7dfhD/sOOfaMOtdFsjXTWYKEeiE=;
- b=uQWymbalgITxZ/XcJYTSKy0b1baJkqOBt4YMN+RZNe7wuuhh7lA/82wb8TtWfO8cRROAz2iyf53QNvTbcCezIPusN1xFMSD3wetY+xEqwXxIwBIKkju3TGPOMLQ2owD5jnWjxwYcMWJAPEeyiIQz0Iuv4vCVidBN1j7/HoLto9c=
+ bh=mNRwPpFg2SQ6Km3yJhJpLVDrBZXI0Pb6KKElu/5Go2U=;
+ b=vYCVn7ddgi+97r35aIcQhaEtfnLBUhJ3M0+nPnI0S67fvi0YlQ1/dsFkKh6dZY8mA/6KiIISVjnkzXpPK3oXOflDBwSYLtP2FX2RwoosgbSlWxMw9GUAp+kK3hehJ6tXCDdMr2jcpZXsx7eWJzII7uzL3tFiL4LwTxbEFv7jf80=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Henry Wang <xin.wang2@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Henry Wang <xin.wang2@amd.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3 2/4] xen/arm: Generalize the extended region finding logic
-Date: Wed, 3 Apr 2024 16:16:24 +0800
-Message-ID: <20240403081626.375313-3-xin.wang2@amd.com>
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Alec Kwapis
+	<alec.kwapis@medtronic.com>
+Subject: [PATCH v3 3/4] xen/arm: Find unallocated spaces for magic pages of direct-mapped domU
+Date: Wed, 3 Apr 2024 16:16:25 +0800
+Message-ID: <20240403081626.375313-4-xin.wang2@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240403081626.375313-1-xin.wang2@amd.com>
 References: <20240403081626.375313-1-xin.wang2@amd.com>
@@ -102,297 +103,213 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|SJ0PR12MB5635:EE_
-X-MS-Office365-Filtering-Correlation-Id: f56ff361-841a-4055-3e57-08dc53b66522
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002529D:EE_|DM4PR12MB6613:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3f45a89-4027-4002-732a-08dc53b666f1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	qQbGXEOf5PEgz9iLiOFr0OcIDqstKoZ87ytRQbDGXN8qtd74NDOrPbgpaKvLYqmfbrIIdPlE1dcoa1Mur877fCB2drQKvuI/t+WAEe70eluGGCxhVg2OQWqYoa4NokI5axq9IexZdZdna26MgoslJC4QZr6tc4VuVC+DGLnGAZpGGZuWMnGGUUwuimpidArDr0nyXXry8LZ4fSgibEHCzdHBY+Imy/M/pwNX5TeRKObl4dqpK3HCMpUVZyFH6Fk7oBulk4nLU3L991bK86yP2pmAdTstuy0EF8d0pITAjjuucNwsstszpUiELoR+dRtv/nHUL4PEH922fVaDP4aRMNERfe6S2YFSdteSkJ4kgpHsKKoXzleHwDjXGVgGW0Tpe5fyEZgE46VZ88cKOtOLbRFNozj6uA54FvA0zus1O5QP7LABOMo3HUPiyA6OoId2F/OdBy2dCcfUk6sjVkhYC1a0R5WeLLVE4QbmCrTytYgJ/3IRcPD5U8mwEg5qLQuBg8FtIgC2x0Ha3U5mMG7fAn4ib2qiNUKOM715JYpATHbcQpQpe0onMb5ahjpzUoZ7InDuVjXIgaqK5I5MXkw8nUT3jqLLxCuJ/OJ+xYa8KKMQWDc1lkSqPCynU/dQY+7ZwmSVDhHV3FBcOtQpbP9lgY1MQw0y8raDMhN1Pe1vLMWx6FuBvQPly5Q5TEbU0eNxZiT+zrcTQcmNMLE2IpGO/ih51s2lRCzOofqayjW5vsKB/YAkTwvotFAC3LZjTLwZ
+	DHesczFa3ek0GFUg+G97mwupe7oF9Y5HXrk9b1BhNB0ujKdpbs0zcjnDIaaJa5pxD9BSkEs1tGwo//XJ2g0rAcxtaMBqWvJWO0g65JqEC662san9nWXRnsyWGHDwHTslPsR2RW0sa2AOPTaU9REMF6k78Xeu0ujU3T3hhv1VBiZRE5+XXV2Y3E5WQ99Am7Q6qceFe3GjNNXrM3k7mtHdqcwHd5eOfLeYbjNF/J6vdXOy0IfAE5RCiHa8+HPrAXy+s4c1Nf+Sp48sWSB6dKgJuAfNcwkyhwhgMeRTNAvIf+2qpk+/O2l6YBkW7hzoOtXmZOsPBlg+1998wzV8hI89L/2Aib91pf6vxqmn7bkeePTIW1PoaW9ylIZEPUKADrBfOemw0PE/pZiwv/ALLdoKLNMELUTNjEwUUDqHzB5xwF3GuCwhoWG1bsr7zxb2Y8/+Cf3l5xy+4ulRmSMBtIA+bplGClnmQPJO5s8XGFpvhwZ0iviFcgfarn7wVauYCWqk32MGNqqhL+CxLTuR+E06DoVdqmlodyZVzybeXEPYGZTeKk54WAVIcWfRX7rjk4nCNhRK9MNfhsk0SCWnWWIZ29yhyjzRKP9ofhLi4IaGTXLl8J3YQYVOVTgkpP4OHNwMWztcdvuoJ2XMbwAijTank53H2zKStwPTo1fns1+pWQ/Y07nY7zf/uL5VO2nl4UvuG7rFt+lw7HDEE/wVWu7ObB7oIXlXd0wCk38iAPElS6LPCrzsLixRoGt6h1pFOe90
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(36860700004)(376005)(1800799015);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400014)(376005)(1800799015);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 08:16:42.3632
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 08:16:45.3833
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f56ff361-841a-4055-3e57-08dc53b66522
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3f45a89-4027-4002-732a-08dc53b666f1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD4.namprd02.prod.outlook.com
+	SN1PEPF0002529D.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5635
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6613
 
-Recently there are needs to find unallocated/used memory regions
-for different use cases at boot time, and the logic of finding
-extended regions can be reused for some of the new use cases.
+For 1:1 direct-mapped dom0less DomUs, the magic pages should not clash
+with any RAM region. To find a proper region for guest magic pages,
+we can reuse the logic of finding domain extended regions.
 
-This commit therefore generalize the extended region finding logic.
-Firstly, extract the extended region finding logic to a dedicated
-helper find_unused_regions(). Then add and pass down a `min_region_size`
-parameter so that the helpers can take a flexible region size
-instead of the hardcoded 64MB for extended region. Finally, adjust
-the variable and function names to make them general instead of for
-extended region only.
+If the extended region is enabled, since the extended region banks are
+at least 64MB, carve out the first 16MB from the first extended region
+bank for magic pages of direct-mapped domU. If the extended region is
+disabled, call the newly introduced helper find_11_domU_magic_region()
+to find a GUEST_MAGIC_SIZE sized unused region.
 
-Take the opportunity to update the stale in-code comment of
-find_unallocated_memory() and find_memory_holes().
-
+Reported-by: Alec Kwapis <alec.kwapis@medtronic.com>
 Signed-off-by: Henry Wang <xin.wang2@amd.com>
 ---
 v3:
+- Extract the logic of finding unallocated spaces for magic pages of
+  direct-mapped domU to a dedicated function in static-memory.c
+- Properly handle error and free memory in find_11_domU_magic_region()
+v2:
 - New patch
 ---
- xen/arch/arm/domain_build.c             | 107 ++++++++++++++----------
- xen/arch/arm/include/asm/domain_build.h |   2 +
- xen/arch/arm/include/asm/setup.h        |   5 ++
- 3 files changed, 70 insertions(+), 44 deletions(-)
+ xen/arch/arm/dom0less-build.c            | 11 +++++++
+ xen/arch/arm/domain_build.c              | 24 ++++++++++++++-
+ xen/arch/arm/include/asm/domain_build.h  |  2 ++
+ xen/arch/arm/include/asm/static-memory.h |  7 +++++
+ xen/arch/arm/static-memory.c             | 39 ++++++++++++++++++++++++
+ 5 files changed, 82 insertions(+), 1 deletion(-)
 
+diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+index fb63ec6fd1..1963f029fe 100644
+--- a/xen/arch/arm/dom0less-build.c
++++ b/xen/arch/arm/dom0less-build.c
+@@ -682,6 +682,17 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+ 
+     if ( kinfo->dom0less_feature & DOM0LESS_ENHANCED_NO_XS )
+     {
++        /*
++         * Find the guest magic region for 1:1 dom0less domU when the extended
++         * region is not enabled.
++         */
++        if ( !opt_ext_regions || is_32bit_domain(d) )
++        {
++            ret = find_11_domU_magic_region(d, kinfo);
++            if ( ret )
++                goto err;
++        }
++
+         ret = make_hypervisor_node(d, kinfo, addrcells, sizecells);
+         if ( ret )
+             goto err;
 diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 085d88671e..d2a9c047ea 100644
+index d2a9c047ea..a5d1ca7f73 100644
 --- a/xen/arch/arm/domain_build.c
 +++ b/xen/arch/arm/domain_build.c
-@@ -814,19 +814,21 @@ int __init make_memory_node(const struct domain *d,
-     return res;
- }
- 
--static int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
--                                  void *data)
-+static int __init add_regions(unsigned long s_gfn, unsigned long e_gfn,
-+                              void *data)
- {
--    struct meminfo *ext_regions = data;
-+    struct mem_unused_info *unused = data;
-+    struct meminfo *regions = unused->regions;
-+    paddr_t min_region_size = unused->min_region_size;
-     paddr_t start, size;
-     paddr_t s = pfn_to_paddr(s_gfn);
-     paddr_t e = pfn_to_paddr(e_gfn);
- 
--    if ( ext_regions->nr_banks >= ARRAY_SIZE(ext_regions->bank) )
-+    if ( regions->nr_banks >= ARRAY_SIZE(regions->bank) )
-         return 0;
- 
-     /*
--     * Both start and size of the extended region should be 2MB aligned to
-+     * Both start and size of the region should be 2MB aligned to
-      * potentially allow superpage mapping.
-      */
-     start = (s + SZ_2M - 1) & ~(SZ_2M - 1);
-@@ -845,26 +847,27 @@ static int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
-      * not quite useful but increase bookkeeping and not too large
-      * to skip a large proportion of unused address space.
-      */
--    if ( size < MB(64) )
-+    if ( size < min_region_size )
-         return 0;
- 
--    ext_regions->bank[ext_regions->nr_banks].start = start;
--    ext_regions->bank[ext_regions->nr_banks].size = size;
--    ext_regions->nr_banks++;
-+    regions->bank[regions->nr_banks].start = start;
-+    regions->bank[regions->nr_banks].size = size;
-+    regions->nr_banks++;
- 
-     return 0;
- }
- 
- /*
-- * Find unused regions of Host address space which can be exposed to Dom0
-- * as extended regions for the special memory mappings. In order to calculate
-- * regions we exclude every region assigned to Dom0 from the Host RAM:
-+ * Find unused regions of Host address space which can be exposed to
-+ * direct-mapped domains as regions for the special memory mappings.
-+ * In order to calculate regions we exclude every region assigned to
-+ * direct-mapped domains from the Host RAM:
-  * - domain RAM
-  * - reserved-memory
-  * - grant table space
+@@ -46,7 +46,7 @@ integer_param("dom0_max_vcpus", opt_dom0_max_vcpus);
+  * If true, the extended regions support is enabled for dom0 and
+  * dom0less domUs.
   */
- static int __init find_unallocated_memory(const struct kernel_info *kinfo,
--                                          struct meminfo *ext_regions)
-+                                          struct mem_unused_info *unused)
- {
-     const struct meminfo *assign_mem = &kinfo->mem;
-     struct rangeset *unalloc_mem;
-@@ -893,7 +896,7 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
-         }
-     }
+-static bool __initdata opt_ext_regions = true;
++bool __initdata opt_ext_regions = true;
+ boolean_param("ext_regions", opt_ext_regions);
  
--    /* Remove RAM assigned to Dom0 */
-+    /* Remove RAM assigned to domain */
-     for ( i = 0; i < assign_mem->nr_banks; i++ )
-     {
-         start = assign_mem->bank[i].start;
-@@ -942,10 +945,10 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
-     start = 0;
-     end = (1ULL << p2m_ipa_bits) - 1;
-     res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
--                                 add_ext_regions, ext_regions);
-+                                 add_regions, unused);
-     if ( res )
--        ext_regions->nr_banks = 0;
--    else if ( !ext_regions->nr_banks )
-+        unused->regions->nr_banks = 0;
-+    else if ( !unused->regions->nr_banks )
-         res = -ENOENT;
- 
- out:
-@@ -982,16 +985,16 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
- }
- 
- /*
-- * Find the holes in the Host DT which can be exposed to Dom0 as extended
-- * regions for the special memory mappings. In order to calculate regions
-- * we exclude every addressable memory region described by "reg" and "ranges"
-+ * Find the holes in the Host DT which can be exposed to direct-mapped domains
-+ * as regions for the special memory mappings. In order to calculate regions we
-+ * exclude every addressable memory region described by "reg" and "ranges"
-  * properties from the maximum possible addressable physical memory range:
-  * - MMIO
-  * - Host RAM
-  * - PCI aperture
-  */
- static int __init find_memory_holes(const struct kernel_info *kinfo,
--                                    struct meminfo *ext_regions)
-+                                    struct mem_unused_info *unused)
- {
-     struct dt_device_node *np;
-     struct rangeset *mem_holes;
-@@ -1068,10 +1071,10 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
-     start = 0;
-     end = (1ULL << p2m_ipa_bits) - 1;
-     res = rangeset_report_ranges(mem_holes, PFN_DOWN(start), PFN_DOWN(end),
--                                 add_ext_regions,  ext_regions);
-+                                 add_regions, unused);
-     if ( res )
--        ext_regions->nr_banks = 0;
--    else if ( !ext_regions->nr_banks )
-+        unused->regions->nr_banks = 0;
-+    else if ( !unused->regions->nr_banks )
-         res = -ENOENT;
- 
- out:
-@@ -1081,35 +1084,62 @@ out:
- }
- 
- static int __init find_domU_holes(const struct kernel_info *kinfo,
--                                  struct meminfo *ext_regions)
-+                                  struct mem_unused_info *unused)
- {
-     unsigned int i;
-     uint64_t bankend;
-     const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
-     const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
-+    struct meminfo *regions = unused->regions;
-+    paddr_t min_region_size = unused->min_region_size;
-     int res = -ENOENT;
- 
-     for ( i = 0; i < GUEST_RAM_BANKS; i++ )
-     {
--        struct membank *ext_bank = &(ext_regions->bank[ext_regions->nr_banks]);
-+        struct membank *bank = &(regions->bank[regions->nr_banks]);
- 
--        ext_bank->start = ROUNDUP(bankbase[i] + kinfo->mem.bank[i].size, SZ_2M);
-+        bank->start = ROUNDUP(bankbase[i] + kinfo->mem.bank[i].size, SZ_2M);
- 
-         bankend = ~0ULL >> (64 - p2m_ipa_bits);
-         bankend = min(bankend, bankbase[i] + banksize[i] - 1);
--        if ( bankend > ext_bank->start )
--            ext_bank->size = bankend - ext_bank->start + 1;
-+        if ( bankend > bank->start )
-+            bank->size = bankend - bank->start + 1;
- 
--        /* 64MB is the minimum size of an extended region */
--        if ( ext_bank->size < MB(64) )
-+        if ( bank->size < min_region_size )
-             continue;
--        ext_regions->nr_banks++;
-+        regions->nr_banks++;
-         res = 0;
-     }
- 
-     return res;
- }
- 
-+int __init find_unused_regions(struct domain *d,
-+                               const struct kernel_info *kinfo,
-+                               struct meminfo *regions,
-+                               paddr_t min_region_size)
-+{
-+    int res;
-+    struct mem_unused_info unused;
-+
-+    unused.regions = regions;
-+    unused.min_region_size = min_region_size;
-+
-+    if ( is_domain_direct_mapped(d) )
-+    {
-+        if ( !is_iommu_enabled(d) )
-+            res = find_unallocated_memory(kinfo, &unused);
-+        else
-+            res = find_memory_holes(kinfo, &unused);
-+    }
-+    else
-+    {
-+        res = find_domU_holes(kinfo, &unused);
-+    }
-+
-+    return res;
-+}
-+
- int __init make_hypervisor_node(struct domain *d,
-                                 const struct kernel_info *kinfo,
-                                 int addrcells, int sizecells)
-@@ -1161,18 +1191,7 @@ int __init make_hypervisor_node(struct domain *d,
-         if ( !ext_regions )
-             return -ENOMEM;
- 
--        if ( is_domain_direct_mapped(d) )
--        {
--            if ( !is_iommu_enabled(d) )
--                res = find_unallocated_memory(kinfo, ext_regions);
--            else
--                res = find_memory_holes(kinfo, ext_regions);
--        }
--        else
--        {
--            res = find_domU_holes(kinfo, ext_regions);
--        }
--
-+        res = find_unused_regions(d, kinfo, ext_regions, MB(64));
-         if ( res )
+ static u64 __initdata dom0_mem;
+@@ -1196,6 +1196,28 @@ int __init make_hypervisor_node(struct domain *d,
              printk(XENLOG_WARNING "%pd: failed to allocate extended regions\n",
                     d);
+         nr_ext_regions = ext_regions->nr_banks;
++
++        /*
++         * If extended region is enabled, carve out the 16MB guest magic page
++         * regions from the first bank of extended region (at least 64MB) for
++         * the 1:1 dom0less DomUs
++         */
++        if ( is_domain_direct_mapped(d) && !is_hardware_domain(d) )
++        {
++            struct mem_map_domain *mem_map = &d->arch.mem_map;
++
++            for ( i = 0; i < mem_map->nr_mem_regions; i++ )
++            {
++                if ( mem_map->regions[i].type == GUEST_MEM_REGION_MAGIC )
++                {
++                    mem_map->regions[i].start = ext_regions->bank[0].start;
++                    mem_map->regions[i].size = GUEST_MAGIC_SIZE;
++
++                    ext_regions->bank[0].start += GUEST_MAGIC_SIZE;
++                    ext_regions->bank[0].size -= GUEST_MAGIC_SIZE;
++                }
++            }
++        }
+     }
+ 
+     reg = xzalloc_array(__be32, (nr_ext_regions + 1) * (addrcells + sizecells));
 diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
-index da9e6025f3..74432123fe 100644
+index 74432123fe..063ff727bb 100644
 --- a/xen/arch/arm/include/asm/domain_build.h
 +++ b/xen/arch/arm/include/asm/domain_build.h
-@@ -10,6 +10,8 @@ bool allocate_bank_memory(struct domain *d, struct kernel_info *kinfo,
-                           gfn_t sgfn, paddr_t tot_size);
- int construct_domain(struct domain *d, struct kernel_info *kinfo);
- int domain_fdt_begin_node(void *fdt, const char *name, uint64_t unit);
-+int find_unused_regions(struct domain *d, const struct kernel_info *kinfo,
-+                        struct meminfo *regions, paddr_t min_region_size);
- int make_chosen_node(const struct kernel_info *kinfo);
- int make_cpus_node(const struct domain *d, void *fdt);
- int make_hypervisor_node(struct domain *d, const struct kernel_info *kinfo,
-diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-index d15a88d2e0..d24c6d31c8 100644
---- a/xen/arch/arm/include/asm/setup.h
-+++ b/xen/arch/arm/include/asm/setup.h
-@@ -61,6 +61,11 @@ struct meminfo {
-     struct membank bank[NR_MEM_BANKS];
- };
+@@ -4,6 +4,8 @@
+ #include <xen/sched.h>
+ #include <asm/kernel.h>
  
-+struct mem_unused_info {
-+    struct meminfo *regions;
-+    paddr_t min_region_size;
-+};
++extern bool opt_ext_regions;
++
+ typedef __be32 gic_interrupt_t[3];
+ 
+ bool allocate_bank_memory(struct domain *d, struct kernel_info *kinfo,
+diff --git a/xen/arch/arm/include/asm/static-memory.h b/xen/arch/arm/include/asm/static-memory.h
+index 3e3efd70c3..01e51217ca 100644
+--- a/xen/arch/arm/include/asm/static-memory.h
++++ b/xen/arch/arm/include/asm/static-memory.h
+@@ -12,6 +12,7 @@ void allocate_static_memory(struct domain *d, struct kernel_info *kinfo,
+ void assign_static_memory_11(struct domain *d, struct kernel_info *kinfo,
+                              const struct dt_device_node *node);
+ void init_staticmem_pages(void);
++int find_11_domU_magic_region(struct domain *d, struct kernel_info *kinfo);
+ 
+ #else /* !CONFIG_STATIC_MEMORY */
+ 
+@@ -31,6 +32,12 @@ static inline void assign_static_memory_11(struct domain *d,
+ 
+ static inline void init_staticmem_pages(void) {};
+ 
++static inline int find_11_domU_magic_region(struct domain *d,
++                                            struct kernel_info *kinfo)
++{
++    return 0;
++}
++
+ #endif /* CONFIG_STATIC_MEMORY */
+ 
+ #endif /* __ASM_STATIC_MEMORY_H_ */
+diff --git a/xen/arch/arm/static-memory.c b/xen/arch/arm/static-memory.c
+index cffbab7241..c280e1d992 100644
+--- a/xen/arch/arm/static-memory.c
++++ b/xen/arch/arm/static-memory.c
+@@ -2,6 +2,7 @@
+ 
+ #include <xen/sched.h>
+ 
++#include <asm/domain_build.h>
+ #include <asm/static-memory.h>
+ 
+ static bool __init append_static_memory_to_bank(struct domain *d,
+@@ -276,6 +277,44 @@ void __init init_staticmem_pages(void)
+     }
+ }
+ 
++int __init find_11_domU_magic_region(struct domain *d,
++                                     struct kernel_info *kinfo)
++{
++    if ( is_domain_direct_mapped(d) )
++    {
++        struct meminfo *magic_region = xzalloc(struct meminfo);
++        struct mem_map_domain *mem_map = &d->arch.mem_map;
++        unsigned int i;
++        int ret = 0;
++
++        if ( !magic_region )
++            return -ENOMEM;
++
++        ret = find_unused_regions(d, kinfo, magic_region, GUEST_MAGIC_SIZE);
++        if ( ret )
++        {
++            printk(XENLOG_WARNING
++                   "%pd: failed to find a region for domain magic pages\n", d);
++            xfree(magic_region);
++            return -ENOENT;
++        }
++
++        /* Update the domain memory map. */
++        for ( i = 0; i < mem_map->nr_mem_regions; i++ )
++        {
++            if ( mem_map->regions[i].type == GUEST_MEM_REGION_MAGIC )
++            {
++                mem_map->regions[i].start = magic_region->bank[0].start;
++                mem_map->regions[i].size = GUEST_MAGIC_SIZE;
++            }
++        }
++
++        xfree(magic_region);
++    }
++
++    return 0;
++}
 +
  /*
-  * The domU flag is set for kernels and ramdisks of "xen,domain" nodes.
-  * The purpose of the domU flag is to avoid getting confused in
+  * Local variables:
+  * mode: C
 -- 
 2.34.1
 
