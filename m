@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B3428988B8
+	by mail.lfdr.de (Postfix) with ESMTPS id 78FE48988B7
 	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 15:23:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700876.1094623 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.700877.1094633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsN3F-0003Ec-5l; Thu, 04 Apr 2024 13:22:45 +0000
+	id 1rsN3H-0003Tb-D2; Thu, 04 Apr 2024 13:22:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700876.1094623; Thu, 04 Apr 2024 13:22:45 +0000
+Received: by outflank-mailman (output) from mailman id 700877.1094633; Thu, 04 Apr 2024 13:22:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsN3F-0003CB-2r; Thu, 04 Apr 2024 13:22:45 +0000
-Received: by outflank-mailman (input) for mailman id 700876;
- Thu, 04 Apr 2024 13:22:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rxIL=LJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rsN3D-0003C5-Ql
- for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 13:22:43 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ac194f1-f286-11ee-afe5-a90da7624cb6;
- Thu, 04 Apr 2024 15:22:42 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3438f079ff5so602739f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 06:22:42 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-3-248-192.as13285.net. [92.3.248.192])
- by smtp.gmail.com with ESMTPSA id
- bk20-20020a0560001d9400b0033fc06f2d84sm20142724wrb.109.2024.04.04.06.22.41
+	id 1rsN3H-0003QV-AD; Thu, 04 Apr 2024 13:22:47 +0000
+Received: by outflank-mailman (input) for mailman id 700877;
+ Thu, 04 Apr 2024 13:22:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=stKz=LJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rsN3G-0003QL-KL
+ for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 13:22:46 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6b8728f7-f286-11ee-a1ef-f123f15fe8a2;
+ Thu, 04 Apr 2024 15:22:44 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-515a68d45faso1127486e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 06:22:43 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ q8-20020a05600c46c800b004146e58cc35sm2667734wmo.46.2024.04.04.06.22.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Apr 2024 06:22:41 -0700 (PDT)
+ Thu, 04 Apr 2024 06:22:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,193 +45,317 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ac194f1-f286-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 6b8728f7-f286-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712236962; x=1712841762; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=U8/ibXGU/XZIQiDkBvZAiMIR4Aq5Wt7IfSsP2hiyJgU=;
-        b=AdHu8PWBtzN9eD3oaNrp0NAUmyo3K3RbYZrZnAnEqsgSRHtVilU2o6eGJ3ktsM2jR/
-         o2OUZGlbodiOJnVdtex6IT1SP3OSPZYD0WRG8hYJkVEBMj0Efq8u0kQVqYi4JbewhzKm
-         nEcx+CsZNfUabFxcFcm6bPF5JWSxITrim2IBE=
+        d=suse.com; s=google; t=1712236963; x=1712841763; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=1un8StUWmmH0k3dYWf/lE6DYTs01ydZ30PvJxGqCISY=;
+        b=c+ElpKjHvO1bRcTitRCCtMXpiAfD8lk8DhXlzfqCr3S8MDwVOlK7vQrGe+m/BhbwcL
+         RXNCvvC+AFjaTJMp4r1i03uaiRC2ruBG9e3ZNhlpCn10gD4C9nc5vI/Nqx5ZFbUoK40F
+         hoggnc3GugkBmEAYdCm9vTdAQ3z7jRUZ83g46BNbOPA8UsmUwAhLSWkx9zYBJrUUq6xN
+         1meeUSGVvSdfpnmfI0V2f08Fg5LsnMI2JQGjN5Dlu8XsO37gxhzJehSEhwzhMXGg4HGc
+         3Z3z+jk9jK7Rub62djjclhsuuHkXPqSjgKSwt5FOf50yragd8HJXTboAMtDmluQPWr++
+         btYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712236962; x=1712841762;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=U8/ibXGU/XZIQiDkBvZAiMIR4Aq5Wt7IfSsP2hiyJgU=;
-        b=HyQOnJOaA1hv5PlSj1XLRSUg4nnG87pKIsRrBkcxWAJS/9feyseM9+2ux1t+pq1jpf
-         6lZHM45rmU8JYOMOmzlis4oWWqvDddWUjOd3Cx5lHUoYalvA8k3kXWXcMhzHKOy0Cnro
-         b7XTy/Qpsw9aroBnirkY8CwMvDS2msSaUSVoWvt+6uoALrNHhOgjjtN69VppKaRMhT9U
-         EZYlFb0iRDBERvhKelAGb06HObtJk/Bvu34I3ZJLIc9Q45gYv/2CvQFEGP6l9RnaMgcn
-         C7jPEYsX3kb74TD2EkmCt1Qe/2Q1+YEaB758EW9CkUGR4t5aezttahkblhjs1ybcIHpu
-         QrAA==
-X-Forwarded-Encrypted: i=1; AJvYcCUp7w+CWiLG9jeu5rexQ/DG+XBVeqmgiLLMMUTeKEenXHSHWIzpL6J6dg7eqKN1EqzB5QHcLP6fhcErn5wBB5JxaqGQeCQYXiK8LnUgWEw=
-X-Gm-Message-State: AOJu0YzL5f53Au8XfpxsARc9+m215x9oomL6cv7quEXRisOSKpvLP85x
-	OdWMSKLd8lpyQmvA7gyrXXtKBjooXtPz10C+GAIeyjKzXTTyanSKDSBZTnlR0jM=
-X-Google-Smtp-Source: AGHT+IHcpy7e/NqWGhEe8dTNaMVwuS2MBuvCjhl7TMrEaVqCPaGDxJTJadyEEOdrN6YRxFFPso1hYg==
-X-Received: by 2002:a5d:4905:0:b0:343:7562:1eef with SMTP id x5-20020a5d4905000000b0034375621eefmr1845323wrq.35.1712236962054;
-        Thu, 04 Apr 2024 06:22:42 -0700 (PDT)
-Message-ID: <7ebf879b-01d1-4a13-9464-199d08960213@citrix.com>
-Date: Thu, 4 Apr 2024 14:22:40 +0100
+        d=1e100.net; s=20230601; t=1712236963; x=1712841763;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=1un8StUWmmH0k3dYWf/lE6DYTs01ydZ30PvJxGqCISY=;
+        b=rzFc7njdL0puhY8SjPHruRpInmYY8iGy8aj9U1otVxJKr54HNz+rdh+B8f1D46/KcX
+         44azZRSDH9uhzRJLRUq0AntVibodWEJ1M9j930mfj7klfyMnNYoxzhztN3Yn4aIkZS5b
+         jzt7aJZt8Xrwc2v1VEhZ/1p6AmlQPRTkQmf5xYlZh/N3EepWO1ilCJCYmwQ12yPJnCMV
+         LppKouVLSP6xcyc6JBnb71cALOAoijcUMbmcu3yqsdNe4J6ZH310AP0XRAOrl3g5SyQo
+         kCoiPA1poRgsD9l3Y3ovxSDaMruj7HoW5ezy71wHya8TDGQv8Fmns0SOLw30AgxFQmm4
+         3Z6w==
+X-Forwarded-Encrypted: i=1; AJvYcCVWapJabfTGpkjFq9ZSt0PtddXMdoGI2NddaDzXHf/2vJ7DA04WCShUF7VH/FeZvpu/wJTvQE2yZx/dZYtBdyiQ5yShdjDumHtcZ7sBHGQ=
+X-Gm-Message-State: AOJu0YyiVLQuOyVlv2r/9cEQnOYQnM0RKsWqomNydZv7heD+ORC9GKgx
+	iSDfyYOtNJYsyLrlaRkI5F9mSvHiHyuri1k9yvpr4HkeD4J86M0xgBRix3aWOQ==
+X-Google-Smtp-Source: AGHT+IEfgEWMtSl9b6g0S/iq0WSk5coAcmrVgP+L5NBbYZXHGJAsET/tEi2FpNKTwC3SJEsIApRjuA==
+X-Received: by 2002:a2e:7815:0:b0:2d8:60a4:cfa with SMTP id t21-20020a2e7815000000b002d860a40cfamr384390ljc.41.1712236963359;
+        Thu, 04 Apr 2024 06:22:43 -0700 (PDT)
+Message-ID: <aabb1d9a-3910-479e-858d-a11777873ef5@suse.com>
+Date: Thu, 4 Apr 2024 15:22:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/tsx: Cope with RTM_ALWAYS_ABORT vs RTM mismatch
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <Zg1stUacaDBkyDOn@mail-itl>
- <20240404104122.2870129-1-andrew.cooper3@citrix.com>
- <6e99f73f-bf83-4c40-b97c-5cead300a781@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <6e99f73f-bf83-4c40-b97c-5cead300a781@suse.com>
+Subject: Re: [PATCH v7 04/19] xen: introduce generic non-atomic test_*bit()
+Content-Language: en-US
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
+ <ff6922206ab5476df907e2a05255663865f07301.1712137031.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ff6922206ab5476df907e2a05255663865f07301.1712137031.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04/04/2024 1:45 pm, Jan Beulich wrote:
-> On 04.04.2024 12:41, Andrew Cooper wrote:
->> @@ -9,6 +10,7 @@
->>   *  -1 => Default, altered to 0/1 (if unspecified) by:
->>   *                 - TAA heuristics/settings for speculative safety
->>   *                 - "TSX vs PCR3" select for TSX memory ordering safety
->> + *  -2 => Implicit tsx=0 (from RTM_ALWAYS_ABORT vs RTM mismatch)
->>   *  -3 => Implicit tsx=1 (feed-through from spec-ctrl=0)
->>   *
->>   * This is arranged such that the bottom bit encodes whether TSX is actually
->> @@ -114,11 +116,50 @@ void tsx_init(void)
->>  
->>          if ( cpu_has_tsx_force_abort )
->>          {
->> +            uint64_t val;
->> +
->>              /*
->> -             * On an early TSX-enable Skylake part subject to the memory
->> +             * On an early TSX-enabled Skylake part subject to the memory
->>               * ordering erratum, with at least the March 2019 microcode.
->>               */
->>  
->> +            rdmsrl(MSR_TSX_FORCE_ABORT, val);
->> +
->> +            /*
->> +             * At the time of writing (April 2024), it was discovered that
->> +             * some parts (e.g. CoffeeLake 8th Gen, 06-9e-0a, ucode 0xf6)
->> +             * advertise RTM_ALWAYS_ABORT, but XBEGIN instructions #UD.  Other
->> +             * similar parts (e.g. KabyLake Xeon-E3, 06-9e-09, ucode 0xf8)
->> +             * operate as expected.
->> +             *
->> +             * In this case:
->> +             *  - RTM_ALWAYS_ABORT and MSR_TSX_FORCE_ABORT are enumerated.
->> +             *  - XBEGIN instructions genuinely #UD.
->> +             *  - MSR_TSX_FORCE_ABORT is write-discard and fails to hold its
->> +             *    value.
->> +             *  - HLE and RTM are not enumerated, despite
->> +             *    MSR_TSX_FORCE_ABORT.TSX_CPUID_CLEAR being clear.
-> Of these 4 items you use the first and last here. It took me some time to
-> figure that the middle two are (aiui) only informational, and that you
-> assume that first and last together are sufficient to uniquely identify
-> the problematic parts. Separating the two groups a little might be helpful.
+On 03.04.2024 12:19, Oleksii Kurochko wrote:
+> The patch introduces the following generic functions:
+> * test_bit
+> * generic__test_and_set_bit
+> * generic__test_and_clear_bit
+> * generic__test_and_change_bit
+> 
+> Also, the patch introduces the following generics which are
+> used by the functions mentioned above:
+> * BITOP_BITS_PER_WORD
+> * BITOP_MASK
+> * BITOP_WORD
+> * BITOP_TYPE
+> 
+> These functions and macros can be useful for architectures
+> that don't have corresponding arch-specific instructions.
+> 
+> Because of that x86 has the following check in the macros test_bit(),
+> __test_and_set_bit(), __test_and_clear_bit(), __test_and_change_bit():
+>     if ( bitop_bad_size(addr) ) __bitop_bad_size();
+> It was necessary to move the check to generic code and define as 0
+> for other architectures as they do not require this check.
 
-All 4 points are relevant to the if() expression.
+Hmm, yes, the checks need to be in the outermost wrapper macros. While
+you're abstracting other stuff to arch_*(), wouldn't it make sense to
+also abstract this to e.g. arch_check_bitop_size(), with the expansion
+simply being (effectively) empty in the generic fallback case?
 
->
-> For the write-discard property, how was that determined? Does it affect all
-> writable bits?
+> --- a/xen/include/xen/bitops.h
+> +++ b/xen/include/xen/bitops.h
+> @@ -65,10 +65,164 @@ static inline int generic_flsl(unsigned long x)
+>   * scope
+>   */
+>  
+> +#define BITOP_BITS_PER_WORD 32
+> +/* typedef uint32_t bitop_uint_t; */
+> +#define bitop_uint_t uint32_t
 
-Marek kindly ran a debugging patch for me last night to try and figure
-out what was going on.
+So no arch overrides permitted anymore at all?
 
-Currently, Xen tries to set 0x2 (TSX_CPUID_CLEAR) and debugging showed
-it being read back as 0.
+> +#define BITOP_MASK(nr)  ((bitop_uint_t)1 << ((nr) % BITOP_BITS_PER_WORD))
+> +
+> +#define BITOP_WORD(nr)  ((nr) / BITOP_BITS_PER_WORD)
+> +
+>  /* --------------------- Please tidy above here --------------------- */
+>  
+>  #include <asm/bitops.h>
+>  
+> +#ifndef bitop_bad_size
+> +extern void __bitop_bad_size(void);
 
-I didn't check anything else, but I have a strong suspicion that I know
-exactly what's going wrong here.
+If not switching to arch_check_bitop_size() or alike as suggested above,
+why exactly does this need duplicating here and in x86? Can't the decl
+simply move ahead of the #include right above? (Sure, this will then
+require that nothing needing any of the functions you move here would
+still include asm/bitops.h; it would need to be xen/bitops.h everywhere.)
 
-The property the if() condition is mainly looking for is !RTM &&
-!(MSR_TFA.CPUID_CLEAR) because that's an illegal state in a
+> +#define bitop_bad_size(addr) 0
+> +#endif
+> +
+> +/**
+> + * generic__test_and_set_bit - Set a bit and return its old value
+> + * @nr: Bit to set
+> + * @addr: Address to count from
+> + *
+> + * This operation is non-atomic and can be reordered.
+> + * If two examples of this operation race, one can appear to succeed
+> + * but actually fail.  You must protect multiple accesses with a lock.
+> + */
+> +static always_inline __pure bool
+> +generic__test_and_set_bit(unsigned long nr, volatile void *addr)
 
->
->> +             * Spot this case, and treat it as if no TSX is available at all.
->> +             * This will prevent Xen from thinking it's safe to offer HLE/RTM
->> +             * to VMs.
->> +             */
->> +            if ( val == 0 && cpu_has_rtm_always_abort && !cpu_has_rtm )
->> +            {
->> +                printk(XENLOG_ERR
->> +                       "FIRMWARE BUG: CPU %02x-%02x-%02x, ucode 0x%08x: RTM_ALWAYS_ABORT vs RTM mismatch\n",
-> This isn't really firmware, is it? At least I wouldn't call microcode
-> (assuming that's where the bad behavior is rooted) firmware.
+Does __pure actually fit with the use of volatile? The former says multiple
+accesses may be folded; the latter says they must not be.
 
-Microcode is absolutely part of the system firmware.
+> +{
+> +    bitop_uint_t mask = BITOP_MASK(nr);
+> +    volatile bitop_uint_t *p = ((volatile bitop_uint_t *)addr) + BITOP_WORD(nr);
 
->
->> +                       boot_cpu_data.x86, boot_cpu_data.x86_model,
->> +                       boot_cpu_data.x86_mask, this_cpu(cpu_sig).rev);
->> +
->> +                setup_clear_cpu_cap(X86_FEATURE_RTM_ALWAYS_ABORT);
-> Instead of the "goto" below, wouldn't it be better to also force
-> has_rtm_always_abort to false along with this, thus skipping the
-> setup_force_cpu_cap(X86_FEATURE_RTM_ALWAYS_ABORT) further down?
+Nit: Slightly shorter line possible:
 
-I considered that and dismissed it.  It is more fragile, in a case were
-really do want to treat this case as if TSX genuinely doesn't exist.
+    volatile bitop_uint_t *p = (volatile bitop_uint_t *)addr + BITOP_WORD(nr);
 
->  That would
-> leave things a little less awkward flow-wise, imo. The one thing not
-> becoming clear from the commentary above is whether cpu_has_tsx_ctrl might
-> be true, and hence RTM/HLE still becoming (wrongly) set, if done that way.
+> +    bitop_uint_t old = *p;
+> +
+> +    *p = old | mask;
+> +    return (old & mask);
+> +}
+> +
+> +/**
+> + * generic__test_and_clear_bit - Clear a bit and return its old value
+> + * @nr: Bit to clear
+> + * @addr: Address to count from
+> + *
+> + * This operation is non-atomic and can be reordered.
+> + * If two examples of this operation race, one can appear to succeed
+> + * but actually fail.  You must protect multiple accesses with a lock.
+> + */
+> +static always_inline __pure bool
+> +generic__test_and_clear_bit(bitop_uint_t nr, volatile void *addr)
+> +{
+> +    bitop_uint_t mask = BITOP_MASK(nr);
+> +    volatile bitop_uint_t *p = ((volatile bitop_uint_t *)addr) + BITOP_WORD(nr);
+> +    bitop_uint_t old = *p;
+> +
+> +    *p = old & ~mask;
+> +    return (old & mask);
+> +}
+> +
+> +/* WARNING: non atomic and it can be reordered! */
+> +static always_inline __pure bool
+> +generic__test_and_change_bit(unsigned long nr, volatile void *addr)
+> +{
+> +    bitop_uint_t mask = BITOP_MASK(nr);
+> +    volatile bitop_uint_t *p = ((volatile bitop_uint_t *)addr) + BITOP_WORD(nr);
+> +    bitop_uint_t old = *p;
+> +
+> +    *p = old ^ mask;
+> +    return (old & mask);
+> +}
+> +/**
+> + * generic_test_bit - Determine whether a bit is set
+> + * @nr: bit number to test
+> + * @addr: Address to start counting from
+> + */
+> +static always_inline __pure int generic_test_bit(int nr, const volatile void *addr)
 
-MSR_TSX_CTRL and MSR_TSX_FORCE_ABORT exist on disjoint sets of CPUs. 
-(The split being MDS_NO).
+Further up you use bool; why int here?
 
-This is discussed explicitly lower down in the function, beyond the if (
-once ) block.
+> +{
+> +    const volatile bitop_uint_t *p = addr;
+> +    return 1 & (p[BITOP_WORD(nr)] >> (nr & (BITOP_BITS_PER_WORD - 1)));
 
-~Andrew
+And reason not to use BITOP_MASK() here as well (once having switched to
+bool return type)?
+
+> +}
+> +
+> +static always_inline __pure bool
+> +__test_and_set_bit(unsigned long nr, volatile void *addr)
+> +{
+> +#ifndef arch__test_and_set_bit
+> +#define arch__test_and_set_bit generic__test_and_set_bit
+> +#endif
+> +
+> +    return arch__test_and_set_bit(nr, addr);
+> +}
+> +#define __test_and_set_bit(nr, addr) ({             \
+> +    if ( bitop_bad_size(addr) ) __bitop_bad_size(); \
+> +    __test_and_set_bit(nr, addr);                   \
+> +})
+> +
+> +static always_inline __pure bool
+> +__test_and_clear_bit(bitop_uint_t nr, volatile void *addr)
+> +{
+> +#ifndef arch__test_and_clear_bit
+> +#define arch__test_and_clear_bit generic__test_and_clear_bit
+> +#endif
+> +
+> +    return arch__test_and_clear_bit(nr, addr);
+> +}
+> +#define __test_and_clear_bit(nr, addr) ({           \
+> +    if ( bitop_bad_size(addr) ) __bitop_bad_size(); \
+> +    __test_and_clear_bit(nr, addr);                 \
+> +})
+> +
+> +static always_inline __pure bool
+> +__test_and_change_bit(unsigned long nr, volatile void *addr)
+> +{
+> +#ifndef arch__test_and_change_bit
+> +#define arch__test_and_change_bit generic__test_and_change_bit
+> +#endif
+> +
+> +    return arch__test_and_change_bit(nr, addr);
+> +}
+> +#define __test_and_change_bit(nr, addr) ({              \
+> +    if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
+> +    __test_and_change_bit(nr, addr);                    \
+> +})
+> +
+> +static always_inline __pure int test_bit(int nr, const volatile void *addr)
+
+Further up you use bool; why int here?
+
+> +{
+> +#ifndef arch_test_bit
+> +#define arch_test_bit generic_test_bit
+> +#endif
+> +
+> +    return arch_test_bit(nr, addr);
+> +}
+> +#define test_bit(nr, addr) ({                           \
+> +    if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
+> +    test_bit(nr, addr);                                 \
+> +})
+
+From here onwards, ...
+
+> +static always_inline __pure int fls(unsigned int x)
+> +{
+> +    if (__builtin_constant_p(x))
+> +        return generic_fls(x);
+> +
+> +#ifndef arch_fls
+> +#define arch_fls generic_fls
+> +#endif
+> +
+> +    return arch_fls(x);
+> +}
+> +
+> +static always_inline __pure int flsl(unsigned long x)
+> +{
+> +    if (__builtin_constant_p(x))
+> +        return generic_flsl(x);
+> +
+> +#ifndef arch_flsl
+> +#define arch_flsl generic_flsl
+> +#endif
+> +
+> +    return arch_flsl(x);
+> +}
+
+... does all of this really belong here? Neither title nor description have
+any hint towards this.
+
+>  /*
+>   * Find First Set bit.  Bits are labelled from 1.
+>   */
+
+This context suggests there's a dependency on an uncommitted patch. Nothing
+above says so. I guess you have a remark in the cover letter, yet imo that's
+only partly helpful.
+
+Jan
 
