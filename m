@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C673F89897D
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 16:05:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700909.1094714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB8A589898A
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 16:07:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700915.1094734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsNi6-0007YI-7T; Thu, 04 Apr 2024 14:04:58 +0000
+	id 1rsNkZ-0000F3-VQ; Thu, 04 Apr 2024 14:07:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700909.1094714; Thu, 04 Apr 2024 14:04:58 +0000
+Received: by outflank-mailman (output) from mailman id 700915.1094734; Thu, 04 Apr 2024 14:07:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsNi6-0007Vx-4n; Thu, 04 Apr 2024 14:04:58 +0000
-Received: by outflank-mailman (input) for mailman id 700909;
- Thu, 04 Apr 2024 14:04:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rsNkZ-0000CW-S9; Thu, 04 Apr 2024 14:07:31 +0000
+Received: by outflank-mailman (input) for mailman id 700915;
+ Thu, 04 Apr 2024 14:07:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=stKz=LJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rsNi5-0007Vr-Ja
- for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 14:04:57 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 506a9b80-f28c-11ee-a1ef-f123f15fe8a2;
- Thu, 04 Apr 2024 16:04:55 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4162ad8ddd0so4249895e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 07:04:55 -0700 (PDT)
+ id 1rsNkY-0000CL-4b
+ for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 14:07:30 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ac25b23f-f28c-11ee-afe5-a90da7624cb6;
+ Thu, 04 Apr 2024 16:07:29 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2d71765d3e1so12984741fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 07:07:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fl22-20020a05600c0b9600b004162bf2f149sm1071550wmb.48.2024.04.04.07.04.54
+ l14-20020a05600c4f0e00b0041478393b8fsm2786886wmq.42.2024.04.04.07.07.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Apr 2024 07:04:54 -0700 (PDT)
+ Thu, 04 Apr 2024 07:07:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 506a9b80-f28c-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: ac25b23f-f28c-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712239495; x=1712844295; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712239649; x=1712844449; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=UL+5hFDFHh5W9EWGOvhcCuV6h0LlMmVkIbFtufYIPWc=;
-        b=eqP6Gcg1I4twgw+tvvTR/03z6HZkMqQIc4JoiM/+m1UVmlAApHVc9DWr62yqnNww3m
-         5oHDNjHeypDAE7TD07RIS7wTiNHH4izg1fgBrwUSGsOnxf1CsdsruwwydP5KWaiFCOv6
-         /2FlJVz08BjVoqMLfFeQpqVfIWaBg76dE4wbiGD98Am7YX81X3mLxcEirrNhBM2dMtgm
-         eYNnhrE8S2b/Fsjnn1Yhm37Kq8vBZrE3xkkf71f3P5F56OxOpW7FqR/6mQbZLj5IAfYF
-         nPQT2NAtjf1zzBadX5MxqLPmJG3jiWnLjlAzQtyRzDQVcipsPasSkQPuC2FTUaa+oSZf
-         Zmbg==
+        bh=Vzn26KUKmzuTxT995RwhKRhPkPF7fTNILzjrzR8aaMw=;
+        b=JrkRTNZE5Fq63SgNIzyzAhssnrVhEhlZvFhxanCQErs57lxK+aBeKfInspOUXuR1j4
+         PgofXe5ybYGXJnqLwHPhAa80k97hkZkjnw72/AJvrrcmfiK9AuGVXiiCC/m1a5GltBOZ
+         Gi/NFkKjmswkkFxguzIb3ZUqh5ApZ5DJiTcMYF8QRsHn8zO+8yNKwTvAyw9iDJx6PU8J
+         Bwz5I+ctgaz4RVoCTsZKePv/DZn7jDR/fRqAwfFodYc+yv3QPkBP+PRpyspuFVZKOBRs
+         P4P+v4PovQ3kLlcD1GCx1P1/4TX+WJE+huL0GYDjJcf9Z+8gbt31Z0NrIxZJCywEMhle
+         14Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712239495; x=1712844295;
+        d=1e100.net; s=20230601; t=1712239649; x=1712844449;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=UL+5hFDFHh5W9EWGOvhcCuV6h0LlMmVkIbFtufYIPWc=;
-        b=fxEQH/qchlMT2ECIjEO1BWjHPkPnefsCUkfNYT4V0RGpOO7N3N+Dp82Cz/wWwNdgnL
-         fNanKrpvSPO/f4V6AYCCjFq3pQf3BO+94xacPEd69JkrDfxLyjxj8WXkEtKoZiKRlgAY
-         vjcS//L8nvMuN7tXkIa1P8ye+nQsOO1pcAIyNAllixcqWNKDxHMtAup7IqmFTbUrEUMb
-         NbloPS4pnOZoVO1zEv5lIYCb6soJ5hwLEPhwAkZRUcwkzJ4vOBcAgvT4y4irAOHM3g4o
-         /a9GuYlIKccLK+ZQ7KfxQ+9iqGTmed5maCf1EVNExELtJSgTnXtWxT1vDeU2p4NKpKBl
-         l9ng==
-X-Forwarded-Encrypted: i=1; AJvYcCV+2qVr8pwcpyGQh2v6dZWxshQmXlbhNZ/1Sg/KGQzF779vJvUsHwJoYvBCAR/OuIKGDTxFyWAs1yKUB3iONZaCsW9UWZbJ3Jqd3U2e4WE=
-X-Gm-Message-State: AOJu0YzdBu0YqqPSmEQl02+HcKvkSm/ZrJ7c0/xB6rG7upKqkn+sgll6
-	F+IJMhpNt1SUwW+1vgNi3qNhbcQu1rbMsyr/YEOWi/hsLQNzKwn3rv2lFTzuwQ==
-X-Google-Smtp-Source: AGHT+IECvx2koKoS8xxgFgu/YNQrbbEr0XBfbpBxxE5zr1k0QHHS+1j1/5xmlFBOU8qJeDmP1J+mUw==
-X-Received: by 2002:a05:600c:4a83:b0:416:1e4d:4fce with SMTP id b3-20020a05600c4a8300b004161e4d4fcemr2111607wmp.38.1712239494991;
-        Thu, 04 Apr 2024 07:04:54 -0700 (PDT)
-Message-ID: <74742686-1799-41cc-aa7c-c427ae3d47fe@suse.com>
-Date: Thu, 4 Apr 2024 16:04:53 +0200
+        bh=Vzn26KUKmzuTxT995RwhKRhPkPF7fTNILzjrzR8aaMw=;
+        b=qni9iIcIjr3/9cuS+XvF5cOqBDloOAlHt9F+4h7AiVAqvV6D9ND4nB50U4V9DgKplE
+         EVcGYppsSqNP5jf8jRZ7oEkSfEBVUiqf7JJVIfmu8xUzJEbJjn8b5hIPcjSXN5Ez0msx
+         fP84MjD0knFoXUTljtSBryC9BJmr/fy62Q6HymsP3hOpHE+fzLw1orT3EumM7g54CZO4
+         Q2zOPXB0F4yvMwa0F+zdctra8JTa/tMVXl8vZH81md1H9qQT/yZDZ+2g6bTB9RRa7iXS
+         xCT1VQkFfomoiS5CtXFfJQQRAHbKtmh5iHxY6abqE2IPzKSxcsK0bf1Wxzuyy5vK2Rvn
+         dzwg==
+X-Forwarded-Encrypted: i=1; AJvYcCVF4uZEd3okcIBnlUQzXVe5EitZGm2OkBVP2SdSFZ3j560PqGEEqF7sF2ZRQQ4BjkHzkrQtH5VRCOEOrETub7g4O28pbYsnb1fvlZJDvPw=
+X-Gm-Message-State: AOJu0YyqEEEo12jr/143L00Rx7xnDk0c1LHVhGReASf35YWbG/cFlGZn
+	SMPiVOINkDa8HabHJwm7snfCy85KFLapN9pca2fi516wUNGVpd4JUAPt9bHZ3g==
+X-Google-Smtp-Source: AGHT+IFmvs0C4TJwa2obghNT5jC2qRUhK+J6Lks4B9j5SHKQippdo64Lx3hjlKXF0zeZ0idzXLSAFg==
+X-Received: by 2002:a2e:9c1a:0:b0:2d5:9bd4:4496 with SMTP id s26-20020a2e9c1a000000b002d59bd44496mr2068938lji.50.1712239648795;
+        Thu, 04 Apr 2024 07:07:28 -0700 (PDT)
+Message-ID: <cfd41259-fc1d-48e7-b766-5c8c70d51706@suse.com>
+Date: Thu, 4 Apr 2024 16:07:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 05/19] xen/bitops: implement fls{l}() in common logic
+Subject: Re: [PATCH v7 01/19] automation: introduce fixed randconfig for
+ RISC-V
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
 References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
- <f2fb33097608fc1317b81e78d00d1b91b0fc4c1d.1712137031.git.oleksii.kurochko@gmail.com>
+ <6e604205e4b815f4f66574d9680f5effb86fa673.1712137031.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,34 +113,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f2fb33097608fc1317b81e78d00d1b91b0fc4c1d.1712137031.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <6e604205e4b815f4f66574d9680f5effb86fa673.1712137031.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 03.04.2024 12:19, Oleksii Kurochko wrote:
-> --- a/xen/include/xen/bitops.h
-> +++ b/xen/include/xen/bitops.h
-> @@ -201,7 +201,7 @@ static always_inline __pure int test_bit(int nr, const volatile void *addr)
->  
->  static always_inline __pure int fls(unsigned int x)
->  {
-> -    if (__builtin_constant_p(x))
-> +    if ( __builtin_constant_p(x) )
->          return generic_fls(x);
->  
->  #ifndef arch_fls
-> @@ -213,7 +213,7 @@ static always_inline __pure int fls(unsigned int x)
->  
->  static always_inline __pure int flsl(unsigned long x)
->  {
-> -    if (__builtin_constant_p(x))
-> +    if ( __builtin_constant_p(x) )
->          return generic_flsl(x);
->  
->  #ifndef arch_flsl
+> This patch introduces the anchor riscv-fixed-randconfig,
+> which includes all configurations that should be disabled for
+> randconfig builds.
 
-As per this something is clearly wrong with the split between the previous
-patch and this one.
+Oh, one thing I noticed while committing (and I think I said so before):
+Can you please avoid phrases like "this patch" in descriptions? Just
+say what is being done; before being committed it's a patch, yes, while
+once committed it's no longer a patch, but a commit. In the case here
+you'd simply have started "Introduce ...".
 
 Jan
 
