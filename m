@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8B5A898C11
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 18:25:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700972.1094893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 835E3898C16
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 18:28:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700976.1094904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsPtc-0005K6-0E; Thu, 04 Apr 2024 16:25:00 +0000
+	id 1rsPxG-00062X-JX; Thu, 04 Apr 2024 16:28:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700972.1094893; Thu, 04 Apr 2024 16:24:59 +0000
+Received: by outflank-mailman (output) from mailman id 700976.1094904; Thu, 04 Apr 2024 16:28:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsPtb-0005HX-TU; Thu, 04 Apr 2024 16:24:59 +0000
-Received: by outflank-mailman (input) for mailman id 700972;
- Thu, 04 Apr 2024 16:24:58 +0000
+	id 1rsPxG-00060r-Gv; Thu, 04 Apr 2024 16:28:46 +0000
+Received: by outflank-mailman (input) for mailman id 700976;
+ Thu, 04 Apr 2024 16:28:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LwOm=LJ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rsPta-0005HP-Rh
- for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 16:24:58 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
+ id 1rsPxE-00060l-PS
+ for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 16:28:44 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e0a8c527-f29f-11ee-afe5-a90da7624cb6;
- Thu, 04 Apr 2024 18:24:57 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-516d0161e13so776059e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 09:24:57 -0700 (PDT)
+ id 670b1568-f2a0-11ee-afe5-a90da7624cb6;
+ Thu, 04 Apr 2024 18:28:43 +0200 (CEST)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-516c97ddcd1so1164155e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 09:28:43 -0700 (PDT)
 Received: from [192.168.206.239] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- bp27-20020a056512159b00b00516a8ecaeb2sm1271649lfb.278.2024.04.04.09.24.56
+ f21-20020ac251b5000000b00516d2184388sm41484lfk.177.2024.04.04.09.28.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Apr 2024 09:24:56 -0700 (PDT)
+ Thu, 04 Apr 2024 09:28:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +45,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0a8c527-f29f-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 670b1568-f2a0-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712247897; x=1712852697; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1712248123; x=1712852923; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=3VfZKIbq1vx5oa1c0+TsaQ1iY58oum9l+yO2/PDevco=;
-        b=FKMuYnrSA8wN8YApcPTuTbYXHVS1E44zkwKWgeJaKy21olLShRb/HEnpUPXdCJtnN4
-         jOO7NX9gMWFX7o5Y7qc0I5P42mRdw2Fi4qyCtGrdSpPdf4AWOIg/kn/Xhm7MSivGanbS
-         qBdQzN6sISl/YjEkDBrhWLf0qxEJrCyKuUBbPd6Li9vDuAfHaFtSow79XwZ4HYcWbi7L
-         +LEg2OLmmO8PfEGEf0tb4SlnSVoUn9sq7CEEM/VXPl9pc4k56tSJsrB/f1An56BeS9aa
-         aVJ+k1es84jXQwoR0SvC8Ced9hUQkuzff0e5AndDF/FklIy0lJG1cYoMY0vhfD75kphY
-         pOzQ==
+        bh=/hrLdDBDfokovgDCPPFYLacpfD+nXTpae+Ut4iBcWsM=;
+        b=GYFshrhzDflB7V9xrS8iRFbpGF5C/Lfj7Pe+z8ef3IXNjOT2qNiM7jQTI83J5VOvdT
+         yTnjrBequ6Yt/4TSPYb2D/eFApiftlYZPMjqH1YTSzVdjoepOUiwmadsqR3mWfiLG4Ds
+         nRcmypOyaVCfKzVZxy39nEQJ5XbNFtT7ER4D5uoW8T2gwu258aqajYa3YE8bUjkl9WF0
+         pdgriKp9jlzbg5IWSnjFyNAHGPa6giYCCV2JxVEVaPJ7AtdpiQCGvp5gvXHmkmhU24P8
+         wDFSfS6B4wqVNjM6Eied/QqMS17j6GslSBTJpUir/F4jw0Z+xOy4TGZY23YkAPnlun2O
+         UDDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712247897; x=1712852697;
+        d=1e100.net; s=20230601; t=1712248123; x=1712852923;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3VfZKIbq1vx5oa1c0+TsaQ1iY58oum9l+yO2/PDevco=;
-        b=L9jEf9RaCwQ+HQy6vyXnVBYAqvdfoBzcO6zaE6UJZtmAgRhIEp5Sjh2XJi1YXLgkf0
-         FyudBe8rLm0RaH96OHBfLDTt2nH9FXlNRtU19PZOj7imo+ZDJLapgkzznM8q4QT7BFUN
-         tG7bTfpub/jzXTQqtUQhNYY5dH+iifAs8OXKBvVi6jw9yEVoOEmc2QAJxo37KpOXiQ2c
-         TcWlXBpppenyz1JhAAVIAR3Z+z1E3woVm1qZlev3LttDgZVsHENkSTqKgKMDH9eTiFwd
-         O1oCKGFKaUgGqHUdTVmzr9rqVqunVzhx1zMEnpTn6xh/mPw6nAkmTvpSEWZkPv4t6iKK
-         QSaw==
-X-Forwarded-Encrypted: i=1; AJvYcCUc5sBkK1ejBgJQGltxg+vaMs7m4GAZrQ6475N2kjn5XD8ZM/HnhbrLVJr+5SIX1cShXkzlLDshw7fKYVAy7jIMeWAVzPzA0qd0RE08lmU=
-X-Gm-Message-State: AOJu0YwaH1gvpPs6idMzk+ajaJmSYw65rrNSILpfURIqhkFgDIj3+oXl
-	T2VCugap2n1DMBN6nNyHus1lrYjHhGF0KhtrrRwc+a8vufLgexOz
-X-Google-Smtp-Source: AGHT+IHFZ8U4TDTDrMkMuffVr1Zwj7+AvvLMZPZqYU11Sk361nvCLJ44q1sdEmyOiAycDkfOog69qA==
-X-Received: by 2002:ac2:4314:0:b0:515:bbf7:bddd with SMTP id l20-20020ac24314000000b00515bbf7bdddmr2223497lfh.20.1712247897132;
-        Thu, 04 Apr 2024 09:24:57 -0700 (PDT)
-Message-ID: <c92ef420468fdf45a878efda37c582c0cab2332f.camel@gmail.com>
-Subject: Re: [PATCH v7 04/19] xen: introduce generic non-atomic test_*bit()
+        bh=/hrLdDBDfokovgDCPPFYLacpfD+nXTpae+Ut4iBcWsM=;
+        b=Zt6D1GgksZeFvj1+bwFrO4rCgofVd9lpH8/VP853bVaItpXo30MXaxbQTanOCV+V7d
+         UDdqC100bpdQGJs3JtVEssepGFV754odRG2tVil1VRTECKg4+7LGjrUekjbWjcSxCBzN
+         OY8eycZ+J2tk3ldAg7yxiHGybKr1kb1UJYZLiHs4LrPG/mkFzN//x2XzKMvIp9kEDQzL
+         kaZfMyLxOPlS2yPbyQ9BBdGhXxS2ZY/Nm1iWPNoRzi/fuG+IQbmf6nNi0PCxuPXPctU8
+         92tidpxKE+n+eKitkXnnOTEOXLHyHSYujONMdSzko92cyg8x0cjIy+6NNfXs7+di3+LQ
+         Y8nQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWkSceh516zKs0yYcPELaM8NreqV3EZTwsz5XVusvgrCnEDW26RfNgY/Wjl9RcZ7M/Yj4t/xrAOTSdE1syV+Nsnt4jDO9+kF72Mbw2egP4=
+X-Gm-Message-State: AOJu0Yz+SeGS9gzs608mlpwViXSAQugtVGoTkEZsP4YRgMOKY0z7Qx9j
+	cuAZu2qZ9EGSLGLjXPuSL5VbRDask33NafSStUxhci77erxmmAvC
+X-Google-Smtp-Source: AGHT+IFKSO/IhKaCIeeQIxMzEP3LTYGmIk4il8HQuvKpVyUGvIDiTOVhrFAOw4vPm/P67dB2NrZIeQ==
+X-Received: by 2002:ac2:5150:0:b0:516:a32e:ab54 with SMTP id q16-20020ac25150000000b00516a32eab54mr1997759lfd.69.1712248122689;
+        Thu, 04 Apr 2024 09:28:42 -0700 (PDT)
+Message-ID: <a8103dfc03990a48054878bb78db90d3077881f9.camel@gmail.com>
+Subject: Re: [PATCH v7 08/19] xen/riscv: introduce cmpxchg.h
 From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Ross Lagerwall
- <ross.lagerwall@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, 
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>,  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Shawn Anastasio
- <sanastasio@raptorengineering.com>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Date: Thu, 04 Apr 2024 18:24:55 +0200
-In-Reply-To: <4ba7c962-a635-4a7d-8e03-093361cc6353@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Thu, 04 Apr 2024 18:28:41 +0200
+In-Reply-To: <a315c515-8f6a-4222-999b-865f19e15a28@suse.com>
 References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
-	 <ff6922206ab5476df907e2a05255663865f07301.1712137031.git.oleksii.kurochko@gmail.com>
-	 <aabb1d9a-3910-479e-858d-a11777873ef5@suse.com>
-	 <5ee906c53e2d4a966fa6be3be50caa19c3c164a2.camel@gmail.com>
-	 <4ba7c962-a635-4a7d-8e03-093361cc6353@suse.com>
+	 <f0d836be5dbc04468a74cabf9b48a51921bf749b.1712137031.git.oleksii.kurochko@gmail.com>
+	 <d315dda1-f89e-4028-9aa0-98b4e80c81fc@suse.com>
+	 <0d09adbb0ac52e6e20252ddd6e599ee15030fad6.camel@gmail.com>
+	 <a315c515-8f6a-4222-999b-865f19e15a28@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.50.4 (3.50.4-1.fc39) 
 MIME-Version: 1.0
 
-On Thu, 2024-04-04 at 18:12 +0200, Jan Beulich wrote:
-> On 04.04.2024 17:45, Oleksii wrote:
-> > On Thu, 2024-04-04 at 15:22 +0200, Jan Beulich wrote:
-> > > On 03.04.2024 12:19, Oleksii Kurochko wrote:
-> > > > --- a/xen/include/xen/bitops.h
-> > > > +++ b/xen/include/xen/bitops.h
-> > > > @@ -65,10 +65,164 @@ static inline int generic_flsl(unsigned
-> > > > long
-> > > > x)
-> > > > =C2=A0 * scope
-> > > > =C2=A0 */
-> > > > =C2=A0
-> > > > +#define BITOP_BITS_PER_WORD 32
-> > > > +/* typedef uint32_t bitop_uint_t; */
-> > > > +#define bitop_uint_t uint32_t
-> > >=20
-> > > So no arch overrides permitted anymore at all?
-> > Not really, I agree that it is ugly, but I expected that arch will
-> > use
-> > undef to override.
+On Thu, 2024-04-04 at 18:14 +0200, Jan Beulich wrote:
+> On 04.04.2024 18:04, Oleksii wrote:
+> > On Thu, 2024-04-04 at 17:01 +0200, Jan Beulich wrote:
+> > > On 03.04.2024 12:20, Oleksii Kurochko wrote:
+> > > Everything else okay-ish to me now, but I can't very well given
+> > > an
+> > > ack for
+> > > a patch depending on things that haven't been committed yet and
+> > > may
+> > > never be.
+> > Except 3 dependency ( which should be dropped as nothing anymore is
+> > used now from this headers ):
+> > =C2=A0=C2=A0 #include <asm/fence.h>
+> > =C2=A0=C2=A0 #include <asm/io.h>
+> > =C2=A0=C2=A0 #include <asm/system.h>
+> >=20
+> > It seems everything else doesn't depending on other things, does
+> > it?
 >=20
-> Which would be fine in principle, just that Misra wants us to avoid
-> #undef-s
-> (iirc).
-Could you please give me a recommendation how to do that better?
+> Didn't I see a STATIC_ASSERT_UNREACHABLE() somewhere?
+Sure, forgot about this macros. In this case, I think it would be
+better to return back:
 
-The reason why I put this defintions before inclusion of asm/bitops.h
-as RISC-V specific code uses these definitions inside it, so they
-should be defined before asm/bitops.h; other option is to define these
-definitions inside asm/bitops.h for each architecture.
+   extern void __bad_{xchg,...)(...);
+  =20
+   ....
+   default:
+       __bad_xchg(ptr, size), ret =3D 0;
 
->=20
-> > > > =C2=A0/*
-> > > > =C2=A0 * Find First Set bit.=C2=A0 Bits are labelled from 1.
-> > > > =C2=A0 */
-> > >=20
-> > > This context suggests there's a dependency on an uncommitted
-> > > patch.
-> > > Nothing
-> > > above says so. I guess you have a remark in the cover letter, yet
-> > > imo
-> > > that's
-> > > only partly helpful.
-> > Is it really a hard dependency?
-> > The current patch series really depends on ffs{l}() and that was
-> > mentioned in the cover letter ( I'll reword the cover letter to
-> > explain
-> > why exactly this dependency is needed ), but this patch isn't
-> > really
-> > depends on Andrew's patch series, where ffs{l}() are introduced.
->=20
-> If anyone acked this patch, and if it otherwise looked independent,
-> it would
-> be a candidate for committing. Just that it won't apply for a non-
-> obvious
-> reason.
-I didn't think about the it won't apply. In this I have to definitely
-mention this moment in cover letter. Thanks.
+And do a follow-up patch when it will be committed.
 
 ~ Oleksii
 
