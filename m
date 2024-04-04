@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB4DC8982D2
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 10:06:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700741.1094334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D371A8982DF
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 10:11:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700745.1094343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsI6r-0003wP-Hl; Thu, 04 Apr 2024 08:06:09 +0000
+	id 1rsIBs-0006G7-33; Thu, 04 Apr 2024 08:11:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700741.1094334; Thu, 04 Apr 2024 08:06:09 +0000
+Received: by outflank-mailman (output) from mailman id 700745.1094343; Thu, 04 Apr 2024 08:11:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsI6r-0003uC-ET; Thu, 04 Apr 2024 08:06:09 +0000
-Received: by outflank-mailman (input) for mailman id 700741;
- Thu, 04 Apr 2024 08:06:07 +0000
+	id 1rsIBs-0006E4-0M; Thu, 04 Apr 2024 08:11:20 +0000
+Received: by outflank-mailman (input) for mailman id 700745;
+ Thu, 04 Apr 2024 08:11:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=stKz=LJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rsI6p-0003u6-MA
- for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 08:06:07 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ id 1rsIBp-0006CT-SZ
+ for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 08:11:17 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 300e3b80-f25a-11ee-afe5-a90da7624cb6;
- Thu, 04 Apr 2024 10:06:06 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a4e39f5030dso93390066b.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 01:06:06 -0700 (PDT)
+ id e9305879-f25a-11ee-afe5-a90da7624cb6;
+ Thu, 04 Apr 2024 10:11:16 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a50f170b7e3so90952566b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 01:11:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- wn7-20020a170907068700b00a4e533085aesm5987619ejb.129.2024.04.04.01.06.05
+ xe3-20020a170907318300b00a471481ef3csm8659545ejb.124.2024.04.04.01.11.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Apr 2024 01:06:05 -0700 (PDT)
+ Thu, 04 Apr 2024 01:11:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 300e3b80-f25a-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: e9305879-f25a-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712217966; x=1712822766; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712218276; x=1712823076; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=FAbbnbG6G2dHIU4OSFdP6tyQxnS9ScR6Fybs8e4almM=;
-        b=FalDA6bGsZCl/yPTpXmNV2FdfOkkWqdSTDUtHD6WQ3l9doJego7Xg6TcWRcr0HJ041
-         fn4RFsz6U8H8WDIR4P3CdWZ0+uUg3Yl7MxFHD1oWwamSMS2T5lkwIu6dIFbpKbVPhnud
-         gsdJ7rWO4efSOA362gaBPLaMJMH/7jMKyUlL/44/rSPaIqmgEt4nHSj6Zf/aIL/jfijn
-         sOE8d1sWG3MQX0NYfpW/RA6X9wcmBNRrnS3OlubEDHbi9Bzfn4nmfULBLIopd5i2J42f
-         T//iAKCfMJvJ5AEjsGQYXYKHhlXAN1xbbtKCxBwcr1B3Ya+7/zBB7jhf70G5U950u46Z
-         KyjA==
+        bh=pKh7Eu7TVgDxfeBSJtuFzVDUSdL1UAZsb7MOD/RFW9I=;
+        b=bVWt04nT7vUaYE4Bq6sX5udxGy4sdrWlwT0MGG9mJDzxwNLPq6kHctHZtkqOGT5MfT
+         2TCQ7podbO2Bv3J9Mlz7CD7+V/6zAcLbmfeqsAvJDttbWj0Hchq0BU0Jx36n9EcY4OBO
+         xeVl6Lhr4WQe1RKkWSVpupENfyAaCNMXZYBotw0/TkQxpG9wGS0UIjGVA6GfQQ9heu4l
+         MuQLz8nMUaBM2PQr5nZEVKjh9I020+QYmQCl0rff2DivyjD9O0EF+SsJatHRi5St+fxd
+         YQ1MRR02E5T0GrpqruuwArkwgUCS4JSD6gNTGfqripfghsKaZXDuCL8YjO+7IV5smitW
+         ib2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712217966; x=1712822766;
+        d=1e100.net; s=20230601; t=1712218276; x=1712823076;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FAbbnbG6G2dHIU4OSFdP6tyQxnS9ScR6Fybs8e4almM=;
-        b=RqU2clN01nZeAWraKbTrU3oe8ceBNAJpStwn71/6Vg1hpLzrfbUZRTX/CV4WaECd+m
-         Zy9DFu6ExGeHq1yGlDk4B15xF7Be+r8zBi7EkmRovnWyuSEigNIm8DvaAY2k0n6TOpCy
-         SEY6hVerqVNiyQmEpWUXM9sssSivI1hr8lIfLxouvutL4q6hZw35KrpDd5haSEVZXhR+
-         ytrdILHI3CcwXF+JkFcbr9kSRVQLmTil7lbFqFnl9L+ACXTfGEiluUNkoHyV1EhsIeq5
-         DGRiw22aFpef+XBxu4n6agKquJj07rRFhSfyCEVdIotWa2gSmm0fd1sXyNOE9HXlCDez
-         zUCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW9+EPRkZ+VHO/7Asd6ZGW/77FFAKRcRUb7OWlxQMeHXTqttup/K8wKA39wrS4THFwxbjlM6GIduqnYQkG+Pl5YZtrAupbltUv1J3p/OVY=
-X-Gm-Message-State: AOJu0Yx4zl/ukKp5wIuY5JLD87ApXhb8cY+huiy91PwSd8VNzCzNF4Fy
-	OWzeM3qB8ajr18cUYlcuJ0Ba5u79e8vBPQY9DXQnMlabdFt1NhpbbMh/VNeeTQ==
-X-Google-Smtp-Source: AGHT+IHxMI1XYZFKl1twdZdjiDw5l8VvjZxrIwpVkb30ZihpeInCiS0x2KyvNZmotEFj014tDSTh8w==
-X-Received: by 2002:a17:907:7d93:b0:a51:8a58:237c with SMTP id oz19-20020a1709077d9300b00a518a58237cmr896618ejc.35.1712217966080;
-        Thu, 04 Apr 2024 01:06:06 -0700 (PDT)
-Message-ID: <012db229-8c84-4b74-b919-50e0231dd274@suse.com>
-Date: Thu, 4 Apr 2024 10:06:05 +0200
+        bh=pKh7Eu7TVgDxfeBSJtuFzVDUSdL1UAZsb7MOD/RFW9I=;
+        b=VstBwvI4bnVcgFEHtF6/+zMliqFY9eTFy6/pnxHZnPlBCkGyGdMS/54LkP2R6BmbLg
+         q2LIngNaQx50wl9Lecs7SwZznxWn88JoENjLwWn+kUNTEs/DqclUkd1pnZ7t+m/vGvKZ
+         NevyFLK2di/3hP5KJeBjOlMXL29jEMwl+fS7lVjk/qa50brjuFIpvJAGpuSGvtYTHRRV
+         2GUjsun6KQWIf7KhZu2xr93qTY+1bhin93TO2NK3bND1b0hkBXVh2aW+iyD5ocr83MPA
+         IJJpYiB8zMqvK8+sx/Yq8sVX4iv0r9PxIZPYpHb+NRSXyP5JAnwNZXX1fyjg8daakAgo
+         3asA==
+X-Forwarded-Encrypted: i=1; AJvYcCUB9nUh/CyaRKdWMglC5CyMQg2Jmq3gU3EUoSmk8RgeXsOO/k88DWCurT59G0Z/N5wjQmpLI1OoZKpZSP1OvNJW7NMjL2YyHILMaVJywzA=
+X-Gm-Message-State: AOJu0YzV7YkpTxNofAYQbJtG25xm9YU/1yCwxXzVRLib4wtJV0zyudqJ
+	8CwqPEv1/Tvy6txu/Xkm6rDPT4avSUkNv3wUI9rEz7haYm3i5vs85yen8RyT4A==
+X-Google-Smtp-Source: AGHT+IGqylbQPD+BfjzLoS3D8QdndY7FhmGtJB7hdYKKAcd0E/bufPm0NohLSrss3OfzxQO+fNA31w==
+X-Received: by 2002:a17:907:9487:b0:a4e:2cd6:8ac2 with SMTP id dm7-20020a170907948700b00a4e2cd68ac2mr1350990ejc.56.1712218276588;
+        Thu, 04 Apr 2024 01:11:16 -0700 (PDT)
+Message-ID: <e8755384-89f2-4b42-848a-9ae60d87cc7f@suse.com>
+Date: Thu, 4 Apr 2024 10:11:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drivers: char: Drop useless suspend/resume stubs in
- Arm drivers
+Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
+ event channels"
 Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20240404075143.25304-1-michal.orzel@amd.com>
- <20240404075143.25304-2-michal.orzel@amd.com>
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
+ <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
+ <f2b596e6-0aec-4948-ad7a-aa38adaa7dcc@suse.com>
+ <3aa0893b-7efd-4ca1-a405-e897edc7402f@apertussolutions.com>
+ <3b8ec757-d2f3-4143-a843-de8c6d51944d@suse.com>
+ <accf801d-a74b-41c3-a67f-bcbe622e4e34@apertussolutions.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,25 +118,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240404075143.25304-2-michal.orzel@amd.com>
+In-Reply-To: <accf801d-a74b-41c3-a67f-bcbe622e4e34@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.04.2024 09:51, Michal Orzel wrote:
-> On Arm we don't use console_{suspend,resume} and the corresponding
-> stubs in serial drivers are being redundantly copied whenever a new
-> driver is added. Drop them as well as useless .endboot = NULL assignment.
+On 03.04.2024 15:31, Daniel P. Smith wrote:
+> On 4/3/24 07:54, Jan Beulich wrote:
+>> On 03.04.2024 13:50, Daniel P. Smith wrote:
+>>> On 4/3/24 02:52, Jan Beulich wrote:
+>>>> On 03.04.2024 08:16, Jan Beulich wrote:
+>>>>> On 02.04.2024 19:06, Andrew Cooper wrote:
+>>>>>> Whether to return information about a xen-owned evtchn is a matter of policy,
+>>>>>> and it's not acceptable to short circuit the XSM on the matter.
+>>>>>
+>>>>> I can certainly accept this as one possible view point. As in so many cases
+>>>>> I'm afraid I dislike you putting it as if it was the only possible one.
+>>>>
+>>>> Further to this: Is there even a way to express the same denial in XSM?
+>>>> alloc_unbound_xen_event_channel() doesn't specifically "mark" such a
+>>>> channel, and (yes, it could in principle be open-coded in Flask code)
+>>>> consumer_is_xen() is private to event_channel.c. I also dare to question
+>>>> whether in SILO mode status information like this should be available.
+>>>
+>>> To build on the previous response: if the natural failure return value
+>>> is -EACCESS in response to a domain resource access attempt, then the
+>>> probability is extremely high that it should be implemented under a XSM
+>>> hook and not hard-coded into the resource logic.
+>>
+>> Possibly. But first of all - could you answer the earlier question I raised?
 > 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> Don't need to, this change subverts/violates the access control 
+> framework. If the desire is to make this access decision for the 
+> default/dummy policy, then codify it there. Otherwise I will be ack'ing 
+> this change since it is access control and falls under the purview of XSM.
 
-Since hook invocations are suitably guarded:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+If Xen internals like this are to be exposable (and controlled by XSM), why
+would other Xen internals not similarly be (optionally) exposed?
 
-However, from a Misra perspective more wants doing here if suspend/resume
-indeed isn't wanted / needed on Arm: console_{suspend,resume}() are
-unreachable there, and hence want hiding behind some (presumably)
-CONFIG_HAS_*. In turn the two hooks then would also want making conditional
-upon that option actually being selected by an architecture.
+Further, since above you referred to EACCES being what XSM is supposed to
+control: xsm_default_action() used EPERM, and (presumably; too long ago)
+EACCES was chosen here precisely to make it not look like an XSM surrogate.
 
 Jan
 
