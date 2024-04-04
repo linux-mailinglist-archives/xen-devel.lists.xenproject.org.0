@@ -2,34 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E55E89909B
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 23:49:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701016.1095011 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE85C89910B
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 00:12:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701020.1095022 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsUxF-0000w0-Pp; Thu, 04 Apr 2024 21:49:05 +0000
+	id 1rsVIk-0005y2-HB; Thu, 04 Apr 2024 22:11:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701016.1095011; Thu, 04 Apr 2024 21:49:05 +0000
+Received: by outflank-mailman (output) from mailman id 701020.1095022; Thu, 04 Apr 2024 22:11:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsUxF-0000u1-N9; Thu, 04 Apr 2024 21:49:05 +0000
-Received: by outflank-mailman (input) for mailman id 701016;
- Thu, 04 Apr 2024 21:49:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rsVIk-0005wM-ES; Thu, 04 Apr 2024 22:11:18 +0000
+Received: by outflank-mailman (input) for mailman id 701020;
+ Thu, 04 Apr 2024 22:11:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1z08=LJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rsUxE-0000Fb-HJ
- for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 21:49:04 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 25c52d74-f2cd-11ee-a1ef-f123f15fe8a2;
- Thu, 04 Apr 2024 23:49:02 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 324B4CE31F6;
- Thu,  4 Apr 2024 21:48:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3CBBC433C7;
- Thu,  4 Apr 2024 21:48:55 +0000 (UTC)
+ <SRS0=AdTa=LJ=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1rsVIi-0005wG-Bo
+ for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 22:11:16 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3f896a1d-f2d0-11ee-afe5-a90da7624cb6;
+ Fri, 05 Apr 2024 00:11:14 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 101DF8284D55;
+ Thu,  4 Apr 2024 17:11:12 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id PgeJihelWa6m; Thu,  4 Apr 2024 17:11:10 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 96C6C82858BB;
+ Thu,  4 Apr 2024 17:11:10 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id OnLbWvYSvfCl; Thu,  4 Apr 2024 17:11:10 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id E54968284D55;
+ Thu,  4 Apr 2024 17:11:09 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,42 +51,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25c52d74-f2cd-11ee-a1ef-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712267337;
-	bh=nDV9urUlmH1ZG+QioqmwzgNFjCb1avwSH8ue0G99U6k=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=mFvCejM2xWhrf1COaEQJEtddSk5hr0nNdBTm3fPX1afSKeVSvFGmsNIz5JTtGxIlq
-	 ceIvODDYPS6IIiI/Nm1u0v5X30OyY4BjkuJyYvYTikxLlR5uPXx2H92rzozUgSHpDB
-	 MyvQ3TqFxBZAkGtVQuNCxG9rEK/NG4y7dpb84m+mywqLdKROt1npn0NoknyKOz76YM
-	 wcJdGMoEEgECtfxv4PQzhXyJW8jBnCxx2yZ1blqsmCQyvvGb+x0kCtTtAsrsDik4S6
-	 4YWtajggBo+YTNGK6Wt5uFsSsm9jFV9WoM/neo/nMTBMPtcNavlrsPWwBEOPXM/wOO
-	 hUYzF3APLgwWQ==
-Date: Thu, 4 Apr 2024 14:48:53 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 2/2] char: lpuart: Drop useless variables from UART
- structure
-In-Reply-To: <20240404075143.25304-3-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2404041448470.2245130@ubuntu-linux-20-04-desktop>
-References: <20240404075143.25304-1-michal.orzel@amd.com> <20240404075143.25304-3-michal.orzel@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 3f896a1d-f2d0-11ee-afe5-a90da7624cb6
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 96C6C82858BB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1712268670; bh=0K5yuHbzyq6JnoikLvw1G15Z/yoGv0sFVQarsfrWIg8=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=P+iItqLrRMLMs5gDO8ceOS4q6wd6zfWLAof9r80VUQSSa6v0dB6pTbiXjOxhJ7EE0
+	 UjMNads/0JGDjhMNM15is7U9I2u3msTFMkHGMpMURR6ak0TMFJXxKOXPaUnwEXVrx1
+	 JqKn0kfbWQn2Zsvt/AxBr1wLvQ9qXN6Os8haIqZs=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <d7227c0b-ff3d-4e83-8240-160e5d4e5053@raptorengineering.com>
+Date: Thu, 4 Apr 2024 17:11:09 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/9] xen/asm-generic: Introduce generic acpi.h
+To: Jan Beulich <jbeulich@suse.com>
+Cc: tpearson@raptorengineering.com, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1710443965.git.sanastasio@raptorengineering.com>
+ <794e46b16475c0b4f482cdc8560ebb2f37875715.1710443965.git.sanastasio@raptorengineering.com>
+ <a6147b83-97e8-4c73-982c-221178b951f5@suse.com>
+Content-Language: en-US
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <a6147b83-97e8-4c73-982c-221178b951f5@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 4 Apr 2024, Michal Orzel wrote:
-> These variables are useless. They are being assigned a value which is
-> never used since UART is expected to be pre-configured.
+Hi Jan,
+
+On 3/25/24 10:19 AM, Jan Beulich wrote:
+> On 14.03.2024 23:15, Shawn Anastasio wrote:
+>> Introduce a generic acpi.h header that provides the required definitions
+>> to allow files including xen/acpi.h to be compiled. The definitions were
+>> largely derived from the !CONFIG_ACPI parts of ARM's acpi.h.
 > 
-> No functional change.
-> 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> As said a couple of times in discussion with Oleksii on his work towards
+> populating asm-generic/, I view a use like this as an abuse of this
+> asm-generic machinery. Instead imo said !CONFIG_ACPI parts from Arm's header
+> want moving to xen/acpi.h, eliminating the need for asm/acpi.h for
+> architectures / configurations not supporting ACPI. Much like was done
+> with e.g. xen/numa.h.
+>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+In this case I'm not sure I fully agree, since the definitions here
+aren't really stubs but rather more-or-less fully complete
+architecture-independent implementations of these symbols for the
+!CONFIG_ACPI case.
 
+That said, after you mentioned the other route of modifying xen/acpi.h,
+I found that going that route required fewer changes, so I'll proceed
+with that approach.
+
+> Jan
+
+Thanks,
+Shawn
 
