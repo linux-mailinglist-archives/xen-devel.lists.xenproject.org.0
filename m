@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56E5F898A13
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 16:27:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700925.1094753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2674F898A39
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 16:35:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700929.1094763 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsO36-0005fR-LF; Thu, 04 Apr 2024 14:26:40 +0000
+	id 1rsOB3-0007s6-EL; Thu, 04 Apr 2024 14:34:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700925.1094753; Thu, 04 Apr 2024 14:26:40 +0000
+Received: by outflank-mailman (output) from mailman id 700929.1094763; Thu, 04 Apr 2024 14:34:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsO36-0005ds-Ib; Thu, 04 Apr 2024 14:26:40 +0000
-Received: by outflank-mailman (input) for mailman id 700925;
- Thu, 04 Apr 2024 14:26:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rsOB3-0007pG-Bf; Thu, 04 Apr 2024 14:34:53 +0000
+Received: by outflank-mailman (input) for mailman id 700929;
+ Thu, 04 Apr 2024 14:34:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=stKz=LJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rsO34-0005dl-UB
- for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 14:26:38 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 58af7e81-f28f-11ee-afe5-a90da7624cb6;
- Thu, 04 Apr 2024 16:26:37 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4155819f710so7756145e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 07:26:37 -0700 (PDT)
+ id 1rsOB2-0007pA-2H
+ for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 14:34:52 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7dee01b1-f290-11ee-a1ef-f123f15fe8a2;
+ Thu, 04 Apr 2024 16:34:49 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-343cfa6faf0so250685f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 07:34:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h2-20020a05600c350200b00414906f1ea1sm2848647wmq.17.2024.04.04.07.26.36
+ o5-20020a5d6845000000b00343b252b096sm2693810wrw.23.2024.04.04.07.34.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Apr 2024 07:26:36 -0700 (PDT)
+ Thu, 04 Apr 2024 07:34:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58af7e81-f28f-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 7dee01b1-f290-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712240797; x=1712845597; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712241289; x=1712846089; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=BAD8HqjZ6pq6vtvGYkb7SfUvZMwABN74SiZKTZR+HZU=;
-        b=VX2/KH0qkIyPGtgdY1favA/2lHCqy+MjKCvnQkfoQfy9Kk8dDcXVCSplNL0d6S29WX
-         23b4yWvDTfJQRvmzY0FJQMsY4rMps9kgvs0NS07yBUz6q9F5XHJLwcW58rEI2PqRegKu
-         BtLqdi/kLWa6qL975daqhj7PbHIkPx4pSXg6Bv+f2Yg7bzmzNNlFriZDC7+o2G821Zx0
-         oeo6kXpG+Okk3UQO1Q8oTqalJVDWSf8y0yYdPv4CFgSgCZAc2EAza89tdSYsshn2+UHf
-         J9nSrt8NU658yzE/dKzLOmwdNGsw/n3wFo6TC7cM7MkJ0ronDSC+P+A+LdBootNbJ6fe
-         TNVg==
+        bh=1f2Z/bUHj9MWmTO5PVF+hQl2fdHntcYSQfksFN+TjXw=;
+        b=W8pj1gMpwPS6nKU8EnuaQyPzO8ZnaDKv/CrJ5jxeeY0XxDZjqczxRa6SyIBRh49MHh
+         PWe4wKTptWbDpv0ff/6It11dDV6khZZ3xPL6HkIOEredgdhlPkzFSWfHsvsqSXA10MfE
+         YXdaGK8npTdnuBHwpavWmP50spUn3krYGYqIiqsbIYtt/ZCjWlUWCsBQGiXIAXO1UgzF
+         OyXaI+GWUdK0S/8GZQ+bqnVDeopYJ0VZpLaoG2EpIdHJOZsl9QNbdUFTMNgUe9p7iMkh
+         /RbHGoETjqqUU2cvJNj24iD5rlgJV3ibd3dvNB+TtQm2UCVJG555PcwrlnVVQAKePjOC
+         sA0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712240797; x=1712845597;
+        d=1e100.net; s=20230601; t=1712241289; x=1712846089;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BAD8HqjZ6pq6vtvGYkb7SfUvZMwABN74SiZKTZR+HZU=;
-        b=UuUhEZ0UlCSrIRwLw5MZdr+BkTksgOizE8IZbIJxbRfVSXWeEL4rATb/d4Lw615ajb
-         Ae5LWOqQNWWWZePfzNHfuF1eLcxeNJBXVt9zeu6d+Bhmw3bCnthCwB+bFkMshqkjWvr1
-         H1SOXdxPpe3A2LkcxzLO6p9zWFxgNU8TsFfn/OW8CKwzQ8GsmXPZA69fWt8VTr8wKaBk
-         EEIzJtM2Rba8FkRIDVfmBh2MhsptTD6ncsHzEocUdGyzSQWTb8D4Ul6eeqWRy6byL5ho
-         3IWFtgm2r6mEhTBbl2w7W+v6IrQvofl4QB8oBSEIKe/e7I8dZidbTqnYpV/IaaCdslVf
-         T9Dg==
-X-Forwarded-Encrypted: i=1; AJvYcCU6mF5QrIB40rrZ3cqejxIfUuE8gzyxQLlsoD+cEZ9lD78CT52/xZdo7QO9abP9QXw9i8ULX/Ro6rGWQCdbGAxW/+Dvtk8nklilHcyjPg8=
-X-Gm-Message-State: AOJu0YyhQ7/hIbb4GKEfigL8ALHeAzMUQpSaPPminDisZb4VekhmijUW
-	OC+HZNSHkKmt+h9uP5yQd59C6c8WmgI+jFtZqouhxslrO+uMdQwYRonXa7aaBQ==
-X-Google-Smtp-Source: AGHT+IFEUcgzfGM9Yno+rooIQjkCAdMyl2kjgWwoAnLTHX8oYcmGw7hksNvQ5u7h6Ujbbo9+PkDFVQ==
-X-Received: by 2002:a7b:c459:0:b0:414:93ae:396d with SMTP id l25-20020a7bc459000000b0041493ae396dmr2183343wmi.32.1712240797326;
-        Thu, 04 Apr 2024 07:26:37 -0700 (PDT)
-Message-ID: <4869b25c-71e2-4d7a-8eaf-5c26219da6ce@suse.com>
-Date: Thu, 4 Apr 2024 16:26:36 +0200
+        bh=1f2Z/bUHj9MWmTO5PVF+hQl2fdHntcYSQfksFN+TjXw=;
+        b=kN815/PcE3PdgNaMo3XHTUuYpoVGH7OZnMx4ebXXNAKz6Pl/kupiCu41+bKthShp5m
+         ts1m59mpTS0Dx1E1nhBJssjnsAPBAOCNnhcBmmxF4IUUMQmazOgmPazKMJBRcCow914S
+         tLZeBOZgghlDIArpuDV3sPxL9ZYF9vLGZ3Lnd5j/Viuqh5juKP/N6XJCbhHQiA3QYjW+
+         4DOV8OGFKY5+VZJgyM8YeuJ0u/vahOQaXjH/VlFZiTFYA/a0jNVmn2PArqKL7V+dnuKy
+         ZoclxbRpBsaSlX3BhhffuOhsMtdExWcosLUskcUL7CDOuAIlStsoxPX77zACvfZvB4lf
+         Al/w==
+X-Forwarded-Encrypted: i=1; AJvYcCXvC5v1ESgWUTOdy5d+R158JxeCReQs2e0kOjc0/K0bYhyA9gh+0lmmmewiz0ZFTbd2/D0RuzaAu5mVn2XHjoO50se1stqydHrXT+NKopo=
+X-Gm-Message-State: AOJu0YxA4IKfVSXkPuU6a7ZW6dlWkrLtuJQbZduQ7f88fLzY4A7Bs73q
+	mULmzefY3gg9Jh5nirGAGzieE43uUauqQYW471f9bU1zP7dfSlqHpqFItpoysw==
+X-Google-Smtp-Source: AGHT+IGyavB3vywYH5R43bM6PkSkgaxWyDeIAiAJpG5ZHYWYK07MrQqZW3Me49nStnw+UoBAI7ELIA==
+X-Received: by 2002:adf:ce0c:0:b0:33f:84a1:7eb8 with SMTP id p12-20020adfce0c000000b0033f84a17eb8mr2226465wrn.1.1712241289324;
+        Thu, 04 Apr 2024 07:34:49 -0700 (PDT)
+Message-ID: <4c008f38-2618-4e17-8cb5-c226660edf37@suse.com>
+Date: Thu, 4 Apr 2024 16:34:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 06/19] xen/bitops: put __ffs() into linux compatible
- header
+Subject: Re: [XEN PATCH] automaton/eclair: add deviations for MISRA C:2012
+ Rule 13.6
 Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
- <854994adfdbaafb4d140fffb72ff5ade6b0aeb1e.1712137031.git.oleksii.kurochko@gmail.com>
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cca71f954bec4efc14b98e3ad991581441d593d7.1712238975.git.federico.serafini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,26 +115,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <854994adfdbaafb4d140fffb72ff5ade6b0aeb1e.1712137031.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <cca71f954bec4efc14b98e3ad991581441d593d7.1712238975.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03.04.2024 12:19, Oleksii Kurochko wrote:
-> --- a/xen/include/xen/linux-compat.h
-> +++ b/xen/include/xen/linux-compat.h
-> @@ -19,4 +19,6 @@ typedef int64_t __s64;
+On 04.04.2024 16:21, Federico Serafini wrote:
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -333,6 +333,14 @@ of the short-circuit evaluation strategy of such logical operators."
+>  -config=MC3R1.R13.5,reports+={disapplied,"any()"}
+>  -doc_end
 >  
->  typedef paddr_t phys_addr_t;
+> +-doc_begin="Macros alternative_vcall[0-9] use sizeof to type-check \"func\" and the func parameters without evaluating them."
+> +-config=MC3R1.R13.6,reports+={deliberate,"any_area(any_loc(any_exp(macro(^alternative_vcall[0-9]$))))"}
+> +-doc_end
+
+alternative_vcall(), for now at least, is x86-only. Why blindly deviate it also
+for Arm?
+
+> +-doc_begin="Macro chk_fld is only used to introduce BUILD_BUG_ON checks in very specific cases where by code inspection you can see that its usage is correct. The BUILD_BUG_ON checks check that EFI_TIME and struct xenpf_efi_time fields match."
+> +-config=MC3R1.R13.6,reports+={deliberate,"any_area(any_loc(any_exp(macro(^chk_fld$))))"}
+> +-doc_end
+
+As indicated on earlier occasions - when a macro isn't global, its deviation
+better wouldn't be global either. An identically named macro may be introduced
+elsewhere, and may not need deviating there.
+
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -279,6 +279,18 @@ Deviations related to MISRA C:2012 Rules:
+>         the short-circuit evaluation strategy for logical operators.
+>       - Project-wide deviation; tagged as `disapplied` for ECLAIR.
 >  
-> +#define __ffs(x) (ffsl(x) - 1)
+> +   * - R13.6
+> +     - Macros alternative_vcall[0-9] use sizeof to type-check \"func\" and the
+> +       func parameters without evaluating them.
 
-To be truly Linux-compatible, the result type would better be unsigned long
-here. Seeing that you build upon Andrew's work, the easiest might be
+Just to mention it: The return type of the function isn't really of interest
+there. What's being checked is that the argument types match the corresponding
+parameter ones, which otherwise would "naturally" be done by the compiler when
+seeing function calls. Might be useful to state no more and no less than what
+is really needed.
 
-#define __ffs(x) (ffsl(x) - 1UL)
-
-Then:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Further, according to the discussion on the matter: alternative_call() is
+quite similar in this regard, just that it uses typeof(). Imo it should be
+deviated here as well right away, no matter whether Eclair can actually be
+configured to also check typeof() and alignof().
 
 Jan
 
