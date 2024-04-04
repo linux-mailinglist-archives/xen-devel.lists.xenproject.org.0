@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68F86898AA4
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 17:07:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700938.1094794 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26A77898AE0
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 17:18:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700942.1094804 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsOgI-0007yv-Cw; Thu, 04 Apr 2024 15:07:10 +0000
+	id 1rsOr7-0002Cs-Bp; Thu, 04 Apr 2024 15:18:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700938.1094794; Thu, 04 Apr 2024 15:07:10 +0000
+Received: by outflank-mailman (output) from mailman id 700942.1094804; Thu, 04 Apr 2024 15:18:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsOgI-0007wt-9X; Thu, 04 Apr 2024 15:07:10 +0000
-Received: by outflank-mailman (input) for mailman id 700938;
- Thu, 04 Apr 2024 15:07:08 +0000
+	id 1rsOr7-00029s-8W; Thu, 04 Apr 2024 15:18:21 +0000
+Received: by outflank-mailman (input) for mailman id 700942;
+ Thu, 04 Apr 2024 15:18:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LwOm=LJ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rsOgG-0007wl-P7
- for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 15:07:08 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
+ id 1rsOr6-00029m-Rn
+ for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 15:18:20 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 01246b6e-f295-11ee-afe5-a90da7624cb6;
- Thu, 04 Apr 2024 17:07:07 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-516a01c8490so2050120e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 08:07:07 -0700 (PDT)
+ id 919d7009-f296-11ee-afe5-a90da7624cb6;
+ Thu, 04 Apr 2024 17:18:19 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a517d773844so160167766b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 08:18:19 -0700 (PDT)
 Received: from [192.168.206.239] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- d14-20020ac24c8e000000b00516d2489f16sm7802lfl.260.2024.04.04.08.07.06
+ w4-20020a1709062f8400b00a4e07f8b6bfsm9108253eji.59.2024.04.04.08.18.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Apr 2024 08:07:06 -0700 (PDT)
+ Thu, 04 Apr 2024 08:18:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,145 +45,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01246b6e-f295-11ee-afe5-a90da7624cb6
+X-Inumbo-ID: 919d7009-f296-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712243227; x=1712848027; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1712243899; x=1712848699; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=/VELRPKeMX1LdEAJc/Q0CO65ia3VxSP0pAr7oWHXSWU=;
-        b=ZTcNXgvMUMkWI+636yLDCV54jN+NWqiY4Z7c/ZFA9skioz5dO58w6jqeZSOIral0WI
-         NOOFa70pbkO9PfKD1B4j65Xbaq0ke67pv7IqwdniP33KMWhQc+FLQH8M4ZuFAvqMfyPs
-         l1ML680KikjveX+FUIjdD2hpRvJZQO7KbRCzd+H6k2Sp5+VEIRwklgKQcAfAt830MBzp
-         2jjOH0yHLoOQtQ0hs+TrbIzqcfdGEFuXK7QfMFZvt4jkcSLxpZam5nVHUPECu2lc9Sbc
-         lkr5MKJb02+mWm9JMUsxi/eyC/M1oW3rJKN8wJci0pTKkrKyz5ly4Kee0feNfIcMN61x
-         KHtA==
+        bh=giSZkoeMqOySw2+U+Xr21qoAa/CBbUcNGzBrxRAc4Ec=;
+        b=dp0RfhcAqMoDHMRtVhM/qnuFs1mEBj+Xtx0ss29Xyvs4QXCcJLLHs1uA1IPrrwGThX
+         gIlaOeaywqA2I/ID1TqWTDsVfq0ZBjLWafgFNSW31aSqJQlH0IhEBSTpf6x83dvBZ0Ej
+         vsTc8upwJ8E5cQxYTS9I9xajVZx8rGS1MzFHx4WG8Iiqmyy4uyXsGAKq8WDgvJPfvykk
+         ZSQ6upVlV3gePWwYiey6zHFxTFkhd99kYMeZDJ4O+OdSJQBcHX//mwYO+4VzRnZsA8BJ
+         Kl1RolZt22rgP1aMe6HZuu95u0OHkcY+S40qlpoMKi5QEDmO//wAC4cIXDhHKlmo/1qz
+         rygQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712243227; x=1712848027;
+        d=1e100.net; s=20230601; t=1712243899; x=1712848699;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=/VELRPKeMX1LdEAJc/Q0CO65ia3VxSP0pAr7oWHXSWU=;
-        b=QKYD0zWOUCNl6JtTNZ3Zh78kSUJytqaWZ1Tp9NzrHj78IekkiG16++KnVp7WKULNAW
-         cRGK7Vj+b793klNIG+mM3tXn2PslQRXeTHGXl/t4ZVKS6V3Sj7CbIjjPkjpYhh3xZIF1
-         CdDFnLV/a63ZyYMJJNJr8tdUUoVL7xB2m4Hg9FxOShFSTnM9DYO4zuU1uVfItD1mqNAa
-         fmZKV3wfcW390wiilpSdx9OPj0Pp1kX0aIJREHWwbjBdOa3uTPDUuPVLpI6KMYb+AxLX
-         08oSMov32DfphdxFzHVWzDJzopVC3+/wU7e5w5guzstfhFZfpUvaH6Em+X0vzi0fBDzR
-         LQDA==
-X-Forwarded-Encrypted: i=1; AJvYcCXuJbYkLcKQ6WPedr/LgGAbUfhpU7/cJdljphgjRxz4yzn0Qc1O5D9t4xQJElpox+Bz8AINWby63RWeMQlMSbpOLPt41AOlPZeq0cDiFcM=
-X-Gm-Message-State: AOJu0YwdCw2tCoXKGKLhyRmEFqQgrL3X4Nnvbu08bbQnjxCUTC4rD1tK
-	Z62+spC2A4BC4rSuBnXA/8sTCU0m1xoe3TUsMXfPyImLtrKirstP
-X-Google-Smtp-Source: AGHT+IFypdC4qkWeDRte+kqVyH6BpFawDcgVa6DrCNTrviX2coEvinxl23Vz3e4lYK8lnEVlAT8hog==
-X-Received: by 2002:a19:f716:0:b0:513:dd66:d5e9 with SMTP id z22-20020a19f716000000b00513dd66d5e9mr882880lfe.21.1712243226918;
-        Thu, 04 Apr 2024 08:07:06 -0700 (PDT)
-Message-ID: <c1161824532f24e39bcedf3a6f96c70ec8bc885c.camel@gmail.com>
-Subject: Re: [PATCH v7 02/19] xen/riscv: disable unnecessary configs
+        bh=giSZkoeMqOySw2+U+Xr21qoAa/CBbUcNGzBrxRAc4Ec=;
+        b=tn6VLRUprEs0s6nRULrtlSTAchJlz2Z/A9cgE+KOLUBKljzP2Hkyc4XYe1PBQnsZRK
+         NfCw7r20QAUw/NPTRBLx0Tgyb3QsvZIEcCj0N5Hpk+mAspOEyN6D7UaJQyJi7wWGyCMU
+         sFtOfrOBbXBdgj+QvClART5QYl7kX9S3nohkMKAuNQEPz6Hnv34u6ZqzrOS4UU9f0RBm
+         JIpX+tSOOE4lL/MC4ZdRIYTrUw4wVe3QZahDGMVrPaLiglhDwT2nmK1wkj9sIipuV3a/
+         dWqinB4pZ5UvG0FBoFXKUdC9U0tJ0udfMsbmno+QsxB+JdJHZDLXkg2M8X75mdIoITab
+         9m/g==
+X-Forwarded-Encrypted: i=1; AJvYcCVSxcS222CW/NC5CWk8y6T1oX00FGsugzGs5FLSsIDISzZFiY6Cm9JBXwoCDo9I9kXH7VqxY1/d+R2uNF2k3sYOCqZbsm0Q5x5LVjZ09vs=
+X-Gm-Message-State: AOJu0YyaSPmATzAX2DCUe03BJNnjG1lAjg12apwqLdJLhHLEpc1UKPr3
+	tohJeFBjAAx5+CDMeZKl5WXGGMdDW8KHBYfJ73hEJQRuZtbT/a81
+X-Google-Smtp-Source: AGHT+IFoRjl3zx1DgAc0QptrXwkJEc18TF513ESCYFzzYAqGh39tVWT1ixNR0dsgmnbxdoz2NkSBig==
+X-Received: by 2002:a17:906:17cc:b0:a47:3526:2e0f with SMTP id u12-20020a17090617cc00b00a4735262e0fmr1828827eje.75.1712243899140;
+        Thu, 04 Apr 2024 08:18:19 -0700 (PDT)
+Message-ID: <9945cb144f5c1b95202646135b88891537230e17.camel@gmail.com>
+Subject: Re: [PATCH v7 03/19] xen/riscv: introduce extenstion support check
+ by compiler
 From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini
-	 <sstabellini@kernel.org>, Alistair Francis <alistair.francis@wdc.com>, Bob
-	Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, 
-	xen-devel@lists.xenproject.org
-Date: Thu, 04 Apr 2024 17:07:06 +0200
-In-Reply-To: <7593c2e7-57ee-42eb-8d38-a3aa177d3420@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Alistair Francis
+ <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Connor
+ Davis <connojdavis@gmail.com>,  xen-devel@lists.xenproject.org
+Date: Thu, 04 Apr 2024 17:18:18 +0200
+In-Reply-To: <bda70742-04b7-4bab-8cdd-6b5a3d45dc3c@suse.com>
 References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
-	 <c2ba247adce76c69ecd6400d791db36495b85b75.1712137031.git.oleksii.kurochko@gmail.com>
-	 <e3da3546-f2a7-4eab-b157-51b6570dcbf9@suse.com>
-	 <77d63eccd4906ebbb3a5add624490cc25b2cba0c.camel@gmail.com>
-	 <7593c2e7-57ee-42eb-8d38-a3aa177d3420@suse.com>
+	 <0c9b0317d0fc4f93bf5cc0893d480853110b8287.1712137031.git.oleksii.kurochko@gmail.com>
+	 <bda70742-04b7-4bab-8cdd-6b5a3d45dc3c@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.50.4 (3.50.4-1.fc39) 
 MIME-Version: 1.0
 
-On Wed, 2024-04-03 at 13:53 +0200, Jan Beulich wrote:
-> On 03.04.2024 12:54, Oleksii wrote:
-> > On Wed, 2024-04-03 at 12:28 +0200, Jan Beulich wrote:
-> > > On 03.04.2024 12:19, Oleksii Kurochko wrote:
-> > > > This patch disables unnecessary configs for two cases:
-> > > > 1. By utilizing EXTRA_FIXED_RANDCONFIG for randconfig builds
-> > > > (GitLab CI jobs).
-> > > > 2. By using tiny64_defconfig for non-randconfig builds.
-> > > >=20
-> > > > Only configs which lead to compilation issues were disabled.
-> > > >=20
-> > > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > > > ---
-> > > > Changes in V7:
-> > > > =C2=A0- Disable only configs which cause compilation issues.
-> > >=20
-> > > Since the description doesn't go into details: While I can see
-> > > that
-> > > PERF_COUNTERS and LIVEPATCH may require (a little / some more)
-> > > extra
-> > > work, are HYPFS, ARGO, and XSM really causing issues?
-> > For Argo, I recieved the following compilation errors:
-> > =C2=A0=C2=A0 common/argo.c:1416:5: error: unknown type name 'p2m_type_t=
-'; did
-> > you
-> > =C2=A0=C2=A0 mean 'hvmmem_type_t'?
-> > =C2=A0=C2=A0=C2=A0 1416 |=C2=A0=C2=A0=C2=A0=C2=A0 p2m_type_t p2mt;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=
-=A0 ^~~~~~~~~~
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=
-=A0 hvmmem_type_t
-> > =C2=A0=C2=A0 common/argo.c:1419:11: error: implicit declaration of func=
-tion
-> > =C2=A0=C2=A0 'check_get_page_from_gfn' [-Werror=3Dimplicit-function-
-> > declaration]
-> > =C2=A0=C2=A0=C2=A0 1419 |=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D check_get_pag=
-e_from_gfn(d, gfn, false, &p2mt,
-> > &page);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^~~~~~~~~~~~~~~~~~~~~~~
-> > =C2=A0=C2=A0 common/argo.c:1427:10: error: 'p2m_ram_rw' undeclared (fir=
-st use
-> > in
-> > =C2=A0=C2=A0 this function)
-> > =C2=A0=C2=A0=C2=A0 1427 |=C2=A0=C2=A0=C2=A0=C2=A0 case p2m_ram_rw:
-> > =C2=A0=C2=A0=20
-> > It seems it should be included xen/p2m-common.h and asm/p2m.h in
-> > common/argo.c.
-> >=20
-> > For CONFIG_HYPFS_CONFIG ( there is no issue with CONFIG_HYPFS,
-> > overlooked that ):
-> > =C2=A0=C2=A0 common/config_data.S:1:10: fatal error: asm/asm_defns.h: N=
-o such
-> > file
-> > =C2=A0=C2=A0 or directory
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1 | #include <asm/asm_defns.h>
-> > =C2=A0=C2=A0=20
-> >=20
-> > For XSM, I recieved the following error:
-> >=20
-> > =C2=A0=C2=A0 xsm/xsm_core.c:79:19: error: 'xsm_core_init' defined but n=
-ot
-> > used [-
-> > =C2=A0=C2=A0 Werror=3Dunused-function]
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 79 | static int __init xsm_core_init(con=
-st void
-> > *policy_buffer,
-> > =C2=A0=C2=A0 size_t policy_size)
-> >=20
-> > I'll add an information with compilation errors to the commit
-> > message.
+On Thu, 2024-04-04 at 12:07 +0200, Jan Beulich wrote:
+> On 03.04.2024 12:19, Oleksii Kurochko wrote:
+> > --- a/xen/arch/riscv/arch.mk
+> > +++ b/xen/arch/riscv/arch.mk
+> > @@ -3,16 +3,27 @@
+> > =C2=A0
+> > =C2=A0$(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+> > =C2=A0
+> > -CFLAGS-$(CONFIG_RISCV_64) +=3D -mabi=3Dlp64
+> > +riscv-abi-$(CONFIG_RISCV_32) :=3D -mabi=3Dilp32
+> > +riscv-abi-$(CONFIG_RISCV_64) :=3D -mabi=3Dlp64
+> > =C2=A0
+> > =C2=A0riscv-march-$(CONFIG_RISCV_ISA_RV64G) :=3D rv64g
+> > =C2=A0riscv-march-$(CONFIG_RISCV_ISA_C)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 :=3D $(riscv-march-y)c
+> > =C2=A0
+> > +riscv-generic-flags :=3D $(riscv-abi-y) -march=3D$(riscv-march-y)
+> > +
+> > +zbb :=3D $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"",_zbb)
 >=20
-> No need to quote full compiler diagnostics, but a hint at the
-> problems
-> at least. That said, perhaps we want to rather sort the issues than
-> disable building stuff that sooner or later you will want to build
-> anyway. For hypfs we look to have an approach already. For Argo what
-> you suggest makes sense to me; it might be nice to understand where
-> the P2M headers needed are coming from on x86 and Arm. Ideally common
-> code .c files wouldn't include asm/*.h.
-I'll look at where P2M header came from on x86 and Arm.
+> While committing another question popped up: Why "" (i.e. no insn)
+> here, ...
+>=20
+> > +zihintpause :=3D $(call as-insn,\
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 $(CC) $(riscv-generic-
+> > flags)_zihintpause,"pause",_zihintpause)
+>=20
+> ... but "pause" here?
 
->=20
-> For XSM I'm a little puzzled: Shouldn't RISC-V have
-> HAS_DEVICE_TREE=3Dy?
-> Then xsm_core_init() would have a caller.
-It should, but I haven't add "select HAS_DEVICE_TREE" for RISC-V as no
-device tree functionality hasn't been introduced yet.
+In the case of the Zbb extension, we don't check for a specific
+instruction, but with the Zihintpause, the idea was to verify if the
+pause instruction is supported or not. However, in both checks, there
+might be no instruction as an argument of as-insn.
 
 ~ Oleksii
 
