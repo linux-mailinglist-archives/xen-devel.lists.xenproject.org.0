@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6DD2898BDE
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 18:13:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700964.1094864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44D66898BE9
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 18:15:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700966.1094873 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsPhs-00017u-IN; Thu, 04 Apr 2024 16:12:52 +0000
+	id 1rsPjp-00021C-SV; Thu, 04 Apr 2024 16:14:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700964.1094864; Thu, 04 Apr 2024 16:12:52 +0000
+Received: by outflank-mailman (output) from mailman id 700966.1094873; Thu, 04 Apr 2024 16:14:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsPhs-00014k-FB; Thu, 04 Apr 2024 16:12:52 +0000
-Received: by outflank-mailman (input) for mailman id 700964;
- Thu, 04 Apr 2024 16:12:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rsPjp-0001z9-Pu; Thu, 04 Apr 2024 16:14:53 +0000
+Received: by outflank-mailman (input) for mailman id 700966;
+ Thu, 04 Apr 2024 16:14:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=stKz=LJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rsPhr-00014Z-VU
- for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 16:12:51 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2d99fead-f29e-11ee-a1ef-f123f15fe8a2;
- Thu, 04 Apr 2024 18:12:48 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4155819f710so8713185e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 09:12:48 -0700 (PDT)
+ id 1rsPjo-0001yz-L0
+ for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 16:14:52 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7737916e-f29e-11ee-afe5-a90da7624cb6;
+ Thu, 04 Apr 2024 18:14:51 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-343cfe8cae1so268081f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 09:14:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- u5-20020a056000038500b00343491b9cbesm13342992wrf.41.2024.04.04.09.12.46
+ h9-20020adffa89000000b003435e1c0b78sm8142914wrr.28.2024.04.04.09.14.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Apr 2024 09:12:47 -0700 (PDT)
+ Thu, 04 Apr 2024 09:14:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d99fead-f29e-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 7737916e-f29e-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712247167; x=1712851967; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712247291; x=1712852091; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=qM4cYW0T0tiSmDwMVOp/f0RwbJ5oUl5ykaGD8mxSEXc=;
-        b=RwcMjaAwZniVU7iW+DpbwV6ta6PRjjwklUZdfVvvDjbHkCYJTCIOGM45kmVa8dbq7a
-         tc57V3LY314aU8uRSJpdEhWz6lwteBR9nxZgJd6vfHP6+KqqerxNR7dU5iCtDxNTPkdE
-         kBomR+d4OhHzEETO2GHtd31ywS0m9UNO2R1yq8zu5sGAySKaW8XzhYt0FtIgcHKIq8xQ
-         szlbKQ+7QBXhhWVKIJLf+Aoe46fHM2DVqUtrfqfRKekE/yavBU8BNmsdYkZIeXzb0gNz
-         mcI3f2NuGDHbN3YDW76Qnq5WnVnjmxBRFO8CuqZZHqh9JDaZFwmQAP1yh9van38blgGw
-         v7yw==
+        bh=3L1VNOnyIkJwaBlwPryLK6UfXUKoC6MtT7cgNiF9p2Y=;
+        b=Di0P/Phn+pXQb9y6BcvS9Z1gnt02R2GGst4v0uoSLfmd8++NbwZ10ILfhJ9hQvadO4
+         nZhE0GTxa34bguL7LObBMXmfhDm3JyIIWjc45ShCee6HF7I/LstAPzb0MFdRMxVP1hOT
+         g3kc+Yg3vTlUnoHEudMsqkF6kSBe9BAQ8jHbcgAT0GhYCmIYfwKVuuTFEjW/C4d0vHNV
+         06UwpjrucxSenx2A+zA4Iof9W5aQ4qVdLfgU4p81ABxkHB4EwSKq0zD3eEqyt6QEEq9A
+         qzoVYdcB2pFxm5n2XNvmZG+kfD3Tc7/auHwCuC230TubIKygZ3H/n/vxCGiVZXVri+hH
+         oxxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712247167; x=1712851967;
+        d=1e100.net; s=20230601; t=1712247291; x=1712852091;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qM4cYW0T0tiSmDwMVOp/f0RwbJ5oUl5ykaGD8mxSEXc=;
-        b=IGjQnX+P9SZCLNtoLwX4tyAqq6DI9vZ1z0oeLX+GDXncMNOrrswSQmeoBEb+Ku2T5K
-         0NE4k5brbV9wW4yVV/2qP7Q+9yQrXx/RPnX6PZbBhfFbivBlCP2egf5JTJOSMYpGUjGx
-         recI7Dt/4rUPtz5UAkCmKk5Qj2cg6aXoflh3K6nHDAEtfXijwS+k0CTioq1PqEREykIp
-         QNFkqFYD+XwpXF9mRwJXPSwpKThVzKDNYT10sr3U2Z1a+0NGLmSKb6foJ7MtfeOQhH/u
-         PFnyVYFJBfB5RGJHtsHEvRqsewfXSFSIYETZ8jM0TgOE9rNi8TgUxvFqJMNtP0rpFvcm
-         f0Ug==
-X-Forwarded-Encrypted: i=1; AJvYcCW/U21+ORKjJS9JufP5w0sP7YsKKwvW/5xzLNENh+DtXI4If7laeV2HcG8IK+KeRQ+keis/L5FsD+V5ff2aDVHhSuNn/FFSE7t3OH1znNY=
-X-Gm-Message-State: AOJu0YxRk2aenu+vINIuzzM+jfnfXgIsyA2Jrx3RdQXPlOa3DMx2wpgU
-	oDFs0A/DYkYFm2ejEtaanLlrut/nXhe8TVDRzFxBow3XMdDwp4U7rDANaIMaDQ==
-X-Google-Smtp-Source: AGHT+IErJHtDOLeKYnk38PI1Q7aMguR2PGYAuRH8gFU4ddRGyNpuo0qOT4mCLLqOLEThD2Jz2OjA3w==
-X-Received: by 2002:a05:600c:4f48:b0:414:868d:1cbe with SMTP id m8-20020a05600c4f4800b00414868d1cbemr194277wmq.9.1712247167504;
-        Thu, 04 Apr 2024 09:12:47 -0700 (PDT)
-Message-ID: <4ba7c962-a635-4a7d-8e03-093361cc6353@suse.com>
-Date: Thu, 4 Apr 2024 18:12:46 +0200
+        bh=3L1VNOnyIkJwaBlwPryLK6UfXUKoC6MtT7cgNiF9p2Y=;
+        b=gJQuggJR2Hg+HVIc8GYBL01KSiEqGLo1HELshRglQQ/5AzyyHYH69CXaGepdiZLVvf
+         65S1tPOu3Nzp/FbXgHb35buJ9Ik7vwjZE5hg1oBpOKRwozHyakaBT29YHafiZvlySu/4
+         gpPatQ9oklGD/p8HHojWzD0mu1Cem1iFmLayLnxGy4Fd0hWUmothCmiPpn667KzWDHg3
+         VqMciAahXx5kQXMRP4FiU99W7AY/8NsLliJOBEfzzrF5Yc3zNQ86zuO9vocnhqywKFC4
+         JDQwhhFq8F0qJh5SEgTuTuXD/4uM/xUr0umCIZ+Ca4ZP2/d9VmpweQ2dERMWkq2rpwwJ
+         g9VA==
+X-Forwarded-Encrypted: i=1; AJvYcCXWRrxBDVbccA6Wv71CIGcUnTOzywZ5HKpqN6Uqm/LP1eT9Jj67yQm+JeI5oaSgkqSbpz+a9bN+c8/VkRd69vEdl5u14isFlIg834m0fQk=
+X-Gm-Message-State: AOJu0YyjJj0mTRYPLRiQE/BFg361USWcBfwSySDRFAPH/cYrlm3RaFnK
+	D1ovwmddd5lq9HAmRayRuLJlSNRSYbEbjLq/bAxUfKVdyu7ku2vaIWeS+csUMw==
+X-Google-Smtp-Source: AGHT+IEszoQzx/4WC1C1GZwb2lBmHxrm+uNYf1ZW1qXFcYHkcyBc+qua47J+mcdzlQW6E0GTRpN1vQ==
+X-Received: by 2002:a5d:4007:0:b0:343:98da:ad8d with SMTP id n7-20020a5d4007000000b0034398daad8dmr45512wrp.46.1712247291137;
+        Thu, 04 Apr 2024 09:14:51 -0700 (PDT)
+Message-ID: <a315c515-8f6a-4222-999b-865f19e15a28@suse.com>
+Date: Thu, 4 Apr 2024 18:14:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 04/19] xen: introduce generic non-atomic test_*bit()
+Subject: Re: [PATCH v7 08/19] xen/riscv: introduce cmpxchg.h
 Content-Language: en-US
 To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
- <ff6922206ab5476df907e2a05255663865f07301.1712137031.git.oleksii.kurochko@gmail.com>
- <aabb1d9a-3910-479e-858d-a11777873ef5@suse.com>
- <5ee906c53e2d4a966fa6be3be50caa19c3c164a2.camel@gmail.com>
+ <f0d836be5dbc04468a74cabf9b48a51921bf749b.1712137031.git.oleksii.kurochko@gmail.com>
+ <d315dda1-f89e-4028-9aa0-98b4e80c81fc@suse.com>
+ <0d09adbb0ac52e6e20252ddd6e599ee15030fad6.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -122,49 +116,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5ee906c53e2d4a966fa6be3be50caa19c3c164a2.camel@gmail.com>
+In-Reply-To: <0d09adbb0ac52e6e20252ddd6e599ee15030fad6.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04.04.2024 17:45, Oleksii wrote:
-> On Thu, 2024-04-04 at 15:22 +0200, Jan Beulich wrote:
->> On 03.04.2024 12:19, Oleksii Kurochko wrote:
->>> --- a/xen/include/xen/bitops.h
->>> +++ b/xen/include/xen/bitops.h
->>> @@ -65,10 +65,164 @@ static inline int generic_flsl(unsigned long
->>> x)
->>>   * scope
->>>   */
->>>  
->>> +#define BITOP_BITS_PER_WORD 32
->>> +/* typedef uint32_t bitop_uint_t; */
->>> +#define bitop_uint_t uint32_t
->>
->> So no arch overrides permitted anymore at all?
-> Not really, I agree that it is ugly, but I expected that arch will use
-> undef to override.
+On 04.04.2024 18:04, Oleksii wrote:
+> On Thu, 2024-04-04 at 17:01 +0200, Jan Beulich wrote:
+>> On 03.04.2024 12:20, Oleksii Kurochko wrote:
+>> Everything else okay-ish to me now, but I can't very well given an
+>> ack for
+>> a patch depending on things that haven't been committed yet and may
+>> never be.
+> Except 3 dependency ( which should be dropped as nothing anymore is
+> used now from this headers ):
+>    #include <asm/fence.h>
+>    #include <asm/io.h>
+>    #include <asm/system.h>
+> 
+> It seems everything else doesn't depending on other things, does it?
 
-Which would be fine in principle, just that Misra wants us to avoid #undef-s
-(iirc).
-
->>>  /*
->>>   * Find First Set bit.  Bits are labelled from 1.
->>>   */
->>
->> This context suggests there's a dependency on an uncommitted patch.
->> Nothing
->> above says so. I guess you have a remark in the cover letter, yet imo
->> that's
->> only partly helpful.
-> Is it really a hard dependency?
-> The current patch series really depends on ffs{l}() and that was
-> mentioned in the cover letter ( I'll reword the cover letter to explain
-> why exactly this dependency is needed ), but this patch isn't really
-> depends on Andrew's patch series, where ffs{l}() are introduced.
-
-If anyone acked this patch, and if it otherwise looked independent, it would
-be a candidate for committing. Just that it won't apply for a non-obvious
-reason.
+Didn't I see a STATIC_ASSERT_UNREACHABLE() somewhere?
 
 Jan
 
