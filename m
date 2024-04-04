@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BC8589812D
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 08:07:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700684.1094215 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E418D898177
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 08:30:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700689.1094223 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsGFl-0002ko-JO; Thu, 04 Apr 2024 06:07:13 +0000
+	id 1rsGbr-0007Jd-FX; Thu, 04 Apr 2024 06:30:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700684.1094215; Thu, 04 Apr 2024 06:07:13 +0000
+Received: by outflank-mailman (output) from mailman id 700689.1094223; Thu, 04 Apr 2024 06:30:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsGFl-0002hb-Ft; Thu, 04 Apr 2024 06:07:13 +0000
-Received: by outflank-mailman (input) for mailman id 700684;
- Thu, 04 Apr 2024 06:07:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=stKz=LJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rsGFj-0002hV-Q4
- for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 06:07:11 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 91d0d7bf-f249-11ee-afe5-a90da7624cb6;
- Thu, 04 Apr 2024 08:07:09 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a466e53f8c0so76666766b.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Apr 2024 23:07:09 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- f5-20020a1709062c4500b00a455519bcb3sm8550268ejh.55.2024.04.03.23.07.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Apr 2024 23:07:08 -0700 (PDT)
+	id 1rsGbr-0007Gg-Cc; Thu, 04 Apr 2024 06:30:03 +0000
+Received: by outflank-mailman (input) for mailman id 700689;
+ Thu, 04 Apr 2024 06:30:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OVy+=LJ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rsGbq-0006wX-33
+ for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 06:30:02 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20629.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c2adccb6-f24c-11ee-a1ef-f123f15fe8a2;
+ Thu, 04 Apr 2024 08:29:59 +0200 (CEST)
+Received: from SA0PR11CA0147.namprd11.prod.outlook.com (2603:10b6:806:131::32)
+ by DS0PR12MB9274.namprd12.prod.outlook.com (2603:10b6:8:1a9::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Thu, 4 Apr
+ 2024 06:29:56 +0000
+Received: from SA2PEPF00003AE9.namprd02.prod.outlook.com
+ (2603:10b6:806:131:cafe::3) by SA0PR11CA0147.outlook.office365.com
+ (2603:10b6:806:131::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46 via Frontend
+ Transport; Thu, 4 Apr 2024 06:29:56 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00003AE9.mail.protection.outlook.com (10.167.248.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Thu, 4 Apr 2024 06:29:56 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 4 Apr
+ 2024 01:29:55 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 4 Apr
+ 2024 01:29:54 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 4 Apr 2024 01:29:53 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +63,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91d0d7bf-f249-11ee-afe5-a90da7624cb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712210828; x=1712815628; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=2agFSsFi2ls0FOgOAvROil8/ctXSK+BuwcWtq7I3UQY=;
-        b=M4XrAV+DzII7GtQwZiskjx/Uu6U+6986nI67QER7AjRMVe37nB4la+vE2uD4NeNoWJ
-         UEDiJR518s9HVpjlxOKvDEIrri+j+4SNgII4NZPCPsuPXwtbCJ7cF7rgYIncmO9zaYVy
-         3x0mDvZ45vmPc1vNyJ/tC/Rhn2WmZSz8TiJnsmiVz7F9pKiP7e/PhErSH0Tu4oEiPGmT
-         u/hKI6sxLyD19oMOw7ZGPOAnn1bHUiMElGq6Bf7CLmCvnB4AOELY3s8mrdDk/V0oISz8
-         SQ0adXJhBmi59mW9kdiWr5bNN+iaHJFN/z26ojVpC96exj6Q5InmR0CmoNfuLb4NjX6x
-         NnAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712210828; x=1712815628;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2agFSsFi2ls0FOgOAvROil8/ctXSK+BuwcWtq7I3UQY=;
-        b=T4ZfYZfMkD0qKDc1OdtLtgWTHejdf/Yt2ZV3xzIBUzbjtlcf8ihvOroD880EzjXgHP
-         VVBv4tiVxsMdpmF5oCVqH8QCTyBGs9/Jtwa4oxfsWuGLFUWULCyV2PZdYBcFN0So3h6U
-         fHMiELfDuCUrYai8b6aAcf6DscIcvFDyfoMUXyzWHNVUCkUyiBS7JbIcxeGW2VhkiaSz
-         zR0wd9apr/hWs0Q7E6MhAEVsN1HdmPoUq1cCb4WnKPPH9a1Yg3hqkVG3KMuf8IoyuAgf
-         g+5zYi5wPRLaBMLb3lRopCwj/NL8hoIM6WzJJMF394L/TRAVA6iWH66j8+FZEajEnx0c
-         Dqwg==
-X-Gm-Message-State: AOJu0YwFUHCDSeXYz4/1ReNohHb8a43cuz7UTfvx/6UhQY80sIlNA2IY
-	Ftlhm+Qr4w/Zkx0udhe+GX/1pgM8D+PyuJBqP5vyJmkoi2uCVkQ1egu1JnAObfI0aUJgmLr50r8
-	=
-X-Google-Smtp-Source: AGHT+IEFNv87ljYzXeuwf878k1P2DmWVKfQyTsIgTxowR2EJrCjmX5B1OqJjdyixGE/CgLd1Fcv6bA==
-X-Received: by 2002:a17:906:3914:b0:a51:827d:c556 with SMTP id f20-20020a170906391400b00a51827dc556mr1135082eje.6.1712210828400;
-        Wed, 03 Apr 2024 23:07:08 -0700 (PDT)
-Message-ID: <d65eaebf-f2f5-43aa-b0a3-2c6898d0ad2e@suse.com>
-Date: Thu, 4 Apr 2024 08:07:07 +0200
+X-Inumbo-ID: c2adccb6-f24c-11ee-a1ef-f123f15fe8a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VFwzgsaTUl96manX4x2ape+EKaUHRbu3dLEdOjqKfPgK9J4QBPQEEubSD6RoMxfQ57B3E097rYHftA2sJXm2B/uPj0nUZ/uNB/lRV+/gQUsubxD6VwLEa0bsmuN8xPq9HcwdFQFIuyU43o+7sMVGX8rOu5h5rAMzvCsV6uWsCHvvsSRdVMxkG4lXZ3NFRWhiR+bWvYHcKw8o3Cdniy++F0i8dTvHn4tUqDcLAVK82pSRjtoH91m9h36l6S8hzv+DfwOadH4hLYJEP1vK5ERZpBxYwMYBsZdEyp2BANWEw8CTEYKBUDfqZLVasfePxyfv1JSvIbfg2gnenPzEyp2SMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nTWN/THBMen8kBPZlVFfYYY8BVIsY0J5eqdlLHqOK74=;
+ b=CfaUEhTghcdwDSFjKbEFyybOfh0cUUbVHCaa6DAp59vKQXEWnU+jIvGrB49+szNCIRNV62l/5o2t0AIN2FUfCCeYCXrbOESZoxz85ZLHHWFycafQOq/eEC9bpT8AqH2dZ6+Q4dr/wx3qApPqtMnQ3mlPKoxwMtB2mbp9YPbj39mj36Qcqox3jt8QqKJUWLDeCe3pj/xzPo6/Sh5yPtyZk0EEhT1HqrjOVIz8zGZGiYdoCTvSbcnVns2l0Yq3y2KH422pZMGw5ZbVyYLwiDhWGoGJQeMRR9HiIopyxjnfyO7BiYeGS05xEywOzRCSnB85qEVuuKsZradGP1zXM8HcxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nTWN/THBMen8kBPZlVFfYYY8BVIsY0J5eqdlLHqOK74=;
+ b=n65rrlQluvg3ANSPcK9KZYX3T6vPsl0LrwCBI7Dd9R/lG3ogn3wR1idpd4op2KvwQgbKXWhZ9hJjwY6bdkTrZ8HZXT+oejadTX6yteHjoxuspjht1q4YBgMXcX+jHjp+VPyWxuLZHa6Fk2GS8Iy2gppS/1prlSgvhuTEnoX9ydY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <87f2ffe1-2569-41c4-9cef-4919f362f7cb@amd.com>
+Date: Thu, 4 Apr 2024 08:29:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: text-tsx fails on Intel core 8th gen system
+Subject: Re: [PATCH 2/3] drivers: serial: add Qualcomm GENI-based serial
+ driver
+From: Michal Orzel <michal.orzel@amd.com>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <20240329000822.3363568-1-volodymyr_babchuk@epam.com>
+ <20240329000822.3363568-3-volodymyr_babchuk@epam.com>
+ <91ceb418-f055-45ba-82c4-f37e812d5242@amd.com>
 Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-References: <Zg1stUacaDBkyDOn@mail-itl>
- <8c7ffed8-4faa-4dd3-8a41-d436ba49898b@suse.com> <Zg2G06KZzvHuOYVz@mail-itl>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zg2G06KZzvHuOYVz@mail-itl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <91ceb418-f055-45ba-82c4-f37e812d5242@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE9:EE_|DS0PR12MB9274:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7fd06a8-28e4-4918-4840-08dc5470a531
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	u+hPEVXgYF0/ZSWS/qDwNvGo0ZJjGmuR2gikVNCjbRjcaGBVgH35cSwPkp/av/E5ZT8rxPS7zXSSL8rFnZWxqLHh/5OuzZtxHnKGxLzNkBoTKC8NZlkrgG1LK/KbDhQtAIHT8L61KS86+ve0WTmzDBCMWn8uE9DyjvN3ec8WoN7BKfY6J/dUyG3a8/Rql4Rm1mmsdTKx69YXSlV20QjuSW6URnqufLYknWYiqlaEhZQzNc37RV1PAk78q9VCpxSwcT6aXAFC6v+pUitRjdWseMCieB+VyM+T9sk6Rt80Bplrvi+MurYu+n9YEuFi3uGtLXpv7r5gMj0TN5CBVHX9KBnPX/7du7FxrCKUhBiesYbt3z2DIseJziOFPNw6mpSbOmxfHFcpvmYRAGwZaUq8H3PoD1z95qmcCyHMcdbnehdiK2sxV22iOcz/kDYBgmh1A9StTCoPJPKk8sZkvtfcoaichCsFHHkFsnXosPi8nLYYGU4elIb1XMIY/b3ljxfjiJWgc0iug833T20mz8+Or9HNSf3/BOyHM40eIfpTMQFxn18/OMczw+3BPAS6tldOS33PO5IWfD117cNNyQ3q8FpTDYQ/u9mA/MkJrdotdtHn+C3YsPK9dkOXkQ17t4eC6G232MK8rXLLWucZpinte3dPELpEhjmSfWfYpTWfn82Z6ynwZVgWmy4Om8svpNOHups/4WT0/JwLmCJAz7iytpTRFhgdne9zegJpNJwg89PaWpBIfRtKTesWtJeTG0RW
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400014)(376005)(1800799015);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2024 06:29:56.2277
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7fd06a8-28e4-4918-4840-08dc5470a531
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003AE9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9274
 
-On 03.04.2024 18:41, Marek Marczykowski-Górecki wrote:
-> On Wed, Apr 03, 2024 at 05:04:20PM +0200, Jan Beulich wrote:
->> On 03.04.2024 16:50, Marek Marczykowski-Górecki wrote:
->>> Hi,
->>>
->>> I've noticed that tools/tests/tsx/test-tsx fails on a system with Intel
->>> Core i7-8750H. Specific error I get:
->>>
->>>     [user@dom0 tsx]$ ./test-tsx 
->>>     TSX tests
->>>       Got 16 CPUs
->>>     Testing MSR_TSX_FORCE_ABORT consistency
->>>       CPU0 val 0
->>>     Testing MSR_TSX_CTRL consistency
->>>     Testing MSR_MCU_OPT_CTRL consistency
->>>       CPU0 val 0
->>>     Testing RTM behaviour
->>>       Got #UD
->>>       Host reports RTM, but appears unavailable
->>
->> Isn't this ...
->>
->>>     Testing PV default/max policies
->>>       Max: RTM 1, HLE 1, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->>>       Def: RTM 0, HLE 0, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->>>       HLE/RTM offered to guests despite not being available
->>>     Testing HVM default/max policies
->>>       Max: RTM 1, HLE 1, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->>>       Def: RTM 0, HLE 0, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->>>       HLE/RTM offered to guests despite not being available
->>>     Testing PV guest
->>>       Created d8
->>>       Cur: RTM 0, HLE 0, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->>>       Cur: RTM 1, HLE 1, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->>>     Testing HVM guest
->>>       Created d9
->>>       Cur: RTM 0, HLE 0, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->>>       Cur: RTM 1, HLE 1, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
->>>     [user@dom0 tsx]$ echo $?
->>>     1
->>
->> ... the reason for this?
+Hi,
+
+On 02/04/2024 12:25, Michal Orzel wrote:
 > 
-> I think so, but the question is why it behaves this way. Could be an
-> issue with MSR/CPUID values presented by Xen, or values Xen gets from
-> the CPU.
+> 
+> Hello,
+> 
+> On 29/03/2024 01:08, Volodymyr Babchuk wrote:
+>>
+>>
+>> Generic Interface (GENI) is a newer interface for low speed interfaces
+>> like UART, I2C or SPI. This patch adds the simple driver for the UART
+>> instance of GENI. Code is based on similar drivers in U-Boot and Linux
+>> kernel.
+> Do you have a link to a manual?
+> 
+>>
+>> This driver implements only simple synchronous mode, because although
+>> GENI supports FIFO mode, it needs to know number of
+>> characters **before** starting TX transaction. This is a stark
+>> contrast when compared to other UART peripherals, which allow adding
+>> characters to a FIFO while TX operation is running.
+>>
+>> The patch adds both normal UART driver and earlyprintk version.
+>>
+>> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+>> ---
+>>  xen/arch/arm/Kconfig.debug           |  19 +-
+>>  xen/arch/arm/arm64/debug-qcom.inc    |  76 +++++++
+> Shouldn't all the files (+ other places) have geni in their names? Could qcom refer to other type of serial device?
+> 
+> 
+>>  xen/arch/arm/include/asm/qcom-uart.h |  48 +++++
+>>  xen/drivers/char/Kconfig             |   8 +
+>>  xen/drivers/char/Makefile            |   1 +
+>>  xen/drivers/char/qcom-uart.c         | 288 +++++++++++++++++++++++++++
+>>  6 files changed, 439 insertions(+), 1 deletion(-)
+>>  create mode 100644 xen/arch/arm/arm64/debug-qcom.inc
+>>  create mode 100644 xen/arch/arm/include/asm/qcom-uart.h
+>>  create mode 100644 xen/drivers/char/qcom-uart.c
+>>
+>> diff --git a/xen/arch/arm/Kconfig.debug b/xen/arch/arm/Kconfig.debug
+>> index eec860e88e..f6ab0bb30e 100644
+>> --- a/xen/arch/arm/Kconfig.debug
+>> +++ b/xen/arch/arm/Kconfig.debug
+>> @@ -119,6 +119,19 @@ choice
+>>                         selecting one of the platform specific options below if
+>>                         you know the parameters for the port.
+>>
+>> +                       This option is preferred over the platform specific
+>> +                       options; the platform specific options are deprecated
+>> +                       and will soon be removed.
+>> +       config EARLY_UART_CHOICE_QCOM
+> The list is sorted alphabetically. Please adhere to that.
+> 
+>> +               select EARLY_UART_QCOM
+>> +               bool "Early printk via Qualcomm debug UART"
+> Shouldn't you add depends on ARM_64? Isn't this device Arm64 specific like in Linux?
+> 
+>> +               help
+>> +                       Say Y here if you wish the early printk to direct their
+> help text here should be indented by 2 tabs and 2 spaces (do not take example from surrounding code)
+> 
+>> +                       output to a Qualcomm debug UART. You can use this option to
+>> +                       provide the parameters for the debug UART rather than
+>> +                       selecting one of the platform specific options below if
+>> +                       you know the parameters for the port.
+>> +
+>>                         This option is preferred over the platform specific
+>>                         options; the platform specific options are deprecated
+>>                         and will soon be removed.
+>> @@ -211,6 +224,9 @@ config EARLY_UART_PL011
+>>  config EARLY_UART_SCIF
+>>         select EARLY_PRINTK
+>>         bool
+>> +config EARLY_UART_QCOM
+>> +       select EARLY_PRINTK
+>> +       bool
+> The list is sorted alphabetically. Please adhere to that.
+> 
+>>
+>>  config EARLY_PRINTK
+>>         bool
+>> @@ -261,7 +277,7 @@ config EARLY_UART_PL011_MMIO32
+>>           will be done using 32-bit only accessors.
+>>
+>>  config EARLY_UART_INIT
+>> -       depends on EARLY_UART_PL011 && EARLY_UART_PL011_BAUD_RATE != 0
+>> +       depends on (EARLY_UART_PL011 && EARLY_UART_PL011_BAUD_RATE != 0) || EARLY_UART_QCOM
+>>         def_bool y
+>>
+>>  config EARLY_UART_8250_REG_SHIFT
+>> @@ -308,3 +324,4 @@ config EARLY_PRINTK_INC
+>>         default "debug-mvebu.inc" if EARLY_UART_MVEBU
+>>         default "debug-pl011.inc" if EARLY_UART_PL011
+>>         default "debug-scif.inc" if EARLY_UART_SCIF
+>> +       default "debug-qcom.inc" if EARLY_UART_QCOM
+>> diff --git a/xen/arch/arm/arm64/debug-qcom.inc b/xen/arch/arm/arm64/debug-qcom.inc
+>> new file mode 100644
+>> index 0000000000..130d08d6e9
+>> --- /dev/null
+>> +++ b/xen/arch/arm/arm64/debug-qcom.inc
+>> @@ -0,0 +1,76 @@
+>> +/*
+>> + * xen/arch/arm/arm64/debug-qcom.inc
+>> + *
+>> + * Qualcomm debug UART specific debug code
+>> + *
+>> + * Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+>> + * Copyright (C) 2024, EPAM Systems.
+>> + *
+>> + * This program is free software; you can redistribute it and/or modify
+>> + * it under the terms of the GNU General Public License as published by
+>> + * the Free Software Foundation; either version 2 of the License, or
+>> + * (at your option) any later version.
+>> + *
+>> + * This program is distributed in the hope that it will be useful,
+>> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+>> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+>> + * GNU General Public License for more details.
+> No need for the license text. You should use SPDX identifier instead at the top of the file:
+> /* SPDX-License-Identifier: GPL-2.0-or-later */
+I chatted with Julien and it would be best to use GPL-2.0-only.
 
-Can't test_rtm_behaviour() be run even without Xen underneath? Maybe this
-could be run irrespective of xc_interface_open() failing?
-
-Jan
+~Michal
 
