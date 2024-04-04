@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 627B58984B2
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 12:08:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700781.1094444 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 816C98984C1
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 12:09:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700783.1094454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsK09-0008VF-MH; Thu, 04 Apr 2024 10:07:21 +0000
+	id 1rsK20-0000fh-1M; Thu, 04 Apr 2024 10:09:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700781.1094444; Thu, 04 Apr 2024 10:07:21 +0000
+Received: by outflank-mailman (output) from mailman id 700783.1094454; Thu, 04 Apr 2024 10:09:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsK09-0008TM-Jf; Thu, 04 Apr 2024 10:07:21 +0000
-Received: by outflank-mailman (input) for mailman id 700781;
- Thu, 04 Apr 2024 10:07:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rsK1z-0000eA-Ui; Thu, 04 Apr 2024 10:09:15 +0000
+Received: by outflank-mailman (input) for mailman id 700783;
+ Thu, 04 Apr 2024 10:09:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=stKz=LJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rsK08-0008TG-6K
- for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 10:07:20 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1d698517-f26b-11ee-a1ef-f123f15fe8a2;
- Thu, 04 Apr 2024 12:07:18 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a4e60a64abcso322263866b.1
- for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 03:07:16 -0700 (PDT)
+ id 1rsK1x-0000cX-SW
+ for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 10:09:13 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 62aede14-f26b-11ee-afe5-a90da7624cb6;
+ Thu, 04 Apr 2024 12:09:12 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-516ab4b3251so974752e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 03:09:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- u8-20020a170906b10800b00a473774b027sm8805075ejy.207.2024.04.04.03.07.15
+ a12-20020a170906670c00b00a46d6e51a6fsm8877682ejp.63.2024.04.04.03.09.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Apr 2024 03:07:15 -0700 (PDT)
+ Thu, 04 Apr 2024 03:09:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d698517-f26b-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 62aede14-f26b-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712225236; x=1712830036; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712225352; x=1712830152; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=bTyQGhChjhHGamMVwINvFE9t6PWt490PDvkX3lKLNIM=;
-        b=Bqyee7tOyspXz7gMnmCynLSfCBUy8NmL3SUjADD0vTByvDrZt302JZU6jDaCUImbw6
-         PCwVDVmf78T+oIs1lD+j9gWEDgb9IdBCqjXdU/DiRIsluR9PKSXQroVCqENpEEFNDSYI
-         aJKfJ3uQ5plGRaaYuUOeGFj3mwsvpNlY8F3RbQa1MhhDmB67VX8V2QO/E8abQHeBuE05
-         auSLsz5UE6hcfW0NofLPnDRjvsYNuzf3DMoDRbDnmyv3sYSV40jdeU2V458+h0utS9Y/
-         78efb7Yv83MzbM5jiboKaSSIEMo6RaOBfFQT1MBYr0dUtUpWqP9XN6tG4P6XlSv3Ea67
-         ujag==
+        bh=9LgB48Rekx0+HXOSOJzXRkx+a1Ze0DrnzJLgXs7a6j4=;
+        b=YHNAOHXYb/yjLTLPddY9eNPaOjRLduZ/8YvCD15cqRMrD/tbpHV5k4epw3Vvyd0GMP
+         0jqQcr4GKhw2lND68B1iSq8/yOBXzwsLHM3EEwWcjVM6yZp3f1/02rpZfsQds9O+amj1
+         iBtunwbWRGYn+F1oC4bY5ulOZaB3luLnFj3pXukm2u2nz4xrqwNUTjxka+VQwEJMoGY/
+         LMm/8zlpvkgMJpwXcTYfav0OopYmagMbuGHdq2H9J2wV6Hxiw9VCIRc/bVlPMavSHgBk
+         YBLwWsA5jGhQv9ggzSO6hLuctmO+lrN5IqnD3+jnEFvxen6xnPz372tzr0gecrsWpM0c
+         dhTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712225236; x=1712830036;
+        d=1e100.net; s=20230601; t=1712225352; x=1712830152;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bTyQGhChjhHGamMVwINvFE9t6PWt490PDvkX3lKLNIM=;
-        b=OfBDIhgq3H/caXW2BOkQoSVkJuQrv33IJIyH/h6TGvNye4+N1718O7JhVCIZShItBs
-         wRb9QSdIZMPZAdzak93Y/VIQcRiglSyYIy3S6/nQYeDoCQqLq2VhFljrIj+7rsw7s+XR
-         l+TXfLfMjDkN7pZxJi/Fn+k/AJSU/8tietzafw57kOlvpBmbmDgJBOySUoRQwbmlznCd
-         SB0IhpPbdCPLPNPNHB3OShd2I+hVWta4L6rxtgSz6D4kft/7k+QHwB+CKSqmSIssuLiF
-         0udQXSajw/zMIbWx0cIFN47XyhqsIbIfOspFaRbQ7ozSGc+V0tiMs9H+DZnQiRIdGuZm
-         sGJA==
-X-Forwarded-Encrypted: i=1; AJvYcCVHgn9ujkk1SLts/6yQRTRDrF84M45EzdUt2NXIycAu1nLtKvj0EhWeKUVig09zTtS9GBqw01drQuqyAsBH8TKPVVEAdr3X3FZMP1O8V8w=
-X-Gm-Message-State: AOJu0YwOopY9dQPErtOiRrJvKulfRfcqdNH2gluQP+8l+jsxDoNReTP5
-	Hefm+JMf//le8b9DWVBwmu1Mzu/bIwuiRCrDfh1w0CTYA56g0S+01Dm6xOe/iQ==
-X-Google-Smtp-Source: AGHT+IH6+Ivy9sVh8N8vV+HxfECCvYIVZMTTnT5YYzxsoFbDgHseXXnsXS9r7Db3U2YUtRB5j/8HSg==
-X-Received: by 2002:a17:906:bc95:b0:a4e:5a1a:9077 with SMTP id lv21-20020a170906bc9500b00a4e5a1a9077mr1868253ejb.16.1712225235960;
-        Thu, 04 Apr 2024 03:07:15 -0700 (PDT)
-Message-ID: <bda70742-04b7-4bab-8cdd-6b5a3d45dc3c@suse.com>
-Date: Thu, 4 Apr 2024 12:07:14 +0200
+        bh=9LgB48Rekx0+HXOSOJzXRkx+a1Ze0DrnzJLgXs7a6j4=;
+        b=Nr6PjiUPITNtL/OrDBvg/lmfn4q9I1kcorop+1NWwkOYDsSdAcrTgMwpgNxMwVwQFc
+         v4Y1FptQspNttjZEC81G2ueqWN53d3wvMdQV1Xg+FGX7zF+1TXUAMtYzM+oLvBFfFbRQ
+         xjBUQR0DtYmutfgxk8msFPUVfGjZ9yZK1NnQQMFQuV88t5BByS6Du7j5ZOQd0y7ZXVNC
+         hx1K2Z6F4xISGaXdU4orXO2Jirh6NxX36dQPRolAFu87edUCfUWpwFtrYh+H+7NcGeLJ
+         c0XwxqNb2/8tTcyTqQcXtr80GQo6QvwoCtKALdi0Qc88cW+Qa595X9e6ClcW97E5OBFY
+         z4uw==
+X-Forwarded-Encrypted: i=1; AJvYcCWWL6oLwSv81CtH7oz9YEt6Up7MYzY3FIzzz9RdwR9cNBn/pq+Se5W6Jait+11SOTw/MoMgvDHuvW9s68r0H95kBi2h2w21IgWXZZAjuIE=
+X-Gm-Message-State: AOJu0YwsDXCEL/qPuue0hfJMknYO3Vi7bJCzUoImfKCDd+AXDnOaxmIH
+	hgTPFfKX/CEL0R4BPv3yDa7zSNsUvBvzrc+c+EoTrBLSpGW9DgWFHK6JBh9kvA==
+X-Google-Smtp-Source: AGHT+IF+ykWYxUdOpvyjT8nGQ9R5KVOkCp0iDy1ws0BBzpQS//4+e7P7oqDsyXQr6hEJkxIk6lmXxA==
+X-Received: by 2002:a05:6512:3713:b0:516:c08a:12ff with SMTP id z19-20020a056512371300b00516c08a12ffmr1665560lfr.51.1712225352067;
+        Thu, 04 Apr 2024 03:09:12 -0700 (PDT)
+Message-ID: <759cb3a3-3eb2-48a4-ab85-36005378ade1@suse.com>
+Date: Thu, 4 Apr 2024 12:09:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 03/19] xen/riscv: introduce extenstion support check by
- compiler
+Subject: Re: [PATCH v6 1/4] tools/init-xenstore-domain: Replace variable MB()
+ usage
 Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
- <0c9b0317d0fc4f93bf5cc0893d480853110b8287.1712137031.git.oleksii.kurochko@gmail.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240327215102.136001-1-jason.andryuk@amd.com>
+ <20240327215102.136001-2-jason.andryuk@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,34 +112,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0c9b0317d0fc4f93bf5cc0893d480853110b8287.1712137031.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20240327215102.136001-2-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03.04.2024 12:19, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/arch.mk
-> +++ b/xen/arch/riscv/arch.mk
-> @@ -3,16 +3,27 @@
+On 27.03.2024 22:50, Jason Andryuk wrote:
+> @@ -36,6 +35,11 @@ static xc_evtchn_port_or_error_t console_evtchn;
+>  static xentoollog_level minmsglevel = XTL_PROGRESS;
+>  static void *logger;
 >  
->  $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
->  
-> -CFLAGS-$(CONFIG_RISCV_64) += -mabi=lp64
-> +riscv-abi-$(CONFIG_RISCV_32) := -mabi=ilp32
-> +riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
->  
->  riscv-march-$(CONFIG_RISCV_ISA_RV64G) := rv64g
->  riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
->  
-> +riscv-generic-flags := $(riscv-abi-y) -march=$(riscv-march-y)
-> +
-> +zbb := $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"",_zbb)
+> +static inline uint64_t mb_to_bytes(int mem)
+> +{
+> +	return (uint64_t)mem << 20;
+> +}
 
-While committing another question popped up: Why "" (i.e. no insn) here, ...
+While committing I noticed tab indentation here, which looked to be in
+conflict with ...
 
-> +zihintpause := $(call as-insn,\
-> +               $(CC) $(riscv-generic-flags)_zihintpause,"pause",_zihintpause)
+>  static struct option options[] = {
+>      { "kernel", 1, NULL, 'k' },
+>      { "memory", 1, NULL, 'm' },
+> @@ -76,8 +80,8 @@ static int build(xc_interface *xch)
+>      int rv, xs_fd;
+>      struct xc_dom_image *dom = NULL;
+>      int limit_kb = (maxmem ? : memory) * 1024 + X86_HVM_NR_SPECIAL_PAGES * 4;
+> -    uint64_t mem_size = MB(memory);
+> -    uint64_t max_size = MB(maxmem ? : memory);
+> +    uint64_t mem_size = mb_to_bytes(memory);
+> +    uint64_t max_size = mb_to_bytes(maxmem ? : memory);
+>      struct e820entry e820[3];
+>      struct xen_domctl_createdomain config = {
+>          .ssidref = SECINITSID_DOMU,
 
-... but "pause" here?
+... everything else in the file. Hence I took the liberty to adjust this.
 
 Jan
 
