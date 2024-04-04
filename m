@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78FE48988B7
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 15:23:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.700877.1094633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B863B8988BF
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Apr 2024 15:26:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.700880.1094644 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsN3H-0003Tb-D2; Thu, 04 Apr 2024 13:22:47 +0000
+	id 1rsN6P-0004LI-S4; Thu, 04 Apr 2024 13:26:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 700877.1094633; Thu, 04 Apr 2024 13:22:47 +0000
+Received: by outflank-mailman (output) from mailman id 700880.1094644; Thu, 04 Apr 2024 13:26:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsN3H-0003QV-AD; Thu, 04 Apr 2024 13:22:47 +0000
-Received: by outflank-mailman (input) for mailman id 700877;
- Thu, 04 Apr 2024 13:22:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rsN6P-0004JC-OM; Thu, 04 Apr 2024 13:26:01 +0000
+Received: by outflank-mailman (input) for mailman id 700880;
+ Thu, 04 Apr 2024 13:26:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=stKz=LJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rsN3G-0003QL-KL
- for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 13:22:46 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b8728f7-f286-11ee-a1ef-f123f15fe8a2;
- Thu, 04 Apr 2024 15:22:44 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-515a68d45faso1127486e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 06:22:43 -0700 (PDT)
+ id 1rsN6O-0004J2-BN
+ for xen-devel@lists.xenproject.org; Thu, 04 Apr 2024 13:26:00 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e00dcc8e-f286-11ee-afe5-a90da7624cb6;
+ Thu, 04 Apr 2024 15:25:59 +0200 (CEST)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2d6a1ad08b8so11336321fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 06:25:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- q8-20020a05600c46c800b004146e58cc35sm2667734wmo.46.2024.04.04.06.22.42
+ v17-20020adfe291000000b0034174566ec4sm20058406wri.16.2024.04.04.06.25.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Apr 2024 06:22:43 -0700 (PDT)
+ Thu, 04 Apr 2024 06:25:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b8728f7-f286-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: e00dcc8e-f286-11ee-afe5-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712236963; x=1712841763; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712237159; x=1712841959; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1un8StUWmmH0k3dYWf/lE6DYTs01ydZ30PvJxGqCISY=;
-        b=c+ElpKjHvO1bRcTitRCCtMXpiAfD8lk8DhXlzfqCr3S8MDwVOlK7vQrGe+m/BhbwcL
-         RXNCvvC+AFjaTJMp4r1i03uaiRC2ruBG9e3ZNhlpCn10gD4C9nc5vI/Nqx5ZFbUoK40F
-         hoggnc3GugkBmEAYdCm9vTdAQ3z7jRUZ83g46BNbOPA8UsmUwAhLSWkx9zYBJrUUq6xN
-         1meeUSGVvSdfpnmfI0V2f08Fg5LsnMI2JQGjN5Dlu8XsO37gxhzJehSEhwzhMXGg4HGc
-         3Z3z+jk9jK7Rub62djjclhsuuHkXPqSjgKSwt5FOf50yragd8HJXTboAMtDmluQPWr++
-         btYw==
+        bh=W3ruTvW2jddiHy2QMPP7F8yT1XslXJijghzUTUU5pZw=;
+        b=KWU+6XUfOx9hbRU2SK9xWutS9Ttme1+n4YZy4gUr60IG5ae09Bn9pGGQUyIRRI8qW/
+         J04ORYoqfYGh9qB3disLZrne1ksjV+5kJHAvhLHQZ1xPmgEF+PE63cRq9VAsy0vfR9oV
+         1ZFS9jS3XYgEf9RdSotIoo9aUIvTCzU2pt1fq9PIiJ0rVt/istoEKLbkMKmD/A5T6aLN
+         IiMAJoHhAM1MANbYmrVtBqR9sILpk1ehkBJM1id+ckujlnXHsXt7El2t4yPch8WMuAfa
+         kSnvEjioxLNNpWDYKFByMe38xpW7R7cBW3illSQnQ3N+fGM9MWBFtYXQKBia9FlUivhy
+         d/PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712236963; x=1712841763;
+        d=1e100.net; s=20230601; t=1712237159; x=1712841959;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1un8StUWmmH0k3dYWf/lE6DYTs01ydZ30PvJxGqCISY=;
-        b=rzFc7njdL0puhY8SjPHruRpInmYY8iGy8aj9U1otVxJKr54HNz+rdh+B8f1D46/KcX
-         44azZRSDH9uhzRJLRUq0AntVibodWEJ1M9j930mfj7klfyMnNYoxzhztN3Yn4aIkZS5b
-         jzt7aJZt8Xrwc2v1VEhZ/1p6AmlQPRTkQmf5xYlZh/N3EepWO1ilCJCYmwQ12yPJnCMV
-         LppKouVLSP6xcyc6JBnb71cALOAoijcUMbmcu3yqsdNe4J6ZH310AP0XRAOrl3g5SyQo
-         kCoiPA1poRgsD9l3Y3ovxSDaMruj7HoW5ezy71wHya8TDGQv8Fmns0SOLw30AgxFQmm4
-         3Z6w==
-X-Forwarded-Encrypted: i=1; AJvYcCVWapJabfTGpkjFq9ZSt0PtddXMdoGI2NddaDzXHf/2vJ7DA04WCShUF7VH/FeZvpu/wJTvQE2yZx/dZYtBdyiQ5yShdjDumHtcZ7sBHGQ=
-X-Gm-Message-State: AOJu0YyiVLQuOyVlv2r/9cEQnOYQnM0RKsWqomNydZv7heD+ORC9GKgx
-	iSDfyYOtNJYsyLrlaRkI5F9mSvHiHyuri1k9yvpr4HkeD4J86M0xgBRix3aWOQ==
-X-Google-Smtp-Source: AGHT+IEfgEWMtSl9b6g0S/iq0WSk5coAcmrVgP+L5NBbYZXHGJAsET/tEi2FpNKTwC3SJEsIApRjuA==
-X-Received: by 2002:a2e:7815:0:b0:2d8:60a4:cfa with SMTP id t21-20020a2e7815000000b002d860a40cfamr384390ljc.41.1712236963359;
-        Thu, 04 Apr 2024 06:22:43 -0700 (PDT)
-Message-ID: <aabb1d9a-3910-479e-858d-a11777873ef5@suse.com>
-Date: Thu, 4 Apr 2024 15:22:42 +0200
+        bh=W3ruTvW2jddiHy2QMPP7F8yT1XslXJijghzUTUU5pZw=;
+        b=Ywyde6ihKJjsoEFN9njVVfRc6LK5C+CmEJliQ5cdEVEKYXHebVenuX546yDJyUpd1e
+         NpoiLUkPxOUtsVyjMQdgGwAq5usi0Qola7t3s+eUVeQiFH0CSH1Uv8IY3fhizxayEgGG
+         ibmJx94IWm0YlCFxakiq34UN6kYxVZ2Cd+JBnqzPRcvBcps9OzJASoUd5zkj5ctAc4v8
+         q5ZMk8tIztmuITMXL0g7/N8CRqspcyf2zbyfNpOu4GTzm76Ir1zyaMPn2nJXWqXwupP2
+         BySDW9olaO1HSSO7vB3NoKkU+ZcU09Cy6aLjrmY3/wRefE3TZMVkb8TeyX0hKfe2rTAI
+         5wMA==
+X-Forwarded-Encrypted: i=1; AJvYcCWmvEKspS5zYxZTEmWI8OcQsH/g5848UgqMi1EDA18INhvV4iW5Rd3geVLwu9E0gi2R96SwdUL1dg7m9HgOAfZR0AJPItQFW/cINya6M9g=
+X-Gm-Message-State: AOJu0YwF8tE7HLHOgHRFn7QrAmgGfr8X46a19ALcLK/0yZ3y4pTR4VFo
+	dwyrwSwf/XXXQ+0pKEsW+OGVbzHS13RRC+lQFE6lTiVE9zVs3+oj4gDnrXZ/l4tT0IX1Xt6o43g
+	=
+X-Google-Smtp-Source: AGHT+IHBwO1uEU+deNb29MsKyK6dmSmWLP5NxPcvcB6mxvWQtCsvkqhIn+v4pPtwe/kZNs3LWfuZ7g==
+X-Received: by 2002:a2e:a371:0:b0:2d8:4c9f:ed94 with SMTP id i17-20020a2ea371000000b002d84c9fed94mr2036150ljn.34.1712237158899;
+        Thu, 04 Apr 2024 06:25:58 -0700 (PDT)
+Message-ID: <a7f8d41f-b4ca-4d96-95e3-4509287dd54e@suse.com>
+Date: Thu, 4 Apr 2024 15:25:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 04/19] xen: introduce generic non-atomic test_*bit()
+Subject: Re: Violations of mandatory MISRA C:2012 Rule 19.1 in X86_64 build
 Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Roberto Bagnara <roberto.bagnara@bugseng.com>,
  xen-devel@lists.xenproject.org
-References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
- <ff6922206ab5476df907e2a05255663865f07301.1712137031.git.oleksii.kurochko@gmail.com>
+References: <fa2bc5da-b866-05ac-409f-c26e025428c3@bugseng.com>
+ <f922e7af-9415-44dd-8c05-6eb093080ed6@suse.com>
+ <f3d829870e8f673f21106b8d062eb29f@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,242 +113,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ff6922206ab5476df907e2a05255663865f07301.1712137031.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <f3d829870e8f673f21106b8d062eb29f@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03.04.2024 12:19, Oleksii Kurochko wrote:
-> The patch introduces the following generic functions:
-> * test_bit
-> * generic__test_and_set_bit
-> * generic__test_and_clear_bit
-> * generic__test_and_change_bit
+On 04.04.2024 14:59, Nicola Vetrini wrote:
+> On 2024-03-28 11:25, Jan Beulich wrote:
+>> On 11.07.2023 18:40, Roberto Bagnara wrote:
+>>> Mandatory Rule 19.1 (An object shall not be assigned or copied to an
+>>> overlapping object) is directly targeted at two undefined behaviors,
+>>> one of which is the subject of 6.5.16.1p3, namely:
+>>>
+>>>    If the value being stored in an object is read from another object
+>>>    that overlaps in any way the storage of the first object, then the
+>>>    overlap shall be exact and the two objects shall have qualified or
+>>>    unqualified versions of a compatible type; otherwise, the behavior
+>>>    is undefined.
+>>
+>> I'd like to come back to this, for two reasons:
+>>
+>> 1) In the description of -fstrict-aliasing, gcc 13.2 doc says "Even 
+>> with
+>> -fstrict-aliasing, type-punning is allowed, provided the memory is 
+>> accessed
+>> through the union type." We even build with -fno-strict-aliasing, yet
+>> misra/rules.rst has no mention at all of type punning being permitted.
+>>
+>> 2) With us using -fno-strict-aliasing, I wonder in how far e.g. commit
+>> 7225f13aef03 ("x86: avoid Misra Rule 19.1 violations") wasn't 
+>> pointless, as
+>> imo the "compatible types" part of the C spec clause then can be 
+>> treated as
+>> irrelevant.
+>>
+>> To me both simply mean we're relying on another compiler extension 
+>> that's
+>> not exactly spelled out as such.
+>>
+>> Opinions?
 > 
-> Also, the patch introduces the following generics which are
-> used by the functions mentioned above:
-> * BITOP_BITS_PER_WORD
-> * BITOP_MASK
-> * BITOP_WORD
-> * BITOP_TYPE
-> 
-> These functions and macros can be useful for architectures
-> that don't have corresponding arch-specific instructions.
-> 
-> Because of that x86 has the following check in the macros test_bit(),
-> __test_and_set_bit(), __test_and_clear_bit(), __test_and_change_bit():
->     if ( bitop_bad_size(addr) ) __bitop_bad_size();
-> It was necessary to move the check to generic code and define as 0
-> for other architectures as they do not require this check.
+> Regardless of whether the compiler will do the right thing or not, 
+> Mandatory guidelines can't be deviated.
 
-Hmm, yes, the checks need to be in the outermost wrapper macros. While
-you're abstracting other stuff to arch_*(), wouldn't it make sense to
-also abstract this to e.g. arch_check_bitop_size(), with the expansion
-simply being (effectively) empty in the generic fallback case?
-
-> --- a/xen/include/xen/bitops.h
-> +++ b/xen/include/xen/bitops.h
-> @@ -65,10 +65,164 @@ static inline int generic_flsl(unsigned long x)
->   * scope
->   */
->  
-> +#define BITOP_BITS_PER_WORD 32
-> +/* typedef uint32_t bitop_uint_t; */
-> +#define bitop_uint_t uint32_t
-
-So no arch overrides permitted anymore at all?
-
-> +#define BITOP_MASK(nr)  ((bitop_uint_t)1 << ((nr) % BITOP_BITS_PER_WORD))
-> +
-> +#define BITOP_WORD(nr)  ((nr) / BITOP_BITS_PER_WORD)
-> +
->  /* --------------------- Please tidy above here --------------------- */
->  
->  #include <asm/bitops.h>
->  
-> +#ifndef bitop_bad_size
-> +extern void __bitop_bad_size(void);
-
-If not switching to arch_check_bitop_size() or alike as suggested above,
-why exactly does this need duplicating here and in x86? Can't the decl
-simply move ahead of the #include right above? (Sure, this will then
-require that nothing needing any of the functions you move here would
-still include asm/bitops.h; it would need to be xen/bitops.h everywhere.)
-
-> +#define bitop_bad_size(addr) 0
-> +#endif
-> +
-> +/**
-> + * generic__test_and_set_bit - Set a bit and return its old value
-> + * @nr: Bit to set
-> + * @addr: Address to count from
-> + *
-> + * This operation is non-atomic and can be reordered.
-> + * If two examples of this operation race, one can appear to succeed
-> + * but actually fail.  You must protect multiple accesses with a lock.
-> + */
-> +static always_inline __pure bool
-> +generic__test_and_set_bit(unsigned long nr, volatile void *addr)
-
-Does __pure actually fit with the use of volatile? The former says multiple
-accesses may be folded; the latter says they must not be.
-
-> +{
-> +    bitop_uint_t mask = BITOP_MASK(nr);
-> +    volatile bitop_uint_t *p = ((volatile bitop_uint_t *)addr) + BITOP_WORD(nr);
-
-Nit: Slightly shorter line possible:
-
-    volatile bitop_uint_t *p = (volatile bitop_uint_t *)addr + BITOP_WORD(nr);
-
-> +    bitop_uint_t old = *p;
-> +
-> +    *p = old | mask;
-> +    return (old & mask);
-> +}
-> +
-> +/**
-> + * generic__test_and_clear_bit - Clear a bit and return its old value
-> + * @nr: Bit to clear
-> + * @addr: Address to count from
-> + *
-> + * This operation is non-atomic and can be reordered.
-> + * If two examples of this operation race, one can appear to succeed
-> + * but actually fail.  You must protect multiple accesses with a lock.
-> + */
-> +static always_inline __pure bool
-> +generic__test_and_clear_bit(bitop_uint_t nr, volatile void *addr)
-> +{
-> +    bitop_uint_t mask = BITOP_MASK(nr);
-> +    volatile bitop_uint_t *p = ((volatile bitop_uint_t *)addr) + BITOP_WORD(nr);
-> +    bitop_uint_t old = *p;
-> +
-> +    *p = old & ~mask;
-> +    return (old & mask);
-> +}
-> +
-> +/* WARNING: non atomic and it can be reordered! */
-> +static always_inline __pure bool
-> +generic__test_and_change_bit(unsigned long nr, volatile void *addr)
-> +{
-> +    bitop_uint_t mask = BITOP_MASK(nr);
-> +    volatile bitop_uint_t *p = ((volatile bitop_uint_t *)addr) + BITOP_WORD(nr);
-> +    bitop_uint_t old = *p;
-> +
-> +    *p = old ^ mask;
-> +    return (old & mask);
-> +}
-> +/**
-> + * generic_test_bit - Determine whether a bit is set
-> + * @nr: bit number to test
-> + * @addr: Address to start counting from
-> + */
-> +static always_inline __pure int generic_test_bit(int nr, const volatile void *addr)
-
-Further up you use bool; why int here?
-
-> +{
-> +    const volatile bitop_uint_t *p = addr;
-> +    return 1 & (p[BITOP_WORD(nr)] >> (nr & (BITOP_BITS_PER_WORD - 1)));
-
-And reason not to use BITOP_MASK() here as well (once having switched to
-bool return type)?
-
-> +}
-> +
-> +static always_inline __pure bool
-> +__test_and_set_bit(unsigned long nr, volatile void *addr)
-> +{
-> +#ifndef arch__test_and_set_bit
-> +#define arch__test_and_set_bit generic__test_and_set_bit
-> +#endif
-> +
-> +    return arch__test_and_set_bit(nr, addr);
-> +}
-> +#define __test_and_set_bit(nr, addr) ({             \
-> +    if ( bitop_bad_size(addr) ) __bitop_bad_size(); \
-> +    __test_and_set_bit(nr, addr);                   \
-> +})
-> +
-> +static always_inline __pure bool
-> +__test_and_clear_bit(bitop_uint_t nr, volatile void *addr)
-> +{
-> +#ifndef arch__test_and_clear_bit
-> +#define arch__test_and_clear_bit generic__test_and_clear_bit
-> +#endif
-> +
-> +    return arch__test_and_clear_bit(nr, addr);
-> +}
-> +#define __test_and_clear_bit(nr, addr) ({           \
-> +    if ( bitop_bad_size(addr) ) __bitop_bad_size(); \
-> +    __test_and_clear_bit(nr, addr);                 \
-> +})
-> +
-> +static always_inline __pure bool
-> +__test_and_change_bit(unsigned long nr, volatile void *addr)
-> +{
-> +#ifndef arch__test_and_change_bit
-> +#define arch__test_and_change_bit generic__test_and_change_bit
-> +#endif
-> +
-> +    return arch__test_and_change_bit(nr, addr);
-> +}
-> +#define __test_and_change_bit(nr, addr) ({              \
-> +    if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
-> +    __test_and_change_bit(nr, addr);                    \
-> +})
-> +
-> +static always_inline __pure int test_bit(int nr, const volatile void *addr)
-
-Further up you use bool; why int here?
-
-> +{
-> +#ifndef arch_test_bit
-> +#define arch_test_bit generic_test_bit
-> +#endif
-> +
-> +    return arch_test_bit(nr, addr);
-> +}
-> +#define test_bit(nr, addr) ({                           \
-> +    if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
-> +    test_bit(nr, addr);                                 \
-> +})
-
-From here onwards, ...
-
-> +static always_inline __pure int fls(unsigned int x)
-> +{
-> +    if (__builtin_constant_p(x))
-> +        return generic_fls(x);
-> +
-> +#ifndef arch_fls
-> +#define arch_fls generic_fls
-> +#endif
-> +
-> +    return arch_fls(x);
-> +}
-> +
-> +static always_inline __pure int flsl(unsigned long x)
-> +{
-> +    if (__builtin_constant_p(x))
-> +        return generic_flsl(x);
-> +
-> +#ifndef arch_flsl
-> +#define arch_flsl generic_flsl
-> +#endif
-> +
-> +    return arch_flsl(x);
-> +}
-
-... does all of this really belong here? Neither title nor description have
-any hint towards this.
-
->  /*
->   * Find First Set bit.  Bits are labelled from 1.
->   */
-
-This context suggests there's a dependency on an uncommitted patch. Nothing
-above says so. I guess you have a remark in the cover letter, yet imo that's
-only partly helpful.
+Are you suggesting then that we need to build with -fstrict-aliasing,
+sorting out all the issues that there may be? And avoid type-punning
+as well?
 
 Jan
 
