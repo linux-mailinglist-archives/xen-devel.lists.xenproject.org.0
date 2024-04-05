@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF838899E3B
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 15:25:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701299.1095660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0D6B899E7F
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 15:38:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701305.1095670 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsjZF-0005Da-Dr; Fri, 05 Apr 2024 13:25:17 +0000
+	id 1rsjl8-0007mK-F0; Fri, 05 Apr 2024 13:37:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701299.1095660; Fri, 05 Apr 2024 13:25:17 +0000
+Received: by outflank-mailman (output) from mailman id 701305.1095670; Fri, 05 Apr 2024 13:37:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsjZF-0005C3-Az; Fri, 05 Apr 2024 13:25:17 +0000
-Received: by outflank-mailman (input) for mailman id 701299;
- Fri, 05 Apr 2024 13:25:16 +0000
+	id 1rsjl8-0007ju-CH; Fri, 05 Apr 2024 13:37:34 +0000
+Received: by outflank-mailman (input) for mailman id 701305;
+ Fri, 05 Apr 2024 13:37:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Jola=LK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rsjZD-0005Bv-W9
- for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 13:25:15 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1rsjl7-0007jl-0d
+ for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 13:37:33 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id efe410cd-f34f-11ee-afe6-a90da7624cb6;
- Fri, 05 Apr 2024 15:25:14 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4162e8210b6so5704745e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 05 Apr 2024 06:25:14 -0700 (PDT)
+ id a6c4a2a7-f351-11ee-afe6-a90da7624cb6;
+ Fri, 05 Apr 2024 15:37:31 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-343f62a762fso172246f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Apr 2024 06:37:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- i19-20020a05600c355300b004161df7c9dbsm3030278wmq.32.2024.04.05.06.25.13
+ bh13-20020a05600c3d0d00b0041630855440sm1817338wmb.43.2024.04.05.06.37.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Apr 2024 06:25:14 -0700 (PDT)
+ Fri, 05 Apr 2024 06:37:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efe410cd-f34f-11ee-afe6-a90da7624cb6
+X-Inumbo-ID: a6c4a2a7-f351-11ee-afe6-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712323514; x=1712928314; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712324251; x=1712929051; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=PXcB1IQRzCoDtovDswAuIJfRsNfKHS05k9ajnD/zrWw=;
-        b=GPnR7K/bGPttChVbAXt4QtvdFDMRGGHrEVzdxesx9koLrtfci3G5+cSODw1FZe+1ut
-         nMoIhUGRR0lGGj4eH9AdDHFSKelqFZlxq8C6aRrC9ROUNttMwu8SORQfRVop5hQ3f5ck
-         goPtFhFUUt6i5kpjN4tm248b/WDM9Nup7EceR80f4NiulMBBI7Sn68R+D5bb0rJ1+sNs
-         SnUCP4Pebpb/CtFR5feeZPG6B2jX6JBNAD0T3z47K7tc7/evZ9CNC6BDNWwBWPiy9bCz
-         3k9bHAEV/OEfSB6wFHn2gc6LUczzquE4SbuG6XjrUZns8UAHR6+VN67DFaYWrXwTlth7
-         dQsA==
+        bh=IBCdakSxk5WnmZHxPxazg+SgJEJ9gnup/qaDRhBbLcs=;
+        b=UhJeLuiORsAAiOahg2neIQh8bmk/wteARNON4s5F4xjrUq8o46BLf1UsyKhnxYzmxw
+         HkwWuIM1O5yiw6O3TJz6Q6/qtPEdvWT47tpwSnneAo/Zn9RmX6s8V+Tq8EH2AA8HojLF
+         S4olqGMPrBOsmb+sz/HgtyyPOvILnbGaL0A0RQF8kP6yihEXGbP1bKpFkGh02pvJTguR
+         jlhni/KsWzeehixA1HYeKVlbULCEEHjenNUJbbqgXT0z1mFsSFXJHk230CIF06a/05l1
+         wUK7mD73hUXW2nBHB5gCkoJSoxGNoUd4mtWsEa40uPdmFBuVIXaFjrRY76AHo7lhkfeI
+         DQWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712323514; x=1712928314;
+        d=1e100.net; s=20230601; t=1712324251; x=1712929051;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PXcB1IQRzCoDtovDswAuIJfRsNfKHS05k9ajnD/zrWw=;
-        b=FAf2YcO8gdfad6Dm4j/aGQrsgCQMcVwxGRul4nnSPgigkT8rTG5MJ5SDd79HQskBjz
-         PD5wXZq5jo0nlkHjxmF6d8juIY+PUriUngus+UJ7QXKNvEN6fPsNzoYAsn+ENbJ+BmU7
-         +oog5uOUiQ2FGgHGVUcibD83LEyJaxVe5Y8hsfnVFHJhYmr0xzBzxIDfaTnJLXstM90s
-         5++ngdBbC4iTbb5r9YQgCcVJWznLgSJhd4N3V7TUGaHEjgYuSeAVPLTIk/mYuXKk2e0E
-         8wULNTOE4gYrIN4EjX3+Ly+7U/VAQDF8RVJ61i+okw2ZIQXwF2gA13wfTzHiVO9eW+0o
-         lO0A==
-X-Forwarded-Encrypted: i=1; AJvYcCWljYVKRpE1XwIduMSaA+zEhI3Ym4bdj49wk4369o4R32qOgGGSInJlH6XGd38X7JPKlzKI0De8/t4w2sH7fOq+WSVEG6jlf5JGPyjmDk8=
-X-Gm-Message-State: AOJu0YzoYYy1P5DbmyV4hb5ah2FFVwy6KmQcgaEiPg7Aa60t6S8lBBT7
-	nE7a9FDfhKx0prwJ8sNelmFbdPENkXGgwLDN4ezvZJ7jBDI/WWN/xS4qXX1oBA==
-X-Google-Smtp-Source: AGHT+IEEYeRqWxAXYj5/avTV++XjlTgFmJefU/nB0nm0y5qHH3NwqCfnK+fXv5VtyCrSax2I7FeFdA==
-X-Received: by 2002:a05:600c:1c8d:b0:415:6cf0:b25b with SMTP id k13-20020a05600c1c8d00b004156cf0b25bmr1246686wms.6.1712323514406;
-        Fri, 05 Apr 2024 06:25:14 -0700 (PDT)
-Message-ID: <1be09216-7d6e-4667-a1ca-6fa401cd2631@suse.com>
-Date: Fri, 5 Apr 2024 15:25:13 +0200
+        bh=IBCdakSxk5WnmZHxPxazg+SgJEJ9gnup/qaDRhBbLcs=;
+        b=d6KkHWU18+WOqbc3aMGmqEi6/d6ChbmPTZ32p7YvbkSkY9J5dFRLl774ZTxwS7YEDb
+         x8K4njuknkpHtArfvwL3uLAXTS0wUpA4Z0JIBAp3CWHxxdVqq92UX9sv35XTpvIuZkV9
+         6tsGchUkcvgmzIBMjBqvfo90UpEpkPLSOR1lkmLzweJt3ZF4gbpYhU/902Jb0H8Xn7yR
+         DchiXUu2iN1ubyrE3J0R0xz1U2ExjKOpOQfbNNlSlNEt1lvyAa+60K6237VzgZ7VYaeN
+         tDKmidMrS9nddA0Eo8CudFVlMTfEX4SKfo7koCUxVMf7uzmTxvYxuELU7mJDJ+pCVurg
+         5INw==
+X-Forwarded-Encrypted: i=1; AJvYcCWWGG21dsEAXIoRfmDAq4s4d7gvJoRo/U/r7AQZP4F+nHotbpLYQQoP3ij56Lp57R+o1LSpNIJKsN4hjMk83gENQM7BbTdIKU/ZX6+SvWU=
+X-Gm-Message-State: AOJu0Yw8XdZpdqbdEc/BGloSSo6ZjAW7wkqc8nnIc2xWR4/DPW93PAQd
+	z3lkQyr2C+WxRu0Cx+7isCxvLGlJJYLcRgRpUXPcagaGgZ6UU9u0/rTQWwwycQ==
+X-Google-Smtp-Source: AGHT+IGQ5JihFD/f4ETCl/8Nj3Mgvpn9JhvhLGO9NWT/DBkq0nsrDubeGb58yHdA8H9rJ+shHPhT4g==
+X-Received: by 2002:a5d:4092:0:b0:343:cbf0:b7f3 with SMTP id o18-20020a5d4092000000b00343cbf0b7f3mr1104384wrp.48.1712324250719;
+        Fri, 05 Apr 2024 06:37:30 -0700 (PDT)
+Message-ID: <0aefb452-610e-458b-824e-3d6126000815@suse.com>
+Date: Fri, 5 Apr 2024 15:37:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/tsx: Cope with RTM_ALWAYS_ABORT vs RTM mismatch
+Subject: Re: [XEN PATCH] xen/compiler: address violation of MISRA C Rule 20.9
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <Zg1stUacaDBkyDOn@mail-itl>
- <20240404104122.2870129-1-andrew.cooper3@citrix.com>
- <6e99f73f-bf83-4c40-b97c-5cead300a781@suse.com>
- <7ebf879b-01d1-4a13-9464-199d08960213@citrix.com>
- <071e8a23-6a16-4a61-aa42-1f85a9c98203@suse.com>
- <ea554cd5-8578-49ae-adb6-e2dfab6cb946@citrix.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <d7c9e5cdabbcc3262f0e23fbf914cd6bb7e47990.1712321857.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,39 +113,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ea554cd5-8578-49ae-adb6-e2dfab6cb946@citrix.com>
+In-Reply-To: <d7c9e5cdabbcc3262f0e23fbf914cd6bb7e47990.1712321857.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.04.2024 15:01, Andrew Cooper wrote:
-> On 04/04/2024 2:32 pm, Jan Beulich wrote:
->> On 04.04.2024 15:22, Andrew Cooper wrote:
->>> On 04/04/2024 1:45 pm, Jan Beulich wrote:
->>>>> +             * Spot this case, and treat it as if no TSX is available at all.
->>>>> +             * This will prevent Xen from thinking it's safe to offer HLE/RTM
->>>>> +             * to VMs.
->>>>> +             */
->>>>> +            if ( val == 0 && cpu_has_rtm_always_abort && !cpu_has_rtm )
->>>>> +            {
->>>>> +                printk(XENLOG_ERR
->>>>> +                       "FIRMWARE BUG: CPU %02x-%02x-%02x, ucode 0x%08x: RTM_ALWAYS_ABORT vs RTM mismatch\n",
->>>> This isn't really firmware, is it? At least I wouldn't call microcode
->>>> (assuming that's where the bad behavior is rooted) firmware.
->>> Microcode is absolutely part of the system firmware.
->> The ucode ahead of being loaded into CPUs is, sure. But once in the CPU
->> (and there may not be any loading at least in theory), it's not anymore.
+On 05.04.2024 14:59, Nicola Vetrini wrote:
+> The rule states:
+> "All identifiers used in the controlling expression of #if or #elif
+> preprocessing directives shall be #define'd before evaluation".
+> In this case, using defined(identifier) is a MISRA-compliant
+> way to achieve the same effect.
 > 
-> You appear to have a very singular impression of what does and does not
-> constitute firmware.
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Not so singular, I would say: https://en.wikipedia.org/wiki/Firmware
-The only mention of microcode there is for historical context, afaics.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
-
-> If you can change Intel and AMD's mind on this matter, feel free to
-> submit a patch changing the wording here.
-> 
-> ~Andrew
 
 
