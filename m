@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0D6B899E7F
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 15:38:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701305.1095670 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B479899E8E
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 15:41:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701307.1095680 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsjl8-0007mK-F0; Fri, 05 Apr 2024 13:37:34 +0000
+	id 1rsjoG-0001XN-TS; Fri, 05 Apr 2024 13:40:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701305.1095670; Fri, 05 Apr 2024 13:37:34 +0000
+Received: by outflank-mailman (output) from mailman id 701307.1095680; Fri, 05 Apr 2024 13:40:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsjl8-0007ju-CH; Fri, 05 Apr 2024 13:37:34 +0000
-Received: by outflank-mailman (input) for mailman id 701305;
- Fri, 05 Apr 2024 13:37:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rsjoG-0001UN-QI; Fri, 05 Apr 2024 13:40:48 +0000
+Received: by outflank-mailman (input) for mailman id 701307;
+ Fri, 05 Apr 2024 13:40:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Jola=LK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rsjl7-0007jl-0d
- for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 13:37:33 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6c4a2a7-f351-11ee-afe6-a90da7624cb6;
- Fri, 05 Apr 2024 15:37:31 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-343f62a762fso172246f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 05 Apr 2024 06:37:31 -0700 (PDT)
+ id 1rsjoF-0001UH-71
+ for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 13:40:47 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1a73a97a-f352-11ee-a1ef-f123f15fe8a2;
+ Fri, 05 Apr 2024 15:40:45 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2d47a92cfefso28194761fa.1
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Apr 2024 06:40:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bh13-20020a05600c3d0d00b0041630855440sm1817338wmb.43.2024.04.05.06.37.30
+ t12-20020a05600c450c00b004161bffa48csm3016115wmo.40.2024.04.05.06.40.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Apr 2024 06:37:30 -0700 (PDT)
+ Fri, 05 Apr 2024 06:40:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6c4a2a7-f351-11ee-afe6-a90da7624cb6
+X-Inumbo-ID: 1a73a97a-f352-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712324251; x=1712929051; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IBCdakSxk5WnmZHxPxazg+SgJEJ9gnup/qaDRhBbLcs=;
-        b=UhJeLuiORsAAiOahg2neIQh8bmk/wteARNON4s5F4xjrUq8o46BLf1UsyKhnxYzmxw
-         HkwWuIM1O5yiw6O3TJz6Q6/qtPEdvWT47tpwSnneAo/Zn9RmX6s8V+Tq8EH2AA8HojLF
-         S4olqGMPrBOsmb+sz/HgtyyPOvILnbGaL0A0RQF8kP6yihEXGbP1bKpFkGh02pvJTguR
-         jlhni/KsWzeehixA1HYeKVlbULCEEHjenNUJbbqgXT0z1mFsSFXJHk230CIF06a/05l1
-         wUK7mD73hUXW2nBHB5gCkoJSoxGNoUd4mtWsEa40uPdmFBuVIXaFjrRY76AHo7lhkfeI
-         DQWg==
+        d=suse.com; s=google; t=1712324445; x=1712929245; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=52pIHdSDXG40u8ziotvfnbgQcedbYh6jpFfewoNhGeM=;
+        b=bV/q0OvU8fE1sJyB2nYT+jV+a7znfRKHrMhU02USYMCKRepkY0IWU8QWlVn/ZCKFqt
+         NGJmtat+lku4UL+L3J1UO3kkM8ZEnSFnMLgsTLeQrs+1n2A8YkFHLgmthz9GxSRCmBpo
+         /2R7Pka6HXkL/LKkMkqEbLMivIujhV+AWXVR2BOLGVL118cMeOZ2i1UNvkgi0A5kGDKZ
+         e4jZECg3Wc3uzA/npLgnLODnASOjHq2H8yO54v4GNQCAiU7NDmOT2DIFfE6LiFMsaAPy
+         Q8Cz1bUgwcLbK8+SSnISwBOPpHaax0ohJ1GMGZ0mkoNnLPSTWViZOOj02vonsNDQtlYO
+         T3YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712324251; x=1712929051;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IBCdakSxk5WnmZHxPxazg+SgJEJ9gnup/qaDRhBbLcs=;
-        b=d6KkHWU18+WOqbc3aMGmqEi6/d6ChbmPTZ32p7YvbkSkY9J5dFRLl774ZTxwS7YEDb
-         x8K4njuknkpHtArfvwL3uLAXTS0wUpA4Z0JIBAp3CWHxxdVqq92UX9sv35XTpvIuZkV9
-         6tsGchUkcvgmzIBMjBqvfo90UpEpkPLSOR1lkmLzweJt3ZF4gbpYhU/902Jb0H8Xn7yR
-         DchiXUu2iN1ubyrE3J0R0xz1U2ExjKOpOQfbNNlSlNEt1lvyAa+60K6237VzgZ7VYaeN
-         tDKmidMrS9nddA0Eo8CudFVlMTfEX4SKfo7koCUxVMf7uzmTxvYxuELU7mJDJ+pCVurg
-         5INw==
-X-Forwarded-Encrypted: i=1; AJvYcCWWGG21dsEAXIoRfmDAq4s4d7gvJoRo/U/r7AQZP4F+nHotbpLYQQoP3ij56Lp57R+o1LSpNIJKsN4hjMk83gENQM7BbTdIKU/ZX6+SvWU=
-X-Gm-Message-State: AOJu0Yw8XdZpdqbdEc/BGloSSo6ZjAW7wkqc8nnIc2xWR4/DPW93PAQd
-	z3lkQyr2C+WxRu0Cx+7isCxvLGlJJYLcRgRpUXPcagaGgZ6UU9u0/rTQWwwycQ==
-X-Google-Smtp-Source: AGHT+IGQ5JihFD/f4ETCl/8Nj3Mgvpn9JhvhLGO9NWT/DBkq0nsrDubeGb58yHdA8H9rJ+shHPhT4g==
-X-Received: by 2002:a5d:4092:0:b0:343:cbf0:b7f3 with SMTP id o18-20020a5d4092000000b00343cbf0b7f3mr1104384wrp.48.1712324250719;
-        Fri, 05 Apr 2024 06:37:30 -0700 (PDT)
-Message-ID: <0aefb452-610e-458b-824e-3d6126000815@suse.com>
-Date: Fri, 5 Apr 2024 15:37:29 +0200
+        d=1e100.net; s=20230601; t=1712324445; x=1712929245;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=52pIHdSDXG40u8ziotvfnbgQcedbYh6jpFfewoNhGeM=;
+        b=CoLE36M8vuiHSLUtDBTFdbdaWE6alt5uszCJcpLlKGw7ecveSF51p5eOLV/eZI8jGo
+         Zct17RRck25TKVZWp0jIndGRM7BJxfX2WQo5G9+qiaW+EaDzuX2pXDwjkEMZTUmjYdrB
+         oH64IY3GfUsWwt1es7AmIrM8Ltjj32sIDa3L1haggkohVnECBBUo//5qthissZqwa6/D
+         dtxzqLg4/HimJcKiLwGsYIY4RVNi+ZY0M4RWfo90qmmjPzOCSN3hwhRoV7bWOyi9+YP0
+         59gBKjQuk/ZJkTdbe1Av7D8gPn67xb4misfkrkqM38oRLjuI9oVeCPpi2BB1vm89bWug
+         1dZg==
+X-Forwarded-Encrypted: i=1; AJvYcCU3CevuGvmx1+++iDRxkpU/cBUsBZpgooY28BiReIiM917zcd6GQE45/2iKmfukHkDOTcsOFLs/HvHQr+S45ovQ6r2c/TcDP9Cb0pMoYdY=
+X-Gm-Message-State: AOJu0YxAMg51Jrg/rKCROCk1rPqKObXD3EHSVy9deYe9qJXNVrE2BfiQ
+	Kbmp7f5rm/sPKWqFlBxGsfwNQPZYJmwdsriQ5ykLosN1JG6Z0kPOpetOXgNb9g==
+X-Google-Smtp-Source: AGHT+IFZf7Rzj1mwdJwJ5MmkKf2i+zUz9jqFPMglSXIn0xjnwcN0spkTZgBiwHz6gIEmQlnQsEVmeQ==
+X-Received: by 2002:a2e:980a:0:b0:2d4:a22e:d3b3 with SMTP id a10-20020a2e980a000000b002d4a22ed3b3mr1216296ljj.11.1712324444764;
+        Fri, 05 Apr 2024 06:40:44 -0700 (PDT)
+Message-ID: <3608d0f0-68a7-4124-8d1d-098fce4c5440@suse.com>
+Date: Fri, 5 Apr 2024 15:40:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] xen/compiler: address violation of MISRA C Rule 20.9
+Subject: Re: [PATCH v2] x86/tsx: Cope with RTM_ALWAYS_ABORT vs RTM mismatch
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <Zg1stUacaDBkyDOn@mail-itl>
+ <20240405130722.2891221-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <d7c9e5cdabbcc3262f0e23fbf914cd6bb7e47990.1712321857.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,18 +113,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d7c9e5cdabbcc3262f0e23fbf914cd6bb7e47990.1712321857.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <20240405130722.2891221-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05.04.2024 14:59, Nicola Vetrini wrote:
-> The rule states:
-> "All identifiers used in the controlling expression of #if or #elif
-> preprocessing directives shall be #define'd before evaluation".
-> In this case, using defined(identifier) is a MISRA-compliant
-> way to achieve the same effect.
+On 05.04.2024 15:07, Andrew Cooper wrote:
+> It turns out there is something wonky on some but not all CPUs with
+> MSR_TSX_FORCE_ABORT.  The presence of RTM_ALWAYS_ABORT causes Xen to think
+> it's safe to offer HLE/RTM to guests, but in this case, XBEGIN instructions
+> genuinely #UD.
 > 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Spot this case and try to back out as cleanly as we can.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
