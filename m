@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 142BC8994E5
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 08:07:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701090.1095190 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D8CB8994EA
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 08:08:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701092.1095200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rscj2-00059s-Bx; Fri, 05 Apr 2024 06:06:56 +0000
+	id 1rsckF-0005hR-Md; Fri, 05 Apr 2024 06:08:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701090.1095190; Fri, 05 Apr 2024 06:06:56 +0000
+Received: by outflank-mailman (output) from mailman id 701092.1095200; Fri, 05 Apr 2024 06:08:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rscj2-00058I-8u; Fri, 05 Apr 2024 06:06:56 +0000
-Received: by outflank-mailman (input) for mailman id 701090;
- Fri, 05 Apr 2024 06:06:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rsckF-0005fT-IQ; Fri, 05 Apr 2024 06:08:11 +0000
+Received: by outflank-mailman (input) for mailman id 701092;
+ Fri, 05 Apr 2024 06:08:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Jola=LK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rscj0-00058A-CR
- for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 06:06:54 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2dce911-f312-11ee-afe6-a90da7624cb6;
- Fri, 05 Apr 2024 08:06:53 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4162e8210b6so2921185e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 23:06:53 -0700 (PDT)
+ id 1rsckD-0005ek-F7
+ for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 06:08:09 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id df2b0824-f312-11ee-a1ef-f123f15fe8a2;
+ Fri, 05 Apr 2024 08:08:07 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2d6c9678cbdso20999521fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 23:08:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k41-20020a05600c1ca900b004156c501e24sm5129829wms.12.2024.04.04.23.06.52
+ k41-20020a05600c1ca900b004156c501e24sm5129829wms.12.2024.04.04.23.08.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Apr 2024 23:06:52 -0700 (PDT)
+ Thu, 04 Apr 2024 23:08:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2dce911-f312-11ee-afe6-a90da7624cb6
+X-Inumbo-ID: df2b0824-f312-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712297213; x=1712902013; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712297287; x=1712902087; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=nUg8RonrjMW+d+m7XH+FkJg4NQB3wS/Jf5Y3+gGfsKI=;
-        b=QZ/JSnZVXPruINDbtCT781zkbEBySi4nfkXy0AhxvVpbx4ToAyV3iSQnvPBR3EdDRF
-         M+hz38o8HIpbcwY5IwI24abYIbJjjzng8UoGXDtj2270tbbNm9wpUsZEkjgHCfbg4RBA
-         y2Y94QYWKwyUDft1WZrrhTUUhTPgK89QrIdl4u4YoE0muY1g6whqXJq95Jqy8G7SrWdZ
-         a/NWQUTx0aIQQzJhcUcVVQwY1JaQ/anGg9Ba8uT0OgSBXLEbpIHVDz4nr/k/2wYREji6
-         w6QTDyUhGW1jKforPMEgttpguWp+rKMp5brb8rR9ThfaUFIXxF+SVjlIbMK0aquPEvQU
-         +hkw==
+        bh=/Aw4pmvRZn8zYYK4vM8Ekgana1ZpOxpE7zptPh5fBb0=;
+        b=DVBGaYZk3SPWxU+xOxuDqEMz8FuHERkDLRHxufTcOV+BwfBIMOQuD0hwc4zfMKYmry
+         7z/pX0mjb9VxolMOtmaxyyznQH7d3P8UZ6BDWLEvvxFKUBu5sQOlsezdLRZvcJOWDkvj
+         HvJp2rfsOsjXxjtIVL7iyG1mxJvY5x1JbmWzSvjKF9bIKTem9+g5/5wpdql4C9GT3rXW
+         KvyKC4hOMSWjRh0w2YmwBiQLTodMH9ilQe2tVDMw2vyr/FF96muHkIa5T3xKErn6h9Eo
+         USbIOqX+CyDNAeY1eYWOp3HHc3/qGjOn/epREeeXBF4XSdiAkQkon867zk07+L3VibfZ
+         ARMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712297213; x=1712902013;
+        d=1e100.net; s=20230601; t=1712297287; x=1712902087;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nUg8RonrjMW+d+m7XH+FkJg4NQB3wS/Jf5Y3+gGfsKI=;
-        b=i2G6HpPtyRNgdL89NsLTC5oH5pmD1hjS8lKDpoDcnTDsNGOvJurE1rPUlEbS5q0idW
-         9lOLMuR+nJpYFwgBimORf5Znk2/k1FMc2SJ8ftb936fOrABXduHbbxQg7PehI0ooaZfN
-         T25jR97HX+O6S2U+Qg6PwjnvrU04AM6DSkXJsW9ZIwEJObcypGnEmSukG7BMZm605TcQ
-         cqXBuT9jFOjGaY2ah3qqvhrBytFZ2EhcfF/whzvNrUh3p0+/SkjSytE60MSxIZvHtBVU
-         k4QabC9h4p7vxHtsIoxSuaRjU94b3qfBuOqEsGTTQiEfZH4hXy3i/0kmr1Ovj09eKBcl
-         tmEg==
-X-Forwarded-Encrypted: i=1; AJvYcCUExhI0GQMQ7Dl+PIZLfkqPAlSHCBuptiB5TAZteUV0k5p9d0V1PCoprHwMIcJPYhDmK+WzeeTjvOWkUSdMMte12quzBX8eYXrm+GvM16w=
-X-Gm-Message-State: AOJu0YyPtwm+1qw9r71iEtFUkmdXU1AvwAKa6DUUJRItB303SerLfrDP
-	1HGdNpScabpL6FFbShleN6xR3sjRQOhtQgNnCTnv3zkSb+JN2dJ8E01ofoAmBA==
-X-Google-Smtp-Source: AGHT+IFGY+z2a5K9TX/1f+wtKnWN8x7tKCVO2sqHhnDmVpSRrVpjoBlw/JIS8p4HpuySXHUMqldDXQ==
-X-Received: by 2002:a05:600c:3b0f:b0:415:4824:3686 with SMTP id m15-20020a05600c3b0f00b0041548243686mr313645wms.25.1712297212893;
-        Thu, 04 Apr 2024 23:06:52 -0700 (PDT)
-Message-ID: <f4a9f196-1cc0-46fd-8655-5230bade1a8b@suse.com>
-Date: Fri, 5 Apr 2024 08:06:52 +0200
+        bh=/Aw4pmvRZn8zYYK4vM8Ekgana1ZpOxpE7zptPh5fBb0=;
+        b=ofa+E7B0/sbN+v+8ZNyeKLfnheo3a39gqs636vOPZ1gSeABFW0mp/aa6zNd0PMXqGd
+         F6QLW85AN349Ax/6f3MLffrazYWcxALAYisYl2NuEuDpB6EZwQuPmTmgqpPIzTGCobot
+         xjfyDX8imi5Y2FzwZIJLJE42xbWaB2zdgjnW4t43UV90+jt6zk58B6mn87TFafVIm3bK
+         QFYc5EDCgssuUdq7hUI0ZwSK+ahVZFVOOYN8fhm/0GI8WKf0gsXuSYYamV/6zVg5tyBb
+         sZmHG8EpuCGkYCivm8Pi+83x/6RCYmqk1IF1HAZnHKZlun6ZYV5+R7WI+6mczrvM1rgS
+         9SyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUcSYbYs+N9bnjUErpbOT29G+r8xd1bXz/r6x2ToTq4AdwLvAnXS9LkgcipmtMcr1yu1JPMuqJUcovz+WJYKUV1nFrQMKA8aUlBvPQV7YY=
+X-Gm-Message-State: AOJu0YyNSG/lwKFvNcMn5raow484LLKSMU9S9VQBHKGDWhF10LTDmKsi
+	dAbv3opnuOVKt0jaaxNmu/HFd2SNNu/zBu8H4dDQZHxRRmvws8KS970V5rsiQbxiELhhQKHp140
+	=
+X-Google-Smtp-Source: AGHT+IH7NysDN+ZNLBvc1FsDGOZvygdNDcw2XB7LNbLhxYlPLtA5ves3Xapio50pU/ZjPHbj9bcP4Q==
+X-Received: by 2002:a2e:a688:0:b0:2d7:1152:d40c with SMTP id q8-20020a2ea688000000b002d71152d40cmr379977lje.5.1712297287073;
+        Thu, 04 Apr 2024 23:08:07 -0700 (PDT)
+Message-ID: <b63bf76c-b03a-4eb9-a179-69d9341f4b21@suse.com>
+Date: Fri, 5 Apr 2024 08:08:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] automaton/eclair: add deviations for MISRA C:2012
- Rule 13.6
+Subject: Re: [PATCH v7 03/19] xen/riscv: introduce extenstion support check by
+ compiler
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Federico Serafini <federico.serafini@bugseng.com>,
- consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-References: <cca71f954bec4efc14b98e3ad991581441d593d7.1712238975.git.federico.serafini@bugseng.com>
- <4c008f38-2618-4e17-8cb5-c226660edf37@suse.com>
- <alpine.DEB.2.22.394.2404041701530.2245130@ubuntu-linux-20-04-desktop>
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
+ <0c9b0317d0fc4f93bf5cc0893d480853110b8287.1712137031.git.oleksii.kurochko@gmail.com>
+ <bda70742-04b7-4bab-8cdd-6b5a3d45dc3c@suse.com>
+ <9945cb144f5c1b95202646135b88891537230e17.camel@gmail.com>
+ <3095e62f-583c-414d-92d9-9b09b6959251@suse.com>
+ <9ac4b0f3171c6b714092d04e07c2e16add16c86a.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,22 +121,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2404041701530.2245130@ubuntu-linux-20-04-desktop>
+In-Reply-To: <9ac4b0f3171c6b714092d04e07c2e16add16c86a.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05.04.2024 02:04, Stefano Stabellini wrote:
-> On Thu, 4 Apr 2024, Jan Beulich wrote:
->> Further, according to the discussion on the matter: alternative_call() is
->> quite similar in this regard, just that it uses typeof(). Imo it should be
->> deviated here as well right away, no matter whether Eclair can actually be
->> configured to also check typeof() and alignof().
-> 
-> On this specific point regarding typeof, I agree but it should be done
-> as a separate rule (not 13.6), to make sure it matches the scanner
-> results. It looks like the new rule will be called B.MISLEFF. 
+On 04.04.2024 18:17, Oleksii wrote:
+> On Thu, 2024-04-04 at 17:43 +0200, Jan Beulich wrote:
+>> On 04.04.2024 17:18, Oleksii wrote:
+>>> On Thu, 2024-04-04 at 12:07 +0200, Jan Beulich wrote:
+>>>> On 03.04.2024 12:19, Oleksii Kurochko wrote:
+>>>>> --- a/xen/arch/riscv/arch.mk
+>>>>> +++ b/xen/arch/riscv/arch.mk
+>>>>> @@ -3,16 +3,27 @@
+>>>>>  
+>>>>>  $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+>>>>>  
+>>>>> -CFLAGS-$(CONFIG_RISCV_64) += -mabi=lp64
+>>>>> +riscv-abi-$(CONFIG_RISCV_32) := -mabi=ilp32
+>>>>> +riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
+>>>>>  
+>>>>>  riscv-march-$(CONFIG_RISCV_ISA_RV64G) := rv64g
+>>>>>  riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
+>>>>>  
+>>>>> +riscv-generic-flags := $(riscv-abi-y) -march=$(riscv-march-y)
+>>>>> +
+>>>>> +zbb := $(call as-insn,$(CC) $(riscv-generic-
+>>>>> flags)_zbb,"",_zbb)
+>>>>
+>>>> While committing another question popped up: Why "" (i.e. no
+>>>> insn)
+>>>> here, ...
+>>>>
+>>>>> +zihintpause := $(call as-insn,\
+>>>>> +               $(CC) $(riscv-generic-
+>>>>> flags)_zihintpause,"pause",_zihintpause)
+>>>>
+>>>> ... but "pause" here?
+>>>
+>>> In the case of the Zbb extension, we don't check for a specific
+>>> instruction, but with the Zihintpause, the idea was to verify if
+>>> the
+>>> pause instruction is supported or not.
+>>
+>> And why's this verification relevant here, but not for Zbb?
+> It is not relevant and can be dropped.
 
-Fine with me, as long as things stay together (i.e. in a single commit).
+Is it really not? Aren't you checking two things for Zihintpause (compiler
+and assembler support), while checking only one (compiler) for Zbb?
 
 Jan
 
