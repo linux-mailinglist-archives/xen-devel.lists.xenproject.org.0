@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43B178994DD
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 08:00:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701085.1095170 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B32D38994E4
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 08:05:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701088.1095180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rscc0-00037j-Eo; Fri, 05 Apr 2024 05:59:40 +0000
+	id 1rschm-0004f1-2n; Fri, 05 Apr 2024 06:05:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701085.1095170; Fri, 05 Apr 2024 05:59:40 +0000
+Received: by outflank-mailman (output) from mailman id 701088.1095180; Fri, 05 Apr 2024 06:05:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rscc0-000359-Bz; Fri, 05 Apr 2024 05:59:40 +0000
-Received: by outflank-mailman (input) for mailman id 701085;
- Fri, 05 Apr 2024 05:59:39 +0000
+	id 1rschl-0004cs-Vh; Fri, 05 Apr 2024 06:05:37 +0000
+Received: by outflank-mailman (input) for mailman id 701088;
+ Fri, 05 Apr 2024 06:05:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Jola=LK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rscby-000353-VR
- for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 05:59:39 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1rschk-0004cm-Bj
+ for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 06:05:36 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ae98f18e-f311-11ee-a1ef-f123f15fe8a2;
- Fri, 05 Apr 2024 07:59:36 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-343c891bca5so811404f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 22:59:36 -0700 (PDT)
+ id 83b77fd9-f312-11ee-a1ef-f123f15fe8a2;
+ Fri, 05 Apr 2024 08:05:34 +0200 (CEST)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2d23114b19dso20362441fa.3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 23:05:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m5-20020a5d56c5000000b00341ce80ea66sm1111715wrw.82.2024.04.04.22.59.35
+ k41-20020a05600c1ca900b004156c501e24sm5129829wms.12.2024.04.04.23.05.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Apr 2024 22:59:35 -0700 (PDT)
+ Thu, 04 Apr 2024 23:05:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae98f18e-f311-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 83b77fd9-f312-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712296776; x=1712901576; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712297133; x=1712901933; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=rXgOSVybI5H20xim7JEr4vUuVCujmBlaQTcO605vE2I=;
-        b=SGAOhV1/RBfQquaPEQALnzXHwzf0J2yWJq581DS08ACsGOblmF6G7UGOUsZDDf6L5R
-         hiT1CG+MUwINlF6fG3oj3SWFKhxa+dXVY6QGyXBwYQVPd23DfVcbX3ej2oGoKouDsOro
-         m98CblNZLfIVb0ZmUy+/rc1YFTnu/Lk/7ba2S4bAZtAKFNTWUTOACxx27TVs1QbiXaGq
-         VvjUl8u5hwaaj8t+5Yl0lXyabUHkK8TyDqI6Kd1pPWEXcB3AffE+w9eZb/WaFxxFvPUq
-         GT9qLmG4MEIHCUE18FdriSiiRMShxq3Sdp6Q2yVsPHfPgfl0ac/loVOjg7wDZ0Ndt4NU
-         lkKg==
+        bh=Btnc2h8G17ewCsHT6UlOGFz9pkIVqSGlGBemIzmBJnI=;
+        b=IGUhlTYT7l8JmC0af6VLCVwg6K0KCf4X11bANXC5aNJ/uirdJfkEAdZ8QcyfptnW/u
+         a8ITSM/NC8R4s8WfzLPuFxBhru1U3IxRnm6mMg9NN6nnsi+r/0YAndbmxRwOaPA0tGa5
+         Nm+RjNqgbKvK5LlNOUpLWDA5iZoGNAcOWjkbMHefEyG+hLEGiOMTN9+UCNAHsJz3jht2
+         oXUQmR4VjaZljzoLBiPgcP1nP/WuRpOGerS08zKeZNRBu/ucW9qdAGElDbBWn6uikDcN
+         4Rg02aDI4UOoZ5TWca1Xw77m01q4YxGRFlPJO8KePYuUIEIKFLP0L/ibA2XGdWyCTslv
+         HGCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712296776; x=1712901576;
+        d=1e100.net; s=20230601; t=1712297133; x=1712901933;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rXgOSVybI5H20xim7JEr4vUuVCujmBlaQTcO605vE2I=;
-        b=YAf1tEZKSRt3exwT9lSHCFklJ3QdBoI2DZL95haXN9czyX8JIE0mfXMn6qd0PXhhlN
-         tM3TfSvcrA2ukbP0AwrVe6CbRP7nfHsCiJ4sKZE5CXkP3sbNOdUjhWqI+5CRNkKdxcov
-         keVpX9azBK7CRyADl5vQs7NnMFISsAQI7eptaqSBEbDdGut497fVCPPz/+vIFzT4on6R
-         EWy1Epv4W7Q6qOzSO7SM8s7kCwkyEbNJvzwLpE0FGTtqW1dKQUZ1bgxlWmWWRR7GI5+2
-         UZJDx9uxYbME9RCQ4tHcW+BaO6NgzkisS/I096ffpTiKxfTd+a4oyxHmKoVPLzrJjf7a
-         G6Gw==
-X-Forwarded-Encrypted: i=1; AJvYcCVKetQYRB1tMP0+oGoRmHATj/IYjrfglHOD9KyH96Mcc+INAh1f9CbtAnt2UOIF1jQCeA4TlZy+OT2Voi9QsLddRzTJV1f9HMMg5nQ1r0I=
-X-Gm-Message-State: AOJu0YxxIINo/WEffqj3qSWnZOd2vijjJMIGpG22pluiOqN9zkeydmkQ
-	2bqmuWD0vUAHcoXB4IN+UMcUumdfT+mrjqk0JS6KGkp49GCisdFheUr06fKHCA==
-X-Google-Smtp-Source: AGHT+IGNfAtJOBm3u8B1HeFEmLo0CfzE4F9wnvyBnd7yrW24aNH0LgbYnfS9Qibs4zE2w1OZHOUmLA==
-X-Received: by 2002:adf:fa8f:0:b0:343:b5f1:2da with SMTP id h15-20020adffa8f000000b00343b5f102damr460965wrr.11.1712296776127;
-        Thu, 04 Apr 2024 22:59:36 -0700 (PDT)
-Message-ID: <3419b5d6-ac57-4de4-a87d-c82577584fa8@suse.com>
-Date: Fri, 5 Apr 2024 07:59:35 +0200
+        bh=Btnc2h8G17ewCsHT6UlOGFz9pkIVqSGlGBemIzmBJnI=;
+        b=DvGXurGACeaLcec6tJz/1zO0UKoOP2iDaeRV91Pz1aAIxyFIwPf/dxpiCjnDtHOIPJ
+         CMsZFo4QkaAzKGMB54224P3SZv3LKtI1wH0CiQj8k5waeAIcnce9iSu0KSUjjhtOkRuP
+         DDYcbuOgtUsrQUS7PW4kBDD94U+zNFt/H1XVq6H16i94smdWFntLTOIeN1aFul6VAyVk
+         LXsGXbJanxCzeUnd3hz+YNtlbQuNuZfFDTHsGt011gmy/0GzoRTjYTv5Uz9Bwnm8Qg/k
+         r0CUbkYcBPOzDyoZiLDwRJlMsEH1rYO0WryeyOuN9uUzO0kCCGOMDoZR6uIqXSnr+69r
+         R9BA==
+X-Forwarded-Encrypted: i=1; AJvYcCVRuXr/4k2YIhieSKt+WEd+EPl1Dg/DjzvocRU9rFW9ZnCiSyC8UR0cypWd5iWYjZ0YahnaQLclKPW4kMVFLl6+GfapiE2M1IyHDoROLF0=
+X-Gm-Message-State: AOJu0YyurVdapwoVDz28G+ZJVthSU6AgQOyAYqwBQkNTQ1IQV4uGHZ+e
+	FuQdst9L6R22R+f2xjuADzwgipta3z4LRaM6dSwcMsNW9xrMnxSy56kU42ol5w==
+X-Google-Smtp-Source: AGHT+IFUKucmCh1+GvtZMkzxcZYuZFRfIJJmSAt1h8Auq0aJt9bLcEVoCqoU+rv3huQ0+chHc7Ty0g==
+X-Received: by 2002:a2e:a368:0:b0:2d6:ecb1:ffb3 with SMTP id i8-20020a2ea368000000b002d6ecb1ffb3mr422683ljn.25.1712297133545;
+        Thu, 04 Apr 2024 23:05:33 -0700 (PDT)
+Message-ID: <0e9361f6-c419-4fdd-95a4-2fafa5de2406@suse.com>
+Date: Fri, 5 Apr 2024 08:05:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
- event channels"
+Subject: Re: [PATCH v3] docs/misra: document the expected sizes of integer
+ types
 Content-Language: en-US
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
- <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
- <2df1e3ef-32c5-45c3-af1b-e9473a4e9120@apertussolutions.com>
- <d86e7a86-cd2a-4b0c-b269-6b4e9b2edff3@suse.com>
- <61945064-38ec-4ea5-9084-a82d3c252b2d@apertussolutions.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: andrew.cooper3@citrix.com, bertrand.marquis@arm.com,
+ george.dunlap@citrix.com, julien@xen.org, michal.orzel@amd.com,
+ roger.pau@citrix.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2404031806510.2245130@ubuntu-linux-20-04-desktop>
+ <e3e13f3f-3df6-4eb4-8b73-21387007e7c3@suse.com>
+ <alpine.DEB.2.22.394.2404041548530.2245130@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,39 +114,223 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <61945064-38ec-4ea5-9084-a82d3c252b2d@apertussolutions.com>
+In-Reply-To: <alpine.DEB.2.22.394.2404041548530.2245130@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03.04.2024 15:27, Daniel P. Smith wrote:
-> On 4/3/24 08:05, Jan Beulich wrote:
->> On 03.04.2024 13:10, Daniel P. Smith wrote:
->>> On 4/3/24 02:16, Jan Beulich wrote:
->>>> On 02.04.2024 19:06, Andrew Cooper wrote:
->>>>>    It is also quite
->>>>> obvious from XSM_TARGET that it has broken device model stubdoms too.
->>>>
->>>> Why would that be "obvious"? What business would a stubdom have to look at
->>>> Xen's side of an evtchn?
->>>
->>> Again, you have not expressed why it shouldn't be able to do so.
+On 05.04.2024 01:56, Stefano Stabellini wrote:
+> On Thu, 4 Apr 2024, Jan Beulich wrote:
+>> On 04.04.2024 03:12, Stefano Stabellini wrote:
+>>> --- a/docs/misra/C-language-toolchain.rst
+>>> +++ b/docs/misra/C-language-toolchain.rst
+>>> @@ -480,4 +480,73 @@ The table columns are as follows:
+>>>       - See Section "4.13 Preprocessing Directives" of GCC_MANUAL and Section "11.1 Implementation-defined behavior" of CPP_MANUAL.
+>>>  
+>>>  
+>>> +Sizes of Integer types
+>>> +______________________
+>>> +
+>>> +Xen expects System V ABI on x86_64:
+>>> +  https://gitlab.com/x86-psABIs/x86-64-ABI
+>>> +
+>>> +Xen expects AAPCS32 on ARMv8-A AArch32:
+>>> +  https://github.com/ARM-software/abi-aa/blob/main/aapcs32/aapcs32.rst
+>>> +
+>>> +Xen expects AAPCS64 LP64 on ARMv8-A AArch64:
+>>> +  https://github.com/ARM-software/abi-aa/blob/main/aapcs64/aapcs64.rst
+>>> +
+>>> +A summary table of data types, sizes and alignment is below:
+>>> +
+>>> +.. list-table::
+>>> +   :widths: 10 10 10 45
+>>> +   :header-rows: 1
+>>> +
+>>> +   * - Type
+>>> +     - Size
+>>> +     - Alignment
+>>> +     - Architectures
+>>> +
+>>> +   * - char 
+>>> +     - 8 bits
+>>> +     - 8 bits
+>>> +     - all architectures
 >>
->> See above - not its resource, nor its guest's.
+>> This one _may_ be acceptable, but already feels like going too far.
+>>
+>>> +   * - short
+>>> +     - 16 bits
+>>> +     - 16 bits
+>>> +     - all architectures
+>>> +
+>>> +   * - int
+>>> +     - 32 bits
+>>> +     - 32 bits
+>>> +     - all architectures
+>>
+>> These two I continue to disagree with. The values are minimum required ones.
 > 
-> It is a resource provided to a domain that the domain can send/raise an 
-> event to and a backing domain that can bind to it, ie. the two 
-> parameters that must be passed to the allocation call.
+> The purpose of the document docs/misra/C-language-toolchain.rst is to
+> describe the reference safety-supported configuration. In a way, this
+> document is similar to SUPPORT.md but for safety instead of security.
+> 
+> Here, we need to write down the stable configuration, the one everyone
+> is aligned and convinced should work correctly.
+> 
+> Now, let's say that I believe you and agree with you that it should be
+> possible to support int as 64-bit. This configuration is not tested. If
+> I can draw a comparison, it would be similar to ask for XSM to be
+> security supported while in fact is marked as experimental in
+> SUPPORT.md.
+> 
+> If you want, taking inspiration from SUPPORT.md, we can have a
+> "supported" column and a "experimental" column. In the experimental
+> column we can write down "at least 32-bit" or "32-bit or larger".
+> 
+> 
+>> Even if code changes may be needed (Misra already helps us here by stopping
+>> undue mixing of e.g. unsigned int and uint32_t in at least some situations),
+>> there's no inherent requirement in Xen for such restrictions.
+> 
+> I hope that my comparison with XSM and SUPPORT.md helps explain why we
+> need to clarify the safety supported configuration with the values we
+> actually validate Xen with.
+> 
+> Your goal is to write down what should work with Xen, which is also OK
+> but it is a different goal. It is OK to say that we aim for Xen to also
+> work with other configurations too, and list them. That was not my
+> intention, but I can expand the scope if you request.
 
-Before writing this particular part of your reply, did you look as
-evtchn_send()? Sending on such ports is similarly denied without
-involving XSM. For a good reason, stated in the accompanying comment.
-It is therefore simply inconsistent to allow any kind of other
-operation on such ports. Hence the patch that Andrew now deems needs
-reverting.
+To achieve just your goal, would you then please replace all instances
+of "all architectures" and "all <N>-bit architectures" by an enumeration
+of the specific ones, as you have it elsewhere? This would then allow
+architectures I'm thinking about without impacting your goal. FTAOD ...
 
-In fact I view these ports living in the guest's event channel space
-as similarly inappropriate as the ioreq pages - until a few years
-back - living in the guest's GFN space.
+>>> +   * - long
+>>> +     - 32 bits
+>>> +     - 32 bits 
+>>> +     - 32-bit architectures (x86_32, ARMv8-A AArch32, ARMv8-R AArch32)
+>>> +
+>>> +   * - long
+>>> +     - 64 bits
+>>> +     - 64 bits 
+>>> +     - 64-bit architectures (x86_64, ARMv8-A AArch64, RV64, PPC64)
+>>> +
+>>> +   * - long long
+>>> +     - 64-bit
+>>> +     - 32-bit
+>>> +     - x86_32
+>>> +
+>>> +   * - long long
+>>> +     - 64-bit
+>>> +     - 64-bit
+>>> +     - 64-bit architectures, ARMv8-A AArch32, ARMv8-R AArch32
+>>
+>> Along the lines of the above, simply saying "64-bit architectures" here
+>> is too generic. Whereas for long (above) and ...
+>>
+>>> +   * - pointer
+>>> +     - 32-bit
+>>> +     - 32-bit
+>>> +     - 32-bit architectures (x86_32, ARMv8-A AArch32, ARMv8-R AArch32)
+>>> +
+>>> +   * - pointer
+>>> +     - 64-bit
+>>> +     - 64-bit
+>>> +     - 64-bit architectures (x86_64, ARMv8-A AArch64, RV64, PPC64)
+>>
+>> ... pointers I agree (and the special mentioning of the architectures
+>> in parentheses could even be omitted imo). To summarize, my counter
+>> proposal:
+
+... this counter proposal already specifically addressed that aspect, by
+e.g. ...
+
+>>    * - char 
+>>      - at least 8 bits
+> 
+> this
+> 
+>>      - equaling size
+>>      - all architectures
+>>
+>>    * - char
+>>      - 8 bits
+>>      - 8 bits
+>>      - x86, ARM, RISC-V, PPC
+
+... having two sections here: One to address your goal, and one to
+address mine. My further suggestion further up merely would mean
+dropping the generic parts (for imo no good reason).
 
 Jan
+
+>>    * - short
+>>      - at least 16 bits
+> 
+> and this
+> 
+>>      - equaling size
+>>      - all architectures
+>>
+>>    * - short
+>>      - 16 bits
+>>      - 16 bits
+>>      - x86, ARM, RISC-V, PPC
+>>
+>>    * - int
+>>      - at least 32 bits
+> 
+> and this, more below
+> 
+> 
+>>      - equaling size
+>>      - all architectures
+>>
+>>    * - int
+>>      - 32 bits
+>>      - 32 bits
+>>      - x86, ARM, RISC-V, PPC
+>>
+>>    * - long
+>>      - 32 bits
+>>      - 32 bits 
+>>      - 32-bit architectures
+>>
+>>    * - long
+>>      - 64 bits
+>>      - 64 bits 
+>>      - 64-bit architectures
+>>
+>>    * - long long
+>>      - 64-bit
+>>      - 32-bit
+>>      - x86_32
+>>
+>>    * - long long
+>>      - 64-bit
+>>      - 64-bit
+>>      - x86_64, ARMv8-A AArch64, RV64, PPC64, ARMv8-A AArch32, ARMv8-R AArch32
+>>
+>>    * - pointer
+>>      - 32-bit
+>>      - 32-bit
+>>      - 32-bit architectures
+>>
+>>    * - pointer
+>>      - 64-bit
+>>      - 64-bit
+>>      - 64-bit architectures
+>>
+>> Eventually, by properly decoupling pointers from longs (via using {,u}intptr_t
+>> appropriately), the restrictions on "long" could also be lifted.
+>>
+>> Note that the generic requirements on char and short also are imposed by C99.
+>> It may therefore not be necessary to state them explicitly, but rather refer
+>> to that standard (just like you're now referencing the SysV psABI-s).
+> 
+> I am OK with the above, except for the three instances of "at least". As
+> mentioned earlier, we need to specify the supported and validated
+> configuration. If you want we can also add another field to express what
+> we aim at getting Xen to work with, but it should be separate.
+
 
