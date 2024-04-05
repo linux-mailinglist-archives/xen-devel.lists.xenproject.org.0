@@ -2,44 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D573899D1B
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 14:35:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701245.1095564 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28C66899D3F
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 14:42:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701250.1095574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsimR-0005vb-MW; Fri, 05 Apr 2024 12:34:51 +0000
+	id 1rsitb-0008W7-DS; Fri, 05 Apr 2024 12:42:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701245.1095564; Fri, 05 Apr 2024 12:34:51 +0000
+Received: by outflank-mailman (output) from mailman id 701250.1095574; Fri, 05 Apr 2024 12:42:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsimR-0005tC-Jh; Fri, 05 Apr 2024 12:34:51 +0000
-Received: by outflank-mailman (input) for mailman id 701245;
- Fri, 05 Apr 2024 12:34:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=my07=LK=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rsimQ-0005d8-8o
- for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 12:34:50 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e42f39c2-f348-11ee-a1ef-f123f15fe8a2;
- Fri, 05 Apr 2024 14:34:48 +0200 (CEST)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 51D5821A42;
- Fri,  5 Apr 2024 12:34:48 +0000 (UTC)
-Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id E9EF1139E8;
- Fri,  5 Apr 2024 12:34:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap2.dmz-prg2.suse.org with ESMTPSA id VZuqN+fvD2adGgAAn2gu4w
- (envelope-from <jgross@suse.com>); Fri, 05 Apr 2024 12:34:47 +0000
+	id 1rsitb-0008U0-9t; Fri, 05 Apr 2024 12:42:15 +0000
+Received: by outflank-mailman (input) for mailman id 701250;
+ Fri, 05 Apr 2024 12:42:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rrxH=LK=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1rsitZ-0008Tn-39
+ for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 12:42:13 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ec7a2143-f349-11ee-afe6-a90da7624cb6;
+ Fri, 05 Apr 2024 14:42:12 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-56e2b41187aso1542393a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Apr 2024 05:42:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,124 +40,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e42f39c2-f348-11ee-a1ef-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1712320488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c0jyNvKTHax+A0LD2eIp7A6uzmXI0s1Z7nkLE2AaG4I=;
-	b=AubcmXMIMx2JuozlxaVZ6aoO1vmLMUD9McUXagcomdrknSUs72w/jRG5+BoqixzGF0Ynsw
-	cmF67Yy8MEYjggWpzTKsZzIbF3YbDaUtLurvHF8BAWTkjzVGze/+nrAloogUfDHSOItTDP
-	iSROy7dI6S/oknWyfBY5jJI1PiOF/E4=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1712320488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c0jyNvKTHax+A0LD2eIp7A6uzmXI0s1Z7nkLE2AaG4I=;
-	b=AubcmXMIMx2JuozlxaVZ6aoO1vmLMUD9McUXagcomdrknSUs72w/jRG5+BoqixzGF0Ynsw
-	cmF67Yy8MEYjggWpzTKsZzIbF3YbDaUtLurvHF8BAWTkjzVGze/+nrAloogUfDHSOItTDP
-	iSROy7dI6S/oknWyfBY5jJI1PiOF/E4=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	x86@kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH 2/2] x86/xen: return a sane initial apic id when running as PV guest
-Date: Fri,  5 Apr 2024 14:34:34 +0200
-Message-Id: <20240405123434.24822-3-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20240405123434.24822-1-jgross@suse.com>
-References: <20240405123434.24822-1-jgross@suse.com>
+X-Inumbo-ID: ec7a2143-f349-11ee-afe6-a90da7624cb6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1712320931; x=1712925731; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=RVyraYjJW60W7EU0acb0SKA1sSG0MVBG1TFHZZiCV6Q=;
+        b=L0IPdyC9t0hJCyuFrQ/Ypnvu98bJQ/ibWJw0Y7p+RXu1kk7YFT9uLNYlN+gh6XCdbV
+         kjprOB1BM1d54K+X9F0HuYxUHqOBQgK9UDvty+FzC5/jsbGLSkratoVOBxfUzranM6m9
+         aK93NDNU6LhJ9gvCpvlaEagJkoRb0JGNNPmH0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712320931; x=1712925731;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=RVyraYjJW60W7EU0acb0SKA1sSG0MVBG1TFHZZiCV6Q=;
+        b=avlHGpZHp0KhxFF/JLCZ8aNOJ19PlAkCTCFKcbpFzih5GVzwjpA+ag/i1xnkr8q8Hs
+         ibRdtbVR8jKgkE9ocIXp0BV94CH59GGnHvKsjXvu34R8kmZpU0Vy+n5v5i83CYs8YxVC
+         pxnMJLp+H5CSN8CSWhTC4LWvHMVuKIL0PxRrB4RMzRgaHQgo+PUvy0qYwOjp5rkYp7pL
+         1wa9TFbpdfZxoXe6O5oGcHEnxGAwVBFnsB+nblhQEKdg83EaiCsAeDfjLrmQmiP4kT8z
+         no7txWiWx76YCp8voVueuSNwsyQoqSxJMFz3zNHFMeo+D0lWS+o+5zaJMsGRdAWVGTW6
+         cT/A==
+X-Gm-Message-State: AOJu0YwcY5pVzD2foIWQVmxgu+TQlAXKagsF7uU44b8H3X+eZ+8+Ljvv
+	ZGDGq8MwRC9SZXbu3mv1gqGiYoNmQkxQGgo8j8S7vItY2uWoP0KpwcDI0/9kP/71mQKJ6lmRsru
+	aU/c665LJmEJ8MIPAHciwJ31dqfVr+r6QungvL/8O3D3Nnlv1BmZArg==
+X-Google-Smtp-Source: AGHT+IEceTPR3C97nMzLbW7SqCk4NV+XDNoXZA9jb/b+Ze5ClKvpyVDK8x2D0dikACqf+V0iAgq1+QPBlSCa7bU1Z48=
+X-Received: by 2002:a50:ba83:0:b0:56c:d1b:588 with SMTP id x3-20020a50ba83000000b0056c0d1b0588mr1464007ede.14.1712320931286;
+ Fri, 05 Apr 2024 05:42:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -6.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-6.80 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap2.dmz-prg2.suse.org:helo,imap2.dmz-prg2.suse.org:rdns,suse.com:email]
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Fri, 5 Apr 2024 13:41:35 +0100
+Message-ID: <CAO-mL=xTSaMeAPiGw9Vy3ZTHumKxTQjeCdtyqSRTWT3Gx1UGHw@mail.gmail.com>
+Subject: April 2024 - community call recording
+To: xen-devel <xen-devel@lists.xenproject.org>, xen-users@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000d9f4e4061558c8f6"
 
-With recent sanity checks for topology information added, there are now
-warnings issued for APs when running as a Xen PV guest:
+--000000000000d9f4e4061558c8f6
+Content-Type: text/plain; charset="UTF-8"
 
-  [Firmware Bug]: CPU   1: APIC ID mismatch. CPUID: 0x0000 APIC: 0x0001
+Hi all,
 
-This is due to the initial APIC ID obtained via CPUID for PV guests is
-always 0.
+The April community call recording has been uploaded:
+https://www.youtube.com/watch?v=fpcxKWdaJyw&ab_channel=TheXenProject
 
-Avoid the warnings by synthesizing the CPUID data to contain the same
-initial APIC ID as xen_pv_smp_config() is using for registering the
-APIC IDs of all CPUs.
+This has also been saved in the Cryptpad file.
 
-Fixes: 52128a7a21f7 ("86/cpu/topology: Make the APIC mismatch warnings complete")
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- arch/x86/xen/enlighten_pv.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Many thanks,
+Kelly Choi
 
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index ace2eb054053..965e4ca36024 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -219,13 +219,20 @@ static __read_mostly unsigned int cpuid_leaf5_edx_val;
- static void xen_cpuid(unsigned int *ax, unsigned int *bx,
- 		      unsigned int *cx, unsigned int *dx)
- {
--	unsigned maskebx = ~0;
-+	unsigned int maskebx = ~0;
-+	unsigned int or_ebx = 0;
- 
- 	/*
- 	 * Mask out inconvenient features, to try and disable as many
- 	 * unsupported kernel subsystems as possible.
- 	 */
- 	switch (*ax) {
-+	case 0x1:
-+		/* Replace initial APIC ID in bits 24-31 of EBX. */
-+		maskebx = 0x00ffffff;
-+		or_ebx = smp_processor_id() << 24;
-+		break;
-+
- 	case CPUID_MWAIT_LEAF:
- 		/* Synthesize the values.. */
- 		*ax = 0;
-@@ -248,6 +255,7 @@ static void xen_cpuid(unsigned int *ax, unsigned int *bx,
- 		: "0" (*ax), "2" (*cx));
- 
- 	*bx &= maskebx;
-+	*bx |= or_ebx;
- }
- 
- static bool __init xen_check_mwait(void)
--- 
-2.35.3
+Community Manager
+Xen Project
 
+--000000000000d9f4e4061558c8f6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi all,<div><br></div><div>The April=C2=A0<span class=
+=3D"gmail-il">community</span>=C2=A0<span class=3D"gmail-il">call</span>=C2=
+=A0recording has been uploaded: <br><a href=3D"https://www.youtube.com/watc=
+h?v=3DfpcxKWdaJyw&amp;ab_channel=3DTheXenProject">https://www.youtube.com/w=
+atch?v=3DfpcxKWdaJyw&amp;ab_channel=3DTheXenProject</a>=C2=A0</div><div><br=
+ clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"=
+ltr"><div>This has also been saved in the Cryptpad file.</div></div></div><=
+/div></div></div><br clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail_sig=
+nature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Many thank=
+s,</div><div>Kelly Choi</div><div><br></div><div><div style=3D"color:rgb(13=
+6,136,136)">Community Manager</div><div style=3D"color:rgb(136,136,136)">Xe=
+n Project=C2=A0<br></div></div></div></div></div></div>
+
+--000000000000d9f4e4061558c8f6--
 
