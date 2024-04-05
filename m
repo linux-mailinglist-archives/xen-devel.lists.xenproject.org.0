@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 086EA899C7C
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 14:11:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701229.1095534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CF5A899C7E
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 14:12:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701230.1095544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsiQ0-0008E6-Fk; Fri, 05 Apr 2024 12:11:40 +0000
+	id 1rsiQ1-0008Vj-Nb; Fri, 05 Apr 2024 12:11:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701229.1095534; Fri, 05 Apr 2024 12:11:40 +0000
+Received: by outflank-mailman (output) from mailman id 701230.1095544; Fri, 05 Apr 2024 12:11:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsiQ0-0008Ae-6h; Fri, 05 Apr 2024 12:11:40 +0000
-Received: by outflank-mailman (input) for mailman id 701229;
- Fri, 05 Apr 2024 12:11:38 +0000
+	id 1rsiQ1-0008Ss-Jv; Fri, 05 Apr 2024 12:11:41 +0000
+Received: by outflank-mailman (input) for mailman id 701230;
+ Fri, 05 Apr 2024 12:11:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Im47=LK=cloud.com=fouad.hilly@srs-se1.protection.inumbo.net>)
- id 1rsiPy-0007Qe-P3
- for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 12:11:38 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1rsiQ0-0007Qe-8Z
+ for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 12:11:40 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a6cef36e-f345-11ee-a1ef-f123f15fe8a2;
- Fri, 05 Apr 2024 14:11:37 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-56bdf81706aso2867844a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 05 Apr 2024 05:11:37 -0700 (PDT)
+ id a7a73133-f345-11ee-a1ef-f123f15fe8a2;
+ Fri, 05 Apr 2024 14:11:38 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-56e030624d1so3456671a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Apr 2024 05:11:38 -0700 (PDT)
 Received: from fhilly.citrite.net (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- j13-20020a50ed0d000000b0056c4372c161sm729425eds.55.2024.04.05.05.11.34
+ j13-20020a50ed0d000000b0056c4372c161sm729425eds.55.2024.04.05.05.11.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Apr 2024 05:11:35 -0700 (PDT)
+ Fri, 05 Apr 2024 05:11:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +45,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6cef36e-f345-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: a7a73133-f345-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1712319096; x=1712923896; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1712319097; x=1712923897; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3PP1USpYqG/PprBDB64mV8RCygjZ51CvebJOr4kcXLM=;
-        b=U/PXqdVCR3NSniSQ96Lya04nSMUj9kiSpvl37ZJpM5n0NAB56zHHELzGK5ipsVZB3/
-         xcmMdJrwUAddA3SKIh8UnWhgryS6AvfgUT5E4RqZFrqUkxfiAZXFU3ks+VIoK2mgr+CT
-         zaVfD6KBHEuEVGLVGHyofvj1uIJswIEN0ovQg=
+        bh=wdhAQWAGgzqfyVOlZZiidtJ6Xeb+heOhOyk9/vxfLS0=;
+        b=BCR/4nvzPXGSe2aZExlNnkyeFDGpL3gSy+eSFB4tKyeiUG1QoJDmFjygGFMXm1A08W
+         sIAdkIIKkKgT/n+lKOi8/LudOsCj0XPiGd0SV72BTIYPUoWKbDATqC0nFw8efe34YEAy
+         oHb5C7bwtkR5vA++Fs/RGCQ7btOJijllTdhmA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712319096; x=1712923896;
+        d=1e100.net; s=20230601; t=1712319097; x=1712923897;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=3PP1USpYqG/PprBDB64mV8RCygjZ51CvebJOr4kcXLM=;
-        b=T2vM+Kup9eD1kMxdDT/BB6w10Hz3TNJDLh+a4SpC9hNIGUZxhUxhBM3nPZro3JrKWG
-         zUsdnR5w1xfWEdg226RUAZbHAzZTdzSxacZ35PJF8P6lyduJPBBbztY14fYKWwLDvtAH
-         3V3Qn0JI/Vv8qaDnahDmgrS1Sw6xJXOLpHLAuDkUrqnTnLhEFUdwvVe4nxMJSOPC/rkC
-         L/XcehlyIpOWxV3r2my18gNJG8WG5F7qt1hFRzXlBodGqr2EuClVB6qKIAgYBTsbe0cr
-         BdpHcYZkJRcMDFZiTCFDTui7gT/h1dXtk/KcwZos+NktMb3k2z5OHjGfJ9BizcIbL0Yw
-         NimQ==
-X-Gm-Message-State: AOJu0Yxk8m7OP9M+AskROAwXNmEGpwdyFDEaEEJv2W0L2RYZCPhk5/SB
-	zNzr1sajYgwg8RV4g3aQl+D+mWHYC4GS6ywdRI2W9wXKVDKBiaj4jUdTyiRO5Eff4wGGhJFNOB7
-	r
-X-Google-Smtp-Source: AGHT+IEljdvdDVrTJlsqguZfEB3Zp2MkU3GJwFXBzjkddzQxgdL8Ra9lhNxjuKMEbgxFaTorvUbnJQ==
-X-Received: by 2002:a50:cc95:0:b0:56c:2ef7:f3e6 with SMTP id q21-20020a50cc95000000b0056c2ef7f3e6mr1090981edi.0.1712319096016;
-        Fri, 05 Apr 2024 05:11:36 -0700 (PDT)
+        bh=wdhAQWAGgzqfyVOlZZiidtJ6Xeb+heOhOyk9/vxfLS0=;
+        b=Vc+xoXsNqHcjj3dRjj9O5ebRpMwSMdTwe0rRQqmHQR1jQdCZgUPI1//83eZiKAP2Uk
+         T/iVTdeczswADvE2iSNIgDqMUhH0StBpgMyXBd0a0/OEIut1iYc+9+5PtugC2Z9VP/Uf
+         JPSQa7TVy+ethF+zq8UhOOihpx28nAY+6CfE1ZlJBESs/xGIzo7wqTkkeTcb2b14OEMQ
+         c+TG47cpSuz7xM29BD50ys8ImkOK6hau8YjM1PgIs2hW27f9XUmsWPNP3p6k1LZM1GOK
+         rjVppLdkNTKBnGmjpdYEkSqkHOCI9+9wL4K1UHltDQ1aapeoBS6TSfwVcPtkPqJdpn10
+         EVXQ==
+X-Gm-Message-State: AOJu0YyIYUqrhcE79u7lPtJwFPQEboSZSZW8PCVSPrOk2d6B9mSRtgY4
+	wvDXVEikD8m76I3Ra+fap88JEckq/05/3ipNmnQj9HogELFrqXZ5KbKpbu6qtRhAZ0xpc6pkr3s
+	Q
+X-Google-Smtp-Source: AGHT+IFc7P4utWajGbqgWpMUxPqCIQeerVOzNOKJFOn8AwBmV1kYyymGlsBRFkuK4n0vtNRUKCAkug==
+X-Received: by 2002:a50:d49a:0:b0:568:9b13:77fe with SMTP id s26-20020a50d49a000000b005689b1377femr938158edi.37.1712319097311;
+        Fri, 05 Apr 2024 05:11:37 -0700 (PDT)
 From: Fouad Hilly <fouad.hilly@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Fouad Hilly <fouad.hilly@cloud.com>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH 4/5] x86: Use getopt to handle command line args
-Date: Fri,  5 Apr 2024 13:11:27 +0100
-Message-ID: <20240405121128.260493-5-fouad.hilly@cloud.com>
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH 5/5] x86: Add --force option to xen-ucode to override microcode version check
+Date: Fri,  5 Apr 2024 13:11:28 +0100
+Message-ID: <20240405121128.260493-6-fouad.hilly@cloud.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20240405121128.260493-1-fouad.hilly@cloud.com>
 References: <20240405121128.260493-1-fouad.hilly@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use getopt_long() to handle command line arguments.
-Introduce ext_err for common exit with errors.
+Introduce --force option to xen-ucode to force skipping microcode version
+check, which allows the user to update x86 microcode even if both versions
+are the same.
 
 Signed-off-by: Fouad Hilly <fouad.hilly@cloud.com>
 ---
- tools/misc/xen-ucode.c | 49 +++++++++++++++++++++++++++++++++---------
- 1 file changed, 39 insertions(+), 10 deletions(-)
 
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+ tools/include/xenctrl.h   |  2 +-
+ tools/libs/ctrl/xc_misc.c | 12 ++++++++++--
+ tools/misc/xen-ucode.c    | 20 +++++++++++++++-----
+ 3 files changed, 26 insertions(+), 8 deletions(-)
+
+diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
+index 2ef8b4e05422..5dbe3e63374a 100644
+--- a/tools/include/xenctrl.h
++++ b/tools/include/xenctrl.h
+@@ -1171,7 +1171,7 @@ typedef uint32_t xc_node_to_node_dist_t;
+ int xc_physinfo(xc_interface *xch, xc_physinfo_t *info);
+ int xc_cputopoinfo(xc_interface *xch, unsigned *max_cpus,
+                    xc_cputopo_t *cputopo);
+-int xc_microcode_update(xc_interface *xch, const void *buf, size_t len);
++int xc_microcode_update(xc_interface *xch, const void *buf, size_t len, uint32_t flags);
+ int xc_get_cpu_version(xc_interface *xch, struct xenpf_pcpu_version *cpu_ver);
+ int xc_get_ucode_revision(xc_interface *xch,
+                           struct xenpf_ucode_revision *ucode_rev);
+diff --git a/tools/libs/ctrl/xc_misc.c b/tools/libs/ctrl/xc_misc.c
+index 5ecdfa2c7934..edce45bc2a17 100644
+--- a/tools/libs/ctrl/xc_misc.c
++++ b/tools/libs/ctrl/xc_misc.c
+@@ -203,7 +203,7 @@ int xc_physinfo(xc_interface *xch,
+     return 0;
+ }
+ 
+-int xc_microcode_update(xc_interface *xch, const void *buf, size_t len)
++int xc_microcode_update(xc_interface *xch, const void *buf, size_t len, uint32_t flags)
+ {
+     int ret;
+     struct xen_platform_op platform_op = {};
+@@ -215,7 +215,15 @@ int xc_microcode_update(xc_interface *xch, const void *buf, size_t len)
+ 
+     memcpy(uc, buf, len);
+ 
+-    platform_op.cmd = XENPF_microcode_update;
++    if ( flags > XENPF_UCODE_FLAG_FORCE_NOT_SET )
++    {
++        platform_op.cmd = XENPF_microcode_update2;
++        platform_op.u.microcode.flags = flags;
++    }
++    else
++    {
++        platform_op.cmd = XENPF_microcode_update;
++    }
+     platform_op.u.microcode.length = len;
+     set_xen_guest_handle(platform_op.u.microcode.data, uc);
+ 
 diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
-index 1edcebfb9f9c..9bde991c5df5 100644
+index 9bde991c5df5..469ce3299381 100644
 --- a/tools/misc/xen-ucode.c
 +++ b/tools/misc/xen-ucode.c
-@@ -11,6 +11,7 @@
- #include <sys/stat.h>
- #include <fcntl.h>
+@@ -13,6 +13,8 @@
  #include <xenctrl.h>
-+#include <getopt.h>
+ #include <getopt.h>
  
++#include <xen/platform.h>
++
  static xc_interface *xch;
  
-@@ -20,7 +21,10 @@ static const char   amd_id[] = "AuthenticAMD";
+ static const char intel_id[] = "GenuineIntel";
+@@ -21,10 +23,11 @@ static const char   amd_id[] = "AuthenticAMD";
  static void usage(const char *name)
  {
      printf("%s: Xen microcode updating tool\n"
--            "Usage: %s [<microcode file> | show-cpu-info]\n"
-+            "Usage: %s [<microcode file> | --show-cpu-info]\n"
-+            "\n"
-+            "  -h, --help            display this help and exit\n"
-+            "  -s, --show-cpu-info   show CPU information and exit\n"
+-            "Usage: %s [<microcode file> | --show-cpu-info]\n"
++            "Usage: %s [[--force] <microcode file> | --show-cpu-info]\n"
+             "\n"
+             "  -h, --help            display this help and exit\n"
+             "  -s, --show-cpu-info   show CPU information and exit\n"
++            "  -f, --force           force to skip micorocde version check\n"
              "\n"
              , name, name);
  }
-@@ -82,9 +86,16 @@ static void show_curr_cpu(FILE *f)
- int main(int argc, char *argv[])
- {
-     int fd, ret;
--    char *filename, *buf;
-+    char *filename = NULL, *buf;
+@@ -89,11 +92,13 @@ int main(int argc, char *argv[])
+     char *filename = NULL, *buf;
      size_t len;
      struct stat st;
-+    int opt;
-+
-+    const static struct option options[] = {
-+        {"help", no_argument, NULL, 'h'},
-+        {"show-cpu-info", no_argument, NULL, 's'},
-+        {NULL, no_argument, NULL, 0}
-+    };
++    uint32_t ucode_flag = XENPF_UCODE_FLAG_FORCE_NOT_SET;
+     int opt;
  
-     xch = xc_interface_open(NULL, NULL, 0);
-     if ( xch == NULL )
-@@ -94,20 +105,33 @@ int main(int argc, char *argv[])
+     const static struct option options[] = {
+         {"help", no_argument, NULL, 'h'},
+         {"show-cpu-info", no_argument, NULL, 's'},
++        {"force", required_argument, NULL, 'f'},
+         {NULL, no_argument, NULL, 0}
+     };
+ 
+@@ -105,10 +110,10 @@ int main(int argc, char *argv[])
          exit(1);
      }
  
--    if ( argc < 2 )
-+    if ( argc != 2 )
-+        goto ext_err;
-+
-+    while ( (opt = getopt_long(argc, argv, "hs:", options, NULL)) != -1 )
-     {
--        usage(argv[0]);
--        show_curr_cpu(stderr);
--        exit(2);
-+        switch (opt)
-+        {
-+            case 'h':
-+                usage(argv[0]);
-+                exit(EXIT_SUCCESS);
-+            case 's':
-+                if ( argc > 2 )
-+                    goto ext_err;
-+                show_curr_cpu(stdout);
-+                exit(EXIT_SUCCESS);
-+            default:
-+                goto ext_err;
-+        }
-     }
+-    if ( argc != 2 )
++    if ( argc < 2 || argc > 3)
+         goto ext_err;
  
--    if ( !strcmp(argv[1], "show-cpu-info") )
-+    filename = argv[1];
-+    if ( filename == NULL )
+-    while ( (opt = getopt_long(argc, argv, "hs:", options, NULL)) != -1 )
++    while ( (opt = getopt_long(argc, argv, "hsf:", options, NULL)) != -1 )
      {
--        show_curr_cpu(stdout);
--        return 0;
-+        printf("File name error\n");
-+        goto ext_err;
+         switch (opt)
+         {
+@@ -120,12 +125,17 @@ int main(int argc, char *argv[])
+                     goto ext_err;
+                 show_curr_cpu(stdout);
+                 exit(EXIT_SUCCESS);
++            case 'f':
++            ucode_flag = XENPF_UCODE_FLAG_FORCE_SET;
++                filename = optarg;
++                break;
+             default:
+                 goto ext_err;
+         }
      }
  
 -    filename = argv[1];
-     fd = open(filename, O_RDONLY);
-     if ( fd < 0 )
++    if ( argc == 2 )
++        filename = argv[1];
+     if ( filename == NULL )
      {
-@@ -149,4 +173,9 @@ int main(int argc, char *argv[])
-     close(fd);
+         printf("File name error\n");
+@@ -155,7 +165,7 @@ int main(int argc, char *argv[])
+         exit(1);
+     }
  
-     return 0;
-+
-+ext_err:
-+    usage(argv[0]);
-+    show_curr_cpu(stderr);
-+    exit(STDERR_FILENO);
- }
+-    ret = xc_microcode_update(xch, buf, len);
++    ret = xc_microcode_update(xch, buf, len, ucode_flag);
+     if ( ret )
+     {
+         fprintf(stderr, "Failed to update microcode. (err: %s)\n",
 -- 
 2.42.0
 
