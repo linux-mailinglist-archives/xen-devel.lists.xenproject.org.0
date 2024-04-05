@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68EF989950B
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 08:11:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701098.1095210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DD088995B3
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 08:43:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701102.1095219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rscnU-0007hT-7P; Fri, 05 Apr 2024 06:11:32 +0000
+	id 1rsdIC-00049K-DT; Fri, 05 Apr 2024 06:43:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701098.1095210; Fri, 05 Apr 2024 06:11:32 +0000
+Received: by outflank-mailman (output) from mailman id 701102.1095219; Fri, 05 Apr 2024 06:43:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rscnU-0007fP-4e; Fri, 05 Apr 2024 06:11:32 +0000
-Received: by outflank-mailman (input) for mailman id 701098;
- Fri, 05 Apr 2024 06:11:31 +0000
+	id 1rsdIC-00047V-Ai; Fri, 05 Apr 2024 06:43:16 +0000
+Received: by outflank-mailman (input) for mailman id 701102;
+ Fri, 05 Apr 2024 06:43:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Jola=LK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rscnT-0007f6-6G
- for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 06:11:31 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1rsdIB-00047L-9r
+ for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 06:43:15 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5761627b-f313-11ee-a1ef-f123f15fe8a2;
- Fri, 05 Apr 2024 08:11:29 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4162e19b663so2248085e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 23:11:29 -0700 (PDT)
+ id c6110a01-f317-11ee-a1ef-f123f15fe8a2;
+ Fri, 05 Apr 2024 08:43:12 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-34356f794a5so1525287f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Apr 2024 23:43:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h22-20020a05600c351600b0041562a58b75sm1661483wmq.13.2024.04.04.23.11.28
+ u26-20020adfa19a000000b0033e25c39ac3sm1216123wru.80.2024.04.04.23.43.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Apr 2024 23:11:28 -0700 (PDT)
+ Thu, 04 Apr 2024 23:43:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5761627b-f313-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: c6110a01-f317-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712297489; x=1712902289; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712299392; x=1712904192; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=0Bl7ViLyOyKQv5bJk7PktfW2fra0xVZpISax68+IzpQ=;
-        b=g+RdgF/Y4PnqIcIFn1qwDtwNHHFZoxLjGH92hFsPOc13mU5J9sXRfC8qh1u9AlsXr6
-         jiP4Zj88Y+xer6TFCEcohzUP57ua4O+I/66mk8jJ0AInc+hltoaPX1Ulu2H5vRanmHRa
-         IH7OA+Y5kssregTPiL0IX6+ptLrO/+gWlLbdnE7Ips0jZ/r8t0cDmKnNnY8KBdpw6QJP
-         UD3e/iLgEkNaVukJ5Iw5/0QGfaxiC6yShLOyvnpxfQ97xabA5BufiTuCsXE+QhwKom7j
-         PyxkKy9ZBFKGuqdF7RyI8/im2d+vxEuBLzjYJT9Olrl2RDPaIMw6erpAiUga58WZOimR
-         6UUA==
+        bh=o2EGxgBV6A/5H+HCyZP7yuDF5hnhKuT3q3E5BDSevTU=;
+        b=Elkk507aTk/0WuInb9jLWXzp/j6C1Gs7r0y183bygwWuGJcbqW6RB9mpqZk/8yoa9c
+         fwJ42+kvN+ksEQyZQsTlIFUiMVXeCC01Rre7w/U0DGizlTbZ6623ClEDajYfdYafIm4E
+         QOy/hGU8j7dUnLmu+KGTZbqOTHwX1JDHOO79bFGM9StzVMatO6oaYoSSzkwtpPtFOLXe
+         RddEmpLqQcslUGFTkNPLC0C9UQrpFZ9hOkKsDehafMQnzzJaw08rMgyGQIYRAKefyZZ/
+         cHErTJKbjAYEqAwQSvefBJZDvhbZN1qIEwuayb/w+lG7kc+ca2v4wbdh6Y1VIxNVC1z7
+         sQhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712297489; x=1712902289;
+        d=1e100.net; s=20230601; t=1712299392; x=1712904192;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0Bl7ViLyOyKQv5bJk7PktfW2fra0xVZpISax68+IzpQ=;
-        b=IPEpyPVq7VL0g2dYGEDXUZzu2ckPNAvhNB15t0LvQcowuLGf8jKeUhp/2KetcmIXyH
-         GYWkTaerNastlJQLoThYNRohV4YmAtd+z+7FRfQEA9ShPatZoKSTipc2htJJQmLLKylP
-         YcL7WlxJBtpOcSjMbPReE5e5Q9e+8+BdXkw1ZdNwGYGlcBKANAkHd/qbBjbb0C2IudSA
-         mLh/PDkuI648wmUofbExvB954cwhR7nWNPj5I6F3g/1NInRsyGjuCV1C/3g/nw8shOYX
-         quDfz61jn63elg9iMbjPBHIiSyQsWhJ3ufjeL8KZzbbR7jmA/c3+K7yRHY0C/r8YTs7Y
-         +j0A==
-X-Forwarded-Encrypted: i=1; AJvYcCVqfJ3G3zXFV2PP9kJJqNKIRVYvz0GCeihKczP2lQcZ6x1XoPOROGzKAIVtySa0yA/ZHR8uHWwcIyGUU8OuBvTNB6AorwNwJ++1RnbIS8w=
-X-Gm-Message-State: AOJu0YydWwqsVVni/O285eV9FFBkLv9SoDKyOOLZCEJyBa9ynH7VFNFh
-	A1Fuqj139/biCGgq++ji2eKhnl5LnsMkwM5NvHY10TvxhI6vE/tlx7zVgAR0iA==
-X-Google-Smtp-Source: AGHT+IEavEQCjLB0xEzZzS7kRNFokF8SgOTo9MEYBjr3kaxYqO5bLqiK4s9fOjdNNOB4TUhlv5SN4A==
-X-Received: by 2002:a05:600c:35c3:b0:415:540e:760d with SMTP id r3-20020a05600c35c300b00415540e760dmr464227wmq.5.1712297488758;
-        Thu, 04 Apr 2024 23:11:28 -0700 (PDT)
-Message-ID: <edd36d22-a2da-4e38-a586-14c742da18f7@suse.com>
-Date: Fri, 5 Apr 2024 08:11:27 +0200
+        bh=o2EGxgBV6A/5H+HCyZP7yuDF5hnhKuT3q3E5BDSevTU=;
+        b=sB2vyw0GTRcmw2jB0OW9Pg89uQtqDPsxrIbXoB08ZVAzg5t12Be148s2H9biFW9rZK
+         w0BHVDlG959+PcjAkm5C81SrPF8ejbnt684cAmDu4L9dF3m7y5NyJtNy3/LaZeX+6nID
+         ds7bgDKcutC9fvo98pZOZX1GDg0pfm9peUMKr72QOfoCl1VO+f8mqRdVWDKCfQrRY4Hp
+         MaW/QAxvDaB1itLKlz2fTkWCbha2+JuCpd7yb++SpIWwUMaw8MCMwTpOvw5YiQj7TQKr
+         qsKt5pC90TwcrpRuS4i7onIfl9AqDJaTJt+4gsGFZkuCtSD2uJ/IcmpM0xQC+OALZnQ2
+         ubeQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUqk9++DoilEGbY24zlAFlfdE5IlxtdF1XYHvVdOgSTvqZeGF+OF0wwulHJ0Q/tf3loOXbDlvbqGWWu7F/fzIsoWj8XDfW7uU+kNy7t3Zw=
+X-Gm-Message-State: AOJu0YxSd6Znx0Ad41kbW4225jBTpBQHOW/ZFEELcMSTkRNwqctE2d6D
+	mIrDAjOyBq3OeXEyEpFZ4s/D3x6E3GwZhQ+LIDGMik1e/cy8mS40iIGIgsMx/A==
+X-Google-Smtp-Source: AGHT+IEabo4FFj6jEfqI36y9tsTpRftx0lLV0FybTwTQ1BoE1CeUzsY3vVCj74OT7e5mV8i5W8bq0g==
+X-Received: by 2002:adf:fdc9:0:b0:33e:c91a:127e with SMTP id i9-20020adffdc9000000b0033ec91a127emr458764wrs.63.1712299392396;
+        Thu, 04 Apr 2024 23:43:12 -0700 (PDT)
+Message-ID: <627b2436-f7a0-4434-944f-5d4f173ba8ea@suse.com>
+Date: Fri, 5 Apr 2024 08:43:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 04/19] xen: introduce generic non-atomic test_*bit()
+Subject: Re: [XEN PATCH 3/7] xen/sched: address a violation of MISRA C:2012
+ Rule 16.3
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
- <ff6922206ab5476df907e2a05255663865f07301.1712137031.git.oleksii.kurochko@gmail.com>
- <aabb1d9a-3910-479e-858d-a11777873ef5@suse.com>
- <5ee906c53e2d4a966fa6be3be50caa19c3c164a2.camel@gmail.com>
- <4ba7c962-a635-4a7d-8e03-093361cc6353@suse.com>
- <c92ef420468fdf45a878efda37c582c0cab2332f.camel@gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Federico Serafini <federico.serafini@bugseng.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>, consulting@bugseng.com,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ Dario Faggioli <dfaggioli@suse.com>
+References: <cover.1712042178.git.federico.serafini@bugseng.com>
+ <8f91430e37594831dd8d92ab630477be88417b49.1712042178.git.federico.serafini@bugseng.com>
+ <28786c5b-c625-4754-980d-c9a0fdc49c37@suse.com>
+ <0d0c8cd162a8bfed07dd374ef2dd62d4@bugseng.com>
+ <alpine.DEB.2.22.394.2404041715400.2245130@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -124,45 +118,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c92ef420468fdf45a878efda37c582c0cab2332f.camel@gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2404041715400.2245130@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04.04.2024 18:24, Oleksii wrote:
-> On Thu, 2024-04-04 at 18:12 +0200, Jan Beulich wrote:
->> On 04.04.2024 17:45, Oleksii wrote:
->>> On Thu, 2024-04-04 at 15:22 +0200, Jan Beulich wrote:
->>>> On 03.04.2024 12:19, Oleksii Kurochko wrote:
->>>>> --- a/xen/include/xen/bitops.h
->>>>> +++ b/xen/include/xen/bitops.h
->>>>> @@ -65,10 +65,164 @@ static inline int generic_flsl(unsigned
->>>>> long
->>>>> x)
->>>>>   * scope
->>>>>   */
->>>>>  
->>>>> +#define BITOP_BITS_PER_WORD 32
->>>>> +/* typedef uint32_t bitop_uint_t; */
->>>>> +#define bitop_uint_t uint32_t
+On 05.04.2024 02:18, Stefano Stabellini wrote:
+> On Wed, 3 Apr 2024, Nicola Vetrini wrote:
+>> On 2024-04-03 08:33, Jan Beulich wrote:
+>>> On 02.04.2024 09:22, Federico Serafini wrote:
+>>>> Use pseudo-keyword fallthrough to meet the requirements to deviate
+>>>> MISRA C:2012 Rule 16.3 ("An unconditional `break' statement shall
+>>>> terminate every switch-clause").
 >>>>
->>>> So no arch overrides permitted anymore at all?
->>> Not really, I agree that it is ugly, but I expected that arch will
->>> use
->>> undef to override.
+>>>> No functional change.
+>>>>
+>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>> ---
+>>>>  xen/common/sched/credit2.c | 2 +-
+>>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
+>>>> index c76330d79d..0962b52415 100644
+>>>> --- a/xen/common/sched/credit2.c
+>>>> +++ b/xen/common/sched/credit2.c
+>>>> @@ -3152,8 +3152,8 @@ static int cf_check csched2_sys_cntl(
+>>>>              printk(XENLOG_INFO "Disabling context switch rate
+>>>> limiting\n");
+>>>>          prv->ratelimit_us = params->ratelimit_us;
+>>>>          write_unlock_irqrestore(&prv->lock, flags);
+>>>> +        fallthrough;
+>>>>
+>>>> -    /* FALLTHRU */
+>>>>      case XEN_SYSCTL_SCHEDOP_getinfo:
+>>>>          params->ratelimit_us = prv->ratelimit_us;
+>>>>          break;
+>>>
+>>> Hmm, the description doesn't say what's wrong with the comment. Furthermore
+>>> docs/misra/rules.rst doesn't mention "fallthrough" at all, nor the
+>>> alternative of using comments. I notice docs/misra/deviations.rst does, and
+>>> there the specific comment used here isn't covered. That would want saying
+>>> in the description.
+>>>
+>>> Stefano (and others) - in this context it becomes noticeable that having
+>>> stuff scattered across multiple doc files isn't necessarily helpful. Other
+>>> permissible keywords are mentioned in rules.rst. The pseudo-keyword
+>>> "fallthrough" as well as comments are mentioned on deviations.rst. Could
+>>> you remind me of the reason(s) why things aren't recorded in a single,
+>>> central place?
+>>>
+>>> Jan
 >>
->> Which would be fine in principle, just that Misra wants us to avoid
->> #undef-s
->> (iirc).
-> Could you please give me a recommendation how to do that better?
+>> If I recall correctly, the idea was to avoid rules.rst from getting too long
+>> and too specific about which patterns were deviated, while also having a
+>> precise record of the MISRA deviations that didn't live in ECLAIR-specific
+>> files. Maybe the use of the pseudo-keyword emerged after the rule was added to
+>> rules.rst, since deviations.rst is updated more frequently.
 > 
-> The reason why I put this defintions before inclusion of asm/bitops.h
-> as RISC-V specific code uses these definitions inside it, so they
-> should be defined before asm/bitops.h; other option is to define these
-> definitions inside asm/bitops.h for each architecture.
+> Yes exactly.
+> 
+> I agree with Jan that a single central place is easiest but we cannot
+> move everything that is in deviations.rst in the note section of the
+> rules.rst table. Of the two, it would be best to reduce the amount of
+> notes in rules.rst and move all the deviations listed in rules.rst to
+> deviations.rst. That way at least the info is present only once,
+> although they are 2 files.
 
-Earlier on you had it that other way already (in a different header,
-but the principle is the same): Move the generic definitions immediately
-past inclusion of asm/bitops.h and frame them with #ifndef.
+Could every rules.rst section having a deviations.rst counterpart then perhaps
+have a standardized referral to there?
 
 Jan
 
