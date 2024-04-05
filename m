@@ -2,44 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 914F289A41A
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 20:21:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701357.1095745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56BFA89A446
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Apr 2024 20:38:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701365.1095773 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsoBH-0007DQ-Uc; Fri, 05 Apr 2024 18:20:51 +0000
+	id 1rsoRk-0001Fa-Go; Fri, 05 Apr 2024 18:37:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701357.1095745; Fri, 05 Apr 2024 18:20:51 +0000
+Received: by outflank-mailman (output) from mailman id 701365.1095773; Fri, 05 Apr 2024 18:37:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rsoBH-00079t-Rt; Fri, 05 Apr 2024 18:20:51 +0000
-Received: by outflank-mailman (input) for mailman id 701357;
- Fri, 05 Apr 2024 18:20:50 +0000
+	id 1rsoRk-0001CK-Ca; Fri, 05 Apr 2024 18:37:52 +0000
+Received: by outflank-mailman (input) for mailman id 701365;
+ Fri, 05 Apr 2024 18:37:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=x+fY=LK=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1rsoBG-00077g-14
- for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 18:20:50 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 38576c6a-f379-11ee-a1ef-f123f15fe8a2;
- Fri, 05 Apr 2024 20:20:47 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 185DD82855AB;
- Fri,  5 Apr 2024 13:20:45 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id WlUwro3q7qks; Fri,  5 Apr 2024 13:20:44 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id F2CE98285607;
- Fri,  5 Apr 2024 13:20:43 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id oOiyGNosNpEl; Fri,  5 Apr 2024 13:20:43 -0500 (CDT)
-Received: from raptor-ewks-026.2lan (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 52C7782855AB;
- Fri,  5 Apr 2024 13:20:43 -0500 (CDT)
+ <SRS0=GKl/=LK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rsoRi-0001CB-Ut
+ for xen-devel@lists.xenproject.org; Fri, 05 Apr 2024 18:37:50 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 998b45a3-f37b-11ee-a1ef-f123f15fe8a2;
+ Fri, 05 Apr 2024 20:37:48 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 45341618D5;
+ Fri,  5 Apr 2024 18:37:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9392FC433F1;
+ Fri,  5 Apr 2024 18:37:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,256 +41,256 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38576c6a-f379-11ee-a1ef-f123f15fe8a2
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com F2CE98285607
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1712341244; bh=CHdkWKhIxnJ7d1hR9BPeVfbie9iAebaLrDQcbBpsOlE=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=GZcUJO7fs+j4dZZTgmY78Gg6Xo8uUHk6isc0q//becuyC9dpaqThh8iYpKdlvckxS
-	 G4MjSRdJ4lrhwu2tLuMO/47ecedCJti5dpQs6deqeUaTLAk1uRhloqIZvAH2Ocv7MB
-	 gGJ/zNY+uBNYYX8UnDho4zH3dGhvNl2YEQk2dJAw=
-X-Virus-Scanned: amavisd-new at rptsys.com
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-To: xen-devel@lists.xenproject.org
-Cc: tpearson@raptorengineering.com,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Juergen Gross <jgross@suse.com>,
-	Dario Faggioli <dfaggioli@suse.com>
-Subject: [PATCH] xen/acpi: Allow xen/acpi.h to be included on non-ACPI archs
-Date: Fri,  5 Apr 2024 13:20:31 -0500
-Message-Id: <20240405182031.396528-1-sanastasio@raptorengineering.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: 998b45a3-f37b-11ee-a1ef-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1712342266;
+	bh=lliqU5Pz5zkJFIMwSW4YQoOY30IwMTg4WWkhKRpJyCE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=eMwkWwjga4Cd+BWy4oSXClQa9BSX5UoS0ge3WErQnSCivh0v+6+htwBt+WeVbbK7D
+	 P+N2XQfCt2E4CLX6Qb+YOZlkGqabdDG8M0SBjzLRMzI+pVrMx/kXZdkpnvUAjGB5/I
+	 qYpMQ5RY1GMdMomTYMGClvMeF9LVTDUDqhaqcSbLi+wmbWuZMMeeIraDG9tj0pJswU
+	 UxgEOI8+11YttfoZXg7T8I+vQ7DYKF212Jo6MlD7bsZ9vJLfpZu/Trtgd8vi/wxEKJ
+	 G4kDbP/348CaIMli3QQwiZShzPY92MHDy4hXyRxvv8Q9Bi2aQPAO2kAjhFNVvPqyu0
+	 7c8n45PekynOg==
+Date: Fri, 5 Apr 2024 11:37:44 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
+    bertrand.marquis@arm.com, george.dunlap@citrix.com, julien@xen.org, 
+    michal.orzel@amd.com, roger.pau@citrix.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3] docs/misra: document the expected sizes of integer
+ types
+In-Reply-To: <0e9361f6-c419-4fdd-95a4-2fafa5de2406@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2404051131570.2245130@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2404031806510.2245130@ubuntu-linux-20-04-desktop> <e3e13f3f-3df6-4eb4-8b73-21387007e7c3@suse.com> <alpine.DEB.2.22.394.2404041548530.2245130@ubuntu-linux-20-04-desktop> <0e9361f6-c419-4fdd-95a4-2fafa5de2406@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-Conditionalize xen/acpi.h's inclusion of acpi/acpi.h and asm/acpi.h on
-CONFIG_ACPI and import ARM's !CONFIG_ACPI stub for acpi_disabled() so
-that the header can be included on architectures without ACPI support,
-like ppc.
+On Fri, 5 Apr 2024, Jan Beulich wrote:
+> On 05.04.2024 01:56, Stefano Stabellini wrote:
+> > On Thu, 4 Apr 2024, Jan Beulich wrote:
+> >> On 04.04.2024 03:12, Stefano Stabellini wrote:
+> >>> --- a/docs/misra/C-language-toolchain.rst
+> >>> +++ b/docs/misra/C-language-toolchain.rst
+> >>> @@ -480,4 +480,73 @@ The table columns are as follows:
+> >>>       - See Section "4.13 Preprocessing Directives" of GCC_MANUAL and Section "11.1 Implementation-defined behavior" of CPP_MANUAL.
+> >>>  
+> >>>  
+> >>> +Sizes of Integer types
+> >>> +______________________
+> >>> +
+> >>> +Xen expects System V ABI on x86_64:
+> >>> +  https://gitlab.com/x86-psABIs/x86-64-ABI
+> >>> +
+> >>> +Xen expects AAPCS32 on ARMv8-A AArch32:
+> >>> +  https://github.com/ARM-software/abi-aa/blob/main/aapcs32/aapcs32.rst
+> >>> +
+> >>> +Xen expects AAPCS64 LP64 on ARMv8-A AArch64:
+> >>> +  https://github.com/ARM-software/abi-aa/blob/main/aapcs64/aapcs64.rst
+> >>> +
+> >>> +A summary table of data types, sizes and alignment is below:
+> >>> +
+> >>> +.. list-table::
+> >>> +   :widths: 10 10 10 45
+> >>> +   :header-rows: 1
+> >>> +
+> >>> +   * - Type
+> >>> +     - Size
+> >>> +     - Alignment
+> >>> +     - Architectures
+> >>> +
+> >>> +   * - char 
+> >>> +     - 8 bits
+> >>> +     - 8 bits
+> >>> +     - all architectures
+> >>
+> >> This one _may_ be acceptable, but already feels like going too far.
+> >>
+> >>> +   * - short
+> >>> +     - 16 bits
+> >>> +     - 16 bits
+> >>> +     - all architectures
+> >>> +
+> >>> +   * - int
+> >>> +     - 32 bits
+> >>> +     - 32 bits
+> >>> +     - all architectures
+> >>
+> >> These two I continue to disagree with. The values are minimum required ones.
+> > 
+> > The purpose of the document docs/misra/C-language-toolchain.rst is to
+> > describe the reference safety-supported configuration. In a way, this
+> > document is similar to SUPPORT.md but for safety instead of security.
+> > 
+> > Here, we need to write down the stable configuration, the one everyone
+> > is aligned and convinced should work correctly.
+> > 
+> > Now, let's say that I believe you and agree with you that it should be
+> > possible to support int as 64-bit. This configuration is not tested. If
+> > I can draw a comparison, it would be similar to ask for XSM to be
+> > security supported while in fact is marked as experimental in
+> > SUPPORT.md.
+> > 
+> > If you want, taking inspiration from SUPPORT.md, we can have a
+> > "supported" column and a "experimental" column. In the experimental
+> > column we can write down "at least 32-bit" or "32-bit or larger".
+> > 
+> > 
+> >> Even if code changes may be needed (Misra already helps us here by stopping
+> >> undue mixing of e.g. unsigned int and uint32_t in at least some situations),
+> >> there's no inherent requirement in Xen for such restrictions.
+> > 
+> > I hope that my comparison with XSM and SUPPORT.md helps explain why we
+> > need to clarify the safety supported configuration with the values we
+> > actually validate Xen with.
+> > 
+> > Your goal is to write down what should work with Xen, which is also OK
+> > but it is a different goal. It is OK to say that we aim for Xen to also
+> > work with other configurations too, and list them. That was not my
+> > intention, but I can expand the scope if you request.
+> 
+> To achieve just your goal, would you then please replace all instances
+> of "all architectures" and "all <N>-bit architectures" by an enumeration
+> of the specific ones, as you have it elsewhere? This would then allow
+> architectures I'm thinking about without impacting your goal. FTAOD ...
 
-This change revealed some missing #includes across the ARM tree, so fix
-those as well.
+Yes, I am fine with that
 
-Suggested-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
----
- xen/arch/arm/arm32/mmu/mm.c     | 1 +
- xen/arch/arm/arm64/smpboot.c    | 3 ++-
- xen/arch/arm/domain_build.c     | 1 -
- xen/arch/arm/gic-v2.c           | 1 -
- xen/arch/arm/gic-v3.c           | 2 --
- xen/arch/arm/include/asm/acpi.h | 1 -
- xen/arch/arm/mmu/setup.c        | 1 +
- xen/arch/arm/psci.c             | 1 +
- xen/arch/arm/smpboot.c          | 1 +
- xen/arch/arm/traps.c            | 3 ++-
- xen/common/sched/boot-cpupool.c | 2 +-
- xen/include/xen/acpi.h          | 8 ++++++--
- 12 files changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
-index cb441ca87c..0ab6ae52a6 100644
---- a/xen/arch/arm/arm32/mmu/mm.c
-+++ b/xen/arch/arm/arm32/mmu/mm.c
-@@ -3,6 +3,7 @@
- #include <xen/init.h>
- #include <xen/lib.h>
- #include <xen/libfdt/libfdt-xen.h>
-+#include <xen/mm.h>
- #include <xen/param.h>
- #include <xen/pfn.h>
- #include <asm/fixmap.h>
-diff --git a/xen/arch/arm/arm64/smpboot.c b/xen/arch/arm/arm64/smpboot.c
-index bf81d018b3..a225fae64d 100644
---- a/xen/arch/arm/arm64/smpboot.c
-+++ b/xen/arch/arm/arm64/smpboot.c
-@@ -1,4 +1,6 @@
-+#include <xen/acpi.h>
- #include <xen/cpu.h>
-+#include <xen/device_tree.h>
- #include <xen/lib.h>
- #include <xen/init.h>
- #include <xen/errno.h>
-@@ -7,7 +9,6 @@
- #include <xen/vmap.h>
- #include <asm/io.h>
- #include <asm/psci.h>
--#include <asm/acpi.h>
- 
- struct smp_enable_ops {
-         int             (*prepare_cpu)(int cpu);
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 085d88671e..54232ed4cb 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -18,7 +18,6 @@
- #include <xen/acpi.h>
- #include <xen/vmap.h>
- #include <xen/warning.h>
--#include <acpi/actables.h>
- #include <asm/device.h>
- #include <asm/kernel.h>
- #include <asm/setup.h>
-diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
-index 5d6885e389..02043c0d4b 100644
---- a/xen/arch/arm/gic-v2.c
-+++ b/xen/arch/arm/gic-v2.c
-@@ -22,7 +22,6 @@
- #include <xen/libfdt/libfdt.h>
- #include <xen/sizes.h>
- #include <xen/acpi.h>
--#include <acpi/actables.h>
- #include <asm/p2m.h>
- #include <asm/domain.h>
- #include <asm/platform.h>
-diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-index 1cb1360606..cd3e1acf79 100644
---- a/xen/arch/arm/gic-v3.c
-+++ b/xen/arch/arm/gic-v3.c
-@@ -25,8 +25,6 @@
- #include <xen/sched.h>
- #include <xen/sizes.h>
- 
--#include <acpi/actables.h>
--
- #include <asm/cpufeature.h>
- #include <asm/device.h>
- #include <asm/gic.h>
-diff --git a/xen/arch/arm/include/asm/acpi.h b/xen/arch/arm/include/asm/acpi.h
-index e53973e054..13756dd341 100644
---- a/xen/arch/arm/include/asm/acpi.h
-+++ b/xen/arch/arm/include/asm/acpi.h
-@@ -74,7 +74,6 @@ static inline void enable_acpi(void)
-     acpi_disabled = false;
- }
- #else
--#define acpi_disabled (true)
- #define disable_acpi()
- #define enable_acpi()
- #endif
-diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
-index 57f1b46499..c0cb17ca2e 100644
---- a/xen/arch/arm/mmu/setup.c
-+++ b/xen/arch/arm/mmu/setup.c
-@@ -10,6 +10,7 @@
- #include <xen/sizes.h>
- #include <xen/vmap.h>
- 
-+#include <asm/setup.h>
- #include <asm/fixmap.h>
- 
- /* Override macros from asm/page.h to make them work with mfn_t */
-diff --git a/xen/arch/arm/psci.c b/xen/arch/arm/psci.c
-index 695d2fa1f1..b6860a7760 100644
---- a/xen/arch/arm/psci.c
-+++ b/xen/arch/arm/psci.c
-@@ -9,6 +9,7 @@
-  */
- 
- 
-+#include <xen/acpi.h>
- #include <xen/types.h>
- #include <xen/init.h>
- #include <xen/mm.h>
-diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-index a84e706d77..6efed87678 100644
---- a/xen/arch/arm/smpboot.c
-+++ b/xen/arch/arm/smpboot.c
-@@ -7,6 +7,7 @@
-  * Copyright (c) 2011 Citrix Systems.
-  */
- 
-+#include <xen/acpi.h>
- #include <xen/cpu.h>
- #include <xen/cpumask.h>
- #include <xen/delay.h>
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index 9cffe7f790..083157d6f2 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -7,6 +7,7 @@
-  * Copyright (c) 2011 Citrix Systems.
-  */
- 
-+#include <xen/acpi.h>
- #include <xen/domain_page.h>
- #include <xen/errno.h>
- #include <xen/hypercall.h>
-@@ -30,7 +31,6 @@
- #include <public/sched.h>
- #include <public/xen.h>
- 
--#include <asm/acpi.h>
- #include <asm/cpuerrata.h>
- #include <asm/cpufeature.h>
- #include <asm/event.h>
-@@ -38,6 +38,7 @@
- #include <asm/mem_access.h>
- #include <asm/mmio.h>
- #include <asm/regs.h>
-+#include <asm/setup.h>
- #include <asm/smccc.h>
- #include <asm/traps.h>
- #include <asm/vgic.h>
-diff --git a/xen/common/sched/boot-cpupool.c b/xen/common/sched/boot-cpupool.c
-index 5955e6f9a9..feeac3b704 100644
---- a/xen/common/sched/boot-cpupool.c
-+++ b/xen/common/sched/boot-cpupool.c
-@@ -7,8 +7,8 @@
-  * Copyright (C) 2022 Arm Ltd.
-  */
- 
-+#include <xen/acpi.h>
- #include <xen/sched.h>
--#include <asm/acpi.h>
- 
- /*
-  * pool_cpu_map:   Index is logical cpu number, content is cpupool id, (-1) for
-diff --git a/xen/include/xen/acpi.h b/xen/include/xen/acpi.h
-index 6a2f5983fd..73ca4ad75c 100644
---- a/xen/include/xen/acpi.h
-+++ b/xen/include/xen/acpi.h
-@@ -37,10 +37,10 @@
- 
- #ifndef __ASSEMBLY__
- 
-+#include <xen/errno.h>
- #include <xen/list.h>
- 
--#include <acpi/acpi.h>
--#include <asm/acpi.h>
-+#include <public/xen.h>
- 
- #define ACPI_MADT_GET_(fld, x) (((x) & ACPI_MADT_##fld##_MASK) / \
- 	(ACPI_MADT_##fld##_MASK & -ACPI_MADT_##fld##_MASK))
-@@ -54,6 +54,9 @@
- 
- #ifdef CONFIG_ACPI
- 
-+#include <acpi/acpi.h>
-+#include <asm/acpi.h>
-+
- extern acpi_physical_address rsdp_hint;
- 
- extern bool opt_acpi_verbose;
-@@ -118,6 +121,7 @@ extern u32 pci_mmcfg_base_addr;
- #else	/*!CONFIG_ACPI*/
- 
- #define acpi_mp_config	0
-+#define acpi_disabled (true)
- 
- static inline int acpi_boot_init(void)
- {
--- 
-2.30.2
 
+> >>> +   * - long
+> >>> +     - 32 bits
+> >>> +     - 32 bits 
+> >>> +     - 32-bit architectures (x86_32, ARMv8-A AArch32, ARMv8-R AArch32)
+> >>> +
+> >>> +   * - long
+> >>> +     - 64 bits
+> >>> +     - 64 bits 
+> >>> +     - 64-bit architectures (x86_64, ARMv8-A AArch64, RV64, PPC64)
+> >>> +
+> >>> +   * - long long
+> >>> +     - 64-bit
+> >>> +     - 32-bit
+> >>> +     - x86_32
+> >>> +
+> >>> +   * - long long
+> >>> +     - 64-bit
+> >>> +     - 64-bit
+> >>> +     - 64-bit architectures, ARMv8-A AArch32, ARMv8-R AArch32
+> >>
+> >> Along the lines of the above, simply saying "64-bit architectures" here
+> >> is too generic. Whereas for long (above) and ...
+> >>
+> >>> +   * - pointer
+> >>> +     - 32-bit
+> >>> +     - 32-bit
+> >>> +     - 32-bit architectures (x86_32, ARMv8-A AArch32, ARMv8-R AArch32)
+> >>> +
+> >>> +   * - pointer
+> >>> +     - 64-bit
+> >>> +     - 64-bit
+> >>> +     - 64-bit architectures (x86_64, ARMv8-A AArch64, RV64, PPC64)
+> >>
+> >> ... pointers I agree (and the special mentioning of the architectures
+> >> in parentheses could even be omitted imo). To summarize, my counter
+> >> proposal:
+> 
+> ... this counter proposal already specifically addressed that aspect, by
+> e.g. ...
+> 
+> >>    * - char 
+> >>      - at least 8 bits
+> > 
+> > this
+> > 
+> >>      - equaling size
+> >>      - all architectures
+> >>
+> >>    * - char
+> >>      - 8 bits
+> >>      - 8 bits
+> >>      - x86, ARM, RISC-V, PPC
+> 
+> ... having two sections here: One to address your goal, and one to
+> address mine. My further suggestion further up merely would mean
+> dropping the generic parts (for imo no good reason).
+ 
+I don't mind having two sections, one for my goal and one for yours.
+However, I am a bit unsure how to word the generic part in a way that is
+clear and unambiguous, so I'll keep only the explicitly listed
+architectures in the next version (following your suggestion further
+up.)
+
+ 
+> >>    * - short
+> >>      - at least 16 bits
+> > 
+> > and this
+> > 
+> >>      - equaling size
+> >>      - all architectures
+> >>
+> >>    * - short
+> >>      - 16 bits
+> >>      - 16 bits
+> >>      - x86, ARM, RISC-V, PPC
+> >>
+> >>    * - int
+> >>      - at least 32 bits
+> > 
+> > and this, more below
+> > 
+> > 
+> >>      - equaling size
+> >>      - all architectures
+> >>
+> >>    * - int
+> >>      - 32 bits
+> >>      - 32 bits
+> >>      - x86, ARM, RISC-V, PPC
+> >>
+> >>    * - long
+> >>      - 32 bits
+> >>      - 32 bits 
+> >>      - 32-bit architectures
+> >>
+> >>    * - long
+> >>      - 64 bits
+> >>      - 64 bits 
+> >>      - 64-bit architectures
+> >>
+> >>    * - long long
+> >>      - 64-bit
+> >>      - 32-bit
+> >>      - x86_32
+> >>
+> >>    * - long long
+> >>      - 64-bit
+> >>      - 64-bit
+> >>      - x86_64, ARMv8-A AArch64, RV64, PPC64, ARMv8-A AArch32, ARMv8-R AArch32
+> >>
+> >>    * - pointer
+> >>      - 32-bit
+> >>      - 32-bit
+> >>      - 32-bit architectures
+> >>
+> >>    * - pointer
+> >>      - 64-bit
+> >>      - 64-bit
+> >>      - 64-bit architectures
+> >>
+> >> Eventually, by properly decoupling pointers from longs (via using {,u}intptr_t
+> >> appropriately), the restrictions on "long" could also be lifted.
+> >>
+> >> Note that the generic requirements on char and short also are imposed by C99.
+> >> It may therefore not be necessary to state them explicitly, but rather refer
+> >> to that standard (just like you're now referencing the SysV psABI-s).
+> > 
+> > I am OK with the above, except for the three instances of "at least". As
+> > mentioned earlier, we need to specify the supported and validated
+> > configuration. If you want we can also add another field to express what
+> > we aim at getting Xen to work with, but it should be separate.
+> 
 
