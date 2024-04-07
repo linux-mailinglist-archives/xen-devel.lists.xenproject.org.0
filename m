@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A58189B401
-	for <lists+xen-devel@lfdr.de>; Sun,  7 Apr 2024 22:32:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701677.1095997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDF3F89B407
+	for <lists+xen-devel@lfdr.de>; Sun,  7 Apr 2024 22:50:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701682.1096006 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtZAo-0002pi-3b; Sun, 07 Apr 2024 20:31:30 +0000
+	id 1rtZSq-0005Z4-K3; Sun, 07 Apr 2024 20:50:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701677.1095997; Sun, 07 Apr 2024 20:31:30 +0000
+Received: by outflank-mailman (output) from mailman id 701682.1096006; Sun, 07 Apr 2024 20:50:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtZAo-0002nP-0i; Sun, 07 Apr 2024 20:31:30 +0000
-Received: by outflank-mailman (input) for mailman id 701677;
- Sun, 07 Apr 2024 20:31:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rtZAn-0002nF-1P; Sun, 07 Apr 2024 20:31:29 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rtZAm-0006pS-Ma; Sun, 07 Apr 2024 20:31:28 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rtZAm-0004Ln-63; Sun, 07 Apr 2024 20:31:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rtZAm-0002LS-5d; Sun, 07 Apr 2024 20:31:28 +0000
+	id 1rtZSq-0005XY-H7; Sun, 07 Apr 2024 20:50:08 +0000
+Received: by outflank-mailman (input) for mailman id 701682;
+ Sun, 07 Apr 2024 20:50:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CRZ/=LM=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1rtZSp-0005XS-Hu
+ for xen-devel@lists.xenproject.org; Sun, 07 Apr 2024 20:50:07 +0000
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [2607:f8b0:4864:20::735])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 68eec40a-f520-11ee-a1ef-f123f15fe8a2;
+ Sun, 07 Apr 2024 22:50:05 +0200 (CEST)
+Received: by mail-qk1-x735.google.com with SMTP id
+ af79cd13be357-78a2a97c296so232746685a.2
+ for <xen-devel@lists.xenproject.org>; Sun, 07 Apr 2024 13:50:04 -0700 (PDT)
+Received: from shine.lan
+ (207-172-141-204.s8906.c3-0.slvr-cbr1.lnh-slvr.md.cable.rcncustomer.com.
+ [207.172.141.204]) by smtp.gmail.com with ESMTPSA id
+ op3-20020a05620a534300b0078a593b54e6sm2512745qkn.96.2024.04.07.13.50.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Apr 2024 13:50:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,266 +46,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=B6OnR9U028CCM4ctKFf8FWYeSMBbnZuWWc3DGbbnx3w=; b=Rx5CLIV0ZreEpOONB1JeGH13TS
-	ToQSE3mh76C/TU/3O58ryJLkOiYlKuRHCtqAKAokaZUi5rJPSbU7PM75/MPNnS/fWzZQUV2bvskZT
-	19bYsr1JrVhLbU4x0pmekIqfpx/MbrrVnevMgr192yqsee9UIUP+njeU8aj6DjgPrrzI=;
+X-Inumbo-ID: 68eec40a-f520-11ee-a1ef-f123f15fe8a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1712523003; x=1713127803; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Qot47x5q7QEXni8/MbgirUQJ9Uu6F64YLsfo2qh4Ybw=;
+        b=LU4j7kDoYW4oDuiE/oj6uCunmXf/vHEEOQwG4wz8RRpvs7TgP7qHlnsODDGRLLt7Wd
+         R07L0dp5aFkf4DFDGVYeHYewSb5FNsRGIq+xjXP5Myi6++YjHef4neaaADszFrvfWOnA
+         hIdGkuvR3/lpLrNj9WBMR02ETMOjISnRNowLy5Ux3E80cJC1omWFU6X2qn7AqU1Kzbjs
+         TaFdVUkIFKV18vMsWX73Z13zyPguBcZKduGV+q/sHjCmaUeJXuILsELZmnx+2DgQBLHF
+         IP5/7Zvgy5uKxZPfPLLUXGe4Z6Dx2TkDiviuOAsiW4bhOb8V0kL+RAtUhswsAZhKdWZj
+         A4Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712523003; x=1713127803;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Qot47x5q7QEXni8/MbgirUQJ9Uu6F64YLsfo2qh4Ybw=;
+        b=sAaArhj7o70ECl1t8klwrDo+jSpW5KL6okebibP8SqNKBeYX15w8hKfYNUcDfThTCy
+         XsZKwXK4/JjinAEYeAnnpN1FBaPZ1Gj50BJZBBTLW9bvFTlJdE/UyL2Y8nkFOnSrhyyu
+         e1na4cWeqo0WyZN4tc/hLLe6YZvhuZpq7tyQeVUuT/BOx/D4tnSpVZ3+Bes4O+ia0M40
+         1dCr27I4ISW1xY1PlqVs49AU9uJOugg7RHDxUvDEY/tBh9f4aOvA0FxwkSflpLPAYvVz
+         Ft00IStsQLpAuipvvJsb47BiRh9FwWHjv2051OSZuWkn268nPZFaGbAFNOgqIci9UMJ5
+         hkNg==
+X-Gm-Message-State: AOJu0YxkOVWw5zbJLx0S81xbX5HzJZDDUwO49QM3QaCKMwPCAqEFtSbE
+	/eTtH1LhcQTaULw60vSBWE5IGojl9NOJ1pTEjngC1lU7cg6gqOBWvVyFAcQ+
+X-Google-Smtp-Source: AGHT+IGvrjvAIE4TwdGR+TJljNUjr0G2nA6sadaQFOAivHM/fCHI857m0e78hSpJx6xXTImxqYYopA==
+X-Received: by 2002:a05:620a:229a:b0:789:fa4d:eebb with SMTP id o26-20020a05620a229a00b00789fa4deebbmr6287430qkh.69.1712523002856;
+        Sun, 07 Apr 2024 13:50:02 -0700 (PDT)
+From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185266-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>
+Subject: [PATCH v2 0/3] libxl: blktap/tapback support
+Date: Sun,  7 Apr 2024 16:49:50 -0400
+Message-Id: <20240407204953.60442-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Subject: [linux-linus test] 185266: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=f2f80ac809875855ac843f9e5e7480604b5cbff5
-X-Osstest-Versions-That:
-    linux=104db052b62d3320fd30b23416dd0b2a4ff3b85f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 07 Apr 2024 20:31:28 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 185266 linux-linus real [real]
-flight 185269 linux-linus real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185266/
-http://logs.test-lab.xenproject.org/osstest/logs/185269/
+From: Jason Andryuk <jason.andryuk@amd.com>
 
-Failures :-/ but no regressions.
+This patch set  re-introduces blktap support to libxl.  Unlike earlier
+versions, it does not link against any blktap library.  libxl changes
+are needed to write to the vbd3 backend XenStore nodes.
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 185269-retest
+blktap has three components.  tapdisk is a daemon implementing the disk
+IO, NBD (Network Block Device), and Xen PV interfaces.  tap-ctl is a
+tool to control tapdisks - creating, starting, stopping and freeing.
+tapback manages the XenStore operations and instructs tapdisk to
+connect.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 185254
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 185254
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 185254
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185254
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 185254
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 185254
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+It is notable that tapdisk performs the grant and event channel ops, but
+doesn't interact with XenStore.  tapback performs XenStore operations
+and notifies tapdisks of values and changes.
 
-version targeted for testing:
- linux                f2f80ac809875855ac843f9e5e7480604b5cbff5
-baseline version:
- linux                104db052b62d3320fd30b23416dd0b2a4ff3b85f
+The flow is: libxl writes to the "vbd3" XenStore nodes and runs the
+block-tap script.  The block-tap script runs tap-ctl to create a tapdisk
+instance as the physical device.  tapback then sees the tapdisk and
+instructs the tapdisk to connect up the PV blkif interface.
 
-Last test of basis   185254  2024-04-06 03:00:45 Z    1 days
-Testing same since   185266  2024-04-07 09:48:16 Z    0 days    1 attempts
+This is expected to work without the kernel blktap driver, so the
+block-tap script is modified accordingly to write the UNIX NBD path.
+(It works with the kernel blktap driver as well - upstream blktap hasn't
+removed the blktap driver requirement yet -
+https://github.com/xapi-project/blktap/pull/364)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adam Goldman <adamg@pobox.com>
-  Andi Shyti <andi.shyti@kernel.org>
-  Andrey Albershteyn <aalbersh@redhat.com>
-  Arnd Bergmann <arnd@arndb.de>
-  Chandan Babu R <chandanbabu@kernel.org>
-  Chuck Lever <chuck.lever@oracle.com>
-  David Howells <dhowells@redhat.com>
-  Jeff Layton <jlayton@kernel.org>
-  Justin Stitt <justinstitt@google.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Paulo Alcantara (Red Hat) <pc@manguebit.com>
-  Paulo Alcantara <pc@manguebit.com>
-  Ritvik Budhiraja <rbudhiraja@microsoft.com>
-  Steve French <stfrench@microsoft.com>
-  Takashi Sakamoto <o-takashi@sakamocchi.jp>
-  Wolfram Sang <wsa+renesas@sang-engineering.com>
+An example command to attach a vhd:
+xl block-attach vm 'vdev=xvdf,backendtype=tap,format=vhd,target=/srv/target.vhd'
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+VHD support is important for OpenXT since there are lots of existing
+VHDs which still need supporting.  tapdisk also supports encrypted VHDs
+which is not available in QEMU.
 
+blktap's tapback needs minimal changes to work with libxl:
+https://github.com/xapi-project/blktap/pull/394
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+With a stubdom, the block-tap isn't executed a second time meaning
+tap-ctl destroy isn't called.  The stubdom's disk xenstore frontend
+entry is removed, but tapback does nothing for this case right now.
+Making FE removal transition the BE to closed lets the hotplug script
+run properly.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+v2 addresses review comments and adds a CHANGELOG entry.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Jason Andryuk (3):
+  hotplug: Update block-tap
+  libxl: Support blktap with HVM device model
+  CHANGELOG: Mention libxl blktap/tapback support
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+ CHANGELOG.md                  |   1 +
+ tools/hotplug/Linux/block-tap | 169 +++++++++++++++++++++++++++++++---
+ tools/libs/light/libxl_disk.c |  18 +++-
+ tools/libs/light/libxl_dm.c   |   1 -
+ 4 files changed, 172 insertions(+), 17 deletions(-)
 
+-- 
+2.39.2
 
-Pushing revision :
-
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   104db052b62d..f2f80ac80987  f2f80ac809875855ac843f9e5e7480604b5cbff5 -> tested/linux-linus
 
