@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 568B589B9AD
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 10:06:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701809.1096320 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E30189BBA7
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 11:28:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701816.1096440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtk0o-0004Bt-Ux; Mon, 08 Apr 2024 08:05:54 +0000
+	id 1rtlIn-0001Me-8E; Mon, 08 Apr 2024 09:28:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701809.1096320; Mon, 08 Apr 2024 08:05:54 +0000
+Received: by outflank-mailman (output) from mailman id 701816.1096440; Mon, 08 Apr 2024 09:28:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtk0o-00049f-S5; Mon, 08 Apr 2024 08:05:54 +0000
-Received: by outflank-mailman (input) for mailman id 701809;
- Mon, 08 Apr 2024 08:05:54 +0000
+	id 1rtlIn-0001KR-4L; Mon, 08 Apr 2024 09:28:33 +0000
+Received: by outflank-mailman (input) for mailman id 701816;
+ Mon, 08 Apr 2024 08:12:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WYQ4=LN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rtk0o-00049Y-29
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 08:05:54 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ (envelope-from <SRS0=pPud=LN=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
+ id 1rtk78-0006cr-IQ
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 08:12:26 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20601.outbound.protection.outlook.com
+ [2a01:111:f403:240a::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d0f53771-f57e-11ee-a1ef-f123f15fe8a2;
- Mon, 08 Apr 2024 10:05:51 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4166ccac761so4954375e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 01:05:51 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g6-20020a05600c4ec600b004148d7b889asm16237185wmq.8.2024.04.08.01.05.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Apr 2024 01:05:50 -0700 (PDT)
+ id b98ea12b-f57f-11ee-a1ef-f123f15fe8a2;
+ Mon, 08 Apr 2024 10:12:23 +0200 (CEST)
+Received: from BN9PR03CA0955.namprd03.prod.outlook.com (2603:10b6:408:108::30)
+ by PH0PR12MB7837.namprd12.prod.outlook.com (2603:10b6:510:282::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Mon, 8 Apr
+ 2024 08:12:17 +0000
+Received: from BN1PEPF00004685.namprd03.prod.outlook.com
+ (2603:10b6:408:108:cafe::33) by BN9PR03CA0955.outlook.office365.com
+ (2603:10b6:408:108::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.35 via Frontend
+ Transport; Mon, 8 Apr 2024 08:12:17 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00004685.mail.protection.outlook.com (10.167.243.86) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Mon, 8 Apr 2024 08:12:17 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 8 Apr
+ 2024 03:12:16 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 8 Apr
+ 2024 01:12:16 -0700
+Received: from [10.69.48.49] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Mon, 8 Apr 2024 03:12:14 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,202 +63,212 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0f53771-f57e-11ee-a1ef-f123f15fe8a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712563551; x=1713168351; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lW2ln+QvW0iEele4c5G7ovJo6MTwK+Ol4TB9pvJK4Io=;
-        b=crtvSuHwpIv4z5Nb1xPYJ8C8L8KLysonazYd6+kIzDJoASCn1eV01TogoY9/GmUZ5S
-         d+1cIa6bssHMa4jZOcHgdRAx3Go2C81kItWsVIMziufuE1JbT3966g7B98k9fD6quxaZ
-         U65AzFQlWhFzJ8rDoDDTasw9GqsVzb2ukS9V/dONvHmxOdB12ZRI0A7rK1Wb5dlyv70H
-         zMKCSTesL2EAPKxUJbWuMWwtYeSpQM33qHPnGramOWcjcK7//iPNeojszsU3RyuYpNWO
-         wAuD3Qa3s6N53AVzmyIap/8wn3ST4lPHqLSPIxpdF/g+QMfQmCjh5ZXk0FkoA/aq6wYE
-         UBAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712563551; x=1713168351;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lW2ln+QvW0iEele4c5G7ovJo6MTwK+Ol4TB9pvJK4Io=;
-        b=pCqwjysEhIIbPyoIG9eYGCxYEDPCJATeLEi05KvQl128/GAD039f5nW1Fs2iBB1yZO
-         IXZF/FB7VhCIMFUT4LwRIkP162YZfrMAjoQoqgaiTeT4ChX8S4KtWSu+3/tAMFCti2Us
-         9Q7YayqxUHPxHR4VyyttO1XJZVni87omd/Im+P44DxL4G5BQSJ5QVNvFcPdOhmx+1m2v
-         lmprB1CDXvREuy7rYHgUeQlp3x9nfbUMkgHhMOdhDfzx/bTFyuYOot/xNqg7YnPEj7QU
-         2IN6oURB12HFdmy4yB2QDxZsvc71061OUTSBmSOudb2oCh7AdWw6+JRrrF7UZidPVDMZ
-         5miw==
-X-Forwarded-Encrypted: i=1; AJvYcCUPOHsSlnfk5OdwR5trbBcAlIbT/aRSJZ9cfbnVjmb+HlK/cHDBKOhHp4DYcWZVyjQQn18EkABfPpJnvqDQgPjSJ84eZlvqPKkoM1DfE0c=
-X-Gm-Message-State: AOJu0YwHGkAD+SgAFPspijM87AruQh57T+8MCuhAvZHR53SfEaTFW/f3
-	ggKn0NadIuTHXImO5xDvuEuMBVUuPVnu6avE+2iE3swpYRjm2XUZ7bHVrkpI7g==
-X-Google-Smtp-Source: AGHT+IEAQAhdfpZ1rIZsIS3tVAEffIDQ2pookerf+1ZiyRfsVGoCsGtVNV9ZghJpizsqmi9+zIpwMw==
-X-Received: by 2002:a05:600c:1d29:b0:416:648f:8f4c with SMTP id l41-20020a05600c1d2900b00416648f8f4cmr2402025wms.25.1712563551028;
-        Mon, 08 Apr 2024 01:05:51 -0700 (PDT)
-Message-ID: <d330d827-d128-4278-9f90-41ee40c434a5@suse.com>
-Date: Mon, 8 Apr 2024 10:05:53 +0200
+X-Inumbo-ID: b98ea12b-f57f-11ee-a1ef-f123f15fe8a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VDWKTzN7r8uerAVttRvtafoSxUyV64NsR39u/CY5UNxv0JvxDFH/5HrRo5oYlsF/mscvyhnkXV3obcS425fGrvukZYKsyOyAUGy2IsAv7FecTyL2r5WwSfwhMnIC0soHJFwZZLe2hVSsC9AYkYQo0ACscmaeozXlqgUN5wh8lFfw6UM1oTi8ij6+CSVo92IMll+ITlJk+sqznx7SGOylv99ZWIMMYYTq4xuN28LD8nLpYg7Rg7Dj9rmQUG7VAn3IPEOrU59hJVl+QCnCGwNflconbBdtsU9+9S2fOiB08Esl5WBNPPCk1Gah6AAPIPOju0XbzlqhQ5vN38F7y4EcWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T1sonoLhGzw/2bSfHhBfvUL6L2IYcQ/CpT0bzHR994k=;
+ b=oV+Q5zAGObngdDhvIqN0UlbTxhBoasL5vWH0qeSphhUEUHGhUohY29SW2HAL2eYuY6ZW54UoNYpD+yaLLaownnDh4Ehy4+LKyJ6TmwJ5GWKJmRYp04K5Y8Q7Gn1Oz/olqJmOheRTWdau6RSTZDP2RfCyCYyL7Yz8ckfNZLoelpTr+dFtroJeUYRfYhVbz+2iyFQcW4RvTbcdDrImDtn69nqLIc+pHHJkmmmCO1I+uMjA+IOl0yIBTxUDY4bydv43E2Y7/6ZsM7BiB7BorioDeZ4jxnM1N2QjbIBPzPPsunbFK85mN30SYolbf0WAShTcbsSVbDciFx+nJA8twaBonQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T1sonoLhGzw/2bSfHhBfvUL6L2IYcQ/CpT0bzHR994k=;
+ b=vGsHwUvFCHCWIYJwhaC38MFekM0PB/ELAMFeMaIrZ019exOfSpHh8xJeIrrCNhe1Qxvb/zMg6Svj2UQFg6ryhhyQVQn0upCSxA3fYOHQMmf+yvsGxosMt+5YCZrqrexqb+oTIrQZHeTr1XCst9nYoWzmgxrtnYYOSCcE6kZkeVM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <e5b8e385-6d72-4102-bd0a-47f868535b90@amd.com>
+Date: Mon, 8 Apr 2024 16:12:13 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 09/19] xen/riscv: introduce io.h
+Subject: Re: [PATCH v3 4/4] xen/memory, tools: Avoid hardcoding
+ GUEST_MAGIC_BASE in init-dom0less
+To: Jan Beulich <jbeulich@suse.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	"Julien Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	"Alec Kwapis" <alec.kwapis@medtronic.com>, <xen-devel@lists.xenproject.org>
+References: <20240403081626.375313-1-xin.wang2@amd.com>
+ <20240403081626.375313-5-xin.wang2@amd.com>
+ <e9167c39-187f-4a66-b9a4-8b3a6ae3000b@suse.com>
+ <09cc419a-cdf6-4cda-90f1-c0e1ae83ad47@amd.com>
+ <951cc6ba-c971-4b5b-9cfc-bc79245a9549@suse.com>
+ <9518c19a-eb97-4d68-97bc-fcae56aa8093@amd.com>
+ <0a28ce70-6c71-43da-8aa1-3b9909e2d152@suse.com>
 Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
- <347fe73b80601aec26e2dba5beefe7b3036943e3.1712137031.git.oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <347fe73b80601aec26e2dba5beefe7b3036943e3.1712137031.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Henry Wang <xin.wang2@amd.com>
+In-Reply-To: <0a28ce70-6c71-43da-8aa1-3b9909e2d152@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004685:EE_|PH0PR12MB7837:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff33f1ed-5467-4347-ec17-08dc57a39b16
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	jTf2H48EPA6a042wAgvSXP5fgyUEB0rYNyocHhHe8VIlEgtFmrXRtKFlxNj+8CI+jsDEPWz9A99sHKS4mms8eVk1N2qwBzzSKWo0Lk2VyW8v+cx7HwCWbnfEB4ED4vyBi1GtzWysXbQ6RvI23uh0wOovl8koBnRerYXVlVRpanjJZSyMx+BlEtfG8Zu/We1sQDyUuJHjI54L9g+8eavmgizMxo8WB50kDm0DsMUIJlub1x6H+ggX6doy4GCAhpe/kjZMw007QvY3//KZH87eyZRaZvuT6gI1dNT2KTOkPwvpM1DSXp+XQ8yk3mcZB2WwKaXFqo4250UD2Ok2W8Plro2oY8OGIhhvjXyG//jsZVFwYeuQbrSGUKetpJLjOA/dctSv08E+gTjUooR1ysHjVPvC6LmhbTFibgQTm6Z9iQePEL0nmcRqDlh2Qw8zt/nULhMHbg8cZ1nT7dZH0ZynQfUE4gwBy2LoOdBPbNIQlsUrhMdWwtkbFsPqHQvyM9UszeCLCLHDBKqoVXh2YP9E0f6EIw3rXjMN416lmYn81UaV0WPuIiT+BPpp9kZZpF1jDmpu4qEhGpw2g/mYRh1wnpskMmemYTFystW7MWg4x+eykaPEiZzVf+7byZ5HnSJr5rvZc3uuzswuSSV0zE05DUvg6bBZyb5ZRbnoY5FCtRzmDY0T1NoPVvCYZWa3NuCdcPgdyXoq4OUKgDK0PRYn95lHjoODv30JjUf+vg4Q8LuSbMx4KtzqOAVCUhFQ9aK6
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(376005)(1800799015)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2024 08:12:17.2555
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff33f1ed-5467-4347-ec17-08dc57a39b16
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00004685.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7837
 
-On 03.04.2024 12:20, Oleksii Kurochko wrote:
-> The header taken form Linux 6.4.0-rc1 and is based on
-> arch/riscv/include/asm/mmio.h with the following changes:
-> - drop forcing of endianess for read*(), write*() functions as
->   no matter what CPU endianness, what endianness a particular device
->   (and hence its MMIO region(s)) is using is entirely independent.
->   Hence conversion, where necessary, needs to occur at a layer up.
->   Another one reason to drop endianess conversion here is:
->   https://patchwork.kernel.org/project/linux-riscv/patch/20190411115623.5749-3-hch@lst.de/
->   One of the answers of the author of the commit:
->     And we don't know if Linux will be around if that ever changes.
->     The point is:
->      a) the current RISC-V spec is LE only
->      b) the current linux port is LE only except for this little bit
->     There is no point in leaving just this bitrotting code around.  It
->     just confuses developers, (very very slightly) slows down compiles
->     and will bitrot.  It also won't be any significant help to a future
->     developer down the road doing a hypothetical BE RISC-V Linux port.
-> - drop unused argument of __io_ar() macros.
-> - drop "#define _raw_{read,write}{b,w,l,d,q} _raw_{read,write}{b,w,l,d,q}"
->   as they are unnecessary.
-> - Adopt the Xen code style for this header, considering that significant changes
->   are not anticipated in the future.
->   In the event of any issues, adapting them to Xen style should be easily
->   manageable.
-> - drop unnecessary  __r variables in macros read*_cpu()
-> - update inline assembler constraints for addr argument for
->   __raw_read{b,w,l,q} and __raw_write{b,w,l,q} to tell a compiler that
->  *addr will be accessed.
-> - add stubs for __raw_readq() and __raw_writeq() for RISCV_32
-> 
-> Addionally, to the header was added definions of ioremap_*().
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Hi Jan,
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-despite ...
+On 4/8/2024 3:03 PM, Jan Beulich wrote:
+> On 08.04.2024 08:59, Henry Wang wrote:
+>> Hi Jan,
+>>
+>> On 4/8/2024 2:22 PM, Jan Beulich wrote:
+>>> On 08.04.2024 05:19, Henry Wang wrote:
+>>>> On 4/4/2024 5:38 PM, Jan Beulich wrote:
+>>>>> On 03.04.2024 10:16, Henry Wang wrote:
+>>>>>> --- a/xen/include/public/memory.h
+>>>>>> +++ b/xen/include/public/memory.h
+>>>>>> @@ -41,6 +41,11 @@
+>>>>>>     #define XENMEMF_exact_node(n) (XENMEMF_node(n) | XENMEMF_exact_node_request)
+>>>>>>     /* Flag to indicate the node specified is virtual node */
+>>>>>>     #define XENMEMF_vnode  (1<<18)
+>>>>>> +/*
+>>>>>> + * Flag to force populate physmap to use pages from domheap instead of 1:1
+>>>>>> + * or static allocation.
+>>>>>> + */
+>>>>>> +#define XENMEMF_force_heap_alloc  (1<<19)
+>>>>> As before, a separate new sub-op would look to me as being the cleaner
+>>>>> approach, avoiding the need to consume a bit position for something not
+>>>>> even going to be used on all architectures.
+>>>> Like discussed in v2, I doubt that if introducing a new sub-op, the
+>>>> helpers added to duplicate mainly populate_physmap() and the toolstack
+>>>> helpers would be a good idea.
+>>> I'm curious what amount of duplication you still see left. By suitably
+>>> adding a new parameter, there should be very little left.
+>> The duplication I see so far is basically the exact
+>> xc_domain_populate_physmap(), say
+>> xc_domain_populate_physmap_heap_alloc(). In init-dom0less.c, We can
+>> replace the original call xc_domain_populate_physmap_exact() to call the
+>> newly added xc_domain_populate_physmap_heap_alloc() which evokes the new
+>> sub-op, then from the hypervisor side we set the alias MEMF flag and
+>> share the populate_physmap().
+>>
+>> Adding a new parameter to xc_domain_populate_physmap() or maybe even
+>> xc_domain_populate_physmap_exact() is also a good idea (thanks). I was
+>> just worrying there are already too many use cases of these two
+>> functions in the existing code: there are 14 for
+>> xc_domain_populate_physmap_exact() and 8 for
+>> xc_domain_populate_physmap(). Adding a new parameter needs the update of
+>> all these and the function declaration. If you really insist this way, I
+>> can do this, sure.
+> You don't need to change all the callers. You can morph
+> xc_domain_populate_physmap() into an internal helper, which a new trivial
+> wrapper named xc_domain_populate_physmap() would then call, alongside with
+> the new trivial wrapper you want to introduce.
 
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/io.h
-> @@ -0,0 +1,168 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + *  The header taken form Linux 6.4.0-rc1 and is based on
-> + *  arch/riscv/include/asm/mmio.h with the following changes:
-> + *   - drop forcing of endianess for read*(), write*() functions as
-> + *     no matter what CPU endianness, what endianness a particular device
-> + *     (and hence its MMIO region(s)) is using is entirely independent.
-> + *     Hence conversion, where necessary, needs to occur at a layer up.
-> + *     Another one reason to drop endianess conversion is:
-> + *     https://patchwork.kernel.org/project/linux-riscv/patch/20190411115623.5749-3-hch@lst.de/
-> + *     One of the answers of the author of the commit:
-> + *       And we don't know if Linux will be around if that ever changes.
-> + *       The point is:
-> + *        a) the current RISC-V spec is LE only
-> + *        b) the current linux port is LE only except for this little bit
-> + *       There is no point in leaving just this bitrotting code around.  It
-> + *       just confuses developers, (very very slightly) slows down compiles
-> + *      and will bitrot.  It also won't be any significant help to a future
-> + *       developer down the road doing a hypothetical BE RISC-V Linux port.
-> + *   - drop unused argument of __io_ar() macros.
-> + *   - drop "#define _raw_{read,write}{b,w,l,q} _raw_{read,write}{b,w,l,q}"
-> + *     as they are unnecessary.
-> + *   - Adopt the Xen code style for this header, considering that significant
-> + *     changes are not anticipated in the future.
-> + *     In the event of any issues, adapting them to Xen style should be easily
-> + *     manageable.
-> + *   - drop unnecessary __r variables in macros read*_cpu()
-> + *   - update inline assembler constraints for addr argument for
-> + *     __raw_read{b,w,l,q} and __raw_write{b,w,l,q} to tell a compiler that
-> + *     *addr will be accessed.
-> + *
-> + * Copyright (C) 1996-2000 Russell King
-> + * Copyright (C) 2012 ARM Ltd.
-> + * Copyright (C) 2014 Regents of the University of California
-> + * Copyright (C) 2024 Vates
-> + */
-> +
-> +#ifndef _ASM_RISCV_IO_H
-> +#define _ASM_RISCV_IO_H
-> +
-> +#include <asm/byteorder.h>
-> +
-> +/*
-> + * The RISC-V ISA doesn't yet specify how to query or modify PMAs, so we can't
-> + * change the properties of memory regions.  This should be fixed by the
-> + * upcoming platform spec.
-> + */
-> +#define ioremap_nocache(addr, size) ioremap(addr, size)
-> +#define ioremap_wc(addr, size) ioremap(addr, size)
-> +#define ioremap_wt(addr, size) ioremap(addr, size)
-> +
-> +/* Generic IO read/write.  These perform native-endian accesses. */
-> +static inline void __raw_writeb(uint8_t val, volatile void __iomem *addr)
-> +{
-> +    asm volatile ( "sb %1, %0"
-> +                   : "=m" (*(volatile uint8_t __force *)addr) : "r" (val) );
-> +}
-> +
-> +static inline void __raw_writew(uint16_t val, volatile void __iomem *addr)
-> +{
-> +    asm volatile ( "sh %1, %0"
-> +                   : "=m" (*(volatile uint16_t __force *)addr) : "r" (val) );
-> +}
-> +
-> +static inline void __raw_writel(uint32_t val, volatile void __iomem *addr)
-> +{
-> +    asm volatile ( "sw %1, %0"
-> +                   : "=m" (*(volatile uint32_t __force *)addr) : "r" (val) );
-> +}
-> +
-> +static inline void __raw_writeq(uint64_t val, volatile void __iomem *addr)
-> +{
-> +#ifdef CONFIG_RISCV_32
-> +    BUILD_BUG_ON("unimplemented");
-> +#else
-> +    asm volatile ( "sd %1, %0"
-> +                   : "=m" (*(volatile uint64_t __force *)addr) : "r" (val) );
-> +#endif
-> +}
+Thanks for the good suggestion. Would below key diff make sense to you 
+(naming can be further discussed)? Also by checking the code, if we go 
+this way, maybe we can even simplify the 
+xc_domain_decrease_reservation() and xc_domain_increase_reservation()? 
+(Although there are some hardcoded hypercall name in the error message 
+and some small differences between the memflags)
 
-... this and its read counterpart likely being in need of re-doing by anyone
-wanting to enable RV32 support.
+diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
+index 8363657dae..5547841e6a 100644
+--- a/tools/libs/ctrl/xc_domain.c
++++ b/tools/libs/ctrl/xc_domain.c
+@@ -1124,12 +1124,13 @@ int xc_domain_claim_pages(xc_interface *xch,
+      return err;
+  }
 
-Jan
+-int xc_domain_populate_physmap(xc_interface *xch,
+-                               uint32_t domid,
+-                               unsigned long nr_extents,
+-                               unsigned int extent_order,
+-                               unsigned int mem_flags,
+-                               xen_pfn_t *extent_start)
++static int xc_populate_physmap_cmd(xc_interface *xch,
++                                   unsigned int cmd;
++                                   uint32_t domid,
++                                   unsigned long nr_extents,
++                                   unsigned int extent_order,
++                                   unsigned int mem_flags,
++                                   xen_pfn_t *extent_start)
+  {
+      int err;
+      DECLARE_HYPERCALL_BOUNCE(extent_start, nr_extents * 
+sizeof(*extent_start), XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
+@@ -1147,12 +1148,50 @@ int xc_domain_populate_physmap(xc_interface *xch,
+      }
+      set_xen_guest_handle(reservation.extent_start, extent_start);
+
+-    err = xc_memory_op(xch, XENMEM_populate_physmap, &reservation, 
+sizeof(reservation));
++    err = xc_memory_op(xch, cmd, &reservation, sizeof(reservation));
+
+      xc_hypercall_bounce_post(xch, extent_start);
+      return err;
+  }
+
++int xc_domain_populate_physmap(xc_interface *xch,
++                               uint32_t domid,
++                               unsigned long nr_extents,
++                               unsigned int extent_order,
++                               unsigned int mem_flags,
++                               xen_pfn_t *extent_start)
++{
++    return xc_populate_physmap_cmd(xch, XENMEM_populate_physmap, domid,
++                                   nr_extents, extent_order, mem_flags,
++                                   extent_start);
++}
++
++int xc_domain_populate_physmap_heap_exact(xc_interface *xch,
++                                          uint32_t domid,
++                                          unsigned long nr_extents,
++                                          unsigned int extent_order,
++                                          unsigned int mem_flags,
++                                          xen_pfn_t *extent_start)
++{
++    int err;
++
++    err = xc_populate_physmap_cmd(xch, XENMEM_populate_physmap_heapalloc,
++                                  domid, nr_extents, extent_order, 
+mem_flags,
++                                  extent_start);
++    if ( err == nr_extents )
++        return 0;
++
++    if ( err >= 0 )
++    {
++        DPRINTF("Failed allocation for dom %d: %ld extents of order %d\n",
++                domid, nr_extents, extent_order);
++        errno = EBUSY;
++        err = -1;
++    }
++
++    return err;
++}
++
+
+
+Kind regards,
+Henry
+
+> Jan
+
 
