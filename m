@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D58F89B80E
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 09:01:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701750.1096169 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BEE789B81A
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 09:04:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701753.1096180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtizp-0004KK-Vd; Mon, 08 Apr 2024 07:00:49 +0000
+	id 1rtj2h-0004yA-Ch; Mon, 08 Apr 2024 07:03:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701750.1096169; Mon, 08 Apr 2024 07:00:49 +0000
+Received: by outflank-mailman (output) from mailman id 701753.1096180; Mon, 08 Apr 2024 07:03:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtizp-0004Jd-Sd; Mon, 08 Apr 2024 07:00:49 +0000
-Received: by outflank-mailman (input) for mailman id 701750;
- Mon, 08 Apr 2024 07:00:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rtj2h-0004vi-A0; Mon, 08 Apr 2024 07:03:47 +0000
+Received: by outflank-mailman (input) for mailman id 701753;
+ Mon, 08 Apr 2024 07:03:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WYQ4=LN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rtizo-0004Iw-6i
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 07:00:48 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b873c503-f575-11ee-a1ef-f123f15fe8a2;
- Mon, 08 Apr 2024 09:00:45 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-415523d9824so41489595e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 00:00:46 -0700 (PDT)
+ id 1rtj2g-0004vV-4P
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 07:03:46 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 23dbb767-f576-11ee-afe6-a90da7624cb6;
+ Mon, 08 Apr 2024 09:03:45 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-415515178ceso26051105e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 00:03:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l15-20020a05600c4f0f00b004166b960469sm2993855wmq.38.2024.04.08.00.00.44
+ r19-20020a05600c35d300b004163345d2b4sm9363315wmq.36.2024.04.08.00.03.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Apr 2024 00:00:44 -0700 (PDT)
+ Mon, 08 Apr 2024 00:03:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b873c503-f575-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 23dbb767-f576-11ee-afe6-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712559645; x=1713164445; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712559825; x=1713164625; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Qzh0uZLlPME0mDLBZvF04W6aAV4f0LFx+mRIrnCB6jA=;
-        b=fBjSWl6OsUfix4UjOLL/4eZ0DTKiqJNTWmt5+hbgO6C3a1u1wAxviosUJMJhz7MurO
-         bGD8ffvgSaOBIkwcTIU58SNj8vGcJc4X0i9MPlvo8X8cZSkDkPA/3JxA35Qb3NgHIC73
-         +EPPoPWl2jY5lvzI3vhC0uVJM6x/WqmiSC23ZrDC8Ob09o5x9dnibWpoYhUnxCzc61df
-         40MZuVkDKYMyTqUMvTBFDeEQ53uQrIHiOe2DUqW18fqxfkAB/Ocw9yTR/yBhEK6saRMr
-         BvUiTYJAu993A0ymeo67NC8mbl41dOubMAmE0SERtkM7mkNUY+q5NhkhoggZoyZwghRl
-         1XLg==
+        bh=L5g+VPhkS89uw+FEHglbWymtmFE2GunrOspYR2mQppQ=;
+        b=Rx3IE960jbR1FIxpQwOVfcBVRmkitp8ufRa4ZLzQHlcZ3UMTN3wu1e5N3CuDdqvi1I
+         /H028TLrKmY5vRaSnC7BL97daRdafVKcGujF1fUboN1gGBktyLeucox+MadONYo0u+MF
+         838zIrXfwdr+9CdeaVDKvfPybCg7L38oSvZq8iXYV31pqZmjWD2MiQQOqZF2sYki+X9K
+         rjlnM9enwh5FwOS/k+iQYaMB/qLevtvdWVBKtQRx7NOXjCZlDHjYvorcU+7Pqy/UvaV+
+         eN8ubHGB8N+KWz8Im0+JKYtTNoeqt0bbgDUZNTSR01S16GMD8LrEPnWXYDf6JowxJNPy
+         jq6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712559645; x=1713164445;
+        d=1e100.net; s=20230601; t=1712559825; x=1713164625;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qzh0uZLlPME0mDLBZvF04W6aAV4f0LFx+mRIrnCB6jA=;
-        b=AHhgECjnfbHBZevSgcLpOsT/9ZuHynwC5AJN9LjndU4JPz9vdIIj9lZVJ/zdnD7vUB
-         4iJyTu/SfKD4FSkxdT9GGGdHvKTsE5mPd0+Eji0KHmXtQHE8KXxvTWYWVnaw/L8stkyb
-         ND57dKVw1QLQu+/8fZljpcW7oyUwBJgEI5tthap9VKHGBb2Q0RxqAm+11dizzdN7+CFD
-         l3oFhI8jHa46AJ2LGeUJITDnG59I6qx35L2GhKJBseO9feIAf17U12nuHFyeS9Onia2h
-         z1s0c/F6G4AsUaSm97fCWwqQp7ojJXYPj45mhngDtnTCHTRKDIHEg+tSPapzM9dYwYKH
-         bl9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWIjR9Y54Azoj1QCg++5xFMzmu2DV/nehLDdzi+KhQVeiZrMS8GV8vTiTeIpWwh5yV07FvzCSJVmFJbx5dGhVLo//QkZrW3yw6Jf1orXtQ=
-X-Gm-Message-State: AOJu0YzDHhofvPMV20mp9VQcfaZ+UgR6uwNfxHgQ02rrER3SmAampzP5
-	B09m98Nm0UIPvurSVO4DMLfhQp3CzZp5pPlWnGYQ9DROCZQXMx/E7bVWQUWTOg==
-X-Google-Smtp-Source: AGHT+IGLfZihi8kSZGdQXnuboSLh/ELUXb6wMyhkxiA7jo+O4Tixs+XA/ANLcxiYHKboJE2UVR1eGw==
-X-Received: by 2002:a05:600c:b99:b0:416:72a9:96bd with SMTP id fl25-20020a05600c0b9900b0041672a996bdmr1324723wmb.20.1712559644868;
-        Mon, 08 Apr 2024 00:00:44 -0700 (PDT)
-Message-ID: <70ab0f9d-a451-44a5-8927-4200dbb96a08@suse.com>
-Date: Mon, 8 Apr 2024 09:00:47 +0200
+        bh=L5g+VPhkS89uw+FEHglbWymtmFE2GunrOspYR2mQppQ=;
+        b=oniXdiunH5pA+H+3CJkRQP7cVs7p9S37dAGvE4POxGz7cehSOWcIYvtnlf/I7zWbCO
+         iS4crPvrDgqUomUC8dy+2iFXOlY3dC81dJmV3Xsl0MnXUVGsmBDTWc/MUKCohLyy/D2X
+         ptnrEGZDwa1bsdXGCxMWvMa1t/4pV5Ztgg+/7j95PVCfm+OEgRk24fmUdffSUlfJbC94
+         U8aKFR5R90k2fkfpIxB7iymUCad6ChemyfVj9RC2UG2Sk6pSkLtqDvjq88e7mB9hFEGY
+         7Aj25TerTItn05LqvsVVJ87KgzDcmrW+jyA3h8wnycwA/jVg06grtsvsG40LTwTgL1OC
+         eDgQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUWw/sGIwKcM8X0pMopV5UZ1hBIknp5x5jRKOWrpm4K8mLEQqySXpX896coCEXWVyErN3t4neF2dB5HKj6hsNohxyyZfTVGVmdhX6ikOg8=
+X-Gm-Message-State: AOJu0Yz5DYUv5ubI1Qcr4nOL0dZm5RD5r+mMyShNQ3hIcV4swGuq6GvZ
+	uV5pmgRs90trvlQKo7lzbx+QLmjU2YfnCDIx7B1NOhJAYcuBDnb/RwUwdr3BQMiQByL/TTryMik
+	=
+X-Google-Smtp-Source: AGHT+IH6TJo43wA0xuL5ZKyAYcUcAeWnyp7Fwx7H9v8EKhAd7djxt1StcMjCFxpDfGf+tPAg2lvH1g==
+X-Received: by 2002:a05:600c:a42:b0:413:38c6:2c7a with SMTP id c2-20020a05600c0a4200b0041338c62c7amr6159741wmq.22.1712559824773;
+        Mon, 08 Apr 2024 00:03:44 -0700 (PDT)
+Message-ID: <0a28ce70-6c71-43da-8aa1-3b9909e2d152@suse.com>
+Date: Mon, 8 Apr 2024 09:03:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/2] x86/PVH: Support relocatable dom0 kernels
+Subject: Re: [PATCH v3 4/4] xen/memory, tools: Avoid hardcoding
+ GUEST_MAGIC_BASE in init-dom0less
 Content-Language: en-US
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+To: Henry Wang <xin.wang2@amd.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240404212519.16401-1-jason.andryuk@amd.com>
- <20240404212519.16401-3-jason.andryuk@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alec Kwapis <alec.kwapis@medtronic.com>, xen-devel@lists.xenproject.org
+References: <20240403081626.375313-1-xin.wang2@amd.com>
+ <20240403081626.375313-5-xin.wang2@amd.com>
+ <e9167c39-187f-4a66-b9a4-8b3a6ae3000b@suse.com>
+ <09cc419a-cdf6-4cda-90f1-c0e1ae83ad47@amd.com>
+ <951cc6ba-c971-4b5b-9cfc-bc79245a9549@suse.com>
+ <9518c19a-eb97-4d68-97bc-fcae56aa8093@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,116 +120,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240404212519.16401-3-jason.andryuk@amd.com>
+In-Reply-To: <9518c19a-eb97-4d68-97bc-fcae56aa8093@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04.04.2024 23:25, Jason Andryuk wrote:
-> Xen tries to load a PVH dom0 kernel at the fixed guest physical address
-> from the elf headers.  For Linux, this defaults to 0x1000000 (16MB), but
-> it can be configured.
+On 08.04.2024 08:59, Henry Wang wrote:
+> Hi Jan,
 > 
-> Unfortunately there exist firmwares that have reserved regions at this
-> address, so Xen fails to load the dom0 kernel since it's not RAM.
+> On 4/8/2024 2:22 PM, Jan Beulich wrote:
+>> On 08.04.2024 05:19, Henry Wang wrote:
+>>> On 4/4/2024 5:38 PM, Jan Beulich wrote:
+>>>> On 03.04.2024 10:16, Henry Wang wrote:
+>>>>> --- a/xen/include/public/memory.h
+>>>>> +++ b/xen/include/public/memory.h
+>>>>> @@ -41,6 +41,11 @@
+>>>>>    #define XENMEMF_exact_node(n) (XENMEMF_node(n) | XENMEMF_exact_node_request)
+>>>>>    /* Flag to indicate the node specified is virtual node */
+>>>>>    #define XENMEMF_vnode  (1<<18)
+>>>>> +/*
+>>>>> + * Flag to force populate physmap to use pages from domheap instead of 1:1
+>>>>> + * or static allocation.
+>>>>> + */
+>>>>> +#define XENMEMF_force_heap_alloc  (1<<19)
+>>>> As before, a separate new sub-op would look to me as being the cleaner
+>>>> approach, avoiding the need to consume a bit position for something not
+>>>> even going to be used on all architectures.
+>>> Like discussed in v2, I doubt that if introducing a new sub-op, the
+>>> helpers added to duplicate mainly populate_physmap() and the toolstack
+>>> helpers would be a good idea.
+>> I'm curious what amount of duplication you still see left. By suitably
+>> adding a new parameter, there should be very little left.
 > 
-> The PVH entry code is not relocatable - it loads from absolute
-> addresses, which fail when the kernel is loaded at a different address.
-> With a suitably modified kernel, a reloctable entry point is possible.
+> The duplication I see so far is basically the exact 
+> xc_domain_populate_physmap(), say 
+> xc_domain_populate_physmap_heap_alloc(). In init-dom0less.c, We can 
+> replace the original call xc_domain_populate_physmap_exact() to call the 
+> newly added xc_domain_populate_physmap_heap_alloc() which evokes the new 
+> sub-op, then from the hypervisor side we set the alias MEMF flag and 
+> share the populate_physmap().
 > 
-> Add XEN_ELFNOTE_PHYS32_RELOC which specifies optional alignment,
-> minimum, and maximum addresses needed for the kernel.  The presence of
-> the NOTE indicates the kernel supports a relocatable entry path.
-> 
-> Change the loading to check for an acceptable load address.  If the
-> kernel is relocatable, support finding an alternate load address.
-> 
-> The primary motivation for an explicit align field is that Linux has a
-> configurable CONFIG_PHYSICAL_ALIGN field.  This value is present in the
-> bzImage setup header, but not the ELF program headers p_align, which
-> report 2MB even when CONFIG_PHYSICAL_ALIGN is greater.  Since a kernel
-> is only considered relocatable if the PHYS32_RELOC elf note is present,
-> the alignment contraints can just be specified within the note instead
-> of searching for an alignment value via a heuristic.
-> 
-> Load alignment uses the PHYS32_RELOC note value if specified.
-> Otherwise, the maxmum ELF PHDR p_align value is selected if greater than
-> or equal to PAGE_SIZE.  Finally, the fallback default is 2MB.
-> 
-> libelf-private.h includes common-macros.h to satisfy the fuzzer build.
-> 
-> Link: https://gitlab.com/xen-project/xen/-/issues/180
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> Adding a new parameter to xc_domain_populate_physmap() or maybe even 
+> xc_domain_populate_physmap_exact() is also a good idea (thanks). I was 
+> just worrying there are already too many use cases of these two 
+> functions in the existing code: there are 14 for 
+> xc_domain_populate_physmap_exact() and 8 for 
+> xc_domain_populate_physmap(). Adding a new parameter needs the update of 
+> all these and the function declaration. If you really insist this way, I 
+> can do this, sure.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-yet still with two remarks:
-
-> --- a/xen/arch/x86/hvm/dom0_build.c
-> +++ b/xen/arch/x86/hvm/dom0_build.c
-> @@ -537,6 +537,111 @@ static paddr_t __init find_memory(
->      return INVALID_PADDR;
->  }
->  
-> +static bool __init check_load_address(
-> +    const struct domain *d, const struct elf_binary *elf)
-> +{
-> +    paddr_t kernel_start = (uintptr_t)elf->dest_base;
-> +    paddr_t kernel_end = kernel_start + elf->dest_size;
-> +    unsigned int i;
-
-While properly typed here, ...
-
-> +static paddr_t __init find_kernel_memory(
-> +    const struct domain *d, struct elf_binary *elf,
-> +    const struct elf_dom_parms *parms)
-> +{
-> +    paddr_t kernel_size = elf->dest_size;
-> +    unsigned int align;
-> +    int i;
-
-... I must have missed when this was changed to plain int. It should have
-been unsigned int here, too, ...
-
-> +    if ( parms->phys_align != UNSET_ADDR32 )
-> +        align = parms->phys_align;
-> +    else if ( elf->palign >= PAGE_SIZE )
-> +        align = elf->palign;
-> +    else
-> +        align = MB(2);
-> +
-> +    /* Search backwards to find the highest address. */
-> +    for ( i = d->arch.nr_e820 - 1; i >= 0 ; i-- )
-
-... with this suitably adjusted. However, I'm not going to change this while
-committing, to avoid screwing up.
-
-> --- a/xen/include/public/elfnote.h
-> +++ b/xen/include/public/elfnote.h
-> @@ -196,10 +196,28 @@
->   */
->  #define XEN_ELFNOTE_PHYS32_ENTRY 18
->  
-> +/*
-> + * Physical loading constraints for PVH kernels
-> + *
-> + * The presence of this note indicates the kernel supports relocating itself.
-> + *
-> + * The note may include up to three 32bit values to place constraints on the
-> + * guest physical loading addresses and alignment for a PVH kernel.  Values
-> + * are read in the following order:
-> + *  - a required start alignment (default 0x200000)
-
-"... (default 0x200000; see below)", i.e. ...
-
-> + *  - a minimum address for the start of the image (default 0)
-> + *  - a maximum address for the last byte of the image (default 0xffffffff)
-> + *
-> + *  When this note specifies an alignment value, it is used.  Otherwise the
-> + *  maximum p_align value from loadable ELF Program Headers is used, if it is
-> + *  greater than or equal to 4k (0x1000).  Otherwise, the default is used.
-
-... referring to this (which, btw, has one too many padding blanks on the
-entire paragraph). I will take the liberty to make this adjustment while
-committing.
+You don't need to change all the callers. You can morph
+xc_domain_populate_physmap() into an internal helper, which a new trivial
+wrapper named xc_domain_populate_physmap() would then call, alongside with
+the new trivial wrapper you want to introduce.
 
 Jan
 
