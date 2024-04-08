@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2081C89BB0F
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 10:59:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701848.1096380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1218B89BB32
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 11:05:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701850.1096389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtkpy-0001uW-RN; Mon, 08 Apr 2024 08:58:46 +0000
+	id 1rtkwM-000409-Fi; Mon, 08 Apr 2024 09:05:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701848.1096380; Mon, 08 Apr 2024 08:58:46 +0000
+Received: by outflank-mailman (output) from mailman id 701850.1096389; Mon, 08 Apr 2024 09:05:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtkpy-0001sy-Od; Mon, 08 Apr 2024 08:58:46 +0000
-Received: by outflank-mailman (input) for mailman id 701848;
- Mon, 08 Apr 2024 08:58:44 +0000
+	id 1rtkwM-0003yc-Ct; Mon, 08 Apr 2024 09:05:22 +0000
+Received: by outflank-mailman (input) for mailman id 701850;
+ Mon, 08 Apr 2024 09:05:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WYQ4=LN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rtkpw-0001sr-KI
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 08:58:44 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1rtkwL-0003yW-OG
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 09:05:21 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 334fe4bb-f586-11ee-afe6-a90da7624cb6;
- Mon, 08 Apr 2024 10:58:43 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4164c9debf6so7286085e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 01:58:43 -0700 (PDT)
+ id 20695eba-f587-11ee-afe6-a90da7624cb6;
+ Mon, 08 Apr 2024 11:05:20 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-516d536f6f2so2771710e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 02:05:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- f14-20020a05600c154e00b0041552dbc539sm12671643wmg.11.2024.04.08.01.58.42
+ v6-20020a05600c444600b0041565d750e1sm16099086wmn.2.2024.04.08.02.05.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Apr 2024 01:58:42 -0700 (PDT)
+ Mon, 08 Apr 2024 02:05:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 334fe4bb-f586-11ee-afe6-a90da7624cb6
+X-Inumbo-ID: 20695eba-f587-11ee-afe6-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712566722; x=1713171522; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712567120; x=1713171920; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=j00kVXRkZ7xAIZEwz5G6LS4ZZ/M6YNOSxVJ7k0IMnuo=;
-        b=gfOvMZNOc2FfjHUfUkFPRBss/iJfDRFt/G4uQp+4ogp7qHh2viPzA2XxpsOYTVJ17f
-         5WeTc0rKAQQyK9jrrfi2eexKBKx/xH2P/LKPsx3xIsrkkLSAY0DuknaIlAngRBXW0Vzm
-         xrEhs6HTxwILk3nj+49nKUMcAK1yxAqaIdfc6DxJNkkP6QFMDa5M4UjFfkQnRVpFXX+R
-         h3Y4sblu47v6siEC2MxbneqkO3seb3WUCxOo9q7gJpYoYMSKyA1GN/JsYOEOt1YWjLT0
-         JQkFCWjnVhEgjEJcX+UvEwikRnf2vTlu/KZfNzBzpbPZY+nlsA3UCADWMNkBPghXHw84
-         S/8A==
+        bh=NacJ8HfXj2eZMMxm2fax37uXprFoNiVcECLZPRctLBo=;
+        b=OKROH9sqzACc/4Jgc9Gf7xs01V9Oq5IUuPrdI5MyZ2ViUXguVl7+jYLVFqcEMyiPN9
+         VsoyMrF/mB5SxB1u9MU4DKrjb9WwKVI7bTnSt/fo08fosSWkfPNJuRYp4yYm+JYo21VK
+         aKzMunpFrP6403hApU7GZNQ/eOuV8uSeP4ZxGoRjDnMS7DoP6pZCgJJ9F+ZQIXzhGXVl
+         UcJDtWloRb5siPNSsOTs6XFzrblqVTbbsdPOeG9moMI+JQ8s07fJXjH6SRk/RfjqViHg
+         ueZlhpgOFLH183FX45sGKJNhXGCK8iZTDTUKDH6oFqlqlIOE14ZYKG0gr8Wu2xeS4ZNn
+         thew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712566722; x=1713171522;
+        d=1e100.net; s=20230601; t=1712567120; x=1713171920;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j00kVXRkZ7xAIZEwz5G6LS4ZZ/M6YNOSxVJ7k0IMnuo=;
-        b=BWeJ/uCXdY/tyjMv1ivPtBQr89AN/c0uKlIEPg7ptybjIj/KJfxvt1OTgE7QGoIrzf
-         EiWZ58ijtYcXxZxzvCVxY830HZZVW0GXr5Jh3PVGATfSjN8vmKY7GOaz8XcZ4c1Oqhcm
-         oB4KhMkn4MLLcE+QTZc+pTNfSPz8DFFfugPnNtnEhyF5ui+/cAamYOaVGiPBfB8p94Uh
-         4IqrV+PSsERI/ZZrlix8xEy79usJj/I9cVbr1w2tKNI+uyFto9/eQL8E6mpZt/nzx1sI
-         sBEubiL98VNdf3j8qqXVp60gufs3HLHn2c8hKsaT32T9bX6jd7H/sRAnxP0fqAjQECYp
-         XODg==
-X-Forwarded-Encrypted: i=1; AJvYcCVQXouy/UAgjJSpAoEKkFsL7FYOoCedABe3OBk/xGWzKxizjfmscoS9+H1k1c3HDXAyitx21kTyuXzVCGPVRhZRwfua7uHoSb89B7ke4T4=
-X-Gm-Message-State: AOJu0YwqaGozujlrxeuPVx5moLpynhq+23cQbddQ2eJMK0C2bLvZwCtE
-	zaWKtERRo9YNbhPgqktG7y9H+D7pSr9dNksGYeF6eTWlyK//YvB1q8D5+O0U8g==
-X-Google-Smtp-Source: AGHT+IFy/XstF97mJ2XaMREP3+l28UVRulhxJBzxQbSFblVvw4sNG3DDNNu9rS5HRv2JOuAtGjVmew==
-X-Received: by 2002:a05:600c:4e93:b0:415:691c:f83d with SMTP id f19-20020a05600c4e9300b00415691cf83dmr5966356wmq.33.1712566722656;
-        Mon, 08 Apr 2024 01:58:42 -0700 (PDT)
-Message-ID: <d64da76d-e363-4ca5-bd01-5d6c82d833ef@suse.com>
-Date: Mon, 8 Apr 2024 10:58:44 +0200
+        bh=NacJ8HfXj2eZMMxm2fax37uXprFoNiVcECLZPRctLBo=;
+        b=siIfU+uze21xL9TX3uVoPBSFrO7qWt/aKT3bhVG5XzwMqk8LnCxwE8FeiWaPZdCZBS
+         p3RMA7jSCbnv/JToIzCawBZSoBB4AkLGpz4+xwq0WdGS/E0M6F/OIE8UKknViGZwXiSe
+         5IRKS+CcD8sQEtHensiuc1EHXR1grgiCx0ua48hMwc3u4Jmda/+pMTbv8EdC36dnK9tB
+         NB0wBzkrDyf5xc3GAh2RB4o74cxVF95AUGfBHksfvtH9MNe8mP3Ykksk9T+7noqpnIQN
+         0QnV7csQsNU1Dc/cm7qTQ7ZlWp2NDdNH1b5RpqJRnGXfxWXef2s+ieUPD2t6deMPFSAc
+         dhpg==
+X-Forwarded-Encrypted: i=1; AJvYcCWe6JkuNuR6LNNiVfoAFS6okkx7ypbRjOH1ccSTGviUYGEr9BhkFmhHl4JZMJcpgYLZvB8O4FwiC/MPrXBs+vLidUcGNMyRNBS5S1yZWn4=
+X-Gm-Message-State: AOJu0YzmSOP1Fkt5fLXQcsUxm5QUDYtetvuk6ENhEUw7gdaB1fAt7Fpz
+	2om5Bhq2YMx7vbSBQOonA13N+xwFpL+4+OgdWsJ4Ze0oA+ePbx1qi3LzNlyEaw==
+X-Google-Smtp-Source: AGHT+IHd9rrn30B6zz2NPUSdTt8XgFamk6BvdYJKQvK9FdmoNMhcxrZQN8/jiCy/5M47HDAdl+DY7w==
+X-Received: by 2002:a05:6512:485c:b0:516:c763:b4f5 with SMTP id ep28-20020a056512485c00b00516c763b4f5mr5759166lfb.3.1712567120405;
+        Mon, 08 Apr 2024 02:05:20 -0700 (PDT)
+Message-ID: <f2b3afb3-95c6-4b7c-b890-ffaac15e724c@suse.com>
+Date: Mon, 8 Apr 2024 11:05:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/MCE: move intel mcheck init code to separate file
+Subject: Re: [PATCH 1/5] x86: Remove x86 low level version check of microcode
 Content-Language: en-US
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240404113828.2535191-1-Sergiy_Kibrik@epam.com>
+To: Fouad Hilly <fouad.hilly@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240405121128.260493-1-fouad.hilly@cloud.com>
+ <20240405121128.260493-2-fouad.hilly@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -109,41 +112,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240404113828.2535191-1-Sergiy_Kibrik@epam.com>
+In-Reply-To: <20240405121128.260493-2-fouad.hilly@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.04.2024 13:38, Sergiy Kibrik wrote:
-> Separate Intel nonfatal MCE initialization code from generic MCE code, the same
-> way it is done for AMD code. This is to be able to later make intel/amd MCE
-> code optional in the build.
-> 
-> Also clean up unused includes.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> ---
->  xen/arch/x86/cpu/mcheck/Makefile         |  1 +
->  xen/arch/x86/cpu/mcheck/intel_nonfatal.c | 83 ++++++++++++++++++++++++
+On 05.04.2024 14:11, Fouad Hilly wrote:
+> Remove microcode version check at Intel and AMD Level.
+> Microcode version check will be at higher and common level.
 
-Like elsewhere, can we please uses dashes in favor of underscores in new files'
-names?
+"will be" reads as if you're removing logic here, to introduce some replacement
+later. If so, that's going to be a transient regression, which needs avoiding.
+Indeed ...
 
-> --- /dev/null
-> +++ b/xen/arch/x86/cpu/mcheck/intel_nonfatal.c
-> @@ -0,0 +1,83 @@
-> +/*
-> + * Non Fatal Machine Check Exception Reporting
-> + *
-> + * (C) Copyright 2002 Dave Jones. <davej@codemonkey.org.uk>
-> + *
-> + * This file contains routines to check for non-fatal MCEs every 15s
-> + *
+> --- a/xen/arch/x86/cpu/microcode/amd.c
+> +++ b/xen/arch/x86/cpu/microcode/amd.c
+> @@ -383,12 +383,8 @@ static struct microcode_patch *cf_check cpu_request_microcode(
+>                  goto skip;
+>              }
+>  
+> -            /*
+> -             * If the new ucode covers current CPU, compare ucodes and store the
+> -             * one with higher revision.
+> -             */
+> -            if ( (microcode_fits(mc->patch) != MIS_UCODE) &&
+> -                 (!saved || (compare_header(mc->patch, saved) == NEW_UCODE)) )
+> +            /* If the provided ucode covers current CPU, then store its revision. */
+> +            if ( (microcode_fits(mc->patch) != MIS_UCODE) && !saved )
+>              {
+>                  saved = mc->patch;
+>                  saved_size = mc->len;
 
-Nit: This almost blank line wants dropping. Furthermore the whole file, no
-longer having a direct Linux equivalent, imo wants converting to Xen code
-style right for its introduction.
+... this looks like a logic change to me, with there not being anything
+similar in common code afaics. Am I overlooking anything?
+
+> --- a/xen/arch/x86/cpu/microcode/intel.c
+> +++ b/xen/arch/x86/cpu/microcode/intel.c
+> @@ -294,8 +294,7 @@ static int cf_check apply_microcode(const struct microcode_patch *patch)
+>  
+>      result = microcode_update_match(patch);
+>  
+> -    if ( result != NEW_UCODE &&
+> -         !(opt_ucode_allow_same && result == SAME_UCODE) )
+> +    if ( result != NEW_UCODE && result != SAME_UCODE )
+>          return -EINVAL;
+
+I'm afraid I can't relate this adjustment with title and description of
+the patch.
 
 Jan
 
