@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BEE789B81A
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 09:04:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701753.1096180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D17389B826
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 09:10:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701755.1096190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtj2h-0004yA-Ch; Mon, 08 Apr 2024 07:03:47 +0000
+	id 1rtj94-00073f-3I; Mon, 08 Apr 2024 07:10:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701753.1096180; Mon, 08 Apr 2024 07:03:47 +0000
+Received: by outflank-mailman (output) from mailman id 701755.1096190; Mon, 08 Apr 2024 07:10:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtj2h-0004vi-A0; Mon, 08 Apr 2024 07:03:47 +0000
-Received: by outflank-mailman (input) for mailman id 701753;
- Mon, 08 Apr 2024 07:03:46 +0000
+	id 1rtj94-00070V-0S; Mon, 08 Apr 2024 07:10:22 +0000
+Received: by outflank-mailman (input) for mailman id 701755;
+ Mon, 08 Apr 2024 07:10:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WYQ4=LN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rtj2g-0004vV-4P
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 07:03:46 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1rtj92-00070O-Go
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 07:10:20 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 23dbb767-f576-11ee-afe6-a90da7624cb6;
- Mon, 08 Apr 2024 09:03:45 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-415515178ceso26051105e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 00:03:45 -0700 (PDT)
+ id 0ed1640c-f577-11ee-afe6-a90da7624cb6;
+ Mon, 08 Apr 2024 09:10:19 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-345522f7c32so296260f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 00:10:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- r19-20020a05600c35d300b004163345d2b4sm9363315wmq.36.2024.04.08.00.03.44
+ d6-20020a056000114600b003456c693fa4sm3956782wrx.93.2024.04.08.00.10.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Apr 2024 00:03:44 -0700 (PDT)
+ Mon, 08 Apr 2024 00:10:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23dbb767-f576-11ee-afe6-a90da7624cb6
+X-Inumbo-ID: 0ed1640c-f577-11ee-afe6-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712559825; x=1713164625; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712560219; x=1713165019; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=L5g+VPhkS89uw+FEHglbWymtmFE2GunrOspYR2mQppQ=;
-        b=Rx3IE960jbR1FIxpQwOVfcBVRmkitp8ufRa4ZLzQHlcZ3UMTN3wu1e5N3CuDdqvi1I
-         /H028TLrKmY5vRaSnC7BL97daRdafVKcGujF1fUboN1gGBktyLeucox+MadONYo0u+MF
-         838zIrXfwdr+9CdeaVDKvfPybCg7L38oSvZq8iXYV31pqZmjWD2MiQQOqZF2sYki+X9K
-         rjlnM9enwh5FwOS/k+iQYaMB/qLevtvdWVBKtQRx7NOXjCZlDHjYvorcU+7Pqy/UvaV+
-         eN8ubHGB8N+KWz8Im0+JKYtTNoeqt0bbgDUZNTSR01S16GMD8LrEPnWXYDf6JowxJNPy
-         jq6A==
+        bh=BfULQYwPya+ADz8MpZlScVKNCuQyH4EbrLcSdnppSLc=;
+        b=Ny2pDgd6shOhlSjjmhnv1F0UMDTqsIV5h74/kcG7ujkr7PW10nwAjVf0cUR7ZxempR
+         og34bWQkT5ZO9eQg08I/xxEPT6z7h+5zkouYAo96vOEqgeP92xwo5lex9sXblTnQBFis
+         Z92+N3A6s3gdH7/wAy+EM9lmFowE08Um57MJ+ow5OGbwz1owdfdosBH4ZhNPLIjmyUXU
+         pDlJbrsTdYcAkK1sXyw4tdCb7TeUbkt9Xu0euRgm8oC8s5NkVr/+0aLd42XqxG2Iklp0
+         7tHoD1Y4PQ/q1Cg8CAUykHK5ZLzeuXYt+G7c45fvcplJto6ZhCxk+SP9kKJ3AIF5P0xF
+         jhRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712559825; x=1713164625;
+        d=1e100.net; s=20230601; t=1712560219; x=1713165019;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=L5g+VPhkS89uw+FEHglbWymtmFE2GunrOspYR2mQppQ=;
-        b=oniXdiunH5pA+H+3CJkRQP7cVs7p9S37dAGvE4POxGz7cehSOWcIYvtnlf/I7zWbCO
-         iS4crPvrDgqUomUC8dy+2iFXOlY3dC81dJmV3Xsl0MnXUVGsmBDTWc/MUKCohLyy/D2X
-         ptnrEGZDwa1bsdXGCxMWvMa1t/4pV5Ztgg+/7j95PVCfm+OEgRk24fmUdffSUlfJbC94
-         U8aKFR5R90k2fkfpIxB7iymUCad6ChemyfVj9RC2UG2Sk6pSkLtqDvjq88e7mB9hFEGY
-         7Aj25TerTItn05LqvsVVJ87KgzDcmrW+jyA3h8wnycwA/jVg06grtsvsG40LTwTgL1OC
-         eDgQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUWw/sGIwKcM8X0pMopV5UZ1hBIknp5x5jRKOWrpm4K8mLEQqySXpX896coCEXWVyErN3t4neF2dB5HKj6hsNohxyyZfTVGVmdhX6ikOg8=
-X-Gm-Message-State: AOJu0Yz5DYUv5ubI1Qcr4nOL0dZm5RD5r+mMyShNQ3hIcV4swGuq6GvZ
-	uV5pmgRs90trvlQKo7lzbx+QLmjU2YfnCDIx7B1NOhJAYcuBDnb/RwUwdr3BQMiQByL/TTryMik
-	=
-X-Google-Smtp-Source: AGHT+IH6TJo43wA0xuL5ZKyAYcUcAeWnyp7Fwx7H9v8EKhAd7djxt1StcMjCFxpDfGf+tPAg2lvH1g==
-X-Received: by 2002:a05:600c:a42:b0:413:38c6:2c7a with SMTP id c2-20020a05600c0a4200b0041338c62c7amr6159741wmq.22.1712559824773;
-        Mon, 08 Apr 2024 00:03:44 -0700 (PDT)
-Message-ID: <0a28ce70-6c71-43da-8aa1-3b9909e2d152@suse.com>
-Date: Mon, 8 Apr 2024 09:03:46 +0200
+        bh=BfULQYwPya+ADz8MpZlScVKNCuQyH4EbrLcSdnppSLc=;
+        b=UgIY8hB8jpA34+3CiDxt+WCdQZS9VXtD6FnjrJjphDoasWXGKJ+WDgxxSZ4m25TNG/
+         j7g4F07EJ7R2SLWlS9mKU0AxsmXued166vtvgHytEugSmQHxfsneRUJ4gPHaF9n9faHa
+         6PRkmcLGG21aFJw1O6S2U/wjdgkefYqLLsR3mUT/n1m2nq98UZ483aeRrCSLK/itw9Bl
+         lJHxnIftDd82+d8xqO8JWiwJiRahYSn0BPnplOaV/o8wD+CVWkAfLfgkBGOE2P6TgUOQ
+         jX3KAdifu+zWOf4X7/kZL2fjeLcVR5yRY26axW+ocOoPYXZe9W0HJprkgL5SHf4vuYSn
+         LgrA==
+X-Forwarded-Encrypted: i=1; AJvYcCXdLTLj338Ge4VD8be8XaYgVvC/xedGEedqfZtEUfDLp69nRdRNGSWnzJYYs5oEh2phEvsareCW04Unsz0+xbhUtvWtQ6ekvygVz7TDnY4=
+X-Gm-Message-State: AOJu0YzVy4BObhLtgELJ0isuq+N2w6Xbg1cGsr/jaG3kn9sM45eSwXvV
+	9lISE7fEc7flcPDD6PLu8AzTaVBJkNO6ozfvYiB12NoQH7igIWvfW6LbsXCXqQ==
+X-Google-Smtp-Source: AGHT+IHDavx9uUPJIiqUdDidG29REYBe+uvFv8YCxA2RM5GlbmV3y7L9IvElj/OGk56VyPi8D1J7ZQ==
+X-Received: by 2002:a05:6000:459b:b0:343:9e6b:c96a with SMTP id gb27-20020a056000459b00b003439e6bc96amr5382675wrb.9.1712560218943;
+        Mon, 08 Apr 2024 00:10:18 -0700 (PDT)
+Message-ID: <da1662ac-70f1-4ae4-9737-e10e617c8036@suse.com>
+Date: Mon, 8 Apr 2024 09:10:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] xen/memory, tools: Avoid hardcoding
- GUEST_MAGIC_BASE in init-dom0less
+Subject: Re: [PATCH v6 8/8] xen: allow up to 16383 cpus
 Content-Language: en-US
-To: Henry Wang <xin.wang2@amd.com>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alec Kwapis <alec.kwapis@medtronic.com>, xen-devel@lists.xenproject.org
-References: <20240403081626.375313-1-xin.wang2@amd.com>
- <20240403081626.375313-5-xin.wang2@amd.com>
- <e9167c39-187f-4a66-b9a4-8b3a6ae3000b@suse.com>
- <09cc419a-cdf6-4cda-90f1-c0e1ae83ad47@amd.com>
- <951cc6ba-c971-4b5b-9cfc-bc79245a9549@suse.com>
- <9518c19a-eb97-4d68-97bc-fcae56aa8093@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <20240327152229.25847-1-jgross@suse.com>
+ <20240327152229.25847-9-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,58 +114,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9518c19a-eb97-4d68-97bc-fcae56aa8093@amd.com>
+In-Reply-To: <20240327152229.25847-9-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08.04.2024 08:59, Henry Wang wrote:
-> Hi Jan,
+On 27.03.2024 16:22, Juergen Gross wrote:
+> With lock handling now allowing up to 16384 cpus (spinlocks can handle
+> 65535 cpus, rwlocks can handle 16384 cpus), raise the allowed limit for
+> the number of cpus to be configured to 16383.
 > 
-> On 4/8/2024 2:22 PM, Jan Beulich wrote:
->> On 08.04.2024 05:19, Henry Wang wrote:
->>> On 4/4/2024 5:38 PM, Jan Beulich wrote:
->>>> On 03.04.2024 10:16, Henry Wang wrote:
->>>>> --- a/xen/include/public/memory.h
->>>>> +++ b/xen/include/public/memory.h
->>>>> @@ -41,6 +41,11 @@
->>>>>    #define XENMEMF_exact_node(n) (XENMEMF_node(n) | XENMEMF_exact_node_request)
->>>>>    /* Flag to indicate the node specified is virtual node */
->>>>>    #define XENMEMF_vnode  (1<<18)
->>>>> +/*
->>>>> + * Flag to force populate physmap to use pages from domheap instead of 1:1
->>>>> + * or static allocation.
->>>>> + */
->>>>> +#define XENMEMF_force_heap_alloc  (1<<19)
->>>> As before, a separate new sub-op would look to me as being the cleaner
->>>> approach, avoiding the need to consume a bit position for something not
->>>> even going to be used on all architectures.
->>> Like discussed in v2, I doubt that if introducing a new sub-op, the
->>> helpers added to duplicate mainly populate_physmap() and the toolstack
->>> helpers would be a good idea.
->> I'm curious what amount of duplication you still see left. By suitably
->> adding a new parameter, there should be very little left.
+> The new limit is imposed by IOMMU_CMD_BUFFER_MAX_ENTRIES and
+> QINVAL_MAX_ENTRY_NR required to be larger than 2 * CONFIG_NR_CPUS.
 > 
-> The duplication I see so far is basically the exact 
-> xc_domain_populate_physmap(), say 
-> xc_domain_populate_physmap_heap_alloc(). In init-dom0less.c, We can 
-> replace the original call xc_domain_populate_physmap_exact() to call the 
-> newly added xc_domain_populate_physmap_heap_alloc() which evokes the new 
-> sub-op, then from the hypervisor side we set the alias MEMF flag and 
-> share the populate_physmap().
-> 
-> Adding a new parameter to xc_domain_populate_physmap() or maybe even 
-> xc_domain_populate_physmap_exact() is also a good idea (thanks). I was 
-> just worrying there are already too many use cases of these two 
-> functions in the existing code: there are 14 for 
-> xc_domain_populate_physmap_exact() and 8 for 
-> xc_domain_populate_physmap(). Adding a new parameter needs the update of 
-> all these and the function declaration. If you really insist this way, I 
-> can do this, sure.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-You don't need to change all the callers. You can morph
-xc_domain_populate_physmap() into an internal helper, which a new trivial
-wrapper named xc_domain_populate_physmap() would then call, alongside with
-the new trivial wrapper you want to introduce.
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+I'd prefer this to also gain an Arm ack, though.
 
 Jan
+
+> --- a/xen/arch/Kconfig
+> +++ b/xen/arch/Kconfig
+> @@ -6,7 +6,7 @@ config PHYS_ADDR_T_32
+>  
+>  config NR_CPUS
+>  	int "Maximum number of CPUs"
+> -	range 1 4095
+> +	range 1 16383
+>  	default "256" if X86
+>  	default "8" if ARM && RCAR3
+>  	default "4" if ARM && QEMU
+
 
