@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CB9889B7CE
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 08:44:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701736.1096129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2958089B7FD
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 08:54:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701740.1096141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtikF-0007oW-Tl; Mon, 08 Apr 2024 06:44:43 +0000
+	id 1rtitN-0001MH-QM; Mon, 08 Apr 2024 06:54:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701736.1096129; Mon, 08 Apr 2024 06:44:43 +0000
+Received: by outflank-mailman (output) from mailman id 701740.1096141; Mon, 08 Apr 2024 06:54:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtikF-0007mQ-Qq; Mon, 08 Apr 2024 06:44:43 +0000
-Received: by outflank-mailman (input) for mailman id 701736;
- Mon, 08 Apr 2024 06:44:42 +0000
+	id 1rtitN-0001J4-NL; Mon, 08 Apr 2024 06:54:09 +0000
+Received: by outflank-mailman (input) for mailman id 701740;
+ Mon, 08 Apr 2024 06:54:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WYQ4=LN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rtikE-0007mK-0Z
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 06:44:42 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1rtitM-0001Iy-EH
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 06:54:08 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 79152f29-f573-11ee-a1ef-f123f15fe8a2;
- Mon, 08 Apr 2024 08:44:39 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4168a5d75c4so451525e9.0
- for <xen-devel@lists.xenproject.org>; Sun, 07 Apr 2024 23:44:40 -0700 (PDT)
+ id ca8b7af3-f574-11ee-a1ef-f123f15fe8a2;
+ Mon, 08 Apr 2024 08:54:06 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-343c7fae6e4so2727065f8f.1
+ for <xen-devel@lists.xenproject.org>; Sun, 07 Apr 2024 23:54:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a7-20020a05600c348700b00416770871f7sm1889348wmq.25.2024.04.07.23.44.38
+ k7-20020a5d5187000000b003434c764f01sm8190967wrv.107.2024.04.07.23.54.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 07 Apr 2024 23:44:39 -0700 (PDT)
+ Sun, 07 Apr 2024 23:54:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79152f29-f573-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: ca8b7af3-f574-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712558679; x=1713163479; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712559246; x=1713164046; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=HCIHWXF2lyNJSWs9KQI6aB07fYaouarYQjiZpMHLirk=;
-        b=KYCoJwZCqjfiywrhRKKgrHQm5AujoAgfUCnV1vzpBbeDC/P3sLnOl0/jRz6CK2Qhsl
-         lNboyLTrvCsT3YbZZLn0qXm1E4c4bJxE3D+1Xt7czHovQhsXatBxiZ1K5k/hvhx9QuDH
-         rXjdEvEyJLyLU9jm1MEhasU8tF0H4lhK52FZOVY7lRSQnNNLTQFPa+tcmZjoklaNmq3W
-         kmO3NIRrnMqjJ6pFRBg1GXZ21sBr51HP/vw/C/kPFEH/2BEHs3/sOET6VRLGBpUe2aIW
-         FB25+b5YJWoefyf2RIB8RJ1xkCBbOll15/5+x8Unl9SW/autQdR7gCzGItdQcWdLigQ4
-         QKNQ==
+        bh=w4/Nhr8Da58GALenomFFyRjbuSRo/pAapiqGIkzHCDY=;
+        b=KBrAKe+q5R2HxKHeJzwhBOqhfEYHHUAJALpiWs4VO8/dJC5sh8Q8rfpH9VXL+gUiIe
+         f71kD8K1rTnbLDn/S4gg+d/wIOq3QqxcN+q6v29yIJUkPcZgo+exnJtcQWlcmQ4q5+Sv
+         OEeTAzZVpR8pDZ3FO2cr8J5vEwPwHJfWOqSAyoPABmLzxAtYfLg1y5TeIPldHl0OzFuy
+         m7YUbm44uXJ94RznCoyVFRFW5nmUt0HG36Y6vPKa2IHp3W060CyenIlVwC+bTC6YdJhn
+         onepFBQK8fE8V4jt7Ds242iBW6O7QsABZkLxX4KoqsmD4CSz99VDNms186dG9FMVtIr/
+         tqGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712558679; x=1713163479;
+        d=1e100.net; s=20230601; t=1712559246; x=1713164046;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HCIHWXF2lyNJSWs9KQI6aB07fYaouarYQjiZpMHLirk=;
-        b=bC9CTJ2jiePbVBVhjMXZ+CaSfG/e8gS4/874aan7asoJf3IWV1FbtaAY7kcR5Gdzyn
-         rKmL/0oALb2UYvCo7VPoxtkHXEz/S+ALp6pobX1/58oTSnboMKoNjt8Xd+SKcRrMNVI8
-         bJJPnU3gMPbzeOy5bXAVi+DHEjkSZns+DGca3gOq9uq5plle+iI/Z6vu2aVgMFY0b0Ny
-         FsM+gjoQmTbWXmSjsq65aaEkV8nCBC10bTv0ktv6YNdeXoOFkUzXKa/Q52jdUZ5ZY/7x
-         8k9Z5RIw5Ga9R6eQLwMXu8ETlbhxKzC3njGykwVtxjBFHn4I1U4NYC50of964MgpQbs+
-         SJkQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUs+X8fnwuKMso/KdwkEdIzCavZ60WjeDJ8xMqu82BIafHuQVxMYitFzqgN2P+mylWYa9x5xMj11ZtDA+NfG/KCGb/9cjoVHFhXGBLyiy8=
-X-Gm-Message-State: AOJu0Yz26QjXw1vWthQ17VJpXUppLZzK9eX7YJnqZrZ/scIRii4t64TY
-	9ljNLDTQSl44g2KwR4n+MXMDxrMBrZ94FYXz4XtCsI6C7uErkWUAEFB4brn9cw==
-X-Google-Smtp-Source: AGHT+IGiFftMmnIy5QKQgEebKMPgZZeFUYblfobQkA4H2c+2wM9Q1gI5ng8OQxuxwBfLpNTSREzUag==
-X-Received: by 2002:a05:600c:b99:b0:416:72a9:96bd with SMTP id fl25-20020a05600c0b9900b0041672a996bdmr1297040wmb.20.1712558679476;
-        Sun, 07 Apr 2024 23:44:39 -0700 (PDT)
-Message-ID: <0863b4f1-47ce-478a-88a9-add009d4a23e@suse.com>
-Date: Mon, 8 Apr 2024 08:44:41 +0200
+        bh=w4/Nhr8Da58GALenomFFyRjbuSRo/pAapiqGIkzHCDY=;
+        b=ir55f6Rdzhmw/iQJrAwHInY0C4gafrVDDKKIfoawwL3MVq2XXBryUgnGqYblWf0oIO
+         OkxHTHbRgStr3D2l2/7wb8sE+N7k1pAqE83SHMQEkwWWM4Nwk9CTuyH57WnR89421ddN
+         /qLuQbE030WiwkOleL7sEV6JueFOOb6gIhN6yAlIhURY8WG2CjBxQsi/itwP9yrREIpK
+         oxTKVxzMqrRksqeRx7y88keDUcWHNIk9lWcfPm3/ISuKTtZ27LSBlC0j14JV+joxx+K+
+         3D/5JJRoTQvoYlj9Vqw55kdDpzo8d9v/8wHf7dBUkcIpnsri+VBIOKM3vhn+OnRiyPfG
+         9TsA==
+X-Forwarded-Encrypted: i=1; AJvYcCVkcYzmOP0QpucvRtmpK7QPKjIJP7tGGgsVwa11jfF2XxRvsQdy5alWZ6Ts0eS2ibTcypawEnO3mZP9U9ojVuGQWN8x5chX+IqUB2vvQKI=
+X-Gm-Message-State: AOJu0YzJsLGBKJvAcZZJLQqHlX7LkkPHhIrOWabU1oTQVjxHYTXQoQxG
+	4Ps3fxRwJnlrGwGEAeyS/stepFbS/kuT1ACW7lBstk887Ew8ceUsUcHj/4QCGA==
+X-Google-Smtp-Source: AGHT+IEv1Bv6/6p6hHS0JJG8ximGvYyO/1oj1zrJErJWHfgJOwsFzsFAbeNwhIZ85bSzHco7gDQplg==
+X-Received: by 2002:a5d:43cf:0:b0:343:b9e4:7f9a with SMTP id v15-20020a5d43cf000000b00343b9e47f9amr5420096wrr.33.1712559245786;
+        Sun, 07 Apr 2024 23:54:05 -0700 (PDT)
+Message-ID: <7ab4053f-f8b3-4b6a-bd29-5d0fa228fca5@suse.com>
+Date: Mon, 8 Apr 2024 08:54:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] docs/misra: document the expected sizes of integer
- types
+Subject: Re: [PATCH] xen/acpi: Allow xen/acpi.h to be included on non-ACPI
+ archs
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, bertrand.marquis@arm.com,
- george.dunlap@citrix.com, julien@xen.org, michal.orzel@amd.com,
- roger.pau@citrix.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2404051144020.2245130@ubuntu-linux-20-04-desktop>
+To: Shawn Anastasio <sanastasio@raptorengineering.com>
+Cc: tpearson@raptorengineering.com,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
+References: <20240405182031.396528-1-sanastasio@raptorengineering.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,18 +117,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2404051144020.2245130@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20240405182031.396528-1-sanastasio@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.04.2024 20:44, Stefano Stabellini wrote:
-> Xen makes assumptions about the size of integer types on the various
-> architectures. Document these assumptions.
+On 05.04.2024 20:20, Shawn Anastasio wrote:
+> Conditionalize xen/acpi.h's inclusion of acpi/acpi.h and asm/acpi.h on
+> CONFIG_ACPI and import ARM's !CONFIG_ACPI stub for acpi_disabled() so
+> that the header can be included on architectures without ACPI support,
+> like ppc.
 > 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> This change revealed some missing #includes across the ARM tree, so fix
+> those as well.
+> 
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-Thanks, I can live with this form. Yet I'm afraid I'm not happy enough
-with it to offer an ack. I'm sure someone else will.
+Acked-by: Jan Beulich <jbeulich@suse.com>
+albeit preferably with ...
+
+> @@ -118,6 +121,7 @@ extern u32 pci_mmcfg_base_addr;
+>  #else	/*!CONFIG_ACPI*/
+>  
+>  #define acpi_mp_config	0
+> +#define acpi_disabled (true)
+
+... the unnecessary parentheses avoided here.
 
 Jan
 
