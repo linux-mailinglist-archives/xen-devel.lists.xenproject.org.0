@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0164D89BD02
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 12:25:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701890.1096491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8FE489BD03
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 12:25:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701891.1096499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtmBq-00061a-1E; Mon, 08 Apr 2024 10:25:26 +0000
+	id 1rtmC5-0006Ot-9B; Mon, 08 Apr 2024 10:25:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701890.1096491; Mon, 08 Apr 2024 10:25:25 +0000
+Received: by outflank-mailman (output) from mailman id 701891.1096499; Mon, 08 Apr 2024 10:25:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtmBp-0005yS-Ty; Mon, 08 Apr 2024 10:25:25 +0000
-Received: by outflank-mailman (input) for mailman id 701890;
- Mon, 08 Apr 2024 10:25:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=djzs=LN=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rtmBo-0005yI-0F
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 10:25:24 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4e1aa142-f592-11ee-a1ef-f123f15fe8a2;
- Mon, 08 Apr 2024 12:25:22 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a519e04b142so380623366b.3
- for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 03:25:22 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- gt17-20020a1709072d9100b00a51b3d4bb39sm3232208ejc.59.2024.04.08.03.25.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Apr 2024 03:25:21 -0700 (PDT)
+	id 1rtmC5-0006Lb-62; Mon, 08 Apr 2024 10:25:41 +0000
+Received: by outflank-mailman (input) for mailman id 701891;
+ Mon, 08 Apr 2024 10:25:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WYQ4=LN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rtmC4-0006KC-EN
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 10:25:40 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 584c95fa-f592-11ee-afe6-a90da7624cb6;
+ Mon, 08 Apr 2024 12:25:39 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-343b7c015a8so2681325f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 03:25:39 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ j31-20020a5d6e5f000000b0033fc06f2d84sm8622030wrz.109.2024.04.08.03.25.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Apr 2024 03:25:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +45,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e1aa142-f592-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: 584c95fa-f592-11ee-afe6-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1712571921; x=1713176721; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=nTjH8TUnN2BaFbh7NQcnmBBOL2CeQ8UpqBOXW12sZhk=;
-        b=Z2LhahIZp5ul8E8HMKeTJoC4d88qFgPdyxoi7NtMIamGPLckW4/HUZnkkLsJ5TqPVU
-         CpKwv24BhOQW/2XA+2lLb93wlkWjbBkwByhsMVKSj0DUfSS1dk4NLio3GBVfo6GCEMrC
-         xBEjFqzsC1y/DbyGbQhQS0tZw3agkXtueo4g4=
+        d=suse.com; s=google; t=1712571938; x=1713176738; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wZzYdb/vuDWgkDB5mfmOcG9DUByeCXJjHJxTajEDocs=;
+        b=GUzFrfnm8xT/Z9OhMjrQRkMRUrrgyPBRGv/E4ULPgh/B4kZMSKoatTG1eQlOY02/TF
+         atBfqg7p2Uwrvhc9ubBFR6Lr9CQiQPQfS9y+2SN0FhIq82Z41sunrMChEbd9aZEkMYk0
+         1IT67EMSjdqll5mUai2sA+w60bcJ71ekFACmZrz7RduJOu2JnVc2R5/2OMp8/ZJ7k0qu
+         qPmr6OK2PWNkWsobgicu/EOwADDuSLAonGbgItPG4IZyVaMsdvYkwXrrhyQs2znoKwJr
+         mDSQk79zt72RphNct/mQlrDsrISEBCGGcYempvMMVl12HcPSR/oce8LgrLKHRKWrZ9yY
+         qVWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712571921; x=1713176721;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1712571938; x=1713176738;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nTjH8TUnN2BaFbh7NQcnmBBOL2CeQ8UpqBOXW12sZhk=;
-        b=aE5CaYvjuKWS4TvPbDb/m0Ve7VoIFyHWw565WnOh7wYB3XwdCcMYej7QGRCXXWiKyM
-         6K7PIlelTpQ4O1tMmLpwBgPylQwVq7+6TUNnyGSHKiAX6JIUlQZ78/1ceG8CTeCpLXmK
-         OUOyjSq7t3OxrBDVkoRBjr75S4VE/ZInZKRjaS0/N8fbBbqGBDSK0HY5i5Ee6Oh8sRH+
-         F601JPEglzdUbpmfHSozI6qhVfZQ7IJSqZ3/U2bpLxdcB+vMSlFNGI4jMLUuQyFDhNI6
-         Npu9qpBn+H4bDHF75qgZih7YhXDS/NzU2ZzFhctGtp/Y5OegN2P1ByCzQmNg8COI2BS2
-         hhyA==
-X-Forwarded-Encrypted: i=1; AJvYcCWoAy9iVw9mUcx8/b1xQbO0iEn/k2HVX3+XMO/+9Enq7Tlbti/85v6TDArK0IqWAXQqaNUGi6srJAjlKH/lb/THNlDZ1cG4h5UPyVZ8djs=
-X-Gm-Message-State: AOJu0YzjT844Mby8ZJXBtNumgFQHXamM++g8WVL5ccZsi5oeGH/TDAHE
-	Zvd9sBJNvj0PGGOqzvMN5TxQ6OY+/shgU7OZfLPkpk7zaWhiKzTYJd7uFEvUl8g=
-X-Google-Smtp-Source: AGHT+IFXL4X1RZviJ+DH/25TuuehQsIlW0O+COeUZmAkB3cvxMwxYwxDRWsSXNYyzntD1fP9l/926Q==
-X-Received: by 2002:a17:906:594c:b0:a46:22a3:479f with SMTP id g12-20020a170906594c00b00a4622a3479fmr6299841ejr.21.1712571921493;
-        Mon, 08 Apr 2024 03:25:21 -0700 (PDT)
-Date: Mon, 8 Apr 2024 11:25:20 +0100
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
-Cc: Jason Andryuk <jandryuk@gmail.com>, xen-devel@lists.xenproject.org
-Subject: Re: Linux Xen PV CPA W^X violation false-positives
-Message-ID: <bab9ec69-5927-44c5-b8f9-0900c9862421@perard>
-References: <20240124165401.35784-1-jandryuk@gmail.com>
- <a2246242-627a-493b-9cd4-c76b0cb301ee@suse.com>
- <CAKf6xps9X=6GYxuk9u2cPYh_pzpLu2MQ00smydRQ40TjxDhgEQ@mail.gmail.com>
- <9b5a105a-650c-4b33-9f4e-03612fb6701c@suse.com>
- <f86bc525-1a77-4b7a-b1b3-9a22d9525e90@perard>
+        bh=wZzYdb/vuDWgkDB5mfmOcG9DUByeCXJjHJxTajEDocs=;
+        b=QtETVvA18uoq6U6c/b8SZsrR1iwP58dyhIKR306atU6kpm5TsmKgPUu7s6/IRlZBjz
+         4J2Ovqd3P6hjghuK7ji7YE5BfUT006DYCTCEMZ3z+RhAlbtSrs0adtCHPrR8WfRWzlSF
+         atlqtZdIZQ5VdMYOlUBm87dCBZ2CSSksrIwE6mN7V48LJeVBpf2upA01tNEqrZi9WnqE
+         6dEajFl4yT4Eg0gutHtBAD6vSIp0xQiYkZgNcxn6Ox5f1V3NVZKmjrtpxuI4H0jH75Cy
+         y8IoTEuoMZL3u8fa3t2dIocC0aPVV4LJ3LhbDTp8glal6ZyAhpVci1Kmm7p2lqGscffv
+         oK2w==
+X-Forwarded-Encrypted: i=1; AJvYcCWw8UzcY5PDDbWvw8H+FFPFxSDGk940RpESlD19uGwWKUNysRdKaHTrNNRngnO93/5ia/XNwlA/y6ZweYvXQJABzHBp3ZOPklAyihn8btI=
+X-Gm-Message-State: AOJu0YxedX7xVffIRJ2EoZU7qS4nX9J3+B6yIt6P/zs51SddZNGJi7EQ
+	R9bzVBWgkstt/QBPNBlcQm6k3XPraDZaJKIAJpI8yLiw3VGVQFxthsGH1UfsTg==
+X-Google-Smtp-Source: AGHT+IHXABCgQH4pKXyKdhMXIYs8W3vyQkKm84BGnOotM04oGR+LX0TIWyMV+6EOY9pN57ixzIKimw==
+X-Received: by 2002:a5d:6a09:0:b0:343:79e8:a4d6 with SMTP id m9-20020a5d6a09000000b0034379e8a4d6mr4809476wru.25.1712571938566;
+        Mon, 08 Apr 2024 03:25:38 -0700 (PDT)
+Message-ID: <c3c2ce12-0699-42b3-bcaf-5bddf0616566@suse.com>
+Date: Mon, 8 Apr 2024 12:25:37 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f86bc525-1a77-4b7a-b1b3-9a22d9525e90@perard>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] x86: Add support for building a multiboot2 PE
+ binary
+Content-Language: en-US
+To: Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20240328151106.1451104-1-ross.lagerwall@citrix.com>
+ <20240328151106.1451104-2-ross.lagerwall@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240328151106.1451104-2-ross.lagerwall@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Apr 08, 2024 at 11:22:59AM +0100, Anthony PERARD wrote:
-> On Thu, Mar 28, 2024 at 02:00:14PM +0100, Jürgen Groß wrote:
-> > Hi Jason,
-> > 
-> > On 28.03.24 02:24, Jason Andryuk wrote:
-> > > On Wed, Mar 27, 2024 at 7:46 AM Jürgen Groß <jgross@suse.com> wrote:
-> > > > 
-> > > > On 24.01.24 17:54, Jason Andryuk wrote:
-> > > > > +
-> > > > > +                     return new;
-> > > > > +             }
-> > > > > +     }
-> > > > > +
-> > > > >        end = start + npg * PAGE_SIZE - 1;
-> > > > >        WARN_ONCE(1, "CPA detected W^X violation: %016llx -> %016llx range: 0x%016lx - 0x%016lx PFN %lx\n",
-> > > > >                  (unsigned long long)pgprot_val(old),
-> > > > 
-> > > > Jason, do you want to send a V2 with your Signed-off, or would you like me to
-> > > > try upstreaming the patch?
-> > > 
-> > > Hi Jürgen,
-> > > 
-> > > Yes, please upstream your approach.  I wasn't sure how to deal with
-> > > it, so it was more of a bug report.
-> > 
-> > The final solution was a bit more complicated, as there are some
-> > corner cases to be considered. OTOH it is now complete by looking
-> > at all used translation entries.
-> > 
-> > Are you able to test the attached patch? I don't see the original
-> > issue and can only verify the patch doesn't cause any regression.
-> > 
-> > 
-> > Juergen
-> 
-> Hi Jürgen,
-> 
-> I gave a try to the patch in this email with osstest, and I can't find a
-> single "CPA detected W^X violation" log entry, when there's seems to be
-> many in osstest in general, from dom0 it seems as it's on the host
-> serial console usually.
-> 
-> http://logs.test-lab.xenproject.org/osstest/logs/185252/
-> 
-> If you look in several "serial-$host.log*" files, there will be the
-> "CPA detected" message, but they happen on previous test run.
-> 
-> I did an other smaller run before this one, and same thing:
-> http://logs.test-lab.xenproject.org/osstest/logs/185186/
-> 
-> And this other run as well, which I failed to setup properly with lots
-> of broken, but no failure due to the patch and I can't find any "CPA
-> detected" messages.
-> http://logs.test-lab.xenproject.org/osstest/logs/185248/
-> 
-> I hope that helps?
+On 28.03.2024 16:11, Ross Lagerwall wrote:
+> In addition to building xen.efi and xen.gz, build xen-mbi.exe. The
+> latter is a PE binary that can be used with a multiboot2 loader that
+> supports loading PE binaries.
 
-BTW, I did apply the patch to Linux 6.1:
-https://xenbits.xen.org/gitweb/?p=people/aperard/linux.git;a=shortlog;h=refs/heads/9b5a105a-650c-4b33-9f4e-03612fb6701c@suse.com
+I have to admit I find .exe a strange extension outside of the Windows
+world. Would it be an option to have no extension at all (xen-mbi), or
+use xen.mbi?
 
--- 
-Anthony PERARD
+> Using this option allows the binary to be signed and verified by Shim.
+> This means the same xen-mbi.exe binary can then be used for BIOS boot,
+> UEFI Boot and UEFI boot with Secure Boot verification (all with the
+> convenience of GRUB2 as a bootloader).
+
+With which "UEFI boot" really means "chainloader" from grub? That isn't
+required though, is it? I.e. "UEFI boot" ought to work also without
+involving grub?
+
+> The new binary is created by modifying xen.efi:
+> * Relocations are stripped since they are not needed.
+
+Because of the changed entry point, aiui. What hasn't become clear to
+me is what difference in functionality there's going to be between
+booting this new image in "UEFI boot" mode vs using xen.efi. Clearly
+xen.efi's own (EFI-level) command line options won't be available. But
+it feels like there might be more.
+
+> * The image base address is set to 0 since it must necessarily be below
+>   4 GiB and the loader will relocate it anyway.
+
+While technically okay, what is the reason for this adjustment? 
+
+> * The PE entry point is set to the multiboot2 entry point rather than
+>   the normal EFI entry point. This is only relevant for BIOS boot since
+>   for EFI boot the entry point is specified via a multiboot2 tag.
+
+Hmm, I may then be confused about the terminology further up: What is
+"BIOS boot" then? So far I've taken that as the equivalent of xen.gz's
+way of being booted (i.e. grub without EFI underneath).
+
+> @@ -123,6 +124,19 @@ syms-warn-dup-$(CONFIG_ENFORCE_UNIQUE_SYMBOLS) := --error-dup
+>  
+>  orphan-handling-$(call ld-option,--orphan-handling=warn) += --orphan-handling=warn
+>  
+> +ifeq ($(XEN_BUILD_PE),y)
+> +$(TARGET)-mbi.exe: $(TARGET).efi $(obj)/efi/modify-mbi-exe
+> +	$(OBJCOPY) --remove-section=.reloc $< $@.tmp
+> +	$(obj)/efi/modify-mbi-exe $@.tmp
+> +	$(OBJCOPY) --set-start=0x$$($(NM) -pa $@.tmp | awk '/T start$$/{print $$1}') $@.tmp $@.tmp2
+
+I understand section removal is better done by objcopy. Changing the entry
+point could be done by the new tool, though (by passing it the designated
+address)?
+
+As to stripping .reloc - generally this needs accompanying by setting the
+"relocations stripped" flag in the COFF(?) header. Here, however, I take
+it this is not only not needed, but actually not wanted. This imo wants
+saying somewhere; the individual steps done here could do with brief
+comments anyway, imo.
+
+> --- /dev/null
+> +++ b/xen/arch/x86/efi/modify-mbi-exe.c
+> @@ -0,0 +1,77 @@
+> +#include <stdio.h>
+> +#include <stdint.h>
+> +#include <unistd.h>
+> +#include <fcntl.h>
+> +
+> +struct mz_hdr {
+> +    uint16_t signature;
+> +#define MZ_SIGNATURE 0x5a4d
+> +    uint16_t last_page_size;
+> +    uint16_t page_count;
+> +    uint16_t relocation_count;
+> +    uint16_t header_paras;
+> +    uint16_t min_paras;
+> +    uint16_t max_paras;
+> +    uint16_t entry_ss;
+> +    uint16_t entry_sp;
+> +    uint16_t checksum;
+> +    uint16_t entry_ip;
+> +    uint16_t entry_cs;
+> +    uint16_t relocations;
+> +    uint16_t overlay;
+> +    uint8_t reserved[32];
+> +    uint32_t extended_header_base;
+> +};
+> +
+> +struct coff_hdr {
+> +    uint32_t signature;
+> +    uint16_t cpu;
+> +    uint16_t section_count;
+> +    int32_t timestamp;
+> +    uint32_t symbols_file_offset;
+> +    uint32_t symbol_count;
+> +    uint16_t opt_hdr_size;
+> +    uint16_t flags;
+> +};
+
+I can't spot any use of this struct.
+
+Jan
+
+> +#define IMAGE_BASE_OFFSET 48
+> +#define NEW_IMAGE_BASE 0x0
+> +
+> +int main(int argc, char **argv)
+> +{
+> +    int fd;
+> +    struct mz_hdr mz_hdr;
+> +    const uint64_t base_addr = NEW_IMAGE_BASE;
+> +
+> +    if ( argc != 2 )
+> +    {
+> +        fprintf(stderr, "usage: %s <image>\n", argv[0]);
+> +        return 1;
+> +    }
+> +
+> +    fd = open(argv[1], O_RDWR);
+> +    if ( fd < 0 ||
+> +         read(fd, &mz_hdr, sizeof(mz_hdr)) != sizeof(mz_hdr) )
+> +    {
+> +        perror(argv[1]);
+> +        return 2;
+> +    }
+> +
+> +    if ( mz_hdr.signature != MZ_SIGNATURE ||
+> +         !mz_hdr.extended_header_base )
+> +    {
+> +        fprintf(stderr, "%s: Wrong DOS file format\n", argv[1]);
+> +        return 2;
+> +    }
+> +
+> +    if ( lseek(fd, mz_hdr.extended_header_base + IMAGE_BASE_OFFSET, SEEK_SET) < 0 ||
+> +         write(fd, &base_addr, sizeof(base_addr)) != sizeof(base_addr) )
+> +    {
+> +        perror(argv[1]);
+> +        return 3;
+> +    }
+> +
+> +    close(fd);
+> +
+> +    return 0;
+> +}
+
 
