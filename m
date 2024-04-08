@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2958089B7FD
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 08:54:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701740.1096141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1252089B801
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 08:55:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701742.1096150 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtitN-0001MH-QM; Mon, 08 Apr 2024 06:54:09 +0000
+	id 1rtiuG-0001op-1s; Mon, 08 Apr 2024 06:55:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701740.1096141; Mon, 08 Apr 2024 06:54:09 +0000
+Received: by outflank-mailman (output) from mailman id 701742.1096150; Mon, 08 Apr 2024 06:55:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtitN-0001J4-NL; Mon, 08 Apr 2024 06:54:09 +0000
-Received: by outflank-mailman (input) for mailman id 701740;
- Mon, 08 Apr 2024 06:54:08 +0000
+	id 1rtiuF-0001nB-VP; Mon, 08 Apr 2024 06:55:03 +0000
+Received: by outflank-mailman (input) for mailman id 701742;
+ Mon, 08 Apr 2024 06:55:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WYQ4=LN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rtitM-0001Iy-EH
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 06:54:08 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1rtiuD-0001Iy-Na
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 06:55:01 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca8b7af3-f574-11ee-a1ef-f123f15fe8a2;
- Mon, 08 Apr 2024 08:54:06 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-343c7fae6e4so2727065f8f.1
- for <xen-devel@lists.xenproject.org>; Sun, 07 Apr 2024 23:54:06 -0700 (PDT)
+ id eaa4ce7e-f574-11ee-a1ef-f123f15fe8a2;
+ Mon, 08 Apr 2024 08:54:59 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-343c891bca5so2607418f8f.2
+ for <xen-devel@lists.xenproject.org>; Sun, 07 Apr 2024 23:55:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k7-20020a5d5187000000b003434c764f01sm8190967wrv.107.2024.04.07.23.54.05
+ k7-20020a5d5187000000b003434c764f01sm8190967wrv.107.2024.04.07.23.54.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 07 Apr 2024 23:54:05 -0700 (PDT)
+ Sun, 07 Apr 2024 23:54:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca8b7af3-f574-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: eaa4ce7e-f574-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712559246; x=1713164046; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712559299; x=1713164099; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=w4/Nhr8Da58GALenomFFyRjbuSRo/pAapiqGIkzHCDY=;
-        b=KBrAKe+q5R2HxKHeJzwhBOqhfEYHHUAJALpiWs4VO8/dJC5sh8Q8rfpH9VXL+gUiIe
-         f71kD8K1rTnbLDn/S4gg+d/wIOq3QqxcN+q6v29yIJUkPcZgo+exnJtcQWlcmQ4q5+Sv
-         OEeTAzZVpR8pDZ3FO2cr8J5vEwPwHJfWOqSAyoPABmLzxAtYfLg1y5TeIPldHl0OzFuy
-         m7YUbm44uXJ94RznCoyVFRFW5nmUt0HG36Y6vPKa2IHp3W060CyenIlVwC+bTC6YdJhn
-         onepFBQK8fE8V4jt7Ds242iBW6O7QsABZkLxX4KoqsmD4CSz99VDNms186dG9FMVtIr/
-         tqGA==
+        bh=mDN8BG1Hc5V4JZ65fTyhvmYVc6qCNozV4uDoW2bJ3yY=;
+        b=TyuN2a9O4D447xcRCCM4druQYONW+/II468yH/KghpYuxczVGNgRi6eZVsNYc8zLNp
+         PcP74nmW3aYCKAz8wEWkWRKxUaVUjWbTXcI8px7dYgb+/DDagNavUgESdxoY1mCn8Va3
+         9kj9Yl5QbW0FuWe2baF4T5THsZqiGRkJupNsGeBhRkJvC69bY2jrxCA6wzTaESffyUyX
+         k9e2nXm6iwcSpHdhCv5DV78cdB2MBItFSFyGKajVn3qq+27g/4ZN9/GCpCKG+oH8mhWt
+         sV7FA8E73aV9Y3aTM3MuVCvTreeXZgrjFmbwCpCsXEx0Qq6dxxmTeoz2j1PRen9aDIZ8
+         tCQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712559246; x=1713164046;
+        d=1e100.net; s=20230601; t=1712559299; x=1713164099;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=w4/Nhr8Da58GALenomFFyRjbuSRo/pAapiqGIkzHCDY=;
-        b=ir55f6Rdzhmw/iQJrAwHInY0C4gafrVDDKKIfoawwL3MVq2XXBryUgnGqYblWf0oIO
-         OkxHTHbRgStr3D2l2/7wb8sE+N7k1pAqE83SHMQEkwWWM4Nwk9CTuyH57WnR89421ddN
-         /qLuQbE030WiwkOleL7sEV6JueFOOb6gIhN6yAlIhURY8WG2CjBxQsi/itwP9yrREIpK
-         oxTKVxzMqrRksqeRx7y88keDUcWHNIk9lWcfPm3/ISuKTtZ27LSBlC0j14JV+joxx+K+
-         3D/5JJRoTQvoYlj9Vqw55kdDpzo8d9v/8wHf7dBUkcIpnsri+VBIOKM3vhn+OnRiyPfG
-         9TsA==
-X-Forwarded-Encrypted: i=1; AJvYcCVkcYzmOP0QpucvRtmpK7QPKjIJP7tGGgsVwa11jfF2XxRvsQdy5alWZ6Ts0eS2ibTcypawEnO3mZP9U9ojVuGQWN8x5chX+IqUB2vvQKI=
-X-Gm-Message-State: AOJu0YzJsLGBKJvAcZZJLQqHlX7LkkPHhIrOWabU1oTQVjxHYTXQoQxG
-	4Ps3fxRwJnlrGwGEAeyS/stepFbS/kuT1ACW7lBstk887Ew8ceUsUcHj/4QCGA==
-X-Google-Smtp-Source: AGHT+IEv1Bv6/6p6hHS0JJG8ximGvYyO/1oj1zrJErJWHfgJOwsFzsFAbeNwhIZ85bSzHco7gDQplg==
-X-Received: by 2002:a5d:43cf:0:b0:343:b9e4:7f9a with SMTP id v15-20020a5d43cf000000b00343b9e47f9amr5420096wrr.33.1712559245786;
-        Sun, 07 Apr 2024 23:54:05 -0700 (PDT)
-Message-ID: <7ab4053f-f8b3-4b6a-bd29-5d0fa228fca5@suse.com>
-Date: Mon, 8 Apr 2024 08:54:07 +0200
+        bh=mDN8BG1Hc5V4JZ65fTyhvmYVc6qCNozV4uDoW2bJ3yY=;
+        b=HU+17RCifIWI2uCspEsDHL51FtYWdMffdDDbFgbBEhfu549yvxydcvnsvT3zRdIrfr
+         GZOaGVoolv9NsWCeeeYSM7PX7N+tcXAc7XB1lEt4Kpzvj70WXK5sYZ9A8TNtMitbwUKO
+         DIvUh/1qIqXoA5Hmjm8ReB5Ze865QoUP3QgFCyXHrQN4FaAhzQYLJECYZ770Gjf96E4d
+         colVdxDQj6rvid4SZDINGrPMJYdM3eozwAQJmf+pYV7jKuP0VmnM9xD6yruBlU/Ocwiz
+         NrUDHBH842Cod2SFKflFK2Q3ZAGvGJsHXIcABeQt1JFOYtCjD33B7IExtyzXcWnVYZhf
+         rQcA==
+X-Forwarded-Encrypted: i=1; AJvYcCVsT+ZiBc0ex78tv3xde6YtnmjlowbMFmY5/rSuQg3nonUPG76N7WOUPJDDCDknBEmACCBq9kKTOA9lQ9ISPLBd6KL2EAQayrVHPpKIiZY=
+X-Gm-Message-State: AOJu0YxMFNuj5BGJrQ3xrZicUokHnyb2AK2ilYzfkNxBwNQj1iZL5M8U
+	FKTWG6+2hIIYAk10XQYFi4sdU9FdBK4Z2pf2bN5PsHhCMamBph+QUkzVYGn3LQ==
+X-Google-Smtp-Source: AGHT+IFjN1aDofhwY0vFVan6PZ/E5tYqai0mBq1Q4+ABZWoP35muXjvJyu3+GRAJO24oHHFpxeRx6w==
+X-Received: by 2002:a5d:598c:0:b0:345:7dff:c448 with SMTP id n12-20020a5d598c000000b003457dffc448mr3477995wri.0.1712559299610;
+        Sun, 07 Apr 2024 23:54:59 -0700 (PDT)
+Message-ID: <cfbfeaa1-da16-47ec-9af6-f957ed7b1c83@suse.com>
+Date: Mon, 8 Apr 2024 08:55:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/acpi: Allow xen/acpi.h to be included on non-ACPI
- archs
+Subject: Re: [PATCH v7 1/2] libelf: Store maximum PHDR p_align
 Content-Language: en-US
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
-Cc: tpearson@raptorengineering.com,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Juergen Gross <jgross@suse.com>,
- Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
-References: <20240405182031.396528-1-sanastasio@raptorengineering.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20240404212519.16401-1-jason.andryuk@amd.com>
+ <20240404212519.16401-2-jason.andryuk@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,32 +112,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240405182031.396528-1-sanastasio@raptorengineering.com>
+In-Reply-To: <20240404212519.16401-2-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.04.2024 20:20, Shawn Anastasio wrote:
-> Conditionalize xen/acpi.h's inclusion of acpi/acpi.h and asm/acpi.h on
-> CONFIG_ACPI and import ARM's !CONFIG_ACPI stub for acpi_disabled() so
-> that the header can be included on architectures without ACPI support,
-> like ppc.
+On 04.04.2024 23:25, Jason Andryuk wrote:
+> While parsing the PHDRs, store the maximum p_align value.  This may be
+> consulted for moving a PVH image's load address.
 > 
-> This change revealed some missing #includes across the ARM tree, so fix
-> those as well.
-> 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
-albeit preferably with ...
 
-> @@ -118,6 +121,7 @@ extern u32 pci_mmcfg_base_addr;
->  #else	/*!CONFIG_ACPI*/
->  
->  #define acpi_mp_config	0
-> +#define acpi_disabled (true)
 
-... the unnecessary parentheses avoided here.
-
-Jan
 
