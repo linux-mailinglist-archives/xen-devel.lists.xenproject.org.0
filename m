@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECCA389B795
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 08:22:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701725.1096099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84AD089B7B3
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 08:36:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701729.1096110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtiOk-000337-ND; Mon, 08 Apr 2024 06:22:30 +0000
+	id 1rtic2-0005R6-S0; Mon, 08 Apr 2024 06:36:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701725.1096099; Mon, 08 Apr 2024 06:22:30 +0000
+Received: by outflank-mailman (output) from mailman id 701729.1096110; Mon, 08 Apr 2024 06:36:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtiOk-000314-Ju; Mon, 08 Apr 2024 06:22:30 +0000
-Received: by outflank-mailman (input) for mailman id 701725;
- Mon, 08 Apr 2024 06:22:28 +0000
+	id 1rtic2-0005PW-Nt; Mon, 08 Apr 2024 06:36:14 +0000
+Received: by outflank-mailman (input) for mailman id 701729;
+ Mon, 08 Apr 2024 06:36:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WYQ4=LN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rtiOi-00030w-UG
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 06:22:28 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1rtic1-0005PQ-Vy
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 06:36:13 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f431b5a-f570-11ee-afe6-a90da7624cb6;
- Mon, 08 Apr 2024 08:22:28 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-4165d03308fso7853975e9.2
- for <xen-devel@lists.xenproject.org>; Sun, 07 Apr 2024 23:22:28 -0700 (PDT)
+ id 4b132fe4-f572-11ee-afe6-a90da7624cb6;
+ Mon, 08 Apr 2024 08:36:13 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-516b6e75dc3so5010034e87.3
+ for <xen-devel@lists.xenproject.org>; Sun, 07 Apr 2024 23:36:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- b17-20020a5d40d1000000b00343cad2a4d3sm8124018wrq.18.2024.04.07.23.22.26
+ d11-20020adff84b000000b0033e7a102cfesm8161402wrq.64.2024.04.07.23.36.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 07 Apr 2024 23:22:27 -0700 (PDT)
+ Sun, 07 Apr 2024 23:36:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f431b5a-f570-11ee-afe6-a90da7624cb6
+X-Inumbo-ID: 4b132fe4-f572-11ee-afe6-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712557347; x=1713162147; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712558172; x=1713162972; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=FjSm8F6eUQIivWZ/kM3Gv3zgHRKZvUXI2rEJhkBfgVA=;
-        b=TNhUDGzkY/TTS2QOgjejpT1Rirss4GRaToXK0MgkSgZ7C6j6yfLoNQWSd3nYYc7wJW
-         WYwGRA76bJ5eaolYvhM0izqhtNLMeWD6Zql/AirtL+0dNLHJQpC0opk8GH+FfzgY2xuj
-         rcc8iyF9V2e+u0oCHHPdNUovfoLBFnEOjQ8ATf45yV9AC29bDFhZ1KbwnxeEDCFK6AUF
-         NgHusonyiI8e9a5+9bCaIlWBgCa0bCpyfsq8ik0UFTQWWo1vIa/DkOhw2Ig+TLSwlkWx
-         jUR6dApbMrJ0bUp9acoOXacHrDWhE4cW8fRgtor3YMUiQLuNVM3aRM/rq94AT8GUtRwY
-         UDtQ==
+        bh=LvqhavDAF+jKlOZbCyPM1gJYd3LyK2rmrFJ2kIM8BGo=;
+        b=exAlgqPhVjKEp+O5AR05ucNq4Ok6dRCjnUG6f5LgK7BtOp3anwe4w6L8f/mh9XTUBD
+         4h5tVDELUVGicwEJG4Bx5IM+jTRbm+/ava4sNmSjuJ9PjOBfIB5Wbr2hbv1mkdq1k6VB
+         hERdxkbGipwtI8+AHV5kDVZC6ANMBB8pAYHPUNZ9pPu348lK4rGIfDGjlqUH7Dlaqp+C
+         6Ds4sOQBmHJZF/LmdM+Zefux1awJb4q/Vc/tDOpivWwTWRkP8Nr+KmLM7UzWF+56nKxp
+         XyPZsLhyXVd+Zayg4QEA/zat6Rh5YF4h+VDbP8GBSetD8Z49oaIWkzfv6Ev2JkoTNAHr
+         XLIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712557347; x=1713162147;
+        d=1e100.net; s=20230601; t=1712558172; x=1713162972;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FjSm8F6eUQIivWZ/kM3Gv3zgHRKZvUXI2rEJhkBfgVA=;
-        b=QZPWpDm5JaeTUJkVTjghdFy4zl+rh99kxmcxiY3FxsmzRhqCmDMiEI+JS7QYhG/Gxj
-         7brTe0UsIYpWxtvSTH+7iAFA3kcHc6/Fur/RKSW3oWomIrT7rbNY0yDsFhMaxLjxM+Mr
-         p9fuA7y1FdCU/1EgYNYJfzmNNiFkkfeacP/qKRjtu7gu4XrfNr84AHvqGgqOwkcaHSgk
-         COhlP8Fl5Zo4Oaz+ar22nfjUf6akAExAaXMKt6T1a9nNwp2aqKF/IEWbx4r972feUhvp
-         a1w49YAM7Pl3A0JsBQH/I+PTefpZT8S/rmex5XfSziKelgBSoa0mHM/PxuQjvGwZlpgh
-         g3YQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXO4lNDhLUh5apbJcLjz4DUypzElmAS53FmXpK/YNbyIkkOsLQOZr5/bND9IvyKXby/evEjr90W5uxuNAwc0Sh9oLbZIvysw1YKV0xTVrI=
-X-Gm-Message-State: AOJu0Yxlk6J8rFCuoW0mMwHzMJ2UQJNLNRHbpDgXUlm7UM3eDvSerrup
-	oAoDl1YmLZUFRmdbzRNRytDRMQBvIWpENIsQRKBCnhcBuR4BpRlqhNtx4QmLHg==
-X-Google-Smtp-Source: AGHT+IHBPBBkEoRWtZbh5Km1fYyt93hZHFAWRfaS+gkfJZlVSDklhpJANqaXMc3ncKFxZVassxstxQ==
-X-Received: by 2002:adf:ee46:0:b0:343:81ea:c539 with SMTP id w6-20020adfee46000000b0034381eac539mr6869465wro.28.1712557347494;
-        Sun, 07 Apr 2024 23:22:27 -0700 (PDT)
-Message-ID: <951cc6ba-c971-4b5b-9cfc-bc79245a9549@suse.com>
-Date: Mon, 8 Apr 2024 08:22:29 +0200
+        bh=LvqhavDAF+jKlOZbCyPM1gJYd3LyK2rmrFJ2kIM8BGo=;
+        b=GhSYZKZzxH+3LY6OFj/y+mlkftnbISpxJCMg3O1SXPYjP23gpssnMKibv+an7YlWVc
+         2fZw86Ym++l2JAne29vu2I0v0yFj2bX7a7Hg6/v4CBvcysoH63UUI4q2CLn+HTwkGJ2l
+         pCRrQVWDEquYAhh5rYr8sryx984+cdt/WTr1zMLkXH+ZGZoUkQZFfdKtBYTm8hQQstnh
+         cUrKUJ+9Qs0jocihxQdHAg2Ya9r2DocdYE3bJg27+h1AmBsdiXq7I8nNoyQmNU/ILdeU
+         nUxwK+ZjaHNnlV4K0BERmFRWR/RFgpozoAPGrDnGeIjhs+S76kbPl+RQV65zj8Aeu5tI
+         t+dw==
+X-Forwarded-Encrypted: i=1; AJvYcCU08WTU5Lv+EkxXBHQfU45UtphL+FC/26hP+rqDTG+B8xK+rtHtJjS2s7n6VBrwlhoc8NgoVFGrWov3M2Tvem6IPDF3HP3uNX5S1SV7nBU=
+X-Gm-Message-State: AOJu0YwdVeRJLegw5t0YDVtgVazlgy9TJcGsmF0SPY7g/tP20zqLPN+K
+	xad1uo7qJO9QC1gpI+x/y/vehmTxTBOZHIL8oXOAp8nOp+sFNJm53lqPeTMTyA==
+X-Google-Smtp-Source: AGHT+IEWkViVOGI6beku9exmoy/ec8At4MFVL1JfjJUkGAE1CXu0PuKkHjzeZP0VAujU3g+ufKmfLw==
+X-Received: by 2002:a05:6512:6c9:b0:515:a5b1:1dd0 with SMTP id u9-20020a05651206c900b00515a5b11dd0mr5995755lff.55.1712558172555;
+        Sun, 07 Apr 2024 23:36:12 -0700 (PDT)
+Message-ID: <b5ab32e6-60ef-483b-90d8-233c9779501d@suse.com>
+Date: Mon, 8 Apr 2024 08:36:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] xen/memory, tools: Avoid hardcoding
- GUEST_MAGIC_BASE in init-dom0less
+Subject: Re: [PATCH v2 2/3] libxl: Support blktap with HVM device model
 Content-Language: en-US
-To: Henry Wang <xin.wang2@amd.com>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alec Kwapis <alec.kwapis@medtronic.com>, xen-devel@lists.xenproject.org
-References: <20240403081626.375313-1-xin.wang2@amd.com>
- <20240403081626.375313-5-xin.wang2@amd.com>
- <e9167c39-187f-4a66-b9a4-8b3a6ae3000b@suse.com>
- <09cc419a-cdf6-4cda-90f1-c0e1ae83ad47@amd.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Jason Andryuk <jason.andryuk@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20240407204953.60442-1-jandryuk@gmail.com>
+ <20240407204953.60442-3-jandryuk@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,41 +112,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <09cc419a-cdf6-4cda-90f1-c0e1ae83ad47@amd.com>
+In-Reply-To: <20240407204953.60442-3-jandryuk@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.04.2024 05:19, Henry Wang wrote:
-> On 4/4/2024 5:38 PM, Jan Beulich wrote:
->> On 03.04.2024 10:16, Henry Wang wrote:
->>> --- a/xen/include/public/memory.h
->>> +++ b/xen/include/public/memory.h
->>> @@ -41,6 +41,11 @@
->>>   #define XENMEMF_exact_node(n) (XENMEMF_node(n) | XENMEMF_exact_node_request)
->>>   /* Flag to indicate the node specified is virtual node */
->>>   #define XENMEMF_vnode  (1<<18)
->>> +/*
->>> + * Flag to force populate physmap to use pages from domheap instead of 1:1
->>> + * or static allocation.
->>> + */
->>> +#define XENMEMF_force_heap_alloc  (1<<19)
->> As before, a separate new sub-op would look to me as being the cleaner
->> approach, avoiding the need to consume a bit position for something not
->> even going to be used on all architectures.
+On 07.04.2024 22:49, Jason Andryuk wrote:
+> blktap exposes disks over UNIX socket Network Block Device (NBD).
+> Modify libxl__device_disk_find_local_path() to provide back the
+> QEMU-formatted NBD path.  This allows tapdisk to be used for booting an
+> HVM.
 > 
-> Like discussed in v2, I doubt that if introducing a new sub-op, the 
-> helpers added to duplicate mainly populate_physmap() and the toolstack 
-> helpers would be a good idea.
+> Use the nbd+unix:/// format specified by the protocol at
+> https://github.com/NetworkBlockDevice/nbd/blob/master/doc/uri.md
+> 
+> Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 
-I'm curious what amount of duplication you still see left. By suitably
-adding a new parameter, there should be very little left.
+Please remember to keep tags in chronological order, i.e. R-b after S-o-b.
 
-> Similarly as the way that we do for the 
-> MEMF_force_heap_alloc, if in the future we run out of the bit positions, 
-> can't we reuse this bit for different architectures as an alias? Or 
-> maybe we can even alias it now?
-
-I view this as far less desirable in the public interface.
+It's also not clear to me whether this could sensibly go in ahead of patch 1;
+for now I'll assume it shouldn't.
 
 Jan
 
