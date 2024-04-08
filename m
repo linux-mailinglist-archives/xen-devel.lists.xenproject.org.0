@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5552789CA29
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 18:57:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.702031.1096750 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAF2089CAE8
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 19:40:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.702036.1096760 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtsIu-0000s8-Vy; Mon, 08 Apr 2024 16:57:08 +0000
+	id 1rtsxd-0006Ob-33; Mon, 08 Apr 2024 17:39:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 702031.1096750; Mon, 08 Apr 2024 16:57:08 +0000
+Received: by outflank-mailman (output) from mailman id 702036.1096760; Mon, 08 Apr 2024 17:39:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtsIu-0000pe-Rn; Mon, 08 Apr 2024 16:57:08 +0000
-Received: by outflank-mailman (input) for mailman id 702031;
- Mon, 08 Apr 2024 16:57:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rtsxd-0006Mc-0L; Mon, 08 Apr 2024 17:39:13 +0000
+Received: by outflank-mailman (input) for mailman id 702036;
+ Mon, 08 Apr 2024 17:39:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MIwb=LN=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1rtsIs-0000pY-MZ
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 16:57:06 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20600.outbound.protection.outlook.com
- [2a01:111:f403:2009::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 06652c8b-f5c9-11ee-afe6-a90da7624cb6;
- Mon, 08 Apr 2024 18:57:04 +0200 (CEST)
-Received: from CH0PR03CA0418.namprd03.prod.outlook.com (2603:10b6:610:11b::19)
- by MN0PR12MB6029.namprd12.prod.outlook.com (2603:10b6:208:3cf::21)
+ <SRS0=7si+=LN=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1rtsxb-0006MW-S3
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 17:39:12 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2408::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e5b1336e-f5ce-11ee-b7f7-5d6b493b22b9;
+ Mon, 08 Apr 2024 19:39:07 +0200 (CEST)
+Received: from SJ0PR13CA0044.namprd13.prod.outlook.com (2603:10b6:a03:2c2::19)
+ by SJ2PR12MB8831.namprd12.prod.outlook.com (2603:10b6:a03:4d0::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Mon, 8 Apr
- 2024 16:56:58 +0000
-Received: from DS2PEPF0000343B.namprd02.prod.outlook.com
- (2603:10b6:610:11b:cafe::55) by CH0PR03CA0418.outlook.office365.com
- (2603:10b6:610:11b::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.35 via Frontend
- Transport; Mon, 8 Apr 2024 16:56:58 +0000
+ 2024 17:39:01 +0000
+Received: from CO1PEPF000042AB.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c2:cafe::e9) by SJ0PR13CA0044.outlook.office365.com
+ (2603:10b6:a03:2c2::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.16 via Frontend
+ Transport; Mon, 8 Apr 2024 17:39:01 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF0000343B.mail.protection.outlook.com (10.167.18.38) with Microsoft
+ CO1PEPF000042AB.mail.protection.outlook.com (10.167.243.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Mon, 8 Apr 2024 16:56:57 +0000
+ 15.20.7452.22 via Frontend Transport; Mon, 8 Apr 2024 17:39:01 +0000
 Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 8 Apr
- 2024 11:56:57 -0500
+ 2024 12:38:55 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 8 Apr
- 2024 11:56:56 -0500
-Received: from [172.28.134.8] (10.180.168.240) by SATLEXMB04.amd.com
+ 2024 12:38:54 -0500
+Received: from [172.22.155.249] (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 8 Apr 2024 11:56:56 -0500
+ Transport; Mon, 8 Apr 2024 12:38:53 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,186 +63,637 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06652c8b-f5c9-11ee-afe6-a90da7624cb6
+X-Inumbo-ID: e5b1336e-f5ce-11ee-b7f7-5d6b493b22b9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gqZPUgQUWm803Q2wnHEeMYZjambFJ/rTiao+t9SWCRJeQZfRKVciq/Hl8f0XZp62MBukrnUZu6z7SZckgXoKEtg9dYNRR/7KD0w7c+86GxskpnbMirFMq5kmka2MErafx5TzWe0XYj/x8e/+L587CYeBPxN4DRto3SR9FRCa5MN+eAyJ+w5mlFgewRk3P8Pz8QQZ8O3keIiZH0/wmUH0DPCfE33XQqAzON8cvXzys0wSHHFfSnq1TmrNAUWX30STv2RRWx8b1Vz4OemaK+bBhbPJIRR0XFrgN5OuhHpTGGqX1OA/tYN3qLUsfLE3JLLkNddEIIDz4cYQXg9ZjfyXjw==
+ b=f0b7el21/ca02BMEbdsZoBsCJvfo8N/WFF1FWdhRVL1ehZio4pnBlYmdfuOqamgM8/qw6KMoEuf7FgovGMBqgbboLenHMqwl6G6DmJIom2BQk/n+NOeo7RNwxA0ctJC+dgBarQ/WWyxhCdM1qgXpCA5UeRz00WEG73n/G+TH+3VSbXx3JgUv7NnhdAp3Tm59urvs34vaP+Hx2v7CIVxaU8H5IA1jLc1HIUP4qH4uIhAB6GWIMHdo34pDOeC26YM+8Z72Yx2Fkp4/diGbMs+C7sKxjPFQzMCRQZoBryXWCqqESM5JuBwfci27DqQ3gkUr//qG9WUkEUBydySeefU2hw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j1pXvPQomaZPf1tpcnsc6+GMp/URSiFhr6y/tb0PkcY=;
- b=HAemxTY7wGAqqCjSVwiADQNx/K2CvlO3s92CSR2ElhE/TMG+fwxt7mxvdE1Poj8nZmr+GpalRfOkWqqvDSXcX83vg/1F2QqMnlIk/HE9pM5gIetSaUcOjiawJzRU8BGMyM2HNZ/isj/SP2lKcYDqHuyEBirfx854/z3BAKtQSEMkQHYQAfqpQRPToSHPzMJ0upK8AKyHeGOukcxe3QQQ8PDedMDdnPU9ebfTjqzQjuDbsn1519ZMZUGksfGeYkn06pZhkmPInalrdVGyBQDRL2l3hP3jLmNAiIMpr1RM+4u7Wde8QOP4kVJuesluZWM505TUa8hHmRKcNzn66cLRBg==
+ bh=yvV5SQCeWdgRdWuc5tGujfAp/NoKY1TrTKtUJiwNMO8=;
+ b=ikKMDrfDTezkt8Wru579V262J6nUcDzpgDV8iVHovuG1Y6Z+aD7ztLpLrkxsY/VAOZ6OHcwy8NX7tucgr2EHwq9WFXmU98v6+pq+Qz03g/viNj1aX5YonBgY8ydpAkEweLXie6q6+cCyRbqaMtoJxyKKiQsqI8qOQN1j4PIXVfe9Um1ru4DGt3ZcKzIfduHD3Q5xI3UXqqzWdvXtkAGhKM1lGz4hnuwvLJ3HGAvAbn/IKSgXC4nDxd2xLezlf4B0S5ywFsLnCtUZ2lV3AxeufSQ+PUjRirmoEngsztWr4s9r3AV3AiAj6CKxbPlh/7AqVLIVDbf9RdFUMwpK+LRfHQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j1pXvPQomaZPf1tpcnsc6+GMp/URSiFhr6y/tb0PkcY=;
- b=VCgexitOCo0JNcV+961pUWjgYUL6wQXQ6IdVD9W8fyY76o59fiDF7qYrH2k6W/Y9Z+wHFZKGJwOX2wLmuggElFPRwHX4kJNq59+n+E/chSZ+or/mnKCS/LVG1nrfq0c7fM5qyKjI14REvNfNvGW/+RCFDFgAC8ZkC8eHI1Ju/MI=
+ bh=yvV5SQCeWdgRdWuc5tGujfAp/NoKY1TrTKtUJiwNMO8=;
+ b=cNvjwC4jfJd8PrvcOnc2L6LqLsQJLrl6HxNl0sYOntZGtGxlshVQeVs05FAwtLMGX7NqVf2AAnoLmcySWnwgWyE8FLbzQK8P3OV8sTtoe4aVKRhfh9jk+3V+qBxDBCQixmRjjt9gUepZCWviVPOLfEFVN44dhF6wlrzB9iAf3DQ=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <13d1943e-6341-46de-a356-dc6b92945f3b@amd.com>
-Date: Mon, 8 Apr 2024 12:56:56 -0400
+Message-ID: <33a14c95-c186-48bf-9aa5-cfcac374492a@amd.com>
+Date: Mon, 8 Apr 2024 13:38:52 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Jason Andryuk <jason.andryuk@amd.com>
-Subject: Re: [PATCH v7 2/2] x86/PVH: Support relocatable dom0 kernels
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, <xen-devel@lists.xenproject.org>
-References: <20240404212519.16401-1-jason.andryuk@amd.com>
- <20240404212519.16401-3-jason.andryuk@amd.com>
- <70ab0f9d-a451-44a5-8927-4200dbb96a08@suse.com>
+Subject: Re: [PATCH V4] Add requirements for Device Passthrough
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	<xen-devel@lists.xenproject.org>, <amd-xen-safety@groups.io>
+CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Michal Orzel
+	<michal.orzel@amd.com>, Artem Mygaiev <artem_mygaiev@epam.com>, "Ayan Kumar
+ Halder" <ayankuma@amd.com>, Stefano Stabellini <stefano.stabellini@amd.com>,
+	Mykola Kvach <mykola_kvach@epam.com>
+References: <20240408131945.476581-1-olekstysh@gmail.com>
 Content-Language: en-US
-In-Reply-To: <70ab0f9d-a451-44a5-8927-4200dbb96a08@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <20240408131945.476581-1-olekstysh@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343B:EE_|MN0PR12MB6029:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7ebfd61b-55dc-4b7d-0a28-08dc57ece70d
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AB:EE_|SJ2PR12MB8831:EE_
+X-MS-Office365-Filtering-Correlation-Id: d58d6981-9e02-4005-740c-08dc57f2c70f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	f6lFSdIzUWJ0f21Fjq6c2pE5sDvV34o/gp0V+DtJ2FrSyyx4xe9AlQ58VG1ZMuRNsMrRUwFkuR6Lw0wrPgpz02KWZrZ7mfEFx36iub3XxTMF7WUTiGgA+2SvGderODq7p5j8mD8CYdo5LdYX8IdAUPNMKfwwhBiJGpqZBYSrWSHcQFRMQ4G6yQKiMC4zy0nPW8WEeBKaY3mnx9GrOEJWmizesqlmn5lQ1xWs4adZnebp1z5GPH8hFnDreFvwdI6ghJxOQznMvl2IY7vgj4687hcTcowvniCkE+RN4gepfqWRoRDeIckqTc7Le+rZKKD2c02rR8+uicuLidHfJJHq2WSYFc8eGQ71U86jgKkMVjBvqQkn34VUJ90/AOfNYkolJ34ZwdXGkJjhwcG/ZtIBfIcriNS0C9wMo18PxqygaYaoFgAOBC0A8sY+8Erca/Hvxx/Ik2kCMQ8TbEo4Fz7rac4Q6giDDVcZ8Tr04GtYsnsmzFI2nrVDovWhJNRemrz0XuK2htS+NNDvqMBd5NZ13mitBc4dQo6e4zz09KuR5t+AfioiD5kXnisExZpmZOV920fa/WPStJEJ3Gp7HKmX/wzGwciS3ACRmyVaFNrBYq9Wvx3IDQwuz5vWbBdegJYzTlu0YT+zKh3bSHQlBizDvqhTfNfwhyVckRcUQinStTJlDzoJIoMqvCl6Sw/pQ6DmvLeLsfeKEa7w3EkcTGfeulFXCCzu0mRX7zq+BTKMF25t1eUUJmiXLNWx9kbjGdJx
+	qMYTT9iM96k+lJcZqOCkg5kT3lFZc3uXbFOfgJdsNjJtqM832XqNU6Nf72e890rt3jXMPytkisoE3NYAwq/x3waZW/27QVF6sPyYQVfl8GkfPePXFKJqBGNENvNeapW2Mc7BMmbr6SoCxqc8SSHyevx+psW/TRajaaAa1NuRh2srKPFdyqMEohRkyiz6F7wQhknz9x0dbj+O+m9FVrGoQeSAjroYHP1O3YrXKb2/DNNGuRLf7ghNbSJ7QIUs++87vIqSE/yzxMG1jRkrxjUPJILtSAfUGSqbSa1xySlQfoSOEjPGtseCFORjr13pwF9fFDOoMwb48w2WBVd5oqd4vWBKd1ek+26PdaMqyXssrAkN5JqBJ8bLaCErjICmwA/Uo46kVjPvdTqy38aEcFfgSq4Tk2DCTorVYZ7hlLWaZSSKTOFStJyZH3sjfx66Q7H62tBjETZng9K+tL4Inmej0OEk/El5JAPzd6dIMoNslGmAjI0BoFONVQwKeKGz5Ia3gnnWj/Y7VW3IFfKCb0oYAgWRkg6OZWkbhLMazIwakqRNb7eAfCaFJBHhLN1vnr6z+74tq0RNtz+caAPcvCZoceSjwuVRjWSFbPiIFpUmxVE1sRTELOZbWz4ZvuevxHWvgFtZYYXpXU1CwKMsc1Zh6B0TAywPPm42s4PTKiz7mcqmxrEIQNjizcsJDfaFCxdKWlM0ytGQF60m2jO8HaairQ==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(376005)(82310400014)(36860700004);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(376005)(36860700004)(82310400014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2024 16:56:57.8651
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2024 17:39:01.0023
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ebfd61b-55dc-4b7d-0a28-08dc57ece70d
+X-MS-Exchange-CrossTenant-Network-Message-Id: d58d6981-9e02-4005-740c-08dc57f2c70f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF0000343B.namprd02.prod.outlook.com
+	CO1PEPF000042AB.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6029
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8831
 
-On 2024-04-08 03:00, Jan Beulich wrote:
-> On 04.04.2024 23:25, Jason Andryuk wrote:
->> Xen tries to load a PVH dom0 kernel at the fixed guest physical address
->> from the elf headers.  For Linux, this defaults to 0x1000000 (16MB), but
->> it can be configured.
->>
->> Unfortunately there exist firmwares that have reserved regions at this
->> address, so Xen fails to load the dom0 kernel since it's not RAM.
->>
->> The PVH entry code is not relocatable - it loads from absolute
->> addresses, which fail when the kernel is loaded at a different address.
->> With a suitably modified kernel, a reloctable entry point is possible.
->>
->> Add XEN_ELFNOTE_PHYS32_RELOC which specifies optional alignment,
->> minimum, and maximum addresses needed for the kernel.  The presence of
->> the NOTE indicates the kernel supports a relocatable entry path.
->>
->> Change the loading to check for an acceptable load address.  If the
->> kernel is relocatable, support finding an alternate load address.
->>
->> The primary motivation for an explicit align field is that Linux has a
->> configurable CONFIG_PHYSICAL_ALIGN field.  This value is present in the
->> bzImage setup header, but not the ELF program headers p_align, which
->> report 2MB even when CONFIG_PHYSICAL_ALIGN is greater.  Since a kernel
->> is only considered relocatable if the PHYS32_RELOC elf note is present,
->> the alignment contraints can just be specified within the note instead
->> of searching for an alignment value via a heuristic.
->>
->> Load alignment uses the PHYS32_RELOC note value if specified.
->> Otherwise, the maxmum ELF PHDR p_align value is selected if greater than
->> or equal to PAGE_SIZE.  Finally, the fallback default is 2MB.
->>
->> libelf-private.h includes common-macros.h to satisfy the fuzzer build.
->>
->> Link: https://gitlab.com/xen-project/xen/-/issues/180
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+On 4/8/24 09:19, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> yet still with two remarks:
+> Please refer to chapter "Device Passthrough":
+> https://groups.io/g/amd-xen-safety/message/1300
+> 
+> Create corresponding directory and README file.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Thanks.
+Two nits below. With those addressed:
 
->> --- a/xen/arch/x86/hvm/dom0_build.c
->> +++ b/xen/arch/x86/hvm/dom0_build.c
->> @@ -537,6 +537,111 @@ static paddr_t __init find_memory(
->>       return INVALID_PADDR;
->>   }
->>   
->> +static bool __init check_load_address(
->> +    const struct domain *d, const struct elf_binary *elf)
->> +{
->> +    paddr_t kernel_start = (uintptr_t)elf->dest_base;
->> +    paddr_t kernel_end = kernel_start + elf->dest_size;
->> +    unsigned int i;
-> 
-> While properly typed here, ...
-> 
->> +static paddr_t __init find_kernel_memory(
->> +    const struct domain *d, struct elf_binary *elf,
->> +    const struct elf_dom_parms *parms)
->> +{
->> +    paddr_t kernel_size = elf->dest_size;
->> +    unsigned int align;
->> +    int i;
-> 
-> ... I must have missed when this was changed to plain int. It should have
-> been unsigned int here, too, ...
-> 
->> +    if ( parms->phys_align != UNSET_ADDR32 )
->> +        align = parms->phys_align;
->> +    else if ( elf->palign >= PAGE_SIZE )
->> +        align = elf->palign;
->> +    else
->> +        align = MB(2);
->> +
->> +    /* Search backwards to find the highest address. */
->> +    for ( i = d->arch.nr_e820 - 1; i >= 0 ; i-- )
-> 
-> ... with this suitably adjusted. However, I'm not going to change this while
-> committing, to avoid screwing up.
+Reviewed-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
-I intentionally changed this.  Looping downwards, a signed int allows 
-writing the check naturally with i >= 0.  I think it's clearer when 
-written this way.
-
->> --- a/xen/include/public/elfnote.h
->> +++ b/xen/include/public/elfnote.h
->> @@ -196,10 +196,28 @@
->>    */
->>   #define XEN_ELFNOTE_PHYS32_ENTRY 18
->>   
->> +/*
->> + * Physical loading constraints for PVH kernels
->> + *
->> + * The presence of this note indicates the kernel supports relocating itself.
->> + *
->> + * The note may include up to three 32bit values to place constraints on the
->> + * guest physical loading addresses and alignment for a PVH kernel.  Values
->> + * are read in the following order:
->> + *  - a required start alignment (default 0x200000)
+> ---
 > 
-> "... (default 0x200000; see below)", i.e. ...
+>   V2:
+>    - add R-b
+>    - update README
+>    - lower case for platform, s/simple/non-DMA-capable, other misc
+>      updates
+>    - add "Allowed for the safe direct mapped VMs only"
+>      to reqs for DMA-capable devices without IOMMU protection
+>    - add dom0less passthrough details where needed
+>    - add reqs for PCI devices discovering
 > 
->> + *  - a minimum address for the start of the image (default 0)
->> + *  - a maximum address for the last byte of the image (default 0xffffffff)
->> + *
->> + *  When this note specifies an alignment value, it is used.  Otherwise the
->> + *  maximum p_align value from loadable ELF Program Headers is used, if it is
->> + *  greater than or equal to 4k (0x1000).  Otherwise, the default is used.
+>   V3:
+>    - move common reqs "Assign PCI device to domain (without IOMMU)" and
+>      "Deassign PCI device from domain (without IOMMU)" to Arm64 only
+>    - clarify the DMA-capable device assignment w/o IOMMU,
+>      add more details
+>    - drop R-b
 > 
-> ... referring to this (which, btw, has one too many padding blanks on the
-> entire paragraph). I will take the liberty to make this adjustment while
-> committing.
+>   V4:
+>    - add the following reqs:
+>      - Assign interrupt-less platform device to domain
+>      - Deassign interrupt-less platform device from domain
+>      - Map platform device MMIO region identity
+>      - Map platform device MMIO region non-identity
+>    - add more details
+>    - repeat the relevant info in all assign reqs
+> ---
+> ---
+>  .../physical_resources/README.rst             |  16 +
+>  .../physical_resources/passthrough.rst        | 477 ++++++++++++++++++
+>  2 files changed, 493 insertions(+)
+>  create mode 100644 domain_creation_and_runtime/physical_resources/README.rst
+>  create mode 100644 domain_creation_and_runtime/physical_resources/passthrough.rst
+> 
+> diff --git a/domain_creation_and_runtime/physical_resources/README.rst b/domain_creation_and_runtime/physical_resources/README.rst
+> new file mode 100644
+> index 0000000..0eb4dd4
+> --- /dev/null
+> +++ b/domain_creation_and_runtime/physical_resources/README.rst
+> @@ -0,0 +1,16 @@
+> +Physical resources
+> +==================
+> +
+> +This section lists the requirements related to physical resources directly
+> +accessible from the domain as well as physical resources entirely controlled
+> +by Xen and invisible to a domain. The later group of resources, although being
+> +invisible to a domain, has an impact on it.
+> +
+> +Examples of domain physical resources:
+> +    | 1. PCI device
+> +    | 2. Platform device
+> +    | 3. MMU stage 1
+> +
+> +Examples of Xen physical resources:
+> +    | 1. IOMMU stage 2
+> +    | 2. MMU stage 2
+> diff --git a/domain_creation_and_runtime/physical_resources/passthrough.rst b/domain_creation_and_runtime/physical_resources/passthrough.rst
+> new file mode 100644
+> index 0000000..f619730
+> --- /dev/null
+> +++ b/domain_creation_and_runtime/physical_resources/passthrough.rst
+> @@ -0,0 +1,477 @@
+> +Device Passthrough
+> +==================
+> +
+> +The following are the requirements related to a physical device
+> +assignment [1], [2] to Arm64 and AMD64 PVH domains.
+> +
+> +Requirements for both Arm64 and AMD64 PVH
+> +=========================================
+> +
+> +Hide IOMMU from a domain
+> +------------------------
+> +
+> +`XenSSR~hide_iommu_from_domain~1`
+> +
+> +Description:
+> +Xen should not expose the IOMMU device to the domain even if I/O virtualization
+> +is disabled. The IOMMU should be under hypervisor control only.
+> +
+> +Rationale:
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Discover PCI devices from hardware domain
+> +-----------------------------------------
+> +
+> +`XenSSR~discover_pci_devices_from_hwdom~1`
+> +
+> +Description:
+> +The hardware domain shall be able to enumerate and discover PCI devices and
+> +inform Xen about their appearance and disappearance
+> +
+> +Rationale:
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Discover PCI devices from Xen
+> +-----------------------------
+> +
+> +`XenSSR~discover_pci_devices_from_xen~1`
+> +
+> +Description:
+> +Xen shall be able to discover PCI devices (enumerated by the firmware
+> +beforehand) during boot if the hardware domain is not meant to be used
+> +
+> +Rationale:
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Assign PCI device to domain (with IOMMU)
+> +----------------------------------------
+> +
+> +`XenSSR~assign_pci_device_with_iommu~1`
+> +
+> +Description:
+> +Xen shall be able to assign a specified PCI device (always implied as
+> +DMA-capable) to a domain during its creation using passthrough (partial)
+> +device tree. The physical device to be assigned is protected by the IOMMU.
+> +
+> +Rationale:
+> +
+> + - The passthrough device tree is specified using a device tree module node
+> +   with compatible ("multiboot,device-tree") in the host device tree
+> + - The PCI device to be passed through is specified using device tree property
+> +   ("xen,pci-assigned") in the "passthrough" node described in the passthrough
+> +   device tree
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Deassign PCI device from domain (with IOMMU)
+> +--------------------------------------------
+> +
+> +`XenSSR~deassign_pci_device_with_iommu~1`
+> +
+> +Description:
+> +Xen shall be able to deassign a specified PCI device from a domain during its
+> +destruction. The physical device to be deassigned is protected by the IOMMU.
+> +
+> +Rationale:
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Forbid the same PCI device assignment to multiple domains
+> +---------------------------------------------------------
+> +
+> +`XenSSR~forbid_same_pci_device_assignment~1`
+> +
+> +Description:
+> +Xen should not assign the same PCI device to multiple domains by failing
+> +to create a new domain if the device to be passed through is already assigned
+> +to the existing domain. Also different PCI devices which share any resources
+> +(interrupts, IOMMU connections) can be assigned only to the same domain.
+> +
+> +Rationale:
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Requirements for Arm64 only
+> +===========================
+> +
+> +Assign interrupt-less platform device to domain
+> +-----------------------------------------------
+> +
+> +`XenSSR~assign_interrupt_less_platform_device~1`
+> +
+> +Description:
+> +Xen shall be able to assign a specified platform device that has only a MMIO
+> +region (does not have any interrupts) to a domain during its creation using
+> +passthrough device tree.
+> +The example of interrupt-less device is PWM or clock controller.
+> +
+> +Rationale:
+> +
+> + - The passthrough device tree is specified using a device tree module node
+> +   with compatible ("multiboot,device-tree") in the host device tree
+> + - The passthrough device tree should entirely describe the platform device to
+> +   be passed through for the domain to be able to discover and use this device
+> + - The intention of the platform device usage for the passthrough is specified
+> +   using device tree property ("xen,passthrough") in the device node described
+> +   in the host device tree
+> + - The memory region of the platform device and corresponding guest address for
+> +   remapping are specified using device tree property ("xen,reg") in the device
+> +   node described in the passthrough device tree
+> + - The allowance of the platform device assignment which is not behind an IOMMU
+> +   (for both non-DMA-capable and DMA-capable devices) is specified using device
+> +   tree property ("xen,force-assign-without-iommu") in the device node
+> +   described in the passthrough device tree. The said property also allows
+> +   the interrupt-less platform device assignment (a device that has only a MMIO
+> +   region) without specifying the corresponding node in the host device via
+> +   device tree property ("xen,path").
+> +   For the DMA-capable devices this property is only allowed for the direct
+> +   mapped VMs with special care to be taken
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> +
+> + - XenValTestCase
+> +
+> +Deassign interrupt-less platform device from domain
+> +---------------------------------------------------
+> +
+> +`XenSSR~deassign_interrupt_less_platform_device~1`
+> +
+> +Description:
+> +Xen shall be able to deassign a specified platform device that has only a MMIO
+> +region (does not have any interrupts) from a domain during its destruction
+> +
+> +Rationale:
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Assign non-DMA-capable platform device to domain
+> +------------------------------------------------
+> +
+> +`XenSSR~assign_non_dma_platform_device~1`
+> +
+> +Description:
+> +Xen shall be able to assign a specified non-DMA-capable platform
+> +device to a domain during its creation using passthrough device tree.
+> +The example of non-DMA-capable device is Timer.
+> +
+> +Rationale:
+> +
+> + - The passthrough device tree is specified using a device tree module node
+> +   with compatible ("multiboot,device-tree") in the host device tree
+> + - The passthrough device tree should entirely describe the platform device to
+> +   be passed through for the domain to be able to discover and use this device
+> + - The intention of the platform device usage for the passthrough is specified
+> +   using device tree property ("xen,passthrough") in the device node described
+> +   in the host device tree
+> + - The memory region of the platform device and corresponding guest address for
+> +   remapping are specified using device tree property ("xen,reg") in the device
+> +   node described in the passthrough device tree
+> + - The path of the platform device node in the host device tree is specified
+> +   using device tree property ("xen,path") in the device node described
+> +   in the passthrough device tree. Both interrupt mappings and IOMMU settings
+> +   are based on it
+> + - The allowance of the platform device assignment which is not behind an IOMMU
+> +   (for both non-DMA-capable and DMA-capable devices) is specified using device
+> +   tree property ("xen,force-assign-without-iommu") in the device node
+> +   described in the passthrough device tree. The said property also allows
+> +   the interrupt-less platform device assignment (a device that has only a MMIO
+> +   region) without specifying the corresponding node in the host device via
+> +   device tree property ("xen,path").
+> +   For the DMA-capable devices this property is only allowed for the direct
+> +   mapped VMs with special care to be taken
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Deassign non-DMA-capable platform device from domain
+> +----------------------------------------------------
+> +
+> +`XenSSR~deassign_non_dma_platform_device~1`
+> +
+> +Description:
+> +Xen shall be able to deassign a specified non-DMA-capable platform
+> +device from a domain during its destruction
+> +
+> +Rationale:
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Assign DMA-capable platform device to domain (with IOMMU)
+> +---------------------------------------------------------
+> +
+> +`XenSSR~assign_dma_platform_device_with_iommu~1`
+> +
+> +Description:
+> +Xen shall be able to assign a specified DMA-capable platform device to a domain
+> +during its creation using passthrough device tree. The physical device to be
+> +assigned is protected by the IOMMU.
+> +
+> +Rationale:
+> +
+> + - The passthrough device tree is specified using a device tree module node
+> +   with compatible ("multiboot,device-tree") in the host device tree
+> + - The passthrough device tree should entirely describe the platform device to
+> +   be passed through for the domain to be able to discover and use this device
+> + - The intention of the platform device usage for the passthrough is specified
+> +   using device tree property ("xen,passthrough") in the device node described
+> +   in the host device tree
+> + - The memory region of the platform device and corresponding guest address for
+> +   remapping are specified using device tree property ("xen,reg") in the device
+> +   node described in the passthrough device tree
+> + - The path of the platform device node in the host device tree is specified
+> +   using device tree property ("xen,path") in the device node described
+> +   in the passthrough device tree. Both interrupt mappings and IOMMU settings
+> +   are based on it
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Deassign DMA-capable platform device from domain (with IOMMU)
+> +-------------------------------------------------------------
+> +
+> +`XenSSR~deassign_dma_platform_device_with_iommu~1`
+> +
+> +Description:
+> +Xen shall be able to deassign a specified DMA-capable platform device from
+> +a domain during its destruction. The physical device to be deassigned is
+> +protected by the IOMMU.
+> +
+> +Rationale:
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Assign DMA-capable platform device to domain (without IOMMU)
+> +------------------------------------------------------------
+> +
+> +`XenSSR~assign_dma_platform_device_without_iommu~1`
+> +
+> +Description:
+> +Xen shall be able to assign a specified DMA-capable platform device to a domain
+> +during its creation using passthrough device tree. The physical device to be
+> +assigned is not protected by the IOMMU.
+> +Here and everywhere it applies, the DMA-capable device assignment which is not
+> +behind an IOMMU is allowed for the direct mapped VMs only. The direct mapped VM
+> +must be either safe or additional security mechanisms for protecting against
+> +possible malicious or buggy DMA devices must be in place, e.g. Xilinx memory
+> +protection unit (XMPU) and Xilinx peripheral protection unit (XPPU).
+> +
+> +Rationale:
+> +
+> + - The IOMMU is absent from the system or it is disabled (status = "disabled"
+> +   in the host device tree)
+> + - The passthrough device tree is specified using a device tree module node
+> +   with compatible ("multiboot,device-tree") in the host device tree
+> + - The passthrough device tree should entirely describe the platform device to
+> +   be passed through for the domain to be able to discover and use this device
+> + - The intention of the platform device usage for the passthrough is specified
+> +   using device tree property ("xen,passthrough") in the device node described
+> +   in the host device tree
+> + - The memory region of the platform device and corresponding guest address for
+> +   remapping are specified using device tree property ("xen,reg") in the device
+> +   node described in the passthrough device tree
+> + - The path of the platform device node in the host device tree is specified
+> +   using device tree property ("xen,path") in the device node described
+> +   in the passthrough device tree. Both interrupt mappings and IOMMU settings
+> +   are based on it
+> + - The allowance of the platform device assignment which is not behind an IOMMU
+> +   (for both non-DMA-capable and DMA-capable devices) is specified using device
+> +   tree property ("xen,force-assign-without-iommu") in the device node
+> +   described in the passthrough device tree. The said property also allows
+> +   the interrupt-less platform device assignment (a device that has only a MMIO
+> +   region) without specifying the corresponding node in the host device via
+> +   device tree property ("xen,path").
+> +   For the DMA-capable devices this property is only allowed for the direct
+> +   mapped VMs with special care to be taken
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Deassign DMA-capable platform device from domain (without IOMMU)
+> +----------------------------------------------------------------
+> +
+> +`XenSSR~deassign_dma_platform_device_without_iommu~1`
+> +
+> +Description:
+> +Xen shall be able to deassign a specified DMA-capable platform device from
+> +a domain during its destruction. The physical device to be deassigned is not
+> +protected by the IOMMU.
+> +
+> +Rationale:
+> +The IOMMU is absent from the system or it is disabled (status = "disabled"
+> +in the host device tree)
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Map platform device MMIO region identity
+> +----------------------------------------
+> +
+> +`XenSSR~map_platform_device_mmio_region_ident~1`
+> +
+> +Description:
+> +Xen shall be able to map platform device memory region identity
+> +(guest address == physical address) when assigning a specified platform
+> +device to a domain. The device can be either non-DMA-capable or DMA-capable.
+> +
+> +Rationale:
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Map platform device MMIO region non-identity
+> +--------------------------------------------
+> +
+> +`XenSSR~map_platform_device_mmio_region_non_ident~1`
+> +
+> +Description:
+> +Xen shall be able to map platform device memory region non-identity
+> +(guest address != physical address) when assigning a specified platform
+> +device to a domain. The device can be either non-DMA-capable or DMA-capable.
+> +
+> +Rationale:
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Assign PCI device to domain (without IOMMU)
+> +-------------------------------------------
+> +
+> +`XenSSR~assign_pci_device_without_iommu~1`
+> +
+> +Description:
+> +Xen shall be able to assign a specified PCI device to a domain during its
+> +creation using passthrough device tree. The physical device to be assigned
+> +is not protected by the IOMMU.
 
-Thanks.  vim must have kept the indent from the list above, and I didn't 
-notice.
+Nit: The same limitation as the platform device applies here too: it is
+allowed for direct mapped VMs only. You do mention "... and everywhere
+it applies ..." above, so I guess that covers it here as well.
+Regardless, I think it would be clearer to mention it here too, so we
+don't have to imply from the context of another requirement.
 
-Regards,
-Jason
+> +
+> +Rationale:
+> +
+> + - The IOMMU is absent from the system or it is disabled (status = "disabled"
+> +   in the host device tree)
+> + - The passthrough device tree is specified using a device tree module node
+> +   with compatible ("multiboot,device-tree") in the host device tree
+> + - The PCI device to be passed through is specified using device tree property
+> +   ("xen,pci-assigned") in the "passthrough" node described in the passthrough
+> +   device tree
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Deassign PCI device from domain (without IOMMU)
+> +-----------------------------------------------
+> +
+> +`XenSSR~deassign_pci_device_without_iommu~1`
+> +
+> +Description:
+> +Xen shall be able to deassign a specified PCI device from a domain during its
+> +destruction. The physical device to be deassigned is not protected
+> +by the IOMMU.
+> +
+> +Rationale:
+> +The IOMMU is absent from the system or it is disabled (status = "disabled"
+> +in the host device tree)
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Forbid the same platform device assignment to multiple domains
+> +--------------------------------------------------------------
+> +
+> +`XenSSR~forbid_same_platform_device_assignment~1`
+> +
+> +Description:
+> +Xen should not assign the same platform device to multiple domains by failing
+> +to create a new domain if the device to be passed through is already assigned
+> +to the existing domain. Also, different platform devices which share any
+> +resources (interrupts, IOMMU connections) can be assigned only to the same
+> +domain.
+> +
+> +Rationale:
+> +
+> +Covers:
+> + - `XenPRQ~device_passthrough~1`
+> +
+> +Needs:
+> + - XenValTestCase
+> +
+> +Notes
+> +=====
+> +
+> +The AMD64 PVH-specific requirements are written under the assumption that once
+> +the hyperlaunch feature is completed, Xen shall be able to assign a PCI device
+> +to started at boot time domains.
+
+Nit: The grammar here looks odd. How about "... assign a PCI device to
+boot time domains." ?
+
+> This is not the case today, where the PCI
+> +device can be passed through only to domains launched by a control (toolstack)
+> +domain.
+> +
+> +The Arm64-specific requirements are written under the assumption that once
+> +the dom0less PCI Passthrough feature is completed, Xen shall be able to assign
+> +a PCI device to started at boot time domains.
+
+Similarly here.
+
+> This is not the case today,
+> +where only the platform device Passthrough is supported.
+> +
+> +| [1] https://xenbits.xenproject.org/gitweb/?p=xen.git;a=blob;f=docs/misc/arm/passthrough.txt;hb=HEAD
+> +| [2] https://xenbits.xenproject.org/gitweb/?p=xen.git;a=blob;f=docs/misc/arm/passthrough-noiommu.txt;hb=HEAD
+
 
