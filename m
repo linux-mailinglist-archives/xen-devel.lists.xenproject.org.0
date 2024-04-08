@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23E1C89B99F
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 10:02:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701802.1096310 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 568B589B9AD
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 10:06:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701809.1096320 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtjwm-0002z1-Ej; Mon, 08 Apr 2024 08:01:44 +0000
+	id 1rtk0o-0004Bt-Ux; Mon, 08 Apr 2024 08:05:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701802.1096310; Mon, 08 Apr 2024 08:01:44 +0000
+Received: by outflank-mailman (output) from mailman id 701809.1096320; Mon, 08 Apr 2024 08:05:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtjwm-0002wg-BZ; Mon, 08 Apr 2024 08:01:44 +0000
-Received: by outflank-mailman (input) for mailman id 701802;
- Mon, 08 Apr 2024 08:01:43 +0000
+	id 1rtk0o-00049f-S5; Mon, 08 Apr 2024 08:05:54 +0000
+Received: by outflank-mailman (input) for mailman id 701809;
+ Mon, 08 Apr 2024 08:05:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WYQ4=LN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rtjwl-0002wP-CT
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 08:01:43 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1rtk0o-00049Y-29
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 08:05:54 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3be4c212-f57e-11ee-a1ef-f123f15fe8a2;
- Mon, 08 Apr 2024 10:01:41 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3442f4e098bso781870f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 01:01:41 -0700 (PDT)
+ id d0f53771-f57e-11ee-a1ef-f123f15fe8a2;
+ Mon, 08 Apr 2024 10:05:51 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4166ccac761so4954375e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 01:05:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k2-20020a5d5242000000b00343c0c24a65sm8298695wrc.89.2024.04.08.01.01.40
+ g6-20020a05600c4ec600b004148d7b889asm16237185wmq.8.2024.04.08.01.05.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Apr 2024 01:01:40 -0700 (PDT)
+ Mon, 08 Apr 2024 01:05:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3be4c212-f57e-11ee-a1ef-f123f15fe8a2
+X-Inumbo-ID: d0f53771-f57e-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712563301; x=1713168101; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712563551; x=1713168351; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=We6JjYSom55Ji/b+JHOf1mU8FrR2Hyb2uPggGwRVkfQ=;
-        b=EyVGXwNpcKQzX5QaUZv4G+d/8eKjXgx54XGf94OuT+89yZY+LUCxNzeVd0wB2iJAAU
-         uMzm6GCCG8aOx9pZyfW+e4RvaRep3xcN8RCeZzI83K/YnRcVdyOjk11vY1rJ8TWY+cBy
-         J4WdC8pfTYA1p837FE7AWBSvihqoV5sH59sgZCOw1wSL1SY/7/gZ9hx/5+4tIze+T8bt
-         znZufawg8U/La3iSTZGJkGT6ROqm6A5FYEtuwY8jSL++QSCWM5mUophtxFv+ijUeHU7Y
-         qx1fWKC7gydvRsU/1fWsgsDud2gXAgSy/0YZzJoU2d0oUcce2KQ/jRcGBvTy6GqI7ayf
-         /cjQ==
+        bh=lW2ln+QvW0iEele4c5G7ovJo6MTwK+Ol4TB9pvJK4Io=;
+        b=crtvSuHwpIv4z5Nb1xPYJ8C8L8KLysonazYd6+kIzDJoASCn1eV01TogoY9/GmUZ5S
+         d+1cIa6bssHMa4jZOcHgdRAx3Go2C81kItWsVIMziufuE1JbT3966g7B98k9fD6quxaZ
+         U65AzFQlWhFzJ8rDoDDTasw9GqsVzb2ukS9V/dONvHmxOdB12ZRI0A7rK1Wb5dlyv70H
+         zMKCSTesL2EAPKxUJbWuMWwtYeSpQM33qHPnGramOWcjcK7//iPNeojszsU3RyuYpNWO
+         wAuD3Qa3s6N53AVzmyIap/8wn3ST4lPHqLSPIxpdF/g+QMfQmCjh5ZXk0FkoA/aq6wYE
+         UBAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712563301; x=1713168101;
+        d=1e100.net; s=20230601; t=1712563551; x=1713168351;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=We6JjYSom55Ji/b+JHOf1mU8FrR2Hyb2uPggGwRVkfQ=;
-        b=NFhzrHWFl2xuGTNjs0R1QSMFi0Nd297vhvzKTkT9bBbcn9Fhhk4O6+6Hpof03wWFpi
-         xS5mItI7s7KQynHboCPLRKzUhvHnCFvltGSSVc4mkz/opb90nAoUJQ6qN7jDLqNz+Nly
-         YBKEshF+FoO52V2/QFUVjvRENf/6znT6B+/Ugjos/lbNGs1kHheABZJGUdBrYd+lHsTt
-         tXFwTykt3Cs5g1DqpjUYyT3b2uYZi1FD6+25Fs0eCOrJvSh5gTFSankhwKK7EBuXK7Z+
-         e/hpuOGNXQ/y5DG5LTuvwqmb8rzMzMoh2QogG2A7KXVtlVImWV8bffnfhuPxa+BMxjiX
-         IpXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXitdkbvGalqzhAK0SEc2vEzVTHOvYddMV/EkfubyN8DXkMn/ZFn6t0osoosMa1TtfzlzGbj00ElM1QPw9uSSKUDCnvrA/Z/uW+ja25E/w=
-X-Gm-Message-State: AOJu0Yx1+jfefLYxTU9Fpz3c6CusJYrqpJfo3sZ4DfBmCPWAo9g3EmxQ
-	yPZeSsHsq+C0Y5ZHsTlcX4cyulzeaJpwVQicdg3bvAFssb5irYMgK662AvwgAg==
-X-Google-Smtp-Source: AGHT+IHyK8A2goI8jw4xRk2wTDXpsajsdHMlInRnzqtifD4TWJx+MphsDw1d8KI6PGN7A0vHxucFHw==
-X-Received: by 2002:adf:e24c:0:b0:343:bfef:9c39 with SMTP id bl12-20020adfe24c000000b00343bfef9c39mr7326492wrb.6.1712563301145;
-        Mon, 08 Apr 2024 01:01:41 -0700 (PDT)
-Message-ID: <e04914c5-8859-4e42-aa1a-003e2ff6d974@suse.com>
-Date: Mon, 8 Apr 2024 10:01:43 +0200
+        bh=lW2ln+QvW0iEele4c5G7ovJo6MTwK+Ol4TB9pvJK4Io=;
+        b=pCqwjysEhIIbPyoIG9eYGCxYEDPCJATeLEi05KvQl128/GAD039f5nW1Fs2iBB1yZO
+         IXZF/FB7VhCIMFUT4LwRIkP162YZfrMAjoQoqgaiTeT4ChX8S4KtWSu+3/tAMFCti2Us
+         9Q7YayqxUHPxHR4VyyttO1XJZVni87omd/Im+P44DxL4G5BQSJ5QVNvFcPdOhmx+1m2v
+         lmprB1CDXvREuy7rYHgUeQlp3x9nfbUMkgHhMOdhDfzx/bTFyuYOot/xNqg7YnPEj7QU
+         2IN6oURB12HFdmy4yB2QDxZsvc71061OUTSBmSOudb2oCh7AdWw6+JRrrF7UZidPVDMZ
+         5miw==
+X-Forwarded-Encrypted: i=1; AJvYcCUPOHsSlnfk5OdwR5trbBcAlIbT/aRSJZ9cfbnVjmb+HlK/cHDBKOhHp4DYcWZVyjQQn18EkABfPpJnvqDQgPjSJ84eZlvqPKkoM1DfE0c=
+X-Gm-Message-State: AOJu0YwHGkAD+SgAFPspijM87AruQh57T+8MCuhAvZHR53SfEaTFW/f3
+	ggKn0NadIuTHXImO5xDvuEuMBVUuPVnu6avE+2iE3swpYRjm2XUZ7bHVrkpI7g==
+X-Google-Smtp-Source: AGHT+IEAQAhdfpZ1rIZsIS3tVAEffIDQ2pookerf+1ZiyRfsVGoCsGtVNV9ZghJpizsqmi9+zIpwMw==
+X-Received: by 2002:a05:600c:1d29:b0:416:648f:8f4c with SMTP id l41-20020a05600c1d2900b00416648f8f4cmr2402025wms.25.1712563551028;
+        Mon, 08 Apr 2024 01:05:51 -0700 (PDT)
+Message-ID: <d330d827-d128-4278-9f90-41ee40c434a5@suse.com>
+Date: Mon, 8 Apr 2024 10:05:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 8/9] xen/domain: deviate MISRA C Rule 16.2
- violation
+Subject: Re: [PATCH v7 09/19] xen/riscv: introduce io.h
 Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1712305581.git.nicola.vetrini@bugseng.com>
- <2328b1a43f8bc4c9a9303c46f8eba2847c67a713.1712305581.git.nicola.vetrini@bugseng.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1712137031.git.oleksii.kurochko@gmail.com>
+ <347fe73b80601aec26e2dba5beefe7b3036943e3.1712137031.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,32 +114,133 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2328b1a43f8bc4c9a9303c46f8eba2847c67a713.1712305581.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <347fe73b80601aec26e2dba5beefe7b3036943e3.1712137031.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.04.2024 11:14, Nicola Vetrini wrote:
-> MISRA C Rule 16.2 states:
-> "A switch label shall only be used when the most closely-enclosing
-> compound statement is the body of a switch statement".
+On 03.04.2024 12:20, Oleksii Kurochko wrote:
+> The header taken form Linux 6.4.0-rc1 and is based on
+> arch/riscv/include/asm/mmio.h with the following changes:
+> - drop forcing of endianess for read*(), write*() functions as
+>   no matter what CPU endianness, what endianness a particular device
+>   (and hence its MMIO region(s)) is using is entirely independent.
+>   Hence conversion, where necessary, needs to occur at a layer up.
+>   Another one reason to drop endianess conversion here is:
+>   https://patchwork.kernel.org/project/linux-riscv/patch/20190411115623.5749-3-hch@lst.de/
+>   One of the answers of the author of the commit:
+>     And we don't know if Linux will be around if that ever changes.
+>     The point is:
+>      a) the current RISC-V spec is LE only
+>      b) the current linux port is LE only except for this little bit
+>     There is no point in leaving just this bitrotting code around.  It
+>     just confuses developers, (very very slightly) slows down compiles
+>     and will bitrot.  It also won't be any significant help to a future
+>     developer down the road doing a hypothetical BE RISC-V Linux port.
+> - drop unused argument of __io_ar() macros.
+> - drop "#define _raw_{read,write}{b,w,l,d,q} _raw_{read,write}{b,w,l,d,q}"
+>   as they are unnecessary.
+> - Adopt the Xen code style for this header, considering that significant changes
+>   are not anticipated in the future.
+>   In the event of any issues, adapting them to Xen style should be easily
+>   manageable.
+> - drop unnecessary  __r variables in macros read*_cpu()
+> - update inline assembler constraints for addr argument for
+>   __raw_read{b,w,l,q} and __raw_write{b,w,l,q} to tell a compiler that
+>  *addr will be accessed.
+> - add stubs for __raw_readq() and __raw_writeq() for RISCV_32
 > 
-> The PROGRESS_VCPU local helper specifies a case that is directly
-> inside the compound statement of a for loop, hence violating the rule.
-> To avoid this, the construct is deviated with a text-based deviation.
+> Addionally, to the header was added definions of ioremap_*().
 > 
-> No functional change.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
+despite ...
 
-> I chose a text-based deviation, rather than exempting PROGRESS_VCPU,
-> because it's more refined and it's unlikely that more violations
-> are introduced, since the rule has only very few violations left on
-> both ARM and x86.
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/io.h
+> @@ -0,0 +1,168 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + *  The header taken form Linux 6.4.0-rc1 and is based on
+> + *  arch/riscv/include/asm/mmio.h with the following changes:
+> + *   - drop forcing of endianess for read*(), write*() functions as
+> + *     no matter what CPU endianness, what endianness a particular device
+> + *     (and hence its MMIO region(s)) is using is entirely independent.
+> + *     Hence conversion, where necessary, needs to occur at a layer up.
+> + *     Another one reason to drop endianess conversion is:
+> + *     https://patchwork.kernel.org/project/linux-riscv/patch/20190411115623.5749-3-hch@lst.de/
+> + *     One of the answers of the author of the commit:
+> + *       And we don't know if Linux will be around if that ever changes.
+> + *       The point is:
+> + *        a) the current RISC-V spec is LE only
+> + *        b) the current linux port is LE only except for this little bit
+> + *       There is no point in leaving just this bitrotting code around.  It
+> + *       just confuses developers, (very very slightly) slows down compiles
+> + *      and will bitrot.  It also won't be any significant help to a future
+> + *       developer down the road doing a hypothetical BE RISC-V Linux port.
+> + *   - drop unused argument of __io_ar() macros.
+> + *   - drop "#define _raw_{read,write}{b,w,l,q} _raw_{read,write}{b,w,l,q}"
+> + *     as they are unnecessary.
+> + *   - Adopt the Xen code style for this header, considering that significant
+> + *     changes are not anticipated in the future.
+> + *     In the event of any issues, adapting them to Xen style should be easily
+> + *     manageable.
+> + *   - drop unnecessary __r variables in macros read*_cpu()
+> + *   - update inline assembler constraints for addr argument for
+> + *     __raw_read{b,w,l,q} and __raw_write{b,w,l,q} to tell a compiler that
+> + *     *addr will be accessed.
+> + *
+> + * Copyright (C) 1996-2000 Russell King
+> + * Copyright (C) 2012 ARM Ltd.
+> + * Copyright (C) 2014 Regents of the University of California
+> + * Copyright (C) 2024 Vates
+> + */
+> +
+> +#ifndef _ASM_RISCV_IO_H
+> +#define _ASM_RISCV_IO_H
+> +
+> +#include <asm/byteorder.h>
+> +
+> +/*
+> + * The RISC-V ISA doesn't yet specify how to query or modify PMAs, so we can't
+> + * change the properties of memory regions.  This should be fixed by the
+> + * upcoming platform spec.
+> + */
+> +#define ioremap_nocache(addr, size) ioremap(addr, size)
+> +#define ioremap_wc(addr, size) ioremap(addr, size)
+> +#define ioremap_wt(addr, size) ioremap(addr, size)
+> +
+> +/* Generic IO read/write.  These perform native-endian accesses. */
+> +static inline void __raw_writeb(uint8_t val, volatile void __iomem *addr)
+> +{
+> +    asm volatile ( "sb %1, %0"
+> +                   : "=m" (*(volatile uint8_t __force *)addr) : "r" (val) );
+> +}
+> +
+> +static inline void __raw_writew(uint16_t val, volatile void __iomem *addr)
+> +{
+> +    asm volatile ( "sh %1, %0"
+> +                   : "=m" (*(volatile uint16_t __force *)addr) : "r" (val) );
+> +}
+> +
+> +static inline void __raw_writel(uint32_t val, volatile void __iomem *addr)
+> +{
+> +    asm volatile ( "sw %1, %0"
+> +                   : "=m" (*(volatile uint32_t __force *)addr) : "r" (val) );
+> +}
+> +
+> +static inline void __raw_writeq(uint64_t val, volatile void __iomem *addr)
+> +{
+> +#ifdef CONFIG_RISCV_32
+> +    BUILD_BUG_ON("unimplemented");
+> +#else
+> +    asm volatile ( "sd %1, %0"
+> +                   : "=m" (*(volatile uint64_t __force *)addr) : "r" (val) );
+> +#endif
+> +}
 
-This same kind of construct is likely to appear in arch-specific domain
-cleanup code, sooner or later. The same SAF comment can then be used there.
+... this and its read counterpart likely being in need of re-doing by anyone
+wanting to enable RV32 support.
 
 Jan
 
