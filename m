@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BA1089BB6D
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 11:17:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701855.1096400 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08C1F89BB88
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 11:23:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701858.1096410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtl7W-0006H7-JH; Mon, 08 Apr 2024 09:16:54 +0000
+	id 1rtlCy-0007hy-5V; Mon, 08 Apr 2024 09:22:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701855.1096400; Mon, 08 Apr 2024 09:16:54 +0000
+Received: by outflank-mailman (output) from mailman id 701858.1096410; Mon, 08 Apr 2024 09:22:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtl7W-0006E8-Fz; Mon, 08 Apr 2024 09:16:54 +0000
-Received: by outflank-mailman (input) for mailman id 701855;
- Mon, 08 Apr 2024 09:16:53 +0000
+	id 1rtlCy-0007fy-2g; Mon, 08 Apr 2024 09:22:32 +0000
+Received: by outflank-mailman (input) for mailman id 701858;
+ Mon, 08 Apr 2024 09:22:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WYQ4=LN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rtl7V-0006E2-Jh
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 09:16:53 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
+ id 1rtlCx-0007fs-5V
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 09:22:31 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bbcc7b1b-f588-11ee-afe6-a90da7624cb6;
- Mon, 08 Apr 2024 11:16:51 +0200 (CEST)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2d886dd4f18so11309431fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 02:16:51 -0700 (PDT)
+ id 858ebff3-f589-11ee-afe6-a90da7624cb6;
+ Mon, 08 Apr 2024 11:22:29 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-41691fb4c8fso111295e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 02:22:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m6-20020a05600c4f4600b004166cdae639sm3314707wmq.35.2024.04.08.02.16.50
+ fc9-20020a05600c524900b004162d0676cdsm12587551wmb.29.2024.04.08.02.22.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Apr 2024 02:16:50 -0700 (PDT)
+ Mon, 08 Apr 2024 02:22:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbcc7b1b-f588-11ee-afe6-a90da7624cb6
+X-Inumbo-ID: 858ebff3-f589-11ee-afe6-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712567811; x=1713172611; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712568149; x=1713172949; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=PCalnsKRo39dwx6w4CpccC7VPUprd+/RzeNYu5Vx/oU=;
-        b=FVoOqZRx84oChEalvFPgcRj2Y6fuF1+sp2bWsfGfYCwXK3w/PXmPX6qMyPwKfcXeX9
-         cJ0UGSLsEMjAfT4rtEtjh8DUgE0ZTXipEV1yglOcvnoQUNaTlLv+S8o99VjyMfKApTsn
-         OP399B9reS6gw8cpzELIm4gQku4ZuRygVcA0Y8xU7YDwDPCBKWH+5AshTI0NLUuokutV
-         lnTaK9QIzWg76IdVhoFxm7JiWQ5MZhPWNx4VBChMcUjs1pt4Ly3oRKx86hw5sREJ9jWx
-         mT/y4Gvx20DWiR7GgcIH7X+5pf7dHQkSG8Q3KLKOBPAM4vID48ms0TBHPyyMPa6Ud4lF
-         5DIQ==
+        bh=cl2hU7SsqDZLKTpXtUK4NE0AfiL7NMbQ/rvUxbPY8nM=;
+        b=T/kjZaGEeeU+D3VWgx32tjs8Avea5RlmfqHQHSCu7xk8BkI9+5l9tk9uZ4XDOCODqZ
+         Q6VAgJBs0GjNpl0xPRMLd5RYxCTDz8vPjr+0XdzmkvN6ZLNVFxbWfY41NGNR0bsJXGjU
+         NSTIpV+jcHlAWnhOtGyYJZ/yXUlfBIPTyCrLR2pom2SwFcujVzPrse7gnTLm86/yzsjU
+         oj3oewCbJZIn/qMMBi3bD7NbIJLbjVlHJexBgRPLAnly1vo2L/KJLAkbobtNTKOZAox7
+         51WktoFYfyH8dJRzZ7NOyxwDZCiI/uV5JpDfPNP/QNMJsr4qiY2JtgECwCsl9omh5we8
+         PVOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712567811; x=1713172611;
+        d=1e100.net; s=20230601; t=1712568149; x=1713172949;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PCalnsKRo39dwx6w4CpccC7VPUprd+/RzeNYu5Vx/oU=;
-        b=SQ0sGPWZ4/P3hUQuoXXTmfng+ybhWzPbQ04pDa4gat83kpY9euVpi6llW+gAdTYIwS
-         +EzLSoVdSPivY+nhaX8Zx5wkthIYX1cokg19pPuPWuJ8t8OpXR3CGghAFAX+kivTuixm
-         8Rxuk1qETaHpsjZVK6QkU/+6zV8LlTmHox8fmDjK6Ygm3j6jje7Swvz1V/B5vrSIj/s0
-         HEjQ5tT3HnYI/GwIR3FljwVURlSqm3oAMpJR38NsCxtuQ1BJ4UxM4Dyfk2DM9JmLXus3
-         XX+6/MUrVrgPT7YlMSc+bMECjVjC8Aed4csUJD2DNX4Rmi6cKoprR1dLgNZzzxjNYkxi
-         Wgdw==
-X-Forwarded-Encrypted: i=1; AJvYcCUe9cp0FQJIlqhcZonalgRP5BLHB1AtTUsWywz2RtOvIqtHwYbOjXL/bEfRwvyT6eg4Z7eNUiKp3pOHSvIArv8qtSDV/SKp1yQ2ljTkzSA=
-X-Gm-Message-State: AOJu0YxNQ4m8IGu2Dxnb4ZD67nFMMGqrnO9MXyb8CJOmuTV7ys0Avxl+
-	L5T7/HnJqOLavvLijw1974WwOHPM10PczdBewb40XYnryCue1TX8ZJyXaRXrrQ==
-X-Google-Smtp-Source: AGHT+IGU5jrsxkIZzwLxEdy0fRMKeg5P5SdQWtHJDNZldH6mMBtODN5TZpf1NPv2x3H6IxQttGFHcw==
-X-Received: by 2002:a05:651c:1545:b0:2d2:3fac:5fc7 with SMTP id y5-20020a05651c154500b002d23fac5fc7mr6073966ljp.45.1712567810745;
-        Mon, 08 Apr 2024 02:16:50 -0700 (PDT)
-Message-ID: <f789bf74-8296-4127-9612-a46d02a422ee@suse.com>
-Date: Mon, 8 Apr 2024 11:16:52 +0200
+        bh=cl2hU7SsqDZLKTpXtUK4NE0AfiL7NMbQ/rvUxbPY8nM=;
+        b=L0xK/JRUEibZmwqPbmrKepwlAteJzQDAGv4Bs+WtTZlrlFqMqC5POIrqr+wgOV0S7u
+         bsCr5KdVPiii1yyALFb0i/TlVzO162Ykt/IW/wW0vB3E8D2rm+9Ud6CeJ1c31h2hFPEi
+         zRjhM4mIwNii1BzwwNfCN6Zjrb+8P1vJb7lfp7hvtbmLW6B4VKHqx4EgaOt0O3rgibJ8
+         chcrhmyxhWx7MTSWCewpQF0Eh3fjPCEM0xlQvG2beyOtEx32uLdmkx9b5dcorCXoglZo
+         h6arRsZNz9SLHBonrnGTogOgp5CiVZSrMCok1AbNsPvv9bTZ4yw9mPPg5HsnTo8grafu
+         rVlg==
+X-Forwarded-Encrypted: i=1; AJvYcCWuufIpAgCVPKSOReAi8DnNDTVm5mifUkGJnNHisqhXv82FB+odA/mWw7RPFN6JGsqPkNQzOkyN8ycEivvVvlZFg6QKx78+/HGTglXgRLk=
+X-Gm-Message-State: AOJu0YzEqm2a6y3J7SDCbO9/HQepNTa+fYXvg26AVKKXoRBImnqNjKda
+	5Hq0re+aMn7h5z/m3gF3t6k+kKLTnj5Jk+2MdhebRxnHrq+BMRQGwHoOhFexLA==
+X-Google-Smtp-Source: AGHT+IG/ztrnuvjFzIIf4zcWtlseHUp0yJjR5RjoIKEnJDdHol/9yeJ9jQ6EMDEsVQsgew7WmKs9AQ==
+X-Received: by 2002:a05:600c:4f07:b0:416:6d1d:100 with SMTP id l7-20020a05600c4f0700b004166d1d0100mr1464904wmq.33.1712568149032;
+        Mon, 08 Apr 2024 02:22:29 -0700 (PDT)
+Message-ID: <1ac2619b-443c-4786-ae64-b677b7fa2a9f@suse.com>
+Date: Mon, 8 Apr 2024 11:22:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] x86: Refactor microcode_update() hypercall with flags
- field
+Subject: Re: [PATCH 3/5] x86: Add usage() to print out usage message
 Content-Language: en-US
 To: Fouad Hilly <fouad.hilly@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240405121128.260493-1-fouad.hilly@cloud.com>
- <20240405121128.260493-3-fouad.hilly@cloud.com>
+ <20240405121128.260493-4-fouad.hilly@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,68 +111,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240405121128.260493-3-fouad.hilly@cloud.com>
+In-Reply-To: <20240405121128.260493-4-fouad.hilly@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 05.04.2024 14:11, Fouad Hilly wrote:
-> @@ -708,11 +712,13 @@ static long cf_check microcode_update_helper(void *data)
->      return ret;
->  }
+> Refactor xen-ucode tool by adding usage() to handle usage\help messages
+
+Would be nice if you could also say why you want this.
+
+> --- a/tools/misc/xen-ucode.c
+> +++ b/tools/misc/xen-ucode.c
+> @@ -17,6 +17,14 @@ static xc_interface *xch;
+>  static const char intel_id[] = "GenuineIntel";
+>  static const char   amd_id[] = "AuthenticAMD";
 >  
-> -int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len)
-> +int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len, unsigned int flags)
->  {
->      int ret;
->      struct ucode_buf *buffer;
+> +static void usage(const char *name)
+> +{
+> +    printf("%s: Xen microcode updating tool\n"
+> +            "Usage: %s [<microcode file> | show-cpu-info]\n"
+> +            "\n"
+> +            , name, name);
+> +}
+
+Besides formatting issues you also add an extra \n to the format string,
+you convert the previously hard-coded xen-ucode: (which may be okay, but
+wants clarifying on why it is done), ...
+
+> @@ -88,9 +96,7 @@ int main(int argc, char *argv[])
 >  
-> +    ucode_force_flag = (flags == XENPF_UCODE_FLAG_FORCE_SET)? 1: 0;
+>      if ( argc < 2 )
+>      {
+> -        fprintf(stderr,
+> -                "xen-ucode: Xen microcode updating tool\n"
+> -                "Usage: %s [<microcode file> | show-cpu-info]\n", argv[0]);
+> +        usage(argv[0]);
+>          show_curr_cpu(stderr);
+>          exit(2);
+>      }
 
-No need for ?: when the lhs has type bool.
-
-But - do we really need to resort to parameter passing via static variables
-here? If it's unavoidable, its setting needs to move inside a locked region
-(with that region covering everything up to all consumption of the value).
-
-Further, to avoid the same issue again when another flag wants adding, you
-want to check that all other bits in the flags field are clear.
-
-> --- a/xen/arch/x86/include/asm/microcode.h
-> +++ b/xen/arch/x86/include/asm/microcode.h
-> @@ -22,7 +22,7 @@ struct cpu_signature {
->  DECLARE_PER_CPU(struct cpu_signature, cpu_sig);
->  
->  void microcode_set_module(unsigned int idx);
-> -int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len);
-> +int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len, unsigned int flags);
-
-Nit: Too long line.
-
-> --- a/xen/include/public/platform.h
-> +++ b/xen/include/public/platform.h
-> @@ -99,6 +99,10 @@ struct xenpf_microcode_update {
->      /* IN variables. */
->      XEN_GUEST_HANDLE(const_void) data;/* Pointer to microcode data */
->      uint32_t length;                  /* Length of microcode data. */
-> +    uint32_t flags;                   /* Flags to be passed with ucode. */
-> +/* Force to skip microcode version check when set */
-> +#define XENPF_UCODE_FLAG_FORCE_NOT_SET 0
-> +#define XENPF_UCODE_FLAG_FORCE_SET     1
->  };
-
-The safety of this growing of an existing stable ABI struct wants at least
-briefly mentioning in the description.
-
-> @@ -624,6 +628,10 @@ struct xenpf_ucode_revision {
->  typedef struct xenpf_ucode_revision xenpf_ucode_revision_t;
->  DEFINE_XEN_GUEST_HANDLE(xenpf_ucode_revision_t);
->  
-> +/* Hypercall to microcode_update with flags */
-> +#define XENPF_microcode_update2    66
-> +
-> +
-
-No double blank lines please.
+... and you no longer print to stderr. This being an error path, the
+message ought to continue to go there; only a possible -h / --help option
+would want it to go to stdout.
 
 Jan
 
