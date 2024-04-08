@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD54989BEF3
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 14:27:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701717.1096559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B1A389B793
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 08:21:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701723.1096089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rto69-0002Mz-68; Mon, 08 Apr 2024 12:27:41 +0000
+	id 1rtiMD-0001fv-A8; Mon, 08 Apr 2024 06:19:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701717.1096559; Mon, 08 Apr 2024 12:27:41 +0000
+Received: by outflank-mailman (output) from mailman id 701723.1096089; Mon, 08 Apr 2024 06:19:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rto69-0002L3-2P; Mon, 08 Apr 2024 12:27:41 +0000
-Received: by outflank-mailman (input) for mailman id 701717;
- Mon, 08 Apr 2024 04:12:20 +0000
+	id 1rtiMD-0001dk-7W; Mon, 08 Apr 2024 06:19:53 +0000
+Received: by outflank-mailman (input) for mailman id 701723;
+ Mon, 08 Apr 2024 06:19:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KUbC=LN=gmail.com=mhkelley58@srs-se1.protection.inumbo.net>)
- id 1rtgMm-0002ih-LB
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 04:12:20 +0000
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [2607:f8b0:4864:20::633])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WYQ4=LN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rtiMC-0001dd-0A
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 06:19:52 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 30697297-f55e-11ee-afe6-a90da7624cb6;
- Mon, 08 Apr 2024 06:12:19 +0200 (CEST)
-Received: by mail-pl1-x633.google.com with SMTP id
- d9443c01a7336-1e2232e30f4so35334955ad.2
- for <xen-devel@lists.xenproject.org>; Sun, 07 Apr 2024 21:12:19 -0700 (PDT)
-Received: from localhost.localdomain (c-73-254-87-52.hsd1.wa.comcast.net.
- [73.254.87.52]) by smtp.gmail.com with ESMTPSA id
- u17-20020a17090341d100b001e3f0cde2desm2474666ple.253.2024.04.07.21.12.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Apr 2024 21:12:17 -0700 (PDT)
+ id 0100e387-f570-11ee-afe6-a90da7624cb6;
+ Mon, 08 Apr 2024 08:19:49 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-416507ea0adso3825485e9.1
+ for <xen-devel@lists.xenproject.org>; Sun, 07 Apr 2024 23:19:49 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ o32-20020a05600c512000b004163321790esm9375243wms.19.2024.04.07.23.19.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 07 Apr 2024 23:19:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,193 +45,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30697297-f55e-11ee-afe6-a90da7624cb6
+X-Inumbo-ID: 0100e387-f570-11ee-afe6-a90da7624cb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712549538; x=1713154338; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:reply-to:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=SjsV4HsSTItvj/ELiLD1hTF0cgJwLOFyNGElV0Kd8Z8=;
-        b=ckQrcuqsApytau1YCZybRsoxIH3lVOdy1smvNdmo5TzV+ocVc3qLVP81dLE5aAnmwk
-         kA3GTmo88lvoVzXU8CShKuAmZ+wvzO/4/4Ot9Q+MmfYJXWHozKpS2/3n5gaSFUrdVzts
-         Ynmvse8cGPIP3dQynggA8GzNskAroQp6mSksOov+FTblvSkd/fnED6YdwtLLxRpA3vJE
-         RZL9CTnlBSOcVeFCCZxnPiLfkTdQpTRjN6eN/YGE9H2xcw+uECj7S+//wPHODf0uIB/Z
-         BNrxmpjHouAowFIozr8ox1X41D49KvpolTgtxPEDS7NiNsuZt9HMpMJ4KL/numzD/1AT
-         lvhA==
+        d=suse.com; s=google; t=1712557189; x=1713161989; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=EZwtVUJGuETZGIvDrXiFHI3wIMKojgYvy+/b+6DJj/I=;
+        b=TD78ojoqrejrzfmxxipo9noMsLkZSYsLz02kPkg5mIz4NvArcU0gvmSAb4hzLqGsWB
+         Iy/cuuHcABm9NB1829pax9FjqjWn9/SQAjuXIV/EmnePT6nrGDT7pY9j3cBLfha23yGO
+         E5xtVEVZMEkU0iEOW9j/9S8J2w3DA+j5vKkp0rB8KmGnRwJDsCnS7ZAGU3sX281R35dZ
+         FYVVtVWsl8ldsshQHtXvgQn9nsnp8WhvP0SxWoW3DB2zDIs4qeRpRLaA3RbuhWF4gZI8
+         /gYnyNku8k+zPFrejOvPYOhpzvmZmm8yYLR1IXedSvnI4jOmKPdZmvAPaB9p0j0NHF9F
+         Y7LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712549538; x=1713154338;
-        h=content-transfer-encoding:mime-version:reply-to:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=SjsV4HsSTItvj/ELiLD1hTF0cgJwLOFyNGElV0Kd8Z8=;
-        b=A6rIA8MjStN/lYLWKSClGsbCj7r85bBIE+cTlTZvm0HbnBlWwFmQgobA8zgaY+5qOf
-         d15N5f0GyrZWOJOo810lXxBLlOiveG3AvewkjRgL/5pLIDIVTJH200y4jpq/SiWDbOVs
-         OJ+e2agrMhIow1yAzqtivMM2226jnGZ3VopiBk6GxQBExEVQvcRO9nMtcjQun2oZSOx/
-         ynaaicXl1GbDvFQgjvnedu3RYsKdiki9mKs6LPHsP3RSzjbZHXFRj5jFkypf20+f46iK
-         /NLohR7pOukcC6bZ3oQ8VdIZi+YszCydOBnP3iLYw1NhSYZWgd/H42II5pXlTWlvmweY
-         SULA==
-X-Forwarded-Encrypted: i=1; AJvYcCUIUc6J5YrQEivhb/7dTgrwWy/liYsfOJs7kazxiJ3yMrUNeMUFIpBc4J45ZPhhm7Z8Y0e3eEbkLDaT4YT0rJJjasp89t604TEBPXIEJEU=
-X-Gm-Message-State: AOJu0Yxjy9rZmH8VtRGhsnCJ4+ATPLyXS1yYeUYWdaJ76Ogtn8PP429G
-	6KnwDobI8B8zLPQohWiuGdVM6Q/45J+9PbYKQQYag8Ba/Ry6XOnNp/9x5FhW
-X-Google-Smtp-Source: AGHT+IEj4y4ne2ojXfNRa+AYfBs5hBPbD1UVM1VUfINpDFwALspJKDqHWO1VwvTTYi56XGeWrvjrIg==
-X-Received: by 2002:a17:903:246:b0:1e2:6b80:95b0 with SMTP id j6-20020a170903024600b001e26b8095b0mr7483729plh.6.1712549537683;
-        Sun, 07 Apr 2024 21:12:17 -0700 (PDT)
-From: mhkelley58@gmail.com
-X-Google-Original-From: mhklinux@outlook.com
-To: robin.murphy@arm.com,
-	joro@8bytes.org,
-	will@kernel.org,
-	jgross@suse.com,
-	sstabellini@kernel.org,
-	oleksandr_tyshchenko@epam.com,
-	hch@lst.de,
-	m.szyprowski@samsung.com,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Cc: petr@tesarici.cz,
-	roberto.sassu@huaweicloud.com
-Subject: [PATCH 2/2] iommu/dma: Fix zero'ing of bounce buffer padding used by untrusted devices
-Date: Sun,  7 Apr 2024 21:11:42 -0700
-Message-Id: <20240408041142.665563-2-mhklinux@outlook.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240408041142.665563-1-mhklinux@outlook.com>
-References: <20240408041142.665563-1-mhklinux@outlook.com>
-Reply-To: mhklinux@outlook.com
+        d=1e100.net; s=20230601; t=1712557189; x=1713161989;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EZwtVUJGuETZGIvDrXiFHI3wIMKojgYvy+/b+6DJj/I=;
+        b=kK60QUta7ymJqmPi83FOn5vHVQsLMwzVLtPzFY5juRLZSWWxU2mUOkJx5438/udHJr
+         O68Yc1ZEsorqCg0dcvoGnWde83Wh9gnt8YNoerdm4Cmmwjqyd/yVFdGsWvxLRl6Rk+9D
+         R51O/ifIuBPqi6rEjqezSBEy3ii+vJvD4Creukic5+L46HpPKVQ+EXmbogYodRJHCTDI
+         6ccCVbasqOkoWrmnr7fuvThc8/SJOhde37iKYCavUBPnAIDRoHGrdkpFHab9prujGULP
+         bLcfOMnCWuRMBzDGe/+hGWnO0sFVkFNZmLspfslCs6cwKBSy4sAKPS5CJKOHKlvz+AHC
+         EWlw==
+X-Forwarded-Encrypted: i=1; AJvYcCWdkqS/MSSRaz+TG1macE+H/w7L6byKHZlSwJBEmGYTXkm+kgryCqz39InJBTE7f+G9JyAJbaIXrPhWmoe+dvg1i901bKn8UvUPz/aYCwQ=
+X-Gm-Message-State: AOJu0YzJSsxMoMNQ0/D/ClPwd6/QF0zB0n3PylAqvUOrToIoY2+Ogy8o
+	KwGNwJ01Kc8Wp/9d8ELhF7tRtkJBG1VnrFeqaUj0RSc1Gt+cMbAvV3eNXKA8yg==
+X-Google-Smtp-Source: AGHT+IEzdzeXMrBnoJJrbJzPIKi5pFClu7srH50iVvwdU2Iu1vhOjcIVzoc98hTP/XZ2GU6glBz74g==
+X-Received: by 2002:a05:600c:154b:b0:416:2b81:259a with SMTP id f11-20020a05600c154b00b004162b81259amr6076261wmg.17.1712557189205;
+        Sun, 07 Apr 2024 23:19:49 -0700 (PDT)
+Message-ID: <531cc2c1-a2ac-4700-9f50-8c2e5c8680c7@suse.com>
+Date: Mon, 8 Apr 2024 08:19:51 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] xen/domctl, tools: Introduce a new domctl to get
+ guest memory map
+To: Henry Wang <xin.wang2@amd.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Alec Kwapis <alec.kwapis@medtronic.com>, xen-devel@lists.xenproject.org
+References: <20240403081626.375313-1-xin.wang2@amd.com>
+ <20240403081626.375313-2-xin.wang2@amd.com>
+ <3ba13bce-d301-49bb-9028-6d48a05fd077@suse.com>
+ <d2685464-65ae-4b88-b458-8873599027ff@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <d2685464-65ae-4b88-b458-8873599027ff@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Michael Kelley <mhklinux@outlook.com>
+On 08.04.2024 05:08, Henry Wang wrote:
+> On 4/4/2024 5:28 PM, Jan Beulich wrote:
+>> On 03.04.2024 10:16, Henry Wang wrote:
+>>> --- a/xen/arch/arm/domain.c
+>>> +++ b/xen/arch/arm/domain.c
+>>> @@ -696,6 +696,7 @@ int arch_domain_create(struct domain *d,
+>>>   {
+>>>       unsigned int count = 0;
+>>>       int rc;
+>>> +    struct mem_map_domain *mem_map = &d->arch.mem_map;
+>>>   
+>>>       BUILD_BUG_ON(GUEST_MAX_VCPUS < MAX_VIRT_CPUS);
+>>>   
+>>> @@ -785,6 +786,20 @@ int arch_domain_create(struct domain *d,
+>>>       d->arch.sve_vl = config->arch.sve_vl;
+>>>   #endif
+>>>   
+>>> +    if ( mem_map->nr_mem_regions < XEN_MAX_MEM_REGIONS )
+>>> +    {
+>>> +        mem_map->regions[mem_map->nr_mem_regions].start = GUEST_MAGIC_BASE;
+>>> +        mem_map->regions[mem_map->nr_mem_regions].size = GUEST_MAGIC_SIZE;
+>>> +        mem_map->regions[mem_map->nr_mem_regions].type = GUEST_MEM_REGION_MAGIC;
+>>> +        mem_map->nr_mem_regions++;
+>>> +    }
+>>> +    else
+>>> +    {
+>>> +        printk("Exceed max number of supported memory map regions\n");
+>> Debugging leftover?
+> 
+> Well, not really, I did this on purpose to print some info before exit. 
+> But now I realize other error paths in arch_domain_create() do not do 
+> that. I will drop this printk in v4.
+> 
+>>> @@ -176,6 +175,37 @@ long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
+>>>   
+>>>           return rc;
+>>>       }
+>>> +    case XEN_DOMCTL_get_mem_map:
+>> ... separating blank line above this line and ...
+>>
+>>> +    {
+>>> +        int rc = 0;
+>>> +        uint32_t nr_regions, i;
+>>> +
+>>> +        if ( domctl->u.mem_map.pad )
+>>> +            return -EINVAL;
+>>> +
+>>> +        /*
+>>> +         * Cap the number of regions to the minimum value between toolstack and
+>>> +         * hypervisor to avoid overflowing the buffer.
+>>> +         */
+>>> +        nr_regions = min(d->arch.mem_map.nr_mem_regions,
+>>> +                         domctl->u.mem_map.nr_mem_regions);
+>>> +
+>>> +        domctl->u.mem_map.nr_mem_regions = nr_regions;
+>>> +
+>>> +        for ( i = 0; i < nr_regions; i++ )
+>>> +        {
+>>> +            if ( d->arch.mem_map.regions[i].pad )
+>>> +                return -EINVAL;
+>>> +        }
+>>> +
+>>> +        if ( copy_to_guest(domctl->u.mem_map.buffer,
+>>> +                           d->arch.mem_map.regions,
+>>> +                           nr_regions) ||
+>>> +             __copy_to_guest(u_domctl, domctl, 1) )
+>>> +            rc = -EFAULT;
+>>> +
+>>> +        return rc;
+>>> +    }
+>>>       default:
+>> ... this one.
+> 
+> ...personally I don't have strong opinions on the style as long as we 
+> keep consistent. I can switch the Arm one following the x86 style or 
+> just leave it as is.
+> 
+>> Further with the way you use min() above, how is the caller going to know
+>> whether it simply specified too small an array?
+> 
+> I am a bit unsure if we need to forbid caller to specify a smaller value 
+> than the max number of regions supported by the hypervisor, technically 
+> it is legal, although I agree it will lead to some issues in the 
+> toolstack side. It looks like the similar hypercall of e820 also does 
+> not forbid this (see get_mem_mapping_layout() and related 
+> XENMEM_memory_map). Do you have any suggestions?
 
-iommu_dma_map_page() allocates swiotlb memory as a bounce buffer when
-an untrusted device wants to map only part of the memory in an
-granule. The goal is to disallow the untrusted device having
-DMA access to unrelated kernel data that may be sharing the granule.
-To meet this goal, the bounce buffer itself is zero'ed, and any
-additional swiotlb memory up to alloc_size after the bounce buffer
-end (i.e., "post-padding") is also zero'ed.
+Fill only as much of the array as there is space for, but return the full
+count to the caller. Another option (less desirable imo) would be to return
+-ENOBUFS. If to be written anew now, I'd likely code XENMEM_memory_map
+handling that way, too. But that's too late now.
 
-However, as of commit 901c7280ca0d ("Reinstate some of "swiotlb: rework
-"fix info leak with DMA_FROM_DEVICE"""), swiotlb_tbl_map_single()
-always initializes the contents of the bounce buffer to the original
-memory. Zero'ing the bounce buffer is redundant and probably wrong per
-the discussion in that commit. Only the post-padding needs to be
-zero'ed.
+>> And then you check d->arch.mem_map.regions[i].pad. Why's that? And even
+>> if needed here for some reason, that's surely not EINVAL, but an internal
+>> error in Xen.
+> 
+> I did that under the impression that we need to check the value of 
+> padding field being 0. Also you mentioned in one of the comments below 
+> that Xen should guarantee that the padding field should be 0 before 
+> return. Apologize if I misunderstand your comment. The -EINVAL is taken 
+> from the same way of checking the padding field in XEN_DOMCTL_vuart_op 
+> above. Personally I would keep some consistency, but I am open to 
+> suggestions to make it better.
 
-Also, when the DMA min_align_mask is non-zero, the allocated bounce
-buffer space may not start on a granule boundary. The swiotlb memory
-from the granule boundary to the start of the allocated bounce buffer
-might belong to some unrelated bounce buffer. So as described in the
-"second issue" in [1], it can't be zero'ed to protect against untrusted
-devices. But as of commit XXXXXXXXXXXX ("swiotlb: extend buffer
-pre-padding to alloc_align_mask if necessary"), swiotlb_tbl_map_single()
-allocates pre-padding slots when necessary to meet min_align_mask
-requirements, making it possible to zero the pre-padding area as well.
+In XEN_DOMCTL_vuart_op it is caller input which is being checked (and
+needs checking). You're checking internal Xen state here instead.
+Considering the nature of the issue arising if the assumption was broken,
+ASSERT() would seem to be the construct to use for the internal state
+check.
 
-Finally, iommu_dma_map_page() uses the swiotlb for untrusted devices
-and also for certain kmalloc() memory. Current code does the zero'ing
-for both cases, but it is needed only for the untrusted device case.
+>> Finally instead of __copy_to_guest() can't you use __copy_field_to_guest(),
+>> for just nr_regions?
+> 
+> You mean replacing __copy_to_guest(u_domctl, domctl, 1) with only the 
+> __copy_field_to_guest(u_domctl, domctl, u.mem_map.nr_mem_regions)? Ok I 
+> can do that in v4.
 
-Fix all of this by updating iommu_dma_map_page() to zero both the
-pre-padding and post-padding areas, but not the actual bounce buffer.
-Do this only in the case where the bounce buffer is used because
-of an untrusted device.
+Yes (unless there are technical reasons not to, of course).
 
-[1] https://lore.kernel.org/all/20210929023300.335969-1-stevensd@google.com/
-
-Signed-off-by: Michael Kelley <mhklinux@outlook.com>
----
-I've wondered if this code for zero'ing the pre- and post-padding
-should go in swiotlb_tbl_map_single(). The bounce buffer proper is
-already being initialized there. But swiotlb_tbl_map_single()
-would need to test for an untrusted device (or have a "zero the
-padding" flag passed in as part of the "attrs" argument), which
-adds complexity. Thoughts?
-
-The commit ID of Petr's patch is X'ed out above because Petr's patch
-hasn't gone into Linus' tree yet. We can add the real commit ID once
-this patch is ready to go in.
-
-Also I've haven't used any "Fixes:" tags. This patch really should
-be backported only if all the other recent swiotlb fixes get
-backported, and I'm unclear on whether that will happen.
-
- drivers/iommu/dma-iommu.c | 29 ++++++++++++++++-------------
- include/linux/iova.h      |  5 +++++
- 2 files changed, 21 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index c21ef1388499..ecac39b3190d 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -1154,9 +1154,6 @@ static dma_addr_t iommu_dma_map_page(struct device *dev, struct page *page,
- 	 */
- 	if (dev_use_swiotlb(dev, size, dir) &&
- 	    iova_offset(iovad, phys | size)) {
--		void *padding_start;
--		size_t padding_size, aligned_size;
--
- 		if (!is_swiotlb_active(dev)) {
- 			dev_warn_once(dev, "DMA bounce buffers are inactive, unable to map unaligned transaction.\n");
- 			return DMA_MAPPING_ERROR;
-@@ -1164,24 +1161,30 @@ static dma_addr_t iommu_dma_map_page(struct device *dev, struct page *page,
- 
- 		trace_swiotlb_bounced(dev, phys, size);
- 
--		aligned_size = iova_align(iovad, size);
- 		phys = swiotlb_tbl_map_single(dev, phys, size,
- 					      iova_mask(iovad), dir, attrs);
- 
- 		if (phys == DMA_MAPPING_ERROR)
- 			return DMA_MAPPING_ERROR;
- 
--		/* Cleanup the padding area. */
--		padding_start = phys_to_virt(phys);
--		padding_size = aligned_size;
-+		/*
-+		 * Untrusted devices should not see padding areas with random
-+		 * leftover kernel data, so zero the pre- and post-padding.
-+		 * swiotlb_tbl_map_single() has initialized the bounce buffer
-+		 * proper to the contents of the original memory buffer.
-+		 */
-+		if (dev_is_untrusted(dev)) {
-+			size_t start, virt = (size_t)phys_to_virt(phys);
- 
--		if (!(attrs & DMA_ATTR_SKIP_CPU_SYNC) &&
--		    (dir == DMA_TO_DEVICE || dir == DMA_BIDIRECTIONAL)) {
--			padding_start += size;
--			padding_size -= size;
--		}
-+			/* Pre-padding */
-+			start = iova_align_down(iovad, virt);
-+			memset((void *)start, 0, virt - start);
- 
--		memset(padding_start, 0, padding_size);
-+			/* Post-padding */
-+			start = virt + size;
-+			memset((void *)start, 0,
-+			       iova_align(iovad, start) - start);
-+		}
- 	}
- 
- 	if (!coherent && !(attrs & DMA_ATTR_SKIP_CPU_SYNC))
-diff --git a/include/linux/iova.h b/include/linux/iova.h
-index 83c00fac2acb..d2c4fd923efa 100644
---- a/include/linux/iova.h
-+++ b/include/linux/iova.h
-@@ -65,6 +65,11 @@ static inline size_t iova_align(struct iova_domain *iovad, size_t size)
- 	return ALIGN(size, iovad->granule);
- }
- 
-+static inline size_t iova_align_down(struct iova_domain *iovad, size_t size)
-+{
-+	return ALIGN_DOWN(size, iovad->granule);
-+}
-+
- static inline dma_addr_t iova_dma_addr(struct iova_domain *iovad, struct iova *iova)
- {
- 	return (dma_addr_t)iova->pfn_lo << iova_shift(iovad);
--- 
-2.25.1
-
+Jan
 
