@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EE1989B975
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 09:57:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.701790.1096300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23E1C89B99F
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Apr 2024 10:02:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.701802.1096310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtjsb-0000kw-FR; Mon, 08 Apr 2024 07:57:25 +0000
+	id 1rtjwm-0002z1-Ej; Mon, 08 Apr 2024 08:01:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 701790.1096300; Mon, 08 Apr 2024 07:57:25 +0000
+Received: by outflank-mailman (output) from mailman id 701802.1096310; Mon, 08 Apr 2024 08:01:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rtjsb-0000iP-CM; Mon, 08 Apr 2024 07:57:25 +0000
-Received: by outflank-mailman (input) for mailman id 701790;
- Mon, 08 Apr 2024 07:57:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rtjwm-0002wg-BZ; Mon, 08 Apr 2024 08:01:44 +0000
+Received: by outflank-mailman (input) for mailman id 701802;
+ Mon, 08 Apr 2024 08:01:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WYQ4=LN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rtjsa-0000iH-6h
- for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 07:57:24 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a1cf0ed1-f57d-11ee-afe6-a90da7624cb6;
- Mon, 08 Apr 2024 09:57:23 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-41649860cecso7531955e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 00:57:23 -0700 (PDT)
+ id 1rtjwl-0002wP-CT
+ for xen-devel@lists.xenproject.org; Mon, 08 Apr 2024 08:01:43 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3be4c212-f57e-11ee-a1ef-f123f15fe8a2;
+ Mon, 08 Apr 2024 10:01:41 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3442f4e098bso781870f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Apr 2024 01:01:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k2-20020a5d5242000000b00343c0c24a65sm8289967wrc.89.2024.04.08.00.57.21
+ k2-20020a5d5242000000b00343c0c24a65sm8298695wrc.89.2024.04.08.01.01.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Apr 2024 00:57:22 -0700 (PDT)
+ Mon, 08 Apr 2024 01:01:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1cf0ed1-f57d-11ee-afe6-a90da7624cb6
+X-Inumbo-ID: 3be4c212-f57e-11ee-a1ef-f123f15fe8a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712563042; x=1713167842; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1712563301; x=1713168101; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=l0U6uGsQnyCGZxhahGWduclr/9yFqdTBMMRYXgEzuy0=;
-        b=DmusSA+m7rYaSNcJJWTOnFJ1riBlXfSa90p13L04exepxFu6rdOp0NK3OWRd0D7G8O
-         GV45l7/RoQjP8us9NV6pkgOtP7Bzu+7o9w+1XxVWgxtImxfeeWLULaem8qilxUO1qWbc
-         AQ1CzX+puE7dnISedyboCc5lZPJ1JIw67MK1P1ScCljNL71Z14TsvkFmwgdkIdlDWSKo
-         qHHa6YJ/AMF0UPup3dHLD+lpMZklCV0eYsNj9rFCQer5u7ZqpIwJhGNFr6fKsWrRasz8
-         s/farVJ22K3h1ZOCkezUkhHP7FbhIhiIGHfoygTzPksN+EpbNpHeeLq2J6Vgiw8aRAC+
-         KPVg==
+        bh=We6JjYSom55Ji/b+JHOf1mU8FrR2Hyb2uPggGwRVkfQ=;
+        b=EyVGXwNpcKQzX5QaUZv4G+d/8eKjXgx54XGf94OuT+89yZY+LUCxNzeVd0wB2iJAAU
+         uMzm6GCCG8aOx9pZyfW+e4RvaRep3xcN8RCeZzI83K/YnRcVdyOjk11vY1rJ8TWY+cBy
+         J4WdC8pfTYA1p837FE7AWBSvihqoV5sH59sgZCOw1wSL1SY/7/gZ9hx/5+4tIze+T8bt
+         znZufawg8U/La3iSTZGJkGT6ROqm6A5FYEtuwY8jSL++QSCWM5mUophtxFv+ijUeHU7Y
+         qx1fWKC7gydvRsU/1fWsgsDud2gXAgSy/0YZzJoU2d0oUcce2KQ/jRcGBvTy6GqI7ayf
+         /cjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712563042; x=1713167842;
+        d=1e100.net; s=20230601; t=1712563301; x=1713168101;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=l0U6uGsQnyCGZxhahGWduclr/9yFqdTBMMRYXgEzuy0=;
-        b=i56afIfdA/OaDKZlbMcDw6TmL99Jp89w25Ej7qNsWxJ/YxUxujdPPryVYnQaT6ezK1
-         G2nUVE34lUTYnRZoGxn2uEbnsaz0b522O4IrRF4Kt4aeiu58c8WOC1JcRHIGtWtJUy1o
-         +CajMzUS5exd98iIQwYpSbhyV3hcPYbACtjiPgO9UZONtpu0uwfTT2XOBrtwhl/QkAkw
-         33tUPS4V7OeJ29y4irBdkQRdy/eYlWwH6OJVqc0DvcqA/uXh2b79qXjdxyzQ0oT9jUp7
-         BU2lH1aPEtf+VUlWIYRNup0tiQLw5W6m4sKcggZNmvmf1xjipJOTpwb4wKX8PJXsz1FA
-         9NKA==
-X-Forwarded-Encrypted: i=1; AJvYcCWZ4RXIC0GrjVgyJl985X19Q1eJz6lABFFgU9KTRnepqKwLr1o5iYlWy9Ei22+RAvlaXYc5REhempB350GTmomqONpEK+/KVgDF70YsIYM=
-X-Gm-Message-State: AOJu0Yx+5XzXoCN9Z6nXLviCei54+po3EGi3GZiMJKHGe5yV98bBRajm
-	eXlRgL+zMLBWFV/vas6ItTYw6av5mCfMV6m02UgXJA/lzKBs7f6wsP95ccwi+A==
-X-Google-Smtp-Source: AGHT+IGD8Cy7T+o75LFbO+cb/X2dlt44C7YZ/zk3zGLHhfLUh3fZ0Ct9FwLKWsP5rMtJJwXaIDYciw==
-X-Received: by 2002:a05:600c:4ece:b0:416:3478:658c with SMTP id g14-20020a05600c4ece00b004163478658cmr4712228wmq.27.1712563042509;
-        Mon, 08 Apr 2024 00:57:22 -0700 (PDT)
-Message-ID: <1ed00b0a-2aa3-4ab4-b483-e6fd6ed2cd9e@suse.com>
-Date: Mon, 8 Apr 2024 09:57:24 +0200
+        bh=We6JjYSom55Ji/b+JHOf1mU8FrR2Hyb2uPggGwRVkfQ=;
+        b=NFhzrHWFl2xuGTNjs0R1QSMFi0Nd297vhvzKTkT9bBbcn9Fhhk4O6+6Hpof03wWFpi
+         xS5mItI7s7KQynHboCPLRKzUhvHnCFvltGSSVc4mkz/opb90nAoUJQ6qN7jDLqNz+Nly
+         YBKEshF+FoO52V2/QFUVjvRENf/6znT6B+/Ugjos/lbNGs1kHheABZJGUdBrYd+lHsTt
+         tXFwTykt3Cs5g1DqpjUYyT3b2uYZi1FD6+25Fs0eCOrJvSh5gTFSankhwKK7EBuXK7Z+
+         e/hpuOGNXQ/y5DG5LTuvwqmb8rzMzMoh2QogG2A7KXVtlVImWV8bffnfhuPxa+BMxjiX
+         IpXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXitdkbvGalqzhAK0SEc2vEzVTHOvYddMV/EkfubyN8DXkMn/ZFn6t0osoosMa1TtfzlzGbj00ElM1QPw9uSSKUDCnvrA/Z/uW+ja25E/w=
+X-Gm-Message-State: AOJu0Yx1+jfefLYxTU9Fpz3c6CusJYrqpJfo3sZ4DfBmCPWAo9g3EmxQ
+	yPZeSsHsq+C0Y5ZHsTlcX4cyulzeaJpwVQicdg3bvAFssb5irYMgK662AvwgAg==
+X-Google-Smtp-Source: AGHT+IHyK8A2goI8jw4xRk2wTDXpsajsdHMlInRnzqtifD4TWJx+MphsDw1d8KI6PGN7A0vHxucFHw==
+X-Received: by 2002:adf:e24c:0:b0:343:bfef:9c39 with SMTP id bl12-20020adfe24c000000b00343bfef9c39mr7326492wrb.6.1712563301145;
+        Mon, 08 Apr 2024 01:01:41 -0700 (PDT)
+Message-ID: <e04914c5-8859-4e42-aa1a-003e2ff6d974@suse.com>
+Date: Mon, 8 Apr 2024 10:01:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 6/9] x86/hvm: address violations of MISRA C Rule
- 16.2
+Subject: Re: [XEN PATCH v2 8/9] xen/domain: deviate MISRA C Rule 16.2
+ violation
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  ayan.kumar.halder@amd.com, consulting@bugseng.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1712305581.git.nicola.vetrini@bugseng.com>
- <165d61fab77c0b6613b78e0091195753fe9cd2cc.1712305581.git.nicola.vetrini@bugseng.com>
+ <2328b1a43f8bc4c9a9303c46f8eba2847c67a713.1712305581.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,28 +115,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <165d61fab77c0b6613b78e0091195753fe9cd2cc.1712305581.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <2328b1a43f8bc4c9a9303c46f8eba2847c67a713.1712305581.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 05.04.2024 11:14, Nicola Vetrini wrote:
-> --- a/xen/arch/x86/hvm/hypercall.c
-> +++ b/xen/arch/x86/hvm/hypercall.c
-> @@ -119,12 +119,12 @@ int hvm_hypercall(struct cpu_user_regs *regs)
->              (mode == 8 ? regs->rdi : regs->ebx) == HVMOP_guest_request_vm_event )
->              break;
->  
-> -        if ( unlikely(hvm_get_cpl(curr)) )
-> -        {
-> +        if ( !unlikely(hvm_get_cpl(curr)) )
+> MISRA C Rule 16.2 states:
+> "A switch label shall only be used when the most closely-enclosing
+> compound statement is the body of a switch statement".
+> 
+> The PROGRESS_VCPU local helper specifies a case that is directly
+> inside the compound statement of a for loop, hence violating the rule.
+> To avoid this, the construct is deviated with a text-based deviation.
+> 
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-likely() / unlikely() want to be the outermost part of a conditional
-like this (things are different with && or ||), i.e.
-
-        if ( likely(!hvm_get_cpl(curr)) )
-
-Then:
 Acked-by: Jan Beulich <jbeulich@suse.com>
+
+> I chose a text-based deviation, rather than exempting PROGRESS_VCPU,
+> because it's more refined and it's unlikely that more violations
+> are introduced, since the rule has only very few violations left on
+> both ARM and x86.
+
+This same kind of construct is likely to appear in arch-specific domain
+cleanup code, sooner or later. The same SAF comment can then be used there.
 
 Jan
 
