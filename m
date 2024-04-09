@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DD0889D736
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 12:45:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.702239.1097154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2A9A89D86E
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 13:46:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.702245.1097163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ru8yo-0003UQ-Tm; Tue, 09 Apr 2024 10:45:30 +0000
+	id 1ru9vK-0004LM-8S; Tue, 09 Apr 2024 11:45:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 702239.1097154; Tue, 09 Apr 2024 10:45:30 +0000
+Received: by outflank-mailman (output) from mailman id 702245.1097163; Tue, 09 Apr 2024 11:45:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ru8yo-0003S8-R3; Tue, 09 Apr 2024 10:45:30 +0000
-Received: by outflank-mailman (input) for mailman id 702239;
- Tue, 09 Apr 2024 10:45:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ru9vK-0004JT-5N; Tue, 09 Apr 2024 11:45:58 +0000
+Received: by outflank-mailman (input) for mailman id 702245;
+ Tue, 09 Apr 2024 11:45:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mUTu=LO=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1ru8yn-0003S2-Nf
- for xen-devel@lists.xenproject.org; Tue, 09 Apr 2024 10:45:29 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47c4a177-f65e-11ee-b907-491648fe20b8;
- Tue, 09 Apr 2024 12:45:28 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-416632343d0so15585445e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 09 Apr 2024 03:45:28 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- cg6-20020a5d5cc6000000b00345e730aa7csm3322838wrb.11.2024.04.09.03.45.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Apr 2024 03:45:27 -0700 (PDT)
+ <SRS0=0lRi=LO=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1ru9vJ-0004JG-7S
+ for xen-devel@lists.xenproject.org; Tue, 09 Apr 2024 11:45:57 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id b82d0820-f666-11ee-94a3-07e782e9044d;
+ Tue, 09 Apr 2024 13:45:53 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1D4411007;
+ Tue,  9 Apr 2024 04:46:23 -0700 (PDT)
+Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 91CCE3F766;
+ Tue,  9 Apr 2024 04:45:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47c4a177-f65e-11ee-b907-491648fe20b8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1712659528; x=1713264328; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=DPd9OL27DqjNiu7RPISNzn6sIXao5VZQF9RZVBrlFf4=;
-        b=jphlZeLQZcXbrcrM0Lz6KCqOajInd6OSsXI6UHuvRbG7w1lN4t+GKuzf3Z6uYVeJ0u
-         3YtorCuseoEB07uPFaGLO3QiJ/nCrHuxU3GoQxyJJKoLNKGd+Nzk+eZ8w54EVdgJcB4z
-         5TLSlulyTKWWU7Ec7eA9jnPk3yeJgKV7BrLJI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712659528; x=1713264328;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DPd9OL27DqjNiu7RPISNzn6sIXao5VZQF9RZVBrlFf4=;
-        b=f9DH7capAfiUCplfraTiHVqRt72/QnwRjSdpjWDARZTa+OC6THJVJBSqTrUXQHLuxf
-         +iH5HvX4nbDCfuMm9ma+iAX0+bQkXjp4eJnY5g96Jd/EBLNyjOjevTBAbRMDBr+QNadO
-         lZSki8n8mmM4CbeOeUS2VpNWe0vNmp7D4uTpyvRIxBNZxSKh9+/vDcK/SUwELgzyjIhQ
-         Ge+TQm/FLS3iYUlZf8kIibFxif4IeZEDGlKiT8RIh1Mv++vOFwpCSOiWtTwm3k6FW2uR
-         p9SoUAIfLMDDjFnyC8cinYerHQrXG8u/Sab/z9SX8fOkEAjKnFD3eCw85k16DGsA3ii+
-         ccFQ==
-X-Gm-Message-State: AOJu0YxjoAgAgjGZefWuGWtzueou7OJAPX+C7IYFxfkZ0/jGwxfhzlxG
-	46BlFuyyWiaQh3JhMqHA7/HB92LqeYYh0lSPjs/IxAViWi/kPu4POVwpV3L6xYo=
-X-Google-Smtp-Source: AGHT+IFR0xvMeQysJXIrZ+x0z1Yr1vuIubGwGbVSN8UDaP7q1UldbnK6jI2isb+R7cY82iP58olAhA==
-X-Received: by 2002:a05:600c:511b:b0:416:90e6:5f2a with SMTP id o27-20020a05600c511b00b0041690e65f2amr2237397wms.19.1712659528253;
-        Tue, 09 Apr 2024 03:45:28 -0700 (PDT)
-Date: Tue, 9 Apr 2024 11:45:27 +0100
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: leigh@solinno.co.uk
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
-	slack@rabbit.lu
-Subject: Re: [PATCH v2 1/6] tools/misc: xenwatchdogd: use EXIT_* constants
-Message-ID: <78aff49a-a244-4d0f-a5e9-15b03985d46f@perard>
-References: <20240329111056.6118-1-leigh@solinno.co.uk>
- <20240329111056.6118-2-leigh@solinno.co.uk>
+X-Inumbo-ID: b82d0820-f666-11ee-94a3-07e782e9044d
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 00/13] Static shared memory followup v2 - pt1
+Date: Tue,  9 Apr 2024 12:45:30 +0100
+Message-Id: <20240409114543.3332150-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240329111056.6118-2-leigh@solinno.co.uk>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Mar 29, 2024 at 11:10:51AM +0000, leigh@solinno.co.uk wrote:
-> From: Leigh Brown <leigh@solinno.co.uk>
-> 
-> Use EXIT_SUCCESS/EXIT_FAILURE constants instead of magic numbers.
-> 
-> Signed-off-by: Leigh Brown <leigh@solinno.co.uk>
+This serie is a partial rework of this other serie:
+https://patchwork.kernel.org/project/xen-devel/cover/20231206090623.1932275-1-Penny.Zheng@arm.com/
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+The original serie is addressing an issue of the static shared memory feature
+that impacts the memory footprint of other component when the feature is
+enabled, another issue impacts the device tree generation for the guests when
+the feature is enabled and used and the last one is a missing feature that is
+the option to have a static shared memory region that is not from the host
+address space.
 
-Thanks,
+This serie is handling some comment on the original serie and it is splitting
+the rework in two part, this first part is addressing the memory footprint issue
+and the device tree generation, there will be a following serie addressing the
+last missing feature soon.
+
+From v1:
+ - Add new patches, moved the patch related to the static memory helper.
+
+Luca Fancellu (9):
+  xen/arm: Pass struct kernel_info parameter to make_resv_memory_node
+  xen/arm: Introduce a generic way to access memory bank structures
+  xen/arm: Conditional compilation of kernel_info.shm_mem member
+  xen/arm: Avoid code duplication in find_unallocated_memory
+  xen/arm: Avoid code duplication in check_reserved_regions_overlap
+  xen/arm: Introduce helper for static memory pages
+  xen/arm: Reduce struct membank size on static shared memory
+  xen/device_tree: Introduce function to merge overlapping intervals
+  xen/arm: List static shared memory regions as /memory nodes
+
+Penny Zheng (4):
+  xen/arm: remove stale addr_cells/size_cells in assign_shared_memory
+  xen/arm: avoid repetitive checking in process_shm_node
+  xen/arm: remove shm holes from extended regions
+  xen/arm: fix duplicate /reserved-memory node in Dom0
+
+ xen/arch/arm/acpi/domain_build.c         |   6 +-
+ xen/arch/arm/arm32/mmu/mm.c              |  68 ++++--
+ xen/arch/arm/arm64/mmu/mm.c              |   4 +-
+ xen/arch/arm/bootfdt.c                   |  45 ++--
+ xen/arch/arm/dom0less-build.c            |  19 +-
+ xen/arch/arm/domain_build.c              | 226 +++++++++++---------
+ xen/arch/arm/efi/efi-boot.h              |   8 +-
+ xen/arch/arm/efi/efi-dom0.c              |  13 +-
+ xen/arch/arm/include/asm/domain_build.h  |   6 +-
+ xen/arch/arm/include/asm/kernel.h        |  27 ++-
+ xen/arch/arm/include/asm/setup.h         |  81 ++++++-
+ xen/arch/arm/include/asm/static-memory.h |  13 ++
+ xen/arch/arm/include/asm/static-shmem.h  |  62 +++++-
+ xen/arch/arm/io.c                        |  11 +-
+ xen/arch/arm/kernel.c                    |  12 +-
+ xen/arch/arm/setup.c                     |  97 ++++++---
+ xen/arch/arm/static-memory.c             |  35 ++-
+ xen/arch/arm/static-shmem.c              | 260 ++++++++++++++++++-----
+ xen/arch/x86/extable.c                   |   5 +-
+ xen/common/device_tree.c                 | 140 ++++++++++++
+ xen/include/xen/device_tree.h            |  19 ++
+ xen/include/xen/sort.h                   |  14 +-
+ 22 files changed, 881 insertions(+), 290 deletions(-)
 
 -- 
-Anthony PERARD
+2.34.1
+
 
