@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A990189DC11
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 16:20:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.702465.1097497 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2573D89DC2B
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 16:26:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.702469.1097507 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruCJt-0003fM-Rx; Tue, 09 Apr 2024 14:19:29 +0000
+	id 1ruCQ6-0005jQ-FT; Tue, 09 Apr 2024 14:25:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 702465.1097497; Tue, 09 Apr 2024 14:19:29 +0000
+Received: by outflank-mailman (output) from mailman id 702469.1097507; Tue, 09 Apr 2024 14:25:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruCJt-0003cM-P8; Tue, 09 Apr 2024 14:19:29 +0000
-Received: by outflank-mailman (input) for mailman id 702465;
- Tue, 09 Apr 2024 14:19:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ruCQ6-0005h0-Ca; Tue, 09 Apr 2024 14:25:54 +0000
+Received: by outflank-mailman (input) for mailman id 702469;
+ Tue, 09 Apr 2024 14:25:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MkVj=LO=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1ruCJr-0003cG-KI
- for xen-devel@lists.xenproject.org; Tue, 09 Apr 2024 14:19:27 +0000
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [2607:f8b0:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b159e5f-f67c-11ee-b907-491648fe20b8;
- Tue, 09 Apr 2024 16:19:26 +0200 (CEST)
-Received: by mail-pf1-x42f.google.com with SMTP id
- d2e1a72fcca58-6ed0938cd1dso3537008b3a.2
- for <xen-devel@lists.xenproject.org>; Tue, 09 Apr 2024 07:19:26 -0700 (PDT)
+ <SRS0=SUYQ=LO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1ruCQ5-0005g2-Qn
+ for xen-devel@lists.xenproject.org; Tue, 09 Apr 2024 14:25:53 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 116900b9-f67d-11ee-94a3-07e782e9044d;
+ Tue, 09 Apr 2024 16:25:52 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2d8a2cbe1baso10649471fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Apr 2024 07:25:52 -0700 (PDT)
+Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
+ h16-20020a05600c315000b00416b8da33e6sm909364wmo.37.2024.04.09.07.25.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Apr 2024 07:25:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,98 +44,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b159e5f-f67c-11ee-b907-491648fe20b8
+X-Inumbo-ID: 116900b9-f67d-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712672365; x=1713277165; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZKNwH61ogJYZeuk308ZpQ6diRlo1mDu3aiO1U5w7UaQ=;
-        b=ObI7K5IK/cDEZJKIS7lax9MAfaHIzpHkUu3Xqw275KL6QYWNJjaRVQvG85e4m+U0t8
-         4m7HWecl2SJ+Lvu47W9LlSpkNvx1qgHrea+mmEg9H2ot36NAV74C+zgPjjJyHL7TgQNs
-         MtLRJmN4Ml5AalUfRK9b+fnCwx7M+Su127TUw=
+        d=citrix.com; s=google; t=1712672751; x=1713277551; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=CioAqJ1gxh4c09XZ8q69ctIP0mj1slIgm+tSMRVePcM=;
+        b=O9zNz4WpVxCVFpGMlQ3HiLeBSr9iLuXHyjJiM7DcCmgGUdV5ULEb9hFTs9Y1SFK7o+
+         pOyhQkwwYWEFS720dVNRRmHAp0q4ZB+KsJYtSwmIuq6PBFK5C/NLCWhJ2Qq+01CovEnj
+         bFccjaTj76hA6BRWBfq0jp+baVAO69v4E5KeU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712672365; x=1713277165;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ZKNwH61ogJYZeuk308ZpQ6diRlo1mDu3aiO1U5w7UaQ=;
-        b=EX2sIAVLnHjpLkBFmcsTbnrXAHu4VzEMzHfEos57BxFjdAFxf0sMg+tdcPXHP1CNaS
-         r9xTboKq6cyTZQ4ZLI/6LzTF+cOdRR6lMZnQV+KdZXYUoah95g8vT+zBBEzKr3jzL7A2
-         lyu5Zf3UKjGGApqHnOeI3scDIHmR3ond8ahMkFG+lIWn8lwaYkItNkXAOjLvt+lmqcFH
-         tTRB+Llmwf585s5PghmtPBLC7fu5DQN3xG4xTg+xEOYVEqK2Nond8qvKQOpzz8rDBG91
-         M9TK6T2GqHZNemXT0ZQh2YAUTzMFKHNh2sui3kOoePJRkRwfF6g261PsGnj7kwIIETVV
-         Y2dw==
-X-Forwarded-Encrypted: i=1; AJvYcCULxFnyn5+zJ+5mrpjtfLMS0VAPdFR72WDleXbZWyiFq1UncFa1HmYK8TbWey+kx6JKOTDev2k3LB1fepOQv2/CFRc3Y3eM8PkLiz3+mSY=
-X-Gm-Message-State: AOJu0YwZS0UW1UABGuRLGVe5XJhPi+TV4DGmqKmDJxVjxxjsVqWlxm67
-	Dicxh3MSC7BI0W/MyylZHHVWsDg0ZrmDdEnhDFrtUw3gGv2giDN6e7NBThSDnp6lcGL074qAjEt
-	t8qXNoTmkC7LNRkTPFu1QT+i8S3JBuifgfeRG
-X-Google-Smtp-Source: AGHT+IEYZXNObBVw3ngDHwROEzFvrdey38md44MZZx9KaPUyg5O0H88Zi9oOToDjnG+ra3FB9wi06t3tsYpNugg/X10=
-X-Received: by 2002:a05:6a20:3241:b0:1a7:807:ca2 with SMTP id
- hm1-20020a056a20324100b001a708070ca2mr11980431pzc.29.1712672364737; Tue, 09
- Apr 2024 07:19:24 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1712672751; x=1713277551;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=CioAqJ1gxh4c09XZ8q69ctIP0mj1slIgm+tSMRVePcM=;
+        b=skJJv46XL/9Ol+29imJyGZVoejac9fO4sjI1IIwXKmGLq5jizJgkZTxEt6b7AJnzI9
+         hrCd1KWmHglOCve7HU751sWDVZyVoXMwEv129tkeqRX7Za80Z/uKpr8EO+vEkxxJjgLp
+         VpCFB+Lehp+Dfm/lPKIVZRBavo+2ZkUrQMibeghQZi1l7S7Pip/W0REfLTUkAUTBEUJa
+         EuHB8Tp2Ad1PcxkSHQZAQTEZqrWCPD6nekQFwuFoJKT84+4N8SX7BFM4jTvlhS1yZFx3
+         vFo/RQjXV18vwTx3EzZHh2zI30Wtg23d4vePKNHewRQ/O/qO4s7O60tsOBhH32YoyOS8
+         OOIw==
+X-Gm-Message-State: AOJu0YymDmE+DlhAPUGGUvkgndhFK2cthIdWQlQRKrWHL73dVSsWclso
+	KQ8HeGCQLbqfVs2OyVMxz8RdA/evSh+B2GcEBVn4DNE71X59OOfofYzvIEUoBPnukp7oeDYMP1S
+	S
+X-Google-Smtp-Source: AGHT+IEBGgQTEHvzA2RqTeEvJslz7fQ7BhX0U+9W746yvHVR7ZdBROkLTGZ0G+nYTM2bXu6v5LB2Sw==
+X-Received: by 2002:a2e:7204:0:b0:2d5:9bd4:4496 with SMTP id n4-20020a2e7204000000b002d59bd44496mr9251364ljc.50.1712672751400;
+        Tue, 09 Apr 2024 07:25:51 -0700 (PDT)
+Date: Tue, 9 Apr 2024 16:25:50 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>
+Subject: Re: [PATCH] x86/cpuid: Don't expose {IPRED,RRSBA,BHI}_CTRL to PV
+ guests
+Message-ID: <ZhVP7iTFg9-HB_tv@macbook>
+References: <20240409141105.125969-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-References: <20240404140833.1557953-1-ross.lagerwall@citrix.com> <90f07634-1600-4654-8e36-7ac9e2f457e8@perard>
-In-Reply-To: <90f07634-1600-4654-8e36-7ac9e2f457e8@perard>
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Tue, 9 Apr 2024 15:19:12 +0100
-Message-ID: <CAG7k0EqJvVZJUNaf31Jd1ZfwvOon8saNbtHofon=VvB6gpj9qw@mail.gmail.com>
-Subject: Re: [PATCH] xen-hvm: Avoid livelock while handling buffered ioreqs
-To: Anthony PERARD <anthony.perard@cloud.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org, 
-	qemu-devel@nongnu.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240409141105.125969-1-andrew.cooper3@citrix.com>
 
-On Tue, Apr 9, 2024 at 11:20=E2=80=AFAM Anthony PERARD <anthony.perard@clou=
-d.com> wrote:
->
-> On Thu, Apr 04, 2024 at 03:08:33PM +0100, Ross Lagerwall wrote:
-> > diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
-> > index 1627da739822..1116b3978938 100644
-> > --- a/hw/xen/xen-hvm-common.c
-> > +++ b/hw/xen/xen-hvm-common.c
-> > @@ -521,22 +521,30 @@ static bool handle_buffered_iopage(XenIOState *st=
-ate)
-> [...]
-> >
-> >  static void handle_buffered_io(void *opaque)
-> >  {
-> > +    unsigned int handled;
-> >      XenIOState *state =3D opaque;
-> >
-> > -    if (handle_buffered_iopage(state)) {
-> > +    handled =3D handle_buffered_iopage(state);
-> > +    if (handled >=3D IOREQ_BUFFER_SLOT_NUM) {
-> > +        /* We handled a full page of ioreqs. Schedule a timer to conti=
-nue
-> > +         * processing while giving other stuff a chance to run.
-> > +         */
->
-> ./scripts/checkpatch.pl report a style issue here:
->     WARNING: Block comments use a leading /* on a separate line
->
-> I can try to remember to fix that on commit.
+On Tue, Apr 09, 2024 at 03:11:05PM +0100, Andrew Cooper wrote:
+> All of these are prediction-mode (i.e. CPL) based.  They don't operate as
+> expected in PV context, and need emulating to have the intended behaviour.
+> 
+> Fixes: 4dd676070684 ("x86/spec-ctrl: Expose IPRED_CTRL to guests")
+> Fixes: 478e4787fa64 ("x86/spec-ctrl: Expose RRSBA_CTRL to guests")
+> Fixes: 583f1d095052 ("x86/spec-ctrl: Expose BHI_CTRL to guests")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I copied the comment style from a few lines above but I guess it was
-wrong.
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
->
-> >          timer_mod(state->buffered_io_timer,
-> > -                BUFFER_IO_MAX_DELAY + qemu_clock_get_ms(QEMU_CLOCK_REA=
-LTIME));
-> > -    } else {
-> > +                qemu_clock_get_ms(QEMU_CLOCK_REALTIME));
-> > +    } else if (handled =3D=3D 0) {
->
-> Just curious, why did you check for `handled =3D=3D 0` here instead of
-> `handled !=3D 0`? That would have avoided to invert the last 2 cases, and
-> the patch would just have introduce a new case without changing the
-> order of the existing ones. But not that important I guess.
->
-
-In general I try to use conditionals with the least amount of negation
-since I think it is easier to read. I can change it if you would prefer?
-
-Ross
+Thanks, Roger.
 
