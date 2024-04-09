@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4774889D1A7
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 06:54:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.702121.1096964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3499689D1AB
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 06:54:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.702122.1096974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ru3Uz-0004Ox-J1; Tue, 09 Apr 2024 04:54:21 +0000
+	id 1ru3V1-0004fs-Tc; Tue, 09 Apr 2024 04:54:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 702121.1096964; Tue, 09 Apr 2024 04:54:21 +0000
+Received: by outflank-mailman (output) from mailman id 702122.1096974; Tue, 09 Apr 2024 04:54:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ru3Uz-0004Lx-FF; Tue, 09 Apr 2024 04:54:21 +0000
-Received: by outflank-mailman (input) for mailman id 702121;
- Tue, 09 Apr 2024 04:54:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ru3V1-0004dT-Q2; Tue, 09 Apr 2024 04:54:23 +0000
+Received: by outflank-mailman (input) for mailman id 702122;
+ Tue, 09 Apr 2024 04:54:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5At3=LO=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1ru3Uy-0003cc-10
+ id 1ru3Uy-0003cd-Rh
  for xen-devel@lists.xenproject.org; Tue, 09 Apr 2024 04:54:20 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20601.outbound.protection.outlook.com
- [2a01:111:f403:2009::601])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 38c724e3-f62d-11ee-843a-3f19d20e7db6;
- Tue, 09 Apr 2024 06:54:18 +0200 (CEST)
-Received: from CH2PR10CA0011.namprd10.prod.outlook.com (2603:10b6:610:4c::21)
- by SN7PR12MB7419.namprd12.prod.outlook.com (2603:10b6:806:2a6::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Tue, 9 Apr
- 2024 04:54:14 +0000
-Received: from CH1PEPF0000AD77.namprd04.prod.outlook.com
- (2603:10b6:610:4c:cafe::ea) by CH2PR10CA0011.outlook.office365.com
- (2603:10b6:610:4c::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.28 via Frontend
- Transport; Tue, 9 Apr 2024 04:54:13 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CH1PEPF0000AD77.mail.protection.outlook.com (10.167.244.55) with Microsoft
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2417::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 39bd7cc6-f62d-11ee-9150-f14010f3f246;
+ Tue, 09 Apr 2024 06:54:19 +0200 (CEST)
+Received: from CY8PR12CA0009.namprd12.prod.outlook.com (2603:10b6:930:4e::29)
+ by DM4PR12MB6302.namprd12.prod.outlook.com (2603:10b6:8:a4::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Tue, 9 Apr
+ 2024 04:54:16 +0000
+Received: from CY4PEPF0000EDD1.namprd03.prod.outlook.com
+ (2603:10b6:930:4e:cafe::77) by CY8PR12CA0009.outlook.office365.com
+ (2603:10b6:930:4e::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.37 via Frontend
+ Transport; Tue, 9 Apr 2024 04:54:16 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD1.mail.protection.outlook.com (10.167.241.205) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Tue, 9 Apr 2024 04:54:13 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7452.22 via Frontend Transport; Tue, 9 Apr 2024 04:54:16 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 8 Apr
- 2024 23:54:12 -0500
+ 2024 23:54:16 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 8 Apr
- 2024 21:54:12 -0700
+ 2024 21:54:15 -0700
 Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 8 Apr 2024 23:54:10 -0500
+ Transport; Mon, 8 Apr 2024 23:54:13 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,38 +63,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38c724e3-f62d-11ee-843a-3f19d20e7db6
+X-Inumbo-ID: 39bd7cc6-f62d-11ee-9150-f14010f3f246
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JOqqY1cUfIvEIhzWQoDt+SPx+e8h0Sa4Z4ASpJLvPpEX4pRVZ1m+RY8FGBe9UiU3I+ZUY2OrGUi/8Ee1be7IxbRq92E2RcN3xdQiD2Tm2nx7x9/sg0+kVlLJUqa147dKT2LJLVs5S7JvebU0jKSeiAqsj9Wfp/42lyAT0f+j9C+rFtKpemkaK9F8P44k6nDLHiiRt26M2VBB6thtLa9Idx39eyelgtIoQYilzbQvIdWpF8c0zgNUlvX/6Rc41t/riaVXI9gU4MC71iwjDDCXeNfhK7PtIEqiDkzbjHw64J4uyilTrcgNdEVkvNvtoZFDlq61n9yMDYx+ZgHqMMCfkw==
+ b=QAH/BlyQwyb87yrM1+QxR6jc1DNMYeHDgBiQTU96fLRRkfwksdJHORgw47ca/ILch/356WcFcF6bEVd2lrSzbue9sLujelXK5qIioyAA0I2qGaW/EkzAyVISsWoqqs4DCUMukA6z5qM3xbuHLeRzaF8dpmyms4bv46M38IlVuOSTb+hvKd26bXIyevIw3QombKUvJH5FkfibMIlKM/d2Z7vlt5jNpWGJI6/abf2EgzrVVx4Fz2MuNznKt29YyR4DT8+IZ6X4HPgZjkbsY+WKirFGqi0dy2xXZUS4ksWyL5fnC+M/+Xa9LO0pcER8PFS6G0bfnSaK560yeS48lkhzSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lC+nKYjI93vCI4VeuKL1ZiSEnl9+mCP0TiBahXdLMho=;
- b=NNPFNzB38MUxjDG1C23cbjLcNWzle/X4/OSeX8kuBMQvVwY9dmaQXlRLzy0WCKh1xULaqA9t3AGzSKE7gDoBMURD43kbbdbzC8imKvOgJFTC2dh7hctQdtpJgpIK9XoY/y2SuBg77aOBskp1Ifx0OhHW03icjiLInGp2BEy/5sGpdOmJZSF0+WNR0M8pm71rPv7Wjq6f6oHZuhV/7rA0aXaDAdmTHO/q5y3o8x9KvLK9xLJBTyh5A/M4yVVzNKmjpA5FlF4K5CLkaAQNaB84cpLmBgySbfKCUiRgAADSVIRQauDmkfniUmBHl7pQav5NfzsDqAOEhUhO7F74UPIqag==
+ bh=AqNwO/2J9JqnXyE4dOIjQwE9fUs3oiN1zYGcYi0aIXk=;
+ b=IdrYGP8E3+vvXIsofL1ebmz0J3Vz+lo0U4JIq0ZxBjqUJnBaWaELqLH8g87nwmq2xAa+U5OPs5kjuFyo0SMqY55dAUxmYz94zx/TLbAXi2F48cCFBX9SBlvQXOLdeJ9KcHIK3CJdbR/tH/TlgHIUZ6c+T4qFXJ1GXgjedS/mGCz3NGppHsVY2B97amD411UhEuWD54UW7ALL+v0IXtiq+fNUIUV13YMUtGe6AishONKOYCprG20tGbkcyR+Ugem0yKKwDKVngIOO7zGgQXkBoixh+za0PifwTv9jHsBMtGvpvCx7fp2Td9A9MGx67yA7mkA93+kKsEQrrTj3GuONoA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lC+nKYjI93vCI4VeuKL1ZiSEnl9+mCP0TiBahXdLMho=;
- b=J/pG5di6qConia4X5mxp53pdESxAk3sCct26UFq0K1lCDMnOIUV9qMU6KrR4US0uIDUXXx8qkhPUbYvjnnwQpOc+wGzx1dYglCfAJXk9kxUgNdTQ2CD+A36ZbQp4nH6iq9VN222RhqIpxeHKchaXl8Uf0fJwsAyWCFgNatUB2vA=
+ bh=AqNwO/2J9JqnXyE4dOIjQwE9fUs3oiN1zYGcYi0aIXk=;
+ b=26a8KSJYHFhKTbY9J/wmjuKm6l6L5HNxlCXlLYLJ4fvimG70m3/4RwlUSAcm9xRVcuTZ9DnTKzGS1uXBbSA/6qrkbZt51TpxHAMs0PK0KCuVg/F92zFpsUj42XX8VyAKNDp7ml3UWn1RHwGuega+9EIm+jGIHs+3HmyxvceoJEs=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Henry Wang <xin.wang2@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Henry Wang <xin.wang2@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Alec Kwapis
-	<alec.kwapis@medtronic.com>
-Subject: [PATCH v4 3/5] xen/arm: Find unallocated spaces for magic pages of direct-mapped domU
-Date: Tue, 9 Apr 2024 12:53:55 +0800
-Message-ID: <20240409045357.236802-4-xin.wang2@amd.com>
+CC: Henry Wang <xin.wang2@amd.com>, Anthony PERARD
+	<anthony.perard@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>, Alec Kwapis <alec.kwapis@medtronic.com>
+Subject: [PATCH v4 4/5] xen/memory, tools: Avoid hardcoding GUEST_MAGIC_BASE in init-dom0less
+Date: Tue, 9 Apr 2024 12:53:56 +0800
+Message-ID: <20240409045357.236802-5-xin.wang2@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240409045357.236802-1-xin.wang2@amd.com>
 References: <20240409045357.236802-1-xin.wang2@amd.com>
@@ -103,215 +103,362 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD77:EE_|SN7PR12MB7419:EE_
-X-MS-Office365-Filtering-Correlation-Id: 024ce0f0-6595-40c4-7447-08dc58511a27
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD1:EE_|DM4PR12MB6302:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff42c0e3-ea5e-4321-3914-08dc58511c34
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	jDXw1jgQYHaBBqpUB+R4LAyqIGYizOtsLML9Hzjs2M3XGFk0p+WsH784CdvIY53Mc2vDl9qv2cfcc9BaeJb4uTDzS4KyefuhQEnr90/8o08kI3yLdwy6WK/6V6mHphzlSQxKzzNnMS8dUCla2v31P2ej/Df1s+gwBkppgVoVmDjsDRlQkTzAcOFL3LyF1eK0rykNOABLfJErpBWBCzKMg2cvPsZRjmZopXmQFgGkm42HDNet5/a8ZfyX+XaGngg+LwqklU+8VQi72rogazTkUhCTj0UbeAzkz0zCyN2U333v22t2qFZ3AIchrZK0ew2t21dyDDALC32S+S+dI+h0+Q/hf5S+siSYasAZY+zS0lkVwsi29mRx018Nim4dUaAs4Ye5b9y/sP8oxrj7NY0L3/BhrE5i33rECQIlxkgr5Bkje8HLtvyWCT6AHeoBvbOoprHFpYqDwyzoTdgPUufE5JGAqL+anfNm5F/y9DYrQLLiCUORpoqyJ+LWahskEakhsiomcfmqLgL36VMSXyzjb6mkYmMPoIaU/pQHVilO3GloBfALEK9UvpDpTEMI8G5EIj/pA+GtXJLAIQvgTTl2G540dImztZCq+zwdbj7va7LmjNJjeNiRopji/Iu1L0JIQezV5sPD+d21bwX0TS0gLhR10+JTLa3qBsACzkbEaQr3hLWXclV/TQubN/oLQzPngPPACKQBLmmHGFKW1Z6D4RgjMu7AButQHavDVPvm90WaunsGgFQ8QK3PH2kLs2yb
+	+RVvzMd7Q96qXuF2nq68C7bPo/+FpPwkszuJg/hM5vmYMwrZn6LQ9zRIBjHXTJPC4YoSbVQr/wT7iF7JQdmMJH/hLFGc23GuG5q7RwrA7BB8T3xvOxMS3wZaw2Ct8rEXeqOvp+TwSeu2Cud4kqBkeZmGsjaqSWilQI1aUQScRqo63V2r5u8Zyz4anQMONTB7V4Dum0OFpkPGITR3wNQvOB/ll+K1I2QIsghEsVgU6A9wSHATiNajd/D/P2D5ztnfWueZVgYm56Pxhsy60mugYGMf3CYPzwVrFzhFqdkGRGnAmCjzSgTldbTl0F8OfzuEBZajveOKVv1kRQq6+OmI/AmN5SdRAmBLrPRYv9BOVuuFblXYEaSpPl2d88W5EzBQPs3MpMfpWZYTNKimNdLklnECpJxSWHOv8g4A8vHki+XJi3G3bH9P+vAN8nuTIGst84iArkUR1LZrmTAqID6lQ9Sw7LYE7sv1+BiyLDohU/8T0FlwwOalxfM+QyJcGYRbmMouYhlV5kaVPsv/sz36gjgvOvSgzWldJ4++TyC2AKidKXBM/69+u5Ce94ep951EyNzxkS0Ud+U6UYoe32MHl+VXGUdafdS0ZyYHnYMYVpRn27e2CaU2r9jSShMcJYE61OfwkBh+3GFnRRAbupPaaK8wqabT/mMxKLA60hJVOG7+TDWow+Xhl5+7oAQaH5Eo5DNSWRzUWa9kgHW+5+p/qTV5gnL+wEs4YcEbkgOzsdF1OmzRbCxTq0MrjnZGlA56
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(376005)(82310400014)(1800799015);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(36860700004)(82310400014)(376005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2024 04:54:13.3531
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2024 04:54:16.7453
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 024ce0f0-6595-40c4-7447-08dc58511a27
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff42c0e3-ea5e-4321-3914-08dc58511c34
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD77.namprd04.prod.outlook.com
+	CY4PEPF0000EDD1.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7419
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6302
 
-For 1:1 direct-mapped dom0less DomUs, the magic pages should not clash
-with any RAM region. To find a proper region for guest magic pages,
-we can reuse the logic of finding domain extended regions.
+Currently the GUEST_MAGIC_BASE in the init-dom0less application is
+hardcoded, which will lead to failures for 1:1 direct-mapped Dom0less
+DomUs.
 
-If the extended region is enabled, since the extended region banks are
-at least 64MB, carve out the first 16MB from the first extended region
-bank for magic pages of direct-mapped domU. If the extended region is
-disabled, call the newly introduced helper find_11_domU_magic_region()
-to find a GUEST_MAGIC_SIZE sized unused region.
+Instead of hardcoding the guest magic pages region, use the
+XEN_DOMCTL_get_mem_map domctl to get the start address of the guest
+magic pages region. Add a new sub-op XENMEM_populate_physmap_heap_alloc
+and the MEMF_force_heap_alloc flag to force populate_physmap() to
+allocate page from domheap instead of using 1:1 or static allocated
+pages to map the magic pages.
 
 Reported-by: Alec Kwapis <alec.kwapis@medtronic.com>
 Signed-off-by: Henry Wang <xin.wang2@amd.com>
 ---
 v4:
-- No change
+- Use the new subop.
+- Add assert to check the flag isn't already set when coming back from
+  construct_memop_from_reservation().
+- Use &= to clear the flag instead of clear_bit().
+- Move the alias to xen/common/memory.c
 v3:
-- Extract the logic of finding unallocated spaces for magic pages of
-  direct-mapped domU to a dedicated function in static-memory.c
-- Properly handle error and free memory in find_11_domU_magic_region()
+- Don't ignore the error from xc_get_domain_mem_map().
+- Re-purposing the _MEMF_no_refcount as _MEMF_force_heap_alloc to
+  avoid introduction of a new, single-use flag.
+- Reject other reservation sub-ops to use the newly added flag.
+- Replace all the GUEST_MAGIC_BASE usages.
 v2:
 - New patch
 ---
- xen/arch/arm/dom0less-build.c            | 11 +++++++
- xen/arch/arm/domain_build.c              | 24 ++++++++++++++-
- xen/arch/arm/include/asm/domain_build.h  |  2 ++
- xen/arch/arm/include/asm/static-memory.h |  7 +++++
- xen/arch/arm/static-memory.c             | 39 ++++++++++++++++++++++++
- 5 files changed, 82 insertions(+), 1 deletion(-)
+ tools/helpers/init-dom0less.c | 35 +++++++++++-----
+ tools/include/xenctrl.h       |  7 ++++
+ tools/libs/ctrl/xc_domain.c   | 79 ++++++++++++++++++++++++++---------
+ xen/common/memory.c           | 30 +++++++++++--
+ xen/include/public/memory.h   |  3 +-
+ 5 files changed, 120 insertions(+), 34 deletions(-)
 
-diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index fb63ec6fd1..1963f029fe 100644
---- a/xen/arch/arm/dom0less-build.c
-+++ b/xen/arch/arm/dom0less-build.c
-@@ -682,6 +682,17 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+diff --git a/tools/helpers/init-dom0less.c b/tools/helpers/init-dom0less.c
+index fee93459c4..dccab7b29b 100644
+--- a/tools/helpers/init-dom0less.c
++++ b/tools/helpers/init-dom0less.c
+@@ -19,24 +19,42 @@
+ #define XENSTORE_PFN_OFFSET 1
+ #define STR_MAX_LENGTH 128
  
-     if ( kinfo->dom0less_feature & DOM0LESS_ENHANCED_NO_XS )
-     {
-+        /*
-+         * Find the guest magic region for 1:1 dom0less domU when the extended
-+         * region is not enabled.
-+         */
-+        if ( !opt_ext_regions || is_32bit_domain(d) )
++static xen_pfn_t xs_page_base;
++static xen_pfn_t xs_page_p2m;
++
+ static int alloc_xs_page(struct xc_interface_core *xch,
+                          libxl_dominfo *info,
+                          uint64_t *xenstore_pfn)
+ {
+-    int rc;
+-    const xen_pfn_t base = GUEST_MAGIC_BASE >> XC_PAGE_SHIFT;
+-    xen_pfn_t p2m = (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) + XENSTORE_PFN_OFFSET;
++    int rc, i;
++    uint32_t nr_regions = XEN_MAX_MEM_REGIONS;
++    struct xen_mem_region mem_regions[XEN_MAX_MEM_REGIONS] = {0};
++
++    rc = xc_get_domain_mem_map(xch, info->domid, mem_regions, &nr_regions);
++    if (rc < 0)
++        return rc;
++
++    for ( i = 0; i < nr_regions; i++ )
++    {
++        if ( mem_regions[i].type == XEN_MEM_REGION_MAGIC )
 +        {
-+            ret = find_11_domU_magic_region(d, kinfo);
-+            if ( ret )
-+                goto err;
++            xs_page_base = mem_regions[i].start >> XC_PAGE_SHIFT;
++            xs_page_p2m = (mem_regions[i].start >> XC_PAGE_SHIFT) +
++                          XENSTORE_PFN_OFFSET;
 +        }
++    }
+ 
+     rc = xc_domain_setmaxmem(xch, info->domid,
+                              info->max_memkb + (XC_PAGE_SIZE/1024));
+     if (rc < 0)
+         return rc;
+ 
+-    rc = xc_domain_populate_physmap_exact(xch, info->domid, 1, 0, 0, &p2m);
++    rc = xc_domain_populate_physmap_heap_exact(xch, info->domid, 1, 0, 0,
++                                               &xs_page_p2m);
+     if (rc < 0)
+         return rc;
+ 
+-    *xenstore_pfn = base + XENSTORE_PFN_OFFSET;
++    *xenstore_pfn = xs_page_base + XENSTORE_PFN_OFFSET;
+     rc = xc_clear_domain_page(xch, info->domid, *xenstore_pfn);
+     if (rc < 0)
+         return rc;
+@@ -145,8 +163,7 @@ static int create_xenstore(struct xs_handle *xsh,
+     rc = snprintf(target_memkb_str, STR_MAX_LENGTH, "%"PRIu64, info->current_memkb);
+     if (rc < 0 || rc >= STR_MAX_LENGTH)
+         return rc;
+-    rc = snprintf(ring_ref_str, STR_MAX_LENGTH, "%lld",
+-                  (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) + XENSTORE_PFN_OFFSET);
++    rc = snprintf(ring_ref_str, STR_MAX_LENGTH, "%"PRIu_xen_pfn, xs_page_p2m);
+     if (rc < 0 || rc >= STR_MAX_LENGTH)
+         return rc;
+     rc = snprintf(xenstore_port_str, STR_MAX_LENGTH, "%u", xenstore_port);
+@@ -282,9 +299,7 @@ static int init_domain(struct xs_handle *xsh,
+     if (rc)
+         err(1, "writing to xenstore");
+ 
+-    rc = xs_introduce_domain(xsh, info->domid,
+-            (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) + XENSTORE_PFN_OFFSET,
+-            xenstore_evtchn);
++    rc = xs_introduce_domain(xsh, info->domid, xs_page_p2m, xenstore_evtchn);
+     if (!rc)
+         err(1, "xs_introduce_domain");
+     return 0;
+diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
+index b25e9772a2..c1a601813a 100644
+--- a/tools/include/xenctrl.h
++++ b/tools/include/xenctrl.h
+@@ -1342,6 +1342,13 @@ int xc_domain_populate_physmap(xc_interface *xch,
+                                unsigned int mem_flags,
+                                xen_pfn_t *extent_start);
+ 
++int xc_domain_populate_physmap_heap_exact(xc_interface *xch,
++                                          uint32_t domid,
++                                          unsigned long nr_extents,
++                                          unsigned int extent_order,
++                                          unsigned int mem_flags,
++                                          xen_pfn_t *extent_start);
 +
-         ret = make_hypervisor_node(d, kinfo, addrcells, sizecells);
-         if ( ret )
-             goto err;
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index d2a9c047ea..d5a9baf8b0 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -46,7 +46,7 @@ integer_param("dom0_max_vcpus", opt_dom0_max_vcpus);
-  * If true, the extended regions support is enabled for dom0 and
-  * dom0less domUs.
-  */
--static bool __initdata opt_ext_regions = true;
-+bool __initdata opt_ext_regions = true;
- boolean_param("ext_regions", opt_ext_regions);
- 
- static u64 __initdata dom0_mem;
-@@ -1196,6 +1196,28 @@ int __init make_hypervisor_node(struct domain *d,
-             printk(XENLOG_WARNING "%pd: failed to allocate extended regions\n",
-                    d);
-         nr_ext_regions = ext_regions->nr_banks;
-+
-+        /*
-+         * If extended region is enabled, carve out the 16MB guest magic page
-+         * regions from the first bank of extended region (at least 64MB) for
-+         * the 1:1 dom0less DomUs
-+         */
-+        if ( is_domain_direct_mapped(d) && !is_hardware_domain(d) )
-+        {
-+            struct mem_map_domain *mem_map = &d->arch.mem_map;
-+
-+            for ( i = 0; i < mem_map->nr_mem_regions; i++ )
-+            {
-+                if ( mem_map->regions[i].type == XEN_MEM_REGION_MAGIC )
-+                {
-+                    mem_map->regions[i].start = ext_regions->bank[0].start;
-+                    mem_map->regions[i].size = GUEST_MAGIC_SIZE;
-+
-+                    ext_regions->bank[0].start += GUEST_MAGIC_SIZE;
-+                    ext_regions->bank[0].size -= GUEST_MAGIC_SIZE;
-+                }
-+            }
-+        }
-     }
- 
-     reg = xzalloc_array(__be32, (nr_ext_regions + 1) * (addrcells + sizecells));
-diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
-index 74432123fe..063ff727bb 100644
---- a/xen/arch/arm/include/asm/domain_build.h
-+++ b/xen/arch/arm/include/asm/domain_build.h
-@@ -4,6 +4,8 @@
- #include <xen/sched.h>
- #include <asm/kernel.h>
- 
-+extern bool opt_ext_regions;
-+
- typedef __be32 gic_interrupt_t[3];
- 
- bool allocate_bank_memory(struct domain *d, struct kernel_info *kinfo,
-diff --git a/xen/arch/arm/include/asm/static-memory.h b/xen/arch/arm/include/asm/static-memory.h
-index 3e3efd70c3..01e51217ca 100644
---- a/xen/arch/arm/include/asm/static-memory.h
-+++ b/xen/arch/arm/include/asm/static-memory.h
-@@ -12,6 +12,7 @@ void allocate_static_memory(struct domain *d, struct kernel_info *kinfo,
- void assign_static_memory_11(struct domain *d, struct kernel_info *kinfo,
-                              const struct dt_device_node *node);
- void init_staticmem_pages(void);
-+int find_11_domU_magic_region(struct domain *d, struct kernel_info *kinfo);
- 
- #else /* !CONFIG_STATIC_MEMORY */
- 
-@@ -31,6 +32,12 @@ static inline void assign_static_memory_11(struct domain *d,
- 
- static inline void init_staticmem_pages(void) {};
- 
-+static inline int find_11_domU_magic_region(struct domain *d,
-+                                            struct kernel_info *kinfo)
-+{
-+    return 0;
-+}
-+
- #endif /* CONFIG_STATIC_MEMORY */
- 
- #endif /* __ASM_STATIC_MEMORY_H_ */
-diff --git a/xen/arch/arm/static-memory.c b/xen/arch/arm/static-memory.c
-index cffbab7241..ab1ec5e73a 100644
---- a/xen/arch/arm/static-memory.c
-+++ b/xen/arch/arm/static-memory.c
-@@ -2,6 +2,7 @@
- 
- #include <xen/sched.h>
- 
-+#include <asm/domain_build.h>
- #include <asm/static-memory.h>
- 
- static bool __init append_static_memory_to_bank(struct domain *d,
-@@ -276,6 +277,44 @@ void __init init_staticmem_pages(void)
-     }
+ int xc_domain_populate_physmap_exact(xc_interface *xch,
+                                      uint32_t domid,
+                                      unsigned long nr_extents,
+diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
+index 4dba55d01d..82c1554613 100644
+--- a/tools/libs/ctrl/xc_domain.c
++++ b/tools/libs/ctrl/xc_domain.c
+@@ -916,6 +916,36 @@ int xc_domain_nr_gpfns(xc_interface *xch, uint32_t domid, xen_pfn_t *gpfns)
+     return rc;
  }
  
-+int __init find_11_domU_magic_region(struct domain *d,
-+                                     struct kernel_info *kinfo)
++static int xc_populate_physmap_cmd(xc_interface *xch,
++                                   unsigned int cmd,
++                                   uint32_t domid,
++                                   unsigned long nr_extents,
++                                   unsigned int extent_order,
++                                   unsigned int mem_flags,
++                                   xen_pfn_t *extent_start)
 +{
-+    if ( is_domain_direct_mapped(d) )
++    int err;
++    DECLARE_HYPERCALL_BOUNCE(extent_start, nr_extents * sizeof(*extent_start), XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
++    struct xen_memory_reservation reservation = {
++        .nr_extents   = nr_extents,
++        .extent_order = extent_order,
++        .mem_flags    = mem_flags,
++        .domid        = domid
++    };
++
++    if ( xc_hypercall_bounce_pre(xch, extent_start) )
 +    {
-+        struct meminfo *magic_region = xzalloc(struct meminfo);
-+        struct mem_map_domain *mem_map = &d->arch.mem_map;
-+        unsigned int i;
-+        int ret = 0;
-+
-+        if ( !magic_region )
-+            return -ENOMEM;
-+
-+        ret = find_unused_regions(d, kinfo, magic_region, GUEST_MAGIC_SIZE);
-+        if ( ret )
-+        {
-+            printk(XENLOG_WARNING
-+                   "%pd: failed to find a region for domain magic pages\n", d);
-+            xfree(magic_region);
-+            return -ENOENT;
-+        }
-+
-+        /* Update the domain memory map. */
-+        for ( i = 0; i < mem_map->nr_mem_regions; i++ )
-+        {
-+            if ( mem_map->regions[i].type == XEN_MEM_REGION_MAGIC )
-+            {
-+                mem_map->regions[i].start = magic_region->bank[0].start;
-+                mem_map->regions[i].size = GUEST_MAGIC_SIZE;
-+            }
-+        }
-+
-+        xfree(magic_region);
++        PERROR("Could not bounce memory for XENMEM_populate_physmap hypercall");
++        return -1;
 +    }
++    set_xen_guest_handle(reservation.extent_start, extent_start);
 +
-+    return 0;
++    err = xc_memory_op(xch, cmd, &reservation, sizeof(reservation));
++
++    xc_hypercall_bounce_post(xch, extent_start);
++    return err;
 +}
 +
+ int xc_domain_increase_reservation(xc_interface *xch,
+                                    uint32_t domid,
+                                    unsigned long nr_extents,
+@@ -1135,26 +1165,9 @@ int xc_domain_populate_physmap(xc_interface *xch,
+                                unsigned int mem_flags,
+                                xen_pfn_t *extent_start)
+ {
+-    int err;
+-    DECLARE_HYPERCALL_BOUNCE(extent_start, nr_extents * sizeof(*extent_start), XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
+-    struct xen_memory_reservation reservation = {
+-        .nr_extents   = nr_extents,
+-        .extent_order = extent_order,
+-        .mem_flags    = mem_flags,
+-        .domid        = domid
+-    };
+-
+-    if ( xc_hypercall_bounce_pre(xch, extent_start) )
+-    {
+-        PERROR("Could not bounce memory for XENMEM_populate_physmap hypercall");
+-        return -1;
+-    }
+-    set_xen_guest_handle(reservation.extent_start, extent_start);
+-
+-    err = xc_memory_op(xch, XENMEM_populate_physmap, &reservation, sizeof(reservation));
+-
+-    xc_hypercall_bounce_post(xch, extent_start);
+-    return err;
++    return xc_populate_physmap_cmd(xch, XENMEM_populate_physmap, domid,
++                                   nr_extents, extent_order, mem_flags,
++                                   extent_start);
+ }
+ 
+ int xc_domain_populate_physmap_exact(xc_interface *xch,
+@@ -1182,6 +1195,32 @@ int xc_domain_populate_physmap_exact(xc_interface *xch,
+     return err;
+ }
+ 
++int xc_domain_populate_physmap_heap_exact(xc_interface *xch,
++                                          uint32_t domid,
++                                          unsigned long nr_extents,
++                                          unsigned int extent_order,
++                                          unsigned int mem_flags,
++                                          xen_pfn_t *extent_start)
++{
++    int err;
++
++    err = xc_populate_physmap_cmd(xch, XENMEM_populate_physmap_heap_alloc,
++                                  domid, nr_extents, extent_order, mem_flags,
++                                  extent_start);
++    if ( err == nr_extents )
++        return 0;
++
++    if ( err >= 0 )
++    {
++        DPRINTF("Failed allocation for dom %d: %ld extents of order %d\n",
++                domid, nr_extents, extent_order);
++        errno = EBUSY;
++        err = -1;
++    }
++
++    return err;
++}
++
+ int xc_domain_memory_exchange_pages(xc_interface *xch,
+                                     uint32_t domid,
+                                     unsigned long nr_in_extents,
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index b4593f5f45..a4733869c2 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -155,6 +155,14 @@ static void increase_reservation(struct memop_args *a)
+     a->nr_done = i;
+ }
+ 
++/*
++ * Alias of _MEMF_no_refcount to avoid introduction of a new, single-use flag.
++ * This flag should be used for populate_physmap() only as a re-purposing of
++ * _MEMF_no_refcount to force a non-1:1 allocation from domheap.
++ */
++#define _MEMF_force_heap_alloc _MEMF_no_refcount
++#define  MEMF_force_heap_alloc (1U<<_MEMF_force_heap_alloc)
++
+ static void populate_physmap(struct memop_args *a)
+ {
+     struct page_info *page;
+@@ -219,7 +227,8 @@ static void populate_physmap(struct memop_args *a)
+         }
+         else
+         {
+-            if ( is_domain_direct_mapped(d) )
++            if ( is_domain_direct_mapped(d) &&
++                 !(a->memflags & MEMF_force_heap_alloc) )
+             {
+                 mfn = _mfn(gpfn);
+ 
+@@ -246,7 +255,8 @@ static void populate_physmap(struct memop_args *a)
+ 
+                 mfn = _mfn(gpfn);
+             }
+-            else if ( is_domain_using_staticmem(d) )
++            else if ( is_domain_using_staticmem(d) &&
++                      !(a->memflags & MEMF_force_heap_alloc) )
+             {
+                 /*
+                  * No easy way to guarantee the retrieved pages are contiguous,
+@@ -271,6 +281,14 @@ static void populate_physmap(struct memop_args *a)
+             }
+             else
+             {
++                /*
++                 * Avoid passing MEMF_force_heap_alloc down to
++                 * alloc_domheap_pages() where the meaning would be the
++                 * original MEMF_no_refcount.
++                 */
++                if ( unlikely(a->memflags & MEMF_force_heap_alloc) )
++                    a->memflags &= ~MEMF_force_heap_alloc;
++
+                 page = alloc_domheap_pages(d, a->extent_order, a->memflags);
+ 
+                 if ( unlikely(!page) )
+@@ -1404,6 +1422,7 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+     {
+     case XENMEM_increase_reservation:
+     case XENMEM_decrease_reservation:
++    case XENMEM_populate_physmap_heap_alloc:
+     case XENMEM_populate_physmap:
+         if ( copy_from_guest(&reservation, arg, 1) )
+             return start_extent;
+@@ -1433,6 +1452,11 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+              && (reservation.mem_flags & XENMEMF_populate_on_demand) )
+             args.memflags |= MEMF_populate_on_demand;
+ 
++        /* Assert flag is not set from construct_memop_from_reservation(). */
++        ASSERT(!(args.memflags & MEMF_force_heap_alloc));
++        if ( op == XENMEM_populate_physmap_heap_alloc )
++            args.memflags |= MEMF_force_heap_alloc;
++
+         if ( xsm_memory_adjust_reservation(XSM_TARGET, curr_d, d) )
+         {
+             rcu_unlock_domain(d);
+@@ -1453,7 +1477,7 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+         case XENMEM_decrease_reservation:
+             decrease_reservation(&args);
+             break;
+-        default: /* XENMEM_populate_physmap */
++        default: /* XENMEM_populate_{physmap, physmap_heap_alloc} */
+             populate_physmap(&args);
+             break;
+         }
+diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
+index 5e545ae9a4..5e79992671 100644
+--- a/xen/include/public/memory.h
++++ b/xen/include/public/memory.h
+@@ -21,6 +21,7 @@
+ #define XENMEM_increase_reservation 0
+ #define XENMEM_decrease_reservation 1
+ #define XENMEM_populate_physmap     6
++#define XENMEM_populate_physmap_heap_alloc 29
+ 
+ #if __XEN_INTERFACE_VERSION__ >= 0x00030209
  /*
-  * Local variables:
-  * mode: C
+@@ -731,7 +732,7 @@ struct xen_vnuma_topology_info {
+ typedef struct xen_vnuma_topology_info xen_vnuma_topology_info_t;
+ DEFINE_XEN_GUEST_HANDLE(xen_vnuma_topology_info_t);
+ 
+-/* Next available subop number is 29 */
++/* Next available subop number is 30 */
+ 
+ #endif /* __XEN_PUBLIC_MEMORY_H__ */
+ 
 -- 
 2.34.1
 
