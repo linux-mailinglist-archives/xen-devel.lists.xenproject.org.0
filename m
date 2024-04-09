@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A899689D3AE
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 10:00:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.702177.1097044 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9799489D3B5
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 10:01:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.702180.1097054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ru6P1-00024Z-2J; Tue, 09 Apr 2024 08:00:23 +0000
+	id 1ru6Q7-0002aY-Aw; Tue, 09 Apr 2024 08:01:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 702177.1097044; Tue, 09 Apr 2024 08:00:23 +0000
+Received: by outflank-mailman (output) from mailman id 702180.1097054; Tue, 09 Apr 2024 08:01:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ru6P0-000232-V9; Tue, 09 Apr 2024 08:00:22 +0000
-Received: by outflank-mailman (input) for mailman id 702177;
- Tue, 09 Apr 2024 08:00:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ru6Q7-0002YL-88; Tue, 09 Apr 2024 08:01:31 +0000
+Received: by outflank-mailman (input) for mailman id 702180;
+ Tue, 09 Apr 2024 08:01:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CDp6=LO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ru6Oz-00022w-7s
- for xen-devel@lists.xenproject.org; Tue, 09 Apr 2024 08:00:21 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3556270b-f647-11ee-843a-3f19d20e7db6;
- Tue, 09 Apr 2024 10:00:19 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-516d0162fa1so6287315e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Apr 2024 01:00:19 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- t23-20020ac243b7000000b005134b126f0asm1473559lfl.110.2024.04.09.01.00.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Apr 2024 01:00:17 -0700 (PDT)
+ <SRS0=NvYF=LO=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1ru6Q5-0002Xy-8d
+ for xen-devel@lists.xenproject.org; Tue, 09 Apr 2024 08:01:29 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2409::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5ddec39e-f647-11ee-9150-f14010f3f246;
+ Tue, 09 Apr 2024 10:01:27 +0200 (CEST)
+Received: from BN8PR15CA0072.namprd15.prod.outlook.com (2603:10b6:408:80::49)
+ by SN7PR12MB7420.namprd12.prod.outlook.com (2603:10b6:806:2a7::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Tue, 9 Apr
+ 2024 08:01:24 +0000
+Received: from BN1PEPF00004681.namprd03.prod.outlook.com
+ (2603:10b6:408:80:cafe::ca) by BN8PR15CA0072.outlook.office365.com
+ (2603:10b6:408:80::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.36 via Frontend
+ Transport; Tue, 9 Apr 2024 08:01:24 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00004681.mail.protection.outlook.com (10.167.243.87) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Tue, 9 Apr 2024 08:01:23 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 9 Apr
+ 2024 03:01:22 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 9 Apr
+ 2024 03:01:22 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Tue, 9 Apr 2024 03:01:20 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,76 +63,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3556270b-f647-11ee-843a-3f19d20e7db6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712649618; x=1713254418; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=VcxNNAojuzG2gOvWHpoiddDVeCZsTLXWqyHvk5fToAw=;
-        b=GZBvlE1bM+L6vMB0zE9hxQ00u7RAQYCqpyy7fKamAUc1rjbbLiKykivZL5lGt+6Il4
-         spqqVkL5Syrxx+W4CVt9A/6j2rIGqFpbA7v7JjFrl3NnLqWF2zRWbiF2z7Cd/i9pCf8+
-         1XKYvngvt3ggySfR6/efHTmf6pYE0zpYVTqdh1rwXqTgQ16KT2rDidcUrXiqvqfmNizp
-         Wm7oBVA9dqPHX4nQKohlCE/Ad7Pybg1EB9R8QtaBM5ipEiIfuyMezKGaKaHbV8sGVj+f
-         xuNT3kHuZeqybBRblwXKibMl1wb3gVm0gZUhB87p08xGo2GjUs4joqbSKXekjAAg0AFi
-         gKwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712649618; x=1713254418;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=VcxNNAojuzG2gOvWHpoiddDVeCZsTLXWqyHvk5fToAw=;
-        b=gCMSh4h5ZlGhjj8abwdM/irlTNo6l3yJZixTyu1pXkUSEQqKezsBWX2p2y9YcKcEFc
-         gm+uJ/FyKyXiq0yaldNv+Bb+5+DmCD31MW75RkEO1Zc2krnqwnzZKFCkdvpxDYNuuC4b
-         CEucoT8T3oQhrusU/V57qOrFCH/uFKdGq1rdkbL83pEVtr5TiSdEuSWCP/5JEe2AnZd/
-         A51ISa4HCOL5Q/xqMf+Yba7coBVshVCf+d2IFzDwzNnNzQlc3mvfNbLs0EAKdkmRl/rj
-         CTgyBIjPyXKdwD0jZAH7bLdqwtiuBTWUciI0P3DyKbkLZODBxDjhmSSfQ8MMf7uvAyst
-         o/sA==
-X-Gm-Message-State: AOJu0YxRL2ihF1YUK6eGtgdrNR/EyzI6+nIPTB7Z20LWwjRn9T4BTZfb
-	K9tk3oABD9ELaFei/YdvNHxe3h0FHeILopR6kxpw5Mkzw6dRzQvoig0zXwoZ
-X-Google-Smtp-Source: AGHT+IF0A3fsa1a4GGlNE04oi+vd/QVZ8UmhKYc1QNcrRwkkTofuSLA8gxXrwh+wzdyX50WXo1LMlw==
-X-Received: by 2002:a05:6512:2525:b0:515:fc44:b3f7 with SMTP id be37-20020a056512252500b00515fc44b3f7mr10784169lfb.24.1712649618012;
-        Tue, 09 Apr 2024 01:00:18 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] xen/riscv: check whether the assembler has Zbb extension support
-Date: Tue,  9 Apr 2024 10:00:14 +0200
-Message-ID: <10816604a8625b5052f134e54c406fb4e7b6c898.1712649614.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.44.0
+X-Inumbo-ID: 5ddec39e-f647-11ee-9150-f14010f3f246
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oREajX1Qr8T9ijFxSMEgI16dtDuYfiy2BtkyRwj2t517BCuNiftyAoyacogrvbT4BahSSRqLFk/MXKfrary2mqEpIIwzgybKv7wSgizFSTRJcxqeM3HU41FLjqlnc++f/Q1IPX6woXgyjDCzyezX/AmXmIfWxaYs+TDCxwR49yORfhHkbct9CQgbSFxV222FFfqwW/kelvJs+gep+iHbxGnF/TI//3OwdlDuN3myGqQFilld8kAUMNHRMAC8AdvzPnrBTzydvB11dXEJ7TCcymx6zPdXAHq9m1yYjojktDVHc9YgoYnvQbxVUhXOQLnT9KQLMxOiefG7VeZi7vEnOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DAz1LGrm6t5c6MPdKc7N6v6w4mxqmGreCpwekeCY7MA=;
+ b=f0AjEwrDwJXGoXFSHfpXMflEyABsFuG6JME0KybVpBuvo9TT7Ct8NhgsyfefUKSy15wkaDykX7bSq2cZ9SXeVS41YKeN43/RJsl74g1x8UauHG34xl3lCl8eLpUZbMvhONjchKod8lZZZC4BOaCgPpjjvVX2GVLpPoqLcWx1eIEYiYfd8vgqRm03YOH1hKINzBQ6/WCFgnLprmGzq5o/bNDIl/JYpslesfaMnNHK/3Lrog6Hcvyp8JWv9s6+YbsXcZJmTi9CwRqeHLRZHnyo2KaszRGEOXcgVfMCbIgfa+brJ73GdoggcMr63vTigTFOuEHvCHQbffzHmsHynoxTRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=raptorengineering.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DAz1LGrm6t5c6MPdKc7N6v6w4mxqmGreCpwekeCY7MA=;
+ b=nmnuncmDTuqepXUyZyRB1cjKt89CV7oV+zhxD9rOWGjSPLELzo6yA6CMn+xmOOmXqkXd3YyWOIMhSp/v0AWnYoWhiScY6Fm92B1We9CDPMi1PUYXVz4iCF3vru/cu4OEWAXCdFr9Bk3yAYV44gCyj8zlpWlES5qyMDAj//pPh3o=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <e20ac3f1-0f86-41e3-891c-b3ea97b702ec@amd.com>
+Date: Tue, 9 Apr 2024 10:01:20 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/acpi: Allow xen/acpi.h to be included on non-ACPI
+ archs
+To: Shawn Anastasio <sanastasio@raptorengineering.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <tpearson@raptorengineering.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Juergen Gross
+	<jgross@suse.com>, Dario Faggioli <dfaggioli@suse.com>
+References: <20240405182031.396528-1-sanastasio@raptorengineering.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240405182031.396528-1-sanastasio@raptorengineering.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004681:EE_|SN7PR12MB7420:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9b3a39e-1c1b-45f8-c65e-08dc586b3fa7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	d5xv+ITLPiK3VS28frFqzRE5KU1AFgw9ZPYO8f3snsrFi5TlupdaiRSwU3CoSKfnl4RqLQwiyoh9QWBgjSf1sCbrHQ1XydjRhqtzUgm+/A1Rva4pxROnYL4LGQpxorJNhkHvEM06AHk/O384JNCnSvh5adwYgv7gg4msFdZZrHlxsGypBip4WEmwvyYOrOL7bVCuU52JlUoZ16pwrSsTMjASHIuk7kKGlIBwpGeeO9ZcGlQ2h/FjIFYKRmB1eqNRY67cS2BnC6LIJM3SZIFismvUAV6QDCJEwrWJ/igwweeAXQvnLzdPYW3937nLQDtElb/PUIXHK3RA7XHAnHVqbYAjYGuvDfcRfHq0qO1QrQvpmg8g0eQkAlMHhrix81kCaD1mlFo0kBBjv1PhQOifTKr7p5COcgWKJRYIM0aYhDNrzOX8VzcbKYHjWrbtCXFFwOwIPyqM5TBushcNqV7VrmhzCAoaw+hKXSb2Gvf/Bxh84D/ueeCStyssLaJgROiJPvGedpe6T8m8hsCt6qxL35sm396WomIZKfiAFg5XU5GNPEx1m/SSJVadyzzvH7VpWSRjt4HarFRRlPMKDNXXuYTXDH3P5cALSLAyt57i7PyHewZiBXKXJCbfcxhU839weWoIX5675ICStNaPg/xfN8kwyGMILWudOA0PlVAZs9sjAJbmHA3HA24pbJ+TBdUf3TmZh5MxFX0+teUs0zpxM+kYmrCzgdGnAFJ+GqkK0VOcf+pYIeUb76NX5mXazrXC
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(36860700004)(1800799015)(7416005)(376005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2024 08:01:23.2160
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9b3a39e-1c1b-45f8-c65e-08dc586b3fa7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00004681.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7420
 
-Update the argument of the as-insn for the Zbb case to verify that
-Zbb is supported not only by a compiler, but also by an assembler.
+Hi Shawn,
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- xen/arch/riscv/arch.mk | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 05/04/2024 20:20, Shawn Anastasio wrote:
+> 
+> 
+> Conditionalize xen/acpi.h's inclusion of acpi/acpi.h and asm/acpi.h on
+> CONFIG_ACPI and import ARM's !CONFIG_ACPI stub for acpi_disabled() so
+> that the header can be included on architectures without ACPI support,
+> like ppc.
+> 
+> This change revealed some missing #includes across the ARM tree, so fix
+> those as well.
+> 
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
-index 53f3575e7d..6c53953acb 100644
---- a/xen/arch/riscv/arch.mk
-+++ b/xen/arch/riscv/arch.mk
-@@ -11,7 +11,8 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
- 
- riscv-generic-flags := $(riscv-abi-y) -march=$(riscv-march-y)
- 
--zbb := $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"",_zbb)
-+zbb_insn := "andn t0, t0, t0"
-+zbb := $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,${zbb_insn},_zbb)
- zihintpause := $(call as-insn, \
-                       $(CC) $(riscv-generic-flags)_zihintpause,"pause",_zihintpause)
- 
--- 
-2.44.0
-
+~Michal
 
