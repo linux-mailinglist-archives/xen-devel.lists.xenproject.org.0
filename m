@@ -2,56 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6076B89DA76
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 15:38:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.702451.1097467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ED5689DBA0
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 16:04:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.702458.1097477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruBg6-0003JO-Ax; Tue, 09 Apr 2024 13:38:22 +0000
+	id 1ruC41-0008Md-9u; Tue, 09 Apr 2024 14:03:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 702451.1097467; Tue, 09 Apr 2024 13:38:22 +0000
+Received: by outflank-mailman (output) from mailman id 702458.1097477; Tue, 09 Apr 2024 14:03:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruBg6-0003Gz-89; Tue, 09 Apr 2024 13:38:22 +0000
-Received: by outflank-mailman (input) for mailman id 702451;
- Tue, 09 Apr 2024 13:38:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ruC41-0008L6-6f; Tue, 09 Apr 2024 14:03:05 +0000
+Received: by outflank-mailman (input) for mailman id 702458;
+ Tue, 09 Apr 2024 14:03:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NvYF=LO=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1ruBg5-0003Gt-FS
- for xen-devel@lists.xenproject.org; Tue, 09 Apr 2024 13:38:21 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20601.outbound.protection.outlook.com
- [2a01:111:f403:2009::601])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6c481179-f676-11ee-94a3-07e782e9044d;
- Tue, 09 Apr 2024 15:38:19 +0200 (CEST)
-Received: from PH7PR10CA0009.namprd10.prod.outlook.com (2603:10b6:510:23d::29)
- by SJ2PR12MB9005.namprd12.prod.outlook.com (2603:10b6:a03:53d::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Tue, 9 Apr
- 2024 13:38:15 +0000
-Received: from CY4PEPF0000EE32.namprd05.prod.outlook.com
- (2603:10b6:510:23d:cafe::ba) by PH7PR10CA0009.outlook.office365.com
- (2603:10b6:510:23d::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.36 via Frontend
- Transport; Tue, 9 Apr 2024 13:38:15 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000EE32.mail.protection.outlook.com (10.167.242.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Tue, 9 Apr 2024 13:38:14 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 9 Apr
- 2024 08:38:14 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 9 Apr
- 2024 06:38:14 -0700
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 9 Apr 2024 08:38:13 -0500
+ <SRS0=qKuC=LO=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1ruC3z-0008L0-MN
+ for xen-devel@lists.xenproject.org; Tue, 09 Apr 2024 14:03:03 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dfbdec14-f679-11ee-b907-491648fe20b8;
+ Tue, 09 Apr 2024 16:03:01 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1712671370128960.176597926592;
+ Tue, 9 Apr 2024 07:02:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,155 +38,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c481179-f676-11ee-94a3-07e782e9044d
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gpV4NrEq+lV8KuEBy98T8ksphJ6E/c32YgIIh9t4TyC/K7Lyu8qzttF1jIlyFJOYYFBvUH6YsnooDxAvFko0XIr9+TVGQapNk2teZ72SjMC8eI5Dig3eGLxLXJog0fUrG7eCIlsMVfVZx8QPFKT3XkUh/ykvQ6OAsRxsAFL+3WszXukxnoqEd91UdwOC+dDU/yAKOAWqatGc64kWQ+vKeqfudL5rqnFW0aRGsxnRF4SPbDtSDGzXLhJkfFpVFoxYxadq+C7GxsPVIbpxx2v0LiMMAdZjSjOiZZcbS+y7FxdDKFZzLHLVHOdd9LI0ig0RuIOTAHxXgvJJ7tuoC26x0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1S5gcepFEut6mWo0Vqg5/fAfmi2CGeyyFjQ/NZPEUJM=;
- b=IrFiZmO8NSfe9VjZ+nh6OSR5AoU9xfiyubvmNWlDAyw0/+vNCzzw9ZtQIJ/gX13uyWa/BU/NxYoe/8VW/QFUKTGQyIHIpnZbCZPSg5XGyEfW9cTXJKtIm5B+27heZO33ffNms0QhwwI8mSH68fZAXjjRYoZ0Ht8OmrGX7bz7L4yUTuSlkNJjtUskE6MCBIicRt7FGaKhell91EJfl1ZiuVgiPiouAocKyfukLL/e/hBk59of0tINBlv/x19YRL0nkZERDc3Ewbcl2SArpLMIbm2WAuzYdOXuGvg6uvSuTXPqoxtwMrH6HjJbmFY5YJPF90IHUg9+PAHLLWtSiMkKUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1S5gcepFEut6mWo0Vqg5/fAfmi2CGeyyFjQ/NZPEUJM=;
- b=g5FbloD55hGYH6LqUhZrMkSJYJfe1CYgtOkRN7s26XqIwf3uPtMpygvV4sX6+tDT6w6GPX6RIM2/VbLlQabQkF1R5yNhrC6T8bvKBWXpOHAieepqrncIf8Bp0mp9wSIsQTNNtCETvPfjNR5jTtODrBkANfIDrh82Jb7mL9+MWO0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <611fb8ea-1b2f-487e-956f-0aba716912c3@amd.com>
-Date: Tue, 9 Apr 2024 15:38:12 +0200
+X-Inumbo-ID: dfbdec14-f679-11ee-b907-491648fe20b8
+ARC-Seal: i=1; a=rsa-sha256; t=1712671371; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ZMpodFN+sUWv5J3lXehKRfob2EYh3yANNG9f0Lfm/DpvG+sW+XkvHdEqfbgCVHwouexghGdWSiuvBVlAioJhSD0OoZxbsXBvhDlx31rEwgvvWqAImWlky2FD9N4xTIZ+ctGDPhSUbpZGPkp7Vnm6WSykvIyJhVIajBFaIaOv7VE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1712671371; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=geIvMGkuAVJMhX4gYU7oJF6o4PokcRR8agqNYVfuC2k=; 
+	b=NiTDC0FLwRTPtsFkMbc+nxDc8OmdTMXfPR+TfOhojjEO7L0eMnXornQj8Lyo5nTnxElTgWyT7BVXSUoHUeGKNJcdzAjasKss4+MIeZX/0+hGdvfSHWw5jWOd7vpAHdhoLdkBkN9hnhGeyNaGaapxat1a/fNaWX87EIaMYWgk+BI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712671371;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=geIvMGkuAVJMhX4gYU7oJF6o4PokcRR8agqNYVfuC2k=;
+	b=HEf8tSZQplbNhoBhlWFKjvrssGJlRBLIwons2IvyWziG+u2eVDg0xVQyy3U9W6td
+	nNqMfcA6MKVZpFsEhfFl7n9WDvbaBSarjX2kHU4LjjUOjRnWbng0fJEEpkDqW9tWH/b
+	SFnw8cOebv6e5/7s4jeInMr7N34xVbVkZO9PeHRg=
+Message-ID: <543f34ed-48f3-4ce5-bd34-00c2cf176ba0@apertussolutions.com>
+Date: Tue, 9 Apr 2024 10:02:48 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/13] xen/arm: Avoid code duplication in
- find_unallocated_memory
-To: Luca Fancellu <luca.fancellu@arm.com>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
-References: <20240409114543.3332150-1-luca.fancellu@arm.com>
- <20240409114543.3332150-7-luca.fancellu@arm.com>
+Subject: Re: [XEN PATCH v2 7/9] xen/xsm: address violation of MISRA C Rule
+ 16.2
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20240409114543.3332150-7-luca.fancellu@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com
+References: <cover.1712305581.git.nicola.vetrini@bugseng.com>
+ <7fbb80bf62fc2e5f91a89375134622366c0b3891.1712305581.git.nicola.vetrini@bugseng.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ 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
+In-Reply-To: <7fbb80bf62fc2e5f91a89375134622366c0b3891.1712305581.git.nicola.vetrini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE32:EE_|SJ2PR12MB9005:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5458b75a-6643-4ac4-9dd0-08dc589a4eda
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Rm2T8Wpi/bSTOtiNNGOr+GGhx7T3zWoQ3ulKrKzs/LVuEGm60HgcS5CYWOxnc+pmG8yL/WRomB0Op7pHokJsez+cURIqo+a/NXqAcGsjQs/mZ6JDk9xPfxfmPpizsQEIzoy+ozIL8RR6bO9a/tDA/ZdIqjMAQxDuqjZ2I+H8poQS4tqJCxfwTlUfdhomAzpg4gYPVBpzo7Wew21lq2RB5OZh4hWVgOUVbj9pJiJLokkq2aEo1CMnsUcj90nDBySSAmoNiC/sjxt8XZIq5+MQPzdhyZBY5s67/kjZjAKJm6cRt7MWEG6Qf1gn/WsGLit2hMyNNDTU99COSPw+ZONDzEXomVaP38HSIvap73LI4llIFPgrvacLDr/nVUoKcBIwkGiqCgQe9zvRPr28zaQ/KwhMOVN1byx7V/3yLieknE6F5sDNGeqTmvBHQQyBcIxLxTIRtLi3WtPJVXk0xoqHgY8n7PPyjIMV5mGK2jAPrNVlE2vbL5id84nqH+adtc1qEbhxQ33QRQGkHUNY8ILKDLmErjLewIzeh70W4Lc+N14t7220kWrn3y8UpINnTbZt15u0eUyOTj/0rx+80wY7bFEegTQXhBNwjdwXuUr4GJMC2/a8uxGJSIonAPGhnphZW3OdQLSVzO2aiH7/sQwZ1MQAscStInOVcE61k0Kp6G2aSEUshI8XNxFjSM4p0lHXeexNePTHN/oMzE2jQPuBR0H2A6w6Vs9Hr8TSbKcKWUIln01WfpGODGflWXuJiM4B
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(36860700004)(376005)(1800799015);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2024 13:38:14.9843
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5458b75a-6643-4ac4-9dd0-08dc589a4eda
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE32.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9005
+X-ZohoMailClient: External
 
-Hi Luca,
+On 4/5/24 05:14, Nicola Vetrini wrote:
+> Refactor the switch so that a violation of
+> MISRA C Rule 16.2 is resolved (A switch label shall only be used
+> when the most closely-enclosing compound statement is the body of
+> a switch statement).
+> Note that the switch clause ending with the pseudo
+> keyword "fallthrough" is an allowed exception to Rule 16.3.
+> 
 
-On 09/04/2024 13:45, Luca Fancellu wrote:
-> 
-> 
-> The function find_unallocated_memory is using the same code to
-> loop through 3 structure of the same type, in order to avoid
-> code duplication, rework the code to have only one loop that
-> goes through all the structures.
-> 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> ---
-> v2:
->  - Add comment in the loop inside find_unallocated_memory to
->    improve readability
-> v1:
->  - new patch
-> ---
-> ---
->  xen/arch/arm/domain_build.c | 70 +++++++++++++------------------------
->  1 file changed, 25 insertions(+), 45 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 57cf92668ae6..269aaff4d067 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -869,12 +869,14 @@ static int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
->  static int __init find_unallocated_memory(const struct kernel_info *kinfo,
->                                            struct membanks *ext_regions)
->  {
-> -    const struct membanks *kinfo_mem = kernel_info_get_mem_const(kinfo);
-> -    const struct membanks *mem = bootinfo_get_mem();
-> -    const struct membanks *reserved_mem = bootinfo_get_reserved_mem();
-> +    const struct membanks *mem_banks[] = {
-> +        bootinfo_get_mem(),
-> +        kernel_info_get_mem_const(kinfo),
-> +        bootinfo_get_reserved_mem(),
-> +    };
->      struct rangeset *unalloc_mem;
->      paddr_t start, end;
-> -    unsigned int i;
-> +    unsigned int i, j;
->      int res;
-> 
->      dt_dprintk("Find unallocated memory for extended regions\n");
-> @@ -883,50 +885,28 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
->      if ( !unalloc_mem )
->          return -ENOMEM;
-> 
-> -    /* Start with all available RAM */
-> -    for ( i = 0; i < mem->nr_banks; i++ )
-> -    {
-> -        start = mem->bank[i].start;
-> -        end = mem->bank[i].start + mem->bank[i].size;
-> -        res = rangeset_add_range(unalloc_mem, PFN_DOWN(start),
-> -                                 PFN_DOWN(end - 1));
-> -        if ( res )
-> +    /*
-> +     * Exclude the following regions, in order:
-> +     * 1) Start with all available RAM
-> +     * 2) Remove RAM assigned to Dom0
-> +     * 3) Remove reserved memory
-Given this commit and the previous code, I expect one call to rangeset_add_range() and
-3 calls to rangeset_remove_range(). However ...
-> +     * The order comes from the initialization of the variable "mem_banks"
-> +     * above
-> +     */
-> +    for ( i = 0; i < ARRAY_SIZE(mem_banks); i++ )
-> +        for ( j = 0; j < mem_banks[i]->nr_banks; j++ )
->          {
-> -            printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
-> -                   start, end);
-> -            goto out;
-> -        }
-> -    }
-> -
-> -    /* Remove RAM assigned to Dom0 */
-> -    for ( i = 0; i < kinfo_mem->nr_banks; i++ )
-> -    {
-> -        start = kinfo_mem->bank[i].start;
-> -        end = kinfo_mem->bank[i].start + kinfo_mem->bank[i].size;
-> -        res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
-> +            start = mem_banks[i]->bank[j].start;
-> +            end = mem_banks[i]->bank[j].start + mem_banks[i]->bank[j].size;
-> +            res = rangeset_add_range(unalloc_mem, PFN_DOWN(start),
-... here you always call rangeset_add_range() which is wrong. For direct mapped domain
-you would e.g. register its RAM region as extended region.
+To give you a quick response, on cursory review, I do not believe the 
+two are equivalent. I have never been a fan of the Duff's device in use 
+here, as it makes reasoning about all the variations difficult. I 
+unrolled all of this once before, and I recall it being a bit more 
+intricate than this.
 
-~Michal
+v/r,
+dps
 
