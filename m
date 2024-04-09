@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EE3A89E124
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 19:11:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.702595.1097749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76E9789E1AC
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 19:36:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.702781.1098321 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruF06-0006a4-5v; Tue, 09 Apr 2024 17:11:14 +0000
+	id 1ruFNz-0002B2-NQ; Tue, 09 Apr 2024 17:35:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 702595.1097749; Tue, 09 Apr 2024 17:11:14 +0000
+Received: by outflank-mailman (output) from mailman id 702781.1098321; Tue, 09 Apr 2024 17:35:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruF06-0006Wm-0v; Tue, 09 Apr 2024 17:11:14 +0000
-Received: by outflank-mailman (input) for mailman id 702595;
- Tue, 09 Apr 2024 17:11:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pd+N=LO=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
- id 1ruF04-0005pB-22
- for xen-devel@lists.xen.org; Tue, 09 Apr 2024 17:11:12 +0000
-Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2840499d-f694-11ee-b907-491648fe20b8;
- Tue, 09 Apr 2024 19:11:09 +0200 (CEST)
-Received: from xenbits.xenproject.org ([104.239.192.120])
+	id 1ruFNz-00029X-KN; Tue, 09 Apr 2024 17:35:55 +0000
+Received: by outflank-mailman (input) for mailman id 702781;
+ Tue, 09 Apr 2024 17:35:54 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ruFNy-00029M-7V; Tue, 09 Apr 2024 17:35:54 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrewcoop@xenbits.xen.org>)
- id 1ruEzu-0005MG-NW; Tue, 09 Apr 2024 17:11:02 +0000
-Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.92)
- (envelope-from <andrewcoop@xenbits.xen.org>)
- id 1ruEzu-0003pl-M1; Tue, 09 Apr 2024 17:11:02 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ruFNy-00061B-6Y; Tue, 09 Apr 2024 17:35:54 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ruFNx-0008So-So; Tue, 09 Apr 2024 17:35:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ruFNx-0004zB-SD; Tue, 09 Apr 2024 17:35:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,187 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2840499d-f694-11ee-b907-491648fe20b8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
-	Content-Transfer-Encoding:Content-Type;
-	bh=U1PG/nsPCwUqdMSdLQxGWBCZUtFoLKVsU0sovIo+LGo=; b=LueaI/8VcS18FHtsrwSn+PS31G
-	wBYtj8bh7XoxF9FhIT2KSM+jo5aEtUOHG5apb3sLSXaQSKREK59sVJ/fcr+hwLrMaYn1Eg8HjAtD8
-	ywUUw+EbDPe+rw0EcB5Db6vzaD5TZ5VBdFW2gweJ29nHxALM4HRoeaJqcHLFBjueqwE8=;
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=FS/EOS8bVevw+dzeR03OJJLdKq0go2cb4jOTF382P1o=; b=cCXncQMRKqN1RGilJG9/jslcF1
+	jSNVnPqsqs1MDMfsTgw8XyXlGSqZ40vrQtvUho2XSZpFjmZdUde4dJm0eIiiPNQyl9pb04iSy9ZhA
+	r9sizLyHCaMQnpMCRZ82RHPahX6US8SOfngQnJqmkopRDrXf1EfH431E/kwKM1fFwHCk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185286-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-Mailer: MIME-tools 5.509 (Entity 5.509)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 456 v2 (CVE-2024-2201) - x86: Native Branch
- History Injection
-Message-Id: <E1ruEzu-0003pl-M1@xenbits.xenproject.org>
-Date: Tue, 09 Apr 2024 17:11:02 +0000
+Subject: [xen-unstable-smoke test] 185286: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=9926e692c4afc40bcd66f8416ff6a1e93ce402f6
+X-Osstest-Versions-That:
+    xen=672b26b66ebb5ff3d28c573a6545a08020b27495
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 09 Apr 2024 17:35:53 +0000
 
---=separator
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
+flight 185286 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185286/
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Failures :-/ but no regressions.
 
-            Xen Security Advisory CVE-2024-2201 / XSA-456
-                              version 2
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-                 x86: Native Branch History Injection
+version targeted for testing:
+ xen                  9926e692c4afc40bcd66f8416ff6a1e93ce402f6
+baseline version:
+ xen                  672b26b66ebb5ff3d28c573a6545a08020b27495
 
-UPDATES IN VERSION 2
-====================
+Last test of basis   185276  2024-04-09 01:02:07 Z    0 days
+Testing same since   185286  2024-04-09 13:02:15 Z    0 days    1 attempts
 
-Public release.
+------------------------------------------------------------
+People who touched revisions under test:
+  Bjoern Doebel <doebel@amazon.de>
+  Jan Beulich <jbeulich@suse.com>
 
-ISSUE DESCRIPTION
-=================
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-In August 2022, researchers at VU Amsterdam disclosed Spectre-BHB.
 
-Spectre-BHB was discussed in XSA-398.  At the time, the susceptibility
-of Xen to Spectre-BHB was uncertain so no specific action was taken in
-XSA-398.  However, various changes were made thereafter in upstream Xen
-as a consequence; more on these later.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-VU Amsterdam have subsequently adjusted the attack to be pulled off
-entirely from userspace, without the aid of a managed runtime in the
-victim context.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-For more details, see:
-  https://vusec.net/projects/native-bhi
-  https://vusec.net/projects/bhi-spectre-bhb
-  https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/branch-history-injection.html
-  https://xenbits.xen.org/xsa/advisory-398.html
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-IMPACT
-======
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-An attacker might be able to infer the contents of arbitrary host
-memory, including memory assigned to other guests.
 
-VULNERABLE SYSTEMS
-==================
+Pushing revision :
 
-Systems running all versions of Xen are affected.
-
-Only Intel x86 CPUs are potentially affected.  CPUs from other
-manufacturers are not known to be affected.
-
-A wide range of Intel CPUs employ Branch History prediction techniques.
-However for older CPUs existing Spectre-v2 mitigations (XSA-254) are
-believed to be sufficient to mitigate Native-BHI.
-
-Therefore, the rest of the discussion will be limited in scope to the
-CPUs for which a change in behaviour is expected.  These are believed to
-be all CPUs with eIBRS (Enhanced IBRS, a.k.a. IBRS_ALL or IBRS_ATT).
-eIBRS signifies a hardware adjustment (mode-tagged indirect predictions)
-designed to combat Spectre-v2, available in CPUs from 2019 onwards.
-
-To determine if a system has eIBRS, run `xen-cpuid -v` in dom0, looking for
-the string "eibrs" in the Dynamic Raw block of information.  e.g.
-
-  # xen-cpuid -v
-  ...
-  Dynamic sets:
-  Raw                             ...
-    ...
-    [16] MSR_ARCH_CAPS.lo         ... eibrs ...
-    ...
-  ...
-
-Be aware that the Static sets are compile time information so will include the
-string "eibrs" irrespective of hardware support.  If there is no row for "[16]
-MSR_ARCH_CAPS.lo" then the fixes for XSA-435 are missing.
-
-MITIGATION
-==========
-
-There are no mitigations.
-
-CREDITS
-=======
-
-This issue was discovered by VU Amsterdam.
-
-RESOLUTION
-==========
-
-In Xen 4.17, in response to the original Spectre-BHB, CET-IBT support was
-added to Xen to use on capable hardware.  It also came with work to remove
-unnecessary function pointers, and to de-virtualise function pointers at boot,
-as both a performance and hardening improvement.  This work has been steadily
-continuing since, and every removed/de-virtualised function pointer reduces
-the options available to an adversary trying to mount a Native-BHI attack.
-All of this work has been backported to 4.17 and later for this advisory.
-
-Beginning with the Intel Alder Lake (Client) and Sapphire Rapids (Server)
-CPUs, a hardware control called BHI_DIS_S is available, which restricts
-history-based predictions.  This control requires updated microcode on some
-CPUs.  Look for "bhi-ctrl" in `xen-cpuid -v`, similar to eibrs above.
-
-Xen has been updated to use this control when available, and to virtualise it
-for guests to use.
-
-For CPUs without BHI_DIS_S, BHB clearing sequences need using.  Out of an
-abundance of caution, all sequences in the Intel whitepaper have been
-implemented, although Xen will only use the "short" sequence by default.  The
-others are available to opt in to.
-
-The work to mitigate Native-BHI is extensive, and the backports are
-more-extensive still.
-
-Therefore, we have decided to produce new releases on all stable trees.
-Please find fixes in the respective branches under the following release
-tags:
-
-  RELEASE-4.18.2
-  RELEASE-4.17.4
-  RELEASE-4.16.6
-  RELEASE-4.15.6
-
-Other release activities (tarballs, announcements, etc) will happen in
-due course.
-
-DEPLOYMENT DURING EMBARGO
-=========================
-
-Deployment of the patches and/or mitigations described above (or
-others which are substantially similar) is permitted during the
-embargo, even on public-facing systems with untrusted guest users and
-administrators.
-
-But: Distribution of updated software is prohibited (except to other
-members of the predisclosure list).
-
-Predisclosure list members who wish to deploy significantly different
-patches and/or mitigations, please contact the Xen Project Security
-Team.
-
-(Note: this during-embargo deployment notice is retained in
-post-embargo publicly released Xen Project advisories, even though it
-is then no longer applicable.  This is to enable the community to have
-oversight of the Xen Project Security Team's decisionmaking.)
-
-For more information about permissible uses of embargoed information,
-consult the Xen Project community's agreed Security Policy:
-  http://www.xenproject.org/security-policy.html
------BEGIN PGP SIGNATURE-----
-
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmYVdY4MHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZNk0IAMWbhl7mAn9QN5pG9rl36Vc/I3JKW5L0Tk4WAlMH
-edpuYbd6epNofksphsSmpEf2clYqtDs/7Rcy138YlyfEoE5JVTWcN/RgXqJ3/W84
-bzkLb1qY1U8muyQpa0jmo9DXM1Yb20ejVUSf2s290ninuhmy7HsZpl/Gnwj+zV0R
-zhR1dgGMvnqzj4b+7XAi5n9Y0vFWoAN+fsMCx4Ml0yPM8yIOJSswDfGmzgc/KKMV
-Wq+li52y+qpqACuODTDq7NQAZIE8biwkxrUC9kg9N9q2jsAJbEFwnNLrOHT8UA+9
-pDIcuR7aF4hTDaqK31mD2cdXosBkWprcPQgyM/4mpTKuu+I=
-=M1Pd
------END PGP SIGNATURE-----
-
---=separator--
+To xenbits.xen.org:/home/xen/git/xen.git
+   672b26b66e..9926e692c4  9926e692c4afc40bcd66f8416ff6a1e93ce402f6 -> smoke
 
