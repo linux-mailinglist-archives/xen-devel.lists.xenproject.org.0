@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96FD289E4D0
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 23:12:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.702823.1098401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD42B89E4DF
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 23:24:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.702830.1098410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruIkV-00011K-38; Tue, 09 Apr 2024 21:11:23 +0000
+	id 1ruIwp-0003HU-8y; Tue, 09 Apr 2024 21:24:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 702823.1098401; Tue, 09 Apr 2024 21:11:23 +0000
+Received: by outflank-mailman (output) from mailman id 702830.1098410; Tue, 09 Apr 2024 21:24:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruIkV-0000zk-0J; Tue, 09 Apr 2024 21:11:23 +0000
-Received: by outflank-mailman (input) for mailman id 702823;
- Tue, 09 Apr 2024 21:11:22 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ruIkU-0000za-6r; Tue, 09 Apr 2024 21:11:22 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ruIkU-0001Gk-4y; Tue, 09 Apr 2024 21:11:22 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ruIkT-0003cc-Rz; Tue, 09 Apr 2024 21:11:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ruIkT-00031l-R6; Tue, 09 Apr 2024 21:11:21 +0000
+	id 1ruIwp-0003FS-6N; Tue, 09 Apr 2024 21:24:07 +0000
+Received: by outflank-mailman (input) for mailman id 702830;
+ Tue, 09 Apr 2024 21:24:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0ECT=LO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1ruIwo-0003FM-L9
+ for xen-devel@lists.xenproject.org; Tue, 09 Apr 2024 21:24:06 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7bfeb704-f6b7-11ee-94a3-07e782e9044d;
+ Tue, 09 Apr 2024 23:24:03 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 15BEECE127B;
+ Tue,  9 Apr 2024 21:23:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55A1C433C7;
+ Tue,  9 Apr 2024 21:23:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +41,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=l29xoOAPGjgm8nKp+e+U3O9iQ6qQL6q080bF1PPQ/J4=; b=rC5IlZ0ivOBUB6siJT6kJD9Soi
-	6+dO35tQZ9Xyv+8jPq2mMg8Se6cosSDigdkcGPPkeISvr4rKO4LkEMBL4jKxcPPNBpxB4k/8boktW
-	Ya4XxGpgx0kgZv/yEbRqrhplVylGEC8l28uYoMc4FmClH0TQT+vqZImiP2kSI9QoYBUg=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185289-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 7bfeb704-f6b7-11ee-94a3-07e782e9044d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1712697837;
+	bh=l9AkjMm+J2n3uYpxzrGZgiFxOgUN7vUdT8bfKjK/pek=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=cg53QKF7dYjDxWAemP1q+Z4UUnuZlggw/Ym+ONSzdNfPIMYpnFYZqA8b8bpIcGneD
+	 5+fO7zbc/kpuAEFPiYYl3t+/usiZoXnDrQeeIhL/pq6RNFonB2ec4881bBzbdqhJ/d
+	 /n/RvH4hkM65XvGvnmpaaej9IsBPC1E1YLVYDLibEpJ2wtd74BuCOAz4pBRyrkILMe
+	 W1v+7IQIMvq3DFFdA0oXYmYvflZiqk4CIrSPFYRfhGwSAQltTaM/oc6Nnnr3Dy0lho
+	 pfhtY/uaPyTEBLzC+fcSfGmIFYMXKTtnfoCTSwEurc7SleFgYVktcGkQTZNADk7kjO
+	 Yyjvj4kk8IV3g==
+Date: Tue, 9 Apr 2024 14:23:55 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+    Jan Beulich <JBeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH] x86/entry: Fix build with older toolchains
+In-Reply-To: <20240409203951.577241-1-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2404091423460.2245130@ubuntu-linux-20-04-desktop>
+References: <20240409203951.577241-1-andrew.cooper3@citrix.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 185289: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=d5887c0decbd90e798b24ed696628645b04632fb
-X-Osstest-Versions-That:
-    xen=9926e692c4afc40bcd66f8416ff6a1e93ce402f6
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 09 Apr 2024 21:11:21 +0000
+Content-Type: multipart/mixed; BOUNDARY="8323329-152951099-1712697833=:2245130"
+Content-ID: <alpine.DEB.2.22.394.2404091423540.2245130@ubuntu-linux-20-04-desktop>
 
-flight 185289 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185289/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Failures :-/ but no regressions.
+--8323329-152951099-1712697833=:2245130
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2404091423541.2245130@ubuntu-linux-20-04-desktop>
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+On Tue, 9 Apr 2024, Andrew Cooper wrote:
+> Binutils older than 2.29 doesn't know INCSSPD.
+> 
+> Fixes: 8e186f98ce0e ("x86: Use indirect calls in reset-stack infrastructure")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-version targeted for testing:
- xen                  d5887c0decbd90e798b24ed696628645b04632fb
-baseline version:
- xen                  9926e692c4afc40bcd66f8416ff6a1e93ce402f6
-
-Last test of basis   185286  2024-04-09 13:02:15 Z    0 days
-Testing same since   185289  2024-04-09 18:00:25 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   9926e692c4..d5887c0dec  d5887c0decbd90e798b24ed696628645b04632fb -> smoke
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/x86_64/entry.S | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
+> index 461bbc355872..a4615e1ccbaf 100644
+> --- a/xen/arch/x86/x86_64/entry.S
+> +++ b/xen/arch/x86/x86_64/entry.S
+> @@ -650,7 +650,9 @@ FUNC(continue_pv_domain)
+>           * JMPed to.  Drop the return address.
+>           */
+>          add   $8, %rsp
+> +#ifdef CONFIG_XEN_SHSTK
+>          ALTERNATIVE "", "mov $2, %eax; incsspd %eax", X86_FEATURE_XEN_SHSTK
+> +#endif
+>  
+>          call  check_wakeup_from_wait
+>  ret_from_intr:
+> 
+> base-commit: d5887c0decbd90e798b24ed696628645b04632fb
+> -- 
+> 2.30.2
+> 
+> 
+--8323329-152951099-1712697833=:2245130--
 
