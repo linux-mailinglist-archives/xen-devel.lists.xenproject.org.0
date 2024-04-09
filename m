@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A750389E494
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 22:40:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.702820.1098391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96FD289E4D0
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 23:12:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.702823.1098401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruIG6-0003b2-N5; Tue, 09 Apr 2024 20:39:58 +0000
+	id 1ruIkV-00011K-38; Tue, 09 Apr 2024 21:11:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 702820.1098391; Tue, 09 Apr 2024 20:39:58 +0000
+Received: by outflank-mailman (output) from mailman id 702823.1098401; Tue, 09 Apr 2024 21:11:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruIG6-0003ZV-KJ; Tue, 09 Apr 2024 20:39:58 +0000
-Received: by outflank-mailman (input) for mailman id 702820;
- Tue, 09 Apr 2024 20:39:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4Fcd=LO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ruIG4-0003ZP-Lq
- for xen-devel@lists.xenproject.org; Tue, 09 Apr 2024 20:39:56 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 52b132c5-f6b1-11ee-b907-491648fe20b8;
- Tue, 09 Apr 2024 22:39:55 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a47385a4379so1305816766b.0
- for <xen-devel@lists.xenproject.org>; Tue, 09 Apr 2024 13:39:55 -0700 (PDT)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- my46-20020a1709065a6e00b00a4735e440e1sm6119925ejc.97.2024.04.09.13.39.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Apr 2024 13:39:53 -0700 (PDT)
+	id 1ruIkV-0000zk-0J; Tue, 09 Apr 2024 21:11:23 +0000
+Received: by outflank-mailman (input) for mailman id 702823;
+ Tue, 09 Apr 2024 21:11:22 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ruIkU-0000za-6r; Tue, 09 Apr 2024 21:11:22 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ruIkU-0001Gk-4y; Tue, 09 Apr 2024 21:11:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ruIkT-0003cc-Rz; Tue, 09 Apr 2024 21:11:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ruIkT-00031l-R6; Tue, 09 Apr 2024 21:11:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,74 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52b132c5-f6b1-11ee-b907-491648fe20b8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712695194; x=1713299994; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=QHNIsObenkT3/PuQu0roL45npBIQsBHe0lyyeGDOwCQ=;
-        b=EfyPG2SLrID8TVqtOIbYaCeDelRX7JLX0gVC1eFwa81rjdQ3AdLwBhJT8Z+Jl1cu4B
-         t0PhuzMdnXJPXdlZ/HdFRcaKP9d4pS0+7sHKvZkXapkSt3xYguUI8u+w4vXIubmvA5Lo
-         XM9AGf2rkQYyXud0/85e7DnDPqzLybaX3FL48=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712695194; x=1713299994;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QHNIsObenkT3/PuQu0roL45npBIQsBHe0lyyeGDOwCQ=;
-        b=uSgHqWEcmgw7lEBcT6SZz0w3CQ5b3arj3/e0lpuMr7tf54Bh8WqoDe3+WVy8I+/SGG
-         oRdxHkebk9FolAI2+P5zyawrJiJtnTVst2EykWWSWKZ0fVO6cjmLwK1QtDMNtwUZKP4W
-         Xc97loh3PhWWHy0rZy3XkIvIiS2ftGJf7Kq9ATMKAbchL7Gpo0kSCxkeJRL7PD5lohXd
-         amYKnZ4uE2B1PrTPc4XUmlYX1N2LTqfPZMZ8IGsuRNFw9LL9WTkdIl3GtpDBwdTqyzMq
-         BTZo8EdTlzSud0lTJLu8Rz8vWefWDf75cprx8qz66Jj4lfOd7GguhczCBFjRJqEseP3+
-         Wdxg==
-X-Gm-Message-State: AOJu0Ywq74f+msXWqhxVTDI3soOhjIoIVNRZVJFnoop40n7AOxws5FJH
-	6TLM77CC/+jxQwOlA9reJf2rj935JBNYHZ4yHxzsdsRA1MeNTsN7kTDTRABsBfRNJSeXz1X1XN+
-	/vdw=
-X-Google-Smtp-Source: AGHT+IFGSrSIqqVp9tm8xJtqPkqRwkMyPt6JhkKrTap9lpnDGTJnIfIyTRoME/U63ygzoFlJg/8IiQ==
-X-Received: by 2002:a17:906:a8d:b0:a51:f865:61b2 with SMTP id y13-20020a1709060a8d00b00a51f86561b2mr641509ejf.15.1712695194016;
-        Tue, 09 Apr 2024 13:39:54 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/entry: Fix build with older toolchains
-Date: Tue,  9 Apr 2024 21:39:51 +0100
-Message-Id: <20240409203951.577241-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=l29xoOAPGjgm8nKp+e+U3O9iQ6qQL6q080bF1PPQ/J4=; b=rC5IlZ0ivOBUB6siJT6kJD9Soi
+	6+dO35tQZ9Xyv+8jPq2mMg8Se6cosSDigdkcGPPkeISvr4rKO4LkEMBL4jKxcPPNBpxB4k/8boktW
+	Ya4XxGpgx0kgZv/yEbRqrhplVylGEC8l28uYoMc4FmClH0TQT+vqZImiP2kSI9QoYBUg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185289-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 185289: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=d5887c0decbd90e798b24ed696628645b04632fb
+X-Osstest-Versions-That:
+    xen=9926e692c4afc40bcd66f8416ff6a1e93ce402f6
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 09 Apr 2024 21:11:21 +0000
 
-Binutils older than 2.29 doesn't know INCSSPD.
+flight 185289 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185289/
 
-Fixes: 8e186f98ce0e ("x86: Use indirect calls in reset-stack infrastructure")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/x86_64/entry.S | 2 ++
- 1 file changed, 2 insertions(+)
+Failures :-/ but no regressions.
 
-diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index 461bbc355872..a4615e1ccbaf 100644
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -650,7 +650,9 @@ FUNC(continue_pv_domain)
-          * JMPed to.  Drop the return address.
-          */
-         add   $8, %rsp
-+#ifdef CONFIG_XEN_SHSTK
-         ALTERNATIVE "", "mov $2, %eax; incsspd %eax", X86_FEATURE_XEN_SHSTK
-+#endif
- 
-         call  check_wakeup_from_wait
- ret_from_intr:
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-base-commit: d5887c0decbd90e798b24ed696628645b04632fb
--- 
-2.30.2
+version targeted for testing:
+ xen                  d5887c0decbd90e798b24ed696628645b04632fb
+baseline version:
+ xen                  9926e692c4afc40bcd66f8416ff6a1e93ce402f6
 
+Last test of basis   185286  2024-04-09 13:02:15 Z    0 days
+Testing same since   185289  2024-04-09 18:00:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   9926e692c4..d5887c0dec  d5887c0decbd90e798b24ed696628645b04632fb -> smoke
 
