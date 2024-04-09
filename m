@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC10989E0EC
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 19:00:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.702541.1097669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F221689E106
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Apr 2024 19:04:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.702569.1097692 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruEpo-0000sw-0c; Tue, 09 Apr 2024 17:00:36 +0000
+	id 1ruEtA-0002rw-EW; Tue, 09 Apr 2024 17:04:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 702541.1097669; Tue, 09 Apr 2024 17:00:35 +0000
+Received: by outflank-mailman (output) from mailman id 702569.1097692; Tue, 09 Apr 2024 17:04:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruEpn-0000jI-Qr; Tue, 09 Apr 2024 17:00:35 +0000
-Received: by outflank-mailman (input) for mailman id 702541;
- Tue, 09 Apr 2024 17:00:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ruEtA-0002pe-9v; Tue, 09 Apr 2024 17:04:04 +0000
+Received: by outflank-mailman (input) for mailman id 702569;
+ Tue, 09 Apr 2024 17:04:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pd+N=LO=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
- id 1ruEpm-0000Y6-Im
- for xen-devel@lists.xen.org; Tue, 09 Apr 2024 17:00:34 +0000
-Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ac084a60-f692-11ee-b907-491648fe20b8;
- Tue, 09 Apr 2024 19:00:31 +0200 (CEST)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrewcoop@xenbits.xen.org>)
- id 1ruEpb-0005A9-CJ; Tue, 09 Apr 2024 17:00:23 +0000
-Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.92)
- (envelope-from <andrewcoop@xenbits.xen.org>)
- id 1ruEpb-0000jN-81; Tue, 09 Apr 2024 17:00:23 +0000
+ <SRS0=mUTu=LO=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1ruEt8-0002nf-Eh
+ for xen-devel@lists.xenproject.org; Tue, 09 Apr 2024 17:04:02 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 29079bfd-f693-11ee-94a3-07e782e9044d;
+ Tue, 09 Apr 2024 19:04:00 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-516cbf3fe68so7216459e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Apr 2024 10:04:00 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ m1-20020a05600c4f4100b0041665d968f1sm9141653wmq.47.2024.04.09.10.03.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Apr 2024 10:03:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,219 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac084a60-f692-11ee-b907-491648fe20b8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
-	Content-Transfer-Encoding:Content-Type;
-	bh=CcBlvz101lK1NIoWtOiS8wZEyRsmzX7G5kSbkqvufOI=; b=GYDA/NTabsZfDbN+1Obr3GaUxu
-	HjO7TplQr+D/4HLHotZJN9F4i7CQg4jUW7PMQWqvcl0VTxq9Mnty2oR7rr4Q9BTyHNg/K8MIE5HRT
-	SKPZBApHq5UM9z1xJmogqucGWeA2UUtxBZXng2Kg2UTF7kBg+8vfd3hOUMcChub4ew5M=;
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
+X-Inumbo-ID: 29079bfd-f693-11ee-94a3-07e782e9044d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1712682240; x=1713287040; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=egatvpYLsqeiB+vTmfKHdX0l32AmU3FIzRbxdVFw57U=;
+        b=jGYyytzV5znfyQa9FWIA6ZQwbjjq6Usmc1rWQklny7PemqOVOW9/sIAKu6SxQJsAzB
+         vyUCUYnMKMmCstO673snc/fvQSM1Vmue+t2tIvvPPbM/KYgJynXsqkI15dFcUNHnH3zU
+         cMRD7rQ5Vn/jcsWnRPhdwBIyOQnjuXLp3vbt0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712682240; x=1713287040;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=egatvpYLsqeiB+vTmfKHdX0l32AmU3FIzRbxdVFw57U=;
+        b=IG+uMuLnQ1u+3Vk2OsuHzl+StgeRkZfgFUnzs0qWa2BfhHswAxYndLm0uf6Ou1NlEo
+         UxDGLRwdNRdCeIhHpKKWElXwboM0qdoH91/p4JFsOupRhdkdlJtr6wxCny87r3RDakth
+         zgNLxsi37m1tbFQAsjjU/rKYbgkX51WOED0ljNRXhJbQAiiGbNVFXifbQay3a6UEkx9h
+         EKOqfTf47VhgFEggSMybIRvwo7nJCxvUX83zCQHbp2LOSQlfLnG1fxF3BYYeEwnEKGPs
+         +vN5J+GXa94JNKy2tHipmGuA5b8nGFc2JYzRZUwI7rr4vjunz6Dv6XX4V5+cloB9B7m6
+         6j8Q==
+X-Gm-Message-State: AOJu0Yy2UHYnpkrGQYfxRhd6ovo2YXsosdwBiRftJryMLMSq3xkRkWeU
+	AwRF11Tb4nmTg0nj2jbMvdabL85PDKg0pqhGGetWXi0SckDnME6MCtsmkKtwggM=
+X-Google-Smtp-Source: AGHT+IFzJ8i5TZ15zmtmVd+mLmjziOATF1hWoV1BuyCV6azXz1UbLhwnAmiLUKUaSZ4wXgM7jHnaKQ==
+X-Received: by 2002:a2e:9ece:0:b0:2d8:5084:f5b9 with SMTP id h14-20020a2e9ece000000b002d85084f5b9mr203105ljk.28.1712682239866;
+        Tue, 09 Apr 2024 10:03:59 -0700 (PDT)
+Date: Tue, 9 Apr 2024 18:03:58 +0100
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: leigh@solinno.co.uk
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+	slack@rabbit.lu
+Subject: Re: [PATCH v2 6/6] docs/man: Add xenwatchdog manual page
+Message-ID: <8e8ed151-696f-47df-a458-4d84dfe043bc@perard>
+References: <20240329111056.6118-1-leigh@solinno.co.uk>
+ <20240329111056.6118-7-leigh@solinno.co.uk>
 MIME-Version: 1.0
-X-Mailer: MIME-tools 5.509 (Entity 5.509)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 455 v4 (CVE-2024-31142) - x86: Incorrect
- logic for BTC/SRSO mitigations
-Message-Id: <E1ruEpb-0000jN-81@xenbits.xenproject.org>
-Date: Tue, 09 Apr 2024 17:00:23 +0000
-
---=separator
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20240329111056.6118-7-leigh@solinno.co.uk>
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+On Fri, Mar 29, 2024 at 11:10:56AM +0000, leigh@solinno.co.uk wrote:
+> diff --git a/docs/man/xenwatchdogd.8.pod b/docs/man/xenwatchdogd.8.pod
+> new file mode 100644
+> index 0000000000..2f6454f183
+> --- /dev/null
+> +++ b/docs/man/xenwatchdogd.8.pod
+> @@ -0,0 +1,54 @@
+> +=head1 NAME
+> +
+> +xenwatchdogd - Xen hypercall based watchdog daemon
+> +
+> +=head1 SYNOPSIS
+> +
+> +B<xenwatchdogd> [ I<OPTIONS> ] <I<TIMEOUT>> [ <I<SLEEP>> ]
+> +
+> +=head1 DESCRIPTION
+> +
+> +B<xenwatchdogd> arms the Xen watchdog timer to I<TIMEOUT> every I<SLEEP>
+> +seconds. If the xenwatchdogd process dies or is delayed for more than
+> +I<TIMEOUT> seconds, then Xen will reboot the domain.
 
-             Xen Security Advisory CVE-2024-31142 / XSA-455
-                                version 4
+Xen will not reboot the domain, it will just kill the domain with
+watchdog as explanation. I think the toolstack is in charge of rebooting
+the domain. There's a setting for `xl` created VM named
+on_watchdog="ACTION", which by default is "destroy". So it's more likely
+that the domain will be killed rather than rebooted.
 
-	     x86: Incorrect logic for BTC/SRSO mitigations
+So something like:
+    Depending on the configuration for the guest, the domain might be
+    destroyed, rebooted, or other. See B<on_watchdog> in xl.cfg(5)
 
-UPDATES IN VERSION 4
-====================
+> + If the domain being
+> +rebooted is domain 0, the whole system will reboot.
 
-Public release.
+Maybe something like "if B<xenwatchdogd> is running in dom0, the whole
+system will reboot". I'm not sure if the host reboot in this case by
+default, probably.
 
-Correct references to prior XSAs.  The XSA fixing Branch Type Confusion
-was XSA-407, not XSA-422 as previously stated.
+> +=head1 SIGNALS
+> +
+> +B<SIGUSR1> Will cause the program to disarm the watchdog timer and exit,
+> +regardless of whether the safe exit option was passed.
 
-ISSUE DESCRIPTION
-=================
+"whether B<--safe-exit> option" ..
 
-Because of a logical error in XSA-407 (Branch Type Confusion), the
-mitigation is not applied properly when it is intended to be used.
-XSA-434 (Speculative Return Stack Overflow) uses the same
-infrastructure, so is equally impacted.
+I think it's better to call-out the option explicitly.
 
-For more details, see:
-  https://xenbits.xen.org/xsa/advisory-407.html
-  https://xenbits.xen.org/xsa/advisory-434.html
+Thanks,
 
-IMPACT
-======
-
-XSAs 407 and 434 are unmitigated, even when the patches are in place.
-
-VULNERABLE SYSTEMS
-==================
-
-All versions of Xen containing the XSA-407 fixes are vulnerable.
-
-See XSAs 407 and 434 for details on which hardware is susceptible to
-BTC/SRSO.
-
-MITIGATION
-==========
-
-There are no mitigations.
-
-CREDITS
-=======
-
-This issue was discovered by Andrew Cooper of XenServer.
-
-RESOLUTION
-==========
-
-Applying the appropriate attached patch resolves this issue.
-
-Note that the Xen Security Team is intending to produce releases on all
-stable trees, on the public embargo.  Therefore, this fix is expected to
-be contained in the following release tags:
-
-  RELEASE-4.18.2
-  RELEASE-4.17.4
-  RELEASE-4.16.6
-  RELEASE-4.15.6
-
-Note that patches for released versions are generally prepared to
-apply to the stable branches, and may not apply cleanly to the most
-recent release tarball.  Downstreams are encouraged to update to the
-tip of the stable branch before applying these patches.
-
-xsa455.patch           xen-unstable - Xen 4.17.x
-xsa455-4.16.patch      Xen 4.16.x - Xen 4.15.x
-
-$ sha256sum xsa455*
-96bcfcc0ce1afcc54f637c728ab5250c65f0a5a1d8ccfc59ac5d496baf1a53a4  xsa455.patch
-02e3fe13ac68f665534fabae1520254d5d1832fef7c95fceb190be3b9944a5e1  xsa455-4.16.patch
-$
-
-DEPLOYMENT DURING EMBARGO
-=========================
-
-Deployment of the patches and/or mitigations described above (or
-others which are substantially similar) is permitted during the
-embargo, even on public-facing systems with untrusted guest users and
-administrators.
-
-But: Distribution of updated software is prohibited (except to other
-members of the predisclosure list).
-
-Predisclosure list members who wish to deploy significantly different
-patches and/or mitigations, please contact the Xen Project Security
-Team.
------BEGIN PGP SIGNATURE-----
-
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmYVbQcMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZsY4IAJnYJTEEzhdG9+Qy/gcgwiKFB6lA5D6hQ1kAD739
-fOh4GyA0ZYRLpfw8J4sVgYmPKl+S0Rx1qdt9X2GHVNIq5FqtFytx3lQt1VF4BTW6
-kRHqqccHLKIo0MCRcNBw9wtn5BSQXpmJO9jpsazrBwxMPZpf2Z4mQhMO0aRxq2k7
-Oyxz2O1ElNXzItuXM4ZT4OSR2pISjLC5mhKcauH3m/ecAbUwqEf6CjpvLXt7iI/0
-OUqnZ7gO4m8fPoIaA0iT51o5Pb/EXTLnvyIrnlOL5C+xyNB8pQETP+cJZSnYYYWX
-eNwQ+LwEgSHptPP09cbNFOnf+r1eJR22haPL2sMPveGbKRY=
-=LR1k
------END PGP SIGNATURE-----
-
---=separator
-Content-Type: application/octet-stream; name="xsa455.patch"
-Content-Disposition: attachment; filename="xsa455.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSA1YmM1NjEwMjRmODEzNzFmZjI2N2VkYWU3M2FlNGE3NjhiMmY3YTkx
-IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBBbmRyZXcgQ29vcGVy
-IDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgpEYXRlOiBUdWUsIDI2IE1h
-ciAyMDI0IDIyOjQ3OjI1ICswMDAwClN1YmplY3Q6IHg4Ni9zcGVjLWN0cmw6
-IEZpeCBCVEMvU1JTTyBtaXRpZ2F0aW9ucwoKV2Ugd2VyZSBsb29raW5nIGZv
-ciBTQ0ZfZW50cnlfaWJwYiBpbiB0aGUgd3JvbmcgdmFyaWFibGUgaW4gdGhl
-IHRvcC1vZi1zdGFjawpibG9jaywgYW5kIHhlbl9zcGVjX2N0cmwgd29uJ3Qg
-aGF2ZSBoYWQgYml0IDUgc2V0IGJlY2F1c2UgWGVuIGRvZXNuJ3QKdW5kZXJz
-dGFuZCBTUEVDX0NUUkxfUlJTQkFfRElTX1UgeWV0LgoKVGhpcyBpcyBYU0Et
-NDU1IC8gQ1ZFLTIwMjQtMzExNDIuCgpGaXhlczogNTNhNTcwYjI4NTY5ICgi
-eDg2L3NwZWMtY3RybDogU3VwcG9ydCBJQlBCLW9uLWVudHJ5IikKU2lnbmVk
-LW9mZi1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4
-LmNvbT4KUmV2aWV3ZWQtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNl
-LmNvbT4KCmRpZmYgLS1naXQgYS94ZW4vYXJjaC94ODYvaHZtL3N2bS9lbnRy
-eS5TIGIveGVuL2FyY2gveDg2L2h2bS9zdm0vZW50cnkuUwppbmRleCA2MGIw
-YjAwZWQwYWYuLjA3MWIzOTk3YjFjMCAxMDA2NDQKLS0tIGEveGVuL2FyY2gv
-eDg2L2h2bS9zdm0vZW50cnkuUworKysgYi94ZW4vYXJjaC94ODYvaHZtL3N2
-bS9lbnRyeS5TCkBAIC0xMDEsNyArMTAxLDcgQEAgX19VTkxJS0VMWV9FTkQo
-bnN2bV9oYXApCiAgICAgICAgIC8qIFNQRUNfQ1RSTF9FTlRSWV9GUk9NX1NW
-TSAgICBSZXE6ICVyc3A9cmVncy9jcHVpbmZvLCAlcmR4PTAgQ2xvYjogYWNk
-ICovCiAKICAgICAgICAgLm1hY3JvIHN2bV92bWV4aXRfY29uZF9pYnBiCi0g
-ICAgICAgICAgICB0ZXN0YiAgJFNDRl9lbnRyeV9pYnBiLCBDUFVJTkZPX3hl
-bl9zcGVjX2N0cmwoJXJzcCkKKyAgICAgICAgICAgIHRlc3RiICAkU0NGX2Vu
-dHJ5X2licGIsIENQVUlORk9fc3BlY19jdHJsX2ZsYWdzKCVyc3ApCiAgICAg
-ICAgICAgICBqeiAgICAgLkxfc2tpcF9pYnBiCiAKICAgICAgICAgICAgIG1v
-diAgICAkTVNSX1BSRURfQ01ELCAlZWN4CmRpZmYgLS1naXQgYS94ZW4vYXJj
-aC94ODYvaW5jbHVkZS9hc20vc3BlY19jdHJsX2FzbS5oIGIveGVuL2FyY2gv
-eDg2L2luY2x1ZGUvYXNtL3NwZWNfY3RybF9hc20uaAppbmRleCA2Mjk1MThj
-YzY5MjUuLmMxOWIzOWQ4YzIwMCAxMDA2NDQKLS0tIGEveGVuL2FyY2gveDg2
-L2luY2x1ZGUvYXNtL3NwZWNfY3RybF9hc20uaAorKysgYi94ZW4vYXJjaC94
-ODYvaW5jbHVkZS9hc20vc3BlY19jdHJsX2FzbS5oCkBAIC05MCw3ICs5MCw3
-IEBACiAgICAgICAgIGp6ICAgICAuTFxAX3NraXAKICAgICAgICAgdGVzdGIg
-ICQzLCBVUkVHU19jcyglcnNwKQogICAgIC5lbHNlCi0gICAgICAgIHRlc3Ri
-ICAkU0NGX2VudHJ5X2licGIsIENQVUlORk9feGVuX3NwZWNfY3RybCglcnNw
-KQorICAgICAgICB0ZXN0YiAgJFNDRl9lbnRyeV9pYnBiLCBDUFVJTkZPX3Nw
-ZWNfY3RybF9mbGFncyglcnNwKQogICAgIC5lbmRpZgogICAgIGp6ICAgICAu
-TFxAX3NraXAKIAo=
-
---=separator
-Content-Type: application/octet-stream; name="xsa455-4.16.patch"
-Content-Disposition: attachment; filename="xsa455-4.16.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSA5MDljZGRlOWYxMjZiZWFjOTg4OGU2YTFmZjIxZjA0MTRlZjg2ZmRi
-IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBBbmRyZXcgQ29vcGVy
-IDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgpEYXRlOiBUdWUsIDI2IE1h
-ciAyMDI0IDIyOjQ3OjI1ICswMDAwClN1YmplY3Q6IHg4Ni9zcGVjLWN0cmw6
-IEZpeCBCVEMvU1JTTyBtaXRpZ2F0aW9ucwoKV2Ugd2VyZSBsb29raW5nIGZv
-ciBTQ0ZfZW50cnlfaWJwYiBpbiB0aGUgd3JvbmcgdmFyaWFibGUgaW4gdGhl
-IHRvcC1vZi1zdGFjawpibG9jaywgYW5kIHhlbl9zcGVjX2N0cmwgd29uJ3Qg
-aGF2ZSBoYWQgYml0IDUgc2V0IGJlY2F1c2UgWGVuIGRvZXNuJ3QKdW5kZXJz
-dGFuZCBTUEVDX0NUUkxfUlJTQkFfRElTX1UgeWV0LgoKVGhpcyBpcyBYU0Et
-NDU1IC8gQ1ZFLTIwMjQtMzExNDIuCgpGaXhlczogNTNhNTcwYjI4NTY5ICgi
-eDg2L3NwZWMtY3RybDogU3VwcG9ydCBJQlBCLW9uLWVudHJ5IikKU2lnbmVk
-LW9mZi1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4
-LmNvbT4KUmV2aWV3ZWQtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNl
-LmNvbT4KCmRpZmYgLS1naXQgYS94ZW4vYXJjaC94ODYvaHZtL3N2bS9lbnRy
-eS5TIGIveGVuL2FyY2gveDg2L2h2bS9zdm0vZW50cnkuUwppbmRleCBhZDVj
-YTUwYzEyZTIuLmQxY2E1MzAzMTVmZSAxMDA2NDQKLS0tIGEveGVuL2FyY2gv
-eDg2L2h2bS9zdm0vZW50cnkuUworKysgYi94ZW4vYXJjaC94ODYvaHZtL3N2
-bS9lbnRyeS5TCkBAIC0xMDEsNyArMTAxLDcgQEAgX19VTkxJS0VMWV9FTkQo
-bnN2bV9oYXApCiAgICAgICAgIC8qIFNQRUNfQ1RSTF9FTlRSWV9GUk9NX1NW
-TSAgICBSZXE6ICVyc3A9cmVncy9jcHVpbmZvLCAlcmR4PTAgQ2xvYjogYWNk
-ICovCiAKICAgICAgICAgLm1hY3JvIHN2bV92bWV4aXRfY29uZF9pYnBiCi0g
-ICAgICAgICAgICB0ZXN0YiAgJFNDRl9lbnRyeV9pYnBiLCBDUFVJTkZPX3hl
-bl9zcGVjX2N0cmwoJXJzcCkKKyAgICAgICAgICAgIHRlc3RiICAkU0NGX2Vu
-dHJ5X2licGIsIENQVUlORk9fc3BlY19jdHJsX2ZsYWdzKCVyc3ApCiAgICAg
-ICAgICAgICBqeiAgICAgLkxfc2tpcF9pYnBiCiAKICAgICAgICAgICAgIG1v
-diAgICAkTVNSX1BSRURfQ01ELCAlZWN4CmRpZmYgLS1naXQgYS94ZW4vaW5j
-bHVkZS9hc20teDg2L3NwZWNfY3RybF9hc20uaCBiL3hlbi9pbmNsdWRlL2Fz
-bS14ODYvc3BlY19jdHJsX2FzbS5oCmluZGV4IDZlNzcyNWMxMWYzYS4uOTQx
-NjQ4M2MwYjI2IDEwMDY0NAotLS0gYS94ZW4vaW5jbHVkZS9hc20teDg2L3Nw
-ZWNfY3RybF9hc20uaAorKysgYi94ZW4vaW5jbHVkZS9hc20teDg2L3NwZWNf
-Y3RybF9hc20uaApAQCAtMTAyLDcgKzEwMiw3IEBACiAgICAgICAgIGp6ICAg
-ICAuTFxAX3NraXAKICAgICAgICAgdGVzdGIgICQzLCBVUkVHU19jcyglcnNw
-KQogICAgIC5lbHNlCi0gICAgICAgIHRlc3RiICAkU0NGX2VudHJ5X2licGIs
-IENQVUlORk9feGVuX3NwZWNfY3RybCglcnNwKQorICAgICAgICB0ZXN0YiAg
-JFNDRl9lbnRyeV9pYnBiLCBDUFVJTkZPX3NwZWNfY3RybF9mbGFncyglcnNw
-KQogICAgIC5lbmRpZgogICAgIGp6ICAgICAuTFxAX3NraXAKIAo=
-
---=separator--
+-- 
+Anthony PERARD
 
