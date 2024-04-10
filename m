@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45C2B89F99D
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 16:13:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703328.1098950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7686989F9A8
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 16:14:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703337.1098960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruYhh-00084F-O0; Wed, 10 Apr 2024 14:13:33 +0000
+	id 1ruYif-0000N7-Vy; Wed, 10 Apr 2024 14:14:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703328.1098950; Wed, 10 Apr 2024 14:13:33 +0000
+Received: by outflank-mailman (output) from mailman id 703337.1098960; Wed, 10 Apr 2024 14:14:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruYhh-00081m-L6; Wed, 10 Apr 2024 14:13:33 +0000
-Received: by outflank-mailman (input) for mailman id 703328;
- Wed, 10 Apr 2024 14:13:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Fu/Z=LP=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ruYhg-0007wz-OD
- for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 14:13:32 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8289abe4-f744-11ee-b907-491648fe20b8;
- Wed, 10 Apr 2024 16:13:31 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a46ea03c2a5so1120693466b.1
- for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 07:13:31 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8705:9b00:4df1:9dd5:4f97:24a?
- (p200300e587059b004df19dd54f97024a.dip0.t-ipconnect.de.
- [2003:e5:8705:9b00:4df1:9dd5:4f97:24a])
- by smtp.gmail.com with ESMTPSA id
- l15-20020a170906414f00b00a519de61bebsm6998316ejk.137.2024.04.10.07.13.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Apr 2024 07:13:30 -0700 (PDT)
+	id 1ruYif-0000LQ-TD; Wed, 10 Apr 2024 14:14:33 +0000
+Received: by outflank-mailman (input) for mailman id 703337;
+ Wed, 10 Apr 2024 14:14:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0Wol=LP=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1ruYie-0007Wf-2b
+ for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 14:14:32 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a58cfc53-f744-11ee-94a3-07e782e9044d;
+ Wed, 10 Apr 2024 16:14:30 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-416b66163a9so16170865e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 07:14:30 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ gw9-20020a05600c850900b00416c990d650sm2407573wmb.28.2024.04.10.07.14.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Apr 2024 07:14:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,375 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8289abe4-f744-11ee-b907-491648fe20b8
+X-Inumbo-ID: a58cfc53-f744-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1712758411; x=1713363211; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vDpK/3WQjVbeikam+hAfuyMA1XIDGJ8Ln1Tz+atruM0=;
-        b=XVsfk7PpEJ6TQIcjF4vL08B613ET4+s01Cjl8JCyOwF6FZXJcl7WO1Jwsw0TN93Vzf
-         nsA19xLz6seDCiJSBVTOE/b6+qktZv+k3GNQn1lmK94Vy4aDQ1KBvWe9z9eH0uK2vYPi
-         /v1p7YLCbT7kMjn3Lf5pTswyQ3DbwlZNpzei7kyXOLDRaemA7Y2+E4yzv/kPdIs1ovgd
-         gkhn5ZMOGoP3S/yjBVt5UzqCa5aDeY8mu4DLe66n/e/bKSk19KPFGSxq7lszdAyLF6eS
-         Nn5/A/AieqSYlc28fJoLa2qYS71I2wvnESNDgjtmnUNdgfkJ6dB4E6hvBQgJgXyJSwBD
-         t4EA==
+        d=cloud.com; s=cloud; t=1712758470; x=1713363270; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=7gLLf+Fm+o8svuDRuzCFMJnpRBjJr/TBMx/w9Ap41cg=;
+        b=aAlLY3nPLPDKPq0WvHafdPVknEyzG/kBEr+4/Uorq9CWOZMb7yXstVZob1cz+UrIAG
+         yGSMZqM4bkrSQGM9zCAP/2FQQSIVirCqcrD5rzu8BMoeyd6+mQglb0DdVVNXL2RTmmXV
+         UFjIRa3MF+MTDrUZNQZsKbj+M+2HXs3EuMTmw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712758411; x=1713363211;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vDpK/3WQjVbeikam+hAfuyMA1XIDGJ8Ln1Tz+atruM0=;
-        b=pipqu3GgsR6ZEc/OChr5N3i4cZaiG47BpA+J1PuFEoxytcLs+2OPxP+1yphUp1PaNj
-         3Bvhul8ZNMAjvogxXzOW3s1UFGq9q/bqSi5+b0G6rIuZfkt1EUUurd36Hp6t5WmwMJ3j
-         6EmC3Eqf3mQo3aAqE2WkyxAteBNF9IG0tTE13xXnxFAseZhFVERofrkYHnOqrTnhTlqX
-         1zs0i06wix2EDCN4k/LBOQqOy7nTO13H1EuBwmQe6AXywkz+Y7hGjd9D7FAvjZNpXuI/
-         CncVL9fhNtUuVhDubckaxzlO7UmYtuCzUvJy4Lxxg/zAvQXw/hZ8UvR3MUCfMwdWziet
-         mntA==
-X-Forwarded-Encrypted: i=1; AJvYcCW0OySAgjA0zOtvsfvFNxO+NfWzcRuCmTr2L9KeGjY5JsirxF4MFUofhER1dwumBt+vx/hf3hcZScIq3b+u+NrxJMj8lqbnmhTO6DHSdzU=
-X-Gm-Message-State: AOJu0Yy4emapS+X17cVZ5w9R6SpaVC5ofrwRKhGoe6N06hfv7Xyv8nyi
-	97Ar1GVi0BWTx8EDJmuXWWcZ8HcZlwDwqabgYQDxQ0MrciuDtQz/+NGGZLCxv0Q=
-X-Google-Smtp-Source: AGHT+IG//o2hSrl1V8BVIIurZsctw3ES6spYWYRLuk2P/pNTWjV+L9bcGgL69go/rwrLf1sT4SSsfg==
-X-Received: by 2002:a17:906:3b9b:b0:a4f:193e:9600 with SMTP id u27-20020a1709063b9b00b00a4f193e9600mr5028138ejf.18.1712758410890;
-        Wed, 10 Apr 2024 07:13:30 -0700 (PDT)
-Message-ID: <78018558-35d9-41de-947d-3b0a2c72b616@suse.com>
-Date: Wed, 10 Apr 2024 16:13:29 +0200
+        d=1e100.net; s=20230601; t=1712758470; x=1713363270;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7gLLf+Fm+o8svuDRuzCFMJnpRBjJr/TBMx/w9Ap41cg=;
+        b=VQImCHBd3M+c/3LBuUyrI9WvdLJzo8cXJh3uNT1k7cogr51oWQAR8v9sUErkE4xy9F
+         RTk8hnGyQDOKcRW0E8YUN+43WCfuz+EUWNYROFMvu0rJXa1wLyYoZ7SeZtUvtVMxu9e6
+         x1CiniouoKv4NffYlLxJuSFaKaIQSN8TFjs24e/zTDVWxiJJcfESukHfa/FVIruFzaap
+         L4tNzYfM0I9fRQ1SIiP1iS19RTtU6le+j/K9+B7pYAKODPCnwKUbq6CiYgWKkKyIkHyE
+         lLRd6Nh+CSzSjgPQblY31N3NRiagtwgzkaI5fqwRnjumYtJoKv3Pi2KsUfF8cHmd2nDt
+         xR7A==
+X-Gm-Message-State: AOJu0YwGVJEh8+8pn8TQt379YUXkfnmtdin9tWOOquEvB/XjZMD2dyuT
+	ZiJ/qC6CP5H/jF16f5exHRuUSaTvLxVD2twhQKQPswhf6aCBSk8xa84xGELPCT4=
+X-Google-Smtp-Source: AGHT+IH8cTlGH3r3zM5iW8UhLJYXUXZ3P9P9xzqU2P8YwP8SBQtgHdH2xkjsp9tkJIEVSkSlmv9GfQ==
+X-Received: by 2002:a05:600c:4e94:b0:416:3416:205 with SMTP id f20-20020a05600c4e9400b0041634160205mr2562944wmq.23.1712758469852;
+        Wed, 10 Apr 2024 07:14:29 -0700 (PDT)
+Date: Wed, 10 Apr 2024 15:14:29 +0100
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Fouad Hilly <fouad.hilly@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 5/5] x86: Add --force option to xen-ucode to override
+ microcode version check
+Message-ID: <f18c84db-a4d3-497b-adb7-67cc18b24973@perard>
+References: <20240405121128.260493-1-fouad.hilly@cloud.com>
+ <20240405121128.260493-6-fouad.hilly@cloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/pat: fix W^X violation false-positives when running
- as Xen PV guest
-Content-Language: en-US
-To: Ingo Molnar <mingo@kernel.org>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- xen-devel@lists.xenproject.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Jason Andryuk <jandryuk@gmail.com>
-References: <20240409094712.21285-1-jgross@suse.com>
- <ZhaYsAuhhqomQUWT@gmail.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <ZhaYsAuhhqomQUWT@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240405121128.260493-6-fouad.hilly@cloud.com>
 
-On 10.04.24 15:48, Ingo Molnar wrote:
-> 
-> * Juergen Gross <jgross@suse.com> wrote:
-> 
->> When running as Xen PV guest in some cases W^X violation WARN()s have
->> been observed. Those WARN()s are produced by verify_rwx(), which looks
->> into the PTE to verify that writable kernel pages have the NX bit set
->> in order to avoid code modifications of the kernel by rogue code.
->>
->> As the NX bits of all levels of translation entries are or-ed and the
->> RW bits of all levels are and-ed, looking just into the PTE isn't enough
->> for the decision that a writable page is executable, too. When running
->> as a Xen PV guest, kernel initialization will set the NX bit in PMD
->> entries of the initial page tables covering the .data segment.
->>
->> When finding the PTE to have set the RW bit but no NX bit, higher level
->> entries must be looked at. Only when all levels have the RW bit set and
->> no NX bit set, the W^X violation should be flagged.
->>
->> Additionally show_fault_oops() has a similar problem: it will issue the
->> "kernel tried to execute NX-protected page" message only if it finds
->> the NX bit set in the leaf translation entry, while any NX bit in
->> non-leaf entries are being ignored for issuing the message.
->>
->> Modify lookup_address_in_pgd() to return the effective NX and RW bit
->> values of the non-leaf translation entries and evaluate those as well
->> in verify_rwx() and show_fault_oops().
-> 
-> Ok, this fix makes sense, as that's how the hardware works and we interpret
-> the pagetables poorly.
+On Fri, Apr 05, 2024 at 01:11:28PM +0100, Fouad Hilly wrote:
+> diff --git a/tools/libs/ctrl/xc_misc.c b/tools/libs/ctrl/xc_misc.c
+> index 5ecdfa2c7934..edce45bc2a17 100644
+> --- a/tools/misc/xen-ucode.c
+> +++ b/tools/misc/xen-ucode.c
+> @@ -21,10 +23,11 @@ static const char   amd_id[] = "AuthenticAMD";
+>  static void usage(const char *name)
+>  {
+>      printf("%s: Xen microcode updating tool\n"
+> -            "Usage: %s [<microcode file> | --show-cpu-info]\n"
+> +            "Usage: %s [[--force] <microcode file> | --show-cpu-info]\n"
 
-Thanks for confirmation that my approach is sane.
+How about "Usage: %s [OPTIONS..] [MICROCODE FILE]" ?
 
-> 
->> Fixes: 652c5bf380ad ("x86/mm: Refuse W^X violations")
->> Reported-by: Jason Andryuk <jandryuk@gmail.com>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> ---
->>   arch/x86/include/asm/pgtable_types.h |  2 +-
->>   arch/x86/kernel/sev.c                |  3 +-
->>   arch/x86/mm/fault.c                  |  7 ++--
->>   arch/x86/mm/pat/set_memory.c         | 56 +++++++++++++++++++++-------
->>   arch/x86/virt/svm/sev.c              |  3 +-
->>   5 files changed, 52 insertions(+), 19 deletions(-)
->>
->> diff --git a/arch/x86/include/asm/pgtable_types.h b/arch/x86/include/asm/pgtable_types.h
->> index 0b748ee16b3d..91ab538d3872 100644
->> --- a/arch/x86/include/asm/pgtable_types.h
->> +++ b/arch/x86/include/asm/pgtable_types.h
->> @@ -565,7 +565,7 @@ static inline void update_page_count(int level, unsigned long pages) { }
->>    */
->>   extern pte_t *lookup_address(unsigned long address, unsigned int *level);
->>   extern pte_t *lookup_address_in_pgd(pgd_t *pgd, unsigned long address,
->> -				    unsigned int *level);
->> +				    unsigned int *level, bool *nx, bool *rw);
->>   extern pmd_t *lookup_pmd_address(unsigned long address);
->>   extern phys_addr_t slow_virt_to_phys(void *__address);
->>   extern int __init kernel_map_pages_in_pgd(pgd_t *pgd, u64 pfn,
-> 
-> Please introduce a new lookup_address_in_pgd_attr() function or so, which
-> is used by code intentionally.
-> 
-> This avoids changing the arch/x86/kernel/sev.c and arch/x86/virt/svm/sev.c
-> uses, that retrieve these attributes but don't do anything with them:
+>              "\n"
+>              "  -h, --help            display this help and exit\n"
+>              "  -s, --show-cpu-info   show CPU information and exit\n"
+> +            "  -f, --force           force to skip micorocde version check\n"
 
-Okay.
+typo: microcode ;-)
 
-> 
->> diff --git a/arch/x86/kernel/sev.c b/arch/x86/kernel/sev.c
->> index 38ad066179d8..adba581e999d 100644
->> --- a/arch/x86/kernel/sev.c
->> +++ b/arch/x86/kernel/sev.c
->> @@ -516,12 +516,13 @@ static enum es_result vc_slow_virt_to_phys(struct ghcb *ghcb, struct es_em_ctxt
->>   	unsigned long va = (unsigned long)vaddr;
->>   	unsigned int level;
->>   	phys_addr_t pa;
->> +	bool nx, rw;
->>   	pgd_t *pgd;
->>   	pte_t *pte;
->>   
->>   	pgd = __va(read_cr3_pa());
->>   	pgd = &pgd[pgd_index(va)];
->> -	pte = lookup_address_in_pgd(pgd, va, &level);
->> +	pte = lookup_address_in_pgd(pgd, va, &level, &nx, &rw);
->>   	if (!pte) {
->>   		ctxt->fi.vector     = X86_TRAP_PF;
->>   		ctxt->fi.cr2        = vaddr;
->> diff --git a/arch/x86/mm/fault.c b/arch/x86/mm/fault.c
->> index 622d12ec7f08..eb8e897a5653 100644
->> --- a/arch/x86/mm/fault.c
->> +++ b/arch/x86/mm/fault.c
->> @@ -514,18 +514,19 @@ show_fault_oops(struct pt_regs *regs, unsigned long error_code, unsigned long ad
->>   
->>   	if (error_code & X86_PF_INSTR) {
->>   		unsigned int level;
->> +		bool nx, rw;
->>   		pgd_t *pgd;
->>   		pte_t *pte;
->>   
->>   		pgd = __va(read_cr3_pa());
->>   		pgd += pgd_index(address);
->>   
->> -		pte = lookup_address_in_pgd(pgd, address, &level);
->> +		pte = lookup_address_in_pgd(pgd, address, &level, &nx, &rw);
->>   
->> -		if (pte && pte_present(*pte) && !pte_exec(*pte))
->> +		if (pte && pte_present(*pte) && (!pte_exec(*pte) || nx))
->>   			pr_crit("kernel tried to execute NX-protected page - exploit attempt? (uid: %d)\n",
->>   				from_kuid(&init_user_ns, current_uid()));
->> -		if (pte && pte_present(*pte) && pte_exec(*pte) &&
->> +		if (pte && pte_present(*pte) && pte_exec(*pte) && !nx &&
->>   				(pgd_flags(*pgd) & _PAGE_USER) &&
->>   				(__read_cr4() & X86_CR4_SMEP))
->>   			pr_crit("unable to execute userspace code (SMEP?) (uid: %d)\n",
-> 
-> This should be a separate patch - as it might change observed behavior.
+>              "\n"
+>              , name, name);
+>  }
+> @@ -89,11 +92,13 @@ int main(int argc, char *argv[])
+>      char *filename = NULL, *buf;
+>      size_t len;
+>      struct stat st;
+> +    uint32_t ucode_flag = XENPF_UCODE_FLAG_FORCE_NOT_SET;
+>      int opt;
+>  
+>      const static struct option options[] = {
+>          {"help", no_argument, NULL, 'h'},
+>          {"show-cpu-info", no_argument, NULL, 's'},
+> +        {"force", required_argument, NULL, 'f'},
 
-Fine with me.
+This is weird, could you do without the argument?
 
-> 
->> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
->> index 80c9037ffadf..baa4dc4748e9 100644
->> --- a/arch/x86/mm/pat/set_memory.c
->> +++ b/arch/x86/mm/pat/set_memory.c
->> @@ -619,7 +619,8 @@ static inline pgprot_t static_protections(pgprot_t prot, unsigned long start,
->>    * Validate strict W^X semantics.
->>    */
->>   static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long start,
->> -				  unsigned long pfn, unsigned long npg)
->> +				  unsigned long pfn, unsigned long npg,
->> +				  bool nx, bool rw)
->>   {
->>   	unsigned long end;
->>   
->> @@ -641,6 +642,10 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long star
->>   	if ((pgprot_val(new) & (_PAGE_RW | _PAGE_NX)) != _PAGE_RW)
->>   		return new;
->>   
->> +	/* Non-leaf translation entries can disable writing or execution. */
->> +	if (!rw || nx)
->> +		return new;
->> +
->>   	end = start + npg * PAGE_SIZE - 1;
->>   	WARN_ONCE(1, "CPA detected W^X violation: %016llx -> %016llx range: 0x%016lx - 0x%016lx PFN %lx\n",
->>   		  (unsigned long long)pgprot_val(old),
->> @@ -660,17 +665,22 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long star
->>    * Return a pointer to the entry and the level of the mapping.
->>    */
->>   pte_t *lookup_address_in_pgd(pgd_t *pgd, unsigned long address,
->> -			     unsigned int *level)
->> +			     unsigned int *level, bool *nx, bool *rw)
->>   {
->>   	p4d_t *p4d;
->>   	pud_t *pud;
->>   	pmd_t *pmd;
->>   
->>   	*level = PG_LEVEL_NONE;
->> +	*nx = false;
->> +	*rw = true;
->>   
->>   	if (pgd_none(*pgd))
->>   		return NULL;
->>   
->> +	*nx |= pgd_flags(*pgd) & _PAGE_NX;
->> +	*rw &= pgd_flags(*pgd) & _PAGE_RW;
->> +
->>   	p4d = p4d_offset(pgd, address);
->>   	if (p4d_none(*p4d))
->>   		return NULL;
->> @@ -679,6 +689,9 @@ pte_t *lookup_address_in_pgd(pgd_t *pgd, unsigned long address,
->>   	if (p4d_leaf(*p4d) || !p4d_present(*p4d))
->>   		return (pte_t *)p4d;
->>   
->> +	*nx |= p4d_flags(*p4d) & _PAGE_NX;
->> +	*rw &= p4d_flags(*p4d) & _PAGE_RW;
->> +
->>   	pud = pud_offset(p4d, address);
->>   	if (pud_none(*pud))
->>   		return NULL;
->> @@ -687,6 +700,9 @@ pte_t *lookup_address_in_pgd(pgd_t *pgd, unsigned long address,
->>   	if (pud_leaf(*pud) || !pud_present(*pud))
->>   		return (pte_t *)pud;
->>   
->> +	*nx |= pud_flags(*pud) & _PAGE_NX;
->> +	*rw &= pud_flags(*pud) & _PAGE_RW;
->> +
->>   	pmd = pmd_offset(pud, address);
->>   	if (pmd_none(*pmd))
->>   		return NULL;
->> @@ -695,6 +711,9 @@ pte_t *lookup_address_in_pgd(pgd_t *pgd, unsigned long address,
->>   	if (pmd_leaf(*pmd) || !pmd_present(*pmd))
->>   		return (pte_t *)pmd;
->>   
->> +	*nx |= pmd_flags(*pmd) & _PAGE_NX;
->> +	*rw &= pmd_flags(*pmd) & _PAGE_RW;
->> +
->>   	*level = PG_LEVEL_4K;
->>   
-> 
-> This should be a separate preparatory patch that also introduces the new
-> method - without changing any behavior.
+It is weird because sometime "microcode file" is an argument of
+"--force", sometime it is part of the rests of the options.
 
-Okay.
+>          {NULL, no_argument, NULL, 0}
+>      };
+>  
+> @@ -105,10 +110,10 @@ int main(int argc, char *argv[])
+>          exit(1);
+>      }
+>  
+> -    if ( argc != 2 )
+> +    if ( argc < 2 || argc > 3)
+>          goto ext_err;
+>  
+> -    while ( (opt = getopt_long(argc, argv, "hs:", options, NULL)) != -1 )
+> +    while ( (opt = getopt_long(argc, argv, "hsf:", options, NULL)) != -1 )
+>      {
+>          switch (opt)
+>          {
+> @@ -120,12 +125,17 @@ int main(int argc, char *argv[])
+>                      goto ext_err;
+>                  show_curr_cpu(stdout);
+>                  exit(EXIT_SUCCESS);
+> +            case 'f':
+> +            ucode_flag = XENPF_UCODE_FLAG_FORCE_SET;
+> +                filename = optarg;
+> +                break;
+>              default:
+>                  goto ext_err;
+>          }
+>      }
+>  
+> -    filename = argv[1];
+> +    if ( argc == 2 )
+> +        filename = argv[1];
 
-> 
->    	return pte_offset_kernel(pmd, address);
->> @@ -710,18 +729,24 @@ pte_t *lookup_address_in_pgd(pgd_t *pgd, unsigned long address,
->>    */
->>   pte_t *lookup_address(unsigned long address, unsigned int *level)
->>   {
->> -	return lookup_address_in_pgd(pgd_offset_k(address), address, level);
->> +	bool nx, rw;
->> +
->> +	return lookup_address_in_pgd(pgd_offset_k(address), address, level,
->> +				     &nx, &rw);
->>   }
->>   EXPORT_SYMBOL_GPL(lookup_address);
->>   
->>   static pte_t *_lookup_address_cpa(struct cpa_data *cpa, unsigned long address,
->> -				  unsigned int *level)
->> +				  unsigned int *level, bool *nx, bool *rw)
->>   {
->> -	if (cpa->pgd)
->> -		return lookup_address_in_pgd(cpa->pgd + pgd_index(address),
->> -					       address, level);
->> +	pgd_t *pgd;
->> +
->> +	if (!cpa->pgd)
->> +		pgd = pgd_offset_k(address);
->> +	else
->> +		pgd = cpa->pgd + pgd_index(address);
->>   
->> -	return lookup_address(address, level);
->> +	return lookup_address_in_pgd(pgd, address, level, nx, rw);
-> 
-> I think it would be better to split out this change as well into a separate
-> patch. It changes the flow from lookup_address_in_pgd() + lookup_address()
-> to only use lookup_address_in_pgd(), which is an identity transformation
-> that should be better done separately.
-
-Okay.
-
-> 
->>   }
->>   
->>   /*
->> @@ -849,12 +874,13 @@ static int __should_split_large_page(pte_t *kpte, unsigned long address,
->>   	pgprot_t old_prot, new_prot, req_prot, chk_prot;
->>   	pte_t new_pte, *tmp;
->>   	enum pg_level level;
->> +	bool nx, rw;
->>   
->>   	/*
->>   	 * Check for races, another CPU might have split this page
->>   	 * up already:
->>   	 */
->> -	tmp = _lookup_address_cpa(cpa, address, &level);
->> +	tmp = _lookup_address_cpa(cpa, address, &level, &nx, &rw);
->>   	if (tmp != kpte)
->>   		return 1;
->>   
->> @@ -965,7 +991,8 @@ static int __should_split_large_page(pte_t *kpte, unsigned long address,
->>   	new_prot = static_protections(req_prot, lpaddr, old_pfn, numpages,
->>   				      psize, CPA_DETECT);
->>   
->> -	new_prot = verify_rwx(old_prot, new_prot, lpaddr, old_pfn, numpages);
->> +	new_prot = verify_rwx(old_prot, new_prot, lpaddr, old_pfn, numpages,
->> +			      nx, rw);
->>   
->>   	/*
->>   	 * If there is a conflict, split the large page.
->> @@ -1046,6 +1073,7 @@ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
->>   	pte_t *pbase = (pte_t *)page_address(base);
->>   	unsigned int i, level;
->>   	pgprot_t ref_prot;
->> +	bool nx, rw;
->>   	pte_t *tmp;
->>   
->>   	spin_lock(&pgd_lock);
->> @@ -1053,7 +1081,7 @@ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
->>   	 * Check for races, another CPU might have split this page
->>   	 * up for us already:
->>   	 */
->> -	tmp = _lookup_address_cpa(cpa, address, &level);
->> +	tmp = _lookup_address_cpa(cpa, address, &level, &nx, &rw);
->>   	if (tmp != kpte) {
->>   		spin_unlock(&pgd_lock);
->>   		return 1;
->> @@ -1594,10 +1622,11 @@ static int __change_page_attr(struct cpa_data *cpa, int primary)
->>   	int do_split, err;
->>   	unsigned int level;
->>   	pte_t *kpte, old_pte;
->> +	bool nx, rw;
->>   
->>   	address = __cpa_addr(cpa, cpa->curpage);
->>   repeat:
->> -	kpte = _lookup_address_cpa(cpa, address, &level);
->> +	kpte = _lookup_address_cpa(cpa, address, &level, &nx, &rw);
->>   	if (!kpte)
->>   		return __cpa_process_fault(cpa, address, primary);
->>   
->> @@ -1619,7 +1648,8 @@ static int __change_page_attr(struct cpa_data *cpa, int primary)
->>   		new_prot = static_protections(new_prot, address, pfn, 1, 0,
->>   					      CPA_PROTECT);
->>   
->> -		new_prot = verify_rwx(old_prot, new_prot, address, pfn, 1);
->> +		new_prot = verify_rwx(old_prot, new_prot, address, pfn, 1,
->> +				      nx, rw);
->>   
->>   		new_prot = pgprot_clear_protnone_bits(new_prot);
-> 
-> And then this should be the final patch, which fixes RWX verification
-> within the CPA code.
-
-Agreed.
+Sometime we take filename from argv[1], sometime we don't? The logic is
+going to be very confusing, takeout of context, only set `filename` from a
+single place please.
 
 
-Juergen
+Thanks,
 
+-- 
+Anthony PERARD
 
