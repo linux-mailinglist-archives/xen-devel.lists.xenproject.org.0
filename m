@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A6C889FEBA
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 19:37:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703516.1099156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA98C89FF0E
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 19:50:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703525.1099167 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rubro-0007ny-Sb; Wed, 10 Apr 2024 17:36:12 +0000
+	id 1ruc5C-0001Pw-27; Wed, 10 Apr 2024 17:50:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703516.1099156; Wed, 10 Apr 2024 17:36:12 +0000
+Received: by outflank-mailman (output) from mailman id 703525.1099167; Wed, 10 Apr 2024 17:50:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rubro-0007lg-Q0; Wed, 10 Apr 2024 17:36:12 +0000
-Received: by outflank-mailman (input) for mailman id 703516;
- Wed, 10 Apr 2024 17:36:10 +0000
+	id 1ruc5B-0001M8-Tx; Wed, 10 Apr 2024 17:50:01 +0000
+Received: by outflank-mailman (input) for mailman id 703525;
+ Wed, 10 Apr 2024 17:50:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NMnl=LP=suse.cz=dsterba@srs-se1.protection.inumbo.net>)
- id 1rubrm-0007lU-DQ
- for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 17:36:10 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wftW=LP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ruc5B-0001K8-Bw
+ for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 17:50:01 +0000
+Received: from mail-ua1-x92b.google.com (mail-ua1-x92b.google.com
+ [2607:f8b0:4864:20::92b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d046695a-f760-11ee-94a3-07e782e9044d;
- Wed, 10 Apr 2024 19:36:08 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3395033A89;
- Wed, 10 Apr 2024 17:36:07 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EFAAD13691;
- Wed, 10 Apr 2024 17:36:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 20hgOgbOFmZrWQAAD6G6ig
- (envelope-from <dsterba@suse.cz>); Wed, 10 Apr 2024 17:36:06 +0000
+ id bf7ee5e0-f762-11ee-94a3-07e782e9044d;
+ Wed, 10 Apr 2024 19:49:59 +0200 (CEST)
+Received: by mail-ua1-x92b.google.com with SMTP id
+ a1e0cc1a2514c-7e7bd3e7d0aso195661241.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 10:49:59 -0700 (PDT)
+Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ f17-20020a0cc311000000b00698fa74199fsm3979247qvi.1.2024.04.10.10.49.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Apr 2024 10:49:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,146 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d046695a-f760-11ee-94a3-07e782e9044d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1712770567;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0ZHHE5aOwQ1Ezn/ab1buAuDtcCLPcpIIchKLIUxoBbM=;
-	b=Wo/su6uxAz3KDCet7sG1IMbLmZNu/s492NxBN+stUG6oo2qYtuABn+4iFfLZA7KwEty81H
-	IdrOqxowTjwdMcGmvVJuVhd3KhUwlHGwlvUKUWet7620GxVeKx3CiehY9/HodlAMarXBGu
-	QKA3ILsUtN07gfz8aoS5W8ffx3zw7mU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1712770567;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0ZHHE5aOwQ1Ezn/ab1buAuDtcCLPcpIIchKLIUxoBbM=;
-	b=pwQ8usD0NAyGD6U1k6UXV+bVfsviAAMcwHC0rXMTXFxYTDSQht5I5OMD0LYFtofyWnG5ZB
-	JIolcEC5hlnuCvCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1712770567;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0ZHHE5aOwQ1Ezn/ab1buAuDtcCLPcpIIchKLIUxoBbM=;
-	b=Wo/su6uxAz3KDCet7sG1IMbLmZNu/s492NxBN+stUG6oo2qYtuABn+4iFfLZA7KwEty81H
-	IdrOqxowTjwdMcGmvVJuVhd3KhUwlHGwlvUKUWet7620GxVeKx3CiehY9/HodlAMarXBGu
-	QKA3ILsUtN07gfz8aoS5W8ffx3zw7mU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1712770567;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0ZHHE5aOwQ1Ezn/ab1buAuDtcCLPcpIIchKLIUxoBbM=;
-	b=pwQ8usD0NAyGD6U1k6UXV+bVfsviAAMcwHC0rXMTXFxYTDSQht5I5OMD0LYFtofyWnG5ZB
-	JIolcEC5hlnuCvCg==
-Date: Wed, 10 Apr 2024 19:28:37 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Jan Kara <jack@suse.cz>
-Cc: Matthew Wilcox <willy@infradead.org>, Yu Kuai <yukuai1@huaweicloud.com>,
-	axboe@kernel.dk, roger.pau@citrix.com, colyli@suse.de,
-	kent.overstreet@gmail.com, joern@lazybastard.org,
-	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
-	sth@linux.ibm.com, hoeppner@linux.ibm.com, hca@linux.ibm.com,
-	gor@linux.ibm.com, agordeev@linux.ibm.com, jejb@linux.ibm.com,
-	martin.petersen@oracle.com, clm@fb.com, josef@toxicpanda.com,
-	dsterba@suse.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
-	nico@fluxnic.net, xiang@kernel.org, chao@kernel.org, tytso@mit.edu,
-	adilger.kernel@dilger.ca, jack@suse.com, konishi.ryusuke@gmail.com,
-	akpm@linux-foundation.org, hare@suse.de, p.raghav@samsung.com,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-bcachefs@vger.kernel.org,
-	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
-	linux-nilfs@vger.kernel.org, yukuai3@huawei.com,
-	yi.zhang@huawei.com, yangerkun@huawei.com
-Subject: Re: [PATCH RFC v3 for-6.8/block 09/17] btrfs: use bdev apis
-Message-ID: <20240410172837.GO3492@suse.cz>
-Reply-To: dsterba@suse.cz
-References: <20231221085712.1766333-1-yukuai1@huaweicloud.com>
- <20231221085712.1766333-10-yukuai1@huaweicloud.com>
- <ZYcZi5YYvt5QHrG9@casper.infradead.org>
- <20240104114958.f3cit5q7syp3tn3a@quack3>
+X-Inumbo-ID: bf7ee5e0-f762-11ee-94a3-07e782e9044d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1712771398; x=1713376198; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FUbwomd5J1OW3cjrKO13gp2AC0+F0qqAeqKGk5r28uI=;
+        b=Ol9eRQPdQV54KfDFQnG7YRSfUduG9v+vRdyRGDVtfj1h0YDye1VIqw+ArUkzg3Blgq
+         yD4e8RBTcw/NWaDioZ+FhQI8hHoYwVoOmbCiTSMfUe1TgF6AdB00KIGSmmU83m0Ji72c
+         rHJxfXhNFhfCNc6fxdKeGdM4h5gQ7wwudmC/I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712771398; x=1713376198;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FUbwomd5J1OW3cjrKO13gp2AC0+F0qqAeqKGk5r28uI=;
+        b=N4YqUP6wgn/i2AVNqJBLzNMyeZgddwAFGODT1dRRrdnMHWa7FJ5zW0jaJYShWl+0CR
+         BslbpkASyhsgINLYNudDnmG16EPC4B32uTllcM2BNZj6P6WnGkh1FPhX4RC+HD6j8mj7
+         ihY6MU4Q/eZntEXGo/pS7akoL45EaTn1Vl0AWxacTnPoxQvuV/Yik6QSKNLSbhk0diDb
+         7Yw8j68Y4lEMphquQM2+W/gOar8cS/o2JVjm8hlfYgKETFLO1weRkcRektszlr2hVu/s
+         ah/+LtA/VO7M1YrDrRcWaR1gmRYdEf9+scJziAkT5EgKvo+t3gv1VChKcQg2PNumAR0W
+         pb4w==
+X-Gm-Message-State: AOJu0YwJYM+i2tTh8M5WLZrOXYdMPp7KCZScJ/G6Gz07duz5+Ahg62Wk
+	fSzVfeX2XsZBeHU2Csouwk6nZMYrHy5NRNgZJOIx5kG4AvbX5E4r3QAC9t9Ilc4=
+X-Google-Smtp-Source: AGHT+IEQmSURNEb+vr6iSgLBmKz8OegheTCoJyXmyDSDxKwPMCcrZMXw75vwYRT4YHn1LdxtaWz80g==
+X-Received: by 2002:a05:6122:1d8f:b0:4da:e977:1fb7 with SMTP id gg15-20020a0561221d8f00b004dae9771fb7mr3420436vkb.15.1712771398130;
+        Wed, 10 Apr 2024 10:49:58 -0700 (PDT)
+Message-ID: <7a6ae6d2-f070-4b87-9c40-688cba3184de@citrix.com>
+Date: Wed, 10 Apr 2024 18:49:55 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240104114958.f3cit5q7syp3tn3a@quack3>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Flag: NO
-X-Spam-Score: -2.50
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.50 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[49];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLtpaten8pmzgjg419jubxqoa7)];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[infradead.org,huaweicloud.com,kernel.dk,citrix.com,suse.de,gmail.com,lazybastard.org,bootlin.com,nod.at,ti.com,linux.ibm.com,oracle.com,fb.com,toxicpanda.com,suse.com,zeniv.linux.org.uk,kernel.org,fluxnic.net,mit.edu,dilger.ca,linux-foundation.org,samsung.com,vger.kernel.org,lists.xenproject.org,lists.infradead.org,lists.ozlabs.org,huawei.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	TAGGED_RCPT(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] x86/Kconfig: Introduce CONFIG_{AMD,INTEL} and
+ conditionalise ucode
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+References: <20231026205539.3261811-1-andrew.cooper3@citrix.com>
+ <20231026205539.3261811-3-andrew.cooper3@citrix.com>
+ <Zhas4MQdL3hQ6Uww@macbook> <2fd969ef-8326-4ae8-a568-4256f00542f0@citrix.com>
+ <Zha_hXU3zRwVzFZN@macbook>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <Zha_hXU3zRwVzFZN@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jan 04, 2024 at 12:49:58PM +0100, Jan Kara wrote:
-> On Sat 23-12-23 17:31:55, Matthew Wilcox wrote:
-> > On Thu, Dec 21, 2023 at 04:57:04PM +0800, Yu Kuai wrote:
-> > > @@ -3674,16 +3670,17 @@ struct btrfs_super_block *btrfs_read_dev_one_super(struct block_device *bdev,
-> > >  		 * Drop the page of the primary superblock, so later read will
-> > >  		 * always read from the device.
-> > >  		 */
-> > > -		invalidate_inode_pages2_range(mapping,
-> > > -				bytenr >> PAGE_SHIFT,
-> > > +		invalidate_bdev_range(bdev, bytenr >> PAGE_SHIFT,
-> > >  				(bytenr + BTRFS_SUPER_INFO_SIZE) >> PAGE_SHIFT);
-> > >  	}
-> > >  
-> > > -	page = read_cache_page_gfp(mapping, bytenr >> PAGE_SHIFT, GFP_NOFS);
-> > > -	if (IS_ERR(page))
-> > > -		return ERR_CAST(page);
-> > > +	nofs_flag = memalloc_nofs_save();
-> > > +	folio = bdev_read_folio(bdev, bytenr);
-> > > +	memalloc_nofs_restore(nofs_flag);
-> > 
-> > This is the wrong way to use memalloc_nofs_save/restore.  They should be
-> > used at the point that the filesystem takes/releases whatever lock is
-> > also used during reclaim.  I don't know btrfs well enough to suggest
-> > what lock is missing these annotations.
-> 
-> In principle I agree with you but in this particular case I agree the ask
-> is just too big. I suspect it is one of btrfs btree locks or maybe
-> chunk_mutex but I doubt even btrfs developers know and maybe it is just a
-> cargo cult. And it is not like this would be the first occurence of this
-> anti-pattern in btrfs - see e.g. device_list_add(), add_missing_dev(),
-> btrfs_destroy_delalloc_inodes() (here the wrapping around
-> invalidate_inode_pages2() looks really weird), and many others...
+On 10/04/2024 5:34 pm, Roger Pau Monné wrote:
+> On Wed, Apr 10, 2024 at 05:21:37PM +0100, Andrew Cooper wrote:
+>> On 10/04/2024 4:14 pm, Roger Pau Monné wrote:
+>>> On Thu, Oct 26, 2023 at 09:55:39PM +0100, Andrew Cooper wrote:
+>>>> +
+>>>> +config AMD
+>>>> +	bool "AMD"
 
-The pattern is intentional and a temporary solution before we could
-implement the scoped NOFS. Functions calling allocations get converted
-from GFP_NOFS to GFP_KERNEL but in case they're called from a context
-that either holds big locks or can recursively enter the filesystem then
-it's protected by the memalloc calls. This should not be surprising.
-What may not be obvious is which locks or kmalloc calling functions it
-could be, this depends on the analysis of the function call chain and
-usually there's enough evidence why it's needed.
+After double checking what {menu,old}config looks like, I've extended
+these prompts "Support $X CPU" so they make more sense in the context
+they're asked in.
+
+
+>>>> +        default y
+>>>> +        help
+>>>> +          Detection, tunings and quirks for AMD platforms.
+>>>> +
+>>>> +	  May be turned off in builds targetting other vendors.  Otherwise,
+>>>> +	  must be enabled for Xen to work suitably on AMD platforms.
+>>>> +
+>>>> +config INTEL
+>>>> +	bool "Intel"
+>>>> +        default y
+>>>> +        help
+>>>> +          Detection, tunings and quirks for Intel platforms.
+>>>> +
+>>>> +	  May be turned off in builds targetting other vendors.  Otherwise,
+>>>> +	  must be enabled for Xen to work suitably on Intel platforms.
+>>> There seems to be a weird mix between hard tabs and spaces above.
+>>> Naming is OK for me.
+>> Yeah.  I already fixed those locally.
+> With that fixed:
+>
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks.
+
+We can always tweak later if necessary.
+
+~Andrew
 
