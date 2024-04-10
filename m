@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16A4D8A032D
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 00:17:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703678.1099486 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C4CF8A0387
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 00:45:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703693.1099496 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rugGE-0000TN-88; Wed, 10 Apr 2024 22:17:42 +0000
+	id 1ruggG-0005zA-9B; Wed, 10 Apr 2024 22:44:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703678.1099486; Wed, 10 Apr 2024 22:17:42 +0000
+Received: by outflank-mailman (output) from mailman id 703693.1099496; Wed, 10 Apr 2024 22:44:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rugGE-0000RQ-4b; Wed, 10 Apr 2024 22:17:42 +0000
-Received: by outflank-mailman (input) for mailman id 703678;
- Wed, 10 Apr 2024 22:17:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ruggG-0005wv-5p; Wed, 10 Apr 2024 22:44:36 +0000
+Received: by outflank-mailman (input) for mailman id 703693;
+ Wed, 10 Apr 2024 22:44:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rcYN=LP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rugGD-0008JC-2m
- for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 22:17:41 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 23fc59de-f788-11ee-b908-491648fe20b8;
- Thu, 11 Apr 2024 00:17:40 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 0789BCE2AB0;
- Wed, 10 Apr 2024 22:17:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C77EC433F1;
- Wed, 10 Apr 2024 22:17:36 +0000 (UTC)
+ <SRS0=a91P=LP=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1ruggE-0005vW-F6
+ for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 22:44:34 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e5c330d1-f78b-11ee-94a3-07e782e9044d;
+ Thu, 11 Apr 2024 00:44:32 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-56e6646d78bso4048781a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 15:44:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,89 +40,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23fc59de-f788-11ee-b908-491648fe20b8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712787457;
-	bh=hyzAmNc5yc+bIFBdfeWPrFehNQaEIVwneQZVyo52llc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=XbJmXkSCSVU/BJu7cXjZ5eE7ndytJ9RQ5SLEYdooy/fH3QtQ5GaDrcItj8PRg/4/+
-	 K8kh7w3f45t8aygNXU6jYtMLtxVUDGCBwIDK3eNuIGIwZBiJNTuE+WNlMZb9ZFzDEb
-	 xJo2i/n7DgHsZVqph9eC3s6OECEEcOKXmv+2fcdYOXrLTvohuJ50JMqQCGe12P4iQv
-	 ZpTP3p6rIz4+eDShuNkucQbsP6pNBmG7JTYT2BVB+4pmMQedgTFcm3x2Eb1FqFKPll
-	 T243HNSBTOGpRUC020f7uteV3YD3RBVo5HNC3ZqwD/fY5vzqus59HecklqPRrMOWYU
-	 s/j4aVs+Xkdig==
-Date: Wed, 10 Apr 2024 15:17:34 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Jan Beulich <JBeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    "consulting @ bugseng . com" <consulting@bugseng.com>, 
-    Roberto Bagnara <roberto.bagnara@bugseng.com>, 
-    Federico Serafini <federico.serafini@bugseng.com>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: Re: [PATCH] x86/emul: Adjust X86EMUL_OPC_EXT_MASK to placate MISRA
-In-Reply-To: <20240410194531.1500509-1-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2404101517200.711344@ubuntu-linux-20-04-desktop>
-References: <20240410194531.1500509-1-andrew.cooper3@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: e5c330d1-f78b-11ee-94a3-07e782e9044d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1712789072; x=1713393872; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tMizZl+Vqp5JNwp1YMb5ta7Uk1RvNa2X4SM4hK/B6PI=;
+        b=O5dQ1Yb2YW8lg1Ouk75DpRYKnbPT0nLF5rx2CRpjDmVB10EdchrUjgEJGxoPZWLXvJ
+         0MIEHwnEFg/ClVKaSglLn76kG2xUcBvut+24zHqziLDebmVRUbLFCDzsws2ilt2qCOGS
+         qfpNvpqO/FvFkIkThE8Cke6bEUfNXzuR8ZgvzMSqN/k0jCD3JzajLnarSKplAT8KY+bd
+         Y/SN/a97x3t6u6h/TRw+uNY40UMLdeNUSjg7Rv05K/DA7DXNdLBH/nt5OXHxvfCTVq6F
+         dfIcpzHthpTxsnyB3v43plyKYAazwhLm8mnVPcKoh2i6eqpmWuuMLivfdPOokE7iNMcF
+         vmkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712789072; x=1713393872;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tMizZl+Vqp5JNwp1YMb5ta7Uk1RvNa2X4SM4hK/B6PI=;
+        b=up40fx+FCIPcKX1n36tB+G0JzGOdxcoJ/MuSor5QtYL52yrlohZwuHarD1PxNMWKps
+         nzKJYLd5ieb2hJaSedb8flhJuBkGrwc20I+Fly40adiSLgrhR/QinbzEyXa1Uun5GgiU
+         40TPREPASuI54V1/EXLgoZgebi22THVS8g95ZQ+NlM626ac4QZe8SR5oxcIwa3JHneW9
+         7JxBGF9eA2gQGNp+U1BPtFRsTxGYWdWkd3Nu1VPoH0Os6J1cysUORIzEvOmggNvhxgNM
+         v+gK2/0nkbzMnY9fGUSpmJPj8f1yjEZDoEPTVhuwMrruPerxPD1nMJ0HEcwVGhE6q1bA
+         WPiQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW0a9BS+QK8w8bKtWKttaIU/y5QHM0AEulVovA3TuY82ooHqf5DQz2EQ+xfbLwAVPr2xpkeJgMEerlU7q/z/QjC9n1OWslxH2/kRG63k4c=
+X-Gm-Message-State: AOJu0Yw7+mCKxZEiktvlPJr3B1NISzNlVm5ToYhwzXWnYDvvgff6zgPh
+	6BSS5dmnk+utbY/3kEeKasV9AKZn59O1Mic5tu33J1JMwLH4QY7RQ37fr6mort3JCF1aICOKC+o
+	y6q+n7C/pHljzQ/uq70ZMfb4Ao2A=
+X-Google-Smtp-Source: AGHT+IHUb2kSqmQGoyf/pmBPVmanUCKY1ukJu0Hjls0xlJbsF3+yQNgx6yhmq+jquYJQb7UKAKsU2zKca4hxGXn8sEU=
+X-Received: by 2002:a50:875a:0:b0:56e:359d:fcea with SMTP id
+ 26-20020a50875a000000b0056e359dfceamr2534639edv.34.1712789071572; Wed, 10 Apr
+ 2024 15:44:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1780247962-1712787457=:711344"
+References: <20240409094712.21285-1-jgross@suse.com>
+In-Reply-To: <20240409094712.21285-1-jgross@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 10 Apr 2024 18:44:19 -0400
+Message-ID: <CAKf6xptBEksXYaPg55fEHAvPLuCkW+h4iWerofxzu1GdLcrPBg@mail.gmail.com>
+Subject: Re: [PATCH] x86/pat: fix W^X violation false-positives when running
+ as Xen PV guest
+To: Juergen Gross <jgross@suse.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, 
+	xen-devel@lists.xenproject.org, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi Juergen,
 
---8323329-1780247962-1712787457=:711344
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+On Tue, Apr 9, 2024 at 5:47=E2=80=AFAM Juergen Gross <jgross@suse.com> wrot=
+e:
+>
+> When running as Xen PV guest in some cases W^X violation WARN()s have
+> been observed. Those WARN()s are produced by verify_rwx(), which looks
+> into the PTE to verify that writable kernel pages have the NX bit set
+> in order to avoid code modifications of the kernel by rogue code.
+>
+> As the NX bits of all levels of translation entries are or-ed and the
+> RW bits of all levels are and-ed, looking just into the PTE isn't enough
+> for the decision that a writable page is executable, too. When running
+> as a Xen PV guest, kernel initialization will set the NX bit in PMD
+> entries of the initial page tables covering the .data segment.
 
-On Wed, 10 Apr 2024, Andrew Cooper wrote:
-> Resolves 4740 MISRA R7.2 violations.
+I think this is a more accurate description of what I investigated:
+"When running as a Xen PV guest, the direct map PMDs and kernel high
+map PMDs share the same set of PTEs.  Kernel initialization will set
+the NX bit in the direct map PMD entries, and not the shared PTEs."
 
-LOL!!
+The WARN()s I saw were with direct map addresses.
 
-
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: consulting@bugseng.com <consulting@bugseng.com>
-> CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
-> CC: Federico Serafini <federico.serafini@bugseng.com>
-> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> 
-> of 4935, so 96% of them...
-> ---
->  xen/arch/x86/x86_emulate/x86_emulate.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
-> index 698750267a90..d92be69d84d9 100644
-> --- a/xen/arch/x86/x86_emulate/x86_emulate.h
-> +++ b/xen/arch/x86/x86_emulate/x86_emulate.h
-> @@ -620,7 +620,7 @@ struct x86_emulate_ctxt
->   * below).
->   * Hence no separate #define-s get added.
->   */
-> -#define X86EMUL_OPC_EXT_MASK         0xffff0000
-> +#define X86EMUL_OPC_EXT_MASK         0xffff0000U
->  #define X86EMUL_OPC(ext, byte)       ((uint8_t)(byte) | \
->                                        MASK_INSR((ext), X86EMUL_OPC_EXT_MASK))
->  /*
-> 
-> base-commit: 0e7ea8ca5fc9bce9248414f6aaf2dc861abd45d9
-> prerequisite-patch-id: 8d06e56c5d8a52f1387e1f5a7fce6a94b8c4a1ed
-> prerequisite-patch-id: 13355d26254b979c79de456c9a6ea6a9c639ba63
-> prerequisite-patch-id: d1f308616490257685a49248e29f1b3516c2dde4
-> -- 
-> 2.30.2
-> 
---8323329-1780247962-1712787457=:711344--
+Thanks,
+Jason
 
