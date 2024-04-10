@@ -2,52 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 067288A00D9
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 21:49:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703598.1099343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E1C98A0112
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 22:11:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703625.1099363 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rudwd-0001jT-HH; Wed, 10 Apr 2024 19:49:19 +0000
+	id 1rueHg-0000D0-Nf; Wed, 10 Apr 2024 20:11:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703598.1099343; Wed, 10 Apr 2024 19:49:19 +0000
+Received: by outflank-mailman (output) from mailman id 703625.1099363; Wed, 10 Apr 2024 20:11:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rudwd-0001fk-Cj; Wed, 10 Apr 2024 19:49:19 +0000
-Received: by outflank-mailman (input) for mailman id 703598;
- Wed, 10 Apr 2024 19:49:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fkSW=LP=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1rudwb-0001Ay-K5
- for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 19:49:17 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20600.outbound.protection.outlook.com
- [2a01:111:f403:2415::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6816fd59-f773-11ee-94a3-07e782e9044d;
- Wed, 10 Apr 2024 21:49:15 +0200 (CEST)
-Received: from SN7PR04CA0214.namprd04.prod.outlook.com (2603:10b6:806:127::9)
- by BL1PR12MB5780.namprd12.prod.outlook.com (2603:10b6:208:393::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 10 Apr
- 2024 19:49:10 +0000
-Received: from SN1PEPF0002636E.namprd02.prod.outlook.com
- (2603:10b6:806:127:cafe::fe) by SN7PR04CA0214.outlook.office365.com
- (2603:10b6:806:127::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.19 via Frontend
- Transport; Wed, 10 Apr 2024 19:49:10 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF0002636E.mail.protection.outlook.com (10.167.241.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Wed, 10 Apr 2024 19:49:10 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 10 Apr
- 2024 14:49:09 -0500
-Received: from fedora.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 10 Apr 2024 14:49:07 -0500
+	id 1rueHg-00009s-Kj; Wed, 10 Apr 2024 20:11:04 +0000
+Received: by outflank-mailman (input) for mailman id 703625;
+ Wed, 10 Apr 2024 20:11:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rueHf-00009h-18; Wed, 10 Apr 2024 20:11:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rueHe-0001eD-Uo; Wed, 10 Apr 2024 20:11:02 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rueHe-0005th-L8; Wed, 10 Apr 2024 20:11:02 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rueHe-0002mb-Kh; Wed, 10 Apr 2024 20:11:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,239 +42,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6816fd59-f773-11ee-94a3-07e782e9044d
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HeXhF0Gq8r5kfAGnxVhbsDAsPXAiEhZ3WOCglTzGxMVBt7IUnbgrGoE59QLOTuWVBOfk9P5iyJTyIECkn5SN6eXqVEBOi/9OqY8oqIwCrQvPc1s9Z3CQaPRe2ulOWO3GekTaZiqzqNUNLmWRIHQahY+lUrg7UBCHnCPCWDNXjjSaMFGef7LVCeyli4pn0W5yhB9aEol45zE0AlKAqcsOw+ooWNAsv10Tl09kOH2Yp8Lh6vPwGIQprto+c7zglPbDb2J8uvl/dbzoxgJOwTW84c/ifuoUQ6zTObslfYLzjPJ1FryNuW/i6MGwlZF97AelwYua0ifgR8P5V7r81O3Kww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NJcvBdWX17XntXG7nnPBUo+yiX3g7hqZkIUkQ22tiy8=;
- b=ZPrAw+Qyj83DqJhQ1xW44DUWMnn6+/1hcXhx90u02/lO5kCNFgbLVODdx5LS3oVyh65O3EcYL97TGNiuZ8ur7NrdYQF5VkaqZaRS/tOhcLvek0mXEkTPtx51aDRB49UDPezCmFTVm0RJurcqEcNFBAuvtIlPO7o6f4922qPaW/Fu5gHsykCq/gcFaSDAt+dC0REYrLGXpFuGMS/qvTMYWXHpsPV0n3l5FadEK8IFVAnCw2k5JIhaS/Z+tRonny7WYXDoE9rPl4ljwWf0yfD+xa3YeugILLjNV+R9rue3dliKvxwkG+D69eCArUqpL5trPndWqbLSgQYRd+2szA9WHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NJcvBdWX17XntXG7nnPBUo+yiX3g7hqZkIUkQ22tiy8=;
- b=WzpIdH2Z3wBMrgtb52wZ+6MJNT76sDX58kBQB9y8ak/ShILVBAeJiHExU0343Z/uQq7E7Go9otCJKaEq8hIChUtTqY1OjySaocJ8yFiyC25gLkYBhwIes/Q9Y5YinyRNJGauBNuyubVdZ8ZpYdfPvmMQjXVrHUd8lzrLdnVxXz8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: Juergen Gross <jgross@suse.com>, Boris Ostrovsky
-	<boris.ostrovsky@oracle.com>, Thomas Gleixner <tglx@linutronix.de>, "Ingo
- Molnar" <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
-	<hpa@zytor.com>, Stefano Stabellini <sstabellini@kernel.org>, "Oleksandr
- Tyshchenko" <oleksandr_tyshchenko@epam.com>, Paolo Bonzini
-	<pbonzini@redhat.com>
-CC: <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>, "Jason
- Andryuk" <jason.andryuk@amd.com>
-Subject: [PATCH 5/5] x86/pvh: Add 64bit relocation page tables
-Date: Wed, 10 Apr 2024 15:48:50 -0400
-Message-ID: <20240410194850.39994-6-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240410194850.39994-1-jason.andryuk@amd.com>
-References: <20240410194850.39994-1-jason.andryuk@amd.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=fH0xX40ZkdG9+KsJxWnkj6VyKLtr4hW7t742qYVdArs=; b=gwIVLiJwJQqBMJnEUnqxp3g+/q
+	EQG/rx5rdD6D70ezV3OvLaJfDDZOnTi5nt8p0E7ovudcMXj411G4XlI0iEAkNKGQZYngzaP4VXMSw
+	wUF/eRzbSrkvTenea8ro5vb2gybJqcDVF9wUB+QSXbGONT313ZEdeYfNiNwktk8Hc5Js=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185295-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636E:EE_|BL1PR12MB5780:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d54aceb-29a4-4713-b9f4-08dc59974a6b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	7pezkZQ//Se4v0JvD3x4hLYAlIKS3Bh/TWtA8kWmz8yBAAX9Ehu0NYlbuUwnwGyu45WGKNbu4xrGE2nOFjuxmulLWFL2wfwIBrUmYzJZj8Ou4xQuqSmBHo6ut4k1jJkp7VIyKAcLqGYJIwIw8o+6DlGTNuwatYdhnzUI2mRXVCOtYeS/9xHXrnJ91uAKygIrx2NWq2/Y30FSI6gFKjvPv+PjPw6zqff2+0GvGpVxIYvWrqKD0CdASF4gfPzGeFW9rlA6n4Y494lRdvxfj211AQENQ0t+NnAP4/GHiHodSnXWNeEgaAD8cwFa7nh126jhhZaZtvPqyHvpGh8wlmiM/g8qyKgQpCwJQtu/txNg+l7ATuqPu0KmzhqFNANYR9j1Sc/c2g2T6Bg9GVyP8QDXRTXm9aR64yI7mXyANnghBopD0zfIcmBKUPgfG6FjL6RTyzxhtbL7UmMPEJqy821hFIiVqiFqQlRqAirbLnYgLgUwoczspEdfhiD8zPRXRl0jzzsYygy+p8Ns+v/9HcqWJXNctEbSEyN8gxfEqJgOfwYdv8KzWbu85WtYJrBA+p4jARwVO2RxpSBRn3xdqwolJs7SNMg303x8S6eFA4IY3xQdbFTbyVBh0sLYK7JDXEvJgoJz/S5cKGa3e+EGo3SfAYXlnu9d4avPOVoBOPii4667QBVo6KKM+HZ38Xq01wx7JuVe1lEzJodH5sLKdW6/7GXTQDITQ4xHbloT8lxasBfw7Gglx69jUgEnfBjsFOS6DIAPJyPNg2N2r7sUmL6w6Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(7416005)(1800799015)(82310400014)(36860700004)(376005)(921011);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2024 19:49:10.2650
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d54aceb-29a4-4713-b9f4-08dc59974a6b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF0002636E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5780
+MIME-Version: 1.0
+Subject: [libvirt test] 185295: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-arm64-pvops:kernel-build:fail:regression
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=01f2b614a25f60b9deab44e3efd05646958776ad
+X-Osstest-Versions-That:
+    libvirt=4b5cc57ed35dc24d11673dd3f04bfb8073c0340d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 10 Apr 2024 20:11:02 +0000
 
-The PVH entry point is 32bit.  For a 64bit kernel, the entry point must
-switch to 64bit mode, which requires a set of page tables.  In the past,
-PVH used init_top_pgt.
+flight 185295 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185295/
 
-This works fine when the kernel is loaded at LOAD_PHYSICAL_ADDR, as the
-page tables are prebuilt for this address.  If the kernel is loaded at a
-different address, they need to be adjusted.
+Regressions :-(
 
-__startup_64() adjusts the prebuilt page tables for the physical load
-address, but it is 64bit code.  The 32bit PVH entry code can't call it
-to adjust the page tables, so it can't readily be re-used.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-pvops             6 kernel-build             fail REGR. vs. 185278
 
-64bit PVH entry needs page tables set up for identity map, the kernel
-high map and the direct map.  pvh_start_xen() enters identity mapped.
-Inside xen_prepare_pvh(), it jumps through a pv_ops function pointer
-into the highmap.  The direct map is used for __va() on the initramfs
-and other guest physical addresses.
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185278
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
 
-Add a dedicated set of prebuild page tables for PVH entry.  They are
-adjusted in assembly before loading.
+version targeted for testing:
+ libvirt              01f2b614a25f60b9deab44e3efd05646958776ad
+baseline version:
+ libvirt              4b5cc57ed35dc24d11673dd3f04bfb8073c0340d
 
-Add XEN_ELFNOTE_PHYS32_RELOC to indicate support for relocation
-along with the kernel's loading constraints.  The maximum load address,
-KERNEL_IMAGE_SIZE - 1, is determined by a single pvh_level2_ident_pgt
-page.  It could be larger with more pages.
+Last test of basis   185278  2024-04-09 04:18:45 Z    1 days
+Testing same since   185295  2024-04-10 04:20:37 Z    0 days    1 attempts
 
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
-Instead of adding 5 pages of prebuilt page tables, they could be
-contructed dynamically in the .bss area.  They are then only used for
-PVH entry and until transitioning to init_top_pgt.  The .bss is later
-cleared.  It's safer to add the dedicated pages, so that is done here.
----
- arch/x86/platform/pvh/head.S | 105 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 104 insertions(+), 1 deletion(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Michal Privoznik <mprivozn@redhat.com>
 
-diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
-index c08d08d8cc92..4af3cfbcf2f8 100644
---- a/arch/x86/platform/pvh/head.S
-+++ b/arch/x86/platform/pvh/head.S
-@@ -21,6 +21,8 @@
- #include <asm/nospec-branch.h>
- #include <xen/interface/elfnote.h>
- 
-+#include "../kernel/pgtable_64_helpers.h"
-+
- 	__HEAD
- 
- /*
-@@ -102,8 +104,47 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
- 	btsl $_EFER_LME, %eax
- 	wrmsr
- 
-+	mov %ebp, %ebx
-+	subl $LOAD_PHYSICAL_ADDR, %ebx /* offset */
-+	jz .Lpagetable_done
-+
-+	/* Fixup page-tables for relocation. */
-+	leal rva(pvh_init_top_pgt)(%ebp), %edi
-+	movl $512, %ecx
-+2:
-+	testl $_PAGE_PRESENT, 0x00(%edi)
-+	jz 1f
-+	addl %ebx, 0x00(%edi)
-+1:
-+	addl $8, %edi
-+	decl %ecx
-+	jnz 2b
-+
-+	/* L3 ident has a single entry. */
-+	leal rva(pvh_level3_ident_pgt)(%ebp), %edi
-+	addl %ebx, 0x00(%edi)
-+
-+	leal rva(pvh_level3_kernel_pgt)(%ebp), %edi
-+	addl %ebx, (4096 - 16)(%edi)
-+	addl %ebx, (4096 - 8)(%edi)
-+
-+	/* pvh_level2_ident_pgt is fine - large pages */
-+
-+	/* pvh_level2_kernel_pgt needs adjustment - large pages */
-+	leal rva(pvh_level2_kernel_pgt)(%ebp), %edi
-+	movl $512, %ecx
-+2:
-+	testl $_PAGE_PRESENT, 0x00(%edi)
-+	jz 1f
-+	addl %ebx, 0x00(%edi)
-+1:
-+	addl $8, %edi
-+	decl %ecx
-+	jnz 2b
-+
-+.Lpagetable_done:
- 	/* Enable pre-constructed page tables. */
--	leal rva(init_top_pgt)(%ebp), %eax
-+	leal rva(pvh_init_top_pgt)(%ebp), %eax
- 	mov %eax, %cr3
- 	mov $(X86_CR0_PG | X86_CR0_PE), %eax
- 	mov %eax, %cr0
-@@ -197,5 +238,67 @@ SYM_DATA_START_LOCAL(early_stack)
- 	.fill BOOT_STACK_SIZE, 1, 0
- SYM_DATA_END_LABEL(early_stack, SYM_L_LOCAL, early_stack_end)
- 
-+#ifdef CONFIG_X86_64
-+/*
-+ * Xen PVH needs a set of identity mapped and kernel high mapping
-+ * page tables.  pvh_start_xen starts running on the identity mapped
-+ * page tables, but xen_prepare_pvh calls into the high mapping.
-+ * These page tables need to be relocatable and are only used until
-+ * startup_64 transitions to init_top_pgt.
-+ */
-+SYM_DATA_START_PAGE_ALIGNED(pvh_init_top_pgt)
-+	.quad   pvh_level3_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
-+	.org    pvh_init_top_pgt + L4_PAGE_OFFSET*8, 0
-+	.quad   pvh_level3_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
-+	.org    pvh_init_top_pgt + L4_START_KERNEL*8, 0
-+	/* (2^48-(2*1024*1024*1024))/(2^39) = 511 */
-+	.quad   pvh_level3_kernel_pgt - __START_KERNEL_map + _PAGE_TABLE_NOENC
-+SYM_DATA_END(pvh_init_top_pgt)
-+
-+SYM_DATA_START_PAGE_ALIGNED(pvh_level3_ident_pgt)
-+	.quad	pvh_level2_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
-+	.fill	511, 8, 0
-+SYM_DATA_END(pvh_level3_ident_pgt)
-+SYM_DATA_START_PAGE_ALIGNED(pvh_level2_ident_pgt)
-+	/*
-+	 * Since I easily can, map the first 1G.
-+	 * Don't set NX because code runs from these pages.
-+	 *
-+	 * Note: This sets _PAGE_GLOBAL despite whether
-+	 * the CPU supports it or it is enabled.  But,
-+	 * the CPU should ignore the bit.
-+	 */
-+	PMDS(0, __PAGE_KERNEL_IDENT_LARGE_EXEC, PTRS_PER_PMD)
-+SYM_DATA_END(pvh_level2_ident_pgt)
-+SYM_DATA_START_PAGE_ALIGNED(pvh_level3_kernel_pgt)
-+	.fill	L3_START_KERNEL,8,0
-+	/* (2^48-(2*1024*1024*1024)-((2^39)*511))/(2^30) = 510 */
-+	.quad	pvh_level2_kernel_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
-+	.quad	0 /* no fixmap */
-+SYM_DATA_END(pvh_level3_kernel_pgt)
-+
-+SYM_DATA_START_PAGE_ALIGNED(pvh_level2_kernel_pgt)
-+	/*
-+	 * Kernel high mapping.
-+	 *
-+	 * The kernel code+data+bss must be located below KERNEL_IMAGE_SIZE in
-+	 * virtual address space, which is 1 GiB if RANDOMIZE_BASE is enabled,
-+	 * 512 MiB otherwise.
-+	 *
-+	 * (NOTE: after that starts the module area, see MODULES_VADDR.)
-+	 *
-+	 * This table is eventually used by the kernel during normal runtime.
-+	 * Care must be taken to clear out undesired bits later, like _PAGE_RW
-+	 * or _PAGE_GLOBAL in some cases.
-+	 */
-+	PMDS(0, __PAGE_KERNEL_LARGE_EXEC, KERNEL_IMAGE_SIZE/PMD_SIZE)
-+SYM_DATA_END(pvh_level2_kernel_pgt)
-+
-+	ELFNOTE(Xen, XEN_ELFNOTE_PHYS32_RELOC,
-+		     .long CONFIG_PHYSICAL_ALIGN;
-+		     .long LOAD_PHYSICAL_ADDR;
-+		     .long KERNEL_IMAGE_SIZE - 1)
-+#endif
-+
- 	ELFNOTE(Xen, XEN_ELFNOTE_PHYS32_ENTRY,
- 	             _ASM_PTR (pvh_start_xen - __START_KERNEL_map))
--- 
-2.44.0
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            fail    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 01f2b614a25f60b9deab44e3efd05646958776ad
+Author: Michal Privoznik <mprivozn@redhat.com>
+Date:   Tue Apr 9 10:17:11 2024 +0200
+
+    qemusecuritytest: Call real virFileExists in mock
+    
+    When I suggested to Jim to call real virFileExists() I forgot to
+    also suggest calling init_syms(). Without it, real_virFileExists
+    pointer might be left unset. And indeed, that's what we were
+    seeing on FreeBSD.
+    
+    This effectively reverts commit 4b5cc57ed35dc24d11673dd3f04bfb8073c0340d.
+    
+    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
+    Reviewed-by: Jiri Denemark <jdenemar@redhat.com>
+    Reviewed-by: Jim Fehlig <jfehlig@suse.com>
 
