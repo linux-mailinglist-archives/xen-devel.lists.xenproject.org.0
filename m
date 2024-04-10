@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCD7589EFC6
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 12:24:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.702995.1098751 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 681E689EFFD
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 12:38:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703000.1098760 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruV86-0001m0-H2; Wed, 10 Apr 2024 10:24:34 +0000
+	id 1ruVKY-0004G5-KH; Wed, 10 Apr 2024 10:37:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 702995.1098751; Wed, 10 Apr 2024 10:24:34 +0000
+Received: by outflank-mailman (output) from mailman id 703000.1098760; Wed, 10 Apr 2024 10:37:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruV86-0001kG-DO; Wed, 10 Apr 2024 10:24:34 +0000
-Received: by outflank-mailman (input) for mailman id 702995;
- Wed, 10 Apr 2024 10:24:32 +0000
+	id 1ruVKY-0004D3-HV; Wed, 10 Apr 2024 10:37:26 +0000
+Received: by outflank-mailman (input) for mailman id 703000;
+ Wed, 10 Apr 2024 10:37:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5G6/=LP=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1ruV84-0001kA-DK
- for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 10:24:32 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ <SRS0=wftW=LP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ruVKX-0004Cx-LK
+ for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 10:37:25 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 84cc6650-f724-11ee-b907-491648fe20b8;
- Wed, 10 Apr 2024 12:24:31 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-56c5d05128dso7351761a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 03:24:31 -0700 (PDT)
+ id 515209ed-f726-11ee-b907-491648fe20b8;
+ Wed, 10 Apr 2024 12:37:24 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a519ef3054bso621672066b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 03:37:24 -0700 (PDT)
+Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ q26-20020a170906b29a00b00a51dd500071sm3119108ejz.169.2024.04.10.03.37.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Apr 2024 03:37:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,149 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84cc6650-f724-11ee-b907-491648fe20b8
+X-Inumbo-ID: 515209ed-f726-11ee-b907-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712744671; x=1713349471; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=und2lZIMFp+EXPIJ10OTL9dUopKiN4VcTGNIt2LV+4I=;
-        b=EOUABQ2nIBtRKjrZdgkuWkx7FwwwOKJByPEDrxOFR/ym7Dh5Xxutuo8JVbZHUdboXS
-         sNmhWHDW/qjBkVlhctrbPT7qgJ/Fz5GE0CkGXne9nksMRtzhiGrDFNQMZ5dsO8C/a6q4
-         SRC3Cn25Rw12f3vW7q1Yek83FK+YhFrbztRInaPJWPVxoIkKwSCBA7eXI+h53JMSZCHd
-         s388JQ9JoXaeHGKw2V0k3USmTJx2qdF1gzxoH5D7twYz66g3FGNelMzq5m++rMrGCVI0
-         5FmF/r4ArN9WhnOb060DcI5G0CUbwGmJPgDqoDu+UAtHs3EBqoampJY5hcakpttK+zQr
-         7Ygg==
+        d=citrix.com; s=google; t=1712745443; x=1713350243; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=5RnrHsqwo8RE6VxgiL7wXAgM6cFtodAhRpuovZ8ouyQ=;
+        b=WCU5F1n19eq9nPA/A1K6F0D3mtBWjczKGySI5Us5nDbFIlrp9eVkoI5rk2gTu8Jn5U
+         8BmmIZCQPEXvLbMiHWpwVhwHKt6WCPVbn+18kBl6aEC0Dcws9H4gtl0gGI1rZXnc53Xp
+         mnAQ37o8nKDGtx2W8nbSRha8bIx20VPPtY4kU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712744671; x=1713349471;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1712745443; x=1713350243;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=und2lZIMFp+EXPIJ10OTL9dUopKiN4VcTGNIt2LV+4I=;
-        b=uqALo3WjHg02l1DHpRFo3flrKgwxl6ghXNfhEmvfwXhnegLexezzlUfW8oEVeTRwG/
-         71PyJYgtPzq/vYSN6zW8h72akz2WXFhjc5qVsYglrogeP9bUyzqfnAJyVfxJp4Swrc88
-         tRmViqRH6vtkPAzinFLVs1ldf2pTwo6G0+kgmc7wbMXmHo+uVR5KlQXxUr0XcF0OBVqO
-         Ms1QhN0n43K+7wA6t1Nhg9NNB5Hai7UeVrVkZUDAfPkFfyXIAU5Ew+gRMQYEYmVIoZak
-         5cSkJgu503FNp5EHO6QoXuPf0xCekM2yq1hbDVn8ALP//xYcYEIw3k9ZCDaYnZmODjgv
-         0xOw==
-X-Gm-Message-State: AOJu0YwQkzMGksd9anRDKwZvGl6lzi6MV1MnDzjdAZTGgNx21HMGFDki
-	E1INA2Bn7OGWtRs5kKKcvez8SJ4z2X4e48CRdgBaT0iO5qiu3CI+7vfwjaMwAajGSMIcdHkwV8y
-	Yrccrhx7dcOdKiWvqtDUZBgPnglE=
-X-Google-Smtp-Source: AGHT+IH7ZbyWXQ+Q6XCtwUG1D6xf5VCyjubmwLL5d20Q6/HCgzIvdqi9jrPS4x5MxgN9rrd9Sx/SqkTpSGQ7T77AdAU=
-X-Received: by 2002:a50:a415:0:b0:56e:cde:8983 with SMTP id
- u21-20020a50a415000000b0056e0cde8983mr1474424edb.7.1712744670775; Wed, 10 Apr
- 2024 03:24:30 -0700 (PDT)
+        bh=5RnrHsqwo8RE6VxgiL7wXAgM6cFtodAhRpuovZ8ouyQ=;
+        b=puiYW4Q5sC7UFfc9+89lbvE6YgeIMFxloelg72IaWcrCMHhcWLIGNKlpenORke27OY
+         l6u4usYvuzrGvnmGyXHEwigDOgiQBsyK+c9VkZZB43BC9dj1HpogYoSw6v6HXQ0mIc02
+         rS3b7A8uxCOMxbQxjmWGVLuOyIWbJijk0SDHjnpu5j7jiGrhfBjIPoECf3jZWkz4Q48c
+         vr+CNJyHnStegTw2IMb38jgg9D3rNzO7F2ssCbNzF7b6m0AqkGEzTivHQ3bgOsl24FzC
+         gz7D1VtH7aD4wbUeMgZrbyvb6M6Yuu1JWj7/8fM24KO5+sYFZcxT2EYGU3Y/AjkqY0m5
+         K8ag==
+X-Gm-Message-State: AOJu0YyfstVcEGRKhh5unN3XRVK9q3WevaQPTi6f/H49Un6vHhEcd+EG
+	vmW6FpUUZa2GpEHVfVgG8sNPhWpzsyCBK4xLXawy1FQQZS+EYcUNMh8weOYDcAYSCeqKI9G8cJv
+	3NDU=
+X-Google-Smtp-Source: AGHT+IG8gb4DS5jcGyz6sU2P/vzuWizZhMjMNBkm9dGGQlUhdiW3iKckHTuovbDgvPPGugQbgx56RQ==
+X-Received: by 2002:a17:906:3b09:b0:a51:95f1:4308 with SMTP id g9-20020a1709063b0900b00a5195f14308mr1710222ejf.51.1712745443215;
+        Wed, 10 Apr 2024 03:37:23 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"consulting @ bugseng . com" <consulting@bugseng.com>,
+	Roberto Bagnara <roberto.bagnara@bugseng.com>,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: [PATCH] x86/hvm: Fix Misra Rule 19.1 regression
+Date: Wed, 10 Apr 2024 11:37:21 +0100
+Message-Id: <20240410103721.593839-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20240410091947.1498695-1-edgar.iglesias@gmail.com>
- <20240410091947.1498695-2-edgar.iglesias@gmail.com> <9f12ebbb-5080-4eff-a965-8d5ab8e3ccd0@citrix.com>
-In-Reply-To: <9f12ebbb-5080-4eff-a965-8d5ab8e3ccd0@citrix.com>
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Date: Wed, 10 Apr 2024 12:24:18 +0200
-Message-ID: <CAJy5ezraDhjVvAp_VCG0FO0smNK7=5goVOwcnCEY_8LycjwWYQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v1 1/2] xen/arm64: entry: Use xen/linkage.h to
- annotate symbols
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
-	bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, 
-	jbeulich@suse.com, edgar.iglesias@amd.com
-Content-Type: multipart/alternative; boundary="000000000000b152ac0615bb714e"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---000000000000b152ac0615bb714e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Despite noticing an impending Rule 19.1 violation, the adjustment made (the
+uint32_t cast) wasn't sufficient to avoid it.  Try again.
 
-On Wed, Apr 10, 2024 at 12:21=E2=80=AFPM Andrew Cooper <andrew.cooper3@citr=
-ix.com>
-wrote:
+Fixes: 6a98383b0877 ("x86/HVM: clear upper halves of GPRs upon entry from 32-bit code")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: consulting@bugseng.com <consulting@bugseng.com>
+CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
+CC: Federico Serafini <federico.serafini@bugseng.com>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+ xen/arch/x86/include/asm/hvm/hvm.h | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-> On 10/04/2024 10:19 am, Edgar E. Iglesias wrote:
-> > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-> >
-> > Use the generic xen/linkage.h macros when annotating symbols.
-> >
-> > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> > ---
-> >  xen/arch/arm/arm64/entry.S | 12 ++++++------
-> >  1 file changed, 6 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/xen/arch/arm/arm64/entry.S b/xen/arch/arm/arm64/entry.S
-> > index f963c923bb..6188dd2416 100644
-> > --- a/xen/arch/arm/arm64/entry.S
-> > +++ b/xen/arch/arm/arm64/entry.S
-> > @@ -480,9 +480,9 @@ guest_fiq_invalid_compat:
-> >  guest_error_compat:
-> >          guest_vector compat=3D1, iflags=3DIFLAGS__AI_, trap=3Dguest_se=
-rror
-> >
-> > -ENTRY(return_to_new_vcpu32)
-> > +FUNC(return_to_new_vcpu32)
-> >          exit    hyp=3D0, compat=3D1
->
-> In the new world, you want an END() too, which sets the size of the symbo=
-l.
->
-> A good cross-check of this annotation stuff is:
->
-> readelf -Wa xen-syms | grep return_to_new_vcpu32
->
-> which in this case will tell you that the symbol called
-> return_to_new_vcpu32 still has a size of 0.
->
+diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
+index 595253babeaf..899233fb257b 100644
+--- a/xen/arch/x86/include/asm/hvm/hvm.h
++++ b/xen/arch/x86/include/asm/hvm/hvm.h
+@@ -575,16 +575,16 @@ static inline void hvm_sanitize_regs_fields(struct cpu_user_regs *regs,
+     if ( compat )
+     {
+         /* Clear GPR upper halves, to counteract guests playing games. */
+-        regs->rbp = (uint32_t)regs->ebp;
+-        regs->rbx = (uint32_t)regs->ebx;
+-        regs->rax = (uint32_t)regs->eax;
+-        regs->rcx = (uint32_t)regs->ecx;
+-        regs->rdx = (uint32_t)regs->edx;
+-        regs->rsi = (uint32_t)regs->esi;
+-        regs->rdi = (uint32_t)regs->edi;
+-        regs->rip = (uint32_t)regs->eip;
+-        regs->rflags = (uint32_t)regs->eflags;
+-        regs->rsp = (uint32_t)regs->esp;
++        regs->rbp = (uint32_t)regs->rbp;
++        regs->rbx = (uint32_t)regs->rbx;
++        regs->rax = (uint32_t)regs->rax;
++        regs->rcx = (uint32_t)regs->rcx;
++        regs->rdx = (uint32_t)regs->rdx;
++        regs->rsi = (uint32_t)regs->rsi;
++        regs->rdi = (uint32_t)regs->rdi;
++        regs->rip = (uint32_t)regs->rip;
++        regs->rflags = (uint32_t)regs->rflags;
++        regs->rsp = (uint32_t)regs->rsp;
+     }
+ 
+ #ifndef NDEBUG
 
-Thanks Andrew,
+base-commit: f48299cad5c3c69fdc2c101517a6dab9c9827ea5
+-- 
+2.30.2
 
-Patch 2/2 adds the END, I should probably have squashed them into one...
-
-Best regards,
-Edgar
-
---000000000000b152ac0615bb714e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Apr 10, 2024 at 12:21=E2=80=
-=AFPM Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citrix.com">andrew=
-.cooper3@citrix.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex">On 10/04/2024 10:19 am, Edgar E. Iglesias wrote:<br>
-&gt; From: &quot;Edgar E. Iglesias&quot; &lt;<a href=3D"mailto:edgar.iglesi=
-as@amd.com" target=3D"_blank">edgar.iglesias@amd.com</a>&gt;<br>
-&gt;<br>
-&gt; Use the generic xen/linkage.h macros when annotating symbols.<br>
-&gt;<br>
-&gt; Signed-off-by: Edgar E. Iglesias &lt;<a href=3D"mailto:edgar.iglesias@=
-amd.com" target=3D"_blank">edgar.iglesias@amd.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 xen/arch/arm/arm64/entry.S | 12 ++++++------<br>
-&gt;=C2=A0 1 file changed, 6 insertions(+), 6 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/xen/arch/arm/arm64/entry.S b/xen/arch/arm/arm64/entry.S<b=
-r>
-&gt; index f963c923bb..6188dd2416 100644<br>
-&gt; --- a/xen/arch/arm/arm64/entry.S<br>
-&gt; +++ b/xen/arch/arm/arm64/entry.S<br>
-&gt; @@ -480,9 +480,9 @@ guest_fiq_invalid_compat:<br>
-&gt;=C2=A0 guest_error_compat:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 guest_vector compat=3D1, iflags=3DIF=
-LAGS__AI_, trap=3Dguest_serror<br>
-&gt;=C2=A0 <br>
-&gt; -ENTRY(return_to_new_vcpu32)<br>
-&gt; +FUNC(return_to_new_vcpu32)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 exit=C2=A0 =C2=A0 hyp=3D0, compat=3D=
-1<br>
-<br>
-In the new world, you want an END() too, which sets the size of the symbol.=
-<br>
-<br>
-A good cross-check of this annotation stuff is:<br>
-<br>
-readelf -Wa xen-syms | grep return_to_new_vcpu32<br>
-<br>
-which in this case will tell you that the symbol called<br>
-return_to_new_vcpu32 still has a size of 0.<br></blockquote><div><br></div>=
-<div>Thanks Andrew,</div><div><br></div><div>Patch 2/2 adds the END, I shou=
-ld probably have squashed them into one...</div><div><br></div><div>Best re=
-gards,</div><div>Edgar</div><div><br></div></div></div>
-
---000000000000b152ac0615bb714e--
 
