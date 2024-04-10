@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C56C189F116
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 13:44:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703049.1098868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99C2989F1D0
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 14:14:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703083.1098881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruWMl-0003u1-V5; Wed, 10 Apr 2024 11:43:47 +0000
+	id 1ruWps-0002hw-Ku; Wed, 10 Apr 2024 12:13:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703049.1098868; Wed, 10 Apr 2024 11:43:47 +0000
+Received: by outflank-mailman (output) from mailman id 703083.1098881; Wed, 10 Apr 2024 12:13:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruWMl-0003nf-QQ; Wed, 10 Apr 2024 11:43:47 +0000
-Received: by outflank-mailman (input) for mailman id 703049;
- Wed, 10 Apr 2024 11:43:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ruWps-0002fL-HR; Wed, 10 Apr 2024 12:13:52 +0000
+Received: by outflank-mailman (input) for mailman id 703083;
+ Wed, 10 Apr 2024 12:13:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rpn4=LP=linaro.org=manos.pitsidianakis@srs-se1.protection.inumbo.net>)
- id 1ruWMk-0003V1-GP
- for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 11:43:46 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96a5ca92-f72f-11ee-b907-491648fe20b8;
- Wed, 10 Apr 2024 13:43:45 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-516d0162fa1so7927262e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 04:43:45 -0700 (PDT)
-Received: from localhost.localdomain (adsl-125.109.242.226.tellas.gr.
- [109.242.226.125]) by smtp.gmail.com with ESMTPSA id
- a20-20020a05600c349400b00416a7313deasm1622874wmq.4.2024.04.10.04.43.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Apr 2024 04:43:45 -0700 (PDT)
+ <SRS0=wftW=LP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ruWpr-0002X7-NA
+ for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 12:13:51 +0000
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [2607:f8b0:4864:20::22b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c97f7db6-f733-11ee-94a3-07e782e9044d;
+ Wed, 10 Apr 2024 14:13:50 +0200 (CEST)
+Received: by mail-oi1-x22b.google.com with SMTP id
+ 5614622812f47-3c60019eecaso692008b6e.0
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 05:13:50 -0700 (PDT)
+Received: from [10.80.67.139] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ c3-20020ac85183000000b004349a69764fsm3189267qtn.74.2024.04.10.05.13.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Apr 2024 05:13:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,175 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96a5ca92-f72f-11ee-b907-491648fe20b8
+X-Inumbo-ID: c97f7db6-f733-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1712749425; x=1713354225; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SdOOUOZq9LZ5gV0smnTOUe9GEEiQVAIyweoYczkDsxA=;
-        b=LNqVY7BaXxURz6Y8EGrnq8lHjUnD2QUoeY/f/2PYLczzo9VvJ76Nsq8jQyc50lSy/P
-         iNB8ZtRVJENOYVsWolPOpbQM1uvhZdW+UQW8N3Ns4W0qhCPaj+P4gFzM312eb/qJxkXt
-         A7TzmwaFgFnoW/c/MbjqE8Pjol8x2tSgwpESRiMciWFZf2P3lJGTGg8aeepwRfrPmOn6
-         aRYXXEEa0rm3sswchDvz+xKa6BsamIL8XA672RRKSVesJHYnOt7kB0OfsA6rtvXswkK8
-         1LADQ2ab+uYb7gPnzRiN5s1dQsme+J5fRQXHGP1yvOhno8qDFx+ic/ca5tHb53RAgu2V
-         4KZA==
+        d=citrix.com; s=google; t=1712751228; x=1713356028; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=CdWY73GQV0cRoXCtD81nix4DUOulDBoVoEHcLcr21AE=;
+        b=hJtBTBzWyMnwTgoK6RZxIBMLIdDP3j8TOQ9UsXn3RwXijLeKL59TiUt6xp0pxyjvMn
+         PuAGAUp6Y3zpmp1mqncFsCHaHyZwKqJmbusrIICecK5I1aX+D4JeidHxmKCK2LQRlMJT
+         ZyQU8oO/ajoWnQ7jFWQF8S6Hkm8MKhMjJHGmw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712749425; x=1713354225;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SdOOUOZq9LZ5gV0smnTOUe9GEEiQVAIyweoYczkDsxA=;
-        b=tONUfPY8+apuFHcXB4dOgs2kniuVcFuIWJ4itFqRNkxqIKeGPj8HZM2LJe8owk2S0z
-         XddFodtio0al69iYqt3OANdAXxip4xT+QCgy4Fx7ccdiYjNk1UQIzP/31mgq35Xy2+Wa
-         0H5Q7YPW/+XUPbOpdd4DAqGWdWH7TfaWfH9DCJFKOlVOp+2lLZHc9MPCT/hPkPqIhgod
-         0aGsBYLhm0RGpoCzXatW+isO5Z/p3JLnAQhQYdQt8Jvj63QRYtYaQ2JXJ3b91uWkTjCU
-         Vjv27aOrftNwdYuNv398mjDzQIjpR9unbgT5FhFyxDqrpa6gcj35ZvUWhuPUVOGiQmtO
-         Nncg==
-X-Gm-Message-State: AOJu0Yy7BH7JutFkUPvzS28hzKsXCS1RGMt0wVQQHIQlwOXDIobkglhb
-	+xcAVBergJHm1ydQMP5aN6mb8v2VRZqC5SPi/XiXijA8T59l24xM4uy6OS7KpiDTA60ssAP+rNz
-	3
-X-Google-Smtp-Source: AGHT+IG/X340dtXOKOxCwIIO2gXgjMZdoqDI+lvwqfcPHVfGIpVcBcM+MFm8ik3Qw/FpZiEPSA1fPw==
-X-Received: by 2002:a2e:9911:0:b0:2d8:e159:23b6 with SMTP id v17-20020a2e9911000000b002d8e15923b6mr431080lji.16.1712749425283;
-        Wed, 10 Apr 2024 04:43:45 -0700 (PDT)
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [RFC PATCH v1 2/2] libs/light: expand device model start timeout use
-Date: Wed, 10 Apr 2024 14:43:15 +0300
-Message-Id: <125210f392aacaa5dd605ce7036c7c9b9e783a2a.1712748711.git.manos.pitsidianakis@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1712748711.git.manos.pitsidianakis@linaro.org>
-References: <cover.1712748711.git.manos.pitsidianakis@linaro.org>
+        d=1e100.net; s=20230601; t=1712751228; x=1713356028;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CdWY73GQV0cRoXCtD81nix4DUOulDBoVoEHcLcr21AE=;
+        b=nWrJObBiTXcoricq5qacBNuW7ASWNy5XnjLaC/rk5NLl4pT8bmSnMvdcHT6NleToDX
+         HjoqvY6N7tTfV9KLVIHeAcz1B16VKUEw4OEDNBmizmUoYQl1um9zX6WW0x1L4DNANlHF
+         TVw+4GUsyYS0PiIkAe/c2a+NX6fPRokbsbaWgWQgKJPPmwel+tmWVhhhpMczoVTYiAv5
+         LBMjoUiPw5S1tCh9D7p9XyWUkufVHTQ8krUi1+RJQk94GblzuaKsanOOf2ywqpqt82E5
+         NjeHGsgi5OiZ16usfW32EJ1qtV0UjHrnFfd1JWe2ZuC3M1zRF2/NZO4pbNM+3mGMIVGe
+         FcWQ==
+X-Gm-Message-State: AOJu0YyOpuHPNs5rCr1ykHC6pjg/plOe+t+zPRoWJNfLqUe2/wklHufZ
+	dlhpuLz/xA3uF7xQVVHThMtnjSXH6yoEfSnNceAzPDi0vcZydpMi9HzMCP9DMyoA0hXDpDd/XKq
+	3KHI=
+X-Google-Smtp-Source: AGHT+IFCQQl/COtYv238wV56pfxWnRmV+rGZ4Rgrzh7bDAn4hKg4by4dq0js27aOpEElZ/tBIDcqkA==
+X-Received: by 2002:a05:6808:21a3:b0:3c5:f42a:316 with SMTP id be35-20020a05680821a300b003c5f42a0316mr2764154oib.22.1712751226647;
+        Wed, 10 Apr 2024 05:13:46 -0700 (PDT)
+Message-ID: <be431885-738d-4d82-9d4e-ebff351d0e63@citrix.com>
+Date: Wed, 10 Apr 2024 13:13:43 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/hvm: Fix Misra Rule 19.1 regression
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <20240410103721.593839-1-andrew.cooper3@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240410103721.593839-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Various timeout values that depend on the device model should also
-respect the device model start timeout setting. This commit adds the
-__libxl_device_model_start_timeout() value to those time outs without
-changing their default values.
+On 10/04/2024 11:37 am, Andrew Cooper wrote:
+> Despite noticing an impending Rule 19.1 violation, the adjustment made (the
+> uint32_t cast) wasn't sufficient to avoid it.  Try again.
+>
+> Fixes: 6a98383b0877 ("x86/HVM: clear upper halves of GPRs upon entry from 32-bit code")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
----
- tools/libs/light/libxl_dm.c     | 4 ++--
- tools/libs/light/libxl_domain.c | 5 +++--
- tools/libs/light/libxl_pci.c    | 4 ++--
- tools/libs/light/libxl_usb.c    | 8 ++++----
- 4 files changed, 11 insertions(+), 10 deletions(-)
-
-diff --git tools/libs/light/libxl_dm.c tools/libs/light/libxl_dm.c
-index 4369fef161..9ffdd50c69 100644
---- tools/libs/light/libxl_dm.c
-+++ tools/libs/light/libxl_dm.c
-@@ -2807,7 +2807,7 @@ static void stubdom_pvqemu_unpaused(libxl__egc *egc,
-                                   dm_domid, sdss->dm.guest_domid);
-     sdss->xswait.path = DEVICE_MODEL_XS_PATH(gc, dm_domid, sdss->dm.guest_domid,
-                                              "/state");
--    sdss->xswait.timeout_ms = LIBXL_STUBDOM_START_TIMEOUT * 1000;
-+    sdss->xswait.timeout_ms = (__libxl_device_model_start_timeout() + LIBXL_STUBDOM_START_TIMEOUT) * 1000;
-     sdss->xswait.callback = stubdom_xswait_cb;
-     rc = libxl__xswait_start(gc, &sdss->xswait);
-     if (rc) goto out;
-@@ -3177,7 +3177,7 @@ static void device_model_spawn_outcome(libxl__egc *egc,
-             == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN) {
-         rc = libxl__ev_time_register_rel(ao, &dmss->timeout,
-                                          devise_model_postconfig_timeout,
--                                         LIBXL_QMP_CMD_TIMEOUT * 1000);
-+                                         (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
-         if (rc) goto out;
-         dmss->qmp.ao = ao;
-         dmss->qmp.domid = dmss->guest_domid;
-diff --git tools/libs/light/libxl_domain.c tools/libs/light/libxl_domain.c
-index 6751fc785f..2fc3481f78 100644
---- tools/libs/light/libxl_domain.c
-+++ tools/libs/light/libxl_domain.c
-@@ -1882,7 +1882,8 @@ int libxl_set_vcpuonline(libxl_ctx *ctx, uint32_t domid,
-         case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-             rc = libxl__ev_time_register_rel(ao, &svos->timeout,
-                                              set_vcpuonline_timeout,
--                                             LIBXL_QMP_CMD_TIMEOUT * 1000);
-+                                             (__libxl_device_model_start_timeout()
-+                                              + LIBXL_QMP_CMD_TIMEOUT) * 1000);
-             if (rc) goto out;
-             qmp->callback = set_vcpuonline_qmp_cpus_fast_queried;
-             rc = libxl__ev_qmp_send(egc, qmp, "query-cpus-fast", NULL);
-@@ -2353,7 +2354,7 @@ static void retrieve_domain_configuration_lock_acquired(
-          */
-         rc = libxl__ev_time_register_rel(ao, &rdcs->timeout,
-             retrieve_domain_configuration_timeout,
--            LIBXL_QMP_CMD_TIMEOUT * 1000);
-+            (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
-         if (rc) goto out;
-         libxl_bitmap_alloc(CTX, &rdcs->qemuu_cpus,
-                            d_config->b_info.max_vcpus);
-diff --git tools/libs/light/libxl_pci.c tools/libs/light/libxl_pci.c
-index 7bdd9f6c3b..3120649a8e 100644
---- tools/libs/light/libxl_pci.c
-+++ tools/libs/light/libxl_pci.c
-@@ -1165,7 +1165,7 @@ static void do_pci_add(libxl__egc *egc,
-             case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-                 rc = libxl__ev_time_register_rel(ao, &pas->timeout,
-                                                  pci_add_timeout,
--                                                 LIBXL_QMP_CMD_TIMEOUT * 1000);
-+                                                 (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
-                 if (rc) goto out;
- 
-                 pci_add_qmp_device_add(egc, pas); /* must be last */
-@@ -2030,7 +2030,7 @@ static void pci_remove_qmp_device_del(libxl__egc *egc,
- 
-     rc = libxl__ev_time_register_rel(ao, &prs->timeout,
-                                      pci_remove_timeout,
--                                     LIBXL_QMP_CMD_TIMEOUT * 1000);
-+                                     (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
-     if (rc) goto out;
- 
-     QMP_PARAMETERS_SPRINTF(&args, "id", PCI_PT_QDEV_ID,
-diff --git tools/libs/light/libxl_usb.c tools/libs/light/libxl_usb.c
-index c5ae59681c..59db8a6f64 100644
---- tools/libs/light/libxl_usb.c
-+++ tools/libs/light/libxl_usb.c
-@@ -487,7 +487,7 @@ static void libxl__device_usbctrl_add(libxl__egc *egc, uint32_t domid,
- 
-         rc = libxl__ev_time_register_rel(ao, &aodev->timeout,
-                                          device_usbctrl_add_timeout,
--                                         LIBXL_QMP_CMD_TIMEOUT * 1000);
-+                                         (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
-         if (rc) goto outrm;
- 
-         qmp->ao = ao;
-@@ -644,7 +644,7 @@ static void device_usbctrl_usbdevs_removed(libxl__egc *egc,
- 
-         rc = libxl__ev_time_register_rel(ao, &aodev->timeout,
-                                          device_usbctrl_remove_timeout,
--                                         LIBXL_QMP_CMD_TIMEOUT * 1000);
-+                                         (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
-         if (rc) goto out;
- 
-         qmp->ao = ao;
-@@ -1794,7 +1794,7 @@ static void libxl__device_usbdev_add(libxl__egc *egc, uint32_t domid,
- 
-         rc = libxl__ev_time_register_rel(ao, &aodev->timeout,
-                                          device_usbdev_add_timeout,
--                                         LIBXL_QMP_CMD_TIMEOUT * 1000);
-+                                         (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
-         if (rc) goto out;
- 
-         aodev->qmp.ao = ao;
-@@ -1976,7 +1976,7 @@ static void libxl__device_usbdev_remove(libxl__egc *egc, uint32_t domid,
- 
-         rc = libxl__ev_time_register_rel(ao, &aodev->timeout,
-                                          device_usbdev_remove_timeout,
--                                         LIBXL_QMP_CMD_TIMEOUT * 1000);
-+                                         (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
-         if (rc) goto out;
- 
-         aodev->qmp.ao = ao;
--- 
-γαῖα πυρί μιχθήτω
-
+Subsequently noticed by Coverity too.  CIDs 15962{89..98}
 
