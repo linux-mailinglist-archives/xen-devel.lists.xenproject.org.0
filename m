@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21DE289FD1B
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 18:38:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703434.1099147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D159C89FCFE
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 18:34:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703443.1099136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruawn-0006Lp-GV; Wed, 10 Apr 2024 16:37:17 +0000
+	id 1ruatu-0005VV-1Y; Wed, 10 Apr 2024 16:34:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703434.1099147; Wed, 10 Apr 2024 16:37:17 +0000
+Received: by outflank-mailman (output) from mailman id 703443.1099136; Wed, 10 Apr 2024 16:34:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruawn-0006JA-D6; Wed, 10 Apr 2024 16:37:17 +0000
-Received: by outflank-mailman (input) for mailman id 703434;
- Wed, 10 Apr 2024 16:31:54 +0000
+	id 1ruatt-0005Sw-VC; Wed, 10 Apr 2024 16:34:17 +0000
+Received: by outflank-mailman (input) for mailman id 703443;
+ Wed, 10 Apr 2024 16:34:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DqiL=LP=bounce.vates.tech=bounce-md_30504962.6616bef7.v1-d14370195b404c52b72b1f148820ba6e@srs-se1.protection.inumbo.net>)
- id 1ruara-0004sW-H8
- for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 16:31:54 +0000
-Received: from mail132-22.atl131.mandrillapp.com
- (mail132-22.atl131.mandrillapp.com [198.2.132.22])
+ <SRS0=7FY1=LP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1ruats-0005So-Dr
+ for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 16:34:16 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d67a6558-f757-11ee-b907-491648fe20b8;
- Wed, 10 Apr 2024 18:31:53 +0200 (CEST)
-Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail132-22.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4VF7dM2xF0zGlspGF
- for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 16:31:51 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- d14370195b404c52b72b1f148820ba6e; Wed, 10 Apr 2024 16:31:51 +0000
+ id 2b5032a0-f758-11ee-b907-491648fe20b8;
+ Wed, 10 Apr 2024 18:34:15 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-34665dd7610so468081f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 09:34:15 -0700 (PDT)
+Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
+ dx18-20020a0560000e1200b00343d840b3f8sm14052814wrb.33.2024.04.10.09.34.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Apr 2024 09:34:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,143 +44,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d67a6558-f757-11ee-b907-491648fe20b8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1712766711; x=1713027211;
-	bh=sSfrU7AoiIs020T7QtgqqYpI39Dr+n4OosN3e67IR84=;
-	h=From:Subject:In-Reply-To:References:Message-Id:To:Cc:Feedback-ID:
-	 Date:MIME-Version:Content-Type:CC:Date:Subject:From;
-	b=NBTvcVd2qt+rXsbH4IUpAeQY/uHM+r+3P4vNDgfE3h60Lbcy/TyNl6O9O+F5TAtt+
-	 mOXszb75J+mi0u7S4wez3xw/AsFOmtmweMnYRirFNgFHZMuXd0C6yJdtDFNq2AwYcx
-	 6ldE+goUN2lxiEOt9VJINiNoYDLstdvjWe1UG7o9HDqaUbtFKnJPHo4ZMkizICnvQR
-	 +5tSlxaDmy7Ht69YQfrvTAgmAyZVMznnHwBlYiqTvV0r6XLPvxEq/mxsO7uMh6baQF
-	 sG2+Re0l0avpLynlhtq3IH+97v3fKIgVc3Ui29ySMuGPf14asW97GGdzKTc2+fafbV
-	 I4jzq1ZjZ8iwg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1712766711; x=1713027211; i=andrei.semenov@vates.tech;
-	bh=sSfrU7AoiIs020T7QtgqqYpI39Dr+n4OosN3e67IR84=;
-	h=From:Subject:In-Reply-To:References:Message-Id:To:Cc:Feedback-ID:
-	 Date:MIME-Version:Content-Type:CC:Date:Subject:From;
-	b=HJVRJIvqsLomCDsXYXdr7kOSxp7oM0FxQ+HpCVC0e+iDp0mJoo/F+lh9FOWNAeYkq
-	 HcTnw5HDRTEcllV3Ho19adI4cXtG9S2LMd8E5JrEkGqaXi+AQXWRgHN+guW4tXWoLQ
-	 cuVZTegoEeb6skdnBNFv4CtAEKvA+mwwFY1xzaTONfGqLG4cKs6vOktjOpQfPu1TDi
-	 h0wNY9QXs5oczn6ukLxlnhFFNq+DeyD1gxtQuwjzpYDfFE976VQYoeZBoHIpJb+l7+
-	 4GXjKMUXbKKgRhVliRg9v2UIC3/HqzwlNCTfiTaXw9ZvFnFP/C05jbK+ly3OrklcTb
-	 K4c62zJmpAz9g==
-From: Andrei Semenov <andrei.semenov@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v1=200/2]=20AMD=20SEV=20initial=20work?=
-X-Bm-Draft-Info: {"type":"REPLY-ALL","messageInternalId":2365954,"folderUid":"5bc3cd3c-1c54-4448-8b93-1d5e00399c41"}
-X-Bm-Draft-Identity: default
-X-Bm-Sent-Folder: e241ae38-d68a-470c-b463-de37822a6206
-X-Bm-Draft-Refresh-Date: 1712766707351
-X-Bm-Internal-Id: AF93AA0B-DAD8-4612-B2C2-10A4B7388341 bluemind-4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2 2366246
-X-Bm-Previous-Body: 772a8432c78e6cf357f02335a8aba3e17fe04e12
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1712766708276
-In-Reply-To: <cover.1712759753.git.andrei.semenov@vates.fr>
-References: <cover.1712759753.git.andrei.semenov@vates.fr> <cover.1712759753.git.andrei.semenov@vates.fr>
-Message-Id: <luu104te.1nffyo9e5v9c0@vates.tech>
-To: Andrei Semenov <andrei.semenov@vates.fr>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.d14370195b404c52b72b1f148820ba6e?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240410:md
-Date: Wed, 10 Apr 2024 16:31:51 +0000
+X-Inumbo-ID: 2b5032a0-f758-11ee-b907-491648fe20b8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1712766855; x=1713371655; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=wrg8+/52Qx2VD0ziJFUTnYlaVPI9+ixypph2v1bHypA=;
+        b=ooOK8TLrfgpu37hDZIyDFRWWLeBh1nlPeASm8tD60DBZbYKR5+KL8rzGGr8ntlfX/y
+         aPe/fwfDx5fweiKA+HQ4CRhPpNtqR2cyRuCj02ycW5WK+nGxvbK909AZWopEB8Ob5TTL
+         ROUK6OQ+9Fvwgri9FxJ/fNuRxffjkxvs7d7ks=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712766855; x=1713371655;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wrg8+/52Qx2VD0ziJFUTnYlaVPI9+ixypph2v1bHypA=;
+        b=eqyfgGWLOrJFbxsNCCgQo6d1oZkJsRI5zy15q84nWdONP1UtpxJ8X8XzAnBEtI8nmA
+         IUF3dR8Inay1K672lUCVxqM3Ybx69VrT7nemvIlZSqt1y1b5M/AO2p0xMahWh6FapPkT
+         BYFRk4fVKMY+3/VG5jcIllWLgjBtsq+CzTfPydg33J4VptTgFCvWBGvvgSmSUVgdtXsN
+         RTxU+fOCFF48GTVawDdXrjmCvwkJmImCcy/j7ozlx/I7Okmbcu0d5/SCszqQEzh94H9O
+         nJAbLFwIAOlt2cwv6lJMkKz/jXyTU0VL6drcb3/J8LwEXLPVlQXmOuqWZcE604hNMQLA
+         0Sgw==
+X-Gm-Message-State: AOJu0YxyiW+7RMXhH8KRRlPfNgFK75XbQma9CY3/mEpG/g206NL8wOYk
+	vUTo0ah1AxBx9w3G7yJWt8Zi93iEalyhup8zf6k7PqQA1qxviLxFP/7pLeRNfSg=
+X-Google-Smtp-Source: AGHT+IFfTYvtK2w2Ovj2gDQ0na9DutXaEhdjWdgXJpPqoIvfm1Jo6vNXzQ+H7W/GWo0V+idMGoPtWg==
+X-Received: by 2002:adf:f146:0:b0:342:40b0:abf5 with SMTP id y6-20020adff146000000b0034240b0abf5mr1873341wro.55.1712766854623;
+        Wed, 10 Apr 2024 09:34:14 -0700 (PDT)
+Date: Wed, 10 Apr 2024 18:34:13 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Stefano Stabellini <stefano.stabellini@amd.com>,
+	Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+Subject: Re: [PATCH v2 2/2] x86/Kconfig: Introduce CONFIG_{AMD,INTEL} and
+ conditionalise ucode
+Message-ID: <Zha_hXU3zRwVzFZN@macbook>
+References: <20231026205539.3261811-1-andrew.cooper3@citrix.com>
+ <20231026205539.3261811-3-andrew.cooper3@citrix.com>
+ <Zhas4MQdL3hQ6Uww@macbook>
+ <2fd969ef-8326-4ae8-a568-4256f00542f0@citrix.com>
 MIME-Version: 1.0
-Content-Type: multipart/alternative; boundary="_av-5B1GENlOtEY6IStm5WuMBw"
-
---_av-5B1GENlOtEY6IStm5WuMBw
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2fd969ef-8326-4ae8-a568-4256f00542f0@citrix.com>
 
-Also sent emacs ~ file. To ignore, sorry
-Le mercredi 10/04/2024 17:39, Andrei Semenov <andrei.semenov@vates.fr> a =
-=C3=A9crit :
+On Wed, Apr 10, 2024 at 05:21:37PM +0100, Andrew Cooper wrote:
+> On 10/04/2024 4:14 pm, Roger Pau Monné wrote:
+> > On Thu, Oct 26, 2023 at 09:55:39PM +0100, Andrew Cooper wrote:
+> >> +
+> >> +config AMD
+> >> +	bool "AMD"
+> >> +        default y
+> >> +        help
+> >> +          Detection, tunings and quirks for AMD platforms.
+> >> +
+> >> +	  May be turned off in builds targetting other vendors.  Otherwise,
+> >> +	  must be enabled for Xen to work suitably on AMD platforms.
+> >> +
+> >> +config INTEL
+> >> +	bool "Intel"
+> >> +        default y
+> >> +        help
+> >> +          Detection, tunings and quirks for Intel platforms.
+> >> +
+> >> +	  May be turned off in builds targetting other vendors.  Otherwise,
+> >> +	  must be enabled for Xen to work suitably on Intel platforms.
+> > There seems to be a weird mix between hard tabs and spaces above.
+> > Naming is OK for me.
+> 
+> Yeah.  I already fixed those locally.
 
-///HERE YOU GO
+With that fixed:
 
-Andrei Semenov (2):
-  Implemented AMD SEV discovery and enabling.
-  Implemented Amd Secure Processor device driver
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
- xen/arch/x86/cpu/amd.c                 |  53 ++
- xen/arch/x86/hvm/svm/Makefile          |   1 +
- xen/arch/x86/hvm/svm/sev.c             |   4 +
- xen/arch/x86/include/asm/cpufeature.h  |   3 +
- xen/arch/x86/include/asm/cpufeatures.h |   2 +
- xen/arch/x86/include/asm/msr-index.h   |   1 +
- xen/arch/x86/include/asm/psp-sev.h     | 655 ++++++++++++++++++++
- xen/arch/x86/include/asm/sev.h         |  11 +
- xen/drivers/Kconfig                    |   2 +
- xen/drivers/Makefile                   |   1 +
- xen/drivers/crypto/Kconfig             |  10 +
- xen/drivers/crypto/Makefile            |   1 +
- xen/drivers/crypto/asp.c               | 808 +++++++++++++++++++++++++
- xen/include/xen/types.h                |   2 +-
- 14 files changed, 1553 insertions(+), 1 deletion(-)
- create mode 100644 xen/arch/x86/hvm/svm/sev.c
- create mode 100644 xen/arch/x86/include/asm/psp-sev.h
- create mode 100644 xen/arch/x86/include/asm/sev.h
- create mode 100644 xen/drivers/crypto/Kconfig
- create mode 100644 xen/drivers/crypto/Makefile
- create mode 100644 xen/drivers/crypto/asp.c
+> >> +
+> >> +endmenu
+> >> diff --git a/xen/arch/x86/cpu/microcode/Makefile b/xen/arch/x86/cpu/microcode/Makefile
+> >> index aae235245b06..30d600544f45 100644
+> >> --- a/xen/arch/x86/cpu/microcode/Makefile
+> >> +++ b/xen/arch/x86/cpu/microcode/Makefile
+> >> @@ -1,3 +1,3 @@
+> >> -obj-y += amd.o
+> >> +obj-$(CONFIG_AMD) += amd.o
+> >>  obj-y += core.o
+> >> -obj-y += intel.o
+> >> +obj-$(CONFIG_INTEL) += intel.o
+> >> diff --git a/xen/arch/x86/cpu/microcode/private.h b/xen/arch/x86/cpu/microcode/private.h
+> >> index b58611e908aa..da556fe5060a 100644
+> >> --- a/xen/arch/x86/cpu/microcode/private.h
+> >> +++ b/xen/arch/x86/cpu/microcode/private.h
+> >> @@ -70,7 +70,16 @@ struct microcode_ops {
+> >>   * support available) and (not) ops->apply_microcode (i.e. read only).
+> >>   * Otherwise, all hooks must be filled in.
+> >>   */
+> >> +#ifdef CONFIG_AMD
+> >>  void ucode_probe_amd(struct microcode_ops *ops);
+> >> +#else
+> >> +static inline void ucode_probe_amd(struct microcode_ops *ops) {}
+> >> +#endif
+> >> +
+> >> +#ifdef CONFIG_INTEL
+> >>  void ucode_probe_intel(struct microcode_ops *ops);
+> >> +#else
+> >> +static inline void ucode_probe_intel(struct microcode_ops *ops) {}
+> > This is stale now, and will need some updating to match what's in
+> > private.h.
+> 
+> There's nothing state I can see.
+> 
+> Patch 1 does significantly edit this vs what's currently in staging.
 
--- 
-2.35.3
+Oh, sorry, I'm missed patch 1 then.
 
-
-
-
-
---_av-5B1GENlOtEY6IStm5WuMBw
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<div id=3D"bm-composer-content-wrapper"><div style=3D"font-family: Montserr=
-at, montserrat, &quot;Source Sans&quot;, &quot;Helvetica Neue&quot;, Helvet=
-ica, Arial, sans-serif;">Also sent emacs ~ file.&nbsp;<span style=3D"displa=
-y: inline !important; color: rgb(0, 0, 0); background-color: rgb(255, 255, =
-255);">To ignore, sorry</span></div><br><div id=3D"data-bm-forward-separato=
-r"><p>Le mercredi 10/04/2024 17:39, Andrei Semenov &lt;andrei.semenov@vates=
-.fr&gt; a =C3=A9crit :</p><blockquote style=3D"margin-left: 1rem; padding-l=
-eft: 1rem; border-left: 2px solid black;"><div id=3D"bm-composer-content-wr=
-apper"><pre>///HERE YOU GO
-
-Andrei Semenov (2):
-  Implemented AMD SEV discovery and enabling.
-  Implemented Amd Secure Processor device driver
-
- xen/arch/x86/cpu/amd.c                 |  53 ++
- xen/arch/x86/hvm/svm/Makefile          |   1 +
- xen/arch/x86/hvm/svm/sev.c             |   4 +
- xen/arch/x86/include/asm/cpufeature.h  |   3 +
- xen/arch/x86/include/asm/cpufeatures.h |   2 +
- xen/arch/x86/include/asm/msr-index.h   |   1 +
- xen/arch/x86/include/asm/psp-sev.h     | 655 ++++++++++++++++++++
- xen/arch/x86/include/asm/sev.h         |  11 +
- xen/drivers/Kconfig                    |   2 +
- xen/drivers/Makefile                   |   1 +
- xen/drivers/crypto/Kconfig             |  10 +
- xen/drivers/crypto/Makefile            |   1 +
- xen/drivers/crypto/asp.c               | 808 +++++++++++++++++++++++++
- xen/include/xen/types.h                |   2 +-
- 14 files changed, 1553 insertions(+), 1 deletion(-)
- create mode 100644 xen/arch/x86/hvm/svm/sev.c
- create mode 100644 xen/arch/x86/include/asm/psp-sev.h
- create mode 100644 xen/arch/x86/include/asm/sev.h
- create mode 100644 xen/drivers/crypto/Kconfig
- create mode 100644 xen/drivers/crypto/Makefile
- create mode 100644 xen/drivers/crypto/asp.c
-
--- 
-2.35.3
-
-
-</pre></div></blockquote></div><style></style></div>
-<img src=3D"http://bounce.vates.tech/track/open.php?u=3D30504962&id=3Dd1437=
-0195b404c52b72b1f148820ba6e" height=3D"1" width=3D"1" alt=3D"">
-
---_av-5B1GENlOtEY6IStm5WuMBw--
-
+Thanks, Roger.
 
