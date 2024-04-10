@@ -2,56 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13DA589F07B
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 13:16:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703025.1098821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0CDF89F08B
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 13:20:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703034.1098831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruVw3-0005JR-PO; Wed, 10 Apr 2024 11:16:11 +0000
+	id 1ruVzd-00069d-7Q; Wed, 10 Apr 2024 11:19:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703025.1098821; Wed, 10 Apr 2024 11:16:11 +0000
+Received: by outflank-mailman (output) from mailman id 703034.1098831; Wed, 10 Apr 2024 11:19:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruVw3-0005Hk-Lc; Wed, 10 Apr 2024 11:16:11 +0000
-Received: by outflank-mailman (input) for mailman id 703025;
- Wed, 10 Apr 2024 11:16:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ruVzd-000685-4f; Wed, 10 Apr 2024 11:19:53 +0000
+Received: by outflank-mailman (input) for mailman id 703034;
+ Wed, 10 Apr 2024 11:19:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=23xn=LP=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1ruVw2-0005HV-2G
- for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 11:16:10 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20600.outbound.protection.outlook.com
- [2a01:111:f403:2009::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ba1ff2ea-f72b-11ee-94a3-07e782e9044d;
- Wed, 10 Apr 2024 13:16:07 +0200 (CEST)
-Received: from SA9PR10CA0017.namprd10.prod.outlook.com (2603:10b6:806:a7::22)
- by PH7PR12MB6395.namprd12.prod.outlook.com (2603:10b6:510:1fd::14)
+ <SRS0=YNPZ=LP=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1ruVzb-00067z-Od
+ for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 11:19:51 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2612::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3f2f4f3a-f72c-11ee-b907-491648fe20b8;
+ Wed, 10 Apr 2024 13:19:50 +0200 (CEST)
+Received: from AS9PR05CA0306.eurprd05.prod.outlook.com (2603:10a6:20b:491::20)
+ by VI1PR08MB9958.eurprd08.prod.outlook.com (2603:10a6:800:1c0::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.54; Wed, 10 Apr
- 2024 11:16:02 +0000
-Received: from SN1PEPF00026369.namprd02.prod.outlook.com
- (2603:10b6:806:a7:cafe::87) by SA9PR10CA0017.outlook.office365.com
- (2603:10b6:806:a7::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.19 via Frontend
- Transport; Wed, 10 Apr 2024 11:16:01 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF00026369.mail.protection.outlook.com (10.167.241.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Wed, 10 Apr 2024 11:16:01 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 10 Apr
- 2024 06:16:01 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 10 Apr
- 2024 06:16:01 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 10 Apr 2024 06:15:59 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 10 Apr
+ 2024 11:19:44 +0000
+Received: from AMS1EPF0000004B.eurprd04.prod.outlook.com
+ (2603:10a6:20b:491:cafe::4a) by AS9PR05CA0306.outlook.office365.com
+ (2603:10a6:20b:491::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46 via Frontend
+ Transport; Wed, 10 Apr 2024 11:19:44 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AMS1EPF0000004B.mail.protection.outlook.com (10.167.16.136) with
+ Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.7452.22
+ via Frontend Transport; Wed, 10 Apr 2024 11:19:42 +0000
+Received: ("Tessian outbound f0b355493f75:v300");
+ Wed, 10 Apr 2024 11:19:42 +0000
+Received: from e052a3e45c48.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ E22F79C6-85C0-40D1-9DB5-E6F3066073AF.1; 
+ Wed, 10 Apr 2024 11:19:36 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id e052a3e45c48.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 10 Apr 2024 11:19:36 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
+ by AS4PR08MB7782.eurprd08.prod.outlook.com (2603:10a6:20b:516::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.26; Wed, 10 Apr
+ 2024 11:19:32 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::6204:b901:9cc6:bf2b]) by AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::6204:b901:9cc6:bf2b%6]) with mapi id 15.20.7409.053; Wed, 10 Apr 2024
+ 11:19:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,327 +72,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba1ff2ea-f72b-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 3f2f4f3a-f72c-11ee-b907-491648fe20b8
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=il8aPoEMIc9faAOAiVDZWjScbhJoogapYk1EhoKEkvQm3b7wKapAI2Jg7YlIxeyyFd4e+RGg619ASwpbZ9o4dWr9+rQBjGcuhM0lVrctrYWl9DtqLHQeTAlzXrHgxs8Mp6qmjiIDrKEqtpnNV5OpBC3lH9gR/MQO7e9lmhSCe7Ka0JjjpjqcUKXSB/VmzcQ7emLRASqJe+lcF5WppwDtQmifXt4VQSbKRKrZQHmmgzZ/JYI8v4VXEk55HnwtCbi00ti50GkFgVgzuFqsY3ooPOegVKBa0/50NKMVIrIx8qJ9buyNR2267tsLlrwoxMusbZux70G0+SGKxP/hG2bJ2Q==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6A/1qkUxhlab+P/th8YJkLqmToP6x19+FT/yJN+nPJM=;
+ b=dgT2YBJI9nL0gBlWDjZp6Kw/ZvMKr5RikMBTk32CuBZokI4TI4YtaXK+ZpExt+sHftbFdPNPKuhLk+uKv+dr5MgVntaciMIiOE+1ZqWQWP8GN8Ik9826nYSfdiMYd7EYJuR3mp4rpcpyUMKU1eK5X5zf3lWjyrIlKlA1et0ot5N6zBff4G5P60XFa6ONrsxQhwBDEeYlI9M8KLzGyxcv2Vu8jryRc6Z1JTrBrNbyiNRGDNcb4SY0RwFBtzrpG5xWmjeeZwjPRRn4lr8gv+rIAeb8mUznRICGgzWBM33zxbj1UHkzb50URIh9nX+m15nXzU1PtBfN4ey5EN+xssVjiw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6A/1qkUxhlab+P/th8YJkLqmToP6x19+FT/yJN+nPJM=;
+ b=G/5NmMe4/MK6GKCzC/mWNuVm5gwQj8F9ISrewUbaYxOjzLwOma/BdwpaNl5Ozg2F/O3h8vMsLBD+6JfJlTLuwKFXMhSJp6Jx0y4kwY6emtP4tf0Ns5ftcf6u1X65oTradY8R9QR/AykJcSsMihhm17sKVeFrVec3HwopVLXc9G0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: ad3d0339da3f48ea
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=obmBtnIt2af9tosTzjYRFqHExQsAk5rVOyiVK5WsHjrM/sjtzq7/LaZzW7TBUVGl9UsU8W8PgNfrcp4lEfWmgacCpERd5aIIO3I0MWvAfOWEIurbdpSzTc/SLse+Ok02d3EU34gUO5Es8cpDzy1OovI4O1LJBKN/9cJ3za6vlRu+qirncv5WHtaJNAJFLth1en/r9CidlLQFo+68E1z+9H4yUIF8dO1zxM8DAaAwQqty+IS+9Ang3ZP2XD/4trDQfOdN8vYvFPwh29AVLqtC+jA95P8CJPTbqTdbRKgt+QweoBW5lo4fFHCEOQg5R2D7eZlK7zYKFDSSOFwoCqxiOA==
+ b=Si7YP/iyiacaILDc9cdMOiPBezhcCRk/IOGclLNFH4gmXEVf3egnHzu8JbKm3UfaLoXwP5iOVbv0oY91ppfQ8ZKJLi5qrI6DOLgWEqgsVXr+opQuwLRSeTLs3C+OQHwILzFbQAQA8UQWIyxDJxPuObetR8EWIgYteIw5/jdMUNl9FWh91AVglat188DRknK4dLm96bu9XT5UzMLb5tCnljt1EHPpxIqKl+G9s/htHWoLt8Z3OsbgTG5EwZWxzByFuO0cEwvbBaMXDFECBcJ597SMP87R7NEzG+jr0+pA1gs3N893k563PPkjmo4jLI6VNQ0IaD0ny/JHiSsGE/BHYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pL9tmG2X2EpNkipyFusGJHfiKOtbhOR8CPqrm1NPHxg=;
- b=WZRXRisz12pS1GcqbfC5pVLT2iQBbPUQ+lBNXg8Eo1G5r6V7FHPSWCaVdJkOmzyG1k0UZaWu8nwjKU+kPNx1pJh86nFqpje7j8WIjDSAY73CGVttpbXx9Eeti/1V/jN2PDa9Xa77PTT54a84Y25xQ5Ve8i2hV9dr1Ff7PfmyY37+W0elhArcLZ6X46AabJE+opvBYuO7jNbJC0/ApBI746oIMPaaoCeixp0IOgHDrvI6otPDakbnQJQDpbWTDcxV6ckm2+nwLCBg2uJeT+ks0gMKE0YnOtj1RckHzOs/0/UuCrfjtyErx5Ogz96eojmO0ge7H6iGyXI8uI9Yg/fLnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=6A/1qkUxhlab+P/th8YJkLqmToP6x19+FT/yJN+nPJM=;
+ b=aRhlSxgPvRPP69K6k5u+xrLeLTvoMd+Y+Kr5PhKBGDjsBQSUwMvcpP299F1dbJCBuoXKtAs5MK8jQuqI056phl+EsGp3gZ12rHE1fwon6LTbbouzBFjqeL6pw443XUiIKDCC+LPODhwnFMZslNTBoZcH3drx2PUP9MJbHNFubpIR4BRddPHrB2cp1H3MVF1pLp2b+qro4sC67buFqRSrL+QKik2S3zT21OQKoeDsvC04twRfP2dWkN7WRBf3HaWxQMIvqT9J08CB6bqP9WSqyPfZMg/9L6PZBymBkEbP8GsQvhl55gT0VA5jqcuZ6d53AKR0h19rk+XnldvPqTLC0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pL9tmG2X2EpNkipyFusGJHfiKOtbhOR8CPqrm1NPHxg=;
- b=wpUyWlfe4W4T7HbPSgkNwKlhvghBxhpcQ8awNgbE+FNO+IQAI4ME787hkNIEiesMeFBs657hRa63Vhn+BWROZyzH8WLSMpEuvEECXRCIk+O0BAEpVbtA2Jof8HeXBZCaHniYuw+6qf74BLFGBYNDoWbb4fgJfPfZXpPqCiHefQY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <38281ab3-0680-44d3-8c81-14b09d52680b@amd.com>
-Date: Wed, 10 Apr 2024 13:15:59 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/13] xen/arm: remove shm holes from extended regions
-To: Luca Fancellu <luca.fancellu@arm.com>, <xen-devel@lists.xenproject.org>
-CC: Penny Zheng <Penny.Zheng@arm.com>, Stefano Stabellini
+ bh=6A/1qkUxhlab+P/th8YJkLqmToP6x19+FT/yJN+nPJM=;
+ b=G/5NmMe4/MK6GKCzC/mWNuVm5gwQj8F9ISrewUbaYxOjzLwOma/BdwpaNl5Ozg2F/O3h8vMsLBD+6JfJlTLuwKFXMhSJp6Jx0y4kwY6emtP4tf0Ns5ftcf6u1X65oTradY8R9QR/AykJcSsMihhm17sKVeFrVec3HwopVLXc9G0=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Michal Orzel <michal.orzel@amd.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+	<Bertrand.Marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2 09/13] xen/arm: Reduce struct membank size on static
+ shared memory
+Thread-Topic: [PATCH v2 09/13] xen/arm: Reduce struct membank size on static
+ shared memory
+Thread-Index: AQHainOQqOQ8ACmqS0SD80lqrmS1tLFhR1gAgAAPMQCAAAF2AIAABPiA
+Date: Wed, 10 Apr 2024 11:19:32 +0000
+Message-ID: <F5F625A1-094E-4AA8-AF8F-1CE61098EDFF@arm.com>
 References: <20240409114543.3332150-1-luca.fancellu@arm.com>
- <20240409114543.3332150-11-luca.fancellu@arm.com>
+ <20240409114543.3332150-10-luca.fancellu@arm.com>
+ <36108be2-d950-4839-a2a6-06462de7e952@amd.com>
+ <045818A6-3E13-465B-8DB6-067877B8A035@arm.com>
+ <698db158-fd87-401c-9c13-5b94f973436d@amd.com>
+In-Reply-To: <698db158-fd87-401c-9c13-5b94f973436d@amd.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20240409114543.3332150-11-luca.fancellu@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026369:EE_|PH7PR12MB6395:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c283145-b14c-4c27-6e2c-08dc594f9b05
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3774.400.31)
+x-ms-traffictypediagnostic:
+	AM6PR08MB3749:EE_|AS4PR08MB7782:EE_|AMS1EPF0000004B:EE_|VI1PR08MB9958:EE_
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ zCSFk7XGsgPXF+iOIcYYp5AGvyfyEqGLOEp3Dy5aZJGMrAjr8J8kyHnwGOuA1EnXeL3z8kq1rE5500Ky/0iyapEjAE3q9JvPUFKbJN1WGvHfvzU3pHDSJapxgaimre5TcuT/nJ2vBreVfsMGSsr+ug33Vp1TAKLQuWaOJfOt87OtlqwuhLGKP9FY0OW3xmR2Sb54A/B7qdKB7OSxoK520q99FTDvD5Zdg8+SiZDfbX3ConmyFD4Ony099KJAU16LI2mo46GBmnXvRBY2RCB4j+IsRQE5fqBhilIsrl+vMxy8ODOJ7k21JVo+1X1xooRQ++X1ujIyZTrK7LEYG08MqLD0ry/vGgZZL0djod57GJPBZxwj/Dt7anpS7aZUfakcwIay/+1bBC2fhE+KitcayEvvwz6MBO9kJ9w+6DyMbQDvM5NOeqQhi+/3vONAUfo2EHZXBGOi/FOzGrjpey1Q3M676y9GSBglYzpaGY0hixzCgLBZlOeb5+E8s9kWKrK3fhWBulwwoCxVL430EeucRLgx9w2HyhJJIAPIoDmKzlyA2rgl8G5qoPKOiI6Gwb8rChzvRwhEkKXzSX9IXOqH81xrO40gM4K4u4qRI6jyORoYIHouK78xqQF3MpUAcgBgJPe/tZWO6VyQIWd+BsP3R13P3yPB7rmnLBC/UwBto6k=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366007)(1800799015)(376005);DIR:OUT;SFP:1102;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <FA187B8DF37B1F448406F1D488AD86BF@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB7782
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AMS1EPF0000004B.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 48181f43-d649-424f-573d-08dc59501ed7
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	X1/GU4PRddSCSkm7obLoffmnwrHJ0YzebEUOwf8dZ37oAZTqMcdtpWdB/PaiDPX8hzSumHat9KeqFQOfBmOhNH5Bj70ylRQS2u97HXMAREsIBXye+2nufU1TzNZNBdApegeUogI3vfnTh2b8q2nsCHeMxJE/uYrkEHSxggTYZbFyfxTIB/+/xda2aHveTUXB6n/jMIk0r7QV8LFCTsMIAWnWVw8rqBb86UGz3dNMGdNq7cRYJRpmLlknpPYBMQkBqBlGVNRRgyrChAm+y9Z2Na8UWT047Ufx8E2RK52OT5HyvJkfn5teu1jdIg8HMNHPSlj41UpHrJfJUauCfVKqo2l5UyFTc0/G+BFBOF6BGvYJrKQr2O6DXwBJ9fhYjk08sryUqUmKRKiiO4OTD0wfCS+D7H2ctw0bzNDOldO4xw0Ul9407TU7cJ8SGbYHQZNe7mZ4PNnfOaoCWN3MCjyVij2KjUpqjm/Hd//CypupS1YOkGV/g68A5ql14B1T/IlJt0Y+vj0tJigpGtOlnk5yckWCs7o8WjZr7esygK9D6C0LB7VqhIiARCP6tDs0+1RkP/B8Sc9zxLoVeUaSfM+JaFy6RFtb8OOrpi1Pi0OvjyT5diRMLH2bsxkuUVfY3OWo+hO2MOwoFXCOMLDal9kp6coVVOQkmcgK8EicwaAEgutg3sMOJ0luMircWuhI+RUCkrH0ZOqPlHsBjYLxjGwpQoTjnCaz75WogHq8nrD8OQeEVrI7939CjopqQRRydkn8
+	XWBtEm+I/J/PjRsIEi6y5aWzl091gHXqasXNbg87F7IRBL1tksPpaYauvXAx5uuAgWhm6FRbbvnILI8QBum5T07S18yLVRECerFvsN9pASGJJ9SHZmxlEUsrIHJwpbAiVK5e8PqgtiirqtRL+jsLz02rpYSX99/AVOtGcnH5Tmc8B0BmdKb86JOBaFbB87FcC9bqIRQ198+PSZroLbFzk8bpuzJX1b1KH0pDysEll1C6AFSL0sVi1WLBPVPHdQrKQ9OW1sAoP5/yUESgYPo+kxdMMGN6Gk4q1c6xP2TMfUMAFbfyy4sHT7AhowD25GuJ6wmXw5vRV2IexR5vHbajjRIdj9zM8s+/i5E6XAtPz1Nljhiz3bMRLMmvQ1YBcBhxdQ1eg7CwjtJxoXprn6unh1Wu383zSenomzdqV+fv83Rot/eNYtqKkcFqS9pUxmdFpeJiz6WyJHotUcEiKEIURT8Zc14cIgCBebbgMUJK29ySTtdo+gfeULuMiaoZrgdisdkbKkgCSrRvAXCTcqoZxQxPvDiZBpkWfY5gAUNn40m4BJxNIe9xtQh/DGUVOAli/c6hj0P+TxAK6aiH0zLqayWni4Lk4DF67D3ekyut5rQFCKJg7cEmA/md7sKT2OQiLrgIfoZI+0/iUh5ZGf4t8Vu6E/AHaoSwvNT90qi5WLzPn5510DyW5ypq+fdYTmCu8SWHrvzBjbSz3keaJJT3qj/gOg4YjO43bfIqGs/PW4Dy0b4pb6odnoxeB++S0mnX
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(82310400014)(1800799015)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2024 11:16:01.7411
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(1800799015)(82310400014)(376005)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2024 11:19:42.8983
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c283145-b14c-4c27-6e2c-08dc594f9b05
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48181f43-d649-424f-573d-08dc59501ed7
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00026369.namprd02.prod.outlook.com
+	AMS1EPF0000004B.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6395
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB9958
 
-Hi Luca,
 
-On 09/04/2024 13:45, Luca Fancellu wrote:
-> 
-> 
-> From: Penny Zheng <Penny.Zheng@arm.com>
-> 
-> Static shared memory acts as reserved memory in guest, so it shall be
-> excluded from extended regions.
-> 
-> Extended regions are taken care of under three different scenarios:
-> normal DomU, direct-map domain with iommu on, and direct-map domain
-> with iommu off.
-> 
-> For normal DomU, we create a new function "remove_shm_holes_for_domU",
-> to firstly transfer original outputs into the format of
-> "struct rangeset", then use "remove_shm_from_rangeset" to remove static
-> shm from them.
-> 
-> For direct-map domain with iommu on, after we get guest shm info from "kinfo",
-> we use "remove_shm_from_rangeset" to remove static shm.
-> 
-> For direct-map domain with iommu off, as static shm has already been taken
-> care of through reserved memory banks, we do nothing.
-Stale info given that shmem is no longer part of reserved memory banks. It's been taken care
-of by removing shmem regions in find_unallocated_memory()
+>>>>=20
+>>>> Afterwards, create a new structure 'struct shared_meminfo' which
+>>>> has the same interface of 'struct meminfo', but requires less
+>>> I would expect some justification for selecting 32 as the max number of=
+ shmem banks
+>>=20
+>> So I have to say I picked up a value I thought was ok for the amount of =
+shared memory
+>> Banks, do you think it is too low? The real intention here was to decoup=
+le the number
+>> of shared memory banks from the number of generic memory banks, and I fe=
+lt 32 was enough,
+>> but if you think it might be an issue I could bump it, or we could have =
+a Kconfig...
+> No need for Kconfig. 32 is enough for now but I expect a paragraph in com=
+mit msg that you select
+> 32 which should be enough for current use cases and can be bumped in the =
+future in case there is a need.
 
-> 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> ---
-> v2:
->  - Fixed commit title, fixed comment, moved call of remove_shm_from_rangeset
->    after populating rangeset in find_memory_holes, print error code when
->    possible
->  - used PFN_DOWN where needed
-> v1:
->  - Rework of https://patchwork.kernel.org/project/xen-devel/patch/20231206090623.1932275-8-Penny.Zheng@arm.com/
-> ---
-> ---
->  xen/arch/arm/domain_build.c             | 16 ++++-
->  xen/arch/arm/include/asm/domain_build.h |  2 +
->  xen/arch/arm/include/asm/static-shmem.h | 18 +++++
->  xen/arch/arm/static-shmem.c             | 88 +++++++++++++++++++++++++
->  4 files changed, 121 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 01d66fbde92b..9b36d6bb70c9 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -817,8 +817,8 @@ int __init make_memory_node(const struct domain *d,
->      return res;
->  }
-> 
-> -static int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
-> -                                  void *data)
-> +int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
-> +                           void *data)
->  {
->      struct membanks *ext_regions = data;
->      paddr_t start, size;
-> @@ -978,6 +978,8 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
->   * - MMIO
->   * - Host RAM
->   * - PCI aperture
-> + * - Static shared memory regions, which are described by special property
-> + *   "xen,shared-mem"
->   */
->  static int __init find_memory_holes(const struct kernel_info *kinfo,
->                                      struct membanks *ext_regions)
-> @@ -1005,6 +1007,11 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
->          goto out;
->      }
-> 
-> +    /* Remove static shared memory regions */
-> +    res = remove_shm_from_rangeset(kinfo, mem_holes);
-> +    if ( res )
-> +        goto out;
-> +
->      /*
->       * Remove regions described by "reg" and "ranges" properties where
->       * the memory is addressable (MMIO, RAM, PCI BAR, etc).
-> @@ -1097,7 +1104,10 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
->          res = 0;
->      }
-> 
-> -    return res;
-> +    if ( res )
-> +        return res;
-> +
-> +    return remove_shm_holes_for_domU(kinfo, ext_regions);
->  }
-> 
->  int __init make_hypervisor_node(struct domain *d,
-> diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
-> index a6f276cc4263..026d975da28e 100644
-> --- a/xen/arch/arm/include/asm/domain_build.h
-> +++ b/xen/arch/arm/include/asm/domain_build.h
-> @@ -51,6 +51,8 @@ static inline int prepare_acpi(struct domain *d, struct kernel_info *kinfo)
->  int prepare_acpi(struct domain *d, struct kernel_info *kinfo);
->  #endif
-> 
-> +int add_ext_regions(unsigned long s_gfn, unsigned long e_gfn, void *data);
-> +
->  #endif
-> 
->  /*
-> diff --git a/xen/arch/arm/include/asm/static-shmem.h b/xen/arch/arm/include/asm/static-shmem.h
-> index 90aafc81e740..2e8b138eb989 100644
-> --- a/xen/arch/arm/include/asm/static-shmem.h
-> +++ b/xen/arch/arm/include/asm/static-shmem.h
-> @@ -28,6 +28,12 @@ void early_print_info_shmem(void);
-> 
->  void init_sharedmem_pages(void);
-> 
-> +int remove_shm_from_rangeset(const struct kernel_info *kinfo,
-> +                             struct rangeset *rangeset);
-> +
-> +int remove_shm_holes_for_domU(const struct kernel_info *kinfo,
-> +                              struct membanks *ext_regions);
-> +
->  #else /* !CONFIG_STATIC_SHM */
-> 
->  static inline int make_resv_memory_node(const struct kernel_info *kinfo,
-> @@ -59,6 +65,18 @@ static inline void early_print_info_shmem(void) {};
-> 
->  static inline void init_sharedmem_pages(void) {};
-> 
-> +static inline int remove_shm_from_rangeset(const struct kernel_info *kinfo,
-> +                                           struct rangeset *rangeset)
-> +{
-> +    return 0;
-> +}
-> +
-> +static inline int remove_shm_holes_for_domU(const struct kernel_info *kinfo,
-> +                                            struct membanks *ext_regions)
-> +{
-> +    return 0;
-> +}
-> +
->  #endif /* CONFIG_STATIC_SHM */
-> 
->  #endif /* __ASM_STATIC_SHMEM_H_ */
-> diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
-> index fcf8227bf404..a08413ff44e2 100644
-> --- a/xen/arch/arm/static-shmem.c
-> +++ b/xen/arch/arm/static-shmem.c
-> @@ -1,6 +1,7 @@
->  /* SPDX-License-Identifier: GPL-2.0-only */
-> 
->  #include <xen/libfdt/libfdt.h>
-> +#include <xen/rangeset.h>
->  #include <xen/sched.h>
-> 
->  #include <asm/domain_build.h>
-> @@ -574,6 +575,93 @@ void __init init_sharedmem_pages(void)
->          init_staticmem_bank(&shmem->bank[bank]);
->  }
-> 
-> +int __init remove_shm_from_rangeset(const struct kernel_info *kinfo,
-> +                                    struct rangeset *rangeset)
-> +{
-> +    const struct membanks *shm_mem = &kinfo->shm_mem.common;
-> +    unsigned int i;
-> +
-> +    /* Remove static shared memory regions */
-> +    for ( i = 0; i < shm_mem->nr_banks; i++ )
-> +    {
-> +        paddr_t start, end;
-> +        int res;
-> +
-> +        start = shm_mem->bank[i].start;
-> +        end = shm_mem->bank[i].start + shm_mem->bank[i].size - 1;
-If you look at other rangeset_remove_range use cases and error messages, 1 is subtracted
-in PFN_DOWN() so that the error message contains end unchanged. Please adhere to that so that
-printed messages are consistent.
+What do you think of this proposal:
 
-> +        res = rangeset_remove_range(rangeset, PFN_DOWN(start), PFN_DOWN(end));
-> +        if ( res )
-> +        {
-> +            printk(XENLOG_ERR
-> +                   "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr", error: %d\n",
-> +                   start, end, res);
-> +            return -EINVAL;
-> +        }
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +int __init remove_shm_holes_for_domU(const struct kernel_info *kinfo,
-> +                                     struct membanks *ext_regions)
-> +{
-> +    const struct membanks *shm_mem = &kinfo->shm_mem.common;
-> +    struct rangeset *guest_holes;
-> +    unsigned int i;
-> +    paddr_t start;
-> +    paddr_t end;
-> +    int res;
-> +
-> +    /* No static shared memory region. */
-> +    if ( shm_mem->nr_banks == 0 )
-> +        return 0;
-> +
-> +    dt_dprintk("Remove static shared memory holes from extended regions of DomU\n");
-> +
-> +    guest_holes = rangeset_new(NULL, NULL, 0);
-> +    if ( !guest_holes )
-> +        return -ENOMEM;
-> +
-> +    /* Copy extended regions sets into the rangeset */
-> +    for ( i = 0; i < ext_regions->nr_banks; i++ )
-> +    {
-> +        start = ext_regions->bank[i].start;
-> +        end = start + ext_regions->bank[i].size - 1;
-> +
-> +        res = rangeset_add_range(guest_holes, PFN_DOWN(start), PFN_DOWN(end));
-same remark about the end
+[...]
+hence the 'struct membank' won't grow in size.
 
-> +        if ( res )
-> +        {
-> +            printk(XENLOG_ERR
-> +                   "Failed to add: %#"PRIpaddr"->%#"PRIpaddr", error: %d\n",
-> +                   start, end, res);
-> +            goto out;
-> +        }
-> +    }
-> +
-> +    /* Remove static shared memory regions */
-> +    res = remove_shm_from_rangeset(kinfo, guest_holes);
-> +    if ( res )
-> +        goto out;
-> +
-Could you please add a comment explaining here what's done below?
-> +    i = ext_regions->nr_banks - 1;
-> +    start = ext_regions->bank[0].start;
-> +    end = ext_regions->bank[i].start + ext_regions->bank[i].size - 1;
-> +
-> +    /* Reset original extended regions to hold new value */
-> +    ext_regions->nr_banks = 0;
-> +    res = rangeset_report_ranges(guest_holes, PFN_DOWN(start), PFN_DOWN(end),
-> +                                 add_ext_regions, ext_regions);
-> +    if ( res )
-> +        ext_regions->nr_banks = 0;
-> +    else if ( !ext_regions->nr_banks )
-> +        res = -ENOENT;
-> +
-> + out:
-> +    rangeset_destroy(guest_holes);
-> +
-> +    return res;
-> +}
-> +
->  /*
->   * Local variables:
->   * mode: C
-> --
-> 2.34.1
-> 
+Afterwards, create a new structure 'struct shared_meminfo' which
+has the same interface of 'struct meminfo', but requires less
+banks, defined by the number in NR_SHMEM_BANKS, which is 32 at the=20
+moment and should be enough for the current use cases, the value =20
+might be increased in te future if needed.=20
+Finally, this structure hosts also the extra information for the
+static shared memory banks.
+The fields 'bank' and 'extra' of this structure are meant to be
+[...]
 
-~Michal
+Cheers,
+Luca
 
 
