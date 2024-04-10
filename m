@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 572158A025E
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 23:51:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703657.1099425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEA9D8A030F
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 00:14:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703665.1099436 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rufr2-00028s-3h; Wed, 10 Apr 2024 21:51:40 +0000
+	id 1rugCh-0006D2-Up; Wed, 10 Apr 2024 22:14:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703657.1099425; Wed, 10 Apr 2024 21:51:40 +0000
+Received: by outflank-mailman (output) from mailman id 703665.1099436; Wed, 10 Apr 2024 22:14:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rufr1-00025w-W5; Wed, 10 Apr 2024 21:51:39 +0000
-Received: by outflank-mailman (input) for mailman id 703657;
- Wed, 10 Apr 2024 21:51:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rufr0-00025i-PS; Wed, 10 Apr 2024 21:51:38 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rufr0-0003Zc-El; Wed, 10 Apr 2024 21:51:38 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rufr0-000371-3i; Wed, 10 Apr 2024 21:51:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rufr0-0004Fy-3J; Wed, 10 Apr 2024 21:51:38 +0000
+	id 1rugCh-0006BU-RS; Wed, 10 Apr 2024 22:14:03 +0000
+Received: by outflank-mailman (input) for mailman id 703665;
+ Wed, 10 Apr 2024 22:14:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rcYN=LP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rugCf-00069p-Ua
+ for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 22:14:02 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a0e5dbee-f787-11ee-b908-491648fe20b8;
+ Thu, 11 Apr 2024 00:14:00 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 6C3FFCE1AAF;
+ Wed, 10 Apr 2024 22:13:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76796C433C7;
+ Wed, 10 Apr 2024 22:13:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +42,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=9bkYgzs5qS8AEhgzbjtpRQu3Ak93VGw7M/YG+muNeeY=; b=i1m0qf2JZIQOp71I8AZo5T1mVc
-	FKrLNLliMZf4WiKCribAr7NgMXX9sXoteTvmCWSeylUVZPn1CYfSWApI/wj2i3MADZQGtMRs4qS/B
-	nChSHnU25DRCiR1xv4Fn7kqPpfairjVYncLJ1huts0IRina4rgXWsrP4XbyR6nvBT8HI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185302-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: a0e5dbee-f787-11ee-b908-491648fe20b8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1712787232;
+	bh=JszXjHBQ5GW6OameGhPMD+u4QZm+LdxWjTLbTcS5xfw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=bGAawdg1AJH+ouBqOfCL0GM6Y7eE3yYSLpe5tRpUnebfOv4Z6kqI+cBG02vdeDW8P
+	 HmilV4Qrbgx38wLXjb5eW4q+nYJVS59+i8zs0RJa/G9yqqJPyz+BDqL2mlBMHGIcSI
+	 p6QYDviuWsHLa2KXLLCvIsCfEAyu2K0NhDn8YZcNch5Fr/+fH1EfOumLOOTRwXoOLT
+	 xwyWoc4HrH6iQITmZHX0S1qrGWC+7rKtdv0yIDiMiBljqtXGmNx5EXI4vxwalvpxLL
+	 W07VLm8rmtmGwXuysVvImDRVBe++2COkRdP8E83wIvUJSD9Pvl7QWew9/Op0zuEEgG
+	 DyYJvl13U3Wxg==
+Date: Wed, 10 Apr 2024 15:13:50 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+    Jan Beulich <JBeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    "consulting @ bugseng . com" <consulting@bugseng.com>, 
+    Roberto Bagnara <roberto.bagnara@bugseng.com>, 
+    Federico Serafini <federico.serafini@bugseng.com>, 
+    Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: Re: [PATCH] x86/hvm: Fix Misra Rule 19.1 regression
+In-Reply-To: <20240410103721.593839-1-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2404101513310.711344@ubuntu-linux-20-04-desktop>
+References: <20240410103721.593839-1-andrew.cooper3@citrix.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 185302: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=0e7ea8ca5fc9bce9248414f6aaf2dc861abd45d9
-X-Osstest-Versions-That:
-    xen=f48299cad5c3c69fdc2c101517a6dab9c9827ea5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 10 Apr 2024 21:51:38 +0000
+Content-Type: multipart/mixed; boundary="8323329-378593374-1712787232=:711344"
 
-flight 185302 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185302/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Failures :-/ but no regressions.
+--8323329-378593374-1712787232=:711344
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+On Wed, 10 Apr 2024, Andrew Cooper wrote:
+> Despite noticing an impending Rule 19.1 violation, the adjustment made (the
+> uint32_t cast) wasn't sufficient to avoid it.  Try again.
+> 
+> Fixes: 6a98383b0877 ("x86/HVM: clear upper halves of GPRs upon entry from 32-bit code")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-version targeted for testing:
- xen                  0e7ea8ca5fc9bce9248414f6aaf2dc861abd45d9
-baseline version:
- xen                  f48299cad5c3c69fdc2c101517a6dab9c9827ea5
-
-Last test of basis   185291  2024-04-09 22:02:16 Z    0 days
-Testing same since   185302  2024-04-10 18:00:25 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   f48299cad5..0e7ea8ca5f  0e7ea8ca5fc9bce9248414f6aaf2dc861abd45d9 -> smoke
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: consulting@bugseng.com <consulting@bugseng.com>
+> CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
+> CC: Federico Serafini <federico.serafini@bugseng.com>
+> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+>  xen/arch/x86/include/asm/hvm/hvm.h | 20 ++++++++++----------
+>  1 file changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
+> index 595253babeaf..899233fb257b 100644
+> --- a/xen/arch/x86/include/asm/hvm/hvm.h
+> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
+> @@ -575,16 +575,16 @@ static inline void hvm_sanitize_regs_fields(struct cpu_user_regs *regs,
+>      if ( compat )
+>      {
+>          /* Clear GPR upper halves, to counteract guests playing games. */
+> -        regs->rbp = (uint32_t)regs->ebp;
+> -        regs->rbx = (uint32_t)regs->ebx;
+> -        regs->rax = (uint32_t)regs->eax;
+> -        regs->rcx = (uint32_t)regs->ecx;
+> -        regs->rdx = (uint32_t)regs->edx;
+> -        regs->rsi = (uint32_t)regs->esi;
+> -        regs->rdi = (uint32_t)regs->edi;
+> -        regs->rip = (uint32_t)regs->eip;
+> -        regs->rflags = (uint32_t)regs->eflags;
+> -        regs->rsp = (uint32_t)regs->esp;
+> +        regs->rbp = (uint32_t)regs->rbp;
+> +        regs->rbx = (uint32_t)regs->rbx;
+> +        regs->rax = (uint32_t)regs->rax;
+> +        regs->rcx = (uint32_t)regs->rcx;
+> +        regs->rdx = (uint32_t)regs->rdx;
+> +        regs->rsi = (uint32_t)regs->rsi;
+> +        regs->rdi = (uint32_t)regs->rdi;
+> +        regs->rip = (uint32_t)regs->rip;
+> +        regs->rflags = (uint32_t)regs->rflags;
+> +        regs->rsp = (uint32_t)regs->rsp;
+>      }
+>  
+>  #ifndef NDEBUG
+> 
+> base-commit: f48299cad5c3c69fdc2c101517a6dab9c9827ea5
+> -- 
+> 2.30.2
+> 
+--8323329-378593374-1712787232=:711344--
 
