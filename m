@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41F5689FBC5
+	by mail.lfdr.de (Postfix) with ESMTPS id 594C489FBC7
 	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 17:37:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703373.1099011 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.703374.1099021 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rua0G-0007Ms-SO; Wed, 10 Apr 2024 15:36:48 +0000
+	id 1rua0I-0007bB-38; Wed, 10 Apr 2024 15:36:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703373.1099011; Wed, 10 Apr 2024 15:36:48 +0000
+Received: by outflank-mailman (output) from mailman id 703374.1099021; Wed, 10 Apr 2024 15:36:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rua0G-0007KR-PG; Wed, 10 Apr 2024 15:36:48 +0000
-Received: by outflank-mailman (input) for mailman id 703373;
- Wed, 10 Apr 2024 15:36:46 +0000
+	id 1rua0H-0007Yg-Vc; Wed, 10 Apr 2024 15:36:49 +0000
+Received: by outflank-mailman (input) for mailman id 703374;
+ Wed, 10 Apr 2024 15:36:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NRyK=LP=localhost=root@srs-se1.protection.inumbo.net>)
- id 1rua0E-0007KL-N4
- for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 15:36:46 +0000
+ id 1rua0H-0007KL-Ff
+ for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 15:36:49 +0000
 Received: from localhost (ip-201.net-81-220-136.rev.numericable.fr
  [81.220.136.201]) by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 231cba31-f750-11ee-b907-491648fe20b8;
- Wed, 10 Apr 2024 17:36:45 +0200 (CEST)
+ id 25484fe0-f750-11ee-b907-491648fe20b8;
+ Wed, 10 Apr 2024 17:36:49 +0200 (CEST)
 Received: by localhost (Postfix, from userid 0)
- id E573BE31FC; Wed, 10 Apr 2024 17:36:44 +0200 (CEST)
+ id E1467E3200; Wed, 10 Apr 2024 17:36:48 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,7 +38,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 231cba31-f750-11ee-b907-491648fe20b8
+X-Inumbo-ID: 25484fe0-f750-11ee-b907-491648fe20b8
 From: Andrei Semenov <andrei.semenov@vates.fr>
 To: xen-devel@lists.xenproject.org
 Cc: Andrei Semenov <andrei.semenov@vates.fr>,
@@ -48,42 +48,16 @@ Cc: Andrei Semenov <andrei.semenov@vates.fr>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 0/2] Starting AMD SEV work
-Date: Wed, 10 Apr 2024 17:36:34 +0200
+Subject: [PATCH v1 0/2] AMD SEV initial work
+Date: Wed, 10 Apr 2024 17:36:35 +0200
 Message-Id: <cover.1712759753.git.andrei.semenov@vates.fr>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <cover.1712759753.git.andrei.semenov@vates.fr>
+References: <cover.1712759753.git.andrei.semenov@vates.fr>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series initiate work on AMD SEV technology implementation in Xen.
-SEV stands for "Secure Encrypted Virtualization" and allows the memory contents
-of a VM to be encrypted with a key unique to this VM. In this way the neither
-other VMs nor hypervisor can't read the memory content of this "encrypted"
-VM.
-
-In order to create and to run such a VM different layers of software must
-interact (bascally Xen hypevisor, Xen toolstack in dom0 and the encrypted VM
-itself).
-
-In this work we start with discovering and enabling SEV feature on the platform.
-The second patch ports AMD Secure Processor driver on Xen. This AMD Secure
-Processor device (a.k.a PSP) is the way the different software layers interact
-with AMD firmware/hardware to manage and run the encrypted VM.
-
-Actually there's two modes of functionning of the ASP driver. The "polling" mode
-and the "interrupt" mode. The interrupt mode raises some questions about how we
-put the client thread to sleep (wait for interrupt). The actual way, based on
-waitqueue, have two major inconvinients.
-
-- compatibility with Intel Control-flow Enfocement (shadow stack)
-- requests serialization (locking)
-
-So, actually if CET is enabled on the platform all requests will be done by the
-driver in "polling" mode. As with requests serialization, the "interrupt" mode
-actually assumes the serialization is done by the driver client.
-
-Obviously, I hope there wll be discussions with the community  on these 2
-inconvienients to find out more efficient solutions.
+///HERE YOU GO
 
 Andrei Semenov (2):
   Implemented AMD SEV discovery and enabling.
