@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A66989EEE9
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 11:32:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.702960.1098683 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAF4089EF09
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Apr 2024 11:42:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.702969.1098693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruUJB-0006tc-Fu; Wed, 10 Apr 2024 09:31:57 +0000
+	id 1ruUSj-00013L-Am; Wed, 10 Apr 2024 09:41:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 702960.1098683; Wed, 10 Apr 2024 09:31:57 +0000
+Received: by outflank-mailman (output) from mailman id 702969.1098693; Wed, 10 Apr 2024 09:41:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruUJB-0006qs-Cv; Wed, 10 Apr 2024 09:31:57 +0000
-Received: by outflank-mailman (input) for mailman id 702960;
- Wed, 10 Apr 2024 09:31:56 +0000
+	id 1ruUSj-00011E-7R; Wed, 10 Apr 2024 09:41:49 +0000
+Received: by outflank-mailman (input) for mailman id 702969;
+ Wed, 10 Apr 2024 09:41:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5G6/=LP=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1ruUJA-0006XG-1z
- for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 09:31:56 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ <SRS0=NLmP=LP=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
+ id 1ruUSi-00010m-BG
+ for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 09:41:48 +0000
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [2607:f8b0:4864:20::1030])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2b02e34a-f71d-11ee-94a3-07e782e9044d;
- Wed, 10 Apr 2024 11:31:54 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-516dc51bb72so4985643e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 02:31:54 -0700 (PDT)
-Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
- by smtp.gmail.com with ESMTPSA id
- y21-20020ac24475000000b005170a946960sm1071418lfl.87.2024.04.10.02.31.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Apr 2024 02:31:52 -0700 (PDT)
+ id 8b63205e-f71e-11ee-94a3-07e782e9044d;
+ Wed, 10 Apr 2024 11:41:46 +0200 (CEST)
+Received: by mail-pj1-x1030.google.com with SMTP id
+ 98e67ed59e1d1-2a536b08d63so1939956a91.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 02:41:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,249 +40,263 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b02e34a-f71d-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 8b63205e-f71e-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712741513; x=1713346313; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=citrix.com; s=google; t=1712742105; x=1713346905; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XrHNHtlt8FUpJ9wMxd9V9rpHBMaDrTyKZ2os3fPl9w0=;
-        b=Xrs1tK7nABtGHP/k+m3JHUQg9FJKYVS958h7xFja3Mck8/3Hp/yrY5TZe/hnFs8TVG
-         bPCcwkJMYXQwkraXpMS8w5D2ImZSQTYvYK8C8PO5lNkjHUxnn6rNJBV9X/jedAuFoKtv
-         gskbe3822Ybh3Mi8k05O+llhagVlk6BCL9VPBjHw4BuUpi9i768JQkUy62MQCtutdU44
-         gKpJjAcnGctoCHcA1d4gWYzKSw7xc8apJ/qpgFPU+S2mMykcP6IaGa723rkpUjS6mW4k
-         WEmMF2Vh7qbSrxNSmemC7E083Ng5SHPeF4nw/wf4oQmCVy84p+jtG4CtNsn4lva+iVap
-         f5Tw==
+        bh=xqMRxOb/MoLU81En1hAr8zM8il7853Hn2/m88F6Q4ds=;
+        b=kWKuCrbn79tvikK81J4Mv0GWOjqzQS/W94fGKW38Asa8v7TWnXbL38ivrF8+ReDX5d
+         XTawvt4k2No9GIZlTN7sxgQqDkbiouFuZ2JDad05o+JlodgI1lwj+8L2XwVRXlvWpfG1
+         JSVD4emUH+F09pmselKFfKy0EfcddzRhKsvDg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712741513; x=1713346313;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1712742105; x=1713346905;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=XrHNHtlt8FUpJ9wMxd9V9rpHBMaDrTyKZ2os3fPl9w0=;
-        b=hAw7rKIYGiCaFpeJklCTgIWODAhjZKCLiQ8wOlTn3oHYXSo/tD/AhCTW76ChyGGhxk
-         YkMNo7ryCV0GISqDIUG6bYV3emQpW/lzZFOcKLKndFjZLm99oyNp841bQEnfP/Lp85Zl
-         dA1fatRTDb5rJHwE/mNPAAXmFIU7x524TdcSeFJLCcv4c9EHIleHU41u3l2u3jyuAHiN
-         tlBFGksS1Nye4E/CmYrMl8SqeQobIQMGQlG0picWZfh+WrfRkciyGgE4dHhHrCPnhixc
-         1FIp/Nyd8Bv7wxm5853Zxf+ARVZXmEPLgrUQ6smUtPwiSFAxdeQEvCSdjzUq9tCi9c16
-         PGsA==
-X-Gm-Message-State: AOJu0Yz21+3tlrJTKOJTNN6MkwPTH1tZDbpgvuO0eQExcq96fJVgDJHQ
-	ZObva7ev1pDBeFaxRizTAwHt9KMjF+bBsdqQ68f3j4qoHC39ohE976kbgPW1YhuKfA==
-X-Google-Smtp-Source: AGHT+IEWDn5A82mPXnEXA6gVl1X9JVHOR8A0zSGHpa8cmyTDh13m38j9Khy0JNuwpAIXMJ0JKgXvng==
-X-Received: by 2002:a05:6512:614:b0:515:d335:a0ab with SMTP id b20-20020a056512061400b00515d335a0abmr1176626lfe.37.1712741513171;
-        Wed, 10 Apr 2024 02:31:53 -0700 (PDT)
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	julien@xen.org,
-	bertrand.marquis@arm.com,
-	michal.orzel@amd.com,
-	Volodymyr_Babchuk@epam.com,
-	jbeulich@suse.com,
-	edgar.iglesias@amd.com
-Subject: [RFC PATCH v1 2/2] xen/arm64: entry: Add missing code symbol annotations
-Date: Wed, 10 Apr 2024 11:19:47 +0200
-Message-Id: <20240410091947.1498695-3-edgar.iglesias@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20240410091947.1498695-1-edgar.iglesias@gmail.com>
-References: <20240410091947.1498695-1-edgar.iglesias@gmail.com>
+        bh=xqMRxOb/MoLU81En1hAr8zM8il7853Hn2/m88F6Q4ds=;
+        b=OCl3yXJMmukNMGfqhEQyqX7mj/V3HHy+EHmiLwnahqt6HAxND6wtWPDZOgho0GlzGL
+         RzhbYSB59vIIQz1xLEsClNLODpiMUs+b6vihqcD2+NWRHvFuG4whBKSDl8ejgpATi05q
+         big4dofNlsk4soQ+sR33h0jAySx89XH4+hxihozU8NDUmth2ZVr+/VkaEZFNF913C44E
+         sSXB1Hf0cHPkCBlKJu+vuR/kAtBiRGoARGH6K84GElP/ruuwSUKOz1WMkoHJ8kgzFeWa
+         K6NKSzzAB1Z44azlCNvZwy8XCU5RHcWax1++ePazO9sfSVLuNPRq0PJo0BI2+uXaSUvH
+         iZ5A==
+X-Forwarded-Encrypted: i=1; AJvYcCXeM8hlbEs3aDTsHL1ThZ6Gn1S8lyq6F3kjehP57QntRq8OvvZLrefln1IljKL2nJLA4FTOL3M+psw2XIMtjR+Jq7zYzKFXkVd39vYrzbc=
+X-Gm-Message-State: AOJu0YyhB/VFgTfXbcfw5k8dG4A8UWkAz3cN0qV8IK4jHcPZ9Ge4C6ie
+	Xd6ZHvHlcspfaX0Ku+8lob7I9Eexpxs0KU4uKH11gOd3YWh8l++cqhadIyFhLrFs8OJPXzFW93Y
+	H8JXXi+WQt3KGk/9QD1JxIuDTyLmgD6hU1f6Q
+X-Google-Smtp-Source: AGHT+IF0mQn9zh77uCBA1ty9p978L2N460uKhIkzUYw/83lwxvyXrNes+qk3zndjyT/eztyI9cZCkIxi1zZNp0RC39M=
+X-Received: by 2002:a17:90a:b786:b0:29b:961a:29c3 with SMTP id
+ m6-20020a17090ab78600b0029b961a29c3mr1683796pjr.49.1712742104692; Wed, 10 Apr
+ 2024 02:41:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20240328151106.1451104-1-ross.lagerwall@citrix.com>
+ <20240328151106.1451104-2-ross.lagerwall@citrix.com> <c3c2ce12-0699-42b3-bcaf-5bddf0616566@suse.com>
+In-Reply-To: <c3c2ce12-0699-42b3-bcaf-5bddf0616566@suse.com>
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+Date: Wed, 10 Apr 2024 10:41:32 +0100
+Message-ID: <CAG7k0EroeA=cRRDWnJqzH8esoaSmtg8-xjTwc-01og5R9JwPzg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] x86: Add support for building a multiboot2 PE binary
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+On Mon, Apr 8, 2024 at 11:25=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 28.03.2024 16:11, Ross Lagerwall wrote:
+> > In addition to building xen.efi and xen.gz, build xen-mbi.exe. The
+> > latter is a PE binary that can be used with a multiboot2 loader that
+> > supports loading PE binaries.
+>
+> I have to admit I find .exe a strange extension outside of the Windows
+> world. Would it be an option to have no extension at all (xen-mbi), or
+> use xen.mbi?
 
-Add missing code symbol annotations.
+Sure, I have no strong preference on the name. I'll change it to
+xen-mbi.
 
-Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
----
- xen/arch/arm/arm64/entry.S | 60 ++++++++++++++++++++++++++------------
- 1 file changed, 42 insertions(+), 18 deletions(-)
+>
+> > Using this option allows the binary to be signed and verified by Shim.
+> > This means the same xen-mbi.exe binary can then be used for BIOS boot,
+> > UEFI Boot and UEFI boot with Secure Boot verification (all with the
+> > convenience of GRUB2 as a bootloader).
+>
+> With which "UEFI boot" really means "chainloader" from grub? That isn't
+> required though, is it? I.e. "UEFI boot" ought to work also without
+> involving grub?
 
-diff --git a/xen/arch/arm/arm64/entry.S b/xen/arch/arm/arm64/entry.S
-index 6188dd2416..af9a592cae 100644
---- a/xen/arch/arm/arm64/entry.S
-+++ b/xen/arch/arm/arm64/entry.S
-@@ -289,21 +289,25 @@
-         b       do_bad_mode
-         .endm
- 
--hyp_sync_invalid:
-+FUNC_LOCAL(hyp_sync_invalid)
-         entry   hyp=1
-         invalid BAD_SYNC
-+END(hyp_sync_invalid)
- 
--hyp_irq_invalid:
-+FUNC_LOCAL(hyp_irq_invalid)
-         entry   hyp=1
-         invalid BAD_IRQ
-+END(hyp_irq_invalid)
- 
--hyp_fiq_invalid:
-+FUNC_LOCAL(hyp_fiq_invalid)
-         entry   hyp=1
-         invalid BAD_FIQ
-+END(hyp_fiq_invalid)
- 
--hyp_error_invalid:
-+FUNC_LOCAL(hyp_error_invalid)
-         entry   hyp=1
-         invalid BAD_ERROR
-+END(hyp_error_invalid)
- 
- /*
-  * SError received while running in the hypervisor mode.
-@@ -313,11 +317,12 @@ hyp_error_invalid:
-  * simplicity, as SError should be rare and potentially fatal,
-  * all interrupts are kept masked.
-  */
--hyp_error:
-+FUNC_LOCAL(hyp_error)
-         entry   hyp=1
-         mov     x0, sp
-         bl      do_trap_hyp_serror
-         exit    hyp=1
-+END(hyp_error)
- 
- /*
-  * Synchronous exception received while running in the hypervisor mode.
-@@ -327,7 +332,7 @@ hyp_error:
-  * some of them. So we want to inherit the state from the interrupted
-  * context.
-  */
--hyp_sync:
-+FUNC_LOCAL(hyp_sync)
-         entry   hyp=1
- 
-         /* Inherit interrupts */
-@@ -338,6 +343,7 @@ hyp_sync:
-         mov     x0, sp
-         bl      do_trap_hyp_sync
-         exit    hyp=1
-+END(hyp_sync)
- 
- /*
-  * IRQ received while running in the hypervisor mode.
-@@ -352,7 +358,7 @@ hyp_sync:
-  * would require some rework in some paths (e.g. panic, livepatch) to
-  * ensure the ordering is enforced everywhere.
-  */
--hyp_irq:
-+FUNC_LOCAL(hyp_irq)
-         entry   hyp=1
- 
-         /* Inherit D, A, F interrupts and keep I masked */
-@@ -365,8 +371,9 @@ hyp_irq:
-         mov     x0, sp
-         bl      do_trap_irq
-         exit    hyp=1
-+END(hyp_irq)
- 
--guest_sync:
-+FUNC_LOCAL(guest_sync)
-         /*
-          * Save x0, x1 in advance
-          */
-@@ -413,8 +420,9 @@ fastpath_out_workaround:
-         mov     x1, xzr
-         eret
-         sb
-+END(guest_sync)
- 
--wa2_ssbd:
-+FUNC_LOCAL(wa2_ssbd)
- #ifdef CONFIG_ARM_SSBD
- alternative_cb arm_enable_wa2_handling
-         b       wa2_end
-@@ -450,42 +458,55 @@ wa2_end:
-         mov     x0, xzr
-         eret
-         sb
--guest_sync_slowpath:
-+END(wa2_ssbd)
-+
-+FUNC_LOCAL(guest_sync_slowpath)
-         /*
-          * x0/x1 may have been scratch by the fast path above, so avoid
-          * to save them.
-          */
-         guest_vector compat=0, iflags=IFLAGS__AI_, trap=guest_sync, save_x0_x1=0
-+END(guest_sync_slowpath)
- 
--guest_irq:
-+FUNC_LOCAL(guest_irq)
-         guest_vector compat=0, iflags=IFLAGS__A__, trap=irq
-+END(guest_irq)
- 
--guest_fiq_invalid:
-+FUNC_LOCAL(guest_fiq_invalid)
-         entry   hyp=0, compat=0
-         invalid BAD_FIQ
-+END(guest_fiq_invalid)
- 
--guest_error:
-+FUNC_LOCAL(guest_error)
-         guest_vector compat=0, iflags=IFLAGS__AI_, trap=guest_serror
-+END(guest_error)
- 
--guest_sync_compat:
-+FUNC_LOCAL(guest_sync_compat)
-         guest_vector compat=1, iflags=IFLAGS__AI_, trap=guest_sync
-+END(guest_sync_compat)
- 
--guest_irq_compat:
-+FUNC_LOCAL(guest_irq_compat)
-         guest_vector compat=1, iflags=IFLAGS__A__, trap=irq
-+END(guest_irq_compat)
- 
--guest_fiq_invalid_compat:
-+FUNC_LOCAL(guest_fiq_invalid_compat)
-         entry   hyp=0, compat=1
-         invalid BAD_FIQ
-+END(guest_fiq_invalid_compat)
- 
--guest_error_compat:
-+FUNC_LOCAL(guest_error_compat)
-         guest_vector compat=1, iflags=IFLAGS__AI_, trap=guest_serror
-+END(guest_error_compat)
- 
- FUNC(return_to_new_vcpu32)
-         exit    hyp=0, compat=1
-+END(return_to_new_vcpu32)
-+
- FUNC(return_to_new_vcpu64)
-         exit    hyp=0, compat=0
-+END(return_to_new_vcpu64)
- 
--return_from_trap:
-+FUNC_LOCAL(return_from_trap)
-         msr     daifset, #IFLAGS___I_ /* Mask interrupts */
- 
-         ldr     x21, [sp, #UREGS_PC]            /* load ELR */
-@@ -524,6 +545,7 @@ return_from_trap:
- 
-         eret
-         sb
-+END(return_from_trap)
- 
- /*
-  * Consume pending SError generated by the guest if any.
-@@ -617,6 +639,7 @@ FUNC(hyp_traps_vector)
-         ventry  guest_irq_compat            /* IRQ 32-bit EL0/EL1 */
-         ventry  guest_fiq_invalid_compat    /* FIQ 32-bit EL0/EL1 */
-         ventry  guest_error_compat          /* Error 32-bit EL0/EL1 */
-+END(hyp_traps_vector)
- 
- /*
-  * struct vcpu *__context_switch(struct vcpu *prev, struct vcpu *next)
-@@ -647,6 +670,7 @@ FUNC(__context_switch)
-         ldr     lr, [x8]
-         mov     sp, x9
-         ret
-+END(__context_switch)
- 
- /*
-  * Local variables:
--- 
-2.40.1
+There are a few comments here related to terminology and purpose so let
+me try and clarify them in one place...
 
+These are the existing methods of booting Xen on x86 that I know of:
+
+* UEFI firmware boots xen.efi directly. This can be used with
+  Secure Boot enabled.
+
+* UEFI GRUB2 chainloads xen.efi by calling the firmware's
+  LoadImage/StartImage. This can be used with Secure Boot enabled.
+
+* BIOS GRUB2 boots xen.gz via multiboot1 protocol.
+
+* BIOS GRUB2 boots xen.gz via multiboot2 protocol.
+
+* UEFI GRUB2 boots xen.gz via multiboot2 protocol. This is much the
+  same as the previous ,ethod but it does use a different entry point.
+  This cannot be used with Secure Boot because Shim can only verify PE
+  binaries.
+
+These methods _do not_ work:
+
+* BIOS GRUB2 boots xen.efi via multiboot2 protocol.
+
+* UEFI GRUB2 boots xen.efi via multiboot2 protocol (despite what is
+  implied by https://xenbits.xen.org/docs/unstable/misc/efi.html).
+
+* Shim chainloads xen.efi. AFAICT this may have worked some time in
+  the past but it doesn't currently work in my testing.
+
+* GRUB2 verifies xen.efi using Shim and then chainloads it using an
+  internal PE loader. This functionality doesn't exist in upstream
+  GRUB. There are some distro patches to implement this functionality
+  but they did not work with Xen when I tested them (probably for the
+  same reason as the previous method).
+
+This patch series adds 2 new methods of booting Xen:
+
+* BIOS GRUB2 boots xen-mbi via multiboot2 protocol.
+
+* UEFI GRUB2 boots xen-mbi via multiboot2 protocol. This supports
+  Secure Boot by making it possible to call back to Shim to verify
+  Xen.
+
+We want to add Secure Boot support to XenServer and to that end, the
+boot methods added by this patch are preferable to the existing boot
+methods for a few reasons:
+
+* We want a similar user experience regardless of whether BIOS or UEFI
+  is used.
+* When using GRUB2/multiboot, the boot files (xen.gz, vmlinuz, initrd)
+  can be stored outside of the ESP which is preferable since the ESP
+  is less flexible and is often somewhat limited in size.
+* Using GRUB2/multiboot makes it easier to edit the Xen/Dom0
+  command-line while booting / recovering a host compared with the
+  config files used by the direct EFI boot.
+* Using GRUB2 makes it easier to choose different boot options rather
+  than having to use the firmware boot menu which is often quite
+  unpleasant. Yes, we could use a UEFI bootloader like rEFInd to help
+  with this but that then goes back to the first point about user
+  experience.
+* For development it makes life easier to always have a single Xen
+  binary that is used regardless of whether BIOS/UEFI is used.
+
+The terminology used in the patch description was not particularly
+precise. To clarify, "BIOS boot" means booting xen-mbi via the
+multiboot2 protocol with a BIOS-booted bootloader (like GRUB2).
+"(U)EFI boot" means booting xen-mbi via the multiboot2 protocol with
+a UEFI bootloader (like GRUB2).
+
+>
+> > The new binary is created by modifying xen.efi:
+> > * Relocations are stripped since they are not needed.
+>
+> Because of the changed entry point, aiui. What hasn't become clear to
+> me is what difference in functionality there's going to be between
+> booting this new image in "UEFI boot" mode vs using xen.efi. Clearly
+> xen.efi's own (EFI-level) command line options won't be available. But
+> it feels like there might be more.
+
+Indeed, relocations are not needed because we're using the multiboot2
+entry point which handles everything without the need for relocations.
+
+Hopefully the long comment above addresses why this patch is useful.
+
+>
+> > * The image base address is set to 0 since it must necessarily be below
+> >   4 GiB and the loader will relocate it anyway.
+>
+> While technically okay, what is the reason for this adjustment?
+
+The multiboot2 spec generally uses 32 bit addresses for everything and
+says:
+
+"The bootloader must not load any part of the kernel, the modules, the
+Multiboot2 information structure, etc. higher than 4 GiB - 1."
+
+An image base address above 4 GiB causes trouble because multiboot2
+wasn't designed for this.
+
+>
+> > * The PE entry point is set to the multiboot2 entry point rather than
+> >   the normal EFI entry point. This is only relevant for BIOS boot since
+> >   for EFI boot the entry point is specified via a multiboot2 tag.
+>
+> Hmm, I may then be confused about the terminology further up: What is
+> "BIOS boot" then? So far I've taken that as the equivalent of xen.gz's
+> way of being booted (i.e. grub without EFI underneath).
+
+Hopefully the long comment above clarifies the terminology.
+
+>
+> > @@ -123,6 +124,19 @@ syms-warn-dup-$(CONFIG_ENFORCE_UNIQUE_SYMBOLS) :=
+=3D --error-dup
+> >
+> >  orphan-handling-$(call ld-option,--orphan-handling=3Dwarn) +=3D --orph=
+an-handling=3Dwarn
+> >
+> > +ifeq ($(XEN_BUILD_PE),y)
+> > +$(TARGET)-mbi.exe: $(TARGET).efi $(obj)/efi/modify-mbi-exe
+> > +     $(OBJCOPY) --remove-section=3D.reloc $< $@.tmp
+> > +     $(obj)/efi/modify-mbi-exe $@.tmp
+> > +     $(OBJCOPY) --set-start=3D0x$$($(NM) -pa $@.tmp | awk '/T start$$/=
+{print $$1}') $@.tmp $@.tmp2
+>
+> I understand section removal is better done by objcopy. Changing the entr=
+y
+> point could be done by the new tool, though (by passing it the designated
+> address)?
+
+Sure, I can do that if you would prefer.
+
+>
+> As to stripping .reloc - generally this needs accompanying by setting the
+> "relocations stripped" flag in the COFF(?) header. Here, however, I take
+> it this is not only not needed, but actually not wanted. This imo wants
+> saying somewhere; the individual steps done here could do with brief
+> comments anyway, imo.
+
+Correct, it is not wanted. I can add some descriptive comments.
+
+>
+> > --- /dev/null
+> > +++ b/xen/arch/x86/efi/modify-mbi-exe.c
+> > @@ -0,0 +1,77 @@
+> > +#include <stdio.h>
+> > +#include <stdint.h>
+> > +#include <unistd.h>
+> > +#include <fcntl.h>
+> > +
+> > +struct mz_hdr {
+> > +    uint16_t signature;
+> > +#define MZ_SIGNATURE 0x5a4d
+> > +    uint16_t last_page_size;
+> > +    uint16_t page_count;
+> > +    uint16_t relocation_count;
+> > +    uint16_t header_paras;
+> > +    uint16_t min_paras;
+> > +    uint16_t max_paras;
+> > +    uint16_t entry_ss;
+> > +    uint16_t entry_sp;
+> > +    uint16_t checksum;
+> > +    uint16_t entry_ip;
+> > +    uint16_t entry_cs;
+> > +    uint16_t relocations;
+> > +    uint16_t overlay;
+> > +    uint8_t reserved[32];
+> > +    uint32_t extended_header_base;
+> > +};
+> > +
+> > +struct coff_hdr {
+> > +    uint32_t signature;
+> > +    uint16_t cpu;
+> > +    uint16_t section_count;
+> > +    int32_t timestamp;
+> > +    uint32_t symbols_file_offset;
+> > +    uint32_t symbol_count;
+> > +    uint16_t opt_hdr_size;
+> > +    uint16_t flags;
+> > +};
+>
+> I can't spot any use of this struct.
+>
+
+Indeed, though this will actually be used if changing the entry point
+is done with this tool so I'll probably keep it.
+
+Thanks for your review,
+Ross
 
