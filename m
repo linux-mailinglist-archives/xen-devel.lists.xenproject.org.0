@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3005C8A1250
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 12:56:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703837.1099729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43B478A124F
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 12:55:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703838.1099740 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rus53-0005BD-1F; Thu, 11 Apr 2024 10:54:57 +0000
+	id 1rus5d-0005cO-AV; Thu, 11 Apr 2024 10:55:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703837.1099729; Thu, 11 Apr 2024 10:54:57 +0000
+Received: by outflank-mailman (output) from mailman id 703838.1099740; Thu, 11 Apr 2024 10:55:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rus52-000594-UR; Thu, 11 Apr 2024 10:54:56 +0000
-Received: by outflank-mailman (input) for mailman id 703837;
- Thu, 11 Apr 2024 10:54:55 +0000
+	id 1rus5d-0005Zm-6S; Thu, 11 Apr 2024 10:55:33 +0000
+Received: by outflank-mailman (input) for mailman id 703838;
+ Thu, 11 Apr 2024 10:55:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eZ5N=LQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rus51-00058y-QU
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 10:54:55 +0000
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [2607:f8b0:4864:20::733])
+ id 1rus5a-0005ZF-UG
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 10:55:30 +0000
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [2607:f8b0:4864:20::235])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec3b20b0-f7f1-11ee-94a3-07e782e9044d;
- Thu, 11 Apr 2024 12:54:53 +0200 (CEST)
-Received: by mail-qk1-x733.google.com with SMTP id
- af79cd13be357-78d683c469dso306172085a.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 03:54:52 -0700 (PDT)
+ id 01fa7c6d-f7f2-11ee-94a3-07e782e9044d;
+ Thu, 11 Apr 2024 12:55:29 +0200 (CEST)
+Received: by mail-oi1-x235.google.com with SMTP id
+ 5614622812f47-3c5ebfd8fe9so1106173b6e.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 03:55:29 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- es17-20020a056214193100b0069687cdaba3sm791886qvb.36.2024.04.11.03.54.49
+ fp17-20020a05622a509100b004343d021503sm746886qtb.67.2024.04.11.03.55.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Apr 2024 03:54:50 -0700 (PDT)
+ Thu, 11 Apr 2024 03:55:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec3b20b0-f7f1-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 01fa7c6d-f7f2-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712832891; x=1713437691; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1712832928; x=1713437728; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bdA/4Yz4v4m5E1lygQi2sSZ+6dHwGuaFCTBQQ99QMe4=;
-        b=jATg3MiW6kFPEUo9JaD6rhDl8FXLbvR8cd4uu+9eCCie6LINDu7gwuWZF5GeZ6Cy1F
-         I2YxnrHwOCc0CUlQp3yZd+uC8Rpp1LseEXpN5kWPatcGBaBtNl/ekeQzu4H/eivF9fzu
-         CTQsFy/dHBRx2Wt7DzLVwEY53qGO45jumpL2M=
+        bh=SIzIWqt8ld32svQccEwDg49abMLYJiXplyTqx04EgUM=;
+        b=c6iof1u33JW3tG1oKtr3BRhe4jHCGt+h0Dg+tCkVoJP0nl1qaLSWgyJJuQ+aWGdMt4
+         qbPpG/DqQwae4tDY+dElm/XNPTSAYZH4HQJ7tC8qcf85KpZbSR4xi8i0YyQKTO1hPB8L
+         +bEyDsX4rTTP9BeGRvEW82f1i2UTi0cOwLlCE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712832891; x=1713437691;
+        d=1e100.net; s=20230601; t=1712832928; x=1713437728;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bdA/4Yz4v4m5E1lygQi2sSZ+6dHwGuaFCTBQQ99QMe4=;
-        b=itQIQrOMQuiJ/AnoIo/OvVWSEKKGzpYb4cPmVfaKH8FvskWUhjMrkYyAL49TymW5KD
-         oxqwbH94QUJH4PcDewhZblwxG+opYbt1iAmRbijtQnUvpEAIoHvMPfyg08TNmkmvd8WR
-         KEzuHvsYE+s+DN+z18xj+Dv4twgU3th1G3qsAV9oYlwDfleOx4ZP/nw2CIBqDIAJLoQ+
-         5YJlNa4pegeQ6bSFRvPzzfF9Ec4igm7z5OOhn9NT0sR4LIJhHoFwk7659Crxyax4WWV2
-         5FZBWr369S+iqkgnP5WxGteCSxDhi/zupKhlEIt8q/jENItT7ixkfyJD+9JVD4erCi42
-         qryA==
-X-Forwarded-Encrypted: i=1; AJvYcCXrFVCkDEjl4KiBREnHNrPvaEB3DGbZkK11DCFImc512xz8R37SbRLNpz6PMIP2GwOeEtJn/tfAx+eCHWv3lBvTOse0LebcVITKr34BCsk=
-X-Gm-Message-State: AOJu0YziMEIfmbrWYfpCvy/QBhkYXv7xt839MDr4MYRNXhR7ftriezj+
-	pAVpWS4VFyGvKfleveYgoa5USE9wzk7pWrEOI9KQgqkwyqUFdQBD3PxVTKthevQ=
-X-Google-Smtp-Source: AGHT+IHyg9Xt5NQqiD17U3+63veUaDUAhrk5L1Xp/aQa1pjWSPEP12ZZ62hUpXvvKLbgCWIQxOuKMQ==
-X-Received: by 2002:ad4:5ce9:0:b0:69b:1dd6:f31c with SMTP id iv9-20020ad45ce9000000b0069b1dd6f31cmr4327816qvb.56.1712832891300;
-        Thu, 11 Apr 2024 03:54:51 -0700 (PDT)
-Message-ID: <a67efb31-f0a5-48e0-89c3-b822fb60312a@citrix.com>
-Date: Thu, 11 Apr 2024 11:54:47 +0100
+        bh=SIzIWqt8ld32svQccEwDg49abMLYJiXplyTqx04EgUM=;
+        b=Nz/Eg13U35tYR6Qu+/q5+KtDFQ603XEto2ATlBlyqCJdiYxs1Lrch7fHdwar1j1wRv
+         UdlZ4H7xk3HzrFWJgINh5fdIyTXlIsG0mwQglNJT+3sdH6zyywUgsUvfTV7Wlf0IBdeh
+         rTFhWZR/S1gmoV3p3AEKYXL1VURZZq2OJ53vwGNi+J602Q68ffsA74ywHb9sLfLwIpc6
+         7kLYXdaU4jpo9a7GXvj3wVtlWVKXg+tVi76pTQR8hlBWqLZWbAvstPCK9/juKMrZu4Hs
+         JqirXTP5k5++Ysl3HPcYO6ISogglZCA/x4rqv7RaPfizxZIEMDTVPjCCowtAgpsTfS1A
+         40SQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUApX5p3p99r1P9ovkEmMA/ovVI7fNE6ISKXiLyLas30mgq5ipqphEuhem0L7PP2RSEzOELUolDaPZzdJA2AAT21OFGGNgdevXJAsEfG2o=
+X-Gm-Message-State: AOJu0Yx4o45cAu/73WkKg3OkpWHeKf/W8yWJajR6scqA7SJGMJjEuTjx
+	Zif3TKLCWDhAKEKe7EXSY4RMBkDIeGqyIZndklwSdnRZF5ntqwYLhs/fh+p/3WE=
+X-Google-Smtp-Source: AGHT+IGPAzlFFKCzZ3t49j/hv9AG0JTo1iHVuQpdOlSNXB7zgSztmSnygZsxOz6CNDNg1mWI3aIORw==
+X-Received: by 2002:a05:6808:178f:b0:3c6:b55:b28b with SMTP id bg15-20020a056808178f00b003c60b55b28bmr4981940oib.48.1712832927661;
+        Thu, 11 Apr 2024 03:55:27 -0700 (PDT)
+Message-ID: <47eede33-b4cd-4896-a453-25043236b9a9@citrix.com>
+Date: Thu, 11 Apr 2024 11:55:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] xen/virtual-region: Rework how bugframe linkage
- works
+Subject: Re: [PATCH v2 3/4] xen/virtual-region: Link the list build time
 To: Michal Orzel <michal.orzel@amd.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Shawn Anastasio <sanastasio@raptorengineering.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>
 References: <20240410184217.1482366-1-andrew.cooper3@citrix.com>
- <20240410184217.1482366-3-andrew.cooper3@citrix.com>
- <ddc89f97-d71b-4175-a222-64c4c42bd8a1@amd.com>
+ <20240410184217.1482366-4-andrew.cooper3@citrix.com>
+ <beb9bda6-43cd-458f-a952-66c6071104bb@amd.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -139,43 +138,31 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <ddc89f97-d71b-4175-a222-64c4c42bd8a1@amd.com>
+In-Reply-To: <beb9bda6-43cd-458f-a952-66c6071104bb@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/04/2024 7:20 am, Michal Orzel wrote:
+On 11/04/2024 7:34 am, Michal Orzel wrote:
 > Hi Andrew,
 >
 > On 10/04/2024 20:42, Andrew Cooper wrote:
+>> diff --git a/xen/common/virtual_region.c b/xen/common/virtual_region.c
+>> index 7d8bdeb61282..db3e0dc9fe74 100644
+>> --- a/xen/common/virtual_region.c
+>> +++ b/xen/common/virtual_region.c
+>> @@ -15,8 +15,18 @@ extern const struct bug_frame
+>>      __start_bug_frames_2[], __stop_bug_frames_2[],
+>>      __start_bug_frames_3[], __stop_bug_frames_3[];
 >>
->> The start/stop1/etc linkage scheme predates struct virtual_region, and as
->> setup_virtual_regions() shows, it's awkward to express in the new scheme.
->>
->> Change the linker to provide explicit start/stop symbols for each bugframe
->> type, and change virtual_region to have a stop pointer rather than a count.
->>
->> This marginly simplifies both do_bug_frame()s and prepare_payload(), but it
-> NIT: s/marginly/marginally
+>> +/*
+>> + * For the built-in regions, the double linked list can be constructed at
+>> + * build time.  Forward-declare the elements and their initialisers.
+>> + */
+>> +static struct list_head virtual_region_list;
+>> +static struct virtual_region core, core_init;
+> ... empty line here for better readability
 
-Fixed.
-
->
->> massively simplifies setup_virtual_regions() by allowing the compiler to
->> initialise the .frame[] array at build time.
->>
->> virtual_region.c is the only user of the linker symbols, and this is unlikely
->> to change given the purpose of struct virtual_region, so move their externs
->> out of bug.h
->>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> For Arm:
-> Acked-by: Michal Orzel <michal.orzel@amd.com>
-
-Thanks.
+Will do.  Thanks.
 
 ~Andrew
 
