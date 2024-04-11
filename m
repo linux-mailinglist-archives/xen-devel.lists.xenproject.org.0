@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABB648A0773
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 07:08:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703748.1099596 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7D4C8A07D7
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 07:43:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703753.1099606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rumep-0002Sw-UI; Thu, 11 Apr 2024 05:07:31 +0000
+	id 1runDP-0007T0-8Z; Thu, 11 Apr 2024 05:43:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703748.1099596; Thu, 11 Apr 2024 05:07:31 +0000
+Received: by outflank-mailman (output) from mailman id 703753.1099606; Thu, 11 Apr 2024 05:43:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rumep-0002Qp-RY; Thu, 11 Apr 2024 05:07:31 +0000
-Received: by outflank-mailman (input) for mailman id 703748;
- Thu, 11 Apr 2024 05:07:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1runDP-0007Pv-5U; Thu, 11 Apr 2024 05:43:15 +0000
+Received: by outflank-mailman (input) for mailman id 703753;
+ Thu, 11 Apr 2024 05:43:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=llhl=LQ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rumen-0002Qj-T1
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 05:07:29 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 63ad7860-f7c1-11ee-94a3-07e782e9044d;
- Thu, 11 Apr 2024 07:07:27 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 6E3944EE0739;
- Thu, 11 Apr 2024 07:07:26 +0200 (CEST)
+ <SRS0=NlLc=LQ=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1runDO-0007PZ-ED
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 05:43:14 +0000
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [2607:f8b0:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 627dbac9-f7c6-11ee-b908-491648fe20b8;
+ Thu, 11 Apr 2024 07:43:13 +0200 (CEST)
+Received: by mail-ot1-x330.google.com with SMTP id
+ 46e09a7af769-6ea1f98f3b9so1578240a34.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 22:43:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,71 +40,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63ad7860-f7c1-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 627dbac9-f7c6-11ee-b908-491648fe20b8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1712814192; x=1713418992; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kwBVRIiwmur7FTDSRS6Sp3Q2WWprLKaR8CwhKo/e+F8=;
+        b=NntqTDBzThn95WfXm7Y5FD5iDNG8llXtU56DpT5ISWDEe/XIbswTZgdOmbPSlFn5EF
+         HvjvhF+A3pF92YadLRW+gf8DQPzGgQu25FlaUdai1yOVXjpYyJVrAp8f8nDvSRvLzhkl
+         tNSIQRlZgjvwOZfGaULxGAXjgYQpQ2BAqJqGqZn/S66ogHM5fvwZjRYRZ5RfrE2+DA/t
+         tl2QKZV/pOqzSJVlqdxsO8Tbpkq3SmOnxQo4Uy+VLLGNQ1GlssIJWuml/MEcHun17q0s
+         ii/bnLkHNLuYfEbSLnPylAoaq79w9wlRjThHRKQC1ecXssheH+FAt4/YIDE7rsyy8Ry4
+         r9YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712814192; x=1713418992;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=kwBVRIiwmur7FTDSRS6Sp3Q2WWprLKaR8CwhKo/e+F8=;
+        b=S9/srsL64idb8zi6qHPE6gRN7uZglAeblivVZ55LgizJKlmXZ1VCOan2dQlR+rixQR
+         ltwfwUpGp6OaoDLA5K1q7UXayxqoWc0ONbZKamXxxwnCYxoQDrw1LzxP3d7p+GjCVPAx
+         mNn3sgLBxYUHYAFcwEdXKqWHMVQhkYDZcjr+AmDjcZGjU1u/8znIJqOk+ji8WLaQACOq
+         rut4wOqg48+iuwftKccpjOhVgkSHTzyLf3RAsAWuquN8HHCcQNqNfM58D/L2mz1uoM5Z
+         +GQ6Pzus4EzR4/o0kQ3uH+orkvTBWCle98VbxRbk6sDPFBlyvVN783Xjzdu+KrrbWbvm
+         zrDA==
+X-Gm-Message-State: AOJu0YxMkLd8wg7nKK/cn6T/lae07/io8EcasPrT+Ae39Q3u20Wqze9d
+	S+CCo253X1gzQaLStxl9sBLqtYnw8TCqWYYXperxxqypk2pJYIk3JogmCD40eylu1mIc1V37UXb
+	LRcQ4aDTj82fZ1KH+nsJtP4AQ5XKtQ3iJuSJgMA==
+X-Google-Smtp-Source: AGHT+IFvqvsLTPk+CVqa0mtfZeSMIhLULKILagQlAO6Oy0qt6pkkfAcKzvq95aJFh5jPiA67/ezYcc+Qw96+7eMImlc=
+X-Received: by 2002:a05:6871:b24:b0:22a:6d7f:6171 with SMTP id
+ fq36-20020a0568710b2400b0022a6d7f6171mr5316711oab.36.1712814191666; Wed, 10
+ Apr 2024 22:43:11 -0700 (PDT)
 MIME-Version: 1.0
-Date: Thu, 11 Apr 2024 07:07:26 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, George Dunlap
- <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Juergen
- Gross <jgross@suse.com>, "consulting @ bugseng . com"
- <consulting@bugseng.com>, Roberto Bagnara <roberto.bagnara@bugseng.com>,
- Federico Serafini <federico.serafini@bugseng.com>
-Subject: Re: [PATCH] xen/spinlock: Adjust LOCK_DEBUG_INITVAL to placate MISRA
-In-Reply-To: <20240410193531.1499128-1-andrew.cooper3@citrix.com>
-References: <20240410193531.1499128-1-andrew.cooper3@citrix.com>
-Message-ID: <a8d51ec13809acfde7c463c53290b74d@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20240409153630.2026584-1-jens.wiklander@linaro.org>
+ <20240409153630.2026584-6-jens.wiklander@linaro.org> <CAHUa44EeCeX6nbY+FG_WUK6n-GMBFFYS9khpHF59fH8BSiW01Q@mail.gmail.com>
+ <BC039B3A-5796-4D5F-9E18-4A54DAE368F5@arm.com>
+In-Reply-To: <BC039B3A-5796-4D5F-9E18-4A54DAE368F5@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Thu, 11 Apr 2024 07:43:00 +0200
+Message-ID: <CAHUa44HB1qB4cp0g=szq-EePzOijfDd3ynPMx4hnrw3FTt3zCw@mail.gmail.com>
+Subject: Re: [XEN PATCH v1 5/5] xen/arm: ffa: support notification
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	"patches@linaro.org" <patches@linaro.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2024-04-10 21:35, Andrew Cooper wrote:
-> Resolves an R7.2 violation.
-> 
+Hi Bertrand,
 
-Thanks, I was going to suggest the same change. This will resolve the 
-failure of the CI MISRA analysis on GitLab.
+On Wed, Apr 10, 2024 at 6:30=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 10 Apr 2024, at 17:45, Jens Wiklander <jens.wiklander@linaro.org> wr=
+ote:
+> >
+> > On Tue, Apr 9, 2024 at 5:36=E2=80=AFPM Jens Wiklander <jens.wiklander@l=
+inaro.org> wrote:
+> >>
+> >> Add support for FF-A notifications, currently limited to an SP (Secure
+> >> Partition) sending an asynchronous notification to a guest.
+> >>
+> >> Guests and Xen itself are made aware of pending notifications with an
+> >> interrupt. The interrupt handler retrieves the notifications using the
+> >> FF-A ABI and deliver them to their destinations.
+> >>
+> >> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> >> ---
+[snip]
+> >> +    case FFA_FEATURE_NOTIF_PEND_INTR:
+> >> +        if ( ctx->notif.enabled )
+> >> +            ffa_set_regs_success(regs, FFA_NOTIF_PEND_INTR_ID, 0);
+> >> +        else
+> >> +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+> >> +        break;
+> >> +    case FFA_FEATURE_SCHEDULE_RECV_INTR:
+> >> +        if ( ctx->notif.enabled )
+> >> +            ffa_set_regs_success(regs, FFA_NOTIF_PEND_INTR_ID, 0);
+> >> +        else
+> >> +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+> >> +        break;
+> >
+> > With the recently posted kernel patch
+> > https://lore.kernel.org/all/20240410-ffa_npi_support-v1-3-1a5223391bd1@=
+arm.com/
+> > we need to decide which feature interrupt to return since the kernel
+> > will only install a handle for the first it finds. Right now I propose
+> > to to not report FFA_FEATURE_SCHEDULE_RECV_INTR. When the time comes
+> > to use a secondary scheduler we'll need to report the SRI instead.
+>
+>
+> We just had a meeting with Sudeep to discuss that matter and he agreed th=
+at
+> he would register the interrupt handler for all the interrupts available =
+so that
+> we can keep a model where we will generate SRIs only to a secondary sched=
+uler
+> and NPI for notification interrupts (so that the VM does not do a INFO_GE=
+T when
+> not required).
+>
+> We will have to report both as any VM could act as secondary scheduler fo=
+r SPs
+> in theory (we might need at some point a parameter for that) but for now =
+those
+> should only be generated to Dom0 if there are pending notifications for S=
+Ps.
 
-Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+OK, thanks. I'll keep both then.
 
-> Fixes: c286bb93d20c ("xen/spinlock: support higher number of cpus")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: George Dunlap <George.Dunlap@citrix.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Juergen Gross <jgross@suse.com>
-> CC: consulting@bugseng.com <consulting@bugseng.com>
-> CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
-> CC: Federico Serafini <federico.serafini@bugseng.com>
-> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
->  xen/include/xen/spinlock.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
-> index db00a24646bd..18793c5e29cb 100644
-> --- a/xen/include/xen/spinlock.h
-> +++ b/xen/include/xen/spinlock.h
-> @@ -13,7 +13,7 @@
->  #ifdef CONFIG_DEBUG_LOCKS
->  union lock_debug {
->      uint32_t val;
-> -#define LOCK_DEBUG_INITVAL 0xffffffff
-> +#define LOCK_DEBUG_INITVAL 0xffffffffU
->      struct {
->          unsigned int cpu:SPINLOCK_CPU_BITS;
->  #define LOCK_DEBUG_PAD_BITS (30 - SPINLOCK_CPU_BITS)
-> 
-> base-commit: 0e7ea8ca5fc9bce9248414f6aaf2dc861abd45d9
-> prerequisite-patch-id: 8d06e56c5d8a52f1387e1f5a7fce6a94b8c4a1ed
-> prerequisite-patch-id: 13355d26254b979c79de456c9a6ea6a9c639ba63
-
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Cheers,
+Jens
 
