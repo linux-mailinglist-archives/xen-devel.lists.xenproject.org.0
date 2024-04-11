@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E3268A1E54
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 20:32:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704146.1100334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B9018A1EB9
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 20:42:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704152.1100344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruzDk-0001R4-0C; Thu, 11 Apr 2024 18:32:24 +0000
+	id 1ruzNV-0004Go-TI; Thu, 11 Apr 2024 18:42:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704146.1100334; Thu, 11 Apr 2024 18:32:23 +0000
+Received: by outflank-mailman (output) from mailman id 704152.1100344; Thu, 11 Apr 2024 18:42:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruzDj-0001OV-TT; Thu, 11 Apr 2024 18:32:23 +0000
-Received: by outflank-mailman (input) for mailman id 704146;
- Thu, 11 Apr 2024 18:32:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ruzNV-0004Ep-Pc; Thu, 11 Apr 2024 18:42:29 +0000
+Received: by outflank-mailman (input) for mailman id 704152;
+ Thu, 11 Apr 2024 18:42:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eZ5N=LQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ruzDi-0001O6-25
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 18:32:22 +0000
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [2607:f8b0:4864:20::231])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d42a66b2-f831-11ee-94a3-07e782e9044d;
- Thu, 11 Apr 2024 20:32:20 +0200 (CEST)
-Received: by mail-oi1-x231.google.com with SMTP id
- 5614622812f47-3c60e308067so20476b6e.3
- for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 11:32:19 -0700 (PDT)
+ id 1ruzNU-0004Ej-IQ
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 18:42:28 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3e829e4b-f833-11ee-b908-491648fe20b8;
+ Thu, 11 Apr 2024 20:42:27 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-516d727074eso217513e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 11:42:27 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- o19-20020ac84293000000b00430ea220b32sm1210660qtl.71.2024.04.11.11.32.16
+ a8-20020a05600c348800b00417bc4820acsm3198806wmq.0.2024.04.11.11.42.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Apr 2024 11:32:17 -0700 (PDT)
+ Thu, 11 Apr 2024 11:42:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d42a66b2-f831-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 3e829e4b-f833-11ee-b908-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712860338; x=1713465138; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xOUyJBpvtd3S+XB9J0vZVLH/aIBOJc7oYN0Qi3Iji78=;
-        b=FCZbOjO7YqrjrPbmdx8yyznP+XpDBvAuKSYTOKOW47waPAA20CScErYD/90BW9dcKe
-         owrNowLRn5Q1o7SMBUCZAO61+Q1/YMT8MFiIruNXxTxK8AaNOvJX9CXyRpzuPw/FG4Jb
-         1mmj0MZG3gX8BGj6iNFVpE8Cs39u5Yj5Fx1Yk=
+        d=citrix.com; s=google; t=1712860946; x=1713465746; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=WwIN2CQdQkp0fXwawdET2VP2E5y1MwZbc1XGcTTlqlg=;
+        b=dirik6cBqg7UimcyomcJKz2V21mN386fL1yFJ5iKYB7jckttO9ZxzplJbT2NdSd696
+         6H1sOyZScFyrG9zUUDteiyCAkEKf8BdsZ2TfDRC30pSrk2bPY3KQEDVs7dNaphENKdeG
+         akYKNCLfHNP8R3BrlSK4uHgNZAjq4Xw37ZriA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712860338; x=1713465138;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xOUyJBpvtd3S+XB9J0vZVLH/aIBOJc7oYN0Qi3Iji78=;
-        b=oVLe+SMKnNiu6OT7238Pdkjd3cAwn5wQxycweaElynihGZibYrAEzYF3ps0/FRXbmO
-         L7/fnBNSwm6BR6q8Ec8VE+cG4yn3UcE4lnzaR4dn08IW168kM2JjobR2jFwCYja3eD4b
-         KzWyrgdeS0L3sfSqAxyrd9PODqGZW2NKiwy/QFWpYUaSyekheP9dU/kdu+2LgBRz77n0
-         Cai/TdlDZijHge68s/6BHmpF5tHS6vbLoxHjVa4OXaaHBS+b1Dtv4FfXDx6eCE7gKQoX
-         LQhuBOJ1pHYDVn7Vycns5ZRk/ek18bhM6nCK3m21uhlfe9kJJORlnF+PfRYGNZ9r051F
-         4juA==
-X-Forwarded-Encrypted: i=1; AJvYcCUinaBMmPJ5VrWExxLjZKDA4nxjU/i1UxR3WpNNZceyTu3FcyfQx5uQZbh9hERaaneUakBZC8SrEq26gZTfeL9KvhOaCsOhBRcaT39fgro=
-X-Gm-Message-State: AOJu0Yzlgk8KohKCHQJIP/ndTRelMWVtiFnGqUIb9uGYTAEQlwSx11AD
-	qdr3xjAAyriBlTVjMbb7eYcWmPsHcmIc2Rnv38RpR5eKVFI7lz1erW0jb/Qrh10=
-X-Google-Smtp-Source: AGHT+IFMiRGWJhDMEHPE+BGY8FJFGuUPUiVJEtqw0GVRifAabQPwCsRhAc0UMtuiqwKfU3X6ZClO0g==
-X-Received: by 2002:a05:6808:2382:b0:3c5:fb64:1573 with SMTP id bp2-20020a056808238200b003c5fb641573mr581672oib.27.1712860338564;
-        Thu, 11 Apr 2024 11:32:18 -0700 (PDT)
-Message-ID: <a9638611-8348-462a-a25d-a9efe3fabf9a@citrix.com>
-Date: Thu, 11 Apr 2024 19:32:15 +0100
+        d=1e100.net; s=20230601; t=1712860946; x=1713465746;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WwIN2CQdQkp0fXwawdET2VP2E5y1MwZbc1XGcTTlqlg=;
+        b=IPn7wFi1v9UEab8zjWk74EP6Y2lE9Fu9vAPBJIkffqUscRiVddwGfTm3QZZ6lXI2pl
+         8cO9Efxza5YU906bkR+i8DZKSVEXDXCBnR3yOxnbd50q4xuwW8EDHFhb/PB62veiNcdc
+         S4PXNOIHNBNIOnS/skYuD9405ZPKKeegRB2vYI6hN6s1oew06doyeW6JHHVH0T2kVQ1X
+         8pmtPjFjXQglc5U4cgiHYznCiGThA8mpwnbBA6u3x1MGSJNRNhy1Ew2ZICczP2NixUA5
+         /KJlZAuk8xzil90w/d824elaTK6l0WTubH7D1/kxHeMwEt7hnqb9/RaNg0MvbAb/LBEm
+         vetg==
+X-Forwarded-Encrypted: i=1; AJvYcCVQAmPy0aZUs+JAXEdhyFGcn4yjDf98iPmZGKRywGGZe/boOcHrMIw3/0ahrUceKabuZYV45TJCBqhoPf/Doqlnidm2F5Jyp8SXG0OGbek=
+X-Gm-Message-State: AOJu0YwNLXdr5WW1aKC6m7CRt/zWEt9aZkRRvsncOStwiBkVcHaWaFwU
+	4tkSSkiY0PvnFPAqcxIzXgTT6bzLKUbncqjl/zSKKvaWGIyxP3KfCIRmAK0+osY=
+X-Google-Smtp-Source: AGHT+IGpb1qrkpo0o+xj09e/VqrHcWWrbzmWq3G0vPrqn2sF1ZCXQI9qE2LIpEU84yV6fNwcNiBd3g==
+X-Received: by 2002:a05:6512:4c7:b0:516:d219:377c with SMTP id w7-20020a05651204c700b00516d219377cmr400759lfq.69.1712860946532;
+        Thu, 11 Apr 2024 11:42:26 -0700 (PDT)
+Message-ID: <db0f49d5-ea9e-4c62-b7ac-c856656b1e29@citrix.com>
+Date: Thu, 11 Apr 2024 19:42:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v1 1/2] Implemented AMD SEV discovery and enabling.
+Subject: Re: [PATCH v1 2/2] Implemented Amd Secure Processor device driver
 To: Andrei Semenov <andrei.semenov@vates.fr>, xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+ <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.1712759753.git.andrei.semenov@vates.fr>
- <27fce67472c97b2b2b7cc0412bf0edcaa67cc63f.1712759753.git.andrei.semenov@vates.fr>
+ <8c9627ef69e8d809efcb93b50fc34474f2b0ba7f.1712759753.git.andrei.semenov@vates.fr>
 Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -129,143 +130,60 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <27fce67472c97b2b2b7cc0412bf0edcaa67cc63f.1712759753.git.andrei.semenov@vates.fr>
+In-Reply-To: <8c9627ef69e8d809efcb93b50fc34474f2b0ba7f.1712759753.git.andrei.semenov@vates.fr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 10/04/2024 4:36 pm, Andrei Semenov wrote:
-> diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-> index ab92333673..a5903613f0 100644
-> --- a/xen/arch/x86/cpu/amd.c
-> +++ b/xen/arch/x86/cpu/amd.c
-> @@ -1030,6 +1031,54 @@ static void amd_check_erratum_1485(void)
->  	wrmsrl(MSR_AMD64_BP_CFG, val | chickenbit);
->  }
+> Signed-off-by: Andrei Semenov <andrei.semenov@vates.fr>
+> ---
+>  xen/arch/x86/include/asm/psp-sev.h | 655 +++++++++++++++++++++++
+>  xen/drivers/Kconfig                |   2 +
+>  xen/drivers/Makefile               |   1 +
+>  xen/drivers/crypto/Kconfig         |  10 +
+>  xen/drivers/crypto/Makefile        |   1 +
+>  xen/drivers/crypto/asp.c           | 808 +++++++++++++++++++++++++++++
+>  xen/include/xen/types.h            |   2 +-
+>  7 files changed, 1478 insertions(+), 1 deletion(-)
+>  create mode 100644 xen/arch/x86/include/asm/psp-sev.h
+>  create mode 100644 xen/drivers/crypto/Kconfig
+>  create mode 100644 xen/drivers/crypto/Makefile
+>  create mode 100644 xen/drivers/crypto/asp.c
+
+I'm not going to dive into all of this, but give some high level
+feedback to start with.
+
+CCP is driver/crypto in Linux for historical reasons, but is it really
+right here?  We can pick whatever we think is suitable.
+
+psp-sev.h looks like it's only the MMIO protocol to the ASP, and that it
+shouldn't need including anywhere else?  If so, we're trying to move
+those header files to be local to the asp.c dir.
+
+
+Can you discuss this comment:
+>     CET shadow stack: adapt #CP handler???
+
+some more.  What's going on?
+
+
+> diff --git a/xen/include/xen/types.h b/xen/include/xen/types.h
+> index 449947b353..f7599845fd 100644
+> --- a/xen/include/xen/types.h
+> +++ b/xen/include/xen/types.h
+> @@ -6,7 +6,7 @@
 >  
-> +#ifdef CONFIG_HVM
-> +static void amd_enable_mem_encrypt(const struct cpuinfo_x86 *c)
-> +{
-> +	unsigned int  eax, ebx, ecx, edx;
-> +	uint64_t syscfg;
-> +
-> +	if (!smp_processor_id()) {
+>  /* Linux inherited types which are being phased out */
+>  typedef int8_t s8;
+> -typedef uint8_t u8;
+> +typedef uint8_t u8, __u8;
+>  typedef int16_t s16;
+>  typedef uint16_t u16, __u16;
+>  typedef int32_t s32;
 
-c == &boot_cpu_info.
+The comment is here for a reason, so reviewers don't accept hunks like this.
 
-> +
-> +		cpuid_count(0x80000000,0,&eax, &ebx, &ecx, &edx);
-> +
-> +		if (eax <  0x8000001f)
-> +			return;
-
-Max leaf is already collected.  c->extended_cpuid_level
-
-
-> +
-> +		cpuid_count(0x8000001f,0,&eax, &ebx, &ecx, &edx);
-> +
-> +		if (eax & 0x1)
-> +			setup_force_cpu_cap(X86_FEATURE_SME);
-> +
-> +		if (eax & 0x2) {
-> +			setup_force_cpu_cap(X86_FEATURE_SEV);
-> +			max_sev_asid = ecx;
-> +			min_sev_asid = edx;
-> +		}
-> +
-> +		if (eax & 0x3)
-> +			pte_c_bit_mask = 1UL << (ebx & 0x3f);
-
-This is decoding the main SEV feature leaf, but outside of normal
-mechanisms.
-
-I've got half a mind to brute-force through the remaining work to
-un-screw our boot sequence order, and express this in a cpu-policy
-straight away.  This is wanted for the SVM leaf info too.
-
-Leave it with me for a bit.
-
-
-> +	}
-> +
-> +	if (!(cpu_has_sme || cpu_has_sev))
-> +		return;
-> +
-> +	if (!smp_processor_id()) {
-> +		if (cpu_has_sev)
-> +			printk(XENLOG_INFO "SEV: ASID range [0x%x - 0x%x]\n",
-> +			min_sev_asid, max_sev_asid);
-
-Why do we have a min as well as a max?  Isn't min always 1?
-
-> +	}
-> +
-> +	rdmsrl(MSR_K8_SYSCFG, syscfg);
-> +
-> +	if (syscfg & SYSCFG_MEM_ENCRYPT) {
-> +		return;
-> +	}
-> +
-> +	syscfg |= SYSCFG_MEM_ENCRYPT;
-> +	wrmsrl(MSR_K8_SYSCFG, syscfg);
-> +}
-> +#endif
-> +
->  static void cf_check init_amd(struct cpuinfo_x86 *c)
->  {
->  	u32 l, h;
-> @@ -1305,6 +1354,10 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
->  	check_syscfg_dram_mod_en();
->  
->  	amd_log_freq(c);
-> +
-> +#ifdef CONFIG_HVM
-> +	amd_enable_mem_encrypt(c);
-> +#endif
-
-I think we want to drop the CONFIG_HVM here.
-
-Memory encryption is an all-or-nothing thing.  If it's active, it
-affects all pagetables that Xen controls, even dom0's.  And we likely do
-want get to the point of Xen running on encrypted mappings even if dom0
-can't operate it very nicely.
-
-Thoughts?
-
->  }
->  
->  const struct cpu_dev __initconst_cf_clobber amd_cpu_dev = {
-> diff --git a/xen/arch/x86/hvm/svm/Makefile b/xen/arch/x86/hvm/svm/Makefile
-> index 760d2954da..9773d539ef 100644
-> --- a/xen/arch/x86/hvm/svm/Makefile
-> +++ b/xen/arch/x86/hvm/svm/Makefile
-> @@ -6,3 +6,4 @@ obj-y += nestedsvm.o
->  obj-y += svm.o
->  obj-y += svmdebug.o
->  obj-y += vmcb.o
-> +obj-y += sev.o
-
-Please keep this sorted by object file name.
-
-> diff --git a/xen/arch/x86/hvm/svm/sev.c b/xen/arch/x86/hvm/svm/sev.c
-> new file mode 100644
-> index 0000000000..336fad25f5
-> --- /dev/null
-> +++ b/xen/arch/x86/hvm/svm/sev.c
-> @@ -0,0 +1,4 @@
-> +#include <asm/sev.h>
-> +uint64_t __read_mostly pte_c_bit_mask;
-> +unsigned int __read_mostly min_sev_asid;
-> +unsigned int __read_mostly max_sev_asid;
-
-Several things.  All new files should come with an SPDX tag.  Unless you
-have other constraints, GPL-2.0-only is preferred.  There also wants to
-be at least a oneline summary of what's going on here.
-
-All these variables look like they should be __ro_after_init.  However,
-it's rather hard to judge, given no users yet.
-
-pte_c_bit_mask may want to be an intpte_t rather than uint64_t.
+psp-sev.h should be written using normal C99 integer types please.
 
 ~Andrew
 
