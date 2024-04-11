@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92C7F8A1DE3
+	by mail.lfdr.de (Postfix) with ESMTPS id D139C8A1DE5
 	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 20:20:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704119.1100283 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.704121.1100304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruz2J-0004lc-Nc; Thu, 11 Apr 2024 18:20:35 +0000
+	id 1ruz2O-0005Eh-89; Thu, 11 Apr 2024 18:20:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704119.1100283; Thu, 11 Apr 2024 18:20:35 +0000
+Received: by outflank-mailman (output) from mailman id 704121.1100304; Thu, 11 Apr 2024 18:20:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruz2J-0004iU-L6; Thu, 11 Apr 2024 18:20:35 +0000
-Received: by outflank-mailman (input) for mailman id 704119;
- Thu, 11 Apr 2024 18:20:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ruz2O-0005D5-1s; Thu, 11 Apr 2024 18:20:40 +0000
+Received: by outflank-mailman (input) for mailman id 704121;
+ Thu, 11 Apr 2024 18:20:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SAdS=LQ=solinno.co.uk=leigh@srs-se1.protection.inumbo.net>)
- id 1ruz2H-0004iO-VU
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 18:20:33 +0000
-Received: from doppler.solinno.uk
- (8.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.9.a.d.0.6.f.d.1.0.b.8.0.1.0.0.2.ip6.arpa
- [2001:8b0:1df6:da9::18])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2e8a632c-f830-11ee-b908-491648fe20b8;
- Thu, 11 Apr 2024 20:20:32 +0200 (CEST)
+ id 1ruz2M-0004xS-6g
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 18:20:38 +0000
+Received: from doppler.solinno.uk (doppler.solinno.uk [81.2.106.178])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 30d7a3fa-f830-11ee-94a3-07e782e9044d;
+ Thu, 11 Apr 2024 20:20:35 +0200 (CEST)
 Received: from folly.solinno.co.uk (folly.dyn.solinno.co.uk [192.168.2.135])
- by doppler.solinno.uk (Postfix) with ESMTPSA id 7225580069;
- Thu, 11 Apr 2024 19:20:31 +0100 (BST)
+ by doppler.solinno.uk (Postfix) with ESMTPSA id 8985380069;
+ Thu, 11 Apr 2024 19:20:35 +0100 (BST)
 Received: by folly.solinno.co.uk (Postfix, from userid 1000)
- id 49FFE2017C; Thu, 11 Apr 2024 19:20:31 +0100 (BST)
+ id 628442017C; Thu, 11 Apr 2024 19:20:35 +0100 (BST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,64 +41,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e8a632c-f830-11ee-b908-491648fe20b8
+X-Inumbo-ID: 30d7a3fa-f830-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=solinno.co.uk;
-	s=mail; t=1712859631;
-	bh=572pjbUD7n4h0CJX74r8RUlCwEtYRTt6uBNki5qw238=;
-	h=From:To:Cc:Subject:Date:From;
-	b=meCnVkSTvFuwu14T6O2ny5wWCJnLuUFtTpoIg35EVkQ6f2FtA5qCcI+jVwrU32WZn
-	 iIBI1c2QIYktm8Rv1Nsb/wg7UYmouOEd2qSsuQXQlIf1urZ7vVIx2d5uK7zQLuLWK1
-	 d1vrv6HBTrz7rencHRsdC1ZMnBZu6+XSBbKo540A=
+	s=mail; t=1712859635;
+	bh=IQc0cKekmnq3tFF/KmZyaqRrn+6b97CWdWbbmSJl6c4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=coDTFJrr80EHmyAa5R1oP5glhlZM4LPiCCgBkNUO5llAcIiSgzlW25CIMCfJ4yZHa
+	 B2Gzp8aoq6J9LV8GI7d1ctoIeULHmDAfXqxOZ30OAba/+A//YJyfpMroNvVZpLm0mv
+	 t9Fc6nWOjejmKefaC78fjOGNwC2d7sRRqo0hoMw0=
 From: leigh@solinno.co.uk
 To: xen-devel@lists.xenproject.org
 Cc: andrew.cooper3@citrix.com,
 	anthony.perard@citrix.com,
 	slack@rabbit.lu,
 	Leigh Brown <leigh@solinno.co.uk>
-Subject: [PATCH v3 0/4] xenwatchdogd bugfixes and enhancements
-Date: Thu, 11 Apr 2024 19:20:19 +0100
-Message-Id: <20240411182023.56309-1-leigh@solinno.co.uk>
+Subject: [PATCH v3 1/4] tools/misc: xenwatchdogd: add parse_secs()
+Date: Thu, 11 Apr 2024 19:20:20 +0100
+Message-Id: <20240411182023.56309-2-leigh@solinno.co.uk>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240411182023.56309-1-leigh@solinno.co.uk>
+References: <20240411182023.56309-1-leigh@solinno.co.uk>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 From: Leigh Brown <leigh@solinno.co.uk>
 
-The primary intention of this patch series is to replace the
-pathologically bad behaviour of rebooting the domain if you run
-"xenwatchdogd -h". To that end, I have implemented comprehensive
-argument validation. This validation ensures you can't pass
-arguments that instantly reboot the domain or cause it to spin
-loop running sleep(0) repeatedly.
+Create a new parse_secs() function to parse the timeout and sleep
+parameters. This ensures that non-numeric parameters are not
+accidentally treated as numbers.
 
-I added a couple of enhancements whilst working on the changes as
-they were easy enough.  In particular, being able to run in the
-foreground, disarming the watchdog on exit, help and a manpage.
+Signed-off-by: Leigh Brown <leigh@solinno.co.uk>
+---
+ tools/misc/xenwatchdogd.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-
-Changes since v2:
-- Drop patches 1-3 from v2, as they have been applied.
-- Tweak check for NULL character.
-- Fix initial implementation of parse_secs() not to use optind.
-- Updated copyright notice.
-- Better patch message for enhancements patch.
-- Addressed feedback on manpage.
-
-Changes since v1:
-- Add Signed-off-by on every patch.
-- Make global variables static.
-
-Leigh Brown (4):
-  tools/misc: xenwatchdogd: add parse_secs()
-  tools/misc: xenwatchdogd enhancements
-  tools/misc: Add xenwatchdogd.c copyright notice
-  docs/man: Add xenwatchdog manual page
-
- docs/man/xenwatchdogd.8.pod |  55 ++++++++++++++++
- tools/misc/xenwatchdogd.c   | 121 +++++++++++++++++++++++++++++++-----
- 2 files changed, 161 insertions(+), 15 deletions(-)
- create mode 100644 docs/man/xenwatchdogd.8.pod
-
+diff --git a/tools/misc/xenwatchdogd.c b/tools/misc/xenwatchdogd.c
+index 112b706357..9fa772e49f 100644
+--- a/tools/misc/xenwatchdogd.c
++++ b/tools/misc/xenwatchdogd.c
+@@ -49,6 +49,18 @@ static void catch_usr1(int sig)
+     done = true;
+ }
+ 
++static int parse_secs(const char *arg, const char *what)
++{
++    char *endptr;
++    unsigned long val;
++
++    val = strtoul(arg, &endptr, 0);
++    if (val > INT_MAX || *endptr)
++	errx(EXIT_FAILURE, "invalid %s: '%s'", what, arg);
++
++    return val;
++}
++
+ int main(int argc, char **argv)
+ {
+     int id;
+@@ -64,16 +76,11 @@ int main(int argc, char **argv)
+     if (h == NULL)
+ 	err(EXIT_FAILURE, "xc_interface_open");
+ 
+-    t = strtoul(argv[1], NULL, 0);
+-    if (t == ULONG_MAX)
+-	err(EXIT_FAILURE, "strtoul");
++    t = parse_secs(argv[1], "timeout");
+ 
+     s = t / 2;
+-    if (argc == 3) {
+-	s = strtoul(argv[2], NULL, 0);
+-	if (s == ULONG_MAX)
+-	    err(EXIT_FAILURE, "strtoul");
+-    }
++    if (argc == 3)
++	s = parse_secs(argv[2], "sleep");
+ 
+     if (signal(SIGHUP, &catch_exit) == SIG_ERR)
+ 	err(EXIT_FAILURE, "signal");
 -- 
 2.39.2
 
