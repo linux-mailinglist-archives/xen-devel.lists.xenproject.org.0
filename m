@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 034188A1FF5
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 22:15:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704207.1100452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7E028A20EC
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 23:31:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704219.1100462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rv0ou-0005KC-Gi; Thu, 11 Apr 2024 20:14:52 +0000
+	id 1rv1zY-00031m-NG; Thu, 11 Apr 2024 21:29:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704207.1100452; Thu, 11 Apr 2024 20:14:52 +0000
+Received: by outflank-mailman (output) from mailman id 704219.1100462; Thu, 11 Apr 2024 21:29:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rv0ou-0005IQ-D7; Thu, 11 Apr 2024 20:14:52 +0000
-Received: by outflank-mailman (input) for mailman id 704207;
- Thu, 11 Apr 2024 20:14:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rv1zY-000307-J9; Thu, 11 Apr 2024 21:29:56 +0000
+Received: by outflank-mailman (input) for mailman id 704219;
+ Thu, 11 Apr 2024 21:29:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=llhl=LQ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rv0os-0005IK-Sk
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 20:14:50 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 247910b7-f840-11ee-94a3-07e782e9044d;
- Thu, 11 Apr 2024 22:14:47 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 882754EE0739;
- Thu, 11 Apr 2024 22:14:46 +0200 (CEST)
+ <SRS0=UKzY=LQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rv1zW-000301-MP
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 21:29:54 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a13239c4-f84a-11ee-b908-491648fe20b8;
+ Thu, 11 Apr 2024 23:29:52 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 619F6CE2357;
+ Thu, 11 Apr 2024 21:29:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F00FC072AA;
+ Thu, 11 Apr 2024 21:29:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,79 +41,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 247910b7-f840-11ee-94a3-07e782e9044d
-MIME-Version: 1.0
-Date: Thu, 11 Apr 2024 22:14:46 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+X-Inumbo-ID: a13239c4-f84a-11ee-b908-491648fe20b8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1712870989;
+	bh=zMYXoG2iWs0Wt6yI2K32YGYw8c6L89iCTp3MY8ML2fE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=mSvDhoTj/pyzUFU/iGliwTq4lqp1g5k39z2v6/NbKfy0swC08lLjI68XhWG1dvSS+
+	 RkzL/dOphMQt0KQFW2hgRfDxFpZzcrPAAqTZ2ETplNiTvKyYFlhLaqSMSnBt3qVrWW
+	 7soitKTgqTtbbRE5q39c6pl3cJ5iAQ2bKx2k3pQrj23T9UP2/alnpenq69u2dUGz6/
+	 gUrzVbD5LjM3pIK856D2RB7bW++EnUNslKFxfg/9k2mkVjAKHITSCDV+k9oU2LtlsM
+	 hxJ6dJk+hnNf4PaLdkxU8X/Hxd78IEKeott8wt20ozwGVecmwSlU5XSG2GauQ5c4MI
+	 58tDtrbBgqMoQ==
+Date: Thu, 11 Apr 2024 14:29:39 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, sstabellini@kernel.org,
- michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
- consulting@bugseng.com, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v2 1/9] x86/vlapic: tidy switch statement and address
- MISRA violation
-In-Reply-To: <dd6ad7c5-bf99-42d4-9082-9ff87185705c@citrix.com>
-References: <cover.1712305581.git.nicola.vetrini@bugseng.com>
- <81ecc35d04456771b1e48cb25155b0151e2225b8.1712305581.git.nicola.vetrini@bugseng.com>
- <36e84201-b31f-4204-8cff-ed50a01a47ed@suse.com>
- <e847ee06b76b816a62a555dfa6d52a4a@bugseng.com>
- <dd6ad7c5-bf99-42d4-9082-9ff87185705c@citrix.com>
-Message-ID: <3c216cddfe9151ab27aadc3ece6b12dc@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+    Jan Beulich <JBeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    George Dunlap <George.Dunlap@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] docs/hypercall-abi: State that the hypercall page is
+ optional
+In-Reply-To: <20240411150458.1726116-1-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2404111429330.997881@ubuntu-linux-20-04-desktop>
+References: <20240411150458.1726116-1-andrew.cooper3@citrix.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323329-636236586-1712870989=:997881"
 
-On 2024-04-11 14:03, Andrew Cooper wrote:
-> On 09/04/2024 8:45 pm, Nicola Vetrini wrote:
->> On 2024-04-08 09:32, Jan Beulich wrote:
->>> On 05.04.2024 11:14, Nicola Vetrini wrote:
->>>> Remove unneded blank lines between switch clauses.
->>> 
->>> "Unneeded" based on what? We're carefully trying to improve
->>> readability of
->>> large switch() statements by adding such blank lines (at least)
->>> between non-
->>> fall-through case blocks, and you go and remove them?
->>> 
->>> Jan
->> 
->> I wrote that based on this earlier suggestion [1]. If I misunderstood
->> the suggestion, then I apologize and feel free to strip them if you 
->> want.
->> 
->> [1]
->> https://lore.kernel.org/xen-devel/e40579ba-acae-4c11-bea1-a5b83208db10@suse.com/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-636236586-1712870989=:997881
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Thu, 10 Apr 2024, Andrew Cooper wrote:
+> Xen doesn't care (and indeed, cannot feasibly tell) whether a hypercall was
+> initiated from inside or outside a hypercall page.
 > 
-> I'm afraid I also can't figure out what that suggestion was supposed to
-> be, but we definitely do want to keep blank lines.  They're 
-> specifically
-> for improved legibility.
+> For SEV-SNP/TDX encrypted VMs, use of a hypercall page would violate the
+> integrity properties wanted.
 > 
-
-I interpreted that message as being a suggestion to eliminate blank 
-lines, which was obviously incorrect. Anyways, thanks for the effort on 
-adjusting and committing the earlier patches.
-
-> But fighting over spacing like this is a waste of everyone's time.  
-> I've
-> taken patches 1 thru 7, accounting for the suggestions made so far, and
-> adjusted to retain the blank lines.
+> Explicitly state that the hypercall page is optional.
 > 
-> Please double check carefully.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: George Dunlap <George.Dunlap@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Anthony PERARD <anthony.perard@citrix.com>
+> ---
+>  docs/guest-guide/x86/hypercall-abi.rst | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> Patch 8 didn't apply because SAF-4-safe has been used for something 
-> else
-> now.  You'll need to rebase and resubmit patches 8 and 9.
+> diff --git a/docs/guest-guide/x86/hypercall-abi.rst b/docs/guest-guide/x86/hypercall-abi.rst
+> index 83890e1cb613..8004122ca49d 100644
+> --- a/docs/guest-guide/x86/hypercall-abi.rst
+> +++ b/docs/guest-guide/x86/hypercall-abi.rst
+> @@ -79,7 +79,8 @@ Hypercall Page
+>  ==============
+>  
+>  The hypercall page is a page of guest RAM into which Xen will write suitable
+> -transfer stubs.
+> +transfer stubs.  It is intended as a convenience for guests, but use of the
+> +hypercall page is not mandatory for making hypercalls to Xen.
+>  
+>  Creating a hypercall page is an isolated operation from Xen's point of view.
+>  It is the guests responsibility to ensure that the hypercall page, once
 > 
-
-I'll certainly do so when I'm fully back to work next week.
-
-> ~Andrew
-
-
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+> base-commit: 6cb501e3e6db36b1b4b6345f5af8adc0a291b404
+> -- 
+> 2.30.2
+> 
+--8323329-636236586-1712870989=:997881--
 
