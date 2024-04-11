@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D0818A1896
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 17:26:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704002.1100094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BC7A8A1899
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 17:26:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704007.1100114 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruwJV-0002o8-WD; Thu, 11 Apr 2024 15:26:10 +0000
+	id 1ruwJl-0003ZB-Lb; Thu, 11 Apr 2024 15:26:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704002.1100094; Thu, 11 Apr 2024 15:26:09 +0000
+Received: by outflank-mailman (output) from mailman id 704007.1100114; Thu, 11 Apr 2024 15:26:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruwJV-0002lL-TL; Thu, 11 Apr 2024 15:26:09 +0000
-Received: by outflank-mailman (input) for mailman id 704002;
- Thu, 11 Apr 2024 15:26:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ruwJl-0003WX-Hy; Thu, 11 Apr 2024 15:26:25 +0000
+Received: by outflank-mailman (input) for mailman id 704007;
+ Thu, 11 Apr 2024 15:26:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jyOp=LQ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1ruwJU-0001Lt-Ho
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 15:26:08 +0000
+ id 1ruwJj-0000Mi-K5
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 15:26:23 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cf11a791-f817-11ee-94a3-07e782e9044d;
- Thu, 11 Apr 2024 17:26:05 +0200 (CEST)
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d946f07e-f817-11ee-b908-491648fe20b8;
+ Thu, 11 Apr 2024 17:26:22 +0200 (CEST)
 Delivered-To: dpsmith@apertussolutions.com
-Received: by mx.zohomail.com with SMTPS id 1712849130831104.55316761502581;
- Thu, 11 Apr 2024 08:25:30 -0700 (PDT)
+Received: by mx.zohomail.com with SMTPS id 1712849132131503.5133015510213;
+ Thu, 11 Apr 2024 08:25:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,25 +39,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf11a791-f817-11ee-94a3-07e782e9044d
-ARC-Seal: i=1; a=rsa-sha256; t=1712849132; cv=none; 
+X-Inumbo-ID: d946f07e-f817-11ee-b908-491648fe20b8
+ARC-Seal: i=1; a=rsa-sha256; t=1712849134; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=dfq6s3J0FdvjK3PIHwQAXMp1M6zTA2CwRo0blv1aRPDRwQ+SPm7XrZyCqur/mKwBSfIsT8LMAUo2sJInpHnPje/em4cj2D2LZRUgmTDL+TlgumwDqzjZ30A/KOXZEY5xRa6piFGNnCs5QYSKKgTkCsR+N8ukdT1HnRJU+tOM0ak=
+	b=THcYo5pxHWOMGgrMAFLmvAbbxp2fu3ewJ6Mf3Umf3eohD2Ky/6lDdELQj3zDhnknu9mGKZWGLpOE+kgD/4l32pscJMMFS7At32o2c/pEUHUiLtUMuGnISbmJBxaIWNoWZrCwXZTIjWtWL9PYtO3giU085U/1R794AFj6/Fsa02A=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1712849132; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=zwBRHesFqrojuiJM5pcYDRw1bIFgWCwZpvMXaXWRBMI=; 
-	b=MHzP+KBRCFaP4w5mcPMqO+4rsEbcGRxRkjh3MAX79umb7YLJJEmfiN5MAWZymy4zb1hdFM5EASNWbiybK1VdaY9EQt83IoDL6oLsJGIpcOKNMqZkSLmByIfbU7Wn686nXI9EOQVdb7Rv3/bJ2clKw1j2bGkrpYwLiqBPwckRG3A=
+	t=1712849134; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=HYSIEYTwh5p4MTbHEclOqmrjQp9zeCs7GmXlIkw618s=; 
+	b=DKW0EdJSc1Uj7OaGhjDokjW3ErW6ym0zlZteCXDTfiMZon5BYJ3MW7mof+SKhj6BZ1Qny3i8PBZWv4a/xUX3azgIB04Z433EXXnVKh6+IdeMtZx3W91PsqB78Um2+eQIaPczdykTlIw5evgRSIxLLren9v9zYgRTUimQCiY6qcE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712849132;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712849134;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=zwBRHesFqrojuiJM5pcYDRw1bIFgWCwZpvMXaXWRBMI=;
-	b=uqt7eBw3443XEpKGSro8LAC1utB95xfDnc8DmQ+4j/tXSD3bYvAnl1/PwkpPjplW
-	dBaK7k+tFlC9X8b2A8F3NtuWjQwZQe1UZf+5tMUKLiZGD7jDOLZr4sjftna0vYJlt/8
-	E+ED9cJIHwExD9sQFAj51Xh+W4Lc0knrY9YSdLag=
+	bh=HYSIEYTwh5p4MTbHEclOqmrjQp9zeCs7GmXlIkw618s=;
+	b=TXavKt1z9xCBereVl3rq/Y05xDs9m6EoCsqSzDaXSXHpgfzp0f6XtSi0vwi36sre
+	EKRzOMueLe58e6ae5914QnegUV6zFRbVMj6rMumO2xI1TOYt4GFUmmepjzMyTe7jDVA
+	FIvj3QyVmx/D5hn/YYE35P9D/AVshO9g7FZNRbb8=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jason.andryuk@amd.com>,
@@ -67,9 +67,9 @@ Cc: Jason Andryuk <jason.andryuk@amd.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 2/5] gzip: clean up comments and fix code alignment
-Date: Thu, 11 Apr 2024 11:25:15 -0400
-Message-Id: <20240411152518.2995-3-dpsmith@apertussolutions.com>
+Subject: [PATCH 3/5] gzip: refactor state tracking
+Date: Thu, 11 Apr 2024 11:25:16 -0400
+Message-Id: <20240411152518.2995-4-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20240411152518.2995-1-dpsmith@apertussolutions.com>
 References: <20240411152518.2995-1-dpsmith@apertussolutions.com>
@@ -77,1097 +77,650 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-This commit cleans up the comments and fixes the code alignment using Xen
-coding style. This is done to make the code more legible before refactoring.
+Move the core state into struct gzip_data to allow a per decompression
+instance.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 ---
- xen/common/gzip/gunzip.c  |  10 +-
- xen/common/gzip/inflate.c | 748 +++++++++++++++++++-------------------
- 2 files changed, 384 insertions(+), 374 deletions(-)
+ xen/common/gzip/gunzip.c  |  50 ++++++-----
+ xen/common/gzip/inflate.c | 174 +++++++++++++++++++-------------------
+ 2 files changed, 116 insertions(+), 108 deletions(-)
 
 diff --git a/xen/common/gzip/gunzip.c b/xen/common/gzip/gunzip.c
-index 2c6eae167d54..1bcb007395ba 100644
+index 1bcb007395ba..9b4891731b8b 100644
 --- a/xen/common/gzip/gunzip.c
 +++ b/xen/common/gzip/gunzip.c
-@@ -63,7 +63,6 @@ static __init int fill_inbuf(void)
-         return 0;
- }
+@@ -6,21 +6,29 @@
  
--
+ #define HEAPORDER 3
+ 
+-static unsigned char *__initdata window;
+ #define memptr long
+ static memptr __initdata free_mem_ptr;
+ static memptr __initdata free_mem_end_ptr;
+ 
+ #define WSIZE           0x80000000U
+ 
+-static unsigned char *__initdata inbuf;
+-static unsigned int __initdata insize;
++struct gzip_data {
++    unsigned char *window;
+ 
+-/* Index of next byte to be processed in inbuf: */
+-static unsigned int __initdata inptr;
++    unsigned char *inbuf;
++    unsigned int insize;
+ 
+-/* Bytes in output buffer: */
+-static unsigned int __initdata outcnt;
++    /* Index of next byte to be processed in inbuf: */
++    unsigned int inptr;
++
++    /* Bytes in output buffer: */
++    unsigned int outcnt;
++
++    long bytes_out;
++
++    unsigned long bb;      /* bit buffer */
++    unsigned bk;           /* bits in bit buffer */
++};
+ 
+ #define OF(args)        args
+ 
+@@ -30,7 +38,7 @@ typedef unsigned char   uch;
+ typedef unsigned short  ush;
+ typedef unsigned long   ulg;
+ 
+-#define get_byte()      (inptr < insize ? inbuf[inptr++] : fill_inbuf())
++#define get_byte()     (gd->inptr < gd->insize ? gd->inbuf[gd->inptr++] : fill_inbuf())
+ 
+ /* Diagnostic functions */
+ #ifdef DEBUG
+@@ -49,8 +57,7 @@ typedef unsigned long   ulg;
+ #  define Tracecv(c, x)
+ #endif
+ 
+-static long __initdata bytes_out;
+-static void flush_window(void);
++static void flush_window(struct gzip_data *gd);
+ 
+ static __init void error(const char *x)
+ {
+@@ -65,7 +72,7 @@ static __init int fill_inbuf(void)
+ 
  #include "inflate.c"
  
- static __init void flush_window(void)
-@@ -137,3 +136,12 @@ __init int perform_gunzip(char *output, char *image, unsigned long image_len)
+-static __init void flush_window(void)
++static __init void flush_window(struct gzip_data *gd)
+ {
+     /*
+      * The window is equal to the output buffer therefore only need to
+@@ -75,16 +82,16 @@ static __init void flush_window(void)
+     unsigned int n;
+     unsigned char *in, ch;
  
-     return rc;
+-    in = window;
+-    for ( n = 0; n < outcnt; n++ )
++    in = gd->window;
++    for ( n = 0; n < gd->outcnt; n++ )
+     {
+         ch = *in++;
+         c = crc_32_tab[((int)c ^ ch) & 0xff] ^ (c >> 8);
+     }
+     crc = c;
+ 
+-    bytes_out += (unsigned long)outcnt;
+-    outcnt = 0;
++    gd->bytes_out += (unsigned long)gd->outcnt;
++    gd->outcnt = 0;
  }
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
+ 
+ __init int gzip_check(char *image, unsigned long image_len)
+@@ -102,12 +109,13 @@ __init int gzip_check(char *image, unsigned long image_len)
+ 
+ __init int perform_gunzip(char *output, char *image, unsigned long image_len)
+ {
++    struct gzip_data gd;
+     int rc;
+ 
+     if ( !gzip_check(image, image_len) )
+         return 1;
+ 
+-    window = (unsigned char *)output;
++    gd.window = (unsigned char *)output;
+ 
+     free_mem_ptr = (unsigned long)alloc_xenheap_pages(HEAPORDER, 0);
+     if ( !free_mem_ptr )
+@@ -116,14 +124,14 @@ __init int perform_gunzip(char *output, char *image, unsigned long image_len)
+     free_mem_end_ptr = free_mem_ptr + (PAGE_SIZE << HEAPORDER);
+     init_allocator();
+ 
+-    inbuf = (unsigned char *)image;
+-    insize = image_len;
+-    inptr = 0;
+-    bytes_out = 0;
++    gd.inbuf = (unsigned char *)image;
++    gd.insize = image_len;
++    gd.inptr = 0;
++    gd.bytes_out = 0;
+ 
+     makecrc();
+ 
+-    if ( gunzip() < 0 )
++    if ( gunzip(&gd) < 0 )
+     {
+         rc = -EINVAL;
+     }
 diff --git a/xen/common/gzip/inflate.c b/xen/common/gzip/inflate.c
-index 58f263d9e852..feb6d51008aa 100644
+index feb6d51008aa..c8dd35962abb 100644
 --- a/xen/common/gzip/inflate.c
 +++ b/xen/common/gzip/inflate.c
-@@ -1,11 +1,13 @@
- #define DEBG(x)
- #define DEBG1(x)
--/* inflate.c -- Not copyrighted 1992 by Mark Adler
--   version c10p1, 10 January 1993 */
-+/*
-+ * inflate.c -- Not copyrighted 1992 by Mark Adler
-+ * version c10p1, 10 January 1993
-+ */
+@@ -119,7 +119,7 @@ static char rcsid[] = "#Id: inflate.c,v 0.14 1993/06/10 13:27:04 jloup Exp #";
  
--/* 
-+/*
-  * Adapted for booting Linux by Hannu Savolainen 1993
-- * based on gzip-1.0.3 
-+ * based on gzip-1.0.3
-  *
-  * Nicolas Pitre <nico@cam.org>, 1999/04/14 :
-  *   Little mods for all variable to reside either into rodata or bss segments
-@@ -15,92 +17,91 @@
-  */
+ #endif /* !__XEN__ */
+ 
+-#define slide window
++#define slide gd->window
  
  /*
--   Inflate deflated (PKZIP's method 8 compressed) data.  The compression
--   method searches for as much of the current string of bytes (up to a
--   length of 258) in the previous 32 K bytes.  If it doesn't find any
--   matches (of at least length 3), it codes the next byte.  Otherwise, it
--   codes the length of the matched string and its distance backwards from
--   the current position.  There is a single Huffman code that codes both
--   single bytes (called "literals") and match lengths.  A second Huffman
--   code codes the distance information, which follows a length code.  Each
--   length or distance code actually represents a base value and a number
--   of "extra" (sometimes zero) bits to get to add to the base value.  At
--   the end of each deflated block is a special end-of-block (EOB) literal/
--   length code.  The decoding process is basically: get a literal/length
--   code; if EOB then done; if a literal, emit the decoded byte; if a
--   length then get the distance and emit the referred-to bytes from the
--   sliding window of previously emitted data.
--
--   There are (currently) three kinds of inflate blocks: stored, fixed, and
--   dynamic.  The compressor deals with some chunk of data at a time, and
--   decides which method to use on a chunk-by-chunk basis.  A chunk might
--   typically be 32 K or 64 K.  If the chunk is incompressible, then the
--   "stored" method is used.  In this case, the bytes are simply stored as
--   is, eight bits per byte, with none of the above coding.  The bytes are
--   preceded by a count, since there is no longer an EOB code.
--
--   If the data is compressible, then either the fixed or dynamic methods
--   are used.  In the dynamic method, the compressed data is preceded by
--   an encoding of the literal/length and distance Huffman codes that are
--   to be used to decode this block.  The representation is itself Huffman
--   coded, and so is preceded by a description of that code.  These code
--   descriptions take up a little space, and so for small blocks, there is
--   a predefined set of codes, called the fixed codes.  The fixed method is
--   used if the block codes up smaller that way (usually for quite small
--   chunks), otherwise the dynamic method is used.  In the latter case, the
--   codes are customized to the probabilities in the current block, and so
--   can code it much better than the pre-determined fixed codes.
-- 
--   The Huffman codes themselves are decoded using a multi-level table
--   lookup, in order to maximize the speed of decoding plus the speed of
--   building the decoding tables.  See the comments below that precede the
--   lbits and dbits tuning parameters.
-+ * Inflate deflated (PKZIP's method 8 compressed) data.  The compression
-+ * method searches for as much of the current string of bytes (up to a
-+ * length of 258) in the previous 32 K bytes.  If it doesn't find any
-+ * matches (of at least length 3), it codes the next byte.  Otherwise, it
-+ * codes the length of the matched string and its distance backwards from
-+ * the current position.  There is a single Huffman code that codes both
-+ * single bytes (called "literals") and match lengths.  A second Huffman
-+ * code codes the distance information, which follows a length code.  Each
-+ * length or distance code actually represents a base value and a number
-+ * of "extra" (sometimes zero) bits to get to add to the base value.  At
-+ * the end of each deflated block is a special end-of-block (EOB) literal/
-+ * length code.  The decoding process is basically: get a literal/length
-+ * code; if EOB then done; if a literal, emit the decoded byte; if a
-+ * length then get the distance and emit the referred-to bytes from the
-+ * sliding window of previously emitted data.
-+ *
-+ * There are (currently) three kinds of inflate blocks: stored, fixed, and
-+ * dynamic.  The compressor deals with some chunk of data at a time, and
-+ * decides which method to use on a chunk-by-chunk basis.  A chunk might
-+ * typically be 32 K or 64 K.  If the chunk is incompressible, then the
-+ * "stored" method is used.  In this case, the bytes are simply stored as
-+ * is, eight bits per byte, with none of the above coding.  The bytes are
-+ * preceded by a count, since there is no longer an EOB code.
-+ *
-+ * If the data is compressible, then either the fixed or dynamic methods
-+ * are used.  In the dynamic method, the compressed data is preceded by
-+ * an encoding of the literal/length and distance Huffman codes that are
-+ * to be used to decode this block.  The representation is itself Huffman
-+ * coded, and so is preceded by a description of that code.  These code
-+ * descriptions take up a little space, and so for small blocks, there is
-+ * a predefined set of codes, called the fixed codes.  The fixed method is
-+ * used if the block codes up smaller that way (usually for quite small
-+ * chunks), otherwise the dynamic method is used.  In the latter case, the
-+ * codes are customized to the probabilities in the current block, and so
-+ * can code it much better than the pre-determined fixed codes.
-+ *
-+ * The Huffman codes themselves are decoded using a multi-level table
-+ * lookup, in order to maximize the speed of decoding plus the speed of
-+ * building the decoding tables.  See the comments below that precede the
-+ * lbits and dbits tuning parameters.
-  */
- 
--
- /*
--   Notes beyond the 1.93a appnote.txt:
--
--   1. Distance pointers never point before the beginning of the output
--      stream.
--   2. Distance pointers can point back across blocks, up to 32k away.
--   3. There is an implied maximum of 7 bits for the bit length table and
--      15 bits for the actual data.
--   4. If only one code exists, then it is encoded using one bit.  (Zero
--      would be more efficient, but perhaps a little confusing.)  If two
--      codes exist, they are coded using one bit each (0 and 1).
--   5. There is no way of sending zero distance codes--a dummy must be
--      sent if there are none.  (History: a pre 2.0 version of PKZIP would
--      store blocks with no distance codes, but this was discovered to be
--      too harsh a criterion.)  Valid only for 1.93a.  2.04c does allow
--      zero distance codes, which is sent as one code of zero bits in
--      length.
--   6. There are up to 286 literal/length codes.  Code 256 represents the
--      end-of-block.  Note however that the static length tree defines
--      288 codes just to fill out the Huffman codes.  Codes 286 and 287
--      cannot be used though, since there is no length base or extra bits
--      defined for them.  Similarly, there are up to 30 distance codes.
--      However, static trees define 32 codes (all 5 bits) to fill out the
--      Huffman codes, but the last two had better not show up in the data.
--   7. Unzip can check dynamic Huffman blocks for complete code sets.
--      The exception is that a single code would not be complete (see #4).
--   8. The five bits following the block type is really the number of
--      literal codes sent minus 257.
--   9. Length codes 8,16,16 are interpreted as 13 length codes of 8 bits
--      (1+6+6).  Therefore, to output three times the length, you output
--      three codes (1+1+1), whereas to output four times the same length,
--      you only need two codes (1+3).  Hmm.
--  10. In the tree reconstruction algorithm, Code = Code + Increment
--      only if BitLength(i) is not zero.  (Pretty obvious.)
--  11. Correction: 4 Bits: # of Bit Length codes - 4     (4 - 19)
--  12. Note: length code 284 can represent 227-258, but length code 285
--      really is 258.  The last length deserves its own, short code
--      since it gets used a lot in very redundant files.  The length
--      258 is special since 258 - 3 (the min match length) is 255.
--  13. The literal/length and distance code bit lengths are read as a
--      single stream of lengths.  It is possible (and advantageous) for
--      a repeat code (16, 17, or 18) to go across the boundary between
--      the two sets of lengths.
-+ * Notes beyond the 1.93a appnote.txt:
-+ *
-+ *  1. Distance pointers never point before the beginning of the output
-+ *     stream.
-+ *  2. Distance pointers can point back across blocks, up to 32k away.
-+ *  3. There is an implied maximum of 7 bits for the bit length table and
-+ *     15 bits for the actual data.
-+ *  4. If only one code exists, then it is encoded using one bit.  (Zero
-+ *     would be more efficient, but perhaps a little confusing.)  If two
-+ *     codes exist, they are coded using one bit each (0 and 1).
-+ *  5. There is no way of sending zero distance codes--a dummy must be
-+ *     sent if there are none.  (History: a pre 2.0 version of PKZIP would
-+ *     store blocks with no distance codes, but this was discovered to be
-+ *     too harsh a criterion.)  Valid only for 1.93a.  2.04c does allow
-+ *     zero distance codes, which is sent as one code of zero bits in
-+ *     length.
-+ *  6. There are up to 286 literal/length codes.  Code 256 represents the
-+ *     end-of-block.  Note however that the static length tree defines
-+ *     288 codes just to fill out the Huffman codes.  Codes 286 and 287
-+ *     cannot be used though, since there is no length base or extra bits
-+ *     defined for them.  Similarly, there are up to 30 distance codes.
-+ *     However, static trees define 32 codes (all 5 bits) to fill out the
-+ *     Huffman codes, but the last two had better not show up in the data.
-+ *  7. Unzip can check dynamic Huffman blocks for complete code sets.
-+ *     The exception is that a single code would not be complete (see #4).
-+ *  8. The five bits following the block type is really the number of
-+ *     literal codes sent minus 257.
-+ *  9. Length codes 8,16,16 are interpreted as 13 length codes of 8 bits
-+ *     (1+6+6).  Therefore, to output three times the length, you output
-+ *     three codes (1+1+1), whereas to output four times the same length,
-+ *     you only need two codes (1+3).  Hmm.
-+ * 10. In the tree reconstruction algorithm, Code = Code + Increment
-+ *     only if BitLength(i) is not zero.  (Pretty obvious.)
-+ * 11. Correction: 4 Bits: # of Bit Length codes - 4     (4 - 19)
-+ * 12. Note: length code 284 can represent 227-258, but length code 285
-+ *     really is 258.  The last length deserves its own, short code
-+ *     since it gets used a lot in very redundant files.  The length
-+ *     258 is special since 258 - 3 (the min match length) is 255.
-+ * 13. The literal/length and distance code bit lengths are read as a
-+ *     single stream of lengths.  It is possible (and advantageous) for
-+ *     a repeat code (16, 17, or 18) to go across the boundary between
-+ *     the two sets of lengths.
-  */
- 
- #ifdef RCSID
-@@ -120,13 +121,15 @@ static char rcsid[] = "#Id: inflate.c,v 0.14 1993/06/10 13:27:04 jloup Exp #";
- 
- #define slide window
- 
--/* Huffman code lookup table entry--this entry is four bytes for machines
--   that have 16-bit pointers (e.g. PC's in the small or medium model).
--   Valid extra bits are 0..13.  e == 15 is EOB (end of block), e == 16
--   means that v is a literal, 16 < e < 32 means that v is a pointer to
--   the next table, which codes e - 16 bits, and lastly e == 99 indicates
--   an unused code.  If a code with e == 99 is looked up, this implies an
--   error in the data. */
-+/*
-+ * Huffman code lookup table entry--this entry is four bytes for machines
-+ * that have 16-bit pointers (e.g. PC's in the small or medium model).
-+ * Valid extra bits are 0..13.  e == 15 is EOB (end of block), e == 16
-+ * means that v is a literal, 16 < e < 32 means that v is a pointer to
-+ * the next table, which codes e - 16 bits, and lastly e == 99 indicates
-+ * an unused code.  If a code with e == 99 is looked up, this implies an
-+ * error in the data.
-+ */
- struct huft {
-     uch e;                /* number of extra bits or operation */
-     uch b;                /* number of bits in this code or subcode */
-@@ -136,7 +139,6 @@ struct huft {
-     } v;
- };
- 
--
- /* Function prototypes */
+  * Huffman code lookup table entry--this entry is four bytes for machines
+@@ -143,12 +143,12 @@ struct huft {
  static int huft_build OF((unsigned *, unsigned, unsigned,
                            const ush *, const ush *, struct huft **, int *));
-@@ -148,15 +150,17 @@ static int inflate_dynamic OF((void));
- static int inflate_block OF((int *));
- static int inflate OF((void));
+ static int huft_free OF((struct huft *));
+-static int inflate_codes OF((struct huft *, struct huft *, int, int));
+-static int inflate_stored OF((void));
+-static int inflate_fixed OF((void));
+-static int inflate_dynamic OF((void));
+-static int inflate_block OF((int *));
+-static int inflate OF((void));
++static int inflate_codes OF((struct gzip_data *, struct huft *, struct huft *, int, int));
++static int inflate_stored OF((struct gzip_data *));
++static int inflate_fixed OF((struct gzip_data *));
++static int inflate_dynamic OF((struct gzip_data *));
++static int inflate_block OF((struct gzip_data *, int *));
++static int inflate OF((struct gzip_data *));
  
--
--/* The inflate algorithm uses a sliding 32 K byte window on the uncompressed
--   stream to find repeated byte strings.  This is implemented here as a
--   circular buffer.  The index is updated simply by incrementing and then
--   ANDing with 0x7fff (32K-1). */
--/* It is left to other modules to supply the 32 K area.  It is assumed
--   to be usable as if it were declared "uch slide[32768];" or as just
--   "uch *slide;" and then malloc'ed in the latter case.  The definition
--   must be in unzip.h, included above. */
-+/*
-+ * The inflate algorithm uses a sliding 32 K byte window on the uncompressed
-+ * stream to find repeated byte strings.  This is implemented here as a
-+ * circular buffer.  The index is updated simply by incrementing and then
-+ * ANDing with 0x7fff (32K-1).
-+ *
-+ * It is left to other modules to supply the 32 K area.  It is assumed
-+ * to be usable as if it were declared "uch slide[32768];" or as just
-+ * "uch *slide;" and then malloc'ed in the latter case.  The definition
-+ * must be in unzip.h, included above.
-+ */
+ /*
+  * The inflate algorithm uses a sliding 32 K byte window on the uncompressed
+@@ -162,8 +162,8 @@ static int inflate OF((void));
+  * must be in unzip.h, included above.
+  */
  /* unsigned wp;             current position in slide */
- #define wp outcnt
- #define flush_output(w) (wp=(w),flush_window())
-@@ -180,36 +184,35 @@ static const ush cpdext[] = {         /* Extra bits for distance codes */
-     7, 7, 8, 8, 9, 9, 10, 10, 11, 11,
-     12, 12, 13, 13};
+-#define wp outcnt
+-#define flush_output(w) (wp=(w),flush_window())
++#define wp gd->outcnt
++#define flush_output(gd, w) (wp=(w),flush_window(gd))
  
--
--
--/* Macros for inflate() bit peeking and grabbing.
--   The usage is:
--   
--        NEEDBITS(j)
--        x = b & mask_bits[j];
--        DUMPBITS(j)
--
--   where NEEDBITS makes sure that b has at least j bits in it, and
--   DUMPBITS removes the bits from b.  The macros use the variable k
--   for the number of bits in b.  Normally, b and k are register
--   variables for speed, and are initialized at the beginning of a
--   routine that uses these macros from a global bit buffer and count.
--
--   If we assume that EOB will be the longest code, then we will never
--   ask for bits with NEEDBITS that are beyond the end of the stream.
--   So, NEEDBITS should not read any more bytes than are needed to
--   meet the request.  Then no bytes need to be "returned" to the buffer
--   at the end of the last block.
--
--   However, this assumption is not true for fixed blocks--the EOB code
--   is 7 bits, but the other literal/length codes can be 8 or 9 bits.
--   (The EOB code is shorter than other codes because fixed blocks are
--   generally short.  So, while a block always has an EOB, many other
--   literal/length codes have a significantly lower probability of
--   showing up at all.)  However, by making the first table have a
--   lookup of seven bits, the EOB code will be found in that first
--   lookup, and so will not require that too many bits be pulled from
--   the stream.
-+/*
-+ * Macros for inflate() bit peeking and grabbing.
-+ * The usage is:
-+ *
-+ *      NEEDBITS(j)
-+ *      x = b & mask_bits[j];
-+ *      DUMPBITS(j)
-+ *
-+ * where NEEDBITS makes sure that b has at least j bits in it, and
-+ * DUMPBITS removes the bits from b.  The macros use the variable k
-+ * for the number of bits in b.  Normally, b and k are register
-+ * variables for speed, and are initialized at the beginning of a
-+ * routine that uses these macros from a global bit buffer and count.
-+ *
-+ * If we assume that EOB will be the longest code, then we will never
-+ * ask for bits with NEEDBITS that are beyond the end of the stream.
-+ * So, NEEDBITS should not read any more bytes than are needed to
-+ * meet the request.  Then no bytes need to be "returned" to the buffer
-+ * at the end of the last block.
-+ *
-+ * However, this assumption is not true for fixed blocks--the EOB code
-+ * is 7 bits, but the other literal/length codes can be 8 or 9 bits.
-+ * (The EOB code is shorter than other codes because fixed blocks are
-+ * generally short.  So, while a block always has an EOB, many other
-+ * literal/length codes have a significantly lower probability of
-+ * showing up at all.)  However, by making the first table have a
-+ * lookup of seven bits, the EOB code will be found in that first
-+ * lookup, and so will not require that too many bits be pulled from
-+ * the stream.
+ /* Tables for deflate from PKZIP's appnote.txt. */
+ static const unsigned border[] = {    /* Order of the bit length code lengths */
+@@ -215,17 +215,14 @@ static const ush cpdext[] = {         /* Extra bits for distance codes */
+  * the stream.
   */
  
- static ulg __initdata bb;                /* bit buffer */
-@@ -226,7 +229,8 @@ static const ush mask_bits[] = {
+-static ulg __initdata bb;                /* bit buffer */
+-static unsigned __initdata bk;           /* bits in bit buffer */
+-
+ static const ush mask_bits[] = {
+     0x0000,
+     0x0001, 0x0003, 0x0007, 0x000f, 0x001f, 0x003f, 0x007f, 0x00ff,
+     0x01ff, 0x03ff, 0x07ff, 0x0fff, 0x1fff, 0x3fff, 0x7fff, 0xffff
+ };
+ 
+-#define NEXTBYTE()  ({ int v = get_byte(); if (v < 0) goto underrun; (uch)v; })
+-#define NEEDBITS(n) {while(k<(n)){b|=((ulg)NEXTBYTE())<<k;k+=8;}}
++#define NEXTBYTE(gd)  ({ int v = get_byte(); if (v < 0) goto underrun; (uch)v; })
++#define NEEDBITS(gd, n) {while(k<(n)){b|=((ulg)NEXTBYTE(gd))<<k;k+=8;}}
  #define DUMPBITS(n) {b>>=(n);k-=(n);}
  
  #ifndef NO_INFLATE_MALLOC
--/* A trivial malloc implementation, adapted from
-+/*
-+ * A trivial malloc implementation, adapted from
-  *  malloc by Hannu Savolainen 1993 and Matthias Urlichs 1994
+@@ -595,7 +592,7 @@ static int __init huft_free(struct huft *t)
+  * @param bd  Number of bits decoded by td[]
   */
- 
-@@ -272,64 +276,64 @@ static void __init free(void *where)
- #endif
- 
- /*
--   Huffman code decoding is performed using a multi-level table lookup.
--   The fastest way to decode is to simply build a lookup table whose
--   size is determined by the longest code.  However, the time it takes
--   to build this table can also be a factor if the data being decoded
--   is not very long.  The most common codes are necessarily the
--   shortest codes, so those codes dominate the decoding time, and hence
--   the speed.  The idea is you can have a shorter table that decodes the
--   shorter, more probable codes, and then point to subsidiary tables for
--   the longer codes.  The time it costs to decode the longer codes is
--   then traded against the time it takes to make longer tables.
--
--   This results of this trade are in the variables lbits and dbits
--   below.  lbits is the number of bits the first level table for literal/
--   length codes can decode in one step, and dbits is the same thing for
--   the distance codes.  Subsequent tables are also less than or equal to
--   those sizes.  These values may be adjusted either when all of the
--   codes are shorter than that, in which case the longest code length in
--   bits is used, or when the shortest code is *longer* than the requested
--   table size, in which case the length of the shortest code in bits is
--   used.
--
--   There are two different values for the two tables, since they code a
--   different number of possibilities each.  The literal/length table
--   codes 286 possible values, or in a flat code, a little over eight
--   bits.  The distance table codes 30 possible values, or a little less
--   than five bits, flat.  The optimum values for speed end up being
--   about one bit more than those, so lbits is 8+1 and dbits is 5+1.
--   The optimum values may differ though from machine to machine, and
--   possibly even between compilers.  Your mileage may vary.
-+ * Huffman code decoding is performed using a multi-level table lookup.
-+ * The fastest way to decode is to simply build a lookup table whose
-+ * size is determined by the longest code.  However, the time it takes
-+ * to build this table can also be a factor if the data being decoded
-+ * is not very long.  The most common codes are necessarily the
-+ * shortest codes, so those codes dominate the decoding time, and hence
-+ * the speed.  The idea is you can have a shorter table that decodes the
-+ * shorter, more probable codes, and then point to subsidiary tables for
-+ * the longer codes.  The time it costs to decode the longer codes is
-+ * then traded against the time it takes to make longer tables.
-+ *
-+ * This results of this trade are in the variables lbits and dbits
-+ * below.  lbits is the number of bits the first level table for literal/
-+ * length codes can decode in one step, and dbits is the same thing for
-+ * the distance codes.  Subsequent tables are also less than or equal to
-+ * those sizes.  These values may be adjusted either when all of the
-+ * codes are shorter than that, in which case the longest code length in
-+ * bits is used, or when the shortest code is *longer* than the requested
-+ * table size, in which case the length of the shortest code in bits is
-+ * used.
-+ *
-+ * There are two different values for the two tables, since they code a
-+ * different number of possibilities each.  The literal/length table
-+ * codes 286 possible values, or in a flat code, a little over eight
-+ * bits.  The distance table codes 30 possible values, or a little less
-+ * than five bits, flat.  The optimum values for speed end up being
-+ * about one bit more than those, so lbits is 8+1 and dbits is 5+1.
-+ * The optimum values may differ though from machine to machine, and
-+ * possibly even between compilers.  Your mileage may vary.
-  */
- 
--
- static const int lbits = 9;          /* bits in base literal/length lookup table */
- static const int dbits = 6;          /* bits in base distance lookup table */
- 
--
- /* If BMAX needs to be larger than 16, then h and x[] should be ulg. */
- #define BMAX 16         /* maximum bit length of any code (16 for explode) */
- #define N_MAX 288       /* maximum number of codes in any set */
- 
--
- static unsigned __initdata hufts;      /* track memory usage */
- 
--
-+/*
-+ * Given a list of code lengths and a maximum table size, make a set of
-+ * tables to decode that set of codes.  Return zero on success, one if
-+ * the given code set is incomplete (the tables are still built in this
-+ * case), two if the input is invalid (all zero length codes or an
-+ * oversubscribed set of lengths), and three if not enough memory.
-+ *
-+ * @param b Code lengths in bits (all assumed <= BMAX)
-+ * @param n Number of codes (assumed <= N_MAX)
-+ * @param s Number of simple-valued codes (0..s-1)
-+ * @param d List of base values for non-simple codes
-+ * @param e List of extra bits for non-simple codes
-+ * @param t Result: starting table
-+ * @param m Maximum lookup bits, returns actual
-+ */
- static int __init huft_build(
--    unsigned *b,            /* code lengths in bits (all assumed <= BMAX) */
--    unsigned n,             /* number of codes (assumed <= N_MAX) */
--    unsigned s,             /* number of simple-valued codes (0..s-1) */
--    const ush *d,           /* list of base values for non-simple codes */
--    const ush *e,           /* list of extra bits for non-simple codes */
--    struct huft **t,        /* result: starting table */
--    int *m                  /* maximum lookup bits, returns actual */
--    )
--/* Given a list of code lengths and a maximum table size, make a set of
--   tables to decode that set of codes.  Return zero on success, one if
--   the given code set is incomplete (the tables are still built in this
--   case), two if the input is invalid (all zero length codes or an
--   oversubscribed set of lengths), and three if not enough memory. */
-+    unsigned *b, unsigned n, unsigned s, const ush *d, const ush *e,
-+    struct huft **t, int *m)
- {
-     unsigned a;                   /* counter for codes of length k */
-     unsigned f;                   /* i repeats in table every f entries */
-@@ -559,14 +563,13 @@ static int __init huft_build(
-     return ret;
- }
- 
--
--
--static int __init huft_free(
--    struct huft *t         /* table to free */
--    )
- /* Free the malloc'ed tables built by huft_build(), which makes a linked
--   list of the tables it made, with the links in a dummy first entry of
--   each table. */
-+ * list of the tables it made, with the links in a dummy first entry of
-+ * each table.
-+ *
-+ * @param t Table to free
-+ */
-+static int __init huft_free(struct huft *t)
- {
-     register struct huft *p, *q;
- 
-@@ -578,19 +581,21 @@ static int __init huft_free(
-         q = (--p)->v.t;
-         free((char*)p);
-         p = q;
--    } 
-+    }
-     return 0;
- }
- 
--
-+/*
-+ * inflate (decompress) the codes in a deflated (compressed) block.
-+ * Return an error code or zero if it all goes ok.
-+ *
-+ * @param huft tl Literal/length decoder tables
-+ * @param huft td Distance decoder tables
-+ * @param bl  Number of bits decoded by tl[]
-+ * @param bd  Number of bits decoded by td[]
-+ */
  static int __init inflate_codes(
--    struct huft *tl,    /* literal/length decoder tables */
--    struct huft *td,    /* distance decoder tables */
--    int bl,             /* number of bits decoded by tl[] */
--    int bd              /* number of bits decoded by td[] */
--    )
--/* inflate (decompress) the codes in a deflated (compressed) block.
--   Return an error code or zero if it all goes ok. */
-+    struct huft *tl, struct huft *td, int bl, int bd)
+-    struct huft *tl, struct huft *td, int bl, int bd)
++    struct gzip_data *gd, struct huft *tl, struct huft *td, int bl, int bd)
  {
      register unsigned e;  /* table entry flag/number of extra bits */
      unsigned n, d;        /* length and index for copy */
-@@ -612,78 +617,77 @@ static int __init inflate_codes(
+@@ -607,8 +604,8 @@ static int __init inflate_codes(
+ 
+ 
+     /* make local copies of globals */
+-    b = bb;                       /* initialize bit buffer */
+-    k = bk;
++    b = gd->bb;                   /* initialize bit buffer */
++    k = gd->bk;
+     w = wp;                       /* initialize window position */
+ 
+     /* inflate the coded data */
+@@ -616,14 +613,14 @@ static int __init inflate_codes(
+     md = mask_bits[bd];
      for (;;)                      /* do until end of block */
      {
-         NEEDBITS((unsigned)bl)
--            if ((e = (t = tl + ((unsigned)b & ml))->e) > 16)
-+        if ((e = (t = tl + ((unsigned)b & ml))->e) > 16)
-+            do {
-+            if (e == 99)
-+                return 1;
-+            DUMPBITS(t->b)
-+            e -= 16;
-+            NEEDBITS(e)
-+            } while ((e = (t = t->v.t + ((unsigned)b & mask_bits[e]))->e) > 16);
-+        DUMPBITS(t->b)
-+        if (e == 16)                /* then it's a literal */
-+        {
-+            slide[w++] = (uch)t->v.n;
-+            Tracevv((stderr, "%c", slide[w-1]));
-+            if (w == WSIZE)
-+            {
-+                flush_output(w);
-+                w = 0;
-+            }
-+        }
-+        else                        /* it's an EOB or a length */
-+        {
-+            /* exit if end of block */
-+            if (e == 15)
-+                break;
-+
-+            /* get length of block to copy */
-+            NEEDBITS(e)
-+            n = t->v.n + ((unsigned)b & mask_bits[e]);
-+            DUMPBITS(e);
-+
-+            /* decode distance of block to copy */
-+            NEEDBITS((unsigned)bd)
-+            if ((e = (t = td + ((unsigned)b & md))->e) > 16)
+-        NEEDBITS((unsigned)bl)
++        NEEDBITS(gd, (unsigned)bl)
+         if ((e = (t = tl + ((unsigned)b & ml))->e) > 16)
+             do {
+             if (e == 99)
+                 return 1;
+             DUMPBITS(t->b)
+             e -= 16;
+-            NEEDBITS(e)
++            NEEDBITS(gd, e)
+             } while ((e = (t = t->v.t + ((unsigned)b & mask_bits[e]))->e) > 16);
+         DUMPBITS(t->b)
+         if (e == 16)                /* then it's a literal */
+@@ -632,7 +629,7 @@ static int __init inflate_codes(
+             Tracevv((stderr, "%c", slide[w-1]));
+             if (w == WSIZE)
+             {
+-                flush_output(w);
++                flush_output(gd, w);
+                 w = 0;
+             }
+         }
+@@ -643,22 +640,22 @@ static int __init inflate_codes(
+                 break;
+ 
+             /* get length of block to copy */
+-            NEEDBITS(e)
++            NEEDBITS(gd, e)
+             n = t->v.n + ((unsigned)b & mask_bits[e]);
+             DUMPBITS(e);
+ 
+             /* decode distance of block to copy */
+-            NEEDBITS((unsigned)bd)
++            NEEDBITS(gd, (unsigned)bd)
+             if ((e = (t = td + ((unsigned)b & md))->e) > 16)
                  do {
                      if (e == 99)
                          return 1;
                      DUMPBITS(t->b)
--                        e -= 16;
-+                    e -= 16;
-                     NEEDBITS(e)
--                        } while ((e = (t = t->v.t + ((unsigned)b & mask_bits[e]))->e) > 16);
--        DUMPBITS(t->b)
--            if (e == 16)                /* then it's a literal */
--            {
--                slide[w++] = (uch)t->v.n;
--                Tracevv((stderr, "%c", slide[w-1]));
-+                } while ((e = (t = t->v.t + ((unsigned)b & mask_bits[e]))->e) > 16);
-+            DUMPBITS(t->b)
-+            NEEDBITS(e)
-+            d = w - t->v.n - ((unsigned)b & mask_bits[e]);
-+            DUMPBITS(e)
-+            Tracevv((stderr,"\\[%d,%d]", w-d, n));
-+
-+            /* do the copy */
-+            do {
-+                n -= (e = (e = WSIZE - ((d &= WSIZE-1) > w ? d : w)) > n ? n : e);
-+                #if !defined(NOMEMCPY) && !defined(DEBUG)
-+                if (w - d >= e)         /* (this test assumes unsigned comparison) */
-+                {
-+                    memcpy(slide + w, slide + d, e);
-+                    w += e;
-+                    d += e;
-+                }
-+                else                      /* do it slow to avoid memcpy() overlap */
-+                #endif /* !NOMEMCPY */
-+                    do {
-+                        slide[w++] = slide[d++];
-+                        Tracevv((stderr, "%c", slide[w-1]));
-+                    } while (--e);
+                     e -= 16;
+-                    NEEDBITS(e)
++                    NEEDBITS(gd, e)
+                 } while ((e = (t = t->v.t + ((unsigned)b & mask_bits[e]))->e) > 16);
+             DUMPBITS(t->b)
+-            NEEDBITS(e)
++            NEEDBITS(gd, e)
+             d = w - t->v.n - ((unsigned)b & mask_bits[e]);
+             DUMPBITS(e)
+             Tracevv((stderr,"\\[%d,%d]", w-d, n));
+@@ -681,7 +678,7 @@ static int __init inflate_codes(
+                     } while (--e);
                  if (w == WSIZE)
                  {
-                     flush_output(w);
+-                    flush_output(w);
++                    flush_output(gd, w);
                      w = 0;
                  }
--            }
--            else                        /* it's an EOB or a length */
--            {
--                /* exit if end of block */
--                if (e == 15)
--                    break;
--
--                /* get length of block to copy */
--                NEEDBITS(e)
--                    n = t->v.n + ((unsigned)b & mask_bits[e]);
--                DUMPBITS(e);
--
--                /* decode distance of block to copy */
--                NEEDBITS((unsigned)bd)
--                    if ((e = (t = td + ((unsigned)b & md))->e) > 16)
--                        do {
--                            if (e == 99)
--                                return 1;
--                            DUMPBITS(t->b)
--                                e -= 16;
--                            NEEDBITS(e)
--                                } while ((e = (t = t->v.t + ((unsigned)b & mask_bits[e]))->e) > 16);
--                DUMPBITS(t->b)
--                    NEEDBITS(e)
--                    d = w - t->v.n - ((unsigned)b & mask_bits[e]);
--                DUMPBITS(e)
--                    Tracevv((stderr,"\\[%d,%d]", w-d, n));
--
--                /* do the copy */
--                do {
--                    n -= (e = (e = WSIZE - ((d &= WSIZE-1) > w ? d : w)) > n ? n : e);
--#if !defined(NOMEMCPY) && !defined(DEBUG)
--                    if (w - d >= e)         /* (this test assumes unsigned comparison) */
--                    {
--                        memcpy(slide + w, slide + d, e);
--                        w += e;
--                        d += e;
--                    }
--                    else                      /* do it slow to avoid memcpy() overlap */
--#endif /* !NOMEMCPY */
--                        do {
--                            slide[w++] = slide[d++];
--                            Tracevv((stderr, "%c", slide[w-1]));
--                        } while (--e);
--                    if (w == WSIZE)
--                    {
--                        flush_output(w);
--                        w = 0;
--                    }
--                } while (n);
--            }
-+            } while (n);
-+        }
-     }
+             } while (n);
+@@ -690,8 +687,8 @@ static int __init inflate_codes(
  
--
      /* restore the globals from the locals */
      wp = w;                       /* restore global window pointer */
-     bb = b;                       /* restore global bit buffer */
-@@ -696,10 +700,8 @@ static int __init inflate_codes(
-     return 4;   /* Input underrun */
+-    bb = b;                       /* restore global bit buffer */
+-    bk = k;
++    gd->bb = b;                   /* restore global bit buffer */
++    gd->bk = k;
+ 
+     /* done */
+     return 0;
+@@ -701,7 +698,7 @@ static int __init inflate_codes(
  }
  
--
--
--static int __init inflate_stored(void)
  /* "decompress" an inflated type 0 (stored) block. */
-+static int __init inflate_stored(void)
+-static int __init inflate_stored(void)
++static int __init inflate_stored(struct gzip_data *gd)
  {
      unsigned n;           /* number of bytes in block */
      unsigned w;           /* current window position */
-@@ -721,27 +723,25 @@ static int __init inflate_stored(void)
+@@ -711,8 +708,8 @@ static int __init inflate_stored(void)
+     DEBG("<stor");
+ 
+     /* make local copies of globals */
+-    b = bb;                       /* initialize bit buffer */
+-    k = bk;
++    b = gd->bb;                   /* initialize bit buffer */
++    k = gd->bk;
+     w = wp;                       /* initialize window position */
+ 
+ 
+@@ -722,10 +719,10 @@ static int __init inflate_stored(void)
+ 
  
      /* get the length and its complement */
-     NEEDBITS(16)
--        n = ((unsigned)b & 0xffff);
-+    n = ((unsigned)b & 0xffff);
+-    NEEDBITS(16)
++    NEEDBITS(gd, 16)
+     n = ((unsigned)b & 0xffff);
      DUMPBITS(16)
--        NEEDBITS(16)
--        if (n != (unsigned)((~b) & 0xffff))
--            return 1;                   /* error in compressed data */
-+    NEEDBITS(16)
-+    if (n != (unsigned)((~b) & 0xffff))
-+        return 1;                   /* error in compressed data */
+-    NEEDBITS(16)
++    NEEDBITS(gd, 16)
+     if (n != (unsigned)((~b) & 0xffff))
+         return 1;                   /* error in compressed data */
      DUMPBITS(16)
- 
--
--        /* read and output the compressed data */
--        while (n--)
-+    /* read and output the compressed data */
-+    while (n--)
-+    {
-+        NEEDBITS(8)
-+        slide[w++] = (uch)b;
-+        if (w == WSIZE)
+@@ -733,11 +730,11 @@ static int __init inflate_stored(void)
+     /* read and output the compressed data */
+     while (n--)
+     {
+-        NEEDBITS(8)
++        NEEDBITS(gd, 8)
+         slide[w++] = (uch)b;
+         if (w == WSIZE)
          {
--            NEEDBITS(8)
--                slide[w++] = (uch)b;
--            if (w == WSIZE)
--            {
--                flush_output(w);
--                w = 0;
--            }
--            DUMPBITS(8)
--                }
--
-+            flush_output(w);
-+            w = 0;
-+        }
-+        DUMPBITS(8)
-+    }
+-            flush_output(w);
++            flush_output(gd, w);
+             w = 0;
+         }
+         DUMPBITS(8)
+@@ -745,8 +742,8 @@ static int __init inflate_stored(void)
  
      /* restore the globals from the locals */
      wp = w;                       /* restore global window pointer */
-@@ -759,10 +759,13 @@ static int __init inflate_stored(void)
- /*
-  * We use `noinline' here to prevent gcc-3.5 from using too much stack space
+-    bb = b;                       /* restore global bit buffer */
+-    bk = k;
++    gd->bb = b;                   /* restore global bit buffer */
++    gd->bk = k;
+ 
+     DEBG(">");
+     return 0;
+@@ -765,7 +762,7 @@ static int __init inflate_stored(void)
+  * either replace this with a custom decoder, or at least precompute the
+  * Huffman tables.
   */
-+
-+/*
-+ * decompress an inflated type 1 (fixed Huffman codes) block.  We should
-+ * either replace this with a custom decoder, or at least precompute the
-+ * Huffman tables.
-+ */
- static int noinline __init inflate_fixed(void)
--/* decompress an inflated type 1 (fixed Huffman codes) block.  We should
--   either replace this with a custom decoder, or at least precompute the
--   Huffman tables. */
+-static int noinline __init inflate_fixed(void)
++static int noinline __init inflate_fixed(struct gzip_data *gd)
  {
      int i;                /* temporary variable */
      struct huft *tl;      /* literal/length code table */
-@@ -805,7 +808,6 @@ static int noinline __init inflate_fixed(void)
-         return i;
+@@ -809,7 +806,8 @@ static int noinline __init inflate_fixed(void)
      }
  
--
      /* decompress until an end-of-block code */
-     if (inflate_codes(tl, td, bl, bd)) {
+-    if (inflate_codes(tl, td, bl, bd)) {
++    if ( inflate_codes(gd, tl, td, bl, bd) )
++    {
          free(l);
-@@ -819,12 +821,12 @@ static int noinline __init inflate_fixed(void)
-     return 0;
- }
- 
--
- /*
-  * We use `noinline' here to prevent gcc-3.5 from using too much stack space
+         return 1;
+     }
+@@ -826,7 +824,7 @@ static int noinline __init inflate_fixed(void)
   */
--static int noinline __init inflate_dynamic(void)
-+
+ 
  /* decompress an inflated type 2 (dynamic Huffman codes) block. */
-+static int noinline __init inflate_dynamic(void)
+-static int noinline __init inflate_dynamic(void)
++static int noinline __init inflate_dynamic(struct gzip_data *gd)
  {
      int i;                /* temporary variables */
      unsigned j;
-@@ -858,26 +860,25 @@ static int noinline __init inflate_dynamic(void)
-     b = bb;
-     k = bk;
+@@ -857,17 +855,17 @@ static int noinline __init inflate_dynamic(void)
+         return 1;
  
--
+     /* make local bit buffer */
+-    b = bb;
+-    k = bk;
++    b = gd->bb;
++    k = gd->bk;
+ 
      /* read in table lengths */
-     NEEDBITS(5)
--        nl = 257 + ((unsigned)b & 0x1f);      /* number of literal/length codes */
-+    nl = 257 + ((unsigned)b & 0x1f);      /* number of literal/length codes */
+-    NEEDBITS(5)
++    NEEDBITS(gd, 5)
+     nl = 257 + ((unsigned)b & 0x1f);      /* number of literal/length codes */
      DUMPBITS(5)
--        NEEDBITS(5)
--        nd = 1 + ((unsigned)b & 0x1f);        /* number of distance codes */
-+    NEEDBITS(5)
-+    nd = 1 + ((unsigned)b & 0x1f);        /* number of distance codes */
+-    NEEDBITS(5)
++    NEEDBITS(gd, 5)
+     nd = 1 + ((unsigned)b & 0x1f);        /* number of distance codes */
      DUMPBITS(5)
--        NEEDBITS(4)
--        nb = 4 + ((unsigned)b & 0xf);         /* number of bit length codes */
-+    NEEDBITS(4)
-+    nb = 4 + ((unsigned)b & 0xf);         /* number of bit length codes */
+-    NEEDBITS(4)
++    NEEDBITS(gd, 4)
+     nb = 4 + ((unsigned)b & 0xf);         /* number of bit length codes */
      DUMPBITS(4)
  #ifdef PKZIP_BUG_WORKAROUND
--        if (nl > 288 || nd > 32)
-+    if (nl > 288 || nd > 32)
- #else
--            if (nl > 286 || nd > 30)
-+    if (nl > 286 || nd > 30)
- #endif
--            {
--                ret = 1;             /* bad lengths */
--                goto out;
--            }
-+    {
-+        ret = 1;             /* bad lengths */
-+        goto out;
-+    }
- 
-     DEBG("dyn1 ");
- 
-@@ -885,9 +886,9 @@ static int noinline __init inflate_dynamic(void)
+@@ -885,7 +883,7 @@ static int noinline __init inflate_dynamic(void)
+     /* read in bit-length-code lengths */
      for (j = 0; j < nb; j++)
      {
-         NEEDBITS(3)
--            ll[border[j]] = (unsigned)b & 7;
-+        ll[border[j]] = (unsigned)b & 7;
+-        NEEDBITS(3)
++        NEEDBITS(gd, 3)
+         ll[border[j]] = (unsigned)b & 7;
          DUMPBITS(3)
--            }
-+    }
-     for (; j < 19; j++)
-         ll[border[j]] = 0;
- 
-@@ -912,32 +913,32 @@ static int noinline __init inflate_dynamic(void)
+     }
+@@ -912,7 +910,7 @@ static int noinline __init inflate_dynamic(void)
+     i = l = 0;
      while ((unsigned)i < n)
      {
-         NEEDBITS((unsigned)bl)
--            j = (td = tl + ((unsigned)b & m))->b;
-+        j = (td = tl + ((unsigned)b & m))->b;
+-        NEEDBITS((unsigned)bl)
++        NEEDBITS(gd, (unsigned)bl)
+         j = (td = tl + ((unsigned)b & m))->b;
          DUMPBITS(j)
--            j = td->v.n;
-+        j = td->v.n;
-         if (j < 16)                 /* length of code in bits (0..15) */
+         j = td->v.n;
+@@ -920,7 +918,7 @@ static int noinline __init inflate_dynamic(void)
              ll[i++] = l = j;          /* save last length in l */
          else if (j == 16)           /* repeat last length 3 to 6 times */
          {
-             NEEDBITS(2)
--                j = 3 + ((unsigned)b & 3);
-+            j = 3 + ((unsigned)b & 3);
+-            NEEDBITS(2)
++            NEEDBITS(gd, 2)
+             j = 3 + ((unsigned)b & 3);
              DUMPBITS(2)
--                if ((unsigned)i + j > n) {
--                    ret = 1;
--                    goto out;
--                }
-+            if ((unsigned)i + j > n) {
-+                ret = 1;
-+                goto out;
-+            }
-             while (j--)
--                ll[i++] = l;
-+            ll[i++] = l;
+             if ((unsigned)i + j > n) {
+@@ -932,7 +930,7 @@ static int noinline __init inflate_dynamic(void)
          }
          else if (j == 17)           /* 3 to 10 zero length codes */
          {
-             NEEDBITS(3)
--                j = 3 + ((unsigned)b & 7);
-+            j = 3 + ((unsigned)b & 7);
+-            NEEDBITS(3)
++            NEEDBITS(gd, 3)
+             j = 3 + ((unsigned)b & 7);
              DUMPBITS(3)
--                if ((unsigned)i + j > n) {
--                    ret = 1;
--                    goto out;
--                }
-+            if ((unsigned)i + j > n) {
-+                ret = 1;
-+                goto out;
-+            }
-             while (j--)
-                 ll[i++] = 0;
-             l = 0;
-@@ -945,12 +946,12 @@ static int noinline __init inflate_dynamic(void)
+             if ((unsigned)i + j > n) {
+@@ -945,7 +943,7 @@ static int noinline __init inflate_dynamic(void)
+         }
          else                        /* j == 18: 11 to 138 zero length codes */
          {
-             NEEDBITS(7)
--                j = 11 + ((unsigned)b & 0x7f);
-+            j = 11 + ((unsigned)b & 0x7f);
+-            NEEDBITS(7)
++            NEEDBITS(gd, 7)
+             j = 11 + ((unsigned)b & 0x7f);
              DUMPBITS(7)
--                if ((unsigned)i + j > n) {
--                    ret = 1;
--                    goto out;
--                }
-+            if ((unsigned)i + j > n) {
-+                ret = 1;
-+                goto out;
-+            }
-             while (j--)
-                 ll[i++] = 0;
-             l = 0;
-@@ -993,94 +994,89 @@ static int noinline __init inflate_dynamic(void)
-             i = 0;
-         }
- #else
--        huft_free(td);
--    }
--    huft_free(tl);
--    ret = i;                   /* incomplete code set */
--    goto out;
-+            huft_free(td);
-+        }
-+        huft_free(tl);
-+        ret = i;                   /* incomplete code set */
-+        goto out;
- #endif
--}
-+    }
+             if ((unsigned)i + j > n) {
+@@ -966,8 +964,8 @@ static int noinline __init inflate_dynamic(void)
+     DEBG("dyn5 ");
  
--DEBG("dyn6 ");
-+    DEBG("dyn6 ");
+     /* restore the global bit buffer */
+-    bb = b;
+-    bk = k;
++    gd->bb = b;
++    gd->bk = k;
  
--  /* decompress until an end-of-block code */
--if (inflate_codes(tl, td, bl, bd)) {
--    ret = 1;
--    goto out;
--}
-+      /* decompress until an end-of-block code */
-+    if (inflate_codes(tl, td, bl, bd)) {
-+        ret = 1;
-+        goto out;
-+    }
+     DEBG("dyn5a ");
  
--DEBG("dyn7 ");
-+    DEBG("dyn7 ");
+@@ -1005,7 +1003,8 @@ static int noinline __init inflate_dynamic(void)
+     DEBG("dyn6 ");
  
--  /* free the decoding tables, return */
--huft_free(tl);
--huft_free(td);
-+      /* free the decoding tables, return */
-+    huft_free(tl);
-+    huft_free(td);
- 
--DEBG(">");
--ret = 0;
--out:
--free(ll);
--return ret;
-+    DEBG(">");
-+    ret = 0;
-+ out:
-+    free(ll);
-+    return ret;
- 
--underrun:
--ret = 4;   /* Input underrun */
--goto out;
-+ underrun:
-+    ret = 4;   /* Input underrun */
-+    goto out;
- }
- 
--
--
--static int __init inflate_block(
--int *e                  /* last block flag */
--)
--/* decompress an inflated block */
-+/*
-+ * decompress an inflated block
-+ *
-+ * @param e Last block flag
-+ */
-+static int __init inflate_block(int *e)
+       /* decompress until an end-of-block code */
+-    if (inflate_codes(tl, td, bl, bd)) {
++    if ( inflate_codes(gd, tl, td, bl, bd) )
++    {
+         ret = 1;
+         goto out;
+     }
+@@ -1030,9 +1029,10 @@ static int noinline __init inflate_dynamic(void)
+ /*
+  * decompress an inflated block
+  *
++ * @param gd Gzip decompression state
+  * @param e Last block flag
+  */
+-static int __init inflate_block(int *e)
++static int __init inflate_block(struct gzip_data *gd, int *e)
  {
--unsigned t;           /* block type */
--register ulg b;       /* bit buffer */
--register unsigned k;  /* number of bits in bit buffer */
--
--DEBG("<blk");
-+    unsigned t;           /* block type */
-+    register ulg b;       /* bit buffer */
-+    register unsigned k;  /* number of bits in bit buffer */
+     unsigned t;           /* block type */
+     register ulg b;       /* bit buffer */
+@@ -1041,30 +1041,30 @@ static int __init inflate_block(int *e)
+     DEBG("<blk");
  
--/* make local bit buffer */
--b = bb;
--k = bk;
-+    DEBG("<blk");
+     /* make local bit buffer */
+-    b = bb;
+-    k = bk;
++    b = gd->bb;
++    k = gd->bk;
  
-+    /* make local bit buffer */
-+    b = bb;
-+    k = bk;
- 
--/* read in last block bit */
--NEEDBITS(1)
-+    /* read in last block bit */
-+    NEEDBITS(1)
+     /* read in last block bit */
+-    NEEDBITS(1)
++    NEEDBITS(gd, 1)
      *e = (int)b & 1;
      DUMPBITS(1)
  
--
      /* read in block type */
-     NEEDBITS(2)
+-    NEEDBITS(2)
++    NEEDBITS(gd, 2)
      t = (unsigned)b & 3;
      DUMPBITS(2)
  
--
      /* restore the global bit buffer */
-     bb = b;
-     bk = k;
+-    bb = b;
+-    bk = k;
++    gd->bb = b;
++    gd->bk = k;
  
      /* inflate that block type */
      if (t == 2)
--    return inflate_dynamic();
-+        return inflate_dynamic();
+-        return inflate_dynamic();
++        return inflate_dynamic(gd);
      if (t == 0)
--    return inflate_stored();
-+        return inflate_stored();
+-        return inflate_stored();
++        return inflate_stored(gd);
      if (t == 1)
--    return inflate_fixed();
-+        return inflate_fixed();
+-        return inflate_fixed();
++        return inflate_fixed(gd);
  
      DEBG(">");
  
-     /* bad block type */
-     return 2;
- 
--    underrun:
-+ underrun:
-     return 4;   /* Input underrun */
+@@ -1076,7 +1076,7 @@ static int __init inflate_block(int *e)
  }
  
--
--
--static int __init inflate(void)
  /* decompress an inflated entry */
-+static int __init inflate(void)
+-static int __init inflate(void)
++static int __init inflate(struct gzip_data *gd)
  {
      int e;                /* last block flag */
      int r;                /* result code */
-@@ -1091,7 +1087,6 @@ static int __init inflate(void)
-     bk = 0;
-     bb = 0;
+@@ -1084,8 +1084,8 @@ static int __init inflate(void)
  
--
+     /* initialize window, bit buffer */
+     wp = 0;
+-    bk = 0;
+-    bb = 0;
++    gd->bk = 0;
++    gd->bb = 0;
+ 
      /* decompress until the last block */
      h = 0;
-     do {
-@@ -1117,7 +1112,6 @@ static int __init inflate(void)
-     /* flush out slide */
-     flush_output(wp);
+@@ -1094,7 +1094,7 @@ static int __init inflate(void)
+ #ifdef ARCH_HAS_DECOMP_WDOG
+         arch_decomp_wdog();
+ #endif
+-        r = inflate_block(&e);
++        r = inflate_block(gd, &e);
+         if (r)
+             return r;
+         if (hufts > h)
+@@ -1104,13 +1104,13 @@ static int __init inflate(void)
+     /* Undo too much lookahead. The next read will be byte aligned so we
+      * can discard unused bits in the last meaningful byte.
+      */
+-    while (bk >= 8) {
+-        bk -= 8;
+-        inptr--;
++    while (gd->bk >= 8) {
++        gd->bk -= 8;
++        gd->inptr--;
+     }
  
--
+     /* flush out slide */
+-    flush_output(wp);
++    flush_output(gd, wp);
+ 
      /* return success */
  #ifdef DEBUG
-     fprintf(stderr, "<%u> ", h);
-@@ -1136,12 +1130,11 @@ static ulg __initdata crc;  /* initialized in makecrc() so it'll reside in bss *
- #define CRC_VALUE (crc ^ 0xffffffffUL)
- 
+@@ -1181,7 +1181,7 @@ static void __init makecrc(void)
  /*
-- * Code to compute the CRC-32 table. Borrowed from 
-+ * Code to compute the CRC-32 table. Borrowed from
-  * gzip-1.0.3/makecrc.c.
+  * Do the uncompression!
   */
- 
--static void __init
--makecrc(void)
-+static void __init makecrc(void)
+-static int __init gunzip(void)
++static int __init gunzip(struct gzip_data *gd)
  {
- /* Not copyrighted 1990 Mark Adler */
+     uch flags;
+     unsigned char magic[2]; /* magic header */
+@@ -1190,9 +1190,9 @@ static int __init gunzip(void)
+     ulg orig_len = 0;       /* original uncompressed length */
+     int res;
  
-@@ -1244,7 +1237,7 @@ static int __init gunzip(void)
-     if ((flags & ORIG_NAME) != 0) {
-         /* Discard the old name */
-         while (NEXTBYTE() != 0) /* null */ ;
--    } 
-+    }
+-    magic[0] = NEXTBYTE();
+-    magic[1] = NEXTBYTE();
+-    method   = NEXTBYTE();
++    magic[0] = NEXTBYTE(gd);
++    magic[1] = NEXTBYTE(gd);
++    method   = NEXTBYTE(gd);
+ 
+     if (magic[0] != 037 ||                            /* octal-ok */
+         ((magic[1] != 0213) && (magic[1] != 0236))) { /* octal-ok */
+@@ -1219,18 +1219,18 @@ static int __init gunzip(void)
+         error("Input has invalid flags");
+         return -1;
+     }
+-    NEXTBYTE(); /* Get timestamp */
+-    NEXTBYTE();
+-    NEXTBYTE();
+-    NEXTBYTE();
++    NEXTBYTE(gd); /* Get timestamp */
++    NEXTBYTE(gd);
++    NEXTBYTE(gd);
++    NEXTBYTE(gd);
+ 
+-    (void)NEXTBYTE();  /* Ignore extra flags for the moment */
+-    (void)NEXTBYTE();  /* Ignore OS type for the moment */
++    (void)NEXTBYTE(gd);  /* Ignore extra flags for the moment */
++    (void)NEXTBYTE(gd);  /* Ignore OS type for the moment */
+ 
+     if ((flags & EXTRA_FIELD) != 0) {
+-        unsigned len = (unsigned)NEXTBYTE();
+-        len |= ((unsigned)NEXTBYTE())<<8;
+-        while (len--) (void)NEXTBYTE();
++        unsigned len = (unsigned)NEXTBYTE(gd);
++        len |= ((unsigned)NEXTBYTE(gd))<<8;
++        while (len--) (void)NEXTBYTE(gd);
+     }
+ 
+     /* Get original file name if it was truncated */
+@@ -1241,11 +1241,11 @@ static int __init gunzip(void)
  
      /* Discard file comment if any */
      if ((flags & COMMENT) != 0) {
-@@ -1273,7 +1266,7 @@ static int __init gunzip(void)
-         }
+-        while (NEXTBYTE() != 0) /* null */ ;
++        while (NEXTBYTE(gd) != 0) /* null */ ;
+     }
+ 
+     /* Decompress */
+-    if ((res = inflate())) {
++    if ((res = inflate(gd))) {
+         switch (res) {
+         case 0:
+             break;
+@@ -1286,13 +1286,13 @@ static int __init gunzip(void)
+         error("crc error");
          return -1;
      }
--     
-+
-     /* Get the crc and original length */
-     /* crc32  (see algorithm.doc)
-      * uncompressed input size modulo 2^32
-@@ -1282,12 +1275,12 @@ static int __init gunzip(void)
-     orig_crc |= (ulg) NEXTBYTE() << 8;
-     orig_crc |= (ulg) NEXTBYTE() << 16;
-     orig_crc |= (ulg) NEXTBYTE() << 24;
--    
-+
-     orig_len = (ulg) NEXTBYTE();
-     orig_len |= (ulg) NEXTBYTE() << 8;
-     orig_len |= (ulg) NEXTBYTE() << 16;
-     orig_len |= (ulg) NEXTBYTE() << 24;
--    
-+
-     /* Validate decompression */
-     if (orig_crc != CRC_VALUE) {
-         error("crc error");
-@@ -1303,3 +1296,12 @@ static int __init gunzip(void)
+-    if (orig_len != bytes_out) {
++    if (orig_len != gd->bytes_out) {
+         error("length error");
+         return -1;
+     }
+     return 0;
+ 
+- underrun:   /* NEXTBYTE() goto's here if needed */
++ underrun:   /* NEXTBYTE(gd) goto's here if needed */
      error("out of input data");
      return -1;
  }
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
 -- 
 2.30.2
 
