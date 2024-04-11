@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 851BB8A13F4
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 14:05:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703875.1099798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D35998A1417
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 14:13:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703881.1099808 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rutBC-00017L-CQ; Thu, 11 Apr 2024 12:05:22 +0000
+	id 1rutIa-0002jX-44; Thu, 11 Apr 2024 12:13:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703875.1099798; Thu, 11 Apr 2024 12:05:22 +0000
+Received: by outflank-mailman (output) from mailman id 703881.1099808; Thu, 11 Apr 2024 12:13:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rutBC-00015U-9g; Thu, 11 Apr 2024 12:05:22 +0000
-Received: by outflank-mailman (input) for mailman id 703875;
- Thu, 11 Apr 2024 12:05:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rutIa-0002hs-1I; Thu, 11 Apr 2024 12:13:00 +0000
+Received: by outflank-mailman (input) for mailman id 703881;
+ Thu, 11 Apr 2024 12:12:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eZ5N=LQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rutBA-00015O-75
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 12:05:20 +0000
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [2607:f8b0:4864:20::f32])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c3081f12-f7fb-11ee-94a3-07e782e9044d;
- Thu, 11 Apr 2024 14:05:18 +0200 (CEST)
-Received: by mail-qv1-xf32.google.com with SMTP id
- 6a1803df08f44-69b10c9cdf4so19270036d6.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 05:05:18 -0700 (PDT)
+ id 1rutIY-0002hk-05
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 12:12:58 +0000
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [2607:f8b0:4864:20::82d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d4863ee2-f7fc-11ee-b908-491648fe20b8;
+ Thu, 11 Apr 2024 14:12:57 +0200 (CEST)
+Received: by mail-qt1-x82d.google.com with SMTP id
+ d75a77b69052e-43493745415so19761901cf.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 05:12:57 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- s11-20020ad44b2b000000b0069b1ecd6109sm859123qvw.19.2024.04.11.05.05.15
+ f18-20020ac81c92000000b00434f50f5d82sm831619qtl.14.2024.04.11.05.12.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Apr 2024 05:05:16 -0700 (PDT)
+ Thu, 11 Apr 2024 05:12:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3081f12-f7fb-11ee-94a3-07e782e9044d
+X-Inumbo-ID: d4863ee2-f7fc-11ee-b908-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712837117; x=1713441917; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1712837576; x=1713442376; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dhwMRq2KEIymkW5s9GDxHsoYWg6i5/kRh45ouqzY7Bg=;
-        b=NVPFJi1Bmwkfo6mXJAlFQ1Jvx8tOQa5yvPxew4h8sO7P9RvgdXiqUbAKOaVTLYj/hs
-         J3yHFegVHLFpQ/jIHCfqHlrcpWTkDuyAB9WtGkF6sh/mqkzyiHkKlljRsMeY5c1yz8UD
-         cabyVP0wiwokx+hw/RU41PIc+T5Cz1o/B7sAc=
+        bh=ySCRczzvMVB58WjnHUwULBNHEzdhVeYlOS/feJ5C65A=;
+        b=UCU6ZK+qLAdJE0TH0m9clhEW89BiapBqHKvjFLogdxBLvNwEdo0YZSyjpOnKSmfYmd
+         v9P0d6zQuiUoO/A1tBh1pfaIXk8VBjvJsGjRr/XliRWUyuLX0BAwTrZsQmYUUocxYodn
+         6nxFYicySpq0AjcN8dwZoVJMVY9vVQRGoavAI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712837117; x=1713441917;
+        d=1e100.net; s=20230601; t=1712837576; x=1713442376;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dhwMRq2KEIymkW5s9GDxHsoYWg6i5/kRh45ouqzY7Bg=;
-        b=AW+l/tlJn6hbZaoPhQJePuC53UfGYkU6tqPlWuGVd7oa87LIFrn8Y5tXrc1oD3DXJH
-         iyeG7tRNPMUITBQMH1lq+OmD5uzo03SVFjhP0Kq8xXWhnIQGNshz4FwO9eyv9u0mp0oG
-         igl1srQbXse1nQB4wekN1eaE3X+Q7BP/k82lXN41fCKLA2YjnyBS+u9EsuHPdhWQrrQA
-         1C5TC3X3Sdpu1V3fOZbAeD+qss4BCKrZtCRYGYnxv6RlMxvXai+5yXbtswg6UPqtXgba
-         DilPCfW3QZ3+k4I/Y187mWEZeNWJ+cITgZwHt+dM15b8kQT+dE+2tiOgEmRKlhtQJqMi
-         aLnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU/U+YT0kihrzwPRCAh4o1PTeQyDXWiAs+qf/Jmi1sc5GL2zIr34znLUWKdAWmr6qnTdxzfiyYSwzwtHRX7+XcwQ3hjL9kZM2XawtphdnY=
-X-Gm-Message-State: AOJu0YyGr4K4WOZzJGNrA/xba8GYrFRtObOLBBiqIjsvZNrXB1Y8gCnY
-	Oj6gaDY+38k652uuwIhmXfATUCOw/rekDE2VOgJXYHy1+dToJPCaBfoGlTYPGBI=
-X-Google-Smtp-Source: AGHT+IGhCJDtVgErQtdciV+Weu/6n4/h1KnzU8yuPie39K4CfxqaloWltPpA+bzkBC/hRnYZMu3/qA==
-X-Received: by 2002:ad4:5aee:0:b0:69b:246b:4bff with SMTP id c14-20020ad45aee000000b0069b246b4bffmr5595186qvh.33.1712837117055;
-        Thu, 11 Apr 2024 05:05:17 -0700 (PDT)
-Message-ID: <f6222be7-c398-46a4-a1cc-6324cddac3ae@citrix.com>
-Date: Thu, 11 Apr 2024 13:05:14 +0100
+        bh=ySCRczzvMVB58WjnHUwULBNHEzdhVeYlOS/feJ5C65A=;
+        b=HRiyh38oHF5piTNM/ORrn2GsVRAwk749+dfFl6/zzMqNPiZdF9uTV8AGNBPiRDoSeC
+         Fvz0VcUZCSN9u/3o91XsQGefrpkVZx9FOUXoZ0ayJY2N4KEYwb/OQg8OrnuFQE/9mlIG
+         7DTLWTHCa1bquvOKXhyVjQGVwu6ABHMayLnUQw/yNHLFtIYY/bLAg8dEDP7qlugmpDym
+         GJPliH27ihqMA+IvWebRWvZa4R8x9Oe6ZpcH+HbozstrPhE6R+ds/RPH4/QDXuRxlssz
+         V7mJWEuciPZ4ReuUQ7JttNKBQZBoaZLaaZ20Yb00qGqnakBewNklrLvH6vitOvn7SA/e
+         EdVA==
+X-Forwarded-Encrypted: i=1; AJvYcCWmnfumxoblpIjsOF6sNmBbeGoShJoZoXU5W8OZ7zQEneK2jEtJN/ViXA0PI/XlPQZogC+G+vog7zQ88NArTb2mhuqwFPIs60h/KZFj0dQ=
+X-Gm-Message-State: AOJu0YxU0jvT0xIxipzOlonqnwj86FxYE/LGaShbCL+Ir2bcc9EFw0sg
+	wLJ48r8urLzYCxp9PT0mmDUAmyh8BsZpIfh6jLkcgtAVbOH4aBBkWXzSUBKqTmG/RrX75YtRtvA
+	WLqg=
+X-Google-Smtp-Source: AGHT+IGC8mcO+1uxmmFHV3bOEUQCiJ4TtAjB1GDT0zJSzuJ6BSxNryn1tqXkiESxqQCmYHDiPEVukg==
+X-Received: by 2002:ac8:578a:0:b0:436:7b8e:677 with SMTP id v10-20020ac8578a000000b004367b8e0677mr108381qta.49.1712837575930;
+        Thu, 11 Apr 2024 05:12:55 -0700 (PDT)
+Message-ID: <66ef2d24-0c4f-4d35-89c3-04ffd870cc91@citrix.com>
+Date: Thu, 11 Apr 2024 13:12:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/acpi: Allow xen/acpi.h to be included on non-ACPI
- archs
-To: Shawn Anastasio <sanastasio@raptorengineering.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: tpearson@raptorengineering.com,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- George Dunlap <george.dunlap@citrix.com>, Juergen Gross <jgross@suse.com>,
- Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
-References: <20240405182031.396528-1-sanastasio@raptorengineering.com>
- <7ab4053f-f8b3-4b6a-bd29-5d0fa228fca5@suse.com>
- <eb22ec4e-6e60-458d-a17c-ad47a3146a6e@raptorengineering.com>
+Subject: Re: [PATCH v2 2/6] tools/misc: rework xenwatchdogd signal handling
+To: leigh@solinno.co.uk, xen-devel@lists.xenproject.org
+Cc: anthony.perard@citrix.com, slack@rabbit.lu
+References: <20240329111056.6118-1-leigh@solinno.co.uk>
+ <20240329111056.6118-3-leigh@solinno.co.uk>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,41 +129,44 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <eb22ec4e-6e60-458d-a17c-ad47a3146a6e@raptorengineering.com>
+In-Reply-To: <20240329111056.6118-3-leigh@solinno.co.uk>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 09/04/2024 11:16 pm, Shawn Anastasio wrote:
-> On 4/8/24 1:54 AM, Jan Beulich wrote:
->> On 05.04.2024 20:20, Shawn Anastasio wrote:
->>> Conditionalize xen/acpi.h's inclusion of acpi/acpi.h and asm/acpi.h on
->>> CONFIG_ACPI and import ARM's !CONFIG_ACPI stub for acpi_disabled() so
->>> that the header can be included on architectures without ACPI support,
->>> like ppc.
->>>
->>> This change revealed some missing #includes across the ARM tree, so fix
->>> those as well.
->>>
->>> Suggested-by: Jan Beulich <jbeulich@suse.com>
->>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
->> Acked-by: Jan Beulich <jbeulich@suse.com>
-> Thanks.
->
->> albeit preferably with ...
->>
->>> @@ -118,6 +121,7 @@ extern u32 pci_mmcfg_base_addr;
->>>  #else	/*!CONFIG_ACPI*/
->>>  
->>>  #define acpi_mp_config	0
->>> +#define acpi_disabled (true)
->> ... the unnecessary parentheses avoided here.
->>
-> If you'd like to handle this durring commit, that would be fine with me.
-> Otherwise let me know if you'd like a v2 to be sent.
+On 29/03/2024 11:10 am, leigh@solinno.co.uk wrote:
+> diff --git a/tools/misc/xenwatchdogd.c b/tools/misc/xenwatchdogd.c
+> index 2f7c822d61..35a0df655a 100644
+> --- a/tools/misc/xenwatchdogd.c
+> +++ b/tools/misc/xenwatchdogd.c
+> @@ -9,9 +9,11 @@
+>  #include <unistd.h>
+>  #include <signal.h>
+>  #include <stdio.h>
+> +#include <stdbool.h>
+>  
+>  xc_interface *h;
+> -int id = 0;
+> +static bool safeexit = false;
+> +static bool done = false;
 
-I've fixed on commit.  No need to send a v2.
+It's a common bug, but these need to be volatile.  Right now, ...
 
-Thanks.
+> @@ -90,10 +90,14 @@ int main(int argc, char **argv)
+>      if (id <= 0)
+>          err(EXIT_FAILURE, "xc_watchdog setup");
+>  
+> -    for (;;) {
+> +    while (!done) {
+>          sleep(s);
+
+... the only reason this isn't an infinite loop is because the compiler
+can't prove that sleep() doesn't modify the variable.  This goes wrong
+in subtle and fun ways when using LTO.
+
+I'll fix on commit.
+
+For the record, I've taken 1-3 which are ready.  You'll need to rework 4
+and later per Anthony's feedback.
 
 ~Andrew
 
