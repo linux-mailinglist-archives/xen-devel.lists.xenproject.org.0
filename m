@@ -2,52 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CC868A1897
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 17:26:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704006.1100105 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 162AF8A1920
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 17:53:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704054.1100163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruwJk-0003Jg-E4; Thu, 11 Apr 2024 15:26:24 +0000
+	id 1ruwjw-0002dr-F2; Thu, 11 Apr 2024 15:53:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704006.1100105; Thu, 11 Apr 2024 15:26:24 +0000
+Received: by outflank-mailman (output) from mailman id 704054.1100163; Thu, 11 Apr 2024 15:53:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruwJk-0003H9-Ao; Thu, 11 Apr 2024 15:26:24 +0000
-Received: by outflank-mailman (input) for mailman id 704006;
- Thu, 11 Apr 2024 15:26:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ruwjw-0002b3-Bv; Thu, 11 Apr 2024 15:53:28 +0000
+Received: by outflank-mailman (input) for mailman id 704054;
+ Thu, 11 Apr 2024 15:53:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ICBI=LQ=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1ruwJi-0000Mi-7U
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 15:26:22 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20600.outbound.protection.outlook.com
- [2a01:111:f403:2412::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d87d7fed-f817-11ee-b908-491648fe20b8;
- Thu, 11 Apr 2024 17:26:21 +0200 (CEST)
-Received: from MN2PR12CA0011.namprd12.prod.outlook.com (2603:10b6:208:a8::24)
- by BL3PR12MB6401.namprd12.prod.outlook.com (2603:10b6:208:3b1::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Thu, 11 Apr
- 2024 15:26:15 +0000
-Received: from BL02EPF00021F68.namprd02.prod.outlook.com
- (2603:10b6:208:a8:cafe::94) by MN2PR12CA0011.outlook.office365.com
- (2603:10b6:208:a8::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.19 via Frontend
- Transport; Thu, 11 Apr 2024 15:26:15 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL02EPF00021F68.mail.protection.outlook.com (10.167.249.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Thu, 11 Apr 2024 15:26:15 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 11 Apr
- 2024 10:26:14 -0500
-Received: from [172.21.251.124] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Thu, 11 Apr 2024 10:26:12 -0500
+ <SRS0=Poi8=LQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1ruwju-0002ZT-Ft
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 15:53:26 +0000
+Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
+ [2607:f8b0:4864:20::72b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a0596f54-f81b-11ee-94a3-07e782e9044d;
+ Thu, 11 Apr 2024 17:53:24 +0200 (CEST)
+Received: by mail-qk1-x72b.google.com with SMTP id
+ af79cd13be357-789f00aba19so488235785a.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 08:53:24 -0700 (PDT)
+Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
+ dw7-20020a05620a600700b0078ec2d73c9esm945976qkb.4.2024.04.11.08.53.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Apr 2024 08:53:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,111 +44,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d87d7fed-f817-11ee-b908-491648fe20b8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AO6sQlznzBttOwwGeI0zGXDnqqA3l1EJVnhryOI/+19hxyUKKPm+lRc8vra2o9HRWeLbjGTZrGovcG3Q7SMSIrVTbij2TITNJII5u4E3wIpvSEiSz+ARr14C3v7IuJqeuhurEW0qPDfGi4ukdlwVuAGEZR4UDIXWX71z+h2PWmfvFPhZv+/+A6SvIFtpJFXubkZRWK9HOLFHwa0nlzX0O2xC1Cw7bMH+RL45MBSzJKwHX0HuL1EeqMgD1EdF3TKrcWPj/+GFDlBbqmsUKzOIZBv0isiJc402E4RPOA5b6YbcX9IVs154+QOWe7uGx1p28ZmIFfG+li/gsfMAZCtD5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rfMafOy+/HWmlZ/c505nfexOb8nMx6QuJl1F1hf+zYw=;
- b=PjbTYD1aIRaAS1UTjAHAEYM3fKsEH32tksSBHcFiu6GWFvxOok99zOl1mHeivoWbNIEY1dtWp9IuF5iCt7ljfxhk4kPtKmODWZ8qnsyK/2dCkLlld/6KCWPk60YoPsq/6jqdmOxWXSRB3gjBdsVlRdiMnlvu96Fr7SXJbioCAS124bzD4AAi91h9oQ7RrRrZGJtUj20US+cv0fL9w3Zq7N8Is7+0g3ASIpmpdJHtJwghoYXCXSrb0eiEDMo3CSa8Fbd1eLlh8fy2j/TJ78mqHYWK4NY9RTl6Lz4rlKeDJzyB5RmGEWbpMFlDjCmgXp8O/pvC7mXkR6XPd20N8PxJ6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rfMafOy+/HWmlZ/c505nfexOb8nMx6QuJl1F1hf+zYw=;
- b=mmZz+WKd1UoFUjAQUJMTiNXxBXhi0ErapsFae9Hq5atL3ncyRELtFKdlMQZDbEyohZwUd6yUZ7W/n2+RP2DMStd/UjOGWu8wp/+DYcY2N3se7C0i5K7+s0CGJjlcCQeuY7LIdBoHFNXtp/vVfOVUbqvR6Y0PIQ+uoLQnOnKvfgY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <74465ac2-0060-4047-97d7-acadcdff4cd4@amd.com>
-Date: Thu, 11 Apr 2024 11:26:11 -0400
+X-Inumbo-ID: a0596f54-f81b-11ee-94a3-07e782e9044d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1712850802; x=1713455602; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RRN4wyQVKK8sx/p5OaCggnAVPVY2eawZsZuVzZ2KlCg=;
+        b=V6H+v4qJVJ9oP5u2Z/TClafiRRJn3eIkANuNCDJ5RjNt+iLNO2xc6FCXWDc1qEJOhr
+         DBHnDGhrNdeiyPEsY8UkqD9nSc7kPx2p12gD1xy+stowNF14nRRLLgxwiLcXGNGTkJqQ
+         TxIAezazWvD9M/+vwW/BGd0pW8R7WiOfrGV1A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712850802; x=1713455602;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RRN4wyQVKK8sx/p5OaCggnAVPVY2eawZsZuVzZ2KlCg=;
+        b=h651CrNaMi2+0kqUGO+RXYAEMxvcfVuBI1LS8/cuVwnH9z8HNvT5drHOeQzMiVbchV
+         zkye56Y1eprgt4rPfen8Jybn0dhmrgEAdaIj+0WbLkb5gQ+xq68H1brW9eE86z6GWRUW
+         3hISPpAUoQ5Z8tIkRD4yLwGu1ppCko+Fp2R3afyzUItY9srmfk26Vnm1jmGyQkyO4AXg
+         9AhGr0dCSSyjbIHnAIw7HOjwfKIw9lIa0MyvBE2DwSqT1s5AW08A5MKVj80Ck+6P8gQy
+         dQb5mVOwZJBVn7uyDP6/n1eFpIlyAbmb5cSjf9x1erXBG+6PasIQu2ic/FAuAhdefv82
+         QNRg==
+X-Gm-Message-State: AOJu0YzxlhggOWOhaYz9oKtgvDcLAdHuZ4QYi/XQS8YYFY4cE76pTfHH
+	Is2abTwOEfpIoaMxsPQGWS7iG/HxXnGmA2WtipfaBfA54VoaU5009uXuXwMd9haViXcvRAyqV90
+	J
+X-Google-Smtp-Source: AGHT+IHzC7kWDx1kLumqb1s4U8lf3wUnnSRI5UUmJQKzT2d15wfPZW8XcZBHfnAv9epFFCrStISumg==
+X-Received: by 2002:a05:620a:4691:b0:78d:67aa:9d66 with SMTP id bq17-20020a05620a469100b0078d67aa9d66mr53749qkb.15.1712850802389;
+        Thu, 11 Apr 2024 08:53:22 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] altcall: fix __alt_call_maybe_initdata so it's safe for livepatch
+Date: Thu, 11 Apr 2024 17:53:14 +0200
+Message-ID: <20240411155314.73811-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] x86/pvh: Make PVH entrypoint PIC for x86-64
-To: Brian Gerst <brgerst@gmail.com>
-CC: Juergen Gross <jgross@suse.com>, Boris Ostrovsky
-	<boris.ostrovsky@oracle.com>, Thomas Gleixner <tglx@linutronix.de>, Ingo
- Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
-	<hpa@zytor.com>, Stefano Stabellini <sstabellini@kernel.org>, Oleksandr
- Tyshchenko <oleksandr_tyshchenko@epam.com>, Paolo Bonzini
-	<pbonzini@redhat.com>, <xen-devel@lists.xenproject.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20240410194850.39994-1-jason.andryuk@amd.com>
- <20240410194850.39994-3-jason.andryuk@amd.com>
- <CAMzpN2h6S69bOLXCUhmkVJErvoKxq-wPmfoaqR7eGHYLgirn+Q@mail.gmail.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <CAMzpN2h6S69bOLXCUhmkVJErvoKxq-wPmfoaqR7eGHYLgirn+Q@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F68:EE_|BL3PR12MB6401:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5bcd1676-4bda-40f5-8697-08dc5a3bba2b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Ho85NdNUr7+6PUovuj7DKzkiCbbcQu1xT1W9IqSqD5ZFs7kgMEGAEwUYAUWK46aEkp3B3dhfgCX+9j2YUftcHoVzRu6jVy1ECJKTvyh8YzXkTzFaYjjeb/sTi1lEIfSHi2XOI7s7WWOg5zg0YQuEo6lgPLa9ZPfgkPpUmyRmy/CGYUW10mMxtoEpfg3ETndUVJSpPAay602gz2+k8IAvppWUaHBiRdR0RQrCFuVVWuVretTmguiQf+wk1fIJNzobyvGRmb4ZsP/OjiMkJ/NcFqCVq2MEH6XOuQvsq1vhfYI4dGGD/I4NOZOJyY47miw9FDg51RNh3d+z33a55Dxgv3+nCwquMFtG9BM4hV12FgzxdZ5WKFMCqD0TUL0h66+mPTOQRUr32ru1b8zNUUFfbkXx6TB3SiJtNWx4lVBSddhwLhZlJ3N5QH6pQuoQwjBUkSn9/hjsQAQk16rB2s95+vQuAy+zZ8pXa/6FW3o7wwAinfMoQIsFGXeAuCxebw059Vk5j7E2nsufOOhVvt2Ei9xwOpYyF+mWi6njzFZu0RuS+1+wlTkQc0N3VsaWzIJVmBmlRMCoQsx2W92jQ+VfHnPb2Gqcl0bj2J2UJX3ZBqCS0F7b9GYtPUVyncdIZ82SNcZcJ9LtJNO/C8Et4Weaa/AIgd1po1qwHO2zp5VV9BE88YgmOk1sj5+PAQT7xQUsBfDRNkjUBPWrULope+EGn+vYE6pRSF7uIzpPq1bHICPF77gR7irvKeuzZg7NL5MF
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(1800799015)(36860700004)(7416005)(376005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2024 15:26:15.2440
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bcd1676-4bda-40f5-8697-08dc5a3bba2b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F68.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6401
 
-On 2024-04-10 17:00, Brian Gerst wrote:
-> On Wed, Apr 10, 2024 at 3:50 PM Jason Andryuk <jason.andryuk@amd.com> wrote:
+Setting alternative call variables as __init is not safe for use with
+livepatch, as livepatches can rightfully introduce new alternative calls to
+structures marked as __alt_call_maybe_initdata (possibly just indirectly due to
+replacing existing functions that use those).  Attempting to resolve those
+alternative calls then results in page faults as the variable that holds the
+function pointer address has been freed.
 
->>          /* 64-bit entry point. */
->>          .code64
->>   1:
->> +       UNWIND_HINT_END_OF_STACK
->> +
->>          /* Set base address in stack canary descriptor. */
->>          mov $MSR_GS_BASE,%ecx
->> -       mov $_pa(canary), %eax
->> +       leal rva(canary)(%ebp), %eax
-> 
-> Since this is in 64-bit mode, RIP-relative addressing can be used.
-> 
->>          xor %edx, %edx
->>          wrmsr
->>
->>          call xen_prepare_pvh
->>
->>          /* startup_64 expects boot_params in %rsi. */
->> -       mov $_pa(pvh_bootparams), %rsi
->> -       mov $_pa(startup_64), %rax
->> +       lea rva(pvh_bootparams)(%ebp), %rsi
->> +       lea rva(startup_64)(%ebp), %rax
-> 
-> RIP-relative here too.
+When livepatch is supported use the __ro_after_init attribute instead of
+__initdata for __alt_call_maybe_initdata.
 
-Yes, thanks for catching that.  With the RIP-relative conversion, there 
-is now:
-vmlinux.o: warning: objtool: pvh_start_xen+0x10d: relocation to !ENDBR: 
-startup_64+0x0
+Fixes: f26bb285949b ('xen: Implement xen/alternative-call.h for use in common code')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/include/xen/alternative-call.h | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-I guess RIP-relative made it visible.  That can be quieted by adding 
-ANNOTATE_NOENDBR to startup_64.
+diff --git a/xen/include/xen/alternative-call.h b/xen/include/xen/alternative-call.h
+index 5c6b9a562b92..1896063e5da5 100644
+--- a/xen/include/xen/alternative-call.h
++++ b/xen/include/xen/alternative-call.h
+@@ -50,7 +50,12 @@
+ 
+ #include <asm/alternative.h>
+ 
+-#define __alt_call_maybe_initdata __initdata
++#ifndef CONFIG_LIVEPATCH
++# define __alt_call_maybe_initdata __initdata
++#else
++/* Must keep for livepatches to resolve alternative calls against them. */
++# define __alt_call_maybe_initdata __ro_after_init
++#endif
+ 
+ #else
+ 
+-- 
+2.44.0
 
-Thanks,
-Jason
 
