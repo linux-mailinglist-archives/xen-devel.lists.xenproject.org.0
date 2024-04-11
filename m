@@ -2,32 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E312B8A18F2
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 17:41:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704038.1100134 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CC868A1897
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 17:26:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704006.1100105 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruwXw-0008B8-6p; Thu, 11 Apr 2024 15:41:04 +0000
+	id 1ruwJk-0003Jg-E4; Thu, 11 Apr 2024 15:26:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704038.1100134; Thu, 11 Apr 2024 15:41:04 +0000
+Received: by outflank-mailman (output) from mailman id 704006.1100105; Thu, 11 Apr 2024 15:26:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruwXw-00088F-4D; Thu, 11 Apr 2024 15:41:04 +0000
-Received: by outflank-mailman (input) for mailman id 704038;
- Thu, 11 Apr 2024 15:41:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ruwJk-0003H9-Ao; Thu, 11 Apr 2024 15:26:24 +0000
+Received: by outflank-mailman (input) for mailman id 704006;
+ Thu, 11 Apr 2024 15:26:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jyOp=LQ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1ruwKA-0001Lt-1t
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 15:26:50 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e8aa9416-f817-11ee-94a3-07e782e9044d;
- Thu, 11 Apr 2024 17:26:48 +0200 (CEST)
-Delivered-To: dpsmith@apertussolutions.com
-Received: by mx.zohomail.com with SMTPS id 1712849134652616.8489386519366;
- Thu, 11 Apr 2024 08:25:34 -0700 (PDT)
+ <SRS0=ICBI=LQ=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1ruwJi-0000Mi-7U
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 15:26:22 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2412::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d87d7fed-f817-11ee-b908-491648fe20b8;
+ Thu, 11 Apr 2024 17:26:21 +0200 (CEST)
+Received: from MN2PR12CA0011.namprd12.prod.outlook.com (2603:10b6:208:a8::24)
+ by BL3PR12MB6401.namprd12.prod.outlook.com (2603:10b6:208:3b1::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Thu, 11 Apr
+ 2024 15:26:15 +0000
+Received: from BL02EPF00021F68.namprd02.prod.outlook.com
+ (2603:10b6:208:a8:cafe::94) by MN2PR12CA0011.outlook.office365.com
+ (2603:10b6:208:a8::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.19 via Frontend
+ Transport; Thu, 11 Apr 2024 15:26:15 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF00021F68.mail.protection.outlook.com (10.167.249.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Thu, 11 Apr 2024 15:26:15 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 11 Apr
+ 2024 10:26:14 -0500
+Received: from [172.21.251.124] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 11 Apr 2024 10:26:12 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,170 +59,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8aa9416-f817-11ee-94a3-07e782e9044d
-ARC-Seal: i=1; a=rsa-sha256; t=1712849136; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=E58Lf3xgoVtF86ugEj9CKlfrWiASx4+nrMGVQCvnNo8XZop1KtMxqHMT6flc+NtypXZMbCtz8r74B22VBdUPlhEynKBsa709JSPNMJsLfQNx15gfwyGftBhLzI56cNYVXe8qncOMUD3bAPRDby+Z33LkCql1cqNNNB5V4nLJhK0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1712849136; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=hJK+WJnd5udbin6GvR9ns7l4RIkHc9Dr7sf74H4OiFw=; 
-	b=RcqtzxNLf3bh92nJY4cmbvwcC9V1HPrA0wYq8RY8c/AJBUyk3Xb5mgNg05Gw6/zBMK2DQdrXTUZ2Jy9IwMLXMUouvFIMEwTBmS/18ellofRZfdIUwKLWEsqUIk/zo68pF3gpQNslBZw5lF4lktUMqQ+gieuK+OT7OarcYvgW/ko=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712849136;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=hJK+WJnd5udbin6GvR9ns7l4RIkHc9Dr7sf74H4OiFw=;
-	b=nHgtEdiN21wyE1rw3uC5evU5pmgtuArpFTwlnGAn4BPyZUMTnkc1aQQTNWgenFFr
-	4AzF6zcR9qF0LchSt8/hSpkvXlx6U/FjkmYoeEAffnRnnw/y2SCvTfJf6no1gInXnpb
-	4GXYBT/D/IQMfZ0mjZmY4Nu/r8vilWtujapHkys8=
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 5/5] gzip: move huffman code table tracking into gzip state
-Date: Thu, 11 Apr 2024 11:25:18 -0400
-Message-Id: <20240411152518.2995-6-dpsmith@apertussolutions.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20240411152518.2995-1-dpsmith@apertussolutions.com>
-References: <20240411152518.2995-1-dpsmith@apertussolutions.com>
+X-Inumbo-ID: d87d7fed-f817-11ee-b908-491648fe20b8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AO6sQlznzBttOwwGeI0zGXDnqqA3l1EJVnhryOI/+19hxyUKKPm+lRc8vra2o9HRWeLbjGTZrGovcG3Q7SMSIrVTbij2TITNJII5u4E3wIpvSEiSz+ARr14C3v7IuJqeuhurEW0qPDfGi4ukdlwVuAGEZR4UDIXWX71z+h2PWmfvFPhZv+/+A6SvIFtpJFXubkZRWK9HOLFHwa0nlzX0O2xC1Cw7bMH+RL45MBSzJKwHX0HuL1EeqMgD1EdF3TKrcWPj/+GFDlBbqmsUKzOIZBv0isiJc402E4RPOA5b6YbcX9IVs154+QOWe7uGx1p28ZmIFfG+li/gsfMAZCtD5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rfMafOy+/HWmlZ/c505nfexOb8nMx6QuJl1F1hf+zYw=;
+ b=PjbTYD1aIRaAS1UTjAHAEYM3fKsEH32tksSBHcFiu6GWFvxOok99zOl1mHeivoWbNIEY1dtWp9IuF5iCt7ljfxhk4kPtKmODWZ8qnsyK/2dCkLlld/6KCWPk60YoPsq/6jqdmOxWXSRB3gjBdsVlRdiMnlvu96Fr7SXJbioCAS124bzD4AAi91h9oQ7RrRrZGJtUj20US+cv0fL9w3Zq7N8Is7+0g3ASIpmpdJHtJwghoYXCXSrb0eiEDMo3CSa8Fbd1eLlh8fy2j/TJ78mqHYWK4NY9RTl6Lz4rlKeDJzyB5RmGEWbpMFlDjCmgXp8O/pvC7mXkR6XPd20N8PxJ6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rfMafOy+/HWmlZ/c505nfexOb8nMx6QuJl1F1hf+zYw=;
+ b=mmZz+WKd1UoFUjAQUJMTiNXxBXhi0ErapsFae9Hq5atL3ncyRELtFKdlMQZDbEyohZwUd6yUZ7W/n2+RP2DMStd/UjOGWu8wp/+DYcY2N3se7C0i5K7+s0CGJjlcCQeuY7LIdBoHFNXtp/vVfOVUbqvR6Y0PIQ+uoLQnOnKvfgY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <74465ac2-0060-4047-97d7-acadcdff4cd4@amd.com>
+Date: Thu, 11 Apr 2024 11:26:11 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] x86/pvh: Make PVH entrypoint PIC for x86-64
+To: Brian Gerst <brgerst@gmail.com>
+CC: Juergen Gross <jgross@suse.com>, Boris Ostrovsky
+	<boris.ostrovsky@oracle.com>, Thomas Gleixner <tglx@linutronix.de>, Ingo
+ Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
+	<hpa@zytor.com>, Stefano Stabellini <sstabellini@kernel.org>, Oleksandr
+ Tyshchenko <oleksandr_tyshchenko@epam.com>, Paolo Bonzini
+	<pbonzini@redhat.com>, <xen-devel@lists.xenproject.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20240410194850.39994-1-jason.andryuk@amd.com>
+ <20240410194850.39994-3-jason.andryuk@amd.com>
+ <CAMzpN2h6S69bOLXCUhmkVJErvoKxq-wPmfoaqR7eGHYLgirn+Q@mail.gmail.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <CAMzpN2h6S69bOLXCUhmkVJErvoKxq-wPmfoaqR7eGHYLgirn+Q@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F68:EE_|BL3PR12MB6401:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5bcd1676-4bda-40f5-8697-08dc5a3bba2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Ho85NdNUr7+6PUovuj7DKzkiCbbcQu1xT1W9IqSqD5ZFs7kgMEGAEwUYAUWK46aEkp3B3dhfgCX+9j2YUftcHoVzRu6jVy1ECJKTvyh8YzXkTzFaYjjeb/sTi1lEIfSHi2XOI7s7WWOg5zg0YQuEo6lgPLa9ZPfgkPpUmyRmy/CGYUW10mMxtoEpfg3ETndUVJSpPAay602gz2+k8IAvppWUaHBiRdR0RQrCFuVVWuVretTmguiQf+wk1fIJNzobyvGRmb4ZsP/OjiMkJ/NcFqCVq2MEH6XOuQvsq1vhfYI4dGGD/I4NOZOJyY47miw9FDg51RNh3d+z33a55Dxgv3+nCwquMFtG9BM4hV12FgzxdZ5WKFMCqD0TUL0h66+mPTOQRUr32ru1b8zNUUFfbkXx6TB3SiJtNWx4lVBSddhwLhZlJ3N5QH6pQuoQwjBUkSn9/hjsQAQk16rB2s95+vQuAy+zZ8pXa/6FW3o7wwAinfMoQIsFGXeAuCxebw059Vk5j7E2nsufOOhVvt2Ei9xwOpYyF+mWi6njzFZu0RuS+1+wlTkQc0N3VsaWzIJVmBmlRMCoQsx2W92jQ+VfHnPb2Gqcl0bj2J2UJX3ZBqCS0F7b9GYtPUVyncdIZ82SNcZcJ9LtJNO/C8Et4Weaa/AIgd1po1qwHO2zp5VV9BE88YgmOk1sj5+PAQT7xQUsBfDRNkjUBPWrULope+EGn+vYE6pRSF7uIzpPq1bHICPF77gR7irvKeuzZg7NL5MF
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(1800799015)(36860700004)(7416005)(376005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2024 15:26:15.2440
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bcd1676-4bda-40f5-8697-08dc5a3bba2b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF00021F68.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6401
 
-Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
----
- xen/common/gzip/gunzip.c  |  2 ++
- xen/common/gzip/inflate.c | 26 ++++++++++++--------------
- 2 files changed, 14 insertions(+), 14 deletions(-)
+On 2024-04-10 17:00, Brian Gerst wrote:
+> On Wed, Apr 10, 2024 at 3:50 PM Jason Andryuk <jason.andryuk@amd.com> wrote:
 
-diff --git a/xen/common/gzip/gunzip.c b/xen/common/gzip/gunzip.c
-index a1b516b925c9..79a641263597 100644
---- a/xen/common/gzip/gunzip.c
-+++ b/xen/common/gzip/gunzip.c
-@@ -31,6 +31,8 @@ struct gzip_data {
- 
-     unsigned long crc_32_tab[256];
-     unsigned long crc;
-+
-+    unsigned hufts;        /* track memory usage */
- };
- 
- #define OF(args)        args
-diff --git a/xen/common/gzip/inflate.c b/xen/common/gzip/inflate.c
-index 6c8c7452a31f..53ee1d8ce1e3 100644
---- a/xen/common/gzip/inflate.c
-+++ b/xen/common/gzip/inflate.c
-@@ -140,7 +140,7 @@ struct huft {
- };
- 
- /* Function prototypes */
--static int huft_build OF((unsigned *, unsigned, unsigned,
-+static int huft_build OF((struct gzip_data *, unsigned *, unsigned, unsigned,
-                           const ush *, const ush *, struct huft **, int *));
- static int huft_free OF((struct huft *));
- static int inflate_codes OF((struct gzip_data *, struct huft *, struct huft *, int, int));
-@@ -311,8 +311,6 @@ static const int dbits = 6;          /* bits in base distance lookup table */
- #define BMAX 16         /* maximum bit length of any code (16 for explode) */
- #define N_MAX 288       /* maximum number of codes in any set */
- 
--static unsigned __initdata hufts;      /* track memory usage */
--
- /*
-  * Given a list of code lengths and a maximum table size, make a set of
-  * tables to decode that set of codes.  Return zero on success, one if
-@@ -329,8 +327,8 @@ static unsigned __initdata hufts;      /* track memory usage */
-  * @param m Maximum lookup bits, returns actual
-  */
- static int __init huft_build(
--    unsigned *b, unsigned n, unsigned s, const ush *d, const ush *e,
--    struct huft **t, int *m)
-+    struct gzip_data *gd, unsigned *b, unsigned n, unsigned s, const ush *d,
-+    const ush *e, struct huft **t, int *m)
- {
-     unsigned a;                   /* counter for codes of length k */
-     unsigned f;                   /* i repeats in table every f entries */
-@@ -492,7 +490,7 @@ static int __init huft_build(
-                     goto out;
-                 }
-                 DEBG1("4 ");
--                hufts += z + 1;         /* track memory usage */
-+                gd->hufts += z + 1;         /* track memory usage */
-                 *t = q + 1;             /* link to list for huft_free() */
-                 *(t = &(q->v.t)) = (struct huft *)NULL;
-                 u[h] = ++q;             /* table starts after link */
-@@ -787,7 +785,7 @@ static int noinline __init inflate_fixed(struct gzip_data *gd)
-     for (; i < 288; i++)          /* make a complete, but wrong code set */
-         l[i] = 8;
-     bl = 7;
--    if ((i = huft_build(l, 288, 257, cplens, cplext, &tl, &bl)) != 0) {
-+    if ((i = huft_build(gd, l, 288, 257, cplens, cplext, &tl, &bl)) != 0) {
-         free(l);
-         return i;
-     }
-@@ -796,7 +794,7 @@ static int noinline __init inflate_fixed(struct gzip_data *gd)
-     for (i = 0; i < 30; i++)      /* make an incomplete code set */
-         l[i] = 5;
-     bd = 5;
--    if ((i = huft_build(l, 30, 0, cpdist, cpdext, &td, &bd)) > 1)
-+    if ((i = huft_build(gd, l, 30, 0, cpdist, cpdext, &td, &bd)) > 1)
-     {
-         huft_free(tl);
-         free(l);
-@@ -894,7 +892,7 @@ static int noinline __init inflate_dynamic(struct gzip_data *gd)
- 
-     /* build decoding table for trees--single level, 7 bit lookup */
-     bl = 7;
--    if ((i = huft_build(ll, 19, 19, NULL, NULL, &tl, &bl)) != 0)
-+    if ((i = huft_build(gd, ll, 19, 19, NULL, NULL, &tl, &bl)) != 0)
-     {
-         if (i == 1)
-             huft_free(tl);
-@@ -971,7 +969,7 @@ static int noinline __init inflate_dynamic(struct gzip_data *gd)
- 
-     /* build the decoding tables for literal/length and distance codes */
-     bl = lbits;
--    if ((i = huft_build(ll, nl, 257, cplens, cplext, &tl, &bl)) != 0)
-+    if ((i = huft_build(gd, ll, nl, 257, cplens, cplext, &tl, &bl)) != 0)
-     {
-         DEBG("dyn5b ");
-         if (i == 1) {
-@@ -983,7 +981,7 @@ static int noinline __init inflate_dynamic(struct gzip_data *gd)
-     }
-     DEBG("dyn5c ");
-     bd = dbits;
--    if ((i = huft_build(ll + nl, nd, 0, cpdist, cpdext, &td, &bd)) != 0)
-+    if ((i = huft_build(gd, ll + nl, nd, 0, cpdist, cpdext, &td, &bd)) != 0)
-     {
-         DEBG("dyn5d ");
-         if (i == 1) {
-@@ -1090,15 +1088,15 @@ static int __init inflate(struct gzip_data *gd)
-     /* decompress until the last block */
-     h = 0;
-     do {
--        hufts = 0;
-+        gd->hufts = 0;
- #ifdef ARCH_HAS_DECOMP_WDOG
-         arch_decomp_wdog();
- #endif
-         r = inflate_block(gd, &e);
-         if (r)
-             return r;
--        if (hufts > h)
--            h = hufts;
-+        if (gd->hufts > h)
-+            h = gd->hufts;
-     } while (!e);
- 
-     /* Undo too much lookahead. The next read will be byte aligned so we
--- 
-2.30.2
+>>          /* 64-bit entry point. */
+>>          .code64
+>>   1:
+>> +       UNWIND_HINT_END_OF_STACK
+>> +
+>>          /* Set base address in stack canary descriptor. */
+>>          mov $MSR_GS_BASE,%ecx
+>> -       mov $_pa(canary), %eax
+>> +       leal rva(canary)(%ebp), %eax
+> 
+> Since this is in 64-bit mode, RIP-relative addressing can be used.
+> 
+>>          xor %edx, %edx
+>>          wrmsr
+>>
+>>          call xen_prepare_pvh
+>>
+>>          /* startup_64 expects boot_params in %rsi. */
+>> -       mov $_pa(pvh_bootparams), %rsi
+>> -       mov $_pa(startup_64), %rax
+>> +       lea rva(pvh_bootparams)(%ebp), %rsi
+>> +       lea rva(startup_64)(%ebp), %rax
+> 
+> RIP-relative here too.
 
+Yes, thanks for catching that.  With the RIP-relative conversion, there 
+is now:
+vmlinux.o: warning: objtool: pvh_start_xen+0x10d: relocation to !ENDBR: 
+startup_64+0x0
+
+I guess RIP-relative made it visible.  That can be quieted by adding 
+ANNOTATE_NOENDBR to startup_64.
+
+Thanks,
+Jason
 
