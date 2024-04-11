@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A60A8A1FB9
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 21:49:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704193.1100425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E42498A1FE0
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 22:06:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704200.1100438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rv0Q8-0006Yq-A2; Thu, 11 Apr 2024 19:49:16 +0000
+	id 1rv0fb-0002FG-KD; Thu, 11 Apr 2024 20:05:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704193.1100425; Thu, 11 Apr 2024 19:49:16 +0000
+Received: by outflank-mailman (output) from mailman id 704200.1100438; Thu, 11 Apr 2024 20:05:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rv0Q8-0006WH-7L; Thu, 11 Apr 2024 19:49:16 +0000
-Received: by outflank-mailman (input) for mailman id 704193;
- Thu, 11 Apr 2024 19:49:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rv0fb-0002Cy-Gt; Thu, 11 Apr 2024 20:05:15 +0000
+Received: by outflank-mailman (input) for mailman id 704200;
+ Thu, 11 Apr 2024 20:05:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eZ5N=LQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rv0Q7-0006WB-2P
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 19:49:15 +0000
-Received: from mail-vk1-xa2b.google.com (mail-vk1-xa2b.google.com
- [2607:f8b0:4864:20::a2b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 91c722a5-f83c-11ee-94a3-07e782e9044d;
- Thu, 11 Apr 2024 21:49:12 +0200 (CEST)
-Received: by mail-vk1-xa2b.google.com with SMTP id
- 71dfb90a1353d-4daa83054easo45359e0c.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 12:49:12 -0700 (PDT)
+ id 1rv0fa-0002Cs-6z
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 20:05:14 +0000
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [2607:f8b0:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cdc09485-f83e-11ee-b908-491648fe20b8;
+ Thu, 11 Apr 2024 22:05:12 +0200 (CEST)
+Received: by mail-ot1-x331.google.com with SMTP id
+ 46e09a7af769-6ea260f51b8so156120a34.3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 13:05:12 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- u3-20020a0cdd03000000b0069b53e6cc5bsm274476qvk.94.2024.04.11.12.49.08
+ b3-20020ac86783000000b00430bddc75a5sm1307634qtp.23.2024.04.11.13.05.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Apr 2024 12:49:09 -0700 (PDT)
+ Thu, 11 Apr 2024 13:05:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91c722a5-f83c-11ee-94a3-07e782e9044d
+X-Inumbo-ID: cdc09485-f83e-11ee-b908-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712864952; x=1713469752; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1712865911; x=1713470711; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=foP/h3FxkOHZc0fxJCK6lQ8HGxx6TvDZYxOB8aJlUNg=;
-        b=VNki9vZ7qhKuvgQ9lzMmO8VpqzSg2c8vyBAicuNuhn46Sp2x24/fGwr2kBlpN95L4q
-         eHwyGkFGWrfKqY8VtR1nLvKQ/aPKU6M3MUsuGz0pVWs3Wb97G/4nlg+SpCGgpdpKkgkP
-         DuQYiUCxYkjsikoQqt6LplX6sJj5TAPMvIMXI=
+        bh=e1XRXFV8O7eANmK8l6b+KFVGJ5AzU2POAqny7OawXFA=;
+        b=NqrQZn4QAJ537kvc03TlL8vCE1N7ADYsXjDlI6XXyVZ84sGLMoUfWI/kVt7gONB8Tl
+         oYFnyCHQJg0K6b53bDNUGc+ZJOXUbEi2kQar0TPRRfnu4pyDuxk2L69JwkOZiwZnSg2k
+         U+B0nTIJZMsG42p4YaZ5YvBu2b4ahOCmq2zjk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712864952; x=1713469752;
+        d=1e100.net; s=20230601; t=1712865911; x=1713470711;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=foP/h3FxkOHZc0fxJCK6lQ8HGxx6TvDZYxOB8aJlUNg=;
-        b=RZQQPFdvMvKjlrcXOl/vs3JPp70Jz+vFNkW2B0q8x54oVElr9Fgxf0BwhoWYJ93r/T
-         xILZcSvbKLScOYDtFDsETYkMHwixUtxQSjZXV3CQLl0fUeQbfGPfWAsGsXY77ibtTRWy
-         kEEo9yr8cA+I231IoBuWw0OIBvbpE0yPZmneKbIltXTkiM4phT9402K/hOBJtbp5uLf3
-         yjBR4nJmclS2U+HmP7NjBsX25uh9Vj4PWVGPJdYhZVYhCmy7uyZ4RWayd7wEP/Z0UmPg
-         2D89Ifi7kh7IPYpOz5GiL5cVuTM9PjWvlhbjUGBR4fBivVvS4NFh7Qy5CQO/Bn2/uSyN
-         RYEQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUVVchvgqhzChxW7yn32th91KFHHzpdp71t9mXjpXKmagmjBrPX6XZd/c40hPShNhwFCxjjuudExGKmutE0hZSy9utThSlPWITAu6t0s2c=
-X-Gm-Message-State: AOJu0YwdKWCbgyV8Xag6529Ab6xx7nccU38s9r96mYTpexRpcTh/E8nj
-	Ovqs4O1ANULiaDEcSHbPsqDCwwBnliQpmB3dzDF8p1rM8YBcnnPctYayECj0rKPLgGz79jkUQkt
-	YqY4=
-X-Google-Smtp-Source: AGHT+IEMPpbWh4NeYKHax8jYWC3L9s7tn8YQReSKuvqMmA2Nsnln3wdksJ5n4JvNRiGtM+6SAVa5sQ==
-X-Received: by 2002:a05:6122:17a2:b0:4d8:37eb:9562 with SMTP id o34-20020a05612217a200b004d837eb9562mr867008vkf.0.1712864950556;
-        Thu, 11 Apr 2024 12:49:10 -0700 (PDT)
-Message-ID: <5e822498-cbe1-45e5-806c-1c14aaf76a6d@citrix.com>
-Date: Thu, 11 Apr 2024 20:49:07 +0100
+        bh=e1XRXFV8O7eANmK8l6b+KFVGJ5AzU2POAqny7OawXFA=;
+        b=DFduJwgkzQyA1MO7IJ6c6FS0BYItNeLBHd+3hNq7mE8FZs/K7y77AqwX9nVTvXAE7Y
+         uBiw9FJ9tH3DagRcXbRQSXGactWpIvBXPrM1sIzVH/5Y0c/FrFhfSbnttE3YLb6XzfEY
+         ffoAjDF9SEO1da/HyDOk+wQpCeOGkqtfue7Dqc6Kc6wWjdPyMmkGxvMY1sGcxvUM2eFG
+         smVKRP8gA1QcRmQ+Gg39u8zXV8Y6GQ48mnmPYpWQUdQVD4MFyMZb06ASknvt+0ZtFxBx
+         Qsj6trJ3oXKsB63YieAHS0rbBU42j1iIXY7DJkX3pAT7JPutiUhW5sqD/PR3HMKgsUgw
+         hW6g==
+X-Forwarded-Encrypted: i=1; AJvYcCUgPLFL18gqW1ccUDbPkXgJwO2oGucnV4zPeVRQpKyNzcFlrNiWCDOz7Q6eiXdvB+Nxvrz7v1uFqbptA4ZXEXnAHSXoBNq3VQsUXtVvdjM=
+X-Gm-Message-State: AOJu0YyTyFDMbFfg+rQszRyylMElrGSNF9KluZLFUTqkwCdxMezjGLRl
+	XY1R3x05AJXPhciESb5b8rPlFH8OpxciKKXyeT2pcjdSDOAO3pkGDV/caqpfmsg=
+X-Google-Smtp-Source: AGHT+IGKKvi5jwjQau3n674BN8FZ/22UpEqGnIvll7f4pPQ1Gn8VfbOZGUycBX5bNQl7XyjYFGkt/w==
+X-Received: by 2002:a05:6808:c2:b0:3c6:1477:3b0a with SMTP id t2-20020a05680800c200b003c614773b0amr669549oic.19.1712865911324;
+        Thu, 11 Apr 2024 13:05:11 -0700 (PDT)
+Message-ID: <4bf2e6ea-a7fc-4cc6-aefe-4a9ed9ae97e1@citrix.com>
+Date: Thu, 11 Apr 2024 21:05:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] gzip: move huffman code table tracking into gzip
- state
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20240411152518.2995-1-dpsmith@apertussolutions.com>
- <20240411152518.2995-6-dpsmith@apertussolutions.com>
+Subject: Re: [XEN PATCH v2 0/3] x86/iommu: Drop IOMMU support when cx16 isn't
+ supported
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <cover.1712580356.git.teddy.astie@vates.tech>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,142 +129,52 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240411152518.2995-6-dpsmith@apertussolutions.com>
+In-Reply-To: <cover.1712580356.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11/04/2024 4:25 pm, Daniel P. Smith wrote:
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> ---
->  xen/common/gzip/gunzip.c  |  2 ++
->  xen/common/gzip/inflate.c | 26 ++++++++++++--------------
->  2 files changed, 14 insertions(+), 14 deletions(-)
+On 08/04/2024 2:02 pm, Teddy Astie wrote:
+> All hardware that supports VT-d/AMD-Vi that exists also supports cx16 (aside
+> specifically crafted virtual machines).
 >
-> diff --git a/xen/common/gzip/gunzip.c b/xen/common/gzip/gunzip.c
-> index a1b516b925c9..79a641263597 100644
-> --- a/xen/common/gzip/gunzip.c
-> +++ b/xen/common/gzip/gunzip.c
-> @@ -31,6 +31,8 @@ struct gzip_data {
->  
->      unsigned long crc_32_tab[256];
->      unsigned long crc;
-> +
-> +    unsigned hufts;        /* track memory usage */
->  };
->  
->  #define OF(args)        args
-> diff --git a/xen/common/gzip/inflate.c b/xen/common/gzip/inflate.c
-> index 6c8c7452a31f..53ee1d8ce1e3 100644
-> --- a/xen/common/gzip/inflate.c
-> +++ b/xen/common/gzip/inflate.c
-> @@ -140,7 +140,7 @@ struct huft {
->  };
->  
->  /* Function prototypes */
-> -static int huft_build OF((unsigned *, unsigned, unsigned,
-> +static int huft_build OF((struct gzip_data *, unsigned *, unsigned, unsigned,
->                            const ush *, const ush *, struct huft **, int *));
->  static int huft_free OF((struct huft *));
->  static int inflate_codes OF((struct gzip_data *, struct huft *, struct huft *, int, int));
-> @@ -311,8 +311,6 @@ static const int dbits = 6;          /* bits in base distance lookup table */
->  #define BMAX 16         /* maximum bit length of any code (16 for explode) */
->  #define N_MAX 288       /* maximum number of codes in any set */
->  
-> -static unsigned __initdata hufts;      /* track memory usage */
-> -
->  /*
->   * Given a list of code lengths and a maximum table size, make a set of
->   * tables to decode that set of codes.  Return zero on success, one if
-> @@ -329,8 +327,8 @@ static unsigned __initdata hufts;      /* track memory usage */
->   * @param m Maximum lookup bits, returns actual
->   */
->  static int __init huft_build(
-> -    unsigned *b, unsigned n, unsigned s, const ush *d, const ush *e,
-> -    struct huft **t, int *m)
-> +    struct gzip_data *gd, unsigned *b, unsigned n, unsigned s, const ush *d,
-> +    const ush *e, struct huft **t, int *m)
->  {
->      unsigned a;                   /* counter for codes of length k */
->      unsigned f;                   /* i repeats in table every f entries */
-> @@ -492,7 +490,7 @@ static int __init huft_build(
->                      goto out;
->                  }
->                  DEBG1("4 ");
-> -                hufts += z + 1;         /* track memory usage */
-> +                gd->hufts += z + 1;         /* track memory usage */
->                  *t = q + 1;             /* link to list for huft_free() */
->                  *(t = &(q->v.t)) = (struct huft *)NULL;
->                  u[h] = ++q;             /* table starts after link */
-> @@ -787,7 +785,7 @@ static int noinline __init inflate_fixed(struct gzip_data *gd)
->      for (; i < 288; i++)          /* make a complete, but wrong code set */
->          l[i] = 8;
->      bl = 7;
-> -    if ((i = huft_build(l, 288, 257, cplens, cplext, &tl, &bl)) != 0) {
-> +    if ((i = huft_build(gd, l, 288, 257, cplens, cplext, &tl, &bl)) != 0) {
->          free(l);
->          return i;
->      }
-> @@ -796,7 +794,7 @@ static int noinline __init inflate_fixed(struct gzip_data *gd)
->      for (i = 0; i < 30; i++)      /* make an incomplete code set */
->          l[i] = 5;
->      bd = 5;
-> -    if ((i = huft_build(l, 30, 0, cpdist, cpdext, &td, &bd)) > 1)
-> +    if ((i = huft_build(gd, l, 30, 0, cpdist, cpdext, &td, &bd)) > 1)
->      {
->          huft_free(tl);
->          free(l);
-> @@ -894,7 +892,7 @@ static int noinline __init inflate_dynamic(struct gzip_data *gd)
->  
->      /* build decoding table for trees--single level, 7 bit lookup */
->      bl = 7;
-> -    if ((i = huft_build(ll, 19, 19, NULL, NULL, &tl, &bl)) != 0)
-> +    if ((i = huft_build(gd, ll, 19, 19, NULL, NULL, &tl, &bl)) != 0)
->      {
->          if (i == 1)
->              huft_free(tl);
-> @@ -971,7 +969,7 @@ static int noinline __init inflate_dynamic(struct gzip_data *gd)
->  
->      /* build the decoding tables for literal/length and distance codes */
->      bl = lbits;
-> -    if ((i = huft_build(ll, nl, 257, cplens, cplext, &tl, &bl)) != 0)
-> +    if ((i = huft_build(gd, ll, nl, 257, cplens, cplext, &tl, &bl)) != 0)
->      {
->          DEBG("dyn5b ");
->          if (i == 1) {
-> @@ -983,7 +981,7 @@ static int noinline __init inflate_dynamic(struct gzip_data *gd)
->      }
->      DEBG("dyn5c ");
->      bd = dbits;
-> -    if ((i = huft_build(ll + nl, nd, 0, cpdist, cpdext, &td, &bd)) != 0)
-> +    if ((i = huft_build(gd, ll + nl, nd, 0, cpdist, cpdext, &td, &bd)) != 0)
->      {
->          DEBG("dyn5d ");
->          if (i == 1) {
-> @@ -1090,15 +1088,15 @@ static int __init inflate(struct gzip_data *gd)
->      /* decompress until the last block */
->      h = 0;
->      do {
-> -        hufts = 0;
-> +        gd->hufts = 0;
->  #ifdef ARCH_HAS_DECOMP_WDOG
->          arch_decomp_wdog();
->  #endif
->          r = inflate_block(gd, &e);
->          if (r)
->              return r;
-> -        if (hufts > h)
-> -            h = hufts;
-> +        if (gd->hufts > h)
-> +            h = gd->hufts;
->      } while (!e);
->  
->      /* Undo too much lookahead. The next read will be byte aligned so we
+> Some IOMMU code paths in Xen consider cases where VT-d/AMD-Vi is supported
+> while cx16 isn't, those paths may be bugged and are barely tested, dead code
+> in practice.
+>
+> Disable IOMMU in case we have IOMMU hardware but no cx16, then cleanup
+> no-cx16 handling logic from VT-d and AMD-Vi drivers.
+>
+> Teddy
+>
+> Changed in v2:
+>
+>  * Added cleanup no-cx16 code for x2APIC
+>  * Fixed commit and code formatting
+>  * Added missing Suggested-by note
+>
+> Teddy Astie (3):
+>   VT-d: Disable IOMMU if cx16 isn't supported
+>   AMD-Vi: Disable IOMMU if cx16 isn't supported
+>   VT-d: Cleanup MAP_SINGLE_DEVICE and related code
+>
+>  xen/arch/x86/apic.c                         |  6 ++
+>  xen/drivers/passthrough/amd/iommu_map.c     | 42 ++++------
+>  xen/drivers/passthrough/amd/pci_amd_iommu.c |  6 ++
+>  xen/drivers/passthrough/vtd/intremap.c      | 65 ++++-----------
+>  xen/drivers/passthrough/vtd/iommu.c         | 92 +++++++--------------
+>  xen/drivers/passthrough/vtd/vtd.h           |  5 +-
+>  6 files changed, 71 insertions(+), 145 deletions(-)
+>
 
+Sorry, but you've sent out two copies of each patch in this series, and
+it's not clear if they're identical or not.
 
-AFAICT, hothing in inflate() reads h.  So hufts is a write-only variable?
+Please could you send out another version, making sure there's only one
+of each patch.
 
-Can't we just delete it, rather than plumb it through into the state
-block?  It would certainly shrink this patch somewhat.
+Also, you need to swap ENOSYS with ENODEV, as per Jan's review on v1.
+
+Thanks,
 
 ~Andrew
 
