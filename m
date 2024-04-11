@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D35998A1417
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 14:13:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703881.1099808 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE4A78A145E
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 14:24:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703886.1099817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rutIa-0002jX-44; Thu, 11 Apr 2024 12:13:00 +0000
+	id 1rutSz-0004u9-1v; Thu, 11 Apr 2024 12:23:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703881.1099808; Thu, 11 Apr 2024 12:13:00 +0000
+Received: by outflank-mailman (output) from mailman id 703886.1099817; Thu, 11 Apr 2024 12:23:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rutIa-0002hs-1I; Thu, 11 Apr 2024 12:13:00 +0000
-Received: by outflank-mailman (input) for mailman id 703881;
- Thu, 11 Apr 2024 12:12:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rutSy-0004ro-VO; Thu, 11 Apr 2024 12:23:44 +0000
+Received: by outflank-mailman (input) for mailman id 703886;
+ Thu, 11 Apr 2024 12:23:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eZ5N=LQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rutIY-0002hk-05
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 12:12:58 +0000
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
- [2607:f8b0:4864:20::82d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d4863ee2-f7fc-11ee-b908-491648fe20b8;
- Thu, 11 Apr 2024 14:12:57 +0200 (CEST)
-Received: by mail-qt1-x82d.google.com with SMTP id
- d75a77b69052e-43493745415so19761901cf.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 05:12:57 -0700 (PDT)
-Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- f18-20020ac81c92000000b00434f50f5d82sm831619qtl.14.2024.04.11.05.12.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Apr 2024 05:12:55 -0700 (PDT)
+ <SRS0=RVMu=LQ=linaro.org=manos.pitsidianakis@srs-se1.protection.inumbo.net>)
+ id 1rutSy-0004ri-87
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 12:23:44 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 554d743a-f7fe-11ee-94a3-07e782e9044d;
+ Thu, 11 Apr 2024 14:23:42 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-516db2214e6so7081665e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 05:23:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +40,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4863ee2-f7fc-11ee-b908-491648fe20b8
+X-Inumbo-ID: 554d743a-f7fe-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712837576; x=1713442376; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ySCRczzvMVB58WjnHUwULBNHEzdhVeYlOS/feJ5C65A=;
-        b=UCU6ZK+qLAdJE0TH0m9clhEW89BiapBqHKvjFLogdxBLvNwEdo0YZSyjpOnKSmfYmd
-         v9P0d6zQuiUoO/A1tBh1pfaIXk8VBjvJsGjRr/XliRWUyuLX0BAwTrZsQmYUUocxYodn
-         6nxFYicySpq0AjcN8dwZoVJMVY9vVQRGoavAI=
+        d=linaro.org; s=google; t=1712838221; x=1713443021; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=hQODPu6FHcQYR3JyUEnQZ1dUqgFU2GtzUbHXmNRJoww=;
+        b=wbnPSqfFw7b6fLGpG81ECAVq1LJjSA4AhiH3Ay8nOu8OEHsLym6GzB28fjB4LUco7t
+         UxmrLCI8G+7Mo5iHctmTLzj6yPJXeDKS67QDsd23kQZv7laMU4NLS2NTN88TIgJi3ek/
+         MwueIwMIe20DExnegakf2q6Jx9jYceyNBXOXzL4jLTSzO2L0EcEbFFDN4sAsJ+y6n9DW
+         Ah/jmFGrm3Gpl4LOR1+V7xeoCrhlpjwkglOUD/HO+0fSAEMRMy24BgqipDvYjvZh0AD9
+         P/e5G8lkloC9AcI7cTiL1JZ5eJPlJ2YhK4YHTxycBfYuV2ivXMTJ9uXedEi5MPXgKLAR
+         SbLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712837576; x=1713442376;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ySCRczzvMVB58WjnHUwULBNHEzdhVeYlOS/feJ5C65A=;
-        b=HRiyh38oHF5piTNM/ORrn2GsVRAwk749+dfFl6/zzMqNPiZdF9uTV8AGNBPiRDoSeC
-         Fvz0VcUZCSN9u/3o91XsQGefrpkVZx9FOUXoZ0ayJY2N4KEYwb/OQg8OrnuFQE/9mlIG
-         7DTLWTHCa1bquvOKXhyVjQGVwu6ABHMayLnUQw/yNHLFtIYY/bLAg8dEDP7qlugmpDym
-         GJPliH27ihqMA+IvWebRWvZa4R8x9Oe6ZpcH+HbozstrPhE6R+ds/RPH4/QDXuRxlssz
-         V7mJWEuciPZ4ReuUQ7JttNKBQZBoaZLaaZ20Yb00qGqnakBewNklrLvH6vitOvn7SA/e
-         EdVA==
-X-Forwarded-Encrypted: i=1; AJvYcCWmnfumxoblpIjsOF6sNmBbeGoShJoZoXU5W8OZ7zQEneK2jEtJN/ViXA0PI/XlPQZogC+G+vog7zQ88NArTb2mhuqwFPIs60h/KZFj0dQ=
-X-Gm-Message-State: AOJu0YxU0jvT0xIxipzOlonqnwj86FxYE/LGaShbCL+Ir2bcc9EFw0sg
-	wLJ48r8urLzYCxp9PT0mmDUAmyh8BsZpIfh6jLkcgtAVbOH4aBBkWXzSUBKqTmG/RrX75YtRtvA
-	WLqg=
-X-Google-Smtp-Source: AGHT+IGC8mcO+1uxmmFHV3bOEUQCiJ4TtAjB1GDT0zJSzuJ6BSxNryn1tqXkiESxqQCmYHDiPEVukg==
-X-Received: by 2002:ac8:578a:0:b0:436:7b8e:677 with SMTP id v10-20020ac8578a000000b004367b8e0677mr108381qta.49.1712837575930;
-        Thu, 11 Apr 2024 05:12:55 -0700 (PDT)
-Message-ID: <66ef2d24-0c4f-4d35-89c3-04ffd870cc91@citrix.com>
-Date: Thu, 11 Apr 2024 13:12:53 +0100
+        d=1e100.net; s=20230601; t=1712838221; x=1713443021;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hQODPu6FHcQYR3JyUEnQZ1dUqgFU2GtzUbHXmNRJoww=;
+        b=NpyCf8w2L8Fy+O6dpqK7BD578VSIWR2UEhSOplE4w8TY0ik/EZGpSi3wKPrAR4kUWW
+         IItGAsM1I7WUscC2Jzkiik+0Qv9g/azqV09hpCPI18ddLhNX45eAGJmRbFJGbldtXvDO
+         EPksPwGxPN18Pa4ME36z9qG1ue7Hek+KY0KQhi4OUdYYyoAp59H/3TN6tpso5a3cJBW/
+         Ya9JK3BcAofCxLORRC6Xr4DFZibaze41T63kSVWnDAtA+2bf0vQOnmTaMu0sOcLDu/y8
+         p6ojscuFvxI8LOEz3WgAg0MJFSRI+yktv375f0H6ekaF7rGBps/J0vF4J53BZLANxRtB
+         3LfA==
+X-Gm-Message-State: AOJu0Yww7xvQnAC14RJft9Aa+FVqx7PRCKgxt7ia6buxXAOh2uxcng8O
+	YrbB4L4gymtnEYwFKOI01Vfqy+XA/cDQDuPOV6goYt+LPYEO/AWsapRLbgO05lOwmK/38VIbwwX
+	DaTFNnKGbQIyEAhLiAfoKyxaNsSHrJjsf8Tk0wQ==
+X-Google-Smtp-Source: AGHT+IFba9IPlYJm7O8mxw/YQonyyFo4T7SCxsLHzVU+TcLHh0IRGTUClI3/n9h/OK9L/PfsfctJawOfpvTLZ5nIYn4=
+X-Received: by 2002:a19:6a04:0:b0:515:bb3a:116a with SMTP id
+ u4-20020a196a04000000b00515bb3a116amr3298256lfu.41.1712838221370; Thu, 11 Apr
+ 2024 05:23:41 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] tools/misc: rework xenwatchdogd signal handling
-To: leigh@solinno.co.uk, xen-devel@lists.xenproject.org
-Cc: anthony.perard@citrix.com, slack@rabbit.lu
-References: <20240329111056.6118-1-leigh@solinno.co.uk>
- <20240329111056.6118-3-leigh@solinno.co.uk>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240329111056.6118-3-leigh@solinno.co.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1712748711.git.manos.pitsidianakis@linaro.org>
+ <c00304a2-f990-4fb3-9276-7f4907b583ea@perard> <CAAjaMXbhjQT-PFJmYBOyXWbOwMKsUEa964+svR8XkJ-tYQ4a+g@mail.gmail.com>
+ <e8103b89-c324-46a3-b58a-dc8253acee53@perard>
+In-Reply-To: <e8103b89-c324-46a3-b58a-dc8253acee53@perard>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Thu, 11 Apr 2024 15:23:25 +0300
+Message-ID: <CAAjaMXZshO5-uw=k33LhmOraXR6w9OG3+Kv6KPS0Y4xRaYcKjQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v1 0/2] convert LIBXL_DEVICE_MODEL_START_TIMEOUT to
+ env var
+To: Anthony PERARD <anthony.perard@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 29/03/2024 11:10 am, leigh@solinno.co.uk wrote:
-> diff --git a/tools/misc/xenwatchdogd.c b/tools/misc/xenwatchdogd.c
-> index 2f7c822d61..35a0df655a 100644
-> --- a/tools/misc/xenwatchdogd.c
-> +++ b/tools/misc/xenwatchdogd.c
-> @@ -9,9 +9,11 @@
->  #include <unistd.h>
->  #include <signal.h>
->  #include <stdio.h>
-> +#include <stdbool.h>
->  
->  xc_interface *h;
-> -int id = 0;
-> +static bool safeexit = false;
-> +static bool done = false;
+On Thu, 11 Apr 2024 at 14:24, Anthony PERARD <anthony.perard@cloud.com> wrote:
+>
+> On Thu, Apr 11, 2024 at 01:23:07PM +0300, Manos Pitsidianakis wrote:
+> > Hello Anthony,
+> >
+> > I do know about that, in fact I used it and it did not output your
+> > email. Here's what the `get_maintainer.pl` outputs: (same output for
+> > all patches):
+> >
+> > $ ./scripts/get_maintainer.pl --no-l
+> > ../../patches/libxl-dm-timeout-v1/v1-0001-libs-light-add-device-model-start-timeout-env-var.patch
+> > Andrew Cooper <andrew.cooper3@citrix.com>
+> > George Dunlap <george.dunlap@citrix.com>
+> > Jan Beulich <jbeulich@suse.com>
+> > Julien Grall <julien@xen.org>
+> > Stefano Stabellini <sstabellini@kernel.org>
+>
+> Oh, sorry, I didn't realise this was "THE REST" that is the list of
+> default maintainers.
+>
+> So for some reason, the script fail to parse the patches to find which
+> files are modified. And I think I know why. Usually, `git format-patch`
+> output something like:
+>     diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+>     index 4369fef161..9ffdd50c69 100644
+>     --- a/tools/libs/light/libxl_dm.c
+>     +++ b/tools/libs/light/libxl_dm.c
+> with all path starting with "a/" or "b/", which get_maintainer then
+> strip. (It strip them from the "diff --git" line, but remove the first
+> "directory" from the path for line starting with "---" or "+++".)
+>
+> The patches in this series instead look like this:
+>     diff --git tools/libs/light/libxl_dm.c tools/libs/light/libxl_dm.c
+>     index 4369fef161..9ffdd50c69 100644
+>     --- tools/libs/light/libxl_dm.c
+>     +++ tools/libs/light/libxl_dm.c
+> with "a/" and "b/" missing, and that confuses get_maintainer.pl. It
+> tries to find maintainers for "libs/light/libxl_dm.c" which don't exist.
+>
+> Did you by any chance used "--no-prefix"? It doesn't seems worse it to
+> handle this case as I'm guessing more than on tool rely on those.
+>
+> Cheers,
+>
+> --
+> Anthony PERARD
 
-It's a common bug, but these need to be volatile.  Right now, ...
 
-> @@ -90,10 +90,14 @@ int main(int argc, char **argv)
->      if (id <= 0)
->          err(EXIT_FAILURE, "xc_watchdog setup");
->  
-> -    for (;;) {
-> +    while (!done) {
->          sleep(s);
+Mystery solved: I generated those patches on my arm64 workstation,
+which had the debian packaged git version 2.39 which has the old
+behavior of git-format-patch being affected by diff.noprefix. I just
+re-generated them using 2.44 (which is what my config expected) and
+the a/b prefixes are back:
 
-... the only reason this isn't an infinite loop is because the compiler
-can't prove that sleep() doesn't modify the variable.  This goes wrong
-in subtle and fun ways when using LTO.
+./scripts/get_maintainer.pl
+../../patches/libxl-dm-timeout-v2/v2-0002-libs-light-expand-device-model-start-timeout-use.patch
+Anthony PERARD <anthony.perard@citrix.com>
+Juergen Gross <jgross@suse.com>
+xen-devel@lists.xenproject.org
 
-I'll fix on commit.
+I will send a v2, thanks for letting me know!
 
-For the record, I've taken 1-3 which are ready.  You'll need to rework 4
-and later per Anthony's feedback.
 
-~Andrew
+-- 
+Manos Pitsidianakis
+Emulation and Virtualization Engineer at Linaro Ltd
 
