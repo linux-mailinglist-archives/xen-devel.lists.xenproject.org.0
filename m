@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF1838A1576
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 15:25:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703936.1099946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E01C08A15A0
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 15:34:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703946.1099971 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruuQ8-0002fc-E1; Thu, 11 Apr 2024 13:24:52 +0000
+	id 1ruuYn-0004jm-DH; Thu, 11 Apr 2024 13:33:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703936.1099946; Thu, 11 Apr 2024 13:24:52 +0000
+Received: by outflank-mailman (output) from mailman id 703946.1099971; Thu, 11 Apr 2024 13:33:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruuQ8-0002de-BP; Thu, 11 Apr 2024 13:24:52 +0000
-Received: by outflank-mailman (input) for mailman id 703936;
- Thu, 11 Apr 2024 13:24:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JjjB=LQ=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1ruuQ7-0002dQ-AQ
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 13:24:51 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20601.outbound.protection.outlook.com
- [2a01:111:f403:2408::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id df29061b-f806-11ee-b908-491648fe20b8;
- Thu, 11 Apr 2024 15:24:49 +0200 (CEST)
-Received: from MN2PR20CA0031.namprd20.prod.outlook.com (2603:10b6:208:e8::44)
- by BY5PR12MB4258.namprd12.prod.outlook.com (2603:10b6:a03:20d::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Thu, 11 Apr
- 2024 13:24:45 +0000
-Received: from MN1PEPF0000F0DF.namprd04.prod.outlook.com
- (2603:10b6:208:e8:cafe::1c) by MN2PR20CA0031.outlook.office365.com
- (2603:10b6:208:e8::44) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.35 via Frontend
- Transport; Thu, 11 Apr 2024 13:24:45 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- MN1PEPF0000F0DF.mail.protection.outlook.com (10.167.242.37) with Microsoft
+	id 1ruuYn-0004i3-Ak; Thu, 11 Apr 2024 13:33:49 +0000
+Received: by outflank-mailman (input) for mailman id 703946;
+ Thu, 11 Apr 2024 13:33:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1M6P=LQ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1ruuYm-0004hx-8P
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 13:33:48 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2417::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1e8b7ee0-f808-11ee-94a3-07e782e9044d;
+ Thu, 11 Apr 2024 15:33:46 +0200 (CEST)
+Received: from BN9PR03CA0795.namprd03.prod.outlook.com (2603:10b6:408:13f::20)
+ by DS7PR12MB5816.namprd12.prod.outlook.com (2603:10b6:8:78::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.53; Thu, 11 Apr
+ 2024 13:33:41 +0000
+Received: from BN3PEPF0000B06B.namprd21.prod.outlook.com
+ (2603:10b6:408:13f:cafe::79) by BN9PR03CA0795.outlook.office365.com
+ (2603:10b6:408:13f::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.21 via Frontend
+ Transport; Thu, 11 Apr 2024 13:33:40 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B06B.mail.protection.outlook.com (10.167.243.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Thu, 11 Apr 2024 13:24:45 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7495.0 via Frontend Transport; Thu, 11 Apr 2024 13:33:40 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 11 Apr
- 2024 08:24:45 -0500
-Received: from [172.31.100.92] (10.180.168.240) by SATLEXMB04.amd.com
+ 2024 08:33:40 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 11 Apr
+ 2024 06:33:40 -0700
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Thu, 11 Apr 2024 08:24:42 -0500
+ Transport; Thu, 11 Apr 2024 08:33:38 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,135 +63,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df29061b-f806-11ee-b908-491648fe20b8
+X-Inumbo-ID: 1e8b7ee0-f808-11ee-94a3-07e782e9044d
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hxJIY3K4xNV0Q3U81C+14ernD/Y2OpLDVmRIM3G8SUp3K2/BOrvAbgJZx126KioqQR3xgtUHBPISxzplheiW/Od+3yAMT6g63s3OqHRtfU1ngCdxfUvg3T+unmfpH7YdILmNSOjlpJMxluU7laJr/8WHffoJ/3JDJt9CDAFSsask0V6XCBfKb7WdjPOmBsRjv6lrw29XOvusrXTMTQMfE0sHL8rr+o4/KBWHzh+8EAO9sglh9v1mv0ArgXCqrzfZKdPK+Ux+GAYToz+lc4GBVDS4qXCkDBFGN8pyyc8aGpvtvjXkZEfgs6AfsNF7bALoy40CItzkhCieZn1wT5EVQA==
+ b=lb1c0/u2hv4+RsgESUIAqo5o1XbGxR3Llbbm75Gl626q4+nhKA7AjSzGxt/QZt5yPf5GfcjC07oHp4w9IInrZ8YwMao+bfLOcDii+Lxf9tDnxs3c1rsSOfJYRP5pV7tdJwhoChvtpTejlwnMXCCAHRdeRwXlrDi2uD+dUYU7AgIk3VTokjIRzKWIYXcO5G3wag5CQbnsdOvVMvAfgDd8Oj6ca3b2BJlZj5Yc+/LYMsyXNCUvfjv5uvgBTExMEqsAN13nGE5/rH9nefbaQXVgg9yOS5olqpcHe55nepJ/mNC4IMUp+wOBsd61xUmOKiicWht8GhgMNZUKWqRJOMAwJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Oe/YMjvQ6OizNvAhPx/8hv5SIrFUnv/3b1wpfD2O0Ww=;
- b=E35zGzM8NZm7NFwFnw6f/fJxTTDjJmnn8jTb1cBB9iJgj74s/mksFrT2j7USbmN2vA1fqp0AkCYjs9vxs4EsSo9NmmJJFA7k8/1lbKLudkQ+lglItTGUVb0OUNXBJNp5YWpcml7JxL1/psExzL44ljIW9TQKCDJSXgUYL0sdtOl/20yZV2TRddpN3283iqDKY3yizF2Xe+l68IIbmfeOBoAJfLWnI1+0D8++UUDbRH/qFZF+OaHIPsfuC5R408QRYAmIyXocmurN7CfsqCIoH+SbZR2yUDPEsvkbGJm4svU+XXc2fCGNf1Ncx+134y0ixhrAT9LCl3CxGEgi8+IROA==
+ bh=aLZfrGIJBUtElR6uQavfhF/pzO2vpb6tUTF3vAKf8GM=;
+ b=HWH3tUJokhGOeMmCmd9/HtW6gG95e1v4G6sBgDsclSIR/Pms8pEaik1S9+1Vd9azE7FTuSfMaF1FFOPIkYlvxJkSldN+J1Z2jdkXB1jhvegrTO0hrRdUBQqcy6b3wZBA9091G5jrr8YxHcn17XPGQgzmL8yt36IhSblMyuweBfABQVPLQk6+JFlfkJqvQftOKKRvc43/NJGNOonWrj5VVBmEEPUd8Y6ztBjxjwLX1P4pZxvRQ75d1CBzDavjXZgIcvNS1mnSxlZvH/+nG4U+EoPHDPDZra3JWxWLpuFfC+1qefzHdYH8o0QZyRsXh96zs4lsBT+7l0F60zs4mGDpwQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Oe/YMjvQ6OizNvAhPx/8hv5SIrFUnv/3b1wpfD2O0Ww=;
- b=21zAGq1n2J1ypSiODNYa/inefiXgTDPQopF8+gplueqKWTNhSPl3laGu2INKi3vyT8RJex35b/fx+t0RUHa3ixEZo/Aeyf4jqPNj6iBg9sc4tGR22803FpA2Y6hebDPCTkf4LRK8aJRG6onSxVrGgCXxDniG4tC3Y4H52jF8b2g=
+ bh=aLZfrGIJBUtElR6uQavfhF/pzO2vpb6tUTF3vAKf8GM=;
+ b=WXGEbq87wNLWqRUOFhOE44NPIqPEaNZjZjyLcRyz45eC1+fWWB3aUWcpjXBfigE52mot0jRTL6d+uMLq9IlBwBgMaY0v9UM/f33MRN33q6hGFtCdezeT6Zvnwm4k7UnwI3HptBGT7sUt8lcoNsGRHCo13DN9zA46WY/g80LeZU0=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <7a694885-5934-4ecd-9e48-25077b336c36@amd.com>
-Date: Thu, 11 Apr 2024 21:24:41 +0800
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <d57ea031-6fc0-405f-b431-a217e16c2e6a@amd.com>
+Date: Thu, 11 Apr 2024 15:33:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/acpi: Allow xen/acpi.h to be included on non-ACPI
- archs
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Shawn Anastasio
-	<sanastasio@raptorengineering.com>, <xen-devel@lists.xenproject.org>
-CC: <tpearson@raptorengineering.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Juergen Gross
-	<jgross@suse.com>, Dario Faggioli <dfaggioli@suse.com>
-References: <20240405182031.396528-1-sanastasio@raptorengineering.com>
- <0d31894c-2541-4187-94f2-0ca88bace67c@citrix.com>
+Subject: Re: [PATCH] xen/include: move definition of ASM_INT() to
+ xen/linkage.h
+To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>
+References: <20240403120323.18433-1-jgross@suse.com>
 Content-Language: en-US
-From: Henry Wang <xin.wang2@amd.com>
-In-Reply-To: <0d31894c-2541-4187-94f2-0ca88bace67c@citrix.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB03.amd.com: xin.wang2@amd.com does not designate
- permitted sender hosts)
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240403120323.18433-1-jgross@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DF:EE_|BY5PR12MB4258:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea903b69-7435-483f-ae50-08dc5a2ac10e
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06B:EE_|DS7PR12MB5816:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03686b8d-2413-438d-6d9e-08dc5a2c0045
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	+d44WONNxittaEOW/g8wm9JsywpvojMhylswkjgoKCRDQyYMlnsB4nig3GaWhslSb1xYvhxmAbcsSKjLgbdLa7VEaxsmko0CL+UNp4co4reML3M6CSXgIcpPsUknaZciCebEuqdpbbuCOmCcaE1nKG5ATv4H0WC+Ugy2UFiOLVUlq+Ij3Js+pRgf8zh5WJaT1ZV7zk+tNhQL3Upy7T7MD31nhaJfcQvL0InEuLMGePWox6BA9D5IFRV0FwlNkpm21b99inC8S3R2rsq8TJglLvp64L7tPeTdFcm03084zSnHKEfJpG2XC6DWH+61d4eC7yDg0xiQ041fOai60qj05GuSEzzyfHset8eR423FJ7SEmV/xgiLmPqmsEWHsL+Zm+ZAne9XF5HBxsVyKtTCX4FYED+QbqApL3NvS69z62oPX4Dh09GYD4YewC9OioaF3hwZMuVeOV32iGJmNofIHAO0HRmSl7TQriHyJM7lc0B23WxC1ZmcjH8FKLFkEAHy4o+06UUIPyPAgOkz+nM2ShdueK0wymjqdAQ1ZWGZApi0rx9LhQYvUYHX4hvwh0nY0ZFWKC0W9vcshbHd8IJt8zqdpNj+woYxmaT1zKMg5bjYpLU2WwjKKhngb1Of4vDcP1Lx4NlDyVjOJEXxtM4zOWdsW46JchGnmlsUBDva9gEvNcZxJgEfb6LL/Q3Nu6mYLdd0sVXKKmww1jiRbQYg0fBei5ICbVDMZabIwzUkdQf6UzTbZOAla25ibBsRY1s9y
+	cMTRH/5y1eGJsLGCW8bfBDKQ0P16TrNkXTL4TmxmkUmc7NSA68/ZmE+ajLIf2kBy6J5q6qt+N0uS8Q6qGL3lOUifXlDteDxVh0yJqPUj1s8Av6YnvkWjf3otHm94uP+vw9He2RbYMtweT38n7QLg1DybsRlexoR9cwviHDPJLE7H8oTn++LdwziLve1oNHpwC7YSjzO4s9dyapRBoZbI5FUK2b7FDQiLspdmxoTu/Djk4IHlpXOpKiWuVCGgMiir/O7yzZb5NoH7tkH4hzNJfN2SajZAjNQqQQpDQbkkBsSwkpasS/MAjpvo/z5MZaVGzPvajBeOtlmTV9Fq4rRG0O6/UKboxo9QHjz5zAHs1JJnhDdcysChCyugXXNHjpIfXiOL+loR4W4LCU3X3eJ/WgRrzt5i/F/1u0dUgrX6oGkyOgenF96zctH9T/AbJ9E/9x9TBOiUqwjTBTqinq4ZPOt2PVcDFCGxrqyoU68rG84jxwHVH7Czz4cxd/Jc8GD9XHtUDOnnAtss46PYPgsWhZbc6f5/2UVUWkwcVSdZ3WrF8GYYARDUR3/91iFTTPuxA/IQs/fOYS2HZuyizqvguIwWfEo1YGIvDUpl08K1Rsj4czoKJaNXd+FRZQKVrwFV8gadSiaNOZH56lnKWvZTkhKOvDe6LAsUe4akl/ACgnVp/rb861UAjo9+sXfaBPx4ZEl+VRLSoDBJ+b5JCC8T17m1FIHZv++vcZjTyhpsI56G+QRWo0hnUw+Pcf4/jZju
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(1800799015)(82310400014)(7416005)(36860700004);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(1800799015)(376005)(7416005)(82310400014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2024 13:24:45.3390
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2024 13:33:40.9066
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea903b69-7435-483f-ae50-08dc5a2ac10e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03686b8d-2413-438d-6d9e-08dc5a2c0045
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0DF.namprd04.prod.outlook.com
+	BN3PEPF0000B06B.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4258
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5816
 
-Hi Andrew,
 
-On 4/11/2024 9:15 PM, Andrew Cooper wrote:
-> On 05/04/2024 7:20 pm, Shawn Anastasio wrote:
->> Conditionalize xen/acpi.h's inclusion of acpi/acpi.h and asm/acpi.h on
->> CONFIG_ACPI and import ARM's !CONFIG_ACPI stub for acpi_disabled() so
->> that the header can be included on architectures without ACPI support,
->> like ppc.
->>
->> This change revealed some missing #includes across the ARM tree, so fix
->> those as well.
->>
->> Suggested-by: Jan Beulich <jbeulich@suse.com>
->> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
->> ---
->>   xen/arch/arm/arm32/mmu/mm.c     | 1 +
->>   xen/arch/arm/arm64/smpboot.c    | 3 ++-
->>   xen/arch/arm/domain_build.c     | 1 -
->>   xen/arch/arm/gic-v2.c           | 1 -
->>   xen/arch/arm/gic-v3.c           | 2 --
->>   xen/arch/arm/include/asm/acpi.h | 1 -
->>   xen/arch/arm/mmu/setup.c        | 1 +
->>   xen/arch/arm/psci.c             | 1 +
->>   xen/arch/arm/smpboot.c          | 1 +
->>   xen/arch/arm/traps.c            | 3 ++-
->>   xen/common/sched/boot-cpupool.c | 2 +-
->>   xen/include/xen/acpi.h          | 8 ++++++--
->>   12 files changed, 15 insertions(+), 10 deletions(-)
->
-> Pre-push testing found a randconfig error caused by this:
-> https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/6602857882
->
-> Henry diagnosed this as "arm asm/acpi.h includes the arm asm/setup.h
-> then asm/p2m.h then finally asm/current.h".
->
-> pt.c uses smp_processor_id() explicitly, so should include
-> asm/current.h.  I've folded the following delta in to fix the issue,
 
-I tried to build with below diff locally and confirm below diff will fix 
-the build error reported by the randconfig job of gitlab-ci.
+On 03/04/2024 14:03, Juergen Gross wrote:
+> 
+> 
+> ASM_INT() is defined in arch/[arm|x86]/include/asm/asm_defns.h in
+> exactly the same way. Instead of replicating this definition for riscv
+> and ppc, move it to include/xen/linkage.h, where other arch agnostic
+> definitions for assembler code are living already.
+> 
+> Adapt the generation of assembler sources via tools/binfile to include
+> the new home of ASM_INT().
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+Acked-by: Michal Orzel <michal.orzel@amd.com>
 
-Kind regards,
-Henry
-
-> diff --git a/xen/arch/arm/mmu/pt.c b/xen/arch/arm/mmu/pt.c
-> index a7755728aeda..da28d669e796 100644
-> --- a/xen/arch/arm/mmu/pt.c
-> +++ b/xen/arch/arm/mmu/pt.c
-> @@ -11,6 +11,7 @@
->   #include <xen/sizes.h>
->   #include <xen/vmap.h>
->   
-> +#include <asm/current.h>
->   #include <asm/fixmap.h>
->   
->   #ifdef NDEBUG
->
->
-> But I suspect this may not be the only instance.
->
-> ~Andrew
->
+~Michal
 
 
