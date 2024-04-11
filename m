@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A46AD8A043C
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 01:51:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703717.1099556 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFD028A04EA
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 02:51:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703729.1099566 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruhiV-0003Bg-DD; Wed, 10 Apr 2024 23:50:59 +0000
+	id 1ruieO-0005CG-4b; Thu, 11 Apr 2024 00:50:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703717.1099556; Wed, 10 Apr 2024 23:50:59 +0000
+Received: by outflank-mailman (output) from mailman id 703729.1099566; Thu, 11 Apr 2024 00:50:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruhiV-00039C-AU; Wed, 10 Apr 2024 23:50:59 +0000
-Received: by outflank-mailman (input) for mailman id 703717;
- Wed, 10 Apr 2024 23:50:58 +0000
+	id 1ruieO-00059k-1s; Thu, 11 Apr 2024 00:50:48 +0000
+Received: by outflank-mailman (input) for mailman id 703729;
+ Thu, 11 Apr 2024 00:50:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=na/H=LP=gmail.com=julien.grall.oss@srs-se1.protection.inumbo.net>)
- id 1ruhiU-000392-HG
- for xen-devel@lists.xenproject.org; Wed, 10 Apr 2024 23:50:58 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2c3a4abf-f795-11ee-94a3-07e782e9044d;
- Thu, 11 Apr 2024 01:50:56 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-346b94fa7ecso104762f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Apr 2024 16:50:56 -0700 (PDT)
+ <SRS0=Tv7g=LQ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1ruieL-00059e-U4
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 00:50:46 +0000
+Received: from fout8-smtp.messagingengine.com (fout8-smtp.messagingengine.com
+ [103.168.172.151]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 84368f53-f79d-11ee-94a3-07e782e9044d;
+ Thu, 11 Apr 2024 02:50:40 +0200 (CEST)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailfout.nyi.internal (Postfix) with ESMTP id 18AB9138015A;
+ Wed, 10 Apr 2024 20:50:39 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Wed, 10 Apr 2024 20:50:39 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 10 Apr 2024 20:50:36 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,167 +43,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c3a4abf-f795-11ee-94a3-07e782e9044d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712793055; x=1713397855; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ww3u0ZO/gh18m48+nNGtoXihgeW317XcZOEOt9tWw7A=;
-        b=EBcUciLxbvceFOP+KpNOyFnBPH32x6xdweQsWGjoKDfKqfZXQRyKHOFoJcV1fw7IXZ
-         qX7lqiMasMf0DqKfEL2tU+PsGjU4OlErQe9cRKEKXdW3zz96X4J0xy9DnfTw7gF+Fbw3
-         NyFANR5R6c92t+hSAMLBuLoxbaWAhkPCKgSpiZvB5VoY4td9YPpIso2zgrOgCuoMzjVR
-         cmYzesWzu4Sl4jVRQE4rzEJEQusSygzwXLLVSmVC8K1p1HLQ2IXhJv2TGkWLWMSnIPG8
-         Q7PbyXwPRzRK++T3lEBh3ZmNEBwQfivHURgciYmK9Lq4DOBsYVwk4s108amJwbrQFEHz
-         N9+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712793055; x=1713397855;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ww3u0ZO/gh18m48+nNGtoXihgeW317XcZOEOt9tWw7A=;
-        b=v2CTmpPKNv8K+6vVJIeT6EPxUxm1oPhsHGuS7dNoT8LvqAolQt8bFZoYRBc4r/f+pq
-         cb6wUPBUSV/Xzd6L7uHBeJIwd3pfjKxZcxbnn3SEnsk3wdHokhs0gPvGzR+3uMI/2o88
-         mthJYAGv7Hpi5zblNqeT6HPpiLHou/HQiJxQg9qVkT0RshOSZphr32rGWK77OmC0CONn
-         eVS+7DrkKSVz5GXl3bb6kctbZei9+TCkh26scDQvqL1/N1e9Lf2QYOU3XThAUMLwqYge
-         YPBOR60df/4v5XN/8j5xFZgBfSXA5eLs3YpwAwWzlX+YiNoPMWPTaYAQihWwPj2w8p6r
-         l5/g==
-X-Forwarded-Encrypted: i=1; AJvYcCX9phgLGH4hTOhuh7ahWrlI97neDTIM77YCzDR/KAKEnG+QQoA9HQqe4Wt9eGC7fpL4GkAlCrwi0sOqYkD9Vu/lb3e/i+z7cUARR8vbsWE=
-X-Gm-Message-State: AOJu0YyzswGf2o1FXUhA02hyoeRrvkTO8jb1OISnEt7cBhokoC7LXITk
-	o9fFKpa/Mt60X7hAItJFL5FY94yk1jGzAiqnCoN78UqCFG56PflrhpQ/VkjvXUG2cXFSq8fW/jx
-	Egf5dxTG+aQG4eRhmJvdH0qZ22Pc=
-X-Google-Smtp-Source: AGHT+IEYqEJX9xMACkrP53U7Kg/PWOnuqAwXuCRXxrQ+i9EEI2Hs9FFlurJhnF9/j3l0dIuE+MRI8V2lvY9BnwJ1JCs=
-X-Received: by 2002:adf:e2cf:0:b0:346:aed4:7108 with SMTP id
- d15-20020adfe2cf000000b00346aed47108mr475354wrj.18.1712793055377; Wed, 10 Apr
- 2024 16:50:55 -0700 (PDT)
+X-Inumbo-ID: 84368f53-f79d-11ee-94a3-07e782e9044d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1712796639;
+	 x=1712883039; bh=/RJn+hOtsmsXwC2DD2gTMfDo0SfIuuOW4wrb1PeX3X4=; b=
+	bvq4VqNR2cKEPNjfZNQUheeifLaMtd1f99ap6UCUMMSwHH7o7jGTUcKboGCYJaek
+	2WX66QQfrfkY6AXLA03yEMONTddNcNNcMilkz9TGGhMg0gfY38vBZ5PX6fNsgfTt
+	95rwBafVxWXWES9eOgHErAO+yGUqh122CZEMrhlN4rZWx/ar7a1XfZIDAN35UJm5
+	pHp7K6H5KOt7OmreZPS9/HxtonwcX/qVkfgbygKK9u2SZcUsJPHF4fq6GHMFc73Q
+	1VP79Fyasesxf2kfRV5++zO4AFjK1l4PfT2iI5x3/1oHNbhKe5BC6hmHhhk0P55M
+	C/hDQkDQapZWxzBhvSrZnQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1712796639; x=1712883039; bh=/RJn+hOtsmsXwC2DD2gTMfDo0SfI
+	uuOW4wrb1PeX3X4=; b=p5nUL/Hl1zTGLqzgUSoBbS41NIZ0J5S8cGWijnnBHhZw
+	DoJ8IsVjSd0CD3CPgl02DFAeObepaSR2Ao/d5/OMkFuagJoFvDo0/cOhFOY0igMt
+	FhbqDiahsf5M/M1YSgjSjZmTYJYUXuLJUuoLwsrKdyg7I+kfnKIkQXK0GPwgXxz8
+	xh9oQ7DS0hM8Ek2ibQL7/WfPzbniYVLWrQMlOF3d2GDH8o1JEE0l1J/tsN4RrOSq
+	BG9ZK/en1HDR+HK0EaVHNo1UXXBf9nTeXXozfGn3EBoWf8tILTTRdE9wUBPVXcAD
+	VY6yfVauBf+NF4MAO7PpjCj6JjiTKRecK/Ufy85BLQ==
+X-ME-Sender: <xms:3jMXZvRqnEdUewFEIyboaSYkC5Umo3KweNz64qWOrtwAKkSW0hzY9w>
+    <xme:3jMXZgzeln7_KESdI63UWbz1ibttc5lHLEAYulsqsAumeMrQw5GzEWmsJJLxgkzMg
+    q9nCxlKuu_L2A>
+X-ME-Received: <xmr:3jMXZk2rK4Ryz3W_0VDybDVsJPUAWV0hHyiUcgGK012g-sDK5e8nFeMurBYT8Nw0xyeNtd56_BAGE4E4YdsX9mIITtTAlH7sAw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrudehjedggedtucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:3jMXZvCJXnjURfp5aQOBg5D-HE_-zVuhq8RJKW-APAcuU82rJnECjA>
+    <xmx:3jMXZogfsrXi1OAVTRLEdFpojCHN9vHI3swi_2Dr_X66DCFxBW-7Cg>
+    <xmx:3jMXZjo5cud2jJqFumsHmm5tTTlo3_-KSqw26Q8hlCyBIGGDp3xtrw>
+    <xmx:3jMXZjgLIqt-1JBWnMIx8wFT9VOQlMCD55ckeZPQgPnHGEwJmok_Eg>
+    <xmx:3zMXZkgD5GG0L7j0zOR-VbDd0nt2pInW2zI_Jxu8XmNwqI3XdQqFZ_NF>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 11 Apr 2024 02:50:32 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrei Semenov <andrei.semenov@vates.fr>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v1 0/2] Starting AMD SEV work
+Message-ID: <Zhcz2d4JsAl4J6vG@mail-itl>
+References: <cover.1712759753.git.andrei.semenov@vates.fr>
 MIME-Version: 1.0
-References: <alpine.DEB.2.22.394.2404101644130.976094@ubuntu-linux-20-04-desktop>
- <20240410234740.994001-1-stefano.stabellini@amd.com>
-In-Reply-To: <20240410234740.994001-1-stefano.stabellini@amd.com>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Wed, 10 Apr 2024 19:50:44 -0400
-Message-ID: <CAJ=z9a3zMaSLSS0mfKT8dngVwrESycSspy8LnW4FZV6hdu_AAw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] docs: add xen_ulong_t to the documented integers sizes/alignments
-To: Stefano Stabellini <stefano.stabellini@amd.com>
-Cc: andrew.cooper3@citrix.com, bertrand.marquis@arm.com, 
-	george.dunlap@citrix.com, jbeulich@suse.com, michal.orzel@amd.com, 
-	roger.pau@citrix.com, sstabellini@kernel.org, xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000a3bfde0615c6b514"
-
---000000000000a3bfde0615c6b514
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, 10 Apr 2024 at 19:47, Stefano Stabellini <stefano.stabellini@amd.com>
-wrote:
-
-> xen_ulong_t is widely used in public headers.
->
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> ---
->
-> Given that xen_ulong_t is used in public headers there could be a better
-> place for documenting it but this was the most straightforward to add.
-> ---
->  docs/misra/C-language-toolchain.rst | 11 +++++++++++
->  1 file changed, 11 insertions(+)
->
-> diff --git a/docs/misra/C-language-toolchain.rst
-> b/docs/misra/C-language-toolchain.rst
-> index 5ddfe7bdbe..7a334260e6 100644
-> --- a/docs/misra/C-language-toolchain.rst
-> +++ b/docs/misra/C-language-toolchain.rst
-> @@ -531,6 +531,17 @@ A summary table of data types, sizes and alignment is
-> below:
->       - 64 bits
->       - x86_64, ARMv8-A AArch64, RV64, PPC64
->
-> +   * - xen_ulong_t
-> +     - 32 bits
-> +     - 32 bits
-> +     - x86_32
-> +
-> +   * - xen_ulong_t
-> +     - 64 bits
-> +     - 64 bits
-> +     - x86_64, ARMv8-A AArch64, RV64, PPC64, ARMv8-A AArch32, ARMv8-R
-> +       AArch32, ARMv7-A
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="tyDnHw+PVSMXISWv"
+Content-Disposition: inline
+In-Reply-To: <cover.1712759753.git.andrei.semenov@vates.fr>
 
 
-We support neither ARMv8-R nor ARMv8-A Aarch32.
-
-I could possibly accept the latter because it works to. But the former is
-so far misleading.
-
-Cheers,
-
-
-> +
->     * - long long
->       - 64-bit
->       - 32-bit
-> --
-> 2.25.1
->
->
-
---000000000000a3bfde0615c6b514
-Content-Type: text/html; charset="UTF-8"
+--tyDnHw+PVSMXISWv
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 11 Apr 2024 02:50:32 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrei Semenov <andrei.semenov@vates.fr>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v1 0/2] Starting AMD SEV work
 
-<div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Wed, 10 Apr 2024 at 19:47, Stefano Stabellini &lt;<a hre=
-f=3D"mailto:stefano.stabellini@amd.com">stefano.stabellini@amd.com</a>&gt; =
-wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left-width:1px;border-left-style:solid;padding-left:1ex;bor=
-der-left-color:rgb(204,204,204)">xen_ulong_t is widely used in public heade=
-rs.<br>
-<br>
-Signed-off-by: Stefano Stabellini &lt;<a href=3D"mailto:stefano.stabellini@=
-amd.com" target=3D"_blank">stefano.stabellini@amd.com</a>&gt;<br>
----<br>
-<br>
-Given that xen_ulong_t is used in public headers there could be a better<br=
->
-place for documenting it but this was the most straightforward to add.<br>
----<br>
-=C2=A0docs/misra/C-language-toolchain.rst | 11 +++++++++++<br>
-=C2=A01 file changed, 11 insertions(+)<br>
-<br>
-diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-to=
-olchain.rst<br>
-index 5ddfe7bdbe..7a334260e6 100644<br>
---- a/docs/misra/C-language-toolchain.rst<br>
-+++ b/docs/misra/C-language-toolchain.rst<br>
-@@ -531,6 +531,17 @@ A summary table of data types, sizes and alignment is =
-below:<br>
-=C2=A0 =C2=A0 =C2=A0 - 64 bits <br>
-=C2=A0 =C2=A0 =C2=A0 - x86_64, ARMv8-A AArch64, RV64, PPC64<br>
-<br>
-+=C2=A0 =C2=A0* - xen_ulong_t<br>
-+=C2=A0 =C2=A0 =C2=A0- 32 bits<br>
-+=C2=A0 =C2=A0 =C2=A0- 32 bits <br>
-+=C2=A0 =C2=A0 =C2=A0- x86_32<br>
-+<br>
-+=C2=A0 =C2=A0* - xen_ulong_t<br>
-+=C2=A0 =C2=A0 =C2=A0- 64 bits<br>
-+=C2=A0 =C2=A0 =C2=A0- 64 bits <br>
-+=C2=A0 =C2=A0 =C2=A0- x86_64, ARMv8-A AArch64, RV64, PPC64, ARMv8-A AArch3=
-2, ARMv8-R<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0AArch32, ARMv7-A</blockquote><div dir=3D"auto">=
-<br></div><div dir=3D"auto">We support neither ARMv8-R nor ARMv8-A Aarch32.=
-</div><div dir=3D"auto"><br></div><div dir=3D"auto">I could possibly accept=
- the latter because it works to. But the former is so far misleading.</div>=
-<div dir=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"auto=
-"><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left-width:1px;border-left-style:solid;padding-left:1ex;border-=
-left-color:rgb(204,204,204)" dir=3D"auto"><br>
-+<br>
-=C2=A0 =C2=A0 * - long long<br>
-=C2=A0 =C2=A0 =C2=A0 - 64-bit<br>
-=C2=A0 =C2=A0 =C2=A0 - 32-bit<br>
--- <br>
-2.25.1<br>
-<br>
-</blockquote></div></div>
+On Wed, Apr 10, 2024 at 05:36:34PM +0200, Andrei Semenov wrote:
+> This patch series initiate work on AMD SEV technology implementation in X=
+en.
+> SEV stands for "Secure Encrypted Virtualization" and allows the memory co=
+ntents
+> of a VM to be encrypted with a key unique to this VM. In this way the nei=
+ther
+> other VMs nor hypervisor can't read the memory content of this "encrypted"
+> VM.
+>=20
+> In order to create and to run such a VM different layers of software must
+> interact (bascally Xen hypevisor, Xen toolstack in dom0 and the encrypted=
+ VM
+> itself).
+>=20
+> In this work we start with discovering and enabling SEV feature on the pl=
+atform.
+> The second patch ports AMD Secure Processor driver on Xen. This AMD Secure
+> Processor device (a.k.a PSP) is the way the different software layers int=
+eract
+> with AMD firmware/hardware to manage and run the encrypted VM.
 
---000000000000a3bfde0615c6b514--
+How will that interact with the PSP driver in dom0? AFAIK amdgpu driver
+uses PSP for loading the GPU firmware. Does it mean one need to choose
+either GPU in dom0 or encrypted VMs, or is it going to work somehow
+together?
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--tyDnHw+PVSMXISWv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmYXM9kACgkQ24/THMrX
+1yyDfwf+LdVXgFvcyKWEengkx8hBAVIq6TaAMOjdtH4J8jvJPvtFSQxfWA/4ZDvX
+xPFOXXGXw4T6e01yhAmT4QyVKdHqDYNnedLhq5wKJiGGfOIMEAOKhXPRAfpO1TAv
+IUU6I7zY+NKCA3aC9WVARjJQWOvkxbYVZJOmJkhFCM8NbcA/dkYQAiTMJy8VrAsc
+P8D/NnBxbkJn4VNPBWJn1OipRRaa6hO0xDShOMlaDaoMZS96u3QTe/ILibS4bspn
+FeUjjPOKibV6HaJRGChzV5Q7293+fvKOA9s4sSom9xnBOMKZZlSr1eV1RTJHwx2K
+rf0grhxBJC8HZNsMJbiYrPgLbpZORA==
+=CfPI
+-----END PGP SIGNATURE-----
+
+--tyDnHw+PVSMXISWv--
 
