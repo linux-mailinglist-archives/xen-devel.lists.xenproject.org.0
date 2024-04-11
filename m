@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFD028A04EA
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 02:51:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703729.1099566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84D528A0616
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 04:42:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703733.1099576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruieO-0005CG-4b; Thu, 11 Apr 2024 00:50:48 +0000
+	id 1rukNW-0001U2-Oc; Thu, 11 Apr 2024 02:41:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703729.1099566; Thu, 11 Apr 2024 00:50:48 +0000
+Received: by outflank-mailman (output) from mailman id 703733.1099576; Thu, 11 Apr 2024 02:41:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ruieO-00059k-1s; Thu, 11 Apr 2024 00:50:48 +0000
-Received: by outflank-mailman (input) for mailman id 703729;
- Thu, 11 Apr 2024 00:50:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tv7g=LQ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ruieL-00059e-U4
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 00:50:46 +0000
-Received: from fout8-smtp.messagingengine.com (fout8-smtp.messagingengine.com
- [103.168.172.151]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 84368f53-f79d-11ee-94a3-07e782e9044d;
- Thu, 11 Apr 2024 02:50:40 +0200 (CEST)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailfout.nyi.internal (Postfix) with ESMTP id 18AB9138015A;
- Wed, 10 Apr 2024 20:50:39 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Wed, 10 Apr 2024 20:50:39 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 10 Apr 2024 20:50:36 -0400 (EDT)
+	id 1rukNW-0001SD-LQ; Thu, 11 Apr 2024 02:41:30 +0000
+Received: by outflank-mailman (input) for mailman id 703733;
+ Thu, 11 Apr 2024 02:41:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=OKQ8=LQ=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1rukNU-0001S7-Sv
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 02:41:28 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fd285128-f7ac-11ee-b908-491648fe20b8;
+ Thu, 11 Apr 2024 04:41:26 +0200 (CEST)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:8ac4:0:0:0:0:f7])
+ by mailhost.m5p.com (8.17.1/8.17.1) with ESMTPS id 43B2fBX3064891
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Wed, 10 Apr 2024 22:41:16 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.17.1/8.15.2/Submit) id 43B2f91A064890;
+ Wed, 10 Apr 2024 19:41:09 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,129 +43,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84368f53-f79d-11ee-94a3-07e782e9044d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1712796639;
-	 x=1712883039; bh=/RJn+hOtsmsXwC2DD2gTMfDo0SfIuuOW4wrb1PeX3X4=; b=
-	bvq4VqNR2cKEPNjfZNQUheeifLaMtd1f99ap6UCUMMSwHH7o7jGTUcKboGCYJaek
-	2WX66QQfrfkY6AXLA03yEMONTddNcNNcMilkz9TGGhMg0gfY38vBZ5PX6fNsgfTt
-	95rwBafVxWXWES9eOgHErAO+yGUqh122CZEMrhlN4rZWx/ar7a1XfZIDAN35UJm5
-	pHp7K6H5KOt7OmreZPS9/HxtonwcX/qVkfgbygKK9u2SZcUsJPHF4fq6GHMFc73Q
-	1VP79Fyasesxf2kfRV5++zO4AFjK1l4PfT2iI5x3/1oHNbhKe5BC6hmHhhk0P55M
-	C/hDQkDQapZWxzBhvSrZnQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1712796639; x=1712883039; bh=/RJn+hOtsmsXwC2DD2gTMfDo0SfI
-	uuOW4wrb1PeX3X4=; b=p5nUL/Hl1zTGLqzgUSoBbS41NIZ0J5S8cGWijnnBHhZw
-	DoJ8IsVjSd0CD3CPgl02DFAeObepaSR2Ao/d5/OMkFuagJoFvDo0/cOhFOY0igMt
-	FhbqDiahsf5M/M1YSgjSjZmTYJYUXuLJUuoLwsrKdyg7I+kfnKIkQXK0GPwgXxz8
-	xh9oQ7DS0hM8Ek2ibQL7/WfPzbniYVLWrQMlOF3d2GDH8o1JEE0l1J/tsN4RrOSq
-	BG9ZK/en1HDR+HK0EaVHNo1UXXBf9nTeXXozfGn3EBoWf8tILTTRdE9wUBPVXcAD
-	VY6yfVauBf+NF4MAO7PpjCj6JjiTKRecK/Ufy85BLQ==
-X-ME-Sender: <xms:3jMXZvRqnEdUewFEIyboaSYkC5Umo3KweNz64qWOrtwAKkSW0hzY9w>
-    <xme:3jMXZgzeln7_KESdI63UWbz1ibttc5lHLEAYulsqsAumeMrQw5GzEWmsJJLxgkzMg
-    q9nCxlKuu_L2A>
-X-ME-Received: <xmr:3jMXZk2rK4Ryz3W_0VDybDVsJPUAWV0hHyiUcgGK012g-sDK5e8nFeMurBYT8Nw0xyeNtd56_BAGE4E4YdsX9mIITtTAlH7sAw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrudehjedggedtucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:3jMXZvCJXnjURfp5aQOBg5D-HE_-zVuhq8RJKW-APAcuU82rJnECjA>
-    <xmx:3jMXZogfsrXi1OAVTRLEdFpojCHN9vHI3swi_2Dr_X66DCFxBW-7Cg>
-    <xmx:3jMXZjo5cud2jJqFumsHmm5tTTlo3_-KSqw26Q8hlCyBIGGDp3xtrw>
-    <xmx:3jMXZjgLIqt-1JBWnMIx8wFT9VOQlMCD55ckeZPQgPnHGEwJmok_Eg>
-    <xmx:3zMXZkgD5GG0L7j0zOR-VbDd0nt2pInW2zI_Jxu8XmNwqI3XdQqFZ_NF>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 11 Apr 2024 02:50:32 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrei Semenov <andrei.semenov@vates.fr>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v1 0/2] Starting AMD SEV work
-Message-ID: <Zhcz2d4JsAl4J6vG@mail-itl>
-References: <cover.1712759753.git.andrei.semenov@vates.fr>
+X-Inumbo-ID: fd285128-f7ac-11ee-b908-491648fe20b8
+Date: Wed, 10 Apr 2024 19:41:09 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+        Wei Liu <wl@xen.org>, Kelly Choi <kelly.choi@cloud.com>
+Subject: Re: Serious AMD-Vi(?) issue
+Message-ID: <ZhdNxWNpM0KCzz8E@mattapan.m5p.com>
+References: <ZbLDlRi0vctlhsNp@mattapan.m5p.com>
+ <ZcqoVBnsgUJw8G0l@mattapan.m5p.com>
+ <ZfiY7/FBTwPQlfYi@mattapan.m5p.com>
+ <CAO-mL=xndFd7xTU4Q+9hjLL-7zqZUGjYcp3_REa6QqXvtyAEYg@mail.gmail.com>
+ <Zf3aWXfCANR7zXj8@mattapan.m5p.com>
+ <e9b1c9c4-523b-481b-946e-37c7c18ea1d2@suse.com>
+ <ZgHwEGCsCLHiYU5J@mattapan.m5p.com>
+ <ZgRXHQpamLIdu7dk@mattapan.m5p.com>
+ <c2ce4002-58d5-48a3-949c-3c361c78c0ac@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="tyDnHw+PVSMXISWv"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1712759753.git.andrei.semenov@vates.fr>
+In-Reply-To: <c2ce4002-58d5-48a3-949c-3c361c78c0ac@suse.com>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+	autolearn=unavailable autolearn_force=no version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-14) on mattapan.m5p.com
+
+On Thu, Mar 28, 2024 at 07:25:02AM +0100, Jan Beulich wrote:
+> On 27.03.2024 18:27, Elliott Mitchell wrote:
+> > On Mon, Mar 25, 2024 at 02:43:44PM -0700, Elliott Mitchell wrote:
+> >> On Mon, Mar 25, 2024 at 08:55:56AM +0100, Jan Beulich wrote:
+> >>>
+> >>> In fact when running into trouble, the usual course of action would be to
+> >>> increase verbosity in both hypervisor and kernel, just to make sure no
+> >>> potentially relevant message is missed.
+> >>
+> >> More/better information might have been obtained if I'd been engaged
+> >> earlier.
+> > 
+> > This is still true, things are in full mitigation mode and I'll be
+> > quite unhappy to go back with experiments at this point.
+> 
+> Well, it very likely won't work without further experimenting by someone
+> able to observe the bad behavior. Recall we're on xen-devel here; it is
+> kind of expected that without clear (and practical) repro instructions
+> experimenting as well as info collection will remain with the reporter.
+
+After looking at the situation and considering the issues, I /may/ be
+able to setup for doing more testing.  I guess I should confirm, which of
+those criteria do you think currently provided information fails at?
+
+AMD-IOMMU + Linux MD RAID1 + dual Samsung SATA (or various NVMe) +
+dbench; seems a pretty specific setup.
+
+I could see this being criticised as impractical if /new/ devices were
+required, but the confirmed flash devices are several generations old.
+Difficulty is cheaper candidate devices are being recycled for their
+precious metal content, rather than resold as used.
 
 
---tyDnHw+PVSMXISWv
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Apr 2024 02:50:32 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrei Semenov <andrei.semenov@vates.fr>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v1 0/2] Starting AMD SEV work
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
-On Wed, Apr 10, 2024 at 05:36:34PM +0200, Andrei Semenov wrote:
-> This patch series initiate work on AMD SEV technology implementation in X=
-en.
-> SEV stands for "Secure Encrypted Virtualization" and allows the memory co=
-ntents
-> of a VM to be encrypted with a key unique to this VM. In this way the nei=
-ther
-> other VMs nor hypervisor can't read the memory content of this "encrypted"
-> VM.
->=20
-> In order to create and to run such a VM different layers of software must
-> interact (bascally Xen hypevisor, Xen toolstack in dom0 and the encrypted=
- VM
-> itself).
->=20
-> In this work we start with discovering and enabling SEV feature on the pl=
-atform.
-> The second patch ports AMD Secure Processor driver on Xen. This AMD Secure
-> Processor device (a.k.a PSP) is the way the different software layers int=
-eract
-> with AMD firmware/hardware to manage and run the encrypted VM.
 
-How will that interact with the PSP driver in dom0? AFAIK amdgpu driver
-uses PSP for loading the GPU firmware. Does it mean one need to choose
-either GPU in dom0 or encrypted VMs, or is it going to work somehow
-together?
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---tyDnHw+PVSMXISWv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmYXM9kACgkQ24/THMrX
-1yyDfwf+LdVXgFvcyKWEengkx8hBAVIq6TaAMOjdtH4J8jvJPvtFSQxfWA/4ZDvX
-xPFOXXGXw4T6e01yhAmT4QyVKdHqDYNnedLhq5wKJiGGfOIMEAOKhXPRAfpO1TAv
-IUU6I7zY+NKCA3aC9WVARjJQWOvkxbYVZJOmJkhFCM8NbcA/dkYQAiTMJy8VrAsc
-P8D/NnBxbkJn4VNPBWJn1OipRRaa6hO0xDShOMlaDaoMZS96u3QTe/ILibS4bspn
-FeUjjPOKibV6HaJRGChzV5Q7293+fvKOA9s4sSom9xnBOMKZZlSr1eV1RTJHwx2K
-rf0grhxBJC8HZNsMJbiYrPgLbpZORA==
-=CfPI
------END PGP SIGNATURE-----
-
---tyDnHw+PVSMXISWv--
 
