@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 507BB8A149D
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 14:29:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.703893.1099838 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0BA28A149E
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Apr 2024 14:29:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.703895.1099848 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rutY3-0006KL-V1; Thu, 11 Apr 2024 12:28:59 +0000
+	id 1rutYF-0006kN-6y; Thu, 11 Apr 2024 12:29:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 703893.1099838; Thu, 11 Apr 2024 12:28:59 +0000
+Received: by outflank-mailman (output) from mailman id 703895.1099848; Thu, 11 Apr 2024 12:29:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rutY3-0006Il-SG; Thu, 11 Apr 2024 12:28:59 +0000
-Received: by outflank-mailman (input) for mailman id 703893;
- Thu, 11 Apr 2024 12:28:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rutYF-0006ik-3g; Thu, 11 Apr 2024 12:29:11 +0000
+Received: by outflank-mailman (input) for mailman id 703895;
+ Thu, 11 Apr 2024 12:29:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RVMu=LQ=linaro.org=manos.pitsidianakis@srs-se1.protection.inumbo.net>)
- id 1rutY2-0005wZ-DP
- for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 12:28:58 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 10985f41-f7ff-11ee-94a3-07e782e9044d;
- Thu, 11 Apr 2024 14:28:56 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-417d42dd5a4so4418575e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 05:28:56 -0700 (PDT)
+ id 1rutYD-0006az-RB
+ for xen-devel@lists.xenproject.org; Thu, 11 Apr 2024 12:29:09 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 182f1fb2-f7ff-11ee-b908-491648fe20b8;
+ Thu, 11 Apr 2024 14:29:09 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2d8a2cbe1baso37472941fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Apr 2024 05:29:09 -0700 (PDT)
 Received: from localhost.localdomain (adsl-245.37.6.163.tellas.gr.
  [37.6.163.245]) by smtp.gmail.com with ESMTPSA id
- k9-20020a05600c1c8900b00416c1e7c9e7sm2212992wms.2.2024.04.11.05.28.54
+ k9-20020a05600c1c8900b00416c1e7c9e7sm2212992wms.2.2024.04.11.05.29.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Apr 2024 05:28:55 -0700 (PDT)
+ Thu, 11 Apr 2024 05:29:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10985f41-f7ff-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 182f1fb2-f7ff-11ee-b908-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1712838535; x=1713443335; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1712838548; x=1713443348; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=a5R8+TAttLnmvCBoXL/OpLvWYXKsyqMK3wsyQqa2P/E=;
-        b=S503Zfb0b4FbwtULMO9mHj4e84XoueimoRvk9WJPTdJZwZtcQSdQjdOO9oEPb8NfrB
-         VVWVWw52OWfqYSeX2JTJU8LJ2I0WKHNaO7iZlGVKx/6nhPKVEvPxkfLsK/uDLRLEWDiH
-         vX+y8K1O6BAIjNdPOUVIHOMLIRMMaZWuDSJhmoJnH9LTGYI0oQmUZmDfdWQq6omENKrf
-         +XYDE/Oyv7djN82Y/zvbUeqt9OPudmSKqBzKS/o/NhVoJPDg6wBqHKKt/4xOspw6R1c+
-         HUW1ivKXwhyIBlKGxelBejiz5flhrbC/064nF8WrQPGdP9Ks2yQ4Vs0gQDVYmUXExJvI
-         0WvA==
+        bh=y66oHHLKi7EjtJauIa8Cpfp2Sdjm/ajt/hGPJgUv3oY=;
+        b=szEGFp8I1y6QSq+j/baTbLanIxo/Q0XB0pkm2W5eT0WNO9hP46h0PlkCEmL04zG7oT
+         mP7i1XeMoYNB8YSQoOCsCWr5EQ2IDJDlF4OM+GATWQ2MwWNN4ki9bLsucycBv3+7Fn+5
+         RvYwwMzDz2vLUom4nJOLcYVmCnw6hd64dzcx/tXmm8hkZcT1KROMvu/wiZHQuIHJA0v8
+         xBp+aUmwPypKSCDv7Uj43NHMTn+yzWOQQ60lkxunn+seN/z4JQEIaBvvwpO4stUt86HD
+         VQPQ6zqRUcSsDkoNmxR7F9Y4jdd37t6MDj+NkLsdl4oVqA+pdNvFwqddS71lsslh4kcS
+         Y8cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712838535; x=1713443335;
+        d=1e100.net; s=20230601; t=1712838548; x=1713443348;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=a5R8+TAttLnmvCBoXL/OpLvWYXKsyqMK3wsyQqa2P/E=;
-        b=NWuA4L7GW+yTng4akd9Wf4Fqh3q04Vctjz50Z7l971aHqypnxyHCrQWruAaJxbH4VR
-         XbJTwOOlSoRnKy3AfFS06Cs9j1/Zx2jPL57DlsW870CZs0u0aZhTUcQyOtxE+exNdFzD
-         LRT+n56dNvQ20GzC/S6qjGOgahLYnu6pPhGTPCwUu+L3AXOUeXsfAlFtJD/wk8VLSePz
-         PCF1aDOYbIHTy5d5jDI1DhtGPYXNslDIop3Ddo29BBfz0bRrSv8HAAqtJWd5YdcR1ATl
-         aHoeKknU418lXI/VBlGsvZXwwgENLfyOKPe5wmlgNpJC5WUwOOZDkFNfeXQmU/juKkqz
-         Ncrw==
-X-Gm-Message-State: AOJu0YzZXSd1pdzIVUmKm9LnzwhEoTbnBwfGM3uowva94utR0+pp0Qk5
-	orGBfV2hAJct+6rVkn4d7uwiX+w0BX5+UptSEr4sHAN4qX8jdLhdPS4gn/PQlXqsYoY/HeECjsT
-	L
-X-Google-Smtp-Source: AGHT+IF4STdq4T8yRpLdKvkWjUp9nGZmWWvtct3mo56/QYhy5llx/4/QTB7ilqAF6L9cOKCergTsow==
-X-Received: by 2002:a05:600c:3585:b0:416:bbf7:f18a with SMTP id p5-20020a05600c358500b00416bbf7f18amr4151152wmq.28.1712838535605;
-        Thu, 11 Apr 2024 05:28:55 -0700 (PDT)
+        bh=y66oHHLKi7EjtJauIa8Cpfp2Sdjm/ajt/hGPJgUv3oY=;
+        b=wlq4fXACPIqjbfGUyME9oPPMcUIiWhnBMYhBYTKG6FKNM741TRFRXFp98SoyRwdckC
+         xpMLXKvSK2rUngH+LalHtMPoqY+3P7Ublm79dYzctMxBBbtwCm+aluZz3HZXgvEaAP32
+         Hi7YHflF+sUfpKlo6c1GtgmuRLg/fYu+NG49B+yRqPYPpn32kyYwCD8xlQMAO19ZJzEE
+         zaSqHRPXMa261P675p43WBgEwQTY6W2qHtjMx7tD/X8r2DysT+w6FbX/M+LAIw//KCzm
+         XsnsNijCdBJKRHMWw/297XxPOiPfeBnP4MHDcPS/vd6ofd1/jN2DgzHlgTDgHYJPRCYT
+         UyFA==
+X-Gm-Message-State: AOJu0YyDd1Q9YHuVrXHFnsqWcwGu9ck3TA0J3trRusllOhKuvU4679qZ
+	n0EUP8AbJALg4TnNSEN/ZgvzaYKlU7loLnxfrBdkECmgx7AnaeL2uyA9uE+vQKiM3wsqoUVxx+L
+	Z
+X-Google-Smtp-Source: AGHT+IH8d7sSC8H7E64XNhqRD+MVD9GnhbZyha1M5GR2wx1IsiolkGcEiWAK0SnSprFMjbK1t7Ob0Q==
+X-Received: by 2002:a2e:9a81:0:b0:2d7:1323:6792 with SMTP id p1-20020a2e9a81000000b002d713236792mr4107786lji.43.1712838548239;
+        Thu, 11 Apr 2024 05:29:08 -0700 (PDT)
 From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 To: xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@citrix.com>,
 	Juergen Gross <jgross@suse.com>
-Subject: [RFC PATCH v2 1/2] libs/light: add device model start timeout env var
-Date: Thu, 11 Apr 2024 15:28:19 +0300
-Message-ID: <334b5a46e31dbf3e8114e9ea8bafd92cf060f2af.1712837961.git.manos.pitsidianakis@linaro.org>
+Subject: [RFC PATCH v2 2/2] libs/light: expand device model start timeout use
+Date: Thu, 11 Apr 2024 15:28:20 +0300
+Message-ID: <125210f392aacaa5dd605ce7036c7c9b9e783a2a.1712837961.git.manos.pitsidianakis@linaro.org>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <cover.1712837961.git.manos.pitsidianakis@linaro.org>
 References: <cover.1712837961.git.manos.pitsidianakis@linaro.org>
@@ -90,166 +90,126 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF8
 Content-Transfer-Encoding: 8bit
 
-When debugging QEMU, the need to run it under Valgrind and asan meant
-the compile-time define LIBXL_DEVICE_MODEL_START_TIMEOUT must be changed
-to allow for `xl` to wait longer while the instrumented QEMU
-initializes.
-
-This commit adds support for reading the environment variable
-LIBXL_DEVICE_MODEL_START_TIMEOUT to configure the timeout value and
-otherwise fall back to the default 60.
+Various timeout values that depend on the device model should also
+respect the device model start timeout setting. This commit adds the
+__libxl_device_model_start_timeout() value to those time outs without
+changing their default values.
 
 Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 ---
- docs/man/xl.1.pod.in                 | 11 +++++++++++
- tools/libs/light/libxl_9pfs.c        |  2 +-
- tools/libs/light/libxl_device.c      |  2 +-
- tools/libs/light/libxl_dm.c          |  6 +++---
- tools/libs/light/libxl_dom_suspend.c |  2 +-
- tools/libs/light/libxl_internal.h    |  6 ++++++
- tools/libs/light/libxl_pci.c         |  6 +++---
- 7 files changed, 26 insertions(+), 9 deletions(-)
+ tools/libs/light/libxl_dm.c     | 4 ++--
+ tools/libs/light/libxl_domain.c | 5 +++--
+ tools/libs/light/libxl_pci.c    | 4 ++--
+ tools/libs/light/libxl_usb.c    | 8 ++++----
+ 4 files changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
-index bed8393473..c159877094 100644
---- a/docs/man/xl.1.pod.in
-+++ b/docs/man/xl.1.pod.in
-@@ -1993,6 +1993,17 @@ Otherwise the build time default in LIBXL_BOOTLOADER_TIMEOUT will be used.
- If defined the value must be an unsigned integer between 0 and INT_MAX,
- otherwise behavior is undefined.  Setting to 0 disables the timeout.
- 
-+=item LIBXL_DEVICE_MODEL_START_TIMEOUT
-+
-+Timeout in seconds for starting the device model process. Useful in case the
-+device model takes an unusual amount of time to start— for example in case of
-+very slow I/O, in case of slow performance due to memory sanitizer usage, etc.
-+
-+If undefined, the default hard-coded value of 60 seconds is used.
-+
-+If defined, the value must be an unsigned integer between 0 and INT_MAX,
-+otherwise behaviour is undefined.  Setting the value to 0 disables the timeout.
-+
- =back
- 
- =head1 SEE ALSO
-diff --git a/tools/libs/light/libxl_9pfs.c b/tools/libs/light/libxl_9pfs.c
-index 48f894f070..950a464b45 100644
---- a/tools/libs/light/libxl_9pfs.c
-+++ b/tools/libs/light/libxl_9pfs.c
-@@ -132,7 +132,7 @@ static int xen9pfsd_spawn(libxl__egc *egc, uint32_t domid, libxl_device_p9 *p9,
-     aop9->spawn.ao = aodev->ao;
-     aop9->spawn.what = "xen-9pfs daemon";
-     aop9->spawn.xspath = GCSPRINTF("%s/state", path);
--    aop9->spawn.timeout_ms = LIBXL_DEVICE_MODEL_START_TIMEOUT * 1000;
-+    aop9->spawn.timeout_ms = __libxl_device_model_start_timeout() * 1000;
-     aop9->spawn.pidpath = GCSPRINTF("%s/pid", path);
-     aop9->spawn.midproc_cb = libxl__spawn_record_pid;
-     aop9->spawn.confirm_cb = xen9pfsd_confirm;
-diff --git a/tools/libs/light/libxl_device.c b/tools/libs/light/libxl_device.c
-index 6f0100d05e..452e55ba23 100644
---- a/tools/libs/light/libxl_device.c
-+++ b/tools/libs/light/libxl_device.c
-@@ -1436,7 +1436,7 @@ int libxl__wait_for_device_model_deprecated(libxl__gc *gc,
- 
-     path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, "/state");
-     return libxl__xenstore_child_wait_deprecated(gc, domid,
--                                     LIBXL_DEVICE_MODEL_START_TIMEOUT,
-+                                     __libxl_device_model_start_timeout(),
-                                      "Device Model", path, state, spawning,
-                                      check_callback, check_callback_userdata);
- }
 diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-index 0b03a7c747..4369fef161 100644
+index 4369fef161..9ffdd50c69 100644
 --- a/tools/libs/light/libxl_dm.c
 +++ b/tools/libs/light/libxl_dm.c
-@@ -2629,7 +2629,7 @@ static void spawn_qmp_proxy(libxl__egc *egc,
-     sdss->qmp_proxy_spawn.pidpath = GCSPRINTF("%s/image/qmp-proxy-pid", dom_path);
-     sdss->qmp_proxy_spawn.xspath = DEVICE_MODEL_XS_PATH(gc, LIBXL_TOOLSTACK_DOMID,
-                                                         dm_domid, "/qmp-proxy-state");
--    sdss->qmp_proxy_spawn.timeout_ms = LIBXL_DEVICE_MODEL_START_TIMEOUT * 1000;
-+    sdss->qmp_proxy_spawn.timeout_ms = __libxl_device_model_start_timeout() * 1000;
-     sdss->qmp_proxy_spawn.midproc_cb = libxl__spawn_record_pid;
-     sdss->qmp_proxy_spawn.confirm_cb = qmp_proxy_confirm;
-     sdss->qmp_proxy_spawn.failure_cb = qmp_proxy_startup_failed;
-@@ -3011,7 +3011,7 @@ retry_transaction:
-     spawn->what = GCSPRINTF("domain %d device model", domid);
-     spawn->xspath = DEVICE_MODEL_XS_PATH(gc, LIBXL_TOOLSTACK_DOMID, domid,
-                                          "/state");
--    spawn->timeout_ms = LIBXL_DEVICE_MODEL_START_TIMEOUT * 1000;
-+    spawn->timeout_ms = __libxl_device_model_start_timeout() * 1000;
-     spawn->pidpath = GCSPRINTF("%s/image/device-model-pid", dom_path);
-     spawn->midproc_cb = libxl__spawn_record_pid;
-     spawn->confirm_cb = device_model_confirm;
-@@ -3435,7 +3435,7 @@ void libxl__spawn_qdisk_backend(libxl__egc *egc, libxl__dm_spawn_state *dmss)
- 
-     dmss->spawn.what = GCSPRINTF("domain %u Qdisk backend", domid);
-     dmss->spawn.xspath = GCSPRINTF("device-model/%u/state", domid);
--    dmss->spawn.timeout_ms = LIBXL_DEVICE_MODEL_START_TIMEOUT * 1000;
-+    dmss->spawn.timeout_ms = __libxl_device_model_start_timeout() * 1000;
-     /*
-      * We cannot save Qemu pid anywhere in the xenstore guest dir,
-      * because we will call this from unprivileged driver domains,
-diff --git a/tools/libs/light/libxl_dom_suspend.c b/tools/libs/light/libxl_dom_suspend.c
-index 6091a5f3f6..29e51f6c40 100644
---- a/tools/libs/light/libxl_dom_suspend.c
-+++ b/tools/libs/light/libxl_dom_suspend.c
-@@ -517,7 +517,7 @@ void libxl__dm_resume(libxl__egc *egc,
-     rc = libxl__ev_time_register_rel(dmrs->ao,
-                                      &dmrs->time,
-                                      dm_resume_timeout,
--                                     LIBXL_DEVICE_MODEL_START_TIMEOUT * 1000);
-+                                     __libxl_device_model_start_timeout() * 1000);
+@@ -2807,7 +2807,7 @@ static void stubdom_pvqemu_unpaused(libxl__egc *egc,
+                                   dm_domid, sdss->dm.guest_domid);
+     sdss->xswait.path = DEVICE_MODEL_XS_PATH(gc, dm_domid, sdss->dm.guest_domid,
+                                              "/state");
+-    sdss->xswait.timeout_ms = LIBXL_STUBDOM_START_TIMEOUT * 1000;
++    sdss->xswait.timeout_ms = (__libxl_device_model_start_timeout() + LIBXL_STUBDOM_START_TIMEOUT) * 1000;
+     sdss->xswait.callback = stubdom_xswait_cb;
+     rc = libxl__xswait_start(gc, &sdss->xswait);
      if (rc) goto out;
- 
-     switch (libxl__device_model_version_running(gc, domid)) {
-diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
-index 803dbc1a03..684390f822 100644
---- a/tools/libs/light/libxl_internal.h
-+++ b/tools/libs/light/libxl_internal.h
-@@ -97,6 +97,12 @@
- /* QEMU may be slow to load and start due to a bug in Linux where the I/O
-  * subsystem sometime produce high latency under load. */
- #define LIBXL_DEVICE_MODEL_START_TIMEOUT 60
-+static inline int __libxl_device_model_start_timeout(void)
-+{
-+  const char *timeout_env = getenv("LIBXL_DEVICE_MODEL_START_TIMEOUT");
-+  return timeout_env ? atoi(timeout_env)
-+    : LIBXL_DEVICE_MODEL_START_TIMEOUT;
-+}
- #define LIBXL_DEVICE_MODEL_SAVE_FILE XEN_LIB_DIR "/qemu-save" /* .$domid */
- #define LIBXL_DEVICE_MODEL_RESTORE_FILE XEN_LIB_DIR "/qemu-resume" /* .$domid */
- #define LIBXL_QMP_CMD_TIMEOUT 10
+@@ -3177,7 +3177,7 @@ static void device_model_spawn_outcome(libxl__egc *egc,
+             == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN) {
+         rc = libxl__ev_time_register_rel(ao, &dmss->timeout,
+                                          devise_model_postconfig_timeout,
+-                                         LIBXL_QMP_CMD_TIMEOUT * 1000);
++                                         (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
+         if (rc) goto out;
+         dmss->qmp.ao = ao;
+         dmss->qmp.domid = dmss->guest_domid;
+diff --git a/tools/libs/light/libxl_domain.c b/tools/libs/light/libxl_domain.c
+index 6751fc785f..2fc3481f78 100644
+--- a/tools/libs/light/libxl_domain.c
++++ b/tools/libs/light/libxl_domain.c
+@@ -1882,7 +1882,8 @@ int libxl_set_vcpuonline(libxl_ctx *ctx, uint32_t domid,
+         case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
+             rc = libxl__ev_time_register_rel(ao, &svos->timeout,
+                                              set_vcpuonline_timeout,
+-                                             LIBXL_QMP_CMD_TIMEOUT * 1000);
++                                             (__libxl_device_model_start_timeout()
++                                              + LIBXL_QMP_CMD_TIMEOUT) * 1000);
+             if (rc) goto out;
+             qmp->callback = set_vcpuonline_qmp_cpus_fast_queried;
+             rc = libxl__ev_qmp_send(egc, qmp, "query-cpus-fast", NULL);
+@@ -2353,7 +2354,7 @@ static void retrieve_domain_configuration_lock_acquired(
+          */
+         rc = libxl__ev_time_register_rel(ao, &rdcs->timeout,
+             retrieve_domain_configuration_timeout,
+-            LIBXL_QMP_CMD_TIMEOUT * 1000);
++            (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
+         if (rc) goto out;
+         libxl_bitmap_alloc(CTX, &rdcs->qemuu_cpus,
+                            d_config->b_info.max_vcpus);
 diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index 96cb4da079..7bdd9f6c3b 100644
+index 7bdd9f6c3b..3120649a8e 100644
 --- a/tools/libs/light/libxl_pci.c
 +++ b/tools/libs/light/libxl_pci.c
-@@ -1157,7 +1157,7 @@ static void do_pci_add(libxl__egc *egc,
-                 pas->xswait.what = "Device Model";
-                 pas->xswait.path = DEVICE_MODEL_XS_PATH(gc,
-                     libxl_get_stubdom_id(CTX, domid), domid, "/state");
--                pas->xswait.timeout_ms = LIBXL_DEVICE_MODEL_START_TIMEOUT * 1000;
-+                pas->xswait.timeout_ms = __libxl_device_model_start_timeout() * 1000;
-                 pas->xswait.callback = pci_add_qemu_trad_watch_state_cb;
-                 rc = libxl__xswait_start(gc, &pas->xswait);
+@@ -1165,7 +1165,7 @@ static void do_pci_add(libxl__egc *egc,
+             case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
+                 rc = libxl__ev_time_register_rel(ao, &pas->timeout,
+                                                  pci_add_timeout,
+-                                                 LIBXL_QMP_CMD_TIMEOUT * 1000);
++                                                 (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
                  if (rc) goto out;
-@@ -1719,7 +1719,7 @@ static void device_pci_add_stubdom_wait(libxl__egc *egc,
-     rc = libxl__ev_devstate_wait(ao, &pas->pciback_ds,
-             device_pci_add_stubdom_ready,
-             state_path, XenbusStateConnected,
--            LIBXL_DEVICE_MODEL_START_TIMEOUT * 1000);
-+            __libxl_device_model_start_timeout() * 1000);
+ 
+                 pci_add_qmp_device_add(egc, pas); /* must be last */
+@@ -2030,7 +2030,7 @@ static void pci_remove_qmp_device_del(libxl__egc *egc,
+ 
+     rc = libxl__ev_time_register_rel(ao, &prs->timeout,
+                                      pci_remove_timeout,
+-                                     LIBXL_QMP_CMD_TIMEOUT * 1000);
++                                     (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
      if (rc) goto out;
-     return;
- out:
-@@ -1976,7 +1976,7 @@ static void do_pci_remove(libxl__egc *egc, pci_remove_state *prs)
-             prs->xswait.what = "Device Model";
-             prs->xswait.path = DEVICE_MODEL_XS_PATH(gc,
-                 libxl_get_stubdom_id(CTX, domid), domid, "/state");
--            prs->xswait.timeout_ms = LIBXL_DEVICE_MODEL_START_TIMEOUT * 1000;
-+            prs->xswait.timeout_ms = __libxl_device_model_start_timeout() * 1000;
-             prs->xswait.callback = pci_remove_qemu_trad_watch_state_cb;
-             rc = libxl__xswait_start(gc, &prs->xswait);
-             if (rc) goto out_fail;
+ 
+     QMP_PARAMETERS_SPRINTF(&args, "id", PCI_PT_QDEV_ID,
+diff --git a/tools/libs/light/libxl_usb.c b/tools/libs/light/libxl_usb.c
+index c5ae59681c..59db8a6f64 100644
+--- a/tools/libs/light/libxl_usb.c
++++ b/tools/libs/light/libxl_usb.c
+@@ -487,7 +487,7 @@ static void libxl__device_usbctrl_add(libxl__egc *egc, uint32_t domid,
+ 
+         rc = libxl__ev_time_register_rel(ao, &aodev->timeout,
+                                          device_usbctrl_add_timeout,
+-                                         LIBXL_QMP_CMD_TIMEOUT * 1000);
++                                         (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
+         if (rc) goto outrm;
+ 
+         qmp->ao = ao;
+@@ -644,7 +644,7 @@ static void device_usbctrl_usbdevs_removed(libxl__egc *egc,
+ 
+         rc = libxl__ev_time_register_rel(ao, &aodev->timeout,
+                                          device_usbctrl_remove_timeout,
+-                                         LIBXL_QMP_CMD_TIMEOUT * 1000);
++                                         (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
+         if (rc) goto out;
+ 
+         qmp->ao = ao;
+@@ -1794,7 +1794,7 @@ static void libxl__device_usbdev_add(libxl__egc *egc, uint32_t domid,
+ 
+         rc = libxl__ev_time_register_rel(ao, &aodev->timeout,
+                                          device_usbdev_add_timeout,
+-                                         LIBXL_QMP_CMD_TIMEOUT * 1000);
++                                         (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
+         if (rc) goto out;
+ 
+         aodev->qmp.ao = ao;
+@@ -1976,7 +1976,7 @@ static void libxl__device_usbdev_remove(libxl__egc *egc, uint32_t domid,
+ 
+         rc = libxl__ev_time_register_rel(ao, &aodev->timeout,
+                                          device_usbdev_remove_timeout,
+-                                         LIBXL_QMP_CMD_TIMEOUT * 1000);
++                                         (__libxl_device_model_start_timeout() + LIBXL_QMP_CMD_TIMEOUT) * 1000);
+         if (rc) goto out;
+ 
+         aodev->qmp.ao = ao;
 -- 
 γαῖα πυρί μιχθήτω
 
