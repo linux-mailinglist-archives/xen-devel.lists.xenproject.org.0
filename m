@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD6DB8A33FB
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 18:41:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704809.1101396 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9235D8A3442
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 19:02:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704817.1101407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvJxc-00063m-EO; Fri, 12 Apr 2024 16:41:08 +0000
+	id 1rvKHP-0003kQ-2q; Fri, 12 Apr 2024 17:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704809.1101396; Fri, 12 Apr 2024 16:41:08 +0000
+Received: by outflank-mailman (output) from mailman id 704817.1101407; Fri, 12 Apr 2024 17:01:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvJxc-00061W-BB; Fri, 12 Apr 2024 16:41:08 +0000
-Received: by outflank-mailman (input) for mailman id 704809;
- Fri, 12 Apr 2024 16:41:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rvJxa-00061M-Ub; Fri, 12 Apr 2024 16:41:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rvJxa-0000gF-Om; Fri, 12 Apr 2024 16:41:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rvJxa-0000vH-Gd; Fri, 12 Apr 2024 16:41:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rvJxY-0007k4-QV; Fri, 12 Apr 2024 16:41:06 +0000
+	id 1rvKHP-0003im-02; Fri, 12 Apr 2024 17:01:35 +0000
+Received: by outflank-mailman (input) for mailman id 704817;
+ Fri, 12 Apr 2024 17:01:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fc9m=LR=gmail.com=julien.grall.oss@srs-se1.protection.inumbo.net>)
+ id 1rvKHO-0003ig-0s
+ for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 17:01:34 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4f597418-f8ee-11ee-94a3-07e782e9044d;
+ Fri, 12 Apr 2024 19:01:31 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-346f4266e59so817992f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Apr 2024 10:01:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,268 +40,265 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=EwHYHh0IARqs+bYj3xMs151+Y1Ga2yq+ar/JItqpMbQ=; b=cs+VHNXiK2tVPZvfbWuvN9zHvB
-	vmsDjOcMU+lBTYD1HB2gamB90EF/VEbdaNZtsh/cZsHSR5umiOKs4LV+yoqiwOwGKX9MPzdqsKmgT
-	9nR33WB/O8Ir2jYArlQeX9cAZKzfCR4alODuWssUhCT9YlNFv7JF7+QFN/xsZXL6MTp4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185310-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4f597418-f8ee-11ee-94a3-07e782e9044d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1712941291; x=1713546091; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=ueitQytYne9OVwQaypVcnl+jAqVfXtnGsCDMUbf4oFU=;
+        b=ZE/RfaT4X7WXBm0k2gAPVRMA4ZTqJ5ObMe4N8X9znQ9LuGiZ/QRP5Qw25uyR/nrQcD
+         /lACQ6w105Yh+7vZ1T2oap8s2Q5D9kHWwRh5Elo7SoTExoU95hleRDy15z83GTGRNSU5
+         K5rrjHF4NigANj+itEJVLZbpw6SVoBn1Ow0v5AfGoVYdPyQpP7rvdOblnGcdBe63YiyW
+         LhrLitcgoDwKrl/yr0lOg95dQQVbal4O1gXFQ83iv0eSj3WewDeg5yFPHtZbkbIMzZEG
+         DScaPqfaawRSuqcWxWZ0hJkpYr2/hRJsPyz8B/braTVeghWf9mnzGy15y9xAZS8J4pRP
+         brkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712941291; x=1713546091;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ueitQytYne9OVwQaypVcnl+jAqVfXtnGsCDMUbf4oFU=;
+        b=GSSsrmWDVbknyx6c35NpOi3kE2YfBThiIs1TL6sf3T57p/HOSzRQq+AS8VvpxQcK9e
+         v1Ep4F2AuNyWBiTL2G2gKiSsfT0vGbiJe9YcDzewW6JSBZ6ZsDMSPEZ2qXshmD7o+P4x
+         r3JNSLMDCjAXkm3vT/G1XuZaJku3FgaytRzW2Nr+fBx0y21TF/vIKBE4sCikZqKSmWUB
+         /Dj2NrBjHLQIPoAg8sKLuabLdtMCPvOKqqPuPZPw4pYJUQismC7v/e+6DpDDqyS07c+I
+         QWvaeCxZk3XQ6aOTdSAsvLV0bUjxdFZKyOdsrwRQxPSLyuxe9sFV7YqV7F3TldOThbJo
+         m8uQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWjVDsVxPjRY6/xOtn2leqsO3I4Cgy/v4ZGaQsI5ARHNfV3sLSetxpWu0VVC71zDStvq3YmTlzP+V07aGuLsdA4pOI6/yYCviO8mtLGdFQ=
+X-Gm-Message-State: AOJu0YyxSlZUqSEgzsezyKQP0bbPLnvio5/+EPrs2CsNUHpfLRP69fU9
+	DPbasjcQ0Uj9fETuShykytqBIiwWQbj0y1BgE8P0/JVOR6dRc/2iZ5x9sRfq0Jttyxly1hCZAjb
+	/8fNZQ+Ombj5fub97BiP3QraNeUs=
+X-Google-Smtp-Source: AGHT+IFBZYHNpbDmEQN7Omwd524Ik0tbR/W+fqn7hl5rLjTm7FLPy6NlTFF6akOWTgAEWtc5H9R/M/ILVBdq3TXHRDQ=
+X-Received: by 2002:a5d:484d:0:b0:343:69b4:b527 with SMTP id
+ n13-20020a5d484d000000b0034369b4b527mr2035092wrs.18.1712941290627; Fri, 12
+ Apr 2024 10:01:30 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable test] 185310: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:windows-install:fail:regression
-    xen-unstable:test-armhf-armhf-xl-raw:host-ping-check-xen:fail:heisenbug
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=0e7ea8ca5fc9bce9248414f6aaf2dc861abd45d9
-X-Osstest-Versions-That:
-    xen=672b26b66ebb5ff3d28c573a6545a08020b27495
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 12 Apr 2024 16:41:04 +0000
+References: <alpine.DEB.2.22.394.2404101644130.976094@ubuntu-linux-20-04-desktop>
+ <20240410234740.994001-1-stefano.stabellini@amd.com> <CAJ=z9a3zMaSLSS0mfKT8dngVwrESycSspy8LnW4FZV6hdu_AAw@mail.gmail.com>
+ <alpine.DEB.2.22.394.2404111454570.997881@ubuntu-linux-20-04-desktop>
+ <CAJ=z9a2gOTLy2B7y9bELQHPhFmCpU2nhyV5zy9_uQvsvx5prqw@mail.gmail.com> <C8D49EE7-B214-41D5-9556-4D3B98629CEA@arm.com>
+In-Reply-To: <C8D49EE7-B214-41D5-9556-4D3B98629CEA@arm.com>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Fri, 12 Apr 2024 13:01:19 -0400
+Message-ID: <CAJ=z9a2ENW-3vh4N59csoeMHeMPGv9XFUuC6GrMTYMKM=FpwgQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] docs: add xen_ulong_t to the documented integers sizes/alignments
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Jan Beulich <jbeulich@suse.com>, Michal Orzel <michal.orzel@amd.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Stefano Stabellini <stefano.stabellini@amd.com>, 
+	Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="0000000000002628d60615e9396c"
 
-flight 185310 xen-unstable real [real]
-flight 185375 xen-unstable real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185310/
-http://logs.test-lab.xenproject.org/osstest/logs/185375/
+--0000000000002628d60615e9396c
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Regressions :-(
+On Fri, 12 Apr 2024 at 11:30, Bertrand Marquis <Bertrand.Marquis@arm.com>
+wrote:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-win7-amd64 12 windows-install  fail REGR. vs. 185281
-
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-xl-raw      10 host-ping-check-xen fail pass in 185375-retest
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail blocked in 185281
- test-armhf-armhf-xl-raw     14 migrate-support-check fail in 185375 never pass
- test-armhf-armhf-xl-raw 15 saverestore-support-check fail in 185375 never pass
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 185281
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185281
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 185281
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 185281
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  0e7ea8ca5fc9bce9248414f6aaf2dc861abd45d9
-baseline version:
- xen                  672b26b66ebb5ff3d28c573a6545a08020b27495
-
-Last test of basis   185281  2024-04-09 11:10:22 Z    3 days
-Failing since        185294  2024-04-10 04:20:17 Z    2 days    2 attempts
-Testing same since   185310  2024-04-11 09:41:58 Z    1 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Bertrand Marquis <bertrand.marquis@arm.com>
-  Bjoern Doebel <doebel@amazon.de>
-  Jan Beulich <jbeulich@suse.com>
-  John Ernberg <john.ernberg@actia.se>
-  Julien Grall <jgrall@amazon.com>
-  Peng Fan <peng.fan@nxp.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stefano Stabellini <stefano.stabellini@amd.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      fail    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+> Hi Julien,
+>
+> > On 12 Apr 2024, at 15:53, Julien Grall <julien.grall.oss@gmail.com>
+> wrote:
+> >
+> >
+> >
+> > On Thu, 11 Apr 2024 at 18:08, Stefano Stabellini <sstabellini@kernel.or=
+g>
+> wrote:
+> > On Wed, 10 Apr 2024, Julien Grall wrote:
+> > > On Wed, 10 Apr 2024 at 19:47, Stefano Stabellini <
+> stefano.stabellini@amd.com> wrote:
+> > >       xen_ulong_t is widely used in public headers.
+> > >
+> > >       Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> > >       ---
+> > >
+> > >       Given that xen_ulong_t is used in public headers there could be
+> a better
+> > >       place for documenting it but this was the most straightforward
+> to add.
+> > >       ---
+> > >        docs/misra/C-language-toolchain.rst | 11 +++++++++++
+> > >        1 file changed, 11 insertions(+)
+> > >
+> > >       diff --git a/docs/misra/C-language-toolchain.rst
+> b/docs/misra/C-language-toolchain.rst
+> > >       index 5ddfe7bdbe..7a334260e6 100644
+> > >       --- a/docs/misra/C-language-toolchain.rst
+> > >       +++ b/docs/misra/C-language-toolchain.rst
+> > >       @@ -531,6 +531,17 @@ A summary table of data types, sizes and
+> alignment is below:
+> > >             - 64 bits
+> > >             - x86_64, ARMv8-A AArch64, RV64, PPC64
+> > >
+> > >       +   * - xen_ulong_t
+> > >       +     - 32 bits
+> > >       +     - 32 bits
+> > >       +     - x86_32
+> > >       +
+> > >       +   * - xen_ulong_t
+> > >       +     - 64 bits
+> > >       +     - 64 bits
+> > >       +     - x86_64, ARMv8-A AArch64, RV64, PPC64, ARMv8-A AArch32,
+> ARMv8-R
+> > >       +       AArch32, ARMv7-A
+> > >
+> > >
+> > > We support neither ARMv8-R nor ARMv8-A Aarch32.
+> > >
+> > > I could possibly accept the latter because it works to. But the forme=
+r
+> is so far misleading.
+> >
+> > Yes I think you are right. Moreover this document
+> > (C-language-toolchain.rst) is meant for the Xen build. While this patch
+> > is trying to document the types used in the public headers for the
+> > external-facing ABI.
+> >
+> > I'll move the information this patch is adding to a separate document,
+> > specific to the public headers. I will only add the architectures
+> > currently working: I'll add ARMv8-A Aarch32 because although it is
+> > unsupported it is interesting to know the size of xen_ulong_t for
+> > aarch32 in the public headers. I will remove ARMv8-R as it is not
+> > available upstream.
+> >
+> > Thinking a bit more. What about Armv9? Rather than listing each version=
+,
+> should we instead use ARMv7-A aarch32 and later, ARMv8-A aarch64 and late=
+r?
+>
+> Definitely you are right here but as for Armv8-R, Armv9 is not something
+> that we explicitely support right now (even though it should work).
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+I am confused with the comparison. I thought you can=E2=80=99t boot Xen at =
+all on
+Armv8-R. But you can on Armv9-A as this just Armv8-A + features the
+software don=E2=80=99t need to use.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Did you intend to draw the comparison with Armv8-A Aarch32?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Cheers,
 
 
-Not pushing.
+>
+> Cheers
+> Bertrand
+>
+>
+>
 
-(No revision log; it would be 536 lines long.)
+--0000000000002628d60615e9396c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Fri, 12 Apr 2024 at 11:30, Bertrand Marquis &lt;<a href=
+=3D"mailto:Bertrand.Marquis@arm.com">Bertrand.Marquis@arm.com</a>&gt; wrote=
+:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
+8ex;border-left-width:1px;border-left-style:solid;padding-left:1ex;border-l=
+eft-color:rgb(204,204,204)">Hi Julien,<br>
+<br>
+&gt; On 12 Apr 2024, at 15:53, Julien Grall &lt;<a href=3D"mailto:julien.gr=
+all.oss@gmail.com" target=3D"_blank">julien.grall.oss@gmail.com</a>&gt; wro=
+te:<br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt; On Thu, 11 Apr 2024 at 18:08, Stefano Stabellini &lt;<a href=3D"mailto=
+:sstabellini@kernel.org" target=3D"_blank">sstabellini@kernel.org</a>&gt; w=
+rote:<br>
+&gt; On Wed, 10 Apr 2024, Julien Grall wrote:<br>
+&gt; &gt; On Wed, 10 Apr 2024 at 19:47, Stefano Stabellini &lt;<a href=3D"m=
+ailto:stefano.stabellini@amd.com" target=3D"_blank">stefano.stabellini@amd.=
+com</a>&gt; wrote:<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0xen_ulong_t is widely used in public he=
+aders.<br>
+&gt; &gt; <br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Signed-off-by: Stefano Stabellini &lt;<=
+a href=3D"mailto:stefano.stabellini@amd.com" target=3D"_blank">stefano.stab=
+ellini@amd.com</a>&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0---<br>
+&gt; &gt; <br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Given that xen_ulong_t is used in publi=
+c headers there could be a better<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0place for documenting it but this was t=
+he most straightforward to add.<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0---<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 docs/misra/C-language-toolchain.rst | =
+11 +++++++++++<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 1 file changed, 11 insertions(+)<br>
+&gt; &gt; <br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0diff --git a/docs/misra/C-language-tool=
+chain.rst b/docs/misra/C-language-toolchain.rst<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0index 5ddfe7bdbe..7a334260e6 100644<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0--- a/docs/misra/C-language-toolchain.r=
+st<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+++ b/docs/misra/C-language-toolchain.r=
+st<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0@@ -531,6 +531,17 @@ A summary table of=
+ data types, sizes and alignment is below:<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0- 64 bits<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0- x86_64, ARMv8-A =
+AArch64, RV64, PPC64<br>
+&gt; &gt; <br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0* - xen_ulong_t<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0- 32 bits<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0- 32 bits<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0- x86_32<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0* - xen_ulong_t<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0- 64 bits<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0- 64 bits<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0- x86_64, ARMv8-A =
+AArch64, RV64, PPC64, ARMv8-A AArch32, ARMv8-R<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0AArch32, AR=
+Mv7-A<br>
+&gt; &gt; <br>
+&gt; &gt; <br>
+&gt; &gt; We support neither ARMv8-R nor ARMv8-A Aarch32.<br>
+&gt; &gt; <br>
+&gt; &gt; I could possibly accept the latter because it works to. But the f=
+ormer is so far misleading.<br>
+&gt; <br>
+&gt; Yes I think you are right. Moreover this document<br>
+&gt; (C-language-toolchain.rst) is meant for the Xen build. While this patc=
+h<br>
+&gt; is trying to document the types used in the public headers for the<br>
+&gt; external-facing ABI.<br>
+&gt; <br>
+&gt; I&#39;ll move the information this patch is adding to a separate docum=
+ent,<br>
+&gt; specific to the public headers. I will only add the architectures<br>
+&gt; currently working: I&#39;ll add ARMv8-A Aarch32 because although it is=
+<br>
+&gt; unsupported it is interesting to know the size of xen_ulong_t for<br>
+&gt; aarch32 in the public headers. I will remove ARMv8-R as it is not<br>
+&gt; available upstream.<br>
+&gt; <br>
+&gt; Thinking a bit more. What about Armv9? Rather than listing each versio=
+n, should we instead use ARMv7-A aarch32 and later, ARMv8-A aarch64 and lat=
+er?<br>
+<br>
+Definitely you are right here but as for Armv8-R, Armv9 is not something th=
+at we explicitely support right now (even though it should work).</blockquo=
+te><div dir=3D"auto"><br></div><div dir=3D"auto">I am confused with the com=
+parison. I thought you can=E2=80=99t boot Xen at all on Armv8-R. But you ca=
+n on Armv9-A as this just Armv8-A + features the software don=E2=80=99t nee=
+d to use.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Did you intend=
+ to draw the comparison with Armv8-A Aarch32?</div><div dir=3D"auto"><br></=
+div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><br></div><blockquote =
+class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1=
+px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(204,204,2=
+04)" dir=3D"auto"><br>
+<br>
+Cheers<br>
+Bertrand<br>
+<br>
+<br>
+</blockquote></div></div>
+
+--0000000000002628d60615e9396c--
 
