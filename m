@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2694C8A2CFA
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 13:00:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704541.1100975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A840E8A2D12
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 13:08:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704547.1100984 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvEcs-00051I-NS; Fri, 12 Apr 2024 10:59:22 +0000
+	id 1rvElW-0007pb-M9; Fri, 12 Apr 2024 11:08:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704541.1100975; Fri, 12 Apr 2024 10:59:22 +0000
+Received: by outflank-mailman (output) from mailman id 704547.1100984; Fri, 12 Apr 2024 11:08:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvEcs-0004zW-KY; Fri, 12 Apr 2024 10:59:22 +0000
-Received: by outflank-mailman (input) for mailman id 704541;
- Fri, 12 Apr 2024 10:59:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rvElW-0007nE-JS; Fri, 12 Apr 2024 11:08:18 +0000
+Received: by outflank-mailman (input) for mailman id 704547;
+ Fri, 12 Apr 2024 11:08:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yOJy=LR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rvEcq-0004zQ-Ss
- for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 10:59:20 +0000
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [2607:f8b0:4864:20::733])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b6000b5a-f8bb-11ee-b908-491648fe20b8;
- Fri, 12 Apr 2024 12:59:19 +0200 (CEST)
-Received: by mail-qk1-x733.google.com with SMTP id
- af79cd13be357-78d7558bf10so48100885a.1
- for <xen-devel@lists.xenproject.org>; Fri, 12 Apr 2024 03:59:19 -0700 (PDT)
-Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- l20-20020ae9f014000000b0078ec5e88805sm1633336qkg.54.2024.04.12.03.59.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Apr 2024 03:59:18 -0700 (PDT)
+ <SRS0=sUrc=LR=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1rvElU-0007n8-8o
+ for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 11:08:16 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id de9dbd06-f8bc-11ee-94a3-07e782e9044d;
+ Fri, 12 Apr 2024 13:07:38 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1712920048673584.3919028845842;
+ Fri, 12 Apr 2024 04:07:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +38,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6000b5a-f8bb-11ee-b908-491648fe20b8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712919558; x=1713524358; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/X6mskL8qMeU/S03D5XxolTz6ver5EACj57rm06MCHw=;
-        b=k38EGfpm5X9rskv8kUv2NTPuVro0WXrScQIQDR95bod/m3FmMyRdQiwrTBjN328wRQ
-         ifucB8/WjjUqw1h4kwQgt/MZBLtN3azySX5d1McWSpl2BllVCsXaLQtkjE8ubmP7i+2O
-         mS7TX9TlxqByjENamrL3aGtMPzaKPVQdKa+iU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712919558; x=1713524358;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/X6mskL8qMeU/S03D5XxolTz6ver5EACj57rm06MCHw=;
-        b=d4/qfhx2XSYFWwTGdN6LN5x9NBjnYQh3IIPQDmcjzA1Sr31n7VXN4eYV/Wiz+SgUL7
-         Z9S11nZzuBIo9a3qO9hUbRPn74AxvI1anzuZU9z1Fx93SYCiKkp9F73P52vY7TImxt1N
-         37jUx+ct0LoTmv6qJ/lmgP9cEqEWB42aZe32exSgT+KDUJyOfLRhp67sptlYFZFdE9iI
-         RkTDL1LzXPbb21d50lwRzuJviIskygXZZcwagfGZT+qOi2nfDizllv9KjZcGEaD24VTU
-         SE0nLa/5ggajqc8bfMI/Tc/xk+MH9RuQlYIeTUv/nzZbBYoD4yOP/uB1ai80pz7+7WzR
-         O41Q==
-X-Forwarded-Encrypted: i=1; AJvYcCU8JVmrztioaIv4dZgD3Byz5Nvz6Xn7WFls8edwpJnqtjVOt/n+5MWlMd4eIak/Yyb9Pm4ck6BQezq1nbhKT+5dW5RHxMrOcPjTlga9ANY=
-X-Gm-Message-State: AOJu0YyNKZo0jiwvK1kMyk5wAVhNgnvIeJmIQrLWYGtSPt1sssck5rZR
-	pg19YCxBJU+kDuxuUewgwNfPy1jImRSlq/thw1l+OVWZ55WMxf/yFWSB4kWkQ/8=
-X-Google-Smtp-Source: AGHT+IGjh/TjmquJSHtLTAjGcugctJzLOQDUOaxo2KA8EK7P+hZRG83oO+wcYpcS8vm7uZZOyDNjfw==
-X-Received: by 2002:a05:620a:4ac5:b0:78e:c62e:1bf4 with SMTP id sq5-20020a05620a4ac500b0078ec62e1bf4mr2049727qkn.54.1712919558573;
-        Fri, 12 Apr 2024 03:59:18 -0700 (PDT)
-Message-ID: <a1444b09-ed0e-47d0-ad21-2b91077abbc8@citrix.com>
-Date: Fri, 12 Apr 2024 11:59:16 +0100
+X-Inumbo-ID: de9dbd06-f8bc-11ee-94a3-07e782e9044d
+ARC-Seal: i=1; a=rsa-sha256; t=1712920052; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=gIBFZskeh/O+cGQ134h2m3kPYn7xX8Suxt7HoHZqxBiAzx7kggS3Q56SK9dcNIIdOv+4N6vKvN6mXONaLINUaFya4gnemvH0Z+Nat6TpgCxoYJvEuz1eluxFPz+yqEwPnrNUVx2GEup44zYaiS48rE02gLSfx8Y8VAGIv3G+cAw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1712920052; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=oBqIBmXmMqJh2iMf8HK6lFgI+SJYnURbur9shxMNSv8=; 
+	b=Gjnw8DjaEQYbjNh8spuLdkOO3fzbzYcWY720935a8qrYWkU9rKwnWN0x/uqLz+v6vXDC0SyG14KQOUG0HJe9f46vdAxZYo84sftQmVMJgQ8WTRUT90Sr0K5UAxOulHNz6c5WWLfTy1XD8fIv4SRIVwe7UpOK2OOWGqq1d2ren+A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712920052;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=oBqIBmXmMqJh2iMf8HK6lFgI+SJYnURbur9shxMNSv8=;
+	b=KyBQuMwduGNRv2NjlLAQTzh5L7ZHiMVrxVGLLAX1Zv/bCmZF/h4DNDiBmG406/Te
+	JvEgfS6EeALf6mSeMNtcpnYrHJIrKK5ciyOn2FytVBQudGspuC5NcSc9SIHKylsHyZ+
+	GCLOLPyHR6e83IjLZLP6+62z6w/Zbio6VZ5px8PI=
+Message-ID: <2897b736-1a9d-4948-8e80-f018fd049bb8@apertussolutions.com>
+Date: Fri, 12 Apr 2024 07:07:18 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] livepatch: refuse to resolve symbols that belong to init
- sections
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
-References: <20240412080722.75971-1-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240412080722.75971-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-On 12/04/2024 9:07 am, Roger Pau Monne wrote:
-> Livepatch payloads containing symbols that belong to init sections can only
-> lead to page faults later on, as by the time the livepatch is loaded init
-> sections have already been freed.
->
-> Refuse to resolve such symbols and return an error instead.
->
-> Note such resolutions are only relevant for symbols that point to undefined
-> sections (SHN_UNDEF), as that implies the symbol is not in the current payload
-> and hence must either be a Xen or a different livepatch payload symbol.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  xen/common/livepatch_elf.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
->
-> diff --git a/xen/common/livepatch_elf.c b/xen/common/livepatch_elf.c
-> index 45d73912a3cd..25b81189c590 100644
-> --- a/xen/common/livepatch_elf.c
-> +++ b/xen/common/livepatch_elf.c
-> @@ -8,6 +8,9 @@
->  #include <xen/livepatch_elf.h>
->  #include <xen/livepatch.h>
->  
-> +/* Needed to check we don't resolve against init section symbols. */
-> +extern char __init_begin[], __init_end[];
-> +
-
-The livepatching side of this is fine, and definitely an improvement.
-
-However, this is the 3rd set of externs for these symbols.  Could I talk
-you into doing a prerequisite patch which introduces <xen/sections.h>
-and moves the externs out of {arm,x86}/setup.c ?
-
-This will (subsequently - not to interfere with this change) allow us to
-clean up kernel.h, and fix the nonsense that currently is __read_mostly
-being in cache.h (which is causing problems for RISCV/PPC).
-
-Also judging by kernel.h, they want a /* SAF-0-safe */ tag too for MISRA.
+Subject: Re: [PATCH 1/5] gzip: colocate gunzip code files
+To: Luca Fancellu <Luca.Fancellu@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jason Andryuk <jason.andryuk@amd.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20240411152518.2995-1-dpsmith@apertussolutions.com>
+ <20240411152518.2995-2-dpsmith@apertussolutions.com>
+ <AA1FBA57-A643-4758-B99A-B59181B6329A@arm.com>
+ <1552c28a-9c31-4771-94d1-20a51b2c641f@citrix.com>
+ <8055E1FC-38DA-4534-BE04-F22AFC7B049F@arm.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ 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
+In-Reply-To: <8055E1FC-38DA-4534-BE04-F22AFC7B049F@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
 
->  const struct livepatch_elf_sec *
->  livepatch_elf_sec_by_name(const struct livepatch_elf *elf,
->                            const char *name)
-> @@ -310,6 +313,20 @@ int livepatch_elf_resolve_symbols(struct livepatch_elf *elf)
->                      break;
->                  }
->              }
-> +            /*
-> +             * Ensure not an init symbol.  Only applicable to Xen symbols, as
-> +             * livepatch payloads don't have init sections or equivalent.
-> +             */
-> +            else if ( st_value >= (uintptr_t)&__init_begin &&
-> +                      st_value <= (uintptr_t)&__init_end )
+On 4/11/24 15:43, Luca Fancellu wrote:
+> 
+>>>> create mode 100644 xen/common/gzip/Makefile
+>>>> rename xen/common/{ => gzip}/gunzip.c (100%)
+>>>> rename xen/common/{ => gzip}/inflate.c (100%)
+>>> For inflate.c you will need to update also docs/misra/exclude-list.json
+>>
+>> Something like this?
+>>
+>> diff --git a/docs/misra/exclude-list.json b/docs/misra/exclude-list.json
+>> index 36bad9e54f7d..095636415897 100644
+>> --- a/docs/misra/exclude-list.json
+>> +++ b/docs/misra/exclude-list.json
+>> @@ -118,7 +118,7 @@
+>>               "comment": "Imported from Linux, ignore for now"
+>>           },
+>>           {
+>> -            "rel_path": "common/inflate.c",
+>> +            "rel_path": "common/gzip/inflate.c",
+>>               "comment": "Imported from Linux, ignore for now"
+>>           },
+>>           {
+> 
+> Yes indeed
 
-I think you want just < here.  A label at __init_end is the start of the
-next section.
-
-~Andrew
+Ack, will add.
 
