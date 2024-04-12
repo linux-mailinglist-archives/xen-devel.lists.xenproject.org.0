@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30DA18A30DE
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 16:38:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704729.1101257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3199C8A3179
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 16:49:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704738.1101267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvI2e-0005Tn-JU; Fri, 12 Apr 2024 14:38:12 +0000
+	id 1rvIDM-0000mG-LX; Fri, 12 Apr 2024 14:49:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704729.1101257; Fri, 12 Apr 2024 14:38:12 +0000
+Received: by outflank-mailman (output) from mailman id 704738.1101267; Fri, 12 Apr 2024 14:49:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvI2e-0005Qe-G1; Fri, 12 Apr 2024 14:38:12 +0000
-Received: by outflank-mailman (input) for mailman id 704729;
- Fri, 12 Apr 2024 14:38:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rvIDM-0000ju-J0; Fri, 12 Apr 2024 14:49:16 +0000
+Received: by outflank-mailman (input) for mailman id 704738;
+ Fri, 12 Apr 2024 14:49:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m1/u=LR=bounce.vates.tech=bounce-md_30504962.6619474d.v1-c4a95ce5ca1345ad8bae29c86b9930b1@srs-se1.protection.inumbo.net>)
- id 1rvI2c-0005QY-PM
- for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 14:38:10 +0000
+ <SRS0=WJ5u=LR=bounce.vates.tech=bounce-md_30504962.661949e7.v1-82ffa0108b494c8a9f74252d108fbd6c@srs-se1.protection.inumbo.net>)
+ id 1rvIDK-0000jo-Oe
+ for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 14:49:15 +0000
 Received: from mail145-16.atl61.mandrillapp.com
  (mail145-16.atl61.mandrillapp.com [198.2.145.16])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 46fdd8f6-f8da-11ee-94a3-07e782e9044d;
- Fri, 12 Apr 2024 16:38:08 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d36ffd9a-f8db-11ee-b908-491648fe20b8;
+ Fri, 12 Apr 2024 16:49:13 +0200 (CEST)
 Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
  by mail145-16.atl61.mandrillapp.com (Mailchimp) with ESMTP id
- 4VGK190ptVz8XRqj0
- for <xen-devel@lists.xenproject.org>; Fri, 12 Apr 2024 14:38:05 +0000 (GMT)
+ 4VGKFz5Jmxz8XRqGf
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Apr 2024 14:49:11 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- c4a95ce5ca1345ad8bae29c86b9930b1; Fri, 12 Apr 2024 14:38:05 +0000
+ 82ffa0108b494c8a9f74252d108fbd6c; Fri, 12 Apr 2024 14:49:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,240 +43,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46fdd8f6-f8da-11ee-94a3-07e782e9044d
+X-Inumbo-ID: d36ffd9a-f8db-11ee-b908-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1712932685; x=1713193185;
-	bh=hTeskO7cTnAtgN13EZTm7x3v6yR+TkmazbX6ZtL7IcQ=;
+	s=mte1; t=1712933351; x=1713193851;
+	bh=sqDq7+1CoBYFBo9LrJqMOoBFSt4P25wqk78vmExOUmg=;
 	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=K3tJphHQlx0cLYLorS8NXj4cQmravXbE2+azKa+eWqBalWAW25QgAXqHO4IDZplSa
-	 2SaRgQGAuTjxTeb20+cSE8dfL8s8PloWeLbCjJeKc/6h596cXEmTuQsll7YmIzjY60
-	 dMDUuRbd3VhbFWEKPvDCam1fRtNZ8W/gDwBjcIrPGJdEqLWP14LxUFoGefUKFkNTTY
-	 /T5UqDL2DgGataF9TIoRdxJ6bnmdVKtNfxSRnlr205dKVEfI6mVptY4+ZaQXkXqfWt
-	 s0yqlXN0ixUVs66mm/HQmrOQwg2hA3an3Goap6LQOzAUdpbvvQjAWVRSZ2nmyMtjHw
-	 8XdiDzi/tPtNw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1712932685; x=1713193185; i=vaishali.thakkar@vates.tech;
-	bh=hTeskO7cTnAtgN13EZTm7x3v6yR+TkmazbX6ZtL7IcQ=;
+	b=qD1d/tDiJgdtgiIs6XktAa7i71ALoo1EwjC/qgHiICnqCYZBi+02Tn+6shq8Zb8iS
+	 us4rOSMwkeB8w+3R89xXMUjAXUBMc4YtBr7N8JP36upvPSOyEKlBAJxy4TmBg4JuXI
+	 8MPYX9fsxZtK95VWOFYdbsVg57eqAWGK0UURl98Eat1HoLwv2goHoKM/t7Z/gbT1Ej
+	 6cyVuRG7OVsD5qu5t4CnFOB014m/R/+b4rREJz6P1kX/wZmgup28PH5LbYawcWOdk7
+	 ZrtD79jYVYx5dSs+ZPTQPgwXyq4H2A3vpzDGDxzXNFeY0nrmMhtn9BdanV2363vdit
+	 PvH68wIlwgPdQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.fr; s=mte1;
+	t=1712933351; x=1713193851; i=andrei.semenov@vates.fr;
+	bh=sqDq7+1CoBYFBo9LrJqMOoBFSt4P25wqk78vmExOUmg=;
 	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=DmeRaTmovt9xYSnHosVleTr5DdzyiDemkw25BQi/WWqqDQfaooh4KIthEsRW7s01E
-	 WKQfzwY9XMGLqFTfb2AQ+OmYP3uLVEfdrbZH1wiy9G38CVohsaRBfw92YAfmbkvmu/
-	 PDPNToOeDcw0SczreljZlc0xKb7pqgHFf908x6noNmDWfTBE9tWNdsgD4jbdmAZ7SM
-	 jqkjl6rdf5+F+jBzaD8Ws7IxAMbrBYWah9Vn4ZgA96XreCHcGJmGVpAfwzSBT+EesT
-	 f0RHMh8d4iIRDWqCD1fbyPOIpYaXG2Iyz7qUhdX8R3GR0z44bb7qjyH1ib2BZGXw25
-	 33d8+7iBFoCLQ==
-From: Vaishali Thakkar <vaishali.thakkar@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v1=201/2]=20Implemented=20AMD=20SEV=20discovery=20and=20enabling.?=
+	b=u94EFyBEevCrPB76pMFlylPEbOX2I7tjqSXyU250jWFqoajd9oG8OXMtyHiRc/X1I
+	 2ui1x4f/avd8J9OqqwUQ6yNnScmyEmV5D96aBlQhxRvw951v/3gSEwmII8XtRA4Lzh
+	 2JBngqWr8US/f9kDgSzjo/UyMMF2TZqo9ZcUpdSyGlUSg9CSxVvkXl2qPbJcwlGRnD
+	 j2MeMI88NljToddmXnDXXii4oTDJya5BHzbxDJxBr8q+OkfzEi+fCSw9a7beyayY63
+	 BeZw3FSahmIxAvBMnUlRIWgatwDhgmgMzWvq5h42PHtfHUOLHaukJTS8MwxRS3nmpf
+	 j6rLZwakBcOMA==
+From: Andrei Semenov <andrei.semenov@vates.fr>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v1=202/2]=20Implemented=20Amd=20Secure=20Processor=20device=20driver?=
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1712932683808
-Message-Id: <51d5395e-7341-438f-8472-3391531c5bb0@vates.tech>
-To: Andrei Semenov <andrei.semenov@vates.fr>, Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-References: <cover.1712759753.git.andrei.semenov@vates.fr> <27fce67472c97b2b2b7cc0412bf0edcaa67cc63f.1712759753.git.andrei.semenov@vates.fr> <a9638611-8348-462a-a25d-a9efe3fabf9a@citrix.com> <ede83752-6151-4c23-a8c0-883aa7bee129@vates.fr>
-In-Reply-To: <ede83752-6151-4c23-a8c0-883aa7bee129@vates.fr>
+X-Bm-Transport-Timestamp: 1712933348702
+Message-Id: <be2e990c-50bc-4950-a70b-755ffebeaadd@vates.fr>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1712759753.git.andrei.semenov@vates.fr> <8c9627ef69e8d809efcb93b50fc34474f2b0ba7f.1712759753.git.andrei.semenov@vates.fr> <db0f49d5-ea9e-4c62-b7ac-c856656b1e29@citrix.com>
+In-Reply-To: <db0f49d5-ea9e-4c62-b7ac-c856656b1e29@citrix.com>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.c4a95ce5ca1345ad8bae29c86b9930b1?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.82ffa0108b494c8a9f74252d108fbd6c?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20240412:md
-Date: Fri, 12 Apr 2024 14:38:05 +0000
+Date: Fri, 12 Apr 2024 14:49:11 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 4/12/24 4:06 PM, Andrei Semenov wrote:
-> 
-> On 4/11/24 20:32, Andrew Cooper wrote:
->> On 10/04/2024 4:36 pm, Andrei Semenov wrote:
->>> diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
->>> index ab92333673..a5903613f0 100644
->>> --- a/xen/arch/x86/cpu/amd.c
->>> +++ b/xen/arch/x86/cpu/amd.c
->>> @@ -1030,6 +1031,54 @@ static void amd_check_erratum_1485(void)
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 wrmsrl(MSR_AMD64_BP_CFG, val | chickenbi=
-t);
->>> =C2=A0 }
->>> +#ifdef CONFIG_HVM
->>> +static void amd_enable_mem_encrypt(const struct cpuinfo_x86 *c)
->>> +{
->>> +=C2=A0=C2=A0=C2=A0 unsigned int=C2=A0 eax, ebx, ecx, edx;
->>> +=C2=A0=C2=A0=C2=A0 uint64_t syscfg;
->>> +
->>> +=C2=A0=C2=A0=C2=A0 if (!smp_processor_id()) {
->> c =3D=3D &boot_cpu_info.
-> Agree, will fix.
->>
->>> +
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cpuid_count(0x80000000,0,&e=
-ax, &ebx, &ecx, &edx);
->>> +
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (eax <=C2=A0 0x8000001f)
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret=
-urn;
->> Max leaf is already collected.=C2=A0 c->extended_cpuid_level
-> Agree, will fix.
->>
->>
->>> +
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cpuid_count(0x8000001f,0,&e=
-ax, &ebx, &ecx, &edx);
->>> +
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (eax & 0x1)
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set=
-up_force_cpu_cap(X86_FEATURE_SME);
->>> +
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (eax & 0x2) {
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set=
-up_force_cpu_cap(X86_FEATURE_SEV);
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 max=
-_sev_asid =3D ecx;
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 min=
-_sev_asid =3D edx;
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>> +
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (eax & 0x3)
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pte=
-_c_bit_mask =3D 1UL << (ebx & 0x3f);
->> This is decoding the main SEV feature leaf, but outside of normal
->> mechanisms.
->>
->> I've got half a mind to brute-force through the remaining work to
->> un-screw our boot sequence order, and express this in a cpu-policy
->> straight away.=C2=A0 This is wanted for the SVM leaf info too.
->>
->> Leave it with me for a bit.
-> OK. I wait for your insights on this so.
->>
->>
->>> +=C2=A0=C2=A0=C2=A0 }
->>> +
->>> +=C2=A0=C2=A0=C2=A0 if (!(cpu_has_sme || cpu_has_sev))
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
->>> +
->>> +=C2=A0=C2=A0=C2=A0 if (!smp_processor_id()) {
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (cpu_has_sev)
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pri=
-ntk(XENLOG_INFO "SEV: ASID range [0x%x - 0x%x]\n",
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 min=
-_sev_asid, max_sev_asid);
->> Why do we have a min as well as a max?=C2=A0 Isn't min always 1?
 
-In the case of SEV, it's not true. Some BIOS allow to set the
-min_asid. So yeah Xen will also need to adapted for the same.
-I've a WIP patch for allowing dynamic generation of asid in such
-a case.
-
-> Well, "normally it is". But this is the part of CPUID leaf specs. Do they=
- 
-> plan to potentially change it?
-> 
-> No idea.
-> 
->>
->>> +=C2=A0=C2=A0=C2=A0 }
->>> +
->>> +=C2=A0=C2=A0=C2=A0 rdmsrl(MSR_K8_SYSCFG, syscfg);
->>> +
->>> +=C2=A0=C2=A0=C2=A0 if (syscfg & SYSCFG_MEM_ENCRYPT) {
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
->>> +=C2=A0=C2=A0=C2=A0 }
->>> +
->>> +=C2=A0=C2=A0=C2=A0 syscfg |=3D SYSCFG_MEM_ENCRYPT;
->>> +=C2=A0=C2=A0=C2=A0 wrmsrl(MSR_K8_SYSCFG, syscfg);
->>> +}
->>> +#endif
->>> +
->>> =C2=A0 static void cf_check init_amd(struct cpuinfo_x86 *c)
->>> =C2=A0 {
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u32 l, h;
->>> @@ -1305,6 +1354,10 @@ static void cf_check init_amd(struct cpuinfo_x86=
- *c)
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 check_syscfg_dram_mod_en();
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amd_log_freq(c);
->>> +
->>> +#ifdef CONFIG_HVM
->>> +=C2=A0=C2=A0=C2=A0 amd_enable_mem_encrypt(c);
->>> +#endif
->> I think we want to drop the CONFIG_HVM here.
->>
->> Memory encryption is an all-or-nothing thing.=C2=A0 If it's active, it
->> affects all pagetables that Xen controls, even dom0's.=C2=A0 And we like=
-ly do
->> want get to the point of Xen running on encrypted mappings even if dom0
->> can't operate it very nicely.
->>
->> Thoughts?
-> 
-> Basically I put CONFIG_HVM here because I also wanted to put related vari=
-ables
-> 
-> (max/min_asid) in sev.c. And sev.c is in "HVM" part of the code as SEV
-> 
-> is only related to HVM guests. Now, basically I agree that
-> 
-> - Xen would like potentially use encrypted memory for itself
-> 
-> - in SME case, some encryption could be offered for non-HVM guests, so th=
-ey
-> 
-> can protect their memory (even though the key is shared and the hyperviso=
-r can
-> 
-> read it).
-> 
-> OK, so I will drop CONFIG_HVM and put these variables elsewhere. amd.h is=
- 
-> probably
-> 
-> a good candidate?
-> 
->>> =C2=A0 }
->>> =C2=A0 const struct cpu_dev __initconst_cf_clobber amd_cpu_dev =3D {
->>> diff --git a/xen/arch/x86/hvm/svm/Makefile b/xen/arch/x86/hvm/svm/Makef=
-ile
->>> index 760d2954da..9773d539ef 100644
->>> --- a/xen/arch/x86/hvm/svm/Makefile
->>> +++ b/xen/arch/x86/hvm/svm/Makefile
->>> @@ -6,3 +6,4 @@ obj-y +=3D nestedsvm.o
->>> =C2=A0 obj-y +=3D svm.o
->>> =C2=A0 obj-y +=3D svmdebug.o
->>> =C2=A0 obj-y +=3D vmcb.o
->>> +obj-y +=3D sev.o
->> Please keep this sorted by object file name.
-> Got it. Will do.
->>
->>> diff --git a/xen/arch/x86/hvm/svm/sev.c b/xen/arch/x86/hvm/svm/sev.c
->>> new file mode 100644
->>> index 0000000000..336fad25f5
->>> --- /dev/null
->>> +++ b/xen/arch/x86/hvm/svm/sev.c
->>> @@ -0,0 +1,4 @@
->>> +#include <asm/sev.h>
->>> +uint64_t __read_mostly pte_c_bit_mask;
->>> +unsigned int __read_mostly min_sev_asid;
->>> +unsigned int __read_mostly max_sev_asid;
->> Several things.=C2=A0 All new files should come with an SPDX tag.=C2=A0 =
-Unless you
->> have other constraints, GPL-2.0-only is preferred.=C2=A0 There also want=
-s to
->> be at least a oneline summary of what's going on here.
-> Will do.
->>
->> All these variables look like they should be __ro_after_init.=C2=A0 Howe=
-ver,
->> it's rather hard to judge, given no users yet.
-> Yes, this is not supposed to dynamically change. Will fix.
->>
->> pte_c_bit_mask may want to be an intpte_t rather than uint64_t.
-> 
-> Agree. Will fix
-> 
->>
->> ~Andrew
-> Andrei.
-> 
+On 4/11/24 20:42, Andrew Cooper wrote:
+> On 10/04/2024 4:36 pm, Andrei Semenov wrote:
+>> Signed-off-by: Andrei Semenov <andrei.semenov@vates.fr>
+>> ---
+>>   xen/arch/x86/include/asm/psp-sev.h | 655 +++++++++++++++++++++++
+>>   xen/drivers/Kconfig                |   2 +
+>>   xen/drivers/Makefile               |   1 +
+>>   xen/drivers/crypto/Kconfig         |  10 +
+>>   xen/drivers/crypto/Makefile        |   1 +
+>>   xen/drivers/crypto/asp.c           | 808 +++++++++++++++++++++++++++++
+>>   xen/include/xen/types.h            |   2 +-
+>>   7 files changed, 1478 insertions(+), 1 deletion(-)
+>>   create mode 100644 xen/arch/x86/include/asm/psp-sev.h
+>>   create mode 100644 xen/drivers/crypto/Kconfig
+>>   create mode 100644 xen/drivers/crypto/Makefile
+>>   create mode 100644 xen/drivers/crypto/asp.c
+> I'm not going to dive into all of this, but give some high level
+> feedback to start with.
 >
+> CCP is driver/crypto in Linux for historical reasons, but is it really
+> right here?=C2=A0 We can pick whatever we think is suitable.
+
+Yes, I only picked SEV interface (for instance) and I called the the 
+directory "crypto", for
+
+some reasons as=C2=A0 this is the name in Linux, so to "compliant" and SEV =
+is 
+related to crypto too.
+
+Later we potentially will need to export some of interfaces to guest so 
+will need to extend the driver.
+
+As Marek remarked some AMD GPU may need this to load GPU firmware ...
+
+That's beeing said, I have not very strong opinion on "crypto" name.
+
+>
+> psp-sev.h looks like it's only the MMIO protocol to the ASP, and that it
+> shouldn't need including anywhere else?=C2=A0 If so, we're trying to move
+> those header files to be local to the asp.c dir.
+
+SVM operations (at least) will need this.=C2=A0 Very probably toolstack als=
+o will
+
+need a part of this, so potentially this part will move to "public" 
+interface.
+
+ =C2=A0For instance hard to say what parts (are moving), so all this in the=
+ same
+
+psp-sev.h file.
+
+>
+> Can you discuss this comment:
+>>      CET shadow stack: adapt #CP handler???
+> some more.=C2=A0 What's going on?
+
+Yep. Actually CET Shadow Stack raised #21 exception=C2=A0 (near ret) on old=
+er
+
+versions of Xen (when I said older I talk about 4.19 unstable). This is 
+no more
+
+the case on staging branch. So it was fixed somehow. Sorry didn't check
+
+- will fix.
+
+>
+>
+>> diff --git a/xen/include/xen/types.h b/xen/include/xen/types.h
+>> index 449947b353..f7599845fd 100644
+>> --- a/xen/include/xen/types.h
+>> +++ b/xen/include/xen/types.h
+>> @@ -6,7 +6,7 @@
+>>   
+>>   /* Linux inherited types which are being phased out */
+>>   typedef int8_t s8;
+>> -typedef uint8_t u8;
+>> +typedef uint8_t u8, __u8;
+>>   typedef int16_t s16;
+>>   typedef uint16_t u16, __u16;
+>>   typedef int32_t s32;
+> The comment is here for a reason, so reviewers don't accept hunks like th=
+is.
+>
+> psp-sev.h should be written using normal C99 integer types please.
+Got it. Will fix
+>
+> ~Andrew
 
 
