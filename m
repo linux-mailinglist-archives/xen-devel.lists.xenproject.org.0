@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3199C8A3179
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 16:49:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704738.1101267 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B71B8A3177
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 16:49:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704739.1101277 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvIDM-0000mG-LX; Fri, 12 Apr 2024 14:49:16 +0000
+	id 1rvIDP-000108-SJ; Fri, 12 Apr 2024 14:49:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704738.1101267; Fri, 12 Apr 2024 14:49:16 +0000
+Received: by outflank-mailman (output) from mailman id 704739.1101277; Fri, 12 Apr 2024 14:49:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvIDM-0000ju-J0; Fri, 12 Apr 2024 14:49:16 +0000
-Received: by outflank-mailman (input) for mailman id 704738;
- Fri, 12 Apr 2024 14:49:15 +0000
+	id 1rvIDP-0000yJ-PP; Fri, 12 Apr 2024 14:49:19 +0000
+Received: by outflank-mailman (input) for mailman id 704739;
+ Fri, 12 Apr 2024 14:49:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WJ5u=LR=bounce.vates.tech=bounce-md_30504962.661949e7.v1-82ffa0108b494c8a9f74252d108fbd6c@srs-se1.protection.inumbo.net>)
- id 1rvIDK-0000jo-Oe
- for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 14:49:15 +0000
-Received: from mail145-16.atl61.mandrillapp.com
- (mail145-16.atl61.mandrillapp.com [198.2.145.16])
+ <SRS0=yOJy=LR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rvIDO-0000jo-GH
+ for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 14:49:18 +0000
+Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
+ [2607:f8b0:4864:20::72f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d36ffd9a-f8db-11ee-b908-491648fe20b8;
- Fri, 12 Apr 2024 16:49:13 +0200 (CEST)
-Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail145-16.atl61.mandrillapp.com (Mailchimp) with ESMTP id
- 4VGKFz5Jmxz8XRqGf
- for <xen-devel@lists.xenproject.org>; Fri, 12 Apr 2024 14:49:11 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 82ffa0108b494c8a9f74252d108fbd6c; Fri, 12 Apr 2024 14:49:11 +0000
+ id d646b9bc-f8db-11ee-b908-491648fe20b8;
+ Fri, 12 Apr 2024 16:49:17 +0200 (CEST)
+Received: by mail-qk1-x72f.google.com with SMTP id
+ af79cd13be357-78d683c469dso69005585a.1
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Apr 2024 07:49:17 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ v10-20020ae9e30a000000b0078bc77b2039sm2463911qkf.18.2024.04.12.07.49.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 12 Apr 2024 07:49:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,138 +45,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d36ffd9a-f8db-11ee-b908-491648fe20b8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1712933351; x=1713193851;
-	bh=sqDq7+1CoBYFBo9LrJqMOoBFSt4P25wqk78vmExOUmg=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=qD1d/tDiJgdtgiIs6XktAa7i71ALoo1EwjC/qgHiICnqCYZBi+02Tn+6shq8Zb8iS
-	 us4rOSMwkeB8w+3R89xXMUjAXUBMc4YtBr7N8JP36upvPSOyEKlBAJxy4TmBg4JuXI
-	 8MPYX9fsxZtK95VWOFYdbsVg57eqAWGK0UURl98Eat1HoLwv2goHoKM/t7Z/gbT1Ej
-	 6cyVuRG7OVsD5qu5t4CnFOB014m/R/+b4rREJz6P1kX/wZmgup28PH5LbYawcWOdk7
-	 ZrtD79jYVYx5dSs+ZPTQPgwXyq4H2A3vpzDGDxzXNFeY0nrmMhtn9BdanV2363vdit
-	 PvH68wIlwgPdQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.fr; s=mte1;
-	t=1712933351; x=1713193851; i=andrei.semenov@vates.fr;
-	bh=sqDq7+1CoBYFBo9LrJqMOoBFSt4P25wqk78vmExOUmg=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=u94EFyBEevCrPB76pMFlylPEbOX2I7tjqSXyU250jWFqoajd9oG8OXMtyHiRc/X1I
-	 2ui1x4f/avd8J9OqqwUQ6yNnScmyEmV5D96aBlQhxRvw951v/3gSEwmII8XtRA4Lzh
-	 2JBngqWr8US/f9kDgSzjo/UyMMF2TZqo9ZcUpdSyGlUSg9CSxVvkXl2qPbJcwlGRnD
-	 j2MeMI88NljToddmXnDXXii4oTDJya5BHzbxDJxBr8q+OkfzEi+fCSw9a7beyayY63
-	 BeZw3FSahmIxAvBMnUlRIWgatwDhgmgMzWvq5h42PHtfHUOLHaukJTS8MwxRS3nmpf
-	 j6rLZwakBcOMA==
-From: Andrei Semenov <andrei.semenov@vates.fr>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v1=202/2]=20Implemented=20Amd=20Secure=20Processor=20device=20driver?=
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1712933348702
-Message-Id: <be2e990c-50bc-4950-a70b-755ffebeaadd@vates.fr>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1712759753.git.andrei.semenov@vates.fr> <8c9627ef69e8d809efcb93b50fc34474f2b0ba7f.1712759753.git.andrei.semenov@vates.fr> <db0f49d5-ea9e-4c62-b7ac-c856656b1e29@citrix.com>
-In-Reply-To: <db0f49d5-ea9e-4c62-b7ac-c856656b1e29@citrix.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.82ffa0108b494c8a9f74252d108fbd6c?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240412:md
-Date: Fri, 12 Apr 2024 14:49:11 +0000
+X-Inumbo-ID: d646b9bc-f8db-11ee-b908-491648fe20b8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1712933356; x=1713538156; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=rJNSdEWeePhF0S50Vzo+JM2xTB6VfeC+h/lkOk64/ig=;
+        b=CyxkJiPWMRIrUd7OZ0hVunQyLA6bnj18iUbFxb46Nxpb4fbCI+/qYDR0x4MaOHhegD
+         uEItYpXG4bIk0zWwgioBpmKxFx0QN2tkv+cRXilABzbO6mszmho5oSZzpQzqki/KtZQC
+         Zg4VN2AVN8Ipa74plzHIVeSedEib84FrBIwbY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712933356; x=1713538156;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rJNSdEWeePhF0S50Vzo+JM2xTB6VfeC+h/lkOk64/ig=;
+        b=cyBuxSOC987bW8+ARWwnk4cUkIN/ELGNq/epq+gkf4P7WQg+xrFMQ93YJoBzrR1rPe
+         IrQiODwECRUM0Rqn7wBPMV8yI5OGfeL1mhHe+4ar/z4RJ6bW717YhCSmdpOU+IjkKD76
+         KTFov5dJJFKiqlK5NcFmEF4ulgjZRtm2ypsiQCgArSRR4jYsOUABVTAV3EWWoepUdOH1
+         3aWIyV/t7loA+/sw0gmUyEs0RhZhb4uVpxyfo2mMMFDJyuXOBnM4lq2Xbm7pPTpQYPCi
+         FSf6Fxw0c67H6AGqx31eRzncOIu9/UyXhCglKvDdQ8+k5Wcj23IxQNCWUksYMQNJDFVW
+         Q2rg==
+X-Forwarded-Encrypted: i=1; AJvYcCW+50u/DJAU8byKvFBIlG2/FoinopTeiPKpRk6JRaLdbK3w7BA1EDvCapTX2bIzj4ScprtPEd7cQWPEfk1TG2XSNgjGNWz4g/NHtQyJFvk=
+X-Gm-Message-State: AOJu0Yw92kvIkhdCi5BvIdFgMR7fwklEvMdBzIReFKyHNa8G2SEE2Unc
+	xTbHu97kgLFsxQZ53Yencdph9fGwAfQQadMC0aWHfWLVB4+0tzeqpejky8dGpcs=
+X-Google-Smtp-Source: AGHT+IHhdYEDGchCCC1yL00FcDasc4ZZik/SwjW6wHkCaoXMA+MsD/G2W2/AdMO+zHXnSgxWRZfpAA==
+X-Received: by 2002:a05:620a:100f:b0:78e:d3a7:2f74 with SMTP id z15-20020a05620a100f00b0078ed3a72f74mr354932qkj.55.1712933356703;
+        Fri, 12 Apr 2024 07:49:16 -0700 (PDT)
+Message-ID: <727d038c-6401-47bf-b1a6-23a554c6154c@citrix.com>
+Date: Fri, 12 Apr 2024 15:49:14 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v3 0/3] x86/iommu: Drop IOMMU support when cx16 isn't
+ supported
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <cover.1712915011.git.teddy.astie@vates.tech>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <cover.1712915011.git.teddy.astie@vates.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-On 4/11/24 20:42, Andrew Cooper wrote:
-> On 10/04/2024 4:36 pm, Andrei Semenov wrote:
->> Signed-off-by: Andrei Semenov <andrei.semenov@vates.fr>
->> ---
->>   xen/arch/x86/include/asm/psp-sev.h | 655 +++++++++++++++++++++++
->>   xen/drivers/Kconfig                |   2 +
->>   xen/drivers/Makefile               |   1 +
->>   xen/drivers/crypto/Kconfig         |  10 +
->>   xen/drivers/crypto/Makefile        |   1 +
->>   xen/drivers/crypto/asp.c           | 808 +++++++++++++++++++++++++++++
->>   xen/include/xen/types.h            |   2 +-
->>   7 files changed, 1478 insertions(+), 1 deletion(-)
->>   create mode 100644 xen/arch/x86/include/asm/psp-sev.h
->>   create mode 100644 xen/drivers/crypto/Kconfig
->>   create mode 100644 xen/drivers/crypto/Makefile
->>   create mode 100644 xen/drivers/crypto/asp.c
-> I'm not going to dive into all of this, but give some high level
-> feedback to start with.
+On 12/04/2024 1:33 pm, Teddy Astie wrote:
+> All hardware that supports VT-d/AMD-Vi that exists also supports cx16 (aside
+> specifically crafted virtual machines).
 >
-> CCP is driver/crypto in Linux for historical reasons, but is it really
-> right here?=C2=A0 We can pick whatever we think is suitable.
-
-Yes, I only picked SEV interface (for instance) and I called the the 
-directory "crypto", for
-
-some reasons as=C2=A0 this is the name in Linux, so to "compliant" and SEV =
-is 
-related to crypto too.
-
-Later we potentially will need to export some of interfaces to guest so 
-will need to extend the driver.
-
-As Marek remarked some AMD GPU may need this to load GPU firmware ...
-
-That's beeing said, I have not very strong opinion on "crypto" name.
-
+> Some IOMMU code paths in Xen consider cases where VT-d/AMD-Vi is supported
+> while cx16 isn't, those paths may be bugged and are barely tested, dead code
+> in practice.
 >
-> psp-sev.h looks like it's only the MMIO protocol to the ASP, and that it
-> shouldn't need including anywhere else?=C2=A0 If so, we're trying to move
-> those header files to be local to the asp.c dir.
-
-SVM operations (at least) will need this.=C2=A0 Very probably toolstack als=
-o will
-
-need a part of this, so potentially this part will move to "public" 
-interface.
-
- =C2=A0For instance hard to say what parts (are moving), so all this in the=
- same
-
-psp-sev.h file.
-
+> Disable IOMMU in case we have IOMMU hardware but no cx16, then cleanup
+> no-cx16 handling logic from VT-d and AMD-Vi drivers.
 >
-> Can you discuss this comment:
->>      CET shadow stack: adapt #CP handler???
-> some more.=C2=A0 What's going on?
-
-Yep. Actually CET Shadow Stack raised #21 exception=C2=A0 (near ret) on old=
-er
-
-versions of Xen (when I said older I talk about 4.19 unstable). This is 
-no more
-
-the case on staging branch. So it was fixed somehow. Sorry didn't check
-
-- will fix.
-
+> Teddy
 >
+> Changed in v2:
 >
->> diff --git a/xen/include/xen/types.h b/xen/include/xen/types.h
->> index 449947b353..f7599845fd 100644
->> --- a/xen/include/xen/types.h
->> +++ b/xen/include/xen/types.h
->> @@ -6,7 +6,7 @@
->>   
->>   /* Linux inherited types which are being phased out */
->>   typedef int8_t s8;
->> -typedef uint8_t u8;
->> +typedef uint8_t u8, __u8;
->>   typedef int16_t s16;
->>   typedef uint16_t u16, __u16;
->>   typedef int32_t s32;
-> The comment is here for a reason, so reviewers don't accept hunks like th=
-is.
+>  * Added cleanup no-cx16 code for x2APIC
+>  * Fixed commit and code formatting
+>  * Added missing Suggested-by note
 >
-> psp-sev.h should be written using normal C99 integer types please.
-Got it. Will fix
+> Changed in v3:
 >
-> ~Andrew
+>  * Use -ENODEV instead of -ENOSYS.
 
+Hmm - I've still got a double copy of patch 2.  No idea what's going on,
+but I'll make do with what b4 thinks is on the list.
+
+A couple of things.
+
+1) You introduced trailing whitespace in patch 1 in the middle line here:
+
+> + ASSERT(spin_is_locked(&iommu->intremap.lock)); + + old_ire = *entry;
+
+2) In your commit messages, the grammar is a bit awkward.  It would be
+clearer to say:
+
+"All hardware with VT-d/AMD-Vi has CMPXCHG16 support.  Check this at
+initialisation time, and remove the effectively-dead logic for the
+non-cx16 case."
+
+just as you've done in the cover letter.
+
+
+3) In patch 1, you shouldn't modify x2apic_bsp_setup() like that. 
+x2APIC && no-IOMMU is a legal combination.
+
+Instead, you should put a cx16 check in both driver's supports_x2apic()
+hooks.
+
+
+4) In patch 3, you should drop the Suggested-by me.  You found that one
+all yourself.
+
+~Andrew
 
