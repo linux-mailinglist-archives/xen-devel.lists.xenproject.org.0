@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C9B78A2DB5
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 13:42:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704564.1101021 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CD638A2DB6
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 13:42:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704566.1101032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvFIG-0000QE-Ik; Fri, 12 Apr 2024 11:42:08 +0000
+	id 1rvFIe-0000rS-0g; Fri, 12 Apr 2024 11:42:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704564.1101021; Fri, 12 Apr 2024 11:42:08 +0000
+Received: by outflank-mailman (output) from mailman id 704566.1101032; Fri, 12 Apr 2024 11:42:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvFIG-0000NO-FL; Fri, 12 Apr 2024 11:42:08 +0000
-Received: by outflank-mailman (input) for mailman id 704564;
- Fri, 12 Apr 2024 11:42:07 +0000
+	id 1rvFId-0000oJ-R6; Fri, 12 Apr 2024 11:42:31 +0000
+Received: by outflank-mailman (input) for mailman id 704566;
+ Fri, 12 Apr 2024 11:42:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sUrc=LR=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1rvFIF-0000NI-EC
- for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 11:42:07 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af0c7f3f-f8c1-11ee-b908-491648fe20b8;
- Fri, 12 Apr 2024 13:42:05 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1712922119221380.95281235996936;
- Fri, 12 Apr 2024 04:41:59 -0700 (PDT)
+ id 1rvFIc-0000NI-IE
+ for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 11:42:30 +0000
+Received: from sender3-of-o59.zoho.com (sender3-of-o59.zoho.com
+ [136.143.184.59]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bd44c544-f8c1-11ee-b908-491648fe20b8;
+ Fri, 12 Apr 2024 13:42:29 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1712922144138705.1674847806388;
+ Fri, 12 Apr 2024 04:42:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,40 +38,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af0c7f3f-f8c1-11ee-b908-491648fe20b8
-ARC-Seal: i=1; a=rsa-sha256; t=1712922121; cv=none; 
+X-Inumbo-ID: bd44c544-f8c1-11ee-b908-491648fe20b8
+ARC-Seal: i=1; a=rsa-sha256; t=1712922145; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=ijbSZ7tbCg/zEVJjgmdTphFk06ZG+viwTkFe7kDoJg3GDLzUcmBCQiIRARRHQuGj9Lp/twev2paH4dvWZbcbGmzShOXPQjbxYHrvWnZ4JzBNVakfYOEiUnr/PcM9D4M86ZNgm47IO7qMpuYa8V2FOapVtX6RvE019PkMSgYNmX8=
+	b=S1/X09ezzzbJ5AjVMS/vnqRK7qJRE2taCNA937YflodMvywRS/fETRpRlKAwzpYB7rLr/ZslBYzt2nO3CQWTNZ+DGOWka6Hjs+kJMgz+i19rTeQ3GouJiym2JknCCdEv95KKb/3DXndEFUfLPjwnoNZA+kwr7xtU6TmHA/AdcRE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1712922121; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=GEH9Rl0aYMS8XF11Wv91KlXIyN31zx1pEcivx5VQMWI=; 
-	b=kllDh9+MB+8sVREgA6H+7ityhXvgGR4Erc2yTpY6zTYvBCrmsVHMARefNISCYc7vabXKmiY/YgTwgMgBaO99LCIFCWD2EOiqRXbNVqXLd5iEMV6Gw/kqXG0/6cV6bA9JKnvs4AWlp+VrqxZJdrn9h+lHsKWQtQcaKD1gbz/rQ0U=
+	t=1712922145; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=AH6O84wbgEd1+0PGg1GVHsJ6Sl1tbXLN0Z6vY82xzU8=; 
+	b=W6fDOW8s7h5Jc6N+RijRHKuOGCWSVX0GbhviCFd19UeblbQYgP9i5l3HtswkW1ku4pAcDSrmjFE8kz6fWnloDV/eIM6NW130kxZCY4Wx319XtVCowD/6XCov2XCQo5ZWGcE/nBJUKncqV3w32dJ0hNgg28i5zaHvSkNzhddBJO0=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712922121;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712922145;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=GEH9Rl0aYMS8XF11Wv91KlXIyN31zx1pEcivx5VQMWI=;
-	b=HiW5wobQ8/0sb+oJJAWgig3iYzpy2h5nhNM3qV/fBuqvEke7RODpPmofphazfQh5
-	xSmSgUWA60SZv4B7SO7fQlv4b+2UO+OaC6gWxtDsiYgsX75S237peDxUM7odT7+qkP9
-	SOjBg1qD7T16YtxGnuffU7GNWnWUSCHHKnfpsfH0=
-Message-ID: <9a5112a3-26fe-49a8-93ed-cd8c9610576c@apertussolutions.com>
-Date: Fri, 12 Apr 2024 07:41:57 -0400
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=AH6O84wbgEd1+0PGg1GVHsJ6Sl1tbXLN0Z6vY82xzU8=;
+	b=TOhR8srRh4nIEPdtwR4VRFy2Nu0p+0/lfFbsuErcisj3CCdObhkPpzKYOsNdo8JU
+	/Bd1Ka4v4LJPnrOCyHGDwy99d6BOrDzbjTexVpWsITEJynhv229AiMRSEQe+tZcKKL2
+	x9R5C88Io7TgZRvRdE2R1vCYNbcETucM44rpb1Bs=
+Message-ID: <c03c076b-c61e-4c0b-a3be-776d1626074a@apertussolutions.com>
+Date: Fri, 12 Apr 2024 07:42:22 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] gzip: refactor state tracking
+Subject: Re: [PATCH 4/5] gzip: move crc state into consilidated gzip state
 Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jason.andryuk@amd.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
 References: <20240411152518.2995-1-dpsmith@apertussolutions.com>
- <20240411152518.2995-4-dpsmith@apertussolutions.com>
- <360958a2-5b0d-4fbc-8637-2a33185bdd8d@citrix.com>
- <c03b4f1e-f2c9-4f92-a369-b8afad56bc0b@apertussolutions.com>
+ <20240411152518.2995-5-dpsmith@apertussolutions.com>
+ <10931f84-3c83-4efd-9a78-933f3e9de3f2@citrix.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
  JDq5eL4e9BdfdnZm/b+K+Gweyc0Px2poDWwKVTFFRgxKWq9R7McwNnvuZ4nyXJBVn7PTEn/Z
@@ -103,42 +102,69 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <c03b4f1e-f2c9-4f92-a369-b8afad56bc0b@apertussolutions.com>
+In-Reply-To: <10931f84-3c83-4efd-9a78-933f3e9de3f2@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-On 4/12/24 07:34, Daniel P. Smith wrote:
-> On 4/11/24 15:24, Andrew Cooper wrote:
->> On 11/04/2024 4:25 pm, Daniel P. Smith wrote:
->>> diff --git a/xen/common/gzip/gunzip.c b/xen/common/gzip/gunzip.c
->>> index 1bcb007395ba..9b4891731b8b 100644
->>> --- a/xen/common/gzip/gunzip.c
->>> +++ b/xen/common/gzip/gunzip.c
->>> @@ -102,12 +109,13 @@ __init int gzip_check(char *image, unsigned 
->>> long image_len)
->>>   __init int perform_gunzip(char *output, char *image, unsigned long 
->>> image_len)
->>>   {
->>> +    struct gzip_data gd;
->>>       int rc;
->>
->> By the end of this series,
->>
->> Reading symbols from xen-syms...
->> (gdb) p sizeof(struct gzip_data)
->> $1 = 2120
->>
->> x86 has an 8k stack and this takes 1/4 of it.  Other bits of state are
->> dynamically allocated, even in inflate.c, so I'd highly recommend doing
->> the same for this.
+On 4/11/24 15:43, Andrew Cooper wrote:
+> On 11/04/2024 4:25 pm, Daniel P. Smith wrote:
+>> diff --git a/xen/common/gzip/inflate.c b/xen/common/gzip/inflate.c
+>> index c8dd35962abb..6c8c7452a31f 100644
+>> --- a/xen/common/gzip/inflate.c
+>> +++ b/xen/common/gzip/inflate.c
+>> @@ -1125,16 +1125,14 @@ static int __init inflate(struct gzip_data *gd)
+>>    *
+>>    **********************************************************************/
+>>   
+>> -static ulg __initdata crc_32_tab[256];
+>> -static ulg __initdata crc;  /* initialized in makecrc() so it'll reside in bss */
+>> -#define CRC_VALUE (crc ^ 0xffffffffUL)
+>> +#define CRC_VALUE (gd->crc ^ 0xffffffffUL)
+>>   
+>>   /*
+>>    * Code to compute the CRC-32 table. Borrowed from
+>>    * gzip-1.0.3/makecrc.c.
+>>    */
+>>   
+>> -static void __init makecrc(void)
+>> +static void __init makecrc(struct gzip_data *gd)
+>>   {
+>>   /* Not copyrighted 1990 Mark Adler */
+>>   
+>> @@ -1151,7 +1149,7 @@ static void __init makecrc(void)
+>>       for (i = 0; i < sizeof(p)/sizeof(int); i++)
+>>           e |= 1L << (31 - p[i]);
+>>   
+>> -    crc_32_tab[0] = 0;
+>> +    gd->crc_32_tab[0] = 0;
+>>   
+>>       for (i = 1; i < 256; i++)
+>>       {
+>> @@ -1162,11 +1160,11 @@ static void __init makecrc(void)
+>>               if (k & 1)
+>>                   c ^= e;
+>>           }
+>> -        crc_32_tab[i] = c;
+>> +        gd->crc_32_tab[i] = c;
+>>       }
+>>   
+>>       /* this is initialized here so this code could reside in ROM */
+>> -    crc = (ulg)0xffffffffUL; /* shift register contents */
+>> +    gd->crc = (ulg)0xffffffffUL; /* shift register contents */
+>>   }
+>>   
+>>   /* gzip flag byte */
 > 
-> I take it you are mainly talking about crc_32_tab? Yes, I can switch 
-> that to being dynamically allocated.
+> I can't see any way that a non-32bit value ever gets stored, because 'e'
+> doesn't ever have bit 32 set in it.  I have a sneaking suspicion that
+> this is code written in the 32bit days, where sizeof(long) was still 4.
 
-Never mind, reading your comment on patch4 made me realize you wanted 
-the instance of struct dynamically allocated. Though the answer is 
-still, yes, we can dynamically allocate it.
+Yes, I can switch crc and crc_32_tab to uint32_t.
+
+> This change, if correct, halves the size of gzip_state.
+
+Ack.
 
 v/r,
 dps
