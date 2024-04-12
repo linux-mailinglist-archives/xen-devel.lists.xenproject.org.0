@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9235D8A3442
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 19:02:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704817.1101407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ED588A3487
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 19:13:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704825.1101420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvKHP-0003kQ-2q; Fri, 12 Apr 2024 17:01:35 +0000
+	id 1rvKSX-000747-4Y; Fri, 12 Apr 2024 17:13:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704817.1101407; Fri, 12 Apr 2024 17:01:35 +0000
+Received: by outflank-mailman (output) from mailman id 704825.1101420; Fri, 12 Apr 2024 17:13:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvKHP-0003im-02; Fri, 12 Apr 2024 17:01:35 +0000
-Received: by outflank-mailman (input) for mailman id 704817;
- Fri, 12 Apr 2024 17:01:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fc9m=LR=gmail.com=julien.grall.oss@srs-se1.protection.inumbo.net>)
- id 1rvKHO-0003ig-0s
- for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 17:01:34 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f597418-f8ee-11ee-94a3-07e782e9044d;
- Fri, 12 Apr 2024 19:01:31 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-346f4266e59so817992f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 12 Apr 2024 10:01:31 -0700 (PDT)
+	id 1rvKSX-00071b-0e; Fri, 12 Apr 2024 17:13:05 +0000
+Received: by outflank-mailman (input) for mailman id 704825;
+ Fri, 12 Apr 2024 17:13:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rvKSV-00071R-Ln; Fri, 12 Apr 2024 17:13:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rvKSV-0001CE-IA; Fri, 12 Apr 2024 17:13:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rvKSV-0002JK-9q; Fri, 12 Apr 2024 17:13:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rvKSV-0001nk-9L; Fri, 12 Apr 2024 17:13:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,265 +42,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f597418-f8ee-11ee-94a3-07e782e9044d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712941291; x=1713546091; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=ueitQytYne9OVwQaypVcnl+jAqVfXtnGsCDMUbf4oFU=;
-        b=ZE/RfaT4X7WXBm0k2gAPVRMA4ZTqJ5ObMe4N8X9znQ9LuGiZ/QRP5Qw25uyR/nrQcD
-         /lACQ6w105Yh+7vZ1T2oap8s2Q5D9kHWwRh5Elo7SoTExoU95hleRDy15z83GTGRNSU5
-         K5rrjHF4NigANj+itEJVLZbpw6SVoBn1Ow0v5AfGoVYdPyQpP7rvdOblnGcdBe63YiyW
-         LhrLitcgoDwKrl/yr0lOg95dQQVbal4O1gXFQ83iv0eSj3WewDeg5yFPHtZbkbIMzZEG
-         DScaPqfaawRSuqcWxWZ0hJkpYr2/hRJsPyz8B/braTVeghWf9mnzGy15y9xAZS8J4pRP
-         brkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712941291; x=1713546091;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ueitQytYne9OVwQaypVcnl+jAqVfXtnGsCDMUbf4oFU=;
-        b=GSSsrmWDVbknyx6c35NpOi3kE2YfBThiIs1TL6sf3T57p/HOSzRQq+AS8VvpxQcK9e
-         v1Ep4F2AuNyWBiTL2G2gKiSsfT0vGbiJe9YcDzewW6JSBZ6ZsDMSPEZ2qXshmD7o+P4x
-         r3JNSLMDCjAXkm3vT/G1XuZaJku3FgaytRzW2Nr+fBx0y21TF/vIKBE4sCikZqKSmWUB
-         /Dj2NrBjHLQIPoAg8sKLuabLdtMCPvOKqqPuPZPw4pYJUQismC7v/e+6DpDDqyS07c+I
-         QWvaeCxZk3XQ6aOTdSAsvLV0bUjxdFZKyOdsrwRQxPSLyuxe9sFV7YqV7F3TldOThbJo
-         m8uQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWjVDsVxPjRY6/xOtn2leqsO3I4Cgy/v4ZGaQsI5ARHNfV3sLSetxpWu0VVC71zDStvq3YmTlzP+V07aGuLsdA4pOI6/yYCviO8mtLGdFQ=
-X-Gm-Message-State: AOJu0YyxSlZUqSEgzsezyKQP0bbPLnvio5/+EPrs2CsNUHpfLRP69fU9
-	DPbasjcQ0Uj9fETuShykytqBIiwWQbj0y1BgE8P0/JVOR6dRc/2iZ5x9sRfq0Jttyxly1hCZAjb
-	/8fNZQ+Ombj5fub97BiP3QraNeUs=
-X-Google-Smtp-Source: AGHT+IFBZYHNpbDmEQN7Omwd524Ik0tbR/W+fqn7hl5rLjTm7FLPy6NlTFF6akOWTgAEWtc5H9R/M/ILVBdq3TXHRDQ=
-X-Received: by 2002:a5d:484d:0:b0:343:69b4:b527 with SMTP id
- n13-20020a5d484d000000b0034369b4b527mr2035092wrs.18.1712941290627; Fri, 12
- Apr 2024 10:01:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <alpine.DEB.2.22.394.2404101644130.976094@ubuntu-linux-20-04-desktop>
- <20240410234740.994001-1-stefano.stabellini@amd.com> <CAJ=z9a3zMaSLSS0mfKT8dngVwrESycSspy8LnW4FZV6hdu_AAw@mail.gmail.com>
- <alpine.DEB.2.22.394.2404111454570.997881@ubuntu-linux-20-04-desktop>
- <CAJ=z9a2gOTLy2B7y9bELQHPhFmCpU2nhyV5zy9_uQvsvx5prqw@mail.gmail.com> <C8D49EE7-B214-41D5-9556-4D3B98629CEA@arm.com>
-In-Reply-To: <C8D49EE7-B214-41D5-9556-4D3B98629CEA@arm.com>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Fri, 12 Apr 2024 13:01:19 -0400
-Message-ID: <CAJ=z9a2ENW-3vh4N59csoeMHeMPGv9XFUuC6GrMTYMKM=FpwgQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] docs: add xen_ulong_t to the documented integers sizes/alignments
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Michal Orzel <michal.orzel@amd.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Stefano Stabellini <stefano.stabellini@amd.com>, 
-	Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="0000000000002628d60615e9396c"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=jdBp+Ph9mfAdK6QFSDWGkIKOYh9X5FP6qKTKHY2lO6Y=; b=sQukcoB4w/Pp2jkakQvH/mecBH
+	QfS3WArOYgZHUErCjZNQNl5/9hq2Qc3sFpuUHy2NkLwmLjZIcHpWKfnjFtQPN3ty828P9emUZpMXP
+	G9MM/punmLDSz40tQEQWTaYVFBoQ/vgS24coHzVyRa0dF/D9Ny3OPJsYNKyK0NARnAOM=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-4.17-testing bisection] complete test-amd64-amd64-xl-qcow2
+Message-Id: <E1rvKSV-0001nk-9L@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 12 Apr 2024 17:13:03 +0000
 
---0000000000002628d60615e9396c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+branch xen-4.17-testing
+xenbranch xen-4.17-testing
+job test-amd64-amd64-xl-qcow2
+testid debian-di-install
 
-On Fri, 12 Apr 2024 at 11:30, Bertrand Marquis <Bertrand.Marquis@arm.com>
-wrote:
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-> Hi Julien,
->
-> > On 12 Apr 2024, at 15:53, Julien Grall <julien.grall.oss@gmail.com>
-> wrote:
-> >
-> >
-> >
-> > On Thu, 11 Apr 2024 at 18:08, Stefano Stabellini <sstabellini@kernel.or=
-g>
-> wrote:
-> > On Wed, 10 Apr 2024, Julien Grall wrote:
-> > > On Wed, 10 Apr 2024 at 19:47, Stefano Stabellini <
-> stefano.stabellini@amd.com> wrote:
-> > >       xen_ulong_t is widely used in public headers.
-> > >
-> > >       Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> > >       ---
-> > >
-> > >       Given that xen_ulong_t is used in public headers there could be
-> a better
-> > >       place for documenting it but this was the most straightforward
-> to add.
-> > >       ---
-> > >        docs/misra/C-language-toolchain.rst | 11 +++++++++++
-> > >        1 file changed, 11 insertions(+)
-> > >
-> > >       diff --git a/docs/misra/C-language-toolchain.rst
-> b/docs/misra/C-language-toolchain.rst
-> > >       index 5ddfe7bdbe..7a334260e6 100644
-> > >       --- a/docs/misra/C-language-toolchain.rst
-> > >       +++ b/docs/misra/C-language-toolchain.rst
-> > >       @@ -531,6 +531,17 @@ A summary table of data types, sizes and
-> alignment is below:
-> > >             - 64 bits
-> > >             - x86_64, ARMv8-A AArch64, RV64, PPC64
-> > >
-> > >       +   * - xen_ulong_t
-> > >       +     - 32 bits
-> > >       +     - 32 bits
-> > >       +     - x86_32
-> > >       +
-> > >       +   * - xen_ulong_t
-> > >       +     - 64 bits
-> > >       +     - 64 bits
-> > >       +     - x86_64, ARMv8-A AArch64, RV64, PPC64, ARMv8-A AArch32,
-> ARMv8-R
-> > >       +       AArch32, ARMv7-A
-> > >
-> > >
-> > > We support neither ARMv8-R nor ARMv8-A Aarch32.
-> > >
-> > > I could possibly accept the latter because it works to. But the forme=
-r
-> is so far misleading.
-> >
-> > Yes I think you are right. Moreover this document
-> > (C-language-toolchain.rst) is meant for the Xen build. While this patch
-> > is trying to document the types used in the public headers for the
-> > external-facing ABI.
-> >
-> > I'll move the information this patch is adding to a separate document,
-> > specific to the public headers. I will only add the architectures
-> > currently working: I'll add ARMv8-A Aarch32 because although it is
-> > unsupported it is interesting to know the size of xen_ulong_t for
-> > aarch32 in the public headers. I will remove ARMv8-R as it is not
-> > available upstream.
-> >
-> > Thinking a bit more. What about Armv9? Rather than listing each version=
-,
-> should we instead use ARMv7-A aarch32 and later, ARMv8-A aarch64 and late=
-r?
->
-> Definitely you are right here but as for Armv8-R, Armv9 is not something
-> that we explicitely support right now (even though it should work).
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  19887194865cff7d87650c323d5c6b185dfe3ddc
+  Bug not present: b8f39fd4d024ea72c586f1afd233f379c6f6230b
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/185382/
 
 
-I am confused with the comparison. I thought you can=E2=80=99t boot Xen at =
-all on
-Armv8-R. But you can on Armv9-A as this just Armv8-A + features the
-software don=E2=80=99t need to use.
+  commit 19887194865cff7d87650c323d5c6b185dfe3ddc
+  Author: Andrew Cooper <andrew.cooper3@citrix.com>
+  Date:   Tue Mar 26 22:47:25 2024 +0000
+  
+      x86/spec-ctrl: Fix BTC/SRSO mitigations
+      
+      We were looking for SCF_entry_ibpb in the wrong variable in the top-of-stack
+      block, and xen_spec_ctrl won't have had bit 5 set because Xen doesn't
+      understand SPEC_CTRL_RRSBA_DIS_U yet.
+      
+      This is XSA-455 / CVE-2024-31142.
+      
+      Fixes: 53a570b28569 ("x86/spec-ctrl: Support IBPB-on-entry")
+      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Did you intend to draw the comparison with Armv8-A Aarch32?
 
-Cheers,
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-4.17-testing/test-amd64-amd64-xl-qcow2.debian-di-install.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-4.17-testing/test-amd64-amd64-xl-qcow2.debian-di-install --summary-out=tmp/185382.bisection-summary --basis-template=185284 --blessings=real,real-bisect,real-retry xen-4.17-testing test-amd64-amd64-xl-qcow2 debian-di-install
+Searching for failure / basis pass:
+ 185300 fail [host=rimava1] / 185284 [host=fiano1] 185217 [host=fiano0] 185180 [host=elbling0] 185171 [host=rimava0] 185012 [host=himrod0] 185002 [host=debina0] 184909 [host=pinot0] 184838 ok.
+Failure / basis pass flights: 185300 / 184838
+(tree with no url: minios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 963671d3801a6992d1aa06f05d86e32efa6b205e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 d530627aaa9b6e03c7f911434bb342fca3d13300
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dc7cfa9bab7487aa0cec02d13aa8c34ff24b37a8 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 82faf1d5c8b25375b9029f2d6668135e62455a8c 6cbccc4071ef49a8c591ecaddfdcb1cc26d28411
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-347385861c50adc8d4801d4b899eded38a2f04cd git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#dc7cfa9bab7487aa0cec02d13aa8c34ff24b37a8-963671d3801a6992d1aa06f05d86e32efa6b205e git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c74\
+ 37ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#ffb451126550b22b43b62fb8731a0d78e3376c03-ffb451126550b22b43b62fb8731a0d78e3376c03 git://xenbits.xen.org/osstest/seabios.git#82faf1d5c8b25375b9029f2d6668135e62455a8c-c5a361c09a19e3b1a83557b01f11f04b27181a11 git://xenbits.xen.org/xen.git#6cbccc4071ef49a8c591ecaddfdcb1cc26d28411-d530627aaa9b6e03c7f911434bb342fca3d13300
+adhoc-revtuple-generator: tree discontiguous: linux-pvops
+Loaded 12695 nodes in revision graph
+Searching for test results:
+ 184838 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dc7cfa9bab7487aa0cec02d13aa8c34ff24b37a8 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 82faf1d5c8b25375b9029f2d6668135e62455a8c 6cbccc4071ef49a8c591ecaddfdcb1cc26d28411
+ 184909 [host=pinot0]
+ 185002 [host=debina0]
+ 185012 [host=himrod0]
+ 185180 [host=elbling0]
+ 185171 [host=rimava0]
+ 185217 [host=fiano0]
+ 185284 [host=fiano1]
+ 185300 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 963671d3801a6992d1aa06f05d86e32efa6b205e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 d530627aaa9b6e03c7f911434bb342fca3d13300
+ 185319 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dc7cfa9bab7487aa0cec02d13aa8c34ff24b37a8 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 82faf1d5c8b25375b9029f2d6668135e62455a8c 6cbccc4071ef49a8c591ecaddfdcb1cc26d28411
+ 185321 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 963671d3801a6992d1aa06f05d86e32efa6b205e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 d530627aaa9b6e03c7f911434bb342fca3d13300
+ 185327 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cf58f47623c40a66b160face4f04e08efb4c7f5b 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 1588fd1437960d94cadc30c42243671e8c0f1281 f38a815a54000ca51ff5165b2863d60b6bbea49c
+ 185329 pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 b7f8779fe1f60113fdaab3b2f3f17c9f900b0456 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 9bc40dbcf9eafccc1923b2555286bf6a2af03b7a
+ 185334 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 a0bd738f9cd158306e046c7a6f3726128219e4eb
+ 185338 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 aed8192f578fb02111f57eca0868c2262ada1341
+ 185344 pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 b8f39fd4d024ea72c586f1afd233f379c6f6230b
+ 185353 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 653560e02d40c480d08032f3cf1e450db79f5d71
+ 185358 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 19887194865cff7d87650c323d5c6b185dfe3ddc
+ 185371 pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 b8f39fd4d024ea72c586f1afd233f379c6f6230b
+ 185373 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 19887194865cff7d87650c323d5c6b185dfe3ddc
+ 185379 pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 b8f39fd4d024ea72c586f1afd233f379c6f6230b
+ 185382 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 19887194865cff7d87650c323d5c6b185dfe3ddc
+Searching for interesting versions
+ Result found: flight 184838 (pass), for basis pass
+ For basis failure, parent search stopping at 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 b8f39fd4d024ea72c586f1afd233f379c6f6230b, results HASH(0x55ac98d14e58) HASH(0x55ac98d129d0) HASH(0x55ac98d11da8) For basis failure, parent search stopping at 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1\
+ e6a472b0eb9558310b518f0dfcd8860 b7f8779fe1f60113fdaab3b2f3f17c9f900b0456 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 9bc40dbcf9eafccc1923b2555286bf6a2af03b7a, results HASH(0x55ac98d098e0) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cf58f47623c40a66b160face4f04e08efb4c7f5b 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8\
+ 731a0d78e3376c03 1588fd1437960d94cadc30c42243671e8c0f1281 f38a815a54000ca51ff5165b2863d60b6bbea49c, results HASH(0x55ac98d068e8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dc7cfa9bab7487aa0cec02d13aa8c34ff24b37a8 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 82faf1d5c8b25375b9029f2d6668135e62455a8c 6cbccc4071ef49a8c591ecaddfdcb1cc26d28411, results HASH(0x55ac98cf5958) HASH(0x55\
+ ac98cef318) Result found: flight 185300 (fail), for basis failure (at ancestor ~1229)
+ Repro found: flight 185319 (pass), for basis pass
+ Repro found: flight 185321 (fail), for basis failure
+ 0 revisions at 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffb451126550b22b43b62fb8731a0d78e3376c03 c5a361c09a19e3b1a83557b01f11f04b27181a11 b8f39fd4d024ea72c586f1afd233f379c6f6230b
+No revisions left to test, checking graph state.
+ Result found: flight 185344 (pass), for last pass
+ Result found: flight 185358 (fail), for first failure
+ Repro found: flight 185371 (pass), for last pass
+ Repro found: flight 185373 (fail), for first failure
+ Repro found: flight 185379 (pass), for last pass
+ Repro found: flight 185382 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  19887194865cff7d87650c323d5c6b185dfe3ddc
+  Bug not present: b8f39fd4d024ea72c586f1afd233f379c6f6230b
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/185382/
 
 
->
-> Cheers
-> Bertrand
->
->
->
+  commit 19887194865cff7d87650c323d5c6b185dfe3ddc
+  Author: Andrew Cooper <andrew.cooper3@citrix.com>
+  Date:   Tue Mar 26 22:47:25 2024 +0000
+  
+      x86/spec-ctrl: Fix BTC/SRSO mitigations
+      
+      We were looking for SCF_entry_ibpb in the wrong variable in the top-of-stack
+      block, and xen_spec_ctrl won't have had bit 5 set because Xen doesn't
+      understand SPEC_CTRL_RRSBA_DIS_U yet.
+      
+      This is XSA-455 / CVE-2024-31142.
+      
+      Fixes: 53a570b28569 ("x86/spec-ctrl: Support IBPB-on-entry")
+      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
---0000000000002628d60615e9396c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+pnmtopng: 212 colors found
+Revision graph left in /home/logs/results/bisect/xen-4.17-testing/test-amd64-amd64-xl-qcow2.debian-di-install.{dot,ps,png,html,svg}.
+----------------------------------------
+185382: tolerable ALL FAIL
 
-<div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Fri, 12 Apr 2024 at 11:30, Bertrand Marquis &lt;<a href=
-=3D"mailto:Bertrand.Marquis@arm.com">Bertrand.Marquis@arm.com</a>&gt; wrote=
-:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
-8ex;border-left-width:1px;border-left-style:solid;padding-left:1ex;border-l=
-eft-color:rgb(204,204,204)">Hi Julien,<br>
-<br>
-&gt; On 12 Apr 2024, at 15:53, Julien Grall &lt;<a href=3D"mailto:julien.gr=
-all.oss@gmail.com" target=3D"_blank">julien.grall.oss@gmail.com</a>&gt; wro=
-te:<br>
-&gt; <br>
-&gt; <br>
-&gt; <br>
-&gt; On Thu, 11 Apr 2024 at 18:08, Stefano Stabellini &lt;<a href=3D"mailto=
-:sstabellini@kernel.org" target=3D"_blank">sstabellini@kernel.org</a>&gt; w=
-rote:<br>
-&gt; On Wed, 10 Apr 2024, Julien Grall wrote:<br>
-&gt; &gt; On Wed, 10 Apr 2024 at 19:47, Stefano Stabellini &lt;<a href=3D"m=
-ailto:stefano.stabellini@amd.com" target=3D"_blank">stefano.stabellini@amd.=
-com</a>&gt; wrote:<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0xen_ulong_t is widely used in public he=
-aders.<br>
-&gt; &gt; <br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Signed-off-by: Stefano Stabellini &lt;<=
-a href=3D"mailto:stefano.stabellini@amd.com" target=3D"_blank">stefano.stab=
-ellini@amd.com</a>&gt;<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0---<br>
-&gt; &gt; <br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Given that xen_ulong_t is used in publi=
-c headers there could be a better<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0place for documenting it but this was t=
-he most straightforward to add.<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0---<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 docs/misra/C-language-toolchain.rst | =
-11 +++++++++++<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 1 file changed, 11 insertions(+)<br>
-&gt; &gt; <br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0diff --git a/docs/misra/C-language-tool=
-chain.rst b/docs/misra/C-language-toolchain.rst<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0index 5ddfe7bdbe..7a334260e6 100644<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0--- a/docs/misra/C-language-toolchain.r=
-st<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+++ b/docs/misra/C-language-toolchain.r=
-st<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0@@ -531,6 +531,17 @@ A summary table of=
- data types, sizes and alignment is below:<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0- 64 bits<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0- x86_64, ARMv8-A =
-AArch64, RV64, PPC64<br>
-&gt; &gt; <br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0* - xen_ulong_t<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0- 32 bits<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0- 32 bits<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0- x86_32<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0* - xen_ulong_t<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0- 64 bits<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0- 64 bits<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0- x86_64, ARMv8-A =
-AArch64, RV64, PPC64, ARMv8-A AArch32, ARMv8-R<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0AArch32, AR=
-Mv7-A<br>
-&gt; &gt; <br>
-&gt; &gt; <br>
-&gt; &gt; We support neither ARMv8-R nor ARMv8-A Aarch32.<br>
-&gt; &gt; <br>
-&gt; &gt; I could possibly accept the latter because it works to. But the f=
-ormer is so far misleading.<br>
-&gt; <br>
-&gt; Yes I think you are right. Moreover this document<br>
-&gt; (C-language-toolchain.rst) is meant for the Xen build. While this patc=
-h<br>
-&gt; is trying to document the types used in the public headers for the<br>
-&gt; external-facing ABI.<br>
-&gt; <br>
-&gt; I&#39;ll move the information this patch is adding to a separate docum=
-ent,<br>
-&gt; specific to the public headers. I will only add the architectures<br>
-&gt; currently working: I&#39;ll add ARMv8-A Aarch32 because although it is=
-<br>
-&gt; unsupported it is interesting to know the size of xen_ulong_t for<br>
-&gt; aarch32 in the public headers. I will remove ARMv8-R as it is not<br>
-&gt; available upstream.<br>
-&gt; <br>
-&gt; Thinking a bit more. What about Armv9? Rather than listing each versio=
-n, should we instead use ARMv7-A aarch32 and later, ARMv8-A aarch64 and lat=
-er?<br>
-<br>
-Definitely you are right here but as for Armv8-R, Armv9 is not something th=
-at we explicitely support right now (even though it should work).</blockquo=
-te><div dir=3D"auto"><br></div><div dir=3D"auto">I am confused with the com=
-parison. I thought you can=E2=80=99t boot Xen at all on Armv8-R. But you ca=
-n on Armv9-A as this just Armv8-A + features the software don=E2=80=99t nee=
-d to use.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Did you intend=
- to draw the comparison with Armv8-A Aarch32?</div><div dir=3D"auto"><br></=
-div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><br></div><blockquote =
-class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1=
-px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(204,204,2=
-04)" dir=3D"auto"><br>
-<br>
-Cheers<br>
-Bertrand<br>
-<br>
-<br>
-</blockquote></div></div>
+flight 185382 xen-4.17-testing real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185382/
 
---0000000000002628d60615e9396c--
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-amd64-xl-qcow2    12 debian-di-install       fail baseline untested
+
+
+jobs:
+ test-amd64-amd64-xl-qcow2                                    fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
