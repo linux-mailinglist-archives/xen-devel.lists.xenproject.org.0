@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1665D8A31A5
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 16:57:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704752.1101303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ED238A31CE
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 17:07:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704757.1101311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvIKh-0004jr-Qp; Fri, 12 Apr 2024 14:56:51 +0000
+	id 1rvIUv-0007BK-O3; Fri, 12 Apr 2024 15:07:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704752.1101303; Fri, 12 Apr 2024 14:56:51 +0000
+Received: by outflank-mailman (output) from mailman id 704757.1101311; Fri, 12 Apr 2024 15:07:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvIKh-0004gg-Mw; Fri, 12 Apr 2024 14:56:51 +0000
-Received: by outflank-mailman (input) for mailman id 704752;
- Fri, 12 Apr 2024 14:56:50 +0000
+	id 1rvIUv-00078Q-Kw; Fri, 12 Apr 2024 15:07:25 +0000
+Received: by outflank-mailman (input) for mailman id 704757;
+ Fri, 12 Apr 2024 15:07:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yOJy=LR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rvIKg-0004fD-Re
- for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 14:56:50 +0000
-Received: from mail-vs1-xe31.google.com (mail-vs1-xe31.google.com
- [2607:f8b0:4864:20::e31])
+ id 1rvIUu-00078K-El
+ for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 15:07:24 +0000
+Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
+ [2607:f8b0:4864:20::732])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3cee4d9-f8dc-11ee-b908-491648fe20b8;
- Fri, 12 Apr 2024 16:56:50 +0200 (CEST)
-Received: by mail-vs1-xe31.google.com with SMTP id
- ada2fe7eead31-479dbcdba2dso404335137.3
- for <xen-devel@lists.xenproject.org>; Fri, 12 Apr 2024 07:56:49 -0700 (PDT)
+ id 5d3d0811-f8de-11ee-b908-491648fe20b8;
+ Fri, 12 Apr 2024 17:07:23 +0200 (CEST)
+Received: by mail-qk1-x732.google.com with SMTP id
+ af79cd13be357-78d743f3654so72760585a.0
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Apr 2024 08:07:23 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- s12-20020ad44b2c000000b0069b0c9a81b5sm2412689qvw.95.2024.04.12.07.56.46
+ f13-20020a056214076d00b0069b5ec80687sm358753qvz.62.2024.04.12.08.07.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Apr 2024 07:56:47 -0700 (PDT)
+ Fri, 12 Apr 2024 08:07:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3cee4d9-f8dc-11ee-b908-491648fe20b8
+X-Inumbo-ID: 5d3d0811-f8de-11ee-b908-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712933809; x=1713538609; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1712934442; x=1713539242; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Yel18ObieU7UhXev70fM3gRKdzzX4ihHX8Pwq/c4H+w=;
-        b=QOoxpx+IRm8UZT9B8mV95n2ij7kMEi0gQa6LbZa9jERB55H/vbtEiSCbkkBcO9MHgI
-         6zQv6dmmzgdz+w7TscwzrSH/KhZK2iu5wb5xU6ZXq30ga4KPy6m+yz8Yr5nwSOxHKdhU
-         cEtwAfsrzFmMTRcD7FtYE3IGi3NaMNXGOBMUo=
+        bh=o7HNu0dPrjmXqFtIUinuxAobPIIwsp56GEzE5+RJ6zk=;
+        b=R7bMbf9VTYybtzk9P2TJLXfu5DUgT06IE63P6q33Bkm1M/7R94MMhDfKek0WZeFku3
+         lX05caNgY70wC+k9iztHyIeaFzG+QDrO6DxkTH2PO1VK31bDmqzn1je5LIj1jZkcfijp
+         A/OMQ5HU84i8+Jh9hgMyPcErtVzDuCSBVOLoM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712933809; x=1713538609;
+        d=1e100.net; s=20230601; t=1712934442; x=1713539242;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Yel18ObieU7UhXev70fM3gRKdzzX4ihHX8Pwq/c4H+w=;
-        b=IInLdkv5ZdiFdZ9UdMp1S9wbruAKDujgVpwIAmNzffHVxSqXTtkIInXuSqKrpdZZdv
-         tuZhTPGJ0of6rCwu1zXhceBqxbp7AX8P3ceWGcaHFybdHMH3GzZV4fCEuikAzk0h0aCN
-         wblWrGLFtOTQHVhkKuC6gTZQ3fiWuTOuzDbrSaxRBLyvOMijjvYspk5IpoMhGWGDQ/+u
-         nnQkVGd+yx+XRjwTTV5t9LS0irGo6Uqf/HHNR8PbKjBymOg4JJweAJ6SXL0FDSnQeKjU
-         qBw7VntJq1TEpLDJDkQ1g4hmH+0SOmsK17mVSSAy18/lKsnCWCLQHY8iKSJexSjGol/C
-         HO6g==
-X-Forwarded-Encrypted: i=1; AJvYcCX3C9MvVq5iEkgUJyQlB3iLA3DJp50hUo/ww1UpKWA1xN+WB/gbsnF/zuNu+/jXCKftJT9aH7wEfmQJ3M74BsLvU1Xvy7ve/Kb9Ie2DeO8=
-X-Gm-Message-State: AOJu0YxGF98JbzJxLtIVDbqjGl3RZAFxlS1ClzbbWTtvl9bFQ48traDz
-	fJVevQT4n0gbkTUjN0w4O22xtKYYPECZiKZsLdPaVKtW7coCNbN9Nq3ieWQ1D20=
-X-Google-Smtp-Source: AGHT+IGZPm+FIAOkPKOgY0ZQArf5Ad/fV9gnTy2WhwJ3E8RrWJzq/Ij1TxNdKTMCzQgLK7d0qTFsPg==
-X-Received: by 2002:a05:6102:5491:b0:47a:28c9:8309 with SMTP id bk17-20020a056102549100b0047a28c98309mr3825654vsb.9.1712933808093;
-        Fri, 12 Apr 2024 07:56:48 -0700 (PDT)
-Message-ID: <80023689-5783-4b77-97b3-dba5a697057e@citrix.com>
-Date: Fri, 12 Apr 2024 15:56:45 +0100
+        bh=o7HNu0dPrjmXqFtIUinuxAobPIIwsp56GEzE5+RJ6zk=;
+        b=ori5yn2GH0N/Zuu0KAH7HU9MANtgvydhAd8uILh7Wovq1DoPAghGXF5J86l1u+KTvD
+         OkB94adgmICRxWCF37tWE1oxx3uzznAV4I+SxYi2sHjGHhQQQdQr29eFB7zpbE/OjAoP
+         51SMvAw6VtdKt1QQMroo9zqV5umNNJK+djsjYL8OyHZZY6gD64hNZS7xCO4ajK96IgJ0
+         Dtl4NbFPmSWKv99JoTSS7wIqW4ZgrbAts1tzpwdmEQj8Gd9I1BZXIvgEPJdQAjcous7c
+         spFvrdHa+0lfh+0ii1078SxOBHGAJuV/uIPsbD08bbESwgyPXBabbIhdvXImYIuQG5XC
+         d0kQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUaF9fYMbgKD5acJIhjs10QF/2Qko2FgtRWD8GVczKxMomShF3CEQfVfqq0Z3nd9K1/qznTpi2FHujjM+pubVJ/uAJiJ76Wy2CYpfcKocA=
+X-Gm-Message-State: AOJu0Yz8j2rAR7NvhohahH1tpsYgRJbEcw4PvIf/L9I0oE0/JdwA3bmF
+	jY2D/bwb1pZh0v3KmseSJ2Rdwd7ipO6Np45u/eOSJpBXWEFx+b0sBFKCrkB8WLk=
+X-Google-Smtp-Source: AGHT+IEVRRAwEA21LwckaVpRqR1lJSB3ntZj35FspW3F277kCwmiSnYyqiGXXpwY4Wwsy5bZUZQbAw==
+X-Received: by 2002:a05:6214:c43:b0:699:2673:1dea with SMTP id r3-20020a0562140c4300b0069926731deamr3628781qvj.33.1712934441960;
+        Fri, 12 Apr 2024 08:07:21 -0700 (PDT)
+Message-ID: <97cb014b-de7d-4368-a685-fe3fd95acbdc@citrix.com>
+Date: Fri, 12 Apr 2024 16:07:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] Implemented Amd Secure Processor device driver
-To: Andrei Semenov <andrei.semenov@vates.fr>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 1/2] Implemented AMD SEV discovery and enabling.
+To: Vaishali Thakkar <vaishali.thakkar@vates.tech>,
+ Andrei Semenov <andrei.semenov@vates.fr>, xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+ <roger.pau@citrix.com>
 References: <cover.1712759753.git.andrei.semenov@vates.fr>
- <8c9627ef69e8d809efcb93b50fc34474f2b0ba7f.1712759753.git.andrei.semenov@vates.fr>
- <db0f49d5-ea9e-4c62-b7ac-c856656b1e29@citrix.com>
- <be2e990c-50bc-4950-a70b-755ffebeaadd@vates.fr>
+ <27fce67472c97b2b2b7cc0412bf0edcaa67cc63f.1712759753.git.andrei.semenov@vates.fr>
+ <a9638611-8348-462a-a25d-a9efe3fabf9a@citrix.com>
+ <ede83752-6151-4c23-a8c0-883aa7bee129@vates.fr>
+ <51d5395e-7341-438f-8472-3391531c5bb0@vates.tech>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -132,29 +133,37 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <be2e990c-50bc-4950-a70b-755ffebeaadd@vates.fr>
+In-Reply-To: <51d5395e-7341-438f-8472-3391531c5bb0@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12/04/2024 3:49 pm, Andrei Semenov wrote:
->> Can you discuss this comment:
->>>      CET shadow stack: adapt #CP handler???
->> some more.  What's going on?
+On 12/04/2024 3:38 pm, Vaishali Thakkar wrote:
+> On 4/12/24 4:06 PM, Andrei Semenov wrote:
+>> On 4/11/24 20:32, Andrew Cooper wrote:
+>>> On 10/04/2024 4:36 pm, Andrei Semenov wrote:
+>>>> +    }
+>>>> +
+>>>> +    if (!(cpu_has_sme || cpu_has_sev))
+>>>> +        return;
+>>>> +
+>>>> +    if (!smp_processor_id()) {
+>>>> +        if (cpu_has_sev)
+>>>> +            printk(XENLOG_INFO "SEV: ASID range [0x%x - 0x%x]\n",
+>>>> +            min_sev_asid, max_sev_asid);
+>>> Why do we have a min as well as a max?  Isn't min always 1?
 >
-> Yep. Actually CET Shadow Stack raised #21 exception  (near ret) on older
->
-> versions of Xen (when I said older I talk about 4.19 unstable). This
-> is no more
->
-> the case on staging branch. So it was fixed somehow. Sorry didn't check
->
-> - will fix.
+> In the case of SEV, it's not true. Some BIOS allow to set the
+> min_asid. So yeah Xen will also need to adapted for the same.
+> I've a WIP patch for allowing dynamic generation of asid in such
+> a case.
 
-#CP[near ret] means you (/something) clobbered the return address on the
-one of the two stacks.
+I also got an answer to this out of a contact of mine at AMD.
 
-It is something to take seriously, but it's most likely an issue in the
-code you're adding, rather than an existing issue in Xen.
+The ASID space is divided, 1->$N for SEV-ES/SNP guest, and $N->$M for
+SEV guests.
+
+It is a security issue to start a guest as ES/SNP, then "migrate" it to
+being SEV-only, so the different types are tracked explicitly.
 
 ~Andrew
 
