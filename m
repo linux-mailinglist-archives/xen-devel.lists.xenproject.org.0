@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B7C28A2E96
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 14:53:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704652.1101151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6A08A2F0B
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 15:11:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704667.1101161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvGP6-0000lq-BK; Fri, 12 Apr 2024 12:53:16 +0000
+	id 1rvGgi-0006sf-SD; Fri, 12 Apr 2024 13:11:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704652.1101151; Fri, 12 Apr 2024 12:53:16 +0000
+Received: by outflank-mailman (output) from mailman id 704667.1101161; Fri, 12 Apr 2024 13:11:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvGP6-0000jc-7D; Fri, 12 Apr 2024 12:53:16 +0000
-Received: by outflank-mailman (input) for mailman id 704652;
- Fri, 12 Apr 2024 12:53:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rvGgi-0006qN-Oy; Fri, 12 Apr 2024 13:11:28 +0000
+Received: by outflank-mailman (input) for mailman id 704667;
+ Fri, 12 Apr 2024 13:11:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yOJy=LR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rvGP4-0000jO-8x
- for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 12:53:14 +0000
-Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
- [2607:f8b0:4864:20::72a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9f2771e8-f8cb-11ee-b908-491648fe20b8;
- Fri, 12 Apr 2024 14:53:13 +0200 (CEST)
-Received: by mail-qk1-x72a.google.com with SMTP id
- af79cd13be357-78a2a97c296so46887185a.2
- for <xen-devel@lists.xenproject.org>; Fri, 12 Apr 2024 05:53:13 -0700 (PDT)
-Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- l9-20020a05620a210900b0078eccaec580sm808044qkl.81.2024.04.12.05.53.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Apr 2024 05:53:11 -0700 (PDT)
+ <SRS0=sUrc=LR=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1rvGgh-0006qH-Go
+ for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 13:11:27 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 293025d0-f8ce-11ee-94a3-07e782e9044d;
+ Fri, 12 Apr 2024 15:11:24 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1712927477349578.7052116436201;
+ Fri, 12 Apr 2024 06:11:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +38,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f2771e8-f8cb-11ee-b908-491648fe20b8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1712926392; x=1713531192; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gelp3xPVtXUQtNlYB4R2qcaxabLNfvpVO7O7GhYjQIo=;
-        b=IEAtbaklstflilU0UBvaaN2f88tI+AzwTxvw+dsXPUPQIJ6UhCMR2y5IYfyCj83eTO
-         lB82r5gLYRTWxmuhW4RYWfvGnxFIj7yip//CVFCm+n8SmXM/6qgLz3v0feGGziV5eDvI
-         /pS/bv0E9gkcoXv8gYyGcJKDj0TD5eF6NlEJA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712926392; x=1713531192;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Gelp3xPVtXUQtNlYB4R2qcaxabLNfvpVO7O7GhYjQIo=;
-        b=XzdxY1UI1as2R5mYy2zyZB7Aj8ZKw26pgmwaOLolHv4D7AxcWa2hG+/AwO8OLTh57G
-         Nj4QJvldAxQvoQaztnpT5Z7HwVIf1z4Aj6/dPL4pLzyQ34E8PCCJimN/CuB9By3nklpa
-         5z1RT46vZ0leRwrNcByfTAlAdU06jb0P44yfQVNW/RmNlHPLGFG7crHUw4J17wPVCbsz
-         uOmRvDVUL86/FRshogv1mBYZBrKryD+YSX9uIf/Dc3A/HPfcdce8YMqlXEuRg83elUnN
-         pKjcNHrkvGbW3bHOcyh7HAL6nGBnC6Z8x5P5cy/MpmUgv+ScaKnu7f/JfSdAGPOnPtvf
-         b5rw==
-X-Forwarded-Encrypted: i=1; AJvYcCVMSXhea2vvjYBBsh0Yl2XX1mZAnjLW1r8NJIF1+6shdrJgwF49v9ukZKwgJIqKk+OBAZZy8cPONh3nzzGiwbTVMF8SPucv3ch4fGlAUEc=
-X-Gm-Message-State: AOJu0YyO//z3tLGfP6vAb6z/dwzWOWSjd06KGKUZYxNS0rYAIa4pLwen
-	Y5/Bqkd75sIl4hoNmyFuHo9VLwi2AQX5ysMsi7kqmaTf/92xAr88QLd4xTlxG4g=
-X-Google-Smtp-Source: AGHT+IG38Xou+6KUO5MnVN/lIdL+vQEz1dg5ubUPjWsxXgGc9Mv7v6OPb7BxErISOQVBkxEmU2XibQ==
-X-Received: by 2002:a05:620a:5744:b0:78e:c2ac:3d9d with SMTP id wj4-20020a05620a574400b0078ec2ac3d9dmr3026713qkn.8.1712926392211;
-        Fri, 12 Apr 2024 05:53:12 -0700 (PDT)
-Message-ID: <7a28a0ac-07a2-42d9-9872-ebc27d751bd9@citrix.com>
-Date: Fri, 12 Apr 2024 13:53:09 +0100
+X-Inumbo-ID: 293025d0-f8ce-11ee-94a3-07e782e9044d
+ARC-Seal: i=1; a=rsa-sha256; t=1712927479; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ckGdccv9H6YRNv8IRlx5U1rOd1uYDmzixixCUZeLT+j8YjxFOdutNiVvzbh64gjKuxuLq9URN5Gd2rqtikYzgs39Wr/M6WQ0OOA8oIcZntfmyrqFMYcxvvjvthAQBMJzBCr0ZNEefuoyz8+o9jWNz8DuN1Z5kv0SkjbTcsvV9Og=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1712927479; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=D8LDroXoeKTAwey/qNemToMasADUwp3bpi+P0Z8aJOs=; 
+	b=AkFcqhxzkAMX51TVpBhmhLVR4ppK2WZPjiGN9mgsdeM9suLIWB5BL1vBLeDBOWBUkC68YMic3+mObXpJNUYBacrNIEtg81gSlejpNCgWM7bO7HlgaDBwjd128CKukwG55JWgCYe/cfZfLjiJ7widZyr3CmZFTIxh+sNlxmeEC+Q=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712927479;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=D8LDroXoeKTAwey/qNemToMasADUwp3bpi+P0Z8aJOs=;
+	b=mfSUos6zW7zfS4Fb0t6oGNDfgL+i5t2XyE+sBwu0D8wDHnZ/fXgAnID2FWRa4z2p
+	ADP279wVsOrnfA860p9A1zFKwVr2n/ZTcVFASI1keH2kSzQ7eodWld+s2vulW5vPtzu
+	Y/qzI/ZRPoWCgiIivGrPMKRuEYgutab3Ci/psVJQ=
+Message-ID: <7da2b3cd-a9a3-4264-81ef-a363a507d6b6@apertussolutions.com>
+Date: Fri, 12 Apr 2024 09:11:15 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 3/5] gzip: refactor state tracking
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jason.andryuk@amd.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
@@ -91,112 +74,105 @@ References: <20240411152518.2995-1-dpsmith@apertussolutions.com>
  <9a5112a3-26fe-49a8-93ed-cd8c9610576c@apertussolutions.com>
  <5e63a5b7-d62f-443c-9755-66dbc70fee98@citrix.com>
  <8551e410-332d-4e74-91b8-677bba38f90c@apertussolutions.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <8551e410-332d-4e74-91b8-677bba38f90c@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
+ <7a28a0ac-07a2-42d9-9872-ebc27d751bd9@citrix.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ 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
+In-Reply-To: <7a28a0ac-07a2-42d9-9872-ebc27d751bd9@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On 12/04/2024 1:51 pm, Daniel P. Smith wrote:
-> On 4/12/24 08:18, Andrew Cooper wrote:
->> On 12/04/2024 12:41 pm, Daniel P. Smith wrote:
->>> On 4/12/24 07:34, Daniel P. Smith wrote:
->>>> On 4/11/24 15:24, Andrew Cooper wrote:
->>>>> On 11/04/2024 4:25 pm, Daniel P. Smith wrote:
->>>>>> diff --git a/xen/common/gzip/gunzip.c b/xen/common/gzip/gunzip.c
->>>>>> index 1bcb007395ba..9b4891731b8b 100644
->>>>>> --- a/xen/common/gzip/gunzip.c
->>>>>> +++ b/xen/common/gzip/gunzip.c
->>>>>> @@ -102,12 +109,13 @@ __init int gzip_check(char *image, unsigned
->>>>>> long image_len)
->>>>>>    __init int perform_gunzip(char *output, char *image, unsigned
->>>>>> long image_len)
->>>>>>    {
->>>>>> +    struct gzip_data gd;
->>>>>>        int rc;
+On 4/12/24 08:53, Andrew Cooper wrote:
+> On 12/04/2024 1:51 pm, Daniel P. Smith wrote:
+>> On 4/12/24 08:18, Andrew Cooper wrote:
+>>> On 12/04/2024 12:41 pm, Daniel P. Smith wrote:
+>>>> On 4/12/24 07:34, Daniel P. Smith wrote:
+>>>>> On 4/11/24 15:24, Andrew Cooper wrote:
+>>>>>> On 11/04/2024 4:25 pm, Daniel P. Smith wrote:
+>>>>>>> diff --git a/xen/common/gzip/gunzip.c b/xen/common/gzip/gunzip.c
+>>>>>>> index 1bcb007395ba..9b4891731b8b 100644
+>>>>>>> --- a/xen/common/gzip/gunzip.c
+>>>>>>> +++ b/xen/common/gzip/gunzip.c
+>>>>>>> @@ -102,12 +109,13 @@ __init int gzip_check(char *image, unsigned
+>>>>>>> long image_len)
+>>>>>>>     __init int perform_gunzip(char *output, char *image, unsigned
+>>>>>>> long image_len)
+>>>>>>>     {
+>>>>>>> +    struct gzip_data gd;
+>>>>>>>         int rc;
+>>>>>>
+>>>>>> By the end of this series,
+>>>>>>
+>>>>>> Reading symbols from xen-syms...
+>>>>>> (gdb) p sizeof(struct gzip_data)
+>>>>>> $1 = 2120
+>>>>>>
+>>>>>> x86 has an 8k stack and this takes 1/4 of it.  Other bits of state
+>>>>>> are
+>>>>>> dynamically allocated, even in inflate.c, so I'd highly recommend
+>>>>>> doing
+>>>>>> the same for this.
 >>>>>
->>>>> By the end of this series,
->>>>>
->>>>> Reading symbols from xen-syms...
->>>>> (gdb) p sizeof(struct gzip_data)
->>>>> $1 = 2120
->>>>>
->>>>> x86 has an 8k stack and this takes 1/4 of it.  Other bits of state
->>>>> are
->>>>> dynamically allocated, even in inflate.c, so I'd highly recommend
->>>>> doing
->>>>> the same for this.
+>>>>> I take it you are mainly talking about crc_32_tab? Yes, I can switch
+>>>>> that to being dynamically allocated.
 >>>>
->>>> I take it you are mainly talking about crc_32_tab? Yes, I can switch
->>>> that to being dynamically allocated.
+>>>> Never mind, reading your comment on patch4 made me realize you wanted
+>>>> the instance of struct dynamically allocated. Though the answer is
+>>>> still, yes, we can dynamically allocate it.
 >>>
->>> Never mind, reading your comment on patch4 made me realize you wanted
->>> the instance of struct dynamically allocated. Though the answer is
->>> still, yes, we can dynamically allocate it.
+>>> I wrote this before realising that crc_32_tag could be shrunk.
+>>>
+>>> If it's only1k on the stack, then that's a whole lot less bad, and is
+>>> perhaps ok.  I guess it depends on the stack size of the other
+>>> architectures.
+>>>
+>>> Still - I expect dynamically allocating would be a safer course of
+>>> action.  Internal blocks are dynamically allocated already, so this is
+>>> "just" one more.
 >>
->> I wrote this before realising that crc_32_tag could be shrunk.
+>> Another course of action that could be considered is making a unit
+>> file global instance of the struct, and then memset() it to zero
+>> instead of allocating and freeing from heap. The global instance
+>> should be able to be made init_data and dropped after init was complete.
 >>
->> If it's only1k on the stack, then that's a whole lot less bad, and is
->> perhaps ok.  I guess it depends on the stack size of the other
->> architectures.
->>
->> Still - I expect dynamically allocating would be a safer course of
->> action.  Internal blocks are dynamically allocated already, so this is
->> "just" one more.
->
-> Another course of action that could be considered is making a unit
-> file global instance of the struct, and then memset() it to zero
-> instead of allocating and freeing from heap. The global instance
-> should be able to be made init_data and dropped after init was complete.
->
-> I am good with either way, just let me know which would be preferred
-> and I will adjust appropriately.
+>> I am good with either way, just let me know which would be preferred
+>> and I will adjust appropriately.
+> 
+> Other things inside gzunip() are dynamically allocated.  I'd keep this
+> consistent with the others.
 
-Other things inside gzunip() are dynamically allocated.  I'd keep this
-consistent with the others.
+Ack.
 
-~Andrew
+v/r,
+dps
 
