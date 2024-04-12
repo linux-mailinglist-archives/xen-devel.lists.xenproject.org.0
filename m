@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BCE58A3025
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 16:06:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704702.1101203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6CC18A3027
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 16:07:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704706.1101213 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvHXc-0001IU-8X; Fri, 12 Apr 2024 14:06:08 +0000
+	id 1rvHYI-0001tX-JW; Fri, 12 Apr 2024 14:06:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704702.1101203; Fri, 12 Apr 2024 14:06:08 +0000
+Received: by outflank-mailman (output) from mailman id 704706.1101213; Fri, 12 Apr 2024 14:06:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvHXc-0001Gr-59; Fri, 12 Apr 2024 14:06:08 +0000
-Received: by outflank-mailman (input) for mailman id 704702;
- Fri, 12 Apr 2024 14:06:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SOxV=LR=bounce.vates.tech=bounce-md_30504962.66193fc8.v1-f767dee5c67d408688a03d00dd5afeec@srs-se1.protection.inumbo.net>)
- id 1rvHXZ-0001Gl-Pm
- for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 14:06:06 +0000
-Received: from mail5.us4.mandrillapp.com (mail5.us4.mandrillapp.com
- [205.201.136.5]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cae31c50-f8d5-11ee-94a3-07e782e9044d;
- Fri, 12 Apr 2024 16:06:01 +0200 (CEST)
-Received: from pmta15.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail5.us4.mandrillapp.com (Mailchimp) with ESMTP id 4VGJJ83797zDRHxRS
- for <xen-devel@lists.xenproject.org>; Fri, 12 Apr 2024 14:06:00 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- f767dee5c67d408688a03d00dd5afeec; Fri, 12 Apr 2024 14:06:00 +0000
+	id 1rvHYI-0001rJ-Gf; Fri, 12 Apr 2024 14:06:50 +0000
+Received: by outflank-mailman (input) for mailman id 704706;
+ Fri, 12 Apr 2024 14:06:48 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rvHYG-0001pV-Si; Fri, 12 Apr 2024 14:06:48 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rvHYG-0005rt-ME; Fri, 12 Apr 2024 14:06:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rvHYG-0001Gu-Ei; Fri, 12 Apr 2024 14:06:48 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rvHYG-0000HB-EH; Fri, 12 Apr 2024 14:06:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,221 +42,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cae31c50-f8d5-11ee-94a3-07e782e9044d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1712930760; x=1713191260;
-	bh=3Vs3YGzR1vLBNYPO9yFFoH/3q/MigkEKm0DNc1fKke4=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=gnhga6A5kN0XxuxlLHyIYvpWwVmF9L/3/GM+lOhTfEiR1tmybXe6mSVhUzaEqwE9O
-	 wzuErlDg2H3pWm7IkOh+kV6IKMKSFT8gF4ew4GX7MHGWphcffuldkxjQIo+xL/ezzw
-	 r+P7ICyIbE+KqZEqJfCrTnZu756ZglTqpWtW5DK1cu/ulMsdoKWWvrwwAanLMRIMxC
-	 KYbzM+H94Dt43sBswrD0WRhx/5UO4yxMGrAucNT2+O9JcEkn0sxfdemeUe+pJ2hcj1
-	 u0uf1z3CUZrU4//rpCrYUer0/rfPWUjXQUo85tSATh1wdDlCe/1dE3RXVnrESFc1+L
-	 bvtQaI4PJTulA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.fr; s=mte1;
-	t=1712930760; x=1713191260; i=andrei.semenov@vates.fr;
-	bh=3Vs3YGzR1vLBNYPO9yFFoH/3q/MigkEKm0DNc1fKke4=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=A2QVVd7QOHeELwbiLiMcpuaWzFgd2623aEA3Qdj6JeuROj52bgyboC/E3fva3wbDY
-	 SVSuJGTDYza9JNuO/jsA0nP40QRuEYYcGaCPd8s0kA1FmsgUlRiFShtMlSNY9KumJp
-	 iUkVfAsM77oKB9Of4NT9pvqPMfN8Nkm0hCG51qGPM3rxGFUAPD/kXLz8IpFpdTrPZX
-	 Qpyyqg0nnftsAtdJbYSpUsyE0Dp4FaAYx4MbJcPf+nH2aUApuOy2ylcREcnJL+SDAZ
-	 8lqe/CoTg/JXjrYY8tdZXwJrUOJOI4SmrhbJr0Mn5pU6q8La3r1NFIPNTWRuIrUy32
-	 XLuy1/3J5rp2g==
-From: Andrei Semenov <andrei.semenov@vates.fr>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v1=201/2]=20Implemented=20AMD=20SEV=20discovery=20and=20enabling.?=
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1712930759319
-Message-Id: <ede83752-6151-4c23-a8c0-883aa7bee129@vates.fr>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-References: <cover.1712759753.git.andrei.semenov@vates.fr> <27fce67472c97b2b2b7cc0412bf0edcaa67cc63f.1712759753.git.andrei.semenov@vates.fr> <a9638611-8348-462a-a25d-a9efe3fabf9a@citrix.com>
-In-Reply-To: <a9638611-8348-462a-a25d-a9efe3fabf9a@citrix.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.f767dee5c67d408688a03d00dd5afeec?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240412:md
-Date: Fri, 12 Apr 2024 14:06:00 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=B3J0muQuJz150mHc8KpfXJLfopGU+i6jPXCN11WEB60=; b=G7+N56Kt9MpFpmkAOykFv96CGt
+	kB/YdwHoMGz3Pj7IPtpSXkybLx/WnnfbrDUGA+2UrTsrydLASMD3QnWaksfaoBMR7CueKCyevvB3I
+	o95wypEulGfwRgl2lvQjl/9BohnUqx7G+12Uhlib5VZDkIQ2XBZ7pBije5843l8JUz0E=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-4.15-testing bisection] complete test-amd64-amd64-xl-pvshim
+Message-Id: <E1rvHYG-0000HB-EH@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 12 Apr 2024 14:06:48 +0000
+
+branch xen-4.15-testing
+xenbranch xen-4.15-testing
+job test-amd64-amd64-xl-pvshim
+testid guest-start
+
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  6672d8ceae4acf0e0ef7dc7002e6146d10507c37
+  Bug not present: 65eb8f32b6b82e0268a9d66b49da354bc6698e87
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/185372/
 
 
-On 4/11/24 20:32, Andrew Cooper wrote:
-> On 10/04/2024 4:36 pm, Andrei Semenov wrote:
->> diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
->> index ab92333673..a5903613f0 100644
->> --- a/xen/arch/x86/cpu/amd.c
->> +++ b/xen/arch/x86/cpu/amd.c
->> @@ -1030,6 +1031,54 @@ static void amd_check_erratum_1485(void)
->>   =09wrmsrl(MSR_AMD64_BP_CFG, val | chickenbit);
->>   }
->>   
->> +#ifdef CONFIG_HVM
->> +static void amd_enable_mem_encrypt(const struct cpuinfo_x86 *c)
->> +{
->> +=09unsigned int  eax, ebx, ecx, edx;
->> +=09uint64_t syscfg;
->> +
->> +=09if (!smp_processor_id()) {
-> c =3D=3D &boot_cpu_info.
-Agree, will fix.
->
->> +
->> +=09=09cpuid_count(0x80000000,0,&eax, &ebx, &ecx, &edx);
->> +
->> +=09=09if (eax <  0x8000001f)
->> +=09=09=09return;
-> Max leaf is already collected.=C2=A0 c->extended_cpuid_level
-Agree, will fix.
->
->
->> +
->> +=09=09cpuid_count(0x8000001f,0,&eax, &ebx, &ecx, &edx);
->> +
->> +=09=09if (eax & 0x1)
->> +=09=09=09setup_force_cpu_cap(X86_FEATURE_SME);
->> +
->> +=09=09if (eax & 0x2) {
->> +=09=09=09setup_force_cpu_cap(X86_FEATURE_SEV);
->> +=09=09=09max_sev_asid =3D ecx;
->> +=09=09=09min_sev_asid =3D edx;
->> +=09=09}
->> +
->> +=09=09if (eax & 0x3)
->> +=09=09=09pte_c_bit_mask =3D 1UL << (ebx & 0x3f);
-> This is decoding the main SEV feature leaf, but outside of normal
-> mechanisms.
->
-> I've got half a mind to brute-force through the remaining work to
-> un-screw our boot sequence order, and express this in a cpu-policy
-> straight away.=C2=A0 This is wanted for the SVM leaf info too.
->
-> Leave it with me for a bit.
-OK. I wait for your insights on this so.
->
->
->> +=09}
->> +
->> +=09if (!(cpu_has_sme || cpu_has_sev))
->> +=09=09return;
->> +
->> +=09if (!smp_processor_id()) {
->> +=09=09if (cpu_has_sev)
->> +=09=09=09printk(XENLOG_INFO "SEV: ASID range [0x%x - 0x%x]\n",
->> +=09=09=09min_sev_asid, max_sev_asid);
-> Why do we have a min as well as a max?=C2=A0 Isn't min always 1?
+  commit 6672d8ceae4acf0e0ef7dc7002e6146d10507c37
+  Author: Andrew Cooper <andrew.cooper3@citrix.com>
+  Date:   Tue Mar 26 22:47:25 2024 +0000
+  
+      x86/spec-ctrl: Fix BTC/SRSO mitigations
+      
+      We were looking for SCF_entry_ibpb in the wrong variable in the top-of-stack
+      block, and xen_spec_ctrl won't have had bit 5 set because Xen doesn't
+      understand SPEC_CTRL_RRSBA_DIS_U yet.
+      
+      This is XSA-455 / CVE-2024-31142.
+      
+      Fixes: 53a570b28569 ("x86/spec-ctrl: Support IBPB-on-entry")
+      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Well, "normally it is". But this is the part of CPUID leaf specs. Do 
-they plan to potentially change it?
 
-No idea.
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-4.15-testing/test-amd64-amd64-xl-pvshim.guest-start.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
->
->> +=09}
->> +
->> +=09rdmsrl(MSR_K8_SYSCFG, syscfg);
->> +
->> +=09if (syscfg & SYSCFG_MEM_ENCRYPT) {
->> +=09=09return;
->> +=09}
->> +
->> +=09syscfg |=3D SYSCFG_MEM_ENCRYPT;
->> +=09wrmsrl(MSR_K8_SYSCFG, syscfg);
->> +}
->> +#endif
->> +
->>   static void cf_check init_amd(struct cpuinfo_x86 *c)
->>   {
->>   =09u32 l, h;
->> @@ -1305,6 +1354,10 @@ static void cf_check init_amd(struct cpuinfo_x86 =
-*c)
->>   =09check_syscfg_dram_mod_en();
->>   
->>   =09amd_log_freq(c);
->> +
->> +#ifdef CONFIG_HVM
->> +=09amd_enable_mem_encrypt(c);
->> +#endif
-> I think we want to drop the CONFIG_HVM here.
->
-> Memory encryption is an all-or-nothing thing.=C2=A0 If it's active, it
-> affects all pagetables that Xen controls, even dom0's.=C2=A0 And we likel=
-y do
-> want get to the point of Xen running on encrypted mappings even if dom0
-> can't operate it very nicely.
->
-> Thoughts?
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-4.15-testing/test-amd64-amd64-xl-pvshim.guest-start --summary-out=tmp/185372.bisection-summary --basis-template=185282 --blessings=real,real-bisect,real-retry xen-4.15-testing test-amd64-amd64-xl-pvshim guest-start
+Searching for failure / basis pass:
+ 185296 fail [host=rimava0] / 185282 [host=nobling1] 185006 [host=pinot0] 184784 ok.
+Failure / basis pass flights: 185296 / 184784
+(tree with no url: minios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 963671d3801a6992d1aa06f05d86e32efa6b205e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 4e55b32a8d66388bddb21e327f134f14b1a9b004
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 74b5309da9fb7a919bec5a8b5a63d1ede5eb6745 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 82faf1d5c8b25375b9029f2d6668135e62455a8c 2484803074fc1f93942912a82e4906f9e441bf4e
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-347385861c50adc8d4801d4b899eded38a2f04cd git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#74b5309da9fb7a919bec5a8b5a63d1ede5eb6745-963671d3801a6992d1aa06f05d86e32efa6b205e git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c74\
+ 37ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#6503bd6a1b5364ffd346a8a475e1eb91b9f756e5-6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 git://xenbits.xen.org/osstest/seabios.git#82faf1d5c8b25375b9029f2d6668135e62455a8c-c5a361c09a19e3b1a83557b01f11f04b27181a11 git://xenbits.xen.org/xen.git#2484803074fc1f93942912a82e4906f9e441bf4e-4e55b32a8d66388bddb21e327f134f14b1a9b004
+adhoc-revtuple-generator: tree discontiguous: linux-pvops
+Loaded 12695 nodes in revision graph
+Searching for test results:
+ 184784 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 74b5309da9fb7a919bec5a8b5a63d1ede5eb6745 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 82faf1d5c8b25375b9029f2d6668135e62455a8c 2484803074fc1f93942912a82e4906f9e441bf4e
+ 185006 [host=pinot0]
+ 185282 [host=nobling1]
+ 185315 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 74b5309da9fb7a919bec5a8b5a63d1ede5eb6745 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 82faf1d5c8b25375b9029f2d6668135e62455a8c 2484803074fc1f93942912a82e4906f9e441bf4e
+ 185296 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 963671d3801a6992d1aa06f05d86e32efa6b205e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 4e55b32a8d66388bddb21e327f134f14b1a9b004
+ 185324 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 963671d3801a6992d1aa06f05d86e32efa6b205e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 4e55b32a8d66388bddb21e327f134f14b1a9b004
+ 185328 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bf8f16f771d48c7cb4c0dfa548d296972513efe2 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 3722c21de19ba64de56495502c0c025b913a9b15 0fb100a94d0127910fe1dfa253cb759f6bc11174
+ 185330 pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 8707f835ae355832965508b6be96765660fb1861 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 aa94925d296dc31a38360056227ffb0eea749572 65eb8f32b6b82e0268a9d66b49da354bc6698e87
+ 185333 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 13e7c5a9f1b4a6fab563a5994487fc60778073d5
+ 185340 pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 6ddfbeb0d6b76d787c8d6d05232ef04da6a9cdfc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 65eb8f32b6b82e0268a9d66b49da354bc6698e87
+ 185345 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 2a33c31e4affbca0651599e3b204a01ce7b48a3e
+ 185349 pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 b7f8779fe1f60113fdaab3b2f3f17c9f900b0456 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 65eb8f32b6b82e0268a9d66b49da354bc6698e87
+ 185354 pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 65eb8f32b6b82e0268a9d66b49da354bc6698e87
+ 185357 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 6672d8ceae4acf0e0ef7dc7002e6146d10507c37
+ 185363 pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 65eb8f32b6b82e0268a9d66b49da354bc6698e87
+ 185365 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 6672d8ceae4acf0e0ef7dc7002e6146d10507c37
+ 185368 pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 65eb8f32b6b82e0268a9d66b49da354bc6698e87
+ 185372 fail 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 6672d8ceae4acf0e0ef7dc7002e6146d10507c37
+Searching for interesting versions
+ Result found: flight 184784 (pass), for basis pass
+ For basis failure, parent search stopping at 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 65eb8f32b6b82e0268a9d66b49da354bc6698e87, results HASH(0x55ecb1236150) HASH(0x55ecb123a5e0) HASH(0x55ecb1224950) For basis failure, parent search stopping at 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1\
+ e6a472b0eb9558310b518f0dfcd8860 b7f8779fe1f60113fdaab3b2f3f17c9f900b0456 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 65eb8f32b6b82e0268a9d66b49da354bc6698e87, results HASH(0x55ecb1239b60) For basis failure, parent search stopping at 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 6ddfbeb0d6b76d787c8d6d05232ef04da6a9cdfc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a4\
+ 75e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 65eb8f32b6b82e0268a9d66b49da354bc6698e87, results HASH(0x55ecb1231218) For basis failure, parent search stopping at 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 8707f835ae355832965508b6be96765660fb1861 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 aa94925d296dc31a38360056227ffb0eea749572 65eb8f32b6b82e0268a9d66b49da354bc6698e87, results HASH(0x55ecb122c398) For basis\
+  failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bf8f16f771d48c7cb4c0dfa548d296972513efe2 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 3722c21de19ba64de56495502c0c025b913a9b15 0fb100a94d0127910fe1dfa253cb759f6bc11174, results HASH(0x55ecb122a368) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 74b5309da9fb7a919bec\
+ 5a8b5a63d1ede5eb6745 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 82faf1d5c8b25375b9029f2d6668135e62455a8c 2484803074fc1f93942912a82e4906f9e441bf4e, results HASH(0x55ecb1217250) HASH(0x55ecb121de90) Result found: flight 185296 (fail), for basis failure (at ancestor ~857)
+ Repro found: flight 185315 (pass), for basis pass
+ Repro found: flight 185324 (fail), for basis failure
+ 0 revisions at 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 932db9df0caa26daca4edf133fb2aed7b4a9193e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 c5a361c09a19e3b1a83557b01f11f04b27181a11 65eb8f32b6b82e0268a9d66b49da354bc6698e87
+No revisions left to test, checking graph state.
+ Result found: flight 185354 (pass), for last pass
+ Result found: flight 185357 (fail), for first failure
+ Repro found: flight 185363 (pass), for last pass
+ Repro found: flight 185365 (fail), for first failure
+ Repro found: flight 185368 (pass), for last pass
+ Repro found: flight 185372 (fail), for first failure
 
-Basically I put CONFIG_HVM here because I also wanted to put related 
-variables
+*** Found and reproduced problem changeset ***
 
-(max/min_asid) in sev.c. And sev.c is in "HVM" part of the code as SEV
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  6672d8ceae4acf0e0ef7dc7002e6146d10507c37
+  Bug not present: 65eb8f32b6b82e0268a9d66b49da354bc6698e87
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/185372/
 
-is only related to HVM guests. Now, basically I agree that
 
-- Xen would like potentially use encrypted memory for itself
+  commit 6672d8ceae4acf0e0ef7dc7002e6146d10507c37
+  Author: Andrew Cooper <andrew.cooper3@citrix.com>
+  Date:   Tue Mar 26 22:47:25 2024 +0000
+  
+      x86/spec-ctrl: Fix BTC/SRSO mitigations
+      
+      We were looking for SCF_entry_ibpb in the wrong variable in the top-of-stack
+      block, and xen_spec_ctrl won't have had bit 5 set because Xen doesn't
+      understand SPEC_CTRL_RRSBA_DIS_U yet.
+      
+      This is XSA-455 / CVE-2024-31142.
+      
+      Fixes: 53a570b28569 ("x86/spec-ctrl: Support IBPB-on-entry")
+      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-- in SME case, some encryption could be offered for non-HVM guests, so they
+pnmtopng: 251 colors found
+Revision graph left in /home/logs/results/bisect/xen-4.15-testing/test-amd64-amd64-xl-pvshim.guest-start.{dot,ps,png,html,svg}.
+----------------------------------------
+185372: tolerable ALL FAIL
 
-can protect their memory (even though the key is shared and the 
-hypervisor can
+flight 185372 xen-4.15-testing real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185372/
 
-read it).
+Failures :-/ but no regressions.
 
-OK, so I will drop CONFIG_HVM and put these variables elsewhere. amd.h 
-is probably
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-amd64-xl-pvshim   14 guest-start             fail baseline untested
 
-a good candidate?
 
->>   }
->>   
->>   const struct cpu_dev __initconst_cf_clobber amd_cpu_dev =3D {
->> diff --git a/xen/arch/x86/hvm/svm/Makefile b/xen/arch/x86/hvm/svm/Makefi=
-le
->> index 760d2954da..9773d539ef 100644
->> --- a/xen/arch/x86/hvm/svm/Makefile
->> +++ b/xen/arch/x86/hvm/svm/Makefile
->> @@ -6,3 +6,4 @@ obj-y +=3D nestedsvm.o
->>   obj-y +=3D svm.o
->>   obj-y +=3D svmdebug.o
->>   obj-y +=3D vmcb.o
->> +obj-y +=3D sev.o
-> Please keep this sorted by object file name.
-Got it. Will do.
->
->> diff --git a/xen/arch/x86/hvm/svm/sev.c b/xen/arch/x86/hvm/svm/sev.c
->> new file mode 100644
->> index 0000000000..336fad25f5
->> --- /dev/null
->> +++ b/xen/arch/x86/hvm/svm/sev.c
->> @@ -0,0 +1,4 @@
->> +#include <asm/sev.h>
->> +uint64_t __read_mostly pte_c_bit_mask;
->> +unsigned int __read_mostly min_sev_asid;
->> +unsigned int __read_mostly max_sev_asid;
-> Several things.=C2=A0 All new files should come with an SPDX tag.=C2=A0 U=
-nless you
-> have other constraints, GPL-2.0-only is preferred.=C2=A0 There also wants=
- to
-> be at least a oneline summary of what's going on here.
-Will do.
->
-> All these variables look like they should be __ro_after_init.=C2=A0 Howev=
-er,
-> it's rather hard to judge, given no users yet.
-Yes, this is not supposed to dynamically change. Will fix.
->
-> pte_c_bit_mask may want to be an intpte_t rather than uint64_t.
+jobs:
+ test-amd64-amd64-xl-pvshim                                   fail    
 
-Agree. Will fix
 
->
-> ~Andrew
-Andrei.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
