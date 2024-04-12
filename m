@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A840E8A2D12
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 13:08:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704547.1100984 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C93A8A2D65
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 13:28:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704555.1101001 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvElW-0007pb-M9; Fri, 12 Apr 2024 11:08:18 +0000
+	id 1rvF51-0004Xh-79; Fri, 12 Apr 2024 11:28:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704547.1100984; Fri, 12 Apr 2024 11:08:18 +0000
+Received: by outflank-mailman (output) from mailman id 704555.1101001; Fri, 12 Apr 2024 11:28:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvElW-0007nE-JS; Fri, 12 Apr 2024 11:08:18 +0000
-Received: by outflank-mailman (input) for mailman id 704547;
- Fri, 12 Apr 2024 11:08:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rvF51-0004Vl-3U; Fri, 12 Apr 2024 11:28:27 +0000
+Received: by outflank-mailman (input) for mailman id 704555;
+ Fri, 12 Apr 2024 11:28:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sUrc=LR=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1rvElU-0007n8-8o
- for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 11:08:16 +0000
+ id 1rvF4z-0004Vf-NP
+ for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 11:28:25 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id de9dbd06-f8bc-11ee-94a3-07e782e9044d;
- Fri, 12 Apr 2024 13:07:38 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1712920048673584.3919028845842;
- Fri, 12 Apr 2024 04:07:28 -0700 (PDT)
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c52358f8-f8bf-11ee-b908-491648fe20b8;
+ Fri, 12 Apr 2024 13:28:23 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 171292129608387.97570731085034;
+ Fri, 12 Apr 2024 04:28:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,42 +38,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de9dbd06-f8bc-11ee-94a3-07e782e9044d
-ARC-Seal: i=1; a=rsa-sha256; t=1712920052; cv=none; 
+X-Inumbo-ID: c52358f8-f8bf-11ee-b908-491648fe20b8
+ARC-Seal: i=1; a=rsa-sha256; t=1712921298; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=gIBFZskeh/O+cGQ134h2m3kPYn7xX8Suxt7HoHZqxBiAzx7kggS3Q56SK9dcNIIdOv+4N6vKvN6mXONaLINUaFya4gnemvH0Z+Nat6TpgCxoYJvEuz1eluxFPz+yqEwPnrNUVx2GEup44zYaiS48rE02gLSfx8Y8VAGIv3G+cAw=
+	b=j9KMQQEL5zBpyLKq3dVeux2efgjxsqMpl8IZFmiKwQESTyt4ihClC36WkxUA5TGz7vJLANEiRaf3Ji/qJLbhUr4msFzESZXCeJIV0yMSOtVEJ0Hlu2/oq/dW4C0/Tr9cjh6t4GGYoww1v6FoskzHaUx4XjXPtW3Vi8RFJv8/evQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1712920052; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=oBqIBmXmMqJh2iMf8HK6lFgI+SJYnURbur9shxMNSv8=; 
-	b=Gjnw8DjaEQYbjNh8spuLdkOO3fzbzYcWY720935a8qrYWkU9rKwnWN0x/uqLz+v6vXDC0SyG14KQOUG0HJe9f46vdAxZYo84sftQmVMJgQ8WTRUT90Sr0K5UAxOulHNz6c5WWLfTy1XD8fIv4SRIVwe7UpOK2OOWGqq1d2ren+A=
+	t=1712921298; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=0HrvEeuJMQuVs/6Ps1OHzTyXZXfMG7qX6nWkzjTNvbw=; 
+	b=CFxN6mqXROKtPDrf0gBSYGSXhsXs4dtmyuqX1pUngt0apkwTa/wz46G5Rfe5PrjPUU3qjsc0h5AV8LF6yZmW+8YT08vEX2uq8hOeymGGtCzopC9CRpbNr4pEsoJ1ccwEM2mcqJb09g+w6NJcsSqVdDTwO30J0Fjlu2O9U/7DDWw=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712920052;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712921298;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=oBqIBmXmMqJh2iMf8HK6lFgI+SJYnURbur9shxMNSv8=;
-	b=KyBQuMwduGNRv2NjlLAQTzh5L7ZHiMVrxVGLLAX1Zv/bCmZF/h4DNDiBmG406/Te
-	JvEgfS6EeALf6mSeMNtcpnYrHJIrKK5ciyOn2FytVBQudGspuC5NcSc9SIHKylsHyZ+
-	GCLOLPyHR6e83IjLZLP6+62z6w/Zbio6VZ5px8PI=
-Message-ID: <2897b736-1a9d-4948-8e80-f018fd049bb8@apertussolutions.com>
-Date: Fri, 12 Apr 2024 07:07:18 -0400
+	bh=0HrvEeuJMQuVs/6Ps1OHzTyXZXfMG7qX6nWkzjTNvbw=;
+	b=cwoInlgT3tWi9V7HyXSxMC98mXWXRqrV0zxA0e6Pt0HqM5MjOg+0kBzwJvBAa0hw
+	Zj1SPhigGdVesJNbPCUSQ9HQYGKI8OBJFdXSz0mCUOixnF0Q33xHSTEcXChXvWwoBiL
+	HQNdMkmKNpfbCNL3BzdV+1y3U7ZYafRZoANG6T/g=
+Message-ID: <ef1e2edd-b9fe-4155-ad61-46e0e53b7198@apertussolutions.com>
+Date: Fri, 12 Apr 2024 07:28:14 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] gzip: colocate gunzip code files
-To: Luca Fancellu <Luca.Fancellu@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jason Andryuk <jason.andryuk@amd.com>,
+Subject: Re: [PATCH 2/5] gzip: clean up comments and fix code alignment
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
 References: <20240411152518.2995-1-dpsmith@apertussolutions.com>
- <20240411152518.2995-2-dpsmith@apertussolutions.com>
- <AA1FBA57-A643-4758-B99A-B59181B6329A@arm.com>
- <1552c28a-9c31-4771-94d1-20a51b2c641f@citrix.com>
- <8055E1FC-38DA-4534-BE04-F22AFC7B049F@arm.com>
-Content-Language: en-US
+ <20240411152518.2995-3-dpsmith@apertussolutions.com>
+ <382b8aaf-ea9f-42c7-b57b-945fa4fd36aa@citrix.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -106,36 +102,93 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <8055E1FC-38DA-4534-BE04-F22AFC7B049F@arm.com>
+In-Reply-To: <382b8aaf-ea9f-42c7-b57b-945fa4fd36aa@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-
-On 4/11/24 15:43, Luca Fancellu wrote:
-> 
->>>> create mode 100644 xen/common/gzip/Makefile
->>>> rename xen/common/{ => gzip}/gunzip.c (100%)
->>>> rename xen/common/{ => gzip}/inflate.c (100%)
->>> For inflate.c you will need to update also docs/misra/exclude-list.json
+On 4/11/24 15:11, Andrew Cooper wrote:
+> On 11/04/2024 4:25 pm, Daniel P. Smith wrote:
+>> This commit cleans up the comments and fixes the code alignment using Xen
+>> coding style. This is done to make the code more legible before refactoring.
 >>
->> Something like this?
->>
->> diff --git a/docs/misra/exclude-list.json b/docs/misra/exclude-list.json
->> index 36bad9e54f7d..095636415897 100644
->> --- a/docs/misra/exclude-list.json
->> +++ b/docs/misra/exclude-list.json
->> @@ -118,7 +118,7 @@
->>               "comment": "Imported from Linux, ignore for now"
->>           },
->>           {
->> -            "rel_path": "common/inflate.c",
->> +            "rel_path": "common/gzip/inflate.c",
->>               "comment": "Imported from Linux, ignore for now"
->>           },
->>           {
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 > 
-> Yes indeed
+> I've found two more minor adjustments:
+> 
+> diff --git a/xen/common/gzip/inflate.c b/xen/common/gzip/inflate.c
+> index feb6d51008aa..9205189d4618 100644
+> --- a/xen/common/gzip/inflate.c
+> +++ b/xen/common/gzip/inflate.c
+> @@ -375,7 +375,7 @@ static int __init huft_build(
+>       memzero(stk->c, sizeof(stk->c));
+>       p = b;  i = n;
+>       do {
+> -        Tracecv(*p, (stderr, (n-i >= ' ' && n-i <= '~' ? "%c %d\n" :
+> "0x%x %d\n"),
+> +        Tracecv(*p, (stderr, (n-i >= ' ' && n-i <= '~' ? "%c %d\n" :
+> "0x%x %d\n"),
+>                        n-i, *p));
+>           c[*p]++;                    /* assume all entries <= BMAX */
+>           p++;                      /* Can't combine with above line
+> (Solaris bug) */
+> @@ -563,7 +563,8 @@ static int __init huft_build(
+>       return ret;
+>   }
+>   
+> -/* Free the malloc'ed tables built by huft_build(), which makes a linked
+> +/*
+> + * Free the malloc'ed tables built by huft_build(), which makes a linked
+>    * list of the tables it made, with the links in a dummy first entry of
+>    * each table.
+>    *
+> 
+> 
+> I can fold on commit.  (First hunk is trailing whitespace, which doesn't
+> show up so well on email).
 
-Ack, will add.
+
+Hmm, I tried to catch all the trailing space. Since I already have to 
+respin for the MISRA exclude list, I can double-check if there are any 
+other trailing whitespaces I missed.
+
+> However, there are some more major adjustments wanted too.
+
+That's fine, I attempted at tugging on some of the ugliness and kept 
+finding myself in a mess. If there are subtle improvements that can be 
+made without doing the complete rewrite I think this really deserves, 
+would be glad to incorporate them.
+
+> The reason why the code indention is so messed up is because it has been
+> auto-formatted, but with some NEXTBYTE()/NEEDBITS()/DUMPBITS() missing
+> semi-colons.  This throws off subsequent formatting, including some of
+> the indentation changes you've made.
+> 
+> Fixing the semicolons is a far more messy diff, but a much better end
+> result.
+
+I looked and didn't see any missing semicolons for NEXTBYTE, but you are 
+correct, I think almost every invocation of NEEDBITS and DUMPBITS are 
+missing semicolons.
+
+> However, the PKZIP_BUG_WORKAROUND ifdefary hiding braces still throws
+> things off, this time in the opposite direction.  NOMEMCPY also gets in
+> the way.
+> 
+> I'd be tempted to suggest breaking out a patch earlier dropping these
+> two, and then doing the semicolon fixes in this one along with the other
+> work.
+
+Upon checking, I did not see any way to set PKZIP_BUG_WORKAROUND and 
+NOMEMCPY, so yes I think we can safely drop them.
+
+> Thoughts?
+
+I think it is all doable, the only question is would you prefer to see 
+the PKZIP_BUG_WORKAROUND and NOMEMCPY drop happen before relocating the 
+files or after relocation?
+
+v/r,
+dps
+
 
