@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC9F78A2E5E
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 14:34:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.704626.1101124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 000D58A2E94
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Apr 2024 14:52:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.704650.1101140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvG6V-0001fp-II; Fri, 12 Apr 2024 12:34:03 +0000
+	id 1rvGNy-0000Dr-1o; Fri, 12 Apr 2024 12:52:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 704626.1101124; Fri, 12 Apr 2024 12:34:03 +0000
+Received: by outflank-mailman (output) from mailman id 704650.1101140; Fri, 12 Apr 2024 12:52:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rvG6V-0001dv-FI; Fri, 12 Apr 2024 12:34:03 +0000
-Received: by outflank-mailman (input) for mailman id 704626;
- Fri, 12 Apr 2024 12:34:02 +0000
+	id 1rvGNx-0000CL-VA; Fri, 12 Apr 2024 12:52:05 +0000
+Received: by outflank-mailman (input) for mailman id 704650;
+ Fri, 12 Apr 2024 12:52:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3O8t=LR=bounce.vates.tech=bounce-md_30504962.66192a36.v1-7f450573211144e0aec62194d55493a9@srs-se1.protection.inumbo.net>)
- id 1rvG6U-0001cV-45
- for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 12:34:02 +0000
-Received: from mail5.us4.mandrillapp.com (mail5.us4.mandrillapp.com
- [205.201.136.5]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ef6bb7f3-f8c8-11ee-94a3-07e782e9044d;
- Fri, 12 Apr 2024 14:33:59 +0200 (CEST)
-Received: from pmta15.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail5.us4.mandrillapp.com (Mailchimp) with ESMTP id 4VGGFy4x2RzDRHxKP
- for <xen-devel@lists.xenproject.org>; Fri, 12 Apr 2024 12:33:58 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 7f450573211144e0aec62194d55493a9; Fri, 12 Apr 2024 12:33:58 +0000
+ <SRS0=sUrc=LR=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1rvGNw-0000C1-2l
+ for xen-devel@lists.xenproject.org; Fri, 12 Apr 2024 12:52:04 +0000
+Received: from sender3-of-o57.zoho.com (sender3-of-o57.zoho.com
+ [136.143.184.57]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 740eaab4-f8cb-11ee-94a3-07e782e9044d;
+ Fri, 12 Apr 2024 14:52:02 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1712926314440655.2505186263855;
+ Fri, 12 Apr 2024 05:51:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,108 +38,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef6bb7f3-f8c8-11ee-94a3-07e782e9044d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1712925238; x=1713185738;
-	bh=jU9EIjA+Qc+4GFuonLz2lNzv0PHDDy6bVljleTMmQTg=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=nc8xqp/35GetuhBJQJjPLkLi5tZMDM5mTqP/1CBTduxPpxHIlJjnNlY1rNjvqWciG
-	 bBhx1yX6noYaZBoUegxslF3VJAS55GONBjiNIjzY5f0CGRQj8KFBjm2iECXP037DWx
-	 Q/1NozbBaxJYbF80rDfF3bxmigkeXMuwZaHvkf5GWulJ+k85X6CycjqKqjM1IDN4OE
-	 RxaGvbOGAcs1RxaCl7V9kuMi/61xJS0H/Uz4autL/xE6ydPvIcrzfMC37gZ0ESnYyL
-	 n3slKQcSrpqxxkx9YSsblx4G6aSWWRA33AUqBozXV6AIajxtP3QJJayGoDB/558Lke
-	 J2chHzpDf9QCg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1712925238; x=1713185738; i=teddy.astie@vates.tech;
-	bh=jU9EIjA+Qc+4GFuonLz2lNzv0PHDDy6bVljleTMmQTg=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=w9XJtm9zyllT/y7qrGykkrvF7yakOvKued0Su6x2MT/S38R5WB+YX+PMsD7iu+/q/
-	 xNcHSh2KglsUpe09TJPy3F0baHQ0llhaSuq4UjBkz4E0Kx0Bnky89HdQkaNE4+JEnC
-	 sctCXNfTrH5vJBxh/OLH4gN4wAvoXI6YkgcA15auPz8y6CH7IE+tKwNmTk3N2wJ0H9
-	 1CU1KiES9YRD44bofE++1Jp8KuYvbSzN9tVr4v5nE+DzygF68dpXOIL5uG6V4RIOma
-	 RUVIWQ2b7SRF/UWdsP83YMMaYUqzwZFvRCflqnpoNNmAFn1zM926nhCsOaSGOPy4JU
-	 M6LKXNXR5J1EA==
-From: Teddy Astie <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[XEN=20PATCH=20v3=203/3]=20VT-d:=20Cleanup=20MAP=5FSINGLE=5FDEVICE=20and=20related=20code?=
-X-Mailer: git-send-email 2.44.0
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1712925235934
-To: xen-devel@lists.xenproject.org
-Cc: Teddy Astie <teddy.astie@vates.tech>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Message-Id: <71875378aca7cbd6a03655c48a741060ff20cf2a.1712915011.git.teddy.astie@vates.tech>
-In-Reply-To: <cover.1712915011.git.teddy.astie@vates.tech>
-References: <cover.1712915011.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.7f450573211144e0aec62194d55493a9?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240412:md
-Date: Fri, 12 Apr 2024 12:33:58 +0000
+X-Inumbo-ID: 740eaab4-f8cb-11ee-94a3-07e782e9044d
+ARC-Seal: i=1; a=rsa-sha256; t=1712926317; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=AIv/Fwl7Jo3kVmrQmBDDCTYJ31uodVU3F0u8ugiYxlJ0H05MFZmMBTS3xiovILvXkwl/UoKuHSOOO+tL9u2UEEzOCG5DF/fMFrfS3A37IhPCKX4enPwiaTYmNRpcaFqBEj0CxTF0wSlNinc3YABCPrpqCOSHGHiRxT7aGQdwxvQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1712926317; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=IFbn5vx+VtKB35i6ZFpTmolCBqnuDPLwPVFZV+7Jzfc=; 
+	b=dhR6gjT9U6ci3F2WyXX8T00ZxWt0RY1C8UaBU0kEEy4zAlkHDxrhWR9nmTfalaKfN6ibaPoz7H7kDeRZ49vbnAoD7ZRd1sl1LeWFHocbnUEyXydgp2xRxxD0UFsYvPP8OjN4lxEpw91I2v9A/QOMHJPhqgU+ddNwsEzpBhTIngE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712926317;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=IFbn5vx+VtKB35i6ZFpTmolCBqnuDPLwPVFZV+7Jzfc=;
+	b=u2S0a0bMAAK6Zqif/VSQFHL+1dS5zm3Ns6D73VDkAVxDgNu3HSusUSCie7AwdDpq
+	hCbeUtmlnaUsDlTKgg7U8q8XFdYS0dWC6XzxwWO6SFsRrKBOKEw/MnLPokNvB5sf+dw
+	vdT7P3ShcxHg5e2xC0uPpr95A/OcwaH+fWfwYqRw=
+Message-ID: <8551e410-332d-4e74-91b8-677bba38f90c@apertussolutions.com>
+Date: Fri, 12 Apr 2024 08:51:52 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] gzip: refactor state tracking
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20240411152518.2995-1-dpsmith@apertussolutions.com>
+ <20240411152518.2995-4-dpsmith@apertussolutions.com>
+ <360958a2-5b0d-4fbc-8637-2a33185bdd8d@citrix.com>
+ <c03b4f1e-f2c9-4f92-a369-b8afad56bc0b@apertussolutions.com>
+ <9a5112a3-26fe-49a8-93ed-cd8c9610576c@apertussolutions.com>
+ <5e63a5b7-d62f-443c-9755-66dbc70fee98@citrix.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ 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
+In-Reply-To: <5e63a5b7-d62f-443c-9755-66dbc70fee98@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-This flag was only used in case cx16 is not available, as those code paths no
-longer exist, this flag now does basically nothing.
+On 4/12/24 08:18, Andrew Cooper wrote:
+> On 12/04/2024 12:41 pm, Daniel P. Smith wrote:
+>> On 4/12/24 07:34, Daniel P. Smith wrote:
+>>> On 4/11/24 15:24, Andrew Cooper wrote:
+>>>> On 11/04/2024 4:25 pm, Daniel P. Smith wrote:
+>>>>> diff --git a/xen/common/gzip/gunzip.c b/xen/common/gzip/gunzip.c
+>>>>> index 1bcb007395ba..9b4891731b8b 100644
+>>>>> --- a/xen/common/gzip/gunzip.c
+>>>>> +++ b/xen/common/gzip/gunzip.c
+>>>>> @@ -102,12 +109,13 @@ __init int gzip_check(char *image, unsigned
+>>>>> long image_len)
+>>>>>    __init int perform_gunzip(char *output, char *image, unsigned
+>>>>> long image_len)
+>>>>>    {
+>>>>> +    struct gzip_data gd;
+>>>>>        int rc;
+>>>>
+>>>> By the end of this series,
+>>>>
+>>>> Reading symbols from xen-syms...
+>>>> (gdb) p sizeof(struct gzip_data)
+>>>> $1 = 2120
+>>>>
+>>>> x86 has an 8k stack and this takes 1/4 of it.  Other bits of state are
+>>>> dynamically allocated, even in inflate.c, so I'd highly recommend doing
+>>>> the same for this.
+>>>
+>>> I take it you are mainly talking about crc_32_tab? Yes, I can switch
+>>> that to being dynamically allocated.
+>>
+>> Never mind, reading your comment on patch4 made me realize you wanted
+>> the instance of struct dynamically allocated. Though the answer is
+>> still, yes, we can dynamically allocate it.
+> 
+> I wrote this before realising that crc_32_tag could be shrunk.
+> 
+> If it's only1k on the stack, then that's a whole lot less bad, and is
+> perhaps ok.  I guess it depends on the stack size of the other
+> architectures.
+> 
+> Still - I expect dynamically allocating would be a safer course of
+> action.  Internal blocks are dynamically allocated already, so this is
+> "just" one more.
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
----
- xen/drivers/passthrough/vtd/iommu.c | 12 +++---------
- xen/drivers/passthrough/vtd/vtd.h   |  5 ++---
- 2 files changed, 5 insertions(+), 12 deletions(-)
+Another course of action that could be considered is making a unit file 
+global instance of the struct, and then memset() it to zero instead of 
+allocating and freeing from heap. The global instance should be able to 
+be made init_data and dropped after init was complete.
 
-diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
-index ef9380ed6a..a1bd3c5ff6 100644
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -1692,15 +1692,9 @@ static int domain_context_mapping(struct domain *domain, u8 devfn,
-         break;
-     }
- 
--    if ( domain != pdev->domain && pdev->domain != dom_io )
--    {
--        if ( pdev->domain->is_dying )
--            mode |= MAP_OWNER_DYING;
--        else if ( drhd &&
--                  !any_pdev_behind_iommu(pdev->domain, pdev, drhd->iommu) &&
--                  !pdev->phantom_stride )
--            mode |= MAP_SINGLE_DEVICE;
--    }
-+    if ( domain != pdev->domain && pdev->domain != dom_io &&
-+         pdev->domain->is_dying )
-+        mode |= MAP_OWNER_DYING;
- 
-     switch ( pdev->type )
-     {
-diff --git a/xen/drivers/passthrough/vtd/vtd.h b/xen/drivers/passthrough/vtd/vtd.h
-index cb2df76eed..43f06a353d 100644
---- a/xen/drivers/passthrough/vtd/vtd.h
-+++ b/xen/drivers/passthrough/vtd/vtd.h
-@@ -28,9 +28,8 @@
-  */
- #define MAP_WITH_RMRR         (1u << 0)
- #define MAP_OWNER_DYING       (1u << 1)
--#define MAP_SINGLE_DEVICE     (1u << 2)
--#define MAP_ERROR_RECOVERY    (1u << 3)
--#define UNMAP_ME_PHANTOM_FUNC (1u << 4)
-+#define MAP_ERROR_RECOVERY    (1u << 2)
-+#define UNMAP_ME_PHANTOM_FUNC (1u << 3)
- 
- /* Allow for both IOAPIC and IOSAPIC. */
- #define IO_xAPIC_route_entry IO_APIC_route_entry
--- 
-2.44.0
+I am good with either way, just let me know which would be preferred and 
+I will adjust appropriately.
 
-
-
-Teddy Astie | Vates XCP-ng Intern
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+v/r,
+dps
 
