@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA9068A4AD6
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 10:50:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.705934.1102880 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 822A68A4AFC
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 10:57:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.705939.1102889 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwI2J-0001rr-K2; Mon, 15 Apr 2024 08:49:59 +0000
+	id 1rwI9F-0004GZ-9L; Mon, 15 Apr 2024 08:57:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 705934.1102880; Mon, 15 Apr 2024 08:49:59 +0000
+Received: by outflank-mailman (output) from mailman id 705939.1102889; Mon, 15 Apr 2024 08:57:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwI2J-0001pj-H5; Mon, 15 Apr 2024 08:49:59 +0000
-Received: by outflank-mailman (input) for mailman id 705934;
- Mon, 15 Apr 2024 08:49:58 +0000
+	id 1rwI9F-0004Es-6o; Mon, 15 Apr 2024 08:57:09 +0000
+Received: by outflank-mailman (input) for mailman id 705939;
+ Mon, 15 Apr 2024 08:57:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V/mT=LU=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rwI2I-0001pd-QF
- for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 08:49:58 +0000
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [2607:f8b0:4864:20::733])
+ <SRS0=xRdI=LU=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rwI9E-0004Em-6L
+ for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 08:57:08 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 223c1cd1-fb05-11ee-94a3-07e782e9044d;
- Mon, 15 Apr 2024 10:49:56 +0200 (CEST)
-Received: by mail-qk1-x733.google.com with SMTP id
- af79cd13be357-78d620408f8so247759985a.3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Apr 2024 01:49:56 -0700 (PDT)
-Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
- d6-20020a05620a240600b0078d735ca917sm6068809qkn.123.2024.04.15.01.49.54
+ id 214754e9-fb06-11ee-94a3-07e782e9044d;
+ Mon, 15 Apr 2024 10:57:05 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-343d2b20c4bso2294523f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Apr 2024 01:57:05 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ df12-20020a5d5b8c000000b00343a3e62997sm11405428wrb.50.2024.04.15.01.57.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Apr 2024 01:49:55 -0700 (PDT)
+ Mon, 15 Apr 2024 01:57:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,56 +45,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 223c1cd1-fb05-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 214754e9-fb06-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713170996; x=1713775796; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1713171424; x=1713776224; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=57U9yTlAKpJzzt+SsYPGXcbCpqBDhXXulTu0h+EOhd0=;
-        b=WT6HB4P2dqTxkS2dAC4jmXU5G/3MRXeD6PeQddT7pmEp86p3/FKYF0+e6ZR3XyYRrY
-         0gVB3v9SLGniHOBfDFHwJjJnjQrAbmTM9y9miQcMB/DGpoDbm00IsCK40z9s920N9ORM
-         fkdABR8n43k5ceXJOKoxJgei/JQrRzvUhH4oQ=
+        bh=P9SEF9N03H7pTUAyRlXJzL+16LhGKabvpj44u3+jv5k=;
+        b=D8eedOa6pfcJP9Xb77gwVHrqmry3THcDJehjfBf3s2/Tl9ZBrgDoEUxrQMn0N6+a+D
+         KSyFZxX7WOEnaUHB8mEO1ggdZcre4igOV0TTw/YB6K9ttBw7V0z04mZLxjexCvY/Dcns
+         gbJ7rdd4aEdXmvORgUGVjPp63zAnjMd6IqDGY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713170996; x=1713775796;
+        d=1e100.net; s=20230601; t=1713171424; x=1713776224;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=57U9yTlAKpJzzt+SsYPGXcbCpqBDhXXulTu0h+EOhd0=;
-        b=iD0hBWhYop81fGaIIrFbQBKzeXa5mvGLNotShyS1oQ/laZU/nMTKNCXy1BUPSdQcvT
-         lxH4MojfBo9zxJIkDtz6M7xYuqRD7VDX2uOQj3Iy2IVJuoH/QcavWc440CKzaqSa7j09
-         F2nyqy5Eq+orsHCNELBlSshsPXxR+cdBqa66UopyyL8jis3eXVc+X+/If6mcTBRuuOSC
-         tkX8nBdyDYxPwP1wngJy6Yoib75ngi8Xb1ZhbWYBn8tHBIlu8EmSmIUPERCmKPmm6Kzf
-         8ivYg59lqIGWtr00HRv08DoXmDkNrdvgJtSifJSPyEc2HYR7hqrxgT6F/WxDTDX/mqnI
-         WG2A==
-X-Gm-Message-State: AOJu0Ywr7sydeyrWDJ1pvRk7+dnWfq/ZB8uRU3cBekv/G7aa5pZ1H6U/
-	s4E3vaUblrRauv7GHhEIehzhaSZvwqsGmPIqVXE7Xc+BJkz4pekQC2tU0dwhl/94qHBx7wVXEvj
-	y
-X-Google-Smtp-Source: AGHT+IF57Lc6Y/Yh+cuG/XGOz4FQnuH/kvkHq2PTUjEpb1Vpw8wOmfOMiHznV7QFkY1bJTv2ShjsUw==
-X-Received: by 2002:a05:620a:8510:b0:78b:e7ec:99a with SMTP id pe16-20020a05620a851000b0078be7ec099amr9412831qkn.10.1713170995759;
-        Mon, 15 Apr 2024 01:49:55 -0700 (PDT)
-Date: Mon, 15 Apr 2024 10:49:53 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
+        bh=P9SEF9N03H7pTUAyRlXJzL+16LhGKabvpj44u3+jv5k=;
+        b=QWnycUvKCVm8EdY7BEMYHIOWuqojymoB8/y47dfUzQ/oT41BcKORhLckz7gxR9wuMS
+         1gz1EtXQLF6iQqBO79wnoWonltL6ftFy+wKtwztKxkf9z35nDkge3xja60mHv1g+DH2d
+         jMdqFjuoMD/aCY9IxZkfGC3KKPTKkS7WNDADBuMU0MYNuwwIjfnOxezW06RrPabVhtLG
+         LC4j3lZIFxnnYG4EdNgwDlKKx/bGXPGcjedm1N2CvyT/UW8dkrUQOSZq/F7E2O3V+71b
+         10B2NlzKoz8VCQGVaohPZwSwcVp3QZ2ttTV2VoTL0Mf9glFXdovtyw6OjLxwFSgega4Z
+         pkmA==
+X-Gm-Message-State: AOJu0YyPrO7Joct+8MQOq4u0gGq+b1OkYJPsSxxf72ImlcGHGSzJXfUk
+	CVws8pEjGIzOvjBV6ptEd2/KxKEMoX0EfJilxmoqKuvKTMAQjC24v9EpjGcRsONECv6LAqCjpUk
+	N
+X-Google-Smtp-Source: AGHT+IGUNRUexaAtzqzDqPKp1qIgG1Lrplo3jLiOfpEYG9ebes8/bc0P4GeqiV8G0tNcmEe1KvY1Xg==
+X-Received: by 2002:adf:f64a:0:b0:346:bbd8:d512 with SMTP id x10-20020adff64a000000b00346bbd8d512mr6053721wrp.9.1713171423666;
+        Mon, 15 Apr 2024 01:57:03 -0700 (PDT)
+Date: Mon, 15 Apr 2024 09:57:02 +0100
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
 Cc: xen-devel@lists.xenproject.org
-Subject: Re: [OSSTEST PATCH] production-config: override mirror url for
- buster, use archive
-Message-ID: <ZhzqMYVgighuBv-k@macbook>
-References: <20240415081708.32671-1-anthony.perard@citrix.com>
+Subject: Re: [PATCH] osstest: increase boot timeout for Debian PV guests
+Message-ID: <e9bc461b-2cb8-4ac9-a437-394892deaee6@perard>
+References: <20240412141121.79280-1-roger.pau@citrix.com>
+ <2f7689f1-ac3c-47b7-8ba6-b6b9b9e82749@perard>
+ <ZhzmTwP9_90GOnpw@macbook>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240415081708.32671-1-anthony.perard@citrix.com>
+In-Reply-To: <ZhzmTwP9_90GOnpw@macbook>
 
-On Mon, Apr 15, 2024 at 09:17:08AM +0100, Anthony PERARD wrote:
-> buster-backport isn't available on the main mirror anymore.
+On Mon, Apr 15, 2024 at 10:33:19AM +0200, Roger Pau MonnÈ wrote:
+> On Mon, Apr 15, 2024 at 09:15:51AM +0100, Anthony PERARD wrote:
+> > On Fri, Apr 12, 2024 at 04:11:21PM +0200, Roger Pau Monne wrote:
+> > > The current timeout of 40s seems to be too low for AMD boxes (pinots and
+> > > rimavas) in the lab after XSA-455, see:
+> > 
+> > There's something else we can tweak if only some machine need extra
+> > time, it is an host property "TimeoutFactor", which can increase all
+> > timeout for a single machine. (It's use on the cubietruck for example.)
+> > 
+> > Or is it better to just increase boot time for all (or at least those)
+> > pv guest?
 > 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> I did consider that, but given the timeout is just limited to PV guest
+> startup I considered the "TimeoutFactor" too broad.  I think
+> increasing the Debian PV boot timeout from 40s to 60s is a minor
+> adjustment, and shouldn't affect other tests.
+> 
+> Let me know if you still prefer to use "TimeoutFactor" and I will look
+> into it.
 
-Acked-by: Roger Pau Monn√© <roger.pau@citrix.com>
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 
-Please push ASAP.
+Thanks,
 
-Thanks, Roger.
+-- 
+Anthony PERARD
 
