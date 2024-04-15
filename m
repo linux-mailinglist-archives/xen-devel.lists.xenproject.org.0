@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6407A8A4DFA
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 13:47:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706097.1103140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 035F38A4E0B
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 13:49:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706101.1103150 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwKnD-0007GB-PJ; Mon, 15 Apr 2024 11:46:35 +0000
+	id 1rwKpe-0007oo-4m; Mon, 15 Apr 2024 11:49:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706097.1103140; Mon, 15 Apr 2024 11:46:35 +0000
+Received: by outflank-mailman (output) from mailman id 706101.1103150; Mon, 15 Apr 2024 11:49:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwKnD-0007De-MC; Mon, 15 Apr 2024 11:46:35 +0000
-Received: by outflank-mailman (input) for mailman id 706097;
- Mon, 15 Apr 2024 11:46:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rwKpe-0007mN-1Q; Mon, 15 Apr 2024 11:49:06 +0000
+Received: by outflank-mailman (input) for mailman id 706101;
+ Mon, 15 Apr 2024 11:49:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vrLP=LU=tesarici.cz=petr@srs-se1.protection.inumbo.net>)
- id 1rwKnB-0007DY-Fy
- for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 11:46:34 +0000
-Received: from bee.tesarici.cz (bee.tesarici.cz [37.205.15.56])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cceb7dd2-fb1d-11ee-94a3-07e782e9044d;
- Mon, 15 Apr 2024 13:46:31 +0200 (CEST)
-Received: from meshulam.tesarici.cz
- (dynamic-2a00-1028-83b8-1e7a-4427-cc85-6706-c595.ipv6.o2.cz
- [IPv6:2a00:1028:83b8:1e7a:4427:cc85:6706:c595])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by bee.tesarici.cz (Postfix) with ESMTPSA id 937051BE456;
- Mon, 15 Apr 2024 13:46:29 +0200 (CEST)
+ (envelope-from <julien@xen.org>) id 1rwKpc-0007mH-W0
+ for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 11:49:04 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rwKpY-00039C-ES; Mon, 15 Apr 2024 11:49:00 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rwKpY-0003Ua-7c; Mon, 15 Apr 2024 11:49:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,312 +39,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cceb7dd2-fb1d-11ee-94a3-07e782e9044d
-Authentication-Results: mail.tesarici.cz; dmarc=fail (p=quarantine dis=none) header.from=tesarici.cz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tesarici.cz; s=mail;
-	t=1713181589; bh=6j5xRYISiB35jRs4z/V94pxAMYRgG8FouSQ6Gey8Ras=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=yiHirDFDDRGZbAivR7MRW8qcl9uOsM+BCXC9xom1IZLeJX26bj3IuO4T8TdrBoJbS
-	 BBkNtuvRs2DQujkKXz4fYGRMfgFvK2EElFoGLRO6hXvL5m11EJw7knCEG9iwKP/9nh
-	 Q9/kKZkmfEILfBCguLRnvViLvU6qhURbuuBUGOw8RpQF917InGamhrVhExSyqipPSE
-	 t+r6738rFTmAM22Eb+RfDdTl5yvoj3OxhRM966CefVgYq764URk0ZGjCOzgU0InWRk
-	 M8jPlC8NjwU/ccQkSjXqx5zVD3hsijJQD9VrspvAaNqstUG8fTgYUieY83LqoDYdph
-	 BFWwoAJXpgwmg==
-Date: Mon, 15 Apr 2024 13:46:24 +0200
-From: Petr =?UTF-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
-To: mhkelley58@gmail.com
-Cc: mhklinux@outlook.com, robin.murphy@arm.com, joro@8bytes.org,
- will@kernel.org, jgross@suse.com, sstabellini@kernel.org,
- oleksandr_tyshchenko@epam.com, hch@lst.de, m.szyprowski@samsung.com,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org, roberto.sassu@huaweicloud.com
-Subject: Re: [PATCH 1/2] swiotlb: Remove alloc_size argument to
- swiotlb_tbl_map_single()
-Message-ID: <20240415134624.22092bb0@meshulam.tesarici.cz>
-In-Reply-To: <20240408041142.665563-1-mhklinux@outlook.com>
-References: <20240408041142.665563-1-mhklinux@outlook.com>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-suse-linux-gnu)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=oIaDg+t9CGO99Gtq6RLzV8jM0FVTV6QbDygYW+3nI2U=; b=c0UdKGDwx6ZnsIUhn10kZ/r40p
+	wO+1hDnxRccDR/x6mGVhE5kLVDLXCzQlKp7enkqUX6lz3KOU4lM1Agz724a0xl3cLLe4MVlmf+pPe
+	GOeGtLqrHwo48JPlpw4qjSjX2O4v5K5CQnPovfAk/JTuakTWhH3e0VeepwDskhEi4I5A=;
+Message-ID: <1272bb77-8a93-4ca2-af0d-4c1c36729307@xen.org>
+Date: Mon, 15 Apr 2024 12:48:58 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] xen/arm: Add imx8q{m,x} platform glue
+Content-Language: en-GB
+To: John Ernberg <john.ernberg@actia.se>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "conduct@xenproject.org" <conduct@xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Peng Fan <peng.fan@nxp.com>, Jonas Blixt <jonas.blixt@actia.se>
+References: <20240408161129.900347-1-john.ernberg@actia.se>
+ <20240408161129.900347-2-john.ernberg@actia.se>
+ <084b9ed5-1585-4802-b504-6ccd2f262542@xen.org>
+ <69dcd768-74b8-4033-8ab3-77848d6774dc@citrix.com>
+ <4b39f4fa-246d-479e-ab76-ff234b641703@xen.org>
+ <e3785d8a-9b16-4b74-9453-b0166bdbb171@actia.se>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <e3785d8a-9b16-4b74-9453-b0166bdbb171@actia.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun,  7 Apr 2024 21:11:41 -0700
-mhkelley58@gmail.com wrote:
+Hi John,
 
-> From: Michael Kelley <mhklinux@outlook.com>
+On 15/04/2024 12:17, John Ernberg wrote:
+> Hi Julien,
 > 
-> Currently swiotlb_tbl_map_single() takes alloc_align_mask and
-> alloc_size arguments to specify an swiotlb allocation that is
-> larger than mapping_size. This larger allocation is used solely
-> by iommu_dma_map_single() to handle untrusted devices that should
-> not have DMA visibility to memory pages that are partially used
-> for unrelated kernel data.
+> On 4/15/24 1:03 PM, Julien Grall wrote:
+>>
+>>
+>> On 15/04/2024 11:50, Andrew Cooper wrote:
+>>> On 15/04/2024 11:25 am, Julien Grall wrote:
+>>>> Hi John,
+>>>>
+>>>> I saw this patch was committed. I have one question this may require
+>>>> some adjustment.
+>>>>
+>>>> On 08/04/2024 17:11, John Ernberg wrote:
+>>>>> ---
+>>>>>     xen/arch/arm/platforms/Makefile |   1 +
+>>>>>     xen/arch/arm/platforms/imx8qm.c | 139
+>>>>> ++++++++++++++++++++++++++++++++
+>>>>>     2 files changed, 140 insertions(+)
+>>>>>     create mode 100644 xen/arch/arm/platforms/imx8qm.c
+>>>>>
+>>>>> diff --git a/xen/arch/arm/platforms/Makefile
+>>>>> b/xen/arch/arm/platforms/Makefile
+>>>>> index 8632f4115f..bec6e55d1f 100644
+>>>>> --- a/xen/arch/arm/platforms/Makefile
+>>>>> +++ b/xen/arch/arm/platforms/Makefile
+>>>>> @@ -9,5 +9,6 @@ obj-$(CONFIG_ALL_PLAT)   += sunxi.o
+>>>>>     obj-$(CONFIG_ALL64_PLAT) += thunderx.o
+>>>>>     obj-$(CONFIG_ALL64_PLAT) += xgene-storm.o
+>>>>>     obj-$(CONFIG_ALL64_PLAT) += brcm-raspberry-pi.o
+>>>>> +obj-$(CONFIG_ALL64_PLAT) += imx8qm.o
+>>>>>     obj-$(CONFIG_MPSOC_PLATFORM)  += xilinx-zynqmp.o
+>>>>>     obj-$(CONFIG_MPSOC_PLATFORM)  += xilinx-zynqmp-eemi.o
+>>>>> diff --git a/xen/arch/arm/platforms/imx8qm.c
+>>>>> b/xen/arch/arm/platforms/imx8qm.c
+>>>>> new file mode 100644
+>>>>> index 0000000000..3600a073e8
+>>>>> --- /dev/null
+>>>>> +++ b/xen/arch/arm/platforms/imx8qm.c
+>>>>> @@ -0,0 +1,139 @@
+>>>>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>>>>
+>>>> The majority of Xen code is using GPL-2.0-only. In the early days for
+>>>> Xen on Arm we started to use GPLv2+ which I consider it was a mistake.
+>>>> Unfortunately this started to spread as people copied/pasted the same
+>>>> copyright headers.
+>>>>
+>>>> So can you confirm whether you intended to use GPL-2.0+? If not would
+>>>> you be able to send a patch to adjust it? (Better to it before there
+>>>> are more modifications).
+>>>
+>>> Julien: I've called you out multiple times before.
+>>
+>> And there are multiple thread explaining why I am requesting if we can
+>> use GPLv2-only. In fact from CONTRIBUTING:
+>>
+>> The recommended license of a directory will depend on the COPYING file.
+>> If the new file is using a different license, this should be highlighted
+>> and discussed in the commit message or cover letter introducing the
+>> file.
+>>
 > 
-> Having two arguments to specify the allocation is redundant. While
-> alloc_align_mask naturally specifies the alignment of the starting
-> address of the allocation, it can also implicitly specify the size
-> by rounding up the mapping_size to that alignment.
-> 
-> Additionally, the current approach has an edge case bug.
-> iommu_dma_map_page() already does the rounding up to compute the
-> alloc_size argument. But swiotlb_tbl_map_single() then calculates
-> the alignment offset based on the DMA min_align_mask, and adds
-> that offset to alloc_size. If the offset is non-zero, the addition
-> may result in a value that is larger than the max the swiotlb can
-> allocate. If the rounding up is done _after_ the alignment offset is
-> added to the mapping_size (and the original mapping_size conforms to
-> the value returned by swiotlb_max_mapping_size), then the max that the
-> swiotlb can allocate will not be exceeded.
-> 
-> In view of these issues, simplify the swiotlb_tbl_map_single() interface
-> by removing the alloc_size argument. Most call sites pass the same
-> value for mapping_size and alloc_size, and they pass alloc_align_mask
-> as zero. Just remove the redundant argument from these callers, as they
-> will see no functional change. For iommu_dma_map_page() also remove
-> the alloc_size argument, and have swiotlb_tbl_map_single() compute
-> the alloc_size by rounding up mapping_size after adding the offset
-> based on min_align_mask. This has the side effect of fixing the
-> edge case bug but with no other functional change.
-> 
-> Also add a sanity test on the alloc_align_mask. While IOMMU code
-> currently ensures the granule is not larger than PAGE_SIZE, if
-> that guarantee were to be removed in the future, the downstream
-> effect on the swiotlb might go unnoticed until strange allocation
-> failures occurred.
-> 
-> Tested on an ARM64 system with 16K page size and some kernel
-> test-only hackery to allow modifying the DMA min_align_mask and
-> the granule size that becomes the alloc_align_mask. Tested these
-> combinations with a variety of original memory addresses and
-> sizes, including those that reproduce the edge case bug:
-> 
-> * 4K granule and 0 min_align_mask
-> * 4K granule and 0xFFF min_align_mask (4K - 1)
-> * 16K granule and 0xFFF min_align_mask
-> * 64K granule and 0xFFF min_align_mask
-> * 64K granule and 0x3FFF min_align_mask (16K - 1)
-> 
-> With the changes, all combinations pass.
-> 
-> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
-> ---
-> I've haven't used any "Fixes:" tags. This patch really should be
-> backported only if all the other recent swiotlb fixes get backported,
-> and I'm unclear on whether that will happen.
-> 
-> I saw the brief discussion about removing the "dir" parameter from
-> swiotlb_tbl_map_single(). That removal could easily be done as part
-> of this patch, since it's already changing the swiotlb_tbl_map_single()
-> parameters. But I think the conclusion of the discussion was to leave
-> the "dir" parameter for symmetry with the swiotlb_sync_*() functions.
-> Please correct me if that's wrong, and I'll respin this patch to do
-> the removal.
+> Since part of the code was not written by me, but by Peng, I think both
+> of us need to agree to a license change if one is to be made.
 
-Hi Michael,
+Ah I didn't realize that Peng also contributed. Let's wait if he is 
+happy with the change.
 
-sorry for taking so long to answer. Yes, there was no agreement on the
-removal of the "dir" parameter, but I'm not sure it's because of
-symmetry with swiotlb_sync_*(), because the topic was not really
-discussed.
+Also, offline, I was pointed out that I could explain a little bit more 
+why I asked if this could be changed. From [1]:
 
-The discussion was about the KUnit test suite and whether direction is
-a property of the bounce buffer or of each sync operation. Since DMA API
-defines associates each DMA buffer with a direction, the direction
-parameter passed to swiotlb_sync_*() should match what was passed to
-swiotlb_tbl_map_single(), because that's how it is used by the generic
-DMA code. In other words, if the parameter is kept, it should be kept
-to match dma_map_*().
+"IIRC from past discussion there are two broads concern with GPLv2+:
+    - We are leaving the choice of which license applies to the person
+copying the code. So if a new version is released that is less favorable
+to the initial contributor, then we have no leverage.
+    - Some companies are rather cautious to contribute code that may be
+licensed under GPLv3 (would be allowed with GPLv2+).
 
-However, there is also symmetry with swiotlb_tbl_unmap_single(). This
-function does use the parameter for the final sync. I believe there
-should be a matching initial sync in swiotlb_tbl_map_single(). In
-short, the buffer sync for DMA non-coherent devices should be moved from
-swiotlb_map() to swiotlb_tbl_map_single(). If this sync is not needed,
-then the caller can (and should) include DMA_ATTR_SKIP_CPU_SYNC in
-the flags parameter.
+The later is particularly a problem because not many people realize that
+a fair part of Xen on Arm is GPLv2+. I never really understood why we
+chose that (this was before my time) but this got spread as the existing
+copyright was added to a new file. Admittely, the contributor should be
+more cautious. But I would not say this is trivial to spot the difference."
 
-To sum it up:
+Cheers,
 
-* Do *NOT* remove the "dir" parameter.
-* Let me send a patch which moves the initial buffer sync.
+[1] 
+https://lore.kernel.org/xen-devel/f235f6f8-d585-4e24-7fc8-3f2df9240c9d@xen.org/
 
-Petr T
-
->  drivers/iommu/dma-iommu.c |  2 +-
->  drivers/xen/swiotlb-xen.c |  2 +-
->  include/linux/swiotlb.h   |  2 +-
->  kernel/dma/swiotlb.c      | 56
-> +++++++++++++++++++++++++++++---------- 4 files changed, 45
-> insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 07d087eecc17..c21ef1388499 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-> @@ -1165,7 +1165,7 @@ static dma_addr_t iommu_dma_map_page(struct
-> device *dev, struct page *page, trace_swiotlb_bounced(dev, phys,
-> size); 
->  		aligned_size = iova_align(iovad, size);
-> -		phys = swiotlb_tbl_map_single(dev, phys, size,
-> aligned_size,
-> +		phys = swiotlb_tbl_map_single(dev, phys, size,
->  					      iova_mask(iovad), dir,
-> attrs); 
->  		if (phys == DMA_MAPPING_ERROR)
-> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> index 1c4ef5111651..6579ae3f6dac 100644
-> --- a/drivers/xen/swiotlb-xen.c
-> +++ b/drivers/xen/swiotlb-xen.c
-> @@ -216,7 +216,7 @@ static dma_addr_t xen_swiotlb_map_page(struct
-> device *dev, struct page *page, */
->  	trace_swiotlb_bounced(dev, dev_addr, size);
->  
-> -	map = swiotlb_tbl_map_single(dev, phys, size, size, 0, dir,
-> attrs);
-> +	map = swiotlb_tbl_map_single(dev, phys, size, 0, dir, attrs);
->  	if (map == (phys_addr_t)DMA_MAPPING_ERROR)
->  		return DMA_MAPPING_ERROR;
->  
-> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-> index ea23097e351f..14bc10c1bb23 100644
-> --- a/include/linux/swiotlb.h
-> +++ b/include/linux/swiotlb.h
-> @@ -43,7 +43,7 @@ int swiotlb_init_late(size_t size, gfp_t gfp_mask,
->  extern void __init swiotlb_update_mem_attributes(void);
->  
->  phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t
-> phys,
-> -		size_t mapping_size, size_t alloc_size,
-> +		size_t mapping_size,
->  		unsigned int alloc_aligned_mask, enum
-> dma_data_direction dir, unsigned long attrs);
->  
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index a5e0dfc44d24..046da973a7e2 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-> @@ -1340,15 +1340,40 @@ static unsigned long mem_used(struct
-> io_tlb_mem *mem) 
->  #endif /* CONFIG_DEBUG_FS */
->  
-> +/**
-> + * swiotlb_tbl_map_single() - bounce buffer map a single contiguous
-> physical area
-> + * @dev:		Device which maps the buffer.
-> + * @orig_addr:		Original (non-bounced) physical IO
-> buffer address
-> + * @mapping_size:	Requested size of the actual bounce buffer,
-> excluding
-> + *			any pre- or post-padding for alignment
-> + * @alloc_align_mask:	Required start and end alignment of the
-> allocated buffer
-> + * @dir:		DMA direction
-> + * @attrs:		Optional DMA attributes for the map
-> operation
-> + *
-> + * Find and allocate a suitable sequence of IO TLB slots for the
-> request.
-> + * The allocated space starts at an alignment specified by
-> alloc_align_mask,
-> + * and the size of the allocated space is rounded up so that the
-> total amount
-> + * of allocated space is a multiple of (alloc_align_mask + 1). If
-> + * alloc_align_mask is zero, the allocated space may be at any
-> alignment and
-> + * the size is not rounded up.
-> + *
-> + * The returned address is within the allocated space and matches
-> the bits
-> + * of orig_addr that are specified in the DMA min_align_mask for the
-> device. As
-> + * such, this returned address may be offset from the beginning of
-> the allocated
-> + * space. The bounce buffer space starting at the returned address
-> for
-> + * mapping_size bytes is initialized to the contents of the original
-> IO buffer
-> + * area. Any pre-padding (due to an offset) and any post-padding
-> (due to
-> + * rounding-up the size) is not initialized.
-> + */
->  phys_addr_t swiotlb_tbl_map_single(struct device *dev, phys_addr_t
-> orig_addr,
-> -		size_t mapping_size, size_t alloc_size,
-> -		unsigned int alloc_align_mask, enum
-> dma_data_direction dir,
-> -		unsigned long attrs)
-> +		size_t mapping_size, unsigned int alloc_align_mask,
-> +		enum dma_data_direction dir, unsigned long attrs)
->  {
->  	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
->  	unsigned int offset;
->  	struct io_tlb_pool *pool;
->  	unsigned int i;
-> +	size_t size;
->  	int index;
->  	phys_addr_t tlb_addr;
->  	unsigned short pad_slots;
-> @@ -1362,20 +1387,24 @@ phys_addr_t swiotlb_tbl_map_single(struct
-> device *dev, phys_addr_t orig_addr, if
-> (cc_platform_has(CC_ATTR_MEM_ENCRYPT)) pr_warn_once("Memory
-> encryption is active and system is using DMA bounce buffers\n"); 
-> -	if (mapping_size > alloc_size) {
-> -		dev_warn_once(dev, "Invalid sizes (mapping: %zd
-> bytes, alloc: %zd bytes)",
-> -			      mapping_size, alloc_size);
-> -		return (phys_addr_t)DMA_MAPPING_ERROR;
-> -	}
-> +	/*
-> +	 * The default swiotlb memory pool is allocated with
-> PAGE_SIZE
-> +	 * alignment. If a mapping is requested with larger
-> alignment,
-> +	 * the mapping may be unable to use the initial slot(s) in
-> all
-> +	 * sets of IO_TLB_SEGSIZE slots. In such case, a mapping
-> request
-> +	 * of or near the maximum mapping size would always fail.
-> +	 */
-> +	dev_WARN_ONCE(dev, alloc_align_mask > ~PAGE_MASK,
-> +		"Alloc alignment may prevent fulfilling requests
-> with max mapping_size\n"); 
->  	offset = swiotlb_align_offset(dev, alloc_align_mask,
-> orig_addr);
-> -	index = swiotlb_find_slots(dev, orig_addr,
-> -				   alloc_size + offset,
-> alloc_align_mask, &pool);
-> +	size = ALIGN(mapping_size + offset, alloc_align_mask + 1);
-> +	index = swiotlb_find_slots(dev, orig_addr, size,
-> alloc_align_mask, &pool); if (index == -1) {
->  		if (!(attrs & DMA_ATTR_NO_WARN))
->  			dev_warn_ratelimited(dev,
->  	"swiotlb buffer is full (sz: %zd bytes), total %lu (slots),
-> used %lu (slots)\n",
-> -				 alloc_size, mem->nslabs,
-> mem_used(mem));
-> +				 size, mem->nslabs, mem_used(mem));
->  		return (phys_addr_t)DMA_MAPPING_ERROR;
->  	}
->  
-> @@ -1388,7 +1417,7 @@ phys_addr_t swiotlb_tbl_map_single(struct
-> device *dev, phys_addr_t orig_addr, offset &= (IO_TLB_SIZE - 1);
->  	index += pad_slots;
->  	pool->slots[index].pad_slots = pad_slots;
-> -	for (i = 0; i < nr_slots(alloc_size + offset); i++)
-> +	for (i = 0; i < (nr_slots(size) - pad_slots); i++)
->  		pool->slots[index + i].orig_addr =
-> slot_addr(orig_addr, i); tlb_addr = slot_addr(pool->start, index) +
-> offset; /*
-> @@ -1543,8 +1572,7 @@ dma_addr_t swiotlb_map(struct device *dev,
-> phys_addr_t paddr, size_t size, 
->  	trace_swiotlb_bounced(dev, phys_to_dma(dev, paddr), size);
->  
-> -	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size,
-> size, 0, dir,
-> -			attrs);
-> +	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size, 0,
-> dir, attrs); if (swiotlb_addr == (phys_addr_t)DMA_MAPPING_ERROR)
->  		return DMA_MAPPING_ERROR;
->  
-
+-- 
+Julien Grall
 
