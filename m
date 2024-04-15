@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA67D8A5A0B
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 20:42:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706447.1103591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCB3B8A5A3E
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 20:56:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706456.1103607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwRGc-0000Hf-BI; Mon, 15 Apr 2024 18:41:22 +0000
+	id 1rwRUW-0003R2-Hz; Mon, 15 Apr 2024 18:55:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706447.1103591; Mon, 15 Apr 2024 18:41:22 +0000
+Received: by outflank-mailman (output) from mailman id 706456.1103607; Mon, 15 Apr 2024 18:55:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwRGc-0000F1-88; Mon, 15 Apr 2024 18:41:22 +0000
-Received: by outflank-mailman (input) for mailman id 706447;
- Mon, 15 Apr 2024 18:41:21 +0000
+	id 1rwRUW-0003PV-FN; Mon, 15 Apr 2024 18:55:44 +0000
+Received: by outflank-mailman (input) for mailman id 706456;
+ Mon, 15 Apr 2024 18:55:43 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rwRGb-0000Eu-3U
- for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 18:41:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rwRUV-0003PL-Cc; Mon, 15 Apr 2024 18:55:43 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rwRGa-00037z-R6; Mon, 15 Apr 2024 18:41:20 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rwRGa-000765-Jg; Mon, 15 Apr 2024 18:41:20 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rwRUU-0003Mr-SY; Mon, 15 Apr 2024 18:55:42 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rwRUU-0005wd-Ji; Mon, 15 Apr 2024 18:55:42 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rwRUU-0002P3-JF; Mon, 15 Apr 2024 18:55:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,62 +42,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=NCz1C1pHO0cfKbu0iKdelHTspWoc8/NEQhmqUiod8TA=; b=GS93VtD8O3YqMR8+ekWSOSsFBb
-	MmR88pXarLPJ3+VzPyBF0bQj/O6tJ2+agE419uHzTZ+wrUc1zY94Z++qvLmc0Ay+Ol8QSXSYfRAqD
-	9pL4xhTKSKFaG3QPwnVyEyBmEORy40ZS07DCUWEfQ80RUAr9KdgiCOgaqAC/Mg0IWw4o=;
-Message-ID: <7b09184a-111d-4a38-baec-53f01ec6ed03@xen.org>
-Date: Mon, 15 Apr 2024 19:41:19 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=cFRH2RXohG8kKBWnu2rf2Jzl+R62c3znKlEuei//tP4=; b=emO1jUsTpHLODe1j4jOX+amiKT
+	+t2F8zVbnIoUkriFLqkCSQ09TBJVshHN0GzksBMYNKSEEvYeXNWIv1lUlHa4EYczBj3JFz2IIbXlw
+	45ebFeUikMQ0jYImo0jNTscKw20cp3NfGv85pYDNF9Vl+HX1dZTzizxCFymlxtJPYcis=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185616-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/13] xen/arm: List static shared memory regions as
- /memory nodes
-Content-Language: en-GB
-To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240409114543.3332150-1-luca.fancellu@arm.com>
- <20240409114543.3332150-14-luca.fancellu@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240409114543.3332150-14-luca.fancellu@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [seabios test] 185616: regressions - trouble: blocked/broken
+X-Osstest-Failures:
+    seabios:build-amd64:<job status>:broken:regression
+    seabios:build-amd64-pvops:<job status>:broken:regression
+    seabios:build-amd64-xsm:<job status>:broken:regression
+    seabios:build-i386:<job status>:broken:regression
+    seabios:build-i386-pvops:<job status>:broken:regression
+    seabios:build-i386-xsm:<job status>:broken:regression
+    seabios:build-amd64:host-build-prep:fail:regression
+    seabios:build-amd64-xsm:host-build-prep:fail:regression
+    seabios:build-i386-xsm:host-build-prep:fail:regression
+    seabios:build-i386:host-build-prep:fail:regression
+    seabios:build-i386-pvops:host-build-prep:fail:regression
+    seabios:build-amd64-pvops:host-build-prep:fail:regression
+    seabios:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    seabios:build-i386-libvirt:build-check(1):blocked:nonblocking
+    seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    seabios:test-amd64-amd64-qemuu-freebsd11-amd64:build-check(1):blocked:nonblocking
+    seabios:test-amd64-amd64-qemuu-freebsd12-amd64:build-check(1):blocked:nonblocking
+    seabios:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
+    seabios:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
+    seabios:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    seabios:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+    seabios:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    seabios:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+    seabios:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+    seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    seabios=e5f2e4c69643bc3cd385306a9e5d29e11578148c
+X-Osstest-Versions-That:
+    seabios=c5a361c09a19e3b1a83557b01f11f04b27181a11
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 15 Apr 2024 18:55:42 +0000
 
-Hi Luca,
+flight 185616 seabios real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185616/
 
-On 09/04/2024 12:45, Luca Fancellu wrote:
-> Currently Xen is not exporting the static shared memory regions
-> to the device tree as /memory node, this commit is fixing this
-> issue.
-> 
-> The static shared memory banks can be part of the memory range
-> available for the domain, so if they are overlapping with the
-> normal memory banks, they need to be merged together in order
-> to produce a /memory node with non overlapping ranges in 'reg'.
+Regressions :-(
 
-Before reviewing the code in more details, I would like to understand a 
-bit more the use case and whether it should be valid.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                     <job status>                 broken
+ build-amd64-pvops               <job status>                 broken
+ build-amd64-xsm                 <job status>                 broken
+ build-i386                      <job status>                 broken
+ build-i386-pvops                <job status>                 broken
+ build-i386-xsm                  <job status>                 broken
+ build-amd64                   5 host-build-prep          fail REGR. vs. 185287
+ build-amd64-xsm               5 host-build-prep          fail REGR. vs. 185287
+ build-i386-xsm                5 host-build-prep          fail REGR. vs. 185287
+ build-i386                    5 host-build-prep          fail REGR. vs. 185287
+ build-i386-pvops              5 host-build-prep          fail REGR. vs. 185287
+ build-amd64-pvops             5 host-build-prep          fail REGR. vs. 185287
 
- From my understanding, the case you are trying to prevent is the 
-following setup:
-   1. The Guest Physical region 0x0000 to 0x8000 is used for RAM
-   2. The Guest Physical region 0x0000 to 0x4000 is used for static memory
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-qemuu-freebsd11-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-qemuu-freebsd12-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
 
-The underlying Host Physical regions may be different. Xen doesn't 
-guarantee in which order the regions will be mapped, So whether the 
-overlapped region will point to the memory or the shared region is 
-unknown (we don't guarantee the order of the mapping). So nothing good 
-will happen to the guest.
+version targeted for testing:
+ seabios              e5f2e4c69643bc3cd385306a9e5d29e11578148c
+baseline version:
+ seabios              c5a361c09a19e3b1a83557b01f11f04b27181a11
 
-Did I understand correctly? If so, shouldn't this be a configuration we 
-should forbid?
+Last test of basis   185287  2024-04-09 15:42:58 Z    6 days
+Testing same since   185604  2024-04-15 13:42:35 Z    0 days    2 attempts
 
-Cheers,
+------------------------------------------------------------
+People who touched revisions under test:
+  Daniil Tatianin <d-tatianin@yandex-team.ru>
+  Kevin O'Connor <kevin@koconnor.net>
 
--- 
-Julien Grall
+jobs:
+ build-amd64-xsm                                              broken  
+ build-i386-xsm                                               broken  
+ build-amd64                                                  broken  
+ build-i386                                                   broken  
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            broken  
+ build-i386-pvops                                             broken  
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
+ test-amd64-amd64-qemuu-nested-amd                            blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-qemuu-freebsd11-amd64                       blocked 
+ test-amd64-amd64-qemuu-freebsd12-amd64                       blocked 
+ test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
+ test-amd64-amd64-qemuu-nested-intel                          blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-amd64 broken
+broken-job build-amd64-pvops broken
+broken-job build-amd64-xsm broken
+broken-job build-i386 broken
+broken-job build-i386-pvops broken
+broken-job build-i386-xsm broken
+
+Not pushing.
+
+------------------------------------------------------------
+commit e5f2e4c69643bc3cd385306a9e5d29e11578148c
+Author: Daniil Tatianin <d-tatianin@yandex-team.ru>
+Date:   Thu Apr 11 22:51:35 2024 +0300
+
+    pciinit: don't misalign large BARs
+    
+    Previously we would unconditionally lower the alignment for large BARs
+    in case their alignment was greater than "pci_mem64_top >> 11", this
+    would make it impossible to use these devices by the kernel:
+        [   13.821108] pci 0000:9c:00.0: can't claim BAR 1 [mem 0x66000000000-0x67fffffffff 64bit pref]: no compatible bridge window
+        [   13.823492] pci 0000:9d:00.0: can't claim BAR 1 [mem 0x64000000000-0x65fffffffff 64bit pref]: no compatible bridge window
+        [   13.824218] pci 0000:9e:00.0: can't claim BAR 1 [mem 0x62000000000-0x63fffffffff 64bit pref]: no compatible bridge window
+        [   13.828322] pci 0000:8a:00.0: can't claim BAR 1 [mem 0x6e000000000-0x6ffffffffff 64bit pref]: no compatible bridge window
+        [   13.830691] pci 0000:8b:00.0: can't claim BAR 1 [mem 0x6c000000000-0x6dfffffffff 64bit pref]: no compatible bridge window
+        [   13.832218] pci 0000:8c:00.0: can't claim BAR 1 [mem 0x6a000000000-0x6bfffffffff 64bit pref]: no compatible bridge window
+    
+    Fix it by only overwriting the alignment in case it's actually greater
+    than the desired by the BAR window.
+    
+    Fixes: 96a8d130a8c ("be less conservative with the 64bit pci io window")
+    Signed-off-by: Daniil Tatianin <d-tatianin@yandex-team.ru>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+
+commit 731c88d503ef07a06a03dd17a6e9163941b329da
+Author: Kevin O'Connor <kevin@koconnor.net>
+Date:   Mon Apr 1 13:44:58 2024 -0400
+
+    stdvgaio: Only read/write one color palette entry at a time
+    
+    Introduce stdvga_dac_read_many() and stdvga_dac_write_many() for
+    writing multiple dac palette entries.  Convert the stdvga_dac_read()
+    and stdvga_dac_write() low-level IO access functions in stdvgaio.c to
+    access just one color palette entry.
+    
+    Signed-off-by: Kevin O'Connor <kevin@koconnor.net>
 
