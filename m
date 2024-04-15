@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23DBD8A5276
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 15:58:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706228.1103321 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AF8C8A52D0
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 16:15:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706256.1103351 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwMqX-0002ja-Bk; Mon, 15 Apr 2024 13:58:09 +0000
+	id 1rwN6U-0007pH-1N; Mon, 15 Apr 2024 14:14:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706228.1103321; Mon, 15 Apr 2024 13:58:09 +0000
+Received: by outflank-mailman (output) from mailman id 706256.1103351; Mon, 15 Apr 2024 14:14:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwMqX-0002iS-8R; Mon, 15 Apr 2024 13:58:09 +0000
-Received: by outflank-mailman (input) for mailman id 706228;
- Mon, 15 Apr 2024 13:58:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rwN6T-0007mg-Ug; Mon, 15 Apr 2024 14:14:37 +0000
+Received: by outflank-mailman (input) for mailman id 706256;
+ Mon, 15 Apr 2024 14:14:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KTTO=LU=bounce.vates.tech=bounce-md_30504962.661d326b.v1-3f53356a234540f5b7dcdb8ce226b42f@srs-se1.protection.inumbo.net>)
- id 1rwMqW-0002hb-2M
- for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 13:58:08 +0000
-Received: from mail5.us4.mandrillapp.com (mail5.us4.mandrillapp.com
- [205.201.136.5]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2e216879-fb30-11ee-94a3-07e782e9044d;
- Mon, 15 Apr 2024 15:58:05 +0200 (CEST)
-Received: from pmta15.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail5.us4.mandrillapp.com (Mailchimp) with ESMTP id 4VJ7zc08GZzDRHx8N
- for <xen-devel@lists.xenproject.org>; Mon, 15 Apr 2024 13:58:04 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 3f53356a234540f5b7dcdb8ce226b42f; Mon, 15 Apr 2024 13:58:03 +0000
+ <SRS0=F4OO=LU=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1rwN6S-0007h5-2x
+ for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 14:14:36 +0000
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [2001:4860:4864:20::2b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7c12eb69-fb32-11ee-b908-491648fe20b8;
+ Mon, 15 Apr 2024 16:14:35 +0200 (CEST)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-233e41de0caso1064799fac.0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Apr 2024 07:14:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,108 +40,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e216879-fb30-11ee-94a3-07e782e9044d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1713189484; x=1713449984;
-	bh=BzKnsmB4jyVFuAlTsX3hEq7RfO+rPuia5QX7Cge2lFc=;
-	h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=vzByzrynWrLloem+/VHrppcnmUGl6PxxhtJjmJ0wvpShjt7H30tEhko/fk8VytNVB
-	 hxysOKSgWkk9QN/sagBv5G5lOF1i502yu1YuAOamI5QPFNz//Dn4IIqKqex0KNkKj9
-	 v5uSQ80+w2J1z1M1TwOmFjsOMfPUPjY6nJ7eLvujHZrtAy+qZv3UIkIAffbJmY+ysq
-	 hA61VsGMZiT7A/6hU0bhljaTwo3OlCRM5Fb3jwkfTZu7pCm7QoFJYyyx2eo17RAeFg
-	 fhbHt9ZGeotiwZCy29aPGa3QWP0Y1X7noLbwfuGqFA9MuTvuXH4sJ12ejzCnGlG7w7
-	 NTJACYS7bQo+w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1713189484; x=1713449984; i=teddy.astie@vates.tech;
-	bh=BzKnsmB4jyVFuAlTsX3hEq7RfO+rPuia5QX7Cge2lFc=;
-	h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=at4TE6OZY6cvK2SPZJEllwXfs2kWf+BrMpBjECvNV/Rv5DYr5oLWkbZGIP+AHEcRx
-	 pvU77Ha7Zhvz+ZK9YC6WD3pZCHm36reHwlDb3CyBRRQkfrhdqrCMwEgPSpZzz9pHFE
-	 VHSU82sNOIhGSlEZHVPs0L8dyVfBPO9ArZdLl0WrPKqkInaHbI0KMgm1DwXeuTHdPS
-	 sEbETvNilfs8CCZBdBha85gfOMvOmhgHsdL6B8cxIwcRKbehJl9BucUa0cylOKL8fN
-	 SEcjYtSFGiAOj14WK3OAHNscHPI3mBO4Yf4eLBxyWts0F7fO2lE6wQ0INXhcmGH0Wp
-	 UpwNSqGt0QkZA==
-From: Teddy Astie <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[XEN=20PATCH=20v4=200/5]=20x86/iommu:=20Drop=20IOMMU=20support=20when=20cx16=20isn't=20supported?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1713189481572
-Message-Id: <32d39e38-b128-48f9-ab26-4c69c77cda9c@vates.tech>
-To: xen-devel@lists.xenproject.org
-References: <cover.1713174878.git.teddy.astie@vates.tech>
-In-Reply-To: <cover.1713174878.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.3f53356a234540f5b7dcdb8ce226b42f?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240415:md
-Date: Mon, 15 Apr 2024 13:58:03 +0000
+X-Inumbo-ID: 7c12eb69-fb32-11ee-b908-491648fe20b8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1713190474; x=1713795274; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=JOburCHu9kch6m9gG6B4FMA/OeCpeP2fonuLbMeGMsM=;
+        b=iHWYtURsI7FLDpEMhiHjRfKhYwrHO7QamK5THZT2+A7I6pYubO1UsLWYl5LEHk5Skf
+         lhUwjpFbFQ2+CjdEDS+HXFlu4yUOEdzSPdgBWXETAdnm0ChMRY36xMOQW+C6ZitdgQok
+         sudKB+udFmPmVt/BZs1NJ+B1qHOq99R1EHQko=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713190474; x=1713795274;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=JOburCHu9kch6m9gG6B4FMA/OeCpeP2fonuLbMeGMsM=;
+        b=wK9q7E+Fj0PDrzKQf4/gxsd7PXCiQKQ5KRqMN9R1B42rmd8b5OsXL3pxsdNCqWR40A
+         bd+QwDaq45UKL56+QSUjIOj4d+2StUF4S/1aWuWA8tVxi6SYTU86MEOFQks1JfF9H/Uu
+         vAxYyxmsUrP5BsADaBUqIPhweaW3X/8VuG6GT3DAuzT7H+OZpt+X9mjlJDhkfNEQasuH
+         HZCUz1Ff//Y7vU+0ekcOnOsylwnurXIlB8eRoi5B2vpn46seJEMAskhiBWgi+eRMwj7v
+         l6s4dfUEJ0hCf5xPkc5vxYFRFP3kicvTTJzHAkN/b5N8Ok89ZgP7/jZxsCjm5+tcmXwR
+         VO3w==
+X-Gm-Message-State: AOJu0YyLUvEHrBXF3kZZzKyquwek1wvHYm07wcYOeHXcCuvviJk4U0OK
+	4foMOLAhNNeMUIkIW9RcSlyP19GfI2twMVgOrnwZY58BY/FktgoxJ0biJn81T4FY9PDrdpT0cP/
+	3H26ld1eXJsnNQk8XLtequUhEtlrS8nICZEFH94xvGv1FK4MDvLs=
+X-Google-Smtp-Source: AGHT+IEB14YSngaVGDsP2B2HIrGHQwg8iy7nkddBWDr2TuzaFqgVr70lMoLulV+TCS8UJOtFaLJ/1dBGUXPVSznt6/4=
+X-Received: by 2002:a05:6870:6586:b0:221:9013:d783 with SMTP id
+ fp6-20020a056870658600b002219013d783mr11892425oab.34.1713190473814; Mon, 15
+ Apr 2024 07:14:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Mon, 15 Apr 2024 15:14:23 +0100
+Message-ID: <CA+zSX=a_-_QpwbE2_aG6jFFozaCAAZd_PQ-iOfaFygyxmd=cJQ@mail.gmail.com>
+Subject: Rewritten XSA status page, xsa.json
+To: Xen-devel <xen-devel@lists.xenproject.org>, xen-announce@lists.xenproject.org, 
+	xen-users@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-Le 15/04/2024 =C3=A0 14:15, Teddy Astie a =C3=A9crit=C2=A0:
-> All hardware that supports VT-d/AMD-Vi that exists also supports cx16 (as=
-ide
-> specifically crafted virtual machines).
-> 
-> Some IOMMU code paths in Xen consider cases where VT-d/AMD-Vi is supporte=
-d
-> while cx16 isn't, those paths may be bugged and are barely tested, dead c=
-ode
-> in practice.
-> 
-> Disable IOMMU in case we have IOMMU hardware but no cx16, then cleanup
-> no-cx16 handling logic from VT-d and AMD-Vi drivers. Also disable
-> interrupt remapping that also relies on cx16.
-> 
-> Teddy Astie (5):
->    VT-d: Disable IOMMU if cx16 isn't supported
->    AMD-Vi: Disable IOMMU if cx16 isn't supported
->    VT-d: Cleanup MAP_SINGLE_DEVICE and related code
->    VT-d: Disable intrerrupt remapping if cx16 is not supported
->    AMD-Vi: Disable intrerrupt remapping if cx16 is not supported
-> 
->   xen/drivers/passthrough/amd/iommu_intr.c    |  6 ++
->   xen/drivers/passthrough/amd/iommu_map.c     | 42 ++++------
->   xen/drivers/passthrough/amd/pci_amd_iommu.c |  6 ++
->   xen/drivers/passthrough/vtd/intremap.c      | 70 +++++-----------
->   xen/drivers/passthrough/vtd/iommu.c         | 92 +++++++--------------
->   xen/drivers/passthrough/vtd/vtd.h           |  5 +-
->   6 files changed, 77 insertions(+), 144 deletions(-)
-> 
+Hey all,
 
-Here is the patch history that got lost for some reason in this cover.
+Some of you may have noticed that xenbis.xenproject.org/xsa/ doesn't
+currently list XSA-456.  This has prompted me to rewrite the perl code
+which generates that area of the webpage into golang, which is much
+easier for the current security team to understand and modify.  The
+draft replacement is here:
 
-Changed in v2:
+https://xenbits.xenproject.org/people/gdunlap/xsa-draft/
 
-  * Added cleanup no-cx16 code for x2APIC
-  * Fixed commit and code formatting
-  * Added missing Suggested-by note
+In particular, if you use `xsa.json` for any purpose, let me know if
+you have any issues.  If I don't hear any objections I'll replace the
+website generation code on Wednesday.
 
-Changed in v3:
-
-  * Use -ENODEV instead of -ENOSYS.
-
-Changed in v4:
-
-  * Reworded "Disable IOMMU if cx16 isn't supported"
-  * Moved interrupt remapping cleanup in separate patches
-  * Check cx16 for interrupt remapping in driver's callbacks rather than 
-in x2apic_bsp_setup
-
-Teddy
-
----
-
-
-Teddy Astie | Vates XCP-ng Intern
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Thanks,
+ -George
 
