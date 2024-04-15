@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69D268A4EB6
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BCFE8A4EB7
 	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 14:17:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706122.1103166 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.706127.1103215 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwLGB-0006VL-LQ; Mon, 15 Apr 2024 12:16:31 +0000
+	id 1rwLGG-0007gs-32; Mon, 15 Apr 2024 12:16:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706122.1103166; Mon, 15 Apr 2024 12:16:31 +0000
+Received: by outflank-mailman (output) from mailman id 706127.1103215; Mon, 15 Apr 2024 12:16:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwLGB-0006Sm-Hh; Mon, 15 Apr 2024 12:16:31 +0000
-Received: by outflank-mailman (input) for mailman id 706122;
- Mon, 15 Apr 2024 12:16:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rwLGF-0007cq-VD; Mon, 15 Apr 2024 12:16:35 +0000
+Received: by outflank-mailman (input) for mailman id 706127;
+ Mon, 15 Apr 2024 12:16:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IKSf=LU=bounce.vates.tech=bounce-md_30504962.661d1a9a.v1-df12415ac50046a4b0827733735753de@srs-se1.protection.inumbo.net>)
- id 1rwLG9-0006Sb-VD
- for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 12:16:30 +0000
+ <SRS0=28no=LU=bounce.vates.tech=bounce-md_30504962.661d1a9b.v1-bdf670edfcd74494a0a1568848e67be1@srs-se1.protection.inumbo.net>)
+ id 1rwLGE-0006tb-IR
+ for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 12:16:34 +0000
 Received: from mail145-16.atl61.mandrillapp.com
  (mail145-16.atl61.mandrillapp.com [198.2.145.16])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fc166306-fb21-11ee-b908-491648fe20b8;
- Mon, 15 Apr 2024 14:16:28 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fd3bc35b-fb21-11ee-94a3-07e782e9044d;
+ Mon, 15 Apr 2024 14:16:30 +0200 (CEST)
 Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
  by mail145-16.atl61.mandrillapp.com (Mailchimp) with ESMTP id
- 4VJ5kL3k0cz8XRqhX
- for <xen-devel@lists.xenproject.org>; Mon, 15 Apr 2024 12:16:26 +0000 (GMT)
+ 4VJ5kM3bNpz8XRtln
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Apr 2024 12:16:27 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- df12415ac50046a4b0827733735753de; Mon, 15 Apr 2024 12:16:26 +0000
+ bdf670edfcd74494a0a1568848e67be1; Mon, 15 Apr 2024 12:16:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,73 +43,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc166306-fb21-11ee-b908-491648fe20b8
+X-Inumbo-ID: fd3bc35b-fb21-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1713183386; x=1713443886;
-	bh=CpLIfnsQ6CTwc8nRBaUZ7IwM1SPQ6YD1gSr8oBgEhC4=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=vnO/XCy5oonWo/9iaWGidQIG+mO5ju2HWAg4RIUJ2r1bnOx96H/DvC/TEtRea+bVt
-	 xVk5xDFya5hkSZHUrSfcs2GTrp4Yx8xaGVW1IfmfexggpdO7VwVkJNwdcz7aGZ7+fm
-	 T5jIsJyDpWhxVUP9ebGr+aKrcFnfE1N+EfDZxrN2dX/uzaiqux5g/3JqJyAezQlQce
-	 S/BxwiMf0P7ZHpWaoopaKsD9r6SjNROrdg/YaIQxMpYcUnGWl5OPVhSXELTGwaMdfa
-	 oE7ZaNhZTTqwVcrfBAwcRlWs6eP/W28HhBlExqLc9DMk1WDKonXG83mt23P+XRHfkQ
-	 v2A6u96hHK4GQ==
+	s=mte1; t=1713183387; x=1713443887;
+	bh=RRod8nx7vQ+DrBaq1mB+2iQAFOffxbEGL4R3xb8mHC8=;
+	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=GSJUHtN2i4nhoX29yCMABYqzwrKKDs/yaoOmcpEiR53Z3FpPs+J1q7Mgag9qSOCtC
+	 ePfIq8NjXtscDhdK1LrW3+iMoLhtI9xxrvCPKWpnLfDOIoCs/C4L8C05uEc2hIauEr
+	 ZekO0K+ek6lWSvlcL5oDthIERcjvJO8oYvHsHZc6VlzX8M/xTooQzjkmBYDFSSX6PR
+	 AKn3oRJQD7MGZsozwSJpQMHT9JrAScgXUrY7gx1Gtbn7x2e8PfTrdUxOIKfdiZa6Nt
+	 taUM6V/s9AxzJ0ajANlR3Fg2DioEsYj4qlp8RNNVpYOPLddXQiNXnT+qeK73XrAzB2
+	 9q1gAzgnw81Kw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1713183386; x=1713443886; i=teddy.astie@vates.tech;
-	bh=CpLIfnsQ6CTwc8nRBaUZ7IwM1SPQ6YD1gSr8oBgEhC4=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=yKN+5gwLR+KuqVgnsFp5pS5XH+jupvU54K9UkDo9sv7boUkP37pXjZSwMFpJA9WAh
-	 ecMb2NQJtwqFyp5KQWQbyo6bZm5nJvkzocD201Yk5z0l/lrgbubRr/SF8qf5VcYsBy
-	 4AyxoU7S03487GJ4DjACvOIpHiDuMcqmJr7fHLN5fl8YjVCx1/wQxNVZiJmpAD6mzj
-	 SCCw4jiRZ42B5Ko9SufOF3UKSEGoz1wVsicLFrFRjf+lVoWzaUNnSO8x9pDxWlrdMo
-	 6Yh6Vuy+ifxwdCQRSmTqWYnGdSGNuh/325Oj/6AgvaFS2vACsp4B7rrXsDpH2Moxnp
-	 fG14Q08vyee/A==
+	t=1713183387; x=1713443887; i=teddy.astie@vates.tech;
+	bh=RRod8nx7vQ+DrBaq1mB+2iQAFOffxbEGL4R3xb8mHC8=;
+	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=fqyN5yuwC0m/N/enB11o7oyguyV0J7Etf9vE3o0BbkSODelsxyVWGOCD4rmisW9iT
+	 bgA8VUp3FipV1o7TIC4GEUdIHwqCNJr3xRGS6a2U2bI+3kTuFQWqUOvmD9A4188DeN
+	 ERP7zZIAftJvXP88LCiD+rUSiM2cFcR1CiVneXPftlauhFn5tLXVHWpj/XA0G6v/Ae
+	 GFLOzjcQO+jbYh0aT6wRkDqwGy3xx7Fs/coggxlGf1KXAEZfC0ARslVCdRj4qLnErG
+	 uYGLltLKxlIEPzBhYEg6LbX6IcYiFkfO7l0jhpGA6fFvhVu1q2bbi4HnUZjnQ5Aq6b
+	 72CAcele30zzA==
 From: Teddy Astie <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[XEN=20PATCH=20v4=200/5]=20x86/iommu:=20Drop=20IOMMU=20support=20when=20cx16=20isn't=20supported?=
+Subject: =?utf-8?Q?[XEN=20PATCH=20v4=203/5]=20VT-d:=20Cleanup=20MAP=5FSINGLE=5FDEVICE=20and=20related=20code?=
 X-Mailer: git-send-email 2.44.0
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1713183385756
+X-Bm-Transport-Timestamp: 1713183386723
 To: xen-devel@lists.xenproject.org
 Cc: Teddy Astie <teddy.astie@vates.tech>
-Message-Id: <cover.1713174878.git.teddy.astie@vates.tech>
+Message-Id: <43876112df408c6f11fa399337db4f3104a969a2.1713174878.git.teddy.astie@vates.tech>
+In-Reply-To: <cover.1713174878.git.teddy.astie@vates.tech>
+References: <cover.1713174878.git.teddy.astie@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.df12415ac50046a4b0827733735753de?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.bdf670edfcd74494a0a1568848e67be1?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20240415:md
-Date: Mon, 15 Apr 2024 12:16:26 +0000
+Date: Mon, 15 Apr 2024 12:16:27 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-All hardware that supports VT-d/AMD-Vi that exists also supports cx16 (aside
-specifically crafted virtual machines).
+This flag was only used in case cx16 is not available, as those code paths no
+longer exist, this flag now does basically nothing.
 
-Some IOMMU code paths in Xen consider cases where VT-d/AMD-Vi is supported
-while cx16 isn't, those paths may be bugged and are barely tested, dead code
-in practice.
+Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+---
+ xen/drivers/passthrough/vtd/iommu.c | 12 +++---------
+ xen/drivers/passthrough/vtd/vtd.h   |  5 ++---
+ 2 files changed, 5 insertions(+), 12 deletions(-)
 
-Disable IOMMU in case we have IOMMU hardware but no cx16, then cleanup
-no-cx16 handling logic from VT-d and AMD-Vi drivers. Also disable
-interrupt remapping that also relies on cx16.
-
-Teddy Astie (5):
-  VT-d: Disable IOMMU if cx16 isn't supported
-  AMD-Vi: Disable IOMMU if cx16 isn't supported
-  VT-d: Cleanup MAP_SINGLE_DEVICE and related code
-  VT-d: Disable intrerrupt remapping if cx16 is not supported
-  AMD-Vi: Disable intrerrupt remapping if cx16 is not supported
-
- xen/drivers/passthrough/amd/iommu_intr.c    |  6 ++
- xen/drivers/passthrough/amd/iommu_map.c     | 42 ++++------
- xen/drivers/passthrough/amd/pci_amd_iommu.c |  6 ++
- xen/drivers/passthrough/vtd/intremap.c      | 70 +++++-----------
- xen/drivers/passthrough/vtd/iommu.c         | 92 +++++++--------------
- xen/drivers/passthrough/vtd/vtd.h           |  5 +-
- 6 files changed, 77 insertions(+), 144 deletions(-)
-
+diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
+index 9c787ba9eb..7c6bae0256 100644
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -1692,15 +1692,9 @@ static int domain_context_mapping(struct domain *domain, u8 devfn,
+         break;
+     }
+ 
+-    if ( domain != pdev->domain && pdev->domain != dom_io )
+-    {
+-        if ( pdev->domain->is_dying )
+-            mode |= MAP_OWNER_DYING;
+-        else if ( drhd &&
+-                  !any_pdev_behind_iommu(pdev->domain, pdev, drhd->iommu) &&
+-                  !pdev->phantom_stride )
+-            mode |= MAP_SINGLE_DEVICE;
+-    }
++    if ( domain != pdev->domain && pdev->domain != dom_io &&
++         pdev->domain->is_dying )
++        mode |= MAP_OWNER_DYING;
+ 
+     switch ( pdev->type )
+     {
+diff --git a/xen/drivers/passthrough/vtd/vtd.h b/xen/drivers/passthrough/vtd/vtd.h
+index cb2df76eed..43f06a353d 100644
+--- a/xen/drivers/passthrough/vtd/vtd.h
++++ b/xen/drivers/passthrough/vtd/vtd.h
+@@ -28,9 +28,8 @@
+  */
+ #define MAP_WITH_RMRR         (1u << 0)
+ #define MAP_OWNER_DYING       (1u << 1)
+-#define MAP_SINGLE_DEVICE     (1u << 2)
+-#define MAP_ERROR_RECOVERY    (1u << 3)
+-#define UNMAP_ME_PHANTOM_FUNC (1u << 4)
++#define MAP_ERROR_RECOVERY    (1u << 2)
++#define UNMAP_ME_PHANTOM_FUNC (1u << 3)
+ 
+ /* Allow for both IOAPIC and IOSAPIC. */
+ #define IO_xAPIC_route_entry IO_APIC_route_entry
 -- 
 2.44.0
 
