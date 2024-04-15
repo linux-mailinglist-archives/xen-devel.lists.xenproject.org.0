@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D9398A5C0A
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 22:09:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706482.1103633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDEDC8A5D35
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 23:51:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706494.1103649 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwScj-0007t4-Fy; Mon, 15 Apr 2024 20:08:17 +0000
+	id 1rwUDA-0004vR-MT; Mon, 15 Apr 2024 21:50:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706482.1103633; Mon, 15 Apr 2024 20:08:17 +0000
+Received: by outflank-mailman (output) from mailman id 706494.1103649; Mon, 15 Apr 2024 21:50:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwScj-0007rW-Cr; Mon, 15 Apr 2024 20:08:17 +0000
-Received: by outflank-mailman (input) for mailman id 706482;
- Mon, 15 Apr 2024 20:08:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rwSch-0007rM-5S; Mon, 15 Apr 2024 20:08:15 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rwScg-0004fU-VH; Mon, 15 Apr 2024 20:08:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rwScg-0007Vz-MK; Mon, 15 Apr 2024 20:08:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rwScg-0004ml-Lr; Mon, 15 Apr 2024 20:08:14 +0000
+	id 1rwUDA-0004tp-Jl; Mon, 15 Apr 2024 21:50:00 +0000
+Received: by outflank-mailman (input) for mailman id 706494;
+ Mon, 15 Apr 2024 21:49:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VNdO=LU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rwUD9-0004tj-LM
+ for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 21:49:59 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 18f2b8e5-fb72-11ee-b909-491648fe20b8;
+ Mon, 15 Apr 2024 23:49:56 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2AD8B60EC4;
+ Mon, 15 Apr 2024 21:49:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2536FC32786;
+ Mon, 15 Apr 2024 21:49:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,157 +41,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=uCQKtN9cQRjZKcrqc3hsPkAm29n7UVQcD36HkSD98Yk=; b=p/SJU1YCqYHBfDChdkbGb+ULq4
-	th1kK8IYfAYyjz8tUIGR8s2XdG9oC2rxSrRilkuHxidL0dVvseuMDWOgGD08ggxaxgqS16RswwIsO
-	+k6RM4+M0D9ART7Im0V2dOYZOeefY4aVwUbZGGIEVzle9hNXfGdI2RSS1Nxy8XYSJQzI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185617-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 18f2b8e5-fb72-11ee-b909-491648fe20b8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1713217794;
+	bh=6RApfppfKQF0eOtxHZpl5wjOTkYOk1mCAKY4W3JHWw8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=aBl8fWl1QU/vDv+O4MVGg4ecnZJoyRBqHXuNg45U2Pn3iWXD5u7dNadgEgLjSKHVm
+	 ehMUVV96zD6SZGHwmGqA8zps/Wfqi+hl+R6fORZdJYrHs14aGI5LAGo8IXlx4Azk6Q
+	 s5/T5AH/PMYKkSCH3JamqRPJ9Y2gYHwFf1JkuGUUSEMbfvEe1n9MRk0nfZO/7ZBCFf
+	 t/D+4uswawUkDO44aL3JPOxGYiVAac8okmd+BwuEKUwNxTFhMk7Z26yHsUZYz0UPol
+	 5f/Cw9RSw5LmK/d4mhDL/ftmmVpJvzUSws0uLXxHdcEUgj8DoXfC0apUD8rNVUlf5d
+	 r3NJlxpP37dgQ==
+Date: Mon, 15 Apr 2024 14:49:53 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+    George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Subject: Re: [PATCH 1/4] xen/xlat: Sort out whitespace
+In-Reply-To: <20240415154155.2718064-2-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2404151449240.997881@ubuntu-linux-20-04-desktop>
+References: <20240415154155.2718064-1-andrew.cooper3@citrix.com> <20240415154155.2718064-2-andrew.cooper3@citrix.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 185617: regressions - trouble: blocked/broken
-X-Osstest-Failures:
-    ovmf:build-amd64:<job status>:broken:regression
-    ovmf:build-amd64-pvops:<job status>:broken:regression
-    ovmf:build-amd64-xsm:<job status>:broken:regression
-    ovmf:build-i386:<job status>:broken:regression
-    ovmf:build-i386-pvops:<job status>:broken:regression
-    ovmf:build-i386-xsm:<job status>:broken:regression
-    ovmf:build-amd64-pvops:host-build-prep:fail:regression
-    ovmf:build-amd64-xsm:host-build-prep:fail:regression
-    ovmf:build-i386:host-build-prep:fail:regression
-    ovmf:build-amd64:host-build-prep:fail:regression
-    ovmf:build-i386-xsm:host-build-prep:fail:regression
-    ovmf:build-i386-pvops:host-build-prep:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=0707d9296d7536c5baf43b23d70eafce10b1ab03
-X-Osstest-Versions-That:
-    ovmf=98f150a954b35cc74bd87ae355cf35d8c9e1580d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 15 Apr 2024 20:08:14 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 185617 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185617/
+On Mon, 15 Apr 2024, Andrew Cooper wrote:
+>  * Fix tabs/spaces mismatch for certain rows
+>  * Insert lines between header files to improve legibility
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: George Dunlap <George.Dunlap@citrix.com>
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> ---
+>  xen/include/xlat.lst | 31 +++++++++++++++++++++++++++----
+>  1 file changed, 27 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/include/xlat.lst b/xen/include/xlat.lst
+> index 9c41948514bf..e811342bb096 100644
+> --- a/xen/include/xlat.lst
+> +++ b/xen/include/xlat.lst
+> @@ -20,19 +20,24 @@
+>  # First column indicator:
+>  # ! - needs translation
+>  # ? - needs checking
+> +
+>  ?	dom0_vga_console_info		xen.h
+>  ?	xenctl_bitmap			xen.h
+>  ?	mmu_update			xen.h
+>  !	mmuext_op			xen.h
+>  !	start_info			xen.h
+>  ?	vcpu_time_info			xen.h
+> +
+>  ?	pmu_amd_ctxt			arch-x86/pmu.h
+>  ?	pmu_arch			arch-x86/pmu.h
+>  ?	pmu_cntr_pair			arch-x86/pmu.h
+>  ?	pmu_intel_ctxt			arch-x86/pmu.h
+>  ?	pmu_regs			arch-x86/pmu.h
+> +
+>  !	cpu_user_regs			arch-x86/xen-@arch@.h
+> +
+>  !	trap_info			arch-x86/xen.h
+> +
+>  ?	cpu_offline_action		arch-x86/xen-mca.h
+>  ?	mc				arch-x86/xen-mca.h
+>  ?	mcinfo_bank			arch-x86/xen-mca.h
+> @@ -50,6 +55,7 @@
+>  ?	mc_notifydomain			arch-x86/xen-mca.h
+>  !	mc_physcpuinfo			arch-x86/xen-mca.h
+>  ?	page_offline_action		arch-x86/xen-mca.h
+> +
+>  ?	argo_addr			argo.h
+>  !	argo_iov			argo.h
+>  ?	argo_register_ring		argo.h
+> @@ -59,6 +65,7 @@
+>  ?	argo_ring_message_header	argo.h
+>  ?	argo_send_addr			argo.h
+>  ?	argo_unregister_ring		argo.h
+> +
+>  ?	evtchn_alloc_unbound		event_channel.h
+>  ?	evtchn_bind_interdomain		event_channel.h
+>  ?	evtchn_bind_ipi			event_channel.h
+> @@ -74,6 +81,7 @@
+>  ?	evtchn_set_priority		event_channel.h
+>  ?	evtchn_status			event_channel.h
+>  ?	evtchn_unmask			event_channel.h
+> +
+>  ?	gnttab_cache_flush		grant_table.h
+>  !	gnttab_copy			grant_table.h
+>  ?	gnttab_dump_table		grant_table.h
+> @@ -86,9 +94,10 @@
+>  ?	gnttab_get_version		grant_table.h
+>  !	gnttab_get_status_frames	grant_table.h
+>  ?	grant_entry_v1			grant_table.h
+> -?       grant_entry_header              grant_table.h
+> +?	grant_entry_header		grant_table.h
+>  ?	grant_entry_v2			grant_table.h
+>  ?	gnttab_swap_grant_ref		grant_table.h
+> +
+>  !	dm_op_buf			hvm/dm_op.h
+>  ?	dm_op_create_ioreq_server	hvm/dm_op.h
+>  ?	dm_op_destroy_ioreq_server	hvm/dm_op.h
+> @@ -108,15 +117,20 @@
+>  ?	dm_op_set_pci_intx_level	hvm/dm_op.h
+>  ?	dm_op_set_pci_link_route	hvm/dm_op.h
+>  ?	dm_op_track_dirty_vram		hvm/dm_op.h
+> +
+>  !	hvm_altp2m_set_mem_access_multi	hvm/hvm_op.h
+> +
+>  ?	vcpu_hvm_context		hvm/hvm_vcpu.h
+>  ?	vcpu_hvm_x86_32			hvm/hvm_vcpu.h
+>  ?	vcpu_hvm_x86_64			hvm/hvm_vcpu.h
+> +
+>  ?	hypfs_direntry			hypfs.h
+>  ?	hypfs_dirlistentry		hypfs.h
+> +
+>  ?	kexec_exec			kexec.h
+>  !	kexec_image			kexec.h
+>  !	kexec_range			kexec.h
+> +
+>  !	add_to_physmap			memory.h
+>  !	add_to_physmap_batch		memory.h
+>  !	foreign_memory_map		memory.h
+> @@ -130,6 +144,7 @@
+>  !	reserved_device_memory_map	memory.h
+>  ?	vmemrange			memory.h
+>  !	vnuma_topology_info		memory.h
+> +
+>  ?	physdev_eoi			physdev.h
+>  ?	physdev_get_free_pirq		physdev.h
+>  ?	physdev_irq			physdev.h
+> @@ -143,6 +158,7 @@
+>  ?	physdev_restore_msi		physdev.h
+>  ?	physdev_set_iopl		physdev.h
+>  ?	physdev_setup_gsi		physdev.h
+> +
+>  !	pct_register			platform.h
+>  !	power_register			platform.h
+>  ?	processor_csd			platform.h
+> @@ -158,23 +174,30 @@
+>  ?	xenpf_pcpu_version		platform.h
+>  ?	xenpf_resource_entry		platform.h
+>  ?	xenpf_ucode_revision		platform.h
+> +
+>  ?	pmu_data			pmu.h
+>  ?	pmu_params			pmu.h
+> +
+>  !	sched_poll			sched.h
+>  ?	sched_pin_override		sched.h
+>  ?	sched_remote_shutdown		sched.h
+>  ?	sched_shutdown			sched.h
+> +
+>  ?	t_buf				trace.h
+> +
+>  ?	vcpu_get_physid			vcpu.h
+>  ?	vcpu_register_vcpu_info		vcpu.h
+>  !	vcpu_runstate_info		vcpu.h
+>  ?	vcpu_set_periodic_timer		vcpu.h
+>  !	vcpu_set_singleshot_timer	vcpu.h
+> -?	build_id                        version.h
+> -?	compile_info                    version.h
+> -?	feature_info                    version.h
+> +
+> +?	build_id			version.h
 
-Regressions :-(
+This is misaligned after this patch. You might want to fix this on
+commit.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                     <job status>                 broken
- build-amd64-pvops               <job status>                 broken
- build-amd64-xsm                 <job status>                 broken
- build-i386                      <job status>                 broken
- build-i386-pvops                <job status>                 broken
- build-i386-xsm                  <job status>                 broken
- build-amd64-pvops             5 host-build-prep          fail REGR. vs. 185309
- build-amd64-xsm               5 host-build-prep          fail REGR. vs. 185309
- build-i386                    5 host-build-prep          fail REGR. vs. 185309
- build-amd64                   5 host-build-prep          fail REGR. vs. 185309
- build-i386-xsm                5 host-build-prep          fail REGR. vs. 185309
- build-i386-pvops              5 host-build-prep          fail REGR. vs. 185309
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
-
-version targeted for testing:
- ovmf                 0707d9296d7536c5baf43b23d70eafce10b1ab03
-baseline version:
- ovmf                 98f150a954b35cc74bd87ae355cf35d8c9e1580d
-
-Last test of basis   185309  2024-04-11 08:11:11 Z    4 days
-Failing since        185603  2024-04-15 13:42:34 Z    0 days    2 attempts
-Testing same since   185617  2024-04-15 17:41:09 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Gahan Saraiya <gahan.saraiya@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Qingyu <qingyu.shang@intel.com>
-  Wei6 Xu <wei6.xu@intel.com>
-
-jobs:
- build-amd64-xsm                                              broken  
- build-i386-xsm                                               broken  
- build-amd64                                                  broken  
- build-i386                                                   broken  
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            broken  
- build-i386-pvops                                             broken  
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-amd64 broken
-broken-job build-amd64-pvops broken
-broken-job build-amd64-xsm broken
-broken-job build-i386 broken
-broken-job build-i386-pvops broken
-broken-job build-i386-xsm broken
-
-Not pushing.
-
-------------------------------------------------------------
-commit 0707d9296d7536c5baf43b23d70eafce10b1ab03
-Author: Wei6 Xu <wei6.xu@intel.com>
-Date:   Fri Apr 12 15:14:40 2024 +0800
-
-    SecurityPkg/Tcg2Config: Hide BIOS unsupported hash algorithm from UI
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4731
-    
-    TCG2 configuration UI shows all the hash algorithms that TPM hardware
-    supports in the checkbox. If user only selects one algorithm that is
-    supported by TPM hardware but not supported by BIOS and uncheck the
-    others, the SyncPcrAllocationsAndPcrMask in Tcg2Pei will not be able
-    to decide a viable PCR to activate, then an assert occurs.
-    
-    Add check against PcdTcg2HashAlgorithmBitmap when deciding whether
-    to suppress the hash algorithm checkbox to avoid user to select the
-    hash algorithm which may cause an assert.
-    
-    Cc: Rahul Kumar <rahul1.kumar@intel.com>
-    Cc: Jiewen Yao <jiewen.yao@intel.com>
-    Signed-off-by: Wei6 Xu <wei6.xu@intel.com>
-    Reviewed-by: Rahul Kumar <rahul1.kumar@intel.com>
-    Acked-by: Jiewen Yao <jiewen.yao@intel.com>
-
-commit e25808f5018ea601d0adf1d6d10c1cb3cb6a050b
-Author: Qingyu <qingyu.shang@intel.com>
-Date:   Mon Apr 8 16:56:47 2024 +0800
-
-    MdePkg: Update the comments of GetInformation function
-    
-    Refer to Uefi spec 2.10 section 11.11.2, add a new retval
-    EFI_NOT_FOUND to EFI_ADAPTER_INFORMATION_PROTOCOL.GetInformation().
-    Reference: [mantis #1866] - GetInfo() of Adapter Information
-    Protocol should have a provision for IHV to return no data.
-    
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-    Signed-off-by: Qingyu <qingyu.shang@intel.com>
-    Signed-off-by: Gahan Saraiya <gahan.saraiya@intel.com>
+> +?	compile_info			version.h
+> +?	feature_info			version.h
+> +
+>  ?	xenoprof_init			xenoprof.h
+>  ?	xenoprof_passive		xenoprof.h
+> +
+>  ?	flask_access			xsm/flask_op.h
+>  ?	flask_cache_stats		xsm/flask_op.h
+>  ?	flask_hash_stats		xsm/flask_op.h
+> 
+> base-commit: c0f890cd9d5fd2c17a1e3110cb26f98c90ce8429
+> -- 
+> 2.30.2
+> 
 
