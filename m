@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A482B8A56B0
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 17:43:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706353.1103484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB5FA8A56B8
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 17:45:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706368.1103503 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwOU6-00019f-MN; Mon, 15 Apr 2024 15:43:06 +0000
+	id 1rwOVy-0004DO-WD; Mon, 15 Apr 2024 15:45:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706353.1103484; Mon, 15 Apr 2024 15:43:06 +0000
+Received: by outflank-mailman (output) from mailman id 706368.1103503; Mon, 15 Apr 2024 15:45:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwOU6-00011k-I3; Mon, 15 Apr 2024 15:43:06 +0000
-Received: by outflank-mailman (input) for mailman id 706353;
- Mon, 15 Apr 2024 15:43:04 +0000
+	id 1rwOVy-0004BF-Sm; Mon, 15 Apr 2024 15:45:02 +0000
+Received: by outflank-mailman (input) for mailman id 706368;
+ Mon, 15 Apr 2024 15:45:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YQk4=LU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rwOU4-0000Nb-FT
- for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 15:43:04 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ id 1rwOVx-0004B3-55
+ for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 15:45:01 +0000
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [2607:f8b0:4864:20::72c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d816c462-fb3e-11ee-94a3-07e782e9044d;
- Mon, 15 Apr 2024 17:43:02 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a51a1c8d931so433377066b.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Apr 2024 08:43:02 -0700 (PDT)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
+ id 1d3596b9-fb3f-11ee-94a3-07e782e9044d;
+ Mon, 15 Apr 2024 17:44:59 +0200 (CEST)
+Received: by mail-qk1-x72c.google.com with SMTP id
+ af79cd13be357-78d62c1e82bso234576385a.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Apr 2024 08:44:59 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- jz1-20020a17090775e100b00a526457fc84sm1987261ejc.57.2024.04.15.08.43.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Apr 2024 08:43:01 -0700 (PDT)
+ vr12-20020a05620a55ac00b0078d66d66d82sm6486438qkn.30.2024.04.15.08.44.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Apr 2024 08:44:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +45,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d816c462-fb3e-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 1d3596b9-fb3f-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713195782; x=1713800582; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KwG/SvK+aur9Ak8+5b+UV8UOo2svZqs0RzBYX+mlEmk=;
-        b=cSap+eBzM4wuLz1xzGg2b6LMSWdzJ6spEEbH7O38LUPvurWI7dwaWJXPfrRbwYo+wd
-         NjsrsAm2/Hdg0MToTM7zMYNmM9KPLqq9x6xzHWhEvBAoxwp5aFpBUU6YfS9ZlFLklv3S
-         /GZ7RsIm+UO69br4eUW6ar6tHsqjlw6Cj2exQ=
+        d=citrix.com; s=google; t=1713195898; x=1713800698; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xvgYPJor+nMjPwufBPfMFWQzpGzB33ttrY3LeKBdFwE=;
+        b=LvdJ15D/1TDh5YN/cxWYiK84rD97onUJY5nsslTUfKKFySLPzXzj3Fl+FV53zgDq+a
+         WcwSA4HAk4bsg9xm1KAUiI4YMBKZLoCQ1W8HSNRAsYTDF41Tckd4mkEfV1hxq3XDKJQp
+         rYwfKMxezv5dbloD/UYNjH9bvMWILHhcsIwZM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713195782; x=1713800582;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=KwG/SvK+aur9Ak8+5b+UV8UOo2svZqs0RzBYX+mlEmk=;
-        b=wJxvUGhAe8zzxI++kVQp2MdnphLWRgG9RJTarKQSqnoZLQ8IamEbUYtKJiJX032j+D
-         YdcKq5jlWQWifqk2Q7uD35TTUcTzp9ri06n5YacKPemBBKx25/HFxqFhgukBi096SFw9
-         Sjl96iLgbt3SGU6YxsRYRKVJDpT4v5b9k9ZEzbemPaVmsYG/qi8Y8odopYrBjXaoSQG5
-         YJgisLd7OgA/ft0MayWijEZAWB156jqC0ChfF0ONBA+a5EyQTpvmWUq/XJyUrLavGoSC
-         oL+b8sv5nvVFGj/9NwcDTmbiMafTqGm0KEfdrSN0nLMTcwv/hjpP/yKQNiodSSMqnVq+
-         +8kA==
-X-Gm-Message-State: AOJu0YwAzuLMDhSZlRJL3IiVxUhVwUveieo2kKn2SAqHi+9sZOtKzdIS
-	XZ+5wVCxVwPDr2B1/347VddB4Pie9Cpa4XPq47cN/LLGC+cFMiDi9MXMAizd6DRkDj3u0SiPewR
-	wBlo=
-X-Google-Smtp-Source: AGHT+IFMRTgoBO75/F6759VTwv2svqgv1NIVz46T3NVo7ac4Ptoecbeo+nDmHrqX5jUOSMk/mP+cCw==
-X-Received: by 2002:a17:907:d2a:b0:a52:2f19:f1d7 with SMTP id gn42-20020a1709070d2a00b00a522f19f1d7mr7217919ejc.53.1713195781801;
-        Mon, 15 Apr 2024 08:43:01 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <George.Dunlap@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>
-Subject: [PATCH 4/4] xen/public: Use -Wpadding for public headers
-Date: Mon, 15 Apr 2024 16:41:55 +0100
-Message-Id: <20240415154155.2718064-5-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20240415154155.2718064-1-andrew.cooper3@citrix.com>
-References: <20240415154155.2718064-1-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1713195898; x=1713800698;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xvgYPJor+nMjPwufBPfMFWQzpGzB33ttrY3LeKBdFwE=;
+        b=geF1ODER/j7+welyxjaNMklfurqCs65qEUJYjq4n7pHs8/M4HN44TRT6MQ7xqYUMzr
+         aAxxxhc40RgX/I/nshZngua+lxzwc01Tmo5tj1DWMLMBJSD/XiWd+JZj5q0VvqV7w+CD
+         beP01c876l/FJIxyuqEufetJ2GtSlWNcae9KqWsYCIokHrYwrJqD5xpyUMvvfz3UsVr0
+         rGbhhhciXWwb8P30VV+W2zMa5ayN7N8NAYuGvbuqNKmxgw/yOpd1sar4yrDP///25j+D
+         ULjod83oIZ/BCgE92VLqU2OzoWBGUAayj5SrXrkIvz7p+dYOaUH/3baF0D0sX8fY3m+3
+         pabA==
+X-Forwarded-Encrypted: i=1; AJvYcCWyrb9E/xWDpcvwzNNk9e752/8KknYIRhHTKoxpskDKs8YraUaOeWWAfRukaRymDIMjlma95+k1nY8TfrkHIaAD4zdpdKRDRpI9hsd2Rww=
+X-Gm-Message-State: AOJu0YwTDyHTMse2NZhZXB+2ZqSTG0vs9T0V2yEZSpjx6YCecmsCS3u0
+	Jg5j9H9tSkhuYGfGIm9EIqk8SyPWULOo+gYrsrkvsgZHziNadUnrsby1zSByQy8=
+X-Google-Smtp-Source: AGHT+IF75a9KArGxbDoygzgkS2/3hsDGaSvipQAz6J2LkUqxaYeYZdUSIEzGuPZFG2iLxqL8VsWoUw==
+X-Received: by 2002:a05:620a:190c:b0:78d:6ae4:6778 with SMTP id bj12-20020a05620a190c00b0078d6ae46778mr14381252qkb.47.1713195898173;
+        Mon, 15 Apr 2024 08:44:58 -0700 (PDT)
+Message-ID: <d62f622b-65b4-4e37-87db-3cc88c89da67@citrix.com>
+Date: Mon, 15 Apr 2024 16:44:55 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] docs/misra: mark the gzip folder as adopted code
+To: Federico Serafini <federico.serafini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>
+References: <2970c1010e227ca1460c5656d13fb87a05d87f29.1713174475.git.federico.serafini@bugseng.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <2970c1010e227ca1460c5656d13fb87a05d87f29.1713174475.git.federico.serafini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-RFC.  In theory this is a great way to avoid some of the spiketraps involved
-with C being the official representation.
+On 15/04/2024 10:56 am, Federico Serafini wrote:
+> Mark the whole gzip folder as adopted code and remove the redundant
+> deviation of file inflate.
+>
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-However, this doesn't build.  gnttab_transfer has a layout that requires a
-CONFIG_COMPAT if we want to satisfy -Wpadding for both forms of the structure.
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Thoughts on whether this cross-check is worthwhile-enough to warrant the
-ifdefary?
+I hadn't realised that we had a special case like this.  Definitely
+better to get rid of it.
 
-~Andrew
----
-CC: George Dunlap <George.Dunlap@citrix.com>
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
----
- xen/common/Makefile              |  1 +
- xen/common/hdr-chk.c             | 13 +++++++++++++
- xen/include/public/grant_table.h |  7 +++++++
- 3 files changed, 21 insertions(+)
- create mode 100644 xen/common/hdr-chk.c
-
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index d512cad5243f..dbbda70829f1 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -15,6 +15,7 @@ obj-y += event_fifo.o
- obj-$(CONFIG_GRANT_TABLE) += grant_table.o
- obj-y += guestcopy.o
- obj-y += gzip/
-+obj-y += hdr-chk.o
- obj-$(CONFIG_HYPFS) += hypfs.o
- obj-$(CONFIG_IOREQ_SERVER) += ioreq.o
- obj-y += irq.o
-diff --git a/xen/common/hdr-chk.c b/xen/common/hdr-chk.c
-new file mode 100644
-index 000000000000..1c7a509dcd06
---- /dev/null
-+++ b/xen/common/hdr-chk.c
-@@ -0,0 +1,13 @@
-+#include <xen/stdint.h>
-+
-+#include <public/xen.h>
-+
-+#pragma GCC diagnostic error "-Wpadded"
-+
-+#include <public/grant_table.h>
-+
-+#ifdef CONFIG_COMPAT
-+
-+#include <compat/grant_table.h>
-+
-+#endif /* CONFIG_COMPAT */
-diff --git a/xen/include/public/grant_table.h b/xen/include/public/grant_table.h
-index 1dfa17a6d02a..a66c77d0166c 100644
---- a/xen/include/public/grant_table.h
-+++ b/xen/include/public/grant_table.h
-@@ -355,6 +355,7 @@ struct gnttab_unmap_grant_ref {
-     grant_handle_t handle;
-     /* OUT parameters. */
-     int16_t  status;              /* => enum grant_status */
-+    uint16_t _pad0;
- };
- typedef struct gnttab_unmap_grant_ref gnttab_unmap_grant_ref_t;
- DEFINE_XEN_GUEST_HANDLE(gnttab_unmap_grant_ref_t);
-@@ -371,6 +372,7 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_unmap_grant_ref_t);
- struct gnttab_setup_table {
-     /* IN parameters. */
-     domid_t  dom;
-+    uint16_t _pad0;
-     uint32_t nr_frames;
-     /* OUT parameters. */
-     int16_t  status;              /* => enum grant_status */
-@@ -409,9 +411,12 @@ struct gnttab_transfer {
-     /* IN parameters. */
-     xen_pfn_t     mfn;
-     domid_t       domid;
-+    uint16_t      _pad0;
-     grant_ref_t   ref;
-     /* OUT parameters. */
-     int16_t       status;
-+    uint16_t      _pad1;
-+    /* XXX compat-dependent padding. */
- };
- typedef struct gnttab_transfer gnttab_transfer_t;
- DEFINE_XEN_GUEST_HANDLE(gnttab_transfer_t);
-@@ -468,10 +473,12 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_copy_t);
- struct gnttab_query_size {
-     /* IN parameters. */
-     domid_t  dom;
-+    uint16_t _ign1;
-     /* OUT parameters. */
-     uint32_t nr_frames;
-     uint32_t max_nr_frames;
-     int16_t  status;              /* => enum grant_status */
-+    uint16_t _ign2;
- };
- typedef struct gnttab_query_size gnttab_query_size_t;
- DEFINE_XEN_GUEST_HANDLE(gnttab_query_size_t);
--- 
-2.30.2
-
+I've pulled this into my `for-next` branch, and will get it committed
+properly when OSSTest (our non-gitlab CI) is in a happier state.
 
