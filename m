@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B9588A4C19
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 12:00:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.705964.1102938 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFF928A4C3A
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 12:09:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.705989.1102967 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwJ88-0000ti-NR; Mon, 15 Apr 2024 10:00:04 +0000
+	id 1rwJGn-0003af-R3; Mon, 15 Apr 2024 10:09:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 705964.1102938; Mon, 15 Apr 2024 10:00:04 +0000
+Received: by outflank-mailman (output) from mailman id 705989.1102967; Mon, 15 Apr 2024 10:09:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwJ88-0000qq-JH; Mon, 15 Apr 2024 10:00:04 +0000
-Received: by outflank-mailman (input) for mailman id 705964;
- Mon, 15 Apr 2024 10:00:03 +0000
+	id 1rwJGn-0003YB-OD; Mon, 15 Apr 2024 10:09:01 +0000
+Received: by outflank-mailman (input) for mailman id 705989;
+ Mon, 15 Apr 2024 10:09:01 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rwJ87-0000iQ-Ta; Mon, 15 Apr 2024 10:00:03 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1rwJGm-0003Y3-VC
+ for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 10:09:00 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rwJ87-0001AQ-NX; Mon, 15 Apr 2024 10:00:03 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rwJ87-0006iE-By; Mon, 15 Apr 2024 10:00:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rwJ87-0007ms-BU; Mon, 15 Apr 2024 10:00:03 +0000
+ (envelope-from <julien@xen.org>)
+ id 1rwJGj-0001Iv-9X; Mon, 15 Apr 2024 10:08:57 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rwJGj-0006Fw-2j; Mon, 15 Apr 2024 10:08:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,204 +39,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Gnp2WYkhfgALUbRMCQZHM9GlepJRn0J+VP9nS1SkKJo=; b=E84La6Yy6apJx+MkutkVNv7OHv
-	nbbnt2eBuU88WxalZoOt/0QUAKB34Gg4lWr0DZu+FSkNApgLrwC8jNrmBgD3ZFoS4B5bcdLjNlNZ2
-	L4yYLRBlYfkVbfUN2mw/pd8j3BfmJEF/+N0suyrZXBH3EKRezFPzi88GuDMfZFdUVKDU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185570-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=dIaWQQZs2fsTANAS4jPGCYoKnZwQYqLmbpUD8bHQ2Xs=; b=t09dDVpsU8N6+hBitCtE4Xkja3
+	YjPfeYxrP7Z8kSHryk6Y6BCFOuLyQxt9c0sU9+phPu/YQBpsoYjfdOjf2WxE8LD5aTfF8B7iKq5au
+	NNc3/Fm9bAnZ33Myr1hbrbDmhkoldAfrt5k8PfEvxvgEkiXVV61RUAw4fzaF7vSxxO/Y=;
+Message-ID: <02401844-98d1-442c-8bd5-1e5c192ddb21@xen.org>
+Date: Mon, 15 Apr 2024 11:08:55 +0100
 MIME-Version: 1.0
-Subject: [libvirt test] 185570: regressions - trouble: blocked/broken
-X-Osstest-Failures:
-    libvirt:build-amd64:<job status>:broken:regression
-    libvirt:build-amd64-pvops:<job status>:broken:regression
-    libvirt:build-amd64-xsm:<job status>:broken:regression
-    libvirt:build-arm64:<job status>:broken:regression
-    libvirt:build-arm64-pvops:<job status>:broken:regression
-    libvirt:build-arm64-xsm:<job status>:broken:regression
-    libvirt:build-armhf:<job status>:broken:regression
-    libvirt:build-armhf-pvops:<job status>:broken:regression
-    libvirt:build-i386:<job status>:broken:regression
-    libvirt:build-i386-pvops:<job status>:broken:regression
-    libvirt:build-i386-xsm:<job status>:broken:regression
-    libvirt:build-i386-pvops:host-build-prep:fail:regression
-    libvirt:build-amd64-pvops:host-build-prep:fail:regression
-    libvirt:build-amd64-xsm:host-build-prep:fail:regression
-    libvirt:build-armhf-pvops:host-build-prep:fail:regression
-    libvirt:build-i386-xsm:host-build-prep:fail:regression
-    libvirt:build-amd64:host-build-prep:fail:regression
-    libvirt:build-i386:host-build-prep:fail:regression
-    libvirt:build-arm64-xsm:host-build-prep:fail:regression
-    libvirt:build-arm64-pvops:host-build-prep:fail:regression
-    libvirt:build-arm64:host-build-prep:fail:regression
-    libvirt:build-armhf:host-build-prep:fail:regression
-    libvirt:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:build-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:build-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:build-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=a4972778f97ae667a02bbbecdeabb912506fa2cf
-X-Osstest-Versions-That:
-    libvirt=812a146dfe784315edece43d09f8d9e432f8230e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 15 Apr 2024 10:00:03 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] docs: add xen_ulong_t to the documented integers
+ sizes/alignments
+Content-Language: en-GB
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Julien Grall <julien.grall.oss@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <alpine.DEB.2.22.394.2404101644130.976094@ubuntu-linux-20-04-desktop>
+ <20240410234740.994001-1-stefano.stabellini@amd.com>
+ <CAJ=z9a3zMaSLSS0mfKT8dngVwrESycSspy8LnW4FZV6hdu_AAw@mail.gmail.com>
+ <alpine.DEB.2.22.394.2404111454570.997881@ubuntu-linux-20-04-desktop>
+ <CAJ=z9a2gOTLy2B7y9bELQHPhFmCpU2nhyV5zy9_uQvsvx5prqw@mail.gmail.com>
+ <C8D49EE7-B214-41D5-9556-4D3B98629CEA@arm.com>
+ <CAJ=z9a2ENW-3vh4N59csoeMHeMPGv9XFUuC6GrMTYMKM=FpwgQ@mail.gmail.com>
+ <3C913FB6-0273-476E-908F-9FE95CB3E114@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <3C913FB6-0273-476E-908F-9FE95CB3E114@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 185570 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185570/
+Hi Bertrand,
 
-Regressions :-(
+On 15/04/2024 08:48, Bertrand Marquis wrote:
+> Hi Julien,
+> 
+>> On 12 Apr 2024, at 19:01, Julien Grall <julien.grall.oss@gmail.com> wrote:
+>>
+>>
+>>
+>> On Fri, 12 Apr 2024 at 11:30, Bertrand Marquis <Bertrand.Marquis@arm.com> wrote:
+>> Hi Julien,
+>>
+>>> On 12 Apr 2024, at 15:53, Julien Grall <julien.grall.oss@gmail.com> wrote:
+>>>
+>>>
+>>>
+>>> On Thu, 11 Apr 2024 at 18:08, Stefano Stabellini <sstabellini@kernel.org> wrote:
+>>> On Wed, 10 Apr 2024, Julien Grall wrote:
+>>>> On Wed, 10 Apr 2024 at 19:47, Stefano Stabellini <stefano.stabellini@amd.com> wrote:
+>>>>        xen_ulong_t is widely used in public headers.
+>>>>
+>>>>        Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>>>>        ---
+>>>>
+>>>>        Given that xen_ulong_t is used in public headers there could be a better
+>>>>        place for documenting it but this was the most straightforward to add.
+>>>>        ---
+>>>>         docs/misra/C-language-toolchain.rst | 11 +++++++++++
+>>>>         1 file changed, 11 insertions(+)
+>>>>
+>>>>        diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-toolchain.rst
+>>>>        index 5ddfe7bdbe..7a334260e6 100644
+>>>>        --- a/docs/misra/C-language-toolchain.rst
+>>>>        +++ b/docs/misra/C-language-toolchain.rst
+>>>>        @@ -531,6 +531,17 @@ A summary table of data types, sizes and alignment is below:
+>>>>              - 64 bits
+>>>>              - x86_64, ARMv8-A AArch64, RV64, PPC64
+>>>>
+>>>>        +   * - xen_ulong_t
+>>>>        +     - 32 bits
+>>>>        +     - 32 bits
+>>>>        +     - x86_32
+>>>>        +
+>>>>        +   * - xen_ulong_t
+>>>>        +     - 64 bits
+>>>>        +     - 64 bits
+>>>>        +     - x86_64, ARMv8-A AArch64, RV64, PPC64, ARMv8-A AArch32, ARMv8-R
+>>>>        +       AArch32, ARMv7-A
+>>>>
+>>>>
+>>>> We support neither ARMv8-R nor ARMv8-A Aarch32.
+>>>>
+>>>> I could possibly accept the latter because it works to. But the former is so far misleading.
+>>>
+>>> Yes I think you are right. Moreover this document
+>>> (C-language-toolchain.rst) is meant for the Xen build. While this patch
+>>> is trying to document the types used in the public headers for the
+>>> external-facing ABI.
+>>>
+>>> I'll move the information this patch is adding to a separate document,
+>>> specific to the public headers. I will only add the architectures
+>>> currently working: I'll add ARMv8-A Aarch32 because although it is
+>>> unsupported it is interesting to know the size of xen_ulong_t for
+>>> aarch32 in the public headers. I will remove ARMv8-R as it is not
+>>> available upstream.
+>>>
+>>> Thinking a bit more. What about Armv9? Rather than listing each version, should we instead use ARMv7-A aarch32 and later, ARMv8-A aarch64 and later?
+>>
+>> Definitely you are right here but as for Armv8-R, Armv9 is not something that we explicitely support right now (even though it should work).
+>>
+>> I am confused with the comparison. I thought you can’t boot Xen at all on Armv8-R. But you can on Armv9-A as this just Armv8-A + features the software don’t need to use.
+>>
+>> Did you intend to draw the comparison with Armv8-A Aarch32?
+> 
+> Yes in my mind armv9 even if currently working it is not something officially supported so it is in the same state as armv8 aarch32.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                     <job status>                 broken
- build-amd64-pvops               <job status>                 broken
- build-amd64-xsm                 <job status>                 broken
- build-arm64                     <job status>                 broken
- build-arm64-pvops               <job status>                 broken
- build-arm64-xsm                 <job status>                 broken
- build-armhf                     <job status>                 broken
- build-armhf-pvops               <job status>                 broken
- build-i386                      <job status>                 broken
- build-i386-pvops                <job status>                 broken
- build-i386-xsm                  <job status>                 broken
- build-i386-pvops              5 host-build-prep          fail REGR. vs. 185412
- build-amd64-pvops             5 host-build-prep          fail REGR. vs. 185412
- build-amd64-xsm               5 host-build-prep          fail REGR. vs. 185412
- build-armhf-pvops             5 host-build-prep          fail REGR. vs. 185412
- build-i386-xsm                5 host-build-prep          fail REGR. vs. 185412
- build-amd64                   5 host-build-prep          fail REGR. vs. 185412
- build-i386                    5 host-build-prep          fail REGR. vs. 185412
- build-arm64-xsm               5 host-build-prep          fail REGR. vs. 185412
- build-arm64-pvops             5 host-build-prep          fail REGR. vs. 185412
- build-arm64                   5 host-build-prep          fail REGR. vs. 185412
- build-armhf                   5 host-build-prep          fail REGR. vs. 185412
+AFAICT, Stefano said he will add ARMv8-A AArch32, so we should be 
+consistent and add Armv9-A in the list.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-arm64-libvirt           1 build-check(1)               blocked  n/a
- build-armhf-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-vhd  1 build-check(1)               blocked  n/a
+Cheers,
 
-version targeted for testing:
- libvirt              a4972778f97ae667a02bbbecdeabb912506fa2cf
-baseline version:
- libvirt              812a146dfe784315edece43d09f8d9e432f8230e
-
-Last test of basis   185412  2024-04-13 04:19:07 Z    2 days
-Testing same since   185482  2024-04-14 04:19:08 Z    1 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Michal Privoznik <mprivozn@redhat.com>
-
-jobs:
- build-amd64-xsm                                              broken  
- build-arm64-xsm                                              broken  
- build-i386-xsm                                               broken  
- build-amd64                                                  broken  
- build-arm64                                                  broken  
- build-armhf                                                  broken  
- build-i386                                                   broken  
- build-amd64-libvirt                                          blocked 
- build-arm64-libvirt                                          blocked 
- build-armhf-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            broken  
- build-arm64-pvops                                            broken  
- build-armhf-pvops                                            broken  
- build-i386-pvops                                             broken  
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-amd64-libvirt-qcow2                               blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-amd64-amd64-libvirt-raw                                 blocked 
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
- test-armhf-armhf-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-amd64 broken
-broken-job build-amd64-pvops broken
-broken-job build-amd64-xsm broken
-broken-job build-arm64 broken
-broken-job build-arm64-pvops broken
-broken-job build-arm64-xsm broken
-broken-job build-armhf broken
-broken-job build-armhf-pvops broken
-broken-job build-i386 broken
-broken-job build-i386-pvops broken
-broken-job build-i386-xsm broken
-
-Not pushing.
-
-------------------------------------------------------------
-commit a4972778f97ae667a02bbbecdeabb912506fa2cf
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Fri Apr 12 17:45:16 2024 +0200
-
-    vbox: Drop needless g_new0(..., 0) in vbox_snapshot_conf.c
-    
-    clang on Fedora started to complain about some calls to g_new0()
-    we're making in vbox_snapshot_conf.c. Specifically, we're passing
-    zero as number of elements to allocate. And while usually SA
-    tools are not clever, in this specific case clang is right.
-    There are three cases where such call is made, but all of them
-    later use VIR_EXPAND_N() to allocate more memory (if needed). But
-    VIR_EXPAND_N() accepts a variable set to NULL happily.
-    
-    Therefore, just drop those three calls to g_new0(..., 0) and let
-    VIR_EXPAND_N() allocate memory.
-    
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Pavel Hrdina <phrdina@redhat.com>
+-- 
+Julien Grall
 
