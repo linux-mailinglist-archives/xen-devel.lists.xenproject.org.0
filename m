@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E55408A4DCD
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 13:35:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706086.1103123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6407A8A4DFA
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Apr 2024 13:47:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706097.1103140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwKcA-000487-IT; Mon, 15 Apr 2024 11:35:10 +0000
+	id 1rwKnD-0007GB-PJ; Mon, 15 Apr 2024 11:46:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706086.1103123; Mon, 15 Apr 2024 11:35:10 +0000
+Received: by outflank-mailman (output) from mailman id 706097.1103140; Mon, 15 Apr 2024 11:46:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwKcA-00043w-FZ; Mon, 15 Apr 2024 11:35:10 +0000
-Received: by outflank-mailman (input) for mailman id 706086;
- Mon, 15 Apr 2024 11:35:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rwKnD-0007De-MC; Mon, 15 Apr 2024 11:46:35 +0000
+Received: by outflank-mailman (input) for mailman id 706097;
+ Mon, 15 Apr 2024 11:46:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rwKc8-00041i-7M; Mon, 15 Apr 2024 11:35:08 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rwKc7-0002un-RJ; Mon, 15 Apr 2024 11:35:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rwKc7-0002Re-KC; Mon, 15 Apr 2024 11:35:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rwKc7-0001fE-Ik; Mon, 15 Apr 2024 11:35:07 +0000
+ (envelope-from <SRS0=vrLP=LU=tesarici.cz=petr@srs-se1.protection.inumbo.net>)
+ id 1rwKnB-0007DY-Fy
+ for xen-devel@lists.xenproject.org; Mon, 15 Apr 2024 11:46:34 +0000
+Received: from bee.tesarici.cz (bee.tesarici.cz [37.205.15.56])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cceb7dd2-fb1d-11ee-94a3-07e782e9044d;
+ Mon, 15 Apr 2024 13:46:31 +0200 (CEST)
+Received: from meshulam.tesarici.cz
+ (dynamic-2a00-1028-83b8-1e7a-4427-cc85-6706-c595.ipv6.o2.cz
+ [IPv6:2a00:1028:83b8:1e7a:4427:cc85:6706:c595])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by bee.tesarici.cz (Postfix) with ESMTPSA id 937051BE456;
+ Mon, 15 Apr 2024 13:46:29 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,690 +44,312 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=56BOysGBFfXg7Okze1/0Eul/IRbsm/awu0/yVk1oI80=; b=zJ1SP7EEooHvH/naahXYG5c4Ya
-	Lw1fnB3QAgB8EByfIFUgoNALkBi0zqESKsGhut5x3mCn76Rw8RhcjceLRrVck8YlZAsdA9GjbFmbF
-	mL60I7KxXZ70glP5u01la6SAjr2ndGuraUpjxJka0W7BhLiWWNpgw4Z3vg91K6Ae/zCQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185577-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: cceb7dd2-fb1d-11ee-94a3-07e782e9044d
+Authentication-Results: mail.tesarici.cz; dmarc=fail (p=quarantine dis=none) header.from=tesarici.cz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tesarici.cz; s=mail;
+	t=1713181589; bh=6j5xRYISiB35jRs4z/V94pxAMYRgG8FouSQ6Gey8Ras=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=yiHirDFDDRGZbAivR7MRW8qcl9uOsM+BCXC9xom1IZLeJX26bj3IuO4T8TdrBoJbS
+	 BBkNtuvRs2DQujkKXz4fYGRMfgFvK2EElFoGLRO6hXvL5m11EJw7knCEG9iwKP/9nh
+	 Q9/kKZkmfEILfBCguLRnvViLvU6qhURbuuBUGOw8RpQF917InGamhrVhExSyqipPSE
+	 t+r6738rFTmAM22Eb+RfDdTl5yvoj3OxhRM966CefVgYq764URk0ZGjCOzgU0InWRk
+	 M8jPlC8NjwU/ccQkSjXqx5zVD3hsijJQD9VrspvAaNqstUG8fTgYUieY83LqoDYdph
+	 BFWwoAJXpgwmg==
+Date: Mon, 15 Apr 2024 13:46:24 +0200
+From: Petr =?UTF-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
+To: mhkelley58@gmail.com
+Cc: mhklinux@outlook.com, robin.murphy@arm.com, joro@8bytes.org,
+ will@kernel.org, jgross@suse.com, sstabellini@kernel.org,
+ oleksandr_tyshchenko@epam.com, hch@lst.de, m.szyprowski@samsung.com,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org, roberto.sassu@huaweicloud.com
+Subject: Re: [PATCH 1/2] swiotlb: Remove alloc_size argument to
+ swiotlb_tbl_map_single()
+Message-ID: <20240415134624.22092bb0@meshulam.tesarici.cz>
+In-Reply-To: <20240408041142.665563-1-mhklinux@outlook.com>
+References: <20240408041142.665563-1-mhklinux@outlook.com>
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 185577: regressions - trouble: blocked/broken/queued/running
-X-Osstest-Failures:
-    linux-5.4:build-amd64:<job status>:broken:regression
-    linux-5.4:build-amd64-pvops:<job status>:broken:regression
-    linux-5.4:build-amd64-xsm:<job status>:broken:regression
-    linux-5.4:build-arm64:<job status>:broken:regression
-    linux-5.4:build-arm64-xsm:<job status>:broken:regression
-    linux-5.4:build-armhf:<job status>:broken:regression
-    linux-5.4:build-armhf-pvops:<job status>:broken:regression
-    linux-5.4:build-i386:<job status>:broken:regression
-    linux-5.4:build-i386-pvops:<job status>:broken:regression
-    linux-5.4:build-i386-xsm:<job status>:broken:regression
-    linux-5.4:build-i386:host-build-prep:fail:regression
-    linux-5.4:build-armhf-pvops:host-build-prep:fail:regression
-    linux-5.4:build-amd64-pvops:host-build-prep:fail:regression
-    linux-5.4:build-amd64-xsm:host-build-prep:fail:regression
-    linux-5.4:build-amd64:host-build-prep:fail:regression
-    linux-5.4:build-i386-pvops:host-build-prep:fail:regression
-    linux-5.4:build-i386-xsm:host-build-prep:fail:regression
-    linux-5.4:build-arm64:host-build-prep:fail:regression
-    linux-5.4:build-arm64-xsm:host-build-prep:fail:regression
-    linux-5.4:build-armhf:host-build-prep:fail:regression
-    linux-5.4:test-arm64-arm64-examine:<none executed>:queued:regression
-    linux-5.4:test-arm64-arm64-libvirt-raw:<none executed>:queued:regression
-    linux-5.4:test-arm64-arm64-libvirt-xsm:<none executed>:queued:regression
-    linux-5.4:test-arm64-arm64-xl:<none executed>:queued:regression
-    linux-5.4:test-arm64-arm64-xl-credit1:<none executed>:queued:regression
-    linux-5.4:test-arm64-arm64-xl-credit2:<none executed>:queued:regression
-    linux-5.4:test-arm64-arm64-xl-thunderx:<none executed>:queued:regression
-    linux-5.4:test-arm64-arm64-xl-vhd:<none executed>:queued:regression
-    linux-5.4:test-arm64-arm64-xl-xsm:<none executed>:queued:regression
-    linux-5.4:build-arm64-pvops:host-build-prep:running:regression
-    linux-5.4:build-arm64-pvops:syslog-server:running:regression
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-coresched-i386-xl:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-coresched-amd64-xl:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-raw:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
-    linux-5.4:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:build-arm64-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:build-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:build-i386-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-dom0pvh-xl-amd:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-dom0pvh-xl-intel:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-examine:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-examine-bios:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-examine-uefi:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-freebsd11-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-freebsd12-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-examine:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-examine-bios:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-examine-uefi:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qcow2:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-pair:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-qemut-rhel6hvm-amd:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-qemut-rhel6hvm-intel:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-qemuu-freebsd10-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-qemuu-freebsd10-i386:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-vhd:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-xl-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-vhd:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-xl-qcow2:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-xl-raw:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    linux=0dbd436fb9908fbb442cb4c6e28044a891360229
-X-Osstest-Versions-That:
-    linux=24489321d0cd5339f9c2da01eb8bf2bccbac7956
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 15 Apr 2024 11:35:07 +0000
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-flight 185577 linux-5.4 running [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185577/
+On Sun,  7 Apr 2024 21:11:41 -0700
+mhkelley58@gmail.com wrote:
 
-Regressions :-(
+> From: Michael Kelley <mhklinux@outlook.com>
+> 
+> Currently swiotlb_tbl_map_single() takes alloc_align_mask and
+> alloc_size arguments to specify an swiotlb allocation that is
+> larger than mapping_size. This larger allocation is used solely
+> by iommu_dma_map_single() to handle untrusted devices that should
+> not have DMA visibility to memory pages that are partially used
+> for unrelated kernel data.
+> 
+> Having two arguments to specify the allocation is redundant. While
+> alloc_align_mask naturally specifies the alignment of the starting
+> address of the allocation, it can also implicitly specify the size
+> by rounding up the mapping_size to that alignment.
+> 
+> Additionally, the current approach has an edge case bug.
+> iommu_dma_map_page() already does the rounding up to compute the
+> alloc_size argument. But swiotlb_tbl_map_single() then calculates
+> the alignment offset based on the DMA min_align_mask, and adds
+> that offset to alloc_size. If the offset is non-zero, the addition
+> may result in a value that is larger than the max the swiotlb can
+> allocate. If the rounding up is done _after_ the alignment offset is
+> added to the mapping_size (and the original mapping_size conforms to
+> the value returned by swiotlb_max_mapping_size), then the max that the
+> swiotlb can allocate will not be exceeded.
+> 
+> In view of these issues, simplify the swiotlb_tbl_map_single() interface
+> by removing the alloc_size argument. Most call sites pass the same
+> value for mapping_size and alloc_size, and they pass alloc_align_mask
+> as zero. Just remove the redundant argument from these callers, as they
+> will see no functional change. For iommu_dma_map_page() also remove
+> the alloc_size argument, and have swiotlb_tbl_map_single() compute
+> the alloc_size by rounding up mapping_size after adding the offset
+> based on min_align_mask. This has the side effect of fixing the
+> edge case bug but with no other functional change.
+> 
+> Also add a sanity test on the alloc_align_mask. While IOMMU code
+> currently ensures the granule is not larger than PAGE_SIZE, if
+> that guarantee were to be removed in the future, the downstream
+> effect on the swiotlb might go unnoticed until strange allocation
+> failures occurred.
+> 
+> Tested on an ARM64 system with 16K page size and some kernel
+> test-only hackery to allow modifying the DMA min_align_mask and
+> the granule size that becomes the alloc_align_mask. Tested these
+> combinations with a variety of original memory addresses and
+> sizes, including those that reproduce the edge case bug:
+> 
+> * 4K granule and 0 min_align_mask
+> * 4K granule and 0xFFF min_align_mask (4K - 1)
+> * 16K granule and 0xFFF min_align_mask
+> * 64K granule and 0xFFF min_align_mask
+> * 64K granule and 0x3FFF min_align_mask (16K - 1)
+> 
+> With the changes, all combinations pass.
+> 
+> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+> ---
+> I've haven't used any "Fixes:" tags. This patch really should be
+> backported only if all the other recent swiotlb fixes get backported,
+> and I'm unclear on whether that will happen.
+> 
+> I saw the brief discussion about removing the "dir" parameter from
+> swiotlb_tbl_map_single(). That removal could easily be done as part
+> of this patch, since it's already changing the swiotlb_tbl_map_single()
+> parameters. But I think the conclusion of the discussion was to leave
+> the "dir" parameter for symmetry with the swiotlb_sync_*() functions.
+> Please correct me if that's wrong, and I'll respin this patch to do
+> the removal.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                     <job status>                 broken
- build-amd64-pvops               <job status>                 broken
- build-amd64-xsm                 <job status>                 broken
- build-arm64                     <job status>                 broken
- build-arm64-xsm                 <job status>                 broken
- build-armhf                     <job status>                 broken
- build-armhf-pvops               <job status>                 broken
- build-i386                      <job status>                 broken
- build-i386-pvops                <job status>                 broken
- build-i386-xsm                  <job status>                 broken
- build-i386                    5 host-build-prep          fail REGR. vs. 185168
- build-armhf-pvops             5 host-build-prep          fail REGR. vs. 185168
- build-amd64-pvops             5 host-build-prep          fail REGR. vs. 185168
- build-amd64-xsm               5 host-build-prep          fail REGR. vs. 185168
- build-amd64                   5 host-build-prep          fail REGR. vs. 185168
- build-i386-pvops              5 host-build-prep          fail REGR. vs. 185168
- build-i386-xsm                5 host-build-prep          fail REGR. vs. 185168
- build-arm64                   5 host-build-prep          fail REGR. vs. 185168
- build-arm64-xsm               5 host-build-prep          fail REGR. vs. 185168
- build-armhf                   5 host-build-prep          fail REGR. vs. 185168
- test-arm64-arm64-examine        <none executed>              queued
- test-arm64-arm64-libvirt-raw    <none executed>              queued
- test-arm64-arm64-libvirt-xsm    <none executed>              queued
- test-arm64-arm64-xl             <none executed>              queued
- test-arm64-arm64-xl-credit1     <none executed>              queued
- test-arm64-arm64-xl-credit2     <none executed>              queued
- test-arm64-arm64-xl-thunderx    <none executed>              queued
- test-arm64-arm64-xl-vhd         <none executed>              queued
- test-arm64-arm64-xl-xsm         <none executed>              queued
- build-arm64-pvops             5 host-build-prep              running
- build-arm64-pvops             3 syslog-server                running
+Hi Michael,
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
- test-amd64-coresched-i386-xl  1 build-check(1)               blocked  n/a
- test-amd64-coresched-amd64-xl  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-xsm       1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-shadow    1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-rtds      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-raw       1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-amd64-amd64-xl-qemut-ws16-amd64  1 build-check(1)             blocked n/a
- build-arm64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemut-win7-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
- build-armhf-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemut-debianhvm-amd64  1 build-check(1)        blocked n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qcow2     1 build-check(1)               blocked  n/a
- test-amd64-amd64-dom0pvh-xl-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvshim    1 build-check(1)               blocked  n/a
- test-amd64-amd64-dom0pvh-xl-intel  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvhv2-intel  1 build-check(1)               blocked  n/a
- test-amd64-amd64-examine      1 build-check(1)               blocked  n/a
- test-amd64-amd64-examine-bios  1 build-check(1)               blocked  n/a
- test-amd64-amd64-examine-uefi  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvhv2-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-multivcpu  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-credit2   1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-pair         1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-credit1   1 build-check(1)               blocked  n/a
- test-amd64-amd64-pygrub       1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-freebsd11-amd64  1 build-check(1)           blocked n/a
- test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-freebsd12-amd64  1 build-check(1)           blocked n/a
- test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
- test-amd64-i386-examine       1 build-check(1)               blocked  n/a
- test-amd64-i386-examine-bios  1 build-check(1)               blocked  n/a
- test-amd64-i386-examine-uefi  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-amd64-i386-pair          1 build-check(1)               blocked  n/a
- test-amd64-i386-qemut-rhel6hvm-amd  1 build-check(1)               blocked n/a
- test-amd64-i386-qemut-rhel6hvm-intel  1 build-check(1)             blocked n/a
- test-amd64-i386-qemuu-freebsd10-amd64  1 build-check(1)            blocked n/a
- test-amd64-i386-qemuu-freebsd10-i386  1 build-check(1)             blocked n/a
- test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
- test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
- test-amd64-i386-xl            1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-qemut-debianhvm-amd64  1 build-check(1)         blocked n/a
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-xl-qemut-win7-amd64  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-qemut-ws16-amd64  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
- test-amd64-i386-xl-shadow     1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-vhd        1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-xsm        1 build-check(1)               blocked  n/a
- test-armhf-armhf-examine      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-qcow2     1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-raw       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+sorry for taking so long to answer. Yes, there was no agreement on the
+removal of the "dir" parameter, but I'm not sure it's because of
+symmetry with swiotlb_sync_*(), because the topic was not really
+discussed.
 
-version targeted for testing:
- linux                0dbd436fb9908fbb442cb4c6e28044a891360229
-baseline version:
- linux                24489321d0cd5339f9c2da01eb8bf2bccbac7956
+The discussion was about the KUnit test suite and whether direction is
+a property of the bounce buffer or of each sync operation. Since DMA API
+defines associates each DMA buffer with a direction, the direction
+parameter passed to swiotlb_sync_*() should match what was passed to
+swiotlb_tbl_map_single(), because that's how it is used by the generic
+DMA code. In other words, if the parameter is kept, it should be kept
+to match dma_map_*().
 
-Last test of basis   185168  2024-03-26 23:14:28 Z   19 days
-Testing same since   185433  2024-04-13 11:16:55 Z    2 days    5 attempts
+However, there is also symmetry with swiotlb_tbl_unmap_single(). This
+function does use the parameter for the final sync. I believe there
+should be a matching initial sync in swiotlb_tbl_map_single(). In
+short, the buffer sync for DMA non-coherent devices should be moved from
+swiotlb_map() to swiotlb_tbl_map_single(). If this sync is not needed,
+then the caller can (and should) include DMA_ATTR_SKIP_CPU_SYNC in
+the flags parameter.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  "Andrey Jr. Melnikov" <temnota.am@gmail.com>
-  Adrian Hunter <adrian.hunter@intel.com>
-  Alan Stern <stern@rowland.harvard.edu>
-  Aleksandr Burakov <a.burakov@rosalinux.ru>
-  Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-  Alex Deucher <alexander.deucher@amd.com>
-  Alex Henrie <alexhenrie24@gmail.com>
-  Alex Williamson <alex.williamson@redhat.com>
-  Alexandre Chartre <alexandre.chartre@oracle.com>
-  Amit Pundir <amit.pundir@linaro.org>
-  Andi Shyti <andi.shyti@linux.intel.com>
-  Andreas Larsson <andreas@gaisler.com>
-  Andrew Morton <akpm@linux-foundation.org>
-  Andrew Paniakin <apanyaki@amazon.com>
-  Andrey Jr. Melnikov <temnota.am@gmail.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Arend van Spriel <arend.vanspriel@broadcom.com>
-  Aric Cyr <aric.cyr@amd.com>
-  Arnd Bergmann <arnd@arndb.de>
-  Arseniy Krasnov <avkrasnov@salutedevices.com>
-  Aurélien Jacobs <aurel@gnuage.org>
-  Baokun Li <libaokun1@huawei.com>
-  Bart Van Assche <bvanassche@acm.org>
-  Bastien Nocera <hadess@hadess.net>
-  Bjorn Andersson <andersson@kernel.org>
-  Bjorn Helgaas <bhelgaas@google.com>
-  Borislav Petkov (AMD) <bp@alien8.de>
-  Borislav Petkov <bp@suse.de>
-  Camelia Groza <camelia.groza@nxp.com>
-  Cameron Williams <cang1@live.co.uk>
-  Carlo Caione <ccaione@baylibre.com>
-  Casey Schaufler <casey@schaufler-ca.com>
-  Charlie Jenkins <charlie@rivosinc.com>
-  Chris Wilson <chris@chris-wilson.co.uk>
-  Christian Brauner <brauner@kernel.org>
-  Christian Häggström <christian.haggstrom@orexplore.com>
-  Christoph Hellwig <hch@lst.de>
-  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-  Colin Ian King <colin.i.king@gmail.com>
-  Conrad Kostecki <conikost@gentoo.org>
-  Dai Ngo <dai.ngo@oracle.com>
-  Damian Muszynski <damian.muszynski@intel.com>
-  Damien Le Moal <dlemoal@kernel.org>
-  Dan Carpenter <dan.carpenter@linaro.org>
-  Daniel Borkmann <daniel@iogearbox.net>
-  Daniel Drake <drake@endlessos.org>
-  Daniel Vogelbacher <daniel@chaospixel.com>
-  Daniel Wheeler <daniel.wheeler@amd.com>
-  Dave Airlie <airlied@redhat.com>
-  Dave Hansen <dave.hansen@linux.intel.com>
-  Dave Stevenson <dave.stevenson@raspberrypi.org>
-  David Hildenbrand <david@redhat.com>
-  David S. Miller <davem@davemloft.net>
-  David Sterba <dsterba@suse.com>
-  Dirk Behme <dirk.behme@de.bosch.com>
-  Dmitry Antipov <dmantipov@yandex.ru>
-  Dmitry Torokhov <dmitry.torokhov@gmail.com>
-  Dominique Martinet <dominique.martinet@atmark-techno.com>
-  Duje Mihanović <duje.mihanovic@skole.hr>
-  Duoming Zhou <duoming@zju.edu.cn>
-  Edward Adam Davis <eadavis@qq.com>
-  Eric Dumazet <edumazet@google.com>
-  Felix Fietkau <nbd@nbd.name>
-  Filipe Manana <fdmanana@suse.com>
-  Florian Fainelli <florian.fainelli@broadcom.com>
-  Francesco Dolcini <francesco.dolcini@toradex.com>
-  Gabor Juhos <j4g8y7@gmail.com>
-  Genjian Zhang <zhanggenjian@kylinos.cn>
-  Gergo Koteles <soyer@irl.hu>
-  Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-  Goldwyn Rodrigues <rgoldwyn@suse.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Gui-Dong Han <2045gemini@gmail.com>
-  Guilherme G. Piccoli <gpiccoli@igalia.com>
-  Guo Mengqi <guomengqi3@huawei.com>
-  Hangbin Liu <liuhangbin@gmail.com>
-  Hans Verkuil <hverkuil-cisco@xs4all.nl>
-  Harald Freudenberger <freude@linux.ibm.com>
-  Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-  Heiko Carstens <hca@linux.ibm.com>
-  Heiko Stuebner <heiko@sntech.de>
-  Heiner Kallweit <hkallweit1@gmail.com>
-  Helge Deller <deller@gmx.de>
-  Herbert Xu <herbert@gondor.apana.org.au>
-  Hidenori Kobayashi <hidenorik@chromium.org>
-  Hugo Villeneuve <hvilleneuve@dimonoff.com>
-  Hui Wang <hui.wang@canonical.com>
-  I Gede Agastya Darma Laksana <gedeagas22@gmail.com>
-  Ian Abbott <abbotti@mev.co.uk>
-  Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-  Ingo Molnar <mingo@kernel.org>
-  Jacopo Mondi <jacopo@jmondi.org>
-  Jakub Kicinski <kuba@kernel.org>
-  Jakub Sitnicki <jakub@cloudflare.com>
-  Jamal Hadi Salim <jhs@mojatatu.com>
-  Jan Kara <jack@suse.cz>
-  Jani Nikula <jani.nikula@intel.com>
-  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-  Jens Axboe <axboe@kernel.dk>
-  Jerome Brunet <jbrunet@baylibre.com>
-  Jian-Hong Pan <jhp@endlessos.org>
-  Joe Perches <joe@perches.com>
-  Johan Hovold <johan@kernel.org>
-  Johan Jonker <jbx6244@gmail.com>
-  Johannes Berg <johannes.berg@intel.com>
-  John Fastabend <john.fastabend@gmail.com>
-  John Ogness <john.ogness@linutronix.de>
-  John Sperbeck <jsperbeck@google.com>
-  Jon Hunter <jonathanh@nvidia.com>
-  Jonathan Cameron <Jonathan.Cameron@huawei.com>
-  Jonathan Corbet <corbet@lwn.net>
-  Josef Bacik <josef@toxicpanda.com>
-  Josh Poimboeuf <jpoimboe@redhat.com>
-  Josua Mayer <josua@solid-run.com>
-  Juergen Gross <jgross@suse.com>
-  Justin Tee <justin.tee@broadcom.com>
-  Kai-Heng Feng <kai.heng.feng@canonical.com>
-  Kailang Yang <kailang@realtek.com>
-  Kalle Valo <kvalo@kernel.org>
-  Kalle Valo <quic_kvalo@quicinc.com>
-  Karthikeyan Ramasubramanian <kramasub@chromium.org>
-  Keerthana K <keerthana.kalyanasundaram@broadcom.com>
-  Kees Cook <keescook@chromium.org>
-  kernelci.org bot <bot@kernelci.org>
-  Kevin Hilman <khilman@baylibre.com>
-  Kim Phillips <kim.phillips@amd.com>
-  Krishna Kurapati <quic_kriskura@quicinc.com>
-  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-  Kuniyuki Iwashima <kuniyu@amazon.com>
-  Kuntal Nayak <kuntal.nayak@broadcom.com>
-  Kunwu Chan <chentao@kylinos.cn>
-  Lin Yujun <linyujun809@huawei.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Liu Shixin <liushixin2@huawei.com>
-  Lubomir Rintel <lkundrak@v3.sk>
-  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-  Mahmoud Adam <mngyadam@amazon.com>
-  Marco Felsch <m.felsch@pengutronix.de>
-  Mark Brown <broonie@kernel.org>
-  Martijn Coenen <maco@android.com>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Masahiro Yamada <masahiroy@kernel.org>
-  Mathias Nyman <mathias.nyman@linux.intel.com>
-  Matthew Wilcox (Oracle) <willy@infradead.org>
-  Maulik Shah <quic_mkshah@quicinc.com>
-  Max Filippov <jcmvbkbc@gmail.com>
-  Maxime Ripard <mripard@kernel.org>
-  Maximilian Heyne <mheyne@amazon.de>
-  Mel Gorman <mgorman@techsingularity.net>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Michael S. Tsirkin <mst@redhat.com>
-  Mike Snitzer <snitzer@kernel.org>
-  Mikko Rapeli <mikko.rapeli@linaro.org>
-  Miklos Szeredi <mszeredi@redhat.com>
-  Mikulas Patocka <mpatocka@redhat.com>
-  Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>
-  Miquel Raynal <miquel.raynal@bootlin.com>
-  Muhammad Usama Anjum <usama.anjum@collabora.com>
-  Nathan Chancellor <nathan@kernel.org>
-  Neil Armstrong <neil.armstrong@linaro.org>
-  Nicolas Pitre <nico@fluxnic.net>
-  Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
-  Niklas Cassel <cassel@kernel.org>
-  Nilesh Javali <njavali@marvell.com>
-  OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-  Oliver Neukum <oneukum@suse.com>
-  Pablo Neira Ayuso <pablo@netfilter.org>
-  Paolo Abeni <pabeni@redhat.com>
-  Paul Barker <paul.barker.ct@bp.renesas.com>
-  Paul Menzel <pmenzel@molgen.mpg.de>
-  Peter Zijlstra (Intel) <peterz@infradead.org>
-  Petr Mladek <pmladek@suse.com>
-  Petre Rodan <petre.rodan@subdimension.ro>
-  Philipp Zabel <p.zabel@pengutronix.de>
-  Piotr Wejman <piotrwejman90@gmail.com>
-  Przemek Kitszel <przemyslaw.kitszel@intel.com>
-  Pucha Himasekhar Reddy <himasekharx.reddy.pucha@intel.com> (A Contingent worker at Intel)
-  Qiang Zhang <qiang4.zhang@intel.com>
-  Qingliang Li <qingliang.li@mediatek.com>
-  Quinn Tran <qutran@marvell.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Rafael J. Wysocki <rafael@kernel.org>
-  Rafal Romanowski <rafal.romanowski@intel.com>
-  Randy Dunlap <rdunlap@infradead.org>
-  Ricardo B. Marliere <ricardo@marliere.net>
-  Richard Weinberger <richard@nod.at>
-  Ricky Wu <ricky_wu@realtek.com>
-  Roberto Sassu <roberto.sassu@huawei.com>
-  Rodrigo Vivi <rodrigo.vivi@intel.com>
-  Roman Smirnov <r.smirnov@omp.ru>
-  Rui Qi <qirui.001@bytedance.com>
-  Ryosuke Yasuoka <ryasuoka@redhat.com>
-  Ryusuke Konishi <konishi.ryusuke@gmail.com>
-  Sakari Ailus <sakari.ailus@linux.intel.com>
-  Samasth Norway Ananda <samasth.norway.ananda@oracle.com>
-  Samuel Thibault <samuel.thibault@ens-lyon.org>
-  Sandipan Das <sandipan.das@amd.com>
-  Sasha Levin <sashal@kernel.org>
-  Sean Anderson <sean.anderson@linux.dev>
-  Sean Anderson <sean.anderson@seco.com>
-  Sean Christopherson <seanjc@google.com>
-  SeongJae Park <sj@kernel.org>
-  Shannon Nelson <shannon.nelson@amd.com>
-  Sherry Sun <sherry.sun@nxp.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Siddh Raman Pant <code@siddh.me>
-  Song Liu <song@kernel.org>
-  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-  Srivathsa Dara <srivathsa.d.dara@oracle.com>
-  Steffen Klassert <steffen.klassert@secunet.com>
-  Stephen Lee <slee08177@gmail.com>
-  Steve Wahl <steve.wahl@hpe.com>
-  Steven Rostedt (Google) <rostedt@goodmis.org>
-  Steven Rostedt <rostedt@goodmis.org>
-  Sumanth Korikkar <sumanthk@linux.ibm.com>
-  Svyatoslav Pankratov <svyatoslav.pankratov@intel.com>
-  syzbot+d4066896495db380182e@syzkaller.appspotmail.com
-  Takashi Iwai <tiwai@suse.de>
-  Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-  Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
-  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-  Theodore Ts'o <tytso@mit.edu>
-  Thomas Gleixner <tglx@linutronix.de>
-  Thomas Zimmermann <tzimmermann@suse.de>
-  Tim Schumacher <timschumi@gmx.de>
-  Toke Høiland-Jørgensen <toke@toke.dk>
-  Tony Nguyen <anthony.l.nguyen@intel.com>
-  Toru Katagiri <Toru.Katagiri@tdk.com>
-  Trond Myklebust <trond.myklebust@hammerspace.com>
-  Ulf Hansson <ulf.hansson@linaro.org>
-  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-  Vasiliy Kovalev <kovalev@altlinux.org>
-  Vasily Gorbik <gor@linux.ibm.com>
-  Vladimir Oltean <vladimir.oltean@nxp.com>
-  Vlastimil Babka <vbabka@suse.cz>
-  William Tu <u9012063@gmail.com>
-  Wolfram Sang <wsa+renesas@sang-engineering.com>
-  Xiao Ni <xni@redhat.com>
-  Yang Jihong <yangjihong1@huawei.com>
-  yangerkun <yangerkun@huawei.com>
-  Yangxi Xiang <xyangxi5@gmail.com>
-  Yonghong Song <yonghong.song@linux.dev>
-  Yu Kuai <yukuai3@huawei.com>
-  yuan linyu <yuanlinyu@hihonor.com>
-  Zhang Shurong <zhang_shurong@foxmail.com>
-  Zhang Yi <yi.zhang@huawei.com>
-  Zheng Wang <zyytlz.wz@163.com>
-  Zhong Jinghua <zhongjinghua@huawei.com>
-  Zi Yan <ziy@nvidia.com>
-  Ziyang Xuan <william.xuanziyang@huawei.com>
+To sum it up:
 
-jobs:
- build-amd64-xsm                                              broken  
- build-arm64-xsm                                              broken  
- build-i386-xsm                                               broken  
- build-amd64                                                  broken  
- build-arm64                                                  broken  
- build-armhf                                                  broken  
- build-i386                                                   broken  
- build-amd64-libvirt                                          blocked 
- build-arm64-libvirt                                          blocked 
- build-armhf-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            broken  
- build-arm64-pvops                                            running 
- build-armhf-pvops                                            broken  
- build-i386-pvops                                             broken  
- test-amd64-amd64-xl                                          blocked 
- test-amd64-coresched-amd64-xl                                blocked 
- test-arm64-arm64-xl                                          queued  
- test-armhf-armhf-xl                                          blocked 
- test-amd64-i386-xl                                           blocked 
- test-amd64-coresched-i386-xl                                 blocked 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        blocked 
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         blocked 
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 blocked 
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 queued  
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-xl-xsm                                      blocked 
- test-arm64-arm64-xl-xsm                                      queued  
- test-amd64-i386-xl-xsm                                       blocked 
- test-amd64-amd64-qemuu-nested-amd                            blocked 
- test-amd64-amd64-xl-pvhv2-amd                                blocked 
- test-amd64-i386-qemut-rhel6hvm-amd                           blocked 
- test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
- test-amd64-amd64-dom0pvh-xl-amd                              blocked 
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    blocked 
- test-amd64-i386-xl-qemut-debianhvm-amd64                     blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
- test-amd64-i386-qemuu-freebsd10-amd64                        blocked 
- test-amd64-amd64-qemuu-freebsd11-amd64                       blocked 
- test-amd64-amd64-qemuu-freebsd12-amd64                       blocked 
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
- test-amd64-amd64-xl-qemut-win7-amd64                         blocked 
- test-amd64-i386-xl-qemut-win7-amd64                          blocked 
- test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
- test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
- test-amd64-amd64-xl-qemut-ws16-amd64                         blocked 
- test-amd64-i386-xl-qemut-ws16-amd64                          blocked 
- test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
- test-armhf-armhf-xl-arndale                                  blocked 
- test-amd64-amd64-examine-bios                                blocked 
- test-amd64-i386-examine-bios                                 blocked 
- test-amd64-amd64-xl-credit1                                  blocked 
- test-arm64-arm64-xl-credit1                                  queued  
- test-armhf-armhf-xl-credit1                                  blocked 
- test-amd64-amd64-xl-credit2                                  blocked 
- test-arm64-arm64-xl-credit2                                  queued  
- test-armhf-armhf-xl-credit2                                  blocked 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
- test-amd64-amd64-examine                                     blocked 
- test-arm64-arm64-examine                                     queued  
- test-armhf-armhf-examine                                     blocked 
- test-amd64-i386-examine                                      blocked 
- test-amd64-i386-qemuu-freebsd10-i386                         blocked 
- test-amd64-amd64-qemuu-nested-intel                          blocked 
- test-amd64-amd64-xl-pvhv2-intel                              blocked 
- test-amd64-i386-qemut-rhel6hvm-intel                         blocked 
- test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
- test-amd64-amd64-dom0pvh-xl-intel                            blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-xl-multivcpu                                blocked 
- test-armhf-armhf-xl-multivcpu                                blocked 
- test-amd64-amd64-pair                                        blocked 
- test-amd64-i386-pair                                         blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-amd64-amd64-xl-pvshim                                   blocked 
- test-amd64-i386-xl-pvshim                                    blocked 
- test-amd64-amd64-pygrub                                      blocked 
- test-amd64-i386-libvirt-qcow2                                blocked 
- test-amd64-amd64-xl-qcow2                                    blocked 
- test-armhf-armhf-xl-qcow2                                    blocked 
- test-arm64-arm64-libvirt-raw                                 queued  
- test-amd64-i386-libvirt-raw                                  blocked 
- test-amd64-amd64-xl-raw                                      blocked 
- test-armhf-armhf-xl-raw                                      blocked 
- test-amd64-amd64-xl-rtds                                     blocked 
- test-armhf-armhf-xl-rtds                                     blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
- test-amd64-amd64-xl-shadow                                   blocked 
- test-amd64-i386-xl-shadow                                    blocked 
- test-arm64-arm64-xl-thunderx                                 queued  
- test-amd64-amd64-examine-uefi                                blocked 
- test-amd64-i386-examine-uefi                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
- test-armhf-armhf-libvirt-vhd                                 blocked 
- test-arm64-arm64-xl-vhd                                      queued  
- test-amd64-i386-xl-vhd                                       blocked 
+* Do *NOT* remove the "dir" parameter.
+* Let me send a patch which moves the initial buffer sync.
 
+Petr T
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>  drivers/iommu/dma-iommu.c |  2 +-
+>  drivers/xen/swiotlb-xen.c |  2 +-
+>  include/linux/swiotlb.h   |  2 +-
+>  kernel/dma/swiotlb.c      | 56
+> +++++++++++++++++++++++++++++---------- 4 files changed, 45
+> insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index 07d087eecc17..c21ef1388499 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
+> @@ -1165,7 +1165,7 @@ static dma_addr_t iommu_dma_map_page(struct
+> device *dev, struct page *page, trace_swiotlb_bounced(dev, phys,
+> size); 
+>  		aligned_size = iova_align(iovad, size);
+> -		phys = swiotlb_tbl_map_single(dev, phys, size,
+> aligned_size,
+> +		phys = swiotlb_tbl_map_single(dev, phys, size,
+>  					      iova_mask(iovad), dir,
+> attrs); 
+>  		if (phys == DMA_MAPPING_ERROR)
+> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> index 1c4ef5111651..6579ae3f6dac 100644
+> --- a/drivers/xen/swiotlb-xen.c
+> +++ b/drivers/xen/swiotlb-xen.c
+> @@ -216,7 +216,7 @@ static dma_addr_t xen_swiotlb_map_page(struct
+> device *dev, struct page *page, */
+>  	trace_swiotlb_bounced(dev, dev_addr, size);
+>  
+> -	map = swiotlb_tbl_map_single(dev, phys, size, size, 0, dir,
+> attrs);
+> +	map = swiotlb_tbl_map_single(dev, phys, size, 0, dir, attrs);
+>  	if (map == (phys_addr_t)DMA_MAPPING_ERROR)
+>  		return DMA_MAPPING_ERROR;
+>  
+> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> index ea23097e351f..14bc10c1bb23 100644
+> --- a/include/linux/swiotlb.h
+> +++ b/include/linux/swiotlb.h
+> @@ -43,7 +43,7 @@ int swiotlb_init_late(size_t size, gfp_t gfp_mask,
+>  extern void __init swiotlb_update_mem_attributes(void);
+>  
+>  phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t
+> phys,
+> -		size_t mapping_size, size_t alloc_size,
+> +		size_t mapping_size,
+>  		unsigned int alloc_aligned_mask, enum
+> dma_data_direction dir, unsigned long attrs);
+>  
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index a5e0dfc44d24..046da973a7e2 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -1340,15 +1340,40 @@ static unsigned long mem_used(struct
+> io_tlb_mem *mem) 
+>  #endif /* CONFIG_DEBUG_FS */
+>  
+> +/**
+> + * swiotlb_tbl_map_single() - bounce buffer map a single contiguous
+> physical area
+> + * @dev:		Device which maps the buffer.
+> + * @orig_addr:		Original (non-bounced) physical IO
+> buffer address
+> + * @mapping_size:	Requested size of the actual bounce buffer,
+> excluding
+> + *			any pre- or post-padding for alignment
+> + * @alloc_align_mask:	Required start and end alignment of the
+> allocated buffer
+> + * @dir:		DMA direction
+> + * @attrs:		Optional DMA attributes for the map
+> operation
+> + *
+> + * Find and allocate a suitable sequence of IO TLB slots for the
+> request.
+> + * The allocated space starts at an alignment specified by
+> alloc_align_mask,
+> + * and the size of the allocated space is rounded up so that the
+> total amount
+> + * of allocated space is a multiple of (alloc_align_mask + 1). If
+> + * alloc_align_mask is zero, the allocated space may be at any
+> alignment and
+> + * the size is not rounded up.
+> + *
+> + * The returned address is within the allocated space and matches
+> the bits
+> + * of orig_addr that are specified in the DMA min_align_mask for the
+> device. As
+> + * such, this returned address may be offset from the beginning of
+> the allocated
+> + * space. The bounce buffer space starting at the returned address
+> for
+> + * mapping_size bytes is initialized to the contents of the original
+> IO buffer
+> + * area. Any pre-padding (due to an offset) and any post-padding
+> (due to
+> + * rounding-up the size) is not initialized.
+> + */
+>  phys_addr_t swiotlb_tbl_map_single(struct device *dev, phys_addr_t
+> orig_addr,
+> -		size_t mapping_size, size_t alloc_size,
+> -		unsigned int alloc_align_mask, enum
+> dma_data_direction dir,
+> -		unsigned long attrs)
+> +		size_t mapping_size, unsigned int alloc_align_mask,
+> +		enum dma_data_direction dir, unsigned long attrs)
+>  {
+>  	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
+>  	unsigned int offset;
+>  	struct io_tlb_pool *pool;
+>  	unsigned int i;
+> +	size_t size;
+>  	int index;
+>  	phys_addr_t tlb_addr;
+>  	unsigned short pad_slots;
+> @@ -1362,20 +1387,24 @@ phys_addr_t swiotlb_tbl_map_single(struct
+> device *dev, phys_addr_t orig_addr, if
+> (cc_platform_has(CC_ATTR_MEM_ENCRYPT)) pr_warn_once("Memory
+> encryption is active and system is using DMA bounce buffers\n"); 
+> -	if (mapping_size > alloc_size) {
+> -		dev_warn_once(dev, "Invalid sizes (mapping: %zd
+> bytes, alloc: %zd bytes)",
+> -			      mapping_size, alloc_size);
+> -		return (phys_addr_t)DMA_MAPPING_ERROR;
+> -	}
+> +	/*
+> +	 * The default swiotlb memory pool is allocated with
+> PAGE_SIZE
+> +	 * alignment. If a mapping is requested with larger
+> alignment,
+> +	 * the mapping may be unable to use the initial slot(s) in
+> all
+> +	 * sets of IO_TLB_SEGSIZE slots. In such case, a mapping
+> request
+> +	 * of or near the maximum mapping size would always fail.
+> +	 */
+> +	dev_WARN_ONCE(dev, alloc_align_mask > ~PAGE_MASK,
+> +		"Alloc alignment may prevent fulfilling requests
+> with max mapping_size\n"); 
+>  	offset = swiotlb_align_offset(dev, alloc_align_mask,
+> orig_addr);
+> -	index = swiotlb_find_slots(dev, orig_addr,
+> -				   alloc_size + offset,
+> alloc_align_mask, &pool);
+> +	size = ALIGN(mapping_size + offset, alloc_align_mask + 1);
+> +	index = swiotlb_find_slots(dev, orig_addr, size,
+> alloc_align_mask, &pool); if (index == -1) {
+>  		if (!(attrs & DMA_ATTR_NO_WARN))
+>  			dev_warn_ratelimited(dev,
+>  	"swiotlb buffer is full (sz: %zd bytes), total %lu (slots),
+> used %lu (slots)\n",
+> -				 alloc_size, mem->nslabs,
+> mem_used(mem));
+> +				 size, mem->nslabs, mem_used(mem));
+>  		return (phys_addr_t)DMA_MAPPING_ERROR;
+>  	}
+>  
+> @@ -1388,7 +1417,7 @@ phys_addr_t swiotlb_tbl_map_single(struct
+> device *dev, phys_addr_t orig_addr, offset &= (IO_TLB_SIZE - 1);
+>  	index += pad_slots;
+>  	pool->slots[index].pad_slots = pad_slots;
+> -	for (i = 0; i < nr_slots(alloc_size + offset); i++)
+> +	for (i = 0; i < (nr_slots(size) - pad_slots); i++)
+>  		pool->slots[index + i].orig_addr =
+> slot_addr(orig_addr, i); tlb_addr = slot_addr(pool->start, index) +
+> offset; /*
+> @@ -1543,8 +1572,7 @@ dma_addr_t swiotlb_map(struct device *dev,
+> phys_addr_t paddr, size_t size, 
+>  	trace_swiotlb_bounced(dev, phys_to_dma(dev, paddr), size);
+>  
+> -	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size,
+> size, 0, dir,
+> -			attrs);
+> +	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size, 0,
+> dir, attrs); if (swiotlb_addr == (phys_addr_t)DMA_MAPPING_ERROR)
+>  		return DMA_MAPPING_ERROR;
+>  
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-amd64 broken
-broken-job build-amd64-pvops broken
-broken-job build-amd64-xsm broken
-broken-job build-arm64 broken
-broken-job build-arm64-xsm broken
-broken-job build-armhf broken
-broken-job build-armhf-pvops broken
-broken-job build-i386 broken
-broken-job build-i386-pvops broken
-broken-job build-i386-xsm broken
-broken-job test-arm64-arm64-examine queued
-broken-job test-arm64-arm64-libvirt-raw queued
-broken-job test-arm64-arm64-libvirt-xsm queued
-broken-job test-arm64-arm64-xl queued
-broken-job test-arm64-arm64-xl-credit1 queued
-broken-job test-arm64-arm64-xl-credit2 queued
-broken-job test-arm64-arm64-xl-thunderx queued
-broken-job test-arm64-arm64-xl-vhd queued
-broken-job test-arm64-arm64-xl-xsm queued
-
-Not pushing.
-
-(No revision log; it would be 6848 lines long.)
 
