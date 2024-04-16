@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF4478A71B1
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 18:51:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707054.1104532 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 580A78A71E5
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 19:04:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707064.1104549 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwm1a-0007n9-TQ; Tue, 16 Apr 2024 16:51:14 +0000
+	id 1rwmDt-0001kK-0l; Tue, 16 Apr 2024 17:03:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707054.1104532; Tue, 16 Apr 2024 16:51:14 +0000
+Received: by outflank-mailman (output) from mailman id 707064.1104549; Tue, 16 Apr 2024 17:03:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwm1a-0007kt-Qa; Tue, 16 Apr 2024 16:51:14 +0000
-Received: by outflank-mailman (input) for mailman id 707054;
- Tue, 16 Apr 2024 16:51:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rwm1Z-0007kj-2c; Tue, 16 Apr 2024 16:51:13 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rwm1Y-0007of-LZ; Tue, 16 Apr 2024 16:51:12 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rwm1Y-0008C4-CE; Tue, 16 Apr 2024 16:51:12 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rwm1Y-0005D7-Bj; Tue, 16 Apr 2024 16:51:12 +0000
+	id 1rwmDs-0001iP-Tx; Tue, 16 Apr 2024 17:03:56 +0000
+Received: by outflank-mailman (input) for mailman id 707064;
+ Tue, 16 Apr 2024 17:03:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=h3dN=LV=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1rwmDs-0001iJ-3h
+ for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 17:03:56 +0000
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c53a9ae-fc13-11ee-94a3-07e782e9044d;
+ Tue, 16 Apr 2024 19:03:52 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1713287027755943.4546068033253;
+ Tue, 16 Apr 2024 10:03:47 -0700 (PDT)
+Received: by mail-yb1-f175.google.com with SMTP id
+ 3f1490d57ef6-dc6d8bd612dso4696904276.1
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Apr 2024 10:03:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +41,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=S78y+4nwLeGxWxsK/K7v7SeYfIMsRU9ig3qnvYtUx88=; b=CH5p1jdAm5D3ZcJUd7tPxZaUuv
-	rtR0hEp2zEaCr72ebF3lKrKclAHaOI48Du/ls7PI/S5mMFZjEPcwQl4vA1MF0vQjjuXIZDTKelROS
-	cemTjLq1SsJuOPFnSk0Lp74Icksl1xIAx3Z6DzEOdsPLlI+1Nle27GQTNx9/Vl5jMwyA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185671-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4c53a9ae-fc13-11ee-94a3-07e782e9044d
+ARC-Seal: i=1; a=rsa-sha256; t=1713287029; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=W2/fh3WAHpzvisyJ1bKbJLyJDlMtM20FfdPzvfFXPpoGZ6Fwqt3dKzIyXJlvJDcXxWHVRCpM+8ccgJ1St6iHCwCZrxOC2LdCzXhyVhx16/iSUufn+7mWYBe+NsWRnWDbH9GCXh42JwiRTvJjrmZ9rJlQ0bVXTcZajaFoSzTQFrI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1713287029; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=7Go4dEzn1Ajd6exfmxX0SEKoPMjpljLqVLm4QQhwmFo=; 
+	b=hpqusrcBgLLa12+sNbobk+SUSjTafDWaTofbaLdi8KeE8yX4Uk+oueA44tiLtaKYNTgwLzf71X7YxpOlQKnuId6fUqP10zMy6TCJSWGXI3yAqJp74KWiC8I4BfAEXs+107rj4unJRYDdb1p1UUWCtHaum1x9XCtB/UVeVMyDshw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1713287029;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=7Go4dEzn1Ajd6exfmxX0SEKoPMjpljLqVLm4QQhwmFo=;
+	b=fL5sa4d/6CzcUKy0CxOKKI/muIlXhfa9sP/RFYAPeHCzUS4mTjcClqt4hDqTwGw3
+	oPKckW5NBhctf1/C8OQi8lvdol11U810dSiYTOBswKjQVUXW0O1EM/8gFjDdoVlErax
+	l9LJPIMqSI+d0BYHIMcqWF4cGtKPnbz+KHfGkZ2k=
+X-Forwarded-Encrypted: i=1; AJvYcCV3ysiqL6zKDg4+Tm7lWTbeGJxdbOs56FInfCNtCRClAK3vGMCmjf6xsQd+DlmO/KRGM8VExk2A1v+9abocj8/1fnIOHid497aml1V/JAo=
+X-Gm-Message-State: AOJu0YxOYggr46n+IDrtAbip72TpL8epiVudlLL1C7EqVcyumj4qkwib
+	4tP8N2uaJu4EGQVl5uQvY6Ug1IT2KyChgZ6C86ds6IumVhISXdFQhQvDEtPU88J1zfmKfFDXn4I
+	NjDJ9DHKcESAAh51t3mcOvNNp20A=
+X-Google-Smtp-Source: AGHT+IFkgvCQJX0/JJjGkjUzRT4x+YettGAbi6GzL6aXS+uv0aQC9A2q1/I9kBzFwcQeUlVCl5bTU25hfPmf0UpeZOs=
+X-Received: by 2002:a25:d84a:0:b0:dcc:8c7d:970d with SMTP id
+ p71-20020a25d84a000000b00dcc8c7d970dmr12973690ybg.47.1713287026638; Tue, 16
+ Apr 2024 10:03:46 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [ovmf test] 185671: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=fcfdbe29874320e9f876baa7afebc3fca8f4a7df
-X-Osstest-Versions-That:
-    ovmf=b6cd5ddce9ade43e4215836f12b43ebbb90eecf2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 16 Apr 2024 16:51:12 +0000
+References: <20240416063121.3469245-1-Sergiy_Kibrik@epam.com> <26950422-3476-4679-8636-405272c279dc@citrix.com>
+In-Reply-To: <26950422-3476-4679-8636-405272c279dc@citrix.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Tue, 16 Apr 2024 10:03:09 -0700
+X-Gmail-Original-Message-ID: <CABfawhnOwWLNe4PPFfdjXViCbUi=gfVZBQs9GH0WcMbDgn5Bfw@mail.gmail.com>
+Message-ID: <CABfawhnOwWLNe4PPFfdjXViCbUi=gfVZBQs9GH0WcMbDgn5Bfw@mail.gmail.com>
+Subject: Re: [XEN PATCH v1 06/15] x86/p2m: guard altp2m code with CONFIG_VMX option
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org, 
+	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 185671 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185671/
+On Tue, Apr 16, 2024 at 3:29=E2=80=AFAM Andrew Cooper <andrew.cooper3@citri=
+x.com> wrote:
+>
+> On 16/04/2024 7:31 am, Sergiy Kibrik wrote:
+> > Instead of using generic CONFIG_HVM option switch to a bit more specifi=
+c
+> > CONFIG_VMX option for altp2m support, as it depends on VMX. Also guard
+> > altp2m routines, so that it can be disabled completely in the build.
+> >
+> > Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+>
+> Altp2m is not VMX-specific.  It's just no-one has wired it up on AMD, or
+> accepted the long-outstanding ARM patchset where it was made to work.
+>
+> If you want to compile it, you probably want CONFIG_ALTP2M.
+>
+> However, it's not even x86 specific.  See the uses in common/monitor.c
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 fcfdbe29874320e9f876baa7afebc3fca8f4a7df
-baseline version:
- ovmf                 b6cd5ddce9ade43e4215836f12b43ebbb90eecf2
+As Andrew said, it is not VMX specific so shouldn't be tied to that.
+Adding a CONFIG_ALTP2M would be OK.
 
-Last test of basis   185658  2024-04-16 09:41:11 Z    0 days
-Testing same since   185671  2024-04-16 14:44:05 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Liqi Liu <liqi.liu@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   b6cd5ddce9..fcfdbe2987  fcfdbe29874320e9f876baa7afebc3fca8f4a7df -> xen-tested-master
+Tamas
 
