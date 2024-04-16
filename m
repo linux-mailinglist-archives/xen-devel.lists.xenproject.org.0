@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D4608A6CA1
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 15:39:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706971.1104401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3171D8A6CA0
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 15:39:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706972.1104410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwj1T-0002DS-9w; Tue, 16 Apr 2024 13:38:55 +0000
+	id 1rwj1X-0002S0-Fk; Tue, 16 Apr 2024 13:38:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706971.1104401; Tue, 16 Apr 2024 13:38:55 +0000
+Received: by outflank-mailman (output) from mailman id 706972.1104410; Tue, 16 Apr 2024 13:38:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwj1T-0002B9-6M; Tue, 16 Apr 2024 13:38:55 +0000
-Received: by outflank-mailman (input) for mailman id 706971;
- Tue, 16 Apr 2024 13:38:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rwj1X-0002Py-Ce; Tue, 16 Apr 2024 13:38:59 +0000
+Received: by outflank-mailman (input) for mailman id 706972;
+ Tue, 16 Apr 2024 13:38:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BYTd=LV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rwj1S-0002B1-8g
- for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 13:38:54 +0000
-Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
- [2607:f8b0:4864:20::b2c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a9b770b1-fbf6-11ee-b909-491648fe20b8;
- Tue, 16 Apr 2024 15:38:53 +0200 (CEST)
-Received: by mail-yb1-xb2c.google.com with SMTP id
- 3f1490d57ef6-dcbd1d4904dso4341434276.3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Apr 2024 06:38:52 -0700 (PDT)
-Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- k26-20020a0c971a000000b0069f77a0079fsm453096qvd.34.2024.04.16.06.38.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Apr 2024 06:38:51 -0700 (PDT)
+ <SRS0=gIXQ=LV=actia.se=john.ernberg@srs-se1.protection.inumbo.net>)
+ id 1rwj1V-0002PR-TQ
+ for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 13:38:57 +0000
+Received: from mail.actia.se (mail.actia.se [212.181.117.226])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id abb4e3b2-fbf6-11ee-94a3-07e782e9044d;
+ Tue, 16 Apr 2024 15:38:55 +0200 (CEST)
+Received: from S036ANL.actianordic.se (10.12.31.117) by S035ANL.actianordic.se
+ (10.12.31.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 16 Apr
+ 2024 15:38:54 +0200
+Received: from S036ANL.actianordic.se ([fe80::e13e:1feb:4ea6:ec69]) by
+ S036ANL.actianordic.se ([fe80::e13e:1feb:4ea6:ec69%4]) with mapi id
+ 15.01.2507.037; Tue, 16 Apr 2024 15:38:54 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +43,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9b770b1-fbf6-11ee-b909-491648fe20b8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713274732; x=1713879532; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uQRnmrxUqjNTrPFx6kAVneHl4mVOqI9ZV+GFuSsOyKk=;
-        b=Krf9LDgmm32hCunoaS0nDP8RkJyinMrsQ4gBB06z6VeN7TwtWk8NLzZSeqOzxaD0ls
-         3McRWLfkV20PBEpocRq1QY0p/GYuejHk42DefiVzktwgrTkJu1saALlPmvd5DkqwFxC/
-         71VCqrxcXnwdC1pchA3v7+jjsed2a0P/SRKaQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713274732; x=1713879532;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uQRnmrxUqjNTrPFx6kAVneHl4mVOqI9ZV+GFuSsOyKk=;
-        b=QpUxetNvXsex/2EE6D24QMEOOMhGel5Cz9fF6GqpbdFo5pBWY07r9qXRsPkh1K3UUg
-         0VxmEDH0xfd21EwgGud7QhCjaaaHL+zA8qrkSs8lcsa/z7SNTZcwGOB4Pr/N8iwY1mEy
-         MnKbb5w1hzeN5noGmYnkuIi+h8RfAxnbq0EQ1u311y7C6/w1bdqi0gCehR1ApySOFX/Q
-         g4i1VMuN9x+458p7N5lhhjUACtW+AWworRzzt9qobi9Hj+R2Fax93lbvvhGjSwlifIdc
-         3yDIv+nZrcbgIRZQeDVbvX+SmZgq/zjn7cyNxwl4NUuH5AmVIEoRIOFKth1CWjq7dn/K
-         D3jg==
-X-Forwarded-Encrypted: i=1; AJvYcCUPlxZDb5ipAG+aNDzc8WkJGMniIcZbyKxte5RwNg1qyIrAXHW+6Z01X8RHMO9FNRpFdbiGiWyXtyTg22leyzuV5K5JoNEc+4Hqu4z82x8=
-X-Gm-Message-State: AOJu0YwnnMOPWIg6wTOrp2PVo3mMAx27BLh6GgLtYpx+zQnZG6QzKGkg
-	/f5mMR8CbMvWoXlhrC9/nTaYHwk4HeC9dxjCefl3d6j2rB0LWEF0uyN9nJmiITE=
-X-Google-Smtp-Source: AGHT+IF7knkl0Zc0ny1rhyFG1YJ/wHJ1mOsXbzgeTJ9LcnLwkgsMv13L127G6maJKjZhf6Zhv/TQ1A==
-X-Received: by 2002:a25:b589:0:b0:dcf:3ef2:6182 with SMTP id q9-20020a25b589000000b00dcf3ef26182mr11622472ybj.0.1713274731739;
-        Tue, 16 Apr 2024 06:38:51 -0700 (PDT)
-Message-ID: <10f811aa-0b18-4ef2-9185-3146df13a382@citrix.com>
-Date: Tue, 16 Apr 2024 14:38:48 +0100
+X-Inumbo-ID: abb4e3b2-fbf6-11ee-94a3-07e782e9044d
+From: John Ernberg <john.ernberg@actia.se>
+To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "John
+ Ernberg" <john.ernberg@actia.se>, Peng Fan <peng.fan@nxp.com>
+Subject: [PATCH] xen/arm: imx8qm: Re-license file to GPL-2.0-only
+Thread-Topic: [PATCH] xen/arm: imx8qm: Re-license file to GPL-2.0-only
+Thread-Index: AQHakANs0o7CMXmy6E6n0UqJT/8QvQ==
+Date: Tue, 16 Apr 2024 13:38:54 +0000
+Message-ID: <20240416133844.2544452-1-john.ernberg@actia.se>
+Accept-Language: en-US, sv-SE
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: git-send-email 2.44.0
+x-originating-ip: [10.12.12.11]
+x-esetresult: clean, is OK
+x-esetid: 37303A293A9A2F57647D64
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/svm: Add flushbyasid in the supported features
-To: Vaishali Thakkar <vaishali.thakkar@vates.tech>,
- xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com, roger.pau@citrix.com
-References: <b8541a3c70058a74c837352901f2e6a8b45e4fa2.1713258186.git.vaishali.thakkar@vates.tech>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <b8541a3c70058a74c837352901f2e6a8b45e4fa2.1713258186.git.vaishali.thakkar@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 16/04/2024 10:08 am, Vaishali Thakkar wrote:
-> TLB Flush by ASID is missing in the list of supported features
-> here. So, add it.
->
-> Signed-off-by: Vaishali Thakkar <vaishali.thakkar@vates.tech>
-> ---
->  xen/arch/x86/hvm/svm/svm.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-> index a745acd903..4719fffae5 100644
-> --- a/xen/arch/x86/hvm/svm/svm.c
-> +++ b/xen/arch/x86/hvm/svm/svm.c
-> @@ -2510,6 +2510,7 @@ const struct hvm_function_table * __init start_svm(void)
->      P(cpu_has_svm_lbrv, "Last Branch Record (LBR) Virtualisation");
->      P(cpu_has_svm_nrips, "Next-RIP Saved on #VMEXIT");
->      P(cpu_has_svm_cleanbits, "VMCB Clean Bits");
-> +    P(cpu_has_svm_flushbyasid, "TLB flush by ASID");
->      P(cpu_has_svm_decode, "DecodeAssists");
->      P(cpu_has_svm_vloadsave, "Virtual VMLOAD/VMSAVE");
->      P(cpu_has_svm_vgif, "Virtual GIF");
+New contributions are recommended to be under GPL-2.0-only [1], since this
+code piece originally came from the NXP tree the original license was
+retained.
 
-This is consistent with pre-existing behaviour, so
+However, as discussed both Peng [2] and I [3] are ok with GPL-2.0.-only
+as a license. Change the license.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Peng Fan <peng.fan@nxp.com>
+Link: https://lore.kernel.org/xen-devel/084b9ed5-1585-4802-b504-6ccd2f26254=
+2@xen.org/ [1]
+Link: https://lore.kernel.org/xen-devel/DU0PR04MB9417A835B5D04517CC11500788=
+082@DU0PR04MB9417.eurprd04.prod.outlook.com/ [2]
+Link: https://lore.kernel.org/xen-devel/e3785d8a-9b16-4b74-9453-b0166bdbb17=
+1@actia.se/ [3]
+Signed-off-by: John Ernberg <john.ernberg@actia.se>
+---
+ xen/arch/arm/platforms/imx8qm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-However, an ever increasing list of lines like this is something I'm
-trying to push back against.
-
-They don't match the configured state of VMs in the system, not least
-because one of the things required to fix security vulnerabilities in
-nested virt is to break the (false) assumption that there is a single
-global state of how a VM is configured.
-
-These ones in particular are just about to appear in CPU policies.
-
-~Andrew
+diff --git a/xen/arch/arm/platforms/imx8qm.c b/xen/arch/arm/platforms/imx8q=
+m.c
+index 3600a073e8..9dac6af425 100644
+--- a/xen/arch/arm/platforms/imx8qm.c
++++ b/xen/arch/arm/platforms/imx8qm.c
+@@ -1,4 +1,4 @@
+-/* SPDX-License-Identifier: GPL-2.0-or-later */
++/* SPDX-License-Identifier: GPL-2.0-only */
+ /*
+  * xen/arch/arm/platforms/imx8qm.c
+  *
+--=20
+2.44.0
 
