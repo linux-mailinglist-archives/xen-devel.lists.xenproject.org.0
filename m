@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FDF98A6650
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 10:41:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706747.1104101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3D418A6679
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 10:50:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706753.1104111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rweN0-0002nf-AS; Tue, 16 Apr 2024 08:40:50 +0000
+	id 1rweWM-0006IM-6I; Tue, 16 Apr 2024 08:50:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706747.1104101; Tue, 16 Apr 2024 08:40:50 +0000
+Received: by outflank-mailman (output) from mailman id 706753.1104111; Tue, 16 Apr 2024 08:50:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rweN0-0002lG-7u; Tue, 16 Apr 2024 08:40:50 +0000
-Received: by outflank-mailman (input) for mailman id 706747;
- Tue, 16 Apr 2024 08:40:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AiXa=LV=bounce.vates.tech=bounce-md_30504962.661e398c.v1-d48cc00ce8c44aadafc4a9a5b1d0f643@srs-se1.protection.inumbo.net>)
- id 1rweMy-0002lA-88
- for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 08:40:48 +0000
-Received: from mail145-16.atl61.mandrillapp.com
- (mail145-16.atl61.mandrillapp.com [198.2.145.16])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04991b1a-fbcd-11ee-b909-491648fe20b8;
- Tue, 16 Apr 2024 10:40:46 +0200 (CEST)
-Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail145-16.atl61.mandrillapp.com (Mailchimp) with ESMTP id
- 4VJcv05gXLz8XRtlK
- for <xen-devel@lists.xenproject.org>; Tue, 16 Apr 2024 08:40:44 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- d48cc00ce8c44aadafc4a9a5b1d0f643; Tue, 16 Apr 2024 08:40:44 +0000
+	id 1rweWM-0006Fn-3f; Tue, 16 Apr 2024 08:50:30 +0000
+Received: by outflank-mailman (input) for mailman id 706753;
+ Tue, 16 Apr 2024 08:50:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rweWK-0006Fh-IX
+ for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 08:50:28 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rweWJ-0003ZT-OE; Tue, 16 Apr 2024 08:50:27 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rweWJ-0004GF-GZ; Tue, 16 Apr 2024 08:50:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,72 +39,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04991b1a-fbcd-11ee-b909-491648fe20b8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1713256844; x=1713517344;
-	bh=pjEjfv9riQAIjJjPevFt35FKNT3qD3QODRtVHVYVp2s=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=eP18DqWd58rvmfU7YllhlC/JG/wR42cHcStgW1FSNyL9PYpldamhJsZNaQ4URx21q
-	 5ySnZ9qU7IjJqdbxwNbxEII4XwN9FrmV1g0xY+axkvZXFNHxyRpx0zYWSWmBT19fsi
-	 /uoeGzaYP1tGoNgGfoxL6uymSJRoA8buQFXhqMQNHMSuezmgUq399gzqgaZ+NjmZXB
-	 8fYIcZkL06sN7TKZHPtA9ETl05kro3z53v9vbMRtBYJclZhB3fD0GMN074Gjvv6/ie
-	 X+roeCiwMGup9Ez8V2SH5+zJMeAcWlKdTxafBuHpNBIUy2WehwSmOVDU37Dh8vi+6n
-	 hRQXi2Fs6e4rA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1713256844; x=1713517344; i=teddy.astie@vates.tech;
-	bh=pjEjfv9riQAIjJjPevFt35FKNT3qD3QODRtVHVYVp2s=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=XTau+piv3L83ocq9clXm8va01HT2hMUcYo8jWwD+pavdiZRX3oWkKlhk4tp8Rz6dc
-	 Yw6VpVM0l/zGhcyAeuCgqykTKNRwiqTXPVbKuDBZyJLrO4r7azEnKKzMsgedWbwiJt
-	 mzGPx3JFguyjrrSJgPXPmbYYJZpCOdgyHh2WxdFBspYAlgTJ2WFDvE+v/EWLko9u+A
-	 khMdrELcYDzI9e/dlHVn8vaD1rmY64Ko12n6UCbLYOebneV0csMTp0fpLclYBZcMN0
-	 NPEurPs2O/U3xzZ1RW7f+tTgYwCRiDMM2EnuDUdPE94mpy8pDBCHKIqdahHu0hdERR
-	 tU+3c9Gd+cUOw==
-From: Teddy Astie <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[XEN=20PATCH=20v1=2015/15]=20x86/hvm:=20make=20AMD-V=20and=20Intel=20VT-x=20support=20configurable?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1713256843068
-Message-Id: <2a6779ba-e3d7-4f53-8a0c-404f139ba254@vates.tech>
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
-Cc: Xenia Ragiadakou <burzalodowa@gmail.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20240416065012.3470263-1-Sergiy_Kibrik@epam.com>
-In-Reply-To: <20240416065012.3470263-1-Sergiy_Kibrik@epam.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.d48cc00ce8c44aadafc4a9a5b1d0f643?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240416:md
-Date: Tue, 16 Apr 2024 08:40:44 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=zv7uB9leGcy68CdEaAep2QTSN5x5v3dBnlgv/QVy0g8=; b=xU60VTd+e/w8/kytWTWopaU9O2
+	c/HgTpa5vJ2rqAVBQ4gYKbujIiby9/5eOUe/EFhnCFukg6EcYBCG6bSwjCAsXWwmANGm8K/DCiYYF
+	d+PhOZKtjIxbjUKxa1CsUFi2ASZM1huJAnmk3KKAHub9y6LQuX74UjoFuOfnbiUamQcI=;
+Message-ID: <74cfa4fe-2ee8-4700-be90-4227704f96d1@xen.org>
+Date: Tue, 16 Apr 2024 09:50:25 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-Hello Sergiy,
-
-> Also make INTEL_IOMMU/AMD_IOMMU options dependant on VMX/SVM options.
-
-The discussion in the RFC series stated the IOMMU may be used with PV 
-guests, and doesn't rely on VMX/SVM support (in fact, it can be used 
-without HVM support in Xen).
-
-However, in the discussion, posted interrupts were supposed to be 
-dependent on VMX/SVM instead. I suppose this is a leftover from the 
-original RFC ?
-
-> https://lore.kernel.org/xen-devel/e29e375f-3d30-0eb1-7e28-b93f2d831b43@suse.com/
-
-Teddy
-
----
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 13/13] xen/arm: List static shared memory regions as
+ /memory nodes
+Content-Language: en-GB
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240409114543.3332150-1-luca.fancellu@arm.com>
+ <20240409114543.3332150-14-luca.fancellu@arm.com>
+ <7b09184a-111d-4a38-baec-53f01ec6ed03@xen.org>
+ <39165767-26EA-4849-9C02-12393933139E@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <39165767-26EA-4849-9C02-12393933139E@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-Teddy Astie | Vates XCP-ng Intern
 
-XCP-ng & Xen Orchestra - Vates solutions
+On 16/04/2024 07:27, Luca Fancellu wrote:
+> Hi Julien,
 
-web: https://vates.tech
+Hi Luca,
+
+> 
+>> On 15 Apr 2024, at 19:41, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Luca,
+>>
+>> On 09/04/2024 12:45, Luca Fancellu wrote:
+>>> Currently Xen is not exporting the static shared memory regions
+>>> to the device tree as /memory node, this commit is fixing this
+>>> issue.
+>>> The static shared memory banks can be part of the memory range
+>>> available for the domain, so if they are overlapping with the
+>>> normal memory banks, they need to be merged together in order
+>>> to produce a /memory node with non overlapping ranges in 'reg'.
+>>
+>> Before reviewing the code in more details, I would like to understand a bit more the use case and whether it should be valid.
+>>
+>>  From my understanding, the case you are trying to prevent is the following setup:
+>>   1. The Guest Physical region 0x0000 to 0x8000 is used for RAM
+>>   2. The Guest Physical region 0x0000 to 0x4000 is used for static memory
+> 
+> So far, it was possible to map guest physical regions inside the memory range given to the guest,
+> so the above configuration was allowed and the underlying host physical regions were of course
+> different and enforced with checks. So I’m not trying to prevent this behaviour, however ...
+> 
+>>
+>> The underlying Host Physical regions may be different. Xen doesn't guarantee in which order the regions will be mapped, So whether the overlapped region will point to the memory or the shared region is unknown (we don't guarantee the order of the mapping). So nothing good will happen to the guest.
+> 
+> ... now here I don’t understand if this was wrong from the beginning or not, shall we enforce also that
+> guest physical regions for static shared memory are outside the memory given to the guest?
+
+Nothing good will happen if you are trying to overwrite mappings. So I 
+think this should be enforced. However, this is a more general problem. 
+At the moment, this is pretty much as mess because you can overwrite any 
+mapping (e.g. map MMIO on top of the RAM).
+
+I think the easiest way to enforce is to do it in the P2M code like x86 
+does for certain mappings.
+
+Anyway, I don't think the problem should be solved here or by you (this 
+is likely going to be a can of worms). For now, I would consider to 
+simply drop the patches that are trying to do the merge.
+
+Any thoughts?
+
+Cheers,
+
+-- 
+Julien Grall
 
