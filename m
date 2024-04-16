@@ -2,65 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C2608A63BD
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 08:28:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706611.1103865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92D2D8A63BF
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 08:29:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706616.1103877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwcIl-0002BA-8x; Tue, 16 Apr 2024 06:28:19 +0000
+	id 1rwcJs-0002mv-O7; Tue, 16 Apr 2024 06:29:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706611.1103865; Tue, 16 Apr 2024 06:28:19 +0000
+Received: by outflank-mailman (output) from mailman id 706616.1103877; Tue, 16 Apr 2024 06:29:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwcIl-00028k-5I; Tue, 16 Apr 2024 06:28:19 +0000
-Received: by outflank-mailman (input) for mailman id 706611;
- Tue, 16 Apr 2024 06:28:17 +0000
+	id 1rwcJs-0002jk-KZ; Tue, 16 Apr 2024 06:29:28 +0000
+Received: by outflank-mailman (input) for mailman id 706616;
+ Tue, 16 Apr 2024 06:29:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=g64T=LV=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1rwcIj-00028a-NA
- for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 06:28:17 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20600.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::600])
+ <SRS0=uDI1=LV=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1rwcJq-0002jT-TZ
+ for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 06:29:27 +0000
+Received: from pb-smtp21.pobox.com (pb-smtp21.pobox.com [173.228.157.53])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 81d39ac3-fbba-11ee-b909-491648fe20b8;
- Tue, 16 Apr 2024 08:28:15 +0200 (CEST)
-Received: from AS9PR04CA0179.eurprd04.prod.outlook.com (2603:10a6:20b:530::21)
- by DB9PR08MB9778.eurprd08.prod.outlook.com (2603:10a6:10:45d::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Tue, 16 Apr
- 2024 06:28:11 +0000
-Received: from AMS0EPF000001A1.eurprd05.prod.outlook.com
- (2603:10a6:20b:530:cafe::c3) by AS9PR04CA0179.outlook.office365.com
- (2603:10a6:20b:530::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46 via Frontend
- Transport; Tue, 16 Apr 2024 06:28:11 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AMS0EPF000001A1.mail.protection.outlook.com (10.167.16.231) with
- Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.7452.22
- via Frontend Transport; Tue, 16 Apr 2024 06:28:10 +0000
-Received: ("Tessian outbound f1e9a43166b5:v313");
- Tue, 16 Apr 2024 06:28:10 +0000
-Received: from 0df08102d410.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- A3EAE37D-9F81-4BB4-A7A4-65ABA7ECBEC0.1; 
- Tue, 16 Apr 2024 06:28:03 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0df08102d410.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 16 Apr 2024 06:28:03 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
- by DBAPR08MB5832.eurprd08.prod.outlook.com (2603:10a6:10:1a5::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Tue, 16 Apr
- 2024 06:27:56 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::6204:b901:9cc6:bf2b]) by AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::6204:b901:9cc6:bf2b%6]) with mapi id 15.20.7452.049; Tue, 16 Apr 2024
- 06:27:52 +0000
+ id a9c54d99-fbba-11ee-b909-491648fe20b8;
+ Tue, 16 Apr 2024 08:29:24 +0200 (CEST)
+Received: from pb-smtp21.pobox.com (unknown [127.0.0.1])
+ by pb-smtp21.pobox.com (Postfix) with ESMTP id 244E22D8C3;
+ Tue, 16 Apr 2024 02:29:22 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from pb-smtp21.sea.icgroup.com (unknown [127.0.0.1])
+ by pb-smtp21.pobox.com (Postfix) with ESMTP id 0ECC22D8C2;
+ Tue, 16 Apr 2024 02:29:22 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from localhost (unknown [185.130.54.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by pb-smtp21.pobox.com (Postfix) with ESMTPSA id BD1532D8C1;
+ Tue, 16 Apr 2024 02:29:18 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,146 +50,1444 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81d39ac3-fbba-11ee-b909-491648fe20b8
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=N+LtYI4vjpSiEUtZQGK3gI75iFndOrjXzKM7+QM6f7WDpuH1YWShrzGtWAHDqcEsVh+eeWpgi3FR1HOl8LeLN+P1JU9cOAwcX1u0QxoneFZF7sN0VU+FG/19pCvfMLdpGsbvebyvHKGv027wPxsfhFwU+tw8eld3d87R3/SEAUnDwl6cfGtBbSAMMsU/XnPjfj/t4bxPZYkCgDPnf+iE7xiEmewe3qDNe3wwKQD0XYSjIM/KuJ+Qfxd51zGIwyCNODcvWZ03s3xQljdG4DtOH1vdlx1i+XyCSxdX4Ksg/mGpI7UASOep5j/kFKrG/M+2lmLBrNZ67uKXFx9EBenjMA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bt7/UPxgS8tEojDfuGPnhAl3QrzKoUPyTsXBWYSJEbQ=;
- b=DPpL3XLpxO4643+/yHenobQ7sZA5kKZdkPHpqo9EKEOmIR0/o+aIR2EnIG3OhCBqmfYz9/Wc7stL+27HSqbIC0XmgZi8Lol8UZUEH4lO4ZVYQ9ydvSToqYiiuwmuN3bXFvNa+ae906zR8nYlz4kieBLgypf5CM7wIPSsHpt4sdfW2E287T5HU+9b/LRF1o7V3Mz89bhvz6hUPX8d1CfrwWITHalTEnW69/NUKC67nCII23dnMWjl5Lfa1WJCwfIsZDjan7eopRHwpDzPE0CeQcDEhOKx4Rt2Y+yo5O/bb0cLVpED0HsSOZmOWew/DR6fb1omUpGsepLKFqnJhDLxnw==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bt7/UPxgS8tEojDfuGPnhAl3QrzKoUPyTsXBWYSJEbQ=;
- b=4KtAsTaqyBV87/zxuxHT/zQB9BsHw9B72i9yJ7sjd8ky6PHSpMmuA7n/F6ZKmtum5Fismx+xslgy2QMvJ8fVwOL0TwVAxYSd/VeM/vNKLjAlYMyAfPXB9OTjs1ONAkYc7F/0JhEDF7D/dsa9fQBMe1ypQEmEhduZBnzjNFdIbVs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 3767240fa811e385
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YoZPNqdfpsM00JMSrllF94uJT88P43kwoNmuVLJLqKo1n8Vwxrq7buyxqMaXDFRC7pmzoQXilR/QPqtRxCtW98qkW1loDz2rK7z3g4DPsq53kfJdjrdDfDBKVvE20EXr0rzFhaKTsqxt4lCNMANni/B5vofvo5zI9hNLoQwIvwjMb9wHWedG+chUmB0FCxSQ5OPa59bemI7YXt/7pV42r4L6zD+POcxEn6C36vRb8qAGrzhKaM8Uu5FiQw9J/U6q9hZxFVUjRbABzak5VUzhOU9oEiGctVXmiQrkh0PtkuUj9Ukzut0Q6tzLd/dbAbD3oSOzqY1+J/bh1eyHm8bC1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bt7/UPxgS8tEojDfuGPnhAl3QrzKoUPyTsXBWYSJEbQ=;
- b=jM54nnVFwsCUIHbFXe/3oA+d+OVeyfMXxFrkR0KHwsZGy4KPMCqqqPhYi9Ir2TcMDen6/PO69KmB5otHJ+FfIGWkslOOx0DWi+RKVAe7PZZmapCAaidNOke+2BxLnW19m3Spd3gwlxF6huYolMWkCSyk0O70gE0kyTiTmjGHC5w0cePeh8cLUun0Lz3vzVZbEig4275dJ6p+F1Wxwdb4TnCVSzVrrnaCcfoQZf2Yf3pePc5LPWsYgpGnnuYEtN12/p5L1aoUJWMMwcnLZhqV+O3P9Bj1bAHf3Gdm0C28+y49mLSli+5MRyiiV5Qo+u5qJy9Wx5/zylL1GL2ABeBWsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bt7/UPxgS8tEojDfuGPnhAl3QrzKoUPyTsXBWYSJEbQ=;
- b=4KtAsTaqyBV87/zxuxHT/zQB9BsHw9B72i9yJ7sjd8ky6PHSpMmuA7n/F6ZKmtum5Fismx+xslgy2QMvJ8fVwOL0TwVAxYSd/VeM/vNKLjAlYMyAfPXB9OTjs1ONAkYc7F/0JhEDF7D/dsa9fQBMe1ypQEmEhduZBnzjNFdIbVs=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal
- Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 13/13] xen/arm: List static shared memory regions as
- /memory nodes
-Thread-Topic: [PATCH v2 13/13] xen/arm: List static shared memory regions as
- /memory nodes
-Thread-Index: AQHainSZ45I8T1wdtkSTioIgDqTSKbFptBmAgADFXAA=
-Date: Tue, 16 Apr 2024 06:27:52 +0000
-Message-ID: <39165767-26EA-4849-9C02-12393933139E@arm.com>
-References: <20240409114543.3332150-1-luca.fancellu@arm.com>
- <20240409114543.3332150-14-luca.fancellu@arm.com>
- <7b09184a-111d-4a38-baec-53f01ec6ed03@xen.org>
-In-Reply-To: <7b09184a-111d-4a38-baec-53f01ec6ed03@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3774.400.31)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3749:EE_|DBAPR08MB5832:EE_|AMS0EPF000001A1:EE_|DB9PR08MB9778:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5504c23b-16f6-42a8-743b-08dc5dde6318
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- J074pL0zbHaYkP3kEhpWcgnPI1E5jDsbIL7saBvJDJA2QIskpBeiRUhhMq38SVY2Y6oN3CEWGhKbEbiuY1uVgpFeBlAe5IlT9MwqQCA8HS5l8CefbKLXHISCeR1WY3x6xrLxuMYkQvD9Zbl6sUEPHruKxj6zLwTdY3Oo58katwue+mACmC8ewX6DHOMiEmeHsga4IXzKyjDvdwVI5UpAZlJCUbISYYAuBSKsf5p9g/Pmukm7e+fv1TvWa7JgEYllp7t7QHGSm23JjgyC5FIlpqBkJzRQuCNMbIRHpILlonV/Wi9Emavwx/rs30LVm5zS/+RuWEWz7swT0LmVQTyaLpcD+iZeyukHNSEkkBdDl9n8cDJ8/0lPj4fcN5I9NOEwhUDh5/Y6s3eKi3ROGSHu6QZMgum7Vf50EPbpjrvouxMODV94e4Y7OSAnhXrDj9FJK8vVr7EznlFoLp24wGDmdp5ku9LZt2FxCobVgx0NEVTCLChog6ibYX66/xWnY5os/ouPpTQYMgVPnM9LV52xxYcfIiFIiz/XOPYblXmXcO3xbifLfoFEs+g9zSEwLSvllJvkiTDOcBijwD2oESigkyE++N9W4ErWGlIKyT5pk89xX/mvHfABB+SVDSVPMbmReUIYIuwLFwoOHoKoONQBsRX1+ZDdZyJ8TM7S8gnCqDQAN6cv0OkKKSS6Z3J45J62PlCTwfIQ/TGWAsZ4vJaoBw==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(1800799015)(376005)(366007)(38070700009);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <AE92B40B3F44B441BB5DC5C912BE55A5@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: a9c54d99-fbba-11ee-b909-491648fe20b8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
+	:subject:date:message-id:mime-version:content-transfer-encoding;
+	 s=sasl; bh=4yot9xHJJsSRFsRHmPkkTqaZKbjidHD4FJwAR2vKH/s=; b=Twt2
+	1fbcpzbl2kORh1N8iWDCi+RHWTQgUZj73FNOJnh9RnE01wVC23ywPp9RFkm9PjNK
+	hXHU8YxWsJ23ILdB2+B5L6HBZl/cvbYp1A7l9U+R/NTYQVAKP04pQHV8Vt3b88lC
+	xByfnwgHdVsOe0d9O8AODcMsxZZasDBY+nDGzLg=
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+To: xen-devel@lists.xenproject.org
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v1 05/15] x86/p2m: move altp2m-related code to separate file
+Date: Tue, 16 Apr 2024 09:29:15 +0300
+Message-Id: <20240416062915.3469145-1-Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR08MB5832
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS0EPF000001A1.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	b65a64b2-5476-44d4-fa8b-08dc5dde587f
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	V2RUePz5KuNsxpURECf0c8KTm2rNTNCZFZ/DBGglr0sYBmq05qfeFK7HTchLw8nt5ZNRE0goWlI6pUWEJaylCbNIQBPf/1uANHsBMsrsuQPQtAw2Vqp1D3dHNeHxZ0WeafiC4knKybXol1AESvz5yhOGpmD/VXJhqyCB/IVqUWBLR780nC7Kt/Aa6tivKPhD4Z8m1UvMkpn2Pw6QLL/la/+K/t7rTCr13nFsg6+6aXOtW8Mtp677exm6guRY3Z2usp4RQB/OwosP6EBkEiNB5QvNF+vidNk2wRNFLvd0UykvcNmIjNyuYL1SaiQ15oBY7PFr/ZVv6kAm9cpGpjNls4ptUuqXvaaBgo/h3e0KhR64ekGtBtjdaE7j7euXN3RtZR6+AJQyAS2AKeKO408WvecJOjT4XRIspsqAnxADUlFOcxRB3Q831QQR/DNyYayRuKsQqoxVXWXdLpvDFb2TzqoNg9DE25oCPobD1hx7kOE0cRIwaYw7gVvA+r1TUmxbWJYAiOQE9OrjYnL5kFCfYlpiZHEBzSisMPaWfjMqOwS4VyN3YSlb50GamdM979WpeDOsyY5r66CFjljKrWlqAwf1Pt8M6If9a+nUmKLpd+FGiJdJBfh0O8iR3vFBnZ61NNzM9GBU2eLRRDAhtqxBzlMt49C6wMpFKI0uWGrvzNOqgiyeCYRP3Z7cjpMS8HUj5McBfXU3022rWCf4jVVfI9sRoWN8Bjy0Idw1B+nBhgiBAB9smZcXrFYyAd1w/j+6
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(36860700004)(376005)(1800799015)(82310400014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2024 06:28:10.5968
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5504c23b-16f6-42a8-743b-08dc5dde6318
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF000001A1.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB9778
+X-Pobox-Relay-ID:
+ A782DC66-FBBA-11EE-BD69-A19503B9AAD1-90055647!pb-smtp21.pobox.com
+Content-Transfer-Encoding: quoted-printable
 
-SGkgSnVsaWVuLA0KDQo+IE9uIDE1IEFwciAyMDI0LCBhdCAxOTo0MSwgSnVsaWVuIEdyYWxsIDxq
-dWxpZW5AeGVuLm9yZz4gd3JvdGU6DQo+IA0KPiBIaSBMdWNhLA0KPiANCj4gT24gMDkvMDQvMjAy
-NCAxMjo0NSwgTHVjYSBGYW5jZWxsdSB3cm90ZToNCj4+IEN1cnJlbnRseSBYZW4gaXMgbm90IGV4
-cG9ydGluZyB0aGUgc3RhdGljIHNoYXJlZCBtZW1vcnkgcmVnaW9ucw0KPj4gdG8gdGhlIGRldmlj
-ZSB0cmVlIGFzIC9tZW1vcnkgbm9kZSwgdGhpcyBjb21taXQgaXMgZml4aW5nIHRoaXMNCj4+IGlz
-c3VlLg0KPj4gVGhlIHN0YXRpYyBzaGFyZWQgbWVtb3J5IGJhbmtzIGNhbiBiZSBwYXJ0IG9mIHRo
-ZSBtZW1vcnkgcmFuZ2UNCj4+IGF2YWlsYWJsZSBmb3IgdGhlIGRvbWFpbiwgc28gaWYgdGhleSBh
-cmUgb3ZlcmxhcHBpbmcgd2l0aCB0aGUNCj4+IG5vcm1hbCBtZW1vcnkgYmFua3MsIHRoZXkgbmVl
-ZCB0byBiZSBtZXJnZWQgdG9nZXRoZXIgaW4gb3JkZXINCj4+IHRvIHByb2R1Y2UgYSAvbWVtb3J5
-IG5vZGUgd2l0aCBub24gb3ZlcmxhcHBpbmcgcmFuZ2VzIGluICdyZWcnLg0KPiANCj4gQmVmb3Jl
-IHJldmlld2luZyB0aGUgY29kZSBpbiBtb3JlIGRldGFpbHMsIEkgd291bGQgbGlrZSB0byB1bmRl
-cnN0YW5kIGEgYml0IG1vcmUgdGhlIHVzZSBjYXNlIGFuZCB3aGV0aGVyIGl0IHNob3VsZCBiZSB2
-YWxpZC4NCj4gDQo+IEZyb20gbXkgdW5kZXJzdGFuZGluZywgdGhlIGNhc2UgeW91IGFyZSB0cnlp
-bmcgdG8gcHJldmVudCBpcyB0aGUgZm9sbG93aW5nIHNldHVwOg0KPiAgMS4gVGhlIEd1ZXN0IFBo
-eXNpY2FsIHJlZ2lvbiAweDAwMDAgdG8gMHg4MDAwIGlzIHVzZWQgZm9yIFJBTQ0KPiAgMi4gVGhl
-IEd1ZXN0IFBoeXNpY2FsIHJlZ2lvbiAweDAwMDAgdG8gMHg0MDAwIGlzIHVzZWQgZm9yIHN0YXRp
-YyBtZW1vcnkNCg0KU28gZmFyLCBpdCB3YXMgcG9zc2libGUgdG8gbWFwIGd1ZXN0IHBoeXNpY2Fs
-IHJlZ2lvbnMgaW5zaWRlIHRoZSBtZW1vcnkgcmFuZ2UgZ2l2ZW4gdG8gdGhlIGd1ZXN0LA0Kc28g
-dGhlIGFib3ZlIGNvbmZpZ3VyYXRpb24gd2FzIGFsbG93ZWQgYW5kIHRoZSB1bmRlcmx5aW5nIGhv
-c3QgcGh5c2ljYWwgcmVnaW9ucyB3ZXJlIG9mIGNvdXJzZQ0KZGlmZmVyZW50IGFuZCBlbmZvcmNl
-ZCB3aXRoIGNoZWNrcy4gU28gSeKAmW0gbm90IHRyeWluZyB0byBwcmV2ZW50IHRoaXMgYmVoYXZp
-b3VyLCBob3dldmVyIC4uLg0KDQo+IA0KPiBUaGUgdW5kZXJseWluZyBIb3N0IFBoeXNpY2FsIHJl
-Z2lvbnMgbWF5IGJlIGRpZmZlcmVudC4gWGVuIGRvZXNuJ3QgZ3VhcmFudGVlIGluIHdoaWNoIG9y
-ZGVyIHRoZSByZWdpb25zIHdpbGwgYmUgbWFwcGVkLCBTbyB3aGV0aGVyIHRoZSBvdmVybGFwcGVk
-IHJlZ2lvbiB3aWxsIHBvaW50IHRvIHRoZSBtZW1vcnkgb3IgdGhlIHNoYXJlZCByZWdpb24gaXMg
-dW5rbm93biAod2UgZG9uJ3QgZ3VhcmFudGVlIHRoZSBvcmRlciBvZiB0aGUgbWFwcGluZykuIFNv
-IG5vdGhpbmcgZ29vZCB3aWxsIGhhcHBlbiB0byB0aGUgZ3Vlc3QuDQoNCi4uLiBub3cgaGVyZSBJ
-IGRvbuKAmXQgdW5kZXJzdGFuZCBpZiB0aGlzIHdhcyB3cm9uZyBmcm9tIHRoZSBiZWdpbm5pbmcg
-b3Igbm90LCBzaGFsbCB3ZSBlbmZvcmNlIGFsc28gdGhhdA0KZ3Vlc3QgcGh5c2ljYWwgcmVnaW9u
-cyBmb3Igc3RhdGljIHNoYXJlZCBtZW1vcnkgYXJlIG91dHNpZGUgdGhlIG1lbW9yeSBnaXZlbiB0
-byB0aGUgZ3Vlc3Q/DQoNCj4gDQo+IERpZCBJIHVuZGVyc3RhbmQgY29ycmVjdGx5PyBJZiBzbywg
-c2hvdWxkbid0IHRoaXMgYmUgYSBjb25maWd1cmF0aW9uIHdlIHNob3VsZCBmb3JiaWQ/DQo+IA0K
-PiBDaGVlcnMsDQo+IA0KPiAtLSANCj4gSnVsaWVuIEdyYWxsDQoNCkNoZWVycywNCkx1Y2ENCg0K
+Move altp2m code from generic p2m.c file to altp2m.c, so that VMX-specifi=
+c
+code is kept separately and can possibly be disabled in the build.
+
+No functional change intended.
+
+Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+---
+ xen/arch/x86/mm/altp2m.c | 631 ++++++++++++++++++++++++++++++++++++++
+ xen/arch/x86/mm/p2m.c    | 636 +--------------------------------------
+ xen/arch/x86/mm/p2m.h    |   3 +
+ 3 files changed, 637 insertions(+), 633 deletions(-)
+
+diff --git a/xen/arch/x86/mm/altp2m.c b/xen/arch/x86/mm/altp2m.c
+index a04297b646..6fe62200ba 100644
+--- a/xen/arch/x86/mm/altp2m.c
++++ b/xen/arch/x86/mm/altp2m.c
+@@ -9,6 +9,8 @@
+ #include <asm/altp2m.h>
+ #include "mm-locks.h"
+ #include "p2m.h"
++#include <public/hvm/hvm_op.h>
++#include <xen/event.h>
+=20
+ void
+ altp2m_vcpu_initialise(struct vcpu *v)
+@@ -151,6 +153,635 @@ void p2m_teardown_altp2m(struct domain *d)
+     }
+ }
+=20
++int altp2m_get_effective_entry(struct p2m_domain *ap2m, gfn_t gfn, mfn_t=
+ *mfn,
++                               p2m_type_t *t, p2m_access_t *a,
++                               bool prepopulate)
++{
++    *mfn =3D ap2m->get_entry(ap2m, gfn, t, a, 0, NULL, NULL);
++
++    /* Check host p2m if no valid entry in alternate */
++    if ( !mfn_valid(*mfn) && !p2m_is_hostp2m(ap2m) )
++    {
++        struct p2m_domain *hp2m =3D p2m_get_hostp2m(ap2m->domain);
++        unsigned int page_order;
++        int rc;
++
++        *mfn =3D p2m_get_gfn_type_access(hp2m, gfn, t, a, P2M_ALLOC | P2=
+M_UNSHARE,
++                                       &page_order, 0);
++
++        rc =3D -ESRCH;
++        if ( !mfn_valid(*mfn) || *t !=3D p2m_ram_rw )
++            return rc;
++
++        /* If this is a superpage, copy that first */
++        if ( prepopulate && page_order !=3D PAGE_ORDER_4K )
++        {
++            unsigned long mask =3D ~((1UL << page_order) - 1);
++            gfn_t gfn_aligned =3D _gfn(gfn_x(gfn) & mask);
++            mfn_t mfn_aligned =3D _mfn(mfn_x(*mfn) & mask);
++
++            rc =3D ap2m->set_entry(ap2m, gfn_aligned, mfn_aligned, page_=
+order, *t, *a, 1);
++            if ( rc )
++                return rc;
++        }
++    }
++
++    return 0;
++}
++
++void p2m_altp2m_check(struct vcpu *v, uint16_t idx)
++{
++    if ( altp2m_active(v->domain) )
++        p2m_switch_vcpu_altp2m_by_id(v, idx);
++}
++
++bool p2m_switch_vcpu_altp2m_by_id(struct vcpu *v, unsigned int idx)
++{
++    struct domain *d =3D v->domain;
++    bool rc =3D false;
++
++    if ( idx >=3D MAX_ALTP2M )
++        return rc;
++
++    altp2m_list_lock(d);
++
++    if ( d->arch.altp2m_eptp[idx] !=3D mfn_x(INVALID_MFN) )
++    {
++        if ( p2m_set_altp2m(v, idx) )
++            altp2m_vcpu_update_p2m(v);
++        rc =3D 1;
++    }
++
++    altp2m_list_unlock(d);
++    return rc;
++}
++
++/*
++ * Read info about the gfn in an altp2m, locking the gfn.
++ *
++ * If the entry is valid, pass the results back to the caller.
++ *
++ * If the entry was invalid, and the host's entry is also invalid,
++ * return to the caller without any changes.
++ *
++ * If the entry is invalid, and the host entry was valid, propagate
++ * the host's entry to the altp2m (retaining page order), and indicate
++ * that the caller should re-try the faulting instruction.
++ */
++bool p2m_altp2m_get_or_propagate(struct p2m_domain *ap2m, unsigned long =
+gfn_l,
++                                 mfn_t *mfn, p2m_type_t *p2mt,
++                                 p2m_access_t *p2ma, unsigned int *page_=
+order)
++{
++    p2m_type_t ap2mt;
++    p2m_access_t ap2ma;
++    unsigned int cur_order;
++    unsigned long mask;
++    gfn_t gfn;
++    mfn_t amfn;
++    int rc;
++
++    /*
++     * NB we must get the full lock on the altp2m here, in addition to
++     * the lock on the individual gfn, since we may change a range of
++     * gfns below.
++     */
++    p2m_lock(ap2m);
++
++    amfn =3D get_gfn_type_access(ap2m, gfn_l, &ap2mt, &ap2ma, 0, &cur_or=
+der);
++
++    if ( cur_order > *page_order )
++        cur_order =3D *page_order;
++
++    if ( !mfn_eq(amfn, INVALID_MFN) )
++    {
++        p2m_unlock(ap2m);
++        *mfn  =3D amfn;
++        *p2mt =3D ap2mt;
++        *p2ma =3D ap2ma;
++        *page_order =3D cur_order;
++        return false;
++    }
++
++    /* Host entry is also invalid; don't bother setting the altp2m entry=
+. */
++    if ( mfn_eq(*mfn, INVALID_MFN) )
++    {
++        p2m_unlock(ap2m);
++        *page_order =3D cur_order;
++        return false;
++    }
++
++    /*
++     * If this is a superpage mapping, round down both frame numbers
++     * to the start of the superpage.  NB that we repupose `amfn`
++     * here.
++     */
++    mask =3D ~((1UL << cur_order) - 1);
++    amfn =3D _mfn(mfn_x(*mfn) & mask);
++    gfn =3D _gfn(gfn_l & mask);
++
++    /* Override the altp2m entry with its default access. */
++    *p2ma =3D ap2m->default_access;
++
++    rc =3D p2m_set_entry(ap2m, gfn, amfn, cur_order, *p2mt, *p2ma);
++    p2m_unlock(ap2m);
++
++    if ( rc )
++    {
++        gprintk(XENLOG_ERR,
++                "failed to set entry for %"PRI_gfn" -> %"PRI_mfn" altp2m=
+ %u, rc %d\n",
++                gfn_l, mfn_x(amfn), vcpu_altp2m(current).p2midx, rc);
++        domain_crash(ap2m->domain);
++    }
++
++    return true;
++}
++
++enum altp2m_reset_type {
++    ALTP2M_RESET,
++    ALTP2M_DEACTIVATE
++};
++
++static void p2m_reset_altp2m(struct domain *d, unsigned int idx,
++                             enum altp2m_reset_type reset_type)
++{
++    struct p2m_domain *p2m;
++
++    ASSERT(idx < MAX_ALTP2M);
++    p2m =3D array_access_nospec(d->arch.altp2m_p2m, idx);
++
++    p2m_lock(p2m);
++
++    p2m_flush_table_locked(p2m);
++
++    if ( reset_type =3D=3D ALTP2M_DEACTIVATE )
++        p2m_free_logdirty(p2m);
++
++    /* Uninit and reinit ept to force TLB shootdown */
++    ept_p2m_uninit(p2m);
++    ept_p2m_init(p2m);
++
++    p2m->min_remapped_gfn =3D gfn_x(INVALID_GFN);
++    p2m->max_remapped_gfn =3D 0;
++
++    p2m_unlock(p2m);
++}
++
++void p2m_flush_altp2m(struct domain *d)
++{
++    unsigned int i;
++
++    altp2m_list_lock(d);
++
++    for ( i =3D 0; i < MAX_ALTP2M; i++ )
++    {
++        p2m_reset_altp2m(d, i, ALTP2M_DEACTIVATE);
++        d->arch.altp2m_eptp[i] =3D mfn_x(INVALID_MFN);
++        d->arch.altp2m_visible_eptp[i] =3D mfn_x(INVALID_MFN);
++    }
++
++    altp2m_list_unlock(d);
++}
++
++static int p2m_activate_altp2m(struct domain *d, unsigned int idx,
++                               p2m_access_t hvmmem_default_access)
++{
++    struct p2m_domain *hostp2m, *p2m;
++    int rc;
++
++    ASSERT(idx < MAX_ALTP2M);
++
++    p2m =3D array_access_nospec(d->arch.altp2m_p2m, idx);
++    hostp2m =3D p2m_get_hostp2m(d);
++
++    p2m_lock(p2m);
++
++    rc =3D p2m_init_logdirty(p2m);
++
++    if ( rc )
++        goto out;
++
++    /* The following is really just a rangeset copy. */
++    rc =3D rangeset_merge(p2m->logdirty_ranges, hostp2m->logdirty_ranges=
+);
++
++    if ( rc )
++    {
++        p2m_free_logdirty(p2m);
++        goto out;
++    }
++
++    p2m->default_access =3D hvmmem_default_access;
++    p2m->domain =3D hostp2m->domain;
++    p2m->global_logdirty =3D hostp2m->global_logdirty;
++    p2m->min_remapped_gfn =3D gfn_x(INVALID_GFN);
++    p2m->max_mapped_pfn =3D p2m->max_remapped_gfn =3D 0;
++
++    p2m_init_altp2m_ept(d, idx);
++
++ out:
++    p2m_unlock(p2m);
++
++    return rc;
++}
++
++int p2m_init_altp2m_by_id(struct domain *d, unsigned int idx)
++{
++    int rc =3D -EINVAL;
++    struct p2m_domain *hostp2m =3D p2m_get_hostp2m(d);
++
++    if ( idx >=3D min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) )
++        return rc;
++
++    altp2m_list_lock(d);
++
++    if ( d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] =3D=3D
++         mfn_x(INVALID_MFN) )
++        rc =3D p2m_activate_altp2m(d, idx, hostp2m->default_access);
++
++    altp2m_list_unlock(d);
++    return rc;
++}
++
++int p2m_init_next_altp2m(struct domain *d, uint16_t *idx,
++                         xenmem_access_t hvmmem_default_access)
++{
++    int rc =3D -EINVAL;
++    unsigned int i;
++    p2m_access_t a;
++    struct p2m_domain *hostp2m =3D p2m_get_hostp2m(d);
++
++    if ( hvmmem_default_access > XENMEM_access_default ||
++         !xenmem_access_to_p2m_access(hostp2m, hvmmem_default_access, &a=
+) )
++        return rc;
++
++    altp2m_list_lock(d);
++
++    for ( i =3D 0; i < MAX_ALTP2M; i++ )
++    {
++        if ( d->arch.altp2m_eptp[i] !=3D mfn_x(INVALID_MFN) )
++            continue;
++
++        rc =3D p2m_activate_altp2m(d, i, a);
++
++        if ( !rc )
++            *idx =3D i;
++
++        break;
++    }
++
++    altp2m_list_unlock(d);
++    return rc;
++}
++
++int p2m_destroy_altp2m_by_id(struct domain *d, unsigned int idx)
++{
++    struct p2m_domain *p2m;
++    int rc =3D -EBUSY;
++
++    if ( !idx || idx >=3D min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) =
+)
++        return rc;
++
++    rc =3D domain_pause_except_self(d);
++    if ( rc )
++        return rc;
++
++    rc =3D -EBUSY;
++    altp2m_list_lock(d);
++
++    if ( d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] !=3D
++         mfn_x(INVALID_MFN) )
++    {
++        p2m =3D array_access_nospec(d->arch.altp2m_p2m, idx);
++
++        if ( !_atomic_read(p2m->active_vcpus) )
++        {
++            p2m_reset_altp2m(d, idx, ALTP2M_DEACTIVATE);
++            d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] =3D
++                mfn_x(INVALID_MFN);
++            d->arch.altp2m_visible_eptp[array_index_nospec(idx, MAX_EPTP=
+)] =3D
++                mfn_x(INVALID_MFN);
++            rc =3D 0;
++        }
++    }
++
++    altp2m_list_unlock(d);
++
++    domain_unpause_except_self(d);
++
++    return rc;
++}
++
++int p2m_switch_domain_altp2m_by_id(struct domain *d, unsigned int idx)
++{
++    struct vcpu *v;
++    int rc =3D -EINVAL;
++
++    if ( idx >=3D MAX_ALTP2M )
++        return rc;
++
++    rc =3D domain_pause_except_self(d);
++    if ( rc )
++        return rc;
++
++    rc =3D -EINVAL;
++    altp2m_list_lock(d);
++
++    if ( d->arch.altp2m_visible_eptp[idx] !=3D mfn_x(INVALID_MFN) )
++    {
++        for_each_vcpu( d, v )
++            if ( p2m_set_altp2m(v, idx) )
++                altp2m_vcpu_update_p2m(v);
++
++        rc =3D 0;
++    }
++
++    altp2m_list_unlock(d);
++
++    domain_unpause_except_self(d);
++
++    return rc;
++}
++
++int p2m_change_altp2m_gfn(struct domain *d, unsigned int idx,
++                          gfn_t old_gfn, gfn_t new_gfn)
++{
++    struct p2m_domain *hp2m, *ap2m;
++    p2m_access_t a;
++    p2m_type_t t;
++    mfn_t mfn;
++    int rc =3D -EINVAL;
++
++    if ( idx >=3D  min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) ||
++         d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] =3D=3D
++         mfn_x(INVALID_MFN) )
++        return rc;
++
++    hp2m =3D p2m_get_hostp2m(d);
++    ap2m =3D array_access_nospec(d->arch.altp2m_p2m, idx);
++
++    p2m_lock(hp2m);
++    p2m_lock(ap2m);
++
++    if ( gfn_eq(new_gfn, INVALID_GFN) )
++    {
++        mfn =3D ap2m->get_entry(ap2m, old_gfn, &t, &a, 0, NULL, NULL);
++        rc =3D mfn_valid(mfn)
++             ? p2m_remove_entry(ap2m, old_gfn, mfn, PAGE_ORDER_4K)
++             : 0;
++        goto out;
++    }
++
++    rc =3D altp2m_get_effective_entry(ap2m, old_gfn, &mfn, &t, &a,
++                                    AP2MGET_prepopulate);
++    if ( rc )
++        goto out;
++
++    rc =3D altp2m_get_effective_entry(ap2m, new_gfn, &mfn, &t, &a,
++                                    AP2MGET_query);
++    if ( rc )
++        goto out;
++
++    if ( !ap2m->set_entry(ap2m, old_gfn, mfn, PAGE_ORDER_4K, t, a,
++                          (current->domain !=3D d)) )
++    {
++        rc =3D 0;
++
++        if ( gfn_x(new_gfn) < ap2m->min_remapped_gfn )
++            ap2m->min_remapped_gfn =3D gfn_x(new_gfn);
++        if ( gfn_x(new_gfn) > ap2m->max_remapped_gfn )
++            ap2m->max_remapped_gfn =3D gfn_x(new_gfn);
++    }
++
++ out:
++    p2m_unlock(ap2m);
++    p2m_unlock(hp2m);
++    return rc;
++}
++
++int p2m_altp2m_propagate_change(struct domain *d, gfn_t gfn,
++                                mfn_t mfn, unsigned int page_order,
++                                p2m_type_t p2mt, p2m_access_t p2ma)
++{
++    struct p2m_domain *p2m;
++    unsigned int i;
++    unsigned int reset_count =3D 0;
++    unsigned int last_reset_idx =3D ~0;
++    int ret =3D 0;
++
++    if ( !altp2m_active(d) )
++        return 0;
++
++    altp2m_list_lock(d);
++
++    for ( i =3D 0; i < MAX_ALTP2M; i++ )
++    {
++        p2m_type_t t;
++        p2m_access_t a;
++
++        if ( d->arch.altp2m_eptp[i] =3D=3D mfn_x(INVALID_MFN) )
++            continue;
++
++        p2m =3D d->arch.altp2m_p2m[i];
++
++        /* Check for a dropped page that may impact this altp2m */
++        if ( mfn_eq(mfn, INVALID_MFN) &&
++             gfn_x(gfn) + (1UL << page_order) > p2m->min_remapped_gfn &&
++             gfn_x(gfn) <=3D p2m->max_remapped_gfn )
++        {
++            if ( !reset_count++ )
++            {
++                p2m_reset_altp2m(d, i, ALTP2M_RESET);
++                last_reset_idx =3D i;
++            }
++            else
++            {
++                /* At least 2 altp2m's impacted, so reset everything */
++                for ( i =3D 0; i < MAX_ALTP2M; i++ )
++                {
++                    if ( i =3D=3D last_reset_idx ||
++                         d->arch.altp2m_eptp[i] =3D=3D mfn_x(INVALID_MFN=
+) )
++                        continue;
++
++                    p2m_reset_altp2m(d, i, ALTP2M_RESET);
++                }
++
++                ret =3D 0;
++                break;
++            }
++        }
++        else if ( !mfn_eq(get_gfn_type_access(p2m, gfn_x(gfn), &t, &a, 0=
+,
++                                              NULL), INVALID_MFN) )
++        {
++            int rc =3D p2m_set_entry(p2m, gfn, mfn, page_order, p2mt, p2=
+ma);
++
++            /* Best effort: Don't bail on error. */
++            if ( !ret )
++                ret =3D rc;
++
++            p2m_put_gfn(p2m, gfn);
++        }
++        else
++            p2m_put_gfn(p2m, gfn);
++    }
++
++    altp2m_list_unlock(d);
++
++    return ret;
++}
++
++/*
++ * Set/clear the #VE suppress bit for a page.  Only available on VMX.
++ */
++int p2m_set_suppress_ve(struct domain *d, gfn_t gfn, bool suppress_ve,
++                        unsigned int altp2m_idx)
++{
++    int rc;
++    struct xen_hvm_altp2m_suppress_ve_multi sve =3D {
++        altp2m_idx, suppress_ve, 0, 0, gfn_x(gfn), gfn_x(gfn), 0
++    };
++
++    if ( !(rc =3D p2m_set_suppress_ve_multi(d, &sve)) )
++        rc =3D sve.first_error;
++
++    return rc;
++}
++
++/*
++ * Set/clear the #VE suppress bit for multiple pages.  Only available on=
+ VMX.
++ */
++int p2m_set_suppress_ve_multi(struct domain *d,
++                              struct xen_hvm_altp2m_suppress_ve_multi *s=
+ve)
++{
++    struct p2m_domain *host_p2m =3D p2m_get_hostp2m(d);
++    struct p2m_domain *ap2m =3D NULL;
++    struct p2m_domain *p2m =3D host_p2m;
++    uint64_t start =3D sve->first_gfn;
++    int rc =3D 0;
++
++    if ( sve->view > 0 )
++    {
++        if ( sve->view >=3D min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP=
+) ||
++             d->arch.altp2m_eptp[array_index_nospec(sve->view, MAX_EPTP)=
+] =3D=3D
++             mfn_x(INVALID_MFN) )
++            return -EINVAL;
++
++        p2m =3D ap2m =3D array_access_nospec(d->arch.altp2m_p2m, sve->vi=
+ew);
++    }
++
++    p2m_lock(host_p2m);
++
++    if ( ap2m )
++        p2m_lock(ap2m);
++
++    while ( sve->last_gfn >=3D start )
++    {
++        p2m_access_t a;
++        p2m_type_t t;
++        mfn_t mfn;
++        int err =3D 0;
++
++        if ( (err =3D altp2m_get_effective_entry(p2m, _gfn(start), &mfn,=
+ &t, &a,
++                                               AP2MGET_query)) &&
++             !sve->first_error )
++        {
++            sve->first_error_gfn =3D start; /* Save the gfn of the first=
+ error */
++            sve->first_error =3D err; /* Save the first error code */
++        }
++
++        if ( !err && (err =3D p2m->set_entry(p2m, _gfn(start), mfn,
++                                           PAGE_ORDER_4K, t, a,
++                                           sve->suppress_ve)) &&
++             !sve->first_error )
++        {
++            sve->first_error_gfn =3D start; /* Save the gfn of the first=
+ error */
++            sve->first_error =3D err; /* Save the first error code */
++        }
++
++        /* Check for continuation if it's not the last iteration. */
++        if ( sve->last_gfn >=3D ++start && hypercall_preempt_check() )
++        {
++            rc =3D -ERESTART;
++            break;
++        }
++    }
++
++    sve->first_gfn =3D start;
++
++    if ( ap2m )
++        p2m_unlock(ap2m);
++
++    p2m_unlock(host_p2m);
++
++    return rc;
++}
++
++int p2m_get_suppress_ve(struct domain *d, gfn_t gfn, bool *suppress_ve,
++                        unsigned int altp2m_idx)
++{
++    struct p2m_domain *host_p2m =3D p2m_get_hostp2m(d);
++    struct p2m_domain *ap2m =3D NULL;
++    struct p2m_domain *p2m;
++    mfn_t mfn;
++    p2m_access_t a;
++    p2m_type_t t;
++    int rc =3D 0;
++
++    if ( altp2m_idx > 0 )
++    {
++        if ( altp2m_idx >=3D min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPT=
+P) ||
++             d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EPTP=
+)] =3D=3D
++             mfn_x(INVALID_MFN) )
++            return -EINVAL;
++
++        p2m =3D ap2m =3D array_access_nospec(d->arch.altp2m_p2m, altp2m_=
+idx);
++    }
++    else
++        p2m =3D host_p2m;
++
++    gfn_lock(host_p2m, gfn, 0);
++
++    if ( ap2m )
++        p2m_lock(ap2m);
++
++    mfn =3D p2m->get_entry(p2m, gfn, &t, &a, 0, NULL, suppress_ve);
++    if ( !mfn_valid(mfn) )
++        rc =3D -ESRCH;
++
++    if ( ap2m )
++        p2m_unlock(ap2m);
++
++    gfn_unlock(host_p2m, gfn, 0);
++
++    return rc;
++}
++
++int p2m_set_altp2m_view_visibility(struct domain *d, unsigned int altp2m=
+_idx,
++                                   uint8_t visible)
++{
++    int rc =3D 0;
++
++    altp2m_list_lock(d);
++
++    /*
++     * Eptp index is correlated with altp2m index and should not exceed
++     * min(MAX_ALTP2M, MAX_EPTP).
++     */
++    if ( altp2m_idx >=3D min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) |=
+|
++         d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EPTP)] =3D=
+=3D
++         mfn_x(INVALID_MFN) )
++        rc =3D -EINVAL;
++    else if ( visible )
++        d->arch.altp2m_visible_eptp[array_index_nospec(altp2m_idx, MAX_E=
+PTP)] =3D
++            d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EPTP)=
+];
++    else
++        d->arch.altp2m_visible_eptp[array_index_nospec(altp2m_idx, MAX_E=
+PTP)] =3D
++            mfn_x(INVALID_MFN);
++
++    altp2m_list_unlock(d);
++
++    return rc;
++}
++
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
+index ce742c12e0..1f219e8e45 100644
+--- a/xen/arch/x86/mm/p2m.c
++++ b/xen/arch/x86/mm/p2m.c
+@@ -500,9 +500,8 @@ int p2m_alloc_table(struct p2m_domain *p2m)
+     return 0;
+ }
+=20
+-static int __must_check
+-p2m_remove_entry(struct p2m_domain *p2m, gfn_t gfn, mfn_t mfn,
+-                 unsigned int page_order)
++int __must_check p2m_remove_entry(struct p2m_domain *p2m, gfn_t gfn, mfn=
+_t mfn,
++                                  unsigned int page_order)
+ {
+     unsigned long i;
+     p2m_type_t t;
+@@ -1329,8 +1328,7 @@ p2m_getlru_nestedp2m(struct domain *d, struct p2m_d=
+omain *p2m)
+     return p2m;
+ }
+=20
+-static void
+-p2m_flush_table_locked(struct p2m_domain *p2m)
++void p2m_flush_table_locked(struct p2m_domain *p2m)
+ {
+     struct page_info *top, *pg;
+     struct domain *d =3D p2m->domain;
+@@ -1729,481 +1727,6 @@ int unmap_mmio_regions(struct domain *d,
+     return i =3D=3D nr ? 0 : i ?: ret;
+ }
+=20
+-int altp2m_get_effective_entry(struct p2m_domain *ap2m, gfn_t gfn, mfn_t=
+ *mfn,
+-                               p2m_type_t *t, p2m_access_t *a,
+-                               bool prepopulate)
+-{
+-    *mfn =3D ap2m->get_entry(ap2m, gfn, t, a, 0, NULL, NULL);
+-
+-    /* Check host p2m if no valid entry in alternate */
+-    if ( !mfn_valid(*mfn) && !p2m_is_hostp2m(ap2m) )
+-    {
+-        struct p2m_domain *hp2m =3D p2m_get_hostp2m(ap2m->domain);
+-        unsigned int page_order;
+-        int rc;
+-
+-        *mfn =3D p2m_get_gfn_type_access(hp2m, gfn, t, a, P2M_ALLOC | P2=
+M_UNSHARE,
+-                                       &page_order, 0);
+-
+-        rc =3D -ESRCH;
+-        if ( !mfn_valid(*mfn) || *t !=3D p2m_ram_rw )
+-            return rc;
+-
+-        /* If this is a superpage, copy that first */
+-        if ( prepopulate && page_order !=3D PAGE_ORDER_4K )
+-        {
+-            unsigned long mask =3D ~((1UL << page_order) - 1);
+-            gfn_t gfn_aligned =3D _gfn(gfn_x(gfn) & mask);
+-            mfn_t mfn_aligned =3D _mfn(mfn_x(*mfn) & mask);
+-
+-            rc =3D ap2m->set_entry(ap2m, gfn_aligned, mfn_aligned, page_=
+order, *t, *a, 1);
+-            if ( rc )
+-                return rc;
+-        }
+-    }
+-
+-    return 0;
+-}
+-
+-void p2m_altp2m_check(struct vcpu *v, uint16_t idx)
+-{
+-    if ( altp2m_active(v->domain) )
+-        p2m_switch_vcpu_altp2m_by_id(v, idx);
+-}
+-
+-bool p2m_switch_vcpu_altp2m_by_id(struct vcpu *v, unsigned int idx)
+-{
+-    struct domain *d =3D v->domain;
+-    bool rc =3D false;
+-
+-    if ( idx >=3D MAX_ALTP2M )
+-        return rc;
+-
+-    altp2m_list_lock(d);
+-
+-    if ( d->arch.altp2m_eptp[idx] !=3D mfn_x(INVALID_MFN) )
+-    {
+-        if ( p2m_set_altp2m(v, idx) )
+-            altp2m_vcpu_update_p2m(v);
+-        rc =3D 1;
+-    }
+-
+-    altp2m_list_unlock(d);
+-    return rc;
+-}
+-
+-/*
+- * Read info about the gfn in an altp2m, locking the gfn.
+- *
+- * If the entry is valid, pass the results back to the caller.
+- *
+- * If the entry was invalid, and the host's entry is also invalid,
+- * return to the caller without any changes.
+- *
+- * If the entry is invalid, and the host entry was valid, propagate
+- * the host's entry to the altp2m (retaining page order), and indicate
+- * that the caller should re-try the faulting instruction.
+- */
+-bool p2m_altp2m_get_or_propagate(struct p2m_domain *ap2m, unsigned long =
+gfn_l,
+-                                 mfn_t *mfn, p2m_type_t *p2mt,
+-                                 p2m_access_t *p2ma, unsigned int *page_=
+order)
+-{
+-    p2m_type_t ap2mt;
+-    p2m_access_t ap2ma;
+-    unsigned int cur_order;
+-    unsigned long mask;
+-    gfn_t gfn;
+-    mfn_t amfn;
+-    int rc;
+-
+-    /*
+-     * NB we must get the full lock on the altp2m here, in addition to
+-     * the lock on the individual gfn, since we may change a range of
+-     * gfns below.
+-     */
+-    p2m_lock(ap2m);
+-
+-    amfn =3D get_gfn_type_access(ap2m, gfn_l, &ap2mt, &ap2ma, 0, &cur_or=
+der);
+-
+-    if ( cur_order > *page_order )
+-        cur_order =3D *page_order;
+-
+-    if ( !mfn_eq(amfn, INVALID_MFN) )
+-    {
+-        p2m_unlock(ap2m);
+-        *mfn  =3D amfn;
+-        *p2mt =3D ap2mt;
+-        *p2ma =3D ap2ma;
+-        *page_order =3D cur_order;
+-        return false;
+-    }
+-
+-    /* Host entry is also invalid; don't bother setting the altp2m entry=
+. */
+-    if ( mfn_eq(*mfn, INVALID_MFN) )
+-    {
+-        p2m_unlock(ap2m);
+-        *page_order =3D cur_order;
+-        return false;
+-    }
+-
+-    /*
+-     * If this is a superpage mapping, round down both frame numbers
+-     * to the start of the superpage.  NB that we repupose `amfn`
+-     * here.
+-     */
+-    mask =3D ~((1UL << cur_order) - 1);
+-    amfn =3D _mfn(mfn_x(*mfn) & mask);
+-    gfn =3D _gfn(gfn_l & mask);
+-
+-    /* Override the altp2m entry with its default access. */
+-    *p2ma =3D ap2m->default_access;
+-
+-    rc =3D p2m_set_entry(ap2m, gfn, amfn, cur_order, *p2mt, *p2ma);
+-    p2m_unlock(ap2m);
+-
+-    if ( rc )
+-    {
+-        gprintk(XENLOG_ERR,
+-                "failed to set entry for %"PRI_gfn" -> %"PRI_mfn" altp2m=
+ %u, rc %d\n",
+-                gfn_l, mfn_x(amfn), vcpu_altp2m(current).p2midx, rc);
+-        domain_crash(ap2m->domain);
+-    }
+-
+-    return true;
+-}
+-
+-enum altp2m_reset_type {
+-    ALTP2M_RESET,
+-    ALTP2M_DEACTIVATE
+-};
+-
+-static void p2m_reset_altp2m(struct domain *d, unsigned int idx,
+-                             enum altp2m_reset_type reset_type)
+-{
+-    struct p2m_domain *p2m;
+-
+-    ASSERT(idx < MAX_ALTP2M);
+-    p2m =3D array_access_nospec(d->arch.altp2m_p2m, idx);
+-
+-    p2m_lock(p2m);
+-
+-    p2m_flush_table_locked(p2m);
+-
+-    if ( reset_type =3D=3D ALTP2M_DEACTIVATE )
+-        p2m_free_logdirty(p2m);
+-
+-    /* Uninit and reinit ept to force TLB shootdown */
+-    ept_p2m_uninit(p2m);
+-    ept_p2m_init(p2m);
+-
+-    p2m->min_remapped_gfn =3D gfn_x(INVALID_GFN);
+-    p2m->max_remapped_gfn =3D 0;
+-
+-    p2m_unlock(p2m);
+-}
+-
+-void p2m_flush_altp2m(struct domain *d)
+-{
+-    unsigned int i;
+-
+-    altp2m_list_lock(d);
+-
+-    for ( i =3D 0; i < MAX_ALTP2M; i++ )
+-    {
+-        p2m_reset_altp2m(d, i, ALTP2M_DEACTIVATE);
+-        d->arch.altp2m_eptp[i] =3D mfn_x(INVALID_MFN);
+-        d->arch.altp2m_visible_eptp[i] =3D mfn_x(INVALID_MFN);
+-    }
+-
+-    altp2m_list_unlock(d);
+-}
+-
+-static int p2m_activate_altp2m(struct domain *d, unsigned int idx,
+-                               p2m_access_t hvmmem_default_access)
+-{
+-    struct p2m_domain *hostp2m, *p2m;
+-    int rc;
+-
+-    ASSERT(idx < MAX_ALTP2M);
+-
+-    p2m =3D array_access_nospec(d->arch.altp2m_p2m, idx);
+-    hostp2m =3D p2m_get_hostp2m(d);
+-
+-    p2m_lock(p2m);
+-
+-    rc =3D p2m_init_logdirty(p2m);
+-
+-    if ( rc )
+-        goto out;
+-
+-    /* The following is really just a rangeset copy. */
+-    rc =3D rangeset_merge(p2m->logdirty_ranges, hostp2m->logdirty_ranges=
+);
+-
+-    if ( rc )
+-    {
+-        p2m_free_logdirty(p2m);
+-        goto out;
+-    }
+-
+-    p2m->default_access =3D hvmmem_default_access;
+-    p2m->domain =3D hostp2m->domain;
+-    p2m->global_logdirty =3D hostp2m->global_logdirty;
+-    p2m->min_remapped_gfn =3D gfn_x(INVALID_GFN);
+-    p2m->max_mapped_pfn =3D p2m->max_remapped_gfn =3D 0;
+-
+-    p2m_init_altp2m_ept(d, idx);
+-
+- out:
+-    p2m_unlock(p2m);
+-
+-    return rc;
+-}
+-
+-int p2m_init_altp2m_by_id(struct domain *d, unsigned int idx)
+-{
+-    int rc =3D -EINVAL;
+-    struct p2m_domain *hostp2m =3D p2m_get_hostp2m(d);
+-
+-    if ( idx >=3D min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) )
+-        return rc;
+-
+-    altp2m_list_lock(d);
+-
+-    if ( d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] =3D=3D
+-         mfn_x(INVALID_MFN) )
+-        rc =3D p2m_activate_altp2m(d, idx, hostp2m->default_access);
+-
+-    altp2m_list_unlock(d);
+-    return rc;
+-}
+-
+-int p2m_init_next_altp2m(struct domain *d, uint16_t *idx,
+-                         xenmem_access_t hvmmem_default_access)
+-{
+-    int rc =3D -EINVAL;
+-    unsigned int i;
+-    p2m_access_t a;
+-    struct p2m_domain *hostp2m =3D p2m_get_hostp2m(d);
+-
+-    if ( hvmmem_default_access > XENMEM_access_default ||
+-         !xenmem_access_to_p2m_access(hostp2m, hvmmem_default_access, &a=
+) )
+-        return rc;
+-
+-    altp2m_list_lock(d);
+-
+-    for ( i =3D 0; i < MAX_ALTP2M; i++ )
+-    {
+-        if ( d->arch.altp2m_eptp[i] !=3D mfn_x(INVALID_MFN) )
+-            continue;
+-
+-        rc =3D p2m_activate_altp2m(d, i, a);
+-
+-        if ( !rc )
+-            *idx =3D i;
+-
+-        break;
+-    }
+-
+-    altp2m_list_unlock(d);
+-    return rc;
+-}
+-
+-int p2m_destroy_altp2m_by_id(struct domain *d, unsigned int idx)
+-{
+-    struct p2m_domain *p2m;
+-    int rc =3D -EBUSY;
+-
+-    if ( !idx || idx >=3D min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) =
+)
+-        return rc;
+-
+-    rc =3D domain_pause_except_self(d);
+-    if ( rc )
+-        return rc;
+-
+-    rc =3D -EBUSY;
+-    altp2m_list_lock(d);
+-
+-    if ( d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] !=3D
+-         mfn_x(INVALID_MFN) )
+-    {
+-        p2m =3D array_access_nospec(d->arch.altp2m_p2m, idx);
+-
+-        if ( !_atomic_read(p2m->active_vcpus) )
+-        {
+-            p2m_reset_altp2m(d, idx, ALTP2M_DEACTIVATE);
+-            d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] =3D
+-                mfn_x(INVALID_MFN);
+-            d->arch.altp2m_visible_eptp[array_index_nospec(idx, MAX_EPTP=
+)] =3D
+-                mfn_x(INVALID_MFN);
+-            rc =3D 0;
+-        }
+-    }
+-
+-    altp2m_list_unlock(d);
+-
+-    domain_unpause_except_self(d);
+-
+-    return rc;
+-}
+-
+-int p2m_switch_domain_altp2m_by_id(struct domain *d, unsigned int idx)
+-{
+-    struct vcpu *v;
+-    int rc =3D -EINVAL;
+-
+-    if ( idx >=3D MAX_ALTP2M )
+-        return rc;
+-
+-    rc =3D domain_pause_except_self(d);
+-    if ( rc )
+-        return rc;
+-
+-    rc =3D -EINVAL;
+-    altp2m_list_lock(d);
+-
+-    if ( d->arch.altp2m_visible_eptp[idx] !=3D mfn_x(INVALID_MFN) )
+-    {
+-        for_each_vcpu( d, v )
+-            if ( p2m_set_altp2m(v, idx) )
+-                altp2m_vcpu_update_p2m(v);
+-
+-        rc =3D 0;
+-    }
+-
+-    altp2m_list_unlock(d);
+-
+-    domain_unpause_except_self(d);
+-
+-    return rc;
+-}
+-
+-int p2m_change_altp2m_gfn(struct domain *d, unsigned int idx,
+-                          gfn_t old_gfn, gfn_t new_gfn)
+-{
+-    struct p2m_domain *hp2m, *ap2m;
+-    p2m_access_t a;
+-    p2m_type_t t;
+-    mfn_t mfn;
+-    int rc =3D -EINVAL;
+-
+-    if ( idx >=3D  min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) ||
+-         d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] =3D=3D
+-         mfn_x(INVALID_MFN) )
+-        return rc;
+-
+-    hp2m =3D p2m_get_hostp2m(d);
+-    ap2m =3D array_access_nospec(d->arch.altp2m_p2m, idx);
+-
+-    p2m_lock(hp2m);
+-    p2m_lock(ap2m);
+-
+-    if ( gfn_eq(new_gfn, INVALID_GFN) )
+-    {
+-        mfn =3D ap2m->get_entry(ap2m, old_gfn, &t, &a, 0, NULL, NULL);
+-        rc =3D mfn_valid(mfn)
+-             ? p2m_remove_entry(ap2m, old_gfn, mfn, PAGE_ORDER_4K)
+-             : 0;
+-        goto out;
+-    }
+-
+-    rc =3D altp2m_get_effective_entry(ap2m, old_gfn, &mfn, &t, &a,
+-                                    AP2MGET_prepopulate);
+-    if ( rc )
+-        goto out;
+-
+-    rc =3D altp2m_get_effective_entry(ap2m, new_gfn, &mfn, &t, &a,
+-                                    AP2MGET_query);
+-    if ( rc )
+-        goto out;
+-
+-    if ( !ap2m->set_entry(ap2m, old_gfn, mfn, PAGE_ORDER_4K, t, a,
+-                          (current->domain !=3D d)) )
+-    {
+-        rc =3D 0;
+-
+-        if ( gfn_x(new_gfn) < ap2m->min_remapped_gfn )
+-            ap2m->min_remapped_gfn =3D gfn_x(new_gfn);
+-        if ( gfn_x(new_gfn) > ap2m->max_remapped_gfn )
+-            ap2m->max_remapped_gfn =3D gfn_x(new_gfn);
+-    }
+-
+- out:
+-    p2m_unlock(ap2m);
+-    p2m_unlock(hp2m);
+-    return rc;
+-}
+-
+-int p2m_altp2m_propagate_change(struct domain *d, gfn_t gfn,
+-                                mfn_t mfn, unsigned int page_order,
+-                                p2m_type_t p2mt, p2m_access_t p2ma)
+-{
+-    struct p2m_domain *p2m;
+-    unsigned int i;
+-    unsigned int reset_count =3D 0;
+-    unsigned int last_reset_idx =3D ~0;
+-    int ret =3D 0;
+-
+-    if ( !altp2m_active(d) )
+-        return 0;
+-
+-    altp2m_list_lock(d);
+-
+-    for ( i =3D 0; i < MAX_ALTP2M; i++ )
+-    {
+-        p2m_type_t t;
+-        p2m_access_t a;
+-
+-        if ( d->arch.altp2m_eptp[i] =3D=3D mfn_x(INVALID_MFN) )
+-            continue;
+-
+-        p2m =3D d->arch.altp2m_p2m[i];
+-
+-        /* Check for a dropped page that may impact this altp2m */
+-        if ( mfn_eq(mfn, INVALID_MFN) &&
+-             gfn_x(gfn) + (1UL << page_order) > p2m->min_remapped_gfn &&
+-             gfn_x(gfn) <=3D p2m->max_remapped_gfn )
+-        {
+-            if ( !reset_count++ )
+-            {
+-                p2m_reset_altp2m(d, i, ALTP2M_RESET);
+-                last_reset_idx =3D i;
+-            }
+-            else
+-            {
+-                /* At least 2 altp2m's impacted, so reset everything */
+-                for ( i =3D 0; i < MAX_ALTP2M; i++ )
+-                {
+-                    if ( i =3D=3D last_reset_idx ||
+-                         d->arch.altp2m_eptp[i] =3D=3D mfn_x(INVALID_MFN=
+) )
+-                        continue;
+-
+-                    p2m_reset_altp2m(d, i, ALTP2M_RESET);
+-                }
+-
+-                ret =3D 0;
+-                break;
+-            }
+-        }
+-        else if ( !mfn_eq(get_gfn_type_access(p2m, gfn_x(gfn), &t, &a, 0=
+,
+-                                              NULL), INVALID_MFN) )
+-        {
+-            int rc =3D p2m_set_entry(p2m, gfn, mfn, page_order, p2mt, p2=
+ma);
+-
+-            /* Best effort: Don't bail on error. */
+-            if ( !ret )
+-                ret =3D rc;
+-
+-            p2m_put_gfn(p2m, gfn);
+-        }
+-        else
+-            p2m_put_gfn(p2m, gfn);
+-    }
+-
+-    altp2m_list_unlock(d);
+-
+-    return ret;
+-}
+-
+ /*** Audit ***/
+=20
+ #if P2M_AUDIT
+@@ -2540,159 +2063,6 @@ int xenmem_add_to_physmap_one(
+     return rc;
+ }
+=20
+-/*
+- * Set/clear the #VE suppress bit for a page.  Only available on VMX.
+- */
+-int p2m_set_suppress_ve(struct domain *d, gfn_t gfn, bool suppress_ve,
+-                        unsigned int altp2m_idx)
+-{
+-    int rc;
+-    struct xen_hvm_altp2m_suppress_ve_multi sve =3D {
+-        altp2m_idx, suppress_ve, 0, 0, gfn_x(gfn), gfn_x(gfn), 0
+-    };
+-
+-    if ( !(rc =3D p2m_set_suppress_ve_multi(d, &sve)) )
+-        rc =3D sve.first_error;
+-
+-    return rc;
+-}
+-
+-/*
+- * Set/clear the #VE suppress bit for multiple pages.  Only available on=
+ VMX.
+- */
+-int p2m_set_suppress_ve_multi(struct domain *d,
+-                              struct xen_hvm_altp2m_suppress_ve_multi *s=
+ve)
+-{
+-    struct p2m_domain *host_p2m =3D p2m_get_hostp2m(d);
+-    struct p2m_domain *ap2m =3D NULL;
+-    struct p2m_domain *p2m =3D host_p2m;
+-    uint64_t start =3D sve->first_gfn;
+-    int rc =3D 0;
+-
+-    if ( sve->view > 0 )
+-    {
+-        if ( sve->view >=3D min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP=
+) ||
+-             d->arch.altp2m_eptp[array_index_nospec(sve->view, MAX_EPTP)=
+] =3D=3D
+-             mfn_x(INVALID_MFN) )
+-            return -EINVAL;
+-
+-        p2m =3D ap2m =3D array_access_nospec(d->arch.altp2m_p2m, sve->vi=
+ew);
+-    }
+-
+-    p2m_lock(host_p2m);
+-
+-    if ( ap2m )
+-        p2m_lock(ap2m);
+-
+-    while ( sve->last_gfn >=3D start )
+-    {
+-        p2m_access_t a;
+-        p2m_type_t t;
+-        mfn_t mfn;
+-        int err =3D 0;
+-
+-        if ( (err =3D altp2m_get_effective_entry(p2m, _gfn(start), &mfn,=
+ &t, &a,
+-                                               AP2MGET_query)) &&
+-             !sve->first_error )
+-        {
+-            sve->first_error_gfn =3D start; /* Save the gfn of the first=
+ error */
+-            sve->first_error =3D err; /* Save the first error code */
+-        }
+-
+-        if ( !err && (err =3D p2m->set_entry(p2m, _gfn(start), mfn,
+-                                           PAGE_ORDER_4K, t, a,
+-                                           sve->suppress_ve)) &&
+-             !sve->first_error )
+-        {
+-            sve->first_error_gfn =3D start; /* Save the gfn of the first=
+ error */
+-            sve->first_error =3D err; /* Save the first error code */
+-        }
+-
+-        /* Check for continuation if it's not the last iteration. */
+-        if ( sve->last_gfn >=3D ++start && hypercall_preempt_check() )
+-        {
+-            rc =3D -ERESTART;
+-            break;
+-        }
+-    }
+-
+-    sve->first_gfn =3D start;
+-
+-    if ( ap2m )
+-        p2m_unlock(ap2m);
+-
+-    p2m_unlock(host_p2m);
+-
+-    return rc;
+-}
+-
+-int p2m_get_suppress_ve(struct domain *d, gfn_t gfn, bool *suppress_ve,
+-                        unsigned int altp2m_idx)
+-{
+-    struct p2m_domain *host_p2m =3D p2m_get_hostp2m(d);
+-    struct p2m_domain *ap2m =3D NULL;
+-    struct p2m_domain *p2m;
+-    mfn_t mfn;
+-    p2m_access_t a;
+-    p2m_type_t t;
+-    int rc =3D 0;
+-
+-    if ( altp2m_idx > 0 )
+-    {
+-        if ( altp2m_idx >=3D min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPT=
+P) ||
+-             d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EPTP=
+)] =3D=3D
+-             mfn_x(INVALID_MFN) )
+-            return -EINVAL;
+-
+-        p2m =3D ap2m =3D array_access_nospec(d->arch.altp2m_p2m, altp2m_=
+idx);
+-    }
+-    else
+-        p2m =3D host_p2m;
+-
+-    gfn_lock(host_p2m, gfn, 0);
+-
+-    if ( ap2m )
+-        p2m_lock(ap2m);
+-
+-    mfn =3D p2m->get_entry(p2m, gfn, &t, &a, 0, NULL, suppress_ve);
+-    if ( !mfn_valid(mfn) )
+-        rc =3D -ESRCH;
+-
+-    if ( ap2m )
+-        p2m_unlock(ap2m);
+-
+-    gfn_unlock(host_p2m, gfn, 0);
+-
+-    return rc;
+-}
+-
+-int p2m_set_altp2m_view_visibility(struct domain *d, unsigned int altp2m=
+_idx,
+-                                   uint8_t visible)
+-{
+-    int rc =3D 0;
+-
+-    altp2m_list_lock(d);
+-
+-    /*
+-     * Eptp index is correlated with altp2m index and should not exceed
+-     * min(MAX_ALTP2M, MAX_EPTP).
+-     */
+-    if ( altp2m_idx >=3D min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) |=
+|
+-         d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EPTP)] =3D=
+=3D
+-         mfn_x(INVALID_MFN) )
+-        rc =3D -EINVAL;
+-    else if ( visible )
+-        d->arch.altp2m_visible_eptp[array_index_nospec(altp2m_idx, MAX_E=
+PTP)] =3D
+-            d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EPTP)=
+];
+-    else
+-        d->arch.altp2m_visible_eptp[array_index_nospec(altp2m_idx, MAX_E=
+PTP)] =3D
+-            mfn_x(INVALID_MFN);
+-
+-    altp2m_list_unlock(d);
+-
+-    return rc;
+-}
+-
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/x86/mm/p2m.h b/xen/arch/x86/mm/p2m.h
+index 04308cfb6d..635f5a7f45 100644
+--- a/xen/arch/x86/mm/p2m.h
++++ b/xen/arch/x86/mm/p2m.h
+@@ -22,6 +22,9 @@ static inline void p2m_free_logdirty(struct p2m_domain =
+*p2m) {}
+ int p2m_init_altp2m(struct domain *d);
+ void p2m_teardown_altp2m(struct domain *d);
+=20
++void p2m_flush_table_locked(struct p2m_domain *p2m);
++int __must_check p2m_remove_entry(struct p2m_domain *p2m, gfn_t gfn, mfn=
+_t mfn,
++                                  unsigned int page_order);
+ void p2m_nestedp2m_init(struct p2m_domain *p2m);
+ int p2m_init_nestedp2m(struct domain *d);
+ void p2m_teardown_nestedp2m(struct domain *d);
+--=20
+2.25.1
+
 
