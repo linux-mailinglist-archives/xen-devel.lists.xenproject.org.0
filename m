@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 517998A66DC
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 11:16:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706798.1104207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B42428A66DB
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 11:16:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706799.1104217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwevC-0001Ta-EY; Tue, 16 Apr 2024 09:16:10 +0000
+	id 1rwevD-0001kW-Km; Tue, 16 Apr 2024 09:16:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706798.1104207; Tue, 16 Apr 2024 09:16:10 +0000
+Received: by outflank-mailman (output) from mailman id 706799.1104217; Tue, 16 Apr 2024 09:16:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwevC-0001Rr-97; Tue, 16 Apr 2024 09:16:10 +0000
-Received: by outflank-mailman (input) for mailman id 706798;
- Tue, 16 Apr 2024 09:16:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rwevD-0001h0-HQ; Tue, 16 Apr 2024 09:16:11 +0000
+Received: by outflank-mailman (input) for mailman id 706799;
+ Tue, 16 Apr 2024 09:16:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Qw+g=LV=cloud.com=fouad.hilly@srs-se1.protection.inumbo.net>)
- id 1rwevA-0000j0-DQ
- for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 09:16:08 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f503c26e-fbd1-11ee-b909-491648fe20b8;
- Tue, 16 Apr 2024 11:16:07 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a5200afe39eso512106966b.1
- for <xen-devel@lists.xenproject.org>; Tue, 16 Apr 2024 02:16:07 -0700 (PDT)
+ id 1rwevB-0000mP-HQ
+ for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 09:16:09 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f560a58d-fbd1-11ee-94a3-07e782e9044d;
+ Tue, 16 Apr 2024 11:16:08 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-570097653faso2633925a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Apr 2024 02:16:08 -0700 (PDT)
 Received: from fhilly.citrite.net (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- u2-20020a17090657c200b00a524476aac9sm4654723ejr.108.2024.04.16.02.16.05
+ u2-20020a17090657c200b00a524476aac9sm4654723ejr.108.2024.04.16.02.16.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Apr 2024 02:16:05 -0700 (PDT)
+ Tue, 16 Apr 2024 02:16:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,80 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f503c26e-fbd1-11ee-b909-491648fe20b8
+X-Inumbo-ID: f560a58d-fbd1-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1713258966; x=1713863766; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1713258967; x=1713863767; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8L5gTKzhiipTLmXWv/M3h8GXKJ30XFqq9tUQkMs7y54=;
-        b=bOkaKFjMhNuUeICsj4Kb/zaUNlqdoUInm5//RCaxOUjHwVX86j7VcuBkFSlJnAy50Y
-         QEr70VoUrQBphwDXecZycAxA8caAV05DE/wGO71czteAjy+y7v3qDoxELqsGF4tyFHQ5
-         +iH0yJG6HrLJnPZx4J9Uy7U2FwZNpojCH4UfI=
+        bh=QqMqjbPKATTcFkSZJE0LrlnS9bwDIdnbbvMhDvcYVI0=;
+        b=VD4zMLkKJwilqmWZlfTGn1w949+B5OUX+RIw4cWqBbSjNcY21YbJPv30FhVrPmtXuY
+         9aH19xWrPj7JC9DCRge8f+iz98s9Dt3GWVLbydEd72H204chs4PzqYb4dxKMSz41K1sK
+         MwgywaYiv9AeYXPDoGFoA1ajGZWIaesCYxk2o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713258966; x=1713863766;
+        d=1e100.net; s=20230601; t=1713258967; x=1713863767;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=8L5gTKzhiipTLmXWv/M3h8GXKJ30XFqq9tUQkMs7y54=;
-        b=kOZk74AdXTIjlVIVhiLJT2pC9rJyup35fxRRwYRFgLWgdde7WXzS6+YGQn4couSmFd
-         iCzhzjLWkOUSg2BxJFTiZBabXsah0zkAjYMq2O21Pj6dFLo161opdX181LTwe7h7CS5S
-         /5574pv4dUwZlj9t8EQo2cXSZV9qHzGWGiv75fDDHPp0PZ10D94XjbCK8fjdLQ/k8XVt
-         yiZmTvgXAlTBurUsalLV8Ggx+XypoNX1t938LZYP/9hJzQGNuJV8k8BSp94JDKYD4c8r
-         n+5kIZHE9KKhLht1Gv8KXQ6lO4u5h0YnAI1kLpZGhL01qvXgeQsJUAQzk690i9Q2kZcO
-         AK+g==
-X-Gm-Message-State: AOJu0Yzb2IbWVRsr1qFgqs6+L6YEekf5Wr9wvkjWGm36dlLwbcF6V9Uy
-	aI2JVqnfqBzgldtZ8RJQB//GZWbC5T84fDFgAdqm96tMLb0znjVuaw2P+U1msSEgzFbv4mpyHBv
-	9
-X-Google-Smtp-Source: AGHT+IFZEmBGqBvnw2Jp/PJNHnVx1tMBkCNCPTVTjpqTQ1tLdZHbYTcE8DSmFB2Nf2q5YLdd+VNC2Q==
-X-Received: by 2002:a17:906:af14:b0:a52:68db:9fe7 with SMTP id lx20-20020a170906af1400b00a5268db9fe7mr4714628ejb.11.1713258966751;
-        Tue, 16 Apr 2024 02:16:06 -0700 (PDT)
+        bh=QqMqjbPKATTcFkSZJE0LrlnS9bwDIdnbbvMhDvcYVI0=;
+        b=eDu7yhf8ftMqfsmH9tSSN0sS/AeoUVE692+1rZKXDWXv7MJPVjLAk6w/fZvlBGSHtd
+         kXblyNC8ENE0lgVV/Sr2umUTTiVTjjzK64VMoNbWaWq5rzYE6SH4pmJV3tRX2AKpAvc7
+         59OlDuXp0ia26GvckPh6ZcKfxX3eS3+ee1gxa/3JoArv8Gzhc0o1Qx03SNu/dUpbPw5U
+         1BvrPGrqbO+4JcT+oHDve8ZpcWu1RUBBuE7P508KVd94KhKFtwuQPqBKVIuIxZyWccrF
+         Z5GqNySqBt3eGxOylspyOg181XJ6qeFeI4TA1B3fPXQ76asbMYJKf4pPThT81GZ1qto7
+         Ye7A==
+X-Gm-Message-State: AOJu0Ywyp/crmbzYrJwYorogv+n5nxEaOt7UT2vGx+jKWKw3pSTzmRYw
+	JqJSs0LfZH3Q/EX2jhuP6+RIU3z/oQBlI9QgIqGLyXrZEOPY6/kko2FxdUEcA4wQZEJB+9a288V
+	f
+X-Google-Smtp-Source: AGHT+IGZFc5vZSLMqmSJtZ9LG3B1/EYB+WqDlokgwcpiJVA1CYkpP42KgKueD+A6VdIm2whqItACUA==
+X-Received: by 2002:a17:907:9443:b0:a52:3f00:616d with SMTP id dl3-20020a170907944300b00a523f00616dmr10232289ejc.30.1713258967372;
+        Tue, 16 Apr 2024 02:16:07 -0700 (PDT)
 From: Fouad Hilly <fouad.hilly@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Fouad Hilly <fouad.hilly@cloud.com>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v2 3/5] x86: Add usage() to print out usage message
-Date: Tue, 16 Apr 2024 10:15:44 +0100
-Message-ID: <20240416091546.11622-4-fouad.hilly@cloud.com>
+Subject: [PATCH v2 4/5] x86: Use getopt to handle command line args
+Date: Tue, 16 Apr 2024 10:15:45 +0100
+Message-ID: <20240416091546.11622-5-fouad.hilly@cloud.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20240416091546.11622-1-fouad.hilly@cloud.com>
 References: <20240416091546.11622-1-fouad.hilly@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Refactor xen-ucode tool by adding usage() to handle usage\help messages
-As we add more command options this will keep help\usage messages in common block
+Use getopt_long() to handle command line arguments.
+Introduce ext_err for common exit with errors.
 
 [v2]
-1- Improved message description.
-2- Fixed formatting and indentation.
-3- Error message to print to stderr.
+1- Removed unnecessary NULL initialization.
+2- Used static at the beginning of type struct declaration.
+3- Corrected switch\case indentations.
+4- Removed redundant checks.
+5- Corrected label indentation.
 
 Signed-off-by: Fouad Hilly <fouad.hilly@cloud.com>
 ---
- tools/misc/xen-ucode.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ tools/misc/xen-ucode.c | 43 ++++++++++++++++++++++++++++++------------
+ 1 file changed, 31 insertions(+), 12 deletions(-)
 
 diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
-index c6ae6498d659..0c0b2337b4ea 100644
+index 0c0b2337b4ea..e3c1943e3633 100644
 --- a/tools/misc/xen-ucode.c
 +++ b/tools/misc/xen-ucode.c
-@@ -17,6 +17,15 @@ static xc_interface *xch;
- static const char intel_id[] = "GenuineIntel";
- static const char   amd_id[] = "AuthenticAMD";
+@@ -11,6 +11,7 @@
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ #include <xenctrl.h>
++#include <getopt.h>
  
-+static void usage(const char *name)
-+{
-+    printf("%s: Xen microcode updating tool\n"
-+           "Usage: %s [microcode file] [options]\n"
-+           "Options:\n"
-+           "show-cou-info   show CPU information and exit\n",
-+           name, name);
-+}
+ static xc_interface *xch;
+ 
+@@ -22,7 +23,8 @@ static void usage(const char *name)
+     printf("%s: Xen microcode updating tool\n"
+            "Usage: %s [microcode file] [options]\n"
+            "Options:\n"
+-           "show-cou-info   show CPU information and exit\n",
++           "  -h, --help            display this help and exit\n"
++           "  -s, --show-cpu-info   show CPU information and exit\n",
+            name, name);
+ }
+ 
+@@ -86,6 +88,13 @@ int main(int argc, char *argv[])
+     char *filename, *buf;
+     size_t len;
+     struct stat st;
++    int opt;
 +
- static void show_curr_cpu(FILE *f)
- {
-     int ret;
++    static const struct option options[] = {
++        {"help", no_argument, NULL, 'h'},
++        {"show-cpu-info", no_argument, NULL, 's'},
++        {NULL, no_argument, NULL, 0}
++    };
+ 
+     xch = xc_interface_open(NULL, NULL, 0);
+     if ( xch == NULL )
+@@ -95,19 +104,22 @@ int main(int argc, char *argv[])
+         exit(1);
+     }
+ 
+-    if ( argc < 2 )
+-    {
+-        fprintf(stderr,
+-                "xen-ucode: Xen microcode updating tool\n"
+-                "Usage: %s [<microcode file> | show-cpu-info]\n", argv[0]);
+-        show_curr_cpu(stderr);
+-        exit(2);
+-    }
++    if ( argc != 2 )
++        goto ext_err;
+ 
+-    if ( !strcmp(argv[1], "show-cpu-info") )
++    while ( (opt = getopt_long(argc, argv, "hs", options, NULL)) != -1 )
+     {
+-        show_curr_cpu(stdout);
+-        return 0;
++        switch (opt)
++        {
++        case 'h':
++            usage(argv[0]);
++            exit(EXIT_SUCCESS);
++        case 's':
++            show_curr_cpu(stdout);
++            exit(EXIT_SUCCESS);
++        default:
++            goto ext_err;
++        }
+     }
+ 
+     filename = argv[1];
+@@ -152,4 +164,11 @@ int main(int argc, char *argv[])
+     close(fd);
+ 
+     return 0;
++
++ ext_err:
++    fprintf(stderr,
++            "xen-ucode: Xen microcode updating tool\n"
++            "Usage: %s [microcode file] [options]\n", argv[0]);
++    show_curr_cpu(stderr);
++    exit(STDERR_FILENO);
+ }
 -- 
 2.42.0
 
