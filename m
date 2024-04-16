@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 612938A66B6
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 11:06:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706782.1104154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 535958A66BD
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 11:08:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706788.1104165 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwelo-0004KX-D1; Tue, 16 Apr 2024 09:06:28 +0000
+	id 1rwena-0005i7-N3; Tue, 16 Apr 2024 09:08:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706782.1104154; Tue, 16 Apr 2024 09:06:28 +0000
+Received: by outflank-mailman (output) from mailman id 706788.1104165; Tue, 16 Apr 2024 09:08:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwelo-0004IN-AL; Tue, 16 Apr 2024 09:06:28 +0000
-Received: by outflank-mailman (input) for mailman id 706782;
- Tue, 16 Apr 2024 09:06:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rwelm-0004IH-Bk
- for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 09:06:26 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rwelm-0003yV-12; Tue, 16 Apr 2024 09:06:26 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rwell-0005Gi-Qb; Tue, 16 Apr 2024 09:06:25 +0000
+	id 1rwena-0005gE-KH; Tue, 16 Apr 2024 09:08:18 +0000
+Received: by outflank-mailman (input) for mailman id 706788;
+ Tue, 16 Apr 2024 09:08:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ze4s=LV=bounce.vates.tech=bounce-md_30504962.661e3ffc.v1-cd0b31d4047c4070870f72ff6edafebb@srs-se1.protection.inumbo.net>)
+ id 1rwenZ-0005g6-3l
+ for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 09:08:17 +0000
+Received: from mail145-16.atl61.mandrillapp.com
+ (mail145-16.atl61.mandrillapp.com [198.2.145.16])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dafffb4a-fbd0-11ee-94a3-07e782e9044d;
+ Tue, 16 Apr 2024 11:08:14 +0200 (CEST)
+Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail145-16.atl61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4VJdVh6Vlrz8XRxWN
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Apr 2024 09:08:12 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ cd0b31d4047c4070870f72ff6edafebb; Tue, 16 Apr 2024 09:08:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,100 +43,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=hek42AkB0WCmB8hfBlA2JqvGThAvFJKFAavCN1HP0jI=; b=A2ozPsmlGK0++w6NSQCzthN9GW
-	0NAQ8G4i6n3htsihaKgh/shkKPBuqUbM7E29adwGg7HMkY4fvT/2SLrGa7tt+UM4pPt5G1WqxsZHx
-	BlYhHKokgJB8C55h7k4faOkBHWaXIljeztdtfLf1lXi0034Xd2ZzJBEPN2B+D6ExMJa0=;
-Message-ID: <cf9fb8b0-a8d2-4d30-a669-db1c09acc49b@xen.org>
-Date: Tue, 16 Apr 2024 10:06:24 +0100
+X-Inumbo-ID: dafffb4a-fbd0-11ee-94a3-07e782e9044d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1713258492; x=1713518992;
+	bh=psZ1jgY5/ShxiZ95g6hDQhTaYC5/6jQ8OcbLtKEGa6w=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=UeOPDwm4rYtRP45FvyZNoXD21U7rUr7oLcP4uAbcyRBEUkAKMNRHVELzlewvUfvi4
+	 tzCoFfNuCmzij6jMrE2dgtsS7nDllJssCABQAQnH33YXKd4Pdpjzp1O77YibD8/RyO
+	 yYN9AOYzOnU8VypLqXgt/y2FLGlFhN1AQLVZRqDJ4kcgXgbStYlWuZ5Bl4IZCHMHuN
+	 0xO0nhgAOcxzlpPxc/CMevh+5m+oHkZpDnXcBCVXttLx7rWlX4HNx1HgmQvHmmUydw
+	 2FjTIidoqbTPSp2Abk7OoSGwN85JavX9kHG+n4MaOKniG1zSnJ544vIhDzUXeL8XKj
+	 eI+csgV1FGoqw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1713258492; x=1713518992; i=vaishali.thakkar@vates.tech;
+	bh=psZ1jgY5/ShxiZ95g6hDQhTaYC5/6jQ8OcbLtKEGa6w=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=fXqnSg6MLrAvvRyLbbePKNmeJmTy18U10HUiKC++fbwnkCjeVZAbWcMZX4RAecjrB
+	 U6EGW9BjLcrmyIdN1iFfBslWokesUkmFUm8KB5bZVdzcQNrPNk978YTMkkCB7KUaWD
+	 kTtN/Wh7vfHH52I+cNS9wPH/5D9lE2SjT0fp4O3PsFqpuXzU/x6bPtEdpJhMb9mv3S
+	 iFwvF75Gq8J5g71qdkMmNRGl7kVedP6jhZwGfslC4rP3yc5ucIo5NIMsDSV7CpWiAf
+	 u75o5eAr6AucIiLuodj7Y57OzqJOOKGTs86porQfQz0DAc+eMlEiV1IQxcMvELLF2P
+	 vKVzWzo2L3QNg==
+From: Vaishali Thakkar <vaishali.thakkar@vates.tech>
+Subject: =?utf-8?Q?[PATCH]=20x86/svm:=20Add=20flushbyasid=20in=20the=20supported=20features?=
+X-Mailer: git-send-email 2.44.0
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1713258491675
+To: xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, Vaishali Thakkar <vaishali.thakkar@vates.tech>
+Message-Id: <b8541a3c70058a74c837352901f2e6a8b45e4fa2.1713258186.git.vaishali.thakkar@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.cd0b31d4047c4070870f72ff6edafebb?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240416:md
+Date: Tue, 16 Apr 2024 09:08:12 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/13] xen/arm: List static shared memory regions as
- /memory nodes
-Content-Language: en-GB
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240409114543.3332150-1-luca.fancellu@arm.com>
- <20240409114543.3332150-14-luca.fancellu@arm.com>
- <7b09184a-111d-4a38-baec-53f01ec6ed03@xen.org>
- <39165767-26EA-4849-9C02-12393933139E@arm.com>
- <74cfa4fe-2ee8-4700-be90-4227704f96d1@xen.org>
- <F1BB5F9C-0683-420C-AB77-BBE88AB16347@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <F1BB5F9C-0683-420C-AB77-BBE88AB16347@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
+TLB Flush by ASID is missing in the list of supported features
+here. So, add it.
 
+Signed-off-by: Vaishali Thakkar <vaishali.thakkar@vates.tech>
+---
+ xen/arch/x86/hvm/svm/svm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On 16/04/2024 09:59, Luca Fancellu wrote:
-> 
-> 
->> On 16 Apr 2024, at 09:50, Julien Grall <julien@xen.org> wrote:
->>
->>
->>
->> On 16/04/2024 07:27, Luca Fancellu wrote:
->>> Hi Julien,
->>
->> Hi Luca,
->>
->>>> On 15 Apr 2024, at 19:41, Julien Grall <julien@xen.org> wrote:
->>>>
->>>> Hi Luca,
->>>>
->>>> On 09/04/2024 12:45, Luca Fancellu wrote:
->>>>> Currently Xen is not exporting the static shared memory regions
->>>>> to the device tree as /memory node, this commit is fixing this
->>>>> issue.
->>>>> The static shared memory banks can be part of the memory range
->>>>> available for the domain, so if they are overlapping with the
->>>>> normal memory banks, they need to be merged together in order
->>>>> to produce a /memory node with non overlapping ranges in 'reg'.
->>>>
->>>> Before reviewing the code in more details, I would like to understand a bit more the use case and whether it should be valid.
->>>>
->>>>  From my understanding, the case you are trying to prevent is the following setup:
->>>>   1. The Guest Physical region 0x0000 to 0x8000 is used for RAM
->>>>   2. The Guest Physical region 0x0000 to 0x4000 is used for static memory
->>> So far, it was possible to map guest physical regions inside the memory range given to the guest,
->>> so the above configuration was allowed and the underlying host physical regions were of course
->>> different and enforced with checks. So I’m not trying to prevent this behaviour, however ...
->>>>
->>>> The underlying Host Physical regions may be different. Xen doesn't guarantee in which order the regions will be mapped, So whether the overlapped region will point to the memory or the shared region is unknown (we don't guarantee the order of the mapping). So nothing good will happen to the guest.
->>> ... now here I don’t understand if this was wrong from the beginning or not, shall we enforce also that
->>> guest physical regions for static shared memory are outside the memory given to the guest?
->>
->> Nothing good will happen if you are trying to overwrite mappings. So I think this should be enforced. However, this is a more general problem. At the moment, this is pretty much as mess because you can overwrite any mapping (e.g. map MMIO on top of the RAM).
->>
->> I think the easiest way to enforce is to do it in the P2M code like x86 does for certain mappings.
->>
->> Anyway, I don't think the problem should be solved here or by you (this is likely going to be a can of worms). For now, I would consider to simply drop the patches that are trying to do the merge.
->>
->> Any thoughts?
-> 
-> Yes I agree with you, I’ll drop the patch that tries to do the merge, I was thinking about checking that the guest phys static mem region is
-> inside these boundaries:
-> 
-> #define GUEST_RAM_BANK_BASES { GUEST_RAM0_BASE, GUEST_RAM1_BASE }
-> #define GUEST_RAM_BANK_SIZES { GUEST_RAM0_SIZE, GUEST_RAM1_SIZE }
-> 
-> and also that doesn’t overlap with (struct kernel_info).mem, does it sounds right to you?
-
-I don't fully understand what you want to do. But as I wrote before, the 
-overlaps happen with many different regions (what if you try to use the 
-GIC Distributor regions for the shared memory?).
-
-So if we want some overlaps check, then it has to be generic.
-
-Cheers,
-
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index a745acd903..4719fffae5 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -2510,6 +2510,7 @@ const struct hvm_function_table * __init start_svm(void)
+     P(cpu_has_svm_lbrv, "Last Branch Record (LBR) Virtualisation");
+     P(cpu_has_svm_nrips, "Next-RIP Saved on #VMEXIT");
+     P(cpu_has_svm_cleanbits, "VMCB Clean Bits");
++    P(cpu_has_svm_flushbyasid, "TLB flush by ASID");
+     P(cpu_has_svm_decode, "DecodeAssists");
+     P(cpu_has_svm_vloadsave, "Virtual VMLOAD/VMSAVE");
+     P(cpu_has_svm_vgif, "Virtual GIF");
 -- 
-Julien Grall
+2.44.0
 
