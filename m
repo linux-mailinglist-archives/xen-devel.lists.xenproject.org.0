@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4C248A6C3C
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 15:26:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706963.1104391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D4608A6CA1
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 15:39:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706971.1104401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwipZ-0000Ix-60; Tue, 16 Apr 2024 13:26:37 +0000
+	id 1rwj1T-0002DS-9w; Tue, 16 Apr 2024 13:38:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706963.1104391; Tue, 16 Apr 2024 13:26:37 +0000
+Received: by outflank-mailman (output) from mailman id 706971.1104401; Tue, 16 Apr 2024 13:38:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwipZ-0000HM-2a; Tue, 16 Apr 2024 13:26:37 +0000
-Received: by outflank-mailman (input) for mailman id 706963;
- Tue, 16 Apr 2024 13:26:36 +0000
+	id 1rwj1T-0002B9-6M; Tue, 16 Apr 2024 13:38:55 +0000
+Received: by outflank-mailman (input) for mailman id 706971;
+ Tue, 16 Apr 2024 13:38:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BYTd=LV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rwipY-0000HG-9a
- for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 13:26:36 +0000
-Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
- [2607:f8b0:4864:20::72b])
+ id 1rwj1S-0002B1-8g
+ for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 13:38:54 +0000
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [2607:f8b0:4864:20::b2c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f1d21af3-fbf4-11ee-b909-491648fe20b8;
- Tue, 16 Apr 2024 15:26:35 +0200 (CEST)
-Received: by mail-qk1-x72b.google.com with SMTP id
- af79cd13be357-78ecacab93bso387092485a.3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Apr 2024 06:26:35 -0700 (PDT)
+ id a9b770b1-fbf6-11ee-b909-491648fe20b8;
+ Tue, 16 Apr 2024 15:38:53 +0200 (CEST)
+Received: by mail-yb1-xb2c.google.com with SMTP id
+ 3f1490d57ef6-dcbd1d4904dso4341434276.3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Apr 2024 06:38:52 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- vv10-20020a05620a562a00b0078d6c4b0b3bsm7567665qkn.26.2024.04.16.06.26.32
+ k26-20020a0c971a000000b0069f77a0079fsm453096qvd.34.2024.04.16.06.38.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Apr 2024 06:26:33 -0700 (PDT)
+ Tue, 16 Apr 2024 06:38:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1d21af3-fbf4-11ee-b909-491648fe20b8
+X-Inumbo-ID: a9b770b1-fbf6-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713273994; x=1713878794; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1713274732; x=1713879532; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dfTilTUZYTUJNw0Z8dLBhB4zRThATqAWOOkGBPtcBww=;
-        b=DJmg0YDrfsuMua9TPXLqe2b8jZYjbbsSia474Szh63GfXUS27fSge8W/Ta8GBh14Rf
-         Q//2pfR4lIgqVBQD6Mdv3CS5c+tph0vg2uckkUPiZHN6eSxlMs6qXuN+kslVhlO7Wyzo
-         4+j6GhwMhXud9OkxMx9VFoq9H9TdQMeLuvhcc=
+        bh=uQRnmrxUqjNTrPFx6kAVneHl4mVOqI9ZV+GFuSsOyKk=;
+        b=Krf9LDgmm32hCunoaS0nDP8RkJyinMrsQ4gBB06z6VeN7TwtWk8NLzZSeqOzxaD0ls
+         3McRWLfkV20PBEpocRq1QY0p/GYuejHk42DefiVzktwgrTkJu1saALlPmvd5DkqwFxC/
+         71VCqrxcXnwdC1pchA3v7+jjsed2a0P/SRKaQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713273994; x=1713878794;
+        d=1e100.net; s=20230601; t=1713274732; x=1713879532;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dfTilTUZYTUJNw0Z8dLBhB4zRThATqAWOOkGBPtcBww=;
-        b=mxSjiEzdaUzuFKOIgtnCrOU4GT4szSefYgvywBdUXMSAhPxWw2kfjp5FYc+9eHZH6P
-         yDOSUf8hnWlaPwLx58gxiu7uMRSKKOoRJmPOmPaoE+6RPwEZX6FsQxyPvY5TMep3l7KW
-         08XIKF5zBnNsJPIGAQNdmyvYWATHoG2A3pKNgG35fvpbyI0qTy1SNbXRR5EijNrUkDbH
-         qg+j7lTfwZ/0zPakrZZrM9dngsFsDQ+sSsTh36iB20Sw8YzgRWnS64+8m7UgsnuPU9hg
-         1gK6SYQcTHdsGs9QEMLsgByCJkSrlePCCLuk4CxLWVPVt5pC5RG2PqBHSSuCMPKq4qBD
-         E4kw==
-X-Forwarded-Encrypted: i=1; AJvYcCWtWmDe2G9hkb0nh8Cf26kGrQUw1foeRhAtVYPYIE9d93RI5QZnDQTnbTi9RuZ5ru1Jzx3rpiPA7r/diW7dmLxSSMi3B8Rs+Q4zFGq44uE=
-X-Gm-Message-State: AOJu0YwmgA3GaLKObZ4YCVyK7XDDQ4WAB4MnuWSxms+j9iT7le/xDp+x
-	+da3WLHzVq6oE0AmzDDUZO8Dyf/sMmGSve2aU6OUWoJUVGQMx3bOocS2HYxfPbI=
-X-Google-Smtp-Source: AGHT+IFLYRds+ATwIc0DkLopLz7zWPGg12iJtKzl9Km1JB1ZQ0wdzLW+Ir33OrC6DhWy0EO0+Ld6mA==
-X-Received: by 2002:a37:e20b:0:b0:78d:74ed:ae90 with SMTP id g11-20020a37e20b000000b0078d74edae90mr13538346qki.26.1713273993797;
-        Tue, 16 Apr 2024 06:26:33 -0700 (PDT)
-Message-ID: <fb54fefb-404f-43a4-aea9-28649927c353@citrix.com>
-Date: Tue, 16 Apr 2024 14:26:28 +0100
+        bh=uQRnmrxUqjNTrPFx6kAVneHl4mVOqI9ZV+GFuSsOyKk=;
+        b=QpUxetNvXsex/2EE6D24QMEOOMhGel5Cz9fF6GqpbdFo5pBWY07r9qXRsPkh1K3UUg
+         0VxmEDH0xfd21EwgGud7QhCjaaaHL+zA8qrkSs8lcsa/z7SNTZcwGOB4Pr/N8iwY1mEy
+         MnKbb5w1hzeN5noGmYnkuIi+h8RfAxnbq0EQ1u311y7C6/w1bdqi0gCehR1ApySOFX/Q
+         g4i1VMuN9x+458p7N5lhhjUACtW+AWworRzzt9qobi9Hj+R2Fax93lbvvhGjSwlifIdc
+         3yDIv+nZrcbgIRZQeDVbvX+SmZgq/zjn7cyNxwl4NUuH5AmVIEoRIOFKth1CWjq7dn/K
+         D3jg==
+X-Forwarded-Encrypted: i=1; AJvYcCUPlxZDb5ipAG+aNDzc8WkJGMniIcZbyKxte5RwNg1qyIrAXHW+6Z01X8RHMO9FNRpFdbiGiWyXtyTg22leyzuV5K5JoNEc+4Hqu4z82x8=
+X-Gm-Message-State: AOJu0YwnnMOPWIg6wTOrp2PVo3mMAx27BLh6GgLtYpx+zQnZG6QzKGkg
+	/f5mMR8CbMvWoXlhrC9/nTaYHwk4HeC9dxjCefl3d6j2rB0LWEF0uyN9nJmiITE=
+X-Google-Smtp-Source: AGHT+IF7knkl0Zc0ny1rhyFG1YJ/wHJ1mOsXbzgeTJ9LcnLwkgsMv13L127G6maJKjZhf6Zhv/TQ1A==
+X-Received: by 2002:a25:b589:0:b0:dcf:3ef2:6182 with SMTP id q9-20020a25b589000000b00dcf3ef26182mr11622472ybj.0.1713274731739;
+        Tue, 16 Apr 2024 06:38:51 -0700 (PDT)
+Message-ID: <10f811aa-0b18-4ef2-9185-3146df13a382@citrix.com>
+Date: Tue, 16 Apr 2024 14:38:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1 13/15] x86: wire cpu_has_{svm/vmx}_* to false when
- svm/vmx not enabled
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
-Cc: Xenia Ragiadakou <burzalodowa@gmail.com>, Jan Beulich
- <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20240416064606.3470052-1-Sergiy_Kibrik@epam.com>
+Subject: Re: [PATCH] x86/svm: Add flushbyasid in the supported features
+To: Vaishali Thakkar <vaishali.thakkar@vates.tech>,
+ xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com, roger.pau@citrix.com
+References: <b8541a3c70058a74c837352901f2e6a8b45e4fa2.1713258186.git.vaishali.thakkar@vates.tech>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,88 +128,45 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240416064606.3470052-1-Sergiy_Kibrik@epam.com>
+In-Reply-To: <b8541a3c70058a74c837352901f2e6a8b45e4fa2.1713258186.git.vaishali.thakkar@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16/04/2024 7:46 am, Sergiy Kibrik wrote:
-> From: Xenia Ragiadakou <burzalodowa@gmail.com>
+On 16/04/2024 10:08 am, Vaishali Thakkar wrote:
+> TLB Flush by ASID is missing in the list of supported features
+> here. So, add it.
 >
-> To be able to use cpu_has_{svm/vmx}_* macros in common code without enclosing
-> them inside #ifdef guards when the respective virtualization technology is
-> not enabled, define corresponding helper routines as false when not applicable.
->
-> No functional change intended.
->
-> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> Signed-off-by: Vaishali Thakkar <vaishali.thakkar@vates.tech>
 > ---
->  xen/arch/x86/include/asm/hvm/svm/svm.h  | 8 ++++++++
->  xen/arch/x86/include/asm/hvm/vmx/vmcs.h | 7 +++++++
->  2 files changed, 15 insertions(+)
+>  xen/arch/x86/hvm/svm/svm.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/xen/arch/x86/include/asm/hvm/svm/svm.h b/xen/arch/x86/include/asm/hvm/svm/svm.h
-> index 4eeeb25da9..7e8cdb4a27 100644
-> --- a/xen/arch/x86/include/asm/hvm/svm/svm.h
-> +++ b/xen/arch/x86/include/asm/hvm/svm/svm.h
-> @@ -38,10 +38,18 @@ extern u32 svm_feature_flags;
->  #define SVM_FEATURE_SSS           19 /* NPT Supervisor Shadow Stacks */
->  #define SVM_FEATURE_SPEC_CTRL     20 /* MSR_SPEC_CTRL virtualisation */
->  
-> +#ifdef CONFIG_SVM
->  static inline bool cpu_has_svm_feature(unsigned int feat)
->  {
->      return svm_feature_flags & (1u << feat);
->  }
-> +#else
-> +static inline bool cpu_has_svm_feature(unsigned int feat)
-> +{
-> +    return false;
-> +}
-> +#endif
-> +
->  #define cpu_has_svm_npt       cpu_has_svm_feature(SVM_FEATURE_NPT)
->  #define cpu_has_svm_lbrv      cpu_has_svm_feature(SVM_FEATURE_LBRV)
->  #define cpu_has_svm_svml      cpu_has_svm_feature(SVM_FEATURE_SVML)
-> diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-> index fd197e2603..2d927d3100 100644
-> --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-> @@ -287,10 +287,17 @@ extern uint64_t vmx_tertiary_exec_control;
->  #define VMX_VPID_INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL 0x80000000000ULL
->  extern u64 vmx_ept_vpid_cap;
->  
-> +#ifdef CONFIG_VMX
->  static inline bool vmx_ctrl_has_feature(uint64_t control, unsigned long feature)
->  {
->      return control & feature;
->  }
-> +#else
-> +static inline bool vmx_ctrl_has_feature(uint64_t control, unsigned long feature)
-> +{
-> +    return false;
-> +}
-> +#endif
->  
->  #define VMX_MISC_ACTIVITY_MASK                  0x000001c0
->  #define VMX_MISC_PROC_TRACE                     0x00004000
+> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+> index a745acd903..4719fffae5 100644
+> --- a/xen/arch/x86/hvm/svm/svm.c
+> +++ b/xen/arch/x86/hvm/svm/svm.c
+> @@ -2510,6 +2510,7 @@ const struct hvm_function_table * __init start_svm(void)
+>      P(cpu_has_svm_lbrv, "Last Branch Record (LBR) Virtualisation");
+>      P(cpu_has_svm_nrips, "Next-RIP Saved on #VMEXIT");
+>      P(cpu_has_svm_cleanbits, "VMCB Clean Bits");
+> +    P(cpu_has_svm_flushbyasid, "TLB flush by ASID");
+>      P(cpu_has_svm_decode, "DecodeAssists");
+>      P(cpu_has_svm_vloadsave, "Virtual VMLOAD/VMSAVE");
+>      P(cpu_has_svm_vgif, "Virtual GIF");
 
-I'm afraid this is going in an unhelpful direction.  We want to move
-both of these files to be local to arch/x86/hvm/{vmx,svm}/.
+This is consistent with pre-existing behaviour, so
 
-cpu_has_svm_* isn't actually used outside of svm/; only the plain
-SVM_FEATURE_* constants are, and that's only because they're not
-expressed as plain cpu features yet.
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-cpu_has_vmx_* has a few more users, but most are unlikely to remain in
-this form.  One critical set of changes to fix vulnerabilities in
-nested-virt is to make almost of of these decisions based on per-domain
-state, not host state.  The aspects which are host state should be in
-regular cpu features.
+However, an ever increasing list of lines like this is something I'm
+trying to push back against.
 
-I already volunteered to sort out the SEV feature leaf properly, and I
-was going to do the SVM leaf while I was at it.  If you can wait a few
-days, I might be able to make half of this problem disappear.
+They don't match the configured state of VMs in the system, not least
+because one of the things required to fix security vulnerabilities in
+nested virt is to break the (false) assumption that there is a single
+global state of how a VM is configured.
+
+These ones in particular are just about to appear in CPU policies.
 
 ~Andrew
 
