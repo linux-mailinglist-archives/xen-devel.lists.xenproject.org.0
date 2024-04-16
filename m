@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F78A8A692F
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 12:56:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.706876.1104322 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D31F38A6958
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Apr 2024 13:06:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.706887.1104336 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwgTy-00083W-Sn; Tue, 16 Apr 2024 10:56:10 +0000
+	id 1rwgdG-0002EW-MC; Tue, 16 Apr 2024 11:05:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 706876.1104322; Tue, 16 Apr 2024 10:56:10 +0000
+Received: by outflank-mailman (output) from mailman id 706887.1104336; Tue, 16 Apr 2024 11:05:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rwgTy-00081B-Of; Tue, 16 Apr 2024 10:56:10 +0000
-Received: by outflank-mailman (input) for mailman id 706876;
- Tue, 16 Apr 2024 10:56:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rwgdG-0002Bz-JC; Tue, 16 Apr 2024 11:05:46 +0000
+Received: by outflank-mailman (input) for mailman id 706887;
+ Tue, 16 Apr 2024 11:05:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BYTd=LV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rwgTx-00080w-4L
- for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 10:56:09 +0000
+ id 1rwgdF-0002Br-Bb
+ for xen-devel@lists.xenproject.org; Tue, 16 Apr 2024 11:05:45 +0000
 Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
  [2607:f8b0:4864:20::f35])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ecd88628-fbdf-11ee-94a3-07e782e9044d;
- Tue, 16 Apr 2024 12:56:07 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 44bbff48-fbe1-11ee-b909-491648fe20b8;
+ Tue, 16 Apr 2024 13:05:44 +0200 (CEST)
 Received: by mail-qv1-xf35.google.com with SMTP id
- 6a1803df08f44-69629b4ae2bso37070846d6.3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Apr 2024 03:56:07 -0700 (PDT)
+ 6a1803df08f44-69b0f08a877so22306726d6.0
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Apr 2024 04:05:44 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- u9-20020a05621411a900b0069b57111a98sm5939304qvv.79.2024.04.16.03.56.04
+ qb14-20020ad4470e000000b0069b7deb02dasm2201203qvb.117.2024.04.16.04.05.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Apr 2024 03:56:05 -0700 (PDT)
+ Tue, 16 Apr 2024 04:05:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ecd88628-fbdf-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 44bbff48-fbe1-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713264966; x=1713869766; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1713265543; x=1713870343; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=d9z7WRYShidWsM5MiHYhU2fAxi+R6Zu3pFICuH4pcxQ=;
-        b=p0af7CkNUQte51aAE4NDpE6L0rhvA9PCRxlMiyzlqLk/c2auq6WPIjgyXgo+g9HOEo
-         4V+pZRt67kkIo7m0V42Pr7LK3/Cq8nAzO6Ni6vhqweynM57Fuitp60Y9gYUbK1vxGmQ0
-         tux9m2x1WZhW9QAEYc6X3mn1wIbP7gZMLhJ98=
+        bh=EOrLN1v6gXHx1bxczDTfFpH+7z7nlYt0ImH4TQTP3Jc=;
+        b=R378WjHi84xRCHfCbwZuXGBHjISy8noLm18aJESj1KNhLhkv1XjycrL5r9N230hQl/
+         08BZ07eN6fkeOHxK4+rwze/ltI2WOqAczVodAiQxtYso9cKRYs8y+EJTdXLe9j4njQTp
+         bpk1B7h/yUNq8iorVFmf/QJPxt+Kc3sfV2xys=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713264966; x=1713869766;
+        d=1e100.net; s=20230601; t=1713265543; x=1713870343;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=d9z7WRYShidWsM5MiHYhU2fAxi+R6Zu3pFICuH4pcxQ=;
-        b=AtqpgYzU8qM3I/zy+aErUFEL5ijk/zpIw3/K3QfH+XTSraEO2V/0VHfUL0IaccaRs5
-         6bxOyNDUNUrtnvqjNNqSo4+3I4njbmhmbl+ZN1G+a2KrjrvtZ88a6hTmUsNmY08MWeEH
-         Up12/7ZAl8K5qjBhhKJLhdWGmC2mKy2wkEdgHopBEp3D4ZbgX50Utm9A/TiVl7FsAyNp
-         ZNNq8mcTiZtNOSf5gSiZt8C7GcG1OzjJb/5Xx9s/uH/1LFKNbi3ZbN+njNuLczownZqR
-         wifxmBqi+f9vhbYYjbBAhRpqqdEoBPvEDA8HQlyrzh2/qD/5v6uvsaIYUQah5hNZe/S1
-         GAuA==
-X-Forwarded-Encrypted: i=1; AJvYcCUFk77YwwcPPGBjFXYiiewEJ1eHwCxYX8UsjXwXjmCmHHJ+ZyYBfbXzWZNHMsjEufWg5KpuF4IwDodSbToLmJmfQpiQxSUDNsNtX5DwFlI=
-X-Gm-Message-State: AOJu0Yx8WbadFR7m7oLOmtsIfh7p9mQplxUCcs9wk5RLt+AF17htQBRi
-	Mgev8EaCdwmThncXGC5X2wmaUXxp39MEliW8EeiLbU2wQHZ+uk6gw8AB/07XRwE/Jib88IMJEga
-	k49E=
-X-Google-Smtp-Source: AGHT+IFbLJLmH/4O3T46wocfE+PWQ5ggyZThhbxooVBhICJ8nT79x5Z0JkjSDVTt4Ipj7oGoGpmOFQ==
-X-Received: by 2002:a0c:ef8a:0:b0:69b:52fb:fb88 with SMTP id w10-20020a0cef8a000000b0069b52fbfb88mr11807804qvr.41.1713264965978;
-        Tue, 16 Apr 2024 03:56:05 -0700 (PDT)
-Message-ID: <10e8d4a3-2e53-478c-bb77-a038f2187c5a@citrix.com>
-Date: Tue, 16 Apr 2024 11:56:03 +0100
+        bh=EOrLN1v6gXHx1bxczDTfFpH+7z7nlYt0ImH4TQTP3Jc=;
+        b=lkhKtm2dy4KEr+73kEkLb108ZP7koLRXP4Kot96sK8/Javbj6EXE1PvO4caJSIhL9H
+         +wYdepMWvYUS5mNrTw2iG36Dq6ZyMHRjCP4LAvH5OO10g1aDH+PCfDWj17ckLCmLtgff
+         pYoW5syPMxZvai4vrpLBqeGtSfMqliIQtWOSOW+a1w/h6+u3z/BHx6Na9tSijeNVoD3U
+         5Cp/NGYZCJhe7m/VjmP9uezwj6W9Y8/lerN1z0iBgin/h/7iFUdK6Yn+hfU6SXlgZLbr
+         SBO45C+HKGpr8XrmlhrRnPdh+hw9O3GMiORKwXzsN+uUz4L8/1rRBFXUxQIVjv0IG0Tg
+         +SoA==
+X-Forwarded-Encrypted: i=1; AJvYcCVCbCXdbWjx1GxFG6jxB1m3Lcyaw2RMsVl87UG2iuQO0kkZo9ltcTaR4+TJo5gr/+i2Ja4eqEjKmSsZFbVibPAksHjlFYTPdrtUojlzb14=
+X-Gm-Message-State: AOJu0YyqLEvpailsdbYH8u70JWvrnzs4x+ZG0Kvyt6w/ExXFM0kfg4oJ
+	LSTbQJQXvvB5b1pluXXkmcbSsfbU+1ZGuIXY145ERPRKaivVKqfTe5DMP1O/b4E=
+X-Google-Smtp-Source: AGHT+IHPoVd18i8Ba11dsKYPxL3lOOHYATi2KG6ozgHCysWG3fd3A74j/EbgLkaw3ay0KBG7JMZStA==
+X-Received: by 2002:a05:6214:911:b0:69b:2aa8:dc56 with SMTP id dj17-20020a056214091100b0069b2aa8dc56mr11444986qvb.36.1713265542974;
+        Tue, 16 Apr 2024 04:05:42 -0700 (PDT)
+Message-ID: <939adb2d-7816-4f99-9d57-ed444ab859b4@citrix.com>
+Date: Tue, 16 Apr 2024 12:05:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Mini-OS: add some macros for asm statements
-To: Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org
-References: <20240416071139.11083-1-jgross@suse.com>
+Subject: Re: [XEN PATCH v1 08/15] x86/vpmu: separate amd/intel vPMU code
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20240416063534.3469482-1-Sergiy_Kibrik@epam.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,103 +129,30 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240416071139.11083-1-jgross@suse.com>
+In-Reply-To: <20240416063534.3469482-1-Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 16/04/2024 8:11 am, Juergen Gross wrote:
-> diff --git a/arch/x86/sched.c b/arch/x86/sched.c
-> index dabe6fd6..460dea2e 100644
-> --- a/arch/x86/sched.c
-> +++ b/arch/x86/sched.c
-> @@ -119,20 +113,12 @@ struct thread* arch_create_thread(char *name, void (*function)(void *),
->  
->  void run_idle_thread(void)
->  {
-> -    /* Switch stacks and run the thread */ 
-> -#if defined(__i386__)
-> -    __asm__ __volatile__("mov %0,%%esp\n\t"
-> -                         "push %1\n\t" 
-> -                         "ret"                                            
-> +    /* Switch stacks and run the thread */
-> +    __asm__ __volatile__("mov %0,"ASM_SP"\n\t"
-> +                         "push %1\n\t"
-> +                         "ret"
->                           :"=m" (idle_thread->sp)
-> -                         :"m" (idle_thread->ip));                          
-> -#elif defined(__x86_64__)
-> -    __asm__ __volatile__("mov %0,%%rsp\n\t"
-> -                         "push %1\n\t" 
-> -                         "ret"                                            
-> -                         :"=m" (idle_thread->sp)
-> -                         :"m" (idle_thread->ip));                                                    
-> -#endif
-> +                         :"m" (idle_thread->ip));
+On 16/04/2024 7:35 am, Sergiy Kibrik wrote:
+> diff --git a/xen/arch/x86/cpu/Makefile b/xen/arch/x86/cpu/Makefile
+> index 35561fe51d..d3d7b8fb2e 100644
+> --- a/xen/arch/x86/cpu/Makefile
+> +++ b/xen/arch/x86/cpu/Makefile
+> @@ -10,4 +10,6 @@ obj-y += intel.o
+>  obj-y += intel_cacheinfo.o
+>  obj-y += mwait-idle.o
+>  obj-y += shanghai.o
+> -obj-y += vpmu.o vpmu_amd.o vpmu_intel.o
+> +obj-y += vpmu.o
+> +obj-$(CONFIG_SVM) += vpmu_amd.o
+> +obj-$(CONFIG_VMX) += vpmu_intel.o
 
-I know you're only transforming the existing logic, but this is dodgy in
-several ways.
+I'm afraid this breaks perf counters on PV guests.  These files are
+joint guest-type implementations.
 
-First, PUSH/RET is more commonly spelt JMP.  Second, sp is an input
-parameter not an output, so I'm pretty sure this only works by luck.
-
-00000000000001ee <run_idle_thread>:
- 1ee:   55                      push   %rbp
- 1ef:   48 89 e5                mov    %rsp,%rbp
- 1f2:   48 8b 05 00 00 00 00    mov    0x0(%rip),%rax        # 1f9
-<run_idle_thread+0xb>
- 1f9:   48 8b 15 00 00 00 00    mov    0x0(%rip),%rdx        # 200
-<run_idle_thread+0x12>
- 200:   48 8b 60 10             mov    0x10(%rax),%rsp
- 204:   ff 72 18                pushq  0x18(%rdx)
- 207:   c3                      retq   
- 208:   90                      nop
- 209:   5d                      pop    %rbp
- 20a:   c3                      retq   
-
-
-This only works because the address constructed for sp's "output" is
-happens to be on a single-parameter instruction where's its good as an
-input too.
-
-Anyway, this is a much better way of writing it:
-
-    asm volatile ("mov %[sp], %%"ASM_SP"\n\t"
-                  "jmp *%[ip]\n\t"
-                  :
-                  : [sp] "m" (idle_thread->sp),
-                    [ip] "m" (idle_thread->ip));
-
-and also highlights that run_idle_thread() should be marked noreturn.
-
->  }
->  
->  unsigned long __local_irq_save(void)
-> diff --git a/include/x86/os.h b/include/x86/os.h
-> index ee34d784..485d90b8 100644
-> --- a/include/x86/os.h
-> +++ b/include/x86/os.h
-> @@ -77,6 +77,17 @@ int  arch_suspend(void);
->  void arch_post_suspend(int canceled);
->  void arch_fini(void);
->  
-> +#if defined(__i386__)
-> +#define __SZ    "l"
-> +#define __REG   "e"
-> +#else
-> +#define __SZ    "q"
-> +#define __REG   "r"
-> +#endif
-> +
-> +#define ASM_SP  "%%"__REG"sp"
-
-The %% should be at the usage sites, not here.  That way, you can use
-ASM_SP in e.g. file-scope asm where it's spelt with a single %.
-
-> +#define ASM_MOV "mov"__SZ
-
-There's no need for ASM_MOV.  Regular plain mov (no suffix) will work in
-all the cases you're trying to use it, and makes the asm easier to
-read.  Notice how run_idle_thread() is already like this.
+Seeing as you leave vpmu.o alone, I guess that all you're actually
+wanting to do is compile out vpmu_intel.o?  In which case, use
+CONFIG_{AMD,INTEL} rather than CONFIG_{SVM,VMX} please.
 
 ~Andrew
 
