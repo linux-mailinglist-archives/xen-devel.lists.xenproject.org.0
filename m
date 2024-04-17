@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 025D08A8E50
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 23:46:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707776.1106026 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE6348A8E5D
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 23:59:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707782.1106035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxD61-0005nq-B6; Wed, 17 Apr 2024 21:45:37 +0000
+	id 1rxDIu-0008Mr-Ea; Wed, 17 Apr 2024 21:58:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707776.1106026; Wed, 17 Apr 2024 21:45:37 +0000
+Received: by outflank-mailman (output) from mailman id 707782.1106035; Wed, 17 Apr 2024 21:58:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxD61-0005m1-7w; Wed, 17 Apr 2024 21:45:37 +0000
-Received: by outflank-mailman (input) for mailman id 707776;
- Wed, 17 Apr 2024 21:45:36 +0000
+	id 1rxDIu-0008KU-Bv; Wed, 17 Apr 2024 21:58:56 +0000
+Received: by outflank-mailman (input) for mailman id 707782;
+ Wed, 17 Apr 2024 21:58:55 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rxD60-0005lv-DY
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 21:45:36 +0000
+ (envelope-from <julien@xen.org>) id 1rxDIt-0008KO-GC
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 21:58:55 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rxD5z-00077o-QC; Wed, 17 Apr 2024 21:45:35 +0000
+ id 1rxDIs-0007JP-9j; Wed, 17 Apr 2024 21:58:54 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rxD5z-00083Y-KX; Wed, 17 Apr 2024 21:45:35 +0000
+ id 1rxDIs-00006N-3c; Wed, 17 Apr 2024 21:58:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,172 +42,139 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=WBRW8q6xoVpfNHV6ssixGiqrpjb5AD0sKpo1xAXBdiA=; b=HlC9O2Dcd5OMbhKTnxaxKDQTOn
-	njNKlB+q/1F+ZtBWW1LzRBuuSxZZqYU36klI4QihbNOeGkk/7AFduzSt6Se+yESh0HxJI9rzPCue0
-	hrFrNtMTseQVeqUpe9r5AQoqDloDXMt4hvBINRAheqxT/Un38Y1E538WUIWnGlZTTIVA=;
-Message-ID: <931b2c4c-cfd0-4b6b-82e0-32d7bde9d42e@xen.org>
-Date: Wed, 17 Apr 2024 22:45:33 +0100
+	bh=II5tclPltclzsE8LMFxvJjn+8s1w53uZOckUeKFXjoc=; b=LrrkKTdnbTbrC1mBcnRRdPiiTB
+	tgypHjMuQp+cu0Mar61Hw72NIIKlikAraeolrdY70ujRAgGiOr+wfFPrPyU8GXWi1mPoA5qkjaMiu
+	qM5tM/yp70QHzUExOGyswzzZBUKW3BJ4FyCVBxbwy099LM8keUg/D2DRVwbv+PBEv17c=;
+Message-ID: <5b9f9b19-282a-4005-a506-6b3df7363a89@xen.org>
+Date: Wed, 17 Apr 2024 22:58:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm: platform: qcom: add basic support SA8155P SoC
+Subject: Re: [PATCH 2/3] drivers: serial: add Qualcomm GENI-based serial
+ driver
 Content-Language: en-GB
 To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
+ Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
 References: <20240329000822.3363568-1-volodymyr_babchuk@epam.com>
- <20240329000822.3363568-4-volodymyr_babchuk@epam.com>
+ <20240329000822.3363568-3-volodymyr_babchuk@epam.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240329000822.3363568-4-volodymyr_babchuk@epam.com>
+In-Reply-To: <20240329000822.3363568-3-volodymyr_babchuk@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Volodymyr,
+Hi,
 
 On 29/03/2024 00:08, Volodymyr Babchuk wrote:
-> Qualcomm SA8155P is the automotive variant of SM8150 aka Snapdragon
-> 855.
-> 
-> This patch adds very basic support for the platform. We need to handle
-> Qualcomm-specific SMC to workaround quirk in the QCOM SCM driver in
-> the Linux kernel. Basically the driver tries multiple different SMCs
-> to determine which calling convention is supported by a SoC. If all
-> calls fail it decides that the SoC uses "legacy SMC" and tries to
-> communicate with SCM by issuing SMC with funcid = 1. Problem is that
-> Xen has own understanding on how such SMC should be handled. It
-> interprets this SMC as legacy PSCI_cpu_off and happily turns of Linux
-> boot CPU.
-> 
-> To workaround this, we pretend that we support
-> QCOM_SCM_INFO_IS_CALL_AVAIL, this will make the driver use the latest
-> calling convention. All subsequent calls will fail anyways and the
-> driver will terminate self gracefully. This is not a big deal, because
-> right now (with Linux 6.8) even on baremetal setup the driver fails
-> anyways, because it does not know how to work with this SoC.
+> Generic Interface (GENI) is a newer interface for low speed interfaces
+> like UART, I2C or SPI. This patch adds the simple driver for the UART
+> instance of GENI. Code is based on similar drivers in U-Boot and Linux
+> kernel.
 
-Is there any patches that are not yet merged and/or on a Qualcomm 
-specific tree? I just want to make sure that we have a code that will 
-still work in the near future.
+If this is based on Linux/U-boot, then I assume you read the code and 
+possibly copy/paste some of it. Therefore...
 
+> 
+> This driver implements only simple synchronous mode, because although
+> GENI supports FIFO mode, it needs to know number of
+> characters **before** starting TX transaction. This is a stark
+> contrast when compared to other UART peripherals, which allow adding
+> characters to a FIFO while TX operation is running.
+> 
+> The patch adds both normal UART driver and earlyprintk version.
 > 
 > Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 > ---
->   xen/arch/arm/platforms/Makefile |  1 +
->   xen/arch/arm/platforms/qcom.c   | 77 +++++++++++++++++++++++++++++++++
->   2 files changed, 78 insertions(+)
->   create mode 100644 xen/arch/arm/platforms/qcom.c
+>   xen/arch/arm/Kconfig.debug           |  19 +-
+>   xen/arch/arm/arm64/debug-qcom.inc    |  76 +++++++
+>   xen/arch/arm/include/asm/qcom-uart.h |  48 +++++
+>   xen/drivers/char/Kconfig             |   8 +
+>   xen/drivers/char/Makefile            |   1 +
+>   xen/drivers/char/qcom-uart.c         | 288 +++++++++++++++++++++++++++
+>   6 files changed, 439 insertions(+), 1 deletion(-)
+>   create mode 100644 xen/arch/arm/arm64/debug-qcom.inc
+>   create mode 100644 xen/arch/arm/include/asm/qcom-uart.h
+>   create mode 100644 xen/drivers/char/qcom-uart.c
 > 
-> diff --git a/xen/arch/arm/platforms/Makefile b/xen/arch/arm/platforms/Makefile
-> index 8632f4115f..6873735ef0 100644
-> --- a/xen/arch/arm/platforms/Makefile
-> +++ b/xen/arch/arm/platforms/Makefile
-> @@ -9,5 +9,6 @@ obj-$(CONFIG_ALL_PLAT)   += sunxi.o
->   obj-$(CONFIG_ALL64_PLAT) += thunderx.o
->   obj-$(CONFIG_ALL64_PLAT) += xgene-storm.o
->   obj-$(CONFIG_ALL64_PLAT) += brcm-raspberry-pi.o
-> +obj-$(CONFIG_ALL64_PLAT) += qcom.o
->   obj-$(CONFIG_MPSOC_PLATFORM)  += xilinx-zynqmp.o
->   obj-$(CONFIG_MPSOC_PLATFORM)  += xilinx-zynqmp-eemi.o
-> diff --git a/xen/arch/arm/platforms/qcom.c b/xen/arch/arm/platforms/qcom.c
+> diff --git a/xen/arch/arm/Kconfig.debug b/xen/arch/arm/Kconfig.debug
+> index eec860e88e..f6ab0bb30e 100644
+> --- a/xen/arch/arm/Kconfig.debug
+> +++ b/xen/arch/arm/Kconfig.debug
+> @@ -119,6 +119,19 @@ choice
+>   			selecting one of the platform specific options below if
+>   			you know the parameters for the port.
+>   
+> +			This option is preferred over the platform specific
+> +			options; the platform specific options are deprecated
+> +			and will soon be removed.
+> +	config EARLY_UART_CHOICE_QCOM
+> +		select EARLY_UART_QCOM
+> +		bool "Early printk via Qualcomm debug UART"
+> +		help
+> +			Say Y here if you wish the early printk to direct their
+> +			output to a Qualcomm debug UART. You can use this option to
+> +			provide the parameters for the debug UART rather than
+> +			selecting one of the platform specific options below if
+> +			you know the parameters for the port.
+> +
+>   			This option is preferred over the platform specific
+>   			options; the platform specific options are deprecated
+>   			and will soon be removed.
+> @@ -211,6 +224,9 @@ config EARLY_UART_PL011
+>   config EARLY_UART_SCIF
+>   	select EARLY_PRINTK
+>   	bool
+> +config EARLY_UART_QCOM
+> +	select EARLY_PRINTK
+> +	bool
+>   
+>   config EARLY_PRINTK
+>   	bool
+> @@ -261,7 +277,7 @@ config EARLY_UART_PL011_MMIO32
+>   	  will be done using 32-bit only accessors.
+>   
+>   config EARLY_UART_INIT
+> -	depends on EARLY_UART_PL011 && EARLY_UART_PL011_BAUD_RATE != 0
+> +	depends on (EARLY_UART_PL011 && EARLY_UART_PL011_BAUD_RATE != 0) || EARLY_UART_QCOM
+>   	def_bool y
+>   
+>   config EARLY_UART_8250_REG_SHIFT
+> @@ -308,3 +324,4 @@ config EARLY_PRINTK_INC
+>   	default "debug-mvebu.inc" if EARLY_UART_MVEBU
+>   	default "debug-pl011.inc" if EARLY_UART_PL011
+>   	default "debug-scif.inc" if EARLY_UART_SCIF
+> +	default "debug-qcom.inc" if EARLY_UART_QCOM
+> diff --git a/xen/arch/arm/arm64/debug-qcom.inc b/xen/arch/arm/arm64/debug-qcom.inc
 > new file mode 100644
-> index 0000000000..77e9c58649
+> index 0000000000..130d08d6e9
 > --- /dev/null
-> +++ b/xen/arch/arm/platforms/qcom.c
-> @@ -0,0 +1,77 @@
+> +++ b/xen/arch/arm/arm64/debug-qcom.inc
+> @@ -0,0 +1,76 @@
 > +/*
-> + * xen/arch/arm/platforms/qcom.c
+> + * xen/arch/arm/arm64/debug-qcom.inc
 > + *
-> + * Qualcomm SoCs specific code
+> + * Qualcomm debug UART specific debug code
 > + *
 > + * Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> + *
-> + * Copyright (c) 2024 EPAM Systems.
+> + * Copyright (C) 2024, EPAM Systems.
 > + *
 > + * This program is free software; you can redistribute it and/or modify
 > + * it under the terms of the GNU General Public License as published by
 > + * the Free Software Foundation; either version 2 of the License, or
 > + * (at your option) any later version.
 
-Did you intend to license the code as GPLv2+? See [1], for some context.
+... I don't think you can use GPLv2+ license here. It has to be the same 
+as Linux/U-boot.
 
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + */
-> +
-> +#include <asm/platform.h>
-> +#include <public/arch-arm/smccc.h>
-> +#include <asm/smccc.h>
-> +
-> +#define SCM_SMC_FNID(s, c)	((((s) & 0xFF) << 8) | ((c) & 0xFF))
-> +#define QCOM_SCM_SVC_INFO		0x06
-> +#define QCOM_SCM_INFO_IS_CALL_AVAIL	0x01
-> +
-> +#define ARM_SMCCC_SIP_QCOM_SCM_IS_CALL_AVAIL                            \
-
-I find this name a little bit too long. Can we remove ARM_SMCCC as I 
-don't think it adds any value?
-
-> +    ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,                             \
-> +                       ARM_SMCCC_CONV_64,                               \
-> +                       ARM_SMCCC_OWNER_SIP,                             \
-> +                       SCM_SMC_FNID(QCOM_SCM_SVC_INFO,                  \
-> +                                    QCOM_SCM_INFO_IS_CALL_AVAIL))
-> +
-> +static const char * const sa8155p_dt_compat[] __initconst =
-> +{
-> +    "qcom,sa8155p",
-> +    NULL
-> +};
-> +
-> +static bool sa8155p_smc(struct cpu_user_regs *regs)
-> +{
-> +    uint32_t funcid = get_user_reg(regs, 0);
-> +
-
-The function will also called for guests. But only the hardware 
-domain/dom0 is using the machine qcom,sa8155p, so I think you want to 
-check the domain.
-
-> +    switch ( funcid ) {
-> +    case ARM_SMCCC_SIP_QCOM_SCM_IS_CALL_AVAIL:
-> +        /*
-> +         * We need to implement this specific call only to make Linux
-> +         * counterpart happy: QCOM SCM driver in Linux tries to
-> +         * determine calling convention by issuing this particular
-> +         * SMC. If it receives an error it assumes that platform uses
-> +         * legacy calling convention and tries to issue SMC with
-> +         * funcid = 1. Xen interprets this as PSCI_cpu_off and turns
-> +         * off Linux boot vCPU.
-> +         */
-> +        set_user_reg(regs, 0, ARM_SMCCC_SUCCESS);
-> +        set_user_reg(regs, 1, 1);
-> +        return true;
-> +    default:
-> +        return false;
-> +    }
-> +}
-> +
-> +PLATFORM_START(sa8155p, "Qualcomm SA8155P")
-> +    .compatible = sa8155p_dt_compat,
-> +    .smc = sa8155p_smc
-> +PLATFORM_END
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
+Also, as there is no public manual, can you provide some pointer to the 
+code from both repo (including version)? This would help the reviewer to 
+confirm you code.
 
 Cheers,
-
-[1] https://lore.kernel.org/1272bb77-8a93-4ca2-af0d-4c1c36729307@xen.org
 
 -- 
 Julien Grall
