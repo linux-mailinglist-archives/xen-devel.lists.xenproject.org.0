@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74B118A845F
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 15:24:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707515.1105505 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25DF38A84B0
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 15:31:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707521.1105518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx5H3-0004jF-1N; Wed, 17 Apr 2024 13:24:29 +0000
+	id 1rx5Nk-0006hN-OQ; Wed, 17 Apr 2024 13:31:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707515.1105505; Wed, 17 Apr 2024 13:24:29 +0000
+Received: by outflank-mailman (output) from mailman id 707521.1105518; Wed, 17 Apr 2024 13:31:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx5H2-0004hQ-Up; Wed, 17 Apr 2024 13:24:28 +0000
-Received: by outflank-mailman (input) for mailman id 707515;
- Wed, 17 Apr 2024 13:24:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rx5Nk-0006fJ-Kl; Wed, 17 Apr 2024 13:31:24 +0000
+Received: by outflank-mailman (input) for mailman id 707521;
+ Wed, 17 Apr 2024 13:31:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=T4Tg=LW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rx5H1-0004fj-EX
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 13:24:27 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cf6e754c-fcbd-11ee-94a3-07e782e9044d;
- Wed, 17 Apr 2024 15:24:25 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-415515178ceso35040495e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 06:24:25 -0700 (PDT)
+ id 1rx5Ni-0006f3-Pk
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 13:31:22 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c7a8043a-fcbe-11ee-b909-491648fe20b8;
+ Wed, 17 Apr 2024 15:31:22 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-418c979dca2so2885945e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 06:31:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j13-20020a05600c190d00b00418a386c17bsm2825211wmq.12.2024.04.17.06.24.24
+ t7-20020adfe447000000b00343eac2acc4sm17604985wrm.111.2024.04.17.06.31.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Apr 2024 06:24:24 -0700 (PDT)
+ Wed, 17 Apr 2024 06:31:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf6e754c-fcbd-11ee-94a3-07e782e9044d
+X-Inumbo-ID: c7a8043a-fcbe-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713360265; x=1713965065; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713360681; x=1713965481; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=pCGtXgJBAgs27J5U13OzW6bg1iBmsa5nq+r6YUcrYdQ=;
-        b=Wb7CgwSd16ec1FoJhqzCHAyk9gwsrbn4EmwDe+Lc2rAZ3/Ldl+v+8pPtq8UEuAGjNL
-         v+CTGvUBa5Eve2/XDIqXaz8l20dWthCJz3nDrBT4N6JIYX75xwePOOenAYOS10LmWb5k
-         JIlu9niqC7KHbDWottGHba9LxHwRaKzrJoUNjWKI4j4mnnaZIIuoa4L2BqqJthihpPg3
-         5cvpjLQdpIjN5k3VJuoy0vFNwMsnCN+N3BQxhnrsUU1VO3TQfsnjPkIfym78nF3IqvFc
-         UNogFN2BaeaikpZ88RXMuMfqLksksoOQolfHSiCDFDhybhMx3OgoQMy7Bch8WBYQpUHn
-         M4pQ==
+        bh=DWreDTf0xdSGqXTwEp122Iabm0W1giroMInLVGdk/e0=;
+        b=PEHBj0SNL1eSFjcTXvMBhg70+LKQaIiH0Rte5lp/o8yvcGXuaEKK4TbE//D1WRpcAR
+         ShVoa4m8eizHiHd/9z9Ug+z5WmAQRoU6y0mZfGIydXJismYA6S62IBZ2Yni9+9EIZzyy
+         WZDycIehV9Lx0VmnwtxjMR9TLpvCnj4lcZj0XJGf8KVOm4T3hADUm5R70BG+j0ZOFcqC
+         K2+kPXtuz9BBYmNgLhowVQguT7+uj8YHubY7Iu5/q313U6vXuyUEyfCspwr3lKA9DcHM
+         Wp+vnFuTtwOA3LWt7zWdnYVIjacAQNQ5YNaPikTwcZuHezeeIu17Afn2uGLrkpypIehg
+         tNaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713360265; x=1713965065;
+        d=1e100.net; s=20230601; t=1713360681; x=1713965481;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pCGtXgJBAgs27J5U13OzW6bg1iBmsa5nq+r6YUcrYdQ=;
-        b=pMKa9u7zwlwo7R7xIDpCTgqDj+tj8cXqYkEc6EQQq2eNalK6RzavAb40Fs1E0XegO2
-         1zSekoWK/NbEdF2OpnisdokaDSEAvJa1Xxu9b+AaG+tz90HM/+njC6QzqvKlftsGBG33
-         SpX29UqFWGpszdM+n0QO7GjzeT+RDbaqcEoIJeEdo62XQ4iyEBznxg2JFz/83fSmqL0i
-         3EGYvZZZMhZhMhNyitUW9sB69QqisMcrEtyWMlPEWvr/tb06XmbaWyVLvZHXKpgRmbc1
-         j8/NWjKbke4Luz0xPc8NG0FuTkgEzURjV574hZCHTn3I98CoBAtHmrQtx3RQbyGuFCmd
-         ytDg==
-X-Forwarded-Encrypted: i=1; AJvYcCWCFai9MSC8h+iF++x9vr9MfXywJ+PwjK6NQbB5imuSfbBxrMYOIHa5KQWxDa6IGP3hgLbR2WmNS+liZSfoHWhe976x9y0ZhoSviZq71iQ=
-X-Gm-Message-State: AOJu0YzDPTSm1NpKkWkMwcVN879Ber6B3AwJehJgThw8DrSxcooOykuP
-	FFWcQ9Nh8M0WXSAel0BsZH2dZuvn7beM824zWJNCxWz0pXY+k7VtOikSlvjwsHEMayhO3SK9gCg
-	=
-X-Google-Smtp-Source: AGHT+IHWQuHl+6FrUX2WKbTl9h9T4BW5CGUo/BE2nymXG89aNKH2v7EC6a//ogNypVLGsGqdHRmRSQ==
-X-Received: by 2002:a05:600c:4f0c:b0:418:17e9:c23f with SMTP id l12-20020a05600c4f0c00b0041817e9c23fmr9861066wmq.31.1713360264842;
-        Wed, 17 Apr 2024 06:24:24 -0700 (PDT)
-Message-ID: <f4864450-0cba-4ff8-9a39-aad792aab026@suse.com>
-Date: Wed, 17 Apr 2024 15:24:23 +0200
+        bh=DWreDTf0xdSGqXTwEp122Iabm0W1giroMInLVGdk/e0=;
+        b=aX0REByU8W0HpjtpiPebnPLnFE2oMmHp/n7ETNJ7ovlgYzD7OgEDxELx+tNNNoWKwF
+         pq8lcNPZlZk7M71K9Of0EPgZkI14pB+XiDgSeKuKjHF/7IHPhB1k/KnSmiEJRYoGAWIY
+         +Y2u6lefdeOBQiijs0JySsw7XR/KUgm9pQou+qNIzecMYgrZUaCBviXlO6e1OWtwgyzA
+         t2oJ4UmdSNts9XNvtN1WLcCyT8BgMP17eyFQ9PJQOtIutbyh6OLSGiaTnpYOPBE+WsjM
+         yhA79sSokSOAuUWnU+rmwQOgiIssRas4OfFZd/VpNYdU1hSs7VWaSU9vQRaUkjqav5jr
+         NGhQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWFFkP08+0x1cVRlFWbG/qfSb+wcy/bXiueF0WtSU+cUagGDA2rxzJAQDZFPOerHkaAneSK7R71g9AhSixSgrvVTeSw8PZuP3S/cq40rfU=
+X-Gm-Message-State: AOJu0YzLaSh+QcnbjmtZf0mYZoPObmaWtdaiNvR+dfBe9tLd154Vwn54
+	rZ/8mNtOMqJOi+9/srdIdVjouQ7sQ9EzUPkYIMuwkxLC10FBPaL34qZMp/VOvg==
+X-Google-Smtp-Source: AGHT+IHMIzkTz96PTTrmQH9bYPobLBWHLcce1ghoM0y7xFh3ut2y834OytfkVJWQiSFBAW59EoXl3g==
+X-Received: by 2002:a05:6000:c44:b0:33e:363b:a7dd with SMTP id do4-20020a0560000c4400b0033e363ba7ddmr12343321wrb.20.1713360681436;
+        Wed, 17 Apr 2024 06:31:21 -0700 (PDT)
+Message-ID: <dbbba5d0-e74f-42e7-876f-b4128e7b5c97@suse.com>
+Date: Wed, 17 Apr 2024 15:31:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/2] x86/PVH: Support relocatable dom0 kernels
+Subject: Re: [XEN PATCH v2 1/9] x86/vlapic: tidy switch statement and address
+ MISRA violation
 Content-Language: en-US
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240404212519.16401-1-jason.andryuk@amd.com>
- <20240404212519.16401-3-jason.andryuk@amd.com>
- <70ab0f9d-a451-44a5-8927-4200dbb96a08@suse.com>
- <13d1943e-6341-46de-a356-dc6b92945f3b@amd.com>
+ xen-devel@lists.xenproject.org
+References: <cover.1712305581.git.nicola.vetrini@bugseng.com>
+ <81ecc35d04456771b1e48cb25155b0151e2225b8.1712305581.git.nicola.vetrini@bugseng.com>
+ <36e84201-b31f-4204-8cff-ed50a01a47ed@suse.com>
+ <e847ee06b76b816a62a555dfa6d52a4a@bugseng.com>
+ <dd6ad7c5-bf99-42d4-9082-9ff87185705c@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,62 +118,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <13d1943e-6341-46de-a356-dc6b92945f3b@amd.com>
+In-Reply-To: <dd6ad7c5-bf99-42d4-9082-9ff87185705c@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.04.2024 18:56, Jason Andryuk wrote:
-> On 2024-04-08 03:00, Jan Beulich wrote:
->> On 04.04.2024 23:25, Jason Andryuk wrote:
->>> --- a/xen/arch/x86/hvm/dom0_build.c
->>> +++ b/xen/arch/x86/hvm/dom0_build.c
->>> @@ -537,6 +537,111 @@ static paddr_t __init find_memory(
->>>       return INVALID_PADDR;
->>>   }
->>>   
->>> +static bool __init check_load_address(
->>> +    const struct domain *d, const struct elf_binary *elf)
->>> +{
->>> +    paddr_t kernel_start = (uintptr_t)elf->dest_base;
->>> +    paddr_t kernel_end = kernel_start + elf->dest_size;
->>> +    unsigned int i;
+On 11.04.2024 14:03, Andrew Cooper wrote:
+> On 09/04/2024 8:45 pm, Nicola Vetrini wrote:
+>> On 2024-04-08 09:32, Jan Beulich wrote:
+>>> On 05.04.2024 11:14, Nicola Vetrini wrote:
+>>>> Remove unneded blank lines between switch clauses.
+>>>
+>>> "Unneeded" based on what? We're carefully trying to improve
+>>> readability of
+>>> large switch() statements by adding such blank lines (at least)
+>>> between non-
+>>> fall-through case blocks, and you go and remove them?
+>>>
+>>> Jan
 >>
->> While properly typed here, ...
+>> I wrote that based on this earlier suggestion [1]. If I misunderstood
+>> the suggestion, then I apologize and feel free to strip them if you want.
 >>
->>> +static paddr_t __init find_kernel_memory(
->>> +    const struct domain *d, struct elf_binary *elf,
->>> +    const struct elf_dom_parms *parms)
->>> +{
->>> +    paddr_t kernel_size = elf->dest_size;
->>> +    unsigned int align;
->>> +    int i;
->>
->> ... I must have missed when this was changed to plain int. It should have
->> been unsigned int here, too, ...
->>
->>> +    if ( parms->phys_align != UNSET_ADDR32 )
->>> +        align = parms->phys_align;
->>> +    else if ( elf->palign >= PAGE_SIZE )
->>> +        align = elf->palign;
->>> +    else
->>> +        align = MB(2);
->>> +
->>> +    /* Search backwards to find the highest address. */
->>> +    for ( i = d->arch.nr_e820 - 1; i >= 0 ; i-- )
->>
->> ... with this suitably adjusted. However, I'm not going to change this while
->> committing, to avoid screwing up.
+>> [1]
+>> https://lore.kernel.org/xen-devel/e40579ba-acae-4c11-bea1-a5b83208db10@suse.com/
 > 
-> I intentionally changed this.  Looping downwards, a signed int allows 
-> writing the check naturally with i >= 0.  I think it's clearer when 
-> written this way.
+> I'm afraid I also can't figure out what that suggestion was supposed to
+> be,
 
-Just to clarify: Is
-
-    for ( i = d->arch.nr_e820; i--; )
-
-any less clear? (While replying I also notice there's a stray blank
-in the for() you have, ahead of the 2nd semicolon.)
+The main point of missing clarity there is that we still need to settle on
+whether blank lines should also be between blocks where the earlier falls
+through to the latter. Iirc you'd like to have blank lines in such cases
+nevertheless, while I'd prefer to make the falling-through visually easy
+to recognize by not putting blanks lines between the "fallthrough;" /
+fall-through comment and the successive "case ...":.
 
 Jan
+
+> but we definitely do want to keep blank lines.  They're specifically
+> for improved legibility.
+
+
 
