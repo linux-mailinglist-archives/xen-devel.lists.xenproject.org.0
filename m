@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 324A78A8B93
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 20:50:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707689.1105818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E857A8A8BDB
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 21:11:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707695.1105827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxAMB-00028A-NZ; Wed, 17 Apr 2024 18:50:07 +0000
+	id 1rxAgY-0006DL-Au; Wed, 17 Apr 2024 19:11:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707689.1105818; Wed, 17 Apr 2024 18:50:07 +0000
+Received: by outflank-mailman (output) from mailman id 707695.1105827; Wed, 17 Apr 2024 19:11:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxAMB-00026X-Ja; Wed, 17 Apr 2024 18:50:07 +0000
-Received: by outflank-mailman (input) for mailman id 707689;
- Wed, 17 Apr 2024 18:50:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rxAgY-0006Bd-7b; Wed, 17 Apr 2024 19:11:10 +0000
+Received: by outflank-mailman (input) for mailman id 707695;
+ Wed, 17 Apr 2024 19:11:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8jr4=LW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rxAMA-0001xI-5m
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 18:50:06 +0000
+ id 1rxAgW-0006BX-Dp
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 19:11:08 +0000
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4ca98784-fceb-11ee-b909-491648fe20b8;
- Wed, 17 Apr 2024 20:50:04 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3b8847fd-fcee-11ee-94a3-07e782e9044d;
+ Wed, 17 Apr 2024 21:11:04 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id B9DFECE147B;
- Wed, 17 Apr 2024 18:49:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C51C072AA;
- Wed, 17 Apr 2024 18:49:56 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 8E772CE1474;
+ Wed, 17 Apr 2024 19:10:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD390C072AA;
+ Wed, 17 Apr 2024 19:10:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,81 +41,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ca98784-fceb-11ee-b909-491648fe20b8
+X-Inumbo-ID: 3b8847fd-fcee-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713379797;
-	bh=QEnBWHsX8FgokPMcnFsZrLvkPh9Jho8Pqiss4uIUVRQ=;
+	s=k20201202; t=1713381058;
+	bh=bL3xracdleSXEIdkyeoC9ly2RoFq+ax6FNF5N8M1MiQ=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=CNRahsMTTPtDFQWVMGfhQ2KsMVW2C/T159kx1xVlgqjS6+2KHj3M6maSNNZiyS173
-	 aM9Day/Oz3/FO2RVGke8VCg1KPlCu5MT1TGy3o7W+e/Lr68qYJVp1LHrcV99y6Ea3L
-	 R3n2DSU5F/VWTL7K80LkGE32JuL3ABN269jmonQUFcWgN8065SiuE/jXwwrmwoZQ8t
-	 /J8WMv4qF5gV8LWN460BzeQBxNaVBh4aIPfRh/tkVNf4J8Luq6KiaHWy98/jtS6ny5
-	 QWKLPus624C70H0FAQBLNkL+cmHAq1LjSyhOIv0nwPu9NIh0q2cyPP8syKZlE3VHT5
-	 nhvtvIRS+XAiw==
-Date: Wed, 17 Apr 2024 11:49:55 -0700 (PDT)
+	b=tz6J8/838DV62Mo3my0gWoHI+E0aHPkvIFNeTiWBcdaG1d8UAn1EBT6oGp7wVGvMU
+	 YqxV5oKXlDwpZaMfw1aNXmcHND8BiEPxPqAOPU0yhvq1bhVCJp1uhXLu5zF7p1w5W+
+	 BGo3Q3Ww4z8ZVDshdobfWmx2xUbJcZTfBqjkfRQz9F3NWvpKTTwciYgDkwafzfF89q
+	 FCtyTH8ATO6625YvieVNb1De8whSMICB9Wp5kM6XVVMGPZ/TR+IM7qSu+NemVJ1oln
+	 z3InjwKO8z+YmFleUBQyYCNX3nzDpJ4XENsXP0ueQ1Gr0DzeSVOeQ6Z4YSiAzFg6j7
+	 ilVWMqBkOwz9w==
+Date: Wed, 17 Apr 2024 12:10:57 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
-cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] public: xen: Define missing guest handle for int32_t
-In-Reply-To: <be95f6be-0404-4c43-926f-d011782a02db@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2404171148060.2257106@ubuntu-linux-20-04-desktop>
-References: <20240417121442.56178-1-michal.orzel@amd.com> <be95f6be-0404-4c43-926f-d011782a02db@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>
+Subject: Re: docs/misra: add R21.6 R21.14 R21.15 R21.16
+In-Reply-To: <b76bc307-6cf6-443f-80de-d27852ede25f@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2404171208410.2257106@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2404161227340.2257106@ubuntu-linux-20-04-desktop> <b76bc307-6cf6-443f-80de-d27852ede25f@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-765210862-1713379797=:2257106"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-765210862-1713379797=:2257106
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 17 Apr 2024, Julien Grall wrote:
-> Hi Michal,
+> Hi Stefano,
 > 
-> On 17/04/2024 13:14, Michal Orzel wrote:
-> > Commit afab29d0882f ("public: s/int/int32_t") replaced int with int32_t
-> > in XEN_GUEST_HANDLE() in memory.h but there is no guest handle defined
-> > for it. This results in a build failure. Example on Arm:
-> > 
-> > ./include/public/arch-arm.h:205:41: error: unknown type name
-> > ‘__guest_handle_64_int32_t’
-> >    205 | #define __XEN_GUEST_HANDLE(name)        __guest_handle_64_ ## name
-> >        |                                         ^~~~~~~~~~~~~~~~~~
-> > ./include/public/arch-arm.h:206:41: note: in expansion of macro
-> > ‘__XEN_GUEST_HANDLE’
-> >    206 | #define XEN_GUEST_HANDLE(name)          __XEN_GUEST_HANDLE(name)
-> >        |                                         ^~~~~~~~~~~~~~~~~~
-> > ./include/public/memory.h:277:5: note: in expansion of macro
-> > ‘XEN_GUEST_HANDLE’
-> >    277 |     XEN_GUEST_HANDLE(int32_t) errs;
-> > 
-> > Fix it. Also, drop guest handle definition for int given no further use.
-> > 
-> > Fixes: afab29d0882f ("public: s/int/int32_t")
-> > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> So it turned out that I committed v1 from Stefano. I was meant to commit the
-> patch at all, but I think I started with a dirty staging :(. Sorry for that.
+> On 16/04/2024 20:27, Stefano Stabellini wrote:
+> > Also add two specific project-wide deviations for R21.6 and R21.15.
 > 
-> I have reverted Stefano's commit for now so we can take the correct patch.
+> In general, I am fine with add the two rules. However...
 > 
-> Now, from my understanding, Andrew suggested on Matrix that this solution may
-> actually be a good way to handle GUEST_HANLDEs (they were removed in v2).
-> Maybe this can be folded in Stefano's patch?
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> > 
+> > diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+> > index 32b02905d1..9123c8edb5 100644
+> > --- a/docs/misra/deviations.rst
+> > +++ b/docs/misra/deviations.rst
+> > @@ -387,6 +387,22 @@ Deviations related to MISRA C:2012 Rules:
+> >          of the Rule due to uses of this macro.
+> >        - Tagged as `deliberate` for ECLAIR.
+> >   +   * - R21.6
+> > +     - The use of snprintf() and vsnprintf() is justifiable as, despite
+> > +       the fact that such functions have the same names of the
+> > +       corresponding standard library functions, each configuration of
+> > +       Xen has a unique implementation for them; the code implementing
+> > +       such functions is subject to the analysis, so that any undefined
+> > +       or unspecified behavior associated to them falls under the
+> > +       responsibility of other MISRA guidelines
+> > +     - Tagged as `safe` for ECLAIR.
+> 
+> ... this implies that ECLAIR should be modified. But this is not happening in
+> this patch. Looking at history, we tend to keep deviations.rst in sync with
+> ECLAIR, so I think it should be updated here too.
 
-v1 together with Michal's fix is correct. Also v2 alone is correct, or
-v2 with Michal's fix is also correct.
-
-My preference is v2 with Michal's fix, they can be committed as separate
-patches. Also the others options are fine.
---8323329-765210862-1713379797=:2257106--
+That is true but I am not very familiar with Eclair config language so
+it is better if that is done by the Bugseng team. I can merge their
+patch into this one or vice versa or they could be committed separately
+(keep in mind that the rule is not enabled in the ECLAIR scan so from a
+Gitlab-CI point of view we don't require the change to the ECLAIR config
+although it makes sense). I am happy either way. 
 
