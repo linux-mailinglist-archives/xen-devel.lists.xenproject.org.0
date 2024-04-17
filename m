@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76B808A88E8
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 18:31:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707658.1105767 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 257838A895F
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 18:53:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707666.1105777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx8C4-0006fi-8Y; Wed, 17 Apr 2024 16:31:32 +0000
+	id 1rx8WD-0002nl-TR; Wed, 17 Apr 2024 16:52:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707658.1105767; Wed, 17 Apr 2024 16:31:32 +0000
+Received: by outflank-mailman (output) from mailman id 707666.1105777; Wed, 17 Apr 2024 16:52:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx8C4-0006dA-5m; Wed, 17 Apr 2024 16:31:32 +0000
-Received: by outflank-mailman (input) for mailman id 707658;
- Wed, 17 Apr 2024 16:31:31 +0000
+	id 1rx8WD-0002kq-QV; Wed, 17 Apr 2024 16:52:21 +0000
+Received: by outflank-mailman (input) for mailman id 707666;
+ Wed, 17 Apr 2024 16:52:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f8dp=LW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rx8C2-0006d4-VG
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 16:31:30 +0000
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [2607:f8b0:4864:20::734])
+ id 1rx8WC-0002kk-Hj
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 16:52:20 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f0c38763-fcd7-11ee-94a3-07e782e9044d;
- Wed, 17 Apr 2024 18:31:28 +0200 (CEST)
-Received: by mail-qk1-x734.google.com with SMTP id
- af79cd13be357-78f05aec21cso32997985a.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 09:31:28 -0700 (PDT)
+ id d8f640f2-fcda-11ee-94a3-07e782e9044d;
+ Wed, 17 Apr 2024 18:52:17 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-418c2bf2f55so5076925e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 09:52:17 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- h13-20020a05620a244d00b0078ed5316f96sm5925584qkn.6.2024.04.17.09.31.26
+ u11-20020a05600c138b00b004187450e4cesm3498190wmf.29.2024.04.17.09.52.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Apr 2024 09:31:27 -0700 (PDT)
+ Wed, 17 Apr 2024 09:52:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0c38763-fcd7-11ee-94a3-07e782e9044d
+X-Inumbo-ID: d8f640f2-fcda-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713371488; x=1713976288; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1713372736; x=1713977536; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=38be+M3cpELmqT7R1wOxJRnFHrXUQichlNZQ4Ydt7RQ=;
-        b=liCS6KTgXQyA2n+1VBbf1DU7ycyjkXZFbCEvibDlN5ZkzZqmd9pDpsFWT5MyTFUfGV
-         ZWZkG4KOWftzFMywhrEcDrRMqIvr/hTMIuJRhKf6nliiqHcTsfX21ttEiPR0SproVvVM
-         AWBVWBpTp+2hTRYX5dtrrUQZPbEiCIBhaJhHo=
+        bh=ObAtcZvuJ6ObFx4rDX5meqF0FtC/ty2Lt8aLL0p5Vdg=;
+        b=QBg2/utsz9wMo2SWlJjDAi1p+Cv+h5XghGJqIkvbg3qQXt3rn50WjnWfId9avw32PF
+         ucc2GboS/H2YpTqZJD2FMTwy2LnEQQGyxPIElKuUC4BUgKwzgMcknOkwuIvgtNXLfN0c
+         aC59hqQQVSM9mGeYhgLwBxSB1/VdGmbeKPFvA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713371488; x=1713976288;
+        d=1e100.net; s=20230601; t=1713372736; x=1713977536;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=38be+M3cpELmqT7R1wOxJRnFHrXUQichlNZQ4Ydt7RQ=;
-        b=VLz5OUr0BuYSqPkBK63aBQ21yE1ZYPkD8pD5rleQdkclts6STuBUEFnLqJhg1E5blR
-         B6tfwvTrVml7L90sD175fTZ7dHdANdUDBFpFkmHuMP6B9GYkdJMuv8V0zT/2OXD7Q/fQ
-         5GfuEZudimkObN45nGIx6UgaiU7E4/5A7C41QO1BJQnRRa7b6I5hbiZJhA+eEOkz1k7W
-         HAR7Yaa9HSYjLcsvgnfj6vIf3yaIdcLlzHj+Q29cyvX1k7wZ1xabhKcBXTKa9Gp2eRz1
-         ElT6gmCbYl8CzpxARRlIMKEbdNRnzpKBqE/uPf+6N0hIPWgFIDhNY+ORM5FweiJhKktS
-         Gi/g==
-X-Forwarded-Encrypted: i=1; AJvYcCXQz9euYjSCLS7r2QojF0iIrfURo2CzUL/RW657rWXdcfWharUKR/Thjn4oUz+yZam+EgKM4Ybdgf3VdcxBcUbgJ/CYjX7g36wI0Px6aD8=
-X-Gm-Message-State: AOJu0YwjJRBfU1YJds8icnMbUMLcTOHMLmLcUr5oMeRYye9wx3osW8g3
-	YPvQ6gWRafwpOJ2+dhSGBdE1J0zfDq8fTZqCPqcEgvCnX2yivjFvwZ7/BpvovQg=
-X-Google-Smtp-Source: AGHT+IGYh77g3PzBc96W6RRjpAV8s6nDCsb5Zc161rTm6KPffMIJbt1eMKqWhW8SuoklIwymgMooiA==
-X-Received: by 2002:a05:620a:4494:b0:78d:767f:248 with SMTP id x20-20020a05620a449400b0078d767f0248mr21204037qkp.2.1713371487843;
-        Wed, 17 Apr 2024 09:31:27 -0700 (PDT)
-Message-ID: <94210509-fa5f-4682-ba0e-11ac7f852b46@citrix.com>
-Date: Wed, 17 Apr 2024 17:31:25 +0100
+        bh=ObAtcZvuJ6ObFx4rDX5meqF0FtC/ty2Lt8aLL0p5Vdg=;
+        b=ecvCnwduPYehDzMbBVqBqAIAGgB1MQCXJ9+keIO5l3GXIiRubCvWeeBjaHWIE7CAmB
+         E7yLnMCzb9Eso4h5QwQBESQzqFoPPDIejWiM1rKJDTXOx40QCvDxTvS7md5Bl/TS/5fA
+         SjWdOh8QfrV3gvsFmpVznb32Z1v33KVsREan+ZV0uq7PdQ4YHsEynz9kxB56Ky6TVaXA
+         RAZ4CuvqIZGj8fNPV+gP50J/55Ocf7Z+3o5KScEER6Fr71a6Nagahpg0rCKT5XG6wtc0
+         lCCcbbPnt3PARjTvkcTNKXtJFyeSQBcBDx6bfLu/6QmCuPLY1m+7lRNd8MBUbOGD0siv
+         B0vQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWsplc7vKdUJgMYBwXf4dWFdGikfGdkLnK0KmZ/NSGBzA3dwihPqLFAoy2FHpLVp9JMFTsuMP1CZHfgUhups6WtRDQz1cUbWCQQtalFEFA=
+X-Gm-Message-State: AOJu0YwW36kqUnLP9UVtLL7QfuyHYXKa5NrkJlDnlD4HtJpSrubUo/c2
+	zrjrASIH69W3mJM0FKv+u0atQNLiQ/yM7bqM/0E4CDF2W3yI/bBx1kNYRE6GV9o=
+X-Google-Smtp-Source: AGHT+IGCB5SNdsLaIGZgTsyPPZqfV95r26XgZTi7PMWcaqrQclD6Z6ofvoxm/h7pCHRqtbd3byg+dg==
+X-Received: by 2002:a05:600c:46d0:b0:416:2a95:6e8b with SMTP id q16-20020a05600c46d000b004162a956e8bmr117201wmo.26.1713372736390;
+        Wed, 17 Apr 2024 09:52:16 -0700 (PDT)
+Message-ID: <476afc63-1c78-4e89-b8c8-446857bdc115@citrix.com>
+Date: Wed, 17 Apr 2024 17:52:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] gzip: drop huffman code table tracking
+Subject: Re: [PATCH v2 3/6] gzip: remove custom memory allocator
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jason.andryuk@amd.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
 References: <20240417143716.27189-1-dpsmith@apertussolutions.com>
- <20240417143716.27189-7-dpsmith@apertussolutions.com>
+ <20240417143716.27189-4-dpsmith@apertussolutions.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,92 +131,24 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240417143716.27189-7-dpsmith@apertussolutions.com>
+In-Reply-To: <20240417143716.27189-4-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 17/04/2024 3:37 pm, Daniel P. Smith wrote:
-> The "tracking" bits does not appear to be used, so dropping from the code.
+> All the other decompression routines use xmalloc_bytes(), thus there is no
+> reason for gzip to be handling its own allocation of memory. In fact, there is
+> a bug somewhere in the allocator as decompression started to break when adding
+> additional allocations. Instead of troubleshooting the allocator, replace it
+> with xmalloc_bytes().
 >
 > Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 > ---
->  xen/common/gzip/inflate.c | 6 ------
->  1 file changed, 6 deletions(-)
->
-> diff --git a/xen/common/gzip/inflate.c b/xen/common/gzip/inflate.c
-> index c18ce20210b0..15bc187c2bbe 100644
-> --- a/xen/common/gzip/inflate.c
-> +++ b/xen/common/gzip/inflate.c
-> @@ -264,8 +264,6 @@ static const int dbits = 6;          /* bits in base distance lookup table */
->  #define BMAX 16         /* maximum bit length of any code (16 for explode) */
->  #define N_MAX 288       /* maximum number of codes in any set */
->  
-> -static unsigned __initdata hufts;      /* track memory usage */
-> -
->  /*
->   * Given a list of code lengths and a maximum table size, make a set of
->   * tables to decode that set of codes.  Return zero on success, one if
-> @@ -445,7 +443,6 @@ static int __init huft_build(
->                      goto out;
->                  }
->                  DEBG1("4 ");
-> -                hufts += z + 1;         /* track memory usage */
->                  *t = q + 1;             /* link to list for huft_free() */
->                  *(t = &(q->v.t)) = (struct huft *)NULL;
->                  u[h] = ++q;             /* table starts after link */
-> @@ -1028,15 +1025,12 @@ static int __init inflate(struct gzip_state *s)
->      /* decompress until the last block */
->      h = 0;
->      do {
-> -        hufts = 0;
->  #ifdef ARCH_HAS_DECOMP_WDOG
->          arch_decomp_wdog();
->  #endif
->          r = inflate_block(s, &e);
->          if (r)
->              return r;
-> -        if (hufts > h)
-> -            h = hufts;
->      } while (!e);
+>  xen/common/gzip/gunzip.c  | 17 ++------------
+>  xen/common/gzip/inflate.c | 47 ---------------------------------------
+>  2 files changed, 2 insertions(+), 62 deletions(-)
 
-With 'hufts' removed, the local variable 'h' is now dead too.  It gets
-read inside an #ifdef DEBUG, but as it's rendering a unqualified number
-to stderr, it can also be deleted.
+Good riddance.
 
-Specifically, I recommend this additional delta:
-
-diff --git a/xen/common/gzip/inflate.c b/xen/common/gzip/inflate.c
-index 15bc187c2bbe..13015bb45f4a 100644
---- a/xen/common/gzip/inflate.c
-+++ b/xen/common/gzip/inflate.c
-@@ -1015,7 +1015,6 @@ static int __init inflate(struct gzip_state *s)
- {
-     int e;                /* last block flag */
-     int r;                /* result code */
--    unsigned h;           /* maximum struct huft's malloc'ed */
- 
-     /* initialize window, bit buffer */
-     wp = 0;
-@@ -1023,7 +1022,6 @@ static int __init inflate(struct gzip_state *s)
-     s->bb = 0;
- 
-     /* decompress until the last block */
--    h = 0;
-     do {
- #ifdef ARCH_HAS_DECOMP_WDOG
-         arch_decomp_wdog();
-@@ -1045,9 +1043,6 @@ static int __init inflate(struct gzip_state *s)
-     flush_output(s, wp);
- 
-     /* return success */
--#ifdef DEBUG
--    fprintf(stderr, "<%u> ", h);
--#endif /* DEBUG */
-     return 0;
- }
- 
-
-which I'm happy to fold on commit.
-
-~Andrew
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
