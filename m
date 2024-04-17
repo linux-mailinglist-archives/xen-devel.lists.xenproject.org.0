@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 175978A885D
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 18:01:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707646.1105738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC8D78A8872
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 18:08:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707650.1105748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx7ik-0007cp-DB; Wed, 17 Apr 2024 16:01:14 +0000
+	id 1rx7p6-0000Wv-1I; Wed, 17 Apr 2024 16:07:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707646.1105738; Wed, 17 Apr 2024 16:01:14 +0000
+Received: by outflank-mailman (output) from mailman id 707650.1105748; Wed, 17 Apr 2024 16:07:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx7ik-0007aO-A1; Wed, 17 Apr 2024 16:01:14 +0000
-Received: by outflank-mailman (input) for mailman id 707646;
- Wed, 17 Apr 2024 16:01:12 +0000
+	id 1rx7p5-0000VP-U1; Wed, 17 Apr 2024 16:07:47 +0000
+Received: by outflank-mailman (input) for mailman id 707650;
+ Wed, 17 Apr 2024 16:07:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Pjj4=LW=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rx7ii-0007aH-O9
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 16:01:12 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=T4Tg=LW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rx7p4-0000Tr-Pf
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 16:07:46 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b4d931e5-fcd3-11ee-94a3-07e782e9044d;
- Wed, 17 Apr 2024 18:01:09 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2d87660d5c9so58631021fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 09:01:09 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- g14-20020a05600c310e00b0041892c774bcsm3269269wmo.2.2024.04.17.09.01.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Apr 2024 09:01:08 -0700 (PDT)
+ id 9ff0e2aa-fcd4-11ee-94a3-07e782e9044d;
+ Wed, 17 Apr 2024 18:07:44 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2d895138d0eso49051841fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 09:07:44 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ dk15-20020a0560000b4f00b00349ceadededsm1545794wrb.16.2024.04.17.09.07.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Apr 2024 09:07:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,564 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4d931e5-fcd3-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 9ff0e2aa-fcd4-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1713369669; x=1713974469; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=5LEesBevK3Svg+8c4iMkBKuSdAkbQUCOodDiRqQFiCA=;
-        b=i/dwziPI+hPXDPvMM/vfPl87VeZEyFq+WUumE0H61Dnp8ZItUCZEctAyl3hxB5ylzo
-         cXdF/PcxwLMqW3y/9atD921XylfKTHAkADjSgbGqvnmCNUxTZNpk/3RKlZZmKKPBiKZh
-         3fnrDa/sZKHie7o8zJcJ5x5qhokZOkqv62/cI=
+        d=suse.com; s=google; t=1713370064; x=1713974864; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wOQ5CIi+Ljjku46E2m/PqUNfkY53GSfaHeFajaqXOdM=;
+        b=JL6rIhCdLNfhOp1/RQDCh/gjLicfRQlXuYYEuApb57yPE40UHrv4wu3Ar0Z3f9SDka
+         +f9z/Lb/c59GVN+HLoPWgg1jdUo6sv3dbv1+jp+57khr4ZkEmmt+MaESG9wmxS5AXuxv
+         pf6u724c1UtMYZk9E3n4ZUV985EhH9flolxveD9ozyhJarjODT9Q5ScFq9VnBXZ++V0L
+         MwSzNPu7LuPmSUkkBc4CifVx+JF6mC4ZoWzaXeyNxO4igCTTxhZ+KTSvnVWu6xUVPrdu
+         VYa0Vt/4hAdGyBr143u7/wtJSmuMFnk8UYCU85mHVxqyFxK6kLkmF47ppoF26xRyNbf0
+         evpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713369669; x=1713974469;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5LEesBevK3Svg+8c4iMkBKuSdAkbQUCOodDiRqQFiCA=;
-        b=Dmqezw/q/P7t4brKAY6h/fnABUj88iljiUMD83xyJCDbSYK/YWJbQw29SuubmgX4uo
-         ENKkhjGQK9Gklq5irReqjmBOGS7YP9wDWae1lRa/xf/oLBEjE45N0lqvlwGxX1ZIoPPl
-         28UNtUh39gLWm78PM1UlZWPW+Eei+hi9ueG0hoZ71/dsZte2ppxK49c9u/d6o7g0rS2b
-         3AhPXEMvJmXvJ6Pwe4pgokNte1T8nWZ/4sIPoBzN0MtFhQ64B/coqtH+3/vp7ygOkZdS
-         FWdisZR6Bb4dH/IBv0hk34j0aTdAmbXBZWCMELw6hRhIeuI3f5A0xlHVbskwfBR3KvWx
-         3Ofw==
-X-Gm-Message-State: AOJu0Yybq4/qxgM8w8UL9OnZNk4olV+Han85922srwguQmf6CHOVKmiz
-	MX4EkNkwN82AHTWMOVVgprZNNhVUOMEm3LhmQk8GtZBy9kpSpgUyHe1QbfDUJ0A=
-X-Google-Smtp-Source: AGHT+IGzJkFW1Wbe4aJhEmRt6plDOt015knV4s00C4ESKU7RnkLYbM6+fMisEPi9oYJkNmpG45GjXQ==
-X-Received: by 2002:a2e:8350:0:b0:2d9:fb60:9afa with SMTP id l16-20020a2e8350000000b002d9fb609afamr12585145ljh.40.1713369669058;
-        Wed, 17 Apr 2024 09:01:09 -0700 (PDT)
-Date: Wed, 17 Apr 2024 17:01:07 +0100
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>,
-	Jason Andryuk <jason.andryuk@amd.com>
-Subject: Re: [PATCH v2] libxl: Enable stubdom cdrom changing
-Message-ID: <b8c488ab-c557-4567-a454-96baac284504@perard>
-References: <20240407143633.24108-1-jandryuk@gmail.com>
+        d=1e100.net; s=20230601; t=1713370064; x=1713974864;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wOQ5CIi+Ljjku46E2m/PqUNfkY53GSfaHeFajaqXOdM=;
+        b=IEGXGxvfybqQEYXywAitFpq2AdQ1ckfrQIvSoFoXZPQn5wsfufZKeWf8iHbDmWJ/iH
+         52c8XuHjT4s30MYx1ATmtHFSijYc7IU9KxUB202dSMiU4coOJmYh7aeanVKts8PsXvhO
+         jGoEb2BO4BdQaanhRvvbmwlpaQi+c4rgputTZTMZIOFEukZne5OSPmKYEYyPIg50JL7d
+         WLPJUY5f0ravVqbwYkFQecHtIBie+czoUoT6WYww5VANRCBQ+npgNS6gcaRxJyo4g2Ha
+         SRxesEoW8O+WSlD9PFrX8pYSBnBKSmKYGn3Ivb8xkUXgK+r8MoWNsOFdRN5x04/T1eF3
+         YssA==
+X-Forwarded-Encrypted: i=1; AJvYcCXDQtCumLQvX9YZgn4DtxUCCFcwNs9uAhFCINh0QWGTtmfn6b2F24f9qMooyeOlrVhEl6vEMVXjvXsIjsIzlVsGChEDL2mOKrybzUEtFj8=
+X-Gm-Message-State: AOJu0YwDp6kIr+Jj6CFS2TYbY95Ovs5zFS9nykxU3HbuFYnwqfYNXXCX
+	m1o77WrlNx7pu7GutoCuruCuGqVG1UdxSOX+fwI5g9SBfZc47KCUPctFD1yj1A==
+X-Google-Smtp-Source: AGHT+IGHNVgMXNIbyJZnRY/aHWHaTKagT5Mnsdxhfdd6AhMWjAuRkLx4a4YcWmzvyQ52VN1ZBe4TbQ==
+X-Received: by 2002:a2e:3509:0:b0:2d9:ecc1:6d56 with SMTP id z9-20020a2e3509000000b002d9ecc16d56mr11167344ljz.11.1713370063760;
+        Wed, 17 Apr 2024 09:07:43 -0700 (PDT)
+Message-ID: <cbfe7614-c202-4c6e-99a0-3792bfed763c@suse.com>
+Date: Wed, 17 Apr 2024 18:07:42 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240407143633.24108-1-jandryuk@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] x86: Add support for building a multiboot2 PE
+ binary
+Content-Language: en-US
+To: Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20240328151106.1451104-1-ross.lagerwall@citrix.com>
+ <20240328151106.1451104-2-ross.lagerwall@citrix.com>
+ <c3c2ce12-0699-42b3-bcaf-5bddf0616566@suse.com>
+ <CAG7k0EroeA=cRRDWnJqzH8esoaSmtg8-xjTwc-01og5R9JwPzg@mail.gmail.com>
+ <0d84a96a-c1ec-4c4e-9cb5-44a6542e0d43@suse.com>
+ <CAG7k0EpKRVpbfBOSA9tsQsGM9_nLCmrZNYzV6G9u5g46oZWKwQ@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAG7k0EpKRVpbfBOSA9tsQsGM9_nLCmrZNYzV6G9u5g46oZWKwQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Apr 07, 2024 at 10:36:33AM -0400, Jason Andryuk wrote:
-> diff --git a/tools/libs/light/libxl_disk.c b/tools/libs/light/libxl_disk.c
-> index fa7856f28c..819d34933b 100644
-> --- a/tools/libs/light/libxl_disk.c
-> +++ b/tools/libs/light/libxl_disk.c
-> @@ -829,21 +829,122 @@ int libxl_device_disk_getinfo(libxl_ctx *ctx, uint32_t domid,
->      return rc;
->  }
->  
-> +/*
-> + * Search through the query-fdsets JSON looking for a matching devid.
-> + *
-> + * If found, return the fdset-id integer (>=0).
-> + *
-> + * If not found, return ERROR_NOTFOUND.
-> + *
-> + * On error, return libxl ERROR_*.
-> + */
-> +static int query_fdsets_find_fdset(libxl__gc *gc,
-> +                                   const libxl__json_object *response,
-> +                                   int devid)
-> +{
-> +    const libxl__json_object *fdset;
-> +    const char *needle = GCSPRINTF("stub-devid:%d", devid);
-> +    int i, j, rc;
-> +
-> +    /* query-fdsets returns:
-> +     * [
-> +     *   { "fds": [
-> +     *       { "fd": 30,
-> +     *         "opaque": "stub-devid:2080"
-> +     *       }
-> +     *     ],
-> +     *     "fdset-id": 1
-> +     *   }
-> +     * ]
-> +     */
-> +    for (i = 0; (fdset = libxl__json_array_get(response, i)); i++) {
-> +        const libxl__json_object *fdset_id;
-> +        const libxl__json_object *fds;
-> +        const libxl__json_object *fd;
-> +
-> +        fdset_id = libxl__json_map_get("fdset-id", fdset, JSON_INTEGER);
-> +        if (!fdset_id) {
-> +            rc = ERROR_QEMU_API;
-> +            goto out;
-> +        }
-> +        LOG(DEBUG, "fdset-id=%lld", libxl__json_object_get_integer(fdset_id));
+On 17.04.2024 17:05, Ross Lagerwall wrote:
+> On Wed, Apr 17, 2024 at 3:15 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 10.04.2024 11:41, Ross Lagerwall wrote:
+>>> On Mon, Apr 8, 2024 at 11:25 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 28.03.2024 16:11, Ross Lagerwall wrote:
+>>>>> * The image base address is set to 0 since it must necessarily be below
+>>>>>   4 GiB and the loader will relocate it anyway.
+>>>>
+>>>> While technically okay, what is the reason for this adjustment?
+>>>
+>>> The multiboot2 spec generally uses 32 bit addresses for everything and
+>>> says:
+>>>
+>>> "The bootloader must not load any part of the kernel, the modules, the
+>>> Multiboot2 information structure, etc. higher than 4 GiB - 1."
+>>>
+>>> An image base address above 4 GiB causes trouble because multiboot2
+>>> wasn't designed for this.
+>>
+>> Yet mb2 doesn't care about that PE header field at all, does it? In which
+>> case my question remains: What purpose does this particular modification
+>> of the image have?
+>>
+> 
+> With the currently published version of mb2, it doesn't look at the PE
+> header field since it has no knowledge about PE binaries.
+> 
+> With the proposal on the grub-devel list [1], mb2 would use the PE
+> header to load the new xen-mbi binary in which case, the image base
+> address is indeed relevant.
 
-This feels like we are going to have a log of logging about information
-that isn't going to be used by libxl. Also, an fdset-id is also logged
-by the caller of this function. (But even there, it might not be
-useful).
+But then how can you strip .reloc? If the image base field is to be used,
+and if the image can't be placed there, relocation needs to happen. (As
+an aside, [1] looks to be talking of the entry point only, not the image
+base?)
 
-When debugging, it might be more helpful to run `query-fdset` by hand
-than having libxl listing every possible fdset.
+Jan
 
-> +        fds = libxl__json_map_get("fds", fdset, JSON_ARRAY);
-> +        if (!fds) {
-> +            rc = ERROR_QEMU_API;
-> +            goto out;
-> +        }
-> +        for (j = 0; (fd = libxl__json_array_get(fds, j)); j++) {
-> +            const libxl__json_object *fd_num;
-> +            const libxl__json_object *opaque;
-> +            const char *opaque_str;
-> +
-> +            fd_num = libxl__json_map_get("fd", fd, JSON_INTEGER);
-> +            if (!fd_num) {
-> +                rc = ERROR_QEMU_API;
-> +                goto out;
-> +            }
-> +            opaque = libxl__json_map_get("opaque", fd, JSON_STRING);
-> +            if (!opaque) {
-> +                continue;
-> +            }
-> +
-> +            opaque_str = libxl__json_object_get_string(opaque);
-> +            LOG(DEBUG, "fd=%lld opaque='%s'",
-> +                libxl__json_object_get_integer(fd_num), opaque_str);
+> [1] https://lists.gnu.org/archive/html/grub-devel/2024-03/msg00081.html
 
-This logging is also probably too verbose. First, libxl never care about
-which fd QEMU is using, second, if the opaque doesn't match, it is
-probably not the one we want, and the needed one is just missing.
-
-By the way, there's a big hammer that can pottentiolly be used when
-debuging QMP interaction, rebuild libxl with -DDEBUG_QMP_CLIENT, this will
-log every QMP command sent and received.
-
-> +            if (strcmp(opaque_str, needle) == 0) {
-> +                return libxl__json_object_get_integer(fdset_id);
-> +            }
-> +        }
-> +    }
-> +    rc = ERROR_NOTFOUND;
-> +
-> + out:
-> +    return rc;
-> +}
-> +
->  typedef struct {
->      libxl__ao *ao;
-> +    libxl__ao_device aodev;
->      libxl_domid domid;
-> +    libxl_domid disk_domid;
->      libxl_device_disk *disk;
->      libxl_device_disk disk_saved;
->      libxl__ev_slowlock qmp_lock;
->      int dm_ver;
->      libxl__ev_time time;
-> +    libxl__ev_time timeout_retry;
-
-`timeout_retry` sounds to me that we are adding a timeout for a retry,
-but it is used the opposite way, as a timer to wait until we retry. How
-about naming this filed "retry_timer" instead?
-
-Ah, I see you've added a similar field named "timeout_retries" in
-libxl_pci.c in the past, but I did introduce a "retry_timer" field in
-that same file before. So either is fine even if I've got a preference.
-
->      libxl__ev_qmp qmp;
-> +    int retries;
-> +    int stubdom_fdset;
->  } libxl__cdrom_insert_state;
->  
->  static void cdrom_insert_lock_acquired(libxl__egc *, libxl__ev_slowlock *,
->                                         int rc);
->  static void cdrom_insert_qmp_connected(libxl__egc *, libxl__ev_qmp *,
->                                         const libxl__json_object *, int rc);
-> +static void cdrom_insert_stubdom_query_fdset_rm(libxl__egc *egc,
-> +                                                libxl__ev_qmp *qmp,
-> +                                                const libxl__json_object *resp,
-> +                                                int rc);
-> +static void cdrom_insert_stubdom_parse_fdset_rm(libxl__egc *egc,
-> +                                                libxl__ev_qmp *qmp,
-> +                                                const libxl__json_object *resp,
-> +                                                int rc);
-> +static void cdrom_insert_stubdom_ejected(libxl__egc *egc, libxl__ev_qmp *,
-> +                                         const libxl__json_object *, int rc);
-> +static void cdrom_insert_stubdom_disk_remove_cb(libxl__egc *egc,
-> +                                                 libxl__ao_device *aodev);
-> +static void cdrom_insert_stubdom_disk_add_cb(libxl__egc *egc,
-> +                                             libxl__ao_device *aodev);
-> +static void cdrom_insert_stubdom_query_fdset(libxl__egc *egc,
-> +                                             libxl__ev_time *ev,
-> +                                             const struct timeval *abs,
-> +                                             int rc);
-> +static void cdrom_insert_stubdom_parse_fdset(libxl__egc *egc,
-> +                                             libxl__ev_qmp *qmp,
-> +                                             const libxl__json_object *response,
-> +                                             int rc);
->  static void cdrom_insert_ejected(libxl__egc *egc, libxl__ev_qmp *,
->                                   const libxl__json_object *, int rc);
->  static void cdrom_insert_addfd_cb(libxl__egc *egc, libxl__ev_qmp *,
-> @@ -865,6 +966,7 @@ int libxl_cdrom_insert(libxl_ctx *ctx, uint32_t domid, libxl_device_disk *disk,
->      libxl_device_disk *disks = NULL;
->      int rc;
->      libxl__cdrom_insert_state *cis;
-> +    libxl_domid stubdomid;
->  
->      GCNEW(cis);
->      cis->ao = ao;
-> @@ -876,6 +978,8 @@ int libxl_cdrom_insert(libxl_ctx *ctx, uint32_t domid, libxl_device_disk *disk,
->      cis->qmp_lock.ao = ao;
->      cis->qmp_lock.domid = domid;
->      libxl__ev_time_init(&cis->time);
-> +    libxl__ev_time_init(&cis->timeout_retry);
-> +    cis->retries = 0;
-
-Could you initialise `stubdom_fdset` as well? It's looks like it's
-possible to have an fdset==0, so initialising it to -1 would be helpful.
-
-(And technically, retries is already init to 0, because GCNEW() fill do
-that for us, by using zallloc.)
-
->      libxl__ev_qmp_init(&cis->qmp);
->      cis->qmp.ao = ao;
->      cis->qmp.domid = domid;
-> @@ -1002,6 +1120,224 @@ out:
->      cdrom_insert_done(egc, cis, rc); /* must be last */
->  }
->  
-> +static void cdrom_insert_stubdom_query_fdset_rm(libxl__egc *egc,
-> +                                                libxl__ev_qmp *qmp,
-> +                                                const libxl__json_object *resp,
-> +                                                int rc)
-> +{
-> +    libxl__cdrom_insert_state *cis = CONTAINER_OF(qmp, *cis, qmp);
-> +    STATE_AO_GC(cis->ao);
-
-It doesn't looks like we need to call STATE_AO_GC() here, nothing uses
-an `ao` or a `gc`, and nothing needs an allocation that needs to exist
-after this function returns.
-
-> +    if (rc) goto out;
-> +
-> +    /* Only called for qemu-xen/linux stubdom. */
-> +    assert(cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN);
-> +
-> +    cis->qmp.callback = cdrom_insert_stubdom_parse_fdset_rm;
-> +
-> +    rc = libxl__ev_qmp_send(egc, &cis->qmp, "query-fdsets", NULL);
-> +    if (rc) goto out;
-> +
-> +    return;
-> +
-> + out:
-> +    cdrom_insert_done(egc, cis, rc); /* must be last */
-> +}
-> +
-> +static void cdrom_insert_stubdom_parse_fdset_rm(libxl__egc *egc,
-> +                                                libxl__ev_qmp *qmp,
-> +                                                const libxl__json_object *resp,
-> +                                                int rc)
-> +{
-> +    EGC_GC;
-> +    libxl__cdrom_insert_state *cis = CONTAINER_OF(qmp, *cis, qmp);
-> +    int devid;
-> +    int fdset;
-> +
-> +    if (rc) goto out;
-> +
-> +    /* Only called for qemu-xen/linux stubdom. */
-> +    assert(cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN);
-> +
-> +    devid = libxl__device_disk_dev_number(cis->disk->vdev, NULL, NULL);
-> +    fdset = query_fdsets_find_fdset(gc, resp, devid);
-> +    if (fdset >= 0) goto found;
-
-Could you try to reorder the function to avoid this goto? It's fine to
-have goto for the out/error path because you can write one exit path for
-the function, but otherwise, I think it's rare that goto make the code
-easier to understand.
-
-> +    if (fdset != ERROR_NOTFOUND) {
-> +        rc = fdset;
-> +        goto out;
-> +    }
-> +
-> +    LOGD(DEBUG, cis->domid, "No fdset found - skipping remove-fd");
-> +    cdrom_insert_stubdom_ejected(egc, qmp, resp, 0);
-> +
-> +    return;
-> +
-> + found:
-> +    cis->stubdom_fdset = fdset;
-
-Is this value in `cis->stubdom_fdset` used anywhere? We are calling
-"remove-fd" on it so I don't think we are going to use it. So better not
-to keep it.
-
-> +    LOGD(DEBUG, cis->domid, "Found fdset %d", cis->stubdom_fdset);
-> +
-> +    libxl__json_object *args = NULL;
-> +
-> +    libxl__qmp_param_add_integer(gc, &args, "fdset-id", cis->stubdom_fdset);
-> +
-> +    cis->qmp.callback = cdrom_insert_stubdom_ejected;
-> +
-> +    rc = libxl__ev_qmp_send(egc, &cis->qmp, "remove-fd", args);
-> +    if (rc) goto out;
-> +
-> +    return;
-> +
-> + out:
-> +    cdrom_insert_done(egc, cis, rc); /* must be last */
-> +}
-> +
-> +static void cdrom_insert_stubdom_disk_add_cb(libxl__egc *egc,
-> +                                             libxl__ao_device *aodev)
-> +{
-> +    EGC_GC;
-> +    libxl__cdrom_insert_state *cis = CONTAINER_OF(aodev, *cis, aodev);
-> +
-> +    if (aodev->rc) {
-> +        LOGD(ERROR, aodev->dev->domid, "Unable to insert stubdom PV disk id %u",
-> +             aodev->dev->devid);
-> +        goto out;
-> +    }
-> +
-> +    cdrom_insert_stubdom_query_fdset(egc, &cis->timeout_retry, NULL, aodev->rc);
-
-Last parameter here could just be ERROR_TIMEDOUT, as this would be the
-expected rc by the function anyway. And `aodev->rc` should be 0 here
-anyway.
-
-> +    return;
-> +
-> + out:
-> +    cdrom_insert_done(egc, cis, aodev->rc);
-> +}
-> +
-> +static void cdrom_insert_stubdom_query_fdset(libxl__egc *egc,
-> +                                             libxl__ev_time *ev,
-> +                                             const struct timeval *abs,
-> +                                             int rc)
-> +{
-> +    EGC_GC;
-> +    libxl__cdrom_insert_state *cis = CONTAINER_OF(ev, *cis, timeout_retry);
-> +
-> +    /* When called as an ev_time callback, rc will be ERROR_TIMEDOUT.*/
-
-This comment isn't really useful. Also, we could just rewrite the error
-check to expect ERROR_TIMEDOUT, or it's an error.
-
-Looking at libxl__ev_time_callback typedef in libxl_internal.c, the only
-value `rc` should have are ERROR_TIMEDOUT or ERROR_ABORTED.
-
-> +    if (rc && rc != ERROR_TIMEDOUT) goto out;
-> +
-> +    /* Only called for qemu-xen/linux stubdom. */
-> +    assert(cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN);
-> +
-> +    cis->qmp.callback = cdrom_insert_stubdom_parse_fdset;
-> +
-> +    rc = libxl__ev_qmp_send(egc, &cis->qmp, "query-fdsets", NULL);
-> +    if (rc) goto out;
-> +
-> +    return;
-> +
-> + out:
-> +    cdrom_insert_done(egc, cis, rc); /* must be last */
-> +}
-> +
-> +static void cdrom_insert_stubdom_parse_fdset(libxl__egc *egc,
-> +                                             libxl__ev_qmp *qmp,
-> +                                             const libxl__json_object *response,
-> +                                             int rc)
-> +{
-> +    EGC_GC;
-> +    libxl__cdrom_insert_state *cis = CONTAINER_OF(qmp, *cis, qmp);
-> +    int devid;
-> +    int fdset;
-> +
-> +    if (rc) goto out;
-> +
-> +    /* Only called for qemu-xen/linux stubdom. */
-> +    assert(cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN);
-> +
-> +    devid = libxl__device_disk_dev_number(cis->disk->vdev, NULL, NULL);
-> +    fdset = query_fdsets_find_fdset(gc, response, devid);
-> +    if (fdset >= 0) goto found;
-
-Like before, would it be possible to rewrite the function without this
-`goto found`?
-
-> +    if (fdset != ERROR_NOTFOUND) {
-> +        rc = fdset;
-> +        goto out;
-> +    }
-> +
-> +    if (cis->retries++ > 10) {
-
-Looking at this number, and the retry timer set to 200ms, it looks like
-libxl will wait for only about 2 second, is that enough? We could just
-rely on the general cdrom insert timeout `cis->time`, or is that too
-long?
-
-> +        LOGD(DEBUG, cis->domid, "Out of query-fdsets retries");
-
-It this useful? Also, an error message might be more useful, and an
-error message that say something about stubdom not doing its part of the
-job and libxl gave up waiting.
-
-> +        rc = ERROR_TIMEDOUT;
-> +        goto out;
-> +    }
-> +
-> +    LOGD(DEBUG, cis->domid, "Scheduling query-fdsets retry %d", cis->retries);
-
-That just going to spam the console, I don't think it's useful. We
-already have logging about a "query-fdsets" command been ran.
-
-> +    rc = libxl__ev_time_register_rel(cis->ao, &cis->timeout_retry,
-> +                                     cdrom_insert_stubdom_query_fdset,
-> +                                     200);
-> +    if (rc) goto out;
-> +
-> +    return;
-> +
-> + found:
-> +    cis->stubdom_fdset = fdset;
-> +
-> +    LOGD(DEBUG, cis->domid, "Found fdset %d", cis->stubdom_fdset);
-> +    cdrom_insert_ejected(egc, &cis->qmp, NULL, rc);
-> +    return;
-> +
-> + out:
-> +    cdrom_insert_done(egc, cis, rc); /* must be last */
-> +}
-> +
->  static void cdrom_insert_ejected(libxl__egc *egc,
->                                   libxl__ev_qmp *qmp,
->                                   const libxl__json_object *response,
-> @@ -1081,10 +1417,13 @@ static void cdrom_insert_ejected(libxl__egc *egc,
->      rc = libxl__dm_check_start(gc, &d_config, domid);
->      if (rc) goto out;
->  
-> +    /* A linux stubdom will perform add-fd with calculated stubdom_fdset. */
-
-Left over comment?
-
->      if (cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN &&
-> +        libxl_get_stubdom_id(CTX, cis->domid) == 0 &&
->          disk->format != LIBXL_DISK_FORMAT_EMPTY) {
->          libxl__json_object *args = NULL;
->  
-> +        LOGD(DEBUG, cis->domid, "Doing QMP add-fd path");
-
-I don't think this logging is useful.
-
->          assert(qmp->payload_fd == -1);
->          qmp->payload_fd = open(disk->pdev_path, O_RDONLY);
->          if (qmp->payload_fd < 0) {
-> @@ -1094,7 +1433,11 @@ static void cdrom_insert_ejected(libxl__egc *egc,
->              goto out;
->          }
->  
-> -        /* This free form parameter is not use by QEMU or libxl. */
-> +        /*
-> +         * This free form parameter is not used by QEMU or non-stubdom libxl.
-> +         * For a linux stubdom, opaque is set to "stub-devid:$devid" to
-> +         * identify the fdset.
-> +         */
-
-Nothing is going to use this particular "opaque" value, right? The
-comment say that for stubdom, the value is set to a particular value,
-but it's not done so here. A comment about "stub-devid:$devid" might be
-useful in query_fdsets_find_fdset(), but not here.
-
->          QMP_PARAMETERS_SPRINTF(&args, "opaque", "%s:%s",
->                                 libxl_disk_format_to_string(disk->format),
->                                 disk->pdev_path);
-> @@ -1103,6 +1446,7 @@ static void cdrom_insert_ejected(libxl__egc *egc,
->          if (rc) goto out;
->          has_callback = true;
->      } else {
-> +        LOGD(DEBUG, cis->domid, "Skipping QMP add-fd path");
-
-I think we can found out about that because "add-fd" isn't called. It
-doesn't feel like a useful logging.
-
->          has_callback = false;
->      }
->  
-> @@ -1115,8 +1459,16 @@ out:
->      if (rc) {
->          cdrom_insert_done(egc, cis, rc); /* must be last */
->      } else if (!has_callback) {
-> -        /* Only called if no asynchronous callback are set. */
-
-This comment should still apply, even if we run for a stubdom,
-otherwise, `has_callback` is badly named.
-
-> -        cdrom_insert_inserted(egc, qmp, NULL, 0); /* must be last */
-> +        if (libxl_get_stubdom_id(CTX, cis->domid) &&
-> +            disk->format != LIBXL_DISK_FORMAT_EMPTY) {
-> +            LOGD(DEBUG, cis->domid,
-> +                 "stubdom %d needs to perform add-fd internally",
-> +                 libxl_get_stubdom_id(CTX, cis->domid));
-> +            cdrom_insert_addfd_cb(egc, qmp, NULL, 0); /* must be last */
-> +        } else  {
-> +            /* Only called if no asynchronous callback are set. */
-> +            cdrom_insert_inserted(egc, qmp, NULL, 0); /* must be last */
-> +        }
->      }
->  }
->  
-> @@ -1135,17 +1487,22 @@ static void cdrom_insert_addfd_cb(libxl__egc *egc,
->      /* convenience aliases */
->      libxl_device_disk *disk = cis->disk;
->  
-> -    close(qmp->payload_fd);
-> -    qmp->payload_fd = -1;
-
-I think I'd rather keep this here, before the error check. Just call
-close() conditionally on the value of payload_fd? The thing is, if
-payload_fd is still set, libxl__ev_qmp* is going to try to submit the fd
-again, and closing the fd earlier is better.
-
->      if (rc) goto out;
->  
-> -    o = libxl__json_map_get("fdset-id", response, JSON_INTEGER);
-> -    if (!o) {
-> -        rc = ERROR_FAIL;
-> -        goto out;
-> +    /* response non-NULL only for non-stubdom */
-> +    if (response) {
-
-I'm not comfortable with checking the value of `response` to find out if
-we are on the linux stubdom path. It could be missing for other reason
-(probably on programming error). There's `cis->stubdom_fdset` that
-should have a correct value in the linux stubdom case, can we rely on
-that instead? (Which also refer to why I asked early to init this field)
-
-> +        close(qmp->payload_fd);
-> +        qmp->payload_fd = -1;
-> +
-> +        o = libxl__json_map_get("fdset-id", response, JSON_INTEGER);
-> +        if (!o) {
-> +            rc = ERROR_FAIL;
-> +            goto out;
-> +        }
-> +        fdset = libxl__json_object_get_integer(o);
-> +    } else {
-> +        fdset = cis->stubdom_fdset;
->      }
-> -    fdset = libxl__json_object_get_integer(o);
->  
->      devid = libxl__device_disk_dev_number(disk->vdev, NULL, NULL);
->      qmp->callback = cdrom_insert_inserted;
-
-Thanks,
-
--- 
-Anthony PERARD
 
