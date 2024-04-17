@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C30D98A82F2
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 14:15:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707445.1105377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BCBC8A8323
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 14:27:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707459.1105387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx4Bi-00035E-DD; Wed, 17 Apr 2024 12:14:54 +0000
+	id 1rx4N3-00059O-Cw; Wed, 17 Apr 2024 12:26:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707445.1105377; Wed, 17 Apr 2024 12:14:54 +0000
+Received: by outflank-mailman (output) from mailman id 707459.1105387; Wed, 17 Apr 2024 12:26:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx4Bi-00033V-AN; Wed, 17 Apr 2024 12:14:54 +0000
-Received: by outflank-mailman (input) for mailman id 707445;
- Wed, 17 Apr 2024 12:14:53 +0000
+	id 1rx4N3-000573-AM; Wed, 17 Apr 2024 12:26:37 +0000
+Received: by outflank-mailman (input) for mailman id 707459;
+ Wed, 17 Apr 2024 12:26:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=R6tE=LW=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rx4Bg-000329-Us
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 12:14:53 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20600.outbound.protection.outlook.com
- [2a01:111:f403:2009::600])
+ id 1rx4N2-00056x-HA
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 12:26:36 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2407::601])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1719083d-fcb4-11ee-b909-491648fe20b8;
- Wed, 17 Apr 2024 14:14:51 +0200 (CEST)
-Received: from PH8PR20CA0006.namprd20.prod.outlook.com (2603:10b6:510:23c::11)
- by IA1PR12MB7493.namprd12.prod.outlook.com (2603:10b6:208:41b::17)
+ id ba9b0c7a-fcb5-11ee-b909-491648fe20b8;
+ Wed, 17 Apr 2024 14:26:35 +0200 (CEST)
+Received: from PH1PEPF000132F1.NAMP220.PROD.OUTLOOK.COM (2603:10b6:518:1::34)
+ by PH8PR12MB7277.namprd12.prod.outlook.com (2603:10b6:510:223::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Wed, 17 Apr
- 2024 12:14:48 +0000
-Received: from CY4PEPF0000EDD3.namprd03.prod.outlook.com
- (2603:10b6:510:23c:cafe::da) by PH8PR20CA0006.outlook.office365.com
- (2603:10b6:510:23c::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.24 via Frontend
- Transport; Wed, 17 Apr 2024 12:14:47 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD3.mail.protection.outlook.com (10.167.241.207) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.54; Wed, 17 Apr
+ 2024 12:26:31 +0000
+Received: from CY4PEPF0000EDD2.namprd03.prod.outlook.com
+ (2a01:111:f403:f912::) by PH1PEPF000132F1.outlook.office365.com
+ (2603:1036:903:47::3) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.20 via Frontend
+ Transport; Wed, 17 Apr 2024 12:26:31 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD2.mail.protection.outlook.com (10.167.241.206) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Wed, 17 Apr 2024 12:14:46 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7452.22 via Frontend Transport; Wed, 17 Apr 2024 12:26:31 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 17 Apr
- 2024 07:14:46 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 17 Apr
- 2024 07:14:46 -0500
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35
- via Frontend Transport; Wed, 17 Apr 2024 07:14:44 -0500
+ 2024 07:26:30 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Wed, 17 Apr 2024 07:26:29 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,106 +59,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1719083d-fcb4-11ee-b909-491648fe20b8
+X-Inumbo-ID: ba9b0c7a-fcb5-11ee-b909-491648fe20b8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SHYwIlxrc2XzNNv2z1yfQMxSDRNoilAUyMlT4Xl+iXUbCOdgrV+pCdKb6lrx2XNKAT9TIPD1CFCCKWEucT6MjOsWa3b23LKSuxv+ev2k6IgnkmVL8HAy49r8BfuL1pVwZwFtVgpHOwcQDiB92E2NfizwE1mmp2CbpwECte7JUN313lwWy15tU29TNhoGJvnG074nwI0NkizzmXMnWsPUJi0IpoZAtQIofuqo59Yky1v6etlq+sKm3FeYtG/XkZ0IXcZm+xbPIaxB+HPp3pA7ujTHCu41qZI12RkB868cpxqmjKBB9v2o3gvwK0100p8F2mNNzCno7rhlnYzC8UnVBQ==
+ b=gWv2wtK8Pk4jZCWz/aooVgo/RU2hmEt7vJxWjyWmT4tNWgmZvfOHE6Hqaejl/KoGc+tyo9CIetgYQsynZSASQYwfsD6TgJVg1EdlovXnYIixIT3T54Z0+mSwOr/UMeE3LuFdX4TsmXfASa6YaH4TGUciffj2/EzovCIh5crS4mkN+8nKPIUKWsKlLL59pt6tFJ8PJfXicEty9vvwXxMMQ+O/qU5MBX8ovxwLqD2f0fz3MuQuLGlz7kM2HHQadps1rE0kGIhrpiVlpox2c0Sz7kEqKoA2J/LTFCR88PnwUK0f2PAHgf09TuK4DG10lEYb0ClTzu4mWvJ9+IJFtYnwVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=87AOnwj0YmJESyxXcN9JBbPhqtf3pO0sLJy1fuUzuxk=;
- b=M2AVjA7JXXbinoIa99XVnmXMr92iz1OMguDKyPKVT1ZFj5oAvQUyQxatOJ3oOu+hfyf+ZqBfsXLtHMSJ4cIm6qN2G5R6prUoK7BdJlzpywq/iOm28CLysXc5iih1d6Lt3uAjxhlMhCTqJrZV+v7MCVwNxJZ0nNw4Cm4GI4YV1w4TJCFyIu1iRzjQoyj24Z6x3Sr8BL+9Fl2toiSxdRZy8rTD1cNKeWcmK+XA/nKqmSvWRK4o8/GzLGxuUbiUFOZuWS2dkgV/KhhvsGd+PE3g6cC6lGyOvUPMcpEAlTpHWTopBdsKyRrkhErjXfkr4vaZCGKYf5DbefW8suXRdInCuA==
+ bh=aVNZGxRMNj9pOBLe90Vkr1scHYK/sfyg9wLGMccFcrE=;
+ b=Ya84pg+G8e4SVaGP/jwaWSeYtX35dN2WZBNyCvYVJhr1M9wee1sSGYPZTxDwt77dU/2C+nLWSXHwuI96eZlyfS0X+rgZudWEExqTdQ6PJj2CEmZPaz+gZrLL4UBA51ipS8h5pGlSJ04RAh4TxHxhZ456o3RET1Vnkjk/yuSBpx6LIiKpkCLE3yMpG+2qBT4ui5wvUX0v4om269WnPGZLmCRo/YyuLavVqekOmP7ap0QMT29JJe4nyJF7GFs/uvkOQ0Fghz9/Ag0VLGEObaDfLo0D9+B780n+p8UHyVg+ekRSa50whdMHDP6bfo9sw+ObVPP+WlQ5e2y58+2T5yG3aw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=87AOnwj0YmJESyxXcN9JBbPhqtf3pO0sLJy1fuUzuxk=;
- b=mlX3jPtvvflo9jsHb005EDfURLCIUWK0gQdRkrA9GrXpuVLZ0WzqATXhhysLjE5O9wpmIUQEgqwdVfsBTuwSFn7xXsv4YrTcjORLd8Ye2CFAT5UdN2ll6zL89fW2/t/lHMxZAqL/CKeUk3JYk1vOlueLRkkF8en2ctdhUpdxDA4=
+ bh=aVNZGxRMNj9pOBLe90Vkr1scHYK/sfyg9wLGMccFcrE=;
+ b=U2Myz0GTi05QvLFJjEkWJMKUPmjMAix+72PuKbjr059yNLxPHVtniIxrMBsbbD26OPMmmB1WJS8nimIHKdYswLI+0G4O85w5XCKoRleO1LEjb9fqCez9uQXREzK4WIs5biSERgz40mKU9bHJIf6QEIYVKuTifv5wmKd5JaagjJE=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-Subject: [PATCH] public: xen: Define missing guest handle for int32_t
-Date: Wed, 17 Apr 2024 14:14:42 +0200
-Message-ID: <20240417121442.56178-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <2c450a07-59dc-458d-bfdd-e0ca5cba4114@amd.com>
+Date: Wed, 17 Apr 2024 14:26:23 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [ImageBuilder 1/5] uboot-script-gen: Update to deal with uImage
+ which is not executable
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Stefano Stabellini
+	<stefano.stabellini@amd.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20240417120741.2453431-1-olekstysh@gmail.com>
+ <20240417120741.2453431-2-olekstysh@gmail.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240417120741.2453431-2-olekstysh@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD3:EE_|IA1PR12MB7493:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b3d7f73-4c86-4b2a-f3f3-08dc5ed7f922
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD2:EE_|PH8PR12MB7277:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b3a531b-a2f2-4036-43bc-08dc5ed99ce6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	sSPR9C9m8LrysR2oIzZxUVHV+iG1b94Du34m9wUvn1gEEbHNyR8L8xE7LEDIbvwj/2k0Nvo/jcq+wJiw/UKmxDulfxF+1/oevBE2lL/nKAQBzr0eZ72u2zEkp6Nri+u/4Y2QOIu3E3JwXA8zvsEWZKnV8Ga0GI9EnfchuLwqQEYiwWdIFx/eYq116KCOojKRBDw5JWArdpfQbg/xKN42dqIq8gvZWpNhEdBHwMFDioThjwfKTn9UVgREPLrZAuFfj/rEMZjism7UvmlZRdYSIhttcrkKHYDgqg1vHm7/XrtUa6JZDOcK2GEZs8IwOn1MIp7HQOzIgsaMDYMdeEw/vOOnnv9o2sgbs7j1gDfj6surKCm1b3ee8ck8c2MSCIusMBXgEVMQfi2dKsIh29RfC+RqI32/j+862rFDzgeSNuLuxG9TStP8+6LrN62fvqIZ7mJoEjaZYhgulYtjwkB9eCWWQnzePuqPcmCubd/MZ3g7L7l6Lm7Y0QHKkBHhiGmtw3AuzQgxg91jHuFYyl5+lPRrRRS0Ywxp8f5PTbUTy0aLSEpWqCdVXwALsrmQ/AqdmGQ0TJIzoowuLcuU2feXT+/mMiFQP92BBY+H7QJ42KEgWAGuVOfZM9eO9j3C9wk6Bcd9roh4r3md1uf/lOtFukE+4lZcwLlb1c5epqf5DsO7idvzNSjTJmRs5CMb7m+7+egFQb8JHcbzzsEd0W2v/SLdBpMqegM5WNfWyv9+s9fxSBlTb3baEAzN7BcNLtp1
+	ZsNzk9sLgbLilfQI8Hu6aU1nU9krtfDSdvB96raI0fr/iGlpYh4ozsDGWYnX2VxdZO1Zcy5kwnbqaRTBMAJBylAJPQqy9rMJxB9BQGl7z0bmjQzDbQUB4eDP5ZR4ecaJNVTBaihYF/DFucnfRim1EwVe8znXaUwXzPA+tgFNoDLaUKD8nRyC9Knbb3uVQGI+aKmnxLfleAtimcw1ca2bj/VQ9j8a6V/FscM4q6D1GN1/FzV0LIAf5E3iiW49+DozvA+TXOqCJaQh94kI161GEPr7g9BbmOErouRFf5T96vUmjyJq5Nks7Wj6pqgDiINHwqAnupYkxtWs9lgUQv3nMOFHzrMJy29NndA+P9D9ukAnYiUhdWN0xiwzBvHRtrxf+8tXymhvo1N8gpfLpon23j2Icwyt8i0myjBNeSNOyaJ3Ucu6utD8AHOzoLDIrx5cn+VpoxHU2Ihf1NNXOBpqEvHVFcd9mM64O1GGwyp2yjotFZqVxIcpaQeq2MSo5SsdoQJ6esSIc662BSHnow8+Pr4YCU2cRLF3OyeR7T0q5XWwwG+WRx5cCNo1RRN3suQ6bRY2/Qt2kG/p8LN+FfrZmZADWeYZ/YfEBE+qDBAZ0mlF3rlZ296aV9Hkhmox1dQs9wf91eC3uvoDkrfow28Y0UWo9bYN+FA4BGF7jL94IDOwyicpD6MDWcUiKcgwy/Yp2oKTrmgLdaR37b1OdgTyNxUpfxwvMaavJre2wwSHV9stnOB5ommG0Ifd6sRPyXmG
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400014)(376005)(1800799015);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(376005)(82310400014)(36860700004);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2024 12:14:46.9471
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2024 12:26:31.1924
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b3d7f73-4c86-4b2a-f3f3-08dc5ed7f922
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b3a531b-a2f2-4036-43bc-08dc5ed99ce6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EDD3.namprd03.prod.outlook.com
+	CY4PEPF0000EDD2.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7493
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7277
 
-Commit afab29d0882f ("public: s/int/int32_t") replaced int with int32_t
-in XEN_GUEST_HANDLE() in memory.h but there is no guest handle defined
-for it. This results in a build failure. Example on Arm:
 
-./include/public/arch-arm.h:205:41: error: unknown type name ‘__guest_handle_64_int32_t’
-  205 | #define __XEN_GUEST_HANDLE(name)        __guest_handle_64_ ## name
-      |                                         ^~~~~~~~~~~~~~~~~~
-./include/public/arch-arm.h:206:41: note: in expansion of macro ‘__XEN_GUEST_HANDLE’
-  206 | #define XEN_GUEST_HANDLE(name)          __XEN_GUEST_HANDLE(name)
-      |                                         ^~~~~~~~~~~~~~~~~~
-./include/public/memory.h:277:5: note: in expansion of macro ‘XEN_GUEST_HANDLE’
-  277 |     XEN_GUEST_HANDLE(int32_t) errs;
 
-Fix it. Also, drop guest handle definition for int given no further use.
+On 17/04/2024 14:07, Oleksandr Tyshchenko wrote:
+> 
+> 
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> uImage is the Image that has a U-Boot wrapper, it doesn't contain
+> "executable" string which subsequent "file" command is looking for
+> when inspecting it.
+> 
+> Below the proof:
+> 
+> otyshchenko@EPUAKYIW03DD:~/work/xen_tests/input$ file -L binaries/uImage.gz
+> binaries/uImage.gz: u-boot legacy uImage, Linux Kernel Image, Linux/ARM 64-bit,
+> OS Kernel Image (gzip), 9822180 bytes, Fri Sep 29 15:39:42 2023, Load Address: 0X40000000,
+> Entry Point: 0X40000000, Header CRC: 0XE1EF21BF, Data CRC: 0XC418025
+> 
+> otyshchenko@EPUAKYIW03DD:~/work/xen_tests/input$ file -L binaries/uImage
+> binaries/uImage: u-boot legacy uImage, Linux Kernel Image, Linux/ARM 64-bit,
+> OS Kernel Image (Not compressed), 23269888 bytes, Fri Sep 29 15:40:19 2023,
+> Load Address: 0X40000000, Entry Point: 0X40000000, Header CRC: 0XA0B7D051,
+> Data CRC: 0X42083F51
+> 
+> Suggested-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-Fixes: afab29d0882f ("public: s/int/int32_t")
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
- xen/include/public/xen.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
-index b47d48d0e2d6..8fd0cec880d5 100644
---- a/xen/include/public/xen.h
-+++ b/xen/include/public/xen.h
-@@ -28,7 +28,6 @@
- /* Guest handles for primitive C types. */
- DEFINE_XEN_GUEST_HANDLE(char);
- __DEFINE_XEN_GUEST_HANDLE(uchar, unsigned char);
--DEFINE_XEN_GUEST_HANDLE(int);
- __DEFINE_XEN_GUEST_HANDLE(uint,  unsigned int);
- #if __XEN_INTERFACE_VERSION__ < 0x00040300
- DEFINE_XEN_GUEST_HANDLE(long);
-@@ -36,6 +35,7 @@ __DEFINE_XEN_GUEST_HANDLE(ulong, unsigned long);
- #endif
- DEFINE_XEN_GUEST_HANDLE(void);
- 
-+DEFINE_XEN_GUEST_HANDLE(int32_t);
- DEFINE_XEN_GUEST_HANDLE(uint64_t);
- DEFINE_XEN_GUEST_HANDLE(xen_pfn_t);
- DEFINE_XEN_GUEST_HANDLE(xen_ulong_t);
--- 
-2.25.1
-
+~Michal
 
