@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC5768A85C6
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 16:18:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707538.1105559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D1F18A85E8
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 16:26:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707546.1105568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx66h-0000Ex-Sf; Wed, 17 Apr 2024 14:17:51 +0000
+	id 1rx6Dt-00024H-JH; Wed, 17 Apr 2024 14:25:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707538.1105559; Wed, 17 Apr 2024 14:17:51 +0000
+Received: by outflank-mailman (output) from mailman id 707546.1105568; Wed, 17 Apr 2024 14:25:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx66h-0000CC-Ov; Wed, 17 Apr 2024 14:17:51 +0000
-Received: by outflank-mailman (input) for mailman id 707538;
- Wed, 17 Apr 2024 14:17:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=T4Tg=LW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rx66g-0008UZ-Js
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 14:17:50 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4565eeb2-fcc5-11ee-b909-491648fe20b8;
- Wed, 17 Apr 2024 16:17:50 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-418d33ee188so859755e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 07:17:49 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- w17-20020a05600c475100b004162d06768bsm3008515wmo.21.2024.04.17.07.17.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Apr 2024 07:17:49 -0700 (PDT)
+	id 1rx6Dt-00021d-G7; Wed, 17 Apr 2024 14:25:17 +0000
+Received: by outflank-mailman (input) for mailman id 707546;
+ Wed, 17 Apr 2024 14:25:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QKhp=LW=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1rx6Dr-0001zx-Rj
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 14:25:16 +0000
+Received: from wfhigh3-smtp.messagingengine.com
+ (wfhigh3-smtp.messagingengine.com [64.147.123.154])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4b8b03f6-fcc6-11ee-94a3-07e782e9044d;
+ Wed, 17 Apr 2024 16:25:12 +0200 (CEST)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailfhigh.west.internal (Postfix) with ESMTP id 116EC18000FE;
+ Wed, 17 Apr 2024 10:25:07 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Wed, 17 Apr 2024 10:25:08 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 17 Apr 2024 10:25:06 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +44,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4565eeb2-fcc5-11ee-b909-491648fe20b8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713363469; x=1713968269; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xcf3nxJwqBelyg6Kg+IY10nMzaWe+DFYaPaJvSH2lek=;
-        b=ToEpZfBtR3ytZXgfg/IwGLJsYqvHai78ryuKnk+SGfT5KoXoWxTzJ9T/ihK6Cs1aua
-         ruSKSiCfhpWKAss9hdKw0ME/yfKWZDnXK/Z0XMR++uffXL/nielMyHvfxWc9wzraRnfT
-         qPIwxn4zHg4le+K0sePFLKLfmPUgzcJ0Uo6ltmxr2LWcqw6yo91xDOynLaI97Q9y1SPt
-         nbjaYMMkWzfQUNyTIFaUxkWU+VhMrFAfM4hRKyhN70dVj+FSrdYsjkomGgevsL5F2bKj
-         AOWHH7GaNFRj3wlMByhLIKyzuEIgxmTOlc0RTHbRi8gtGp1Av7DbqB3sYw4a5Y2F4FRL
-         25nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713363469; x=1713968269;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xcf3nxJwqBelyg6Kg+IY10nMzaWe+DFYaPaJvSH2lek=;
-        b=hMQBbeIu/vNawn6Qg5xPQX0BU2a+qEMcfJD49tMUa550AXeqo+nh0VntRr6ckpAePV
-         F+Agz70s3WT2B5EY1rZ7eosULav4urC6yomLH9UfWPTUcKJOojaMRTkZC7jL4IVe1A9c
-         8Hh5LAzkbAk4va1vmpVSdYfezFXp8dFUlFH9V8MuaAOdOrA2M4DZcsyMd6Z7MepGTre0
-         YdFABAhuXjwRQTEimLX+KfDCg5HsJZiK5GvEdeMX6RkB/QRift+dBVDxBPXBxaUcrZlM
-         P6NUuFQBKbhjo/dCRoQi1bwUxOq2EyZcM4PLEEBFmqfby/LOI9tEUvzdIjc8sSVq66bD
-         bczg==
-X-Forwarded-Encrypted: i=1; AJvYcCWgXuwbzd/eczk305EDfGksU4lCDlo1ab2X/hwSXol7v5fZA5xh0LBRL3226x5zmRALaNic2GK88H3drCYesz+hhixvMRo/lSORPvMh2jA=
-X-Gm-Message-State: AOJu0YydgyUTve6MJAhGbpBwLuK5W7vjfco3yTwE9Yyp9h4WKtW60fR2
-	Eq8gUpbUTso0ftYJhXKKBFd6F/a/FBn/AR+dEpwTXeXG/osr5+4iy94R4SX8PA==
-X-Google-Smtp-Source: AGHT+IGyLc+BZRJ5H9Jt7bXmxD2XrIiyInYHh4iKlTJo0yPA1izhIs6VkrctG0psu4WAf7gjoMVm1Q==
-X-Received: by 2002:a05:600c:4511:b0:415:540e:74e3 with SMTP id t17-20020a05600c451100b00415540e74e3mr14739198wmo.40.1713363469414;
-        Wed, 17 Apr 2024 07:17:49 -0700 (PDT)
-Message-ID: <4324974a-0a0c-4d81-87c0-6b7d27d2ff46@suse.com>
-Date: Wed, 17 Apr 2024 16:17:48 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drivers/char: mark extra reserved device memory in
- memory map
-Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+X-Inumbo-ID: 4b8b03f6-fcc6-11ee-94a3-07e782e9044d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1713363907;
+	 x=1713450307; bh=OWF9dO4KiU73KW7hD0J6XxcMGffKB4Z1eCxT4PQVlfk=; b=
+	nI+WDVCUxjK8qu8RQKveZTux63ZjGkvIe7IfwqHiHrcuh8yrE5djhqg2mSR7eHDn
+	3sz5S8vJy7l+UvM27/yykiIhe2jKsSBAAwNJaUZRLtpphUds6opFHsH3GEA+gOKi
+	SRCdN+RWI76FcsRUH2fxDSW8YClwKPJevDWM3B4VGXlWRAGqd+GzNvSWrNmkStaK
+	0hOhkj03z/3xGUqud2juV77lLbS71bHCZdb6Evmbp+Nyso3VE4qP1mGvV0GkSRZ2
+	cbjMEQy7RbYThhUiI0rjq4YSQLAtO4TVWsxcFZE/JX2fDQhQFzMYpX36MM2iVqCi
+	TInXtDMqnRD41iqjbg8HGQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1713363907; x=1713450307; bh=OWF9dO4KiU73KW7hD0J6XxcMGffK
+	B4Z1eCxT4PQVlfk=; b=OakGW61Y18dE2MtgMlJU5FW8SjMcOFe6i2diAdG7TqiC
+	Qh01cgjUoYDkSh8mdN1S2SubRcyYKohiApD/5LI28it46Wped2oN/akIGCqwPE4F
+	HPc0FnPgRu5/oBw19nmC5GKqumU/IuN5kojfVKZzeP4cLgQBjGb/YE4rO4joVFAZ
+	LSA/wr38jGahmPr+4rqwvz69zGm3hRJIthTWOKq4UxzV+bjgE1Up6kT1xFGQuBhf
+	q952nTEEX935vHqX6/71aUG/orjIjI37t4TDuZcuASAvHKcyJ76dJkWF7/6E5BWh
+	ebW5pImGWcjgHMN2b5OHitPx5brznIG2ZUzRdCe0Fg==
+X-ME-Sender: <xms:wtsfZoFl4C6_fwrilc3wRdhVYeSAl5xT-8AATtCP5vjltWNM0r5K6A>
+    <xme:wtsfZhU6n0n26hKv2lVipR3-xEok7NyJZ63EwQEhEqlzKgCfWpPN9BMl49743wsjT
+    t4l8LOrcjLqBQ>
+X-ME-Received: <xmr:wtsfZiLxth_q8UCUPR1WMabqahLZSB4IK7jEHX3WieJBuWcgpPmRnsNNFCRQjuWVLArDmwLp9Lljjd6TsUFtVy47rGYtUEgq_Q>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrudejkedgjeeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:wtsfZqGjxOm7vxCQAYA1ZiTHHbWmBeeudGDxtX95v-5dhmIc6gqnxA>
+    <xmx:wtsfZuUVbOaWqt8w7i9-uHIQZnnX4cVSKOqa6WBwL0zmrygBsKdyxA>
+    <xmx:wtsfZtOss32UXxsybs4cECmSuqkRhEwCuPvuqO0jo480iuL25lqGgA>
+    <xmx:wtsfZl2557Eg9KiR4bBzCTEGsGU8OOSuzptBw68wyfywTU6CNIWVlA>
+    <xmx:w9sfZtS5p7kIaSsMRqUMu5t-l9oBp7M4HSNe2VBtaBp7KblhSbQ0ZmYH>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 17 Apr 2024 16:25:02 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Paul Durrant <paul@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 2/2] drivers/char: mark extra reserved device memory
+ in memory map
+Message-ID: <Zh_bvtvVAq35A5mI@mail-itl>
 References: <20240327025454.514521-1-marmarek@invisiblethingslab.com>
  <20240327025454.514521-2-marmarek@invisiblethingslab.com>
- <0d7daae5-97c3-4982-8301-7ed2fda24ff9@suse.com> <ZhskJAL1fz3lNdg7@mail-itl>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZhskJAL1fz3lNdg7@mail-itl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <0d7daae5-97c3-4982-8301-7ed2fda24ff9@suse.com>
+ <ZhskJAL1fz3lNdg7@mail-itl>
+ <4324974a-0a0c-4d81-87c0-6b7d27d2ff46@suse.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Jz0btK6xw1y2YmMV"
+Content-Disposition: inline
+In-Reply-To: <4324974a-0a0c-4d81-87c0-6b7d27d2ff46@suse.com>
 
-On 14.04.2024 02:32, Marek Marczykowski-Górecki wrote:
-> On Wed, Apr 03, 2024 at 09:10:40AM +0200, Jan Beulich wrote:
->> On 27.03.2024 03:53, Marek Marczykowski-Górecki wrote:
->>> The IOMMU driver checks if RMRR/IVMD are marked as reserved in memory
->>> map. This should be true for addresses coming from the firmware, but
->>> when extra pages used by Xen itself are included in the mapping, those
->>> are taken from usable RAM used. Mark those pages as reserved too.
->>>
->>> Not marking the pages as reserved didn't caused issues before due to
->>> another a bug in IOMMU driver code, that was fixed in 83afa3135830
->>> ("amd-vi: fix IVMD memory type checks").
->>>
->>> Failing to reserve memory will lead to panic in IOMMU setup code. And
->>> not including the page in IOMMU mapping will lead to broken console (due
->>> to IOMMU faults). The pages chosen by the XHCI console driver should
->>> still be usable by the CPU though, and the console code already can deal
->>> with too slow console by dropping characters (and console not printing
->>> anything is a special case of "slow"). When reserving fails print an error
->>> message showing which pages failed and who requested them. This should
->>> be enough hint to find why XHCI console doesn't work.
->>>
->>> Fixes: 3a1a7b809ffa "drivers/char: mark DMA buffers as reserved for the XHCI"
->>> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->>
->> Acked-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Is any ack missing here, or has it just fallen through the cracks?
 
-??? (commit dd5101a6169f89b9e3f3b72f0b0fcdb38db2fb35)
+--Jz0btK6xw1y2YmMV
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Apr 2024 16:25:02 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Paul Durrant <paul@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 2/2] drivers/char: mark extra reserved device memory
+ in memory map
 
-Jan
+On Wed, Apr 17, 2024 at 04:17:48PM +0200, Jan Beulich wrote:
+> On 14.04.2024 02:32, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Wed, Apr 03, 2024 at 09:10:40AM +0200, Jan Beulich wrote:
+> >> On 27.03.2024 03:53, Marek Marczykowski-G=C3=B3recki wrote:
+> >>> The IOMMU driver checks if RMRR/IVMD are marked as reserved in memory
+> >>> map. This should be true for addresses coming from the firmware, but
+> >>> when extra pages used by Xen itself are included in the mapping, those
+> >>> are taken from usable RAM used. Mark those pages as reserved too.
+> >>>
+> >>> Not marking the pages as reserved didn't caused issues before due to
+> >>> another a bug in IOMMU driver code, that was fixed in 83afa3135830
+> >>> ("amd-vi: fix IVMD memory type checks").
+> >>>
+> >>> Failing to reserve memory will lead to panic in IOMMU setup code. And
+> >>> not including the page in IOMMU mapping will lead to broken console (=
+due
+> >>> to IOMMU faults). The pages chosen by the XHCI console driver should
+> >>> still be usable by the CPU though, and the console code already can d=
+eal
+> >>> with too slow console by dropping characters (and console not printing
+> >>> anything is a special case of "slow"). When reserving fails print an =
+error
+> >>> message showing which pages failed and who requested them. This should
+> >>> be enough hint to find why XHCI console doesn't work.
+> >>>
+> >>> Fixes: 3a1a7b809ffa "drivers/char: mark DMA buffers as reserved for t=
+he XHCI"
+> >>> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethi=
+ngslab.com>
+> >>
+> >> Acked-by: Jan Beulich <jbeulich@suse.com>
+> >=20
+> > Is any ack missing here, or has it just fallen through the cracks?
+>=20
+> ??? (commit dd5101a6169f89b9e3f3b72f0b0fcdb38db2fb35)
+
+Oh, sorry, somehow I missed it. All good then, thanks.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--Jz0btK6xw1y2YmMV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmYf274ACgkQ24/THMrX
+1ywfywf+OmmCL/Y1qmRF6Ba9u5B1R9ky1Nu2XZ42s2TZQeXSSbtsw5KdcqOIE/2x
+8D68bpGDnz6BbKIzXMXdCNw3wg5/N/geJ79uCylv/ZsTO+wztEX/LZLL3DSZYbBK
+j4o0ElZ2ivvVt0AFO+njgEUDijQy99AWfjE/VafMSAW238aRS8Ppsqyw1ZZeY3t1
+BAJK1Darz70zcS4Dtt2Qsy47G2MCgylH9GDLVNpHjxiP03CK2agE/RawBfI9a1Oo
+1tMJO/DKh4nyuxNOf2Mt2F8/GBSSR1GAq7rCheJuv0An8nXyRp7gYt+WSkbva6Zp
+K9tHwr9XAAJSOLtBJKZFJr4mG6A4eQ==
+=Y3DV
+-----END PGP SIGNATURE-----
+
+--Jz0btK6xw1y2YmMV--
 
