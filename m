@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 673688A8627
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 16:39:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707570.1105638 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A987F8A867B
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 16:47:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707597.1105649 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx6RD-0007rG-EJ; Wed, 17 Apr 2024 14:39:03 +0000
+	id 1rx6Yl-0002ip-76; Wed, 17 Apr 2024 14:46:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707570.1105638; Wed, 17 Apr 2024 14:39:03 +0000
+Received: by outflank-mailman (output) from mailman id 707597.1105649; Wed, 17 Apr 2024 14:46:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx6RD-0007oQ-Ay; Wed, 17 Apr 2024 14:39:03 +0000
-Received: by outflank-mailman (input) for mailman id 707570;
- Wed, 17 Apr 2024 14:39:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VNGY=LW=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1rx6RC-0004w5-8J
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 14:39:02 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 39d23e12-fcc8-11ee-94a3-07e782e9044d;
- Wed, 17 Apr 2024 16:39:00 +0200 (CEST)
-Delivered-To: dpsmith@apertussolutions.com
-Received: by mx.zohomail.com with SMTPS id 1713364653140328.45670023206253;
- Wed, 17 Apr 2024 07:37:33 -0700 (PDT)
+	id 1rx6Yl-0002fb-3r; Wed, 17 Apr 2024 14:46:51 +0000
+Received: by outflank-mailman (input) for mailman id 707597;
+ Wed, 17 Apr 2024 14:46:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=T4Tg=LW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rx6Yj-0002fI-6k
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 14:46:49 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 51a0c87a-fcc9-11ee-b909-491648fe20b8;
+ Wed, 17 Apr 2024 16:46:48 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-343e46ec237so4518549f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 07:46:48 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ b10-20020a056000054a00b00341b7d5054bsm17850447wrf.72.2024.04.17.07.46.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Apr 2024 07:46:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,89 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39d23e12-fcc8-11ee-94a3-07e782e9044d
-ARC-Seal: i=1; a=rsa-sha256; t=1713364655; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=GQUI1Xad/9W+P86/QcwV2bVy5l9v8UjrYvnPNS6etEkyZOILzBph9gqpzUQcCrG6GN8lR10G35FA3tOetf7IZfdLrV44ZqrkJz8ckUz0nMZaDL5xvQ56/oW8DTsqt/Lkka9a3AtvGN+iGA2xGZWi+ogNuDtV7wdeFIEMxwHBnSA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1713364655; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=zy3QMlmFlvRnd4VIdLPcMDUc+UIQW7lW3Z2AoT0uE1Y=; 
-	b=R6p8+5CjDPaXgWndfHry9vJ53WpopLeRCvmsmRkG+r+Ob8pyRaIJa87G6mC3l6plTcOcKkaKouBuPMDz+T0n1OU2jbUz/EoCg9zkAMlRvvjqFXsuOqt60Mg472kcVITxPc2K3CzMVG04w9MPErH07emw+vU7hySrbd7VeQQvQXY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1713364655;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=zy3QMlmFlvRnd4VIdLPcMDUc+UIQW7lW3Z2AoT0uE1Y=;
-	b=Jh7txosGZD300ljMpQFAQ1HSXcJrvLC5+R3STBpwdDyIK05WaqCg8BGOn7reiIPZ
-	ogslMgd3S5j0OwFDcL8VUXp68H1tcC28bVmJ0P80I+jf3OPP58C1hWF/qYYq5t/4IMi
-	K5xMyzuon8pbGeX/ypIHXEDqvn0J0NyDCmrYIV8o=
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 6/6] gzip: drop huffman code table tracking
-Date: Wed, 17 Apr 2024 10:37:16 -0400
-Message-Id: <20240417143716.27189-7-dpsmith@apertussolutions.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20240417143716.27189-1-dpsmith@apertussolutions.com>
-References: <20240417143716.27189-1-dpsmith@apertussolutions.com>
+X-Inumbo-ID: 51a0c87a-fcc9-11ee-b909-491648fe20b8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1713365208; x=1713970008; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6f+wnBbHvXT2TBkylxXSNwMB9miy6uzllFdO+L5EaJE=;
+        b=fN3ZZ6SuucXadvHkxHzI0UzPTSu9igK8gR89HxcoWLSiDT70meRtoWVByzi5nss9lR
+         uhaMwqmwz84GsRaikIMTLzjCpAtvLUZkAtc01Zvf0lxcznFe/ClNlIwHAs3AkTbn6HEc
+         g7srZH2cU++ZbHBvLKQ/q/GGLnkW822OMsd3CRW6m4MPbkU1cBow0jcD6Idhy5iTs4zx
+         4Sw7DipOvW/oxvrrSCJaztiipA0lTRTPhPCsi2ZBb/zZwa0wv3Rfv/srpWVfq+QuuaNP
+         1/B+mAiSIQjEdtNW8IUxBvOy+cY5GItUCLy6I4IDr+ztdczHGZHzk+QFI01NYN2zfnLO
+         bMmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713365208; x=1713970008;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6f+wnBbHvXT2TBkylxXSNwMB9miy6uzllFdO+L5EaJE=;
+        b=l6+EXENeXvyHdV5mdGTj1dZEZuo/cmDeBJB3cuyBndWsbcw2ggZ0Q4EsCsg640cQHA
+         S8VIwq4A0b9MsbOdswGcP4GZa7KNyd8AwDarBZgaHkSXqIKrlW7mqE4zLjoj7U9m09j1
+         sdPh+42aDfeR5To0HmKMl7y9OxlGyLVBZ6IOnEct57MUsMo0yqpl25DlA043x21YLc8M
+         H/3TC/F/W14B7k7t/Dgn3/duVg6pJRuUVhjbgZub8NrjfusbB1XCwwvX4dM0w4lxGtBL
+         axXNzC7qUL6dtReMrXg7APUd3LinAhHRr4n5jfsMtZsILH9sILow65Cpwr598r6yatKi
+         /U1w==
+X-Forwarded-Encrypted: i=1; AJvYcCVliLZbGTInGq5yuFjOa1OQj8XWvllQbY+21B4AY0OoYemc/yqADoMXmvlngh5aRorz+07ZqF+5UoMNE+p6UentP3RrW6FOJD0PmoP3aAI=
+X-Gm-Message-State: AOJu0YwwjXnk4VDbqEbPLufi4GPX94hUJ9IR2QAvPE66thgxvrZiURIm
+	vPmnmoiFSQ01o7ox2WFdiDsWDFA52E+/Vy1n+q5cr2CI7LRDOab9GVfBmkMzfw==
+X-Google-Smtp-Source: AGHT+IFH8VV2y4gFkYcf5oqKNebnmk95So00zw9WrAV5gkWKpdsbr7cmGO1rYPp9Rq4iN8Hfe9nVTw==
+X-Received: by 2002:a05:6000:c44:b0:33e:363b:a7dd with SMTP id do4-20020a0560000c4400b0033e363ba7ddmr12502547wrb.20.1713365207894;
+        Wed, 17 Apr 2024 07:46:47 -0700 (PDT)
+Message-ID: <9f00278c-b205-4afd-950f-857b75004c3e@suse.com>
+Date: Wed, 17 Apr 2024 16:46:46 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v1 00/15] x86: make cpu virtualization support
+ configurable
+Content-Language: en-US
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
+References: <20240416061845.3467822-1-Sergiy_Kibrik@epam.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240416061845.3467822-1-Sergiy_Kibrik@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The "tracking" bits does not appear to be used, so dropping from the code.
+On 16.04.2024 08:18, Sergiy Kibrik wrote:
+> This series aims to continue what Xenia started a year ago:
+> 
+> https://lore.kernel.org/xen-devel/20230213145751.1047236-1-burzalodowa@gmail.com/
+> 
+> Here's an attempt to provide a means to render the cpu virtualization
+> technology support in Xen configurable.
+> Currently, irrespectively of the target platform, both AMD-V and Intel VT-x
+> drivers are built.
+> The series adds two new Kconfig controls, SVM and VMX, that can be
+> used to switch to a finer-grained configuration for a given platform, and
+> reduce dead code.
+> 
+> The code separation is done using the new config guards.
+> 
+> Since the initial RFC series felt rather welcomed, I took a courage naming
+> it v1 and continuing from there. New changes are:
+> 
+> v1:
+>  * changed Kconfig options naming
+>  * use IS_ENABLED() instead of #ifdef where possible
+>  * move altp2m code apart from p2m & hide under VMX option
+>  * introduce helper in cpu_has_vmx_* macros
+>  * and address other comments from Jan
+> 
+> Sergiy Kibrik (6):
+>   x86/monitor: guard altp2m usage
+>   x86/p2m: guard altp2m init/teardown
+>   x86/p2m: move altp2m-related code to separate file
+>   x86/p2m: guard altp2m code with CONFIG_VMX option
+>   x86/vpmu: separate amd/intel vPMU code
+>   x86/vmx: introduce helper function for vmcs macro
+> 
+> Xenia Ragiadakou (9):
+>   x86: introduce AMD-V and Intel VT-x Kconfig options
+>   x86/hvm: guard AMD-V and Intel VT-x hvm_function_table initializers
+>   x86/p2m: guard vmx specific ept functions with CONFIG_VMX
+>   x86/traps: guard vmx specific functions with CONFIG_VMX
+>   x86/domain: guard svm specific functions with CONFIG_SVM
+>   x86/oprofile: guard svm specific symbols with CONFIG_SVM
+>   x86: wire cpu_has_{svm/vmx}_* to false when svm/vmx not enabled
+>   x86/ioreq: guard VIO_realmode_completion with CONFIG_VMX
+>   x86/hvm: make AMD-V and Intel VT-x support configurable
 
-Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
----
- xen/common/gzip/inflate.c | 6 ------
- 1 file changed, 6 deletions(-)
+Going forward, can you please make sure you send patch series as threads
+(i.e. individual patches with Reply-to: referencing the cover letter)?
 
-diff --git a/xen/common/gzip/inflate.c b/xen/common/gzip/inflate.c
-index c18ce20210b0..15bc187c2bbe 100644
---- a/xen/common/gzip/inflate.c
-+++ b/xen/common/gzip/inflate.c
-@@ -264,8 +264,6 @@ static const int dbits = 6;          /* bits in base distance lookup table */
- #define BMAX 16         /* maximum bit length of any code (16 for explode) */
- #define N_MAX 288       /* maximum number of codes in any set */
- 
--static unsigned __initdata hufts;      /* track memory usage */
--
- /*
-  * Given a list of code lengths and a maximum table size, make a set of
-  * tables to decode that set of codes.  Return zero on success, one if
-@@ -445,7 +443,6 @@ static int __init huft_build(
-                     goto out;
-                 }
-                 DEBG1("4 ");
--                hufts += z + 1;         /* track memory usage */
-                 *t = q + 1;             /* link to list for huft_free() */
-                 *(t = &(q->v.t)) = (struct huft *)NULL;
-                 u[h] = ++q;             /* table starts after link */
-@@ -1028,15 +1025,12 @@ static int __init inflate(struct gzip_state *s)
-     /* decompress until the last block */
-     h = 0;
-     do {
--        hufts = 0;
- #ifdef ARCH_HAS_DECOMP_WDOG
-         arch_decomp_wdog();
- #endif
-         r = inflate_block(s, &e);
-         if (r)
-             return r;
--        if (hufts > h)
--            h = hufts;
-     } while (!e);
- 
-     /* Undo too much lookahead. The next read will be byte aligned so we
--- 
-2.30.2
-
+Jan
 
