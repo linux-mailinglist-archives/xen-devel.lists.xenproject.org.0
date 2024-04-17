@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 759998A808A
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 12:18:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707365.1105245 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 671058A804C
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 12:05:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707303.1105109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx2Mu-0001MW-Lo; Wed, 17 Apr 2024 10:18:20 +0000
+	id 1rx2AD-00006q-0n; Wed, 17 Apr 2024 10:05:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707365.1105245; Wed, 17 Apr 2024 10:18:20 +0000
+Received: by outflank-mailman (output) from mailman id 707303.1105109; Wed, 17 Apr 2024 10:05:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx2Mu-0001K3-IT; Wed, 17 Apr 2024 10:18:20 +0000
-Received: by outflank-mailman (input) for mailman id 707365;
- Wed, 17 Apr 2024 10:18:19 +0000
+	id 1rx2AC-0008VL-Sd; Wed, 17 Apr 2024 10:05:12 +0000
+Received: by outflank-mailman (input) for mailman id 707303;
+ Wed, 17 Apr 2024 10:05:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6A/l=LW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rx2Ad-0007lI-DZ
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 10:05:39 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ id 1rx2AB-0007lI-D0
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 10:05:11 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0a7aec8d-fca2-11ee-b909-491648fe20b8;
- Wed, 17 Apr 2024 12:05:38 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-516cbf3fe68so6891558e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 03:05:38 -0700 (PDT)
+ id f9e3595f-fca1-11ee-b909-491648fe20b8;
+ Wed, 17 Apr 2024 12:05:10 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-516db2214e6so6721059e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 03:05:10 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- p2-20020a056512328200b00516cd83e497sm1893187lfe.210.2024.04.17.03.05.06
+ p2-20020a056512328200b00516cd83e497sm1893187lfe.210.2024.04.17.03.05.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Apr 2024 03:05:07 -0700 (PDT)
+ Wed, 17 Apr 2024 03:05:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a7aec8d-fca2-11ee-b909-491648fe20b8
+X-Inumbo-ID: f9e3595f-fca1-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1713348338; x=1713953138; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1713348310; x=1713953110; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Q5ULn7J+C23bytnZegqIYlqxigksIJAvnkht5gx5amU=;
-        b=Yq0hfKRGbxWLDAj2fnlMRlhxR/jHNx/a/J70Q8AVIl2z0sSaHAGQ+C6Zg/XSKl6Gs+
-         Np0EnjaQDqoUmF4PFRK7BxVanwMZk36zaIHm3m92rdI4AvfbCM5JX7q0sl4UnpiCzOXT
-         7+apaDe9vBJ3P0mmVD1qCu67f+LNEGmBzejAT01k4u9PqsAAFcUAC4zsYUVXfsh6sRqm
-         Lw0zQ/KqyK3kAB9CCjNFW4/6xIn3P/kSA1RCIF9cWlkK5Ym/7SPnOuyLvepTn8qTB1OF
-         DKL35aS9Vq90hnMYwCp08J/rgBJL7l/4vBoa1XUp9hp6/KYxYxisi8QF+s4yv3XbE7uN
-         Z5ag==
+        bh=tJ29D9H9JMmfdu32zJ5hu2jEY5dp+g/85uLcvjzKeeQ=;
+        b=lRt3HtWaHe7L/r9d4QUkPm0flbv5KyCtfipK3UX1Wk+BLAwBIf4sUBtHcouy972LKj
+         1PP2dw2KCLbxaAspLgp48Xl9mZG/b2W4mU8zLvcaXVUEHz6nRyBx6ZxaeaWQc51lDBIE
+         5rfJbeIoFCcZkqvIV705T2hD+E0En9ZaSbkp0tLNZm3azj7+t8KE34AE413g4yXAIa2X
+         Teb8bNd1mhLmEvqlQSJKtJsB1AHc4DcpnuZWbTLui0ko7Q+eLKqHU/yH0ttA+qKSUagw
+         y+Ipj1TEIoxVoOFDEbe+EBR/wlPJG5k+VBswAP5V+NtvROYRrK/yaIzJfzG4Fuljc/Wp
+         ZFGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713348338; x=1713953138;
+        d=1e100.net; s=20230601; t=1713348310; x=1713953110;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Q5ULn7J+C23bytnZegqIYlqxigksIJAvnkht5gx5amU=;
-        b=mETPqGu+18VrUod1b8Fx6GrDEvncZgnX3Z1wv8Tm/YKi2Gkr08bI2A+uoPcEVaDpfg
-         J0jHgLxjjnCO6yREgdTZi3fRyrKTNYQ2Yup2vRcRubxrOHmHJw41Pvml93d2xAuh/Izt
-         N2Wc9GBg5mLX5/jgwFWE/G0oddGntRXY17mCq+19tvhrWsHDTwow9+g8oYJPvZnsOudM
-         HeA6idIMwVWE29auCCE7JnpPxkYQfea1KcIcilBoFgiVyWX7TVgyFfADvRcLEZdyUdIQ
-         DYGToFsLt9JC3m29DOqxEMqCK+G9zBsC5IWja58no/EvMKSyUSrJr3sJH5rRau6rpXqa
-         Z2BA==
-X-Gm-Message-State: AOJu0YxaOBuhzTlv926910wFIBMa6fa3iO/06vJv88QNLQO6XgrtOTZC
-	POmwqfinFFESiiBettbrqDv8zQSIeE1KhS+yjzc4y9xiJE+/MNp5x/TK0A==
-X-Google-Smtp-Source: AGHT+IFuNF9ms6azISaKCHmPIxauFJJF0/Y3ZA1fsWpaRswYHa+kDy29+3l8sQU3UTWlpJPMmPrhZA==
-X-Received: by 2002:ac2:4182:0:b0:516:d0c2:755 with SMTP id z2-20020ac24182000000b00516d0c20755mr8877498lfh.63.1713348308113;
-        Wed, 17 Apr 2024 03:05:08 -0700 (PDT)
+        bh=tJ29D9H9JMmfdu32zJ5hu2jEY5dp+g/85uLcvjzKeeQ=;
+        b=BUE4J07eTlEGTBldiJ38XfuCzGL7QfP19dQxtPcbYDVd21G063ak7Ot4dFU9JJsRyl
+         FjQD56NPArE4RiHodDh3DXnB1uSDxY0q7rUryFBoWRXxNgMAkrgVz/tYkUgafzy4PwKu
+         DEoBl3mXYVlLH/OolJOT+L1qs0W+70zXLP7vujURtXp/+Pgn34bOby1PLzeEowwiWXvx
+         +LInCHNFHuQ35G8zSjt/qBqTiQeovw9RfYKbmvSFKVipy+gVsml7LS8je4UDBYyNE3g2
+         eqClmGwig1+H4I9YMRV7x0wWLSQhPuC0tO7lcv1dBSuuxTrNhcsgM0IJeOuRJlTyoYvg
+         uJZw==
+X-Gm-Message-State: AOJu0Yys9ABwPsWPoijSK0OCoGS5+jTgHRRz9QYIPbjjdzzXFOzm4KeP
+	SDvVFWt2O5WGS2UowveANDkk19BQ6auNILKlUZdAy1qwtzx+eS7qSfPT/g==
+X-Google-Smtp-Source: AGHT+IFk3ss01QgPMVPrDGJj5xjEAP6QNC+R4zGtC7ztjhFawgFn2SdAqGdsq9uA1exC5L9A7YzkQQ==
+X-Received: by 2002:a05:6512:21b2:b0:518:cb17:c50b with SMTP id c18-20020a05651221b200b00518cb17c50bmr5358792lft.65.1713348309351;
+        Wed, 17 Apr 2024 03:05:09 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -86,233 +86,168 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v8 03/17] xen/bitops: implement fls{l}() in common logic
-Date: Wed, 17 Apr 2024 12:04:46 +0200
-Message-ID: <60bc710b990ed1d45741888df7e97cf25d150e61.1713347222.git.oleksii.kurochko@gmail.com>
+	Rahul Singh <rahul.singh@arm.com>
+Subject: [PATCH v8 04/17] xen/bitops: put __ffs() into linux compatible header
+Date: Wed, 17 Apr 2024 12:04:47 +0200
+Message-ID: <2ea76feebc5ffe543801b9b3935a82a64708a909.1713347222.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <cover.1713347222.git.oleksii.kurochko@gmail.com>
 References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Return type was left 'int' because of the following compilation error:
+The mentioned macros exist only because of Linux compatible purpose.
 
-./include/xen/kernel.h:18:21: error: comparison of distinct pointer types lacks a cast [-Werror]
-       18 |         (void) (&_x == &_y);            \
-          |                     ^~
-    common/page_alloc.c:1843:34: note: in expansion of macro 'min'
-     1843 |         unsigned int inc_order = min(MAX_ORDER, flsl(e - s) - 1);
+The patch defines __ffs() in terms of Xen bitops and it is safe
+to define in this way ( as __ffs() - 1 ) as considering that __ffs()
+was defined as __builtin_ctzl(x), which has undefined behavior when x=0,
+so it is assumed that such cases are not encountered in the current code.
 
-generic_fls{l} was used instead of __builtin_clz{l}(x) as if x is 0,
-the result in undefined.
+To not include <xen/linux-compat.h> to Xen library files __ffs() and __ffz()
+were defined locally in find-next-bit.c.
+
+Except __ffs() usage in find-next-bit.c only one usage of __ffs() leave
+in smmu-v3.c. It seems that it __ffs can be changed to ffsl(x)-1 in
+this file, but to keep smmu-v3.c looks close to linux it was deciced just
+to define __ffs() in xen/linux-compat.h and include it in smmu-v3.c
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- The patch is almost independent from Andrew's patch series
- ( https://lore.kernel.org/xen-devel/20240313172716.2325427-1-andrew.cooper3@citrix.com/T/#t)
- except test_fls() function which IMO can be merged as a separate patch after Andrew's patch
- will be fully ready.
+Acked-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 ---
 Changes in V8:
- - do proper rebase: back definition of fls{l} to the current patch.
- - drop the changes which removed ffz() in PPC. it should be done not
-   in this patch.
- - add a message after Signed-off.
+ - drop ffz() for PPC as there is no any usage of it and it seems to me that it was
+   introduced only because Arm has it, and Arm uses it only in find-next-bit.c where
+   ffz() was moved to.
+ - add Acked-by: Shawn Anastasio <sanastasio@raptorengineering.com> for PPC part.
 ---
 Changes in V7:
- - Code style fixes
+ - introduce ffz(),__ffs() locally in find-next-bit.c
+ - drop inclusion of <xen/linux-compat.h> in find-next-bit.c.
+ - update the commit message.
 ---
 Changes in V6:
  - new patch for the patch series.
 ---
- xen/arch/arm/include/asm/arm32/bitops.h |  2 +-
- xen/arch/arm/include/asm/arm64/bitops.h |  6 ++----
- xen/arch/arm/include/asm/bitops.h       |  7 ++-----
- xen/arch/ppc/include/asm/bitops.h       |  3 ---
- xen/arch/x86/include/asm/bitops.h       |  6 ++++--
- xen/common/bitops.c                     | 22 ++++++++++++++++++++++
- xen/include/xen/bitops.h                | 24 ++++++++++++++++++++++++
- 7 files changed, 55 insertions(+), 15 deletions(-)
+ xen/arch/arm/include/asm/arm64/bitops.h | 21 ---------------------
+ xen/arch/ppc/include/asm/bitops.h       | 21 ---------------------
+ xen/drivers/passthrough/arm/smmu-v3.c   |  2 ++
+ xen/include/xen/linux-compat.h          |  2 ++
+ xen/lib/find-next-bit.c                 |  3 +++
+ 5 files changed, 7 insertions(+), 42 deletions(-)
 
-diff --git a/xen/arch/arm/include/asm/arm32/bitops.h b/xen/arch/arm/include/asm/arm32/bitops.h
-index d0309d47c1..5552d4e945 100644
---- a/xen/arch/arm/include/asm/arm32/bitops.h
-+++ b/xen/arch/arm/include/asm/arm32/bitops.h
-@@ -1,7 +1,7 @@
- #ifndef _ARM_ARM32_BITOPS_H
- #define _ARM_ARM32_BITOPS_H
- 
--#define flsl fls
-+#define arch_flsl fls
- 
- /*
-  * Little endian assembly bitops.  nr = 0 -> byte 0 bit 0.
 diff --git a/xen/arch/arm/include/asm/arm64/bitops.h b/xen/arch/arm/include/asm/arm64/bitops.h
-index 0efde29068..5f5d97faa0 100644
+index 5f5d97faa0..2deb134388 100644
 --- a/xen/arch/arm/include/asm/arm64/bitops.h
 +++ b/xen/arch/arm/include/asm/arm64/bitops.h
-@@ -22,17 +22,15 @@ static /*__*/always_inline unsigned long __ffs(unsigned long word)
-  */
- #define ffz(x)  __ffs(~(x))
+@@ -1,27 +1,6 @@
+ #ifndef _ARM_ARM64_BITOPS_H
+ #define _ARM_ARM64_BITOPS_H
  
--static inline int flsl(unsigned long x)
-+static inline int arch_flsl(unsigned long x)
+-/* Based on linux/include/asm-generic/bitops/builtin-__ffs.h */
+-/**
+- * __ffs - find first bit in word.
+- * @word: The word to search
+- *
+- * Undefined if no bit exists, so code should check against 0 first.
+- */
+-static /*__*/always_inline unsigned long __ffs(unsigned long word)
+-{
+-        return __builtin_ctzl(word);
+-}
+-
+-/* Based on linux/include/asm-generic/bitops/ffz.h */
+-/*
+- * ffz - find first zero in word.
+- * @word: The word to search
+- *
+- * Undefined if no zero exists, so code should check against ~0UL first.
+- */
+-#define ffz(x)  __ffs(~(x))
+-
+ static inline int arch_flsl(unsigned long x)
  {
          uint64_t ret;
- 
--        if (__builtin_constant_p(x))
--               return generic_flsl(x);
--
-         asm("clz\t%0, %1" : "=r" (ret) : "r" (x));
- 
-         return BITS_PER_LONG - ret;
- }
-+#define arch_flsl arch_flsl
- 
- /* Based on linux/include/asm-generic/bitops/find.h */
- 
-diff --git a/xen/arch/arm/include/asm/bitops.h b/xen/arch/arm/include/asm/bitops.h
-index 8e16335e76..860d6d4689 100644
---- a/xen/arch/arm/include/asm/bitops.h
-+++ b/xen/arch/arm/include/asm/bitops.h
-@@ -78,17 +78,14 @@ bool clear_mask16_timeout(uint16_t mask, volatile void *p,
-  * the clz instruction for much better code efficiency.
-  */
- 
--static inline int fls(unsigned int x)
-+static inline int arch_fls(unsigned int x)
- {
-         int ret;
- 
--        if (__builtin_constant_p(x))
--               return generic_fls(x);
--
-         asm("clz\t%"__OP32"0, %"__OP32"1" : "=r" (ret) : "r" (x));
-         return 32 - ret;
- }
--
-+#define arch_fls arch_fls
- 
- #define arch_ffs(x) ({ unsigned int __t = (x); fls(ISOLATE_LSB(__t)); })
- #define arch_ffsl(x) ({ unsigned long __t = (x); flsl(ISOLATE_LSB(__t)); })
 diff --git a/xen/arch/ppc/include/asm/bitops.h b/xen/arch/ppc/include/asm/bitops.h
-index e2b6473c8c..ca308fd62b 100644
+index ca308fd62b..2237b9f8f4 100644
 --- a/xen/arch/ppc/include/asm/bitops.h
 +++ b/xen/arch/ppc/include/asm/bitops.h
-@@ -119,9 +119,6 @@ static inline int test_and_set_bit(unsigned int nr, volatile void *addr)
+@@ -119,15 +119,6 @@ static inline int test_and_set_bit(unsigned int nr, volatile void *addr)
          (volatile unsigned int *)addr + BITOP_WORD(nr)) != 0;
  }
  
--#define flsl(x) generic_flsl(x)
--#define fls(x) generic_fls(x)
+-/* Based on linux/include/asm-generic/bitops/ffz.h */
+-/*
+- * ffz - find first zero in word.
+- * @word: The word to search
+- *
+- * Undefined if no zero exists, so code should check against ~0UL first.
+- */
+-#define ffz(x) __ffs(~(x))
 -
- /* Based on linux/include/asm-generic/bitops/ffz.h */
- /*
-  * ffz - find first zero in word.
-diff --git a/xen/arch/x86/include/asm/bitops.h b/xen/arch/x86/include/asm/bitops.h
-index 2b2d9219ef..5d5b9445c5 100644
---- a/xen/arch/x86/include/asm/bitops.h
-+++ b/xen/arch/x86/include/asm/bitops.h
-@@ -430,7 +430,7 @@ static always_inline unsigned int arch_ffsl(unsigned long x)
-  *
-  * This is defined the same way as ffs.
-  */
--static inline int flsl(unsigned long x)
-+static always_inline int arch_flsl(unsigned long x)
- {
-     long r;
- 
-@@ -440,8 +440,9 @@ static inline int flsl(unsigned long x)
-           "1:" : "=r" (r) : "rm" (x));
-     return (int)r+1;
- }
-+#define arch_flsl arch_flsl
- 
--static inline int fls(unsigned int x)
-+static always_inline int arch_fls(unsigned int x)
- {
-     int r;
- 
-@@ -451,6 +452,7 @@ static inline int fls(unsigned int x)
-           "1:" : "=r" (r) : "rm" (x));
-     return r + 1;
- }
-+#define arch_fls arch_fls
- 
  /**
   * hweightN - returns the hamming weight of a N-bit word
-diff --git a/xen/common/bitops.c b/xen/common/bitops.c
-index a8c32f6767..95bc47176b 100644
---- a/xen/common/bitops.c
-+++ b/xen/common/bitops.c
-@@ -62,9 +62,31 @@ static void test_ffs(void)
-     CHECK(ffs64, (uint64_t)0x8000000000000000, 64);
- }
+  * @x: the word to weigh
+@@ -139,16 +130,4 @@ static inline int test_and_set_bit(unsigned int nr, volatile void *addr)
+ #define hweight16(x) __builtin_popcount((uint16_t)(x))
+ #define hweight8(x)  __builtin_popcount((uint8_t)(x))
  
-+static void test_fls(void)
-+{
-+    /* unsigned int ffs(unsigned int) */
-+    CHECK(fls, 1, 1);
-+    CHECK(fls, 3, 2);
-+    CHECK(fls, 3U << 30, 32);
-+
-+    /* unsigned int flsl(unsigned long) */
-+    CHECK(flsl, 1, 1);
-+    CHECK(flsl, 1UL << (BITS_PER_LONG - 1), BITS_PER_LONG);
-+#if BITS_PER_LONG > 32
-+    CHECK(flsl, 3UL << 32, 34);
-+#endif
-+
-+    /* unsigned int fls64(uint64_t) */
-+    CHECK(fls64, 1, 1);
-+    CHECK(fls64, 0x00000000C0000000ULL, 32);
-+    CHECK(fls64, 0x0000000180000000ULL, 33);
-+    CHECK(fls64, 0xC000000000000000ULL, 64);
-+}
-+
- static int __init cf_check test_bitops(void)
- {
-     test_ffs();
-+    test_fls();
- 
-     return 0;
- }
-diff --git a/xen/include/xen/bitops.h b/xen/include/xen/bitops.h
-index a41ec44064..a7edee4a95 100644
---- a/xen/include/xen/bitops.h
-+++ b/xen/include/xen/bitops.h
-@@ -196,6 +196,30 @@ static always_inline bool test_bit(int nr, const volatile void *addr)
-     test_bit(nr, addr);                                 \
- })
- 
-+static always_inline __pure int fls(unsigned int x)
-+{
-+    if ( __builtin_constant_p(x) )
-+        return generic_fls(x);
-+
-+#ifndef arch_fls
-+#define arch_fls generic_fls
-+#endif
-+
-+    return arch_fls(x);
-+}
-+
-+static always_inline __pure int flsl(unsigned long x)
-+{
-+    if ( __builtin_constant_p(x) )
-+        return generic_flsl(x);
-+
-+#ifndef arch_flsl
-+#define arch_flsl generic_flsl
-+#endif
-+
-+    return arch_flsl(x);
-+}
-+
- /*
-  * Find First Set bit.  Bits are labelled from 1.
+-/* Based on linux/include/asm-generic/bitops/builtin-__ffs.h */
+-/**
+- * __ffs - find first bit in word.
+- * @word: The word to search
+- *
+- * Undefined if no bit exists, so code should check against 0 first.
+- */
+-static always_inline unsigned long __ffs(unsigned long word)
+-{
+-    return __builtin_ctzl(word);
+-}
+-
+ #endif /* _ASM_PPC_BITOPS_H */
+diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
+index b1c40c2c0a..6904962467 100644
+--- a/xen/drivers/passthrough/arm/smmu-v3.c
++++ b/xen/drivers/passthrough/arm/smmu-v3.c
+@@ -72,12 +72,14 @@
   */
+ 
+ #include <xen/acpi.h>
++#include <xen/bitops.h>
+ #include <xen/config.h>
+ #include <xen/delay.h>
+ #include <xen/errno.h>
+ #include <xen/err.h>
+ #include <xen/irq.h>
+ #include <xen/lib.h>
++#include <xen/linux-compat.h>
+ #include <xen/list.h>
+ #include <xen/mm.h>
+ #include <xen/rbtree.h>
+diff --git a/xen/include/xen/linux-compat.h b/xen/include/xen/linux-compat.h
+index 62ba71485c..10db80df57 100644
+--- a/xen/include/xen/linux-compat.h
++++ b/xen/include/xen/linux-compat.h
+@@ -19,4 +19,6 @@ typedef int64_t __s64;
+ 
+ typedef paddr_t phys_addr_t;
+ 
++#define __ffs(x) (ffsl(x) - 1)
++
+ #endif /* __XEN_LINUX_COMPAT_H__ */
+diff --git a/xen/lib/find-next-bit.c b/xen/lib/find-next-bit.c
+index ca6f82277e..761b027398 100644
+--- a/xen/lib/find-next-bit.c
++++ b/xen/lib/find-next-bit.c
+@@ -12,6 +12,9 @@
+ 
+ #include <asm/byteorder.h>
+ 
++#define __ffs(x) (ffsl(x) - 1)
++#define ffz(x) __ffs(~(x))
++
+ #ifndef find_next_bit
+ /*
+  * Find the next set bit in a memory region.
 -- 
 2.44.0
 
