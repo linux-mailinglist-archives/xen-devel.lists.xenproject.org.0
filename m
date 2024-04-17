@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D1F18A85E8
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 16:26:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707546.1105568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3EB8A8618
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 16:38:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707553.1105577 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx6Dt-00024H-JH; Wed, 17 Apr 2024 14:25:17 +0000
+	id 1rx6Pn-0004xr-Kc; Wed, 17 Apr 2024 14:37:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707546.1105568; Wed, 17 Apr 2024 14:25:17 +0000
+Received: by outflank-mailman (output) from mailman id 707553.1105577; Wed, 17 Apr 2024 14:37:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx6Dt-00021d-G7; Wed, 17 Apr 2024 14:25:17 +0000
-Received: by outflank-mailman (input) for mailman id 707546;
- Wed, 17 Apr 2024 14:25:16 +0000
+	id 1rx6Pn-0004wB-HS; Wed, 17 Apr 2024 14:37:35 +0000
+Received: by outflank-mailman (input) for mailman id 707553;
+ Wed, 17 Apr 2024 14:37:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QKhp=LW=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1rx6Dr-0001zx-Rj
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 14:25:16 +0000
-Received: from wfhigh3-smtp.messagingengine.com
- (wfhigh3-smtp.messagingengine.com [64.147.123.154])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4b8b03f6-fcc6-11ee-94a3-07e782e9044d;
- Wed, 17 Apr 2024 16:25:12 +0200 (CEST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailfhigh.west.internal (Postfix) with ESMTP id 116EC18000FE;
- Wed, 17 Apr 2024 10:25:07 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Wed, 17 Apr 2024 10:25:08 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 17 Apr 2024 10:25:06 -0400 (EDT)
+ <SRS0=VNGY=LW=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1rx6Pl-0004w5-Jm
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 14:37:33 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0471b6b7-fcc8-11ee-94a3-07e782e9044d;
+ Wed, 17 Apr 2024 16:37:30 +0200 (CEST)
+Delivered-To: dpsmith@apertussolutions.com
+Received: by mx.zohomail.com with SMTPS id 1713364644831580.568075550855;
+ Wed, 17 Apr 2024 07:37:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,140 +39,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b8b03f6-fcc6-11ee-94a3-07e782e9044d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1713363907;
-	 x=1713450307; bh=OWF9dO4KiU73KW7hD0J6XxcMGffKB4Z1eCxT4PQVlfk=; b=
-	nI+WDVCUxjK8qu8RQKveZTux63ZjGkvIe7IfwqHiHrcuh8yrE5djhqg2mSR7eHDn
-	3sz5S8vJy7l+UvM27/yykiIhe2jKsSBAAwNJaUZRLtpphUds6opFHsH3GEA+gOKi
-	SRCdN+RWI76FcsRUH2fxDSW8YClwKPJevDWM3B4VGXlWRAGqd+GzNvSWrNmkStaK
-	0hOhkj03z/3xGUqud2juV77lLbS71bHCZdb6Evmbp+Nyso3VE4qP1mGvV0GkSRZ2
-	cbjMEQy7RbYThhUiI0rjq4YSQLAtO4TVWsxcFZE/JX2fDQhQFzMYpX36MM2iVqCi
-	TInXtDMqnRD41iqjbg8HGQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1713363907; x=1713450307; bh=OWF9dO4KiU73KW7hD0J6XxcMGffK
-	B4Z1eCxT4PQVlfk=; b=OakGW61Y18dE2MtgMlJU5FW8SjMcOFe6i2diAdG7TqiC
-	Qh01cgjUoYDkSh8mdN1S2SubRcyYKohiApD/5LI28it46Wped2oN/akIGCqwPE4F
-	HPc0FnPgRu5/oBw19nmC5GKqumU/IuN5kojfVKZzeP4cLgQBjGb/YE4rO4joVFAZ
-	LSA/wr38jGahmPr+4rqwvz69zGm3hRJIthTWOKq4UxzV+bjgE1Up6kT1xFGQuBhf
-	q952nTEEX935vHqX6/71aUG/orjIjI37t4TDuZcuASAvHKcyJ76dJkWF7/6E5BWh
-	ebW5pImGWcjgHMN2b5OHitPx5brznIG2ZUzRdCe0Fg==
-X-ME-Sender: <xms:wtsfZoFl4C6_fwrilc3wRdhVYeSAl5xT-8AATtCP5vjltWNM0r5K6A>
-    <xme:wtsfZhU6n0n26hKv2lVipR3-xEok7NyJZ63EwQEhEqlzKgCfWpPN9BMl49743wsjT
-    t4l8LOrcjLqBQ>
-X-ME-Received: <xmr:wtsfZiLxth_q8UCUPR1WMabqahLZSB4IK7jEHX3WieJBuWcgpPmRnsNNFCRQjuWVLArDmwLp9Lljjd6TsUFtVy47rGYtUEgq_Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrudejkedgjeeiucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:wtsfZqGjxOm7vxCQAYA1ZiTHHbWmBeeudGDxtX95v-5dhmIc6gqnxA>
-    <xmx:wtsfZuUVbOaWqt8w7i9-uHIQZnnX4cVSKOqa6WBwL0zmrygBsKdyxA>
-    <xmx:wtsfZtOss32UXxsybs4cECmSuqkRhEwCuPvuqO0jo480iuL25lqGgA>
-    <xmx:wtsfZl2557Eg9KiR4bBzCTEGsGU8OOSuzptBw68wyfywTU6CNIWVlA>
-    <xmx:w9sfZtS5p7kIaSsMRqUMu5t-l9oBp7M4HSNe2VBtaBp7KblhSbQ0ZmYH>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 17 Apr 2024 16:25:02 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Paul Durrant <paul@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 2/2] drivers/char: mark extra reserved device memory
- in memory map
-Message-ID: <Zh_bvtvVAq35A5mI@mail-itl>
-References: <20240327025454.514521-1-marmarek@invisiblethingslab.com>
- <20240327025454.514521-2-marmarek@invisiblethingslab.com>
- <0d7daae5-97c3-4982-8301-7ed2fda24ff9@suse.com>
- <ZhskJAL1fz3lNdg7@mail-itl>
- <4324974a-0a0c-4d81-87c0-6b7d27d2ff46@suse.com>
+X-Inumbo-ID: 0471b6b7-fcc8-11ee-94a3-07e782e9044d
+ARC-Seal: i=1; a=rsa-sha256; t=1713364646; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=WqD+dNN7rxzjSMA9/bHq1K3WapfKlMpfPv2js4TnnP6KWGDzIad2iIJBE25ABGgPRmMwI2PZ2jNrDbdUDSt3PGNNCVZlQgHxa6EI+kPZ7z4GI3NzTVpk2+kRHZl4CmnMW7rHSBGEirVtxdKueDFKWhVkkbOEAXbt7pRHDsB6Uyo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1713364646; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=isDImK+xjqFzHXUtxh7Tjizo+scqnKrEO7sLVU22BRg=; 
+	b=JT1am32JB/ZS+Ozkj3QiVXuq5U1sqENuLCQ3d5ZyXt8d0XYaw1AdwI+bYeW96SOUGMjS0kgx5PQcUZdSC1mmYeq1/jJ2yxdtpMb+RuPXrp9G3e45aChztAPmZt4vITnziPZUCKZ1/FE3ittvrEpjPKbUIOEo0QldY8WqxjoTH9U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1713364646;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=isDImK+xjqFzHXUtxh7Tjizo+scqnKrEO7sLVU22BRg=;
+	b=gr+KwnsZOomzS3qBmus4kaU9nE+ASbtEkSIR0u4b5rDC5EoE7Xt/darRLQzDiMX+
+	VGKr116VtHhYulXMI09WaScyP3JMUAGimNt4GwVnjfpvObSkcI3biB55IHGVi/QcHxr
+	VB1h786rOLG2nHcCAsimMDQAh+8//2ABYxrG8Q6A=
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 0/6]  Clean up of gzip decompressor
+Date: Wed, 17 Apr 2024 10:37:10 -0400
+Message-Id: <20240417143716.27189-1-dpsmith@apertussolutions.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Jz0btK6xw1y2YmMV"
-Content-Disposition: inline
-In-Reply-To: <4324974a-0a0c-4d81-87c0-6b7d27d2ff46@suse.com>
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
+An issue ran into by hyperlaunch was the need to use the gzip decompressor
+multiple times. The current implementation fails when reused due to tainting of
+decompressor state from a previous usage. This series seeks to colocate the
+gzip unit files under a single directory similar to the other decompression
+algorithms.  To enable the refactoring of the state tracking, the code is then
+cleaned up in line with Xen coding style.
 
---Jz0btK6xw1y2YmMV
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Apr 2024 16:25:02 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Paul Durrant <paul@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 2/2] drivers/char: mark extra reserved device memory
- in memory map
+Changes in v2:
+- patch "xen/gzip: Colocate gunzip code files" was merged
+- dropped ifdef chunks that are never enabled
+- addressed formatting changes missed in v1
+- replaced custom memory allocator with xalloc_bytes()
+- renamed gzip_data to gzip_state
+- moved gzip_state to being dynamically allocated
+- changed crc table to the explicit size of uint32_t 
+- instead of moving huffman tracking into state, dropped altogether
 
-On Wed, Apr 17, 2024 at 04:17:48PM +0200, Jan Beulich wrote:
-> On 14.04.2024 02:32, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Wed, Apr 03, 2024 at 09:10:40AM +0200, Jan Beulich wrote:
-> >> On 27.03.2024 03:53, Marek Marczykowski-G=C3=B3recki wrote:
-> >>> The IOMMU driver checks if RMRR/IVMD are marked as reserved in memory
-> >>> map. This should be true for addresses coming from the firmware, but
-> >>> when extra pages used by Xen itself are included in the mapping, those
-> >>> are taken from usable RAM used. Mark those pages as reserved too.
-> >>>
-> >>> Not marking the pages as reserved didn't caused issues before due to
-> >>> another a bug in IOMMU driver code, that was fixed in 83afa3135830
-> >>> ("amd-vi: fix IVMD memory type checks").
-> >>>
-> >>> Failing to reserve memory will lead to panic in IOMMU setup code. And
-> >>> not including the page in IOMMU mapping will lead to broken console (=
-due
-> >>> to IOMMU faults). The pages chosen by the XHCI console driver should
-> >>> still be usable by the CPU though, and the console code already can d=
-eal
-> >>> with too slow console by dropping characters (and console not printing
-> >>> anything is a special case of "slow"). When reserving fails print an =
-error
-> >>> message showing which pages failed and who requested them. This should
-> >>> be enough hint to find why XHCI console doesn't work.
-> >>>
-> >>> Fixes: 3a1a7b809ffa "drivers/char: mark DMA buffers as reserved for t=
-he XHCI"
-> >>> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethi=
-ngslab.com>
-> >>
-> >> Acked-by: Jan Beulich <jbeulich@suse.com>
-> >=20
-> > Is any ack missing here, or has it just fallen through the cracks?
->=20
-> ??? (commit dd5101a6169f89b9e3f3b72f0b0fcdb38db2fb35)
+Daniel P. Smith (6):
+  gzip: drop unused define checks
+  gzip: clean up comments and fix code alignment
+  gzip: remove custom memory allocator
+  gzip: refactor state tracking
+  gzip: move crc state into consilidated gzip state
+  gzip: drop huffman code table tracking
 
-Oh, sorry, somehow I missed it. All good then, thanks.
+ xen/common/gzip/gunzip.c  |  87 ++--
+ xen/common/gzip/inflate.c | 974 ++++++++++++++++++--------------------
+ 2 files changed, 501 insertions(+), 560 deletions(-)
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+-- 
+2.30.2
 
---Jz0btK6xw1y2YmMV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmYf274ACgkQ24/THMrX
-1ywfywf+OmmCL/Y1qmRF6Ba9u5B1R9ky1Nu2XZ42s2TZQeXSSbtsw5KdcqOIE/2x
-8D68bpGDnz6BbKIzXMXdCNw3wg5/N/geJ79uCylv/ZsTO+wztEX/LZLL3DSZYbBK
-j4o0ElZ2ivvVt0AFO+njgEUDijQy99AWfjE/VafMSAW238aRS8Ppsqyw1ZZeY3t1
-BAJK1Darz70zcS4Dtt2Qsy47G2MCgylH9GDLVNpHjxiP03CK2agE/RawBfI9a1Oo
-1tMJO/DKh4nyuxNOf2Mt2F8/GBSSR1GAq7rCheJuv0An8nXyRp7gYt+WSkbva6Zp
-K9tHwr9XAAJSOLtBJKZFJr4mG6A4eQ==
-=Y3DV
------END PGP SIGNATURE-----
-
---Jz0btK6xw1y2YmMV--
 
