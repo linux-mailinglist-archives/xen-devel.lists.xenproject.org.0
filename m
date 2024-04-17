@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE44B8A804D
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 12:05:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707301.1105085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 142768A8051
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 12:05:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707300.1105079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx2A9-0007wF-Ah; Wed, 17 Apr 2024 10:05:09 +0000
+	id 1rx2A8-0007oL-Tb; Wed, 17 Apr 2024 10:05:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707301.1105085; Wed, 17 Apr 2024 10:05:09 +0000
+Received: by outflank-mailman (output) from mailman id 707300.1105079; Wed, 17 Apr 2024 10:05:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx2A9-0007tA-7a; Wed, 17 Apr 2024 10:05:09 +0000
-Received: by outflank-mailman (input) for mailman id 707301;
+	id 1rx2A8-0007lU-Qa; Wed, 17 Apr 2024 10:05:08 +0000
+Received: by outflank-mailman (input) for mailman id 707300;
  Wed, 17 Apr 2024 10:05:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6A/l=LW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rx2A7-0007lO-Qt
+ id 1rx2A7-0007lI-5S
  for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 10:05:07 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f690ad80-fca1-11ee-94a3-07e782e9044d;
- Wed, 17 Apr 2024 12:05:05 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-516d1c8dc79so6930676e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 03:05:05 -0700 (PDT)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f72ac45c-fca1-11ee-b909-491648fe20b8;
+ Wed, 17 Apr 2024 12:05:06 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-5194cebd6caso430371e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 03:05:06 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- p2-20020a056512328200b00516cd83e497sm1893187lfe.210.2024.04.17.03.05.02
+ p2-20020a056512328200b00516cd83e497sm1893187lfe.210.2024.04.17.03.05.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Apr 2024 03:05:03 -0700 (PDT)
+ Wed, 17 Apr 2024 03:05:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,35 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f690ad80-fca1-11ee-94a3-07e782e9044d
+X-Inumbo-ID: f72ac45c-fca1-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1713348304; x=1713953104; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ilrN9NnvfXEI2YCLUqiJ/6oBw6G5Xj4ysFR2ccg0NLE=;
-        b=PEnZkLbZWG8ZWUxWHIujQVBCMZjcWExRYeUWscEmXDhtAMupTwSgC+qc4MAaXWXEkb
-         jgs+7jFbM7sDqTfmtwfDAT8jsMHqdwyAnkUgq3Znvvu2by5wY2WgQi59nFaWid6nStB3
-         73xHshqwFK/cCFaIX2cXvpU/R1N/7FZE6W3YTadWA81cYy9eHaJaioLc6DAlDyOGo+US
-         wCRHf0G6lBZzVdtmlqC4bqYEP3RJPqvHGkzctJRWAy0dn4Wlee9rZ2vpnfJVms9Y104h
-         rzz5CbwNBRmAU1ahphJAiPEETJGMr15KqboJtAHsnXreky2jNC6MvHrkzEwLNJ7HjGbE
-         o9Ew==
+        d=gmail.com; s=20230601; t=1713348305; x=1713953105; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KHB/UxAL8E3rbDnKIaIo6e50EVsTREcWNgCcpnb5Lfw=;
+        b=c7AfCmmGGlvKK6n4lF3Tj+xKbjZSK2IJHswBntBlkk6dcOgUf0DsSgWaD8y0R9dDYY
+         qoWF98F5jta7a1x1GpG1U+6atCrz07cExJ/Jii4mtirzWqhVohte6ZlhI/WjKWrmQYmf
+         79kEqK6sueyKFpaqcbxm55BnK9u86LHiXniPiqtPliV1z0NnBd8c710NC7YMKue/Ud9H
+         9d/NrxchrsmrF8wMqZYNe6mFQcufKDZnSDt54wMusS9OQn6YB3+gOncwVT2NOFoBSL0K
+         Hn2A6J2NoZqSc5pSmSQAo4rdRJDWvLyK9uYrwG9WI+59BPJyFyAXYrXFk/O7BMIhaak1
+         IqtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713348304; x=1713953104;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ilrN9NnvfXEI2YCLUqiJ/6oBw6G5Xj4ysFR2ccg0NLE=;
-        b=TkqYFsygY16/t5yc5d6lKUVmu9shcPVPe4+fsZwxoDOvzv2baKb8EUzaaKyoWndgCD
-         Sfd0oP+oJNTwKf+R3zQb9tEWZfaQO7JrtQY2WyhK5l/BnCaJZYbGcZd+t2a3dMK85AUf
-         8FydCTK6GO/Nz+9fKVVkoIzarTJn3lWjaiuqnMJQmGakQM2cohJilG5M6sYQmbBz5rz4
-         e4im+4y9/VM6KZJoUdGCmv4TMDbN8ujZ0lYleaDJpI7GKSyYPUZCuk5iAej1rO9luT4y
-         6j078FYV+kp0aE3rKPxqRsJzZr0cCUWH0FP1Rp97RmHcNAhkck/DTP9CF5l+VKYDxqzf
-         T0Wg==
-X-Gm-Message-State: AOJu0YwGAn6y/2rW+aAAX79+cfpVS7fihUD0832ouDjDnnlFp/YsggSQ
-	F4GspP/sr4aTUrXP5V+6Reoa8UlTXmtUmcnOyQblSwIH+anOO4bCO7Gh3w==
-X-Google-Smtp-Source: AGHT+IHhlXgqea6uS3kh+dD/a/FLU1oYZ70r3Mi0xjnyJnfPLkxTeuMeixMfDlicUymLSqAJi48kQw==
-X-Received: by 2002:a19:740b:0:b0:516:bea2:5931 with SMTP id v11-20020a19740b000000b00516bea25931mr9950045lfe.23.1713348303973;
-        Wed, 17 Apr 2024 03:05:03 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1713348305; x=1713953105;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=KHB/UxAL8E3rbDnKIaIo6e50EVsTREcWNgCcpnb5Lfw=;
+        b=Ql75SgEf0D4pzFi46KpleEPd/ZGss1BA2R+coV87L7jey4Kl6j5a9OSQJkR1ZSeCR9
+         WFiwVGH7MdOLG43HbJSPjxB+19O4JHYSO6BRX2Je+yA1xR2dxc/rxo2lHDrpljhPL9Kb
+         V2KKh1bI9ypycUyJkbg0FrWgeoA4H0i3V/iEYjXlFKyvgoC9J/R9nQBjzlVtzwFTkXAW
+         vG8AOZqnhXYQtTRLBkyUVxQHjK+yLesVwbECy+cVjgzrgYVoNL2A6InH9kTc7Cd2w9CL
+         3fJXZoY/x4QvT6xhQFz6l+3ALU6cHfmcZsUg0FglsO7f5iJ1RnuCc0zWi07dfUJg8f/x
+         n5vQ==
+X-Gm-Message-State: AOJu0YxmxRtd7PGXOr06c0G5S6TmjnsVqxHb6hurvs0pL752F0neli43
+	iPcOcBhQO/KDXXZ4XVVMtnDZ+3KVUY9HVgAml3N1Ka2QpIAkjCSOuJW/PQ==
+X-Google-Smtp-Source: AGHT+IFkdm2DmO95vHJ2guYJdPUzTlp6oK0crDh5h01xJ4X5iT+HQ0vhGbj+Fm6QSrgHzq+jSd5yvQ==
+X-Received: by 2002:a05:6512:33cb:b0:518:d079:ffd9 with SMTP id d11-20020a05651233cb00b00518d079ffd9mr9099302lfg.13.1713348304889;
+        Wed, 17 Apr 2024 03:05:04 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -81,230 +82,156 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Connor Davis <connojdavis@gmail.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Rahul Singh <rahul.singh@arm.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>
-Subject: [PATCH v8 00/17] Enable build of full Xen for RISC-V
-Date: Wed, 17 Apr 2024 12:04:43 +0200
-Message-ID: <cover.1713347222.git.oleksii.kurochko@gmail.com>
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v8 01/17] xen/riscv: disable unnecessary configs
+Date: Wed, 17 Apr 2024 12:04:44 +0200
+Message-ID: <267bb71ebeeafde25284eff82408effebba4380b.1713347222.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.44.0
+In-Reply-To: <cover.1713347222.git.oleksii.kurochko@gmail.com>
+References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series performs all of the additions necessary to drop the
-build overrides for RISCV and enable the full Xen build. Except in cases
-where compatibile implementations already exist (e.g. atomic.h and
-bitops.h), the newly added definitions are simple.
+Disables unnecessary configs for two cases:
+1. By utilizing EXTRA_FIXED_RANDCONFIG for randconfig builds (GitLab CI jobs).
+2. By using tiny64_defconfig for non-randconfig builds.
 
-The patch series is based on the following patch series:
-- [PATCH 0/7] xen/bitops: Reduce the mess, starting with ffs() [1]
-- [PATCH] move __read_mostly to xen/cache.h  [2]
+Only configs which lead to compilation issues were disabled.
 
-Right now, the patch series doesn't have a direct dependency on [2] and it
-provides __read_mostly in the patch:
-    [PATCH v3 26/34] xen/riscv: add definition of __read_mostly
-However, it will be dropped as soon as [2] is merged or at least when the
-final version of the patch [2] is provided.
-As an option, it can be considered to merge arch-specific patch and then just
-rebase [2] and drop arch-specific changes.
+Remove lines related to disablement of configs which aren't affected
+compilation:
+ -# CONFIG_SCHED_CREDIT is not set
+ -# CONFIG_SCHED_RTDS is not set
+ -# CONFIG_SCHED_NULL is not set
+ -# CONFIG_SCHED_ARINC653 is not set
+ -# CONFIG_TRACEBUFFER is not set
+ -# CONFIG_HYPFS is not set
+ -# CONFIG_SPECULATIVE_HARDEN_ARRAY is not set
 
-[1] https://lore.kernel.org/xen-devel/20240313172716.2325427-1-andrew.cooper3@citrix.com/T/#t
-[2] https://lore.kernel.org/xen-devel/f25eb5c9-7c14-6e23-8535-2c66772b333e@suse.com/
+To allow CONFIG_ARGO build happy it was included <asm/p2m.h> to <asm/domain.h>
+as ARGO requires p2m_type_t ( p2m_ram_rw ) and declaration of
+check_get_page_from_gfn() from xen/p2m-common.h.
 
+Also, it was included <xen/errno.h> to asm/p2m.h as after the latter was
+included to <asm/domain.h> the compilation error that EINVAL, EOPNOTSUPP
+aren't declared started to occur.
+
+CONFIG_XSM=n as it requires an introduction of:
+* boot_module_find_by_kind()
+* BOOTMOD_XSM
+* struct bootmodule
+* copy_from_paddr()
+The mentioned things aren't introduced now.
+
+CPU_BOOT_TIME_CPUPOOLS requires an introduction of cpu_physical_id() and
+acpi_disabled, so it is disabled for now.
+
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+Changes in V8:
+ - disabled CPU_BOOT_TIME_CPUPOOLS as it requires an introduction of cpu_physical_id() and acpi_disabled.
+ - leave XSM disabled, add explanation in the commit message.
+ - drop HYPFS as the patch was provided to resolve compilation issue when this condif is enabled for RISC-V.
+ - include asm/p2m.h to asm/domain.h, and xen/errno.h to asm/p2m.h to drop ARGO config from
+   tiny64_defconfing and build.yaml.
+ - update the commit message.
 ---
 Changes in V7:
- - Patch was merged to staging:
-    - [PATCH v7 01/19] automation: introduce fixed randconfig for RISC-V
-    - [PATCH v7 03/19] xen/riscv: introduce extenstion support check by compiler
- - Other changes are specific to specific patches. Please look at changes for
-   specific patch.
- - Update the commit message:
-     - drop the dependency from STATIC_ASSERT_UNREACHABLE() implementation.
-     - Add suggestion to merge arch-specific changes related to __read_mostly.
----
-Changes in V7:
- - Patch was merged to staging:
-   [PATCH v6 15/20] xen/riscv: add minimal stuff to processor.h to build full Xen.
- - Other changes are specific to specific patches. Please look at changes for
-   specific patch.
+ - Disable only configs which cause compilation issues.
+ - Update the commit message.
 ---
 Changes in V6:
- - Update the cover letter message: drop already merged dependecies and add
-   a new one.
- - Patches were merged to staging:
-   - [PATCH v5 02/23] xen/riscv: use some asm-generic headers ( even v4 was
-     merged to staging branch, I just wasn't apply changes on top of the latest staging branch )
-   - [PATCH v5 03/23] xen/riscv: introduce nospec.h
-   - [PATCH v5 10/23] xen/riscv: introduces acrquire, release and full barriers
- - Introduce new patches:
-   - xen/riscv: introduce extenstion support check by compiler
-   - xen/bitops: put __ffs() and ffz() into linux compatible header
-   - xen/bitops: implement fls{l}() in common logic
- - The following patches were dropped:
-   - drop some patches related to bitops operations as they were introduced in another
-     patch series [...]
-   - introduce new version for generic __ffs(), ffz() and fls{l}().
- - Merge patch from patch series "[PATCH v9 0/7]  Introduce generic headers" to this patch
-   series as only one patch left in the generic headers patch series and it is more about
-   RISC-V.
- - Other changes are specific to specific patches. please look at specific patch.
+ - Nothing changed. Only rebase.
 ---
 Changes in V5:
- - Update the cover letter as one of the dependencies were merged to staging.
- - Was introduced asm-generic for atomic ops and separate patches for asm-generic bit ops
- - Moved fence.h to separate patch to deal with some patches dependecies on fence.h
- - Patches were dropped as they were merged to staging:
-   * [PATCH v4 03/30] xen: add support in public/hvm/save.h for PPC and RISC-V
-   * [PATCH v4 04/30] xen/riscv: introduce cpufeature.h
-   * [PATCH v4 05/30] xen/riscv: introduce guest_atomics.h
-   * [PATCH v4 06/30] xen: avoid generation of empty asm/iommu.h
-   * [PATCH v4 08/30] xen/riscv: introduce setup.h
-   * [PATCH v4 10/30] xen/riscv: introduce flushtlb.h
-   * [PATCH v4 11/30] xen/riscv: introduce smp.h
-   * [PATCH v4 15/30] xen/riscv: introduce irq.h
-   * [PATCH v4 16/30] xen/riscv: introduce p2m.h
-   * [PATCH v4 17/30] xen/riscv: introduce regs.h
-   * [PATCH v4 18/30] xen/riscv: introduce time.h
-   * [PATCH v4 19/30] xen/riscv: introduce event.h
-   * [PATCH v4 22/30] xen/riscv: define an address of frame table
- - Other changes are specific to specific patches. please look at specific patch
+ - Rebase and drop duplicated configs in EXTRA_FIXED_RANDCONFIG list
+ - Update the commit message
 ---
 Changes in V4:
- - Update the cover letter message: new patch series dependencies.
- - Some patches were merged to staging, so they were dropped in this patch series:
-     [PATCH v3 09/34] xen/riscv: introduce system.h
-     [PATCH v3 18/34] xen/riscv: introduce domain.h
-     [PATCH v3 19/34] xen/riscv: introduce guest_access.h
- - Was sent out of this patch series:
-     [PATCH v3 16/34] xen/lib: introduce generic find next bit operations
- - [PATCH v3 17/34] xen/riscv: add compilation of generic find-next-bit.c was
-   droped as CONFIG_GENERIC_FIND_NEXT_BIT was dropped.
- - All other changes are specific to a specific patch.
+ - Nothing changed. Only rebase
 ---
 Changes in V3:
- - Update the cover letter message
- - The following patches were dropped as they were merged to staging:
-    [PATCH v2 03/39] xen/riscv:introduce asm/byteorder.h
-    [PATCH v2 04/39] xen/riscv: add public arch-riscv.h
-    [PATCH v2 05/39] xen/riscv: introduce spinlock.h
-    [PATCH v2 20/39] xen/riscv: define bug frame tables in xen.lds.S
-    [PATCH v2 34/39] xen: add RISCV support for pmu.h
-    [PATCH v2 35/39] xen: add necessary headers to common to build full Xen for RISC-V
- - Instead of the following patches were introduced new:
-    [PATCH v2 10/39] xen/riscv: introduce asm/iommu.h
-    [PATCH v2 11/39] xen/riscv: introduce asm/nospec.h
- - remove "asm/"  for commit messages which start with "xen/riscv:"
- - code style updates.
- - add emulation of {cmp}xchg_* for 1 and 2 bytes types.
- - code style fixes.
- - add SPDX and footer for the newly added headers.
- - introduce generic find-next-bit.c.
- - some other mionor changes. ( details please find in a patch )
+ - Remove EXTRA_FIXED_RANDCONFIG for non-randconfig jobs.
+   For non-randconfig jobs, it is sufficient to disable configs by using the defconfig.
+ - Remove double blank lines in build.yaml file before archlinux-current-gcc-riscv64-debug
 ---
 Changes in V2:
-  - Drop the following patches as they are the part of [2]:
-      [PATCH v1 06/57] xen/riscv: introduce paging.h
-      [PATCH v1 08/57] xen/riscv: introduce asm/device.h
-      [PATCH v1 10/57] xen/riscv: introduce asm/grant_table.h
-      [PATCH v1 12/57] xen/riscv: introduce asm/hypercall.h
-      [PATCH v1 13/57] xen/riscv: introduce asm/iocap.h
-      [PATCH v1 15/57] xen/riscv: introduce asm/mem_access.h
-      [PATCH v1 18/57] xen/riscv: introduce asm/random.h
-      [PATCH v1 21/57] xen/riscv: introduce asm/xenoprof.h
-      [PATCH v1 24/57] xen/riscv: introduce asm/percpu.h
-      [PATCH v1 29/57] xen/riscv: introduce asm/hardirq.h
-      [PATCH v1 33/57] xen/riscv: introduce asm/altp2m.h
-      [PATCH v1 38/57] xen/riscv: introduce asm/monitor.h
-      [PATCH v1 39/57] xen/riscv: introduce asm/numa.h
-      [PATCH v1 42/57] xen/riscv: introduce asm/softirq.h
-  - xen/lib.h in most of the cases were changed to xen/bug.h as
-    mostly functionilty of bug.h is used.
-  - align arch-riscv.h with Arm's version of it.
-  - change the Author of commit with introduction of asm/atomic.h.
-  - update some definition from spinlock.h.
-  - code style changes.
+ - update the commit message.
+ - remove xen/arch/riscv/Kconfig changes.
 ---
+ automation/gitlab-ci/build.yaml         |  4 ++++
+ xen/arch/riscv/configs/tiny64_defconfig | 12 +++++-------
+ xen/arch/riscv/include/asm/domain.h     |  2 ++
+ xen/arch/riscv/include/asm/p2m.h        |  2 ++
+ 4 files changed, 13 insertions(+), 7 deletions(-)
 
-Oleksii Kurochko (17):
-  xen/riscv: disable unnecessary configs
-  xen: introduce generic non-atomic test_*bit()
-  xen/bitops: implement fls{l}() in common logic
-  xen/bitops: put __ffs() into linux compatible header
-  xen/riscv: introduce bitops.h
-  xen/riscv: introduce cmpxchg.h
-  xen/riscv: introduce io.h
-  xen/riscv: introduce atomic.h
-  xen/riscv: introduce monitor.h
-  xen/riscv: add definition of __read_mostly
-  xen/riscv: add required things to current.h
-  xen/riscv: add minimal stuff to page.h to build full Xen
-  xen/riscv: add minimal stuff to mm.h to build full Xen
-  xen/riscv: introduce vm_event_*() functions
-  xen/riscv: add minimal amount of stubs to build full Xen
-  xen/riscv: enable full Xen build
-  xen/README: add compiler and binutils versions for RISC-V64
-
- README                                  |   4 +
- automation/gitlab-ci/build.yaml         |   4 +
- xen/arch/arm/arm64/livepatch.c          |   1 -
- xen/arch/arm/include/asm/arm32/bitops.h |   2 +-
- xen/arch/arm/include/asm/arm64/bitops.h |  27 +-
- xen/arch/arm/include/asm/bitops.h       |  74 +----
- xen/arch/ppc/include/asm/bitops.h       |  76 -----
- xen/arch/ppc/include/asm/page.h         |   2 +-
- xen/arch/ppc/mm-radix.c                 |   2 +-
- xen/arch/riscv/Makefile                 |  18 +-
- xen/arch/riscv/arch.mk                  |   4 -
- xen/arch/riscv/configs/tiny64_defconfig |  12 +-
- xen/arch/riscv/early_printk.c           | 168 ----------
- xen/arch/riscv/include/asm/atomic.h     | 281 ++++++++++++++++
- xen/arch/riscv/include/asm/bitops.h     | 137 ++++++++
- xen/arch/riscv/include/asm/cache.h      |   2 +
- xen/arch/riscv/include/asm/cmpxchg.h    | 237 ++++++++++++++
- xen/arch/riscv/include/asm/config.h     |   2 +
- xen/arch/riscv/include/asm/current.h    |  19 ++
- xen/arch/riscv/include/asm/domain.h     |   2 +
- xen/arch/riscv/include/asm/io.h         | 168 ++++++++++
- xen/arch/riscv/include/asm/mm.h         | 240 ++++++++++++++
- xen/arch/riscv/include/asm/monitor.h    |  26 ++
- xen/arch/riscv/include/asm/p2m.h        |   2 +
- xen/arch/riscv/include/asm/page.h       |  19 ++
- xen/arch/riscv/include/asm/types.h      |   4 +
- xen/arch/riscv/mm.c                     |  52 ++-
- xen/arch/riscv/setup.c                  |  10 +-
- xen/arch/riscv/stubs.c                  | 415 ++++++++++++++++++++++++
- xen/arch/riscv/traps.c                  |  25 ++
- xen/arch/riscv/vm_event.c               |  19 ++
- xen/arch/x86/include/asm/bitops.h       |  36 +-
- xen/common/bitops.c                     |  22 ++
- xen/drivers/passthrough/arm/smmu-v3.c   |   2 +
- xen/include/asm-generic/atomic-ops.h    |  97 ++++++
- xen/include/xen/bitops.h                | 151 +++++++++
- xen/include/xen/linux-compat.h          |   2 +
- xen/include/xen/types.h                 |   5 +
- xen/lib/find-next-bit.c                 |   3 +
- 39 files changed, 1992 insertions(+), 380 deletions(-)
- create mode 100644 xen/arch/riscv/include/asm/atomic.h
- create mode 100644 xen/arch/riscv/include/asm/bitops.h
- create mode 100644 xen/arch/riscv/include/asm/cmpxchg.h
- create mode 100644 xen/arch/riscv/include/asm/io.h
- create mode 100644 xen/arch/riscv/include/asm/monitor.h
- create mode 100644 xen/arch/riscv/stubs.c
- create mode 100644 xen/arch/riscv/vm_event.c
- create mode 100644 xen/include/asm-generic/atomic-ops.h
-
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index aac29ee13a..a1dce6cefd 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -515,10 +515,14 @@ alpine-3.18-gcc-debug-arm64-boot-cpupools:
+ .riscv-fixed-randconfig:
+   variables: &riscv-fixed-randconfig
+     EXTRA_FIXED_RANDCONFIG: |
++      CONFIG_BOOT_TIME_CPUPOOLS=n
+       CONFIG_COVERAGE=n
+       CONFIG_EXPERT=y
+       CONFIG_GRANT_TABLE=n
+       CONFIG_MEM_ACCESS=n
++      CONFIG_PERF_COUNTERS=n
++      CONFIG_LIVEPATCH=n
++      CONFIG_XSM=n
+ 
+ archlinux-current-gcc-riscv64:
+   extends: .gcc-riscv64-cross-build
+diff --git a/xen/arch/riscv/configs/tiny64_defconfig b/xen/arch/riscv/configs/tiny64_defconfig
+index 09defe236b..fc7a04872f 100644
+--- a/xen/arch/riscv/configs/tiny64_defconfig
++++ b/xen/arch/riscv/configs/tiny64_defconfig
+@@ -1,12 +1,10 @@
+-# CONFIG_SCHED_CREDIT is not set
+-# CONFIG_SCHED_RTDS is not set
+-# CONFIG_SCHED_NULL is not set
+-# CONFIG_SCHED_ARINC653 is not set
+-# CONFIG_TRACEBUFFER is not set
+-# CONFIG_HYPFS is not set
++# CONFIG_BOOT_TIME_CPUPOOLS is not set
+ # CONFIG_GRANT_TABLE is not set
+-# CONFIG_SPECULATIVE_HARDEN_ARRAY is not set
+ # CONFIG_MEM_ACCESS is not set
++# CONFIG_PERF_COUNTERS is not set
++# CONFIG_COVERAGE is not set
++# CONFIG_LIVEPATCH is not set
++# CONFIG_XSM is not set
+ 
+ CONFIG_RISCV_64=y
+ CONFIG_DEBUG=y
+diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
+index 027bfa8a93..16a9dd57aa 100644
+--- a/xen/arch/riscv/include/asm/domain.h
++++ b/xen/arch/riscv/include/asm/domain.h
+@@ -5,6 +5,8 @@
+ #include <xen/xmalloc.h>
+ #include <public/hvm/params.h>
+ 
++#include <asm/p2m.h>
++
+ struct hvm_domain
+ {
+     uint64_t              params[HVM_NR_PARAMS];
+diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
+index 87b13f8979..aa86fa10a7 100644
+--- a/xen/arch/riscv/include/asm/p2m.h
++++ b/xen/arch/riscv/include/asm/p2m.h
+@@ -2,6 +2,8 @@
+ #ifndef __ASM_RISCV_P2M_H__
+ #define __ASM_RISCV_P2M_H__
+ 
++#include <xen/errno.h>
++
+ #include <asm/page-bits.h>
+ 
+ #define paddr_bits PADDR_BITS
 -- 
 2.44.0
 
