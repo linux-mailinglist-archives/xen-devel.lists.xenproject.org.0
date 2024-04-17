@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E088E8A8057
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 12:05:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707313.1105202 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C478A8A8056
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 12:05:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707314.1105209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx2AQ-0002u8-Dc; Wed, 17 Apr 2024 10:05:26 +0000
+	id 1rx2AR-00036i-5V; Wed, 17 Apr 2024 10:05:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707313.1105202; Wed, 17 Apr 2024 10:05:26 +0000
+Received: by outflank-mailman (output) from mailman id 707314.1105209; Wed, 17 Apr 2024 10:05:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx2AQ-0002oe-1B; Wed, 17 Apr 2024 10:05:26 +0000
-Received: by outflank-mailman (input) for mailman id 707313;
- Wed, 17 Apr 2024 10:05:24 +0000
+	id 1rx2AQ-0002y4-Uv; Wed, 17 Apr 2024 10:05:26 +0000
+Received: by outflank-mailman (input) for mailman id 707314;
+ Wed, 17 Apr 2024 10:05:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6A/l=LW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rx2AN-0007lI-Vk
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 10:05:24 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
+ id 1rx2AP-0007lI-0R
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 10:05:25 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 014a3ebb-fca2-11ee-b909-491648fe20b8;
- Wed, 17 Apr 2024 12:05:23 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-518b9527c60so4407229e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 03:05:23 -0700 (PDT)
+ id 021eca86-fca2-11ee-b909-491648fe20b8;
+ Wed, 17 Apr 2024 12:05:24 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-518d98b9620so4271773e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 03:05:24 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- p2-20020a056512328200b00516cd83e497sm1893187lfe.210.2024.04.17.03.05.20
+ p2-20020a056512328200b00516cd83e497sm1893187lfe.210.2024.04.17.03.05.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Apr 2024 03:05:22 -0700 (PDT)
+ Wed, 17 Apr 2024 03:05:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,50 +44,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 014a3ebb-fca2-11ee-b909-491648fe20b8
+X-Inumbo-ID: 021eca86-fca2-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1713348322; x=1713953122; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1713348324; x=1713953124; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=i7o+kUkpGWjY5GwdMAfJpkURrTF7v9TH7CmTTMJXk70=;
-        b=Vb2zE6GlFTRWnINk1E2r70xUnrEH/AT6LaePoP952dMIntBEVFGm7gB1cuCjs0YxVg
-         KlwUa52abr2FsKGkahG5yISRyAsEJgsjuMF8O1mAbR7S46P6p5A8AUSx/bnNveNv9EOl
-         LIXGfM8G4SMD9YV12EOdSJWMblxC2shh8OCM3T5geuHCY4hysuTyLzlE5b0mgPlZAR9G
-         GVLwWQskjj5zfhqKdsHZ/6r9YtmOtfpJJNcVgBSvoFMKovbQcIze68pzErH5B0EnEJCE
-         mQeMHHsz0QM+EPb/V8/7LC32nwly+9K6ngIaaKDm58gcdq4lJcZrCDIO5yl6Y04ZYDKg
-         xIqA==
+        bh=0Zxkw+mL5T/sVZ6fXp1IjzLMBsRj7OUQ6lwn8noHNI4=;
+        b=CshkhIO36ZwBu8dZNU7jSQiCfUeZ7/NHzc9tZ8vnmd6ejTV1RCepZ9lq3rts9po2cE
+         xy9yDP/aZzCwC0yhu+d8X9GwAVxowkpcVsBKlTUzoxwKCOtNYS8P+JQKXfw7H2ADQYSc
+         zLIAmAy0U6et3G+6VpzSOILE+2R+hY3TJtXpPFxaX0nEPCrRK9EYFH/+cJh8HTwhhGV+
+         rHBcwBbFY41pM/X1zQFlGqBjpNtyD5ZRttRhwVBwQfpuLqmtbTY3TcIoFBV2xuNg4fDG
+         blj7o0fx3YF6BGbNG4s1plCErpyE0/b+TzS3MNoI2CGmkeCgH4GYfv6db3ULQJBLKcj5
+         qdMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713348322; x=1713953122;
+        d=1e100.net; s=20230601; t=1713348324; x=1713953124;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=i7o+kUkpGWjY5GwdMAfJpkURrTF7v9TH7CmTTMJXk70=;
-        b=SPhSOw1d5IUlJStGlHrA8Qf1XFEVaRD2GZaU1lVNxcUuGcAQhDGWB+rltE6BihFMBv
-         fbdHBYi3YP4GBA4qMr9gZcQG22M4DdBwCTKkSMz71KCveTp/sWJN6Or9YFK5qtsP3CDi
-         Jkihuaynij0TPu0cEvu6mcrnBbxNZEuFZIGHPJLi/tfJ8cT2YdI+2qjdIUvruP4HNhLl
-         XYe7rHmZjkfKLWFquLJFSuLiawaQAP5f4PW3U6MI1XcJ20ZzLvaPvDRaspLp8g3Qeg4r
-         Sa6rgZEhVho444NY9WczjKAfneGD6nbyXFC5s3zspfqlH5H5XgK2vJ02O411Xjoin/7F
-         vH3g==
-X-Gm-Message-State: AOJu0Yx12tKohNadVSseEelyqgw3BhjUVwON8cm3RoFqk/x2xw7keYIF
-	Wz02dO1yY54FeJSK8Yk5f10sSbRZQXNRILkfp4PLyNNwaRGybBC4wvLsVg==
-X-Google-Smtp-Source: AGHT+IEEqo1Z+6h6zT9w4uT3doKXysRHaxvMFfTe2+o39taOI2jRwC3lD7R0X4hXOF+8nf8CNvid3w==
-X-Received: by 2002:a05:6512:251e:b0:518:c83a:fd71 with SMTP id be30-20020a056512251e00b00518c83afd71mr9979661lfb.58.1713348322279;
-        Wed, 17 Apr 2024 03:05:22 -0700 (PDT)
+        bh=0Zxkw+mL5T/sVZ6fXp1IjzLMBsRj7OUQ6lwn8noHNI4=;
+        b=hnuFTNtQWdn+NlfIK/TB4iuzBOWFsPckkR5j77l0PUt12TrtReSpbJ+Nc+TEOCQ0Kb
+         uTYwM83tHFAmAmSfftdyLnIVatiXDGIfbCI0Edp7U56hf78cZBy6WGYpIlW0PQ7fe6PO
+         clCc5jMoPfU7yyTTq2S6Hi7TVv2G2db4sdDXr/64ycopbQ4rTAD88G9kHv1Cf0aSBcvn
+         MoSVVGLkyV0q9wwvdf16cM5DYmntiU1JMOnLrH7bEPRYIrjhQXGh3SrpB7Fnu9JZT4B5
+         fBhN44/QKdecHb4bMJ42MUi0Smg1vODn8Xsh8Su9a+cQG0REjjA4OWPdr+tyTjxcLkXD
+         s07A==
+X-Gm-Message-State: AOJu0YzJHOZHG5xPZ79meVidbpqUmjDoUGgUNmyP1OvZi3bT9NpdyoU5
+	bUtcZXDHL0I1u7GUYtrixNeepXg08rSya1CTgvWO/5TsnuhUgQYt1I6GVg==
+X-Google-Smtp-Source: AGHT+IEuhthCCU0JkRD0CKl2C5yuozX9kjs4TkkACQDg21fir9fI4U+/HQIqv5CQ0pW6Ey+JqIN48A==
+X-Received: by 2002:ac2:555a:0:b0:515:cb19:41f4 with SMTP id l26-20020ac2555a000000b00515cb1941f4mr8962194lfk.59.1713348323866;
+        Wed, 17 Apr 2024 03:05:23 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v8 13/17] xen/riscv: add minimal stuff to mm.h to build full Xen
-Date: Wed, 17 Apr 2024 12:04:56 +0200
-Message-ID: <829abfb8d34b82c0dac366c927e1c0eb0721650a.1713347222.git.oleksii.kurochko@gmail.com>
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>
+Subject: [PATCH v8 14/17] xen/riscv: introduce vm_event_*() functions
+Date: Wed, 17 Apr 2024 12:04:57 +0200
+Message-ID: <011af5970c3c59b54d03d3f5c0876387958228bc.1713347222.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <cover.1713347222.git.oleksii.kurochko@gmail.com>
 References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
@@ -95,365 +93,55 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
-Changes in V8:
- - Nothing changed only rebase.
----
-Changes in V7:
- - update argument type of maddr_to_virt() function: unsigned long -> paddr_t
- - rename argument of PFN_ORDER(): pfn -> pg.
- - add Acked-by: Jan Beulich <jbeulich@suse.com>
----
-Changes in V6:
- - drop __virt_to_maddr() ( transform to macro ) and __maddr_to_virt ( rename to maddr_to_virt ).
- - parenthesize va in definition of vmap_to_mfn().
- - Code style fixes.
----
-Changes in V5:
- - update the comment around "struct domain *domain;" : zero -> NULL
- - fix ident. for unsigned long val;
- - put page_to_virt() and virt_to_page() close to each other.
- - drop unnessary leading underscore
- - drop a space before the comment: /* Count of uses of this frame as its current type. */
- - drop comment about a page 'not as a shadow'. it is not necessary for RISC-V
+Changes in V5-V8:
+ - Only rebase was done.
 ---
 Changes in V4:
- - update an argument name of PFN_ORDERN macros.
- - drop pad at the end of 'struct page_info'.
- - Change message -> subject in "Changes in V3"
- - delete duplicated macros from riscv/mm.h
- - fix identation in struct page_info
- - align comment for PGC_ macros
- - update definitions of domain_set_alloc_bitsize() and domain_clamp_alloc_bitsize()
- - drop unnessary comments.
- - s/BUG/BUG_ON("...")
- - define __virt_to_maddr, __maddr_to_virt as stubs
- - add inclusion of xen/mm-frame.h for mfn_x and others
- - include "xen/mm.h" instead of "asm/mm.h" to fix compilation issues:
-	 In file included from arch/riscv/setup.c:7:
-	./arch/riscv/include/asm/mm.h:60:28: error: field 'list' has incomplete type
-	   60 |     struct page_list_entry list;
-	      |                            ^~~~
-	./arch/riscv/include/asm/mm.h:81:43: error: 'MAX_ORDER' undeclared here (not in a function)
-	   81 |                 unsigned long first_dirty:MAX_ORDER + 1;
-	      |                                           ^~~~~~~~~
-	./arch/riscv/include/asm/mm.h:81:31: error: bit-field 'first_dirty' width not an integer constant
-	   81 |                 unsigned long first_dirty:MAX_ORDER + 1;
- - Define __virt_to_mfn() and __mfn_to_virt() using maddr_to_mfn() and mfn_to_maddr().
+  - New patch.
 ---
-Changes in V3:
- - update the commit title
- - introduce DIRECTMAP_VIRT_START.
- - drop changes related pfn_to_paddr() and paddr_to_pfn as they were remvoe in
-   [PATCH v2 32/39] xen/riscv: add minimal stuff to asm/page.h to build full Xen
- - code style fixes.
- - drop get_page_nr  and put_page_nr as they don't need for time being
- - drop CONFIG_STATIC_MEMORY related things
- - code style fixes
----
-Changes in V2:
- - define stub for arch_get_dma_bitsize(void)
----
- xen/arch/riscv/include/asm/mm.h | 240 ++++++++++++++++++++++++++++++++
- xen/arch/riscv/mm.c             |   2 +-
- xen/arch/riscv/setup.c          |   2 +-
- 3 files changed, 242 insertions(+), 2 deletions(-)
+ xen/arch/riscv/Makefile   |  1 +
+ xen/arch/riscv/vm_event.c | 19 +++++++++++++++++++
+ 2 files changed, 20 insertions(+)
+ create mode 100644 xen/arch/riscv/vm_event.c
 
-diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-index 07c7a0abba..cc4a07a71c 100644
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -3,11 +3,246 @@
- #ifndef _ASM_RISCV_MM_H
- #define _ASM_RISCV_MM_H
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index 2fefe14e7c..1ed1a8369b 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -5,6 +5,7 @@ obj-$(CONFIG_RISCV_64) += riscv64/
+ obj-y += sbi.o
+ obj-y += setup.o
+ obj-y += traps.o
++obj-y += vm_event.o
  
-+#include <public/xen.h>
+ $(TARGET): $(TARGET)-syms
+ 	$(OBJCOPY) -O binary -S $< $@
+diff --git a/xen/arch/riscv/vm_event.c b/xen/arch/riscv/vm_event.c
+new file mode 100644
+index 0000000000..bb1fc73bc1
+--- /dev/null
++++ b/xen/arch/riscv/vm_event.c
+@@ -0,0 +1,19 @@
 +#include <xen/bug.h>
-+#include <xen/mm-frame.h>
-+#include <xen/pdx.h>
-+#include <xen/types.h>
 +
- #include <asm/page-bits.h>
- 
- #define pfn_to_paddr(pfn) ((paddr_t)(pfn) << PAGE_SHIFT)
- #define paddr_to_pfn(pa)  ((unsigned long)((pa) >> PAGE_SHIFT))
- 
-+#define paddr_to_pdx(pa)    mfn_to_pdx(maddr_to_mfn(pa))
-+#define gfn_to_gaddr(gfn)   pfn_to_paddr(gfn_x(gfn))
-+#define gaddr_to_gfn(ga)    _gfn(paddr_to_pfn(ga))
-+#define mfn_to_maddr(mfn)   pfn_to_paddr(mfn_x(mfn))
-+#define maddr_to_mfn(ma)    _mfn(paddr_to_pfn(ma))
-+#define vmap_to_mfn(va)     maddr_to_mfn(virt_to_maddr((vaddr_t)(va)))
-+#define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
++struct vm_event_st;
++struct vcpu;
 +
-+static inline void *maddr_to_virt(paddr_t ma)
++void vm_event_fill_regs(struct vm_event_st *req)
 +{
 +    BUG_ON("unimplemented");
-+    return NULL;
 +}
 +
-+#define virt_to_maddr(va) ({ BUG_ON("unimplemented"); 0; })
-+
-+/* Convert between Xen-heap virtual addresses and machine frame numbers. */
-+#define __virt_to_mfn(va)  mfn_x(maddr_to_mfn(virt_to_maddr(va)))
-+#define __mfn_to_virt(mfn) maddr_to_virt(mfn_to_maddr(_mfn(mfn)))
-+
-+/*
-+ * We define non-underscored wrappers for above conversion functions.
-+ * These are overriden in various source files while underscored version
-+ * remain intact.
-+ */
-+#define virt_to_mfn(va)     __virt_to_mfn(va)
-+#define mfn_to_virt(mfn)    __mfn_to_virt(mfn)
-+
-+struct page_info
-+{
-+    /* Each frame can be threaded onto a doubly-linked list. */
-+    struct page_list_entry list;
-+
-+    /* Reference count and various PGC_xxx flags and fields. */
-+    unsigned long count_info;
-+
-+    /* Context-dependent fields follow... */
-+    union {
-+        /* Page is in use: ((count_info & PGC_count_mask) != 0). */
-+        struct {
-+            /* Type reference count and various PGT_xxx flags and fields. */
-+            unsigned long type_info;
-+        } inuse;
-+
-+        /* Page is on a free list: ((count_info & PGC_count_mask) == 0). */
-+        union {
-+            struct {
-+                /*
-+                 * Index of the first *possibly* unscrubbed page in the buddy.
-+                 * One more bit than maximum possible order to accommodate
-+                 * INVALID_DIRTY_IDX.
-+                 */
-+#define INVALID_DIRTY_IDX ((1UL << (MAX_ORDER + 1)) - 1)
-+                unsigned long first_dirty:MAX_ORDER + 1;
-+
-+                /* Do TLBs need flushing for safety before next page use? */
-+                bool need_tlbflush:1;
-+
-+#define BUDDY_NOT_SCRUBBING    0
-+#define BUDDY_SCRUBBING        1
-+#define BUDDY_SCRUB_ABORT      2
-+                unsigned long scrub_state:2;
-+            };
-+
-+            unsigned long val;
-+        } free;
-+    } u;
-+
-+    union {
-+        /* Page is in use */
-+        struct {
-+            /* Owner of this page (NULL if page is anonymous). */
-+            struct domain *domain;
-+        } inuse;
-+
-+        /* Page is on a free list. */
-+        struct {
-+            /* Order-size of the free chunk this page is the head of. */
-+            unsigned int order;
-+        } free;
-+    } v;
-+
-+    union {
-+        /*
-+         * Timestamp from 'TLB clock', used to avoid extra safety flushes.
-+         * Only valid for: a) free pages, and b) pages with zero type count
-+         */
-+        uint32_t tlbflush_timestamp;
-+    };
-+};
-+
-+#define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
-+
-+/* PDX of the first page in the frame table. */
-+extern unsigned long frametable_base_pdx;
-+
-+/* Convert between machine frame numbers and page-info structures. */
-+#define mfn_to_page(mfn)                                            \
-+    (frame_table + (mfn_to_pdx(mfn) - frametable_base_pdx))
-+#define page_to_mfn(pg)                                             \
-+    pdx_to_mfn((unsigned long)((pg) - frame_table) + frametable_base_pdx)
-+
-+static inline void *page_to_virt(const struct page_info *pg)
-+{
-+    return mfn_to_virt(mfn_x(page_to_mfn(pg)));
-+}
-+
-+/* Convert between Xen-heap virtual addresses and page-info structures. */
-+static inline struct page_info *virt_to_page(const void *v)
++void vm_event_set_registers(struct vcpu *v, struct vm_event_st *rsp)
 +{
 +    BUG_ON("unimplemented");
-+    return NULL;
 +}
 +
-+/*
-+ * Common code requires get_page_type and put_page_type.
-+ * We don't care about typecounts so we just do the minimum to make it
-+ * happy.
-+ */
-+static inline int get_page_type(struct page_info *page, unsigned long type)
++void vm_event_monitor_next_interrupt(struct vcpu *v)
 +{
-+    return 1;
++    /* Not supported on RISCV. */
 +}
-+
-+static inline void put_page_type(struct page_info *page)
-+{
-+}
-+
-+static inline void put_page_and_type(struct page_info *page)
-+{
-+    put_page_type(page);
-+    put_page(page);
-+}
-+
-+/*
-+ * RISC-V does not have an M2P, but common code expects a handful of
-+ * M2P-related defines and functions. Provide dummy versions of these.
-+ */
-+#define INVALID_M2P_ENTRY        (~0UL)
-+#define SHARED_M2P_ENTRY         (~0UL - 1UL)
-+#define SHARED_M2P(_e)           ((_e) == SHARED_M2P_ENTRY)
-+
-+#define set_gpfn_from_mfn(mfn, pfn) do { (void)(mfn), (void)(pfn); } while (0)
-+#define mfn_to_gfn(d, mfn) ((void)(d), _gfn(mfn_x(mfn)))
-+
-+#define PDX_GROUP_SHIFT (PAGE_SHIFT + VPN_BITS)
-+
-+static inline unsigned long domain_get_maximum_gpfn(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+    return 0;
-+}
-+
-+static inline long arch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void) arg)
-+{
-+    BUG_ON("unimplemented");
-+    return 0;
-+}
-+
-+/*
-+ * On RISCV, all the RAM is currently direct mapped in Xen.
-+ * Hence return always true.
-+ */
-+static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
-+{
-+    return true;
-+}
-+
-+#define PG_shift(idx)   (BITS_PER_LONG - (idx))
-+#define PG_mask(x, idx) (x ## UL << PG_shift(idx))
-+
-+#define PGT_none          PG_mask(0, 1)  /* no special uses of this page   */
-+#define PGT_writable_page PG_mask(1, 1)  /* has writable mappings?         */
-+#define PGT_type_mask     PG_mask(1, 1)  /* Bits 31 or 63.                 */
-+
-+/* Count of uses of this frame as its current type. */
-+#define PGT_count_width   PG_shift(2)
-+#define PGT_count_mask    ((1UL << PGT_count_width) - 1)
-+
-+/*
-+ * Page needs to be scrubbed. Since this bit can only be set on a page that is
-+ * free (i.e. in PGC_state_free) we can reuse PGC_allocated bit.
-+ */
-+#define _PGC_need_scrub   _PGC_allocated
-+#define PGC_need_scrub    PGC_allocated
-+
-+/* Cleared when the owning guest 'frees' this page. */
-+#define _PGC_allocated    PG_shift(1)
-+#define PGC_allocated     PG_mask(1, 1)
-+/* Page is Xen heap? */
-+#define _PGC_xen_heap     PG_shift(2)
-+#define PGC_xen_heap      PG_mask(1, 2)
-+/* Page is broken? */
-+#define _PGC_broken       PG_shift(7)
-+#define PGC_broken        PG_mask(1, 7)
-+/* Mutually-exclusive page states: { inuse, offlining, offlined, free }. */
-+#define PGC_state         PG_mask(3, 9)
-+#define PGC_state_inuse   PG_mask(0, 9)
-+#define PGC_state_offlining PG_mask(1, 9)
-+#define PGC_state_offlined PG_mask(2, 9)
-+#define PGC_state_free    PG_mask(3, 9)
-+#define page_state_is(pg, st) (((pg)->count_info&PGC_state) == PGC_state_##st)
-+
-+/* Count of references to this frame. */
-+#define PGC_count_width   PG_shift(9)
-+#define PGC_count_mask    ((1UL << PGC_count_width) - 1)
-+
-+#define _PGC_extra        PG_shift(10)
-+#define PGC_extra         PG_mask(1, 10)
-+
-+#define is_xen_heap_page(page) ((page)->count_info & PGC_xen_heap)
-+#define is_xen_heap_mfn(mfn) \
-+    (mfn_valid(mfn) && is_xen_heap_page(mfn_to_page(mfn)))
-+
-+#define is_xen_fixed_mfn(mfn)                                   \
-+    ((mfn_to_maddr(mfn) >= virt_to_maddr((vaddr_t)_start)) &&   \
-+     (mfn_to_maddr(mfn) <= virt_to_maddr((vaddr_t)_end - 1)))
-+
-+#define page_get_owner(p)    (p)->v.inuse.domain
-+#define page_set_owner(p, d) ((p)->v.inuse.domain = (d))
-+
-+/* TODO: implement */
-+#define mfn_valid(mfn) ({ (void)(mfn); 0; })
-+
-+#define domain_set_alloc_bitsize(d) ((void)(d))
-+#define domain_clamp_alloc_bitsize(d, b) ((void)(d), (b))
-+
-+#define PFN_ORDER(pg) ((pg)->v.free.order)
-+
- extern unsigned char cpu0_boot_stack[];
- 
- void setup_initial_pagetables(void);
-@@ -20,4 +255,9 @@ unsigned long calc_phys_offset(void);
- 
- void turn_on_mmu(unsigned long ra);
- 
-+static inline unsigned int arch_get_dma_bitsize(void)
-+{
-+    return 32; /* TODO */
-+}
-+
- #endif /* _ASM_RISCV_MM_H */
-diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
-index 053f043a3d..fe3a43be20 100644
---- a/xen/arch/riscv/mm.c
-+++ b/xen/arch/riscv/mm.c
-@@ -5,12 +5,12 @@
- #include <xen/init.h>
- #include <xen/kernel.h>
- #include <xen/macros.h>
-+#include <xen/mm.h>
- #include <xen/pfn.h>
- 
- #include <asm/early_printk.h>
- #include <asm/csr.h>
- #include <asm/current.h>
--#include <asm/mm.h>
- #include <asm/page.h>
- #include <asm/processor.h>
- 
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 6593f601c1..98a94c4c48 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -2,9 +2,9 @@
- 
- #include <xen/compile.h>
- #include <xen/init.h>
-+#include <xen/mm.h>
- 
- #include <asm/early_printk.h>
--#include <asm/mm.h>
- 
- /* Xen stack for bringing up the first CPU. */
- unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
 -- 
 2.44.0
 
