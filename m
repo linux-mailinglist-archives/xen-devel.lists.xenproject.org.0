@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC8D78A8872
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 18:08:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707650.1105748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C8388A88D8
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 18:28:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707656.1105758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx7p6-0000Wv-1I; Wed, 17 Apr 2024 16:07:48 +0000
+	id 1rx88i-00055F-QQ; Wed, 17 Apr 2024 16:28:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707650.1105748; Wed, 17 Apr 2024 16:07:48 +0000
+Received: by outflank-mailman (output) from mailman id 707656.1105758; Wed, 17 Apr 2024 16:28:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx7p5-0000VP-U1; Wed, 17 Apr 2024 16:07:47 +0000
-Received: by outflank-mailman (input) for mailman id 707650;
- Wed, 17 Apr 2024 16:07:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=T4Tg=LW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rx7p4-0000Tr-Pf
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 16:07:46 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9ff0e2aa-fcd4-11ee-94a3-07e782e9044d;
- Wed, 17 Apr 2024 18:07:44 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2d895138d0eso49051841fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 09:07:44 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- dk15-20020a0560000b4f00b00349ceadededsm1545794wrb.16.2024.04.17.09.07.43
+	id 1rx88i-00052R-N7; Wed, 17 Apr 2024 16:28:04 +0000
+Received: by outflank-mailman (input) for mailman id 707656;
+ Wed, 17 Apr 2024 16:28:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=f8dp=LW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rx88g-00052J-S1
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 16:28:02 +0000
+Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
+ [2607:f8b0:4864:20::729])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7503a4f8-fcd7-11ee-b909-491648fe20b8;
+ Wed, 17 Apr 2024 18:28:01 +0200 (CEST)
+Received: by mail-qk1-x729.google.com with SMTP id
+ af79cd13be357-78f056f0a53so37903385a.1
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 09:28:01 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ v1-20020a05620a090100b0078ede19b680sm4708471qkv.75.2024.04.17.09.27.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Apr 2024 09:07:43 -0700 (PDT)
+ Wed, 17 Apr 2024 09:27:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ff0e2aa-fcd4-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 7503a4f8-fcd7-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713370064; x=1713974864; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=wOQ5CIi+Ljjku46E2m/PqUNfkY53GSfaHeFajaqXOdM=;
-        b=JL6rIhCdLNfhOp1/RQDCh/gjLicfRQlXuYYEuApb57yPE40UHrv4wu3Ar0Z3f9SDka
-         +f9z/Lb/c59GVN+HLoPWgg1jdUo6sv3dbv1+jp+57khr4ZkEmmt+MaESG9wmxS5AXuxv
-         pf6u724c1UtMYZk9E3n4ZUV985EhH9flolxveD9ozyhJarjODT9Q5ScFq9VnBXZ++V0L
-         MwSzNPu7LuPmSUkkBc4CifVx+JF6mC4ZoWzaXeyNxO4igCTTxhZ+KTSvnVWu6xUVPrdu
-         VYa0Vt/4hAdGyBr143u7/wtJSmuMFnk8UYCU85mHVxqyFxK6kLkmF47ppoF26xRyNbf0
-         evpQ==
+        d=citrix.com; s=google; t=1713371280; x=1713976080; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=zmchXkVEwB1OGJ+yIC0/i7YpZXcoUYz0ZtV/UXmCeLg=;
+        b=V5e4mKuF5cs2t/xRjx1Y5Wsqv52PbY4w3+XsTgKxlWCPZ/oxLvpCQ53Opbxl8NK1/K
+         TVXjK7OdVaLdIXI5HAQqsb9l9vA+fMWbi7TFHCqcsHORwkMafjIphhlNx0JT5YQGD5ji
+         8mD63HKen8n6dojfPxSnt8slYXVXGyGIE09I4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713370064; x=1713974864;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wOQ5CIi+Ljjku46E2m/PqUNfkY53GSfaHeFajaqXOdM=;
-        b=IEGXGxvfybqQEYXywAitFpq2AdQ1ckfrQIvSoFoXZPQn5wsfufZKeWf8iHbDmWJ/iH
-         52c8XuHjT4s30MYx1ATmtHFSijYc7IU9KxUB202dSMiU4coOJmYh7aeanVKts8PsXvhO
-         jGoEb2BO4BdQaanhRvvbmwlpaQi+c4rgputTZTMZIOFEukZne5OSPmKYEYyPIg50JL7d
-         WLPJUY5f0ravVqbwYkFQecHtIBie+czoUoT6WYww5VANRCBQ+npgNS6gcaRxJyo4g2Ha
-         SRxesEoW8O+WSlD9PFrX8pYSBnBKSmKYGn3Ivb8xkUXgK+r8MoWNsOFdRN5x04/T1eF3
-         YssA==
-X-Forwarded-Encrypted: i=1; AJvYcCXDQtCumLQvX9YZgn4DtxUCCFcwNs9uAhFCINh0QWGTtmfn6b2F24f9qMooyeOlrVhEl6vEMVXjvXsIjsIzlVsGChEDL2mOKrybzUEtFj8=
-X-Gm-Message-State: AOJu0YwDp6kIr+Jj6CFS2TYbY95Ovs5zFS9nykxU3HbuFYnwqfYNXXCX
-	m1o77WrlNx7pu7GutoCuruCuGqVG1UdxSOX+fwI5g9SBfZc47KCUPctFD1yj1A==
-X-Google-Smtp-Source: AGHT+IGHNVgMXNIbyJZnRY/aHWHaTKagT5Mnsdxhfdd6AhMWjAuRkLx4a4YcWmzvyQ52VN1ZBe4TbQ==
-X-Received: by 2002:a2e:3509:0:b0:2d9:ecc1:6d56 with SMTP id z9-20020a2e3509000000b002d9ecc16d56mr11167344ljz.11.1713370063760;
-        Wed, 17 Apr 2024 09:07:43 -0700 (PDT)
-Message-ID: <cbfe7614-c202-4c6e-99a0-3792bfed763c@suse.com>
-Date: Wed, 17 Apr 2024 18:07:42 +0200
+        d=1e100.net; s=20230601; t=1713371280; x=1713976080;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zmchXkVEwB1OGJ+yIC0/i7YpZXcoUYz0ZtV/UXmCeLg=;
+        b=XpmvBtVgNQN1zhu6THgc+76cWPTqvL9sKmuBzREtSMRQZAgHDT/9UD2F052L8H5NhH
+         PHliKAyyrFvFX391855AfR/33suzfmuw/u3fithk0AA+TWGi0kefT+4bGPXDDGg0dk6m
+         knvB+VbIM/g/kbWogYyTt4xJ7/FHy37Iw17otav0jjPJaLr4kjrI8VRi6Fb8qYDCr/Hi
+         v4YYgbWHeS03Tf9l8tqhkvNFr7klothSaGHUmI3+WdKg6SUL+X/8C5WAE80+L1dbW2qQ
+         EstNtoDTZUJobSlRuL5K+jR6889H9hmQM3sxy83ACLn3uuSWb53aQgvkSZu3S8isVtx2
+         gJSw==
+X-Forwarded-Encrypted: i=1; AJvYcCXG9QfooPfbyNGmNKzqcO9MFFeXq+k2Bnet1IcBSNiChkmhc5d3d/4n/D++M8mpFA+rZ7oEWH0Wyx+KI2tI+F47KZVkVAV9qqRzYr2KdMg=
+X-Gm-Message-State: AOJu0YwTowTVQ6ySF8+o+u9WUl5LElet7eYqZJW7DUeEhFJc7MPTbRjY
+	H+mwbFTVmKDCM8RusdN9iEJ9od293EVbBS2L4Nyfdp9yD3IEMbpUnImZlDjkuEE=
+X-Google-Smtp-Source: AGHT+IFLOEnJctc3S37b67hqvTsxcVLXhIl+P/ZKWDDWH3y24ebD3uIMeYtU+vC7tOnxYYu36HkBvA==
+X-Received: by 2002:a05:620a:458b:b0:78d:668e:e3eb with SMTP id bp11-20020a05620a458b00b0078d668ee3ebmr22380716qkb.55.1713371280052;
+        Wed, 17 Apr 2024 09:28:00 -0700 (PDT)
+Message-ID: <1c22a74a-aa1a-4e22-8561-2757632a07c4@citrix.com>
+Date: Wed, 17 Apr 2024 17:27:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] x86: Add support for building a multiboot2 PE
- binary
-Content-Language: en-US
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240328151106.1451104-1-ross.lagerwall@citrix.com>
- <20240328151106.1451104-2-ross.lagerwall@citrix.com>
- <c3c2ce12-0699-42b3-bcaf-5bddf0616566@suse.com>
- <CAG7k0EroeA=cRRDWnJqzH8esoaSmtg8-xjTwc-01og5R9JwPzg@mail.gmail.com>
- <0d84a96a-c1ec-4c4e-9cb5-44a6542e0d43@suse.com>
- <CAG7k0EpKRVpbfBOSA9tsQsGM9_nLCmrZNYzV6G9u5g46oZWKwQ@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAG7k0EpKRVpbfBOSA9tsQsGM9_nLCmrZNYzV6G9u5g46oZWKwQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/6] gzip: drop unused define checks
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20240417143716.27189-1-dpsmith@apertussolutions.com>
+ <20240417143716.27189-2-dpsmith@apertussolutions.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240417143716.27189-2-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 17.04.2024 17:05, Ross Lagerwall wrote:
-> On Wed, Apr 17, 2024 at 3:15 PM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 10.04.2024 11:41, Ross Lagerwall wrote:
->>> On Mon, Apr 8, 2024 at 11:25 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>> On 28.03.2024 16:11, Ross Lagerwall wrote:
->>>>> * The image base address is set to 0 since it must necessarily be below
->>>>>   4 GiB and the loader will relocate it anyway.
->>>>
->>>> While technically okay, what is the reason for this adjustment?
->>>
->>> The multiboot2 spec generally uses 32 bit addresses for everything and
->>> says:
->>>
->>> "The bootloader must not load any part of the kernel, the modules, the
->>> Multiboot2 information structure, etc. higher than 4 GiB - 1."
->>>
->>> An image base address above 4 GiB causes trouble because multiboot2
->>> wasn't designed for this.
->>
->> Yet mb2 doesn't care about that PE header field at all, does it? In which
->> case my question remains: What purpose does this particular modification
->> of the image have?
->>
-> 
-> With the currently published version of mb2, it doesn't look at the PE
-> header field since it has no knowledge about PE binaries.
-> 
-> With the proposal on the grub-devel list [1], mb2 would use the PE
-> header to load the new xen-mbi binary in which case, the image base
-> address is indeed relevant.
+On 17/04/2024 3:37 pm, Daniel P. Smith wrote:
+> Dropping the define checks for PKZIP_BUG_WORKAROUND and NOMEMCPY define as they
+> never are set.
+>
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-But then how can you strip .reloc? If the image base field is to be used,
-and if the image can't be placed there, relocation needs to happen. (As
-an aside, [1] looks to be talking of the entry point only, not the image
-base?)
+It looks like ARCH_HAS_DECOMP_WDOG is another one that can go.
 
-Jan
+There's only a single instance, in inflate(), which I'm happy to fold on
+commit.
 
-> [1] https://lists.gnu.org/archive/html/grub-devel/2024-03/msg00081.html
-
+~Andrew
 
