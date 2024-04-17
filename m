@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FB3E8A86A9
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 16:51:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707602.1105658 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 068388A86CE
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 16:57:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707606.1105667 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx6dB-0004Af-Ni; Wed, 17 Apr 2024 14:51:25 +0000
+	id 1rx6iq-0005WG-Am; Wed, 17 Apr 2024 14:57:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707602.1105658; Wed, 17 Apr 2024 14:51:25 +0000
+Received: by outflank-mailman (output) from mailman id 707606.1105667; Wed, 17 Apr 2024 14:57:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx6dB-00048r-KE; Wed, 17 Apr 2024 14:51:25 +0000
-Received: by outflank-mailman (input) for mailman id 707602;
- Wed, 17 Apr 2024 14:51:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TCN8=LW=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rx6d9-00048l-IC
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 14:51:23 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4417f8b-fcc9-11ee-94a3-07e782e9044d;
- Wed, 17 Apr 2024 16:51:21 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [46.228.253.202])
- by support.bugseng.com (Postfix) with ESMTPSA id 8B7384EE073C;
- Wed, 17 Apr 2024 16:51:19 +0200 (CEST)
+	id 1rx6iq-0005TA-89; Wed, 17 Apr 2024 14:57:16 +0000
+Received: by outflank-mailman (input) for mailman id 707606;
+ Wed, 17 Apr 2024 14:57:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rx6io-0005T4-FP
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 14:57:14 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rx6in-0007mZ-I8; Wed, 17 Apr 2024 14:57:13 +0000
+Received: from [15.248.3.90] (helo=[10.24.67.26])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rx6in-0006OR-8o; Wed, 17 Apr 2024 14:57:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,52 +39,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4417f8b-fcc9-11ee-94a3-07e782e9044d
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org,
-	nicola.vetrini@bugseng.com
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	bertrand.marquis@arm.com,
-	julien@xen.org,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: [XEN PATCH] automation/eclair_analysis: substitute deprecated service
-Date: Wed, 17 Apr 2024 16:51:16 +0200
-Message-Id: <4850cedd9680e521cfac350930b24af19cdf1ab8.1713338908.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=P+N+rluEAubX72ib7A8BpHvXyOuj0SLReidxTXxCvYk=; b=DIJqoXWRzjgCxaxM75IKGtBzYd
+	VvL4Mh1uhBpaSfOKJ0XycfZfjJ83RpWFHA5TxfYMALgFpENA2dfmqia1O05/UkmdDeazm94ORCm3l
+	sTR/w5EhTVFqjOxPiSibHlR08ZSrM7tJlCwPY/XV57io2QZCfY/g7NVP1Ae1mIubGHmM=;
+Message-ID: <64c40ce6-3305-4fa0-82cb-5ae3431b0ce6@xen.org>
+Date: Wed, 17 Apr 2024 15:57:11 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] automation/eclair_analysis: substitute deprecated
+ service
+Content-Language: en-GB
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>
+References: <4850cedd9680e521cfac350930b24af19cdf1ab8.1713338908.git.nicola.vetrini@bugseng.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <4850cedd9680e521cfac350930b24af19cdf1ab8.1713338908.git.nicola.vetrini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The service STD.emptrecd is in the process of being removed in favour
-of STD.anonstct.
+Hi Nicola,
 
-No functional change.
+On 17/04/2024 15:51, Nicola Vetrini wrote:
+> The service STD.emptrecd is in the process of being removed in favour
+> of STD.anonstct.
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
- automation/eclair_analysis/ECLAIR/toolchain.ecl | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I am guessing this is not a new feature and the current ECLAIR version 
+is supporting it?
 
-diff --git a/automation/eclair_analysis/ECLAIR/toolchain.ecl b/automation/eclair_analysis/ECLAIR/toolchain.ecl
-index 71a1e2cce029..86e9a79b5231 100644
---- a/automation/eclair_analysis/ECLAIR/toolchain.ecl
-+++ b/automation/eclair_analysis/ECLAIR/toolchain.ecl
-@@ -44,8 +44,8 @@
- -doc_end
- 
- -doc_begin="See Section \"6.19 Structures with No Members\" of "GCC_MANUAL"."
---config=STD.emptrecd,behavior+={c99,GCC_ARM64,specified}
---config=STD.emptrecd,behavior+={c99,GCC_X86_64,specified}
-+-config=STD.anonstct,behavior+={c99,GCC_ARM64,specified}
-+-config=STD.anonstct,behavior+={c99,GCC_X86_64,specified}
- -doc_end
- 
- -doc_begin="See Section \"6.18 Arrays of Length Zero\" of "GCC_MANUAL"."
+Cheers,
+
+> 
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+>   automation/eclair_analysis/ECLAIR/toolchain.ecl | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/automation/eclair_analysis/ECLAIR/toolchain.ecl b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> index 71a1e2cce029..86e9a79b5231 100644
+> --- a/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> @@ -44,8 +44,8 @@
+>   -doc_end
+>   
+>   -doc_begin="See Section \"6.19 Structures with No Members\" of "GCC_MANUAL"."
+> --config=STD.emptrecd,behavior+={c99,GCC_ARM64,specified}
+> --config=STD.emptrecd,behavior+={c99,GCC_X86_64,specified}
+> +-config=STD.anonstct,behavior+={c99,GCC_ARM64,specified}
+> +-config=STD.anonstct,behavior+={c99,GCC_X86_64,specified}
+>   -doc_end
+>   
+>   -doc_begin="See Section \"6.18 Arrays of Length Zero\" of "GCC_MANUAL"."
+
 -- 
-2.34.1
-
+Julien Grall
 
