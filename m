@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48BAE8A8C37
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 21:37:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707738.1105976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01B208A8D25
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 22:42:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707750.1105985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxB5z-00054v-Cc; Wed, 17 Apr 2024 19:37:27 +0000
+	id 1rxC5f-0000ZQ-UR; Wed, 17 Apr 2024 20:41:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707738.1105976; Wed, 17 Apr 2024 19:37:27 +0000
+Received: by outflank-mailman (output) from mailman id 707750.1105985; Wed, 17 Apr 2024 20:41:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxB5z-000530-96; Wed, 17 Apr 2024 19:37:27 +0000
-Received: by outflank-mailman (input) for mailman id 707738;
- Wed, 17 Apr 2024 19:37:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TCN8=LW=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rxB5y-00050p-Fa
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 19:37:26 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e930535f-fcf1-11ee-94a3-07e782e9044d;
- Wed, 17 Apr 2024 21:37:22 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [46.228.253.202])
- by support.bugseng.com (Postfix) with ESMTPSA id D31534EE074E;
- Wed, 17 Apr 2024 21:37:20 +0200 (CEST)
+	id 1rxC5f-0000Xr-Rp; Wed, 17 Apr 2024 20:41:11 +0000
+Received: by outflank-mailman (input) for mailman id 707750;
+ Wed, 17 Apr 2024 20:41:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rxC5e-0000Xh-Iv; Wed, 17 Apr 2024 20:41:10 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rxC5e-000640-CG; Wed, 17 Apr 2024 20:41:10 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rxC5e-0000v6-1P; Wed, 17 Apr 2024 20:41:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rxC5e-0007Ve-0z; Wed, 17 Apr 2024 20:41:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,84 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e930535f-fcf1-11ee-94a3-07e782e9044d
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org,
-	nicola.vetrini@bugseng.com
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	bertrand.marquis@arm.com,
-	julien@xen.org,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [XEN PATCH v3 2/2] eclair_analysis: deviate x86 emulator for Rule 16.2
-Date: Wed, 17 Apr 2024 21:37:12 +0200
-Message-Id: <4ab08d63b264da38d8d91b37ae18a5fb7999d47f.1713382466.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1713382466.git.nicola.vetrini@bugseng.com>
-References: <cover.1713382466.git.nicola.vetrini@bugseng.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=G8w5eOfmOwLKDyHjjTl7Wft4kYfrPCtg8u1beyWf6SA=; b=GzzEkmbFDM8B/NOdm57JdUoHiJ
+	90hoA93HQBYI2Yd5MV4O8yXVfkH0lsLOlSxGD/K9N7q9/C3quTE+MiR6KS+vpB+RUNnBTW6WcDvJZ
+	/CBvPhJ4I7caeMPKc8K8OYZZfehMt5LClPyHmk4DGqtLtzSxCovbRhh4t1No/zBO3WMU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185725-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 185725: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=6ced1e91eff13dae1bfba95734e2b34a73601db2
+X-Osstest-Versions-That:
+    ovmf=61185f1d501512f35621d0fdc5f17503c77bf449
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 17 Apr 2024 20:41:10 +0000
 
-MISRA C Rule 16.2 states:
-"A switch label shall only be used when the most closely-enclosing
-compound statement is the body of a switch statement".
+flight 185725 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185725/
 
-Since complying with this rule of the x86 emulator would lead to
-a lot of code duplication, it is deemed better to exempt those
-files for this guideline.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 6ced1e91eff13dae1bfba95734e2b34a73601db2
+baseline version:
+ ovmf                 61185f1d501512f35621d0fdc5f17503c77bf449
 
-No functional change.
+Last test of basis   185701  2024-04-17 03:13:46 Z    0 days
+Testing same since   185725  2024-04-17 18:43:01 Z    0 days    1 attempts
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
----
- automation/eclair_analysis/ECLAIR/deviations.ecl | 7 +++++++
- docs/misra/deviations.rst                        | 6 ++++++
- 2 files changed, 13 insertions(+)
+------------------------------------------------------------
+People who touched revisions under test:
+  Gerd Hoffmann <kraxel@redhat.com>
+  Ray Ni <ray.ni@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
 
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index 0230b41c6d1c..190f6a2fd4e0 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -358,6 +358,13 @@ therefore have the same behavior of a boolean"
- # Series 16.
- #
- 
-+-doc_begin="Complying with the Rule would entail a lot of code duplication in the implementation of the x86 emulator,
-+therefore it is deemed better to leave such files as is."
-+-file_tag+={x86_emulate,"^xen/arch/x86/x86_emulate/.*$"}
-+-file_tag+={x86_svm_emulate,"^xen/arch/x86/hvm/svm/emulate\\.c$"}
-+-config=MC3R1.R16.2,reports+={deliberate, "any_area(any_loc(file(x86_emulate||x86_svm_emulate)))"}
-+-doc_end
-+
- -doc_begin="Switch clauses ending with continue, goto, return statements are
- safe."
- -config=MC3R1.R16.3,terminals+={safe, "node(continue_stmt||goto_stmt||return_stmt)"}
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index 32b02905d19a..ed0c1e8ed0bf 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -296,6 +296,12 @@ Deviations related to MISRA C:2012 Rules:
-        therefore have the same behavior of a boolean.
-      - Project-wide deviation; tagged as `deliberate` for ECLAIR.
- 
-+   * - R16.2
-+     - Complying with the Rule would entail a lot of code duplication in the
-+       implementation of the x86 emulator, therefore it is deemed better to
-+       leave such files as is.
-+     - Tagged as `deliberate` for ECLAIR.
-+
-    * - R16.3
-      - Switch clauses ending with continue, goto, return statements are safe.
-      - Tagged as `safe` for ECLAIR.
--- 
-2.34.1
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   61185f1d50..6ced1e91ef  6ced1e91eff13dae1bfba95734e2b34a73601db2 -> xen-tested-master
 
