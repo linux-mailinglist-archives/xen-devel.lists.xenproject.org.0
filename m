@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B90A8A804A
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 12:05:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707306.1105132 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 119008A8050
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 12:05:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707307.1105138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx2AH-0000i8-J5; Wed, 17 Apr 2024 10:05:17 +0000
+	id 1rx2AI-0000ps-2R; Wed, 17 Apr 2024 10:05:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707306.1105132; Wed, 17 Apr 2024 10:05:17 +0000
+Received: by outflank-mailman (output) from mailman id 707307.1105138; Wed, 17 Apr 2024 10:05:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx2AH-0000fx-DZ; Wed, 17 Apr 2024 10:05:17 +0000
-Received: by outflank-mailman (input) for mailman id 707306;
+	id 1rx2AH-0000iD-O7; Wed, 17 Apr 2024 10:05:17 +0000
+Received: by outflank-mailman (input) for mailman id 707307;
  Wed, 17 Apr 2024 10:05:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6A/l=LW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rx2AF-0007lO-34
+ id 1rx2AF-0007lO-Qm
  for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 10:05:15 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id faff5a3d-fca1-11ee-94a3-07e782e9044d;
- Wed, 17 Apr 2024 12:05:12 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-516d2600569so6889752e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 03:05:13 -0700 (PDT)
+ id fb851875-fca1-11ee-94a3-07e782e9044d;
+ Wed, 17 Apr 2024 12:05:13 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5194a4da476so520178e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 03:05:14 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- p2-20020a056512328200b00516cd83e497sm1893187lfe.210.2024.04.17.03.05.11
+ p2-20020a056512328200b00516cd83e497sm1893187lfe.210.2024.04.17.03.05.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Apr 2024 03:05:11 -0700 (PDT)
+ Wed, 17 Apr 2024 03:05:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: faff5a3d-fca1-11ee-94a3-07e782e9044d
+X-Inumbo-ID: fb851875-fca1-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1713348312; x=1713953112; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1713348313; x=1713953113; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PYoKcuxPvIDjafJUN0WvYkwMi61LF4Xs84KxsS85VX4=;
-        b=L2zL4PvwWAM0Y1fwKKfhwQNcCaxuQXKxlX9VrvG8JABa8z4OVNTDfNw8yBtkq3dF8k
-         s54nl3DcFkKv/KYVOjwHfFONPGNW/hk1/96oH/FPjFfr+zPjwtAyPEpLi5BUP3N3D2co
-         dy4s5DTASeh7euHjAuUDKpYgyOWHVumeT3oKMGgaGUX8mbYnSoWgoVxm7yPqwPcsXOOP
-         nEHnylK/K4vzq6V7VxzMRrjrre2hUOs1H1LETQ9iRJ6JMR+OoBcPZPpXHSg533ImTWLx
-         FmR2OFH1GPK1j4vMIZtpdfUvfFng/HdF840qyk3lZomDvCD4Oj8JhR18gKNsMRhT/ajB
-         Q5vA==
+        bh=fWDZsyZne5YGeThQFd3jP/j4wvEA0gZdlneLKcMfcRs=;
+        b=YVa9QPkY+rDwruABzZqlqPtQJ8xbL+r+W9zZbGFVm81Qa1pb7sgKcBIwTJzjwpVmiz
+         RdrgB80UNfrOgunZT9SzL/z+Gy7A+BahiXj1JqdlnBfm2hpr7SoGdRv3KvNaD91RsM1K
+         CD5z+LXsOWlUrDzJnyOrAau4h1GL7FRGkVc6e3V/5DJewLNQj/38kfILFyBxgCNseq5/
+         Hxsz7beM8CjoOtsSomsnhWCskXm8zIEwkwUZ+vQdPWBlHMxFt8qvRx3XvalJwU+toztc
+         ZkAAzdr+LVjtzzvvja9OWhwseQv5ayD7K6rmLSMhzIIwNXOlcDsUqhnBCZXKAcS1emy5
+         eS2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713348312; x=1713953112;
+        d=1e100.net; s=20230601; t=1713348313; x=1713953113;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=PYoKcuxPvIDjafJUN0WvYkwMi61LF4Xs84KxsS85VX4=;
-        b=KPLC5/U6+1iNzBDGMTXBNrU/Q3EBUOLXzqMfI6iaxgIcMorWvcDR6vSQ/4gRNRnL5i
-         X9HJSK6CkcDT8ARvPNHULb+/H5MO0yUhiyeeIJQIFzHgLkNvOf7rpVH5WUXLT6A7M5OH
-         n2OEkL2553ePVGiNHo3qTxQMHY2jE/d+ZCInKjt6xGzFbh0r1/qu0iE1yfgUZlYo4beC
-         u5UEGINOpMWQ483weUFN42n9nKKkYRBiebE6zj0/VugT6ccqqeSb2oGHIIdwY4ybVn2C
-         z/Qzt3X1xipOeTUJL1JPmYYY1A2k62QwknnugIQLcUbxnJi+0xarktFbRw3vPHN7H8nx
-         bu+A==
-X-Gm-Message-State: AOJu0Yy68/y00eDlBdjRWkZyw3dLReS6NlS+6ZmkLxnz6Gn2dkGtKM9k
-	JR3XFIL1mASXqlJW1OEFjALGZrE4a9mwW3hharoLXvwVtsi/V8FknyoBdQ==
-X-Google-Smtp-Source: AGHT+IGXxoKvArJVBsQyH2pZkMEg2vE/si8caQnQmfTBMQJb51y9oqRPoVm78eXmJhtIKnpnwn+hhg==
-X-Received: by 2002:a05:6512:2351:b0:513:ec32:aa81 with SMTP id p17-20020a056512235100b00513ec32aa81mr12526419lfu.13.1713348311884;
-        Wed, 17 Apr 2024 03:05:11 -0700 (PDT)
+        bh=fWDZsyZne5YGeThQFd3jP/j4wvEA0gZdlneLKcMfcRs=;
+        b=CwXUXjred44+xQMIfYyeKFCPWcyeN9zJATDRGkf2DX3QjYqV4YaB282oBRGZrBdPX7
+         N2zAYGzHdpihDAjCgACRjCBxpw0G3i3S3C13DooZLIkjBNWdjvk4VnlwlHqJDO+o7MLh
+         UtbKKNxtmI/jWWNk5MiWlqase8LOxtFc68TT/mZBoC3Ut8pnFMET/9yE9QI6aT4DfUNE
+         +iaIGjHuFcf2uXCLHSSs7UOemrzcP3MlEMTv3rx9GCNFy96Lzp0vF3oj8UTploHhod2c
+         JSurYlqKXfJoWnQlMmB7OMxDUZeBmyXAUnta9C/1Zh8hX9+lZifH2vSyrTKwtrISYXmS
+         6mkg==
+X-Gm-Message-State: AOJu0YxKLzO9PPGN/BzJxIXym7x9R8aRZUqrmfsYKJdzU4Is6M//MQ4u
+	osqAfStg8qiBgXK1LvjmcfyvKqpZhSuCK95rCMiIcYNXIxUxLNas9kKLhg==
+X-Google-Smtp-Source: AGHT+IE+/TNufPjXchQ1zDG/JMqVhQ2GMe38joHXTWTnUf7X4Aztcu2+v5xHhz/M3essvOIpttKv3Q==
+X-Received: by 2002:a19:640e:0:b0:516:cf23:588 with SMTP id y14-20020a19640e000000b00516cf230588mr11757217lfb.27.1713348313232;
+        Wed, 17 Apr 2024 03:05:13 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -85,397 +85,256 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v8 06/17] xen/riscv: introduce cmpxchg.h
-Date: Wed, 17 Apr 2024 12:04:49 +0200
-Message-ID: <6e068a2531f3ecbb7858739ecb5249d22ee01fff.1713347222.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v8 07/17] xen/riscv: introduce io.h
+Date: Wed, 17 Apr 2024 12:04:50 +0200
+Message-ID: <7f76236845970a011b4fd3e2c93e8f01d811041b.1713347222.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <cover.1713347222.git.oleksii.kurochko@gmail.com>
 References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The header was taken from Linux kernl 6.4.0-rc1.
+The header taken form Linux 6.4.0-rc1 and is based on
+arch/riscv/include/asm/mmio.h with the following changes:
+- drop forcing of endianess for read*(), write*() functions as
+  no matter what CPU endianness, what endianness a particular device
+  (and hence its MMIO region(s)) is using is entirely independent.
+  Hence conversion, where necessary, needs to occur at a layer up.
+  Another one reason to drop endianess conversion here is:
+  https://patchwork.kernel.org/project/linux-riscv/patch/20190411115623.5749-3-hch@lst.de/
+  One of the answers of the author of the commit:
+    And we don't know if Linux will be around if that ever changes.
+    The point is:
+     a) the current RISC-V spec is LE only
+     b) the current linux port is LE only except for this little bit
+    There is no point in leaving just this bitrotting code around.  It
+    just confuses developers, (very very slightly) slows down compiles
+    and will bitrot.  It also won't be any significant help to a future
+    developer down the road doing a hypothetical BE RISC-V Linux port.
+- drop unused argument of __io_ar() macros.
+- drop "#define _raw_{read,write}{b,w,l,d,q} _raw_{read,write}{b,w,l,d,q}"
+  as they are unnecessary.
+- Adopt the Xen code style for this header, considering that significant changes
+  are not anticipated in the future.
+  In the event of any issues, adapting them to Xen style should be easily
+  manageable.
+- drop unnecessary  __r variables in macros read*_cpu()
+- update inline assembler constraints for addr argument for
+  __raw_read{b,w,l,q} and __raw_write{b,w,l,q} to tell a compiler that
+ *addr will be accessed.
+- add stubs for __raw_readq() and __raw_writeq() for RISCV_32
 
-Addionally, were updated:
-* add emulation of {cmp}xchg for 1/2 byte types using 32-bit atomic
-  access.
-* replace tabs with spaces
-* replace __* variale with *__
-* introduce generic version of xchg_* and cmpxchg_*.
-* drop {cmp}xchg{release,relaxed,acquire} as Xen doesn't use them
-* drop barries and use instruction suffixices instead ( .aq, .rl, .aqrl )
-
-Implementation of 4- and 8-byte cases were updated according to the spec:
-```
-              ....
-Linux Construct         RVWMO AMO Mapping
-    ...
-atomic <op>             amo<op>.{w|d}.aqrl
-Linux Construct         RVWMO LR/SC Mapping
-    ...
-atomic <op>             loop: lr.{w|d}.aq; <op>; sc.{w|d}.aqrl; bnez loop
-
-Table A.5: Mappings from Linux memory primitives to RISC-V primitives
-
-```
-
-The current implementation is the same with 8e86f0b409a4
-("arm64: atomics: fix use of acquire + release for full barrier
-semantics") [1].
-RISC-V could combine acquire and release into the SC
-instructions and it could reduce a fence instruction to gain better
-performance. Here is related description from RISC-V ISA 10.2
-Load-Reserved/Store-Conditional Instructions:
-
- - .aq:   The LR/SC sequence can be given acquire semantics by
-          setting the aq bit on the LR instruction.
- - .rl:   The LR/SC sequence can be given release semantics by
-          setting the rl bit on the SC instruction.
- - .aqrl: Setting the aq bit on the LR instruction, and setting
-          both the aq and the rl bit on the SC instruction makes
-          the LR/SC sequence sequentially consistent, meaning that
-          it cannot be reordered with earlier or later memory
-          operations from the same hart.
-
- Software should not set the rl bit on an LR instruction unless
- the aq bit is also set, nor should software set the aq bit on an
- SC instruction unless the rl bit is also set. LR.rl and SC.aq
- instructions are not guaranteed to provide any stronger ordering
- than those with both bits clear, but may result in lower
- performance.
-
-Also, I way of transforming ".rl + full barrier" to ".aqrl" was approved
-by (the author of the RVWMO spec) [2]
-
-[1] https://patchwork.kernel.org/project/linux-arm-kernel/patch/1391516953-14541-1-git-send-email-will.deacon@arm.com/
-[2] https://lore.kernel.org/linux-riscv/41e01514-74ca-84f2-f5cc-2645c444fd8e@nvidia.com/
+Addionally, to the header was added definions of ioremap_*().
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in V8:
- - use __bad_{xchg,cmpxch}(ptr,size) insetead of STATIC_ASSERT_UNREACHABLE() to
-   make this patch be independent from the macros that haven't been committed yet
-   and may never be.
+ - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
 ---
 Changes in V7:
- - replace __*() -> _*() in cmpxchg.h
- - add () around ptr in _amoswap_generic(), emulate_xchg_1_2()
- - fix typos
+ - update the comment message in riscv/io.h at the top.
  - code style fixes.
- - refactor emulate_xcgh_1_2():
-   - add parentheses for new argument.
-   - use instead of constant 0x4 -> sizeof(*aligned_ptr).
-   - add alignment_mask to save  sizeof(*aligned_ptr) - sizeof(*(ptr));
- - s/CONFIG_32BIT/CONFIG_RISCV_32
- - drop unnecessary parentheses in xchg()
- - drop register in _generic_cmpxchg()
- - refactor and update prototype of _generic_cmpxchg():
-   add named operands, return value instead of passing ret as an argument, drop %z and J
-   constraints for mask operand as it can't be zero
- - refactor and code style fixes in emulate_cmpxchg_1_2():
-   - add explanatory comment for emulate_cmpxchg_1_2().
-   - add parentheses for old and new arguments.
-   - use instead of constant 0x4 -> sizeof(*aligned_ptr).
-   - add alignment_mask to save  sizeof(*aligned_ptr) - sizeof(*(ptr));
- - drop unnessary parenthesses in cmpxchg().
- - update the commit message.
- - s/__asm__ __volatile__/asm volatile
+ - back const in places where it should be.
 ---
 Changes in V6:
--  update the commit message? ( As before I don't understand this point. Can you give an example of what sort of opcode / instruction is missing?)
- - Code style fixes
- - change sizeof(*ptr) -> sizeof(*(ptr))
- - update operands names and some local variables for macros emulate_xchg_1_2() and emulate_cmpxchg_1_2()
- - drop {cmp}xchg_{relaxed,acquire,release) versions as they aren't needed for Xen
- - update __amoswap_generic() prototype and defintion: drop pre and post barries.
- - update emulate_xchg_1_2() prototype and definion: add lr_sfx, drop pre and post barries.
- - rename __xchg_generic to __xchg(), make __xchg as static inline function to be able to "#ifndef CONFIG_32BIT case 8:... "
+ - drop unnecessary spaces and fix typos in the file comment.
+ - s/CONFIG_64BIT/CONFIG_RISCV_32 as .d suffix for instruction doesn't exist for RV32.
+ - add stubs for __raw_readq() and __raw_writeq() for RISCV_32
+ - update inline assembler constraints for addr argument for __raw_read{b,w,l,q} and
+   __raw_write{b,w,l,q} to tell compiler that *addr will be accessed.
+ - s/u8/uint8_t
+ - update the commit message
 ---
 Changes in V5:
- - update the commit message.
- - drop ALIGN_DOWN().
- - update the definition of emulate_xchg_1_2():
-   - lr.d -> lr.w, sc.d -> sc.w.
-   - drop ret argument.
-   - code style fixes around asm volatile.
-   - update prototype.
-   - use asm named operands.
-   - rename local variables.
-   - add comment above the macros
- - update the definition of __xchg_generic:
-   - rename to __xchg()
-   - transform it to static inline
-   - code style fixes around switch()
-   - update prototype.
- - redefine cmpxchg()
- - update emulate_cmpxchg_1_2():
-   - update prototype
-   - update local variables names and usage of them
-   - use name asm operands.
-   - add comment above the macros
- - drop pre and post, and use .aq,.rl, .aqrl suffixes.
- - drop {cmp}xchg_{relaxed, aquire, release} as they are not used by Xen.
- - drop unnessary details in comment above emulate_cmpxchg_1_2()
+ - Xen code style related fixes
+ - drop #define _raw_{read,write}{b,w,l,d,q} _raw_{read,write}{b,w,l,d,q}
+ - drop cpu_to_le16()
+ - remove unuused argument in _io_ar()
+ - update the commit message
+ - drop unnessary __r variables in macros read*_cpu()
+ - update the comments at the top of the header.
 ---
 Changes in V4:
- - Code style fixes.
- - enforce in __xchg_*() has the same type for new and *ptr, also "\n"
-   was removed at the end of asm instruction.
- - dependency from https://lore.kernel.org/xen-devel/cover.1706259490.git.federico.serafini@bugseng.com/
- - switch from ASSERT_UNREACHABLE to STATIC_ASSERT_UNREACHABLE().
- - drop xchg32(ptr, x) and xchg64(ptr, x) as they aren't used.
- - drop cmpxcg{32,64}_{local} as they aren't used.
- - introduce generic version of xchg_* and cmpxchg_*.
- - update the commit message.
+ - delete inner parentheses in macros.
+ - s/u<N>/uint<N>.
 ---
 Changes in V3:
+ - re-sync with linux kernel
  - update the commit message
- - add emulation of {cmp}xchg_... for 1 and 2 bytes types
 ---
 Changes in V2:
- - update the comment at the top of the header.
- - change xen/lib.h to xen/bug.h.
- - sort inclusion of headers properly.
+ - Nothing changed. Only rebase.
 ---
- xen/arch/riscv/include/asm/cmpxchg.h | 237 +++++++++++++++++++++++++++
- xen/arch/riscv/include/asm/config.h  |   2 +
- 2 files changed, 239 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/cmpxchg.h
+ xen/arch/riscv/include/asm/io.h | 168 ++++++++++++++++++++++++++++++++
+ 1 file changed, 168 insertions(+)
+ create mode 100644 xen/arch/riscv/include/asm/io.h
 
-diff --git a/xen/arch/riscv/include/asm/cmpxchg.h b/xen/arch/riscv/include/asm/cmpxchg.h
+diff --git a/xen/arch/riscv/include/asm/io.h b/xen/arch/riscv/include/asm/io.h
 new file mode 100644
-index 0000000000..f7b53d3848
+index 0000000000..8d9535e973
 --- /dev/null
-+++ b/xen/arch/riscv/include/asm/cmpxchg.h
-@@ -0,0 +1,237 @@
++++ b/xen/arch/riscv/include/asm/io.h
+@@ -0,0 +1,168 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+/* Copyright (C) 2014 Regents of the University of California */
++/*
++ *  The header taken form Linux 6.4.0-rc1 and is based on
++ *  arch/riscv/include/asm/mmio.h with the following changes:
++ *   - drop forcing of endianess for read*(), write*() functions as
++ *     no matter what CPU endianness, what endianness a particular device
++ *     (and hence its MMIO region(s)) is using is entirely independent.
++ *     Hence conversion, where necessary, needs to occur at a layer up.
++ *     Another one reason to drop endianess conversion is:
++ *     https://patchwork.kernel.org/project/linux-riscv/patch/20190411115623.5749-3-hch@lst.de/
++ *     One of the answers of the author of the commit:
++ *       And we don't know if Linux will be around if that ever changes.
++ *       The point is:
++ *        a) the current RISC-V spec is LE only
++ *        b) the current linux port is LE only except for this little bit
++ *       There is no point in leaving just this bitrotting code around.  It
++ *       just confuses developers, (very very slightly) slows down compiles
++ *      and will bitrot.  It also won't be any significant help to a future
++ *       developer down the road doing a hypothetical BE RISC-V Linux port.
++ *   - drop unused argument of __io_ar() macros.
++ *   - drop "#define _raw_{read,write}{b,w,l,q} _raw_{read,write}{b,w,l,q}"
++ *     as they are unnecessary.
++ *   - Adopt the Xen code style for this header, considering that significant
++ *     changes are not anticipated in the future.
++ *     In the event of any issues, adapting them to Xen style should be easily
++ *     manageable.
++ *   - drop unnecessary __r variables in macros read*_cpu()
++ *   - update inline assembler constraints for addr argument for
++ *     __raw_read{b,w,l,q} and __raw_write{b,w,l,q} to tell a compiler that
++ *     *addr will be accessed.
++ *
++ * Copyright (C) 1996-2000 Russell King
++ * Copyright (C) 2012 ARM Ltd.
++ * Copyright (C) 2014 Regents of the University of California
++ * Copyright (C) 2024 Vates
++ */
 +
-+#ifndef _ASM_RISCV_CMPXCHG_H
-+#define _ASM_RISCV_CMPXCHG_H
++#ifndef _ASM_RISCV_IO_H
++#define _ASM_RISCV_IO_H
 +
-+#include <xen/compiler.h>
-+#include <xen/lib.h>
-+
-+#include <asm/fence.h>
-+#include <asm/io.h>
-+#include <asm/system.h>
-+
-+#define _amoswap_generic(ptr, new, ret, sfx) \
-+    asm volatile ( \
-+        " amoswap" sfx " %0, %2, %1" \
-+        : "=r" (ret), "+A" (*(ptr)) \
-+        : "r" (new) \
-+        : "memory" );
++#include <asm/byteorder.h>
 +
 +/*
-+ * For LR and SC, the A extension requires that the address held in rs1 be
-+ * naturally aligned to the size of the operand (i.e., eight-byte aligned
-+ * for 64-bit words and four-byte aligned for 32-bit words).
-+ * If the address is not naturally aligned, an address-misaligned exception
-+ * or an access-fault exception will be generated.
-+ *
-+ * Thereby:
-+ * - for 1-byte xchg access the containing word by clearing low two bits.
-+ * - for 2-byte xchg access the containing word by clearing bit 1.
-+ *
-+ * If resulting 4-byte access is still misalgined, it will fault just as
-+ * non-emulated 4-byte access would.
++ * The RISC-V ISA doesn't yet specify how to query or modify PMAs, so we can't
++ * change the properties of memory regions.  This should be fixed by the
++ * upcoming platform spec.
 + */
-+#define emulate_xchg_1_2(ptr, new, lr_sfx, sc_sfx) \
-+({ \
-+    uint32_t *aligned_ptr; \
-+    unsigned long alignment_mask = sizeof(*aligned_ptr) - sizeof(*(ptr)); \
-+    unsigned int new_val_bit = \
-+        ((unsigned long)(ptr) & alignment_mask) * BITS_PER_BYTE; \
-+    unsigned long mask = \
-+        GENMASK(((sizeof(*(ptr))) * BITS_PER_BYTE) - 1, 0) << new_val_bit; \
-+    unsigned int new_ = (new) << new_val_bit; \
-+    unsigned int old; \
-+    unsigned int scratch; \
-+    \
-+    aligned_ptr = (uint32_t *)((unsigned long)(ptr) & ~alignment_mask); \
-+    \
-+    asm volatile ( \
-+        "0: lr.w" lr_sfx " %[old], %[ptr_]\n" \
-+        "   andn  %[scratch], %[old], %[mask]\n" \
-+        "   or   %[scratch], %[scratch], %z[new_]\n" \
-+        "   sc.w" sc_sfx " %[scratch], %[scratch], %[ptr_]\n" \
-+        "   bnez %[scratch], 0b\n" \
-+        : [old] "=&r" (old), [scratch] "=&r" (scratch), \
-+          [ptr_] "+A" (*aligned_ptr) \
-+        : [new_] "rJ" (new_), [mask] "r" (mask) \
-+        : "memory" ); \
-+    \
-+    (__typeof__(*(ptr)))((old & mask) >> new_val_bit); \
-+})
++#define ioremap_nocache(addr, size) ioremap(addr, size)
++#define ioremap_wc(addr, size) ioremap(addr, size)
++#define ioremap_wt(addr, size) ioremap(addr, size)
 +
-+/*
-+ * This function doesn't exist, so you'll get a linker error
-+ * if something tries to do an invalid xchg().
-+ */
-+extern void __bad_xchg(volatile void *ptr, int size);
-+
-+static always_inline unsigned long __xchg(volatile void *ptr, unsigned long new, int size)
++/* Generic IO read/write.  These perform native-endian accesses. */
++static inline void __raw_writeb(uint8_t val, volatile void __iomem *addr)
 +{
-+    unsigned long ret;
-+
-+    switch ( size )
-+    {
-+    case 1:
-+        ret = emulate_xchg_1_2((volatile uint8_t *)ptr, new, ".aq", ".aqrl");
-+        break;
-+    case 2:
-+        ret = emulate_xchg_1_2((volatile uint16_t *)ptr, new, ".aq", ".aqrl");
-+        break;
-+    case 4:
-+        _amoswap_generic((volatile uint32_t *)ptr, new, ret, ".w.aqrl");
-+        break;
-+#ifndef CONFIG_RISCV_32
-+    case 8:
-+        _amoswap_generic((volatile uint64_t *)ptr, new, ret, ".d.aqrl");
-+        break;
-+#endif
-+    default:
-+        __bad_xchg(ptr, size), ret = 0;
-+    }
-+
-+    return ret;
++    asm volatile ( "sb %1, %0"
++                   : "=m" (*(volatile uint8_t __force *)addr) : "r" (val) );
 +}
 +
-+#define xchg(ptr, x) \
-+({ \
-+    __typeof__(*(ptr)) n_ = (x); \
-+    (__typeof__(*(ptr))) \
-+        __xchg((ptr), (unsigned long)n_, sizeof(*(ptr))); \
-+})
-+
-+#define _generic_cmpxchg(ptr, old, new, lr_sfx, sc_sfx) \
-+ ({ \
-+    unsigned int rc; \
-+    unsigned long ret; \
-+    unsigned long mask = GENMASK(((sizeof(*(ptr))) * BITS_PER_BYTE) - 1, 0); \
-+    asm volatile ( \
-+        "0: lr" lr_sfx " %[ret], %[ptr_]\n" \
-+        "   and  %[ret], %[ret], %[mask]\n" \
-+        "   bne  %[ret], %z[old_], 1f\n" \
-+        "   sc" sc_sfx " %[rc], %z[new_], %[ptr_]\n" \
-+        "   bnez %[rc], 0b\n" \
-+        "1:\n" \
-+        : [ret] "=&r" (ret), [rc] "=&r" (rc), [ptr_] "+A" (*ptr) \
-+        : [old_] "rJ" (old), [new_] "rJ" (new), [mask] "r" (mask)  \
-+        : "memory" ); \
-+    ret; \
-+ })
-+
-+/*
-+ * For LR and SC, the A extension requires that the address held in rs1 be
-+ * naturally aligned to the size of the operand (i.e., eight-byte aligned
-+ * for 64-bit words and four-byte aligned for 32-bit words).
-+ * If the address is not naturally aligned, an address-misaligned exception
-+ * or an access-fault exception will be generated.
-+ *
-+ * Thereby:
-+ * - for 1-byte xchg access the containing word by clearing low two bits
-+ * - for 2-byte xchg ccess the containing word by clearing first bit.
-+ * 
-+ * If resulting 4-byte access is still misalgined, it will fault just as
-+ * non-emulated 4-byte access would.
-+ *
-+ * old_val was casted to unsigned long for cmpxchgptr()
-+ */
-+#define emulate_cmpxchg_1_2(ptr, old, new, lr_sfx, sc_sfx) \
-+({ \
-+    uint32_t *aligned_ptr; \
-+    unsigned long alignment_mask = sizeof(*aligned_ptr) - sizeof(*(ptr)); \
-+    uint8_t new_val_bit = \
-+        ((unsigned long)(ptr) & alignment_mask) * BITS_PER_BYTE; \
-+    unsigned long mask = \
-+        GENMASK(((sizeof(*(ptr))) * BITS_PER_BYTE) - 1, 0) << new_val_bit; \
-+    unsigned int old_ = (old) << new_val_bit; \
-+    unsigned int new_ = (new) << new_val_bit; \
-+    unsigned int old_val; \
-+    unsigned int scratch; \
-+    \
-+    aligned_ptr = (uint32_t *)((unsigned long)ptr & ~alignment_mask); \
-+    \
-+    asm volatile ( \
-+        "0: lr.w" lr_sfx " %[scratch], %[ptr_]\n" \
-+        "   and  %[old_val], %[scratch], %[mask]\n" \
-+        "   bne  %[old_val], %z[old_], 1f\n" \
-+        /* the following line is an equivalent to: \
-+         *     scratch = old_val & ~mask; \
-+         * And to elimanate one ( likely register ) input it was decided \
-+         * to use: \
-+         *     scratch = old_val ^ scratch \
-+         */ \
-+        "   xor  %[scratch], %[old_val], %[scratch]\n" \
-+        "   or   %[scratch], %[scratch], %z[new_]\n" \
-+        "   sc.w" sc_sfx " %[scratch], %[scratch], %[ptr_]\n" \
-+        "   bnez %[scratch], 0b\n" \
-+        "1:\n" \
-+        : [old_val] "=&r" (old_val), [scratch] "=&r" (scratch), \
-+          [ptr_] "+A" (*aligned_ptr) \
-+        : [old_] "rJ" (old_), [new_] "rJ" (new_), \
-+          [mask] "r" (mask) \
-+        : "memory" ); \
-+    \
-+    (__typeof__(*(ptr)))((unsigned long)old_val >> new_val_bit); \
-+})
-+
-+/* This function doesn't exist, so you'll get a linker error
-+   if something tries to do an invalid cmpxchg().  */
-+extern unsigned long __bad_cmpxchg(volatile void *ptr, int size);
-+
-+/*
-+ * Atomic compare and exchange.  Compare OLD with MEM, if identical,
-+ * store NEW in MEM.  Return the initial value in MEM.  Success is
-+ * indicated by comparing RETURN with OLD.
-+ */
-+static always_inline unsigned long __cmpxchg(volatile void *ptr,
-+                                             unsigned long old,
-+                                             unsigned long new,
-+                                             int size)
++static inline void __raw_writew(uint16_t val, volatile void __iomem *addr)
 +{
-+    unsigned long ret;
-+
-+    switch ( size )
-+    {
-+    case 1:
-+        ret = emulate_cmpxchg_1_2((volatile uint8_t *)ptr, old, new,
-+                                  ".aq", ".aqrl");
-+        break;
-+    case 2:
-+        ret = emulate_cmpxchg_1_2((volatile uint16_t *)ptr, old, new,
-+                                   ".aq", ".aqrl");
-+        break;
-+    case 4:
-+        ret = _generic_cmpxchg((volatile uint32_t *)ptr, old, new,
-+                          ".w.aq", ".w.aqrl");
-+        break;
-+#ifndef CONFIG_32BIT
-+    case 8:
-+        ret = _generic_cmpxchg((volatile uint64_t *)ptr, old, new,
-+                           ".d.aq", ".d.aqrl");
-+        break;
-+#endif
-+    default:
-+        return __bad_cmpxchg(ptr, size);
-+    }
-+
-+    return ret;
++    asm volatile ( "sh %1, %0"
++                   : "=m" (*(volatile uint16_t __force *)addr) : "r" (val) );
 +}
 +
-+#define cmpxchg(ptr, o, n) \
-+({ \
-+    __typeof__(*(ptr)) o_ = (o); \
-+    __typeof__(*(ptr)) n_ = (n); \
-+    (__typeof__(*(ptr))) \
-+    __cmpxchg((ptr), (unsigned long)o_, (unsigned long)n_, \
-+              sizeof(*(ptr))); \
-+})
++static inline void __raw_writel(uint32_t val, volatile void __iomem *addr)
++{
++    asm volatile ( "sw %1, %0"
++                   : "=m" (*(volatile uint32_t __force *)addr) : "r" (val) );
++}
 +
-+#endif /* _ASM_RISCV_CMPXCHG_H */
++static inline void __raw_writeq(uint64_t val, volatile void __iomem *addr)
++{
++#ifdef CONFIG_RISCV_32
++    BUILD_BUG_ON("unimplemented");
++#else
++    asm volatile ( "sd %1, %0"
++                   : "=m" (*(volatile uint64_t __force *)addr) : "r" (val) );
++#endif
++}
++
++static inline uint8_t __raw_readb(const volatile void __iomem *addr)
++{
++    uint8_t val;
++
++    asm volatile ( "lb %0, %1" : "=r" (val)
++                   : "m" (*(const volatile uint8_t __force *)addr) );
++    return val;
++}
++
++static inline uint16_t __raw_readw(const volatile void __iomem *addr)
++{
++    uint16_t val;
++
++    asm volatile ( "lh %0, %1" : "=r" (val)
++                   : "m" (*(const volatile uint16_t __force *)addr) );
++    return val;
++}
++
++static inline uint32_t __raw_readl(const volatile void __iomem *addr)
++{
++    uint32_t val;
++
++    asm volatile ( "lw %0, %1" : "=r" (val)
++                   : "m" (*(const volatile uint32_t __force *)addr) );
++    return val;
++}
++
++static inline uint64_t __raw_readq(const volatile void __iomem *addr)
++{
++    uint64_t val;
++
++#ifdef CONFIG_RISCV_32
++    BUILD_BUG_ON("unimplemented");
++#else
++    asm volatile ( "ld %0, %1" : "=r" (val)
++                   : "m" (*(const volatile uint64_t __force *)addr) );
++#endif
++
++    return val;
++}
++
++
++/*
++ * Unordered I/O memory access primitives.  These are even more relaxed than
++ * the relaxed versions, as they don't even order accesses between successive
++ * operations to the I/O regions.
++ */
++#define readb_cpu(c)        __raw_readb(c)
++#define readw_cpu(c)        __raw_readw(c)
++#define readl_cpu(c)        __raw_readl(c)
++#define readq_cpu(c)        __raw_readq(c)
++
++#define writeb_cpu(v, c)    __raw_writeb(v, c)
++#define writew_cpu(v, c)    __raw_writew(v, c)
++#define writel_cpu(v, c)    __raw_writel(v, c)
++#define writeq_cpu(v, c)    __raw_writeq(v, c)
++
++/*
++ * I/O memory access primitives. Reads are ordered relative to any
++ * following Normal memory access. Writes are ordered relative to any prior
++ * Normal memory access.  The memory barriers here are necessary as RISC-V
++ * doesn't define any ordering between the memory space and the I/O space.
++ */
++#define __io_br()   do { } while (0)
++#define __io_ar()   asm volatile ( "fence i,r" : : : "memory" );
++#define __io_bw()   asm volatile ( "fence w,o" : : : "memory" );
++#define __io_aw()   do { } while (0)
++
++#define readb(c) ({ uint8_t  v_; __io_br(); v_ = readb_cpu(c); __io_ar(); v_; })
++#define readw(c) ({ uint16_t v_; __io_br(); v_ = readw_cpu(c); __io_ar(); v_; })
++#define readl(c) ({ uint32_t v_; __io_br(); v_ = readl_cpu(c); __io_ar(); v_; })
++#define readq(c) ({ uint64_t v_; __io_br(); v_ = readq_cpu(c); __io_ar(); v_; })
++
++#define writeb(v, c)    ({ __io_bw(); writeb_cpu(v, c); __io_aw(); })
++#define writew(v, c)    ({ __io_bw(); writew_cpu(v, c); __io_aw(); })
++#define writel(v, c)    ({ __io_bw(); writel_cpu(v, c); __io_aw(); })
++#define writeq(v, c)    ({ __io_bw(); writeq_cpu(v, c); __io_aw(); })
++
++#endif /* _ASM_RISCV_IO_H */
 +
 +/*
 + * Local variables:
@@ -485,19 +344,6 @@ index 0000000000..f7b53d3848
 + * indent-tabs-mode: nil
 + * End:
 + */
-diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
-index c5f93e6a01..50583aafdc 100644
---- a/xen/arch/riscv/include/asm/config.h
-+++ b/xen/arch/riscv/include/asm/config.h
-@@ -119,6 +119,8 @@
- 
- #define BITS_PER_LLONG 64
- 
-+#define BITS_PER_BYTE 8
-+
- /* xen_ulong_t is always 64 bits */
- #define BITS_PER_XEN_ULONG 64
- 
 -- 
 2.44.0
 
