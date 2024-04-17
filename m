@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EF798A8331
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 14:32:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707472.1105417 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD1FF8A8335
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Apr 2024 14:34:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707475.1105428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx4S9-00082Z-Hr; Wed, 17 Apr 2024 12:31:53 +0000
+	id 1rx4U4-0000DK-UH; Wed, 17 Apr 2024 12:33:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707472.1105417; Wed, 17 Apr 2024 12:31:53 +0000
+Received: by outflank-mailman (output) from mailman id 707475.1105428; Wed, 17 Apr 2024 12:33:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rx4S9-00080t-FC; Wed, 17 Apr 2024 12:31:53 +0000
-Received: by outflank-mailman (input) for mailman id 707472;
- Wed, 17 Apr 2024 12:31:52 +0000
+	id 1rx4U4-0000AX-Qw; Wed, 17 Apr 2024 12:33:52 +0000
+Received: by outflank-mailman (input) for mailman id 707475;
+ Wed, 17 Apr 2024 12:33:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=R6tE=LW=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rx4S8-00080a-1r
- for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 12:31:52 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20600.outbound.protection.outlook.com
- [2a01:111:f403:2418::600])
+ id 1rx4U4-0000AR-3k
+ for xen-devel@lists.xenproject.org; Wed, 17 Apr 2024 12:33:52 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2009::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 765434b5-fcb6-11ee-94a3-07e782e9044d;
- Wed, 17 Apr 2024 14:31:50 +0200 (CEST)
-Received: from BN6PR17CA0040.namprd17.prod.outlook.com (2603:10b6:405:75::29)
- by SJ2PR12MB7824.namprd12.prod.outlook.com (2603:10b6:a03:4c4::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.37; Wed, 17 Apr
- 2024 12:31:46 +0000
-Received: from BN1PEPF00004684.namprd03.prod.outlook.com
- (2603:10b6:405:75:cafe::ce) by BN6PR17CA0040.outlook.office365.com
- (2603:10b6:405:75::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.26 via Frontend
- Transport; Wed, 17 Apr 2024 12:31:46 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN1PEPF00004684.mail.protection.outlook.com (10.167.243.90) with Microsoft
+ id bda91017-fcb6-11ee-94a3-07e782e9044d;
+ Wed, 17 Apr 2024 14:33:50 +0200 (CEST)
+Received: from BLAPR03CA0020.namprd03.prod.outlook.com (2603:10b6:208:32b::25)
+ by DS7PR12MB8321.namprd12.prod.outlook.com (2603:10b6:8:ec::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Wed, 17 Apr
+ 2024 12:33:47 +0000
+Received: from BL02EPF0001A103.namprd05.prod.outlook.com
+ (2603:10b6:208:32b:cafe::ae) by BLAPR03CA0020.outlook.office365.com
+ (2603:10b6:208:32b::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.34 via Frontend
+ Transport; Wed, 17 Apr 2024 12:33:46 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0001A103.mail.protection.outlook.com (10.167.241.133) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Wed, 17 Apr 2024 12:31:36 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7452.22 via Frontend Transport; Wed, 17 Apr 2024 12:33:46 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 17 Apr
- 2024 07:31:20 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 17 Apr
- 2024 07:31:20 -0500
+ 2024 07:33:46 -0500
 Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 17 Apr 2024 07:31:19 -0500
+ Transport; Wed, 17 Apr 2024 07:33:45 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,67 +59,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 765434b5-fcb6-11ee-94a3-07e782e9044d
+X-Inumbo-ID: bda91017-fcb6-11ee-94a3-07e782e9044d
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZSm+l4DkJ/m7k9Mom85vTJ7hQeL3UWjUULnZa15SbX43u/Be/k5YkQn0naCWk+nk8O0cy8K5k6PPfk4bOzqQOFAToi7QgY8NQwyIIWM3WwjZCwa/H6K9Q1l7TCQm0Fo3qGD4d/we39zxtDYzYxTe3wZ2QkYAZcb9753Oj4t//HfsXnU2TUKwNOEeG0IX0Ad37PmBFCVHRIy2omAuuE1xaDFNCI9yoeFIFX97ohGRTCRJtJC6uVczxeeegzL4YwYj2M9+dONHd4LuFHn6aCAa8eN1qg77szXuHQuC8irXVX4uXpc7yLGsnivns+UmAE5DoK0fIqu4djovZMV+sVV4lQ==
+ b=KD5Wm2dM7C5qcSaxt+vQG4ZP2UsNVX/n/0V5DSpiF63eEjLisvQLyNSVuq0Ym5xyB62yi8jaz+wlb6BC46jdaiv4x9iwflazeJa5xeM8dsL/SvuHJ4wcEg88l0GhhzG8xqIzMWJKVPoDF+biBYsoqwBYCha9XnRhTGf3/TAxwTTQfCkkDUeW5RFnCxYrFDli0GmdcXpppY30iCFHA6HvQcvvwjbBgvlYc5TDaA2gts/6cb1yEWASbUaoZf75L7KAoWUnJ3ZcQpeWm9mdKKhPGaGuyVz8l010ZsHt0LNj+f0uiJ0Rm5/Mmm+EGZ5P84JDmghoJTuyM5PBNqbSK9daJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SMDR6xsZMDWzwOSdPUcHxnz4fr/pnydhYWoe70ouwH4=;
- b=bSNiLXIlH4AnaWKUcyRmGEaYiRA/PuMU45hciW9+0r9ogU1YvupbvFvWzSPrUfRF1grvOYyppZ1gvBVOdoOJ4zcQuTeZm9nZw2eH2DBDSvbbvc2XGfSs4jtxgaa6yrcwzBF6hBDZu0gcm65h0vIYJqdOCcET97W6f+TFaIv6mO8ryj0HMgbiXImDXdGwtBGGIshepSc3HN4lQ044/6ytM/U5d6gQU41lZHf99OOT2Vyk4DXkc/x01DCMf++TdTXzyb5dTygy92RxW4eCqoJ646I9xvgxpdsBkSqTEtR6mUL0gkdRDSlWMNbYGJiX0L1Y8qG0Dy1OKTUndFeGLJuwjQ==
+ bh=2DNNuwdf7l9U52ClT2eBKpYwXpOMBBBfJRl6OMAFP4w=;
+ b=kcBZufDVbYYNdicsxGv0rPQbAGgwHSs7QfG7EbH4xKb8qPRfv2nKaZjLpdleBdti4XeDeA4ZmBSnwiEVxa4riFeDW/dSQ/dJpK5bhWLiUJl+T1payhqHsp4PSkpToDF3FDeQcGqoVwZSBdsSVgPcC0OaCpBb9YhAViiKslFbWwPfnbgDT9iiiHSiC6LJMbR5rhawf/8kzE+8SZkYoD/r7OngXxtL5KuRA3+z9n8vQ3TvzVLvRoze/16k7sMOd4o38pq+HcEs3H5SZYOvC9mHIui5WkcDOckT/y0ED4XxSbuis7LOIfd377n7ErlshwRYMghGAjF7gPyu5q1GjnabHQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SMDR6xsZMDWzwOSdPUcHxnz4fr/pnydhYWoe70ouwH4=;
- b=3wZqE+m8PR9b22E78M3FQrEM+B/pfWHNAdf2Mb6+GFoSDd9OYJrcgletJi8flYmwLcvg14jcdopqCoVc61Soy2vIYZw7wfplDqAX9XX+hgvDkc8U05HxWv6ow5cOEoIuFMyoL0hmgj+05gQOjCg0zmPVahIecVX0EOT/s23iRgU=
+ bh=2DNNuwdf7l9U52ClT2eBKpYwXpOMBBBfJRl6OMAFP4w=;
+ b=wPI/fQTdHIT5szxILvNYPEQA6c0NfQgZ0/N3fsGOK+WmOVnNZJmhAMThASmiovOu3JyqgZQS8AqI7pNRnOJl5ikHMyfBv+sAvIJOZGNTj18N4WvW9YkZ3TstTT0QWRsJPjb19wmi2lwppNz2K/24pqRaEVggbN4ed2XMWUbzRMo=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <427481d9-19cf-4fcb-a8bc-0fb73f824b42@amd.com>
-Date: Wed, 17 Apr 2024 14:31:14 +0200
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <629e7628-61e1-4c46-8172-cfdc1e848185@amd.com>
+Date: Wed, 17 Apr 2024 14:33:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [ImageBuilder 4/5] uboot-script-gen: Add ability to unselect
- "vpl011"
+Subject: Re: [ImageBuilder 5/5] uboot-script-gen: Add ability to specify
+ "nr_spis"
 To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
 	<xen-devel@lists.xenproject.org>
 CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Stefano Stabellini
 	<stefano.stabellini@amd.com>, Stefano Stabellini <sstabellini@kernel.org>
 References: <20240417120741.2453431-1-olekstysh@gmail.com>
- <20240417120741.2453431-5-olekstysh@gmail.com>
+ <20240417120741.2453431-6-olekstysh@gmail.com>
 Content-Language: en-US
 From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20240417120741.2453431-5-olekstysh@gmail.com>
+In-Reply-To: <20240417120741.2453431-6-olekstysh@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004684:EE_|SJ2PR12MB7824:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0454454-b7f5-47f1-e9f7-08dc5eda5707
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A103:EE_|DS7PR12MB8321:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d564a73-e55d-466d-cd23-08dc5edaa08a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	wletAtvmie8k4sxgwbGfGcMT3uvR4EVfUMTnOag7LPEIFDlqa/e3lVgH+yszjdOAqMzwDKNzTX0JyIhBQJIZZgeDNVhhkPga+cFGycbHj2CpiI4/V1qJ7reEskZKODsxQt3R2PoniVc4sNZsfSJJFQvjHcR3IJ8nickfTh6p7WsfORJM5rGDMEEBRYaNpVdRpfaxqXZNhAu7929S1a24Q/WYvtNZJjjLBDgaMgbczpqn7M5spFLepy7n0MKJpYpQZ8p8Rn7MOHB1IreYPpmG9KGqxGhoiP6RzKGRswGR+VT2UdsOtxGwHHErhJ08kGutKxrOAy/ezkIeq8rQlHZm7tyKvHXWi4uLr38KVh3/Jf7seiMv3KljHblZfc1uN4l4so/VXJsJjLQDUJWmBmcwY0h/YceVnoWn3MrpBkaqYDKt84xo4df4i1wTdfYX7d2Gcz2d1SLSZ1/9aPSQifnpFhm00Th+vBGLe/IxZOLt6E98d6PwZtgjctNP86JEwOK5aHBiRXxOHoTtYEzloNZ/9acWYl/frsRYucClZ6vyleReLSbNCJL2dh0SpapL9OsKZ0ykMr9JDa5Std+baXXU1f1p8Enw5KFc/Fy15pb1ve7aById889l4RM5ZJtQpRkpHJ1zZT6OC/vEbHXJM4uUxdCZbBFL5iAlV+UMhHcHvsg1JPFPRW6f06MZSmLOOdlqrpYXi9kGwVkYxcD6wut7ytsfmYmI/lwUgOiN0oRQDWolfUF9mbOBcJ+VQxdj2nBX
+	whruvyE/vr6qEshYR9aRPZk0fqxY0oHt4ULicGQtBYuONZhui00A9FTR4SIHMzY917I8gpyTVUbG0kvM7Nbf/5thYOS8pVoK5AcmLg+8VLgVUkK/upsMXxe9/rpZkoebsbQ62lejFzAExkzUn6SM++FezGdimnardOZXMrR+sM9CC3Lw+F88TJSAHjPRi1JOKNS4Mb/3rWuiuOUWxQO9j6xMnmq/MpMUDv14sJPFNGP81hGKonU50+nwmkwmhLfdR6+UX7qitfC0SjNE2Yn1NruEci4p7+U4XASC79yN369v6RUmumG8imMJmnAFMRYRVidOZsvq9wjF7PNjX2UO8ZmBhMo+HH8g9Q0Y0U/IM0+r4oTRywKd9iXeMg/G93mkVHKlqDF10j7y3BI9mmENaTLAx5Jf3WyxP0PlFwbskVGMC2bjxHDYDoclCbeD9/UgkBmiv1qAeIUaRCJkEA87u8xaeFTalDYMPwC1HWKOdS0Z4gh9rWzw54KpCeySpnWnpmmZ5HjODPqv9TQE04cf/Ccbc2JthVAy6ZYR1qX3ZXC+ZUzU4g2WG9+J8MWEg184Xx4FzNp8Qv0fGd6bvrkBBNvz0cVgyQ7g5gw78kz7lNKQsuEtDpDItKplqj6dA8xo/aytxs5+HbM43aGinY4xLUWyHYeh96wX7sPPCugQ1Fic310vwSrLIpo8FsjPvnI7CqV6rqpa+pKyy12x0Qn8hKuqGcFYB0ZuWkWVn6ODvxoJTm/Bat6IySzWEQUR/oak
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400014)(376005)(1800799015);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(376005)(82310400014)(36860700004);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2024 12:31:36.7504
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2024 12:33:46.8631
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0454454-b7f5-47f1-e9f7-08dc5eda5707
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d564a73-e55d-466d-cd23-08dc5edaa08a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004684.namprd03.prod.outlook.com
+	BL02EPF0001A103.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7824
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8321
 
 
 
@@ -132,61 +130,12 @@ On 17/04/2024 14:07, Oleksandr Tyshchenko wrote:
 > 
 > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> Introduce new option DOMU_VPL011[nr] that can be set to 0
-> or 1 (default).
+> This is needed to have a possibility of assigning a specified number
+> of shared peripheral interrupts (SPIs) to domain.
 > 
-> Also align "console=ttyAMA0" Linux cmd arg setting with "vpl011" presense.
-> 
-> Suggested-by: Michal Orzel <michal.orzel@amd.com>
 > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-
-That said, I noticed ...
-
-> ---
->  README.md                | 7 ++++++-
->  scripts/uboot-script-gen | 7 +++++--
->  2 files changed, 11 insertions(+), 3 deletions(-)
-> 
-> diff --git a/README.md b/README.md
-> index b2459fd..63c4708 100644
-> --- a/README.md
-> +++ b/README.md
-> @@ -151,7 +151,8 @@ Where:
->  - DOMU_KERNEL[number] specifies the DomU kernel to use.
-> 
->  - DOMU_CMD[number] specifies the command line arguments for DomU's Linux
-> -  kernel. If not set, then "console=ttyAMA0" is used.
-> +  kernel. If not set and DOMU_VPL011[number] is not set to 0, then
-> +  "console=ttyAMA0" is used.
-> 
->  - DOMU_RAMDISK[number] specifies the DomU ramdisk to use.
-> 
-> @@ -232,6 +233,10 @@ Where:
->  - DOMU_MAPTRACK_FRAMES[number] is optional but specifies the maximum number
->    of grant maptrack frames (the default value used by Xen on Arm64 is 1024)
-> 
-> +- DOMU_VPL011[number] is optional but used to enable (1)/disable (0) a virtual
-> +  PL011 UART for domain. The default is 1. If explicitly set to 0, then
-> +  "console=ttyAMA0" is not used as a default DOMU_CMD[number].
-> +
->  - DOMU_CPUPOOL[number] specifies the id of the cpupool (created using
->    CPUPOOL[number] option, where number == id) that will be assigned to domU.
-> 
-> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-> index adec6f9..fd37e18 100755
-> --- a/scripts/uboot-script-gen
-> +++ b/scripts/uboot-script-gen
-> @@ -344,7 +344,10 @@ function xen_device_tree_editing()
->              add_device_tree_static_mem "/chosen/domU$i" "${DOMU_STATIC_MEM[$i]}"
->              dt_set "/chosen/domU$i" "direct-map" "bool" "${DOMU_DIRECT_MAP[$i]}"
->          fi
-> -        dt_set "/chosen/domU$i" "vpl011" "hex" "0x1"
-> +        if test -z "${DOMU_VPL011[$i]}" || test "${DOMU_VPL011[$i]}" -eq "1"
-> +        then
-> +            dt_set "/chosen/domU$i" "vpl011" "hex" "0x1"
-... that the property type is incorrect. According to Xen docs, this should be a bool property.
-@Stefano, can you fix it on commit?
 
 ~Michal
 
