@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 503D88A9895
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 13:32:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708239.1106933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A3218A98A6
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 13:36:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708244.1106945 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxPz0-0004GV-BT; Thu, 18 Apr 2024 11:31:14 +0000
+	id 1rxQ3n-0005Zv-Tq; Thu, 18 Apr 2024 11:36:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708239.1106933; Thu, 18 Apr 2024 11:31:14 +0000
+Received: by outflank-mailman (output) from mailman id 708244.1106945; Thu, 18 Apr 2024 11:36:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxPz0-0004Du-8O; Thu, 18 Apr 2024 11:31:14 +0000
-Received: by outflank-mailman (input) for mailman id 708239;
- Thu, 18 Apr 2024 11:31:12 +0000
+	id 1rxQ3n-0005XQ-Pl; Thu, 18 Apr 2024 11:36:11 +0000
+Received: by outflank-mailman (input) for mailman id 708244;
+ Thu, 18 Apr 2024 11:36:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxPyy-0004Do-FT
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 11:31:12 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1rxQ3m-0005Vl-2p
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 11:36:10 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 27a3c5fe-fd77-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 13:31:10 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-343b92e54f5so551450f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 04:31:10 -0700 (PDT)
+ id d8f2cd1c-fd77-11ee-94a3-07e782e9044d;
+ Thu, 18 Apr 2024 13:36:07 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-418c0d83d18so5517465e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 04:36:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h1-20020a5d5481000000b003437a76565asm1622596wrv.25.2024.04.18.04.31.09
+ iv20-20020a05600c549400b00418e4cc9de7sm1954452wmb.7.2024.04.18.04.36.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 04:31:09 -0700 (PDT)
+ Thu, 18 Apr 2024 04:36:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27a3c5fe-fd77-11ee-94a3-07e782e9044d
+X-Inumbo-ID: d8f2cd1c-fd77-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713439870; x=1714044670; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713440167; x=1714044967; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=v5Iaesl8Wtddqn1hEetvekHhZV+EdCXbrreVM0ABKBw=;
-        b=Ipn/JBki6T4JcWp207UuxNbdpWUQeURdHmlqzMdHPgPvjQfCuTtsSwPddwFviJpWM6
-         6+GVaTDZffcglv92YN7T/idqChjPaHGh6ek7oSSc3moK08vRDQJErd39985suHAL2V8B
-         yYSpjOz2o3REfukAbNvKlgs+eam6EA3Bn0k3HgbYetpyLWYvuWUz4IHlVv4oH6IVh/5M
-         EXqBPIx+UZujSt7ZgyHIRX0QzyWMuC81yFLCOfIbUmiX1enktIdG4u1eZ0iihCV9Ep28
-         +6PQfBlqWL8Rqlh4W7wOT8fIfH5c/rLHSPIYU7GM8wrU3cgrfgLQTADnpypiSrJp4+F2
-         b3mQ==
+        bh=iQJHKDlnitP1kzarCYHDHh81CK9RYPfVL10Ndc/YWxI=;
+        b=HE2VLcSKEB4oe9knDJDfRulYE8RqUvCtkDDuKWZGmZQ70Avad846RpT1llXITw2tqo
+         2vPTjAfwwBCcVg6zYmBAHahKEPUCNpkQOBRgEuI4jf/+z7NRRuYCTNv9+lw1ukYijHto
+         V93NB4FLJ6wIAraQ4QETjYhjmzIueZrl7ejFmk4I0MxdcOYSL1BRxFJepQes6kbr9qSR
+         vN9c2Nmuqcz/6BcF2N27SHbqZ3Bz9CLS+GXiuD9GthxNQ2UK1Zx6lWCcTQlW7afB8ABz
+         P6M7lXwJh6xcXHbny2Ijvq4THcB2t2/PMFDEKSxLxQQ+M88Mp1hVpW+JOTpJyqTlJmqs
+         2Frw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713439870; x=1714044670;
+        d=1e100.net; s=20230601; t=1713440167; x=1714044967;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=v5Iaesl8Wtddqn1hEetvekHhZV+EdCXbrreVM0ABKBw=;
-        b=lMRRURZ3OsjqGTl8xFir1+z/NWDKcsYOCgKTvUp6LCrUhdoDqe9WWsPDX0N6oFh0mA
-         /cpGecbrLbgt9M1JOUx7+4bVsNgR0kH15aSmZOj3hvyRG98A1q5iIsKr0eskBXrID8Vz
-         VNmHUbuNb7UJdDjGdt3nz2EVOnBr5gTnvOOJqDLcyJUo+K8OmdwvSgZ2A1jD/tSM0c+H
-         nF0OfyBx1wV4Dt9szqYMeYVLIYD3sDoPykGU6fQUYP9m6rcGz3t4R3Cv89H1mNJIf3OT
-         5fojv9OLifi6Ek9MNltOkVfchfeUxYpvkjkI7co6S0yzbQ4TMbbIkl6GOsAAdwVKFLZQ
-         Udyg==
-X-Forwarded-Encrypted: i=1; AJvYcCXyo1LMEM8s7fJIDlg5kLVkSqtFKtpU89Ter0G6wLfn0ABujiy8DiJ2YU7I/R2s9IQf/Lq8Iz9rH2R8IAk5fJEGoibv0+SKeER4dXfy2lE=
-X-Gm-Message-State: AOJu0Yyscm1sPek+05UTAwpLfyBb29Y9wgR4D6ZTSRTEa0WFEOC2G1kg
-	gx7NF2olF+S1EvTDlFh7+Mt8Lqg2AsBxl3DHOd94C4SNZ0OUPJS+qH0jOjhlnA==
-X-Google-Smtp-Source: AGHT+IFLrtS3IC8XnBeet2XRTDnpltvFre7QPdpIHZnV01osIgY7lj9rPWw7mg1/AMqqR3NInLFDRA==
-X-Received: by 2002:adf:e60d:0:b0:346:65dd:560a with SMTP id p13-20020adfe60d000000b0034665dd560amr1613943wrm.3.1713439869829;
-        Thu, 18 Apr 2024 04:31:09 -0700 (PDT)
-Message-ID: <e8435c75-63c3-4a10-b266-6f4133c1cb9f@suse.com>
-Date: Thu, 18 Apr 2024 13:31:08 +0200
+        bh=iQJHKDlnitP1kzarCYHDHh81CK9RYPfVL10Ndc/YWxI=;
+        b=OWrUNPDhrC3RXoGBaX407d92QvfsDMhmjXk7TZhXzgeZ7g7xAPClhUgcouzjcDcmhX
+         gmfp5eVkGXLwOUWhzYiLGdkpZo+ownZFVqVvzyb4ddEoFXiOAQu9+i4Z2JhEP28VBfXD
+         VO/NXxr4qQaW7qFibeLrfrtn2eOZml4a+bkSl4h+IlItBL3R6bXWEFz/Uhc6DvoBo0Gw
+         PvEwRthHa1IEqKi9JEDK+VnZdPR7Q8IaykfsRArMgGHyM+MGs+3M3XG4PrC8DiecIov/
+         kH8SYyrJ30SdFYaWuNG+i73yfkRwvRasU4b/CXYckOoq7cQ6n3MawgoNAnjXqON+ochb
+         oyBg==
+X-Forwarded-Encrypted: i=1; AJvYcCUxQvpcCfooSLMKDT6jq5OdcQFKKahwoZIB5k/ZAArGmnCyUh/m1SjDfhZJ0eAacx4dt73Jgj2ST5lKrIPSa+oVZlEJ6vFpgINHD1H8TSg=
+X-Gm-Message-State: AOJu0Yy7mdOjuf6KdnRp9MwxsDHmC6ZZZRn+zlscoABRki9COjZTqE/D
+	1evPx6HbPw/1oYvnB18QM9AbkSPMD+5OIi2UjOusyitLcPOqwApnRSK3JAnurg==
+X-Google-Smtp-Source: AGHT+IEdaLlyAlwDKOZ53kFXqSPiIiBzlXUMD519r6MS3nMTinjh0rYKR9UVaJxrsXPu9XIh+6dvug==
+X-Received: by 2002:a05:600c:3d14:b0:418:5e80:b7b2 with SMTP id bh20-20020a05600c3d1400b004185e80b7b2mr1805855wmb.1.1713440167355;
+        Thu, 18 Apr 2024 04:36:07 -0700 (PDT)
+Message-ID: <ba37afe5-7531-45e4-b56c-22761f8dc492@suse.com>
+Date: Thu, 18 Apr 2024 13:36:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1 03/15] x86/monitor: guard altp2m usage
+Subject: Re: [XEN PATCH v1 05/15] x86/p2m: move altp2m-related code to
+ separate file
 Content-Language: en-US
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240416062503.3468942-1-Sergiy_Kibrik@epam.com>
+References: <20240416062915.3469145-1-Sergiy_Kibrik@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,32 +114,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240416062503.3468942-1-Sergiy_Kibrik@epam.com>
+In-Reply-To: <20240416062915.3469145-1-Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.04.2024 08:25, Sergiy Kibrik wrote:
-> Use altp2m index only when it is supported by the platform, i.e. VMX.
-> The puspose of that is the possiblity to disable VMX support and
-> exclude its code from the build completely.
+On 16.04.2024 08:29, Sergiy Kibrik wrote:
+> Move altp2m code from generic p2m.c file to altp2m.c, so that VMX-specific
+> code is kept separately and can possibly be disabled in the build.
 
-I'm afraid this description doesn't make clear what problem there is,
-which may be related to the fact that (as mentioned elsewhere by others)
-altp2m isn't a VMX-specific thing. The field read by altp2m_vcpu_idx()
-also looks to be zero for domains that never had altp2m enabled for them.
-Further, ...
+The code movement is desirable, but the reasoning isn't quite right (see
+replies on other sub-threads).
 
-> --- a/xen/arch/x86/hvm/monitor.c
-> +++ b/xen/arch/x86/hvm/monitor.c
-> @@ -262,6 +262,8 @@ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
->      struct vcpu *curr = current;
->      vm_event_request_t req = {};
->      paddr_t gpa = (gfn_to_gaddr(gfn) | (gla & ~PAGE_MASK));
-> +    unsigned int altp2m_idx = hvm_altp2m_supported() ?
-> +                              altp2m_vcpu_idx(curr) : 0;
+> --- a/xen/arch/x86/mm/altp2m.c
+> +++ b/xen/arch/x86/mm/altp2m.c
+> @@ -9,6 +9,8 @@
+>  #include <asm/altp2m.h>
+>  #include "mm-locks.h"
+>  #include "p2m.h"
+> +#include <public/hvm/hvm_op.h>
+> +#include <xen/event.h>
 
-... elsewhere uses of altp2m_vcpu_idx() are guarded by altp2m_active()
-checks. Why the domain-independent hvm_altp2m_supported() here?
+Please add above the private header #include-s.
+
+>[...]
+> +    return rc;
+> +}
+> +
+> +
+
+No double blank lines please, anywhere.
+
+> --- a/xen/arch/x86/mm/p2m.c
+> +++ b/xen/arch/x86/mm/p2m.c
+> @@ -500,9 +500,8 @@ int p2m_alloc_table(struct p2m_domain *p2m)
+>      return 0;
+>  }
+>  
+> -static int __must_check
+> -p2m_remove_entry(struct p2m_domain *p2m, gfn_t gfn, mfn_t mfn,
+> -                 unsigned int page_order)
+> +int __must_check p2m_remove_entry(struct p2m_domain *p2m, gfn_t gfn, mfn_t mfn,
+> +                                  unsigned int page_order)
+>  {
+
+And no unrelated re-formatting please (i.e. you really only need to
+touch a single line here).
 
 Jan
 
