@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 582D98A96C6
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 11:53:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708170.1106817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EE1C8A96DD
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 12:00:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708176.1106829 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxOSJ-0000MJ-Oy; Thu, 18 Apr 2024 09:53:23 +0000
+	id 1rxOYs-0003Hi-JP; Thu, 18 Apr 2024 10:00:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708170.1106817; Thu, 18 Apr 2024 09:53:23 +0000
+Received: by outflank-mailman (output) from mailman id 708176.1106829; Thu, 18 Apr 2024 10:00:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxOSJ-0000Ko-LP; Thu, 18 Apr 2024 09:53:23 +0000
-Received: by outflank-mailman (input) for mailman id 708170;
- Thu, 18 Apr 2024 09:53:22 +0000
+	id 1rxOYs-0003Ea-GC; Thu, 18 Apr 2024 10:00:10 +0000
+Received: by outflank-mailman (input) for mailman id 708176;
+ Thu, 18 Apr 2024 10:00:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxOSI-0000Ki-J4
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 09:53:22 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+ id 1rxOYq-0003EB-JH
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 10:00:08 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7cd1ff65-fd69-11ee-b909-491648fe20b8;
- Thu, 18 Apr 2024 11:53:20 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-5194cebd6caso762293e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 02:53:20 -0700 (PDT)
+ id 6f48bf73-fd6a-11ee-b909-491648fe20b8;
+ Thu, 18 Apr 2024 12:00:07 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2da0b3f7ad2so9606581fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 03:00:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bl28-20020adfe25c000000b00346bb778e8bsm1431519wrb.5.2024.04.18.02.53.19
+ z9-20020a05600c0a0900b00418916f5848sm2091377wmp.43.2024.04.18.03.00.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 02:53:19 -0700 (PDT)
+ Thu, 18 Apr 2024 03:00:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7cd1ff65-fd69-11ee-b909-491648fe20b8
+X-Inumbo-ID: 6f48bf73-fd6a-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713434000; x=1714038800; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713434406; x=1714039206; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=xVimCs6r9BqJJcB1Thmw0iqO5UAo1fiEaWngHlO6jl4=;
-        b=K4piUTMPwRzaoHHg3s6i1m6+ZVLXccLQSUCrxn/XKLA7KmXyUx/OUEs8QeyGDO3pb/
-         MJjTe9NwQWi6oz1eDE8w3ydmptdmD9mAOFAIoAZE4yBQlIYCX++vJNSV2Bq1/TNkmBli
-         UoWoF0mva2fDnm3hbeaI1RYA66GC0cH4HTRZoAeybbJ26btTgvrPSRFXiDzxdXhsoAZQ
-         GYZqP3MzaofOed+ppEh9QqbjB9ukOulBQQwH2IqcgJNmspl3QLIaTUzLwkR2buB7JqbT
-         u5MLN86D6IJp0MHf6/WmsRKCWCM4+38fVsuqdJ9FURxX91ifk61sP4DjcsJRLdq9x7tf
-         rd0g==
+        bh=V6h76wvZI94Si2CkDH7vzPaygxVoHVGkEb8tT+ckF/I=;
+        b=ZuxPkECL/vrne0jHkRtuYY0JK1oVzODHMwKPqQtlrf4lPuqzX3SgbpYc4Qj/VAMA3Y
+         6Ez9wjwywKRjtEMAgb4bxXziIo6Jlz6AfQIQm06oPtbc50LjiAzwZZF0DRuSCs2PxYOO
+         t78NcxmqxjlAUq3wGHStpF4IIo5CkRPpuU8CBqWBv5Bc5ZghbFc6Yq5CB9opaRjULSYD
+         nXJl5TbbGuO8w9GXVz/qmSJOd+5E8rRL/fV0f7iHTbIR8VtwZWFd8BXkCDs5OfqkKPbL
+         ZCK+5rkSu5h3UYA6Al1HiukpPZ2SlI1MDqWzoD3tRzh+zZ7F6bnQdG20Izf1x9qE5Aq6
+         Jw6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713434000; x=1714038800;
+        d=1e100.net; s=20230601; t=1713434406; x=1714039206;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xVimCs6r9BqJJcB1Thmw0iqO5UAo1fiEaWngHlO6jl4=;
-        b=A9VqYUBGSEIgpn/rfxZlLUreOoQJSnn1dyyNhdA0ESuWVpmGrrW5nZb7ATIwq2M6+V
-         e9qR9puxonN7lParQAH1PbX6bVBcV92fDbJquLiNY/WAjnTU+yTHQFYCoCRBiMlqZrHn
-         hD7/06MrUaZ9oPuYqd809tppieSa7yjsALksDpz+3dOurhKuvX8KmFaq5A/j/jVt92qT
-         KIw9zNNH+EqNnSW9G31z3A9PY+68sLeS7xJGruJI543wMPtJot4mBWhmVphyH8nwNtDm
-         sySMHDjILpwUbeVFNYEIe3pmMWnocMiT/RSFi+UlJvS5pvjcQOlu8TCnjyZWzht9ZO0X
-         dADw==
-X-Forwarded-Encrypted: i=1; AJvYcCUb5FdxlUXB0qPcADsBjmDWiyY1yE9A9rxG8SWRHod9tlBtt8iEKRWd4bBybs1r4Kj6vYn7pfUfSjcSDuLfAQ5gBFkf9YoeMGTqn0MPpnc=
-X-Gm-Message-State: AOJu0YxtjxSHDS9kvhS05SWtjL2K1IkAez/fw5i5rbafjKJXzGiafH2t
-	hq9bsPk6jvLBknJ37hbp3+NpQKlODhlPiByAAYVEhky9k3apEjkRywhyoYwrzw==
-X-Google-Smtp-Source: AGHT+IHXSdUNSuxKT+jKROsxgow2aSoz+NKatZ55hxS+01uehnxR9pR5PCe4bb2sCxtAZ8I8HtrBmQ==
-X-Received: by 2002:a19:ca02:0:b0:518:96b5:f2cc with SMTP id a2-20020a19ca02000000b0051896b5f2ccmr1102616lfg.55.1713433999765;
-        Thu, 18 Apr 2024 02:53:19 -0700 (PDT)
-Message-ID: <12adc492-aad0-4971-b744-e6dee87630ac@suse.com>
-Date: Thu, 18 Apr 2024 11:53:18 +0200
+        bh=V6h76wvZI94Si2CkDH7vzPaygxVoHVGkEb8tT+ckF/I=;
+        b=Gx80N+xgTu0it/PlVEZPDirn47Mrp3ChEqDYj+gKz7076WmH2iRZJwWXMyWyL3vUrv
+         6XBBR4qLXFBKdbAUFearILf3cNswMYx/BLWz2pCojAg9t+hbUaCJJVRA+KC0/4QDMPw2
+         U8XxwUjiORz0Hjk18axJLEWA9D9DCL4MzOzBJpBD5+MKOO2fqC8g1IQBXns/tT+JevVk
+         0yTUNxGl3Itbt66raXZ2ZW9DzIiq1rcVSxgT2gTt4WtbKr8qf5SOD0IzA8oQG8cENsJQ
+         3DuJPuDc/Lq161RZw/55DrEUmTcYy7dxcpHOLCnsMqqMXae831itiKmIaU9DRODzn4Ye
+         EUkA==
+X-Forwarded-Encrypted: i=1; AJvYcCWLmeyrz2YQ5Ggjbj+H/qvE+z6UC1vaLPFHqoSTiA/iOIJIqvrH95v+etlicZK5cGAgep0xSivSM77chA3NutsZ4m6GeUMqnCLWeIa8NFc=
+X-Gm-Message-State: AOJu0YzyHTOEWgtAj8FZfpqA0dRYOz3TLHI19bNSLkTxVLoWC7cgvrgJ
+	fb0PE3o1u2P2N1fD4ctZcDirsNmPJvNSRrYDxuLK8lE4//PBaySjNEyIPdpg1Q==
+X-Google-Smtp-Source: AGHT+IFfuZfmf6/9AwVe7DL0mhDZDcPHN0zHIART1qCT9ZT4yFrdCQ3XCItrEHp9/QOl5ICMh9MqLA==
+X-Received: by 2002:a2e:9185:0:b0:2da:4b38:4a28 with SMTP id f5-20020a2e9185000000b002da4b384a28mr1153942ljg.51.1713434406659;
+        Thu, 18 Apr 2024 03:00:06 -0700 (PDT)
+Message-ID: <0f1c2960-2443-4afd-811a-7182cc0ccbd5@suse.com>
+Date: Thu, 18 Apr 2024 12:00:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: docs/misra: add R21.6 R21.14 R21.15 R21.16
+Subject: Re: [PATCH] xen/riscv: check whether the assembler has Zbb extension
+ support
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Roberto Bagnara <roberto.bagnara@bugseng.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2404161227340.2257106@ubuntu-linux-20-04-desktop>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <10816604a8625b5052f134e54c406fb4e7b6c898.1712649614.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,53 +114,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2404161227340.2257106@ubuntu-linux-20-04-desktop>
+In-Reply-To: <10816604a8625b5052f134e54c406fb4e7b6c898.1712649614.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.04.2024 21:27, Stefano Stabellini wrote:
-> Also add two specific project-wide deviations for R21.6 and R21.15.
+On 09.04.2024 10:00, Oleksii Kurochko wrote:
+> Update the argument of the as-insn for the Zbb case to verify that
+> Zbb is supported not only by a compiler, but also by an assembler.
 > 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> 
-> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-> index 32b02905d1..9123c8edb5 100644
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -387,6 +387,22 @@ Deviations related to MISRA C:2012 Rules:
->         of the Rule due to uses of this macro.
->       - Tagged as `deliberate` for ECLAIR.
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+
+While technically all if fine here, I'm afraid I have a couple of nits:
+
+> --- a/xen/arch/riscv/arch.mk
+> +++ b/xen/arch/riscv/arch.mk
+> @@ -11,7 +11,8 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
 >  
-> +   * - R21.6
-> +     - The use of snprintf() and vsnprintf() is justifiable as, despite
-> +       the fact that such functions have the same names of the
-> +       corresponding standard library functions, each configuration of
-> +       Xen has a unique implementation for them; the code implementing
-> +       such functions is subject to the analysis, so that any undefined
-> +       or unspecified behavior associated to them falls under the
-> +       responsibility of other MISRA guidelines
+>  riscv-generic-flags := $(riscv-abi-y) -march=$(riscv-march-y)
+>  
+> -zbb := $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"",_zbb)
+> +zbb_insn := "andn t0, t0, t0"
 
-Checking the Misra spec, I'm actually surprised a deviation is needed. The
-rule's rationale talks about streams and file I/O only. Why would the string
-formatting functions be covered then at all? They also don't have, afaik,
-any undefined or implementation defined behavior.
+As can be seen on the following line (as-insn, riscv-generic-flags) we
+prefer dashes over underscores in new variables' names. (Another question is
+whether the variable is needed in the first place, but that's pretty surely
+personal taste territory.)
 
-> +     - Tagged as `safe` for ECLAIR.
-> +
-> +   * - R21.15
-> +     - The use of void* arguments is justifiable as the rationale for
-> +       the rule is to indicate possible mistakes, and void* is
-> +       frequently used in Xen to represent virtual memory addresses
+Furthermore this extra variable suggests there's yet more room for
+abstraction (as already suggested before).
 
-But that doesn't rule out mistakes. Are there actually examples in the
-code base?
+> +zbb := $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,${zbb_insn},_zbb)
 
-Additionally I wonder (a) whether the rule actually needs an exception
-and thus (b) whether the deviation isn't instead for 21.16. As to (a) I
-understand the rule is worded slightly differently than what would
-strictly be needed to permit void*, but the general rule in C is that
-void* is compatible with all other pointers (suitably qualified as
-needed, of course) anyway.
+Why figure braces in one case when everywhere else we use parentheses for
+variable references? There's no functional difference sure, but inconsistent
+use specifically may raise the question for some future reader whether there
+actually is one.
 
 Jan
 
