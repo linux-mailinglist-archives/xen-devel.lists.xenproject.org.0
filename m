@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D029C8A986A
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 13:19:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708229.1106924 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 503D88A9895
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 13:32:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708239.1106933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxPnB-0000NY-BN; Thu, 18 Apr 2024 11:19:01 +0000
+	id 1rxPz0-0004GV-BT; Thu, 18 Apr 2024 11:31:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708229.1106924; Thu, 18 Apr 2024 11:19:01 +0000
+Received: by outflank-mailman (output) from mailman id 708239.1106933; Thu, 18 Apr 2024 11:31:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxPnB-0000KZ-88; Thu, 18 Apr 2024 11:19:01 +0000
-Received: by outflank-mailman (input) for mailman id 708229;
- Thu, 18 Apr 2024 11:18:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rxPz0-0004Du-8O; Thu, 18 Apr 2024 11:31:14 +0000
+Received: by outflank-mailman (input) for mailman id 708239;
+ Thu, 18 Apr 2024 11:31:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxPn9-0000KN-Q5
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 11:18:59 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 733b886b-fd75-11ee-b909-491648fe20b8;
- Thu, 18 Apr 2024 13:18:58 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-418def30e50so4427365e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 04:18:58 -0700 (PDT)
+ id 1rxPyy-0004Do-FT
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 11:31:12 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 27a3c5fe-fd77-11ee-94a3-07e782e9044d;
+ Thu, 18 Apr 2024 13:31:10 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-343b92e54f5so551450f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 04:31:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e15-20020a05600c218f00b004146e58cc35sm5985025wme.46.2024.04.18.04.18.57
+ h1-20020a5d5481000000b003437a76565asm1622596wrv.25.2024.04.18.04.31.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 04:18:57 -0700 (PDT)
+ Thu, 18 Apr 2024 04:31:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 733b886b-fd75-11ee-b909-491648fe20b8
+X-Inumbo-ID: 27a3c5fe-fd77-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713439138; x=1714043938; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713439870; x=1714044670; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=uHcEi203e2vk1EnLF0eYemKKOMZaurZNtGdQwkwH48o=;
-        b=XAjfKOUBnMuRjE/7lV/CFLdVtb0xLW+mc7iMT3YxJ15EnaVS80Z7oRcCejL9xD/T2V
-         mlTugTvNa8KTY8eCzm5wcSCwJqYPoYVSQRdrkU4xbN7zJAYBK9ouyn1NYg7ewGza/dML
-         0dfGy4ZSicE19IX44U4CcLzsQ8IMtOIiRGlMnS0p2egffpqMAvCIcBCg8YqJUegRuFbL
-         bgSCJ510d46IPqAzKW49BTpA4kIpLo+S6txFVKjCmjMynIJ+cmOnKXzKydZ+wCuRYZc9
-         2QtTyFrEGEwdrNMyQBdFi4cisCAk5IL2rDsIYQO7MOqhveSMsryD5DX/q5UvgybQ0/Tk
-         lVjA==
+        bh=v5Iaesl8Wtddqn1hEetvekHhZV+EdCXbrreVM0ABKBw=;
+        b=Ipn/JBki6T4JcWp207UuxNbdpWUQeURdHmlqzMdHPgPvjQfCuTtsSwPddwFviJpWM6
+         6+GVaTDZffcglv92YN7T/idqChjPaHGh6ek7oSSc3moK08vRDQJErd39985suHAL2V8B
+         yYSpjOz2o3REfukAbNvKlgs+eam6EA3Bn0k3HgbYetpyLWYvuWUz4IHlVv4oH6IVh/5M
+         EXqBPIx+UZujSt7ZgyHIRX0QzyWMuC81yFLCOfIbUmiX1enktIdG4u1eZ0iihCV9Ep28
+         +6PQfBlqWL8Rqlh4W7wOT8fIfH5c/rLHSPIYU7GM8wrU3cgrfgLQTADnpypiSrJp4+F2
+         b3mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713439138; x=1714043938;
+        d=1e100.net; s=20230601; t=1713439870; x=1714044670;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=uHcEi203e2vk1EnLF0eYemKKOMZaurZNtGdQwkwH48o=;
-        b=ARLcG+Brrhix8hX8x7aahEOXrkClM5pHIOV1M+2U3SbWYyO3KWwazxNGKHYpYq/cC7
-         TsGKb2QyeBWJAq755fCH1t4sEaTfNgaqUQhh4Yps3vCxyVDGQmY9mny/PUt6Uoo2r+Wy
-         kldJqNo6l2xb6FSEeGwMVLhdrggsop3CX7ZGAbIdI31LdPFGtM9LADSU6owq4xFl6JW4
-         MBXxaGHV7y7SrW/+S+05pluZNqAIa1UHIzkIIDYqXgI2Phc3lox4LyytxaeaLqqIXCCE
-         DDWAVSt12PQW6Dc4SW8RheBZZzEgSg90gFfKuwKIgCzC4dwDbuALZJkeNstIkBiVX/+m
-         aOWw==
-X-Forwarded-Encrypted: i=1; AJvYcCUZap0UVrMVeK/P72YzUA+d53VmfZsrMydgMWPkBFA8TGMMxgEVPtPgz0H+PKlqNCIz+PK49Eze79Nz7iZPj4uylNyAFRkQnr6BKKyMhhY=
-X-Gm-Message-State: AOJu0YweSo0lWztoncpiz/v6wg2cLoATsHpv0LatxZlw9wEhCXkUg+XS
-	spMgLRyZ/BMsAJ+Twp0WvY59UPkAgSHZyWUKMUhuGh/TQsTTmTKARus/UwSzEA==
-X-Google-Smtp-Source: AGHT+IH/9777xODx89hQxA9p4KeQxhHCuJgE9AWSBBC/G/k4MaJ7ypPx6uEzetATLLDQtbKlS6FA5A==
-X-Received: by 2002:a05:600c:4f47:b0:414:90c3:f5be with SMTP id m7-20020a05600c4f4700b0041490c3f5bemr2000574wmq.36.1713439137684;
-        Thu, 18 Apr 2024 04:18:57 -0700 (PDT)
-Message-ID: <8fbd604e-5e5d-410c-880f-2ad257bbe08a@suse.com>
-Date: Thu, 18 Apr 2024 13:18:56 +0200
+        bh=v5Iaesl8Wtddqn1hEetvekHhZV+EdCXbrreVM0ABKBw=;
+        b=lMRRURZ3OsjqGTl8xFir1+z/NWDKcsYOCgKTvUp6LCrUhdoDqe9WWsPDX0N6oFh0mA
+         /cpGecbrLbgt9M1JOUx7+4bVsNgR0kH15aSmZOj3hvyRG98A1q5iIsKr0eskBXrID8Vz
+         VNmHUbuNb7UJdDjGdt3nz2EVOnBr5gTnvOOJqDLcyJUo+K8OmdwvSgZ2A1jD/tSM0c+H
+         nF0OfyBx1wV4Dt9szqYMeYVLIYD3sDoPykGU6fQUYP9m6rcGz3t4R3Cv89H1mNJIf3OT
+         5fojv9OLifi6Ek9MNltOkVfchfeUxYpvkjkI7co6S0yzbQ4TMbbIkl6GOsAAdwVKFLZQ
+         Udyg==
+X-Forwarded-Encrypted: i=1; AJvYcCXyo1LMEM8s7fJIDlg5kLVkSqtFKtpU89Ter0G6wLfn0ABujiy8DiJ2YU7I/R2s9IQf/Lq8Iz9rH2R8IAk5fJEGoibv0+SKeER4dXfy2lE=
+X-Gm-Message-State: AOJu0Yyscm1sPek+05UTAwpLfyBb29Y9wgR4D6ZTSRTEa0WFEOC2G1kg
+	gx7NF2olF+S1EvTDlFh7+Mt8Lqg2AsBxl3DHOd94C4SNZ0OUPJS+qH0jOjhlnA==
+X-Google-Smtp-Source: AGHT+IFLrtS3IC8XnBeet2XRTDnpltvFre7QPdpIHZnV01osIgY7lj9rPWw7mg1/AMqqR3NInLFDRA==
+X-Received: by 2002:adf:e60d:0:b0:346:65dd:560a with SMTP id p13-20020adfe60d000000b0034665dd560amr1613943wrm.3.1713439869829;
+        Thu, 18 Apr 2024 04:31:09 -0700 (PDT)
+Message-ID: <e8435c75-63c3-4a10-b266-6f4133c1cb9f@suse.com>
+Date: Thu, 18 Apr 2024 13:31:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1 02/15] x86/hvm: guard AMD-V and Intel VT-x
- hvm_function_table initializers
+Subject: Re: [XEN PATCH v1 03/15] x86/monitor: guard altp2m usage
 Content-Language: en-US
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+Cc: Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240416062258.3468774-1-Sergiy_Kibrik@epam.com>
+References: <20240416062503.3468942-1-Sergiy_Kibrik@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,28 +115,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240416062258.3468774-1-Sergiy_Kibrik@epam.com>
+In-Reply-To: <20240416062503.3468942-1-Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.04.2024 08:22, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -156,9 +156,9 @@ static int __init cf_check hvm_enable(void)
->  {
->      const struct hvm_function_table *fns = NULL;
->  
-> -    if ( cpu_has_vmx )
-> +    if ( IS_ENABLED(CONFIG_VMX) && cpu_has_vmx )
->          fns = start_vmx();
-> -    else if ( cpu_has_svm )
-> +    else if ( IS_ENABLED(CONFIG_SVM) && cpu_has_svm )
->          fns = start_svm();
+On 16.04.2024 08:25, Sergiy Kibrik wrote:
+> Use altp2m index only when it is supported by the platform, i.e. VMX.
+> The puspose of that is the possiblity to disable VMX support and
+> exclude its code from the build completely.
 
-Do we have or do we foresee any uses of cpu_has_{vmx,svm} that are relevant
-when CONFIG_{VMX,SVM}=n respectively? If not, I'd prefer if the IS_ENABLED()
-would be folded right into the definitions of cpu_has_{vmx,svm}, as is
-already done for a few other CONFIG_*.
+I'm afraid this description doesn't make clear what problem there is,
+which may be related to the fact that (as mentioned elsewhere by others)
+altp2m isn't a VMX-specific thing. The field read by altp2m_vcpu_idx()
+also looks to be zero for domains that never had altp2m enabled for them.
+Further, ...
+
+> --- a/xen/arch/x86/hvm/monitor.c
+> +++ b/xen/arch/x86/hvm/monitor.c
+> @@ -262,6 +262,8 @@ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
+>      struct vcpu *curr = current;
+>      vm_event_request_t req = {};
+>      paddr_t gpa = (gfn_to_gaddr(gfn) | (gla & ~PAGE_MASK));
+> +    unsigned int altp2m_idx = hvm_altp2m_supported() ?
+> +                              altp2m_vcpu_idx(curr) : 0;
+
+... elsewhere uses of altp2m_vcpu_idx() are guarded by altp2m_active()
+checks. Why the domain-independent hvm_altp2m_supported() here?
 
 Jan
 
