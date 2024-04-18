@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07FA18A95E1
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 11:22:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708156.1106797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6AA28A964A
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 11:36:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708164.1106808 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxNy9-0000bE-6H; Thu, 18 Apr 2024 09:22:13 +0000
+	id 1rxOBl-00053F-DC; Thu, 18 Apr 2024 09:36:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708156.1106797; Thu, 18 Apr 2024 09:22:13 +0000
+Received: by outflank-mailman (output) from mailman id 708164.1106808; Thu, 18 Apr 2024 09:36:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxNy9-0000Yp-3i; Thu, 18 Apr 2024 09:22:13 +0000
-Received: by outflank-mailman (input) for mailman id 708156;
- Thu, 18 Apr 2024 09:22:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w8zc=LX=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1rxNy7-0000Yf-KN
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 09:22:11 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 20d4e12f-fd65-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 11:22:09 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1713432123496247.0588615695027;
- Thu, 18 Apr 2024 02:22:03 -0700 (PDT)
+	id 1rxOBl-00050T-AE; Thu, 18 Apr 2024 09:36:17 +0000
+Received: by outflank-mailman (input) for mailman id 708164;
+ Thu, 18 Apr 2024 09:36:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rxOBk-00050N-Op
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 09:36:16 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 19cded89-fd67-11ee-b909-491648fe20b8;
+ Thu, 18 Apr 2024 11:36:15 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-346359c8785so465651f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 02:36:15 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ h4-20020a5d5044000000b00343daeddcb2sm1371494wrt.45.2024.04.18.02.36.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Apr 2024 02:36:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,126 +45,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20d4e12f-fd65-11ee-94a3-07e782e9044d
-ARC-Seal: i=1; a=rsa-sha256; t=1713432124; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=TYddJKFUoYmCJiQSDNpEgxiAWm3+nf2Eqp8bcqrAHkIBDY2L/f4DKAzejHMfZM02BTbq8/ancrE+m2vNr8Y6FNdqxUzSrajY+CmgAYipFHDU6ivm6CzcseE46Sq/0ZDNlh9MS2zFx7HqwD5yihtzM4EFWXyYiN+31yAoLEM4wXk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1713432124; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ZZtgDsN6IbeSbb35meWYmKT4eJ+LuTKOnhjaTfjtWik=; 
-	b=O/4FTWew2N6LOsGrQQKKS9554nBFyLQH38IS1B362GLeuZye+g/aAe3QamEwA+lbCV2bOs265GB4K3zd16GKe/oM8d5eH8VSqBDIOSGzWdw0ze4eATHVE/Q42S2XMoLBl03f4Nt8/QTCwuX//5whfA65wlPLV4UZp1h3zpqUNNE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1713432124;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=ZZtgDsN6IbeSbb35meWYmKT4eJ+LuTKOnhjaTfjtWik=;
-	b=Ihytc1I7OIupGNyJsrCuYQMyWN3T7rByyCrmsKwGyIAjuubLv/yxRsgXuJBZKhju
-	4NCa9DHZ8U4e9ZMUVE9kEz39xEHU/wwAlGcGx0eE5iGUZLjM+gRCGy3hKv8SL6Le/7Y
-	+tl8t9KmX1ae7COtdv+glTsrZFoHg331uBWzdly8=
-Message-ID: <895e3208-ef9b-42ba-856f-adb2501fccfb@apertussolutions.com>
-Date: Thu, 18 Apr 2024 05:22:01 -0400
+X-Inumbo-ID: 19cded89-fd67-11ee-b909-491648fe20b8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1713432975; x=1714037775; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PuieK1UYmmHqLoOvrU1CZpgX0o0+qK+QbJIehaJKxOU=;
+        b=F6qGPnk14tacwKIuk//NQ5tLCa4VNBx/s6Y8IRdlMbHMn9AGcQEAmndS9JOhWxuO31
+         6A9hpwXY5FQH2Nn9sinVMtIGmjXdJiXrHhqsB9Npoyk1m+tGa8AWJFC06DTX/2yl0qaM
+         4tEEJTQ2eDFxgl8leQl5iGGvScfmibUXAr4w3HvuoaStCAK+d3b8elppBvrYCTKvgFZQ
+         Mn329lRNOCY0Qc0OnIN7Onr/At4tS3UV5CcuPVvxtrwSAJa5jjQOfO6GU24IHaRMLAnY
+         URQC37fAxKIhsllzyb6fSShVJCr8NtZIfK+82sknhRFZo65nzRiR0PP89A3ZNVYeOC5u
+         8Sng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713432975; x=1714037775;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=PuieK1UYmmHqLoOvrU1CZpgX0o0+qK+QbJIehaJKxOU=;
+        b=aSmzSpX39MIpLHSfDHhVr73EyTsoInVUgqwZq2piYW7SocD+ejWkK/L0D87rI2+Taz
+         MGLpIWYJ5RAcFBlH4rW5XfHZ0Oq8vATHkQ2NlpkLnoibGvC2aDL0pvxd7jlN5kMhS8Kk
+         Vf4Tbma9i2ElcFjJ6SMxXkKxB+TRFNb+/4+2ft2R3/VFT74TbCSAwqeMUHgzkki2hnq6
+         qIKdvh1cC74xZN7yyU4NM245q1DBYumZgwcRGdG+0/thb4T+Gl0Oy61CYIkpHRI6avtR
+         lIW3kFmBHBAEbAhSgJTwvBkejQXH4IoXxBFCFglFodDrJCKbwuxfUwIq7WEP86FADLYA
+         qmgQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVyySKAX5fXAsphh5xumxI6X2yHOZKd2qfbn4IzoP9i+cD7Tt5ANUceQ7visfYxisN7TZtQdXUn5Ah8sq3tsxFelKDlCQMsTlKFODp4Aio=
+X-Gm-Message-State: AOJu0Yxz3csAGYkXID5xbW9luvFlg7LBpKCXoKDP7/TM2y605nkmy/Wt
+	y5fovqFb+J3097bTM016D8TwK12ShSVthx4IZW7vZ09sxnFU+9apUVHJiAJiaQ==
+X-Google-Smtp-Source: AGHT+IF1oFe0XI4T7EnwDP0CgbMuw1DShDJQGjvh6By7UTsEFn0yjNR6bdeReJlUoLuMlD8uowwpwg==
+X-Received: by 2002:adf:ab0e:0:b0:341:a640:b516 with SMTP id q14-20020adfab0e000000b00341a640b516mr1118616wrc.70.1713432974711;
+        Thu, 18 Apr 2024 02:36:14 -0700 (PDT)
+Message-ID: <82fb4a07-ecd7-46a7-b7a9-596f2f8ca38b@suse.com>
+Date: Thu, 18 Apr 2024 11:36:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] gzip: refactor state tracking
+Subject: Re: [PATCH 4/4] xen/public: Use -Wpadding for public headers
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20240411152518.2995-1-dpsmith@apertussolutions.com>
- <20240411152518.2995-4-dpsmith@apertussolutions.com>
- <360958a2-5b0d-4fbc-8637-2a33185bdd8d@citrix.com>
- <efb44106-832b-409a-a810-7821e830ac81@suse.com>
- <3ab847bd-b738-48b8-865b-62f7c488386b@apertussolutions.com>
- <cd468e0c-40a6-41f6-9989-563dec881398@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <cd468e0c-40a6-41f6-9989-563dec881398@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>
+References: <20240415154155.2718064-1-andrew.cooper3@citrix.com>
+ <20240415154155.2718064-5-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240415154155.2718064-5-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 4/18/24 05:17, Jan Beulich wrote:
-> On 18.04.2024 11:13, Daniel P. Smith wrote:
->> On 4/18/24 03:36, Jan Beulich wrote:
->>> On 11.04.2024 21:24, Andrew Cooper wrote:
->>>> On 11/04/2024 4:25 pm, Daniel P. Smith wrote:
->>>>> diff --git a/xen/common/gzip/gunzip.c b/xen/common/gzip/gunzip.c
->>>>> index 1bcb007395ba..9b4891731b8b 100644
->>>>> --- a/xen/common/gzip/gunzip.c
->>>>> +++ b/xen/common/gzip/gunzip.c
->>>>> @@ -102,12 +109,13 @@ __init int gzip_check(char *image, unsigned long image_len)
->>>>>    
->>>>>    __init int perform_gunzip(char *output, char *image, unsigned long image_len)
->>>>>    {
->>>>> +    struct gzip_data gd;
->>>>>        int rc;
->>>>
->>>> By the end of this series,
->>>>
->>>> Reading symbols from xen-syms...
->>>> (gdb) p sizeof(struct gzip_data)
->>>> $1 = 2120
->>>>
->>>> x86 has an 8k stack and this takes 1/4 of it.  Other bits of state are
->>>> dynamically allocated, even in inflate.c, so I'd highly recommend doing
->>>> the same for this.
->>>>
->>>>
->>>> Also, could I nitpick the name and request:
->>>>
->>>> struct gzip_state *s;
->>>
->>> Except: Why "gzip" when it's un-zipping state?
->>
->> Gzip is the name of the algo/suite for which the code is moved under,
->> and in typical fashion its structures are named after the feature they
->> belong. Still, I went and looked at the other algos. I found two that
->> have state tracking and yes, they do use the operation for the struct
->> name and not the algo/feature under which they reside. If you want this
->> yak shaved, I have no vested interest one way or another, I just need
->> the decompressor to be re-entrant.
+On 15.04.2024 17:41, Andrew Cooper wrote:
+> RFC.  In theory this is a great way to avoid some of the spiketraps involved
+> with C being the official representation.
 > 
-> Well. Generally speaking compressor and decompressor may need different
-> state to track. As we have seen with tmem, there may be reasons why a
-> compressor may also be needed in Xen. Hence unless it is known for sure
-> that either no need will ever appear for gzip, or gzip's compression
-> and decompression states are identical, I'd prefer the struct name to
-> reflect the specific purpose.
+> However, this doesn't build.  gnttab_transfer has a layout that requires a
+> CONFIG_COMPAT if we want to satisfy -Wpadding for both forms of the structure.
+> 
+> Thoughts on whether this cross-check is worthwhile-enough to warrant the
+> ifdefary?
 
-Ack
+#ifdef-ary in general would be okay. But any #ifdef CONFIG_* would look pretty
+odd to me in a public header. Perhaps as
+
+#if defined(__XEN__) && defined(CONFIG_COMPAT)
+
+it might be tolerable.
+
+> --- /dev/null
+> +++ b/xen/common/hdr-chk.c
+> @@ -0,0 +1,13 @@
+> +#include <xen/stdint.h>
+> +
+> +#include <public/xen.h>
+> +
+> +#pragma GCC diagnostic error "-Wpadded"
+
+Everywhere up to here you say -Wpadding.
+
+> +#include <public/grant_table.h>
+> +
+> +#ifdef CONFIG_COMPAT
+> +
+> +#include <compat/grant_table.h>
+> +
+> +#endif /* CONFIG_COMPAT */
+
+I'm not overly happy to see a 2nd header checking "pass" added. We already
+have the headers.chk goal in xen/include/Makefile, after all. For the non-
+generated headers adding -Wpadded there would seem more natural to me,
+first and foremost because then it is less likely that one of the two places
+would be missed if a new header is added. Something long those lines may then
+need adding for the generated compat headers, but again preferably without
+enumerating them all in yet another place.
+
+> --- a/xen/include/public/grant_table.h
+> +++ b/xen/include/public/grant_table.h
+> @@ -355,6 +355,7 @@ struct gnttab_unmap_grant_ref {
+>      grant_handle_t handle;
+>      /* OUT parameters. */
+>      int16_t  status;              /* => enum grant_status */
+> +    uint16_t _pad0;
+
+While you may view it as nitpicking, in the public headers I'm pretty firm
+on not wanting to see new name space violations, i.e. new names with leading
+underscores which aren't file-scope identifiers.
+
+Furthermore what's the deal with using "pad0" here and in one more place,
+but "ign1" / "ign2" in other cases?
+
+> @@ -371,6 +372,7 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_unmap_grant_ref_t);
+>  struct gnttab_setup_table {
+>      /* IN parameters. */
+>      domid_t  dom;
+> +    uint16_t _pad0;
+>      uint32_t nr_frames;
+>      /* OUT parameters. */
+>      int16_t  status;              /* => enum grant_status */
+
+I'm surprised no padding field would be needed right below here, seeing
+that what follows is a handle:
+
+#if __XEN_INTERFACE_VERSION__ < 0x00040300
+    XEN_GUEST_HANDLE(ulong) frame_list;
+#else
+    XEN_GUEST_HANDLE(xen_pfn_t) frame_list;
+#endif
+
+The size of this padding field would then also be compat-dependent, I
+suppose.
+
+Jan
 
