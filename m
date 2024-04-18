@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE9D18A9E08
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 17:11:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708464.1107399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1907D8A9E17
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 17:15:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708469.1107410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxTPP-0007aW-OW; Thu, 18 Apr 2024 15:10:43 +0000
+	id 1rxTTk-0000LC-9L; Thu, 18 Apr 2024 15:15:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708464.1107399; Thu, 18 Apr 2024 15:10:43 +0000
+Received: by outflank-mailman (output) from mailman id 708469.1107410; Thu, 18 Apr 2024 15:15:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxTPP-0007Yw-Lf; Thu, 18 Apr 2024 15:10:43 +0000
-Received: by outflank-mailman (input) for mailman id 708464;
- Thu, 18 Apr 2024 15:10:41 +0000
+	id 1rxTTk-0000HZ-66; Thu, 18 Apr 2024 15:15:12 +0000
+Received: by outflank-mailman (input) for mailman id 708469;
+ Thu, 18 Apr 2024 15:15:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxTPN-0007Yp-GH
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 15:10:41 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1rxTTj-0000HS-4v
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 15:15:11 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d12caa1f-fd95-11ee-b909-491648fe20b8;
- Thu, 18 Apr 2024 17:10:39 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4187c47405aso6890405e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 08:10:39 -0700 (PDT)
+ id 7261a7f1-fd96-11ee-b909-491648fe20b8;
+ Thu, 18 Apr 2024 17:15:10 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-418a02562b3so7938815e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 08:15:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n6-20020a05600c3b8600b0041892e839bcsm3035404wms.33.2024.04.18.08.10.38
+ z2-20020adff742000000b00343ca138924sm2059697wrp.39.2024.04.18.08.15.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 08:10:38 -0700 (PDT)
+ Thu, 18 Apr 2024 08:15:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d12caa1f-fd95-11ee-b909-491648fe20b8
+X-Inumbo-ID: 7261a7f1-fd96-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713453039; x=1714057839; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713453310; x=1714058110; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=CMTAxaZbyuKHcoSbfnzuhUqHHs08RATjmR833JQS7CY=;
-        b=ZDezDPsj290eLU9swSr28mjFL/QoClVslfx5UTDtofmLN8mdZT5cC3D9m03uvD9vdb
-         +rces8WBg2AdvMjhE8bnLyW5TLhDoJ1ospTZxjinutajmnpinkcIvvwam6RUyGZ49l09
-         mbc/WKilkM/QNHGb3yTc2BeNRDuSOzzGPwSgY3mTxZIRXmq9QVlGeeTIZPredDaMNoA4
-         xkRz52yVtwtqe/MfPpi6mMiBGOG/rKRNUnfUUSah52IE0jz+eyOv1hR4IAVkK68lHjGE
-         s0xF32jIM4X0L4pfNp7dkE6i2C+LjGJgAoF5QacpRfqT/qZJu9TJz3YMyY2T1nmtHP6p
-         58+Q==
+        bh=taCjJHscq++mcJI9P17No4unTObZIj9tjRwq3nSNEEc=;
+        b=BfeJsvK0U5J3lZGc+6EmhmnL7cPjrdwSMWZd6Fn8NVlJbY+OgXvxLQQalQwqI++jH8
+         B1g7w6sHE48isRx08A3TFD2s1N26MNNYvqzaz6cw+8LdUkWeLrw/aZHM4f8e6KfRtkAs
+         72O+Xu7b66puqXn9J1VHoPorf2qzIBvWSVO5ZrEAHmJYruaBCjyGk1qeag/jxoojtJLv
+         RPpo8IquFLvl+5+C3tCOIQWTpNZp11rn4IFi9Ctf7VCSB3e5r/uNZN3ZqnzQxf5yibL0
+         zHLnnNKjv6Z3D38ge8d2s5/fzh4LJgs0Syad76zPRUZFiqCibv4F7o4dUVbKuMt74st6
+         kclg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713453039; x=1714057839;
+        d=1e100.net; s=20230601; t=1713453310; x=1714058110;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=CMTAxaZbyuKHcoSbfnzuhUqHHs08RATjmR833JQS7CY=;
-        b=LtcjhnwCfpxpiW9IAtsT1gSsVxaRlG/+8r3YkEynnOf3MBfHjyXXA3QbBM+dYUBpJx
-         LVCJfzSIoA9TLW9vGPtv1QhIdvgv03hZcImCpOmNel55OsmM2I9ilvrVJewwSHNOp68J
-         IMgHJJtbq6bysNGysx5eT0Pcwub/0Dm7MyjntUtZee8ylVPuZ7tJkKNmv5XitNplv9Zv
-         EYhB/ND91po33bY8yNoqwA+1Wbdj6rfoyV0KSVVwOhfGSP7rjoekpsBk6v82xz4L4sNm
-         sFE2lRz3+eMOZeMiU3v7Tv5jYzy1NZGvNUxFhK1UCJaK5NHox7b/1YIdC/eXaSe/Hd7R
-         TPbA==
-X-Forwarded-Encrypted: i=1; AJvYcCVEB7t5wv578EZcVHn2K+/WeZG2fu3cr5BcSzt5ZDF2hq32B+AAgefiZHcFa1Db+DlNF0i8rU3/FZFnJB41tUm9EhwpXKEOnyK3+UoutLQ=
-X-Gm-Message-State: AOJu0YxuMSCXuXAStNDMosWZoCVtesJ1hZlzyJgIN1T4nIxSbYL00Nkr
-	nfWdepg3ntmeBzGqvw/okBPCBUfxjWx5na0kPuGVh8Smohi0/5ekfIakbV7PfA==
-X-Google-Smtp-Source: AGHT+IH4SUoQhWvTDVlCe4L9XxqaJ78GmmxWLli4HesEv4tFmSzHPDsBFSRdvrfAn5kvUqvdPO9pdA==
-X-Received: by 2002:a05:600c:35c4:b0:418:913e:b9dd with SMTP id r4-20020a05600c35c400b00418913eb9ddmr2174858wmq.6.1713453039135;
-        Thu, 18 Apr 2024 08:10:39 -0700 (PDT)
-Message-ID: <500fff2d-2316-4090-8cf3-a697bda6ee01@suse.com>
-Date: Thu, 18 Apr 2024 17:10:38 +0200
+        bh=taCjJHscq++mcJI9P17No4unTObZIj9tjRwq3nSNEEc=;
+        b=RBhMiYk6GytQz57S3aSPsyfXcYfAoPkghXHvPtqLCqVQlZCgAHmWLJ0Rlaha7O/0ff
+         L+S65VuSG8TzuPcmqxIrvGskGXZ8CPSB/5sUM1fcMTra1Xa4LU56xiAz3xSM+dQwNH5L
+         9kjzFc3Tc1fEAOotra77M2C6fH6n9mVxoEOZJzxgC1XZE7OMRkZdHFj4YhCOTeZxgEE3
+         hAzldgnheG2BcQ5czBOOc7NRtESS91hIOFmgBpSwoOztKXCh2g6VP4zA7vpaSyZ9TfYr
+         YEQ53fGSg4X3QlP8lInHZYEw6h6P7718lTMjqhdDHCCUgHhYu5gwKOlM2hdWAUMMj+Lv
+         A6bQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWMnYNrOlEkAXlOXHTS/41f4hZK+YPn61QGD/LTIiqOC70in7C9aQoZEkCx8VDcODsD0wqe+HDykIEXtXt91pgpgdhkhFZZeGDVRNnczo4=
+X-Gm-Message-State: AOJu0YwaHh9u9srLSnerTuQkiL48SO4zLvzBVTrrY/XfFa/2l7dWh7b7
+	JrYTE98MjlJaeVLSkUw794Mn8gRe13b4UBFpiAcM/pEMLSf2x1xPLOVjcZMdKQ==
+X-Google-Smtp-Source: AGHT+IH7Pvlo8X6QVKZzRuy1heASdbKI15Xuj7heW6/Cy9Nmn8GUOXEd2sCwMZK3Cjs4dXTuXIeXlQ==
+X-Received: by 2002:a5d:5986:0:b0:34a:2da1:c556 with SMTP id n6-20020a5d5986000000b0034a2da1c556mr1218464wri.37.1713453309685;
+        Thu, 18 Apr 2024 08:15:09 -0700 (PDT)
+Message-ID: <eb04d2c3-5667-4f71-a2a2-ee8e108c2880@suse.com>
+Date: Thu, 18 Apr 2024 17:15:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 1/2] xen/domctl: address violations of MISRA C Rule
- 16.2
+Subject: Re: [XEN PATCH] automation/eclair_analysis: substitute deprecated
+ service
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
- julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1713382466.git.nicola.vetrini@bugseng.com>
- <6ebb49a8ae92dc036d7bed0c708a8830bb93c788.1713382466.git.nicola.vetrini@bugseng.com>
+ julien@xen.org, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
+References: <4850cedd9680e521cfac350930b24af19cdf1ab8.1713338908.git.nicola.vetrini@bugseng.com>
+ <2d890f61-6f51-4d64-844e-24207805a65c@suse.com>
+ <d0896c61235cb9f071cb0586fe87ee46@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,41 +115,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6ebb49a8ae92dc036d7bed0c708a8830bb93c788.1713382466.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <d0896c61235cb9f071cb0586fe87ee46@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.04.2024 21:37, Nicola Vetrini wrote:
-> Refactor the first clauses so that a violation of
-> MISRA C Rule 16.2 is resolved (a switch label should be immediately
-> enclosed in the compound statement of the switch).
-> Note that the switch clause ending with the pseudo
-> keyword "fallthrough" is an allowed exception to Rule 16.3.
+On 18.04.2024 17:00, Nicola Vetrini wrote:
+> On 2024-04-18 09:22, Jan Beulich wrote:
+>> On 17.04.2024 16:51, Nicola Vetrini wrote:
+>>> --- a/automation/eclair_analysis/ECLAIR/toolchain.ecl
+>>> +++ b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+>>> @@ -44,8 +44,8 @@
+>>>  -doc_end
+>>>
+>>>  -doc_begin="See Section \"6.19 Structures with No Members\" of 
+>>> "GCC_MANUAL"."
+>>> --config=STD.emptrecd,behavior+={c99,GCC_ARM64,specified}
+>>> --config=STD.emptrecd,behavior+={c99,GCC_X86_64,specified}
+>>> +-config=STD.anonstct,behavior+={c99,GCC_ARM64,specified}
+>>> +-config=STD.anonstct,behavior+={c99,GCC_X86_64,specified}
+>>>  -doc_end
+>>
+>> I'm irritated by this, which may be in part because of too terse a 
+>> description.
+>> "emptrecd" looks like an abbreviation of "empty record" to me, in line 
+>> with
+>> "Structures with No Members". "anonstct" otoh looks an abbreviation of
+>> "anonymous structures" to me, which is something different (structures 
+>> without
+>> names).
 > 
-> Convert fallthrough comments in other clauses to the pseudo-keyword
-> while at it.
-> 
-> No functional change.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+> I'm afraid I can't do much about this. From a functionality standpoint 
+> there is no difference for Xen.
 
-I did ack a patch with this title, yes, but the content of that patch
-was different. Besides all the references to the fallthrough pseudo-
-keyword being unrelated to the change below, there's also nothing ...
-
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -457,6 +457,7 @@ static int domain_teardown(struct domain *d)
->  
->          for_each_vcpu ( d, v )
->          {
-> +            /* SAF-5-safe MISRA C Rule 16.2: switch label enclosed by for loop*/
->              PROGRESS_VCPU(teardown);
->  
->              rc = vcpu_teardown(v);
-
-... domctl-ish in here. What is going on?
+What I'm pretty sure you can do is provide a patch description that
+allows readers to understand anything seemingly (or actually) anomalous.
 
 Jan
 
