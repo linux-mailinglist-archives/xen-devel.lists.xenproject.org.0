@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB51D8A9843
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 13:10:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708218.1106901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B60748A985F
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 13:17:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708225.1106910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxPeJ-0005QB-6J; Thu, 18 Apr 2024 11:09:51 +0000
+	id 1rxPkk-0007Is-UC; Thu, 18 Apr 2024 11:16:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708218.1106901; Thu, 18 Apr 2024 11:09:51 +0000
+Received: by outflank-mailman (output) from mailman id 708225.1106910; Thu, 18 Apr 2024 11:16:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxPeJ-0005O0-1y; Thu, 18 Apr 2024 11:09:51 +0000
-Received: by outflank-mailman (input) for mailman id 708218;
- Thu, 18 Apr 2024 11:09:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rxPkk-0007Gd-Rc; Thu, 18 Apr 2024 11:16:30 +0000
+Received: by outflank-mailman (input) for mailman id 708225;
+ Thu, 18 Apr 2024 11:16:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxPeH-0005Nu-Ti
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 11:09:49 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ba36f13-fd74-11ee-b909-491648fe20b8;
- Thu, 18 Apr 2024 13:09:48 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-34388753650so331805f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 04:09:48 -0700 (PDT)
+ id 1rxPkj-0007GV-Pq
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 11:16:29 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1974cfcc-fd75-11ee-94a3-07e782e9044d;
+ Thu, 18 Apr 2024 13:16:27 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-418a02562b3so6186295e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 04:16:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- y18-20020a056000109200b00343300a4eb8sm630506wrw.49.2024.04.18.04.09.47
+ a12-20020a056000100c00b00349ceadededsm1598066wrx.16.2024.04.18.04.16.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 04:09:47 -0700 (PDT)
+ Thu, 18 Apr 2024 04:16:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ba36f13-fd74-11ee-b909-491648fe20b8
+X-Inumbo-ID: 1974cfcc-fd75-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713438588; x=1714043388; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713438987; x=1714043787; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZlChCvj/M8OawAmjv/Qjcp6V1xQnjZVmsinFhTGb7Bw=;
-        b=AIHIqak0l27sG8/XX+ivFApINpGgH7ABl7U7TG4qreTgE9Ntv+UJbr3nnezM6qmBJw
-         CKIswEdMYcHwC+tFn1YSFKqhXDGVQ+QlmkU9Cw5z5OQTm6n3+cwiSWbiBosCk332Hd19
-         vA5ZCBgNzxAp+S5lj3zJxMi8NEeqAH1wKz765/uX/Noz7B59d87KQTd6zIM/ZZGlqunC
-         znPZbBOPhxcoG+AqDpzJOhjEjdjj0dclGOj7yGSbZTaaado+aE8ojMmk6ie9NjycYEoI
-         E3VS3JKpSLCI6o1C79X7ripB/u6yqN+gybBNZz7alGL7wjZvADFDK+q6GRXR2PigKBrJ
-         Rvzw==
+        bh=FMNGKzRzUdfJ3G/0b2iRXr3nsFYo6Mcz9mjsNx0KCi0=;
+        b=EMQGYH7ASrx6LEXRXHyjbNUMNhFaMgNB72WyRkp2hqhdEvWebL7W6FCH4NEuTrd2kh
+         /cMeXuW/KsQkCfBiQh2vwCjYwAYVo24nv9736Px7SneuWvCR3Yzo6wG7cGDpZj6PByTB
+         Ps3DwX+RMa7vftUuK+0Rw48FJ+n0PWr24XRKV++RTAuyW6leZ40/l9goafUwljv0MINj
+         /SCeNYHBlZu9rrp+QiobZEqMH2XbgsFRqOqGZvwzA+PeiXh/ZdIvDKboXZ03ET/qh2XC
+         vPir5Y148jTHMN7WZBkJm8jG11hhDfahjjbkeucGi99m0fbeuvFs4oKeQpiHB0LIFb0y
+         AV9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713438588; x=1714043388;
+        d=1e100.net; s=20230601; t=1713438987; x=1714043787;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZlChCvj/M8OawAmjv/Qjcp6V1xQnjZVmsinFhTGb7Bw=;
-        b=Stprc5siQFNOmGgy+LFOG9W9xGQUyeeAGCDAc1JprRnMepgT2JM0uvV1nORNYGk3O2
-         6G8bqXS9e+aZReyCbC6P1LcGggkpwmhtecoaoXSdplhSODZ0KNaK61IXLW8cnU09Sxa0
-         k1ebBP9X+f/TS/tF4l+hVegNUkZyBycFZ2QA6e3kDuyGRTrCGBq9/fb4ol3NPy3jyVKv
-         4wiiIOmRhPEiEE6mPNjDz82fCNS0w+Pxv2pN2VjZdRKWZFA5qqQlYvLFLvBUP/rAOAm1
-         I3EcQXXNCdX293YlXPc6VE936hxqRaWldQUw3ckJNs3t4qVtMTpWHF5xOIbwe53KYIrF
-         0Ibw==
-X-Forwarded-Encrypted: i=1; AJvYcCVF7s0EUHLbEH0CJDIA8uch1LAfr+d5hdvMGq25iKfbwuPtQbxEHbXRDEq902A0i/cIdBCd/DlZ3Dcz+ScIJmFW++BepmFX33rhHr1CCzs=
-X-Gm-Message-State: AOJu0Yxy5h0FqcbfpvoHmbfMmp4iK8+vUmER/0Vj4yF9d579MiX+TkAh
-	+SIJAtz1BTnKaZAsJgxEf/UKCY1v8O3O0i/jiyfuc6Ayz0GhAOtZMIVZs1kubg==
-X-Google-Smtp-Source: AGHT+IE+S5+24sx2PK+0VhS5RdpQoSG5QMBKsteqKwDnTFCsZHfOJSjroplxbGcv+MV7fYYQDI57bA==
-X-Received: by 2002:adf:f2d1:0:b0:349:8ae9:b01f with SMTP id d17-20020adff2d1000000b003498ae9b01fmr1638082wrp.1.1713438588148;
-        Thu, 18 Apr 2024 04:09:48 -0700 (PDT)
-Message-ID: <e494f047-d2be-4467-87c3-7908d98767bf@suse.com>
-Date: Thu, 18 Apr 2024 13:09:47 +0200
+        bh=FMNGKzRzUdfJ3G/0b2iRXr3nsFYo6Mcz9mjsNx0KCi0=;
+        b=Um/e7PgT2GajRWvQ6abLu/SF8IjhbJ9V1tMxMnuvNkzXY4W/I4/bAH0rfXQOorjkpg
+         YoAIAkoS5Hy1owbKQwCWcNOA6E7ROmQtnHpQ+pEYW+4xn8tCT+ZUwQA9NsUqFgHDQYVr
+         h78J+wS6x06JiA9ZhV66iTUTA3rpX1/hU/D3S/Y8jYEZVCpkB6neruf6lxvRdvJGr3KG
+         kHNBjb3UJfqLvlvDjWYeoE0z1J/uv40AMeNSyX8CK3D4wRuyQcGHDUfZhCwlhNqbbaaM
+         QkKGq7/ec/QYFba7pz74dhnm1j6aTvhaPJnT2NK7Ouz5dhH5N9cHf9GF39crCWm31U/+
+         BCkg==
+X-Forwarded-Encrypted: i=1; AJvYcCWLl3RretGJqXFpMBGj+CDttpcQpSLkUSZARF9EiT45R2SKkaAU1A0Mc9qbgPTJ6IhnrpxWn3k2GtAuBcA7t+cIft9+GHvGGFSUxcsESiA=
+X-Gm-Message-State: AOJu0YzgOslYxnM1dFBKuqgDLQtsVrQ+bZNK+ybhWioEetVkakwrCKl7
+	dNBkieyT+Y9V19bBaV8WWUhJzyDC053STIC2ys1TgpQGEHCSdkT1+RzKRXkrtg==
+X-Google-Smtp-Source: AGHT+IHlkGQlv1GSZcuHWNdAlgXqxkh0tGTRSB2V8bQuVp1PlmMMwK5iaNoaalsO+64M9HrspNFd3g==
+X-Received: by 2002:a05:600c:444a:b0:418:49ad:6fd3 with SMTP id v10-20020a05600c444a00b0041849ad6fd3mr1620672wmn.19.1713438987023;
+        Thu, 18 Apr 2024 04:16:27 -0700 (PDT)
+Message-ID: <6166e740-3710-4687-ba1f-d4058a2e3d55@suse.com>
+Date: Thu, 18 Apr 2024 13:16:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/efi: Rewrite DOS/PE magic checking without memcmp()
+Subject: Re: [XEN PATCH v1 01/15] x86: introduce AMD-V and Intel VT-x Kconfig
+ options
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Roberto Bagnara <roberto.bagnara@bugseng.com>,
- Federico Serafini <federico.serafini@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240416155251.2942504-1-andrew.cooper3@citrix.com>
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20240416062052.3467935-1-Sergiy_Kibrik@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,22 +115,72 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240416155251.2942504-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240416062052.3467935-1-Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.04.2024 17:52, Andrew Cooper wrote:
-> Misra Rule 21.16 doesn't like the use of memcmp() between a string literal and
-> a UINT8 array.  Rewrite using plain compares.
+On 16.04.2024 08:20, Sergiy Kibrik wrote:
+> From: Xenia Ragiadakou <burzalodowa@gmail.com>
 > 
-> No functional change.
+> Introduce two new Kconfig options, SVM and VMX, to allow code
+> specific to each virtualization technology to be separated and, when not
+> required, stripped.
+> CONFIG_SVM will be used to enable virtual machine extensions on platforms that
+> implement the AMD Virtualization Technology (AMD-V).
+> CONFIG_VMX will be used to enable virtual machine extensions on platforms that
+> implement the Intel Virtualization Technology (Intel VT-x).
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Both features depend on HVM support.
+> 
+> Since, at this point, disabling any of them would cause Xen to not compile,
+> the options are enabled by default if HVM and are not selectable by the user.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-after having realized that sadly gcc13 instantiates the compound literals
-(that I had thought of using) in .rodata (or one of its variants), rather
-than leveraging them being as constant as string literals.
+In the subject tag you say v1, but I think this is a re-post? In which
+case and with it having been a long time since then it would be even
+more so important that a proper revision log is present in each individual
+patch.
+
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -120,6 +120,12 @@ config HVM
+>  
+>  	  If unsure, say Y.
+>  
+> +config SVM
+> +	def_bool y if HVM
+> +
+> +config VMX
+> +	def_bool y if HVM
+
+It was probably me to have requested this form, but meanwhile I've learned
+(on the Linux side) that newer kconfig is capable to dealing with
+
+config SVM
+	def_bool HVM
+
+config VMX
+	def_bool HVM
+
+quite fine (i.e. no longer leaving around useless "# CONFIG_... is not set"
+when (in this case) HVM=n. Please double check with the kconfig we use
+whether that's the case there, too, and simplify if so.
+
+> --- a/xen/arch/x86/mm/Makefile
+> +++ b/xen/arch/x86/mm/Makefile
+> @@ -10,6 +10,7 @@ obj-$(CONFIG_MEM_SHARING) += mem_sharing.o
+>  obj-$(CONFIG_HVM) += nested.o
+>  obj-$(CONFIG_HVM) += p2m.o
+>  obj-y += p2m-basic.o
+> -obj-$(CONFIG_HVM) += p2m-ept.o p2m-pod.o p2m-pt.o
+> +obj-$(CONFIG_HVM) += p2m-pod.o p2m-pt.o
+> +obj-$(CONFIG_VMX) += p2m-ept.o
+
+Please can these be kept in alphabetical order?
 
 Jan
 
