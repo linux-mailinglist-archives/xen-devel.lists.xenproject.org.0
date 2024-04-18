@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9E9A8A945D
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 09:47:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708092.1106688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8FC08A94B8
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 10:14:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708106.1106698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxMUL-0006k2-Kx; Thu, 18 Apr 2024 07:47:21 +0000
+	id 1rxMu8-0005Vg-4F; Thu, 18 Apr 2024 08:14:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708092.1106688; Thu, 18 Apr 2024 07:47:21 +0000
+Received: by outflank-mailman (output) from mailman id 708106.1106698; Thu, 18 Apr 2024 08:14:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxMUL-0006iT-Hm; Thu, 18 Apr 2024 07:47:21 +0000
-Received: by outflank-mailman (input) for mailman id 708092;
- Thu, 18 Apr 2024 07:47:20 +0000
+	id 1rxMu8-0005Sn-0N; Thu, 18 Apr 2024 08:14:00 +0000
+Received: by outflank-mailman (input) for mailman id 708106;
+ Thu, 18 Apr 2024 08:13:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxMUK-0006iL-37
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 07:47:20 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1rxMu6-0005Sh-KY
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 08:13:58 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e12f3039-fd57-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 09:47:17 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-418bbc690e1so4779785e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 00:47:17 -0700 (PDT)
+ id 99e25a9e-fd5b-11ee-94a3-07e782e9044d;
+ Thu, 18 Apr 2024 10:13:56 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-418e4cd1fecso2783025e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 01:13:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p15-20020a05600c358f00b00418ef96472asm336004wmq.0.2024.04.18.00.47.16
+ y18-20020a5d4ad2000000b0034a0d3c0715sm1025811wrs.50.2024.04.18.01.13.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 00:47:17 -0700 (PDT)
+ Thu, 18 Apr 2024 01:13:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e12f3039-fd57-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 99e25a9e-fd5b-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713426437; x=1714031237; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713428035; x=1714032835; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=JDvkxOWu6iaqPvLNsHPt1daX2aWYf6HoPzOB4rJqaKo=;
-        b=LNXl6qBhpRDAZz1d1Us1caesYH8dAuFX//2tPEGC/Xl2CXZzaVtbsoiAbJp1yfSxFr
-         3RM+0uUZrIY8fuJg5k4zRAJdqXSD0fSiG/ImjjyXUWf8o9IHkr+6V3sA/s2TJ0uE5EJM
-         55cDP2D3mqkS7RZ7B2EI98paMbb4Vud+r3UK4/uhDnfbOBeA3oEJj/EoJVEYxita/YYP
-         cE2A218KAeBFXzc+o22FJBVVQgw1D0AqFOtzLegHM/QW3RQY0liL7cDy7ZARlz84G0Rw
-         I5VL+3TTDF6kWywERzioN3wa1Qk+8zvktrpyYHEDxMGLAeQKDEJOEkZW2kRKaj81CDuL
-         wTYw==
+        bh=u/QFEkzQtkqWOX/3y1fSOehqDrOYjutE6TZyM81YF1c=;
+        b=B4EIVWrBCywh+0aTtz0GFvI6OKwYBhrX/E7/YqO4h1ZWO2EeXLWJhftnZunSrFN3/+
+         rd36iKhtjCYj7qEY6fnp40XUbpV35mIze3P5MFGndfseeIkafw5P3a8Z6aAYdyJCp74r
+         Ah9epqjnHj802xgV222PzN42NIE2pmgtTXszlWV7zH3eVqo9Ov5qQL8ROKD3e2JiY8Lt
+         9L2weMph69Nrl4kJpuDLzAcJSGZWWStuS7ZgKpXigZziWU5f537i+JWYLBGK0RqMIM7G
+         PBm1MTB5bTSmQ4uRnyAlqCYIwA7EFFWsF3wfAUy9nIYyOtMbYYk9vJtdm6uM+oUzCPsc
+         shvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713426437; x=1714031237;
+        d=1e100.net; s=20230601; t=1713428035; x=1714032835;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JDvkxOWu6iaqPvLNsHPt1daX2aWYf6HoPzOB4rJqaKo=;
-        b=i2QJJ9dGrxrYBK2osnrKaq+bYr49TxZ7AEifa32fX9Ye+egCvRjZ0x/j1S+z5jmyxy
-         5rT15/bJ9RRnoqPYXP3OhcZnVaGIOi/VnvMXo5DpalYiWPTE6wsM/1cMgnOJY4VkMWvK
-         8JTVLXkDveuZ9aM7tXJV20MajUjMCkWpebvTunycEPqYWA86+s6jBzUwuySeLee7uYdo
-         9InL+I93BymyH4r9Xe8X1JZdPidihUDLI0ZviZIZUuqtN3l3cnP5MiNWMzjGYFu4/56j
-         XyvJhdVzH6SRf3PjgeVbfiSl9brukQZ4Iqh5to0YfO85f+Qs5M6km3dAfWUuE6kkfwiK
-         IjJg==
-X-Forwarded-Encrypted: i=1; AJvYcCXPIOlROA1YGpFEOTIyfWc6jwGdCxieU7Wukn/HwxwOCGPD7ozHwRaMZ+OVVuBPHfy9qrJd51khF+3gcQZIq223i+F1myUQdqgYJZWDlWY=
-X-Gm-Message-State: AOJu0YyhN05oFTLDQHXXkkJMd4wBeHN6YVeI10v8hkuTSlOxf3oj2YZf
-	eTyBUGMZU9Wzv0fP/gO1vQO+dVYiDbVTIMnOllsblTKP0sH5Pin+CYEFDoxgiTsENLCw2CpAm+w
-	=
-X-Google-Smtp-Source: AGHT+IHpu6lbBwnCWqOJKGoMrrMTHk/llIbpS5axaRI4Xq0YikDGvTan73IdClDRc8IIYO5SPHP5Qw==
-X-Received: by 2002:a05:600c:1d03:b0:418:bbd5:e7f8 with SMTP id l3-20020a05600c1d0300b00418bbd5e7f8mr1257094wms.16.1713426437331;
-        Thu, 18 Apr 2024 00:47:17 -0700 (PDT)
-Message-ID: <62f3ba42-4bdb-4861-b374-d817c3961219@suse.com>
-Date: Thu, 18 Apr 2024 09:47:16 +0200
+        bh=u/QFEkzQtkqWOX/3y1fSOehqDrOYjutE6TZyM81YF1c=;
+        b=q4ulHMg+R9Sbwa9RHEzWwxJkz3w6xnWC148ucWFbJc2aK83Z+2B2QB2/K1Ss+aFdTQ
+         Evl/BfenzoQFEGcKhhHXaXN7FM3RYhHuNTfd8L21lhPi4CK12q4rS3R5mMNCwp/h2rN0
+         L2tHfOBHs3ccBqyLtYPNRs7gT/YGphDnfBywJfFHmNHvraJGWlN5h11T8Z7T9All7k8T
+         0rhh6pGRZx02XiXsDe72cPpeH1aKAOehgFg00Al2z4qJO5/pDStqu3IIaHQVUD2OlYS3
+         CbPfeKkzHvXDfx3ECe/LuCjqZzV3aXObGy262hmBjRCYayV9d+6AkekA90N04/zFHyVQ
+         Ph+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCV4JwKnN3Y0SubeNHzeQtjVLrRGfztJLMunYabjKAxbn5eDu6zzYB1d/+lnhEacm8R9KZ3wuNiumvLT8bv8AKziXYmpOoe6X2tUMkMiraI=
+X-Gm-Message-State: AOJu0YzP4kAVMYYkvzK0Igcg6vM6HGvmdSZsZPqPnEaLIwYKKu1Cz35Q
+	J7jWZ8y3PanakKiGDFr/Zyi6yYGhGe7/l9ke8jaOzA3UFQ0w8+ZXKHI3mWHAtA==
+X-Google-Smtp-Source: AGHT+IG1wLqJ77V65vA040SHaaeSkiMk6Q7kFikNs71sbW/4MD28QWUsvKQP0EuRt0pqJdDv1Usw2A==
+X-Received: by 2002:a05:600c:3ba3:b0:418:de77:909e with SMTP id n35-20020a05600c3ba300b00418de77909emr934530wms.14.1713428035617;
+        Thu, 18 Apr 2024 01:13:55 -0700 (PDT)
+Message-ID: <b66ea826-f670-4a9d-89cb-4de6cb3ec9fc@suse.com>
+Date: Thu, 18 Apr 2024 10:13:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] gzip: drop unused define checks
+Subject: Re: [PATCH v1 1/2] Implemented AMD SEV discovery and enabling.
 Content-Language: en-US
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240417143716.27189-1-dpsmith@apertussolutions.com>
- <20240417143716.27189-2-dpsmith@apertussolutions.com>
+To: Andrei Semenov <andrei.semenov@vates.fr>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1712759753.git.andrei.semenov@vates.fr>
+ <27fce67472c97b2b2b7cc0412bf0edcaa67cc63f.1712759753.git.andrei.semenov@vates.fr>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,26 +112,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240417143716.27189-2-dpsmith@apertussolutions.com>
+In-Reply-To: <27fce67472c97b2b2b7cc0412bf0edcaa67cc63f.1712759753.git.andrei.semenov@vates.fr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.04.2024 16:37, Daniel P. Smith wrote:
-> Dropping the define checks for PKZIP_BUG_WORKAROUND and NOMEMCPY define as they
-> never are set.
+On 10.04.2024 17:36, Andrei Semenov wrote:
+> Signed-off-by: Andrei Semenov <andrei.semenov@vates.fr>
 
-You don't mention or otherwise touch DEBUG uses, yet ...
+A couple more nits on top of what Andrew said. First: Please no patches
+(which aren't blindingly trivial) without description.
 
-> --- a/xen/common/gzip/inflate.c
-> +++ b/xen/common/gzip/inflate.c
-> @@ -661,7 +661,6 @@ static int __init inflate_codes(
->                  /* do the copy */
->                  do {
->                      n -= (e = (e = WSIZE - ((d &= WSIZE-1) > w ? d : w)) > n ? n : e);
-> -#if !defined(NOMEMCPY) && !defined(DEBUG)
+> @@ -1030,6 +1031,54 @@ static void amd_check_erratum_1485(void)
+>  	wrmsrl(MSR_AMD64_BP_CFG, val | chickenbit);
+>  }
+>  
+> +#ifdef CONFIG_HVM
+> +static void amd_enable_mem_encrypt(const struct cpuinfo_x86 *c)
+> +{
+> +	unsigned int  eax, ebx, ecx, edx;
+> +	uint64_t syscfg;
+> +
+> +	if (!smp_processor_id()) {
+> +
+> +		cpuid_count(0x80000000,0,&eax, &ebx, &ecx, &edx);
 
-... you also don't replace this by "#ifndef DEBUG", but outright delete
-the line.
+No blank line above here please.
+
+> +		if (eax <  0x8000001f)
+> +			return;
+> +
+> +		cpuid_count(0x8000001f,0,&eax, &ebx, &ecx, &edx);
+> +
+> +		if (eax & 0x1)
+> +			setup_force_cpu_cap(X86_FEATURE_SME);
+> +
+> +		if (eax & 0x2) {
+> +			setup_force_cpu_cap(X86_FEATURE_SEV);
+
+I guess this goes along with what Andrew said: Using synthetic features here
+looks suspicious. These want to be recorded as an ordinary leaf.
+
+> +			max_sev_asid = ecx;
+> +			min_sev_asid = edx;
+> +		}
+> +
+> +		if (eax & 0x3)
+> +			pte_c_bit_mask = 1UL << (ebx & 0x3f);
+> +	}
+> +
+> +	if (!(cpu_has_sme || cpu_has_sev))
+> +		return;
+> +
+> +	if (!smp_processor_id()) {
+> +		if (cpu_has_sev)
+
+Two if()-s like these want folding, unless it is made clear that very
+soon (see above as to the missing description) further content is going
+to appear inside the outer one.
+
+> +			printk(XENLOG_INFO "SEV: ASID range [0x%x - 0x%x]\n",
+
+%#x is preferred over 0x%x.
+
+> +			min_sev_asid, max_sev_asid);
+> +	}
+> +
+> +	rdmsrl(MSR_K8_SYSCFG, syscfg);
+> +
+> +	if (syscfg & SYSCFG_MEM_ENCRYPT) {
+> +		return;
+> +	}
+
+No need for braces in cases like this one.
 
 Jan
 
