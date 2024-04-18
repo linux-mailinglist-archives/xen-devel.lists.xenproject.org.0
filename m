@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C6618AA10B
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 19:25:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708538.1107530 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9294F8AA11B
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 19:32:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708544.1107540 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxVVz-0005P1-0n; Thu, 18 Apr 2024 17:25:39 +0000
+	id 1rxVbm-0006w4-Or; Thu, 18 Apr 2024 17:31:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708538.1107530; Thu, 18 Apr 2024 17:25:38 +0000
+Received: by outflank-mailman (output) from mailman id 708544.1107540; Thu, 18 Apr 2024 17:31:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxVVy-0005Lr-U5; Thu, 18 Apr 2024 17:25:38 +0000
-Received: by outflank-mailman (input) for mailman id 708538;
- Thu, 18 Apr 2024 17:25:38 +0000
+	id 1rxVbm-0006tL-L9; Thu, 18 Apr 2024 17:31:38 +0000
+Received: by outflank-mailman (input) for mailman id 708544;
+ Thu, 18 Apr 2024 17:31:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=p/a5=LX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rxVVy-0005Le-9G
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 17:25:38 +0000
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
- [2607:f8b0:4864:20::833])
+ id 1rxVbl-0006tC-KY
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 17:31:37 +0000
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [2607:f8b0:4864:20::f35])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ab6dac8c-fda8-11ee-b909-491648fe20b8;
- Thu, 18 Apr 2024 19:25:37 +0200 (CEST)
-Received: by mail-qt1-x833.google.com with SMTP id
- d75a77b69052e-434a6024d0aso4854961cf.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 10:25:37 -0700 (PDT)
+ id 817dbf2e-fda9-11ee-b909-491648fe20b8;
+ Thu, 18 Apr 2024 19:31:36 +0200 (CEST)
+Received: by mail-qv1-xf35.google.com with SMTP id
+ 6a1803df08f44-69b4043b7b3so6477966d6.1
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 10:31:36 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- he28-20020a05622a601c00b00437543e5307sm829914qtb.40.2024.04.18.10.25.34
+ s5-20020a0c8d45000000b0069b4ddcbd42sm834026qvb.0.2024.04.18.10.31.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 10:25:35 -0700 (PDT)
+ Thu, 18 Apr 2024 10:31:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab6dac8c-fda8-11ee-b909-491648fe20b8
+X-Inumbo-ID: 817dbf2e-fda9-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713461136; x=1714065936; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1713461495; x=1714066295; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BwnqyTAgVluM69ayMlg2eYhvfXv4Ax1d+dn03QJ3588=;
-        b=h950CtKYae0jjGFgoKYgHTLQ22pq78EegJ84TS1ogzZQ72ZaduZUy+/BPOkO45+mha
-         hEW+YeZcu8RhzBcxiYjqE0FnbwExa+RaAB51/SqjOkldRkbUJEn5RUN5QtQA4lF4UxQN
-         L9cPa82mhkjVrnQlopp75mmVEQLG4gT4E6pgM=
+        bh=+xz52X+4Y9HAwR57LC22qrKn3AgEkT2wtgSFIRACyzw=;
+        b=lCF/4/yJc2+uRUNUKP0mZHSZVF1s0Nc8z2vnddGiTRRki0+mcdHKbJ6nV13LqnvqC0
+         VNZDXb9Ol1TSCpH1EqNG/uZDn1IjNP/fQ4jX9kTYFTJCE7uFUUc5R28flEUWCu4DkjOc
+         mQaFtJ/Pye1PHKUa+3VwkkEBl9TLqz7aSMC5E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713461136; x=1714065936;
+        d=1e100.net; s=20230601; t=1713461495; x=1714066295;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BwnqyTAgVluM69ayMlg2eYhvfXv4Ax1d+dn03QJ3588=;
-        b=KEV2E3nxBTRKy+USvoKK9JG7EeKYhyIzSmblabqNqlqDFZVLCRYVahaklxmQmOYA7v
-         PQ9GEk5wDj9wfhbu706UHzFHua35YYKaN5bd/ddT2RoTpIXvIEMlhdYtPJ3VWGASoTIY
-         7nfb2thW/WVyr2cwZYZBnJvDW2PA1zwNuR1DYQCwCrA06MdECb+KDtZp233z3xiDmdH7
-         OJ+fWSWGZv20ZiZwPeIjcKgl4hjY9HZKWS1ojzrLZdTIWaGkRIkNaUFq3Jw1r+knEv2A
-         mDjX7EIWKs04mkPn4IluRnauAjQD71nDnUMIuorhk+ZEHIF42e48ifnM6giu2gjoX8p6
-         pO9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVsWOoQTJFXQZMO0l/Qse1F18ySmEOn8Ljggtoep3KiwRkTs6Wm7kJ1tVaCVlfxcgQdA86Kq22ZJswmvCteudzL2DZl3Yx1LohoGZhhzug=
-X-Gm-Message-State: AOJu0YyuHLnrj6EEmC7FfhFJXr/v20WQiGQp+vJkU7RVj7tpqlWTdxEU
-	j9OYlAIAiDExpsXo4HctZ0QlJxbQlKp67muWkjUus7xM+aNtNRXnpLVUClCwAZA=
-X-Google-Smtp-Source: AGHT+IFaQpH3Cfi148LbfpUup4+zai1Bw1Qzn5Wb2iTDiSmWitr6X6rRm5LNpo0TnEv+HJcBIV0exw==
-X-Received: by 2002:a05:622a:152:b0:431:5f79:6748 with SMTP id v18-20020a05622a015200b004315f796748mr4437550qtw.51.1713461136229;
-        Thu, 18 Apr 2024 10:25:36 -0700 (PDT)
-Message-ID: <183aa898-d35d-400e-a261-affeb44d881f@citrix.com>
-Date: Thu, 18 Apr 2024 18:25:34 +0100
+        bh=+xz52X+4Y9HAwR57LC22qrKn3AgEkT2wtgSFIRACyzw=;
+        b=uAlL49IMxveZISNQ0qOnn+C8+H70fVX7tW/HK08XBs94GFdVgATogsbg5Ri2HMCDnC
+         G49UJLhEMcYh+93JqI3xrOg6VXLq0sHlYy1kfbrSaoXvrNCujDfa64BEvXkzeUMrY15E
+         EKU6pT/YsH4VvovAwBO8eNDI+Z8nYm9xaZAR3M12zTp7Gq4pIFjzz0CJE8iB+BBsbNVO
+         P4b46T4krVQ/1+CZ3As5N+Al8p3g6Fiij4yfUFW/xhKL7y6uvWSNhw0/7cWxc06s4Hcp
+         5q/kv//0JUiRZuuUe+cPkXDb0LXAFwsJUTWvzfFfEyPwb4cWxjpoAvnmU2DaT8Ed/Cn4
+         J04A==
+X-Gm-Message-State: AOJu0Yy2rviRsoCc4z4SrJUg8S/kxHCIr+roRCHZMKy18b9gG99OlX5J
+	T9VK02wfdoBooIeHIg6lyFTxiYm9xk45hYI/nqHy56b1rozh19njgt7sF9BUy3A=
+X-Google-Smtp-Source: AGHT+IF7imqHHLNOj2TbKXfy2LcW9JrtA8ia8BwybblEeIEcyo5jasM1EWt0j9fEih4Gb7RoXo98Fw==
+X-Received: by 2002:a0c:c206:0:b0:699:162a:b8e8 with SMTP id l6-20020a0cc206000000b00699162ab8e8mr2717805qvh.61.1713461495377;
+        Thu, 18 Apr 2024 10:31:35 -0700 (PDT)
+Message-ID: <00f5b490-5641-4b4f-8397-724ba95369e8@citrix.com>
+Date: Thu, 18 Apr 2024 18:31:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] xen/efi: Rewrite DOS/PE magic checking without memcmp()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Roberto Bagnara <roberto.bagnara@bugseng.com>,
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <JBeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, "consulting @ bugseng . com"
+ <consulting@bugseng.com>, Roberto Bagnara <roberto.bagnara@bugseng.com>,
  Federico Serafini <federico.serafini@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
 References: <20240416155251.2942504-1-andrew.cooper3@citrix.com>
- <e494f047-d2be-4467-87c3-7908d98767bf@suse.com>
+ <Zh92vsPzuHjTIs21@macbook>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,33 +132,33 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e494f047-d2be-4467-87c3-7908d98767bf@suse.com>
+In-Reply-To: <Zh92vsPzuHjTIs21@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18/04/2024 12:09 pm, Jan Beulich wrote:
-> On 16.04.2024 17:52, Andrew Cooper wrote:
+On 17/04/2024 8:14 am, Roger Pau Monné wrote:
+> On Tue, Apr 16, 2024 at 04:52:51PM +0100, Andrew Cooper wrote:
 >> Misra Rule 21.16 doesn't like the use of memcmp() between a string literal and
 >> a UINT8 array.  Rewrite using plain compares.
->>
+> The commit message makes it look like it's a type mismatch issue
+> between the two elements being compared, but from my reading of the
+> rule the issue is with the usage of a char pointer with memcmp().
+> IOW: even if the two parameters are char pointers it would still be a
+> violation.
+>
+> "Misra Rule 21.16 forbids the use of memcmp() against character
+> arrays.  Rewrite using plain compares since checking for "PE\0\0"
+> cannot be done using strncmp()."
+
+I've tweaked the sentence to say character array, but IMO it's really
+not about strncmp() which wouldn't be correct to use here even if it
+happened to produce a correct answer.
 >> No functional change.
 >>
 >> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> LGTM (possibly pending the adjustment of the commit message):
+>
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Thanks.
-
-> after having realized that sadly gcc13 instantiates the compound literals
-> (that I had thought of using) in .rodata (or one of its variants), rather
-> than leveraging them being as constant as string literals.
-
-gcc10 manages to optimise both checks to a cmp{w,l}, which I did check
-before sending the patch.
-
-However, it chooses a different base register for the cmpl and there's a
-sad cascade effect where a bunch of JMP disp8's turn into disp32's.
-
-But oh well - it's init code.
-
-~Andrew
 
