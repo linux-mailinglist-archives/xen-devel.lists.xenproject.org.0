@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AC088A9F22
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 17:53:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708494.1107460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FEC48A9F23
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 17:53:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708495.1107470 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxU4E-0004Pm-1a; Thu, 18 Apr 2024 15:52:54 +0000
+	id 1rxU4H-0004fj-8i; Thu, 18 Apr 2024 15:52:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708494.1107460; Thu, 18 Apr 2024 15:52:54 +0000
+Received: by outflank-mailman (output) from mailman id 708495.1107470; Thu, 18 Apr 2024 15:52:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxU4D-0004Ml-Uc; Thu, 18 Apr 2024 15:52:53 +0000
-Received: by outflank-mailman (input) for mailman id 708494;
- Thu, 18 Apr 2024 15:52:52 +0000
+	id 1rxU4H-0004dd-5N; Thu, 18 Apr 2024 15:52:57 +0000
+Received: by outflank-mailman (input) for mailman id 708495;
+ Thu, 18 Apr 2024 15:52:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0X1s=LX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rxU4C-0004M8-Ru
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 15:52:52 +0000
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [2607:f8b0:4864:20::732])
+ id 1rxU4G-0004M8-1y
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 15:52:56 +0000
+Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
+ [2607:f8b0:4864:20::729])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b57c07c8-fd9b-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 17:52:50 +0200 (CEST)
-Received: by mail-qk1-x732.google.com with SMTP id
- af79cd13be357-78f049ddd7dso66867885a.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 08:52:50 -0700 (PDT)
+ id b78489aa-fd9b-11ee-94a3-07e782e9044d;
+ Thu, 18 Apr 2024 17:52:54 +0200 (CEST)
+Received: by mail-qk1-x729.google.com with SMTP id
+ af79cd13be357-78f05035f56so70111285a.3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 08:52:54 -0700 (PDT)
 Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
- z16-20020a0cda90000000b0069b0c9a81b5sm739013qvj.95.2024.04.18.08.52.48
+ wi10-20020a05620a570a00b0078ee7bad7a2sm749561qkn.3.2024.04.18.08.52.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Apr 2024 08:52:49 -0700 (PDT)
+ Thu, 18 Apr 2024 08:52:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,42 +44,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b57c07c8-fd9b-11ee-94a3-07e782e9044d
+X-Inumbo-ID: b78489aa-fd9b-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713455569; x=1714060369; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1713455572; x=1714060372; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FgZJsWC+V6vA1Vlcmi8D5n4+aJM93wZKHXM2K90e014=;
-        b=vQnHdTBspBUaoedNZ/VscHpOAiZhpQA6E/+D+ovxuXt8XLBuW1WAsXtjt8eqGgwaNZ
-         FJXt50yZ0ROeEZlLPzlf0htP/AkIA4WDE+/UydjbRPf2B5WPqDIf9qo/c7aM8I4hE53L
-         3EyekKuvOD0mts0TTqsRL/kRnSeE4BsZn2bII=
+        bh=q3jZy3odbL5XV50iWWQ1nW/SD6X8ck0zK9SiJgWp6PY=;
+        b=qne6XbngJ4HmKQyJT1sJG/j/uQMFagJUXpQ4XXYHScnYGke443vU86H1cYYBNFKfRD
+         UUj4FMxX+cn2gsgYTkls+gB/QmThbTPSp677NQhTSImIZE7jPTtAzxAWpJZxJ3fF1Wx1
+         zmK315t9Mh4WMOAa/WPv7n/ZjOvryYWNbosb8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713455569; x=1714060369;
+        d=1e100.net; s=20230601; t=1713455572; x=1714060372;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=FgZJsWC+V6vA1Vlcmi8D5n4+aJM93wZKHXM2K90e014=;
-        b=MRmh0JX1s4YhM1ITgfgXRa6fgA2YdrSr8cX5t1TKS90yxkT+1k7XcqWtxY9DI/wpNJ
-         7aNUU3pb87thg99QVbg4mRXuyZ34thVKxjxeZ4WtjsA2kOmRLrGifyYm7XpSjBVRlJOy
-         Z4/qO/nOvoP7hlzEw1xj6csknziMwKxL5iRMWokjaR/x5tFWPWSCX+4eJUrtY2DrdpVD
-         nv9FA8hJ9yG1C1Zd0OjxOUkQvIwkY0z0bVfneh4WSiMr/OBj95beIHL48cX0mQRbgPHT
-         eXaubNrIXFUYDgHMmNICOZo8rSpLrLCAnS50djng2LfnoACEQ0uGZlFmuMASD/NKcu60
-         6QEA==
-X-Gm-Message-State: AOJu0YzrPnpwfhA7UGHs4EAE1dZkOdXEy9TH4PPXt1vufS31SsLJYJSZ
-	j6eFDijiw5rNOnotn5HrshawWVEcwID0bGd6UMFl1D24kEwLrdcIBQO1eJbXljAKWOdTUHjtBSE
-	+
-X-Google-Smtp-Source: AGHT+IG8t9u76ZRwiQqG7tf9z0HVbDVZ/4E4dyvgE+tuzI9ts+dT4kyGtA+gwYNuWQ8uNoyACI8itQ==
-X-Received: by 2002:a0c:fca7:0:b0:69b:24f2:c2eb with SMTP id h7-20020a0cfca7000000b0069b24f2c2ebmr3391091qvq.59.1713455569367;
-        Thu, 18 Apr 2024 08:52:49 -0700 (PDT)
+        bh=q3jZy3odbL5XV50iWWQ1nW/SD6X8ck0zK9SiJgWp6PY=;
+        b=bPV1gQdmatm4vRn3mQu9dTGfSqL1r6hvHzkz7NR5SEfWUlCStoAZLb37X8VViNE/Jn
+         xSX+61F9wkReGupPq+WY0usmo1kpg9+bUxKF04iNW6Wb97Zb7dpM12t7zKgv42VWk70Z
+         qcQknT9Sv01HwJSpxFmUbF1lyUBRu0UtJB3YLKhmJI23UiGdyv43gHEgM+SsndA2A7jc
+         vsKBwr0M7k5Eqkv95CUv0EPFsN4Wh0vijWEutH9aLzTsQpIyYhhvvBd30Ezq6Qf5bIGv
+         MPMgrqQxJ37fG2DKZmFdPL2DUoFsGxCt67J6grHelEhUjmkqu7Ns05aTAgYjdAbympti
+         /+LQ==
+X-Gm-Message-State: AOJu0YzSNvCtk0c/9337m/Dqq5Bavq36qDPNpvsyHWUNVOeoznzTdi/h
+	1+KdMp6eVn8O86posmU76a/Swsmn9o/zhChWT+ifRGDP1c17dThP4ulITRUJcLGOvP+4tZ4moxT
+	D
+X-Google-Smtp-Source: AGHT+IFt+5sMhOV5t6bXh3DcsrzXm18hsIx2IWjfj7kGmbQncwkVUUI3FbcXh+QGdAhVLLNBni2+cA==
+X-Received: by 2002:a05:620a:4155:b0:789:e7a0:7148 with SMTP id k21-20020a05620a415500b00789e7a07148mr3956197qko.7.1713455572295;
+        Thu, 18 Apr 2024 08:52:52 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2 1/2] x86/spec: fix reporting of BHB clearing usage from guest entry points
-Date: Thu, 18 Apr 2024 17:52:07 +0200
-Message-ID: <20240418155208.7771-2-roger.pau@citrix.com>
+Subject: [PATCH v2 2/2] x86/spec: adjust logic to logic that elides lfence
+Date: Thu, 18 Apr 2024 17:52:08 +0200
+Message-ID: <20240418155208.7771-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240418155208.7771-1-roger.pau@citrix.com>
 References: <20240418155208.7771-1-roger.pau@citrix.com>
@@ -87,62 +87,72 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Reporting whether the BHB clearing on entry is done for the different domains
-types based on cpu_has_bhb_seq is incorrect, as that variable signals whether
-there's a BHB clearing sequence selected, but that alone doesn't imply that
-such sequence is used from the PV and/or HVM entry points.
+It's currently too restrictive by just checking whether there's a BHB clearing
+sequence selected.  It should instead check whether BHB clearing is used on
+entry from PV or HVM specifically.
 
-Instead use opt_bhb_entry_{pv,hvm} which do signal whether BHB clearing is
-performed on entry from PV/HVM.
+Switch to use opt_bhb_entry_{pv,hvm} instead, and then remove cpu_has_bhb_seq
+since it no longer has any users.
 
-Fixes: 689ad48ce9cf ('x86/spec-ctrl: Wire up the Native-BHI software sequences')
+Reported-by: Jan Beulich <jbeulich@suse.com>
+Fixes: 954c983abcee ('x86/spec-ctrl: Software BHB-clearing sequences')
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v1:
- - Also fix usage of cpu_has_bhb_seq when deciding whether to print "None".
----
- xen/arch/x86/spec_ctrl.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ - New in this version.
 
+There (possibly) still a bit of overhead for dom0 if BHB clearing is not used
+for dom0, as Xen would still add the lfence if domUs require it.
+---
+ xen/arch/x86/include/asm/cpufeature.h | 3 ---
+ xen/arch/x86/spec_ctrl.c              | 6 +++---
+ 2 files changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
+index 743f11f98940..9bc553681f4a 100644
+--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+@@ -235,9 +235,6 @@ static inline bool boot_cpu_has(unsigned int feat)
+ #define cpu_bug_fpu_ptrs        boot_cpu_has(X86_BUG_FPU_PTRS)
+ #define cpu_bug_null_seg        boot_cpu_has(X86_BUG_NULL_SEG)
+ 
+-#define cpu_has_bhb_seq        (boot_cpu_has(X86_SPEC_BHB_TSX) ||       \
+-                                boot_cpu_has(X86_SPEC_BHB_LOOPS))
+-
+ enum _cache_type {
+     CACHE_TYPE_NULL = 0,
+     CACHE_TYPE_DATA = 1,
 diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index dd01e30844a1..1e831c1c108e 100644
+index 1e831c1c108e..40f6ae017010 100644
 --- a/xen/arch/x86/spec_ctrl.c
 +++ b/xen/arch/x86/spec_ctrl.c
-@@ -634,7 +634,7 @@ static void __init print_details(enum ind_thunk thunk)
-            (boot_cpu_has(X86_FEATURE_SC_MSR_HVM) ||
-             boot_cpu_has(X86_FEATURE_SC_RSB_HVM) ||
-             boot_cpu_has(X86_FEATURE_IBPB_ENTRY_HVM) ||
--            cpu_has_bhb_seq || amd_virt_spec_ctrl ||
-+            opt_bhb_entry_hvm || amd_virt_spec_ctrl ||
-             opt_eager_fpu || opt_verw_hvm)           ? ""               : " None",
-            boot_cpu_has(X86_FEATURE_SC_MSR_HVM)      ? " MSR_SPEC_CTRL" : "",
-            (boot_cpu_has(X86_FEATURE_SC_MSR_HVM) ||
-@@ -643,7 +643,7 @@ static void __init print_details(enum ind_thunk thunk)
-            opt_eager_fpu                             ? " EAGER_FPU"     : "",
-            opt_verw_hvm                              ? " VERW"          : "",
-            boot_cpu_has(X86_FEATURE_IBPB_ENTRY_HVM)  ? " IBPB-entry"    : "",
--           cpu_has_bhb_seq                           ? " BHB-entry"     : "");
-+           opt_bhb_entry_hvm                         ? " BHB-entry"     : "");
+@@ -2328,7 +2328,7 @@ void __init init_speculation_mitigations(void)
+          * unconditional WRMSR.  If we do have it, or we're not using any
+          * prior conditional block, then it's safe to drop the LFENCE.
+          */
+-        if ( !cpu_has_bhb_seq &&
++        if ( !opt_bhb_entry_pv &&
+              (boot_cpu_has(X86_FEATURE_SC_MSR_PV) ||
+               !boot_cpu_has(X86_FEATURE_IBPB_ENTRY_PV)) )
+             setup_force_cpu_cap(X86_SPEC_NO_LFENCE_ENTRY_PV);
+@@ -2344,7 +2344,7 @@ void __init init_speculation_mitigations(void)
+          * active in the block that is skipped when interrupting guest
+          * context, then it's safe to drop the LFENCE.
+          */
+-        if ( !cpu_has_bhb_seq &&
++        if ( !opt_bhb_entry_pv &&
+              (boot_cpu_has(X86_FEATURE_SC_MSR_PV) ||
+               (!boot_cpu_has(X86_FEATURE_IBPB_ENTRY_PV) &&
+                !boot_cpu_has(X86_FEATURE_SC_RSB_PV))) )
+@@ -2356,7 +2356,7 @@ void __init init_speculation_mitigations(void)
+          * A BHB sequence, if used, is the only conditional action, so if we
+          * don't have it, we don't need the safety LFENCE.
+          */
+-        if ( !cpu_has_bhb_seq )
++        if ( !opt_bhb_entry_hvm )
+             setup_force_cpu_cap(X86_SPEC_NO_LFENCE_ENTRY_VMX);
+     }
  
- #endif
- #ifdef CONFIG_PV
-@@ -651,14 +651,14 @@ static void __init print_details(enum ind_thunk thunk)
-            (boot_cpu_has(X86_FEATURE_SC_MSR_PV) ||
-             boot_cpu_has(X86_FEATURE_SC_RSB_PV) ||
-             boot_cpu_has(X86_FEATURE_IBPB_ENTRY_PV) ||
--            cpu_has_bhb_seq ||
-+            opt_bhb_entry_pv ||
-             opt_eager_fpu || opt_verw_pv)            ? ""               : " None",
-            boot_cpu_has(X86_FEATURE_SC_MSR_PV)       ? " MSR_SPEC_CTRL" : "",
-            boot_cpu_has(X86_FEATURE_SC_RSB_PV)       ? " RSB"           : "",
-            opt_eager_fpu                             ? " EAGER_FPU"     : "",
-            opt_verw_pv                               ? " VERW"          : "",
-            boot_cpu_has(X86_FEATURE_IBPB_ENTRY_PV)   ? " IBPB-entry"    : "",
--           cpu_has_bhb_seq                           ? " BHB-entry"     : "");
-+           opt_bhb_entry_pv                          ? " BHB-entry"     : "");
- 
-     printk("  XPTI (64-bit PV only): Dom0 %s, DomU %s (with%s PCID)\n",
-            opt_xpti_hwdom ? "enabled" : "disabled",
 -- 
 2.44.0
 
