@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A057E8A95C0
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 11:13:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708137.1106758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 293978A95C2
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 11:13:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708139.1106768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxNpW-0004mS-H8; Thu, 18 Apr 2024 09:13:18 +0000
+	id 1rxNpr-0005Dx-Pq; Thu, 18 Apr 2024 09:13:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708137.1106758; Thu, 18 Apr 2024 09:13:18 +0000
+Received: by outflank-mailman (output) from mailman id 708139.1106768; Thu, 18 Apr 2024 09:13:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxNpW-0004jd-ER; Thu, 18 Apr 2024 09:13:18 +0000
-Received: by outflank-mailman (input) for mailman id 708137;
- Thu, 18 Apr 2024 09:13:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w8zc=LX=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1rxNpV-0004jX-1h
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 09:13:17 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e20d75e7-fd63-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 11:13:14 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1713431586592716.0551202574748;
- Thu, 18 Apr 2024 02:13:06 -0700 (PDT)
+	id 1rxNpr-0005BQ-Mp; Thu, 18 Apr 2024 09:13:39 +0000
+Received: by outflank-mailman (input) for mailman id 708139;
+ Thu, 18 Apr 2024 09:13:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rxNpq-00051f-Lj
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 09:13:38 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f0af71fb-fd63-11ee-b909-491648fe20b8;
+ Thu, 18 Apr 2024 11:13:37 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-516d487659bso636023e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 02:13:37 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ f8-20020adff8c8000000b0033e7b05edf3sm1323957wrq.44.2024.04.18.02.13.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Apr 2024 02:13:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,115 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e20d75e7-fd63-11ee-94a3-07e782e9044d
-ARC-Seal: i=1; a=rsa-sha256; t=1713431588; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=BVIPTA/gYKCg6XooV5Cy2a3vOTMAVJahMLpCsrT9injHERKAmhbff9+Jz+yUpE8PQN45L2IOAIIeSKbyuQFwScWGAOp1WRyI7PIuVByCDNr/VVhuyPXHYaxpAIiNQtLF0actnBNPAyGDpKRI77HoZ8Rlu3TlNf7we4H3XTdbAro=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1713431588; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=AF+pTAuMiN9GaQGeP9RGtgEELN5HYws9F6xnd9HIG6I=; 
-	b=KYm38qYZak6xHKgVlITYqVtTpIdL8GD52qfiq+2/f9g/PD3JFU4++/Czu6AaGKYonm76iAEDojrnNG64UHBZhy1iB5PDmQG5bTRongTyAis1pcrW9Dq0mW6OhVxjD57BhbhNFBF8wRprqSqGpodKK4cFDhZgwPa3F9Qv88jvwhU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1713431588;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=AF+pTAuMiN9GaQGeP9RGtgEELN5HYws9F6xnd9HIG6I=;
-	b=J524xsDAWV1VCvkvG6zblCXYHVtUsxjWFyvGO8vk3lZIIt+wuzo0CXfm87xlp/L2
-	ejowXW4fiKJipmNXfhRwm6U2zk0nqgP0xONeeViNvQkw6Ei+7iGDk70mA45tw3Of1tZ
-	GgnKXwHNSEfnZX+8jG5Xkx82dnlzvt0+AJUl3lm8=
-Message-ID: <3ab847bd-b738-48b8-865b-62f7c488386b@apertussolutions.com>
-Date: Thu, 18 Apr 2024 05:13:04 -0400
+X-Inumbo-ID: f0af71fb-fd63-11ee-b909-491648fe20b8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1713431617; x=1714036417; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=v1cdEnsvzNbAl7qYThKaxpDhPXD4+FrGRjvFF/je6dM=;
+        b=CYuwH3pnTc0FRhxoaesNsldZ0XzGT8v7Ike/yZPt/3+sCAVnBEKrXYecGk+kkA+yyy
+         JlrcutYQCIG4r1PMy9Ozs27jNmc3Fx16pvddw8pJcGjKlsOHuirdycjZTXPjW1o2yHO1
+         BaHVzjRchyxKBPQoYfu4/jhYUiKcFnjGpGqiJcucPv64UI4FJAvV53bR8EBc5xopFso3
+         JK/Zwcb5EqR17Lytv+VFU43GlDB8Hk3M+EQSdMHGc3i20RTFvUcoCmIVT9TwBGNs/QKM
+         n92hHIiIe6AhXK2P5Ew00X/Xi0aym+/dZwTyfMwMRCDMdn/tr438PVpKS9eRnGoUYsus
+         6iOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713431617; x=1714036417;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=v1cdEnsvzNbAl7qYThKaxpDhPXD4+FrGRjvFF/je6dM=;
+        b=RNp4kDJb7h5ivI2wKTl/ZkagOf/Ciw3WnOJ+om0B48n30FApgXbuOtcCKnEEGi9vq/
+         Qko9bBID+WyFqSG+uLFiQVOiok3AIVJ+JIAbnfOdpz/xqDaqBrGuG8MLc3Fzo7L75HcY
+         7J5D0IYiiutDIVREKBVP3tOv+/rEsvrUIZ1AAGgsFLPJf63kQKV7yo00PfvioxoB6diQ
+         JKJH1DaJUs2rgP+i6aTulzzgjAutNXCt9lI3ldUTAAPWacVYBKWzfIAg3qkm0CwUijei
+         zv1mPFMZCNbJI5aKXAwenJmg21dl3wgL933qSfkUZbWWgHcwT/7YZ/7QcGFIAgux64Ll
+         jHXw==
+X-Forwarded-Encrypted: i=1; AJvYcCWaYt0vFTs1bUxKqT4E1nLdCyCzYK9notNCc1x9Abju8Q2YM+32tFAXwA/b5eRUVmlmgCo/qVH2toYVoQMWDG5TMec2jdpQaziCb0KesM4=
+X-Gm-Message-State: AOJu0YznVnavWpFzgYL87yoWXcXCTsknrawe1lfvV17yfAQbOuG3yR2G
+	PVEdhnYAaU8K9iGfzGfUbVn/5mt2sEw4dKNYSPxPO887fTfT6eiAzdnS7WdxlA==
+X-Google-Smtp-Source: AGHT+IGMBm0FQRKOskA8Ufq4GMXgRWEPLzx9XpwL5hb9b9dPPRZAiJfEXm6KEjbdfkTQ4PZMBDca+w==
+X-Received: by 2002:a19:381a:0:b0:517:64ec:1251 with SMTP id f26-20020a19381a000000b0051764ec1251mr1048587lfa.15.1713431617233;
+        Thu, 18 Apr 2024 02:13:37 -0700 (PDT)
+Message-ID: <114562b9-1ab1-40be-bf23-0321a1c6cfe2@suse.com>
+Date: Thu, 18 Apr 2024 11:13:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] gzip: refactor state tracking
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240411152518.2995-1-dpsmith@apertussolutions.com>
- <20240411152518.2995-4-dpsmith@apertussolutions.com>
- <360958a2-5b0d-4fbc-8637-2a33185bdd8d@citrix.com>
- <efb44106-832b-409a-a810-7821e830ac81@suse.com>
+Subject: Re: [PATCH 3/4] xen/gnttab: Perform compat/native gnttab_query_size
+ check
 Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
- JDq5eL4e9BdfdnZm/b+K+Gweyc0Px2poDWwKVTFFRgxKWq9R7McwNnvuZ4nyXJBVn7PTEn/Z
- G7D08iZg94ZsnUdeXfgYdJrqmdiWA6iX9u84ARHUtb0K4r5WpLUMcQ8PVmnv1vVrs/3Wy/Rb
- foxebZNWxgUiSx+d02e3Ad0aEIur1SYXXv71mqKwyi/40CBSHq2jk9eF6zmEhaoFi5+MMMgX
- X0i+fcBkvmT0N88W4yCtHhHQds+RDbTPLGm8NBVJb7R5zbJmuQX7ADBVuNYIU8hx3dF3AQCm
- 601w0oZJ0jGOV1vXQgHqZYJGHg5wuImhzhZJCRESIwf+PJxik7TJOgBicko1hUVOxJBZxoe0
- x+/SO6tn+s8wKlR1Yxy8gYN9ZRqV2I83JsWZbBXMG1kLzV0SAfk/wq0PAppA1VzrQ3JqXg7T
- MZ3tFgxvxkYqUP11tO2vrgys+InkZAfjBVMjqXWHokyQPpihUaW0a8mr40w9Qui6DoJj7+Gg
- DtDWDZ7Zcn2hoyrypuht88rUuh1JuGYD434Q6qwQjUDlY+4lgrUxKdMD8R7JJWt38MNlTWvy
- rMVscvZUNc7gxcmnFUn41NPSKqzp4DDRbmf37Iz/fL7i01y7IGFTXaYaF3nEACyIUTr/xxi+
- MD1FVtEtJncZNkRn7WBcVFGKMAf+NEeaeQdGYQ6mGgk++i/vJZxkrC/a9ZXme7BhWRP485U5
- sXpFoGjdpMn4VlC7TFk2qsnJi3yF0pXCKVRy1ukEls8o+4PF2JiKrtkCrWCimB6jxGPIG3lk
- 3SuKVS/din3RHz+7Sr1lXWFcGYDENmPd/jTwr1A1FiHrSj+u21hnJEHi8eTa9029F1KRfocp
- ig+k0zUEKmFPDabpanI323O5Tahsy7hwf2WOQwTDLvQ+eqQu40wbb6NocmCNFjtRhNZWGKJS
- b5GrGDGu/No5U6w73adighEuNcCSNBsLyUe48CE0uTO7eAL6Vd+2k28ezi6XY4Y0mgASJslb
- NwW54LzSSM0uRGFuaWVsIFAuIFNtaXRoIDxkcHNtaXRoQGFwZXJ0dXNzb2x1dGlvbnMuY29t
- PsJ6BBMRCAAiBQJWK7ngAhsjBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRBTc6WbYpR8
- KrQ9AP94+xjtFfJ8gj5c7PVx06Zv9rcmFUqQspZ5wSEkvxOuQQEAg6qEsPYegI7iByLVzNEg
- 7B7fUG7pqWIfMqFwFghYhQzOwU0EViu54BAIAL6MXXNlrJ5tRUf+KMBtVz1LJQZRt/uxWrCb
- T06nZjnbp2UcceuYNbISOVHGXTzu38r55YzpkEA8eURQf+5hjtvlrOiHxvpD+Z6WcpV6rrMB
- kcAKWiZTQihW2HoGgVB3gwG9dCh+n0X5OzliAMiGK2a5iqnIZi3o0SeW6aME94bSkTkuj6/7
- OmH9KAzK8UnlhfkoMg3tXW8L6/5CGn2VyrjbB/rcrbIR4mCQ+yCUlocuOjFCJhBd10AG1IcX
- OXUa/ux+/OAV9S5mkr5Fh3kQxYCTcTRt8RY7+of9RGBk10txi94dXiU2SjPbassvagvu/hEi
- twNHms8rpkSJIeeq0/cAAwUH/jV3tXpaYubwcL2tkk5ggL9Do+/Yo2WPzXmbp8vDiJPCvSJW
- rz2NrYkd/RoX+42DGqjfu8Y04F9XehN1zZAFmCDUqBMa4tEJ7kOT1FKJTqzNVcgeKNBGcT7q
- 27+wsqbAerM4A0X/F/ctjYcKwNtXck1Bmd/T8kiw2IgyeOC+cjyTOSwKJr2gCwZXGi5g+2V8
- NhJ8n72ISPnOh5KCMoAJXmCF+SYaJ6hIIFARmnuessCIGw4ylCRIU/TiXK94soilx5aCqb1z
- ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
- p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
- NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <efb44106-832b-409a-a810-7821e830ac81@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>
+References: <20240415154155.2718064-1-andrew.cooper3@citrix.com>
+ <20240415154155.2718064-4-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240415154155.2718064-4-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 4/18/24 03:36, Jan Beulich wrote:
-> On 11.04.2024 21:24, Andrew Cooper wrote:
->> On 11/04/2024 4:25 pm, Daniel P. Smith wrote:
->>> diff --git a/xen/common/gzip/gunzip.c b/xen/common/gzip/gunzip.c
->>> index 1bcb007395ba..9b4891731b8b 100644
->>> --- a/xen/common/gzip/gunzip.c
->>> +++ b/xen/common/gzip/gunzip.c
->>> @@ -102,12 +109,13 @@ __init int gzip_check(char *image, unsigned long image_len)
->>>   
->>>   __init int perform_gunzip(char *output, char *image, unsigned long image_len)
->>>   {
->>> +    struct gzip_data gd;
->>>       int rc;
->>
->> By the end of this series,
->>
->> Reading symbols from xen-syms...
->> (gdb) p sizeof(struct gzip_data)
->> $1 = 2120
->>
->> x86 has an 8k stack and this takes 1/4 of it.  Other bits of state are
->> dynamically allocated, even in inflate.c, so I'd highly recommend doing
->> the same for this.
->>
->>
->> Also, could I nitpick the name and request:
->>
->> struct gzip_state *s;
-> 
-> Except: Why "gzip" when it's un-zipping state?
+On 15.04.2024 17:41, Andrew Cooper wrote:
+> This subop appears to have been missed from the compat checks.
 
-Gzip is the name of the algo/suite for which the code is moved under, 
-and in typical fashion its structures are named after the feature they 
-belong. Still, I went and looked at the other algos. I found two that 
-have state tracking and yes, they do use the operation for the struct 
-name and not the algo/feature under which they reside. If you want this 
-yak shaved, I have no vested interest one way or another, I just need 
-the decompressor to be re-entrant.
+Fixes: 5ce8fafa947c ("Dynamic grant-table sizing")
 
-v/r,
-dps
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+With the addition that I'm now sure Stefano meant (see the reply to him):
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Jan
 
