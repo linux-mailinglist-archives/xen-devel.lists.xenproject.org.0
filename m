@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B41E48A96FA
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 12:05:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708183.1106837 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E06848A9704
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 12:11:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708191.1106848 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxOdw-0004iu-4q; Thu, 18 Apr 2024 10:05:24 +0000
+	id 1rxOjZ-0006cX-Ni; Thu, 18 Apr 2024 10:11:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708183.1106837; Thu, 18 Apr 2024 10:05:24 +0000
+Received: by outflank-mailman (output) from mailman id 708191.1106848; Thu, 18 Apr 2024 10:11:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxOdw-0004hP-26; Thu, 18 Apr 2024 10:05:24 +0000
-Received: by outflank-mailman (input) for mailman id 708183;
- Thu, 18 Apr 2024 10:05:22 +0000
+	id 1rxOjZ-0006ax-Kx; Thu, 18 Apr 2024 10:11:13 +0000
+Received: by outflank-mailman (input) for mailman id 708191;
+ Thu, 18 Apr 2024 10:11:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=p/a5=LX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rxOdt-0004hJ-VJ
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 10:05:21 +0000
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [2607:f8b0:4864:20::733])
+ id 1rxOjX-0006ZW-Gq
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 10:11:11 +0000
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [2607:f8b0:4864:20::c2f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2928a8a1-fd6b-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 12:05:19 +0200 (CEST)
-Received: by mail-qk1-x733.google.com with SMTP id
- af79cd13be357-78efd533a00so38879585a.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 03:05:19 -0700 (PDT)
+ id f999d851-fd6b-11ee-94a3-07e782e9044d;
+ Thu, 18 Apr 2024 12:11:09 +0200 (CEST)
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ 006d021491bc7-5a49261093cso357194eaf.3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 03:11:09 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- wh2-20020a05620a56c200b0078ede24313esm492503qkn.12.2024.04.18.03.05.17
+ i15-20020ac8488f000000b00436a8ee913csm521231qtq.41.2024.04.18.03.11.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 03:05:18 -0700 (PDT)
+ Thu, 18 Apr 2024 03:11:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2928a8a1-fd6b-11ee-94a3-07e782e9044d
+X-Inumbo-ID: f999d851-fd6b-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713434718; x=1714039518; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1713435068; x=1714039868; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4gYN7tA/gMAb9/jEcITxIDEQy5e7N50MWh0AJZpQxMs=;
-        b=X1tTR4Te1Rdy0nAAcDV8lQ8k9y3JMrEDCuyXOYAWfW3JX5aSPLpJkIxLNhOxKszodu
-         5hDM3z5mSoIoLxXSO/6Q71bGGu1EmZtWZ/RrfWaCrJ7wGtON7hdBTvUW+UqsWqsmB8Yk
-         MRrQu1JC6Etx8A2Kv9ZmW3hsPQgJdVfnNFZPw=
+        bh=ptKjCsIFTUGRg1SU1EIDVHYctIZTxqcYQ/g95XWh3Ww=;
+        b=PJKN5QA2HAKa64rQyGxITl/eSbTky+o5w1XLEIoxveDtWGKja7so3BfjIkHVGvKJ2V
+         LHGXoIbBuDnv8GbGuIMpZB5LgDV3SHJJe/XPkRv50czpVIcke4csI7VlZnCFkTOXBOIw
+         Gf/sRaH+bNp5U1uUazQBkfABYC+IutPQQGM8U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713434718; x=1714039518;
+        d=1e100.net; s=20230601; t=1713435068; x=1714039868;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4gYN7tA/gMAb9/jEcITxIDEQy5e7N50MWh0AJZpQxMs=;
-        b=ltZkboCmWBelHnCt5s+xo79eTZZpCvWsFPT7YYCTu9VK0/XWPd3hUgvOm6h2hA10XE
-         OJQVfngmwJ4ubQ1tTH4VD97akJTEm6gIecjTEIq/HQygGt/yzwCaAidF2HYS8gSHiPOP
-         QlJTeEJTY+RzigTisOlYKD3WObykuXvc/IVgvJJ09PwvNxaCPQMkZuifVkfL4+XXfVAI
-         PPGQiwdGjbD8tnV2/2qlSMT0aRU7hsZSW+7ExIxCoAz5sCfNh2X+IdoPqlij7xfk3bEK
-         wRaYwhH+djBl3dsEyKlDaB1ShuQxxcabxBUemoOAICUVTUTtoIgLYhZn2R+gdjaj6Hq9
-         qnSQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUXIGrH2wCw0LuS7qloE1z7V50rmqt0++I0LzSLQNSPYFSaF8YFRYxgeztXdqPGreaaNUbeek9pDQyKsPq8aExOntYx9Jozl8K+XVf7HQA=
-X-Gm-Message-State: AOJu0YzYCbhroTSKXMaNBQa2MwFohV9ipg2YX78wy7EXaC++jSPwBbcQ
-	1ix6xyO/mTqZygF7F0UGag/Ccz+BjaKbm9RxUqj1Ce/+5jz3u2k19uPppQIoPPo=
-X-Google-Smtp-Source: AGHT+IHLtOYSjY9xoKU2L+ADdw/RYC6L8AJslSPZYuvQ9O/RUj0iOVvxIXKErk2FH5Z6hGS300oNuA==
-X-Received: by 2002:a05:620a:24d3:b0:78f:a08:64fc with SMTP id m19-20020a05620a24d300b0078f0a0864fcmr2263525qkn.30.1713434718390;
-        Thu, 18 Apr 2024 03:05:18 -0700 (PDT)
-Message-ID: <c865e0ea-fee1-42e8-a30f-5344863d00e9@citrix.com>
-Date: Thu, 18 Apr 2024 11:05:16 +0100
+        bh=ptKjCsIFTUGRg1SU1EIDVHYctIZTxqcYQ/g95XWh3Ww=;
+        b=ltb0X1VkEnbGxWY7W4AimsDSRPe1xQ5RVedbSygVcNtKQZxu0K2eWcfHhAikzyq48S
+         0gJvrA7hKwUSBsXkwEiMVOuXGJdnsfPedpfzGh+s48q3KAD1fvdRdf7HKkbbs0uXVkm5
+         61FSrF1t2tZQJkWMz/JhCc7dofPXxTkAtsH2ZXyWqJWqkNpd+/VSRKNuYxIhTGbYfVH/
+         9ObcUwGyIjt7Kw0JbMjBYkS8PsGwqvIhfrHxiQqiXFJDUHwzSxDiZkjiq1bg3yWsEdaG
+         4EHoL01LAWDA1e2jb9Ma1WEYQpGLmzX81nhU5+6gtmK4Yyv1zjRgcdkLfk/V9Trqylsj
+         btIA==
+X-Gm-Message-State: AOJu0YxIzJ4YulSC73jwuzTaBAt8IKNUBSpoYD+q0Ynm0KXFF9tmj4j6
+	1sdqCnaoOdgU2z68SJdy0WBBmpmADtHTEC/MefkzZty5hidsykF/S8ktB2in8PTYIY0OoHIEZpM
+	8+lY=
+X-Google-Smtp-Source: AGHT+IHsl8O6jMO4XSDw2U5pyaQHuUT86K5NAhokWp3CLKbCNPiqnEmy2lDiC+i7yNmm1kFCUFaaCw==
+X-Received: by 2002:a05:6358:6997:b0:187:1a77:f1c1 with SMTP id a23-20020a056358699700b001871a77f1c1mr2703345rwi.28.1713435067984;
+        Thu, 18 Apr 2024 03:11:07 -0700 (PDT)
+Message-ID: <523141f8-7341-492f-b8dd-a4eb36f5444f@citrix.com>
+Date: Thu, 18 Apr 2024 11:11:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] x86: Update x86 low level version check of
- microcode
-To: Fouad Hilly <fouad.hilly@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20240416091546.11622-1-fouad.hilly@cloud.com>
- <20240416091546.11622-2-fouad.hilly@cloud.com>
+Subject: Re: [PATCH 1/4] xen/xlat: Sort out whitespace
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+ Julien Grall <julien@xen.org>
+References: <20240415154155.2718064-1-andrew.cooper3@citrix.com>
+ <20240415154155.2718064-2-andrew.cooper3@citrix.com>
+ <alpine.DEB.2.22.394.2404151449240.997881@ubuntu-linux-20-04-desktop>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,27 +131,174 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240416091546.11622-2-fouad.hilly@cloud.com>
+In-Reply-To: <alpine.DEB.2.22.394.2404151449240.997881@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16/04/2024 10:15 am, Fouad Hilly wrote:
-> Update microcode version check at Intel and AMD Level by:
-> Preventing the low level code from sending errors if the microcode
-> version provided is not a newer version. Other errors will be sent like before.
-> When the provided microcode version is the same as the current one, code
-> to point to microcode provided.
-> Microcode version check happens at higher and common level in core.c.
-> Keep all the required code at low level that checks for signature and CPU compatibility
+On 15/04/2024 10:49 pm, Stefano Stabellini wrote:
+> On Mon, 15 Apr 2024, Andrew Cooper wrote:
+>>  * Fix tabs/spaces mismatch for certain rows
+>>  * Insert lines between header files to improve legibility
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: George Dunlap <George.Dunlap@citrix.com>
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Julien Grall <julien@xen.org>
+>> ---
+>>  xen/include/xlat.lst | 31 +++++++++++++++++++++++++++----
+>>  1 file changed, 27 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/xen/include/xlat.lst b/xen/include/xlat.lst
+>> index 9c41948514bf..e811342bb096 100644
+>> --- a/xen/include/xlat.lst
+>> +++ b/xen/include/xlat.lst
+>> @@ -20,19 +20,24 @@
+>>  # First column indicator:
+>>  # ! - needs translation
+>>  # ? - needs checking
+>> +
+>>  ?	dom0_vga_console_info		xen.h
+>>  ?	xenctl_bitmap			xen.h
+>>  ?	mmu_update			xen.h
+>>  !	mmuext_op			xen.h
+>>  !	start_info			xen.h
+>>  ?	vcpu_time_info			xen.h
+>> +
+>>  ?	pmu_amd_ctxt			arch-x86/pmu.h
+>>  ?	pmu_arch			arch-x86/pmu.h
+>>  ?	pmu_cntr_pair			arch-x86/pmu.h
+>>  ?	pmu_intel_ctxt			arch-x86/pmu.h
+>>  ?	pmu_regs			arch-x86/pmu.h
+>> +
+>>  !	cpu_user_regs			arch-x86/xen-@arch@.h
+>> +
+>>  !	trap_info			arch-x86/xen.h
+>> +
+>>  ?	cpu_offline_action		arch-x86/xen-mca.h
+>>  ?	mc				arch-x86/xen-mca.h
+>>  ?	mcinfo_bank			arch-x86/xen-mca.h
+>> @@ -50,6 +55,7 @@
+>>  ?	mc_notifydomain			arch-x86/xen-mca.h
+>>  !	mc_physcpuinfo			arch-x86/xen-mca.h
+>>  ?	page_offline_action		arch-x86/xen-mca.h
+>> +
+>>  ?	argo_addr			argo.h
+>>  !	argo_iov			argo.h
+>>  ?	argo_register_ring		argo.h
+>> @@ -59,6 +65,7 @@
+>>  ?	argo_ring_message_header	argo.h
+>>  ?	argo_send_addr			argo.h
+>>  ?	argo_unregister_ring		argo.h
+>> +
+>>  ?	evtchn_alloc_unbound		event_channel.h
+>>  ?	evtchn_bind_interdomain		event_channel.h
+>>  ?	evtchn_bind_ipi			event_channel.h
+>> @@ -74,6 +81,7 @@
+>>  ?	evtchn_set_priority		event_channel.h
+>>  ?	evtchn_status			event_channel.h
+>>  ?	evtchn_unmask			event_channel.h
+>> +
+>>  ?	gnttab_cache_flush		grant_table.h
+>>  !	gnttab_copy			grant_table.h
+>>  ?	gnttab_dump_table		grant_table.h
+>> @@ -86,9 +94,10 @@
+>>  ?	gnttab_get_version		grant_table.h
+>>  !	gnttab_get_status_frames	grant_table.h
+>>  ?	grant_entry_v1			grant_table.h
+>> -?       grant_entry_header              grant_table.h
+>> +?	grant_entry_header		grant_table.h
+>>  ?	grant_entry_v2			grant_table.h
+>>  ?	gnttab_swap_grant_ref		grant_table.h
+>> +
+>>  !	dm_op_buf			hvm/dm_op.h
+>>  ?	dm_op_create_ioreq_server	hvm/dm_op.h
+>>  ?	dm_op_destroy_ioreq_server	hvm/dm_op.h
+>> @@ -108,15 +117,20 @@
+>>  ?	dm_op_set_pci_intx_level	hvm/dm_op.h
+>>  ?	dm_op_set_pci_link_route	hvm/dm_op.h
+>>  ?	dm_op_track_dirty_vram		hvm/dm_op.h
+>> +
+>>  !	hvm_altp2m_set_mem_access_multi	hvm/hvm_op.h
+>> +
+>>  ?	vcpu_hvm_context		hvm/hvm_vcpu.h
+>>  ?	vcpu_hvm_x86_32			hvm/hvm_vcpu.h
+>>  ?	vcpu_hvm_x86_64			hvm/hvm_vcpu.h
+>> +
+>>  ?	hypfs_direntry			hypfs.h
+>>  ?	hypfs_dirlistentry		hypfs.h
+>> +
+>>  ?	kexec_exec			kexec.h
+>>  !	kexec_image			kexec.h
+>>  !	kexec_range			kexec.h
+>> +
+>>  !	add_to_physmap			memory.h
+>>  !	add_to_physmap_batch		memory.h
+>>  !	foreign_memory_map		memory.h
+>> @@ -130,6 +144,7 @@
+>>  !	reserved_device_memory_map	memory.h
+>>  ?	vmemrange			memory.h
+>>  !	vnuma_topology_info		memory.h
+>> +
+>>  ?	physdev_eoi			physdev.h
+>>  ?	physdev_get_free_pirq		physdev.h
+>>  ?	physdev_irq			physdev.h
+>> @@ -143,6 +158,7 @@
+>>  ?	physdev_restore_msi		physdev.h
+>>  ?	physdev_set_iopl		physdev.h
+>>  ?	physdev_setup_gsi		physdev.h
+>> +
+>>  !	pct_register			platform.h
+>>  !	power_register			platform.h
+>>  ?	processor_csd			platform.h
+>> @@ -158,23 +174,30 @@
+>>  ?	xenpf_pcpu_version		platform.h
+>>  ?	xenpf_resource_entry		platform.h
+>>  ?	xenpf_ucode_revision		platform.h
+>> +
+>>  ?	pmu_data			pmu.h
+>>  ?	pmu_params			pmu.h
+>> +
+>>  !	sched_poll			sched.h
+>>  ?	sched_pin_override		sched.h
+>>  ?	sched_remote_shutdown		sched.h
+>>  ?	sched_shutdown			sched.h
+>> +
+>>  ?	t_buf				trace.h
+>> +
+>>  ?	vcpu_get_physid			vcpu.h
+>>  ?	vcpu_register_vcpu_info		vcpu.h
+>>  !	vcpu_runstate_info		vcpu.h
+>>  ?	vcpu_set_periodic_timer		vcpu.h
+>>  !	vcpu_set_singleshot_timer	vcpu.h
+>> -?	build_id                        version.h
+>> -?	compile_info                    version.h
+>> -?	feature_info                    version.h
+>> +
+>> +?	build_id			version.h
+> This is misaligned after this patch. You might want to fix this on
+> commit.
 >
-> [v2]
-> Update message description to better describe the changes
->
-> Signed-off-by: Fouad Hilly <fouad.hilly@cloud.com>
-> ---
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
+Thanks, but what's misaligned about it?
 
-As a general note, your v2/v3/etc changelog needs to go under this --- line.
+This is one line where there was a space/tabs mismatch before, which has
+been corrected.
+
+This is what cat -A thinks of the delta.
+
+ !^Ivcpu_set_singleshot_timer^Ivcpu.h$
+-?^Ibuild_id                        version.h$
+-?^Icompile_info                    version.h$
+-?^Ifeature_info                    version.h$
++$
++?^Ibuild_id^I^I^Iversion.h$
++?^Icompile_info^I^I^Iversion.h$
++?^Ifeature_info^I^I^Iversion.h$
++$
+ ?^Ixenoprof_init^I^I^Ixenoprof.h$
 
 ~Andrew
 
