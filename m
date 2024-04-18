@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF81C8A9760
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 12:28:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708198.1106857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3F718A97AA
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 12:45:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708206.1106868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxOz4-0002YP-R0; Thu, 18 Apr 2024 10:27:14 +0000
+	id 1rxPFm-0007fm-Ao; Thu, 18 Apr 2024 10:44:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708198.1106857; Thu, 18 Apr 2024 10:27:14 +0000
+Received: by outflank-mailman (output) from mailman id 708206.1106868; Thu, 18 Apr 2024 10:44:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxOz4-0002WN-OM; Thu, 18 Apr 2024 10:27:14 +0000
-Received: by outflank-mailman (input) for mailman id 708198;
- Thu, 18 Apr 2024 10:27:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rxPFm-0007dS-8G; Thu, 18 Apr 2024 10:44:30 +0000
+Received: by outflank-mailman (input) for mailman id 708206;
+ Thu, 18 Apr 2024 10:44:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxOz2-0002WH-Su
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 10:27:12 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 37075ade-fd6e-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 12:27:10 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-344047ac7e4so1146049f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 03:27:10 -0700 (PDT)
+ id 1rxPFk-0007dM-Uy
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 10:44:28 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a1205026-fd70-11ee-b909-491648fe20b8;
+ Thu, 18 Apr 2024 12:44:27 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-418dc00a31aso4910425e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 03:44:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2-20020a5d6442000000b003479bec98cesm1461969wrw.115.2024.04.18.03.27.09
+ e2-20020adfc842000000b00346cc85c821sm1508135wrh.89.2024.04.18.03.44.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 03:27:09 -0700 (PDT)
+ Thu, 18 Apr 2024 03:44:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37075ade-fd6e-11ee-94a3-07e782e9044d
+X-Inumbo-ID: a1205026-fd70-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713436030; x=1714040830; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713437067; x=1714041867; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=bzCIm9h/4Gv8VYxZvFLQWXI055QtgevYfLngtXeC0Dc=;
-        b=MbAuwtvgi3X7tmVd6PEciIfTtpRUOewriihO0mCYvub2oXcmEDRVBXKigB7sR7zO3E
-         PuykECvCv+cYEMOGr/fKeIhhKW32zvARK65J+fSKWG4wkwgaIKVhfim5qllZe07qQdPS
-         W+WddsTGgVcIkFrF998VZQpMKnnjNo2ZuIimL7qb6s+4R+tVsfRphbSYP+SI3hj340rc
-         PZQFslNffx0zpvLOGr2MrA+35m2oJYO/+t0lYKjxKJbJBM9+EJlHwC7gLi6bpO0C3Kyi
-         NRZQiL6KMl5hTYM+VE5PVqrcMs68jx1h8k0w9Kzb1uI6dJRs3eT8YY1a2Rjpj0FuN5Jr
-         +l1A==
+        bh=WyTMC05f8zIiysE3K7QC8zs3oYC74Bt+N2EiLX734UE=;
+        b=WLIADQ9a4LvAoKYgAm8OEyDpzHlyBMnV/bYiIxD+OC3yPgdVS2M6wZMYsTnug1B5q8
+         DNkAX0jJpnGlA1akOgsnegzHrgS4LdkTJbYnJebhrP0jBopiOTUCkSUJ+EB+oj2kV9d8
+         VYAGmZUgvax0dWp+rrBgjAxu72nCfKSETviXSnVHcQr4BKJHm2+9qlm3tgqy9RjopDcU
+         6OeqfF1nfaAQ0436QzZ3FxxQXDrkgWgWOyw9X4vQm130j9FJxAFrxgBaqlA9aCkqHinl
+         wuQjDsx6BzQkmCtBJMkUYFPKWJ9Rno9DW/MwZN7DrcjZ6X29C6ERCFukxsF2h2GuB4a2
+         M/vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713436030; x=1714040830;
+        d=1e100.net; s=20230601; t=1713437067; x=1714041867;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bzCIm9h/4Gv8VYxZvFLQWXI055QtgevYfLngtXeC0Dc=;
-        b=ffl+4Cs6pBJfUGKhD4zlKOj6zQDfJL6RvMYATg05JwQ04pRqS3hI/WdbSKrWXSz2Rw
-         sKxIqQ9sN9nyB/sx90fbNK1N0OiiWt/FYt9HsioRGslYX0ZST5HOwf98Tcaoiu0PEAnT
-         ZzusyIEM42nlTtxkmdFV35xitSn5qJLM8Owu/u5aR6qnrXNzKEMpAXtCD19DI7yZUdRl
-         kL6TkakKJwnMRi2lGSvA6uV5cHaD73SHL/Lzcs7RzErMG8X3RZ8almsmI8pagelZz+Mo
-         c72piaJqOR2caoSV+kYIaUUUV+JVkFimGm/L8Xl2TERGXGOr43hyHLcwIhGz1kZG5neX
-         MRXw==
-X-Forwarded-Encrypted: i=1; AJvYcCVt83Dd7pxxGKQ6cqFLT/OR4eWpURXmAFNl3mZbm2U6lw93B2x3IjOokVKJJKVKv31mwtFZ1xKMK4goz1CGI0+T7dp5B8Xz/+OsKwAGKqY=
-X-Gm-Message-State: AOJu0YyWHx+4hu7YLEJsvoovXDipl6Xbtycksia1KY8A+rLx5YYNPXTS
-	uky6jzBrLtCJByB4JckDiJl+2l+yh4kyK4Q3nQe/cUah3EvZAf1O1zzgudGXtQ==
-X-Google-Smtp-Source: AGHT+IFn3SjbYO58cMa+Qzj9CxJarKCHBHPp5y/qMJtsvcoZ4r9TWCyAu/eg8c4WZD7/82JLQD+G8g==
-X-Received: by 2002:a5d:6a4c:0:b0:346:47a6:e77e with SMTP id t12-20020a5d6a4c000000b0034647a6e77emr1346800wrw.27.1713436030254;
-        Thu, 18 Apr 2024 03:27:10 -0700 (PDT)
-Message-ID: <d100385d-007d-4b20-9bbc-51ba06b4e8bb@suse.com>
-Date: Thu, 18 Apr 2024 12:27:09 +0200
+        bh=WyTMC05f8zIiysE3K7QC8zs3oYC74Bt+N2EiLX734UE=;
+        b=RUdZvM/HSm8RWioKKe0aoz2pAjj3+v/GiKJghp0qpRC9uo+bofN9BKPSxFCLFHu7ZX
+         wsUh1lPL68zGxH/5FX6rPupV99Du/e5kAu+Zgzq5fhT/GNHCbsF+O1U4FihuWCk1AikD
+         kozrSwjsISuoKE1NBDinsL03X3nvCihLySu+/hLKA0nzKu4yuuIoVrKTh7STXcLhct9c
+         P4bC+b3Oh39ws0JlbPY1UqT1aeV8aqOmIcBve+fCtrEJ/8obB3CLWT8U/2hyR5QHTSMm
+         8+/ZwuT/RRmsU8mhXw3jelxmh7M1UI8cYkaBKKf0HsMY1TPujorasKKse574yPmWnnic
+         KPaw==
+X-Forwarded-Encrypted: i=1; AJvYcCWbxcOmmEizgCSLti7+uO7/9QRl8ELLVwezilg0UOmnQYS9az3JVSUz0K0AR3zitiLwoRHfpu1GJqMSFs2+GcUt1E9ly7SbsR13jbDW8yw=
+X-Gm-Message-State: AOJu0Yx5Kxpdu1/nnvh7XhyJoqiI6SuQDQLzqPl62ekcsXIk8609vCDE
+	L/9Y1EyvwOZsSTrmFAZynt1+1bHT9A59g0sVbl78Yysf2r+BIZFxOTFLYAPT1Q==
+X-Google-Smtp-Source: AGHT+IGQ7Xyqwg5jmRj54XHXG0RKOP25un7IysIq/xeFBvWgfTEhLaBrzar70uHu2hD3Lxy/YLF+zQ==
+X-Received: by 2002:a05:600c:3d9b:b0:418:a620:15a1 with SMTP id bi27-20020a05600c3d9b00b00418a62015a1mr1754121wmb.30.1713437067246;
+        Thu, 18 Apr 2024 03:44:27 -0700 (PDT)
+Message-ID: <cc211dbe-9d95-46aa-8167-558acac7a3d3@suse.com>
+Date: Thu, 18 Apr 2024 12:44:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/emul: Simplify segment override prefix decoding
+Subject: Re: [PATCH] x86/spec: fix reporting of BHB clearing usage from guest
+ entry points
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240411152314.1755561-1-andrew.cooper3@citrix.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240415141737.88236-1-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,22 +110,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240411152314.1755561-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240415141737.88236-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.04.2024 17:23, Andrew Cooper wrote:
-> x86_seg_* uses architectural encodings.  Therefore, we can fold the prefix
-> handling cases together and derive the segment from the prefix byte itself.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 15.04.2024 16:17, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/spec_ctrl.c
+> +++ b/xen/arch/x86/spec_ctrl.c
+> @@ -643,7 +643,7 @@ static void __init print_details(enum ind_thunk thunk)
+>             opt_eager_fpu                             ? " EAGER_FPU"     : "",
+>             opt_verw_hvm                              ? " VERW"          : "",
+>             boot_cpu_has(X86_FEATURE_IBPB_ENTRY_HVM)  ? " IBPB-entry"    : "",
+> -           cpu_has_bhb_seq                           ? " BHB-entry"     : "");
+> +           opt_bhb_entry_hvm                         ? " BHB-entry"     : "");
+>  
+>  #endif
+>  #ifdef CONFIG_PV
+> @@ -658,7 +658,7 @@ static void __init print_details(enum ind_thunk thunk)
+>             opt_eager_fpu                             ? " EAGER_FPU"     : "",
+>             opt_verw_pv                               ? " VERW"          : "",
+>             boot_cpu_has(X86_FEATURE_IBPB_ENTRY_PV)   ? " IBPB-entry"    : "",
+> -           cpu_has_bhb_seq                           ? " BHB-entry"     : "");
+> +           opt_bhb_entry_pv                          ? " BHB-entry"     : "");
+>  
+>      printk("  XPTI (64-bit PV only): Dom0 %s, DomU %s (with%s PCID)\n",
+>             opt_xpti_hwdom ? "enabled" : "disabled",
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+For one the surrounding if() conditions need similar adjustment.
 
-I notice we already have suitable BUILD_BUG_ON()s, as we use similar logic
-already for PUSH/POP of the selector registers.
+But then I wonder whether the further uses of cpu_has_bhb_seq don't
+need switching, too (when determining whether to force
+X86_SPEC_NO_LFENCE_ENTRY_*). At which point the question is why
+cpu_has_bhb_seq exists in the first place: It in particular does not
+affect the default calculation of opt_bhb_entry_*, afaics.
 
 Jan
 
