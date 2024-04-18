@@ -2,46 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3A3D8A9B4C
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 15:31:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708384.1107281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3130D8A9C76
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 16:17:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708398.1107290 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxRrE-00028H-2g; Thu, 18 Apr 2024 13:31:20 +0000
+	id 1rxSYm-000440-9f; Thu, 18 Apr 2024 14:16:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708384.1107281; Thu, 18 Apr 2024 13:31:20 +0000
+Received: by outflank-mailman (output) from mailman id 708398.1107290; Thu, 18 Apr 2024 14:16:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxRrD-000253-Vl; Thu, 18 Apr 2024 13:31:19 +0000
-Received: by outflank-mailman (input) for mailman id 708384;
- Thu, 18 Apr 2024 13:31:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9OU+=LX=epam.com=prvs=083815c34c=sergiy_kibrik@srs-se1.protection.inumbo.net>)
- id 1rxRrC-00023E-2g
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 13:31:18 +0000
-Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
- [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ee4f43f7-fd87-11ee-b909-491648fe20b8;
- Thu, 18 Apr 2024 15:31:16 +0200 (CEST)
-Received: from pps.filterd (m0174682.ppops.net [127.0.0.1])
- by mx0b-0039f301.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 43ICJAfp029461; Thu, 18 Apr 2024 13:31:10 GMT
-Received: from eur04-he1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2050.outbound.protection.outlook.com [104.47.13.50])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3xk3dur90d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Apr 2024 13:31:09 +0000 (GMT)
-Received: from AS8PR03MB9192.eurprd03.prod.outlook.com (2603:10a6:20b:5c0::11)
- by AM9PR03MB7059.eurprd03.prod.outlook.com (2603:10a6:20b:281::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.39; Thu, 18 Apr
- 2024 13:31:06 +0000
-Received: from AS8PR03MB9192.eurprd03.prod.outlook.com
- ([fe80::b309:8ea5:85c3:d04f]) by AS8PR03MB9192.eurprd03.prod.outlook.com
- ([fe80::b309:8ea5:85c3:d04f%5]) with mapi id 15.20.7452.049; Thu, 18 Apr 2024
- 13:31:06 +0000
+	id 1rxSYm-00041f-6R; Thu, 18 Apr 2024 14:16:20 +0000
+Received: by outflank-mailman (input) for mailman id 708398;
+ Thu, 18 Apr 2024 14:16:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rxSYj-000407-Td
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 14:16:17 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 35fc743e-fd8e-11ee-94a3-07e782e9044d;
+ Thu, 18 Apr 2024 16:16:13 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4167fce0a41so12095355e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 07:16:13 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2-20020a05600c34c200b00418d6cf9f61sm2963698wmq.8.2024.04.18.07.16.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Apr 2024 07:16:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,138 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee4f43f7-fd87-11ee-b909-491648fe20b8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kXU8Dj74MzkoS9cIvbYAFQoEw2M7EbHIhWedravLMlhEpP+ZLSAGH0PfiqxQ1E8Ux0n0zxofMYci6a8KhYsBnGrERMidTVbYnNfoJyFCbHavXJGNFUFvomVW3DvfbVNxBKbnJ5O3e8pWHhPM2Gs8g6ndIQJk2p9XMpvzE69Bm+mqTZp2Yu0uhMola40xILkKjRyaJmLIW/I//onha2DWX2z/fQKr9/Vm+gK2ys80wRS4UZhSi4ek2cUjDCNi3QUNDfgcsdVXZyah/fiuncZpTKFaidYPxYpPp3mrezSQI2hHsZHHP4RlczAdmwKB2uGC2wrXmKq43yCoAmNC4J/vxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HirSd0t5+EnyK16DnRJY1QL7GZUZgFHV+Bic5BSOBpE=;
- b=ax5y6AF1R7SYJl+CmKOngCbor0GKibzmIq5hVLvQWIWI0vorA4L1QJD6Y73nHNHdOqwqiytRBR8KxEZ402sCq+NgEvenBCUShooVPiRaVAEjQvxqV7lc8YVudcYG4ILksm8E/yF9r6DYlVY2PaDgfp3HIfRh0Uld03v3wEAVHtZv2eR9OPyni0q5r2cmnrbFqY5KdPkOaaexuonvpnDm9ZRVKxFMOp+aQJDvkaNf4hjvDgRFIVFp0LhxU8hm1Ah6YSs0/aPJduVASSM2fYcNKK2oAfaGCl41c+U2+EFCPtSlLOm/pCefvm2LB90Z0CmHWmQhk/f1tuGZ7FJ4lHFCYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HirSd0t5+EnyK16DnRJY1QL7GZUZgFHV+Bic5BSOBpE=;
- b=ZijQQ3oOP7v8IUBa31hzkWalZRi7I1VDU8e6sDJcQS0FLlXIh0P+Vdq2/e97YUg8cQr/Cv+sxJcQMAxexYJYfCncDZM0DvNjo0Z2GcVQmLMhLv3dMT3x0xYbpW0PM1qPugqYPYmUEN9PTK307YAUvUnOdEZ+WxiefEoxXVO3P7Gu3NId4Ywgf+jyRyS48qkqP67wTmaNrFAFL2hDes/S9EHdRGaFBB+OsuyiMawLnOgPPX8RfynFPVx1oBmvIMC+rS1opuvz6OHutERDY6y2bYZhnIlm5pY7ebs/+6sGrH95RgwYSqyq8eCKlq79Nx3fDjn4RrWNqxo+++JiUFKuqw==
-Message-ID: <5363530b-fbdb-4d7e-afcd-b71b1e681e5a@epam.com>
-Date: Thu, 18 Apr 2024 16:31:04 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1 13/15] x86: wire cpu_has_{svm/vmx}_* to false when
- svm/vmx not enabled
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
-        Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>,
-        =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
-        Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-        xen-devel@lists.xenproject.org
-References: <20240416064606.3470052-1-Sergiy_Kibrik@epam.com>
- <fb54fefb-404f-43a4-aea9-28649927c353@citrix.com>
-Content-Language: en-US
-From: Sergiy Kibrik <sergiy_kibrik@epam.com>
-In-Reply-To: <fb54fefb-404f-43a4-aea9-28649927c353@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: WA2P291CA0022.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1e::24) To AS8PR03MB9192.eurprd03.prod.outlook.com
- (2603:10a6:20b:5c0::11)
+X-Inumbo-ID: 35fc743e-fd8e-11ee-94a3-07e782e9044d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1713449772; x=1714054572; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ZX6XzzG/xh61IcACE2+L+IWC4ivMbjGDkwc8UZo4xRE=;
+        b=PV/dPhx6di6yrZKRfABvC6rgfAsfUeHifYpkY70m7P2PdUgD+gNkfRzZe9zsEhb6DQ
+         0NG66PXu4tJBc7avh/HI/E/Qhz9nFIqzmc7vqS9gJdMZgePEFEtWMxhiZcdr1b4AtmTz
+         ULJyOJJh7h0EBPg4XN0mKTiU+xyyq4bDzNQaAhsPvjy5zdyPyCmhzwJjHz7x6vTjQxn9
+         tXgDXvGVYa8ve2Z/jtMhg09a4+7ydq+C+F9TGwlsPk315+SOddChEGe3kl/TnRWM8rae
+         kQg/jddqdomlcL8k5TAF+WKVdhIz2q7FB1yO/WO579Q1vHDw9v8idwAc/W4Yy9oVneIl
+         ogow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713449772; x=1714054572;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZX6XzzG/xh61IcACE2+L+IWC4ivMbjGDkwc8UZo4xRE=;
+        b=s8nRav15dqQUKH1a1tMW0GJKbqI1si/JU3bPc9/E9SgVGFhuzi+sRJv09N4eTuQoD5
+         dPCTkQYDPhg8XVaPFfH+BcUIAAXD09GItiuMvlGFBUEiuppZ8hE4bS4AATq/vTkBoAbI
+         y5D75ztGqTUKtfIFy/KpmZDZaojgvm47NsuzB3UFYJKBWWozyB6It1z5xLl4s1J+NY9M
+         2PdQ/OOQqCZqsqG09n444RnPKnC9zH2menE33PdQyulPJhRDNm7AFqt2eP6J+Y/d2qt+
+         9Yy5TD8PvDXxR+1VJBB8kRl/PGcfLea/1OKAhjbJxaRAiycTUQFky+hFHpzVMwExHsaD
+         jKIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXedrViabWfioESnO4yyWHVFaUqgy1dREMYjPI2CeEdTIPWGNqRicrA0ewl2a/0wczkaWtHYRz6PjBSc2eFAhUiJZt66G5cRcMvisE0MBM=
+X-Gm-Message-State: AOJu0YxnI4lshx8OYhpWFU+8R/JLr1xdhcXe9u8tn459px6Fr8wMlAbN
+	eWGMYddv6T3z6/Cp8wzHOeQraUcULXb4Fgk2k0prDbgsAJWb5ymFct41P+dEtA==
+X-Google-Smtp-Source: AGHT+IENZADmxs7ZctY5syyQFruL0pnBogop2rmdni9vcZZR2bXxPIXDHHm2d0lATZMZjv9jr+VcVw==
+X-Received: by 2002:a05:600c:c19:b0:418:de31:7148 with SMTP id fm25-20020a05600c0c1900b00418de317148mr1964248wmb.3.1713449772379;
+        Thu, 18 Apr 2024 07:16:12 -0700 (PDT)
+Message-ID: <c457b406-1ba0-41c3-ae0b-f0512560a9f6@suse.com>
+Date: Thu, 18 Apr 2024 16:16:11 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR03MB9192:EE_|AM9PR03MB7059:EE_
-X-MS-Office365-Filtering-Correlation-Id: ccb60bca-98ca-4c09-6a6d-08dc5fabcd19
-X-LD-Processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	rFCxwdToVue6whatW6M+jQEBh4eWFJx4sfGJ5dW1jSyZViZS341jVX2rl/OUtkGcJPXJuCt7S4NXzpW6EY0+m5HPzsZuqkYQJ1LNoKz9JENWR4ZC0zKkCib+YegElRC9u2uuubY2eog94Cwihjb/+MQEvrOWVKSxMoodR6eJaDwdrD2REepL1PUGCRqX72gnbiRAou7xqT32eSiqSLv3V4JFweMjcFZPx/syDxC8xj8FdMikYoXGECaBDsv1lJHTn/FdgPIeIP200lfXIc28VhaECEvgzspY/WI+l3AfxGxZa1o+0I1CU88uhwydAi0TDI8bCApyWwW5mS9L7WjU9pHocIxHRJu5Q+jVgNYhg/a1+Ut+xrr6a8H+kr+U/dcgK2fQq7JFYXIGjW+5dbSglcVH+ktPxKzv82LqM/Ol9/Jx8lAsvPGmxDx89371eCkZ9XYxOelmbZsPHbtXO30+HSifN7TFD6uLF0m79IkUPlMqQpEPECAFUAKSy75DYZbCreZ6h5HAMPTb8tXDPw70QvoCg+18iAqlfudzjoifARxEihq3TTGY37MWRn1fPMBEfmWkerNMnFeN6qVeCqgXgyCwKrzOqZI7L/Ia2otDjoNz1nKN8ulx9S0B44OlbYl0S5nSjGVKfc3/XY2Wj/FQY13ebtjeidtUJ3RdjtTuhLA=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR03MB9192.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366007)(376005)(1800799015);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?WUsxZVJQZ2dBUXBvamhCdW0xSFkwVFQ3dEFNYXFPMGpSMTNYSGtLZ1hnbDV2?=
- =?utf-8?B?akxkUDVKUXFCNUVqY3JjL1AzRStnNzJtWEZLOXJnNzVQUnhzZmhXcVd1SzFu?=
- =?utf-8?B?dkNzcXNLeWFvZG9PWUErb1lnanpseTBuczlZUkNPaFh1VDRlbXVjYkc3UE1X?=
- =?utf-8?B?TXRLTHZyVzg1K3VGMWlUVUpYQXpLVCt0ZlAwTTVWUTdEanVLQ1Q0T050Mi9R?=
- =?utf-8?B?Nk9yVnRmSHFIWUpnaWN1czJwZ3JSdkRMelduV0UvZUxkUm02R0t6RU9YTURt?=
- =?utf-8?B?NzRXYzhGTFAwdUNaZ3lRUUh6TlBRM05kWklVdVI5OUtFcjV1d0p2NkdiZUpp?=
- =?utf-8?B?K2g4cWMyaXR5bU8yVUpNcVBoMXlQcGlaYkQyTXRveEI2OTZJNFl3Z09Hamhp?=
- =?utf-8?B?bUdaTW9tTXpaNGY5YWxxSDBnakV0YmFoUEhlYmNKQ0NTSFNlSnpnVE9SR01l?=
- =?utf-8?B?MldJZ3R1THA2VlVWOGRTSEpkckZKZm1ocUNjaEdxQjhjWHFwS1E3RlpodkhU?=
- =?utf-8?B?MXZtYk1lWkhJeGZsNVdkZmdSNmY2VVVEaEJyQ2FocVRoeFZMZ1B3SXdBbDd5?=
- =?utf-8?B?UUtVUTdnUTJ2bDRtNWowS1kwQTk3eStJRG1sbEU0QVB1SHF6TkYzQjRGM1Fh?=
- =?utf-8?B?NDFYaE1vcWVZcEROQWNEZFh0eFNxdnBXWkVVUmxoNmNCVVJzR29Qa3hGQS9R?=
- =?utf-8?B?cGtVSnBZWkh4ZWtwZEdSYitEWjNVYW5YQ1FJMUxFQ3hJekFMODdMUkpGaGdw?=
- =?utf-8?B?ZHZtOUFJRVRNc0I0Y21hbWt2K3YwbDh0ck5MZGlKdFMrT2lYb3hOT1BRSjZr?=
- =?utf-8?B?Y3h3cTRYN2dvS3hrOXE1bFNrSU42K1JJdGxuNk9vOXJSMGxBNTJDQml1MUVK?=
- =?utf-8?B?dUx3MGVNbFRWSnBvSTNQbEJyN2JrY0puV0d6M3VmZFF4RDBpNTBsU3lmWXc3?=
- =?utf-8?B?RkNVTU5ZM2RKVkdBYXVKMWhSeXVnem1yMklic1hHRXJlMS9jVUo1SEV4VFJv?=
- =?utf-8?B?V2lBRlNyZ0E2b3RoMElmckE1ODFVRzJBbE5pVzBQd1ZCY0pNV2JQaTllOGlE?=
- =?utf-8?B?ZjN3T1JyWmlReExCS1RJdkhDUm1TK28yaXNveTFOSThTY2ozdEZBN1k3UzFi?=
- =?utf-8?B?cmlLNlpxQnpHRnZtQXdjZjFiN29JWGxJZmZLeklCTVNPSTBnb0MxQjVtb2F2?=
- =?utf-8?B?MGUyU2h5MmpSd2tCZjJPRFltTk14UU1CdkJNMzV0dlltelpQQ0FPcnE2Z0p4?=
- =?utf-8?B?YnQycjhOSzdWSlFzTmsweFMwWXB1MjFML2ZXTXowV2tobkVFUFBZT1Ewc2d6?=
- =?utf-8?B?Q2RKbkExNlM0VWhxZFNtTmptVkFJaGF3THJiKzVHT3NEWnBiYnNzYVhTaHkw?=
- =?utf-8?B?dXdCWHd4SnBiK0NKdFJVWUs5M3dXT0o2WVN0OUZwaWlYT244UGhPaDV0M01X?=
- =?utf-8?B?eUJ3eEZiclBFYkNCN0h6eG85MkRCekZnOVVBa3phWGl3SEFxRXNuZllua1hl?=
- =?utf-8?B?RUY4OTZiM09acys0TkhKeUlkOTBKUjZ4STNHL2hZeHJMWGV2MjBUU0NsWW9x?=
- =?utf-8?B?V0ptTmdCS1lockEyeFF0eG12MnU1UHhaNE5xejBqQlQ2ekd0N09CblUwd1pU?=
- =?utf-8?B?THVaazcvd0RWZTk3SFNHQWhNTnV2UDZjbjI1aXRpd08ybm13UmlCVEV3R0Za?=
- =?utf-8?B?TGMyU1AwSWh1ZFZ2QzZOVllVWHBVOXZ0ODUzMGluKzgzQVZYeTZXK2lnY0FL?=
- =?utf-8?B?QWY3NHpwNUJqcGJ1R0ZsTmM5djZoN1p2M2craTlJNW9lU21ZZWFuWUVBYVlY?=
- =?utf-8?B?bk1YcHBDZnI2NkFTUi9rc3BUanNKalBLK3d5RktHTnNZNnZON0J6bktGL3hh?=
- =?utf-8?B?N3ErNUhxR2ZXQXFFMFFXUEViSWkwa3haQjVid2FxL3k4Lyt1Q1JJRks1OVBt?=
- =?utf-8?B?LzJhQkNobUc3cWFPU3N0VWRleFR6N2l0V1c5b1ppbkZINTd4NDZ1VEp3Mk5V?=
- =?utf-8?B?cFBmQkRBbFdlYTV1T3ZGQnhvc00yQ1I2UnA2cTdMRWtIU3ZvYXZwYzl4RXpx?=
- =?utf-8?B?c011UkttSytOcjdETDM0ZlZUWUc4NHA5TE5LUGQ2aWtRNVZjdjRyNUo3TDJu?=
- =?utf-8?B?N0tsVXN5WVhrYU53V3Z3R29KemRjWGozZnhaTXU3Um8vandZZm5FeUJ4Q0pS?=
- =?utf-8?B?d1E9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccb60bca-98ca-4c09-6a6d-08dc5fabcd19
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR03MB9192.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2024 13:31:06.6245
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eVrRkKeEjzNsAolfdN+N1lGA9hw58vJkWAKj9PBwg1+yqsFgjdPXjBgkd4bge9QUzCcF5sc6UPVHOxv6O+YTBw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7059
-X-Proofpoint-GUID: 5XMYp99Pu36a4yxEQOyMN_TwpvGxz56t
-X-Proofpoint-ORIG-GUID: 5XMYp99Pu36a4yxEQOyMN_TwpvGxz56t
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-18_11,2024-04-17_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0
- lowpriorityscore=0 mlxlogscore=831 bulkscore=0 clxscore=1015
- priorityscore=1501 mlxscore=0 malwarescore=0 adultscore=0 spamscore=0
- suspectscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2404010003 definitions=main-2404180096
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/riscv: check whether the assembler has Zbb extension
+ support
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <10816604a8625b5052f134e54c406fb4e7b6c898.1712649614.git.oleksii.kurochko@gmail.com>
+ <0f1c2960-2443-4afd-811a-7182cc0ccbd5@suse.com>
+ <3acf272c5950ea5e980cb40ae4ee3ec5698b26ae.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <3acf272c5950ea5e980cb40ae4ee3ec5698b26ae.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-16.04.24 16:26, Andrew Cooper:
-> I'm afraid this is going in an unhelpful direction.  We want to move
-> both of these files to be local to arch/x86/hvm/{vmx,svm}/.
+On 18.04.2024 15:09, Oleksii wrote:
+> On Thu, 2024-04-18 at 12:00 +0200, Jan Beulich wrote:
+>> On 09.04.2024 10:00, Oleksii Kurochko wrote:
+>>> Update the argument of the as-insn for the Zbb case to verify that
+>>> Zbb is supported not only by a compiler, but also by an assembler.
+>>>
+>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>
+>> While technically all if fine here, I'm afraid I have a couple of
+>> nits:
+>>
+>>> --- a/xen/arch/riscv/arch.mk
+>>> +++ b/xen/arch/riscv/arch.mk
+>>> @@ -11,7 +11,8 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       :=
+>>> $(riscv-march-y)c
+>>>  
+>>>  riscv-generic-flags := $(riscv-abi-y) -march=$(riscv-march-y)
+>>>  
+>>> -zbb := $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"",_zbb)
+>>> +zbb_insn := "andn t0, t0, t0"
+>>
+>> As can be seen on the following line (as-insn, riscv-generic-flags)
+>> we
+>> prefer dashes over underscores in new variables' names. (Another
+>> question is
+>> whether the variable is needed in the first place, but that's pretty
+>> surely
+>> personal taste territory.)
 > 
-> cpu_has_svm_* isn't actually used outside of svm/; only the plain
-> SVM_FEATURE_* constants are, and that's only because they're not
-> expressed as plain cpu features yet.
+> It seems to me that we need it; otherwise, if we don't use the variable
+> and put everything directly:
+>   zbb := $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"andn t0, t0,
+> t0",_zbb)
+> Then as-insn will receive incorrect arguments because of the ',' used
+> in the instruction. It will parse it as 3 separete arguments ("and, t0
+> and t0"), which will lead to a compilation error:
+>    /bin/sh: -c: line 1: unexpected EOF while looking for matching `''
+>    /bin/sh: -c: line 2: syntax error: unexpected end of file
 > 
-> cpu_has_vmx_* has a few more users, but most are unlikely to remain in
-> this form.  One critical set of changes to fix vulnerabilities in
-> nested-virt is to make almost of of these decisions based on per-domain
-> state, not host state.  The aspects which are host state should be in
-> regular cpu features.
-> 
-> I already volunteered to sort out the SEV feature leaf properly, and I
-> was going to do the SVM leaf while I was at it.  If you can wait a few
-> days, I might be able to make half of this problem disappear.
+> Probably I am missing something and it can be done in a different way.
 
-I guess it can wait, surely if a better solution is to be crafted at the 
-end.
+Well, as said - this is perhaps largely personal taste. Yet technically
+it isn't needed, assuming you're aware of the "comma" and "space" macros
+that we have at the top of ./Config.mk. You'll find $(comma) used for
+similar purposes in x86.
 
-Stefano, what's your opinion on that?
-
-   -Sergiy
+Jan
 
