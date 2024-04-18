@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2478B8A936D
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 08:45:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.707961.1106427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 255948A9386
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 08:50:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.707966.1106438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxLWP-0004ym-Ab; Thu, 18 Apr 2024 06:45:25 +0000
+	id 1rxLao-0005cG-Sm; Thu, 18 Apr 2024 06:49:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 707961.1106427; Thu, 18 Apr 2024 06:45:25 +0000
+Received: by outflank-mailman (output) from mailman id 707966.1106438; Thu, 18 Apr 2024 06:49:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxLWP-0004wx-84; Thu, 18 Apr 2024 06:45:25 +0000
-Received: by outflank-mailman (input) for mailman id 707961;
- Thu, 18 Apr 2024 06:45:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rxLao-0005ZW-Pn; Thu, 18 Apr 2024 06:49:58 +0000
+Received: by outflank-mailman (input) for mailman id 707966;
+ Thu, 18 Apr 2024 06:49:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RbQw=LX=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1rxLWO-0004wq-0c
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 06:45:24 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 38ad239f-fd4f-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 08:45:20 +0200 (CEST)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:8ac4:0:0:0:0:f7])
- by mailhost.m5p.com (8.17.1/8.17.1) with ESMTPS id 43I6j7Yl098355
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Thu, 18 Apr 2024 02:45:13 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.17.1/8.15.2/Submit) id 43I6j7XK098354;
- Wed, 17 Apr 2024 23:45:07 -0700 (PDT) (envelope-from ehem)
+ (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rxLan-0005ZO-IR
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 06:49:57 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ddfaae23-fd4f-11ee-b909-491648fe20b8;
+ Thu, 18 Apr 2024 08:49:56 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-418e4cd1fecso2191065e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Apr 2024 23:49:56 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ fm25-20020a05600c0c1900b00418e2b69e14sm1177031wmb.40.2024.04.17.23.49.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Apr 2024 23:49:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,116 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38ad239f-fd4f-11ee-94a3-07e782e9044d
-Date: Wed, 17 Apr 2024 23:45:07 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-        Wei Liu <wl@xen.org>, Kelly Choi <kelly.choi@cloud.com>
-Subject: Re: Serious AMD-Vi(?) issue
-Message-ID: <ZiDBc3ye2wqmBAfq@mattapan.m5p.com>
-References: <ZcqoVBnsgUJw8G0l@mattapan.m5p.com>
- <ZfiY7/FBTwPQlfYi@mattapan.m5p.com>
- <CAO-mL=xndFd7xTU4Q+9hjLL-7zqZUGjYcp3_REa6QqXvtyAEYg@mail.gmail.com>
- <Zf3aWXfCANR7zXj8@mattapan.m5p.com>
- <e9b1c9c4-523b-481b-946e-37c7c18ea1d2@suse.com>
- <ZgHwEGCsCLHiYU5J@mattapan.m5p.com>
- <ZgRXHQpamLIdu7dk@mattapan.m5p.com>
- <c2ce4002-58d5-48a3-949c-3c361c78c0ac@suse.com>
- <ZhdNxWNpM0KCzz8E@mattapan.m5p.com>
- <2aa4d1f4-ff37-4f12-bfbb-3ef5ad3f6fdd@suse.com>
+X-Inumbo-ID: ddfaae23-fd4f-11ee-b909-491648fe20b8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1713422996; x=1714027796; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0F/kjc/z5qQqOfJP8QEJnCklRuVvM0/v37PSfdIW9KM=;
+        b=M95LAqF+o7cElKdwA9bNfQh2oLhSnb4CqhLWogJ9w0AJBoRho8jhq4f/oyJnT4o0fX
+         Mfd3hjKJIp5zH7TmSW5zT4WY381fTSXvDr+ob1d7ffcp0Gol+nttpIxGM7xzLNJwIoYg
+         jnJF37ImrlXrxm+YGVrno8KlyaVuWLdXpUh3BlmXMTp+pYdhuY5a0jTuESF1rNo//Ei1
+         Q83TiF2ATZBvHrzbpl1M8Nz36fqU0Kv/S5mqVg2ABlx1Zd05lJyRBba2ixuKtYFzWR/R
+         zxe0uidhaMuPZXvPZiNlIaS5/ttW5ltFsWCqArOmxlV4o1JBaGAlYjhdTaDGLM1gC0YJ
+         OErw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713422996; x=1714027796;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0F/kjc/z5qQqOfJP8QEJnCklRuVvM0/v37PSfdIW9KM=;
+        b=en2ado93CiSYU0hKmlrOwtnRh631ArwWAlQl+aVv+7Fjx8dZ9v66ofhh9j70tCzYKF
+         21lGyt7kRmiJ9zGt3YgJ9uTVQNQAchK/h1JIhUDjaa9R2+DgaFjkid1V4LMvwyW8jtIN
+         H93ObJjJcu/Bfu6OoA5fDgadFfr3moSWgOW1JBJDfOmXdbo7p8UL/0+ExjGqo1cj0GSP
+         5bOq9aemck2ZvON+ZK0j9SoCMaR91OlFOeEFco0u7vjIuqsTeJRYpHcmsKL6MTpYoRcI
+         UX4zk4w42Be9t4uHwVlblALmAauIyokNJl1wk4tjh4Cr//wMTDv18cbOz0qc9eBQAESf
+         f6gw==
+X-Forwarded-Encrypted: i=1; AJvYcCWfGwRP4rSWxszrXXbO7jl5pqlkRkLqTHA9J0rEKIK5ePrVnTZgFPAtDa67xA9XJpGZyB6JWUJpdCHPfpRSUJqujXoADsisSq9s37aKk9Y=
+X-Gm-Message-State: AOJu0YwaapyZM1KMZ38ye/Lt21W85rP8C3ObMrtpsNmKB00jArf2pxx8
+	6s2EQNqQuHIIULUkL7x287hTLIS3aPGsHO9T0E7RY5o/h9P0CPGMB5CEOxpp4Q==
+X-Google-Smtp-Source: AGHT+IHcXXF0rPXzClqVnTYP2DKW61yZ3SScbXppAPMagLMgZZHaimSjuuWLdAR/Zn8BBuz/ZXWTpg==
+X-Received: by 2002:a05:600c:a0f:b0:418:6b23:bcc with SMTP id z15-20020a05600c0a0f00b004186b230bccmr1229773wmp.13.1713422995833;
+        Wed, 17 Apr 2024 23:49:55 -0700 (PDT)
+Message-ID: <97e46832-0d13-45e4-bf95-19ad11f9a8b3@suse.com>
+Date: Thu, 18 Apr 2024 08:49:54 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2aa4d1f4-ff37-4f12-bfbb-3ef5ad3f6fdd@suse.com>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
-	autolearn=unavailable autolearn_force=no version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-14) on mattapan.m5p.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] xen/public: s/unsigned long/xen_ulong_t
+Content-Language: en-US
+To: Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: sstabellini@kernel.org, andrew.cooper3@citrix.com,
+ bertrand.marquis@arm.com, george.dunlap@citrix.com, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2404101644130.976094@ubuntu-linux-20-04-desktop>
+ <20240410234740.994001-3-stefano.stabellini@amd.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240410234740.994001-3-stefano.stabellini@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 17, 2024 at 02:40:09PM +0200, Jan Beulich wrote:
-> On 11.04.2024 04:41, Elliott Mitchell wrote:
-> > On Thu, Mar 28, 2024 at 07:25:02AM +0100, Jan Beulich wrote:
-> >> On 27.03.2024 18:27, Elliott Mitchell wrote:
-> >>> On Mon, Mar 25, 2024 at 02:43:44PM -0700, Elliott Mitchell wrote:
-> >>>> On Mon, Mar 25, 2024 at 08:55:56AM +0100, Jan Beulich wrote:
-> >>>>>
-> >>>>> In fact when running into trouble, the usual course of action would be to
-> >>>>> increase verbosity in both hypervisor and kernel, just to make sure no
-> >>>>> potentially relevant message is missed.
-> >>>>
-> >>>> More/better information might have been obtained if I'd been engaged
-> >>>> earlier.
-> >>>
-> >>> This is still true, things are in full mitigation mode and I'll be
-> >>> quite unhappy to go back with experiments at this point.
-> >>
-> >> Well, it very likely won't work without further experimenting by someone
-> >> able to observe the bad behavior. Recall we're on xen-devel here; it is
-> >> kind of expected that without clear (and practical) repro instructions
-> >> experimenting as well as info collection will remain with the reporter.
-> > 
-> > After looking at the situation and considering the issues, I /may/ be
-> > able to setup for doing more testing.  I guess I should confirm, which of
-> > those criteria do you think currently provided information fails at?
-> > 
-> > AMD-IOMMU + Linux MD RAID1 + dual Samsung SATA (or various NVMe) +
-> > dbench; seems a pretty specific setup.
+On 11.04.2024 01:47, Stefano Stabellini wrote:
+> The goal is to use only fixed-size integers in public headers, such as
+> uint32_t and uint64_t.
 > 
-> Indeed. If that's the only way to observe the issue, it suggests to me
-> that it'll need to be mainly you to do further testing, and perhaps even
-> debugging. Which isn't to say we're not available to help, but from all
-> I have gathered so far we're pretty much in the dark even as to which
-> component(s) may be to blame. As can still be seen at the top in reply
-> context, some suggestions were given as to obtaining possible further
-> information (or confirming the absence thereof).
+> However, there are cases where the ABI changes depending on the
+> architecture. In those cases, adding #ifdefs might be the clearest
+> solution but it is also cumbersome. We already define a xen_ulong_t type
+> which is widely used in public headers and it is defined differently by
+> architecture.
+> 
+> Instead of unsigned long, use xen_ulong_t in public headers:
+> - it makes it clearer that size might change by arch
+> - it gets us closer to the goal of no unfixed-size integers in public
+> headers
+> 
+> Note that unsigned long and xen_ulong_t are the same thing on x86 (both
+> 32-bit and 64-bit) but they differ on all other arches. However, all
+> the interfaces with xen_ulong_t or unsigned long are x86-only interfaces
+> today. Thus, this patch doesn't introduce any ABI or semantic changes.
 
-There may be other ways which haven't yet been found.
+And it is presumably because of this that the conversion wasn't done for
+these when it was done elsewhere for the Arm port, many years ago.
 
-I've been left with the suspicion AMD was to some degree sponsoring
-work to ensure Xen works on their hardware.  Given the severity of this
-problem I would kind of expect them not want to gain a reputation for
-having data loss issues.  Assuming a suitable pair of devices weren't
-already on-hand, I would kind of expect this to be well within their
-budget.
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
-> I'd also like to come back to the vague theory you did voice, in that
-> you're suspecting flushes to take too long. I continue to have trouble
-> with this, and I would therefore like to ask that you put this down in
-> more technical terms, making connections to actual actions taken by
-> software / hardware.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-I'm trying to figure out a pattern.
-
-Nominally all the devices are roughly on par (only a very cheap flash
-device will be unable to overwhelm SATA's bandwidth).  Yet why did the
-Crucial SATA device /seem/ not to have the issue?  Why did a Crucial NVMe
-device demonstrate the issue.
-
-My guess is the flash controllers Samsung uses may be able to start
-executing commands faster than the ones Crucial uses.  Meanwhile NVMe
-is lower overhead and latency than SATA (SATA's overhead isn't an issue
-for actual disks).  Perhaps the IOMMU is still flushing its TLB, or
-hasn't loaded the new tables.
-
-I suspect when the MD-RAID1 issues block requests to a pair of devices,
-it likely sends the block to one device and then reuses most/all of the
-structures for the second device.  As a result the second request would
-likely get a command to the device rather faster than the first request.
-
-Perhaps look into what structures the MD-RAID1 subsystem reuses are.
-Then see whether doing early setup of those structures triggers the
-issue?
-
-(okay I'm deep into speculation here, but this seems the simplest
-explanation for what could be occuring)
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+Jan
 
