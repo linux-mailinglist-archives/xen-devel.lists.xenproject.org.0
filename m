@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C1B28A9A72
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 14:55:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708345.1107199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC3198A9AE1
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 15:09:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708354.1107210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxRHt-0006y8-Mo; Thu, 18 Apr 2024 12:54:49 +0000
+	id 1rxRVi-0001RI-T2; Thu, 18 Apr 2024 13:09:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708345.1107199; Thu, 18 Apr 2024 12:54:49 +0000
+Received: by outflank-mailman (output) from mailman id 708354.1107210; Thu, 18 Apr 2024 13:09:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxRHt-0006vm-Jr; Thu, 18 Apr 2024 12:54:49 +0000
-Received: by outflank-mailman (input) for mailman id 708345;
- Thu, 18 Apr 2024 12:54:48 +0000
+	id 1rxRVi-0001OX-PH; Thu, 18 Apr 2024 13:09:06 +0000
+Received: by outflank-mailman (input) for mailman id 708354;
+ Thu, 18 Apr 2024 13:09:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxRHs-0006vg-Fp
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 12:54:48 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wMuF=LX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rxRVh-0001OR-UC
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 13:09:05 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d5193410-fd82-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 14:54:46 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-418def30e50so5068555e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 05:54:45 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m25-20020a05600c3b1900b0041816c3049csm2605915wms.11.2024.04.18.05.54.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 05:54:45 -0700 (PDT)
+ id d44b3772-fd84-11ee-94a3-07e782e9044d;
+ Thu, 18 Apr 2024 15:09:03 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-516d68d7a8bso846313e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 06:09:03 -0700 (PDT)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ u24-20020ac248b8000000b0051967f6cd9bsm233104lfg.95.2024.04.18.06.09.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Apr 2024 06:09:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,196 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5193410-fd82-11ee-94a3-07e782e9044d
+X-Inumbo-ID: d44b3772-fd84-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713444885; x=1714049685; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=t7NJHCfTzkYDulmyK6Njyi3Xj7BVVTO4hKnBt5VNiSM=;
-        b=EKfV4D+UfpJ4bZ0bgArb93/SZlLTNwRhN0tQPXaO31wnFMWMIW7qWNCe9qv1GKQ/1d
-         RXCsG120/jFM99BJajgWwxKlC2kwDpB3vsEv3O1OQJBZt0aS1gI1TXp5O9UulPfz0MW8
-         YdOrkwUyE5pT0Caeh4+JaOFQ0foMqdlEWZ3/mUdXEmn5dfEjhhGvHrO6RNtgwS3LppmJ
-         RWSonQq7YlrANyr5oCM6zo/f2vqKejmMx9UaFfKv17K90whYwPp5aIf6JPfZwJu0rxG+
-         z226RzcnlPmyE8L9EmCzRCbsJw8Xy75YWeTbUc/KGXBtrTXKRBfq9wpv1YzprrPLcY+Y
-         IMqg==
+        d=gmail.com; s=20230601; t=1713445743; x=1714050543; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=c++SjeR4UWOk++noKSPlojD8/Y9H0t7zqX7dKsIsIFI=;
+        b=ealt+5F1FpSUJB9q6G5iZQhCn1T3Oj+ixDcoVnv2X7qicGWSHBbv6bMrv0SFCIZijZ
+         NjXTCz+xRSZh2L8agFnkGU+ayaYkJ0m2Y1UTtz+Bk/6jhpzTWl4CiWHyYQuoCgd0hRhM
+         vGnA1ta21w3t6FRnk/yZg6NSOsz1OM/KQX8vdZHBA9Ls7ZR0c9SHcxBphyna0psdVN3/
+         bLrH6hgiQ+GiA1tVPQJNPxczjifFGjFASlIzwthmSWL8N9i1XUZj827+U9O8TT2dqz8A
+         y2mV2DoDq3jsdAk5YZknWuRJ1NBM2Zr37wH65Vu7ukz1aX4bBZbX5tV9HjawvO7zB6/D
+         LX0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713444885; x=1714049685;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=t7NJHCfTzkYDulmyK6Njyi3Xj7BVVTO4hKnBt5VNiSM=;
-        b=uFgCpsGNrYAB6Wh38XxY85+NXVnXWRLo7hpkijx3ISSUEXyN+2L7w3c7VCV9angAS4
-         rHqQIZ9KvP6zhRqiRA8r3hh+ZGbMEdg7gEgQxBKiofCBVPjR9WycnmRJbMVG6NkcuAXc
-         0jiy4ZSB3EuFuvrpKbWLzVaymq+Q98nhaJZl3zEp8+Ng6AitJnw7zV9stAzMUfOgcBND
-         lqdJbxhTpnOm3fp7qE0UPfdGOQjC8OCLSOkRlOU6dlcztY5Pv5eGrxHBXOYLBNSwlDjL
-         qZNWjC9YmBMqEpj3AOnud20Litf+Rpq5b84xFaLt8rpB87Dsii81DpbPILLQU29qFmoY
-         xixw==
-X-Forwarded-Encrypted: i=1; AJvYcCW5fS9UB5msM0eBmsorBq5Aun0SpCacx7fNSpbY3r0GfkHVYnYel+8u0hkd6fjAopW33fGi9DK46FoEmE0vekssjU+C8T4h2Y/seOXfMhA=
-X-Gm-Message-State: AOJu0YzQJU30+1P6sz3xYoYMLZWsSZiF2EBIQqKQq7Et6Mzdhk/1h6TV
-	7jOonuUohnjzGCMa3qc7oLPJhA+cwRpqPiahEHkfXZsBBpS3Q+jXP6vs0Ak9rg==
-X-Google-Smtp-Source: AGHT+IGrc/BO9ZIXmh6NdN9Sf6OwVLJz0iPSCoMZUtJRsLEsY/14x4ShdRn4KOoFurPFCuWb6UCF4w==
-X-Received: by 2002:a05:600c:4e0f:b0:418:fa37:60c0 with SMTP id b15-20020a05600c4e0f00b00418fa3760c0mr114569wmq.22.1713444885344;
-        Thu, 18 Apr 2024 05:54:45 -0700 (PDT)
-Message-ID: <cc4fd69b-4866-4f1b-b780-64c5fac7d2d6@suse.com>
-Date: Thu, 18 Apr 2024 14:54:44 +0200
+        d=1e100.net; s=20230601; t=1713445743; x=1714050543;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=c++SjeR4UWOk++noKSPlojD8/Y9H0t7zqX7dKsIsIFI=;
+        b=esiueQMDU9NSzz2B2T8adDYmU3Q9I9HiwO/Gb5xxyjiuxasoDRju/Bk9g2UI6hCkO+
+         +h6ZiItrWl5nQ/t0RyxziaXm+JdQN7Ix64hXhNl5mhK9C1jQzJ0WREPpP0IqzOi7ALe1
+         ElG4K/a7yLfFN5Pd86mUO9w5NVvxrgBJN8KbadwBEs2pdpqxA4fXAhLwBfSUnHSNtEK+
+         cAcD3IzgolxKv+3UoFJhgY2XEoWlKcHYjxgsPBBYupv+7NAScCoHIpeNqVRpsBrE9uI5
+         uJ1KfdI86jVAO+tzwfgWiltN3o9DRMjsUsOahzXGhZthZzPmQuPlSxEtl7qjqDoNOH2O
+         okQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX9ASDubOj3Ew4WcOHsQwC4MqRidYj9otTYu132WfQh1qYE6ultS8ch+2ImmtbUKOQAokTY0BILLSCuRys86dUU1NPi+JIg79/k1iV9VqA=
+X-Gm-Message-State: AOJu0Yyey/8dOoaYr4oh4OVPb5W3b7AG7k25A/KlAy9AHLQi+JRmO14T
+	dHQ+hndQPTTdMhwbnKHnssTaoidmOWodSs9iCPok9DazSMIOn2Im
+X-Google-Smtp-Source: AGHT+IFFXUI5U4RsnH6b6AhuENzVAf+u7OIByrBYupxSbDwiN4etyHrXW5W5iQIn5AelBoAHa1Xxxg==
+X-Received: by 2002:ac2:4d0b:0:b0:516:2b5a:3a5 with SMTP id r11-20020ac24d0b000000b005162b5a03a5mr712863lfi.2.1713445742563;
+        Thu, 18 Apr 2024 06:09:02 -0700 (PDT)
+Message-ID: <3acf272c5950ea5e980cb40ae4ee3ec5698b26ae.camel@gmail.com>
+Subject: Re: [PATCH] xen/riscv: check whether the assembler has Zbb
+ extension support
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Thu, 18 Apr 2024 15:09:01 +0200
+In-Reply-To: <0f1c2960-2443-4afd-811a-7182cc0ccbd5@suse.com>
+References: 
+	<10816604a8625b5052f134e54c406fb4e7b6c898.1712649614.git.oleksii.kurochko@gmail.com>
+	 <0f1c2960-2443-4afd-811a-7182cc0ccbd5@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.4 (3.50.4-1.fc39) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/5] xen/memory, tools: Avoid hardcoding
- GUEST_MAGIC_BASE in init-dom0less
-Content-Language: en-US
-To: Henry Wang <xin.wang2@amd.com>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, Alec Kwapis <alec.kwapis@medtronic.com>,
- xen-devel@lists.xenproject.org, Daniel Smith <dpsmith@apertussolutions.com>
-References: <20240409045357.236802-1-xin.wang2@amd.com>
- <20240409045357.236802-5-xin.wang2@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240409045357.236802-5-xin.wang2@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 09.04.2024 06:53, Henry Wang wrote:
-> --- a/xen/common/memory.c
-> +++ b/xen/common/memory.c
-> @@ -155,6 +155,14 @@ static void increase_reservation(struct memop_args *a)
->      a->nr_done = i;
->  }
->  
-> +/*
-> + * Alias of _MEMF_no_refcount to avoid introduction of a new, single-use flag.
-> + * This flag should be used for populate_physmap() only as a re-purposing of
-> + * _MEMF_no_refcount to force a non-1:1 allocation from domheap.
-> + */
-> +#define _MEMF_force_heap_alloc _MEMF_no_refcount
-> +#define  MEMF_force_heap_alloc (1U<<_MEMF_force_heap_alloc)
+On Thu, 2024-04-18 at 12:00 +0200, Jan Beulich wrote:
+> On 09.04.2024 10:00, Oleksii Kurochko wrote:
+> > Update the argument of the as-insn for the Zbb case to verify that
+> > Zbb is supported not only by a compiler, but also by an assembler.
+> >=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>=20
+> While technically all if fine here, I'm afraid I have a couple of
+> nits:
+>=20
+> > --- a/xen/arch/riscv/arch.mk
+> > +++ b/xen/arch/riscv/arch.mk
+> > @@ -11,7 +11,8 @@ riscv-march-$(CONFIG_RISCV_ISA_C)=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 :=3D
+> > $(riscv-march-y)c
+> > =C2=A0
+> > =C2=A0riscv-generic-flags :=3D $(riscv-abi-y) -march=3D$(riscv-march-y)
+> > =C2=A0
+> > -zbb :=3D $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"",_zbb)
+> > +zbb_insn :=3D "andn t0, t0, t0"
+>=20
+> As can be seen on the following line (as-insn, riscv-generic-flags)
+> we
+> prefer dashes over underscores in new variables' names. (Another
+> question is
+> whether the variable is needed in the first place, but that's pretty
+> surely
+> personal taste territory.)
 
-Nit (style): Blanks around << please.
+It seems to me that we need it; otherwise, if we don't use the variable
+and put everything directly:
+  zbb :=3D $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"andn t0, t0,
+t0",_zbb)
+Then as-insn will receive incorrect arguments because of the ',' used
+in the instruction. It will parse it as 3 separete arguments ("and, t0
+and t0"), which will lead to a compilation error:
+   /bin/sh: -c: line 1: unexpected EOF while looking for matching `''
+   /bin/sh: -c: line 2: syntax error: unexpected end of file
 
-Also do you really need both constants? I dont think so.
+Probably I am missing something and it can be done in a different way.
 
-Plus please make sure to #undef the constant once no longer needed, to
-help spotting / avoiding misuses.
+>=20
+> Furthermore this extra variable suggests there's yet more room for
+> abstraction (as already suggested before).
+>=20
+> > +zbb :=3D $(call as-insn,$(CC) $(riscv-generic-
+> > flags)_zbb,${zbb_insn},_zbb)
+>=20
+> Why figure braces in one case when everywhere else we use parentheses
+> for
+> variable references? There's no functional difference sure, but
+> inconsistent
+> use specifically may raise the question for some future reader
+> whether there
+> actually is one.
+I see the usage of {} somewhere else in code base, so automatically use
+them here too. Sure, it should be consistent. Thanks.
 
-> @@ -219,7 +227,8 @@ static void populate_physmap(struct memop_args *a)
->          }
->          else
->          {
-> -            if ( is_domain_direct_mapped(d) )
-> +            if ( is_domain_direct_mapped(d) &&
-> +                 !(a->memflags & MEMF_force_heap_alloc) )
->              {
->                  mfn = _mfn(gpfn);
->  
-> @@ -246,7 +255,8 @@ static void populate_physmap(struct memop_args *a)
->  
->                  mfn = _mfn(gpfn);
->              }
-> -            else if ( is_domain_using_staticmem(d) )
-> +            else if ( is_domain_using_staticmem(d) &&
-> +                      !(a->memflags & MEMF_force_heap_alloc) )
->              {
->                  /*
->                   * No easy way to guarantee the retrieved pages are contiguous,
-> @@ -271,6 +281,14 @@ static void populate_physmap(struct memop_args *a)
->              }
->              else
->              {
-> +                /*
-> +                 * Avoid passing MEMF_force_heap_alloc down to
-> +                 * alloc_domheap_pages() where the meaning would be the
-> +                 * original MEMF_no_refcount.
-> +                 */
-> +                if ( unlikely(a->memflags & MEMF_force_heap_alloc) )
-> +                    a->memflags &= ~MEMF_force_heap_alloc;
-
-As asked before: Why the if()?
-
-> @@ -1404,6 +1422,7 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->      {
->      case XENMEM_increase_reservation:
->      case XENMEM_decrease_reservation:
-> +    case XENMEM_populate_physmap_heap_alloc:
->      case XENMEM_populate_physmap:
->          if ( copy_from_guest(&reservation, arg, 1) )
->              return start_extent;
-
-Nit or not: Please insert the new case label last.
-
-> @@ -1433,6 +1452,11 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->               && (reservation.mem_flags & XENMEMF_populate_on_demand) )
->              args.memflags |= MEMF_populate_on_demand;
->  
-> +        /* Assert flag is not set from construct_memop_from_reservation(). */
-> +        ASSERT(!(args.memflags & MEMF_force_heap_alloc));
-> +        if ( op == XENMEM_populate_physmap_heap_alloc )
-> +            args.memflags |= MEMF_force_heap_alloc;
-
-Wouldn't this more logically live ...
-
->          if ( xsm_memory_adjust_reservation(XSM_TARGET, curr_d, d) )
->          {
->              rcu_unlock_domain(d);
-> @@ -1453,7 +1477,7 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          case XENMEM_decrease_reservation:
->              decrease_reservation(&args);
->              break;
-
-here, as
-
-          case XENMEM_populate_physmap_heap_alloc:
-              ...
-              fallthrough;
-> -        default: /* XENMEM_populate_physmap */
-> +        default: /* XENMEM_populate_{physmap, physmap_heap_alloc} */
-
-Otherwise: Just XENMEM_populate_physmap{,_heap_alloc} perhaps?
-
-> --- a/xen/include/public/memory.h
-> +++ b/xen/include/public/memory.h
-> @@ -21,6 +21,7 @@
->  #define XENMEM_increase_reservation 0
->  #define XENMEM_decrease_reservation 1
->  #define XENMEM_populate_physmap     6
-> +#define XENMEM_populate_physmap_heap_alloc 29
-
-Without a comment, how is one supposed to know what the difference is of
-this new sub-op compared to the "normal" one? I actually wonder whether
-referring to a Xen internal (allocation requested to come from the heap)
-is actually a good idea here. I'm inclined to suggest to name this after
-the purpose it has from the guest or tool stack perspective.
-
-Speaking of which: Is this supposed to be guest-accessible, or is it
-intended for tool-stack use only (I have to admit I don't even know where
-init-dom0less actually runs)? In the latter case that also wants enforcing.
-This may require an adjustment to the XSM hook in use here. Cc-ing Daniel
-for possible advice.
-
-Jan
+~ Oleksii
 
