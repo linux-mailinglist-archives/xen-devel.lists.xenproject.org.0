@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8FC08A94B8
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 10:14:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708106.1106698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F11B98A94FF
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 10:31:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708112.1106708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxMu8-0005Vg-4F; Thu, 18 Apr 2024 08:14:00 +0000
+	id 1rxNAq-0001oF-E0; Thu, 18 Apr 2024 08:31:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708106.1106698; Thu, 18 Apr 2024 08:14:00 +0000
+Received: by outflank-mailman (output) from mailman id 708112.1106708; Thu, 18 Apr 2024 08:31:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxMu8-0005Sn-0N; Thu, 18 Apr 2024 08:14:00 +0000
-Received: by outflank-mailman (input) for mailman id 708106;
- Thu, 18 Apr 2024 08:13:58 +0000
+	id 1rxNAq-0001ly-BL; Thu, 18 Apr 2024 08:31:16 +0000
+Received: by outflank-mailman (input) for mailman id 708112;
+ Thu, 18 Apr 2024 08:31:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxMu6-0005Sh-KY
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 08:13:58 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1rxNAo-0001lq-Og
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 08:31:14 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 99e25a9e-fd5b-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 10:13:56 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-418e4cd1fecso2783025e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 01:13:56 -0700 (PDT)
+ id 034f8474-fd5e-11ee-94a3-07e782e9044d;
+ Thu, 18 Apr 2024 10:31:12 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-416a8ec0239so3389395e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 01:31:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- y18-20020a5d4ad2000000b0034a0d3c0715sm1025811wrs.50.2024.04.18.01.13.55
+ l9-20020a1c7909000000b0041668053ca9sm5221792wme.0.2024.04.18.01.31.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 01:13:55 -0700 (PDT)
+ Thu, 18 Apr 2024 01:31:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99e25a9e-fd5b-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 034f8474-fd5e-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713428035; x=1714032835; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713429071; x=1714033871; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=u/QFEkzQtkqWOX/3y1fSOehqDrOYjutE6TZyM81YF1c=;
-        b=B4EIVWrBCywh+0aTtz0GFvI6OKwYBhrX/E7/YqO4h1ZWO2EeXLWJhftnZunSrFN3/+
-         rd36iKhtjCYj7qEY6fnp40XUbpV35mIze3P5MFGndfseeIkafw5P3a8Z6aAYdyJCp74r
-         Ah9epqjnHj802xgV222PzN42NIE2pmgtTXszlWV7zH3eVqo9Ov5qQL8ROKD3e2JiY8Lt
-         9L2weMph69Nrl4kJpuDLzAcJSGZWWStuS7ZgKpXigZziWU5f537i+JWYLBGK0RqMIM7G
-         PBm1MTB5bTSmQ4uRnyAlqCYIwA7EFFWsF3wfAUy9nIYyOtMbYYk9vJtdm6uM+oUzCPsc
-         shvQ==
+        bh=eT9Md9JLobjMIkhFtaJ0Znjb8WrUtQm7VzYLZQ4RmiM=;
+        b=V5GPaUwHbfvpKGDZ+fubuzYn509B5rL2lyaXBLiC1TlWSBdbEiqX22PNq0K1YcMEP7
+         zJg0ZD36njgrnXUWEBKqjaID0gsuU4lM0uRLKyQ7u0BS5K2f/7RGWb1hynnPVBfcknr0
+         MuXTpDM5q/rIm/JDKGG4qm6Qr/MUTia7QATpRoADX83J018v39vp2+GjLS9/BWunuj+p
+         nVcDYH9HmUq4e2fE+xO0eilo+am7zPoa1Yd6VJYACqFOyfYXKZPu2nOGp6LVlerrvmDN
+         vkEdk4BFDpGVHHdDUOSbxtzlFtqhcFTB6g6b6AzFMtNPnMOl2P/Oj/CE2JhNJX595yM5
+         SBeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713428035; x=1714032835;
+        d=1e100.net; s=20230601; t=1713429071; x=1714033871;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=u/QFEkzQtkqWOX/3y1fSOehqDrOYjutE6TZyM81YF1c=;
-        b=q4ulHMg+R9Sbwa9RHEzWwxJkz3w6xnWC148ucWFbJc2aK83Z+2B2QB2/K1Ss+aFdTQ
-         Evl/BfenzoQFEGcKhhHXaXN7FM3RYhHuNTfd8L21lhPi4CK12q4rS3R5mMNCwp/h2rN0
-         L2tHfOBHs3ccBqyLtYPNRs7gT/YGphDnfBywJfFHmNHvraJGWlN5h11T8Z7T9All7k8T
-         0rhh6pGRZx02XiXsDe72cPpeH1aKAOehgFg00Al2z4qJO5/pDStqu3IIaHQVUD2OlYS3
-         CbPfeKkzHvXDfx3ECe/LuCjqZzV3aXObGy262hmBjRCYayV9d+6AkekA90N04/zFHyVQ
-         Ph+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCV4JwKnN3Y0SubeNHzeQtjVLrRGfztJLMunYabjKAxbn5eDu6zzYB1d/+lnhEacm8R9KZ3wuNiumvLT8bv8AKziXYmpOoe6X2tUMkMiraI=
-X-Gm-Message-State: AOJu0YzP4kAVMYYkvzK0Igcg6vM6HGvmdSZsZPqPnEaLIwYKKu1Cz35Q
-	J7jWZ8y3PanakKiGDFr/Zyi6yYGhGe7/l9ke8jaOzA3UFQ0w8+ZXKHI3mWHAtA==
-X-Google-Smtp-Source: AGHT+IG1wLqJ77V65vA040SHaaeSkiMk6Q7kFikNs71sbW/4MD28QWUsvKQP0EuRt0pqJdDv1Usw2A==
-X-Received: by 2002:a05:600c:3ba3:b0:418:de77:909e with SMTP id n35-20020a05600c3ba300b00418de77909emr934530wms.14.1713428035617;
-        Thu, 18 Apr 2024 01:13:55 -0700 (PDT)
-Message-ID: <b66ea826-f670-4a9d-89cb-4de6cb3ec9fc@suse.com>
-Date: Thu, 18 Apr 2024 10:13:54 +0200
+        bh=eT9Md9JLobjMIkhFtaJ0Znjb8WrUtQm7VzYLZQ4RmiM=;
+        b=fMuo7aVTdqFsi72AxgeVc17foSlxkdhdnla/uBtX5Rs56YYQTiM4YIVjWSe7Ov2T50
+         PCEQ90ikteUwJ5y59EHATFG9fZsgwpK0c9hYVdCPB1FvneT3O6BdwD90CEh3RXUb9g0i
+         tUcha+YODuTJkZFtztUnNjqCaXT0/9ioo+dQKxfnsvQWRtC6VCF1H6fL1eFR6QzF5ZPM
+         VxsDdM/aTsDAtRY5rT343i9CBM20ue40L0P/KiAYUQJX0bQOs7920sv2M86pIaZvdtqu
+         jyKd2bALNfkhKhiablDmB8GvTrkNw1qbqlX4r6HJvtExsJjxxh4aM7Lx1CL6m2KXEEgB
+         jiBQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWjckRx9Um1X80DQFHfhe62KuVKtKRWJwJlnVQfvMTCJfK/8L21EZIardnoCWKiX2LwM3VnnNMCWHPbnWWZSBUDFCEPwGYtJ/aNPcOaaLg=
+X-Gm-Message-State: AOJu0YxDTUy6iFSR2dbaom9Bv7EX0O/KGKiZicCIIECyTXAuMhddrxLD
+	Zy9StS2HMNc2TN1Wz6/9JR4gt3bZ8R2MBTQdy49ERfUvdyZAhcZdL2Zk3By92A==
+X-Google-Smtp-Source: AGHT+IEX/UwLo7EOyOhfOhVoJ1zS7go8PQi303SGBXsX4FWC6tJPMjYpq/e572SLIP/eTI8sfprQmw==
+X-Received: by 2002:a05:600c:5116:b0:418:3d59:c13a with SMTP id o22-20020a05600c511600b004183d59c13amr1129064wms.9.1713429071390;
+        Thu, 18 Apr 2024 01:31:11 -0700 (PDT)
+Message-ID: <00da0528-d63e-4777-b470-df6a7404cc6e@suse.com>
+Date: Thu, 18 Apr 2024 10:31:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] Implemented AMD SEV discovery and enabling.
+Subject: Re: [PATCH v1 2/2] Implemented Amd Secure Processor device driver
 Content-Language: en-US
 To: Andrei Semenov <andrei.semenov@vates.fr>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1712759753.git.andrei.semenov@vates.fr>
- <27fce67472c97b2b2b7cc0412bf0edcaa67cc63f.1712759753.git.andrei.semenov@vates.fr>
+ <8c9627ef69e8d809efcb93b50fc34474f2b0ba7f.1712759753.git.andrei.semenov@vates.fr>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,78 +113,320 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <27fce67472c97b2b2b7cc0412bf0edcaa67cc63f.1712759753.git.andrei.semenov@vates.fr>
+In-Reply-To: <8c9627ef69e8d809efcb93b50fc34474f2b0ba7f.1712759753.git.andrei.semenov@vates.fr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 10.04.2024 17:36, Andrei Semenov wrote:
 > Signed-off-by: Andrei Semenov <andrei.semenov@vates.fr>
 
-A couple more nits on top of what Andrew said. First: Please no patches
-(which aren't blindingly trivial) without description.
+Again a few nits on top of Andrew's remarks:
 
-> @@ -1030,6 +1031,54 @@ static void amd_check_erratum_1485(void)
->  	wrmsrl(MSR_AMD64_BP_CFG, val | chickenbit);
->  }
->  
-> +#ifdef CONFIG_HVM
-> +static void amd_enable_mem_encrypt(const struct cpuinfo_x86 *c)
+> --- /dev/null
+> +++ b/xen/arch/x86/include/asm/psp-sev.h
+> @@ -0,0 +1,655 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * AMD Secure Encrypted Virtualization (SEV) driver interface
+> + *
+> + * Copyright (C) 2016-2017 Advanced Micro Devices, Inc.
+> + *
+> + * Author: Brijesh Singh <brijesh.singh@amd.com>
+> + *
+> + * SEV API spec is available at https://developer.amd.com/sev
+> + */
+> +
+> +#ifndef __PSP_SEV_H__
+> +#define __PSP_SEV_H__
+> +
+> +#include <xen/types.h>
+> +
+> +/**
+> + * SEV platform and guest management commands
+> + */
+> +enum sev_cmd {
+> +	/* platform commands */
+> +	SEV_CMD_INIT			= 0x001,
+
+From the looks of it (style) this file may be coming from Linux. Any file
+take from somewhere wants to have its origin specified precisely, to aid
+in future updating. (Once again, an empty description is not acceptable
+here anyway.)
+
+> --- /dev/null
+> +++ b/xen/drivers/crypto/Kconfig
+> @@ -0,0 +1,10 @@
+> +config AMD_SP
+> +        bool "AMD Secure Processor" if EXPERT
+> +        depends on X86
+> +        default n
+
+No need for this line.
+
+> --- /dev/null
+> +++ b/xen/drivers/crypto/asp.c
+> @@ -0,0 +1,808 @@
+> +#include <xen/init.h>
+> +#include <xen/pci.h>
+> +#include <xen/list.h>
+> +#include <xen/tasklet.h>
+> +#include <xen/pci_ids.h>
+> +#include <xen/delay.h>
+> +#include <xen/timer.h>
+> +#include <xen/wait.h>
+> +#include <xen/smp.h>
+> +#include <asm/msi.h>
+> +#include <asm/system.h>
+> +#include <asm/psp-sev.h>
+> +
+> +/*
+> +TODO:
+> +-  GLOBAL:
+> +     - add command line params for tunables
+> + - INTERRUPT MODE:
+> +    - CET shadow stack: adapt #CP handler???
+> +    - Serialization: must be done by the client? adapt spinlock?
+> + */
+> +
+> +#define PSP_CAPABILITY_SEV                      (1 << 0)
+> +#define PSP_CAPABILITY_TEE                      (1 << 1)
+> +#define PSP_CAPABILITY_PSP_SECURITY_REPORTING   (1 << 7)
+> +#define PSP_CAPABILITY_PSP_SECURITY_OFFSET      8
+> +
+> +#define PSP_INTSTS_CMD_COMPLETE       (1 << 1)
+> +
+> +#define SEV_CMDRESP_CMD_MASK          0x7ff0000
+> +#define SEV_CMDRESP_CMD_SHIFT         16
+> +#define SEV_CMDRESP_CMD(cmd)          ((cmd) << SEV_CMDRESP_CMD_SHIFT)
+> +#define SEV_CMDRESP_STS_MASK          0xffff
+> +#define SEV_CMDRESP_STS(x)            ((x) & SEV_CMDRESP_STS_MASK)
+> +#define SEV_CMDRESP_RESP              (1 << 31)
+
+(1u << 31)
+
+> +#define SEV_CMDRESP_IOC               (1 << 0)
+> +
+> +#define ASP_CMD_BUFF_SIZE    0x1000
+> +#define SEV_FW_BLOB_MAX_SIZE 0x4000
+> +
+> +/*
+> + * SEV platform state
+> + */
+> +enum sev_state {
+> +        SEV_STATE_UNINIT                = 0x0,
+> +        SEV_STATE_INIT                  = 0x1,
+> +        SEV_STATE_WORKING               = 0x2,
+> +        SEV_STATE_MAX
+
+Too deep indentation here.
+
+> +};
+> +
+> +struct sev_vdata {
+> +    const unsigned int cmdresp_reg;
+> +    const unsigned int cmdbuff_addr_lo_reg;
+> +    const unsigned int cmdbuff_addr_hi_reg;
+> +};
+> +
+> +struct psp_vdata {
+> +    const unsigned short   base_offset;
+> +    const struct sev_vdata *sev;
+> +    const unsigned int feature_reg;
+> +    const unsigned int inten_reg;
+> +    const unsigned int intsts_reg;
+> +    const char* name;
+> +};
+> +
+> +static struct sev_vdata sevv1 = {
+> +    .cmdresp_reg         = 0x10580,     /* C2PMSG_32 */
+> +    .cmdbuff_addr_lo_reg = 0x105e0,     /* C2PMSG_56 */
+> +    .cmdbuff_addr_hi_reg = 0x105e4,     /* C2PMSG_57 */
+> +};
+> +
+> +static struct sev_vdata sevv2 = {
+> +    .cmdresp_reg         = 0x10980,     /* C2PMSG_32 */
+> +    .cmdbuff_addr_lo_reg = 0x109e0,     /* C2PMSG_56 */
+> +    .cmdbuff_addr_hi_reg = 0x109e4,     /* C2PMSG_57 */
+> +};
+> +
+> +static struct psp_vdata pspv1 = {
+> +    .base_offset = PCI_BASE_ADDRESS_2,
+> +    .sev         = &sevv1,
+> +    .feature_reg = 0x105fc,     /* C2PMSG_63 */
+> +    .inten_reg   = 0x10610,     /* P2CMSG_INTEN */
+> +    .intsts_reg  = 0x10614,     /* P2CMSG_INTSTS */
+> +    .name = "pspv1",
+> +};
+> +
+> +static struct psp_vdata pspv2 = {
+> +    .base_offset = PCI_BASE_ADDRESS_2,
+> +    .sev         = &sevv2,
+> +    .feature_reg = 0x109fc,     /* C2PMSG_63 */
+> +    .inten_reg   = 0x10690,     /* P2CMSG_INTEN */
+> +    .intsts_reg  = 0x10694,     /* P2CMSG_INTSTS */
+> +    .name = "pspv2",
+> +};
+> +
+> +static struct psp_vdata pspv4 = {
+> +    .base_offset = PCI_BASE_ADDRESS_2,
+> +    .sev         = &sevv2,
+> +    .feature_reg = 0x109fc,     /* C2PMSG_63 */
+> +    .inten_reg   = 0x10690,     /* P2CMSG_INTEN */
+> +    .intsts_reg  = 0x10694,     /* P2CMSG_INTSTS */
+> +    .name = "pspv4",
+> +};
+> +
+> +static struct psp_vdata pspv6 = {
+> +    .base_offset =  PCI_BASE_ADDRESS_2,
+> +    .sev         = &sevv2,
+> +    .feature_reg = 0x109fc,     /* C2PMSG_63 */
+> +    .inten_reg   = 0x10510,     /* P2CMSG_INTEN */
+> +    .intsts_reg  = 0x10514,     /* P2CMSG_INTSTS */
+> +    .name = "pspv6",
+> +};
+> +
+> +struct amd_sp_dev
 > +{
-> +	unsigned int  eax, ebx, ecx, edx;
-> +	uint64_t syscfg;
+> +    struct list_head list;
+> +    struct pci_dev   *pdev;
+> +    struct  psp_vdata *vdata;
+> +    void    *io_base;
+> +    paddr_t io_pbase;
+> +    size_t  io_size;
+> +    int     irq;
+> +    int     state;
+> +    void* cmd_buff;
+> +    uint32_t cbuff_pa_low;
+> +    uint32_t cbuff_pa_high;
+> +    unsigned int capability;
+> +    uint8_t api_major;
+> +    uint8_t api_minor;
+> +    uint8_t build;
+> +    int     intr_rcvd;
+> +    int     cmd_timeout;
+> +    struct timer cmd_timer;
+> +    struct waitqueue_head cmd_in_progress;
+> +};
 > +
-> +	if (!smp_processor_id()) {
+> +LIST_HEAD(amd_sp_units);
+> +#define for_each_sp_unit(sp) \
+> +    list_for_each_entry(sp, &amd_sp_units, list)
 > +
-> +		cpuid_count(0x80000000,0,&eax, &ebx, &ecx, &edx);
+> +static spinlock_t _sp_cmd_lock = SPIN_LOCK_UNLOCKED;
+> +
+> +static struct amd_sp_dev *amd_sp_master;
+> +
+> +static void do_sp_irq(void *data);
+> +static DECLARE_SOFTIRQ_TASKLET(sp_irq_tasklet, do_sp_irq, NULL);
+> +
+> +static bool force_sync = false;
+> +static unsigned int asp_timeout_val = 30000;
+> +static unsigned long long asp_sync_delay = 100ULL;
+> +static int asp_sync_tries = 10;
+> +
+> +static void sp_cmd_lock(void)
+> +{
+> +    spin_lock(&_sp_cmd_lock);
+> +}
+> +
+> +static void sp_cmd_unlock(void)
+> +{
+> +    spin_unlock(&_sp_cmd_lock);
+> +}
+> +
+> +static int sev_cmd_buffer_len(int cmd)
+> +{
+> +    switch (cmd) {
+> +        case SEV_CMD_INIT:                      return sizeof(struct sev_data_init);
 
-No blank line above here please.
+No mix of styles please: Either you retain Linux style (assuming the
+file again comes from there), or you fully switch to Xen style.
+There are other style issues also further down; please go through
+and check everything again.
 
-> +		if (eax <  0x8000001f)
-> +			return;
+> +        case SEV_CMD_INIT_EX:                   return sizeof(struct sev_data_init_ex);
+> +        case SEV_CMD_PLATFORM_STATUS:           return sizeof(struct sev_user_data_status);
+> +        case SEV_CMD_PEK_CSR:                   return sizeof(struct sev_data_pek_csr);
+> +        case SEV_CMD_PEK_CERT_IMPORT:           return sizeof(struct sev_data_pek_cert_import);
+> +        case SEV_CMD_PDH_CERT_EXPORT:           return sizeof(struct sev_data_pdh_cert_export);
+> +        case SEV_CMD_LAUNCH_START:              return sizeof(struct sev_data_launch_start);
+> +        case SEV_CMD_LAUNCH_UPDATE_DATA:        return sizeof(struct sev_data_launch_update_data);
+> +        case SEV_CMD_LAUNCH_UPDATE_VMSA:        return sizeof(struct sev_data_launch_update_vmsa);
+> +        case SEV_CMD_LAUNCH_FINISH:             return sizeof(struct sev_data_launch_finish);
+> +        case SEV_CMD_LAUNCH_MEASURE:            return sizeof(struct sev_data_launch_measure);
+> +        case SEV_CMD_ACTIVATE:                  return sizeof(struct sev_data_activate);
+> +        case SEV_CMD_DEACTIVATE:                return sizeof(struct sev_data_deactivate);
+> +        case SEV_CMD_DECOMMISSION:              return sizeof(struct sev_data_decommission);
+> +        case SEV_CMD_GUEST_STATUS:              return sizeof(struct sev_data_guest_status);
+> +        case SEV_CMD_DBG_DECRYPT:               return sizeof(struct sev_data_dbg);
+> +        case SEV_CMD_DBG_ENCRYPT:               return sizeof(struct sev_data_dbg);
+> +        case SEV_CMD_SEND_START:                return sizeof(struct sev_data_send_start);
+> +        case SEV_CMD_SEND_UPDATE_DATA:          return sizeof(struct sev_data_send_update_data);
+> +        case SEV_CMD_SEND_UPDATE_VMSA:          return sizeof(struct sev_data_send_update_vmsa);
+> +        case SEV_CMD_SEND_FINISH:               return sizeof(struct sev_data_send_finish);
+> +        case SEV_CMD_RECEIVE_START:             return sizeof(struct sev_data_receive_start);
+> +        case SEV_CMD_RECEIVE_FINISH:            return sizeof(struct sev_data_receive_finish);
+> +        case SEV_CMD_RECEIVE_UPDATE_DATA:       return sizeof(struct sev_data_receive_update_data);
+> +        case SEV_CMD_RECEIVE_UPDATE_VMSA:       return sizeof(struct sev_data_receive_update_vmsa);
+> +        case SEV_CMD_LAUNCH_UPDATE_SECRET:      return sizeof(struct sev_data_launch_secret);
+> +        case SEV_CMD_DOWNLOAD_FIRMWARE:         return sizeof(struct sev_data_download_firmware);
+> +        case SEV_CMD_GET_ID:                    return sizeof(struct sev_data_get_id);
+> +        case SEV_CMD_ATTESTATION_REPORT:        return sizeof(struct sev_data_attestation_report);
+> +        case SEV_CMD_SEND_CANCEL:               return sizeof(struct sev_data_send_cancel);
+> +        default:                                return 0;
+> +    }
 > +
-> +		cpuid_count(0x8000001f,0,&eax, &ebx, &ecx, &edx);
+> +    return 0;
+> +}
 > +
-> +		if (eax & 0x1)
-> +			setup_force_cpu_cap(X86_FEATURE_SME);
+> +static void invalidate_cache(void *unused)
+> +{
+> +    wbinvd();
+> +}
 > +
-> +		if (eax & 0x2) {
-> +			setup_force_cpu_cap(X86_FEATURE_SEV);
+> +int _sev_do_cmd(struct amd_sp_dev *sp, int cmd, void *data, int *psp_ret)
+> +{
+> +    unsigned int cbuff_pa_low, cbuff_pa_high, cmd_val;
+> +    int buf_len, cmdresp, rc;
+> +
+> +
+> +    buf_len = sev_cmd_buffer_len(cmd);
+> +
+> +
+> +    if ( data )
 
-I guess this goes along with what Andrew said: Using synthetic features here
-looks suspicious. These want to be recorded as an ordinary leaf.
+No double blank lines please, anywhere.
 
-> +			max_sev_asid = ecx;
-> +			min_sev_asid = edx;
-> +		}
+> +static void do_sp_cmd_timer(void *data)
+> +{
+> +    struct amd_sp_dev *sp = (struct amd_sp_dev*)data;
+
+Please avoid casts whenever possible.
+
+> +static int __init amd_sp_probe(void)
+> +{
+> +    int bus = 0, devfn = 0, rc;
+> +    struct  amd_sp_dev *sp;
 > +
-> +		if (eax & 0x3)
-> +			pte_c_bit_mask = 1UL << (ebx & 0x3f);
-> +	}
+> +     if ( !boot_cpu_has(X86_FEATURE_SEV) )
+> +     {
+> +	 dprintk(XENLOG_INFO, "AMD SEV isn't supported on the platform\n");
+> +	 return 0;
+> +     }
 > +
-> +	if (!(cpu_has_sme || cpu_has_sev))
-> +		return;
+> +     if ( boot_cpu_has(X86_FEATURE_XEN_SHSTK) )
+> +     {
+> +	 force_sync = true;
 > +
-> +	if (!smp_processor_id()) {
-> +		if (cpu_has_sev)
-
-Two if()-s like these want folding, unless it is made clear that very
-soon (see above as to the missing description) further content is going
-to appear inside the outer one.
-
-> +			printk(XENLOG_INFO "SEV: ASID range [0x%x - 0x%x]\n",
-
-%#x is preferred over 0x%x.
-
-> +			min_sev_asid, max_sev_asid);
-> +	}
+> +	 dprintk(XENLOG_INFO,"AMD SEV: CET-SS detected - sync mode forced\n");
+> +     }
 > +
-> +	rdmsrl(MSR_K8_SYSCFG, syscfg);
-> +
-> +	if (syscfg & SYSCFG_MEM_ENCRYPT) {
-> +		return;
-> +	}
+> +    for ( bus = 0; bus < 256; ++bus )
+> +        for ( devfn = 0; devfn < 256; ++devfn )
+> +        {
+> +            struct pci_dev *pdev;
 
-No need for braces in cases like this one.
+const?
 
 Jan
 
