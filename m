@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 015888A9589
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 11:01:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708128.1106738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6F8D8A9596
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 11:03:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708132.1106747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxNd2-0001Wv-7w; Thu, 18 Apr 2024 09:00:24 +0000
+	id 1rxNg9-0002AD-Ks; Thu, 18 Apr 2024 09:03:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708128.1106738; Thu, 18 Apr 2024 09:00:24 +0000
+Received: by outflank-mailman (output) from mailman id 708132.1106747; Thu, 18 Apr 2024 09:03:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxNd2-0001Ut-4Y; Thu, 18 Apr 2024 09:00:24 +0000
-Received: by outflank-mailman (input) for mailman id 708128;
- Thu, 18 Apr 2024 09:00:22 +0000
+	id 1rxNg9-00026j-ID; Thu, 18 Apr 2024 09:03:37 +0000
+Received: by outflank-mailman (input) for mailman id 708132;
+ Thu, 18 Apr 2024 09:03:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxNd0-0001Um-F7
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 09:00:22 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1rxNg7-000255-W6
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 09:03:35 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 15108ab2-fd62-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 11:00:19 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-418e4cd1ffaso2959315e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 02:00:19 -0700 (PDT)
+ id 88b5e902-fd62-11ee-94a3-07e782e9044d;
+ Thu, 18 Apr 2024 11:03:33 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-418e4cd1fecso3106675e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 02:03:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bh27-20020a05600c3d1b00b004185d1a4512sm1963451wmb.13.2024.04.18.02.00.18
+ p6-20020a05600c468600b00418accde252sm1963488wmo.30.2024.04.18.02.03.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 02:00:18 -0700 (PDT)
+ Thu, 18 Apr 2024 02:03:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15108ab2-fd62-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 88b5e902-fd62-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713430819; x=1714035619; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713431013; x=1714035813; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=cY+lL+dot9zH5rZRmhh2/gelnpRrMre65ScTOchI7Fo=;
-        b=VjAB13K+zvCFksxTz9jeaNTHy3gu66EUhsbXPjESGD5AKmJgVmuUUmeJBxYFDcRaEi
-         2qbb1trFBKAeksbqnrNOepPGLtc175WBWntCr4c/nMgFJXUrcnfsIcudHtQyVHZ8MrGB
-         Gj5jS8q1OixICavHRcGSFZ9DYOcUP5kXUNpdcGULKH6X4Adc0Ly9LsE1Ja5sv389cPxB
-         3CkxUT+a+eq4oOPWIirG10IgzslFTM1pLSY0Gf2qwdc9uOsd0GXh9oCYOq2BRkAJyvkI
-         KAewdVesvX0UAdDKvAHXl2M/mysH+Arbd5bw2rFLeB6M/O7sSz8lKaxTV5E8d+cBPa+k
-         opWQ==
+        bh=h67MkTp4n4uwUyqgd8d56K83qDhvt02GpXNo1Uh8nHI=;
+        b=SYVt+RrEXbtr7MFCdZ2n28/hyJl28z4DVgWbVIQf461Y4sdo2B31GzmqOupck3XuVT
+         FWDMoYJPbHhWOAD9VXcNMmYDIsUcq0vir/06uNUaFy7UFDtTk4XlrmGMsErPvHKPhiTy
+         i2TzPNA3RFdMFJjHb+Fsa/3YQ9ze1FR6qf3ARyKOYXneHDaorGTTn9aPL6yukpcqhI+n
+         CRls/xSmHo7x5hOQZHlENTa87zjW6pyhPo2x2OBj6bHCweYA0F9ls9NLZpiTIHL+3Jj5
+         Z0BEKO+HI+RdJQsVjOSH5hDozFfftqJho55Z88Zc7Gqys21RYiVjJ7XwezxwuDq0O++b
+         9HJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713430819; x=1714035619;
+        d=1e100.net; s=20230601; t=1713431013; x=1714035813;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cY+lL+dot9zH5rZRmhh2/gelnpRrMre65ScTOchI7Fo=;
-        b=DQJt4YmAYHakgpeJyY9omayEeEJgfnPhqFguPeOB7wp0GbcqIls8M4nxUS564A++iZ
-         yTvhLO8aKaSgvk5GLXftoBxA9OYE9zaXsQTA1Umk7oA/x+b5zFUiYPaNANL67bkNF1/y
-         vanSt5tiXbb3OBGTuyELv8aqTEvZ6kce1hNyk8uwTR10SxIWftveK3zIYr/guuXZnWiZ
-         wnuHEZz0YjKgFiMTNoES8f7wzbAGdndk99wB9tBy0VKNfgA6t2oS5x3QvtfgKnGm/x4c
-         mD8Gxen6Xo6vEFShceTkQeiQ5iOEvcsvaeRYFafDqChbhkaDF0NBpH1kb3C+/HU+pNRQ
-         cHag==
-X-Forwarded-Encrypted: i=1; AJvYcCXo4twbJQMreBOZeFjqRXWgb0X7twiGlk7ytN7Z+9yHWs8vQrXoShA911Zh3pmHmAfZY4jv0ChHWv+zCGzlYY0sLj6qeI/5RlqQeZFzenc=
-X-Gm-Message-State: AOJu0Yyj82MeKdbHFK88pFuaSowzMvThQZsJdQNTuXwA6v9HNgdOi6zf
-	hBpXLesUstxXV2JNiHvP6VsIRH6zfl7HrCCE0BPWPszuAEXXE74X4AhBc1UU2Q==
-X-Google-Smtp-Source: AGHT+IHwbjEby81ZSIf+CjRiBrw9GzjLuBsTladzGxLcXSDYsLN2H1F/OJ8WMcXpQ3hqBlyP7+UNQA==
-X-Received: by 2002:a05:600c:46cc:b0:418:b9fa:43e9 with SMTP id q12-20020a05600c46cc00b00418b9fa43e9mr1612782wmo.29.1713430819270;
-        Thu, 18 Apr 2024 02:00:19 -0700 (PDT)
-Message-ID: <21436a56-f9e0-4700-8216-3bfa4094cc01@suse.com>
-Date: Thu, 18 Apr 2024 11:00:17 +0200
+        bh=h67MkTp4n4uwUyqgd8d56K83qDhvt02GpXNo1Uh8nHI=;
+        b=wr9dPsWzHykXxDIvo4Xwkpfp1PvOxaNbaHoV5ZFM0z7sVQGGv8n15xYpYHkgNoZ11O
+         b454JLEO/2btDejHIXuhX+dM+jtDiFKYMPJVPEwNrqH32fYL0NVbfUyWIdNxfdY0E/aj
+         hgzArdTw4Y2bYVb6+T5ajVanZvuDUGN0eAqcpsVnmnP7tx2ML/DDtwOxyy3gKRMMJZ2g
+         Tk0xh23rTWePaWSvJkVkSYotsIjYe94s0sdCZEBFeWUyL/7/Ao5wHLa/mHvJakHNc48X
+         Fqu+rkPaGm9ond/zT3xm5GQIbsYQr+GzY25vhg0CLC2UNDu+yeu8rpF7sa63ammlH4O4
+         4N5w==
+X-Gm-Message-State: AOJu0YwGFoLJR7Un+EbtKnfOLG4+aB6xdBQvy000GBCVO2b5jRxYq/y3
+	VJbv2CEgZUtGROyn4FiK9LR3vobA5tHefSLBqQC0MhzHufZq1atyA+6CCDagjw==
+X-Google-Smtp-Source: AGHT+IEjm4Ae90jh80hDN54FKqG9SIHFv78PIWVrM2+PPhrHSKAikudA/sAheOKtPCzWJsk/Z4mvdA==
+X-Received: by 2002:a05:600c:19c6:b0:418:dc26:1b61 with SMTP id u6-20020a05600c19c600b00418dc261b61mr1130724wmq.20.1713431013432;
+        Thu, 18 Apr 2024 02:03:33 -0700 (PDT)
+Message-ID: <ab27c255-fa41-42ea-85f2-5e8e7107b8ed@suse.com>
+Date: Thu, 18 Apr 2024 11:03:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] xen/xlat: Sort structs per file
+Subject: Re: [PATCH 3/4] xen/gnttab: Perform compat/native gnttab_query_size
+ check
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ George Dunlap <George.Dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 References: <20240415154155.2718064-1-andrew.cooper3@citrix.com>
- <20240415154155.2718064-3-andrew.cooper3@citrix.com>
+ <20240415154155.2718064-4-andrew.cooper3@citrix.com>
+ <alpine.DEB.2.22.394.2404151453400.997881@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,53 +113,64 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240415154155.2718064-3-andrew.cooper3@citrix.com>
+In-Reply-To: <alpine.DEB.2.22.394.2404151453400.997881@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.04.2024 17:41, Andrew Cooper wrote:
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-While I don't mind the change as is, "sort" is ambiguous here in one regard.
-Personally I'd prefer if those parts of the change were dropped, but I can
-live with the sorting criteria being spelled out in the description:
-
-> @@ -40,13 +40,6 @@
+On 15.04.2024 23:54, Stefano Stabellini wrote:
+> On Mon, 15 Apr 2024, Andrew Cooper wrote:
+>> This subop appears to have been missed from the compat checks.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: George Dunlap <George.Dunlap@citrix.com>
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Julien Grall <julien@xen.org>
+>> ---
+>>  xen/common/compat/grant_table.c | 4 ++++
+>>  xen/include/xlat.lst            | 1 +
+>>  2 files changed, 5 insertions(+)
+>>
+>> diff --git a/xen/common/compat/grant_table.c b/xen/common/compat/grant_table.c
+>> index af98eade17c9..8a754055576b 100644
+>> --- a/xen/common/compat/grant_table.c
+>> +++ b/xen/common/compat/grant_table.c
+>> @@ -30,6 +30,10 @@ CHECK_gnttab_unmap_grant_ref;
+>>  CHECK_gnttab_unmap_and_replace;
+>>  #undef xen_gnttab_unmap_and_replace
+>>  
+>> +#define xen_gnttab_query_size gnttab_query_size
+>> +CHECK_gnttab_query_size;
+>> +#undef xen_gnttab_query_size
+>> +
+>>  DEFINE_XEN_GUEST_HANDLE(gnttab_setup_table_compat_t);
+>>  DEFINE_XEN_GUEST_HANDLE(gnttab_transfer_compat_t);
+>>  DEFINE_XEN_GUEST_HANDLE(gnttab_copy_compat_t);
+>> diff --git a/xen/include/xlat.lst b/xen/include/xlat.lst
+>> index b3befd9cc113..53a1bdfc533f 100644
+>> --- a/xen/include/xlat.lst
+>> +++ b/xen/include/xlat.lst
+>> @@ -88,6 +88,7 @@
+>>  !	gnttab_get_status_frames	grant_table.h
+>>  ?	gnttab_get_version		grant_table.h
+>>  ?	gnttab_map_grant_ref		grant_table.h
+>> +?	gnttab_query_size		grant_table.h
+>>  ?	gnttab_set_version		grant_table.h
+>>  !	gnttab_setup_table		grant_table.h
+>>  ?	gnttab_swap_grant_ref		grant_table.h
 >  
->  ?	cpu_offline_action		arch-x86/xen-mca.h
->  ?	mc				arch-x86/xen-mca.h
-> -?	mcinfo_bank			arch-x86/xen-mca.h
-> -?	mcinfo_common			arch-x86/xen-mca.h
-> -?	mcinfo_extended			arch-x86/xen-mca.h
-> -?	mcinfo_global			arch-x86/xen-mca.h
-> -?	mcinfo_logical_cpu		arch-x86/xen-mca.h
-> -?	mcinfo_msr			arch-x86/xen-mca.h
-> -?	mcinfo_recovery			arch-x86/xen-mca.h
->  !	mc_fetch			arch-x86/xen-mca.h
->  ?	mc_info				arch-x86/xen-mca.h
->  ?	mc_inject_v2			arch-x86/xen-mca.h
-> @@ -54,6 +47,13 @@
->  ?	mc_msrinject			arch-x86/xen-mca.h
->  ?	mc_notifydomain			arch-x86/xen-mca.h
->  !	mc_physcpuinfo			arch-x86/xen-mca.h
-> +?	mcinfo_bank			arch-x86/xen-mca.h
-> +?	mcinfo_common			arch-x86/xen-mca.h
-> +?	mcinfo_extended			arch-x86/xen-mca.h
-> +?	mcinfo_global			arch-x86/xen-mca.h
-> +?	mcinfo_logical_cpu		arch-x86/xen-mca.h
-> +?	mcinfo_msr			arch-x86/xen-mca.h
-> +?	mcinfo_recovery			arch-x86/xen-mca.h
->  ?	page_offline_action		arch-x86/xen-mca.h
+> 
+> I am no compat layer expert, but shouldn't there be something like:
+> 
+> #ifndef CHECK_gnttab_map_grant_ref
+>     CASE(map_grant_ref);
+> #endif
+> 
+> somewhere under compat_grant_table_op ?
 
-Imo this sorting was fine (at least one further instance below): Whether
-underscore sorts ahead of lower case letters depends on how sorting is done.
-I take you assume sorting as per the C locale, when the original sorting was
-considering undercores to be separators, i.e. in a different character class
-(together with e.g. dash or tilde).
-
-When using C local sorting, I think arch-x86/xen-@arch@.h also would need
-moving past arch-x86/xen.h (whereas right now all separators are deemed
-equal and hence @ comes ahead of h which in turn is ahead of m).
+It's there first in the group of similar constructs. Or do you mean a
+counterpart thereof for query_size?
 
 Jan
 
