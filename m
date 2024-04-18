@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6AA28A964A
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 11:36:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708164.1106808 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 582D98A96C6
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 11:53:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708170.1106817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxOBl-00053F-DC; Thu, 18 Apr 2024 09:36:17 +0000
+	id 1rxOSJ-0000MJ-Oy; Thu, 18 Apr 2024 09:53:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708164.1106808; Thu, 18 Apr 2024 09:36:17 +0000
+Received: by outflank-mailman (output) from mailman id 708170.1106817; Thu, 18 Apr 2024 09:53:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxOBl-00050T-AE; Thu, 18 Apr 2024 09:36:17 +0000
-Received: by outflank-mailman (input) for mailman id 708164;
- Thu, 18 Apr 2024 09:36:16 +0000
+	id 1rxOSJ-0000Ko-LP; Thu, 18 Apr 2024 09:53:23 +0000
+Received: by outflank-mailman (input) for mailman id 708170;
+ Thu, 18 Apr 2024 09:53:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxOBk-00050N-Op
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 09:36:16 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1rxOSI-0000Ki-J4
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 09:53:22 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 19cded89-fd67-11ee-b909-491648fe20b8;
- Thu, 18 Apr 2024 11:36:15 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-346359c8785so465651f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 02:36:15 -0700 (PDT)
+ id 7cd1ff65-fd69-11ee-b909-491648fe20b8;
+ Thu, 18 Apr 2024 11:53:20 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-5194cebd6caso762293e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 02:53:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h4-20020a5d5044000000b00343daeddcb2sm1371494wrt.45.2024.04.18.02.36.14
+ bl28-20020adfe25c000000b00346bb778e8bsm1431519wrb.5.2024.04.18.02.53.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 02:36:14 -0700 (PDT)
+ Thu, 18 Apr 2024 02:53:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19cded89-fd67-11ee-b909-491648fe20b8
+X-Inumbo-ID: 7cd1ff65-fd69-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713432975; x=1714037775; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713434000; x=1714038800; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=PuieK1UYmmHqLoOvrU1CZpgX0o0+qK+QbJIehaJKxOU=;
-        b=F6qGPnk14tacwKIuk//NQ5tLCa4VNBx/s6Y8IRdlMbHMn9AGcQEAmndS9JOhWxuO31
-         6A9hpwXY5FQH2Nn9sinVMtIGmjXdJiXrHhqsB9Npoyk1m+tGa8AWJFC06DTX/2yl0qaM
-         4tEEJTQ2eDFxgl8leQl5iGGvScfmibUXAr4w3HvuoaStCAK+d3b8elppBvrYCTKvgFZQ
-         Mn329lRNOCY0Qc0OnIN7Onr/At4tS3UV5CcuPVvxtrwSAJa5jjQOfO6GU24IHaRMLAnY
-         URQC37fAxKIhsllzyb6fSShVJCr8NtZIfK+82sknhRFZo65nzRiR0PP89A3ZNVYeOC5u
-         8Sng==
+        bh=xVimCs6r9BqJJcB1Thmw0iqO5UAo1fiEaWngHlO6jl4=;
+        b=K4piUTMPwRzaoHHg3s6i1m6+ZVLXccLQSUCrxn/XKLA7KmXyUx/OUEs8QeyGDO3pb/
+         MJjTe9NwQWi6oz1eDE8w3ydmptdmD9mAOFAIoAZE4yBQlIYCX++vJNSV2Bq1/TNkmBli
+         UoWoF0mva2fDnm3hbeaI1RYA66GC0cH4HTRZoAeybbJ26btTgvrPSRFXiDzxdXhsoAZQ
+         GYZqP3MzaofOed+ppEh9QqbjB9ukOulBQQwH2IqcgJNmspl3QLIaTUzLwkR2buB7JqbT
+         u5MLN86D6IJp0MHf6/WmsRKCWCM4+38fVsuqdJ9FURxX91ifk61sP4DjcsJRLdq9x7tf
+         rd0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713432975; x=1714037775;
+        d=1e100.net; s=20230601; t=1713434000; x=1714038800;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PuieK1UYmmHqLoOvrU1CZpgX0o0+qK+QbJIehaJKxOU=;
-        b=aSmzSpX39MIpLHSfDHhVr73EyTsoInVUgqwZq2piYW7SocD+ejWkK/L0D87rI2+Taz
-         MGLpIWYJ5RAcFBlH4rW5XfHZ0Oq8vATHkQ2NlpkLnoibGvC2aDL0pvxd7jlN5kMhS8Kk
-         Vf4Tbma9i2ElcFjJ6SMxXkKxB+TRFNb+/4+2ft2R3/VFT74TbCSAwqeMUHgzkki2hnq6
-         qIKdvh1cC74xZN7yyU4NM245q1DBYumZgwcRGdG+0/thb4T+Gl0Oy61CYIkpHRI6avtR
-         lIW3kFmBHBAEbAhSgJTwvBkejQXH4IoXxBFCFglFodDrJCKbwuxfUwIq7WEP86FADLYA
-         qmgQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVyySKAX5fXAsphh5xumxI6X2yHOZKd2qfbn4IzoP9i+cD7Tt5ANUceQ7visfYxisN7TZtQdXUn5Ah8sq3tsxFelKDlCQMsTlKFODp4Aio=
-X-Gm-Message-State: AOJu0Yxz3csAGYkXID5xbW9luvFlg7LBpKCXoKDP7/TM2y605nkmy/Wt
-	y5fovqFb+J3097bTM016D8TwK12ShSVthx4IZW7vZ09sxnFU+9apUVHJiAJiaQ==
-X-Google-Smtp-Source: AGHT+IF1oFe0XI4T7EnwDP0CgbMuw1DShDJQGjvh6By7UTsEFn0yjNR6bdeReJlUoLuMlD8uowwpwg==
-X-Received: by 2002:adf:ab0e:0:b0:341:a640:b516 with SMTP id q14-20020adfab0e000000b00341a640b516mr1118616wrc.70.1713432974711;
-        Thu, 18 Apr 2024 02:36:14 -0700 (PDT)
-Message-ID: <82fb4a07-ecd7-46a7-b7a9-596f2f8ca38b@suse.com>
-Date: Thu, 18 Apr 2024 11:36:13 +0200
+        bh=xVimCs6r9BqJJcB1Thmw0iqO5UAo1fiEaWngHlO6jl4=;
+        b=A9VqYUBGSEIgpn/rfxZlLUreOoQJSnn1dyyNhdA0ESuWVpmGrrW5nZb7ATIwq2M6+V
+         e9qR9puxonN7lParQAH1PbX6bVBcV92fDbJquLiNY/WAjnTU+yTHQFYCoCRBiMlqZrHn
+         hD7/06MrUaZ9oPuYqd809tppieSa7yjsALksDpz+3dOurhKuvX8KmFaq5A/j/jVt92qT
+         KIw9zNNH+EqNnSW9G31z3A9PY+68sLeS7xJGruJI543wMPtJot4mBWhmVphyH8nwNtDm
+         sySMHDjILpwUbeVFNYEIe3pmMWnocMiT/RSFi+UlJvS5pvjcQOlu8TCnjyZWzht9ZO0X
+         dADw==
+X-Forwarded-Encrypted: i=1; AJvYcCUb5FdxlUXB0qPcADsBjmDWiyY1yE9A9rxG8SWRHod9tlBtt8iEKRWd4bBybs1r4Kj6vYn7pfUfSjcSDuLfAQ5gBFkf9YoeMGTqn0MPpnc=
+X-Gm-Message-State: AOJu0YxtjxSHDS9kvhS05SWtjL2K1IkAez/fw5i5rbafjKJXzGiafH2t
+	hq9bsPk6jvLBknJ37hbp3+NpQKlODhlPiByAAYVEhky9k3apEjkRywhyoYwrzw==
+X-Google-Smtp-Source: AGHT+IHXSdUNSuxKT+jKROsxgow2aSoz+NKatZ55hxS+01uehnxR9pR5PCe4bb2sCxtAZ8I8HtrBmQ==
+X-Received: by 2002:a19:ca02:0:b0:518:96b5:f2cc with SMTP id a2-20020a19ca02000000b0051896b5f2ccmr1102616lfg.55.1713433999765;
+        Thu, 18 Apr 2024 02:53:19 -0700 (PDT)
+Message-ID: <12adc492-aad0-4971-b744-e6dee87630ac@suse.com>
+Date: Thu, 18 Apr 2024 11:53:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] xen/public: Use -Wpadding for public headers
+Subject: Re: docs/misra: add R21.6 R21.14 R21.15 R21.16
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>
-References: <20240415154155.2718064-1-andrew.cooper3@citrix.com>
- <20240415154155.2718064-5-andrew.cooper3@citrix.com>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2404161227340.2257106@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,89 +113,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240415154155.2718064-5-andrew.cooper3@citrix.com>
+In-Reply-To: <alpine.DEB.2.22.394.2404161227340.2257106@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.04.2024 17:41, Andrew Cooper wrote:
-> RFC.  In theory this is a great way to avoid some of the spiketraps involved
-> with C being the official representation.
+On 16.04.2024 21:27, Stefano Stabellini wrote:
+> Also add two specific project-wide deviations for R21.6 and R21.15.
 > 
-> However, this doesn't build.  gnttab_transfer has a layout that requires a
-> CONFIG_COMPAT if we want to satisfy -Wpadding for both forms of the structure.
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 > 
-> Thoughts on whether this cross-check is worthwhile-enough to warrant the
-> ifdefary?
+> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+> index 32b02905d1..9123c8edb5 100644
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -387,6 +387,22 @@ Deviations related to MISRA C:2012 Rules:
+>         of the Rule due to uses of this macro.
+>       - Tagged as `deliberate` for ECLAIR.
+>  
+> +   * - R21.6
+> +     - The use of snprintf() and vsnprintf() is justifiable as, despite
+> +       the fact that such functions have the same names of the
+> +       corresponding standard library functions, each configuration of
+> +       Xen has a unique implementation for them; the code implementing
+> +       such functions is subject to the analysis, so that any undefined
+> +       or unspecified behavior associated to them falls under the
+> +       responsibility of other MISRA guidelines
 
-#ifdef-ary in general would be okay. But any #ifdef CONFIG_* would look pretty
-odd to me in a public header. Perhaps as
+Checking the Misra spec, I'm actually surprised a deviation is needed. The
+rule's rationale talks about streams and file I/O only. Why would the string
+formatting functions be covered then at all? They also don't have, afaik,
+any undefined or implementation defined behavior.
 
-#if defined(__XEN__) && defined(CONFIG_COMPAT)
-
-it might be tolerable.
-
-> --- /dev/null
-> +++ b/xen/common/hdr-chk.c
-> @@ -0,0 +1,13 @@
-> +#include <xen/stdint.h>
+> +     - Tagged as `safe` for ECLAIR.
 > +
-> +#include <public/xen.h>
-> +
-> +#pragma GCC diagnostic error "-Wpadded"
+> +   * - R21.15
+> +     - The use of void* arguments is justifiable as the rationale for
+> +       the rule is to indicate possible mistakes, and void* is
+> +       frequently used in Xen to represent virtual memory addresses
 
-Everywhere up to here you say -Wpadding.
+But that doesn't rule out mistakes. Are there actually examples in the
+code base?
 
-> +#include <public/grant_table.h>
-> +
-> +#ifdef CONFIG_COMPAT
-> +
-> +#include <compat/grant_table.h>
-> +
-> +#endif /* CONFIG_COMPAT */
-
-I'm not overly happy to see a 2nd header checking "pass" added. We already
-have the headers.chk goal in xen/include/Makefile, after all. For the non-
-generated headers adding -Wpadded there would seem more natural to me,
-first and foremost because then it is less likely that one of the two places
-would be missed if a new header is added. Something long those lines may then
-need adding for the generated compat headers, but again preferably without
-enumerating them all in yet another place.
-
-> --- a/xen/include/public/grant_table.h
-> +++ b/xen/include/public/grant_table.h
-> @@ -355,6 +355,7 @@ struct gnttab_unmap_grant_ref {
->      grant_handle_t handle;
->      /* OUT parameters. */
->      int16_t  status;              /* => enum grant_status */
-> +    uint16_t _pad0;
-
-While you may view it as nitpicking, in the public headers I'm pretty firm
-on not wanting to see new name space violations, i.e. new names with leading
-underscores which aren't file-scope identifiers.
-
-Furthermore what's the deal with using "pad0" here and in one more place,
-but "ign1" / "ign2" in other cases?
-
-> @@ -371,6 +372,7 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_unmap_grant_ref_t);
->  struct gnttab_setup_table {
->      /* IN parameters. */
->      domid_t  dom;
-> +    uint16_t _pad0;
->      uint32_t nr_frames;
->      /* OUT parameters. */
->      int16_t  status;              /* => enum grant_status */
-
-I'm surprised no padding field would be needed right below here, seeing
-that what follows is a handle:
-
-#if __XEN_INTERFACE_VERSION__ < 0x00040300
-    XEN_GUEST_HANDLE(ulong) frame_list;
-#else
-    XEN_GUEST_HANDLE(xen_pfn_t) frame_list;
-#endif
-
-The size of this padding field would then also be compat-dependent, I
-suppose.
+Additionally I wonder (a) whether the rule actually needs an exception
+and thus (b) whether the deviation isn't instead for 21.16. As to (a) I
+understand the rule is worded slightly differently than what would
+strictly be needed to permit void*, but the general rule in C is that
+void* is compatible with all other pointers (suitably qualified as
+needed, of course) anyway.
 
 Jan
 
