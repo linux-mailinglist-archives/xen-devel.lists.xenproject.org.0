@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3130D8A9C76
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 16:17:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708398.1107290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33F8B8A9C72
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 16:17:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708399.1107300 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxSYm-000440-9f; Thu, 18 Apr 2024 14:16:20 +0000
+	id 1rxSZI-0004cf-Im; Thu, 18 Apr 2024 14:16:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708398.1107290; Thu, 18 Apr 2024 14:16:20 +0000
+Received: by outflank-mailman (output) from mailman id 708399.1107300; Thu, 18 Apr 2024 14:16:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxSYm-00041f-6R; Thu, 18 Apr 2024 14:16:20 +0000
-Received: by outflank-mailman (input) for mailman id 708398;
- Thu, 18 Apr 2024 14:16:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wA62=LX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxSYj-000407-Td
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 14:16:17 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 35fc743e-fd8e-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 16:16:13 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-4167fce0a41so12095355e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 07:16:13 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2-20020a05600c34c200b00418d6cf9f61sm2963698wmq.8.2024.04.18.07.16.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 07:16:12 -0700 (PDT)
+	id 1rxSZI-0004a0-FT; Thu, 18 Apr 2024 14:16:52 +0000
+Received: by outflank-mailman (input) for mailman id 708399;
+ Thu, 18 Apr 2024 14:16:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=w8zc=LX=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1rxSZH-0004Xr-10
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 14:16:51 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4a23d2b1-fd8e-11ee-b909-491648fe20b8;
+ Thu, 18 Apr 2024 16:16:48 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1713449801860743.8701847337641;
+ Thu, 18 Apr 2024 07:16:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +38,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35fc743e-fd8e-11ee-94a3-07e782e9044d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713449772; x=1714054572; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZX6XzzG/xh61IcACE2+L+IWC4ivMbjGDkwc8UZo4xRE=;
-        b=PV/dPhx6di6yrZKRfABvC6rgfAsfUeHifYpkY70m7P2PdUgD+gNkfRzZe9zsEhb6DQ
-         0NG66PXu4tJBc7avh/HI/E/Qhz9nFIqzmc7vqS9gJdMZgePEFEtWMxhiZcdr1b4AtmTz
-         ULJyOJJh7h0EBPg4XN0mKTiU+xyyq4bDzNQaAhsPvjy5zdyPyCmhzwJjHz7x6vTjQxn9
-         tXgDXvGVYa8ve2Z/jtMhg09a4+7ydq+C+F9TGwlsPk315+SOddChEGe3kl/TnRWM8rae
-         kQg/jddqdomlcL8k5TAF+WKVdhIz2q7FB1yO/WO579Q1vHDw9v8idwAc/W4Yy9oVneIl
-         ogow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713449772; x=1714054572;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZX6XzzG/xh61IcACE2+L+IWC4ivMbjGDkwc8UZo4xRE=;
-        b=s8nRav15dqQUKH1a1tMW0GJKbqI1si/JU3bPc9/E9SgVGFhuzi+sRJv09N4eTuQoD5
-         dPCTkQYDPhg8XVaPFfH+BcUIAAXD09GItiuMvlGFBUEiuppZ8hE4bS4AATq/vTkBoAbI
-         y5D75ztGqTUKtfIFy/KpmZDZaojgvm47NsuzB3UFYJKBWWozyB6It1z5xLl4s1J+NY9M
-         2PdQ/OOQqCZqsqG09n444RnPKnC9zH2menE33PdQyulPJhRDNm7AFqt2eP6J+Y/d2qt+
-         9Yy5TD8PvDXxR+1VJBB8kRl/PGcfLea/1OKAhjbJxaRAiycTUQFky+hFHpzVMwExHsaD
-         jKIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXedrViabWfioESnO4yyWHVFaUqgy1dREMYjPI2CeEdTIPWGNqRicrA0ewl2a/0wczkaWtHYRz6PjBSc2eFAhUiJZt66G5cRcMvisE0MBM=
-X-Gm-Message-State: AOJu0YxnI4lshx8OYhpWFU+8R/JLr1xdhcXe9u8tn459px6Fr8wMlAbN
-	eWGMYddv6T3z6/Cp8wzHOeQraUcULXb4Fgk2k0prDbgsAJWb5ymFct41P+dEtA==
-X-Google-Smtp-Source: AGHT+IENZADmxs7ZctY5syyQFruL0pnBogop2rmdni9vcZZR2bXxPIXDHHm2d0lATZMZjv9jr+VcVw==
-X-Received: by 2002:a05:600c:c19:b0:418:de31:7148 with SMTP id fm25-20020a05600c0c1900b00418de317148mr1964248wmb.3.1713449772379;
-        Thu, 18 Apr 2024 07:16:12 -0700 (PDT)
-Message-ID: <c457b406-1ba0-41c3-ae0b-f0512560a9f6@suse.com>
-Date: Thu, 18 Apr 2024 16:16:11 +0200
+X-Inumbo-ID: 4a23d2b1-fd8e-11ee-b909-491648fe20b8
+ARC-Seal: i=1; a=rsa-sha256; t=1713449803; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=e5VY6k6Nl/EOqdaPc/TtW7Vnkh4yALblW2RuiPMsA9Bchn/jyUTAVtDljPNyq2GqJ0Djz6J4OVEn65ImJE+8Cj5NA+JfJf36zWwZSGwZhtqmJzg6PtqS/HHYWXuZRtUKqpdo87feuFJy+9ZV3wKiUulTAWghzMeAjG73MUZ+/6Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1713449803; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Tdd9JOG5byPrDoiaHI+jtnaoj4Tu1DTO/RbclmCVzvI=; 
+	b=LTjBXCiT8egxSlk+oiG6dxvq3yNsW9viZFQIfpFLMRPmjEZBRxDi6ZeSy0GwLPXgUQ3KbZjBGC6H7bTAmAfs/8/kY7JBqUjsGjSqVo0/6bL15wzA+leR/Gdol1VRZDpoxWP9UlgB2nZtqOoSgBo+7qJN9uYzKrQhnVSUrclF96k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1713449803;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Tdd9JOG5byPrDoiaHI+jtnaoj4Tu1DTO/RbclmCVzvI=;
+	b=qzH/5JyoqD4AuNb7STKQeGEgNLLnOzB3c52PcGbSzZE4lE7u9XoZeB6jRFlldaZR
+	DxPXkeBwbkuj++qzd99CEt2vlTxv+w8ASSfGtC5H+rT8PMs6gVkiy4PzA/x8QaJdm5s
+	x2Wkztehy4TcVYFPlIFsIWRKNE5OGGOQP34Utdm8=
+Message-ID: <c7857223-eab8-409a-b618-6ec70f6165aa@apertussolutions.com>
+Date: Thu, 18 Apr 2024 10:16:39 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/riscv: check whether the assembler has Zbb extension
- support
+Subject: Re: [PATCH v4 0/5] DOMCTL-based guest magic region allocation for 11
+ domUs
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <10816604a8625b5052f134e54c406fb4e7b6c898.1712649614.git.oleksii.kurochko@gmail.com>
- <0f1c2960-2443-4afd-811a-7182cc0ccbd5@suse.com>
- <3acf272c5950ea5e980cb40ae4ee3ec5698b26ae.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3acf272c5950ea5e980cb40ae4ee3ec5698b26ae.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240409045357.236802-1-xin.wang2@amd.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ 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
+In-Reply-To: <20240409045357.236802-1-xin.wang2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 18.04.2024 15:09, Oleksii wrote:
-> On Thu, 2024-04-18 at 12:00 +0200, Jan Beulich wrote:
->> On 09.04.2024 10:00, Oleksii Kurochko wrote:
->>> Update the argument of the as-insn for the Zbb case to verify that
->>> Zbb is supported not only by a compiler, but also by an assembler.
->>>
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>
->> While technically all if fine here, I'm afraid I have a couple of
->> nits:
->>
->>> --- a/xen/arch/riscv/arch.mk
->>> +++ b/xen/arch/riscv/arch.mk
->>> @@ -11,7 +11,8 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       :=
->>> $(riscv-march-y)c
->>>  
->>>  riscv-generic-flags := $(riscv-abi-y) -march=$(riscv-march-y)
->>>  
->>> -zbb := $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"",_zbb)
->>> +zbb_insn := "andn t0, t0, t0"
->>
->> As can be seen on the following line (as-insn, riscv-generic-flags)
->> we
->> prefer dashes over underscores in new variables' names. (Another
->> question is
->> whether the variable is needed in the first place, but that's pretty
->> surely
->> personal taste territory.)
+On 4/9/24 00:53, Henry Wang wrote:
+> An error message can seen from the init-dom0less application on
+> direct-mapped 1:1 domains:
+> ```
+> Allocating magic pages
+> memory.c:238:d0v0 mfn 0x39000 doesn't belong to d1
+> Error on alloc magic pages
+> ```
 > 
-> It seems to me that we need it; otherwise, if we don't use the variable
-> and put everything directly:
->   zbb := $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"andn t0, t0,
-> t0",_zbb)
-> Then as-insn will receive incorrect arguments because of the ',' used
-> in the instruction. It will parse it as 3 separete arguments ("and, t0
-> and t0"), which will lead to a compilation error:
->    /bin/sh: -c: line 1: unexpected EOF while looking for matching `''
->    /bin/sh: -c: line 2: syntax error: unexpected end of file
+> This is because populate_physmap() automatically assumes gfn == mfn
+> for direct mapped domains. This cannot be true for the magic pages
+> that are allocated later for 1:1 Dom0less DomUs from the init-dom0less
+> helper application executed in Dom0. For domain using statically
+> allocated memory but not 1:1 direct-mapped, similar error "failed to
+> retrieve a reserved page" can be seen as the reserved memory list
+> is empty at that time.
 > 
-> Probably I am missing something and it can be done in a different way.
+> This series tries to fix this issue using a DOMCTL-based approach,
+> because for 1:1 direct-mapped domUs, we need to avoid the RAM regions
+> and inform the toolstack about the region found by hypervisor for
+> mapping the magic pages. Patch 1 introduced a new DOMCTL to get the
+> guest memory map, currently only used for the magic page regions.
+> Patch 2 generalized the extended region finding logic so that it can
+> be reused for other use cases such as finding 1:1 domU magic regions.
+> Patch 3 uses the same approach as finding the extended regions to find
+> the guest magic page regions for direct-mapped DomUs. Patch 4 avoids
+> hardcoding all base addresses of guest magic region in the init-dom0less
+> application by consuming the newly introduced DOMCTL. Patch 5 is a
+> simple patch to do some code duplication clean-up in xc.
 
-Well, as said - this is perhaps largely personal taste. Yet technically
-it isn't needed, assuming you're aware of the "comma" and "space" macros
-that we have at the top of ./Config.mk. You'll find $(comma) used for
-similar purposes in x86.
+Hey Henry,
 
-Jan
+To help provide some perspective, these issues are not experienced with 
+hyperlaunch. This is because we understood early on that you cannot move 
+a lightweight version of the toolstack into hypervisor init and not 
+provide a mechanism to communicate what it did to the runtime control 
+plane. We evaluated the possible mechanism, to include introducing a new 
+hypercall op, and ultimately settled on using hypfs. The primary reason 
+is this information is static data that, while informative later, is 
+only necessary for the control plane to understand the state of the 
+system. As a result, hyperlaunch is able to allocate any and all special 
+pages required as part of domain construction and communicate their 
+addresses to the control plane. As for XSM, hypfs is already protected 
+and at this time we do not see any domain builder information needing to 
+be restricted separately from the data already present in hypfs.
+
+I would like to make the suggestion that instead of continuing down this 
+path, perhaps you might consider adopting the hyperlaunch usage of 
+hypfs. Then adjust dom0less domain construction to allocate the special 
+pages at construction time. The original hyperlaunch series includes a 
+patch that provides the helper app for the xenstore announcement. And I 
+can provide you with updated versions if that would be helpful.
+
+V/r,
+Daniel P. Smith
 
