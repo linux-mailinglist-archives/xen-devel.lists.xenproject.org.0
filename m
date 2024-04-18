@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C9F58AA217
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 20:34:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708550.1107550 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 254AD8AA25D
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Apr 2024 20:59:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708557.1107560 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxWZP-0002W5-5o; Thu, 18 Apr 2024 18:33:15 +0000
+	id 1rxWyf-0007XM-4Z; Thu, 18 Apr 2024 18:59:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708550.1107550; Thu, 18 Apr 2024 18:33:15 +0000
+Received: by outflank-mailman (output) from mailman id 708557.1107560; Thu, 18 Apr 2024 18:59:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxWZP-0002TH-21; Thu, 18 Apr 2024 18:33:15 +0000
-Received: by outflank-mailman (input) for mailman id 708550;
- Thu, 18 Apr 2024 18:33:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rxWyf-0007Vb-11; Thu, 18 Apr 2024 18:59:21 +0000
+Received: by outflank-mailman (input) for mailman id 708557;
+ Thu, 18 Apr 2024 18:59:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p/a5=LX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rxWZN-0002TB-JP
- for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 18:33:13 +0000
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [2607:f8b0:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1aa6b516-fdb2-11ee-94a3-07e782e9044d;
- Thu, 18 Apr 2024 20:33:09 +0200 (CEST)
-Received: by mail-ot1-x331.google.com with SMTP id
- 46e09a7af769-6ebb815f688so811996a34.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 11:33:09 -0700 (PDT)
-Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- q16-20020a0cf5d0000000b0069f4808719csm866011qvm.76.2024.04.18.11.33.06
+ <SRS0=DNVj=LX=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1rxWyd-0007VV-EP
+ for xen-devel@lists.xenproject.org; Thu, 18 Apr 2024 18:59:19 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c1f27d00-fdb5-11ee-b909-491648fe20b8;
+ Thu, 18 Apr 2024 20:59:18 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a526d0b2349so141731866b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 11:59:18 -0700 (PDT)
+Received: from [192.168.0.107] ([91.123.150.5])
+ by smtp.gmail.com with ESMTPSA id
+ x16-20020a1709060a5000b00a5575c9d5b4sm944870ejf.63.2024.04.18.11.59.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 11:33:07 -0700 (PDT)
+ Thu, 18 Apr 2024 11:59:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,130 +45,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1aa6b516-fdb2-11ee-94a3-07e782e9044d
+X-Inumbo-ID: c1f27d00-fdb5-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713465188; x=1714069988; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=utbWy4T2lpkUvK/Qg78BBLSoUSYS1nJW1HGyJWaw7Lo=;
-        b=Nb8JW3t1XIgL4iDW+HHu+0Wdg1Wg3CZJdkrNdvubinhE2pp93OEeY4hP+AxW9x4Sp1
-         f5QyFZOb32VVXBOHJGG8dRKsan/BqANvuD4L5EWbi2GXMRL4pcTF6jc89GvfLKX4HgvJ
-         Vx+0d2kBwp82jszYBSwpyFIA8QIdtmziRCgMU=
+        d=gmail.com; s=20230601; t=1713466757; x=1714071557; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=JfZGFScoM/c3mBjw8pj4N1ymTLuxEYYQasyhDqctCCI=;
+        b=KKlDl952DZmgd68mhdChUtgSmseD2SqR1MfpBgj0uaBV5JklcsTnC97CadbfQ2skWE
+         N61MQQnxuiSsULSQH8jF6nhMTAgM59foAuxBkF8CjJohuAdLJMn2Io/rGClLPhHd3KBk
+         t0k1cekJf608KUTStHAjzOxRpfJoZk6XW/ACS6kw/6fGZGgByk7a1IWvVkUgmUsNKGwb
+         aIK1FstTKJ8uwi4e9mmxqngxSl/iI9LZOMltt7PniCEsQN++6+e2OX+CGWnw/AdjNLMe
+         UYXqrEO/6JsuQWiRdSivycI427DiGl2l6LvqiykdfedsAGbEkDK3Z84ARzT4j0yTo2nu
+         bZBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713465188; x=1714069988;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=utbWy4T2lpkUvK/Qg78BBLSoUSYS1nJW1HGyJWaw7Lo=;
-        b=ROYqwdWazbfvklPTTz0GtIwKzuLuvj5wzUxc2D3C+vNz5FuneDd3IAdkamUtIc2Wv0
-         Gd8OJemo1/RWMtkdVNXR29vc9NiXnxn6dY3XBNaJ7X0pvVMbwGRfp7o5j3P6M/PhgQKn
-         3CZkgRxHL4FaUmDCbnpYcfBDd9/6hJYdLf/RMrypt9sQtuDb/IA4ZiJ28zJroeJPjSoi
-         BkhjPslYVdVp9jdJFc9D4Rrc1zQo+SaT+JX1RoHfnbWSFSOpMdA5dkbIlZyHIr2V1JBI
-         syHTL/kTpe1Z2Ecjc0qwZGQss7npUf4A0lkU61uYMDVjYZdEc1tHk8XfCATncYImlIKi
-         Ufhw==
-X-Forwarded-Encrypted: i=1; AJvYcCVFTknJ4J9YMkcMTx51oM+eTepDTBwYZBKXZScHq85X9Z3nvpXFw46184o1gj7FyFhaEKClJjpe2HrM/lvWso1mfU+t3smjRJ/CvlpHkMs=
-X-Gm-Message-State: AOJu0YwB8QqQaXrrztxN9gU9ywHnEAEO+TqAqMnP8isMcF8znmncU9Lo
-	9t751uiRsrRPmDMpgpd9seFFj2WIES+nFEftW9g2YsHacRRcItrgtgU8QyMve/s=
-X-Google-Smtp-Source: AGHT+IGEKddhiN8f/dNr9S0dv7P7QboW7/U7frQHwYTUTQC8duyVf1kFW8nKLmVJFb9+jEXjhWAYTg==
-X-Received: by 2002:a05:6358:793:b0:17f:8815:ef23 with SMTP id n19-20020a056358079300b0017f8815ef23mr53765rwj.10.1713465188142;
-        Thu, 18 Apr 2024 11:33:08 -0700 (PDT)
-Message-ID: <e25ae134-a510-432a-a9a3-b6ebac8c31c6@citrix.com>
-Date: Thu, 18 Apr 2024 19:33:05 +0100
+        d=1e100.net; s=20230601; t=1713466757; x=1714071557;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=JfZGFScoM/c3mBjw8pj4N1ymTLuxEYYQasyhDqctCCI=;
+        b=NmUHSvwj5pHE4mLr+nHe3f6oANcFjKvGOAbhXwZu/bp54jEKrg2vGcQ790AUwZcaJa
+         UwTvJ+xVn/L6VqJPjP1j+IsHlqBuxnScW26Tic071Oj2u09WHHNmq9mUA6zX1X8I/9vW
+         pDRK0gexFK7nn513/iK08MUkITVlsIvPgvI+6bDSZJ3IilyPHPQIVhJVJS84x5xWBYnt
+         BIm/+B5RSzbbe4F5B0eCA0ljFfSiWr+KAGtvWk5PpW47svjLPt94MqjX0nI/esFKB9oQ
+         lmvSMDAmrymH0nRb8WT/wp9GFZ1pewLiomjokq8Pz1A9sja41NorrwYmtYcfsENavCCD
+         QtmQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXr/wmTu0/dIx7PtiHlMPG+9cLOTJeGdnB34c9I5VouQBetbFKkbk1TfWhcuv4OE0ty+d5OkfkA34qCRKD919M8pL735qC3JIva6Fk2d2U=
+X-Gm-Message-State: AOJu0YzZuyXt4xewEA+h9ipdEqGTZfiFqcXOClKoIhNXsVhYUdjH9tjJ
+	xOTRLdg9TEk3Yr0cCpedhFgEcHsB7oxagaaQf4vJhOW5rlgeT2sr
+X-Google-Smtp-Source: AGHT+IEaUMU/N/guC4J5mMlLDr26LjlRjRwfmXeIrSCnVgeumUQz+FX9P1ZjBX5gOWl7YdPNqyiZ4g==
+X-Received: by 2002:a17:906:3196:b0:a52:6e3b:fcf1 with SMTP id 22-20020a170906319600b00a526e3bfcf1mr20694ejy.17.1713466757393;
+        Thu, 18 Apr 2024 11:59:17 -0700 (PDT)
+Message-ID: <140a0491-b035-4173-918f-f4524cbebf33@gmail.com>
+Date: Thu, 18 Apr 2024 21:59:15 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] docs/misra: mark the gzip folder as adopted code
-To: Jan Beulich <jbeulich@suse.com>,
- Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>
-References: <2970c1010e227ca1460c5656d13fb87a05d87f29.1713174475.git.federico.serafini@bugseng.com>
- <d62f622b-65b4-4e37-87db-3cc88c89da67@citrix.com>
- <eb82270c-52f2-49f9-9aaa-72906e5b9b97@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <eb82270c-52f2-49f9-9aaa-72906e5b9b97@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 2/2] xen/arm: Add i.MX UART driver
+To: Peng Fan <peng.fan@nxp.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240402120557.1822253-1-olekstysh@gmail.com>
+ <20240402120557.1822253-3-olekstysh@gmail.com>
+ <DU0PR04MB94177A1E6DF1689353FD447C88012@DU0PR04MB9417.eurprd04.prod.outlook.com>
+Content-Language: en-US
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <DU0PR04MB94177A1E6DF1689353FD447C88012@DU0PR04MB9417.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 18/04/2024 8:39 am, Jan Beulich wrote:
-> On 15.04.2024 17:44, Andrew Cooper wrote:
->> On 15/04/2024 10:56 am, Federico Serafini wrote:
->>> Mark the whole gzip folder as adopted code and remove the redundant
->>> deviation of file inflate.
->>>
->>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+
+On 07.04.24 05:43, Peng Fan wrote:
+> Hi Oleksandr,
+
+Hello Peng
+
+> 
+>> Subject: [PATCH 2/2] xen/arm: Add i.MX UART driver
 >>
->> I hadn't realised that we had a special case like this.  Definitely
->> better to get rid of it.
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 >>
->> I've pulled this into my `for-next` branch, and will get it committed
->> properly when OSSTest (our non-gitlab CI) is in a happier state.
-> Hmm. Considering Daniel's work (which I'll comment on separately), is this
-> really going to remain "adopted"? We're about to diverge to a degree where
-> simply taking patches from the original source isn't going to work anymore.
-> IOW I think we want either Daniel's work (and perhaps follow-on adjustments)
-> or marking of that code as adopted.
+>> The i.MX UART Documentation:
+>> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.
+>> nxp.com%2Fwebapp%2FDownload%3FcolCode%3DIMX8MMRM&data=05%7
+>> C02%7Cpeng.fan%40nxp.com%7C6ada06c4133849667f3608dc530d5471%7
+>> C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%7C0%7C6384765639197564
+>> 70%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMz
+>> IiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0%7C%7C%7C&sdata=RmXgAMb7
+>> wFZ7epZgYgHJo4LH35rzQhD05yTXSkttXbc%3D&reserved=0
+>> Chapter 16.2 Universal Asynchronous Receiver/Transmitter (UART)
+>>
+>> Tested on i.MX 8M Mini only, but I guess, it should be suitable for other
+>> i.MX8M* SoCs (those UART device tree nodes contain "fsl,imx6q-uart"
+>> compatible string).
+> 
+> Good to see people are interested in XEN on 8M.
+> I had an implementation back in 2015, you could take a look.
 
-inflate.c is was from Linux in 2010.  There's only one build fix and one
-comment change in Linux since 2010, whereas Xen's copy has seen several
-bugfixes and cleanups.
-
-gunzip.c has floated around rather more (it was originally some glue
-code in bZImage.c) but it was entirely rewritten first, to support other
-types of decompression (we did this differently in Xen), and second to
-support KASLR.
+Thanks.
 
 
-In both cases, there's not an upstream to usefully track, and we
-probably take ownership.
+When I was googling for what was publicly available on Xen exactly for 
+i.MX 8M Mini (before start writing this driver), I didn't find that 
+implementation.
 
-~Andrew
+Interesting to compare
+
+
+[snip]
 
