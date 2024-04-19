@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 750398AAC71
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 12:08:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708921.1108121 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CA4A8AAC87
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 12:10:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708923.1108131 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxlAX-0004oN-1P; Fri, 19 Apr 2024 10:08:33 +0000
+	id 1rxlCZ-0006DJ-DV; Fri, 19 Apr 2024 10:10:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708921.1108121; Fri, 19 Apr 2024 10:08:33 +0000
+Received: by outflank-mailman (output) from mailman id 708923.1108131; Fri, 19 Apr 2024 10:10:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxlAW-0004mM-Ud; Fri, 19 Apr 2024 10:08:32 +0000
-Received: by outflank-mailman (input) for mailman id 708921;
- Fri, 19 Apr 2024 10:08:31 +0000
+	id 1rxlCZ-0006Ad-AM; Fri, 19 Apr 2024 10:10:39 +0000
+Received: by outflank-mailman (input) for mailman id 708923;
+ Fri, 19 Apr 2024 10:10:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/X0h=LY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rxlAV-0004mB-22
- for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 10:08:31 +0000
-Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
- [2607:f8b0:4864:20::736])
+ id 1rxlCY-0006AV-Ht
+ for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 10:10:38 +0000
+Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
+ [2607:f8b0:4864:20::112e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c4719b9b-fe34-11ee-94a3-07e782e9044d;
- Fri, 19 Apr 2024 12:08:28 +0200 (CEST)
-Received: by mail-qk1-x736.google.com with SMTP id
- af79cd13be357-78f05035f56so120316085a.3
- for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 03:08:28 -0700 (PDT)
+ id 107fa828-fe35-11ee-94a3-07e782e9044d;
+ Fri, 19 Apr 2024 12:10:36 +0200 (CEST)
+Received: by mail-yw1-x112e.google.com with SMTP id
+ 00721157ae682-614ec7ee902so19087677b3.2
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 03:10:36 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- k10-20020a0c970a000000b006a044503615sm1442023qvd.72.2024.04.19.03.08.26
+ r15-20020ac85e8f000000b004359216e794sm1452069qtx.29.2024.04.19.03.10.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Apr 2024 03:08:27 -0700 (PDT)
+ Fri, 19 Apr 2024 03:10:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4719b9b-fe34-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 107fa828-fe35-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713521308; x=1714126108; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1713521435; x=1714126235; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AiTOzCQzraFcCsyE6Ob9mC/THLiNA3PZKRFQl+avHEU=;
-        b=bAoheLl4MOy1HF3DDlUUOlEsxCGSCwPVuSxeGb+yByOIVgE+k8OwHbUQd3AzCl+SPS
-         wQmXvmDZ/5tORPepkzsJRU1wuFfyhbquslAMYs4aEeIhVa0eE/n+fmskQosTdkXfnuZP
-         1jnGJtsV8ZPzVKlG+gRfvziiDJSiKMJtEW2SA=
+        bh=yALHaaRhHmSCSbWr9Nij5VFHkklrkhbh+6p/p6Xc2b4=;
+        b=usZERj/FxJVGeVJQrxQC+1Vc7xx6GAKvuqXGYlNZjbRnxsigE0glXkNpjUSyMv4BNZ
+         NpT1uFGQGu1Qiq6d8FL2iEcX6AJh1T91saTiSryNqBcLizzQTJ0fFUZkOR8A4NS5JDSb
+         YmTFIV6wcrCh89Qp1boAvt8jTowtcogsaGWU4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713521308; x=1714126108;
+        d=1e100.net; s=20230601; t=1713521435; x=1714126235;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AiTOzCQzraFcCsyE6Ob9mC/THLiNA3PZKRFQl+avHEU=;
-        b=XP6mbrCU9+X+udG0jvGGE/BvHjfSzGYSrt4wYnXtPnDzhJDExokC3NkdFWvZgmmbW9
-         d867XwpwEnPRZcmeNub7QsHAxj773/RC+wJ2tquyjyjKX+1DNzs/Hb4/S7NcPb7hT1Mh
-         IaYTek6dYIZ354apRpoaHqPg/19+qgnuZ1fBNZRSvlQhnN4X1XVC7SW84r5OvL2BmfLC
-         AXm++ZYk81GMAdZO7vnegGfA2egUxELE1isoR940+KqdUJC3/RaMmXkjMbzwzei5ge1b
-         n1zTiANxGUMbUDqiAbufUHaybhGC+2pXUbEv9MWdDCzkwDaKDr3IVNzRepexRMF1Y0un
-         ajVw==
-X-Forwarded-Encrypted: i=1; AJvYcCU/6XJHM71nPnDHQO2gyhVwwifi8cBwdVz7UDdC11lxxDTKi4+t0X9tM5yRvNZvL2SOlC+dPXG1M/9LB2oJwiGz84NrjhnI1MBIuDcAeTw=
-X-Gm-Message-State: AOJu0YyrZxA9LeJHynD+8XQI98V48tigz3xSK+IxmNQi8KyCTj7F9TqU
-	mph7y9eze+CUK2EjFLNf63Dh21LgRsbVrzDtGGfyRxaYbt9P3lkdZv+lgDU/j+Q=
-X-Google-Smtp-Source: AGHT+IEu8O5wsFbwYh9RKYGoS/0cIMdvkg78h5+tr2ZYBwerVsR7zEn4YjGaUD7VqTtSp5HmeFVbGA==
-X-Received: by 2002:a05:6214:a52:b0:699:1f58:398c with SMTP id ee18-20020a0562140a5200b006991f58398cmr1571595qvb.5.1713521307738;
-        Fri, 19 Apr 2024 03:08:27 -0700 (PDT)
-Message-ID: <a5253ad9-02e6-408d-862c-91a3a87ad9e2@citrix.com>
-Date: Fri, 19 Apr 2024 11:08:24 +0100
+        bh=yALHaaRhHmSCSbWr9Nij5VFHkklrkhbh+6p/p6Xc2b4=;
+        b=iTR0Z2ylOfTY1UhBzyMd8cU0EHPUFkvKdwpIumPNaS34hk+AwUwfyl6szpixO3VO0s
+         5L9jNddSkxBiMyJOJipZy3Z2weoswaybEzdGYZxttQ3PI+qEhmemPJoczK0edgj3nC1N
+         HK7IsNcYy1DbeN3P8Ebi9y4qNbwfcotJgdaOrw3cBKUf1MYHeFtaUvTKM2Ao//EsWckh
+         7kczX1X4wIfaiaY9pUD1wTtzQLeEh8niFZKWte4GsklqfyOcl/qq3k3GUa5L5v85SFD+
+         cVvsrsbXZylikNc8jpmx3jnMFYTomamx1GPRBuMUW0C4V9pi7TAJZGvaNz4xCtpd9ruH
+         rTJw==
+X-Forwarded-Encrypted: i=1; AJvYcCWAyBte6HYTWI3ACHhzUk+R+B6DUi9UsMkVDbj3ZegJHd8bgQp36PM1mVC92hiC9Jl9ytAXvP9Z6XF5wpJg9VacXJvG8fpJlmDH1p9HrWg=
+X-Gm-Message-State: AOJu0YzfqwrzOssPcpZND0oh+lV1Odj0t/TnFoz0oq6FO8ls0Vpbb5NA
+	e2JDrDdAqgU32jJ0UvyJx7w+Pm7E+tm6NbFoUrgLjwyEA84lr6I8w51jpaZOi3Ia3hLn4GGguUK
+	gKyM=
+X-Google-Smtp-Source: AGHT+IHcX1wycOUvKG4lFSvc/+wVlfw3q7v/k9LjUMM3VPFipxofEinpz/Xjy7kml4FGIfr9tFZbhQ==
+X-Received: by 2002:a05:690c:61c3:b0:61a:c2fc:1128 with SMTP id hk3-20020a05690c61c300b0061ac2fc1128mr1530521ywb.28.1713521435400;
+        Fri, 19 Apr 2024 03:10:35 -0700 (PDT)
+Message-ID: <96bb1fbb-0b4c-42ac-9c3b-16700a65130d@citrix.com>
+Date: Fri, 19 Apr 2024 11:10:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] xen: introduce header file with section related
- symbols
+Subject: Re: [PATCH v2 2/2] livepatch: refuse to resolve symbols that belong
+ to init sections
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
 References: <20240419100217.12072-1-roger.pau@citrix.com>
- <20240419100217.12072-2-roger.pau@citrix.com>
+ <20240419100217.12072-3-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,21 +130,62 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240419100217.12072-2-roger.pau@citrix.com>
+In-Reply-To: <20240419100217.12072-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 19/04/2024 11:02 am, Roger Pau Monne wrote:
-> Start by declaring the beginning and end of the init section.
+> Livepatch payloads containing symbols that belong to init sections can only
+> lead to page faults later on, as by the time the livepatch is loaded init
+> sections have already been freed.
 >
-> No functional change intended.
+> Refuse to resolve such symbols and return an error instead.
 >
-> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Note such resolutions are only relevant for symbols that point to undefined
+> sections (SHN_UNDEF), as that implies the symbol is not in the current payload
+> and hence must either be a Xen or a different livepatch payload symbol.
+>
+> Do not allow to resolve symbols that point to __init_begin, as that address is
+> also unmapped.  On the other hand, __init_end is not unmapped, and hence allow
+> resolutions against it.
+>
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-TYVM for doing this.  There's a lot of cleanup which can follow on for it.
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>, although ...
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> Changes since v1:
+>  - Fix off-by-one in range checking.
+> ---
+>  xen/common/livepatch_elf.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+>
+> diff --git a/xen/common/livepatch_elf.c b/xen/common/livepatch_elf.c
+> index 45d73912a3cd..a67101eadc02 100644
+> --- a/xen/common/livepatch_elf.c
+> +++ b/xen/common/livepatch_elf.c
+> @@ -4,6 +4,7 @@
+>  
+>  #include <xen/errno.h>
+>  #include <xen/lib.h>
+> +#include <xen/sections.h>
+>  #include <xen/symbols.h>
+>  #include <xen/livepatch_elf.h>
+>  #include <xen/livepatch.h>
+> @@ -310,6 +311,21 @@ int livepatch_elf_resolve_symbols(struct livepatch_elf *elf)
+>                      break;
+>                  }
+>              }
+> +
+> +            /*
+> +             * Ensure not an init symbol.  Only applicable to Xen symbols, as
+> +             * livepatch payloads don't have init sections or equivalent.
+> +             */
+> +            else if ( st_value >= (uintptr_t)&__init_begin &&
+> +                      st_value < (uintptr_t)&__init_end )
 
-although if anyone has a better name than sections.h then speak now.
+... I normally vertically the (casts) in cases like this for improved
+legibility.  Happy to fold on commit.
+
+~Andrew
 
