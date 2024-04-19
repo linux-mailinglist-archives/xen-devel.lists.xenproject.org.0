@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63D6D8AAD9F
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 13:21:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.709031.1108311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38D008AADDE
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 13:43:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.709038.1108321 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxmJ7-0007Q7-M8; Fri, 19 Apr 2024 11:21:29 +0000
+	id 1rxmeA-0004o7-ER; Fri, 19 Apr 2024 11:43:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 709031.1108311; Fri, 19 Apr 2024 11:21:29 +0000
+Received: by outflank-mailman (output) from mailman id 709038.1108321; Fri, 19 Apr 2024 11:43:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxmJ7-0007O4-JD; Fri, 19 Apr 2024 11:21:29 +0000
-Received: by outflank-mailman (input) for mailman id 709031;
- Fri, 19 Apr 2024 11:21:27 +0000
+	id 1rxmeA-0004l5-Ad; Fri, 19 Apr 2024 11:43:14 +0000
+Received: by outflank-mailman (input) for mailman id 709038;
+ Fri, 19 Apr 2024 11:31:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N8I7=LY=gmail.com=asml.silence@srs-se1.protection.inumbo.net>)
- id 1rxmJ5-0007Ny-R9
- for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 11:21:27 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ <SRS0=vK8K=LY=posteo.net=tobias.fitschen@srs-se1.protection.inumbo.net>)
+ id 1rxmSl-00028q-TM
+ for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 11:31:28 +0000
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f58f1250-fe3e-11ee-94a3-07e782e9044d;
- Fri, 19 Apr 2024 13:21:25 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2dac77cdf43so25268071fa.2
- for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 04:21:25 -0700 (PDT)
-Received: from [192.168.42.27] ([163.114.131.193])
- by smtp.gmail.com with ESMTPSA id
- hx11-20020a170906846b00b00a46d2e9fd73sm2076372ejc.222.2024.04.19.04.21.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Apr 2024 04:21:24 -0700 (PDT)
+ id 5a052577-fe40-11ee-94a3-07e782e9044d;
+ Fri, 19 Apr 2024 13:31:23 +0200 (CEST)
+Received: from submission (posteo.de [185.67.36.169]) 
+ by mout01.posteo.de (Postfix) with ESMTPS id 0A914240027
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 13:31:22 +0200 (CEST)
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4VLXXT5PdMz6tm8;
+ Fri, 19 Apr 2024 13:31:21 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +42,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f58f1250-fe3e-11ee-94a3-07e782e9044d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1713525685; x=1714130485; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Oo5xMgK7A43edaSEKnYiqm0AuchtwStkZ/R1A6SoZFQ=;
-        b=VF4+0jRosIbPPeSTqzRtCG1e4qtj9/vBI44uaCnAfPu7rvaKpJFSPnmbdLLonl04dc
-         ekxRWd069n29CNyRLSf1c5OOzQuHIEWZhsaYy3ff3SNmW6qx5BOp16IgSRPuO83PZu8f
-         SQe+NdheW7HfvZtb92aMmrvQPUXVffHthSH5itql3K97t8sU+94U6LG7KHvnyUI5LEa1
-         /HBZGEWcXX65yezMwLRvrIBywBxZYJ6tgdBBEUB4Rrb60nPzQNBMnuwWv/X/rOr/u8JQ
-         tTsaUISAyBBH8AM/noECjn6qfDFd14CO79s+FMoOX0LTZiF0GaOA3FoPtnA+fIuFlMMy
-         rA7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713525685; x=1714130485;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Oo5xMgK7A43edaSEKnYiqm0AuchtwStkZ/R1A6SoZFQ=;
-        b=eYqhNn4G/SLW09Sazk4JyWzhSW9sOVzpY04aJcJReKv+Kd05zeQ2v5vdB2ONFYYkG9
-         9+xIe/efOy09xwW3hQDScUukxYYXTk63ji8Okf4WNjZRktkRM+6mq0Zt2E2CounkyiGl
-         24q1t//+j96mYjWxiEYDhv2pD8BxljTmGwkWPLMpWk5QsN6jo8jVFbtwx1kTZEf6ncga
-         XonPW3ckbb5Kzd+6rTPspw3i3nYR4JYoTnxrt4E2KDKNQIROiBvdeJW2eqzhzIKHgdR3
-         7BYq5ojVLsKbsmrWrwAzZZz9WaA7N9tAMS3hEBO8ruYliFg2z/gmixON5h77rW5sByID
-         7rfw==
-X-Forwarded-Encrypted: i=1; AJvYcCUEbP0JLSTCafu2u4Idjo2SXPGIZjJP0+8HFEo2lcmzAhBjZiSsAKaax4audBbjLvZlQv9PoG3P/9JQ5lLE4tzz7hWP55++R0yqfmrNSoY=
-X-Gm-Message-State: AOJu0YzyvtJsSQKOzK2XECdtMVxQ91p11IsApxrcx7EAyl6CWnUWJlep
-	LLDNkPeoau0zrCcYftI/duEzGR4ZznrZE5GI+pBjVBumLI0hTAJN
-X-Google-Smtp-Source: AGHT+IEFY1gjmCiW7j8xVLYIyr8i8P2p4D1KfDmvOJjtfOhFv2qZUrBCLs8x/0cxV2+TI3RJGn8Yug==
-X-Received: by 2002:a05:6512:ba0:b0:51a:b955:4014 with SMTP id b32-20020a0565120ba000b0051ab9554014mr1557073lfv.18.1713525685086;
-        Fri, 19 Apr 2024 04:21:25 -0700 (PDT)
-Message-ID: <0f6355d6-b563-458e-9671-ea7e047073e1@gmail.com>
-Date: Fri, 19 Apr 2024 12:21:30 +0100
+X-Inumbo-ID: 5a052577-fe40-11ee-94a3-07e782e9044d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.net; s=2017;
+	t=1713526283; bh=3KhJWAlb7hiPakWNt/PdwbycrXAPh43wMejKFcylGNw=;
+	h=Date:From:To:CC:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:From;
+	b=ZHn+v2L2S26wsawP7+MdQJVRtBD47dHUDyD1TUy8dPc9KiR2pC+Qh0XlyB9uFlxhr
+	 lt6JroGgmhFMwa7Aq+SiiqlBUZqP0LA28Py7er/0D2CPdCBf+VeGpcHo6TigJfHGpg
+	 zOODO6FHS91uPH4h9i7CCWjOJ1w/aF9w9NZq9AVMfLugjjaqtWsMz0ViRjes49rGfj
+	 XQWWgqM2Mk7YmQcfOXsZQkPdlXL0MPFwRElaFKK8lWQ4lJF0owmfyjkjiEfSqxqamS
+	 WKRmEB5kVu+qmZTGaYbUd7TdduSuBIvZGQWaS+nf4GypcKWiIfKOSo4QP4bfNvf+mr
+	 2uNftZZc7cDpw==
+Date: Fri, 19 Apr 2024 11:31:23 +0000
+From: Tobias Fitschen <tobias.fitschen@posteo.net>
+To: George Dunlap <george.dunlap@cloud.com>, xen-devel@lists.xenproject.org
+CC: Tobias Fitschen <tobias.fitschen@posteo.de>,
+ Nick Rosbrook <rosbrookn@gmail.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_1/3=5D_tools/golang=3A_When_return?=
+ =?US-ASCII?Q?ing_pointers=2C_actually_allocate_structrues?=
+In-Reply-To: <20240419105037.700283-1-george.dunlap@cloud.com>
+References: <20240419105037.700283-1-george.dunlap@cloud.com>
+Message-ID: <0743B38A-6015-41B7-9294-3ABD01A3C8E1@posteo.net>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH io_uring-next/net-next v2 0/4] implement io_uring
- notification (ubuf_info) stacking
-To: io-uring@vger.kernel.org, netdev@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>, "David S . Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, David Ahern <dsahern@kernel.org>,
- Eric Dumazet <edumazet@google.com>,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Jason Wang <jasowang@redhat.com>, Wei Liu <wei.liu@kernel.org>,
- Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org,
- "Michael S . Tsirkin" <mst@redhat.com>, virtualization@lists.linux.dev,
- kvm@vger.kernel.org
-References: <cover.1713369317.git.asml.silence@gmail.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <cover.1713369317.git.asml.silence@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: multipart/alternative;
+ boundary=----IGRBF76P9LC1X6RLGLX726QSMKBBY6
 Content-Transfer-Encoding: 7bit
 
-On 4/19/24 12:08, Pavel Begunkov wrote:
-> Please, don't take directly, conflicts with io_uring.
+------IGRBF76P9LC1X6RLGLX726QSMKBBY6
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-When everyone is happy with the patches, Jens and Jakub will hopefully
-help to merge them. E.g. first staging net/ specific changes [1] and then
-handling all conflicts on the io_uring side.
+Thank you for the fast response, George=2E I can confirm that I can call al=
+l three functions without errors now and this patch fixes the errors I enco=
+untered=2E
 
-[1] https://github.com/isilence/linux.git iou-sendzc/notif-stacking-v2-netonly
+Am 19=2E April 2024 12:50:35 MESZ schrieb George Dunlap <george=2Edunlap@c=
+loud=2Ecom>:
+>In a handful of cases, it was decided to return a pointer to a
+>structure rather than the plain structure itself, due to the size=2E
+>However, in these cases the structure was never allocated, leading to
+>a nil pointer exception when calling the relevant `fromC` method=2E
+>
+>Allocate structures before attempting to fill them in=2E
+>
+>Reported-by: Tobias Fitschen <tobias=2Efitschen@posteo=2Ede>
+>Signed-off-by: George Dunlap <george=2Edunlap@cloud=2Ecom>
+>---
+>This has been compile-tested only; Tobias, I'd appreciate a test if you g=
+et a chance=2E
+>
+>CC: Nick Rosbrook <rosbrookn@gmail=2Ecom>
+>CC: Anthony PERARD <anthony=2Eperard@citrix=2Ecom>
+>---
+> tools/golang/xenlight/xenlight=2Ego | 3 +++
+> 1 file changed, 3 insertions(+)
+>
+>diff --git a/tools/golang/xenlight/xenlight=2Ego b/tools/golang/xenlight/=
+xenlight=2Ego
+>index a45c636952=2E=2Ed793f172e5 100644
+>--- a/tools/golang/xenlight/xenlight=2Ego
+>+++ b/tools/golang/xenlight/xenlight=2Ego
+>@@ -999,6 +999,7 @@ func (ctx *Context) GetPhysinfo() (physinfo *Physinfo=
+, err error) {
+> 		err =3D Error(ret)
+> 		return
+> 	}
+>+	physinfo =3D &Physinfo{}
+> 	err =3D physinfo=2EfromC(&cphys)
+>=20
+> 	return
+>@@ -1010,6 +1011,7 @@ func (ctx *Context) GetVersionInfo() (info *Version=
+Info, err error) {
+>=20
+> 	cinfo =3D C=2Elibxl_get_version_info(ctx=2Ectx)
+>=20
+>+	info =3D &VersionInfo{}
+> 	err =3D info=2EfromC(cinfo)
+>=20
+> 	return
+>@@ -1027,6 +1029,7 @@ func (ctx *Context) DomainInfo(Id Domid) (di *Domin=
+fo, err error) {
+> 		return
+> 	}
+>=20
+>+	di =3D &Dominfo{}
+> 	err =3D di=2EfromC(&cdi)
+>=20
+> 	return
+>--=20
+>2=2E25=2E1
+>
 
+------IGRBF76P9LC1X6RLGLX726QSMKBBY6
+Content-Type: text/html;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> To have per request buffer notifications each zerocopy io_uring send
-> request allocates a new ubuf_info. However, as an skb can carry only
-> one uarg, it may force the stack to create many small skbs hurting
-> performance in many ways.
-> 
-> The patchset implements notification, i.e. an io_uring's ubuf_info
-> extension, stacking. It attempts to link ubuf_info's into a list,
-> allowing to have multiple of them per skb.
-> 
-> liburing/examples/send-zerocopy shows up 6 times performance improvement
-> for TCP with 4KB bytes per send, and levels it with MSG_ZEROCOPY. Without
-> the patchset it requires much larger sends to utilise all potential.
-> 
-> bytes  | before | after (Kqps)
-> 1200   | 195    | 1023
-> 4000   | 193    | 1386
-> 8000   | 154    | 1058
-> 
-> The patches are on top of net-next + io_uring-next:
-> 
-> https://github.com/isilence/linux.git iou-sendzc/notif-stacking-v2
-> 
-> First two patches based on net-next:
-> 
-> https://github.com/isilence/linux.git iou-sendzc/notif-stacking-v2-netonly
-> 
-> v2: convert xen-netback to ubuf_info_ops (patch 1)
->      drop two separately merged io_uring patches
-> 
-> Pavel Begunkov (4):
->    net: extend ubuf_info callback to ops structure
->    net: add callback for setting a ubuf_info to skb
->    io_uring/notif: simplify io_notif_flush()
->    io_uring/notif: implement notification stacking
-> 
->   drivers/net/tap.c                   |  2 +-
->   drivers/net/tun.c                   |  2 +-
->   drivers/net/xen-netback/common.h    |  5 +-
->   drivers/net/xen-netback/interface.c |  2 +-
->   drivers/net/xen-netback/netback.c   | 11 ++--
->   drivers/vhost/net.c                 |  8 ++-
->   include/linux/skbuff.h              | 21 +++++---
->   io_uring/notif.c                    | 83 +++++++++++++++++++++++++----
->   io_uring/notif.h                    | 12 ++---
->   net/core/skbuff.c                   | 36 ++++++++-----
->   10 files changed, 134 insertions(+), 48 deletions(-)
-> 
-
--- 
-Pavel Begunkov
+<html><head></head><body><div dir=3D"auto">Thank you for the fast response,=
+ George=2E I can confirm that I can call all three functions without errors=
+ now and this patch fixes the errors I encountered=2E</div><br><br><div cla=
+ss=3D"gmail_quote"><div dir=3D"auto">Am 19=2E April 2024 12:50:35 MESZ schr=
+ieb George Dunlap &lt;george=2Edunlap@cloud=2Ecom&gt;:</div><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin: 0pt 0pt 0pt 0=2E8ex; border-left: 1px s=
+olid rgb(204, 204, 204); padding-left: 1ex;">
+<pre class=3D"k9mail"><div dir=3D"auto">In a handful of cases, it was deci=
+ded to return a pointer to a<br>structure rather than the plain structure i=
+tself, due to the size=2E<br>However, in these cases the structure was neve=
+r allocated, leading to<br>a nil pointer exception when calling the relevan=
+t `fromC` method=2E<br><br>Allocate structures before attempting to fill th=
+em in=2E<br><br>Reported-by: Tobias Fitschen &lt;tobias=2Efitschen@posteo=
+=2Ede&gt;<br>Signed-off-by: George Dunlap &lt;george=2Edunlap@cloud=2Ecom&g=
+t;<hr>This has been compile-tested only; Tobias, I'd appreciate a test if y=
+ou get a chance=2E<br><br>CC: Nick Rosbrook &lt;rosbrookn@gmail=2Ecom&gt;<b=
+r>CC: Anthony PERARD &lt;anthony=2Eperard@citrix=2Ecom&gt;<hr> tools/golang=
+/xenlight/xenlight=2Ego | 3 +++<br> 1 file changed, 3 insertions(+)<br><br>=
+diff --git a/tools/golang/xenlight/xenlight=2Ego b/tools/golang/xenlight/xe=
+nlight=2Ego<br>index a45c636952=2E=2Ed793f172e5 100644<br>--- a/tools/golan=
+g/xenlight/xenlight=2Ego<br>+++ b/tools/golang/xenlight/xenlight=2Ego<br>@@=
+ -999,6 +999,7 @@ func (ctx *Context) GetPhysinfo() (physinfo *Physinfo, er=
+r error) {<br> 		err =3D Error(ret)<br> 		return<br> 	}<br>+	physinfo =3D &=
+amp;Physinfo{}<br> 	err =3D physinfo=2EfromC(&amp;cphys)<br> <br> 	return<b=
+r>@@ -1010,6 +1011,7 @@ func (ctx *Context) GetVersionInfo() (info *Version=
+Info, err error) {<br> <br> 	cinfo =3D C=2Elibxl_get_version_info(ctx=2Ectx=
+)<br> <br>+	info =3D &amp;VersionInfo{}<br> 	err =3D info=2EfromC(cinfo)<br=
+> <br> 	return<br>@@ -1027,6 +1029,7 @@ func (ctx *Context) DomainInfo(Id D=
+omid) (di *Dominfo, err error) {<br> 		return<br> 	}<br> <br>+	di =3D &amp;=
+Dominfo{}<br> 	err =3D di=2EfromC(&amp;cdi)<br> <br> 	return<br></div></pre=
+></blockquote></div></body></html>
+------IGRBF76P9LC1X6RLGLX726QSMKBBY6--
 
