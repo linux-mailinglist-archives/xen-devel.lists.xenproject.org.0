@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2FF78AACC9
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 12:27:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708953.1108180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 002F58AACE8
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 12:33:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708959.1108191 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxlSA-0004CX-KC; Fri, 19 Apr 2024 10:26:46 +0000
+	id 1rxlY4-0005ft-8L; Fri, 19 Apr 2024 10:32:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708953.1108180; Fri, 19 Apr 2024 10:26:46 +0000
+Received: by outflank-mailman (output) from mailman id 708959.1108191; Fri, 19 Apr 2024 10:32:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxlSA-0004A3-HI; Fri, 19 Apr 2024 10:26:46 +0000
-Received: by outflank-mailman (input) for mailman id 708953;
- Fri, 19 Apr 2024 10:26:45 +0000
+	id 1rxlY4-0005ck-5h; Fri, 19 Apr 2024 10:32:52 +0000
+Received: by outflank-mailman (input) for mailman id 708959;
+ Fri, 19 Apr 2024 10:32:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=txqa=LY=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rxlS9-00049x-8y
- for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 10:26:45 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ id 1rxlY3-0005ce-5p
+ for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 10:32:51 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50521ee5-fe37-11ee-94a3-07e782e9044d;
- Fri, 19 Apr 2024 12:26:42 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a55602507a9so219321066b.3
- for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 03:26:42 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- w25-20020a1709064a1900b00a524dda47c0sm2035012eju.143.2024.04.19.03.26.40
+ id 2b09f4a0-fe38-11ee-94a3-07e782e9044d;
+ Fri, 19 Apr 2024 12:32:49 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a51beae2f13so212312866b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 03:32:49 -0700 (PDT)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ u20-20020a17090657d400b00a51b403e30esm2034478ejr.90.2024.04.19.03.32.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Apr 2024 03:26:40 -0700 (PDT)
+ Fri, 19 Apr 2024 03:32:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,87 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50521ee5-fe37-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 2b09f4a0-fe38-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1713522401; x=1714127201; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=N2KY1qHGzDqORwSMEQGEHWKQ/in6IbRIqlg3NOshudc=;
-        b=NrT8BLz5sf34Fiz5N5N38MndqP+NydnwWSqSL1NZ3cwFn0co+VgktPe58XbZq64yBo
-         6n8Es2w/OLu68GLlMP6pCM12bQitaU7ukBBbyg1oMRknUYcwckpvDQT5Sb4Frbgwbqar
-         SVjuFhUWQqbpq/oVoOgVIJmXkObwe3et0HfdVIfrG17IM6Hl247NiAZkKl6855WqZnln
-         xFWX7dp0NP5dMfn4C+keApArIuIxpoBuBXDnojiitKMd6BCAy8kRA1ICPA2LpBGlLwgE
-         212Xp7lyf6dGgQEVBo/vJHQNUz9nlrixO4QwUSw5YVfx4B67J4oCg4+0ZEts7t7APhTS
-         bD1g==
+        d=gmail.com; s=20230601; t=1713522768; x=1714127568; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=n+bd6wmP0nxVLG+5RVw2NdEvLYrvGRmkuejR+CIvqG0=;
+        b=JZEqobz3xVnUihmFxKPrkAfzzthaui/JsIsKz8MLtXAyDwrj8BnxPVDwYeMQdGgE3I
+         W1iRX+pzifqTo6kriKth2O8BoCLWg51iDI0gT27g0RJo1AJHRMGqPzUx8nCanftcqoxk
+         8GB8ijgLIXdZUXVsqcwXF6Y59VuMHo9vddRIkrZVL7ZQ+DK+AR5+cCtebVM7Ww4wqH45
+         zbDZOExEObCHke9GGz5ylZrqVG8AYuxVeaetTDBp6YwPTv1IZ9zGTXGztDRTgcJW9wYg
+         p9F15MkOuxiBrJ+r2yic+cmZ7OaWX/N2zgdF+4DSVMiohNAHvfIRSnbAnBzBQCK7J5/w
+         QWsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713522401; x=1714127201;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=N2KY1qHGzDqORwSMEQGEHWKQ/in6IbRIqlg3NOshudc=;
-        b=D+ier0wvct4cJcd8QrO0L58VRSHD+Gm/wfkwTU7x6D3T/PaMGa2cZadLVLooSzJ9l0
-         Z1+HLj4Dy8YB1MYRzaRrPK8FCFzPqRcE/vb/ITSKpq4fi6Z6DerQ/zx/rqtj7YyA/PIU
-         c0X6kyOoifthCkihfqddZVWARIYPca50KZkHuRa0yVedNvGWbEDvtMnO96hji9FHcGiF
-         Q8ovoXbU8WwzC0FMD7J4NKD5fdCRSZ5xNuiTCYXfgyFdjHm5O0dDJUGeBBByUgeeeJGi
-         F7+iUu4ffsBQ2q303IaCC+vRCKpMpKkLiKL9anGahSBvSuTaxNGSgDi98Hf7qO37g3xS
-         VuPQ==
-X-Gm-Message-State: AOJu0YwWuON7lxb77nAZLHO8l/ZUcnD5byN6QBXoiuYUgZhKqJKJJx+T
-	SHNXznsGPKord27EbY8jr6DHwJOmxulbIeD0r12/aXDkrbf7+2E9TsdTcQ==
-X-Google-Smtp-Source: AGHT+IF+aolcmplTUv3+r7EDIVG5FRlwdxRGeH3w4Tl837WNPZ55z2u5A97WPOAzeKsEGf07JDg9JQ==
-X-Received: by 2002:a17:906:b092:b0:a55:387b:ef07 with SMTP id x18-20020a170906b09200b00a55387bef07mr1229304ejy.13.1713522401013;
-        Fri, 19 Apr 2024 03:26:41 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+        d=1e100.net; s=20230601; t=1713522768; x=1714127568;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=n+bd6wmP0nxVLG+5RVw2NdEvLYrvGRmkuejR+CIvqG0=;
+        b=VqXCjPCemOZtioRk8saQGOYbmCLfyR3fSk7PSVeaZlfQPTTAp2Q2W+7fYsHIfrD4jY
+         6lj2Pm2gxfFvaXnIKuSFYkn+7Ac63Vrn7bOALZH2puYAL8F23lT4DxdxnKsUWCPJylZF
+         RqlUNHmf9IVDMIBCnDLF1+7LlJ0yAUDz9a1ePt9/+KqhSlGLVhH2EgNG/LrD0W2gZVbP
+         S4F3XRzjrzEpWxOBiaSsRkOdBokhGjtXdjEbkRRZWqp9nTFQ5j7wnGQvMqnuXsKiX6TK
+         mmWQeNbbyI8VMsPoxDvBcvo4dJ7QSHg+Ng+IMVNWQ+7dXOc+sQRfnB0MJ492YjGiyNr7
+         2Qpw==
+X-Gm-Message-State: AOJu0Yy2ApY8NitkuuV3fuqwAHkR8zMzK8INJRx+URAOX193bG19TxDx
+	Gl//QcAisKXPSuuiVEWAnYZ+AcJr/fzCzsg7ybBbJa72rOGj/VGVC4xrZw==
+X-Google-Smtp-Source: AGHT+IGDYiZ8mi1wHfJMRmtN1d271e3n1y7W+lAMNH2ajgSgm8pcRak3HcMZ6JFCkfMA6KmaILmBhg==
+X-Received: by 2002:a17:906:7f9a:b0:a52:14b3:480c with SMTP id f26-20020a1709067f9a00b00a5214b3480cmr1089908ejr.76.1713522767898;
+        Fri, 19 Apr 2024 03:32:47 -0700 (PDT)
+Message-ID: <fd67a1803eb5b358f18b3f986a7fa193aa707122.camel@gmail.com>
+Subject: Re: [PATCH v2] xen/riscv: check whether the assembler has Zbb
+ extension support
+From: Oleksii <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2] xen/riscv: check whether the assembler has Zbb extension support
-Date: Fri, 19 Apr 2024 12:26:35 +0200
-Message-ID: <750fa79aecfae43031cbcda2b2f91248199d0794.1713522163.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.44.0
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+ <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Date: Fri, 19 Apr 2024 12:32:46 +0200
+In-Reply-To: <750fa79aecfae43031cbcda2b2f91248199d0794.1713522163.git.oleksii.kurochko@gmail.com>
+References: 
+	<750fa79aecfae43031cbcda2b2f91248199d0794.1713522163.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.4 (3.50.4-1.fc39) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Update the argument of the as-insn for the Zbb case to verify that
-Zbb is supported not only by a compiler, but also by an assembler.
+On Fri, 2024-04-19 at 12:26 +0200, Oleksii Kurochko wrote:
+> Update the argument of the as-insn for the Zbb case to verify that
+> Zbb is supported not only by a compiler, but also by an assembler.
+>=20
+> Also, check_extenstion(ext_name, "insn") helper macro is introduced
+> to check whether extension is supported by a compiler and an
+> assembler.
+>=20
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> =C2=A0xen/arch/riscv/arch.mk | 11 ++++++++---
+> =C2=A01 file changed, 8 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+> index 53f3575e7d..a3d7d97ab6 100644
+> --- a/xen/arch/riscv/arch.mk
+> +++ b/xen/arch/riscv/arch.mk
+> @@ -11,9 +11,14 @@ riscv-march-$(CONFIG_RISCV_ISA_C)=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 :=3D
+> $(riscv-march-y)c
+> =C2=A0
+> =C2=A0riscv-generic-flags :=3D $(riscv-abi-y) -march=3D$(riscv-march-y)
+> =C2=A0
+> -zbb :=3D $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"",_zbb)
+> -zihintpause :=3D $(call as-insn, \
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 $(CC) $(riscv-generi=
+c-
+> flags)_zihintpause,"pause",_zihintpause)
+> +# check_extension: Check whether extenstion is supported by a
+> compiler and
+> +#=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 an assembler.
+> +# Usage: $(call check_extension,extension_name,"instr")
+> +check_extension =3D $(call as-insn,$(CC)
+I missed to use correct naming. should be 'check-extension'.
+I will sent a new patch version. Sorry for flooding.
 
-Also, check_extenstion(ext_name, "insn") helper macro is introduced
-to check whether extension is supported by a compiler and an assembler.
+~ Oleksii
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- xen/arch/riscv/arch.mk | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
-index 53f3575e7d..a3d7d97ab6 100644
---- a/xen/arch/riscv/arch.mk
-+++ b/xen/arch/riscv/arch.mk
-@@ -11,9 +11,14 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
- 
- riscv-generic-flags := $(riscv-abi-y) -march=$(riscv-march-y)
- 
--zbb := $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"",_zbb)
--zihintpause := $(call as-insn, \
--                      $(CC) $(riscv-generic-flags)_zihintpause,"pause",_zihintpause)
-+# check_extension: Check whether extenstion is supported by a compiler and
-+#                  an assembler.
-+# Usage: $(call check_extension,extension_name,"instr")
-+check_extension = $(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(2),_$(1))
-+
-+zbb_insn := "andn t0, t0, t0"
-+zbb := $(call check_extension,zbb,$(zbb_insn))
-+zihintpause := $(call check_extension,zihintpause,"pause")
- 
- extensions := $(zbb) $(zihintpause)
- 
--- 
-2.44.0
+> $(riscv-generic-flags)_$(1),$(2),_$(1))
+> +
+> +zbb_insn :=3D "andn t0, t0, t0"
+> +zbb :=3D $(call check_extension,zbb,$(zbb_insn))
+> +zihintpause :=3D $(call check_extension,zihintpause,"pause")
+> =C2=A0
+> =C2=A0extensions :=3D $(zbb) $(zihintpause)
+> =C2=A0
 
 
