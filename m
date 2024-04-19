@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89F888AA853
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 08:18:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708734.1107815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 454478AA866
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 08:25:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708740.1107824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxhZg-0002Fb-KS; Fri, 19 Apr 2024 06:18:16 +0000
+	id 1rxhgH-0004Zl-9k; Fri, 19 Apr 2024 06:25:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708734.1107815; Fri, 19 Apr 2024 06:18:16 +0000
+Received: by outflank-mailman (output) from mailman id 708740.1107824; Fri, 19 Apr 2024 06:25:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxhZg-0002Di-HK; Fri, 19 Apr 2024 06:18:16 +0000
-Received: by outflank-mailman (input) for mailman id 708734;
- Fri, 19 Apr 2024 06:18:15 +0000
+	id 1rxhgH-0004YF-6n; Fri, 19 Apr 2024 06:25:05 +0000
+Received: by outflank-mailman (input) for mailman id 708740;
+ Fri, 19 Apr 2024 06:25:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EmAy=LY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxhZe-0002Da-Vq
- for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 06:18:14 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1rxhgG-0004Y9-26
+ for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 06:25:04 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 99c508c4-fe14-11ee-94a3-07e782e9044d;
- Fri, 19 Apr 2024 08:18:12 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-418c2bf2f15so14008905e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 23:18:12 -0700 (PDT)
+ id 8d913e82-fe15-11ee-94a3-07e782e9044d;
+ Fri, 19 Apr 2024 08:25:01 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-418e4cd2196so11776725e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Apr 2024 23:25:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- hg12-20020a05600c538c00b00415dfa709dasm5176286wmb.15.2024.04.18.23.18.11
+ o12-20020a05600c4fcc00b00418a6d62ad0sm9024206wmq.34.2024.04.18.23.25.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 23:18:12 -0700 (PDT)
+ Thu, 18 Apr 2024 23:25:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99c508c4-fe14-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 8d913e82-fe15-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713507492; x=1714112292; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=2T8c1XxGPTwukkqH1z7j6GPCL0Sa7MRpS26jI3aCnoE=;
-        b=MBZ0Mx+VNVw7UYy+tsY/kfQ/n2dpW5TLV9MbquueHKjjoefJ1Qn03UA/mWEMfjw43h
-         fi5VXzVNVtA3KpDCby73BklD8E8TnhmarZAFv9VP0v7HQG24rkya6RKJb+6W73f5/SPZ
-         OJOk2mGuszUpn1KKQdeQYV+4K0nS4r93fnwb7WIe1iv4AYkpcjLFFBo7IAjuUqpGOs7V
-         v40B+Iu+IlMf2rZxn7Ezrosj1rPEtttEerF6Rxn9SdAJdTA5QqgwgSF0ZpzNQ9iqqxds
-         BtiX7h6NsY5OjKB22O3CzRbkNGilYY9AWI7Sis0GysMzexb4fSrD43Ujt7/exaRyQ8K3
-         T4ug==
+        d=suse.com; s=google; t=1713507901; x=1714112701; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=tfp7wn/JfpDqx1l+B05bPGx2h3PUtgGSIifLgk1vEUc=;
+        b=BpHwPDEbbMWn4K67QwDmtWBBObEHAybIz8Ha80fn4F0k2m3IljdOuhVMwByZWTL+3f
+         4UbskTWfto+8LOVakuNieLsgcA8qAo3R/e7zZz3IK102i8VhxLECwN9WNE2Oh9+ialRR
+         ZXqcWcOOvTI1hg4fMvwe7phz7g8cyN4X3DzF9+spqIpaN8Q+A1jIeZOpnI/dlFZJDeT3
+         llf8x0kQqJ0JlYF0F6IAEBujqEylR4ofo4x7BesDySOIt/nLf+HQJ8DzshQ2qjJuMxpR
+         zV7uK1YPjz8lO1bZubcPWafAcGlOHwernZfb8wv8O0AFaoL6KXXXQgXzrgy06GALCbwL
+         cXEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713507492; x=1714112292;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2T8c1XxGPTwukkqH1z7j6GPCL0Sa7MRpS26jI3aCnoE=;
-        b=wKxSbOI8UQwJx1l6h7gdpV0dvpYHQDCF24ex8OMN7mQ2fhrilZ/1AuLnNwsa+eP7md
-         vdx0SSU3SvMPbS1RLGxkibqwTPkXC5kMCn4h+7e9xs7DveppNFdHvmfnKaM7MHZyqIpB
-         gEIo5HwNx5yoj1PYwdKMmSQRHZjTMf2nhh30i+mTgDQ5h79+xo3YAkVsHAiXG51VR4GG
-         POM+Fq75LJSAhCJE8TZByAsLLt4NTLYAADqRM7Fyj8kow8CcC0HiQUFApib+k5yLK42L
-         paimrA33BuEsCIZkkkNV683i06YiesJBgj1sahChinkBKbl1cgao66MfWHySmaS+mAkP
-         OKPQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUSUZOjl1npdYiPqPFo4m4aOiIEIKljFDWnPGXeSYVhqWWEhdaDbqBP+z5dvDWy7dz48/DdkuXi+C5AkTLc/XngP4ObrK+K6aVpZjG11Ew=
-X-Gm-Message-State: AOJu0YygPfJskHEkwFzKWlktD494FAMxSBXHnDiAevvCzhEAMu2ViCP2
-	Ncu01ezpV1EbVjAOJTEOHj8p7E0qcium9wnUEPknw6jiaaOH0O6oFLNU7C3jGg==
-X-Google-Smtp-Source: AGHT+IElBF9fp1twwTJrf7TYR+i4ejhDV7xvxlmreapqR5TYQGvTvU8YdHKrYA/pjuBkYVERdBKcbA==
-X-Received: by 2002:a05:600c:19c6:b0:416:b91c:f310 with SMTP id u6-20020a05600c19c600b00416b91cf310mr628134wmq.22.1713507492391;
-        Thu, 18 Apr 2024 23:18:12 -0700 (PDT)
-Message-ID: <f17d6f60-260f-4090-8a42-7bc1b7d93600@suse.com>
-Date: Fri, 19 Apr 2024 08:18:11 +0200
+        d=1e100.net; s=20230601; t=1713507901; x=1714112701;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tfp7wn/JfpDqx1l+B05bPGx2h3PUtgGSIifLgk1vEUc=;
+        b=q+nJxe3yty3S0tQ8ZigXsMuMr4kgx3ZpFd9ExYB5kL7pLha9Y8avYzFfAOdnWnUUIi
+         FnvdGQoMga4GQoHkFpxDIZ0U09GUkIbNhbklOGCKWIpyxJOTNqxXGhSAK7XvJNIzmiXS
+         oST2IvaEm9ZMZLbB5wmecrstGRkDuQt39m3xVVBhjLkamA0DCockMpQpUbNFLjBRjekg
+         Ptnmu+AfEZLHBxxLyadBk1fmLWsqs97Y1LjP+dAhRDXXD3xR75+MnaGnRxCUvGD5jBrU
+         ynwTMQHla5jGZ4CsWijCya+5fdhZHtvtbyOLgdLV6Pk0LwJ3ostwmQ0ArdyTbr9FZt2Q
+         kI5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCV034k/OHzj0+EMazhBX+8b+g7dR3kspzojN7C5dRAmPZeva3rLKPWisfKJXqv1H3Y5hW/pMOUnPRUVP7NRsh/J/amoDAMlHCqsW/kxBKM=
+X-Gm-Message-State: AOJu0YyKhVh+cueAUtS1OaJLr8hEAFQxhKD7075bdOKXv7DGzAniqMoM
+	ZFWXFSdSOiJXUf57xnxUasFBlMUKFbrd5GC6DuBCugEAsVHeYlvOuHGaDQAUKPu6qA++h3eN/J4
+	=
+X-Google-Smtp-Source: AGHT+IGH/1rSkM1rQD3K7yCa06JBqCTKSANJnzB1EC+QQVvxSsyKcEgN0LEtMNjAGMo7zudkBl32Zw==
+X-Received: by 2002:a05:600c:444f:b0:418:e140:dae with SMTP id v15-20020a05600c444f00b00418e1400daemr705337wmn.28.1713507901348;
+        Thu, 18 Apr 2024 23:25:01 -0700 (PDT)
+Message-ID: <26b9cbda-4f9b-4ddf-ab27-643e6f78b076@suse.com>
+Date: Fri, 19 Apr 2024 08:25:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/5] xen/memory, tools: Avoid hardcoding
- GUEST_MAGIC_BASE in init-dom0less
+Subject: Re: [PATCH v2 2/2] x86/spec: adjust logic to logic that elides lfence
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240418155208.7771-1-roger.pau@citrix.com>
+ <20240418155208.7771-3-roger.pau@citrix.com>
 Content-Language: en-US
-To: Henry Wang <xin.wang2@amd.com>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, Alec Kwapis <alec.kwapis@medtronic.com>,
- xen-devel@lists.xenproject.org, Daniel Smith <dpsmith@apertussolutions.com>
-References: <20240409045357.236802-1-xin.wang2@amd.com>
- <20240409045357.236802-5-xin.wang2@amd.com>
- <cc4fd69b-4866-4f1b-b780-64c5fac7d2d6@suse.com>
- <eaad1ad2-e6ec-42a6-a0fb-236ce93f0a9e@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,46 +112,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <eaad1ad2-e6ec-42a6-a0fb-236ce93f0a9e@amd.com>
+In-Reply-To: <20240418155208.7771-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19.04.2024 04:31, Henry Wang wrote:
-> On 4/18/2024 8:54 PM, Jan Beulich wrote:
->> On 09.04.2024 06:53, Henry Wang wrote:
->>> --- a/xen/include/public/memory.h
->>> +++ b/xen/include/public/memory.h
->>> @@ -21,6 +21,7 @@
->>>   #define XENMEM_increase_reservation 0
->>>   #define XENMEM_decrease_reservation 1
->>>   #define XENMEM_populate_physmap     6
->>> +#define XENMEM_populate_physmap_heap_alloc 29
->> Without a comment, how is one supposed to know what the difference is of
->> this new sub-op compared to the "normal" one? I actually wonder whether
->> referring to a Xen internal (allocation requested to come from the heap)
->> is actually a good idea here. I'm inclined to suggest to name this after
->> the purpose it has from the guest or tool stack perspective.
->>
->> Speaking of which: Is this supposed to be guest-accessible, or is it
->> intended for tool-stack use only (I have to admit I don't even know where
->> init-dom0less actually runs)? In the latter case that also wants enforcing.
->> This may require an adjustment to the XSM hook in use here. Cc-ing Daniel
->> for possible advice.
+On 18.04.2024 17:52, Roger Pau Monne wrote:
+> It's currently too restrictive by just checking whether there's a BHB clearing
+> sequence selected.  It should instead check whether BHB clearing is used on
+> entry from PV or HVM specifically.
 > 
-> This sub-op should be called by the init-dom0less application (toolstack 
-> side), which runs in Dom0.
+> Switch to use opt_bhb_entry_{pv,hvm} instead, and then remove cpu_has_bhb_seq
+> since it no longer has any users.
+> 
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Fixes: 954c983abcee ('x86/spec-ctrl: Software BHB-clearing sequences')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-I'm puzzled: How can init-dom0less (note its name!) run in Dom0, when there
-is none?
+Except for the odd double "logic" in the title:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I can't really guess what is meant instead, so in order to possibly adjust
+while committing I'll need a hint. But committing will want to wait until
+Andrew has taken a look anyway, just like for patch 1.
+
+> There (possibly) still a bit of overhead for dom0 if BHB clearing is not used
+> for dom0, as Xen would still add the lfence if domUs require it.
+
+Right, but what do you do.
+
+> --- a/xen/arch/x86/include/asm/cpufeature.h
+> +++ b/xen/arch/x86/include/asm/cpufeature.h
+> @@ -235,9 +235,6 @@ static inline bool boot_cpu_has(unsigned int feat)
+>  #define cpu_bug_fpu_ptrs        boot_cpu_has(X86_BUG_FPU_PTRS)
+>  #define cpu_bug_null_seg        boot_cpu_has(X86_BUG_NULL_SEG)
+>  
+> -#define cpu_has_bhb_seq        (boot_cpu_has(X86_SPEC_BHB_TSX) ||       \
+> -                                boot_cpu_has(X86_SPEC_BHB_LOOPS))
+
+Might be worth also mentioning in the description that this construct was
+lacking use of X86_SPEC_BHB_LOOPS_LONG (might even warrant a 2nd Fixes:
+tag).
 
 Jan
-
-> Daniel has proposed an alternative solution 
-> which is based on the hypfs. If we decide to go that route, I think I 
-> will rewrite the series. I will wait for the discussion settled. Thanks 
-> for looping in Daniel!
-> 
-> Kind regards,
-> Henry
-
 
