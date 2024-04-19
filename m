@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 205118AAF10
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 15:03:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.709088.1108334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BB9A8AAFFF
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 16:01:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.709097.1108346 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxnsF-0005bY-3d; Fri, 19 Apr 2024 13:01:51 +0000
+	id 1rxonB-00087c-Bi; Fri, 19 Apr 2024 14:00:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 709088.1108334; Fri, 19 Apr 2024 13:01:51 +0000
+Received: by outflank-mailman (output) from mailman id 709097.1108346; Fri, 19 Apr 2024 14:00:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxnsF-0005ZA-0m; Fri, 19 Apr 2024 13:01:51 +0000
-Received: by outflank-mailman (input) for mailman id 709088;
- Fri, 19 Apr 2024 13:01:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rxonB-00084T-8T; Fri, 19 Apr 2024 14:00:41 +0000
+Received: by outflank-mailman (input) for mailman id 709097;
+ Fri, 19 Apr 2024 14:00:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pund=LY=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rxnsD-0005Z3-CI
- for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 13:01:49 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fae98dda-fe4c-11ee-b909-491648fe20b8;
- Fri, 19 Apr 2024 15:01:47 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 3E58E4EE0742;
- Fri, 19 Apr 2024 15:01:47 +0200 (CEST)
+ <SRS0=zESt=LY=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1rxon9-00084M-Vg
+ for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 14:00:39 +0000
+Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com
+ [2607:f8b0:4864:20::f2a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 32b7391a-fe55-11ee-94a3-07e782e9044d;
+ Fri, 19 Apr 2024 16:00:37 +0200 (CEST)
+Received: by mail-qv1-xf2a.google.com with SMTP id
+ 6a1803df08f44-69b40061bbeso12293586d6.1
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 07:00:37 -0700 (PDT)
+Received: from georged-x-u.xenrt.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ t9-20020a0c8d89000000b0069b7eb7edebsm1582413qvb.71.2024.04.19.07.00.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Apr 2024 07:00:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,69 +45,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fae98dda-fe4c-11ee-b909-491648fe20b8
+X-Inumbo-ID: 32b7391a-fe55-11ee-94a3-07e782e9044d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1713535236; x=1714140036; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3pzG5gY4gqXEkkpMuOFYwzI1Mz0yJcR4zAPhXCGdw+M=;
+        b=Wt4U5RNScmoUgIhNMFNAUk+ZX6sr1ZaLoz8coDQq+5zxPY9jLM2ixivyhsU38c7y4+
+         fpJA2jBSL1z1Rt9SuyfE4LTbzEpq/b1adCuq5I2f4+qafJseQX/2bCDw1HBGeom73f6b
+         +IqUyknx44iS6NEsf2egCyMgwaZY9sBVnJUOI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713535236; x=1714140036;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3pzG5gY4gqXEkkpMuOFYwzI1Mz0yJcR4zAPhXCGdw+M=;
+        b=l8Rzj2pMghhwQS9nbT7xGtoaumAE5hm6EhxU84TmDopWLZSzcgsUxqwZ18LK9+CKMK
+         nZ/T8BWNg4g995T5z2Qk6+J4wQyfLqOeeYXEpMmXJ7xLfXta8b/gKJunSn7k6bEi0Ltj
+         +WEm0APj76Y8Q81urWlumd4HZq0iiWSUMNgR468naARyj2utXELqYJXiDAD6EUi0kZhB
+         G18sMwf7ojnbyRZxeFM/FKE2r1y3JjTpqi4VP6PxgoxmVf28sAoY2sjJjpRjAXoNRHYc
+         8q/+owuECdch9CFrr/QmgJa8uc8un5Mc0yPPnjaCbRSXRWHIoJ0V3aPaG+JVO2i1qMFQ
+         jDxA==
+X-Gm-Message-State: AOJu0YwQ8q7MAly0WpDFh4KIwACf1qlhJRUU6qwmfGbxewhsQMVNNoTs
+	Ir4S5e3Pib5ncGWkF5npDlhPiydIrQHcgUqqiu8mpseKwvScFdutDAsTDK2b2KpkyAGudDBlbOs
+	Y
+X-Google-Smtp-Source: AGHT+IE5RXvZ86MBPluokHCguh7EKC08phkkyA2PWkDgjC+DEPPW35Xpuol6Skb7jd+pBME01crNDQ==
+X-Received: by 2002:a0c:e152:0:b0:6a0:5baa:10f9 with SMTP id c18-20020a0ce152000000b006a05baa10f9mr2108237qvl.48.1713535236297;
+        Fri, 19 Apr 2024 07:00:36 -0700 (PDT)
+From: George Dunlap <george.dunlap@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@cloud.com>,
+	Tobias Fitschen <tobias.fitschen@posteo.de>,
+	Nick Rosbrook <rosbrookn@gmail.com>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2 1/3] tools/golang: When returning pointers, actually allocate structrues
+Date: Fri, 19 Apr 2024 14:51:18 +0100
+Message-Id: <20240419135120.830517-1-george.dunlap@cloud.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Date: Fri, 19 Apr 2024 15:01:47 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
- julien@xen.org, Simone Ballarin <simone.ballarin@bugseng.com>, Doug
- Goldstein <cardoe@cardoe.com>, Julien Grall <jgrall@amazon.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v2] automation/eclair_analysis: substitute deprecated
- service STD.emptrecd
-In-Reply-To: <3c6e3fa1-a312-4872-9b7f-9e6935490bcb@suse.com>
-References: <7b60faa6e627b3a4df298f2ef4d9ba4d72e5e206.1713510915.git.nicola.vetrini@bugseng.com>
- <c94d739e-0517-487f-8ba9-d9b19fe8f916@suse.com>
- <58ed38830469a027b9cedd9d5f68cfae@bugseng.com>
- <3c6e3fa1-a312-4872-9b7f-9e6935490bcb@suse.com>
-Message-ID: <4406fa44cb54d07bc43ffee6e42689da@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2024-04-19 11:21, Jan Beulich wrote:
-> On 19.04.2024 09:49, Nicola Vetrini wrote:
->> On 2024-04-19 09:35, Jan Beulich wrote:
->>> On 19.04.2024 09:16, Nicola Vetrini wrote:
->>>> The ECLAIR service STD.emptrecd is being deprecated; hence, as a
->>>> preventive
->>>> measure, STD.anonstct is used here, which for Xen's purposes has
->>>> equivalent
->>>> functionality.
->>> 
->>> I'm sorry, but no, this still does not clarify things enough. It is
->>> still
->>> entirely unclear how "empty record" can reasonably be substituted by
->>> "anonymous struct". Even the expansion of the respective 
->>> abbreviations
->>> continues to be just a guess.
->> 
->> anonstct checks for structs with no named members,
-> 
-> So "anonstct" != "anonymous structures". As indicated, part of the
-> description wants to be de-ciphering of these acronyms, so they can
-> make sense to readers.
-> 
-> Jan
-> 
->> hence also empty
->> structs, but only the former is an undefined behaviour for C99.
->> 
+In a handful of cases, it was decided to return a pointer to a
+structure rather than the plain structure itself, due to the size.
+However, in these cases the structure was never allocated, leading to
+a nil pointer exception when calling the relevant `fromC` method.
 
-Would this be a sufficiently clear explanation for you?
+Allocate structures before attempting to fill them in.
 
-"The ECLAIR service STD.emptrecd (which checks for empty structures) is 
-being deprecated; hence, as a preventive measure, STD.anonstct (which 
-checks for structures with no named members, an UB in C99) is used here; 
-the latter being a more general case than the previous one, this change 
-does not affect the analysis. This new service is already supported by 
-the current version of ECLAIR."
+Fixes: 453713b1750 ("golang/xenlight: Add host-related functionality")
+Reported-by: Tobias Fitschen <tobias.fitschen@posteo.de>
+Signed-off-by: George Dunlap <george.dunlap@cloud.com>
+Tested-by: Tobias Fitschen <tobias.fitschen@posteo.de>
+---
+v2:
+ - Added Fixes: tag
+ - Added Tested-by tag
 
+NB this is a candidate for backport.
+
+CC: Nick Rosbrook <rosbrookn@gmail.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>
+---
+ tools/golang/xenlight/xenlight.go | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/tools/golang/xenlight/xenlight.go b/tools/golang/xenlight/xenlight.go
+index a45c636952..d793f172e5 100644
+--- a/tools/golang/xenlight/xenlight.go
++++ b/tools/golang/xenlight/xenlight.go
+@@ -999,6 +999,7 @@ func (ctx *Context) GetPhysinfo() (physinfo *Physinfo, err error) {
+ 		err = Error(ret)
+ 		return
+ 	}
++	physinfo = &Physinfo{}
+ 	err = physinfo.fromC(&cphys)
+ 
+ 	return
+@@ -1010,6 +1011,7 @@ func (ctx *Context) GetVersionInfo() (info *VersionInfo, err error) {
+ 
+ 	cinfo = C.libxl_get_version_info(ctx.ctx)
+ 
++	info = &VersionInfo{}
+ 	err = info.fromC(cinfo)
+ 
+ 	return
+@@ -1027,6 +1029,7 @@ func (ctx *Context) DomainInfo(Id Domid) (di *Dominfo, err error) {
+ 		return
+ 	}
+ 
++	di = &Dominfo{}
+ 	err = di.fromC(&cdi)
+ 
+ 	return
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+2.25.1
+
 
