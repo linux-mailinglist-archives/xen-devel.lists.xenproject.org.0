@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E69C8AB0B6
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 16:26:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.709125.1108385 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB9098AB0CE
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 16:33:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.709132.1108395 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxpCC-0005th-6R; Fri, 19 Apr 2024 14:26:32 +0000
+	id 1rxpIP-0007Ly-R2; Fri, 19 Apr 2024 14:32:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 709125.1108385; Fri, 19 Apr 2024 14:26:32 +0000
+Received: by outflank-mailman (output) from mailman id 709132.1108395; Fri, 19 Apr 2024 14:32:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxpCC-0005r3-3O; Fri, 19 Apr 2024 14:26:32 +0000
-Received: by outflank-mailman (input) for mailman id 709125;
- Fri, 19 Apr 2024 14:26:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rxpIP-0007KK-Ni; Fri, 19 Apr 2024 14:32:57 +0000
+Received: by outflank-mailman (input) for mailman id 709132;
+ Fri, 19 Apr 2024 14:32:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EmAy=LY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxpCA-0005qv-Iy
- for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 14:26:30 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cfa98dd1-fe58-11ee-b909-491648fe20b8;
- Fri, 19 Apr 2024 16:26:29 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-349c4505058so1452579f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 07:26:29 -0700 (PDT)
+ id 1rxpIO-0007KE-49
+ for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 14:32:56 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b521592e-fe59-11ee-94a3-07e782e9044d;
+ Fri, 19 Apr 2024 16:32:54 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-418c979ddf3so15783635e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 07:32:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e32-20020a5d5960000000b0033ec9ddc638sm4540722wri.31.2024.04.19.07.26.27
+ m16-20020a05600c3b1000b0041496734318sm10480923wms.24.2024.04.19.07.32.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Apr 2024 07:26:28 -0700 (PDT)
+ Fri, 19 Apr 2024 07:32:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cfa98dd1-fe58-11ee-b909-491648fe20b8
+X-Inumbo-ID: b521592e-fe59-11ee-94a3-07e782e9044d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713536788; x=1714141588; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713537173; x=1714141973; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=5kG/ARgXXVfg4WMLMW/eCHKrePD3IkK7jN6W0hWBsZo=;
-        b=TboJ+UYRuxFLlQMiivVf/I6vaV1TwxPItl8VRSY7LpT8cyXHlvzzY/zKlfwMOzzLHU
-         mStnELpSMhgWzQhK/Mj892kzaPTsWSff+NwvpaM1mYqvvMTx+H03WLGlj8eqxS5pHpaH
-         b50rtWii9+H+A//Ay8XM/fyhp+Y/C+zY1g9QsdTQV+1uS5HBNl25KvEyOhPrwktn0mMm
-         CHdvWqq0M0+KXPXUkLpE5ZujpLcGlZf2FJwJh3esncEeYb8P/d5hQxAOCp+jLwjtRhlk
-         Jpns5Hst63tuT+zZoPDmdqepmZQigO72hOgRN6b01qRsk7Hzw2tUahSnXu6dU3WrlMgE
-         OESQ==
+        bh=icTUvpL0KP7AzjT9QbJf6l1gjRt/R2EDHpEQEXXrD1c=;
+        b=cOfJWfvZRQVyAUkD6samVjxRdrsGlyv/Z/xtjH3MAU6MRZBgTYVlw4DekQEhgjl9Cj
+         /vioNIIwgn6Zu6xjLP+wy/uz9NobXxzjiyQCl3JtLZbKBBxCdkRrvOjsL0t6Td2AM6dE
+         xcTP4V5y3l52U+j4kJL9418A4Nm8Ro94fno+9LHZoEQ+DS0THPfDVB4+dZD1ZTOJRJLp
+         vYqqe92UzdyQS+4k1623A8OCnosNVTr21c8wfOek+gpi9AgOSJbgYfh9zocfchDw1Ado
+         BE1T7eOZLjyXYy8Agsl/T/prg4HfdiN/G2eJutXR0D/cn/Izp51HmmFR8m/q3BRvgJom
+         nEXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713536788; x=1714141588;
+        d=1e100.net; s=20230601; t=1713537173; x=1714141973;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5kG/ARgXXVfg4WMLMW/eCHKrePD3IkK7jN6W0hWBsZo=;
-        b=GuDSRSgy1VemgPVyTNuFIV3e4cthXn0TKLSE8jHY8x9vD/7T9NFCZ53EHccvk4KnSr
-         NfSW5UDq7SvlL/cBiOW6EQYBRJQ+EXLT4qv4bwF4ubzoNo8IlV1+vEWQXouaa9FvVqdO
-         0qLUzw0G3zWe9pqdsvDZCQ3uvQ/uXvHPDklkt18Wk6WnxwyNyhNb8o5TAjg8yvaNS0pn
-         dLQ5pFnaO8t0a+vs3fY+hLCH7/r+KaZYEs7jzOUliv3VWwBjHnGDemgCRpiFwhy9TlSl
-         bGE2P8f2cuCoFqabdx/3UKum7+A5q4zwlm4I5NTqOBtoEg/Ty1p2Tn7l0wXWz6QwWX82
-         HlgA==
-X-Forwarded-Encrypted: i=1; AJvYcCV9JbEarwPHILS17sdvuHEkoNam56stocWhofCOtWEG2SJFUBDhXOvyO9+RDKow1O83kLwKZtXu9YEVIF6fkhg7UMKtbPyLGWuBUbjMba4=
-X-Gm-Message-State: AOJu0Yx7Mr6r4EXyiAeDrnnueD5Xd/ZiBm4Wa/Tmr8YaZl50Eu85Uwed
-	HPwrjhgjpwjqXnqaYmh2sI93uqmD6RnS14jqK9CrNqmnBt8MqnVip0xTVgexew==
-X-Google-Smtp-Source: AGHT+IFVmZOOeNrVnld2Wc3xNSPneTnIC1oeWhMaYpKWlPLEwm9NkoMEvJpCjTjPU+MPoXNI9i/n4Q==
-X-Received: by 2002:adf:f88d:0:b0:344:3dd:5092 with SMTP id u13-20020adff88d000000b0034403dd5092mr1359721wrp.16.1713536788503;
-        Fri, 19 Apr 2024 07:26:28 -0700 (PDT)
-Message-ID: <e04fbfc0-c020-472f-bb82-5414adbaa6fd@suse.com>
-Date: Fri, 19 Apr 2024 16:26:26 +0200
+        bh=icTUvpL0KP7AzjT9QbJf6l1gjRt/R2EDHpEQEXXrD1c=;
+        b=H5Z/HynSELzmHYLVyJpbeONgTj6js11FfUvBzUdkIj5vsy6RMrLP+lwssoiMjLR4uA
+         RtP9ETkCeFHhqpAIy0Kz4/mL1HYW9nydG6KGau6qETydxmDkz73ga3nr7gIoXgSafFzE
+         yVbijsjTbWRKAohSYcnOtCmwRmCoevG00jDxVAPUYy3a+SGOadBmWskOmqt1q0cxGP4e
+         h9TpUMf9En80dr97lVqcGqFx1vdTMNkBkmmcFwVhvR78mZkKPEFEJuTqH/OJCuGiwf+G
+         pP1w/aJOYLtug7Yk4a2qRTRzhELS/a2CCnn901PPPj5qljKvk8i0tJph6k9c1BSLZF8y
+         3NUw==
+X-Forwarded-Encrypted: i=1; AJvYcCXmzCW8v7u5BPrGBNWbdRi28PmS/s0AY+rO+amm3OnSy7d+N4GDxdEZzduBzdlBaicpuHpvvk7EokhBGC32kNkqWL+mRt3sefzPfgBd5ZY=
+X-Gm-Message-State: AOJu0YxhjdHj6sh34bl/s/PYeq21evVB7eWHMhFmvBxOqqghyAgFD7e9
+	eM4Mu6hHYR6jJTUH23jrfaowbtyTFL7YKEhzfdxPqw8GJWS4GPyhuffV+AEZNg==
+X-Google-Smtp-Source: AGHT+IFa/1mPaKWaw2ubOF2jyfVdmnhhDx4XBAb/quY366agSEl2FUeSMAtdg2PO9Z/QHYsIK+ry7w==
+X-Received: by 2002:a05:600c:3b94:b0:416:9f45:e639 with SMTP id n20-20020a05600c3b9400b004169f45e639mr1619917wms.20.1713537173512;
+        Fri, 19 Apr 2024 07:32:53 -0700 (PDT)
+Message-ID: <83004b7a-039c-4c5d-8f43-486d79813752@suse.com>
+Date: Fri, 19 Apr 2024 16:32:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] automation/eclair_analysis: substitute deprecated
- service STD.emptrecd
+Subject: Re: [PATCH v2 1/2] xen: introduce header file with section related
+ symbols
 Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
- julien@xen.org, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, Julien Grall <jgrall@amazon.com>,
- xen-devel@lists.xenproject.org
-References: <7b60faa6e627b3a4df298f2ef4d9ba4d72e5e206.1713510915.git.nicola.vetrini@bugseng.com>
- <c94d739e-0517-487f-8ba9-d9b19fe8f916@suse.com>
- <58ed38830469a027b9cedd9d5f68cfae@bugseng.com>
- <3c6e3fa1-a312-4872-9b7f-9e6935490bcb@suse.com>
- <4406fa44cb54d07bc43ffee6e42689da@bugseng.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240419100217.12072-1-roger.pau@citrix.com>
+ <20240419100217.12072-2-roger.pau@citrix.com>
+ <a5253ad9-02e6-408d-862c-91a3a87ad9e2@citrix.com>
+ <0fe755cd-722e-41cd-9499-49dc628bf52b@suse.com>
+ <65c9f3c5-5583-4c87-b2d3-8ecfba9b88cc@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,50 +119,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4406fa44cb54d07bc43ffee6e42689da@bugseng.com>
+In-Reply-To: <65c9f3c5-5583-4c87-b2d3-8ecfba9b88cc@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19.04.2024 15:01, Nicola Vetrini wrote:
-> On 2024-04-19 11:21, Jan Beulich wrote:
->> On 19.04.2024 09:49, Nicola Vetrini wrote:
->>> On 2024-04-19 09:35, Jan Beulich wrote:
->>>> On 19.04.2024 09:16, Nicola Vetrini wrote:
->>>>> The ECLAIR service STD.emptrecd is being deprecated; hence, as a
->>>>> preventive
->>>>> measure, STD.anonstct is used here, which for Xen's purposes has
->>>>> equivalent
->>>>> functionality.
+On 19.04.2024 12:16, Andrew Cooper wrote:
+> On 19/04/2024 11:12 am, Jan Beulich wrote:
+>> On 19.04.2024 12:08, Andrew Cooper wrote:
+>>> On 19/04/2024 11:02 am, Roger Pau Monne wrote:
+>>>> Start by declaring the beginning and end of the init section.
 >>>>
->>>> I'm sorry, but no, this still does not clarify things enough. It is
->>>> still
->>>> entirely unclear how "empty record" can reasonably be substituted by
->>>> "anonymous struct". Even the expansion of the respective 
->>>> abbreviations
->>>> continues to be just a guess.
+>>>> No functional change intended.
+>>>>
+>>>> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> TYVM for doing this.  There's a lot of cleanup which can follow on for it.
 >>>
->>> anonstct checks for structs with no named members,
->>
->> So "anonstct" != "anonymous structures". As indicated, part of the
->> description wants to be de-ciphering of these acronyms, so they can
->> make sense to readers.
->>
->> Jan
->>
->>> hence also empty
->>> structs, but only the former is an undefined behaviour for C99.
+>>> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >>>
+>>> although if anyone has a better name than sections.h then speak now.
+>> For what is put there now, and for any other section bounds markers the
+>> name is fine with me. I'm not presently convinced though we want to put
+>> __read_mostly and friends there.
 > 
-> Would this be a sufficiently clear explanation for you?
-> 
-> "The ECLAIR service STD.emptrecd (which checks for empty structures) is 
-> being deprecated; hence, as a preventive measure, STD.anonstct (which 
-> checks for structures with no named members, an UB in C99) is used here; 
-> the latter being a more general case than the previous one, this change 
-> does not affect the analysis. This new service is already supported by 
-> the current version of ECLAIR."
+> Well that's exactly what I intend to clean up into it, because it's far
+> better in sections.h than (duplicated per arch) cache.h
 
-Yes, this is much better. Thanks.
+The duplication per arch has had a patch pending for a long time, which
+you've been blocking. What you're suggesting is not only a very different
+sections-related use of the header (which is probably okay), but also
+requires touching a fair part of the code base (each and every .c file
+using __read_mostly). That's what I'd like to avoid. Yet what I could
+live with if it's not me needing to perform this tedious work (hence why
+I didn't want to adjust my patch along these lines).
+
+> (Also I intend to strip down kernel.h for the other major sections too.)
+
+I certainly have no issue with this; I was in fact already expecting that
+to happen as a follow-on step.
 
 Jan
 
