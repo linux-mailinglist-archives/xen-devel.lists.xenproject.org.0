@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 645068AA6EE
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 04:28:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708622.1107646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C1868AA6F9
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 04:31:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708627.1107655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxdyK-0007pJ-6B; Fri, 19 Apr 2024 02:27:28 +0000
+	id 1rxe2Y-0000sH-Mq; Fri, 19 Apr 2024 02:31:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708622.1107646; Fri, 19 Apr 2024 02:27:28 +0000
+Received: by outflank-mailman (output) from mailman id 708627.1107655; Fri, 19 Apr 2024 02:31:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxdyK-0007nU-3Q; Fri, 19 Apr 2024 02:27:28 +0000
-Received: by outflank-mailman (input) for mailman id 708622;
- Fri, 19 Apr 2024 02:27:27 +0000
+	id 1rxe2Y-0000pw-KA; Fri, 19 Apr 2024 02:31:50 +0000
+Received: by outflank-mailman (input) for mailman id 708627;
+ Fri, 19 Apr 2024 02:31:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=52U1=LY=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1rxdyJ-0007nO-7m
- for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 02:27:27 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20601.outbound.protection.outlook.com
- [2a01:111:f403:2415::601])
+ id 1rxe2X-0000pn-Cn
+ for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 02:31:49 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2412::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5aa6998f-fdf4-11ee-94a3-07e782e9044d;
- Fri, 19 Apr 2024 04:27:24 +0200 (CEST)
-Received: from SA1PR02CA0013.namprd02.prod.outlook.com (2603:10b6:806:2cf::11)
- by MW4PR12MB6826.namprd12.prod.outlook.com (2603:10b6:303:20c::8)
+ id f74e39af-fdf4-11ee-94a3-07e782e9044d;
+ Fri, 19 Apr 2024 04:31:47 +0200 (CEST)
+Received: from BL1PR13CA0239.namprd13.prod.outlook.com (2603:10b6:208:2bf::34)
+ by CH3PR12MB9195.namprd12.prod.outlook.com (2603:10b6:610:1a3::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.39; Fri, 19 Apr
- 2024 02:27:20 +0000
-Received: from SN1PEPF0002636E.namprd02.prod.outlook.com
- (2603:10b6:806:2cf:cafe::38) by SA1PR02CA0013.outlook.office365.com
- (2603:10b6:806:2cf::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.30 via Frontend
- Transport; Fri, 19 Apr 2024 02:27:20 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF0002636E.mail.protection.outlook.com (10.167.241.139) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.43; Fri, 19 Apr
+ 2024 02:31:41 +0000
+Received: from BL6PEPF00020E61.namprd04.prod.outlook.com
+ (2603:10b6:208:2bf:cafe::13) by BL1PR13CA0239.outlook.office365.com
+ (2603:10b6:208:2bf::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.29 via Frontend
+ Transport; Fri, 19 Apr 2024 02:31:41 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL6PEPF00020E61.mail.protection.outlook.com (10.167.249.22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Fri, 19 Apr 2024 02:27:20 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7452.22 via Frontend Transport; Fri, 19 Apr 2024 02:31:41 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 18 Apr
- 2024 21:27:18 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 21:31:41 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 18 Apr
- 2024 19:27:14 -0700
-Received: from [10.69.48.49] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Thu, 18 Apr 2024 21:27:11 -0500
+ 2024 21:31:41 -0500
+Received: from [10.69.48.49] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 18 Apr 2024 21:31:38 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,164 +63,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5aa6998f-fdf4-11ee-94a3-07e782e9044d
+X-Inumbo-ID: f74e39af-fdf4-11ee-94a3-07e782e9044d
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZN4RyI+PU8yz3ZZsA/mqNC0k/2r4BuypUnXXFvDnj+c2DMNUcML1DtBYwEwqKd6XRyZXmSB0ZD353PZXNhO9o+BqVQLqU1LgyFC3nhcz05PXx1VT3dQ+FuVFXpA8DxEI8XQrJGTVsuSkrQdxWCXVjUVioFFQynHlTAn/W+hlv0W/nnHgwD0l+1ABersOOBBt+kmQtSz0oTiY7lEWwkdb0GAySDtpLyjYpxb/aDi+FRJ9HVnP2zYT4EJHRCyS9l6iDCYusO8OR69Z8uqa1EntXnTWJBEkghSh2PMd3GvYpKR22ooTKcfckAYGKHyCxpmbsUmj4+nCU8/cCr+75HeZeg==
+ b=etTvsyyd48O5GVegNMEQ+4xUOaTFT5kThmtI0TXIUJJX1MufdSAB9PMY18biFqioBBqF50OkLJEvILx9fJ4Ol7isjYxKQ1ecyZlh/e8dADveMRwXIh5O79Jk6n8QVTuG7p6kerCbOYPbIKEv1uztwzX0uw0Uv0avE2e5z+NB4aMVxy4NvofpR3zUWGP52k4KmfP0ZIw2s66DEAq9KqJOP21o92MOYMpH1f22UBe5SYofbhWr1XkDt/5KOqzrxcuAyvrp5sSSn3o/+HYvkKLZHnS0F6rSRGh/4LOEectTu+3YO57Z+L3IrhsfXN9rFFHLvlBjU+3oF+hLXEU7FNgsTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L08/V9RoPBCV4Ouu/mBWPc5rRZ3PXDyRzfaE62nNzF8=;
- b=ZWgQfDOiOeO/eQVscQBiIxpLAhgGJ02Q9D0eFgPdcHlnszrIlR9uM+/8TRrILIhj3Po7lVEuAA81XVYFbNYwVUng4fnM1KFs1wwxQR2BCzA/uwUTUwMrahfKB0B4YFGtMuJgAn72VCAQ1n4trVyaZFWtmOdx92W4KCxr7VWWcNtB0ic2eR7DqF2JYUMd60+KogigFUJLsmfBX1XIYwtAU00gP6nKhan9CSI/iObV+Vh74tq47N6BSeVme7j3q3eCQHC6/iHWd8eQepX50QIFcxHebR4wBIwIW8SW+mfffDxhYH4jIZnoSaDif4QpZny6T2ZcjiSTcu04Lxu7SaNtYA==
+ bh=tUZRukvAfZ5neDu0ABl0uR5S6MvEatH59LzEPtV7y58=;
+ b=iQZwV9leuiQ9vqg3IiDwfnGhJI05RE7oMw3Q7rRxjVkwZkWe8RxnVRisyFN8N6ZO6rNIfAcCXC9hWpX12WpchdPLbzjSdGhNFddc8BdWeN5xZ+E64CVNz+HtixEj/g4PCz5jKYce5j43QhA6Oz2yQCXXnfatq4K4wrbmUff8+HcHJazf+pZP6Ve/Rc9lf082l8DCvqdOkI7RoDLMVyIS/GoglHEO3hpkx8a1iOH6/HUIZ4K7XpKwCynz8AZ3/WTMGXPhpnB4xye3EQdKIH1JDBIrM6J63lJw6yDbBh48YlyC18w9HYVeJq0vDBY5SPRuSgfpnmyzGxfCU6HmVXzcGQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L08/V9RoPBCV4Ouu/mBWPc5rRZ3PXDyRzfaE62nNzF8=;
- b=O/Dgt13UGJSCyzPDxPkfjBHKH0Q1QR3ulOY3ZKIDGEQPQhf4qsYxoB5V7B3g3w+eS4yKpXWpIE0DfiEwfHgDHN/gWASwMw0QbxielyEG6DzLxspoMqt0jlX4/JHdqOO/X0orh5liU2vYoaubBc9Jc6ndc+0c5umhd4tde2lL7u0=
+ bh=tUZRukvAfZ5neDu0ABl0uR5S6MvEatH59LzEPtV7y58=;
+ b=Y1aJ9+FZfQjFrB1sC/VHhrntpwU3quTSBZ5L2xKvNxWv9cbDuejmvKHeksWLw9m1zTIPKJLbslmFUmTKvnTfGIKF08hVthAjisKB+ib4L2wgDts9sOz3Q6FILmkZg0k2JW9o0ns37KMWDzliLqiQdX0NhRAI1VbzoHNzDV+RAB4=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <2e273d57-cd9b-4e05-a9c4-bd9782884e23@amd.com>
-Date: Fri, 19 Apr 2024 10:27:11 +0800
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <eaad1ad2-e6ec-42a6-a0fb-236ce93f0a9e@amd.com>
+Date: Fri, 19 Apr 2024 10:31:38 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/5] xen/domctl, tools: Introduce a new domctl to get
- guest memory map
+Subject: Re: [PATCH v4 4/5] xen/memory, tools: Avoid hardcoding
+ GUEST_MAGIC_BASE in init-dom0less
 To: Jan Beulich <jbeulich@suse.com>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross
-	<jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal
- Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Alec Kwapis <alec.kwapis@medtronic.com>, <xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	"Julien Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	"Juergen Gross" <jgross@suse.com>, Alec Kwapis <alec.kwapis@medtronic.com>,
+	<xen-devel@lists.xenproject.org>, Daniel Smith <dpsmith@apertussolutions.com>
 References: <20240409045357.236802-1-xin.wang2@amd.com>
- <20240409045357.236802-2-xin.wang2@amd.com>
- <e3f7b726-f7df-4aee-b69f-638cf492d18b@suse.com>
+ <20240409045357.236802-5-xin.wang2@amd.com>
+ <cc4fd69b-4866-4f1b-b780-64c5fac7d2d6@suse.com>
 Content-Language: en-US
 From: Henry Wang <xin.wang2@amd.com>
-In-Reply-To: <e3f7b726-f7df-4aee-b69f-638cf492d18b@suse.com>
+In-Reply-To: <cc4fd69b-4866-4f1b-b780-64c5fac7d2d6@suse.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: xin.wang2@amd.com does not designate
+ permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636E:EE_|MW4PR12MB6826:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0936c8d-9a92-4070-5019-08dc60183d47
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E61:EE_|CH3PR12MB9195:EE_
+X-MS-Office365-Filtering-Correlation-Id: f8cd9427-de87-44ac-cba5-08dc6018d915
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Ph5Tlk+kP8awR9IFgnx28jLp0gU1nxTPgP/p4VeSeFbMxEiz1kf6Q3NdD7n8YxrDfTbjuIh4SyL8MAii5XwH2QMKNKZHEcAAUW5o9sMeY+p4uktEtAKCaTZn1KJEEwCiEKI8ZOU/BYg5YbsKJ7MY4+GEL8L171EaEK++5BjVlHaFaYSxQwATnKaBgqMiuGl0VQC/erVB7uEOms0KYJVcERcKABFYRkml0vXrsdGo+AFQN3LmODvTx54nqW6dnn9Xy2Dli2Rh8z+2rjke3IcwZl7hyrhDWWk1LqWlxxtCq3GDSP+c14pY+Vm50RXvXbBaKKtYYKQaipjQRKC1lBVzf1Nq3OTz95EVHz4w4LJfjRXiFMQIjkUCgEu8tuybTyXaIv0BV/eJPQNM8g4u0IVbnSgjlRSAsFBv0g3hH1UbzATI//HhW6ix/qnv0yJtfDwA1xwArXuXvc8hIKrDDSAa1CuLq74uNVDIjrYmIprMtPUxJFfystOg3Dkob/8kP3hqdRAs+JmP6Y3k/2AOOr4q1NDbGdvKQvG0GIWCYm0jlqrmez7XAVOdXwefk4wwL8VSq03KhceGTkHJ4wiul77Gv86ZP4v8RUGvLXCgnQjG199XZDyDcN2Yqzob+4/KtfvE3eBOXBwVgbqA2RjPHI1/+MBZDyafbxXZS+jOEjO4OPRKi05YBfnVpg+Zh5h4/1IYPJIsVlNE1zl2rq7QwMTK/KG/vNaPNIVnLAH1+kk1AlRgIOGZaQI+y+2iEKX+NwHn
+	PZ/T48zK7Dcv6agbLMYPlFZ/2bKuNAvtycS1+9hOpMy628ot28BImQVa8hJ7/uFnong4PdIrs3bCFcJAn6lHLAIwO0c3a0YvTTNP8vW5InwiKpvT5XSCqdxgoZtU3Z7GC+zqcrW0kpt48mESpRQmB9rxKPJW6a9NXAgYETOIPUgKoLKn/DUS9REJDmX/eFjN8mwQLPucaGq/D0LXteocekcCMQKp3GaKRqff1QsJUnAyAMi0znRgNbm0+9QS+BRcfSZN0SnkTvzf5Yq5Zd5nWQtL2SUo57Y+zEUmoMVIw/YR+27V20MrFcIKOYefBbdAQT1EyaALCuHNVyr0ad4Fr5xOA9/Cjts/nXxP/uuFzaBfSZGxYLmSfqJexF0VWdzxK8rgv/25Qvf5l1G0ojHIYntN17u0xHqDLOqYqCZcZTg960xPROxPQcWu7GcXG1mTU6sSbKY6/LgHBSXvvgGOhDZcPg+wWXHwP+BsaDP5k0ROZ+NqUE40whQpL/vwgk223JBmmGlMm76F5WZpuqUbT4+LA1MUL6HGLgwvqFabmyThvH7RyeSyHbQPKAYZAZEcGrOPVI8XmJumwSWl8moP4ZyXVxso9O3ajMr7QedBN3hWkvrmMzdZXKuqpXRDwyY/5/dK9jshP3UZl0fknIIZNqbr2G0zUHLXUqqIBSuWGXo9CxZhBM1XVeEUzjefxyjSPquXTqrx7FRSr8WFSGvj0AtBHIBRdcaugevWeId3XLUMlx/3P6fg9QXPlHqe8ckc
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(82310400014)(376005)(7416005)(36860700004);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(376005)(7416005)(36860700004)(1800799015);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2024 02:27:20.2708
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2024 02:31:41.6864
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0936c8d-9a92-4070-5019-08dc60183d47
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8cd9427-de87-44ac-cba5-08dc6018d915
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF0002636E.namprd02.prod.outlook.com
+	BL6PEPF00020E61.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6826
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9195
 
 Hi Jan,
 
-On 4/18/2024 8:37 PM, Jan Beulich wrote:
+On 4/18/2024 8:54 PM, Jan Beulich wrote:
 > On 09.04.2024 06:53, Henry Wang wrote:
->> --- a/tools/libs/ctrl/xc_domain.c
->> +++ b/tools/libs/ctrl/xc_domain.c
->> @@ -697,6 +697,43 @@ int xc_domain_setmaxmem(xc_interface *xch,
->>       return do_domctl(xch, &domctl);
+>> --- a/xen/common/memory.c
+>> +++ b/xen/common/memory.c
+>> @@ -155,6 +155,14 @@ static void increase_reservation(struct memop_args *a)
+>>       a->nr_done = i;
 >>   }
 >>   
->> +int xc_get_domain_mem_map(xc_interface *xch, uint32_t domid,
->> +                          struct xen_mem_region mem_regions[],
->> +                          uint32_t *nr_regions)
->> +{
->> +    int rc;
->> +    uint32_t nr = *nr_regions;
->> +    struct xen_domctl domctl = {
->> +        .cmd         = XEN_DOMCTL_get_mem_map,
->> +        .domain      = domid,
->> +        .u.mem_map = {
->> +            .nr_mem_regions = nr,
->> +        },
->> +    };
->> +
->> +    DECLARE_HYPERCALL_BOUNCE(mem_regions, sizeof(xen_mem_region_t) * nr,
->> +                             XC_HYPERCALL_BUFFER_BOUNCE_OUT);
->> +
->> +    if ( !mem_regions || xc_hypercall_bounce_pre(xch, mem_regions) || nr < 1 )
-> Why the nr < 1 part? For a caller to size the necessary buffer, it may want
-> to pass in 0 (and a NULL buffer pointer) first.
-
-I will drop this nr < 1 part.
-
->> @@ -176,6 +175,33 @@ long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
->>   
->>           return rc;
->>       }
->> +    case XEN_DOMCTL_get_mem_map:
->> +    {
->> +        int rc = 0;
->> +        uint32_t nr_regions;
-> unsigned int (see ./CODING_STYLE)?
-
-Ok, I will use unsigned int.
-
->> --- a/xen/include/public/arch-arm.h
->> +++ b/xen/include/public/arch-arm.h
->> @@ -223,6 +223,13 @@ typedef uint64_t xen_pfn_t;
->>    */
->>   #define XEN_LEGACY_MAX_VCPUS 1
->>   
 >> +/*
->> + * Maximum number of memory map regions for guest memory layout.
->> + * Used by XEN_DOMCTL_get_mem_map, currently there is only one region
->> + * for the guest magic pages.
+>> + * Alias of _MEMF_no_refcount to avoid introduction of a new, single-use flag.
+>> + * This flag should be used for populate_physmap() only as a re-purposing of
+>> + * _MEMF_no_refcount to force a non-1:1 allocation from domheap.
 >> + */
->> +#define XEN_MAX_MEM_REGIONS 1
-> Why is this in the public header? I can only find Xen-internal uses.
+>> +#define _MEMF_force_heap_alloc _MEMF_no_refcount
+>> +#define  MEMF_force_heap_alloc (1U<<_MEMF_force_heap_alloc)
+> Nit (style): Blanks around << please.
+>
+> Also do you really need both constants? I dont think so.
+>
+> Plus please make sure to #undef the constant once no longer needed, to
+> help spotting / avoiding misuses.
 
-It will also be used in the init-dom0less app which is the toolstack side.
+Sounds good, I will fix the NIT, drop the first #define and properly add 
+#undef.
 
->> --- a/xen/include/public/domctl.h
->> +++ b/xen/include/public/domctl.h
->> @@ -946,6 +946,33 @@ struct xen_domctl_paging_mempool {
->>       uint64_aligned_t size; /* Size in bytes. */
->>   };
+>> @@ -219,7 +227,8 @@ static void populate_physmap(struct memop_args *a)
+>>           }
+>>           else
+>>           {
+>> -            if ( is_domain_direct_mapped(d) )
+>> +            if ( is_domain_direct_mapped(d) &&
+>> +                 !(a->memflags & MEMF_force_heap_alloc) )
+>>               {
+>>                   mfn = _mfn(gpfn);
 >>   
->> +#ifndef XEN_MAX_MEM_REGIONS
->> +#define XEN_MAX_MEM_REGIONS 1
->> +#endif
->> +
->> +struct xen_mem_region {
->> +    uint64_aligned_t start;
->> +    uint64_aligned_t size;
->> +#define XEN_MEM_REGION_DEFAULT    0
-> I can't spot any use of this. What's its purpose?
+>> @@ -246,7 +255,8 @@ static void populate_physmap(struct memop_args *a)
+>>   
+>>                   mfn = _mfn(gpfn);
+>>               }
+>> -            else if ( is_domain_using_staticmem(d) )
+>> +            else if ( is_domain_using_staticmem(d) &&
+>> +                      !(a->memflags & MEMF_force_heap_alloc) )
+>>               {
+>>                   /*
+>>                    * No easy way to guarantee the retrieved pages are contiguous,
+>> @@ -271,6 +281,14 @@ static void populate_physmap(struct memop_args *a)
+>>               }
+>>               else
+>>               {
+>> +                /*
+>> +                 * Avoid passing MEMF_force_heap_alloc down to
+>> +                 * alloc_domheap_pages() where the meaning would be the
+>> +                 * original MEMF_no_refcount.
+>> +                 */
+>> +                if ( unlikely(a->memflags & MEMF_force_heap_alloc) )
+>> +                    a->memflags &= ~MEMF_force_heap_alloc;
+> As asked before: Why the if()?
 
-I can drop it. My original intention is to define a default type since 
-the struct arch_domain should be zalloc-ed.
+I think there is no need to clear the flag if it is not set. But you are 
+correct, the if is not needed. I can drop it.
 
->> +#define XEN_MEM_REGION_MAGIC      1
->> +    uint32_t         type;
->> +    /* Must be zero */
->> +    uint32_t         pad;
-> This being OUT only, I don't think the comment makes sense. I'd omit it
-> completely; if you absolutely want one, please say "will" instead of "must".
+>> @@ -1404,6 +1422,7 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>>       {
+>>       case XENMEM_increase_reservation:
+>>       case XENMEM_decrease_reservation:
+>> +    case XENMEM_populate_physmap_heap_alloc:
+>>       case XENMEM_populate_physmap:
+>>           if ( copy_from_guest(&reservation, arg, 1) )
+>>               return start_extent;
+> Nit or not: Please insert the new case label last.
 
-Sure, I will follow your suggestion. Thanks.
+Sure.
+
+>> @@ -1433,6 +1452,11 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>>                && (reservation.mem_flags & XENMEMF_populate_on_demand) )
+>>               args.memflags |= MEMF_populate_on_demand;
+>>   
+>> +        /* Assert flag is not set from construct_memop_from_reservation(). */
+>> +        ASSERT(!(args.memflags & MEMF_force_heap_alloc));
+>> +        if ( op == XENMEM_populate_physmap_heap_alloc )
+>> +            args.memflags |= MEMF_force_heap_alloc;
+> Wouldn't this more logically live ...
+>
+>>           if ( xsm_memory_adjust_reservation(XSM_TARGET, curr_d, d) )
+>>           {
+>>               rcu_unlock_domain(d);
+>> @@ -1453,7 +1477,7 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>>           case XENMEM_decrease_reservation:
+>>               decrease_reservation(&args);
+>>               break;
+> here, as
+>
+>            case XENMEM_populate_physmap_heap_alloc:
+>                ...
+>                fallthrough;
+
+Ok.
+
+>> -        default: /* XENMEM_populate_physmap */
+>> +        default: /* XENMEM_populate_{physmap, physmap_heap_alloc} */
+> Otherwise: Just XENMEM_populate_physmap{,_heap_alloc} perhaps?
+
+Sounds good, thanks for the suggestion.
+
+>> --- a/xen/include/public/memory.h
+>> +++ b/xen/include/public/memory.h
+>> @@ -21,6 +21,7 @@
+>>   #define XENMEM_increase_reservation 0
+>>   #define XENMEM_decrease_reservation 1
+>>   #define XENMEM_populate_physmap     6
+>> +#define XENMEM_populate_physmap_heap_alloc 29
+> Without a comment, how is one supposed to know what the difference is of
+> this new sub-op compared to the "normal" one? I actually wonder whether
+> referring to a Xen internal (allocation requested to come from the heap)
+> is actually a good idea here. I'm inclined to suggest to name this after
+> the purpose it has from the guest or tool stack perspective.
+>
+> Speaking of which: Is this supposed to be guest-accessible, or is it
+> intended for tool-stack use only (I have to admit I don't even know where
+> init-dom0less actually runs)? In the latter case that also wants enforcing.
+> This may require an adjustment to the XSM hook in use here. Cc-ing Daniel
+> for possible advice.
+
+This sub-op should be called by the init-dom0less application (toolstack 
+side), which runs in Dom0. Daniel has proposed an alternative solution 
+which is based on the hypfs. If we decide to go that route, I think I 
+will rewrite the series. I will wait for the discussion settled. Thanks 
+for looping in Daniel!
 
 Kind regards,
 Henry
-
 
 >
 > Jan
