@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33F198AAD0E
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 12:49:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708968.1108201 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04FCD8AAD2C
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 13:00:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708979.1108221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxln1-0001dB-LF; Fri, 19 Apr 2024 10:48:19 +0000
+	id 1rxlyD-0004tI-Qb; Fri, 19 Apr 2024 10:59:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708968.1108201; Fri, 19 Apr 2024 10:48:19 +0000
+Received: by outflank-mailman (output) from mailman id 708979.1108221; Fri, 19 Apr 2024 10:59:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxln1-0001bB-HN; Fri, 19 Apr 2024 10:48:19 +0000
-Received: by outflank-mailman (input) for mailman id 708968;
- Fri, 19 Apr 2024 10:48:18 +0000
+	id 1rxlyD-0004r5-Nr; Fri, 19 Apr 2024 10:59:53 +0000
+Received: by outflank-mailman (input) for mailman id 708979;
+ Fri, 19 Apr 2024 10:59:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o3Bi=LY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rxln0-0001b5-Dw
- for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 10:48:18 +0000
-Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
- [2607:f8b0:4864:20::730])
+ <SRS0=zESt=LY=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1rxlyC-0004qv-Fw
+ for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 10:59:52 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 541462b5-fe3a-11ee-b909-491648fe20b8;
- Fri, 19 Apr 2024 12:48:17 +0200 (CEST)
-Received: by mail-qk1-x730.google.com with SMTP id
- af79cd13be357-78efd533a00so108108985a.0
- for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 03:48:17 -0700 (PDT)
-Received: from localhost ([85.31.135.62]) by smtp.gmail.com with ESMTPSA id
- m2-20020ae9f202000000b0078d5d9cdc9esm1491985qkg.21.2024.04.19.03.48.15
+ id f2244866-fe3b-11ee-b909-491648fe20b8;
+ Fri, 19 Apr 2024 12:59:51 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-34a3e0b31e6so981279f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 03:59:51 -0700 (PDT)
+Received: from georged-x-u.xenrt.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ v13-20020a5d678d000000b003462b54bc8asm4124418wru.109.2024.04.19.03.59.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Apr 2024 03:48:15 -0700 (PDT)
+ Fri, 19 Apr 2024 03:59:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,107 +45,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 541462b5-fe3a-11ee-b909-491648fe20b8
+X-Inumbo-ID: f2244866-fe3b-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713523696; x=1714128496; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=JTJ9X1eGKT0J67r/AkCZy+hhwxvfK9z8sjOHrNWwWzY=;
-        b=KaWyUpCehXOk2Z+Bf+0uZEB2evNGWxfNSye572/4HeOq+0mi6CKnwlZk//SHp+ncVl
-         vuAkXRa6bjLoVHctudZslEHU0v2hzQjqjIx1z5EZGHdXNeyfKznMIuUZIfV/u/wTEnxp
-         y6AyDrMPbxK4ujJT1CHMJrFIUyi3CiT9Ut0t0=
+        d=cloud.com; s=cloud; t=1713524391; x=1714129191; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=j+86u8cP5WKiv7OHOhZqMvo/xywY+1Pp+VEDWuQLISU=;
+        b=azuPqHGi6j0JxXPLyR3+VOvlWqqmLS/g+6ePacgv4xQF2+hOzt7/TbvksttM4Lidm0
+         0cfvEEnvpmLIY1BWL+ILcd591FakClYp/nqDkqycxzqNhxvmGtsiXQnC8YO6ysH7s3V5
+         xXZUZSc8f2PFaaeGQp3wzR5hD2fi8SMKSL3uA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713523696; x=1714128496;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JTJ9X1eGKT0J67r/AkCZy+hhwxvfK9z8sjOHrNWwWzY=;
-        b=vjaCmslAXI03tVUhcZzTfAVHrqlQt6whwlb3fi62P16mM4CRpbsyaHzmC3RBYzBVlS
-         6NMozPuIl1wtxCsb02DYl2dUopcqf+LaIeUY8/+7S8v31jHvu1zOwXimK6l81wipOMEn
-         5pvrNZVBaruVuEVv5YK+QfICgUbWw7hMse/ZxSbZ0PZtbuvY1UZkEMVhJ1G1MMLgz3oX
-         0UKI3UNY+gbGQmr+jMGuRwmPlmWnaceBqodXCQATBu+pmEFGMvwP0bnGnscEyFt7kaKf
-         VB6AhRh1/GbKb41H8LGGof0BcrM84U3HGdCAb4xHpl17cFZQSSt30NMEccbnUX4gzc2Z
-         271A==
-X-Gm-Message-State: AOJu0YwrBgutXoYj4icRhBAXPtSw3WSN9Gg45LPbWN65hqGI1oC7zOpH
-	r35RAZEhzZP6tTb42QOfYTe5BD6p0aHQRq/i0RO8YFJTuWB2EXGZKRQEkuMcqBY=
-X-Google-Smtp-Source: AGHT+IEoBmDUJy9Kne/8Az1EumS+t4PL03bskf4vMgs3aEVbTBLFrtYNuulDh9qpw47nQAYE798pYg==
-X-Received: by 2002:a05:620a:2983:b0:78d:6902:ca8f with SMTP id r3-20020a05620a298300b0078d6902ca8fmr2377559qkp.5.1713523696195;
-        Fri, 19 Apr 2024 03:48:16 -0700 (PDT)
-Date: Fri, 19 Apr 2024 12:48:13 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: Re: [PATCH v2 2/2] livepatch: refuse to resolve symbols that belong
- to init sections
-Message-ID: <ZiJL7bKCUwMr36LQ@macbook>
-References: <20240419100217.12072-1-roger.pau@citrix.com>
- <20240419100217.12072-3-roger.pau@citrix.com>
- <96bb1fbb-0b4c-42ac-9c3b-16700a65130d@citrix.com>
+        d=1e100.net; s=20230601; t=1713524391; x=1714129191;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=j+86u8cP5WKiv7OHOhZqMvo/xywY+1Pp+VEDWuQLISU=;
+        b=ftEXBRJEV1f4hShRNWLvmoSBPx2iENwx6DtYa8kMgUurbA47p93i7emY2sFsi9Slav
+         SXb1ioKc7CnTgL1jNhLkYnpkIJSBno9Bswq+yiRQYVw4Z07yomLZywYQUWmcZQIelrfA
+         P0R/WOpYjEkzFKE+IeS02f8bxh4tnlFfe2pmN5UUOCdwPLELhpadf74kCGldPE7x7lYd
+         MEBJ36Qai4q/fwNLASeyEN+6WdVRSXki8XgxKnr5exwQaiZWi9PS7Bbrq+9G9Sf9UndU
+         f6I6c6x2bWkP3+n9IForGO9gOIdOSOYaRjkoFZUIskuWa5lwivw8RrANlJ00S3cVcO33
+         pqhg==
+X-Gm-Message-State: AOJu0YyCyGoW8hOMOBuiMVxo28Et/Uxp6MY8iw6oy0xuIEasm1Crw51s
+	eu7YnxXUh+8FNIHoyrzsYw7Ov2eH9s6P4dxl8haoi0BIWAtPqoZNXSI4dYoc2FBLOvNeG7KLfCM
+	m
+X-Google-Smtp-Source: AGHT+IHRRlFbhMTVpeYOK5hv7CmkcAxeSRgFNBI/XKCRgO0jb4SxhxzjAWepTBVuDET36QuAHbUSUg==
+X-Received: by 2002:a5d:59a7:0:b0:34a:7a97:77d5 with SMTP id p7-20020a5d59a7000000b0034a7a9777d5mr186954wrr.26.1713524390529;
+        Fri, 19 Apr 2024 03:59:50 -0700 (PDT)
+From: George Dunlap <george.dunlap@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@cloud.com>,
+	Tobias Fitschen <tobias.fitschen@posteo.de>,
+	Nick Rosbrook <rosbrookn@gmail.com>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH 1/3] tools/golang: When returning pointers, actually allocate structrues
+Date: Fri, 19 Apr 2024 11:50:35 +0100
+Message-Id: <20240419105037.700283-1-george.dunlap@cloud.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <96bb1fbb-0b4c-42ac-9c3b-16700a65130d@citrix.com>
 
-On Fri, Apr 19, 2024 at 11:10:33AM +0100, Andrew Cooper wrote:
-> On 19/04/2024 11:02 am, Roger Pau Monne wrote:
-> > Livepatch payloads containing symbols that belong to init sections can only
-> > lead to page faults later on, as by the time the livepatch is loaded init
-> > sections have already been freed.
-> >
-> > Refuse to resolve such symbols and return an error instead.
-> >
-> > Note such resolutions are only relevant for symbols that point to undefined
-> > sections (SHN_UNDEF), as that implies the symbol is not in the current payload
-> > and hence must either be a Xen or a different livepatch payload symbol.
-> >
-> > Do not allow to resolve symbols that point to __init_begin, as that address is
-> > also unmapped.  On the other hand, __init_end is not unmapped, and hence allow
-> > resolutions against it.
-> >
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>, although ...
-> 
-> > ---
-> > Changes since v1:
-> >  - Fix off-by-one in range checking.
-> > ---
-> >  xen/common/livepatch_elf.c | 16 ++++++++++++++++
-> >  1 file changed, 16 insertions(+)
-> >
-> > diff --git a/xen/common/livepatch_elf.c b/xen/common/livepatch_elf.c
-> > index 45d73912a3cd..a67101eadc02 100644
-> > --- a/xen/common/livepatch_elf.c
-> > +++ b/xen/common/livepatch_elf.c
-> > @@ -4,6 +4,7 @@
-> >  
-> >  #include <xen/errno.h>
-> >  #include <xen/lib.h>
-> > +#include <xen/sections.h>
-> >  #include <xen/symbols.h>
-> >  #include <xen/livepatch_elf.h>
-> >  #include <xen/livepatch.h>
-> > @@ -310,6 +311,21 @@ int livepatch_elf_resolve_symbols(struct livepatch_elf *elf)
-> >                      break;
-> >                  }
-> >              }
-> > +
-> > +            /*
-> > +             * Ensure not an init symbol.  Only applicable to Xen symbols, as
-> > +             * livepatch payloads don't have init sections or equivalent.
-> > +             */
-> > +            else if ( st_value >= (uintptr_t)&__init_begin &&
-> > +                      st_value < (uintptr_t)&__init_end )
-> 
-> ... I normally vertically the (casts) in cases like this for improved
-> legibility.  Happy to fold on commit.
+In a handful of cases, it was decided to return a pointer to a
+structure rather than the plain structure itself, due to the size.
+However, in these cases the structure was never allocated, leading to
+a nil pointer exception when calling the relevant `fromC` method.
 
-Did this, but reverted afterwards because I wasn't sure whether it
-would go against the coding style.  Aligning would be my preference
-also.
+Allocate structures before attempting to fill them in.
 
-Thanks, Roger.
+Reported-by: Tobias Fitschen <tobias.fitschen@posteo.de>
+Signed-off-by: George Dunlap <george.dunlap@cloud.com>
+---
+This has been compile-tested only; Tobias, I'd appreciate a test if you get a chance.
+
+CC: Nick Rosbrook <rosbrookn@gmail.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>
+---
+ tools/golang/xenlight/xenlight.go | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/tools/golang/xenlight/xenlight.go b/tools/golang/xenlight/xenlight.go
+index a45c636952..d793f172e5 100644
+--- a/tools/golang/xenlight/xenlight.go
++++ b/tools/golang/xenlight/xenlight.go
+@@ -999,6 +999,7 @@ func (ctx *Context) GetPhysinfo() (physinfo *Physinfo, err error) {
+ 		err = Error(ret)
+ 		return
+ 	}
++	physinfo = &Physinfo{}
+ 	err = physinfo.fromC(&cphys)
+ 
+ 	return
+@@ -1010,6 +1011,7 @@ func (ctx *Context) GetVersionInfo() (info *VersionInfo, err error) {
+ 
+ 	cinfo = C.libxl_get_version_info(ctx.ctx)
+ 
++	info = &VersionInfo{}
+ 	err = info.fromC(cinfo)
+ 
+ 	return
+@@ -1027,6 +1029,7 @@ func (ctx *Context) DomainInfo(Id Domid) (di *Dominfo, err error) {
+ 		return
+ 	}
+ 
++	di = &Dominfo{}
+ 	err = di.fromC(&cdi)
+ 
+ 	return
+-- 
+2.25.1
+
 
