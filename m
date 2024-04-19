@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09F1C8AA93B
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 09:32:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.708817.1107971 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A91908AA946
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Apr 2024 09:35:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.708820.1107980 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxijL-0007Kk-Me; Fri, 19 Apr 2024 07:32:19 +0000
+	id 1rximA-0000WT-4D; Fri, 19 Apr 2024 07:35:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 708817.1107971; Fri, 19 Apr 2024 07:32:19 +0000
+Received: by outflank-mailman (output) from mailman id 708820.1107980; Fri, 19 Apr 2024 07:35:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rxijL-0007IW-Jp; Fri, 19 Apr 2024 07:32:19 +0000
-Received: by outflank-mailman (input) for mailman id 708817;
- Fri, 19 Apr 2024 07:32:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rximA-0000Tc-1V; Fri, 19 Apr 2024 07:35:14 +0000
+Received: by outflank-mailman (input) for mailman id 708820;
+ Fri, 19 Apr 2024 07:35:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EmAy=LY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rxijK-0007IQ-0Z
- for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 07:32:18 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f1e58360-fe1e-11ee-94a3-07e782e9044d;
- Fri, 19 Apr 2024 09:32:15 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-343e46ec237so1245384f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 00:32:15 -0700 (PDT)
+ id 1rxim8-0000TW-5q
+ for xen-devel@lists.xenproject.org; Fri, 19 Apr 2024 07:35:12 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5a348c1d-fe1f-11ee-b909-491648fe20b8;
+ Fri, 19 Apr 2024 09:35:10 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4196c62bb72so877095e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Apr 2024 00:35:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l18-20020a5d5612000000b0034a62e51429sm585158wrv.112.2024.04.19.00.32.14
+ d5-20020a05600c3ac500b00418fffe2ad6sm2327606wms.16.2024.04.19.00.35.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Apr 2024 00:32:14 -0700 (PDT)
+ Fri, 19 Apr 2024 00:35:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1e58360-fe1e-11ee-94a3-07e782e9044d
+X-Inumbo-ID: 5a348c1d-fe1f-11ee-b909-491648fe20b8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713511935; x=1714116735; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713512110; x=1714116910; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=hDa5cgf3SRDQhdrLUs05Ejf3WSvg/TfhnlTd+lDg3Ho=;
-        b=Jf2RK8vLDnnIPmOE0VYy07qeVRJotkwXqvgMbPTZWohs1wsENsAgn82BCDbn5I2dpt
-         Hx5bSVChqh1Rk1Ue+dfIr443MD3KTTsSmi3ISvx+DrL16xNmynlRqkMquJ6lcNqoxX2d
-         oxmo9Cow0yHNaEPc92b06ilAw3qgkCEahtd91ZPIRuEAlFLRPwOQf+XmX2T+YOhNLuwT
-         aQLPhwsm4dNJuiVWKNmE9n32Zz+2+J8g6OoNuhRVCJ7UnN0L4XT6rnaaZ3Z7q4NFx93v
-         plYcf5FAjZ0ixwY6z6jekqSRGc8pTcq3B2QUEVRuCZLAIgk8/X5hqidooSFX50ARLfTg
-         UZuA==
+        bh=wTTG9tiu+ubH6ouetRXibPFDVpYRXGIkPlVqgyf3++4=;
+        b=cZtKHtPWQXssMuWkzDWuDqfA/XBbcCu5XEKi6wURw3M/J0SDx1VTMLU6pxgPIXITJO
+         +0eU/DbF3vR+GjeshTqMnER99rGgYttBmpDINHdqtZ8d2y6uIpHqOSlKltiXyx42QZIa
+         8PFBuJ0/dhLywkWSzMxgTlHr6730uDq1SviiNTDmPjnQJSkfIUYZRbnb/w0HNI5FvK55
+         uO31c5600IhiEOFrjUsOIwJU8uXrN3HHfF5jONwIFDaCr785YrY087eqeyswGtWA2p3q
+         HTCzta9Fl2VIaBbLPdUSXps6U03N8ShSK8mME4vYHzejB9fK88YIL/rIF9+vFena3CVJ
+         OXiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713511935; x=1714116735;
+        d=1e100.net; s=20230601; t=1713512110; x=1714116910;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hDa5cgf3SRDQhdrLUs05Ejf3WSvg/TfhnlTd+lDg3Ho=;
-        b=SdP+66IlOtSlfTXJMvFJptWiKTV6LdC361QbhEW1ZY45mMuCm4rRr3eVMrVdK5+zBD
-         HV7kxsL/2hu1XAU9WjV4iphtRBRmmxtw4bCDBFj5o/ZsRwr1QrsX931eWfQz35ZhN0ao
-         md6nOvNdJjbuHPTa7f34qg3nyTkmqlOvrMYWnQv6Tyvto/ng/bftIhNnQAK9mBOC2mz0
-         A/9SxkVJ9V8BicOGhP3Kx5rePN6Dd6WplU1fWRBW1y8LmhyjRVm2v1mSTKOj4mHziDTz
-         o6mqnmQoY967KLe5Q2uKq8LRAXI5jYromo8zq2Ornhba9RYN0RDybK6U3OXuFe97JqPJ
-         3CKg==
-X-Forwarded-Encrypted: i=1; AJvYcCUNyavT+ikXZUNf3+BJqQ1cvRWqRLKbyHhpKGXCTO+mjVeK/BGB07tplMJQO7tfBdDP23K0K8O19bvoTAZNzcnq3vJDN6BUCZVjeBGus3o=
-X-Gm-Message-State: AOJu0Yw3e87Hto4PNkQvC40u4TYNNTSwF3eAOhTe4lZ1XqeSXP2UIE3f
-	F26jF9e6U9UsoLYLpI9XCG7aAT6TiKuwOiF5mmcgu23KnTKHrSIOTupKPX9idQ==
-X-Google-Smtp-Source: AGHT+IFVtz1nX4e/UdsUF068DycEuYLOxQ3b+JkyJdZjNycDD10IEqo9+PPDi3tIuTErd35OTt14AQ==
-X-Received: by 2002:adf:e384:0:b0:347:f695:bae0 with SMTP id e4-20020adfe384000000b00347f695bae0mr862454wrm.31.1713511935166;
-        Fri, 19 Apr 2024 00:32:15 -0700 (PDT)
-Message-ID: <2c06c6f4-e856-4f5b-b594-7f668dd3e785@suse.com>
-Date: Fri, 19 Apr 2024 09:32:14 +0200
+        bh=wTTG9tiu+ubH6ouetRXibPFDVpYRXGIkPlVqgyf3++4=;
+        b=OZfJ6K2IlsfQqvTbvEi6dIOHTQ7P0VgUJhLC8mDkbnaEfqEjzQ5H2Gu2vU96BbOV/F
+         rBhTwlfwNzGTEcHzFZ77aW7mq0CHMFiU8QL/I8z9BhVUfx9EOn+xVjVNO5XmMEMtnjnJ
+         GxIrkR0lBXJ1C/TjjzGcDMLEeATrhCTTH0q4dxJH2EhsBU10yXgiIQSUpOzvwflKa/Hu
+         Eo6BK1FacoOozkZM5mm/hi7JAIaNJ4KPQl9Ecvuek9/mfh98GayNCFqnT1f06Nn5srDV
+         m04xfilPGlMLQq7xkkf44qVVX12C1t3jjEXSzeJEO7vDIDzYc3sfPd3JFgaUGuAdS6f4
+         yFYA==
+X-Forwarded-Encrypted: i=1; AJvYcCW/C68fwmTGs37MQZhpjqe1BlvN9E2FR2i6fDncTCzEBb2ilT2BNErlWMnia0sRSYkJvMpXqSDxXxN1yEIjdqjLR1ZJPmilWQo2yHie0gg=
+X-Gm-Message-State: AOJu0YzW5mRen2G+olbo/PzcX1xOSTX492CV3bK9puTVjOmHtuQ/fdzL
+	5dEpzhml+vbICwJu+9i8i88UZa1HtD9lDlD48qjHDrGMP4fBGssnh1GK3n1z3g==
+X-Google-Smtp-Source: AGHT+IEYb0Ry1i0X6frmVuIKPSqZhfE82KwDuQ4MkviZscJT4VJK9c8UVCN1Os3ONLHSzIqP4LBJUQ==
+X-Received: by 2002:a05:600c:4590:b0:419:ecf:f5df with SMTP id r16-20020a05600c459000b004190ecff5dfmr452478wmo.2.1713512110186;
+        Fri, 19 Apr 2024 00:35:10 -0700 (PDT)
+Message-ID: <c94d739e-0517-487f-8ba9-d9b19fe8f916@suse.com>
+Date: Fri, 19 Apr 2024 09:35:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v4] xen/domain: deviate MISRA C Rule 16.2 violation
+Subject: Re: [XEN PATCH v2] automation/eclair_analysis: substitute deprecated
+ service STD.emptrecd
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
- julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
-References: <7b23c76ade7541342332811329e2b8d271e6d31b.1713510238.git.nicola.vetrini@bugseng.com>
+ julien@xen.org, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, Julien Grall <jgrall@amazon.com>,
+ xen-devel@lists.xenproject.org
+References: <7b60faa6e627b3a4df298f2ef4d9ba4d72e5e206.1713510915.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,22 +114,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7b23c76ade7541342332811329e2b8d271e6d31b.1713510238.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <7b60faa6e627b3a4df298f2ef4d9ba4d72e5e206.1713510915.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.04.2024 09:05, Nicola Vetrini wrote:
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -457,6 +457,7 @@ static int domain_teardown(struct domain *d)
->  
->          for_each_vcpu ( d, v )
->          {
-> +            /* SAF-5-safe MISRA C Rule 16.2: switch label enclosed by for loop*/
->              PROGRESS_VCPU(teardown);
+On 19.04.2024 09:16, Nicola Vetrini wrote:
+> The ECLAIR service STD.emptrecd is being deprecated; hence, as a preventive
+> measure, STD.anonstct is used here, which for Xen's purposes has equivalent
+> functionality.
 
-Nit: Missing blank at the end of the comment, which I'll try to remember to
-take care of when committing.
+I'm sorry, but no, this still does not clarify things enough. It is still
+entirely unclear how "empty record" can reasonably be substituted by
+"anonymous struct". Even the expansion of the respective abbreviations
+continues to be just a guess.
 
 Jan
 
