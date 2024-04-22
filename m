@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D05F8AD39B
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Apr 2024 19:58:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710185.1109283 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D898AD3B8
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Apr 2024 20:15:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710190.1109294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ryxvM-0005E3-Ns; Mon, 22 Apr 2024 17:57:52 +0000
+	id 1ryyBd-0000N5-3i; Mon, 22 Apr 2024 18:14:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710185.1109283; Mon, 22 Apr 2024 17:57:52 +0000
+Received: by outflank-mailman (output) from mailman id 710190.1109294; Mon, 22 Apr 2024 18:14:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ryxvM-0005BB-L7; Mon, 22 Apr 2024 17:57:52 +0000
-Received: by outflank-mailman (input) for mailman id 710185;
- Mon, 22 Apr 2024 17:57:51 +0000
+	id 1ryyBd-0000LY-0Q; Mon, 22 Apr 2024 18:14:41 +0000
+Received: by outflank-mailman (input) for mailman id 710190;
+ Mon, 22 Apr 2024 18:14:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B2T4=L3=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1ryxvL-0005B3-EX
- for xen-devel@lists.xenproject.org; Mon, 22 Apr 2024 17:57:51 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ <SRS0=/m7Q=L3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ryyBb-0000IX-GP
+ for xen-devel@lists.xenproject.org; Mon, 22 Apr 2024 18:14:39 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d4826f05-00d1-11ef-909a-e314d9c70b13;
- Mon, 22 Apr 2024 19:57:48 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-346406a5fb9so3790009f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 22 Apr 2024 10:57:48 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ id 2e4f197e-00d4-11ef-909a-e314d9c70b13;
+ Mon, 22 Apr 2024 20:14:38 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a559b919303so249723666b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Apr 2024 11:14:38 -0700 (PDT)
+Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- u17-20020adfeb51000000b00347321735a6sm12603498wrn.66.2024.04.22.10.57.47
+ z15-20020a170906668f00b00a51d073da7esm5994224ejo.82.2024.04.22.11.14.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Apr 2024 10:57:47 -0700 (PDT)
+ Mon, 22 Apr 2024 11:14:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,100 +45,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4826f05-00d1-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 2e4f197e-00d4-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1713808668; x=1714413468; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=JSnBH49T3OqaJvnPFW1gr50cYh18DpiRIBpR8edsy0A=;
-        b=AsdYZq74vB1RA4IvhWrCmW8gvg3Rk7tFIMKtAJSb6mRf98BlkQxPpB4rjzxXy2LmJ0
-         zi8Z6MZj9JCTcmo0L8ezoK3/6Sq0uGGc9GFDKiikrlRGrng7NmqKflsn48g5S/7RK47O
-         s43DUdecYgFstzgAi3KoQmgf59+q+jpweB+NM=
+        d=citrix.com; s=google; t=1713809677; x=1714414477; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2PmRo4WbCvn8vCpF4S5VSf24st9479k1Re5mhFEYIv8=;
+        b=p8s1+JVcZUPKWAGzpAy3ISG7P1xRZUA96Jx+V8yqRgyGM42WLBUooG4g1kV6vAphVG
+         tcRyPvPw/rUlUjYvPjUxEYpFQsKHzdtfxZ6SMbV3UGANjuKIhuw5SCuS3Es7fdjZPBWn
+         tU3AZUn/jNXA0U/j+5Pw3ro2MVGHvhPSHi6mU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713808668; x=1714413468;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JSnBH49T3OqaJvnPFW1gr50cYh18DpiRIBpR8edsy0A=;
-        b=oCK+HDM+QEjU+DRMN8/PcdM15t+wCsBaMxThIYGGuE1BFxQiMZHHEeqiE/fjt3J6RV
-         KCRDy6f6NhPIx+iKQ0tA1fiz15fusUQDYWuYVEtGATyVfJ+tL0TAB5al6RmcS6eQkYv/
-         2HkKd+JkZBnQuBS3FPEFl6Afa6OSX5UR4LZKMnUuXhWEtJA/JhEhzrJNzXQuw/eD6X0Q
-         B+YFlhAr4Uk+FG63xMT5gqFYaYDjLhnEXVqX/uZf1lowIb8EADVjm52+aFVdHNGQ6LxC
-         DnwAZ6KKBY0zB4OP9UINKXLBk1kVqvTsPXDWpVFrvlgokiutG0Gd6RXZfC0QrURmP8uH
-         1h0w==
-X-Gm-Message-State: AOJu0Ywc3gYv5+raMjGbV8HS9WJ6EPz4NS9SP07EIEgIUvklWdUW6pqz
-	ozyKV2lYkvv8dPoinf7y6HgrJeeSJ9/NArOYBDNzJQPm8zkh9Nn1QyZfB/X0/Fg=
-X-Google-Smtp-Source: AGHT+IG8B0xmSb0gtR/F7CrUNqTWjPfm+d1jWXI4hkeiCkFNHAxWooMmuCiyZ7Rft2PMh1zF5bUz1A==
-X-Received: by 2002:adf:e80a:0:b0:345:b238:534d with SMTP id o10-20020adfe80a000000b00345b238534dmr5851771wrm.28.1713808668038;
-        Mon, 22 Apr 2024 10:57:48 -0700 (PDT)
-Date: Mon, 22 Apr 2024 18:57:46 +0100
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: Fouad Hilly <fouad.hilly@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v2 5/5] x86: Add --force option to xen-ucode to override
- microcode version check
-Message-ID: <35e382d7-0f65-4dbe-bc80-ddbf9d649e24@perard>
-References: <20240416091546.11622-1-fouad.hilly@cloud.com>
- <20240416091546.11622-6-fouad.hilly@cloud.com>
+        d=1e100.net; s=20230601; t=1713809677; x=1714414477;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2PmRo4WbCvn8vCpF4S5VSf24st9479k1Re5mhFEYIv8=;
+        b=ayo+OErhNnas5GDY4fOGAxMGIa8jsqjbYOkUls4Hkh5RLB092nS+ngnnzRIhtPQLUA
+         HyknQlHRLVe3/Vr/WVSESqKD9E5zzOhlNV68o1yTMr/CqRXHPmguzppSnL03NOzt0MPa
+         sGOjIqHMu6wYI2pDm6IlUe1qO4EkD3uDnHxuXJ+3IavzOfLjcW/tXmK75GLOD1T1u/1C
+         thkPwcckVj4UeAhB2XGycNRbb3g1cJcG083up2tAA/BY/LQeLjWMB9DeqKbPzazF33qJ
+         yOGx7+oBbG6BYGIAxw0RLVbnRcZpCDB8Oc9ymYsd88NfpWkXf2HRM3Pb3qGVDH/nXGD8
+         D4UQ==
+X-Gm-Message-State: AOJu0Yz/gQNBKGCkg1u+pbyCKg/czavMDLldwqSemjNwJ7p513Ge/3in
+	untjfOYU5UZgykqepLSj5gR2d7rg1besACCyXZqDN7GuLkhuqCL5p6jANRZ8DlZZk34WGb2zG5J
+	8eEQ=
+X-Google-Smtp-Source: AGHT+IH9H7TZn9KZ/OdIbtCEvsuP8jwqv/yDfksTBG1pbw9kuLR0i22H/tcGcJEK9Ze8oLQQcbA0mA==
+X-Received: by 2002:a17:906:5282:b0:a55:3488:f730 with SMTP id c2-20020a170906528200b00a553488f730mr7152807ejm.31.1713809677336;
+        Mon, 22 Apr 2024 11:14:37 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH 0/6] x86/alternatives: Adjust all insn-relative fields
+Date: Mon, 22 Apr 2024 19:14:28 +0100
+Message-Id: <20240422181434.3463252-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240416091546.11622-6-fouad.hilly@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Apr 16, 2024 at 10:15:46AM +0100, Fouad Hilly wrote:
-> Introduce --force option to xen-ucode to force skipping microcode version
-> check, which allows the user to update x86 microcode even if both versions
-> are the same.
-> 
-> [v2]
-> 1- Changed data type from uint32_t to unsigned int.
-> 2- Corrected line length.
-> 3- Removed XENPF_UCODE_FLAG_FORCE_NOT_SET.
-> 4- Corrected indentations.
-> 5- Changed command line options to have the file name as first argument when applicable.
-> 6- --force option doesn't require an argument anymore.
-> 7- Used optint to access filename in argv.
-> 
-> Signed-off-by: Fouad Hilly <fouad.hilly@cloud.com>
-> ---
-> 
-> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Alternatives have had a reasonably severe restriction since their
+introduction.  This has been the source of several bugs, and several
+inefficiencies particularly in the speculative safety paths, and I've finally
+gotten bored enough to fixing it.
 
-You might want to move that tag before the '---' separation otherwise it
-wont be part of the commit message. `git am` discard every thing after
-the '---' line. Also add the tag before your SOB.
+Introduce the new infrastructure, and adjust the BHB scrubbing logic to use
+it.
 
-> ---
->  tools/include/xenctrl.h   |  3 ++-
->  tools/libs/ctrl/xc_misc.c | 13 +++++++++++--
->  tools/misc/xen-ucode.c    | 18 +++++++++++++-----
->  3 files changed, 26 insertions(+), 8 deletions(-)
-> 
-> diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
-> index e3c1943e3633..4178fd2221ea 100644
-> --- a/tools/misc/xen-ucode.c
-> +++ b/tools/misc/xen-ucode.c
-> @@ -24,7 +26,8 @@ static void usage(const char *name)
->             "Usage: %s [microcode file] [options]\n"
+Andrew Cooper (6):
+  x86: Introduce x86_decode_lite()
+  x86/alternative: Walk all replacements in debug builds
+  x86/alternative: Intend the relocation logic
+  x86/alternative: Replace a continue with a goto
+  x86/alternative: Relocate all insn-relative fields
+  x86/spec-ctrl: Introduce and use DO_COND_BHB_SEQ
 
-Now, that usage line is wrong. The options needs to go before the file.
-That could be fix on the previous patch. With that usage line, we would
-want to run `./xen-ucode ucode.bin --force`, but I don't think that
-would work.
-
->             "Options:\n"
->             "  -h, --help            display this help and exit\n"
-> -           "  -s, --show-cpu-info   show CPU information and exit\n",
-> +           "  -s, --show-cpu-info   show CPU information and exit\n"
-> +           "  -f, --force           force to skip micorocde version check\n",
->             name, name);
->  }
->  
-
-Thanks,
+ xen/arch/x86/alternative.c               | 210 +++++++++++++------
+ xen/arch/x86/hvm/vmx/entry.S             |  12 +-
+ xen/arch/x86/include/asm/spec_ctrl_asm.h |  43 ++--
+ xen/arch/x86/x86_emulate/Makefile        |   1 +
+ xen/arch/x86/x86_emulate/decode-lite.c   | 245 +++++++++++++++++++++++
+ xen/arch/x86/x86_emulate/private.h       |   2 +
+ xen/arch/x86/x86_emulate/x86_emulate.h   |  17 ++
+ 7 files changed, 445 insertions(+), 85 deletions(-)
+ create mode 100644 xen/arch/x86/x86_emulate/decode-lite.c
 
 -- 
-Anthony PERARD
+2.30.2
+
 
