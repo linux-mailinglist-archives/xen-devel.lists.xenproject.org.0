@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39D8C8AD3B4
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Apr 2024 20:15:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710196.1109349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E8E28AD3C9
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Apr 2024 20:20:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710224.1109364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ryyBi-0001jk-6V; Mon, 22 Apr 2024 18:14:46 +0000
+	id 1ryyGY-0004cF-TU; Mon, 22 Apr 2024 18:19:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710196.1109349; Mon, 22 Apr 2024 18:14:46 +0000
+Received: by outflank-mailman (output) from mailman id 710224.1109364; Mon, 22 Apr 2024 18:19:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ryyBi-0001cX-1T; Mon, 22 Apr 2024 18:14:46 +0000
-Received: by outflank-mailman (input) for mailman id 710196;
- Mon, 22 Apr 2024 18:14:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ryyGY-0004Zj-Q9; Mon, 22 Apr 2024 18:19:46 +0000
+Received: by outflank-mailman (input) for mailman id 710224;
+ Mon, 22 Apr 2024 18:19:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/m7Q=L3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ryyBf-0000IX-OD
- for xen-devel@lists.xenproject.org; Mon, 22 Apr 2024 18:14:43 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 313ada63-00d4-11ef-909a-e314d9c70b13;
- Mon, 22 Apr 2024 20:14:43 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a559b919303so249730966b.1
- for <xen-devel@lists.xenproject.org>; Mon, 22 Apr 2024 11:14:43 -0700 (PDT)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
+ id 1ryyGX-0004Zc-68
+ for xen-devel@lists.xenproject.org; Mon, 22 Apr 2024 18:19:45 +0000
+Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
+ [2607:f8b0:4864:20::836])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e3c7cbb5-00d4-11ef-b4bb-af5377834399;
+ Mon, 22 Apr 2024 20:19:43 +0200 (CEST)
+Received: by mail-qt1-x836.google.com with SMTP id
+ d75a77b69052e-437202687bfso32352501cf.2
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Apr 2024 11:19:43 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- z15-20020a170906668f00b00a51d073da7esm5994224ejo.82.2024.04.22.11.14.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Apr 2024 11:14:41 -0700 (PDT)
+ u5-20020ac80505000000b00437a02f67c5sm4318417qtg.49.2024.04.22.11.19.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Apr 2024 11:19:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,164 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 313ada63-00d4-11ef-909a-e314d9c70b13
+X-Inumbo-ID: e3c7cbb5-00d4-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713809682; x=1714414482; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dB+pEYt/xsRXM0pv02BxjDs01ExeTPOKtKLGLzOzv0s=;
-        b=m/YD7PW9Cinj9EGqD1JjCAgTChK87yX6Uvl6xvYJxsOl35BZPNaiEJAng9P1i57KOa
-         gaZh+J2Ef3hUfcbgW6d01L0UpVYiLgX6baUO0KnTnZV0wgYOPAjIB24VwRZgo9BcaeWq
-         yxIeEpAGtfYCnaOsSKNN+8W0Dz0CMi9L08mkQ=
+        d=citrix.com; s=google; t=1713809981; x=1714414781; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=RhcDzD88gCnaKHEzz4RAm+tOGwyA5FDAmZ3clZdSsrY=;
+        b=bSr2xTbU2SfARJSAoaA0Vw2qpy6HVV+4t9VlVrX6KXIVDcSk6Yps3vZa4mYddgq/u5
+         a/rX30UweMFwKUYTPICnwDkNOy+ndiX3YqnF8ta9m4NhsQfeGuiVKsRtOZZ0dd3n1qSo
+         /W2bN6o3FCD/5Y5CWZACkudwPeb5y8Zu9L+Vc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713809682; x=1714414482;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dB+pEYt/xsRXM0pv02BxjDs01ExeTPOKtKLGLzOzv0s=;
-        b=O+hyWgCzHxiPtOv9ZnkfVqlvje80IYYtmlIrBUYejy1k/r9pT863FXu2zyg2yCUZMa
-         xBPB0qkNFwNilMIPRqe9+Mpb2TdhyaasY8t4X0JtIjt5SpEVZcRgjDuXXJizAZWYlgcg
-         rKTjPPp56IGaMnavArrNOBaBY2HcHeKGglXG+bwFvSYkKbLxi1vOx0wXiF33aRmjdV1E
-         0wQSsdXVJpS62DC99mSByl7YWUQvIauVkfWwqEZddeTmdwD2X/nEy864f5OL8BTMdPWc
-         SycWpd8lSfwbSfaGZ1+tgicvQ3OGsWBX2lIXtQHqeCshXQfmfrf0Urx/HhvjJuHaL+77
-         VPwQ==
-X-Gm-Message-State: AOJu0YwF6/8QhXhe7xBsz9KWpSctht05QZKdoNoQ4z5ebrq8EoztWUyb
-	YSJKbDLXXMWiEl795QtbxRwFMeYe2/z19+bDdyBCnWd8c7TurCsBn0Zkh/fHc9/9HHJoEcM+tzO
-	sfQU=
-X-Google-Smtp-Source: AGHT+IGqd/HqMIOYUnziS1lqHwIAw5CNOJQ9KnM2G4JVD+h+CP14AE9vAz3vT5t6yXjZ6d/aUx+h6Q==
-X-Received: by 2002:a17:906:b092:b0:a55:387b:ef07 with SMTP id x18-20020a170906b09200b00a55387bef07mr7177532ejy.13.1713809682179;
-        Mon, 22 Apr 2024 11:14:42 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 6/6] x86/spec-ctrl: Introduce and use DO_COND_BHB_SEQ
-Date: Mon, 22 Apr 2024 19:14:34 +0100
-Message-Id: <20240422181434.3463252-7-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20240422181434.3463252-1-andrew.cooper3@citrix.com>
-References: <20240422181434.3463252-1-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1713809981; x=1714414781;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RhcDzD88gCnaKHEzz4RAm+tOGwyA5FDAmZ3clZdSsrY=;
+        b=XP91QPDMV2fXJaMdWSBZ+4U6Nx8djef3c8HKSsgG0u3P44tQw4yJi7YoWoM/TBodqd
+         RPTHnZOciFkGZpoRP/6ciSns7+hegLGQLQNNxVi/wPIVH8PUKh1jLaqTeFJw+U5YqX4f
+         dvRfyqv5L9cDKRnTl6hI+0KCT0U8Hx+UkVbwEo++jSLaMnOehelPkKUIDBtwwBhjr4wb
+         wrSHm/JHlcKOs+A4dK48Fih56p8kW5x0vA/UFMIRKEM+XpuSYWqCqwb9iTQkwCnZ1w9s
+         wSt9J8xnEoneb1vzgyD12QAfI+AvK3AKaLebRXu4KNB+nszcQsX8032BmZluHMIRjFN9
+         MaEg==
+X-Gm-Message-State: AOJu0YyzIko82JR3gxPYgTf8aq3PGqvy6vo/h+b9ErpgNhN+mzFMQdri
+	C2R8TJhX+H7P8W54BuMO5zdF/40YIr3HO5d4FXyYt3X/Yge9RWaYSc6NZ8h5aeidO3lV4zB7vLP
+	UEEQ=
+X-Google-Smtp-Source: AGHT+IGqC44lmgQVNj8rOcyq3RsEHZeHlg0SoeUV+cVp9Om7Cd8WYweKXKKuozTPnhAOopSwsqNxGg==
+X-Received: by 2002:a05:622a:454:b0:439:b41a:81e4 with SMTP id o20-20020a05622a045400b00439b41a81e4mr4938758qtx.31.1713809981606;
+        Mon, 22 Apr 2024 11:19:41 -0700 (PDT)
+Message-ID: <3e310bed-93db-45ff-a1ad-68b79664b3a9@citrix.com>
+Date: Mon, 22 Apr 2024 19:19:39 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] x86/alternative: Intend the relocation logic
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20240422181434.3463252-1-andrew.cooper3@citrix.com>
+ <20240422181434.3463252-4-andrew.cooper3@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240422181434.3463252-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Now that alternatives can fix up call displacements even when they're not the
-first instruction of the replacement, move the SCF_entry_bhb conditional
-inside the replacement block.
+This of course intended to say indent...
 
-This removes a conditional branch from the fastpaths of BHI-unaffected
-hardware.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/hvm/vmx/entry.S             | 12 +++----
- xen/arch/x86/include/asm/spec_ctrl_asm.h | 43 +++++++++++++-----------
- 2 files changed, 30 insertions(+), 25 deletions(-)
-
-diff --git a/xen/arch/x86/hvm/vmx/entry.S b/xen/arch/x86/hvm/vmx/entry.S
-index 7233e771d88a..77bf9ea564ea 100644
---- a/xen/arch/x86/hvm/vmx/entry.S
-+++ b/xen/arch/x86/hvm/vmx/entry.S
-@@ -62,12 +62,12 @@ ENTRY(vmx_asm_vmexit_handler)
-          * Clear the BHB to mitigate BHI.  Used on eIBRS parts, and uses RETs
-          * itself so must be after we've perfomed all the RET-safety we can.
-          */
--        testb $SCF_entry_bhb, CPUINFO_scf(%rsp)
--        jz .L_skip_bhb
--        ALTERNATIVE_2 "",                                    \
--            "call clear_bhb_loops", X86_SPEC_BHB_LOOPS,      \
--            "call clear_bhb_tsx", X86_SPEC_BHB_TSX
--.L_skip_bhb:
-+        .macro VMX_BHB_SEQ fn:req
-+            DO_COND_BHB_SEQ \fn scf=CPUINFO_scf(%rsp)
-+        .endm
-+        ALTERNATIVE_2 "",                                         \
-+            "VMX_BHB_SEQ fn=clear_bhb_loops", X86_SPEC_BHB_LOOPS, \
-+            "VMX_BHB_SEQ fn=clear_bhb_tsx",   X86_SPEC_BHB_TSX
- 
-         ALTERNATIVE "lfence", "", X86_SPEC_NO_LFENCE_ENTRY_VMX
-         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
-diff --git a/xen/arch/x86/include/asm/spec_ctrl_asm.h b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-index 729a830411eb..559dad88f967 100644
---- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
-+++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-@@ -92,6 +92,21 @@
- .L\@_skip:
- .endm
- 
-+.macro DO_COND_BHB_SEQ fn:req, scf=%bl
-+/*
-+ * Requires SCF (defaults to %rbx), fn=clear_bhb_{loops,tsx}
-+ * Clobbers %rax, %rcx
-+ *
-+ * Conditionally use a BHB clearing software sequence.
-+ */
-+    testb  $SCF_entry_bhb, \scf
-+    jz     .L\@_skip_bhb
-+
-+    call   \fn
-+
-+.L\@_skip_bhb:
-+.endm
-+
- .macro DO_OVERWRITE_RSB tmp=rax, xu
- /*
-  * Requires nothing
-@@ -277,12 +292,9 @@
-      * Clear the BHB to mitigate BHI.  Used on eIBRS parts, and uses RETs
-      * itself so must be after we've perfomed all the RET-safety we can.
-      */
--    testb $SCF_entry_bhb, %bl
--    jz .L\@_skip_bhb
--    ALTERNATIVE_2 "",                                    \
--        "call clear_bhb_loops", X86_SPEC_BHB_LOOPS,      \
--        "call clear_bhb_tsx", X86_SPEC_BHB_TSX
--.L\@_skip_bhb:
-+    ALTERNATIVE_2 "",                                          \
-+        "DO_COND_BHB_SEQ clear_bhb_loops", X86_SPEC_BHB_LOOPS, \
-+        "DO_COND_BHB_SEQ clear_bhb_tsx",   X86_SPEC_BHB_TSX
- 
-     ALTERNATIVE "lfence", "", X86_SPEC_NO_LFENCE_ENTRY_PV
- .endm
-@@ -322,12 +334,9 @@
-     ALTERNATIVE "", __stringify(DO_SPEC_CTRL_ENTRY maybexen=1),         \
-         X86_FEATURE_SC_MSR_PV
- 
--    testb $SCF_entry_bhb, %bl
--    jz .L\@_skip_bhb
--    ALTERNATIVE_2 "",                                    \
--        "call clear_bhb_loops", X86_SPEC_BHB_LOOPS,      \
--        "call clear_bhb_tsx", X86_SPEC_BHB_TSX
--.L\@_skip_bhb:
-+    ALTERNATIVE_2 "",                                          \
-+        "DO_COND_BHB_SEQ clear_bhb_loops", X86_SPEC_BHB_LOOPS, \
-+        "DO_COND_BHB_SEQ clear_bhb_tsx",   X86_SPEC_BHB_TSX
- 
-     ALTERNATIVE "lfence", "", X86_SPEC_NO_LFENCE_ENTRY_INTR
- .endm
-@@ -433,13 +442,9 @@
-      * Clear the BHB to mitigate BHI.  Used on eIBRS parts, and uses RETs
-      * itself so must be after we've perfomed all the RET-safety we can.
-      */
--    testb $SCF_entry_bhb, %bl
--    jz .L\@_skip_bhb
--
--    ALTERNATIVE_2 "",                                    \
--        "call clear_bhb_loops", X86_SPEC_BHB_LOOPS,      \
--        "call clear_bhb_tsx", X86_SPEC_BHB_TSX
--.L\@_skip_bhb:
-+    ALTERNATIVE_2 "",                                          \
-+        "DO_COND_BHB_SEQ clear_bhb_loops", X86_SPEC_BHB_LOOPS, \
-+        "DO_COND_BHB_SEQ clear_bhb_tsx",   X86_SPEC_BHB_TSX
- 
-     lfence
- .endm
--- 
-2.30.2
-
+~Andrew
 
