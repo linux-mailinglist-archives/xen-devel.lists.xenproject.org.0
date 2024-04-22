@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D6698AD3B7
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Apr 2024 20:15:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710191.1109304 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FA348AD3B9
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Apr 2024 20:15:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710192.1109310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ryyBe-0000bv-HP; Mon, 22 Apr 2024 18:14:42 +0000
+	id 1ryyBe-0000g5-QD; Mon, 22 Apr 2024 18:14:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710191.1109304; Mon, 22 Apr 2024 18:14:42 +0000
+Received: by outflank-mailman (output) from mailman id 710192.1109310; Mon, 22 Apr 2024 18:14:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ryyBe-0000aE-Bw; Mon, 22 Apr 2024 18:14:42 +0000
-Received: by outflank-mailman (input) for mailman id 710191;
- Mon, 22 Apr 2024 18:14:40 +0000
+	id 1ryyBe-0000bt-KB; Mon, 22 Apr 2024 18:14:42 +0000
+Received: by outflank-mailman (input) for mailman id 710192;
+ Mon, 22 Apr 2024 18:14:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/m7Q=L3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ryyBc-0000IX-66
- for xen-devel@lists.xenproject.org; Mon, 22 Apr 2024 18:14:40 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1ryyBd-0000IX-6N
+ for xen-devel@lists.xenproject.org; Mon, 22 Apr 2024 18:14:41 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2edcb1ec-00d4-11ef-909a-e314d9c70b13;
- Mon, 22 Apr 2024 20:14:39 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-34b1e35155aso1321394f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Apr 2024 11:14:39 -0700 (PDT)
+ id 2f64d62a-00d4-11ef-909a-e314d9c70b13;
+ Mon, 22 Apr 2024 20:14:40 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a5872b74c44so46930866b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Apr 2024 11:14:40 -0700 (PDT)
 Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
  z15-20020a170906668f00b00a51d073da7esm5994224ejo.82.2024.04.22.11.14.38
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2edcb1ec-00d4-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 2f64d62a-00d4-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713809678; x=1714414478; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1713809679; x=1714414479; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MQHzbKjDaYMcDY7B8SUQVz+z/Tfqym852xnTGj/zaZg=;
-        b=fkoAkh4o4FnDA99uQNTZb7WraJWXKC2aG6unhYS0rrZIufQCDn5N70MWM/DTyZSA5z
-         NeAjzvm/PJimblHVJgb4bHXzM9Rr0w7UkGOTJJ+nuzOZmXh9lx9GQJw22NhP/Tj8+/5R
-         ONR1uM/azVB0mFU3xpualaMwOxWW1MqD8zjLU=
+        bh=31yUgd5YK+pN4dRkn1LMnihd6GkdbjUm1b+8i5iacEg=;
+        b=R8PB8SYRh8z3v+Cn85Jjbb74Z10LovtcXj6ymwCs2nfNJZki8WLNxy/auZMP+8np1g
+         3UrKFthyTFQU4JYfs7JkbUYkNsTBzzy5D5aqEAA08QulrinS90Bqd6DckYwBhlL4jigh
+         Lsn50J/FNrHi9cBv5RTpwIxvV3ENJ71hnw6ZU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713809678; x=1714414478;
+        d=1e100.net; s=20230601; t=1713809679; x=1714414479;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=MQHzbKjDaYMcDY7B8SUQVz+z/Tfqym852xnTGj/zaZg=;
-        b=Z7KNvKuGyja0RlV16mPa1yOseYZr+SWfrDlIsD7bMyGklWTHPTswUlpk60ISuWE/vP
-         dc6QSsNuoPQANdB/hkBgM2FPllFzgn/iebrIsBhUzxbZQxBySnuJdu4AgoZDcGQqRIRQ
-         wwni3mbGpvxsTfsAZxYhWLO2I8FnlyxRVcZgS8DftwgzDcgfCVGywSAhYZc0tCUXvTW6
-         TzsoOdz2cmRbtRxA38NEkKe4bW6EofTpZ2tXGJHDQ65YZnfFRg8cywtAJkZG367sjW2F
-         4oMZ7mch5BHDJNvmkGaZiVm+ccdGx3XhC5zxiXoB3fMM5PsQmBTUg7ezuShTlyJshJdr
-         7Cag==
-X-Gm-Message-State: AOJu0YxiIHH3elVtiVQoD3vnH7iU0qSBo0jS+i1B6QYMJG+U4DX56ZRW
-	Xg4d6SnOQJbQzmOLIVog4+Q0/c3PKIiHtfyPN3AhK2azt8gN/eYHk4/Ow4bQnC+7rDkD1LKPwpp
-	HXPE=
-X-Google-Smtp-Source: AGHT+IEW6kofzVvscdUp6IMKGrRkIje/J7JBh/Nc5qR/k31CnySuyyiwls0zSTGzIDDorCf57TnjJQ==
-X-Received: by 2002:a5d:4a81:0:b0:341:cd0d:b78a with SMTP id o1-20020a5d4a81000000b00341cd0db78amr8767835wrq.48.1713809678533;
-        Mon, 22 Apr 2024 11:14:38 -0700 (PDT)
+        bh=31yUgd5YK+pN4dRkn1LMnihd6GkdbjUm1b+8i5iacEg=;
+        b=oM2Zm/nKzwWEWmg9mARcP99h3lv4HWNNCHi+Lpv2rkSFjPysZSzcb+ewU0WosV8jwn
+         SuISFefjdc9tvZcGx/wdq26bNpM2Kf8JgMDpM+3Z0HvIAqSZ1Y/vTBrjKguUMZsTC2Ic
+         0iwV+POn0begZM5WI25cr7kuYyXCAxblY9syDpjiYuR8yzjxjdS1Ozpwbmr9ReeSEdH1
+         aXtukBXWyvvBV/yPaMF724KuQQD1YBsJ7T4XLHf5V/nO+k4qG7EHoAWhnrCOmCiZ8PQ1
+         1xMtvJ6b6QVQ+AbcOyz5zbLJeDRzDkbI9uoE6stycf4117DYukwDqXwP0Xpa2Z26VPle
+         /IOQ==
+X-Gm-Message-State: AOJu0YzZk8fI+mWgpVG6674mu7AFPXHXoiIimJ6kfcmp1FtJlpUvbYVz
+	VtA7kzFu3+SZAn6BnPyOxjWO4BBYhUZfXkvQU8N78rGZi5p3Kn3KmhlTJGYbRtHFz+QJW78JYcA
+	1Q2E=
+X-Google-Smtp-Source: AGHT+IG+1HMvF1SwFEh23Uw5BDoD1AN36ExhwVuxXRvPOWRV9QQwPpCghdo+Q9ydNqUU6Qfd296HkA==
+X-Received: by 2002:a17:906:7708:b0:a51:969e:ba0 with SMTP id q8-20020a170906770800b00a51969e0ba0mr6257278ejm.44.1713809679358;
+        Mon, 22 Apr 2024 11:14:39 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 2/6] x86/alternative: Walk all replacements in debug builds
-Date: Mon, 22 Apr 2024 19:14:30 +0100
-Message-Id: <20240422181434.3463252-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/6] x86/alternative: Intend the relocation logic
+Date: Mon, 22 Apr 2024 19:14:31 +0100
+Message-Id: <20240422181434.3463252-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20240422181434.3463252-1-andrew.cooper3@citrix.com>
 References: <20240422181434.3463252-1-andrew.cooper3@citrix.com>
@@ -88,85 +88,164 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In debug builds, walk all alternative replacements with x86_decode_lite().
+... to make subsequent patches legible.
 
-This checks that we can decode all instructions, and also lets us check that
-disp8's don't leave the replacement block.
+No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/alternative.c | 49 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 49 insertions(+)
+ xen/arch/x86/alternative.c | 126 +++++++++++++++++++------------------
+ 1 file changed, 64 insertions(+), 62 deletions(-)
 
 diff --git a/xen/arch/x86/alternative.c b/xen/arch/x86/alternative.c
-index 2e7ba6e0b833..5bd256365def 100644
+index 5bd256365def..2ca4dfd569bc 100644
 --- a/xen/arch/x86/alternative.c
 +++ b/xen/arch/x86/alternative.c
-@@ -15,6 +15,7 @@
- #include <asm/traps.h>
- #include <asm/nmi.h>
- #include <asm/nops.h>
-+#include <asm/x86_emulate.h>
- #include <xen/livepatch.h>
+@@ -244,78 +244,80 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
  
- #define MAX_PATCH_LEN (255-1)
-@@ -464,6 +465,54 @@ static void __init _alternative_instructions(bool force)
- void __init alternative_instructions(void)
- {
-     arch_init_ideal_nops();
+         memcpy(buf, repl, a->repl_len);
+ 
+-        /* 0xe8/0xe9 are relative branches; fix the offset. */
+-        if ( a->repl_len >= 5 && (*buf & 0xfe) == 0xe8 )
+         {
+-            /*
+-             * Detect the special case of indirect-to-direct branch patching:
+-             * - replacement is a direct CALL/JMP (opcodes 0xE8/0xE9; already
+-             *   checked above),
+-             * - replacement's displacement is -5 (pointing back at the very
+-             *   insn, which makes no sense in a real replacement insn),
+-             * - original is an indirect CALL/JMP (opcodes 0xFF/2 or 0xFF/4)
+-             *   using RIP-relative addressing.
+-             * Some branch destinations may still be NULL when we come here
+-             * the first time. Defer patching of those until the post-presmp-
+-             * initcalls re-invocation (with force set to true). If at that
+-             * point the branch destination is still NULL, insert "UD2; UD0"
+-             * (for ease of recognition) instead of CALL/JMP.
+-             */
+-            if ( a->cpuid == X86_FEATURE_ALWAYS &&
+-                 *(int32_t *)(buf + 1) == -5 &&
+-                 a->orig_len >= 6 &&
+-                 orig[0] == 0xff &&
+-                 orig[1] == (*buf & 1 ? 0x25 : 0x15) )
++            /* 0xe8/0xe9 are relative branches; fix the offset. */
++            if ( a->repl_len >= 5 && (*buf & 0xfe) == 0xe8 )
+             {
+-                long disp = *(int32_t *)(orig + 2);
+-                const uint8_t *dest = *(void **)(orig + 6 + disp);
+-
+-                if ( dest )
++                /*
++                 * Detect the special case of indirect-to-direct branch patching:
++                 * - replacement is a direct CALL/JMP (opcodes 0xE8/0xE9; already
++                 *   checked above),
++                 * - replacement's displacement is -5 (pointing back at the very
++                 *   insn, which makes no sense in a real replacement insn),
++                 * - original is an indirect CALL/JMP (opcodes 0xFF/2 or 0xFF/4)
++                 *   using RIP-relative addressing.
++                 * Some branch destinations may still be NULL when we come here
++                 * the first time. Defer patching of those until the post-presmp-
++                 * initcalls re-invocation (with force set to true). If at that
++                 * point the branch destination is still NULL, insert "UD2; UD0"
++                 * (for ease of recognition) instead of CALL/JMP.
++                 */
++                if ( a->cpuid == X86_FEATURE_ALWAYS &&
++                     *(int32_t *)(buf + 1) == -5 &&
++                     a->orig_len >= 6 &&
++                     orig[0] == 0xff &&
++                     orig[1] == (*buf & 1 ? 0x25 : 0x15) )
+                 {
+-                    /*
+-                     * When building for CET-IBT, all function pointer targets
+-                     * should have an endbr64 instruction.
+-                     *
+-                     * If this is not the case, leave a warning because
+-                     * something is probably wrong with the build.  A CET-IBT
+-                     * enabled system might have exploded already.
+-                     *
+-                     * Otherwise, skip the endbr64 instruction.  This is a
+-                     * marginal perf improvement which saves on instruction
+-                     * decode bandwidth.
+-                     */
+-                    if ( IS_ENABLED(CONFIG_XEN_IBT) )
++                    long disp = *(int32_t *)(orig + 2);
++                    const uint8_t *dest = *(void **)(orig + 6 + disp);
 +
-+    /*
-+     * Walk all replacement instructions with x86_decode_lite().  This checks
-+     * both that we can decode all instructions within the replacement, and
-+     * that any near branch with a disp8 stays within the alternative itself.
-+     */
-+    if ( IS_ENABLED(CONFIG_DEBUG) )
-+    {
-+        struct alt_instr *a;
++                    if ( dest )
+                     {
+-                        if ( is_endbr64(dest) )
+-                            dest += ENDBR64_LEN;
+-                        else
+-                            printk(XENLOG_WARNING
+-                                   "altcall %ps dest %ps has no endbr64\n",
+-                                   orig, dest);
++                        /*
++                         * When building for CET-IBT, all function pointer targets
++                         * should have an endbr64 instruction.
++                         *
++                         * If this is not the case, leave a warning because
++                         * something is probably wrong with the build.  A CET-IBT
++                         * enabled system might have exploded already.
++                         *
++                         * Otherwise, skip the endbr64 instruction.  This is a
++                         * marginal perf improvement which saves on instruction
++                         * decode bandwidth.
++                         */
++                        if ( IS_ENABLED(CONFIG_XEN_IBT) )
++                        {
++                            if ( is_endbr64(dest) )
++                                dest += ENDBR64_LEN;
++                            else
++                                printk(XENLOG_WARNING
++                                       "altcall %ps dest %ps has no endbr64\n",
++                                       orig, dest);
++                        }
 +
-+        for ( a = __alt_instructions;
-+              a < __alt_instructions_end; ++a )
-+        {
-+            void *repl = ALT_REPL_PTR(a);
-+            void *ip = repl, *end = ip + a->repl_len;
-+
-+            if ( !a->repl_len )
-+                continue;
-+
-+            for ( x86_decode_lite_t res; ip < end; ip += res.len )
-+            {
-+                res = x86_decode_lite(ip, end);
-+
-+                if ( res.len <= 0 )
-+                {
-+                    printk("Alternative for %ps [%*ph]\n",
-+                           ALT_ORIG_PTR(a), a->repl_len, repl);
-+                    panic("Unable to decode instruction at +%u in alternative\n",
-+                          (unsigned int)(unsigned long)(ip - repl));
-+                }
-+
-+                if ( res.rel_type == REL_TYPE_d8 )
-+                {
-+                    int8_t *d8 = res.rel;
-+                    void *target = ip + res.len + *d8;
-+
-+                    if ( target < repl || target > end )
++                        disp = dest - (orig + 5);
++                        ASSERT(disp == (int32_t)disp);
++                        *(int32_t *)(buf + 1) = disp;
+                     }
+-
+-                    disp = dest - (orig + 5);
+-                    ASSERT(disp == (int32_t)disp);
+-                    *(int32_t *)(buf + 1) = disp;
+-                }
+-                else if ( force )
+-                {
+-                    buf[0] = 0x0f;
+-                    buf[1] = 0x0b;
+-                    buf[2] = 0x0f;
+-                    buf[3] = 0xff;
+-                    buf[4] = 0xff;
++                    else if ( force )
 +                    {
-+                        printk("Alternative for %ps [%*ph]\n",
-+                               ALT_ORIG_PTR(a), a->repl_len, repl);
-+                        panic("'JMP/Jcc disp8' at +%u leaves alternative block\n",
-+                              (unsigned int)(unsigned long)(ip - repl));
++                        buf[0] = 0x0f;
++                        buf[1] = 0x0b;
++                        buf[2] = 0x0f;
++                        buf[3] = 0xff;
++                        buf[4] = 0xff;
 +                    }
-+                }
-+            }
-+        }
-+    }
-+
-     _alternative_instructions(false);
- }
++                    else
++                        continue;
+                 }
++                else if ( force && system_state < SYS_STATE_active )
++                    ASSERT_UNREACHABLE();
+                 else
+-                    continue;
++                    *(int32_t *)(buf + 1) += repl - orig;
+             }
+-            else if ( force && system_state < SYS_STATE_active )
++            else if ( force && system_state < SYS_STATE_active  )
+                 ASSERT_UNREACHABLE();
+-            else
+-                *(int32_t *)(buf + 1) += repl - orig;
+         }
+-        else if ( force && system_state < SYS_STATE_active  )
+-            ASSERT_UNREACHABLE();
+ 
+         a->priv = 1;
  
 -- 
 2.30.2
