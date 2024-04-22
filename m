@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9C068AC5AD
+	by mail.lfdr.de (Postfix) with ESMTPS id 49B498AC5AC
 	for <lists+xen-devel@lfdr.de>; Mon, 22 Apr 2024 09:37:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.709713.1108689 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.709714.1108698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ryoEt-0006VK-KY; Mon, 22 Apr 2024 07:37:23 +0000
+	id 1ryoEy-0006kr-SK; Mon, 22 Apr 2024 07:37:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 709713.1108689; Mon, 22 Apr 2024 07:37:23 +0000
+Received: by outflank-mailman (output) from mailman id 709714.1108698; Mon, 22 Apr 2024 07:37:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ryoEt-0006Sh-HE; Mon, 22 Apr 2024 07:37:23 +0000
-Received: by outflank-mailman (input) for mailman id 709713;
- Mon, 22 Apr 2024 07:37:22 +0000
+	id 1ryoEy-0006hf-Ob; Mon, 22 Apr 2024 07:37:28 +0000
+Received: by outflank-mailman (input) for mailman id 709714;
+ Mon, 22 Apr 2024 07:37:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ALvU=L3=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1ryoEs-0006Sb-AB
- for xen-devel@lists.xenproject.org; Mon, 22 Apr 2024 07:37:22 +0000
-Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
- [2607:f8b0:4864:20::534])
+ id 1ryoEx-0006Sb-Dc
+ for xen-devel@lists.xenproject.org; Mon, 22 Apr 2024 07:37:27 +0000
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [2607:f8b0:4864:20::432])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 263fb170-007b-11ef-8b06-e9908f64f69c;
- Mon, 22 Apr 2024 09:37:20 +0200 (CEST)
-Received: by mail-pg1-x534.google.com with SMTP id
- 41be03b00d2f7-5ce6b5e3c4eso2227198a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 22 Apr 2024 00:37:20 -0700 (PDT)
+ id 29856638-007b-11ef-8b06-e9908f64f69c;
+ Mon, 22 Apr 2024 09:37:25 +0200 (CEST)
+Received: by mail-pf1-x432.google.com with SMTP id
+ d2e1a72fcca58-6eced6fd98aso3860280b3a.0
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Apr 2024 00:37:25 -0700 (PDT)
 Received: from rayden.urgonet (h-217-31-164-171.A175.priv.bahnhof.se.
  [217.31.164.171]) by smtp.gmail.com with ESMTPSA id
- x37-20020a056a000be500b006edcceffcb0sm7221726pfu.161.2024.04.22.00.37.13
+ x37-20020a056a000be500b006edcceffcb0sm7221726pfu.161.2024.04.22.00.37.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Apr 2024 00:37:17 -0700 (PDT)
+ Mon, 22 Apr 2024 00:37:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 263fb170-007b-11ef-8b06-e9908f64f69c
+X-Inumbo-ID: 29856638-007b-11ef-8b06-e9908f64f69c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1713771438; x=1714376238; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=AHko8xm993dsl3n+OZtqOwdwQNhe1crxMdvB1ksUl5w=;
-        b=l6yNIvuEgxLSArHoI2t8a+mISAJr7Pm9MiDa9ES/WbLQiErYPp0QgUCDQpveFGAYnZ
-         qBtvzw8ElTWH4lZTwWE2ZdYAXBPEHaRgwGsYrht1ldhQ6gg+kSS6J79hn538+ylhpqK9
-         L6k24BFiUQ1BNaBfrO1VI+Z39tbROqZKANMX/7QpH8W9dBYtNMhKeqftyixPm1PvJaAV
-         9HJItJ1H6nOQnIuGUIMnwPEluf/jGQLv4yQo9xUzg2M63wBtvR4PS4NJDDNWe98/r7N4
-         Ng1JsNWxM6T9OpFVkxp2McKpDmDo1HuSK32hjL/7JXH9hT05DqcseaOibawvsX+VDv4+
-         S4Hw==
+        d=linaro.org; s=google; t=1713771444; x=1714376244; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2VzeWK8x82YxZO3FACx+2RlqRVfXhRtSExk4PP34ai4=;
+        b=BRr1HZgeHXiJ1xOcD0StlhMj3Uk9dgUU1qFGyQPIgRQFKCxTvjNEc6dpiWjrjnvAVw
+         8dPyU/hjaUkj97IQrH+0xkRZKKZlnvR6ND/2IWV4mn7KH2rJQ75zfOpIj/uGTAFLwUYb
+         uQrzF9d6Dh+S8N/YhQFzHNxdBKF6NSeYIEHtKGZEvZT9DWVEPEWotAFimWtmYWimWaYH
+         glw51+rXIZYl//y9p/Myr7o2woo+0v7bfzQYvQAy3A+x5HYInWoaXBbnLhRSXvy71GqU
+         kL146qmi499geBvrlmIoegq5OK1EgBzKcx/HnQarxoMLtYBDNO8bo6z3Wowg/kGhv++P
+         6HRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713771438; x=1714376238;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=AHko8xm993dsl3n+OZtqOwdwQNhe1crxMdvB1ksUl5w=;
-        b=HpxGlAONAmkyn/K/xC8nzEpf6egKDZGH+llKcLZpiU4HFonOrHH1yrqB3ZMOZ0wugL
-         W7GtIYVdRVu7PYwCVZx+UKbgV9nKIzYmB0tCOgVFtLSveQoY68sP50dZjN30Zps6TmGC
-         4PmtsIk80JhNp638y0UF2v2qq8DcnK/IpLGFZLxR6wGJJ+YBB/rYssphaPkDqpQ3pSn7
-         l8By3b1I414XZN1vdDYLrVzu87Jr6JZdEvywJtYUojx2bVCMG8SUpWSqXgwvt3qfEnmp
-         aZaLOazxN/TvYY2DKQCcQx9+EWO+dLY4kNHUN+MUpINIMuGoDZ8oiuHBpFMARJXO+7u6
-         Adsw==
-X-Gm-Message-State: AOJu0Yyf2VYiFpPO+HeR18Ta6BTowa+47+jUmMuI6HsCgCHMOAJk9VrZ
-	NPsbA91NRtU7C0scdjW91mDOB5htxpPrI0tYmj1iCfu4ZEZhy8zWNMRMHv1Weu581z6fDckEt4B
-	F
-X-Google-Smtp-Source: AGHT+IFBmZRazD0/mE0UROobbVkZ2EiTAEz0/o01f5RCsrEtPAOzCnkdtt9NjZdmaBU9QkkOkJcr0Q==
-X-Received: by 2002:a05:6a20:3d94:b0:1a3:52ef:cc84 with SMTP id s20-20020a056a203d9400b001a352efcc84mr9439968pzi.60.1713771438353;
-        Mon, 22 Apr 2024 00:37:18 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1713771444; x=1714376244;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=2VzeWK8x82YxZO3FACx+2RlqRVfXhRtSExk4PP34ai4=;
+        b=d0dglx+FKwCRu9PeMtJ9h7eGW0+7Si8U9Fp4fnxUkqIDN6y+KdDteHco9mxo32+dnv
+         oxZlJPi9NXl1UVEb4OuD+7VkjVhOZhS37aRP57LAlhgt81ue7g0QSNooSbNRB37z4jK+
+         TKYpZCj3nSpkG0eCG569pa4v6Zl+CCWwmKaVAdffK5Yji9G1USjsG0aDPTrbsuji/2jH
+         Z+leX5jS/dX2J7Jn0oaNu/fHADi9UDBrIeHb5J3PezD4NwH69exY0AUdMp1aWODvxRO5
+         ntbRQN7A5xIbvP+wTZNayYdrBZDl9y36TbcFueUZvUFd1XVfm/P6jeJtZQmYVhBj4z2X
+         yqIw==
+X-Gm-Message-State: AOJu0Yzjfpxznv1UCVCnhJKjplVcGNrEkV7lmzI5buEfgDDUdbCMZV4A
+	iUdusbq7hMZaA4C/ySxCAjNK2URZIHZRaTRlyhOTEJhRT9BOB6VEYb22idn4+Fu3k9DIs8FvGgw
+	t
+X-Google-Smtp-Source: AGHT+IHvzUzQnmPOJwLqCNPYatbb81JlKVMMSj7eh2f/KL7gdQ+7f2dkOyd1cR6AGmf3KGwkBYHq8Q==
+X-Received: by 2002:a05:6a20:43a7:b0:1ad:a8d:dc6d with SMTP id i39-20020a056a2043a700b001ad0a8ddc6dmr6800017pzl.8.1713771443904;
+        Mon, 22 Apr 2024 00:37:23 -0700 (PDT)
 From: Jens Wiklander <jens.wiklander@linaro.org>
 To: xen-devel@lists.xenproject.org
 Cc: patches@linaro.org,
@@ -84,57 +85,88 @@ Cc: patches@linaro.org,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [XEN PATCH v2 0/5] FF-A notifications
-Date: Mon, 22 Apr 2024 09:37:03 +0200
-Message-Id: <20240422073708.3663529-1-jens.wiklander@linaro.org>
+Subject: [XEN PATCH v2 1/5] xen/arm: ffa: refactor ffa_handle_call()
+Date: Mon, 22 Apr 2024 09:37:04 +0200
+Message-Id: <20240422073708.3663529-2-jens.wiklander@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240422073708.3663529-1-jens.wiklander@linaro.org>
+References: <20240422073708.3663529-1-jens.wiklander@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Refactors the large switch block in ffa_handle_call() to use common code
+for the simple case where it's either an error code or success with no
+further parameters.
 
-This patch set adds support for FF-A notifications. We only support
-global notifications, per vCPU notifications remain unsupported.
+Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+---
+ xen/arch/arm/tee/ffa.c | 30 ++++++++++--------------------
+ 1 file changed, 10 insertions(+), 20 deletions(-)
 
-The first three patches are further cleanup and can be merged before the
-rest if desired.
-
-A physical SGI is used to make Xen aware of pending FF-A notifications. The
-physical SGI is selected by the SPMC in the secure world. Since it must not
-already be used by Xen the SPMC is in practice forced to donate one of the
-secure SGIs, but that's normally not a problem. The SGI handling in Xen is
-updated to support registration of handlers for SGIs that aren't statically
-assigned, that is, SGI IDs above GIC_SGI_MAX.
-
-Thanks,
-Jens
-
-v1->v2:
-- "xen/arm: ffa: support notification" and
-  "xen/arm: allow dynamically assigned SGI handlers" updated as requestsed,
-  details in each patch.
-- Added Bertrands R-B for "xen/arm: ffa: refactor ffa_handle_call()",
-  "xen/arm: ffa: use ACCESS_ONCE()", and
-  "xen/arm: ffa: simplify ffa_handle_mem_share()"
-
-Jens Wiklander (5):
-  xen/arm: ffa: refactor ffa_handle_call()
-  xen/arm: ffa: use ACCESS_ONCE()
-  xen/arm: ffa: simplify ffa_handle_mem_share()
-  xen/arm: allow dynamically assigned SGI handlers
-  xen/arm: ffa: support notification
-
- xen/arch/arm/gic.c              |   5 +-
- xen/arch/arm/irq.c              |   7 +-
- xen/arch/arm/tee/Makefile       |   1 +
- xen/arch/arm/tee/ffa.c          |  83 +++++---
- xen/arch/arm/tee/ffa_notif.c    | 331 ++++++++++++++++++++++++++++++++
- xen/arch/arm/tee/ffa_partinfo.c |   9 +-
- xen/arch/arm/tee/ffa_private.h  |  68 ++++++-
- xen/arch/arm/tee/ffa_shm.c      |  33 ++--
- 8 files changed, 488 insertions(+), 49 deletions(-)
- create mode 100644 xen/arch/arm/tee/ffa_notif.c
-
+diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+index 8665201e34a9..5209612963e1 100644
+--- a/xen/arch/arm/tee/ffa.c
++++ b/xen/arch/arm/tee/ffa.c
+@@ -273,18 +273,10 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
+     case FFA_RXTX_MAP_64:
+         e = ffa_handle_rxtx_map(fid, get_user_reg(regs, 1),
+ 				get_user_reg(regs, 2), get_user_reg(regs, 3));
+-        if ( e )
+-            ffa_set_regs_error(regs, e);
+-        else
+-            ffa_set_regs_success(regs, 0, 0);
+-        return true;
++        break;
+     case FFA_RXTX_UNMAP:
+         e = ffa_handle_rxtx_unmap();
+-        if ( e )
+-            ffa_set_regs_error(regs, e);
+-        else
+-            ffa_set_regs_success(regs, 0, 0);
+-        return true;
++        break;
+     case FFA_PARTITION_INFO_GET:
+         e = ffa_handle_partition_info_get(get_user_reg(regs, 1),
+                                           get_user_reg(regs, 2),
+@@ -299,11 +291,7 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
+         return true;
+     case FFA_RX_RELEASE:
+         e = ffa_handle_rx_release();
+-        if ( e )
+-            ffa_set_regs_error(regs, e);
+-        else
+-            ffa_set_regs_success(regs, 0, 0);
+-        return true;
++        break;
+     case FFA_MSG_SEND_DIRECT_REQ_32:
+     case FFA_MSG_SEND_DIRECT_REQ_64:
+         handle_msg_send_direct_req(regs, fid);
+@@ -316,17 +304,19 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
+         e = ffa_handle_mem_reclaim(regpair_to_uint64(get_user_reg(regs, 2),
+                                                      get_user_reg(regs, 1)),
+                                    get_user_reg(regs, 3));
+-        if ( e )
+-            ffa_set_regs_error(regs, e);
+-        else
+-            ffa_set_regs_success(regs, 0, 0);
+-        return true;
++        break;
+ 
+     default:
+         gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
+         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+         return true;
+     }
++
++    if ( e )
++        ffa_set_regs_error(regs, e);
++    else
++        ffa_set_regs_success(regs, 0, 0);
++    return true;
+ }
+ 
+ static int ffa_domain_init(struct domain *d)
 -- 
 2.34.1
 
