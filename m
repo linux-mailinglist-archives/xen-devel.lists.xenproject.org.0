@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA8778AD058
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Apr 2024 17:10:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710015.1109085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1796F8AD059
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Apr 2024 17:11:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710016.1109096 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ryvJg-0008Jt-FN; Mon, 22 Apr 2024 15:10:48 +0000
+	id 1ryvK1-0000Ht-O4; Mon, 22 Apr 2024 15:11:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710015.1109085; Mon, 22 Apr 2024 15:10:48 +0000
+Received: by outflank-mailman (output) from mailman id 710016.1109096; Mon, 22 Apr 2024 15:11:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ryvJg-0008Hh-Ci; Mon, 22 Apr 2024 15:10:48 +0000
-Received: by outflank-mailman (input) for mailman id 710015;
- Mon, 22 Apr 2024 15:10:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ryvJf-0008HZ-Bh
- for xen-devel@lists.xenproject.org; Mon, 22 Apr 2024 15:10:47 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ryvJd-0008HR-Df; Mon, 22 Apr 2024 15:10:45 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ryvJd-0005WB-8Y; Mon, 22 Apr 2024 15:10:45 +0000
+	id 1ryvK1-0000FV-Jz; Mon, 22 Apr 2024 15:11:09 +0000
+Received: by outflank-mailman (input) for mailman id 710016;
+ Mon, 22 Apr 2024 15:11:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=B2T4=L3=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1ryvJz-0000Dq-UI
+ for xen-devel@lists.xenproject.org; Mon, 22 Apr 2024 15:11:07 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8a382288-00ba-11ef-b4bb-af5377834399;
+ Mon, 22 Apr 2024 17:11:05 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-418c2bf2f55so30710755e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Apr 2024 08:11:05 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ g9-20020a05600c310900b0041a9fc2a6b5sm282992wmo.20.2024.04.22.08.11.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Apr 2024 08:11:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,86 +45,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=lj9vyG1ap5RuAwEUNaYFKzJcwipzJ4AFEwnoVMl+I04=; b=0+bkxmnfotn8RZYQ15RzeCBsqf
-	4p5zc3zM+2FZzX/kzZinV6chstTjSiY2uznOZI24ChvtyfhmXKiwteIs147euVBuagooesdQSIbLw
-	oXgJ4wDUAdVOJh8MI9AeTVVfSxTl9WihWeAr5SA4eqXd7ZNyZ6kD9EywS0DESWoLgUyM=;
-Message-ID: <29afd327-a66c-4b4e-b076-ee6ecb70807e@xen.org>
-Date: Mon, 22 Apr 2024 16:10:43 +0100
+X-Inumbo-ID: 8a382288-00ba-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1713798665; x=1714403465; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=iJyU5R7I1uk1jopWD76u6zKn/7NGqDHiiOtrW6X7dX0=;
+        b=RI59Eiu0ESyo9h+6t3d66aA6tkT7wbkgQqfqyJbzQmY3ZKLD/gZrqsl/XEzhfdjcDR
+         qFbX8IIpQAwRIuyKROlOiazmlYm6bK3H5OJ3JLivYGRZVeVNvTOnk6VBdnHXn5C653t3
+         6Ll1zrlpE1jYMRr+ZCZPppWbGpTLD33qPQh8g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713798665; x=1714403465;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iJyU5R7I1uk1jopWD76u6zKn/7NGqDHiiOtrW6X7dX0=;
+        b=NP4EnyBQ3EyKd8u2/fZozpxtMrr1+2aAPWTHA+OS4zfEplmX93n/leN9pHlqHAciBr
+         ijWCGzj9sV5dry9ExGTPbSfwtpFZdV5JTTFkEdOKNf2qzcnyGPik+4vW7N2b3Si/u19U
+         /FecUHme41pGgd9LE0WyadBlilaOsiQoffOJA++tkWSrCiQDGgWcnPgeX+OefuLT6EgT
+         74ki9pLCjbA1y90ghMqN07+bW6bBNDWwzpVGQYIn9VdldxN10u7wubF0v4wQc+orC/KQ
+         vbBzVveIDPFgmOiNUPfO/DFx1My6MC8YHUS52sQcsomgdcJUaPnmqlLJNUrHSWRoaxZT
+         rRlw==
+X-Gm-Message-State: AOJu0Yxpu6ZmAsgJoRSNuDQX0ywsPCIBXhZllx3lOdcKW/WOsKygm0uy
+	X0aTp2jLgSlFNodN71D5wTjnbBArI1Zq/afeYn0SViu4msfRIfGORdgJ6QvFxJ++S+WtljUOxAk
+	Z
+X-Google-Smtp-Source: AGHT+IFPbYQKlRM0Hq7QnH04SReEbBZ6AdTXRwqmpbsuiFntzVgJPbZhPYJ2N6kEZ7p0L6QANW3jpQ==
+X-Received: by 2002:a05:600c:350b:b0:418:d4e6:30cf with SMTP id h11-20020a05600c350b00b00418d4e630cfmr7132608wmq.14.1713798665059;
+        Mon, 22 Apr 2024 08:11:05 -0700 (PDT)
+Date: Mon, 22 Apr 2024 16:11:03 +0100
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+	Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH v2 1/3] hotplug: Update block-tap
+Message-ID: <42f1eaef-d804-4816-b746-ee24d860e0f7@perard>
+References: <20240407204953.60442-1-jandryuk@gmail.com>
+ <20240407204953.60442-2-jandryuk@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] public: xen: Define missing guest handle for int32_t
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
-References: <20240417121442.56178-1-michal.orzel@amd.com>
- <be95f6be-0404-4c43-926f-d011782a02db@xen.org>
- <alpine.DEB.2.22.394.2404171148060.2257106@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2404171148060.2257106@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240407204953.60442-2-jandryuk@gmail.com>
 
-Hi Stefano,
+On Sun, Apr 07, 2024 at 04:49:51PM -0400, Jason Andryuk wrote:
+> diff --git a/tools/hotplug/Linux/block-tap b/tools/hotplug/Linux/block-tap
+> index 89247921b9..126e472786 100755
+> --- a/tools/hotplug/Linux/block-tap
+> +++ b/tools/hotplug/Linux/block-tap
+> @@ -18,11 +18,11 @@
+>  #
+>  # Usage:
+>  #
+> -# Target should be specified using the following syntax:
+> +# Disks should be specified using the following syntax:
+>  #
+> -# script=block-tap,vdev=xvda,target=<type>:<file>
+> +# vdev=xvda,backendtype=tap,format=vhd,target=/srv/target.vhd
 
-On 17/04/2024 19:49, Stefano Stabellini wrote:
-> On Wed, 17 Apr 2024, Julien Grall wrote:
->> Hi Michal,
->>
->> On 17/04/2024 13:14, Michal Orzel wrote:
->>> Commit afab29d0882f ("public: s/int/int32_t") replaced int with int32_t
->>> in XEN_GUEST_HANDLE() in memory.h but there is no guest handle defined
->>> for it. This results in a build failure. Example on Arm:
->>>
->>> ./include/public/arch-arm.h:205:41: error: unknown type name
->>> ‘__guest_handle_64_int32_t’
->>>     205 | #define __XEN_GUEST_HANDLE(name)        __guest_handle_64_ ## name
->>>         |                                         ^~~~~~~~~~~~~~~~~~
->>> ./include/public/arch-arm.h:206:41: note: in expansion of macro
->>> ‘__XEN_GUEST_HANDLE’
->>>     206 | #define XEN_GUEST_HANDLE(name)          __XEN_GUEST_HANDLE(name)
->>>         |                                         ^~~~~~~~~~~~~~~~~~
->>> ./include/public/memory.h:277:5: note: in expansion of macro
->>> ‘XEN_GUEST_HANDLE’
->>>     277 |     XEN_GUEST_HANDLE(int32_t) errs;
->>>
->>> Fix it. Also, drop guest handle definition for int given no further use.
->>>
->>> Fixes: afab29d0882f ("public: s/int/int32_t")
->>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> 
->> So it turned out that I committed v1 from Stefano. I was meant to commit the
->> patch at all, but I think I started with a dirty staging :(. Sorry for that.
->>
->> I have reverted Stefano's commit for now so we can take the correct patch.
->>
->> Now, from my understanding, Andrew suggested on Matrix that this solution may
->> actually be a good way to handle GUEST_HANLDEs (they were removed in v2).
->> Maybe this can be folded in Stefano's patch?
-> 
-> v1 together with Michal's fix is correct. Also v2 alone is correct, or
-> v2 with Michal's fix is also correct.
+I still have unanswered question from the previous round:
+    Is `block-tap` still going to work with the current example given in
+    the script header? That is:
+        "script=block-tap,vdev=xvda,target=<type>:<file>"
+    Or maybe, that example is already broken?
 
-I am slightly confused, v2 + Michal's fix means that 
-XEN_GUEST_HANDLE(int) is removed and we introduce XEN_GUEST_INT(int32_t) 
-with no user. So wouldn't this break the build?
+If it's not broken, there could be users which rely on it. But maybe
+it's not really broken, and the new syntax is better anyway.
 
-> 
-> My preference is v2 with Michal's fix, they can be committed as separate
-> patches. Also the others options are fine.
+My guess is that using "script=block-tap,..." might still work, but
+we should say something in the CHANGELOG to encourage people to move to
+the new syntax, with "backendtype=tap" to avoid issues.
 
-I am fine if you want to commit them separately. However, I am not sure 
-your suggestion about using v2 + Michal's fix is actually correct.
 
-Cheers,
+In any case, the patch looks good:
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+
+Thanks,
 
 -- 
-Julien Grall
+Anthony PERARD
 
