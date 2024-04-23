@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 330588ADF98
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 10:20:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710377.1109552 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB7EB8ADFAD
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 10:26:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710380.1109561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzBN9-00014M-QP; Tue, 23 Apr 2024 08:19:27 +0000
+	id 1rzBTI-0002XE-CD; Tue, 23 Apr 2024 08:25:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710377.1109552; Tue, 23 Apr 2024 08:19:27 +0000
+Received: by outflank-mailman (output) from mailman id 710380.1109561; Tue, 23 Apr 2024 08:25:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzBN9-00011A-LS; Tue, 23 Apr 2024 08:19:27 +0000
-Received: by outflank-mailman (input) for mailman id 710377;
- Tue, 23 Apr 2024 08:19:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rzBTI-0002Ve-96; Tue, 23 Apr 2024 08:25:48 +0000
+Received: by outflank-mailman (input) for mailman id 710380;
+ Tue, 23 Apr 2024 08:25:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Nc7B=L4=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rzBN8-000114-WA
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 08:19:27 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3271364b-014a-11ef-909a-e314d9c70b13;
- Tue, 23 Apr 2024 10:19:25 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-41a4f291f9dso14418305e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 01:19:25 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- j13-20020a05600c190d00b00418a386c17bsm23049771wmq.12.2024.04.23.01.19.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Apr 2024 01:19:24 -0700 (PDT)
+ <SRS0=eHxu=L4=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1rzBTH-0002TX-HC
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 08:25:47 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 137d6090-014b-11ef-b4bb-af5377834399;
+ Tue, 23 Apr 2024 10:25:45 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F1F24339;
+ Tue, 23 Apr 2024 01:26:10 -0700 (PDT)
+Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 19B6C3F64C;
+ Tue, 23 Apr 2024 01:25:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,56 +42,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3271364b-014a-11ef-909a-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713860365; x=1714465165; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7mghPUcwmidzZd+YsEtASL+rkxp1mbAIVaNehj1oIds=;
-        b=baLm68iVeP3tzpb8GaqZnEh87W2V7Bk/peS7BAFPB6N5xBPeNjy3uSpKH5Ze/YeiWu
-         WzQTakwZPMbphiisI2ng4WxCAljgTFiZP260uz2TPDfB/ho4I3AVb3+3yOnevL47dzK8
-         WeXwVrxi+lSNjj/Fsut1j5IUxfiXepFcXirdw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713860365; x=1714465165;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7mghPUcwmidzZd+YsEtASL+rkxp1mbAIVaNehj1oIds=;
-        b=eW+K2U17HL5ejG1NQhC4i6MTaRIc0rtddavPobJXCnXdrnwbD9DlJ8qeH6ln9GeFRM
-         x3rgG4SdY8lXfe0fxOQ2Qv495bnda9c6X3yD3rWjS10j6wSed4Zz1SM++cojsSnJdxLH
-         DohPX2c3SpUiTvHk7cRniV9fLtFKdA7Q0qzHog03dUzOM9GarOs5iT4WpaDFYw4Ie1TF
-         G/Z4rl2AYwGIWgp/b4P85lD4XIag1wlRF5Kl+sfs/u8oNxSs1GiQtnlPpRwcFGs9G45h
-         DDcgSxMB3K1LHFR3KCJC1ttpR2sp3FiUkeTlXj5vRz5wn69l3qfo2wEJUTxq4pTRW1UM
-         P5JQ==
-X-Gm-Message-State: AOJu0Yx0C1MKPpTXFzQwKaYV2qJkusejXMRLaqwyLi+2fMOzqFP+iHNY
-	ePH24gKgWkxRlb2fhrOkhM5o7Dl3umG+aEY7UzHpyfaTG+suPHWX/O0LSbupSKk=
-X-Google-Smtp-Source: AGHT+IH4f7+cZ7JoWdOEMSGpcuTSpvPGfPY16rVv32A1blrBxArW5okv8dN7ey9ycODDxbuDVcopyA==
-X-Received: by 2002:a05:600c:190e:b0:418:d91b:f1a3 with SMTP id j14-20020a05600c190e00b00418d91bf1a3mr9416287wmq.38.1713860365239;
-        Tue, 23 Apr 2024 01:19:25 -0700 (PDT)
-Date: Tue, 23 Apr 2024 10:19:24 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Marek Marczykowski <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH] x86/MTRR: correct inadvertently inverted WC check
-Message-ID: <ZidvC8cDwlniIBov@macbook>
-References: <bcdd2e19-b89e-4cb5-86ec-f84e38db2c98@suse.com>
+X-Inumbo-ID: 137d6090-014b-11ef-b4bb-af5377834399
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH 0/7] Static shared memory followup v2 - pt2
+Date: Tue, 23 Apr 2024 09:25:25 +0100
+Message-Id: <20240423082532.776623-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <bcdd2e19-b89e-4cb5-86ec-f84e38db2c98@suse.com>
 
-On Tue, Apr 23, 2024 at 09:51:46AM +0200, Jan Beulich wrote:
-> The ! clearly got lost by mistake.
-> 
-> Fixes: e9e0eb30d4d6 ("x86/MTRR: avoid several indirect calls")
-> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+This serie is a partial rework of this other serie:
+https://patchwork.kernel.org/project/xen-devel/cover/20231206090623.1932275-1-Penny.Zheng@arm.com/
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+The original serie is addressing an issue of the static shared memory feature
+that impacts the memory footprint of other component when the feature is
+enabled, another issue impacts the device tree generation for the guests when
+the feature is enabled and used and the last one is a missing feature that is
+the option to have a static shared memory region that is not from the host
+address space.
 
-Thanks, Roger.
+This serie is handling some comment on the original serie and it is splitting
+the rework in two part, this first part is addressing the memory footprint issue
+and the device tree generation and currently is fully reviewed by Michal
+(https://patchwork.kernel.org/project/xen-devel/cover/20240418073652.3622828-1-luca.fancellu@arm.com/),
+this serie is addressing the static shared memory allocation from the Xen heap.
+
+This serie is meant to be applied on top of:
+https://patchwork.kernel.org/project/xen-devel/cover/20240418073652.3622828-1-luca.fancellu@arm.com/
+where the last patch was amended in favour of:
+https://patchwork.kernel.org/project/xen-devel/patch/20240422110207.204968-1-luca.fancellu@arm.com/
+
+Luca Fancellu (5):
+  xen/arm: Lookup bootinfo shm bank during the mapping
+  xen/arm: Wrap shared memory mapping code in one function
+  xen/arm: Parse xen,shared-mem when host phys address is not provided
+  xen/arm: Rework heap page allocation outside allocate_bank_memory
+  xen/arm: Implement the logic for static shared memory from Xen heap
+
+Penny Zheng (2):
+  xen/p2m: put reference for superpage
+  xen/docs: Describe static shared memory when host address is not
+    provided
+
+ docs/misc/arm/device-tree/booting.txt   |  52 ++-
+ xen/arch/arm/dom0less-build.c           |   4 +-
+ xen/arch/arm/domain_build.c             |  77 +++--
+ xen/arch/arm/include/asm/domain_build.h |   9 +-
+ xen/arch/arm/mmu/p2m.c                  |  58 +++-
+ xen/arch/arm/setup.c                    |   3 +-
+ xen/arch/arm/static-shmem.c             | 430 +++++++++++++++++-------
+ 7 files changed, 463 insertions(+), 170 deletions(-)
+
+-- 
+2.34.1
+
 
