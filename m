@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFC1F8ADE9C
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 09:52:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710355.1109530 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC1A08ADF4F
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 10:04:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710369.1109541 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzAx8-0004qK-SJ; Tue, 23 Apr 2024 07:52:34 +0000
+	id 1rzB8T-0007Rc-GJ; Tue, 23 Apr 2024 08:04:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710355.1109530; Tue, 23 Apr 2024 07:52:34 +0000
+Received: by outflank-mailman (output) from mailman id 710369.1109541; Tue, 23 Apr 2024 08:04:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzAx8-0004nD-P5; Tue, 23 Apr 2024 07:52:34 +0000
-Received: by outflank-mailman (input) for mailman id 710355;
- Tue, 23 Apr 2024 07:52:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rzB8T-0007PD-DC; Tue, 23 Apr 2024 08:04:17 +0000
+Received: by outflank-mailman (input) for mailman id 710369;
+ Tue, 23 Apr 2024 08:04:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ck89=L4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzAx7-0004J6-LF
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 07:52:33 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 710d2e88-0146-11ef-909a-e314d9c70b13;
- Tue, 23 Apr 2024 09:52:32 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-34388753650so2741398f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 00:52:32 -0700 (PDT)
+ id 1rzB8S-0007P7-M6
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 08:04:16 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 133ce626-0148-11ef-b4bb-af5377834399;
+ Tue, 23 Apr 2024 10:04:14 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-41a7820620dso11574325e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 01:04:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g18-20020adfa492000000b0033e9d9f891csm14040548wrb.58.2024.04.23.00.52.31
+ s6-20020a05600c45c600b00418244d459esm19365023wmo.4.2024.04.23.01.04.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 00:52:32 -0700 (PDT)
+ Tue, 23 Apr 2024 01:04:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 710d2e88-0146-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 133ce626-0148-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713858752; x=1714463552; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713859454; x=1714464254; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=G9rlE2qRcwklub8QM9wTuYkKaDz758AuROm+J1/Xnkg=;
-        b=FfqkYB372sgHNxnDQq+Zdgn0Um9Eg8gBbMT41A1diK27OY0s+PCgElbMyQIvA7nHcY
-         N1r5gVWClIBWwcVq/eOQogEmkIkdezNVEPp6PT4mlUGzBsf66X8xDhyiK/VKufUyIDZg
-         xbUyLqYNi+3r0oLWAFFN/u636jgXGXWxo2eKQUR5zzp19Gt/jQEgmi1QMw2qZ5VixOud
-         nosDTNJ8iX7bLrJADhKNUoISAoz4bgpHNlEhtX1Uabt76wtY3g2HK/nVSJv/usrWnJxd
-         HuCBIURQJ0N4p5PePS5plxpaNMUbEPmuqNFPGlZrxP2JHeTxXuMm1RarzviOHPEiKwAu
-         Kvew==
+        bh=t6R7W9vICzR1GrVkYPLfWjAxFw2T8B7UNwPUNyuJglE=;
+        b=R9iAnsnLf/EydypXJ28XzbMn1pJQfjHd+068tE8Gex4N1z2NiDUPJB+oI/XMAZAnq9
+         UyoHrQolnBb8qicMSUE0YMBXadS6tkiHna5vgNDY0BEyrPVuJdUwmxl/TvzOA/GwPkm4
+         0o73Qqd9KgBRLRT78SC/hbdaQY/sGCfz9njx8BMQPkGRYEztTI2IUd1JAGFe4i1wS4GP
+         UfTKW3Xdcc49DztHQiNLLx+tMhU4wG99JWB/Due05jTLoMK2s0SX4U4F4bX57s5WAiTp
+         7wd3f5wqxAbcuNPPxYx+XNvYXLyr2Q9Bg7hc4w9Xq6zfGhCKZJfjdr3c7X1fc7hQl/Pa
+         6Icw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713858752; x=1714463552;
+        d=1e100.net; s=20230601; t=1713859454; x=1714464254;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=G9rlE2qRcwklub8QM9wTuYkKaDz758AuROm+J1/Xnkg=;
-        b=P3oL7Vs9sYVArHYV5qTR/rXLcUW63guxtIVad1pXGt+Lg79HDj4i1YVOK82h3kk+oH
-         3zcFC9ThHpvuL+B9XzH6IYhnpw7bZ5VCGreXAWGYBYp3knMcGcis5Y46EBMERnbGcdx6
-         ZZi0vBTYp2iUftPvT2A2+dI9hN9fyhUN6hgOv+wtTL0NqLpOsqQ76YQyuvFx8DIaSkgW
-         uAnEI5EiHhhb7NIRA+IgXMN4tq9j9VBlmAJWsuhgnGm+0V92bHyr4qhUE4qhHxNo8Wgy
-         yKxXhiY0sz6gJm7W/rp84NmOFqAxl1W7xvhe3tzqH+6YaTizKG5rRoKJu+gXM0tAx9AS
-         cxaw==
-X-Gm-Message-State: AOJu0Yx79fkXtjlaMQ59jYiqudmw37IlMQvTbIak1MscUkz5giZ/XKHi
-	bH6c8zXAUv27Ez4NCHvd6MHhLQTf1KwEI5gn7Gme851obBVKQAuRCdZ60UYAKQ==
-X-Google-Smtp-Source: AGHT+IEeXODWcoco3SRVaAOgPhSIRd4Z+pDusmT2kM0JXQq15aKsJdfzuIba+/qliqZkNXSrKIDU+A==
-X-Received: by 2002:adf:f1c2:0:b0:343:61bb:115d with SMTP id z2-20020adff1c2000000b0034361bb115dmr8255440wro.26.1713858752484;
-        Tue, 23 Apr 2024 00:52:32 -0700 (PDT)
-Message-ID: <63519cb9-58a3-4bc5-9973-6ae68557f1da@suse.com>
-Date: Tue, 23 Apr 2024 09:52:31 +0200
+        bh=t6R7W9vICzR1GrVkYPLfWjAxFw2T8B7UNwPUNyuJglE=;
+        b=orN2Fx1bJvpziSglFufimglv/7okrCpAnOVUanRqF3iWNL8aLK8KZmFwPX9YClz83v
+         yFkHf7l1VO1Rq9S2aw/p5aXXtlHvYE9TXW/2shngSLxJjU8xSvx1avwK1o2jFt0y1Qv0
+         4agJR0/YC7ChawH3doB4C5O4i8tEDamoBIaMQJ/4lWPANxIIhbc7TR5/FdY9r6XX/T8F
+         KigxXVj947M/MhHkr+8eIXYpK9HjknKwAjTjo7wt0AIf8vo8s1JAqPIaw2kcEwJXD0XO
+         xCGdgfLadhyKpnZZ3eBK0puQpecVgFLmKI8Q7GTg7N/u69BRrJlwVjC9N5fRIdYVghM0
+         uMBw==
+X-Forwarded-Encrypted: i=1; AJvYcCVAGznz8nW0MSckJuXq6Ls/ml0pkFK4LX0Ac4KFmlCmmBJ4JfR5CZeTTLtlzLz8dzIUwiDQ9haH7hYLHTnMM/tG7nTLYhY3AffPwMFM1jw=
+X-Gm-Message-State: AOJu0YzsnyKdLdSMpHMqsCSkhnBHfyqEGBzrOIGPdUVk7IZKDVO7Snw2
+	kwtKciKuOQcMPWQGZ3RVv8t2M/ABbHkD0PAgGSgt8znWJnwnSTr1VZ4EacFzbg==
+X-Google-Smtp-Source: AGHT+IFqQ1jFrk/uHf9B5fTK0aK77QhxsZhSIqmrA6LE2PPPQUrJVUo7in6Rn7oFKacFOq2RxNwJpg==
+X-Received: by 2002:a05:600c:35c7:b0:418:5e80:a6fa with SMTP id r7-20020a05600c35c700b004185e80a6famr10092557wmq.14.1713859453919;
+        Tue, 23 Apr 2024 01:04:13 -0700 (PDT)
+Message-ID: <25ed8b89-ea7f-4a2f-ae14-a364da0c6237@suse.com>
+Date: Tue, 23 Apr 2024 10:04:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/MTRR: avoid several indirect calls
+Subject: Re: [PATCH] x86/rtc: Avoid UIP flag being set for longer than
+ expected
 Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <f5c8e38c-66cb-4f21-b66b-056061e37383@suse.com>
- <ZicMFtKob2e-ECxX@mail-itl>
+To: Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20240408162620.1633551-1-ross.lagerwall@citrix.com>
+ <9b94935f-b84c-4ede-ac17-4e1c6d032b74@suse.com>
+ <CAG7k0EqNJsdoZkTPkSZAm1rwCBZMrd5qHSYkRi6y48tu==B_GA@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,25 +114,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZicMFtKob2e-ECxX@mail-itl>
+In-Reply-To: <CAG7k0EqNJsdoZkTPkSZAm1rwCBZMrd5qHSYkRi6y48tu==B_GA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 23.04.2024 03:17, Marek Marczykowski-Górecki wrote:
-> On Wed, Jan 17, 2024 at 10:32:53AM +0100, Jan Beulich wrote:
->> --- a/xen/arch/x86/cpu/mtrr/main.c
->> +++ b/xen/arch/x86/cpu/mtrr/main.c
->> @@ -328,7 +316,7 @@ int mtrr_add_page(unsigned long base, un
->>  	}
->>  
->>  	/*  If the type is WC, check that this processor supports it  */
->> -	if ((type == X86_MT_WC) && !have_wrcomb()) {
->> +	if ((type == X86_MT_WC) && mtrr_have_wrcomb()) {
+On 22.04.2024 18:38, Ross Lagerwall wrote:
+> On Thu, Apr 18, 2024 at 2:24 PM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 08.04.2024 18:26, Ross Lagerwall wrote:
+>>> --- a/xen/arch/x86/hvm/rtc.c
+>>> +++ b/xen/arch/x86/hvm/rtc.c
+>>> @@ -202,6 +202,7 @@ static void check_update_timer(RTCState *s)
+>>>          }
+>>>          else
+>>>          {
+>>> +            s->hw.cmos_data[RTC_REG_A] &= ~RTC_UIP;
+>>>              next_update_time = (USEC_PER_SEC - guest_usec - 244) * NS_PER_USEC;
+>>>              expire_time = NOW() + next_update_time;
+>>>              s->next_update_time = expire_time;
+>>
+>> Is rtc_update_timer2() clearing UIP then still necessary, ahead of calling
+>> here? Hmm, yes, it is; the question is rather why the function calls
+>> check_update_timer() when all that'll do (due to UF now being set) is stop
+>> the other timer (in case it's also running) and clear ->use_timer.
 > 
-> Is reversing the condition intentional here? 
+> Are you suggesting something like this?
+> 
+> diff --git a/xen/arch/x86/hvm/rtc.c b/xen/arch/x86/hvm/rtc.c
+> index 4bb1c7505534..eb4901bf129a 100644
+> --- a/xen/arch/x86/hvm/rtc.c
+> +++ b/xen/arch/x86/hvm/rtc.c
+> @@ -240,7 +240,8 @@ static void cf_check rtc_update_timer2(void *opaque)
+>          s->hw.cmos_data[RTC_REG_C] |= RTC_UF;
+>          s->hw.cmos_data[RTC_REG_A] &= ~RTC_UIP;
+>          rtc_update_irq(s);
+> -        check_update_timer(s);
+> +        stop_timer(&s->update_timer);
+> +        s->use_timer = 0;
+>      }
+>      spin_unlock(&s->lock);
+>  }
+> 
+> That may indeed be an improvement but I'm not sure it is really related
+> to this patch?
 
-Clearly not. Patch sent.
+Well, the connection is the initial question of this part of my earlier
+reply. That's not to say the further change needs (or even wants) doing
+right here. However, upon looking again I get the impression that I was
+mixing up timer and timer2. The code path you alter is one where timer
+is set, not timer2.
+
+Overall:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
-
 
