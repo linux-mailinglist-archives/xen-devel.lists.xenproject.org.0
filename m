@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 928898AE033
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 10:47:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710425.1109640 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 263ED8AE034
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 10:48:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710428.1109651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzBn2-0001Lz-FQ; Tue, 23 Apr 2024 08:46:12 +0000
+	id 1rzBp1-0001uX-Rg; Tue, 23 Apr 2024 08:48:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710425.1109640; Tue, 23 Apr 2024 08:46:12 +0000
+Received: by outflank-mailman (output) from mailman id 710428.1109651; Tue, 23 Apr 2024 08:48:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzBn2-0001KF-Cr; Tue, 23 Apr 2024 08:46:12 +0000
-Received: by outflank-mailman (input) for mailman id 710425;
- Tue, 23 Apr 2024 08:46:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rzBp1-0001ry-OK; Tue, 23 Apr 2024 08:48:15 +0000
+Received: by outflank-mailman (input) for mailman id 710428;
+ Tue, 23 Apr 2024 08:48:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UKuO=L4=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1rzBn0-0001K9-Vv
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 08:46:11 +0000
-Received: from pb-smtp21.pobox.com (pb-smtp21.pobox.com [173.228.157.53])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ebdd5a13-014d-11ef-909a-e314d9c70b13;
- Tue, 23 Apr 2024 10:46:07 +0200 (CEST)
-Received: from pb-smtp21.pobox.com (unknown [127.0.0.1])
- by pb-smtp21.pobox.com (Postfix) with ESMTP id 7296B293A4;
- Tue, 23 Apr 2024 04:46:04 -0400 (EDT)
+ id 1rzBp0-0001rq-E9
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 08:48:14 +0000
+Received: from pb-smtp20.pobox.com (pb-smtp20.pobox.com [173.228.157.52])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 368071bd-014e-11ef-b4bb-af5377834399;
+ Tue, 23 Apr 2024 10:48:12 +0200 (CEST)
+Received: from pb-smtp20.pobox.com (unknown [127.0.0.1])
+ by pb-smtp20.pobox.com (Postfix) with ESMTP id 343F52F507;
+ Tue, 23 Apr 2024 04:48:10 -0400 (EDT)
  (envelope-from sakib@darkstar.site)
-Received: from pb-smtp21.sea.icgroup.com (unknown [127.0.0.1])
- by pb-smtp21.pobox.com (Postfix) with ESMTP id 5D1DB293A3;
- Tue, 23 Apr 2024 04:46:04 -0400 (EDT)
+Received: from pb-smtp20.sea.icgroup.com (unknown [127.0.0.1])
+ by pb-smtp20.pobox.com (Postfix) with ESMTP id 2CACE2F506;
+ Tue, 23 Apr 2024 04:48:10 -0400 (EDT)
  (envelope-from sakib@darkstar.site)
 Received: from localhost (unknown [185.130.54.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by pb-smtp21.pobox.com (Postfix) with ESMTPSA id 4EA622939D;
- Tue, 23 Apr 2024 04:46:00 -0400 (EDT)
+ by pb-smtp20.pobox.com (Postfix) with ESMTPSA id 816562F505;
+ Tue, 23 Apr 2024 04:48:06 -0400 (EDT)
  (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -50,60 +50,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebdd5a13-014d-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 368071bd-014e-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
-	:subject:date:message-id:mime-version:content-transfer-encoding;
-	 s=sasl; bh=Uh4F9no4BIYC1nQL2ejMcfVoDtu9aEa2CEXPvaH2j0Q=; b=ANlo
-	c16bMuYA0Z9Vf/I6uWkcHzNvYUogE59oNXcCcg7H7BGPUuuO1BJRNZ07KcVetI0H
-	vc/LSFHZ5OEzCGGPRVhBBlFXhKU2R4PBgcKdHQoMZs/x9yuRKtUJPuTxXfJ+aZzG
-	mahkcK8pOPYIRkC8W96tx3Vex9uLFnP9c5BHxaI=
+	:subject:date:message-id:in-reply-to:references:mime-version
+	:content-transfer-encoding; s=sasl; bh=tBZw+tTNRdaf6qGurFVkABj1A
+	orbI3wQr6+AHMyDkRk=; b=vPB+e6UJ4L4kKdEv5sFHA4N/zd8WEk9dIy53m6zGk
+	TEfftH13Tik//ZTlNZGbM47qd4/pdaEYvdH/p8hxyGzbdP8O1ytT88JXWgWW60KC
+	GWwlt7u3pX+PVjyQNZ9KEoq5OOEsROptDU6Til96dbcI7wa5exL5iaPI1HIQjGHD
+	Pg=
 From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 To: xen-devel@lists.xenproject.org
 Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [XEN PATCH v1 0/7] x86: make Intel/AMD vPMU & MCE support configurable
-Date: Tue, 23 Apr 2024 11:45:56 +0300
-Message-Id: <cover.1713860310.git.Sergiy_Kibrik@epam.com>
+Subject: [XEN PATCH v1 1/7] x86/vpmu: separate amd/intel vPMU code
+Date: Tue, 23 Apr 2024 11:48:03 +0300
+Message-Id: <a708db7fe06d131256ed2c75f518efce3d078fbb.1713860310.git.Sergiy_Kibrik@epam.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1713860310.git.Sergiy_Kibrik@epam.com>
+References: <cover.1713860310.git.Sergiy_Kibrik@epam.com>
 MIME-Version: 1.0
 X-Pobox-Relay-ID:
- E8E77480-014D-11EF-8AA1-A19503B9AAD1-90055647!pb-smtp21.pobox.com
+ 3421AB46-014E-11EF-8BF4-F515D2CDFF5E-90055647!pb-smtp20.pobox.com
 Content-Transfer-Encoding: quoted-printable
 
-Here's an attempt to further separate support of Intel & AMD CPUs in Xen =
-build.
-The code to drive both platforms used to be built unconditionally, until =
-recent
-introduction of CONFIG_{AMD,INTEL} Kconfig options.
+Build AMD vPMU when CONFIG_AMD is on, and Intel vPMU when CONFIG_INTEL
+is on respectively, allowing for a plaftorm-specific build. Also separate
+arch_vpmu_ops initializers using these options and static inline stubs.
 
-This series extends coverage of these options on vpmu and mcheck subsyste=
-ms,
-that is not building Intel or AMD vpmu/mcheck support if CPU vendor's sup=
-port
-was explicitly disabled.
+No functional change intended.
 
-Sergiy Kibrik (7):
-  x86/vpmu: separate amd/intel vPMU code
-  x86/intel: guard vmce_has_lmce() with INTEL option
-  x86/MCE: guard access to Intel/AMD-specific MCA MSRs
-  x86/MCE: guard lmce_support/cmci_support
-  x86/MCE: guard {intel/amd}_mcheck_init() calls
-  x86/MCE: guard call to Intel-specific intel_get_extended_msrs()
-  x86/MCE: optional build of AMD/Intel MCE code
+Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>
 
- xen/arch/x86/cpu/Makefile           |  4 +++-
- xen/arch/x86/cpu/mcheck/Makefile    |  6 ++----
- xen/arch/x86/cpu/mcheck/mce.c       | 13 ++++++++-----
- xen/arch/x86/cpu/mcheck/non-fatal.c |  6 ++++++
- xen/arch/x86/cpu/mcheck/vmce.c      | 18 +++++++++++-------
- xen/arch/x86/cpu/mcheck/vmce.h      |  1 +
- xen/arch/x86/include/asm/vpmu.h     | 19 +++++++++++++++++++
- xen/arch/x86/msr.c                  |  2 +-
- 8 files changed, 51 insertions(+), 18 deletions(-)
+---
+changes in v1:
+ - switch to CONFIG_{AMD,INTEL} instead of CONFIG_{SVM,VMX}
 
+
+ xen/arch/x86/cpu/Makefile       |  4 +++-
+ xen/arch/x86/include/asm/vpmu.h | 19 +++++++++++++++++++
+ 2 files changed, 22 insertions(+), 1 deletion(-)
+
+diff --git a/xen/arch/x86/cpu/Makefile b/xen/arch/x86/cpu/Makefile
+index 35561fe51d..eafce5f204 100644
+--- a/xen/arch/x86/cpu/Makefile
++++ b/xen/arch/x86/cpu/Makefile
+@@ -10,4 +10,6 @@ obj-y +=3D intel.o
+ obj-y +=3D intel_cacheinfo.o
+ obj-y +=3D mwait-idle.o
+ obj-y +=3D shanghai.o
+-obj-y +=3D vpmu.o vpmu_amd.o vpmu_intel.o
++obj-y +=3D vpmu.o
++obj-$(CONFIG_AMD) +=3D vpmu_amd.o
++obj-$(CONFIG_INTEL) +=3D vpmu_intel.o
+diff --git a/xen/arch/x86/include/asm/vpmu.h b/xen/arch/x86/include/asm/v=
+pmu.h
+index dae9b43dac..e7a8f211f8 100644
+--- a/xen/arch/x86/include/asm/vpmu.h
++++ b/xen/arch/x86/include/asm/vpmu.h
+@@ -11,6 +11,7 @@
+ #define __ASM_X86_HVM_VPMU_H_
+=20
+ #include <public/pmu.h>
++#include <xen/err.h>
+=20
+ #define vcpu_vpmu(vcpu)   (&(vcpu)->arch.vpmu)
+ #define vpmu_vcpu(vpmu)   container_of((vpmu), struct vcpu, arch.vpmu)
+@@ -42,9 +43,27 @@ struct arch_vpmu_ops {
+ #endif
+ };
+=20
++#ifdef CONFIG_INTEL
+ const struct arch_vpmu_ops *core2_vpmu_init(void);
++#else
++static inline const struct arch_vpmu_ops *core2_vpmu_init(void)
++{
++    return ERR_PTR(-ENODEV);
++}
++#endif
++#ifdef CONFIG_AMD
+ const struct arch_vpmu_ops *amd_vpmu_init(void);
+ const struct arch_vpmu_ops *hygon_vpmu_init(void);
++#else
++static inline const struct arch_vpmu_ops *amd_vpmu_init(void)
++{
++    return ERR_PTR(-ENODEV);
++}
++static inline const struct arch_vpmu_ops *hygon_vpmu_init(void)
++{
++    return ERR_PTR(-ENODEV);
++}
++#endif
+=20
+ struct vpmu_struct {
+     u32 flags;
 --=20
 2.25.1
 
