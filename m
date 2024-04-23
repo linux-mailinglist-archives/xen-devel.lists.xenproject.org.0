@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1DEF8AEA0C
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 17:02:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710764.1110211 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1BD68AEA1C
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 17:04:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710771.1110222 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzHfF-0008IU-Pw; Tue, 23 Apr 2024 15:02:33 +0000
+	id 1rzHgi-0000fD-59; Tue, 23 Apr 2024 15:04:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710764.1110211; Tue, 23 Apr 2024 15:02:33 +0000
+Received: by outflank-mailman (output) from mailman id 710771.1110222; Tue, 23 Apr 2024 15:04:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzHfF-0008GA-NL; Tue, 23 Apr 2024 15:02:33 +0000
-Received: by outflank-mailman (input) for mailman id 710764;
- Tue, 23 Apr 2024 15:02:32 +0000
+	id 1rzHgi-0000by-1U; Tue, 23 Apr 2024 15:04:04 +0000
+Received: by outflank-mailman (input) for mailman id 710771;
+ Tue, 23 Apr 2024 15:04:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ck89=L4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzHfE-0008BO-Id
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 15:02:32 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Nc7B=L4=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rzHgf-0000Pu-T2
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 15:04:01 +0000
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [2607:f8b0:4864:20::82e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 826d32f0-0182-11ef-909a-e314d9c70b13;
- Tue, 23 Apr 2024 17:02:31 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-41a7ae25d53so15091505e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 08:02:31 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- q2-20020adff942000000b00346bda84bf9sm14974870wrr.78.2024.04.23.08.02.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 08:02:31 -0700 (PDT)
+ id b75f89c3-0182-11ef-909a-e314d9c70b13;
+ Tue, 23 Apr 2024 17:04:01 +0200 (CEST)
+Received: by mail-qt1-x82e.google.com with SMTP id
+ d75a77b69052e-4365c1451d4so33445641cf.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 08:04:01 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ fu48-20020a05622a5db000b0043781985244sm5256354qtb.59.2024.04.23.08.03.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Apr 2024 08:03:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +44,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 826d32f0-0182-11ef-909a-e314d9c70b13
+X-Inumbo-ID: b75f89c3-0182-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713884551; x=1714489351; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WBWpWKSR0WxPbo83WjVOkNodfd3s6jtoeJvcZtfrHYY=;
-        b=atVWz7drEUuF5sSCOFPLrlT1gt5J+JWfrADZMgn1NtBZlQpJgq0Tgc73l7xqciVPa5
-         q/LjvY9zOVqrfiT3ApzOLV6wh6S5+lffMjdaOQPOFOissR9ivE88B7uljtIaZpaIbEj+
-         zeBkGZRGJB3jw/EY2UT94pqZnBZo2k84xntarWe59isHzuZgDARny4yhgyvdmkndvsYG
-         4AvHltpBhtM2jybcSvhj6u6kTXu1jw2SjJWN4L265225GVCdjxpCFJF9kUTFh1D917PM
-         zcTOjzjTcd8ZxzjfsUfns5bmUfXwH1Zzklsm6xf1ZI0G+LhkrlO5tzwl8IldrbZ3oP9l
-         0XjQ==
+        d=citrix.com; s=google; t=1713884640; x=1714489440; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=6DSngawMOgOuZiT9JFZr/V3Hf+OcJkFuTeqxpbqjVjM=;
+        b=EM4Gy60yF0gi/V1Igl7xmglzI+bkl+mTt7pq8ud2LemZEEtGWmhFC0IVK9aWKq9eku
+         7W2APWxqHSYT1G4Kn/VD0zFK1/E7O/q8TscNEaVlhiNx12BggT7gGpRBxncikufbgTYt
+         PAf4WAM6rUj1rVxNXrq7eZ2gIM4MI5Ec9BxFs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713884551; x=1714489351;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1713884640; x=1714489440;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WBWpWKSR0WxPbo83WjVOkNodfd3s6jtoeJvcZtfrHYY=;
-        b=mwYuRT+cACoZS4Ca2LrU1F0uOHNgzstzosqj9xKvmiT7X8JfKxCLPlqE0hKYkV48++
-         HwHaVrjHo85us43oxbrtAoKp7tqVLrjQP0osN2r+5rgYtR90/3CApPnG359ddukrqRhZ
-         gZ63znS0RJ7+LhHakyp6FzEiO0QKUUC3C+hg9qYS7DMmQ86UNkJUH+KgEwmKtGszUcRw
-         bMeckNkS0IwPsRSzKVg/jfBlxl9tb2c9xLl0wnKovV7uFJfG8nPHuCwhOJUaJxsO1LeP
-         DvHS+4n72qgX637ye79I5iYKf648bYpHtC4D9BGfp1vn2jq3gES7j6xHI3IR4xeUZydd
-         bspA==
-X-Forwarded-Encrypted: i=1; AJvYcCWIYWPgCEFZYVrV6wOH5UKOdIiDbcWBFkxwWgZxjpPU6TscwzqRBUOkblofEFzLtnmG4YrY0OGLxivKjk5Ko5dbxyrCG1SnFLWdiF7/4lc=
-X-Gm-Message-State: AOJu0YzjkcqszG7I03/ZVn/brXw6p2gLfW3yWtLEBx8Roi9gMLfdz+Dl
-	z5joJkEapzRHyByiS1OufXFOPdosvhY8iTk3BEqbCZmd8AjVpfz50dzETQj2cw==
-X-Google-Smtp-Source: AGHT+IE+5MCpadnjcrkQZyrIQQUM5BR1gJTXwoXfF+8cV+5tv7VkbbtQ/1OBflGHDdeadMJfbzNY9g==
-X-Received: by 2002:a05:600c:34cf:b0:41a:21dc:ac2e with SMTP id d15-20020a05600c34cf00b0041a21dcac2emr5644962wmq.18.1713884551324;
-        Tue, 23 Apr 2024 08:02:31 -0700 (PDT)
-Message-ID: <c51c84cc-9b8a-4276-9035-fbd495f4bf49@suse.com>
-Date: Tue, 23 Apr 2024 17:02:30 +0200
+        bh=6DSngawMOgOuZiT9JFZr/V3Hf+OcJkFuTeqxpbqjVjM=;
+        b=hf4STH8gaTB4DGrqBiGQ/XA1UKj4ukEgVDnved1WSid2OTaPLGZLrGuymWv9ZRVGUr
+         ppRTAm/xgMT46haIyoWFov/wATosiFYFa1J7dkgfRDIu74ngn8YvcztyMnOXFJrjli3w
+         r1BXRRifi78uCYMPWa1+h93TTVtJtum74pRqjPBNr6VSPdmljATYgJDRnSepechInStL
+         e87f0ecDzpXySeLWHysPfo2177PMWLfC3jLzsC5zik63UX2gqhs2afGgz3HHEnhNOL3K
+         spfnksT7vPb5kOstnBjB25rrOTlQSJSBNSwt3ibQOZTL3tQZdWqKbet7qFR4uRCBb95U
+         66lA==
+X-Forwarded-Encrypted: i=1; AJvYcCWFMiRsARF2oS6KYwUBOvzkx+YzKMGfgxsqqoCj88tkzXOoy8V8uhvJxxnzpLukOnwbysq7322xmRkf+CfYQGuaJ3bt9Fu2Ii6LW+cx7FQ=
+X-Gm-Message-State: AOJu0YwauCcukvaZ6CqzjR+nG+4fVKXCZqfPAcQUWwMVU724GKbBnA4s
+	HSS7OYEc11e9WxbhHuV0bZVWZp9UyAyYknUoc+b6Z6R8olOSWixQklu5agFYQp8=
+X-Google-Smtp-Source: AGHT+IGuCHWTx29oVk5aDqNrIw5AD02sIsOBHv4ZDczIXlczZCNGvP8E5BbHnxN2Pc8O9r3ojb4bIQ==
+X-Received: by 2002:ac8:5fd2:0:b0:434:feb7:9d77 with SMTP id k18-20020ac85fd2000000b00434feb79d77mr17766088qta.32.1713884640010;
+        Tue, 23 Apr 2024 08:04:00 -0700 (PDT)
+Date: Tue, 23 Apr 2024 17:03:57 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 3/4] livepatch: refuse to resolve symbols that belong
+ to init sections
+Message-ID: <ZifN3YMbYtlv-Aa4@macbook>
+References: <20240423131249.29825-1-roger.pau@citrix.com>
+ <20240423131249.29825-4-roger.pau@citrix.com>
+ <0625d7fd-1554-4d47-a8a5-0d6bfb1fcd56@suse.com>
+ <ZifE_rQhaZNbjIt2@macbook>
+ <46c58aa4-d908-40ff-9c77-e0eacc7e10b6@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] x86/alternative: Replace a continue with a goto
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240422181434.3463252-1-andrew.cooper3@citrix.com>
- <20240422181434.3463252-5-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240422181434.3463252-5-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <46c58aa4-d908-40ff-9c77-e0eacc7e10b6@suse.com>
 
-On 22.04.2024 20:14, Andrew Cooper wrote:
-> A subsequent patch is going to insert a loop, which interferes with the
-> continue in the devirtualisation logic.
+On Tue, Apr 23, 2024 at 04:28:59PM +0200, Jan Beulich wrote:
+> On 23.04.2024 16:26, Roger Pau Monné wrote:
+> > On Tue, Apr 23, 2024 at 03:44:42PM +0200, Jan Beulich wrote:
+> >> On 23.04.2024 15:12, Roger Pau Monne wrote:
+> >>> Livepatch payloads containing symbols that belong to init sections can only
+> >>> lead to page faults later on, as by the time the livepatch is loaded init
+> >>> sections have already been freed.
+> >>>
+> >>> Refuse to resolve such symbols and return an error instead.
+> >>>
+> >>> Note such resolutions are only relevant for symbols that point to undefined
+> >>> sections (SHN_UNDEF), as that implies the symbol is not in the current payload
+> >>> and hence must either be a Xen or a different livepatch payload symbol.
+> >>>
+> >>> Do not allow to resolve symbols that point to __init_begin, as that address is
+> >>> also unmapped.  On the other hand, __init_end is not unmapped, and hence allow
+> >>> resolutions against it.
+> >>>
+> >>> Since __init_begin can alias other symbols (like _erodata for example)
+> >>> allow the force flag to override the check and resolve the symbol anyway.
+> >>>
+> >>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> >>
+> >> In principle, as promised (and just to indicate earlier concerns were
+> >> addressed, as this is meaningless for other purposes)
+> >> Acked-by: Jan Beulich <jbeulich@suse.com>
+> >> However, ...
+> >>
+> >>> @@ -310,6 +311,21 @@ int livepatch_elf_resolve_symbols(struct livepatch_elf *elf)
+> >>>                      break;
+> >>>                  }
+> >>>              }
+> >>> +
+> >>> +            /*
+> >>> +             * Ensure not an init symbol.  Only applicable to Xen symbols, as
+> >>> +             * livepatch payloads don't have init sections or equivalent.
+> >>> +             */
+> >>> +            else if ( st_value >= (uintptr_t)&__init_begin &&
+> >>> +                      st_value <  (uintptr_t)&__init_end && !force )
+> >>> +            {
+> >>> +                printk(XENLOG_ERR LIVEPATCH
+> >>> +                       "%s: symbol %s is in init section, not resolving\n",
+> >>> +                       elf->name, elf->sym[i].name);
+> >>> +                rc = -ENXIO;
+> >>> +                break;
+> >>> +            }
+> >>
+> >> ... wouldn't it make sense to still warn in this case when "force" is set?
+> > 
+> > Pondered it, I was thinking that a user would first run without
+> > --force, and use the option as a result of seeing the first failure.
+> > 
+> > However if there is more than one check that's bypassed, further ones
+> > won't be noticed, so:
+> > 
+> >             else if ( st_value >= (uintptr_t)&__init_begin &&
+> >                       st_value <  (uintptr_t)&__init_end )
+> >             {
+> >                 printk(XENLOG_ERR LIVEPATCH
+> >                        "%s: symbol %s is in init section, not resolving\n",
+> >                        elf->name, elf->sym[i].name);
+> >                 if ( !force )
+> >                 {
+> >                     rc = -ENXIO;
+> >                     break;
+> >                 }
+> >             }
+> > 
+> > Would be OK then?
 > 
-> Replace it with a goto, and a paragraph explaining why we intentionally avoid
-> setting a->priv = 1.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Perhaps. "not resolving" isn't quite true when "force" is true, and warnings
+> would also better not be issued with XENLOG_ERR.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+I was assuming that printing as XENLOG_ERR level would still be OK -
+even if bypassed because of the usage of --force.  The "not resolving"
+part should indeed go away. Maybe this is better:
 
+            else if ( st_value >= (uintptr_t)&__init_begin &&
+                      st_value <  (uintptr_t)&__init_end )
+            {
+                printk("%s" LIVEPATCH "%s: symbol %s is in init section%s\n",
+                       force ? XENLOG_WARNING : XENLOG_ERR,
+                       elf->name, elf->sym[i].name,
+                       force ? "" : ", not resolving");
+                if ( !force )
+                {
+                    rc = -ENXIO;
+                    break;
+                }
+            }
 
+Thanks, Roger.
 
