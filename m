@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BD808AF385
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 18:10:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710903.1110452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60FF18AF396
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 18:11:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710908.1110482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzIii-0000Fc-PG; Tue, 23 Apr 2024 16:10:12 +0000
+	id 1rzIkA-0001Hh-Kf; Tue, 23 Apr 2024 16:11:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710903.1110452; Tue, 23 Apr 2024 16:10:12 +0000
+Received: by outflank-mailman (output) from mailman id 710908.1110482; Tue, 23 Apr 2024 16:11:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzIii-0000Cb-MK; Tue, 23 Apr 2024 16:10:12 +0000
-Received: by outflank-mailman (input) for mailman id 710903;
- Tue, 23 Apr 2024 16:10:11 +0000
+	id 1rzIkA-0001Fi-HL; Tue, 23 Apr 2024 16:11:42 +0000
+Received: by outflank-mailman (input) for mailman id 710908;
+ Tue, 23 Apr 2024 16:11:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ck89=L4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzIih-0000B1-HD
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 16:10:11 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ID6+=L4=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rzIk8-0000jr-Kv
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 16:11:40 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2414::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4f955a1-018b-11ef-b4bb-af5377834399;
- Tue, 23 Apr 2024 18:10:09 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-34b64b7728cso909330f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 09:10:09 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- f11-20020a05600c4e8b00b00417ee886977sm24693795wmq.4.2024.04.23.09.10.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 09:10:08 -0700 (PDT)
+ id 29d8e028-018c-11ef-b4bb-af5377834399;
+ Tue, 23 Apr 2024 18:11:39 +0200 (CEST)
+Received: from CH2PR14CA0009.namprd14.prod.outlook.com (2603:10b6:610:60::19)
+ by MN0PR12MB6365.namprd12.prod.outlook.com (2603:10b6:208:3c2::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.22; Tue, 23 Apr
+ 2024 16:11:35 +0000
+Received: from CH1PEPF0000AD83.namprd04.prod.outlook.com
+ (2603:10b6:610:60:cafe::25) by CH2PR14CA0009.outlook.office365.com
+ (2603:10b6:610:60::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.34 via Frontend
+ Transport; Tue, 23 Apr 2024 16:11:35 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD83.mail.protection.outlook.com (10.167.244.85) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Tue, 23 Apr 2024 16:11:33 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 23 Apr
+ 2024 11:11:23 -0500
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35
+ via Frontend Transport; Tue, 23 Apr 2024 11:11:22 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +59,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4f955a1-018b-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713888609; x=1714493409; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LXTsSpL6xs+pc0ARmlC7FhXdjJtoWTjhbKabMGAzUR8=;
-        b=CSJH5i7KJRr28Vb2Wriln1nWrqeM5Qf0/Of900o9Jd3xYRPnLUqBr8geYwr9xQzCzA
-         RDm9MsY/gN9B46snGRaHK4w1en7TM66lQhJ9pYR6J4OtRLwdLEvnsGfJm+c/1R/68Z06
-         HjAu25mZ6MNGmLy/6bHSM3o26j9OSww+k6iXeE4qk/QNKBKsO4ZS2DqV1NA2dcw8STfq
-         3VFBUXhXDsQgJEUFxA9e9RHnNvSd2wNnMAkV89nb1bNxX6wIsQoyUwt5xMTgJ8voGCwA
-         JpHG/sFi0L/4QKsrq34ebv9Tm+oP3buA3V93pgJa/ue0ntr242f95HmPU7SP8+TqVIU/
-         Tx4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713888609; x=1714493409;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LXTsSpL6xs+pc0ARmlC7FhXdjJtoWTjhbKabMGAzUR8=;
-        b=DMbBHEsjjnJ1e5tGlu5d7GBtqc46D5++zjLYjD3qDEKOqcq2AhRxQpLM9I6r5Lrolb
-         kNDScvQINCJ3i9uhzkwYkFerIcVOWgvLP/eTsMMYQc7DJ277DwcxYL2CKI+63VE3KNXR
-         g/l+dX0FqHoK6thzHHehq9jd4oFNgEsV/iWtGOwwyZ7PX5wTh1TfpQDCpHsUOYdyvjmu
-         FllSBKBDCoTSZvBOhchV0HG86d4WkBqnwNRwL68GFi5wCwiXbrDCzFcagwGaHcJP2DoX
-         nQ3OJUxfrCr/QlYVxT8WcgJfYO7t4sidQmRBIpr+84Wx7rT/0OYeqeeO9ADjRSrjeQHE
-         JuqQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVdWYjMlCbo28Yte5mycNlI77eoB7VDiZpxRKLU7SWLH5iaYMl9m+E7rdGP0kk5LKTldppeHzjXkqi1gFPSlc/NkuilBFNHK8jPH1NJd6Y=
-X-Gm-Message-State: AOJu0YwhwjeHy4WU6IJWfvHU7iSWPk4o+iTJhKRACPfMy22cBJvYwYk9
-	WlIZhb7MmXsZaZfmB2AZz5RuGhmw7+Wdvr0cmWTl9sYZ3cKkJjheHsAn6mJhqQ==
-X-Google-Smtp-Source: AGHT+IFL6f8pLQh7FHEJSd0823wCvl+AADbOwbd0kubW97SV93wFt+d9ADwxLwL8I6q+Z/3EETwOAA==
-X-Received: by 2002:a05:6000:10e:b0:343:ebd4:35a5 with SMTP id o14-20020a056000010e00b00343ebd435a5mr7712229wrx.0.1713888608970;
-        Tue, 23 Apr 2024 09:10:08 -0700 (PDT)
-Message-ID: <691482dd-4803-443a-8e22-c410249e0dfd@suse.com>
-Date: Tue, 23 Apr 2024 18:10:06 +0200
+X-Inumbo-ID: 29d8e028-018c-11ef-b4bb-af5377834399
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZT+T4xvda4xkiSzm+D+W4bJGg+tmH/ifELXmjQmUX3DPd5b3O344OMK5I+O6GmNSt16NmHEk4lOH77ay2TPL+P31HWYqMqxW87xize7TQQztdA32WkA+MtvKC6VVbY6Gq+zcvZYTrCkZROFd9dTwJPZ0TwEUgw8mvqJ+hZg722beqQ4PznWRLL8PqIG3zbB0UQJiN5uB5DKNIxD2srkMV70Gam+KCrPNhW2Lxizy2IXotlfmYY2lDZLpyc5324uli7Jdu0KqWayhD90IxR9CUlvuYtrgWDebgyYTAskzlO1uEW15aNdzOlXu3LJSSid/2G4G+LlN+20IIYZbJXEOxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/5HED4XGgXNT30w9u7EIEfg4awv8EU5XK0kCv9rwuQ0=;
+ b=hlNbYd5qIP4bjdfP6R8zHPc/zPagEc+UJi1Wl2cmRGJgAxAnF5sAIFvSPggGaVXiL6YmQCbwbDD3Dis+LsXKMJvsUGDzZzrlz1ysDLl45EuJ5qDp3y+dX1zYr5iOfzBnY9rNQCGVs3lz6kO2YsisJbnmwaU11SaybUX3pbC/pZ/Y5LjiexZB+I/obhRPTPUzxi2zO2MZ9jd3hh2o+KkmGXmlTOaFdEJBsxUDRX3NBQy62RkrhOHVBn40g/2F2fJ+lxP/7XxhYj1csldaSFpiR2k/ilARbOoGdtnZop0XN9Ou6HKmacX3aXTmqdEDtHUUBNJoMCAzx+j7J8iS3ZEShw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/5HED4XGgXNT30w9u7EIEfg4awv8EU5XK0kCv9rwuQ0=;
+ b=n1hvJ3gfHUvJeP29QZ5QolTzxNIEPaq67MtnEUEojvNdgZClXmZY/aQ4FQgEgHBSe7RpMic3I6fXpq1dg4fHt0xoH9HW23IM4MGEg6Sjvq5Y038GtdmeEm+s3HwNRQq8k+lZ14Wbww4gbmHxTMHiNZ/DzLDr53Scl6Vvxja7Qwc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH 0/3] automation: improve Arm coverage
+Date: Tue, 23 Apr 2024 18:11:18 +0200
+Message-ID: <20240423161121.138536-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] x86: Refactor microcode_update() hypercall with flags
- field
-Content-Language: en-US
-To: Fouad Hilly <fouad.hilly@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240405121128.260493-1-fouad.hilly@cloud.com>
- <20240405121128.260493-3-fouad.hilly@cloud.com>
- <f789bf74-8296-4127-9612-a46d02a422ee@suse.com>
- <CAJKAvHYEBabwDG36QtBkTGhym6m-uypZhv1HzaGhNuCKQnu1wA@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAJKAvHYEBabwDG36QtBkTGhym6m-uypZhv1HzaGhNuCKQnu1wA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD83:EE_|MN0PR12MB6365:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e2899a0-3fbd-4f4d-6e79-08dc63b00b7c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|36860700004|82310400014|376005|1800799015;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?SzXVKFe9E1cBHAMlvuEVpJaHMn9Wl60jZrGmRIQH6AGnaa6Af+y+HeHz255N?=
+ =?us-ascii?Q?Z3KHMNGKBXbFyXj4OnasfVW9VWsuANoYoHS0ULm+dhurORlUWT22jwlgGv4X?=
+ =?us-ascii?Q?gmQVk5u4pfN58TX26J3j0C/W1z7KLT6zDwIurCnk0Tnfd/UUlKlqBE1f6FPq?=
+ =?us-ascii?Q?3fbfnNGjLiHfgQf3ULqgpLZEQsRzCo7GlUiUXr2cPJrjkiFedntfE/Rd94Lm?=
+ =?us-ascii?Q?z2oFwslkEQscjqUTETWeizvpt9XiPtsdF+5Z3cAbUnphvPcLo7TUwCR7nbDO?=
+ =?us-ascii?Q?yAKA8O6x+Fd51mOx1PPiZTpktb41XZv+KCHY/R5WSQPDNkN7mEPJPgQk7ERr?=
+ =?us-ascii?Q?ps1i9yWFxK59NBHq8jiO3RaK0Hi3Tc8Bts98c1wW+NPgHxxdzpdyZwQrBuF6?=
+ =?us-ascii?Q?2Znq4YYprSoZ6MiKiXrn405bJUdLYKj+8O/vAefMhYRT2V/EKjLAuxpS+8Ek?=
+ =?us-ascii?Q?ti3SpjL8HhVf2GjeDJuZr0zoMh8V1fjZLpq17SU+3koIICoIfeXlOGr4W6T/?=
+ =?us-ascii?Q?o0qAy2FS2f4emWjl6GGBGkfMl/Iuo7Kq5ZgBcveCdlkDjOIuGPsIIyR0QLLM?=
+ =?us-ascii?Q?lJwvlgSVQ+51xcQsz+4GDyeFzhASUbG0bkLuHMfngKEpjaJKBzLCke/lvKfi?=
+ =?us-ascii?Q?A7s8EUKl7D7DgRDm7CjfPrYD7EuxToTexsWGd0ROU7GIPIdhql69Hu2juyCd?=
+ =?us-ascii?Q?WYlDoPDgyrcxu+9zE8nenuyircJLWSEbf87cRTRn4rsQWoVA8kOFfTAExrWG?=
+ =?us-ascii?Q?m4LBfYdxq8o2xo+uG2FFjQqulypTOk/Uz6DgOokX9XXCxK8cg7FcJLfCwwbb?=
+ =?us-ascii?Q?ZsaOs/2LCWWqrQGs+uFTji80NIVw37WDftvLehMVZoF+6PrJq9oOaI6PMWv3?=
+ =?us-ascii?Q?lBCCE1Cro3wm3BbfPKWsxYnbmRfML0SBdvjoZZyEfOCuJ5sOt85PMyojsw0L?=
+ =?us-ascii?Q?CItaqqK1OfZFCtlifUCXuXGzQLd6PlJ4CDF7TON7yNa7H00sk0QdrdVu2Q0F?=
+ =?us-ascii?Q?ze6zbNl39KRhBKFVJtcQxV9UFI6YnQh1fm2YkCPiTvRe3asHtVS9z4xkbeJW?=
+ =?us-ascii?Q?RGuME9/9zAJvdOC3R1QnjH4bS95x+ENyyZhTe3wB/XgOaOthNgxWw+XtNQnH?=
+ =?us-ascii?Q?Uaz+9VZr2U1Fu2jXK12/hXJtCnOGMqfmYQDw8fySCeOxGF6S6t8BJPouHcp1?=
+ =?us-ascii?Q?okZMGRj2xG/w+HmUFpJsrz1ZoT1Oy7ij0cXuu0VdfLWY2Q+w3Y7dyhII96y+?=
+ =?us-ascii?Q?ZBGdItfo83zyig6ChlPB2jiNylfILffv98yA4wP8ieRKjeTM7zemV6K5LWkd?=
+ =?us-ascii?Q?UkvsI4h2jaSMEOB9YVVbCdnbUmkqk8pEt0JHQqKrksNotZWuvew+VaWrimMZ?=
+ =?us-ascii?Q?BxUgG24=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400014)(376005)(1800799015);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2024 16:11:33.7240
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e2899a0-3fbd-4f4d-6e79-08dc63b00b7c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD83.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6365
 
-On 23.04.2024 16:53, Fouad Hilly wrote:
-> On Mon, Apr 8, 2024 at 10:16 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 05.04.2024 14:11, Fouad Hilly wrote:
->>> @@ -708,11 +712,13 @@ static long cf_check microcode_update_helper(void *data)
->>>      return ret;
->>>  }
->>>
->>> -int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len)
->>> +int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len, unsigned int flags)
->>>  {
->>>      int ret;
->>>      struct ucode_buf *buffer;
->>>
->>> +    ucode_force_flag = (flags == XENPF_UCODE_FLAG_FORCE_SET)? 1: 0;
->>
->> No need for ?: when the lhs has type bool.
->>
->> But - do we really need to resort to parameter passing via static variables
->> here? If it's unavoidable, its setting needs to move inside a locked region
->> (with that region covering everything up to all consumption of the value).
-> There are many function calls and checks of the firmware between
-> microcode_update() and the actual update, which makes static variable
-> the viable option.
-> In V2 I broke it down between the actual update_flags (static) and
-> force_flag (local to firmware update function), I understand that
-> might not be enough, I will look into further improvement for
-> microcode_update flags in V3.
->>
->> Further, to avoid the same issue again when another flag wants adding, you
->> want to check that all other bits in the flags field are clear.
-> The above check is checking all bits in the flags field. Are you
-> referring to flag per bit where multiple flags can be set
-> simultaneously?
+This came up as part of the following discussion:
+https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2402291108290.853156@ubuntu-linux-20-04-desktop/
 
-No. What you do is treat a flags value of, say, 2 the same as a flags
-value of 0. That's wrong when considering that the value 2 may gain a
-meaning going forward. At this point you want to refuse flags values
-other than 0 or 1.
+Michal Orzel (3):
+  automation: Drop some of the non-debug variants of the same Arm jobs
+  automation: Add arm{64,32} earlyprintk jobs
+  automation: Add arm64 test for running Xen with GICv3
 
-Jan
+ automation/gitlab-ci/build.yaml               | 41 ++++----------
+ automation/gitlab-ci/test.yaml                | 56 ++++++-------------
+ .../scripts/qemu-smoke-dom0less-arm32.sh      |  7 +++
+ .../scripts/qemu-smoke-dom0less-arm64.sh      | 24 ++++++--
+ 4 files changed, 52 insertions(+), 76 deletions(-)
+
+-- 
+2.25.1
+
 
