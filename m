@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 270508AE04F
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 10:52:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710436.1109671 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF9448AE052
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 10:54:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710440.1109681 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzBt7-0003rF-Hd; Tue, 23 Apr 2024 08:52:29 +0000
+	id 1rzBv8-0004pu-SH; Tue, 23 Apr 2024 08:54:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710436.1109671; Tue, 23 Apr 2024 08:52:29 +0000
+Received: by outflank-mailman (output) from mailman id 710440.1109681; Tue, 23 Apr 2024 08:54:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzBt7-0003og-EX; Tue, 23 Apr 2024 08:52:29 +0000
-Received: by outflank-mailman (input) for mailman id 710436;
- Tue, 23 Apr 2024 08:52:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzBv8-0004na-PI; Tue, 23 Apr 2024 08:54:34 +0000
+Received: by outflank-mailman (input) for mailman id 710440;
+ Tue, 23 Apr 2024 08:54:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UKuO=L4=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1rzBt5-0003oV-IV
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 08:52:27 +0000
+ id 1rzBv7-0004kK-F3
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 08:54:33 +0000
 Received: from pb-smtp20.pobox.com (pb-smtp20.pobox.com [173.228.157.52])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cdf14cdf-014e-11ef-b4bb-af5377834399;
- Tue, 23 Apr 2024 10:52:25 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1925f680-014f-11ef-909a-e314d9c70b13;
+ Tue, 23 Apr 2024 10:54:32 +0200 (CEST)
 Received: from pb-smtp20.pobox.com (unknown [127.0.0.1])
- by pb-smtp20.pobox.com (Postfix) with ESMTP id 089E42F571;
- Tue, 23 Apr 2024 04:52:24 -0400 (EDT)
+ by pb-smtp20.pobox.com (Postfix) with ESMTP id 76ED42F58C;
+ Tue, 23 Apr 2024 04:54:30 -0400 (EDT)
  (envelope-from sakib@darkstar.site)
 Received: from pb-smtp20.sea.icgroup.com (unknown [127.0.0.1])
- by pb-smtp20.pobox.com (Postfix) with ESMTP id 00B522F570;
- Tue, 23 Apr 2024 04:52:24 -0400 (EDT)
+ by pb-smtp20.pobox.com (Postfix) with ESMTP id 6F3552F58B;
+ Tue, 23 Apr 2024 04:54:30 -0400 (EDT)
  (envelope-from sakib@darkstar.site)
 Received: from localhost (unknown [185.130.54.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by pb-smtp20.pobox.com (Postfix) with ESMTPSA id 752212F56F;
- Tue, 23 Apr 2024 04:52:20 -0400 (EDT)
+ by pb-smtp20.pobox.com (Postfix) with ESMTPSA id E65F52F588;
+ Tue, 23 Apr 2024 04:54:26 -0400 (EDT)
  (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -50,14 +50,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdf14cdf-014e-11ef-b4bb-af5377834399
+X-Inumbo-ID: 1925f680-014f-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
 	:subject:date:message-id:in-reply-to:references:mime-version
-	:content-transfer-encoding; s=sasl; bh=S1rwCtNYMTM6b7pGJJ8grguoV
-	77WucEJ1NnbYDjwq30=; b=x+nWwy8vZGgQ662bifcMeCFlB6UAPDjpKka1g8OqA
-	LzvCuebQ7lPmAdyZMRSTJIjV/DEGLqb551EPsp1iCsbZZ+cCPWwPEZM6/njNJ4l0
-	RUdW1lpG4sT9PdwOoEscAKZdXLZ9T3EZ76VcuadNSXDEgbY0DMtSL+ylPRhej8aN
-	UI=
+	:content-transfer-encoding; s=sasl; bh=qBdCaQo8xXPRL9koiygD4Doyw
+	FZCckSSqeafkQGDihU=; b=WCbm9Gvv8A5FY/iF7cCg5LLERujQJjvAcQ7N4+Dt3
+	vqIta6Fh56FnKa8UtNPKzhLjZANpOdRqMvbn+C8YgYVkN6UpTLWfPuth1CEP8kvn
+	trXWAn04JfsQlWO2FNsN3Mo7QvrUcAaTe+xQgo6yojDA4nh0UfMpP8+nOcsw2X8n
+	pc=
 From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 To: xen-devel@lists.xenproject.org
 Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
@@ -65,68 +65,68 @@ Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [XEN PATCH v1 3/7] x86/MCE: guard access to Intel/AMD-specific MCA MSRs
-Date: Tue, 23 Apr 2024 11:52:17 +0300
-Message-Id: <d187db984b9b5413d73849594985e10c2c2fdc03.1713860310.git.Sergiy_Kibrik@epam.com>
+Subject: [XEN PATCH v1 4/7] x86/MCE: guard lmce_support/cmci_support
+Date: Tue, 23 Apr 2024 11:54:23 +0300
+Message-Id: <d5fa50b3056b96f3046be39ed682a8b347f1b425.1713860310.git.Sergiy_Kibrik@epam.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1713860310.git.Sergiy_Kibrik@epam.com>
 References: <cover.1713860310.git.Sergiy_Kibrik@epam.com>
 MIME-Version: 1.0
 X-Pobox-Relay-ID:
- CB7F013C-014E-11EF-A908-F515D2CDFF5E-90055647!pb-smtp20.pobox.com
+ 16E01ED6-014F-11EF-9FC5-F515D2CDFF5E-90055647!pb-smtp20.pobox.com
 Content-Transfer-Encoding: quoted-printable
 
-Add build-time checks for newly introduced INTEL/AMD config options when
-calling vmce_{intel/amd}_{rdmsr/wrmsr}() routines.
-This way a platform-specific code can be omitted in vmce code, if this
-platform is disabled in config.
+Guard access to Intel-specific lmce_support & cmci_support variables in
+common MCE/VMCE code. These are set in Intel-specific parts of mcheck cod=
+e
+and can potentially be skipped if building for non-intel platform by
+disabling CONFIG_INTEL option.
 
 Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 ---
- xen/arch/x86/cpu/mcheck/vmce.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ xen/arch/x86/cpu/mcheck/mce.c  | 4 ++--
+ xen/arch/x86/cpu/mcheck/vmce.c | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.=
+c
+index 2844685983..72dfaf28cb 100644
+--- a/xen/arch/x86/cpu/mcheck/mce.c
++++ b/xen/arch/x86/cpu/mcheck/mce.c
+@@ -611,7 +611,7 @@ static void set_poll_bankmask(struct cpuinfo_x86 *c)
+     mb =3D per_cpu(poll_bankmask, cpu);
+     BUG_ON(!mb);
+=20
+-    if ( cmci_support && opt_mce )
++    if ( IS_ENABLED(CONFIG_INTEL) && cmci_support && opt_mce )
+     {
+         const struct mca_banks *cmci =3D per_cpu(no_cmci_banks, cpu);
+=20
+@@ -1607,7 +1607,7 @@ long do_mca(XEN_GUEST_HANDLE_PARAM(xen_mc_t) u_xen_=
+mc)
+             break;
+=20
+         case XEN_MC_INJECT_TYPE_LMCE:
+-            if ( !lmce_support )
++            if ( IS_ENABLED(CONFIG_INTEL) && !lmce_support )
+             {
+                 ret =3D x86_mcerr("No LMCE support", -EINVAL);
+                 break;
 diff --git a/xen/arch/x86/cpu/mcheck/vmce.c b/xen/arch/x86/cpu/mcheck/vmc=
 e.c
-index c437f62c0a..be229684a4 100644
+index be229684a4..6051ab2b2e 100644
 --- a/xen/arch/x86/cpu/mcheck/vmce.c
 +++ b/xen/arch/x86/cpu/mcheck/vmce.c
-@@ -141,12 +141,14 @@ static int bank_mce_rdmsr(const struct vcpu *v, uin=
-t32_t msr, uint64_t *val)
-         case X86_VENDOR_CENTAUR:
-         case X86_VENDOR_SHANGHAI:
-         case X86_VENDOR_INTEL:
--            ret =3D vmce_intel_rdmsr(v, msr, val);
-+            ret =3D IS_ENABLED(CONFIG_INTEL) ?
-+                  vmce_intel_rdmsr(v, msr, val) : -ENODEV;
-             break;
+@@ -546,7 +546,7 @@ int vmce_enable_mca_cap(struct domain *d, uint64_t ca=
+p)
 =20
-         case X86_VENDOR_AMD:
-         case X86_VENDOR_HYGON:
--            ret =3D vmce_amd_rdmsr(v, msr, val);
-+            ret =3D IS_ENABLED(CONFIG_AMD) ?
-+                  vmce_amd_rdmsr(v, msr, val) : -ENODEV;
-             break;
-=20
-         default:
-@@ -272,12 +274,14 @@ static int bank_mce_wrmsr(struct vcpu *v, uint32_t =
-msr, uint64_t val)
-         switch ( boot_cpu_data.x86_vendor )
-         {
-         case X86_VENDOR_INTEL:
--            ret =3D vmce_intel_wrmsr(v, msr, val);
-+            ret =3D IS_ENABLED(CONFIG_INTEL) ?
-+                  vmce_intel_wrmsr(v, msr, val) : -ENODEV;
-             break;
-=20
-         case X86_VENDOR_AMD:
-         case X86_VENDOR_HYGON:
--            ret =3D vmce_amd_wrmsr(v, msr, val);
-+            ret =3D IS_ENABLED(CONFIG_AMD) ?
-+                  vmce_amd_wrmsr(v, msr, val) : -ENODEV;
-             break;
-=20
-         default:
+     if ( cap & XEN_HVM_MCA_CAP_LMCE )
+     {
+-        if ( !lmce_support )
++        if ( IS_ENABLED(CONFIG_INTEL) && !lmce_support )
+             return -EINVAL;
+         for_each_vcpu(d, v)
+             v->arch.vmce.mcg_cap |=3D MCG_LMCE_P;
 --=20
 2.25.1
 
