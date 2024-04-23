@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 998078AE9E5
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 16:56:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710744.1110162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7158F8AE9FF
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 17:00:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710750.1110172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzHZG-0002zF-9L; Tue, 23 Apr 2024 14:56:22 +0000
+	id 1rzHcR-0005FN-MB; Tue, 23 Apr 2024 14:59:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710744.1110162; Tue, 23 Apr 2024 14:56:22 +0000
+Received: by outflank-mailman (output) from mailman id 710750.1110172; Tue, 23 Apr 2024 14:59:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzHZG-0002wv-5y; Tue, 23 Apr 2024 14:56:22 +0000
-Received: by outflank-mailman (input) for mailman id 710744;
- Tue, 23 Apr 2024 14:56:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6olb=L4=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1rzHZE-0002vM-PD
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 14:56:20 +0000
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [2607:f8b0:4864:20::c29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a399e498-0181-11ef-b4bb-af5377834399;
- Tue, 23 Apr 2024 16:56:18 +0200 (CEST)
-Received: by mail-oo1-xc29.google.com with SMTP id
- 006d021491bc7-5af2d0a53f5so534170eaf.0
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 07:56:18 -0700 (PDT)
+	id 1rzHcR-0005Cb-J4; Tue, 23 Apr 2024 14:59:39 +0000
+Received: by outflank-mailman (input) for mailman id 710750;
+ Tue, 23 Apr 2024 14:59:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ck89=L4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rzHcP-0005BY-IX
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 14:59:37 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 19cd403f-0182-11ef-909a-e314d9c70b13;
+ Tue, 23 Apr 2024 16:59:36 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-41adf3580dbso1586275e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 07:59:36 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ b7-20020adff907000000b0034b3394f0e1sm4327148wrr.10.2024.04.23.07.59.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Apr 2024 07:59:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,211 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a399e498-0181-11ef-b4bb-af5377834399
+X-Inumbo-ID: 19cd403f-0182-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1713884177; x=1714488977; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9BJRmR5O6zt8JFb8eq3u2PJtEjkEhAJOUkV1zBxcWX0=;
-        b=q/pPuwu4DhSJUTL8KRPumJfXrEXobqbLmtyfI529OjcwOYNFN5toU0yrwZNjPXj1QU
-         o9+h6FvjgcUM8MEmJggXbnpSZryHCaTLJXhhmHaOO/wGEGSFp+M5e6quesfWCoVilt6Q
-         AJQhfJLrj1TaMcwhtVqi1kQF7F1eI3j+ma9LeWTyG0ErWdexf6e7frGxAaEMKdZ5D2/w
-         R/iw3o5eft7fCj49PpzuX33Cqxg1lPscYNrL70rDLpAT3aETkdPcP4wK33yeEBDL3GKx
-         5twr1prE8au/ZzQ2qb+LJBLdweyhui+IAe6m261mbNTcXJKWweV2PAnKEztyHISD55SJ
-         DxCw==
+        d=suse.com; s=google; t=1713884376; x=1714489176; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=hIHrnErZ7OOglAOjL9WjrTxuohtA+jXYvSjBDzTnG08=;
+        b=FK+7udYFqNsWCU1MEfeWE2B2jdtjGyGV5wMJcugCDn2wu9pVCq3FoiVvZKE9Q5+ATd
+         39Kxn8NpPjQsFrHvvOxJ3KWNTkhqpHxCyI8KBze+Uc1zRVpwB2t6qd+0CtSYbCBMI7Xg
+         oLZGudI4TDDvC7TQ1Sr7lVNraPiJt+44lPF8HqI/6a8RgqY8u3zh4syuptiFNm8Isgep
+         XkERjeREI5WuiAkRQ03mtfhk0Uv3J+jt+DU7rb9FiKeiQKxLcYixh6cnEpkhQTTX8mQY
+         lURJZBkyfJUoJBXi2f5fdsK0ISoZ41YbiWuxqhri9P4eNH79z40f9nC9JfF8P4VdI8LM
+         DBfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713884177; x=1714488977;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9BJRmR5O6zt8JFb8eq3u2PJtEjkEhAJOUkV1zBxcWX0=;
-        b=pDKiqKqQvq6VOAdc7xvscOjxJf5u6Pu1e604sVvIuj2z/H8XnGqpc47aZdOBgdSFTI
-         1009nHjyV2n0btjkygxToQDQcTdLOBIVT2XFdv79rKpxNcUP4tDYiIypVvKeSANdYxJG
-         N5mvMJ0rwlxTZAA+iB4ThGUp+lEIGDcnN3ZpRg+NxNUbfMhckC3Uh4WS/ImAmGkNlIVO
-         CgjDnShsxgKFL2IFyCbTcSFQumR1cIYNa+j1cGkvWBvJVOdFUQgunO7WbTdP1OdelgAW
-         s5JEkhiTh/YsysNdWXd9swkauBnffyB5JHSK+EiJsjjMaVhkiHcnLCiG8BVIP9rJiLWf
-         cbfA==
-X-Gm-Message-State: AOJu0YzB8elkCLtXCd5OsBqmvyUeO811JGDF55C41J4GstWq4220VQVm
-	dgVI/gFueKO4bbXn5MYTLRUmaXJZth15KE0Jnpk/u+pz6WnqzDt6BftJECTx4m5/WDqZWI39Vbk
-	L5iClp7hK93lcBfbtQnEdN8SxA9SafQaVbMsXag==
-X-Google-Smtp-Source: AGHT+IEQ5/2gkXNRDpWyezKzOPVBVyRsbgetd9tctveo9J6e/obX+sfaO7ui9jV2F7UlAzpkEhxEZ9OkVLROMW76L6U=
-X-Received: by 2002:a05:6820:280a:b0:5aa:6b6a:62c with SMTP id
- dm10-20020a056820280a00b005aa6b6a062cmr1214824oob.2.1713884177424; Tue, 23
- Apr 2024 07:56:17 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1713884376; x=1714489176;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hIHrnErZ7OOglAOjL9WjrTxuohtA+jXYvSjBDzTnG08=;
+        b=H5uAFdS589aU8X4rPbAePT87JPDPSX9IpdJCVB60uLhie5vbgRIHuezW/cE1e3P+zq
+         zO0ULxZ3CPm5YFV8GAHfLZ3rH+6YEKFNN+0OBCcgTsbS/DIb1XiHcQm2DHqdo6anxuAV
+         d5anUmnXKCRLLOF5zJSgO+Pj8qUwzIOifqX8Fh73t6TwK/hHbwyExk6HB1Kvfhrxv5rL
+         S2//RCSN8fQVeDT649T6b55YlOS63L5mr8tmQfWyQwCH9RQiijTqVyxUCozdAozH3c8Q
+         3OlV9BX6rA+UL9uoqJXekhEo5C3N0jbR4wlg6+zlw1effiomvd4DYMVvRH81bCHWE1pc
+         mVVA==
+X-Forwarded-Encrypted: i=1; AJvYcCVFXg5gVa0bak2ZROldo2/Q4V9qFdXAt/DZtxUjJJNe7rKIlaL/eqCnfq9UCyboDKpuNV/1k7laklr6ptdUBdhYaHmxN8vuR2gbEeVA6f8=
+X-Gm-Message-State: AOJu0YwJ6thNFlY2wNevRZ96N4RkV2Y+CFnVR8qMyzqxqTgiYT1QX5R6
+	mKE8Z3X5KS9uucs8823LfneHLFqBsWlOwvujRuEcDfIivHnkx18z3qtXWB6eLN8K7f6xh3CDySs
+	=
+X-Google-Smtp-Source: AGHT+IHGNYQJTMr0ffnI7y8CYhNgiWXq54adSQfYtm5VRhmkp7OEAkfp2uvjMrWvyeNtEd54h3UV8A==
+X-Received: by 2002:a05:600c:314b:b0:418:f6e7:3599 with SMTP id h11-20020a05600c314b00b00418f6e73599mr2203633wmo.3.1713884375748;
+        Tue, 23 Apr 2024 07:59:35 -0700 (PDT)
+Message-ID: <b0412697-d258-447a-9470-09590744c2c9@suse.com>
+Date: Tue, 23 Apr 2024 16:59:34 +0200
 MIME-Version: 1.0
-References: <20240422073708.3663529-1-jens.wiklander@linaro.org>
- <20240422073708.3663529-5-jens.wiklander@linaro.org> <89d268cc-bc49-4e22-b4e9-2e8dbe73124c@xen.org>
- <CAHUa44GAbBtczbVohVjC=66tqzjgeGLx44k9ddodDJL13KwVEQ@mail.gmail.com> <205a95f2-fdf6-4f38-b2e0-31e4fff9348b@xen.org>
-In-Reply-To: <205a95f2-fdf6-4f38-b2e0-31e4fff9348b@xen.org>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 23 Apr 2024 16:56:06 +0200
-Message-ID: <CAHUa44FbUDRkha9tCfTjFPU-X4xiNepZfWMrtBNP4d_U-_hp3g@mail.gmail.com>
-Subject: Re: [XEN PATCH v2 4/5] xen/arm: allow dynamically assigned SGI handlers
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, patches@linaro.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] x86/alternative: Relocate all insn-relative fields
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240422181434.3463252-1-andrew.cooper3@citrix.com>
+ <20240422181434.3463252-6-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240422181434.3463252-6-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Apr 23, 2024 at 1:05=E2=80=AFPM Julien Grall <julien@xen.org> wrote=
-:
->
->
->
-> On 23/04/2024 10:35, Jens Wiklander wrote:
-> > Hi Julien,
->
-> Hi Jens,
->
-> > On Mon, Apr 22, 2024 at 12:57=E2=80=AFPM Julien Grall <julien@xen.org> =
-wrote:
-> >>
-> >> Hi Jens,
-> >>
-> >> On 22/04/2024 08:37, Jens Wiklander wrote:
-> >>> Updates so request_irq() can be used with a dynamically assigned SGI =
-irq
-> >>> as input. This prepares for a later patch where an FF-A schedule
-> >>> receiver interrupt handler is installed for an SGI generated by the
-> >>> secure world.
-> >>
-> >> I would like to understand the use-case a bit more. Who is responsible
-> >> to decide the SGI number? Is it Xen or the firmware?
-> >>
-> >> If the later, how can we ever guarantee the ID is not going to clash
-> >> with what the OS/hypervisor is using? Is it described in a
-> >> specification? If so, please give a pointer.
-> >
-> > The firmware decides the SGI number. Given that the firmware doesn't
-> > know which SGIs Xen is using it typically needs to donate one of the
-> > secure SGIs, but that is transparent to Xen.
->
-> Right this is my concern. The firmware decides the number, but at the
-> same time Xen thinks that all the SGIs are available (AFAIK there is
-> only one set).
->
-> What I would like to see is some wording from a spec indicating that the
-> SGIs ID reserved by the firmware will not be clashing with the one used
-> by Xen.
->
-> >
-> >
-> >>
-> >>>
-> >>> gic_route_irq_to_xen() don't gic_set_irq_type() for SGIs since they a=
-re
-> >>> always edge triggered.
-> >>>
-> >>> gic_interrupt() is updated to route the dynamically assigned SGIs to
-> >>> do_IRQ() instead of do_sgi(). The latter still handles the statically
-> >>> assigned SGI handlers like for instance GIC_SGI_CALL_FUNCTION.
-> >>>
-> >>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-> >>> ---
-> >>> v1->v2
-> >>> - Update patch description as requested
-> >>> ---
-> >>>    xen/arch/arm/gic.c | 5 +++--
-> >>>    xen/arch/arm/irq.c | 7 +++++--
-> >>
-> >> I am not sure where to write the comment. But I think the comment on t=
-op
-> >> of irq_set_affinity() in setup_irq() should also be updated.
-> >>
-> >>>    2 files changed, 8 insertions(+), 4 deletions(-)
-> >>>
-> >>> diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-> >>> index 44c40e86defe..e9aeb7138455 100644
-> >>> --- a/xen/arch/arm/gic.c
-> >>> +++ b/xen/arch/arm/gic.c
-> >>> @@ -117,7 +117,8 @@ void gic_route_irq_to_xen(struct irq_desc *desc, =
-unsigned int priority)
-> >>>
-> >>>        desc->handler =3D gic_hw_ops->gic_host_irq_type;
-> >>>
-> >>> -    gic_set_irq_type(desc, desc->arch.type);
-> >>> +    if ( desc->irq >=3D NR_GIC_SGI)
-> >>> +        gic_set_irq_type(desc, desc->arch.type);
-> >>
-> >> So above, you say that the SGIs are always edge-triggered interrupt. S=
-o
-> >> I assume desc->arch.type. So are you skipping the call because it is
-> >> unnessary or it could do the wrong thing?
-> >>
-> >> Ideally, the outcome of the answer be part of the comment on top of th=
-e
-> >> check.
-> >
-> > gic_set_irq_type() has an assert "ASSERT(type !=3D IRQ_TYPE_INVALID)"
-> > which is triggered without this check.
-> > So it's both unnecessary and wrong. I suppose we could update the
-> > bookkeeping of all SGIs to be edge-triggered instead of
-> > IRQ_TYPE_INVALID. It would still be unnecessary though. What do you
-> > suggest?
->
-> I would rather prefer if we update the book-keeping for all the SGIs.
+On 22.04.2024 20:14, Andrew Cooper wrote:
+> --- a/xen/arch/x86/alternative.c
+> +++ b/xen/arch/x86/alternative.c
+> @@ -244,10 +244,31 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
+>  
+>          memcpy(buf, repl, a->repl_len);
+>  
+> +        /* Walk buf[] and adjust any insn-relative operands. */
+> +        if ( a->repl_len )
+>          {
+> -            /* 0xe8/0xe9 are relative branches; fix the offset. */
+> -            if ( a->repl_len >= 5 && (*buf & 0xfe) == 0xe8 )
+> +            uint8_t *ip = buf, *end = ip + a->repl_len;
+> +
+> +            for ( x86_decode_lite_t res; ip < end; ip += res.len )
+>              {
+> +                int32_t *d32;
+> +                uint8_t *target;
+> +
+> +                res = x86_decode_lite(ip, end);
+> +
+> +                if ( res.len <= 0 )
+> +                {
+> +                    printk("Alternative for %ps [%*ph]\n",
+> +                           ALT_ORIG_PTR(a), a->repl_len, repl);
+> +                    printk("Unable to decode instruction in alternative - ignoring.\n");
+> +                    goto skip_this_alternative;
 
-I'll update the code.
+Can this really be just a log message? There are cases where patching has
+to happen for things to operate correctly. Hence if not panic()ing, I'd
+say we at least want to taint the hypervisor.
 
->
-> [...]
->
-> >>
-> >>>            {
-> >>>                isb();
-> >>>                do_IRQ(regs, irq, is_fiq);
-> >>> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-> >>> index bcce80a4d624..fdb214560978 100644
-> >>> --- a/xen/arch/arm/irq.c
-> >>> +++ b/xen/arch/arm/irq.c
-> >>> @@ -224,9 +224,12 @@ void do_IRQ(struct cpu_user_regs *regs, unsigned=
- int irq, int is_fiq)
-> >>>
-> >>>        perfc_incr(irqs);
-> >>>
-> >>> -    ASSERT(irq >=3D 16); /* SGIs do not come down this path */
-> >>> +    /* Statically assigned SGIs do not come down this path */
-> >>> +    ASSERT(irq >=3D GIC_SGI_MAX);
-> >>
-> >>
-> >> With this change, I think the path with vgic_inject_irq() now needs to
-> >> gain an ASSERT(irq >=3D NR_GIC_SGI) because the path is not supposed t=
-o be
-> >> taken for SGIs.
-> >
-> > I'm sorry, I don't see the connection. If I add
-> > ASSERT(virq >=3D NR_GIC_SGI);
-> > at the top of vgic_inject_irq() it will panic when injecting a
-> > Schedule Receiver or Notification Pending Interrupt for a guest.
->
-> If you look at do_IRQ(), we have the following code:
->
->      if ( test_bit(_IRQ_GUEST, &desc->status) )
->      {
->          struct irq_guest *info =3D irq_get_guest_info(desc);
->
->          perfc_incr(guest_irqs);
->          desc->handler->end(desc);
->
->          set_bit(_IRQ_INPROGRESS, &desc->status);
->
->          /*
->           * The irq cannot be a PPI, we only support delivery of SPIs to
->           * guests.
->           */
->          vgic_inject_irq(info->d, NULL, info->virq, true);
->          goto out_no_end;
->      }
->
-> What I suggesting is to add an ASSERT(irq >=3D NR_GIC_SGI) just before th=
-e
-> call because now do_IRQ() can be called with SGIs yet we don't allow HW
-> SGIs to assigned to a guest.
+> @@ -317,14 +338,23 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
+>                           */
+>                          goto skip_this_alternative;
+>                      }
+> +
+> +                    continue;
+>                  }
+> -                else if ( force && system_state < SYS_STATE_active )
+> -                    ASSERT_UNREACHABLE();
 
-Got it, thanks for the explanation. I'll add the assert.
+This (and the other one below) is related to altcall patching, which you
+say you mean to leave alone: During the 2nd pass, no un-processed CALL /
+JMP should occur anymore that aren't altcall related.
 
-Thanks,
-Jens
+Jan
 
