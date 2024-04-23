@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0836F8AF373
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 18:06:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710892.1110431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC2B88AF37B
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 18:07:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710896.1110442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzIes-0005fT-SB; Tue, 23 Apr 2024 16:06:14 +0000
+	id 1rzIfx-0006Yw-BM; Tue, 23 Apr 2024 16:07:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710892.1110431; Tue, 23 Apr 2024 16:06:14 +0000
+Received: by outflank-mailman (output) from mailman id 710896.1110442; Tue, 23 Apr 2024 16:07:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzIes-0005dx-PW; Tue, 23 Apr 2024 16:06:14 +0000
-Received: by outflank-mailman (input) for mailman id 710892;
- Tue, 23 Apr 2024 16:06:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzIfx-0006X0-7u; Tue, 23 Apr 2024 16:07:21 +0000
+Received: by outflank-mailman (input) for mailman id 710896;
+ Tue, 23 Apr 2024 16:07:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ck89=L4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzIer-0005dW-D9
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 16:06:13 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 67239371-018b-11ef-b4bb-af5377834399;
- Tue, 23 Apr 2024 18:06:11 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-349545c3eb8so4242445f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 09:06:11 -0700 (PDT)
+ id 1rzIfw-0006Va-KA
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 16:07:20 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8fa22e54-018b-11ef-909a-e314d9c70b13;
+ Tue, 23 Apr 2024 18:07:19 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-41a4f291f80so19808195e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 09:07:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cs18-20020a056000089200b003437799a373sm15045095wrb.83.2024.04.23.09.06.10
+ cs18-20020a056000089200b003437799a373sm15045095wrb.83.2024.04.23.09.07.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 09:06:10 -0700 (PDT)
+ Tue, 23 Apr 2024 09:07:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67239371-018b-11ef-b4bb-af5377834399
+X-Inumbo-ID: 8fa22e54-018b-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713888371; x=1714493171; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3f/Ycrriye47SjAq/bloBCjmfD7llaMG56DuAqJMXtU=;
-        b=TVCCQ0Z1LDBqRPAlS+zccSckHrBaIOQE85g3n9U+3aaMB90c0ph1GAN04J4lay0xGX
-         bMOpgXNqw+1N6R2g9J4PkJyQVEosLIP3Ck74zGbWoloi8uWKAMfj6HL/9Zs+KEZ6kdb/
-         pWUk1dH5b6prVtza79L5GTckgXIwumedIN6HQXbRGJIAARnOwY2CeVV6yNSej45n0PrI
-         YtmnfXYwM4dtLl+ZgmvUDCNjjdCLa6SPKDEyKSUZejCRxH1GXTYimc5pujwVx04xHNsd
-         tSBa/GtFBOZnDSnBMG+l6iFaYwVqm5g6naXqN7ZtK/tOWLfWCJqetAZtfoAjNUhL2hOB
-         7HWA==
+        d=suse.com; s=google; t=1713888439; x=1714493239; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qmUXoBxUHPYiekzveS4whVSAKSC3A5vB53Z+WjXbffo=;
+        b=JDAVGRPuwyU7tAEbiXwlNQJpguyFAV0w2ZJlgfJeneOmO9iMbGhY1+86ZmK/6LZRkZ
+         SbPIVjXzRmdQp6FGnDCHqLagQNwYG8JS7RvvmNyiFwfZKebzFd9hMMqLYTXXj8d3iFvM
+         PiCXOECLCXf+2Dl9bBCCmLjxgXbXX+NPKFt2QDR8xSgMC0hoKwW1wSUhy3RhlRYFcbzv
+         J1uRkV2S7WlWi3NyAH6Swf2oC0fu2UPGoV/kvk6ABqILsP1Hw9GBupEYClLs7fpkYDFN
+         yLQBVjLwSXvdfnW6sBiX1wsSxqDKzjmrxGpRraYPGIAIiJvVVENVI/CuomYmKjkvjppN
+         FOvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713888371; x=1714493171;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3f/Ycrriye47SjAq/bloBCjmfD7llaMG56DuAqJMXtU=;
-        b=Xj/ZAqWYOvM+9s1VWz1NQdEMVgxb171SgaZapS5qnpVUNyEDxidGRPf7KNoEHiXpmq
-         17LlkQpzrHVmI+Qqwc1NUqnSPvSKnguXCgooEL6hyPQk2b8dRO6kCyMoNKB3mhXF6l0A
-         uUosU27xlPELpE9gHSG/h/W6oBw7tlPoKymGbyIHRGUZcuhL617ULTP97TIrjNvS+7qR
-         TnrTBAA0awIfOxpAOEIAjnf/wP+pHnpytjhhPNs4nDmbWNlqud3st37adLnTqWJIs7e/
-         9la0+l2ZKiRERlzha9zkASsAKteDIWJ7As2zDnbxKdYtEqe/cJb2FRa4VuQw9ThqRQWf
-         dEMg==
-X-Forwarded-Encrypted: i=1; AJvYcCUzWCP5K6O+8ZArNFIz6Aa52+MO9CHqSjYUCSLSKu/xrdo3wglVNzirUBfrL+tjTS1hjcxDz2ylPAQHUi/5FTz05uL7la20P3OO3UQEeOw=
-X-Gm-Message-State: AOJu0Yz24rK2XoC9NS0TZ2YPPLVMsBIhi3sS01wHNEhcZaLJ5cqlYGkU
-	DNDg8ZXohCxaj3yeaN6igrBNgClsUr8V7FuGSLzJhP0UZFtkV8K0hi11gh4z7Q==
-X-Google-Smtp-Source: AGHT+IEgI1fmiqFPhi8iZAkcdPlGHzHpf3lnL3XealWEFL+OjDl8G4wpZ9bl8G+8Z7w2yn8VCsK36Q==
-X-Received: by 2002:a5d:678e:0:b0:341:d912:1fec with SMTP id v14-20020a5d678e000000b00341d9121fecmr8274253wru.49.1713888370964;
-        Tue, 23 Apr 2024 09:06:10 -0700 (PDT)
-Message-ID: <1ea60e22-12d9-432d-9ba9-7dd7b2b7d22b@suse.com>
-Date: Tue, 23 Apr 2024 18:06:09 +0200
+        d=1e100.net; s=20230601; t=1713888439; x=1714493239;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qmUXoBxUHPYiekzveS4whVSAKSC3A5vB53Z+WjXbffo=;
+        b=cyKQ7+F1Uc+b4Q9XkRTQvdisnzBKEezxHg7eaHtNoVaHgQFPYs5m9XJmPZwkfir0Rr
+         Q5uz9e68ZHW1Wx+yVlWfM1zUZecINaJ3pElYNEwJEdwYLcXxZeLkZZD4OUo/v7rs/bi8
+         aOswqUH9r6HpZCNztj9vk+R1H+7Z7ruWUch/X0foKWaj/f1zWsTKJRlRNgBpvm0qoV1s
+         8Lc8yAkWeHQMyknzCGav3JiV0AfTyu7T2FG0p7XcNYPH54LvtO1Znub8kH62AvW1VKK3
+         L4AFYmjZV6OFmqTmwePGKkJpXyyyKtsGD3TKd/+1U66PWXonxxTpXYbp/O3Z+MKuuc5R
+         P23g==
+X-Forwarded-Encrypted: i=1; AJvYcCVCdAZ4Aq4d+CNcaNsAq0dmhFXawT7WSA2WxNvQV1vmMAv8psgXJKAdN3TKLbkAWnGCtEF7nW3XHi9QGAkV8V4WGX3kD+VuHOo5k22n2nQ=
+X-Gm-Message-State: AOJu0YxuM3WM5i4Exvwy2XwUGSrqUwCp3yFsKRWwprhNvF4g5bsfyXF/
+	T2Nb0vo1unspEyZe0xMBdtAmIdBgY+7ZPKMhI5D/JI0EU8901SmQnh6E7xzDn59gOMD7YIU9Mqg
+	=
+X-Google-Smtp-Source: AGHT+IG8WflSudFBERzQdeSgIQoqwaiV8B4KHQLp86QdQXUdLjQloEXb0tNPTw3HQSWdXPlSCfo3SQ==
+X-Received: by 2002:adf:f705:0:b0:343:7d6b:d30 with SMTP id r5-20020adff705000000b003437d6b0d30mr10666434wrp.12.1713888438870;
+        Tue, 23 Apr 2024 09:07:18 -0700 (PDT)
+Message-ID: <bdf38245-8b86-4b3b-a616-ca9e7bd09ba4@suse.com>
+Date: Tue, 23 Apr 2024 18:07:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] automation/eclair: add deviations for MISRA C:2012
- Rule 16.4
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <4981c3fb0992898a121881333485004f3609eaf7.1713866519.git.federico.serafini@bugseng.com>
- <17c022d9-245b-449f-96c5-7a29ba782880@suse.com>
- <11b8bbbd-1e22-4eb9-b571-cdd5d2661dfc@bugseng.com>
+Subject: Re: [PATCH v3 3/4] livepatch: refuse to resolve symbols that belong
+ to init sections
 Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240423131249.29825-1-roger.pau@citrix.com>
+ <20240423131249.29825-4-roger.pau@citrix.com>
+ <0625d7fd-1554-4d47-a8a5-0d6bfb1fcd56@suse.com> <ZifE_rQhaZNbjIt2@macbook>
+ <46c58aa4-d908-40ff-9c77-e0eacc7e10b6@suse.com> <ZifN3YMbYtlv-Aa4@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,65 +114,103 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <11b8bbbd-1e22-4eb9-b571-cdd5d2661dfc@bugseng.com>
+In-Reply-To: <ZifN3YMbYtlv-Aa4@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23.04.2024 17:52, Federico Serafini wrote:
-> On 23/04/24 12:26, Jan Beulich wrote:
->> On 23.04.2024 12:02, Federico Serafini wrote:
->>> --- a/docs/misra/deviations.rst
->>> +++ b/docs/misra/deviations.rst
->>> @@ -302,6 +302,19 @@ Deviations related to MISRA C:2012 Rules:
->>>          leave such files as is.
->>>        - Tagged as `deliberate` for ECLAIR.
->>>   
->>> +   * - R16.4
->>> +     - Switch statements having a controlling expression of enum type
->>> +       deliberately do not have a default case: gcc -Wall enables -Wswitch
->>> +       which warns (and breaks the build as we use -Werror) if one of the enum
->>> +       labels is missing from the switch.
->>> +     - Tagged as `deliberate` for ECLAIR.
->>> +
->>> +   * - R16.4
->>> +     - A switch statement with a single switch clause and no default label may
->>> +       be used in place of an equivalent if statement if it is considered to
->>> +       improve readability."
-> 
-> (I placed Rule 16.4 before Rule 16.3.
-> I will propose a new version with the correct ordering.)
-> 
+On 23.04.2024 17:03, Roger Pau Monné wrote:
+> On Tue, Apr 23, 2024 at 04:28:59PM +0200, Jan Beulich wrote:
+>> On 23.04.2024 16:26, Roger Pau Monné wrote:
+>>> On Tue, Apr 23, 2024 at 03:44:42PM +0200, Jan Beulich wrote:
+>>>> On 23.04.2024 15:12, Roger Pau Monne wrote:
+>>>>> Livepatch payloads containing symbols that belong to init sections can only
+>>>>> lead to page faults later on, as by the time the livepatch is loaded init
+>>>>> sections have already been freed.
+>>>>>
+>>>>> Refuse to resolve such symbols and return an error instead.
+>>>>>
+>>>>> Note such resolutions are only relevant for symbols that point to undefined
+>>>>> sections (SHN_UNDEF), as that implies the symbol is not in the current payload
+>>>>> and hence must either be a Xen or a different livepatch payload symbol.
+>>>>>
+>>>>> Do not allow to resolve symbols that point to __init_begin, as that address is
+>>>>> also unmapped.  On the other hand, __init_end is not unmapped, and hence allow
+>>>>> resolutions against it.
+>>>>>
+>>>>> Since __init_begin can alias other symbols (like _erodata for example)
+>>>>> allow the force flag to override the check and resolve the symbol anyway.
+>>>>>
+>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>
+>>>> In principle, as promised (and just to indicate earlier concerns were
+>>>> addressed, as this is meaningless for other purposes)
+>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>>> However, ...
+>>>>
+>>>>> @@ -310,6 +311,21 @@ int livepatch_elf_resolve_symbols(struct livepatch_elf *elf)
+>>>>>                      break;
+>>>>>                  }
+>>>>>              }
+>>>>> +
+>>>>> +            /*
+>>>>> +             * Ensure not an init symbol.  Only applicable to Xen symbols, as
+>>>>> +             * livepatch payloads don't have init sections or equivalent.
+>>>>> +             */
+>>>>> +            else if ( st_value >= (uintptr_t)&__init_begin &&
+>>>>> +                      st_value <  (uintptr_t)&__init_end && !force )
+>>>>> +            {
+>>>>> +                printk(XENLOG_ERR LIVEPATCH
+>>>>> +                       "%s: symbol %s is in init section, not resolving\n",
+>>>>> +                       elf->name, elf->sym[i].name);
+>>>>> +                rc = -ENXIO;
+>>>>> +                break;
+>>>>> +            }
+>>>>
+>>>> ... wouldn't it make sense to still warn in this case when "force" is set?
+>>>
+>>> Pondered it, I was thinking that a user would first run without
+>>> --force, and use the option as a result of seeing the first failure.
+>>>
+>>> However if there is more than one check that's bypassed, further ones
+>>> won't be noticed, so:
+>>>
+>>>             else if ( st_value >= (uintptr_t)&__init_begin &&
+>>>                       st_value <  (uintptr_t)&__init_end )
+>>>             {
+>>>                 printk(XENLOG_ERR LIVEPATCH
+>>>                        "%s: symbol %s is in init section, not resolving\n",
+>>>                        elf->name, elf->sym[i].name);
+>>>                 if ( !force )
+>>>                 {
+>>>                     rc = -ENXIO;
+>>>                     break;
+>>>                 }
+>>>             }
+>>>
+>>> Would be OK then?
 >>
->> First a terminology related comment here: I'm afraid "switch clause" can be
->> interpreted multiple ways, when I think we want to leave no room for
->> interpretation here. It's not even clear to me whether
->>
->>      switch ( x )
->>      {
->>      case 1: case 2: case 3: case 4:
->>          ...
->>          break;
->>      }
->>
->> would be covered by the deviation, or whether the multiple case labels
->> wouldn't already be too much.
+>> Perhaps. "not resolving" isn't quite true when "force" is true, and warnings
+>> would also better not be issued with XENLOG_ERR.
 > 
-> The MISRA C document, within Rule 16.1 ("A switch statement shall be
-> well-formed") defines the syntax rules that can be used to define a
-> "well formed" switch statement.
-> When I say "switch clause", I refer to the same entity the MISRA
-> document refers to in the definition of such syntax rules.
-> In the example above, we have a single switch clause with multiple
-> labels and no default label: this is a violation of Rule 16.4
-> ("Every `switch' statement shall have a `default' label") which will
-> be covered by the deviation.
-> Do you think inserting the example in rules.rst or deviations.rst could
-> be useful?
+> I was assuming that printing as XENLOG_ERR level would still be OK -
+> even if bypassed because of the usage of --force.  The "not resolving"
+> part should indeed go away. Maybe this is better:
+> 
+>             else if ( st_value >= (uintptr_t)&__init_begin &&
+>                       st_value <  (uintptr_t)&__init_end )
+>             {
+>                 printk("%s" LIVEPATCH "%s: symbol %s is in init section%s\n",
+>                        force ? XENLOG_WARNING : XENLOG_ERR,
+>                        elf->name, elf->sym[i].name,
+>                        force ? "" : ", not resolving");
+>                 if ( !force )
+>                 {
+>                     rc = -ENXIO;
+>                     break;
+>                 }
+>             }
 
-No, I don't think there should be examples in those documents. But those
-documents should also not (blindly) rely on terminology in the Misra
-spec, as not everyone has access to that (licensed copies had to be
-obtained for quite a few of us).
+I'd be okay with this; the livepatch maintainers will have the ultimate say.
 
 Jan
 
