@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 159688ADBD9
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 04:23:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710282.1109443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68FBD8ADD06
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 07:03:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710310.1109478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rz5n7-0004oW-8J; Tue, 23 Apr 2024 02:21:53 +0000
+	id 1rz8Hh-0007q6-R6; Tue, 23 Apr 2024 05:01:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710282.1109443; Tue, 23 Apr 2024 02:21:53 +0000
+Received: by outflank-mailman (output) from mailman id 710310.1109478; Tue, 23 Apr 2024 05:01:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rz5n7-0004mB-4w; Tue, 23 Apr 2024 02:21:53 +0000
-Received: by outflank-mailman (input) for mailman id 710282;
- Tue, 23 Apr 2024 02:21:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KYzg=L4=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1rz5n5-0004m5-SQ
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 02:21:51 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3bfa4631-0118-11ef-b4bb-af5377834399;
- Tue, 23 Apr 2024 04:21:47 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a5544fd07easo567447666b.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Apr 2024 19:21:47 -0700 (PDT)
+	id 1rz8Hh-0007na-Mv; Tue, 23 Apr 2024 05:01:37 +0000
+Received: by outflank-mailman (input) for mailman id 710310;
+ Tue, 23 Apr 2024 05:01:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rz8Hg-0007nQ-9i; Tue, 23 Apr 2024 05:01:36 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rz8Hg-0007xW-8B; Tue, 23 Apr 2024 05:01:36 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rz8Hf-0003AB-Pl; Tue, 23 Apr 2024 05:01:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rz8Hf-0006as-Nz; Tue, 23 Apr 2024 05:01:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,120 +42,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3bfa4631-0118-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1713838907; x=1714443707; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=a9OHZgBu+2wjBy8eA55zRBogvek594Zb6SuInV0CdcU=;
-        b=YZ9Oxm6KieBiu3iizCththofDEtyUEUCEYLuQr+XHpxsM48AoMxm2E2D7nAenbjMzR
-         Zy8+eGKwFaeEYJiQ1oWIHCD2sfVeAcO6GbZtseYqdtrwUG3veve6CFbL6kkqnM87ZpTE
-         Ear0Xay2A1WOkszGfDaj0CjSCaoLdetiGXL2JzQFrlu3C6NAzkAlwy80SM/pCio0mpSl
-         WMgzsucLSyTUHaROxQaPcCiYO9icZUTyYjUaSQcgnzouEQY2HEHqzZDZDdmS60N511gV
-         jLg/HdQrcopJ10NaiiOZJbK0AyWx5JkVz2rvUxV+WhdttdgkgIla+h3SoTi4SoqN8+F9
-         DS+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713838907; x=1714443707;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=a9OHZgBu+2wjBy8eA55zRBogvek594Zb6SuInV0CdcU=;
-        b=g4whjEF8Yc1IJ3V9ZsLMKQMZ/Q3o/o9LY9zLPhGcbnGNVw3mEIem9gYt9o34lFlD9P
-         RRDpikgsj0ZeZdn9hYu+T0MjeIURL2gLeztghPKF/DM9Fl6GXmXq0/hfAm2rAK5lLpY6
-         I3yFaq9+epeo5YRe6JN+Ct1Bew9Abv6e7jqb0z/2wph5QuXV35ZuDe6yPXM/I8y8Ha/0
-         7YkGY4DBZGmexYPu5LmYSB8aiE5AIIDKFyFxW8UOgH1u2pgiSrW2NawymDtOT642A2Zh
-         CmShM9CwP8nxXvb4lzGtIy7NqRYiYyraGelWM4+uFlF0koDyAYpG9ZZM1G3jMe8t9N3I
-         zelQ==
-X-Gm-Message-State: AOJu0YyZ/5o5MUy8sWky4eXarYBfBQGBsUkUcL8NP4Dq6e4oSiJ/9Y8c
-	V3Pdc8VIt8FKgwowCxQDBb4jKdSU+DmbWXUC/roKewX4GNk8l7l+iEaojLN75vewGVIFp6aI8Hp
-	Uky6AolbdTXY3NhmU40p34KFMPXI=
-X-Google-Smtp-Source: AGHT+IGs9ZFsSAI73AWyUVbPt6RLBymHB6VG+kSMPVTQxwJKKYLe1WgBt6av8wYCQ9KVVR2qLtHAKkQx/KDDukXfOSo=
-X-Received: by 2002:a50:d787:0:b0:56b:ec47:a846 with SMTP id
- w7-20020a50d787000000b0056bec47a846mr6586149edi.25.1713838906619; Mon, 22 Apr
- 2024 19:21:46 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240407204953.60442-1-jandryuk@gmail.com> <20240407204953.60442-2-jandryuk@gmail.com>
- <42f1eaef-d804-4816-b746-ee24d860e0f7@perard>
-In-Reply-To: <42f1eaef-d804-4816-b746-ee24d860e0f7@perard>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 22 Apr 2024 22:21:34 -0400
-Message-ID: <CAKf6xpuXPjheXgM1vSF0+mmmjCFzKnC8fUGiba4P4ehjx45PAQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] hotplug: Update block-tap
-To: Anthony PERARD <anthony.perard@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
-	Jason Andryuk <jason.andryuk@amd.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=WInsrhIzP2CLxootUP+cWyv4AhMG/DBiJghUGLCsOGs=; b=TxMmyYWw7i1sozRb8/0GXyGJRq
+	uu9IUc2CEDeicqFaG9GMGH1sAS27jBbbtmlmh+pN/YhBvSYxj4GDQHH9bnM6EgdL2zDubcyqBA166
+	4TbO+FvyrXejH97IWGfH5wMm/AMjWaDWN/uGgn71/ykr341ufip69jS0e7x0rnSeETlk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185762-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable test] 185762: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    xen-unstable:test-amd64-amd64-xl-pvshim:debian-fixup:fail:heisenbug
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=cccb7878f386fb8691b7e28957a562a66d9b875f
+X-Osstest-Versions-That:
+    xen=09cb855f33fb619c87d8d4250d3a980f568f151b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 23 Apr 2024 05:01:35 +0000
 
-On Mon, Apr 22, 2024 at 11:11=E2=80=AFAM Anthony PERARD
-<anthony.perard@cloud.com> wrote:
->
-> On Sun, Apr 07, 2024 at 04:49:51PM -0400, Jason Andryuk wrote:
-> > diff --git a/tools/hotplug/Linux/block-tap b/tools/hotplug/Linux/block-=
-tap
-> > index 89247921b9..126e472786 100755
-> > --- a/tools/hotplug/Linux/block-tap
-> > +++ b/tools/hotplug/Linux/block-tap
-> > @@ -18,11 +18,11 @@
-> >  #
-> >  # Usage:
-> >  #
-> > -# Target should be specified using the following syntax:
-> > +# Disks should be specified using the following syntax:
-> >  #
-> > -# script=3Dblock-tap,vdev=3Dxvda,target=3D<type>:<file>
-> > +# vdev=3Dxvda,backendtype=3Dtap,format=3Dvhd,target=3D/srv/target.vhd
->
-> I still have unanswered question from the previous round:
->     Is `block-tap` still going to work with the current example given in
->     the script header? That is:
->         "script=3Dblock-tap,vdev=3Dxvda,target=3D<type>:<file>"
->     Or maybe, that example is already broken?
+flight 185762 xen-unstable real [real]
+flight 185766 xen-unstable real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185762/
+http://logs.test-lab.xenproject.org/osstest/logs/185766/
 
-Oh, right.  Sorry about that.
+Failures :-/ but no regressions.
 
-> If it's not broken, there could be users which rely on it. But maybe
-> it's not really broken, and the new syntax is better anyway.
->
-> My guess is that using "script=3Dblock-tap,..." might still work, but
-> we should say something in the CHANGELOG to encourage people to move to
-> the new syntax, with "backendtype=3Dtap" to avoid issues.
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-xl-pvshim   13 debian-fixup        fail pass in 185766-retest
 
-I think the old syntax with "backendtype=3Dphy" would work except for this:
--    write_dev $dev
-...
-+    # dev, as a unix socket, would end up with major:minor 0:0 in
-+    # physical-device if write_dev were used.  tapback would be thrown off=
- by
-+    # that incorrect minor, so just skip writing physical-device.
-+    xenstore_write "$XENBUS_PATH/physical-device-path" "$dev"
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185754
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 185754
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 185754
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 185754
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 185754
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 185754
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
 
-write_dev is needed for blkback to see physical-device and set things
-up properly.
+version targeted for testing:
+ xen                  cccb7878f386fb8691b7e28957a562a66d9b875f
+baseline version:
+ xen                  09cb855f33fb619c87d8d4250d3a980f568f151b
 
-I could create a second script, but that's a little silly for just the
-single line.  Another approach would be to differentiate off the
-device type, vbd vs. vbd3, and use write_dev or not that way.  Should
-I just do that?
+Last test of basis   185754  2024-04-22 01:53:44 Z    1 days
+Testing same since   185762  2024-04-22 17:08:52 Z    0 days    1 attempts
 
-block-tap will only support backendtype=3Dphy as long as blktap uses the
-kernel driver.  In that case tap-ctl create is returning the kernel
-module's block dev path.  Once the kernel drive support is removed,
-backendtype=3Dtap will be the only option - without it there is no block
-dev for blkback.
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jason.andryuk@amd.com>
+  Julien Grall <jgrall@amazon.com>
+  Nicola Vetrini <nicola.vetrini@bugseng.com>
+  Oleksii Kurochko <oleksii.kurochko@gmail.com>
+  Roger Pau Monné <roger.pau@citrix.com>
 
-FYI, "backendtype=3Dtap" is more performant because it is a shorter data pa=
-th:
-blkfront -> tapback/tapdisk
-vs
-blkfront -> blkback -> /dev/xen/blktap-2/tapdevN -> tapdisk
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
-There are extra copies between blktap and the tapdev.
 
-> In any case, the patch looks good:
-> Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Thanks,
-Jason
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   09cb855f33..cccb7878f3  cccb7878f386fb8691b7e28957a562a66d9b875f -> master
 
