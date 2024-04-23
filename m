@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30D1B8AE974
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 16:28:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710667.1110013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66B538AE975
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 16:29:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710668.1110021 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzH8P-0005he-GV; Tue, 23 Apr 2024 14:28:37 +0000
+	id 1rzH8q-0006FL-OO; Tue, 23 Apr 2024 14:29:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710667.1110013; Tue, 23 Apr 2024 14:28:37 +0000
+Received: by outflank-mailman (output) from mailman id 710668.1110021; Tue, 23 Apr 2024 14:29:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzH8P-0005eU-Da; Tue, 23 Apr 2024 14:28:37 +0000
-Received: by outflank-mailman (input) for mailman id 710667;
- Tue, 23 Apr 2024 14:28:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rzH8q-0006Dg-Lc; Tue, 23 Apr 2024 14:29:04 +0000
+Received: by outflank-mailman (input) for mailman id 710668;
+ Tue, 23 Apr 2024 14:29:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rzH8O-0005eO-DT
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 14:28:36 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rzH8N-0001s0-Pk; Tue, 23 Apr 2024 14:28:35 +0000
-Received: from [15.248.2.233] (helo=[10.24.67.33])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rzH8N-0003RL-Ez; Tue, 23 Apr 2024 14:28:35 +0000
+ (envelope-from <SRS0=ck89=L4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rzH8p-0006DG-79
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 14:29:03 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d3f54738-017d-11ef-b4bb-af5377834399;
+ Tue, 23 Apr 2024 16:29:01 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4196c62bb4eso30552575e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 07:29:01 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ e10-20020a05600c4e4a00b0041a809403d4sm5586564wmq.6.2024.04.23.07.29.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Apr 2024 07:29:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,104 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=gzTOyQWEIuUjoakhhnZ0lv4DoaOTz8A4wGB9zMg9IMI=; b=1KpBDdYmtt4hYKDENIsUuLVG5U
-	5+D3xNw2B9pQ8iXoUudk693bB0P7jo/bQXxzRLL8AaUWMArIHgRdn9Vee83tNeyWO84WyuxqM7MMx
-	FPB6gTNPFtMMK9V/bA8wGP8vnwAWHEZLzh9n8uAQGCmek2/QuwKP2W0m2kKSiylhV86w=;
-Message-ID: <195c1fe6-ed77-417f-bcb0-fdfaf687c4b0@xen.org>
-Date: Tue, 23 Apr 2024 15:28:33 +0100
+X-Inumbo-ID: d3f54738-017d-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1713882540; x=1714487340; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QSMRC+rbLTrSzNXnM3vju+nO9SOLJi7XbQfDtq9npww=;
+        b=bCxeXfCSU9r1Cq06rOe/r7czD9SAiVRm9NyXCd6Ov5nRWIW2mOknvrLnYqFkHXH4vT
+         adWcipzXwWSlOrdjUH6DqMYC7nzQjFtZIcwQGZ7yqxKgLUd9cjGcWLfRsjsaIaYdvI2H
+         Vyom+/QApxH9X2qmUcEF6BwOhK0ndrxtvBvWAQ02Bc2et35GKZS1/cZGTL3p415ntzZ8
+         wJtI8s5YEW/44fs1zzpihEI3rHGYcS1Zs2u/nK7h12Xy9QGBrxZaDZ7L1XB+hX0rBH3I
+         n+nBP7DUz5p+zntxpWyPqioUeKrTPNXwk07yAjSmW6TtgV4oY8cwsX6gqgoOsG0QLmi5
+         027w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713882540; x=1714487340;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QSMRC+rbLTrSzNXnM3vju+nO9SOLJi7XbQfDtq9npww=;
+        b=QKbtz2hO0KMrmrfsTJ2sR1ZaPBInB3ZE0emlIAhSQXK9UHUNKW66vkllc+8kAXpRJT
+         Y4KttTIXrdGWaA56YzvezYSMFjKCW+NMHBoIrvy1fNoIRJV/wb9fR1t24c5aJep5jXu3
+         3s9u+wWBoD7njgUPbEQYbdtrcYy6Od3uZhzu530VOlg2xmlNEdQsazIqZXXuFs+UqLxn
+         /hAwzGuSYLhZhVERXbc0ooQhMxEilki0VtbOf6IZVxuToY1vuy6zQtMocPCvUEauJHm5
+         4+ubpMUnsz55x/5j3Zib63d0j2ViW7kdG8/bOwOYNFJz30HF6Z8kXWS1oQe57rdY+lPT
+         dCkQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXmb/bs8xm8yyjF0FQNrDMAhmdifYZHOkmnHQozK07q9eqLE2wzIdmwjFlPGYdi/KTHLHV0agNeqCNnbSuT+fBypiGI2YdJjTVBWiTr8b8=
+X-Gm-Message-State: AOJu0YxWU0OyDCpeaYMvV1MUFEK3xznfuB3JsUT5mpQvKxfhS6Zaz4VQ
+	nluR4Ij/PB6beZVFXorwPVpBjffbpKGHR/+RH5GsFWdMnScZhpBmTjNVZdog9Tv5Gm7AZ170m5M
+	=
+X-Google-Smtp-Source: AGHT+IEfP5pnnXamAxsiSgyFEADvElm4kLiXhfuc/qyD/SAUYGfLFhoWEr8WSdUX5uZG/1Ah0v1OQA==
+X-Received: by 2002:a05:600c:3504:b0:418:9d5a:f680 with SMTP id h4-20020a05600c350400b004189d5af680mr9168763wmq.25.1713882540582;
+        Tue, 23 Apr 2024 07:29:00 -0700 (PDT)
+Message-ID: <46c58aa4-d908-40ff-9c77-e0eacc7e10b6@suse.com>
+Date: Tue, 23 Apr 2024 16:28:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 4/5] xen/arm: allow dynamically assigned SGI
- handlers
-Content-Language: en-GB
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Jens Wiklander <jens.wiklander@linaro.org>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- "patches@linaro.org" <patches@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240422073708.3663529-1-jens.wiklander@linaro.org>
- <20240422073708.3663529-5-jens.wiklander@linaro.org>
- <89d268cc-bc49-4e22-b4e9-2e8dbe73124c@xen.org>
- <CAHUa44GAbBtczbVohVjC=66tqzjgeGLx44k9ddodDJL13KwVEQ@mail.gmail.com>
- <205a95f2-fdf6-4f38-b2e0-31e4fff9348b@xen.org>
- <756FEA03-7F16-48AE-8308-059EBF8638A0@arm.com>
- <27BADE00-E6EC-4BD6-AC5D-201DF1A76BCD@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <27BADE00-E6EC-4BD6-AC5D-201DF1A76BCD@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v3 3/4] livepatch: refuse to resolve symbols that belong
+ to init sections
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240423131249.29825-1-roger.pau@citrix.com>
+ <20240423131249.29825-4-roger.pau@citrix.com>
+ <0625d7fd-1554-4d47-a8a5-0d6bfb1fcd56@suse.com> <ZifE_rQhaZNbjIt2@macbook>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZifE_rQhaZNbjIt2@macbook>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Bertrand,
-
-On 23/04/2024 14:23, Bertrand Marquis wrote:
-> Hi Julien,
-> 
->> On 23 Apr 2024, at 14:37, Bertrand Marquis <Bertrand.Marquis@arm.com> wrote:
+On 23.04.2024 16:26, Roger Pau Monné wrote:
+> On Tue, Apr 23, 2024 at 03:44:42PM +0200, Jan Beulich wrote:
+>> On 23.04.2024 15:12, Roger Pau Monne wrote:
+>>> Livepatch payloads containing symbols that belong to init sections can only
+>>> lead to page faults later on, as by the time the livepatch is loaded init
+>>> sections have already been freed.
+>>>
+>>> Refuse to resolve such symbols and return an error instead.
+>>>
+>>> Note such resolutions are only relevant for symbols that point to undefined
+>>> sections (SHN_UNDEF), as that implies the symbol is not in the current payload
+>>> and hence must either be a Xen or a different livepatch payload symbol.
+>>>
+>>> Do not allow to resolve symbols that point to __init_begin, as that address is
+>>> also unmapped.  On the other hand, __init_end is not unmapped, and hence allow
+>>> resolutions against it.
+>>>
+>>> Since __init_begin can alias other symbols (like _erodata for example)
+>>> allow the force flag to override the check and resolve the symbol anyway.
+>>>
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 >>
->> Hi Julien,
+>> In principle, as promised (and just to indicate earlier concerns were
+>> addressed, as this is meaningless for other purposes)
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>> However, ...
 >>
->>> On 23 Apr 2024, at 13:05, Julien Grall <julien@xen.org> wrote:
->>>
->>>
->>>
->>> On 23/04/2024 10:35, Jens Wiklander wrote:
->>>> Hi Julien,
->>>
->>> Hi Jens,
->>>
->>>> On Mon, Apr 22, 2024 at 12:57 PM Julien Grall <julien@xen.org> wrote:
->>>>>
->>>>> Hi Jens,
->>>>>
->>>>> On 22/04/2024 08:37, Jens Wiklander wrote:
->>>>>> Updates so request_irq() can be used with a dynamically assigned SGI irq
->>>>>> as input. This prepares for a later patch where an FF-A schedule
->>>>>> receiver interrupt handler is installed for an SGI generated by the
->>>>>> secure world.
->>>>>
->>>>> I would like to understand the use-case a bit more. Who is responsible
->>>>> to decide the SGI number? Is it Xen or the firmware?
->>>>>
->>>>> If the later, how can we ever guarantee the ID is not going to clash
->>>>> with what the OS/hypervisor is using? Is it described in a
->>>>> specification? If so, please give a pointer.
->>>> The firmware decides the SGI number. Given that the firmware doesn't
->>>> know which SGIs Xen is using it typically needs to donate one of the
->>>> secure SGIs, but that is transparent to Xen.
->>>
->>> Right this is my concern. The firmware decides the number, but at the same time Xen thinks that all the SGIs are available (AFAIK there is only one set).
->>>
->>> What I would like to see is some wording from a spec indicating that the SGIs ID reserved by the firmware will not be clashing with the one used by Xen.
+>>> @@ -310,6 +311,21 @@ int livepatch_elf_resolve_symbols(struct livepatch_elf *elf)
+>>>                      break;
+>>>                  }
+>>>              }
+>>> +
+>>> +            /*
+>>> +             * Ensure not an init symbol.  Only applicable to Xen symbols, as
+>>> +             * livepatch payloads don't have init sections or equivalent.
+>>> +             */
+>>> +            else if ( st_value >= (uintptr_t)&__init_begin &&
+>>> +                      st_value <  (uintptr_t)&__init_end && !force )
+>>> +            {
+>>> +                printk(XENLOG_ERR LIVEPATCH
+>>> +                       "%s: symbol %s is in init section, not resolving\n",
+>>> +                       elf->name, elf->sym[i].name);
+>>> +                rc = -ENXIO;
+>>> +                break;
+>>> +            }
 >>
->> The idea is that the only SGI reserved for secure are used by the secure world (in fact it is the SPMC in the secure world who tells us which SGI it will generate).
->> So in theory that means it will always use an SGI between 8 and 15.
->>
->> Now it could make sense in fact to check that the number returned by the firmware (or SPMC) is not clashing with Xen as it is a recommendation in the spec and
->> in fact an implementation might do something different.
->>
->> Right now there is no spec that will say that it will never clash with the one used by Xen as the FF-A spec is not enforcing anything here so it would be a good idea
->> to check and disable FF-A with a proper error message if this happens.
+>> ... wouldn't it make sense to still warn in this case when "force" is set?
 > 
+> Pondered it, I was thinking that a user would first run without
+> --force, and use the option as a result of seeing the first failure.
 > 
-> After some more digging here is what is recommended by Arm in the Arm Base System Architecture v1.0C [1]:
+> However if there is more than one check that's bypassed, further ones
+> won't be noticed, so:
 > 
-> "The system shall implement at least eight Non-secure SGIs, assigned to interrupt IDs 0-7."
-
-Thanks! Can we provide a link to the specification in the commit message?
-
+>             else if ( st_value >= (uintptr_t)&__init_begin &&
+>                       st_value <  (uintptr_t)&__init_end )
+>             {
+>                 printk(XENLOG_ERR LIVEPATCH
+>                        "%s: symbol %s is in init section, not resolving\n",
+>                        elf->name, elf->sym[i].name);
+>                 if ( !force )
+>                 {
+>                     rc = -ENXIO;
+>                     break;
+>                 }
+>             }
 > 
-> So basically as long as Xen is using SGIs 0-7 it is safe as those shall never be used by the secure world.
-> Now i do agree that we should check that whatever is returned by the firmware is not conflicting with what
-> is used by Xen.
-+1.
+> Would be OK then?
 
-Cheers,
+Perhaps. "not resolving" isn't quite true when "force" is true, and warnings
+would also better not be issued with XENLOG_ERR.
 
--- 
-Julien Grall
+Jan
 
