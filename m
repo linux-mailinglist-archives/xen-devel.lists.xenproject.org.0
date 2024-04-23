@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC97E8AF2BD
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 17:53:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710881.1110411 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A83D28AF36D
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 18:06:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710890.1110421 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzIRG-0007vk-HG; Tue, 23 Apr 2024 15:52:10 +0000
+	id 1rzIeF-00054x-K9; Tue, 23 Apr 2024 16:05:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710881.1110411; Tue, 23 Apr 2024 15:52:10 +0000
+Received: by outflank-mailman (output) from mailman id 710890.1110421; Tue, 23 Apr 2024 16:05:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzIRG-0007tX-EL; Tue, 23 Apr 2024 15:52:10 +0000
-Received: by outflank-mailman (input) for mailman id 710881;
- Tue, 23 Apr 2024 15:52:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rzIeF-00052i-Ha; Tue, 23 Apr 2024 16:05:35 +0000
+Received: by outflank-mailman (input) for mailman id 710890;
+ Tue, 23 Apr 2024 16:05:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=is0t=L4=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1rzIRF-0007s2-Kw
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 15:52:09 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7090afe6-0189-11ef-909a-e314d9c70b13;
- Tue, 23 Apr 2024 17:52:08 +0200 (CEST)
-Received: from [192.168.1.11] (host-79-60-221-62.business.telecomitalia.it
- [79.60.221.62])
- by support.bugseng.com (Postfix) with ESMTPSA id 986974EE073C;
- Tue, 23 Apr 2024 17:52:07 +0200 (CEST)
+ <SRS0=09RI=L4=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rzIeE-00052c-9C
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 16:05:34 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4fac9918-018b-11ef-b4bb-af5377834399;
+ Tue, 23 Apr 2024 18:05:32 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-41a0979b9aeso22182885e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 09:05:32 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ v11-20020a05600c470b00b0041a963bf2cdsm4582313wmo.36.2024.04.23.09.05.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Apr 2024 09:05:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,112 +45,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7090afe6-0189-11ef-909a-e314d9c70b13
-Message-ID: <11b8bbbd-1e22-4eb9-b571-cdd5d2661dfc@bugseng.com>
-Date: Tue, 23 Apr 2024 17:52:02 +0200
+X-Inumbo-ID: 4fac9918-018b-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1713888331; x=1714493131; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=6Q5YOP0rXj6VEA6DoK8C+uxFXSznjLoYHRToR6eId/Y=;
+        b=JHyvaqZv4Po9XgkuVBOLIZkplj5dDcThyRmVE6/H2uvUEd2Y90dca8iP2GCENHMUw0
+         uW6weLAQzMn0lxf958HXp4nlP9EHPwSX29OE8ePWcJmXntNml4RtVdUkLYifwzlJkLkh
+         ChPsYzEe3OoGSu2Hmc3BUQ+eEPOZ0Yj+goExU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713888331; x=1714493131;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6Q5YOP0rXj6VEA6DoK8C+uxFXSznjLoYHRToR6eId/Y=;
+        b=w/YHelvtmN6pd2gyHhiWCRmsNY/194Sz7yxe+c+mURP2dub7AcZXtqKX5Y2mAoKZc0
+         HypMyOAvljPDlcDp9g4DibgWIoTs/Od/7eR8xw45QOu60Dnpt7iNDMAQCd5L17yXFGT7
+         PIFyuur8UKgsWNLvlV+EFRRZOzEVdXYTyT/hJYVU0DLVdlgUdd2LgNXCiB+fdHCQolaL
+         J212sG6+sc95PNy4KYwpvCWsXzRaJ0KnlQak4CrLEQ9vQ/WvKL3FeiVU5MtC2sdmKdle
+         CwNcPm4ThupVk+8KjiGu0rg6LqqHob47k/wYQEJDvMs4V3e+PG/O2f124dpres/hT/QF
+         W8TA==
+X-Gm-Message-State: AOJu0YyLaGq9+kIOA1Uhjtpma/u5q4HEtYD3Ke8ZPr80OtZ735wW0HmT
+	FZAVaGvQW41wy61EXwtmOSWy/io4DL4Ll7JXRhcfXPjlHzViX0M5KaUWSUl4z4Q=
+X-Google-Smtp-Source: AGHT+IFNPTuccVFjee0pTet3C3BhXDQ4MdmXMb8Dwi93NFYuUhDQRzM2VdNBHMFcmO+ODDY5UQqE4A==
+X-Received: by 2002:a05:600c:1c1c:b0:419:ea21:2d83 with SMTP id j28-20020a05600c1c1c00b00419ea212d83mr9811797wms.0.1713888331603;
+        Tue, 23 Apr 2024 09:05:31 -0700 (PDT)
+Date: Tue, 23 Apr 2024 17:05:30 +0100
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>
+Subject: Re: [PATCH v3 2/4] livepatch: introduce --force option
+Message-ID: <f6df04b5-3285-467d-aedf-272ca0f2183f@perard>
+References: <20240423131249.29825-1-roger.pau@citrix.com>
+ <20240423131249.29825-3-roger.pau@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] automation/eclair: add deviations for MISRA C:2012
- Rule 16.4
-To: Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <4981c3fb0992898a121881333485004f3609eaf7.1713866519.git.federico.serafini@bugseng.com>
- <17c022d9-245b-449f-96c5-7a29ba782880@suse.com>
-Content-Language: en-US, it
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG
-In-Reply-To: <17c022d9-245b-449f-96c5-7a29ba782880@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240423131249.29825-3-roger.pau@citrix.com>
 
-On 23/04/24 12:26, Jan Beulich wrote:
-> On 23.04.2024 12:02, Federico Serafini wrote:
->> --- a/docs/misra/deviations.rst
->> +++ b/docs/misra/deviations.rst
->> @@ -302,6 +302,19 @@ Deviations related to MISRA C:2012 Rules:
->>          leave such files as is.
->>        - Tagged as `deliberate` for ECLAIR.
->>   
->> +   * - R16.4
->> +     - Switch statements having a controlling expression of enum type
->> +       deliberately do not have a default case: gcc -Wall enables -Wswitch
->> +       which warns (and breaks the build as we use -Werror) if one of the enum
->> +       labels is missing from the switch.
->> +     - Tagged as `deliberate` for ECLAIR.
->> +
->> +   * - R16.4
->> +     - A switch statement with a single switch clause and no default label may
->> +       be used in place of an equivalent if statement if it is considered to
->> +       improve readability."
+On Tue, Apr 23, 2024 at 03:12:47PM +0200, Roger Pau Monne wrote:
+> Introduce a xen-livepatch tool --force option, that's propagated into the
+> hyerpvisor for livepatch operations.  The intention is for the option to be
+> used to bypass some checks that would otherwise prevent the patch from being
+> loaded.
+> 
+> Re purpose the pad field in xen_sysctl_livepatch_op to be a flags field that
+> applies to all livepatch operations.  The flag is currently only set by the
+> hypercall wrappers for the XEN_SYSCTL_LIVEPATCH_UPLOAD operation, as that's so
+> far the only one where it will be used initially.  Other uses can be added as
+> required.
+> 
+> Note that helpers would set the .pad field to 0, that's been removed since the
+> structure is already zero initialized at definition.
+> 
+> No functional usages of the new flag introduced in this patch.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-(I placed Rule 16.4 before Rule 16.3.
-I will propose a new version with the correct ordering.)
+For the tools:
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 
-> 
-> First a terminology related comment here: I'm afraid "switch clause" can be
-> interpreted multiple ways, when I think we want to leave no room for
-> interpretation here. It's not even clear to me whether
-> 
->      switch ( x )
->      {
->      case 1: case 2: case 3: case 4:
->          ...
->          break;
->      }
-> 
-> would be covered by the deviation, or whether the multiple case labels
-> wouldn't already be too much.
-
-The MISRA C document, within Rule 16.1 ("A switch statement shall be
-well-formed") defines the syntax rules that can be used to define a
-"well formed" switch statement.
-When I say "switch clause", I refer to the same entity the MISRA
-document refers to in the definition of such syntax rules.
-In the example above, we have a single switch clause with multiple
-labels and no default label: this is a violation of Rule 16.4
-("Every `switch' statement shall have a `default' label") which will
-be covered by the deviation.
-Do you think inserting the example in rules.rst or deviations.rst could
-be useful?
-
-> 
-> And then it is not clear to me why
-> 
->      switch ( x )
->      {
->      case 1:
->          ...
->          break;
->      default:
->          ...
->          break;
->      }
-> 
-> shouldn't also be covered, as potentially a readability improvement /
-> future change simplification over
-> 
->      if ( x == 1 )
->      {
->          ...
->      }
->      else
->      {
->          ...
->      }
-
-Here there are two switch clauses,
-each of them terminated by a break statement,
-and the default label is present:
-the switch is well formed, no violations of series 16 will
-be reported.
+Thanks,
 
 -- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
+Anthony PERARD
 
