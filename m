@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC2B88AF37B
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 18:07:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710896.1110442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BD808AF385
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 18:10:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710903.1110452 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzIfx-0006Yw-BM; Tue, 23 Apr 2024 16:07:21 +0000
+	id 1rzIii-0000Fc-PG; Tue, 23 Apr 2024 16:10:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710896.1110442; Tue, 23 Apr 2024 16:07:21 +0000
+Received: by outflank-mailman (output) from mailman id 710903.1110452; Tue, 23 Apr 2024 16:10:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzIfx-0006X0-7u; Tue, 23 Apr 2024 16:07:21 +0000
-Received: by outflank-mailman (input) for mailman id 710896;
- Tue, 23 Apr 2024 16:07:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rzIii-0000Cb-MK; Tue, 23 Apr 2024 16:10:12 +0000
+Received: by outflank-mailman (input) for mailman id 710903;
+ Tue, 23 Apr 2024 16:10:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ck89=L4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzIfw-0006Va-KA
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 16:07:20 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8fa22e54-018b-11ef-909a-e314d9c70b13;
- Tue, 23 Apr 2024 18:07:19 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-41a4f291f80so19808195e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 09:07:19 -0700 (PDT)
+ id 1rzIih-0000B1-HD
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 16:10:11 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f4f955a1-018b-11ef-b4bb-af5377834399;
+ Tue, 23 Apr 2024 18:10:09 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-34b64b7728cso909330f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 09:10:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cs18-20020a056000089200b003437799a373sm15045095wrb.83.2024.04.23.09.07.18
+ f11-20020a05600c4e8b00b00417ee886977sm24693795wmq.4.2024.04.23.09.10.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 09:07:18 -0700 (PDT)
+ Tue, 23 Apr 2024 09:10:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8fa22e54-018b-11ef-909a-e314d9c70b13
+X-Inumbo-ID: f4f955a1-018b-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713888439; x=1714493239; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713888609; x=1714493409; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=qmUXoBxUHPYiekzveS4whVSAKSC3A5vB53Z+WjXbffo=;
-        b=JDAVGRPuwyU7tAEbiXwlNQJpguyFAV0w2ZJlgfJeneOmO9iMbGhY1+86ZmK/6LZRkZ
-         SbPIVjXzRmdQp6FGnDCHqLagQNwYG8JS7RvvmNyiFwfZKebzFd9hMMqLYTXXj8d3iFvM
-         PiCXOECLCXf+2Dl9bBCCmLjxgXbXX+NPKFt2QDR8xSgMC0hoKwW1wSUhy3RhlRYFcbzv
-         J1uRkV2S7WlWi3NyAH6Swf2oC0fu2UPGoV/kvk6ABqILsP1Hw9GBupEYClLs7fpkYDFN
-         yLQBVjLwSXvdfnW6sBiX1wsSxqDKzjmrxGpRraYPGIAIiJvVVENVI/CuomYmKjkvjppN
-         FOvA==
+        bh=LXTsSpL6xs+pc0ARmlC7FhXdjJtoWTjhbKabMGAzUR8=;
+        b=CSJH5i7KJRr28Vb2Wriln1nWrqeM5Qf0/Of900o9Jd3xYRPnLUqBr8geYwr9xQzCzA
+         RDm9MsY/gN9B46snGRaHK4w1en7TM66lQhJ9pYR6J4OtRLwdLEvnsGfJm+c/1R/68Z06
+         HjAu25mZ6MNGmLy/6bHSM3o26j9OSww+k6iXeE4qk/QNKBKsO4ZS2DqV1NA2dcw8STfq
+         3VFBUXhXDsQgJEUFxA9e9RHnNvSd2wNnMAkV89nb1bNxX6wIsQoyUwt5xMTgJ8voGCwA
+         JpHG/sFi0L/4QKsrq34ebv9Tm+oP3buA3V93pgJa/ue0ntr242f95HmPU7SP8+TqVIU/
+         Tx4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713888439; x=1714493239;
+        d=1e100.net; s=20230601; t=1713888609; x=1714493409;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qmUXoBxUHPYiekzveS4whVSAKSC3A5vB53Z+WjXbffo=;
-        b=cyKQ7+F1Uc+b4Q9XkRTQvdisnzBKEezxHg7eaHtNoVaHgQFPYs5m9XJmPZwkfir0Rr
-         Q5uz9e68ZHW1Wx+yVlWfM1zUZecINaJ3pElYNEwJEdwYLcXxZeLkZZD4OUo/v7rs/bi8
-         aOswqUH9r6HpZCNztj9vk+R1H+7Z7ruWUch/X0foKWaj/f1zWsTKJRlRNgBpvm0qoV1s
-         8Lc8yAkWeHQMyknzCGav3JiV0AfTyu7T2FG0p7XcNYPH54LvtO1Znub8kH62AvW1VKK3
-         L4AFYmjZV6OFmqTmwePGKkJpXyyyKtsGD3TKd/+1U66PWXonxxTpXYbp/O3Z+MKuuc5R
-         P23g==
-X-Forwarded-Encrypted: i=1; AJvYcCVCdAZ4Aq4d+CNcaNsAq0dmhFXawT7WSA2WxNvQV1vmMAv8psgXJKAdN3TKLbkAWnGCtEF7nW3XHi9QGAkV8V4WGX3kD+VuHOo5k22n2nQ=
-X-Gm-Message-State: AOJu0YxuM3WM5i4Exvwy2XwUGSrqUwCp3yFsKRWwprhNvF4g5bsfyXF/
-	T2Nb0vo1unspEyZe0xMBdtAmIdBgY+7ZPKMhI5D/JI0EU8901SmQnh6E7xzDn59gOMD7YIU9Mqg
-	=
-X-Google-Smtp-Source: AGHT+IG8WflSudFBERzQdeSgIQoqwaiV8B4KHQLp86QdQXUdLjQloEXb0tNPTw3HQSWdXPlSCfo3SQ==
-X-Received: by 2002:adf:f705:0:b0:343:7d6b:d30 with SMTP id r5-20020adff705000000b003437d6b0d30mr10666434wrp.12.1713888438870;
-        Tue, 23 Apr 2024 09:07:18 -0700 (PDT)
-Message-ID: <bdf38245-8b86-4b3b-a616-ca9e7bd09ba4@suse.com>
-Date: Tue, 23 Apr 2024 18:07:18 +0200
+        bh=LXTsSpL6xs+pc0ARmlC7FhXdjJtoWTjhbKabMGAzUR8=;
+        b=DMbBHEsjjnJ1e5tGlu5d7GBtqc46D5++zjLYjD3qDEKOqcq2AhRxQpLM9I6r5Lrolb
+         kNDScvQINCJ3i9uhzkwYkFerIcVOWgvLP/eTsMMYQc7DJ277DwcxYL2CKI+63VE3KNXR
+         g/l+dX0FqHoK6thzHHehq9jd4oFNgEsV/iWtGOwwyZ7PX5wTh1TfpQDCpHsUOYdyvjmu
+         FllSBKBDCoTSZvBOhchV0HG86d4WkBqnwNRwL68GFi5wCwiXbrDCzFcagwGaHcJP2DoX
+         nQ3OJUxfrCr/QlYVxT8WcgJfYO7t4sidQmRBIpr+84Wx7rT/0OYeqeeO9ADjRSrjeQHE
+         JuqQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVdWYjMlCbo28Yte5mycNlI77eoB7VDiZpxRKLU7SWLH5iaYMl9m+E7rdGP0kk5LKTldppeHzjXkqi1gFPSlc/NkuilBFNHK8jPH1NJd6Y=
+X-Gm-Message-State: AOJu0YwhwjeHy4WU6IJWfvHU7iSWPk4o+iTJhKRACPfMy22cBJvYwYk9
+	WlIZhb7MmXsZaZfmB2AZz5RuGhmw7+Wdvr0cmWTl9sYZ3cKkJjheHsAn6mJhqQ==
+X-Google-Smtp-Source: AGHT+IFL6f8pLQh7FHEJSd0823wCvl+AADbOwbd0kubW97SV93wFt+d9ADwxLwL8I6q+Z/3EETwOAA==
+X-Received: by 2002:a05:6000:10e:b0:343:ebd4:35a5 with SMTP id o14-20020a056000010e00b00343ebd435a5mr7712229wrx.0.1713888608970;
+        Tue, 23 Apr 2024 09:10:08 -0700 (PDT)
+Message-ID: <691482dd-4803-443a-8e22-c410249e0dfd@suse.com>
+Date: Tue, 23 Apr 2024 18:10:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] livepatch: refuse to resolve symbols that belong
- to init sections
+Subject: Re: [PATCH 2/5] x86: Refactor microcode_update() hypercall with flags
+ field
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240423131249.29825-1-roger.pau@citrix.com>
- <20240423131249.29825-4-roger.pau@citrix.com>
- <0625d7fd-1554-4d47-a8a5-0d6bfb1fcd56@suse.com> <ZifE_rQhaZNbjIt2@macbook>
- <46c58aa4-d908-40ff-9c77-e0eacc7e10b6@suse.com> <ZifN3YMbYtlv-Aa4@macbook>
+To: Fouad Hilly <fouad.hilly@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240405121128.260493-1-fouad.hilly@cloud.com>
+ <20240405121128.260493-3-fouad.hilly@cloud.com>
+ <f789bf74-8296-4127-9612-a46d02a422ee@suse.com>
+ <CAJKAvHYEBabwDG36QtBkTGhym6m-uypZhv1HzaGhNuCKQnu1wA@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,103 +117,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZifN3YMbYtlv-Aa4@macbook>
+In-Reply-To: <CAJKAvHYEBabwDG36QtBkTGhym6m-uypZhv1HzaGhNuCKQnu1wA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 23.04.2024 17:03, Roger Pau Monné wrote:
-> On Tue, Apr 23, 2024 at 04:28:59PM +0200, Jan Beulich wrote:
->> On 23.04.2024 16:26, Roger Pau Monné wrote:
->>> On Tue, Apr 23, 2024 at 03:44:42PM +0200, Jan Beulich wrote:
->>>> On 23.04.2024 15:12, Roger Pau Monne wrote:
->>>>> Livepatch payloads containing symbols that belong to init sections can only
->>>>> lead to page faults later on, as by the time the livepatch is loaded init
->>>>> sections have already been freed.
->>>>>
->>>>> Refuse to resolve such symbols and return an error instead.
->>>>>
->>>>> Note such resolutions are only relevant for symbols that point to undefined
->>>>> sections (SHN_UNDEF), as that implies the symbol is not in the current payload
->>>>> and hence must either be a Xen or a different livepatch payload symbol.
->>>>>
->>>>> Do not allow to resolve symbols that point to __init_begin, as that address is
->>>>> also unmapped.  On the other hand, __init_end is not unmapped, and hence allow
->>>>> resolutions against it.
->>>>>
->>>>> Since __init_begin can alias other symbols (like _erodata for example)
->>>>> allow the force flag to override the check and resolve the symbol anyway.
->>>>>
->>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>
->>>> In principle, as promised (and just to indicate earlier concerns were
->>>> addressed, as this is meaningless for other purposes)
->>>> Acked-by: Jan Beulich <jbeulich@suse.com>
->>>> However, ...
->>>>
->>>>> @@ -310,6 +311,21 @@ int livepatch_elf_resolve_symbols(struct livepatch_elf *elf)
->>>>>                      break;
->>>>>                  }
->>>>>              }
->>>>> +
->>>>> +            /*
->>>>> +             * Ensure not an init symbol.  Only applicable to Xen symbols, as
->>>>> +             * livepatch payloads don't have init sections or equivalent.
->>>>> +             */
->>>>> +            else if ( st_value >= (uintptr_t)&__init_begin &&
->>>>> +                      st_value <  (uintptr_t)&__init_end && !force )
->>>>> +            {
->>>>> +                printk(XENLOG_ERR LIVEPATCH
->>>>> +                       "%s: symbol %s is in init section, not resolving\n",
->>>>> +                       elf->name, elf->sym[i].name);
->>>>> +                rc = -ENXIO;
->>>>> +                break;
->>>>> +            }
->>>>
->>>> ... wouldn't it make sense to still warn in this case when "force" is set?
+On 23.04.2024 16:53, Fouad Hilly wrote:
+> On Mon, Apr 8, 2024 at 10:16 AM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 05.04.2024 14:11, Fouad Hilly wrote:
+>>> @@ -708,11 +712,13 @@ static long cf_check microcode_update_helper(void *data)
+>>>      return ret;
+>>>  }
 >>>
->>> Pondered it, I was thinking that a user would first run without
->>> --force, and use the option as a result of seeing the first failure.
+>>> -int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len)
+>>> +int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len, unsigned int flags)
+>>>  {
+>>>      int ret;
+>>>      struct ucode_buf *buffer;
 >>>
->>> However if there is more than one check that's bypassed, further ones
->>> won't be noticed, so:
->>>
->>>             else if ( st_value >= (uintptr_t)&__init_begin &&
->>>                       st_value <  (uintptr_t)&__init_end )
->>>             {
->>>                 printk(XENLOG_ERR LIVEPATCH
->>>                        "%s: symbol %s is in init section, not resolving\n",
->>>                        elf->name, elf->sym[i].name);
->>>                 if ( !force )
->>>                 {
->>>                     rc = -ENXIO;
->>>                     break;
->>>                 }
->>>             }
->>>
->>> Would be OK then?
+>>> +    ucode_force_flag = (flags == XENPF_UCODE_FLAG_FORCE_SET)? 1: 0;
 >>
->> Perhaps. "not resolving" isn't quite true when "force" is true, and warnings
->> would also better not be issued with XENLOG_ERR.
-> 
-> I was assuming that printing as XENLOG_ERR level would still be OK -
-> even if bypassed because of the usage of --force.  The "not resolving"
-> part should indeed go away. Maybe this is better:
-> 
->             else if ( st_value >= (uintptr_t)&__init_begin &&
->                       st_value <  (uintptr_t)&__init_end )
->             {
->                 printk("%s" LIVEPATCH "%s: symbol %s is in init section%s\n",
->                        force ? XENLOG_WARNING : XENLOG_ERR,
->                        elf->name, elf->sym[i].name,
->                        force ? "" : ", not resolving");
->                 if ( !force )
->                 {
->                     rc = -ENXIO;
->                     break;
->                 }
->             }
+>> No need for ?: when the lhs has type bool.
+>>
+>> But - do we really need to resort to parameter passing via static variables
+>> here? If it's unavoidable, its setting needs to move inside a locked region
+>> (with that region covering everything up to all consumption of the value).
+> There are many function calls and checks of the firmware between
+> microcode_update() and the actual update, which makes static variable
+> the viable option.
+> In V2 I broke it down between the actual update_flags (static) and
+> force_flag (local to firmware update function), I understand that
+> might not be enough, I will look into further improvement for
+> microcode_update flags in V3.
+>>
+>> Further, to avoid the same issue again when another flag wants adding, you
+>> want to check that all other bits in the flags field are clear.
+> The above check is checking all bits in the flags field. Are you
+> referring to flag per bit where multiple flags can be set
+> simultaneously?
 
-I'd be okay with this; the livepatch maintainers will have the ultimate say.
+No. What you do is treat a flags value of, say, 2 the same as a flags
+value of 0. That's wrong when considering that the value 2 may gain a
+meaning going forward. At this point you want to refuse flags values
+other than 0 or 1.
 
 Jan
 
