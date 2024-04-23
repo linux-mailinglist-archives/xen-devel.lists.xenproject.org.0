@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DEE08AE9DC
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 16:53:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710735.1110142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64A6F8AE9DD
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 16:54:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710739.1110151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzHVj-0001An-Eb; Tue, 23 Apr 2024 14:52:43 +0000
+	id 1rzHWr-0001nd-Rz; Tue, 23 Apr 2024 14:53:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710735.1110142; Tue, 23 Apr 2024 14:52:43 +0000
+Received: by outflank-mailman (output) from mailman id 710739.1110151; Tue, 23 Apr 2024 14:53:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzHVj-00017u-Be; Tue, 23 Apr 2024 14:52:43 +0000
-Received: by outflank-mailman (input) for mailman id 710735;
- Tue, 23 Apr 2024 14:52:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzHWr-0001lU-PO; Tue, 23 Apr 2024 14:53:53 +0000
+Received: by outflank-mailman (input) for mailman id 710739;
+ Tue, 23 Apr 2024 14:53:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6olb=L4=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1rzHVh-00017o-OU
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 14:52:41 +0000
-Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
- [2607:f8b0:4864:20::c33])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 210f7d29-0181-11ef-b4bb-af5377834399;
- Tue, 23 Apr 2024 16:52:39 +0200 (CEST)
-Received: by mail-oo1-xc33.google.com with SMTP id
- 006d021491bc7-5aa241232faso4286085eaf.0
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 07:52:39 -0700 (PDT)
+ <SRS0=nbx+=L4=cloud.com=fouad.hilly@srs-se1.protection.inumbo.net>)
+ id 1rzHWq-0001lN-DU
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 14:53:52 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4c44fbe7-0181-11ef-909a-e314d9c70b13;
+ Tue, 23 Apr 2024 16:53:51 +0200 (CEST)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2d9fe2b37acso77850661fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 07:53:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,151 +40,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 210f7d29-0181-11ef-b4bb-af5377834399
+X-Inumbo-ID: 4c44fbe7-0181-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1713883958; x=1714488758; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1713884031; x=1714488831; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0oJ5oFwFtt28a/L1Lw52NZ/TBbSz0Cd9oGC/3/Q44LI=;
-        b=JNl4AhbcK7fmQkmjDERgvVXlizDrw7ZUFMwLCNtqgQoySc+6t00y6Q5uv4HB9qBxd1
-         QlhIGnixvAcPnZG/dA7GGXygYIG10MK5S8qG3o9HBvArwh+qCCr/KwSfYr+Y/8QwJLa1
-         S/KeS9/HQjfJ1rmwUB9rexE6GKxlbnKWZm/AjLa30/YVMsMGTGVtHHsMTdh0+m/hZdDX
-         TMlKZ7uTohe7HyRIMVtkrw8mkewJw8iWWCW/Mm8PPCpwMccopWq+1sCf7Tkg+ybHlFcy
-         iYWotBeNLb6uRsGI47hznDUucBK58NmzZzfRj0GClmnpQxgY1YuvA8njNzM477q0NvKX
-         4F1A==
+        bh=GbFelA8PXo1kBWplz3bLp6fXNzYsis+XulplU1h6jX0=;
+        b=ca79IDqHWTrNToGfAW4Z2JkOfKuEWu2Ll5TU9VPbPTygpETE/5oXXgdYlT4arFV0l/
+         CEuQEe5yJX//geBLyzUPAflQB/Lbl6Yjq149OI052pABqdyyezxedQ8YCyzt1+H09kzJ
+         1GQstE8UvUexu5JzUnc5gNDp/6pc/6wWFKXqA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713883958; x=1714488758;
+        d=1e100.net; s=20230601; t=1713884031; x=1714488831;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0oJ5oFwFtt28a/L1Lw52NZ/TBbSz0Cd9oGC/3/Q44LI=;
-        b=JHA2cGeO1FBEoCw/xXJUP+4VXKtKIKThsICyBz+2Ax9pW/xtscUp5RR0+ThVnlsmhJ
-         qcNm4vUFDdxp+EyWpRpiIVLMuG89EMoOSYJwfJmLRJOBKgrmjFUrfqk39YXaVvN8UCuU
-         dHSFU6fTiWVOn8b/0sT7v1Eh70nqy2AuMrUAPCg4ZnCqdJEY31UT0ZYSQLimHbCd47BM
-         MWz1AT8mtA7CosuD1LQ1q35KeVWuj7QUb3FhfUEmM3v31jd6+Wd6pQuRvKb/HRbD+Zm6
-         9LjckRLm9GebtvxCgEPgZn+TaCJK+424oEhZpYiuBfkPpS+MWpWvLzU5YQ4DHsSa3qvX
-         a+1w==
-X-Forwarded-Encrypted: i=1; AJvYcCVAN1CI9dInveqrajaoXfvYoWMxwDmSAUgaY21rgIs0prgfZ6Z6b1zmAGG4iUELfYCgzk4NS4L9IjbuCj2+h3wynyoXmKKJ/SMWqf6nueA=
-X-Gm-Message-State: AOJu0YxhRFBv1o3aAVW9srQDkRYQmrBJqzG/8ebsurTYi4+VquCpRMeB
-	IBjtVw3fIBBF59HnvSCYFRPHjQAAp7Yn5sXJW+uflCUhAGF9V6sT7KfT98in6BgEMiTw7J+uQg8
-	amQq22FOaXJHJC2+cR2H3SXB2MF5f+wzonOIjkQ==
-X-Google-Smtp-Source: AGHT+IGhElEhvoOcLIh6BtvKq0ep5l63/2dy1xgqffEyBWJzt4lw7QGECKqZXkEujCD6RCyTcTNymOhtdVsAksHMPhs=
-X-Received: by 2002:a4a:acc3:0:b0:5ac:bdbe:d09b with SMTP id
- c3-20020a4aacc3000000b005acbdbed09bmr14253587oon.4.1713883958407; Tue, 23 Apr
- 2024 07:52:38 -0700 (PDT)
+        bh=GbFelA8PXo1kBWplz3bLp6fXNzYsis+XulplU1h6jX0=;
+        b=g1LIdkjqhNWRt8/M8jXf0qmf2TdnB+OKdsaH1bNS+TspEGgb5PgX27AA5mwP0hQ4GH
+         IBT3YhWprQ22KzzR35sHKJjx32DOPNXfYMCpw5oVbdvJgHoiyJskk8p9QXbLOSIEvDcB
+         gtIJsgSpMNXygr4h/4JuzSuZHhCYfnhz6BK7WnPIojmtW17gm8N7SUryRfTe40WXyQy2
+         nqGLfnLHNuQ4Zm39tNLqF8Ogw2t70PixUmJ82g2PyDKBsLICSEy03UPzvp1BRK/hy3v4
+         gTrXHH1xeTD9I1N6hxEyesQl2ujmwKF/d9ySfRDdHLoCzr2TECz4RUyQftY9dzzocwt0
+         7QjA==
+X-Forwarded-Encrypted: i=1; AJvYcCUpPuE/Zr2poOV2D43o7KdomIgEq2QMIkbR5d17qjnP++1QsAGaMFedSVfcETOgGdH563dyqiLWd1Cwf6DeDevkpRhZMLq055LvUPLir7E=
+X-Gm-Message-State: AOJu0Yx2A6UhPQ7iZw1bdsFMEvqoKQj8OQvkaH1VlDC92ARMtXmYyy11
+	hJBi/Gix8ZHVbaT1h7jdv5lq1QvYmjCpvYJ/7din3R6XUJgWHBZFv3fdtqpKd3QN8fjYyfzhLyP
+	jNVuArq7lXcF4sG53lB12I4fXAh7lJ/aqUn6lIA==
+X-Google-Smtp-Source: AGHT+IHeIY16J0ghdKPjwlX+oYgP4L4juwrm8PqBcc0GNz4PJcEFgEwnQHlvi5vNLI09j90jlRCwnJJatCsr+6dk/N4=
+X-Received: by 2002:a05:651c:389:b0:2d6:85ec:fb49 with SMTP id
+ e9-20020a05651c038900b002d685ecfb49mr8553621ljp.28.1713884030913; Tue, 23 Apr
+ 2024 07:53:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240422073708.3663529-1-jens.wiklander@linaro.org>
- <20240422073708.3663529-5-jens.wiklander@linaro.org> <89d268cc-bc49-4e22-b4e9-2e8dbe73124c@xen.org>
- <CAHUa44GAbBtczbVohVjC=66tqzjgeGLx44k9ddodDJL13KwVEQ@mail.gmail.com>
- <205a95f2-fdf6-4f38-b2e0-31e4fff9348b@xen.org> <756FEA03-7F16-48AE-8308-059EBF8638A0@arm.com>
- <27BADE00-E6EC-4BD6-AC5D-201DF1A76BCD@arm.com> <195c1fe6-ed77-417f-bcb0-fdfaf687c4b0@xen.org>
-In-Reply-To: <195c1fe6-ed77-417f-bcb0-fdfaf687c4b0@xen.org>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 23 Apr 2024 16:52:26 +0200
-Message-ID: <CAHUa44FmSg2Nm9JqZ6DLNX_CkS37esabc+E-uvk5XjJymqNWtg@mail.gmail.com>
-Subject: Re: [XEN PATCH v2 4/5] xen/arm: allow dynamically assigned SGI handlers
-To: Julien Grall <julien@xen.org>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
-	"patches@linaro.org" <patches@linaro.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240405121128.260493-1-fouad.hilly@cloud.com>
+ <20240405121128.260493-3-fouad.hilly@cloud.com> <f789bf74-8296-4127-9612-a46d02a422ee@suse.com>
+In-Reply-To: <f789bf74-8296-4127-9612-a46d02a422ee@suse.com>
+From: Fouad Hilly <fouad.hilly@cloud.com>
+Date: Tue, 23 Apr 2024 15:53:39 +0100
+Message-ID: <CAJKAvHYEBabwDG36QtBkTGhym6m-uypZhv1HzaGhNuCKQnu1wA@mail.gmail.com>
+Subject: Re: [PATCH 2/5] x86: Refactor microcode_update() hypercall with flags field
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Xen-devel <xen-devel@lists.xenproject.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-On Tue, Apr 23, 2024 at 4:28=E2=80=AFPM Julien Grall <julien@xen.org> wrote=
-:
+On Mon, Apr 8, 2024 at 10:16=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
 >
-> Hi Bertrand,
+> On 05.04.2024 14:11, Fouad Hilly wrote:
+> > @@ -708,11 +712,13 @@ static long cf_check microcode_update_helper(void=
+ *data)
+> >      return ret;
+> >  }
+> >
+> > -int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long l=
+en)
+> > +int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long l=
+en, unsigned int flags)
+> >  {
+> >      int ret;
+> >      struct ucode_buf *buffer;
+> >
+> > +    ucode_force_flag =3D (flags =3D=3D XENPF_UCODE_FLAG_FORCE_SET)? 1:=
+ 0;
 >
-> On 23/04/2024 14:23, Bertrand Marquis wrote:
-> > Hi Julien,
-> >
-> >> On 23 Apr 2024, at 14:37, Bertrand Marquis <Bertrand.Marquis@arm.com> =
-wrote:
-> >>
-> >> Hi Julien,
-> >>
-> >>> On 23 Apr 2024, at 13:05, Julien Grall <julien@xen.org> wrote:
-> >>>
-> >>>
-> >>>
-> >>> On 23/04/2024 10:35, Jens Wiklander wrote:
-> >>>> Hi Julien,
-> >>>
-> >>> Hi Jens,
-> >>>
-> >>>> On Mon, Apr 22, 2024 at 12:57=E2=80=AFPM Julien Grall <julien@xen.or=
-g> wrote:
-> >>>>>
-> >>>>> Hi Jens,
-> >>>>>
-> >>>>> On 22/04/2024 08:37, Jens Wiklander wrote:
-> >>>>>> Updates so request_irq() can be used with a dynamically assigned S=
-GI irq
-> >>>>>> as input. This prepares for a later patch where an FF-A schedule
-> >>>>>> receiver interrupt handler is installed for an SGI generated by th=
-e
-> >>>>>> secure world.
-> >>>>>
-> >>>>> I would like to understand the use-case a bit more. Who is responsi=
-ble
-> >>>>> to decide the SGI number? Is it Xen or the firmware?
-> >>>>>
-> >>>>> If the later, how can we ever guarantee the ID is not going to clas=
-h
-> >>>>> with what the OS/hypervisor is using? Is it described in a
-> >>>>> specification? If so, please give a pointer.
-> >>>> The firmware decides the SGI number. Given that the firmware doesn't
-> >>>> know which SGIs Xen is using it typically needs to donate one of the
-> >>>> secure SGIs, but that is transparent to Xen.
-> >>>
-> >>> Right this is my concern. The firmware decides the number, but at the=
- same time Xen thinks that all the SGIs are available (AFAIK there is only =
-one set).
-> >>>
-> >>> What I would like to see is some wording from a spec indicating that =
-the SGIs ID reserved by the firmware will not be clashing with the one used=
- by Xen.
-> >>
-> >> The idea is that the only SGI reserved for secure are used by the secu=
-re world (in fact it is the SPMC in the secure world who tells us which SGI=
- it will generate).
-> >> So in theory that means it will always use an SGI between 8 and 15.
-> >>
-> >> Now it could make sense in fact to check that the number returned by t=
-he firmware (or SPMC) is not clashing with Xen as it is a recommendation in=
- the spec and
-> >> in fact an implementation might do something different.
-> >>
-> >> Right now there is no spec that will say that it will never clash with=
- the one used by Xen as the FF-A spec is not enforcing anything here so it =
-would be a good idea
-> >> to check and disable FF-A with a proper error message if this happens.
-> >
-> >
-> > After some more digging here is what is recommended by Arm in the Arm B=
-ase System Architecture v1.0C [1]:
-> >
-> > "The system shall implement at least eight Non-secure SGIs, assigned to=
- interrupt IDs 0-7."
+> No need for ?: when the lhs has type bool.
 >
-> Thanks! Can we provide a link to the specification in the commit message?
-
-Sure, I'll add a link.
-
+> But - do we really need to resort to parameter passing via static variabl=
+es
+> here? If it's unavoidable, its setting needs to move inside a locked regi=
+on
+> (with that region covering everything up to all consumption of the value)=
+.
+There are many function calls and checks of the firmware between
+microcode_update() and the actual update, which makes static variable
+the viable option.
+In V2 I broke it down between the actual update_flags (static) and
+force_flag (local to firmware update function), I understand that
+might not be enough, I will look into further improvement for
+microcode_update flags in V3.
 >
+> Further, to avoid the same issue again when another flag wants adding, yo=
+u
+> want to check that all other bits in the flags field are clear.
+The above check is checking all bits in the flags field. Are you
+referring to flag per bit where multiple flags can be set
+simultaneously?
+>
+> > --- a/xen/arch/x86/include/asm/microcode.h
+> > +++ b/xen/arch/x86/include/asm/microcode.h
+> > @@ -22,7 +22,7 @@ struct cpu_signature {
+> >  DECLARE_PER_CPU(struct cpu_signature, cpu_sig);
 > >
-> > So basically as long as Xen is using SGIs 0-7 it is safe as those shall=
- never be used by the secure world.
-> > Now i do agree that we should check that whatever is returned by the fi=
-rmware is not conflicting with what
-> > is used by Xen.
-> +1.
-
-That makes sense, I'll add a check.
+> >  void microcode_set_module(unsigned int idx);
+> > -int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long l=
+en);
+> > +int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long l=
+en, unsigned int flags);
+>
+> Nit: Too long line.
+>
+> > --- a/xen/include/public/platform.h
+> > +++ b/xen/include/public/platform.h
+> > @@ -99,6 +99,10 @@ struct xenpf_microcode_update {
+> >      /* IN variables. */
+> >      XEN_GUEST_HANDLE(const_void) data;/* Pointer to microcode data */
+> >      uint32_t length;                  /* Length of microcode data. */
+> > +    uint32_t flags;                   /* Flags to be passed with ucode=
+. */
+> > +/* Force to skip microcode version check when set */
+> > +#define XENPF_UCODE_FLAG_FORCE_NOT_SET 0
+> > +#define XENPF_UCODE_FLAG_FORCE_SET     1
+> >  };
+>
+> The safety of this growing of an existing stable ABI struct wants at leas=
+t
+> briefly mentioning in the description.
+>
+> > @@ -624,6 +628,10 @@ struct xenpf_ucode_revision {
+> >  typedef struct xenpf_ucode_revision xenpf_ucode_revision_t;
+> >  DEFINE_XEN_GUEST_HANDLE(xenpf_ucode_revision_t);
+> >
+> > +/* Hypercall to microcode_update with flags */
+> > +#define XENPF_microcode_update2    66
+> > +
+> > +
+>
+> No double blank lines please.
+>
+> Jan
 
 Thanks,
-Jens
+
+Fouad
 
