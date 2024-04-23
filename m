@@ -2,35 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F25D8ADFB1
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 10:26:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710387.1109627 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 928898AE033
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 10:47:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710425.1109640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzBTO-0004Eu-VZ; Tue, 23 Apr 2024 08:25:54 +0000
+	id 1rzBn2-0001Lz-FQ; Tue, 23 Apr 2024 08:46:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710387.1109627; Tue, 23 Apr 2024 08:25:54 +0000
+Received: by outflank-mailman (output) from mailman id 710425.1109640; Tue, 23 Apr 2024 08:46:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzBTO-00048O-Q9; Tue, 23 Apr 2024 08:25:54 +0000
-Received: by outflank-mailman (input) for mailman id 710387;
- Tue, 23 Apr 2024 08:25:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzBn2-0001KF-Cr; Tue, 23 Apr 2024 08:46:12 +0000
+Received: by outflank-mailman (input) for mailman id 710425;
+ Tue, 23 Apr 2024 08:46:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eHxu=L4=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1rzBTN-0002TX-9s
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 08:25:53 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 184fe73e-014b-11ef-b4bb-af5377834399;
- Tue, 23 Apr 2024 10:25:51 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 46D70339;
- Tue, 23 Apr 2024 01:26:19 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2DCEF3F64C;
- Tue, 23 Apr 2024 01:25:50 -0700 (PDT)
+ <SRS0=UKuO=L4=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1rzBn0-0001K9-Vv
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 08:46:11 +0000
+Received: from pb-smtp21.pobox.com (pb-smtp21.pobox.com [173.228.157.53])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ebdd5a13-014d-11ef-909a-e314d9c70b13;
+ Tue, 23 Apr 2024 10:46:07 +0200 (CEST)
+Received: from pb-smtp21.pobox.com (unknown [127.0.0.1])
+ by pb-smtp21.pobox.com (Postfix) with ESMTP id 7296B293A4;
+ Tue, 23 Apr 2024 04:46:04 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from pb-smtp21.sea.icgroup.com (unknown [127.0.0.1])
+ by pb-smtp21.pobox.com (Postfix) with ESMTP id 5D1DB293A3;
+ Tue, 23 Apr 2024 04:46:04 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from localhost (unknown [185.130.54.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by pb-smtp21.pobox.com (Postfix) with ESMTPSA id 4EA622939D;
+ Tue, 23 Apr 2024 04:46:00 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,157 +50,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 184fe73e-014b-11ef-b4bb-af5377834399
-From: Luca Fancellu <luca.fancellu@arm.com>
+X-Inumbo-ID: ebdd5a13-014d-11ef-909a-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
+	:subject:date:message-id:mime-version:content-transfer-encoding;
+	 s=sasl; bh=Uh4F9no4BIYC1nQL2ejMcfVoDtu9aEa2CEXPvaH2j0Q=; b=ANlo
+	c16bMuYA0Z9Vf/I6uWkcHzNvYUogE59oNXcCcg7H7BGPUuuO1BJRNZ07KcVetI0H
+	vc/LSFHZ5OEzCGGPRVhBBlFXhKU2R4PBgcKdHQoMZs/x9yuRKtUJPuTxXfJ+aZzG
+	mahkcK8pOPYIRkC8W96tx3Vex9uLFnP9c5BHxaI=
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 To: xen-devel@lists.xenproject.org
-Cc: Penny Zheng <Penny.Zheng@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH 7/7] xen/docs: Describe static shared memory when host address is not provided
-Date: Tue, 23 Apr 2024 09:25:32 +0100
-Message-Id: <20240423082532.776623-8-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240423082532.776623-1-luca.fancellu@arm.com>
-References: <20240423082532.776623-1-luca.fancellu@arm.com>
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v1 0/7] x86: make Intel/AMD vPMU & MCE support configurable
+Date: Tue, 23 Apr 2024 11:45:56 +0300
+Message-Id: <cover.1713860310.git.Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Pobox-Relay-ID:
+ E8E77480-014D-11EF-8AA1-A19503B9AAD1-90055647!pb-smtp21.pobox.com
+Content-Transfer-Encoding: quoted-printable
 
-From: Penny Zheng <Penny.Zheng@arm.com>
+Here's an attempt to further separate support of Intel & AMD CPUs in Xen =
+build.
+The code to drive both platforms used to be built unconditionally, until =
+recent
+introduction of CONFIG_{AMD,INTEL} Kconfig options.
 
-This commit describe the new scenario where host address is not provided
-in "xen,shared-mem" property and a new example is added to the page to
-explain in details.
+This series extends coverage of these options on vpmu and mcheck subsyste=
+ms,
+that is not building Intel or AMD vpmu/mcheck support if CPU vendor's sup=
+port
+was explicitly disabled.
 
-Take the occasion to fix some typos in the page.
+Sergiy Kibrik (7):
+  x86/vpmu: separate amd/intel vPMU code
+  x86/intel: guard vmce_has_lmce() with INTEL option
+  x86/MCE: guard access to Intel/AMD-specific MCA MSRs
+  x86/MCE: guard lmce_support/cmci_support
+  x86/MCE: guard {intel/amd}_mcheck_init() calls
+  x86/MCE: guard call to Intel-specific intel_get_extended_msrs()
+  x86/MCE: optional build of AMD/Intel MCE code
 
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-v1:
- - patch from https://patchwork.kernel.org/project/xen-devel/patch/20231206090623.1932275-10-Penny.Zheng@arm.com/
-   with some changes in the commit message.
----
- docs/misc/arm/device-tree/booting.txt | 52 ++++++++++++++++++++-------
- 1 file changed, 39 insertions(+), 13 deletions(-)
+ xen/arch/x86/cpu/Makefile           |  4 +++-
+ xen/arch/x86/cpu/mcheck/Makefile    |  6 ++----
+ xen/arch/x86/cpu/mcheck/mce.c       | 13 ++++++++-----
+ xen/arch/x86/cpu/mcheck/non-fatal.c |  6 ++++++
+ xen/arch/x86/cpu/mcheck/vmce.c      | 18 +++++++++++-------
+ xen/arch/x86/cpu/mcheck/vmce.h      |  1 +
+ xen/arch/x86/include/asm/vpmu.h     | 19 +++++++++++++++++++
+ xen/arch/x86/msr.c                  |  2 +-
+ 8 files changed, 51 insertions(+), 18 deletions(-)
 
-diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-index bbd955e9c2f6..ac4bad6fe5e0 100644
---- a/docs/misc/arm/device-tree/booting.txt
-+++ b/docs/misc/arm/device-tree/booting.txt
-@@ -590,7 +590,7 @@ communication.
-     An array takes a physical address, which is the base address of the
-     shared memory region in host physical address space, a size, and a guest
-     physical address, as the target address of the mapping.
--    e.g. xen,shared-mem = < [host physical address] [guest address] [size] >
-+    e.g. xen,shared-mem = < [host physical address] [guest address] [size] >;
- 
-     It shall also meet the following criteria:
-     1) If the SHM ID matches with an existing region, the address range of the
-@@ -601,8 +601,8 @@ communication.
-     The number of cells for the host address (and size) is the same as the
-     guest pseudo-physical address and they are inherited from the parent node.
- 
--    Host physical address is optional, when missing Xen decides the location
--    (currently unimplemented).
-+    Host physical address is optional, when missing Xen decides the location.
-+    e.g. xen,shared-mem = < [guest address] [size] >;
- 
- - role (Optional)
- 
-@@ -629,7 +629,7 @@ chosen {
-         role = "owner";
-         xen,shm-id = "my-shared-mem-0";
-         xen,shared-mem = <0x10000000 0x10000000 0x10000000>;
--    }
-+    };
- 
-     domU1 {
-         compatible = "xen,domain";
-@@ -640,25 +640,36 @@ chosen {
-         vpl011;
- 
-         /*
--         * shared memory region identified as 0x0(xen,shm-id = <0x0>)
--         * is shared between Dom0 and DomU1.
-+         * shared memory region "my-shared-mem-0" is shared
-+         * between Dom0 and DomU1.
-          */
-         domU1-shared-mem@10000000 {
-             compatible = "xen,domain-shared-memory-v1";
-             role = "borrower";
-             xen,shm-id = "my-shared-mem-0";
-             xen,shared-mem = <0x10000000 0x50000000 0x10000000>;
--        }
-+        };
- 
-         /*
--         * shared memory region identified as 0x1(xen,shm-id = <0x1>)
--         * is shared between DomU1 and DomU2.
-+         * shared memory region "my-shared-mem-1" is shared between
-+         * DomU1 and DomU2.
-          */
-         domU1-shared-mem@50000000 {
-             compatible = "xen,domain-shared-memory-v1";
-             xen,shm-id = "my-shared-mem-1";
-             xen,shared-mem = <0x50000000 0x60000000 0x20000000>;
--        }
-+        };
-+
-+        /*
-+         * shared memory region "my-shared-mem-2" is shared between
-+         * DomU1 and DomU2.
-+         */
-+        domU1-shared-mem-2 {
-+            compatible = "xen,domain-shared-memory-v1";
-+            xen,shm-id = "my-shared-mem-2";
-+            role = "owner";
-+            xen,shared-mem = <0x80000000 0x20000000>;
-+        };
- 
-         ......
- 
-@@ -672,14 +683,21 @@ chosen {
-         cpus = <1>;
- 
-         /*
--         * shared memory region identified as 0x1(xen,shm-id = <0x1>)
--         * is shared between domU1 and domU2.
-+         * shared memory region "my-shared-mem-1" is shared between
-+         * domU1 and domU2.
-          */
-         domU2-shared-mem@50000000 {
-             compatible = "xen,domain-shared-memory-v1";
-             xen,shm-id = "my-shared-mem-1";
-             xen,shared-mem = <0x50000000 0x70000000 0x20000000>;
--        }
-+        };
-+
-+        domU2-shared-mem-2 {
-+            compatible = "xen,domain-shared-memory-v1";
-+            xen,shm-id = "my-shared-mem-2";
-+            role = "borrower";
-+            xen,shared-mem = <0x90000000 0x20000000>;
-+        };
- 
-         ......
-     };
-@@ -699,3 +717,11 @@ shared between DomU1 and DomU2. It will get mapped at 0x60000000 in DomU1 guest
- physical address space, and at 0x70000000 in DomU2 guest physical address space.
- DomU1 and DomU2 are both the borrower domain, the owner domain is the default
- owner domain DOMID_IO.
-+
-+For the static shared memory region "my-shared-mem-2", since host physical
-+address is not provided by user, Xen will automatically allocate 512MB
-+from heap as static shared memory to be shared between DomU1 and DomU2.
-+The automatically allocated static shared memory will get mapped at
-+0x80000000 in DomU1 guest physical address space, and at 0x90000000 in DomU2
-+guest physical address space. DomU1 is explicitly defined as the owner domain,
-+and DomU2 is the borrower domain.
--- 
-2.34.1
+--=20
+2.25.1
 
 
