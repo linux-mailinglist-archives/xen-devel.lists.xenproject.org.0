@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D03988AE997
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 16:32:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710690.1110072 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C55C08AE99D
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 16:33:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710695.1110082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzHCG-0001YS-8e; Tue, 23 Apr 2024 14:32:36 +0000
+	id 1rzHCr-0002M9-FR; Tue, 23 Apr 2024 14:33:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710690.1110072; Tue, 23 Apr 2024 14:32:36 +0000
+Received: by outflank-mailman (output) from mailman id 710695.1110082; Tue, 23 Apr 2024 14:33:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzHCG-0001WG-4R; Tue, 23 Apr 2024 14:32:36 +0000
-Received: by outflank-mailman (input) for mailman id 710690;
- Tue, 23 Apr 2024 14:32:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzHCr-0002Jx-C9; Tue, 23 Apr 2024 14:33:13 +0000
+Received: by outflank-mailman (input) for mailman id 710695;
+ Tue, 23 Apr 2024 14:33:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ck89=L4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzHCE-00082U-HQ
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 14:32:34 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 52432252-017e-11ef-b4bb-af5377834399;
- Tue, 23 Apr 2024 16:32:33 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-41a4f291f80so18825825e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 07:32:33 -0700 (PDT)
+ id 1rzHCp-0002IN-Oe
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 14:33:11 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 68a7f8bc-017e-11ef-909a-e314d9c70b13;
+ Tue, 23 Apr 2024 16:33:10 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-41a442c9dcbso18490745e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 07:33:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fl18-20020a05600c0b9200b0041ae0048b5dsm481577wmb.45.2024.04.23.07.32.32
+ fl18-20020a05600c0b9200b0041ae0048b5dsm481577wmb.45.2024.04.23.07.33.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 07:32:32 -0700 (PDT)
+ Tue, 23 Apr 2024 07:33:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52432252-017e-11ef-b4bb-af5377834399
+X-Inumbo-ID: 68a7f8bc-017e-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713882752; x=1714487552; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713882790; x=1714487590; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UqfbDwnUwSfB2mqt9VJQheXNCjV8uwEuyxbCPQDuBZg=;
-        b=Y1psqdjsMqN0Us8SpXkgaoZqMXtZHpSLs65bx7v3Rzmp3hcTP5eO23qv+UQYIB6mOG
-         4+u4vyzyxRIF0YE7JstSwfP6e9hbEiW/k5Zh2DZib1KZucmtUNkq5dr/TIBTAHil6IRK
-         Vr3JNgKgfJg/T4/1tb2XE0mei6tMy4ERSi3vn9yty2S4dv74qvgX9EULqF4ADi9aBGws
-         Z94qLkXma697DMP9rqo6l6aufGQ094Y+1otDg5+bWIk5/wFGezIxHPCGICcoPpUuIlGo
-         rfxmH1fqN304rxDdMzYfI91tzHfh/nIvrD9fBoA4lybCiwt3PnuIqHtOGiUXqm6LHu+H
-         07Vw==
+        bh=BFXNdq6YoYaequ8GhZeipZXfz1Szm9kVsf7MfcSDAGw=;
+        b=B7VEUe+lMhdfjrmQzYoo5MbIZQSpGeCVkwG7ZzFU4j5+Xr014wVccC1AxJIau+B66n
+         KtTGmE51cSQbFGXUTdZ2I8XMiGiRIqzulvynLvh6DLVpo8boa7EzIyB1mq4xSMDzKaAf
+         bymhaok4XLkIKe/m/1sXTGtRoIBidAA3Rx6fObkzmGYtNgHZeXbo8tSeEjiGX/5K5cf+
+         rMgAXyikv66LfrF7cFRCFbcH/hfjZjSQ4o3QqR8Gd0YTO+/mNXmtSSEUKA3J8a2gRJAi
+         g5a+CElhUf6cKImwIeRzGVYjeXm0PkTzK0tWvlMOkChCBuzjn+mI/kBK1ipLxNZHg67S
+         NWag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713882752; x=1714487552;
+        d=1e100.net; s=20230601; t=1713882790; x=1714487590;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=UqfbDwnUwSfB2mqt9VJQheXNCjV8uwEuyxbCPQDuBZg=;
-        b=QEbuZvwE4aY4zd8vXu6LIKTZJDO+owZcUccbz6xDIJpswW6/4myo7vfZAZNJRZErfF
-         BruBWfXU+MBk9MfXv8DFckTjE5PwrLYCFSmm8jSJ2YsnH/DOGmNEti07E516aGXn+S9b
-         GdfrftcCom8ld3cIWDHMrsBrCmPgpN7eclMQq7ggf6UxrTV4EeLTIdP0QgjvsrN1LKI2
-         7NQqBtxSaiqwjafVg6MVxAzOG1mdUVYVUqRQpD4j9pFW4wnLB0STjKK08eJlkBYgCcal
-         DlpHVVBxMLQ5N9FR9VEdG3YN8emU+Ldt7vcu0w5+cENwE94E+ZxObJ2yMQ4mD68gBiND
-         16Bg==
-X-Gm-Message-State: AOJu0YzvVqzkXdZr2uLdRfEFoUkl5xjhbpGLD2h1hlNXfc3QvSPeqPCn
-	5q3PU2eI4xTkR0ORuY0h96rdYA/mxqE1sdtZaYyGpUnj21kEtrzGKek+AFhOdi56J4+qTn2lHt0
+        bh=BFXNdq6YoYaequ8GhZeipZXfz1Szm9kVsf7MfcSDAGw=;
+        b=SkvCAjXHkn4deoDrMJCyk1KTNy33yS4PUN0o4V8QdW9bAtlSi5rgIHZaKs6NhzSZPa
+         sNgYfIFP4OposW2jf3sSnVrDdUuMUICh1WBBfNuR7BG6XYHPyntjWkkFMmmdSA+6UELM
+         pWaATMlNu0tr1VX7ybcWhBACpgFo5rdaDzCglH1a/Mo+XolKlMCpVhcvWqnG8MpfbBKR
+         rZoQrowqhtStS4lTWJTed9MMmdEcZWL9FXqT+bqd6vBneHhta+yjbsv0k4Hommvo4DqZ
+         O9HXa9zrjLXb/roT2syMjT8m4TrWmuudtjvDQkFBxPTNRxEs8UkTH9E1DdU6xX7ygMhA
+         fkEQ==
+X-Gm-Message-State: AOJu0YxWbSAL7gb5EX8rGfQ7jytmjNUvBRy8ObcA/f24NXeJBgN47zTU
+	YxcWbmxupyvOOZ2NyCNN0gUqH9d5Y4C2Qzp1i2fYcu3Qe/pC8+k+JeEVlAW6rEcwVsVMb8QP/AQ
 	=
-X-Google-Smtp-Source: AGHT+IHu3HP7wLmspoWlz+cFqPiemlWMuXgZIHW+cU9H0awHdI4caRRCQ1twIyPtsW28bc2DjudTKg==
-X-Received: by 2002:a05:600c:1c0f:b0:41a:c170:701f with SMTP id j15-20020a05600c1c0f00b0041ac170701fmr1635411wms.38.1713882752571;
-        Tue, 23 Apr 2024 07:32:32 -0700 (PDT)
-Message-ID: <67805c1f-7187-446c-a5c4-14be8f170f11@suse.com>
-Date: Tue, 23 Apr 2024 16:32:32 +0200
+X-Google-Smtp-Source: AGHT+IH4QlFNBVmeCCGL/PoVHIfnC99naWmpwVMbrulsdRX9vlXd2W1Zm1HJYRSMV8b8NdXmyofDrQ==
+X-Received: by 2002:a05:600c:348e:b0:41a:b961:9495 with SMTP id a14-20020a05600c348e00b0041ab9619495mr1366338wmq.25.1713882790229;
+        Tue, 23 Apr 2024 07:33:10 -0700 (PDT)
+Message-ID: <fea51839-4405-4330-8493-c544b9edf035@suse.com>
+Date: Tue, 23 Apr 2024 16:33:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 3/4] x86/paging: vCPU host mode is always set
+Subject: [PATCH 4/4] x86/shadow: correct shadow_vcpu_init()'s comment
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>
+ George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>
 References: <0d846228-323b-4427-87d1-684c3d0047c5@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,37 +116,31 @@ In-Reply-To: <0d846228-323b-4427-87d1-684c3d0047c5@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-... thanks to paging_vcpu_init() being part of vCPU creation. Further
-if paging is enabled on a domain, it's also guaranteed to be either HAP
-or shadow. Drop respective unnecessary (parts of) conditionals.
+As of the commit referenced below the update_paging_modes() hook is per-
+domain and hence also set (already) during domain construction.
 
+Fixes: d0816a9085b5 ("x86/paging: move update_paging_modes() hook")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/mm/paging.c
-+++ b/xen/arch/x86/mm/paging.c
-@@ -937,19 +937,12 @@ void paging_dump_vcpu_info(struct vcpu *
-     {
-         printk("    paging assistance: ");
-         if ( paging_mode_shadow(v->domain) )
--        {
--            if ( paging_get_hostmode(v) )
--                printk("shadowed %u-on-%u\n",
--                       paging_get_hostmode(v)->guest_levels,
--                       paging_get_hostmode(v)->shadow.shadow_levels);
--            else
--                printk("not shadowed\n");
--        }
--        else if ( paging_mode_hap(v->domain) && paging_get_hostmode(v) )
-+            printk("shadowed %u-on-%u\n",
-+                   paging_get_hostmode(v)->guest_levels,
-+                   paging_get_hostmode(v)->shadow.shadow_levels);
-+        else
-             printk("hap, %u levels\n",
-                    paging_get_hostmode(v)->guest_levels);
--        else
--            printk("none\n");
-     }
+--- a/xen/arch/x86/mm/shadow/common.c
++++ b/xen/arch/x86/mm/shadow/common.c
+@@ -99,11 +99,12 @@ int shadow_domain_init(struct domain *d)
+     return 0;
  }
  
+-/* Setup the shadow-specfic parts of a vcpu struct. Note: The most important
+- * job is to initialize the update_paging_modes() function pointer, which is
+- * used to initialized the rest of resources. Therefore, it really does not
+- * matter to have v->arch.paging.mode pointing to any mode, as long as it can
+- * be compiled.
++/*
++ * Setup the shadow-specific parts of a vcpu struct. Note: The
++ * update_paging_modes() function pointer, which is used to initialize other
++ * resources, was already set during domain creation. Therefore it really does
++ * not matter to have v->arch.paging.mode pointing to any (legitimate) mode,
++ * as long as it can be compiled.
+  */
+ void shadow_vcpu_init(struct vcpu *v)
+ {
 
 
