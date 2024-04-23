@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89D698AE35F
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 13:06:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710536.1109780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 680278AE544
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 14:01:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710551.1109791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzDxj-00061m-DR; Tue, 23 Apr 2024 11:05:23 +0000
+	id 1rzEpm-0005nF-AY; Tue, 23 Apr 2024 12:01:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710536.1109780; Tue, 23 Apr 2024 11:05:23 +0000
+Received: by outflank-mailman (output) from mailman id 710551.1109791; Tue, 23 Apr 2024 12:01:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzDxj-0005zW-9w; Tue, 23 Apr 2024 11:05:23 +0000
-Received: by outflank-mailman (input) for mailman id 710536;
- Tue, 23 Apr 2024 11:05:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rzDxh-0005zN-Sp
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 11:05:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rzDxh-0006Do-Cl; Tue, 23 Apr 2024 11:05:21 +0000
-Received: from [15.248.2.233] (helo=[10.24.67.33])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rzDxh-0000IA-4G; Tue, 23 Apr 2024 11:05:21 +0000
+	id 1rzEpm-0005kb-7O; Tue, 23 Apr 2024 12:01:14 +0000
+Received: by outflank-mailman (input) for mailman id 710551;
+ Tue, 23 Apr 2024 12:01:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=L0uI=L4=antgroup.com=houwenlong.hwl@srs-se1.protection.inumbo.net>)
+ id 1rzEpj-0005kV-TD
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 12:01:12 +0000
+Received: from out0-217.mail.aliyun.com (out0-217.mail.aliyun.com
+ [140.205.0.217]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 299b52be-0169-11ef-909a-e314d9c70b13;
+ Tue, 23 Apr 2024 14:01:08 +0200 (CEST)
+Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
+ fp:SMTPD_---.XJWBgvy_1713873662) by smtp.aliyun-inc.com;
+ Tue, 23 Apr 2024 20:01:03 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,175 +39,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=dVNGrggqby56lUZ7mN8k24XsZWbMHBXIpc/WAnDjQDE=; b=Pi5MrvfsfLQ1PpZ0QAEkNcdOg1
-	3sHn9B4IVT5uZQHozmuSY7oY7fWyYObEV0gueXTIJsyOTougLtRbJ+xgs+bR0UNsuAZoXKKE/ggMn
-	/OG3s4NgWE/PggPNFsTs9Kxt8mEO7eYpFa4g4PE390M2WckVxkH+v8MXQ2XJCWNb8+E0=;
-Message-ID: <205a95f2-fdf6-4f38-b2e0-31e4fff9348b@xen.org>
-Date: Tue, 23 Apr 2024 12:05:18 +0100
+X-Inumbo-ID: 299b52be-0169-11ef-909a-e314d9c70b13
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=antgroup.com; s=default;
+	t=1713873664; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=fZ3yJhfmevqTNF6DwN5orHbyXoVhDRkMA3HeGG/5QSU=;
+	b=ObkvEPuhWgrfYLfD1cdS/CSc+PIZXHcqGF8n9vh+BtItKn8PJWZKBhlPgl6i/KRKiMpZz+UjJpdT/gjtV8FZ3LBzHJzRJordXD4TaAMITnUUb1ddPhh+fCSx1dRlU/TRNvcVaEc4hJQ70wLQCcFOH66be+JVGQyxXvvf0c0QIgs=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R721e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018047201;MF=houwenlong.hwl@antgroup.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---.XJWBgvy_1713873662;
+From: "Hou Wenlong" <houwenlong.hwl@antgroup.com>
+To: linux-kernel@vger.kernel.org
+Cc: "Hou Wenlong" <houwenlong.hwl@antgroup.com>,
+  "Juergen Gross" <jgross@suse.com>,
+  "Boris Ostrovsky" <boris.ostrovsky@oracle.com>,
+  "Thomas Gleixner" <tglx@linutronix.de>,
+  "Ingo Molnar" <mingo@redhat.com>,
+  "Borislav Petkov" <bp@alien8.de>,
+  "Dave Hansen" <dave.hansen@linux.intel.com>,
+   <x86@kernel.org>,
+  "H. Peter Anvin" <hpa@zytor.com>,
+   <xen-devel@lists.xenproject.org>
+Subject: [PATCH v2] x86/xen/pvh: Enable PAE mode for 32-bit guest only when CONFIG_X86_PAE is set
+Date: Tue, 23 Apr 2024 20:00:58 +0800
+Message-Id: <0469c27833be58aa66471920aa77922489d86c63.1713873613.git.houwenlong.hwl@antgroup.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 4/5] xen/arm: allow dynamically assigned SGI
- handlers
-Content-Language: en-GB
-To: Jens Wiklander <jens.wiklander@linaro.org>
-Cc: xen-devel@lists.xenproject.org, patches@linaro.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240422073708.3663529-1-jens.wiklander@linaro.org>
- <20240422073708.3663529-5-jens.wiklander@linaro.org>
- <89d268cc-bc49-4e22-b4e9-2e8dbe73124c@xen.org>
- <CAHUa44GAbBtczbVohVjC=66tqzjgeGLx44k9ddodDJL13KwVEQ@mail.gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <CAHUa44GAbBtczbVohVjC=66tqzjgeGLx44k9ddodDJL13KwVEQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+The PVH entry is available for 32-bit KVM guests, and 32-bit KVM guests
+do not depend on CONFIG_X86_PAE. However, mk_early_pgtbl_32() builds
+different pagetables depending on whether CONFIG_X86_PAE is set.
+Therefore, enabling PAE mode for 32-bit KVM guests without
+CONFIG_X86_PAE being set would result in a boot failure during CR3
+loading.
 
+Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+---
+v1 -> v2: Add the "Reviewed-by" tag from Juergen
+v1: https://lore.kernel.org/lkml/8c5448eeebbba998a7fff9ed9b2f7e7f3e437967.1697792461.git.houwenlong.hwl@antgroup.com
+---
+ arch/x86/platform/pvh/head.S | 2 ++
+ 1 file changed, 2 insertions(+)
 
-On 23/04/2024 10:35, Jens Wiklander wrote:
-> Hi Julien,
-
-Hi Jens,
-
-> On Mon, Apr 22, 2024 at 12:57 PM Julien Grall <julien@xen.org> wrote:
->>
->> Hi Jens,
->>
->> On 22/04/2024 08:37, Jens Wiklander wrote:
->>> Updates so request_irq() can be used with a dynamically assigned SGI irq
->>> as input. This prepares for a later patch where an FF-A schedule
->>> receiver interrupt handler is installed for an SGI generated by the
->>> secure world.
->>
->> I would like to understand the use-case a bit more. Who is responsible
->> to decide the SGI number? Is it Xen or the firmware?
->>
->> If the later, how can we ever guarantee the ID is not going to clash
->> with what the OS/hypervisor is using? Is it described in a
->> specification? If so, please give a pointer.
-> 
-> The firmware decides the SGI number. Given that the firmware doesn't
-> know which SGIs Xen is using it typically needs to donate one of the
-> secure SGIs, but that is transparent to Xen.
-
-Right this is my concern. The firmware decides the number, but at the 
-same time Xen thinks that all the SGIs are available (AFAIK there is 
-only one set).
-
-What I would like to see is some wording from a spec indicating that the 
-SGIs ID reserved by the firmware will not be clashing with the one used 
-by Xen.
-
-> 
-> 
->>
->>>
->>> gic_route_irq_to_xen() don't gic_set_irq_type() for SGIs since they are
->>> always edge triggered.
->>>
->>> gic_interrupt() is updated to route the dynamically assigned SGIs to
->>> do_IRQ() instead of do_sgi(). The latter still handles the statically
->>> assigned SGI handlers like for instance GIC_SGI_CALL_FUNCTION.
->>>
->>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
->>> ---
->>> v1->v2
->>> - Update patch description as requested
->>> ---
->>>    xen/arch/arm/gic.c | 5 +++--
->>>    xen/arch/arm/irq.c | 7 +++++--
->>
->> I am not sure where to write the comment. But I think the comment on top
->> of irq_set_affinity() in setup_irq() should also be updated.
->>
->>>    2 files changed, 8 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
->>> index 44c40e86defe..e9aeb7138455 100644
->>> --- a/xen/arch/arm/gic.c
->>> +++ b/xen/arch/arm/gic.c
->>> @@ -117,7 +117,8 @@ void gic_route_irq_to_xen(struct irq_desc *desc, unsigned int priority)
->>>
->>>        desc->handler = gic_hw_ops->gic_host_irq_type;
->>>
->>> -    gic_set_irq_type(desc, desc->arch.type);
->>> +    if ( desc->irq >= NR_GIC_SGI)
->>> +        gic_set_irq_type(desc, desc->arch.type);
->>
->> So above, you say that the SGIs are always edge-triggered interrupt. So
->> I assume desc->arch.type. So are you skipping the call because it is
->> unnessary or it could do the wrong thing?
->>
->> Ideally, the outcome of the answer be part of the comment on top of the
->> check.
-> 
-> gic_set_irq_type() has an assert "ASSERT(type != IRQ_TYPE_INVALID)"
-> which is triggered without this check.
-> So it's both unnecessary and wrong. I suppose we could update the
-> bookkeeping of all SGIs to be edge-triggered instead of
-> IRQ_TYPE_INVALID. It would still be unnecessary though. What do you
-> suggest?
-
-I would rather prefer if we update the book-keeping for all the SGIs.
-
-[...]
-
->>
->>>            {
->>>                isb();
->>>                do_IRQ(regs, irq, is_fiq);
->>> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
->>> index bcce80a4d624..fdb214560978 100644
->>> --- a/xen/arch/arm/irq.c
->>> +++ b/xen/arch/arm/irq.c
->>> @@ -224,9 +224,12 @@ void do_IRQ(struct cpu_user_regs *regs, unsigned int irq, int is_fiq)
->>>
->>>        perfc_incr(irqs);
->>>
->>> -    ASSERT(irq >= 16); /* SGIs do not come down this path */
->>> +    /* Statically assigned SGIs do not come down this path */
->>> +    ASSERT(irq >= GIC_SGI_MAX);
->>
->>
->> With this change, I think the path with vgic_inject_irq() now needs to
->> gain an ASSERT(irq >= NR_GIC_SGI) because the path is not supposed to be
->> taken for SGIs.
-> 
-> I'm sorry, I don't see the connection. If I add
-> ASSERT(virq >= NR_GIC_SGI);
-> at the top of vgic_inject_irq() it will panic when injecting a
-> Schedule Receiver or Notification Pending Interrupt for a guest.
-
-If you look at do_IRQ(), we have the following code:
-
-     if ( test_bit(_IRQ_GUEST, &desc->status) )
-     {
-         struct irq_guest *info = irq_get_guest_info(desc);
-
-         perfc_incr(guest_irqs);
-         desc->handler->end(desc);
-
-         set_bit(_IRQ_INPROGRESS, &desc->status);
-
-         /*
-          * The irq cannot be a PPI, we only support delivery of SPIs to
-          * guests.
-          */
-         vgic_inject_irq(info->d, NULL, info->virq, true);
-         goto out_no_end;
-     }
-
-What I suggesting is to add an ASSERT(irq >= NR_GIC_SGI) just before the 
-call because now do_IRQ() can be called with SGIs yet we don't allow HW 
-SGIs to assigned to a guest.
-
-Cheers,
-
+diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
+index f7235ef87bc3..18c69d213458 100644
+--- a/arch/x86/platform/pvh/head.S
++++ b/arch/x86/platform/pvh/head.S
+@@ -71,10 +71,12 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
+ 
+ 	mov $_pa(early_stack_end), %esp
+ 
++#if defined(CONFIG_X86_64) || defined(CONFIG_X86_PAE)
+ 	/* Enable PAE mode. */
+ 	mov %cr4, %eax
+ 	orl $X86_CR4_PAE, %eax
+ 	mov %eax, %cr4
++#endif
+ 
+ #ifdef CONFIG_X86_64
+ 	/* Enable Long mode. */
 -- 
-Julien Grall
+2.31.1
+
 
