@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60C138ADE94
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 09:52:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710353.1109521 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFC1F8ADE9C
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 09:52:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710355.1109530 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzAwQ-0004LO-Ig; Tue, 23 Apr 2024 07:51:50 +0000
+	id 1rzAx8-0004qK-SJ; Tue, 23 Apr 2024 07:52:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710353.1109521; Tue, 23 Apr 2024 07:51:50 +0000
+Received: by outflank-mailman (output) from mailman id 710355.1109530; Tue, 23 Apr 2024 07:52:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzAwQ-0004JC-Fq; Tue, 23 Apr 2024 07:51:50 +0000
-Received: by outflank-mailman (input) for mailman id 710353;
- Tue, 23 Apr 2024 07:51:49 +0000
+	id 1rzAx8-0004nD-P5; Tue, 23 Apr 2024 07:52:34 +0000
+Received: by outflank-mailman (input) for mailman id 710355;
+ Tue, 23 Apr 2024 07:52:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ck89=L4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzAwP-0004J6-CU
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 07:51:49 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1rzAx7-0004J6-LF
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 07:52:33 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5630cc7d-0146-11ef-909a-e314d9c70b13;
- Tue, 23 Apr 2024 09:51:47 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-347e635b1fcso4315109f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 00:51:47 -0700 (PDT)
+ id 710d2e88-0146-11ef-909a-e314d9c70b13;
+ Tue, 23 Apr 2024 09:52:32 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-34388753650so2741398f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 00:52:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g18-20020adfa492000000b0033e9d9f891csm14040548wrb.58.2024.04.23.00.51.46
+ g18-20020adfa492000000b0033e9d9f891csm14040548wrb.58.2024.04.23.00.52.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 00:51:47 -0700 (PDT)
+ Tue, 23 Apr 2024 00:52:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5630cc7d-0146-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 710d2e88-0146-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713858707; x=1714463507; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xlop5WD1SmwWjqEVAjBw9FGVKoSVOaLuqB3BYNKVRJw=;
-        b=WJ7PtDQsKLTPvmDg1+4NJmx35jk5I1XPFCBtDYHt9hG66O9sTb/BtXsqJ3eHENxND/
-         IFRG0OIyw9tdib5BB5vo9ikqKFCvloY4Q2w8uJLHXPe0Y9kYWm5J75RdulYtCTG+JcdM
-         ZeZo35zb1i0iiHJ+RKnoHV0X7QrDbxyvkprNGbWYGRVh31/Q2RMGesclra+BiAEBq/Id
-         n7XVLM+yi0sX/nCFVoeE8qXg6qzIlVgh1Oxai+LEBZ3DMMyzyl1M0HZId6soiM91rAud
-         w0MtbycX3iUNAHmDvVPnmhVXKn8oBO4lePCDnbAhc6/IL0fkPGR091alG3NQS4K+D7XH
-         WtNA==
+        d=suse.com; s=google; t=1713858752; x=1714463552; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=G9rlE2qRcwklub8QM9wTuYkKaDz758AuROm+J1/Xnkg=;
+        b=FfqkYB372sgHNxnDQq+Zdgn0Um9Eg8gBbMT41A1diK27OY0s+PCgElbMyQIvA7nHcY
+         N1r5gVWClIBWwcVq/eOQogEmkIkdezNVEPp6PT4mlUGzBsf66X8xDhyiK/VKufUyIDZg
+         xbUyLqYNi+3r0oLWAFFN/u636jgXGXWxo2eKQUR5zzp19Gt/jQEgmi1QMw2qZ5VixOud
+         nosDTNJ8iX7bLrJADhKNUoISAoz4bgpHNlEhtX1Uabt76wtY3g2HK/nVSJv/usrWnJxd
+         HuCBIURQJ0N4p5PePS5plxpaNMUbEPmuqNFPGlZrxP2JHeTxXuMm1RarzviOHPEiKwAu
+         Kvew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713858707; x=1714463507;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1713858752; x=1714463552;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xlop5WD1SmwWjqEVAjBw9FGVKoSVOaLuqB3BYNKVRJw=;
-        b=BVbLfCRz1efZ+MWhdDym22sxKXgghXw4/dxKBcnj3uUA0hGHjRJaiyXnEUs+hqZgd/
-         7LZlRE6WGGxmB/c6eS3Ca4evQrTFkh3DgNK5w0LmD7CATfeU0Kpop4iU6qD3k4q2TxEJ
-         pmG8X6k7DM1LrrD2L+dMhcu4IKu3gu8P+/KP8YDwBrjkW2D1Et+8Y8Pac9wuALm5+6Rz
-         rJPmMU959+9dIQM7Ac6eFLWhu8aoo1m8mVlrSmlRR3luyV0BjZb1QU91c522dA+H9237
-         kLbh0Yho0XEGKYl0kU+nzMTFJh3VQVJD4xTl6jb+YlWpX2uvKIPF+hEtYcfh4VWgfBjk
-         gB3Q==
-X-Gm-Message-State: AOJu0YyUVKAMGdSUkso6pZE2rd78irAtb0fcaQHPSUzTPSpki7Hxj8Vk
-	/YtnZZGOSvLplAwDqRCy78Zgy05IKSvYqkAuVaGsiFShAH+TK4mx5zCyFnR+hSeEKAQKFaFwV2o
-	=
-X-Google-Smtp-Source: AGHT+IETAlxb9DREgBSzCW/jbxuxQ4KLGT790ocVRuphw+tRXocKATJ6Vxr+dsQD9o+NJYdArXietQ==
-X-Received: by 2002:a5d:6da8:0:b0:34a:ed29:8d1d with SMTP id u8-20020a5d6da8000000b0034aed298d1dmr5455541wrs.64.1713858707340;
-        Tue, 23 Apr 2024 00:51:47 -0700 (PDT)
-Message-ID: <bcdd2e19-b89e-4cb5-86ec-f84e38db2c98@suse.com>
-Date: Tue, 23 Apr 2024 09:51:46 +0200
+        bh=G9rlE2qRcwklub8QM9wTuYkKaDz758AuROm+J1/Xnkg=;
+        b=P3oL7Vs9sYVArHYV5qTR/rXLcUW63guxtIVad1pXGt+Lg79HDj4i1YVOK82h3kk+oH
+         3zcFC9ThHpvuL+B9XzH6IYhnpw7bZ5VCGreXAWGYBYp3knMcGcis5Y46EBMERnbGcdx6
+         ZZi0vBTYp2iUftPvT2A2+dI9hN9fyhUN6hgOv+wtTL0NqLpOsqQ76YQyuvFx8DIaSkgW
+         uAnEI5EiHhhb7NIRA+IgXMN4tq9j9VBlmAJWsuhgnGm+0V92bHyr4qhUE4qhHxNo8Wgy
+         yKxXhiY0sz6gJm7W/rp84NmOFqAxl1W7xvhe3tzqH+6YaTizKG5rRoKJu+gXM0tAx9AS
+         cxaw==
+X-Gm-Message-State: AOJu0Yx79fkXtjlaMQ59jYiqudmw37IlMQvTbIak1MscUkz5giZ/XKHi
+	bH6c8zXAUv27Ez4NCHvd6MHhLQTf1KwEI5gn7Gme851obBVKQAuRCdZ60UYAKQ==
+X-Google-Smtp-Source: AGHT+IEeXODWcoco3SRVaAOgPhSIRd4Z+pDusmT2kM0JXQq15aKsJdfzuIba+/qliqZkNXSrKIDU+A==
+X-Received: by 2002:adf:f1c2:0:b0:343:61bb:115d with SMTP id z2-20020adff1c2000000b0034361bb115dmr8255440wro.26.1713858752484;
+        Tue, 23 Apr 2024 00:52:32 -0700 (PDT)
+Message-ID: <63519cb9-58a3-4bc5-9973-6ae68557f1da@suse.com>
+Date: Tue, 23 Apr 2024 09:52:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/MTRR: avoid several indirect calls
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <f5c8e38c-66cb-4f21-b66b-056061e37383@suse.com>
+ <ZicMFtKob2e-ECxX@mail-itl>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/MTRR: correct inadvertently inverted WC check
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -110,24 +112,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZicMFtKob2e-ECxX@mail-itl>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The ! clearly got lost by mistake.
+On 23.04.2024 03:17, Marek Marczykowski-Górecki wrote:
+> On Wed, Jan 17, 2024 at 10:32:53AM +0100, Jan Beulich wrote:
+>> --- a/xen/arch/x86/cpu/mtrr/main.c
+>> +++ b/xen/arch/x86/cpu/mtrr/main.c
+>> @@ -328,7 +316,7 @@ int mtrr_add_page(unsigned long base, un
+>>  	}
+>>  
+>>  	/*  If the type is WC, check that this processor supports it  */
+>> -	if ((type == X86_MT_WC) && !have_wrcomb()) {
+>> +	if ((type == X86_MT_WC) && mtrr_have_wrcomb()) {
+> 
+> Is reversing the condition intentional here? 
 
-Fixes: e9e0eb30d4d6 ("x86/MTRR: avoid several indirect calls")
-Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Clearly not. Patch sent.
 
---- a/xen/arch/x86/cpu/mtrr/main.c
-+++ b/xen/arch/x86/cpu/mtrr/main.c
-@@ -316,7 +316,7 @@ int mtrr_add_page(unsigned long base, un
- 	}
- 
- 	/*  If the type is WC, check that this processor supports it  */
--	if ((type == X86_MT_WC) && mtrr_have_wrcomb()) {
-+	if ((type == X86_MT_WC) && !mtrr_have_wrcomb()) {
- 		printk(KERN_WARNING
- 		       "mtrr: your processor doesn't support write-combining\n");
- 		return -EOPNOTSUPP;
+Jan
+
 
