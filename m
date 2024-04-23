@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9008B8AEA58
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 17:13:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710793.1110291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C17AD8AEA59
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 17:13:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710794.1110302 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzHpg-0006ZA-Mk; Tue, 23 Apr 2024 15:13:20 +0000
+	id 1rzHpi-0006uq-VQ; Tue, 23 Apr 2024 15:13:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710793.1110291; Tue, 23 Apr 2024 15:13:20 +0000
+Received: by outflank-mailman (output) from mailman id 710794.1110302; Tue, 23 Apr 2024 15:13:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzHpg-0006X1-IS; Tue, 23 Apr 2024 15:13:20 +0000
-Received: by outflank-mailman (input) for mailman id 710793;
- Tue, 23 Apr 2024 15:13:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzHpi-0006sI-QG; Tue, 23 Apr 2024 15:13:22 +0000
+Received: by outflank-mailman (input) for mailman id 710794;
+ Tue, 23 Apr 2024 15:13:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=r5BF=L4=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rzHpf-0003wh-7J
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 15:13:19 +0000
+ id 1rzHph-0004ry-6g
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 15:13:21 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0365ff2f-0184-11ef-b4bb-af5377834399;
- Tue, 23 Apr 2024 17:13:17 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 052aa59f-0184-11ef-909a-e314d9c70b13;
+ Tue, 23 Apr 2024 17:13:20 +0200 (CEST)
 Received: from nico.bugseng.com.homenet.telecomitalia.it
  (host-79-60-221-62.business.telecomitalia.it [79.60.221.62])
- by support.bugseng.com (Postfix) with ESMTPSA id 12D364EE073C;
- Tue, 23 Apr 2024 17:13:13 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id ED6784EE0742;
+ Tue, 23 Apr 2024 17:13:17 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,7 +40,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0365ff2f-0184-11ef-b4bb-af5377834399
+X-Inumbo-ID: 052aa59f-0184-11ef-909a-e314d9c70b13
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org,
 	nicola.vetrini@bugseng.com
@@ -51,12 +51,12 @@ Cc: sstabellini@kernel.org,
 	consulting@bugseng.com,
 	bertrand.marquis@arm.com,
 	julien@xen.org,
+	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [XEN PATCH 05/10] xen/spinlock: address violations of MISRA C Rule 20.7
-Date: Tue, 23 Apr 2024 17:12:47 +0200
-Message-Id: <620466b08df1efb706e757aee05a8d7f7e6e8f4a.1713885065.git.nicola.vetrini@bugseng.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN PATCH 06/10] x86/pci: address violation of MISRA C Rule 20.7
+Date: Tue, 23 Apr 2024 17:12:48 +0200
+Message-Id: <6c8bb550a4e263c8052ac10433070d2fcc7f56ad.1713885065.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1713885065.git.nicola.vetrini@bugseng.com>
 References: <cover.1713885065.git.nicola.vetrini@bugseng.com>
@@ -73,36 +73,28 @@ No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/common/spinlock.c      | 2 +-
- xen/include/xen/spinlock.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ xen/arch/x86/include/asm/pci.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
-index 5aa9ba618859..558ea7ac3518 100644
---- a/xen/common/spinlock.c
-+++ b/xen/common/spinlock.c
-@@ -269,7 +269,7 @@ void spin_debug_disable(void)
-         profile->lock_cnt++;                                                 \
-     }
- #define LOCK_PROFILE_VAR(var, val)    s_time_t var = (val)
--#define LOCK_PROFILE_BLOCK(var)       var = var ? : NOW()
-+#define LOCK_PROFILE_BLOCK(var)       (var) = (var) ? : NOW()
- #define LOCK_PROFILE_BLKACC(tst, val)                                        \
-     if ( tst )                                                               \
-     {                                                                        \
-diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
-index 18793c5e29cb..8825affb25ca 100644
---- a/xen/include/xen/spinlock.h
-+++ b/xen/include/xen/spinlock.h
-@@ -141,7 +141,7 @@ struct lock_profile_qhead {
-         }                                                                     \
-         prof->name = #l;                                                      \
-         prof->ptr.lockptr = &(s)->l;                                          \
--        prof->is_rlock = isr;                                                 \
-+        prof->is_rlock = (isr);                                               \
-         prof->next = (s)->profile_head.elem_q;                                \
-         (s)->profile_head.elem_q = prof;                                      \
-     } while( 0 )
+diff --git a/xen/arch/x86/include/asm/pci.h b/xen/arch/x86/include/asm/pci.h
+index 6bfe87e2780b..fd5480d67d43 100644
+--- a/xen/arch/x86/include/asm/pci.h
++++ b/xen/arch/x86/include/asm/pci.h
+@@ -8,10 +8,10 @@
+ #define CF8_ADDR_HI(cf8) (  ((cf8) & 0x0f000000U) >> 16)
+ #define CF8_ENABLED(cf8) (!!((cf8) & 0x80000000U))
+ 
+-#define IS_SNB_GFX(id) (id == 0x01068086 || id == 0x01168086 \
+-                        || id == 0x01268086 || id == 0x01028086 \
+-                        || id == 0x01128086 || id == 0x01228086 \
+-                        || id == 0x010A8086 )
++#define IS_SNB_GFX(id) ((id) == 0x01068086 || (id) == 0x01168086 \
++                        || (id) == 0x01268086 || (id) == 0x01028086 \
++                        || (id) == 0x01128086 || (id) == 0x01228086 \
++                        || (id) == 0x010A8086 )
+ 
+ struct arch_pci_dev {
+     vmask_t used_vectors;
 -- 
 2.34.1
 
