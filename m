@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2FFA8AE96B
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 16:26:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.710662.1110003 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30D1B8AE974
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Apr 2024 16:28:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.710667.1110013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzH67-0004Xf-VV; Tue, 23 Apr 2024 14:26:15 +0000
+	id 1rzH8P-0005he-GV; Tue, 23 Apr 2024 14:28:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 710662.1110003; Tue, 23 Apr 2024 14:26:15 +0000
+Received: by outflank-mailman (output) from mailman id 710667.1110013; Tue, 23 Apr 2024 14:28:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzH67-0004UT-S7; Tue, 23 Apr 2024 14:26:15 +0000
-Received: by outflank-mailman (input) for mailman id 710662;
- Tue, 23 Apr 2024 14:26:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Nc7B=L4=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rzH66-0004UN-Dv
- for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 14:26:14 +0000
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [2607:f8b0:4864:20::734])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6f00f252-017d-11ef-b4bb-af5377834399;
- Tue, 23 Apr 2024 16:26:12 +0200 (CEST)
-Received: by mail-qk1-x734.google.com with SMTP id
- af79cd13be357-7906776e17aso217506685a.2
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 07:26:12 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- s5-20020a05620a080500b0078ecd227e5csm5276343qks.74.2024.04.23.07.26.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Apr 2024 07:26:09 -0700 (PDT)
+	id 1rzH8P-0005eU-Da; Tue, 23 Apr 2024 14:28:37 +0000
+Received: by outflank-mailman (input) for mailman id 710667;
+ Tue, 23 Apr 2024 14:28:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rzH8O-0005eO-DT
+ for xen-devel@lists.xenproject.org; Tue, 23 Apr 2024 14:28:36 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rzH8N-0001s0-Pk; Tue, 23 Apr 2024 14:28:35 +0000
+Received: from [15.248.2.233] (helo=[10.24.67.33])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rzH8N-0003RL-Ez; Tue, 23 Apr 2024 14:28:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,119 +39,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f00f252-017d-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713882371; x=1714487171; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Zp7/a6GsE05lsQQVjgab8WZ4F47tU7dCrz2vyTBMvZA=;
-        b=QmoheWJFuHJFDmmsf6GQl5L8Lj0b87V3kt+Y1Ylq1o7n828cSu0peVbupVwAdQnVcD
-         bx/LIOobK8SBTNckZtcoFygswKvNHtE9be57VI7vdXAO23LDxBQAb4JaRsx/ilppBMNc
-         P1ToOf2U7FkEnjwL1ZIMjPJFi72NFQOHi3EE4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713882371; x=1714487171;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Zp7/a6GsE05lsQQVjgab8WZ4F47tU7dCrz2vyTBMvZA=;
-        b=SwRS4bZWD7cW5yfVboY4rjN5ENN0Jo0dBNRWysyAsDOR/+h/MiE0KMKi+4Jxb8qRV6
-         jXtN9bA+mz4zblB4o/FgeVPHhyr9erzfMJRyG8b8L9j5bxoIgR1fBEHxZpMySJnuVLVY
-         EADmeNhb1jWRmS811uSlUOw/u3LNZySAMEbttr/sQRyo/GDyoNsCCUXLa5VnF1x+Rugj
-         i2lbcKyp6MGwiWyhQpqneu021vh4NAGn1ZW1krUo/bV4yc7nY+f9nkB2de37ZxzII+3Z
-         a6hLXFFATTVRrsj54hrJI1erQQLEM8j7BKuetFREyVvoqJEXptOjQtpTGWCEGBGZYG7R
-         a7aQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWVKYTWJ/yPy2g7k4/aksjOJIJgnn9CtP9mf+1IWoXhRrNnLtG29uh2baI+9qiUtknqqJ5qoY8UN93YpGNirbjxYX2lwC/FI8nxFxaK+bA=
-X-Gm-Message-State: AOJu0Yxf/ognt2LphlWN0QXzHkhimc5EqWCjvELxDQhjL4RLA8LAVwFa
-	21o2Z8Yx2Epk+c3Fg4ebXJrd9sVmlJqDzOFROwOC+vwIL4+HaygjhPUQknXodYSiMmsM7CeqWNG
-	+
-X-Google-Smtp-Source: AGHT+IHND9XhF3r+3B0YZKqWhn2dULEhl0rN1wdr2cEuA6YcZGQNKxaiSQVa11j+oH/5JuFAMqsg3g==
-X-Received: by 2002:a05:620a:4010:b0:790:88a3:2754 with SMTP id h16-20020a05620a401000b0079088a32754mr1031042qko.10.1713882370312;
-        Tue, 23 Apr 2024 07:26:10 -0700 (PDT)
-Date: Tue, 23 Apr 2024 16:26:06 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 3/4] livepatch: refuse to resolve symbols that belong
- to init sections
-Message-ID: <ZifE_rQhaZNbjIt2@macbook>
-References: <20240423131249.29825-1-roger.pau@citrix.com>
- <20240423131249.29825-4-roger.pau@citrix.com>
- <0625d7fd-1554-4d47-a8a5-0d6bfb1fcd56@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=gzTOyQWEIuUjoakhhnZ0lv4DoaOTz8A4wGB9zMg9IMI=; b=1KpBDdYmtt4hYKDENIsUuLVG5U
+	5+D3xNw2B9pQ8iXoUudk693bB0P7jo/bQXxzRLL8AaUWMArIHgRdn9Vee83tNeyWO84WyuxqM7MMx
+	FPB6gTNPFtMMK9V/bA8wGP8vnwAWHEZLzh9n8uAQGCmek2/QuwKP2W0m2kKSiylhV86w=;
+Message-ID: <195c1fe6-ed77-417f-bcb0-fdfaf687c4b0@xen.org>
+Date: Tue, 23 Apr 2024 15:28:33 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2 4/5] xen/arm: allow dynamically assigned SGI
+ handlers
+Content-Language: en-GB
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Jens Wiklander <jens.wiklander@linaro.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ "patches@linaro.org" <patches@linaro.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240422073708.3663529-1-jens.wiklander@linaro.org>
+ <20240422073708.3663529-5-jens.wiklander@linaro.org>
+ <89d268cc-bc49-4e22-b4e9-2e8dbe73124c@xen.org>
+ <CAHUa44GAbBtczbVohVjC=66tqzjgeGLx44k9ddodDJL13KwVEQ@mail.gmail.com>
+ <205a95f2-fdf6-4f38-b2e0-31e4fff9348b@xen.org>
+ <756FEA03-7F16-48AE-8308-059EBF8638A0@arm.com>
+ <27BADE00-E6EC-4BD6-AC5D-201DF1A76BCD@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <27BADE00-E6EC-4BD6-AC5D-201DF1A76BCD@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <0625d7fd-1554-4d47-a8a5-0d6bfb1fcd56@suse.com>
 
-On Tue, Apr 23, 2024 at 03:44:42PM +0200, Jan Beulich wrote:
-> On 23.04.2024 15:12, Roger Pau Monne wrote:
-> > Livepatch payloads containing symbols that belong to init sections can only
-> > lead to page faults later on, as by the time the livepatch is loaded init
-> > sections have already been freed.
-> > 
-> > Refuse to resolve such symbols and return an error instead.
-> > 
-> > Note such resolutions are only relevant for symbols that point to undefined
-> > sections (SHN_UNDEF), as that implies the symbol is not in the current payload
-> > and hence must either be a Xen or a different livepatch payload symbol.
-> > 
-> > Do not allow to resolve symbols that point to __init_begin, as that address is
-> > also unmapped.  On the other hand, __init_end is not unmapped, and hence allow
-> > resolutions against it.
-> > 
-> > Since __init_begin can alias other symbols (like _erodata for example)
-> > allow the force flag to override the check and resolve the symbol anyway.
-> > 
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Hi Bertrand,
+
+On 23/04/2024 14:23, Bertrand Marquis wrote:
+> Hi Julien,
 > 
-> In principle, as promised (and just to indicate earlier concerns were
-> addressed, as this is meaningless for other purposes)
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> However, ...
+>> On 23 Apr 2024, at 14:37, Bertrand Marquis <Bertrand.Marquis@arm.com> wrote:
+>>
+>> Hi Julien,
+>>
+>>> On 23 Apr 2024, at 13:05, Julien Grall <julien@xen.org> wrote:
+>>>
+>>>
+>>>
+>>> On 23/04/2024 10:35, Jens Wiklander wrote:
+>>>> Hi Julien,
+>>>
+>>> Hi Jens,
+>>>
+>>>> On Mon, Apr 22, 2024 at 12:57 PM Julien Grall <julien@xen.org> wrote:
+>>>>>
+>>>>> Hi Jens,
+>>>>>
+>>>>> On 22/04/2024 08:37, Jens Wiklander wrote:
+>>>>>> Updates so request_irq() can be used with a dynamically assigned SGI irq
+>>>>>> as input. This prepares for a later patch where an FF-A schedule
+>>>>>> receiver interrupt handler is installed for an SGI generated by the
+>>>>>> secure world.
+>>>>>
+>>>>> I would like to understand the use-case a bit more. Who is responsible
+>>>>> to decide the SGI number? Is it Xen or the firmware?
+>>>>>
+>>>>> If the later, how can we ever guarantee the ID is not going to clash
+>>>>> with what the OS/hypervisor is using? Is it described in a
+>>>>> specification? If so, please give a pointer.
+>>>> The firmware decides the SGI number. Given that the firmware doesn't
+>>>> know which SGIs Xen is using it typically needs to donate one of the
+>>>> secure SGIs, but that is transparent to Xen.
+>>>
+>>> Right this is my concern. The firmware decides the number, but at the same time Xen thinks that all the SGIs are available (AFAIK there is only one set).
+>>>
+>>> What I would like to see is some wording from a spec indicating that the SGIs ID reserved by the firmware will not be clashing with the one used by Xen.
+>>
+>> The idea is that the only SGI reserved for secure are used by the secure world (in fact it is the SPMC in the secure world who tells us which SGI it will generate).
+>> So in theory that means it will always use an SGI between 8 and 15.
+>>
+>> Now it could make sense in fact to check that the number returned by the firmware (or SPMC) is not clashing with Xen as it is a recommendation in the spec and
+>> in fact an implementation might do something different.
+>>
+>> Right now there is no spec that will say that it will never clash with the one used by Xen as the FF-A spec is not enforcing anything here so it would be a good idea
+>> to check and disable FF-A with a proper error message if this happens.
 > 
-> > @@ -310,6 +311,21 @@ int livepatch_elf_resolve_symbols(struct livepatch_elf *elf)
-> >                      break;
-> >                  }
-> >              }
-> > +
-> > +            /*
-> > +             * Ensure not an init symbol.  Only applicable to Xen symbols, as
-> > +             * livepatch payloads don't have init sections or equivalent.
-> > +             */
-> > +            else if ( st_value >= (uintptr_t)&__init_begin &&
-> > +                      st_value <  (uintptr_t)&__init_end && !force )
-> > +            {
-> > +                printk(XENLOG_ERR LIVEPATCH
-> > +                       "%s: symbol %s is in init section, not resolving\n",
-> > +                       elf->name, elf->sym[i].name);
-> > +                rc = -ENXIO;
-> > +                break;
-> > +            }
 > 
-> ... wouldn't it make sense to still warn in this case when "force" is set?
+> After some more digging here is what is recommended by Arm in the Arm Base System Architecture v1.0C [1]:
+> 
+> "The system shall implement at least eight Non-secure SGIs, assigned to interrupt IDs 0-7."
 
-Pondered it, I was thinking that a user would first run without
---force, and use the option as a result of seeing the first failure.
+Thanks! Can we provide a link to the specification in the commit message?
 
-However if there is more than one check that's bypassed, further ones
-won't be noticed, so:
+> 
+> So basically as long as Xen is using SGIs 0-7 it is safe as those shall never be used by the secure world.
+> Now i do agree that we should check that whatever is returned by the firmware is not conflicting with what
+> is used by Xen.
++1.
 
-            else if ( st_value >= (uintptr_t)&__init_begin &&
-                      st_value <  (uintptr_t)&__init_end )
-            {
-                printk(XENLOG_ERR LIVEPATCH
-                       "%s: symbol %s is in init section, not resolving\n",
-                       elf->name, elf->sym[i].name);
-                if ( !force )
-                {
-                    rc = -ENXIO;
-                    break;
-                }
-            }
+Cheers,
 
-Would be OK then?
-
-Thanks, Roger.
+-- 
+Julien Grall
 
