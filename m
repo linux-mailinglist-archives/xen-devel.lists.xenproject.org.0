@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 005778B0427
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 10:21:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711241.1111064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 214978B042A
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 10:21:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711242.1111074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzXrk-0002t7-V7; Wed, 24 Apr 2024 08:20:32 +0000
+	id 1rzXrq-0003Au-78; Wed, 24 Apr 2024 08:20:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711241.1111064; Wed, 24 Apr 2024 08:20:32 +0000
+Received: by outflank-mailman (output) from mailman id 711242.1111074; Wed, 24 Apr 2024 08:20:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzXrk-0002qI-RZ; Wed, 24 Apr 2024 08:20:32 +0000
-Received: by outflank-mailman (input) for mailman id 711241;
- Wed, 24 Apr 2024 08:20:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rzXrq-00038u-3v; Wed, 24 Apr 2024 08:20:38 +0000
+Received: by outflank-mailman (input) for mailman id 711242;
+ Wed, 24 Apr 2024 08:20:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RmhA=L5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rzXrj-0002NH-4g
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 08:20:31 +0000
-Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
- [2607:f8b0:4864:20::72d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 830f22eb-0213-11ef-909a-e314d9c70b13;
- Wed, 24 Apr 2024 10:20:30 +0200 (CEST)
-Received: by mail-qk1-x72d.google.com with SMTP id
- af79cd13be357-78f056f928eso449785485a.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 01:20:30 -0700 (PDT)
+ id 1rzXrp-00036k-Ab
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 08:20:37 +0000
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [2607:f8b0:4864:20::c30])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 84a9f2d1-0213-11ef-b4bb-af5377834399;
+ Wed, 24 Apr 2024 10:20:33 +0200 (CEST)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ 006d021491bc7-5acfba298d5so2776536eaf.2
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 01:20:33 -0700 (PDT)
 Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- z18-20020a0c8f12000000b006a040cdd805sm5956981qvd.92.2024.04.24.01.20.28
+ r6-20020ac87ee6000000b00439c1419553sm2297599qtc.44.2024.04.24.01.20.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Apr 2024 01:20:28 -0700 (PDT)
+ Wed, 24 Apr 2024 01:20:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,48 +44,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 830f22eb-0213-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 84a9f2d1-0213-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713946829; x=1714551629; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1713946831; x=1714551631; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wnwUdmhe2HovD60ReLwdLupERb7CD3JyeDkwca37c0A=;
-        b=ua0Ua8/54DqIsoFJk375lnT5CN+V82/BCji0pZ21edmyfYaywaE05lDxEgFgqrs9yV
-         MpBq2GmslbwbEXvMkhlnKg/N+O/aFbFvta2SiWIO4ihJfg03zH9e5LnwQSwHXsriJ3tP
-         moCub7VqEac+RmMR789PRThhguWyNpJGwfXF4=
+        bh=izhPhXdYNwBKIoYTrQpLOp1F6ua4vMICerQToCRzrMU=;
+        b=GHtv3ZSG/ePkNuogO3SH1tAaQtrCIG8BCEY+gy1w4Ti4HIxNtPkUBtOLuLWPOawQAW
+         gic1zohAXzt9OkszQ0N4YrRlTtxIIYzCIUAAiFp/d/bBl69gvDJ5ssx7Ecgo+PGoewPW
+         gaZOHIoHWBxr5uileCrwvTBHs6+EJlmvVV98g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713946829; x=1714551629;
+        d=1e100.net; s=20230601; t=1713946831; x=1714551631;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=wnwUdmhe2HovD60ReLwdLupERb7CD3JyeDkwca37c0A=;
-        b=t6DsLaxY6jDf7NQud4AcX90cMRsLQqsZH5qHfrYp03PCKW+z8XZLPjErYkZC1aAyig
-         tvOJipYY1PMLPrNDeMiEyG3KInGWmuZyIJ7blTu3dE4wr83AV6eeLI1Um1JOk+bTYwly
-         DNnhbmA/kWCjiWjdMmZaTPo+b4j3Y8pvuSotFqS6/ZMoc+UMByMGSoo2ewZX8ZYDaR+r
-         HJecvQ5qUlaXFgG3DrZV8aoarq8MPLbq73dHhrTUOxLb5hW0Hasbioj4/mO76vpl9JjG
-         iHLRugaw/pr7cvNiVyZ3yVyYa4C73LwR60f+wcoqTZl2d9JKUHl9EbwScbZccfdxqvuj
-         gDLw==
-X-Gm-Message-State: AOJu0Yw1UhUYWi1E9YLEQpkiMSnrUnwrH6BQBt8kIZpXtnYusABtNwGp
-	3X8043HneQ39dO2SNzBzeImixrCflxirlhy/BCq/sYuUjurKKYygBqt0f8KQmFOyhyb53uBWezV
-	4
-X-Google-Smtp-Source: AGHT+IEMg2YtE9O7b8Q7YemWnEWbsWp+JoXD0qgf+2czWMoP6hua28mOvtCqaQtuzcRqwnSEm8DtOg==
-X-Received: by 2002:a0c:d641:0:b0:69b:54af:cbf with SMTP id e1-20020a0cd641000000b0069b54af0cbfmr1929970qvj.25.1713946828982;
-        Wed, 24 Apr 2024 01:20:28 -0700 (PDT)
+        bh=izhPhXdYNwBKIoYTrQpLOp1F6ua4vMICerQToCRzrMU=;
+        b=ZkmSq/1nvM9f8ceW7eD/hOb9WmYLQlQcSs+E/acMQo7bIDXEvk70NeoSAFDK+TLdPL
+         UIimaEH/PfCvR23PBO7pucIj9TiFv5XOBPt3zw+OZlzlcswfXlWRXom+3h7zBAHH7Ez5
+         tMerEIBng0GMku+verfSRx5+sqF/M0NYIlD6hzTnJcwBR7Ei7+T30WL69zhNctbu0/XB
+         USrdauef2E+6IfV2P18oVMnn9wa3rAoz5AA/DeSS3qgjEA1MRAiUI5iXTwCdLLZtDJSA
+         DytAG++0QfFmIvCL//DfgR2v30Bfdc2Clgk/EFWp0UXIWopn4p7LUFaC5JetUiIDwBvd
+         ztrA==
+X-Gm-Message-State: AOJu0Yz7I5Kt8lqMave8RRgfeaI/2+etmgY3ti7LaEDGEYmprKtGS6ux
+	qGnh8rsoZ2UY3wyf1QYn4FLUKrmOOyRx0LIPk/0AuO+2TWYaN2rcnKWG9o9mca/k8f4EEa4dpop
+	+
+X-Google-Smtp-Source: AGHT+IE/xJqw4SXSQuJCc5///7KaSBqirYeYlFxooMZu8tPDC8bF0vBklOYa9Hhaw+vlLWCEcsXLEQ==
+X-Received: by 2002:a05:6359:5181:b0:18b:2802:917 with SMTP id od1-20020a056359518100b0018b28020917mr1294641rwb.30.1713946831218;
+        Wed, 24 Apr 2024 01:20:31 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: [PATCH v4 2/4] livepatch: introduce --force option
-Date: Wed, 24 Apr 2024 10:19:55 +0200
-Message-ID: <20240424081957.34326-3-roger.pau@citrix.com>
+Subject: [PATCH v4 3/4] livepatch: refuse to resolve symbols that belong to init sections
+Date: Wed, 24 Apr 2024 10:19:56 +0200
+Message-ID: <20240424081957.34326-4-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240424081957.34326-1-roger.pau@citrix.com>
 References: <20240424081957.34326-1-roger.pau@citrix.com>
@@ -93,171 +86,151 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Introduce a xen-livepatch tool --force option, that's propagated into the
-hyerpvisor for livepatch operations.  The intention is for the option to be
-used to bypass some checks that would otherwise prevent the patch from being
-loaded.
+Livepatch payloads containing symbols that belong to init sections can only
+lead to page faults later on, as by the time the livepatch is loaded init
+sections have already been freed.
 
-Re purpose the pad field in xen_sysctl_livepatch_op to be a flags field that
-applies to all livepatch operations.  The flag is currently only set by the
-hypercall wrappers for the XEN_SYSCTL_LIVEPATCH_UPLOAD operation, as that's so
-far the only one where it will be used initially.  Other uses can be added as
-required.
+Refuse to resolve such symbols and return an error instead.
 
-Note that helpers would set the .pad field to 0, that's been removed since the
-structure is already zero initialized at definition.
+Note such resolutions are only relevant for symbols that point to undefined
+sections (SHN_UNDEF), as that implies the symbol is not in the current payload
+and hence must either be a Xen or a different livepatch payload symbol.
 
-No functional usages of the new flag introduced in this patch.
+Do not allow to resolve symbols that point to __init_begin, as that address is
+also unmapped.  On the other hand, __init_end is not unmapped, and hence allow
+resolutions against it.
+
+Since __init_begin can alias other symbols (like _erodata for example)
+allow the force flag to override the check and resolve the symbol anyway.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
 Changes since v3:
- - Use strcmp instead of strncmp.
+ - Print warning message even when using the force option.
 
 Changes since v2:
- - New in this version.
----
- tools/include/xenctrl.h     |  3 ++-
- tools/libs/ctrl/xc_misc.c   |  7 +++----
- tools/misc/xen-livepatch.c  | 21 +++++++++++++++++++--
- xen/common/livepatch.c      |  3 ++-
- xen/include/public/sysctl.h |  4 +++-
- 5 files changed, 29 insertions(+), 9 deletions(-)
+ - Allow bypassing added check with the force flag.
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 2ef8b4e05422..499685594427 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -2555,7 +2555,8 @@ int xc_psr_get_hw_info(xc_interface *xch, uint32_t socket,
- #endif
- 
- int xc_livepatch_upload(xc_interface *xch,
--                        char *name, unsigned char *payload, uint32_t size);
-+                        char *name, unsigned char *payload, uint32_t size,
-+                        bool force);
- 
- int xc_livepatch_get(xc_interface *xch,
-                      char *name,
-diff --git a/tools/libs/ctrl/xc_misc.c b/tools/libs/ctrl/xc_misc.c
-index 5ecdfa2c7934..50282fd60dcc 100644
---- a/tools/libs/ctrl/xc_misc.c
-+++ b/tools/libs/ctrl/xc_misc.c
-@@ -576,7 +576,8 @@ int xc_getcpuinfo(xc_interface *xch, int max_cpus,
- int xc_livepatch_upload(xc_interface *xch,
-                         char *name,
-                         unsigned char *payload,
--                        uint32_t size)
-+                        uint32_t size,
-+                        bool force)
- {
-     int rc;
-     struct xen_sysctl sysctl = {};
-@@ -612,7 +613,7 @@ int xc_livepatch_upload(xc_interface *xch,
- 
-     sysctl.cmd = XEN_SYSCTL_livepatch_op;
-     sysctl.u.livepatch.cmd = XEN_SYSCTL_LIVEPATCH_UPLOAD;
--    sysctl.u.livepatch.pad = 0;
-+    sysctl.u.livepatch.flags = force ? LIVEPATCH_FLAG_FORCE : 0;
-     sysctl.u.livepatch.u.upload.size = size;
-     set_xen_guest_handle(sysctl.u.livepatch.u.upload.payload, local);
- 
-@@ -656,7 +657,6 @@ int xc_livepatch_get(xc_interface *xch,
- 
-     sysctl.cmd = XEN_SYSCTL_livepatch_op;
-     sysctl.u.livepatch.cmd = XEN_SYSCTL_LIVEPATCH_GET;
--    sysctl.u.livepatch.pad = 0;
- 
-     sysctl.u.livepatch.u.get.status.state = 0;
-     sysctl.u.livepatch.u.get.status.rc = 0;
-@@ -985,7 +985,6 @@ static int _xc_livepatch_action(xc_interface *xch,
- 
-     sysctl.cmd = XEN_SYSCTL_livepatch_op;
-     sysctl.u.livepatch.cmd = XEN_SYSCTL_LIVEPATCH_ACTION;
--    sysctl.u.livepatch.pad = 0;
-     sysctl.u.livepatch.u.action.cmd = action;
-     sysctl.u.livepatch.u.action.timeout = timeout;
-     sysctl.u.livepatch.u.action.flags = flags;
-diff --git a/tools/misc/xen-livepatch.c b/tools/misc/xen-livepatch.c
-index 2c4f69e596fa..c16fb6862d6c 100644
---- a/tools/misc/xen-livepatch.c
-+++ b/tools/misc/xen-livepatch.c
-@@ -19,11 +19,15 @@
- 
- static xc_interface *xch;
- 
-+/* Global option to disable checks. */
-+static bool force;
-+
- void show_help(void)
- {
-     fprintf(stderr,
-             "xen-livepatch: live patching tool\n"
--            "Usage: xen-livepatch <command> [args] [command-flags]\n"
-+            "Usage: xen-livepatch [--force] <command> [args] [command-flags]\n"
-+            " Use --force option to bypass some checks.\n"
-             " <name> An unique name of payload. Up to %d characters.\n"
-             "Commands:\n"
-             "  help                   display this help\n"
-@@ -240,7 +244,7 @@ static int upload_func(int argc, char *argv[])
-         return saved_errno;
-     }
-     printf("Uploading %s... ", filename);
--    rc = xc_livepatch_upload(xch, name, fbuf, len);
-+    rc = xc_livepatch_upload(xch, name, fbuf, len, force);
-     if ( rc )
-     {
-         rc = errno;
-@@ -571,6 +575,19 @@ int main(int argc, char *argv[])
-         show_help();
-         return 0;
-     }
-+
-+    if ( strcmp("--force", argv[1]) )
-+    {
-+        if ( argc <= 2 )
-+        {
-+            show_help();
-+            return EXIT_FAILURE;
-+        }
-+        force = true;
-+        argv++;
-+        argc--;
-+    }
-+
-     for ( i = 0; i < ARRAY_SIZE(main_options); i++ )
-         if (!strcmp(main_options[i].name, argv[1]))
-             break;
+Changes since v1:
+ - Fix off-by-one in range checking.
+---
+ xen/common/livepatch.c          | 13 ++++++++-----
+ xen/common/livepatch_elf.c      | 22 +++++++++++++++++++++-
+ xen/include/xen/livepatch_elf.h |  2 +-
+ 3 files changed, 30 insertions(+), 7 deletions(-)
+
 diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-index 351a3e0b9a60..502e264bc6fe 100644
+index 502e264bc6fe..1afde0281402 100644
 --- a/xen/common/livepatch.c
 +++ b/xen/common/livepatch.c
-@@ -2125,7 +2125,8 @@ int livepatch_op(struct xen_sysctl_livepatch_op *livepatch)
+@@ -1080,7 +1080,8 @@ static void free_payload(struct payload *data)
+     xfree(data);
+ }
+ 
+-static int load_payload_data(struct payload *payload, void *raw, size_t len)
++static int load_payload_data(struct payload *payload, void *raw, size_t len,
++                             bool force)
  {
-     int rc;
+     struct livepatch_elf elf = { .name = payload->name, .len = len };
+     int rc = 0;
+@@ -1093,7 +1094,7 @@ static int load_payload_data(struct payload *payload, void *raw, size_t len)
+     if ( rc )
+         goto out;
  
--    if ( livepatch->pad )
-+    if ( (livepatch->flags & ~LIVEPATCH_FLAGS_MASK) &&
-+         !(livepatch->flags & LIVEPATCH_FLAG_FORCE) )
-         return -EINVAL;
+-    rc = livepatch_elf_resolve_symbols(&elf);
++    rc = livepatch_elf_resolve_symbols(&elf, force);
+     if ( rc )
+         goto out;
  
+@@ -1133,7 +1134,8 @@ static int load_payload_data(struct payload *payload, void *raw, size_t len)
+     return rc;
+ }
+ 
+-static int livepatch_upload(struct xen_sysctl_livepatch_upload *upload)
++static int livepatch_upload(struct xen_sysctl_livepatch_upload *upload,
++                            bool force)
+ {
+     struct payload *data, *found;
+     char n[XEN_LIVEPATCH_NAME_SIZE];
+@@ -1162,7 +1164,7 @@ static int livepatch_upload(struct xen_sysctl_livepatch_upload *upload)
+     {
+         memcpy(data->name, n, strlen(n));
+ 
+-        rc = load_payload_data(data, raw_data, upload->size);
++        rc = load_payload_data(data, raw_data, upload->size, force);
+         if ( rc )
+             goto out;
+ 
+@@ -2132,7 +2134,8 @@ int livepatch_op(struct xen_sysctl_livepatch_op *livepatch)
      switch ( livepatch->cmd )
-diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-index 9b19679caeb1..febaa4b16ab7 100644
---- a/xen/include/public/sysctl.h
-+++ b/xen/include/public/sysctl.h
-@@ -1139,7 +1139,9 @@ struct xen_sysctl_livepatch_action {
+     {
+     case XEN_SYSCTL_LIVEPATCH_UPLOAD:
+-        rc = livepatch_upload(&livepatch->u.upload);
++        rc = livepatch_upload(&livepatch->u.upload,
++                              livepatch->flags & LIVEPATCH_FLAG_FORCE);
+         break;
  
- struct xen_sysctl_livepatch_op {
-     uint32_t cmd;                           /* IN: XEN_SYSCTL_LIVEPATCH_*. */
--    uint32_t pad;                           /* IN: Always zero. */
-+    uint32_t flags;                         /* IN, flags. */
-+#define LIVEPATCH_FLAG_FORCE      (1u << 0) /* Skip some checks. */
-+#define LIVEPATCH_FLAGS_MASK      LIVEPATCH_FLAG_FORCE
-     union {
-         struct xen_sysctl_livepatch_upload upload;
-         struct xen_sysctl_livepatch_list list;
+     case XEN_SYSCTL_LIVEPATCH_GET:
+diff --git a/xen/common/livepatch_elf.c b/xen/common/livepatch_elf.c
+index 45d73912a3cd..1d0ed8f99bcc 100644
+--- a/xen/common/livepatch_elf.c
++++ b/xen/common/livepatch_elf.c
+@@ -4,6 +4,7 @@
+ 
+ #include <xen/errno.h>
+ #include <xen/lib.h>
++#include <xen/sections.h>
+ #include <xen/symbols.h>
+ #include <xen/livepatch_elf.h>
+ #include <xen/livepatch.h>
+@@ -276,7 +277,7 @@ static int elf_get_sym(struct livepatch_elf *elf, const void *data)
+     return 0;
+ }
+ 
+-int livepatch_elf_resolve_symbols(struct livepatch_elf *elf)
++int livepatch_elf_resolve_symbols(struct livepatch_elf *elf, bool force)
+ {
+     unsigned int i;
+     int rc = 0;
+@@ -310,6 +311,25 @@ int livepatch_elf_resolve_symbols(struct livepatch_elf *elf)
+                     break;
+                 }
+             }
++
++            /*
++             * Ensure not an init symbol.  Only applicable to Xen symbols, as
++             * livepatch payloads don't have init sections or equivalent.
++             */
++            else if ( st_value >= (uintptr_t)&__init_begin &&
++                      st_value <  (uintptr_t)&__init_end )
++            {
++                printk("%s" LIVEPATCH "%s: symbol %s is in init section%s\n",
++                       force ? XENLOG_WARNING : XENLOG_ERR,
++                       elf->name, elf->sym[i].name,
++                       force ? "" : ", not resolving");
++                if ( !force )
++                {
++                    rc = -ENXIO;
++                    break;
++                }
++            }
++
+             dprintk(XENLOG_DEBUG, LIVEPATCH "%s: Undefined symbol resolved: %s => %#"PRIxElfAddr"\n",
+                     elf->name, elf->sym[i].name, st_value);
+             break;
+diff --git a/xen/include/xen/livepatch_elf.h b/xen/include/xen/livepatch_elf.h
+index 7116deaddc28..84e9c5eb7be5 100644
+--- a/xen/include/xen/livepatch_elf.h
++++ b/xen/include/xen/livepatch_elf.h
+@@ -44,7 +44,7 @@ livepatch_elf_sec_by_name(const struct livepatch_elf *elf,
+ int livepatch_elf_load(struct livepatch_elf *elf, const void *data);
+ void livepatch_elf_free(struct livepatch_elf *elf);
+ 
+-int livepatch_elf_resolve_symbols(struct livepatch_elf *elf);
++int livepatch_elf_resolve_symbols(struct livepatch_elf *elf, bool force);
+ int livepatch_elf_perform_relocs(struct livepatch_elf *elf);
+ 
+ static inline bool livepatch_elf_ignore_section(const Elf_Shdr *sec)
 -- 
 2.44.0
 
