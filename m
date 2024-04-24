@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 265918B06EE
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 12:07:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711307.1111184 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC0628B0721
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 12:20:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711320.1111194 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzZWp-00019l-2w; Wed, 24 Apr 2024 10:07:03 +0000
+	id 1rzZj8-0003Js-8Q; Wed, 24 Apr 2024 10:19:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711307.1111184; Wed, 24 Apr 2024 10:07:03 +0000
+Received: by outflank-mailman (output) from mailman id 711320.1111194; Wed, 24 Apr 2024 10:19:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzZWo-00017S-VF; Wed, 24 Apr 2024 10:07:02 +0000
-Received: by outflank-mailman (input) for mailman id 711307;
- Wed, 24 Apr 2024 10:07:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qV27=L5=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rzZWn-00086f-Pj
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 10:07:01 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 64657aec-0222-11ef-909a-e314d9c70b13;
- Wed, 24 Apr 2024 12:07:01 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 6A5114EE0739;
- Wed, 24 Apr 2024 12:07:00 +0200 (CEST)
+	id 1rzZj8-0003Hl-5L; Wed, 24 Apr 2024 10:19:46 +0000
+Received: by outflank-mailman (input) for mailman id 711320;
+ Wed, 24 Apr 2024 10:19:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rzZj6-0003Hf-LD
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 10:19:44 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rzZj5-0007VF-Up; Wed, 24 Apr 2024 10:19:43 +0000
+Received: from [15.248.2.25] (helo=[10.24.67.29])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rzZj5-0002I1-Oe; Wed, 24 Apr 2024 10:19:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,53 +39,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64657aec-0222-11ef-909a-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=J8uw2H5mh9dHpvwBAj0hJSbsKzXzjN0dFQBBpFXWTLs=; b=uoSZLnvPhO8q9HMoISPWPK5Qmv
+	zasUlRIsr4hKA1eWlk7R8azP+A6cE11bUmZObNu1v1VrkS86rO1f/blgpM3xOdrSg91oM1LZKwA41
+	Q+hJ4NFxmvSBzPsFctFifi04G/iX1yZH5mNWQzs+WOi3YcY8rtntVH2qk0TbcouXIIMo=;
+Message-ID: <57070924-9c38-4524-8e36-76584c7fb3df@xen.org>
+Date: Wed, 24 Apr 2024 11:19:42 +0100
 MIME-Version: 1.0
-Date: Wed, 24 Apr 2024 12:07:00 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
- julien@xen.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 04/10] drivers: char: address violation of MISRA C
- Rule 20.7
-In-Reply-To: <509a6c09-85e7-4854-b7dc-116cde022b26@suse.com>
-References: <cover.1713885065.git.nicola.vetrini@bugseng.com>
- <a5e4472b91398b7f9e802ea82c8435fa8ad27066.1713885065.git.nicola.vetrini@bugseng.com>
- <509a6c09-85e7-4854-b7dc-116cde022b26@suse.com>
-Message-ID: <83c180d692149d5cf0f56fecdc3af4b3@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 12/12] xen/arm: List static shared memory regions as
+ /memory nodes
+Content-Language: en-GB
+From: Julien Grall <julien@xen.org>
+To: Michal Orzel <michal.orzel@amd.com>, Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240418073652.3622828-1-luca.fancellu@arm.com>
+ <20240418073652.3622828-13-luca.fancellu@arm.com>
+ <a46e7e41-cbb8-44e8-9c69-533b949f6a4a@amd.com>
+ <9A107B24-E606-4926-BE1C-6FC0C6E86CF7@arm.com>
+ <f7318988-85fa-4a40-8242-67db3305a397@amd.com>
+ <5de5dec4-7e2a-4e96-84c6-214ad781562a@xen.org>
+In-Reply-To: <5de5dec4-7e2a-4e96-84c6-214ad781562a@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 2024-04-24 09:23, Jan Beulich wrote:
-> On 23.04.2024 17:12, Nicola Vetrini wrote:
->> --- a/xen/drivers/char/omap-uart.c
->> +++ b/xen/drivers/char/omap-uart.c
->> @@ -48,8 +48,9 @@
->>  /* System configuration register */
->>  #define UART_OMAP_SYSC_DEF_CONF   0x0d   /* autoidle mode, wakeup is 
->> enabled */
->> 
->> -#define omap_read(uart, off)       readl((uart)->regs + 
->> (off<<REG_SHIFT))
->> -#define omap_write(uart, off, val) writel((val), (uart)->regs + 
->> (off<<REG_SHIFT))
->> +#define omap_read(uart, off)       readl((uart)->regs + ((off) << 
->> REG_SHIFT))
->> +#define omap_write(uart, off, val) writel((val), (uart)->regs + \
-> 
-> Would have been nice to drop the excess parentheses at the same time.
-> 
-> Jan
+Hi,
 
-Right. I think I'll have a few more patches on this rule, so maybe I can 
-adjust it.
+On 22/04/2024 11:24, Julien Grall wrote:
+> Hi,
+> 
+> On 22/04/2024 10:26, Michal Orzel wrote:
+>>
+>>
+>> On 22/04/2024 10:07, Luca Fancellu wrote:
+>>>
+>>>
+>>> Hi Michal,
+>>>
+>>>>> +    for ( cells = reg, i = 0; cells < reg + nr_cells; i++, cells 
+>>>>> += reg_size )
+>>>>> +    {
+>>>>> +        u64 start = dt_read_number(cells, addrcells);
+>>>> We should no longer use Linux derived types like u64. Use uint64_t.
+>>>>
+>>>>> +        u64 size = dt_read_number(cells + addrcells, sizecells);
+>>>>> +
+>>>>> +        dt_dprintk("  Bank %d: %#"PRIx64"->%#"PRIx64"\n",
+>>>>> +                   i, start, start + size);
+>>>> i is unsigned so the correct format specifier should be %u
+>>>
+>>> Right, should have been more careful when copying the code from above
+>>>
+>>>>>
+>>>>> +void __init shm_mem_node_fill_reg_range(const struct kernel_info 
+>>>>> *kinfo,
+>>>>> +                                        __be32 *reg, int *nr_cells,
+>>>>> +                                        int addrcells, int sizecells)
+>>>>> +{
+>>>>> +    const struct membanks *mem = &kinfo->shm_mem.common;
+>>>>> +    unsigned int i;
+>>>>> +    __be32 *cells;
+>>>>> +
+>>>>> +    BUG_ON(!nr_cells || !reg);
+>>>>> +
+>>>>> +    cells = &reg[*nr_cells];
+>>>>> +    for ( i = 0; i < mem->nr_banks; i++ )
+>>>>> +    {
+>>>>> +        u64 start = mem->bank[i].start;
+>>>> ditto
+>>>
+>>> Will fix, here paddr_t should be ok isn’t it?
+>> yes
+>>
+>>>
+>>>>
+>>>> Rest LGTM:
+>>>> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+>>>
+>>> Thanks, I will send the next one shortly.
+>> I don't think there is a need to respin the whole series just for 
+>> these fixes.
+>> You should wait for the committers opinion.
+> 
+> AFAICT, there are multiple changes requested in various line. So I would 
+> rather prefer if this is respinned.
+> 
+> If this is the only patch that requires to change. You could send a new 
+> one in reply-to this patch. I think b4 is clever enough to pick up the 
+> new version in that case.
+
+I was wrong. b4 didn't picked up the new version. Anyway, I have applied 
+the new patch and send to gitlab for testing. I will merge it once it 
+passes.
+
+Cheers,
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Julien Grall
 
