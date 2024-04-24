@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FE0F8B01A1
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 08:17:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711128.1110848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32E2A8B01B7
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 08:23:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711133.1110858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzVvS-0002Vg-PF; Wed, 24 Apr 2024 06:16:14 +0000
+	id 1rzW1j-00040J-ET; Wed, 24 Apr 2024 06:22:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711128.1110848; Wed, 24 Apr 2024 06:16:14 +0000
+Received: by outflank-mailman (output) from mailman id 711133.1110858; Wed, 24 Apr 2024 06:22:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzVvS-0002Ss-M9; Wed, 24 Apr 2024 06:16:14 +0000
-Received: by outflank-mailman (input) for mailman id 711128;
- Wed, 24 Apr 2024 06:16:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzW1j-0003xu-BL; Wed, 24 Apr 2024 06:22:43 +0000
+Received: by outflank-mailman (input) for mailman id 711133;
+ Wed, 24 Apr 2024 06:22:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzVvQ-0002Sc-U0
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 06:16:12 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2320d026-0202-11ef-b4bb-af5377834399;
- Wed, 24 Apr 2024 08:16:07 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-343d7ff2350so4865539f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 23:16:07 -0700 (PDT)
+ id 1rzW1i-0003xo-Fe
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 06:22:42 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0d285549-0203-11ef-909a-e314d9c70b13;
+ Wed, 24 Apr 2024 08:22:41 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-34b66f0500aso1529539f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 23:22:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j10-20020adfff8a000000b0034335f13570sm16097998wrr.116.2024.04.23.23.16.06
+ a7-20020adfeec7000000b00349cadc5024sm16225147wrp.61.2024.04.23.23.22.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 23:16:06 -0700 (PDT)
+ Tue, 23 Apr 2024 23:22:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2320d026-0202-11ef-b4bb-af5377834399
+X-Inumbo-ID: 0d285549-0203-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713939367; x=1714544167; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713939759; x=1714544559; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=kdfnpatrTyQeYsAvSX+9LoX28ahuJFBANRRsy2h7dr0=;
-        b=QC+0HTHq0Oy0QHXdgDyu957UYWa51mTOePtgUq9VejHN4WHxnZ0QBNCyz/v7T5ZAGU
-         1th469O7vWamnXZOWnT0BLrYQBny+vAeMIjXSlO2rwVSuAn/2m67Y6qOe0y+J4djcWdf
-         eYQ5aHdYbHqLDgIKtJdgwMRHFRgj0a0AzoX557XNnioEdcoSTbebVn8BP7hoo1ZyxsfV
-         QoSou92AyLtF29YmI5YBLtRRojusxs7GNz5pyCYOXDQvfIl8uRIaALqZ5e7Kf0QlH0HU
-         aHZXb7BMScBURCAq6JEBz04bz8MmU5aP91fghZ3H1t13FiVB+u04/kPTVGoIx8PqMjtR
-         lJfg==
+        bh=mwkCe7jRohrrZj4gIZx+L0/69plFQfhwQaewzjl71jc=;
+        b=ej8EuSOE2jswo/X344t1H7TJ8MxEVhDeNMQvNvSvlpI8yVFflz4u/31ARpF3Xbumf2
+         KEFHtvLRCb8zNSaENWUODvgb4qA4oe8sJNmZoY1z0jt6mEfzpkkBDF4IiGRYU2MbCAuD
+         TradUdq0m1d4BmIFghmjKH5pNiJwNBBMlcAOdkIfnGxAizZ1c4je0l4jvVDlsYALQ81K
+         i0dqGbaNYRZPJy1RH+1Cw41iABXZYVbMgjkT/5z33GelGYJdTN4bF+hW49/X3o9BaNfB
+         Ju2wzFzDZRtbEZEunwhDeMIXZD6QlRM+sQGDdeb75d7khCe/BgYh7J72de6QM/1SXwVU
+         fUIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713939367; x=1714544167;
+        d=1e100.net; s=20230601; t=1713939759; x=1714544559;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kdfnpatrTyQeYsAvSX+9LoX28ahuJFBANRRsy2h7dr0=;
-        b=XuJG6xHvVr5u8t7iLYpuEzU2VqToc0jfle7GanF93ORiUfM7JPySXNCasUFI9EsGVC
-         GgvMEOdX6Ss/qGTPGXrupEAx6uJ3ZuXGpuDcW8SUfEzbDupIIfK5tI5d8EKET3sfwQdB
-         reOO8qmbmuH45zRiPWuHlrVwbfK3/TU3uj3uYhGgN75EzMPkeM+mhh5Bzu4kWDCjVAY4
-         a3Z0hMItACwG6t/bn3yLC4uNjGHF+df7CanzkW0YJFjaAamtjhdJnwdnWYOhUs75J97t
-         UWv0WigcTZKWUTRlbCBil1qvJhMbsexx1C3lfu0d81VsXrUr2WLTFb6uZKFLOZtVsEhd
-         Nnsg==
-X-Forwarded-Encrypted: i=1; AJvYcCX6H1LuradHoaTBzNkNM3nQ17qmm1ANrJcY3QsbXsFM0VesccfaB1W6u/d3X9FVn0LPhH2ZSBDrrXmGHRcOnkqD6Syby7Idi/qUHzCBX7s=
-X-Gm-Message-State: AOJu0YxnS5hu8YCZ4CWvsG/OjYuRQrfTNwmMmkzjC49542n9+mYWA6h7
-	gCfQ95ZCOdTUiMVf2A+ykgcqQR+BgDKYeu7E3N/zjz247KyHlT3b0J19EnamWQ==
-X-Google-Smtp-Source: AGHT+IFYZj60IhL18hCwdw8hSxd2AWzfGitFMfKe61qm0KWMl88QNf3HQsAgx/U9jveYRtPsUjZwyw==
-X-Received: by 2002:adf:cb0f:0:b0:34a:2a90:c45 with SMTP id u15-20020adfcb0f000000b0034a2a900c45mr760344wrh.31.1713939367186;
-        Tue, 23 Apr 2024 23:16:07 -0700 (PDT)
-Message-ID: <bc2aab70-08c5-4dfe-91ab-c1c24163cd46@suse.com>
-Date: Wed, 24 Apr 2024 08:16:05 +0200
+        bh=mwkCe7jRohrrZj4gIZx+L0/69plFQfhwQaewzjl71jc=;
+        b=O4PT0JPMvyPZoABVHpnf6W/PerdMLdvf7WladS7ZPM9EViII0hzQl8XJCsBKqvX+wN
+         bHljEo+QLlM9QSBOQv5ZvafMUDGV9pzhiXEesQia9uavCuCPakCTF6raYNj74wyzRjNK
+         sfZGCrFN03zhCcXJkp3kuX+tvgKMwjro11IBZVkLH+/ev16c1wh3p+MF7+9XDUGqui06
+         HEhlQzxc+mqSuD6xJGJfYqRK/MR/hCZk6zHpa2sP8cV9f87P1kNzZY3Ls/NBJgtRJXuq
+         MKKQTiKMWMQKDT2/W0zU/olfyzYuzwXO0ZSf6/9HRzWOXYCQ+1pxg1/+meXhnjZkQp7o
+         K6eQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWUEkON7vTNq7dKL8BzK+0WZr+9nWTZfbS/4zlYCY2Yx0fzTk5IkHKPUtY4rshDspQbd7lo0gjtE6vBXLJDLVrltHDB0okWMN88Wub0mhI=
+X-Gm-Message-State: AOJu0Yy74n4j+yKN8nYzbi5Rs9HDFTxoQ5Lbp7mqhkOF9kwMAuJoN+s0
+	tkHCoFj+GOXmMj7mnx+/3kFF3W7ZOTpJo8QWjPoUOjioBNVHnAMa50Yk8NKCOg==
+X-Google-Smtp-Source: AGHT+IGGqT6OVQcHu1zyYfpnbBLS5pDM2q7UfSsJIaW0aUrJ4yS5XNm+FfNmKBxvyW3tydY1uw/Llw==
+X-Received: by 2002:adf:ed48:0:b0:349:7e8e:b29a with SMTP id u8-20020adfed48000000b003497e8eb29amr934673wro.62.1713939759669;
+        Tue, 23 Apr 2024 23:22:39 -0700 (PDT)
+Message-ID: <5bb872fb-9973-4ed9-a463-1b1a873d4a46@suse.com>
+Date: Wed, 24 Apr 2024 08:22:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 14/15] add a domU script to fetch overlays and applying
- them to linux
+Subject: Re: [PATCH 06/15] rangeset: Move struct range and struct rangeset to
+ headerfile
 Content-Language: en-US
-To: Henry Wang <xin.wang2@amd.com>, Vikram Garhwal <fnu.vikram@xilinx.com>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
- xen-devel@lists.xenproject.org
+To: Henry Wang <xin.wang2@amd.com>, Vikram Garhwal <vikram.garhwal@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20240424033449.168398-1-xin.wang2@amd.com>
- <20240424033449.168398-15-xin.wang2@amd.com>
+ <20240424033449.168398-7-xin.wang2@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,52 +113,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240424033449.168398-15-xin.wang2@amd.com>
+In-Reply-To: <20240424033449.168398-7-xin.wang2@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.04.2024 05:34, Henry Wang wrote:
-> From: Vikram Garhwal <fnu.vikram@xilinx.com>
+> From: Vikram Garhwal <vikram.garhwal@amd.com>
 > 
-> Introduce a shell script that runs in the background and calls
-> get_overlay to retrive overlays and add them (or remove them) to Linux
-> device tree (running as a domU).
-> 
-> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> Signed-off-by: Henry Wang <xin.wang2@amd.com>
-> ---
->  tools/helpers/Makefile       |  2 +-
->  tools/helpers/get_overlay.sh | 81 ++++++++++++++++++++++++++++++++++++
->  2 files changed, 82 insertions(+), 1 deletion(-)
->  create mode 100755 tools/helpers/get_overlay.sh
+> Move struct range, rangeset and removed static from first_range and next_range().
 
-Besides the same naming issue as in the earlier patch, the script also
-looks very Linux-ish. Yet ...
+NAK, for going against what we do elsewhere (limiting exposure of internals).
+At least as long as the justification isn't any better than ...
 
-> --- a/tools/helpers/Makefile
-> +++ b/tools/helpers/Makefile
-> @@ -58,7 +58,6 @@ init-dom0less: $(INIT_DOM0LESS_OBJS)
->  get_overlay: $(SHARE_OVERLAY_OBJS)
->  	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenvchan) $(LDLIBS_libxenstore) $(LDLIBS_libxenctrl) $(LDLIBS_libxengnttab) $(APPEND_LDFLAGS)
->  
-> -
->  .PHONY: install
->  install: all
->  	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
-> @@ -67,6 +66,7 @@ install: all
->  .PHONY: uninstall
->  uninstall:
->  	for i in $(TARGETS); do rm -f $(DESTDIR)$(LIBEXEC_BIN)/$$i; done
-> +	$(RM) $(DESTDIR)$(LIBEXEC_BIN)/get_overlay.sh
->  
->  .PHONY: clean
->  clean:
+> IRQs and IOMEMs for nodes are stored as rangeset in the dynamic node addition
+> part. While removing the nodes we need to access every IRQ and IOMEM ranges to
+> unmap IRQ and IOMEM from the domain.
 
-... you touching only the uninstall target, it's not even clear to me
-how (and under what conditions) the script is going to make it into
-$(DESTDIR)$(LIBEXEC_BIN)/. Did you mean to add to $(TARGETS), perhaps,
-alongside the earlier added get-overlay binary?
+... this. You're aware of rangeset_report_ranges() and rangeset_consume_ranges(),
+aren't you? If neither is suitable for your purpose, can you explain what you
+need in addition?
 
 Jan
 
