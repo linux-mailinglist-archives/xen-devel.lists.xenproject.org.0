@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C950B8B088E
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 13:45:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711343.1111244 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2828E8B08AA
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 13:52:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711352.1111253 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzb3N-00022d-7a; Wed, 24 Apr 2024 11:44:45 +0000
+	id 1rzbAL-0003Vm-SQ; Wed, 24 Apr 2024 11:51:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711343.1111244; Wed, 24 Apr 2024 11:44:45 +0000
+Received: by outflank-mailman (output) from mailman id 711352.1111253; Wed, 24 Apr 2024 11:51:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzb3N-00020Q-3l; Wed, 24 Apr 2024 11:44:45 +0000
-Received: by outflank-mailman (input) for mailman id 711343;
- Wed, 24 Apr 2024 11:44:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzbAL-0003UG-Pi; Wed, 24 Apr 2024 11:51:57 +0000
+Received: by outflank-mailman (input) for mailman id 711352;
+ Wed, 24 Apr 2024 11:51:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzb3L-00020G-Ia
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 11:44:43 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0985c20d-0230-11ef-b4bb-af5377834399;
- Wed, 24 Apr 2024 13:44:41 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-343c7fae6e4so5949266f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 04:44:41 -0700 (PDT)
+ id 1rzbAK-0003UA-JS
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 11:51:56 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0c325426-0231-11ef-909a-e314d9c70b13;
+ Wed, 24 Apr 2024 13:51:55 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-41af670185fso6513675e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 04:51:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n2-20020adfe342000000b00343eac2acc4sm16906527wrj.111.2024.04.24.04.44.40
+ jg3-20020a05600ca00300b0041affdeeb99sm1930354wmb.39.2024.04.24.04.51.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Apr 2024 04:44:40 -0700 (PDT)
+ Wed, 24 Apr 2024 04:51:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0985c20d-0230-11ef-b4bb-af5377834399
+X-Inumbo-ID: 0c325426-0231-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713959081; x=1714563881; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713959515; x=1714564315; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=zTGkN2qP04dPEtnLqWKlC3X2JGpHT5+c9WESnQBrOmU=;
-        b=PlnHr/2oL5iqknQy3HI6jdl1wkTZxcecZkuDlLwbHhG4XwrL8b4XkbYX3Gh02N8BHd
-         GsP4WTzKF4/KfsbhPVPWnozuwvsrXZkC5CCqSSLyb8ty6Kn1vvwgMyhcGgXPz3GfQcXL
-         gOnT0b0OrBwXKsHan+DFD8/5SrR/s8XLuFcxdI/JFBvS1Nnr59c0YEjE4giHv6XOMN2Z
-         Hf8utBE2KMmiKDfmzOyLAq51zFG4QXQ3HT+sppoS9gKoxBlI5CQ35pgPU4J0UFAgBCju
-         OGZO1lnIJGMkVYkxpa9IAJvHp1dNeny5THiQe5okBBcXX+LWENzyqjaLGSkJ1E7GXH8j
-         pLnQ==
+        bh=CaDhe/761gfbnKC64HJdDksjjTowgIpQ4bXmuv7L4qM=;
+        b=RaiGuQysHg794nSnxoq6EfX7VliM+QiRvDowrn2VWXOeOxzYDI7IVYv68u1aSCrhAi
+         UWXWj31U79IGmXGqHPNRyVo4WgGdtfzUngtasPWxDvQNJOeabawjitvCRLAmQ2SeaY4C
+         CGAPQ0rKzXu1RJ8ePHFLdetEU8RqseAUcmS01bTKPiCMihceOkTswzaZPOHjiQ9apNm0
+         IowYX9boHYofmiJsO1R5ZZFq/Koji6qP7cHlqiXXzBht6EcC7Ps4Lks3JstELcrHcTvu
+         nF7ptYPFM8FjTAnfItYkZzw3t++2CRjaFud+K1M7vuRA7mpgXK//vG32xJgsFtIVkUvP
+         xbQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713959081; x=1714563881;
+        d=1e100.net; s=20230601; t=1713959515; x=1714564315;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zTGkN2qP04dPEtnLqWKlC3X2JGpHT5+c9WESnQBrOmU=;
-        b=Yg7TNVbS9IWD7U/zQ5RbHMdbPvO3rBWuniZii60m3Qtp2VmvVi9l/mVpS7Hyp7eD7f
-         CpE3BjTjX7vOomZkMXLVPxxw0t1dJF6FamF31qtqXCsDtbYgLZx7BKeATBVgrvpZvrWH
-         T+sYIkfBFeHwJWoR4HER7IRR0DNrpVXJ0RyUTYFin/dfm2cxzODPQDzzYUFf3WFCVihO
-         DcYssAls8UubcpZaL25kY7Jtaw4N8Vha/jl2UhG8rJoZH7hBE2lArhvl66cmXw/iex6P
-         k8N1eAJ7eaWkSKvZSheqDdNdQ0FAMK/VGf2pl9bfx/+u17SdNLe2qKFlY7hc2fTvL+um
-         c+mA==
-X-Gm-Message-State: AOJu0YzYJ3WNwjJQkiGbMlIGIkJZHgHMYqcc377lxO2yU9tomD2M28yO
-	2hiVuew1e9d92KHmT99jTzYZ7oSzIgMVL4Fu0lGwL4djamfEpNv1uMt4uV7g6WWyoiSaFMPlr14
-	=
-X-Google-Smtp-Source: AGHT+IEIQFheWOCOPc5oN5rXPESlSHTFQxundruWQ38lm6xMIVbaSJI+rbTSUmw0AXHB2FuYJA4pPQ==
-X-Received: by 2002:adf:b34a:0:b0:343:772d:9349 with SMTP id k10-20020adfb34a000000b00343772d9349mr1260704wrd.50.1713959080990;
-        Wed, 24 Apr 2024 04:44:40 -0700 (PDT)
-Message-ID: <9b2d08c1-2bb0-4142-9722-0d2045041f2c@suse.com>
-Date: Wed, 24 Apr 2024 13:44:39 +0200
+        bh=CaDhe/761gfbnKC64HJdDksjjTowgIpQ4bXmuv7L4qM=;
+        b=HJyPdJa86sWUADcEZe3XA3qFfSyljLIH/2GYsAWm+MVCYO+6PLhciZjXikEzv/cg9+
+         QqgXeX/9ffSuWMVP2kvlkBJt7p09pqYJiZM2tqq/OuS8RZLzEs2j7Ca6s/C3MCypZsMD
+         kI2gNWgedYnEz6GGHpU1XL05ZrhN6QvkUjADbNVFFI0f3u398NeU4Buiygo0pGaDoTt8
+         rcPKzA8m3GTu20FV2SBGIpw0CpslISuF6QitjD92hWV1H8Y3/noJQpiGe40eNeEQ6Qyy
+         X6/ajXjR9goG7Q4hYOJRR7b8F2RyjHc+C0WhpctLK1G0VuMcXgCXZbM21BxQKjO+qFFZ
+         pbjA==
+X-Forwarded-Encrypted: i=1; AJvYcCXe0AzmLWCn+Hm3IkEmCxEx6T/1Ncnz0Kf2xh6JUesuJXaBC8iqezaQMr8Qy0o5jnMA64VOlzFCI5/C4ExNzeFI2YAMy3tKHLieUuU1Bdo=
+X-Gm-Message-State: AOJu0YzRzXOJp0maVNAY97G6Uvme7QqrJTf3pI0Bh2VvWYmPl+YCHsFU
+	4uFfmXyjdR1se3609SEp7cdiJ/hpCXHh2zQhIrZMP1Gwo2ky/f5/av9yhcUbbg==
+X-Google-Smtp-Source: AGHT+IHs7hMMYIENrlo7Hwr7WvkJNOZgQHtQmNURUdOYdaiQCOFkm1/TIBpkmqJuowZHxfcJIkrNZQ==
+X-Received: by 2002:a05:600c:46cc:b0:418:ed13:302d with SMTP id q12-20020a05600c46cc00b00418ed13302dmr1778369wmo.26.1713959514794;
+        Wed, 24 Apr 2024 04:51:54 -0700 (PDT)
+Message-ID: <96513dca-e6c4-4dcc-9e0b-be5a92c06d11@suse.com>
+Date: Wed, 24 Apr 2024 13:51:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] x86/shadow: correct shadow_vcpu_init()'s comment
+Subject: Re: [XEN PATCH v2] automation/eclair: add deviations for MISRA C:2012
+ Rule 16.4
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>
-References: <0d846228-323b-4427-87d1-684c3d0047c5@suse.com>
- <fea51839-4405-4330-8493-c544b9edf035@suse.com> <ZijZldtvQ_e1h6ys@macbook>
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <310e1dac8ecf2a85f1c552dbdad9093b1cfdcb98.1713946892.git.federico.serafini@bugseng.com>
+ <891c21cf-695a-4b1d-b10b-53f23199380f@suse.com>
+ <70252c73-e93b-4006-8acd-1e760db5aab7@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,51 +117,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZijZldtvQ_e1h6ys@macbook>
+In-Reply-To: <70252c73-e93b-4006-8acd-1e760db5aab7@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 24.04.2024 12:06, Roger Pau Monné wrote:
-> On Tue, Apr 23, 2024 at 04:33:09PM +0200, Jan Beulich wrote:
->> As of the commit referenced below the update_paging_modes() hook is per-
->> domain and hence also set (already) during domain construction.
+On 24.04.2024 11:00, Federico Serafini wrote:
+> On 24/04/24 10:30, Jan Beulich wrote:
+>> On 24.04.2024 10:25, Federico Serafini wrote:
+>>> Update ECLAIR configuration to take into account the deviations
+>>> agreed during MISRA meetings for Rule 16.4.
+>>>
+>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>> ---
+>>>   automation/eclair_analysis/ECLAIR/deviations.ecl |  8 ++++++++
+>>>   docs/misra/deviations.rst                        | 13 +++++++++++++
+>>>   2 files changed, 21 insertions(+)
+>>>
 >>
->> Fixes: d0816a9085b5 ("x86/paging: move update_paging_modes() hook")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> So what has changed here from v1? It looks all the same to me, with it still
+>> remaining unclear what exactly ...
 >>
->> --- a/xen/arch/x86/mm/shadow/common.c
->> +++ b/xen/arch/x86/mm/shadow/common.c
->> @@ -99,11 +99,12 @@ int shadow_domain_init(struct domain *d)
->>      return 0;
->>  }
->>  
->> -/* Setup the shadow-specfic parts of a vcpu struct. Note: The most important
->> - * job is to initialize the update_paging_modes() function pointer, which is
->> - * used to initialized the rest of resources. Therefore, it really does not
->> - * matter to have v->arch.paging.mode pointing to any mode, as long as it can
->> - * be compiled.
->> +/*
->> + * Setup the shadow-specific parts of a vcpu struct. Note: The
->> + * update_paging_modes() function pointer, which is used to initialize other
->> + * resources, was already set during domain creation. Therefore it really does
->> + * not matter to have v->arch.paging.mode pointing to any (legitimate) mode,
->> + * as long as it can be compiled.
+>>> --- a/docs/misra/deviations.rst
+>>> +++ b/docs/misra/deviations.rst
+>>> @@ -334,6 +334,19 @@ Deviations related to MISRA C:2012 Rules:
+>>>            - /\* Fallthrough \*/
+>>>            - /\* Fallthrough. \*/
+>>>   
+>>> +   * - R16.4
+>>> +     - Switch statements having a controlling expression of enum type
+>>> +       deliberately do not have a default case: gcc -Wall enables -Wswitch
+>>> +       which warns (and breaks the build as we use -Werror) if one of the enum
+>>> +       labels is missing from the switch.
+>>> +     - Tagged as `deliberate` for ECLAIR.
+>>> +
+>>> +   * - R16.4
+>>> +     - A switch statement with a single switch clause and no default label may
+>>> +       be used in place of an equivalent if statement if it is considered to
+>>> +       improve readability.
+>>> +     - Tagged as `deliberate` for ECLAIR.
+>>> +
+>>>      * - R16.6
+>>>        - A switch statement with a single switch clause and no default label may
+>>>          be used in place of an equivalent if statement if it is considered to
+>>
+>> ... a "switch clause" is.
 > 
-> Do you need to keep the last sentence?  If update_paging_modes is
-> already set at domain create, the 'Therefore it really does...'
-> doesn't seem to make much sense anymore, as it's no longer
-> shadow_vcpu_init() that sets it.
+> I would define a switch clause as:
+> "the non-empy list of statements which follows a non-empty list of
+> case/default labels".
+> If you agree, I will place it near the occurrences of the term
+> "switch clause".
 
-I thought about dropping, but the "any mode does" seemed to me to be still
-relevant to mention. I thought about re-wording, too, without coming to any
-good alternative. Hence, despite agreeing with you that 'Therefore ...' does
-not quite fit (anymore), I left that as is.
-
-> Possibly with that dropped:
-> 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Thanks.
+I'm afraid I don't (quite) agree, and I had hoped that I would have got my
+point across that such a definition wants to be in terms used by the C spec.
+"statement" is too broad here, as that in particular includes
+"labeled-statement" as well. Ordinary labels are (aiui) okay to have in
+there, so entirely excluding "labeled-statement" wouldn't be quite right
+either.
 
 Jan
 
