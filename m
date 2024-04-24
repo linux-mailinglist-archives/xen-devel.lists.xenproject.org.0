@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4DE18B0161
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 07:55:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711106.1110798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99ED18B0168
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 07:58:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711110.1110808 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzVaz-00058j-52; Wed, 24 Apr 2024 05:55:05 +0000
+	id 1rzVe1-0005i0-JX; Wed, 24 Apr 2024 05:58:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711106.1110798; Wed, 24 Apr 2024 05:55:05 +0000
+Received: by outflank-mailman (output) from mailman id 711110.1110808; Wed, 24 Apr 2024 05:58:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzVaz-00056K-23; Wed, 24 Apr 2024 05:55:05 +0000
-Received: by outflank-mailman (input) for mailman id 711106;
- Wed, 24 Apr 2024 05:55:03 +0000
+	id 1rzVe1-0005gX-FV; Wed, 24 Apr 2024 05:58:13 +0000
+Received: by outflank-mailman (input) for mailman id 711110;
+ Wed, 24 Apr 2024 05:58:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzVax-00056E-Nz
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 05:55:03 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1rzVe0-0005gR-8N
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 05:58:12 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 303cb9fe-01ff-11ef-b4bb-af5377834399;
- Wed, 24 Apr 2024 07:55:01 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-41a0979b9aeso27078425e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 22:55:01 -0700 (PDT)
+ id a0ffc3e4-01ff-11ef-b4bb-af5377834399;
+ Wed, 24 Apr 2024 07:58:10 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-41aa15ae26dso15741785e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 22:58:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p8-20020a05600c358800b00418f72d9027sm20413795wmq.18.2024.04.23.22.54.59
+ fc19-20020a05600c525300b00418981b59d4sm26446427wmb.10.2024.04.23.22.58.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 22:55:00 -0700 (PDT)
+ Tue, 23 Apr 2024 22:58:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 303cb9fe-01ff-11ef-b4bb-af5377834399
+X-Inumbo-ID: a0ffc3e4-01ff-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713938100; x=1714542900; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cTLbwZuCxKtSASq0vDmtOK5YvsKspFfdjSwAeNU2aE4=;
-        b=C9RhYt+382XTe+Ytct3lgGePMy/TzFOiXH+HeHtQtTYtJxm0wJowp8ZGM5nS19sRI6
-         MPunJI+7W/jHod2szET0xAIZWhfJBalVdS5FVvD8713suf1BKX78btOIcPvqU7eWFMYG
-         x5VbBz0M0XouMJg8SIx5cWvyd8jcYbx2nRP6bJLd+fNVn350UCXYocIYGa1KtI3RYI5u
-         L4MicZU5sTrOmYAo8d/VccXH454MOBU9m/MXHctuGRFHkLTKznrSvsAOKTW5VeHdwNKu
-         SnSNUFY22tu2aQArUU0LZnYxJ0j1TUzbZyMMW9VO2rr9K985qpbK9zzonjpSBKJ8ReO9
-         VGgA==
+        d=suse.com; s=google; t=1713938290; x=1714543090; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6NFqir/0y6lb16rOITMVcMyo8mh42R+P942bXo2UJ04=;
+        b=OO4J/ZtqAv4iUBZlmu5KFM4Y3/hZ3ejB8B7p+CKZfzllu0AbeGOlKopCvHtY/Bb92+
+         Z9XlxP5w70hZm+dHRQZ/8CQ96Rg2JAGTAR4PuEs5OAaI+grylB2EOst4R+OlmnlwnIbb
+         ZKRKXVzLjMFEcuSRomRgcCJhTjWuWl33QQ9CYTfTJwVWXz+2jnoEOt8Ebzt+FVwwyApM
+         ImDV321KCb9LQ33Y/PlGJw1zrTMYwxUHLMY8Me+nvTI9kyLJkGE3a09c+35N7JxCsxCU
+         DHW1KmOTqaqP+5kZHdRdZScyd4TroN9YAwZ59Bp6dmt8fGIxlvaOX6/CQG/e+th/PNIk
+         Tilg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713938100; x=1714542900;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=cTLbwZuCxKtSASq0vDmtOK5YvsKspFfdjSwAeNU2aE4=;
-        b=U90Ab+UfDsoIEKWpWOa8D0ap4DQJ4Ajwu/K0SClJnzBdjX0y0ZgEXj9NfI0CxS/zQi
-         4W6z/xeo9Yoq1VN5eqrHgeL1st1bItz6oKs4cJ37IuALu+zo9zP6eYQPJ9pLSQrK+uE5
-         aZR36uI3V+W6/8I7Ue9RHUXa2TPU7aFe/gICqdkt3qLJunLY8aHIq7LbdCh5O4UJJ5FD
-         m1HbxuNeOTWoBtjOPav4Yhkm26vs/Yzx1kvdDSLUgnl/l+HWEBmWDQxIhdWcYK6lmrDu
-         h/kTR6/F+0z2cvl42abgBOSH6tEal3HqfjQZuDdn2O7cr5ypuTZgecq2R6FI7TIEjUKt
-         EQYg==
-X-Forwarded-Encrypted: i=1; AJvYcCX9XyGv78Kcb3ntJkYDrktAtvhiRYSqv1ODvNp7gRkV8i7IH+yBR6IsdtXKWjiwmwwCbEiZi/ztnN9WBVe5OtZVil1CUX8QAihpxkWbOyA=
-X-Gm-Message-State: AOJu0Ywomx/6WxSF9l4aXd9UoShOuutOWHN7W/Eyojf+38Y1J0KlJTlV
-	kIpnGCOF1yNulGfR+2mDXeR5+li/dhn9a5gELclcmMxGmlI4cFEtZ/3hlwOD0w==
-X-Google-Smtp-Source: AGHT+IH6O1x6Bge+rLIn04XZB2nMh7onUOJeu1YDi3ZMaFSky4Dtm5+vEtLSIXDtAw4T+0O+UEfNrQ==
-X-Received: by 2002:a05:600c:1d11:b0:41a:a81e:441 with SMTP id l17-20020a05600c1d1100b0041aa81e0441mr1290567wms.25.1713938100448;
-        Tue, 23 Apr 2024 22:55:00 -0700 (PDT)
-Message-ID: <2b84b989-ec54-4e43-8c55-ed60cb5838a4@suse.com>
-Date: Wed, 24 Apr 2024 07:54:59 +0200
+        d=1e100.net; s=20230601; t=1713938290; x=1714543090;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6NFqir/0y6lb16rOITMVcMyo8mh42R+P942bXo2UJ04=;
+        b=W6eJDTJobauhsHgC49+RHnL056AA4lqccjRjkSCBiZcqt1coWpSGUkzW9Op0c/CrFx
+         AJsEV4p9g5wD2IUym6p2WBiD38aBWMGPnz7cPNKeZzNdZkHr9yvJuUkF1ltVxPj8M9T+
+         /eA8pH+DOv8MN43D7oDEtbg927oBd/z56SSG903f1iZCQxBh8g2JkCvFwN5NS69Ahlk2
+         OagQZ7NRQqfkkmE982RtOTbwWUC8xPYwcJMcTNl3A4lqTY23eid04ttZXXHW4VtNoeJc
+         DJvnljdvG08RmIr8C/AMrH+JcgIAEUzcHWfX26ZDdBpcgkcjr6JdxLrtLOFUCpI8DRg+
+         3wmw==
+X-Forwarded-Encrypted: i=1; AJvYcCX2lttAICc8q7ja0PoeX6FjKoTe0UlQsOrHUwtfUlpdlNITt6IdJuE7Or5VqXNImxx9mo1/vgqEFAlCPZ1bD4oVmndOPDtY4cw1+jhgSRk=
+X-Gm-Message-State: AOJu0Yz1BG7W32CIwaC+3WV4/BNaHIL3NxbDt+OiJU0qIJA7LqjqoYtk
+	d6eSMlUhZSLCpS3F4NS04BHXNTOd0UOuDP+wnEfxT5O0IbMfwpgQh11lX8BNbLykueljIAJj7XY
+	=
+X-Google-Smtp-Source: AGHT+IHdfU/BawBTr3iT0VVseTxYXnxbVRmB8mxVpEJE+s/zDacyvl2j/mB7XZhkwv2U1QIzz8woZA==
+X-Received: by 2002:a05:600c:3585:b0:418:dd73:b0a1 with SMTP id p5-20020a05600c358500b00418dd73b0a1mr998352wmq.39.1713938289744;
+        Tue, 23 Apr 2024 22:58:09 -0700 (PDT)
+Message-ID: <6cba6a94-8bc3-4302-846e-0eae03e77306@suse.com>
+Date: Wed, 24 Apr 2024 07:58:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] x86/alternative: Relocate all insn-relative fields
+Subject: Re: [PATCH 01/15] xen/commom/dt-overlay: Fix missing lock when remove
+ the device
 Content-Language: en-US
+To: Henry Wang <xin.wang2@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, xen-devel@lists.xenproject.org
+References: <20240424033449.168398-1-xin.wang2@amd.com>
+ <20240424033449.168398-2-xin.wang2@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240422181434.3463252-1-andrew.cooper3@citrix.com>
- <20240422181434.3463252-6-andrew.cooper3@citrix.com>
- <b0412697-d258-447a-9470-09590744c2c9@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -113,49 +113,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b0412697-d258-447a-9470-09590744c2c9@suse.com>
+In-Reply-To: <20240424033449.168398-2-xin.wang2@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.04.2024 16:59, Jan Beulich wrote:
-> On 22.04.2024 20:14, Andrew Cooper wrote:
->> --- a/xen/arch/x86/alternative.c
->> +++ b/xen/arch/x86/alternative.c
->> @@ -244,10 +244,31 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
->>  
->>          memcpy(buf, repl, a->repl_len);
->>  
->> +        /* Walk buf[] and adjust any insn-relative operands. */
->> +        if ( a->repl_len )
->>          {
->> -            /* 0xe8/0xe9 are relative branches; fix the offset. */
->> -            if ( a->repl_len >= 5 && (*buf & 0xfe) == 0xe8 )
->> +            uint8_t *ip = buf, *end = ip + a->repl_len;
->> +
->> +            for ( x86_decode_lite_t res; ip < end; ip += res.len )
->>              {
->> +                int32_t *d32;
->> +                uint8_t *target;
->> +
->> +                res = x86_decode_lite(ip, end);
->> +
->> +                if ( res.len <= 0 )
->> +                {
->> +                    printk("Alternative for %ps [%*ph]\n",
->> +                           ALT_ORIG_PTR(a), a->repl_len, repl);
->> +                    printk("Unable to decode instruction in alternative - ignoring.\n");
->> +                    goto skip_this_alternative;
-> 
-> Can this really be just a log message? There are cases where patching has
-> to happen for things to operate correctly. Hence if not panic()ing, I'd
-> say we at least want to taint the hypervisor.
+On 24.04.2024 05:34, Henry Wang wrote:
+> --- a/xen/common/dt-overlay.c
+> +++ b/xen/common/dt-overlay.c
+> @@ -381,9 +381,14 @@ static int remove_node_resources(struct dt_device_node *device_node)
+>      {
+>          if ( dt_device_is_protected(device_node) )
+>          {
+> +            write_lock(&dt_host_lock);
+>              rc = iommu_remove_dt_device(device_node);
 
-Actually, after some further thought, I don't even think we should skip
-such alternatives. Think of e.g. cases where in principle we could get
-away with just patching the prefix of an insn. Yet even without such
-trickery - there's a fair chance that the alternative doesn't need
-fiddling with, and hence putting it in unaltered is likely the best we
-can do here.
+Any particular reason you add two call sites to the unlock function,
+instead of putting it here?
 
 Jan
+
+>              if ( rc < 0 )
+> +            {
+> +                write_unlock(&dt_host_lock);
+>                  return rc;
+> +            }
+> +            write_unlock(&dt_host_lock);
+>          }
+>      }
+>  
+
 
