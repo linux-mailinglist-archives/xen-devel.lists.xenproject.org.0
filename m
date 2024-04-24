@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36FD98B0307
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 09:21:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711167.1110928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A747F8B0315
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 09:23:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711169.1110938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzWwB-0000mq-82; Wed, 24 Apr 2024 07:21:03 +0000
+	id 1rzWyB-0001LB-JE; Wed, 24 Apr 2024 07:23:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711167.1110928; Wed, 24 Apr 2024 07:21:03 +0000
+Received: by outflank-mailman (output) from mailman id 711169.1110938; Wed, 24 Apr 2024 07:23:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzWwB-0000jl-58; Wed, 24 Apr 2024 07:21:03 +0000
-Received: by outflank-mailman (input) for mailman id 711167;
- Wed, 24 Apr 2024 07:21:01 +0000
+	id 1rzWyB-0001Ja-G2; Wed, 24 Apr 2024 07:23:07 +0000
+Received: by outflank-mailman (input) for mailman id 711169;
+ Wed, 24 Apr 2024 07:23:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzWw9-0000jV-Kx
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 07:21:01 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1rzWy9-0001JP-LG
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 07:23:05 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 33002e58-020b-11ef-b4bb-af5377834399;
- Wed, 24 Apr 2024 09:20:59 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-41b0bc4ce39so1801415e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 00:20:59 -0700 (PDT)
+ id 7ce86552-020b-11ef-b4bb-af5377834399;
+ Wed, 24 Apr 2024 09:23:03 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-34b3374ae22so2651915f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 00:23:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fc9-20020a05600c524900b0041ac5f19213sm4289749wmb.8.2024.04.24.00.20.58
+ b7-20020adff907000000b0034b3394f0e1sm5896840wrr.10.2024.04.24.00.23.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Apr 2024 00:20:59 -0700 (PDT)
+ Wed, 24 Apr 2024 00:23:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33002e58-020b-11ef-b4bb-af5377834399
+X-Inumbo-ID: 7ce86552-020b-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713943259; x=1714548059; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713943383; x=1714548183; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=M5X0Zdmp/5vAXHNnlark0kMUOgAR7ijjsaVoa8nppOY=;
-        b=RYFn7gYkDelxr2tzV2aNGT1Ax5jpJJv866dP369V4qXp9uH4aj4iJ5us4672GuipWP
-         WhPdgyoMyUqolp0LeM4gKxDv/GrhH2/cPNF6UdaR7ggTogSZZStvCK6QfB0VQFb2OQwY
-         ht2o3OM+9z1oVYc7TyNfQjrEFfAlrlEDqKyhDJiRBEEK6/Y3WWl83+tNeJkjzXCfEI7J
-         WIDe25z5B8avgrwD9/s2rakkaOr+0la78kodHNCVv3z2DQ2Jnb+HcglY80MaA1knCkw5
-         dbrxaUJX5CBLFP7reXwyRNIz54KHr37ZPKMkAlgXRQl7F91pVu/cAFZKDKjLSGZcvurm
-         c6mg==
+        bh=aXj9ij93UfOVIuQNJp0HSrxSpaB1WyARb2HDAKq/r5U=;
+        b=JAmaGdnbtwDqEhj1/wWLgbmql+Mf8nxcAvIe61ESqq2ZXmuKGUpThEWoQy4+hYd0Kx
+         xlYcq6892sQ15PmMA5IgC2kXHQsMTB5Pj6PKdQGMAGz/FZhublaKXR5BW3o6bDwvJYv9
+         Qtolas1HrOrd0EFZHgsx4W6iQj2X5ARj235rk5Hoqq8MH7iRnm2lMG40BRJj6nsa+nxn
+         7ugvYkOgau3mzJEkR4+JSrHiDHh4lOnhTToyPxqj6FXkqKv0GrnYcF11KLibM7ss+q3Z
+         1jqf0ONtVtB2GKUNUu0/IRhsVcYYK4+Bc1ggkSx9hGzNpG2lxiHaRrl2AzuLdQuAsLzD
+         7pBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713943259; x=1714548059;
+        d=1e100.net; s=20230601; t=1713943383; x=1714548183;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=M5X0Zdmp/5vAXHNnlark0kMUOgAR7ijjsaVoa8nppOY=;
-        b=BzfSxU4eNYeNoLvicsoOZ5hv4CW9pXeCRqAiEDI9WkvkLzxwJsUn51xXT1ukoPgufs
-         OYzSxI7Udd4/8APPyk0tZ+ClwvsGnKVYyMsr4WR1wfkUxam+HA2LS3snU8K+d54iLYe4
-         vBKMZ+OeWulfU1iLTQDP6CSXNBQvxR1AtK4D63ljEgV63hd9Y+o/AhZs/Fr8XwH8m0Zz
-         UkBGFUtEHqdYQpsppV4Vdd33ee683X7hUx9cwDI6UOB0RLL6Eb8NY2I7GkUorBZzSOGM
-         oOvDxOhzJo9fqoPamXSKdor+M178SpLwet75JCT/sfDAZB3UDIeOE5TKk6q03n+AEg8D
-         eMwg==
-X-Forwarded-Encrypted: i=1; AJvYcCVXY5kHHnfX3j78anSDXemt/tabkmyq59g7OxlUBihMYPXWkPsIpDtogiX7sOf6u8z2QizoM9MR2bFy0ykTQr80xpixmxUn7UU26pge28o=
-X-Gm-Message-State: AOJu0YxqdbJs0r8pgxw8T0TJBsl5zm7W7hQkHDCZRrA6QBan96VLL+yv
-	ozgwzTQs/fu22S2WSsJV8Hckwo/gJTsU40RpL8fwoAZQ8lVNn7RkI+vlvkdhCg==
-X-Google-Smtp-Source: AGHT+IEULxHCPLmAb8RAJRvdvw3Fq4bcSMEVGF/ja1bdSfpj5yfv1tUoTMjVGzlCP0r0kuOlM1EU5Q==
-X-Received: by 2002:a05:600c:1552:b0:418:f1d7:7029 with SMTP id f18-20020a05600c155200b00418f1d77029mr1597267wmg.6.1713943259227;
-        Wed, 24 Apr 2024 00:20:59 -0700 (PDT)
-Message-ID: <95736efe-03c2-4e02-b7e0-8385b9119a87@suse.com>
-Date: Wed, 24 Apr 2024 09:20:58 +0200
+        bh=aXj9ij93UfOVIuQNJp0HSrxSpaB1WyARb2HDAKq/r5U=;
+        b=dxNLEqC+IjXt5r/HAsOIm2zIoiAtOvma6cK21hK0U3R1C+061rK8dY/Oh5TM35gf13
+         p7U6FRkR3/4f9RXTvLxzK7ldMSDV4nYsip6880EALsi8tIhI8aQtJ/Xo49F41UlZYyGn
+         yfOOEO+om317raN0gZDojDc+MDnFqbHGYRW9JUMnAeCqCxLwu8nMKVcfMKraPJO1nrLy
+         r/n8/TeaMYubuTSw/6A3jraAljPp0uA37jfhLmk21ktwrMt/xmpweJ2tNcRAmRsWrfmL
+         QY5+G0LL/4JD6YnFfoMzlLfQtZDJe6XL8g2/dnImh/i1XfoHHcFjHZ/7SdjkvK1VRWNJ
+         1Sig==
+X-Forwarded-Encrypted: i=1; AJvYcCWDmiwqkP/1Covyj35zdJCJswCBPvxyKX4ZugrPA2sLyWw9K6Hws9LFxeLqjLJTBPGoIECgWhELI/fafAlQU0VYyBAcPx1B1RThtDXQrmc=
+X-Gm-Message-State: AOJu0YwGZE7pSSP8bvJjEiovy2apxdri2iZ45LVIB5Upk/9ZaNuNFZ13
+	fM7s6FL48B0Xb8zoFzg7cLKH1l1OjPzi0dZpPKLHI1Tvg+IXYtWuD+A38xrOMw==
+X-Google-Smtp-Source: AGHT+IETP0NXuYBFJyPjsrUv5vszT6JbIuB4chl02hd+FvcmHWc4Ex6R8Qc9DkYFvbLvvObP2HieYg==
+X-Received: by 2002:a5d:525c:0:b0:34a:beb3:f6dc with SMTP id k28-20020a5d525c000000b0034abeb3f6dcmr1379622wrc.2.1713943383184;
+        Wed, 24 Apr 2024 00:23:03 -0700 (PDT)
+Message-ID: <509a6c09-85e7-4854-b7dc-116cde022b26@suse.com>
+Date: Wed, 24 Apr 2024 09:23:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 02/10] xen/page-defs: address violation of MISRA C
+Subject: Re: [XEN PATCH 04/10] drivers: char: address violation of MISRA C
  Rule 20.7
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
- julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+ julien@xen.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
 References: <cover.1713885065.git.nicola.vetrini@bugseng.com>
- <d093a4e47ac0c7029e0a1a6144fca922fe7466e0.1713885065.git.nicola.vetrini@bugseng.com>
+ <a5e4472b91398b7f9e802ea82c8435fa8ad27066.1713885065.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,22 +114,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d093a4e47ac0c7029e0a1a6144fca922fe7466e0.1713885065.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <a5e4472b91398b7f9e802ea82c8435fa8ad27066.1713885065.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 23.04.2024 17:12, Nicola Vetrini wrote:
-> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
-> of macro parameters shall be enclosed in parentheses". Therefore, some
-> macro definitions should gain additional parentheses to ensure that all
-> current and future users will be safe with respect to expansions that
-> can possibly alter the semantics of the passed-in macro parameter.
-> 
-> No functional change.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> --- a/xen/drivers/char/omap-uart.c
+> +++ b/xen/drivers/char/omap-uart.c
+> @@ -48,8 +48,9 @@
+>  /* System configuration register */
+>  #define UART_OMAP_SYSC_DEF_CONF   0x0d   /* autoidle mode, wakeup is enabled */
+>  
+> -#define omap_read(uart, off)       readl((uart)->regs + (off<<REG_SHIFT))
+> -#define omap_write(uart, off, val) writel((val), (uart)->regs + (off<<REG_SHIFT))
+> +#define omap_read(uart, off)       readl((uart)->regs + ((off) << REG_SHIFT))
+> +#define omap_write(uart, off, val) writel((val), (uart)->regs + \
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Would have been nice to drop the excess parentheses at the same time.
 
-
+Jan
 
