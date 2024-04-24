@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFE648B0C75
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 16:27:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711480.1111471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 035308B0C9A
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 16:32:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711485.1111482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzdac-0005vc-Hz; Wed, 24 Apr 2024 14:27:14 +0000
+	id 1rzdfH-0007TH-60; Wed, 24 Apr 2024 14:32:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711480.1111471; Wed, 24 Apr 2024 14:27:14 +0000
+Received: by outflank-mailman (output) from mailman id 711485.1111482; Wed, 24 Apr 2024 14:32:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzdac-0005ti-EL; Wed, 24 Apr 2024 14:27:14 +0000
-Received: by outflank-mailman (input) for mailman id 711480;
- Wed, 24 Apr 2024 14:27:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rzdfH-0007Qs-2T; Wed, 24 Apr 2024 14:32:03 +0000
+Received: by outflank-mailman (input) for mailman id 711485;
+ Wed, 24 Apr 2024 14:32:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzdaa-0005ta-Tp
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 14:27:12 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bd1aaf48-0246-11ef-909a-e314d9c70b13;
- Wed, 24 Apr 2024 16:27:11 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-41ae95468efso9631485e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 07:27:11 -0700 (PDT)
+ id 1rzdfF-0007Qm-Dc
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 14:32:01 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 68661b9d-0247-11ef-b4bb-af5377834399;
+ Wed, 24 Apr 2024 16:31:59 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4196c62bb4eso40835235e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 07:31:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v14-20020a5d4a4e000000b0034625392416sm17261775wrs.104.2024.04.24.07.27.10
+ o3-20020a05600c4fc300b00418f7605249sm21928157wmq.24.2024.04.24.07.31.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Apr 2024 07:27:10 -0700 (PDT)
+ Wed, 24 Apr 2024 07:31:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd1aaf48-0246-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 68661b9d-0247-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713968831; x=1714573631; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713969118; x=1714573918; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=6kqKkudjbHg8iw4mAb88VR24roPWgfiFaURW+EfRzBw=;
-        b=EEvhM/xMhDE9jxNUjMNZt7vEDeth22pz0yqzV1PpbZwl+2MYJ4ygI0r//IJUDxJiok
-         j6DGGB+738nP+sL/+2Mkx3TI76WWR8vlMPRkcClrY+pagAZWuueUdlIYx8ogWsEGaK5s
-         7OkzOAK2sQIcuyELZG8cGI4F9ikpoKmdu2cTBL04xj913beZJ9G3tPcgBUBXXLxvm9W9
-         s6+P7vUEYVqPBOLNfJO4tc4CBat3+I1FPLa3RZf7YOIoLgsux5YA+A0QZOFmare27Hpp
-         /CsPGpcuDcrzWdXjH/O/WXds9og3Jze0l83I4VkW5fBwxw0qO2u8s03hDazYuhpESp8I
-         OLgA==
+        bh=87wjHftih3QXzAfKs2aqDQQEj4PuoX9exVdz3dCnOdI=;
+        b=aXuyeFpmBq1cYQkKXJmwE+aNSDg65rPOaVCE70deqv5+7vlXyFsbQsogw+imwIq3HR
+         4WypgttEWj97jnU8tSQZtUtLRYlFqhyoDBN2Djg6HkYXdOULTtgjl2l74GRnSUM4U3gU
+         7831ZousxU1XswhGrqZSDyaDy75IFBz8smz5pUw6s3E92gNgFLFbmFGMzgGBtMFp5apq
+         JogouSlth9NJ9a/o/xbpcGdryjviRS9GonG5tXBGLH6MkwjGX4lIfkH9ngD7qEptCSno
+         /bC91KuDCODsD4RW2jKN9J2G36uwCWm1irZtKz7d9Z/+KJP2smRPLnYQp6WGjS1vGHY/
+         VV0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713968831; x=1714573631;
+        d=1e100.net; s=20230601; t=1713969118; x=1714573918;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6kqKkudjbHg8iw4mAb88VR24roPWgfiFaURW+EfRzBw=;
-        b=jEwK1zQ2i0sEkr3jzWHdnrMkKJUvFEa0XvV6EImb1E2/yEqkHRjTyHJnwbHfwyaH0n
-         9M2SRVR1KXi793yfWHZJBHSfjtTerwuwB6mouuilNuDOtDcFzrFyLK9UnqNqFH95owMF
-         GGREbS++AS1fq+Br7JclmbVO6XnZ+iC4ZK+IfOFwdtktcZY87Vc8R6DySIE98Yw+T8N2
-         DM8FfwuhxTusq5Yl0r4j3tkzhSk6JUv9vuLNWonIlSik+BOl6Nm+2DzY7aVSWx99QPiy
-         LNRUgC3II6VP6a9gjYFo+cDng4YzWPUwSfMiXadjkQN+gzNTa8SB3l2vhKwntpFwQBmC
-         nUtg==
-X-Forwarded-Encrypted: i=1; AJvYcCV6MXnaenPnixjfbUpqSBBE22tFoEFgqQkykgs4FDT0LGZwWLfWCx1crQqasGeYhG7eHBY8B9QFXaqVWrmosnFeK1Ostv+vT2qgbx+kWrA=
-X-Gm-Message-State: AOJu0Yxzo/Cyllf1T1FMrAuWUDv1n8om38veF3Ryy0SDgmODrA07Wkx/
-	Ya+2w1csy8RHEwTmJzRBCC7vBJ4KUava+/JQ4p8XLQW25DVSmlvHvRnK1z0EAA==
-X-Google-Smtp-Source: AGHT+IH+5OXqlUESN51mQGLgHsnz10m1i6u9CYkId55Jw5dwspnY+aIG/yBCWmwWoDS1q281ahu5IQ==
-X-Received: by 2002:a5d:56ce:0:b0:347:ced:c7c7 with SMTP id m14-20020a5d56ce000000b003470cedc7c7mr2878547wrw.9.1713968831091;
-        Wed, 24 Apr 2024 07:27:11 -0700 (PDT)
-Message-ID: <8cab0372-8c40-4648-bdbe-ff56844f289d@suse.com>
-Date: Wed, 24 Apr 2024 16:27:10 +0200
+        bh=87wjHftih3QXzAfKs2aqDQQEj4PuoX9exVdz3dCnOdI=;
+        b=PtK3Dry66ZYuWNXd8v27Cbi5RJTONQKpwsxmV5IUvXuTB7KqOv8xwbfycTtJOlFHiP
+         KMxKe1qfu3Q3wl0wMQU8ZhNcnjULsU7XsjvBTlVqQcv9M3WT1Q2RrKXn29DkVxpHAwnm
+         eg3UPiARTMLkTaocbx/VaCPKOLmclL5o/ljBQbiw5tmArrQnP6TKV2Y9hDHTveWY93Ae
+         hbjZPm0D77oHaf3ifwbgU57UfwvMiOnnOazxKFASXIXQdhCCGR5v7G1G63rRNRxmNhyr
+         F0lmsLTE1c7tFp+ZfuBIJCyYHgE2oXpkDpfagN89n6wV0pT3IcbI6GYAPcpQ/MAwjF8Y
+         tghg==
+X-Forwarded-Encrypted: i=1; AJvYcCUKkJViLMX+L+8DIqz9Hm2LisCx9OXXzNvfvgKKzWC8elg3CERbPg5vTeqPTWrAM9h0HsA/mp48z7nJFsV50eGzq/7kaE19teg+NP2CQ0I=
+X-Gm-Message-State: AOJu0YyBrz4/a2Q8kLm9nmCPaudf6ozZbu6m8XCyQJW2b4Ac/Fm1qaZu
+	U1uRHuEzCjvVKTKtRvoxZT7LiGGK0lMAzInEfwqCq/+G7ur0P6rT2gLVXG6yAA==
+X-Google-Smtp-Source: AGHT+IGAfh2s91WnxbM6n6o3QkWIDAwJn3tPvCm68YN32bxEy0+267wvF5TI9yZs+KOQRY6TLoabyw==
+X-Received: by 2002:a05:600c:470b:b0:418:e0cf:dbfe with SMTP id v11-20020a05600c470b00b00418e0cfdbfemr2165027wmo.15.1713969118557;
+        Wed, 24 Apr 2024 07:31:58 -0700 (PDT)
+Message-ID: <728372dd-eacb-4c13-9f75-4acc6f3e1d0f@suse.com>
+Date: Wed, 24 Apr 2024 16:31:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v5 1/3] x86/iommu: Disable IOMMU if cx16 isn't
- supported
+Subject: Re: [XEN PATCH v5 3/3] x86/iommu: Disable intrerrupt remapping if
+ cx16 is not supported
 Content-Language: en-US
 To: Teddy Astie <teddy.astie@vates.tech>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1713433029.git.teddy.astie@vates.tech>
- <4656eab84f7b4b807fc61f54b9ba5c0fc4fae64d.1713433029.git.teddy.astie@vates.tech>
+ <1623ac82177790d57c6acce3b88ba2960ac11837.1713433029.git.teddy.astie@vates.tech>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,40 +113,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4656eab84f7b4b807fc61f54b9ba5c0fc4fae64d.1713433029.git.teddy.astie@vates.tech>
+In-Reply-To: <1623ac82177790d57c6acce3b88ba2960ac11837.1713433029.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 18.04.2024 13:57, Teddy Astie wrote:
-> All hardware with VT-d/AMD-Vi has CMPXCHG16B support. Check this at
-> initialisation time, and remove the effectively-dead logic for the
-> non-cx16 case.
+> All hardware with VT-d/AMD-Vi has CMPXCHG16B support.  Check this at
+> initialisation time, and remove the effectively-dead logic for the non-cx16
+> case.
+> 
+> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
 
-As before: What about Xen itself running virtualized, and the underlying
-hypervisor surfacing an IOMMU but not CX16? It may be okay to ignore the
-IOMMU in such an event, but by not mentioning the case you give the
-appearance of not having considered it at all.
-
-> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> @@ -305,6 +305,12 @@ static int __init cf_check iov_detect(void)
->      if ( !iommu_enable && !iommu_intremap )
->          return 0;
->  
-> +    if ( unlikely(!cpu_has_cx16) )
-> +    {
-> +        printk("AMD-Vi: CPU doesn't support CMPXCHG16B, disabling\n");
-> +        return -ENODEV;
-> +    }
-> +
->      if ( (init_done ? amd_iommu_init_late()
->                      : amd_iommu_init(false)) != 0 )
->      {
-
-I did previously point out (and that's even visible in patch context here)
-that the per-vendor .setup() hooks aren't necessarily the first thing to
-run. Please can you make sure you address (verbally or by code) prior to
-submitting new versions?
+Hmm, so this looks to be the code that I commented on as missing in patch 1.
+I don't think this can be two separate patches. If you want to keep things
+in small chunks, move the removal of "the effectively-dead logic" to a
+separate, follow-on patch.
 
 Jan
 
