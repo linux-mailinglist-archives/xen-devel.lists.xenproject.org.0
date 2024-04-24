@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31E8A8B0457
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 10:31:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711273.1111104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 073098B04B8
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 10:49:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711279.1111113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzY1k-0007Yi-Ns; Wed, 24 Apr 2024 08:30:52 +0000
+	id 1rzYJa-0002Tq-6C; Wed, 24 Apr 2024 08:49:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711273.1111104; Wed, 24 Apr 2024 08:30:52 +0000
+Received: by outflank-mailman (output) from mailman id 711279.1111113; Wed, 24 Apr 2024 08:49:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzY1k-0007Wf-L4; Wed, 24 Apr 2024 08:30:52 +0000
-Received: by outflank-mailman (input) for mailman id 711273;
- Wed, 24 Apr 2024 08:30:50 +0000
+	id 1rzYJa-0002SJ-36; Wed, 24 Apr 2024 08:49:18 +0000
+Received: by outflank-mailman (input) for mailman id 711279;
+ Wed, 24 Apr 2024 08:49:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzY1i-0007WZ-MR
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 08:30:50 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1rzYJY-0002SD-Fn
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 08:49:16 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f4430117-0214-11ef-909a-e314d9c70b13;
- Wed, 24 Apr 2024 10:30:49 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-34b64b7728cso1557503f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 01:30:49 -0700 (PDT)
+ id 86755401-0217-11ef-909a-e314d9c70b13;
+ Wed, 24 Apr 2024 10:49:15 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-41af670176cso4337005e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 01:49:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e18-20020a056000195200b003462fec9f5asm16471098wry.62.2024.04.24.01.30.48
+ s7-20020a05600c45c700b0041aa570bcd3sm6050177wmo.35.2024.04.24.01.49.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Apr 2024 01:30:48 -0700 (PDT)
+ Wed, 24 Apr 2024 01:49:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4430117-0214-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 86755401-0217-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713947449; x=1714552249; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yALFlN0lnYc4Oa8S6w+Yss8st2VUPp9acwoJPT0LKUk=;
-        b=GPOxhfkmrMrQZfiC7uX0MFKe6akcepb9U9uiMtnxPCaLAIQ5KL7JlRJzipVaR227S8
-         oYtwgct31zh5HGhrZfeQY8qM4hm+8TOQFcqbSRh0BK36N0qJMIgFVW6mzyzQYoX9kn3X
-         jowjnrgGYkMQOjMIMsFpgRQIhdJQYCxg9UjKzxsgv2RHnoIYzbdo7TCJiqC5DxzbSzxk
-         pRpL1hHee2gakfyCH4kjxlmL22Uj/Ej3YxhGV7llIs+xWANDRTL56imqEOE7RKkOn1ui
-         1AOMdpP7R3wVLUItEmmRKQu81Ont2u6UHzQdyqnn826av/QyqRfdobXho5Mq0WJdRH7y
-         Fbmg==
+        d=suse.com; s=google; t=1713948553; x=1714553353; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=PCK75PkcxXAGzZQmBrEXCGOwASWBfQvDG3OfwM5znzk=;
+        b=ExjGeMf1wYyHURsQDGZUKUrkEQ5R/jaCItuB9kan8BlGvrNiZlfOPrmAi42CO5p42Y
+         flrbWn6aimLW16FCEahw3QMFYOAE/vFqfSN/NSa7oMDD0WWvJ6dXLl3LmNZyho85Z6oe
+         wfESq3aqA8GQOJuwNPupN9rYQiAzJuuT8w+XB4cqvJ7em6gyLQpY3fSNWuAPqMM0NwSL
+         xFyRCSJxm8c2QjKp7WPH74NtnOM9apU+sES7sBTo4RM99rJhmSzgSOKSB/XdLQU91hYM
+         oLkgDEG8rR/nDCNnYjWERnbU51hQBhWiAL65KSXLrW0kFB4gTsLZo42LbQRORg3V95PX
+         NUlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713947449; x=1714552249;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=yALFlN0lnYc4Oa8S6w+Yss8st2VUPp9acwoJPT0LKUk=;
-        b=P2c/Wiabtkz958mJ1jTBpJUKLzwq0OYK447iNZyHcG6RmyWXjHARyIS4SQaPzmkUn6
-         EGoZvIpPUem41iUpG8GOpgP9f2oOLmTRm9IJwRVTrkXQ9wr5/qLZ+GDCj3HqwvI5Lm8O
-         n8xd15m2/Rx2+AQ0/eek+PY25EroFdwXGFVajPo3wLgGA5ZTpBKQ6MQ44paoHakW/FvF
-         Pq3onHAcwFyFZN89E4mS1Dv6eal/jss6wNlPTRfqaQTolHvwFUaFqqHq3EedzA7MzfxV
-         AAWQxnDwK5bFytQU+3CeMZ1Y7rJoSo+g3t898uHm/D0kcS5nBgZ/gdDz8kgwvQoF506k
-         Dv7Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUsv/9BCMlpa5kU7z0BdlUUw6qdvAKboTRLGnwOCzowy0/vNdC5KpFYkZ3I5msQSHGxTmhZFMuzVp4UIaEIIFAdzLYpQryHup8vLjr7kSM=
-X-Gm-Message-State: AOJu0Yye9MyhOn2oqPEfNU5zjw4v6F2MayNSQLGLBHZ1a45pY0DJ0MBA
-	a+g0162wf9U3imQmjr6yB5zEJtjy1hQ9uGfoWVu8VOaqkc14dp0w+u8FiUHCZQ==
-X-Google-Smtp-Source: AGHT+IH58ot+ywu5JRc8bDr1prg37z3jTvTQUznvYbC6AdBi0W9EB/QAzaHjQVGJf+eataor7Dk1Mw==
-X-Received: by 2002:a05:6000:1205:b0:346:c0f6:8b6 with SMTP id e5-20020a056000120500b00346c0f608b6mr1056508wrx.32.1713947448819;
-        Wed, 24 Apr 2024 01:30:48 -0700 (PDT)
-Message-ID: <891c21cf-695a-4b1d-b10b-53f23199380f@suse.com>
-Date: Wed, 24 Apr 2024 10:30:47 +0200
+        d=1e100.net; s=20230601; t=1713948553; x=1714553353;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PCK75PkcxXAGzZQmBrEXCGOwASWBfQvDG3OfwM5znzk=;
+        b=fYGjK5e2XXpSQSclED/rkse1qBAGblYxNF416rTuS5vyJjVKjaTVuzyifjr0nJAvnW
+         r/kVFL8ID3eRm5oij41reUiR7uHbQzV1kyX52fiKCGXFyYMQhYUBav/0WXqqP6sKCaqn
+         xAk/OMoKifQz8vQTPO3+dRQQY66sxcN4viNOkDXweSJImF9j+oOzoPl+O3MzSoN8o8d2
+         EiEnouFth16ncIeRz1Wc5pQ6pjIg27a5//FnHItOVOpQnBfGWnd5VqOSHDdwQiB12H6O
+         ni+/3RkQpWJLFu0ejEZhYB+mez0n6ZYOjNjBdbcA3t182JpXGcBHQMWWZWosOsVZGaSk
+         RJog==
+X-Forwarded-Encrypted: i=1; AJvYcCX3sdgWXlCTW/BLEmoqA7jSQEYqWZSFui0w+bvgrUceG1UQ8XUZ1RZkpatOwytzby1EJC/+blszlq/SsvTrYBTGNOlkduNocl+AKPTu6fw=
+X-Gm-Message-State: AOJu0YykMLLF9DlMHU+c5tc1yVjVRJmQw6fABZUIyeZtZL1dAj2X4OuK
+	29/T8MOioZP2wFwrTVoGi2NuQ1cpanWNOMmx1VZWOOaNwbAsBLo91K1i6+s+wg==
+X-Google-Smtp-Source: AGHT+IEDL3jPB3OkoBDZgDeI7KKpaB8hSCPLWfiXfWh7HelsY6x8Dtgi6JyTOA948FGiPYVQ7lBBsg==
+X-Received: by 2002:a05:600c:5253:b0:41b:13d5:7da9 with SMTP id fc19-20020a05600c525300b0041b13d57da9mr445997wmb.38.1713948553029;
+        Wed, 24 Apr 2024 01:49:13 -0700 (PDT)
+Message-ID: <e4a78b6f-8c74-4da8-a0c3-fc5b9ca8c24d@suse.com>
+Date: Wed, 24 Apr 2024 10:49:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] automation/eclair: add deviations for MISRA C:2012
- Rule 16.4
-Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <310e1dac8ecf2a85f1c552dbdad9093b1cfdcb98.1713946892.git.federico.serafini@bugseng.com>
+Subject: Re: [PATCH 1/4] x86/P2M: write_p2m_entry() is HVM-only anyway
 From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <0d846228-323b-4427-87d1-684c3d0047c5@suse.com>
+ <296c3ecc-b04d-4734-a451-0d4f9ed312d4@suse.com>
+ <c38e488c-a3fb-4fcb-bd8c-b33c3fbfc2fa@citrix.com>
+ <92860d34-2b8b-4fe8-bf13-31c993620006@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,48 +115,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <310e1dac8ecf2a85f1c552dbdad9093b1cfdcb98.1713946892.git.federico.serafini@bugseng.com>
+In-Reply-To: <92860d34-2b8b-4fe8-bf13-31c993620006@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24.04.2024 10:25, Federico Serafini wrote:
-> Update ECLAIR configuration to take into account the deviations
-> agreed during MISRA meetings for Rule 16.4.
+On 24.04.2024 08:36, Jan Beulich wrote:
+> On 23.04.2024 21:29, Andrew Cooper wrote:
+>> On 23/04/2024 3:31 pm, Jan Beulich wrote:
+>>> The latest as of e2b2ff677958 ("x86/P2M: split out init/teardown
+>>> functions") the function is obviously unreachable for PV guests.
+>>
+>> This doesn't parse.  Do you mean "Since e2b2ff677958 ..." ?
 > 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> ---
->  automation/eclair_analysis/ECLAIR/deviations.ecl |  8 ++++++++
->  docs/misra/deviations.rst                        | 13 +++++++++++++
->  2 files changed, 21 insertions(+)
+> Well. I'm sure you at least get the point of "the lastest as of", even
+> if that may not be proper English. I specifically didn't use "since"
+> because the fact mentioned may have been true before (more or less
+> obviously). I'd therefore appreciate a wording suggestion which gets
+> this across.
 > 
+>>>  Hence
+>>> the paging_mode_enabled(d) check is pointless.
+>>>
+>>> Further host mode of a vCPU is always set, by virtue of
+>>> paging_vcpu_init() being part of vCPU creation. Hence the
+>>> paging_get_hostmode() check is pointless.
+>>>
+>>> With that the v local variable is unnecessary too. Drop the "if()"
+>>> conditional and its corresponding "else".
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> I have to confess that this if() has been puzzling me before.
+>>
+>> Puzzling yes, but it can't blindly be dropped.
+> 
+> And I'm not doing so "blindly". Every part of what is being dropped is
+> being explained.
+> 
+>> This is the "did the toolstack initiate this update" check.  i.e. I
+>> think it's "bypass the normal side effects of making this update".
+> 
+> Why would we want to bypass side effects?
+> 
+>> I suspect it exists because of improper abstraction between the guest
+>> physmap and the shadow pagetables as-were - which were/are tighly
+>> coupled to vCPUs even for aspects where they shouldn't have been.
+>>
+>> For better or worse, the toolstack can add_to_physmap() before it
+>> creates vCPUs, and it will take this path you're trying to delete. 
+>> There may be other cases too; I could see foreign mapping ending up
+>> ticking this too.
+>>
+>> Whether we ought to permit a toolstack to do this is a different
+>> question, but seeing as we explicitly intend (eventually for AMX) have a
+>> set_policy call between domain_create() and vcpu_create(), I don't think
+>> we can reasably restrict other hypercalls too in this period.
+> 
+> None of which explains what's wrong with the provided justification.
+> The P2M isn't per-vCPU. Presence of vCPU-s therefore shouldn't matter
+> for alterations of the P2M.
 
-So what has changed here from v1? It looks all the same to me, with it still
-remaining unclear what exactly ...
+I've gone and checked further: The "side effects" are what the
+write_p2m_entry_{pre,post}() hooks would do. Prior to the VM being
+started that is a little bit of extra code which all ends up doing
+nothing: There's nothing to flush, and there are no shadows to drop.
+There's in particular no use of a vCPU anywhere, afaics. Plus, just
+to mention it explicitly, the full path was forced anyway for nested
+P2Ms, so there's no behavioral change there at all.
 
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -334,6 +334,19 @@ Deviations related to MISRA C:2012 Rules:
->           - /\* Fallthrough \*/
->           - /\* Fallthrough. \*/
->  
-> +   * - R16.4
-> +     - Switch statements having a controlling expression of enum type
-> +       deliberately do not have a default case: gcc -Wall enables -Wswitch
-> +       which warns (and breaks the build as we use -Werror) if one of the enum
-> +       labels is missing from the switch.
-> +     - Tagged as `deliberate` for ECLAIR.
-> +
-> +   * - R16.4
-> +     - A switch statement with a single switch clause and no default label may
-> +       be used in place of an equivalent if statement if it is considered to
-> +       improve readability.
-> +     - Tagged as `deliberate` for ECLAIR.
-> +
->     * - R16.6
->       - A switch statement with a single switch clause and no default label may
->         be used in place of an equivalent if statement if it is considered to
-
-... a "switch clause" is.
+In fact I question the correctness of the plain safe_write_pte(),
+without p2m_entry_modify(), if that path would have been taken (when
+the domain has no vCPU-s yet).
 
 Jan
 
