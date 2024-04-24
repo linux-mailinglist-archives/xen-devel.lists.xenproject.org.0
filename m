@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FF408AFFEF
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 05:44:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711057.1110737 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B6118AFFF5
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 05:44:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711062.1110768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzTY1-00014a-5X; Wed, 24 Apr 2024 03:43:53 +0000
+	id 1rzTYD-0002QP-Bm; Wed, 24 Apr 2024 03:44:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711057.1110737; Wed, 24 Apr 2024 03:43:53 +0000
+Received: by outflank-mailman (output) from mailman id 711062.1110768; Wed, 24 Apr 2024 03:44:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzTY1-000136-27; Wed, 24 Apr 2024 03:43:53 +0000
-Received: by outflank-mailman (input) for mailman id 711057;
- Wed, 24 Apr 2024 03:43:51 +0000
+	id 1rzTYD-0002Lb-8I; Wed, 24 Apr 2024 03:44:05 +0000
+Received: by outflank-mailman (input) for mailman id 711062;
+ Wed, 24 Apr 2024 03:44:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Z4K=L5=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1rzTQg-0003iy-A8
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 03:36:18 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20600.outbound.protection.outlook.com
- [2a01:111:f403:200a::600])
+ id 1rzTQh-0003iy-Bl
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 03:36:19 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2412::600])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ce1f1d0c-01eb-11ef-909a-e314d9c70b13;
- Wed, 24 Apr 2024 05:36:17 +0200 (CEST)
-Received: from BL0PR0102CA0061.prod.exchangelabs.com (2603:10b6:208:25::38) by
- PH8PR12MB7206.namprd12.prod.outlook.com (2603:10b6:510:226::5) with
+ id cecdd210-01eb-11ef-909a-e314d9c70b13;
+ Wed, 24 Apr 2024 05:36:18 +0200 (CEST)
+Received: from BL0PR0102CA0024.prod.exchangelabs.com (2603:10b6:207:18::37) by
+ DM4PR12MB7600.namprd12.prod.outlook.com (2603:10b6:8:108::5) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7519.22; Wed, 24 Apr 2024 03:36:12 +0000
-Received: from BL6PEPF0001AB73.namprd02.prod.outlook.com
- (2603:10b6:208:25:cafe::1) by BL0PR0102CA0061.outlook.office365.com
- (2603:10b6:208:25::38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.34 via Frontend
- Transport; Wed, 24 Apr 2024 03:36:11 +0000
+ 15.20.7519.22; Wed, 24 Apr 2024 03:36:13 +0000
+Received: from BL6PEPF0001AB77.namprd02.prod.outlook.com
+ (2603:10b6:207:18:cafe::cb) by BL0PR0102CA0024.outlook.office365.com
+ (2603:10b6:207:18::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.22 via Frontend
+ Transport; Wed, 24 Apr 2024 03:36:13 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB73.mail.protection.outlook.com (10.167.242.166) with Microsoft
+ BL6PEPF0001AB77.mail.protection.outlook.com (10.167.242.170) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7519.19 via Frontend Transport; Wed, 24 Apr 2024 03:36:11 +0000
+ 15.20.7519.19 via Frontend Transport; Wed, 24 Apr 2024 03:36:13 +0000
 Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 23 Apr
- 2024 22:36:11 -0500
+ 2024 22:36:12 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 23 Apr
- 2024 20:36:10 -0700
+ 2024 20:36:12 -0700
 Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 23 Apr 2024 22:36:09 -0500
+ Transport; Tue, 23 Apr 2024 22:36:11 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,22 +63,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce1f1d0c-01eb-11ef-909a-e314d9c70b13
+X-Inumbo-ID: cecdd210-01eb-11ef-909a-e314d9c70b13
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ghRDvkE9FCgwOryUffkQ9/MwMaiV/3XgkUUbsRiyZV1Ju4JDEoOE3d4quczvM9RU7t801t4SWP4jZUvyJC8LNHE3XjA6EWqNofTeXngVmMIKXBfO3QkqYH7/j0rkmtWNvW5H3nzSxGpEBqrgZqPqqUbdzyDYoU91RCcot+qwc8x7cNKoB9x2vD6LSQLDM5nn1DJRVapKLpnBQxQJZRk6zaFECljOYc1rn+LhrFe7uRD4/ZPaUeksycAUVPwfUtsFp9a4RPexFbcufFjVFBk7DyXDav1aJB36xf9JFmN6ah7PqL5S63oKsqRxzbZc1CC3nMJjy2Z+HThri4PqG7ZaNQ==
+ b=aDSJRmQIiiiLCz9avQGyQktVTogrll7840XOI1Gxap3xP8Ys3sZXilkNbRoV4ddzWH5Ye7fr9tDHF2sKrDrVcdax5PhW9N44JLAAuKSseRwV09/fURn4de0qwHGX20uueNYyP1HiEaYDSMoQGeu/tZBna2euOkvGCXZEFegR1camIYUhuPWev/pkRu2CfF+fckM+E2snbiL3jsVbZKBpXavCVbRKDt11+3l9//G3UF6FXeC/1NwUA6o5aGXT0SHpd8zMFiSkm1kLc3no7tLXQRO/cQWyTnFlnv3fFA6IIzLXc7Fpimdeex/SC/OKKK+oqwGAyKdlUQoyZgN9Wj0Tyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AQUYI8nFNauA8Eqc+dTwkfBb4u7bvFl+DOSdQh9a2O8=;
- b=Hg6AyUF//gVHUUAvePooLAjWKg3lzfTBVFQLY6PPF/xxFCSWjQ+TK16Czg9ySV4aMUFCYYaGQi8aboE2dXunUVGvJpRcMHVL9w/SLbiBH+V0rZZ92mzDioo+8GIvXokuqXL3pVEaqvSV39iFs5n7B0caaSOhIpH/UkWirBvOvgIbA7z2MrPyPB42ZQvbpixxAtzNeQ7i+mpblIj4X1Ub7YFHVgBQ9D5Sbl5fNnl8jFj2CV7Xrlw9f/T8DV0JoQODNk5JcLSDpKXntEDo4bs58m6DWag0cnACnlDoFh/xh2b/Ei+B/5i7vAr8MPqhr2jBRnktrXwQuyQPewhT7eX/lQ==
+ bh=P4gTMnujfvEGKwn+wIQsB0+jlCBFdxbEKPbGnjsFUW0=;
+ b=a5ztsyrWPlNBC/3ifDww/JtjBO6P3V67Sr+h+CgNQrMSYJksQ/Jx3FxGdgjuXohd3HI0PeipVUG+q/eJIcQ3zpp9i6JLJqhpIBwgv1nbft7dYJS6N+A6b3ka7OWlpyl3Vyb5MZ8mAd88eiqDS0KY7lLn/LDHYS4j2xJuZMYy8LrUJW2WZNvmOiA+9oYe1KOQc6U6BvS50fYGMTG+/0Q36HLdzqukSYdEvNHfz9c7YR7W/sx33TtKU9YqeCQnUX4YrZucudCp5p5ZPHG1Oi2L8noBLBpUz4zDgk8KqHwvKnhTyPU0LR3dBmWJ8MbwIfdwh/TtEowIjvkRNiLmc750+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AQUYI8nFNauA8Eqc+dTwkfBb4u7bvFl+DOSdQh9a2O8=;
- b=NB4Jbd0TLDTXBfahb8afVzymAvLYtFwrQWa+qWp2ymRyc6DC4Vs0Mbg2aESyxRy3j2dMZG41qgbf6+e2725bNGYK20CLCC+Iw97kBjh4YxVwmlERzQFPkBE0E1mxxiB7kOWfBDfTRkNzvAV6tli3vabUSuEv0F9gQyN82zz1JBE=
+ bh=P4gTMnujfvEGKwn+wIQsB0+jlCBFdxbEKPbGnjsFUW0=;
+ b=CTVk0cEiYEly3J39WHNTBaY8/pf1w88nbmJpO0mer+cPTCxHwCKG6Ld2OhcKuGANTjriMGIMj0HfYMNWAk5rW+98kCP67ZqQm/FLa94/YQQuW5EGCvjOQpdPUrULGlaHCMyzaUuJRd/UJz7PCnRFL2Vd/e4otNBryKUhJb1dlR0=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -90,9 +90,9 @@ To: <xen-devel@lists.xenproject.org>
 CC: Vikram Garhwal <fnu.vikram@xilinx.com>, Anthony PERARD
 	<anthony.perard@citrix.com>, Stefano Stabellini
 	<stefano.stabellini@xilinx.com>, Henry Wang <xin.wang2@amd.com>
-Subject: [PATCH 13/15] xl/overlay: add remove operation to xenstore
-Date: Wed, 24 Apr 2024 11:34:47 +0800
-Message-ID: <20240424033449.168398-14-xin.wang2@amd.com>
+Subject: [PATCH 14/15] add a domU script to fetch overlays and applying them to linux
+Date: Wed, 24 Apr 2024 11:34:48 +0800
+Message-ID: <20240424033449.168398-15-xin.wang2@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240424033449.168398-1-xin.wang2@amd.com>
 References: <20240424033449.168398-1-xin.wang2@amd.com>
@@ -101,300 +101,173 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB73:EE_|PH8PR12MB7206:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3df460e3-5aae-437d-590a-08dc640fafa2
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB77:EE_|DM4PR12MB7600:EE_
+X-MS-Office365-Filtering-Correlation-Id: 31330504-1bb6-42a6-e2c3-08dc640fb0c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|1800799015|82310400014|376005|36860700004;
+	BCL:0;ARA:13230031|82310400014|376005|1800799015|36860700004;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?TdSarGKTVe51lz0a5kBmLLtN4JH9E1C/limauW/385+6HgkrE0eLPd7S4OUz?=
- =?us-ascii?Q?tr2+yOqQW6YtjGty/LjAuVxVFqFFf7goUCzFmJdvslNm4AY6lPm4POtW042a?=
- =?us-ascii?Q?Z4wqyYUiwKYK8tMt74ZV1sgNQNRR45CKZGgJ4Saze56BFdeYf84UhmLM8FPi?=
- =?us-ascii?Q?6xrKF09ueQAr+ccZ7RgF/pTv0DEE9W0eRhHj2nmNbHCeMdlG8K1M3pPsJwt8?=
- =?us-ascii?Q?CWDwovIUm3c3+8bX813nbCI7XGz8/r3i6Z1CAsgakI2m/KPV2UA996gvVxnP?=
- =?us-ascii?Q?wZLSEzluNRZRhMHRa0EQ2FgrhaqhgV7K6y9l4q8P9xboPHzULrKGUF03XUCR?=
- =?us-ascii?Q?eFpGTBj6EwFM8cfo/21C8sfwsaZnZNmJyR8lD5wjfLyUNKJLu37RPJGOqKoi?=
- =?us-ascii?Q?3swZzAJwMSq+egrEmq7AJhAY/f1oqbEmpYtBvw69JJnupDXn/xKr4yprInt+?=
- =?us-ascii?Q?cU1F7yA5Y3E2jaxsk6uNEJi4De1yuo5n3yU59YsGMAoYNcvti3JkkUZ9Ph/+?=
- =?us-ascii?Q?SZlEzXBZ9ST5i/SYtNk3oFnnxmmelY0lPgvovnlMOBPf8WoCex89AVFX7mqz?=
- =?us-ascii?Q?XMXuEuewBAekC0OW5Pl681djcBJ77DneVOaK488Y7Db6yzS9q0lxeO1pUoaF?=
- =?us-ascii?Q?N+lL7R+KtzItyau3rt0qXWzRS6LUZooovv5Q0ruSqTav1Sbrty6JItgdDo+I?=
- =?us-ascii?Q?BUp1fXDvWAsz75D1C2l/1LIxtZL10fYXATi54w63VeY5olLnu2QOTJ49a6tv?=
- =?us-ascii?Q?Uh0F3gTzII+fD/9ds7YsVyQpr6jqocrPphLj/NTSmmPmkr/R2HKFWaoC6RaZ?=
- =?us-ascii?Q?5nP+Ik7e8njzpwfPP90eRhKAvgbI/oZsLalsVRMUMi/nb46LFd3mjexBA1D8?=
- =?us-ascii?Q?MKz3jIgeBmuk8KHHKpF1opR+WMpEVkca7PY7MyVHIBrzMBgmHtAqLQrGQ9bh?=
- =?us-ascii?Q?A0QL3NPJ9DjkDQnUOvKdJ4CxjStGBM1HGK/8a1kNBeVHw/YjOT/nL1uXuT+U?=
- =?us-ascii?Q?d69mOLMOXh73V/rcMt8/dB3C7WgSqkso0X/QmpjTyXXh1eLZJan2fYsgyTSX?=
- =?us-ascii?Q?ajRdKce8GM3lyERucDqAKr0akogONq2LmNVm6/qphCG8pak1O3NPGIdWfN8S?=
- =?us-ascii?Q?G0W+vwrRQUm157twupH4QzCenPJe5OAjlbl0zIPuw72QwGphN/xKx/VL7BGm?=
- =?us-ascii?Q?WiuDtXE1s2EJNne9CXKw7vPw70h1Onu7A2805l/Mg/+FSBa/SDV7gRmYi44l?=
- =?us-ascii?Q?+/SJl7oiKYOR8ZTlYaKbypN4lAnwx2wB0vr4kL5XMKuRa2jROMlgFRDbc8+T?=
- =?us-ascii?Q?htdxTWZI7OaapO+oigcGabM+Cx1GBC9epj2MhUSSujgHVmZy9fYL5EsagACb?=
- =?us-ascii?Q?oCyHnhc=3D?=
+	=?us-ascii?Q?ve/mPMYnVY/gFR6TZTIM/qRVge/0fldx8ql4xIXUmxzfZGfeABm3MCsS2ujj?=
+ =?us-ascii?Q?8XU41+lT0ofl/JtQsAWiOGSb2vrTvAQYNcg3bPj9b+2zToRVSpK/pNM0Oj2p?=
+ =?us-ascii?Q?xyMfKHUlJDQRwQv4j0tW83ESr0R2BbiCP4wsqFVfbwg5RF5A1IL6sNuDZbGv?=
+ =?us-ascii?Q?9oKe4uJwvfJIVeQGKA7L5DTtSu2xFRk2jBmaSQAM3izBBmJlXmxy732Cd2PX?=
+ =?us-ascii?Q?yaJiFxGhRB8RBgFhPyUvpkbARAuyRRCHHOeav47Dv7e03tVUE1Cr1fbLxwpO?=
+ =?us-ascii?Q?bYmLsBX+bRsmFQD/gecneBZiCKP09ZbnS4OgU4eshg11Imm/Cdw7WI0pmFKY?=
+ =?us-ascii?Q?sT4EZsDslaeN592CrXg5EgD96mgF0cFqo2Irn9St5zYmpiawK5i3xSz+FkGs?=
+ =?us-ascii?Q?wUQRpixtU2x6n4e3mcZ5Zio5l1vE+kJc7Y1qEHLGbu8kEKl2u9crjMn/pmdP?=
+ =?us-ascii?Q?oP4F/jSxfsxp+6oa7aRsmrW5GYLs8j5s+cR4y99NTetyyfpUmvt8El3pKrJ7?=
+ =?us-ascii?Q?bqCOoEkPUoBbz4fAmKyz1Ph6JwQSvvaf5oq5xq776IS6n9NFl3u/oUW/y8GH?=
+ =?us-ascii?Q?mr0x25TCqhBce3WGJdZzjaU64yAFWy5KlFhLYjv9YgWgV6rYz92GDZWCIsgh?=
+ =?us-ascii?Q?JnspG4fsBAPkKxPXa4gdiDJeqlnnQkcmTbnQTd4M6zYmmsDV2jTwbygZS+F6?=
+ =?us-ascii?Q?nMP6fV51dc6De7hY9Atm9yDyCbdxpUQQbWf025K0YCYfkSozQTSA0sdKM/TP?=
+ =?us-ascii?Q?CaNelZxtaYd3qCE5J+p5odiLWBGNgR2bJ0p1bBc1Z7zHjqqffXtfY/jlohsQ?=
+ =?us-ascii?Q?c7Fw6PXufotBtlHGSUDMLHzA0iviE+QWp5hu8u8QXAEVW7a5fzGoS8q3omw6?=
+ =?us-ascii?Q?NRJrHjHXFbmIO8JkJFeA3oXGuxmDsljQBvBbV74EQYqtAOd8S5Lsm0CGT8l/?=
+ =?us-ascii?Q?tBOt8YaOmnNuRr02YBnFx6DbiMnqyaQnZfHcoDdcemDSRriKMeit8b+u3UVu?=
+ =?us-ascii?Q?qM9yoRanogVluyTSeXBHIoGLzWSGMUPgpaS+EBLkzwi52KJdECToqTsMjX4E?=
+ =?us-ascii?Q?NpdoBhfKWhJf3Y27YdHkfVhUsPl4GfCpIbd8y4Xcs/C33hhROIblU8eXwqHk?=
+ =?us-ascii?Q?PUAa9rjEkA6W8DkGpRswviqdkpb5SDgpJCvyiG8xT5G0gyTBhEBzOJG0m4Q8?=
+ =?us-ascii?Q?yH+3ChnbzNAn/5RSPxQ07IoWD9uqyvC67T+X3LvlY48PT5ZcuGloNKOoK7re?=
+ =?us-ascii?Q?YI/Ekcea1rztNigTG2bqdPtzjfrJ45zB/Om1fLXLg4cG4ZD0wqcDiqOMKYN4?=
+ =?us-ascii?Q?n6AlIXVbaDqRw1Mv5mrZUC6njMPTqendrN25oAEHXosrDEQp9ryDlh8j5X9c?=
+ =?us-ascii?Q?E6BerOc=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(82310400014)(376005)(36860700004);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(376005)(1800799015)(36860700004);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2024 03:36:11.3238
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2024 03:36:13.2475
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3df460e3-5aae-437d-590a-08dc640fafa2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31330504-1bb6-42a6-e2c3-08dc640fb0c7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB73.namprd02.prod.outlook.com
+	BL6PEPF0001AB77.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7206
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7600
 
 From: Vikram Garhwal <fnu.vikram@xilinx.com>
 
-Add 3 new command line parameters to the xl overlay command: overlay
-name, type and partial. Pass these paramters to the domU via xenstore.
-
-Also introduce support for "operation" in xenstore: it can be "add" or
-"remove". In case of "remove", the overlay is to be removed from the
-domU device tree.
+Introduce a shell script that runs in the background and calls
+get_overlay to retrive overlays and add them (or remove them) to Linux
+device tree (running as a domU).
 
 Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 Signed-off-by: Henry Wang <xin.wang2@amd.com>
 ---
- tools/xl/xl_vmcontrol.c | 184 +++++++++++++++++++++++++++++++++++++---
- 1 file changed, 173 insertions(+), 11 deletions(-)
+ tools/helpers/Makefile       |  2 +-
+ tools/helpers/get_overlay.sh | 81 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 82 insertions(+), 1 deletion(-)
+ create mode 100755 tools/helpers/get_overlay.sh
 
-diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-index 2bf76dd389..ddd6e9e370 100644
---- a/tools/xl/xl_vmcontrol.c
-+++ b/tools/xl/xl_vmcontrol.c
-@@ -1466,8 +1466,123 @@ static uint32_t get_num_pages(struct xs_handle *xs, const char *xs_path)
-     return num_pages;
- }
+diff --git a/tools/helpers/Makefile b/tools/helpers/Makefile
+index dfe17ef269..2d0558aeb8 100644
+--- a/tools/helpers/Makefile
++++ b/tools/helpers/Makefile
+@@ -58,7 +58,6 @@ init-dom0less: $(INIT_DOM0LESS_OBJS)
+ get_overlay: $(SHARE_OVERLAY_OBJS)
+ 	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenvchan) $(LDLIBS_libxenstore) $(LDLIBS_libxenctrl) $(LDLIBS_libxengnttab) $(APPEND_LDFLAGS)
  
-+static bool write_overlay_operation(struct xs_handle *xs, char *operation,
-+                               char *path)
-+{
-+    xs_transaction_t xs_trans = XBT_NULL;
-+    char buf[128];
-+    char ref[64];
-+
-+retry_transaction:
-+    xs_trans = xs_transaction_start(xs);
-+    if (!xs_trans)
-+        return false;
-+
-+    snprintf(ref, sizeof(ref), "%s", operation);
-+    snprintf(buf, sizeof(buf), "%s/overlay-operation", path);
-+
-+    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
-+        return false;
-+
-+    if (!xs_transaction_end(xs, xs_trans, 0)) {
-+        if (errno == EAGAIN)
-+            goto retry_transaction;
-+        else
-+            return false;
-+    }
-+
-+    return true;
-+}
-+
-+static bool write_overlay_name(struct xs_handle *xs, char *name,
-+                               char *path)
-+{
-+    xs_transaction_t xs_trans = XBT_NULL;
-+    char buf[128];
-+    char ref[64];
-+
-+retry_transaction:
-+    xs_trans = xs_transaction_start(xs);
-+    if (!xs_trans)
-+        return false;
-+
-+    snprintf(ref, sizeof(ref), "%s", name);
-+    snprintf(buf, sizeof(buf), "%s/overlay-name", path);
-+
-+    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
-+        return false;
-+
-+    if (!xs_transaction_end(xs, xs_trans, 0)) {
-+        if (errno == EAGAIN)
-+            goto retry_transaction;
-+        else
-+            return false;
-+    }
-+
-+    return true;
-+}
-+
-+static bool write_overlay_type(struct xs_handle *xs, char *type,
-+                               char *path)
-+{
-+    xs_transaction_t xs_trans = XBT_NULL;
-+    char buf[128];
-+    char ref[64];
-+
-+retry_transaction:
-+    xs_trans = xs_transaction_start(xs);
-+    if (!xs_trans)
-+        return false;
-+
-+    snprintf(ref, sizeof(ref), "%s", type);
-+    snprintf(buf, sizeof(buf), "%s/overlay-type", path);
-+
-+    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
-+        return false;
-+
-+    if (!xs_transaction_end(xs, xs_trans, 0)) {
-+        if (errno == EAGAIN)
-+            goto retry_transaction;
-+        else
-+            return false;
-+    }
-+
-+    return true;
-+}
-+
-+static bool write_overlay_partial(struct xs_handle *xs, bool is_partial,
-+                                  char *path)
-+{
-+    xs_transaction_t xs_trans = XBT_NULL;
-+    char buf[128];
-+    char ref[4];
-+
-+retry_transaction:
-+    xs_trans = xs_transaction_start(xs);
-+    if (!xs_trans)
-+        return false;
-+
-+    snprintf(ref, sizeof(ref), "%d", is_partial);
-+    snprintf(buf, sizeof(buf), "%s/overlay-partial", path);
-+
-+    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
-+        return false;
-+
-+    if (!xs_transaction_end(xs, xs_trans, 0)) {
-+        if (errno == EAGAIN)
-+            goto retry_transaction;
-+        else
-+            return false;
-+    }
-+
-+    return true;
-+}
-+
-+
- static int share_overlay_with_domu(void *overlay_dt_domU, int overlay_dt_size,
--                                   int domain_id)
-+                                   int domain_id, char *overlay_ops,
-+                                   char *overlay_name,
-+                                   char *overlay_type, bool is_overlay_partial)
- {
-     struct xs_handle *xs = NULL;
-     char *path = NULL;
-@@ -1574,6 +1689,34 @@ static int share_overlay_with_domu(void *overlay_dt_domU, int overlay_dt_size,
-         goto out;
-     }
- 
-+    /* write overlay ops */
-+    if (!write_overlay_operation(xs, overlay_ops, path)) {
-+        err = ERROR_FAIL;
-+        fprintf(stderr,"Writing overlay_ops ready failed\n");
-+        goto out;
-+    }
-+
-+    /* Write the overlay-name. */
-+    if (!write_overlay_name(xs, overlay_name, path)) {
-+        err = ERROR_FAIL;
-+        fprintf(stderr,"Writing overlay_name ready failed\n");
-+        goto out;
-+    }
-+
-+    /* Write the overlay-type. */
-+    if (!write_overlay_type(xs, overlay_type, path)) {
-+        err = ERROR_FAIL;
-+        fprintf(stderr,"Writing overlay_type ready failed\n");
-+        goto out;
-+    }
-+
-+    /* Write the overlay-partial. */
-+    if (!write_overlay_partial(xs, is_overlay_partial, path)) {
-+        err = ERROR_FAIL;
-+        fprintf(stderr,"Writing overlay_partial ready failed\n");
-+        goto out;
-+    }
-+
-     /* Write the status "done". */
-     if (!write_status(xs, "done", sender_status_path)) {
-         fprintf(stderr,"Writing status DONE failed\n");
-@@ -1611,13 +1754,16 @@ int main_dt_overlay(int argc, char **argv)
-     int overlay_dtb_size = 0;
-     const int overlay_add_op = 1;
-     const int overlay_remove_op = 2;
-+    char *overlay_name = "overlay";
-+    char *overlay_type = "normal";
-+    bool is_overlay_partial = false;
- 
-     if (argc < 3) {
-         help("dt-overlay");
-         return EXIT_FAILURE;
-     }
- 
--    if (argc > 5) {
-+    if (argc > 7) {
-         fprintf(stderr, "Too many arguments\n");
-         return ERROR_FAIL;
-     }
-@@ -1625,17 +1771,22 @@ int main_dt_overlay(int argc, char **argv)
-     overlay_ops = argv[1];
-     overlay_config_file = argv[2];
- 
--    if (!strcmp(argv[argc - 1], "-e"))
--        auto_mode = false;
 -
--    if (argc == 4 || !auto_mode) {
-+    if (argc == 4 ) {
-         domain_id = find_domain(argv[argc-1]);
-         domain_mapping = true;
--    }
--
--    if (argc == 5 || !auto_mode) {
--        domain_id = find_domain(argv[argc-2]);
-+    } else if (argc == 5 && !strcmp(argv[4], "-e")) {
-+        domain_id = find_domain(argv[3]);
-+        auto_mode = false;
-         domain_mapping = true;
-+    } else if (argc == 7) {
-+        domain_id = find_domain(argv[3]);
-+        domain_mapping = true;
-+        overlay_name = argv[4];
-+        overlay_type = argv[5];
-+        is_overlay_partial = atoi(argv[6]);
-+    } else {
-+        fprintf(stderr, "Invalid arguments\n");
-+        return ERROR_FAIL;
-     }
+ .PHONY: install
+ install: all
+ 	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
+@@ -67,6 +66,7 @@ install: all
+ .PHONY: uninstall
+ uninstall:
+ 	for i in $(TARGETS); do rm -f $(DESTDIR)$(LIBEXEC_BIN)/$$i; done
++	$(RM) $(DESTDIR)$(LIBEXEC_BIN)/get_overlay.sh
  
-     /* User didn't prove any overlay operation. */
-@@ -1678,7 +1829,18 @@ int main_dt_overlay(int argc, char **argv)
- 
-     if (domain_id && auto_mode && (op == LIBXL_DT_OVERLAY_ADD))
-         rc = share_overlay_with_domu(overlay_dtb, overlay_dtb_size,
--                                     domain_id);
-+                                     domain_id, "add", overlay_name,
-+                                     overlay_type, is_overlay_partial);
+ .PHONY: clean
+ clean:
+diff --git a/tools/helpers/get_overlay.sh b/tools/helpers/get_overlay.sh
+new file mode 100755
+index 0000000000..2e8c6ecefd
+--- /dev/null
++++ b/tools/helpers/get_overlay.sh
+@@ -0,0 +1,81 @@
++#!/bin/sh
 +
-+    if (rc) {
-+        free(overlay_dtb);
-+        return rc;
-+    }
++modprobe xen_gntalloc
++modprobe xen_gntdev
 +
-+    if (domain_id && auto_mode && (op == LIBXL_DT_OVERLAY_REMOVE))
-+        rc = share_overlay_with_domu(overlay_dtb, overlay_dtb_size,
-+                                     domain_id, "remove", overlay_name,
-+                                     overlay_type, is_overlay_partial);
- 
-     free(overlay_dtb);
-     return rc;
++while :
++do
++    overlay_node_name=""
++    type_overlay="normal"
++    is_partial_dtb=""
++
++    output=`/usr/lib/xen/bin/get_overlay 0`
++
++    if test $? -ne 0
++    then
++        echo error
++        exit 1
++    fi
++
++    if test -z "$output"
++    then
++        echo ""
++        exit 1
++    fi
++
++    # output: add overlay-name normal partial
++    operation=`echo $output | cut -d " " -f 1`
++    overlay_node_name=`echo $output | cut -d " " -f 2`
++    type_overlay=`echo $output | cut -d " " -f 3`
++    is_partial_dtb=`echo $output | cut -d " " -f 4`
++
++    if test -z "$operation" || test -z "$overlay_node_name"
++    then
++        echo "invalid ops"
++        exit 1
++    fi
++
++    if test $operation = "add"
++    then
++        echo "Overlay received"
++
++        if test "$type_overlay" = "normal"
++        then
++            final_path="/sys/kernel/config/device-tree/overlays/$overlay_node_name"
++            mkdir -p $final_path
++            cat overlay.dtbo > $final_path/dtbo
++        else
++            # fpga overlay
++            cp overlay.dtbo lib/firmware/
++            mkdir /configfs
++            mount -t configfs configfs /configfs
++            cd /configfs/device-tree/overlays/
++
++            if test "$is_partial_dtb"
++            then
++                mkdir partial
++                echo 1 > /sys/class/fpga_manager/fpga0/flags
++                echo -n "overlay.dtbo" > /configfs/device-tree/overlays/partial
++            else
++                mkdir full
++                echo -n "overlay.dtbo" > /configfs/device-tree/overlays/full
++            fi
++        fi
++    elif test $operation = "remove"
++    then
++        if test "$type_overlay" = "normal"
++        then
++            # implement remove
++            path=/sys/kernel/config/device-tree/overlays/$overlay_node_name/dtbo
++            if ! test -f $path
++            then
++                echo "error: path doesn't exist"
++                exit 1
++            fi
++            rm $path
++        fi
++    else
++        echo "operation unsupported"
++        exit 1
++    fi
++done
 -- 
 2.34.1
 
