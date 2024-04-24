@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C37E8B14CE
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D4488B14D2
 	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 22:42:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711655.1111822 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.711654.1111817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzjRe-0005QT-LG; Wed, 24 Apr 2024 20:42:22 +0000
+	id 1rzjRe-0005Jx-AF; Wed, 24 Apr 2024 20:42:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711655.1111822; Wed, 24 Apr 2024 20:42:22 +0000
+Received: by outflank-mailman (output) from mailman id 711654.1111817; Wed, 24 Apr 2024 20:42:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzjRe-0005Jq-Dk; Wed, 24 Apr 2024 20:42:22 +0000
-Received: by outflank-mailman (input) for mailman id 711655;
+	id 1rzjRe-0005HY-3P; Wed, 24 Apr 2024 20:42:22 +0000
+Received: by outflank-mailman (input) for mailman id 711654;
  Wed, 24 Apr 2024 20:42:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q5fc=L5=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1rzjRc-0004Gx-PB
+ id 1rzjRc-0004VD-Ef
  for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 20:42:20 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24a80008-027b-11ef-b4bb-af5377834399;
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 251980cc-027b-11ef-909a-e314d9c70b13;
  Wed, 24 Apr 2024 22:42:19 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-5176f217b7bso478571e87.0
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-56e78970853so2487386a12.0
  for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 13:42:19 -0700 (PDT)
 Received: from lab.home
  (dynamic-2a00-1028-83a4-4bca-c0bb-96ff-feed-9d50.ipv6.o2.cz.
  [2a00:1028:83a4:4bca:c0bb:96ff:feed:9d50])
  by smtp.gmail.com with ESMTPSA id
- cd9-20020a170906b34900b00a5264576138sm8740067ejb.35.2024.04.24.13.42.17
+ cd9-20020a170906b34900b00a5264576138sm8740067ejb.35.2024.04.24.13.42.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Apr 2024 13:42:17 -0700 (PDT)
+ Wed, 24 Apr 2024 13:42:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,46 +47,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24a80008-027b-11ef-b4bb-af5377834399
+X-Inumbo-ID: 251980cc-027b-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1713991338; x=1714596138; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1713991339; x=1714596139; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JBfj+N3t2vst9UyJVN7uxPweKAIqyhS3H5x3l711fQA=;
-        b=FaQmwM4dEoP/C/LsjQC3XSB8pioFJGsZbYeyfkUxcZTIgw9Fo9a+w571AhvGDYYgnE
-         dpgUTzxrFPhVIfdpYu7w0+Z9/uyxTdJeArITGG7g57/bHCVN4v69jXJ/z7lojVpHRWZ8
-         buslYq6Azr8w/EBbv1CEPYulwn02NxHN0AnRCGLwWZHAHn2XsN68Hnh0+rC49v3r2l36
-         CJgPfuOXP+i2QJ3PnR5hE/RLQzC73QoyYUv8kKipM9LJUqyz+HWkV/hsEfI1GDQSs+im
-         0CBXlRGJIpb4YsY2BumeFs/V5dM57e7K7trQuQqmNj4sk5AIPjscOoRd53gYNagMbMX4
-         iVfg==
+        bh=M5idciq4z6LmfOUeSzwtHh7qUWkne+GPf19nH7mQTjs=;
+        b=g3VHQisNx417pAwj31P4qqfA4Acl5zqT5MZI48Y6LsE9QCs8YI/mLDunLl10GQoSZN
+         eoaloQ7fUfEMoa+OFVXIGUX4WAQEQmJHz+AQxBTkdJYV8BAxdFYjLUGbOnLbgu62YXr6
+         iqpcqH9+OxT2BuU6dYtnASn1dx0f9BVFbgFPTebYckCO9hwyPE/Ba5rvo5AGuzRJul14
+         ZIovrZMdnvzJoEKwoJEPSGGp6KDDvdPHmuWJN3e9N/FvXUNWOGz4F262UanF7tgvetBS
+         r1RlbGkfmtgeiwgN1AhFHnK5DEXpEbDHhxGfssmjNvT6zVv8Nwo48cNALsN+ZoE1R8fV
+         GYZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713991338; x=1714596138;
+        d=1e100.net; s=20230601; t=1713991339; x=1714596139;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=JBfj+N3t2vst9UyJVN7uxPweKAIqyhS3H5x3l711fQA=;
-        b=CwITv0IxUF5rpq0u/If6q1rxAGJ81BfsV9LiwS3Nc8Ye2z9SKFhSq2yz/u0rEhnpLK
-         IJz3Iiy5RMr7D4k4V2q6hXw1MdDc9EBM33+bzVbbHkKyOEybbooTmAK5uSKvICiLjuZk
-         /injfihX0fyix/i0RmsfVwHxedIKM+ibcxzfju57juhoSs4MQCo3eX2WiG+J1NyqHUvM
-         24tBKgrhGuTxY0mSer7AUmZ4IDtbSEANwrpFk7BtCJQIp5+nTmCnztJ9s4ePFp5RVltW
-         rGsme1/Poyzw1yseUa+uoGnwJAWVLOQOeHNBpF50iEWiuiubl/jo+mCjjOVENeFWLCQ9
-         jJbg==
-X-Gm-Message-State: AOJu0Yy1JEqCaytKHAPJkeMiJH1ReLY+GEyGG2sBPZyMB3gIKMir3d9H
-	ufIKS3YS3nQfQS+XsvkhZ+xFLIqxW61x/S/I+zK6LLV8ZqIBjjouMul+kL3q
-X-Google-Smtp-Source: AGHT+IGl5czEozgynTrUnsTEFba8tXwOaOGTAjiGH8fJprif433sUaL3kFhMwC+ZGaHuYI3+LEqBgg==
-X-Received: by 2002:a19:f813:0:b0:518:c82a:bdf9 with SMTP id a19-20020a19f813000000b00518c82abdf9mr2997959lff.44.1713991338189;
-        Wed, 24 Apr 2024 13:42:18 -0700 (PDT)
+        bh=M5idciq4z6LmfOUeSzwtHh7qUWkne+GPf19nH7mQTjs=;
+        b=Mz6/dbHwpseCLzfM4f7Ca+5SqN0HWAs/iNe4lsOnFrIPzsgQp8AULYZjwkW+Y5YOJ3
+         0plW6lhqnYhewolaKbyIR3HZ61kDPbSCfZtQvKXyX2R/VQ1zRTTJkrm+rTy/EKAz5+94
+         868THtOtgECdbISyWsQgH1FJ2REQjJzbf1yKjIL2Y/bEeUqGYKLsxevgkviP2tGhfOho
+         TkEsp7FbRiVfkXq6xcnLIO13a+avFfJyD9AHCRFA2yq8iEV1yt8yQem76H0a39ECKLEa
+         kJFrRmRT9owWoQE5z4TGDZfNZPsI2eEWOA0r5ywiki7jA0mR/xdnbkoFgywja4B7Rfj/
+         QJbQ==
+X-Gm-Message-State: AOJu0YxFaRqld/54x06FYierzbvQV1/QOXg6nWj3W3NuGMCSlAySRgMr
+	5cwJfTdJs1bgp+Sq3CpzRlQ9WsIcl+cETAqKjUG11iqJby2pzGDwVNvhnF/l
+X-Google-Smtp-Source: AGHT+IGc5OS3C3WX6mjQ3IlpqklHm9dcEPH3m3Ih0O36UTGDKHDOCX4seUN5412zu60YzRbTWD88Cg==
+X-Received: by 2002:a17:906:3716:b0:a55:43e5:3372 with SMTP id d22-20020a170906371600b00a5543e53372mr728923ejc.20.1713991339014;
+        Wed, 24 Apr 2024 13:42:19 -0700 (PDT)
 From: "=?UTF-8?q?Petr=20Bene=C5=A1?=" <w1benny@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Petr=20Bene=C5=A1?= <petr.benes@gendigital.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Petr=20Bene=C5=A1?= <w1benny@gmail.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH 4/7] tools/ocaml: Add max_altp2m parameter
-Date: Wed, 24 Apr 2024 20:42:02 +0000
-Message-Id: <9e9be821c2fe0ac4a7b66d652c10b2edbf5e42be.1713990376.git.w1benny@gmail.com>
+Subject: [PATCH 5/7] docs/man: Add max_altp2m parameter to the xl.cfg manual
+Date: Wed, 24 Apr 2024 20:42:03 +0000
+Message-Id: <4d631207d60c8c6e80348d0e1fa368b3270b9c9e.1713990376.git.w1benny@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1713990376.git.w1benny@gmail.com>
 References: <cover.1713990376.git.w1benny@gmail.com>
@@ -96,88 +94,39 @@ Content-Transfer-Encoding: 8bit
 
 From: Petr Beneš <w1benny@gmail.com>
 
-Allow developers using the OCaml bindings to set the max_altp2m parameter.
+Update manual pages to include detailed information about the max_altp2m
+configuration parameter.
 
 Signed-off-by: Petr Beneš <w1benny@gmail.com>
 ---
- tools/ocaml/libs/xc/xenctrl.ml      |  1 +
- tools/ocaml/libs/xc/xenctrl.mli     |  1 +
- tools/ocaml/libs/xc/xenctrl_stubs.c | 17 ++++++++++-------
- 3 files changed, 12 insertions(+), 7 deletions(-)
+ docs/man/xl.cfg.5.pod.in | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index 55923857ec..ed851bb071 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -82,6 +82,7 @@ type domctl_create_config =
-     iommu_opts: domain_create_iommu_opts list;
-     max_vcpus: int;
-     max_evtchn_port: int;
-+    max_altp2m: int;
-     max_grant_frames: int;
-     max_maptrack_frames: int;
-     max_grant_version: int;
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index 9b4b45db3a..971b269d85 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -74,6 +74,7 @@ type domctl_create_config = {
-   iommu_opts: domain_create_iommu_opts list;
-   max_vcpus: int;
-   max_evtchn_port: int;
-+  max_altp2m: int;
-   max_grant_frames: int;
-   max_maptrack_frames: int;
-   max_grant_version: int;
-diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
-index 2b6d3c09df..0b70cc9b08 100644
---- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-+++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -207,12 +207,13 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
- #define VAL_IOMMU_OPTS          Field(config, 3)
- #define VAL_MAX_VCPUS           Field(config, 4)
- #define VAL_MAX_EVTCHN_PORT     Field(config, 5)
--#define VAL_MAX_GRANT_FRAMES    Field(config, 6)
--#define VAL_MAX_MAPTRACK_FRAMES Field(config, 7)
--#define VAL_MAX_GRANT_VERSION   Field(config, 8)
--#define VAL_VMTRACE_BUF_KB      Field(config, 9)
--#define VAL_CPUPOOL_ID          Field(config, 10)
--#define VAL_ARCH                Field(config, 11)
-+#define VAL_MAX_ALTP2M          Field(config, 6)
-+#define VAL_MAX_GRANT_FRAMES    Field(config, 7)
-+#define VAL_MAX_MAPTRACK_FRAMES Field(config, 8)
-+#define VAL_MAX_GRANT_VERSION   Field(config, 9)
-+#define VAL_VMTRACE_BUF_KB      Field(config, 10)
-+#define VAL_CPUPOOL_ID          Field(config, 11)
-+#define VAL_ARCH                Field(config, 12)
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index 8f2b375ce9..2d4ea35736 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -2039,6 +2039,20 @@ a single guest HVM domain. B<This option is deprecated, use the option
+ B<Note>: While the option "altp2mhvm" is deprecated, legacy applications for
+ x86 systems will continue to work using it.
  
- 	uint32_t domid = Int_val(wanted_domid);
- 	uint64_t vmtrace_size = Int32_val(VAL_VMTRACE_BUF_KB);
-@@ -226,6 +227,7 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
- 		.ssidref = Int32_val(VAL_SSIDREF),
- 		.max_vcpus = Int_val(VAL_MAX_VCPUS),
- 		.max_evtchn_port = Int_val(VAL_MAX_EVTCHN_PORT),
-+		.max_altp2m = Int_val(VAL_MAX_ALTP2M),
- 		.max_grant_frames = Int_val(VAL_MAX_GRANT_FRAMES),
- 		.max_maptrack_frames = Int_val(VAL_MAX_MAPTRACK_FRAMES),
- 		.grant_opts =
-@@ -257,7 +259,7 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
- #if defined(__i386__) || defined(__x86_64__)
++=item B<max_altp2m=NUMBER>
++
++Specifies the maximum number of alternate-p2m views available to the guest.
++This setting is crucial in domain introspection scenarios that require
++multiple physical-to-machine (p2m) memory mappings to be established
++simultaneously.
++
++Enabling multiple p2m views may increase memory usage. It is advisable to
++review and adjust the B<shadow_memory> setting as necessary to accommodate
++the additional memory requirements.
++
++B<Note>: This option is ignored if B<altp2m> is disabled. The default value
++is 10.
++
+ =item B<nestedhvm=BOOLEAN>
  
- 		/* Quick & dirty check for ABI changes. */
--		BUILD_BUG_ON(sizeof(cfg) != 64);
-+		BUILD_BUG_ON(sizeof(cfg) != 68);
- 
-         /* Mnemonics for the named fields inside xen_x86_arch_domainconfig */
- #define VAL_EMUL_FLAGS          Field(arch_domconfig, 0)
-@@ -291,6 +293,7 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
- #undef VAL_MAX_GRANT_VERSION
- #undef VAL_MAX_MAPTRACK_FRAMES
- #undef VAL_MAX_GRANT_FRAMES
-+#undef VAL_MAX_ALTP2M
- #undef VAL_MAX_EVTCHN_PORT
- #undef VAL_MAX_VCPUS
- #undef VAL_IOMMU_OPTS
+ Enable or disables guest access to hardware virtualisation features,
 -- 
 2.34.1
 
