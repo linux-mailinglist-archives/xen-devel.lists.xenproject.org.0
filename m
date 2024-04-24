@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4653C8B02AD
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 08:58:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711157.1110907 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE2208B0305
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 09:20:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711165.1110918 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzWZj-0003vB-0K; Wed, 24 Apr 2024 06:57:51 +0000
+	id 1rzWv1-0007r9-UB; Wed, 24 Apr 2024 07:19:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711157.1110907; Wed, 24 Apr 2024 06:57:50 +0000
+Received: by outflank-mailman (output) from mailman id 711165.1110918; Wed, 24 Apr 2024 07:19:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzWZi-0003t8-Tu; Wed, 24 Apr 2024 06:57:50 +0000
-Received: by outflank-mailman (input) for mailman id 711157;
- Wed, 24 Apr 2024 06:57:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rzWv1-0007os-Qd; Wed, 24 Apr 2024 07:19:51 +0000
+Received: by outflank-mailman (input) for mailman id 711165;
+ Wed, 24 Apr 2024 07:19:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzWZh-0003t2-KV
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 06:57:49 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f5b62a43-0207-11ef-909a-e314d9c70b13;
- Wed, 24 Apr 2024 08:57:48 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-34a3e0b31e6so4743334f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 23:57:48 -0700 (PDT)
+ id 1rzWv0-0007om-5m
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 07:19:50 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 076d687e-020b-11ef-b4bb-af5377834399;
+ Wed, 24 Apr 2024 09:19:46 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4187c47405aso45239135e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 00:19:46 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- z18-20020a5d6412000000b00347ec0469b2sm16278269wru.46.2024.04.23.23.57.47
+ fc9-20020a05600c524900b0041ac5f19213sm4289749wmb.8.2024.04.24.00.19.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 23:57:47 -0700 (PDT)
+ Wed, 24 Apr 2024 00:19:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5b62a43-0207-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 076d687e-020b-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713941868; x=1714546668; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713943186; x=1714547986; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=JNqflPV76mTHbmM5E+y7Fn7JlqESK6RC1budnk0RZ9I=;
-        b=EOqDdRR/3p/w//gkL23UrDJ6XBeNMcNgQEksyj7mAM5pBWvONCzO68IHhquXAEQgjd
-         rLBaXdH6bbgqpZK0kruOCDivikEVESVIHW44zHT+GXJKv0GuQG2fGN+1nUZaNg21Ylrz
-         xA12+O9KAVMG2L1yZgRnQfeH4QD+tPCgxWc7Ah4pWNTxzLQz8OlYxAXnVD4cVwiNE81N
-         rvoEQhLyk1tGhIMO1aOXnDXB4rJLfiMzZARzRcApEYHJk5WYz5pxG7edzp6qkkUHa3ZZ
-         YRrs76dLhaIxJs3hThZwYeG02tZsGxZ41G4o6G/S+wnuQ2EbvQ9LhtpYPWBy87ndm6z7
-         RnAQ==
+        bh=M5X0Zdmp/5vAXHNnlark0kMUOgAR7ijjsaVoa8nppOY=;
+        b=DAkLJgBRJtYa2wlWn5PDq7T5VZPOXEHddjIuLZSxHqbSmTrwS99UxsoH40GE/nTlWI
+         VUNwCdd4f0Tz+zBU8HKe1Pv0A5N58cmYAh0a7DM8swcvT27akSSMymJExhn+lf8GyCX0
+         /r0LtNGG08P60TxI3VamOVNTpl3ndzNX9p19Fr+gK+y3DU+sZHdCrXTKPDJH+I9sAYBz
+         9hmAx7GxZTbyzj0oxJU+itD3oXiKNK0vC5DXOXDt3VDuAggSU7lZCpwVw6FLWaq3c+QP
+         dkLWpiqCpd+n8igZ6hgsI3eMhLIh7TtRKW9isuROMkjE1epwSlMF/JJlZKqnAbGgBRt8
+         icUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713941868; x=1714546668;
+        d=1e100.net; s=20230601; t=1713943186; x=1714547986;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JNqflPV76mTHbmM5E+y7Fn7JlqESK6RC1budnk0RZ9I=;
-        b=iCD742O2DNiBIv5iFuesFyoyY9aip6APhBrkZdLid74iifgTraarfJN19keV1+aIpq
-         SMKk+Ht6uzCvOuTZKficQHh4U+toyREhAbsrD47HGDn9ElSb3gx2u7UuVQoEPJUn67Nl
-         JOIO2eviDh+NH+LSGh/6Ls3h0dGwgzlucrH+6p+tEc1N1LxQSZC0tzhW7dV/LzgPF9pf
-         2ZCKb3bBh+e1CTlL/VVBma5CrT2yrvNhe5iUx0K7rhJy/TzPvFR3+RbpFVBFPnxjbVrW
-         zPFlqrW+HIpS1UegdT+3Ds4H+99JZmw2QRuca7kcn68SIGgeKYa3Uzwo/Emd/Gpaj654
-         rQ4w==
-X-Forwarded-Encrypted: i=1; AJvYcCVLMP2uMhNiRLt3zmVjtfoEvfJP+4UYnuyGiay2f4O6sTXG5VZPbKMhOPtHTDUPMfIHj8NyW0nHaKqaudpec9g8DkY6Bi+A1jbbCCdobDo=
-X-Gm-Message-State: AOJu0YxCAeOfCh02euVcEcvOO87XQk36kr94izGYT2l0NWfZx0vhH7Xc
-	7pwYLiFDaLxeB2lI1dNaypGgZS7U1lUbsbsewfPmnJWL0PIql3Z/Dt3blBwaFg==
-X-Google-Smtp-Source: AGHT+IGkJud8e1aFZmfGY4/rmAPNuomo69imXBY6kRbhgCpOZnbKZqAcTsuJWHmvyrPnGgRITlDPsw==
-X-Received: by 2002:a5d:4e09:0:b0:343:7cef:993d with SMTP id p9-20020a5d4e09000000b003437cef993dmr817281wrt.61.1713941867781;
-        Tue, 23 Apr 2024 23:57:47 -0700 (PDT)
-Message-ID: <081ff118-e7c3-4570-88e1-6c54e096a6a4@suse.com>
-Date: Wed, 24 Apr 2024 08:57:46 +0200
+        bh=M5X0Zdmp/5vAXHNnlark0kMUOgAR7ijjsaVoa8nppOY=;
+        b=kL/rQLliRK1Kzr5vPJal89akTb4VynTbLIauZc2m59aML8vI6TuJXZZvgIxPjl4zsU
+         IEuV6lQjPZvnBPehzZvxQNPxGg1ppwClZX44viuqlTNGT7o5lppSEPJmFvHBwFk7+eWV
+         kR6Ytv5qynAYuq1vp4EPpch+ijwpHY4z/j/jBxHam/7DiX61/xWKxDEVnehTVlhGUT+U
+         QuU04ur4x4G7PjFCuMneznPfRs3YIkz3tct+/Dqz/ZZd13F5GVUqZa48tKHOdv2/XDUM
+         x6jkew5hCLlidolkDpbwHLwJTyjBUTvUgueov7y1xlPXBBeaKC+T7UQL3CPRpZ4s4Au7
+         /gEQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU6YvOUC/+ZqQX5MsZLQk/RP+Y0GpBV6xWjH9cKqEVNLjdSV8xgHzdshDAfGpm5E2akBtO6BvwvApzVgQbrYecPXJMyj+ZEM43C98KEank=
+X-Gm-Message-State: AOJu0Yx/06wS80+MB+SAhf2PhAcSwxP0Ws9Nuj4ryIDITos8fEIn30fU
+	DX5yTw5Lt2u9YHt0rG3cnsL/JYXzHgFXJrOCotuTKZ3iME5bN0W+D1nXH06v4w==
+X-Google-Smtp-Source: AGHT+IEvRH8K8WlTjWXEapbV7+x+ZZne4ZHok2FLSqPxdbjPK1ysp0o1AY0ZkzSpmsEaoxCKLBEorw==
+X-Received: by 2002:a05:600c:354d:b0:419:f088:249c with SMTP id i13-20020a05600c354d00b00419f088249cmr1094848wmq.12.1713943186072;
+        Wed, 24 Apr 2024 00:19:46 -0700 (PDT)
+Message-ID: <6608efe2-d968-47be-900d-d94f8e94f926@suse.com>
+Date: Wed, 24 Apr 2024 09:19:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] x86/spec-ctrl: Introduce and use DO_COND_BHB_SEQ
+Subject: Re: [XEN PATCH 01/10] libelf: address violations of MISRA C Rule 20.7
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240422181434.3463252-1-andrew.cooper3@citrix.com>
- <20240422181434.3463252-7-andrew.cooper3@citrix.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
+ julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1713885065.git.nicola.vetrini@bugseng.com>
+ <250b556fc0516e4a20b24161dad3032e2ac3db80.1713885065.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,57 +113,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240422181434.3463252-7-andrew.cooper3@citrix.com>
+In-Reply-To: <250b556fc0516e4a20b24161dad3032e2ac3db80.1713885065.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.04.2024 20:14, Andrew Cooper wrote:
-> --- a/xen/arch/x86/hvm/vmx/entry.S
-> +++ b/xen/arch/x86/hvm/vmx/entry.S
-> @@ -62,12 +62,12 @@ ENTRY(vmx_asm_vmexit_handler)
->           * Clear the BHB to mitigate BHI.  Used on eIBRS parts, and uses RETs
->           * itself so must be after we've perfomed all the RET-safety we can.
->           */
-> -        testb $SCF_entry_bhb, CPUINFO_scf(%rsp)
-> -        jz .L_skip_bhb
-> -        ALTERNATIVE_2 "",                                    \
-> -            "call clear_bhb_loops", X86_SPEC_BHB_LOOPS,      \
-> -            "call clear_bhb_tsx", X86_SPEC_BHB_TSX
-> -.L_skip_bhb:
-> +        .macro VMX_BHB_SEQ fn:req
-> +            DO_COND_BHB_SEQ \fn scf=CPUINFO_scf(%rsp)
-> +        .endm
-> +        ALTERNATIVE_2 "",                                         \
-> +            "VMX_BHB_SEQ fn=clear_bhb_loops", X86_SPEC_BHB_LOOPS, \
-> +            "VMX_BHB_SEQ fn=clear_bhb_tsx",   X86_SPEC_BHB_TSX
+On 23.04.2024 17:12, Nicola Vetrini wrote:
+> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
+> of macro parameters shall be enclosed in parentheses". Therefore, some
+> macro definitions should gain additional parentheses to ensure that all
+> current and future users will be safe with respect to expansions that
+> can possibly alter the semantics of the passed-in macro parameter.
+> 
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Oh, and just to mention it since we were discussing this before: The variant
-of this that I had been thinking of without decode-lite would have been to
-transform this (readable)
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-        testb $SCF_entry_bhb, CPUINFO_scf(%rsp)
-        ALTERNATIVE_2 "jmp .L_skip_bhb",                     \
-            "jz .L_skip_bhb", X86_SPEC_BHB_LOOPS,            \
-            "jz .L_skip_bhb", X86_SPEC_BHB_TSX
-        ALTERNATIVE_2 "",                                    \
-            "call clear_bhb_loops", X86_SPEC_BHB_LOOPS,      \
-            "call clear_bhb_tsx", X86_SPEC_BHB_TSX
-.L_skip_bhb:
 
-into (untested, and hence perhaps slightly off) the (less readable)
-
-        testb $SCF_entry_bhb, CPUINFO_scf(%rsp)
-        ALTERNATIVE_2 ".byte 0xeb" /* jmp */,                \
-            ".byte 0x74" /* jz */, X86_SPEC_BHB_LOOPS,       \
-            ".byte 0x74" /* jz */, X86_SPEC_BHB_TSX
-        .byte .L_skip_bhb - (. + 1)
-        ALTERNATIVE_2 "",                                    \
-            "call clear_bhb_loops", X86_SPEC_BHB_LOOPS,      \
-            "call clear_bhb_tsx", X86_SPEC_BHB_TSX
-.L_skip_bhb:
-
-Of course yours (dropping the branch altogether) is better, but also comes
-at a higher price.
-
-Jan
 
