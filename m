@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E2E38B018B
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 08:08:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711125.1110838 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FE0F8B01A1
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 08:17:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711128.1110848 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzVnz-0000T6-1J; Wed, 24 Apr 2024 06:08:31 +0000
+	id 1rzVvS-0002Vg-PF; Wed, 24 Apr 2024 06:16:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711125.1110838; Wed, 24 Apr 2024 06:08:31 +0000
+Received: by outflank-mailman (output) from mailman id 711128.1110848; Wed, 24 Apr 2024 06:16:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzVny-0000R0-Uv; Wed, 24 Apr 2024 06:08:30 +0000
-Received: by outflank-mailman (input) for mailman id 711125;
- Wed, 24 Apr 2024 06:08:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rzVvS-0002Ss-M9; Wed, 24 Apr 2024 06:16:14 +0000
+Received: by outflank-mailman (input) for mailman id 711128;
+ Wed, 24 Apr 2024 06:16:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzVnx-0000Qu-6s
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 06:08:29 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 11262ce2-0201-11ef-909a-e314d9c70b13;
- Wed, 24 Apr 2024 08:08:27 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-343c7fae6e4so5687227f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 23:08:27 -0700 (PDT)
+ id 1rzVvQ-0002Sc-U0
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 06:16:12 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2320d026-0202-11ef-b4bb-af5377834399;
+ Wed, 24 Apr 2024 08:16:07 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-343d7ff2350so4865539f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 23:16:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a12-20020a056000100c00b00349ceadededsm16273590wrx.16.2024.04.23.23.08.26
+ j10-20020adfff8a000000b0034335f13570sm16097998wrr.116.2024.04.23.23.16.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 23:08:27 -0700 (PDT)
+ Tue, 23 Apr 2024 23:16:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11262ce2-0201-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 2320d026-0202-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713938907; x=1714543707; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713939367; x=1714544167; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=T2oToJ2H4PxWr/ua2+1zve3oE0/3orbPzPC4G1VeCEw=;
-        b=etEb/cZ5hl/CLiJYD74pf2y04XkNDdE6oWPo9Ns10tUGHymDOH832oLOhNrpYEjmdn
-         GdrhHQ22wEI9Jue2xJSTjJIT3j0H1g+UI9Cc2gVxuW6JjoWQqVQwMdjBsXvI+9YIr+v/
-         3CgXqTuCNUpesVqiSybghR7zr2IS/cygWYi9FB/coD8DavH3aF4gcb6WYC6XiueCGHRF
-         pFITn/AHHijg1GEihMmYYtc6ycJyBr4XFVf1wyQ5yWhuICeosmDEXVV1XsArfIiv1vrO
-         RZ7Ac4D7Ko8ljrO6M55XNvetWsEt6ekpJ0PZj0siTY/eB/WgRw35D/yZy17WEog06Ze2
-         vsWg==
+        bh=kdfnpatrTyQeYsAvSX+9LoX28ahuJFBANRRsy2h7dr0=;
+        b=QC+0HTHq0Oy0QHXdgDyu957UYWa51mTOePtgUq9VejHN4WHxnZ0QBNCyz/v7T5ZAGU
+         1th469O7vWamnXZOWnT0BLrYQBny+vAeMIjXSlO2rwVSuAn/2m67Y6qOe0y+J4djcWdf
+         eYQ5aHdYbHqLDgIKtJdgwMRHFRgj0a0AzoX557XNnioEdcoSTbebVn8BP7hoo1ZyxsfV
+         QoSou92AyLtF29YmI5YBLtRRojusxs7GNz5pyCYOXDQvfIl8uRIaALqZ5e7Kf0QlH0HU
+         aHZXb7BMScBURCAq6JEBz04bz8MmU5aP91fghZ3H1t13FiVB+u04/kPTVGoIx8PqMjtR
+         lJfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713938907; x=1714543707;
+        d=1e100.net; s=20230601; t=1713939367; x=1714544167;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=T2oToJ2H4PxWr/ua2+1zve3oE0/3orbPzPC4G1VeCEw=;
-        b=I+D7TH63m6PD/KvfF/hBIP7trl/0FWwCrG2lqe8SUZcdS7yqOGAYVmafwUcS+jaOXp
-         kpQtNKw2YEOpGWqiDPO/GFe86yPn89x0n8YM0AQCILneMl1d4qRipxnasq2qz/nVUcv5
-         H1K1Jb29ZA9tB1pFGBnp0ipl4BBAT+aunfxoLab5ko3uudvoTGRQVWLNgubhUI5QCADq
-         tI4dCRbE8VLojwen7xZmDUrAvkRvpz2jEOHqrZQ8ypYBzZyrBKmnbX0GHYivGR+668x7
-         LMc8TLLOCwioFJKfAKuyFrM4iDqkmldWqXAmeBerNytP5vEazQJpbQqZbCmIrmcF2j1D
-         42HA==
-X-Forwarded-Encrypted: i=1; AJvYcCUTbPi+tPur4yl/rtA0Zh4CoE/vbfFX8/Dvg2VmokhziNvFofvDFIky+funDQY5bT53TaffwNXPlHaizx0Le3ga+3DtPF9oScAIabUrL3o=
-X-Gm-Message-State: AOJu0YwdVrh6p9sXnLYobn6nV0gtkuyTD6xGB9d/G+Hu1d6BHw0C/1Qu
-	7viOOuIOQoHv+giWK7bbvO8ZzfwIv1+NTq24nLuHO4KsOqLGazoko0oEi9Aijw==
-X-Google-Smtp-Source: AGHT+IH5Dn3RNxHfXGUe1DpQxGQ9ZZ9kF7ZXJ3QRoTlPqu4gfKsGr5HxhpnX6qq7WewZ+4iyDQiGUg==
-X-Received: by 2002:a05:6000:54d:b0:34a:2bc0:c9c4 with SMTP id b13-20020a056000054d00b0034a2bc0c9c4mr895652wrf.5.1713938907383;
-        Tue, 23 Apr 2024 23:08:27 -0700 (PDT)
-Message-ID: <c8228db9-6bb6-4115-9cc4-bcd8f49319e5@suse.com>
-Date: Wed, 24 Apr 2024 08:08:26 +0200
+        bh=kdfnpatrTyQeYsAvSX+9LoX28ahuJFBANRRsy2h7dr0=;
+        b=XuJG6xHvVr5u8t7iLYpuEzU2VqToc0jfle7GanF93ORiUfM7JPySXNCasUFI9EsGVC
+         GgvMEOdX6Ss/qGTPGXrupEAx6uJ3ZuXGpuDcW8SUfEzbDupIIfK5tI5d8EKET3sfwQdB
+         reOO8qmbmuH45zRiPWuHlrVwbfK3/TU3uj3uYhGgN75EzMPkeM+mhh5Bzu4kWDCjVAY4
+         a3Z0hMItACwG6t/bn3yLC4uNjGHF+df7CanzkW0YJFjaAamtjhdJnwdnWYOhUs75J97t
+         UWv0WigcTZKWUTRlbCBil1qvJhMbsexx1C3lfu0d81VsXrUr2WLTFb6uZKFLOZtVsEhd
+         Nnsg==
+X-Forwarded-Encrypted: i=1; AJvYcCX6H1LuradHoaTBzNkNM3nQ17qmm1ANrJcY3QsbXsFM0VesccfaB1W6u/d3X9FVn0LPhH2ZSBDrrXmGHRcOnkqD6Syby7Idi/qUHzCBX7s=
+X-Gm-Message-State: AOJu0YxnS5hu8YCZ4CWvsG/OjYuRQrfTNwmMmkzjC49542n9+mYWA6h7
+	gCfQ95ZCOdTUiMVf2A+ykgcqQR+BgDKYeu7E3N/zjz247KyHlT3b0J19EnamWQ==
+X-Google-Smtp-Source: AGHT+IFYZj60IhL18hCwdw8hSxd2AWzfGitFMfKe61qm0KWMl88QNf3HQsAgx/U9jveYRtPsUjZwyw==
+X-Received: by 2002:adf:cb0f:0:b0:34a:2a90:c45 with SMTP id u15-20020adfcb0f000000b0034a2a900c45mr760344wrh.31.1713939367186;
+        Tue, 23 Apr 2024 23:16:07 -0700 (PDT)
+Message-ID: <bc2aab70-08c5-4dfe-91ab-c1c24163cd46@suse.com>
+Date: Wed, 24 Apr 2024 08:16:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/15] tools/helpers: Add get_overlay
+Subject: Re: [PATCH 14/15] add a domU script to fetch overlays and applying
+ them to linux
 Content-Language: en-US
 To: Henry Wang <xin.wang2@amd.com>, Vikram Garhwal <fnu.vikram@xilinx.com>
 Cc: Anthony PERARD <anthony.perard@citrix.com>,
  Stefano Stabellini <stefano.stabellini@xilinx.com>,
  xen-devel@lists.xenproject.org
 References: <20240424033449.168398-1-xin.wang2@amd.com>
- <20240424033449.168398-12-xin.wang2@amd.com>
+ <20240424033449.168398-15-xin.wang2@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,40 +113,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240424033449.168398-12-xin.wang2@amd.com>
+In-Reply-To: <20240424033449.168398-15-xin.wang2@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.04.2024 05:34, Henry Wang wrote:
 > From: Vikram Garhwal <fnu.vikram@xilinx.com>
 > 
-> This user level application copies the overlay dtbo shared by dom0 while doing
-> overlay node assignment operation. It uses xenstore to communicate with dom0.
-> More information on the protocol is writtien in docs/misc/overlay.txt file.
+> Introduce a shell script that runs in the background and calls
+> get_overlay to retrive overlays and add them (or remove them) to Linux
+> device tree (running as a domU).
 > 
 > Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
 > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 > Signed-off-by: Henry Wang <xin.wang2@amd.com>
 > ---
->  tools/helpers/Makefile      |   8 +
->  tools/helpers/get_overlay.c | 393 ++++++++++++++++++++++++++++++++++++
->  2 files changed, 401 insertions(+)
->  create mode 100644 tools/helpers/get_overlay.c
+>  tools/helpers/Makefile       |  2 +-
+>  tools/helpers/get_overlay.sh | 81 ++++++++++++++++++++++++++++++++++++
+>  2 files changed, 82 insertions(+), 1 deletion(-)
+>  create mode 100755 tools/helpers/get_overlay.sh
 
-As mentioned before on various occasions - new files preferably use dashes as
-separators in preference to underscores. You not doing so is particularly
-puzzling seeing ...
+Besides the same naming issue as in the earlier patch, the script also
+looks very Linux-ish. Yet ...
 
 > --- a/tools/helpers/Makefile
 > +++ b/tools/helpers/Makefile
-> @@ -12,6 +12,7 @@ TARGETS += init-xenstore-domain
->  endif
->  ifeq ($(CONFIG_ARM),y)
->  TARGETS += init-dom0less
-> +TARGETS += get_overlay
+> @@ -58,7 +58,6 @@ init-dom0less: $(INIT_DOM0LESS_OBJS)
+>  get_overlay: $(SHARE_OVERLAY_OBJS)
+>  	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenvchan) $(LDLIBS_libxenstore) $(LDLIBS_libxenctrl) $(LDLIBS_libxengnttab) $(APPEND_LDFLAGS)
+>  
+> -
+>  .PHONY: install
+>  install: all
+>  	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
+> @@ -67,6 +66,7 @@ install: all
+>  .PHONY: uninstall
+>  uninstall:
+>  	for i in $(TARGETS); do rm -f $(DESTDIR)$(LIBEXEC_BIN)/$$i; done
+> +	$(RM) $(DESTDIR)$(LIBEXEC_BIN)/get_overlay.sh
+>  
+>  .PHONY: clean
+>  clean:
 
-... patch context here (demonstrating a whopping 3 dashes used in similar
-cases).
+... you touching only the uninstall target, it's not even clear to me
+how (and under what conditions) the script is going to make it into
+$(DESTDIR)$(LIBEXEC_BIN)/. Did you mean to add to $(TARGETS), perhaps,
+alongside the earlier added get-overlay binary?
 
 Jan
 
