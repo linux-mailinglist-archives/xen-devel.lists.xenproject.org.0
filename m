@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6640C8B017F
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 08:05:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711117.1110828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E2E38B018B
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 08:08:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711125.1110838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzVky-0008Gi-I0; Wed, 24 Apr 2024 06:05:24 +0000
+	id 1rzVnz-0000T6-1J; Wed, 24 Apr 2024 06:08:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711117.1110828; Wed, 24 Apr 2024 06:05:24 +0000
+Received: by outflank-mailman (output) from mailman id 711125.1110838; Wed, 24 Apr 2024 06:08:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzVky-0008E6-E4; Wed, 24 Apr 2024 06:05:24 +0000
-Received: by outflank-mailman (input) for mailman id 711117;
- Wed, 24 Apr 2024 06:05:23 +0000
+	id 1rzVny-0000R0-Uv; Wed, 24 Apr 2024 06:08:30 +0000
+Received: by outflank-mailman (input) for mailman id 711125;
+ Wed, 24 Apr 2024 06:08:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzVkx-0008Dz-4T
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 06:05:23 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1rzVnx-0000Qu-6s
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 06:08:29 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a262d601-0200-11ef-909a-e314d9c70b13;
- Wed, 24 Apr 2024 08:05:22 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-41b0bc4ce39so1228645e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 23:05:22 -0700 (PDT)
+ id 11262ce2-0201-11ef-909a-e314d9c70b13;
+ Wed, 24 Apr 2024 08:08:27 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-343c7fae6e4so5687227f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Apr 2024 23:08:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- r30-20020adfb1de000000b00343e392829dsm16379916wra.97.2024.04.23.23.05.20
+ a12-20020a056000100c00b00349ceadededsm16273590wrx.16.2024.04.23.23.08.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 23:05:21 -0700 (PDT)
+ Tue, 23 Apr 2024 23:08:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a262d601-0200-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 11262ce2-0201-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713938721; x=1714543521; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713938907; x=1714543707; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=u4imGHJZzQiILxfsOclmq+kHVBQ53kfcMw2z1a5Q+5M=;
-        b=TpphYQpt/RaDEd6qBpE2lgYpSFrAZTjtDTtnPFz10FTs2wYZgzWWr7h+Wt/vPc8dVq
-         t1/3pn9/FBpZckbFzm6mjGYXH8YY93dB5lVAzpIbpQ7UOnNgD6CPbsUOx8/kmHRKb+V0
-         SYhrxWRmYFYilqnPZtUN4tu1N6Axh+7g+AC9pjLKmtRdTTS+tOCjiPwQQF2l1sW7XEuy
-         cF39piFA7Wall4umP73F9VIB71iX9UK/CY5q68/hAvy1+c4Mlw/0LV3kKwguqNAp3cl7
-         vO4+WRYoH95S/jXpczlusDhnpU5af6cxr1eg2S+Ud11FcrZ7UgWf+IYiZfeOMc0ZbMcf
-         EidA==
+        bh=T2oToJ2H4PxWr/ua2+1zve3oE0/3orbPzPC4G1VeCEw=;
+        b=etEb/cZ5hl/CLiJYD74pf2y04XkNDdE6oWPo9Ns10tUGHymDOH832oLOhNrpYEjmdn
+         GdrhHQ22wEI9Jue2xJSTjJIT3j0H1g+UI9Cc2gVxuW6JjoWQqVQwMdjBsXvI+9YIr+v/
+         3CgXqTuCNUpesVqiSybghR7zr2IS/cygWYi9FB/coD8DavH3aF4gcb6WYC6XiueCGHRF
+         pFITn/AHHijg1GEihMmYYtc6ycJyBr4XFVf1wyQ5yWhuICeosmDEXVV1XsArfIiv1vrO
+         RZ7Ac4D7Ko8ljrO6M55XNvetWsEt6ekpJ0PZj0siTY/eB/WgRw35D/yZy17WEog06Ze2
+         vsWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713938721; x=1714543521;
+        d=1e100.net; s=20230601; t=1713938907; x=1714543707;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=u4imGHJZzQiILxfsOclmq+kHVBQ53kfcMw2z1a5Q+5M=;
-        b=uALGok03c3ewPJpQH7TXWiP7CQ4nrwQYkqMZF7lThNQevc+NgFgvjq5vf4YI/Sva/L
-         Npr+XcPjkSxsWBXtIoSbbKlL0MQWFoiA3j7c4bmB3rwCq9q4/QDEu1OPwuJvl3VD931a
-         5FGkxVcOeexKgarlXM7ccOLIRjXpVQxzAw3K8hagoukdOIkAI0XLbfRPNIkWvcDba155
-         Kumj4ljxiYhU1v/08Otamy1u/MQETbLoqGn8IYATXmI6Y94Dvv/rbR6Kvfp9EXD9eYFK
-         trySaWJjb9Kj2fRMYfHlBWDDOnFyKWhGmutvZCchbN03ZhL88LLTIjiGOkK4vu44bmbL
-         Ma9g==
-X-Forwarded-Encrypted: i=1; AJvYcCX0NMnRspPdpAHeAJ0laX9dKFVsZm3DCwMhBfIECzgCHEfztOnrza/wF1uejrNhztuba6SgFWEv4c3GuNHDvwpMId9vlx9JA8OM1qYryZQ=
-X-Gm-Message-State: AOJu0YxaTc5aiToOPk0sTkP6yjD1Wli6k2LVi55t9hBwo443BfYkLP4S
-	iB8/JVDIi6PnnPAhFGpNU5lTkjWpGbJV9IEm3QeXt07c8acduxBtDAOo+gY5bw==
-X-Google-Smtp-Source: AGHT+IHeMvghrJ+vwEmRSztmJFzmQaJR0iYk8xO0VisE43p8PRN3JGLYupQyY/Bk2s6VAv9/GXBBUg==
-X-Received: by 2002:a05:600c:56d4:b0:418:e7b6:21de with SMTP id ju20-20020a05600c56d400b00418e7b621demr1215722wmb.23.1713938721347;
-        Tue, 23 Apr 2024 23:05:21 -0700 (PDT)
-Message-ID: <da67f90f-6807-4fdc-b65b-f7a4ba9f78ad@suse.com>
-Date: Wed, 24 Apr 2024 08:05:20 +0200
+        bh=T2oToJ2H4PxWr/ua2+1zve3oE0/3orbPzPC4G1VeCEw=;
+        b=I+D7TH63m6PD/KvfF/hBIP7trl/0FWwCrG2lqe8SUZcdS7yqOGAYVmafwUcS+jaOXp
+         kpQtNKw2YEOpGWqiDPO/GFe86yPn89x0n8YM0AQCILneMl1d4qRipxnasq2qz/nVUcv5
+         H1K1Jb29ZA9tB1pFGBnp0ipl4BBAT+aunfxoLab5ko3uudvoTGRQVWLNgubhUI5QCADq
+         tI4dCRbE8VLojwen7xZmDUrAvkRvpz2jEOHqrZQ8ypYBzZyrBKmnbX0GHYivGR+668x7
+         LMc8TLLOCwioFJKfAKuyFrM4iDqkmldWqXAmeBerNytP5vEazQJpbQqZbCmIrmcF2j1D
+         42HA==
+X-Forwarded-Encrypted: i=1; AJvYcCUTbPi+tPur4yl/rtA0Zh4CoE/vbfFX8/Dvg2VmokhziNvFofvDFIky+funDQY5bT53TaffwNXPlHaizx0Le3ga+3DtPF9oScAIabUrL3o=
+X-Gm-Message-State: AOJu0YwdVrh6p9sXnLYobn6nV0gtkuyTD6xGB9d/G+Hu1d6BHw0C/1Qu
+	7viOOuIOQoHv+giWK7bbvO8ZzfwIv1+NTq24nLuHO4KsOqLGazoko0oEi9Aijw==
+X-Google-Smtp-Source: AGHT+IH5Dn3RNxHfXGUe1DpQxGQ9ZZ9kF7ZXJ3QRoTlPqu4gfKsGr5HxhpnX6qq7WewZ+4iyDQiGUg==
+X-Received: by 2002:a05:6000:54d:b0:34a:2bc0:c9c4 with SMTP id b13-20020a056000054d00b0034a2bc0c9c4mr895652wrf.5.1713938907383;
+        Tue, 23 Apr 2024 23:08:27 -0700 (PDT)
+Message-ID: <c8228db9-6bb6-4115-9cc4-bcd8f49319e5@suse.com>
+Date: Wed, 24 Apr 2024 08:08:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/15] xen/overlay: Enable device tree overlay assignment
- to running domains
+Subject: Re: [PATCH 11/15] tools/helpers: Add get_overlay
 Content-Language: en-US
 To: Henry Wang <xin.wang2@amd.com>, Vikram Garhwal <fnu.vikram@xilinx.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Vikram Garhwal <vikram.garhwal@amd.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ xen-devel@lists.xenproject.org
 References: <20240424033449.168398-1-xin.wang2@amd.com>
- <20240424033449.168398-8-xin.wang2@amd.com>
+ <20240424033449.168398-12-xin.wang2@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,32 +112,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240424033449.168398-8-xin.wang2@amd.com>
+In-Reply-To: <20240424033449.168398-12-xin.wang2@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.04.2024 05:34, Henry Wang wrote:
-> --- a/xen/include/public/sysctl.h
-> +++ b/xen/include/public/sysctl.h
-> @@ -1197,7 +1197,9 @@ struct xen_sysctl_dt_overlay {
->  #define XEN_SYSCTL_DT_OVERLAY_ADD                   1
->  #define XEN_SYSCTL_DT_OVERLAY_REMOVE                2
->      uint8_t overlay_op;                     /* IN: Add or remove. */
-> -    uint8_t pad[3];                         /* IN: Must be zero. */
-> +    bool domain_mapping;                    /* IN: True of False. */
-> +    uint8_t pad[2];                         /* IN: Must be zero. */
-> +    uint32_t domain_id;
->  };
+> From: Vikram Garhwal <fnu.vikram@xilinx.com>
+> 
+> This user level application copies the overlay dtbo shared by dom0 while doing
+> overlay node assignment operation. It uses xenstore to communicate with dom0.
+> More information on the protocol is writtien in docs/misc/overlay.txt file.
+> 
+> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Signed-off-by: Henry Wang <xin.wang2@amd.com>
+> ---
+>  tools/helpers/Makefile      |   8 +
+>  tools/helpers/get_overlay.c | 393 ++++++++++++++++++++++++++++++++++++
+>  2 files changed, 401 insertions(+)
+>  create mode 100644 tools/helpers/get_overlay.c
 
-If you merely re-purposed padding fields, all would be fine without
-bumping the interface version. Yet you don't, albeit for an unclear
-reason: Why uint32_t rather than domid_t? And on top of that - why a
-separate boolean when you could use e.g. DOMID_INVALID to indicate
-"no domain mapping"?
+As mentioned before on various occasions - new files preferably use dashes as
+separators in preference to underscores. You not doing so is particularly
+puzzling seeing ...
 
-That said - anything taking a domain ID is certainly suspicious in a
-sysctl. Judging from the description you really mean this to be a
-domctl. Anything else will require extra justification.
+> --- a/tools/helpers/Makefile
+> +++ b/tools/helpers/Makefile
+> @@ -12,6 +12,7 @@ TARGETS += init-xenstore-domain
+>  endif
+>  ifeq ($(CONFIG_ARM),y)
+>  TARGETS += init-dom0less
+> +TARGETS += get_overlay
+
+... patch context here (demonstrating a whopping 3 dashes used in similar
+cases).
 
 Jan
 
