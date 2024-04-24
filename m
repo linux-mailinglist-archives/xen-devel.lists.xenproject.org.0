@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE3758B1560
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 23:56:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711696.1111866 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FEDA8B170F
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 01:29:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711703.1111876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzkb6-0007kZ-Vg; Wed, 24 Apr 2024 21:56:12 +0000
+	id 1rzm2W-0007Pr-8N; Wed, 24 Apr 2024 23:28:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711696.1111866; Wed, 24 Apr 2024 21:56:12 +0000
+Received: by outflank-mailman (output) from mailman id 711703.1111876; Wed, 24 Apr 2024 23:28:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzkb6-0007j5-S0; Wed, 24 Apr 2024 21:56:12 +0000
-Received: by outflank-mailman (input) for mailman id 711696;
- Wed, 24 Apr 2024 21:56:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rzkb5-0007iv-DV; Wed, 24 Apr 2024 21:56:11 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rzkb4-0003Tl-SI; Wed, 24 Apr 2024 21:56:10 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rzkb4-0006iI-Kl; Wed, 24 Apr 2024 21:56:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rzkb4-0007Oy-KI; Wed, 24 Apr 2024 21:56:10 +0000
+	id 1rzm2W-0007NQ-5G; Wed, 24 Apr 2024 23:28:36 +0000
+Received: by outflank-mailman (input) for mailman id 711703;
+ Wed, 24 Apr 2024 23:28:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Nv0e=L5=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rzm2U-0007NK-VC
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 23:28:35 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5be60ca3-0292-11ef-909a-e314d9c70b13;
+ Thu, 25 Apr 2024 01:28:32 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 04D12CE16BB;
+ Wed, 24 Apr 2024 23:28:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB4DC113CD;
+ Wed, 24 Apr 2024 23:28:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +41,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=75/w1hRg6vBG6j0gOv8XPYYPSEx03JwnHimc9hn0IwY=; b=S+5R4kTVus3GEf5l9Ye7B/yKa0
-	A2YJa0KsDkPIXIWNxBbDOmzGVzkMSA02FL7BUJzEtM5APCzyYozru12+ruHZAnGMKqXCylkOwiaYk
-	x8/HesepoBHY+YlWJ3CxHO6nxS2eFonSGhyOmR6jYMzBj9eHt2ji02L35mCCRPbgLdvM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185788-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5be60ca3-0292-11ef-909a-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1714001304;
+	bh=kXDE3jy3DUog0Nd03DFCRiMYCMsFBqcfR6n7vPbvOKg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=SAZp5o7ch4uCRlcSn/4vXB4U8SOa+QAe6cxEO87BIU/ZIFzqVF8QwZmQSCDzjQgHd
+	 SYVcn7lp/gTigBXtVIvsRJx56NB+prHUee/BN1J/Up+lsKvWroTPVPrvwMfuv5gQ7+
+	 1idd6s5a7keqTegHr29S9tyDoRnpVFj9KbR0I21xQF2yeLMnkysx+Tl9P3nZvDAq+g
+	 oGfYdSdZbhJuScQXL1044/+xdetUlLTWmqZeMR/0cKkFOW9NUXuOZvmYOxrtw8/DjL
+	 ERx2lj36pvYkX3YW7HeUbpz9uqxjHTWrShimCnmopeJUxhbrnBlpCRagzGINAF0uue
+	 dc9gSCID0WkAg==
+Date: Wed, 24 Apr 2024 16:28:21 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Michal Orzel <michal.orzel@amd.com>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH 1/3] automation: Drop some of the non-debug variants of
+ the same Arm jobs
+In-Reply-To: <20240423161121.138536-2-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2404241627390.3940@ubuntu-linux-20-04-desktop>
+References: <20240423161121.138536-1-michal.orzel@amd.com> <20240423161121.138536-2-michal.orzel@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 185788: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=7846f7699fea25502061a05ea847e942ea624f12
-X-Osstest-Versions-That:
-    xen=6c04a0bf2c5824616c0bbc44bc4f07c64a5469be
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 24 Apr 2024 21:56:10 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 185788 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185788/
+On Tue, 23 Apr 2024, Michal Orzel wrote:
+> To save some bandwith that can be later on used to increase the test
+> coverage by adding new tests, drop the following non-debug test/build
+> jobs existing in both debug and non-debug variants:
+>  - static memory (arm64, arm32)
+>  - static shared memory (arm64)
+>  - static heap (arm64)
+>  - boot cpupools (arm64)
+>  - gzip (arm32)
+> 
+> More generic tests existing in both variants were left unmodified.
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  7846f7699fea25502061a05ea847e942ea624f12
-baseline version:
- xen                  6c04a0bf2c5824616c0bbc44bc4f07c64a5469be
-
-Last test of basis   185787  2024-04-24 16:02:12 Z    0 days
-Testing same since   185788  2024-04-24 19:04:02 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Luca Fancellu <luca.fancellu@arm.com>
-  Penny Zheng <penny.zheng@arm.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   6c04a0bf2c..7846f7699f  7846f7699fea25502061a05ea847e942ea624f12 -> smoke
+> ---
+>  automation/gitlab-ci/build.yaml | 38 --------------------------
+>  automation/gitlab-ci/test.yaml  | 48 ---------------------------------
+>  2 files changed, 86 deletions(-)
+> 
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+> index aac29ee13ab6..f3c934471f32 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -392,16 +392,6 @@ debian-bookworm-gcc-arm32-debug-randconfig:
+>      HYPERVISOR_ONLY: y
+>      RANDCONFIG: y
+>  
+> -debian-bookworm-gcc-arm32-staticmem:
+> -  extends: .gcc-arm32-cross-build
+> -  variables:
+> -    CONTAINER: debian:bookworm-arm64v8-arm32-gcc
+> -    HYPERVISOR_ONLY: y
+> -    EXTRA_XEN_CONFIG: |
+> -      CONFIG_EXPERT=y
+> -      CONFIG_UNSUPPORTED=y
+> -      CONFIG_STATIC_MEMORY=y
+> -
+>  debian-bookworm-gcc-arm32-debug-staticmem:
+>    extends: .gcc-arm32-cross-build-debug
+>    variables:
+> @@ -458,15 +448,6 @@ alpine-3.18-gcc-debug-arm64-randconfig:
+>      CONTAINER: alpine:3.18-arm64v8
+>      RANDCONFIG: y
+>  
+> -alpine-3.18-gcc-arm64-staticmem:
+> -  extends: .gcc-arm64-build
+> -  variables:
+> -    CONTAINER: alpine:3.18-arm64v8
+> -    EXTRA_XEN_CONFIG: |
+> -      CONFIG_EXPERT=y
+> -      CONFIG_UNSUPPORTED=y
+> -      CONFIG_STATIC_MEMORY=y
+> -
+>  alpine-3.18-gcc-debug-arm64-staticmem:
+>    extends: .gcc-arm64-build-debug
+>    variables:
+> @@ -476,15 +457,6 @@ alpine-3.18-gcc-debug-arm64-staticmem:
+>        CONFIG_UNSUPPORTED=y
+>        CONFIG_STATIC_MEMORY=y
+>  
+> -alpine-3.18-gcc-arm64-static-shared-mem:
+> -  extends: .gcc-arm64-build
+> -  variables:
+> -    CONTAINER: alpine:3.18-arm64v8
+> -    EXTRA_XEN_CONFIG: |
+> -      CONFIG_UNSUPPORTED=y
+> -      CONFIG_STATIC_MEMORY=y
+> -      CONFIG_STATIC_SHM=y
+> -
+>  alpine-3.18-gcc-debug-arm64-static-shared-mem:
+>    extends: .gcc-arm64-build-debug
+>    variables:
+> @@ -494,16 +466,6 @@ alpine-3.18-gcc-debug-arm64-static-shared-mem:
+>        CONFIG_STATIC_MEMORY=y
+>        CONFIG_STATIC_SHM=y
+>  
+> -alpine-3.18-gcc-arm64-boot-cpupools:
+> -  extends: .gcc-arm64-build
+> -  variables:
+> -    CONTAINER: alpine:3.18-arm64v8
+> -    EXTRA_XEN_CONFIG: |
+> -      CONFIG_EXPERT=y
+> -      CONFIG_UNSUPPORTED=y
+> -      CONFIG_SCHED_NULL=y
+> -      CONFIG_BOOT_TIME_CPUPOOLS=y
+> -
+>  alpine-3.18-gcc-debug-arm64-boot-cpupools:
+>    extends: .gcc-arm64-build-debug
+>    variables:
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index 8b7b2e4da92d..55a7831ad292 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -255,14 +255,6 @@ qemu-smoke-dom0less-arm64-gcc-debug:
+>      - *arm64-test-needs
+>      - alpine-3.18-gcc-debug-arm64
+>  
+> -qemu-smoke-dom0less-arm64-gcc-staticmem:
+> -  extends: .qemu-arm64
+> -  script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-mem 2>&1 | tee ${LOGFILE}
+> -  needs:
+> -    - *arm64-test-needs
+> -    - alpine-3.18-gcc-arm64-staticmem
+> -
+>  qemu-smoke-dom0less-arm64-gcc-debug-staticmem:
+>    extends: .qemu-arm64
+>    script:
+> @@ -271,14 +263,6 @@ qemu-smoke-dom0less-arm64-gcc-debug-staticmem:
+>      - *arm64-test-needs
+>      - alpine-3.18-gcc-debug-arm64-staticmem
+>  
+> -qemu-smoke-dom0less-arm64-gcc-staticheap:
+> - extends: .qemu-arm64
+> - script:
+> -   - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
+> - needs:
+> -   - *arm64-test-needs
+> -   - alpine-3.18-gcc-arm64
+> -
+>  qemu-smoke-dom0less-arm64-gcc-debug-staticheap:
+>   extends: .qemu-arm64
+>   script:
+> @@ -287,14 +271,6 @@ qemu-smoke-dom0less-arm64-gcc-debug-staticheap:
+>     - *arm64-test-needs
+>     - alpine-3.18-gcc-debug-arm64
+>  
+> -qemu-smoke-dom0less-arm64-gcc-static-shared-mem:
+> -  extends: .qemu-arm64
+> -  script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-shared-mem 2>&1 | tee ${LOGFILE}
+> -  needs:
+> -    - *arm64-test-needs
+> -    - alpine-3.18-gcc-arm64-static-shared-mem
+> -
+>  qemu-smoke-dom0less-arm64-gcc-debug-static-shared-mem:
+>    extends: .qemu-arm64
+>    script:
+> @@ -303,14 +279,6 @@ qemu-smoke-dom0less-arm64-gcc-debug-static-shared-mem:
+>      - *arm64-test-needs
+>      - alpine-3.18-gcc-debug-arm64-static-shared-mem
+>  
+> -qemu-smoke-dom0less-arm64-gcc-boot-cpupools:
+> -  extends: .qemu-arm64
+> -  script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh boot-cpupools 2>&1 | tee ${LOGFILE}
+> -  needs:
+> -    - *arm64-test-needs
+> -    - alpine-3.18-gcc-arm64-boot-cpupools
+> -
+>  qemu-smoke-dom0less-arm64-gcc-debug-boot-cpupools:
+>    extends: .qemu-arm64
+>    script:
+> @@ -359,14 +327,6 @@ qemu-smoke-dom0less-arm32-gcc-debug:
+>      - *arm32-test-needs
+>      - debian-bookworm-gcc-arm32-debug
+>  
+> -qemu-smoke-dom0less-arm32-gcc-staticmem:
+> -  extends: .qemu-arm32
+> -  script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh static-mem 2>&1 | tee ${LOGFILE}
+> -  needs:
+> -    - *arm32-test-needs
+> -    - debian-bookworm-gcc-arm32-staticmem
+> -
+>  qemu-smoke-dom0less-arm32-gcc-debug-staticmem:
+>    extends: .qemu-arm32
+>    script:
+> @@ -375,14 +335,6 @@ qemu-smoke-dom0less-arm32-gcc-debug-staticmem:
+>      - *arm32-test-needs
+>      - debian-bookworm-gcc-arm32-debug-staticmem
+>  
+> -qemu-smoke-dom0less-arm32-gcc-gzip:
+> -  extends: .qemu-arm32
+> -  script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh gzip 2>&1 | tee ${LOGFILE}
+> -  needs:
+> -    - *arm32-test-needs
+> -    - debian-bookworm-gcc-arm32
+> -
+>  qemu-smoke-dom0less-arm32-gcc-debug-gzip:
+>    extends: .qemu-arm32
+>    script:
+> -- 
+> 2.25.1
+> 
 
