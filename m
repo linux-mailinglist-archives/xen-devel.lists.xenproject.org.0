@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE5DF8B09FD
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 14:48:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711404.1111323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DB9A8B0A12
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 14:52:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711409.1111334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzc24-00073z-Qr; Wed, 24 Apr 2024 12:47:28 +0000
+	id 1rzc6H-00005v-AO; Wed, 24 Apr 2024 12:51:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711404.1111323; Wed, 24 Apr 2024 12:47:28 +0000
+Received: by outflank-mailman (output) from mailman id 711409.1111334; Wed, 24 Apr 2024 12:51:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzc24-00071l-OD; Wed, 24 Apr 2024 12:47:28 +0000
-Received: by outflank-mailman (input) for mailman id 711404;
- Wed, 24 Apr 2024 12:47:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzc6H-0008UU-6u; Wed, 24 Apr 2024 12:51:49 +0000
+Received: by outflank-mailman (input) for mailman id 711409;
+ Wed, 24 Apr 2024 12:51:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzc23-00071d-HR
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 12:47:27 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cbebb000-0238-11ef-b4bb-af5377834399;
- Wed, 24 Apr 2024 14:47:23 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-34a32ba1962so4937789f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 05:47:23 -0700 (PDT)
+ id 1rzc6G-0008UO-AT
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 12:51:48 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 691ddc02-0239-11ef-909a-e314d9c70b13;
+ Wed, 24 Apr 2024 14:51:47 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-41af670185fso7060575e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 05:51:47 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p3-20020a5d6383000000b00341b451a31asm17006967wru.36.2024.04.24.05.47.22
+ q15-20020a05600c46cf00b00416e2c8b290sm27777141wmo.1.2024.04.24.05.51.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Apr 2024 05:47:22 -0700 (PDT)
+ Wed, 24 Apr 2024 05:51:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cbebb000-0238-11ef-b4bb-af5377834399
+X-Inumbo-ID: 691ddc02-0239-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713962843; x=1714567643; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713963107; x=1714567907; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Do+G1o28dB4f8ARBNUu8KljXfD2/2JjMAjx74NZfFXI=;
-        b=MtbXzIIQ5bLthG+4hvSlk+bDFfIKsVw5sf5746vLmFg9ObUuPIukwLU8z2mXbEV1xO
-         4x5NsiiSnSwRKCc0qhq1UY7ZQfCVi4bMe6muQnuZDQZV/Ld/z1ruU6h8wIcKjOjkYM+9
-         fAug6QEEdTz+ewGy/eatoAnbaRnY7izueOlRZ5aAGiVKEt3tQfift3qolvzZ1k1Kf+Cs
-         WeG+nr6vQslXVBVqUtIj9DldQJoIEbbo2b1qnov09lb5Z7Sn/Tqs7hWGHUbN77s4eU7z
-         ZAEjslTG/BUdnX+gZmH/W0ImGKi49Wb9DaPZt8+wqh4Y1mpZ1wZBAFtasLnGQrV3iicU
-         FeaQ==
+        bh=Eu/SFWKb4KKWc8XYifsnnkB7wr7xZQX95q2t0lUGkQQ=;
+        b=OxdARhrfAakwBSu9QNjVbVO8pFe9McdOzhjIVqSWn6GK3fiWoRNf5bDEi3kxR6NuZV
+         QPOHo2OUXM7n3J4s1XSmEqkGZ/qE1Bf9IWXAo6lQAx4VQCv3aoaUlL3428dbDKsiGQwq
+         F9awkd1LHqnsQ/a7hCe2pBVTgdxNSeeXj49NiHTpbHmmmgeXAXDOB2B4UDvwCmrV/GgM
+         VBqPwEIfjeCeVm4ajh21Khv3fsXsT6pV5a9h18g52JMlLYSI1Q7YHxE/C65cur7IApbC
+         TCIdkBmCFkrSP+66sTCQBC46GjoAhsigCT25jYaT9NUv7ozcSwgJc716PYMudWwpnPuR
+         Snpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713962843; x=1714567643;
+        d=1e100.net; s=20230601; t=1713963107; x=1714567907;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Do+G1o28dB4f8ARBNUu8KljXfD2/2JjMAjx74NZfFXI=;
-        b=oLFINeKBaGcjMbTiHhCODROIVJIUBgT4yf4BdSZ+39/RX0AHAvHWslm9urAb5xQ7rC
-         ZY6wtcBDyLNgbHQZWX00qi3z5WfgEePt/zb58i2qii64AZBIp0pz4/Pe3v0UMCAqSs9p
-         Up+iCXA8ko3doePv1KibJJsySiuEpa8WTvDLZvQETvJFqx2Fb2Xam9oCY04QpEIqlM6f
-         +7bbSXuJ5VNtyFVPGXTyp5xxSZ9aEgI271bigh6vugUKHIKIDmH/qyOmeIM7a6uJwRMS
-         DQEgeYQrldwM+N/AaMPMTadM3AnvZRDHo+KW3NtHIVbKh4XIe0H2sZU980lu6xaHP4Lz
-         x20g==
-X-Forwarded-Encrypted: i=1; AJvYcCVHWzWI5pLc8MKvl1zPAITquPhLJt9OOt+SMXnVoV9St3sDMVRh37FZ9gAG/EK3j/3n+XXCYYCFBwVehdVqHSTfSqs9aYI6aAS6GcgyYdg=
-X-Gm-Message-State: AOJu0YxrYHFBzdxoY9C41xW2h4j38BOecTMX/6hXpoeDkSLVKXCgqTq3
-	vjR88Vh9+VWITtLXMrhz61ZtcDD7Ktf/kctiycuOGgNMWjmsWV//3yK1S1iKJg==
-X-Google-Smtp-Source: AGHT+IEcBRKf869rvsdqVDken4NX1Ld9KMBazs6Jckw5dXl1uYDrqKHgA9d8XQo2ODp4O8FKz56nJw==
-X-Received: by 2002:a5d:6ac6:0:b0:34b:f76:3601 with SMTP id u6-20020a5d6ac6000000b0034b0f763601mr1486492wrw.42.1713962843105;
-        Wed, 24 Apr 2024 05:47:23 -0700 (PDT)
-Message-ID: <86c746d0-b369-4bbb-9510-c18023ff61ab@suse.com>
-Date: Wed, 24 Apr 2024 14:47:21 +0200
+        bh=Eu/SFWKb4KKWc8XYifsnnkB7wr7xZQX95q2t0lUGkQQ=;
+        b=qDgW3EeXd208GNs3CFE5SNpVjD4DkR3n64sVMo5jxvFk0eXfaEAAVFlThxOzs6g0ab
+         /GOxMYtfn44WYZ1jXmK4baY0dYCbwAglD8SoEOimCBprfMEHg18k+3aXWpn4xi9FnZvX
+         Mrp4nzvDSim2CE4QRxEOeTZuMhfJ/JxL6DykimTlbJh7mCYNuF9tL9G0NBuQJFIH9Ie5
+         ioXWOmzLcu0ecAvHGWFIVCmNrBzZrehpZmOlJvpHC08yYoBRtXOd5w8iIKRxCDkuv0Av
+         u/YP0CNKsiTthgFfNYZDAo0IiIaJ9qajk/pGke2rQswkiDcQ0zs/u4+C+Sl+cQ6qyIlS
+         lKVw==
+X-Forwarded-Encrypted: i=1; AJvYcCXb2pCfQZ74m/ZR1ERioca5EhQU3rwnGv3iO3GFDkm1aT3lIqMJX1I1JuaSq6O5E6+DHxwncw0x/Jwd37nUZCnRsK9H1R3PWvUuPInmZgI=
+X-Gm-Message-State: AOJu0YxU7Gx/h3Z0amMg8H+7J658hd5OL4DcEJfsXU+9mpa0rdMu7znf
+	fIhyy2WKDSyABIga+XtYzC0XnM5A31Vj9NhK/tvrGr12ys7KVQM6wxz6KXGxtQ==
+X-Google-Smtp-Source: AGHT+IFgrdOTBL5Ft4+F+EQh9bFvluJMR45rBnLmskFzz6K1KHSHyGtgsiu6+ef8CBl5vCrLfCjs6w==
+X-Received: by 2002:a05:600c:3ba1:b0:418:b9fa:43e9 with SMTP id n33-20020a05600c3ba100b00418b9fa43e9mr2021087wms.29.1713963106771;
+        Wed, 24 Apr 2024 05:51:46 -0700 (PDT)
+Message-ID: <424463bd-2682-4f77-896c-f1d1f47aadc9@suse.com>
+Date: Wed, 24 Apr 2024 14:51:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/2] pci: add suffix 'U' to PCI_CONF_ADDRESS macro.
+Subject: Re: [XEN PATCH 2/2] x86/msr: add suffix 'U' to MSR_AMD_CSTATE_CFG
+ macro.
 Content-Language: en-US
 To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
 Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org, Simone Ballarin <simone.ballarin@bugseng.com>
 References: <cover.1713956723.git.alessandro.zucchelli@bugseng.com>
- <10dc3a59085c801c91551625c036fcc9e5eb4729.1713956723.git.alessandro.zucchelli@bugseng.com>
+ <ec689584e80421d7ffa5b1c0f576ed60b84aeda3.1713956723.git.alessandro.zucchelli@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,7 +113,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <10dc3a59085c801c91551625c036fcc9e5eb4729.1713956723.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <ec689584e80421d7ffa5b1c0f576ed60b84aeda3.1713956723.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -122,24 +123,15 @@ On 24.04.2024 14:11, Alessandro Zucchelli wrote:
 > that are represented in an unsigned type.
 > 
 > No functional change.
-> 
+
+I'm inclined to suggest
+Fixes: 652683e1aeaa ("x86/hvm: address violations of MISRA C:2012 Rule 7.2")
+as that change clearly should have taken care of this already. The line
+changed here is even visible in patch context there.
+
 > Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/x86/x86_64/pci.c
-> +++ b/xen/arch/x86/x86_64/pci.c
-> @@ -9,7 +9,7 @@
->  #include <asm/io.h>
->  
->  #define PCI_CONF_ADDRESS(sbdf, reg) \
-> -    (0x80000000 | ((sbdf).bdf << 8) | ((reg) & ~3))
-> +    (0x80000000U | ((sbdf).bdf << 8) | ((reg) & ~3))
->  
->  uint8_t pci_conf_read8(pci_sbdf_t sbdf, unsigned int reg)
->  {
 
-This is x86'es PCI, so the subject prefix may ant to be "x86/pci:".
-
-Jan
 
