@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A19E8B0870
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 13:40:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711338.1111223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 767A88B0874
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 13:41:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711341.1111235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzayb-0007yR-AQ; Wed, 24 Apr 2024 11:39:49 +0000
+	id 1rzb0E-0000zI-PQ; Wed, 24 Apr 2024 11:41:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711338.1111223; Wed, 24 Apr 2024 11:39:49 +0000
+Received: by outflank-mailman (output) from mailman id 711341.1111235; Wed, 24 Apr 2024 11:41:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzayb-0007wF-7X; Wed, 24 Apr 2024 11:39:49 +0000
-Received: by outflank-mailman (input) for mailman id 711338;
- Wed, 24 Apr 2024 11:39:47 +0000
+	id 1rzb0E-0000w8-MU; Wed, 24 Apr 2024 11:41:30 +0000
+Received: by outflank-mailman (input) for mailman id 711341;
+ Wed, 24 Apr 2024 11:41:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzayZ-0007w9-R9
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 11:39:47 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1rzb0C-0000w2-UM
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 11:41:28 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 58663daa-022f-11ef-b4bb-af5377834399;
- Wed, 24 Apr 2024 13:39:44 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-41af670185fso6414585e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 04:39:44 -0700 (PDT)
+ id 9575c6da-022f-11ef-b4bb-af5377834399;
+ Wed, 24 Apr 2024 13:41:26 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-41a1d2a7b81so4611975e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 04:41:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k41-20020a05600c1ca900b00417e8be070csm23718703wms.9.2024.04.24.04.39.43
+ l6-20020a05600c4f0600b0041a0f3d92c7sm13881885wmq.2.2024.04.24.04.41.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Apr 2024 04:39:43 -0700 (PDT)
+ Wed, 24 Apr 2024 04:41:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58663daa-022f-11ef-b4bb-af5377834399
+X-Inumbo-ID: 9575c6da-022f-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1713958784; x=1714563584; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1713958886; x=1714563686; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=b7KIuCADTkXcjbasYRUoemsQiJhdGyC9MiTNidz7eh4=;
-        b=TPg5dJaSBEC8xQyHqU9eiGFvdRy9D8RE64w1sssuu8lc+7UtzzBCLppflnQ/0Ccsqi
-         VZc/nXg8V5GDjQ9ZFwzVmPqf03OBlGM9m5OYA0HvAiB7gb7k7zWz3jeGwnpSdiAKC539
-         5lkqr+n/T9FUcGlWLNmkgJSTwuTRromrxtOE9iz3yRgH1kzadmG3FkT47jDPe1Sy+el9
-         t7TLfLNmzWOnSWGBE8+vZIbMgJYAlOGjPrrB5CoyW04cjDCc4pGpDAc2a3H2MBoI7NrF
-         xP9FeVbSAZZkvqHGwKzDqRo/H0/iA5PKYnsNrFdlrT30vE8U+SdDd2guyzPFt8oBFm9s
-         P+Ng==
+        bh=cF3eY5/WF6uT7gyBukzgqAMdJzbK2KNdBprWZkkybyk=;
+        b=aLFtwEsUghRK06B65cwZ8vy9r69cw1fGjHfUaD/Edpmsx8SoNLJ29EOZnXJIpgGmnK
+         OgsccsjHLPTriiGGlE5tqPSjFmVkkzo4FOIBmvADT7mjPqytei9cDAQKTNgJrAEpg3aK
+         1HIIF2MASvQ0AVBcpf9NMn9orccmtL9/I3GZQPoGrik2faOmyS21ujgKw53gXoBmAJs3
+         eGHmFEFaBm7VmIfQhJBiB+gdEu9uVNQ7pbxhrKjHhmZvK+sxLOf12HHCljKhh5uOc1a3
+         UM1MFVZpOuw0FyunFagYFMgxLtFhUtE58XAd+w8AZAgE3tKRD3Psh6bzxCbHP88IG2j6
+         zu7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713958784; x=1714563584;
+        d=1e100.net; s=20230601; t=1713958886; x=1714563686;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=b7KIuCADTkXcjbasYRUoemsQiJhdGyC9MiTNidz7eh4=;
-        b=Xc7FnZwZo77bq0N4TWf8mBpSl3s31LMdJ5HmuuWdzfPfJJrMyqnWIjijPkHWJGGobz
-         Do2nOaKk4YhWYCKuJBBNVBAoR3+er8BBy1y+WWh8+UceEF/frbn/HpIbMun472L7LluI
-         h4HaeC6WsCFFN0yn72CnJ5cKmQXihEiDmsDKjOklp3zmapgWBQC1BJO/6P0KgyKfBPgy
-         N92DJPDOfczj4qUD95Rac+TlYzYQusqJsZ3FgtcXVDmr7UeB/iGHVncw8E2+tGH7AYTP
-         3BioD/cfDxdUhkGjYnO/zmXjX9ULI6N14+1pDIc3J+lQgHkueo7GQKllRwRKcxOuHFit
-         BAlg==
-X-Gm-Message-State: AOJu0YyOY4GD8Q1PUyevhbwTMPBknxeajaQ5Q5ERJDY4qIWd2usNCLgx
-	w6q8Zm+A6JiF3shh4YPDpwTRnkvnduZuFeBF4LoYPic6BYVjoqHVKL3BTRAvdw==
-X-Google-Smtp-Source: AGHT+IEJ67o0auzetnAd6o/S6H9AUNUanhe40CAWvEjndw50gD0AOmKwi39HXjBY8k8KbFRyLtS70w==
-X-Received: by 2002:a5d:4288:0:b0:34a:b682:7978 with SMTP id k8-20020a5d4288000000b0034ab6827978mr1486676wrq.42.1713958783808;
-        Wed, 24 Apr 2024 04:39:43 -0700 (PDT)
-Message-ID: <5a1e618d-f149-4dcf-8e50-374c40cb187b@suse.com>
-Date: Wed, 24 Apr 2024 13:39:42 +0200
+        bh=cF3eY5/WF6uT7gyBukzgqAMdJzbK2KNdBprWZkkybyk=;
+        b=rodzQCHm96LDPwnv7dV1sJmLzZ+oD7wwfMYhy9WcYpvhJyL3AKUlDU+wO1G97xztc3
+         KGBj6Hpe1UYBXm8P51KK6VaEH2lNzxohtprr9SgNiiFGpVUCJ2I4EUcuyRSe4dsRUoo+
+         7wumyzzCOoo9NTnzLHCf+Fx33DhHBBJ1sgudsaTpqvXIkh5oz5EGyRd78Rb0mhqmLni0
+         5t8YZOtDZkSnrvIKnAcMPSvECwgLhd4TGddPkJ7a0hzB3gxTV+j92GYcMYi3noprUg6r
+         vENqfkauyWn//kXuZvL0yo1tfpitSBABEmhVmALduqOVnAArncUghhfi6LSs3gAHHxJo
+         cjtA==
+X-Gm-Message-State: AOJu0YwJmdHhVJRoR+mYOAATa5D4Tc1Drk+nOokNcfoKIhU8yVCu25KH
+	ujbruzuQ3g+yBBwgPGMhaWoMQoIgxg084s2N2FXsG6m84FB+hz2vfiyZ3+ZCmHPpEbv703aPhzE
+	=
+X-Google-Smtp-Source: AGHT+IF8V/XwuY82KtBB0nqOAQWL/RsTMhVCyl5FkSF/n1UbX1vub6AwPP66J/2yd2GceaCE/H+qIw==
+X-Received: by 2002:a5d:68c8:0:b0:34b:7074:6848 with SMTP id p8-20020a5d68c8000000b0034b70746848mr3485638wrw.20.1713958886298;
+        Wed, 24 Apr 2024 04:41:26 -0700 (PDT)
+Message-ID: <ea6c1806-e8c3-4c0a-b3ad-a7550b66ba59@suse.com>
+Date: Wed, 24 Apr 2024 13:41:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] x86/P2M: un-indent write_p2m_entry()
+Subject: Re: [PATCH 3/4] x86/paging: vCPU host mode is always set
 Content-Language: en-US
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>
 References: <0d846228-323b-4427-87d1-684c3d0047c5@suse.com>
- <52b4b0d8-1761-45c7-b6e6-91e1c308209c@suse.com> <ZijN9l4crUTi_-LA@macbook>
+ <67805c1f-7187-446c-a5c4-14be8f170f11@suse.com> <ZijSFzOAeo1SfSrb@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,35 +112,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZijN9l4crUTi_-LA@macbook>
+In-Reply-To: <ZijSFzOAeo1SfSrb@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 24.04.2024 11:16, Roger Pau Monné wrote:
-> On Tue, Apr 23, 2024 at 04:32:14PM +0200, Jan Beulich wrote:
->> Drop the inner scope that was left from earlier if/else removal. Take
->> the opportunity and make the paging_unlock() invocation common to
->> success and error paths, though.
+On 24.04.2024 11:34, Roger Pau Monné wrote:
+> On Tue, Apr 23, 2024 at 04:32:32PM +0200, Jan Beulich wrote:
+>> ... thanks to paging_vcpu_init() being part of vCPU creation. Further
+>> if paging is enabled on a domain, it's also guaranteed to be either HAP
+>> or shadow. Drop respective unnecessary (parts of) conditionals.
 > 
-> TBH I'm not sure I prefer the fact to continue function execution
-> after an error is found, I specially dislike that you have to add a
-> !rc check to the nestedhvm conditional block, and because anything
-> that we further add to the function would also need a !rc check.
+> Is there some commit that changed when arch.paging.mode gets set, so
+> that this is actually safe to do now, but not when the code in
+> paging_dump_vcpu_info() was introduced?
 > 
->>
+> I get the feeling we want to reference some change here in order to
+> explain why is now always guaranteed to be set.
+
+I was indeed meaning to, but when I found the same even in 3.2, I stopped
+searching further.
+
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
 > Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Thanks.
-
-> Albeit I do prefer the extra call to paging_unlock() and early return
-> from the function in case of error.
-
-Which puts me in the middle of your preference and the one George voiced
-in the context of what is now cc950c49ae6a ("x86/PoD: tie together P2M
-update and increment of entry count"). Doing the extra adjustment was
-merely in the hope of meeting his desires ...
 
 Jan
 
