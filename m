@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CACF8B0532
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 11:00:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711284.1111125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10F5E8B05DE
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 11:17:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711290.1111134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzYUC-0005af-5i; Wed, 24 Apr 2024 09:00:16 +0000
+	id 1rzYk8-0008Mz-I9; Wed, 24 Apr 2024 09:16:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711284.1111125; Wed, 24 Apr 2024 09:00:16 +0000
+Received: by outflank-mailman (output) from mailman id 711290.1111134; Wed, 24 Apr 2024 09:16:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzYUC-0005XT-2k; Wed, 24 Apr 2024 09:00:16 +0000
-Received: by outflank-mailman (input) for mailman id 711284;
- Wed, 24 Apr 2024 09:00:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzYk8-0008LB-FO; Wed, 24 Apr 2024 09:16:44 +0000
+Received: by outflank-mailman (input) for mailman id 711290;
+ Wed, 24 Apr 2024 09:16:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=S7Hn=L5=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1rzYUB-0005XN-EQ
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 09:00:15 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0e6f48b6-0219-11ef-b4bb-af5377834399;
- Wed, 24 Apr 2024 11:00:12 +0200 (CEST)
-Received: from [192.168.1.11] (host-79-60-221-62.business.telecomitalia.it
- [79.60.221.62])
- by support.bugseng.com (Postfix) with ESMTPSA id 08FEC4EE0739;
- Wed, 24 Apr 2024 11:00:10 +0200 (CEST)
+ <SRS0=RmhA=L5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rzYk6-0008L5-VQ
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 09:16:42 +0000
+Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
+ [2607:f8b0:4864:20::734])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5cb75cb4-021b-11ef-909a-e314d9c70b13;
+ Wed, 24 Apr 2024 11:16:42 +0200 (CEST)
+Received: by mail-qk1-x734.google.com with SMTP id
+ af79cd13be357-78edc0f9636so415763485a.2
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 02:16:42 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ c13-20020ae9e20d000000b0078efd245e09sm5965379qkc.79.2024.04.24.02.16.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Apr 2024 02:16:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,77 +44,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e6f48b6-0219-11ef-b4bb-af5377834399
-Message-ID: <70252c73-e93b-4006-8acd-1e760db5aab7@bugseng.com>
-Date: Wed, 24 Apr 2024 11:00:10 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] automation/eclair: add deviations for MISRA C:2012
- Rule 16.4
+X-Inumbo-ID: 5cb75cb4-021b-11ef-909a-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1713950201; x=1714555001; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=fmBFVNFS5QwY0jqVgvB9uI5zfjJArolBDLxbcixrvEA=;
+        b=shhgG0zeLoqNPfO1scZLbjj9ZoPMwZk2NI/BwEJDcrsFtvx/4QMjesU1q6G/iBzIkL
+         k0d15sSfZlpu7riut07k1UES2aFYVpLOBt3dFiU7Vv7D9/uXBPrDA4lG2+pf1NSr8rVi
+         45X2YcxrxwWZ6GEBn9e0oq8Ur+0ywnkUjeHVk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713950201; x=1714555001;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fmBFVNFS5QwY0jqVgvB9uI5zfjJArolBDLxbcixrvEA=;
+        b=iNvs1cA9RNAmL1DobN2ONb2y2UoS7u2r8JaUdxzfiuxN2L8+ICIDK+Hu7seySeB9L8
+         O0ZxMLxV+vLp7ejAbbeWgJFbt+ENqnEmX1U4dbAkJxI5IOPvWpzKaKJK2DQb28dmEklk
+         mggFAEuQeM5UVFoXvI9gx5DE2AAAKu1Duxvkbv6WjUWfGYYeUwmfinEaUive014qMg2F
+         McQ/WGwZZLMSfjg/khde/0Jbb3+m+TJ3vdcAkaW90T7mJ20wRS79NJatG1yTdX0+xG83
+         kLB0g0A0qgLiU1TO2VR4U3XLDiW78m2bobOPvDX13272CIYWh/TCrzVmo/9zKm5oadj7
+         JykA==
+X-Gm-Message-State: AOJu0YzVwMzoy+1s5RfCsFiJnf+vfDI9YyPzGdT35TuLYdZRFiseoBHd
+	dCnMoKLYusWhPZzVdeJcMYW1H2To5wlSUHNzEXIe7aXg9Jmric5Py0ziAPYu7jA=
+X-Google-Smtp-Source: AGHT+IFsmYBvP7VVNNXyTOtSzhTnKHI/3leAe8E2bHFvn6KtpDSyZDD+b6aWMhugPjE6ExJrvaBaNA==
+X-Received: by 2002:a05:620a:e8e:b0:790:86da:a9b1 with SMTP id w14-20020a05620a0e8e00b0079086daa9b1mr1979842qkm.63.1713950200987;
+        Wed, 24 Apr 2024 02:16:40 -0700 (PDT)
+Date: Wed, 24 Apr 2024 11:16:38 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <310e1dac8ecf2a85f1c552dbdad9093b1cfdcb98.1713946892.git.federico.serafini@bugseng.com>
- <891c21cf-695a-4b1d-b10b-53f23199380f@suse.com>
-Content-Language: en-US, it
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG
-In-Reply-To: <891c21cf-695a-4b1d-b10b-53f23199380f@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>
+Subject: Re: [PATCH 2/4] x86/P2M: un-indent write_p2m_entry()
+Message-ID: <ZijN9l4crUTi_-LA@macbook>
+References: <0d846228-323b-4427-87d1-684c3d0047c5@suse.com>
+ <52b4b0d8-1761-45c7-b6e6-91e1c308209c@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <52b4b0d8-1761-45c7-b6e6-91e1c308209c@suse.com>
 
-On 24/04/24 10:30, Jan Beulich wrote:
-> On 24.04.2024 10:25, Federico Serafini wrote:
->> Update ECLAIR configuration to take into account the deviations
->> agreed during MISRA meetings for Rule 16.4.
->>
->> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->> ---
->>   automation/eclair_analysis/ECLAIR/deviations.ecl |  8 ++++++++
->>   docs/misra/deviations.rst                        | 13 +++++++++++++
->>   2 files changed, 21 insertions(+)
->>
+On Tue, Apr 23, 2024 at 04:32:14PM +0200, Jan Beulich wrote:
+> Drop the inner scope that was left from earlier if/else removal. Take
+> the opportunity and make the paging_unlock() invocation common to
+> success and error paths, though.
+
+TBH I'm not sure I prefer the fact to continue function execution
+after an error is found, I specially dislike that you have to add a
+!rc check to the nestedhvm conditional block, and because anything
+that we further add to the function would also need a !rc check.
+
 > 
-> So what has changed here from v1? It looks all the same to me, with it still
-> remaining unclear what exactly ...
-> 
->> --- a/docs/misra/deviations.rst
->> +++ b/docs/misra/deviations.rst
->> @@ -334,6 +334,19 @@ Deviations related to MISRA C:2012 Rules:
->>            - /\* Fallthrough \*/
->>            - /\* Fallthrough. \*/
->>   
->> +   * - R16.4
->> +     - Switch statements having a controlling expression of enum type
->> +       deliberately do not have a default case: gcc -Wall enables -Wswitch
->> +       which warns (and breaks the build as we use -Werror) if one of the enum
->> +       labels is missing from the switch.
->> +     - Tagged as `deliberate` for ECLAIR.
->> +
->> +   * - R16.4
->> +     - A switch statement with a single switch clause and no default label may
->> +       be used in place of an equivalent if statement if it is considered to
->> +       improve readability.
->> +     - Tagged as `deliberate` for ECLAIR.
->> +
->>      * - R16.6
->>        - A switch statement with a single switch clause and no default label may
->>          be used in place of an equivalent if statement if it is considered to
-> 
-> ... a "switch clause" is.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-I would define a switch clause as:
-"the non-empy list of statements which follows a non-empty list of
-case/default labels".
-If you agree, I will place it near the occurrences of the term
-"switch clause".
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
--- 
-Federico Serafini, M.Sc.
+Albeit I do prefer the extra call to paging_unlock() and early return
+from the function in case of error.
 
-Software Engineer, BUGSENG (http://bugseng.com)
+Thanks, Roger.
 
