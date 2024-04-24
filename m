@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1BD18AFFCD
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 05:36:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711032.1110709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EC328AFFF2
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 05:44:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711059.1110758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzTQc-0005wT-NF; Wed, 24 Apr 2024 03:36:14 +0000
+	id 1rzTY8-0001vI-VY; Wed, 24 Apr 2024 03:44:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711032.1110709; Wed, 24 Apr 2024 03:36:14 +0000
+Received: by outflank-mailman (output) from mailman id 711059.1110758; Wed, 24 Apr 2024 03:44:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzTQc-0005tI-HX; Wed, 24 Apr 2024 03:36:14 +0000
-Received: by outflank-mailman (input) for mailman id 711032;
- Wed, 24 Apr 2024 03:36:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzTY8-0001qw-Pb; Wed, 24 Apr 2024 03:44:00 +0000
+Received: by outflank-mailman (input) for mailman id 711059;
+ Wed, 24 Apr 2024 03:43:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Z4K=L5=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1rzTQa-0002In-K5
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 03:36:12 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20600.outbound.protection.outlook.com
- [2a01:111:f403:2415::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cb071d83-01eb-11ef-b4bb-af5377834399;
- Wed, 24 Apr 2024 05:36:10 +0200 (CEST)
-Received: from MN2PR12CA0008.namprd12.prod.outlook.com (2603:10b6:208:a8::21)
- by MN0PR12MB6054.namprd12.prod.outlook.com (2603:10b6:208:3ce::20)
+ id 1rzTQe-0003iy-1c
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 03:36:16 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2009::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cce739cd-01eb-11ef-909a-e314d9c70b13;
+ Wed, 24 Apr 2024 05:36:15 +0200 (CEST)
+Received: from MN2PR07CA0004.namprd07.prod.outlook.com (2603:10b6:208:1a0::14)
+ by PH7PR12MB6492.namprd12.prod.outlook.com (2603:10b6:510:1f3::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.44; Wed, 24 Apr
- 2024 03:36:05 +0000
-Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
- (2603:10b6:208:a8:cafe::5a) by MN2PR12CA0008.outlook.office365.com
- (2603:10b6:208:a8::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.33 via Frontend
- Transport; Wed, 24 Apr 2024 03:36:05 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.22; Wed, 24 Apr
+ 2024 03:36:10 +0000
+Received: from BL6PEPF0001AB78.namprd02.prod.outlook.com
+ (2603:10b6:208:1a0:cafe::33) by MN2PR07CA0004.outlook.office365.com
+ (2603:10b6:208:1a0::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.34 via Frontend
+ Transport; Wed, 24 Apr 2024 03:36:09 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL6PEPF0001AB78.mail.protection.outlook.com (10.167.242.171) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7519.19 via Frontend Transport; Wed, 24 Apr 2024 03:36:05 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7519.19 via Frontend Transport; Wed, 24 Apr 2024 03:36:09 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 23 Apr
- 2024 22:36:04 -0500
+ 2024 22:36:06 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 23 Apr
- 2024 20:36:04 -0700
+ 2024 20:36:06 -0700
 Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 23 Apr 2024 22:36:02 -0500
+ Transport; Tue, 23 Apr 2024 22:36:05 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,37 +63,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb071d83-01eb-11ef-b4bb-af5377834399
+X-Inumbo-ID: cce739cd-01eb-11ef-909a-e314d9c70b13
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j8nhVp3kknyf4echTk6sdYRC0gg6JdtjV5ydZsD+Pop2qIUQeXpBUH2baBogEOBVA3Dfbl5leTceRmzP+7k0Cfng6vA7hRPJqSS+0JWzXlrWjGd6dHH9JaxXLfMqQINM3XwcA4JZ8BqYhonvDj1lFXqamG8I5jmQyvnh4iywSIhsG+L0m5VTcbiOEjWPfIffROvQfa7FRsTB2NYGWZqJEXWMJh8jxztGVRqzU26iDtCDskJN34gpUVLdaiPDtz0OMkq6vNrqQANa7U0qQj/Y1f21JmAUq55R5XwZcaoRZMcoGL0qgWbY1st3lsyayZUHyfIWOvynA/Y2twGK7lkEaw==
+ b=m4Y8Do8PJ0gFHTwaKOnk631MUVzOH5f7+coDhnlY/oqNY0Ei/9dEVuyVi3unJ72yXGtB1cO/9VfbIOo1YP/EZAD99LN8VCZz9buxPtDCbjLM4QorILWbpTeb9uA8giZxf/PmgZL9n7vMLFGqFCuc2eNU8ApkKc79vgmtctoPMEyzNoDg1gVY5hyk065gI7AgeBPgW7v96llRQkK9aXnBJGi6SqxYheZZrzrqq1tX2kdnJQMB2Yu5wTrEn8hfOIKYtByHea96ifrpmSrf3rXHHsr4gJECLTPbSPOPdV7Zf/TimiwJZqmPnFxxAofXCllYdHdHY+/UDI5pC6cLJTbAiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zlEz8Qbz/UMaWUU/jaiTmBDD/wiyD0++iaf2udSkHFg=;
- b=WOnZvSv3PaiiQpwUiupW94vZJKTvUqD/eDO5UjBddeWMCo/zv2x+ACpNqXg0+0qxP6Q4bWtlKeBzWqhORvfiY1D4q36CvqLQ9Q6OyVWkPHx9mXBeGsjVDJtQt7l+1ijAcUy8n5i3KUKn3FSuMTcNJ16qACctIpdARoHzCCFy+A2YbQbcDnNdJG381EkOdWUkQG/UPm37y4HG2qhfFqGdbzaba6aztn/dkf/y66b1yorn1Yp7PEAnDZKT5Sv/UQbNxLq1aAwtHwigRvG4w0kUKqTjtN1Dipn39wPLuA9A4qj7nMjiBpAtjru9kbTza/0uNPt+UeVIr2Gt5Glfp2ACog==
+ bh=fGHzXleFvzlwnXmUM43m2CIMguyeDmKkEqOTHA8C5K0=;
+ b=Z8x+RI/6hyZDgv1zoU/Jkbcm+3BctGJNn5fsfbpfp0RAczxS6omKECunZR6jfvEXExFEdoYkDv/JV5Fb8zB+022yVvlK4KSWWVhagbAhjI4LbApIXVyE4zo+zuLpE9iwDkrs4+Qkxl5ACojFikbFeyyUI3tWH3Ed9oXdQ3M/Ip0exf5enLDpEACmlgfeHvh0E0CZZEmppVOi6knFyogGgpe+m8MNnyqIQ2qgcjnAxPZOwYaY5TEDWbiUyIeFIEy5H4mHltrbJN01P9o8ryZL9tm+3LwkozAY4K8hsjAiYJemYt46fMKMhQ6asvnqA9qyKVFchtv2/dJ24jR40zqIVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zlEz8Qbz/UMaWUU/jaiTmBDD/wiyD0++iaf2udSkHFg=;
- b=IbHyBjeH1aG91WhymMQQHPWlhiAzsbyNeAfoA94TaRzXFSdUnzErh8nw6hb29YzHivz7QdWw5jzSvpAzKwP4jcIBZW2V8FrNSAMvb17CDTbkNtjF83n6rh2bHupfOLCGWKIM/YWdIjWZOv8Me5RqIgN50o9d0B351Y/v/OTEedE=
+ bh=fGHzXleFvzlwnXmUM43m2CIMguyeDmKkEqOTHA8C5K0=;
+ b=27/mfB22zp2YcUf41E90IeUhIAyNZ2Rap5RnuvZIdVyWA5OY+VCTtgBdA+oVvydZjwWXBp9MAmm11ChgD5wLtCOLzD1/XNhX03zGkpyyh6y2ZJRW2atn5gOn74X7HGfOGV1t87T4F2He8IqWScIGK5SqZ41gKf5ECOEyUACC4E8=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Henry Wang <xin.wang2@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Vikram Garhwal <fnu.vikram@xilinx.com>, Anthony PERARD
-	<anthony.perard@citrix.com>, Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>, Henry Wang
-	<xin.wang2@amd.com>
-Subject: [PATCH 10/15] tools/xl: Share overlay with domU
-Date: Wed, 24 Apr 2024 11:34:44 +0800
-Message-ID: <20240424033449.168398-11-xin.wang2@amd.com>
+	<anthony.perard@citrix.com>, Stefano Stabellini
+	<stefano.stabellini@xilinx.com>, Henry Wang <xin.wang2@amd.com>
+Subject: [PATCH 11/15] tools/helpers: Add get_overlay
+Date: Wed, 24 Apr 2024 11:34:45 +0800
+Message-ID: <20240424033449.168398-12-xin.wang2@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240424033449.168398-1-xin.wang2@amd.com>
 References: <20240424033449.168398-1-xin.wang2@amd.com>
@@ -102,146 +101,230 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|MN0PR12MB6054:EE_
-X-MS-Office365-Filtering-Correlation-Id: 651dd3f1-484e-409f-7b9d-08dc640fac09
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB78:EE_|PH7PR12MB6492:EE_
+X-MS-Office365-Filtering-Correlation-Id: fbce0043-a436-4641-53cf-08dc640fae9a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|36860700004|376005|82310400014|1800799015;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?TGA3dNGoVRuoqr2bB74CDMTC3H/FjOKwXAdM0KjLpp3TYK2bBucumLoW4/rf?=
- =?us-ascii?Q?coAQkIjx33fA540XV0REnp8zF3kyxHq8qU5doepJtONQM8KMy780enBwZt13?=
- =?us-ascii?Q?Wi+iDpB7iim1m3Vky1IuLbnewzWzP4bwcTlPM3bE6ortjH2ddoRXPu3WUIIt?=
- =?us-ascii?Q?hoKdo6GPFypcaYOkYLnOOcTX72V0CiSrE9u6v31U34W1clqSHOFpYd4RD7Xi?=
- =?us-ascii?Q?899Td5TNKNra0nGgblbr1S7ymY4gzuar+zaFtgZuxOGKU3UVompkOObADegc?=
- =?us-ascii?Q?q+yAA8G1mWwr9lvZAIt9hHpBuXT5VfwInpG5TnllEhGIG9E0fG29QQdPi8Ld?=
- =?us-ascii?Q?azdGLP7s5ONnqJqm81c3fTAWVQhc8mbNAjXfU9ML7WMSaPn8YUawihltw3Da?=
- =?us-ascii?Q?UayPEpoFaCgMYvMA26aOl0I+Sd8Ha/8APUc+ZqK8JdWknFCj6uvraAXow0gM?=
- =?us-ascii?Q?bS2nyHbVEAKQOvk2lY7HDJHZUj15GJjCPpZow7U7uLLMV/vkzrGPs9JuW9AD?=
- =?us-ascii?Q?flx4iJ3+yR95+5JOUbs52nORPIq0fwvrXoJbNLJ1r64EVN5IoM+MU6hL+14a?=
- =?us-ascii?Q?VP7aLSYCjvjFKGBblkS2X4SOjcPV4bZstzlDuF+iRjV154AucXTgoyheeXHM?=
- =?us-ascii?Q?roTFMmFLztUAeAZWtV8yQAuHq5uemL0ZJHIlXMlNvq+xmnBmpJUzO9XU1skv?=
- =?us-ascii?Q?4Cg7rofTjssxy78eowUmMkCHqBhg+5syrutgGtG3IJShiMnzgyszgp4kmWXm?=
- =?us-ascii?Q?e9EU/Q2dNxwVeTB3gbGGnsd9ndhO8FO2vwf2NVM37uxnwCSgSuFkGZ87RybH?=
- =?us-ascii?Q?UjFXjuqqc963H7gob6lRYmdpxKRAC5akcYwkAV3li1FbpsZs8Bw9OyfQNft1?=
- =?us-ascii?Q?jx+o/FTEdAXNpVnLcoRoWrPw0OT8caPVtLu6m7rbgLXkJU3tWSGRKSQECoHL?=
- =?us-ascii?Q?QjA7t+wHtzTxfga7yq9qbaAugbvaCR49XQWzgmuMPJ+ktpy5DEls3x6dJyh9?=
- =?us-ascii?Q?y4xbCFnJr5XDHobweE6DL51yM0mABjpblshQ/q/CRP31DOlEo49kvv6rSsgW?=
- =?us-ascii?Q?pqsdWZjhPS4Yv+9Ux0GXc2uUUQ4/uHWtFb0BdoP2Ikpnqa3SlHI158X3BRrJ?=
- =?us-ascii?Q?x7200IaNY9P5b5CXhOvJj56BateJobmnKT+IxF6Nw5xVW5MRlr+RaO5ziz1m?=
- =?us-ascii?Q?onDlXM/rqWDu7Ixm1gwVsUjAhGEBd5Z7tKJ3eVZhFm6gGRkPV6c3YVT69oq7?=
- =?us-ascii?Q?GLXJ5RTLCm0KKDsBhwpIFMlz12KHHbgsIAKBhNQu+F5+Yacw0jYKxnQ4yp0t?=
- =?us-ascii?Q?NjMkVAcS6s8+rge63mYFN+iSUcsfKLwTFSLQgZB5I1uptKMzIc5aXC8/IcGb?=
- =?us-ascii?Q?DYl3wZdrCGFCqWQTio7vb5qOoQ+T?=
+	=?us-ascii?Q?W/h1q+75M1kl1T8hCqlGvm+4UyBWUPEj3XbKLJWRKrFVcBujWIAWwvAsi/xY?=
+ =?us-ascii?Q?0SeqQYDNNLLCMy406lk2QGhVRfPPe2LGm9teeE2hNaYoOnZlYA0lBcw7YfIL?=
+ =?us-ascii?Q?04BIO31VkIwGNttD23qvcmABd9IlrMzrMknGvQ+lLsel1744PnbRT7CVhmTE?=
+ =?us-ascii?Q?4exLbjHtXnmx/nl/jAmktl6k5qIvONL4R0PLp08cO+KsB++XYj2Ea7MeI7ly?=
+ =?us-ascii?Q?KKaHYpOUwYpUa+hitPATDsoHP44ipj3UxveOroFvtGOkOonvtuNJ/tN2gJi8?=
+ =?us-ascii?Q?xeT/AvEBc113Nuj5A8f1HXnL+uz4htJEU7uKuXbXV5AxOiDK4h/0rJ5yCJgO?=
+ =?us-ascii?Q?mLMNFXzWtkqDT9GM7XVoeIRfJTXdT99eJQnTog5dq15OGN92g5xd9z4qzvnZ?=
+ =?us-ascii?Q?csYk8+04bHMHmIlAZIqFHzRDNJSJ3mMwh4HHRxdwml28Y+vHunC7YW1M9gIo?=
+ =?us-ascii?Q?EXDcUaeYBLmQ7Syd6Jkjz+2+uOjQOYciLsG7YVdhB01tobbl6Xjxwee6TJVu?=
+ =?us-ascii?Q?aXeGtg6anH0d+GwTMK2uKkjyZfDfsy4+P1OQcDjAUupyJY6m+jyrdkt36Y0G?=
+ =?us-ascii?Q?Jlw1UYaeuJZIcKcK3AstB4XebOBm8Tvgt1cdLdiUNRne9+loFzycDhtH6MzZ?=
+ =?us-ascii?Q?XTG+JOVXXd+nlZv3aoXQt3bUVR6HXz5abUx4phirIaIHDklpEyIPqxw/IvMh?=
+ =?us-ascii?Q?NqxXfVBPy3cQ4QJKWW5onlbN0N+BNcDCDCkRMDViYtC5y1sTnoqrFIIS8l+E?=
+ =?us-ascii?Q?nG1oWRnVrPdNKgQGQ5ERSA/X4BenYWdlJ58yQNldAoe44xYp2gyDp7O0MYUg?=
+ =?us-ascii?Q?ZPxZMF7W+oHmijF/mIEd2AyhV0BznPjZaYkcpHuxvB+NKc2YvDbZEe3O+oWx?=
+ =?us-ascii?Q?BFS/QNWswFD5x9wDfcxNalQ6JJaGUZpBLmleZgkHVMnNv7phM0xL+MThJLla?=
+ =?us-ascii?Q?I25Kd3An77odv4eRh4uu3G1ITHXTG7KqFiLzq7MxZRPKL6P4UJ72S/VyZ5kG?=
+ =?us-ascii?Q?nDNH+DWpghTEhu1GdWgGIpj49Idu2EMU7HpU7u01ZD4Hhtzjnhb5ZvjvCB1+?=
+ =?us-ascii?Q?b85OWBEFipqHu4810mv1x72N/6C4oYGrDPqHAlvYaQFPvdu6CHW8pF5ExyUO?=
+ =?us-ascii?Q?bTueSve+gliJ5XdDEMY6W4s4v8mWilqIuPkt2yowFCeo/6Dx5OaKzj4u7BrV?=
+ =?us-ascii?Q?G0a6jd62ZQG61yIueOiux7xesu/hoHQRnkBO1xgJOdZazKnTrUHEFg1ttwQO?=
+ =?us-ascii?Q?bq0APEv8UBfsouzPaLAAtOxVaaNJY7uszZesQZWH8Zfn2iaaWx75ZxiuOAUL?=
+ =?us-ascii?Q?ABupNZWifq9nvFxgL0lvJoSw9YNJS64LazxW3T9fpZdjkbYtoTrBeWp3HTWl?=
+ =?us-ascii?Q?BpUIdPw=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(36860700004)(1800799015)(376005);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(376005)(82310400014)(1800799015);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2024 03:36:05.2888
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2024 03:36:09.5935
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 651dd3f1-484e-409f-7b9d-08dc640fac09
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbce0043-a436-4641-53cf-08dc640fae9a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD9.namprd02.prod.outlook.com
+	BL6PEPF0001AB78.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6054
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6492
 
 From: Vikram Garhwal <fnu.vikram@xilinx.com>
 
-Add domid to enable assigning the node to a running VMs.
-
-Add expert mode option to share the overlay dtbo with domU. In this mode dom0
-communicates with domid domain to share the overlay dtbo. This is done via
-xenstore.
+This user level application copies the overlay dtbo shared by dom0 while doing
+overlay node assignment operation. It uses xenstore to communicate with dom0.
+More information on the protocol is writtien in docs/misc/overlay.txt file.
 
 Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 Signed-off-by: Henry Wang <xin.wang2@amd.com>
 ---
- tools/xl/Makefile       |   2 +-
- tools/xl/xl_cmdtable.c  |   2 +-
- tools/xl/xl_vmcontrol.c | 343 +++++++++++++++++++++++++++++++++++++++-
- 3 files changed, 342 insertions(+), 5 deletions(-)
+ tools/helpers/Makefile      |   8 +
+ tools/helpers/get_overlay.c | 393 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 401 insertions(+)
+ create mode 100644 tools/helpers/get_overlay.c
 
-diff --git a/tools/xl/Makefile b/tools/xl/Makefile
-index d742e96a5b..122dfb9346 100644
---- a/tools/xl/Makefile
-+++ b/tools/xl/Makefile
-@@ -32,7 +32,7 @@ $(XL_OBJS): CFLAGS += -include $(XEN_ROOT)/tools/config.h # libxl_json.h needs i
- all: xl
+diff --git a/tools/helpers/Makefile b/tools/helpers/Makefile
+index 09590eb5b6..dfe17ef269 100644
+--- a/tools/helpers/Makefile
++++ b/tools/helpers/Makefile
+@@ -12,6 +12,7 @@ TARGETS += init-xenstore-domain
+ endif
+ ifeq ($(CONFIG_ARM),y)
+ TARGETS += init-dom0less
++TARGETS += get_overlay
+ endif
+ endif
  
- xl: $(XL_OBJS)
--	$(CC) $(LDFLAGS) -o $@ $(XL_OBJS) $(LDLIBS_libxenutil) $(LDLIBS_libxenlight) $(LDLIBS_libxentoollog) -lyajl $(APPEND_LDFLAGS)
-+	$(CC) $(LDFLAGS) -o $@ $(XL_OBJS) $(LDLIBS_libxenutil) $(LDLIBS_libxenlight) $(LDLIBS_libxentoollog) $(LDLIBS_libxenstore) $(LDLIBS_libxengnttab) -lyajl $(APPEND_LDFLAGS)
+@@ -39,6 +40,9 @@ $(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenctrl)
+ $(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenevtchn)
+ init-dom0less: LDLIBS += $(call xenlibs-ldlibs,ctrl evtchn toollog store light guest foreignmemory)
  
++SHARE_OVERLAY_OBJS = get_overlay.o
++$(SHARE_OVERLAY_OBJS): CFLAGS += $(CFLAGS_libxengnttab) $(CFLAGS_libxenstore) $(CFLAGS_libxenctrl)
++
+ .PHONY: all
+ all: $(TARGETS)
+ 
+@@ -51,6 +55,10 @@ init-xenstore-domain: $(INIT_XENSTORE_DOMAIN_OBJS)
+ init-dom0less: $(INIT_DOM0LESS_OBJS)
+ 	$(CC) $(LDFLAGS) -o $@ $(INIT_DOM0LESS_OBJS) $(LDLIBS) $(APPEND_LDFLAGS)
+ 
++get_overlay: $(SHARE_OVERLAY_OBJS)
++	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenvchan) $(LDLIBS_libxenstore) $(LDLIBS_libxenctrl) $(LDLIBS_libxengnttab) $(APPEND_LDFLAGS)
++
++
  .PHONY: install
  install: all
-diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-index 62bdb2aeaa..2531e8517b 100644
---- a/tools/xl/xl_cmdtable.c
-+++ b/tools/xl/xl_cmdtable.c
-@@ -635,7 +635,7 @@ const struct cmd_spec cmd_table[] = {
-     { "dt-overlay",
-       &main_dt_overlay, 0, 1,
-       "Add/Remove a device tree overlay",
--      "add/remove <.dtbo>"
-+      "add/remove <.dtbo> domain_id -e[expert_mode]",
-       "-h print this help\n"
-     },
- #endif
-diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-index 9674383ec3..2bf76dd389 100644
---- a/tools/xl/xl_vmcontrol.c
-+++ b/tools/xl/xl_vmcontrol.c
-@@ -16,6 +16,7 @@
- #include <inttypes.h>
- #include <limits.h>
- #include <stdlib.h>
-+#include <sys/mman.h>
- #include <sys/stat.h>
- #include <sys/types.h>
- #include <sys/utsname.h>
-@@ -29,6 +30,8 @@
- #include "xl.h"
- #include "xl_utils.h"
- #include "xl_parse.h"
+ 	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
+diff --git a/tools/helpers/get_overlay.c b/tools/helpers/get_overlay.c
+new file mode 100644
+index 0000000000..ca3007570e
+--- /dev/null
++++ b/tools/helpers/get_overlay.c
+@@ -0,0 +1,393 @@
++#include <stdlib.h>
++#include <stdio.h>
++#include <string.h>
++#include <unistd.h>
++#include <fcntl.h>
++#include <errno.h>
++#include <limits.h>
++#include <sys/stat.h>
++#include <fcntl.h>
 +#include <xenstore.h>
++#include <libxenvchan.h>
 +#include <xengnttab.h>
- 
- static int fd_lock = -1;
- 
-@@ -1266,6 +1269,335 @@ int main_create(int argc, char **argv)
- }
- 
- #ifdef LIBXL_HAVE_DT_OVERLAY
-+static int copy_overlay_to_domU(uint32_t domain_id, void *overlay_dt_domU,
-+                                uint32_t overlay_dt_size, uint32_t *grant_ref,
-+                                uint32_t num_pages)
++
++#define PAGE_SIZE 4096
++
++static int xs_create_overlay_node(int domain, const char *xs_base,
++                                  struct xs_handle *xs)
 +{
-+    void *buffer = NULL;
-+    xengnttab_handle *gnttab = xengnttab_open(NULL, 0);
++    int ret = -1;
++    struct xs_permissions perms[2];
++    char buf[64];
++    char ref[16];
++    char *domid_str = NULL;
++    int overlay_size = 0;
 +
-+    if (!gnttab) {
-+        fprintf(stderr,"opening gnttab failed for domain %d\n", domain_id);
-+        return -1;
++    xs_transaction_t xs_trans = XBT_NULL;
++
++    domid_str = xs_read(xs, XBT_NULL, "domid", NULL);
++
++    if (!domid_str)
++        return ret;
++
++    /* owner domain is us */
++    perms[0].id = atoi(domid_str);
++    /* permissions for domains not listed = none. */
++    perms[0].perms = XS_PERM_NONE;
++    /* other domains i.e. domain provided by user gets r/w permissions. */
++    perms[1].id = domain;
++    perms[1].perms =  XS_PERM_READ | XS_PERM_WRITE;
++
++retry_transaction:
++
++    xs_trans = xs_transaction_start(xs);
++    if (!xs_trans)
++        goto fail_xs_transaction;
++
++    /* Create overlay-size node. */
++    snprintf(ref, sizeof(ref), "%d", overlay_size);
++    snprintf(buf, sizeof(buf), "%s/overlay-size", xs_base);
++
++    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
++        goto fail_xs_transaction;
++    if (!xs_set_permissions(xs, xs_trans, buf, perms, 2))
++        goto fail_xs_transaction;
++
++    /* Create domU status node. */
++    snprintf(ref, sizeof(ref), "%s", "waiting");
++    snprintf(buf, sizeof(buf), "%s/receiver-status", xs_base);
++
++    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
++        goto fail_xs_transaction;
++    if (!xs_set_permissions(xs, xs_trans, buf, perms, 2))
++        goto fail_xs_transaction;
++
++    /* Create dom0 status node. */
++    snprintf(ref, sizeof(ref), "%s", "not_ready");
++    snprintf(buf, sizeof(buf), "%s/sender-status", xs_base);
++
++    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
++        goto fail_xs_transaction;
++    if (!xs_set_permissions(xs, xs_trans, buf, perms, 2))
++        goto fail_xs_transaction;
++
++    if (!xs_transaction_end(xs, xs_trans, 0)) {
++        if (errno == EAGAIN)
++            goto retry_transaction;
++        else
++            goto fail_xs_transaction;
++    } else
++        ret = 0;
++
++fail_xs_transaction:
++    free(domid_str);
++
++    return ret;
++}
++
++static int get_overlay_size(struct xs_handle *xs, int domain,
++                            const char *xs_path)
++{
++    char buf[128];
++    char *ref;
++    unsigned int len;
++    int dt_size = 0;
++
++    snprintf(buf, sizeof(buf), "%s/overlay-size", xs_path);
++
++    ref = xs_read(xs, XBT_NULL, buf, &len);
++
++    if (!ref)
++        return dt_size;
++
++    dt_size = atoi(ref);
++
++    free(ref);
++
++    return dt_size;
++}
++
++static uint32_t get_num_pages(int dtbo_size)
++{
++    int num_pages = 1;
++
++    while (dtbo_size > PAGE_SIZE) {
++        dtbo_size = dtbo_size - PAGE_SIZE;
++        num_pages++;
 +    }
 +
-+    buffer = xengnttab_map_domain_grant_refs(gnttab, num_pages, domain_id,
-+                                             grant_ref, PROT_READ|PROT_WRITE);
++    return num_pages;
++}
 +
-+    if (buffer == NULL) {
-+        fprintf(stderr, "Getting the buffer failed for grant_refs\n");
-+
-+        return -1;
-+    }
-+
-+    /* buffer is contiguous allocated. */
-+    memcpy(buffer, overlay_dt_domU, overlay_dt_size);
-+
-+    xengnttab_unmap(gnttab, buffer, num_pages);
-+
-+    return 0;
++static void *create_shared_buffer(int domain, uint32_t *refs, uint32_t pages,
++                                  xengntshr_handle *gntshr)
++{
++    return xengntshr_share_pages(gntshr, domain, pages, refs, 1);
 +}
 +
 +static bool wait_for_status(struct xs_handle *xs, int fd, char *status_path,
@@ -292,35 +375,61 @@ index 9674383ec3..2bf76dd389 100644
 +    return ret;
 +}
 +
-+static bool write_overlay_size(struct xs_handle *xs, uint32_t overlay_size,
-+                               char *path)
++static bool write_page_ref(struct xs_handle *xs, uint32_t *page_ref,
++                           uint32_t num_pages, char *path)
 +{
 +    xs_transaction_t xs_trans = XBT_NULL;
 +    char buf[128];
-+    char ref[16];
++    char *ref = NULL;
++    char tmp[16];
++    int i = 0;
++    bool rc = false;
++
++    /* Caller will free this. */
++    ref = (char *)calloc(num_pages * 16, sizeof(char)); /* For each number. */
++    if (ref == NULL) {
++        fprintf(stderr, "Memory calloc for ref failed\n");
++        return rc;
++    }
 +
 +retry_transaction:
 +    xs_trans = xs_transaction_start(xs);
 +    if (!xs_trans)
-+        return false;
++        goto out;
 +
-+    snprintf(ref, sizeof(ref), "%u", overlay_size);
-+    snprintf(buf, sizeof(buf), "%s/overlay-size", path);
++    for (i = 0; i < num_pages; i++) {
++        snprintf(tmp, sizeof(tmp), "%d,", page_ref[i]);
++        strcat(ref, tmp);
++    }
++
++    snprintf(buf, sizeof(buf), "%s/page-ref", path);
 +
 +    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
-+        return false;
++        goto out;
++
++    snprintf(buf, sizeof(buf), "%s/num-pages", path);
++    snprintf(tmp, sizeof(tmp), "%u", num_pages);
++    if (!xs_write(xs, xs_trans, buf, tmp, strlen(tmp)))
++        goto out;
 +
 +    if (!xs_transaction_end(xs, xs_trans, 0)) {
 +        if (errno == EAGAIN)
 +            goto retry_transaction;
 +        else
-+            return false;
++            goto out;
 +    }
 +
-+    return true;
++    rc = true;
++
++out:
++    if (ref)
++        free(ref);
++
++    return rc;
 +}
 +
-+static bool write_status(struct xs_handle *xs, char *status, char *status_path)
++static bool write_status(struct xs_handle *xs, const char *status,
++                         const char *status_path)
 +{
 +    xs_transaction_t xs_trans = XBT_NULL;
 +
@@ -342,231 +451,148 @@ index 9674383ec3..2bf76dd389 100644
 +    return true;
 +}
 +
-+static uint32_t *get_page_ref(struct xs_handle *xs, const char *xs_path,
-+                              uint32_t num_pages)
++int main(int argc, char **argv)
 +{
-+    char buf[128];
-+    uint32_t *ref = NULL;
-+    char *data;
-+    char temp[16] = { };
-+    unsigned int len;
-+    int i = 0;
-+    int j = 0;
-+    int start_ind = 0;
-+
-+    snprintf(buf, sizeof(buf), "%s/page-ref", xs_path);
-+
-+    /* do a read. */
-+    data = xs_read(xs, XBT_NULL, buf, &len);
-+
-+    if (data) {
-+        /* Caller will free this. */
-+        ref = (uint32_t *)calloc(num_pages, sizeof(uint32_t));
-+
-+        for (i = 0; data[i] != '\0'; i++) {
-+            if (data[i] == ',') {
-+                /* Next page_ref data. */
-+                memset(temp, '\0', sizeof(temp));
-+
-+                /* Copy the data between previous ',' to current. */
-+                memcpy(temp, &data[start_ind], i - start_ind);
-+
-+                /* Convert to int. */
-+                ref[j] = atoi(temp);
-+                start_ind = i + 1;
-+                j++;
-+            }
-+
-+            if (j == num_pages)
-+                break;
-+        }
-+    }
-+
-+    if (j != num_pages) {
-+        fprintf(stderr, "Number of page_refs are not equal to num_pages\n");
-+        free(ref);
-+        ref = NULL;
-+    }
-+
-+    free(data);
-+    return ref;
-+}
-+
-+static uint32_t get_num_pages(struct xs_handle *xs, const char *xs_path)
-+{
-+    char buf[128];
-+    char *ref;
-+    unsigned int len;
-+    uint32_t num_pages = 0;
-+
-+    snprintf(buf, sizeof(buf), "%s/num-pages", xs_path);
-+
-+    /* do a read. */
-+    ref = xs_read(xs, XBT_NULL, buf, &len);
-+
-+    if (ref)
-+        num_pages = atoi(ref);
-+
-+    free(ref);
-+
-+    return num_pages;
-+}
-+
-+static int share_overlay_with_domu(void *overlay_dt_domU, int overlay_dt_size,
-+                                   int domain_id)
-+{
-+    struct xs_handle *xs = NULL;
-+    char *path = NULL;
++    void *buffer = NULL;
++    int domain ;
++    uint32_t *page_refs = NULL;
++    FILE *fptr;
++    int dtbo_size = 0;
++    const char *path = "data/overlay";
 +    char receiver_status_path[64] = { };
 +    char sender_status_path[64] = { };
++    struct xs_handle *xs = NULL;
++    int rc = 0;
 +    int fd = 0;
-+    int err;
-+    uint32_t num_pages= 1;
-+    uint32_t *page_ref = NULL;
++    uint32_t num_pages = 0;
++    xengntshr_handle *gntshr;
 +
-+    /* XS_watch part. */
-+    /* Open a connection to the xenstore. */
++    if (argc < 2) {
++       fprintf(stderr,"Please enter domain_id.\n");
++        return 0;
++    }
++
++    domain = atoi(argv[1]);
++
 +    xs = xs_open(0);
 +    if (xs == NULL) {
-+        fprintf(stderr, "Deamon open for domain%d failed\n", domain_id);
-+        err = ERROR_FAIL;
++        fprintf(stderr, "Xenstore open for domain%d failed\n", domain);
 +        goto out;
 +    }
 +
-+    /* Get the local domain path */
-+    path = xs_get_domain_path(xs, domain_id);
-+    if (path == NULL) {
-+        fprintf(stderr, "Getting domain%d path failed\n", domain_id);
-+        err = ERROR_FAIL;
++    rc = xs_create_overlay_node(domain, path, xs);
++    if (rc) {
++        fprintf(stderr,"Creating overlay nodes failed\n");
 +        goto out;
 +    }
 +
-+    /* Make space for our node on the path */
-+    path = realloc(path, strlen(path) + strlen("/data/overlay") + 1);
-+    if (path == NULL) {
-+        fprintf(stderr, "Path allocation failed\n");
-+        err = ERROR_NOMEM;
-+        goto out;
-+    }
-+
-+    strcat(path, "/data/overlay");
 +    strcpy(receiver_status_path, path);
 +    strcat(receiver_status_path, "/receiver-status");
-+
-+    /*
-+     * Watch a node for changes (poll on fd to detect).
-+     * When the node (or any child) changes, fd will become readable.
-+     */
-+    err = xs_watch(xs, receiver_status_path, "overlay_watch");
-+    if (!err) {
-+        fprintf(stderr, "Creating watch failed\n");
-+        err = ERROR_FAIL;
-+        goto out;
-+    }
-+
-+    /*
-+     * We are notified of read availability on the watch via the
-+     * file descriptor.
-+     */
-+    fd = xs_fileno(xs);
-+
-+    /* Wait for "waiting" status from other domain. */
-+    if (!wait_for_status(xs, fd, receiver_status_path, "waiting")) {
-+        err = ERROR_NOT_READY;
-+        goto out;
-+    }
-+
-+    /* Share the dtb size with domain. */
-+    if (!write_overlay_size(xs, overlay_dt_size, path)) {
-+        err = ERROR_FAIL;
-+        fprintf(stderr,"Writing page ref failed\n");
-+        goto out;
-+    }
 +
 +    strcpy(sender_status_path, path);
 +    strcat(sender_status_path, "/sender-status");
 +
-+    /* Write the status "ready". */
-+    if (!write_status(xs, "ready", sender_status_path)) {
-+        err = ERROR_FAIL;
-+        fprintf(stderr,"Writing status ready failed\n");
++    /*
++     * Watch a node for changes (poll on fd to detect).
++     * When the node changes, fd will become readable.
++     */
++    rc = xs_watch(xs, sender_status_path, "overlay_watch");
++    if (rc == 0) {
++        fprintf(stderr, "Creating watch failed\n");
 +        goto out;
 +    }
 +
-+    /* Wait for "page_ref" status from other domain. */
-+    if (!wait_for_status(xs, fd, receiver_status_path, "page_ref")) {
-+        err = ERROR_NOT_READY;
++    /* We are notified of read availability on the watch via the
++     * file descriptor.
++     */
++    fd = xs_fileno(xs);
++
++    /* Wait for ready. */
++    if (!wait_for_status(xs, fd, sender_status_path, "ready")) {
++        fprintf(stderr, "dom0 not ready.\n");
 +        goto out;
 +    }
 +
-+    num_pages = get_num_pages(xs, path);
-+    if (num_pages == 0) {
-+        fprintf(stderr, "no pages allocated\n");
-+        err = ERROR_FAIL;
++    dtbo_size = get_overlay_size(xs, domain, path);
++    if (dtbo_size == 0) {
++        fprintf(stderr,"Overlay data size is zero. Exiting the application\n");
 +        goto out;
 +    }
 +
-+    page_ref = get_page_ref(xs, path, num_pages);
-+    if (page_ref == NULL) {
-+        fprintf(stderr,"page ref is null.\n");
-+        err = ERROR_FAIL;
++    gntshr = xengntshr_open(NULL, 0);
++    if (!gntshr) {
++        fprintf(stderr,"Error in opening gntshr\n");
 +        goto out;
 +    }
 +
-+    if (copy_overlay_to_domU(domain_id, overlay_dt_domU, overlay_dt_size,
-+                             page_ref, num_pages)) {
-+        fprintf(stderr,"Copy overlay failed\n");
-+        err = ERROR_FAIL;
++    num_pages = get_num_pages(dtbo_size);
++
++    page_refs =(uint32_t *)malloc(num_pages * sizeof(int));
++    if (page_refs == NULL) {
++        fprintf(stderr, "Allocating page_ref array failed\n");
 +        goto out;
 +    }
 +
-+    /* Write the status "done". */
-+    if (!write_status(xs, "done", sender_status_path)) {
++    /* Allocate memory for data size and share with domain. */
++    buffer = create_shared_buffer(domain, page_refs, num_pages,
++                                  gntshr);
++    if (buffer == NULL) {
++        fprintf(stderr,"Buffer allocation failed\n");
++        goto out;
++    }
++
++    /* Created the buffer and got page_ref. Share the page_ref with domain. */
++    if (!write_page_ref(xs, page_refs, num_pages, path)) {
++        fprintf(stderr,"Writing page ref failed\n");
++        goto out;
++    }
++
++    /* Write the status "page_ref". */
++    if (!write_status(xs, "page_ref", receiver_status_path)) {
 +        fprintf(stderr,"Writing status DONE failed\n");
-+        err = ERROR_FAIL;
 +        goto out;
 +    }
 +
-+/* Cleanup */
++    /* Wait for done. This means other domain done copying the dtb to buffer. */
++    if (!wait_for_status(xs, fd, sender_status_path, "done")) {
++        fprintf(stderr, "dom0 status not done\n");
++        goto out;
++    }
++
++    if ((fptr = fopen("overlay.dtbo","wb")) == NULL) {
++        fprintf(stderr,"Error! opening file");
++        goto out;
++    }
++
++    printf("Writing to file overlay.dtbo.\n");
++
++    fwrite(buffer, dtbo_size, 1, fptr);
++
++    printf("Done writing to file overlay.dtbo \n");
++
 +out:
++    if (fptr)
++        fclose(fptr);
++
++    if (page_refs)
++        free(page_refs);
++
 +    if (xs) {
 +        close(fd);
++
 +        xs_unwatch(xs, path, "overlay_watch");
++
 +        xs_close(xs);
 +    }
 +
-+    if (path)
-+        free(path);
++    if (buffer)
++        xengntshr_unshare(gntshr, buffer, num_pages);
 +
-+    if (page_ref)
-+        free(page_ref);
++    if (gntshr)
++         xengntshr_close(gntshr);
 +
-+    return err;
++    return 0;
 +}
-+
- int main_dt_overlay(int argc, char **argv)
- {
-     const char *overlay_ops = NULL;
-@@ -1339,11 +1671,16 @@ int main_dt_overlay(int argc, char **argv)
-     rc = libxl_dt_overlay(ctx, domain_id, overlay_dtb, overlay_dtb_size, op,
-                           auto_mode, domain_mapping);
- 
--    free(overlay_dtb);
--
--    if (rc)
-+    if (rc) {
-+        free(overlay_dtb);
-         return EXIT_FAILURE;
-+    }
-+
-+    if (domain_id && auto_mode && (op == LIBXL_DT_OVERLAY_ADD))
-+        rc = share_overlay_with_domu(overlay_dtb, overlay_dtb_size,
-+                                     domain_id);
- 
-+    free(overlay_dtb);
-     return rc;
- }
- #endif
 -- 
 2.34.1
 
