@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDDEE8B061F
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 11:35:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711295.1111144 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6799B8B06EA
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 12:06:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711300.1111154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzZ1A-0003Dx-W3; Wed, 24 Apr 2024 09:34:20 +0000
+	id 1rzZVq-00089B-Az; Wed, 24 Apr 2024 10:06:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711295.1111144; Wed, 24 Apr 2024 09:34:20 +0000
+Received: by outflank-mailman (output) from mailman id 711300.1111154; Wed, 24 Apr 2024 10:06:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzZ1A-0003BR-SM; Wed, 24 Apr 2024 09:34:20 +0000
-Received: by outflank-mailman (input) for mailman id 711295;
- Wed, 24 Apr 2024 09:34:19 +0000
+	id 1rzZVq-00086l-7f; Wed, 24 Apr 2024 10:06:02 +0000
+Received: by outflank-mailman (input) for mailman id 711300;
+ Wed, 24 Apr 2024 10:06:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RmhA=L5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rzZ19-0003BL-LV
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 09:34:19 +0000
-Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
- [2607:f8b0:4864:20::72e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9EIa=L5=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1rzZVo-00086f-CK
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 10:06:00 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d24591bc-021d-11ef-909a-e314d9c70b13;
- Wed, 24 Apr 2024 11:34:18 +0200 (CEST)
-Received: by mail-qk1-x72e.google.com with SMTP id
- af79cd13be357-78f0592309aso469613785a.2
- for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 02:34:18 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- e8-20020a05620a12c800b0078ec0e6188asm5998749qkl.89.2024.04.24.02.34.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Apr 2024 02:34:16 -0700 (PDT)
+ id 3f7faec8-0222-11ef-909a-e314d9c70b13;
+ Wed, 24 Apr 2024 12:05:59 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-343c7fae6e4so5869181f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 03:05:59 -0700 (PDT)
+Received: from [192.168.1.102] (mon75-h03-176-184-51-42.dsl.sta.abo.bbox.fr.
+ [176.184.51.42]) by smtp.gmail.com with ESMTPSA id
+ j13-20020a056000124d00b0034b7906c716sm3564205wrx.106.2024.04.24.03.05.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 24 Apr 2024 03:05:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,65 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d24591bc-021d-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 3f7faec8-0222-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713951257; x=1714556057; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=8exCFmWjKMe7+jw6erqHfflGiRqm/RNFTVp/NwGr1SQ=;
-        b=piACKYIoUZRfZN/y2+050LFQ7cJgs2CKpHUy+/YpROXJxdXxuDHgYCXeVyD6e+UE9W
-         LQl9qsaYbFGuwnEu83P4Ot8qqRG59ZcU6dzW1tOushre7mm/uQ93y0DaL0kcF3yeLbnA
-         vDN2vWfgamYST1kPQybkQg7JjK4ToUqppMZp4=
+        d=linaro.org; s=google; t=1713953158; x=1714557958; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=RJeq6fIxiiTYHpTB+2A2F57sm5CMyZXLKrdNd8XZ0VU=;
+        b=ot+OASrB1RS265/oVZ9gZT92maOt4lH7R2y+5+iiCKhZpz3ED06qh8GkOrU8pZI3dB
+         i/SidvUSxaHpkKZrjgmsM/bXqLpfIHaFQDpDcK6wzUCGFGlWNxeUDH/KjUZff0BEr8gI
+         wpIOW79X5cknd1pd/2WgMAmf5snal37CrL5LE4E8J03QpdfaUalH/1VPgCMyY6NvsbN4
+         JdNu1OUMkbjiexRtssO+ibnfjv0OfTeytrpnzotw9QmAQ13rsWyMBQssWP7pfS4AfOPU
+         Uoza1W0BZ/PczjNcC3kmy5PAh6PmnP02SxU4xlHe1gt74p7vcpvHaNCQxT0cGw/qtYwG
+         ql3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713951257; x=1714556057;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1713953158; x=1714557958;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8exCFmWjKMe7+jw6erqHfflGiRqm/RNFTVp/NwGr1SQ=;
-        b=Z+dBPir0nenvXNdMe5LCHhH4SeDmFyaBkCu8uHLOqVrNpO7qk3Jxi8Ke2IMooQmRsQ
-         2lDif5Iq7P5QC9EuwZevmJMX0/QQvCJCbJJxTexKd8F7Hp80SivzNaRD17JXSbxT6X7G
-         mSKr/sAnL7XnwrNBJ3YQVi23qu7GY5wzOcs2EUW8gE3Me8CDZcANcG7uvkATvPOwD8Op
-         u05XqIMcUQeFHGdf4NI0MvLxpuBN9L4JJcBv2C+hmg8WAECTa+to8HihpT0YIZSs9Xfw
-         HnadUa/v3RWBy7+itWqXYhDBOpYb+SUVsxmzL27hwVMtAR2iVipzOBp436o2ySe826DC
-         l/wA==
-X-Gm-Message-State: AOJu0YxLbDf8TfD6jhfNtfe3dV0qfK34/8wy9Og8VXyk9pnYownO7D8q
-	SpuDEUG2jlbgFdTuFuv1BYsUn+4ooNiLSyFzbiPedwIzJnLdz7dWp/0hRQyhxqQ=
-X-Google-Smtp-Source: AGHT+IGLd9WH7v3priedi0YJ1P3sY9dZUpNp76H5w78pwVAeIAt0A5XZJQ9Z2OF7VqjkSS04AmmEMQ==
-X-Received: by 2002:ae9:e403:0:b0:78f:1226:94c7 with SMTP id q3-20020ae9e403000000b0078f122694c7mr1934585qkc.56.1713951257205;
-        Wed, 24 Apr 2024 02:34:17 -0700 (PDT)
-Date: Wed, 24 Apr 2024 11:34:15 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>
-Subject: Re: [PATCH 3/4] x86/paging: vCPU host mode is always set
-Message-ID: <ZijSFzOAeo1SfSrb@macbook>
-References: <0d846228-323b-4427-87d1-684c3d0047c5@suse.com>
- <67805c1f-7187-446c-a5c4-14be8f170f11@suse.com>
+        bh=RJeq6fIxiiTYHpTB+2A2F57sm5CMyZXLKrdNd8XZ0VU=;
+        b=Qwa/seVhyF9wB8IHPAFCpgMVgiHK9P8UNzmqyrACfXxNoRgzkpXV+ZmLECVeEjrz0O
+         u1FFWTw4u5+a5eHEG3iJzHTSps5ThSIMfQvIhgUFnlqxnE+Hhj+GD4YDsFFK6v7j+98k
+         rAND9uRlufPi8B2aL+cWJJXsonO1upuXET4IL3ZlGdFnsi8OM31VIuuS28xUPKx8ABik
+         w7lnTUqEkaUJoW5N/QZlSLn5YluU8cYY4qvaCI4O4D143m6X/EqlQZBJqyBH+QEEgy7e
+         GnoggDAxySdNu56ERbRVzD0Fh0F2iwhY/yjpRO4fi3wq8fXQSmtxYyGs1/JDSNTHz7NH
+         pzdQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXH0Lo1GPpaLxJeFySd44URsMm9o20aHKfNljICji9OeOLqaBOvReGeM4V8GpAdRUwYOOlgsIMZ25nq6l8kgGBQLi2AgSi+M4R/MbnQURo=
+X-Gm-Message-State: AOJu0YwtuKXgC43OudmKxlMesyM+xLqNxdoUcSUXF6cnS92rU9CmQpRI
+	EXq6ahfu8cfnVW2PvbhPW3l5ZH8obJPvRvvOsI9Q3jtdgptczMk3r/1tQ966MHE=
+X-Google-Smtp-Source: AGHT+IGRwoNvywezgAtvjGv1mnC+Z4/ri35VrWRJslP2OcATQLz8PEMyGT2jE+F1RXzBdZ9zsCTNAw==
+X-Received: by 2002:adf:f809:0:b0:33e:7f51:c2f8 with SMTP id s9-20020adff809000000b0033e7f51c2f8mr1482384wrp.36.1713953158508;
+        Wed, 24 Apr 2024 03:05:58 -0700 (PDT)
+Message-ID: <ac66952e-4281-4250-96f4-dc3d5b518d24@linaro.org>
+Date: Wed, 24 Apr 2024 12:05:54 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <67805c1f-7187-446c-a5c4-14be8f170f11@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] net: Provide MemReentrancyGuard * to
+ qemu_new_nic()
+To: P J P <pj.pandit@yahoo.co.in>, Mauro Matteo Cascella
+ <mcascell@redhat.com>, Akihiko Odaki <akihiko.odaki@daynix.com>
+Cc: Alexander Bulekov <alxndr@bu.edu>,
+ Dmitry Fleytman <dmitry.fleytman@gmail.com>,
+ Beniamino Galvani <b.galvani@gmail.com>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Strahinja Jankovic <strahinja.p.jankovic@gmail.com>,
+ Jason Wang <jasowang@redhat.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Alistair Francis <alistair@alistair23.me>, Stefan Weil <sw@weilnetz.de>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>,
+ Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Helge Deller <deller@gmx.de>, Sriram Yagnaraman
+ <sriram.yagnaraman@est.tech>, Thomas Huth <huth@tuxfamily.org>,
+ Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+ Subbaraya Sundeep <sundeep.lkml@gmail.com>, Jan Kiszka <jan.kiszka@web.de>,
+ Tyrone Ting <kfting@nuvoton.com>, Hao Wu <wuhaotsh@google.com>,
+ Max Filippov <jcmvbkbc@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ David Gibson <david@gibson.dropbear.id.au>, Greg Kurz <groug@kaod.org>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ Sven Schnelle <svens@stackframe.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ Rob Herring <robh@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
+ qemu-arm@nongnu.org, qemu-devel@nongnu.org, qemu-ppc@nongnu.org,
+ xen-devel@lists.xenproject.org
+References: <20230601031859.7115-1-akihiko.odaki@daynix.com>
+ <20230601031859.7115-2-akihiko.odaki@daynix.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20230601031859.7115-2-akihiko.odaki@daynix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Apr 23, 2024 at 04:32:32PM +0200, Jan Beulich wrote:
-> ... thanks to paging_vcpu_init() being part of vCPU creation. Further
-> if paging is enabled on a domain, it's also guaranteed to be either HAP
-> or shadow. Drop respective unnecessary (parts of) conditionals.
+Hi,
 
-Is there some commit that changed when arch.paging.mode gets set, so
-that this is actually safe to do now, but not when the code in
-paging_dump_vcpu_info() was introduced?
-
-I get the feeling we want to reference some change here in order to
-explain why is now always guaranteed to be set.
-
+On 1/6/23 05:18, Akihiko Odaki wrote:
+> Recently MemReentrancyGuard was added to DeviceState to record that the
+> device is engaging in I/O. The network device backend needs to update it
+> when delivering a packet to a device.
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> In preparation for such a change, add MemReentrancyGuard * as a
+> parameter of qemu_new_nic().
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+An user on IRC asked if this patch is related/fixing CVE-2021-20255,
+any clue?
 
-Thanks, Roger.
+> Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
+> ---
+>   include/net/net.h             | 1 +
+>   hw/net/allwinner-sun8i-emac.c | 3 ++-
+>   hw/net/allwinner_emac.c       | 3 ++-
+>   hw/net/cadence_gem.c          | 3 ++-
+>   hw/net/dp8393x.c              | 3 ++-
+>   hw/net/e1000.c                | 3 ++-
+>   hw/net/e1000e.c               | 2 +-
+>   hw/net/eepro100.c             | 4 +++-
+>   hw/net/etraxfs_eth.c          | 3 ++-
+>   hw/net/fsl_etsec/etsec.c      | 3 ++-
+>   hw/net/ftgmac100.c            | 3 ++-
+>   hw/net/i82596.c               | 2 +-
+>   hw/net/igb.c                  | 2 +-
+>   hw/net/imx_fec.c              | 2 +-
+>   hw/net/lan9118.c              | 3 ++-
+>   hw/net/mcf_fec.c              | 3 ++-
+>   hw/net/mipsnet.c              | 3 ++-
+>   hw/net/msf2-emac.c            | 3 ++-
+>   hw/net/mv88w8618_eth.c        | 3 ++-
+>   hw/net/ne2000-isa.c           | 3 ++-
+>   hw/net/ne2000-pci.c           | 3 ++-
+>   hw/net/npcm7xx_emc.c          | 3 ++-
+>   hw/net/opencores_eth.c        | 3 ++-
+>   hw/net/pcnet.c                | 3 ++-
+>   hw/net/rocker/rocker_fp.c     | 4 ++--
+>   hw/net/rtl8139.c              | 3 ++-
+>   hw/net/smc91c111.c            | 3 ++-
+>   hw/net/spapr_llan.c           | 3 ++-
+>   hw/net/stellaris_enet.c       | 3 ++-
+>   hw/net/sungem.c               | 2 +-
+>   hw/net/sunhme.c               | 3 ++-
+>   hw/net/tulip.c                | 3 ++-
+>   hw/net/virtio-net.c           | 6 ++++--
+>   hw/net/vmxnet3.c              | 2 +-
+>   hw/net/xen_nic.c              | 4 ++--
+>   hw/net/xgmac.c                | 3 ++-
+>   hw/net/xilinx_axienet.c       | 3 ++-
+>   hw/net/xilinx_ethlite.c       | 3 ++-
+>   hw/usb/dev-network.c          | 3 ++-
+>   net/net.c                     | 1 +
+>   40 files changed, 75 insertions(+), 41 deletions(-)
+
 
