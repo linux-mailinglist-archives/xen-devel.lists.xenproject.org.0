@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFE2B8AFFF7
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 05:44:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711065.1110778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FF408AFFEF
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 05:44:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711057.1110737 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzTYG-0002te-NL; Wed, 24 Apr 2024 03:44:08 +0000
+	id 1rzTY1-00014a-5X; Wed, 24 Apr 2024 03:43:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711065.1110778; Wed, 24 Apr 2024 03:44:08 +0000
+Received: by outflank-mailman (output) from mailman id 711057.1110737; Wed, 24 Apr 2024 03:43:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzTYG-0002oj-IW; Wed, 24 Apr 2024 03:44:08 +0000
-Received: by outflank-mailman (input) for mailman id 711065;
- Wed, 24 Apr 2024 03:44:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzTY1-000136-27; Wed, 24 Apr 2024 03:43:53 +0000
+Received: by outflank-mailman (input) for mailman id 711057;
+ Wed, 24 Apr 2024 03:43:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Z4K=L5=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1rzTQc-0002In-Hm
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 03:36:14 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20600.outbound.protection.outlook.com
- [2a01:111:f403:2417::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cc3f77cc-01eb-11ef-b4bb-af5377834399;
- Wed, 24 Apr 2024 05:36:12 +0200 (CEST)
-Received: from BLAPR03CA0001.namprd03.prod.outlook.com (2603:10b6:208:32b::6)
- by SN7PR12MB7418.namprd12.prod.outlook.com (2603:10b6:806:2a5::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.44; Wed, 24 Apr
- 2024 03:36:09 +0000
-Received: from MN1PEPF0000ECDA.namprd02.prod.outlook.com
- (2603:10b6:208:32b:cafe::df) by BLAPR03CA0001.outlook.office365.com
- (2603:10b6:208:32b::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.33 via Frontend
- Transport; Wed, 24 Apr 2024 03:36:09 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECDA.mail.protection.outlook.com (10.167.242.134) with Microsoft
+ id 1rzTQg-0003iy-A8
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 03:36:18 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:200a::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ce1f1d0c-01eb-11ef-909a-e314d9c70b13;
+ Wed, 24 Apr 2024 05:36:17 +0200 (CEST)
+Received: from BL0PR0102CA0061.prod.exchangelabs.com (2603:10b6:208:25::38) by
+ PH8PR12MB7206.namprd12.prod.outlook.com (2603:10b6:510:226::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7519.22; Wed, 24 Apr 2024 03:36:12 +0000
+Received: from BL6PEPF0001AB73.namprd02.prod.outlook.com
+ (2603:10b6:208:25:cafe::1) by BL0PR0102CA0061.outlook.office365.com
+ (2603:10b6:208:25::38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.34 via Frontend
+ Transport; Wed, 24 Apr 2024 03:36:11 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL6PEPF0001AB73.mail.protection.outlook.com (10.167.242.166) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7519.19 via Frontend Transport; Wed, 24 Apr 2024 03:36:09 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7519.19 via Frontend Transport; Wed, 24 Apr 2024 03:36:11 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 23 Apr
- 2024 22:36:09 -0500
+ 2024 22:36:11 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 23 Apr
- 2024 20:36:08 -0700
+ 2024 20:36:10 -0700
 Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 23 Apr 2024 22:36:07 -0500
+ Transport; Tue, 23 Apr 2024 22:36:09 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,37 +63,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc3f77cc-01eb-11ef-b4bb-af5377834399
+X-Inumbo-ID: ce1f1d0c-01eb-11ef-909a-e314d9c70b13
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AzAsCVGOIBM4aLWQepgcbkJp/V71xl8o/GOqVHdDvyYOGZG7fadR17re5j6yAaY25X9Dnls0k/woSxdzYb95y7zLYfZuDKhXayCDlOp0YSob7K8mxfGbkqA53F4CKJxgzBc/y5EyxTX/T9TzduATO8v676RgoK2t9ZX9NKb9b2hpZw1ywWOM4dokXJPH0PC5mjaaNoxqXmJyYsB0Zii6PS8HHWGQkngsqgdKnJuxedbxYlTHRIHUIFFe0+kIK+6utFCBvglfO0GntH6IQr1JAXc3u7jAQJwYxpmT7O+kOGsqlzID9F5XJSV8ssKWU8d4444AJpGxkKuyx81wIJcFog==
+ b=ghRDvkE9FCgwOryUffkQ9/MwMaiV/3XgkUUbsRiyZV1Ju4JDEoOE3d4quczvM9RU7t801t4SWP4jZUvyJC8LNHE3XjA6EWqNofTeXngVmMIKXBfO3QkqYH7/j0rkmtWNvW5H3nzSxGpEBqrgZqPqqUbdzyDYoU91RCcot+qwc8x7cNKoB9x2vD6LSQLDM5nn1DJRVapKLpnBQxQJZRk6zaFECljOYc1rn+LhrFe7uRD4/ZPaUeksycAUVPwfUtsFp9a4RPexFbcufFjVFBk7DyXDav1aJB36xf9JFmN6ah7PqL5S63oKsqRxzbZc1CC3nMJjy2Z+HThri4PqG7ZaNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RHMeGH0iZW93mGnvrfaGMm5ps1VEfR09KqSQj+crtvI=;
- b=I5GPS+tJSgbLnvAHhb1kJU2+4WaxEytlHuhkl4eWmsN9uw2dAOVCwmuQa3unVG6MhiYqVM7gMcjt2H6A2GwhZHZ9kh9bqOMm+ep7IQPZdyvrtJf3MkbX6YlDZqAU7b1hN6/v9R7YEt5LM3/vZCTQ+nf+d10wwFq/KImXAaP7zYq+U6VoI5ImPebk/VyELkQyOb9sQcjPn/MjZzXiAa0p5pwmqTev31AJWXAggl6UxszkMidal5bG39lQbVq9JqqWcVcKUeO68AZiGgrDuUnrcaInS2BtTYhEwkv/IaczKv0e/UeJKkXTlMSqL8tnzIn5SX3SaEjcfZaIPc9aNF0ksA==
+ bh=AQUYI8nFNauA8Eqc+dTwkfBb4u7bvFl+DOSdQh9a2O8=;
+ b=Hg6AyUF//gVHUUAvePooLAjWKg3lzfTBVFQLY6PPF/xxFCSWjQ+TK16Czg9ySV4aMUFCYYaGQi8aboE2dXunUVGvJpRcMHVL9w/SLbiBH+V0rZZ92mzDioo+8GIvXokuqXL3pVEaqvSV39iFs5n7B0caaSOhIpH/UkWirBvOvgIbA7z2MrPyPB42ZQvbpixxAtzNeQ7i+mpblIj4X1Ub7YFHVgBQ9D5Sbl5fNnl8jFj2CV7Xrlw9f/T8DV0JoQODNk5JcLSDpKXntEDo4bs58m6DWag0cnACnlDoFh/xh2b/Ei+B/5i7vAr8MPqhr2jBRnktrXwQuyQPewhT7eX/lQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RHMeGH0iZW93mGnvrfaGMm5ps1VEfR09KqSQj+crtvI=;
- b=xYv38md6GsKSJEs4ASCuVJDkMcunQ/jigiCVYp9CaPbVbMdGUcHP4u3ObnVQDTChVU2NiZLDUG+WQXGuuzyJM73M6d9pZ8tPkeZ6gfSQSjfHdgjnyYPDsknzFZIDsMC5pVc0DTt88eb53QUL7wfsAtz9rgUk3DPZU3hPBY/PgTA=
+ bh=AQUYI8nFNauA8Eqc+dTwkfBb4u7bvFl+DOSdQh9a2O8=;
+ b=NB4Jbd0TLDTXBfahb8afVzymAvLYtFwrQWa+qWp2ymRyc6DC4Vs0Mbg2aESyxRy3j2dMZG41qgbf6+e2725bNGYK20CLCC+Iw97kBjh4YxVwmlERzQFPkBE0E1mxxiB7kOWfBDfTRkNzvAV6tli3vabUSuEv0F9gQyN82zz1JBE=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Henry Wang <xin.wang2@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Vikram Garhwal <fnu.vikram@xilinx.com>, Anthony PERARD
-	<anthony.perard@citrix.com>, Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>, Henry Wang
-	<xin.wang2@amd.com>
-Subject: [PATCH 12/15] get_overlay: remove domU overlay
-Date: Wed, 24 Apr 2024 11:34:46 +0800
-Message-ID: <20240424033449.168398-13-xin.wang2@amd.com>
+	<anthony.perard@citrix.com>, Stefano Stabellini
+	<stefano.stabellini@xilinx.com>, Henry Wang <xin.wang2@amd.com>
+Subject: [PATCH 13/15] xl/overlay: add remove operation to xenstore
+Date: Wed, 24 Apr 2024 11:34:47 +0800
+Message-ID: <20240424033449.168398-14-xin.wang2@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240424033449.168398-1-xin.wang2@amd.com>
 References: <20240424033449.168398-1-xin.wang2@amd.com>
@@ -102,253 +101,300 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDA:EE_|SN7PR12MB7418:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f6bd8ae-55d2-45c2-2d01-08dc640fae7f
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB73:EE_|PH8PR12MB7206:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3df460e3-5aae-437d-590a-08dc640fafa2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|1800799015|82310400014|376005|36860700004;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?Smpqz978Gt8Y4jwYCowjh4u88gFcgSMPBYg2xfE1oZXVTOHkXfrmDhRjxqBr?=
- =?us-ascii?Q?QgyZwnCQ2ytVopj33BzY2ozwczeOtOxkD0iJxut9cGiujaT7DIVETZgIUy1Z?=
- =?us-ascii?Q?tRWdBeucLa6F8+R/V/xGJF3fajioMu8RBdgWcpN35XAA9FN0HqIURCjdrygK?=
- =?us-ascii?Q?fuh+IRnLX+UW+5FUHlvh7BzKfeCHPCeMuvxaoEVcOw2yDOVZTeoG1ElyoocF?=
- =?us-ascii?Q?0leHcZnyKZnsneTzIkWHA+bhirtXRnHn2KdbeR7RiWkVz33LFAPhEhCP3gII?=
- =?us-ascii?Q?FJIspEWW+ba9buzx7Y6lIgyrekQz007TK/l/b04ZPNfNmOfYEklIQFS1yToJ?=
- =?us-ascii?Q?xxG9m/JLL26w2CgJVqbc8ftPd0jdHIzLt+Vk9VY4GR96NLHPi9WbO0Imdw6t?=
- =?us-ascii?Q?eQutXZlgu4CXWUf9KQYdu2v4AK6hoMpXGd5FkbR7sGGLfn4HqjX/erBWDJiM?=
- =?us-ascii?Q?MVi+PO5N9WSkqErcPtgIDl/rBBp5KmXa1ULxe+9j5yrWg71B9Z92gYZFc0tQ?=
- =?us-ascii?Q?xlpKo+DtS4xBjr2Em7AVwrfijy4bI+T1kqSEuIUtFasxvoeUH/J6OsFbZn2U?=
- =?us-ascii?Q?kmxkuD+PTSJLa8EXx+O8fJgQwQ0oPn2DW/tsZJhlnNfMxkxDtfzf3K+sTUAP?=
- =?us-ascii?Q?FF1YRtjuPnSnoUgDmEOI4cQAn8IytKjvGywAa6t61GY0AOcM5FZP+0RKZjrl?=
- =?us-ascii?Q?qeOyyCN7eP39mgXJqw81rqKYAV4ll8caqLJI4u8/DzgBc00GkrtnyOt3Xqet?=
- =?us-ascii?Q?6N4Gw3OCdlqTFI1A82ZjlfpnZrtUenVhY8k+xVvZMnOiXPjksyzO/HBlvGK8?=
- =?us-ascii?Q?oPxgs0VoVS/VCsL6gRigzajHp1w0EwrEg6vtqGWQmbHZ5Ro5f8VY/+KWQV7B?=
- =?us-ascii?Q?7zFdW2LRFuIFVVL6LN3QTGb5djSDvG6bPgccmKrou5mE2BMaMb5SL8PA63iB?=
- =?us-ascii?Q?Okx8j4jhuc1B4qWp2SNcOpKQio/PEUAtTCwhJDgi6yrqf589pmdm9qLXTT/x?=
- =?us-ascii?Q?W1d7O1Tu7S8cc4rJQkYbJ5kJ40+Tbucx782pZCTD/OquZNgoJx+GwV7KKy4Y?=
- =?us-ascii?Q?itCXkQrk3+5i7NpqQIETggqV8Pl5Y+uw6QLQScN6WnY1ircg25PMY/EWUOva?=
- =?us-ascii?Q?fZOiMlM9YqhoVo2yhRJqp+tBNqpYXDBedHIbiZntj6TKI/NLKSVooQ6k/TWu?=
- =?us-ascii?Q?75rwbcP0Cy9NUmxruGnv0NdOxOLvywPXie6Gi7lLBLmlIt3IuAImM3vAdFVS?=
- =?us-ascii?Q?pY9ulG1c8iM8fEueoMHeGLVDVDGu1jTxcgUJUkDApasPkuPgpzNis9XsTSTV?=
- =?us-ascii?Q?zkDbIqIbpWX3+QWrvBWpVN+d4045R6vGK8V8tetUvFeHJ1QzTizQnGnq+GmG?=
- =?us-ascii?Q?4D4gIzs2jWazB8PB9qwcIZguTgTG?=
+	=?us-ascii?Q?TdSarGKTVe51lz0a5kBmLLtN4JH9E1C/limauW/385+6HgkrE0eLPd7S4OUz?=
+ =?us-ascii?Q?tr2+yOqQW6YtjGty/LjAuVxVFqFFf7goUCzFmJdvslNm4AY6lPm4POtW042a?=
+ =?us-ascii?Q?Z4wqyYUiwKYK8tMt74ZV1sgNQNRR45CKZGgJ4Saze56BFdeYf84UhmLM8FPi?=
+ =?us-ascii?Q?6xrKF09ueQAr+ccZ7RgF/pTv0DEE9W0eRhHj2nmNbHCeMdlG8K1M3pPsJwt8?=
+ =?us-ascii?Q?CWDwovIUm3c3+8bX813nbCI7XGz8/r3i6Z1CAsgakI2m/KPV2UA996gvVxnP?=
+ =?us-ascii?Q?wZLSEzluNRZRhMHRa0EQ2FgrhaqhgV7K6y9l4q8P9xboPHzULrKGUF03XUCR?=
+ =?us-ascii?Q?eFpGTBj6EwFM8cfo/21C8sfwsaZnZNmJyR8lD5wjfLyUNKJLu37RPJGOqKoi?=
+ =?us-ascii?Q?3swZzAJwMSq+egrEmq7AJhAY/f1oqbEmpYtBvw69JJnupDXn/xKr4yprInt+?=
+ =?us-ascii?Q?cU1F7yA5Y3E2jaxsk6uNEJi4De1yuo5n3yU59YsGMAoYNcvti3JkkUZ9Ph/+?=
+ =?us-ascii?Q?SZlEzXBZ9ST5i/SYtNk3oFnnxmmelY0lPgvovnlMOBPf8WoCex89AVFX7mqz?=
+ =?us-ascii?Q?XMXuEuewBAekC0OW5Pl681djcBJ77DneVOaK488Y7Db6yzS9q0lxeO1pUoaF?=
+ =?us-ascii?Q?N+lL7R+KtzItyau3rt0qXWzRS6LUZooovv5Q0ruSqTav1Sbrty6JItgdDo+I?=
+ =?us-ascii?Q?BUp1fXDvWAsz75D1C2l/1LIxtZL10fYXATi54w63VeY5olLnu2QOTJ49a6tv?=
+ =?us-ascii?Q?Uh0F3gTzII+fD/9ds7YsVyQpr6jqocrPphLj/NTSmmPmkr/R2HKFWaoC6RaZ?=
+ =?us-ascii?Q?5nP+Ik7e8njzpwfPP90eRhKAvgbI/oZsLalsVRMUMi/nb46LFd3mjexBA1D8?=
+ =?us-ascii?Q?MKz3jIgeBmuk8KHHKpF1opR+WMpEVkca7PY7MyVHIBrzMBgmHtAqLQrGQ9bh?=
+ =?us-ascii?Q?A0QL3NPJ9DjkDQnUOvKdJ4CxjStGBM1HGK/8a1kNBeVHw/YjOT/nL1uXuT+U?=
+ =?us-ascii?Q?d69mOLMOXh73V/rcMt8/dB3C7WgSqkso0X/QmpjTyXXh1eLZJan2fYsgyTSX?=
+ =?us-ascii?Q?ajRdKce8GM3lyERucDqAKr0akogONq2LmNVm6/qphCG8pak1O3NPGIdWfN8S?=
+ =?us-ascii?Q?G0W+vwrRQUm157twupH4QzCenPJe5OAjlbl0zIPuw72QwGphN/xKx/VL7BGm?=
+ =?us-ascii?Q?WiuDtXE1s2EJNne9CXKw7vPw70h1Onu7A2805l/Mg/+FSBa/SDV7gRmYi44l?=
+ =?us-ascii?Q?+/SJl7oiKYOR8ZTlYaKbypN4lAnwx2wB0vr4kL5XMKuRa2jROMlgFRDbc8+T?=
+ =?us-ascii?Q?htdxTWZI7OaapO+oigcGabM+Cx1GBC9epj2MhUSSujgHVmZy9fYL5EsagACb?=
+ =?us-ascii?Q?oCyHnhc=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(1800799015)(376005)(36860700004);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(82310400014)(376005)(36860700004);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2024 03:36:09.4156
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2024 03:36:11.3238
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f6bd8ae-55d2-45c2-2d01-08dc640fae7f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3df460e3-5aae-437d-590a-08dc640fafa2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECDA.namprd02.prod.outlook.com
+	BL6PEPF0001AB73.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7418
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7206
 
 From: Vikram Garhwal <fnu.vikram@xilinx.com>
 
-Retrieve 4 new parameters from xenstore: overlay name, type, whether it
-is a partial overlay and operation. Operation can be "add" or "remove".
+Add 3 new command line parameters to the xl overlay command: overlay
+name, type and partial. Pass these paramters to the domU via xenstore.
 
-Add correspond to existing mode of operation. Remove introduces support
-for removing an overlay from a domU.
+Also introduce support for "operation" in xenstore: it can be "add" or
+"remove". In case of "remove", the overlay is to be removed from the
+domU device tree.
 
 Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 Signed-off-by: Henry Wang <xin.wang2@amd.com>
 ---
- tools/helpers/get_overlay.c | 132 +++++++++++++++++++++++++++++++++---
- 1 file changed, 123 insertions(+), 9 deletions(-)
+ tools/xl/xl_vmcontrol.c | 184 +++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 173 insertions(+), 11 deletions(-)
 
-diff --git a/tools/helpers/get_overlay.c b/tools/helpers/get_overlay.c
-index ca3007570e..daa697ca04 100644
---- a/tools/helpers/get_overlay.c
-+++ b/tools/helpers/get_overlay.c
-@@ -66,6 +66,33 @@ retry_transaction:
-     snprintf(ref, sizeof(ref), "%s", "not_ready");
-     snprintf(buf, sizeof(buf), "%s/sender-status", xs_base);
- 
-+    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
-+        goto fail_xs_transaction;
-+    if (!xs_set_permissions(xs, xs_trans, buf, perms, 2))
-+        goto fail_xs_transaction;
-+
-+    /* Create overlay-name node. */
-+    snprintf(ref, sizeof(ref), "%s", "overlay_node");
-+    snprintf(buf, sizeof(buf), "%s/overlay-name", xs_base);
-+
-+    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
-+        goto fail_xs_transaction;
-+    if (!xs_set_permissions(xs, xs_trans, buf, perms, 2))
-+        goto fail_xs_transaction;
-+
-+    /* Create overlay-type node. */
-+    snprintf(ref, sizeof(ref), "%s", "type");
-+    snprintf(buf, sizeof(buf), "%s/overlay-type", xs_base);
-+
-+    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
-+        goto fail_xs_transaction;
-+    if (!xs_set_permissions(xs, xs_trans, buf, perms, 2))
-+        goto fail_xs_transaction;
-+
-+    /* Create overlay-partial node. */
-+    snprintf(ref, sizeof(ref), "%d", 0);
-+    snprintf(buf, sizeof(buf), "%s/overlay-partial", xs_base);
-+
-     if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
-         goto fail_xs_transaction;
-     if (!xs_set_permissions(xs, xs_trans, buf, perms, 2))
-@@ -174,7 +201,7 @@ static bool wait_for_status(struct xs_handle *xs, int fd, char *status_path,
+diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
+index 2bf76dd389..ddd6e9e370 100644
+--- a/tools/xl/xl_vmcontrol.c
++++ b/tools/xl/xl_vmcontrol.c
+@@ -1466,8 +1466,123 @@ static uint32_t get_num_pages(struct xs_handle *xs, const char *xs_path)
+     return num_pages;
  }
  
- static bool write_page_ref(struct xs_handle *xs, uint32_t *page_ref,
--                           uint32_t num_pages, char *path)
-+                           uint32_t num_pages, const char *path)
- {
-     xs_transaction_t xs_trans = XBT_NULL;
-     char buf[128];
-@@ -249,12 +276,69 @@ retry_transaction:
-     return true;
- }
- 
-+static char *get_overlay_ops(struct xs_handle *xs, const char *xs_path)
++static bool write_overlay_operation(struct xs_handle *xs, char *operation,
++                               char *path)
 +{
++    xs_transaction_t xs_trans = XBT_NULL;
 +    char buf[128];
-+    char *ref = NULL;
-+    unsigned int len;
++    char ref[64];
 +
-+    snprintf(buf, sizeof(buf), "%s/overlay-operation", xs_path);
++retry_transaction:
++    xs_trans = xs_transaction_start(xs);
++    if (!xs_trans)
++        return false;
 +
-+    ref = xs_read(xs, XBT_NULL, buf, &len);
++    snprintf(ref, sizeof(ref), "%s", operation);
++    snprintf(buf, sizeof(buf), "%s/overlay-operation", path);
 +
-+    return ref;
-+}
-+static char *get_overlay_name(struct xs_handle *xs, const char *xs_path)
-+{
-+    char buf[128];
-+    char *ref = NULL;
-+    unsigned int len;
++    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
++        return false;
 +
-+    snprintf(buf, sizeof(buf), "%s/overlay-name", xs_path);
-+
-+    ref = xs_read(xs, XBT_NULL, buf, &len);
-+
-+    return ref;
-+}
-+
-+static char *get_overlay_type(struct xs_handle *xs, const char *xs_path)
-+{
-+    char buf[128];
-+    char *ref = NULL;
-+    unsigned int len;
-+
-+    snprintf(buf, sizeof(buf), "%s/overlay-type", xs_path);
-+
-+    ref = xs_read(xs, XBT_NULL, buf, &len);
-+
-+    return ref;
-+}
-+
-+static bool get_overlay_partial(struct xs_handle *xs, const char *xs_path)
-+{
-+    char buf[128];
-+    char *ref = NULL;
-+    unsigned int len;
-+
-+    snprintf(buf, sizeof(buf), "%s/overlay-partial", xs_path);
-+
-+    ref = xs_read(xs, XBT_NULL, buf, &len);
-+
-+    if (ref) {
-+        bool is_partial = atoi(ref);
-+        free(ref);
-+        return is_partial;
++    if (!xs_transaction_end(xs, xs_trans, 0)) {
++        if (errno == EAGAIN)
++            goto retry_transaction;
++        else
++            return false;
 +    }
 +
-+    return false;
++    return true;
 +}
 +
- int main(int argc, char **argv)
++static bool write_overlay_name(struct xs_handle *xs, char *name,
++                               char *path)
++{
++    xs_transaction_t xs_trans = XBT_NULL;
++    char buf[128];
++    char ref[64];
++
++retry_transaction:
++    xs_trans = xs_transaction_start(xs);
++    if (!xs_trans)
++        return false;
++
++    snprintf(ref, sizeof(ref), "%s", name);
++    snprintf(buf, sizeof(buf), "%s/overlay-name", path);
++
++    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
++        return false;
++
++    if (!xs_transaction_end(xs, xs_trans, 0)) {
++        if (errno == EAGAIN)
++            goto retry_transaction;
++        else
++            return false;
++    }
++
++    return true;
++}
++
++static bool write_overlay_type(struct xs_handle *xs, char *type,
++                               char *path)
++{
++    xs_transaction_t xs_trans = XBT_NULL;
++    char buf[128];
++    char ref[64];
++
++retry_transaction:
++    xs_trans = xs_transaction_start(xs);
++    if (!xs_trans)
++        return false;
++
++    snprintf(ref, sizeof(ref), "%s", type);
++    snprintf(buf, sizeof(buf), "%s/overlay-type", path);
++
++    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
++        return false;
++
++    if (!xs_transaction_end(xs, xs_trans, 0)) {
++        if (errno == EAGAIN)
++            goto retry_transaction;
++        else
++            return false;
++    }
++
++    return true;
++}
++
++static bool write_overlay_partial(struct xs_handle *xs, bool is_partial,
++                                  char *path)
++{
++    xs_transaction_t xs_trans = XBT_NULL;
++    char buf[128];
++    char ref[4];
++
++retry_transaction:
++    xs_trans = xs_transaction_start(xs);
++    if (!xs_trans)
++        return false;
++
++    snprintf(ref, sizeof(ref), "%d", is_partial);
++    snprintf(buf, sizeof(buf), "%s/overlay-partial", path);
++
++    if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
++        return false;
++
++    if (!xs_transaction_end(xs, xs_trans, 0)) {
++        if (errno == EAGAIN)
++            goto retry_transaction;
++        else
++            return false;
++    }
++
++    return true;
++}
++
++
+ static int share_overlay_with_domu(void *overlay_dt_domU, int overlay_dt_size,
+-                                   int domain_id)
++                                   int domain_id, char *overlay_ops,
++                                   char *overlay_name,
++                                   char *overlay_type, bool is_overlay_partial)
  {
-     void *buffer = NULL;
-     int domain ;
-     uint32_t *page_refs = NULL;
--    FILE *fptr;
-+    FILE *fptr = NULL;
-     int dtbo_size = 0;
-     const char *path = "data/overlay";
-     char receiver_status_path[64] = { };
-@@ -263,7 +347,11 @@ int main(int argc, char **argv)
-     int rc = 0;
-     int fd = 0;
-     uint32_t num_pages = 0;
--    xengntshr_handle *gntshr;
-+    xengntshr_handle *gntshr = NULL;
-+    char *overlay_ops = NULL;
-+    char *name = NULL;
-+    char *type = NULL;
-+    bool is_partial = false;
- 
-     if (argc < 2) {
-        fprintf(stderr,"Please enter domain_id.\n");
-@@ -357,16 +445,33 @@ int main(int argc, char **argv)
+     struct xs_handle *xs = NULL;
+     char *path = NULL;
+@@ -1574,6 +1689,34 @@ static int share_overlay_with_domu(void *overlay_dt_domU, int overlay_dt_size,
          goto out;
      }
  
--    if ((fptr = fopen("overlay.dtbo","wb")) == NULL) {
--        fprintf(stderr,"Error! opening file");
-+    overlay_ops = get_overlay_ops(xs, path);
-+    name = get_overlay_name(xs, path);
-+    type = get_overlay_type(xs, path);
-+    is_partial = get_overlay_partial(xs, path);
-+
-+    if (overlay_ops == NULL || name == NULL || type == NULL)
-         goto out;
--    }
- 
--    printf("Writing to file overlay.dtbo.\n");
-+    printf("%s %s %s", overlay_ops, name, type);
-+    if (is_partial)
-+        printf(" %d", is_partial);
-+
-+    printf("\n");
- 
--    fwrite(buffer, dtbo_size, 1, fptr);
-+    if (!strcmp(overlay_ops, "add")) {
- 
--    printf("Done writing to file overlay.dtbo \n");
-+        if ((fptr = fopen("overlay.dtbo","wb")) == NULL) {
-+            fprintf(stderr,"Error! opening file");
-+            goto out;
-+        }
-+
-+        printf("Writing to file overlay.dtbo.\n");
-+
-+        fwrite(buffer, dtbo_size, 1, fptr);
-+
-+        printf("Done writing to file overlay.dtbo \n");
++    /* write overlay ops */
++    if (!write_overlay_operation(xs, overlay_ops, path)) {
++        err = ERROR_FAIL;
++        fprintf(stderr,"Writing overlay_ops ready failed\n");
++        goto out;
 +    }
- 
- out:
-     if (fptr)
-@@ -375,6 +480,15 @@ out:
-     if (page_refs)
-         free(page_refs);
- 
-+    if (overlay_ops)
-+        free(overlay_ops);
 +
-+    if (name)
-+        free(name);
++    /* Write the overlay-name. */
++    if (!write_overlay_name(xs, overlay_name, path)) {
++        err = ERROR_FAIL;
++        fprintf(stderr,"Writing overlay_name ready failed\n");
++        goto out;
++    }
 +
-+    if (type)
-+        free(type);
++    /* Write the overlay-type. */
++    if (!write_overlay_type(xs, overlay_type, path)) {
++        err = ERROR_FAIL;
++        fprintf(stderr,"Writing overlay_type ready failed\n");
++        goto out;
++    }
 +
-     if (xs) {
-         close(fd);
++    /* Write the overlay-partial. */
++    if (!write_overlay_partial(xs, is_overlay_partial, path)) {
++        err = ERROR_FAIL;
++        fprintf(stderr,"Writing overlay_partial ready failed\n");
++        goto out;
++    }
++
+     /* Write the status "done". */
+     if (!write_status(xs, "done", sender_status_path)) {
+         fprintf(stderr,"Writing status DONE failed\n");
+@@ -1611,13 +1754,16 @@ int main_dt_overlay(int argc, char **argv)
+     int overlay_dtb_size = 0;
+     const int overlay_add_op = 1;
+     const int overlay_remove_op = 2;
++    char *overlay_name = "overlay";
++    char *overlay_type = "normal";
++    bool is_overlay_partial = false;
  
+     if (argc < 3) {
+         help("dt-overlay");
+         return EXIT_FAILURE;
+     }
+ 
+-    if (argc > 5) {
++    if (argc > 7) {
+         fprintf(stderr, "Too many arguments\n");
+         return ERROR_FAIL;
+     }
+@@ -1625,17 +1771,22 @@ int main_dt_overlay(int argc, char **argv)
+     overlay_ops = argv[1];
+     overlay_config_file = argv[2];
+ 
+-    if (!strcmp(argv[argc - 1], "-e"))
+-        auto_mode = false;
+-
+-    if (argc == 4 || !auto_mode) {
++    if (argc == 4 ) {
+         domain_id = find_domain(argv[argc-1]);
+         domain_mapping = true;
+-    }
+-
+-    if (argc == 5 || !auto_mode) {
+-        domain_id = find_domain(argv[argc-2]);
++    } else if (argc == 5 && !strcmp(argv[4], "-e")) {
++        domain_id = find_domain(argv[3]);
++        auto_mode = false;
+         domain_mapping = true;
++    } else if (argc == 7) {
++        domain_id = find_domain(argv[3]);
++        domain_mapping = true;
++        overlay_name = argv[4];
++        overlay_type = argv[5];
++        is_overlay_partial = atoi(argv[6]);
++    } else {
++        fprintf(stderr, "Invalid arguments\n");
++        return ERROR_FAIL;
+     }
+ 
+     /* User didn't prove any overlay operation. */
+@@ -1678,7 +1829,18 @@ int main_dt_overlay(int argc, char **argv)
+ 
+     if (domain_id && auto_mode && (op == LIBXL_DT_OVERLAY_ADD))
+         rc = share_overlay_with_domu(overlay_dtb, overlay_dtb_size,
+-                                     domain_id);
++                                     domain_id, "add", overlay_name,
++                                     overlay_type, is_overlay_partial);
++
++    if (rc) {
++        free(overlay_dtb);
++        return rc;
++    }
++
++    if (domain_id && auto_mode && (op == LIBXL_DT_OVERLAY_REMOVE))
++        rc = share_overlay_with_domu(overlay_dtb, overlay_dtb_size,
++                                     domain_id, "remove", overlay_name,
++                                     overlay_type, is_overlay_partial);
+ 
+     free(overlay_dtb);
+     return rc;
 -- 
 2.34.1
 
