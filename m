@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 223138B06E8
+	by mail.lfdr.de (Postfix) with ESMTPS id 65C5A8B06E9
 	for <lists+xen-devel@lfdr.de>; Wed, 24 Apr 2024 12:06:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711301.1111164 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.711302.1111168 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzZW8-0008Sq-Jc; Wed, 24 Apr 2024 10:06:20 +0000
+	id 1rzZW8-00005D-Qi; Wed, 24 Apr 2024 10:06:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711301.1111164; Wed, 24 Apr 2024 10:06:20 +0000
+Received: by outflank-mailman (output) from mailman id 711302.1111168; Wed, 24 Apr 2024 10:06:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzZW8-0008Qv-FL; Wed, 24 Apr 2024 10:06:20 +0000
-Received: by outflank-mailman (input) for mailman id 711301;
- Wed, 24 Apr 2024 10:06:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RmhA=L5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rzZW6-00086f-6m
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 10:06:18 +0000
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [2607:f8b0:4864:20::72c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4a11b2f6-0222-11ef-909a-e314d9c70b13;
- Wed, 24 Apr 2024 12:06:17 +0200 (CEST)
-Received: by mail-qk1-x72c.google.com with SMTP id
- af79cd13be357-7906782388aso243752185a.2
- for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 03:06:17 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- i8-20020a0cf388000000b0069b7bc51271sm5909720qvk.123.2024.04.24.03.06.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Apr 2024 03:06:15 -0700 (PDT)
+	id 1rzZW8-0008Sz-Mj; Wed, 24 Apr 2024 10:06:20 +0000
+Received: by outflank-mailman (input) for mailman id 711302;
+ Wed, 24 Apr 2024 10:06:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rzZW8-0008Ql-2E
+ for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 10:06:20 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rzZW7-0007GR-Ih; Wed, 24 Apr 2024 10:06:19 +0000
+Received: from [15.248.2.25] (helo=[10.24.67.29])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rzZW7-0001dD-9U; Wed, 24 Apr 2024 10:06:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,82 +39,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a11b2f6-0222-11ef-909a-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1713953176; x=1714557976; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=4Ph9G6cwvSsyBwn1keNYh8ywxHd2TZyv1Xlev5He0Zc=;
-        b=OoDZgrl3D/3Z37Q+qvZ8KcBx+oi8V/eu08ubKnC9g+Hu1jFEGWyk+s73A8b2z2u5bD
-         5sUISCH70Jcpq/XgWV6zuiDMdfkBiODT3JbI9oi82OUHquChB1PPfxOSIrajFvJtnT9e
-         KwKYJc/E0JdTgdi2vbkqZJ5npw0ObKTWe/dSs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713953176; x=1714557976;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4Ph9G6cwvSsyBwn1keNYh8ywxHd2TZyv1Xlev5He0Zc=;
-        b=NorCILdyfYzNxaQ10nFNX5YTl28fTXMp2gOqYJVSkOoAPw9+hcXKdH9cKK3WaCuV5Q
-         b5KFbZxRf3GMQpsZ/d6t1jMyPOHFTOk9TSmv+QW7UwrjP3s1jV96WJ7GeGluTqVeXcuf
-         6p/LMKL1UprXZtKGyZ8PfU2KSGInFNwgs8ERPUhQ4fXXK4YBXas66YNd5+GdOBkc0NsU
-         ll57jONBbxCC9LPJ9mlgzvzXL0WT4nj7kfCGraPuxAK9gUCeyPqcECN6vGFwSONLrEjZ
-         sYwDSwDBDqWY93R44s5D5aysmDNEtMuApnBdD29GszG8mDRPdtvNKYJm1Akp0+ddv0T8
-         +qiA==
-X-Gm-Message-State: AOJu0Yx3qfkIoLz3olUJpKEr1XdaN/qPfHXc6EurNfdJZMcirqqXrB39
-	SFELGyk50lQAo7nYTj1dXRv2GCYkIY7FPAInxtMUFvluXzGYWEPn2CaxWN9U1R4=
-X-Google-Smtp-Source: AGHT+IFv3Y31v3wUlWVz2DymdTFgcmE+HdyroWncqkASpxtkuzd3F66o1ccVg3lNsud2DQftbRwb8A==
-X-Received: by 2002:a05:6214:b87:b0:6a0:88d1:dc92 with SMTP id fe7-20020a0562140b8700b006a088d1dc92mr1829664qvb.13.1713953176012;
-        Wed, 24 Apr 2024 03:06:16 -0700 (PDT)
-Date: Wed, 24 Apr 2024 12:06:13 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>
-Subject: Re: [PATCH 4/4] x86/shadow: correct shadow_vcpu_init()'s comment
-Message-ID: <ZijZldtvQ_e1h6ys@macbook>
-References: <0d846228-323b-4427-87d1-684c3d0047c5@suse.com>
- <fea51839-4405-4330-8493-c544b9edf035@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Wu5rRE3YbC3tq9tVPX5Y6Aj62ZvtpoxLzJYE+L5ogag=; b=1lSTRDT3imDUgX5I9jSh75teqK
+	1q89Y068f0KY0O9DQHntWnpi2HPkoiQSlJeE8T7ex3CibQ+dIKyXSlEK1nN3gfPDnHG8oQ422BxLA
+	gpQFghVCDwvlnb6Tq0bOn92dLHk40GagKhgxrs5bY/aKLfErRnOf7k6VTUlsY9TsE9Q4=;
+Message-ID: <f6150a28-1aea-4c99-b696-f8b278eb685a@xen.org>
+Date: Wed, 24 Apr 2024 11:06:17 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2 5/5] xen/arm: ffa: support notification
+Content-Language: en-GB
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Jens Wiklander <jens.wiklander@linaro.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ "patches@linaro.org" <patches@linaro.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <20240422073708.3663529-1-jens.wiklander@linaro.org>
+ <20240422073708.3663529-6-jens.wiklander@linaro.org>
+ <e2ffe445-9355-45c9-bbfb-669455df4ea0@xen.org>
+ <CAHUa44FMsdn8LVc782EYno7fiFDBe7RSaiNgEnnzoc-Bozt05A@mail.gmail.com>
+ <931F0F76-3A3F-43D9-84F3-5AF9CDDB7708@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <931F0F76-3A3F-43D9-84F3-5AF9CDDB7708@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <fea51839-4405-4330-8493-c544b9edf035@suse.com>
 
-On Tue, Apr 23, 2024 at 04:33:09PM +0200, Jan Beulich wrote:
-> As of the commit referenced below the update_paging_modes() hook is per-
-> domain and hence also set (already) during domain construction.
+Hi Bertrand & Jens,
+
+On 24/04/2024 07:53, Bertrand Marquis wrote:
+> Hi Jens,
 > 
-> Fixes: d0816a9085b5 ("x86/paging: move update_paging_modes() hook")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> On 23 Apr 2024, at 17:26, Jens Wiklander <jens.wiklander@linaro.org> wrote:
+>>
+>> Hi Julien,
+>>
+>> On Mon, Apr 22, 2024 at 1:40 PM Julien Grall <julien@xen.org> wrote:
+>>>
+>>> Hi Jens,
+>>>
+>>> This is not a full review of the code. I will let Bertrand doing it.
+>>>
+>>> On 22/04/2024 08:37, Jens Wiklander wrote:
+>>>> +void ffa_notif_init(void)
+>>>> +{
+>>>> +    const struct arm_smccc_1_2_regs arg = {
+>>>> +        .a0 = FFA_FEATURES,
+>>>> +        .a1 = FFA_FEATURE_SCHEDULE_RECV_INTR,
+>>>> +    };
+>>>> +    struct arm_smccc_1_2_regs resp;
+>>>> +    unsigned int irq;
+>>>> +    int ret;
+>>>> +
+>>>> +    arm_smccc_1_2_smc(&arg, &resp);
+>>>> +    if ( resp.a0 != FFA_SUCCESS_32 )
+>>>> +        return;
+>>>> +
+>>>> +    irq = resp.a2;
+>>>> +    if ( irq >= NR_GIC_SGI )
+>>>> +        irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
+>>>> +    ret = request_irq(irq, 0, notif_irq_handler, "FF-A notif", NULL);
+>>>
+>>> If I am not mistaken, ffa_notif_init() is only called once on the boot
+>>> CPU. However, request_irq() needs to be called on every CPU so the
+>>> callback is registered every where and the interrupt enabled.
+>>>
+>>> I know the name of the function is rather confusing. So can you confirm
+>>> this is what you expected?
+>>
+>> Good catch, no this wasn't what I expected. I'll need to change this.
+>>
+>>>
+>>> [...]
+>>>
+>>>> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_private.h
+>>>> index 98236cbf14a3..ef8ffd4526bd 100644
+>>>> --- a/xen/arch/arm/tee/ffa_private.h
+>>>> +++ b/xen/arch/arm/tee/ffa_private.h
+>>>> @@ -25,6 +25,7 @@
+>>>>   #define FFA_RET_DENIED                  -6
+>>>>   #define FFA_RET_RETRY                   -7
+>>>>   #define FFA_RET_ABORTED                 -8
+>>>> +#define FFA_RET_NO_DATA                 -9
+>>>>
+>>>>   /* FFA_VERSION helpers */
+>>>>   #define FFA_VERSION_MAJOR_SHIFT         16U
+>>>> @@ -97,6 +98,18 @@
+>>>>    */
+>>>>   #define FFA_MAX_SHM_COUNT               32
+>>>>
+>>>> +/*
+>>>> + * TODO How to manage the available SGIs? SGI 8-15 seem to be entirely
+>>>> + * unused, but that may change.
+>>>
+>>> Are the value below intended for the guests? If so, can they be moved in
+>>> public/arch-arm.h along with the others guest interrupts?
+>>
+>> Yes, I'll move it.
+>>
+>>>
+>>>> + *
+>>>> + * SGI is the preferred delivery mechanism. SGIs 8-15 are normally not used
+>>>> + * by a guest as they in a non-virtualized system typically are assigned to
+>>>> + * the secure world. Here we're free to use SGI 8-15 since they are virtual
+>>>> + * and have nothing to do with the secure world.
+>>>
+>>> Do you have a pointer to the specification?
+>>
+>> There's one at the top of arch/arm/tee/ffa.c,
+>> https://developer.arm.com/documentation/den0077/e
+>> Do you want the link close to the defines when I've moved them to
+>> public/arch-arm.h?
+>> Or is it perhaps better to give a link to "Arm Base System
+>> Architecture v1.0C", https://developer.arm.com/documentation/den0094/
+>> instead?
 > 
-> --- a/xen/arch/x86/mm/shadow/common.c
-> +++ b/xen/arch/x86/mm/shadow/common.c
-> @@ -99,11 +99,12 @@ int shadow_domain_init(struct domain *d)
->      return 0;
->  }
->  
-> -/* Setup the shadow-specfic parts of a vcpu struct. Note: The most important
-> - * job is to initialize the update_paging_modes() function pointer, which is
-> - * used to initialized the rest of resources. Therefore, it really does not
-> - * matter to have v->arch.paging.mode pointing to any mode, as long as it can
-> - * be compiled.
-> +/*
-> + * Setup the shadow-specific parts of a vcpu struct. Note: The
-> + * update_paging_modes() function pointer, which is used to initialize other
-> + * resources, was already set during domain creation. Therefore it really does
-> + * not matter to have v->arch.paging.mode pointing to any (legitimate) mode,
-> + * as long as it can be compiled.
+> I would say we need the link to Arm Base System Architecture in arch-arm.
 
-Do you need to keep the last sentence?  If update_paging_modes is
-already set at domain create, the 'Therefore it really does...'
-doesn't seem to make much sense anymore, as it's no longer
-shadow_vcpu_init() that sets it.
++1
 
-Possibly with that dropped:
+Cheers,
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Thanks, Roger.
+-- 
+Julien Grall
 
