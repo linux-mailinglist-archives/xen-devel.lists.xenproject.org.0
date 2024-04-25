@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7B728B279F
+	by mail.lfdr.de (Postfix) with ESMTPS id D584D8B27A0
 	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 19:33:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712193.1112674 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.712194.1112688 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s02xP-0004bI-Bv; Thu, 25 Apr 2024 17:32:27 +0000
+	id 1s02xQ-0004xC-Jw; Thu, 25 Apr 2024 17:32:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712193.1112674; Thu, 25 Apr 2024 17:32:27 +0000
+Received: by outflank-mailman (output) from mailman id 712194.1112688; Thu, 25 Apr 2024 17:32:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s02xP-0004Tr-83; Thu, 25 Apr 2024 17:32:27 +0000
-Received: by outflank-mailman (input) for mailman id 712193;
- Thu, 25 Apr 2024 17:32:26 +0000
+	id 1s02xQ-0004tx-Gh; Thu, 25 Apr 2024 17:32:28 +0000
+Received: by outflank-mailman (input) for mailman id 712194;
+ Thu, 25 Apr 2024 17:32:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BIz1=L6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s02xO-0004RI-6p
- for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 17:32:26 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1s02xP-0004RI-74
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 17:32:27 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c6764d40-0329-11ef-b4bb-af5377834399;
- Thu, 25 Apr 2024 19:32:23 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a51addddbd4so152438266b.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 10:32:23 -0700 (PDT)
+ id c708567b-0329-11ef-b4bb-af5377834399;
+ Thu, 25 Apr 2024 19:32:24 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-56e6acb39d4so1574208a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 10:32:24 -0700 (PDT)
 Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- ci8-20020a170906c34800b00a587356c04csm4006477ejb.187.2024.04.25.10.32.21
+ ci8-20020a170906c34800b00a587356c04csm4006477ejb.187.2024.04.25.10.32.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Apr 2024 10:32:21 -0700 (PDT)
+ Thu, 25 Apr 2024 10:32:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,34 +45,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6764d40-0329-11ef-b4bb-af5377834399
+X-Inumbo-ID: c708567b-0329-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714066342; x=1714671142; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1714066343; x=1714671143; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2g8t/wF4ZdxY0SPfZVITk0ux9PxKIO0edydKGkf+TxQ=;
-        b=p37RIUPxST9+PS4/0UfaQtG/qcLTtnHzqCC5vk3vplFXJmF+9p/tTlT7PPdUwYrJIK
-         ajp65vtpsQZd//AtSqYo1RXj08/4ND+AIrJo2oIDAKxMsuKluGQS6ZDAMDHmc1Vp5+gX
-         RVGpP7qPCc7iam+5xwcPoowAUUYIbMhekr7F0=
+        bh=Vm54fAi6JaNw3+G4sAOX+Z6d3qFSN3u7bim0oUjoPQA=;
+        b=MjUZ9OAoneTSmFUNVR4EkgNPMBd7q6cSIDu2tQKtRenGXaVoo439MK/Xs20YdOyMeX
+         GWhWI6k+5oFtAwYEqOx16EyTmD7xE+GnSPR93xmQLZQT3x0jLLORDZUybOefSWYJ8N2R
+         ojBUB9td1imEKj5L9/uBbxvY2O2LtTKownLrY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714066342; x=1714671142;
+        d=1e100.net; s=20230601; t=1714066343; x=1714671143;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=2g8t/wF4ZdxY0SPfZVITk0ux9PxKIO0edydKGkf+TxQ=;
-        b=v35yIh0JrFloSTrvRBZCABGEQQ//nwjLPJ1aZXIAXWFcCReF/yOeGV5cgBpYS7d0up
-         PvlrpZfoIWMwFzNkWmCCwwoY4ba6bC5f5w99LwHd5ojiwFdStWlByyPlLNcaoE9BUzX0
-         T5tfqGqFNZ2pvVvZsiwtcLiPUi8y/LsPt4kvG0tfO8TDy6rzI8302LEazgpQvGppIPim
-         GKhrWZK4VQFZjNLoegQ3VCeInUDENLmfbLIANM0SoOoHmYLkMK7WLPMBkLT+TN7Wd6MF
-         CxJMp8m6nlPGLSbTk2zPBCz0xNc6ALu2d4dg2CxzPkO+8D1t9MVoGQKSpuIlg/ZxqnzZ
-         UnSQ==
-X-Gm-Message-State: AOJu0YxW3vcznBVzLtlP9L4AOCHrsLPznmwUrBgAehHl8jyaxXvMgqnl
-	D1dpTBqW1ogl6bqh+PNBQQbTag+vHXWiNJqI/tuL1ALsmK6qDrI8rx+3lQgAUncXJm5mWk9h8GX
-	b
-X-Google-Smtp-Source: AGHT+IHVB43cnp+cLbbkrKERJDS2FM3sZyAzoNUN0K7eSLYTJeoTcaQ6iPtkWtSf/QdM6L/5szTjDg==
-X-Received: by 2002:a17:906:e285:b0:a58:be32:b247 with SMTP id gg5-20020a170906e28500b00a58be32b247mr294683ejb.35.1714066341986;
-        Thu, 25 Apr 2024 10:32:21 -0700 (PDT)
+        bh=Vm54fAi6JaNw3+G4sAOX+Z6d3qFSN3u7bim0oUjoPQA=;
+        b=orebE5QJBMi4BpDZAUFXq25vqQ8TZiS13/wyte/EyjRa9ZTwNMGMJ9WwmqBuipJEnT
+         hGyMHwWOm9PIqgbCs+Ffa1VIWtYOLF+o6GufHSN+lmcquaXaZyfrHjQXxuAQKaNIyMsl
+         DHouOPLbevo3aUra7LZ8CFGsir3kgIcLhTekq+a/svTIBk0vOHfCf3ACYOpGN9tpTUpy
+         SmSrhewPDScllWO9OTEHbCU3mZPNUjP0LV6Mv7Vvb4jU8zlkrh2UPCLySEN1yYEKOXKm
+         kf9oFZiWSVfKzJlLL616b2lrPTPcbuwOFulzxP+muwwQoslPBrqXV0VN4xtAVKfqFw8o
+         IRQg==
+X-Gm-Message-State: AOJu0YxgDUcjEMQH2I+iibUtcp8ytDrgslkCBplrsfVQsqyT4ekRjEFh
+	p1Pk3DT5AhcCrE/2z/rhsrzwPm0FDXIVj4X9uTv42uIYq3zrGDxd5Hf8aR5QMTDAYYOPUndoKTu
+	u
+X-Google-Smtp-Source: AGHT+IGaLa1zNEWZHpeeeP1AdDVXMoTYi3EoCApLK6i7TXo3GFhX8sygt05jFrL3wuycaQMjhsxmYA==
+X-Received: by 2002:a17:906:b210:b0:a55:387b:eef9 with SMTP id p16-20020a170906b21000b00a55387beef9mr316035ejz.10.1714066343401;
+        Thu, 25 Apr 2024 10:32:23 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -81,9 +81,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Christian Lindig <christian.lindig@citrix.com>,
 	=?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 1/2] tools/{c,o}xenstored: Don't link against libsystemd
-Date: Thu, 25 Apr 2024 18:32:15 +0100
-Message-Id: <20240425173216.410940-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/2] tools: Drop libsystemd as a dependency
+Date: Thu, 25 Apr 2024 18:32:16 +0100
+Message-Id: <20240425173216.410940-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20240425173216.410940-1-andrew.cooper3@citrix.com>
 References: <20240425173216.410940-1-andrew.cooper3@citrix.com>
@@ -91,18 +91,13 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-libsystemd is a giant dependency for one single function, but in the wake of
-the xz backdoor, it turns out that even systemd leadership recommend against
-linking against libsystemd for sd_notify().
+There are no more users, and we want to disuade people from introducing new
+users just for sd_notify() and friends.  Drop the dependency.
 
-Since commit 7b61011e1450 ("tools: make xenstore domain easy configurable") in
-Xen 4.8, the launch-xenstore script invokes systemd-notify directly, so its
-not even necessary for the xenstored's to call sd_notify() themselves.
+We still want the overall --with{,out}-systemd to gate the generation of the
+service/unit/mount/etc files.
 
-Therefore, just drop the calls to sd_notify() and stop linking against
-libsystemd.
-
-No functional change.
+Rerun autogen.sh, and mark the dependency as removed in the build containers.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -112,210 +107,694 @@ CC: Christian Lindig <christian.lindig@citrix.com>
 CC: Edwin Török <edwin.torok@cloud.com>
 CC: Stefano Stabellini <sstabellini@kernel.org>
 ---
- tools/ocaml/xenstored/Makefile        | 12 +------
- tools/ocaml/xenstored/systemd.ml      | 15 ---------
- tools/ocaml/xenstored/systemd.mli     | 16 ---------
- tools/ocaml/xenstored/systemd_stubs.c | 47 ---------------------------
- tools/ocaml/xenstored/xenstored.ml    |  1 -
- tools/xenstored/Makefile              |  5 ---
- tools/xenstored/posix.c               |  9 -----
- 7 files changed, 1 insertion(+), 104 deletions(-)
- delete mode 100644 tools/ocaml/xenstored/systemd.ml
- delete mode 100644 tools/ocaml/xenstored/systemd.mli
- delete mode 100644 tools/ocaml/xenstored/systemd_stubs.c
+ automation/build/archlinux/current.dockerfile |   1 +
+ .../build/suse/opensuse-leap.dockerfile       |   1 +
+ .../build/suse/opensuse-tumbleweed.dockerfile |   1 +
+ automation/build/ubuntu/focal.dockerfile      |   1 +
+ config/Tools.mk.in                            |   2 -
+ m4/systemd.m4                                 |  23 +-
+ tools/config.h.in                             |   3 -
+ tools/configure                               | 523 +-----------------
+ 8 files changed, 7 insertions(+), 548 deletions(-)
 
-diff --git a/tools/ocaml/xenstored/Makefile b/tools/ocaml/xenstored/Makefile
-index e8aaecf2e630..1e4b51cc5432 100644
---- a/tools/ocaml/xenstored/Makefile
-+++ b/tools/ocaml/xenstored/Makefile
-@@ -4,8 +4,6 @@ include $(OCAML_TOPLEVEL)/common.make
+diff --git a/automation/build/archlinux/current.dockerfile b/automation/build/archlinux/current.dockerfile
+index d974a1434fd5..a350b53ad8e2 100644
+--- a/automation/build/archlinux/current.dockerfile
++++ b/automation/build/archlinux/current.dockerfile
+@@ -39,6 +39,7 @@ RUN pacman -S --refresh --sysupgrade --noconfirm --noprogressbar --needed \
+         sdl2 \
+         spice \
+         spice-protocol \
++        # systemd for Xen < 4.19
+         systemd \
+         transfig \
+         usbredir \
+diff --git a/automation/build/suse/opensuse-leap.dockerfile b/automation/build/suse/opensuse-leap.dockerfile
+index e1ec38a41445..0483d9826d7d 100644
+--- a/automation/build/suse/opensuse-leap.dockerfile
++++ b/automation/build/suse/opensuse-leap.dockerfile
+@@ -61,6 +61,7 @@ RUN zypper install -y --no-recommends \
+         'pkgconfig(sdl2)' \
+         python3-devel \
+         python3-setuptools \
++        # systemd-devel for Xen < 4.19
+         systemd-devel \
+         tar \
+         transfig \
+diff --git a/automation/build/suse/opensuse-tumbleweed.dockerfile b/automation/build/suse/opensuse-tumbleweed.dockerfile
+index f00e03eda7b1..59b168e717b2 100644
+--- a/automation/build/suse/opensuse-tumbleweed.dockerfile
++++ b/automation/build/suse/opensuse-tumbleweed.dockerfile
+@@ -62,6 +62,7 @@ RUN zypper install -y --no-recommends \
+         'pkgconfig(sdl2)' \
+         python3-devel \
+         python3-setuptools \
++        # systemd-devel for Xen < 4.19
+         systemd-devel \
+         tar \
+         transfig \
+diff --git a/automation/build/ubuntu/focal.dockerfile b/automation/build/ubuntu/focal.dockerfile
+index 30a9b8e84ffe..8171347c4656 100644
+--- a/automation/build/ubuntu/focal.dockerfile
++++ b/automation/build/ubuntu/focal.dockerfile
+@@ -36,6 +36,7 @@ RUN apt-get update && \
+         libnl-3-dev \
+         ocaml-nox \
+         libfindlib-ocaml-dev \
++        # libsystemd-dev for Xen < 4.19
+         libsystemd-dev \
+         transfig \
+         pandoc \
+diff --git a/config/Tools.mk.in b/config/Tools.mk.in
+index b54ab21f966b..50fbef841f3f 100644
+--- a/config/Tools.mk.in
++++ b/config/Tools.mk.in
+@@ -52,8 +52,6 @@ CONFIG_PYGRUB       := @pygrub@
+ CONFIG_LIBFSIMAGE   := @libfsimage@
  
- # Include configure output (config.h)
- CFLAGS += -include $(XEN_ROOT)/tools/config.h
--CFLAGS-$(CONFIG_SYSTEMD)  += $(SYSTEMD_CFLAGS)
--LDFLAGS-$(CONFIG_SYSTEMD) += $(SYSTEMD_LIBS)
+ CONFIG_SYSTEMD      := @systemd@
+-SYSTEMD_CFLAGS      := @SYSTEMD_CFLAGS@
+-SYSTEMD_LIBS        := @SYSTEMD_LIBS@
+ XEN_SYSTEMD_DIR     := @SYSTEMD_DIR@
+ XEN_SYSTEMD_MODULES_LOAD := @SYSTEMD_MODULES_LOAD@
+ CONFIG_9PFS         := @ninepfs@
+diff --git a/m4/systemd.m4 b/m4/systemd.m4
+index 112dc11b5e05..aa1ebe94f56c 100644
+--- a/m4/systemd.m4
++++ b/m4/systemd.m4
+@@ -41,15 +41,6 @@ AC_DEFUN([AX_ALLOW_SYSTEMD_OPTS], [
+ ])
  
- CFLAGS  += $(CFLAGS-y)
- CFLAGS  += $(APPEND_CFLAGS)
-@@ -25,13 +23,6 @@ poll_OBJS = poll
- poll_C_OBJS = select_stubs
- OCAML_LIBRARY = syslog poll
+ AC_DEFUN([AX_CHECK_SYSTEMD_LIBS], [
+-	PKG_CHECK_MODULES([SYSTEMD], [libsystemd-daemon],,
+-		[PKG_CHECK_MODULES([SYSTEMD], [libsystemd >= 209])]
+-        )
+-	dnl pkg-config older than 0.24 does not set these for
+-	dnl PKG_CHECK_MODULES() worth also noting is that as of version 208
+-	dnl of systemd pkg-config --cflags currently yields no extra flags yet.
+-	AC_SUBST([SYSTEMD_CFLAGS])
+-	AC_SUBST([SYSTEMD_LIBS])
+-
+ 	AS_IF([test "x$SYSTEMD_DIR" = x], [
+ 	    dnl In order to use the line below we need to fix upstream systemd
+ 	    dnl to properly ${prefix} for child variables in
+@@ -83,23 +74,11 @@ AC_DEFUN([AX_CHECK_SYSTEMD_LIBS], [
+ AC_DEFUN([AX_CHECK_SYSTEMD], [
+ 	dnl Respect user override to disable
+ 	AS_IF([test "x$enable_systemd" != "xno"], [
+-	     AS_IF([test "x$systemd" = "xy" ], [
+-		AC_DEFINE([HAVE_SYSTEMD], [1], [Systemd available and enabled])
+-			systemd=y
+-			AX_CHECK_SYSTEMD_LIBS()
+-	    ],[
+-		AS_IF([test "x$enable_systemd" = "xyes"],
+-			[AC_MSG_ERROR([Unable to find systemd development library])],
+-			[systemd=n])
+-	    ])
++	systemd=y
+ 	],[systemd=n])
+ ])
  
--LIBS += systemd.cma systemd.cmxa
--systemd_OBJS = systemd
--systemd_C_OBJS = systemd_stubs
--OCAML_LIBRARY += systemd
--
--LIBS_systemd += $(LDFLAGS-y)
--
- OBJS = paths \
- 	define \
- 	stdext \
-@@ -56,12 +47,11 @@ OBJS = paths \
- 	process \
- 	xenstored
+ AC_DEFUN([AX_CHECK_SYSTEMD_ENABLE_AVAILABLE], [
+-	PKG_CHECK_MODULES([SYSTEMD], [libsystemd-daemon], [systemd="y"],[
+-		PKG_CHECK_MODULES([SYSTEMD], [libsystemd >= 209],
+-				  [systemd="y"],[systemd="n"])
+-	])
+ ])
  
--INTF = symbol.cmi trie.cmi syslog.cmi systemd.cmi poll.cmi
-+INTF = symbol.cmi trie.cmi syslog.cmi poll.cmi
+ dnl Enables systemd by default and requires a --disable-systemd option flag
+diff --git a/tools/config.h.in b/tools/config.h.in
+index 0bb2fe08a143..56ac7800032f 100644
+--- a/tools/config.h.in
++++ b/tools/config.h.in
+@@ -60,9 +60,6 @@
+ /* Define to 1 if you have the <string.h> header file. */
+ #undef HAVE_STRING_H
  
- XENSTOREDLIBS = \
- 	unix.cmxa \
- 	-ccopt -L -ccopt . syslog.cmxa \
--	-ccopt -L -ccopt . systemd.cmxa \
- 	-ccopt -L -ccopt . poll.cmxa \
- 	-ccopt -L -ccopt $(OCAML_TOPLEVEL)/libs/mmap $(OCAML_TOPLEVEL)/libs/mmap/xenmmap.cmxa \
- 	-ccopt -L -ccopt $(OCAML_TOPLEVEL)/libs/eventchn $(OCAML_TOPLEVEL)/libs/eventchn/xeneventchn.cmxa \
-diff --git a/tools/ocaml/xenstored/systemd.ml b/tools/ocaml/xenstored/systemd.ml
-deleted file mode 100644
-index 39127f712d72..000000000000
---- a/tools/ocaml/xenstored/systemd.ml
-+++ /dev/null
-@@ -1,15 +0,0 @@
--(*
-- * Copyright (C) 2014 Luis R. Rodriguez <mcgrof@suse.com>
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU Lesser General Public License as published
-- * by the Free Software Foundation; version 2.1 only. with the special
-- * exception on linking described in file LICENSE.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU Lesser General Public License for more details.
-- *)
+-/* Systemd available and enabled */
+-#undef HAVE_SYSTEMD
 -
--external sd_notify_ready: unit -> unit = "ocaml_sd_notify_ready"
-diff --git a/tools/ocaml/xenstored/systemd.mli b/tools/ocaml/xenstored/systemd.mli
-deleted file mode 100644
-index 18b9331031f9..000000000000
---- a/tools/ocaml/xenstored/systemd.mli
-+++ /dev/null
-@@ -1,16 +0,0 @@
--(*
-- * Copyright (C) 2014 Luis R. Rodriguez <mcgrof@suse.com>
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU Lesser General Public License as published
-- * by the Free Software Foundation; version 2.1 only. with the special
-- * exception on linking described in file LICENSE.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU Lesser General Public License for more details.
-- *)
--
--(** Tells systemd we're ready *)
--external sd_notify_ready: unit -> unit = "ocaml_sd_notify_ready"
-diff --git a/tools/ocaml/xenstored/systemd_stubs.c b/tools/ocaml/xenstored/systemd_stubs.c
-deleted file mode 100644
-index f4c875075abe..000000000000
---- a/tools/ocaml/xenstored/systemd_stubs.c
-+++ /dev/null
-@@ -1,47 +0,0 @@
--/*
-- * Copyright (C) 2014 Luis R. Rodriguez <mcgrof@suse.com>
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU Lesser General Public License as published
-- * by the Free Software Foundation; version 2.1 only. with the special
-- * exception on linking described in file LICENSE.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU Lesser General Public License for more details.
-- */
--
--#include <string.h>
--#include <stdio.h>
--#include <stdbool.h>
--#include <errno.h>
--#include <caml/mlvalues.h>
--#include <caml/memory.h>
--#include <caml/alloc.h>
--#include <caml/custom.h>
--#include <caml/signals.h>
--#include <caml/fail.h>
--
--#if defined(HAVE_SYSTEMD)
--
--#include <systemd/sd-daemon.h>
--
--CAMLprim value ocaml_sd_notify_ready(value ignore)
--{
--	CAMLparam1(ignore);
--
--	sd_notify(1, "READY=1");
--
--	CAMLreturn(Val_unit);
--}
--
--#else
--
--CAMLprim value ocaml_sd_notify_ready(value ignore)
--{
--	CAMLparam1(ignore);
--
--	CAMLreturn(Val_unit);
--}
--#endif
-diff --git a/tools/ocaml/xenstored/xenstored.ml b/tools/ocaml/xenstored/xenstored.ml
-index 1aaa3e995e1f..6bcd6d11da55 100644
---- a/tools/ocaml/xenstored/xenstored.ml
-+++ b/tools/ocaml/xenstored/xenstored.ml
-@@ -621,7 +621,6 @@ let () =
-     process_domains store cons domains
-   in
+ /* Define to 1 if you have the <sys/eventfd.h> header file. */
+ #undef HAVE_SYS_EVENTFD_H
  
--  Systemd.sd_notify_ready ();
-   let live_update = ref false in
-   while not (!quit && Connections.prevents_quit cons = [])
-   do
-diff --git a/tools/xenstored/Makefile b/tools/xenstored/Makefile
-index e0897ed1ba30..09adfe1d5064 100644
---- a/tools/xenstored/Makefile
-+++ b/tools/xenstored/Makefile
-@@ -9,11 +9,6 @@ xenstored: LDLIBS += $(LDLIBS_libxenctrl)
- xenstored: LDLIBS += -lrt
- xenstored: LDLIBS += $(SOCKET_LIBS)
+diff --git a/tools/configure b/tools/configure
+index 3d557234b319..b0873a5601a7 100755
+--- a/tools/configure
++++ b/tools/configure
+@@ -626,8 +626,6 @@ ac_subst_vars='LTLIBOBJS
+ LIBOBJS
+ pvshim
+ ninepfs
+-SYSTEMD_LIBS
+-SYSTEMD_CFLAGS
+ SYSTEMD_MODULES_LOAD
+ SYSTEMD_DIR
+ systemd
+@@ -864,9 +862,7 @@ pixman_LIBS
+ libzstd_CFLAGS
+ libzstd_LIBS
+ LIBNL3_CFLAGS
+-LIBNL3_LIBS
+-SYSTEMD_CFLAGS
+-SYSTEMD_LIBS'
++LIBNL3_LIBS'
  
--ifeq ($(CONFIG_SYSTEMD),y)
--$(XENSTORED_OBJS-y): CFLAGS += $(SYSTEMD_CFLAGS)
--xenstored: LDLIBS += $(SYSTEMD_LIBS)
--endif
+ 
+ # Initialize some variables set by options.
+@@ -1621,10 +1617,6 @@ Some influential environment variables:
+   LIBNL3_CFLAGS
+               C compiler flags for LIBNL3, overriding pkg-config
+   LIBNL3_LIBS linker flags for LIBNL3, overriding pkg-config
+-  SYSTEMD_CFLAGS
+-              C compiler flags for SYSTEMD, overriding pkg-config
+-  SYSTEMD_LIBS
+-              linker flags for SYSTEMD, overriding pkg-config
+ 
+ Use these variables to override the choices made by `configure' or to help
+ it to find libraries and programs with nonstandard names/locations.
+@@ -9541,521 +9533,10 @@ fi
+ 
+ 
+ 
+-pkg_failed=no
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
+-$as_echo_n "checking for SYSTEMD... " >&6; }
 -
- TARGETS := xenstored
+-if test -n "$SYSTEMD_CFLAGS"; then
+-    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd-daemon\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd-daemon") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd-daemon" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-if test -n "$SYSTEMD_LIBS"; then
+-    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd-daemon\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd-daemon") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd-daemon" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-
+-
+-
+-if test $pkg_failed = yes; then
+-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+-        _pkg_short_errors_supported=yes
+-else
+-        _pkg_short_errors_supported=no
+-fi
+-        if test $_pkg_short_errors_supported = yes; then
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd-daemon" 2>&1`
+-        else
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd-daemon" 2>&1`
+-        fi
+-	# Put the nasty error message in config.log where it belongs
+-	echo "$SYSTEMD_PKG_ERRORS" >&5
+-
+-
+-
+-pkg_failed=no
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
+-$as_echo_n "checking for SYSTEMD... " >&6; }
+-
+-if test -n "$SYSTEMD_CFLAGS"; then
+-    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd >= 209" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-if test -n "$SYSTEMD_LIBS"; then
+-    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd >= 209" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-
+-
+-
+-if test $pkg_failed = yes; then
+-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+-        _pkg_short_errors_supported=yes
+-else
+-        _pkg_short_errors_supported=no
+-fi
+-        if test $_pkg_short_errors_supported = yes; then
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
+-        else
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
+-        fi
+-	# Put the nasty error message in config.log where it belongs
+-	echo "$SYSTEMD_PKG_ERRORS" >&5
+-
+-	systemd="n"
+-elif test $pkg_failed = untried; then
+-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-	systemd="n"
+-else
+-	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
+-	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-	systemd="y"
+-fi
+-
+-elif test $pkg_failed = untried; then
+-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-
+-pkg_failed=no
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
+-$as_echo_n "checking for SYSTEMD... " >&6; }
+-
+-if test -n "$SYSTEMD_CFLAGS"; then
+-    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd >= 209" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-if test -n "$SYSTEMD_LIBS"; then
+-    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd >= 209" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-
+-
+-
+-if test $pkg_failed = yes; then
+-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+-        _pkg_short_errors_supported=yes
+-else
+-        _pkg_short_errors_supported=no
+-fi
+-        if test $_pkg_short_errors_supported = yes; then
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
+-        else
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
+-        fi
+-	# Put the nasty error message in config.log where it belongs
+-	echo "$SYSTEMD_PKG_ERRORS" >&5
+-
+-	systemd="n"
+-elif test $pkg_failed = untried; then
+-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-	systemd="n"
+-else
+-	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
+-	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-	systemd="y"
+-fi
+-
+-else
+-	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
+-	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-	systemd="y"
+-fi
+-
  
- .PHONY: all
-diff --git a/tools/xenstored/posix.c b/tools/xenstored/posix.c
-index d88c82d972d7..dc4ed8db591f 100644
---- a/tools/xenstored/posix.c
-+++ b/tools/xenstored/posix.c
-@@ -26,9 +26,6 @@
- #include <sys/mman.h>
- #include <sys/socket.h>
- #include <sys/un.h>
--#if defined(HAVE_SYSTEMD)
--#include <systemd/sd-daemon.h>
--#endif
- #include <xen-tools/xenstore-common.h>
+ 		if test "x$enable_systemd" != "xno"; then :
  
- #include "utils.h"
-@@ -390,12 +387,6 @@ void handle_special_fds(void)
+-	     if test "x$systemd" = "xy" ; then :
+-
+-
+-$as_echo "#define HAVE_SYSTEMD 1" >>confdefs.h
+-
+-			systemd=y
+-
+-
+-pkg_failed=no
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
+-$as_echo_n "checking for SYSTEMD... " >&6; }
+-
+-if test -n "$SYSTEMD_CFLAGS"; then
+-    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd-daemon\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd-daemon") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd-daemon" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-if test -n "$SYSTEMD_LIBS"; then
+-    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd-daemon\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd-daemon") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd-daemon" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-
+-
+-
+-if test $pkg_failed = yes; then
+-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+-        _pkg_short_errors_supported=yes
+-else
+-        _pkg_short_errors_supported=no
+-fi
+-        if test $_pkg_short_errors_supported = yes; then
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd-daemon" 2>&1`
+-        else
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd-daemon" 2>&1`
+-        fi
+-	# Put the nasty error message in config.log where it belongs
+-	echo "$SYSTEMD_PKG_ERRORS" >&5
+-
+-
+-pkg_failed=no
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
+-$as_echo_n "checking for SYSTEMD... " >&6; }
+-
+-if test -n "$SYSTEMD_CFLAGS"; then
+-    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd >= 209" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-if test -n "$SYSTEMD_LIBS"; then
+-    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd >= 209" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-
+-
+-
+-if test $pkg_failed = yes; then
+-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+-        _pkg_short_errors_supported=yes
+-else
+-        _pkg_short_errors_supported=no
+-fi
+-        if test $_pkg_short_errors_supported = yes; then
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
+-        else
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
+-        fi
+-	# Put the nasty error message in config.log where it belongs
+-	echo "$SYSTEMD_PKG_ERRORS" >&5
+-
+-	as_fn_error $? "Package requirements (libsystemd >= 209) were not met:
+-
+-$SYSTEMD_PKG_ERRORS
+-
+-Consider adjusting the PKG_CONFIG_PATH environment variable if you
+-installed software in a non-standard prefix.
+-
+-Alternatively, you may set the environment variables SYSTEMD_CFLAGS
+-and SYSTEMD_LIBS to avoid the need to call pkg-config.
+-See the pkg-config man page for more details." "$LINENO" 5
+-elif test $pkg_failed = untried; then
+-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
+-is in your PATH or set the PKG_CONFIG environment variable to the full
+-path to pkg-config.
+-
+-Alternatively, you may set the environment variables SYSTEMD_CFLAGS
+-and SYSTEMD_LIBS to avoid the need to call pkg-config.
+-See the pkg-config man page for more details.
+-
+-To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+-See \`config.log' for more details" "$LINENO" 5; }
+-else
+-	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
+-	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-
+-fi
+-
+-elif test $pkg_failed = untried; then
+-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-pkg_failed=no
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
+-$as_echo_n "checking for SYSTEMD... " >&6; }
+-
+-if test -n "$SYSTEMD_CFLAGS"; then
+-    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd >= 209" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-if test -n "$SYSTEMD_LIBS"; then
+-    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd >= 209" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-
+-
+-
+-if test $pkg_failed = yes; then
+-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+-        _pkg_short_errors_supported=yes
+-else
+-        _pkg_short_errors_supported=no
+-fi
+-        if test $_pkg_short_errors_supported = yes; then
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
+-        else
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
+-        fi
+-	# Put the nasty error message in config.log where it belongs
+-	echo "$SYSTEMD_PKG_ERRORS" >&5
+-
+-	as_fn_error $? "Package requirements (libsystemd >= 209) were not met:
+-
+-$SYSTEMD_PKG_ERRORS
+-
+-Consider adjusting the PKG_CONFIG_PATH environment variable if you
+-installed software in a non-standard prefix.
+-
+-Alternatively, you may set the environment variables SYSTEMD_CFLAGS
+-and SYSTEMD_LIBS to avoid the need to call pkg-config.
+-See the pkg-config man page for more details." "$LINENO" 5
+-elif test $pkg_failed = untried; then
+-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
+-is in your PATH or set the PKG_CONFIG environment variable to the full
+-path to pkg-config.
+-
+-Alternatively, you may set the environment variables SYSTEMD_CFLAGS
+-and SYSTEMD_LIBS to avoid the need to call pkg-config.
+-See the pkg-config man page for more details.
+-
+-To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+-See \`config.log' for more details" "$LINENO" 5; }
+-else
+-	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
+-	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-
+-fi
+-
+-else
+-	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
+-	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-
+-fi
+-
+-
+-
+-	if test "x$SYSTEMD_DIR" = x; then :
+-
+-	    	    	    	    	    	    	    	    	    	    	    	    	    SYSTEMD_DIR="\$(prefix)/lib/systemd/system/"
+-
+-fi
+-
+-	if test "x$SYSTEMD_DIR" = x; then :
+-
+-	    as_fn_error $? "SYSTEMD_DIR is unset" "$LINENO" 5
+-
+-fi
+-
+-		if test "x$SYSTEMD_MODULES_LOAD" = x; then :
+-
+-	    SYSTEMD_MODULES_LOAD="\$(prefix)/lib/modules-load.d/"
+-
+-fi
+-
+-	if test "x$SYSTEMD_MODULES_LOAD" = x; then :
+-
+-	    as_fn_error $? "SYSTEMD_MODULES_LOAD is unset" "$LINENO" 5
+-
+-fi
+-
+-
+-else
+-
+-		if test "x$enable_systemd" = "xyes"; then :
+-  as_fn_error $? "Unable to find systemd development library" "$LINENO" 5
+-else
+-  systemd=n
+-fi
+-
+-fi
++	systemd=y
  
- void late_init(bool live_update)
- {
--#if defined(HAVE_SYSTEMD)
--	if (!live_update) {
--		sd_notify(1, "READY=1");
--		fprintf(stderr, SD_NOTICE "xenstored is ready\n");
--	}
--#endif
- }
- 
- int get_socket_fd(void)
+ else
+   systemd=n
 -- 
 2.30.2
 
