@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 929DF8B1AE2
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 08:23:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711823.1112085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35FB28B1B2C
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 08:39:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711832.1112095 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzsVR-0008U1-T8; Thu, 25 Apr 2024 06:22:53 +0000
+	id 1rzskd-0003j5-AC; Thu, 25 Apr 2024 06:38:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711823.1112085; Thu, 25 Apr 2024 06:22:53 +0000
+Received: by outflank-mailman (output) from mailman id 711832.1112095; Thu, 25 Apr 2024 06:38:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzsVR-0008Qs-Pf; Thu, 25 Apr 2024 06:22:53 +0000
-Received: by outflank-mailman (input) for mailman id 711823;
- Thu, 25 Apr 2024 06:22:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rzskd-0003g1-6u; Thu, 25 Apr 2024 06:38:35 +0000
+Received: by outflank-mailman (input) for mailman id 711832;
+ Thu, 25 Apr 2024 06:38:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hfi/=L6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzsVQ-0008Qk-Sj
- for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 06:22:52 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e85b731-02cc-11ef-909a-e314d9c70b13;
- Thu, 25 Apr 2024 08:22:52 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-346b146199eso474561f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 23:22:52 -0700 (PDT)
+ id 1rzskb-0003fv-UO
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 06:38:33 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6e7a51a8-02ce-11ef-b4bb-af5377834399;
+ Thu, 25 Apr 2024 08:38:31 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-41b0bc4ce39so6575675e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 23:38:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g18-20020adfa492000000b0033e9d9f891csm19124952wrb.58.2024.04.24.23.22.50
+ c7-20020a05600c0a4700b0041b434e5869sm1185525wmq.43.2024.04.24.23.38.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Apr 2024 23:22:51 -0700 (PDT)
+ Wed, 24 Apr 2024 23:38:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e85b731-02cc-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 6e7a51a8-02ce-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714026171; x=1714630971; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=suse.com; s=google; t=1714027111; x=1714631911; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=zKBSd4Fg6gvUBt2JXRcCqdhlAfIUjPkKS4D9u8dHlvI=;
-        b=FTBnkiWarUBDjrdOv/eEYlaCJKWcEVcHsyZUrUjcDDnbtzM/arXExfVQ6cWiE2ZTu1
-         fq385kKqHrEbGfiTAR4ycE+3Z0Gq9LsIQFGAL4aCvwGdQnoC5Cq9poTP8HVL0z2Hb0Mo
-         HBSsAEiEDXcc1uZH4orx8wUpgGVKoiGlep+ikIvsxi41eLXY6DsNOZynPu1V3n/Ikr4k
-         RWdF2s2htkvXhGRG0GBPKsjzzqiqpZs4gBQGVbXrAY01xlfrTbD7L9ozu/jNg5hD9dKN
-         lrlaAlER+KfBpRwDy3r2Vhmw/sGr/ZkQFhwIcUfb4I5KpT7JVIFyVPkAXK/8lKRiI+ib
-         mbpg==
+        bh=IPnvjqat0snK2gZ3hKO9HI3gMS2nnsexL82beyC2ddI=;
+        b=eCA6P7tx8EGgusLGNyV8TXGmIlEF+ye67KopKE1upVW5ucZb8mUpw+F2hJlCF4cA8r
+         8SiWrxWO51h6lR9WiSjBsw7SKi0sQ7g1gO3neRLomcelB3PymTrQpE+l2w/lBm/xRz0e
+         umxGQEhDQMWFHrpfTvjwE8jJtQRQImudNeCt2UjWT5WyoPYNqJjJm9qwKOf26Evgnqg2
+         IjGsqQ0WKhXrFvawctNzIvuRkRfmZ3Kui/2PG/8qzxVV41EcyGoTZD3KhEo9rxEdMDV9
+         LWQDReWUS4zJp1rkJwra/FfYxQY1ZSfRfZVj/y9NH8wk5qotvonmd/ZkGQQA64eX3zL9
+         4sPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714026171; x=1714630971;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=1e100.net; s=20230601; t=1714027111; x=1714631911;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zKBSd4Fg6gvUBt2JXRcCqdhlAfIUjPkKS4D9u8dHlvI=;
-        b=Rr3hWQQtQFYsFQYuzrGX7yrNo8gHruYTIRMeGy1Osne1ZZjgSJCA45heyIlPHu4R6s
-         dB+zOvE9KiT7/9zDAODzq3nRiR1dOuxdJFwADg+8S+8iebuVV8HW1OaXojkr5y42844Y
-         9TIWZoerLy6ghCz9PQXP8LNLoA143IygL5YQckESfrjw2MzsmvBDwcQPjzebFNq841UK
-         CzNYr02EVLIPV8ieYLt3R041QTsn7RSCJ0EoEBpK4STQ5HLxJImPWqLno5vpG/l/K8ch
-         /wSlU+UnzXLLCDMCoGNOKL6fOZjh1W/Z1o6KKk2jW58nAEWBmmZ0opnjHtpnbbM9MkJd
-         SjTA==
-X-Forwarded-Encrypted: i=1; AJvYcCVu5Cv8+tjGzznvpJEqC43j1LIaMfA7RLlD5ijKMNRe89N5M6eSwDA3VadNhF8OxDYxX+33x0BssFRkggx4FJgIrI6bUpK44HJZ0+GgQE8=
-X-Gm-Message-State: AOJu0YxarpDQr8HsGZr3S8DRHJmA/6c63yymN2M4Zn2VR7OUd7Zd6Jt6
-	7/I04f2P1Up5oUMZ7zsJSSFmpvFM++E66m2yNRJWPrRTZ+4nvIeKGs7XeUIojw==
-X-Google-Smtp-Source: AGHT+IETDdyj/IJXoWiZVf9D5OEzRZlsfcqf68N92WJN+c6mKFKLj4HfPVAHjabvbq2C4e9xjRtUKA==
-X-Received: by 2002:a5d:4dcf:0:b0:346:d2c0:7682 with SMTP id f15-20020a5d4dcf000000b00346d2c07682mr3025718wru.30.1714026171340;
-        Wed, 24 Apr 2024 23:22:51 -0700 (PDT)
-Message-ID: <d8c25ff5-213e-42ae-9040-d91840d4ad72@suse.com>
-Date: Thu, 25 Apr 2024 08:22:50 +0200
+        bh=IPnvjqat0snK2gZ3hKO9HI3gMS2nnsexL82beyC2ddI=;
+        b=lPm6ZuFXwuyCmVqZdg9IjlDQLduUEr9j/Dz/08kQZbqYS93DJ/CHqWuDjQy2RZzbVc
+         4XnVmccEFMCCHUOUnUUvf3jQ1cY0tszTtDb34ZpoT10z3rcTT7VyalpxatN+uBaM/D6X
+         ltW9x//a3QZgQtSDeSMHwTUAUhnV5Ewu0CIrbNnnUJoCq/1R5tllTB3dUokC2yq2CgFf
+         qdfCrLjAYku21p5pRFenCvHWOU1QTtesUOq2Sr29pJPRvEldf6J3ae7W6HlXKNuBLFXp
+         A5/dW1ZalyqEI2QdOF/38w9HAYtbVxP2NebN/xgx3q3bYBwxPhhhMjIBmnVf5q86FuQg
+         TInQ==
+X-Gm-Message-State: AOJu0Yw7HXD7n9egBiyf3dfgdmta6xRo7JpLmq1PrzhM1uj08EOMk723
+	9x//Otu3DHkCAKOXOQCJKsWHLOsxhXxr4d8YquuGlEl7ryYgWx3OzaQNzmaxy+vRYwg16NEZUbo
+	=
+X-Google-Smtp-Source: AGHT+IFDqUbPJ09FUy80aExdFdXb3YNbVxMLoWuAOr36VwFwIy2s+US+/OFIWnflRLzl4Y1syvLKBw==
+X-Received: by 2002:a05:600c:4f8a:b0:419:f911:680a with SMTP id n10-20020a05600c4f8a00b00419f911680amr4610110wmq.1.1714027110796;
+        Wed, 24 Apr 2024 23:38:30 -0700 (PDT)
+Message-ID: <7caaa211-fcd0-4e15-9bb5-f0b967ea9209@suse.com>
+Date: Thu, 25 Apr 2024 08:38:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] x86/hap: Refactor boolean field assignments
+Subject: Re: [linux-linus test] 185785: regressions - FAIL
 Content-Language: en-US
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: =?UTF-8?Q?Petr_Bene=C5=A1?= <w.benny@outlook.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1713990376.git.w1benny@gmail.com>
- <8203e5e06e326ad320878439e5342f7f1acc685d.1713990376.git.w1benny@gmail.com>
+To: xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <osstest-185785-mainreport@xen.org>
+Cc: osstest service owner <osstest-admin@xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,18 +110,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8203e5e06e326ad320878439e5342f7f1acc685d.1713990376.git.w1benny@gmail.com>
+In-Reply-To: <osstest-185785-mainreport@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 24.04.2024 22:42, Petr Beneš wrote:
-> From: Petr Beneš <w.benny@outlook.com>
+On 25.04.2024 03:38, osstest service owner wrote:
+> flight 185785 linux-linus real [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/185785/
 > 
-> No functional change.
+> Regressions :-(
 > 
-> Signed-off-by: Petr Beneš <w1benny@gmail.com>
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>  test-armhf-armhf-xl-raw       8 xen-boot                 fail REGR. vs. 185768
+>  test-armhf-armhf-libvirt-vhd  8 xen-boot                 fail REGR. vs. 185768
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+This looks to be recurring. From one of the logs:
 
+Apr 24 21:09:04.301751 Configuring network interfaces...RTNETLINK answers: Operation not supported
+Apr 24 21:09:05.033646 done.
+Apr 24 21:09:05.033646 Cleaning up temporary files....
+Apr 24 21:09:05.105744 Setting up X socket directories... /tmp/.X11-unix /tmp/.ICE-unix.
+Apr 24 21:09:05.381747 Starting nftables: none
+Apr 24 21:09:05.405781 �mnl.c:60: Unable to initialize Netlink socket: Protocol not supported
+Apr 24 21:09:05.837763  failed!
+Apr 24 21:09:05.837817 startpar: service(s) returned failure: nftables ... failed!
 
+Hints at a possible network setup issue, which would explain the timeout
+in trying to ping the host.
+
+Jan
 
