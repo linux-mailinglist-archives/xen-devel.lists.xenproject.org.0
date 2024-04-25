@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 659188B2803
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 20:16:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712221.1112728 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F264E8B2830
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 20:32:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712231.1112737 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s03e0-0008Is-Ja; Thu, 25 Apr 2024 18:16:28 +0000
+	id 1s03t3-0003P5-VD; Thu, 25 Apr 2024 18:32:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712221.1112728; Thu, 25 Apr 2024 18:16:28 +0000
+Received: by outflank-mailman (output) from mailman id 712231.1112737; Thu, 25 Apr 2024 18:32:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s03e0-0008Gf-Fx; Thu, 25 Apr 2024 18:16:28 +0000
-Received: by outflank-mailman (input) for mailman id 712221;
- Thu, 25 Apr 2024 18:16:27 +0000
+	id 1s03t3-0003Mi-SX; Thu, 25 Apr 2024 18:32:01 +0000
+Received: by outflank-mailman (input) for mailman id 712231;
+ Thu, 25 Apr 2024 18:32:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BIz1=L6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s03dz-0008GX-O0
- for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 18:16:27 +0000
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [2607:f8b0:4864:20::732])
+ id 1s03t2-0003Mc-OY
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 18:32:00 +0000
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [2607:f8b0:4864:20::82e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id edf81cc4-032f-11ef-909a-e314d9c70b13;
- Thu, 25 Apr 2024 20:16:26 +0200 (CEST)
-Received: by mail-qk1-x732.google.com with SMTP id
- af79cd13be357-78f056f0a53so79100885a.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 11:16:26 -0700 (PDT)
+ id 1a12990a-0332-11ef-909a-e314d9c70b13;
+ Thu, 25 Apr 2024 20:31:59 +0200 (CEST)
+Received: by mail-qt1-x82e.google.com with SMTP id
+ d75a77b69052e-436ce50b199so5888991cf.3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 11:31:59 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- z12-20020a0cf00c000000b006a0441c4d15sm7145119qvk.38.2024.04.25.11.16.24
+ b13-20020ac8754d000000b0043718726f76sm7132408qtr.90.2024.04.25.11.31.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Apr 2024 11:16:25 -0700 (PDT)
+ Thu, 25 Apr 2024 11:31:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: edf81cc4-032f-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 1a12990a-0332-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714068986; x=1714673786; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1714069919; x=1714674719; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MaX4o5LBeJn3t8xAOHYRZgxxvBmmdxJbFDAYUiF8a1E=;
-        b=vjeenQOmDdTP5A8xR3r3h6nJXPHketm8X8EsxSfaCQDOTHyittNCt0UYW72V8t0CED
-         ALJjAvtatw19qVPAIXHW34tQUlv8+pXb++SKVW/GlNccPtrZmHDxO2iVPxLfvwQdmV59
-         BE41Zx5yf8CgvsC3oGFFCmNCaIPI+A4cgC4dE=
+        bh=WpcWC5q2lOLKfhiBnvRQ383iygxsZPMKCHRK3KqaurQ=;
+        b=AcV0Jmj6pWCY7SmBNQvX51WORsz6pOLZ+q6VZzLS+Ikt8BrfBdyURANkBHwnLldDf3
+         s2ySW7rxpeLVSnBWCpjojU/5n0Ag+ClAPSiZjqSjs2iYeuYz/FJT5iWYftV+FPQz6RD/
+         QaM8hvxA4bxlIHDTPiPP31nngVUY6dZiER+3Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714068986; x=1714673786;
+        d=1e100.net; s=20230601; t=1714069919; x=1714674719;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MaX4o5LBeJn3t8xAOHYRZgxxvBmmdxJbFDAYUiF8a1E=;
-        b=NSMkJ+9MprphjlNPQS0F+ClS3hnqjANci7E2VcL8svtHThWusyLNGYaIojq2bgPzMh
-         2gk5NN0oG0PDGbty7vyAq5IaIS8O2+RqJezUKBsC6ycX/aMJQyO1rIjKUsjFyFzDzLjt
-         yRCs4/LdRYRfOcJ0GnEg/y6SEV1F8NF6JgwxR1qb6BO/gjPo4TrERnhBgJDORv4qqZpu
-         RIxHXJCFgdBpQeGFq8V3ARjoKvjBcbHynuylc9g8F9M1dfLtPTsl5EToNKzdRyJPyNXo
-         swwwPffyoyzRwAw/CdnXDFPC9OegRAGUds0yycszMndow+c417FkzPqetbnjAebF9+NZ
-         vuAg==
-X-Gm-Message-State: AOJu0Yyi4QSavCVY4/Aix/ZtcL8m0/awGx7o2AEMSN/RrUCOhlBN9Lfs
-	CfXckMkZhnBH3nxvTxrNe/CVZS/v+12sFQfESvIxYgQiJaM1AvmmCwVPvTU0+iI=
-X-Google-Smtp-Source: AGHT+IGdN8iqqCAaHepHcmbauZkQQFWM6BGCMxK/efp6mRz8pjydQoCojOQT0p7PNEnArNPXlRrPaA==
-X-Received: by 2002:a05:6214:5582:b0:6a0:ab56:8466 with SMTP id mi2-20020a056214558200b006a0ab568466mr9523qvb.50.1714068985539;
-        Thu, 25 Apr 2024 11:16:25 -0700 (PDT)
-Message-ID: <341c5901-254e-4ad2-b935-6b586cd25f2e@citrix.com>
-Date: Thu, 25 Apr 2024 19:16:23 +0100
+        bh=WpcWC5q2lOLKfhiBnvRQ383iygxsZPMKCHRK3KqaurQ=;
+        b=w1HMqpDdLzYevIvJdI8uxc7tATLV+bv6LdSJGDO3/OtLiwzI1FNuioq+n5BZPX5BSp
+         m7YFdNsCkDplSawkNAa0mrjI2sX6jetsPLz3mNJvW2h4QdZYp/D+t8ds6YvFWP2elUId
+         3VcS1Ax78cuqZosZXj9b5KcCLx8YTLj0Sm4mTr8NKMkKb64iQf2DbJtUB5cECgMzE/dQ
+         HWXOk2RD5ryHHWW9geKS7WAXwf+daTseyPjImIdvxi+EQBl+5pcYMuaJTVnOZMVpQaC1
+         X27UJkEjvA7QH3M+WaYD+hwEH5FQh823NnTlaXyU7Praut0pz+GK26WFkjVJAn/F8lap
+         bAQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUW+ARkejxIVXSc80piU+HxYR+28nwZotlQEAfDbWpBPlhMafS70XKSqP3pPG7xkHCB+58ninMm7olbjHrE6Pp3nuVCxkscYcX1jRGsrCs=
+X-Gm-Message-State: AOJu0YxMJV62kYVonIlrqyxgwLyFFWdhOy0gBJ7Y76+cP4XoRCQaCaNx
+	CAjdoL6RsrzGUJpclLjqgA6ej5oN/cXJO9qvONq29zgny6L/RWozhc0WtLzteug=
+X-Google-Smtp-Source: AGHT+IFT/54ODLcQkZvIJ2LB3YC26f6JP8sRcMzeR07mLYcaQ4mGzT3PuUfNhwB2J3B9UHHXw++BxQ==
+X-Received: by 2002:a05:622a:589:b0:437:b4f1:2360 with SMTP id c9-20020a05622a058900b00437b4f12360mr458859qtb.49.1714069918730;
+        Thu, 25 Apr 2024 11:31:58 -0700 (PDT)
+Message-ID: <23477984-0604-4e0f-94db-f12c0b6c3eaa@citrix.com>
+Date: Thu, 25 Apr 2024 19:31:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] tools/{c,o}xenstored: Don't link against libsystemd
-To: Anthony PERARD <anthony.perard@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Juergen Gross <jgross@suse.com>,
- Christian Lindig <christian.lindig@citrix.com>,
- =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20240425173216.410940-1-andrew.cooper3@citrix.com>
- <20240425173216.410940-2-andrew.cooper3@citrix.com>
- <b5e242fa-daf1-43a2-afd2-cc1ad1bd4dc1@perard>
+Subject: Re: [PATCH v3 1/8] gzip: clean up comments and fix code alignment
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20240424163422.23276-1-dpsmith@apertussolutions.com>
+ <20240424163422.23276-2-dpsmith@apertussolutions.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -132,41 +131,15 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <b5e242fa-daf1-43a2-afd2-cc1ad1bd4dc1@perard>
+In-Reply-To: <20240424163422.23276-2-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 25/04/2024 7:06 pm, Anthony PERARD wrote:
-> On Thu, Apr 25, 2024 at 06:32:15PM +0100, Andrew Cooper wrote:
->> libsystemd is a giant dependency for one single function, but in the wake of
->> the xz backdoor, it turns out that even systemd leadership recommend against
->> linking against libsystemd for sd_notify().
->>
->> Since commit 7b61011e1450 ("tools: make xenstore domain easy configurable") in
->> Xen 4.8, the launch-xenstore script invokes systemd-notify directly, so its
-> That's not enough, it's needs to be `systemd-notify --ready` to be a
-> replacement for sd_notify(READY=1).
+On 24/04/2024 5:34 pm, Daniel P. Smith wrote:
+> This commit cleans up the comments and fixes the code alignment using Xen
+> coding style. This is done to make the code more legible before refactoring.
 >
->> not even necessary for the xenstored's to call sd_notify() themselves.
-> So, sd_notify() or equivalent is still necessary.
->
->> Therefore, just drop the calls to sd_notify() and stop linking against
->> libsystemd.
-> Sounds good, be we need to replace the call by something like:
->     echo READY=1 > $NOTIFY_SOCKET
-> implemented in C and ocaml. Detail to be checked.
->
-> Otherwise, things won't work.
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-Hmm.  It worked in XenRT when stripping this all out, but that is
-extremely unintuitive behaviour for `systemd-notify --booted`, seeing as
-it's entirely different to --ready.
-
-I've got no interest in keeping the C around, but if:
-
-[ -n "$NOTIFY_SOCKET" ] && echo READY=1 > $NOTIFY_SOCKET
-
-works, then can't we just use that after waiting for the the pidfile ?
-
-~Andrew
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
