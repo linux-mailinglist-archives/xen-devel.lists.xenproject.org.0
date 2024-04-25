@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AD7D8B1AD3
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 08:19:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711816.1112065 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F47F8B1ADA
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 08:22:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711819.1112075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzsSJ-0006XP-7X; Thu, 25 Apr 2024 06:19:39 +0000
+	id 1rzsUT-0007wB-JN; Thu, 25 Apr 2024 06:21:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711816.1112065; Thu, 25 Apr 2024 06:19:39 +0000
+Received: by outflank-mailman (output) from mailman id 711819.1112075; Thu, 25 Apr 2024 06:21:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzsSJ-0006Uc-4p; Thu, 25 Apr 2024 06:19:39 +0000
-Received: by outflank-mailman (input) for mailman id 711816;
- Thu, 25 Apr 2024 06:19:37 +0000
+	id 1rzsUT-0007tz-Fz; Thu, 25 Apr 2024 06:21:53 +0000
+Received: by outflank-mailman (input) for mailman id 711819;
+ Thu, 25 Apr 2024 06:21:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hfi/=L6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzsSH-0006UW-6H
- for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 06:19:37 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1rzsUR-0007tr-M6
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 06:21:51 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c9eab04f-02cb-11ef-909a-e314d9c70b13;
- Thu, 25 Apr 2024 08:19:36 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-41b34d344a0so4852445e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 23:19:36 -0700 (PDT)
+ id 1a18c37c-02cc-11ef-909a-e314d9c70b13;
+ Thu, 25 Apr 2024 08:21:50 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-346b96f1483so297182f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Apr 2024 23:21:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m18-20020adff392000000b00345920fcb45sm19029630wro.13.2024.04.24.23.19.35
+ g18-20020adfa492000000b0033e9d9f891csm19124952wrb.58.2024.04.24.23.21.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Apr 2024 23:19:35 -0700 (PDT)
+ Wed, 24 Apr 2024 23:21:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9eab04f-02cb-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 1a18c37c-02cc-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714025975; x=1714630775; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714026110; x=1714630910; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=e3nAqYeDVFKI0t7PnEHk8avdhUXTXHxgSFZ6HEc/SMQ=;
-        b=Wo008Hoe46L/DPpKSAsYK97XgCsh8zkYieNsnnpZYZEOmR8onPN7/sXdVuGigW69Jn
-         G/+cz/EsTKlwT8443988i8WIkT4JHFMh7H1Ns1ITV4aiXwiwIev9No0uUuRk/BDRxId8
-         Xz2bMHcWWTFNyyXL4LER+4kEEydVJWCFCvqdVlbzeIhlkSf6iubv/Fw2w4x3lY/4l5Sb
-         3qZqP6JDlAroUQ7EOKmRfo7mnSZtOwF2gzM5G9H4Pwuo/cICflG98/tIw114oJw/AyTB
-         jWJSNQymFN7JfK1ymsR80eB6drXwWZ3AE4ZkrUKR1hNglE9x7DY3vEyUjnNBDGfcdRVS
-         gepw==
+        bh=IlyMsT4P4AoDqwyxOKfsSZEUYehZYOxVPOM87MuqqxM=;
+        b=TkJiCP7No6F7alvkB8KEXTbfJgwfIS/lNV0AtuMnXcOHNwCgDGIR+SNizqhkjGKr3g
+         /YidHaF2OVW3lLAjUKcpKCqULl0832TswavBCytcmzL7MdZtIe1H3E7sIet1ONAB3dSU
+         lA4CDD/nD4JnnSdZmBCxM/p6HhbpnIFFp6BkLers0FQu2xYhWSRuQEv3yNYzAlwKvAq0
+         aUN4f5V2Q9ZiCwpZdIeVkOJ2r+BA9T/OdaFfWwsC5Xm2pJAtU5I6/BQB/loUW2Nt0Mh9
+         ZRvEtQ2EE+grR7U1URbYce2Jk6u44oY+ct8nB3jOGJB9OvR/phUgVVUCnj2rfwnPM776
+         JOlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714025975; x=1714630775;
+        d=1e100.net; s=20230601; t=1714026110; x=1714630910;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=e3nAqYeDVFKI0t7PnEHk8avdhUXTXHxgSFZ6HEc/SMQ=;
-        b=N6t49xMearudXC9OBELojCe8sLUqQ+4TdnvaYNgm18Z/H8NDZHqfAjEJrTEzTl8r/p
-         COR4I3/J0VqrrLimYHnEFyFkTgn3J8PjoylfFvMcgDVFa0LaUTcVKOzJttbKCPyNCzxj
-         11+FXGbKytp6j+Yfe4Oy6ysq66s+Hbiqr0AXzfPloDigafpsJgG3+IWEwCsKEbMlD2/9
-         rxv5iIMRiFxSqVyXzWf4XmVgxB9bNea0t8+3GBCcZmTSW03bvutDwOKJwaWlIksD+j22
-         q5jM6PLTNGJgwEokFZ6+raiJejeapVs6BRh0px1eEbuLQqybGfIqEyaUCSBjj71NDSmo
-         ZvAg==
-X-Forwarded-Encrypted: i=1; AJvYcCU2vsFEVopod4ku0rATkBxVGjzd8c09pJp40ycuZXcrWREpGf5pTqswexWzK0+sm3p8liJdYlvfSRaG3qoj8h1g45slWf+eOW0PA+zjWRw=
-X-Gm-Message-State: AOJu0YzfK7tKWeM3oeKDBD52sW66wZbNrt/95DmBkZbImRX3NDgusrPm
-	oczFgL2i/ljkIMm4oNd7zvWmelDr1wR3Gnrio5Azx2ipmnxRXj75v3C0LkevXg==
-X-Google-Smtp-Source: AGHT+IEC8ipGlaB31xfBsmMVSoxaoyevHYXxo8bVz5R2UrjOATeduBqzB5TycthptVFW29eb5G1VXQ==
-X-Received: by 2002:a05:600c:3515:b0:418:ef65:4b0e with SMTP id h21-20020a05600c351500b00418ef654b0emr3036150wmq.17.1714025975679;
-        Wed, 24 Apr 2024 23:19:35 -0700 (PDT)
-Message-ID: <9bb611ac-1187-4daa-9649-53afeeb11695@suse.com>
-Date: Thu, 25 Apr 2024 08:19:34 +0200
+        bh=IlyMsT4P4AoDqwyxOKfsSZEUYehZYOxVPOM87MuqqxM=;
+        b=podG0oXWPC1ybPNYImSgY3bj+xagXgMoMgCM8a5+Rt2cghWsRyB5aZ/IimBn9zxwmc
+         Xe8z9logqlcBvn5HEns1hp9SrbttFqbvG/1scq09Phyw22+bI5Ise8rccbRkcs6OENHI
+         fGkKawErtWJnajUTCytVgHYlan5JrGELr2HQ0N1MAWWjCuJ2l2vWUxxvbDxvV7msIGyd
+         wCBl4hFWsrrNSWXri6UlaZupWHVhz7MCC5CMt5LtPrpL4uC9yhcbC8ORDVVp4aT9Vy/s
+         45c8KzIiGikXA/CEPH3g4RK1IoVG+bIH07VmXZ3WSSg/hrscPdfYUU/oFL56WbayLWo4
+         835A==
+X-Forwarded-Encrypted: i=1; AJvYcCU+gO55SjeVAgcWXfCpPhP4JLrwb4CKf0J7K63M3ZJPyPSmwB918rannqzyvIIYx6n4IQj/+bTcdaVWfVJNm+3f9g3bY6e4gsM4scF7QuI=
+X-Gm-Message-State: AOJu0YwiPJFg5XNwBmkx6TVcPa1nFp4IZJoQC/fHDSiRCmzUltc1Q+TB
+	olh73sW+yvBxwqljZZUpTsZq3LGDmEcikV/kb4nOj00MefQr+/H+I0c32iK5TQ==
+X-Google-Smtp-Source: AGHT+IGe75ueJX/rBjhueyknUMxRF4GmBmciM88W1+EdRfwy102jBhJdI3r7vMK8BJtbN1xW01tBpw==
+X-Received: by 2002:a5d:4ac3:0:b0:348:b458:56b8 with SMTP id y3-20020a5d4ac3000000b00348b45856b8mr1014067wrs.17.1714026110257;
+        Wed, 24 Apr 2024 23:21:50 -0700 (PDT)
+Message-ID: <470e0d7a-918b-4df6-a7b2-e8ee2d98dbde@suse.com>
+Date: Thu, 25 Apr 2024 08:21:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] tools/xl: Add max_altp2m parameter
+Subject: Re: [PATCH 1/7] x86/p2m: Add braces for better code clarity
 Content-Language: en-US
 To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: George Dunlap <george.dunlap@citrix.com>,
- Nick Rosbrook <rosbrookn@gmail.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <cover.1713990376.git.w1benny@gmail.com>
- <67b5dd52435132d0fb65e7b301970e17e092fa87.1713990376.git.w1benny@gmail.com>
+ <2e6e4f07b9e8f50ae65697c8644995aa4851cdac.1713990376.git.w1benny@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,33 +113,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <67b5dd52435132d0fb65e7b301970e17e092fa87.1713990376.git.w1benny@gmail.com>
+In-Reply-To: <2e6e4f07b9e8f50ae65697c8644995aa4851cdac.1713990376.git.w1benny@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 24.04.2024 22:42, Petr Beneš wrote:
-> Introduce a new max_altp2m parameter to control the maximum number of altp2m
-> views a domain can use. By default, if max_altp2m is unspecified and altp2m is
-> enabled, the value is set to 10, reflecting the legacy behavior.
+On 24.04.2024 22:41, Petr Beneš wrote:
+> From: Petr Beneš <w1benny@gmail.com>
+> 
+> No functional change.
+> 
+> Signed-off-by: Petr Beneš <w1benny@gmail.com>
 
-Apart from the public header you don't even touch hypervisor code here. What
-you say above therefore is limited in scope to the tool stack. I question
-though that adding a new field without respecting it constitutes an overall
-consistent change. In particular I'm curious how you mean to deal with this
-for other than x86, where altp2m as a concept doesn't exist (yet).
-
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -77,6 +77,7 @@ struct xen_domctl_createdomain {
->       */
->      uint32_t max_vcpus;
->      uint32_t max_evtchn_port;
-> +    uint32_t max_altp2m;
->      int32_t max_grant_frames;
->      int32_t max_maptrack_frames;
-
-Such a struct layout change needs to be accompanied by an interface version
-bump (which hasn't happened so far in this release cycle, afaics).
+Hmm. I don't really mind the extra braces, but I also don't really see a need.
+IOW this is not an objection, but it'll want to be someone else (if anyone) to
+ack this.
 
 Jan
+
+> --- a/xen/arch/x86/mm/p2m.c
+> +++ b/xen/arch/x86/mm/p2m.c
+> @@ -106,6 +106,7 @@ void p2m_change_entry_type_global(struct domain *d,
+>          unsigned int i;
+>  
+>          for ( i = 0; i < MAX_ALTP2M; i++ )
+> +        {
+>              if ( d->arch.altp2m_eptp[i] != mfn_x(INVALID_MFN) )
+>              {
+>                  struct p2m_domain *altp2m = d->arch.altp2m_p2m[i];
+> @@ -114,6 +115,7 @@ void p2m_change_entry_type_global(struct domain *d,
+>                  change_entry_type_global(altp2m, ot, nt);
+>                  p2m_unlock(altp2m);
+>              }
+> +        }
+>      }
+>  
+>      p2m_unlock(hostp2m);
+> @@ -139,6 +141,7 @@ void p2m_memory_type_changed(struct domain *d)
+>          unsigned int i;
+>  
+>          for ( i = 0; i < MAX_ALTP2M; i++ )
+> +        {
+>              if ( d->arch.altp2m_eptp[i] != mfn_x(INVALID_MFN) )
+>              {
+>                  struct p2m_domain *altp2m = d->arch.altp2m_p2m[i];
+> @@ -147,6 +150,7 @@ void p2m_memory_type_changed(struct domain *d)
+>                  _memory_type_changed(altp2m);
+>                  p2m_unlock(altp2m);
+>              }
+> +        }
+>      }
+>  
+>      p2m_unlock(hostp2m);
+
 
