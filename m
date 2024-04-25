@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10A6F8B2A32
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 22:54:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712290.1112886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57FCA8B2CF8
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 00:19:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712298.1112896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0674-0007go-QY; Thu, 25 Apr 2024 20:54:38 +0000
+	id 1s07Q6-00037k-Ly; Thu, 25 Apr 2024 22:18:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712290.1112886; Thu, 25 Apr 2024 20:54:38 +0000
+Received: by outflank-mailman (output) from mailman id 712298.1112896; Thu, 25 Apr 2024 22:18:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0674-0007ft-NH; Thu, 25 Apr 2024 20:54:38 +0000
-Received: by outflank-mailman (input) for mailman id 712290;
- Thu, 25 Apr 2024 20:54:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s0674-0007fj-0O; Thu, 25 Apr 2024 20:54:38 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s0673-0004im-TE; Thu, 25 Apr 2024 20:54:37 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s0673-0000tC-Dx; Thu, 25 Apr 2024 20:54:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1s0673-0003EU-DW; Thu, 25 Apr 2024 20:54:37 +0000
+	id 1s07Q6-00035d-JK; Thu, 25 Apr 2024 22:18:22 +0000
+Received: by outflank-mailman (input) for mailman id 712298;
+ Thu, 25 Apr 2024 22:18:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=N29f=L6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1s07Q5-00035X-Qs
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 22:18:21 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b4c7d2f6-0351-11ef-909a-e314d9c70b13;
+ Fri, 26 Apr 2024 00:18:19 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id D4AF0CE1A71;
+ Thu, 25 Apr 2024 22:18:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B827C113CC;
+ Thu, 25 Apr 2024 22:18:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +41,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=e+Hns3XXIEmMc5T+vbvwe2gK0KTKZB7bae6K2iL+RKk=; b=y3yjc0WDLRK3sYjRn+DOHUo2PO
-	Kp52UGsnoxuasL9EBkXpZM4Y42kIMExFJKEuH+Ye/WMAGCMi39eTknufjfJMvQol9RV16DH1kq6Qv
-	SaD63ZdA7+4Clh80uxYwRSCbZhnB5z8KP/8YIUBH9l6fEY75wgonCQHnpu/ApCQ4Z4Qw=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185799-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b4c7d2f6-0351-11ef-909a-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1714083491;
+	bh=HkR9w6SMx5QH4SAZEV5jRP6eaVLcquTZ3zZHKcsIC6o=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=OTP7mx4Z/iIMjhqHvZz/Z5i9kliHVpmihpuKHQa1/k1Dgx4moZjXpboJsMMwNwmTn
+	 he3XIdVUnkShoezgYUXibY1gZazH19/vy2q5Xbcc4IMmOEQa3aKlUXzflTthFyp6YU
+	 nzIFJce23FaYMa+VNtWHr51T84WZUxEEi2bBK+T4rKUsASaQiCfFFAm1zUJ4JmWh+L
+	 s2EuG0Lg5R/ebfs6AtuWwnb2iPljhYIa2Vtmi5kch2gtPBjdCDag2Qx1t0ZY7mQNDJ
+	 3ficknvghff7Xg8jt6ufiCqqc9OaiG1whEZMUc94NARrKhS3+Z2NYVYrpeUWq6bjao
+	 lzNi7qLSqq7KQ==
+Date: Thu, 25 Apr 2024 15:18:08 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+cc: Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org, 
+    Anthony PERARD <anthony.perard@citrix.com>, 
+    Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v4 0/5] DOMCTL-based guest magic region allocation for
+ 11 domUs
+In-Reply-To: <c7857223-eab8-409a-b618-6ec70f6165aa@apertussolutions.com>
+Message-ID: <alpine.DEB.2.22.394.2404251508470.3940@ubuntu-linux-20-04-desktop>
+References: <20240409045357.236802-1-xin.wang2@amd.com> <c7857223-eab8-409a-b618-6ec70f6165aa@apertussolutions.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 185799: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=23cd1207e7f6ee3e51fb42e11dba8d7cdb28e1e5
-X-Osstest-Versions-That:
-    xen=6d5111b10e084d841284a56e962c61ad274f589e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 25 Apr 2024 20:54:37 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 185799 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185799/
+On Thu, 18 Apr 2024, Daniel P. Smith wrote:
+> On 4/9/24 00:53, Henry Wang wrote:
+> > An error message can seen from the init-dom0less application on
+> > direct-mapped 1:1 domains:
+> > ```
+> > Allocating magic pages
+> > memory.c:238:d0v0 mfn 0x39000 doesn't belong to d1
+> > Error on alloc magic pages
+> > ```
+> > 
+> > This is because populate_physmap() automatically assumes gfn == mfn
+> > for direct mapped domains. This cannot be true for the magic pages
+> > that are allocated later for 1:1 Dom0less DomUs from the init-dom0less
+> > helper application executed in Dom0. For domain using statically
+> > allocated memory but not 1:1 direct-mapped, similar error "failed to
+> > retrieve a reserved page" can be seen as the reserved memory list
+> > is empty at that time.
+> > 
+> > This series tries to fix this issue using a DOMCTL-based approach,
+> > because for 1:1 direct-mapped domUs, we need to avoid the RAM regions
+> > and inform the toolstack about the region found by hypervisor for
+> > mapping the magic pages. Patch 1 introduced a new DOMCTL to get the
+> > guest memory map, currently only used for the magic page regions.
+> > Patch 2 generalized the extended region finding logic so that it can
+> > be reused for other use cases such as finding 1:1 domU magic regions.
+> > Patch 3 uses the same approach as finding the extended regions to find
+> > the guest magic page regions for direct-mapped DomUs. Patch 4 avoids
+> > hardcoding all base addresses of guest magic region in the init-dom0less
+> > application by consuming the newly introduced DOMCTL. Patch 5 is a
+> > simple patch to do some code duplication clean-up in xc.
+> 
+> Hey Henry,
+> 
+> To help provide some perspective, these issues are not experienced with
+> hyperlaunch. This is because we understood early on that you cannot move a
+> lightweight version of the toolstack into hypervisor init and not provide a
+> mechanism to communicate what it did to the runtime control plane. We
+> evaluated the possible mechanism, to include introducing a new hypercall op,
+> and ultimately settled on using hypfs. The primary reason is this information
+> is static data that, while informative later, is only necessary for the
+> control plane to understand the state of the system. As a result, hyperlaunch
+> is able to allocate any and all special pages required as part of domain
+> construction and communicate their addresses to the control plane. As for XSM,
+> hypfs is already protected and at this time we do not see any domain builder
+> information needing to be restricted separately from the data already present
+> in hypfs.
+> 
+> I would like to make the suggestion that instead of continuing down this path,
+> perhaps you might consider adopting the hyperlaunch usage of hypfs. Then
+> adjust dom0less domain construction to allocate the special pages at
+> construction time. The original hyperlaunch series includes a patch that
+> provides the helper app for the xenstore announcement. And I can provide you
+> with updated versions if that would be helpful.
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  23cd1207e7f6ee3e51fb42e11dba8d7cdb28e1e5
-baseline version:
- xen                  6d5111b10e084d841284a56e962c61ad274f589e
-
-Last test of basis   185797  2024-04-25 13:08:37 Z    0 days
-Testing same since   185799  2024-04-25 17:02:07 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   6d5111b10e..23cd1207e7  23cd1207e7f6ee3e51fb42e11dba8d7cdb28e1e5 -> smoke
+I also think that the new domctl is not needed and that the dom0less
+domain builder should allocate the magic pages. On ARM, we already
+allocate HVM_PARAM_CALLBACK_IRQ during dom0less domain build and set
+HVM_PARAM_STORE_PFN to ~0ULL. I think it would be only natural to extend
+that code to also allocate the magic pages and set HVM_PARAM_STORE_PFN
+(and others) correctly. If we do it that way it is simpler and
+consistent with the HVM_PARAM_CALLBACK_IRQ allocation, and we don't even
+need hypfs. Currently we do not enable hypfs in our safety
+certifiability configuration.
 
