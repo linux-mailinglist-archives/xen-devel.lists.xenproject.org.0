@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D584D8B27A0
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 19:33:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712194.1112688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EFDF8B27BA
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 19:48:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712207.1112698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s02xQ-0004xC-Jw; Thu, 25 Apr 2024 17:32:28 +0000
+	id 1s03CC-0000dw-0h; Thu, 25 Apr 2024 17:47:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712194.1112688; Thu, 25 Apr 2024 17:32:28 +0000
+Received: by outflank-mailman (output) from mailman id 712207.1112698; Thu, 25 Apr 2024 17:47:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s02xQ-0004tx-Gh; Thu, 25 Apr 2024 17:32:28 +0000
-Received: by outflank-mailman (input) for mailman id 712194;
- Thu, 25 Apr 2024 17:32:27 +0000
+	id 1s03CB-0000bh-TY; Thu, 25 Apr 2024 17:47:43 +0000
+Received: by outflank-mailman (input) for mailman id 712207;
+ Thu, 25 Apr 2024 17:47:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BIz1=L6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s02xP-0004RI-74
- for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 17:32:27 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ id 1s03CA-0000bb-BG
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 17:47:42 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c708567b-0329-11ef-b4bb-af5377834399;
- Thu, 25 Apr 2024 19:32:24 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-56e6acb39d4so1574208a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 10:32:24 -0700 (PDT)
+ id e91b509f-032b-11ef-b4bb-af5377834399;
+ Thu, 25 Apr 2024 19:47:40 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a524ecaf215so165333766b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 10:47:40 -0700 (PDT)
 Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- ci8-20020a170906c34800b00a587356c04csm4006477ejb.187.2024.04.25.10.32.22
+ r18-20020a17090638d200b00a589ce6803asm1875982ejd.110.2024.04.25.10.47.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Apr 2024 10:32:22 -0700 (PDT)
+ Thu, 25 Apr 2024 10:47:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,756 +45,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c708567b-0329-11ef-b4bb-af5377834399
+X-Inumbo-ID: e91b509f-032b-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714066343; x=1714671143; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Vm54fAi6JaNw3+G4sAOX+Z6d3qFSN3u7bim0oUjoPQA=;
-        b=MjUZ9OAoneTSmFUNVR4EkgNPMBd7q6cSIDu2tQKtRenGXaVoo439MK/Xs20YdOyMeX
-         GWhWI6k+5oFtAwYEqOx16EyTmD7xE+GnSPR93xmQLZQT3x0jLLORDZUybOefSWYJ8N2R
-         ojBUB9td1imEKj5L9/uBbxvY2O2LtTKownLrY=
+        d=citrix.com; s=google; t=1714067259; x=1714672059; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=/JNEBbF9lnfi5qaMtkfp90g2IT0sweAM5cETmm+Qe6A=;
+        b=Obt1/xoXehRLzZPLbnD1AFWVNg+pzOufP5Q+6dletpaRerm9qzoCSvZOcG9OKBNNdQ
+         lplECFBxVhspvyfE+bYike8mRpGFVQJe7s7tRcRG8EKqqhAMhsxIS85UMy3WWDIwho1y
+         QGMQyPeH8jXwTxGz19x28qyTKJJkOG9MJ47WU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714066343; x=1714671143;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Vm54fAi6JaNw3+G4sAOX+Z6d3qFSN3u7bim0oUjoPQA=;
-        b=orebE5QJBMi4BpDZAUFXq25vqQ8TZiS13/wyte/EyjRa9ZTwNMGMJ9WwmqBuipJEnT
-         hGyMHwWOm9PIqgbCs+Ffa1VIWtYOLF+o6GufHSN+lmcquaXaZyfrHjQXxuAQKaNIyMsl
-         DHouOPLbevo3aUra7LZ8CFGsir3kgIcLhTekq+a/svTIBk0vOHfCf3ACYOpGN9tpTUpy
-         SmSrhewPDScllWO9OTEHbCU3mZPNUjP0LV6Mv7Vvb4jU8zlkrh2UPCLySEN1yYEKOXKm
-         kf9oFZiWSVfKzJlLL616b2lrPTPcbuwOFulzxP+muwwQoslPBrqXV0VN4xtAVKfqFw8o
-         IRQg==
-X-Gm-Message-State: AOJu0YxgDUcjEMQH2I+iibUtcp8ytDrgslkCBplrsfVQsqyT4ekRjEFh
-	p1Pk3DT5AhcCrE/2z/rhsrzwPm0FDXIVj4X9uTv42uIYq3zrGDxd5Hf8aR5QMTDAYYOPUndoKTu
-	u
-X-Google-Smtp-Source: AGHT+IGaLa1zNEWZHpeeeP1AdDVXMoTYi3EoCApLK6i7TXo3GFhX8sygt05jFrL3wuycaQMjhsxmYA==
-X-Received: by 2002:a17:906:b210:b0:a55:387b:eef9 with SMTP id p16-20020a170906b21000b00a55387beef9mr316035ejz.10.1714066343401;
-        Thu, 25 Apr 2024 10:32:23 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1714067259; x=1714672059;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/JNEBbF9lnfi5qaMtkfp90g2IT0sweAM5cETmm+Qe6A=;
+        b=HFK2zgujcmpKHs8R1YXGnWrhAK5tE7EP7E9yPH3lkBjfOKdJStXRA0W6Sm9r4H+B9o
+         2cdEgieetRbXGivL+l+JCJVVO4Ly1CLq1GKZkBzkbA07i03lcZt2jJcDNOcZ76BaiBm2
+         IasSvyZFC0Vg/wzXbNUvskLefPsH4WpfGH8WVdOG2HvN39eePxk4Dhf0SVBJsDY9khhD
+         Y8aX2ApoVdJK1KRVMDUfVdgEj0zklGwydCsnICTUBZnJjsQoMQ8H8V0+gqKd72nR3QRD
+         SEdMPiH5AcrXE5+lUFUgh5YXJbyXKC2SsPzBzyTFMY3H0BpF1jX4trW+mKznbNkL421/
+         P1PQ==
+X-Gm-Message-State: AOJu0Yzxs6qtOCGS2SMtOPqefUk4+a5hAsz7kT5IERq/2IlzyokBEYCu
+	DRKXhe6eI91FQxPNJdAsJaXNUPkCb40g4fxy2MggqQx8P4vo1OVgHH6IiJLCd9CnHyivYGXXYpU
+	5
+X-Google-Smtp-Source: AGHT+IFuR5uEVIXha4taznTw+AuINi3XXUWIPKrjNQ9eV2blD6aOENQQuJ3FrguG4I1J5l0Z3bvKYg==
+X-Received: by 2002:a17:906:5851:b0:a52:54d8:6d21 with SMTP id h17-20020a170906585100b00a5254d86d21mr320675ejs.7.1714067259433;
+        Thu, 25 Apr 2024 10:47:39 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	=?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 2/2] tools: Drop libsystemd as a dependency
-Date: Thu, 25 Apr 2024 18:32:16 +0100
-Message-Id: <20240425173216.410940-3-andrew.cooper3@citrix.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] CI: Drop glibc-i386 from the build containers
+Date: Thu, 25 Apr 2024 18:47:37 +0100
+Message-Id: <20240425174737.414327-1-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20240425173216.410940-1-andrew.cooper3@citrix.com>
-References: <20240425173216.410940-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-There are no more users, and we want to disuade people from introducing new
-users just for sd_notify() and friends.  Drop the dependency.
-
-We still want the overall --with{,out}-systemd to gate the generation of the
-service/unit/mount/etc files.
-
-Rerun autogen.sh, and mark the dependency as removed in the build containers.
+Xen 4.14 no longer runs in Gitlab CI.  Drop the dependency to shrink the build
+containers a little.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Anthony PERARD <anthony.perard@citrix.com>
-CC: Juergen Gross <jgross@suse.com>
-CC: Christian Lindig <christian.lindig@citrix.com>
-CC: Edwin Török <edwin.torok@cloud.com>
 CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Doug Goldstein <cardoe@cardoe.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- automation/build/archlinux/current.dockerfile |   1 +
- .../build/suse/opensuse-leap.dockerfile       |   1 +
- .../build/suse/opensuse-tumbleweed.dockerfile |   1 +
- automation/build/ubuntu/focal.dockerfile      |   1 +
- config/Tools.mk.in                            |   2 -
- m4/systemd.m4                                 |  23 +-
- tools/config.h.in                             |   3 -
- tools/configure                               | 523 +-----------------
- 8 files changed, 7 insertions(+), 548 deletions(-)
+ automation/build/archlinux/current.dockerfile        | 2 --
+ automation/build/centos/7.dockerfile                 | 2 --
+ automation/build/debian/bookworm.dockerfile          | 2 --
+ automation/build/debian/jessie.dockerfile            | 2 --
+ automation/build/debian/stretch.dockerfile           | 2 --
+ automation/build/fedora/29.dockerfile                | 2 --
+ automation/build/suse/opensuse-leap.dockerfile       | 2 --
+ automation/build/suse/opensuse-tumbleweed.dockerfile | 2 --
+ automation/build/ubuntu/bionic.dockerfile            | 2 --
+ automation/build/ubuntu/focal.dockerfile             | 2 --
+ automation/build/ubuntu/trusty.dockerfile            | 2 --
+ automation/build/ubuntu/xenial.dockerfile            | 2 --
+ 12 files changed, 24 deletions(-)
 
 diff --git a/automation/build/archlinux/current.dockerfile b/automation/build/archlinux/current.dockerfile
-index d974a1434fd5..a350b53ad8e2 100644
+index d974a1434fd5..3e37ab5c40c1 100644
 --- a/automation/build/archlinux/current.dockerfile
 +++ b/automation/build/archlinux/current.dockerfile
-@@ -39,6 +39,7 @@ RUN pacman -S --refresh --sysupgrade --noconfirm --noprogressbar --needed \
-         sdl2 \
-         spice \
-         spice-protocol \
-+        # systemd for Xen < 4.19
-         systemd \
-         transfig \
-         usbredir \
-diff --git a/automation/build/suse/opensuse-leap.dockerfile b/automation/build/suse/opensuse-leap.dockerfile
-index e1ec38a41445..0483d9826d7d 100644
---- a/automation/build/suse/opensuse-leap.dockerfile
-+++ b/automation/build/suse/opensuse-leap.dockerfile
-@@ -61,6 +61,7 @@ RUN zypper install -y --no-recommends \
-         'pkgconfig(sdl2)' \
-         python3-devel \
-         python3-setuptools \
-+        # systemd-devel for Xen < 4.19
-         systemd-devel \
-         tar \
-         transfig \
-diff --git a/automation/build/suse/opensuse-tumbleweed.dockerfile b/automation/build/suse/opensuse-tumbleweed.dockerfile
-index f00e03eda7b1..59b168e717b2 100644
---- a/automation/build/suse/opensuse-tumbleweed.dockerfile
-+++ b/automation/build/suse/opensuse-tumbleweed.dockerfile
-@@ -62,6 +62,7 @@ RUN zypper install -y --no-recommends \
-         'pkgconfig(sdl2)' \
-         python3-devel \
-         python3-setuptools \
-+        # systemd-devel for Xen < 4.19
-         systemd-devel \
-         tar \
-         transfig \
-diff --git a/automation/build/ubuntu/focal.dockerfile b/automation/build/ubuntu/focal.dockerfile
-index 30a9b8e84ffe..8171347c4656 100644
---- a/automation/build/ubuntu/focal.dockerfile
-+++ b/automation/build/ubuntu/focal.dockerfile
-@@ -36,6 +36,7 @@ RUN apt-get update && \
+@@ -19,8 +19,6 @@ RUN pacman -S --refresh --sysupgrade --noconfirm --noprogressbar --needed \
+         iasl \
+         inetutils \
+         iproute \
+-        # lib32-glibc for Xen < 4.15
+-        lib32-glibc \
+         libaio \
+         libcacard \
+         libgl \
+diff --git a/automation/build/centos/7.dockerfile b/automation/build/centos/7.dockerfile
+index ab450f0b3a0e..1cdc16fc05f9 100644
+--- a/automation/build/centos/7.dockerfile
++++ b/automation/build/centos/7.dockerfile
+@@ -32,8 +32,6 @@ RUN yum -y update \
+         yajl-devel \
+         pixman-devel \
+         glibc-devel \
+-        # glibc-devel.i686 for Xen < 4.15
+-        glibc-devel.i686 \
+         make \
+         binutils \
+         git \
+diff --git a/automation/build/debian/bookworm.dockerfile b/automation/build/debian/bookworm.dockerfile
+index 459f8e30bdc6..d893218fc4bd 100644
+--- a/automation/build/debian/bookworm.dockerfile
++++ b/automation/build/debian/bookworm.dockerfile
+@@ -31,8 +31,6 @@ RUN apt-get update && \
+         bin86 \
+         bcc \
+         liblzma-dev \
+-        # libc6-dev-i386 for Xen < 4.15
+-        libc6-dev-i386 \
          libnl-3-dev \
          ocaml-nox \
          libfindlib-ocaml-dev \
-+        # libsystemd-dev for Xen < 4.19
-         libsystemd-dev \
-         transfig \
-         pandoc \
-diff --git a/config/Tools.mk.in b/config/Tools.mk.in
-index b54ab21f966b..50fbef841f3f 100644
---- a/config/Tools.mk.in
-+++ b/config/Tools.mk.in
-@@ -52,8 +52,6 @@ CONFIG_PYGRUB       := @pygrub@
- CONFIG_LIBFSIMAGE   := @libfsimage@
- 
- CONFIG_SYSTEMD      := @systemd@
--SYSTEMD_CFLAGS      := @SYSTEMD_CFLAGS@
--SYSTEMD_LIBS        := @SYSTEMD_LIBS@
- XEN_SYSTEMD_DIR     := @SYSTEMD_DIR@
- XEN_SYSTEMD_MODULES_LOAD := @SYSTEMD_MODULES_LOAD@
- CONFIG_9PFS         := @ninepfs@
-diff --git a/m4/systemd.m4 b/m4/systemd.m4
-index 112dc11b5e05..aa1ebe94f56c 100644
---- a/m4/systemd.m4
-+++ b/m4/systemd.m4
-@@ -41,15 +41,6 @@ AC_DEFUN([AX_ALLOW_SYSTEMD_OPTS], [
- ])
- 
- AC_DEFUN([AX_CHECK_SYSTEMD_LIBS], [
--	PKG_CHECK_MODULES([SYSTEMD], [libsystemd-daemon],,
--		[PKG_CHECK_MODULES([SYSTEMD], [libsystemd >= 209])]
--        )
--	dnl pkg-config older than 0.24 does not set these for
--	dnl PKG_CHECK_MODULES() worth also noting is that as of version 208
--	dnl of systemd pkg-config --cflags currently yields no extra flags yet.
--	AC_SUBST([SYSTEMD_CFLAGS])
--	AC_SUBST([SYSTEMD_LIBS])
--
- 	AS_IF([test "x$SYSTEMD_DIR" = x], [
- 	    dnl In order to use the line below we need to fix upstream systemd
- 	    dnl to properly ${prefix} for child variables in
-@@ -83,23 +74,11 @@ AC_DEFUN([AX_CHECK_SYSTEMD_LIBS], [
- AC_DEFUN([AX_CHECK_SYSTEMD], [
- 	dnl Respect user override to disable
- 	AS_IF([test "x$enable_systemd" != "xno"], [
--	     AS_IF([test "x$systemd" = "xy" ], [
--		AC_DEFINE([HAVE_SYSTEMD], [1], [Systemd available and enabled])
--			systemd=y
--			AX_CHECK_SYSTEMD_LIBS()
--	    ],[
--		AS_IF([test "x$enable_systemd" = "xyes"],
--			[AC_MSG_ERROR([Unable to find systemd development library])],
--			[systemd=n])
--	    ])
-+	systemd=y
- 	],[systemd=n])
- ])
- 
- AC_DEFUN([AX_CHECK_SYSTEMD_ENABLE_AVAILABLE], [
--	PKG_CHECK_MODULES([SYSTEMD], [libsystemd-daemon], [systemd="y"],[
--		PKG_CHECK_MODULES([SYSTEMD], [libsystemd >= 209],
--				  [systemd="y"],[systemd="n"])
--	])
- ])
- 
- dnl Enables systemd by default and requires a --disable-systemd option flag
-diff --git a/tools/config.h.in b/tools/config.h.in
-index 0bb2fe08a143..56ac7800032f 100644
---- a/tools/config.h.in
-+++ b/tools/config.h.in
-@@ -60,9 +60,6 @@
- /* Define to 1 if you have the <string.h> header file. */
- #undef HAVE_STRING_H
- 
--/* Systemd available and enabled */
--#undef HAVE_SYSTEMD
--
- /* Define to 1 if you have the <sys/eventfd.h> header file. */
- #undef HAVE_SYS_EVENTFD_H
- 
-diff --git a/tools/configure b/tools/configure
-index 3d557234b319..b0873a5601a7 100755
---- a/tools/configure
-+++ b/tools/configure
-@@ -626,8 +626,6 @@ ac_subst_vars='LTLIBOBJS
- LIBOBJS
- pvshim
- ninepfs
--SYSTEMD_LIBS
--SYSTEMD_CFLAGS
- SYSTEMD_MODULES_LOAD
- SYSTEMD_DIR
- systemd
-@@ -864,9 +862,7 @@ pixman_LIBS
- libzstd_CFLAGS
- libzstd_LIBS
- LIBNL3_CFLAGS
--LIBNL3_LIBS
--SYSTEMD_CFLAGS
--SYSTEMD_LIBS'
-+LIBNL3_LIBS'
- 
- 
- # Initialize some variables set by options.
-@@ -1621,10 +1617,6 @@ Some influential environment variables:
-   LIBNL3_CFLAGS
-               C compiler flags for LIBNL3, overriding pkg-config
-   LIBNL3_LIBS linker flags for LIBNL3, overriding pkg-config
--  SYSTEMD_CFLAGS
--              C compiler flags for SYSTEMD, overriding pkg-config
--  SYSTEMD_LIBS
--              linker flags for SYSTEMD, overriding pkg-config
- 
- Use these variables to override the choices made by `configure' or to help
- it to find libraries and programs with nonstandard names/locations.
-@@ -9541,521 +9533,10 @@ fi
- 
- 
- 
--pkg_failed=no
--{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
--$as_echo_n "checking for SYSTEMD... " >&6; }
--
--if test -n "$SYSTEMD_CFLAGS"; then
--    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
-- elif test -n "$PKG_CONFIG"; then
--    if test -n "$PKG_CONFIG" && \
--    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd-daemon\""; } >&5
--  ($PKG_CONFIG --exists --print-errors "libsystemd-daemon") 2>&5
--  ac_status=$?
--  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
--  test $ac_status = 0; }; then
--  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd-daemon" 2>/dev/null`
--		      test "x$?" != "x0" && pkg_failed=yes
--else
--  pkg_failed=yes
--fi
-- else
--    pkg_failed=untried
--fi
--if test -n "$SYSTEMD_LIBS"; then
--    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
-- elif test -n "$PKG_CONFIG"; then
--    if test -n "$PKG_CONFIG" && \
--    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd-daemon\""; } >&5
--  ($PKG_CONFIG --exists --print-errors "libsystemd-daemon") 2>&5
--  ac_status=$?
--  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
--  test $ac_status = 0; }; then
--  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd-daemon" 2>/dev/null`
--		      test "x$?" != "x0" && pkg_failed=yes
--else
--  pkg_failed=yes
--fi
-- else
--    pkg_failed=untried
--fi
--
--
--
--if test $pkg_failed = yes; then
--   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
--$as_echo "no" >&6; }
--
--if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
--        _pkg_short_errors_supported=yes
--else
--        _pkg_short_errors_supported=no
--fi
--        if test $_pkg_short_errors_supported = yes; then
--	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd-daemon" 2>&1`
--        else
--	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd-daemon" 2>&1`
--        fi
--	# Put the nasty error message in config.log where it belongs
--	echo "$SYSTEMD_PKG_ERRORS" >&5
--
--
--
--pkg_failed=no
--{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
--$as_echo_n "checking for SYSTEMD... " >&6; }
--
--if test -n "$SYSTEMD_CFLAGS"; then
--    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
-- elif test -n "$PKG_CONFIG"; then
--    if test -n "$PKG_CONFIG" && \
--    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
--  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
--  ac_status=$?
--  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
--  test $ac_status = 0; }; then
--  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd >= 209" 2>/dev/null`
--		      test "x$?" != "x0" && pkg_failed=yes
--else
--  pkg_failed=yes
--fi
-- else
--    pkg_failed=untried
--fi
--if test -n "$SYSTEMD_LIBS"; then
--    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
-- elif test -n "$PKG_CONFIG"; then
--    if test -n "$PKG_CONFIG" && \
--    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
--  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
--  ac_status=$?
--  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
--  test $ac_status = 0; }; then
--  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd >= 209" 2>/dev/null`
--		      test "x$?" != "x0" && pkg_failed=yes
--else
--  pkg_failed=yes
--fi
-- else
--    pkg_failed=untried
--fi
--
--
--
--if test $pkg_failed = yes; then
--   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
--$as_echo "no" >&6; }
--
--if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
--        _pkg_short_errors_supported=yes
--else
--        _pkg_short_errors_supported=no
--fi
--        if test $_pkg_short_errors_supported = yes; then
--	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
--        else
--	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
--        fi
--	# Put the nasty error message in config.log where it belongs
--	echo "$SYSTEMD_PKG_ERRORS" >&5
--
--	systemd="n"
--elif test $pkg_failed = untried; then
--     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
--$as_echo "no" >&6; }
--	systemd="n"
--else
--	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
--	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
--        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
--$as_echo "yes" >&6; }
--	systemd="y"
--fi
--
--elif test $pkg_failed = untried; then
--     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
--$as_echo "no" >&6; }
--
--
--pkg_failed=no
--{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
--$as_echo_n "checking for SYSTEMD... " >&6; }
--
--if test -n "$SYSTEMD_CFLAGS"; then
--    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
-- elif test -n "$PKG_CONFIG"; then
--    if test -n "$PKG_CONFIG" && \
--    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
--  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
--  ac_status=$?
--  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
--  test $ac_status = 0; }; then
--  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd >= 209" 2>/dev/null`
--		      test "x$?" != "x0" && pkg_failed=yes
--else
--  pkg_failed=yes
--fi
-- else
--    pkg_failed=untried
--fi
--if test -n "$SYSTEMD_LIBS"; then
--    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
-- elif test -n "$PKG_CONFIG"; then
--    if test -n "$PKG_CONFIG" && \
--    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
--  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
--  ac_status=$?
--  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
--  test $ac_status = 0; }; then
--  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd >= 209" 2>/dev/null`
--		      test "x$?" != "x0" && pkg_failed=yes
--else
--  pkg_failed=yes
--fi
-- else
--    pkg_failed=untried
--fi
--
--
--
--if test $pkg_failed = yes; then
--   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
--$as_echo "no" >&6; }
--
--if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
--        _pkg_short_errors_supported=yes
--else
--        _pkg_short_errors_supported=no
--fi
--        if test $_pkg_short_errors_supported = yes; then
--	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
--        else
--	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
--        fi
--	# Put the nasty error message in config.log where it belongs
--	echo "$SYSTEMD_PKG_ERRORS" >&5
--
--	systemd="n"
--elif test $pkg_failed = untried; then
--     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
--$as_echo "no" >&6; }
--	systemd="n"
--else
--	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
--	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
--        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
--$as_echo "yes" >&6; }
--	systemd="y"
--fi
--
--else
--	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
--	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
--        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
--$as_echo "yes" >&6; }
--	systemd="y"
--fi
--
- 
- 		if test "x$enable_systemd" != "xno"; then :
- 
--	     if test "x$systemd" = "xy" ; then :
--
--
--$as_echo "#define HAVE_SYSTEMD 1" >>confdefs.h
--
--			systemd=y
--
--
--pkg_failed=no
--{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
--$as_echo_n "checking for SYSTEMD... " >&6; }
--
--if test -n "$SYSTEMD_CFLAGS"; then
--    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
-- elif test -n "$PKG_CONFIG"; then
--    if test -n "$PKG_CONFIG" && \
--    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd-daemon\""; } >&5
--  ($PKG_CONFIG --exists --print-errors "libsystemd-daemon") 2>&5
--  ac_status=$?
--  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
--  test $ac_status = 0; }; then
--  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd-daemon" 2>/dev/null`
--		      test "x$?" != "x0" && pkg_failed=yes
--else
--  pkg_failed=yes
--fi
-- else
--    pkg_failed=untried
--fi
--if test -n "$SYSTEMD_LIBS"; then
--    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
-- elif test -n "$PKG_CONFIG"; then
--    if test -n "$PKG_CONFIG" && \
--    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd-daemon\""; } >&5
--  ($PKG_CONFIG --exists --print-errors "libsystemd-daemon") 2>&5
--  ac_status=$?
--  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
--  test $ac_status = 0; }; then
--  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd-daemon" 2>/dev/null`
--		      test "x$?" != "x0" && pkg_failed=yes
--else
--  pkg_failed=yes
--fi
-- else
--    pkg_failed=untried
--fi
--
--
--
--if test $pkg_failed = yes; then
--   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
--$as_echo "no" >&6; }
--
--if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
--        _pkg_short_errors_supported=yes
--else
--        _pkg_short_errors_supported=no
--fi
--        if test $_pkg_short_errors_supported = yes; then
--	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd-daemon" 2>&1`
--        else
--	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd-daemon" 2>&1`
--        fi
--	# Put the nasty error message in config.log where it belongs
--	echo "$SYSTEMD_PKG_ERRORS" >&5
--
--
--pkg_failed=no
--{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
--$as_echo_n "checking for SYSTEMD... " >&6; }
--
--if test -n "$SYSTEMD_CFLAGS"; then
--    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
-- elif test -n "$PKG_CONFIG"; then
--    if test -n "$PKG_CONFIG" && \
--    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
--  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
--  ac_status=$?
--  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
--  test $ac_status = 0; }; then
--  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd >= 209" 2>/dev/null`
--		      test "x$?" != "x0" && pkg_failed=yes
--else
--  pkg_failed=yes
--fi
-- else
--    pkg_failed=untried
--fi
--if test -n "$SYSTEMD_LIBS"; then
--    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
-- elif test -n "$PKG_CONFIG"; then
--    if test -n "$PKG_CONFIG" && \
--    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
--  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
--  ac_status=$?
--  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
--  test $ac_status = 0; }; then
--  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd >= 209" 2>/dev/null`
--		      test "x$?" != "x0" && pkg_failed=yes
--else
--  pkg_failed=yes
--fi
-- else
--    pkg_failed=untried
--fi
--
--
--
--if test $pkg_failed = yes; then
--   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
--$as_echo "no" >&6; }
--
--if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
--        _pkg_short_errors_supported=yes
--else
--        _pkg_short_errors_supported=no
--fi
--        if test $_pkg_short_errors_supported = yes; then
--	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
--        else
--	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
--        fi
--	# Put the nasty error message in config.log where it belongs
--	echo "$SYSTEMD_PKG_ERRORS" >&5
--
--	as_fn_error $? "Package requirements (libsystemd >= 209) were not met:
--
--$SYSTEMD_PKG_ERRORS
--
--Consider adjusting the PKG_CONFIG_PATH environment variable if you
--installed software in a non-standard prefix.
--
--Alternatively, you may set the environment variables SYSTEMD_CFLAGS
--and SYSTEMD_LIBS to avoid the need to call pkg-config.
--See the pkg-config man page for more details." "$LINENO" 5
--elif test $pkg_failed = untried; then
--     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
--$as_echo "no" >&6; }
--	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
--$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
--as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
--is in your PATH or set the PKG_CONFIG environment variable to the full
--path to pkg-config.
--
--Alternatively, you may set the environment variables SYSTEMD_CFLAGS
--and SYSTEMD_LIBS to avoid the need to call pkg-config.
--See the pkg-config man page for more details.
--
--To get pkg-config, see <http://pkg-config.freedesktop.org/>.
--See \`config.log' for more details" "$LINENO" 5; }
--else
--	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
--	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
--        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
--$as_echo "yes" >&6; }
--
--fi
--
--elif test $pkg_failed = untried; then
--     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
--$as_echo "no" >&6; }
--
--pkg_failed=no
--{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
--$as_echo_n "checking for SYSTEMD... " >&6; }
--
--if test -n "$SYSTEMD_CFLAGS"; then
--    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
-- elif test -n "$PKG_CONFIG"; then
--    if test -n "$PKG_CONFIG" && \
--    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
--  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
--  ac_status=$?
--  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
--  test $ac_status = 0; }; then
--  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd >= 209" 2>/dev/null`
--		      test "x$?" != "x0" && pkg_failed=yes
--else
--  pkg_failed=yes
--fi
-- else
--    pkg_failed=untried
--fi
--if test -n "$SYSTEMD_LIBS"; then
--    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
-- elif test -n "$PKG_CONFIG"; then
--    if test -n "$PKG_CONFIG" && \
--    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
--  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
--  ac_status=$?
--  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
--  test $ac_status = 0; }; then
--  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd >= 209" 2>/dev/null`
--		      test "x$?" != "x0" && pkg_failed=yes
--else
--  pkg_failed=yes
--fi
-- else
--    pkg_failed=untried
--fi
--
--
--
--if test $pkg_failed = yes; then
--   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
--$as_echo "no" >&6; }
--
--if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
--        _pkg_short_errors_supported=yes
--else
--        _pkg_short_errors_supported=no
--fi
--        if test $_pkg_short_errors_supported = yes; then
--	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
--        else
--	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
--        fi
--	# Put the nasty error message in config.log where it belongs
--	echo "$SYSTEMD_PKG_ERRORS" >&5
--
--	as_fn_error $? "Package requirements (libsystemd >= 209) were not met:
--
--$SYSTEMD_PKG_ERRORS
--
--Consider adjusting the PKG_CONFIG_PATH environment variable if you
--installed software in a non-standard prefix.
--
--Alternatively, you may set the environment variables SYSTEMD_CFLAGS
--and SYSTEMD_LIBS to avoid the need to call pkg-config.
--See the pkg-config man page for more details." "$LINENO" 5
--elif test $pkg_failed = untried; then
--     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
--$as_echo "no" >&6; }
--	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
--$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
--as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
--is in your PATH or set the PKG_CONFIG environment variable to the full
--path to pkg-config.
--
--Alternatively, you may set the environment variables SYSTEMD_CFLAGS
--and SYSTEMD_LIBS to avoid the need to call pkg-config.
--See the pkg-config man page for more details.
--
--To get pkg-config, see <http://pkg-config.freedesktop.org/>.
--See \`config.log' for more details" "$LINENO" 5; }
--else
--	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
--	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
--        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
--$as_echo "yes" >&6; }
--
--fi
--
--else
--	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
--	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
--        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
--$as_echo "yes" >&6; }
--
--fi
--
--
--
--	if test "x$SYSTEMD_DIR" = x; then :
--
--	    	    	    	    	    	    	    	    	    	    	    	    	    SYSTEMD_DIR="\$(prefix)/lib/systemd/system/"
--
--fi
--
--	if test "x$SYSTEMD_DIR" = x; then :
--
--	    as_fn_error $? "SYSTEMD_DIR is unset" "$LINENO" 5
--
--fi
--
--		if test "x$SYSTEMD_MODULES_LOAD" = x; then :
--
--	    SYSTEMD_MODULES_LOAD="\$(prefix)/lib/modules-load.d/"
--
--fi
--
--	if test "x$SYSTEMD_MODULES_LOAD" = x; then :
--
--	    as_fn_error $? "SYSTEMD_MODULES_LOAD is unset" "$LINENO" 5
--
--fi
--
--
--else
--
--		if test "x$enable_systemd" = "xyes"; then :
--  as_fn_error $? "Unable to find systemd development library" "$LINENO" 5
--else
--  systemd=n
--fi
--
--fi
-+	systemd=y
- 
- else
-   systemd=n
+diff --git a/automation/build/debian/jessie.dockerfile b/automation/build/debian/jessie.dockerfile
+index 32fc952fbc2d..308675cac150 100644
+--- a/automation/build/debian/jessie.dockerfile
++++ b/automation/build/debian/jessie.dockerfile
+@@ -37,8 +37,6 @@ RUN apt-get update && \
+         bin86 \
+         bcc \
+         liblzma-dev \
+-        # libc6-dev-i386 for Xen < 4.15
+-        libc6-dev-i386 \
+         libnl-3-dev \
+         ocaml-nox \
+         libfindlib-ocaml-dev \
+diff --git a/automation/build/debian/stretch.dockerfile b/automation/build/debian/stretch.dockerfile
+index e2706a8f3589..59794ed4677b 100644
+--- a/automation/build/debian/stretch.dockerfile
++++ b/automation/build/debian/stretch.dockerfile
+@@ -38,8 +38,6 @@ RUN apt-get update && \
+         bin86 \
+         bcc \
+         liblzma-dev \
+-        # libc6-dev-i386 for Xen < 4.15
+-        libc6-dev-i386 \
+         libnl-3-dev \
+         ocaml-nox \
+         libfindlib-ocaml-dev \
+diff --git a/automation/build/fedora/29.dockerfile b/automation/build/fedora/29.dockerfile
+index 42a87ce6c84b..f473ae13e7c1 100644
+--- a/automation/build/fedora/29.dockerfile
++++ b/automation/build/fedora/29.dockerfile
+@@ -21,8 +21,6 @@ RUN dnf -y install \
+         yajl-devel \
+         pixman-devel \
+         glibc-devel \
+-        # glibc-devel.i686 for Xen < 4.15
+-        glibc-devel.i686 \
+         make \
+         binutils \
+         git \
+diff --git a/automation/build/suse/opensuse-leap.dockerfile b/automation/build/suse/opensuse-leap.dockerfile
+index e1ec38a41445..48d0d50d005d 100644
+--- a/automation/build/suse/opensuse-leap.dockerfile
++++ b/automation/build/suse/opensuse-leap.dockerfile
+@@ -28,8 +28,6 @@ RUN zypper install -y --no-recommends \
+         ghostscript \
+         glib2-devel \
+         glibc-devel \
+-        # glibc-devel-32bit for Xen < 4.15
+-        glibc-devel-32bit \
+         gzip \
+         hostname \
+         libaio-devel \
+diff --git a/automation/build/suse/opensuse-tumbleweed.dockerfile b/automation/build/suse/opensuse-tumbleweed.dockerfile
+index f00e03eda7b1..53542ba1f4d9 100644
+--- a/automation/build/suse/opensuse-tumbleweed.dockerfile
++++ b/automation/build/suse/opensuse-tumbleweed.dockerfile
+@@ -26,8 +26,6 @@ RUN zypper install -y --no-recommends \
+         ghostscript \
+         glib2-devel \
+         glibc-devel \
+-        # glibc-devel-32bit for Xen < 4.15
+-        glibc-devel-32bit \
+         gzip \
+         hostname \
+         libaio-devel \
+diff --git a/automation/build/ubuntu/bionic.dockerfile b/automation/build/ubuntu/bionic.dockerfile
+index 77d7f933860c..910d3c4b5315 100644
+--- a/automation/build/ubuntu/bionic.dockerfile
++++ b/automation/build/ubuntu/bionic.dockerfile
+@@ -31,8 +31,6 @@ RUN apt-get update && \
+         bin86 \
+         bcc \
+         liblzma-dev \
+-        # libc6-dev-i386 for Xen < 4.15
+-        libc6-dev-i386 \
+         libnl-3-dev \
+         ocaml-nox \
+         libfindlib-ocaml-dev \
+diff --git a/automation/build/ubuntu/focal.dockerfile b/automation/build/ubuntu/focal.dockerfile
+index 30a9b8e84ffe..7c6a4d07566b 100644
+--- a/automation/build/ubuntu/focal.dockerfile
++++ b/automation/build/ubuntu/focal.dockerfile
+@@ -31,8 +31,6 @@ RUN apt-get update && \
+         bin86 \
+         bcc \
+         liblzma-dev \
+-        # libc6-dev-i386 for Xen < 4.15
+-        libc6-dev-i386 \
+         libnl-3-dev \
+         ocaml-nox \
+         libfindlib-ocaml-dev \
+diff --git a/automation/build/ubuntu/trusty.dockerfile b/automation/build/ubuntu/trusty.dockerfile
+index 0d33578c4e1d..8bd8c085a781 100644
+--- a/automation/build/ubuntu/trusty.dockerfile
++++ b/automation/build/ubuntu/trusty.dockerfile
+@@ -31,8 +31,6 @@ RUN apt-get update && \
+         bin86 \
+         bcc \
+         liblzma-dev \
+-        # libc6-dev-i386 for Xen < 4.15
+-        libc6-dev-i386 \
+         libnl-3-dev \
+         ocaml-nox \
+         libfindlib-ocaml-dev \
+diff --git a/automation/build/ubuntu/xenial.dockerfile b/automation/build/ubuntu/xenial.dockerfile
+index e8035434f804..f6296d32925c 100644
+--- a/automation/build/ubuntu/xenial.dockerfile
++++ b/automation/build/ubuntu/xenial.dockerfile
+@@ -31,8 +31,6 @@ RUN apt-get update && \
+         bin86 \
+         bcc \
+         liblzma-dev \
+-        # libc6-dev-i386 for Xen < 4.15
+-        libc6-dev-i386 \
+         libnl-3-dev \
+         ocaml-nox \
+         libfindlib-ocaml-dev \
+
+base-commit: 23cd1207e7f6ee3e51fb42e11dba8d7cdb28e1e5
 -- 
 2.30.2
 
