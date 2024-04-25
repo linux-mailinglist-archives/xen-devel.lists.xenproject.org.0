@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1005C8B257B
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 17:45:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712158.1112618 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A24808B258D
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 17:47:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712162.1112629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s01HC-0005uY-Mq; Thu, 25 Apr 2024 15:44:46 +0000
+	id 1s01K0-0006Rk-5M; Thu, 25 Apr 2024 15:47:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712158.1112618; Thu, 25 Apr 2024 15:44:46 +0000
+Received: by outflank-mailman (output) from mailman id 712162.1112629; Thu, 25 Apr 2024 15:47:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s01HC-0005rm-Jq; Thu, 25 Apr 2024 15:44:46 +0000
-Received: by outflank-mailman (input) for mailman id 712158;
- Thu, 25 Apr 2024 15:44:45 +0000
+	id 1s01K0-0006QD-0E; Thu, 25 Apr 2024 15:47:40 +0000
+Received: by outflank-mailman (input) for mailman id 712162;
+ Thu, 25 Apr 2024 15:47:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hfi/=L6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s01HB-0005rg-65
- for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 15:44:45 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1s01Jy-0006Q7-IN
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 15:47:38 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bbf8733f-031a-11ef-b4bb-af5377834399;
- Thu, 25 Apr 2024 17:44:43 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a4702457ccbso154747766b.3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 08:44:43 -0700 (PDT)
+ id 2356ce3c-031b-11ef-b4bb-af5377834399;
+ Thu, 25 Apr 2024 17:47:36 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a556d22fa93so139631066b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 08:47:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- i21-20020a170906091500b00a5216df5d25sm9627924ejd.3.2024.04.25.08.44.41
+ le23-20020a170906ae1700b00a4e4c944e77sm9637139ejb.40.2024.04.25.08.47.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Apr 2024 08:44:42 -0700 (PDT)
+ Thu, 25 Apr 2024 08:47:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbf8733f-031a-11ef-b4bb-af5377834399
+X-Inumbo-ID: 2356ce3c-031b-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714059882; x=1714664682; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714060056; x=1714664856; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=42vflNR7QPzyJUAaeNHg+n4vo87cxc9nQbRVM8EohSg=;
-        b=JZDt9p+AutNEWteLnwFLwDAT0JnQ6378tw6BAgqA9YHBSztpigxQpsbAE4e7oWgo14
-         TI5Vuj2QC3ib/2DVuKkYbCsZMJXFLyrl0usgyjUL93Z42bOH9rm1aTE2JOH5IotWaAjo
-         TVeVQVEPgSFKmuF6X8g+JorLFGvXSFflb/h4QDEn27K+5tozERZBdHM6DLYrEkno9M3z
-         SRMLyy/ri03NEVO/4162QJoPzR81JddeEKvyYbCjuvMGtYSQkY29QyTmHRqgEulQdpj2
-         UKR5ANPA412BoN7SEriUF9aCwnMj+19AKMpijcNfda3gBDkEchPWOcaU9PquDHd39oOF
-         Zg6g==
+        bh=2oYt/jIM6peXz1IU9bBS20I6AfhXNf0l1tAzrxz5TwI=;
+        b=VJPkQ5LzD4VLilvTJuBt4LdehWq6TO2P50yjMYgcqcRScbtgqUWKNONj+p3lEyQUD4
+         KvXecNikOqPZXlvRMAsk5sNPi2dlDPwo1AzRpT2PzeUF2GP0R3RVFhd8yk1pEyfVJhxu
+         +kQ26RpBMr7SY07bgCnmf7HhT+joI/OjTiXEdtBqfiGIYwXTaoRDK7N7pAxh2JPVemZZ
+         15MWw+u2/hUjpjY0f10g36DTatqyewQI2R8EUtVUJ8TzmcL7qkJGWdT7O+l5NoQa2uYg
+         Pzr9XBbC0XF99LpEu8mDVpiOL1aevUrK+lQxwNTMdL464M8mcTWF8Fn0fYKxuherBvQD
+         VqDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714059882; x=1714664682;
+        d=1e100.net; s=20230601; t=1714060056; x=1714664856;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=42vflNR7QPzyJUAaeNHg+n4vo87cxc9nQbRVM8EohSg=;
-        b=SEmGeaxc6I5PP9KVw0HKE082q43HyW8ux1rORkFzP0g3/VU2DMTSQPXIERfIwMDzyE
-         boxpt/hb2vKgExmpdyKNvM1qc7W9WXVmDXdoOU2un1o19hBWCU2TYUz71qCcMYx5+tgs
-         ysuIbKGYIyxVHoFyNFHSParAhskbMnGOKFDLbNvyGp8D2a4/WH2yJM7ifgyC8NZeVup9
-         ir0qN2RDPf2wTUOki49Fd2QFYFC7zRZR102Pfd87T85O1rKbMcktM0iN+OJoSRxb/ta5
-         VaW9uTHR0mVyrCDHfvl3NGYsttc5qmqnC94yjEDo1Wc27uZNX+PldfXHOTV1WYoWtXWD
-         TfSg==
-X-Forwarded-Encrypted: i=1; AJvYcCWCf35puV3dhwEkxruvvZWr5Px3tLfrn0B9olmKxyniuFiiT2GJnVtZXHkprc76PAhH4qPcY4DeB+ccwFcreh99Mxsgfut+0OooWL9wr98=
-X-Gm-Message-State: AOJu0YzFUU0LLycY8CSG8gBKczWuOQotS0D6b/SE7X+NZa5pMdz2gz98
-	9qeDwmdhVEMsDbYEePSyD8GsfAhAyGKHu48y/PtUv+UgLXbVYNLlRMjmCMfZMQ==
-X-Google-Smtp-Source: AGHT+IHuKUBvgiFsjW2uZsLF2ccbWLR590bIPT0vKphwcY0aN5KlPDhsdsld80xyxPzrfzFWUbtNDw==
-X-Received: by 2002:a17:906:2786:b0:a58:7554:b641 with SMTP id j6-20020a170906278600b00a587554b641mr69466ejc.73.1714059882481;
-        Thu, 25 Apr 2024 08:44:42 -0700 (PDT)
-Message-ID: <a6245e9e-a156-4b17-8695-e072915fe78b@suse.com>
-Date: Thu, 25 Apr 2024 17:44:41 +0200
+        bh=2oYt/jIM6peXz1IU9bBS20I6AfhXNf0l1tAzrxz5TwI=;
+        b=PmVrXARwa5ddB531qYtn0t/ZbYxASGzt8bsNF2gJ9F6yj5xTx8uMljWo12YNrvo9cH
+         1NnYlDwKJs9W70HcbSMzgAyFYRFFcVn2aV0kaeuez5qiiNw7CxinYEvmFfJIHRsCXKtA
+         amdIYtkFByn/2FoXKovhhE8GRxfOXua5mzf/UiL3/k/3I4eks2lQ2928OokUlm9f1sNJ
+         KLor2LcO3yIiBExbg4uq9zPc9Jtj9UIIdtCcoaA8wHZ4aoe+YPXDYAXoufnu9pRkUrR9
+         h9xIwuJx8m+eGBRNKtBkQW8P6T2z2RB0C7hiQha8b0LsEUl4WiF2W/fAwijTLfjexKOc
+         ytoQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWmYOPzB23GlD3vdQvMI6te+K/VREHX5f2EWM8fMht0oLou1h0ZxNdouPt7OgIxFMxcxFU43Vsikro8zuqa03FdVP5hTAMOzfRs9GtGf/8=
+X-Gm-Message-State: AOJu0YxhUpg17ECeeJFSg9u8lyYrg/GyEZiCIWZT7tE0p/2j5rE9igDU
+	j7vv3F7/I9axnEtZaM9vmgHklAEehCD1O6nSxNGt7syVRLU2yTBjOLAV6A7hpQ==
+X-Google-Smtp-Source: AGHT+IFJPZVocSX4ve9TUnS07wydtRIc1K1UfKTWf8XocgT/VhgbgPSnHRwqAFM8j7hZ3QPItKgbaw==
+X-Received: by 2002:a17:906:315b:b0:a58:9096:ba43 with SMTP id e27-20020a170906315b00b00a589096ba43mr102192eje.15.1714060055948;
+        Thu, 25 Apr 2024 08:47:35 -0700 (PDT)
+Message-ID: <484b887b-c4fa-45fa-be8a-ff742dde38d8@suse.com>
+Date: Thu, 25 Apr 2024 17:47:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 03/17] xen/bitops: implement fls{l}() in common logic
+Subject: Re: [PATCH v8 04/17] xen/bitops: put __ffs() into linux compatible
+ header
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
@@ -90,10 +91,9 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>,
  Shawn Anastasio <sanastasio@raptorengineering.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
 References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
- <60bc710b990ed1d45741888df7e97cf25d150e61.1713347222.git.oleksii.kurochko@gmail.com>
+ <2ea76feebc5ffe543801b9b3935a82a64708a909.1713347222.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,24 +118,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <60bc710b990ed1d45741888df7e97cf25d150e61.1713347222.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <2ea76feebc5ffe543801b9b3935a82a64708a909.1713347222.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 17.04.2024 12:04, Oleksii Kurochko wrote:
-> Return type was left 'int' because of the following compilation error:
-> 
-> ./include/xen/kernel.h:18:21: error: comparison of distinct pointer types lacks a cast [-Werror]
->        18 |         (void) (&_x == &_y);            \
->           |                     ^~
->     common/page_alloc.c:1843:34: note: in expansion of macro 'min'
->      1843 |         unsigned int inc_order = min(MAX_ORDER, flsl(e - s) - 1);
+> --- a/xen/include/xen/linux-compat.h
+> +++ b/xen/include/xen/linux-compat.h
+> @@ -19,4 +19,6 @@ typedef int64_t __s64;
+>  
+>  typedef paddr_t phys_addr_t;
+>  
+> +#define __ffs(x) (ffsl(x) - 1)
 
-Apart from this I'm okay with this patch, assuming Andrew's won't change in
-any conflicting way. As to the above - no, I don't see us having ffs() / ffsl()
-returning unsigned int, fls() / flsl() returning plain int. Even more so that,
-given the LHS variable's type, an unsigned quantity is really meant in the
-quoted code.
+See my v7 reply.
 
 Jan
 
