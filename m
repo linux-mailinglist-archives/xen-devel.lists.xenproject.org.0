@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6A8D8B200F
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 13:15:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712019.1112395 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 476E48B2027
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 13:25:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712026.1112404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzx4l-0007xf-E8; Thu, 25 Apr 2024 11:15:39 +0000
+	id 1rzxEJ-000270-8y; Thu, 25 Apr 2024 11:25:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712019.1112395; Thu, 25 Apr 2024 11:15:39 +0000
+Received: by outflank-mailman (output) from mailman id 712026.1112404; Thu, 25 Apr 2024 11:25:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzx4l-0007vg-Ao; Thu, 25 Apr 2024 11:15:39 +0000
-Received: by outflank-mailman (input) for mailman id 712019;
- Thu, 25 Apr 2024 11:15:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzxEJ-00025T-6D; Thu, 25 Apr 2024 11:25:31 +0000
+Received: by outflank-mailman (input) for mailman id 712026;
+ Thu, 25 Apr 2024 11:25:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hfi/=L6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzx4k-0007vS-FZ
- for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 11:15:38 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 23ab2f82-02f5-11ef-b4bb-af5377834399;
- Thu, 25 Apr 2024 13:15:36 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-56c5d05128dso788562a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 04:15:36 -0700 (PDT)
+ id 1rzxEH-00025N-DA
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 11:25:29 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8466b283-02f6-11ef-909a-e314d9c70b13;
+ Thu, 25 Apr 2024 13:25:28 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-349c4505058so598515f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 04:25:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- qu20-20020a170907111400b00a5242ec4573sm9378837ejb.29.2024.04.25.04.15.35
+ e24-20020a5d5958000000b0034c0fefd7d2sm1303877wri.23.2024.04.25.04.25.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Apr 2024 04:15:35 -0700 (PDT)
+ Thu, 25 Apr 2024 04:25:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23ab2f82-02f5-11ef-b4bb-af5377834399
+X-Inumbo-ID: 8466b283-02f6-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714043735; x=1714648535; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714044328; x=1714649128; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=6NYa+swirOWz7pRfJTN723OgMczUciUD2iu62lx8/P8=;
-        b=ANEA8KximnX/Ks3qbHDbKw8X6MveJKm6g71mJ2z5twcV2SgHDiFdhCN1o5p6je9OqE
-         mhmzngZtrzL6L1gfkvdfd0r38TrUAEcE54KxkItHNVmjAEdf5ijvcXs1j6urlcHQv8CY
-         1G4YAukyxDk21FbuY7hjlZ2g1072nKpJXFcf1aKu5Pgq+x1okoGkCp3FQ+o+DJMAN//s
-         QCGBpt32t+C/GwGncdmn09mnnvxDeLUpXzp2zm3dbeafgPALbVXcE+UrfDvXyviWnxcB
-         HARwE7cOGGZZUdkrhemiMfurqIkUh2Ub8YOa06BD8ZXSPeWvpDTmCbJnjAXmbgLCdtQL
-         r1TA==
+        bh=Bgmpc8+DwfmxtSdSueemKmUhrscLPJr+43GZFJilvlY=;
+        b=Ttcgdb/myKZusqf8o/sIklzMbPEzkO+IL4j/TjE3IFb4GH7J1X+Sry/btUkZA5ZjOL
+         PHH9kc6gSBK/lZk/gllIHOmuSJyqhVYRCXN8xLR6dfK+KSo4kcKZiMYbNYWoxIiA11CI
+         xBJ/Umsxb4a41i5mlvL1LxP8a752WDET2u01HCtQfhcbFPdED7gpbxjuUPKPnEk6GIfU
+         v9S4gbZCMmk3gilxzRT6nqh+tFOoDlqskf4+Iz2mJELjkK9Clmyrj5bcBJUghhH8bCcK
+         3/sVEG+CwMRBIXxCGRsOs0fWRrytZMjV5V45BRs3aGRijZc5o7cDg2AWeIP009FPg5ks
+         3zLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714043735; x=1714648535;
+        d=1e100.net; s=20230601; t=1714044328; x=1714649128;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6NYa+swirOWz7pRfJTN723OgMczUciUD2iu62lx8/P8=;
-        b=eoyj3VijCrzbX3I6CInX2aNRaUTy2aWYL9XCYfxhLpGtcxf5oRB56EjOsDipSdzbWx
-         QpGs/LAfRpDb5Vugg3fatR0kWQCwDu+bBtTpJBCCqIqVBl4sZqLRmvY6NTyaauduROqz
-         VNm4WZp4IyPW/UmifKw+Im3HCeWlFftu+DM6zQHrGwBUDjr1PxLynAuv79+TQBziRV1t
-         goC2OHpqF8/HtPYK9SuER1oaHjJ2AAkEW5yHPmNd10Om/hqWfo/AsiBBayWj02ODzLI7
-         QyRD2cKmpVA/xU+cXp89ytXb2ky76ry77IR5zXSzsoXvtc3LIvfJdJ5CpjPuYQ3kziqV
-         TAFA==
-X-Forwarded-Encrypted: i=1; AJvYcCW7tBg7SGJAv/bRyHzdsJi0HZZzSrO9GZAPiYu0XqSce7E6er5o/X33NWt6DENfr/q2jli6WIXfWqwYWXsJ0L2tdDGrqnBag+8RPyVH5t8=
-X-Gm-Message-State: AOJu0YxNMyS5qZ1UbqFPsv0y0NPeC0wVfzx5NoTRUYoQfL8YETwX7dBl
-	otV3ekXIDuCX0GoEiuDU8mJXXB8nNIhmyyo3UqEkAzRp3zHgj2JBWFmdgI4rYA==
-X-Google-Smtp-Source: AGHT+IHh6v2pAs3GeSJJDSnWEiOzACfRDYQpcdi2lgXyV5/wszHLnov2OD4ggcZCbVBLHcDUMOC3VA==
-X-Received: by 2002:a17:907:8686:b0:a58:bdfa:c2b1 with SMTP id qa6-20020a170907868600b00a58bdfac2b1mr788136ejc.9.1714043735604;
-        Thu, 25 Apr 2024 04:15:35 -0700 (PDT)
-Message-ID: <68f99f0a-e27a-449f-8d13-fb5ca9f6069a@suse.com>
-Date: Thu, 25 Apr 2024 13:15:34 +0200
+        bh=Bgmpc8+DwfmxtSdSueemKmUhrscLPJr+43GZFJilvlY=;
+        b=jQafiQDmNUeG+Bzf53SOkIVLjYyYP0UpJd8fEsP6FgBtWOgiTmANlLUgGQLKGjdV1e
+         hzyPpifS6bBIuUUo6iB/aXI1UafMkGCE0Kd5WCfCDZtNFwrqyRRX+uj9mlOyDJk45ryf
+         vXqKG3WxR7le7UcILvWoG+bDmKsStYZfUluuX8V+q0/XinmSjGlEBGkrzH+9cigDEIZ6
+         /wATGzn6apiiIRUYY9LuPR2GZtD6ngI/ZQ/qL0CHottFUI8cgCC4XfturYkdCTqM14c0
+         4aZ4U7Psy3UxhMZqVuznJGGiq/lwfa2AHiAl+6TjWQ7GQCdmKhrZajj/mqPQietnlDeB
+         Kbug==
+X-Forwarded-Encrypted: i=1; AJvYcCW+m1FQAnR9DqBoPq0LtegtqWgACeGJ87VfUso2k+8mpcYM9KLLCD2qi2ccRIrm0QBK9mT5O8pgITfm7HZFcjQ8AfGstwahi5fEMmOycgU=
+X-Gm-Message-State: AOJu0YwRX+O3kL55Ibvjno4ZUR1w65OfTphpG3GePvpAhamiAqPIskdv
+	4fidw4aYKK9BdjYJgGMz7IQAufrsEDcADKhFg7TVFx9I/trWnLkRd5IVQAgrkQ==
+X-Google-Smtp-Source: AGHT+IFFgXF0/N+CIHtx4bAzSnnksLSSQij6neaSUU23fu1pjetsMN2WpctGvKSXgJr3W6U49C2mDA==
+X-Received: by 2002:a05:6000:1a48:b0:347:70de:d3f5 with SMTP id t8-20020a0560001a4800b0034770ded3f5mr3580133wry.53.1714044327702;
+        Thu, 25 Apr 2024 04:25:27 -0700 (PDT)
+Message-ID: <72b6497e-1e1a-40e4-ba53-1120396214f6@suse.com>
+Date: Thu, 25 Apr 2024 13:25:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/7] x86/hvm: Allow access to registers on the same
- page as MSI-X table
+Subject: Re: [PATCH v5 2/7] x86/msi: Extend per-domain/device warning
+ mechanism
 Content-Language: en-US
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>
@@ -89,7 +89,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
  <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <cover.afa2d89161590f5193dd6bfd340c5e9347877aae.1710342968.git-series.marmarek@invisiblethingslab.com>
- <a040f703a884ff4516314f88b22ee0f9f17329a9.1710342968.git-series.marmarek@invisiblethingslab.com>
+ <ec68ca290a207a3e191e470fb19254b7f6f887f8.1710342968.git-series.marmarek@invisiblethingslab.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,163 +114,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a040f703a884ff4516314f88b22ee0f9f17329a9.1710342968.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <ec68ca290a207a3e191e470fb19254b7f6f887f8.1710342968.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 13.03.2024 16:16, Marek Marczykowski-Górecki wrote:
-> Some devices (notably Intel Wifi 6 AX210 card) keep auxiliary registers
-> on the same page as MSI-X table. Device model (especially one in
-> stubdomain) cannot really handle those, as direct writes to that page is
-> refused (page is on the mmio_ro_ranges list). Instead, extend
-> msixtbl_mmio_ops to handle such accesses too.
-> 
-> Doing this, requires correlating read/write location with guest
-> of MSI-X table address. Since QEMU doesn't map MSI-X table to the guest,
-> it requires msixtbl_entry->gtable, which is HVM-only. Similar feature
-> for PV would need to be done separately.
-> 
-> This will be also used to read Pending Bit Array, if it lives on the same
-> page, making QEMU not needing /dev/mem access at all (especially helpful
-> with lockdown enabled in dom0). If PBA lives on another page, QEMU will
-> map it to the guest directly.
-> If PBA lives on the same page, discard writes and log a message.
-> Technically, writes outside of PBA could be allowed, but at this moment
-> the precise location of PBA isn't saved, and also no known device abuses
-> the spec in this way (at least yet).
-> 
-> To access those registers, msixtbl_mmio_ops need the relevant page
-> mapped. MSI handling already has infrastructure for that, using fixmap,
-> so try to map first/last page of the MSI-X table (if necessary) and save
-> their fixmap indexes. Note that msix_get_fixmap() does reference
-> counting and reuses existing mapping, so just call it directly, even if
-> the page was mapped before. Also, it uses a specific range of fixmap
-> indexes which doesn't include 0, so use 0 as default ("not mapped")
-> value - which simplifies code a bit.
-> 
-> GCC 12.2.1 gets confused about 'desc' variable:
-> 
->     arch/x86/hvm/vmsi.c: In function ‘msixtbl_range’:
->     arch/x86/hvm/vmsi.c:553:8: error: ‘desc’ may be used uninitialized [-Werror=maybe-uninitialized]
->       553 |     if ( desc )
->           |        ^
->     arch/x86/hvm/vmsi.c:537:28: note: ‘desc’ was declared here
->       537 |     const struct msi_desc *desc;
->           |                            ^~~~
-> 
-> It's conditional initialization is actually correct (in the case where
-> it isn't initialized, function returns early), but to avoid
-> build failure initialize it explicitly to NULL anyway.
+> The arch_msix struct had a single "warned" field with a domid for which
+> warning was issued. Upcoming patch will need similar mechanism for few
+> more warnings, so change it to save a bit field of issued warnings.
 > 
 > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> ---
+> Should I add also some helper for the boilerplate the handling requires
+> now? I tried some macro that also sets the bit field, but I couldn't get
+> it working. I guess I could make it working with a bitmask in a single
+> uint8_t - would that be preferred?
 
-Sadly there are further more or less cosmetic issues. Plus, as indicated
-before, I'm not really happy for us to gain all of this extra code. In
-the end I may eventually give an R-b not including the usually implied
-A-b, to indicate the code (then) looks okay to me but I still want
-someone else to actually ack it to allow it going in.
+Without you providing some hint as to where the problem was, it's hard to
+see why something like this couldn't work:
 
-> +static int adjacent_read(
-> +    unsigned int fixmap_idx,
-> +    paddr_t address, unsigned int len, uint64_t *pval)
-> +{
-> +    const void __iomem *hwaddr;
-> +
-> +    *pval = ~0UL;
-> +
-> +    ASSERT(fixmap_idx != ADJACENT_DISCARD_WRITE);
-
-Why only one of the special values? And before you add the other here:
-Why not simply ASSERT(fixmap_idx <= FIX_MSIX_IO_RESERV_END)? (Could of
-course bound at the other end, too, i.e. against FIX_MSIX_IO_RESERV_BASE.)
-
-> +    hwaddr = fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
-> +
-> +    switch ( len )
-> +    {
-> +    case 1:
-> +        *pval = readb(hwaddr);
-> +        break;
-> +
-> +    case 2:
-> +        *pval = readw(hwaddr);
-> +        break;
-> +
-> +    case 4:
-> +        *pval = readl(hwaddr);
-> +        break;
-> +
-> +    case 8:
-> +        *pval = readq(hwaddr);
-> +        break;
-> +
-> +    default:
-> +        ASSERT_UNREACHABLE();
-
-Misra demands "break;" to be here for release builds. In fact I wonder
-why "*pval = ~0UL;" isn't put here, too. Question of course is whether
-in such a case a true error indicator wouldn't be yet better.
-
-> +    }
-> +    return X86EMUL_OKAY;
-> +}
-
-Like in adjacent_handle(): Blank line please ahead of the function's main
-"return".
-
-> +static int adjacent_write(
-> +    unsigned int fixmap_idx,
-> +    paddr_t address, unsigned int len, uint64_t val)
-> +{
-> +    void __iomem *hwaddr;
-> +
-> +    if ( fixmap_idx == ADJACENT_DISCARD_WRITE )
-> +        return X86EMUL_OKAY;
-
-Similar assert as suggested above below here then, too?
-
-> @@ -622,12 +808,15 @@ void msix_write_completion(struct vcpu *v)
->           v->arch.hvm.hvm_io.msix_snoop_gpa )
->      {
->          unsigned int token = hvmemul_cache_disable(v);
-> -        const struct msi_desc *desc;
-> +        const struct msi_desc *desc = NULL;
-> +        const struct msixtbl_entry *entry;
->          uint32_t data;
->  
->          rcu_read_lock(&msixtbl_rcu_lock);
-> -        desc = msixtbl_addr_to_desc(msixtbl_find_entry(v, snoop_addr),
-> -                                    snoop_addr);
-> +        entry = msixtbl_find_entry(v, snoop_addr);
-> +        if ( entry && snoop_addr >= entry->gtable &&
-> +                      snoop_addr < entry->gtable + entry->table_len )
-
-Nit: Unexpected / unusual indentation. If you really want the two snoop_addr
-to line up, then
-
-        if ( entry &&
-             snoop_addr >= entry->gtable &&
-             snoop_addr < entry->gtable + entry->table_len )
+#define MSIX_CHECK_WARN(msix, domid, which) ({ \
+    if ( (msix)->warned_domid != (domid) ) \
+    { \
+        (msix)->warned_domid = (domid); \
+        (msix)->warned_kind.all = 0; \
+    } \
+    (msix)->warned_kind.which ? false : ((msix)->warned_kind.which = true); \
+})
 
 > --- a/xen/arch/x86/include/asm/msi.h
 > +++ b/xen/arch/x86/include/asm/msi.h
-> @@ -208,6 +208,10 @@ struct msg_address {
->                                         PCI_MSIX_ENTRY_SIZE + \
->                                         (~PCI_MSIX_BIRMASK & (PAGE_SIZE - 1)))
->  
-> +/* Indexes in adj_access_idx[] below */
-> +#define ADJ_IDX_FIRST 0
-> +#define ADJ_IDX_LAST  1
-
-These may better live ...
-
-> @@ -215,6 +219,7 @@ struct arch_msix {
->      } table, pba;
->      int table_refcnt[MAX_MSIX_TABLE_PAGES];
+> @@ -217,7 +217,13 @@ struct arch_msix {
 >      int table_idx[MAX_MSIX_TABLE_PAGES];
-> +    unsigned int adj_access_idx[2];
+>      spinlock_t table_lock;
+>      bool host_maskall, guest_maskall;
+> -    domid_t warned;
+> +    domid_t warned_domid;
+> +    union {
+> +        uint8_t all;
+> +        struct {
+> +            bool maskall                   : 1;
+> +        } u;
 
-... right next to this.
+No need for giving this struct a name, I don't think.
 
 Jan
 
