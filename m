@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A24808B258D
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 17:47:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712162.1112629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D71788B25AE
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 17:52:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712167.1112639 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s01K0-0006Rk-5M; Thu, 25 Apr 2024 15:47:40 +0000
+	id 1s01OE-0007w7-Jl; Thu, 25 Apr 2024 15:52:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712162.1112629; Thu, 25 Apr 2024 15:47:40 +0000
+Received: by outflank-mailman (output) from mailman id 712167.1112639; Thu, 25 Apr 2024 15:52:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s01K0-0006QD-0E; Thu, 25 Apr 2024 15:47:40 +0000
-Received: by outflank-mailman (input) for mailman id 712162;
- Thu, 25 Apr 2024 15:47:38 +0000
+	id 1s01OE-0007st-Gw; Thu, 25 Apr 2024 15:52:02 +0000
+Received: by outflank-mailman (input) for mailman id 712167;
+ Thu, 25 Apr 2024 15:52:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hfi/=L6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s01Jy-0006Q7-IN
- for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 15:47:38 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1s01OC-0007sn-VF
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 15:52:00 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2356ce3c-031b-11ef-b4bb-af5377834399;
- Thu, 25 Apr 2024 17:47:36 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a556d22fa93so139631066b.3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 08:47:36 -0700 (PDT)
+ id bfcf81d1-031b-11ef-b4bb-af5377834399;
+ Thu, 25 Apr 2024 17:51:59 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-572250b7704so1133336a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 08:51:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- le23-20020a170906ae1700b00a4e4c944e77sm9637139ejb.40.2024.04.25.08.47.35
+ k14-20020a170906128e00b00a525609ae30sm9664775ejb.169.2024.04.25.08.51.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Apr 2024 08:47:35 -0700 (PDT)
+ Thu, 25 Apr 2024 08:51:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2356ce3c-031b-11ef-b4bb-af5377834399
+X-Inumbo-ID: bfcf81d1-031b-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714060056; x=1714664856; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714060318; x=1714665118; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=2oYt/jIM6peXz1IU9bBS20I6AfhXNf0l1tAzrxz5TwI=;
-        b=VJPkQ5LzD4VLilvTJuBt4LdehWq6TO2P50yjMYgcqcRScbtgqUWKNONj+p3lEyQUD4
-         KvXecNikOqPZXlvRMAsk5sNPi2dlDPwo1AzRpT2PzeUF2GP0R3RVFhd8yk1pEyfVJhxu
-         +kQ26RpBMr7SY07bgCnmf7HhT+joI/OjTiXEdtBqfiGIYwXTaoRDK7N7pAxh2JPVemZZ
-         15MWw+u2/hUjpjY0f10g36DTatqyewQI2R8EUtVUJ8TzmcL7qkJGWdT7O+l5NoQa2uYg
-         Pzr9XBbC0XF99LpEu8mDVpiOL1aevUrK+lQxwNTMdL464M8mcTWF8Fn0fYKxuherBvQD
-         VqDg==
+        bh=UiBRG55UQFpm4FGw786bebYB43hpqFwwBtHv6EPYkbw=;
+        b=D1RqaMnZ+OEfY8nrfkki1Mxfen8ubBiWgvs23hWy4IfmkR00OgnSb7cECpGsqAAH9v
+         r51Ee5d20bpxYSp7JpiGwD9Sr+t1PQ2TDWE7o0oHAK9DTIuHXsc7L7riStFSRSOTwDpt
+         o/Xo+Jpa+lSVVNIEYPWF4HpNWOE451TkzCxUFidrV2vSIcl9lfaoPNP+InzrlUuBF5mW
+         ddIe8vsG6JOrARrUzVwxMthB494U4ynZKwfs/vOCxEq8dLR2fCW3pb/hCQ8bvo9IdADi
+         f9sXAvK43Qt4bLTW4uu9g//a2JvLSvmDiVyt1WY41RbvBz92kCSBVkCH1Kh8AiTQAU3n
+         VACw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714060056; x=1714664856;
+        d=1e100.net; s=20230601; t=1714060318; x=1714665118;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2oYt/jIM6peXz1IU9bBS20I6AfhXNf0l1tAzrxz5TwI=;
-        b=PmVrXARwa5ddB531qYtn0t/ZbYxASGzt8bsNF2gJ9F6yj5xTx8uMljWo12YNrvo9cH
-         1NnYlDwKJs9W70HcbSMzgAyFYRFFcVn2aV0kaeuez5qiiNw7CxinYEvmFfJIHRsCXKtA
-         amdIYtkFByn/2FoXKovhhE8GRxfOXua5mzf/UiL3/k/3I4eks2lQ2928OokUlm9f1sNJ
-         KLor2LcO3yIiBExbg4uq9zPc9Jtj9UIIdtCcoaA8wHZ4aoe+YPXDYAXoufnu9pRkUrR9
-         h9xIwuJx8m+eGBRNKtBkQW8P6T2z2RB0C7hiQha8b0LsEUl4WiF2W/fAwijTLfjexKOc
-         ytoQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWmYOPzB23GlD3vdQvMI6te+K/VREHX5f2EWM8fMht0oLou1h0ZxNdouPt7OgIxFMxcxFU43Vsikro8zuqa03FdVP5hTAMOzfRs9GtGf/8=
-X-Gm-Message-State: AOJu0YxhUpg17ECeeJFSg9u8lyYrg/GyEZiCIWZT7tE0p/2j5rE9igDU
-	j7vv3F7/I9axnEtZaM9vmgHklAEehCD1O6nSxNGt7syVRLU2yTBjOLAV6A7hpQ==
-X-Google-Smtp-Source: AGHT+IFJPZVocSX4ve9TUnS07wydtRIc1K1UfKTWf8XocgT/VhgbgPSnHRwqAFM8j7hZ3QPItKgbaw==
-X-Received: by 2002:a17:906:315b:b0:a58:9096:ba43 with SMTP id e27-20020a170906315b00b00a589096ba43mr102192eje.15.1714060055948;
-        Thu, 25 Apr 2024 08:47:35 -0700 (PDT)
-Message-ID: <484b887b-c4fa-45fa-be8a-ff742dde38d8@suse.com>
-Date: Thu, 25 Apr 2024 17:47:34 +0200
+        bh=UiBRG55UQFpm4FGw786bebYB43hpqFwwBtHv6EPYkbw=;
+        b=QrTK9/qwgKUB0K4hmyAQS+Y3gXUr1DC8CzfC2qc9zZUnodGJFVoyfmHktux8xpPQyx
+         R/BTWhf7ju5fqmwnMhQtzJoLuSLxXS0gjHqY/AEMSaKRaySRojk+2629lfiC39Txeje+
+         N6r0T6ds+wZcO96mNRo0smTy+1YNFtN0JuU0cY6gNdNhnrL7ipSqFNcJ2XOcYum3kRHv
+         LUYAJV88oYgwONRnm5aWF8iSD+MCXqgvecLUPsWntzB5/dWLJJaRzI/k3QH4KT7k0HNx
+         Wkm/k3jfOElvUlot4UsE5rsa8iO0xj4+8HQEg/aZEjSW1JTjHmjJR7i+5ArhYVOS48eu
+         iEGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU8XfXDtdSkoRuSD+eXGCQjmotgHWm59jwMa74gXcVa2DXiyNULpGN44iXrQGSwQWbkpkxO3DthmvD7Oz3w7DZlKrzNK+DmJQso7XI7cow=
+X-Gm-Message-State: AOJu0Yzw96+FPUe6PAE33sP/WUR5V2PeFuCidF3miNeYYycDhh4BY9+0
+	voj2A1PNKi+Me/nxMGAi++mUsoSMIHh5AKmfsVafH6Q1cbbuIiPCxVyt/3V7lg==
+X-Google-Smtp-Source: AGHT+IGlYOVf5CkwBwervgbRORfiA9s6FsSt8hqZYiLMpcP3LiZINbQRgA5mKn7Cz7aPUvKE91uOWg==
+X-Received: by 2002:a17:907:7890:b0:a55:b345:63ec with SMTP id ku16-20020a170907789000b00a55b34563ecmr104509ejc.15.1714060318515;
+        Thu, 25 Apr 2024 08:51:58 -0700 (PDT)
+Message-ID: <6a32fdd7-d698-448b-8360-3c672d5f5a90@suse.com>
+Date: Thu, 25 Apr 2024 17:51:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/17] xen/bitops: put __ffs() into linux compatible
- header
+Subject: Re: [PATCH v8 05/17] xen/riscv: introduce bitops.h
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
- <2ea76feebc5ffe543801b9b3935a82a64708a909.1713347222.git.oleksii.kurochko@gmail.com>
+ <c3a9dfadbc6465eb9362c7823d7d2800e98218eb.1713347222.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,20 +114,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2ea76feebc5ffe543801b9b3935a82a64708a909.1713347222.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <c3a9dfadbc6465eb9362c7823d7d2800e98218eb.1713347222.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 17.04.2024 12:04, Oleksii Kurochko wrote:
-> --- a/xen/include/xen/linux-compat.h
-> +++ b/xen/include/xen/linux-compat.h
-> @@ -19,4 +19,6 @@ typedef int64_t __s64;
->  
->  typedef paddr_t phys_addr_t;
->  
-> +#define __ffs(x) (ffsl(x) - 1)
+> Taken from Linux-6.4.0-rc1
+> 
+> Xen's bitops.h consists of several Linux's headers:
+> * linux/arch/include/asm/bitops.h:
+>   * The following function were removed as they aren't used in Xen:
+>         * test_and_set_bit_lock
+>         * clear_bit_unlock
+>         * __clear_bit_unlock
+>   * The following functions were renamed in the way how they are
+>     used by common code:
+>         * __test_and_set_bit
+>         * __test_and_clear_bit
+>   * The declaration and implementation of the following functios
+>     were updated to make Xen build happy:
+>         * clear_bit
+>         * set_bit
+>         * __test_and_clear_bit
+>         * __test_and_set_bit
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-See my v7 reply.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
