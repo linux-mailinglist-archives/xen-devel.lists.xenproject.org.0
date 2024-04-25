@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F264E8B2830
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 20:32:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712231.1112737 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D23548B28F6
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 21:21:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712236.1112747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s03t3-0003P5-VD; Thu, 25 Apr 2024 18:32:01 +0000
+	id 1s04dZ-0004Tq-45; Thu, 25 Apr 2024 19:20:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712231.1112737; Thu, 25 Apr 2024 18:32:01 +0000
+Received: by outflank-mailman (output) from mailman id 712236.1112747; Thu, 25 Apr 2024 19:20:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s03t3-0003Mi-SX; Thu, 25 Apr 2024 18:32:01 +0000
-Received: by outflank-mailman (input) for mailman id 712231;
- Thu, 25 Apr 2024 18:32:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s04dZ-0004Ql-1J; Thu, 25 Apr 2024 19:20:05 +0000
+Received: by outflank-mailman (input) for mailman id 712236;
+ Thu, 25 Apr 2024 19:20:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BIz1=L6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s03t2-0003Mc-OY
- for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 18:32:00 +0000
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
- [2607:f8b0:4864:20::82e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a12990a-0332-11ef-909a-e314d9c70b13;
- Thu, 25 Apr 2024 20:31:59 +0200 (CEST)
-Received: by mail-qt1-x82e.google.com with SMTP id
- d75a77b69052e-436ce50b199so5888991cf.3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 11:31:59 -0700 (PDT)
+ id 1s04dY-0003tC-0Q
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 19:20:04 +0000
+Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
+ [2607:f8b0:4864:20::72b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ce7f28ad-0338-11ef-b4bb-af5377834399;
+ Thu, 25 Apr 2024 21:19:59 +0200 (CEST)
+Received: by mail-qk1-x72b.google.com with SMTP id
+ af79cd13be357-78edc3e7cd9so86164885a.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 12:19:59 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- b13-20020ac8754d000000b0043718726f76sm7132408qtr.90.2024.04.25.11.31.57
+ i9-20020a0cf109000000b0069b413fa1f7sm7209666qvl.31.2024.04.25.12.19.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Apr 2024 11:31:58 -0700 (PDT)
+ Thu, 25 Apr 2024 12:19:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a12990a-0332-11ef-909a-e314d9c70b13
+X-Inumbo-ID: ce7f28ad-0338-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714069919; x=1714674719; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1714072798; x=1714677598; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WpcWC5q2lOLKfhiBnvRQ383iygxsZPMKCHRK3KqaurQ=;
-        b=AcV0Jmj6pWCY7SmBNQvX51WORsz6pOLZ+q6VZzLS+Ikt8BrfBdyURANkBHwnLldDf3
-         s2ySW7rxpeLVSnBWCpjojU/5n0Ag+ClAPSiZjqSjs2iYeuYz/FJT5iWYftV+FPQz6RD/
-         QaM8hvxA4bxlIHDTPiPP31nngVUY6dZiER+3Q=
+        bh=u0+qUmIl8eb4kLwssuBU/ahsyDv0haSAVDAvzHrjiug=;
+        b=n6K6BPG5LKIHVnVQy/MNrM4uHcv8jNW2LUIyCLpocCus4BnqH0YINOwg53boLQVrJH
+         sgXmBn2bFKbCOVJYtJpIPJPCoLzIJfOXUUoWj77xjOAp1g/R4zEZ81DRGS/tlkwTP5Es
+         OZQPi4ejXlHXALCIjNx/q+C0CANFKfh7qBgDY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714069919; x=1714674719;
+        d=1e100.net; s=20230601; t=1714072798; x=1714677598;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WpcWC5q2lOLKfhiBnvRQ383iygxsZPMKCHRK3KqaurQ=;
-        b=w1HMqpDdLzYevIvJdI8uxc7tATLV+bv6LdSJGDO3/OtLiwzI1FNuioq+n5BZPX5BSp
-         m7YFdNsCkDplSawkNAa0mrjI2sX6jetsPLz3mNJvW2h4QdZYp/D+t8ds6YvFWP2elUId
-         3VcS1Ax78cuqZosZXj9b5KcCLx8YTLj0Sm4mTr8NKMkKb64iQf2DbJtUB5cECgMzE/dQ
-         HWXOk2RD5ryHHWW9geKS7WAXwf+daTseyPjImIdvxi+EQBl+5pcYMuaJTVnOZMVpQaC1
-         X27UJkEjvA7QH3M+WaYD+hwEH5FQh823NnTlaXyU7Praut0pz+GK26WFkjVJAn/F8lap
-         bAQQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUW+ARkejxIVXSc80piU+HxYR+28nwZotlQEAfDbWpBPlhMafS70XKSqP3pPG7xkHCB+58ninMm7olbjHrE6Pp3nuVCxkscYcX1jRGsrCs=
-X-Gm-Message-State: AOJu0YxMJV62kYVonIlrqyxgwLyFFWdhOy0gBJ7Y76+cP4XoRCQaCaNx
-	CAjdoL6RsrzGUJpclLjqgA6ej5oN/cXJO9qvONq29zgny6L/RWozhc0WtLzteug=
-X-Google-Smtp-Source: AGHT+IFT/54ODLcQkZvIJ2LB3YC26f6JP8sRcMzeR07mLYcaQ4mGzT3PuUfNhwB2J3B9UHHXw++BxQ==
-X-Received: by 2002:a05:622a:589:b0:437:b4f1:2360 with SMTP id c9-20020a05622a058900b00437b4f12360mr458859qtb.49.1714069918730;
-        Thu, 25 Apr 2024 11:31:58 -0700 (PDT)
-Message-ID: <23477984-0604-4e0f-94db-f12c0b6c3eaa@citrix.com>
-Date: Thu, 25 Apr 2024 19:31:56 +0100
+        bh=u0+qUmIl8eb4kLwssuBU/ahsyDv0haSAVDAvzHrjiug=;
+        b=bRsXnjH1FbbIw2rcD7eTQiunUljlSjjg1NNWw/gSoPAn36XOSlFPBSMFOA7WJhbowi
+         QTteAFq29epukPOiOqRqTpwZi6EyRHdUZbivBb+umebb+nK8Z5C/HhGCc+03Doc7n/qL
+         f4gpFVeXfYyVVnnJB2Y0S1StDzvglW9QKgEglVfTU5zzuePIAG30XTmrdAGIhMWqV/dg
+         eBJkpmu6GiLSWHp9lHUxXBhI9mQcL5d2Bq0SVklfIIHIzWVo6sjf+tsV1bHbuTRKUXCy
+         BuYaATRHwhGS2S4PH53fWWcfKXD8HTN5B4EE3d0QJLFEzKHqktgwz8nvQicvv8Sdl9D0
+         TbLw==
+X-Forwarded-Encrypted: i=1; AJvYcCWwQrgzv+NOXUeDoYP9KsYqyeG9U7+ahOH1LlGBhYpWPDK8FoVlLKZX9yZ2cVvDpE/WpMZTIK8B44AmC2I+IBEu4T1FrfU5V0hH4SVRzdg=
+X-Gm-Message-State: AOJu0YxUSXGAErgUOdud6psHk8rYyRKShvOPIVg1nm4+KFRjwJq6VqHZ
+	GAN3wSW0KznI7A0wrmGa7HUllytYPJmSNRERSaKeHMXbvzGTmGQBFPjIiDy0gA0=
+X-Google-Smtp-Source: AGHT+IG0+NcTEyhfGAZxLRog/CJV5Z7qI8b8q7iKrrknCaQTB/MCQf5HO82zyD9j5B3j0YM4QOLeAg==
+X-Received: by 2002:a05:6214:e86:b0:6a0:69ec:b5b6 with SMTP id hf6-20020a0562140e8600b006a069ecb5b6mr937310qvb.13.1714072798419;
+        Thu, 25 Apr 2024 12:19:58 -0700 (PDT)
+Message-ID: <3c94522c-7ab3-4c3e-81ac-3d9525e4309a@citrix.com>
+Date: Thu, 25 Apr 2024 20:19:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/8] gzip: clean up comments and fix code alignment
+Subject: Re: [PATCH v3 8/8] gzip: move crc state into gunzip state
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jason.andryuk@amd.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
 References: <20240424163422.23276-1-dpsmith@apertussolutions.com>
- <20240424163422.23276-2-dpsmith@apertussolutions.com>
+ <20240424163422.23276-9-dpsmith@apertussolutions.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,15 +131,36 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240424163422.23276-2-dpsmith@apertussolutions.com>
+In-Reply-To: <20240424163422.23276-9-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24/04/2024 5:34 pm, Daniel P. Smith wrote:
-> This commit cleans up the comments and fixes the code alignment using Xen
-> coding style. This is done to make the code more legible before refactoring.
->
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> Move the crc and its state into struct gunzip_state. In the process, expand the
+> only use of CRC_VALUE as it is hides what is being compared.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+"All variables here should be uint32_t rather than unsigned long, which
+halves the storage space required."
+
+> diff --git a/xen/common/gzip/inflate.c b/xen/common/gzip/inflate.c
+> index 8da14880cfbe..dc940e59d853 100644
+> --- a/xen/common/gzip/inflate.c
+> +++ b/xen/common/gzip/inflate.c
+> @@ -1069,11 +1065,11 @@ static void __init makecrc(void)
+>              if (k & 1)
+>                  c ^= e;
+>          }
+> -        crc_32_tab[i] = c;
+> +        s->crc_32_tab[i] = c;
+>      }
+>  
+>      /* this is initialized here so this code could reside in ROM */
+> -    crc = (ulg)0xffffffffUL; /* shift register contents */
+> +    s->crc = (ulg)~0u; /* shift register contents */
+
+The (ulg) wasn't ever necessary, and can be dropped as part of this cleanup.
+
+Can fix on commit.
+
+~Andrew
 
