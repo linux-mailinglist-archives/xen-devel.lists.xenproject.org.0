@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEC138B177B
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 01:53:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.711711.1111895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4D98B17B8
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 02:07:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.711720.1111906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzmQA-0004Wa-9h; Wed, 24 Apr 2024 23:53:02 +0000
+	id 1rzmdD-0000C0-C3; Thu, 25 Apr 2024 00:06:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 711711.1111895; Wed, 24 Apr 2024 23:53:02 +0000
+Received: by outflank-mailman (output) from mailman id 711720.1111906; Thu, 25 Apr 2024 00:06:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzmQA-0004UC-6u; Wed, 24 Apr 2024 23:53:02 +0000
-Received: by outflank-mailman (input) for mailman id 711711;
- Wed, 24 Apr 2024 23:53:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzmdD-0000AE-98; Thu, 25 Apr 2024 00:06:31 +0000
+Received: by outflank-mailman (input) for mailman id 711720;
+ Thu, 25 Apr 2024 00:06:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Nv0e=L5=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rzmQ8-0004PI-FZ
- for xen-devel@lists.xenproject.org; Wed, 24 Apr 2024 23:53:00 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c65a6f49-0295-11ef-b4bb-af5377834399;
- Thu, 25 Apr 2024 01:52:58 +0200 (CEST)
+ <SRS0=N29f=L6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rzmdB-0000A6-Ky
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 00:06:29 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a8cc28c8-0297-11ef-909a-e314d9c70b13;
+ Thu, 25 Apr 2024 02:06:27 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 9D850613EF;
- Wed, 24 Apr 2024 23:52:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F43C113CD;
- Wed, 24 Apr 2024 23:52:55 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1E6E16143A;
+ Thu, 25 Apr 2024 00:06:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE91C113CD;
+ Thu, 25 Apr 2024 00:06:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,129 +41,615 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c65a6f49-0295-11ef-b4bb-af5377834399
+X-Inumbo-ID: a8cc28c8-0297-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714002776;
-	bh=Si0oPYrdfXWwamGfuE7rR6t81acbFybLl34/d5TSgUA=;
+	s=k20201202; t=1714003585;
+	bh=kNRzu7mEYPbMSnn26HfowAtbk1T8BgAmY6OgCTxHq30=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=SnIuZW2D+xBRknweYEUf8oDr43/DW9+8EqhRC4mM4ifsX+x1MOwnVwF6ywWRDQ6BZ
-	 E3wNNN/DMH08HhKoiskycsMLwwPvohrUW8Mp7ZUzlCsddFLXKU/59c2DHjY42xCBmn
-	 vgclevDNDMtgd45v3ZHAJpswF5ppBQCzpzIRpcVYOyOLwtNzyjV2VfJOHxxjFaVHOk
-	 BhUTMcNH5p1vfz60WKdPOzLlUw9rgwZmxJ3RDlWYYBhxKNbBHy225fT80+tzCfMGdG
-	 kjmAg4YZugETPJ/h6eVfZvC7efxG0gyTqMrluRSeo3cuuEd8OzHoOVCS3TD/MdOSPz
-	 adB5QJtjTKCNA==
-Date: Wed, 24 Apr 2024 16:52:54 -0700 (PDT)
+	b=nqHILPxRnU6waT8xKGCVnFbwEP09hBdyhfYbiprTuExXZjHrQlmKb6fFPiHOjYPmT
+	 Eyv9u5YEGfAjXGAVNldDY7kHuZQRwnVriQheVUt4mp/HluVDrEDKRqPDlsyvPOnvvx
+	 Eptv4QcjKcwWGrmGgCACD8UY6cQt4hNge/w+WqLdHZP8boZLlJdkByre0p9fGmN/Jv
+	 fwRgChK+ijrJw416Jzit+ttX40J3LKDA7KrIVEsqhguEHUxrFd+C8D+me0JkxUOuRy
+	 XQJFX8pQ7TMazXxdKNf+DVbTWHJeXWE+A74oyj/Mo26j6VDEMxw0o++qdsdMv6jlvY
+	 oxMXueeQw3+lQ==
+Date: Wed, 24 Apr 2024 17:06:22 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 3/3] automation: Add arm64 test for running Xen with
- GICv3
-In-Reply-To: <20240423161121.138536-4-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2404241652480.3940@ubuntu-linux-20-04-desktop>
-References: <20240423161121.138536-1-michal.orzel@amd.com> <20240423161121.138536-4-michal.orzel@amd.com>
+To: Federico Serafini <federico.serafini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Subject: Re: [XEN PATCH] automation/eclair: reorganize pipelines
+In-Reply-To: <fe1fe9c964d1f2ba3cb46cbaf798cf698f341386.1713885065.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2404241704430.3940@ubuntu-linux-20-04-desktop>
+References: <fe1fe9c964d1f2ba3cb46cbaf798cf698f341386.1713885065.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 23 Apr 2024, Michal Orzel wrote:
-> At the moment, all the Arm64 Qemu tests use GICv2 which is the default
-> GIC version used by Qemu. Improve the coverage by adding a new test in
-> which Qemu will be configured to have GICv3.
+On Tue, 23 Apr 2024, Federico Serafini wrote:
+> From: Simone Ballarin <simone.ballarin@bugseng.com>
 > 
-> Rename host device tree name to "virt.dtb" to be GIC version agnostic.
-> Use "gic-version" Qemu option to select the version to use. Unless the
-> test variant is set to "gicv3", version 2 will be used.
+> Introduce accepted_guidelines.sh: a script to autogenerate the
+> configuration file accepted.ecl from docs/misra/rules.rst which enables
+> all accepted guidelines.
 > 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> Introduce monitored.ecl: a manual selection of accepted guidelines
+> which are clean or almost clean, it is intended to be used for the
+> analyses triggered by commits.
+> 
+> Reorganize tagging.ecl:
+>   -Remove "accepted" tags: keeping track of accepted guidelines tagging
+>    them as "accepted" in the configuration file tagging.ecl is no
+>    longer needed since docs/rules.rst is keeping track of them.
+>   -Tag more guidelines as clean.
+> 
+> Reorganize eclair pipelines:
+>   - Set1, Set2, Set3 are now obsolete: remove the corresponding
+>     pipelines and ecl files.
+>   - Amend scheduled eclair pipeline to use accepted.ecl.
+>   - Amend triggered eclair pipeline to use monitored.ecl.
+> 
+> Rename and improve action_check_clean_regressions.sh to print a
+> diagnostic in case a commit introduces a violation of a clean guideline.
+> 
+> An example of diagnostic is the following:
+> 
+> Failure: 13 regressions found for clean guidelines
+>   service MC3R1.R8.2: (required) Function types shall be in prototype form with named parameters:
+>    violation: 13
+> 
+> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+
+Fantastic work, thank you!
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
+Is this patch safe to commit now? Or would it cause gitlab-ci breakage?
+
+One question below.
+
 
 > ---
->  automation/gitlab-ci/test.yaml                |  8 ++++++++
->  .../scripts/qemu-smoke-dom0less-arm64.sh      | 19 ++++++++++++++-----
->  2 files changed, 22 insertions(+), 5 deletions(-)
+>  automation/eclair_analysis/ECLAIR/Set2.ecl    | 25 -------
+>  automation/eclair_analysis/ECLAIR/Set3.ecl    | 67 -------------------
+>  .../ECLAIR/accepted_guidelines.sh             | 13 ++++
+>  .../eclair_analysis/ECLAIR/action.helpers     |  3 +-
+>  .../eclair_analysis/ECLAIR/action.settings    |  1 +
+>  .../ECLAIR/action_check_clean_regressions.sh  | 38 +++++++++++
+>  .../ECLAIR/action_clean_added.sh              | 36 ----------
+>  automation/eclair_analysis/ECLAIR/analyze.sh  |  2 +-
+>  .../eclair_analysis/ECLAIR/generate_ecl.sh    |  4 ++
+>  .../ECLAIR/{Set1.ecl => monitored.ecl}        | 57 +++++++++++-----
+>  automation/eclair_analysis/ECLAIR/tagging.ecl | 15 +----
+>  automation/gitlab-ci/analyze.yaml             | 48 ++-----------
+>  automation/scripts/eclair                     |  8 +--
+>  13 files changed, 108 insertions(+), 209 deletions(-)
+>  delete mode 100644 automation/eclair_analysis/ECLAIR/Set2.ecl
+>  delete mode 100644 automation/eclair_analysis/ECLAIR/Set3.ecl
+>  create mode 100755 automation/eclair_analysis/ECLAIR/accepted_guidelines.sh
+>  create mode 100755 automation/eclair_analysis/ECLAIR/action_check_clean_regressions.sh
+>  delete mode 100755 automation/eclair_analysis/ECLAIR/action_clean_added.sh
+>  rename automation/eclair_analysis/ECLAIR/{Set1.ecl => monitored.ecl} (67%)
 > 
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 1e5d86763f6c..ad249fa0a5d9 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -255,6 +255,14 @@ qemu-smoke-dom0less-arm64-gcc-debug:
->      - *arm64-test-needs
->      - alpine-3.18-gcc-debug-arm64
->  
-> +qemu-smoke-dom0less-arm64-gcc-debug-gicv3:
-> +  extends: .qemu-arm64
-> +  script:
-> +    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh gicv3 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *arm64-test-needs
-> +    - alpine-3.18-gcc-debug-arm64
+> diff --git a/automation/eclair_analysis/ECLAIR/Set2.ecl b/automation/eclair_analysis/ECLAIR/Set2.ecl
+> deleted file mode 100644
+> index 7608335cf4..0000000000
+> --- a/automation/eclair_analysis/ECLAIR/Set2.ecl
+> +++ /dev/null
+> @@ -1,25 +0,0 @@
+> --doc_begin="Set 2 of Xen MISRA C guidelines"
+> --enable=MC3R1.R10.1
+> --enable=MC3R1.R10.2
+> --enable=MC3R1.R10.3
+> --enable=MC3R1.R10.4
+> --enable=MC3R1.R10.6
+> --enable=MC3R1.R10.7
+> --enable=MC3R1.R10.8
+> --enable=MC3R1.R11.1
+> --enable=MC3R1.R11.2
+> --enable=MC3R1.R11.3
+> --enable=MC3R1.R11.6
+> --enable=MC3R1.R11.7
+> --enable=MC3R1.R11.8
+> --enable=MC3R1.R11.9
+> --enable=MC3R1.R12.2
+> --enable=MC3R1.R13.1
+> --enable=MC3R1.R13.2
+> --enable=MC3R1.R13.5
+> --enable=MC3R1.R13.6
+> --enable=MC3R1.R14.1
+> --enable=MC3R1.R14.2
+> --enable=MC3R1.R14.3
+> --enable=MC3R1.R14.4
+> --doc_end
+> diff --git a/automation/eclair_analysis/ECLAIR/Set3.ecl b/automation/eclair_analysis/ECLAIR/Set3.ecl
+> deleted file mode 100644
+> index d2c2c4b21f..0000000000
+> --- a/automation/eclair_analysis/ECLAIR/Set3.ecl
+> +++ /dev/null
+> @@ -1,67 +0,0 @@
+> --doc_begin="Set 3 of Xen MISRA C guidelines"
+> --enable=MC3R1.D4.12
+> --enable=MC3R1.R5.5
+> --enable=MC3R1.R5.7
+> --enable=MC3R1.R5.8
+> --enable=MC3R1.R15.2
+> --enable=MC3R1.R15.3
+> --enable=MC3R1.R15.6
+> --enable=MC3R1.R15.7
+> --enable=MC3R1.R16.1
+> --enable=MC3R1.R16.2
+> --enable=MC3R1.R16.3
+> --enable=MC3R1.R16.4
+> --enable=MC3R1.R16.5
+> --enable=MC3R1.R16.6
+> --enable=MC3R1.R16.7
+> --enable=MC3R1.R17.1
+> --enable=MC3R1.R17.2
+> --enable=MC3R1.R17.5
+> --enable=MC3R1.R17.7
+> --enable=MC3R1.R18.1
+> --enable=MC3R1.R18.2
+> --enable=MC3R1.R18.3
+> --enable=MC3R1.R18.6
+> --enable=MC3R1.R18.7
+> --enable=MC3R1.R18.8
+> --enable=MC3R1.R20.2
+> --enable=MC3R1.R20.3
+> --enable=MC3R1.R20.4
+> --enable=MC3R1.R20.6
+> --enable=MC3R1.R20.7
+> --enable=MC3R1.R20.8
+> --enable=MC3R1.R20.9
+> --enable=MC3R1.R20.11
+> --enable=MC3R1.R20.12
+> --enable=MC3R1.R20.13
+> --enable=MC3R1.R20.14
+> --enable=MC3R1.R21.1
+> --enable=MC3R1.R21.2
+> --enable=MC3R1.R21.3
+> --enable=MC3R1.R21.4
+> --enable=MC3R1.R21.5
+> --enable=MC3R1.R21.6
+> --enable=MC3R1.R21.7
+> --enable=MC3R1.R21.8
+> --enable=MC3R1.R21.9
+> --enable=MC3R1.R21.10
+> --enable=MC3R1.R21.12
+> --enable=MC3R1.R21.14
+> --enable=MC3R1.R21.15
+> --enable=MC3R1.R21.16
+> --enable=MC3R1.R22.1
+> --enable=MC3R1.R22.3
+> --enable=MC3R1.R22.7
+> --enable=MC3R1.R22.8
+> --enable=MC3R1.R22.9
+> --enable=MC3R1.R22.10
+> --enable=MC3R1.R2.6
+> --enable=MC3R1.R4.2
+> --doc_end
+> -
+> --doc_begin="Guidelines added with Xen MISRA C Task (a): Xen Coding Guidelines v1.1, June 1, 2023"
+> --enable=MC3R1.R21.11
+> --enable=MC3R1.D4.4
+> --enable=MC3R1.R8.9
+> --enable=MC3R1.R12.4
+> --doc_end
+> diff --git a/automation/eclair_analysis/ECLAIR/accepted_guidelines.sh b/automation/eclair_analysis/ECLAIR/accepted_guidelines.sh
+> new file mode 100755
+> index 0000000000..b308bd4cda
+> --- /dev/null
+> +++ b/automation/eclair_analysis/ECLAIR/accepted_guidelines.sh
+> @@ -0,0 +1,13 @@
+> +#!/bin/bash
+> +# Stop immediately if any executed command has exit status different from 0.
+> +set -eu
 > +
->  qemu-smoke-dom0less-arm64-gcc-debug-staticmem:
->    extends: .qemu-arm64
->    script:
-> diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> index fc943a1a622c..292c38a56147 100755
-> --- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> +++ b/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> @@ -4,6 +4,9 @@ set -ex
->  
->  test_variant=$1
->  
-> +# Default GIC version
-> +gic_version="2"
+> +script_dir="$(
+> +  cd "$(dirname "$0")"
+> +  echo "${PWD}"
+> +)"
 > +
->  if [ -z "${test_variant}" ]; then
->      passed="ping test passed"
->      domU_check="
-> @@ -66,16 +69,22 @@ if [[ "${test_variant}" == "earlyprintk" ]]; then
->      passed="\- Ready \-"
->  fi
+> +accepted_rst=$1
+> +
+> +grep -Eo "\`(Dir|Rule) [0-9]+\.[0-9]+" ${accepted_rst} \
+> +     | sed -e 's/`Rule /MC3R1.R/' -e  's/`Dir /MC3R1.D/' -e 's/.*/-enable=&/' > ${script_dir}/accepted.ecl
+> diff --git a/automation/eclair_analysis/ECLAIR/action.helpers b/automation/eclair_analysis/ECLAIR/action.helpers
+> index df9bf2bd11..9d4ae1f979 100644
+> --- a/automation/eclair_analysis/ECLAIR/action.helpers
+> +++ b/automation/eclair_analysis/ECLAIR/action.helpers
+> @@ -127,7 +127,7 @@ EOF
+>      fi
+>      case ${ci} in
+>      github)
+> -        cat "${summaryTxt}" >"${GITHUB_STEP_SUMMARY}"
+> +        cat "${summaryTxt}" "${cleanRegressionsLog}" >"${GITHUB_STEP_SUMMARY}"
+>          ;;
+>      gitlab)
+>          open_section ECLAIR_summary "ECLAIR analysis summary" ""
+> @@ -140,6 +140,7 @@ ${analysisSummaryMsgLog}
+>  ${currentReportsMsgLog}
+>  ${referenceReportsMsgLog}
+>  EOF
+> +        cat ${cleanRegressionsLog}
+>          close_section ECLAIR_summary
+>          ;;
+>      jenkins)
+> diff --git a/automation/eclair_analysis/ECLAIR/action.settings b/automation/eclair_analysis/ECLAIR/action.settings
+> index 3cba1a3afb..1577368b61 100644
+> --- a/automation/eclair_analysis/ECLAIR/action.settings
+> +++ b/automation/eclair_analysis/ECLAIR/action.settings
+> @@ -175,6 +175,7 @@ eclairReportUrlPrefix=https://saas.eclairit.com:3787
 >  
-> +if [[ "${test_variant}" == "gicv3" ]]; then
-> +    gic_version=3
-> +    passed="${test_variant} test passed"
-> +    domU_check="echo \"${passed}\""
+>  jobDir="${artifactsDir}/${subDir}/${jobId}"
+>  updateLog="${analysisOutputDir}/update.log"
+> +cleanRegressionsLog="${analysisOutputDir}/clean_regressions.log"
+>  commentLog="${analysisOutputDir}/comment.json"
+>  indexHtmlUrl="${eclairReportUrlPrefix}/fs${jobDir}/index.html"
+>  summaryTxt="${analysisOutputDir}/summary.txt"
+> diff --git a/automation/eclair_analysis/ECLAIR/action_check_clean_regressions.sh b/automation/eclair_analysis/ECLAIR/action_check_clean_regressions.sh
+> new file mode 100755
+> index 0000000000..31b90e5241
+> --- /dev/null
+> +++ b/automation/eclair_analysis/ECLAIR/action_check_clean_regressions.sh
+> @@ -0,0 +1,38 @@
+> +#!/bin/sh
+> +
+> +set -eu
+> +
+> +usage() {
+> +    echo "Usage: $0 ANALYSIS_OUTPUT_DIR" >&2
+> +    exit 2
+> +}
+> +
+> +[ $# -eq 1 ] || usage
+> +
+> +analysisOutputDir=$1
+> +
+> +# Load settings and helpers
+> +. "$(dirname "$0")/action.helpers"
+> +. "$(dirname "$0")/action.settings"
+> +
+> +cleanRegressionsTxt=${analysisOutputDir}/clean_regressions.txt
+> +
+> +cleanRegressionCount=$("${ECLAIR_BIN_DIR}eclair_report" \
+> +    "-db='${analysisOutputDir}/PROJECT.ecd'" \
+> +    "-sel_unfixed=unfixed" \
+> +    "-sel_tag_glob=violation_only,kind,violation" \
+> +    "-sel_tag_glob=clean_added,clean,added" \
+> +    "-report_counts_txt=service,'${cleanRegressionsTxt}'" \
+> +    "-print='',reports_count()")
+> +
+> +if [ "${cleanRegressionCount}" -gt 0 ]; then
+> +    {
+> +        echo "Failure: ${cleanRegressionCount} regressions found for clean guidelines"
+> +        sed -n '/^Number of.*$/,/^$/{ /^Number of.*$/! { /^$/! p } }' ${cleanRegressionsTxt}
+> +    } > ${cleanRegressionsLog}
+> +    rm ${cleanRegressionsTxt}
+> +    exit 1
+> +else
+> +    echo "Success: No regressions for clean guidelines" > ${cleanRegressionsLog}
+> +    rm ${cleanRegressionsTxt}
 > +fi
+> diff --git a/automation/eclair_analysis/ECLAIR/action_clean_added.sh b/automation/eclair_analysis/ECLAIR/action_clean_added.sh
+> deleted file mode 100755
+> index 59bc35fd13..0000000000
+> --- a/automation/eclair_analysis/ECLAIR/action_clean_added.sh
+> +++ /dev/null
+> @@ -1,36 +0,0 @@
+> -#!/bin/sh
+> -
+> -set -eu
+> -
+> -usage() {
+> -    echo "Usage: $0 ANALYSIS_OUTPUT_DIR" >&2
+> -    exit 2
+> -}
+> -
+> -[ $# -eq 1 ] || usage
+> -
+> -analysisOutputDir=$1
+> -
+> -cleanAddedTxt="${analysisOutputDir}/clean_added.log"
+> -
+> -# Load settings and helpers
+> -. "$(dirname "$0")/action.helpers"
+> -. "$(dirname "$0")/action.settings"
+> -
+> -unexpectedReports=$("${ECLAIR_BIN_DIR}eclair_report" \
+> -    "-db='${analysisOutputDir}/PROJECT.ecd'" \
+> -    "-sel_unfixed=unfixed" \
+> -    "-sel_tag_glob=clean_added,clean,added" \
+> -    "-print='',reports_count()")
+> -
+> -if [ "${unexpectedReports}" -gt 0 ]; then
+> -    cat <<EOF >"${cleanAddedTxt}"
+> -Failure: ${unexpectedReports} unexpected reports found.
+> -Unexpected reports are tagged 'clean:added'.
+> -EOF
+> -    exit 1
+> -else
+> -    cat <<EOF >"${cleanAddedTxt}"
+> -Success: No unexpected reports.
+> -EOF
+> -fi
+> diff --git a/automation/eclair_analysis/ECLAIR/analyze.sh b/automation/eclair_analysis/ECLAIR/analyze.sh
+> index a127e7aaed..0ea5520c93 100755
+> --- a/automation/eclair_analysis/ECLAIR/analyze.sh
+> +++ b/automation/eclair_analysis/ECLAIR/analyze.sh
+> @@ -52,7 +52,7 @@ VARIANT="${XEN_TARGET_ARCH}"
+>  
+>  # Used in analysis.ecl
+>  case "$2" in
+> -Set0|Set1|Set2|Set3)
+> +accepted|monitored)
+>    export SET="$2"
+>    ;;
+>  *)
+> diff --git a/automation/eclair_analysis/ECLAIR/generate_ecl.sh b/automation/eclair_analysis/ECLAIR/generate_ecl.sh
+> index de20728eb1..66766b23ab 100755
+> --- a/automation/eclair_analysis/ECLAIR/generate_ecl.sh
+> +++ b/automation/eclair_analysis/ECLAIR/generate_ecl.sh
+> @@ -10,6 +10,10 @@ script_dir="$(
+>  )"
+>  
+>  exclude_list="${ECLAIR_PROJECT_ROOT}/docs/misra/exclude-list.json"
+> +accepted_rst="${ECLAIR_PROJECT_ROOT}/docs/misra/rules.rst"
+>  
+>  # Generate the exclude list file
+>  "${script_dir}/adopted.sh" "${exclude_list}"
 > +
->  # XXX QEMU looks for "efi-virtio.rom" even if it is unneeded
->  curl -fsSLO https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
->  ./binaries/qemu-system-aarch64 \
->     -machine virtualization=true \
-> -   -cpu cortex-a57 -machine type=virt \
-> +   -cpu cortex-a57 -machine type=virt,gic-version=$gic_version \
->     -m 2048 -smp 2 -display none \
-> -   -machine dumpdtb=binaries/virt-gicv2.dtb
-> +   -machine dumpdtb=binaries/virt.dtb
+> +# Generate accepted guidelines
+> +"${script_dir}/accepted_guidelines.sh" "${accepted_rst}"
+> diff --git a/automation/eclair_analysis/ECLAIR/Set1.ecl b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> similarity index 67%
+> rename from automation/eclair_analysis/ECLAIR/Set1.ecl
+> rename to automation/eclair_analysis/ECLAIR/monitored.ecl
+> index 86b8e7e772..69308ea51c 100644
+> --- a/automation/eclair_analysis/ECLAIR/Set1.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> @@ -1,36 +1,57 @@
+> --doc_begin="Set 1 of Xen MISRA C guidelines"
+> --enable=MC3R1.R9.1
+> +-doc_begin="A set of guidelines that are clean or that only have few violations left."
+> +-enable=MC3R1.D1.1
+> +-enable=MC3R1.D2.1
+> +-enable=MC3R1.D4.1
+> +-enable=MC3R1.D4.10
+> +-enable=MC3R1.D4.11
+> +-enable=MC3R1.D4.12
+> +-enable=MC3R1.D4.14
+> +-enable=MC3R1.D4.3
+> +-enable=MC3R1.D4.7
+> +-enable=MC3R1.R10.1
+> +-enable=MC3R1.R10.2
+> +-enable=MC3R1.R1.1
+> +-enable=MC3R1.R11.1
+> +-enable=MC3R1.R11.7
+> +-enable=MC3R1.R11.8
+> +-enable=MC3R1.R11.9
+>  -enable=MC3R1.R12.5
+> +-enable=MC3R1.R1.3
+> +-enable=MC3R1.R13.6
+> +-enable=MC3R1.R1.4
+> +-enable=MC3R1.R14.1
+> +-enable=MC3R1.R14.4
+> +-enable=MC3R1.R16.2
+> +-enable=MC3R1.R16.6
+> +-enable=MC3R1.R16.7
+> +-enable=MC3R1.R17.1
+>  -enable=MC3R1.R17.3
+>  -enable=MC3R1.R17.4
+> +-enable=MC3R1.R17.5
+>  -enable=MC3R1.R17.6
+>  -enable=MC3R1.R19.1
+> +-enable=MC3R1.R20.12
+> +-enable=MC3R1.R20.13
+> +-enable=MC3R1.R20.14
+> +-enable=MC3R1.R20.4
+> +-enable=MC3R1.R20.9
+> +-enable=MC3R1.R2.1
+>  -enable=MC3R1.R21.13
+>  -enable=MC3R1.R21.17
+>  -enable=MC3R1.R21.18
+>  -enable=MC3R1.R21.19
+>  -enable=MC3R1.R21.20
+>  -enable=MC3R1.R21.21
+> +-enable=MC3R1.R2.2
+>  -enable=MC3R1.R22.2
+>  -enable=MC3R1.R22.4
+>  -enable=MC3R1.R22.5
+>  -enable=MC3R1.R22.6
+> --enable=MC3R1.D1.1
+> --enable=MC3R1.D2.1
+> --enable=MC3R1.D4.1
+> --enable=MC3R1.D4.3
+> --enable=MC3R1.D4.7
+> --enable=MC3R1.D4.10
+> --enable=MC3R1.D4.11
+> --enable=MC3R1.D4.14
+> --enable=MC3R1.R1.1
+> --enable=MC3R1.R1.3
+> --enable=MC3R1.R1.4
+> --enable=MC3R1.R2.1
+> --enable=MC3R1.R2.2
+> +-enable=MC3R1.R2.6
+>  -enable=MC3R1.R3.1
+>  -enable=MC3R1.R3.2
+>  -enable=MC3R1.R4.1
+> +-enable=MC3R1.R4.2
+>  -enable=MC3R1.R5.1
+>  -enable=MC3R1.R5.2
+>  -enable=MC3R1.R5.3
+> @@ -43,15 +64,15 @@
+>  -enable=MC3R1.R7.3
+>  -enable=MC3R1.R7.4
+>  -enable=MC3R1.R8.1
+> +-enable=MC3R1.R8.10
+> +-enable=MC3R1.R8.12
+> +-enable=MC3R1.R8.14
+>  -enable=MC3R1.R8.2
+>  -enable=MC3R1.R8.3
+>  -enable=MC3R1.R8.4
+>  -enable=MC3R1.R8.5
+>  -enable=MC3R1.R8.6
+>  -enable=MC3R1.R8.8
+> --enable=MC3R1.R8.10
+> --enable=MC3R1.R8.12
+> --enable=MC3R1.R8.14
+>  -enable=MC3R1.R9.2
+>  -enable=MC3R1.R9.3
+>  -enable=MC3R1.R9.4
+> diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
+> index a1dea32b21..d609b470eb 100644
+> --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
+> @@ -13,24 +13,13 @@
+>  -doc="Hide reports marked as disapplied."
+>  -remap_rtag={disapplied,hide}
 >  
->  # XXX disable pl061 to avoid Linux crash
-> -fdtput binaries/virt-gicv2.dtb -p -t s /pl061@9030000 status disabled
-> +fdtput binaries/virt.dtb -p -t s /pl061@9030000 status disabled
+> -#######################
+> -# Accepted guidelines #
+> -#######################
+> -
+> --doc="Accepted guidelines as reported in XEN/docs/misra/rules.rst"
+> --service_selector={accepted_guidelines,
+> -    "MC3R1.D1.1||MC3R1.D2.1||MC3R1.D4.1||MC3R1.D4.3||MC3R1.D4.7||MC3R1.D4.10||MC3R1.D4.11||MC3R1.D4.14||MC3R1.R1.1||MC3R1.R1.3||MC3R1.R1.4||MC3R1.R2.1||MC3R1.R2.2||MC3R1.R2.6||MC3R1.R3.1||MC3R1.R3.2||MC3R1.R4.1||MC3R1.R4.2||MC3R1.R5.1||MC3R1.R5.2||MC3R1.R5.3||MC3R1.R5.4||MC3R1.R5.6||MC3R1.R6.1||MC3R1.R6.2||MC3R1.R7.1||MC3R1.R7.2||MC3R1.R7.3||MC3R1.R7.4||MC3R1.R8.1||MC3R1.R8.2||MC3R1.R8.3||MC3R1.R8.4||MC3R1.R8.5||MC3R1.R8.6||MC3R1.R8.8||MC3R1.R8.10||MC3R1.R8.12||MC3R1.R8.14||MC3R1.R9.1||MC3R1.R9.2||MC3R1.R9.3||MC3R1.R9.4||MC3R1.R9.5||MC3R1.R10.1||MC3R1.R10.2||MC3R1.R10.3||MC3R1.R10.4||MC3R1.R11.7||MC3R1.R11.8||MC3R1.R11.9||MC3R1.R12.5||MC3R1.R13.1||MC3R1.R13.5||MC3R1.R13.6||MC3R1.R14.1||MC3R1.R14.2||MC3R1.R14.3||MC3R1.R16.7||MC3R1.R17.3||MC3R1.R17.4||MC3R1.R17.6||MC3R1.R18.3||MC3R1.R19.1||MC3R1.R20.7||MC3R1.R20.13||MC3R1.R20.14||MC3R1.R21.13||MC3R1.R21.17||MC3R1.R21.18||MC3R1.R21.19||MC3R1.R21.20||MC3R1.R21.21||MC3R1.R22.2||MC3R1.R22.4||MC3R1.R22.5||MC3R1.R22.6"
+> -}
+> --doc="All reports of accepted guidelines are tagged as accepted."
+> --reports+={status:accepted,"service(accepted_guidelines)"}
+> -
+>  ####################
+>  # Clean guidelines #
+>  ####################
 >  
->  # Busybox
->  mkdir -p initrd
-> @@ -138,7 +147,7 @@ cd ..
->  echo 'MEMORY_START="0x40000000"
->  MEMORY_END="0x50000000"
+>  -doc_begin="Clean guidelines: new violations for these guidelines are not accepted."
 >  
-> -DEVICE_TREE="virt-gicv2.dtb"
-> +DEVICE_TREE="virt.dtb"
->  XEN="xen"
->  DOM0_KERNEL="Image"
->  DOM0_RAMDISK="dom0-rootfs.cpio.gz"
-> @@ -200,7 +209,7 @@ echo "  virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"| \
->  timeout -k 1 240 \
->  ./binaries/qemu-system-aarch64 \
->      -machine virtualization=true \
-> -    -cpu cortex-a57 -machine type=virt \
-> +    -cpu cortex-a57 -machine type=virt,gic-version=$gic_version \
->      -m 2048 -monitor none -serial stdio \
->      -smp 2 \
->      -no-reboot \
+> --service_selector={clean_guidelines_common,"MC3R1.D1.1||MC3R1.D2.1||MC3R1.D4.11||MC3R1.D4.14||MC3R1.R1.1||MC3R1.R1.3||MC3R1.R1.4||MC3R1.R2.2||MC3R1.R3.1||MC3R1.R3.2||MC3R1.R4.1||MC3R1.R4.2||MC3R1.R5.1||MC3R1.R5.2||MC3R1.R5.4||MC3R1.R5.6||MC3R1.R6.1||MC3R1.R6.2||MC3R1.R7.1||MC3R1.R8.1||MC3R1.R8.2||MC3R1.R8.5||MC3R1.R8.6||MC3R1.R8.8||MC3R1.R8.10||MC3R1.R8.12||MC3R1.R8.14||MC3R1.R9.2||MC3R1.R9.4||MC3R1.R9.5||MC3R1.R12.5||MC3R1.R17.3||MC3R1.R17.4||MC3R1.R17.6||MC3R1.R20.13||MC3R1.R20.14||MC3R1.R21.13||MC3R1.R21.19||MC3R1.R21.21||MC3R1.R22.2||MC3R1.R22.4||MC3R1.R22.5||MC3R1.R22.6"
+> +-service_selector={clean_guidelines_common,"MC3R1.D1.1||MC3R1.D2.1||MC3R1.D4.1||MC3R1.D4.11||MC3R1.D4.14||MC3R1.R1.1||MC3R1.R11.7||MC3R1.R11.9||MC3R1.R12.5||MC3R1.R1.3||MC3R1.R1.4||MC3R1.R14.1||MC3R1.R16.7||MC3R1.R17.1||MC3R1.R17.3||MC3R1.R17.4||MC3R1.R17.5||MC3R1.R17.6||MC3R1.R20.13||MC3R1.R20.14||MC3R1.R20.4||MC3R1.R20.9||MC3R1.R21.13||MC3R1.R21.19||MC3R1.R21.21||MC3R1.R2.2||MC3R1.R22.2||MC3R1.R22.4||MC3R1.R22.5||MC3R1.R22.6||MC3R1.R2.6||MC3R1.R3.1||MC3R1.R3.2||MC3R1.R4.1||MC3R1.R4.2||MC3R1.R5.1||MC3R1.R5.2||MC3R1.R5.4||MC3R1.R5.6||MC3R1.R6.1||MC3R1.R6.2||MC3R1.R7.1||MC3R1.R7.4||MC3R1.R8.1||MC3R1.R8.10||MC3R1.R8.12||MC3R1.R8.14||MC3R1.R8.2||MC3R1.R8.5||MC3R1.R8.6||MC3R1.R8.8||MC3R1.R9.2||MC3R1.R9.3||MC3R1.R9.4||MC3R1.R9.5"
+>  }
+
+Is this list different from monitored.ecl? If so, why? If not, maybe we
+don't need to repeat the list here as well?
+
+
+>  -setq=target,getenv("XEN_TARGET_ARCH")
+> @@ -40,7 +29,7 @@ if(string_equal(target,"x86_64"),
+>  )
+>  
+>  if(string_equal(target,"arm64"),
+> -    service_selector({"additional_clean_guidelines","MC3R1.R5.3||MC3R1.R7.2||MC3R1.R7.3||MC3R1.R8.6||MC3R1.R9.3"})
+> +    service_selector({"additional_clean_guidelines","MC3R1.R16.6||MC3R1.R20.12||MC3R1.R2.1||MC3R1.R5.3||MC3R1.R7.2||MC3R1.R7.3||MC3R1.R8.6||MC3R1.R9.3"})
+>  )
+>  
+>  -reports+={clean:added,"service(clean_guidelines_common||additional_clean_guidelines)"}
+> diff --git a/automation/gitlab-ci/analyze.yaml b/automation/gitlab-ci/analyze.yaml
+> index 6631db53fa..46c9d8e2e5 100644
+> --- a/automation/gitlab-ci/analyze.yaml
+> +++ b/automation/gitlab-ci/analyze.yaml
+> @@ -39,14 +39,14 @@ eclair-x86_64:
+>    variables:
+>      LOGFILE: "eclair-x86_64.log"
+>      VARIANT: "X86_64"
+> -    RULESET: "Set1"
+> +    RULESET: "monitored"
+>  
+>  eclair-ARM64:
+>    extends: .eclair-analysis:triggered
+>    variables:
+>      LOGFILE: "eclair-ARM64.log"
+>      VARIANT: "ARM64"
+> -    RULESET: "Set1"
+> +    RULESET: "monitored"
+>  
+>  .eclair-analysis:on-schedule:
+>    extends: .eclair-analysis
+> @@ -55,56 +55,20 @@ eclair-ARM64:
+>        when: never
+>      - !reference [.eclair-analysis, rules]
+>  
+> -eclair-x86_64-Set1:on-schedule:
+> +eclair-x86_64:on-schedule:
+>    extends: .eclair-analysis:on-schedule
+>    variables:
+>      VARIANT: "X86_64"
+> -    RULESET: "Set1"
+> +    RULESET: "accepted"
+>      ANALYSIS_KIND: "${RULESET}-scheduled"
+>      LOGFILE: "eclair-${VARIANT}-${RULESET}.log"
+>    allow_failure: true
+>  
+> -eclair-x86_64-Set2:on-schedule:
+> -  extends: .eclair-analysis:on-schedule
+> -  variables:
+> -    VARIANT: "X86_64"
+> -    RULESET: "Set2"
+> -    ANALYSIS_KIND: "${RULESET}-scheduled"
+> -    LOGFILE: "eclair-${VARIANT}-${RULESET}.log"
+> -  allow_failure: true
+> -
+> -eclair-x86_64-Set3:on-schedule:
+> -  extends: .eclair-analysis:on-schedule
+> -  variables:
+> -    VARIANT: "X86_64"
+> -    RULESET: "Set3"
+> -    ANALYSIS_KIND: "${RULESET}-scheduled"
+> -    LOGFILE: "eclair-${VARIANT}-${RULESET}.log"
+> -  allow_failure: true
+> -
+> -eclair-ARM64-Set1:on-schedule:
+> -  extends: .eclair-analysis:on-schedule
+> -  variables:
+> -    VARIANT: "ARM64"
+> -    RULESET: "Set1"
+> -    ANALYSIS_KIND: "${RULESET}-scheduled"
+> -    LOGFILE: "eclair-${VARIANT}-${RULESET}.log"
+> -  allow_failure: true
+> -
+> -eclair-ARM64-Set2:on-schedule:
+> -  extends: .eclair-analysis:on-schedule
+> -  variables:
+> -    VARIANT: "ARM64"
+> -    RULESET: "Set2"
+> -    ANALYSIS_KIND: "${RULESET}-scheduled"
+> -    LOGFILE: "eclair-${VARIANT}-${RULESET}.log"
+> -  allow_failure: true
+> -
+> -eclair-ARM64-Set3:on-schedule:
+> +eclair-ARM64:on-schedule:
+>    extends: .eclair-analysis:on-schedule
+>    variables:
+>      VARIANT: "ARM64"
+> -    RULESET: "Set3"
+> +    RULESET: "accepted"
+>      ANALYSIS_KIND: "${RULESET}-scheduled"
+>      LOGFILE: "eclair-${VARIANT}-${RULESET}.log"
+>    allow_failure: true
+> diff --git a/automation/scripts/eclair b/automation/scripts/eclair
+> index 14e47a6f97..ebcaf09b54 100755
+> --- a/automation/scripts/eclair
+> +++ b/automation/scripts/eclair
+> @@ -18,12 +18,8 @@ ex=0
+>                               "${ex}"
+>  [ "${ex}" = 0 ] || exit "${ex}"
+>  
+> -# Fail in case of new reports
+> -"${ECLAIR_DIR}/action_clean_added.sh" "${ECLAIR_OUTPUT_DIR}" || ex=$?
+> -"${ECLAIR_DIR}/action_log.sh" DIFF_CHECK_LOG \
+> -                             "ECLAIR diff check" \
+> -                             "${ECLAIR_OUTPUT_DIR}/clean_added.log" \
+> -                             "${ex}"
+> +# Fail in case of new reports for clean guidelines
+> +"${ECLAIR_DIR}/action_check_clean_regressions.sh" "${ECLAIR_OUTPUT_DIR}" || ex=$?
+>  
+>  "${ECLAIR_DIR}/action_push.sh" "${WTOKEN}" "${ECLAIR_OUTPUT_DIR}"
+>  [ "${ex}" = 0 ] || exit "${ex}"
 > -- 
-> 2.25.1
+> 2.34.1
 > 
 
