@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0F648B22A2
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 15:27:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712083.1112478 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BAA78B22C8
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 15:30:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712089.1112489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzz8D-00059q-Eh; Thu, 25 Apr 2024 13:27:21 +0000
+	id 1rzzBO-0006jP-U5; Thu, 25 Apr 2024 13:30:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712083.1112478; Thu, 25 Apr 2024 13:27:21 +0000
+Received: by outflank-mailman (output) from mailman id 712089.1112489; Thu, 25 Apr 2024 13:30:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzz8D-000588-Bw; Thu, 25 Apr 2024 13:27:21 +0000
-Received: by outflank-mailman (input) for mailman id 712083;
- Thu, 25 Apr 2024 13:27:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hfi/=L6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rzz8C-000581-Rk
- for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 13:27:20 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 89f97c0a-0307-11ef-b4bb-af5377834399;
- Thu, 25 Apr 2024 15:27:18 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2dd6c160eaaso11919721fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 06:27:18 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- i21-20020a170906091500b00a5216df5d25sm9503790ejd.3.2024.04.25.06.27.17
+	id 1rzzBO-0006hb-QW; Thu, 25 Apr 2024 13:30:38 +0000
+Received: by outflank-mailman (input) for mailman id 712089;
+ Thu, 25 Apr 2024 13:30:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BIz1=L6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rzzBN-0006gm-Ld
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 13:30:37 +0000
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [2001:4860:4864:20::2f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ffb45162-0307-11ef-909a-e314d9c70b13;
+ Thu, 25 Apr 2024 15:30:37 +0200 (CEST)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-22edcfcd187so349569fac.2
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 06:30:37 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ t16-20020ac85310000000b0043718ece8dfsm6911860qtn.12.2024.04.25.06.30.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Apr 2024 06:27:17 -0700 (PDT)
+ Thu, 25 Apr 2024 06:30:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,89 +45,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89f97c0a-0307-11ef-b4bb-af5377834399
+X-Inumbo-ID: ffb45162-0307-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714051638; x=1714656438; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FTlRV7WBcszPv2Xnx017qV68eEqGTn+7m/P3TyItlOc=;
-        b=AlDV2yiD/bxQpIaGgxJ5J7rwY9yfRJXm2YpdF9OQHAGu9HscDn7BeSrK2Bp1rOCga8
-         /mAU9yBX54u6ZkVvFq8exz/XzX40jSlY6m78mcBUxp21c8FLQCHS66vUgvbRYX5pV/h5
-         ZU/OgkNXIVYUepU8QKiUg6Ww0/NkCHoZSgCdx2+7jdJVnSWWAZlsCDQnkHhSqPuf++EF
-         LA81cu1UgJ95xMqYDZVpg/XWtJeBmg7J/bQOwrfZPwGPR6OvtIM7uCBlJZtKQ17gsTLT
-         yVmcrBHTymQJZ8zaJFJQkN2uwfKmeIDOa/RTYlvAKU0NCqqMiYdZ6qwbJWBKRhCHl1JL
-         kVkA==
+        d=citrix.com; s=google; t=1714051835; x=1714656635; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=dIjG4ES0MJ/mM6LZ7+rMDaiJZqVAgspaCiDN1KaFyiI=;
+        b=rvSoOqY9nAEpDu62th8BN9PeK5YoyxnkdZkBVaNO3EtPOIfzsm/rdF4VX81Jo5JGd7
+         XC6W5n7IGpok2Aaza2jxSvDZ/t1g71u2ZJboq6wdal3BdKtqhPDwgzBPUSbvMskFTui0
+         BQvd4HGOFxnrTmnlkBPCTGk0LHMmWJkmWD/+s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714051638; x=1714656438;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FTlRV7WBcszPv2Xnx017qV68eEqGTn+7m/P3TyItlOc=;
-        b=S5aBxWFqcJK9U5vvRuYtj2BhzVJv6nXVVPpn+LKqm98cXbopWIpBe8k1xH+Z4VCsDw
-         z+IPwPHwCF6Oxhfe2NvQlqGIct3Z92RuDjRO/+eLaFHimcz25zGADlW/63Hxad3Fp5st
-         2rTQtM3Qo5ss/+ADY1zCvWCgWZ3TG8XZp/hnYSTzMN1Id7Ww+CCw11t01EDWBtPxt3iw
-         h/m/FDKs+mLG6jxm29vA4VXSKO/HrIdoT94TFyeINBBdi3NodzRPcwWA1OEBxgUx4lML
-         w+fEkvxUGTFbjhvr/X/2PmSHvyu2qchz9983kLvg2Jf9bFtGH6AHekwkpErnpczhnlDO
-         NSiA==
-X-Gm-Message-State: AOJu0YyGmp6HRN5V0KEAl9dftAPriJkfxel+rBv6idIuTo2E0eTWEhyy
-	urG5sSRztCD9bSs6n32ZYrAli7X3BwmmjfRFM0aafmUHRCLRs2cfjsvG07TbipgCyOQzEWY3pgo
-	=
-X-Google-Smtp-Source: AGHT+IFMZqiHuWkZZI/ZEzrX8/qW0CXkMJlYEqtwzr7xTxqeNKVLFQ1PvBd6Nhh+4yVUksGQKrHcJQ==
-X-Received: by 2002:a05:6512:483:b0:518:b5af:5f64 with SMTP id v3-20020a056512048300b00518b5af5f64mr5083335lfq.46.1714051638165;
-        Thu, 25 Apr 2024 06:27:18 -0700 (PDT)
-Message-ID: <1d787e05-28cb-4d1a-9ea6-696d5005f37b@suse.com>
-Date: Thu, 25 Apr 2024 15:27:17 +0200
+        d=1e100.net; s=20230601; t=1714051835; x=1714656635;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dIjG4ES0MJ/mM6LZ7+rMDaiJZqVAgspaCiDN1KaFyiI=;
+        b=TFYT3ALu1TBjUeZ7PbNjP1yT8fq4Tfew1Nz9+nfuDBE99FgKPQbzcNT9uPq6sfSpCA
+         1uHr7yNrUjBT9WknvQZQsrpnJUxEvCMwMKpNzm+HxgC7Yg0cRhfVb9hvu7LET+B6OEDK
+         ik3xvo3kij01e3fPNXSSSHozJoT3qTihCN1DQzPrJBVch0433ABH3idtXJy4NQScbLsU
+         IURBm3rSfZQ9yI7fhhb/2xsxPY7MmHyO3zEnVVvlvQPQ1cujz5Tx31UVOJQauvY+8+f5
+         uozaGtQp1bT2SBm/q3fCkmxznAO5AuAKq4kpNgkkKwJ278QGT8Tr4YLBap9Z+I+hpMek
+         0gRw==
+X-Forwarded-Encrypted: i=1; AJvYcCVz12+JEaOcIdDUdiF+AjHDXTUppVN79FTDTEAe+n61kVR7iPWfm+j5D9Y3AyEb9LA7T2W+CC2vooQTC5sPbKrYcS+SZ8Oey/nbvI5I/8o=
+X-Gm-Message-State: AOJu0YwwYkNCvCULyBHmCX6qoac+vank1++oZY1tBzi2UBtsMm9r2VFA
+	g5fzEHXzrw9A6q0dvOlGFUaaeDvwWVZNyn21nvO5q75ut27CfFj+pZT6Hgel/sI=
+X-Google-Smtp-Source: AGHT+IGN118D8CqHV1r3t6sP1kBOK/p+3pXrrsbQ1Jc9GmMpe3am+nZ9CV77IqZ6GARrzrgpkzSzuA==
+X-Received: by 2002:a05:6870:d391:b0:221:8b50:f1a0 with SMTP id k17-20020a056870d39100b002218b50f1a0mr7131003oag.19.1714051835373;
+        Thu, 25 Apr 2024 06:30:35 -0700 (PDT)
+Message-ID: <65819d08-eea1-4ce3-8eca-6358ecba1bb2@citrix.com>
+Date: Thu, 25 Apr 2024 14:30:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] VMX: no open-coding in vmx_get_cpl()
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Subject: Re: [PATCH v2 2/2] x86/spec: adjust logic to logic that elides lfence
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20240418155208.7771-1-roger.pau@citrix.com>
+ <20240418155208.7771-3-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240418155208.7771-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Neither X86_SEG_AR_DPL nor MASK_EXTR() should really be avoided here,
-using literal number instead.
+On 18/04/2024 4:52 pm, Roger Pau Monne wrote:
+> It's currently too restrictive by just checking whether there's a BHB clearing
+> sequence selected.  It should instead check whether BHB clearing is used on
+> entry from PV or HVM specifically.
+>
+> Switch to use opt_bhb_entry_{pv,hvm} instead, and then remove cpu_has_bhb_seq
+> since it no longer has any users.
+>
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Fixes: 954c983abcee ('x86/spec-ctrl: Software BHB-clearing sequences')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Changes since v1:
+>  - New in this version.
+>
+> There (possibly) still a bit of overhead for dom0 if BHB clearing is not used
+> for dom0, as Xen would still add the lfence if domUs require it.
 
-No difference in generated code (with gcc13 at least).
+This is the note about dom0 that I made on the previous patch.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+"protect dom0" only has any effect if the appropriate foo_pv or foo_hvm
+is also selected.  It's not possible to express "protect dom0 but not
+domU of $TYPE".
 
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -1192,7 +1192,7 @@ unsigned int vmx_get_cpl(void)
- 
-     __vmread(GUEST_SS_AR_BYTES, &attr);
- 
--    return (attr >> 5) & 3;
-+    return MASK_EXTR(attr, X86_SEG_AR_DPL);
- }
- 
- static unsigned int cf_check _vmx_get_cpl(struct vcpu *v)
+This early on boot we have no idea whether dom0 is going to be PV or
+HVM.  We could in principle figure it out by peeking at dom0's ELF
+notes, but that needs a lot of rearranging of __start_xen() to do safely.
+
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
