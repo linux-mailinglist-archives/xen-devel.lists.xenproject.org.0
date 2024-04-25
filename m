@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CA398B2D65
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 01:01:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712315.1112926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D10E18B2D7A
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 01:14:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712319.1112935 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s085Z-0003i6-B2; Thu, 25 Apr 2024 23:01:13 +0000
+	id 1s08I6-0006Fo-EM; Thu, 25 Apr 2024 23:14:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712315.1112926; Thu, 25 Apr 2024 23:01:13 +0000
+Received: by outflank-mailman (output) from mailman id 712319.1112935; Thu, 25 Apr 2024 23:14:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s085Z-0003fF-8S; Thu, 25 Apr 2024 23:01:13 +0000
-Received: by outflank-mailman (input) for mailman id 712315;
- Thu, 25 Apr 2024 23:01:11 +0000
+	id 1s08I6-0006D3-Bg; Thu, 25 Apr 2024 23:14:10 +0000
+Received: by outflank-mailman (input) for mailman id 712319;
+ Thu, 25 Apr 2024 23:14:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=N29f=L6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1s085X-0003f9-I8
- for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 23:01:11 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
+ id 1s08I5-0006Cv-LO
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 23:14:09 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b319c927-0357-11ef-909a-e314d9c70b13;
- Fri, 26 Apr 2024 01:01:09 +0200 (CEST)
+ id 82d928b5-0359-11ef-909a-e314d9c70b13;
+ Fri, 26 Apr 2024 01:14:07 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id D8A37CE1669;
- Thu, 25 Apr 2024 23:01:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62E8EC113CC;
- Thu, 25 Apr 2024 23:01:01 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 0A4DBCE1B3C;
+ Thu, 25 Apr 2024 23:14:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C020CC113CC;
+ Thu, 25 Apr 2024 23:14:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +41,285 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b319c927-0357-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 82d928b5-0359-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714086062;
-	bh=7btQZK4fjzA9h4h1lVQtDrsRzYcZMgFqOwA72nczxEY=;
+	s=k20201202; t=1714086842;
+	bh=XauHxKmJlWNxKokHnGQ59tJ320O+DAmmbivWUa96nc0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=av8NFBFA+q6GsUJRedUso4GB+13pxOt8I1LPMVTGzaMxVmABRkc0/DlEhY142ekYY
-	 p1Lcp/u4UeRvGLLZXb++xK/jTjHircJimCLmC64fduLaaho3HS4o5YIlZHxfcfMwPO
-	 dmGqocWI+ApsTrV7XJFkmNTC3MEtvfmpzQQC5eds3DvZrimJPDHssyNklYJK7aUfwf
-	 5XrWlGoImoY6+qjmbmjdN8zHwsHAL6Nw5dvIz5A5DX0oPjsdM6DD0gDkf4mPnjtco5
-	 35MSAZh5S7ltYJz+/ocKuzUSvCDmhsve3ocPJ8vGp7SUOBE6WUdgMVb+5C89rqVRw/
-	 +LH1Mr/hgPzIA==
-Date: Thu, 25 Apr 2024 16:01:00 -0700 (PDT)
+	b=S/RX8YNvVuQEt1gFg43/k1sNXXd9/FKq60BhRt9gGA4BGfYul0L1xd3TvLEDbQXL3
+	 DGvRTM3ADiZTVI4AXK59PQwBF9pbjENxWcXhH2qywFw9BO+cxKOZ+HlSX/Iqv88o1T
+	 ccwnPEqyH5guBFPBNNqlz5GWDRtRSi5XP93v5Hx+TN+Ef7W/vlJL/1wKxmbKKZHS4l
+	 zN7ltOch/5CUvkltuyjmVq0+bzaV+fYnX5AQ3XTcRNbcH6aGq3VEfQTnP2r19ionm8
+	 0xr/TkJJJrQn4xMI96smmPGE2bEKwbF3adKoA83R5eM602ya6EWuatu5tCOBcsMwZH
+	 kZp6JKhco92aw==
+Date: Thu, 25 Apr 2024 16:13:59 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Jan Beulich <JBeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] xen: Use -Wuninitialized and -Winit-self
-In-Reply-To: <20231228193907.3052681-1-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2404251600460.3940@ubuntu-linux-20-04-desktop>
-References: <20231228193907.3052681-1-andrew.cooper3@citrix.com>
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
+    bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, 
+    jbeulich@suse.com, andrew.cooper3@citrix.com, edgar.iglesias@amd.com
+Subject: Re: [PATCH v2 1/1] xen/arm64: entry: Add missing code symbol
+ annotations
+In-Reply-To: <20240415231541.4140052-2-edgar.iglesias@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2404251608320.3940@ubuntu-linux-20-04-desktop>
+References: <20240415231541.4140052-1-edgar.iglesias@gmail.com> <20240415231541.4140052-2-edgar.iglesias@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-78255055-1714086054=:3940"
-Content-ID: <alpine.DEB.2.22.394.2404251600590.3940@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Tue, 16 Apr 2024, Edgar E. Iglesias wrote:
+> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+> 
+> Use the generic xen/linkage.h macros when and add missing
+                                        ^ when what?
 
---8323329-78255055-1714086054=:3940
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2404251600591.3940@ubuntu-linux-20-04-desktop>
+> code symbol annotations.
+> 
+> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
 
-On Thu, 28 Dec 2023, Andrew Cooper wrote:
-> The use of uninitialised data is undefined behaviour.  At -O2 with trivial
-> examples, both Clang and GCC delete the variable, and in the case of a
-> function return, the caller gets whatever was stale in %rax prior to the call.
-> 
-> Clang includes -Wuninitialized within -Wall, but GCC only includes it in
-> -Wextra, which is not used by Xen at this time.
-> 
-> Furthermore, the specific pattern of assigning a variable to itself in its
-> declaration is only diagnosed by GCC with -Winit-self.  Clang does diagnoise
-> simple forms of this pattern with a plain -Wuninitialized, but it fails to
-> diagnose the instances in Xen that GCC manages to find.
-> 
-> GCC, with -Wuninitialized and -Winit-self notices:
-> 
->   arch/x86/time.c: In function ‘read_pt_and_tsc’:
->   arch/x86/time.c:297:14: error: ‘best’ is used uninitialized in this function [-Werror=uninitialized]
->     297 |     uint32_t best = best;
->         |              ^~~~
->   arch/x86/time.c: In function ‘read_pt_and_tmcct’:
->   arch/x86/time.c:1022:14: error: ‘best’ is used uninitialized in this function [-Werror=uninitialized]
->    1022 |     uint64_t best = best;
->         |              ^~~~
-> 
-> and both have logic paths where best can be returned while uninitalised.  In
-> both cases, initialise to ~0 like the associated *_min variable which also
-> gates updating best.
-> 
-> Fixes: 23658e823238 ("x86/time: further improve TSC / CPU freq calibration accuracy")
-> Fixes: 3f3906b462d5 ("x86/APIC: calibrate against platform timer when possible")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I am looking at the implementation of FUNC and as far as I can tell
+there is no change compared to ENTRY. So from that point of view we are
+good. I wonder if we should keep using "ENTRY" because it is nice to
+mark explicitely the entry points as such but at the same time I am also
+OK with this. I'll let the other ARM maintainers decide.
+
+On the other hand, FUNC_LOCAL does introduce a change: it adds a .align
+everywhere. Should not be harmful?
+
+With the commit message fixed:
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
---8323329-78255055-1714086054=:3940--
+
+
+> ---
+>  xen/arch/arm/arm64/entry.S | 72 +++++++++++++++++++++++++-------------
+>  1 file changed, 48 insertions(+), 24 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm64/entry.S b/xen/arch/arm/arm64/entry.S
+> index f963c923bb..af9a592cae 100644
+> --- a/xen/arch/arm/arm64/entry.S
+> +++ b/xen/arch/arm/arm64/entry.S
+> @@ -289,21 +289,25 @@
+>          b       do_bad_mode
+>          .endm
+>  
+> -hyp_sync_invalid:
+> +FUNC_LOCAL(hyp_sync_invalid)
+>          entry   hyp=1
+>          invalid BAD_SYNC
+> +END(hyp_sync_invalid)
+>  
+> -hyp_irq_invalid:
+> +FUNC_LOCAL(hyp_irq_invalid)
+>          entry   hyp=1
+>          invalid BAD_IRQ
+> +END(hyp_irq_invalid)
+>  
+> -hyp_fiq_invalid:
+> +FUNC_LOCAL(hyp_fiq_invalid)
+>          entry   hyp=1
+>          invalid BAD_FIQ
+> +END(hyp_fiq_invalid)
+>  
+> -hyp_error_invalid:
+> +FUNC_LOCAL(hyp_error_invalid)
+>          entry   hyp=1
+>          invalid BAD_ERROR
+> +END(hyp_error_invalid)
+>  
+>  /*
+>   * SError received while running in the hypervisor mode.
+> @@ -313,11 +317,12 @@ hyp_error_invalid:
+>   * simplicity, as SError should be rare and potentially fatal,
+>   * all interrupts are kept masked.
+>   */
+> -hyp_error:
+> +FUNC_LOCAL(hyp_error)
+>          entry   hyp=1
+>          mov     x0, sp
+>          bl      do_trap_hyp_serror
+>          exit    hyp=1
+> +END(hyp_error)
+>  
+>  /*
+>   * Synchronous exception received while running in the hypervisor mode.
+> @@ -327,7 +332,7 @@ hyp_error:
+>   * some of them. So we want to inherit the state from the interrupted
+>   * context.
+>   */
+> -hyp_sync:
+> +FUNC_LOCAL(hyp_sync)
+>          entry   hyp=1
+>  
+>          /* Inherit interrupts */
+> @@ -338,6 +343,7 @@ hyp_sync:
+>          mov     x0, sp
+>          bl      do_trap_hyp_sync
+>          exit    hyp=1
+> +END(hyp_sync)
+>  
+>  /*
+>   * IRQ received while running in the hypervisor mode.
+> @@ -352,7 +358,7 @@ hyp_sync:
+>   * would require some rework in some paths (e.g. panic, livepatch) to
+>   * ensure the ordering is enforced everywhere.
+>   */
+> -hyp_irq:
+> +FUNC_LOCAL(hyp_irq)
+>          entry   hyp=1
+>  
+>          /* Inherit D, A, F interrupts and keep I masked */
+> @@ -365,8 +371,9 @@ hyp_irq:
+>          mov     x0, sp
+>          bl      do_trap_irq
+>          exit    hyp=1
+> +END(hyp_irq)
+>  
+> -guest_sync:
+> +FUNC_LOCAL(guest_sync)
+>          /*
+>           * Save x0, x1 in advance
+>           */
+> @@ -413,8 +420,9 @@ fastpath_out_workaround:
+>          mov     x1, xzr
+>          eret
+>          sb
+> +END(guest_sync)
+>  
+> -wa2_ssbd:
+> +FUNC_LOCAL(wa2_ssbd)
+>  #ifdef CONFIG_ARM_SSBD
+>  alternative_cb arm_enable_wa2_handling
+>          b       wa2_end
+> @@ -450,42 +458,55 @@ wa2_end:
+>          mov     x0, xzr
+>          eret
+>          sb
+> -guest_sync_slowpath:
+> +END(wa2_ssbd)
+> +
+> +FUNC_LOCAL(guest_sync_slowpath)
+>          /*
+>           * x0/x1 may have been scratch by the fast path above, so avoid
+>           * to save them.
+>           */
+>          guest_vector compat=0, iflags=IFLAGS__AI_, trap=guest_sync, save_x0_x1=0
+> +END(guest_sync_slowpath)
+>  
+> -guest_irq:
+> +FUNC_LOCAL(guest_irq)
+>          guest_vector compat=0, iflags=IFLAGS__A__, trap=irq
+> +END(guest_irq)
+>  
+> -guest_fiq_invalid:
+> +FUNC_LOCAL(guest_fiq_invalid)
+>          entry   hyp=0, compat=0
+>          invalid BAD_FIQ
+> +END(guest_fiq_invalid)
+>  
+> -guest_error:
+> +FUNC_LOCAL(guest_error)
+>          guest_vector compat=0, iflags=IFLAGS__AI_, trap=guest_serror
+> +END(guest_error)
+>  
+> -guest_sync_compat:
+> +FUNC_LOCAL(guest_sync_compat)
+>          guest_vector compat=1, iflags=IFLAGS__AI_, trap=guest_sync
+> +END(guest_sync_compat)
+>  
+> -guest_irq_compat:
+> +FUNC_LOCAL(guest_irq_compat)
+>          guest_vector compat=1, iflags=IFLAGS__A__, trap=irq
+> +END(guest_irq_compat)
+>  
+> -guest_fiq_invalid_compat:
+> +FUNC_LOCAL(guest_fiq_invalid_compat)
+>          entry   hyp=0, compat=1
+>          invalid BAD_FIQ
+> +END(guest_fiq_invalid_compat)
+>  
+> -guest_error_compat:
+> +FUNC_LOCAL(guest_error_compat)
+>          guest_vector compat=1, iflags=IFLAGS__AI_, trap=guest_serror
+> +END(guest_error_compat)
+>  
+> -ENTRY(return_to_new_vcpu32)
+> +FUNC(return_to_new_vcpu32)
+>          exit    hyp=0, compat=1
+> -ENTRY(return_to_new_vcpu64)
+> +END(return_to_new_vcpu32)
+> +
+> +FUNC(return_to_new_vcpu64)
+>          exit    hyp=0, compat=0
+> +END(return_to_new_vcpu64)
+>  
+> -return_from_trap:
+> +FUNC_LOCAL(return_from_trap)
+>          msr     daifset, #IFLAGS___I_ /* Mask interrupts */
+>  
+>          ldr     x21, [sp, #UREGS_PC]            /* load ELR */
+> @@ -524,6 +545,7 @@ return_from_trap:
+>  
+>          eret
+>          sb
+> +END(return_from_trap)
+>  
+>  /*
+>   * Consume pending SError generated by the guest if any.
+> @@ -536,7 +558,7 @@ return_from_trap:
+>   * it. So the function will unmask SError exception for a small window and
+>   * then mask it again.
+>   */
+> -check_pending_guest_serror:
+> +FUNC_LOCAL(check_pending_guest_serror)
+>          /*
+>           * Save elr_el2 to check whether the pending SError exception takes
+>           * place while we are doing this sync exception.
+> @@ -586,7 +608,7 @@ abort_guest_exit_end:
+>          cset    x19, ne
+>  
+>          ret
+> -ENDPROC(check_pending_guest_serror)
+> +END(check_pending_guest_serror)
+>  
+>  /*
+>   * Exception vectors.
+> @@ -597,7 +619,7 @@ ENDPROC(check_pending_guest_serror)
+>          .endm
+>  
+>          .align  11
+> -ENTRY(hyp_traps_vector)
+> +FUNC(hyp_traps_vector)
+>          ventry  hyp_sync_invalid            /* Synchronous EL2t */
+>          ventry  hyp_irq_invalid             /* IRQ EL2t */
+>          ventry  hyp_fiq_invalid             /* FIQ EL2t */
+> @@ -617,6 +639,7 @@ ENTRY(hyp_traps_vector)
+>          ventry  guest_irq_compat            /* IRQ 32-bit EL0/EL1 */
+>          ventry  guest_fiq_invalid_compat    /* FIQ 32-bit EL0/EL1 */
+>          ventry  guest_error_compat          /* Error 32-bit EL0/EL1 */
+> +END(hyp_traps_vector)
+>  
+>  /*
+>   * struct vcpu *__context_switch(struct vcpu *prev, struct vcpu *next)
+> @@ -626,7 +649,7 @@ ENTRY(hyp_traps_vector)
+>   *
+>   * Returns prev in x0
+>   */
+> -ENTRY(__context_switch)
+> +FUNC(__context_switch)
+>          add     x8, x0, #VCPU_arch_saved_context
+>          mov     x9, sp
+>          stp     x19, x20, [x8], #16         /* store callee-saved registers */
+> @@ -647,6 +670,7 @@ ENTRY(__context_switch)
+>          ldr     lr, [x8]
+>          mov     sp, x9
+>          ret
+> +END(__context_switch)
+>  
+>  /*
+>   * Local variables:
+> -- 
+> 2.40.1
+> 
 
