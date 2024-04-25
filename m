@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F3388B2241
+	by mail.lfdr.de (Postfix) with ESMTPS id 81F278B2240
 	for <lists+xen-devel@lfdr.de>; Thu, 25 Apr 2024 15:11:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712060.1112458 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.712059.1112448 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzysw-0000Bw-TW; Thu, 25 Apr 2024 13:11:34 +0000
+	id 1rzysv-0008Oy-Km; Thu, 25 Apr 2024 13:11:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712060.1112458; Thu, 25 Apr 2024 13:11:34 +0000
+Received: by outflank-mailman (output) from mailman id 712059.1112448; Thu, 25 Apr 2024 13:11:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rzysw-0000A8-OP; Thu, 25 Apr 2024 13:11:34 +0000
-Received: by outflank-mailman (input) for mailman id 712060;
- Thu, 25 Apr 2024 13:11:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rzysv-0008M5-Ha; Thu, 25 Apr 2024 13:11:33 +0000
+Received: by outflank-mailman (input) for mailman id 712059;
+ Thu, 25 Apr 2024 13:11:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=c2YU=L6=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1rzysu-0008LR-Iy
- for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 13:11:32 +0000
+ id 1rzyst-00086c-Q3
+ for xen-devel@lists.xenproject.org; Thu, 25 Apr 2024 13:11:31 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 54417f5a-0305-11ef-b4bb-af5377834399;
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 54e89254-0305-11ef-909a-e314d9c70b13;
  Thu, 25 Apr 2024 15:11:30 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5496E1063;
- Thu, 25 Apr 2024 06:11:57 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6B9821576;
+ Thu, 25 Apr 2024 06:11:58 -0700 (PDT)
 Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 481A73F7BD;
- Thu, 25 Apr 2024 06:11:28 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5F8563F7BD;
+ Thu, 25 Apr 2024 06:11:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,7 +42,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54417f5a-0305-11ef-b4bb-af5377834399
+X-Inumbo-ID: 54e89254-0305-11ef-909a-e314d9c70b13
 From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -50,272 +50,277 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [RFC PATCH 1/2] xen/arm: Add DT reserve map regions to bootinfo.reserved_mem
-Date: Thu, 25 Apr 2024 14:11:18 +0100
-Message-Id: <20240425131119.2299629-2-luca.fancellu@arm.com>
+Subject: [RFC PATCH 2/2] xen/arm: Rework dt_unreserved_regions to avoid recursion
+Date: Thu, 25 Apr 2024 14:11:19 +0100
+Message-Id: <20240425131119.2299629-3-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240425131119.2299629-1-luca.fancellu@arm.com>
 References: <20240425131119.2299629-1-luca.fancellu@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently the code is listing device tree reserve map regions
-as reserved memory for Xen, but they are not added into
-bootinfo.reserved_mem and they are fetched in multiple places
-using the same code sequence, causing duplication. Fix this
-by adding them to the bootinfo.reserved_mem at early stage.
+The function dt_unreserved_regions is currently using recursion
+to compute the non overlapping ranges of a passed region against
+the reserved memory banks, in the spirit of removing the recursion
+to improve safety and also improve the scalability of the function,
+rework its code to use an iterative algorithm with the same result.
+
+The function was taking an additional parameter 'first', but given
+the rework and given that the function was always initially called
+with this parameter as zero, remove the parameter and update the
+codebase to reflect the change.
 
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 ---
- xen/arch/arm/arm32/mmu/mm.c      | 29 +----------------
- xen/arch/arm/bootfdt.c           | 51 ++++++++++++++++++------------
- xen/arch/arm/domain_build.c      |  3 +-
- xen/arch/arm/include/asm/setup.h |  5 +++
- xen/arch/arm/setup.c             | 53 +++++++++-----------------------
- 5 files changed, 53 insertions(+), 88 deletions(-)
+ xen/arch/arm/include/asm/setup.h        |   8 +-
+ xen/arch/arm/include/asm/static-shmem.h |   7 +-
+ xen/arch/arm/kernel.c                   |   2 +-
+ xen/arch/arm/setup.c                    | 133 ++++++++++++++++--------
+ 4 files changed, 96 insertions(+), 54 deletions(-)
 
-diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
-index 23150122f7c4..be480c31ea05 100644
---- a/xen/arch/arm/arm32/mmu/mm.c
-+++ b/xen/arch/arm/arm32/mmu/mm.c
-@@ -73,33 +73,6 @@ static paddr_t __init consider_modules(paddr_t s, paddr_t e,
-         }
-     }
- 
--    /* Now check any fdt reserved areas. */
--
--    nr = fdt_num_mem_rsv(device_tree_flattened);
--
--    for ( ; i < mi->nr_mods + nr; i++ )
--    {
--        paddr_t mod_s, mod_e;
--
--        if ( fdt_get_mem_rsv_paddr(device_tree_flattened,
--                                   i - mi->nr_mods,
--                                   &mod_s, &mod_e ) < 0 )
--            /* If we can't read it, pretend it doesn't exist... */
--            continue;
--
--        /* fdt_get_mem_rsv_paddr returns length */
--        mod_e += mod_s;
--
--        if ( s < mod_e && mod_s < e )
--        {
--            mod_e = consider_modules(mod_e, e, size, align, i+1);
--            if ( mod_e )
--                return mod_e;
--
--            return consider_modules(s, mod_s, size, align, i+1);
--        }
--    }
--
-     /*
-      * i is the current bootmodule we are evaluating, across all
-      * possible kinds of bootmodules.
-@@ -108,7 +81,7 @@ static paddr_t __init consider_modules(paddr_t s, paddr_t e,
-      * need to index the reserved_mem bank starting from 0, and only counting
-      * the reserved-memory modules. Hence, we need to use i - nr.
-      */
--    nr += mi->nr_mods;
-+    nr = mi->nr_mods;
-     for ( ; i - nr < reserved_mem->nr_banks; i++ )
-     {
-         paddr_t r_s = reserved_mem->bank[i - nr].start;
-diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-index 4d708442a19e..6e060111d95b 100644
---- a/xen/arch/arm/bootfdt.c
-+++ b/xen/arch/arm/bootfdt.c
-@@ -475,8 +475,7 @@ static void __init early_print_info(void)
-     const struct membanks *mem_resv = bootinfo_get_reserved_mem();
-     struct bootmodules *mods = &bootinfo.modules;
-     struct bootcmdlines *cmds = &bootinfo.cmdlines;
--    unsigned int i, j;
--    int nr_rsvd;
-+    unsigned int i;
- 
-     for ( i = 0; i < mi->nr_banks; i++ )
-         printk("RAM: %"PRIpaddr" - %"PRIpaddr"\n",
-@@ -490,26 +489,11 @@ static void __init early_print_info(void)
-                 mods->module[i].start + mods->module[i].size,
-                 boot_module_kind_as_string(mods->module[i].kind));
- 
--    nr_rsvd = fdt_num_mem_rsv(device_tree_flattened);
--    if ( nr_rsvd < 0 )
--        panic("Parsing FDT memory reserve map failed (%d)\n", nr_rsvd);
--
--    for ( i = 0; i < nr_rsvd; i++ )
--    {
--        paddr_t s, e;
--
--        if ( fdt_get_mem_rsv_paddr(device_tree_flattened, i, &s, &e) < 0 )
--            continue;
--
--        /* fdt_get_mem_rsv_paddr returns length */
--        e += s;
--        printk(" RESVD[%u]: %"PRIpaddr" - %"PRIpaddr"\n", i, s, e);
--    }
--    for ( j = 0; j < mem_resv->nr_banks; j++, i++ )
-+    for ( i = 0; i < mem_resv->nr_banks; i++ )
-     {
-         printk(" RESVD[%u]: %"PRIpaddr" - %"PRIpaddr"\n", i,
--               mem_resv->bank[j].start,
--               mem_resv->bank[j].start + mem_resv->bank[j].size - 1);
-+               mem_resv->bank[i].start,
-+               mem_resv->bank[i].start + mem_resv->bank[i].size - 1);
-     }
-     early_print_info_shmem();
-     printk("\n");
-@@ -550,7 +534,10 @@ static void __init swap_memory_node(void *_a, void *_b, size_t size)
-  */
- size_t __init boot_fdt_info(const void *fdt, paddr_t paddr)
- {
-+    struct membanks *reserved_mem = bootinfo_get_reserved_mem();
-     struct membanks *mem = bootinfo_get_mem();
-+    unsigned int i;
-+    int nr_rsvd;
-     int ret;
- 
-     ret = fdt_check_header(fdt);
-@@ -559,6 +546,30 @@ size_t __init boot_fdt_info(const void *fdt, paddr_t paddr)
- 
-     add_boot_module(BOOTMOD_FDT, paddr, fdt_totalsize(fdt), false);
- 
-+    nr_rsvd = fdt_num_mem_rsv(fdt);
-+    if ( nr_rsvd < 0 )
-+        panic("Parsing FDT memory reserve map failed (%d)\n", nr_rsvd);
-+
-+    for ( i = 0; i < nr_rsvd; i++ )
-+    {
-+        struct membank *bank;
-+        paddr_t s, sz;
-+
-+        if ( fdt_get_mem_rsv_paddr(device_tree_flattened, i, &s, &sz) < 0 )
-+            continue;
-+
-+        if ( reserved_mem->nr_banks < reserved_mem->max_banks )
-+        {
-+            bank = &reserved_mem->bank[reserved_mem->nr_banks];
-+            bank->start = s;
-+            bank->size = sz;
-+            bank->type = MEMBANK_FDT_RESVMEM;
-+            reserved_mem->nr_banks++;
-+        }
-+        else
-+            panic("Cannot allocate reserved memory bank\n");
-+    }
-+
-     ret = device_tree_for_each_node(fdt, 0, early_scan_node, NULL);
-     if ( ret )
-         panic("Early FDT parsing failed (%d)\n", ret);
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 0784e4c5e315..6fc88a8234e4 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -793,7 +793,8 @@ int __init make_memory_node(const struct kernel_info *kinfo, int addrcells,
-         u64 start = mem->bank[i].start;
-         u64 size = mem->bank[i].size;
- 
--        if ( mem->bank[i].type == MEMBANK_STATIC_DOMAIN )
-+        if ( (mem->bank[i].type == MEMBANK_STATIC_DOMAIN) ||
-+             (mem->bank[i].type == MEMBANK_FDT_RESVMEM) )
-             continue;
- 
-         nr_cells += reg_size;
 diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-index 28fb659fe946..fc6967f9a435 100644
+index fc6967f9a435..24519b9ed969 100644
 --- a/xen/arch/arm/include/asm/setup.h
 +++ b/xen/arch/arm/include/asm/setup.h
-@@ -42,6 +42,11 @@ enum membank_type {
-      * in reserved_mem.
-      */
-     MEMBANK_STATIC_HEAP,
-+    /*
-+     * The MEMBANK_FDT_RESVMEM type is used to indicate whether the memory
-+     * bank is from the FDT reserve map.
-+     */
-+    MEMBANK_FDT_RESVMEM,
- };
+@@ -9,7 +9,12 @@
+ #define MAX_FDT_SIZE SZ_2M
  
- /* Indicates the maximum number of characters(\0 included) for shm_id */
+ #define NR_MEM_BANKS 256
++
++#ifdef CONFIG_STATIC_SHM
+ #define NR_SHMEM_BANKS 32
++#else
++#define NR_SHMEM_BANKS 0
++#endif
+ 
+ #define MAX_MODULES 32 /* Current maximum useful modules */
+ 
+@@ -215,8 +220,7 @@ void create_dom0(void);
+ 
+ void discard_initial_modules(void);
+ void fw_unreserved_regions(paddr_t s, paddr_t e,
+-                           void (*cb)(paddr_t ps, paddr_t pe),
+-                           unsigned int first);
++                           void (*cb)(paddr_t ps, paddr_t pe));
+ 
+ size_t boot_fdt_info(const void *fdt, paddr_t paddr);
+ const char *boot_fdt_cmdline(const void *fdt);
+diff --git a/xen/arch/arm/include/asm/static-shmem.h b/xen/arch/arm/include/asm/static-shmem.h
+index 3b6569e5703f..1b7c7ea0e17d 100644
+--- a/xen/arch/arm/include/asm/static-shmem.h
++++ b/xen/arch/arm/include/asm/static-shmem.h
+@@ -7,11 +7,11 @@
+ #include <asm/kernel.h>
+ #include <asm/setup.h>
+ 
+-#ifdef CONFIG_STATIC_SHM
+-
+ /* Worst case /memory node reg element: (addrcells + sizecells) */
+ #define DT_MEM_NODE_REG_RANGE_SIZE ((NR_MEM_BANKS + NR_SHMEM_BANKS) * 4)
+ 
++#ifdef CONFIG_STATIC_SHM
++
+ int make_resv_memory_node(const struct kernel_info *kinfo, int addrcells,
+                           int sizecells);
+ 
+@@ -47,9 +47,6 @@ void shm_mem_node_fill_reg_range(const struct kernel_info *kinfo, __be32 *reg,
+ 
+ #else /* !CONFIG_STATIC_SHM */
+ 
+-/* Worst case /memory node reg element: (addrcells + sizecells) */
+-#define DT_MEM_NODE_REG_RANGE_SIZE (NR_MEM_BANKS * 4)
+-
+ static inline int make_resv_memory_node(const struct kernel_info *kinfo,
+                                         int addrcells, int sizecells)
+ {
+diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+index 674388fa11a2..ecbeec518754 100644
+--- a/xen/arch/arm/kernel.c
++++ b/xen/arch/arm/kernel.c
+@@ -247,7 +247,7 @@ static __init int kernel_decompress(struct bootmodule *mod, uint32_t offset)
+      * Free the original kernel, update the pointers to the
+      * decompressed kernel
+      */
+-    fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
++    fw_unreserved_regions(addr, addr + size, init_domheap_pages);
+ 
+     return 0;
+ }
 diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index d242674381d4..c4e5c19b11d6 100644
+index c4e5c19b11d6..d737fe56e539 100644
 --- a/xen/arch/arm/setup.c
 +++ b/xen/arch/arm/setup.c
-@@ -210,48 +210,18 @@ static void __init dt_unreserved_regions(paddr_t s, paddr_t e,
-     const struct membanks *reserved_mem = bootinfo_get_reserved_mem();
- #ifdef CONFIG_STATIC_SHM
-     const struct membanks *shmem = bootinfo_get_shmem();
-+    unsigned int offset;
- #endif
--    unsigned int i, nr;
--    int rc;
+@@ -204,55 +204,97 @@ static void __init processor_id(void)
+ }
+ 
+ static void __init dt_unreserved_regions(paddr_t s, paddr_t e,
+-                                         void (*cb)(paddr_t ps, paddr_t pe),
+-                                         unsigned int first)
++                                         void (*cb)(paddr_t ps, paddr_t pe))
+ {
+-    const struct membanks *reserved_mem = bootinfo_get_reserved_mem();
+-#ifdef CONFIG_STATIC_SHM
+-    const struct membanks *shmem = bootinfo_get_shmem();
+-    unsigned int offset;
+-#endif
+-    unsigned int i;
 -
--    rc = fdt_num_mem_rsv(device_tree_flattened);
--    if ( rc < 0 )
--        panic("Unable to retrieve the number of reserved regions (rc=%d)\n",
--              rc);
--
--    nr = rc;
--
--    for ( i = first; i < nr ; i++ )
+     /*
+-     * i is the current bootmodule we are evaluating across all possible
+-     * kinds.
++     * The worst case scenario is to have N reserved region ovelapping the
++     * passed one, so having N+1 regions in the stack
+      */
+-    for ( i = first; i < reserved_mem->nr_banks; i++ )
 -    {
--        paddr_t r_s, r_e;
--
--        if ( fdt_get_mem_rsv_paddr(device_tree_flattened, i, &r_s, &r_e ) < 0 )
--            /* If we can't read it, pretend it doesn't exist... */
--            continue;
--
--        r_e += r_s; /* fdt_get_mem_rsv_paddr returns length */
+-        paddr_t r_s = reserved_mem->bank[i].start;
+-        paddr_t r_e = r_s + reserved_mem->bank[i].size;
 -
 -        if ( s < r_e && r_s < e )
 -        {
--            dt_unreserved_regions(r_e, e, cb, i+1);
--            dt_unreserved_regions(s, r_s, cb, i+1);
+-            dt_unreserved_regions(r_e, e, cb, i + 1);
+-            dt_unreserved_regions(s, r_s, cb, i + 1);
 -            return;
 -        }
 -    }
-+    unsigned int i;
- 
-     /*
-      * i is the current bootmodule we are evaluating across all possible
-      * kinds.
--     *
--     * When retrieving the corresponding reserved-memory addresses
--     * below, we need to index the reserved_mem->bank starting
--     * from 0, and only counting the reserved-memory modules. Hence,
--     * we need to use i - nr.
-      */
--    for ( ; i - nr < reserved_mem->nr_banks; i++ )
-+    for ( i = first; i < reserved_mem->nr_banks; i++ )
+-
++    struct {
++        paddr_t s;
++        paddr_t e;
++        unsigned int dict;
++        unsigned int bank;
++    } stack[NR_MEM_BANKS + NR_SHMEM_BANKS + 1];
++    const struct membanks *mem_banks[] = {
++        bootinfo_get_reserved_mem(),
+ #ifdef CONFIG_STATIC_SHM
+-    /*
+-     * When retrieving the corresponding shared memory addresses
+-     * below, we need to index the shmem->bank starting from 0, hence
+-     * we need to use i - reserved_mem->nr_banks.
+-    */
+-    offset = reserved_mem->nr_banks;
+-    for ( ; i - offset < shmem->nr_banks; i++ )
++        bootinfo_get_shmem(),
++#endif
++    };
++    unsigned int count = 0;
++    unsigned int i, j;
++
++    /* Push the initial region into the stack */
++    stack[count].s = s;
++    stack[count].e = e;
++    stack[count].dict = 0;
++    stack[count].bank = 0;
++    count++;
++    while ( count > 0 )
      {
--        paddr_t r_s = reserved_mem->bank[i - nr].start;
--        paddr_t r_e = r_s + reserved_mem->bank[i - nr].size;
-+        paddr_t r_s = reserved_mem->bank[i].start;
-+        paddr_t r_e = r_s + reserved_mem->bank[i].size;
- 
-         if ( s < r_e && r_s < e )
+-        paddr_t r_s = shmem->bank[i - offset].start;
+-        paddr_t r_e = r_s + shmem->bank[i - offset].size;
+-
+-        if ( s < r_e && r_s < e )
++        paddr_t b_s, b_e;
++        /* Take out last element of the stack */
++        count--;
++        i = stack[count].dict;
++        j = stack[count].bank;
++        b_s = stack[count].s;
++        b_e = stack[count].e;
++        /* Start checking for overlapping banks */
++        for ( ; i < ARRAY_SIZE(mem_banks); i++ )
          {
-@@ -262,11 +232,16 @@ static void __init dt_unreserved_regions(paddr_t s, paddr_t e,
+-            dt_unreserved_regions(r_e, e, cb, i + 1);
+-            dt_unreserved_regions(s, r_s, cb, i + 1);
+-            return;
++            for ( ; j < mem_banks[i]->nr_banks; j++ )
++            {
++                paddr_t r_s = mem_banks[i]->bank[j].start;
++                paddr_t r_e = r_s + mem_banks[i]->bank[j].size;
++
++                if ( b_s < r_e && r_s < b_e )
++                {
++                    /*
++                    * Region is overlapping, push the two non overlap ranges in
++                    * the stack
++                    */
++                    if ( (count + 2) < ARRAY_SIZE(stack) )
++                    {
++                        /*
++                         * Push initial non overlapping part of the region into
++                         * the stack
++                         */
++                        stack[count].s = b_s;
++                        stack[count].e = r_s;
++                        stack[count].dict = i;
++                        stack[count].bank = j + 1;
++                        count++;
++                        /*
++                         * Push last non overlapping part of the region into
++                         * the stack
++                         */
++                        stack[count].s = r_e;
++                        stack[count].e = b_e;
++                        stack[count].dict = i;
++                        stack[count].bank = j + 1;
++                        count++;
++                    }
++                    else
++                        panic("dt_unreserved_regions: stack space exausted");
++
++                    /*
++                     * Retrieve the last region pushed to check against other
++                     * banks, so break the loop through the banks and pop
++                     * a new region from the stack
++                     */
++                    goto regions_pushed;
++                }
++            }
++            j = 0;
+         }
++        /*
++         * This point is reached when the region doesn't overlap with any other
++         * region, so call the callback on it.
++         */
++        cb(b_s, b_e);
++ regions_pushed:
+     }
+-#endif
+-
+-    cb(s, e);
+ }
+ 
+ /*
+@@ -316,11 +358,10 @@ static bool __init bootmodules_overlap_check(struct bootmodules *bootmodules,
+ }
+ 
+ void __init fw_unreserved_regions(paddr_t s, paddr_t e,
+-                                  void (*cb)(paddr_t ps, paddr_t pe),
+-                                  unsigned int first)
++                                  void (*cb)(paddr_t ps, paddr_t pe))
+ {
+     if ( acpi_disabled )
+-        dt_unreserved_regions(s, e, cb, first);
++        dt_unreserved_regions(s, e, cb);
+     else
+         cb(s, e);
+ }
+@@ -527,7 +568,7 @@ void __init discard_initial_modules(void)
+              !mfn_valid(maddr_to_mfn(e)) )
+             continue;
+ 
+-        fw_unreserved_regions(s, e, init_domheap_pages, 0);
++        fw_unreserved_regions(s, e, init_domheap_pages);
      }
  
- #ifdef CONFIG_STATIC_SHM
--    nr += reserved_mem->nr_banks;
--    for ( ; i - nr < shmem->nr_banks; i++ )
-+    /*
-+     * When retrieving the corresponding shared memory addresses
-+     * below, we need to index the shmem->bank starting from 0, hence
-+     * we need to use i - reserved_mem->nr_banks.
-+    */
-+    offset = reserved_mem->nr_banks;
-+    for ( ; i - offset < shmem->nr_banks; i++ )
-     {
--        paddr_t r_s = shmem->bank[i - nr].start;
--        paddr_t r_e = r_s + shmem->bank[i - nr].size;
-+        paddr_t r_s = shmem->bank[i - offset].start;
-+        paddr_t r_e = r_s + shmem->bank[i - offset].size;
+     mi->nr_mods = 0;
+@@ -702,7 +743,7 @@ void __init populate_boot_allocator(void)
+             }
+ #endif
  
-         if ( s < r_e && r_s < e )
-         {
+-            fw_unreserved_regions(s, e, init_boot_pages, 0);
++            fw_unreserved_regions(s, e, init_boot_pages);
+             s = n;
+         }
+     }
 -- 
 2.34.1
 
