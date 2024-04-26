@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D80678B3086
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 08:36:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712449.1113165 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BC918B30AA
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 08:42:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712456.1113176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0FBl-0003WL-Jy; Fri, 26 Apr 2024 06:36:05 +0000
+	id 1s0FHN-000513-76; Fri, 26 Apr 2024 06:41:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712449.1113165; Fri, 26 Apr 2024 06:36:05 +0000
+Received: by outflank-mailman (output) from mailman id 712456.1113176; Fri, 26 Apr 2024 06:41:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0FBl-0003UY-H8; Fri, 26 Apr 2024 06:36:05 +0000
-Received: by outflank-mailman (input) for mailman id 712449;
- Fri, 26 Apr 2024 06:36:04 +0000
+	id 1s0FHN-0004zN-3q; Fri, 26 Apr 2024 06:41:53 +0000
+Received: by outflank-mailman (input) for mailman id 712456;
+ Fri, 26 Apr 2024 06:41:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lj3M=L7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s0FBk-0003Ns-9k
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 06:36:04 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1s0FHL-0004zC-RV
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 06:41:51 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 40436189-0397-11ef-b4bb-af5377834399;
- Fri, 26 Apr 2024 08:36:02 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-56e47843cc7so1721603a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 23:36:02 -0700 (PDT)
+ id 0f54feda-0398-11ef-b4bb-af5377834399;
+ Fri, 26 Apr 2024 08:41:50 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-56e47843cc7so1726465a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 23:41:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- jr13-20020a170906a98d00b00a4e03823107sm10200684ejb.210.2024.04.25.23.36.01
+ i19-20020a50fc13000000b0056fed8e7817sm9511467edr.20.2024.04.25.23.41.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Apr 2024 23:36:01 -0700 (PDT)
+ Thu, 25 Apr 2024 23:41:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40436189-0397-11ef-b4bb-af5377834399
+X-Inumbo-ID: 0f54feda-0398-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714113362; x=1714718162; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714113709; x=1714718509; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=YCwEPCERGG4Frs5nMa9Jh5ILE6LpCZzTYHywnuhBxI0=;
-        b=R18eAEcEbGVH8ZsARLamAfmYXsyjwpqAYxRrO85yrsJ2sLsy2hzcrkKNCtW5Yahqae
-         aiDNNrGqQlEoOdnrWaQ19HXa2XXnTSl/0Wy2qoqPJlQdPXuhJ4hfQ/fFsHpfPZ4Uyk8/
-         DW7iGwKFtEjClK9kEsRWfWUBbIpz1jKkqRhPPVYY/L3qkN6UpyGOW/nQ10svNGIvq7Ox
-         7ticvcHEGZH5YgBBmZ1U7hXzI9HA8na0DqAg0AzW0/2YzMZc8OPcYCCw2DG/uzzyqTYb
-         lki8dHxcvpRHuy79PmEJ9BPPZJW6U6KA3sTlvUaWDhmvb1KtWyG41E8hesEaNVbj7EyR
-         1r5w==
+        bh=/DyTkxo1RPeQEplaxKsE+2m7gwcJLY9E/t8hZiPE7NQ=;
+        b=FQPnL7eyanES0PM/MMn1JU/7ZiJX2vklW5aUgpHaennFDMuE7Ox5V5EcQtUyL5yWhN
+         hqY73Jeq0HVEchQzKNX5PvjjRhAe5QTTCZ/C0YSxuB1hpPXC1BFJ/74G1py0DY/0yHRM
+         FXpk8OhpfzNdfAedgkzesiTeSJhEG/0EA9BkZ6LmXvR31rVARRqKatZAx00Ywoh7V06t
+         IghgP04ldH6OvLmwLOU9V9rqsmBaIUWT5U++p0r+8P/tx9+0jlDRVtdZyGed/LJcuZIO
+         pLUxLbs7dw/C+7iseiq07nHOKS6EYMAWs8RsrfrzAJmd6UOQaBvSlEQmpfXMxisBE2E0
+         U9qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714113362; x=1714718162;
+        d=1e100.net; s=20230601; t=1714113709; x=1714718509;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YCwEPCERGG4Frs5nMa9Jh5ILE6LpCZzTYHywnuhBxI0=;
-        b=FpP9pqpbpadIS+6AzcNrRRdyZZzs+812caZ4lP63a8PxTkaY1pTj8F0qvirHgi/cpB
-         QnQwpg+9TRAEq942r3Nx7dDkhGpIDX1e1sSJM8l1fIFpkpug3JRxQB9fO3P2kIPYAnnR
-         nTtnWA6Otl01W3JMaCFSu4FFp7+fSyOarYrMRoH5sq0i8gvMrjhQbntw3etPxYy2X8RK
-         x8dLGAM7uY7+aRzQARqVBevTDpvXS6pG5HMdsy2i5p4QXAgR9JwTQnPvti7xCkp3qOci
-         7aurM3UHT/bzFl4HdnXyxmxrHOQkMpunVGTzocj6WCScRTNn6xBOXLWkYRE2UvZ7BceM
-         VOUQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVSGvXfq3DrdpHlSjVFbY8SOdlggxGL8FIepEBxyCkSoIb2mmeC222wxxtq+KmhBz72I19J1XkkpbLi9GNZ7C4v6DnsT1Hboto2kwQbXJU=
-X-Gm-Message-State: AOJu0Yyevv0qv7DghslHZN79eR1ch527tbtKjc0lt3P0Ps/PqRpwRhqc
-	9YB+lQdmjAw0DxG2Ku6RrPH+wAEmunBeo7EXbtROygXLY7TLbdMdZh68wi6tVg==
-X-Google-Smtp-Source: AGHT+IFis5TbV8iPTbh7l4z8qTEspC8r4L3w7mGWGd02/zc3fhBfVH+Q6NG1mRXMAEnbsFqsT7gF4Q==
-X-Received: by 2002:a17:907:7d8d:b0:a51:ae39:d385 with SMTP id oz13-20020a1709077d8d00b00a51ae39d385mr1435585ejc.1.1714113362052;
-        Thu, 25 Apr 2024 23:36:02 -0700 (PDT)
-Message-ID: <354e207d-e18e-409c-89ae-df2c5502a9a6@suse.com>
-Date: Fri, 26 Apr 2024 08:36:01 +0200
+        bh=/DyTkxo1RPeQEplaxKsE+2m7gwcJLY9E/t8hZiPE7NQ=;
+        b=AVhOzf1k+PdZp+SwLOBa9Z4gNrC10AZtkqw3o4a43KLyG7rTRVU2EDu4KcO6JIqDqK
+         GgvN4KaRFv54WidNrNRvkykG2mAwTlbJvjJ0gf0b/pbcP578RbjmeGxmfkjn2FfkhWgp
+         pZ9NFWkf3f1VUWWXP4DiYCIGKFyQLqJtnS0xr1rnPQouNqGXmXt5XMeE3LIS6ZlPe6fm
+         wDWFtFwSi82Tc93O1ryXHtBaQyn6mw4s0j8LpKvL1ObxT5+iEgWx9r7Uprvi1Gs/vXZW
+         hOQ1NeubosrRn/z3+NJyHu/SSe4s3AWtXfmguZ4vEEsiTv59nYWNWaw78P66aReEgKz9
+         T0Vw==
+X-Forwarded-Encrypted: i=1; AJvYcCXWftbmXrIUlLLDSCxWyDTQabEqrn4tX9UHXku9VNozAn1004ABTx93+ONfVEKmDHNzoC3hZKzOBAv0dpB59C3BJRVW0J0zXEklAp7Fidc=
+X-Gm-Message-State: AOJu0Yzj+LAvtIk5B3vUjWTuCt3myRWFYpX/G2uPnUClHD4mKunbpyLS
+	t8q/DS7a6+3/LOPcdqFSqWbbrRM1SbQORLgSWkgVNvDtCRW6L3uHNyLHpKuFZw==
+X-Google-Smtp-Source: AGHT+IGZrxDiLVHF26VnSdniwyj76/oxHnfTvNc1xiRHZK9Rp5loRPCokoMVHrOcVgbX/nh7sDRI6w==
+X-Received: by 2002:a50:d496:0:b0:571:d380:95fd with SMTP id s22-20020a50d496000000b00571d38095fdmr965522edi.28.1714113709508;
+        Thu, 25 Apr 2024 23:41:49 -0700 (PDT)
+Message-ID: <a7dd1c1e-76b8-437e-bfbc-111a904ab861@suse.com>
+Date: Fri, 26 Apr 2024 08:41:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CI: Drop glibc-i386 from the build containers
+Subject: Re: [PATCH v4 2/4] livepatch: introduce --force option
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240425174737.414327-1-andrew.cooper3@citrix.com>
+ Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240424081957.34326-1-roger.pau@citrix.com>
+ <20240424081957.34326-3-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,21 +114,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240425174737.414327-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240424081957.34326-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.04.2024 19:47, Andrew Cooper wrote:
-> Xen 4.14 no longer runs in Gitlab CI.  Drop the dependency to shrink the build
-> containers a little.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 24.04.2024 10:19, Roger Pau Monne wrote:
+> @@ -571,6 +575,19 @@ int main(int argc, char *argv[])
+>          show_help();
+>          return 0;
+>      }
+> +
+> +    if ( strcmp("--force", argv[1]) )
 
-This is probably okay seeing that 4.15 shouldn't need to be tested anymore
-either, for having gone out of support. Otherwise I would have asked whether
-this isn't premature, as at some point there will want to be N-1 ==> N
-migration tests, like osstest has them. Extending the description a little
-to this effect may be desirable.
+I guess this missing ! or "== 0" is the reason for osstest reporting a
+livepatch-run failure.
 
 Jan
+
+> +    {
+> +        if ( argc <= 2 )
+> +        {
+> +            show_help();
+> +            return EXIT_FAILURE;
+> +        }
+> +        force = true;
+> +        argv++;
+> +        argc--;
+> +    }
+> +
+>      for ( i = 0; i < ARRAY_SIZE(main_options); i++ )
+>          if (!strcmp(main_options[i].name, argv[1]))
+>              break;
+
 
