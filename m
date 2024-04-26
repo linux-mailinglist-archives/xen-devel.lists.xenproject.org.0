@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A4768B3A1C
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 16:34:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712855.1113728 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46CC18B3A86
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 17:03:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712889.1113778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0Mdo-0000IA-BV; Fri, 26 Apr 2024 14:33:32 +0000
+	id 1s0N6b-0000sd-Nx; Fri, 26 Apr 2024 15:03:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712855.1113728; Fri, 26 Apr 2024 14:33:32 +0000
+Received: by outflank-mailman (output) from mailman id 712889.1113778; Fri, 26 Apr 2024 15:03:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0Mdo-0000GR-8N; Fri, 26 Apr 2024 14:33:32 +0000
-Received: by outflank-mailman (input) for mailman id 712855;
- Fri, 26 Apr 2024 14:33:31 +0000
+	id 1s0N6b-0000pt-LC; Fri, 26 Apr 2024 15:03:17 +0000
+Received: by outflank-mailman (input) for mailman id 712889;
+ Fri, 26 Apr 2024 15:03:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/P6z=L7=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1s0Mdm-0000Fn-TP
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 14:33:30 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20610.outbound.protection.outlook.com
- [2a01:111:f400:7e88::610])
+ <SRS0=LIFE=L7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s0N6a-0000pm-7H
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 15:03:16 +0000
+Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
+ [2607:f8b0:4864:20::f2d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f229a3c4-03d9-11ef-b4bb-af5377834399;
- Fri, 26 Apr 2024 16:33:29 +0200 (CEST)
-Received: from CH0PR13CA0028.namprd13.prod.outlook.com (2603:10b6:610:b1::33)
- by SJ1PR12MB6169.namprd12.prod.outlook.com (2603:10b6:a03:45c::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.44; Fri, 26 Apr
- 2024 14:33:24 +0000
-Received: from CH1PEPF0000AD78.namprd04.prod.outlook.com
- (2603:10b6:610:b1:cafe::53) by CH0PR13CA0028.outlook.office365.com
- (2603:10b6:610:b1::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.18 via Frontend
- Transport; Fri, 26 Apr 2024 14:33:23 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000AD78.mail.protection.outlook.com (10.167.244.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Fri, 26 Apr 2024 14:33:23 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 26 Apr
- 2024 09:33:23 -0500
-Received: from [172.20.132.216] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Fri, 26 Apr 2024 09:33:21 -0500
+ id 1a20be6a-03de-11ef-b4bb-af5377834399;
+ Fri, 26 Apr 2024 17:03:13 +0200 (CEST)
+Received: by mail-qv1-xf2d.google.com with SMTP id
+ 6a1803df08f44-6a073f10e25so11576786d6.3
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 08:03:13 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ g7-20020a0ce4c7000000b0069b7aca529esm6808184qvm.14.2024.04.26.08.03.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 26 Apr 2024 08:03:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,178 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f229a3c4-03d9-11ef-b4bb-af5377834399
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C1ojq8+SFUa25LR9tOz9+pt5GjNx2tYayTUKhJxzAgeDboHPEGZOD3m30TbUwhAjrobudov4bZjRbeO5zC+m+cR/a6+O9WpB1EhKmaYnuC3VBYavu8xMNn5DOgZHYkvx1BbLGAtY5JzukIbkZ41RH6M5fT7v7ZpY8538qGt3TWvnO24LJ+95gz3nzn9t39NEup4z8IDYIgbUs5CGiZG4eAvvF5bCqK27RAnfqpzberugjsziNOUr5uX3oCPA1fyu2h5I8Yg5rWXikP21eW89uADZrh42yge4SM6UF5xcIfqcuOd09uDaEY9Az/myGDxIE8BUvuL39OS7orth2bg3ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vpx/cFxweS61wRRRkOw84SPvY4PtH2Glydv/7cYPezA=;
- b=XMrbDOpMM9B6F0Ld6t4H5yuJvtjBL32/8nir92BitdCdMeaA29SMBLqE3/ppdirV0gVnN8WxfuVRAR5ajmFS4ViOTXrM9NBhJR2GyqBn/0XiCBzEhxCZYuw07VigKeYHKmbx95BdxYBdzLqQstKY+Ei/fx+o39oYlxAHwwB4gerjrvZdnQkwzfl5X6abWOx9f7mg4zPtS+/LjKnQ1GuyjyIbth2K2UOhV1AxrKniMkVFVELu8oLdwEb+hyPFue8qMhqBkPRc5/AYBRBeiSV45SXsN8AMzsxo8BeofK2S18rX6WrxNDL7AGRkq78VTVdDdfn9nJUyfIxFuF8hWUWOMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vpx/cFxweS61wRRRkOw84SPvY4PtH2Glydv/7cYPezA=;
- b=Z7H9sTl0rMGr/Pc8mFhm0tRzA29gBdjlfeAKkO/Yq7jbBcB8sJhXyPtHn4bs7o+u2J6bTESe1UMSF8DgFoU8qg5TPmH0wIDtilI5sC6G+Ej1XfAAt6VRVea35ncb+js8BPkWBEkzUdlEclgAINQCXXwYHtpS6bWJoAYkJFkisM8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <261fce46-56e9-4a7e-8f2f-b741bf5b8251@amd.com>
-Date: Fri, 26 Apr 2024 10:33:16 -0400
+X-Inumbo-ID: 1a20be6a-03de-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1714143792; x=1714748592; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=/IV75V+XwXt920fRWV5r7vzDvPszn131o2QCc9WBaaI=;
+        b=XG2mxwxb8K8ekznTsboPV0y6CyXg5W6QYIePNY7iFDzf6Yi8KwkZDaAyTScXMyq/od
+         a8naf+8VeIKXRjIKqICdMliGRMWxVR4yEYm/jYQsfwqZuI5RWvMZP7/sEV/3L9vbdrIk
+         kts66xRcjQTV1FD14lX2wxuigHrQKTQKEaixI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714143792; x=1714748592;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/IV75V+XwXt920fRWV5r7vzDvPszn131o2QCc9WBaaI=;
+        b=lnJ+Ci13yWNDozNmA/iCmrfxTbnCvR3DmDgFKesqwm0fq/fYFbnO2eDdiEBpfFF6/W
+         yxP3CFVHFFUJX7poiCUkDs4plrn93ZTEWIr7PTQw6KUb9NVZpXabeGDPNhUAG4MFqruv
+         gcqS5CKdcft012N5dLeBHTFC3VbzRgVcn352AbD4Gdk5k0AQDSsKqvaU0srzbLuKRmFh
+         5ALKJciE3hXACzrJUDWEuyBJlTDhaXm/DpDj07BLUFrXJu9tf7Zx/d3uB5GpWN7OJmWm
+         94FDAd7sryAcE24dv4hnups/bpTdavTiukNeePsEXukBewzscG1jH+bPFEMLxXqbjWAD
+         0kGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWdih0VshjGMxXxyb0EtptxBOxVyqDCyc84nVweiqdXGDP3FPLdxPgkMCLM2rLZvDS0qq2ZsxJd6MZSlJ6VaVhXdO5nhzLyLQjGc4gJImc=
+X-Gm-Message-State: AOJu0YxRMnp3bIoL/LqBymWiSsTedmTNXTYIyznusoMHYrOYTd24wDsr
+	hNaGSrzmT5tSWRZA5kuCHCkUdMd6Pk//u3l3WfcDLR5bTwUhFiw9CPje6S0IP+w=
+X-Google-Smtp-Source: AGHT+IHe5KPr93/h07nyLR4Fl4n7BT9txxwjdUcsvEMRY7vziapa8prG0WNjhoN/fMOrzXHao0xsWg==
+X-Received: by 2002:ad4:48d0:0:b0:6a0:b189:2c72 with SMTP id v16-20020ad448d0000000b006a0b1892c72mr1305150qvx.29.1714143791842;
+        Fri, 26 Apr 2024 08:03:11 -0700 (PDT)
+Message-ID: <c019775c-3ebb-4abb-95ca-add6339c8a80@citrix.com>
+Date: Fri, 26 Apr 2024 16:03:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/spinlock: use correct pointer
-To: Jan Beulich <jbeulich@suse.com>
-CC: Juergen Gross <jgross@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Julien
- Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	<xen-devel@lists.xenproject.org>
-References: <20240425204547.658536-1-stewart.hildebrand@amd.com>
- <08165a0d-d8ee-4405-ba04-e1cfb51489b4@suse.com>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <08165a0d-d8ee-4405-ba04-e1cfb51489b4@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH 3/3] tools/xentrace: Remove xentrace_format
+To: George Dunlap <george.dunlap@cloud.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@cloud.com>,
+ Anthony Perard <anthony.perard@cloud.com>, Olaf Hering <olaf@aepfle.de>
+References: <20240426143231.4007671-1-george.dunlap@cloud.com>
+ <20240426143231.4007671-4-george.dunlap@cloud.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240426143231.4007671-4-george.dunlap@cloud.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD78:EE_|SJ1PR12MB6169:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d1d038c-236d-46c6-c53f-08dc65fdd413
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?eDhwaStNMnhUeVpLRVFweDdlTTUrR0dmenlnelR5K0pKaDM2WWFFdlVjUmlr?=
- =?utf-8?B?MVJVNHF5Mkp1eldjWFJOU0U5QkEwUWM5dkdzVFE5WmFwc3MvbkhwUGpVMkRI?=
- =?utf-8?B?S0E5c0lFcHJWRTlhVVJvOHZIZytuMEtRaC9TRG1BQXZzcEVKbngvblVYci9J?=
- =?utf-8?B?d1hqZHVXcGQ3cVJQa3RtVWdaOHJJTzlweUZBcTlBeXRRdkJkQnlWdVh2TWJN?=
- =?utf-8?B?amxQZW5GQ2ZaV1lHc1RFa2xDTVh4VWJTZjhtdVptdmdGQ1liMXZmdDRJcy9x?=
- =?utf-8?B?QmNRRGpFcGZpbTNQc2Ixa2UyY1hMZGdnS3dPVG9RYzhjVjU3b29UMzBpV1lL?=
- =?utf-8?B?MmZaRjF2KzhOUGtkcXYwYlgrVThibmJtNmZLM2FsN1lvMEhWVXdBQlp6NThv?=
- =?utf-8?B?bnA2L2tXS0JRMG14aUQ2c3F1eHMzcE4veTFNZzRIeER5empvcUVTQ0VMdEJ6?=
- =?utf-8?B?aDhObVlsd2JnVlRvVThua2dpaHFKWW95SzczcVU4QXVXbkIvaHR0czBRU1A1?=
- =?utf-8?B?VzlIeE5KUW9RbEtBNDRPZjNFcGpieThIajBwZG8xMjFvSjVOc3djN1U3WEZZ?=
- =?utf-8?B?Vm5uMVMrcUxIMDJ6bDB1endYeGVGZ0hEZ0tmdmo5UmpDZ0ZDbFlBdVduSVN4?=
- =?utf-8?B?eFNaMlFscjduZ3FLWDhTS2J2M2psSUpLK3N1ZC9xR09sWEE5VUxMWm1NaGxn?=
- =?utf-8?B?MFhMbVdEWWFTS0wzbU5rdktoTjh0eWxTRWIrby9pUXdEb1hYVlg3M2F3b2sw?=
- =?utf-8?B?dUUrZEVJUnN6Yy9sUFdLMW1nS0xaLzd1ajJVb3Z5b2pDR0dVZmxUM0J0b1RN?=
- =?utf-8?B?Y0I3czA5aVFEMEpTdUVDQ3NEdFFVQWV0ZHNRQTBVY1ZESXVnTktBL3UvbnNs?=
- =?utf-8?B?bmZqTnBIUjg5M09TMUhQQlhZQVBqTktqTUhlY0JXMGF6U0h1Yk1rQ1k5aEJv?=
- =?utf-8?B?bElCWXVhZkFOcExXT1h3SzdEUmdUeE52aTY2MExnZVJhUUpLLzMrQjBwZHFi?=
- =?utf-8?B?VCtkS2wyQ0J4aFZ4cW56K082T2prKzF3SlNYNTJXRTYzbFhnL1VEbEYvU3dt?=
- =?utf-8?B?enhSVnhWS0FUMTZ2N0RPQVdhQ3U5V0QwNy8xTjE4VXNLVVdKUjI1RkJsbHV2?=
- =?utf-8?B?bDRwMi9mUEJMdDZEWWhBOFdrZWRBZDJScHErQVkxSkxtZitmUkxnZFZ6RTZx?=
- =?utf-8?B?ZStkZFV4WWF6Qk5sOWNyLzBEL01WZnZKZTh5cFlMbGhzVVgxR0JsRWRGY08r?=
- =?utf-8?B?UWZyNk9wNEk2UkhIcDBheHVVSFdvWE9iQlVLR1h3c1FPTng4eXhCRDVVT1dI?=
- =?utf-8?B?dmRiYkc3ZVhaeko2cG9Jd0FJb2p2WUhrQjFSYzhnMS8yaTZhK29rbTBmQTJh?=
- =?utf-8?B?SGNzY2krQ29ieThJQzU3Z1ZQU3QrelBVdUc2ZFJjMXJNZXFqeFV3M2puZEVo?=
- =?utf-8?B?WUtDWmcwdnl3Z3YrOEtEOEZ6T3ZVNmFmVHdjRjV0ZndFOFNqVVNmc1BwQm1N?=
- =?utf-8?B?MnFmTEhSZEorT0V6RDJtM2tQTW9Od3pZa2JKb1pPYU1oaG5CRjZIRThNQ05v?=
- =?utf-8?B?eE0xdWtTVVZIRGt4VVFZNkdKMmVmMEtndHJtRTh3dWh0ZlBvajVuUlJaTTZV?=
- =?utf-8?B?TFFYTER3WjBudXZyMGRnamRnemZNVTZQcFN2Tmh3K1hocG9HUmtSVkpRRjc4?=
- =?utf-8?B?T0Q2VkIwLzlINDByY2x0MWxLRW9oUXJDd1VrMXZuM1pEdkd0TWkySVNwakhh?=
- =?utf-8?B?NGNUSUVRQU5UY1VScjVhWGNhVExHakk2SFdCQU01bDQ3alJrOWFtb2hsSVZU?=
- =?utf-8?B?YTk3all3aCtyblE4L1BSYlR2d0xTVXdSbVQ0L21weGZPSnZTdEZqa2pTYkl2?=
- =?utf-8?Q?rJLg0sAwzthXH?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(82310400014)(376005)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2024 14:33:23.7714
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d1d038c-236d-46c6-c53f-08dc65fdd413
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD78.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6169
 
-On 4/26/24 02:31, Jan Beulich wrote:
-> On 25.04.2024 22:45, Stewart Hildebrand wrote:
->> The ->profile member is at different offsets in struct rspinlock and
->> struct spinlock. When initializing the profiling bits of an rspinlock,
->> an unrelated member in struct rspinlock was being overwritten, leading
->> to mild havoc. Use the correct pointer.
->>
->> Fixes: b053075d1a7b ("xen/spinlock: make struct lock_profile rspinlock_t aware")
->> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On 26/04/2024 3:32 pm, George Dunlap wrote:
+> xentrace_format was always of limited utility, since trace records
+> across pcpus were processed out of order; it was superseded by xenalyze
+> over a decade ago.
+>
+> But for several releases, the `formats` file it has depended on for
+> proper operation has not even been included in `make install` (which
+> generally means it doesn't get picked up by distros either); yet
+> nobody has seemed to complain.
+>
+> Simple remove xentrace_format, and point people to xenalyze instead.
+>
+> NB that there is no man page for xenalyze, so the "see also" on the
+> xentrace man page is simply removed for now.
+>
+> Signed-off-by: George Dunlap <george.dunlap@cloud.com>
 
-Thanks!
-
-> 
->> --- a/xen/common/spinlock.c
->> +++ b/xen/common/spinlock.c
->> @@ -789,7 +789,11 @@ static int __init cf_check lock_prof_init(void)
->>      {
->>          (*q)->next = lock_profile_glb_q.elem_q;
->>          lock_profile_glb_q.elem_q = *q;
->> -        (*q)->ptr.lock->profile = *q;
->> +
->> +        if ( (*q)->is_rlock )
->> +            (*q)->ptr.rlock->profile = *q;
->> +        else
->> +            (*q)->ptr.lock->profile = *q;
->>      }
->>  
->>      _lock_profile_register_struct(LOCKPROF_TYPE_GLOBAL,
-> 
-> Just to mention it: Strictly speaking spinlock_profile_print_elem()'s
-> 
->     printk("%s: addr=%p, lockval=%08x, ", data->name, data->ptr.lock, lockval);
-> 
-> isn't quite right either (and I would be surprised if Misra didn't have
-> to say something about it).
-> 
-> Jan
-
-I'd be happy to send a patch for that instance, too. Would you like a
-Reported-by: tag?
-
-That patch would look something like:
-
---- a/xen/common/spinlock.c
-+++ b/xen/common/spinlock.c
-@@ -637,22 +637,25 @@ static void cf_check spinlock_profile_print_elem(struct lock_profile *data,
- {
-     unsigned int cpu;
-     unsigned int lockval;
-+    void *lockaddr;
- 
-     if ( data->is_rlock )
-     {
-         cpu = data->ptr.rlock->debug.cpu;
-         lockval = data->ptr.rlock->tickets.head_tail;
-+        lockaddr = data->ptr.rlock;
-     }
-     else
-     {
-         cpu = data->ptr.lock->debug.cpu;
-         lockval = data->ptr.lock->tickets.head_tail;
-+        lockaddr = data->ptr.lock;
-     }
- 
-     printk("%s ", lock_profile_ancs[type].name);
-     if ( type != LOCKPROF_TYPE_GLOBAL )
-         printk("%d ", idx);
--    printk("%s: addr=%p, lockval=%08x, ", data->name, data->ptr.lock, lockval);
-+    printk("%s: addr=%p, lockval=%08x, ", data->name, lockaddr, lockval);
-     if ( cpu == SPINLOCK_NO_CPU )
-         printk("not locked\n");
-     else
-
-
-That case is benign since the pointer is not dereferenced. So the
-rationale would primarily be for consistency (and possibly satisfying
-Misra).
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
