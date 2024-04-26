@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BC918B30AA
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 08:42:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712456.1113176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABE878B30BB
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 08:51:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712463.1113186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0FHN-000513-76; Fri, 26 Apr 2024 06:41:53 +0000
+	id 1s0FPq-0007Ph-1U; Fri, 26 Apr 2024 06:50:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712456.1113176; Fri, 26 Apr 2024 06:41:53 +0000
+Received: by outflank-mailman (output) from mailman id 712463.1113186; Fri, 26 Apr 2024 06:50:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0FHN-0004zN-3q; Fri, 26 Apr 2024 06:41:53 +0000
-Received: by outflank-mailman (input) for mailman id 712456;
- Fri, 26 Apr 2024 06:41:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s0FPp-0007Mr-U0; Fri, 26 Apr 2024 06:50:37 +0000
+Received: by outflank-mailman (input) for mailman id 712463;
+ Fri, 26 Apr 2024 06:50:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lj3M=L7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s0FHL-0004zC-RV
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 06:41:51 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f54feda-0398-11ef-b4bb-af5377834399;
- Fri, 26 Apr 2024 08:41:50 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-56e47843cc7so1726465a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 23:41:50 -0700 (PDT)
+ id 1s0FPo-0007Ml-Ee
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 06:50:36 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 487e4180-0399-11ef-909a-e314d9c70b13;
+ Fri, 26 Apr 2024 08:50:35 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5708d8beec6so2134762a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 23:50:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- i19-20020a50fc13000000b0056fed8e7817sm9511467edr.20.2024.04.25.23.41.48
+ g22-20020a056402091600b005721f9fbb60sm3785198edz.63.2024.04.25.23.50.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Apr 2024 23:41:49 -0700 (PDT)
+ Thu, 25 Apr 2024 23:50:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f54feda-0398-11ef-b4bb-af5377834399
+X-Inumbo-ID: 487e4180-0399-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714113709; x=1714718509; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714114235; x=1714719035; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=/DyTkxo1RPeQEplaxKsE+2m7gwcJLY9E/t8hZiPE7NQ=;
-        b=FQPnL7eyanES0PM/MMn1JU/7ZiJX2vklW5aUgpHaennFDMuE7Ox5V5EcQtUyL5yWhN
-         hqY73Jeq0HVEchQzKNX5PvjjRhAe5QTTCZ/C0YSxuB1hpPXC1BFJ/74G1py0DY/0yHRM
-         FXpk8OhpfzNdfAedgkzesiTeSJhEG/0EA9BkZ6LmXvR31rVARRqKatZAx00Ywoh7V06t
-         IghgP04ldH6OvLmwLOU9V9rqsmBaIUWT5U++p0r+8P/tx9+0jlDRVtdZyGed/LJcuZIO
-         pLUxLbs7dw/C+7iseiq07nHOKS6EYMAWs8RsrfrzAJmd6UOQaBvSlEQmpfXMxisBE2E0
-         U9qQ==
+        bh=8RxqCSweANnkLXX233xQvtMuNhLXbw8tmzSyswJWhBY=;
+        b=fPML5sGnnQxnaCg/J005BsBKXmSa0WvFs7Mpz1bpGFxUQFHVhkOGHtUoK2g5BdG0ht
+         6k2tppmQijxGUMGtksZg1b6WRJrGExi55LEszpho3fBsEYUdJoFpN5jl8DZp34rHuRXP
+         bS+TOY0CbjeTDN7fZ+gH/qol72sMuzXcWXsndLfBQ30v+4FRu0JZttmhh8oqfbXgm/w2
+         sGLEPiBTJgnDQu4r9vbeL2AckeW1TMuXWdvk8Di/WmsXfoWwhCCUQp3nDSix9WFpLjwR
+         +JoFwviKmTAyUXpbAUYxGh9/4I+1oudQlPBEeGOb076YP+B3j0KKhxaCGaw689uSMMfa
+         Rw5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714113709; x=1714718509;
+        d=1e100.net; s=20230601; t=1714114235; x=1714719035;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/DyTkxo1RPeQEplaxKsE+2m7gwcJLY9E/t8hZiPE7NQ=;
-        b=AVhOzf1k+PdZp+SwLOBa9Z4gNrC10AZtkqw3o4a43KLyG7rTRVU2EDu4KcO6JIqDqK
-         GgvN4KaRFv54WidNrNRvkykG2mAwTlbJvjJ0gf0b/pbcP578RbjmeGxmfkjn2FfkhWgp
-         pZ9NFWkf3f1VUWWXP4DiYCIGKFyQLqJtnS0xr1rnPQouNqGXmXt5XMeE3LIS6ZlPe6fm
-         wDWFtFwSi82Tc93O1ryXHtBaQyn6mw4s0j8LpKvL1ObxT5+iEgWx9r7Uprvi1Gs/vXZW
-         hOQ1NeubosrRn/z3+NJyHu/SSe4s3AWtXfmguZ4vEEsiTv59nYWNWaw78P66aReEgKz9
-         T0Vw==
-X-Forwarded-Encrypted: i=1; AJvYcCXWftbmXrIUlLLDSCxWyDTQabEqrn4tX9UHXku9VNozAn1004ABTx93+ONfVEKmDHNzoC3hZKzOBAv0dpB59C3BJRVW0J0zXEklAp7Fidc=
-X-Gm-Message-State: AOJu0Yzj+LAvtIk5B3vUjWTuCt3myRWFYpX/G2uPnUClHD4mKunbpyLS
-	t8q/DS7a6+3/LOPcdqFSqWbbrRM1SbQORLgSWkgVNvDtCRW6L3uHNyLHpKuFZw==
-X-Google-Smtp-Source: AGHT+IGZrxDiLVHF26VnSdniwyj76/oxHnfTvNc1xiRHZK9Rp5loRPCokoMVHrOcVgbX/nh7sDRI6w==
-X-Received: by 2002:a50:d496:0:b0:571:d380:95fd with SMTP id s22-20020a50d496000000b00571d38095fdmr965522edi.28.1714113709508;
-        Thu, 25 Apr 2024 23:41:49 -0700 (PDT)
-Message-ID: <a7dd1c1e-76b8-437e-bfbc-111a904ab861@suse.com>
-Date: Fri, 26 Apr 2024 08:41:48 +0200
+        bh=8RxqCSweANnkLXX233xQvtMuNhLXbw8tmzSyswJWhBY=;
+        b=rQ0zeE+JhR1UODSV4uM4gBySqrXwcuAgCBuJHulOkYDICKG2tR7fh77+3x8PtbJvE/
+         YL89iYfmOiiNIZ0xE7zAA6vXIdaik3qmLzPVJev1cSffxcJgQZjcyxZL2OWWOzJaktqs
+         ff0QmydeghFfCIJwaAiG55+n4tlKc2Y/P9GP9qnBQdUid5z4tKHJCtxnzFI043lU/9kb
+         cxmOzHzdU/cPw2wZgOnetzW6nytGXcO5YHAHfUSjPVcgOeDnFjQIDBaSRntBev7x6L3N
+         nv2X/0XNsrzHzzLjDVucE4WCLacZpVDwGTy6r5MpueA8j1CFPBXuvvgZ8DNaDExvAzuk
+         RItg==
+X-Forwarded-Encrypted: i=1; AJvYcCV3gtItEkNcqi8yERa9/nWhbYKdMjHMJweUeKSyY5a/+mxKvUDN6bUiSelDNjB7ligWYt/tjiIsG5mC6Zl//aCg2/Z3VcR77+GvUv1aZww=
+X-Gm-Message-State: AOJu0Ywdvb91N58Gvyc/m2b5ATx8cNL+iEonH29d0YFd9ny3Gatht2bn
+	wuEkCymmTg4MHHyMchl//jLAZ9c9MsyvfErN1tEKRPAaFWRbUxP6iSHoH35L9Q==
+X-Google-Smtp-Source: AGHT+IGCuJIzjZ5lGq356BJWoxzRoBJjgQEUQABD42PbJEVHKwO8hh7VOpa5UxRXvAZy5DdVK2+7pQ==
+X-Received: by 2002:a50:a693:0:b0:570:2418:3607 with SMTP id e19-20020a50a693000000b0057024183607mr1613588edc.36.1714114234936;
+        Thu, 25 Apr 2024 23:50:34 -0700 (PDT)
+Message-ID: <9825c488-0acd-412b-894a-b683525b1592@suse.com>
+Date: Fri, 26 Apr 2024 08:50:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] livepatch: introduce --force option
+Subject: Re: [PATCH 2/3] xen/arm, tools: Add a new HVM_PARAM_MAGIC_BASE_PFN
+ key in HVMOP
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
+To: Henry Wang <xin.wang2@amd.com>
 Cc: Anthony PERARD <anthony.perard@citrix.com>,
  Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240424081957.34326-1-roger.pau@citrix.com>
- <20240424081957.34326-3-roger.pau@citrix.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Alec Kwapis <alec.kwapis@medtronic.com>, xen-devel@lists.xenproject.org
+References: <20240426031455.579637-1-xin.wang2@amd.com>
+ <20240426031455.579637-3-xin.wang2@amd.com>
+ <3af4f1c7-9059-436b-9449-94bd7aad9eed@suse.com>
+ <c49cbaef-101e-444d-b202-2f1f34beb390@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,36 +120,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240424081957.34326-3-roger.pau@citrix.com>
+In-Reply-To: <c49cbaef-101e-444d-b202-2f1f34beb390@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.04.2024 10:19, Roger Pau Monne wrote:
-> @@ -571,6 +575,19 @@ int main(int argc, char *argv[])
->          show_help();
->          return 0;
->      }
-> +
-> +    if ( strcmp("--force", argv[1]) )
+On 26.04.2024 08:30, Henry Wang wrote:
+> On 4/26/2024 2:21 PM, Jan Beulich wrote:
+>> On 26.04.2024 05:14, Henry Wang wrote:
+>>> --- a/xen/include/public/hvm/params.h
+>>> +++ b/xen/include/public/hvm/params.h
+>>> @@ -76,6 +76,7 @@
+>>>    */
+>>>   #define HVM_PARAM_STORE_PFN    1
+>>>   #define HVM_PARAM_STORE_EVTCHN 2
+>>> +#define HVM_PARAM_MAGIC_BASE_PFN    3
+>>>   
+>>>   #define HVM_PARAM_IOREQ_PFN    5
+>> Considering all adjacent values are used, it is overwhelmingly likely that
+>> 3 was once used, too. Such re-use needs to be done carefully. Since you
+>> need this for Arm only, that's likely okay, but doesn't go without (a)
+>> saying and (b) considering the possible future case of dom0less becoming
+>> arch-agnostic, or hyperlaunch wanting to extend the scope. Plus (c) imo
+>> this also needs at least a comment, maybe even an #ifdef, seeing how x86-
+>> focused most of the rest of this header is.
+> 
+> Thanks for the feedback. These make sense. I think probably 
+> dom0less/hyperlaunch will have similar use cases so the number 3 can be 
+> reused at that time. Therefore, in v2, I will add more description in 
+> commit message, a comment on top of this macro and protect it with 
+> #ifdef. Hope this will address your concern. Thanks.
 
-I guess this missing ! or "== 0" is the reason for osstest reporting a
-livepatch-run failure.
+FTAOD: If you foresee re-use by hyperlaunch, re-using a previously used
+number may need re-considering. Which isn't to say that number re-use is
+excluded here, but it would need at least figuring out (and then stating)
+what exactly the number was used for and until when.
 
 Jan
-
-> +    {
-> +        if ( argc <= 2 )
-> +        {
-> +            show_help();
-> +            return EXIT_FAILURE;
-> +        }
-> +        force = true;
-> +        argv++;
-> +        argc--;
-> +    }
-> +
->      for ( i = 0; i < ARRAY_SIZE(main_options); i++ )
->          if (!strcmp(main_options[i].name, argv[1]))
->              break;
-
 
